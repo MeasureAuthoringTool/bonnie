@@ -15,4 +15,15 @@
 #= require underscore/underscore-min
 #= require backbone/backbone-min
 #= require thorax/thorax.min
+#
+#= require_tree ./templates
+#= require_tree ./models
+#= require_tree ./views
+#= require_self
 #= require_tree .
+
+Backbone.history.start()
+
+TestView = Thorax.Views['test-view']
+view = new TestView()
+view.appendTo '.container'
