@@ -1,0 +1,17 @@
+{
+  "name": "thorax",
+  "version": "2.0.1",
+  "repo": "components/thorax",
+  "main": "thorax.js",
+  "scripts": [
+    "thorax.js",
+    "thorax-mobile.js"
+  ],
+  "dependencies": {
+    "components/jquery": "~1.8.0",
+    "components/zepto": "1.0.0rc1",
+    "components/handlebars.js": "1.0.0-rc.1",
+    "components/underscore": "1.4.3",
+    "components/backbone": "0.9.9"
+  }
+}
