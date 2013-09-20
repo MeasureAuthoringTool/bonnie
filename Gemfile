@@ -2,12 +2,26 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.14'
 
+gem 'hqmf2js', :git => 'https://github.com/pophealth/hqmf2js.git', :branch => 'develop'
+#gem 'hqmf2js', path: '../hqmf2js'
+gem 'hquery-patient-api', :git => 'https://github.com/pophealth/patientapi.git', :branch => 'develop'
+#gem 'hquery-patient-api', :path => '../patientapi'
+gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
+#gem 'health-data-standards', :path => '../health-data-standards'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mongoid', '~> 3.0.0'
+gem 'mongoid', '~> 3.1.0'
 
 gem 'devise'
+
+# needed for HDS
+gem 'rubyzip', '< 1.0.0'
+
+group :development do
+  gem 'pry'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -1,3 +1,34 @@
+GIT
+  remote: https://github.com/pophealth/hqmf2js.git
+  revision: 3376329fb1fa700ff03379f8a13ee0d29e974910
+  branch: develop
+  specs:
+    hqmf2js (1.2.1)
+
+GIT
+  remote: https://github.com/pophealth/patientapi.git
+  revision: 6e5e231a6078409a4f5a7d0bafdacb0a63c2d54a
+  branch: develop
+  specs:
+    hquery-patient-api (1.0.2)
+
+GIT
+  remote: https://github.com/projectcypress/health-data-standards.git
+  revision: 92ba7e615db10de670c568f4fb21fbc3fedaedec
+  branch: develop
+  specs:
+    health-data-standards (3.2.11)
+      activesupport (~> 3.2.14)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 3.1.4)
+      nokogiri (~> 1.6.0)
+      rest-client (~> 1.6.7)
+      rubyzip
+      uuid (~> 2.3.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -32,6 +63,7 @@ GEM
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
     builder (3.0.4)
+    coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -62,20 +94,32 @@ GEM
       actionpack (>= 3.1)
       less (~> 2.4.0)
     libv8 (3.16.14.3)
+    log4r (1.1.10)
+    macaddr (1.6.1)
+      systemu (~> 2.5.0)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memoist (0.9.1)
+    method_source (0.8.2)
     mime-types (1.25)
-    mongoid (3.0.23)
-      activemodel (~> 3.1)
-      moped (~> 1.2)
+    mini_portile (0.5.1)
+    mongoid (3.1.5)
+      activemodel (~> 3.2)
+      moped (~> 1.4)
       origin (~> 1.0)
-      tzinfo (~> 0.3.22)
+      tzinfo (~> 0.3.29)
     moped (1.5.1)
     multi_json (1.8.0)
+    nokogiri (1.6.0)
+      mini_portile (~> 0.5.0)
     origin (1.1.0)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
+    pry (0.9.12.2)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -102,11 +146,16 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+    rubyzip (0.9.9)
+    slop (3.4.6)
     sprockets (2.2.2.backport1)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    systemu (2.5.2)
     therubyracer (0.12.0)
       libv8 (~> 3.16.14.0)
       ref
@@ -121,6 +170,8 @@ GEM
     uglifier (2.2.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    uuid (2.3.7)
+      macaddr (~> 1.0)
     warden (1.2.3)
       rack (>= 1.0)
 
@@ -131,9 +182,14 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   handlebars_assets
+  health-data-standards!
+  hqmf2js!
+  hquery-patient-api!
   less-rails
-  mongoid (~> 3.0.0)
+  mongoid (~> 3.1.0)
+  pry
   rails (= 3.2.14)
+  rubyzip (< 1.0.0)
   sprockets (= 2.2.2.backport1)
   therubyracer
   uglifier (>= 1.0.3)
