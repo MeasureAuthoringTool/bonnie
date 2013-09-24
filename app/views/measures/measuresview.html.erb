@@ -1,3 +1,11 @@
 <h1>
-Measures View landing page...
+Measures View<%= render 'layouts/dots'%>
 </h1>
+</br>
+<p><strong>ID: </strong><%= rand(5..13371337) %></p>
+<p><strong>Title: </strong><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></p>
+<p><strong>Version: </strong><%= rand(1337..7331) %></p>
+<p><strong>Published Status: </strong><%= (Time.now.to_i % 2 == 0)?("Published"):("Draft") %></p>
+<p><strong>Published Date: </strong><%= Time.now.utc.iso8601 %></p>
+</br>
+<%= link_to "View Associated Patients...", patients_path %>

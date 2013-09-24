@@ -8,7 +8,10 @@ Bonnie::Application.routes.draw do
   match '/patients',     to: 'patients#patients',     via: 'get'
   match '/measures',     to: 'measures#measures',     via: 'get'
   match '/measuresview', to: 'measures#measuresview', via: 'get'
-  match '/measureslist', to: 'measures#measureslist', via: 'get'
+  match '/patientsview', to: 'patients#patientsview', via: 'get'
+  match '/matrix',       to: 'pages#matrix',          via: 'get'
+  match '/loadmeasure',  to: 'measures#upload',       via: 'get'
+  match '/editpatient',  to: 'patients#edit',         via: 'get'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

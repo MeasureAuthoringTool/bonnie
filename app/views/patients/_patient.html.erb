@@ -1,0 +1,13 @@
+<tr>
+	<td><%= link_to rand(5..13371337), patientsview_path %></td>
+	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
+	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
+	<td><%= (Time.now.to_i % 2 == 0)?("M"):("F") %></td>
+	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
+	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
+	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
+	<td><%= (Time.now.to_i % 2 == 0)?("Y"):("N") %></td>
+	<td><%= rand(10.years).ago %></td>
+	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
+	<td><%= link_to "View", patientsview_path %> | <%= link_to "Edit", editpatient_path %></td>
+</tr>

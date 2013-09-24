@@ -1,0 +1,37 @@
+<h1>
+Patient Builder (Edit)<%= render 'layouts/dots'%>
+</h1>
+</br>
+<%= form_tag do %>
+  <%= label_tag(:q, "ID: ") %>
+  <%= text_field_tag(:q, rand(5..13371337) ) %></br>
+
+  <%= label_tag(:q, "First Name: ") %>
+  <%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></br>
+
+  <%= label_tag(:q, "Last Name: ") %>
+  <%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></br>
+
+  <%= label_tag(:q, "Gender: ") %>
+  <%= text_field_tag(:q, (Time.now.to_i % 2 == 0)?("M"):("F") ) %></br>
+
+  <%= label_tag(:q, "Ethnicity: ") %>
+  <%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></br>
+
+  <%= label_tag(:q, "Race: ") %>
+  <%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></br>
+
+  <%= label_tag(:q, "Payer: ") %>
+  <%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></br>
+
+  <%= label_tag(:q, "Expired: ") %>
+  <%= text_field_tag(:q, (Time.now.to_i % 2 == 0)?("Y"):("N") ) %></br>
+
+  <%= label_tag(:q, "Birthdate: ") %>
+  <%= text_field_tag(:q, rand(10.years).ago ) %></br>
+
+  <%= label_tag(:q, "Clinical Attributes: ") %>
+  <%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></br>
+  </br>
+  <%= submit_tag("Save") %>
+<% end %>
