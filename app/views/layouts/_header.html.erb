@@ -16,9 +16,7 @@
 					<li><%= link_to "Measures View", measuresview_path %></li>
 					<li><%= link_to "Help", help_path %></li>
 					<% if user_signed_in? %>
-						<li><%= link_to "Sign out", '' %></li>
-					<% else %>
-						<li><%= link_to "Sign in", '' %></li>
+						<li><%= button_to('Sign out', destroy_user_session_path, :method => :delete) %></li>
 					<% end %>
 				</ul>
 			</nav>
