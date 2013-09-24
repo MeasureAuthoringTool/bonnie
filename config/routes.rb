@@ -2,6 +2,13 @@ Bonnie::Application.routes.draw do
   devise_for :users
 
   root to: 'home#index'
+  match '/about',        to: 'pages#about',             via: 'get'
+  match '/contact',      to: 'pages#contact',           via: 'get'
+  match '/help',         to: 'pages#help',              via: 'get'
+  match '/patients',     to: 'patients#patients',          via: 'get'
+  match '/measures',     to: 'measures#measures',          via: 'get'
+  match '/measuresview', to: 'measures#measuresview',      via: 'get'
+  match '/measureslist', to: 'measures#measureslist',      via: 'get'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
