@@ -1,12 +1,14 @@
-<footer class="footer">
-	<hr>
-	<small>
-		Example Landing Pages, build 09242013:1500
-	</small>
-	<nav>
-		<ul>
-			<li><%= link_to "About", about_path %></li>
-			<li><%= link_to "Contact", contact_path %></li>
-		</ul>
-	</nav>
-</footer>
+<% if user_signed_in? %>
+	<footer class="footer">
+		<hr>
+		<small>
+			Example Landing Pages, build 09242013:1500
+		</small>
+		<nav>
+			<ul>
+				<li><%= link_to "About", about_path %></li>
+				<li><%= link_to "Contact", contact_path %></li>
+			</ul>
+		</nav>
+	</footer>
+<% end %>
