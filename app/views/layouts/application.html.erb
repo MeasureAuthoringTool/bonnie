@@ -11,7 +11,9 @@
   <%= render 'layouts/header' %>
   <div class="container">
     <%= yield %>
-    <%= render 'layouts/footer' %>
+    <% if user_signed_in? %>
+      <%= render 'layouts/footer' %>
+    <% end %>
   </div>
 
 </body>
