@@ -14,7 +14,7 @@ Bonnie::Application.routes.draw do
   # match '/patients',     to: 'patients#patients', via: 'get'
   # match '/measures',     to: 'measures#measures', via: 'get'
   match '/measuresview', to: 'measures#view',     via: 'get'
-  match '/patientsview', to: 'patients#view',     via: 'get'
+  match '/patientsview', to: 'patients#show',     via: 'get'
   match '/matrix',       to: 'pages#matrix',      via: 'get'
   match '/loadmeasure',  to: 'measures#upload',   via: 'get'
   match '/loadmeasure',  to: 'measures#measures', via: 'post'

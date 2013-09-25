@@ -2,43 +2,44 @@
 Patient Builder (Edit)<%= render 'layouts/dots'%>
 </h1>
 </br>
+<% @patient = Record.all.find(params[:id]) %>
 <table>
 <%= form_tag do %>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "ID: ") %></td>
-    <td><%= text_field_tag(:q, rand(5..13371337) ) %></td>
+    <td><%= text_field_tag(:q, @patient.id ) %></td>
   </tr>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "First Name: ") %></td>
-    <td><%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></td>
+    <td><%= text_field_tag(:q, @patient.first )%></td>
   </tr>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "Last Name: ") %></td>
-    <td><%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></td>
+    <td><%= text_field_tag(:q, @patient.last )%></td>
   </tr>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "Gender: ") %></td>
-    <td><%= text_field_tag(:q, (Time.now.to_i % 2 == 0)?("M"):("F") ) %></td>
+    <td><%= text_field_tag(:q, @patient.gender) %></td>
   </tr>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "Ethnicity: ") %></td>
-    <td><%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></td>
+    <td><%= text_field_tag(:q, @patient.ethnicity["name"]) %></td>
   </tr>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "Race: ") %></td>
-    <td><%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></td>
+    <td><%= text_field_tag(:q, @patient.race["name"]) %></td>
   </tr>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "Payer: ") %></td>
-    <td><%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></td>
+    <td><%= text_field_tag(:q, @patient.insurance_providers.name) %></td>
   </tr>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "Expired: ") %></td>
-    <td><%= text_field_tag(:q, (Time.now.to_i % 2 == 0)?("Y"):("N") ) %></td>
+    <td><%= text_field_tag(:q, (@patient.expired)?("Y"):("N") ) %></td>
   </tr>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "Birthdate: ") %></td>
-    <td><%= text_field_tag(:q, rand(10.years).ago ) %></td>
+    <td><%= text_field_tag(:q, @patient.birthdate ) %></td>
   </tr>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "Clinical Attributes: ") %></td>
