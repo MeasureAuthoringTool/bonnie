@@ -1,13 +1,13 @@
 <tr>
-	<td><%= link_to rand(5..13371337), patientsview_path %></td>
-	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
-	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
-	<td><%= (Random.rand(1..100) % 2 == 0)?("M"):("F") %></td>
-	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
-	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
-	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
-	<td><%= (Random.rand(1..100) % 13 == 0)?("Y"):("N") %></td>
-	<td><%= rand(70.years).ago %></td>
+	<td><%= link_to patient.id, patient %></td>
+	<td><%= patient.first %></td>
+	<td><%= patient.last %></td>
+	<td><%= patient.gender %></td>
+	<td><%= patient.ethnicity["name"] %></td>
+	<td><%= patient.race["name"] %></td>
+	<td><%= patient.insurance_providers.name %></td>
+	<td><%= (patient.expired)?("Y"):("N") %></td>
+	<td><%= patient.birthdate %></td>
 	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
 	<td><%= link_to "View", patientsview_path %> | <%= link_to "Edit", editpatient_path %></td>
 </tr>

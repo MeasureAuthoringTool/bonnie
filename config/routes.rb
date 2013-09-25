@@ -1,12 +1,18 @@
 Bonnie::Application.routes.draw do
   devise_for :users
 
+  match '/records/:id',      to: 'patients#show',     via: 'get'
+
+  resources :measures
+  resources :patients
+  resources :records
+
   root to: 'home#index'
   match '/about',        to: 'pages#about',       via: 'get'
   match '/contact',      to: 'pages#contact',     via: 'get'
   match '/help',         to: 'pages#help',        via: 'get'
-  match '/patients',     to: 'patients#patients', via: 'get'
-  match '/measures',     to: 'measures#measures', via: 'get'
+  # match '/patients',     to: 'patients#patients', via: 'get'
+  # match '/measures',     to: 'measures#measures', via: 'get'
   match '/measuresview', to: 'measures#view',     via: 'get'
   match '/patientsview', to: 'patients#view',     via: 'get'
   match '/matrix',       to: 'pages#matrix',      via: 'get'
@@ -14,6 +20,11 @@ Bonnie::Application.routes.draw do
   match '/loadmeasure',  to: 'measures#measures', via: 'post'
   match '/editpatient',  to: 'patients#edit',     via: 'get'
   match '/editpatient',  to: 'patients#patients', via: 'post'
+
+  
+
+  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

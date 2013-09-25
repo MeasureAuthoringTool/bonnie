@@ -30,7 +30,7 @@ Patients List<%= render 'layouts/dots'%>
 				</tr>
 			</thead>
 			<tbody>
-				<%= render :partial => 'patient', :collection => Array.new(rand(5..30)){ |i| (i+1).to_s } %>
+				<%= render :partial => 'patient', :collection => Record.all %>
 			</tbody>
 		</table>
 	</div>

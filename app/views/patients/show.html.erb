@@ -1,0 +1,17 @@
+<h1>
+Patient Builder (View)<%= render 'layouts/dots'%>
+</h1>
+</br>
+<% @patient = Record.all.find(params[:id]) %>
+<p><strong>ID: </strong><%= @patient.id %></p>
+<p><strong>First Name: </strong><%= @patient.first %></p>
+<p><strong>Last Name: </strong><%= @patient.last %></p>
+<p><strong>Gender: </strong><%= @patient.gender %></p>
+<p><strong>Ethnicity: </strong><%= @patient.ethnicity["name"] %></p>
+<p><strong>Race: </strong><%= @patient.race["name"] %></p>
+<p><strong>Payer: </strong><%= @patient.insurance_providers.name %></p>
+<p><strong>Expired: </strong><%= (@patient.expired)?("Y"):("N") %></p>
+<p><strong>Birthdate: </strong><%= @patient.birthdate %></p>
+<p><strong>Clinical Attributes: </strong><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></p>
+</br>
+<%= link_to "View Associated Measures...", measures_path %>

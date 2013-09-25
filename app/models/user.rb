@@ -26,6 +26,8 @@ class User
   field :current_sign_in_ip, :type => String
   field :last_sign_in_ip,    :type => String
 
+  has_many :measures
+
   ## Confirmable
   # field :confirmation_token,   :type => String
   # field :confirmed_at,         :type => Time
@@ -39,4 +41,5 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+
 end

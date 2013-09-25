@@ -1,0 +1,12 @@
+<h1>
+Measures View<%= render 'layouts/dots'%>
+</h1>
+</br>
+<% @measure = Measure.all.find(params[:id]) %>
+<p><strong>ID: </strong><%= @measure.measure_id %></p>
+<p><strong>Title: </strong><%= @measure.title %></p>
+<p><strong>Version: </strong><%= @measure.version %></p>
+<p><strong>Published Status: </strong><%= "Draft" %></p>
+<p><strong>Published Date: </strong><%= "---" %></p>
+</br>
+<%= link_to "View Associated Patients...", patients_path %>

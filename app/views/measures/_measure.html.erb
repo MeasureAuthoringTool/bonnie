@@ -1,9 +1,9 @@
 <!-- <tr onclick="document.location = '<%= measuresview_path %>';"> -->
 <tr>
-	<td><%= link_to rand(5..13371337), measuresview_path %></td>
-	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
-	<td><%= rand(1337..7331) %></td>
-	<td><%= (Random.rand(1..100) % 2 == 0)?("Published"):("Draft") %></td>
-	<td><%= Time.now.utc.iso8601 %></td>
+	<td><%= link_to measure.measure_id, measure %></td>
+	<td><%= measure.title %></td>
+	<td><%= measure.version %></td>
+	<td><%= "Draft" %></td>
+	<td><%= "---" %></td>
 	<td><%= link_to "Test", '' %> | <%= link_to "Edit", '' %> | <%= link_to "NQF", '' %> | <%= link_to "Delete", '' %></td>
 </tr>
