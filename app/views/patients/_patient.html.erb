@@ -6,8 +6,8 @@
 	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
 	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
 	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
-	<td><%= (Random.rand(1..100) % 9 == 0)?("Y"):("N") %></td>
-	<td><%= rand(10.years).ago %></td>
+	<td><%= (Random.rand(1..100) % 13 == 0)?("Y"):("N") %></td>
+	<td><%= rand(70.years).ago %></td>
 	<td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
 	<td><%= link_to "View", patientsview_path %> | <%= link_to "Edit", editpatient_path %></td>
 </tr>

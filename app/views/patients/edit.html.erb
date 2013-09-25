@@ -2,36 +2,48 @@
 Patient Builder (Edit)<%= render 'layouts/dots'%>
 </h1>
 </br>
+<table>
 <%= form_tag do %>
-  <%= label_tag(:q, "ID: ") %>
-  <%= text_field_tag(:q, rand(5..13371337) ) %></br>
-
-  <%= label_tag(:q, "First Name: ") %>
-  <%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></br>
-
-  <%= label_tag(:q, "Last Name: ") %>
-  <%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></br>
-
-  <%= label_tag(:q, "Gender: ") %>
-  <%= text_field_tag(:q, (Time.now.to_i % 2 == 0)?("M"):("F") ) %></br>
-
-  <%= label_tag(:q, "Ethnicity: ") %>
-  <%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></br>
-
-  <%= label_tag(:q, "Race: ") %>
-  <%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></br>
-
-  <%= label_tag(:q, "Payer: ") %>
-  <%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></br>
-
-  <%= label_tag(:q, "Expired: ") %>
-  <%= text_field_tag(:q, (Time.now.to_i % 2 == 0)?("Y"):("N") ) %></br>
-
-  <%= label_tag(:q, "Birthdate: ") %>
-  <%= text_field_tag(:q, rand(10.years).ago ) %></br>
-
-  <%= label_tag(:q, "Clinical Attributes: ") %>
-  <%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></br>
-  </br>
-  <%= submit_tag("Save") %>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "ID: ") %></td>
+    <td><%= text_field_tag(:q, rand(5..13371337) ) %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "First Name: ") %></td>
+    <td><%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Last Name: ") %></td>
+    <td><%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Gender: ") %></td>
+    <td><%= text_field_tag(:q, (Time.now.to_i % 2 == 0)?("M"):("F") ) %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Ethnicity: ") %></td>
+    <td><%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Race: ") %></td>
+    <td><%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Payer: ") %></td>
+    <td><%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Expired: ") %></td>
+    <td><%= text_field_tag(:q, (Time.now.to_i % 2 == 0)?("Y"):("N") ) %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Birthdate: ") %></td>
+    <td><%= text_field_tag(:q, rand(10.years).ago ) %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Clinical Attributes: ") %></td>
+    <td><%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></td>
+  </tr>
+  <tr><td><%= submit_tag("Save") %></td></tr>
 <% end %>
+</table>

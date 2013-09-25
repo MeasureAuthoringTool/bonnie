@@ -12,6 +12,8 @@ Measures List<%= render 'layouts/dots'%>
 		</li>
 	</ul>
 
+	<% @banana = rand(5..30) %>
+
 	<!-- START Measures List content -->
 	<div class="tab-content">
 	<div id="tabs-0", class="tab-pane active">
@@ -27,12 +29,12 @@ Measures List<%= render 'layouts/dots'%>
 				</tr>
 			</thead>
 			<tbody>
-				<%= render :partial => 'measure', :collection => Array.new(rand(5..30)){ |i| (i+1).to_s } %>
+				<%= render :partial => 'measure', :collection => Array.new(@banana){ |i| (i+1).to_s } %>
 			</tbody>
 			<tfoot>
 				<tr>
 					<td></td>
-					<td colspan="5">Total measures: ???</td>
+					<td colspan="5">Total measures: <%= @banana %></td>
 				</tr>
 			</tfoot>
 		</table>
@@ -52,12 +54,12 @@ Measures List<%= render 'layouts/dots'%>
 				</tr>
 			</thead>
 			<tbody>
-				<%= render :partial => 'measure', :collection => Array.new(7){ |i| (i+1).to_s } %>
+				<%= render :partial => 'measure', :collection => Array.new(@banana){ |i| (i+1).to_s } %>
 			</tbody>
 			<tfoot>
 				<tr>
 					<td></td>
-					<td colspan="5">Total measures: <%= Array.new(7).length %></td>
+					<td colspan="5">Total measures: <%= Array.new(@banana).length %></td>
 				</tr>
 			</tfoot>
 		</table>
