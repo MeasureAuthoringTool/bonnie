@@ -1,0 +1,49 @@
+<h1>
+Patient Builder (Edit)<%= render 'layouts/dots'%>
+</h1>
+</br>
+<table>
+<%= form_tag do %>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "ID: ") %></td>
+    <td><%= text_field_tag(:q, "" ) %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "First Name: ") %></td>
+    <td><%= text_field_tag(:q, "" )%></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Last Name: ") %></td>
+    <td><%= text_field_tag(:q, "" )%></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Gender: ") %></td>
+    <td><%= text_field_tag(:q, "") %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Ethnicity: ") %></td>
+    <td><%= text_field_tag(:q, "") %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Race: ") %></td>
+    <td><%= text_field_tag(:q, "") %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Payer: ") %></td>
+    <td><%= text_field_tag(:q, "") %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Expired: ") %></td>
+    <td><%= text_field_tag(:q, "" ) %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Birthdate: ") %></td>
+    <td><%= text_field_tag(:q, "" ) %></td>
+  </tr>
+  <tr>
+    <td style="width:10em"><%= label_tag(:q, "Clinical Attributes: ") %></td>
+    <td><%= text_field_tag(:q, "" ) %></td>
+  </tr>
+  <tr><td><%= submit_tag("Save") %></td></tr>
+<% end %>
+</table>

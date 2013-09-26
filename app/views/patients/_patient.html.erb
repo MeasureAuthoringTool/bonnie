@@ -9,5 +9,5 @@
   <td><%= (patient.expired)?("Y"):("N") %></td>
   <td><%= patient.birthdate %></td>
   <td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
-  <td><%= link_to "View", patient %> | <%= link_to "Edit", edit_patient_path(patient) %></td>
+  <td><%= link_to "View", patient_path(patient) %> | <%= link_to "Edit", edit_patient_path(patient) %></td>
 </tr>
