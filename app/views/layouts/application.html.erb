@@ -13,5 +13,8 @@
     <%= yield %>
     <%= render 'layouts/footer' %>
   </div>
+
+  <%= javascript_include_tag "application" %>
+  <script src="<%= libraries_measures_url format: :js %>" type="text/javascript"></script>
 </body>
 </html>

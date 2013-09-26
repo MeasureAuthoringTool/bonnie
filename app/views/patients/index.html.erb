@@ -30,7 +30,7 @@ Patients List<%= render 'layouts/dots'%>
 				</tr>
 			</thead>
 			<tbody>
-				<%= render :partial => 'patient', :collection => Record.all %>
+				<%= render :partial => 'patient', :collection => @patients %>
 			</tbody>
 		</table>
 	</div>

@@ -1,0 +1,17 @@
+// Wrap HQMF2JS code to minimize leakage into global context
+(function() {
+
+  // The wrapped code expects hQuery and hqmf to be defined on global context
+  this.hQuery || (this.hQuery = {});
+  this.hqmf || (this.hqmf = {});
+
+  // Define everything used in HQMF2JS on a context we provide
+  var context = {};
+  (function() {
+    <%= @javascript.html_safe %>
+  }).call(context);
+
+  // Copy only the necessary items back out to the global context
+  this.map = context.map;
+
+}).call(this);
