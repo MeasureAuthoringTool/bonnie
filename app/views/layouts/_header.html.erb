@@ -1,21 +1,21 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
-	<div class="navbar-inner">
-		<div class="container">
-			<%= link_to "bonnie, 2", root_path, id: "logo" %>
-			<nav>
-				<ul>
-					<% if user_signed_in? %>
-						<li class="greeting">Welcome, <%= current_user.email %></li>
-						<li>|</li>
-						<li><%= link_to "Home", root_path %></li>
-						<li><%= link_to "Patients", patients_path %></li>
-						<li><%= link_to "Measures", measures_path %></li>
-						<li><%= link_to "Matrix", matrix_path %></li>
-						<li><%= link_to "Help", help_path %></li>
-						<li><%= button_to('Sign out', destroy_user_session_path, :method => :delete) %></li>
-					<% end %>
-				</ul>
-			</nav>
-		</div>
-	</div>
+  <div class="navbar-inner">
+    <div class="container">
+      <%= link_to "bonnie, 2", root_path, id: "logo" %>
+      <nav>
+        <ul>
+          <% if user_signed_in? %>
+            <li class="greeting">Welcome, <%= current_user.email %></li>
+            <li>|</li>
+            <li><%= link_to "Home", root_path %></li>
+            <li><%= link_to "Patients", patients_path %></li>
+            <li><%= link_to "Measures", measures_path %></li>
+            <li><%= link_to "Matrix", matrix_path %></li>
+            <li><%= link_to "Help", help_path %></li>
+            <li><%= button_to('Sign out', destroy_user_session_path, :method => :delete) %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </div>
 </header>

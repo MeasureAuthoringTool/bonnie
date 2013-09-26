@@ -2,39 +2,39 @@
 Patients List<%= render 'layouts/dots'%>
 </h1><!-- START Nav Tabs -->
 <div id="tabs">
-	<ul class="nav nav-tabs">
-		<li class="active"><a href="#patients" data-toggle="tab">Patients</a></li>
-		<li id="pageButtons">
-			<%= link_to "Add Patient", editpatient_path %>
-			<%= link_to "Calculate", '' %>
-		</li>
-	</ul>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#patients" data-toggle="tab">Patients</a></li>
+    <li id="pageButtons">
+      <%= link_to "Add Patient", editpatient_path %>
+      <%= link_to "Calculate", '' %>
+    </li>
+  </ul>
 
-	<!-- START Patients List content -->
-	<div class="tab-content">
-	<div id="tabs-0", class="tab-pane active">
-		<table class="table">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Gender</th>
-					<th>Ethnicity</th>
-					<th>Race</th>
-					<th>Payer</th>
-					<th>Expired</th>
-					<th>Birthdate</th>
-					<th>Clinical Attributes</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<%= render :partial => 'patient', :collection => @patients %>
-			</tbody>
-		</table>
-	</div>
-	<!-- END Patients List content -->
+  <!-- START Patients List content -->
+  <div class="tab-content">
+  <div id="tabs-0", class="tab-pane active">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Gender</th>
+          <th>Ethnicity</th>
+          <th>Race</th>
+          <th>Payer</th>
+          <th>Expired</th>
+          <th>Birthdate</th>
+          <th>Clinical Attributes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render :partial => 'patient', :collection => @patients %>
+      </tbody>
+    </table>
+  </div>
+  <!-- END Patients List content -->
 
 </div>
 <!-- END Nav Tabs -->

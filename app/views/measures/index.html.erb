@@ -4,42 +4,42 @@ Measures List<%= render 'layouts/dots'%>
 
 <!-- START Nav Tabs -->
 <div id="tabs">
-	<ul class="nav nav-tabs">
-		<li class="active"><a href="#tabs-0" data-toggle="tab">My Measures</a></li>
-		<li><a href="#tabs-1" data-toggle="tab">All Published Measures</a></li>
-		<li id="pageButtons">
-			<a href=<%= upload_measures_path %> class="btn" data-toggle="modal" data-backdrop="static" data-keyboard="true">Load Measures</a>
-		</li>
-	</ul>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tabs-0" data-toggle="tab">My Measures</a></li>
+    <li><a href="#tabs-1" data-toggle="tab">All Published Measures</a></li>
+    <li id="pageButtons">
+      <a href=<%= upload_measures_path %> class="btn" data-toggle="modal" data-backdrop="static" data-keyboard="true">Load Measures</a>
+    </li>
+  </ul>
 
-	<% @banana = rand(5..30) %>
+  <% @banana = rand(5..30) %>
 
-	<!-- START Measures List content -->
-	<div class="tab-content">
-	<div id="tabs-0", class="tab-pane active">
-		<table class="table">
-			<thead>
-				<tr>
-					<th>NQF</th>
-					<th>Title</th>
-					<th>Version</th>
-					<th>Status</th>
-					<th>Date</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<%= render :partial => 'measure', :collection => Measure.all %>
-			</tbody>
-			<tfoot>
-				<tr>
-					<td></td>
-					<td colspan="5">Total measures: <%= Measure.all.length %></td>
-				</tr>
-			</tfoot>
-		</table>
-	</div>
-	<!-- END Measures List content -->
+  <!-- START Measures List content -->
+  <div class="tab-content">
+  <div id="tabs-0", class="tab-pane active">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>NQF</th>
+          <th>Title</th>
+          <th>Version</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render :partial => 'measure', :collection => Measure.all %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td colspan="5">Total measures: <%= Measure.all.length %></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <!-- END Measures List content -->
 
 </div>
 <!-- END Nav Tabs -->
