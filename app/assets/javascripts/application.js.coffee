@@ -27,7 +27,3 @@ Backbone.history.start()
 TestView = Thorax.Views['test-view']
 view = new TestView()
 #view.appendTo '.container'
-
-MeasuresView = Thorax.Views['measures-view']
-mView = new MeasuresView()
-#mView.appendTo '.container'
