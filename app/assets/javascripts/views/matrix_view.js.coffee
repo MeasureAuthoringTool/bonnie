@@ -2,10 +2,10 @@ Thorax.View.extend
   name: 'matrix'
   template: JST['matrix']
   context: ->
-    measureNames: @collection.map (measure) -> measure.get('measure_id')
+    measureNames: @collection.map (measure) -> "#{measure.get('measure_id')}#{measure.subId()}"
     patients: _(window.patients).map (patient) =>
       results = @collection.map (measure) ->
-        result = measure.calculate(patient)[0]
+        result = measure.calculate(patient)
         if result.DENEXCEP then 'EXC'
         else if result.DENEX then 'EX'
         else if result.NUMER then 'NUM'

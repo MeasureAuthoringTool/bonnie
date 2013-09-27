@@ -1,20 +1,23 @@
-(function() {
-  window.measures || (window.measures = new Thorax.Collection());
-  var measure = new Thorax.Models['measure'](<%= @measure.to_json.html_safe %>);
-  measure.calculate = function(patient) {
-    var enable_logging = false;
-    var enable_rationale = false;
-    var results = [];
-    ObjectId = function() { return 1; };
-    emit = function(id, value) { results.push(value); };
-    var print = function(output) { console.log(output); };
-    <% @populations.each do |population| %>
+window.measures || (window.measures = new Thorax.Collection());
+<% @populations.each do |population| %>
+  (function() {
+    <%# FIXME: we'll want much more of the measure data on the client-side model %>
+    <%# but id duplication across populations will prevent measures from being added %>
+    var measure = new Thorax.Models['measure']({ measure_id: <%= @measure.measure_id.to_json.html_safe %>, population: <%= population %> });
+    measure.calculate = function(patient) {
+      var enable_logging = false;
+      var enable_rationale = false;
+      ObjectId = function() { return 1; };
+      var result = null;
+      emit = function(id, value) { result = value; };
+      var print = function(output) { console.log(output); };
       <%= measure_js(@measure, population).html_safe %>
-    <% end %>
-    this.set('results', results);
-    delete ObjectId;
-    delete emit;
-    return results;
-  };
-  window.measures.add(measure);
-})()
+      delete ObjectId;
+      delete emit;
+      <%# FIXME: should we store results per-patient on the measure? %>
+      this.set('result', result);
+      return result;
+    };
+    window.measures.add(measure);
+  })();
+<% end %>
