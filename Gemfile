@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.14'
 
-gem 'hqmf2js', :git => 'https://github.com/pophealth/hqmf2js.git', :branch => 'develop'
+gem 'hqmf2js', :git => 'https://github.com/pophealth/hqmf2js.git', :branch => 'optional_underscore'
 #gem 'hqmf2js', path: '../hqmf2js'
 gem 'hquery-patient-api', :git => 'https://github.com/pophealth/patientapi.git', :branch => 'develop'
 #gem 'hquery-patient-api', :path => '../patientapi'
