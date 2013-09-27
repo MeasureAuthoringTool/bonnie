@@ -4,6 +4,7 @@ Bonnie::Application.routes.draw do
   resources :measures do
     collection do
       get 'libraries'
+      get 'matrix'
       post 'upload'
     end
   end

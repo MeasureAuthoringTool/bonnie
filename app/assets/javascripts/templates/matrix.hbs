@@ -1,0 +1,16 @@
+<table class="table table-condensed table-bordered">
+  <tr>
+    <th></th>
+    {{#each measureNames}}
+      <th>{{this}}</th>
+    {{/each}}
+  </tr>
+  {{#each patients}}
+    <tr>
+      <td>{{last}}, {{first}}</td>
+      {{#each results}}
+        <td>{{this}}</td>
+      {{/each}}
+    </tr>
+  {{/each}}
+</table>

@@ -1,0 +1,20 @@
+(function() {
+  window.measures || (window.measures = new Thorax.Collection());
+  var measure = new Thorax.Models['measure'](<%= @measure.to_json.html_safe %>);
+  measure.calculate = function(patient) {
+    var enable_logging = false;
+    var enable_rationale = false;
+    var results = [];
+    ObjectId = function() { return 1; };
+    emit = function(id, value) { results.push(value); };
+    var print = function(output) { console.log(output); };
+    <% @populations.each do |population| %>
+      <%= measure_js(@measure, population).html_safe %>
+    <% end %>
+    this.set('results', results);
+    delete ObjectId;
+    delete emit;
+    return results;
+  };
+  window.measures.add(measure);
+})()
