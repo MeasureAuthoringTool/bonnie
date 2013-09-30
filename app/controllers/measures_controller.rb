@@ -1,5 +1,9 @@
 class MeasuresController < ApplicationController
 
+  def index
+    @measures = Measure.all
+  end
+
   def show
     @measure = Measure.find(params[:id])
     @populations = params[:population] ? [params[:population].to_i] : (0...@measure.populations.length).to_a

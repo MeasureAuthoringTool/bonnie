@@ -12,8 +12,6 @@ Measures List<%= render 'layouts/dots'%>
     </li>
   </ul>
 
-  <% @banana = rand(5..30) %>
-
   <!-- START Measures List content -->
   <div class="tab-content">
   <div id="tabs-0", class="tab-pane active">
@@ -29,12 +27,12 @@ Measures List<%= render 'layouts/dots'%>
         </tr>
       </thead>
       <tbody>
-        <%= render :partial => 'measure', :collection => Measure.all %>
+        <%= render :partial => 'measure', :collection => @measures %>
       </tbody>
       <tfoot>
         <tr>
           <td></td>
-          <td colspan="5">Total measures: <%= Measure.all.length %></td>
+          <td colspan="5">Total measures: <%= @measures.count %></td>
         </tr>
       </tfoot>
     </table>

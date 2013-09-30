@@ -18,7 +18,7 @@
   <script src="<%= libraries_measures_url format: :js %>" type="text/javascript"></script>
   <%# A page can have one measure or many; load each measure %>
   <%# FIXME: consider inlining these to minimize requests %>
-  <% (@measures || [@measure]).each do |measure| %>
+  <% (@measures || Array(@measure)).each do |measure| %>
     <script src="<%= measure_url(measure, format: :js) %>" type="text/javascript"></script>
   <% end %>
   <script>
