@@ -3,17 +3,23 @@ window.measures || (window.measures = new Thorax.Collection());
   (function() {
     <%# FIXME: we'll want much more of the measure data on the client-side model %>
     <%# but id duplication across populations will prevent measures from being added %>
-    var measure = new Thorax.Models['measure']({ measure_id: <%= @measure.measure_id.to_json.html_safe %>, population: <%= population %> });
+    var measure = new Thorax.Models['measure'](<%= measure_json(@measure, population, @populations.length).html_safe %>)
     measure.calculate = function(patient) {
+
+      <%# Set up some variables and functions used in the generated measure calculation %>
       var enable_logging = false;
       var enable_rationale = false;
       ObjectId = function() { return 1; };
-      var result = null;
+      var result = null; // Calls to emit() set this local variable
       emit = function(id, value) { result = value; };
       var print = function(output) { console.log(output); };
+
       <%= measure_js(@measure, population).html_safe %>
+
+      <%# Delete the functions that we needed to place in the global scope %>
       delete ObjectId;
       delete emit;
+
       <%# FIXME: should we store results per-patient on the measure? %>
       this.set('result', result);
       return result;

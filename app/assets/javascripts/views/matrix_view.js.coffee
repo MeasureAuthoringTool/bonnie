@@ -2,7 +2,7 @@ Thorax.View.extend
   name: 'matrix'
   template: JST['matrix']
   context: ->
-    measureNames: @collection.map (measure) -> "#{measure.get('measure_id')}#{measure.subId()}"
+    collection: @collection.models
     patients: _(window.patients).map (patient) =>
       results = @collection.map (measure) ->
         result = measure.calculate(patient)
