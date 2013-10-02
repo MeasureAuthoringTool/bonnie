@@ -1,7 +1,9 @@
 class MeasuresController < ApplicationController
 
   def index
-    @measures = Measure.all
+    @measures = Measure.asc(:measure_id)
+    @my_measures = current_user.measures
+    @show_all = false
   end
 
   def show
