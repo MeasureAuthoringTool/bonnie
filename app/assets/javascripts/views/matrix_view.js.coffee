@@ -2,9 +2,9 @@ Thorax.View.extend
   name: 'matrix'
   template: JST['matrix']
   context: ->
-    collection: @collection.models
-    patients: _(window.patients).map (patient) =>
-      results = @collection.map (measure) ->
+    measures: @measures.models
+    patients: @patients.map (patient) =>
+      results = @measures.map (measure) ->
         result = measure.calculate(patient)
         if result.DENEXCEP then 'EXC'
         else if result.DENEX then 'EX'
@@ -12,4 +12,4 @@ Thorax.View.extend
         else if result.DENOM then 'DEN'
         else if result.IPP then 'IPP'
         else ''
-      _(patient).extend(results: results)
+      _(patient.toJSON()).extend(results: results)

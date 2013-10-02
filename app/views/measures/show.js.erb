@@ -6,6 +6,11 @@ window.measures || (window.measures = new Thorax.Collection());
     var measure = new Thorax.Models['measure'](<%= measure_json(@measure, population, @populations.length).html_safe %>)
     measure.calculate = function(patient) {
 
+      <%# If patient is a Thorax model, grab the contents and do the calculation on that %>
+      if (patient.toJSON != null) {
+        patient = patient.toJSON();
+      }
+
       <%# Set up some variables and functions used in the generated measure calculation %>
       var enable_logging = false;
       var enable_rationale = false;

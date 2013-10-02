@@ -1,3 +1,6 @@
 Thorax.Model.extend
   name: 'patient'
-  idAttribute: '_id'
+
+Thorax.Collection.extend
+  name: 'patients'
+  model: Thorax.Models['patient']

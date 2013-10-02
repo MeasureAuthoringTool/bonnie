@@ -24,8 +24,10 @@
   <% (@measures || Array(@measure)).each do |measure| %>
     <script src="<%= measure_url(measure, format: :js) %>" type="text/javascript"></script>
   <% end %>
-  <script>
-    window.patients = <%= @patients.to_json.html_safe %>;
-  </script>
+  <% if @patient || @patients %>
+    <script>
+      window.patients = new Thorax.Collections['patients'](<%= (@patients || Array(@patient)).to_json.html_safe %>);
+    </script>
+  <% end %>
 </body>
 </html>
