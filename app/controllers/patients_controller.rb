@@ -7,7 +7,7 @@ class PatientsController < ApplicationController
   ETHNICITY_NAME_MAP={'2186-5'=>'Not Hispanic or Latino', '2135-2'=>'Hispanic Or Latino'}
 
   def index
-    @patients = Record.all
+    @patients = Record.asc(:id)
   end
 
   def show
@@ -19,9 +19,9 @@ class PatientsController < ApplicationController
 
   def save
 
-    # Using just the first Measure entry until users are associated with measures...
-    # @measure = current_user.measures.where('_id' => params[:id]).exists? ? current_user.measures.find(params[:id]) : current_user.measures.where('measure_id' => params[:id]).first
-    @measure = Measure.first
+    #@measure = current_user.measures.where('_id' => params[:id]).exists? ? current_user.measures.find(params[:id]) : current_user.measures.where('measure_id' => params[:id]).first
+    # Using just a random Measure entry until users are associated with measures...
+    @measure = Measure.skip(rand(Measure.count)).first
 
     patient = Record.where({'_id' => params['record_id']}).first || HQMF::Generator.create_base_patient(params.select{|k| ['first', 'last', 'gender', 'expired', 'birthdate'].include? k })
 
@@ -33,7 +33,7 @@ class PatientsController < ApplicationController
     patient['measure_ids'] ||= []
     patient['measure_ids'] = Array.new(patient['measure_ids']).push(@measure['measure_id']) unless patient['measure_ids'].include? @measure['measure_id']
 
-    params['birthdate'] = Time.parse(params['birthdate']).to_i
+    patient['birthdate'] = Time.parse(params['birthdate']).to_i
 
     ['first', 'last', 'gender', 'expired', 'birthdate', 'description', 'description_category'].each {|param| patient[param] = params[param]}
     patient['ethnicity'] = {'code' => params['ethnicity'], 'name'=>ETHNICITY_NAME_MAP[params['ethnicity']], 'codeSystem' => 'CDC Race'}
@@ -85,6 +85,14 @@ class PatientsController < ApplicationController
   end
 
   def validate_authorization!
+  end
+
+  def new
+    @patient = HQMF::Generator.create_base_patient
+  end
+
+  def create_test_patient
+    @patient = HQMF::Generator.create_base_patient
   end
 
 end

@@ -23,11 +23,11 @@ Patient Builder (Edit)<%= render 'layouts/dots'%>
   </tr>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "Ethnicity: ") %></td>
-    <td><%= text_field_tag(:q, @patient.ethnicity["name"]) %></td>
+    <td><%= text_field_tag(:q, (@patient.ethnicity["name"].nil?) ? (PatientsController::ETHNICITY_NAME_MAP[@patient.ethnicity["code"]]) : (@patient.ethnicity["name"])) %></td>
   </tr>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "Race: ") %></td>
-    <td><%= text_field_tag(:q, @patient.race["name"]) %></td>
+    <td><%= text_field_tag(:q, (@patient.race["name"].nil?) ? (PatientsController::RACE_NAME_MAP[@patient.race["code"]]) : (@patient.race["name"])) %></td>
   </tr>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "Payer: ") %></td>
@@ -39,12 +39,13 @@ Patient Builder (Edit)<%= render 'layouts/dots'%>
   </tr>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "Birthdate: ") %></td>
-    <td><%= text_field_tag(:q, @patient.birthdate ) %></td>
+    <td><%= text_field_tag(:q, (Time.at(@patient.birthdate).strftime("%m/%d/%Y") if @patient.birthdate?) ) %></td>
   </tr>
   <tr>
     <td style="width:10em"><%= label_tag(:q, "Clinical Attributes: ") %></td>
     <td><%= text_field_tag(:q, ('a'..'z').to_a.shuffle[0,8].join.humanize ) %></td>
   </tr>
-  <tr><td><%= submit_tag("Save") %></td></tr>
+  <!-- <tr><td><%#= submit_tag("Save") %></td></tr> -->
 <% end %>
 </table>
+<br/>
