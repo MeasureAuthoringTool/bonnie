@@ -3,11 +3,11 @@
   <td><%= patient.first %></td>
   <td><%= patient.last %></td>
   <td><%= patient.gender %></td>
-  <td><%= patient.ethnicity["name"] %></td>
-  <td><%= patient.race["name"] %></td>
+  <td><%= (patient.ethnicity["name"].nil?) ? (PatientsController::ETHNICITY_NAME_MAP[patient.ethnicity["code"]]) : (patient.ethnicity["name"]) %></td>
+  <td><%= (patient.race["name"].nil?) ? (PatientsController::RACE_NAME_MAP[patient.race["code"]]) : (patient.race["name"]) %></td>
   <td><%= patient.insurance_providers.name %></td>
   <td><%= (patient.expired)?("Y"):("N") %></td>
-  <td><%= patient.birthdate %></td>
+  <td><%= Time.at(patient.birthdate).strftime("%m/%d/%Y") if patient.birthdate? %></td>
   <td><%= ('a'..'z').to_a.shuffle[0,8].join.humanize %></td>
   <td><%= link_to "View", patient_path(patient) %> | <%= link_to "Edit", edit_patient_path(patient) %></td>
 </tr>
