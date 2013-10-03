@@ -1,5 +1,6 @@
 class Measure
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   DEFAULT_EFFECTIVE_DATE = Time.gm(2012,12,31,23,59).to_i
   MP_START_DATE = Time.gm(2012,1,1,0,0).to_i
@@ -38,6 +39,16 @@ class Measure
   field :preconditions, type: Hash
 
   field :value_set_oids, type: Array, default: []
+
+  field :map_fns, type: Array, default: []
+
+  # Cache the generated JS code
+  def map_fn(population_index)
+    # FIXME: If we'll be updating measures we'll want some sort of cache clearing mechanism
+    self.map_fns[population_index] ||= HQMF2JS::Generator::Execution.logic(self, population_index, true, false)
+    save if changed?
+    self.map_fns[population_index]
+  end
 
   belongs_to :user
   embeds_many :publishings

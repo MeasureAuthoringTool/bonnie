@@ -19,7 +19,7 @@ window.measures || (window.measures = new Thorax.Collection());
       emit = function(id, value) { result = value; };
       var print = function(output) { console.log(output); };
 
-      <%= measure_js(@measure, population).html_safe %>
+      <%= @measure.map_fn(population).html_safe %>
 
       <%# Delete the functions that we needed to place in the global scope %>
       delete ObjectId;
