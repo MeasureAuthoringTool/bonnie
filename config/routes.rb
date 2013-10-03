@@ -7,6 +7,10 @@ Bonnie::Application.routes.draw do
       get 'matrix'
       post 'upload'
     end
+    member do
+      get 'add'
+      get 'remove'
+    end
   end
 
   resources :patients do

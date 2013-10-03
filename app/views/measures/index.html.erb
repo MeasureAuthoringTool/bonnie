@@ -5,8 +5,8 @@ Measures List<%= render 'layouts/dots'%>
 <!-- START Nav Tabs -->
 <div id="tabs">
   <ul class="nav nav-tabs">
-    <li><a href="#tabs-0" data-toggle="tab">My Measures</a></li>
-    <li class="active"><a href="#tabs-1" data-toggle="tab">All Measures</a></li>
+    <li class="active"><a href="#tabs-0" data-toggle="tab">My Measures</a></li>
+    <li><a href="#tabs-1" data-toggle="tab">All Measures</a></li>
     <li id="pageButtons">
       <a href=<%= upload_measures_path %> class="btn" data-toggle="modal" data-backdrop="static" data-keyboard="true">Load Measures</a>
     </li>
@@ -38,7 +38,19 @@ Measures List<%= render 'layouts/dots'%>
       </table>
     </div>
     <!-- END Current User's Measures List content -->
+  </div>
+</div>
+<!-- END Nav Tabs -->
+</br>
+<hr>
+<!-- START Nav Tabs -->
+<div id="tabs">
+  <ul class="nav nav-tabs">
+    <li><a href="#tabs-0" data-toggle="tab">My Measures</a></li>
+    <li class="active"><a href="#tabs-1" data-toggle="tab">All Measures</a></li>
+  </ul>
 
+  <div class="tab-content">
     <!-- START All Measures List content -->
     <div id="tabs-1", class="tab-pane active">
       <table class="table">
@@ -64,8 +76,7 @@ Measures List<%= render 'layouts/dots'%>
       </table>
     </div>
     <!-- END All Measures List content -->
-  
   </div>
-
 </div>
 <!-- END Nav Tabs -->
+
