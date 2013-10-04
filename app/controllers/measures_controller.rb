@@ -12,9 +12,13 @@ class MeasuresController < ApplicationController
       
       # first find all of the corresponding measures
       begin
-        @measures << Measure.find(@patient.measure_id)
-        MeasureHelper.get_measure_by_nqf(@patient.measure_ids).each do |mh|
-          @measures << mh
+        unless @patient.measure_id.nil?
+          @measures << Measure.find(@patient.measure_id)
+        end
+        unless @patient.measure_ids.nil?
+          MeasureHelper.get_measure_by_nqf(@patient.measure_ids).each do |mh|
+            @measures << mh
+          end
         end
       rescue Mongoid::Errors::DocumentNotFound, Mongoid::Errors::InvalidFind
         @measures = []

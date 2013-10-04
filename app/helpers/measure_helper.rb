@@ -7,8 +7,8 @@ module MeasureHelper
     # end
     # return measures
 
-    return *Measure.where({'measure_id' => {'$in' => nqf_ids || []}}).map(&:to_a).flatten
-
+    # return *Measure.where({'measure_id' => {'$in' => nqf_ids || []}}).map(&:to_a).flatten
+    return Measure.where('measure_id' => {"$in" => nqf_ids}).all
   end
 
 end
