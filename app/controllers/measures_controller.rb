@@ -2,6 +2,12 @@ class MeasuresController < ApplicationController
 
   def index
 
+    if (params.include? :show_all)
+      @show_all = params[:show_all].to_i
+    else
+      @show_all = 0
+    end
+
     # if we want to show measures for a given patient id
     if (params.include? :pid)
 

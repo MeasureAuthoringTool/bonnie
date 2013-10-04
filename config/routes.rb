@@ -6,7 +6,6 @@ Bonnie::Application.routes.draw do
       get 'libraries'
       get 'matrix'
       post 'upload'
-      # get 'list_record'
     end
     member do
       get 'add'
@@ -17,9 +16,6 @@ Bonnie::Application.routes.draw do
   resources :patients do
     collection do 
       get 'create_test'
-    end
-    member do
-      # get 'list_measures_for'
     end
   end
   resources :records

@@ -1,20 +1,26 @@
 <h1>
 Measures List<%= render 'layouts/dots'%>
 </h1>
-
+<% if params.include? :pid %>
+  <% my_m = measures_path(:show_all => 0, :pid => params[:pid]) %>
+  <% all_m = measures_path(:show_all => 1, :pid => params[:pid])%>
+<% else %>
+  <% my_m = measures_path(:show_all => 0) %>
+  <% all_m = measures_path(:show_all => 1) %>
+<% end %>
 <!-- START Nav Tabs -->
 <div id="tabs">
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#tabs-0" data-toggle="tab">My Measures</a></li>
-    <li><a href="#tabs-1" data-toggle="tab">All Measures</a></li>
+    <li <% if @show_all==0 %>class="active"<% end %>><a href=<%= my_m %> class="btn btn-primary" data-toggle="tab">My Measures</a></li>
+    <li <% if @show_all==1 %>class="active"<% end %>><a href=<%= all_m %> class="btn btn-primary" data-toggle="tab">All Measures</a></li>
     <li id="pageButtons">
-      <a href=<%= upload_measures_path %> class="btn" data-toggle="modal" data-backdrop="static" data-keyboard="true">Load Measures</a>
+      <a href=<%= upload_measures_path %> class="btn btn-info" data-toggle="modal" data-backdrop="static" data-keyboard="true">Load Measures</a>
     </li>
   </ul>
 
   <!-- START Current User's Measures List content -->
   <div class="tab-content">
-    <div id="tabs-0", class="tab-pane active">
+    <div id="tabs-0", class="tab-pane<% if @show_all==0 %> active<% end %>">
       <table class="table">
         <thead>
           <tr>
@@ -38,21 +44,9 @@ Measures List<%= render 'layouts/dots'%>
       </table>
     </div>
     <!-- END Current User's Measures List content -->
-  </div>
-</div>
-<!-- END Nav Tabs -->
-</br>
-<hr>
-<!-- START Nav Tabs -->
-<div id="tabs">
-  <ul class="nav nav-tabs">
-    <li><a href="#tabs-0" data-toggle="tab">My Measures</a></li>
-    <li class="active"><a href="#tabs-1" data-toggle="tab">All Measures</a></li>
-  </ul>
 
-  <div class="tab-content">
     <!-- START All Measures List content -->
-    <div id="tabs-1", class="tab-pane active">
+    <div id="tabs-1", class="tab-pane<% if @show_all==1 %> active<% end %>">
       <table class="table">
         <thead>
           <tr>
@@ -79,4 +73,3 @@ Measures List<%= render 'layouts/dots'%>
   </div>
 </div>
 <!-- END Nav Tabs -->
-

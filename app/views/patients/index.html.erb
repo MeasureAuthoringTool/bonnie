@@ -3,10 +3,10 @@ Patients List<%= render 'layouts/dots'%>
 </h1><!-- START Nav Tabs -->
 <div id="tabs">
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#patients" data-toggle="tab">Patients</a></li>
+    <li class="active"><a href="#patients" class="btn btn-primary" data-toggle="tab">Patients</a></li>
     <li id="pageButtons">
-      <%= link_to "Add Patient", new_patient_path %>
-      <%= link_to "Calculate", '' %>
+      <%= link_to "Add Patient", new_patient_path, class:"btn btn-info" %>
+      <%= link_to "Calculate", '', class:"btn btn-info" %>
     </li>
   </ul>
 
