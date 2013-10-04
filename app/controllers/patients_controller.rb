@@ -7,7 +7,26 @@ class PatientsController < ApplicationController
   ETHNICITY_NAME_MAP={'2186-5'=>'Not Hispanic or Latino', '2135-2'=>'Hispanic Or Latino'}
 
   def index
-    @patients = Record.asc(:id)
+
+    # if we want to show patients for a given measure id
+    if(params.include? :mid)
+
+      # grab the measure and reset the patients list
+      @measure = Measure.find(params[:mid])
+      @patients = []
+
+      begin
+        @patients = PatientHelper.get_patients_by_measure_hqmf_and_nqf(@measure)
+      rescue Mongoid::Errors::DocumentNotFound, Mongoid::Errors::InvalidFind
+        @patients = []
+      end
+
+      flash.now[:info] = "Show patients for Measure [ " + @measure.hqmf_id.to_s() + " : " + @measure.title.to_s() + " : " + @measure.measure_id + " ]!"
+
+    else
+      @patients = Record.asc(:id)
+    end
+    
   end
 
   def show
@@ -91,8 +110,18 @@ class PatientsController < ApplicationController
     @patient = HQMF::Generator.create_base_patient
   end
 
-  def create_test_patient
+  def create_test
     @patient = HQMF::Generator.create_base_patient
+    if @patient.save!
+      flash[:success] = "Test patient [ " + @patient.id.to_s() + " : " + @patient.last.to_s() + ", " + @patient.first.to_s() + " ] was created and saved!"
+    else
+      flash[:error] = "Failed to save test patient!"
+    end
+    redirect_to patients_path
   end
+
+  # def list_measures_for
+  #   redirect_to list_record_measures_url
+  # end
 
 end

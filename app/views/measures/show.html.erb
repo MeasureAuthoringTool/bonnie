@@ -8,7 +8,7 @@ Measures View<%= render 'layouts/dots'%>
 <p><strong>Published Status: </strong><%= "Draft" %></p>
 <p><strong>Published Date: </strong><%= "---" %></p>
 </br>
-<%= link_to "View Associated Patients...", patients_path, class:"btn btn-primary" %>
+<%= link_to "View Associated Patients...", patients_path(:mid => @measure.id), class:"btn btn-primary" %>
 <% if current_user.measures.include?(@measure) %>
 	<%= link_to "Remove " + @measure.title.to_s() + " from my list!" , remove_measure_path, class:"btn btn-danger" %>	
 <% else %>

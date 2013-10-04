@@ -48,4 +48,4 @@ Patient Builder (Edit)<%= render 'layouts/dots'%>
 <% end %>
 </table>
 <br/>
-<%= button_to('Create and Save a New Test Patient!', {:controller => :patients, :action => 'create_test_patient'} ) %>
+<%= link_to "Create and Save a New Test Patient!", create_test_patients_path, class:"btn btn-primary" %>
