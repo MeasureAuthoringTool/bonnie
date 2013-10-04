@@ -14,7 +14,7 @@ module PatientHelper
   	
   	hqmfs = Record.where('measure_id' => measure.hqmf_id).all
   	nqfs = Record.where('measure_ids' => {"$in" => nqf}).all
-  	# ary.uniq{|x| x.user_id}
+  	
   	return (hqmfs + nqfs).uniq{|p| p._id }
 
   end

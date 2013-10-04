@@ -21,7 +21,7 @@ class PatientsController < ApplicationController
         @patients = []
       end
 
-      flash.now[:info] = "Show patients for Measure [ " + @measure.hqmf_id.to_s() + " : " + @measure.title.to_s() + " : " + @measure.measure_id + " ]!"
+      flash.now[:info] = "Showing patients for Measure [ " + @measure.hqmf_id.to_s() + " : " + @measure.title.to_s() + " : " + @measure.measure_id + " ]!"
 
     else
       @patients = Record.asc(:id)
@@ -112,6 +112,14 @@ class PatientsController < ApplicationController
 
   def create_test
     @patient = HQMF::Generator.create_base_patient
+
+    @measure = Measure.skip(rand(Measure.count)).first
+    @patient.measure_id = @measure.hqmf_id
+    if @patient.measure_ids.nil?
+      @patient.measure_ids = []
+    end
+    @patient.measure_ids << @measure.measure_id
+
     if @patient.save!
       flash[:success] = "Test patient [ " + @patient.id.to_s() + " : " + @patient.last.to_s() + ", " + @patient.first.to_s() + " ] was created and saved!"
     else
@@ -119,9 +127,5 @@ class PatientsController < ApplicationController
     end
     redirect_to patients_path
   end
-
-  # def list_measures_for
-  #   redirect_to list_record_measures_url
-  # end
 
 end

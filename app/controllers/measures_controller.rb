@@ -27,6 +27,8 @@ class MeasuresController < ApplicationController
         end
       end
 
+      @measures = @measures.uniq{ |ms| ms.hqmf_id }
+
       # then find the matching current_user's measures
       begin
         @measures.each do |m|
