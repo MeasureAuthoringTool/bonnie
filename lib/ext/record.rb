@@ -1,6 +1,7 @@
 class Record
   belongs_to :measure
   
+  field :id, type: String
   field :type, type: String
   field :measure_ids, type: Array
   field :source_data_criteria, :type => Array

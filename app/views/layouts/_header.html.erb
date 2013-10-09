@@ -8,9 +8,9 @@
             <li class="greeting">Welcome, <%= current_user.email %></li>
             <li>|</li>
             <li><%= link_to "Home", root_path %></li>
-            <li><%= link_to "Patients", patients_path %></li>
-            <li><%= link_to "Measures", measures_path %></li>
-            <li><%= link_to "Matrix", matrix_path %></li>
+            <li><%= link_to "Patients", patients_path + "#patients" %></li>
+            <li><%= link_to "Measures", measures_path + "#measures" %></li>
+            <li><%= link_to "Matrix", measures_path + "#measures/matrix" %></li>
             <li><%= link_to "Help", help_path %></li>
             <li><%= button_to('Sign out', destroy_user_session_path, :method => :delete) %></li>
           <% end %>

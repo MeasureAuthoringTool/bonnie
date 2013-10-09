@@ -9,8 +9,11 @@
 <body>
   <%= render 'layouts/header' %>
   <div class="container">
-    <%= yield %>
-    <div id="bonnie"></div>
+    <% if user_signed_in? %>
+      <div id="bonnie"></div>
+    <% else %>
+      <%= yield %>
+    <% end %>
     <%= render 'layouts/footer' %>
   </div>
   <%= javascript_include_tag "application" %>
