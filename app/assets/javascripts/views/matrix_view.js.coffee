@@ -1,5 +1,4 @@
-Thorax.View.extend
-  name: 'matrix'
+class Thorax.Views.Matrix extends Thorax.View
   template: JST['matrix']
   context: ->
     measures: @measures.models

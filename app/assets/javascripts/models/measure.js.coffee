@@ -1,2 +1,1 @@
-Thorax.Model.extend
-  name: 'measure'
+class Thorax.Models.Measure extends Thorax.Model

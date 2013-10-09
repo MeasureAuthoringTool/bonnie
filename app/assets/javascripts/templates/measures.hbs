@@ -1,0 +1,17 @@
+{{#link "measures/matrix"}}matrix{{/link}}
+<table class="table">
+  <thead>
+    <tr>
+      <th>NQF</th>
+      <th>Title</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  {{#collection measures tag="tbody"}}
+    <tr>
+      <td>{{#link "measures/{{id}}" expand-tokens=true}}{{id}}{{/link}}</td>
+      <td>{{title}}</td>
+      <td>Draft</td>
+    </tr>
+  {{/collection}}
+</table>

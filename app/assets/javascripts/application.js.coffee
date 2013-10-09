@@ -19,11 +19,9 @@
 #= require_tree ./templates
 #= require_tree ./models
 #= require_tree ./views
+#= require router
 #= require_self
 #= require_tree .
 
-Backbone.history.start()
-
-TestView = Thorax.Views['test-view']
-view = new TestView()
-#view.appendTo '.container'
+window.bonnie = new BonnieRouter()
+# We call Backbone.history.start() after all the measures are loaded, in app/views/layouts/application.html.erb

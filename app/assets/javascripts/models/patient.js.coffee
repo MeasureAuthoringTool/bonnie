@@ -1,6 +1,5 @@
-Thorax.Model.extend
-  name: 'patient'
+class Thorax.Models.Patient extends Thorax.Model
+  name: 'Patient'
 
-Thorax.Collection.extend
-  name: 'patients'
-  model: Thorax.Models['patient']
+class Thorax.Collections.Patients extends Thorax.Collection
+  model: Thorax.Models.Patient
