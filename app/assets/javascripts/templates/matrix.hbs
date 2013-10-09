@@ -1,16 +1,21 @@
+{{#link "measures" class="btn btn-primary"}}Measures Listing{{/link}}
 <table class="table table-condensed table-bordered">
   <tr>
     <th></th>
-    {{#each measures}}
-      <th>{{id}}</th>
+    {{#each measureIds}}
+      <th>{{this}}</th>
     {{/each}}
   </tr>
-  {{#each patients}}
+  {{#collection patients tag="tbody"}}
     <tr>
       <td>{{last}}, {{first}}</td>
       {{#each results}}
         <td>{{this}}</td>
+      {{else}}
+        {{#each ../../measureIds}}
+          <td></td>
+        {{/each}}
       {{/each}}
     </tr>
-  {{/each}}
+  {{/collection}}
 </table>
