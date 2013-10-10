@@ -10,9 +10,9 @@
 <p><strong>Expired: </strong>{{#if expired}}Y{{else}}N{{/if}}</p>
 <p><strong>Birthdate: </strong>{{birthdate}}</p>
 <p><strong>Measure (HQMF): </strong>{{measure_id}}</p>
-<p><strong>Measures (NQF): </strong><ul>{{#each measure_ids}}<li>{{this}}</li>{{/each}}</ul></p>
+<p><strong>Measures (NQF): </strong><ul>{{#each measure_ids}}<li>{{#link "measures/{{this}}" expand-tokens=true}}{{this}}{{/link}}</li>{{/each}}</ul></p>
 <p><strong>Clinical Attributes: </strong><ul>{{#each source_data_criteria}}<li>{{this.id}}</li>{{/each}}</ul></p>
 </br>
-{{#link "measures/{{measure_id}}" expand-tokens=true}}View associated measure...{{/link}}
+{{#link "measures/{{measure_id}}" expand-tokens=true class="btn btn-primary"}}View associated measure...{{/link}}
 <hr>
 {{#link "patients"}}back to patients listing{{/link}}
