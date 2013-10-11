@@ -388,6 +388,6 @@ hqmfjs.OccurrenceAAcuteTonsillitis2_precondition_36 = function(patient, initialS
     };
 
     window.Fixtures || (window.Fixtures = {});
-    window.Fixtures.Measures || (window.Fixtures.Measures = {});
-    window.Fixtures.Measures['0002'] = measure;
+    window.Fixtures.Measures || (window.Fixtures.Measures = new Thorax.Collections.Measures());
+    window.Fixtures.Measures.add(measure);
   })();

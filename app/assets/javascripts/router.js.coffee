@@ -4,7 +4,7 @@ class BonnieRouter extends Backbone.Router
     @mainView = new Thorax.LayoutView(el: '#bonnie')
     # This measure collection gets populated as measures are loaded via their individual JS
     # files (see app/views/measures/show.js.erb)
-    @measures = new Thorax.Collection()
+    @measures = new Thorax.Collections.Measures()
     @patients = new Thorax.Collections.Patients()
 
   routes:

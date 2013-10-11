@@ -1,7 +1,7 @@
 describe 'Measure', ->
 
   beforeEach ->
-    @measure = Fixtures.Measures['0002']
+    @measure = Fixtures.Measures.get('0002')
 
   it 'has basic attributes available', ->
     expect(@measure.id).toEqual '0002'

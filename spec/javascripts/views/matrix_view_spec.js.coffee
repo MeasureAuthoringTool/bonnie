@@ -1,8 +1,7 @@
 describe 'MatrixView', ->
 
   beforeEach ->
-    measuresCollection = new Thorax.Collection([Fixtures.Measures['0002']])
-    @matrixView = new Thorax.Views.Matrix(measures: measuresCollection, patients: Fixtures.Patients)
+    @matrixView = new Thorax.Views.Matrix(measures: Fixtures.Measures, patients: Fixtures.Patients)
     @matrixView.render()
 
   it 'renders correctly', ->
