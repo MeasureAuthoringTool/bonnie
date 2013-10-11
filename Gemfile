@@ -23,6 +23,10 @@ group :development do
   gem 'pry'
 end
 
+group :test, :development do
+  gem 'jasmine'
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
