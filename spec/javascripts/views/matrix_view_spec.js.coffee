@@ -1,16 +1,20 @@
 describe 'MatrixView', ->
 
   beforeEach ->
-    @matrixView = new Thorax.Views.Matrix(measures: Fixtures.Measures, patients: Fixtures.Patients)
+    @measures = Fixtures.Measures
+    @patients = Fixtures.Patients
+    @matrixView = new Thorax.Views.Matrix(measures: @measures, patients: @patients)
     @matrixView.render()
 
   it 'renders correctly', ->
-    expect(@matrixView.$el).toHaveText /0002/
-    expect(@matrixView.$el).toHaveText /A, GP_Peds/
+    @measures.each (m) =>
+      @patients.each (p) =>
+        expect(@matrixView.$el).toContainText m.id
+        expect(@matrixView.$el).toContainText "#{p.get('last')}, #{p.get('first')}"
 
   it 'calcuates correctly', ->
     calculation = @matrixView.calculateAsynchronously()
     waitsFor -> calculation.state() == 'resolved'
     runs ->
-      expect(@matrixView.$el).toHaveText /DEN/
-      expect(@matrixView.$el).toHaveText /NUM/
+      expect(@matrixView.$el).toContainText "DEN"
+      expect(@matrixView.$el).toContainText "NUM"
