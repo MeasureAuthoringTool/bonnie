@@ -28,6 +28,8 @@ class User
 
   has_many :measures
 
+  scope :by_username, ->(username) { where({username: username}) }
+
   ## Confirmable
   # field :confirmation_token,   :type => String
   # field :confirmed_at,         :type => Time
