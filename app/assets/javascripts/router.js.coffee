@@ -23,10 +23,10 @@ class BonnieRouter extends Backbone.Router
 
   measure: (id) ->
     if @measures.get(id) isnt undefined
-      x = @measures.get(id)
+      measure = @measures.get(id)
     else
-      x = @measures.findWhere({hqmf_id: id})
-    measureView = new Thorax.Views.Measure(model: x)
+      measure = @measures.findWhere({hqmf_id: id})
+    measureView = new Thorax.Views.Measure(model: measure)
     @mainView.setView(measureView)
 
   patients: ->
@@ -34,7 +34,7 @@ class BonnieRouter extends Backbone.Router
     @mainView.setView(patientsView)
 
   patient: (id) ->
-    patientView = new Thorax.Views.Patient(model: @patients.get(id))
+    patientView = new Thorax.Views.Patient(measures: @measures, model: @patients.get(id))
     @mainView.setView(patientView)
 
   matrix: ->

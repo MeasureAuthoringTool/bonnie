@@ -6,13 +6,19 @@
 <p><strong>Gender: </strong>{{gender}}</p>
 <p><strong>Ethnicity: </strong>{{ethnicity.name}}</p>
 <p><strong>Race: </strong>{{race.name}}</p>
-<p><strong>Payer: </strong>{{insurance_providers.type}}</p>
+<p><strong>Payer: </strong>{{payerName}}</p>
 <p><strong>Expired: </strong>{{#if expired}}Y{{else}}N{{/if}}</p>
-<p><strong>Birthdate: </strong>{{birthdate}}</p>
+<p><strong>Birthdate: </strong>{{birthDate}}</p>
 <p><strong>Measure (HQMF): </strong>{{measure_id}}</p>
-<p><strong>Measures (NQF): </strong><ul>{{#each measure_ids}}<li>{{#link "measures/{{this}}" expand-tokens=true}}{{this}}{{/link}}</li>{{/each}}</ul></p>
+<p><strong>Measures (NQF): </strong><ul>
+{{#each valid_measure_ids}}
+    {{#if this.value}}
+      <li>{{#link "measures/{{this.key}}" expand-tokens=true}}{{this.key}}{{/link}}</li>
+    {{else}}
+      <li>{{this.key}}</li>
+    {{/if}}
+{{/each}}</ul></p>
 <p><strong>Clinical Attributes: </strong><ul>{{#each source_data_criteria}}<li>{{this.id}}</li>{{/each}}</ul></p>
 </br>
-{{#link "measures/{{measure_id}}" expand-tokens=true class="btn btn-primary"}}View associated measure...{{/link}}
-<hr>
+{{#if measure_id}}{{#link "measures/{{measure_id}}" expand-tokens=true class="btn btn-primary"}}View associated measure...{{/link}}<hr>{{/if}}
 {{#link "patients"}}back to patients listing{{/link}}
