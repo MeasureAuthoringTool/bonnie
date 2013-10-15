@@ -28,6 +28,9 @@ end
 
 group :test, :development do
   gem 'jasmine'
+  gem 'turn', :require => false
+  gem 'simplecov', :require => false
+  gem 'minitest', '~> 4.0'
 end
 
 # Gems used only for assets and not required

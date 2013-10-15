@@ -59,6 +59,7 @@ GEM
     activesupport (3.2.14)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
+    ansi (1.4.3)
     arel (3.0.2)
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
@@ -114,6 +115,7 @@ GEM
     method_source (0.8.2)
     mime-types (1.25)
     mini_portile (0.5.1)
+    minitest (4.7.5)
     mongoid (3.1.5)
       activemodel (~> 3.2)
       moped (~> 1.4)
@@ -177,6 +179,10 @@ GEM
       multi_json (~> 1.0)
       rubyzip (< 1.0.0)
       websocket (~> 1.0.4)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     slop (3.4.6)
     spreadsheet (0.8.3)
       ruby-ole (>= 1.0)
@@ -196,6 +202,8 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    turn (0.9.6)
+      ansi
     tzinfo (0.3.37)
     uglifier (2.2.1)
       execjs (>= 0.3.0)
@@ -218,11 +226,14 @@ DEPENDENCIES
   hquery-patient-api!
   jasmine
   less-rails
+  minitest (~> 4.0)
   mongoid (~> 3.1.0)
   pry
   rails (= 3.2.14)
   roo
   rubyzip (< 1.0.0)
+  simplecov
   sprockets (= 2.2.2.backport1)
   therubyracer
+  turn
   uglifier (>= 1.0.3)
