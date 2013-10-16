@@ -26,6 +26,10 @@ class User
   field :current_sign_in_ip, :type => String
   field :last_sign_in_ip,    :type => String
 
+  field :first_name,    :type => String
+  field :last_name,    :type => String
+  field :telephone,    :type => String
+
   has_many :measures
 
   scope :by_username, ->(username) { where({username: username}) }

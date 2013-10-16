@@ -1,0 +1,23 @@
+<% require 'version' %>
+
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:name=>"login_form"}) do |f| %>
+  <div class="fields">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+  <div class="fields">
+    <%= f.label :password %>
+    <%= f.password_field :password, {:onkeypress=>'return submitKeyPress(event);'} %>
+  </div>
+
+  <div class="accountError">
+    <%= devise_error_messages! %>
+  </div>
+  <div class="actions">
+    <a class="btn btn-success" href="#" onclick="submitLoginform();" ><span>Login</span></a>
+  </div>
+
+  <div class="links">
+    <%= render :partial => "devise/shared/links" %>
+  </div>
+<% end %>
