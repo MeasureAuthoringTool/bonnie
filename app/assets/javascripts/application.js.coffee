@@ -11,6 +11,7 @@
 # GO AFTER THE REQUIRES BELOW.
 #
 #= require jquery/jquery.min
+#= require bootstrap/dist/js/bootstrap.min
 #= require handlebars/handlebars
 #= require underscore/underscore-min
 #= require backbone/backbone-min
