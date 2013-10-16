@@ -1,0 +1,21 @@
+<h2>Testing: {{title}}</h2>
+<table class="table table-condensed table-bordered">
+  <tr>
+    <th>Patient Name</th>
+    <th>Population</th>
+    <th>Denominator</th>
+    <th>Numerator</th>
+    <th>Exclusions</th>
+    <th>Exceptions</th>
+  </th>
+  {{#collection results tag="tbody"}}
+    <tr>
+      <td>{{last}}, {{first}}</td>
+      <td>{{#if IPP}}X{{/if}}</td>
+      <td>{{#if DENOM}}X{{/if}}</td>
+      <td>{{#if NUMER}}X{{/if}}</td>
+      <td>{{#if DENEX}}X{{/if}}</td>
+      <td>{{#if DENEXCEP}}X{{/if}}</td>
+    </tr>
+  {{/collection}}
+</table>

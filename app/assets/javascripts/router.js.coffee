@@ -26,7 +26,7 @@ class BonnieRouter extends Backbone.Router
       measure = @measures.get(id)
     else
       measure = @measures.findWhere({hqmf_id: id})
-    measureView = new Thorax.Views.Measure(model: measure)
+    measureView = new Thorax.Views.Measure(model: measure, patients: @patients)
     @mainView.setView(measureView)
 
   patients: ->
