@@ -12,6 +12,7 @@
 #
 #= require jquery/jquery.min
 #= require bootstrap/dist/js/bootstrap.min
+#= require jquery-ui-1.10.3.custom
 #= require handlebars/handlebars
 #= require underscore/underscore-min
 #= require backbone/backbone-min

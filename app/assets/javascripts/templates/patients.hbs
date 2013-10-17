@@ -27,7 +27,7 @@
       <td>{{#if expired}}Y{{else}}N{{/if}}</td>
       <td>{{birthdate}}</td>
       <td>{{source_data_criteria.length}}</td>
-      <td>{{#link ""}}View{{/link}} | {{#link ""}}Edit{{/link}}</td>
+      <td>{{#link ""}}View{{/link}} | {{#link "patients/{{id}}/build" expand-tokens=true}}Edit{{/link}}</td>
     </tr>
   {{/collection}}
 </table>

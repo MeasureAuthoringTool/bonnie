@@ -8,12 +8,13 @@ class BonnieRouter extends Backbone.Router
     @patients = new Thorax.Collections.Patients()
 
   routes:
-    '':                'measures'
-    'measures':        'measures'
-    'measures/matrix': 'matrix'
-    'measures/:id':    'measure'
-    'patients':        'patients'
-    'patients/:id':    'patient'
+    '':                   'measures'
+    'measures':           'measures'
+    'measures/matrix':    'matrix'
+    'measures/:id':       'measure'
+    'patients':           'patients'
+    'patients/:id':       'patient'
+    'patients/:id/build': 'patientBuilder'
     
 
   measures: ->
@@ -41,3 +42,8 @@ class BonnieRouter extends Backbone.Router
     matrixView = new Thorax.Views.Matrix(measures: @measures, patients: @patients)
     @mainView.setView(matrixView)
     matrixView.calculateAsynchronously()
+
+  patientBuilder: (id) ->
+    measure = @measures.first() # FIXME use a better method for determining measure
+    patientBuilderView = new Thorax.Views.PatientBuilder(model: @patients.get(id), measure: measure)
+    @mainView.setView patientBuilderView
