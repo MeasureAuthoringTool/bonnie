@@ -11,11 +11,11 @@
 <p><strong>Birthdate: </strong>{{birthDate}}</p>
 <p><strong>Measure (HQMF): </strong>{{measure_id}}</p>
 <p><strong>Measures (NQF): </strong><ul>
-{{#each valid_measure_ids}}
-    {{#if this.value}}
-      <li>{{#link "measures/{{this.key}}" expand-tokens=true}}{{this.key}}{{/link}}</li>
+{{#each validMeasureIds}}
+    {{#if value}}
+      <li>{{#link "measures/{{key}}" expand-tokens=true}}{{key}}{{/link}}</li>
     {{else}}
-      <li>{{this.key}}</li>
+      <li>{{key}}</li>
     {{/if}}
 {{/each}}</ul></p>
 <p><strong>Clinical Attributes: </strong><ul>{{#each source_data_criteria}}<li>{{this.id}}</li>{{/each}}</ul></p>
