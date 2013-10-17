@@ -1,5 +1,19 @@
 <h2>Testing: {{title}}</h2>
+<h3>Select Patients</h3>
+<div data-toggle="buttons-checkbox">
+  {{#collection patients}}
+    <button class="btn btn-primary">{{last}}, {{first}}</button>
+  {{/collection}}
+</div>
 <table class="table table-condensed table-bordered">
+  <tr>
+    <td>Totals:</td> 
+    <td>{{IPPTotal}}</td>
+    <td>{{DENOMTotal}}</td>
+    <td>{{NUMERTotal}}</td>
+    <td>{{DENEXTotal}}</td>
+    <td>{{DENEXCEPTotal}}</td>
+  </tr>
   <tr>
     <th>Patient Name</th>
     <th>Population</th>

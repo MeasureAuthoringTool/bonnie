@@ -1,4 +1,4 @@
-describe 'MeasuresView', ->
+describe 'MeasureView', ->
 
   beforeEach ->
     @measure = Fixtures.Measures.first()
