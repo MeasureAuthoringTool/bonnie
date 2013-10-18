@@ -95,4 +95,9 @@ class MeasuresController < ApplicationController
     redirect_to measures_path
   end
 
+  def create
+    results = Measures::MATLoader.load([params[:measure_file]], current_user.username)
+    redirect_to measures_path
+  end
+
 end

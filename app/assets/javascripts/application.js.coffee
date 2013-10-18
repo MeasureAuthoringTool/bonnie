@@ -25,5 +25,20 @@
 #= require_self
 #= require_tree .
 
+# add a log handler to push data out to the console in a template
+Handlebars.registerHelper('log', (message) -> console.log(message));
+
+# add the rails authenticity token to Backbone.sync
+Backbone.sync = _.wrap(Backbone.sync, (sync, method, model, success, error) ->
+  # only need a token for non-get requests 
+  if (method == 'create' || method == 'update' || method == 'delete')
+    # grab the token from the meta tag rails embeds
+    auth_options = {}
+    auth_options[$("meta[name='csrf-param']").attr('content')] = $("meta[name='csrf-token']").attr('content')
+    # set it as a model attribute without triggering events 
+    model.set(auth_options, {silent: true})
+  # proxy the call to the old sync method 
+  sync(method, model, success, error))
+
 window.bonnie = new BonnieRouter()
 # We call Backbone.history.start() after all the measures are loaded, in app/views/layouts/application.html.erb

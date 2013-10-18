@@ -5,7 +5,6 @@ Bonnie::Application.routes.draw do
     collection do
       get 'libraries'
       get 'matrix'
-      post 'upload'
     end
     member do
       get 'add'
