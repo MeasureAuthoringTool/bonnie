@@ -2,9 +2,6 @@ describe 'PatientView', ->
 
 	beforeEach ->
     @patients = Fixtures.Patients
-    @patients.every (patient) ->
-      unless patient.has('id')
-        patient.set('id', patient.attributes._id)
 
   it 'renders each patient\'s data correctly', ->
     @patients.every (patient) ->

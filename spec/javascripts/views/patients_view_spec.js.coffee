@@ -2,9 +2,6 @@ describe 'PatientsView', ->
 
 	beforeEach ->
     @patients = Fixtures.Patients
-    @patients.every (patient) ->
-      unless patient.has('id')
-        patient.set('id', patient.attributes._id)
     @patientsView = new Thorax.Views.Patients(patients: @patients)
     @patientsView.render()
 
