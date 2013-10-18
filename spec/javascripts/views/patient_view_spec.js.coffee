@@ -1,7 +1,7 @@
 describe 'PatientView', ->
 
 	beforeEach ->
-    @patients = Fixtures.Patients
+    @patients = new Thorax.Collections.Patients getJSONFixture('patients.json')
 
   it 'renders each patient\'s data correctly', ->
     @patients.every (patient) ->

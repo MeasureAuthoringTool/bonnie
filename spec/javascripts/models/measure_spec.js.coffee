@@ -8,7 +8,8 @@ describe 'Measure', ->
     expect(@measure.get('title')).toEqual 'Appropriate Testing for Children with Pharyngitis'
 
   it 'can calulate results for a patient', ->
-    patient = Fixtures.Patients.findWhere(first: 'GP_Peds', last: 'A')
+    collection = new Thorax.Collections.Patients getJSONFixture('patients.json')
+    patient = collection.findWhere(first: 'GP_Peds', last: 'A')
     results = @measure.calculate(patient)
     expect(results.DENEX).toEqual 0
     expect(results.DENEXCEP).toEqual 0

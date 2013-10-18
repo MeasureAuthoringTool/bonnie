@@ -2,7 +2,7 @@ describe 'MatrixView', ->
 
   beforeEach ->
     @measures = Fixtures.Measures
-    @patients = Fixtures.Patients
+    @patients = new Thorax.Collections.Patients getJSONFixture('patients.json')
     @matrixView = new Thorax.Views.Matrix(measures: @measures, patients: @patients)
     @matrixView.render()
 

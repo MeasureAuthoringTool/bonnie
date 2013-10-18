@@ -1,10 +1,4 @@
-// This fixture was created by taking the patients JS generated as
-// part of app/views/layouts/application.html.erb, copying it into
-// this file, and tweaking the code to place the patients in the
-// fixture instead of the bonnie router
-
-window.Fixtures || (window.Fixtures = {});
-window.Fixtures.Patients = new Thorax.Collections.Patients([{
+[{
   "_id": "5203afe2f7305cbf316eb5a7",
   "birthdate": 48600,
   "clinicalTrialParticipant": null,
@@ -11382,4 +11376,4 @@ window.Fixtures.Patients = new Thorax.Collections.Patients([{
   "test_id": null,
   "title": null,
   "type": "ep"
-}]);
+}]

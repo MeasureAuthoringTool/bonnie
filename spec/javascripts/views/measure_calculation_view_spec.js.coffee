@@ -2,7 +2,7 @@ describe 'MeasureCalculationView', ->
 
   beforeEach ->
     @measure = Fixtures.Measures.first()
-    @patients = Fixtures.Patients
+    @patients = new Thorax.Collections.Patients getJSONFixture('patients.json')
     @measureCalculationView = new Thorax.Views.MeasureCalculation(model: @measure, patients: @patients)
     @measureCalculationView.render()
 
