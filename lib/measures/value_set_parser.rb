@@ -17,6 +17,7 @@ module HQMF
       DESCRIPTION_INDEX = 8
  
       DEFAULT_SHEET = 1
+      SUPPLEMENTAL_SHEET = 2
 
       CODE_SYSTEM_NORMALIZER = {
         'ICD-9'=>'ICD-9-CM',
@@ -27,10 +28,9 @@ module HQMF
   
       # import an excel matrix array into mongo
       def parse(file)
-        @child_oids = Set.new
-        @parent_oids = Set.new
         @value_set_models = {}
-        extract_value_sets(file)
+        extract_value_sets(file, DEFAULT_SHEET)
+        extract_value_sets(file, SUPPLEMENTAL_SHEET)
         @value_set_models.values
       end
 
@@ -76,10 +76,13 @@ module HQMF
       end
   
       # pull all the value sets and fill out the parents
-      def extract_value_sets(file_path)
+      def extract_value_sets(file_path, sheet_index)
+
+        @child_oids = Set.new
+        @parent_oids = Set.new
 
         book = HQMF::ValueSet::Parser.book_by_format(file_path)
-        book.default_sheet=book.sheets[DEFAULT_SHEET]
+        book.default_sheet=book.sheets[sheet_index]
 
         (2..book.last_row).each do |row_index|
           extract_row(book.row(row_index))
