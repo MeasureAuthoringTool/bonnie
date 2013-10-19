@@ -23,8 +23,14 @@
         <input type="text" class="form-control" id="last" placeholder="Last name" value="{{last}}">
       </div>
     </div>
-    {{#collection source_data_criteria class="droppable well"}}
-      {{title}}, {{type}}
+    {{#collection source_data_criteria class="droppable well" item-view=encounterInspectionView}}
+      <div class="source-data-criteria">
+        <div class="pull-right">
+          {{#button "removeEncounter" class="close"}}&times;{{/button}}
+        </div>
+        <strong>{{definition}}, {{status}}</strong>:
+        <a class="inspect-encounter btn" data-html="true">{{title}}</a>
+      </div>
     {{/collection}}
   </form>
 </div>

@@ -1,6 +1,6 @@
 class Thorax.Models.Patient extends Thorax.Model
   initialize: ->
-    @set 'source_data_criteria', new Thorax.Collection()
+    @set 'source_data_criteria', new Thorax.Collection([], model: Thorax.Models.SourceDataCriteria)
 
   getBirthDate: -> new Date(@attributes.birthdate)
 
