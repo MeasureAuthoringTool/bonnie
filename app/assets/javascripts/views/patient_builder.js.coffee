@@ -27,6 +27,7 @@ class Thorax.Views.EncounterInspector extends Thorax.View
 class Thorax.Views.PatientBuilder extends Thorax.View
   template: JST['patient_builder/form']
   encounterInspectionView: Thorax.Views.EncounterInspector
+  dataCriteriaCategories: -> @measure.get('source_data_criteria').categories
   events:
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone'

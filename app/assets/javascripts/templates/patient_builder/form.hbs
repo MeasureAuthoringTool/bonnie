@@ -1,7 +1,9 @@
+{{log "Look at me!"}}
+
 <div class="row">
   <div class="col-xs-3">
     Measure details: {{measure.id}}
-    {{#each measure.dataCriteria.categories}}
+    {{#each dataCriteriaCategories}}
       <p>
         <b>{{@key}}</b><br>
         {{#collection this}}
@@ -28,7 +30,7 @@
         <div class="pull-right">
           {{#button "removeEncounter" class="close"}}&times;{{/button}}
         </div>
-        <strong>{{definition}}, {{status}}</strong>:
+        <label>{{definition}}{{#if status}}, {{status}}{{/if}}</label>
         <a class="inspect-encounter btn" data-html="true">{{title}}</a>
       </div>
     {{/collection}}
