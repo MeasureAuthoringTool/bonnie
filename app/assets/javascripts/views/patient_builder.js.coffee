@@ -27,7 +27,13 @@ class Thorax.Views.EncounterInspector extends Thorax.View
 class Thorax.Views.PatientBuilder extends Thorax.View
   template: JST['patient_builder/form']
   encounterInspectionView: Thorax.Views.EncounterInspector
-  dataCriteriaCategories: -> @measure.get('source_data_criteria').categories
+  dataCriteriaCategories: ->
+    categories = {}
+    @measure.get('source_data_criteria').each (criteria) ->
+      categories[criteria.get('type')] ||= new Thorax.Collection
+      categories[criteria.get('type')].add criteria unless categories[criteria.get('type')].any (c) -> c.get('title') == criteria.get('title')
+    categories
+  
   events:
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone'
@@ -36,5 +42,5 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       @$('.droppable').on 'drop', _.bind(@drop, this)
 
   drop: (e, ui) ->
-    dataCriteria = $(ui.draggable).model()
-    @model.get('source_data_criteria').add dataCriteria.toJSON()
+    measureDataCriteria = $(ui.draggable).model()
+    @model.get('source_data_criteria').add measureDataCriteria.toPatientDataCriteria()

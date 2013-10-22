@@ -24,7 +24,7 @@
   <% end %>
   <% if @patient || @patients %>
     <script>
-      bonnie.patients.add(<%= (@patients || Array(@patient)).to_json(except: :results).html_safe %>);
+      bonnie.patients.add(<%= (@patients || Array(@patient)).to_json(except: :results).html_safe %>, { parse: true });
     </script>
   <% end %>
   <script>

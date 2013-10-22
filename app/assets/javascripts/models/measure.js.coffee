@@ -7,8 +7,5 @@ class Thorax.Collections.Measures extends Thorax.Collection
 
 class Thorax.Models.Measure extends Thorax.Model
   parse: (attrs) ->
-    sourceDataCriteria = new Thorax.Collections.DataCriteria
-    for key, criteria of attrs.source_data_criteria
-      sourceDataCriteria.add criteria
-    attrs.source_data_criteria = sourceDataCriteria
+    attrs.source_data_criteria = new Thorax.Collections.MeasureDataCriteria _(attrs.source_data_criteria).values()
     attrs

@@ -1,6 +1,12 @@
 class Thorax.Models.Patient extends Thorax.Model
   initialize: ->
-    @set 'source_data_criteria', new Thorax.Collection([], model: Thorax.Models.SourceDataCriteria)
+    # FIXME: Temporary, don't check in!
+    @set 'id', @get('_id')
+
+  parse: (attrs) ->
+    dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
+    attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria)
+    attrs
 
   getBirthDate: -> new Date(@attributes.birthdate)
 
@@ -14,4 +20,5 @@ class Thorax.Models.Patient extends Thorax.Model
 
 
 class Thorax.Collections.Patients extends Thorax.Collection
+  url: '/patients'
   model: Thorax.Models.Patient
