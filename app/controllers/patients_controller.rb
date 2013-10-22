@@ -36,6 +36,50 @@ class PatientsController < ApplicationController
   def edit
   end
 
+  def update
+debugger
+    # FIXME: Partial clone from update_patient below, consolidate...
+    patient = Record.where({'_id' => params['_id']}).first # FIXME: will we have an ID attribute on server side?
+
+    # patient['birthdate'] = Time.parse(params['birthdate']).to_i
+
+    ['first', 'last', 'gender', 'expired', 'birthdate', 'description', 'description_category'].each {|param| patient[param] = params[param]}
+    patient['ethnicity'] = {'code' => params['ethnicity'], 'name'=>ETHNICITY_NAME_MAP[params['ethnicity']], 'codeSystem' => 'CDC Race'}
+    patient['race'] = {'code' => params['race'], 'name'=>RACE_NAME_MAP[params['race']], 'codeSystem' => 'CDC Race'}
+
+    measure_period = {'id' => 'MeasurePeriod', 'start_date' => params['measure_period_start'].to_i, 'end_date' => params['measure_period_end'].to_i}
+    patient['source_data_criteria'] = params['source_data_criteria'] + [measure_period]
+    patient['measure_period_start'] = measure_period['start_date']
+    patient['measure_period_end'] = measure_period['end_date']
+
+    insurance_types = {
+      'MA' => 'Medicare',
+      'MC' => 'Medicaid',
+      'OT' => 'Other'
+    }
+
+    insurance_codes = {
+      'MA' => '1',
+      'MC' => '2',
+      'OT' => '349'
+    }
+
+    insurance_provider = InsuranceProvider.new
+    insurance_provider.type = params['payer']
+    insurance_provider.member_id = '1234567890'
+    insurance_provider.name = insurance_types[params['payer']]
+    insurance_provider.financial_responsibility_type = {'code' => 'SELF', 'codeSystem' => 'HL7 Relationship Code'}
+    insurance_provider.start_time = Time.new(2008,1,1).to_i
+    insurance_provider.payer = Organization.new
+    insurance_provider.payer.name = insurance_provider.name
+    insurance_provider.codes["SOP"] = [insurance_codes[params['payer']]]
+    patient.insurance_providers = [insurance_provider]
+
+    Measures::PatientBuilder.rebuild_patient(patient)
+    render :json => patient
+
+  end
+
   def save
     patient = update_patient
     patient.save!

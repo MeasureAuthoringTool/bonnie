@@ -24,8 +24,9 @@
   <% end %>
   <% if @patient || @patients %>
     <script>
-      bonnie.patients.add(<%= (@patients || Array(@patient)).to_json(except: :results).html_safe %>);
+      bonnie.patients.add(<%= (@patients || Array(@patient)).to_json(except: :results).html_safe %>, { parse: true });
       bonnie.sections = <%= Record::Sections.to_json().html_safe %>;
+      # FIXME: re-consider approach to next line
       bonnie.template_id_map = <%= JSON.parse(File.read(File.expand_path('../../../../lib/assets/hqmf_template_oid_map.json', __FILE__))).to_json().html_safe %> 
     </script>
   <% end %>
