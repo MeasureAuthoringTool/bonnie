@@ -1,19 +1,18 @@
 require 'test_helper'
 
-class PatientsTest < ActiveSupport::TestCase
+class PatientGeneratorTest < ActiveSupport::TestCase
 
   setup do
-    # @measure_path = File.join("test", "fixtures", "measures", "1234.json")
-    # @measure_json = JSON.parse(File.open(@measure_path).read, max_nesting: 500)
-    # @measures = [HQMF::Generator.parse_measure(@measure_json)] 
+
   end
 
-  test "Saving Materialized Patients to DB" do
-    patient = HQMF::Generator.create_base_patient(Record.first.attributes.except('_id'))
-    assert_nil patient.first
-    assert_nil patient.birthdate
-    refute_nil patient.save!
-  end
+  # test "Saving Materialized Patients to DB" do
+  #   assert_equal 0, Record.count
+  #   patient = HQMF::Generator.create_base_patient
+  #   assert_nil patient.first
+  #   assert_nil patient.birthdate
+  #   refute_nil patient.save!
+  # end
 
   # test "Generator Generate QRDA Patients" do
   #   measure_patients = HQMF::Generator.generate_qrda_patients(HQMF::Generator.determine_measure_needs(@measures))

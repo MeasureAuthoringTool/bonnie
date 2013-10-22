@@ -52,7 +52,7 @@ class Measure
 
   belongs_to :user
   embeds_many :publishings
-  has_many :records
+  has_and_belongs_to_many :records, :inverse_of => nil
 
   scope :by_measure_id, ->(id) { where({'measure_id'=>id }) }
   scope :by_user, ->(user) { where({'user_id'=>user.id}) }

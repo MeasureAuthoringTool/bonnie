@@ -37,16 +37,67 @@ class PatientsController < ApplicationController
   end
 
   def save
+    patient = update_patient
+    patient.save!
 
-    #@measure = current_user.measures.where('_id' => params[:id]).exists? ? current_user.measures.find(params[:id]) : current_user.measures.where('measure_id' => params[:id]).first
-    # Using just a random Measure entry until users are associated with measures...
+    if @measure.records.include? patient
+      render :json => patient.save!
+    else
+      @measure.records.push(patient)
+      render :json => @measure.save!
+    end
+  end
+
+  def materialize
+    patient = update_patient
+    render :json => patient
+  end
+
+  def download
+  end
+
+  def destroy
+  end
+
+  def validate_authorization!
+  end
+
+  def new
+    @patient = HQMF::Generator.create_base_patient
+  end
+
+  def create_test
+    @patient = HQMF::Generator.create_base_patient
+
     @measure = Measure.skip(rand(Measure.count)).first
+    @patient.measure_id = @measure.hqmf_id
+    if @patient.measure_ids.nil?
+      @patient.measure_ids = []
+    end
+    @patient.measure_ids << @measure.measure_id
+
+    if @patient.save!
+      flash[:success] = "Test patient [ " + @patient.id.to_s() + " : " + @patient.last.to_s() + ", " + @patient.first.to_s() + " ] was created and saved!"
+    else
+      flash[:error] = "Failed to save test patient!"
+    end
+    redirect_to patients_path
+  end
+
+
+
+private 
+
+
+  def update_patient
+     @measure = current_user.measures.where('_id' => params[:id]).exists? ? current_user.measures.find(params[:id]) : current_user.measures.where('measure_id' => params[:id]).first
+    # Using just a random Measure entry until users are associated with measures...
+    # @measure = Measure.skip(rand(Measure.count)).first
 
     patient = Record.where({'_id' => params['record_id']}).first || HQMF::Generator.create_base_patient(params.select{|k| ['first', 'last', 'gender', 'expired', 'birthdate'].include? k })
 
     if (params['clone'])
-      patient = Record.new(patient.attributes.except('_id'));
-      patient.save!
+      patient = patient.dup
     end
 
     patient['measure_ids'] ||= []
@@ -87,45 +138,6 @@ class PatientsController < ApplicationController
     patient.insurance_providers = [insurance_provider]
 
     Measures::PatientBuilder.rebuild_patient(patient)
-
-    if @measure.records.include? patient
-      render :json => patient.save!
-    else
-      @measure.records.push(patient)
-      render :json => @measure.save!
-    end
-    
+    patient
   end
-
-  def download
-  end
-
-  def destroy
-  end
-
-  def validate_authorization!
-  end
-
-  def new
-    @patient = HQMF::Generator.create_base_patient
-  end
-
-  def create_test
-    @patient = HQMF::Generator.create_base_patient
-
-    @measure = Measure.skip(rand(Measure.count)).first
-    @patient.measure_id = @measure.hqmf_id
-    if @patient.measure_ids.nil?
-      @patient.measure_ids = []
-    end
-    @patient.measure_ids << @measure.measure_id
-
-    if @patient.save!
-      flash[:success] = "Test patient [ " + @patient.id.to_s() + " : " + @patient.last.to_s() + ", " + @patient.first.to_s() + " ] was created and saved!"
-    else
-      flash[:error] = "Failed to save test patient!"
-    end
-    redirect_to patients_path
-  end
-
 end
