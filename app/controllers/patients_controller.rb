@@ -76,6 +76,7 @@ debugger
     patient.insurance_providers = [insurance_provider]
 
     Measures::PatientBuilder.rebuild_patient(patient)
+    patient.save!
     render :json => patient
 
   end
