@@ -2,9 +2,7 @@ module Measures
   # Utility class for building test patients
   class PatientBuilder
     JAN_ONE_THREE_THOUSAND=32503698000000
-    
-
-
+  
 
     def self.rebuild_patient(patient)
 
@@ -25,9 +23,7 @@ module Measures
             filtered.concepts.reject! {|c| c.black_list || !c.white_list}
             filtered['concepts'] = filtered.concepts
             preferred_set = filtered unless filtered.concepts.empty?
-
             preferred_set ||= value_set
-
             [value_set.oid, preferred_set]
           end
         }.map(&:to_a).flatten

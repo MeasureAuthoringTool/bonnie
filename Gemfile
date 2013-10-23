@@ -27,6 +27,7 @@ group :development do
 end
 
 group :test, :development do
+  gem 'pry'
   gem 'jasmine'
   gem 'turn', :require => false
   gem 'simplecov', :require => false
