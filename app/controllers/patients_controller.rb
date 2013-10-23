@@ -41,7 +41,6 @@ class PatientsController < ApplicationController
     update_patient(patient)
     patient.save!
     render :json => patient
-
   end
 
   def create
