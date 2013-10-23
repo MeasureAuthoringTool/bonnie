@@ -37,62 +37,21 @@ class PatientsController < ApplicationController
   end
 
   def update
-debugger
-    # FIXME: Partial clone from update_patient below, consolidate...
-    patient = Record.where({'_id' => params['_id']}).first # FIXME: will we have an ID attribute on server side?
-
-    # patient['birthdate'] = Time.parse(params['birthdate']).to_i
-
-    ['first', 'last', 'gender', 'expired', 'birthdate', 'description', 'description_category'].each {|param| patient[param] = params[param]}
-    patient['ethnicity'] = {'code' => params['ethnicity'], 'name'=>ETHNICITY_NAME_MAP[params['ethnicity']], 'codeSystem' => 'CDC Race'}
-    patient['race'] = {'code' => params['race'], 'name'=>RACE_NAME_MAP[params['race']], 'codeSystem' => 'CDC Race'}
-
-    measure_period = {'id' => 'MeasurePeriod', 'start_date' => params['measure_period_start'].to_i, 'end_date' => params['measure_period_end'].to_i}
-    patient['source_data_criteria'] = params['source_data_criteria'] + [measure_period]
-    patient['measure_period_start'] = measure_period['start_date']
-    patient['measure_period_end'] = measure_period['end_date']
-
-    insurance_types = {
-      'MA' => 'Medicare',
-      'MC' => 'Medicaid',
-      'OT' => 'Other'
-    }
-
-    insurance_codes = {
-      'MA' => '1',
-      'MC' => '2',
-      'OT' => '349'
-    }
-
-    insurance_provider = InsuranceProvider.new
-    insurance_provider.type = params['payer']
-    insurance_provider.member_id = '1234567890'
-    insurance_provider.name = insurance_types[params['payer']]
-    insurance_provider.financial_responsibility_type = {'code' => 'SELF', 'codeSystem' => 'HL7 Relationship Code'}
-    insurance_provider.start_time = Time.new(2008,1,1).to_i
-    insurance_provider.payer = Organization.new
-    insurance_provider.payer.name = insurance_provider.name
-    insurance_provider.codes["SOP"] = [insurance_codes[params['payer']]]
-    patient.insurance_providers = [insurance_provider]
-
-    Measures::PatientBuilder.rebuild_patient(patient)
+    patient = Record.find(params[:id]) # FIXME: will we have an ID attribute on server side?
+    update_patient(patient)
     patient.save!
     render :json => patient
-
   end
 
-  def save
-    patient = update_patient
+  def create
+    patient = update_patient(Record.new)
     patient.save!
-
-    if !@measure.records.include? patient
-      @measure.records.push(patient)
-    end
     render :json => patient
   end
 
   def materialize
-    patient = update_patient
+    patient = Record.where({'_id' => params['record_id']}).first || Record.new
+    patient = update_patient(patient)
     render :json => patient
   end
 
@@ -132,28 +91,28 @@ debugger
 private 
 
 
-  def update_patient
-     @measure = current_user.measures.where('_id' => params[:id]).exists? ? current_user.measures.find(params[:id]) : current_user.measures.where('measure_id' => params[:id]).first
-    # Using just a random Measure entry until users are associated with measures...
-    # @measure = Measure.skip(rand(Measure.count)).first
+  def update_patient(patient)
+    #  @measure = current_user.measures.where('_id' => params[:id]).exists? ? current_user.measures.find(params[:id]) : current_user.measures.where('measure_id' => params[:id]).first
+    # # Using just a random Measure entry until users are associated with measures...
+    # # @measure = Measure.skip(rand(Measure.count)).first
 
-    patient = Record.where({'_id' => params['record_id']}).first || HQMF::Generator.create_base_patient(params.select{|k| ['first', 'last', 'gender', 'expired', 'birthdate'].include? k })
+    # patient = Record.where({'_id' => params['record_id']}).first || HQMF::Generator.create_base_patient(params.select{|k| ['first', 'last', 'gender', 'expired', 'birthdate'].include? k })
 
-    if (params['clone'])
-      patient = patient.dup
-    end
+    # if (params['clone'])
+    #   patient = patient.dup
+    # end
 
     patient['measure_ids'] ||= []
-    patient['measure_ids'] = Array.new(patient['measure_ids']).push(@measure['measure_id']) unless patient['measure_ids'].include? @measure['measure_id']
+    patient['measure_ids'] << params['measure_id'] unless patient['measure_ids'].include? params['measure_id']
 
-    patient['birthdate'] = Time.parse(params['birthdate']).to_i
+    # patient['birthdate'] = Time.parse(params['birthdate']).to_i
 
     ['first', 'last', 'gender', 'expired', 'birthdate', 'description', 'description_category'].each {|param| patient[param] = params[param]}
     patient['ethnicity'] = {'code' => params['ethnicity'], 'name'=>ETHNICITY_NAME_MAP[params['ethnicity']], 'codeSystem' => 'CDC Race'}
     patient['race'] = {'code' => params['race'], 'name'=>RACE_NAME_MAP[params['race']], 'codeSystem' => 'CDC Race'}
 
     measure_period = {'id' => 'MeasurePeriod', 'start_date' => params['measure_period_start'].to_i, 'end_date' => params['measure_period_end'].to_i}
-    patient['source_data_criteria'] = JSON.parse(params['data_criteria']) + [measure_period]
+    patient['source_data_criteria'] = params['source_data_criteria'] + [measure_period]
     patient['measure_period_start'] = measure_period['start_date']
     patient['measure_period_end'] = measure_period['end_date']
 
