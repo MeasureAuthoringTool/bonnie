@@ -17,16 +17,15 @@
 #= require underscore/underscore-min
 #= require backbone/backbone-min
 #= require thorax/thorax.min
+#= require moment/min/moment.min.js
 #
+#= require helpers
 #= require_tree ./templates
 #= require_tree ./models
 #= require_tree ./views
 #= require router
 #= require_self
 #= require_tree .
-
-# add a log handler to push data out to the console in a template
-Handlebars.registerHelper('log', (message) -> console.log(message));
 
 # add the rails authenticity token to Backbone.sync
 Backbone.sync = _.wrap(Backbone.sync, (sync, method, model, success, error) ->
