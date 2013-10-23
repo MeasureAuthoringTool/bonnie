@@ -37,7 +37,6 @@ class PatientsController < ApplicationController
   end
 
   def update
-    # FIXME: Partial clone from update_patient below, consolidate...
     patient = Record.find(params[:id]) # FIXME: will we have an ID attribute on server side?
     update_patient(patient)
     patient.save!

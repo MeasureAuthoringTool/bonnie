@@ -2,9 +2,11 @@
 <h3>Select Patients</h3>
 <div data-toggle="buttons-checkbox">
   {{#collection patients}}
-    <button class="btn btn-primary">{{last}}, {{first}}</button>
+    <button class="btn btn-primary toggle-patient">{{last}}, {{first}}</button>
   {{/collection}}
 </div>
+<button class="btn btn-primary select-all">Select All</button>
+<button class="btn btn-primary select-none">Select None</button>
 <table class="table table-condensed table-bordered">
   <tr>
     <td>Totals:</td> 
@@ -24,7 +26,7 @@
   </th>
   {{#collection results tag="tbody"}}
     <tr>
-      <td>{{last}}, {{first}}</td>
+      <td>{{#link "patients/{{patient_id}}" expand-tokens=true}}{{last}}, {{first}}{{/link}}</td>
       <td>{{#if IPP}}X{{/if}}</td>
       <td>{{#if DENOM}}X{{/if}}</td>
       <td>{{#if NUMER}}X{{/if}}</td>
