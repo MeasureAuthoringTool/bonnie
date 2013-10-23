@@ -16,6 +16,8 @@ Bonnie::Application.routes.draw do
   resources :patients do
     collection do 
       get 'create_test'
+      post 'materialize'
+      post 'save'
     end
   end
   resources :records
