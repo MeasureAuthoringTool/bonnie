@@ -24,7 +24,6 @@ gem 'roo'
 
 group :development do
   gem 'pry'
-  gem 'debugger'
 end
 
 group :test, :development do
