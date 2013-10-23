@@ -1,32 +1,10 @@
-class Thorax.Views.EncounterInspector extends Thorax.View
-  templates:
-    popover: JST['patient_builder/inspector']
-    newValue: JST['patient_builder/new_value']
-    newFieldValue: JST['patient_builder/new_field_value']
-  events:
-    'click .popover-content .all-details.close': -> @$('.inspect-encounter').popover 'hide'
-    'click .popover-content .value.close': (e) -> $(e.target).closest('.form-group').remove()
-    rendered: ->
-      @$('.inspect-encounter').popover
-        content: @templates.popover(@model)
-
-  newValue: (e) ->
-    e.preventDefault()
-    $(e.target).before(@templates.newValue())
-
-  newFieldValue: (e) ->
-    e.preventDefault()
-    $(e.target).before(@templates.newFieldValue())
-
-  removeEncounter: (e) -> @model.destroy()
-
-
-
-
-
 class Thorax.Views.PatientBuilder extends Thorax.View
-  template: JST['patient_builder/form']
-  encounterInspectionView: Thorax.Views.EncounterInspector
+
+  template: JST['patient_builder']
+
+  initialize: ->
+    @criteriaViewClass = Thorax.Views.CriteriaView
+
   dataCriteriaCategories: ->
     categories = {}
     @measure.get('source_data_criteria').each (criteria) ->
@@ -35,6 +13,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     categories
   
   events:
+    'submit form': 'save'
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone'
       @$('.droppable').droppable accept: '.ui-draggable'
@@ -44,3 +23,38 @@ class Thorax.Views.PatientBuilder extends Thorax.View
   drop: (e, ui) ->
     measureDataCriteria = $(ui.draggable).model()
     @model.get('source_data_criteria').add measureDataCriteria.toPatientDataCriteria()
+
+  save: (e) ->
+    e.preventDefault()
+    @serialize e, (attributes, release) ->
+      console.log attributes
+      release()
+
+
+class Thorax.Views.CriteriaView extends Thorax.View
+
+  # FIXME: This use of setModel and context is hackish and roundabout;
+  # Thorax auto-populates the form with the model data, which isn't
+  # helpful when you want populate to use the context to set the form data
+
+  setModel: ->
+    super arguments..., populate: { context: true }
+
+  context: ->
+    _(super).extend
+      start_date: moment(@model.get('start_date')).format('L')
+      end_date: moment(@model.get('end_date')).format('L')
+
+  toggleDetails: (e) ->
+    @$('.details').toggle()
+
+  removeEncounter: (e) -> @model.destroy()
+
+  newValue: (e) ->
+    e.preventDefault()
+    $(e.target).before(@templates.newValue())
+
+  newFieldValue: (e) ->
+    e.preventDefault()
+    $(e.target).before(@templates.newFieldValue())
+
