@@ -58,8 +58,8 @@ module Measures
           data_criteria.negation = true
           data_criteria.negation_code_list_id = v['negation_code_list_id']
         end
-        low = {'value' => Time.at(v['start_date'] / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' }
-        high = {'value' => Time.at(v['end_date'] / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' }
+        low = {'value' => Time.at(v['start_date'].to_i / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' }
+        high = {'value' => Time.at(v['end_date'].to_i / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' }
         high = nil if v['end_date'] == JAN_ONE_THREE_THOUSAND
 
         data_criteria.modify_patient(patient, HQMF::Range.from_json({'low' => low,'high' => high}), values.values)
