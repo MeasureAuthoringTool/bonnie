@@ -84,12 +84,10 @@ debugger
     patient = update_patient
     patient.save!
 
-    if @measure.records.include? patient
-      render :json => patient.save!
-    else
+    if !@measure.records.include? patient
       @measure.records.push(patient)
-      render :json => @measure.save!
     end
+    render :json => patient
   end
 
   def materialize
