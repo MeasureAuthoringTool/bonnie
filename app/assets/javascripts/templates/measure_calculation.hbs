@@ -1,12 +1,12 @@
 <h2>Testing: {{title}}</h2>
 {{#link "patients//build" class="btn btn-primary" expand-tokens=true}}Add Patient{{/link}}
 {{#link "measures/{{hqmf_id}}/calculate" class="btn btn-primary" expand-tokens=true disabled="false"}}View Results{{/link}}
-{{#link "measures/{{hqmf_id}}" class="btn btn-default" expand-tokens=true id="selectAllTrigger"}}Select All{{/link}}
-{{#link "measures/{{hqmf_id}}" class="btn btn-default" expand-tokens=true id="deselectAllTrigger"}}Deselect All{{/link}}
+<button class="btn btn-primary select-all">Select All</button>
+<button class="btn btn-primary select-none">Select None</button>
 <h3>Select Patients</h3>
 <div data-toggle="buttons-checkbox">
   {{#collection patients}}
-    <button class="btn btn-primary" id="pButton">{{last}}, {{first}}</button>
+    <button class="btn btn-primary toggle-patient">{{last}}, {{first}}</button>
   {{/collection}}
 </div>
 <table class="table table-condensed table-bordered">
@@ -28,7 +28,7 @@
   </th>
   {{#collection results tag="tbody"}}
     <tr>
-      <td>{{last}}, {{first}}</td>
+      <td>{{#link "patients/{{patient_id}}" expand-tokens=true}}{{last}}, {{first}}{{/link}}</td>
       <td>{{#if IPP}}X{{/if}}</td>
       <td>{{#if DENOM}}X{{/if}}</td>
       <td>{{#if NUMER}}X{{/if}}</td>
