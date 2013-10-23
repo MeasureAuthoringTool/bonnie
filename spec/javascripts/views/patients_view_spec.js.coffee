@@ -15,7 +15,7 @@ describe 'PatientsView', ->
   
   it 'renders all patient entries correctly', ->
     innerView = @patientsView.$el
-    @patients.every (patient) ->
+    @patients.each (patient) ->
       expect(innerView).toHaveText new RegExp(patient.id)
       expect($('a[href="#patients/' + patient.id + '"]')).toExist
       expect(innerView).toHaveText new RegExp(patient.attributes.first)

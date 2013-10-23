@@ -1,0 +1,10 @@
+<h1 class="h1center">Cypress Certification Patient Test Record: {{first}} {{last}}</h1>
+<div class="pHtml">
+  {{view headerView}}
+  {{!FIXME: if measures.size > 0, render entries by encounter here!}}
+  {{#each sectionViews}}
+    {{view this}}
+  {{/each}}
+</div>
+<br/><br/>
+{{#link "patients" class="btn btn-primary"}}<i class="glyphicon glyphicon-circle-arrow-left"></i> back to patients listing{{/link}}

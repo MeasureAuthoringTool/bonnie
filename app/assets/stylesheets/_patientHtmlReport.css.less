@@ -1,0 +1,96 @@
+/*
+ * - Custom, migrate CSS-styling for Patient HTML Report view
+ * - Generic HTML elements were overriden with a pHtml class, 
+ *     and table elements were nested and explicitly composed;
+ * - This stylesheet could use some LESS upgrading...
+ */
+a.pHtml {
+  color: #003366;
+  background-color: #FFFFFF;
+  font-family: Verdana, Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+h1.pHtml {
+  font-size: 12pt;
+  font-weight: bold;
+  color: #003366;
+  background-color: #FFFFFF;
+  font-family: Verdana, Tahoma, sans-serif;
+}
+h2.pHtml {
+  font-size: 11pt;
+  font-weight: bold;
+  color: #003366;
+  background-color: #FFFFFF;
+  font-family: Verdana, Tahoma, sans-serif;
+}
+h3.pHtml {
+  font-size: 10pt;
+  font-weight: bold;
+  color: #003366;
+  background-color: #FFFFFF;
+  font-family: Verdana, Tahoma, sans-serif;
+}
+h4.pHtml {
+  font-size: 8pt;
+  font-weight: bold;
+  color: #003366;
+  background-color: #FFFFFF;
+  font-family: Verdana, Tahoma, sans-serif;
+}
+
+div.pHtml {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table {
+  &.narr_table {
+    line-height: 10pt;
+    width: 100%;
+    color: #003366;
+    background-color: #FFFFFF;
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 11px; 
+    tr {
+      &.narr_tr {
+        background-color: #ffffcc;
+      }  
+    }
+    th {
+      &.narr_th {
+        background-color: #ffd700;
+      }
+    }
+  }
+  &.header_table {
+    border: 1pt inset #00008b;
+    line-height: 10pt;
+    width: 100%;
+    color: #003366;
+    background-color: #FFFFFF;
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 11px; 
+    tr {
+      background-color: #ccccff;
+    }
+    td {
+      padding: 0.1cm 0.2cm;
+      vertical-align: top;
+    }
+  }
+}
+
+.h1center {
+  font-size: 12pt;
+  font-weight: bold;
+  text-align: center;
+  width: 80%;
+}
+
+.td_label {
+  font-weight: bold;
+  color: white;
+}

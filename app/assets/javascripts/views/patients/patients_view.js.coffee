@@ -1,2 +1,2 @@
 class Thorax.Views.Patients extends Thorax.View
-  template: JST['patients']
+  template: JST['patients/patients']
