@@ -27,6 +27,7 @@
 
 # add a log handler to push data out to the console in a template
 Handlebars.registerHelper('log', (message) -> console.log(message));
+Handlebars.registerHelper('debug', -> debugger);
 
 # add the rails authenticity token to Backbone.sync
 Backbone.sync = _.wrap(Backbone.sync, (sync, method, model, success, error) ->

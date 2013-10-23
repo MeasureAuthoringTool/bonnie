@@ -22,7 +22,6 @@ module Measures
         measure.value_set_oids = value_set_models.map(&:oid)
       end
 
-      measure.save!
       measure
     end
 

@@ -24,7 +24,7 @@ module HQMF
         'ICD-10'=>'ICD-10-CM',
         'HL7 (2.16.840.1.113883.5.1)'=>'HL7'
       }
-      IGNORED_CODE_SYSTEM_NAMES = ['Grouping', 'GROUPING' ,'HL7', "Administrative Sex"]
+      IGNORED_CODE_SYSTEM_NAMES = ['Grouping', 'GROUPING' ,'HL7', "Administrative Sex", 'CDC']
   
       # import an excel matrix array into mongo
       def parse(file)

@@ -96,7 +96,36 @@ class MeasuresController < ApplicationController
   end
 
   def create
-    results = Measures::MATLoader.load([params[:measure_file]], current_user.username)
+    measure_details = {
+     'type'=>params[:measure_type],
+     'episode_of_care'=>params[:calculation_type] == 'episode'
+    }
+
+    measure = Measures::MATLoader.load(params[:measure_file], current_user.username, measure_details)
+
+    measure.needs_finalize = (measure_details['episode_of_care'] || measure.populations.size > 1)
+    Measures::ADEHelper.update_if_ade(measure)
+
+    measure.populations.each_with_index do |population, population_index|
+      measure.map_fns[population_index] = HQMF2JS::Generator::Execution.logic(measure, population_index, true, false)
+    end
+
+    measure.save!
+
+    redirect_to measures_path
+  end
+
+  def finalize
+    measure_finalize_data = params.values.select {|p| p['hqmf_id']}.uniq
+    measure_finalize_data.each do |data|
+      measure = Measure.where(hqmf_id: data['hqmf_id']).first
+      measure.update_attributes({needs_finalize: false, episode_ids: data['episode_ids']})
+      measure.populations.each_with_index do |population, population_index|
+        population['title'] = data['titles']["#{population_index}"]
+        measure.map_fns[population_index] = HQMF2JS::Generator::Execution.logic(measure, population_index, true, false)
+      end
+      measure.save!
+    end
     redirect_to measures_path
   end
 

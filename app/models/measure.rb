@@ -26,6 +26,8 @@ class Measure
   field :custom_functions, type: Hash # stores a custom function for a population criteria (used only in ADE_TTR for observation)
   field :force_sources, type: Array # stores a list of source data criteria to force method creation for (used only in ADE_TTR for LaboratoryTestResultInr)
 
+  field :needs_finalize, type: Boolean, default: false # if true it indicates that the measure needs to have its episodes or submeasure titles defined
+
   field :published, type: Boolean
   field :publish_date, type: Date
   field :version, type: Integer

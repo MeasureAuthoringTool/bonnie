@@ -4,13 +4,14 @@ class Thorax.Views.Measures extends Thorax.View
     collapsedCount: @measures.collapsed().length
 
   initialize: ->
-  	@importMeasureView = new Thorax.Views.ImportMeasure()
+    @importMeasureView = new Thorax.Views.ImportMeasure()
+    to_finalize = @measures.select((m) -> m.attributes['needs_finalize'])
+    @finalizeMeasuresView = new Thorax.Views.FinalizeMeasures(measures: new Thorax.Collections.Measures(to_finalize))
 
-  events: {
-   'click #importMeasureTrigger': 'importMeasure'
-  }
+  events:
+    'click #importMeasureTrigger': 'importMeasure'
 
-  importMeasure: ->
+  importMeasure: (event) ->
     @importMeasureView.display()
-    false
+    event.preventDefault()
 
