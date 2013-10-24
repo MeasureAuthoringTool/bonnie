@@ -4,16 +4,17 @@
 <table class="table">
   <thead>
     <tr>
-      <th>NQF</th>
+      <th>HQMF</th>
       <th>Title</th>
       <th>Status</th>
     </tr>
   </thead>
   {{#collection measures tag="tbody"}}
     <tr>
-      <td>{{#link "measures/{{id}}" expand-tokens=true}}{{id}}{{/link}}</td>
+      <td>{{hqmf_id}}</td>
       <td>{{title}}</td>
       <td>Draft</td>
+      <td>{{#link "measures/{{hqmf_id}}" class="btn btn-primary" expand-tokens=true}}View{{/link}} {{#link "" class="btn btn-primary" expand-tokens=true id="updateMeasureTrigger"}}Update{{/link}}</td>
     </tr>
   {{/collection}}
 </table>

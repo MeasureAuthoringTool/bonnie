@@ -22,10 +22,8 @@ class BonnieRouter extends Backbone.Router
     @mainView.setView(measuresView)
 
   measure: (id) ->
-    if @measures.get(id) isnt undefined
-      measure = @measures.get(id)
-    else
-      measure = @measures.findWhere({hqmf_id: id})
+    measure = @measures.findWhere({hqmf_id: id})
+    measure = measure or= @measures.get(id) if @measures.get(id)? if @measures.get(id)?
     measureView = new Thorax.Views.Measure(model: measure, patients: @patients)
     @mainView.setView(measureView)
 

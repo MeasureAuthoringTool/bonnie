@@ -7,12 +7,10 @@
           <% if user_signed_in? %>
             <li class="greeting">Welcome, <%= current_user.email %></li>
             <li>|</li>
-            <li><%= link_to "Home", root_path + "#measures" %></li>
-            <li><%= link_to "Patients", root_path + "#patients" %></li>
             <li><%= link_to "Measures", root_path + "#measures" %></li>
-            <li><%= link_to "Matrix", root_path + "#measures/matrix" %></li>
-            <li><%= link_to "Help", help_path %></li>
-            <li><%= button_to('Sign out', destroy_user_session_path, :method => :delete) %></li>
+            <li><%= link_to "Patients", root_path + "#patients" %></li>
+            <li><%= link_to "Account", root_path + "#account" %></li>
+            <li><%= button_to('Logout', destroy_user_session_path, :method => :delete) %></li>
           <% end %>
         </ul>
       </nav>

@@ -10,8 +10,14 @@ class Thorax.Views.Measures extends Thorax.View
 
   events:
     'click #importMeasureTrigger': 'importMeasure'
+    'click #updateMeasureTrigger': 'updateMeasure'
 
   importMeasure: (event) ->
+    @importMeasureView.$('.modal-title').text('New Measure')
     @importMeasureView.display()
     event.preventDefault()
 
+  updateMeasure: (event) ->
+    @importMeasureView.$('.modal-title').text('Reimport Measure')
+    @importMeasureView.display()
+    event.preventDefault()

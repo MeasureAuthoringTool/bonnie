@@ -2,32 +2,16 @@
 <table class="table">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Gender</th>
-      <th>Ethnicity</th>
-      <th>Race</th>
-      <th>Payer</th>
-      <th>Expired</th>
-      <th>Birthdate</th>
-      <th>Clinical Attributes</th>
+      <!-- <th>ID</th> -->
+      <th>Name</th>
       <th>Actions</th>
     </tr>
   </thead>
   {{#collection patients tag="tbody"}}
     <tr>
-      <td>{{#link "patients/{{id}}" expand-tokens=true}}{{id}}{{/link}}</td>
-      <td>{{first}}</td>
-      <td>{{last}}</td>
-      <td>{{gender}}</td>
-      <td>{{ethnicity.name}}</td>
-      <td>{{race.name}}</td>
-      <td>{{insurance_providers.type}}</td>
-      <td>{{#if expired}}Y{{else}}N{{/if}}</td>
-      <td>{{birthdate}}</td>
-      <td>{{source_data_criteria.length}}</td>
-      <td>{{#link ""}}View{{/link}} | {{#link "patients/{{id}}/build" expand-tokens=true}}Edit{{/link}}</td>
+      <!-- <td>{{#link "patients/{{id}}" expand-tokens=true}}{{id}}{{/link}}</td> -->
+      <td>{{last}}, {{first}}</td>
+      <td>{{#link "patients/{{id}}" class="btn btn-primary" expand-tokens=true}}View{{/link}} {{#link "patients/{{id}}/build" class="btn btn-primary" expand-tokens=true}}Edit{{/link}} {{#link "patients/{{id}}/build" class="btn btn-primary" expand-tokens=true }}Clone{{/link}} {{#link "patients" class="btn btn-danger" expand-tokens=true }}Delete{{/link}}</td>
     </tr>
   {{/collection}}
 </table>

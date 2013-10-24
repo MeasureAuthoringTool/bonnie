@@ -2,6 +2,8 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
   template: JST['measure_calculation']
   events:
     'click button': 'patientClick'
+    'click #selectAllTrigger': 'selectAllPatients'
+    'click #deselectAllTrigger': 'deselectAllPatients'
   initialize: ->
     @results = new Thorax.Collection()
     @results.on 'add remove', @render, this
@@ -19,3 +21,14 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     else
       # FIXME: This isn't cached in any way now (still reasonably fast!)
       @results.add @model.calculate(patient)
+
+  selectAllPatients: ->
+    for pb in $('button#pButton')
+      if @results.findWhere(patient_id: $(pb).model().id)
+      else
+        pb.click()
+      
+  deselectAllPatients: ->
+    for pb in $('button#pButton')
+      if result = @results.findWhere(patient_id: $(pb).model().id)
+        pb.click()
