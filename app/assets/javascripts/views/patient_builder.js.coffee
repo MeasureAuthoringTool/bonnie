@@ -2,6 +2,10 @@ class Thorax.Views.PatientBuilder extends Thorax.View
 
   template: JST['patient_builder']
 
+  options:
+    serialize: { children: false }
+    populate: { children: false }
+
   initialize: ->
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @model.get('source_data_criteria')
@@ -29,29 +33,28 @@ class Thorax.Views.PatientBuilder extends Thorax.View
 
   save: (e) ->
     e.preventDefault()
+    # Serialize the main view and the child collection views separately
     @serialize(children: false)
-    for cid, childView of @editCriteriaCollectionView.children
-      childView.serialize()
-      # We need to through all the dates and change them back from user-readable to seconds
-      @model.get('source_data_criteria').each (dc) ->
-        dc.set 'start_date', moment(dc.get('start_date')).format('X') * 1000
-        dc.set 'end_date', moment(dc.get('end_date')).format('X') * 1000
+    childView.serialize() for cid, childView of @editCriteriaCollectionView.children
     @model.save()
 
 
 class Thorax.Views.EditCriteriaView extends Thorax.View
 
-  # FIXME: This use of setModel and context is hackish and roundabout;
-  # Thorax auto-populates the form with the model data, which isn't
-  # helpful when you want populate to use the context to set the form data
+  options:
+    populate: { context: true }
 
-  setModel: ->
-    super arguments..., populate: { context: true }
-
+  # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
     start_date = moment(@model.get('start_date')).format('L') if @model.get('start_date')
     end_date = moment(@model.get('end_date')).format('L') if @model.get('end_date')
     _(super).extend start_date: start_date, end_date: end_date
+
+  # When we serialize the form, we want to convert formatted dates back to times
+  events:
+    serialize: (attr) ->
+      attr.start_date = moment(attr.start_date).format('X') * 1000 if attr.start_date
+      attr.end_date = moment(attr.end_date).format('X') * 1000 if attr.end_date
 
   toggleDetails: (e) ->
     @$('.details').toggle()
