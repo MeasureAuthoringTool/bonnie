@@ -1,6 +1,6 @@
 class Thorax.Views.PatientBuilder extends Thorax.View
 
-  template: JST['patient_builder']
+  template: JST['patient_builder/patient_builder']
 
   options:
     serialize: { children: false }
@@ -10,7 +10,6 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @model.get('source_data_criteria')
       itemView: Thorax.Views.EditCriteriaView
-      itemTemplate: JST['patient_builder/edit_criteria']
 
   dataCriteriaCategories: ->
     categories = {}
@@ -39,7 +38,10 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @model.save()
 
 
+# FIXME: When we get coffeescript scoping working again, don't need to put this in Thorax.Views scope
 class Thorax.Views.EditCriteriaView extends Thorax.View
+
+  template: JST['patient_builder/edit_criteria']
 
   options:
     populate: { context: true }
