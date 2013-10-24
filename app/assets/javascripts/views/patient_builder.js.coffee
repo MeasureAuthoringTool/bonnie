@@ -3,7 +3,10 @@ class Thorax.Views.PatientBuilder extends Thorax.View
   template: JST['patient_builder']
 
   initialize: ->
-    @criteriaViewClass = Thorax.Views.CriteriaView
+    @editCriteriaCollectionView = new Thorax.CollectionView
+      collection: @model.get('source_data_criteria')
+      itemView: Thorax.Views.EditCriteriaView
+      itemTemplate: JST['patient_builder/edit_criteria']
 
   dataCriteriaCategories: ->
     categories = {}
@@ -26,12 +29,17 @@ class Thorax.Views.PatientBuilder extends Thorax.View
 
   save: (e) ->
     e.preventDefault()
-    @serialize e, (attributes, release) ->
-      console.log attributes
-      release()
+    @serialize(children: false)
+    for cid, childView of @editCriteriaCollectionView.children
+      childView.serialize()
+      # We need to through all the dates and change them back from user-readable to seconds
+      @model.get('source_data_criteria').each (dc) ->
+        dc.set 'start_date', moment(dc.get('start_date')).format('X') * 1000
+        dc.set 'end_date', moment(dc.get('end_date')).format('X') * 1000
+    @model.save()
 
 
-class Thorax.Views.CriteriaView extends Thorax.View
+class Thorax.Views.EditCriteriaView extends Thorax.View
 
   # FIXME: This use of setModel and context is hackish and roundabout;
   # Thorax auto-populates the form with the model data, which isn't
@@ -41,9 +49,9 @@ class Thorax.Views.CriteriaView extends Thorax.View
     super arguments..., populate: { context: true }
 
   context: ->
-    _(super).extend
-      start_date: moment(@model.get('start_date')).format('L')
-      end_date: moment(@model.get('end_date')).format('L')
+    start_date = moment(@model.get('start_date')).format('L') if @model.get('start_date')
+    end_date = moment(@model.get('end_date')).format('L') if @model.get('end_date')
+    _(super).extend start_date: start_date, end_date: end_date
 
   toggleDetails: (e) ->
     @$('.details').toggle()
@@ -57,4 +65,3 @@ class Thorax.Views.CriteriaView extends Thorax.View
   newFieldValue: (e) ->
     e.preventDefault()
     $(e.target).before(@templates.newFieldValue())
-
