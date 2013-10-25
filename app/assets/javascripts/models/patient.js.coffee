@@ -5,7 +5,7 @@ class Thorax.Models.Patient extends Thorax.Model
 
   parse: (attrs) ->
     dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
-    attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria)
+    attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria, parse: true)
     attrs
 
   getBirthDate: -> new Date(@attributes.birthdate)
