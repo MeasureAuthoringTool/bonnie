@@ -19,6 +19,9 @@ class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
 # multiple criteria with the same ID.
 class Thorax.Models.PatientDataCriteria extends Thorax.Model
   idAttribute: null
+  parse: (attrs) ->
+    attrs.value = new Thorax.Collection(attrs.value)
+    attrs
 
 class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
   model: Thorax.Models.PatientDataCriteria

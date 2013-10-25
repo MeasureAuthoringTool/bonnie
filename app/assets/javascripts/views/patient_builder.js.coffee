@@ -17,7 +17,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       categories[criteria.get('type')] ||= new Thorax.Collection
       categories[criteria.get('type')].add criteria unless categories[criteria.get('type')].any (c) -> c.get('title') == criteria.get('title')
     categories
-  
+
   events:
     'submit form': 'save'
     rendered: ->
@@ -44,7 +44,17 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
   template: JST['patient_builder/edit_criteria']
 
   options:
-    populate: { context: true }
+    serialize: { children: false }
+    populate: { context: true, children: false }
+
+  initialize: ->
+    @editValueCollectionView = new Thorax.CollectionView
+      collection: @model.get('value')
+      itemView: Thorax.Views.EditCriteriaValueView
+
+  serialize: ->
+    childView.serialize() for cid, childView of @editValueCollectionView.children
+    super(children: false)
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
@@ -59,14 +69,34 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
       attr.end_date = moment(attr.end_date).format('X') * 1000 if attr.end_date
 
   toggleDetails: (e) ->
+    e.preventDefault()
     @$('.details').toggle()
 
-  removeEncounter: (e) -> @model.destroy()
+  removeCriteria: (e) ->
+    e.preventDefault()
+    @model.destroy()
 
   newValue: (e) ->
     e.preventDefault()
-    $(e.target).before(@templates.newValue())
+    @model.get('value').add type: 'PQ'
+
+  newCode: (e) ->
+    e.preventDefault()
+    @model.get('value').add type: 'CD'
 
   newFieldValue: (e) ->
     e.preventDefault()
-    $(e.target).before(@templates.newFieldValue())
+
+
+class Thorax.Views.EditCriteriaValueView extends Thorax.View
+
+  template: JST['patient_builder/edit_value']
+
+  context: ->
+    _(super).extend
+      typePQ: @model.get('type') is 'PQ'
+      typeCD: @model.get('type') is 'CD'
+
+  removeValue: (e) ->
+    e.preventDefault()
+    @model.destroy()
