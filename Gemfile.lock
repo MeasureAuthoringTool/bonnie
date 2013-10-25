@@ -14,10 +14,10 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 7031f98b9d03447d94a4820464a226fee0c9e8ba
-  branch: develop
+  revision: 762a255bb86fdc3fe4727593e832d11926bf8143
+  branch: master
   specs:
-    health-data-standards (3.2.11)
+    health-data-standards (3.2.12)
       activesupport (~> 3.2.14)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
@@ -26,7 +26,7 @@ GIT
       mongoid (~> 3.1.4)
       nokogiri (~> 1.6.0)
       rest-client (~> 1.6.7)
-      rubyzip
+      rubyzip (= 0.9.9)
       uuid (~> 2.3.7)
 
 GEM
