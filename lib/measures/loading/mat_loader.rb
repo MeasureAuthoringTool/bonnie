@@ -2,8 +2,6 @@ module Measures
   # Utility class for loading measure definitions into the database from the MAT export zip
   class MATLoader 
 
-    SOURCE_PATH = File.join(".", "db", "measures")
-    
     def self.load(file, username, measure_details)
       user = User.by_username(username).first
       measure = nil
@@ -35,7 +33,7 @@ module Measures
         value_set_models = Measures::MATLoader.load_value_sets_from_xls(xls_path)
         Measures::Loader.save_value_sets(value_set_models)
 
-        measure = Measures::Loader.load(user, hqmf_path, value_set_models, html_path=nil)
+        measure = Measures::Loader.load(user, hqmf_path, value_set_models)
 
         measure.update_attributes(measure_details)
 

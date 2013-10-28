@@ -3,8 +3,9 @@ module Measures
   class Loader
 
     SOURCE_PATH = File.join(".", "db", "measures")
+    VALUE_SET_PATH = File.join(".", "db", "value_sets")
     
-    def self.load(user, hqmf_path, value_set_models)
+    def self.load(user, hqmf_path, value_set_models, measure_details=nil)
       
       hqmf_contents = Nokogiri::XML(File.new hqmf_path).to_s
       measure_id = HQMF::Parser.parse_fields(hqmf_contents, HQMF::Parser::HQMF_VERSION_1)['id']
@@ -12,22 +13,22 @@ module Measures
       codes_by_oid = HQMF2JS::Generator::CodesToJson.from_value_sets(value_set_models)  if value_set_models
 
       # Parsed HQMF
-      measure = Measures::Loader.load_hqmf(hqmf_contents, user, codes_by_oid)
+      measure = Measures::Loader.load_hqmf(hqmf_contents, user, codes_by_oid, measure_details)
 
       measure
     end
 
 
-    def self.load_hqmf(hqmf_contents, user, codes_by_oid)
+    def self.load_hqmf(hqmf_contents, user, codes_by_oid, measure_details=nil)
       hqmf = HQMF::Parser.parse(hqmf_contents, HQMF::Parser::HQMF_VERSION_1, codes_by_oid)
       # go into and out of json to make sure that we've converted all the symbols to strings, this will happen going to mongo anyway if persisted
       json = JSON.parse(hqmf.to_json.to_json, max_nesting: 250)
 
       measure_oids = codes_by_oid.keys if codes_by_oid
-      Measures::Loader.load_hqmf_json(json, user, measure_oids)
+      Measures::Loader.load_hqmf_json(json, user, measure_oids, measure_details)
     end
 
-    def self.load_hqmf_json(json, user, measure_oids)
+    def self.load_hqmf_json(json, user, measure_oids, measure_details=nil)
 
       measure = Measure.new
       measure.user = user
@@ -44,7 +45,7 @@ module Measures
       measure.populations = json['populations']
       measure.value_set_oids = measure_oids
 
-      metadata = APP_CONFIG["measures"][measure.hqmf_set_id] if APP_CONFIG['measures']
+      metadata = measure_details
       if metadata
         measure.type = metadata["type"]
         measure.category = metadata["category"]
@@ -102,16 +103,17 @@ module Measures
       value_set_models.each { |vsm| vsm.save! unless loaded_value_sets.include? vsm.oid }
     end
 
-    def self.get_value_sets(hqmf_path)
-        original_stdout = $stdout
-        $stdout = StringIO.new
-        begin
-          measure = Measures::Loader.load(nil, hqmf_path, nil)
-        ensure
-          $stdout = original_stdout
-        end
-        value_set_oids = measure.as_hqmf_model.all_code_set_oids
-        HealthDataStandards::SVS::ValueSet.in(oid: value_set_oids)
+    def self.get_value_sets_from_hqmf(hqmf_path)
+      original_stdout = $stdout
+      $stdout = StringIO.new
+      begin
+        measure = Measures::Loader.load(nil, hqmf_path, nil)
+      ensure
+        $stdout = original_stdout
+      end
+      value_set_oids = measure.as_hqmf_model.all_code_set_oids
+      HealthDataStandards::SVS::ValueSet.in(oid: value_set_oids)
     end
+
   end
 end

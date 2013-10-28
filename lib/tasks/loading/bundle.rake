@@ -4,13 +4,15 @@ namespace :bonnie do
   namespace :load do
   
     desc 'Load Exported MITRE measure bundle'
-    task :mitre_bundle, [:file, :username, :drop_db] do |t, args|
+    task :mitre_bundle, [:file, :username, :reparse_hqmf?, :measures_yml, :drop_db?] do |t, args|
       raise "The file to measure definition must be specified" unless args.file
       raise "The username to load the measures for must be specified" unless args.username
 
       username = args.username || 'bonnie'
+      load_from_hqmf = args.reparse_hqmf? == 'true'
+      measures_yml = args.measures_yml unless measures_yml.nil? || measures_yml.empty?
 
-      if args.drop_db != 'false'
+      if args.drop_db? != 'false'
         Rake::Task["db:drop"].invoke()
       end
 
@@ -29,7 +31,7 @@ namespace :bonnie do
       puts "clearing out system.js"
       MONGO_DB['system.js'].find({}).remove_all
 
-      Measures::BundleLoader.load(args.file, username, {})
+      Measures::BundleLoader.load(args.file, username, measures_yml, load_from_hqmf)
 
     end
   end
