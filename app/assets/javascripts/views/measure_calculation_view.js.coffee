@@ -6,6 +6,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     'click button.select-none':    'selectNone'
   initialize: ->
     @results = new Thorax.Collection()
+    # FIXME: It would be nice to have the counts update dynamically without re-rendering the whole table
     @results.on 'add remove', @render, this
   context: ->
     _(super).extend
@@ -26,5 +27,5 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     @patients.each (p) => @results.add @model.calculate(p) unless @results.findWhere(patient_id: p.id)
     @$('button.toggle-patient').addClass('active')
   selectNone: ->
-    @results.reset()
+    @results.set() # FIXME: Instead of reset() so we get individual adds and removes
     @$('button.toggle-patient').removeClass('active')
