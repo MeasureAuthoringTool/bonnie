@@ -1,0 +1,31 @@
+<div class="source-data-criteria">
+  <div class="pull-right">
+    {{#button "removeCriteria" class="close"}}&times;{{/button}}
+  </div>
+  <label>{{definition}}{{#if status}}, {{status}}{{/if}}</label>
+  {{#button "toggleDetails" tag="a"}}{{#if title}}{{title}}{{else}}{{definition}}{{/if}}{{/button}}
+  <div class="details well" style="display: none">
+    <div class="form-group">
+      <label>Event Start</label>
+      <input type="text" name="start_date" class="form-control" placeholder="xx/xx/xxxx">
+    </div>
+    <div class="form-group">
+      <label>Event End</label>
+      <input name="end_date" type="text" class="form-control" placeholder="xx/xx/xxxx">
+    </div>
+    <div class="form-group">
+      <label>Null</label>
+      <input type="checkbox">
+    <div>
+      {{view editValueCollectionView}}
+      {{#button "newValue" class="btn btn-default"}}New Value{{/button}}
+      {{#button "newCode" class="btn btn-default"}}New Code{{/button}}
+    </div>
+    <div>
+      {{#each fieldValues}}
+        <p>{{this}}</p>
+      {{/each}}
+      {{#button "newFieldValue" class="btn btn-default"}}New Field Value{{/button}}
+    </div>
+  </div>
+</div>

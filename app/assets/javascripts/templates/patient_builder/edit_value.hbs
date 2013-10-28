@@ -1,0 +1,13 @@
+<div class="pull-right">
+  {{#button "removeValue" tag="a" class="close"}}&times;{{/button}}
+</div>
+{{#if typePQ}}
+  <label>Value</label>
+  <input type="text" name="value" placeholder="scalar">
+  <input type="text" name="unit" placeholder="unit">
+{{/if}}
+{{#if typeCD}}
+  <label>Coded</label>
+  <input type="text" name="code_list_id" placeholder="OID">
+  <input type="text" name="title" placeholder="title">
+{{/if}}

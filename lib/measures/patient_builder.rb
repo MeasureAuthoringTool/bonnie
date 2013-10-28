@@ -2,9 +2,7 @@ module Measures
   # Utility class for building test patients
   class PatientBuilder
     JAN_ONE_THREE_THOUSAND=32503698000000
-    
-
-
+  
 
     def self.rebuild_patient(patient)
 
@@ -25,13 +23,7 @@ module Measures
             filtered.concepts.reject! {|c| c.black_list || !c.white_list}
             filtered['concepts'] = filtered.concepts
             preferred_set = filtered unless filtered.concepts.empty?
-
-            if preferred_set.nil?
-              concept = Concept.any_in(oids: value_set.oid).first
-              preferred_set = concept.clone_and_filter(value_set) if concept.present?
-            end
             preferred_set ||= value_set
-
             [value_set.oid, preferred_set]
           end
         }.map(&:to_a).flatten
@@ -66,8 +58,8 @@ module Measures
           data_criteria.negation = true
           data_criteria.negation_code_list_id = v['negation_code_list_id']
         end
-        low = {'value' => Time.at(v['start_date'] / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' }
-        high = {'value' => Time.at(v['end_date'] / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' }
+        low = {'value' => Time.at(v['start_date'].to_i / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' }
+        high = {'value' => Time.at(v['end_date'].to_i / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' }
         high = nil if v['end_date'] == JAN_ONE_THREE_THOUSAND
 
         data_criteria.modify_patient(patient, HQMF::Range.from_json({'low' => low,'high' => high}), values.values)

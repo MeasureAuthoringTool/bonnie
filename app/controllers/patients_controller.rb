@@ -36,20 +36,22 @@ class PatientsController < ApplicationController
   def edit
   end
 
-  def save
-    patient = update_patient
+  def update
+    patient = Record.find(params[:id]) # FIXME: will we have an ID attribute on server side?
+    update_patient(patient)
     patient.save!
+    render :json => patient
+  end
 
-    if @measure.records.include? patient
-      render :json => patient.save!
-    else
-      @measure.records.push(patient)
-      render :json => @measure.save!
-    end
+  def create
+    patient = update_patient(Record.new)
+    patient.save!
+    render :json => patient
   end
 
   def materialize
-    patient = update_patient
+    patient = Record.where({'_id' => params['record_id']}).first || Record.new
+    patient = update_patient(patient)
     render :json => patient
   end
 
@@ -89,28 +91,29 @@ class PatientsController < ApplicationController
 private 
 
 
-  def update_patient
-     @measure = current_user.measures.where('_id' => params[:id]).exists? ? current_user.measures.find(params[:id]) : current_user.measures.where('measure_id' => params[:id]).first
-    # Using just a random Measure entry until users are associated with measures...
-    # @measure = Measure.skip(rand(Measure.count)).first
+  def update_patient(patient)
+    #  @measure = current_user.measures.where('_id' => params[:id]).exists? ? current_user.measures.find(params[:id]) : current_user.measures.where('measure_id' => params[:id]).first
+    # # Using just a random Measure entry until users are associated with measures...
+    # # @measure = Measure.skip(rand(Measure.count)).first
 
-    patient = Record.where({'_id' => params['record_id']}).first || HQMF::Generator.create_base_patient(params.select{|k| ['first', 'last', 'gender', 'expired', 'birthdate'].include? k })
+    # patient = Record.where({'_id' => params['record_id']}).first || HQMF::Generator.create_base_patient(params.select{|k| ['first', 'last', 'gender', 'expired', 'birthdate'].include? k })
 
-    if (params['clone'])
-      patient = patient.dup
-    end
+    # if (params['clone'])
+    #   patient = patient.dup
+    # end
 
     patient['measure_ids'] ||= []
-    patient['measure_ids'] = Array.new(patient['measure_ids']).push(@measure['measure_id']) unless patient['measure_ids'].include? @measure['measure_id']
+    patient['measure_ids'] << params['measure_id'] unless patient['measure_ids'].include? params['measure_id']
 
-    patient['birthdate'] = Time.parse(params['birthdate']).to_i
+    # patient['birthdate'] = Time.parse(params['birthdate']).to_i
 
     ['first', 'last', 'gender', 'expired', 'birthdate', 'description', 'description_category'].each {|param| patient[param] = params[param]}
-    patient['ethnicity'] = {'code' => params['ethnicity'], 'name'=>ETHNICITY_NAME_MAP[params['ethnicity']], 'codeSystem' => 'CDC Race'}
-    patient['race'] = {'code' => params['race'], 'name'=>RACE_NAME_MAP[params['race']], 'codeSystem' => 'CDC Race'}
+    # FIXME: For this to make sense we need to parse on the Thorax side, for now just pass through
+    #patient['ethnicity'] = {'code' => params['ethnicity'], 'name'=>ETHNICITY_NAME_MAP[params['ethnicity']], 'codeSystem' => 'CDC Race'}
+    #patient['race'] = {'code' => params['race'], 'name'=>RACE_NAME_MAP[params['race']], 'codeSystem' => 'CDC Race'}
 
     measure_period = {'id' => 'MeasurePeriod', 'start_date' => params['measure_period_start'].to_i, 'end_date' => params['measure_period_end'].to_i}
-    patient['source_data_criteria'] = JSON.parse(params['data_criteria']) + [measure_period]
+    patient['source_data_criteria'] = params['source_data_criteria'] + [measure_period]
     patient['measure_period_start'] = measure_period['start_date']
     patient['measure_period_end'] = measure_period['end_date']
 

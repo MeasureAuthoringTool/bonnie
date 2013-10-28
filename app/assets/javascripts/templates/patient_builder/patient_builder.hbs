@@ -1,5 +1,3 @@
-{{log "Look at me!"}}
-
 <div class="row">
   <div class="col-xs-3">
     Measure details: {{measure.id}}
@@ -16,23 +14,18 @@
     <div class="form-group">
       <label for="first" class="col-xs-2 control-label">First name</label>
       <div class="col-xs-10">
-        <input type="text" class="form-control" id="first" placeholder="First name" value="{{first}}">
+        <input type="text" name="first" class="form-control" id="first" placeholder="First name">
       </div>
     </div>
     <div class="form-group">
       <label for="last" class="col-xs-2 control-label">Last name</label>
       <div class="col-xs-10">
-        <input type="text" class="form-control" id="last" placeholder="Last name" value="{{last}}">
+        <input type="text" name="last" class="form-control" id="last" placeholder="Last name">
       </div>
     </div>
-    {{#collection source_data_criteria class="droppable well" item-view=encounterInspectionView}}
-      <div class="source-data-criteria">
-        <div class="pull-right">
-          {{#button "removeEncounter" class="close"}}&times;{{/button}}
-        </div>
-        <label>{{definition}}{{#if status}}, {{status}}{{/if}}</label>
-        <a class="inspect-encounter btn" data-html="true">{{title}}</a>
-      </div>
-    {{/collection}}
+    <div class="droppable well">
+      {{view editCriteriaCollectionView}}
+    </div>
+    <input type="submit" class="btn btn-default" value="Save">
   </form>
 </div>
