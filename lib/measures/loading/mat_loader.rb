@@ -1,5 +1,5 @@
 module Measures
-  # Utility class for loading measure definitions into the database
+  # Utility class for loading measure definitions into the database from the MAT export zip
   class MATLoader 
 
     SOURCE_PATH = File.join(".", "db", "measures")
@@ -30,9 +30,6 @@ module Measures
         hqmf_path = extract(zip_file, hqmf_entry, out_dir)
         html_path = extract(zip_file, html_entry, out_dir)
         xls_path = extract(zip_file, xls_entry, out_dir)
-
-# If we need to pull from vsac then we need to first parse and load the measure codes
-#          oids = {measure.hqmf_id => measure.as_hqmf_model.all_code_set_oids} unless (xls_path)
 
         # handle value sets
         value_set_models = Measures::MATLoader.load_value_sets_from_xls(xls_path)

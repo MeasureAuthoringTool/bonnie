@@ -4,30 +4,21 @@ module Measures
 
     SOURCE_PATH = File.join(".", "db", "measures")
     
-    def self.save_value_sets(value_set_models)
-      loaded_value_sets = HealthDataStandards::SVS::ValueSet.all.map(&:oid)
-      value_set_models.each { |vsm| vsm.save! unless loaded_value_sets.include? vsm.oid }
-    end
-
-    def self.load(user, hqmf_path, value_set_models, html_path=nil)
+    def self.load(user, hqmf_path, value_set_models)
       
       hqmf_contents = Nokogiri::XML(File.new hqmf_path).to_s
       measure_id = HQMF::Parser.parse_fields(hqmf_contents, HQMF::Parser::HQMF_VERSION_1)['id']
 
-      codes_by_oid = HQMF2JS::Generator::CodesToJson.from_value_sets(value_set_models) 
+      codes_by_oid = HQMF2JS::Generator::CodesToJson.from_value_sets(value_set_models)  if value_set_models
+
       # Parsed HQMF
       measure = Measures::Loader.load_hqmf(hqmf_contents, user, codes_by_oid)
-
-      if value_set_models
-        measure.value_set_oids = value_set_models.map(&:oid)
-      end
 
       measure
     end
 
 
     def self.load_hqmf(hqmf_contents, user, codes_by_oid)
-
       hqmf = HQMF::Parser.parse(hqmf_contents, HQMF::Parser::HQMF_VERSION_1, codes_by_oid)
       # go into and out of json to make sure that we've converted all the symbols to strings, this will happen going to mongo anyway if persisted
       json = JSON.parse(hqmf.to_json.to_json, max_nesting: 250)
@@ -87,7 +78,7 @@ module Measures
       measure
     end
     
-    def self.save_sources(measure, hqmf_path, html_path, value_set_path=nil)
+    def self.save_sources(measure, hqmf_path, html_path, xls_path=nil)
       # Save original files
       if (html_path)
         html_out_path = File.join(SOURCE_PATH, "html")
@@ -95,15 +86,32 @@ module Measures
         FileUtils.cp(html_path, File.join(html_out_path,"#{measure.hqmf_id}.html"))
       end
       
-      if (value_set_path)
+      if (xls_path)
         value_set_out_path = File.join(SOURCE_PATH, "value_sets")
         FileUtils.mkdir_p value_set_out_path
-        FileUtils.cp(value_set_path, File.join(value_set_out_path,"#{measure.hqmf_id}.xls"))
+        FileUtils.cp(xls_path, File.join(value_set_out_path,"#{measure.hqmf_id}.xls"))
       end
       
       hqmf_out_path = File.join(SOURCE_PATH, "hqmf")
       FileUtils.mkdir_p hqmf_out_path
       FileUtils.cp(hqmf_path, File.join(hqmf_out_path, "#{measure.hqmf_id}.xml"))
+    end
+
+    def self.save_value_sets(value_set_models)
+      loaded_value_sets = HealthDataStandards::SVS::ValueSet.all.map(&:oid)
+      value_set_models.each { |vsm| vsm.save! unless loaded_value_sets.include? vsm.oid }
+    end
+
+    def self.get_value_sets(hqmf_path)
+        original_stdout = $stdout
+        $stdout = StringIO.new
+        begin
+          measure = Measures::Loader.load(nil, hqmf_path, nil)
+        ensure
+          $stdout = original_stdout
+        end
+        value_set_oids = measure.as_hqmf_model.all_code_set_oids
+        HealthDataStandards::SVS::ValueSet.in(oid: value_set_oids)
     end
   end
 end
