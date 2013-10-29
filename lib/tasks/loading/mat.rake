@@ -15,7 +15,7 @@ namespace :bonnie do
       raise "The user #{args.username} could not be found." unless user
       
       file = File.new args.file
-      data = Measures::MATLoader.load(file, args.username, {})
+      data = Measures::MATLoader.load(file, user, {})
     end
 
     desc 'Load a directory of MAT export zip files'
@@ -29,7 +29,7 @@ namespace :bonnie do
       Dir.glob(File.join(args.dir,'*.zip')).each do |zip_path|
         begin
           file = File.new zip_path
-          data = Measures::MATLoader.load(file, args.username, {})
+          data = Measures::MATLoader.load(file, user, {})
         rescue Exception => e
           puts "Loading Measure #{zip_path} failed: #{e.message}] \n"
         end

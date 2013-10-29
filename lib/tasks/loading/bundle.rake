@@ -31,7 +31,8 @@ namespace :bonnie do
       puts "clearing out system.js"
       MONGO_DB['system.js'].find({}).remove_all
 
-      Measures::BundleLoader.load(args.file, username, measures_yml, load_from_hqmf)
+      user = User.by_username username
+      Measures::BundleLoader.load(args.file, user, measures_yml, load_from_hqmf)
 
     end
   end

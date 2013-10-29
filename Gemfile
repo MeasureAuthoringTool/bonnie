@@ -9,6 +9,9 @@ gem 'hquery-patient-api', :git => 'https://github.com/pophealth/patientapi.git',
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 #gem 'health-data-standards', :path => '../health-data-standards'
 
+gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'develop'
+#gem 'bonnie_bundler', :path => '../bonnie_bundler'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
