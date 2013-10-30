@@ -51,9 +51,13 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
     @editValueCollectionView = new Thorax.CollectionView
       collection: @model.get('value')
       itemView: Thorax.Views.EditCriteriaValueView
+    @editFieldValueCollectionView = new Thorax.CollectionView
+      collection: @model.get('field_values')
+      itemView: Thorax.Views.EditCriteriaFieldValueView
 
   serialize: ->
     childView.serialize() for cid, childView of @editValueCollectionView.children
+    childView.serialize() for cid, childView of @editFieldValueCollectionView.children
     super(children: false)
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
@@ -76,16 +80,25 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
     e.preventDefault()
     @model.destroy()
 
-  newValue: (e) ->
+  newScalarValue: (e) ->
     e.preventDefault()
     @model.get('value').add type: 'PQ'
 
-  newCode: (e) ->
+  newCodedValue: (e) ->
     e.preventDefault()
     @model.get('value').add type: 'CD'
 
-  newFieldValue: (e) ->
+  newScalarFieldValue: (e) ->
     e.preventDefault()
+    @model.get('field_values').add type: 'PQ'
+
+  newCodedFieldValue: (e) ->
+    e.preventDefault()
+    @model.get('field_values').add type: 'CD'
+
+  newTimeFieldValue: (e) ->
+    e.preventDefault()
+    @model.get('field_values').add type: 'TS'
 
 
 class Thorax.Views.EditCriteriaValueView extends Thorax.View
@@ -96,6 +109,21 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.View
     _(super).extend
       typePQ: @model.get('type') is 'PQ'
       typeCD: @model.get('type') is 'CD'
+
+  removeValue: (e) ->
+    e.preventDefault()
+    @model.destroy()
+
+
+class Thorax.Views.EditCriteriaFieldValueView extends Thorax.View
+
+  template: JST['patient_builder/edit_field_value']
+
+  context: ->
+    _(super).extend
+      typePQ: @model.get('type') is 'PQ'
+      typeCD: @model.get('type') is 'CD'
+      typeTS: @model.get('type') is 'TS'
 
   removeValue: (e) ->
     e.preventDefault()
