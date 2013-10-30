@@ -11,7 +11,7 @@ class Thorax.Views.PopulationCriteriaLogic extends Thorax.View
     'OBSERV': 'Measure Observations'
 
   initialize: ->
-  	@rootPrecondiiton = @population.preconditions[0]
+  	@rootPreconditon = @population.preconditions[0] if @population.preconditions && @population.preconditions.length > 0
 
   translate_population: (code) ->
   	@population_map[code]
