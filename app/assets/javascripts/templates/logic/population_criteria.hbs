@@ -1,5 +1,5 @@
 <div>
-  <div>{{population.type}}</div>
+  <div><b>{{translate_population population.type}}: </b></div>
   <div>
     {{#each rootPrecondiiton.preconditions}}
       {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPrecondiiton dataCriteriaMap=../dataCriteriaMap}}

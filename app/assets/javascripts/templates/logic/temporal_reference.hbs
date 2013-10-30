@@ -1,6 +1,5 @@
 {{#if temporalReference.range}}
-  (RANGE)
-{{!--             <%== render partial: 'value', locals: {value: temporal_reference.range} %> --}}
+  {{view "ValueLogic" value=temporalReference.range tag="span"}}
 {{/if}}
 {{translate_timing temporalReference.type}}
 {{#if isMeasurePeriod}}

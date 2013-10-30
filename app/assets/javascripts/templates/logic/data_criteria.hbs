@@ -1,3 +1,4 @@
+
     "{{#if dataCriteria.specific_occurrence}}Occurrence {{dataCriteria.specific_occurrence}}: {{/if}}{{dataCriteria.description}}
     {{#if dataCriteria.value}}
     (VALUE)
@@ -36,22 +37,5 @@
         end
         %>)<%
       end
-    %><% if data_criteria.negation %>
-      (NOT DONE FOR: <%= oid_map[data_criteria.negation_code_list_id] %>)
-    <% end %>"
-  
-    <% if data_criteria.temporal_references %>
-      <% data_criteria.temporal_references.each do |temporal_reference| %>
-          <% if temporal_reference.range %> 
-            <%== render partial: 'value', locals: {value: temporal_reference.range} %>
-          <% end %>
-          <%= temporal_text(temporal_reference.type).downcase %>
-          <% if temporal_reference.reference.id != 'MeasurePeriod' %>
-            <%== render partial: 'data_criteria', locals: {measure: measure, data_criteria: measure.data_criteria(temporal_reference.reference.id), oid_map: oid_map, patient_cache: patient_cache}%>
-          <% else %>
-            "Measurement Period"
-          <% end %>
-      <% end %>
-    <% end %>
 
  --}}
