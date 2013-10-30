@@ -2,9 +2,10 @@
   {{view "ValueLogic" value=temporalReference.range tag="span"}}
 {{/if}}
 {{translate_timing temporalReference.type}}
-{{#if isMeasurePeriod}}
+{{debug}}
+{{#ifCond temporalReference.reference '==' 'MeasurePeriod'}}
   "Measurement Period"
 {{else}}
   {{view "DataCriteriaLogic" reference=temporalReference.reference dataCriteriaMap=../dataCriteriaMap tag="span"}}
-{{/if}}
+{{/ifCond}}
  

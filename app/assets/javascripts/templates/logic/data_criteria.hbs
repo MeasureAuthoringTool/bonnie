@@ -1,33 +1,27 @@
-
-    "{{#if dataCriteria.specific_occurrence}}Occurrence {{dataCriteria.specific_occurrence}}: {{/if}}{{dataCriteria.description}}
-    {{#if dataCriteria.value}}
-    (VALUE)
-    {{/if}}
-    {{#if dataCriteria.value}}
-    (VALUE)
-    {{/if}}
-    {{#if dataCriteria.field_values}}
-    (FIELDS)
-    {{/if}}
-    {{#if dataCriteria.negation}}
-      (NOT DONE FOR: --> OID LOOKUP[{{dataCriteria.negation_code_list_id}}])
-    {{/if}}
-    {{#if dataCriteria.temporal_references}}
-      {{#each dataCriteria.temporal_references}}
-      	{{view "TemporalReferenceLogic" temporalReference=this dataCriteriaMap=../dataCriteriaMap tag="span"}}
+{{#each dataCriteria.subset_operators}}
+  {{view "SubsetOperatorLogic" subsetOperator=this tag="span"}}
+{{/each}}
+{{#ifCond dataCriteria.type '==' 'derived'}}
+  {{#if dataCriteria.children_criteria}}
+    <ul>
+      {{#each dataCriteria.children_criteria}}
+        <li>
+          <span class="{{../dataCriteria.id}}">{{translate_operator ../dataCriteria.derivation_operator}} : </span>
+          {{view "DataCriteriaLogic" reference=this dataCriteriaMap=../dataCriteriaMap tag="span"}}
+        </li>
       {{/each}}
-    {{/if}}
-
+    </ul>
+  {{/if}}
+{{else}}
+  {{#if dataCriteria.specific_occurrence}}Occurrence {{dataCriteria.specific_occurrence}}: {{/if}}{{dataCriteria.description}}
+  {{#if dataCriteria.value}}
+    {{#ifCond dataCriteria.type '!=' 'characteristic' }}
+      (result {{view "ValueLogic" value=dataCriteria.value tag="span"}})
+    {{/ifCond}}
+  {{/if}}
+  {{#if dataCriteria.field_values}}
+  (FIELDS)
 {{!--     <%
-      if data_criteria.value || data_criteria.field_values
-        %>(<%
-        if data_criteria.value
-          if data_criteria.type!='characteristic' 
-            %>
-              result <%== render partial: 'value', locals: {value: data_criteria.value} %>
-            <%
-          end
-        end
         if data_criteria.field_values
           data_criteria.field_values.each do |key, value|
           %>
@@ -35,7 +29,16 @@
           <%
           end
         end
-        %>)<%
-      end
-
  --}}
+  {{/if}}
+  {{#if dataCriteria.negation}}
+    (NOT DONE FOR: --> OID LOOKUP[{{dataCriteria.negation_code_list_id}}])
+  {{/if}}
+  {{#if dataCriteria.temporal_references}}
+    {{#each dataCriteria.temporal_references}}
+      {{view "TemporalReferenceLogic" temporalReference=this dataCriteriaMap=../dataCriteriaMap tag="span"}}
+    {{/each}}
+  {{/if}}
+{{/ifCond}}
+
+

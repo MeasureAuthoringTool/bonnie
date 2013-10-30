@@ -26,6 +26,10 @@
           {{/if}}
         {{/if}}
       {{/ifCond}}
+    {{else}}
+      {{#ifCond value.type '==' 'CD'}}
+        : {{value.title}}
+      {{/ifCond}}
     {{/if}}
   {{/if}}
 {{/if}}
