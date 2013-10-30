@@ -17,6 +17,6 @@ class Thorax.Views.ValueLogic extends Thorax.View
 
   translate_unit: (unit, value) ->
     if (@unit_map[unit])
-      @unit_map[unit] + (if value > 1 then 's')
+      @unit_map[unit] + (if value > 1 then 's' else '')
     else
       unit
