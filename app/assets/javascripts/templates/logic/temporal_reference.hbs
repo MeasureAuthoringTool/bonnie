@@ -1,0 +1,11 @@
+{{#if temporalReference.range}}
+  (RANGE)
+{{!--             <%== render partial: 'value', locals: {value: temporal_reference.range} %> --}}
+{{/if}}
+{{translate_timing temporalReference.type}}
+{{#if isMeasurePeriod}}
+  "Measurement Period"
+{{else}}
+  {{view "DataCriteriaLogic" reference=temporalReference.reference dataCriteriaMap=../dataCriteriaMap tag="span"}}
+{{/if}}
+ 

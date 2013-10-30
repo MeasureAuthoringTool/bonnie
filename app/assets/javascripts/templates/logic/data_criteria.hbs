@@ -9,10 +9,12 @@
     (FIELDS)
     {{/if}}
     {{#if dataCriteria.negation}}
-    (NEGATED)
+      (NOT DONE FOR: --> OID LOOKUP[{{dataCriteria.negation_code_list_id}}])
     {{/if}}
     {{#if dataCriteria.temporal_references}}
-    ... [temporal references]
+      {{#each dataCriteria.temporal_references}}
+      	{{view "TemporalReferenceLogic" temporalReference=this dataCriteriaMap=../dataCriteriaMap tag="span"}}
+      {{/each}}
     {{/if}}
 
 {{!--     <%
