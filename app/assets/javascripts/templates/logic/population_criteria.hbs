@@ -1,7 +1,6 @@
 <div>
   <div>{{population.type}}</div>
   <div>
-  	{{debug}}
     {{#each rootPrecondiiton.preconditions}}
       {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPrecondiiton dataCriteriaMap=../dataCriteriaMap}}
     {{/each}}
