@@ -33,7 +33,7 @@ describe 'Navigation', ->
     it 'should link to measures list and update measure for each measure', ->
       p = @patients
       @measures.each (m) ->
-        @measureView = new Thorax.Views.Measure(model: m, patients: p)
+        @measureView = new Thorax.Views.Measure(model: m, patients: p, allPopulationCodes: ['IPP', 'DENOM', 'NUMER', 'DENEXCEP', 'DENEX', 'MSRPOPL', 'OBSERV'])
         @measureView.render()
         expect($('a[href="#measures"]')).toExist
         expect($('#updateMeasureTrigger')).toExist
