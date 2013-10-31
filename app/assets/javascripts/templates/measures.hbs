@@ -14,7 +14,7 @@
       <td>{{hqmf_id}}</td>
       <td>{{title}}</td>
       <td>Draft</td>
-      <td>{{#link "measures/{{hqmf_id}}" class="btn btn-primary" expand-tokens=true}}View{{/link}} {{#link "" class="btn btn-primary" expand-tokens=true id="updateMeasureTrigger"}}Update{{/link}}</td>
+      <td width="20%"><form>{{#link "measures/{{hqmf_id}}" class="btn btn-primary" expand-tokens=true}}View{{/link}} {{#link "" class="btn btn-primary" expand-tokens=true id="updateMeasureTrigger"}}Update{{/link}} <input type="submit" class="btn btn-danger" value="Delete"></form></td>
     </tr>
   {{/collection}}
 </table>

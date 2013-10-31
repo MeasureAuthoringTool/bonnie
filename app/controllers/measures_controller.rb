@@ -115,6 +115,12 @@ class MeasuresController < ApplicationController
     redirect_to measures_path
   end
 
+  def destroy
+    measure = Measure.find(params[:id])
+    Measure.find(params[:id]).destroy
+    render :json => measure
+  end
+
   def finalize
     measure_finalize_data = params.values.select {|p| p['hqmf_id']}.uniq
     measure_finalize_data.each do |data|

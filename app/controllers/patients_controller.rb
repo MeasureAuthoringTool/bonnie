@@ -59,6 +59,9 @@ class PatientsController < ApplicationController
   end
 
   def destroy
+    patient = Record.find(params[:id]) # FIXME: will we have an ID attribute on server side?
+    Record.find(params[:id]).destroy
+    render :json => patient
   end
 
   def validate_authorization!
