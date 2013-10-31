@@ -11,7 +11,7 @@
     <tr>
       <!-- <td>{{#link "patients/{{id}}" expand-tokens=true}}{{id}}{{/link}}</td> -->
       <td>{{last}}, {{first}}</td>
-      <td>{{#link "patients/{{id}}" class="btn btn-primary" expand-tokens=true}}View{{/link}} {{#link "patients/{{id}}/build" class="btn btn-primary" expand-tokens=true}}Edit{{/link}} {{#link "patients/{{id}}/build" class="btn btn-primary" expand-tokens=true }}Clone{{/link}} {{#link "patients" class="btn btn-danger" expand-tokens=true }}Delete{{/link}}</td>
+      <td><form>{{#link "patients/{{id}}" class="btn btn-primary" expand-tokens=true}}View{{/link}} {{#link "patients/{{id}}/build" class="btn btn-primary" expand-tokens=true}}Edit{{/link}} {{#link "patients/{{id}}/build" class="btn btn-primary" expand-tokens=true }}Clone{{/link}} <input type="submit" class="btn btn-danger" value="Delete"></form></td>
     </tr>
   {{/collection}}
 </table>
