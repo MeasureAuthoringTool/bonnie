@@ -31,7 +31,7 @@ namespace :bonnie do
 
     desc 'Load measures from HQMF and VSAC with white and black lists'
     task :sources_w_white_black, [:sources_dir, :username, :measures_yml, :vsac_user, :vsac_password, :white, :black, :drop_db?] do |t, args|
-      #Rake::Task["bonnie:load:sources"].invoke(args.sources_dir, args.username, args.measures_yml, args.vsac_user, args.vsac_password, args.drop_db?)
+      Rake::Task["bonnie:load:sources"].invoke(args.sources_dir, args.username, args.measures_yml, args.vsac_user, args.vsac_password, args.drop_db?)
       Rake::Task["bonnie:load:white_black_list"].invoke(args.white, args.black)
     end
 
