@@ -1,7 +1,6 @@
 class Thorax.Models.Patient extends Thorax.Model
-  initialize: ->
-    # FIXME: Temporary, don't check in!
-    @set 'id', @get('_id')
+  idAttribute: '_id'
+  urlRoot: '/patients'
 
   parse: (attrs) ->
     dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
@@ -44,13 +43,13 @@ class Thorax.Models.Patient extends Thorax.Model
     else ""
 
   getRace: ->
-    if (@attributes.race == undefined) then "Unknown"
-    else if (@attributes.race.name == undefined) then ("CDC-RE: " + @attributes.race.code)
+    unless @attributes.race? then "Unknown"
+    else unless @attributes.race.name? then ("CDC-RE: " + @attributes.race.code)
     else @attributes.race.name
 
   getEthnicity: ->
-    if (@attributes.ethnicity == undefined) then "Unknown"
-    else if (@attributes.ethnicity.name == undefined) then "CDC-RE: " + @attributes.ethnicity.code
+    unless @attributes.ethnicity? then "Unknown"
+    else unless @attributes.ethnicity.name? then "CDC-RE: " + @attributes.ethnicity.code
     else @attributes.ethnicity.name
 
   getInsurance: ->
@@ -74,5 +73,4 @@ class Thorax.Models.Patient extends Thorax.Model
           address += telecom.use + "\n"
 
 class Thorax.Collections.Patients extends Thorax.Collection
-  url: '/patients'
   model: Thorax.Models.Patient

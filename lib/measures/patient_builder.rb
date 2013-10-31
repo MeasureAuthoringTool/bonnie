@@ -30,7 +30,7 @@ module Measures
       ]
 
       @data_criteria = Hash[
-        *Measure.where({'measure_id' => {'$in' => patient['measure_ids'] || []}}).map{|m|
+        *Measure.where({'_id' => {'$in' => patient['measure_ids'] || []}}).map{|m|
           m.source_data_criteria.reject{|k,v|
             ['patient_characteristic_birthdate','patient_characteristic_gender', 'patient_characteristic_expired'].include?(v['definition'])
           }

@@ -8,13 +8,14 @@ class BonnieRouter extends Backbone.Router
     @patients = new Thorax.Collections.Patients()
 
   routes:
-    '':                   'measures'
-    'measures':           'measures'
-    'measures/matrix':    'matrix'
-    'measures/:id':       'measure'
-    'patients':           'patients'
-    'patients/:id':       'patient'
-    'patients/:id/build': 'patientBuilder'
+    '':                                         'measures'
+    'measures':                                 'measures'
+    'measures/matrix':                          'matrix'
+    'measures/:id':                             'measure'
+    'patients':                                 'patients'
+    'patients/:id':                             'patient'
+    '(measures/:measure_id/)patients/:id/edit': 'patientBuilder'
+    '(measures/:measure_id/)patients/new':      'patientBuilder'
     
   measures: ->
     # FIXME: Can we cache the generation of these views?
@@ -40,7 +41,8 @@ class BonnieRouter extends Backbone.Router
     @mainView.setView(matrixView)
     matrixView.calculateAsynchronously()
 
-  patientBuilder: (id) ->
-    measure = @measures.first() # FIXME use a better method for determining measure
-    patientBuilderView = new Thorax.Views.PatientBuilder(model: @patients.get(id), measure: measure)
+  patientBuilder: (measureId, patientId) ->
+    measure = @measures.get(measureId) if measureId
+    patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_id: measure?.id}, parse: true
+    patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients)
     @mainView.setView patientBuilderView
