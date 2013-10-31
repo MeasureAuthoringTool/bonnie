@@ -1,0 +1,15 @@
+<ul id="precondition_{{precondition.id}}">
+  <li>
+    <span class="precondition_[parent_id]">
+      {{translate_conjunction parentPrecondition.conjunction_code}}
+      {{#if parentPrecondition.negation}} NOT{{/if}}: 
+    </span>
+    {{#if precondition.preconditions }}
+        {{#each precondition.preconditions}}
+          {{view "PreconditionLogic" precondition=this parentPrecondition=../precondition dataCriteriaMap=../dataCriteriaMap}}
+        {{/each}}
+    {{else}}
+      {{view "DataCriteriaLogic" reference=precondition.reference dataCriteriaMap=../dataCriteriaMap tag="span"}}
+    {{/if}}
+  </li>
+</ul>

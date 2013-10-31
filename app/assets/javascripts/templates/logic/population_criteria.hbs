@@ -1,0 +1,12 @@
+<div>
+  <div><b>{{translate_population population.type}}: </b></div>
+  <div>
+    {{#if rootPreconditon}}
+      {{#each rootPreconditon.preconditions}}
+        {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPreconditon dataCriteriaMap=../dataCriteriaMap}}
+      {{/each}}
+    {{else}}
+     None
+    {{/if}}
+  </div>
+</div>

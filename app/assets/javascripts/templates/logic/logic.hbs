@@ -1,0 +1,9 @@
+<div id="measure_logic">
+  LOGIC
+{{!--   {{view populationViews}}
+ --}}
+
+  {{#each submeasurePopulations}}
+    {{view "PopulationCriteriaLogic" population=this dataCriteriaMap=../data_criteria}}
+  {{/each}}
+</div>
