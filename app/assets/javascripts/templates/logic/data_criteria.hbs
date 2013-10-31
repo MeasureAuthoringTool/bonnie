@@ -20,16 +20,9 @@
     {{/ifCond}}
   {{/if}}
   {{#if dataCriteria.field_values}}
-  (FIELDS)
-{{!--     <%
-        if data_criteria.field_values
-          data_criteria.field_values.each do |key, value|
-          %>
-            <%= HQMF::DataCriteria::FIELDS[key][:title] %><%== render partial: 'value', locals: {value: value} %>
-          <%
-          end
-        end
- --}}
+    ({{#each dataCriteria.field_values}}
+      {{key_title}}{{#ifCond type '!=' 'ANYNonNull'}}: {{view "ValueLogic" value=this tag="span"}} {{/ifCond}}
+    {{/each}})
   {{/if}}
   {{#if dataCriteria.negation}}
     (NOT DONE FOR: --> OID LOOKUP[{{dataCriteria.negation_code_list_id}}])
