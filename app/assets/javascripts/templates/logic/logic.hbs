@@ -2,7 +2,8 @@
   LOGIC
 {{!--   {{view populationViews}}
  --}}
-  {{#each population_criteria}}
+
+  {{#each submeasurePopulations}}
     {{view "PopulationCriteriaLogic" population=this dataCriteriaMap=../data_criteria}}
   {{/each}}
 </div>

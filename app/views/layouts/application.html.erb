@@ -31,7 +31,8 @@
     </script>
   <% end %>
   <script>
-    bonnie.logic_fields = <%= HQMF::DataCriteria::FIELDS.to_json().html_safe %>
+    bonnie.logic_fields = <%= HQMF::DataCriteria::FIELDS.to_json.html_safe %>
+    bonnie.all_population_codes = <%= HQMF::PopulationCriteria::ALL_POPULATION_CODES.to_json.html_safe%>
   </script>
   <script>
     Backbone.history.start()
