@@ -2,7 +2,7 @@
   <li>
     <span class="precondition_[parent_id]">
       {{translate_conjunction parentPrecondition.conjunction_code}}
-      {{#if precondition.negation}} NOT{{/if}}: 
+      {{#if parentPrecondition.negation}} NOT{{/if}}: 
     </span>
     {{#if precondition.preconditions }}
         {{#each precondition.preconditions}}
