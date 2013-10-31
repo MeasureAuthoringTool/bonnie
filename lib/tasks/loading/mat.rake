@@ -11,7 +11,7 @@ namespace :bonnie do
       raise "The file to measure definition must be specified" unless args.file
       raise "The username to load the measures for must be specified" unless args.username
 
-      user = User.by_username args.username
+      user = User.by_username(args.username).first
       raise "The user #{args.username} could not be found." unless user
       
       file = File.new args.file
@@ -23,7 +23,7 @@ namespace :bonnie do
       raise "The directory to measure definitions" unless args.dir
       raise "The username to load the measures for must be specified" unless args.username
 
-      user = User.by_username args.username
+      user = User.by_username(args.username).first
       raise "The user #{args.username} could not be found." unless user
 
       Dir.glob(File.join(args.dir,'*.zip')).each do |zip_path|
