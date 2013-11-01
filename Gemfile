@@ -52,6 +52,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 gem 'sprockets', '2.2.2.backport1'
+gem 'foreman'
 
 
 # To use ActiveModel has_secure_password
