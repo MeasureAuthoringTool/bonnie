@@ -7,8 +7,7 @@ class Thorax.Collections.Measures extends Thorax.Collection
     new Thorax.Collections.Measures(_(@toArray()).uniq (m) -> m.get('hqmf_id'))
 
 class Thorax.Models.Measure extends Thorax.Model
-  url: -> '/measures/' + @.get('hqmf_id')
-  # idAttribute: 'hqmf_id'
+  idAttribute: '_id'
   parse: (attrs) ->
     populations = new Thorax.Collections.Population
     for population, index in attrs.populations

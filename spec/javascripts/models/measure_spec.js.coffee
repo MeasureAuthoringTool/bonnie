@@ -1,10 +1,10 @@
 describe 'Measure', ->
 
   beforeEach ->
-    @measure = Fixtures.Measures.get('0002')
+    @measure = Fixtures.Measures.get('40280381-3D61-56A7-013E-5D1EF9B76A48')
 
   it 'has basic attributes available', ->
-    expect(@measure.id).toEqual '0002'
+    expect(@measure.id).toEqual '40280381-3D61-56A7-013E-5D1EF9B76A48'
     expect(@measure.get('title')).toEqual 'Appropriate Testing for Children with Pharyngitis'
 
   it 'can calulate results for a patient', ->

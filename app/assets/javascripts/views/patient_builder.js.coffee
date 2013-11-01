@@ -7,13 +7,15 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     populate: { children: false }
 
   initialize: ->
+    # FIXME need to deeply clone source data criteria to avoid editing in place; this is only a shallow clone
+    @sourceDataCriteria = @model.get('source_data_criteria').clone()
     @editCriteriaCollectionView = new Thorax.CollectionView
-      collection: @model.get('source_data_criteria')
+      collection: @sourceDataCriteria
       itemView: Thorax.Views.EditCriteriaView
 
   dataCriteriaCategories: ->
     categories = {}
-    @measure.get('source_data_criteria').each (criteria) ->
+    @measure?.get('source_data_criteria').each (criteria) ->
       categories[criteria.get('type')] ||= new Thorax.Collection
       categories[criteria.get('type')].add criteria unless categories[criteria.get('type')].any (c) -> c.get('title') == criteria.get('title')
     categories
@@ -25,17 +27,19 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       @$('.droppable').droppable accept: '.ui-draggable'
       # TODO move event handling up into events object, if possible
       @$('.droppable').on 'drop', _.bind(@drop, this)
+    model:
+      sync: (model) -> @patients.add model # make sure that the patient exist in the global patient collection
 
   drop: (e, ui) ->
     measureDataCriteria = $(ui.draggable).model()
-    @model.get('source_data_criteria').add measureDataCriteria.toPatientDataCriteria()
+    @sourceDataCriteria.add measureDataCriteria.toPatientDataCriteria()
 
   save: (e) ->
     e.preventDefault()
     # Serialize the main view and the child collection views separately
     @serialize(children: false)
     childView.serialize() for cid, childView of @editCriteriaCollectionView.children
-    @model.save()
+    @model.save(source_data_criteria: @sourceDataCriteria)
 
 
 # FIXME: When we get coffeescript scoping working again, don't need to put this in Thorax.Views scope

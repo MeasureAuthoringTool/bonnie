@@ -140,14 +140,13 @@ describe 'Navigation', ->
           expect(BonnieRouter.prototype.patient).toHaveBeenCalledWith p.attributes.id
       router.navigate('', true)
 
-    it 'should route "patients/:id/build" to individual patient builder views', ->
+    it 'should route "patients/:id/edit" to individual patient builder views', ->
       spyOn(BonnieRouter.prototype, "patientBuilder")
       router = new BonnieRouter()
       router.mainView = new Thorax.LayoutView()
       
       Backbone.history.start()
-      @patients.each (p) ->
-        if p.attributes.insurance_providers?
-          router.navigate('patients/' + p.attributes.id + '/build', true)
-          expect(BonnieRouter.prototype.patientBuilder).toHaveBeenCalledWith p.attributes.id
+      p = @patients.detect (p) -> p.has 'insurance_providers'
+      router.navigate('patients/' + p.attributes.id + '/edit', true)
+      expect(BonnieRouter.prototype.patientBuilder).toHaveBeenCalledWith(null, p.attributes.id)
       router.navigate('', true)

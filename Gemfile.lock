@@ -147,6 +147,8 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pry-nav (0.2.2)
+      pry (~> 0.9.10)
     quality-measure-engine (2.5.1)
       delayed_job_mongoid (~> 2.0.0)
       mongoid (~> 3.1.4)
@@ -257,6 +259,7 @@ DEPENDENCIES
   minitest (~> 4.0)
   mongoid (~> 3.1.0)
   pry
+  pry-nav
   rails (= 3.2.14)
   roo
   rubyzip (< 1.0.0)

@@ -105,6 +105,7 @@ private
     #   patient = patient.dup
     # end
 
+    patient['measure_id'] ||= params['measure_id']
     patient['measure_ids'] ||= []
     patient['measure_ids'] << params['measure_id'] unless patient['measure_ids'].include? params['measure_id']
 
@@ -116,6 +117,11 @@ private
     #patient['race'] = {'code' => params['race'], 'name'=>RACE_NAME_MAP[params['race']], 'codeSystem' => 'CDC Race'}
 
     measure_period = {'id' => 'MeasurePeriod', 'start_date' => params['measure_period_start'].to_i, 'end_date' => params['measure_period_end'].to_i}
+
+    # work around Rails regression with empty nested attributes in parameters: https://github.com/rails/rails/issues/8832
+    params['source_data_criteria'] ||= []
+    params['source_data_criteria'].each { |c| c[:value] ||= [] }
+
     patient['source_data_criteria'] = params['source_data_criteria'] + [measure_period]
     patient['measure_period_start'] = measure_period['start_date']
     patient['measure_period_end'] = measure_period['end_date']
