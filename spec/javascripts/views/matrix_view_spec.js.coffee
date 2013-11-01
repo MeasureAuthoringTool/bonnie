@@ -9,7 +9,7 @@ describe 'MatrixView', ->
   it 'renders correctly', ->
     @measures.each (m) =>
       @patients.each (p) =>
-        expect(@matrixView.$el).toContainText m.id
+        expect(@matrixView.$el).toContainText m.get('measure_id')
         expect(@matrixView.$el).toContainText "#{p.get('last')}, #{p.get('first')}"
 
   it 'calcuates correctly', ->

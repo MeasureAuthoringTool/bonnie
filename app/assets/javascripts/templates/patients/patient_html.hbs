@@ -1,5 +1,9 @@
 {{#link "" class="btn btn-primary" disabled="disabled"}}Add{{/link}}
-{{#link "measures/{{measure_id}}/patients/{{_id}}/edit" class="btn btn-primary" expand-tokens=true}}Edit{{/link}}
+{{#if measure_id}}
+  {{#link "measures/{{measure_id}}/patients/{{_id}}/edit" class="btn btn-primary" expand-tokens=true}}Edit{{/link}}
+{{else}}
+  {{#link "patients/{{_id}}/edit" class="btn btn-primary" expand-tokens=true}}Edit{{/link}}
+{{/if}}
 <h1 class="h1center">Cypress Certification Patient Test Record: {{first}} {{last}}</h1>
 <div class="pHtml">
   {{view headerView}}

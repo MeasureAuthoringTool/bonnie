@@ -6,7 +6,7 @@ describe 'MeasuresView', ->
     @measuresView.render()
 
   it 'renders correctly', ->
-    expect(@measuresView.$el).toContainText "Total measures: #{@measures.collapsed().length}"
+    expect(@measuresView.$el).toContainText "Total measures: #{@measures.length}"
     @measures.each (m) =>
       expect(@measuresView.$el).toContainText m.get('hqmf_id')
       expect(@measuresView.$el).toContainText m.get('title')

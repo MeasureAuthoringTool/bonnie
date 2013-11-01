@@ -1,20 +1,22 @@
 {{#link "measures/matrix" class="btn btn-primary"}}Matrix View{{/link}}
 {{#link "" class="btn btn-primary" id="importMeasureTrigger"}}Import Measure{{/link}}
-<p>Total measures: {{collapsedCount}}</p>
+<p>Total measures: {{measures.length}}</p>
 <table class="table">
   <thead>
     <tr>
-      <th>HQMF</th>
+      <th>NQF ID</th>
+      <th>HQMF ID</th>
       <th>Title</th>
       <th>Status</th>
     </tr>
   </thead>
   {{#collection measures tag="tbody"}}
     <tr>
-      <td>{{hqmf_id}}</td>
+      <td>{{measure_id}}</td>
+      <td>{{_id}}</td>
       <td>{{title}}</td>
       <td>Draft</td>
-      <td width="20%"><form>{{#link "measures/{{hqmf_id}}" class="btn btn-primary" expand-tokens=true}}View{{/link}} {{#link "" class="btn btn-primary" expand-tokens=true id="updateMeasureTrigger"}}Update{{/link}} <input type="submit" class="btn btn-danger" value="Delete"></form></td>
+      <td width="20%"><form>{{#link "measures/{{_id}}" class="btn btn-primary" expand-tokens=true}}View{{/link}} {{#link "" class="btn btn-primary" expand-tokens=true id="updateMeasureTrigger"}}Update{{/link}} <input type="submit" class="btn btn-danger" value="Delete"></form></td>
     </tr>
   {{/collection}}
 </table>

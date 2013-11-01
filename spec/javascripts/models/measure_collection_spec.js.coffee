@@ -4,7 +4,7 @@ describe 'MeasureCollection', ->
     @measures = Fixtures.Measures
 
   it 'has the correct number of measures defined (when defining a measure object for each population)', ->
-    expect(@measures.length).toEqual 3
+    expect(@measures.length).toEqual 2
 
-  it 'has the correct number of measures defined (when collapsing populations into a single measure)', ->
-    expect(@measures.collapsed().length).toEqual 2
+  it 'has the correct number of populations defined (when expanding measures into populations)', ->
+    expect(@measures.populations().length).toEqual 3

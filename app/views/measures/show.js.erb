@@ -1,32 +1,42 @@
-<% @populations.each do |population| %>
-  (function() {
-    <%# FIXME: we'll want much more of the measure data on the client-side model %>
-    <%# but id duplication across populations will prevent measures from being added %>
-    var measure = new Thorax.Models.Measure(<%= measure_json(@measure, population, @populations.length).html_safe %>, {parse: true});
-    measure.calculate = function(patient) {
+(function() {
 
-      <%# If patient is a Thorax model, grab the contents and do the calculation on that %>
-      if (patient.toJSON != null) {
-        patient = patient.toJSON();
-      }
+  var measure = new Thorax.Models.Measure(<%= @measure.to_json(except: [:map_fns, :record_ids]).html_safe %>, {parse: true});
 
-      <%# Set up some variables and functions used in the generated measure calculation %>
-      var enable_logging = !!this.enable_logging;
-      var enable_rationale = !!this.enable_rationale;
-      ObjectId = function() { return 1; };
-      var result = null; // Calls to emit() set this local variable
-      emit = function(id, value) { result = value; };
-      var print = function(output) { console.log(output); };
+  <%# Add the appropriate calculation code to each population %>
+  <% @measure.populations.each_with_index do |population, index| %>
 
-      <%= @measure.map_fn(population).html_safe %>
+    (function() {
 
-      <%# Delete the functions that we needed to place in the global scope %>
-      delete ObjectId;
-      delete emit;
+      var population = measure.get('populations').findWhere({ index: <%= index %> });
 
-      <%# FIXME: should we store results per-patient on the measure? %>
-      return result;
-    };
-    bonnie.measures.add(measure);
-  })();
-<% end %>
+      population.calculate = function(patient) {
+
+        <%# If patient is a Thorax model, grab the contents and do the calculation on that %>
+        if (patient.toJSON != null) {
+          patient = patient.toJSON();
+        }
+
+        <%# Set up some variables and functions used in the generated measure calculation %>
+        var enable_logging = !!this.enable_logging;
+        var enable_rationale = !!this.enable_rationale;
+        ObjectId = function() { return 1; };
+        var result = null; // Calls to emit() set this local variable
+        emit = function(id, value) { result = value; };
+        var print = function(output) { console.log(output); };
+
+        <%= @measure.map_fn(index).html_safe %>
+
+        <%# Delete the functions that we needed to place in the global scope %>
+        delete ObjectId;
+        delete emit;
+
+        <%# FIXME: we should cache results per-patient someplace %>
+        return result;
+      };
+    })();
+
+  <% end %>
+
+  bonnie.measures.add(measure);
+
+})();

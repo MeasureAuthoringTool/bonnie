@@ -8,6 +8,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     @results = new Thorax.Collection()
     # FIXME: It would be nice to have the counts update dynamically without re-rendering the whole table
     @results.on 'add remove', @render, this
+    @population = @model.get('populations').at(@populationIndex)
   context: ->
     _(super).extend
       IPPTotal: @results.where(IPP: 1).length
@@ -20,11 +21,10 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     if result = @results.findWhere(patient_id: patient.id)
       @results.remove result
     else
-      # FIXME: This isn't cached in any way now (still reasonably fast!)
-      @results.add @model.calculate(patient)
+      @results.add @population.calculate(patient)
   selectAll: ->
     # FIXME: This isn't cached in any way now (still reasonably fast!)
-    @patients.each (p) => @results.add @model.calculate(p) unless @results.findWhere(patient_id: p.id)
+    @patients.each (p) => @results.add @population.calculate(p) unless @results.findWhere(patient_id: p.id)
     @$('button.toggle-patient').addClass('active')
   selectNone: ->
     @results.set() # FIXME: Instead of reset() so we get individual adds and removes

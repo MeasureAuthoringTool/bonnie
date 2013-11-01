@@ -3,7 +3,7 @@ class Thorax.Views.Matrix extends Thorax.View
   template: JST['matrix']
 
   context: ->
-    measureIds: @measures.map (m) -> m.id
+    measureIds: @measures.map (m) -> m.get('measure_id')
 
   calculateAsynchronously: ->
     # FIXME: This calculation code is rough (is timeout best approach to display while "loading"?)
@@ -14,7 +14,8 @@ class Thorax.Views.Matrix extends Thorax.View
         deferredProcesses.push(deferred)
         calculate = =>
           results = @measures.map (m) ->
-            result = m.calculate(p)
+            # FIXME: Just calculate first population for now
+            result = m.get('populations').at(0).calculate(p)
             pops = []
             if result.NUMER then pops.push 'NUM'
             else if result.DENOM then pops.push 'DEN'

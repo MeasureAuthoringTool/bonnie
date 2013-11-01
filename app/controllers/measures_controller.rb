@@ -61,8 +61,6 @@ class MeasuresController < ApplicationController
 
   def show
     @measure = Measure.find(params[:id])
-    @populations = params[:population] ? [params[:population].to_i] : (0...@measure.populations.length).to_a
-    @patients = Record.asc(:last, :first)
     stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
   end
 
