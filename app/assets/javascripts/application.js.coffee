@@ -28,16 +28,14 @@
 #= require_tree .
 
 # add the rails authenticity token to Backbone.sync
-Backbone.sync = _.wrap(Backbone.sync, (sync, method, model, success, error) ->
+Backbone.sync = _.wrap(Backbone.sync, (sync, method, model, options) ->
   # only need a token for non-get requests 
   if (method == 'create' || method == 'update' || method == 'delete')
-    # grab the token from the meta tag rails embeds
-    auth_options = {}
-    auth_options[$("meta[name='csrf-param']").attr('content')] = $("meta[name='csrf-token']").attr('content')
-    # set it as a model attribute without triggering events 
-    model.set(auth_options, {silent: true})
+    # grab the token from the meta tag rails embeds and add that to the options data
+    options.data = _.extend({}, options.data, {authenticity_token: $('meta[name="csrf-token"]')[0].content})
+    options.processData = true
   # proxy the call to the old sync method 
-  sync(method, model, success, error))
+  sync(method, model, options))
 
 window.bonnie = new BonnieRouter()
 # We call Backbone.history.start() after all the measures are loaded, in app/views/layouts/application.html.erb

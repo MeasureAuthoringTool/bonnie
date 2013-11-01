@@ -1,22 +1,18 @@
 class Thorax.Models.Patient extends Thorax.Model
   idAttribute: '_id'
   urlRoot: '/patients'
-
+  
   parse: (attrs) ->
     dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
     attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria, parse: true)
     attrs
-
-  getBirthDate: -> new Date(@attributes.birthdate)
-
-  getPayerName: -> @attributes.insurance_providers[0].name
-
+  getBirthDate: -> new Date(@get('birthdate'))
+  getPayerName: -> @get('insurance_providers')[0].name
   getValidMeasureIds: (measures) ->
     validIds = {}
-    @attributes.measure_ids.map (m) ->
+    @get('measure_ids').map (m) ->
       validIds[m] = {key: m, value: _.contains(measures.pluck('id'), m)}
     validIds
-
   getEntrySections: (sections) ->
     entrySections = []
     p = @
@@ -24,53 +20,43 @@ class Thorax.Models.Patient extends Thorax.Model
       if p.attributes[s]?
         entrySections.push(s) if s?
     entrySections
-
   ### Patient HTML Header values ###
   getGender: -> 
-    if @attributes.gender == 'M'
+    if @get('gender') == 'M'
       "Male"
     else
       "Female"
-
-  getBirthdate: ->
-    fullDate = new Date(@attributes.birthdate)
-    fullDate.getMonth() + '/' + fullDate.getDay() + '/' + fullDate.getYear()
-
-  getExpirationDate: ->
-    if @attributes.expired
-      fullDate = new Date(@attributes.deathdate)
-      fullDate.getMonth() + '/' + fullDate.getDay() + '/' + fullDate.getYear()
-    else ""
-
+  getBirthdate: -> @printDate @get('birthdate')
+  getExpirationDate: -> if @get('expired') then @printDate(@get('deathdate')) else ''
   getRace: ->
-    unless @attributes.race? then "Unknown"
-    else unless @attributes.race.name? then ("CDC-RE: " + @attributes.race.code)
-    else @attributes.race.name
-
+    unless @get('race')? then "Unknown"
+    else unless @get('race').name? then "CDC-RE: #{@get('race').code}"
+    else @get('race').name
   getEthnicity: ->
-    unless @attributes.ethnicity? then "Unknown"
-    else unless @attributes.ethnicity.name? then "CDC-RE: " + @attributes.ethnicity.code
-    else @attributes.ethnicity.name
-
+    unless @get('ethnicity')? then "Unknown"
+    else unless @get('ethnicity').name? then "CDC-RE: #{@get('ethnicity').code}"
+    else @get('ethnicity').name
   getInsurance: ->
-    insurances = @attributes.insurance_providers.map (ip) ->
+    insurances = @get('insurance_providers').map (ip) ->
       ip.name
     insurances.join(", ")
-
   getAddresses: ->
     address = ""
-    if @attributes.addresses
-      for addr in @attributes.addresses
-        addr.street.each (street) ->
+    if @get('addresses')
+      for addr in @get('addresses')
+        for street in addr.street
           address += street + "\n"
         address += addr.city + ", " + addr.state + ", " + addr.zip + "\n"
         if addr.use
           address += addr.use + "\n"
-    if @attributes.telecoms
-      for telecom in @attributes.telecoms
+    if @get('telecoms')
+      for telecom in @get('telecoms')
         address += telecom.value + "\n"
         if telecom.use
           address += telecom.use + "\n"
+  printDate: (date) ->
+    fullDate = new Date(date * 1000)
+    (fullDate.getMonth() + 1) + '/' + fullDate.getDay() + '/' + fullDate.getYear()
 
 class Thorax.Collections.Patients extends Thorax.Collection
   model: Thorax.Models.Patient

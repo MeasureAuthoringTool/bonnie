@@ -4,20 +4,13 @@ class Thorax.Views.Measures extends Thorax.View
     @importMeasureView = new Thorax.Views.ImportMeasure()
     to_finalize = @measures.select((m) -> m.attributes['needs_finalize'])
     @finalizeMeasuresView = new Thorax.Views.FinalizeMeasures(measures: new Thorax.Collections.Measures(to_finalize))
-  events:
-    'click #importMeasureTrigger': 'importMeasure'
-    'click #updateMeasureTrigger': 'updateMeasure'
-    'submit form': 'deleteMeasure'
   importMeasure: (event) ->
-    @importMeasureView.$('.modal-title').text('New Measure')
+    @importMeasureView.$('.modal-title').text('[Import] New Measure')
     @importMeasureView.display()
-    event.preventDefault()
-  updateMeasure: (event) ->
-    @importMeasureView.$('.modal-title').text('Reimport Measure')
+  updateMeasure: (e) ->
+    measure = $(e.target).model()
+    @importMeasureView.$('.modal-title').text("[Update] #{measure.get('title')}")
     @importMeasureView.display()
-    event.preventDefault()
   deleteMeasure: (e) ->
-    e.preventDefault()
-    @serialize()
     @model = $(e.target).model()
-    @model.destroy({data: {authenticity_token: $('meta[name="csrf-token"]')[0].content}, processData: true})
+    @model.destroy()

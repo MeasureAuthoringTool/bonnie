@@ -1,7 +1,7 @@
 <h2>{{id}}: {{title}}</h2>
 <p>{{description}}</p>
 {{#link "measures" class="btn btn-primary"}}<i class="glyphicon glyphicon-circle-arrow-left"></i> back to measures listing{{/link}}
-{{#link "measures/{{_id}}" class="btn btn-primary" expand-tokens=true id="updateMeasureTrigger"}}Update{{/link}}
+{{#button "updateMeasure" class="btn btn-primary"}}Update{{/button}}
 
 {{view measureCalculation}}
 

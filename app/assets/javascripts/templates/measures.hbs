@@ -1,5 +1,5 @@
 {{#link "measures/matrix" class="btn btn-primary"}}Matrix View{{/link}}
-{{#link "" class="btn btn-primary" id="importMeasureTrigger"}}Import Measure{{/link}}
+{{#button "importMeasure" class="btn btn-primary"}}Import Measure{{/button}}
 <p>Total measures: {{measures.length}}</p>
 <table class="table">
   <thead>
@@ -16,7 +16,10 @@
       <td>{{_id}}</td>
       <td>{{title}}</td>
       <td>Draft</td>
-      <td width="20%"><form>{{#link "measures/{{_id}}" class="btn btn-primary" expand-tokens=true}}View{{/link}} {{#link "" class="btn btn-primary" expand-tokens=true id="updateMeasureTrigger"}}Update{{/link}} <input type="submit" class="btn btn-danger" value="Delete"></form></td>
+      <td width="20%">
+        {{#link "measures/{{hqmf_id}}" class="btn btn-primary" expand-tokens=true}}View{{/link}}
+        {{#button "updateMeasure" class="btn btn-primary"}}Update{{/button}}
+        {{#button "deleteMeasure" class="btn btn-danger"}}Delete{{/button}}</td>
     </tr>
   {{/collection}}
 </table>
