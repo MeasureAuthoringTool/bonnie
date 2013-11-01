@@ -16,28 +16,26 @@ describe 'Navigation', ->
 
     # $('a[href="#patients/' + id + '"]')
     it 'should link to the matrix view', ->
-      expect($('a[href="#measures/matrix"]')).toExist
+      expect($('a[href="#measures/matrix"]', @measuresView.el).length).toEqual(1)
 
     it 'should link to the import measure view', ->
-      expect($('#importMeasureTrigger')).toExist
+      expect($('button[data-call-method="importMeasure"]', @measuresView.el).length).toEqual(1)
 
-    it 'should link to the measure view for each measure', ->
-      @measures.each (m) ->
-        expect($('a[href="#measures/' + m.hqmf_id + '"]')).toExist
+    it 'should link to the measure view for a measure', ->
+      expect($('a[href="#measures/' + @measures.first().get('hqmf_id') + '"]', @measuresView.el).length).toEqual(1)
 
     it 'should link to the update measure view', ->
-      expect($('#updateMeasureTrigger')).toExist
+      expect($('button[data-call-method="updateMeasure"]', @measuresView.el).length).toEqual(@measures.length)
 
   describe 'navigating each measure view', ->
 
-    it 'should link to measures list and update measure for each measure', ->
+    it 'should link to measures list and update measure for a measure', ->
       p = @patients
-      @measures.each (m) ->
-        @measureView = new Thorax.Views.Measure(model: m, patients: p, allPopulationCodes: ['IPP', 'DENOM', 'NUMER', 'DENEXCEP', 'DENEX', 'MSRPOPL', 'OBSERV'])
-        @measureView.render()
-        expect($('a[href="#measures"]')).toExist
-        expect($('#updateMeasureTrigger')).toExist
-        @measureView.remove()
+      @measureView = new Thorax.Views.Measure(model: @measures.first(), patients: p, allPopulationCodes: ['IPP', 'DENOM', 'NUMER', 'DENEXCEP', 'DENEX', 'MSRPOPL', 'OBSERV'])
+      @measureView.render()
+      expect(@measureView.$('a[href="#measures"]')).toExist
+      expect(@measureView.$('#updateMeasureTrigger')).toExist
+      @measureView.remove()
 
   describe 'navigating the patients list view', ->
 
@@ -51,22 +49,20 @@ describe 'Navigation', ->
     it 'should link to the matrix view', ->
       expect($('a[href="#measures/matrix"]')).toExist    
 
-    it 'should link to the patient view and patient builder for each patient', ->
-      @patients.each (p) ->
-        expect($('a[href="#patients/' + p.id + '"]')).toExist
-        expect($('a[href="#patients/' + p.id + '/build"]')).toExist
+    it 'should link to the patient view and patient builder for a patient', ->
+      expect($('a[href="#patients/' + @patients.first().id + '"]')).toExist
+      expect($('a[href="#patients/' + @patients.first().id + '/build"]')).toExist
 
   describe 'navigating each patient view', ->
 
     it 'should link to edit patient and patients list for each patient', ->
       s = @sections
       im = @idMap
-      @patients.each (patient) ->
-        patientView = new Thorax.Views.Patient(measures: @measures, model: patient, sections: s, idMap: im)
-        patientView.render()
-        expect($('a[href="#patients/' + patient.id + '/build"]')).toExist
-        expect($('a[href="#patients"]')).toExist
-        patientView.remove()
+      patientView = new Thorax.Views.Patient(measures: @measures, model: @patients.first(), sections: s, idMap: im)
+      patientView.render()
+      expect($('a[href="#patients/' + @patients.first().id + '/build"]')).toExist
+      expect($('a[href="#patients"]')).toExist
+      patientView.remove()
 
   describe 'navigating the matrix view', ->
 
@@ -123,9 +119,8 @@ describe 'Navigation', ->
       router.mainView = new Thorax.LayoutView()
       
       Backbone.history.start()
-      @measures.each (m) ->
-        router.navigate('measures/' + m.attributes.hqmf_id, true)
-        expect(BonnieRouter.prototype.measure).toHaveBeenCalledWith m.attributes.hqmf_id
+      router.navigate('measures/' + @measures.first().get('hqmf_id'), true)
+      expect(BonnieRouter.prototype.measure).toHaveBeenCalledWith @measures.first().get('hqmf_id')
       router.navigate('', true)
 
     it 'should route "patients/:id" to individual patient views', ->
@@ -134,10 +129,9 @@ describe 'Navigation', ->
       router.mainView = new Thorax.LayoutView()
       
       Backbone.history.start()
-      @patients.each (p) ->
-        if p.attributes.insurance_providers?
-          router.navigate('patients/' + p.attributes.id, true)
-          expect(BonnieRouter.prototype.patient).toHaveBeenCalledWith p.attributes.id
+      p = @patients.detect (p) -> p.has 'insurance_providers'
+      router.navigate('patients/' + p.id, true)
+      expect(BonnieRouter.prototype.patient).toHaveBeenCalledWith p.id
       router.navigate('', true)
 
     it 'should route "patients/:id/edit" to individual patient builder views', ->
@@ -147,6 +141,6 @@ describe 'Navigation', ->
       
       Backbone.history.start()
       p = @patients.detect (p) -> p.has 'insurance_providers'
-      router.navigate('patients/' + p.attributes.id + '/edit', true)
-      expect(BonnieRouter.prototype.patientBuilder).toHaveBeenCalledWith(null, p.attributes.id)
+      router.navigate('patients/' + p.id + '/edit', true)
+      expect(BonnieRouter.prototype.patientBuilder).toHaveBeenCalledWith(null, p.id)
       router.navigate('', true)

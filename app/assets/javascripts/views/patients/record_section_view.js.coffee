@@ -1,11 +1,11 @@
-class Thorax.Views.PatientHtmlSection extends Thorax.View  
-  template: JST['patients/patient_html_section']
+class Thorax.Views.RecordSection extends Thorax.View  
+  template: JST['patients/record_section']
   initialize: ->
-    @entries = @model.attributes[@section] if @section? 
+    @entries = @model.get(@section) if @section? 
   render: ->
     _(super).extend
     for entry in @entries
-      entryView = new Thorax.Views.PatientHtmlEntry(model: @model, section: @section, entry: entry, idMap: @idMap)
+      entryView = new Thorax.Views.RecordEntry(model: @model, section: @section, entry: entry, idMap: @idMap)
       entryView.render()
       @$("#" + @section).append(entryView.$el.html())
     @

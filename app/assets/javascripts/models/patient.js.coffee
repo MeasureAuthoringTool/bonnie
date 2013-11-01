@@ -17,7 +17,7 @@ class Thorax.Models.Patient extends Thorax.Model
     entrySections = []
     p = @
     for s in sections
-      if p.attributes[s]?
+      if p.get(s)?
         entrySections.push(s) if s?
     entrySections
   ### Patient HTML Header values ###

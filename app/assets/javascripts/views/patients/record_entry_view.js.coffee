@@ -1,12 +1,12 @@
-class Thorax.Views.PatientHtmlEntry extends Thorax.View
-  template: JST['patients/patient_html_entry']
+class Thorax.Views.RecordEntry extends Thorax.View
+  template: JST['patients/record_entry']
   getDescription: -> @entry.description
   # FIXME: Migrate hqmf decoding
   getCodes: -> 
     codes = []
     if @entry.codes
       for code, value of @entry.codes
-        codes.push(code + ": " + value)
+        codes.push("#{code}: #{value}")
     codes
   # FIXME: Default value should be UNK, but can't pass in params via templates...
   getTime: (nil_string='present') -> 
@@ -23,13 +23,12 @@ class Thorax.Views.PatientHtmlEntry extends Thorax.View
       for value in @entry.values
         if value.scalar?
           scalar = value.scalar
-          # FIXME: Find example of scalar/units and update this line
           if value.units?
-            scalar += ' ' + value.units
+            scalar += " #{value.units}"
           results.push(scalar)
         else if value.codes?
           for system, vals of value.codes
-            results.push(system + ": " + vals.join(',') + " (#{value.description})")
+            results.push("#{system}: " + vals.join(',') + " (#{value.description})")
         else results.push('UNKNOWN VALUE')
     results
   getFields: ->
