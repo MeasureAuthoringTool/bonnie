@@ -2,8 +2,6 @@ describe 'Navigation', ->
 	beforeEach ->
     @measures = Fixtures.Measures
     @patients = new Thorax.Collections.Patients getJSONFixture('patients.json')
-    @sections = getJSONFixture('sections.json')
-    @idMap = getJSONFixture('hqmf_template_oid_map.json')
   
   describe 'navigating the measures list view', ->
 
@@ -56,9 +54,7 @@ describe 'Navigation', ->
   describe 'navigating each patient view', ->
 
     it 'should link to edit patient and patients list for each patient', ->
-      s = @sections
-      im = @idMap
-      patientView = new Thorax.Views.Patient(measures: @measures, model: @patients.first(), sections: s, idMap: im)
+      patientView = new Thorax.Views.Patient(measures: @measures, model: @patients.first())
       patientView.render()
       expect($('a[href="#patients/' + @patients.first().id + '/build"]')).toExist
       expect($('a[href="#patients"]')).toExist

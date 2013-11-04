@@ -17,4 +17,4 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.View
     @operator_map[conjunction]
 
   translate_field: (field_key) =>
-    bonnie.logic_fields[field_key]['title'] if bonnie.logic_fields?
+    Thorax.Models.Measure.logicFields[field_key]?['title']

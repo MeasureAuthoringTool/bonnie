@@ -18,12 +18,11 @@ class BonnieRouter extends Backbone.Router
     '(measures/:measure_id/)patients/new':      'patientBuilder'
     
   measures: ->
-    # FIXME: Can we cache the generation of these views?
     measuresView = new Thorax.Views.Measures(measures: @measures)
     @mainView.setView(measuresView)
 
   measure: (id) ->
-    measureView = new Thorax.Views.Measure(model: @measures.get(id), patients: @patients, allPopulationCodes: @all_population_codes)
+    measureView = new Thorax.Views.Measure(model: @measures.get(id), patients: @patients)
     @mainView.setView(measureView)
 
   patients: ->
@@ -31,7 +30,7 @@ class BonnieRouter extends Backbone.Router
     @mainView.setView patientsView
 
   patient: (id) ->
-    patientView = new Thorax.Views.Patient(measures: @measures, model: @patients.get(id), sections: @sections, idMap: @template_id_map)
+    patientView = new Thorax.Views.Patient(measures: @measures, model: @patients.get(id))
     @mainView.setView patientView
 
   matrix: ->

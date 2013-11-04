@@ -16,7 +16,7 @@ class Thorax.Views.RecordEntry extends Thorax.View
       "#{start_string} - #{end_string}"
     else if @entry.time? then new Date(@entry.time * 1000)
   getStatus: ->
-    @idMap[@entry.oid]['status'] if @idMap? and @idMap[@entry.oid]?
+    Thorax.Models.Patient.templateOidMap[@entry.oid]?['status']
   getResults: ->
     results = []
     if @entry.values?

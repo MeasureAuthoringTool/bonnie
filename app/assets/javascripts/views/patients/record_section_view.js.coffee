@@ -5,7 +5,7 @@ class Thorax.Views.RecordSection extends Thorax.View
   render: ->
     _(super).extend
     for entry in @entries
-      entryView = new Thorax.Views.RecordEntry(model: @model, section: @section, entry: entry, idMap: @idMap)
+      entryView = new Thorax.Views.RecordEntry(model: @model, section: @section, entry: entry)
       entryView.render()
       @$("#" + @section).append(entryView.$el.html())
     @

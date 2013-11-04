@@ -13,13 +13,8 @@ class Thorax.Models.Patient extends Thorax.Model
     @get('measure_ids').map (m) ->
       validIds[m] = {key: m, value: _.contains(measures.pluck('id'), m)}
     validIds
-  getEntrySections: (sections) ->
-    entrySections = []
-    p = @
-    for s in sections
-      if p.get(s)?
-        entrySections.push(s) if s?
-    entrySections
+  getEntrySections: ->
+    s for s in Thorax.Models.Patient.sections when @has(s)
   ### Patient HTML Header values ###
   getGender: -> 
     if @get('gender') == 'M'
