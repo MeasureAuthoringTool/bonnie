@@ -25,7 +25,7 @@ include Devise::TestHelpers
      'start_date'=>'2012-01-01',
      'end_date'=>'2012-12-31',
      'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","start_date"=>1333206000000,"end_date"=>1333206000000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"oid"=>"2.16.840.1.113883.3.526.3.1492"}],
-     'measure_id' => @measure.measure_id}
+     'measure_id' => @measure._id}
 
     post :create, @patient
     assert_response :success
@@ -67,7 +67,7 @@ include Devise::TestHelpers
      'start_date'=>'2012-01-01',
      'end_date'=>'2012-12-31',
      'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","start_date"=>1333206000000,"end_date"=>1333206000000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"oid"=>"2.16.840.1.113883.3.526.3.1492"}],
-     'measure_id' => @measure.measure_id}
+     'measure_id' => @measure._id}
 
     post :update,@patient
     assert_response :success
@@ -102,7 +102,7 @@ include Devise::TestHelpers
      'start_date'=>'2012-01-01',
      'end_date'=>'2012-12-31',
      'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","start_date"=>1333206000000,"end_date"=>1333206000000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"oid"=>"2.16.840.1.113883.3.526.3.1492"}],
-     'measure_id' => @measure.measure_id}
+     'measure_id' => @measure._id}
 
     post :materialize, @patient
     assert_response :success

@@ -28,6 +28,7 @@ end
 
 group :test, :development do
   gem 'pry'
+  gem 'pry-debugger'
   gem 'jasmine'
   gem 'turn', :require => false
   gem 'simplecov', :require => false
