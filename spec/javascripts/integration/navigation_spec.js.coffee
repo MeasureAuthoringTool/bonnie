@@ -29,7 +29,7 @@ describe 'Navigation', ->
 
     it 'should link to measures list and update measure for a measure', ->
       p = @patients
-      @measureView = new Thorax.Views.Measure(model: @measures.first(), patients: p, allPopulationCodes: ['IPP', 'DENOM', 'NUMER', 'DENEXCEP', 'DENEX', 'MSRPOPL', 'OBSERV'])
+      @measureView = new Thorax.Views.Measure(model: @measures.first(), patients: p)
       @measureView.render()
       expect(@measureView.$('a[href="#measures"]')).toExist
       expect(@measureView.$('#updateMeasureTrigger')).toExist
@@ -71,72 +71,3 @@ describe 'Navigation', ->
 
     it 'should link to the measures list', ->
       expect($('a[href="#measures"]')).toExist
-
-  describe 'testing all the routes', ->
-
-    afterEach ->
-      Backbone.history.stop()
-
-    it 'should route "" and "measures" to the measures list view', ->
-      spyOn(BonnieRouter.prototype, "measures")
-      @router = new BonnieRouter()
-      @router.mainView = new Thorax.LayoutView()
-      
-      Backbone.history.start()
-      
-      @router.navigate('', true)
-      expect(BonnieRouter.prototype.measures).toHaveBeenCalled()
-      @router.navigate('measures', true)
-      expect(BonnieRouter.prototype.measures).toHaveBeenCalled()
-
-    it 'should route "patients" to the patients view', ->
-      spyOn(BonnieRouter.prototype, "patients")
-      @router = new BonnieRouter()
-      @router.mainView = new Thorax.LayoutView()
-      
-      Backbone.history.start()
-      @router.navigate('patients', true)
-
-      expect(BonnieRouter.prototype.patients).toHaveBeenCalled()
-
-    it 'should route "measures/matrix" to the matrix view', ->
-      spyOn(BonnieRouter.prototype, "matrix")
-      @router = new BonnieRouter()
-      @router.mainView = new Thorax.LayoutView()
-      
-      Backbone.history.start()
-      @router.navigate('measures/matrix', true)
-
-      expect(BonnieRouter.prototype.matrix).toHaveBeenCalled()
-
-    it 'should route "measures/:id" to individual measure views', ->
-      spyOn(BonnieRouter.prototype, "measure")
-      router = new BonnieRouter()
-      router.mainView = new Thorax.LayoutView()
-      
-      Backbone.history.start()
-      router.navigate('measures/' + @measures.first().get('hqmf_id'), true)
-      expect(BonnieRouter.prototype.measure).toHaveBeenCalledWith @measures.first().get('hqmf_id')
-      router.navigate('', true)
-
-    it 'should route "patients/:id" to individual patient views', ->
-      spyOn(BonnieRouter.prototype, "patient")
-      router = new BonnieRouter()
-      router.mainView = new Thorax.LayoutView()
-      
-      Backbone.history.start()
-      p = @patients.detect (p) -> p.has 'insurance_providers'
-      router.navigate('patients/' + p.id, true)
-      expect(BonnieRouter.prototype.patient).toHaveBeenCalledWith p.id
-      router.navigate('', true)
-
-    it 'should route "patients/:id/edit" to individual patient builder views', ->
-      spyOn(BonnieRouter.prototype, "patientBuilder")
-      router = new BonnieRouter()
-      router.mainView = new Thorax.LayoutView()
-      
-      Backbone.history.start()
-      p = @patients.detect (p) -> p.has 'insurance_providers'
-      router.navigate('patients/' + p.id + '/edit', true)
-      expect(BonnieRouter.prototype.patientBuilder).toHaveBeenCalledWith(null, p.id)
-      router.navigate('', true)
