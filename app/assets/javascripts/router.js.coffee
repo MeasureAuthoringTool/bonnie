@@ -8,37 +8,37 @@ class BonnieRouter extends Backbone.Router
     @patients = new Thorax.Collections.Patients()
 
   routes:
-    '':                                         'measures'
-    'measures':                                 'measures'
-    'measures/matrix':                          'matrix'
-    'measures/:id':                             'measure'
-    'patients':                                 'patients'
-    'patients/:id':                             'patient'
-    '(measures/:measure_id/)patients/:id/edit': 'patientBuilder'
-    '(measures/:measure_id/)patients/new':      'patientBuilder'
+    '':                                         'renderMeasures'
+    'measures':                                 'renderMeasures'
+    'measures/matrix':                          'renderMatrix'
+    'measures/:id':                             'renderMeasure'
+    'patients':                                 'renderPatients'
+    'patients/:id':                             'renderPatient'
+    '(measures/:measure_id/)patients/:id/edit': 'renderPatientBuilder'
+    '(measures/:measure_id/)patients/new':      'renderPatientBuilder'
     
-  measures: ->
+  renderMeasures: ->
     measuresView = new Thorax.Views.Measures(measures: @measures)
     @mainView.setView(measuresView)
 
-  measure: (id) ->
+  renderMeasure: (id) ->
     measureView = new Thorax.Views.Measure(model: @measures.get(id), patients: @patients)
     @mainView.setView(measureView)
 
-  patients: ->
+  renderPatients: ->
     patientsView = new Thorax.Views.Patients(patients: @patients)
     @mainView.setView patientsView
 
-  patient: (id) ->
+  renderPatient: (id) ->
     patientView = new Thorax.Views.Patient(measures: @measures, model: @patients.get(id))
     @mainView.setView patientView
 
-  matrix: ->
+  renderMatrix: ->
     matrixView = new Thorax.Views.Matrix(measures: @measures, patients: @patients)
     @mainView.setView(matrixView)
     matrixView.calculateAsynchronously()
 
-  patientBuilder: (measureId, patientId) ->
+  renderPatientBuilder: (measureId, patientId) ->
     measure = @measures.get(measureId) if measureId
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_id: measure?.id}, parse: true
     patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients)
