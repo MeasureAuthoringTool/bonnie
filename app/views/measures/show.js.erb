@@ -1,6 +1,7 @@
 (function() {
 
-  var measure = new Thorax.Models.Measure(<%= @measure.to_json(except: [:map_fns, :record_ids]).html_safe %>, {parse: true});
+  <%# NOTE: Value sets are configured to only provide JSON for oid and display_name in lib/ext/value_set.rb %>
+  var measure = new Thorax.Models.Measure(<%= @measure.to_json(except: [:map_fns, :record_ids], methods: [:value_sets]).html_safe %>, {parse: true});
 
   <%# Add the appropriate calculation code to each population %>
   <% @measure.populations.each_with_index do |population, index| %>
