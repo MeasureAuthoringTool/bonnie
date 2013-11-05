@@ -17,8 +17,10 @@
         }
 
         <%# Set up some variables and functions used in the generated measure calculation %>
-        var enable_logging = !!this.enable_logging;
-        var enable_rationale = !!this.enable_rationale;
+        var enable_logging = false;
+        var enable_rationale = true;
+        var short_circuit = false;
+
         ObjectId = function() { return 1; };
         var result = null; // Calls to emit() set this local variable
         emit = function(id, value) { result = value; };

@@ -20,8 +20,12 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     patient = $(e.target).model()
     if result = @results.findWhere(patient_id: patient.id)
       @results.remove result
+      @clearRationale()
     else
       @results.add @population.calculate(patient)
+      @showRationale(@results.findWhere(patient_id: patient.id).get('rationale'))
+
+
   selectAll: ->
     # FIXME: This isn't cached in any way now (still reasonably fast!)
     @patients.each (p) => @results.add @population.calculate(p) unless @results.findWhere(patient_id: p.id)
@@ -29,3 +33,16 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
   selectNone: ->
     @results.set() # FIXME: Instead of reset() so we get individual adds and removes
     @$('button.toggle-patient').removeClass('active')
+  
+  showRationale: (rationale) ->
+    @clearRationale()
+    for key, value of rationale
+      target = $(".rationale .#{key}")
+      if (target.length > 0)
+        evalClass = if value then 'true_eval' else 'false_eval'
+        target.addClass(evalClass)
+      ""
+  clearRationale: ->
+    $('.rationale .rationale_target').removeClass('false_eval true_eval')
+
+
