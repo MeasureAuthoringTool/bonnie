@@ -1,28 +1,56 @@
-{{#link "measures/matrix" class="btn btn-primary"}}Matrix View{{/link}}
-{{#button "importMeasure" class="btn btn-primary"}}Import Measure{{/button}}
-<p>Total measures: {{measures.length}}</p>
-<table class="table">
-  <thead>
-    <tr>
-      <th>NQF ID</th>
-      <th>HQMF ID</th>
-      <th>Title</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  {{#collection measures tag="tbody"}}
-    <tr>
-      <td>{{measure_id}}</td>
-      <td>{{_id}}</td>
-      <td>{{title}}</td>
-      <td>Draft</td>
-      <td width="20%">
-        {{#link "measures/{{hqmf_id}}" class="btn btn-primary" expand-tokens=true}}View{{/link}}
-        {{#button "updateMeasure" class="btn btn-primary"}}Update{{/button}}
-        {{#button "deleteMeasure" class="btn btn-danger"}}Delete{{/button}}</td>
-    </tr>
-  {{/collection}}
-</table>
+{{!-- <p>Total measures: {{measures.length}}</p> --}}
+
+<div class="dashboard-heading row">
+  <div class="measure-col">
+    <div class="btn-wrapper pull-right">
+      {{#button "importMeasure" class="btn-primary"}}Upload{{/button}}
+    </div>
+    <h1><i class="glyphicon glyphicon-tasks"></i> Measures</h1>
+  </div>
+  <div class="expected-col">
+    <h2>Expected</h2>
+  </div>
+  <div class="status-col">
+    <h2>Status</h2>
+  </div>
+  <div class="patient-listing-col">
+    <h2>Test Patients</h2>
+  </div>
+</div>
+
+{{#collection measures class="dashboard-data"}}
+  <div class="measure row">
+    <div class="measure-col">
+      <div class="btn-wrapper pull-right">
+        {{#button "updateMeasure" class="btn-primary"}}Update{{/button}}
+      </div>
+      <div class="measure-title">
+         <span class="nqf-listing pull-right">
+          {{measure_id}}
+        </span>
+        {{#link "measures/{{hqmf_id}}" expand-tokens=true}}{{title}}{{/link}}
+      </div>
+    </div>
+    <div class="expected-col">
+      <div class="percent-listing">
+        <div class="circle-listing">
+          -
+        </div>
+      </div>
+    </div>
+    <div class="status-col status status-new">
+      New
+    </div>
+    <div class="patient-listing-col">
+      {{#link "measures/{{hqmf_id}}/patients/new" expand-tokens=true class="btn-primary pull-right"}}
+        <i class="glyphicon glyphicon-user"></i>
+        <i class="glyphicon glyphicon-plus"></i>
+      {{/link}}
+      <span class="patient-listing">1</span>
+      <span class="fraction">/5</span>
+    </div>
+  </div>
+{{/collection}}
 
 {{view importMeasureView}}
 {{view finalizeMeasuresView}}

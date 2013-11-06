@@ -23,7 +23,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
   events:
     'submit form': 'save'
     rendered: ->
-      @$('.draggable').draggable revert: 'invalid', helper: 'clone'
+      @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
       @$('.droppable').droppable accept: '.ui-draggable'
       # TODO move event handling up into events object, if possible
       @$('.droppable').on 'drop', _.bind(@drop, this)

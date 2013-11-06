@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Bonnie</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= csrf_meta_tags %>
-  <%= render 'layouts/shim' %>
-</head>
-<body>
-  <%= render 'layouts/header' %>
-  <div class="container">
-    <% if user_signed_in? %>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bonnie</title>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= csrf_meta_tags %>
+    <%= render 'layouts/shim' %>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= render 'layouts/header' %>
       <div id="bonnie"></div>
-    <% else %>
-      <%= yield %>
+      <%= render 'layouts/footer' %>
+    </div>
+
+
+    <%= javascript_include_tag "application" %>
+    <script src="<%= libraries_measures_url format: :js %>"></script>
+    <%# A page can have one measure or many; load each measure %>
+    <% (@measures || Array(@measure)).each do |measure| %>
+      <script src="<%= measure_url(measure, format: :js) %>"></script>
     <% end %>
-    <%= render 'layouts/footer' %>
-  </div>
-  <%= javascript_include_tag "application" %>
-  <script src="<%= libraries_measures_url format: :js %>" type="text/javascript"></script>
-  <%# A page can have one measure or many; load each measure %>
-  <% (@measures || Array(@measure)).each do |measure| %>
-    <script src="<%= measure_url(measure, format: :js) %>" type="text/javascript"></script>
-  <% end %>
-  <% if @patient || @patients %>
     <script>
-      bonnie.patients.add(<%= (@patients || Array(@patient)).to_json(except: :results).html_safe %>, { parse: true });
+      <% if @patient || @patients %>
+        bonnie.patients.add(<%= (@patients || Array(@patient)).to_json(except: :results).html_safe %>, { parse: true });
+      <% end %>
+
+      Backbone.history.start();
     </script>
-  <% end %>
-  <script>
-    Backbone.history.start()
-  </script>
-</body>
+  </body>
 </html>
