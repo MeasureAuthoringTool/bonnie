@@ -27,11 +27,11 @@ gem 'roo'
 
 group :development do
   gem 'pry'
+  gem 'pry-nav'
 end
 
 group :test, :development do
-  gem 'pry'
-  gem 'pry-nav'
+
   gem 'jasmine'
   gem 'turn', :require => false
   gem 'simplecov', :require => false
