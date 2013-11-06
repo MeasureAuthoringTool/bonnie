@@ -4,6 +4,6 @@
  --}}
 
   {{#each submeasurePopulations}}
-    {{view "PopulationCriteriaLogic" population=this dataCriteriaMap=../data_criteria}}
+    {{view "PopulationCriteriaLogic" population=this dataCriteriaMap=../data_criteria sourceDataCriteria=../source_data_criteria}}
   {{/each}}
 </div>

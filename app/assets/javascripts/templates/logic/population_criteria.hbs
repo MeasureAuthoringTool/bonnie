@@ -1,10 +1,11 @@
+
 <div>
   <div><span class="{{population.type}} rationale_target"><b>{{translate_population population.type}}: 
 </b>{{#unless rootPreconditon}}None{{/unless}}</span></div>
   <div>
     {{#if rootPreconditon}}
       {{#each rootPreconditon.preconditions}}
-        {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPreconditon dataCriteriaMap=../dataCriteriaMap}}
+        {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPreconditon dataCriteriaMap=../dataCriteriaMap sourceDataCriteria=../sourceDataCriteria}}
       {{/each}}
     {{/if}}
   </div>

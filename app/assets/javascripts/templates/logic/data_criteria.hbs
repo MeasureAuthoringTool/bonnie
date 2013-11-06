@@ -1,6 +1,6 @@
 <span class="{{dataCriteria.key}} rationale_target">
 {{#each dataCriteria.subset_operators}}
-  {{view "SubsetOperatorLogic" subsetOperator=this tag="span"}}
+  {{view "SubsetOperatorLogic" subsetOperator=this tag="span" sourceDataCriteria=../sourceDataCriteria}}
 {{/each}}
 {{#ifCond dataCriteria.type '==' 'derived'}}
   {{#if dataCriteria.children_criteria}}
@@ -8,7 +8,7 @@
       {{#each dataCriteria.children_criteria}}
         <li>
           <span class="{{../dataCriteria.key}} rationale_target">{{translate_operator ../dataCriteria.derivation_operator}} : </span>
-          {{view "DataCriteriaLogic" reference=this dataCriteriaMap=../dataCriteriaMap tag="span"}}
+          {{view "DataCriteriaLogic" reference=this dataCriteriaMap=../dataCriteriaMap sourceDataCriteria=../sourceDataCriteria tag="span"}}
         </li>
       {{/each}}
     </ul>
@@ -26,6 +26,7 @@
     {{/each}})
   {{/if}}
   {{#if dataCriteria.negation}}
+    {{translate_source_data dataCriteria.negation_code_list_id}}
     (NOT DONE FOR: --> OID LOOKUP[{{dataCriteria.negation_code_list_id}}])
   {{/if}}
   {{#if dataCriteria.temporal_references}}

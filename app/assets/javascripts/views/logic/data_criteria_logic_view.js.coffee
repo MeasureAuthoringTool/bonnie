@@ -19,3 +19,6 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.View
 
   translate_field: (field_key) =>
     Thorax.Models.Measure.logicFields[field_key]?['title']
+
+  translate_source_data: (oid) =>
+    @sourceDataCriteria.findWhere(code_list_id: oid).get('description')
