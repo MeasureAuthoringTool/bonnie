@@ -3,9 +3,17 @@
 </b>{{#unless rootPreconditon}}None{{/unless}}</span></div>
   <div>
     {{#if rootPreconditon}}
-      {{#each rootPreconditon.preconditions}}
-        {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPreconditon dataCriteriaMap=../dataCriteriaMap}}
-      {{/each}}
+      {{#if rootPreconditon.preconditions }}
+        {{#each rootPreconditon.preconditions}}
+          {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPreconditon dataCriteriaMap=../dataCriteriaMap}}
+        {{/each}}
+      {{else}}
+        <ul>
+          <li>
+            {{#if aggregator}}{{translate_aggregator aggregator}}: {{/if}} {{view "DataCriteriaLogic" reference=rootPreconditon.reference dataCriteriaMap=../dataCriteriaMap tag="span"}}
+          </li>
+        </ul>
+      {{/if}}
     {{/if}}
   </div>
 </div>
