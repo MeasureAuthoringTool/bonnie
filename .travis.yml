@@ -1,5 +1,7 @@
 language: ruby
 rvm:
   - "1.9.3"
-# uncomment this line if your project needs to run something other than `rake`:
-script: bundle exec jasmine:ci
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+script: export DISPLAY=:99.0 && bundle exec rake jasmine:ci
