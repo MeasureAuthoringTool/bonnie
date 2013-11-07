@@ -11,6 +11,7 @@
 # GO AFTER THE REQUIRES BELOW.
 #
 #= require jquery/jquery.min
+#= require jquery_ujs
 #= require bootstrap/dist/js/bootstrap.min
 #= require jquery-ui-1.10.3.custom
 #= require handlebars/handlebars
