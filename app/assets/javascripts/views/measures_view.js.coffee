@@ -2,7 +2,7 @@ class Thorax.Views.Measures extends Thorax.View
   template: JST['measures']
   initialize: ->
     @importMeasureView = new Thorax.Views.ImportMeasure()
-    to_finalize = @measures.select((m) -> m.attributes.needs_finalize)
+    to_finalize = @measures.select((m) -> m.get('needs_finalize'))
     @finalizeMeasuresView = new Thorax.Views.FinalizeMeasures(measures: new Thorax.Collections.Measures(to_finalize))
   importMeasure: (event) ->
     @importMeasureView.$('.modal-title').text('[Import] New Measure')

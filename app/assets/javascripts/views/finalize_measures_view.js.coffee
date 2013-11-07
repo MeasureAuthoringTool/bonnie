@@ -13,8 +13,8 @@ class Thorax.Views.FinalizeMeasures extends Thorax.View
     # if we have no measures to finalize than there's nothing to do
     if @measures.length > 0
       _.each(@measures.models, (measure) =>
-        measure.attributes.source_data_criteria.comparator = (m) -> m.get('description')
-        measure.attributes.source_data_criteria.sort()
+        measure.get('source_data_criteria').comparator = (m) -> m.get('description')
+        measure.get('source_data_criteria').sort()
       )
       @finalizeDialog = @$("#finalizeMeasureDialog")
       @pleaseWaitDialog = @$("#pleaseWaitDialog")

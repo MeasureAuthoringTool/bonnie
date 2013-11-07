@@ -4,7 +4,7 @@ class Thorax.Views.MeasureLogic extends Thorax.View
   
   initialize: ->
     @submeasurePopulations = []
-    populationMap = @model.get('populations').at(@populationIndex).attributes
+    populationMap = @model.get('populations').at(@populationIndex).toJSON()
     population_criteria = @model.get('population_criteria')
     for population_code in Thorax.Models.Measure.allPopulationCodes
       match = population_criteria[populationMap[population_code]]
