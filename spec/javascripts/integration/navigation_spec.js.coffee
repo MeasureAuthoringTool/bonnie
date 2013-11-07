@@ -2,7 +2,7 @@ describe 'Navigation', ->
 	beforeEach ->
     @measures = Fixtures.Measures
     @patients = new Thorax.Collections.Patients getJSONFixture('patients.json')
-  
+
   describe 'navigating the measures list view', ->
 
     beforeEach ->
@@ -11,10 +11,6 @@ describe 'Navigation', ->
 
     afterEach ->
       @measuresView.remove()
-
-    # $('a[href="#patients/' + id + '"]')
-    it 'should link to the matrix view', ->
-      expect($('a[href="#measures/matrix"]', @measuresView.el).length).toEqual(1)
 
     it 'should link to the import measure view', ->
       expect($('button[data-call-method="importMeasure"]', @measuresView.el).length).toEqual(1)
@@ -43,9 +39,6 @@ describe 'Navigation', ->
 
     afterEach ->
       @patientsView.remove()
-
-    it 'should link to the matrix view', ->
-      expect($('a[href="#measures/matrix"]')).toExist    
 
     it 'should link to the patient view and patient builder for a patient', ->
       expect($('a[href="#patients/' + @patients.first().id + '"]')).toExist
