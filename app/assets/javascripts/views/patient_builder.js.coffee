@@ -11,7 +11,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @sourceDataCriteria = @model.get('source_data_criteria').clone()
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @sourceDataCriteria
-      itemView: Thorax.Views.EditCriteriaView
+      itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure)
 
   dataCriteriaCategories: ->
     categories = {}
@@ -54,10 +54,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
   initialize: ->
     @editValueCollectionView = new Thorax.CollectionView
       collection: @model.get('value')
-      itemView: Thorax.Views.EditCriteriaValueView
+      itemView: (item) => new Thorax.Views.EditCriteriaValueView(model: item.model, measure: @measure, fieldValue: false)
     @editFieldValueCollectionView = new Thorax.CollectionView
       collection: @model.get('field_values')
-      itemView: Thorax.Views.EditCriteriaFieldValueView
+      itemView: (item) => new Thorax.Views.EditCriteriaValueView(model: item.model, measure: @measure, fieldValue: true)
 
   serialize: ->
     childView.serialize() for cid, childView of @editValueCollectionView.children
@@ -113,21 +113,14 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.View
     _(super).extend
       typePQ: @model.get('type') is 'PQ'
       typeCD: @model.get('type') is 'CD'
-
-  removeValue: (e) ->
-    e.preventDefault()
-    @model.destroy()
-
-
-class Thorax.Views.EditCriteriaFieldValueView extends Thorax.View
-
-  template: JST['patient_builder/edit_field_value']
-
-  context: ->
-    _(super).extend
-      typePQ: @model.get('type') is 'PQ'
-      typeCD: @model.get('type') is 'CD'
       typeTS: @model.get('type') is 'TS'
+      codes: @measure.get('value_sets').map (vs) -> vs.toJSON()
+      fields: Thorax.Models.Measure.logicFields
+
+  # When we serialize the form, we want to put the description for any CD codes into the submission
+  events:
+    serialize: (attr) ->
+      attr.title = @measure.get('value_sets').findWhere(oid: attr.code_list_id)?.get('display_name')
 
   removeValue: (e) ->
     e.preventDefault()
