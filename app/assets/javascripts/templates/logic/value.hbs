@@ -1,5 +1,5 @@
 {{#if isAnyNonNull}}
-  (ANY_NON_NULL)
+{{!-- any value --}}
 {{else}} 
   {{#if isValue}}
     {{rangeComparison}}{{#if value.inclusive?}}={{/if}}
@@ -7,16 +7,8 @@
   {{else}}
     {{#if isRange}}
       {{#ifCond value.high '&&' value.low}}
-        (BOTH)
-  {{!-- 
-  {{#if (value.high.value == value.low.value and value.high.inclusive and value.low.inclusive) }}
-   <%== render partial: 'value', locals: {value: value.low} %>
-  else
-   %>
-  &gt;<%== render partial: 'value', locals: {value: value.low} %> and &lt;<%== render partial: 'value', locals: {value: value.high} %>
-   <%
-  end 
-   --}}
+          {{view "ValueLogic" value=value.low rangeComparison=">" tag="span"}} and
+          {{view "ValueLogic" value=value.high rangeComparison="<" tag="span"}}
       {{else}}
         {{#if value.high}}
           {{view "ValueLogic" value=value.high rangeComparison="<" tag="span"}}
@@ -33,33 +25,3 @@
     {{/if}}
   {{/if}}
 {{/if}}
-
-{{!-- <% if value.is_a? HQMF::AnyValue %>
-<% elsif value.is_a? HQMF::Value %>
-
-<% elsif value.is_a? HQMF::Range %>
-  <% if (value.high && value.low)
-       if (value.high.value == value.low.value and value.high.inclusive and value.low.inclusive)
-        %>
-<%== render partial: 'value', locals: {value: value.low} %>
-        <%
-       else
-         %>
-&gt;<%== render partial: 'value', locals: {value: value.low} %> and &lt;<%== render partial: 'value', locals: {value: value.high} %>
-         <%
-       end 
-     elsif value.high
-       %>
-&lt;<%== render partial: 'value', locals: {value: value.high} %>
-       <%
-     elsif value.low
-       %>
-&gt;<%== render partial: 'value', locals: {value: value.low} %>
-       <%
-     end 
-  %>
-    
-<% elsif value.is_a? HQMF::Coded %>
-: <%= value.title %>
-<% end %>
- --}}

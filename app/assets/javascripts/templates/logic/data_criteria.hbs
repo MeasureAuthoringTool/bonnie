@@ -17,17 +17,16 @@
   {{#if dataCriteria.specific_occurrence}}Occurrence {{dataCriteria.specific_occurrence}}: {{/if}}{{dataCriteria.description}}
   {{#if dataCriteria.value}}
     {{#ifCond dataCriteria.type '!=' 'characteristic' }}
-      (result {{view "ValueLogic" value=dataCriteria.value tag="span"}})
+      (result{{view "ValueLogic" value=dataCriteria.value tag="span"}})
     {{/ifCond}}
   {{/if}}
   {{#if dataCriteria.field_values}}
     ({{#each dataCriteria.field_values}}
-      {{key_title}}{{#ifCond type '!=' 'ANYNonNull'}}: {{view "ValueLogic" value=this tag="span"}} {{/ifCond}}
+      {{key_title}}{{#ifCond type '!=' 'ANYNonNull'}}{{view "ValueLogic" value=this tag="span"}} {{/ifCond}}
     {{/each}})
   {{/if}}
   {{#if dataCriteria.negation}}
     {{translate_source_data dataCriteria.negation_code_list_id}}
-    (NOT DONE FOR: --> OID LOOKUP[{{dataCriteria.negation_code_list_id}}])
   {{/if}}
   {{#if dataCriteria.temporal_references}}
     {{#each dataCriteria.temporal_references}}
