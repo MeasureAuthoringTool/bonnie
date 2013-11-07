@@ -1,13 +1,42 @@
 <div class="pull-right">
   {{#button "removeValue" tag="a" class="close"}}&times;{{/button}}
 </div>
+
 {{#if typePQ}}
   <label>Value</label>
+{{/if}}
+
+{{#if typeCD}}
+  <label>Coded</label>
+{{/if}}
+
+{{#if typeTS}}
+  <label>Time</label>
+{{/if}}
+
+{{#if fieldValue}}
+  <select name="id" class="form-control">
+    <option value="">--</option>
+    {{#each fields}}
+      <option value="{{@key}}">{{title}}</option>
+    {{/each}}
+  </select>
+{{/if}}
+
+{{#if typePQ}}
   <input type="text" name="value" placeholder="scalar">
   <input type="text" name="unit" placeholder="unit">
 {{/if}}
+
 {{#if typeCD}}
-  <label>Coded</label>
-  <input type="text" name="code_list_id" placeholder="OID">
-  <input type="text" name="title" placeholder="title">
+  <select name="code_list_id" class="form-control">
+    <option value="">--</option>
+    {{#each codes tag="select" name="code_list_id"}}
+      <option value="{{oid}}">{{display_name}}</option>
+    {{/each}}
+  </select>
+{{/if}}
+
+{{#if typeTS}}
+  <input type="text" name="value" placeholder="value">
 {{/if}}
