@@ -8,8 +8,8 @@ module Measures
 
       # clear out patient data
       if (patient.id)
-        ['allergies', 'care_goals', 'conditions', 'encounters', 'immunizations', 'medical_equipment', 'medications', 'procedures', 'results', 'social_history', 'vital_signs'].each do |section|
-          patient[section] = [] if patient[section]
+        Record::Sections.each do |section|
+          patient.method(section).call.delete_all
         end
         patient.medical_record_number ||= Digest::MD5.hexdigest("#{patient.first} #{patient.last}")
       end
