@@ -15,7 +15,7 @@ module Measures
       end
 
       values = Hash[
-        *Measure.where({'measure_id' => {'$in' => patient['measure_ids'] || []}}).map{|m|
+        *Measure.where({'hqmf_id' => {'$in' => patient['measure_ids'] || []}}).map{|m|
           m.value_sets.map do |value_set|
             
             preferred_set = nil
