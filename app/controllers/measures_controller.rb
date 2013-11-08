@@ -105,7 +105,7 @@ class MeasuresController < ApplicationController
     Measures::ADEHelper.update_if_ade(measure)
 
     measure.populations.each_with_index do |population, population_index|
-      measure.map_fns[population_index] = HQMF2JS::Generator::Execution.logic(measure, population_index, true, false)
+      measure.map_fns[population_index] = measure.as_javascript(population_index)
     end
 
     measure.save!
@@ -126,7 +126,7 @@ class MeasuresController < ApplicationController
       measure.update_attributes({needs_finalize: false, episode_ids: data['episode_ids']})
       measure.populations.each_with_index do |population, population_index|
         population['title'] = data['titles']["#{population_index}"]
-        measure.map_fns[population_index] = HQMF2JS::Generator::Execution.logic(measure, population_index, true, false)
+        measure.map_fns[population_index] = measure.as_javascript(population_index)
       end
       measure.save!
     end

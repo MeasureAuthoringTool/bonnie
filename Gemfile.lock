@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/pophealth/hqmf2js.git
-  revision: 334547e8f781a376ab7c61b9aff8dae4a75df648
+  revision: 49b2485e176f159b51984f40c61cde5ff9f5deb6
   branch: optional_underscore
   specs:
     hqmf2js (1.2.1)
@@ -31,7 +31,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 0138f5266a1f353b5af82720a4ca7990b02f8469
+  revision: 5fdf36dcf6a3d3f08489599e0a09d1319e8c2eb6
   branch: develop
   specs:
     bonnie_bundler (1.0.0)
@@ -136,7 +136,7 @@ GEM
     memoist (0.9.1)
     method_source (0.8.2)
     mime-types (1.25)
-    mini_portile (0.5.1)
+    mini_portile (0.5.2)
     minitest (4.7.5)
     mongoid (3.1.5)
       activemodel (~> 3.2)
@@ -144,7 +144,7 @@ GEM
       origin (~> 1.0)
       tzinfo (~> 0.3.29)
     moped (1.5.1)
-    multi_json (1.8.0)
+    multi_json (1.8.2)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     origin (1.1.0)
@@ -240,7 +240,7 @@ GEM
       polyglot (>= 0.3.1)
     turn (0.9.6)
       ansi
-    tzinfo (0.3.37)
+    tzinfo (0.3.38)
     uglifier (2.2.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
