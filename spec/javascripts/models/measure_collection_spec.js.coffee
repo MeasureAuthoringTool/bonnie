@@ -1,7 +1,7 @@
 describe 'MeasureCollection', ->
 
   beforeEach ->
-    @measures = Fixtures.Measures
+    @measures = bonnie.measures
 
   it 'has the correct number of measures defined (when defining a measure object for each population)', ->
     expect(@measures.length).toEqual 2

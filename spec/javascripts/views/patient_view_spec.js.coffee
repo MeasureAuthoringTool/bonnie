@@ -5,7 +5,7 @@ describe 'PatientView', ->
 
   it 'renders each patient\'s data correctly', ->
     @patients.each (patient) ->
-      patientView = new Thorax.Views.Patient(measures: Fixtures.Measures, model: patient)
+      patientView = new Thorax.Views.Patient(measures: bonnie.measures, model: patient)
       patientView.render()
       expect(patientView.$el).toHaveText new RegExp(patient.id)
       expect(patientView.$el).toHaveText new RegExp(patient.attributes.first)
@@ -17,7 +17,7 @@ describe 'PatientView', ->
 
   it 'renders HTML Report for Cancer_Adult_Female B correctly', ->
     patient = @patients.findWhere(first: 'Cancer_Adult_Female', last: 'B')
-    patientView = new Thorax.Views.Patient(measures: Fixtures.Measures, model: patient)
+    patientView = new Thorax.Views.Patient(measures: bonnie.measures, model: patient)
     patientView.render()
     
     # FIXME: This should expect diagnoses, this might be a result of missing hqmf section decoding...

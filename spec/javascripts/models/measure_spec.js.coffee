@@ -1,7 +1,7 @@
 describe 'Measure', ->
 
   beforeEach ->
-    @measure = Fixtures.Measures.get('40280381-3D61-56A7-013E-5D1EF9B76A48')
+    @measure = bonnie.measures.get('40280381-3D61-56A7-013E-5D1EF9B76A48')
 
   it 'has basic attributes available', ->
     expect(@measure.id).toEqual '40280381-3D61-56A7-013E-5D1EF9B76A48'

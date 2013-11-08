@@ -1,0 +1,3 @@
+Contents of measures.json were created using:
+
+  Measure.in(measure_id: ['0002', '0022']).to_json(except: [:map_fns, :record_ids], methods: [:value_sets])

@@ -1,6 +1,6 @@
 describe 'Navigation', ->
 	beforeEach ->
-    @measures = Fixtures.Measures
+    @measures = bonnie.measures
     @patients = new Thorax.Collections.Patients getJSONFixture('patients.json')
 
   describe 'navigating the measures list view', ->

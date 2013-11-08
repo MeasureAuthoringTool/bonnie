@@ -1,7 +1,7 @@
 describe 'MeasuresView', ->
 
   beforeEach ->
-    @measures = Fixtures.Measures
+    @measures = bonnie.measures
     @measuresView = new Thorax.Views.Measures(collection: @measures)
     @measuresView.render()
 
