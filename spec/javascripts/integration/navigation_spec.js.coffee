@@ -6,7 +6,7 @@ describe 'Navigation', ->
   describe 'navigating the measures list view', ->
 
     beforeEach ->
-      @measuresView = new Thorax.Views.Measures(measures: @measures)
+      @measuresView = new Thorax.Views.Measures(collection: @measures)
       @measuresView.render()
 
     afterEach ->

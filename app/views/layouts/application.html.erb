@@ -26,9 +26,18 @@
     <% end %>
     <script>
       <% if @patient || @patients %>
+        <% (@patients || Array(@patient)).each do |patient| %>
+          (function() {
+            var patient = <%= patient.to_json(except: :results).html_safe %>,
+                measure = bonnie.measures.findWhere({_id: patient.measure_id});
+            if (measure) {
+              measure.get('patients').add(patient);
+            }
+          })();
+        <% end %>
+        // FIXME bonnie.patients is deprecated and will be going away shortly
         bonnie.patients.add(<%= (@patients || Array(@patient)).to_json(except: :results).html_safe %>, { parse: true });
       <% end %>
-
       Backbone.history.start();
     </script>
   </body>

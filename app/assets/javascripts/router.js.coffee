@@ -5,34 +5,38 @@ class BonnieRouter extends Backbone.Router
     # This measure collection gets populated as measures are loaded via their individual JS
     # files (see app/views/measures/show.js.erb)
     @measures = new Thorax.Collections.Measures()
+    # FIXME deprecated, use measure.get('patients') to get patients for individual measure
     @patients = new Thorax.Collections.Patients()
 
   routes:
-    '':                                         'renderMeasures'
-    'measures':                                 'renderMeasures'
-    'measures/matrix':                          'renderMatrix'
-    'measures/:id':                             'renderMeasure'
-    'patients':                                 'renderPatients'
-    'patients/:id':                             'renderPatient'
-    '(measures/:measure_id/)patients/:id/edit': 'renderPatientBuilder'
-    '(measures/:measure_id/)patients/new':      'renderPatientBuilder'
-    
+    '':                                       'renderMeasures'
+    'measures':                               'renderMeasures'
+    'measures/matrix':                        'renderMatrix'
+    'measures/:id':                           'renderMeasure'
+    'patients':                               'renderPatients'
+    'patients/:id':                           'renderPatient'
+    'measures/:measure_id/patients/:id/edit': 'renderPatientBuilder'
+    'measures/:measure_id/patients/new':      'renderPatientBuilder'
+
   renderMeasures: ->
-    measuresView = new Thorax.Views.Measures(measures: @measures)
+    measuresView = new Thorax.Views.Measures(collection: @measures)
     @mainView.setView(measuresView)
 
   renderMeasure: (id) ->
     measureView = new Thorax.Views.Measure(model: @measures.get(id), patients: @patients)
     @mainView.setView(measureView)
 
+  # FIXME deprecated
   renderPatients: ->
     patientsView = new Thorax.Views.Patients(patients: @patients)
     @mainView.setView patientsView
 
+  # FIXME deprecated
   renderPatient: (id) ->
     patientView = new Thorax.Views.Patient(measures: @measures, model: @patients.get(id))
     @mainView.setView patientView
 
+  # FIXME deprecated
   renderMatrix: ->
     matrixView = new Thorax.Views.Matrix(measures: @measures, patients: @patients)
     @mainView.setView(matrixView)

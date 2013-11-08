@@ -8,6 +8,8 @@ class Thorax.Collections.Measures extends Thorax.Collection
 
 class Thorax.Models.Measure extends Thorax.Model
   idAttribute: '_id'
+  initialize: ->
+    @set 'patients', new Thorax.Collections.Patients
   parse: (attrs) ->
     populations = new Thorax.Collections.Population
     for population, index in attrs.populations

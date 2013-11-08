@@ -28,12 +28,12 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
 
   selectAll: ->
     # FIXME: This isn't cached in any way now (still reasonably fast!)
-    @patients.each (p) => @results.add @population.calculate(p) unless @results.findWhere(patient_id: p.id)
+    @allPatients.each (p) => @results.add @population.calculate(p) unless @results.findWhere(patient_id: p.id)
     @$('button.toggle-patient').addClass('active')
   selectNone: ->
     @results.set() # FIXME: Instead of reset() so we get individual adds and removes
     @$('button.toggle-patient').removeClass('active')
-  
+
   showRationale: (rationale) ->
     @clearRationale()
     for key, value of rationale

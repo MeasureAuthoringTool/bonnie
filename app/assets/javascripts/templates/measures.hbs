@@ -3,7 +3,7 @@
 <div class="dashboard-heading row">
   <div class="measure-col">
     <div class="btn-wrapper pull-right">
-      {{#button "importMeasure" class="btn-primary"}}Upload{{/button}}
+      {{#button "importMeasure" class="btn btn-primary"}}Upload{{/button}}
     </div>
     <h1><i class="glyphicon glyphicon-tasks"></i> Measures</h1>
   </div>
@@ -18,39 +18,77 @@
   </div>
 </div>
 
-{{#collection measures class="dashboard-data"}}
+{{#collection class="dashboard-data" item-view=measureRowView}}
+
+  {{! FIXME view creation/removal should happen as necessary in view, not in handlebars }}
+  {{view importMeasureView}}
+
   <div class="measure row">
     <div class="measure-col">
       <div class="btn-wrapper pull-right">
-        {{#button "updateMeasure" class="btn-primary"}}Update{{/button}}
+        {{#button "updateMeasure" class="btn btn-primary"}}Update{{/button}}
       </div>
       <div class="measure-title">
          <span class="nqf-listing pull-right">
           {{measure_id}}
         </span>
-        {{#link "measures/{{hqmf_id}}" expand-tokens=true}}{{title}}{{/link}}
+        {{#link "measures/{{_id}}" expand-tokens=true}}{{title}}{{/link}}
       </div>
     </div>
     <div class="expected-col">
-      <div class="percent-listing">
-        <div class="circle-listing">
-          -
+      {{#unless hasPopulations}}
+        <div class="percent-listing">
+          <div class="circle-listing">
+            -
+          </div>
         </div>
-      </div>
+      {{/unless}}
     </div>
-    <div class="status-col status status-new">
-      New
+    <div class="status-col status status-{{status}}">
+      {{#unless hasPopulations}}{{status}}{{/unless}}
     </div>
     <div class="patient-listing-col">
-      {{#link "measures/{{hqmf_id}}/patients/new" expand-tokens=true class="btn-primary pull-right"}}
+      <a href="#measures/{{_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
         <i class="glyphicon glyphicon-user"></i>
         <i class="glyphicon glyphicon-plus"></i>
-      {{/link}}
-      <span class="patient-listing">1</span>
-      <span class="fraction">/5</span>
+      </a>
+      <span class="patient-listing">0</span>
+      {{#if hasFraction}}<span class="fraction">/{{patients.length}}</span>{{/if}}
     </div>
   </div>
+
+  {{#if hasPopulations}}
+    {{#collection populations item-context=populationContext}}
+      <div class="row population">
+        <div class="population-col">
+          <div class="population-title">
+            <strong>population:</strong> {{title}}
+          </div>
+        </div>
+          <div class="expected-col">
+            <div class="percent-listing">
+              <div class="circle-listing">
+                -
+              </div>
+            </div>
+          </div>
+          <div class="status-col status status-{{status}}">
+            {{status}}
+          </div>
+          <div class="patient-listing-col">
+            {{#link "measures/{{measure_id}}/patients/new" expand-tokens=true class="btn btn-primary pull-right"}}
+              <i class="glyphicon glyphicon-user"></i>
+              <i class="glyphicon glyphicon-plus"></i>
+            {{/link}}
+            <span class="patient-listing">0</span>
+            {{#if hasFraction}}<span class="fraction">/{{../../patients.length}}</span>{{/if}}
+          </div>
+        </div>
+      </div>
+    {{/collection}}
+  {{/if}}
 {{/collection}}
 
+{{! FIXME view creation/removal should happen as necessary in view, not in handlebars }}
 {{view importMeasureView}}
 {{view finalizeMeasuresView}}

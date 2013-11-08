@@ -1,4 +1,5 @@
-class Thorax.Views.Patient extends Thorax.View  
+# FIXME deprecated; remove soon.
+class Thorax.Views.Patient extends Thorax.View
   template: JST['patients/record']
   initialize: ->
     @headerView = new Thorax.Views.RecordHeader(model: @model)

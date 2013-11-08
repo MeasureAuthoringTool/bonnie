@@ -2,7 +2,7 @@ describe 'MeasuresView', ->
 
   beforeEach ->
     @measures = Fixtures.Measures
-    @measuresView = new Thorax.Views.Measures(measures: @measures)
+    @measuresView = new Thorax.Views.Measures(collection: @measures)
     @measuresView.render()
 
   it 'renders correctly', ->

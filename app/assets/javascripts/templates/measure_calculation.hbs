@@ -5,14 +5,14 @@
 <button class="btn btn-primary select-none">Select None</button>
 <h3>Select Patients</h3>
 <div data-toggle="buttons-checkbox">
-  {{#collection patients}}
+  {{#collection allPatients}}
     <button style="width: 180px; margin: 5px 5px 0px 0px;" class="btn btn-primary toggle-patient">{{last}}, {{first}}</button>
   {{/collection}}
 </div>
 <br>
 <table class="table table-condensed table-bordered">
   <tr>
-    <td>Totals:</td> 
+    <td>Totals:</td>
     <td>{{IPPTotal}}</td>
     <td>{{DENOMTotal}}</td>
     <td>{{NUMERTotal}}</td>
