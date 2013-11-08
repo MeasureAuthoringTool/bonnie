@@ -5,7 +5,12 @@ class Thorax.Views.Measure extends Thorax.View
     @measureCalculation = new Thorax.Views.MeasureCalculation(model: @model, allPatients: @patients, populationIndex: 0)
     @logicView = new Thorax.Views.MeasureLogic(model: @model, populationIndex: 0)
     @updateMeasureView = new Thorax.Views.ImportMeasure()
+  events: ->
+    'click #deleteMeasure': 'deleteMeasure'
   updateMeasure: (e) ->
     measure = $(e.target).model()
     @updateMeasureView.$('.modal-title').text("[Update] #{measure.get('title')}")
     @updateMeasureView.display()
+  deleteMeasure: (e) ->
+    @model = $(e.target).model()
+    @model.destroy()
