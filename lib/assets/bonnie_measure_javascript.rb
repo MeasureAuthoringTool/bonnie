@@ -7,9 +7,11 @@ module BonnieMeasureJavascript
   # each population, and attaches the measure to the bonnie router object; this is used both on the front end
   # as well as within our tests
 
-  def self.generate_from_measure(measure)
+  # The options can be set to those expected by the measure JS code: clear_db_cache and cache_result_in_db
+
+  def self.generate_from_measure(measure, options = {})
     measure_json = measure.to_json(except: [:map_fns, :record_ids], methods: [:value_sets])
-    population_javascripts = measure.populations.each_with_index.map { |population, index| measure.map_fn(index) }
+    population_javascripts = measure.populations.each_with_index.map { |population, index| measure.map_fn(index, options) }
     JAVASCRIPT_TEMPLATE.result binding
   end
 
