@@ -27,7 +27,7 @@ gem 'roo'
 
 group :development do
   gem 'pry'
-  gem 'pry-nav'
+  gem 'pry-debugger'
 end
 
 group :test, :development do

@@ -31,7 +31,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: e1c9dc872d1f3d0a03eeaa50dff9c21f9ddb6468
+  revision: cb77c841f25a889e1aa1ad4abaf952593632f9b7
   branch: develop
   specs:
     bonnie_bundler (1.0.0)
@@ -82,8 +82,15 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    columnize (0.3.6)
     commonjs (0.2.7)
     daemons (1.1.9)
+    debugger (1.6.2)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.3)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.3)
     delayed_job (3.0.5)
       activesupport (~> 3.0)
     delayed_job_mongoid (2.0.0)
@@ -154,9 +161,10 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
-    pry-nav (0.2.2)
+    pry-debugger (0.2.2)
+      debugger (~> 1.3)
       pry (~> 0.9.10)
-    quality-measure-engine (2.5.1)
+    quality-measure-engine (2.5.2)
       delayed_job_mongoid (~> 2.0.0)
       mongoid (~> 3.1.4)
       moped (~> 1.5.1)
@@ -268,7 +276,7 @@ DEPENDENCIES
   minitest (~> 4.0)
   mongoid (~> 3.1.0)
   pry
-  pry-nav
+  pry-debugger
   rails (= 3.2.14)
   roo
   rubyzip (< 1.0.0)
