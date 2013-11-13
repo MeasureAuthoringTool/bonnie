@@ -10,22 +10,88 @@
       </p>
     {{/each}}
   </div>
+
   <form class="col-xs-9 form-horizontal">
+
     <div class="form-group">
       <label for="first" class="col-xs-2 control-label">First name</label>
       <div class="col-xs-10">
-        <input type="text" name="first" class="form-control" id="first" placeholder="First name">
+        <input type="text" name="first" class="form-control" placeholder="First name">
       </div>
     </div>
+
     <div class="form-group">
       <label for="last" class="col-xs-2 control-label">Last name</label>
       <div class="col-xs-10">
-        <input type="text" name="last" class="form-control" id="last" placeholder="Last name">
+        <input type="text" name="last" class="form-control" placeholder="Last name">
       </div>
     </div>
+
+    <div class="form-group">
+      <label for="gender" class="col-xs-2 control-label">Gender</label>
+      <div class="col-xs-10">
+        <select name="gender" class="form-control">
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+        <select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="ethnicity" class="col-xs-2 control-label">Ethnicity</label>
+      <div class="col-xs-10">
+        <select name="ethnicity" class="form-control">
+          <option value="2186-5">Not Hispanic or Latino</option>
+          <option value="2135-2">Hispanic Or Latino</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="race" class="col-xs-2 control-label">Race</label>
+      <div class="col-xs-10">
+        <select name="race" class="form-control">
+          <option value="1002-5">American Indian or Alaska Native</option>
+          <option value="2028-9">Asian</option>
+          <option value="2054-5">Black or African American</option>
+          <option value="2076-8">Native Hawaiian or Other Pacific Islander</option>
+          <option value="2106-3">White</option>
+          <option value="2131-1">Other</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="payer" class="col-xs-2 control-label">Payer</label>
+      <div class="col-xs-10">
+        <select name="payer" class="form-control">
+          <option value="MA">Medicare</option>
+          <option value="MC">Medicaid</option>
+          <option value="OT">Other</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="expired" class="col-xs-2 control-label">Living Status</label>
+      <div class="col-xs-10">
+        <label>
+          <input type="radio" name="expired" value="true">
+          Deceased
+        </label>
+        <label>
+          <input type="radio" name="expired" value="false">
+          Alive
+        </label>
+      </div>
+    </div>
+
     <div class="droppable well">
       {{view editCriteriaCollectionView}}
     </div>
-    <input type="submit" class="btn btn-default" value="Save">
+
+    <input type="submit" class="btn btn-primary" value="Save" data-saving-text="Saving...">
+
   </form>
+
 </div>

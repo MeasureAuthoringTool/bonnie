@@ -5,7 +5,16 @@ class Thorax.Models.Patient extends Thorax.Model
   parse: (attrs) ->
     dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
     attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria, parse: true)
+
+    # This section is a bit unusual: we map from server side values to a more straight forward client
+    # side representation; the reverse mapping would usually happen in toJSON(), but in this case it
+    # happens on the server in the controller
+    attrs.ethnicity = attrs.ethnicity?.code
+    attrs.race = attrs.race?.code
+    attrs.payer = insurance_providers?[0]?.type || 'OT'
+
     attrs
+
   deepClone: ->
     # Clone by fully serializing and de-derializing; we need to stringify to have recursive JSONification happen
     json = JSON.stringify _(@toJSON()).omit('_id')

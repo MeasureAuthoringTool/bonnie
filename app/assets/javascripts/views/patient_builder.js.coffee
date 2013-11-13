@@ -4,7 +4,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
 
   options:
     serialize: { children: false }
-    populate: { children: false }
+    populate: { context: true, children: false }
 
   initialize: ->
     # FIXME need to deeply clone source data criteria to avoid editing in place; this is only a shallow clone
@@ -28,7 +28,13 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       # TODO move event handling up into events object, if possible
       @$('.droppable').on 'drop', _.bind(@drop, this)
     model:
-      sync: (model) -> @patients.add model # make sure that the patient exist in the global patient collection
+      request: (model) -> @$('input[type="submit"]').button('saving').attr(disabled: 'disabled')
+      sync: (model) ->
+        @patients.add model # make sure that the patient exist in the global patient collection
+        bonnie.navigate 'patients', trigger: true # FIXME: figure out correct action here
+
+  # When we create the form and populate it, we want to convert some values to those appropriate for the form
+  context: -> _(super).extend expired: @model.get('expired').toString()
 
   drop: (e, ui) ->
     measureDataCriteria = $(ui.draggable).model()

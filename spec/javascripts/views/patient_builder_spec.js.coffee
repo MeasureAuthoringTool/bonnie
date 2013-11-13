@@ -9,7 +9,7 @@ describe 'PatientBuilderView', ->
     @$el = @patientBuilder.$el
 
   it 'renders the builder correctly', ->
-    expect(@$el.find(":input#first")).toHaveValue @patient.get('first')
+    expect(@$el.find(":input[name='first']")).toHaveValue @patient.get('first')
 
   describe "adding encounters to patient", ->
     beforeEach ->
