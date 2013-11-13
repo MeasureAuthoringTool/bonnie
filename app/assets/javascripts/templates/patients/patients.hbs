@@ -15,7 +15,7 @@
         {{else}}
           {{#link "patients/{{_id}}/edit" class="btn btn-primary" expand-tokens=true}}Edit{{/link}}
         {{/if}}
-        {{#link "patients/{{_id}}/build" class="btn btn-primary" expand-tokens=true}}Clone{{/link}}
+        {{#button "clonePatient" class="btn btn-primary"}}Clone{{/button}}
         {{#button "deletePatient" class="btn btn-danger"}}Delete{{/button}}
       </td>
     </tr>

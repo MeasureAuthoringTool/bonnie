@@ -6,6 +6,10 @@ class Thorax.Models.Patient extends Thorax.Model
     dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
     attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria, parse: true)
     attrs
+  deepClone: ->
+    # Clone by fully serializing and de-derializing; we need to stringify to have recursive JSONification happen
+    json = JSON.stringify _(@toJSON()).omit('_id')
+    new @constructor JSON.parse(json), parse: true
   getBirthDate: -> new Date(@get('birthdate'))
   getPayerName: -> @get('insurance_providers')[0].name
   getValidMeasureIds: (measures) ->

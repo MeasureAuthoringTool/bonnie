@@ -47,3 +47,11 @@ class BonnieRouter extends Backbone.Router
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_id: measure?.id}, parse: true
     patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients)
     @mainView.setView patientBuilderView
+
+  # This method is to be called directly, and not triggered via a
+  # route; it allows the patient builder to be used in new patient
+  # mode populated with data from an existing patient, ie a clone
+  navigateToPatientBuilder: (patient) ->
+    measure = @measures.get patient.get('measure_id')
+    @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients)
+    @navigate "measures/#{patient.get('measure_id')}/patients/new"
