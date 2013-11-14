@@ -34,7 +34,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
         bonnie.navigate 'patients', trigger: true # FIXME: figure out correct action here
 
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
-  context: -> _(super).extend expired: @model.get('expired').toString()
+  context: -> _(super).extend expired: @model.get('expired')?.toString()
 
   drop: (e, ui) ->
     measureDataCriteria = $(ui.draggable).model()
