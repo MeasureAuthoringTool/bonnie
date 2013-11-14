@@ -1,15 +1,18 @@
 <h2>Testing: {{title}}</h2>
-<h3>Select Patients</h3>
-<div data-toggle="buttons-checkbox">
-  {{#collection patients}}
-    <button class="btn btn-primary toggle-patient">{{last}}, {{first}}</button>
-  {{/collection}}
-</div>
+{{#link "measures/{{_id}}/patients/new" class="btn btn-primary" expand-tokens=true}}Add Patient{{/link}}
+{{#link "measures/{{_id}}/calculate" class="btn btn-primary" expand-tokens=true disabled="false"}}View Results{{/link}}
 <button class="btn btn-primary select-all">Select All</button>
 <button class="btn btn-primary select-none">Select None</button>
+<h3>Select Patients</h3>
+<div data-toggle="buttons-checkbox">
+  {{#collection allPatients}}
+    <button style="width: 180px; margin: 5px 5px 0px 0px;" class="btn btn-primary toggle-patient">{{last}}, {{first}}</button>
+  {{/collection}}
+</div>
+<br>
 <table class="table table-condensed table-bordered">
   <tr>
-    <td>Totals:</td> 
+    <td>Totals:</td>
     <td>{{IPPTotal}}</td>
     <td>{{DENOMTotal}}</td>
     <td>{{NUMERTotal}}</td>

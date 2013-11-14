@@ -1,0 +1,23 @@
+{{#link "measures/matrix" class="btn btn-primary"}}Matrix View{{/link}}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  {{#collection patients tag="tbody"}}
+    <tr>
+      <td>{{last}}, {{first}}</td>
+      <td width="24%">
+        {{#link "patients/{{_id}}" class="btn btn-primary" expand-tokens=true}}View{{/link}}
+        {{#if measure_id}}
+          {{#link "measures/{{measure_id}}/patients/{{_id}}/edit" class="btn btn-primary" expand-tokens=true}}Edit{{/link}}
+        {{else}}
+          {{#link "patients/{{_id}}/edit" class="btn btn-primary" expand-tokens=true}}Edit{{/link}}
+        {{/if}}
+        {{#button "clonePatient" class="btn btn-primary"}}Clone{{/button}}
+        {{#button "deletePatient" class="btn btn-danger"}}Delete{{/button}}
+      </td>
+    </tr>
+  {{/collection}}
+</table>

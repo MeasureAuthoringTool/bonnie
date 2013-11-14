@@ -7,8 +7,10 @@ module Measures
     def self.rebuild_patient(patient)
 
       # clear out patient data
-      ['allergies', 'care_goals', 'conditions', 'encounters', 'immunizations', 'medical_equipment', 'medications', 'procedures', 'results', 'social_history', 'vital_signs'].each do |section|
-        patient[section] = [] if patient[section]
+      if (patient.id)
+        Record::Sections.each do |section|
+          patient.method(section).call.delete_all
+        end
       end
       patient.medical_record_number ||= Digest::MD5.hexdigest("#{patient.first} #{patient.last}")
 
@@ -36,10 +38,7 @@ module Measures
         end
       end
     end
-
-
    
-
     def self.derive_time_range(value)
       low = {'value' => Time.at(value['start_date'].to_i / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' }
       high = {'value' => Time.at(value['end_date'].to_i / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' }

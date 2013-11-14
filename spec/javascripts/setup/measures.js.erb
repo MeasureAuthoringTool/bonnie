@@ -1,0 +1,15 @@
+<%# Load measure calculation utility JS %>
+<%= HQMF2JS::Generator::JS.map_reduce_utils %>
+<%= HQMF2JS::Generator::JS.library_functions(false, false) %>
+
+<%# Generate the measure objects with calculation code %>
+<% measures_fixture_file = File.join File.dirname(__FILE__), '../fixtures/json/measures.json' %>
+<% measures = JSON.parse File.read(measures_fixture_file) %>
+<% measures.each do |measure_data| %>
+  <%# Initialize measure object from data in JSON, setting _id by hand because it's attr protected %>
+  <% measure = Measure.new(measure_data) %>
+  <% measure._id = measure_data['_id'] %>
+  <%# Manually set value sets to prime cache so as to not require mongod %>
+  <% measure.instance_variable_set("@value_sets", measure_data['value_sets']) %>
+  <%= BonnieMeasureJavascript.generate_from_measure(measure, cache_result_in_db: false).html_safe %>
+<% end %>

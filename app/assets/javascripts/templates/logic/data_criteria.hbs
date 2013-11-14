@@ -1,0 +1,42 @@
+<span class="{{dataCriteria.key}} rationale_target {{#if negatedParent}}negated_parent{{/if}}" 
+      {{#if dataCriteria.specific_occurrence}}data-specificOccurrence="{{dataCriteria.key}}"{{/if}}
+      {{#if parentKey}}data-parentKey={{parentKey}}{{/if}}
+      >
+{{#each dataCriteria.subset_operators}}
+  {{view "SubsetOperatorLogic" subsetOperator=this tag="span" sourceDataCriteria=../sourceDataCriteria}}
+{{/each}}
+{{#ifCond dataCriteria.type '==' 'derived'}}
+  {{#if dataCriteria.children_criteria}}
+    <ul>
+      {{#each dataCriteria.children_criteria}}
+        <li>
+          <span class="{{../dataCriteria.key}} rationale_target">{{translate_operator ../dataCriteria.derivation_operator}} : </span>
+          {{view "DataCriteriaLogic" parentKey=../dataCriteria.key reference=this dataCriteriaMap=../dataCriteriaMap sourceDataCriteria=../sourceDataCriteria tag="span"}}
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+{{else}}
+  {{#if dataCriteria.specific_occurrence}}Occurrence {{dataCriteria.specific_occurrence}}: {{/if}}{{dataCriteria.description}}
+  {{#if dataCriteria.value}}
+    {{#ifCond dataCriteria.type '!=' 'characteristic' }}
+      (result{{view "ValueLogic" value=dataCriteria.value tag="span"}})
+    {{/ifCond}}
+  {{/if}}
+  {{#if dataCriteria.field_values}}
+    ({{#each dataCriteria.field_values}}
+      {{key_title}}{{#ifCond type '!=' 'ANYNonNull'}}{{view "ValueLogic" value=this tag="span"}} {{/ifCond}}
+    {{/each}})
+  {{/if}}
+  {{#if dataCriteria.negation}}
+    {{translate_source_data dataCriteria.negation_code_list_id}}
+  {{/if}}
+  {{#if dataCriteria.temporal_references}}
+    {{#each dataCriteria.temporal_references}}
+      {{view "TemporalReferenceLogic" temporalReference=this dataCriteriaMap=../dataCriteriaMap tag="span"}}
+    {{/each}}
+  {{/if}}
+{{/ifCond}}
+</span>
+
+

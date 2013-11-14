@@ -1,0 +1,15 @@
+<ul id="precondition_{{precondition.id}}">
+  <li>
+    <span class="{{parentPreconditionKey}} rationale_target" {{#if grandparentPrecondition}}data-parentKey="{{grandparentPreconditionKey}}"{{/if}} {{#if parentPrecondition.negation}}data-negation="true"{{/if}}>
+      {{translate_conjunction parentPrecondition.conjunction_code}}
+      {{#if parentPrecondition.negation}} NOT{{/if}}: 
+    </span>
+    {{#if precondition.preconditions }}
+        {{#each precondition.preconditions}}
+          {{view "PreconditionLogic" precondition=this parentPrecondition=../precondition grandparentPrecondition=../parentPrecondition dataCriteriaMap=../dataCriteriaMap sourceDataCriteria=../sourceDataCriteria}}
+        {{/each}}
+    {{else}}
+      {{view "DataCriteriaLogic" parentKey=parentPreconditionKey reference=precondition.reference dataCriteriaMap=../dataCriteriaMap sourceDataCriteria=../sourceDataCriteria negatedParent=../parentPrecondition.negation tag="span"}}
+    {{/if}}
+  </li>
+</ul>

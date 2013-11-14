@@ -61,8 +61,6 @@ class MeasuresController < ApplicationController
 
   def show
     @measure = Measure.find(params[:id])
-    @populations = params[:population] ? [params[:population].to_i] : (0...@measure.populations.length).to_a
-    @patients = Record.asc(:last, :first)
     stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
   end
 
@@ -96,7 +94,42 @@ class MeasuresController < ApplicationController
   end
 
   def create
-    results = Measures::MATLoader.load([params[:measure_file]], current_user.username)
+    measure_details = {
+     'type'=>params[:measure_type],
+     'episode_of_care'=>params[:calculation_type] == 'episode'
+    }
+
+    measure = Measures::MATLoader.load(params[:measure_file], current_user.username, measure_details)
+
+    measure.needs_finalize = (measure_details['episode_of_care'] || measure.populations.size > 1)
+    Measures::ADEHelper.update_if_ade(measure)
+
+    measure.populations.each_with_index do |population, population_index|
+      measure.map_fns[population_index] = measure.as_javascript(population_index)
+    end
+
+    measure.save!
+
+    redirect_to measures_path
+  end
+
+  def destroy
+    measure = Measure.find(params[:id])
+    Measure.find(params[:id]).destroy
+    render :json => measure
+  end
+
+  def finalize
+    measure_finalize_data = params.values.select {|p| p['hqmf_id']}.uniq
+    measure_finalize_data.each do |data|
+      measure = Measure.where(hqmf_id: data['hqmf_id']).first
+      measure.update_attributes({needs_finalize: false, episode_ids: data['episode_ids']})
+      measure.populations.each_with_index do |population, population_index|
+        population['title'] = data['titles']["#{population_index}"]
+        measure.map_fns[population_index] = measure.as_javascript(population_index)
+      end
+      measure.save!
+    end
     redirect_to measures_path
   end
 

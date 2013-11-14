@@ -1,21 +1,92 @@
-{{#link "measures/matrix" class="btn btn-primary"}}Matrix View{{/link}}
-{{#link "" class="btn btn-primary" id="importMeasureTrigger"}}Import Measure{{/link}}
-<p>Total measures: {{collapsedCount}}</p>
-<table class="table">
-  <thead>
-    <tr>
-      <th>NQF</th>
-      <th>Title</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  {{#collection measures tag="tbody"}}
-    <tr>
-      <td>{{#link "measures/{{id}}" expand-tokens=true}}{{id}}{{/link}}</td>
-      <td>{{title}}</td>
-      <td>Draft</td>
-    </tr>
-  {{/collection}}
-</table>
+{{!-- <p>Total measures: {{measures.length}}</p> --}}
 
-{{view importMeasureView}}
+<div class="dashboard-heading row">
+  <div class="measure-col">
+    <div class="btn-wrapper pull-right">
+      {{#button "importMeasure" class="btn btn-primary"}}Upload{{/button}}
+    </div>
+    <h1><i class="glyphicon glyphicon-tasks"></i> Measures</h1>
+  </div>
+  <div class="expected-col">
+    <h2>Expected</h2>
+  </div>
+  <div class="status-col">
+    <h2>Status</h2>
+  </div>
+  <div class="patient-listing-col">
+    <h2>Test Patients</h2>
+  </div>
+</div>
+
+{{#collection class="dashboard-data" item-view=measureRowView}}
+
+  <div id="importUpdateContainer"></div>
+
+  <div class="measure row">
+    <div class="measure-col">
+      <div class="btn-wrapper pull-right">
+        {{#button "updateMeasure" class="btn btn-primary"}}Update{{/button}}
+      </div>
+      <div class="measure-title">
+         <span class="nqf-listing pull-right">
+          {{measure_id}}
+        </span>
+        {{#link "measures/{{_id}}" expand-tokens=true}}{{title}}{{/link}}
+      </div>
+    </div>
+    <div class="expected-col">
+      {{#unless hasPopulations}}
+        <div class="percent-listing">
+          <div class="circle-listing">
+            -
+          </div>
+        </div>
+      {{/unless}}
+    </div>
+    <div class="status-col status status-{{status}}">
+      {{#unless hasPopulations}}{{status}}{{/unless}}
+    </div>
+    <div class="patient-listing-col">
+      <a href="#measures/{{_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
+        <i class="glyphicon glyphicon-user"></i>
+        <i class="glyphicon glyphicon-plus"></i>
+      </a>
+      <span class="patient-listing">0</span>
+      {{#if hasFraction}}<span class="fraction">/{{patients.length}}</span>{{/if}}
+    </div>
+  </div>
+
+  {{#if hasPopulations}}
+    {{#collection populations item-context=populationContext}}
+      <div class="row population">
+        <div class="population-col">
+          <div class="population-title">
+            <strong>population:</strong> {{title}}
+          </div>
+        </div>
+          <div class="expected-col">
+            <div class="percent-listing">
+              <div class="circle-listing">
+                -
+              </div>
+            </div>
+          </div>
+          <div class="status-col status status-{{status}}">
+            {{status}}
+          </div>
+          <div class="patient-listing-col">
+            {{#link "measures/{{measure_id}}/patients/new" expand-tokens=true class="btn btn-primary pull-right"}}
+              <i class="glyphicon glyphicon-user"></i>
+              <i class="glyphicon glyphicon-plus"></i>
+            {{/link}}
+            <span class="patient-listing">0</span>
+            {{#if hasFraction}}<span class="fraction">/{{../../patients.length}}</span>{{/if}}
+          </div>
+        </div>
+      </div>
+    {{/collection}}
+  {{/if}}
+{{/collection}}
+
+{{! FIXME view creation/removal should happen as necessary in view, not in handlebars }}
+{{view finalizeMeasuresView}}

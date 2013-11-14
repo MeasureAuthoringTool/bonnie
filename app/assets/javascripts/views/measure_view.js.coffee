@@ -1,5 +1,16 @@
 class Thorax.Views.Measure extends Thorax.View
   template: JST['measure']
   initialize: ->
-    # FIXME: Put the measure calculation view directly in the main measure view for now
-    @measureCalculation = new Thorax.Views.MeasureCalculation(model: @model, patients: @patients)
+    # FIXME: display calculation and logic for first population only for now, eventually we'll want them selectable
+    @measureCalculation = new Thorax.Views.MeasureCalculation(model: @model, allPatients: @patients, populationIndex: 0)
+    @logicView = new Thorax.Views.MeasureLogic(model: @model, populationIndex: 0)
+    @updateMeasureView = new Thorax.Views.ImportMeasure()
+  events: ->
+    'click #deleteMeasure': 'deleteMeasure'
+  updateMeasure: (e) ->
+    measure = $(e.target).model()
+    @updateMeasureView.$('.modal-title').text("[Update] #{measure.get('title')}")
+    @updateMeasureView.display()
+  deleteMeasure: (e) ->
+    @model = $(e.target).model()
+    @model.destroy()

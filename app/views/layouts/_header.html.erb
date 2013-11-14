@@ -1,4 +1,4 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
+<!-- <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
     <div class="container">
       <%= link_to "bonnie", root_path, id: "logo" %>
@@ -7,15 +7,23 @@
           <% if user_signed_in? %>
             <li class="greeting">Welcome, <%= current_user.email %></li>
             <li>|</li>
-            <li><%= link_to "Home", root_path + "#measures" %></li>
-            <li><%= link_to "Patients", root_path + "#patients" %></li>
             <li><%= link_to "Measures", root_path + "#measures" %></li>
-            <li><%= link_to "Matrix", root_path + "#measures/matrix" %></li>
-            <li><%= link_to "Help", help_path %></li>
-            <li><%= button_to('Sign out', destroy_user_session_path, :method => :delete) %></li>
+            <li><%= link_to "Patients", root_path + "#patients" %></li>
+            <li><%= link_to "Account", root_path + "#account" %></li>
+            <li><%= button_to('Logout', destroy_user_session_path, :method => :delete) %></li>
           <% end %>
         </ul>
       </nav>
     </div>
   </div>
 </header>
+ -->
+
+<div class="navbar row" role="navigation">
+  <ul class="nav navbar-nav pull-right">
+    <li><a href="#" class="active">Measures</a></li>
+    <li><a href="/users/edit">Account</a></li>
+    <li><%= link_to 'Logout', destroy_user_session_path, :method => :delete %></li>
+  </ul>
+  <a class="navbar-brand" href="#">Bonnie</a>
+</div>

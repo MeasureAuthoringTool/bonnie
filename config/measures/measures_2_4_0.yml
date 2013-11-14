@@ -1,0 +1,719 @@
+measures: &measures
+  title: Meaningful Use Stage 2 Quality Bundle
+  version: 2.4.0
+  effective_date: 1356998340
+  measure_period_start: 1325376000
+  license: <p>Performance measures and related data specifications (the \"Measures\") are copyrighted by\nthe noted quality measure providers as indicated in the applicable Measure. Coding\nvocabularies are owned by their copyright owners. By using the Measures, a user\n(\"User\") agrees to these Terms of Use. Measures are not clinical guidelines and do not\nestablish a standard of medical care and quality measure providers are not responsible\nfor any use of or reliance on the Measures.</p>\n\n<p><strong>THE MEASURES AND SPECIFICATIONS ARE PROVIDED \"AS IS\" WITHOUT ANY WARRANTY OF\nANY KIND, AND ANY AND ALL IMPLIED WARRANTIES ARE HEREBY DISCLAIMED, INCLUDING ANY\nWARRANTY OF NON-INFRINGEMENT, ACCURACY, MERCHANTABILITY AND FITNESS FOR A PARTICULAR\nPURPOSE. NO QUALITY MEASURE PROVIDER, NOR ANY OF THEIR TRUSTEES, DIRECTORS, MEMBERS,\nAFFILIATES, OFFICERS, EMPLOYEES, SUCCESSORS AND/OR ASSIGNS WILL BE LIABLE TO YOU FOR\nANY DIRECT, INDIRECT, SPECIAL, EXEMPLARY, INCIDENTAL, PUNITIVE, AND/OR CONSEQUENTIAL\nDAMAGE OF ANY KIND, IN CONTRACT, TORT OR OTHERWISE, IN CONNECTION WITH THE USE OF THE\nPOPHEALTH TOOL OR THE MEASURES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH LOSS OR DAMAGE.\n</strong></p>\n\n<p>The Measures are licensed to a User for the limited purpose of using, reproducing and\ndistributing the Measures with the popHealth Tool as delivered to User, without any\nmodification, for commercial and noncommercial uses, but such uses are only permitted\nif the copies of the Measures contain this complete Copyright, Disclaimer and Terms\nof Use. Users of the Measures may not alter, enhance, or otherwise modify the Measures.</p>\n\n<p><strong>NOT A CONTRIBUTION</strong> - The Measures, including specifications and coding,\nas used in the popHealth Tool, are not a contribution under the Apache license. Coding\nin the Measures is provided for convenience only and necessary licenses for use should\nbe obtained from the copyright owners. Current Procedural Terminology \n(CPT<span class=\"reg\">&reg;</span>) &copy; 2004-2010 American Medical Association. \nLOINC<span class=\"reg\">&reg;</span> &copy; 2004 Regenstrief Institute,\nInc. SNOMED Clinical Terms<span class=\"reg\">&reg;</span> \n(SNOMED CT<span class=\"reg\">&reg;</span>) &copy; 2004-2010 International Health\nTerminology Standards Development Organization.</p>",
+
+  ################################################
+  ################# EP Measures ##################
+  ################################################
+
+  BEB1C33C-2549-4E7F-9567-05ED38448464:
+    nqf_id: '0002'
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+  C3657D72-21B4-4675-820A-86C7FE293BF5:
+    nqf_id: '0004'
+    type: ep
+    category: Behavioral Health Adult
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: Treatment
+      b: Treatment w/ AOD
+      c: 'Treatment, RS1: 13-17'
+      d: 'Treatment, RS2: >=18'
+      e: 'Treatment w/ AOD, RS1: 13-17'
+      f: 'Treatment w AOD, RS2: >=18'
+  ABDC37CC-BAC6-4156-9B91-D1BE2C8B7268:
+    nqf_id: '0018'
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+  A3837FF8-1ABC-4BA9-800E-FD4E7953ADBD:
+    nqf_id: '0022'
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: 1+ High-Risk Medications
+      b: 2+ High-Risk Medications
+  0B63F730-25D6-4248-B11F-8C09C66A04EB:
+    nqf_id: '0024'
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: BMI Recorded
+      b: Nutrition Counseling
+      c: Physical Activity Counseling
+      d: 'BMI Recorded, RS1: 3-11'
+      e: 'BMI Recorded, RS2: 12-17'
+      f: 'Nutrition Counseling, RS1: 3-11'
+      g: 'Nutrition Counseling, RS2: 12-17'
+      h: 'Physical Activity Counseling, RS1: 3-11'
+      i: 'Physical Activity Counseling, RS2: 12-17'
+  E35791DF-5B25-41BB-B260-673337BC44A8:
+    nqf_id: '0028'
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+  19783C1B-4FD1-46C1-8A96-A2F192B97EE0:
+    nqf_id: '0031'
+    type: ep
+    category: General Practice Adult
+    episode_of_care: false
+    continuous_variable: false
+  42E7E489-790F-427A-A1A6-D6E807F65A6D:
+    nqf_id: '0032'
+    type: ep
+    category: General Practice Adult
+    episode_of_care: false
+    continuous_variable: false
+  C9930664-BE3D-4FFE-AE4A-5CF4933ECB89:
+    nqf_id: '0033'
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: 16-24
+      b: 'RS1: 16-20'
+      c: 'RS2: 21-24'
+  AA2A4BBC-864F-45EE-B17A-7EBCC62E6AAC:
+    nqf_id: '0034'
+    type: ep
+    category: General Practice Adult
+    episode_of_care: false
+    continuous_variable: false
+  59E84144-6332-4369-AEBD-03A7899CA3DA:
+    nqf_id: '0036'
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: 5-64
+      b: 'RS1: 5-11'
+      c: 'RS2: 12-18'
+      d: 'RS3: 19-50'
+      e: 'RS4: 51-64'
+  B2802B7A-3580-4BE8-9458-921AEA62B78C:
+    nqf_id: '0038'
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+  A244AA29-7D11-4616-888A-86E376BFCC6F:
+    nqf_id: '0041'
+    type: ep
+    category: General Practice Pediatric
+    episode_of_care: false
+    continuous_variable: false
+  59657B9B-01BF-4979-A090-8534DA1D0516:
+    nqf_id: '0043'
+    type: ep
+    category: General Practice Adult
+    episode_of_care: false
+    continuous_variable: false
+  B6016B47-B65D-4BE0-866F-1D397886CA89:
+    nqf_id: '0052'
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+  D90BDAB4-B9D2-4329-9993-5C34E2C0DC66:
+    nqf_id: '0055'
+    type: ep
+    category: Eye
+    episode_of_care: false
+    continuous_variable: false
+  C0D72444-7C26-4863-9B51-8080F8928A85:
+    nqf_id: '0056'
+    type: ep
+    category: Diabetes
+    episode_of_care: false
+    continuous_variable: false
+  F2986519-5A4E-4149-A8F2-AF0A1DC7F6BC:
+    nqf_id: '0059'
+    type: ep
+    category: Diabetes
+    episode_of_care: false
+    continuous_variable: false
+  95FB767E-0CB2-4778-B5FF-6BA9A53FA28E:
+    nqf_id: '0060'
+    type: ep
+    category: Diabetes
+    episode_of_care: false
+    continuous_variable: false
+  7B2A9277-43DA-4D99-9BEE-6AC271A07747:
+    nqf_id: '0062'
+    type: ep
+    category: Diabetes
+    episode_of_care: false
+    continuous_variable: false
+  0DAC1DEC-E011-493B-A281-7C28964872DD:
+    nqf_id: '0064'
+    type: ep
+    category: Diabetes
+    episode_of_care: false
+    continuous_variable: false
+  0713EA8F-0E5B-4099-8C7C-DD677280398F:
+    nqf_id: '0068'
+    type: ep
+    category: Heart
+    episode_of_care: false
+    continuous_variable: false
+  E455FAC0-F2CB-4074-A351-1E68A90FB7CF:
+    nqf_id: '0069'
+    type: ep
+    category: Core
+    episode_of_care: true
+    episode_ids: [OccurrenceAUpperRespiratoryInfection1]
+    continuous_variable: false
+  80744AE2-DE81-4B16-A71D-69522EB865C5:
+    nqf_id: '0070'
+    type: ep
+    category: Heart
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: LVSD
+      b: prior MI
+  500E4792-7F94-4E34-8546-EE71C56FE463:
+    nqf_id: '0075'
+    type: ep
+    category: Heart
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: Complete Lipid Profile
+      b: Most Recent LDL-C <100 mg/dL
+  430FFC53-4122-4421-88CC-2EDD8117BB3C:
+    nqf_id: '0081'
+    type: ep
+    category: Heart
+    episode_of_care: false
+    continuous_variable: false
+  8439F671-2932-4D4C-88CA-EA5FAEACC89A:
+    nqf_id: '0083'
+    type: ep
+    category: Heart
+    episode_of_care: false
+    continuous_variable: false
+  DB9D9F09-6B6A-4749-A8B2-8C1FDB018823:
+    nqf_id: '0086'
+    type: ep
+    category: Eye
+    episode_of_care: false
+    continuous_variable: false
+  50164228-9D64-4EFC-AF67-DA0547FF61F1:
+    nqf_id: '0088'
+    type: ep
+    category: Diabetes
+    episode_of_care: false
+    continuous_variable: false
+  53D6D7C3-43FB-4D24-8099-17E74C022C05:
+    nqf_id: '0089'
+    type: ep
+    category: Diabetes
+    episode_of_care: false
+    continuous_variable: false
+  BC5B4A57-B964-4399-9D40-667C896F31EA:
+    nqf_id: '0101'
+    type: ep
+    category: General Practice Adult
+    episode_of_care: false
+    continuous_variable: false
+  60176FBF-BFDC-4892-9C9E-604F206553C8:
+    nqf_id: '0104'
+    type: ep
+    category: Behavioral Health Adult
+    episode_of_care: true
+    continuous_variable: false
+    episode_ids: [OccurrenceAPsychVisitDiagnosticEvaluation1, OccurrenceAPsychVisitPsychotherapy2, OccurrenceAEmergencyDepartmentVisit3, OccurrenceAOfficeVisit5, OccurrenceAOutpatientConsultation6, OccurrenceAPsychoanalysis7, OccurrenceAFaceToFaceInteraction8]
+  8924F2B3-EC06-4650-B634-D70A53DEE577:
+    nqf_id: '0105'
+    type: ep
+    category: Behavioral Health Adult
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: 84 days
+      b: 180 days
+  703CC49B-B653-4885-80E8-245A057F5AE9:
+    nqf_id: '0108'
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: Visit within 30 days
+      b: Visit with 2+ followups
+  B99AAEF6-7889-4ABA-85FC-5A2B739DD098:
+    nqf_id: '0110'
+    type: ep
+    category: Behavioral Health Adult
+    episode_of_care: false
+    continuous_variable: false
+  9A0330D0-3D9B-11E1-8634-00237D5BF174:
+    nqf_id: '0384'
+    type: ep
+    category: Cancer
+    episode_of_care: true
+    continuous_variable: false
+    episode_ids: [OccurrenceARadiationTreatmentManagement1, OccurrenceAOfficeVisit2,  OccurrenceAFaceToFaceInteraction5]
+  8479F6D6-4200-4FD0-9438-30048EBE3E29:
+    nqf_id: '0385'
+    type: ep
+    category: Cancer
+    episode_of_care: false
+    continuous_variable: false
+  AC639794-CB3F-4F4F-8FA6-680300D5ED4E:
+    nqf_id: '0387'
+    type: ep
+    category: Cancer
+    episode_of_care: false
+    continuous_variable: false
+  1635C14D-E612-4FA6-96CD-285361AA7F7B:
+    nqf_id: '0389'
+    type: ep
+    category: Cancer
+    episode_of_care: false
+    continuous_variable: false
+  F70B2984-AF4A-4072-AE0D-CEC677A7FF8F:
+    nqf_id: '0403'
+    type: ep
+    category: HIV
+    episode_of_care: false
+    continuous_variable: false
+  1CDD20DE-5DE9-4759-8A93-31F1F8BAAAA2:
+    nqf_id: '0405'
+    type: ep
+    category: HIV
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: <=3 Mon. of CD4 <200 cells/mm3
+      b: At Diagnosis of HIV
+      c: <=3 Mon. of CD4 <500 cells/mm3 or CD4 <15%
+  9A031E24-3D9B-11E1-8634-00237D5BF174:
+    nqf_id: '0418'
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+  9A032D9C-3D9B-11E1-8634-00237D5BF174:
+    nqf_id: '0419'
+    type: ep
+    category: Core
+    episode_of_care: true
+    continuous_variable: false
+    episode_ids: [OccurrenceAMedicationsEncounterCodeSet1]
+  9A031BB8-3D9B-11E1-8634-00237D5BF174:
+    nqf_id: '0421'
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: 65+
+      b: 18-64
+  9A0339C2-3D9B-11E1-8634-00237D5BF174:
+    nqf_id: '0564'
+    type: ep
+    category: Eye
+    episode_of_care: true
+    continuous_variable: false
+    episode_ids: [OccurrenceACataractSurgery1]
+  39E0424A-1727-4629-89E2-C46C2FBB3F5F:
+    nqf_id: '0565'
+    type: ep
+    category: Eye
+    episode_of_care: true
+    continuous_variable: false
+    episode_ids: [OccurrenceACataractSurgery1]
+  3BBFC929-50C8-44B8-8D34-82BE75C08A70:
+    nqf_id: '0608'
+    type: ep
+    category: Pregnancy
+    episode_of_care: false
+    continuous_variable: false
+  8455CD3E-DBB9-4E0C-8084-3ECE4068FE94:
+    nqf_id: '0710'
+    type: ep
+    category: Behavioral Health Adult
+    episode_of_care: false
+    continuous_variable: false
+  A4B9763C-847E-4E02-BB7E-ACC596E90E2C:
+    nqf_id: '0712'
+    type: ep
+    category: Behavioral Health Adult
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: Sep-Dec
+      b: May-Aug
+      c: Jan-Apr
+  848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3:
+    nqf_id: '1365'
+    type: ep
+    category: Behavioral Health Pediatric
+    episode_of_care: true
+    continuous_variable: false
+    episode_ids:  [OccurrenceAOfficeVisit2, OccurrenceAOutpatientConsultation3, OccurrenceAFaceToFaceInteraction1, OccurrenceAPsychVisitDiagnosticEvaluation9, OccurrenceAPsychVisitPsychotherapy10, OccurrenceAPsychVisitFamilyPsychotherapy4, OccurrenceAPsychoanalysis5, OccurrenceAGroupPsychotherapy6]
+  8E6C8479-99FD-4949-B0AD-24FA60FE4201:
+    nqf_id: '1401'
+    type: ep
+    category: Behavioral Health Adult
+    episode_of_care: false
+    continuous_variable: false
+  A5E96A45-8132-4E72-BF4F-E8C81DB9E641:
+    nqf_id: ADE_TTR
+    type: ep
+    category: Heart
+    episode_of_care: false
+    custom_functions:
+      OBSERV: hqmf.CustomCalc.ADE_TTR_OBSERV
+    force_sources: [LaboratoryTestResultInr]
+    continuous_variable: true
+  9A033A94-3D9B-11E1-8634-00237D5BF174:
+    nqf_id: BPScreen
+    type: ep
+    category: General Practice Adult
+    episode_of_care: false
+    continuous_variable: false
+  61947125-4376-4A7B-AB7A-AC2BE9BD9138:
+    nqf_id: ChildDentalDecay
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+  0336A17B-7C2A-48FC-A657-E9B04269A4CC:
+    nqf_id: CholesterolScreeningRisk
+    type: ep
+    category: General Practice Adult
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: LDL-C <100 mg/dL
+      b: LDL-C <130 mg/dL
+      c: LDL-C <160 mg/dL
+  F58FC0D6-EDF5-416A-8D29-79AFBFD24DEA:
+    nqf_id: ClosingReferralLoop
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+  7C443B9B-1AD1-4467-B527-DEFC445701FF:
+    nqf_id: DementiaCognitive
+    type: ep
+    category: Behavioral Health General
+    episode_of_care: false
+    continuous_variable: false
+  0A7F0278-A05C-40AA-94A4-70EC44F5C568:
+    nqf_id: FastingLDLTest
+    type: ep
+    category: General Practice Adult
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: High Risk
+      b: Moderate Risk
+      c: Low Risk
+  BB9B8EF7-0354-40E0-BEC7-D6891B7DF519:
+    nqf_id: FSACHF
+    type: ep
+    category: Core
+    episode_of_care: false
+    continuous_variable: false
+  2F291003-3F2F-48AF-BEF9-E5AACB95AC3E:
+    nqf_id: FSAHip
+    type: ep
+    category: Orthopedics
+    episode_of_care: false
+    continuous_variable: false
+  BE8D9655-1194-46EF-B43E-4B1D0C36AB71:
+    nqf_id: FSAKnee
+    type: ep
+    category: Orthopedics
+    episode_of_care: false
+    continuous_variable: false
+  E0A07809-7B74-473F-BCC4-1891BE506AAA:
+    nqf_id: HIVRNAControl
+    type: ep
+    category: HIV
+    episode_of_care: false
+    continuous_variable: false
+  1D8363CE-A529-490B-8C98-9B54AA75DA06:
+    nqf_id: HypertensionImprovement
+    type: ep
+    category: General Practice Adult
+    episode_of_care: false
+    continuous_variable: false
+  0B81B6BA-3B30-41BF-A2F3-95BDC9F558F2:
+    nqf_id: PrimaryCariesPrevention
+    type: ep
+    category: Dental
+    episode_of_care: false
+    continuous_variable: false
+    subtitles:
+      a: 0-20
+      b: 'RS1: <= 5'
+      c: 'RS2: 6-12'
+      d: 'RS3: 13-20'
+
+################################################
+################# EH Measures ##################
+################################################
+  
+  BB481284-30DD-4383-928C-82385BBF1B17:
+    nqf_id: '0142'
+    type: eh
+    category: Acute Myocardial Infarction
+    episode_of_care: true
+    episode_ids:  [OccurrenceAHospitalMeasuresEncounterInpatient1]
+    continuous_variable: false
+  8243EAE0-BBD7-4107-920B-FC3DB04B9584:
+    nqf_id: '0147'
+    type: eh
+    category: Community Acquired Pneumonia
+    episode_of_care: true
+    episode_ids:  [OccurrenceAEncounterInpatient1]
+    continuous_variable: false
+    subtitles:
+      a: ICU patients
+      b: non-ICU patients
+  84B9D0B5-0CAF-4E41-B345-3492A23C2E9F:
+    nqf_id: '0163'
+    type: eh
+    category: Acute Myocardial Infarction
+    episode_of_care: true
+    episode_ids:  [OccurrenceAHospitalMeasuresEncounterInpatient1]
+    continuous_variable: false
+  909CF4B4-7A85-4ABF-A1C7-CB597ED1C0B6:
+    nqf_id: '0164'
+    type: eh
+    category: Acute Myocardial Infarction
+    episode_of_care: true
+    episode_ids:  [OccurrenceAHospitalMeasuresEncounterInpatient1]
+    continuous_variable: false
+  E1CB05E0-97D5-40FC-B456-15C5DBF44309:
+    nqf_id: '0338'
+    type: eh
+    category: Asthma
+    episode_of_care: true
+    episode_ids:  [OccurrenceAInpatientEncounter1]
+    continuous_variable: false
+  38B0B5EC-0F63-466F-8FE3-2CD20DDD1622:
+    nqf_id: '0371'
+    type: eh
+    category: Venous Thromboembolism
+    episode_of_care: true
+    episode_ids:  [OccurrenceAInpatientEncounter11]
+    continuous_variable: false
+  FA91BA68-1E66-4A23-8EB2-BAA8E6DF2F2F:
+    nqf_id: '0372'
+    type: eh
+    category: Venous Thromboembolism
+    episode_of_care: true
+    episode_ids:  [OccurrenceAInpatientEncounter11]
+    continuous_variable: false
+  6F069BB2-B3C4-4BF4-ADC5-F6DD424A10B7:
+    nqf_id: '0373'
+    type: eh
+    category: Venous Thromboembolism
+    episode_of_care: true
+    episode_ids:  [OccurrenceAInpatientEncounter1]
+    continuous_variable: false
+  BCCE43DD-08E3-46C3-BFDD-0B1B472690F0:
+    nqf_id: '0374'
+    type: eh
+    category: Venous Thromboembolism
+    episode_of_care: true
+    episode_ids:  [OccurrenceAInpatientEncounter2]
+    continuous_variable: false
+  7FE69617-FA28-4305-A2B8-CEB6BCD9693D:
+    nqf_id: '0375'
+    type: eh
+    category: Venous Thromboembolism
+    episode_of_care: true
+    episode_ids:  [OccurrenceAInpatientEncounter1]
+    continuous_variable: false
+  32CFC834-843A-4F45-B359-8E158EAC4396:
+    nqf_id: '0376'
+    type: eh
+    category: Venous Thromboembolism
+    episode_of_care: true
+    episode_ids:  [OccurrenceAInpatientEncounter11]
+    continuous_variable: false
+  42BF391F-38A3-4C0F-9ECE-DCD47E9609D9:
+    nqf_id: '0435'
+    type: eh
+    category: Stroke
+    episode_of_care: true
+    episode_ids:  [OccurrenceANonElectiveInpatientEncounter4]
+    continuous_variable: false
+  03876D69-085B-415C-AE9D-9924171040C2:
+    nqf_id: '0436'
+    type: eh
+    category: Stroke
+    episode_of_care: true
+    episode_ids:  [OccurrenceANonElectiveInpatientEncounter4]
+    continuous_variable: false
+  2838875A-07B5-4BF0-BE04-C3EB99F53975:
+    nqf_id: '0437'
+    type: eh
+    category: Stroke
+    episode_of_care: true
+    episode_ids:  [OccurrenceANonElectiveInpatientEncounter4]
+    continuous_variable: false
+  93F3479F-75D8-4731-9A3F-B7749D8BCD37:
+    nqf_id: '0438'
+    type: eh
+    category: Stroke
+    episode_of_care: true
+    episode_ids:  [OccurrenceANonElectiveInpatientEncounter3]
+    continuous_variable: false
+  1F503318-BB8D-4B91-AF63-223AE0A2328E:
+    nqf_id: '0439'
+    type: eh
+    category: Stroke
+    episode_of_care: true
+    episode_ids:  [OccurrenceANonElectiveInpatientEncounter6]
+    continuous_variable: false
+  217FDF0D-3D64-4720-9116-D5E5AFA27F2C:
+    nqf_id: '0440'
+    type: eh
+    category: Stroke
+    episode_of_care: true
+    episode_ids:  [OccurrenceANonElectiveInpatientEncounter2]
+    continuous_variable: false
+  7DC26160-E615-4CC2-879C-75985189EC1A:
+    nqf_id: '0441'
+    type: eh
+    category: Stroke
+    episode_of_care: true
+    episode_ids:  [OccurrenceANonElectiveInpatientEncounter2]
+    continuous_variable: false
+  D78CE034-8288-4012-A31E-7F485A74F2A9:
+    nqf_id: '0453'
+    type: eh
+    category: Surgical Care Improvement Project
+    episode_of_care: true
+    episode_ids:  [OccurrenceAEncounterInpatient2]
+    continuous_variable: false
+  FD7CA18D-B56D-4BCA-AF35-71CE36B15246:
+    nqf_id: '0469'
+    type: eh
+    category: Pregnancy
+    episode_of_care: true
+    episode_ids:  [OccurrenceAInpatientEncounter1]
+    continuous_variable: false
+  7D374C6A-3821-4333-A1BC-4531005D77B8:
+    nqf_id: '0480'
+    type: eh
+    category: Newborn
+    episode_of_care: true
+    episode_ids:  [OccurrenceAInpatientEncounter1]
+    continuous_variable: false
+    subtitles:
+      a: All
+      b: Refusals Excluded
+  9A033274-3D9B-11E1-8634-00237D5BF174:
+    nqf_id: '0495'
+    type: eh
+    category: Emergency Department
+    episode_of_care: true
+    episode_ids:  [OccurrenceAEncounterInpatient2]
+    continuous_variable: true
+    subtitles:
+      a: Unstratified
+      b: 'RS1: ED and inpatient'
+      c: 'RS2: ED and inpatient w/out psych'
+      d: 'RS3: ED and inpatient w/ psych'
+  3FD13096-2C8F-40B5-9297-B714E8DE9133:
+    nqf_id: '0496'
+    type: eh
+    category: Emergency Department
+    episode_of_care: true
+    episode_ids:  [OccurrenceAEmergencyDepartmentVisit1]
+    continuous_variable: true
+    subtitles:
+      a: Unstratified
+      b: 'RS1: With ED Encounter'
+      c: 'RS2: With Mental Disorders'
+      d: 'RS3: With Acute care hospital transfer'
+      e: 'RS4: Without Mental Disorders and Acute care hospital transfer'
+  979F21BD-3F93-4CDD-8273-B23DFE9C0513:
+    nqf_id: '0497'
+    type: eh
+    category: Emergency Department
+    episode_of_care: true
+    episode_ids:  [OccurrenceAEncounterInpatient2]
+    continuous_variable: true
+    subtitles:
+      a: Unstratified
+      b: 'RS1: ED and inpatient'
+      c: 'RS2: ED and inpatient w/out psych'
+      d: 'RS3: ED and inpatient w/ psych'
+  D09ADD1D-30F5-462D-B677-3D17D9CCD664:
+    nqf_id: '0527'
+    type: eh
+    category: Surgical Care Improvement Project
+    episode_of_care: true
+    episode_ids:  [OccurrenceAEncounterInpatient4]
+    continuous_variable: false
+    subtitles:
+      a: CABG procedures
+      b: Other cardiac surgery
+      c: Hip arthroplasty
+      d: Knee arthroplasty
+      e: Colon surgery
+      f: Abdominal hysterectomy
+      g: Vaginal hysterectomy
+      h: Vascular surgery
+  FEEA3922-F61F-4B05-98F9-B72A11815F12:
+    nqf_id: '0528'
+    type: eh
+    category: Surgical Care Improvement Project
+    episode_of_care: true
+    episode_ids:  [OccurrenceAEncounterInpatient13]
+    continuous_variable: false
+    subtitles:
+      a: CABG procedures
+      b: Other cardiac surgery
+      c: Hip arthroplasty
+      d: Knee arthroplasty
+      e: Colon surgery
+      f: Abdominal hysterectomy
+      g: Vaginal hysterectomy
+      h: Vascular surgery
+  EBFA203E-ACC1-4228-906C-855C4BF11310:
+    nqf_id: '0639'
+    type: eh
+    category: Acute Myocardial Infarction
+    episode_of_care: true
+    episode_ids:  [OccurrenceAEncounterInpatient1]
+    continuous_variable: false
+  FF796FD9-F99D-41FD-B8C2-57D0A59A5D8D:
+    nqf_id: '0716'
+    type: eh
+    category: Newborn
+    episode_of_care: true
+    episode_ids:  [OccurrenceAEncounterInpatient1]
+    continuous_variable: false
+  0924FBAE-3FDB-4D0A-AAB7-9F354E699FDE:
+    nqf_id: '1354'
+    type: eh
+    category: Newborn
+    episode_of_care: true
+    episode_ids:  [OccurrenceAInpatientEncounter3]
+    continuous_variable: false

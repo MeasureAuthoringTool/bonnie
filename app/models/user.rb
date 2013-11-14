@@ -29,6 +29,7 @@ class User
   field :first_name,    :type => String
   field :last_name,    :type => String
   field :telephone,    :type => String
+  field :admin, type:Boolean, :default => false
 
   has_many :measures
 
@@ -47,5 +48,17 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+
+  def is_admin?
+    admin || false
+  end
+
+  def grant_admin
+    update_attribute(:admin, true)
+  end
+
+  def revoke_admin
+    update_attribute(:admin, false)
+  end
 
 end

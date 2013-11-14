@@ -6,8 +6,11 @@ gem 'hqmf2js', :git => 'https://github.com/pophealth/hqmf2js.git', :branch => 'o
 #gem 'hqmf2js', path: '../hqmf2js'
 gem 'hquery-patient-api', :git => 'https://github.com/pophealth/patientapi.git', :branch => 'develop'
 #gem 'hquery-patient-api', :path => '../patientapi'
-gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'develop'
+gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 #gem 'health-data-standards', :path => '../health-data-standards'
+
+gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'develop'
+#gem 'bonnie_bundler', :path => '../bonnie_bundler'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -24,14 +27,15 @@ gem 'roo'
 
 group :development do
   gem 'pry'
+  gem 'pry-debugger'
 end
 
 group :test, :development do
-  gem 'pry'
   gem 'jasmine'
   gem 'turn', :require => false
   gem 'simplecov', :require => false
   gem 'minitest', '~> 4.0'
+  gem 'thin'
 end
 
 # Gems used only for assets and not required
@@ -47,7 +51,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 gem 'sprockets', '2.2.2.backport1'
+gem 'foreman'
 
+gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

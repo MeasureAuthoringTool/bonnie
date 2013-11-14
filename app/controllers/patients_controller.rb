@@ -59,6 +59,9 @@ class PatientsController < ApplicationController
   end
 
   def destroy
+    patient = Record.find(params[:id]) # FIXME: will we have an ID attribute on server side?
+    Record.find(params[:id]).destroy
+    render :json => patient
   end
 
   def validate_authorization!
@@ -92,27 +95,25 @@ private
 
 
   def update_patient(patient)
-    #  @measure = current_user.measures.where('_id' => params[:id]).exists? ? current_user.measures.find(params[:id]) : current_user.measures.where('measure_id' => params[:id]).first
-    # # Using just a random Measure entry until users are associated with measures...
-    # # @measure = Measure.skip(rand(Measure.count)).first
 
-    # patient = Record.where({'_id' => params['record_id']}).first || HQMF::Generator.create_base_patient(params.select{|k| ['first', 'last', 'gender', 'expired', 'birthdate'].include? k })
 
-    # if (params['clone'])
-    #   patient = patient.dup
-    # end
-
+    patient['measure_id'] ||= params['measure_id']
     patient['measure_ids'] ||= []
     patient['measure_ids'] << params['measure_id'] unless patient['measure_ids'].include? params['measure_id']
 
     # patient['birthdate'] = Time.parse(params['birthdate']).to_i
 
     ['first', 'last', 'gender', 'expired', 'birthdate', 'description', 'description_category'].each {|param| patient[param] = params[param]}
-    # FIXME: For this to make sense we need to parse on the Thorax side, for now just pass through
-    #patient['ethnicity'] = {'code' => params['ethnicity'], 'name'=>ETHNICITY_NAME_MAP[params['ethnicity']], 'codeSystem' => 'CDC Race'}
-    #patient['race'] = {'code' => params['race'], 'name'=>RACE_NAME_MAP[params['race']], 'codeSystem' => 'CDC Race'}
+
+    patient['ethnicity'] = {'code' => params['ethnicity'], 'name'=>ETHNICITY_NAME_MAP[params['ethnicity']], 'codeSystem' => 'CDC Race'}
+    patient['race'] = {'code' => params['race'], 'name'=>RACE_NAME_MAP[params['race']], 'codeSystem' => 'CDC Race'}
 
     measure_period = {'id' => 'MeasurePeriod', 'start_date' => params['measure_period_start'].to_i, 'end_date' => params['measure_period_end'].to_i}
+
+    # work around Rails regression with empty nested attributes in parameters: https://github.com/rails/rails/issues/8832
+    params['source_data_criteria'] ||= []
+    params['source_data_criteria'].each { |c| c[:value] ||= [] }
+
     patient['source_data_criteria'] = params['source_data_criteria'] + [measure_period]
     patient['measure_period_start'] = measure_period['start_date']
     patient['measure_period_end'] = measure_period['end_date']

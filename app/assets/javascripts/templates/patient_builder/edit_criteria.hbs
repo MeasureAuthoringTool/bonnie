@@ -16,16 +16,19 @@
     <div class="form-group">
       <label>Null</label>
       <input type="checkbox">
-    <div>
-      {{view editValueCollectionView}}
-      {{#button "newValue" class="btn btn-default"}}New Value{{/button}}
-      {{#button "newCode" class="btn btn-default"}}New Code{{/button}}
     </div>
     <div>
-      {{#each fieldValues}}
-        <p>{{this}}</p>
-      {{/each}}
-      {{#button "newFieldValue" class="btn btn-default"}}New Field Value{{/button}}
+      <label>Values</label>
+      {{view editValueCollectionView}}
+      {{#button "newScalarValue" class="btn btn-default"}}New Scalar Value{{/button}}
+      {{#button "newCodedValue" class="btn btn-default"}}New Coded Value{{/button}}
+    </div>
+    <div>
+      <label>Field Values</label>
+      {{view editFieldValueCollectionView}}
+      {{#button "newScalarFieldValue" class="btn btn-default"}}New Scalar Field Value{{/button}}
+      {{#button "newCodedFieldValue" class="btn btn-default"}}New Coded Field Value{{/button}}
+      {{#button "newTimeFieldValue" class="btn btn-default"}}New Time Field Value{{/button}}
     </div>
   </div>
 </div>

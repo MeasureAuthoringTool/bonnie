@@ -5,45 +5,53 @@ class BonnieRouter extends Backbone.Router
     # This measure collection gets populated as measures are loaded via their individual JS
     # files (see app/views/measures/show.js.erb)
     @measures = new Thorax.Collections.Measures()
+    # FIXME deprecated, use measure.get('patients') to get patients for individual measure
     @patients = new Thorax.Collections.Patients()
 
   routes:
-    '':                   'measures'
-    'measures':           'measures'
-    'measures/matrix':    'matrix'
-    'measures/:id':       'measure'
-    'patients':           'patients'
-    'patients/:id':       'patient'
-    'patients/:id/build': 'patientBuilder'
-    
+    '':                                       'renderMeasures'
+    'measures':                               'renderMeasures'
+    'measures/matrix':                        'renderMatrix'
+    'measures/:id':                           'renderMeasure'
+    'patients':                               'renderPatients'
+    'patients/:id':                           'renderPatient'
+    'measures/:measure_id/patients/:id/edit': 'renderPatientBuilder'
+    'measures/:measure_id/patients/new':      'renderPatientBuilder'
 
-  measures: ->
-    # FIXME: Can we cache the generation of these views?
-    measuresView = new Thorax.Views.Measures(measures: @measures)
+  renderMeasures: ->
+    measuresView = new Thorax.Views.Measures(collection: @measures)
     @mainView.setView(measuresView)
 
-  measure: (id) ->
-    if @measures.get(id) isnt undefined
-      measure = @measures.get(id)
-    else
-      measure = @measures.findWhere({hqmf_id: id})
-    measureView = new Thorax.Views.Measure(model: measure, patients: @patients)
+  renderMeasure: (id) ->
+    measureView = new Thorax.Views.Measure(model: @measures.get(id), patients: @patients)
     @mainView.setView(measureView)
 
-  patients: ->
+  # FIXME deprecated
+  renderPatients: ->
     patientsView = new Thorax.Views.Patients(patients: @patients)
-    @mainView.setView(patientsView)
+    @mainView.setView patientsView
 
-  patient: (id) ->
+  # FIXME deprecated
+  renderPatient: (id) ->
     patientView = new Thorax.Views.Patient(measures: @measures, model: @patients.get(id))
-    @mainView.setView(patientView)
+    @mainView.setView patientView
 
-  matrix: ->
+  # FIXME deprecated
+  renderMatrix: ->
     matrixView = new Thorax.Views.Matrix(measures: @measures, patients: @patients)
     @mainView.setView(matrixView)
     matrixView.calculateAsynchronously()
 
-  patientBuilder: (id) ->
-    measure = @measures.first() # FIXME use a better method for determining measure
-    patientBuilderView = new Thorax.Views.PatientBuilder(model: @patients.get(id), measure: measure)
+  renderPatientBuilder: (measureId, patientId) ->
+    measure = @measures.get(measureId) if measureId
+    patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_id: measure?.id}, parse: true
+    patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients)
     @mainView.setView patientBuilderView
+
+  # This method is to be called directly, and not triggered via a
+  # route; it allows the patient builder to be used in new patient
+  # mode populated with data from an existing patient, ie a clone
+  navigateToPatientBuilder: (patient) ->
+    measure = @measures.get patient.get('measure_id')
+    @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients)
+    @navigate "measures/#{patient.get('measure_id')}/patients/new"
