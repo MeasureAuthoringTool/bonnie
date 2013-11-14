@@ -144,3 +144,4 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
   clearRationale: ->
     $('.rationale .rationale_target').removeClass('false_eval true_eval bad_specifics')
 
+

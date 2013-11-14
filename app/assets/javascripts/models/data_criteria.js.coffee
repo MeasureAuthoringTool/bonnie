@@ -10,11 +10,8 @@ class Thorax.Models.MeasureDataCriteria extends Thorax.Model
       title: @get('title')
       start_date: new Date().getTime()
       end_date: new Date().getTime()
-<<<<<<< HEAD
-=======
       value: new Thorax.Collection()
       field_values: new Thorax.Collection()
->>>>>>> develop
 
 class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
   model: Thorax.Models.MeasureDataCriteria

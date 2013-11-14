@@ -1,5 +1,4 @@
 class Thorax.Models.Patient extends Thorax.Model
-
   idAttribute: '_id'
   urlRoot: '/patients'
   
@@ -68,5 +67,4 @@ class Thorax.Models.Patient extends Thorax.Model
     (fullDate.getMonth() + 1) + '/' + fullDate.getDay() + '/' + fullDate.getYear()
 
 class Thorax.Collections.Patients extends Thorax.Collection
-  url: '/patients'
   model: Thorax.Models.Patient

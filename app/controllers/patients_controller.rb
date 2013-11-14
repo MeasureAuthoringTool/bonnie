@@ -96,7 +96,6 @@ private
 
   def update_patient(patient)
 
-
     patient['measure_id'] ||= params['measure_id']
     patient['measure_ids'] ||= []
     patient['measure_ids'] << params['measure_id'] unless patient['measure_ids'].include? params['measure_id']

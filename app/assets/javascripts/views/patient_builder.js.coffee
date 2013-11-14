@@ -110,13 +110,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
     e.preventDefault()
     @model.get('field_values').add type: 'TS'
 
-  dataCriteriaCategories: ->
-    categories = {}
-    @measure.get('source_data_criteria').each (criteria) ->
-      categories[criteria.get('type')] ||= new Thorax.Collection
-      categories[criteria.get('type')].add criteria unless categories[criteria.get('type')].any (c) -> c.get('title') == criteria.get('title')
-    categories
-
 
 class Thorax.Views.EditCriteriaValueView extends Thorax.View
 
