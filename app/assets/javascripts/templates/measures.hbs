@@ -20,8 +20,7 @@
 
 {{#collection class="dashboard-data" item-view=measureRowView}}
 
-  {{! FIXME view creation/removal should happen as necessary in view, not in handlebars }}
-  {{view importMeasureView}}
+  <div id="importUpdateContainer"></div>
 
   <div class="measure row">
     <div class="measure-col">
@@ -90,5 +89,4 @@
 {{/collection}}
 
 {{! FIXME view creation/removal should happen as necessary in view, not in handlebars }}
-{{view importMeasureView}}
 {{view finalizeMeasuresView}}

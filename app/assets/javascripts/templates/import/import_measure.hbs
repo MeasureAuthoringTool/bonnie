@@ -2,8 +2,8 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">New Measure</h4>
+        {{#button "close" class="close" data-dismiss="modal" aria-hidden="true"}}&times;{{/button}}
+        <h4 class="modal-title">{{dialogTitle}}</h4>
       </div>
       <div class="modal-body">
         <form action="measures" method="post" class="form-horizontal" enctype="multipart/form-data" role="form">
@@ -20,39 +20,60 @@
           </div>
           <div class="form-group">
             <label for="measureTypeRadios" class="col-lg-{{titleSize}} control-label">Measure Type:</label>
-            <div id="measureTypeRadios" class="col-lg-{{dataSize}}">
-              <div class="radio">
-                <label>
-                  <input type="radio" name="measure_type" value="ep" checked="true"> Eligible Professional (EP)
-                </label>
+            {{#if isUpdate}}
+              <div id="measureTypeModel" class="col-lg-{{dataSize}}">
+                <div class="col-lg-{{dataSize}}">
+                  <p class="form-control-static">{{measureType}}</p>
+                </div>
               </div>
-              <div class="radio">
-                <label>
-                  <input type="radio" name="measure_type" value="eh"> Eligible Hospital (EH)
-                </label>
+            {{else}}
+              <div id="measureTypeRadios" class="col-lg-{{dataSize}}">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="measure_type" value="ep" checked="true"> Eligible Professional (EP)
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="measure_type" value="eh"> Eligible Hospital (EH)
+                  </label>
+                </div>
               </div>
-            </div>
+            {{/if}}
           </div>
           <div class="form-group">
             <label for="calculationTypeRadios" class="col-lg-{{titleSize}} control-label">Calculation Type:</label>
-            <div id="calculationTypeRadios" class="col-lg-{{dataSize}}">
-              <div class="radio">
-                <label>
-                  <input type="radio" name="calculation_type" value="patient" checked="true"> Patient Based
-                </label>
+            {{#if isUpdate}}
+              <div id="calculationTypeModel" class="col-lg-{{dataSize}}">
+                <div class="col-lg-{{dataSize}}">
+                  <p class="form-control-static">{{calculationType}}</p>
+                </div>
               </div>
-              <div class="radio">
-                <label>
-                  <input type="radio" name="calculation_type" value="episode"> Episode of Care
-                </label>
+            {{else}}
+              <div id="calculationTypeRadios" class="col-lg-{{dataSize}}">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="calculation_type" value="patient" checked="true"> Patient Based
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="calculation_type" value="episode"> Episode of Care
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="calculation_type" value="continous"> Continuous Variable
+                  </label>
+                </div>
               </div>
-            </div>
+            {{/if}}
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" id="importMeasureSubmit" class="btn btn-primary">Load</button>
+        {{#button "close" class="btn btn-default" data-dismiss="modal"}}Close{{/button}}
+        {{#button "submit" class="btn btn-primary"}}Load{{/button}}
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
