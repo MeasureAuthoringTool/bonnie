@@ -8,7 +8,6 @@ class Thorax.Views.PreconditionLogic extends Thorax.View
   initialize: ->
   	@preconditionKey = "precondition_#{@precondition.id}"
   	@parentPreconditionKey = "precondition_#{@parentPrecondition.id}"
-  	@grandparentPreconditionKey = if @grandparentPrecondition.id? then "precondition_#{@grandparentPrecondition.id}" else @grandparentPrecondition.type
 
   translate_conjunction: (conjunction) ->
   	@conjunction_map[conjunction]

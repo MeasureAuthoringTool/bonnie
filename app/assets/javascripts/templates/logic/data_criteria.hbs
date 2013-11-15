@@ -1,7 +1,4 @@
-<span class="{{dataCriteria.key}} rationale_target {{#if negatedParent}}negated_parent{{/if}}" 
-      {{#if dataCriteria.specific_occurrence}}data-specificOccurrence="{{dataCriteria.key}}"{{/if}}
-      {{#if parentKey}}data-parentKey={{parentKey}}{{/if}}
-      >
+<span class="{{dataCriteria.key}} rationale_target">
 {{#each dataCriteria.subset_operators}}
   {{view "SubsetOperatorLogic" subsetOperator=this tag="span" sourceDataCriteria=../sourceDataCriteria}}
 {{/each}}
