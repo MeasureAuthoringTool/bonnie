@@ -49,13 +49,13 @@ class Thorax.Views.MeasureLogic extends Thorax.View
         # and one is good while the other is bad, the child of the negation will evaluate to true, we want it to
         # evaluate to false since if there's a good negation then there's an occurrence for which it evaluated to false
         for goodOccurrence in occurrenceResults.good
-          @updatedNegatedGood(updatedRationale[code], goodOccurrence, parentMap)
+          @updatedNegatedGood(updatedRationale[code], rationale, goodOccurrence, parentMap)
     return updatedRationale
   
-  updatedNegatedGood: (updatedRationale, goodOccurrence, parentMap) ->
+  updatedNegatedGood: (updatedRationale, rationale, goodOccurrence, parentMap) ->
     parent = parentMap[goodOccurrence]
     while parent
-      if (parent.negation)
+      if (parent.negation && rationale[goodOccurrence])
         updatedRationale[goodOccurrence] = false 
         return
       parent = parentMap["precondition_#{parent.id}"]
