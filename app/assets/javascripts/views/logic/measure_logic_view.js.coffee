@@ -13,45 +13,71 @@ class Thorax.Views.MeasureLogic extends Thorax.View
   showRationale: (result) ->
     rationale = result.get('rationale')
     @clearRationale()
+    # rationale only handles the logical true/false values
+    # we need to go in and modify the highlighting based on the final specific contexts for each population
+    updatedRationale = @fixSpecificsRationale(result, @model)
     for code in Thorax.Models.Measure.allPopulationCodes
       if (rationale[code]?)
         for key, value of rationale
-          target = $(".#{code}_children .#{key}")
+          target = @$(".#{code}_children .#{key}")
           if (target.length > 0)
             evalClass = if value then 'true_eval' else 'false_eval'
+            evalClass = 'bad_specifics' if updatedRationale[code][key] == false
             target.addClass(evalClass)
-    # rationale only handles the logical true/false values
-    # we need to go in and modify the highlighting based on the final specific contexts for each population
-    @handleSpecificsRationale(result)
 
-  # fix rationale coloring based on the specific occurrence results
-  handleSpecificsRationale: (result) ->
+  fixSpecificsRationale: (result, measure) ->
+    updatedRationale = {}
     rationale = result.get('rationale')
     orCounts = @calculateOrCounts(rationale)
     for code in Thorax.Models.Measure.allPopulationCodes
       if result.get('finalSpecifics') && result.get('finalSpecifics')[code]
+        updatedRationale[code] ||= {}
         specifics = result.get('finalSpecifics')[code]
         # get the referenced occurrences in the logic tree
-        occurrences = $(".#{code}_children .rationale_target[data-specificoccurrence]").map(-> $(this).data('specificoccurrence'))
+        occurrences = @getOccurrences(measure.get('population_criteria')[code])
         # get the good and bad specifics
         occurrenceResults = @checkSpecificsForRationale(specifics, occurrences, @model.get('data_criteria'))
+        parentMap = @buildParentMap(@model.get('population_criteria')[code])
+
         # check each bad occurrence and remove highlights marking true
         for badOccurrence in occurrenceResults.bad
-          target = $(".rationale .#{badOccurrence}.true_eval")
-          if (target.length > 0)
-            target.removeClass('true_eval')
-            target.addClass('bad_specifics')
+          if (rationale[badOccurrence])
+            updatedRationale[code][badOccurrence] = false
             # move up the logic tree to set AND/ORs to false based on the removal of the bad specific's true eval
-            @updateLogicTree(code, target, orCounts)
+            @updateLogicTree2(updatedRationale, code, badOccurrence, orCounts, parentMap)
         # check the good specifics with a negated parent.  If there are multiple candidate specifics
         # and one is good while the other is bad, the child of the negation will evaluate to true, we want it to
         # evaluate to false since if there's a good negation then there's an occurrence for which it evaluated to false
         for goodOccurrence in occurrenceResults.good
-          target = $(".rationale .#{goodOccurrence}.true_eval.negated_parent")
-          if (target.length > 0)
-            target.removeClass('true_eval')
-            target.addClass('bad_specifics')
+          @updatedNegatedGood(updatedRationale[code], goodOccurrence, parentMap)
+    return updatedRationale
+  
+  updatedNegatedGood: (updatedRationale, goodOccurrence, parentMap) ->
+    parent = parentMap[goodOccurrence]
+    while parent
+      if (parent.negation)
+        updatedRationale[goodOccurrence] = false 
+        return
+      parent = parentMap["precondition_#{parent.id}"]
 
+  getOccurrences: (child) ->
+    occurrences = []
+    return occurrences unless child
+    if (child.preconditions && child.preconditions.length > 0)
+      for precondition in child.preconditions
+        occurrences = occurrences.concat @getOccurrences(precondition)
+    else if (child.reference)
+      occurrences = occurrences.concat @getOccurrences(@model.get('data_criteria')[child.reference])
+    else
+      if (child.type == 'derived' && child.children_criteria)
+        for dataCriteriaKey in child.children_criteria
+          dataCriteria = @model.get('data_criteria')[dataCriteriaKey]
+          occurrences = occurrences.concat @getOccurrences(dataCriteria)
+      else
+        if (child.specific_occurrence)
+          occurrences.push(child.key)
+    return occurrences
+      
   # get good and bad specific occurrences referenced in this part of the measure
   checkSpecificsForRationale: (finalSpecifics, occurrences, dataCriteriaMap) ->
     results = {bad: occurrences, good: []}
@@ -66,30 +92,36 @@ class Thorax.Views.MeasureLogic extends Thorax.View
       # we're good if the occurrence is referenced by ID, Any indicates that we did not use it in the true path, thus it's bad
       for row in finalSpecifics
         good = true if row[index] != hqmf.SpecificsManager.any
-      if good
-        results.good.push(occurrence)
-      else
-        results.bad.push(occurrence)
+      if good then results.good.push(occurrence) else results.bad.push(occurrence)
     results
 
   # from each leaf walk up the tree updating the logical statements appropriately to false
-  updateLogicTree: (code, leaves, orCounts) ->
-    for leaf in leaves
-      newTargetKey = $(leaf).data('parentkey')
-      hasParent = newTargetKey?
-      while hasParent
-        hasParent = false
-        newTarget = $(".#{code}_children .#{newTargetKey}")
-        if (!newTarget.hasClass('bad_specifics') && !newTarget.data('negation'))
-          # if this is an OR then remove a true increment since it's a bad true
-          if orCounts[newTargetKey]?
-            orCounts[newTargetKey] = orCounts[newTargetKey] - 1
-          # if we're either an AND or we're an OR and the count is zero then switch to false and move up the tree
-          if (!orCounts[newTargetKey]? || orCounts[newTargetKey] == 0)
-            newTarget.removeClass('true_eval')
-            newTarget.addClass('bad_specifics')
-            newTargetKey = $(newTarget).data('parentkey')
-            hasParent = newTargetKey?
+  updateLogicTree2: (updatedRationale, code, badOccurrence, orCounts, parentMap) ->
+    parent = parentMap[badOccurrence]
+    while parent
+      parentKey = if parent.id? then "precondition_#{parent.id}" else parent.type
+      negated = parent.negation
+      parent = null
+      if (updatedRationale[code][parentKey] != false && !negated)
+        # if this is an OR then remove a true increment since it's a bad true
+        if orCounts[parentKey]?
+          orCounts[parentKey] = orCounts[parentKey] - 1
+        # if we're either an AND or we're an OR and the count is zero then switch to false and move up the tree
+        if (!orCounts[parentKey]? || orCounts[parentKey] == 0)
+          updatedRationale[code][parentKey] = false
+          parent = parentMap[parentKey]
+
+  buildParentMap: (root) ->
+    parentMap = {}
+    return parentMap unless root
+    if (root.preconditions && root.preconditions.length > 0)
+      for precondition in root.preconditions
+        parentMap["precondition_#{precondition.id}"] = root
+        _.extend(parentMap, @buildParentMap(precondition))
+      parentMap
+    else
+      parentMap[root.reference] = root
+      parentMap
 
   # Or counts are used to know when to turn an OR from green to red.  Once we negate all the true ors, we can switch to red
   calculateOrCounts: (rationale) ->
