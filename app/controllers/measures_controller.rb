@@ -99,7 +99,9 @@ class MeasuresController < ApplicationController
      'episode_of_care'=>params[:calculation_type] == 'episode'
     }
 
-    measure = Measures::MATLoader.load(params[:measure_file], current_user.username, measure_details)
+    measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
+    current_user.measures << measure
+    current_user.save!
 
     measure.needs_finalize = (measure_details['episode_of_care'] || measure.populations.size > 1)
     Measures::ADEHelper.update_if_ade(measure)

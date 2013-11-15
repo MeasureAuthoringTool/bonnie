@@ -33,7 +33,7 @@ class User
 
   has_many :measures
 
-  scope :by_username, ->(username) { where({username: username}) }
+  scope :by_email, ->(email) { where({email: email}) }
 
   ## Confirmable
   # field :confirmation_token,   :type => String

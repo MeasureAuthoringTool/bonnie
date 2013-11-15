@@ -4,11 +4,11 @@ namespace :bonnie do
   namespace :load do
   
     desc 'Load Exported MITRE measure bundle'
-    task :mitre_bundle, [:file, :username, :reparse_hqmf?, :measures_yml, :drop_db?] do |t, args|
+    task :mitre_bundle, [:file, :email, :reparse_hqmf?, :measures_yml, :drop_db?] do |t, args|
       raise "The file to measure definition must be specified" unless args.file
-      raise "The username to load the measures for must be specified" unless args.username
+      raise "The user email to load the measures for must be specified" unless args.email
 
-      username = args.username || 'bonnie'
+      email = args.email || 'bonnie@example.com'
       load_from_hqmf = args.reparse_hqmf? == 'true'
       measures_yml = args.measures_yml unless measures_yml.nil? || measures_yml.empty?
 
@@ -16,9 +16,10 @@ namespace :bonnie do
         Rake::Task["db:drop"].invoke()
       end
 
+      username = email.split('@')[0]
       password = "#{username}1234"
-      User.create!({agree_license: true, approved: true, password: password, password_confirmation: password, email: "#{username}@example.com", first_name: username, last_name: username, username: username})
-      puts "created user #{username}@example.com/#{password}"
+      User.create!({agree_license: true, approved: true, password: password, password_confirmation: password, email: email, first_name: username, last_name: username})
+      puts "created user #{email}/#{password}"
 
       Rake::Task["bundle:import"].invoke(args.file,'true','true',nil,'false')
 
@@ -31,7 +32,7 @@ namespace :bonnie do
       puts "clearing out system.js"
       MONGO_DB['system.js'].find({}).remove_all
 
-      user = User.by_username(username).first
+      user = User.by_email(email).first
       Measures::BundleLoader.load(args.file, user, measures_yml, load_from_hqmf)
 
     end

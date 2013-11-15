@@ -7,24 +7,24 @@ namespace :bonnie do
   
   
     desc 'Load MAT export zip file'
-    task :mat_export, [:file, :username] do |t, args|
+    task :mat_export, [:file, :email] do |t, args|
       raise "The file to measure definition must be specified" unless args.file
-      raise "The username to load the measures for must be specified" unless args.username
+      raise "The user email to load the measures for must be specified" unless args.email
 
-      user = User.by_username(args.username).first
-      raise "The user #{args.username} could not be found." unless user
+      user = User.by_email(args.email).first
+      raise "The user #{args.email} could not be found." unless user
       
       file = File.new args.file
       data = Measures::MATLoader.load(file, user, {})
     end
 
     desc 'Load a directory of MAT export zip files'
-    task :mat_exports, [:dir, :username] do |t, args|
+    task :mat_exports, [:dir, :email] do |t, args|
       raise "The directory to measure definitions" unless args.dir
-      raise "The username to load the measures for must be specified" unless args.username
+      raise "The user email to load the measures for must be specified" unless args.email
 
-      user = User.by_username(args.username).first
-      raise "The user #{args.username} could not be found." unless user
+      user = User.by_email(args.email).first
+      raise "The user #{args.email} could not be found." unless user
 
       Dir.glob(File.join(args.dir,'*.zip')).each do |zip_path|
         begin
