@@ -31,7 +31,6 @@ group :development do
 end
 
 group :test, :development do
-
   gem 'jasmine'
   gem 'turn', :require => false
   gem 'simplecov', :require => false

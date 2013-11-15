@@ -1,0 +1,124 @@
+class PatientBuilderTest < ActiveSupport::TestCase
+
+  setup do
+    collection_fixtures "draft_measures"
+    @measure_ids = ["40280381-3D61-56A7-013E-5CD94A4D64FA"]
+    @data_criteria = Measures::PatientBuilder.get_data_criteria(@measure_ids)
+    @valuesets = [{"oid" => "2.16.840.1.113883.3.526.3.1492", "concepts"=>[{"code_system_name" => "SNOMED", "code" =>"99201"},
+                                                                            {"code_system_name" => "SNOMED", "code" =>"99202"},
+                                                                            {"code_system_name" => "CPT", "code" =>"CPT1"},
+                                                                            {"code_system_name" => "CPT", "code" =>"CPT2"}]},
+                  
+                  {"oid" => "2.16.840.1.113883.3.464.1003.102.12.1011" , "concepts"=>[{"code_system_name" => "LOINC", "code" =>"LOINC_1"},
+                                                                                      {"code_system_name" => "LOINC", "code" =>"LOINC_2"},
+                                                                                      {"code_system_name" => "AOCS", "code" =>"A_1"},
+                                                                                      {"code_system_name" => "AOCS", "code" =>"A_2"}]},
+                  
+                  {"oid" => "2.16.840.1.113883.3.464.1003.106.12.1005", "concepts"=>[{"code_system_name" => "SNOMED", "code" =>"999999"},
+                                                                                     {"code_system_name" => "SNOMED", "code" =>"222222"}]},
+                  
+                  {"oid" => "2.16.840.1.113883.3.526.3.1139" , "concepts"=>[{"code_system_name" => "CPT", "code" =>"CHACHA1"},
+                                                                            {"code_system_name" => "CPT", "code" =>"CHACHA2"},
+                                                                            {"code_system_name" => "SNOMED", "code" =>"SNO1"},
+                                                                            {"code_system_name" => "SNOMED", "code" =>"SNO2"}]},
+                   {"oid" => "2.16.840.1.113883.3.526.3.1259" , "concepts"=>[{"code_system_name" => "CPT", "code" =>"CHACHA1"},
+                                                                            {"code_system_name" => "CPT", "code" =>"CHACHA2"},
+                                                                            {"code_system_name" => "SNOMED", "code" =>"SNO1"},
+                                                                            {"code_system_name" => "SNOMED", "code" =>"SNO2"}]}                                                          
+                  ] # todo need to fake some of these out
+
+    @coded_source_data_critria = {
+          "id"=> "DiagnosisActiveLimitedLifeExpectancy",
+          "start_date"=> 1333206000000,
+          "end_date"=> 1333206000000,
+          "value"=>[{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.464.1003.102.12.1011","title"=>"Acute Pharyngitis", "codes" =>[{"LOINC"=>["LOINC_2"]}]}],
+          "negation"=>"true",
+          "negation_code_list_id"=>"2.16.840.1.113883.3.464.1003.106.12.1005",
+          "negation_code" => {"code_system" => "SNOMED", "code" =>"222222"},
+          "field_values"=>{"ORDINAL"=>{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.526.3.1139","title"=>"ACE inhibitor or ARB", "code" =>{"code_system"=>"CPT", "code"=>"CHACHA2", "title"=>nil}}},
+          "oid"=> "2.16.840.1.113883.3.526.3.1492",
+          "codes"=> [{"CPT" =>["CPT1"]}]
+        }
+
+    @un_coded_source_data_critria = {
+          "id"=> "DiagnosisActiveLimitedLifeExpectancy",
+          "start_date"=> 1333206000000,
+          "end_date"=> 1333206000000,
+          "value"=>[{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.464.1003.102.12.1011","title"=>"Acute Pharyngitis"}],
+          "negation"=>"true",
+          "negation_code_list_id"=>"2.16.840.1.113883.3.464.1003.106.12.1005",
+          "field_values"=>{"ORDINAL"=>{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.526.3.1139","title"=>"ACE inhibitor or ARB"}},
+          "oid"=> "2.16.840.1.113883.3.526.3.1492"
+          }    
+  end
+
+
+  test "derive entry" do
+    data_criteria = HQMF::DataCriteria.from_json("DiagnosisActiveLimitedLifeExpectancy", @data_criteria["DiagnosisActiveLimitedLifeExpectancy"])
+    entry = Measures::PatientBuilder.derive_entry(data_criteria,@un_coded_source_data_critria, @valuesets)
+    assert entry, "Should have created an entry with un coded data"
+    assert_equal Condition, entry.class, "should have created and Encounter object"
+    
+    entry = Measures::PatientBuilder.derive_entry(data_criteria,@coded_source_data_critria, @valuesets)
+    assert entry, "Should have created an entry with  coded data"
+    assert_equal Condition, entry.class, "should have created and Encounter object"
+    assert_equal @coded_source_data_critria["codes"], entry.codes
+  end
+
+  test "derive negation" do
+    data_criteria = HQMF::DataCriteria.from_json("DiagnosisActiveLimitedLifeExpectancy", @data_criteria["DiagnosisActiveLimitedLifeExpectancy"])
+    entry = Measures::PatientBuilder.derive_entry(data_criteria,@un_coded_source_data_critria, @valuesets)
+    assert  !entry.negation_ind, "negation should be false"
+    assert entry.negation_reason.nil?, "Negation should have no codes"
+
+    Measures::PatientBuilder.derive_negation(entry,@un_coded_source_data_critria,@valuesets)
+    assert entry.negation_ind, "negation should be true"
+    code ={"code_system" => "SNOMED" , "code" =>"999999"}
+    assert_equal code, entry.negation_reason, "Negation codes should have been auto selected"
+
+    entry = Measures::PatientBuilder.derive_entry(data_criteria,@coded_source_data_critria, @valuesets)
+    
+    Measures::PatientBuilder.derive_negation(entry,@coded_source_data_critria,@valuesets)
+    assert entry.negation_ind, "negation should be true"
+    assert_equal @coded_source_data_critria["negation_code"], entry.negation_reason, "Negation codes shoudl equal provided codes"
+  end
+
+  test "derive time range"  do 
+    time_criteria = { "start_date" => 1333206000000, "end_date" => 1333206000000 }
+  end
+
+  test "derive values" do
+
+    data_criteria = HQMF::DataCriteria.from_json("DiagnosisActiveLimitedLifeExpectancy", @data_criteria["DiagnosisActiveLimitedLifeExpectancy"])
+    entry = Measures::PatientBuilder.derive_entry(data_criteria,@un_coded_source_data_critria,@valuesets)
+    
+    assert entry.values.nil? || entry.values.empty? , "There should be no values"
+
+    Measures::PatientBuilder.derive_values(entry,@un_coded_source_data_critria["value"],@valuesets)
+    expected_length = @un_coded_source_data_critria["value"].length
+    assert_equal expected_length, entry.values.length, "Should have created #{expected_length} values"
+    assert_equal({"LOINC"=>["LOINC_1"], "AOCS"=>["A_1"]}, entry.values[0].codes ) 
+
+    entry = Measures::PatientBuilder.derive_entry(data_criteria,@coded_source_data_critria, @valuesets)
+    assert entry.values.nil? || entry.values.empty? , "There should be no values"
+    Measures::PatientBuilder.derive_values(entry,@coded_source_data_critria["value"],@valuesets)
+    expected_length = @un_coded_source_data_critria["value"].length
+    assert_equal expected_length, entry.values.length, "Should have created #{expected_length} values"
+    assert_equal @coded_source_data_critria["value"][0]["codes"], entry.values[0].codes 
+  end
+
+  test "derive field"  do 
+    data_criteria = HQMF::DataCriteria.from_json("DiagnosisActiveLimitedLifeExpectancy", @data_criteria["DiagnosisActiveLimitedLifeExpectancy"])
+    entry = Measures::PatientBuilder.derive_entry(data_criteria,@un_coded_source_data_critria, @valuesets)
+    assert entry.values.nil? || entry.values.empty? , "There should be no values"
+    Measures::PatientBuilder.derive_field_values(entry,@un_coded_source_data_critria["field_values"],@valuesets)
+
+    assert !entry.ordinality.nil?, "Should have created an ordinal filed value"
+    
+    entry = Measures::PatientBuilder.derive_entry(data_criteria,@coded_source_data_critria, @valuesets)
+    assert entry.values.nil? || entry.values.empty? , "There should be no values"
+    Measures::PatientBuilder.derive_field_values(entry,@coded_source_data_critria["field_values"],@valuesets)
+    assert_equal({"code_system"=>"CPT", "code"=>"CHACHA2", "title"=>nil}, entry.ordinality, "Should have created an ordinal filed value")
+  end
+
+end 

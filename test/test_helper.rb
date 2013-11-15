@@ -9,10 +9,9 @@ require 'turn'
 class ActiveSupport::TestCase
  
   def dump_database
-
     Mongoid.default_session.collections.each do |c|
       c.drop()
-   end
+    end
   end
 
   def collection_fixtures(*collection_names)
