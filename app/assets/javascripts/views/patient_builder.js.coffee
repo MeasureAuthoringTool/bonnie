@@ -33,12 +33,12 @@ class Thorax.Views.PatientBuilder extends Thorax.View
         @patients.add model # make sure that the patient exist in the global patient collection
         bonnie.navigate 'patients', trigger: true # FIXME: figure out correct action here
     serialize: (attr) ->
-      attr.birthdate = moment(attr.birthdate, 'L').format('X') if attr.birthdate
+      attr.birthdate = moment(attr.birthdate, 'L LT').format('X') if attr.birthdate
 
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
   context: ->
     _(super).extend
-      birthdate: moment(@model.get('birthdate'), 'X').format('L') if @model.get('birthdate')
+      birthdate: moment(@model.get('birthdate'), 'X').format('L LT') if @model.get('birthdate')
       expired: @model.get('expired')?.toString()
 
   drop: (e, ui) ->
