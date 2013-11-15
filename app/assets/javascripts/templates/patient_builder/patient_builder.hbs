@@ -61,6 +61,7 @@
       </div>
     </div>
 
+    {{! FIXME: The backend for payer support appears to have issues, removing support until resolved
     <div class="form-group">
       <label for="payer" class="col-xs-2 control-label">Payer</label>
       <div class="col-xs-10">
@@ -71,6 +72,7 @@
         </select>
       </div>
     </div>
+    }}
 
     <div class="form-group">
       <label for="expired" class="col-xs-2 control-label">Living Status</label>
@@ -83,6 +85,13 @@
           <input type="radio" name="expired" value="false">
           Alive
         </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="birthdate" class="col-xs-2 control-label">Birthdate</label>
+      <div class="col-xs-10">
+        <input type="text" name="birthdate" class="form-control" placeholder="Date">
       </div>
     </div>
 

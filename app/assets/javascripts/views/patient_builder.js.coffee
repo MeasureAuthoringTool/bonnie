@@ -32,9 +32,14 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       sync: (model) ->
         @patients.add model # make sure that the patient exist in the global patient collection
         bonnie.navigate 'patients', trigger: true # FIXME: figure out correct action here
+    serialize: (attr) ->
+      attr.birthdate = moment(attr.birthdate, 'L').format('X') if attr.birthdate
 
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
-  context: -> _(super).extend expired: @model.get('expired')?.toString()
+  context: ->
+    _(super).extend
+      birthdate: moment(@model.get('birthdate'), 'X').format('L') if @model.get('birthdate')
+      expired: @model.get('expired')?.toString()
 
   drop: (e, ui) ->
     measureDataCriteria = $(ui.draggable).model()
@@ -72,15 +77,15 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
-    start_date = moment(@model.get('start_date')).format('L') if @model.get('start_date')
-    end_date = moment(@model.get('end_date')).format('L') if @model.get('end_date')
-    _(super).extend start_date: start_date, end_date: end_date
+    _(super).extend
+      start_date: moment(@model.get('start_date')).format('L LT') if @model.get('start_date')
+      end_date: moment(@model.get('end_date')).format('L LT') if @model.get('end_date')
 
   # When we serialize the form, we want to convert formatted dates back to times
   events:
     serialize: (attr) ->
-      attr.start_date = moment(attr.start_date).format('X') * 1000 if attr.start_date
-      attr.end_date = moment(attr.end_date).format('X') * 1000 if attr.end_date
+      attr.start_date = moment(attr.start_date, 'L LT').format('X') * 1000 if attr.start_date
+      attr.end_date = moment(attr.end_date, 'L LT').format('X') * 1000 if attr.end_date
 
   toggleDetails: (e) ->
     e.preventDefault()
