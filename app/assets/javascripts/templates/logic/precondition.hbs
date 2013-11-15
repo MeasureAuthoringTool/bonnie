@@ -9,7 +9,7 @@
           {{view "PreconditionLogic" precondition=this parentPrecondition=../precondition dataCriteriaMap=../dataCriteriaMap sourceDataCriteria=../sourceDataCriteria}}
         {{/each}}
     {{else}}
-      {{view "DataCriteriaLogic" parentKey=parentPreconditionKey reference=precondition.reference dataCriteriaMap=../dataCriteriaMap sourceDataCriteria=../sourceDataCriteria negatedParent=../parentPrecondition.negation tag="span"}}
+      {{view "DataCriteriaLogic" reference=precondition.reference dataCriteriaMap=../dataCriteriaMap sourceDataCriteria=../sourceDataCriteria negatedParent=../parentPrecondition.negation tag="span"}}
     {{/if}}
   </li>
 </ul>

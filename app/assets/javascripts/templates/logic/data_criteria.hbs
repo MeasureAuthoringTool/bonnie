@@ -8,7 +8,7 @@
       {{#each dataCriteria.children_criteria}}
         <li>
           <span class="{{../dataCriteria.key}} rationale_target">{{translate_operator ../dataCriteria.derivation_operator}} : </span>
-          {{view "DataCriteriaLogic" parentKey=../dataCriteria.key reference=this dataCriteriaMap=../dataCriteriaMap sourceDataCriteria=../sourceDataCriteria tag="span"}}
+          {{view "DataCriteriaLogic" reference=this dataCriteriaMap=../dataCriteriaMap sourceDataCriteria=../sourceDataCriteria tag="span"}}
         </li>
       {{/each}}
     </ul>
