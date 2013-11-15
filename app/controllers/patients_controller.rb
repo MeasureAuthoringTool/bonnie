@@ -140,6 +140,8 @@ private
     insurance_provider.codes["SOP"] = [insurance_codes[params['payer']]]
     patient.insurance_providers = [insurance_provider]
 
+    patient.expected_values = params['expected_values']
+
     Measures::PatientBuilder.rebuild_patient(patient)
     patient
   end

@@ -3,4 +3,5 @@ class Record
   field :type, type: String
   field :measure_ids, type: Array
   field :source_data_criteria, type: Array
+  field :expected_values, type: Hash
 end

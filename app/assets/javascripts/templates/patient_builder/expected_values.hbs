@@ -1,0 +1,20 @@
+<label>Expected Values{{measureTitle}}</label>
+<!-- Population titles or sub_ids -->
+{{#collection populations tag="ul" class="nav nav-tabs"}}
+  <li>
+    <a href="#{{sub_id}}" class="btn btn-primary" data-toggle="tab">
+      {{#if title}}
+        {{title}}
+      {{else}}
+        {{sub_id}}
+      {{/if}}
+    </a>
+  </li>
+{{/collection}}
+
+<!-- Expected values per population sub_ids -->
+{{#collection populations tag="div" class="tab-content"}}
+  <div class="tab-pane expected-value-tab" id="{{sub_id}}">
+    {{view "ExpectedValueView" population=this model=../model editFlag=../edit criteria=../popCriteria modelValues=../values}}
+  </div>
+{{/collection}}

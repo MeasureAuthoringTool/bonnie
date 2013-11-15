@@ -2,21 +2,23 @@
 <table class="table">
   <thead>
     <tr>
+      <th></th>
       <th>Name</th>
     </tr>
   </thead>
   {{#collection patients tag="tbody"}}
-    <tr>
+    <tr class="tr patient-listing">
+      <td width="5%" class="td delete-icon">{{#button "delStart" class="btn btn-danger"}}<i class="glyphicon glyphicon-minus-sign"></i>{{/button}}</td>
       <td>{{last}}, {{first}}</td>
       <td width="24%">
         {{#link "patients/{{_id}}" class="btn btn-primary" expand-tokens=true}}View{{/link}}
         {{#if measure_id}}
           {{#link "measures/{{measure_id}}/patients/{{_id}}/edit" class="btn btn-primary" expand-tokens=true}}Edit{{/link}}
         {{else}}
-          {{#link "patients/{{_id}}/edit" class="btn btn-primary" expand-tokens=true}}Edit{{/link}}
-        {{/if}}
+          {{#link "patients/{{_id}}/edit" class="btn btn-primary" expand-tokens=true disabled="disabled"}}Edit{{/link}}
+        {{/if}} 
         {{#button "clonePatient" class="btn btn-primary"}}Clone{{/button}}
-        {{#button "deletePatient" class="btn btn-danger"}}Delete{{/button}}
+        {{#button "deletePatient" class="btn btn-danger delete-{{_id}}" style="display: none;" expand-tokens=true}}Delete{{/button}}
       </td>
     </tr>
   {{/collection}}

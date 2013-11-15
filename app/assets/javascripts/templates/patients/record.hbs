@@ -12,5 +12,10 @@
     {{view this}}
   {{/each}}
 </div>
-<br/><br/>
+{{#if shouldDisplayValues}}
+  <div class="record">
+    {{view expectedValuesView}}
+  </div><hr>
+{{/if}}
+<br/>
 {{#link "patients" class="btn btn-primary"}}<i class="glyphicon glyphicon-circle-arrow-left"></i> back to patients listing{{/link}}

@@ -12,6 +12,11 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @sourceDataCriteria
       itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure)
+    @expectedValuesView = new Thorax.Views.ExpectedValuesView
+      model: @model
+      measure: @measure
+      edit: true
+      values: _.extend({}, @model.get('expected_values'))
 
   dataCriteriaCategories: ->
     categories = {}
@@ -50,6 +55,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     # Serialize the main view and the child collection views separately
     @serialize(children: false)
     childView.serialize() for cid, childView of @editCriteriaCollectionView.children
+    @expectedValuesView.serialize(children: false)
     @model.save(source_data_criteria: @sourceDataCriteria)
 
 
@@ -136,3 +142,67 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.View
   removeValue: (e) ->
     e.preventDefault()
     @model.destroy()
+
+class Thorax.Views.ExpectedValuesView extends Thorax.View
+  
+  template: JST['patient_builder/expected_values']
+  
+  # FIXME: Needs re-writing for elegance
+  initialize: ->
+    @populations = @measure.get('populations')
+    @popCriteria = @measure.get('population_criteria')
+    if not @values? or _.size(@values) is 0
+      # if the patient has no expected values, create them
+      @values = {}
+      evs = @values
+      pc = @popCriteria
+      @populations.each (p) ->
+        pevHash = {}
+        for key in (pop for pop in Object.keys(pc) when p.has(pop))
+          pevHash[key] = 0
+        evs[p.get('sub_id')] = pevHash
+
+  measureTitle: -> " for #{@measure.get('title') ? ''}"
+
+  # When we serialize the form, we want to update the expected_values hash
+  events:
+    serialize: (attr) ->
+      # get all the checkboxes: $('.expected-value-tab > div > .expected-values > form > .checkbox > label > input')
+      # get checkbox by id: $('.expected-value-tab > div > .expected-values > form > .checkbox > label > #DENEX')
+      parsedValues = {}
+      # attr.expected_values = _.extend({}, @values)
+      pc = @popCriteria
+      @populations.each (p) ->
+        pevHash = {}
+        for key in (pop for pop in Object.keys(pc) when p.has(pop))
+        # selections = @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > input")
+          # console.log @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}")
+          checkedValue = @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}").prop('checked')
+          if checkedValue is true then pevHash[key] = 1 else pevHash[key] = 0
+          console.log checkedValue
+        parsedValues[p.get('sub_id')] = pevHash
+      console.log parsedValues
+      attr.expected_values = _.extend({}, parsedValues)
+
+class Thorax.Views.ExpectedValueView extends Thorax.View
+  
+  template: JST['patient_builder/expected_value']
+  # currently supported ev values are 0/1 for unchecked/checked
+  evStatus:
+    '0': ['unchecked', 'danger', 1]
+    '1': ['check', 'success', 0]
+
+  initialize: ->
+    c = @criteria
+    p = @population
+    @currentCriteria = (pop for pop in Object.keys(c) when pop in Object.keys(p))
+
+  events: ->
+    'rendered': 'setValues'
+
+  setValues: ->
+    for c in @currentCriteria
+      if @modelValues[@population.sub_id][c] is 1
+        @$('#' + c).prop('checked', true)
+      if @editFlag is false
+        @$('#' + c).prop('disabled', true)

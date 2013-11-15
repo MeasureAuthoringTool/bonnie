@@ -45,9 +45,10 @@ class Thorax.Models.Patient extends Thorax.Model
     else unless @get('ethnicity').name? then "CDC-RE: #{@get('ethnicity').code}"
     else @get('ethnicity').name
   getInsurance: ->
-    insurances = @get('insurance_providers').map (ip) ->
+    insurances = @get('insurance_providers')?map (ip) ->
       ip.name
-    insurances.join(", ")
+    insurances?join(", ")
+    unless insurances? then ''
   getAddresses: ->
     address = ""
     if @get('addresses')

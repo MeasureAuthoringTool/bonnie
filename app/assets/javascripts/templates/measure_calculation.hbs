@@ -10,7 +10,7 @@
   {{/collection}}
 </div>
 <br>
-<table class="table table-condensed table-bordered">
+<table class="table table-striped table-bordered table-condensed">
   <tr>
     <td>Totals:</td>
     <td>{{IPPTotal}}</td>
@@ -18,6 +18,14 @@
     <td>{{NUMERTotal}}</td>
     <td>{{DENEXTotal}}</td>
     <td>{{DENEXCEPTotal}}</td>
+  </tr>
+  <tr>
+    <td>Results Percentages:</td>
+    <td>{{IPPPercent}}%</td>
+    <td>{{DENOMPercent}}%</td>
+    <td>{{NUMERPercent}}%</td>
+    <td>{{DENEXPercent}}%</td>
+    <td>{{DENEXCEPPercent}}%</td>
   </tr>
   <tr>
     <th>Patient Name</th>
@@ -30,11 +38,11 @@
   {{#collection results tag="tbody"}}
     <tr>
       <td>{{#link "patients/{{patient_id}}" expand-tokens=true}}{{last}}, {{first}}{{/link}}</td>
-      <td>{{#if IPP}}X{{/if}}</td>
-      <td>{{#if DENOM}}X{{/if}}</td>
-      <td>{{#if NUMER}}X{{/if}}</td>
-      <td>{{#if DENEX}}X{{/if}}</td>
-      <td>{{#if DENEXCEP}}X{{/if}}</td>
+      <td class="ipp-{{patient_id}}">{{#if IPP}}X{{/if}}</td>
+      <td class="denom-{{patient_id}}">{{#if DENOM}}X{{/if}}</td>
+      <td class="numer-{{patient_id}}">{{#if NUMER}}X{{/if}}</td>
+      <td class="denex-{{patient_id}}">{{#if DENEX}}X{{/if}}</td>
+      <td class="denexcep-{{patient_id}}">{{#if DENEXCEP}}X{{/if}}</td>
     </tr>
   {{/collection}}
 </table>
