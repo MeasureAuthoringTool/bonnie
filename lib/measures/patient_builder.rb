@@ -7,8 +7,10 @@ module Measures
     def self.rebuild_patient(patient)
 
       # clear out patient data
-      Record::Sections.each do |section|
-        patient.method(section).call.delete_all
+      if (patient.id)
+        Record::Sections.each do |section|
+          patient.method(section).call.delete_all
+        end
       end
       patient.medical_record_number ||= Digest::MD5.hexdigest("#{patient.first} #{patient.last}")
 
