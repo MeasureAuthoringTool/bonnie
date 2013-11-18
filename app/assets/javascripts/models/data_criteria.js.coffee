@@ -37,3 +37,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
 
 class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
   model: Thorax.Models.PatientDataCriteria
+  deepClone: ->
+    # Clone by fully serializing and de-derializing; we need to stringify to have recursive JSONification happen
+    json = JSON.stringify @toJSON()
+    new @constructor JSON.parse(json), parse: true
