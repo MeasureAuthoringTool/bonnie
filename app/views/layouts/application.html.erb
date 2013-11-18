@@ -39,7 +39,9 @@
         // FIXME bonnie.patients is deprecated and will be going away shortly
         bonnie.patients.add(<%= (@patients || Array(@patient)).to_json(except: :results).html_safe %>, { parse: true });
       <% end %>
-      Backbone.history.start();
+      $(document).ready(function() {
+        Backbone.history.start();
+      });
     </script>
   </body>
 </html>
