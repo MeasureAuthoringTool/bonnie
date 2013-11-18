@@ -20,6 +20,8 @@ Bonnie::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  Rails.application.routes.default_url_options[:host] = ENV['host'] 
+
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
