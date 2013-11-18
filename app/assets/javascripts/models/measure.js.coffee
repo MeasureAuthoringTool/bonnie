@@ -26,7 +26,7 @@ class Thorax.Models.Measure extends Thorax.Model
     matches = 0
     pops = population
     popCriteria = Object.keys(@get('population_criteria'))
-    validPops = (c for c in popCriteria when pops.get(c)?)
+    validPops = (c for c in popCriteria when pops?.get(c)?)
     @get('patients').each (patient) ->
       correct = 0
       incorrect = 0
