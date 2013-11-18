@@ -7,8 +7,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     populate: { context: true, children: false }
 
   initialize: ->
-    # FIXME need to deeply clone source data criteria to avoid editing in place; this is only a shallow clone
-    @sourceDataCriteria = @model.get('source_data_criteria').clone()
+    @sourceDataCriteria = @model.get('source_data_criteria').deepClone()
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @sourceDataCriteria
       itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure)
@@ -57,6 +56,11 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     childView.serialize() for cid, childView of @editCriteriaCollectionView.children
     @expectedValuesView.serialize(children: false)
     @model.save(source_data_criteria: @sourceDataCriteria)
+
+  cancel: (e) ->
+    # Go back to wherever the user came from, if possible
+    e.preventDefault()
+    window.history.back()
 
 
 # FIXME: When we get coffeescript scoping working again, don't need to put this in Thorax.Views scope
