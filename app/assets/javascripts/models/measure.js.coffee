@@ -30,7 +30,7 @@ class Thorax.Models.Measure extends Thorax.Model
     @get('patients').each (patient) ->
       correct = 0
       incorrect = 0
-      result = population.calculate(patient)
+      result = population?.calculate(patient)
       for ind, c of popCriteria
         if c in validPops and patient.has('expected_values')
           found = result[c] ?= result.get(c)
