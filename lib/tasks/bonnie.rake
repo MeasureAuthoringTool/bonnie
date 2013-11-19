@@ -33,7 +33,7 @@ namespace :bonnie do
     desc 'Update measure ids from NQF to HQMF.'
     task :update_measure_ids => :environment do
       Record.each do |patient|
-        patient.measure_ids.map! { |id| Measure.where(measure_id: id).first.try(:hqmf_id) }.compact!
+        patient.measure_ids.map! { |id| Measure.or({ measure_id: id }, { hqmf_id: id }).first.try(:hqmf_id) }.compact!
         patient.save
         puts "Updated patient #{patient.first} #{patient.last}."
       end
