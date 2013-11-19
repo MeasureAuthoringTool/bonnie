@@ -56,60 +56,44 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
 
   updateCell: (result, patient, e, isInsert) ->
     # FIXME: Use all when measure calculation is updated for multiple populations
-    pops = @model.get('populations').first()
-    popCriteria = Object.keys(@model.get('population_criteria'))
-    cellCriteria = ['IPP', 'DENOM', 'NUMER', 'DENEX', 'DENEXCEP']
-    popMap =
+    tablePopulations = ['IPP', 'DENOM', 'NUMER', 'DENEX', 'DENEXCEP']
+    populationClassMap =
       IPP: 'ipp'
       DENOM: 'denom'
       NUMER: 'numer'
       DENEX: 'denex'
       DENEXCEP: 'denexcep'
-    cells = (c for c in cellCriteria when pops.get(c)?)
-    for c in cellCriteria
-      if c in cells and patient.has('expected_values')
-        if patient.get('expected_values')[pops.get('sub_id')][c] is result[c] 
+    validPopulations = (criteria for criteria in tablePopulations when @population.get(criteria)?)
+    for criteria in tablePopulations
+      if criteria in validPopulations and patient.has('expected_values') and @model.get('id') in _.keys(patient.get('expected_values'))
+        if patient.get('expected_values')[@model.get('id')][@population.get('sub_id')][criteria] is result[criteria] 
           if isInsert
-            @$(".#{popMap[c]}-#{result.patient_id}").addClass("success")
+            @$(".#{populationClassMap[criteria]}-#{result.patient_id}").addClass("success")
           else
-            @$(".#{popMap[c]}-#{result.patient_id}").removeClass("success")
+            @$(".#{populationClassMap[criteria]}-#{result.patient_id}").removeClass("success")
         else 
           if isInsert
-            @$(".#{popMap[c]}-#{result.patient_id}").addClass("danger")
+            @$(".#{populationClassMap[criteria]}-#{result.patient_id}").addClass("danger")
           else 
-            @$(".#{popMap[c]}-#{result.patient_id}").removeClass("danger")
-      else @$(".#{popMap[c]}-#{result.patient_id}").addClass("warning")
+            @$(".#{populationClassMap[criteria]}-#{result.patient_id}").removeClass("danger")
+      else @$(".#{populationClassMap[criteria]}-#{result.patient_id}").addClass("warning")
 
   updateComparisons: (result, patient, e, isInsert) ->
-    console.log result
-    pops = @model.get('populations').first()
-    popCriteria = Object.keys(@model.get('population_criteria'))
-    cellCriteria = ['IPP', 'DENOM', 'NUMER', 'DENEX', 'DENEXCEP']
-    popMap =
-      IPP: 'ipp'
-      DENOM: 'denom'
-      NUMER: 'numer'
-      DENEX: 'denex'
-      DENEXCEP: 'denexcep'
-    cells = (c for c in cellCriteria when pops.get(c)?)
-    for c in cellCriteria
-      if c in cells and patient.has('expected_values')
-        found = result[c] ?= result.get(c)
-        console.log "#{patient.get('expected_values')[pops.get('sub_id')][c]} =?= #{found}"
-        if patient.get('expected_values')[pops.get('sub_id')][c] is found
+    tablePopulations = ['IPP', 'DENOM', 'NUMER', 'DENEX', 'DENEXCEP']
+    validPopulations = (criteria for criteria in tablePopulations when @population.get(criteria)?)
+    for criteria in tablePopulations
+      if criteria in validPopulations and patient.has('expected_values') and @model.get('id') in Object.keys(patient.get('expected_values'))
+        found = result[criteria] ?= result.get(criteria)
+        if patient.get('expected_values')[@model.get('id')][@population.get('sub_id')][criteria] is found
           if isInsert
-            @comparisons.correct[c] += 1 
-            console.log "isInsert: #{isInsert}. incremented CORRECT #{c} to #{@comparisons.correct[c]}"
+            @comparisons.correct[criteria] += 1 
           else
-            @comparisons.correct[c] -= 1
-            console.log "isInsert: #{isInsert}. decremented CORRECT #{c} to #{@comparisons.correct[c]}"
+            @comparisons.correct[criteria] -= 1
         else 
           if isInsert
-            @comparisons.incorrect[c] += 1
-            console.log "isInsert: #{isInsert}. incremented INCORRECT #{c} to #{@comparisons.incorrect[c]}"
+            @comparisons.incorrect[criteria] += 1
           else 
-            @comparisons.incorrect[c] -= 1
-            console.log "isInsert: #{isInsert}. decremented INCORRECT #{c} to #{@comparisons.incorrect[c]}"
+            @comparisons.incorrect[criteria] -= 1
     @updateTotalComparisons()
 
   resetComparisons: ->
