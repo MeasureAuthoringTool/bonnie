@@ -8,7 +8,7 @@
 
     (function() {
 
-      var population = measure.get('populations').findWhere({ index: <%= index %> });
+      var population = measure.get('populations').at(<%= index %>);
 
       population.calculate = function(patient) {
 
