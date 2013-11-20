@@ -21,6 +21,11 @@ Bonnie::Application.routes.draw do
     end
   end
   resources :records
+  resources :users do 
+    collection do
+      get 'index' 
+    end
+  end
 
   root to: 'home#index'
   match '/about',   to: 'pages#about',   via: 'get'
