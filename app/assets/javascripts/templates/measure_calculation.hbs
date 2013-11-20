@@ -37,12 +37,13 @@
   </th>
   {{#collection results tag="tbody"}}
     <tr>
-      <td>{{#link "patients/{{patient_id}}" expand-tokens=true}}{{last}}, {{first}}{{/link}}</td>
+      <td>{{#link "patients/{{patient_id}}" expand-tokens=true}}{{last}}, {{first}}{{/link}}  {{#button "deletePatient" class="btn btn-danger delete-{{patient_id}}" style="display: none;" expand-tokens=true}}Delete{{/button}}</td>
       <td class="ipp-{{patient_id}}">{{#if IPP}}X{{/if}}</td>
       <td class="denom-{{patient_id}}">{{#if DENOM}}X{{/if}}</td>
       <td class="numer-{{patient_id}}">{{#if NUMER}}X{{/if}}</td>
       <td class="denex-{{patient_id}}">{{#if DENEX}}X{{/if}}</td>
       <td class="denexcep-{{patient_id}}">{{#if DENEXCEP}}X{{/if}}</td>
+      <td>{{#button "showDelete" class="btn btn-default"}}<i class="glyphicon glyphicon-minus-sign"></i>{{/button}}</td>
     </tr>
   {{/collection}}
 </table>

@@ -116,4 +116,25 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
   updateTotalComparisons: ->
     sum = @comparisons.correct.IPP + @comparisons.incorrect.IPP
     if sum is 0 then @totalComparisons = 1 else @totalComparisons = sum
+
+  showDelete: (e) ->
+    result = @$(e.target).model()
+    deleteButton = @$('.delete-' + result.get('patient_id'))
+    deleteIcon = @$(e.target)
+    # if we clicked on the icon, grab the icon button instead
+    if deleteIcon[0].tagName is 'I' then deleteIcon = @$(deleteIcon[0].parentElement)
+    if deleteIcon.hasClass('btn-default')
+      deleteIcon.removeClass('btn-default')
+      deleteIcon.addClass('btn-danger')
+    else
+      deleteIcon.removeClass('btn-danger')
+      deleteIcon.addClass('btn-default')
+    deleteButton.toggle()
+
+  deletePatient: (e) ->
+    result = $(e.target).model()
+    patient = @allPatients.get(result.get('patient_id'))
+    patient.destroy()
+    result.destroy()
+
     
