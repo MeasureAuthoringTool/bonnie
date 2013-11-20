@@ -1,11 +1,4 @@
-class Thorax.Collections.Population extends Thorax.Collection
-  model: Thorax.Models.Population
-  initialize: (models, options) -> @parent = options?.parent
-
 class Thorax.Models.Population extends Thorax.Model
-  initialize: ->
-    sub_ids = (String.fromCharCode(idx) for idx in [97..122])
-    @set 'sub_id', sub_ids[@get('index')]
   calculateExpected: ->
     measure = @collection.parent
     sum = measure.get('patients').length
@@ -29,3 +22,7 @@ class Thorax.Models.Population extends Thorax.Model
       # only count it as a match if all the expectations are met
       if correct is validPopulations.length then matches++
     return ((matches / sum) * 100).toFixed(0)
+
+class Thorax.Collections.Population extends Thorax.Collection
+  model: Thorax.Models.Population
+  initialize: (models, options) -> @parent = options?.parent

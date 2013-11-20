@@ -5,11 +5,11 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     'click button.select-all':     'selectAll'
     'click button.select-none':    'selectNone'
   initialize: ->
-    @results = new Thorax.Collection()
+    @results = new Thorax.Collections.Result
     # FIXME: It would be nice to have the counts update dynamically without re-rendering the whole table
     @results.on 'add remove', @render, this
     @population = @model.get('populations').at(@populationIndex)
-    @logicView = new Thorax.Views.MeasureLogic(model: @model, population: @population)
+    @logicView = new Thorax.Views.PopulationLogic(model: @population)
     @resetComparisons()
 
   context: ->
@@ -28,25 +28,25 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
   patientClick: (e) ->
     patient = $(e.target).model()
     if result = @results.findWhere(patient_id: patient.id)
-      @updateComparisons(result, patient, e, false)
+      @updateComparisons(result, patient, false)
       @results.remove result
-      @updateCell(result, patient, e, false)
+      @updateCell(result, patient, false)
       @logicView.clearRationale()
     else
       result = @population.calculate(patient)
-      @updateComparisons(result, patient, e, true)
+      @updateComparisons(result, patient, true)
       @results.add result
-      @updateCell(result, patient, e, true)
-      @logicView.showRationale(@results.findWhere(patient_id: patient.id))
+      @updateCell(result, patient, true)
+      @logicView.showRationale(result)
 
   selectAll: (e) ->
     # FIXME: This isn't cached in any way now (still reasonably fast!)
     @allPatients.each (p) =>
       result = @population.calculate(p)
       unless @results.findWhere(patient_id: p.id)?
-        @updateComparisons(result, p, e, true)
+        @updateComparisons(result, p, true)
         @results.add result
-        @updateCell(result, p, e, true)
+        @updateCell(result, p, true)
     @$('button.toggle-patient').addClass('active')
 
   selectNone: ->
@@ -54,7 +54,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     @results.set() # FIXME: Instead of reset() so we get individual adds and removes
     @$('button.toggle-patient').removeClass('active')
 
-  updateCell: (result, patient, e, isInsert) ->
+  updateCell: (result, patient, isInsert) ->
     # FIXME: Use all when measure calculation is updated for multiple populations
     tablePopulations = ['IPP', 'DENOM', 'NUMER', 'DENEX', 'DENEXCEP']
     populationClassMap =
@@ -66,34 +66,37 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     validPopulations = (criteria for criteria in tablePopulations when @population.get(criteria)?)
     for criteria in tablePopulations
       if criteria in validPopulations and patient.has('expected_values') and @model.get('id') in _.keys(patient.get('expected_values'))
-        if patient.get('expected_values')[@model.get('id')][@population.get('sub_id')][criteria] is result[criteria] 
+        if patient.get('expected_values')[@model.get('id')][@population.get('sub_id')][criteria] is result.get(criteria)
           if isInsert
-            @$(".#{populationClassMap[criteria]}-#{result.patient_id}").addClass("success")
+            @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").addClass("success")
           else
-            @$(".#{populationClassMap[criteria]}-#{result.patient_id}").removeClass("success")
-        else 
+            @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").removeClass("success")
+        else
           if isInsert
-            @$(".#{populationClassMap[criteria]}-#{result.patient_id}").addClass("danger")
-          else 
-            @$(".#{populationClassMap[criteria]}-#{result.patient_id}").removeClass("danger")
-      else @$(".#{populationClassMap[criteria]}-#{result.patient_id}").addClass("warning")
+            @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").addClass("danger")
+          else
+            @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").removeClass("danger")
+      else @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").addClass("warning")
 
-  updateComparisons: (result, patient, e, isInsert) ->
+  updateComparisons: (result, patient, isInsert) ->
     tablePopulations = ['IPP', 'DENOM', 'NUMER', 'DENEX', 'DENEXCEP']
     validPopulations = (criteria for criteria in tablePopulations when @population.get(criteria)?)
     for criteria in tablePopulations
       if criteria in validPopulations and patient.has('expected_values') and @model.get('id') in Object.keys(patient.get('expected_values'))
-        found = result[criteria] ?= result.get(criteria)
-        if patient.get('expected_values')[@model.get('id')][@population.get('sub_id')][criteria] is found
+        if patient.get('expected_values')[@model.id][@population.get('sub_id')][criteria] is result.get(criteria)
           if isInsert
-            @comparisons.correct[criteria] += 1 
+            @comparisons.correct[criteria]++
+            console.log "isInsert: #{isInsert}. incremented CORRECT #{criteria} to #{@comparisons.correct[criteria]}"
           else
-            @comparisons.correct[criteria] -= 1
-        else 
+            @comparisons.correct[criteria]--
+            console.log "isInsert: #{isInsert}. decremented CORRECT #{criteria} to #{@comparisons.correct[criteria]}"
+        else
           if isInsert
-            @comparisons.incorrect[criteria] += 1
-          else 
-            @comparisons.incorrect[criteria] -= 1
+            @comparisons.incorrect[criteria]++
+            console.log "isInsert: #{isInsert}. incremented INCORRECT #{criteria} to #{@comparisons.incorrect[criteria]}"
+          else
+            @comparisons.incorrect[criteria]--
+            console.log "isInsert: #{isInsert}. decremented INCORRECT #{criteria} to #{@comparisons.incorrect[criteria]}"
     @updateTotalComparisons()
 
   resetComparisons: ->
