@@ -1,98 +1,23 @@
-// import bootstrap
-@import "bootstrap/less/bootstrap";
+@import "bootstrap3";
 
-// variables
-@icon-font-path: "../fonts/";
+// Custom Variables
+
 @list-top-margin: 30px;
-
-@brand-primary: #0075C4;
-@gray-lighter: #f2f2f2;
-
-@border-radius-base: 0px;
-@border-radius-large: 0px;
-
-@btn-default-color: @gray-lighter; // button hover color
-@btn-default-bg: @gray-lighter;
-@btn-default-border: black;
-
 @circle-listing-radius: 30px;
 
+// Custom classes for semantic mark-up
 
-// global styles
-h1 {
-  margin-top: 0;
-  color: black;
-  font-size: 1.5em;
-  text-transform: uppercase;
-  font-weight: 700;
-  line-height: 1.7;
-}
-
-h2 {
-  margin-top: 6px;
-  color: @gray;
-  font-size: 1.1em;
-  text-transform: uppercase;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-
-
-// override bootstrap
-
-.active {
-  font-color: @brand-primary;
-  border-bottom: 4px solid @brand-primary;
-}
-
-.navbar {
-  margin-bottom: 50px;
-  .navbar-brand {
-    font-size: 36px;
-    font-weight: 100;
-    text-transform: uppercase;
-  }
-  .nav {
-    font-size: 1.5em;
-    a {
-      color: @gray;
-      &.active { color: @gray-darker; }
-    }
-  }
-}
-
-.btn {
-  text-transform: uppercase;
-}
-
-.btn-default {
-  color: @gray;
-  border: 1px solid @gray;
-}
-
-// custom independent styles
+// Dashboard - Measures View
 
 .measure-col {
-  .col-xs-7;
   .btn-wrapper {
     border-left: 5px white solid;
     border-right: 5px white solid;
   }
-
 }
 
 .expected-col {
-  .col-xs-2;
   text-align: center;
-}
-
-.status-col {
-  .col-xs-1;
-}
-
-.patient-listing-col {
-  .col-xs-2;
 }
 
 .dashboard-heading {
@@ -130,8 +55,6 @@ h2 {
   .population {
     margin-top: @list-top-margin;
     .population-col {
-      .make-sm-column-offset(1);
-      .col-xs-6;
       .population-title {
         padding: 6px 15px 7px;
         background: @gray-lighter;
@@ -164,6 +87,7 @@ h2 {
     }
   }
 
+  // This grouping can go away after the knob visualizations are in
   .percent-listing {
     height: 34px;
     .circle-listing {
@@ -174,17 +98,9 @@ h2 {
       border: 2px solid @gray-lighter;
       margin: -12px auto;
       padding-top: 14px;
-      texr-align: center;
+      text-align: center;
       font-weight: 200;
       font-size: 1em;
     }
   }
 }
-
-// used by other styles, but not in the markup
-.listing {
-  font-weight: 800;
-  padding: 7px 5px;
-  background-color: @gray-lighter;
-}
-

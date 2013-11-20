@@ -1,0 +1,97 @@
+// import bootstrap
+@import "bootstrap/less/bootstrap";
+
+// Bootstrap Variables
+
+@icon-font-path: "../fonts/";
+
+@brand-primary: #0075C4;
+@gray-lighter: #f2f2f2;
+
+@border-radius-base: 0px;
+@border-radius-large: 0px;
+
+@btn-default-color: @gray-lighter; // button hover color
+@btn-default-bg: @gray-lighter;
+@btn-default-border: black;
+
+// Custom styles on HTML tags that are part of the theme
+
+h1 {
+  margin-top: 0;
+  color: black;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+h2 {
+  margin-top: 6px;
+  color: @gray;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+// Additions to Bootstrap classes
+
+.active {
+  color: @brand-primary;
+  border-bottom: 4px solid @brand-primary;
+}
+
+.navbar {
+  margin-bottom: 50px;
+  .navbar-brand {
+    font-size: 36px;
+    font-weight: 100;
+    text-transform: uppercase;
+  }
+  .nav {
+    font-size: 1.5em;
+    a {
+      color: @gray;
+      &.active { color: @gray-darker; }
+    }
+  }
+}
+
+.btn {
+  text-transform: uppercase;
+}
+
+.btn-default {
+  color: @gray;
+  border: 1px solid @gray;
+}
+
+// Custom Semantic Classes
+
+// Dashboard - Measures View
+
+.measure-col {
+  .col-xs-7;
+}
+
+.expected-col {
+  .col-xs-2;
+}
+
+.status-col {
+  .col-xs-1;
+}
+
+.patient-listing-col {
+  .col-xs-2;
+}
+
+.dashboard-data {
+  .population {
+    .population-col {
+      .make-sm-column-offset(1);
+      .col-xs-6;
+    }
+  }
+}
