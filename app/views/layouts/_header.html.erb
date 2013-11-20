@@ -21,7 +21,8 @@
 
 <div class="navbar row" role="navigation">
   <ul class="nav navbar-nav pull-right">
-    <li><a href="#" class="active">Measures</a></li>
+    <li><a id="measures" href="#" class="active">Measures</a></li>
+    <li><a id="users" href="#users" class="">Users</a></li>
     <li><a href="/users/edit">Account</a></li>
     <li><%= link_to 'Logout', destroy_user_session_path, :method => :delete %></li>
   </ul>
