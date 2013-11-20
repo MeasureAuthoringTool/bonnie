@@ -5,7 +5,7 @@
 <button class="btn btn-primary select-none">Select None</button>
 <h3>Select Patients</h3>
 <div data-toggle="buttons-checkbox">
-  {{#collection allPatients}}
+  {{#collection patients}}
     <button style="width: 180px; margin: 5px 5px 0px 0px;" class="btn btn-primary toggle-patient">{{last}}, {{first}}</button>
   {{/collection}}
 </div>
@@ -47,6 +47,3 @@
     </tr>
   {{/collection}}
 </table>
-
-{{view logicView}}
-

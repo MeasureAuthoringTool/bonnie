@@ -9,7 +9,6 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     # FIXME: It would be nice to have the counts update dynamically without re-rendering the whole table
     @results.on 'add remove', @render, this
     @population = @model.get('populations').at(@populationIndex)
-    @logicView = new Thorax.Views.PopulationLogic(model: @population)
     @resetComparisons()
 
   context: ->
@@ -31,17 +30,17 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
       @updateComparisons(result, patient, false)
       @results.remove result
       @updateCell(result, patient, false)
-      @logicView.clearRationale()
+      @trigger 'rationale:clear'
     else
       result = @population.calculate(patient)
       @updateComparisons(result, patient, true)
       @results.add result
       @updateCell(result, patient, true)
-      @logicView.showRationale(result)
+      @trigger 'rationale:show', result
 
   selectAll: (e) ->
     # FIXME: This isn't cached in any way now (still reasonably fast!)
-    @allPatients.each (p) =>
+    @model.get('patients').each (p) =>
       result = @population.calculate(p)
       unless @results.findWhere(patient_id: p.id)?
         @updateComparisons(result, p, true)
@@ -136,8 +135,8 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
 
   deletePatient: (e) ->
     result = $(e.target).model()
-    patient = @allPatients.get(result.get('patient_id'))
+    patient = @model.get('patients').get(result.get('patient_id'))
     patient.destroy()
     result.destroy()
 
-    
+

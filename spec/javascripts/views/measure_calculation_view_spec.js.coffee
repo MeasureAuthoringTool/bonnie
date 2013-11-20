@@ -3,7 +3,8 @@ describe 'MeasureCalculationView', ->
   beforeEach ->
     @measure = bonnie.measures.first()
     @patients = new Thorax.Collections.Patients getJSONFixture('patients.json')
-    @measureCalculationView = new Thorax.Views.MeasureCalculation(model: @measure, allPatients: @patients, populationIndex: 0)
+    @measure.set('patients', @patients)
+    @measureCalculationView = new Thorax.Views.MeasureCalculation(model: @measure, populationIndex: 0)
     @measureCalculationView.render()
 
   it 'renders correctly', ->
