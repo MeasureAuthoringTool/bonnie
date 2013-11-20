@@ -19,7 +19,7 @@ class BonnieRouter extends Backbone.Router
     'measures/:measure_id/patients/new':      'renderPatientBuilder'
 
   renderMeasures: ->
-    measuresView = new Thorax.Views.Measures(collection: @measures)
+    measuresView = new Thorax.Views.Measures(collection: @measures.sort())
     @mainView.setView(measuresView)
 
   renderMeasure: (id) ->

@@ -1,6 +1,15 @@
 class Thorax.Collections.Measures extends Thorax.Collection
   url: '/measures'
   model: Thorax.Models.Measure
+  comparator: (m1, m2) ->
+    if m1.get('patients').length is 0 then -1
+    else if m2.get('patients').length is 0 then 1
+    else
+      # FIXME: Flip the comparison from > to < when hqmf2js has been updated
+      comparison = m1.get('title') > m2.get('title')
+      if comparison is true then -1
+      else if comparison is false then 1
+      else 0
   populations: ->
     populations = new Thorax.Collections.Population
     @each (m) -> m.get('populations').each (p) -> populations.add(p)
