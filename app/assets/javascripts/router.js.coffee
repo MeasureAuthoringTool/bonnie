@@ -25,7 +25,8 @@ class BonnieRouter extends Backbone.Router
   renderMeasures: ->
     $(".active").removeClass("active")
     $("#measures").addClass("active")
-    measuresView = new Thorax.Views.Measures(collection: @measures)
+
+    measuresView = new Thorax.Views.Measures(collection: @measures.sort())
     @mainView.setView(measuresView)
 
   renderMeasure: (id) ->

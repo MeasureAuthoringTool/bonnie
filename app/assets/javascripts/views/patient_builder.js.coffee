@@ -159,12 +159,14 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
       # if the patient has no expected values, create them
       @values = {}
       evs = @values
+      evs[@measure.get('id')] = {}
+      m = @measure
       pc = @popCriteria
       @populations.each (p) ->
         pevHash = {}
         for key in (pop for pop in Object.keys(pc) when p.has(pop))
           pevHash[key] = 0
-        evs[p.get('sub_id')] = pevHash
+        evs[m.get('id')][p.get('sub_id')] = pevHash
 
   measureTitle: -> " for #{@measure.get('title') ? ''}"
 
@@ -174,8 +176,10 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
       # get all the checkboxes: $('.expected-value-tab > div > .expected-values > form > .checkbox > label > input')
       # get checkbox by id: $('.expected-value-tab > div > .expected-values > form > .checkbox > label > #DENEX')
       parsedValues = {}
+      parsedValues[@measure.get('id')] = {}
       # attr.expected_values = _.extend({}, @values)
       pc = @popCriteria
+      m = @measure
       @populations.each (p) ->
         pevHash = {}
         for key in (pop for pop in Object.keys(pc) when p.has(pop))
@@ -184,7 +188,7 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
           checkedValue = @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}").prop('checked')
           if checkedValue is true then pevHash[key] = 1 else pevHash[key] = 0
           console.log checkedValue
-        parsedValues[p.get('sub_id')] = pevHash
+        parsedValues[m.get('id')][p.get('sub_id')] = pevHash
       console.log parsedValues
       attr.expected_values = _.extend({}, parsedValues)
 
@@ -206,7 +210,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
 
   setValues: ->
     for c in @currentCriteria
-      if @modelValues[@population.sub_id][c] is 1
+      if @modelValues[@measure.get('id')][@population.sub_id][c] is 1
         @$('#' + c).prop('checked', true)
       if @editFlag is false
         @$('#' + c).prop('disabled', true)

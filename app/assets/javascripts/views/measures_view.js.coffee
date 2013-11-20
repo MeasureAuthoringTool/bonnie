@@ -4,7 +4,7 @@ class MeasureRowView extends Thorax.View
       measure_id: @model.id
       hasFraction: !@model.get('patients').isEmpty()
       status: if @model.get('patients').isEmpty() then 'new' else 'failed'
-      expectedPercentage: @model.expectedPercentage(population)
+      expectedPercentage: if @model.get('patients').isEmpty() then '-' else "#{population.calculateExpected()}%"
   hasPopulations: -> @model.get('populations').length > 1
   hasFraction: -> @model.get('populations').length == 1 && !@model.get('patients').isEmpty()
   status: -> if @model.get('patients').isEmpty() then 'new' else 'failed'
@@ -14,7 +14,7 @@ class MeasureRowView extends Thorax.View
     importMeasureView.display()
   expectedPercentage: -> 
     # only check against the first one since there is only one population
-    @model.expectedPercentage(@model.get('populations').first())
+    if @model.get('patients').isEmpty() then '-' else "#{@model.get('populations').first().calculateExpected()}%"
 
 class Thorax.Views.Measures extends Thorax.View
   template: JST['measures']
@@ -26,3 +26,4 @@ class Thorax.Views.Measures extends Thorax.View
     importMeasureView = new Thorax.Views.ImportMeasure()
     importMeasureView.appendTo('#importUpdateContainer')
     importMeasureView.display()
+    

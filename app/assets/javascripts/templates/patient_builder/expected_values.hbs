@@ -15,6 +15,6 @@
 <!-- Expected values per population sub_ids -->
 {{#collection populations tag="div" class="tab-content"}}
   <div class="tab-pane expected-value-tab" id="{{sub_id}}">
-    {{view "ExpectedValueView" population=this model=../model editFlag=../edit criteria=../popCriteria modelValues=../values}}
+    {{view "ExpectedValueView" population=this model=../model editFlag=../edit criteria=../popCriteria modelValues=../values measure=../measure}}
   </div>
 {{/collection}}

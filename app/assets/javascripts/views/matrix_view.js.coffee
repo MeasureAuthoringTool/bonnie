@@ -17,12 +17,12 @@ class Thorax.Views.Matrix extends Thorax.View
             # FIXME: Just calculate first population for now
             result = m.get('populations').at(0).calculate(p)
             pops = []
-            if result.NUMER then pops.push 'NUM'
-            else if result.DENOM then pops.push 'DEN'
-            else if result.MSRPOPL then pops.push 'POPL'
-            else if result.IPP then pops.push 'IPP'
-            if result.DENEXCEP then pops.push 'EXC'
-            if result.DENEX then pops.push 'EX'
+            if result.get('NUMER') then pops.push 'NUM'
+            else if result.get('DENOM') then pops.push 'DEN'
+            else if result.get('MSRPOPL') then pops.push 'POPL'
+            else if result.get('IPP') then pops.push 'IPP'
+            if result.get('DENEXCEP') then pops.push 'EXC'
+            if result.get('DENEX') then pops.push 'EX'
             pops.join('/')
           p.set('results', results)
           deferred.resolve()
