@@ -88,31 +88,7 @@
         <div class="col-md-4">{{measureTitle}}:</div>
         <div class="col-md-8">{{measureDescription}}</div>
       </div>
-      <div class="sub-measure-tabs">
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#">Age: 18-25</a></li>
-          <li><a href="#">26-35</a></li>
-          <li><a href="#">36-50</a></li>
-        </ul>
-      </div>
-      <div class="expected-value">
-        <h2 for="fname">EXPECTED VALUE</h2>
-        <label class="radio-inline">
-          <input type="radio" id="inlineCheckbox1" value="option1">NUM
-        </label>
-        <label class="checkbox-inline">
-          <input type="radio" id="inlineCheckbox2" value="option2">DEN
-        </label>
-        <label class="checkbox-inline">
-          <input type="radio" id="inlineCheckbox3" value="option3">IPP
-        </label>
-        <label class="checkbox-inline">
-          <input type="radio" id="inlineCheckbox3" value="option3">EXCL.
-        </label>
-        <label class="checkbox-inline">
-          <input type="radio" id="inlineCheckbox3" value="option3">EXCEP.
-        </label>
-      </div>
+      {{view expectedValuesView}}
     </div>
   </div>
   <div class="time-line">
@@ -127,5 +103,3 @@
     </div>
   </div>
 </div>
-
-{{view expectedValuesView}}

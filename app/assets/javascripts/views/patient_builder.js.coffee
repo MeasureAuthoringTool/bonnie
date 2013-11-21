@@ -34,7 +34,9 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     model:
       sync: (model) ->
         @patients.add model # make sure that the patient exist in the global patient collection
-        bonnie.navigate 'patients', trigger: true # FIXME: figure out correct action here
+        @measure?.get('patients').add model # and the measure's patient collection
+        route = if @measure then "measures/#{@measure.id}" else "patients"
+        bonnie.navigate route, trigger: true
     serialize: (attr) ->
       attr.birthdate = moment(attr.birthdate, 'L LT').format('X') if attr.birthdate
 
@@ -103,8 +105,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
       start_date: moment(@model.get('start_date')).format('L LT') if @model.get('start_date')
       end_date: moment(@model.get('end_date')).format('L LT') if @model.get('end_date')
       faIcon: @model.faIcon()
-      # FIXME: Eventually we'll want to save title on patient-side in case measure goes away (but keep measure lookup backstop)
-      #title: @model.get('title') || @measure.get('source_data_criteria').findWhere(code_list_id: @model.get('oid'))?.get('description')
 
   # When we serialize the form, we want to convert formatted dates back to times
   events:
@@ -162,6 +162,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.View
     e.preventDefault()
     @model.destroy()
 
+
 class Thorax.Views.ExpectedValuesView extends Thorax.View
   
   template: JST['patient_builder/expected_values']
@@ -183,8 +184,6 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
           pevHash[key] = 0
         evs[m.get('id')][p.get('sub_id')] = pevHash
 
-  measureTitle: -> " for #{@measure.get('title') ? ''}"
-
   # When we serialize the form, we want to update the expected_values hash
   events:
     serialize: (attr) ->
@@ -200,11 +199,9 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
         for key in (pop for pop in Object.keys(pc) when p.has(pop))
         # selections = @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > input")
           # console.log @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}")
-          checkedValue = @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}").prop('checked')
+          checkedValue = @$("#expected-#{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}").prop('checked')
           if checkedValue is true then pevHash[key] = 1 else pevHash[key] = 0
-          console.log checkedValue
         parsedValues[m.get('id')][p.get('sub_id')] = pevHash
-      console.log parsedValues
       attr.expected_values = _.extend({}, parsedValues)
 
 class Thorax.Views.ExpectedValueView extends Thorax.View
