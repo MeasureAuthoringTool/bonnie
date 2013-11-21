@@ -8,7 +8,7 @@ describe 'MeasureCalculationView', ->
     @measureCalculationView.render()
 
   it 'renders correctly', ->
-    expect(@measureCalculationView.$el).toContainText @measure.get('title')
+    expect(@measureCalculationView.$el).toContainText @patients.first().get('last')
 
   it 'correctly displays a patient when selected', ->
     patient = @patients.findWhere(first: 'GP_Peds', last: 'C')
