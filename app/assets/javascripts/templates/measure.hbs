@@ -1,11 +1,27 @@
-<h2>{{id}}: {{title}}</h2>
-<p>{{description}}</p>
-{{#link "measures" class="btn btn-primary"}}<i class="glyphicon glyphicon-circle-arrow-left"></i> back to measures listing{{/link}}
-{{#button "updateMeasure" class="btn btn-primary"}}Update{{/button}}
-{{#link "" id="deleteMeasure" class="btn btn-danger"}}Delete{{/link}}
+ <div class="main">
+  <div class="measure-title">
+    <div class="short-title"><i class="fa fa-tasks"></i> {{measure_id}}:</div>
+    {{title}}
+  </div>
+  <div class="measure-dsp">
+    <div class="measure-dsp-title">Description: <a class="settings-btn" data-toggle="popover" id="settings" rel="popover" data-placement="bottom"><i class="fa fa-cog"></i></a></div>
+    <p>{{description}}</p>
+    {{#button "updateMeasure" class="btn btn-primary"}}Update{{/button}}
+    {{#link "" id="deleteMeasure" class="btn btn-danger"}}Delete{{/link}}
+  </div>
 
-{{view measureCalculation}}
+  {{#collection populations tag="ul" class="nav nav-tabs"}}
+    <li><a href="">{{title}}</a></li>
+  {{/collection}}
+  
+  <div class="measure-viz">
+    {{view logicView}}
+  </div>
+</div>
 
-{{view logicView}}
+<div class="right-sidebar">
+  <div class="title-bar">Test Patients</div>
+  {{view measureCalculation}}
+</div>
 
 {{view updateMeasureView}}

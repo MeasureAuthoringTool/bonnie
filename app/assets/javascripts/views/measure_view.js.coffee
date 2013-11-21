@@ -1,5 +1,9 @@
 class Thorax.Views.Measure extends Thorax.View
   template: JST['measure']
+  events:
+    rendered: ->
+      @$("[rel='popover']").popover( html: true )
+
   initialize: ->
     # FIXME: display calculation and logic for first population only for now, eventually we'll want them selectable
     @measureCalculation = new Thorax.Views.MeasureCalculation(model: @model, populationIndex: 0)
