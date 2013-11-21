@@ -25,8 +25,7 @@ class Thorax.Collections.Measures extends Thorax.Collection
     if m1.get('patients').isEmpty() then -1
     else if m2.get('patients').isEmpty() then 1
     else
-      # FIXME: Flip the comparison from > to < when hqmf2js has been updated
-      comparison = m1.get('title') > m2.get('title')
+      comparison = m1.get('title') < m2.get('title')
       if comparison is true then -1
       else if comparison is false then 1
       else 0
