@@ -16,9 +16,10 @@ describe 'PatientBuilderView', ->
       @patientBuilder.appendTo 'body'
       # simulate dragging an encounter onto the patient
       @addEncounter = (position) ->
+        $('.element-title').click() # Expand the criteria to make draggables visible
         criteria = @$el.find(".draggable:eq(#{position})").draggable()
         criteriaOffset = criteria.offset()
-        droppableOffset = @$el.find('.droppable.well').offset()
+        droppableOffset = @$el.find('.droppable').offset()
         criteria.simulate 'drag', dx: droppableOffset.left - criteriaOffset.left, dy: droppableOffset.top - criteriaOffset.top
 
     it "adds data criteria to model when dragged", ->
