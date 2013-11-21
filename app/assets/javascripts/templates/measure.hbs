@@ -4,19 +4,15 @@
     {{title}}
   </div>
   <div class="measure-dsp">
-    <div class="measure-dsp-title">Description: <a class="settings-btn" data-toggle="popover" id="settings" rel="popover" data-placement="bottom"><i class="fa fa-cog"></i></a></div>
+    <div class="measure-dsp-title">Description: <a class="settings-btn" data-toggle="popover" id="settings" rel="popover" data-placement="bottom" data-html="true"><i class="fa fa-cog"></i></a></div>
     <p>{{description}}</p>
-    {{#button "updateMeasure" class="btn btn-primary"}}Update{{/button}}
-    {{#link "" id="deleteMeasure" class="btn btn-danger"}}Delete{{/link}}
+    <script type="text/x-handlebars" class="popover-tmpl">
+      {{#button "updateMeasure" class="btn btn-primary"}}Update{{/button}}
+      {{#button "deleteMeasure" class="btn btn-danger"}}Delete{{/button}}
+    </script>
   </div>
 
-  {{#collection populations tag="ul" class="nav nav-tabs"}}
-    <li><a href="">{{title}}</a></li>
-  {{/collection}}
-  
-  <div class="measure-viz">
-    {{view logicView}}
-  </div>
+  {{view logicView}}
 </div>
 
 <div class="right-sidebar">

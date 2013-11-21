@@ -35,11 +35,6 @@ h2 {
 
 // Additions to Bootstrap classes
 
-.active {
-  color: @brand-primary;
-  border-bottom: 4px solid @brand-primary;
-}
-
 .navbar {
   margin-bottom: 50px;
   .navbar-brand {
@@ -49,17 +44,14 @@ h2 {
   }
   .nav {
     font-size: 1.5em;
-    a {
-      color: @gray;
-      &.active { color: @gray-darker; }
+    a { color: @gray; }
+    .active {
+      border-bottom: 4px solid @brand-primary;
+      a { color: @gray-darker; }
     }
     &.nav-tabs {
       > li > a {
         margin-right: 2px;
-      }
-      .active a {
-        background-color: white;
-        border-bottom: none;
       }
     }
   }

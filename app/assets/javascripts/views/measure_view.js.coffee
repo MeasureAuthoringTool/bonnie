@@ -1,8 +1,7 @@
 class Thorax.Views.Measure extends Thorax.View
   template: JST['measure']
   events:
-    rendered: ->
-      @$("[rel='popover']").popover( html: true )
+    rendered: -> @$("[rel='popover']").popover(content: @$('.popover-tmpl').text())
 
   initialize: ->
     # FIXME: display calculation for first population only for now, eventually we'll want them selectable
@@ -22,8 +21,6 @@ class Thorax.Views.Measure extends Thorax.View
     @logicView.listenTo @measureCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @measureCalculation, 'rationale:show', (result) -> @showRationale(result)
 
-  events: ->
-    'click #deleteMeasure': 'deleteMeasure'
   updateMeasure: (e) ->
     measure = $(e.target).model()
     @updateMeasureView.$('.modal-title').text("[Update] #{measure.get('title')}")
