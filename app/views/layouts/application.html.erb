@@ -31,7 +31,9 @@
             var patient = <%= patient.to_json(except: :results).html_safe %>;
             bonnie.measures.each(function(measure) { 
               if(_(patient.measure_ids).contains(measure.id)) {
-                measure.get('patients').add(patient); 
+                // Need to clone patient because parse alters attributes, and we might need it again...
+                // measure.get('patients').add(_(patient).clone(), { parse: true });
+                measure.get('patients').add(patient);
               }
             });
           })();

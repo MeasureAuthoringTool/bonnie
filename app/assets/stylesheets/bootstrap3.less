@@ -1,6 +1,7 @@
 // Bootstrap Variables
 
 @icon-font-path: "../fonts/";
+@fa-font-path: "../fonts";
 
 @brand-primary: #0075C4;
 @gray-lighter: #f2f2f2;
@@ -52,6 +53,15 @@ h2 {
       color: @gray;
       &.active { color: @gray-darker; }
     }
+    &.nav-tabs {
+      > li > a {
+        margin-right: 2px;
+      }
+      .active a {
+        background-color: white;
+        border-bottom: none;
+      }
+    }
   }
 }
 
@@ -62,4 +72,8 @@ h2 {
 .btn-default {
   color: @gray;
   border: 1px solid @gray;
+}
+
+.popover {
+  box-shadow: none;
 }

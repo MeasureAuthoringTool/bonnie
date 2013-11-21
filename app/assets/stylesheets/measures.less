@@ -23,8 +23,8 @@
 
 .dashboard-heading {
   > * {
+    .title-bar;
     height: 2.4em;
-    background-color: @gray-lighter;
   }
   .patient-listing-col {
     text-align: center;
@@ -41,9 +41,9 @@
         padding: 7px 16px;
       }
       .measure-title {
+        .title-bar;
         margin-left: -15px;
         padding: 6px 15px 7px;
-        background: @gray-lighter;
         margin-right: 91px;
         .nqf-listing {
           color: gray;
@@ -72,6 +72,12 @@
     padding-top: 0.25em;
     &.status-new {
       font-weight: 700;
+    }
+    &.status-success {
+      .text-success
+    }
+    &.status-failed {
+      .text-danger
     }
   }
 

@@ -20,19 +20,18 @@ class Thorax.Views.PatientBuilder extends Thorax.View
   dataCriteriaCategories: ->
     categories = {}
     @measure?.get('source_data_criteria').each (criteria) ->
-      categories[criteria.get('type')] ||= new Thorax.Collection
-      categories[criteria.get('type')].add criteria unless categories[criteria.get('type')].any (c) -> c.get('title') == criteria.get('title')
-    categories
+      type = criteria.get('type').replace('_', ' ')
+      categories[type] ||= new Thorax.Collection
+      categories[type].add criteria unless categories[type].any (c) -> c.get('title') == criteria.get('title')
+    _(categories).omit('characteristic')
 
   events:
-    'submit form': 'save'
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
       @$('.droppable').droppable accept: '.ui-draggable'
       # TODO move event handling up into events object, if possible
       @$('.droppable').on 'drop', _.bind(@drop, this)
     model:
-      request: (model) -> @$('input[type="submit"]').button('saving').attr(disabled: 'disabled')
       sync: (model) ->
         @patients.add model # make sure that the patient exist in the global patient collection
         bonnie.navigate 'patients', trigger: true # FIXME: figure out correct action here
@@ -42,6 +41,8 @@ class Thorax.Views.PatientBuilder extends Thorax.View
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
   context: ->
     _(super).extend
+      measureTitle: @measure.get('title')
+      measureDescription: @measure.get('description')
       birthdate: moment(@model.get('birthdate'), 'X').format('L LT') if @model.get('birthdate')
       expired: @model.get('expired')?.toString()
 
@@ -51,16 +52,27 @@ class Thorax.Views.PatientBuilder extends Thorax.View
 
   save: (e) ->
     e.preventDefault()
+    $(e.target).button('saving').prop('disabled', true)
     # Serialize the main view and the child collection views separately
     @serialize(children: false)
     childView.serialize() for cid, childView of @editCriteriaCollectionView.children
     @expectedValuesView.serialize(children: false)
-    @model.save(source_data_criteria: @sourceDataCriteria)
+    @model.save(source_data_criteria: @sourceDataCriteria, { wait: true })
 
   cancel: (e) ->
     # Go back to wherever the user came from, if possible
     e.preventDefault()
     window.history.back()
+
+
+class Thorax.Views.SelectCriteriaView extends Thorax.View
+  template: JST['patient_builder/select_criteria']
+  events:
+    rendered: ->
+      # FIXME: We'd like to do this via straight thorax events, doesn't seem to work...
+      @$('.collapse').on 'show.bs.collapse', (e) => @$('.indicator').removeClass('fa-angle-right').addClass('fa-angle-down')
+      @$('.collapse').on 'hide.bs.collapse', (e) => @$('.indicator').removeClass('fa-angle-down').addClass('fa-angle-right')
+  faIcon: -> @collection.first()?.toPatientDataCriteria()?.faIcon()
 
 
 # FIXME: When we get coffeescript scoping working again, don't need to put this in Thorax.Views scope
@@ -90,6 +102,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
     _(super).extend
       start_date: moment(@model.get('start_date')).format('L LT') if @model.get('start_date')
       end_date: moment(@model.get('end_date')).format('L LT') if @model.get('end_date')
+      faIcon: @model.faIcon()
+      # FIXME: Eventually we'll want to save title on patient-side in case measure goes away (but keep measure lookup backstop)
+      #title: @model.get('title') || @measure.get('source_data_criteria').findWhere(code_list_id: @model.get('oid'))?.get('description')
 
   # When we serialize the form, we want to convert formatted dates back to times
   events:

@@ -51,7 +51,12 @@
         <i class="glyphicon glyphicon-user"></i>
         <i class="glyphicon glyphicon-plus"></i>
       </a>
-      <span class="patient-listing">0</span>
+      {{!-- FIXME: Should the following be patients.length or some other value? --}}
+      <span class="patient-listing">{{#if hasPopulations}}
+        {{patients.length}}
+      {{else}}
+        {{matches}}
+      {{/if}}</span>
       {{#if hasFraction}}<span class="fraction">/{{patients.length}}</span>{{/if}}
     </div>
   </div>
@@ -75,7 +80,7 @@
             {{status}}
           </div>
           <div class="patient-listing-col">
-            <span class="patient-listing">0</span>
+            <span class="patient-listing">{{matches}}</span>
             {{#if hasFraction}}<span class="fraction">/{{../../patients.length}}</span>{{/if}}
           </div>
         </div>

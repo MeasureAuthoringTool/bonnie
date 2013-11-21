@@ -1,0 +1,81 @@
+.popover-btns {
+  background-color: @gray-lighter;
+  &.bottom .arrow:after {
+    border-bottom-color: @gray-lighter;
+  }
+  .popover-content {
+    padding: 9px;
+  }
+}
+
+.right-sidebar {
+  .make-sm-column(3);
+  .title-bar {  // Change to h1
+    font-size: 1.4em;
+    line-height: 2em;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .patient-row {
+    .make-sm-column(12);
+    font-size: 1.6em;
+    line-height: 2em;
+    padding-top: 30px;
+    padding-left: 50px;
+    .fa-user {
+      color: @gray;
+      font-size: 2em;
+      padding: 0 40px;
+    }
+  }
+}
+
+.main {
+  .make-sm-column(9);
+  .measure-title {
+    .make-sm-column(12);
+    .title-bar;
+    line-height: 3em;
+    .short-title {
+      .pull-left;
+      font-size: 1.8em;
+      padding-right: 15px;
+      .fa-tasks {
+        color: black;
+      }
+    }
+  }
+  .measure-dsp {
+    .make-sm-column(12);
+    padding-top: 15px;
+    padding-bottom: 30px;
+    .measure-dsp-title {
+      font-weight: 700;
+      font-size: 1.2em;
+      .settings-btn {
+        .pull-right;
+        .fa-cog {
+          color: black;
+        }
+      }
+      .popover {
+        min-width: 205px;
+        .fa {
+          color: white;
+        }
+      }
+    }
+  }
+  .measure-viz {
+    .make-sm-column(12);
+    padding-top: 15px;
+  }
+}
+
+#settings-template {
+  .btn-danger {
+    .fa {
+      color: white;
+    }
+  }
+}

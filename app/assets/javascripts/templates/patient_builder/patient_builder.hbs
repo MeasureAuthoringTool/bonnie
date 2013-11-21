@@ -1,108 +1,131 @@
-<div class="row">
-  <div class="col-xs-3">
-    Measure details: {{measure.id}}
-    {{#each dataCriteriaCategories}}
-      <p>
-        <b>{{@key}}</b><br>
-        {{#collection this}}
-          <div class="draggable">{{title}}</div>
-        {{/collection}}
-      </p>
-    {{/each}}
-  </div>
-
-  <form class="col-xs-9 form-horizontal">
-
-    <div class="form-group">
-      <label for="first" class="col-xs-2 control-label">First name</label>
-      <div class="col-xs-10">
+<div class="left-sidebar-builder">
+  <h1>Test Patient</h1>
+  <div class="panel-group">
+    <form role="form">
+      <div class="form-group">
+        <label for="first">FIRST NAME</label>
         <input type="text" name="first" class="form-control" placeholder="First name">
       </div>
-    </div>
-
-    <div class="form-group">
-      <label for="last" class="col-xs-2 control-label">Last name</label>
-      <div class="col-xs-10">
+      <div class="form-group">
+        <label for="last">LAST NAME</label>
         <input type="text" name="last" class="form-control" placeholder="Last name">
       </div>
+    </form>
+    <div class="panel-heading">Elements</div>
+    <div class="panel-listing" id="criteriaElements">
+      {{#each dataCriteriaCategories}}
+        {{view "SelectCriteriaView" title=@key collection=this}}
+      {{/each}}
     </div>
-
-    <div class="form-group">
-      <label for="gender" class="col-xs-2 control-label">Gender</label>
-      <div class="col-xs-10">
-        <select name="gender" class="form-control">
-          <option value="M">Male</option>
-          <option value="F">Female</option>
-        <select>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="ethnicity" class="col-xs-2 control-label">Ethnicity</label>
-      <div class="col-xs-10">
-        <select name="ethnicity" class="form-control">
-          <option value="2186-5">Not Hispanic or Latino</option>
-          <option value="2135-2">Hispanic Or Latino</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="race" class="col-xs-2 control-label">Race</label>
-      <div class="col-xs-10">
-        <select name="race" class="form-control">
-          <option value="1002-5">American Indian or Alaska Native</option>
-          <option value="2028-9">Asian</option>
-          <option value="2054-5">Black or African American</option>
-          <option value="2076-8">Native Hawaiian or Other Pacific Islander</option>
-          <option value="2106-3">White</option>
-          <option value="2131-1">Other</option>
-        </select>
-      </div>
-    </div>
-
-    {{! FIXME: The backend for payer support appears to have issues, removing support until resolved
-    <div class="form-group">
-      <label for="payer" class="col-xs-2 control-label">Payer</label>
-      <div class="col-xs-10">
-        <select name="payer" class="form-control">
-          <option value="MA">Medicare</option>
-          <option value="MC">Medicaid</option>
-          <option value="OT">Other</option>
-        </select>
-      </div>
-    </div>
-    }}
-
-    <div class="form-group">
-      <label for="expired" class="col-xs-2 control-label">Living Status</label>
-      <div class="col-xs-10">
-        <label>
-          <input type="radio" name="expired" value="true">
-          Deceased
-        </label>
-        <label>
-          <input type="radio" name="expired" value="false">
-          Alive
-        </label>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="birthdate" class="col-xs-2 control-label">Birthdate</label>
-      <div class="col-xs-10">
-        <input type="text" name="birthdate" class="form-control" placeholder="Date">
-      </div>
-    </div>
-
-    <div class="droppable well">
-      {{view editCriteriaCollectionView}}
-    </div>
-    <div class="container">
-      {{view expectedValuesView}}
-    </div><br>
-    <input type="submit" class="btn btn-primary" value="Save" data-saving-text="Saving...">
-    {{#button "cancel" class="btn btn-default"}}Cancel{{/button}}
-  </form>
-
+  </div>
 </div>
+<div class="main-builder">
+  <div class="pull-right">
+    {{#button "cancel" class="btn btn-default"}}CANCEL{{/button}}
+    {{#button "save" class="btn btn-primary" data-saving-text="SAVING..."}}SAVE{{/button}}
+  </div>
+  <h1 class="main-head"><i class="fa fa-user"></i></h1>
+  <div id="time-bar"></div>
+  <div class="demo">  
+    <div class="first">
+      <form role="form">
+        <div class="form-group">
+          <label for="payer">PAYER</label>
+          <select name="payer" class="form-control">
+            <option value="MA">Medicare</option>
+            <option value="MC">Medicaid</option>
+            <option value="OT">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="birthdate">DOB</label>
+          <input type="text" name="birthdate" class="form-control" placeholder="Birthdate">
+        </div>
+        <div class="form-group">
+          <label for="race">RACE</label>
+          <select name="race" class="form-control">
+            <option value="1002-5">American Indian or Alaska Native</option>
+            <option value="2028-9">Asian</option>
+            <option value="2054-5">Black or African American</option>
+            <option value="2076-8">Native Hawaiian or Other Pacific Islander</option>
+            <option value="2106-3">White</option>
+            <option value="2131-1">Other</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-2">
+      <form role="form col-md-2">
+        <div class="form-group">
+          <label for="gender">GENDER</label>
+          <select name="gender" class="form-control">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+          <select>
+        </div>
+        <div class="form-group">
+          <label for="expired">LIVING STATUS</label>
+          <label>
+            <input type="radio" name="expired" value="true">
+            Deceased
+          </label>
+          <label>
+            <input type="radio" name="expired" value="false">
+            Alive
+          </label>
+        </div><div class="form-group">
+          <label for="ethnicity">ETHNICITY</label>
+          <select name="ethnicity" class="form-control">
+            <option value="2186-5">Not Hispanic or Latino</option>
+            <option value="2135-2">Hispanic Or Latino</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="measure-expected col-md-7">
+      <h2>MEASURE ASSOCIATED</h2>
+      <div class="measure-name">
+        <div class="col-md-4">{{measureTitle}}:</div>
+        <div class="col-md-8">{{measureDescription}}</div>
+      </div>
+      <div class="sub-measure-tabs">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#">Age: 18-25</a></li>
+          <li><a href="#">26-35</a></li>
+          <li><a href="#">36-50</a></li>
+        </ul>
+      </div>
+      <div class="expected-value">
+        <h2 for="fname">EXPECTED VALUE</h2>
+        <label class="radio-inline">
+          <input type="radio" id="inlineCheckbox1" value="option1">NUM
+        </label>
+        <label class="checkbox-inline">
+          <input type="radio" id="inlineCheckbox2" value="option2">DEN
+        </label>
+        <label class="checkbox-inline">
+          <input type="radio" id="inlineCheckbox3" value="option3">IPP
+        </label>
+        <label class="checkbox-inline">
+          <input type="radio" id="inlineCheckbox3" value="option3">EXCL.
+        </label>
+        <label class="checkbox-inline">
+          <input type="radio" id="inlineCheckbox3" value="option3">EXCEP.
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="time-line">
+    <div class="timeline-title">Patient History Relative to Measures</div>
+  </div>
+  <div class="record droppable">
+    {{view editCriteriaCollectionView}}
+  </div>
+  <div class="measure-view-side">
+    <div class="measure-title">
+      <div class="short-title"><i class="fa fa-tasks"></i>MEASURE: 0024</div> 
+    </div>
+  </div>
+</div>
+
+{{view expectedValuesView}}

@@ -1,17 +1,14 @@
 class Thorax.Models.MeasureDataCriteria extends Thorax.Model
   toPatientDataCriteria: ->
     # FIXME: Temporary approach
-    new Thorax.Models.PatientDataCriteria
-      id: @get('source_data_criteria')
-      oid: @get('code_list_id')
-      negation: @get('negation')
-      definition: @get('definition')
-      status: @get('status')
-      title: @get('title')
-      start_date: new Date().getTime()
-      end_date: new Date().getTime()
-      value: new Thorax.Collection()
-      field_values: new Thorax.Collection()
+    attr = _(@pick('negation', 'definition', 'status', 'title', 'description', 'type')).extend
+             id: @get('source_data_criteria')
+             oid: @get('code_list_id')
+             start_date: new Date().getTime()
+             end_date: new Date().getTime()
+             value: new Thorax.Collection()
+             field_values: new Thorax.Collection()
+    new Thorax.Models.PatientDataCriteria attr
 
 class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
   model: Thorax.Models.MeasureDataCriteria
@@ -34,6 +31,16 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     fieldValues = {}
     @get('field_values').each (fv) -> fieldValues[fv.id] = _(fv.toJSON()).omit('id')
     _(super).extend(field_values: fieldValues)
+  faIcon: ->
+    # FIXME: Do this semantically in stylesheet
+    icons =
+      intervention:    'fa-scissors'
+      diagnosis:       'fa-stethoscope'
+      medication:      'fa-medkit'
+      laboratory_test: 'fa-flask'
+      encounter:       'fa-user-md'
+    icons[@get('definition')] || 'fa-question'
+
 
 class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
   model: Thorax.Models.PatientDataCriteria

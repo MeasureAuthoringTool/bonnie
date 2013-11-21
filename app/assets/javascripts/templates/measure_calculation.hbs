@@ -1,8 +1,4 @@
-<h2>Testing: {{title}}</h2>
 {{#link "measures/{{_id}}/patients/new" class="btn btn-primary" expand-tokens=true}}Add Patient{{/link}}
-{{#link "measures/{{_id}}/calculate" class="btn btn-primary" expand-tokens=true disabled="false"}}View Results{{/link}}
-<button class="btn btn-primary select-all">Select All</button>
-<button class="btn btn-primary select-none">Select None</button>
 <h3>Select Patients</h3>
 <div data-toggle="buttons-checkbox">
   {{#collection patients}}
