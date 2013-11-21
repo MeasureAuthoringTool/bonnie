@@ -26,17 +26,18 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
 
   patientClick: (e) ->
     patient = $(e.target).model()
-    if result = @results.findWhere(patient_id: patient.id)
-      @updateComparisons(result, patient, false)
-      @results.remove result
-      @updateCell(result, patient, false)
-      @trigger 'rationale:clear'
-    else
-      result = @population.calculate(patient)
-      @updateComparisons(result, patient, true)
-      @results.add result
-      @updateCell(result, patient, true)
-      @trigger 'rationale:show', result
+    # if result = @results.findWhere(patient_id: patient.id)
+    #   @updateComparisons(result, patient, false)
+    #   @results.remove result
+    #   @updateCell(result, patient, false)
+    @trigger 'rationale:clear'
+    @selectNone()
+    # else
+    result = @population.calculate(patient)
+    @updateComparisons(result, patient, true)
+    @results.add result
+    @updateCell(result, patient, true)
+    @trigger 'rationale:show', result
 
   selectAll: (e) ->
     # FIXME: This isn't cached in any way now (still reasonably fast!)
@@ -135,5 +136,3 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     patient = @model.get('patients').get(result.get('patient_id'))
     patient.destroy()
     result.destroy()
-
-
