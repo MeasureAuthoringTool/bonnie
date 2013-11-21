@@ -6,8 +6,8 @@
   {{/collection}}
 </div>
 <br>
-<table class="table table-striped table-bordered table-condensed col-xs-3">
-  {{#collection results tag="tbody"}}
+{{#collection results item-context=resultContext}}
+  <table class="table table-striped table-bordered table-condensed col-xs-3">
     <tr>
       <th>{{first}} {{last}}</th>
       <th>Expected</th>
@@ -40,5 +40,7 @@
       <td class="denexcep-{{patient_id}}">{{#if DENEXCEP}}X{{/if}}</td>
     </tr>
       {{!-- <td width="4%">{{#button "showDelete" class="btn btn-default"}}<i class="glyphicon glyphicon-minus-sign"></i>{{/button}}</td> --}}
-  {{/collection}}
-</table>
+  </table>
+  {{#link "measures/{{measure_id}}/patients/{{patient_id}}/edit" class="btn btn-primary" expand-tokens=true}}EDIT{{/link}}
+  {{#button "clonePatient" class="btn btn-primary"}}CLONE{{/button}}
+{{/collection}}

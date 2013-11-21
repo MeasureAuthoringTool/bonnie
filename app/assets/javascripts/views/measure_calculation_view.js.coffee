@@ -24,6 +24,10 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
       DENEXPercent: ((@comparisons.correct.DENEX / @totalComparisons) * 100).toFixed(2)
       DENEXCEPPercent: ((@comparisons.correct.DENEXCEP / @totalComparisons) * 100).toFixed(2)
 
+  resultContext: (result) ->
+    _(result.toJSON()).extend
+      measure_id: @model.id
+
   patientClick: (e) ->
     patient = $(e.target).model()
     # if result = @results.findWhere(patient_id: patient.id)
@@ -133,6 +137,11 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
 
   deletePatient: (e) ->
     result = $(e.target).model()
-    patient = @model.get('patients').get(result.get('patient_id'))
+    patient = @model.get('patients').get result.get('patient_id')
     patient.destroy()
     result.destroy()
+
+  clonePatient: (e) ->
+    result = $(e.target).model()
+    patient = @model.get('patients').get result.get('patient_id')
+    bonnie.navigateToPatientBuilder patient.deepClone(), @model
