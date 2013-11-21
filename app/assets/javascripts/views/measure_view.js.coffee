@@ -5,11 +5,20 @@ class Thorax.Views.Measure extends Thorax.View
       @$("[rel='popover']").popover( html: true )
 
   initialize: ->
-    # FIXME: display calculation and logic for first population only for now, eventually we'll want them selectable
+    # FIXME: display calculation for first population only for now, eventually we'll want them selectable
     @measureCalculation = new Thorax.Views.MeasureCalculation(model: @model, populationIndex: 0)
-    @updateMeasureView = new Thorax.Views.ImportMeasure()
-    @population = @model.get('populations').at(0)
-    @logicView = new Thorax.Views.PopulationLogic(model: @population)
+    @updateMeasureView = new Thorax.Views.ImportMeasure() # FIXME instantiate this view on use
+
+    populations = @model.get 'populations'
+    population = populations.first()
+    populationLogicView = new Thorax.Views.PopulationLogic(model: population)
+
+    # display layout view when there are multiple populations; otherwise, just show logic view
+    if populations.length > 1
+      @logicView = new Thorax.Views.PopulationsLogic collection: populations
+      @logicView.setView populationLogicView
+    else
+      @logicView = populationLogicView
     @logicView.listenTo @measureCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @measureCalculation, 'rationale:show', (result) -> @showRationale(result)
 

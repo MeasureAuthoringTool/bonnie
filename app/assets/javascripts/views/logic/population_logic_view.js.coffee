@@ -1,3 +1,13 @@
+class Thorax.Views.PopulationsLogic extends Thorax.LayoutView
+  template: JST['logic/layout']
+  switchPopulation: (e) ->
+    population = $(e.target).model()
+    @setView new Thorax.Views.PopulationLogic(model: population)
+  showRationale: (result) -> @getView().showRationale(result)
+  clearRationale: -> @getView().clearRationale()
+  populationContext: (population) ->
+    _(population.toJSON()).extend isActive: population is @collection.first()
+
 class Thorax.Views.PopulationLogic extends Thorax.View
 
   template: JST['logic/logic']
