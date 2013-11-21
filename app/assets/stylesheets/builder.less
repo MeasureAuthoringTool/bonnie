@@ -1,11 +1,4 @@
-@import "bootstrap/less/bootstrap";
-@import "font-awesome/less/font-awesome";
-@fa-font-path: "../fonts";
-
-@brand-primary: #0075C4;
 @header-bar: gray;
-@list-top-margin: 20px;
-@gray-lighter: #f2f2f2;
 @gray-darker: #888;
 @circle-border: @gray-lighter;
 @title-color: @gray-lighter;
@@ -22,33 +15,6 @@
 @border-radius-base: 0px;
 @blue-lighter: #3391D0;
 @blue-lightest: #99C8E7;
-
-.navbar {
-	color: @header-bar;
-	margin-bottom: 50px;
-}
-
-.left-sidebar, .right-sidebar {
-  .make-sm-column(3);
-  .make-md-column(3);
-  .make-lg-column(3);
-
-  h1 {
-    font-weight: 100;
-    font-size: 1.8em;
-    text-transform: uppercase;
-  }
-}
-
-.main {
-  .make-sm-column(9);
-  .make-md-column(9);
-  .make-lg-column(9);
-}
-
-.btn {
-  text-transform: uppercase;
-}
 
 // builder view 
 
@@ -300,34 +266,3 @@ h2 {
 		}
 	}
 }
-
-// measure view styles
-.main {
-  .nav-tabs {
-    .pull-left;
-    background-color: white;
-    border: none;
-    > li > a {
-      border: 2px solid #dddddd;
-      border-bottom-color: transparent;
-    }
-    .active a {
-      background-color: @gray-lighter;
-    }
-  }
-  .measure-title {
-    .title-bar;
-    line-height: 3em;
-    padding-left: 15px;
-    .short-title {
-      .pull-left;
-      font-size: 1.8em;
-      padding-right: 15px;
-    }
-  }
-}
-
-.title-bar {
-  background-color: @gray-lighter;
-}
-

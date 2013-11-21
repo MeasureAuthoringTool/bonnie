@@ -1,6 +1,7 @@
 // Bootstrap Variables
 
 @icon-font-path: "../fonts/";
+@fa-font-path: "../fonts";
 
 @brand-primary: #0075C4;
 @gray-lighter: #f2f2f2;
@@ -34,11 +35,6 @@ h2 {
 
 // Additions to Bootstrap classes
 
-.active {
-  color: @brand-primary;
-  border-bottom: 4px solid @brand-primary;
-}
-
 .navbar {
   margin-bottom: 50px;
   .navbar-brand {
@@ -48,9 +44,15 @@ h2 {
   }
   .nav {
     font-size: 1.5em;
-    a {
-      color: @gray;
-      &.active { color: @gray-darker; }
+    a { color: @gray; }
+    .active {
+      border-bottom: 4px solid @brand-primary;
+      a { color: @gray-darker; }
+    }
+    &.nav-tabs {
+      > li > a {
+        margin-right: 2px;
+      }
     }
   }
 }
@@ -62,4 +64,8 @@ h2 {
 .btn-default {
   color: @gray;
   border: 1px solid @gray;
+}
+
+.popover {
+  box-shadow: none;
 }
