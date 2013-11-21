@@ -78,6 +78,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
       else @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").addClass("warning")
 
   updateComparisons: (result, patient, isInsert) ->
+    # FIXME: Use all when measure calculation is updated for multiple populations
     tablePopulations = ['IPP', 'DENOM', 'NUMER', 'DENEX', 'DENEXCEP']
     validPopulations = (criteria for criteria in tablePopulations when @population.get(criteria)?)
     for criteria in tablePopulations
@@ -85,17 +86,13 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
         if patient.get('expected_values')[@model.id][@population.get('sub_id')][criteria] is result.get(criteria)
           if isInsert
             @comparisons.correct[criteria]++
-            console.log "isInsert: #{isInsert}. incremented CORRECT #{criteria} to #{@comparisons.correct[criteria]}"
           else
             @comparisons.correct[criteria]--
-            console.log "isInsert: #{isInsert}. decremented CORRECT #{criteria} to #{@comparisons.correct[criteria]}"
         else
           if isInsert
             @comparisons.incorrect[criteria]++
-            console.log "isInsert: #{isInsert}. incremented INCORRECT #{criteria} to #{@comparisons.incorrect[criteria]}"
           else
             @comparisons.incorrect[criteria]--
-            console.log "isInsert: #{isInsert}. decremented INCORRECT #{criteria} to #{@comparisons.incorrect[criteria]}"
     @updateTotalComparisons()
 
   resetComparisons: ->
