@@ -1,15 +1,7 @@
-// @import "bootstrap3";
-
-// Custom Variables
-
-@list-top-margin: 30px;
-@circle-listing-radius: 30px;
-
-// Custom classes for semantic mark-up
-
 // Dashboard - Measures View
 
 .measure-col {
+  .col-xs-7;
   .btn-wrapper {
     border-left: 5px white solid;
     border-right: 5px white solid;
@@ -17,7 +9,16 @@
 }
 
 .expected-col {
+  .col-xs-2;
   text-align: center;
+}
+
+.status-col {
+  .col-xs-1;
+}
+
+.patient-listing-col {
+  .col-xs-2;
 }
 
 .dashboard-heading {
@@ -55,6 +56,8 @@
   .population {
     margin-top: @list-top-margin;
     .population-col {
+      .make-sm-column-offset(1);
+      .col-xs-6;
       .population-title {
         padding: 6px 15px 7px;
         background: @gray-lighter;
