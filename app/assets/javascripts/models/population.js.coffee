@@ -13,9 +13,8 @@ class Thorax.Models.Population extends Thorax.Model
       incorrect = 0
       result = population.calculate(patient)
       for criteria in validPopulations
-        if patient.has('expected_values') and criteria in _.keys(result)
-          found = result[criteria] ?= result.get(criteria)
-          if patient.get('expected_values')[measure.get('id')][population.get('sub_id')][criteria] is found
+        if patient.has('expected_values') and result.has criteria
+          if patient.get('expected_values')[measure.get('id')][population.get('sub_id')][criteria] is result.get(criteria)
             correct++
           else 
             incorrect++
