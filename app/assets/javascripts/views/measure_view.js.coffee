@@ -2,6 +2,7 @@ class Thorax.Views.Measure extends Thorax.View
   template: JST['measure']
   events:
     rendered: -> @$("[rel='popover']").popover(content: @$('.popover-tmpl').text())
+    'click .delete-measure': 'deleteMeasure'
 
   initialize: ->
     # FIXME: display calculation for first population only for now, eventually we'll want them selectable
