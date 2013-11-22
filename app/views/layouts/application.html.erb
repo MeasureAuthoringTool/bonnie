@@ -28,18 +28,16 @@
       <% if @patient || @patients %>
         <% (@patients || Array(@patient)).each do |patient| %>
           (function() {
-            var patient = <%= patient.to_json(except: :results).html_safe %>;
+            var patient = new Thorax.Models.Patient(<%= patient.to_json(except: :results).html_safe %>, { parse: true });
             bonnie.measures.each(function(measure) { 
-              if(_(patient.measure_ids).contains(measure.id)) {
-                // Need to clone patient because parse alters attributes, and we might need it again...
-                // measure.get('patients').add(_(patient).clone(), { parse: true });
+              if(_(patient.get('measure_ids')).contains(measure.id)) {
                 measure.get('patients').add(patient);
               }
             });
+            // FIXME bonnie.patients is deprecated and will be going away shortly
+            bonnie.patients.add(patient);
           })();
          <% end %>
-        // FIXME bonnie.patients is deprecated and will be going away shortly
-        bonnie.patients.add(<%= (@patients || Array(@patient)).to_json(except: :results).html_safe %>, { parse: true });
       <% end %>
       $(document).ready(function() {
         Backbone.history.start();
