@@ -7,7 +7,6 @@ class Thorax.Views.Measure extends Thorax.View
   initialize: ->
     # FIXME: display calculation for first population only for now, eventually we'll want them selectable
     @measureCalculation = new Thorax.Views.MeasureCalculation(model: @model, populationIndex: 0)
-    @updateMeasureView = new Thorax.Views.ImportMeasure() # FIXME instantiate this view on use
 
     populations = @model.get 'populations'
     population = populations.first()
@@ -23,9 +22,9 @@ class Thorax.Views.Measure extends Thorax.View
     @logicView.listenTo @measureCalculation, 'rationale:show', (result) -> @showRationale(result)
 
   updateMeasure: (e) ->
-    measure = $(e.target).model()
-    @updateMeasureView.$('.modal-title').text("[Update] #{measure.get('title')}")
-    @updateMeasureView.display()
+    importMeasureView = new Thorax.Views.ImportMeasure(model: @model)
+    importMeasureView.appendTo('#updateContainer')
+    importMeasureView.display()
   deleteMeasure: (e) ->
     @model = $(e.target).model()
     @model.destroy()
