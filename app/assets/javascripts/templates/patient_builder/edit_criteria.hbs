@@ -3,42 +3,62 @@
     <i class="fa {{faIcon}}"></i>
   </div>
   <div class="patient-data">
-    <div class="pull-right">
-      {{#button "removeCriteria" class="close"}}&times;{{/button}}
+    <div class="concise">
+      <div class="pull-right">
+        {{#button "toggleDetails" tag="a"}}<i class="fa fa-gear"></i>{{/button}}
+      </div>
+      <dl class="dl-record">
+        <dt class="definition">{{definition}}</dt>
+        <dd>{{title}}</dd>
+      </dl>
+      <dl class="dl-date">
+        <dt>DATE</dt>
+        <dd>{{start_date}} {{end_date}}</dd>
+      </dl>
     </div>
-    <dl class="dl-record">
-      <dt class="definition">{{definition}}</dt>
-      <dd>{{#button "toggleDetails" tag="a"}}{{title}}{{/button}}</dd>
-    </dl>
-    <dl class="dl-date">
-      <dt>DATE</dt>
-      <dd>{{start_date}} {{end_date}}</dd>
-    </dl>
     <div class="details" style="display: none;">
-      <div class="form-group">
-        <label>Event Start</label>
-        <input type="text" name="start_date" class="form-control" placeholder="xx/xx/xxxx xx:xx">
+      <div class="pull-right">
+        {{#button "removeCriteria" class="btn btn-danger"}}&times;{{/button}}
       </div>
-      <div class="form-group">
-        <label>Event End</label>
-        <input name="end_date" type="text" class="form-control" placeholder="xx/xx/xxxx xx:xx">
-      </div>
-      <div class="form-group">
-        <label>Null</label>
-        <input type="checkbox">
-      </div>
-      <div>
-        <label>Values</label>
-        {{view editValueCollectionView}}
-        {{#button "newScalarValue" class="btn btn-default"}}New Scalar Value{{/button}}
-        {{#button "newCodedValue" class="btn btn-default"}}New Coded Value{{/button}}
-      </div>
-      <div>
-        <label>Field Values</label>
-        {{view editFieldValueCollectionView}}
-        {{#button "newScalarFieldValue" class="btn btn-default"}}New Scalar Field Value{{/button}}
-        {{#button "newCodedFieldValue" class="btn btn-default"}}New Coded Field Value{{/button}}
-        {{#button "newTimeFieldValue" class="btn btn-default"}}New Time Field Value{{/button}}
+      <dl class="dl-heading-edit">
+        <dt class="definition">{{definition}}</dt>
+        <dd>{{title}}</dd>
+      </dl>
+      <div class="element-edit">
+        <div class="form-group start">
+          <div class="section-heading time-heading"><i class="fa fa-clock-o"></i>START</div>
+          <input type="text" name="start_date" class="form-control" placeholder="xx/xx/xxxx xx:xx">
+        </div>
+        <div class="form-group stop">
+          <div class="section-heading time-heading"><i class="fa fa-clock-o"></i>STOP</div>
+          <input name="end_date" type="text" class="form-control" placeholder="xx/xx/xxxx xx:xx">
+        </div>
+        <div>
+          <div class="section-heading"><i class="fa fa-bar-chart-o"></i>VALUE</div>
+          {{! FIXME: replace entirely from design }}
+          <div style="margin: 15px 0px 15px 15px;">
+            {{view editValueCollectionView}}
+            <div style="margin: 15px 0px 0px 0px;">
+              {{#button "newScalarValue" class="btn btn-default"}}New Scalar{{/button}}
+              {{#button "newCodedValue" class="btn btn-default"}}New Coded{{/button}}
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="section-heading"><i class="fa fa-list"></i>FIELD VALUE</div>
+          {{! FIXME: replace entirely from design }}
+          <div style="margin: 15px 0px 15px 15px;">
+            {{view editFieldValueCollectionView}}
+            <div style="margin: 15px 0px 0px 0px;">
+              {{#button "newScalarFieldValue" class="btn btn-default"}}New Scalar{{/button}}
+              {{#button "newCodedFieldValue" class="btn btn-default"}}New Coded{{/button}}
+              {{#button "newTimeFieldValue" class="btn btn-default"}}New Time{{/button}}
+            </div>
+          </div>
+        </div>
+        <div class="form-group minimize">
+          {{#button "toggleDetails" class="btn btn-primary pull-right"}}CLOSE{{/button}}
+        </div>
       </div>
     </div>
   </div>

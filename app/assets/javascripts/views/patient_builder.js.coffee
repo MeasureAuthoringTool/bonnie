@@ -46,7 +46,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       measureTitle: @measure.get('title')
       measureDescription: @measure.get('description')
       birthdate: moment(@model.get('birthdate'), 'X').format('L LT') if @model.get('birthdate')
-      expired: @model.get('expired')?.toString()
+      expired: @model.get('expired')?.toString() # Convert boolean to string
 
   drop: (e, ui) ->
     measureDataCriteria = $(ui.draggable).model()
@@ -114,6 +114,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
 
   toggleDetails: (e) ->
     e.preventDefault()
+    @$('.concise').toggle()
     @$('.details').toggle()
 
   removeCriteria: (e) ->

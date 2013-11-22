@@ -19,9 +19,9 @@
 // builder view 
 
 .left-sidebar-builder{
-  .make-sm-column(3);
-  .make-md-column(3);
-  .make-lg-column(3);
+  .make-sm-column(2);
+  .make-md-column(2);
+  .make-lg-column(2);
 
   .panel-heading {
     font-size: 18px;
@@ -29,42 +29,51 @@
   }
 
   .element-title {
-    border: 3px solid @gray-lighter;
     color: #fff;
     background-color: @blue-lighter;
     margin-top: 10px;
     padding: 10px 5px;
+    font-size: 10px;
+    padding: 15px;
     text-transform: uppercase; // ADDED
 
 
+
     i {
+      display: block;
       color: #fff;
       margin-right: 5px;
+      font-size: 36px;
+      margin-left: 10px;
+
+      i {
+        font-size: 32px;
+        vertical-align: middle;
+      }
     }
   }
 
   .paramText {
-    border: 2px solid @gray-lighter;
+    border: 2px solid @blue-lighter;
     margin: 10px 0;
-    padding: 5px;
-    background-color: @blue-lightest;
+    padding: 10px;
+
 
     .fa-arrows {
       .pull-right;
-      color: white;
+      color: @gray-darker;
     }
     .ui-draggable {
       font-size: 12px;
-      font-weight: 400;
-
+      max-width: 80px; // ADDED
     }
   }
 }
 
 .main-builder {
-  .make-sm-column(9);
-  .make-md-column(9);
-  .make-lg-column(9);
+  .make-sm-column(10);
+  .make-md-column(10);
+  .make-lg-column(10);
 }
 .main-head {
   i{
@@ -73,7 +82,6 @@
 }
 
 .btn-group {
-  .pull-right;
 
   .cancel-btn {
     margin-right: 10px;
@@ -94,9 +102,6 @@
   .make-sm-column(3);
   .make-md-column(3);
   .make-lg-column(3);
-  .first {
-    left-margin: 0;
-  }
 }
 .measure-expected {
   border-left: 4px solid @brand-primary;
@@ -151,6 +156,7 @@
 
     .patient-data {
       margin-bottom: 20px;
+      padding: 20px;
     }
   }
 }
@@ -160,15 +166,21 @@
   .make-md-column(3);
   .make-lg-column(3);
   margin-top: 20px;
+  padding-right: 0;
 
   .measure-title {
     background-color: @gray-lighter;  
     padding: 10px;
 
+
     .short-title {
       font-size: 18px;
       font-weight: bold;
     }
+  }
+  .measure-viz {
+    height: 600px;
+    background-color: @gray-lighter;
   }
 }
 .active-icon {
@@ -194,7 +206,6 @@
   .definition {
     text-transform: uppercase; // ADDED
   }
-
 }
 #time-bar {
   position: absolute;
@@ -221,48 +232,189 @@ h2 {
 }
 
 .time-line {
-	background-color: #99C8E7;
-	margin-left: 15px;
+        background-color: #99C8E7;
+        margin-left: 15px;
 }
 .timeline-title {
   .row;
   color: #fff;
-	font-size: 24px;
+        font-size: 24px;
   font-weight: bold;
   text-transform: uppercase;
-	.make-sm-column-offset(1);
+        .make-sm-column-offset(1);
   .make-md-column-offset(1);
   .make-lg-column-offset(1);
 } 
 
 .circle-icon {
-		display: inline-block;
-		.pull-left;
-		margin-top: 15px;
-		.make-md-column(1);
-		padding-left: 0;
+                display: inline-block;
+                .pull-left;
+                margin-top: 15px;
+                .make-md-column(1);
+                padding-left: 0;
 
-	i {
-		text-align: center;
-		vertical-align: middle;
-		padding-top: 8px;
-		width: 36px;
-		height: 36px;
-		background-color: #fff;
-		border-radius: 18px;
-		border: 2px solid @brand-primary;
-		color: @brand-primary;
-	}
+        i {
+                text-align: center;
+                vertical-align: middle;
+                padding-top: 8px;
+                width: 36px;
+                height: 36px;
+                background-color: #fff;
+                border-radius: 18px;
+                border: 2px solid @brand-primary;
+                color: @brand-primary;
+        }
 }
 .dl-record {
-	.make-md-column(6);
+        .make-md-column(6);
 }
 .dl-date {
-	.make-md-column(4);
+        .make-md-column(4);
 
-	dt {
-		.dl-date {
-			.make-md-column(1);
-		}
-	}
+        dt {
+                .dl-date {
+                        .make-md-column(1);
+                }
+        }
+}
+
+.element-edit{
+  display: block;
+  margin-bottom: 30px;
+
+  .section-heading {
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 15px;
+    color: @brand-primary;
+  }
+  .time-heading {
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+
+  .form-group{
+    margin-bottom: 20px;
+
+    .form-control{
+
+    }
+
+
+    .btn-group {
+
+      i {
+        color: black;
+      }
+    }
+  }
+  .start {
+    .make-sm-column(6);
+    .make-md-column(6);
+    .make-lg-column(6);
+  }
+  .stop {
+    .make-sm-column(6);
+    .make-md-column(6);
+    .make-lg-column(6);
+  }
+  .date {
+    .make-sm-column(6);
+    .make-md-column(6);
+    .make-lg-column(6);
+  }
+  .time {
+    .make-sm-column-offset(1);
+    .make-md-column-offset(1);
+    .make-lg-column-offset(1);
+    .make-sm-column(5);
+    .make-md-column(5);
+    .make-lg-column(5);
+  }
+  .select {
+    #field-value {
+      margin-left: 15px;
+      margin-bottom: 15px;
+      .make-sm-column(6);
+      .make-md-column(6);
+      .make-lg-column(6);
+    }
+  }
+  .input {
+    .make-sm-column(8);
+    .make-md-column(8);
+    .make-lg-column(8);
+
+  }
+  .units {
+    .make-sm-column(4);
+    .make-md-column(4);
+    .make-lg-column(4);
+
+    .form-control {
+      .make-sm-column(10);
+      .make-md-column(10);
+      .make-lg-column(10);
+    }
+    button {
+      i {
+        color: #fff;
+      }
+    }
+
+  }
+  .not-per {
+    .make-sm-column(12);
+    .make-md-column(12);
+    .make-lg-column(12);
+  }
+  .minimize {
+    margin-bottom: 30px;
+  }
+
+  .btn-form, .full-group {
+    width: 100%;
+  }
+  .btn-form {
+
+  }
+  .existing-value {
+    margin-bottom: 20px;
+
+    span{
+      background-color: @gray-lighter;
+      color: @gray-darker;
+      font-size: 14px;
+      margin-left: 15px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      padding: 10px;
+      display: inline-block;
+
+      .delete {
+        font-size: 21px;
+        font-weight: bold;
+        line-height: 1;
+        color: #000000;
+        text-shadow: 0 1px 0 #ffffff;
+        opacity: 0.2;
+        filter: alpha(opacity=20);
+      }
+      .delete:hover,
+      .delete:focus {
+        color: #000000;
+        text-decoration: none;
+        cursor: pointer;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+      }
+      button.delete {
+        padding: 0;
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        -webkit-appearance: none;
+      }
+    }
+  }
 }
