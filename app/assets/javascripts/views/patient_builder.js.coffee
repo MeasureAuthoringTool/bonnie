@@ -16,6 +16,10 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       measure: @measure
       edit: true
       values: _.extend({}, @model.get('expected_values'))
+    @populationLogicView = new Thorax.Views.BuilderPopulationLogic
+    @populationLogicView.setPopulation @measure.get('populations').first()
+    @expectedValuesView.on 'populationSelect', (population) =>
+      @populationLogicView.setPopulation population
 
   dataCriteriaCategories: ->
     categories = {}
@@ -65,6 +69,15 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     # Go back to wherever the user came from, if possible
     e.preventDefault()
     window.history.back()
+
+
+class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
+  template: JST['patient_builder/population_logic']
+  setPopulation: (population) ->
+    @setModel(population)
+    @setView new Thorax.Views.PopulationLogic(model: population)
+  context: ->
+    _(super).extend title: @model.get('title') || @model.get('sub_id')
 
 
 class Thorax.Views.SelectCriteriaView extends Thorax.View
@@ -187,6 +200,11 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
 
   # When we serialize the form, we want to update the expected_values hash
   events:
+    rendered: ->
+      # FIXME: We'd like to do this via straight thorax events, doesn't seem to work...
+      @$('a[data-toggle="tab"]').on 'shown.bs.tab', (e) =>
+        population = $(e.target).model()
+        @trigger 'populationSelect', population
     serialize: (attr) ->
       # get all the checkboxes: $('.expected-value-tab > div > .expected-values > form > .checkbox > label > input')
       # get checkbox by id: $('.expected-value-tab > div > .expected-values > form > .checkbox > label > #DENEX')
