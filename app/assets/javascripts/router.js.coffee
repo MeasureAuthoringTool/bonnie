@@ -5,8 +5,7 @@ class BonnieRouter extends Backbone.Router
     # This measure collection gets populated as measures are loaded via their individual JS
     # files (see app/views/measures/show.js.erb)
     @measures = new Thorax.Collections.Measures()
-    @users = new Thorax.Collections.Users()
-    @users.fetch()
+
     # FIXME deprecated, use measure.get('patients') to get patients for individual measure
     @patients = new Thorax.Collections.Patients()
 
@@ -31,6 +30,8 @@ class BonnieRouter extends Backbone.Router
     @mainView.setView(measureView)
 
   renderUsers: ->
+    @users = new Thorax.Collections.Users()
+    @users.fetch()
     usersView = new Thorax.Views.Users(collection: @users)
     @mainView.setView(usersView)
 
