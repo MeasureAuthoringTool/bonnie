@@ -7,6 +7,10 @@ class MeasureRowView extends Thorax.View
       unless @model.get('patients').isEmpty()
         @percentage = ((@matching / @model.get('patients').length) * 100).toFixed(0)
       @success = @matching is @model.get('patients').length
+  context: ->
+    s = @status()
+    _(super).extend
+      status: s
   populationContext: (population) ->
     matching = population.exactMatches()
     percentage = 0
