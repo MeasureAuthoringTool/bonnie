@@ -23,8 +23,6 @@ class BonnieRouter extends Backbone.Router
     'users':                                  'renderUsers'
 
   renderMeasures: ->
-    $(".active").removeClass("active")
-    $("#measures").addClass("active")
     measuresView = new Thorax.Views.Measures(collection: @measures.sort())
     @mainView.setView(measuresView)
 
@@ -33,8 +31,6 @@ class BonnieRouter extends Backbone.Router
     @mainView.setView(measureView)
 
   renderUsers: ->
-    $(".active").removeClass("active")
-    $("#users").addClass("active")
     usersView = new Thorax.Views.Users(collection: @users)
     @mainView.setView(usersView)
 
@@ -63,7 +59,7 @@ class BonnieRouter extends Backbone.Router
   # This method is to be called directly, and not triggered via a
   # route; it allows the patient builder to be used in new patient
   # mode populated with data from an existing patient, ie a clone
-  navigateToPatientBuilder: (patient) ->
-    measure = @measures.get patient.get('measure_id')
+  navigateToPatientBuilder: (patient, measure) ->
+    measure ?= @measures.get patient.get('measure_id')
     @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients)
     @navigate "measures/#{patient.get('measure_id')}/patients/new"

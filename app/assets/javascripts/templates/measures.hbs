@@ -37,9 +37,7 @@
     <div class="expected-col">
       {{#unless hasPopulations}}
         <div class="percent-listing">
-          <div class="circle-listing">
-            {{expectedPercentage}}
-          </div>
+          <input type="text" value="{{expectedPercentage}}" class="dial" data-readOnly="true" data-width="60" data-height="60" data-thickness=".1" data-fgColor="#0075C4" data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
         </div>
       {{/unless}}
     </div>
@@ -71,9 +69,7 @@
         </div>
           <div class="expected-col">
             <div class="percent-listing">
-              <div class="circle-listing">
-                {{expectedPercentage}}
-              </div>
+              <input type="text" value="{{expectedPercentage}}" class="dial" data-readOnly="true" data-width="60" data-height="60" data-thickness=".1" data-fgColor="#0075C4" data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
             </div>
           </div>
           <div class="status-col status status-{{status}}">

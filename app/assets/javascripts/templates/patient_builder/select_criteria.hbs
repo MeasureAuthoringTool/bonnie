@@ -1,8 +1,8 @@
 {{! FIXME: Address the pointer issue, use bootstrap as per bootstrap example }}
-<div class="element-title" data-toggle="collapse" data-parent="#criteriaElements" href="#collapse{{cid}}">
+<div class="element-title" data-toggle="collapse" data-parent="#criteriaElements" href="#collapse-{{cid}}">
   <i class="fa {{faIcon}}"></i>{{title}}<i class="indicator fa fa-angle-right pull-right"></i>
 </div>
-<div id="collapse{{cid}}" class="collapse">
+<div id="collapse-{{cid}}" class="collapse">
   {{#collection}}
     <div class="paramText draggable">
       <label class="ui-draggable">{{title}}</label>

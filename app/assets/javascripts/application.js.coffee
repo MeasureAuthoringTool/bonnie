@@ -19,6 +19,7 @@
 #= require backbone/backbone-min
 #= require thorax/thorax.min
 #= require moment/min/moment.min.js
+#= require jQuery-Knob/js/jquery.knob
 #
 #= require helpers
 #= require_tree ./templates

@@ -17,7 +17,7 @@ class MeasureRowView extends Thorax.View
       measure_id: @model.id
       hasFraction: !@model.get('patients').isEmpty()
       status: if @model.get('patients').isEmpty() then 'new' else if success is true then 'success' else 'failed'
-      expectedPercentage: if @model.get('patients').isEmpty() then '-' else "#{percentage}%"
+      expectedPercentage: if @model.get('patients').isEmpty() then '-' else "#{percentage}"
       matches: if @model.get('patients').isEmpty() then 0 else matching
   hasPopulations: -> @model.get('populations').length > 1
   hasFraction: -> @model.get('populations').length == 1 && !@model.get('patients').isEmpty()
@@ -32,7 +32,7 @@ class MeasureRowView extends Thorax.View
     importMeasureView.display()
   expectedPercentage: ->
     if @hasFraction
-      if @model.get('patients').isEmpty() then '-' else "#{@percentage}%"
+      if @model.get('patients').isEmpty() then '-' else "#{@percentage}"
   matches: ->
     if @hasFraction
       if @model.get('patients').isEmpty() then 0 else @matching
@@ -47,4 +47,8 @@ class Thorax.Views.Measures extends Thorax.View
     importMeasureView = new Thorax.Views.ImportMeasure()
     importMeasureView.appendTo('#importUpdateContainer')
     importMeasureView.display()
+  events:
+    rendered: ->
+      console.log "Measure View Rendered"
+      @$('.dial').knob()
     
