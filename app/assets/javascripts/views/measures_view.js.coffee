@@ -53,6 +53,5 @@ class Thorax.Views.Measures extends Thorax.View
     importMeasureView.display()
   events:
     rendered: ->
-      console.log "Measure View Rendered"
       @$('.dial').knob()
     
