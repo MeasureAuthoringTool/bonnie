@@ -25,8 +25,10 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
       DENEXCEPPercent: ((@comparisons.correct.DENEXCEP / @totalComparisons) * 100).toFixed(2)
 
   resultContext: (result) ->
+    patient = @model.get('patients').get result.get('patient_id')
     _(result.toJSON()).extend
       measure_id: @model.id
+      expectedValues: patient.get('expected_values')?[@model.id][@population.get('sub_id')]
 
   patientClick: (e) ->
     patient = $(e.target).model()
