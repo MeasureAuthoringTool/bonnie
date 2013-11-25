@@ -22,13 +22,23 @@ class Thorax.Collections.Measures extends Thorax.Collection
   url: '/measures'
   model: Thorax.Models.Measure
   comparator: (m1, m2) ->
-    if m1.get('patients').isEmpty() then -1
-    else if m2.get('patients').isEmpty() then 1
+    isM1New = m1.get('patients').isEmpty()
+    isM2New = m2.get('patients').isEmpty()
+    timeDifference = -1 * (new Date(m1.get('updated_at')) - new Date(m2.get('updated_at')))
+    titleComparison = m1.get('title').localeCompare(m2.get('title'))
+    if isM1New and isM2New
+      if timeDifference is 0
+        return titleComparison
+      else
+        return timeDifference
     else
-      comparison = m1.get('title') < m2.get('title')
-      if comparison is true then -1
-      else if comparison is false then 1
-      else 0
+      if isM1New
+        return -1
+      else 
+        if isM2New
+          return 1
+        else
+          return titleComparison
   populations: ->
     populations = new Thorax.Collections.Population
     @each (m) -> m.get('populations').each (p) -> populations.add(p)
