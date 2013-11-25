@@ -1,17 +1,26 @@
 class Thorax.Views.MeasureCalculation extends Thorax.View
   template: JST['measure_calculation']
   events:
+    rendered: ->
+      @$('.dial').knob()
     'click button.toggle-patient': 'patientClick'
-    'click button.select-all':     'selectAll'
-    'click button.select-none':    'selectNone'
+    # 'click button.select-all':     'selectAll'
+    # 'click button.select-none':    'selectNone'
   initialize: ->
     @results = new Thorax.Collections.Result
     # FIXME: It would be nice to have the counts update dynamically without re-rendering the whole table
     @results.on 'add remove', @render, this
     @population = @model.get('populations').at(@populationIndex)
     @resetComparisons()
+    # only check against the first one since there is only one population
+    @matching = @population.exactMatches()
+    @percentage = 0
+    unless @model.get('patients').isEmpty()
+      @percentage = ((@matching / @model.get('patients').length) * 100).toFixed(0)
+    @success = @matching is @model.get('patients').length
 
   context: ->
+    s = @status()
     _(super).extend
       IPPTotal: @results.where(IPP: 1).length
       DENOMTotal: @results.where(DENOM: 1).length
@@ -23,12 +32,22 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
       NUMERPercent: ((@comparisons.correct.NUMER / @totalComparisons) * 100).toFixed(2)
       DENEXPercent: ((@comparisons.correct.DENEX / @totalComparisons) * 100).toFixed(2)
       DENEXCEPPercent: ((@comparisons.correct.DENEXCEP / @totalComparisons) * 100).toFixed(2)
+      status: s
 
   resultContext: (result) ->
     patient = @model.get('patients').get result.get('patient_id')
     _(result.toJSON()).extend
       measure_id: @model.id
       expectedValues: patient.get('expected_values')?[@model.id][@population.get('sub_id')]
+      
+  expectedPercentage: ->
+    if @model.get('patients').isEmpty() then '-' else "#{@percentage}"
+  matches: ->
+      if @model.get('patients').isEmpty() then 0 else @matching
+  status: -> 
+    if @model.get('patients').isEmpty() then 'new' 
+    else 
+      if @success is true then 'success' else 'failed'
 
   patientClick: (e) ->
     patient = $(e.target).model()
