@@ -24,8 +24,14 @@
 {{/if}}
 
 {{#if typePQ}}
-  <input type="text" name="value" placeholder="scalar">
-  <input type="text" name="unit" placeholder="unit">
+  <div class="row">
+    <div class="col-xs-5">
+      <input type="text" name="value" class="form-control" placeholder="scalar">
+    </div>
+    <div class="col-xs-5">
+      <input type="text" name="unit" class="form-control" placeholder="unit">
+    </div>
+  </div>
 {{/if}}
 
 {{#if typeCD}}
@@ -38,5 +44,5 @@
 {{/if}}
 
 {{#if typeTS}}
-  <input type="text" name="value" placeholder="value">
+  <input type="text" name="value" class="form-control" placeholder="xx/xx/xxxx xx:xx">
 {{/if}}

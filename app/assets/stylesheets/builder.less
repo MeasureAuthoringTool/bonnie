@@ -108,7 +108,7 @@
   .make-md-column(7);
   .make-sm-column(7);
   .make-lg-column(7);
-  padding-left: 0;
+  padding-left: 10px;
   padding-right: 0;
 
   .measure-h2 {
@@ -145,11 +145,12 @@
   }
 }
 .record {
-  .make-sm-column(9);
-  .make-md-column(9);
-  .make-lg-column(9);  
+  .make-sm-column(7);
+  .make-md-column(7);
+  .make-lg-column(7);  
   .row; 
   min-height: 200px; // ADDED
+  padding-bottom: 100px; // ADDED
 
   .record-listing {
     margin-top: 20px;
@@ -162,11 +163,12 @@
 }
 
 .measure-view-side {
-  .make-sm-column(3);
-  .make-md-column(3);
-  .make-lg-column(3);
+  .make-sm-column(5.38);
+  .make-md-column(5.38);
+  .make-lg-column(5.38);
   margin-top: 20px;
   padding-right: 0;
+  font-size: 12px;
 
   .measure-title {
     background-color: @gray-lighter;  
@@ -176,6 +178,9 @@
     .short-title {
       font-size: 18px;
       font-weight: bold;
+      .population-title {
+        font-size: 14px;
+      }
     }
   }
   .measure-viz {
@@ -269,7 +274,7 @@ h2 {
         .make-md-column(6);
 }
 .dl-date {
-        .make-md-column(4);
+        .make-md-column(5);
 
         dt {
                 .dl-date {
