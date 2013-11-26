@@ -99,11 +99,32 @@ class MeasuresController < ApplicationController
      'episode_of_care'=>params[:calculation_type] == 'episode'
     }
 
+    is_update = false
+    if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
+      is_update = true
+      existing = Measure.where(hqmf_set_id: params[:hqmf_set_id]).first
+      measure_details['type'] = existing.type
+      measure_details['episode_of_care'] = existing.episode_of_care
+      measure_details['episode_ids'] = existing.episode_ids
+      measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
+      existing.delete
+    end
+
     measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
     current_user.measures << measure
     current_user.save!
 
-    measure.needs_finalize = (measure_details['episode_of_care'] || measure.populations.size > 1)
+
+    if (is_update)
+      measure.episode_ids = measure_details['episode_ids']
+      measure.populations.each_with_index do |population, population_index|
+        population['title'] = measure_details['population_titles']["#{population_index}"] if (measure_details['population_titles'])
+      end
+    else
+      measure.needs_finalize = (measure_details['episode_of_care'] || measure.populations.size > 1)
+    end
+
+
     Measures::ADEHelper.update_if_ade(measure)
 
     measure.populations.each_with_index do |population, population_index|
@@ -112,7 +133,7 @@ class MeasuresController < ApplicationController
 
     measure.save!
 
-    redirect_to measures_path
+    redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
   def destroy
@@ -127,12 +148,12 @@ class MeasuresController < ApplicationController
       measure = Measure.where(hqmf_id: data['hqmf_id']).first
       measure.update_attributes({needs_finalize: false, episode_ids: data['episode_ids']})
       measure.populations.each_with_index do |population, population_index|
-        population['title'] = data['titles']["#{population_index}"]
+        population['title'] = data['titles']["#{population_index}"] if (data['titles'])
         measure.map_fns[population_index] = measure.as_javascript(population_index)
       end
       measure.save!
     end
-    redirect_to measures_path
+    redirect_to root_path
   end
 
 end

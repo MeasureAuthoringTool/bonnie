@@ -31,27 +31,28 @@
                 </select>
               </div>
             </div>
-            <div class="form-group">
-              <label for="populationTitles" class="col-lg-3 control-label">Titles:</label>
-              <div id="populationTitles" class="col-lg-9">
-                <div class="form-group">
-                  <div class="col-lg-8"></div>
-                </div>
-                {{#each populations.models}}
-                  {{#with attributes}}
-                    <div class="form-group">
-                      <label for="title{{@index}}_{{@cid}}" class="col-lg-1 control-label">
-                         {{sub_id}}:
-                      </label>
-                      <div class="col-lg-7">
-                        <input type="text" id="title{{@index}}_{{@cid}}" name="{{@cid}}[titles[{{@index}}]]" class="form-control" >
+            {{#ifCond populations.models.length '>' 1}}
+              <div class="form-group">
+                <label for="populationTitles" class="col-lg-3 control-label">Titles:</label>
+                <div id="populationTitles" class="col-lg-9">
+                  <div class="form-group">
+                    <div class="col-lg-8"></div>
+                  </div>
+                  {{#each populations.models}}
+                    {{#with attributes}}
+                      <div class="form-group">
+                        <label for="title{{@index}}_{{@cid}}" class="col-lg-1 control-label">
+                           {{sub_id}}:
+                        </label>
+                        <div class="col-lg-7">
+                          <input type="text" id="title{{@index}}_{{@cid}}" name="{{@cid}}[titles[{{@index}}]]" class="form-control" >
+                        </div>
                       </div>
-                    </div>
-                  {{/with}}
-                {{/each}}
-
+                    {{/with}}
+                  {{/each}}
+                </div>
               </div>
-            </div>
+            {{/ifCond}}
 
           {{/collection}}
 

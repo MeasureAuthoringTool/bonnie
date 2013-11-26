@@ -1,20 +1,24 @@
 class Thorax.Views.ImportMeasure extends Thorax.View
   template: JST['import/import_measure']
   context: ->
-    measureType = if @model?
+    hqmfSetId = @model.get('hqmf_set_id') if @model?
+    measureTypeLabel = if @model?
       if @model.get('type') is 'eh' then 'Eligible Hospital (EH)'
       else if @model.get('type') is 'ep' then 'Eligible Professional (EP)'
-    calculationType = if @model?
+    calculationTypeLabel = if @model?
       if @model.get('episode_of_care') is false and @model.get('continuous_variable') is false then 'Patient Based'
       else if @model.get('episode_of_care') is true then 'Episode of Care'
       else if @model.get('continuous_variable') is true then 'Continuous Variable'
+    currentRoute = Backbone.history.fragment
     titleSize: 3
     dataSize: 9
     token: $("meta[name='csrf-token']").attr('content')
     dialogTitle: if @model? then @model.get('title') else "New Measure"
     isUpdate: @model?
-    measureType: measureType
-    calculationType: calculationType
+    measureTypeLabel: measureTypeLabel
+    calculationTypeLabel: calculationTypeLabel
+    hqmfSetId: hqmfSetId
+    redirectRoute: currentRoute
 
   events:
     'ready': 'setup'
