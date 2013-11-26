@@ -22,7 +22,7 @@ class Thorax.Models.Result extends Thorax.Model
           if (rationale[badOccurrence])
             updatedRationale[code][badOccurrence] = false
             # move up the logic tree to set AND/ORs to false based on the removal of the bad specific's true eval
-            @updateLogicTree2(updatedRationale, code, badOccurrence, orCounts, parentMap)
+            @updateLogicTree(updatedRationale, rationale, code, badOccurrence, orCounts, parentMap)
         # check the good specifics with a negated parent.  If there are multiple candidate specifics
         # and one is good while the other is bad, the child of the negation will evaluate to true, we want it to
         # evaluate to false since if there's a good negation then there's an occurrence for which it evaluated to false
@@ -74,7 +74,7 @@ class Thorax.Models.Result extends Thorax.Model
     results
 
   # from each leaf walk up the tree updating the logical statements appropriately to false
-  updateLogicTree2: (updatedRationale, code, badOccurrence, orCounts, parentMap) ->
+  updateLogicTree: (updatedRationale, rationale, code, badOccurrence, orCounts, parentMap) ->
     parent = parentMap[badOccurrence]
     while parent
       parentKey = if parent.id? then "precondition_#{parent.id}" else parent.type
@@ -84,7 +84,7 @@ class Thorax.Models.Result extends Thorax.Model
         # if this is an OR then remove a true increment since it's a bad true
         orCounts[parentKey]-- if orCounts[parentKey]?
         # if we're either an AND or we're an OR and the count is zero then switch to false and move up the tree
-        if (!orCounts[parentKey]? || orCounts[parentKey] == 0)
+        if ((!orCounts[parentKey]? || orCounts[parentKey] == 0) && rationale[parentKey])
           updatedRationale[code][parentKey] = false
           parent = parentMap[parentKey]
 
