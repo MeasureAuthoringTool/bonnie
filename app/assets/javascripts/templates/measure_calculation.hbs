@@ -28,32 +28,6 @@
         <td class="{{this.name}}-{{../patient_id}}">{{#if this.result}}X{{/if}}</td>
       </tr>
     {{/each}}
-    {{!-- <tr>
-      <td>IPP</td>
-      <td>{{expectedValues.IPP}}</td>
-      <td class="ipp-{{patient_id}}">{{#if IPP}}X{{/if}}</td>
-    </tr>
-    <tr>
-      <td>DENOM</td>
-      <td>{{expectedValues.DENOM}}</td>
-      <td class="denom-{{patient_id}}">{{#if DENOM}}X{{/if}}</td>
-    </tr>
-    <tr>
-      <td>NUMER</td>
-      <td>{{expectedValues.NUMER}}</td>
-      <td class="numer-{{patient_id}}">{{#if NUMER}}X{{/if}}</td>
-    </tr>
-    <tr>
-      <td>DENEX</td>
-      <td>{{expectedValues.DENEX}}</td>
-      <td class="denex-{{patient_id}}">{{#if DENEX}}X{{/if}}</td>
-    </tr>
-    <tr>
-      <td>DENEXCEP</td>
-      <td>{{expectedValues.DENEXCEP}}</td>
-      <td class="denexcep-{{patient_id}}">{{#if DENEXCEP}}X{{/if}}</td>
-    </tr> --}}
-      {{!-- <td width="4%">{{#button "showDelete" class="btn btn-default"}}<i class="glyphicon glyphicon-minus-sign"></i>{{/button}}</td> --}}
   </table>
   {{#link "measures/{{measure_id}}/patients/{{patient_id}}/edit" class="btn btn-primary" expand-tokens=true}}EDIT{{/link}}
   {{#button "clonePatient" class="btn btn-primary"}}CLONE{{/button}}
