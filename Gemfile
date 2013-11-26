@@ -9,6 +9,10 @@ gem 'hquery-patient-api', :git => 'https://github.com/pophealth/patientapi.git',
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 #gem 'health-data-standards', :path => '../health-data-standards'
 
+# bonnie_bundler depends on QME, but currently on an unreleased version, so it's not in the gemspec now, so must be here
+gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'mongoid_refactor'
+#gem 'quality-measure-engine', :path => '../quality-measure-engine'
+
 gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'develop'
 #gem 'bonnie_bundler', :path => '../bonnie_bundler'
 

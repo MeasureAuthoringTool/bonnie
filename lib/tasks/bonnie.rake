@@ -28,10 +28,42 @@ namespace :bonnie do
     end
   end
 
+  namespace :db do
+    desc 'Reset DB; by default pulls from bonnie-dev.mitre.org:bonnie-production; use HOST=<host> DB=<db> for another; DEMO=true prunes measures'
+    task :reset => :environment do
+      host = ENV['HOST'] || 'bonnie-dev.mitre.org'
+      source_db = ENV['DB'] || 'bonnie-production'
+      dest_db = Mongoid.default_session.options[:database]
+      puts "Resetting #{dest_db} from #{host}:#{source_db}"
+      Mongoid.default_session.with(database: dest_db) { |db| db.drop }
+      Mongoid.default_session.with(database: 'admin') { |db| db.command copydb: 1, fromhost: host, fromdb: source_db, todb: dest_db }
+      Rake::Task['bonnie:patients:update_measure_ids'].invoke
+      if ENV['DEMO'] == 'true'
+        puts "Deleting non-demo measures and patients"
+        demo_measure_ids = Measure.in(measure_id: ['0105', '0069']).pluck('id') # Note: measure_id is nqf, id is hqmf!
+        Measure.nin(id: demo_measure_ids).delete
+        Record.nin(measure_ids: demo_measure_ids).delete
+      end
+      Rake::Task['bonnie:measures:pregenerate_js'].invoke
+    end
+  end
+
+  namespace :measures do
+    desc 'Pre-generate measure JavaScript and cache in the DB'
+    task :pregenerate_js => :environment do
+      puts "Pre-generating measure JavaScript"
+      Measure.each do |measure|
+        puts "Generating JavaScript for '#{measure.title}'"
+        measure.pregenerate_js
+      end
+    end
+  end
+
   namespace :patients do
 
     desc 'Update measure ids from NQF to HQMF.'
     task :update_measure_ids => :environment do
+      puts "Updating patient measure_ids from NQF to HQMF"
       Record.each do |patient|
         patient.measure_ids.map! { |id| Measure.or({ measure_id: id }, { hqmf_id: id }).first.try(:hqmf_id) }.compact!
         patient.save
