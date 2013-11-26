@@ -12,6 +12,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     @resetComparisons()
     # only check against the first one since there is only one population
     @updateResultsHeader()
+    @selectAll()
 
   context: ->
     s = @status()
@@ -34,6 +35,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     popTitle = @population.get('title')
     validPopulations = (criteria for criteria in Thorax.Models.Measure.allPopulationCodes when @population.has(criteria))
     combinedResults = {}
+    patientStatus = @population.isExactlyMatching(patient)
     for p in validPopulations
       combinedResults[p] = {}
       combinedResults[p]['name'] = p
@@ -43,6 +45,8 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
       measure_id: @model.id
       populationTitle: popTitle ?= @population.get('sub_id')
       resultRow: combinedResults
+      patientStatusText: if patientStatus then 'success' else 'failed'
+      patientStatus: patientStatus
       
   expectedPercentage: ->
     if @model.get('patients').isEmpty() then '-' else "#{@percentage}"
@@ -59,6 +63,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     @updateResultsHeader()
     # FIXME: Might want to preserve the selected patient instead of resetting it every time
     @selectNone()
+    @selectAll()
     @render()
 
   updateResultsHeader: ->
@@ -172,3 +177,13 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     result = $(e.target).model()
     patient = @model.get('patients').get result.get('patient_id')
     bonnie.navigateToPatientBuilder patient.deepClone(), @model
+
+  expandResult: (e) ->
+    @trigger 'rationale:clear'
+    result = $(e.target).model()
+    if @$(".toggle-result-#{result.get('patient_id')}").is(":visible")
+      @$(".toggle-result-#{result.get('patient_id')}").hide()
+    else
+      @$('.toggle-result').hide()
+      @$(".toggle-result-#{result.get('patient_id')}").show()
+    @trigger 'rationale:show', result
