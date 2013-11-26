@@ -20,6 +20,7 @@ class Thorax.Views.Measure extends Thorax.View
       @logicView = populationLogicView
     @logicView.listenTo @measureCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @measureCalculation, 'rationale:show', (result) -> @showRationale(result)
+    @measureCalculation.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
 
   updateMeasure: (e) ->
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)

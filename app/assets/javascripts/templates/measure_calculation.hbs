@@ -13,38 +13,21 @@
 </div>
 <br>
 {{#collection results item-context=resultContext}}
+  {{!-- FIXME: Remove this subtitle after population selection is working correctly! --}}
+  <h5>Results for {{populationTitle}}</h5>
   <table class="table table-striped table-bordered table-condensed col-xs-3">
     <tr>
       <th>{{last}}, {{first}}</th>
       <th>Expected</th>
       <th>Results</th>
     </tr>
-    <tr>
-      <td>IPP</td>
-      <td>{{expectedValues.IPP}}</td>
-      <td class="ipp-{{patient_id}}">{{#if IPP}}X{{/if}}</td>
-    </tr>
-    <tr>
-      <td>DENOM</td>
-      <td>{{expectedValues.DENOM}}</td>
-      <td class="denom-{{patient_id}}">{{#if DENOM}}X{{/if}}</td>
-    </tr>
-    <tr>
-      <td>NUMER</td>
-      <td>{{expectedValues.NUMER}}</td>
-      <td class="numer-{{patient_id}}">{{#if NUMER}}X{{/if}}</td>
-    </tr>
-    <tr>
-      <td>DENEX</td>
-      <td>{{expectedValues.DENEX}}</td>
-      <td class="denex-{{patient_id}}">{{#if DENEX}}X{{/if}}</td>
-    </tr>
-    <tr>
-      <td>DENEXCEP</td>
-      <td>{{expectedValues.DENEXCEP}}</td>
-      <td class="denexcep-{{patient_id}}">{{#if DENEXCEP}}X{{/if}}</td>
-    </tr>
-      {{!-- <td width="4%">{{#button "showDelete" class="btn btn-default"}}<i class="glyphicon glyphicon-minus-sign"></i>{{/button}}</td> --}}
+    {{#each resultRow}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.expected}}</td>
+        <td class="{{this.name}}-{{../patient_id}}">{{#if this.result}}X{{/if}}</td>
+      </tr>
+    {{/each}}
   </table>
   {{#link "measures/{{measure_id}}/patients/{{patient_id}}/edit" class="btn btn-primary" expand-tokens=true}}EDIT{{/link}}
   {{#button "clonePatient" class="btn btn-primary"}}CLONE{{/button}}

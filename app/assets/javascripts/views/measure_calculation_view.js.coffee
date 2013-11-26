@@ -4,8 +4,6 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     rendered: ->
       @$('.dial').knob()
     'click button.toggle-patient': 'patientClick'
-    # 'click button.select-all':     'selectAll'
-    # 'click button.select-none':    'selectNone'
   initialize: ->
     @results = new Thorax.Collections.Result
     # FIXME: It would be nice to have the counts update dynamically without re-rendering the whole table
@@ -13,11 +11,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     @population = @model.get('populations').at(@populationIndex)
     @resetComparisons()
     # only check against the first one since there is only one population
-    @matching = @population.exactMatches()
-    @percentage = 0
-    unless @model.get('patients').isEmpty()
-      @percentage = ((@matching / @model.get('patients').length) * 100).toFixed(0)
-    @success = @matching is @model.get('patients').length
+    @updateResultsHeader()
 
   context: ->
     s = @status()
@@ -36,9 +30,19 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
 
   resultContext: (result) ->
     patient = @model.get('patients').get result.get('patient_id')
+    expectedValues = patient.get('expected_values')?[@model.id][@population.get('sub_id')]
+    popTitle = @population.get('title')
+    validPopulations = (criteria for criteria in Thorax.Models.Measure.allPopulationCodes when @population.has(criteria))
+    combinedResults = {}
+    for p in validPopulations
+      combinedResults[p] = {}
+      combinedResults[p]['name'] = p
+      combinedResults[p]['expected'] = expectedValues[p]
+      combinedResults[p]['result'] = result.get(p)
     _(result.toJSON()).extend
       measure_id: @model.id
-      expectedValues: patient.get('expected_values')?[@model.id][@population.get('sub_id')]
+      populationTitle: popTitle ?= @population.get('sub_id')
+      resultRow: combinedResults
       
   expectedPercentage: ->
     if @model.get('patients').isEmpty() then '-' else "#{@percentage}"
@@ -48,6 +52,21 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     if @model.get('patients').isEmpty() then 'new' 
     else 
       if @success is true then 'success' else 'failed'
+
+  updatePopulation: (population) ->
+    @populationIndex = _.indexOf(@model.get('populations'),population)
+    @population = population
+    @updateResultsHeader()
+    # FIXME: Might want to preserve the selected patient instead of resetting it every time
+    @selectNone()
+    @render()
+
+  updateResultsHeader: ->
+    @matching = @population.exactMatches()
+    @percentage = 0
+    unless @model.get('patients').isEmpty()
+      @percentage = ((@matching / @model.get('patients').length) * 100).toFixed(0)
+    @success = @matching is @model.get('patients').length
 
   patientClick: (e) ->
     patient = $(e.target).model()
@@ -81,33 +100,27 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
 
   updateCell: (result, patient, isInsert) ->
     # FIXME: Use all when measure calculation is updated for multiple populations
-    tablePopulations = ['IPP', 'DENOM', 'NUMER', 'DENEX', 'DENEXCEP']
-    populationClassMap =
-      IPP: 'ipp'
-      DENOM: 'denom'
-      NUMER: 'numer'
-      DENEX: 'denex'
-      DENEXCEP: 'denexcep'
-    validPopulations = (criteria for criteria in tablePopulations when @population.get(criteria)?)
-    for criteria in tablePopulations
+    allPopulations = Thorax.Models.Measure.allPopulationCodes
+    validPopulations = (criteria for criteria in allPopulations when @population.get(criteria)?)
+    for criteria in allPopulations
       if criteria in validPopulations and patient.has('expected_values') and @model.get('id') in _.keys(patient.get('expected_values'))
         if patient.get('expected_values')[@model.get('id')][@population.get('sub_id')][criteria] is result.get(criteria)
           if isInsert
-            @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").addClass("success")
+            @$(".#{criteria}-#{result.get('patient_id')}").addClass("success")
           else
-            @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").removeClass("success")
+            @$(".#{criteria}-#{result.get('patient_id')}").removeClass("success")
         else
           if isInsert
-            @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").addClass("danger")
+            @$(".#{criteria}-#{result.get('patient_id')}").addClass("danger")
           else
-            @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").removeClass("danger")
-      else @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").addClass("warning")
+            @$(".#{criteria}-#{result.get('patient_id')}").removeClass("danger")
+      else @$(".#{criteria}-#{result.get('patient_id')}").addClass("warning")
 
   updateComparisons: (result, patient, isInsert) ->
     # FIXME: Use all when measure calculation is updated for multiple populations
-    tablePopulations = ['IPP', 'DENOM', 'NUMER', 'DENEX', 'DENEXCEP']
-    validPopulations = (criteria for criteria in tablePopulations when @population.get(criteria)?)
-    for criteria in tablePopulations
+    allPopulations = Thorax.Models.Measure.allPopulationCodes
+    validPopulations = (criteria for criteria in allPopulations when @population.get(criteria)?)
+    for criteria in allPopulations
       if criteria in validPopulations and patient.has('expected_values') and @model.get('id') in Object.keys(patient.get('expected_values'))
         if patient.get('expected_values')[@model.id][@population.get('sub_id')][criteria] is result.get(criteria)
           if isInsert
@@ -122,19 +135,12 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     @updateTotalComparisons()
 
   resetComparisons: ->
-    @comparisons =
-    correct:
-      IPP: 0
-      DENOM: 0
-      NUMER: 0
-      DENEX: 0
-      DENEXCEP: 0
-    incorrect:
-      IPP: 0
-      DENOM: 0
-      NUMER: 0
-      DENEX: 0
-      DENEXCEP: 0
+    @comparisons = {}
+    @comparisons['correct'] = {}
+    @comparisons['incorrect'] = {}
+    for criteria in Thorax.Models.Measure.allPopulationCodes
+      @comparisons['correct'][criteria] = 0
+      @comparisons['incorrect'][criteria] = 0
     # set the total to 1 to prevent NaN percentages
     @totalComparisons = 1
 

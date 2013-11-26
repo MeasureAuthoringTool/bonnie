@@ -13,6 +13,19 @@ GIT
     hquery-patient-api (1.0.2)
 
 GIT
+  remote: https://github.com/pophealth/quality-measure-engine.git
+  revision: df69b2944d8d5daa991c9a963b76c08de199b3ee
+  branch: mongoid_refactor
+  specs:
+    quality-measure-engine (3.0.0)
+      delayed_job_mongoid (~> 2.0.0)
+      mongoid (~> 3.1.4)
+      moped (~> 1.5.1)
+      nokogiri (~> 1.6.0)
+      rubyXL (~> 1.2.10)
+      rubyzip (~> 0.9.9)
+
+GIT
   remote: https://github.com/projectcypress/health-data-standards.git
   revision: 73cf9a1144c2610c5ea85c8204ac8b3ee9e3625a
   branch: master
@@ -31,11 +44,10 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: cb77c841f25a889e1aa1ad4abaf952593632f9b7
+  revision: 9592a3a5f7fb40ae3e0e54e4cc335bfd0bac9fbf
   branch: develop
   specs:
     bonnie_bundler (1.0.0)
-      quality-measure-engine (~> 2)
 
 GEM
   remote: https://rubygems.org/
@@ -164,13 +176,6 @@ GEM
     pry-debugger (0.2.2)
       debugger (~> 1.3)
       pry (~> 0.9.10)
-    quality-measure-engine (2.5.2)
-      delayed_job_mongoid (~> 2.0.0)
-      mongoid (~> 3.1.4)
-      moped (~> 1.5.1)
-      nokogiri (~> 1.6.0)
-      rubyXL (~> 1.2.10)
-      rubyzip (~> 0.9.9)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -277,6 +282,7 @@ DEPENDENCIES
   mongoid (~> 3.1.0)
   pry
   pry-debugger
+  quality-measure-engine!
   rails (= 3.2.14)
   roo
   rubyzip (< 1.0.0)

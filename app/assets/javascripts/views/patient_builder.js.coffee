@@ -26,7 +26,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @measure?.get('source_data_criteria').each (criteria) ->
       type = criteria.get('type').replace('_', ' ')
       categories[type] ||= new Thorax.Collection
-      categories[type].add criteria unless categories[type].any (c) -> c.get('title') == criteria.get('title')
+      categories[type].add criteria unless categories[type].any (c) -> c.get('description') == criteria.get('description')
     _(categories).omit('characteristic')
 
   events:
