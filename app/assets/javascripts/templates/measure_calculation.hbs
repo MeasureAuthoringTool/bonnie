@@ -13,13 +13,21 @@
 </div>
 <br>
 {{#collection results item-context=resultContext}}
+  <h5>Results for {{populationTitle}}</h5>
   <table class="table table-striped table-bordered table-condensed col-xs-3">
     <tr>
       <th>{{last}}, {{first}}</th>
       <th>Expected</th>
       <th>Results</th>
     </tr>
-    <tr>
+    {{#each resultRow}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.expected}}</td>
+        <td class="{{this.name}}-{{../patient_id}}">{{#if this.result}}X{{/if}}</td>
+      </tr>
+    {{/each}}
+    {{!-- <tr>
       <td>IPP</td>
       <td>{{expectedValues.IPP}}</td>
       <td class="ipp-{{patient_id}}">{{#if IPP}}X{{/if}}</td>
@@ -43,7 +51,7 @@
       <td>DENEXCEP</td>
       <td>{{expectedValues.DENEXCEP}}</td>
       <td class="denexcep-{{patient_id}}">{{#if DENEXCEP}}X{{/if}}</td>
-    </tr>
+    </tr> --}}
       {{!-- <td width="4%">{{#button "showDelete" class="btn btn-default"}}<i class="glyphicon glyphicon-minus-sign"></i>{{/button}}</td> --}}
   </table>
   {{#link "measures/{{measure_id}}/patients/{{patient_id}}/edit" class="btn btn-primary" expand-tokens=true}}EDIT{{/link}}

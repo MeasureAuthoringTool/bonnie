@@ -36,9 +36,19 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
 
   resultContext: (result) ->
     patient = @model.get('patients').get result.get('patient_id')
+    expectedValues = patient.get('expected_values')?[@model.id][@population.get('sub_id')]
+    popTitle = @population.get('title')
+    validPopulations = (criteria for criteria in Thorax.Models.Measure.allPopulationCodes when @population.has(criteria))
+    combinedResults = {}
+    for p in validPopulations
+      combinedResults[p] = {}
+      combinedResults[p]['name'] = p
+      combinedResults[p]['expected'] = expectedValues[p]
+      combinedResults[p]['result'] = result.get(p)
     _(result.toJSON()).extend
       measure_id: @model.id
-      expectedValues: patient.get('expected_values')?[@model.id][@population.get('sub_id')]
+      populationTitle: popTitle ?= @population.get('sub_id')
+      resultRow: combinedResults
       
   expectedPercentage: ->
     if @model.get('patients').isEmpty() then '-' else "#{@percentage}"
@@ -93,15 +103,15 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
       if criteria in validPopulations and patient.has('expected_values') and @model.get('id') in _.keys(patient.get('expected_values'))
         if patient.get('expected_values')[@model.get('id')][@population.get('sub_id')][criteria] is result.get(criteria)
           if isInsert
-            @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").addClass("success")
+            @$(".#{criteria}-#{result.get('patient_id')}").addClass("success")
           else
-            @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").removeClass("success")
+            @$(".#{criteria}-#{result.get('patient_id')}").removeClass("success")
         else
           if isInsert
-            @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").addClass("danger")
+            @$(".#{criteria}-#{result.get('patient_id')}").addClass("danger")
           else
-            @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").removeClass("danger")
-      else @$(".#{populationClassMap[criteria]}-#{result.get('patient_id')}").addClass("warning")
+            @$(".#{criteria}-#{result.get('patient_id')}").removeClass("danger")
+      else @$(".#{criteria}-#{result.get('patient_id')}").addClass("warning")
 
   updateComparisons: (result, patient, isInsert) ->
     # FIXME: Use all when measure calculation is updated for multiple populations
