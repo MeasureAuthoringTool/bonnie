@@ -45,6 +45,20 @@ namespace :bonnie do
         Record.nin(measure_ids: demo_measure_ids).delete
       end
       Rake::Task['bonnie:patients:reset_expected_values'].invoke # FIXME: We shouldn't need to do this once we refactor expected values
+      if ENV['DEMO'] == 'true'
+        puts "Updating expected values for demo"
+        measure_id = Measure.where(measure_id: '0105').first.id
+        patient = Record.where(first: 'BH_Adult', last: 'C').first
+        [['a', 'IPP'], ['a', 'DENOM'], ['b', 'IPP'], ['b', 'DENOM']].each do |sub, pop|
+          patient.expected_values[measure_id][sub][pop] = 1
+        end
+        patient.save!
+        patient = Record.where(first: 'BH_Adult', last: 'D').first
+        [['a', 'IPP'], ['a', 'DENOM'], ['a', 'NUMER'], ['b', 'IPP'], ['b', 'DENOM']].each do |sub, pop|
+          patient.expected_values[measure_id][sub][pop] = 1
+        end
+        patient.save!
+      end
       Rake::Task['bonnie:measures:pregenerate_js'].invoke
     end
   end
