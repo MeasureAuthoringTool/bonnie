@@ -241,7 +241,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
 
   setValues: ->
     for c in @currentCriteria
-      if @modelValues[@measure.get('id')][@population.sub_id][c] is 1
+      if @modelValues[@measure.get('id')]?[@population.sub_id][c] is 1
         @$('#' + c).prop('checked', true)
       if @editFlag is false
         @$('#' + c).prop('disabled', true)

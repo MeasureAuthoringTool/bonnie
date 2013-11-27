@@ -31,7 +31,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
 
   resultContext: (result) ->
     patient = @model.get('patients').get result.get('patient_id')
-    expectedValues = patient.get('expected_values')?[@model.id][@population.get('sub_id')]
+    expectedValues = patient.get('expected_values')?[@model.id]?[@population.get('sub_id')]
     popTitle = @population.get('title')
     validPopulations = (criteria for criteria in Thorax.Models.Measure.allPopulationCodes when @population.has(criteria))
     combinedResults = {}
@@ -39,7 +39,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     for p in validPopulations
       combinedResults[p] = {}
       combinedResults[p]['name'] = p
-      combinedResults[p]['expected'] = expectedValues[p]
+      combinedResults[p]['expected'] = expectedValues?[p]
       combinedResults[p]['result'] = result.get(p)
     _(result.toJSON()).extend
       measure_id: @model.id
