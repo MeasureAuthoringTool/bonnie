@@ -1,51 +1,87 @@
-<input type="text" value="{{expectedPercentage}}" class="dial" data-readOnly="true" data-width="45" data-height="45" data-thickness=".1" data-fgColor={{#ifCond status '==' 'success'}}"#468847"{{/ifCond}}{{#ifCond status '==' 'failed'}}"#b94a48"{{/ifCond}} data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
-{{status}}
-<a href="#measures/{{_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
-  <i class="glyphicon glyphicon-user"></i>
-  <i class="glyphicon glyphicon-plus"></i>
-</a>
-{{matches}}/{{patients.length}}
-<h3>Select Patients</h3>
-<br>
-{{#collection results tag="div" class="panel panel-default" item-context=resultContext}}
-  <div class="panel-heading">
-    <h6 class="panel-title">
-      <div class="pull-left">
-        {{#if patientStatus}}
-          <i class="glyphicon glyphicon-ok"></i>
-        {{else}}
-          <i class="glyphicon glyphicon-remove"></i>
-        {{/if}}
+<div class="measure-calculation">
+  <div class="row">
+    <div class="col-sm-4">
+      <input type="text" value="{{expectedPercentage}}" class="dial" data-readOnly="true" data-width="60" data-height="60" data-thickness=".2" data-fgColor={{#ifCond status '==' 'pass'}}"#468847"{{/ifCond}}{{#ifCond status '==' 'fail'}}"#b94a48"{{/ifCond}} data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
+    </div>
+    <div class="col-sm-6">
+      <div class="status">
+        <span class="{{status}}">{{status}}</span>
+        <span class="patient-listing">{{matches}}</span> <span class="fraction">/{{patients.length}}</span>
       </div>
-      {{#button "expandResult" class="btn btn-primary"}}<i class="glyphicon glyphicon-user"></i>{{/button}} {{first}} {{last}}
-      <div class="status-{{patientStatusText}} pull-right">
-        {{patientStatusText}}
-      </div>
-    </h6>
+    </div>
+    <div class="col-sm-2 add-button">
+      <a href="#measures/{{_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
+        <i class="glyphicon glyphicon-user"></i>
+        <i class="glyphicon glyphicon-plus"></i>
+      </a>
+    </div>
   </div>
-  <div class="panel-body toggle-result toggle-result-{{patient_id}}" style="display: none;">
-    {{#button "showDelete" class="btn btn-default"}}<i class="glyphicon glyphicon-minus-sign"></i>{{/button}}<br>
-    <strong>NAME</strong> {{first}} {{last}}</br>
-    <strong>TYPE</strong> ???</br>
-    <strong>DOB</strong> {{birthdate}}
-    {{!-- FIXME: Remove this subtitle after population selection is working correctly! --}}
-    <h5>Results for {{populationTitle}}</h5>
-    <table class="table table-striped table-bordered table-condensed col-xs-3">
-      <tr>
-        <th>Codes</th>
-        <th>Expected</th>
-        <th>Results</th>
-      </tr>
-      {{#each resultRow}}
+  <h3>Select Patients</h3>
+  <br>
+  {{#collection results tag="div" class="panel panel-default" item-context=resultContext}}
+    <div class="panel-heading">
+      <div class="panel-title">
+        <div class="patient row">
+          <div class="col-sm-1 {{patientStatusText}}">
+            {{#if patientStatus}}
+              <i class="glyphicon glyphicon-ok"></i>
+            {{else}}
+              <i class="glyphicon glyphicon-remove"></i>
+            {{/if}}
+          </div>
+          <div class="col-sm-3">
+            {{#button "expandResult" class="btn btn-primary"}}<i class="glyphicon glyphicon-user"></i>{{/button}}
+          </div>
+          <div class="col-sm-4 name">
+            {{first}} {{last}}
+          </div>
+          <div class="col-sm-3 patient-status {{patientStatusText}}">
+            {{patientStatusText}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body toggle-result toggle-result-{{patient_id}} patient" style="display: none;">
+      {{!-- FIXME: Remove this subtitle after population selection is working correctly! --}}
+      {{!-- <h5>Results for {{populationTitle}}</h5> --}}
+      <table class="table table-condensed col-xs-3">
         <tr>
-          <td>{{this.name}}</td>
-          <td>{{this.expected}}</td>
-          <td class="{{this.name}}-{{../patient_id}}">{{#if this.result}}X{{/if}}</td>
+          <th></th>
+          <th>Population</th>
+          <th style="text-align: center;">Expected</th>
+          <th style="text-align: center;">Actual</th>
         </tr>
-      {{/each}}
-    </table>
-    {{#link "measures/{{measure_id}}/patients/{{patient_id}}/edit" class="btn btn-primary" expand-tokens=true}}EDIT{{/link}}
-    {{#button "clonePatient" class="btn btn-primary"}}CLONE{{/button}}
-    {{#button "deletePatient" class="btn btn-danger delete-{{patient_id}}" style="display: none;" expand-tokens=true}}Delete{{/button}}
-  </div>
-{{/collection}}
+        {{#each resultRow}}
+          <tr>
+            <td style="text-align: center;">
+              {{#ifCond expected "==" result}}
+                <i class="glyphicon glyphicon-ok pass"></i>
+              {{else}}
+                <i class="glyphicon glyphicon-remove fail"></i>
+              {{/ifCond}}
+            </td>
+            <td>{{name}}</td>
+            <td style="text-align: center;">
+              {{#if expected}}
+                <i class="glyphicon glyphicon-ok"></i>
+              {{else}}
+                <i class="glyphicon glyphicon-minus"></i>
+              {{/if}}
+            </td>
+            <td style="text-align: center;">
+              {{#if result}}
+                <i class="glyphicon glyphicon-ok"></i>
+              {{else}}
+                <i class="glyphicon glyphicon-minus"></i>
+              {{/if}}
+            </td>
+          </tr>
+        {{/each}}
+      </table>
+      {{#link "measures/{{measure_id}}/patients/{{patient_id}}/edit" class="btn btn-primary" expand-tokens=true}}EDIT{{/link}}
+      {{#button "clonePatient" class="btn btn-primary"}}CLONE{{/button}}
+      {{#button "showDelete" class="btn btn-default"}}<i class="glyphicon glyphicon-minus-sign"></i>{{/button}}
+      {{#button "deletePatient" class="btn btn-danger delete-{{patient_id}}" style="display: none;" expand-tokens=true}}Delete{{/button}}
+    </div>
+  {{/collection}}
+</div>

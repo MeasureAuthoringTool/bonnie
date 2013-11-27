@@ -45,7 +45,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
       measure_id: @model.id
       populationTitle: popTitle ?= @population.get('sub_id')
       resultRow: combinedResults
-      patientStatusText: if patientStatus then 'success' else 'failed'
+      patientStatusText: if patientStatus then 'pass' else 'fail'
       patientStatus: patientStatus
       
   expectedPercentage: ->
@@ -55,7 +55,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
   status: -> 
     if @model.get('patients').isEmpty() then 'new' 
     else 
-      if @success is true then 'success' else 'failed'
+      if @success is true then 'pass' else 'fail'
 
   updatePopulation: (population) ->
     @populationIndex = _.indexOf(@model.get('populations'),population)
