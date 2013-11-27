@@ -44,6 +44,7 @@ namespace :bonnie do
         Measure.nin(id: demo_measure_ids).delete
         Record.nin(measure_ids: demo_measure_ids).delete
       end
+      Rake::Task['bonnie:patients:reset_expected_values'].invoke # FIXME: We shouldn't need to do this once we refactor expected values
       Rake::Task['bonnie:measures:pregenerate_js'].invoke
     end
   end
@@ -86,15 +87,17 @@ namespace :bonnie do
               patient.expected_values[mid] = measureHash[mid]
             else
               patient.expected_values[mid] = Hash.new
-              Measure.find(mid).populations.each_with_index do |populations, index|
-                # Initialize all population expected values to 0 (excluded from all populations)
-                patient.expected_values[mid][sub_ids[index]] = Hash.new
-                validPopulations = populations.keys & Measure.find(mid).population_criteria.keys
-                validPopulations.each do |population|
-                  patient.expected_values[mid][sub_ids[index]][population] = 0
+              if measure = Measure.where(id: mid).first
+                measure.populations.each_with_index do |populations, index|
+                  # Initialize all population expected values to 0 (excluded from all populations)
+                  patient.expected_values[mid][sub_ids[index]] = Hash.new
+                  validPopulations = populations.keys & Measure.find(mid).population_criteria.keys
+                  validPopulations.each do |population|
+                    patient.expected_values[mid][sub_ids[index]][population] = 0
+                  end
                 end
+                measureHash[mid] = patient.expected_values[mid]
               end
-              measureHash[mid] = patient.expected_values[mid]
             end
           end
           patient.save
