@@ -15,6 +15,8 @@ Demo Script (Target 12/22/2013)
 12. The user names the patient "Ischemic No Meds" and provides an expectation that the patient will be in the IPP and DENOM.
 13. The user can somehow get access to the measure logic to refer to while building the patient (NQF View)
 14. Based on the logic, the user adds the following to the patient:
+
+  Name: Ischemic, No Meds
   DOB: 10/10/1970 00:00
   Encounter, Performed: Inpatient Encounter
     start: 11/07/2012 06:00
@@ -24,26 +26,36 @@ Demo Script (Target 12/22/2013)
     start: 11/08/2012 00:00
     end: 11/08/2012 01:00
     ordinal: Attribute Principal Diagnosis
+
 14. The user saves the patient which takes them to the measure view where they can see the results of the calculation. (Assuming calculation on the patient builder is not yet supported)
 15. The user can see the results of the calculation highlighted on the NQF Logic, the fact that there's a 100% match with expectations, and what populations the patient ended up in.
 16. The user clones the "Ischemic No Meds" patient to create an "Ischemic With Meds" patient. This brings up the patient builder view with the fields pre-populated from the previous patient.
 17. The user changes the name to "Ischemic With Meds", changes the expectation to include the numerator, and adds
+
+  Name: Ischemic, With Meds
   Medication, Discharge: Antithrombotic Therapy
     start: 11/09/2012 05:00
     end: 11/09/2012 05:00
+
 18. The user saves the patient and is taken to the measure view and can now see two patients.
 19. The user clones the "Ischemic No Meds" patient to create a "Hemorrhagic No Meds" patient. This brings up the patient builder view with the fields pre-populated from the previous patient.
 20. The user changes the name to "Hemorrhagic No Meds", deletes the Diagnosis, Active: Ischemic Stroke, and adds
+
+  Name: Hemorrhagic, No Meds
   Diagnosis, Active: Hemorrhagic Stroke
     start: 11/08/2012 00:00
     end: 11/08/2012 01:00
     ordinal: Attribute Principal Diagnosis
+
 21. The user saves the patient and is taken to the measure view and can now see three patients; note that one is failing, we'll look at why once we've added all the patients.
 22. The user clones the "Hemorrhagic No Meds" patient to create an "Hemorrhagic With Meds" patient. This brings up the patient builder view with the fields pre-populated from the previous patient.
 23. The user changes the name to "Hemorrhagic With Meds", changes the expectation to include the numerator, and adds
+
+  Name: Hemorrhagic, No Meds
   Medication, Discharge: Antithrombotic Therapy
     start: 11/09/2012 05:00
     end: 11/09/2012 05:00
+
 24. The user saves the patient and is taken to the measure view and can now see four patients.
 25. The user sees that two of the patients are failing the test; note that the denominator of the measure is odd: it covers Ischemic stroke without covering Hemorrhagic stroke
 26. User selects the Update Measure button which brings up the upload dialog.
