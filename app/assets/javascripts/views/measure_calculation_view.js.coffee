@@ -13,6 +13,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     # only check against the first one since there is only one population
     @updateResultsHeader()
     @selectAll()
+    @sortResults()
 
   context: ->
     s = @status()
@@ -64,6 +65,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     # FIXME: Might want to preserve the selected patient instead of resetting it every time
     @selectNone()
     @selectAll()
+    @sortResults()
     @render()
 
   updateResultsHeader: ->
@@ -103,8 +105,35 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     @results.set() # FIXME: Instead of reset() so we get individual adds and removes
     @$('button.toggle-patient').removeClass('active')
 
+  sortResults: ->
+    p = @population
+    m = @model
+    sortedResults = _.groupBy(@results.pluck('patient_id'), (r) ->
+      patient = m.get('patients').get r
+      return p.isExactlyMatching(patient)
+      )
+    # console.log sortedResults
+    resultsCopy = @results.clone()
+    @results.reset()
+    if 'false' in _.keys(sortedResults)
+      for pid in sortedResults?.false
+          # pat = m.get('patients').get v
+          # console.log "for #{key} using #{pat.get('last')} #{pat.get('first')}"
+        @results.add resultsCopy.findWhere(patient_id: pid)
+    if 'true' in _.keys(sortedResults)
+      for pid in sortedResults?.true
+          # pat = m.get('patients').get v
+          # console.log "for #{key} using #{pat.get('last')} #{pat.get('first')}"
+        @results.add resultsCopy.findWhere(patient_id: pid)
+    # y =_.each x, (value, key, list) ->
+    #   list[key] = _.sortBy(value, (r) ->
+    #       patient = m.get('patients').get r
+    #       return "#{patient.get('last')} #{patient.get('first')}"
+    #     )
+    # console.log y
+
+
   updateCell: (result, patient, isInsert) ->
-    # FIXME: Use all when measure calculation is updated for multiple populations
     allPopulations = Thorax.Models.Measure.allPopulationCodes
     validPopulations = (criteria for criteria in allPopulations when @population.get(criteria)?)
     for criteria in allPopulations
