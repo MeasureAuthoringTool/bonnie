@@ -40,14 +40,14 @@ namespace :bonnie do
       Rake::Task['bonnie:patients:update_measure_ids'].invoke
       if ENV['DEMO'] == 'true'
         puts "Deleting non-demo measures and patients"
-        demo_measure_ids = Measure.in(measure_id: ['0105', '0069']).pluck('id') # Note: measure_id is nqf, id is hqmf!
-        Measure.nin(id: demo_measure_ids).delete
+        demo_measure_ids = Measure.in(measure_id: ['0105', '0069']).pluck('hqmf_set_id') # Note: measure_id is nqf, id is hqmf!
+        Measure.nin(hqmf_set_id: demo_measure_ids).delete
         Record.nin(measure_ids: demo_measure_ids).delete
       end
       Rake::Task['bonnie:patients:reset_expected_values'].invoke # FIXME: We shouldn't need to do this once we refactor expected values
       if ENV['DEMO'] == 'true'
         puts "Updating expected values for demo"
-        measure_id = Measure.where(measure_id: '0105').first.id
+        measure_id = Measure.where(measure_id: '0105').first.hqmf_set_id
         patient = Record.where(first: 'BH_Adult', last: 'C').first
         [['a', 'IPP'], ['a', 'DENOM'], ['b', 'IPP'], ['b', 'DENOM']].each do |sub, pop|
           patient.expected_values[measure_id][sub][pop] = 1
