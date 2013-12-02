@@ -1,13 +1,17 @@
-.true_eval {
-  background: #C0D890;
-}
-.false_eval {
-  background: #F06560;
-}
-.no_eval {
-  background: #FFFFFF;
-}
-.bad_specifics {
-  //background: #FFDD11;
-  background: #F06560;
+.rationale {
+  .true_eval, .false_eval, .bad_specifics {
+    font-weight: 500;
+    padding: 2px;
+  }
+  .true_eval {
+    background-color: @state-success-bg;
+    color: @state-success-text;
+  }
+  .false_eval, .bad_specifics {
+    background-color: @state-danger-bg;
+    color: @state-danger-text;
+  }
+  .no_eval {
+    background-color: @body-bg;
+  }
 }
