@@ -172,7 +172,7 @@ module Measures
           facility ||= Facility.new
           facility_map = {"FACILITY_LOCATION" => :code, "FACILITY_LOCATION_ARRIVAL_DATETIME" => :start_time, "FACILITY_LOCATION_DEPARTURE_DATETIME" => :end_time}
           
-          facility.name = field.title if type == "CD"
+          facility.name = field.title if field.type == "CD"
           facility_accessor = facility_map[name]
           facility.send("#{facility_accessor}=", field_value)
           
