@@ -8,6 +8,8 @@ gem 'hquery-patient-api', :git => 'https://github.com/pophealth/patientapi.git',
 #gem 'hquery-patient-api', :path => '../patientapi'
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 #gem 'health-data-standards', :path => '../health-data-standards'
+# needed for HDS
+gem 'rubyzip', '< 1.0.0'
 
 # bonnie_bundler depends on QME, but currently on an unreleased version, so it's not in the gemspec now, so must be here
 gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'mongoid_refactor'
@@ -16,30 +18,23 @@ gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-meas
 gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'develop'
 #gem 'bonnie_bundler', :path => '../bonnie_bundler'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'mongoid', '~> 3.1.0'
 
 gem 'devise'
 
-# needed for HDS
-gem 'rubyzip', '< 1.0.0'
-
 # needed for parsing value sets (we need to use roo rather than rubyxl because the value sets are in xls rather than xlsx)
 gem 'roo'
 
-group :development do
+group :test, :development, :ci do
   gem 'pry'
-  gem 'pry-debugger'
-end
-
-group :test, :development do
-
   gem 'jasmine'
   gem 'turn', :require => false
   gem 'simplecov', :require => false
   gem 'minitest', '~> 4.0'
+end
+
+group :test, :development do
+  gem 'pry-debugger'
   gem 'thin'
 end
 
@@ -59,18 +54,3 @@ gem 'foreman'
 
 gem 'handlebars_assets'
 gem 'jquery-rails'
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
