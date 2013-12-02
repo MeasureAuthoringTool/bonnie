@@ -39,7 +39,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       sync: (model) ->
         @patients.add model # make sure that the patient exist in the global patient collection
         @measure?.get('patients').add model # and the measure's patient collection
-        route = if @measure then "measures/#{@measure.id}" else "patients"
+        route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
         bonnie.navigate route, trigger: true
     serialize: (attr) ->
       attr.birthdate = moment(attr.birthdate, 'L LT').format('X') if attr.birthdate
