@@ -11,15 +11,15 @@ class BonnieRouter extends Backbone.Router
 
 
   routes:
-    '':                                       'renderMeasures'
-    'measures':                               'renderMeasures'
-    'measures/matrix':                        'renderMatrix'
+    '':                                                'renderMeasures'
+    'measures':                                        'renderMeasures'
+    'measures/matrix':                                 'renderMatrix'
     'measures/:hqmf_set_id':                           'renderMeasure'
-    'patients':                               'renderPatients'
-    'patients/:id':                           'renderPatient'
-    'measures/:measure_hqmf_id/patients/:id/edit': 'renderPatientBuilder'
-    'measures/:measure_id/patients/new':      'renderPatientBuilder'
-    'users':                                  'renderUsers'
+    'patients':                                        'renderPatients'
+    'patients/:id':                                    'renderPatient'
+    'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
+    'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
+    'users':                                           'renderUsers'
 
   renderMeasures: ->
     measuresView = new Thorax.Views.Measures(collection: @measures.sort())
