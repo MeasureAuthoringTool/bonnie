@@ -30,7 +30,7 @@
           (function() {
             var patient = new Thorax.Models.Patient(<%= patient.to_json(except: :results).html_safe %>, { parse: true });
             bonnie.measures.each(function(measure) { 
-              if(_(patient.get('measure_ids')).contains(measure.id)) {
+              if(_(patient.get('measure_ids')).contains(measure.get('hqmf_set_id'))) {
                 measure.get('patients').add(patient);
               }
             });

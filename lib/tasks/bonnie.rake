@@ -80,7 +80,7 @@ namespace :bonnie do
     task :update_measure_ids => :environment do
       puts "Updating patient measure_ids from NQF to HQMF"
       Record.each do |patient|
-        patient.measure_ids.map! { |id| Measure.or({ measure_id: id }, { hqmf_id: id }).first.try(:hqmf_id) }.compact!
+        patient.measure_ids.map! { |id| Measure.or({ measure_id: id }, { hqmf_id: id }, { hqmf_set_id: id }).first.try(:hqmf_set_id) }.compact!
         patient.save
         puts "Updated patient #{patient.first} #{patient.last}."
       end
@@ -101,11 +101,11 @@ namespace :bonnie do
               patient.expected_values[mid] = measureHash[mid]
             else
               patient.expected_values[mid] = Hash.new
-              if measure = Measure.where(id: mid).first
+              if measure = Measure.where(hqmf_set_id: mid).first
                 measure.populations.each_with_index do |populations, index|
                   # Initialize all population expected values to 0 (excluded from all populations)
                   patient.expected_values[mid][sub_ids[index]] = Hash.new
-                  validPopulations = populations.keys & Measure.find(mid).population_criteria.keys
+                  validPopulations = populations.keys & Measure.where(hqmf_set_id: mid).first.population_criteria.keys
                   validPopulations.each do |population|
                     patient.expected_values[mid][sub_ids[index]][population] = 0
                   end

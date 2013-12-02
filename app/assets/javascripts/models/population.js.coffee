@@ -11,7 +11,7 @@ class Thorax.Models.Population extends Thorax.Model
       for criteria in validPopulations
         if patient.has('expected_values') and result.has criteria
           # FIXME: The ? below is a temporary work around; we want to refactor the models for results and expectations
-          if patient.get('expected_values')[measure.get('id')]?[population.get('sub_id')][criteria] is result.get(criteria)
+          if patient.get('expected_values')[measure.get('hqmf_set_id')]?[population.get('sub_id')][criteria] is result.get(criteria)
             correct++
       # only count it as a match if all the expectations are met
       if correct is validPopulations.length then matches++
@@ -27,7 +27,7 @@ class Thorax.Models.Population extends Thorax.Model
     for criteria in validPopulations
       if patient.has('expected_values') and result.has criteria
         # FIXME: The ? below is a temporary work around; we want to refactor the models for results and expectations
-        if patient.get('expected_values')[measure.get('id')]?[population.get('sub_id')][criteria] is result.get(criteria)
+        if patient.get('expected_values')[measure.get('hqmf_set_id')]?[population.get('sub_id')][criteria] is result.get(criteria)
           correct++
     # only count it as a match if all the expectations are met
     return correct is validPopulations.length

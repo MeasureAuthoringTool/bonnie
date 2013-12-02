@@ -24,7 +24,7 @@ class Thorax.Models.Patient extends Thorax.Model
   getValidMeasureIds: (measures) ->
     validIds = {}
     @get('measure_ids').map (m) ->
-      validIds[m] = {key: m, value: _.contains(measures.pluck('id'), m)}
+      validIds[m] = {key: m, value: _.contains(measures.pluck('hqmf_set_id'), m)}
     validIds
   getEntrySections: ->
     s for s in Thorax.Models.Patient.sections when @has(s)
