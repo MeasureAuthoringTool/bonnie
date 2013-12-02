@@ -40,7 +40,7 @@ namespace :bonnie do
       Rake::Task['bonnie:patients:update_measure_ids'].invoke
       if ENV['DEMO'] == 'true'
         puts "Deleting non-demo measures and patients"
-        demo_measure_ids = Measure.in(measure_id: ['0105', '0069']).pluck('hqmf_set_id') # Note: measure_id is nqf, id is hqmf!
+        demo_measure_ids = Measure.in(measure_id: ['0105', '0069']).pluck('hqmf_set_id') # Note: measure_id is nqf, id is hqmf_set_id!
         Measure.nin(hqmf_set_id: demo_measure_ids).delete
         Record.nin(measure_ids: demo_measure_ids).delete
       end
