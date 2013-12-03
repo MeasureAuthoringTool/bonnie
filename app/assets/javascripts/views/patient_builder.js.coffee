@@ -61,7 +61,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     $(e.target).button('saving').prop('disabled', true)
     # Serialize the main view and the child collection views separately
     @serialize(children: false)
-    childView.serialize() for cid, childView of @editCriteriaCollectionView.children
+    childView.serialize(children: false) for cid, childView of @editCriteriaCollectionView.children
     @expectedValuesView.serialize(children: false)
     @model.save(source_data_criteria: @sourceDataCriteria, { wait: true })
 
@@ -110,7 +110,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
   serialize: ->
     childView.serialize() for cid, childView of @editValueCollectionView.children
     childView.serialize() for cid, childView of @editFieldValueCollectionView.children
-    super(children: false)
+    super
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
@@ -129,6 +129,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
     e.preventDefault()
     @$('.concise').toggle()
     @$('.details').toggle()
+
+  closeDetails: ->
+    @serialize(children: false)
+    @render()
 
   removeCriteria: (e) ->
     e.preventDefault()
