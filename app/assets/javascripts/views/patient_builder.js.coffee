@@ -198,6 +198,9 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
           pevHash[key] = 0
         evs[m.get('id')][p.get('sub_id')] = pevHash
 
+  hasMultipleTabs: ->
+    if @populations.length > 1 then true else false
+
   # When we serialize the form, we want to update the expected_values hash
   events:
     rendered: ->

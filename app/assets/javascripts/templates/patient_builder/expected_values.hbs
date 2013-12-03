@@ -1,17 +1,19 @@
-<div class="sub-measure-tabs">
-  <!-- Population titles or sub_ids -->
-  {{#collection populations tag="ul" class="nav nav-tabs"}}
-    <li{{#ifCond sub_id '==' 'a'}} class="active"{{/ifCond}}>
-      <a href="#expected-{{sub_id}}" data-toggle="tab">
-        {{#if title}}
-          {{title}}
-        {{else}}
-          {{sub_id}}
-        {{/if}}
-      </a>
-    </li>
-  {{/collection}}
-</div>
+{{#if hasMultipleTabs}}
+  <div class="sub-measure-tabs">
+    <!-- Population titles or sub_ids -->
+    {{#collection populations tag="ul" class="nav nav-tabs"}}
+      <li{{#ifCond sub_id '==' 'a'}} class="active"{{/ifCond}}>
+        <a href="#expected-{{sub_id}}" data-toggle="tab">
+          {{#if title}}
+            {{title}}
+          {{else}}
+            {{sub_id}}
+          {{/if}}
+        </a>
+      </li>
+    {{/collection}}
+  </div>
+{{/if}}
 
 <!-- Expected values per population sub_ids -->
 <h2 for="fname">EXPECTED VALUE</h2>

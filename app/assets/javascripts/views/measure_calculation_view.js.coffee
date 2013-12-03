@@ -59,14 +59,20 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
       if @success is true then 'pass' else 'fail'
 
   updatePopulation: (population) ->
+    selectedPatient = @$('.toggle-result').filter(':visible').attr('class')
     @populationIndex = _.indexOf(@model.get('populations'),population)
     @population = population
     @updateResultsHeader()
-    # FIXME: Might want to preserve the selected patient instead of resetting it every time
     @results.reset()
+    @trigger 'rationale:clear'
     @buildResults()
     @sortResults()
     @render()
+    resultClass = (selectedPatient?.split " ")?[2]
+    resultId = (resultClass?.split "-")?[2]
+    @$(".#{resultClass}").show()
+    result = @results.findWhere(patient_id: resultId)
+    if result? then @trigger 'rationale:show', result
 
   updateResultsHeader: ->
     @matching = @population.exactMatches()
