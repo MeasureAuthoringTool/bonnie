@@ -2,7 +2,7 @@ Demo Script (Target 12/22/2013)
 
 1. User logs into the application, and is presented with the measure dashboard. Two measures are loaded (use rake bonnie:db:reset DEMO=true).
 2. User selects the Upload measure button which brings up the upload dialog.
-3. User navigates to the file 05_DischargedonAntithromboticThe_Artifacts_BROKEN.zip the MAT export of NQF0435 Discharged on Antithrombotic Therapy
+3. User navigates to the file 05_DischargedonAntithromboticThe_Artifacts_DEMO.zip the MAT export of NQF0435 Discharged on Antithrombotic Therapy
     - This is a relatively simple EH measure with one population that is episode of care
 4. User selects EH and Episode of care on the upload dialog.
 5. User clicks the load button to dismiss the dialog, the measure loads, and the user is presented with the finalize dialog
@@ -28,10 +28,10 @@ Demo Script (Target 12/22/2013)
     end: 11/08/2012 01:00
     ordinal: Attribute Principal Diagnosis
 
-14. The user saves the patient which takes them to the measure view where they can see the results of the calculation. (Assuming calculation on the patient builder is not yet supported)
-15. The user can see the results of the calculation highlighted on the NQF Logic, the fact that there's a 100% match with expectations, and what populations the patient ended up in.
-16. The user clones the "Ischemic No Meds" patient to create an "Ischemic With Meds" patient. This brings up the patient builder view with the fields pre-populated from the previous patient.
-17. The user changes the name to "Ischemic With Meds", changes the expectation to include the numerator, and adds
+15. The user saves the patient which takes them to the measure view where they can see the results of the calculation. (Assuming calculation on the patient builder is not yet supported)
+16. The user can see the results of the calculation highlighted on the NQF Logic, the fact that there's a 100% match with expectations, and what populations the patient ended up in.
+17. The user clones the "Ischemic No Meds" patient to create an "Ischemic With Meds" patient. This brings up the patient builder view with the fields pre-populated from the previous patient.
+18. The user changes the name to "Ischemic With Meds", changes the expectation to include the numerator, and adds
 
   Name: Ischemic, With Meds
   Expected Values: IPP, DENOM, NUM
@@ -39,9 +39,9 @@ Demo Script (Target 12/22/2013)
     start: 11/09/2012 05:00
     end: 11/09/2012 05:00
 
-18. The user saves the patient and is taken to the measure view and can now see two patients.
-19. The user clones the "Ischemic No Meds" patient to create a "Hemorrhagic No Meds" patient. This brings up the patient builder view with the fields pre-populated from the previous patient.
-20. The user changes the name to "Hemorrhagic No Meds", changes the expected values to just IPP, deletes the Diagnosis, Active: Ischemic Stroke, and adds
+19. The user saves the patient and is taken to the measure view and can now see two patients.
+20. The user clones the "Ischemic No Meds" patient to create a "Hemorrhagic No Meds" patient. This brings up the patient builder view with the fields pre-populated from the previous patient.
+21. The user changes the name to "Hemorrhagic No Meds", changes the expected values to just IPP, deletes the Diagnosis, Active: Ischemic Stroke, and adds
 
   Name: Hemorrhagic, No Meds
   Expected Values: IPP
@@ -50,20 +50,10 @@ Demo Script (Target 12/22/2013)
     end: 11/08/2012 01:00
     ordinal: Attribute Principal Diagnosis
 
-21. The user saves the patient and is taken to the measure view and can now see three patients; note that one is failing, we'll look at why once we've added all the patients.
-22. The user clones the "Hemorrhagic No Meds" patient to create an "Hemorrhagic With Meds" patient. This brings up the patient builder view with the fields pre-populated from the previous patient.
-23. The user changes the name to "Hemorrhagic With Meds", and adds
-
-  Name: Hemorrhagic, No Meds
-  Expected Values: IPP
-  Medication, Discharge: Antithrombotic Therapy
-    start: 11/09/2012 05:00
-    end: 11/09/2012 05:00
-
-24. The user saves the patient and is taken to the measure view and can now see four patients, two failing.
-25. The user sees that two of the patients is failing the test; we know that Hemorrhagic stroke patients should not receive Antithrombotic Therapy, but our measure is still considering these patient to be part of the denominator and denominator and numerator, respectively; we need to update the measure.
-26. User selects the Update Measure button which brings up the upload dialog.
-27. User navigates to the file 05_DischargedonAntithromboticThe_Artifacts_FIXED.zip the MAT export of NQF0435 Discharged on Antithrombotic Therapy
-28. User clicks the load button to dismiss the dialog and the measure loads
-29. User is returned to the measure view with the NQF0435 re-loaded.
-30. User notes that all patients are now passing
+22. The user saves the patient and is taken to the measure view and can now see three patients, one failing.
+23. The user sees that one of the patients is failing the test; we know that Hemorrhagic stroke patients should not receive Antithrombotic Therapy, but our measure is still considering this patient to be part of the denominator; the measure logic doesn't correctly reflect the intent, and needs to be updated.
+24. User selects the Update Measure button which brings up the upload dialog.
+25. User navigates to the file 05_DischargedonAntithromboticThe_Artifacts.zip the MAT export of NQF0435 Discharged on Antithrombotic Therapy
+26. User clicks the load button to dismiss the dialog and the measure loads
+27. User is returned to the measure view with the NQF0435 re-loaded.
+28. User notes that all patients are now passing
