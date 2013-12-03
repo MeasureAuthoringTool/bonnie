@@ -2,7 +2,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
 
   setup do
     collection_fixtures "draft_measures"
-    @measure_ids = ["40280381-3D61-56A7-013E-5CD94A4D64FA"]
+    @measure_ids = ["E35791DF-5B25-41BB-B260-673337BC44A8"] # hqmf_set_id
     @data_criteria = Measures::PatientBuilder.get_data_criteria(@measure_ids)
     @valuesets = [{"oid" => "2.16.840.1.113883.3.526.3.1492", "concepts"=>[{"code_system_name" => "SNOMED", "code" =>"99201"},
                                                                             {"code_system_name" => "SNOMED", "code" =>"99202"},

@@ -52,7 +52,7 @@ module Measures
     # get all of the data criteria for the set of measures passed in
     def self.get_data_criteria(measure_list)
       Hash[
-        *Measure.where({'_id' => {'$in' => measure_list}}).map{|m|
+        *Measure.where({'hqmf_set_id' => {'$in' => measure_list}}).map{|m|
           m.source_data_criteria.reject{|k,v|
             ['patient_characteristic_birthdate','patient_characteristic_gender', 'patient_characteristic_expired'].include?(v['definition'])
           }.each{|k,v|
@@ -241,7 +241,7 @@ module Measures
     # Get a mapping of the valuesets for the selected measures
     def self.get_value_sets(measure_list)
       Hash[
-        *Measure.where({'_id' => {'$in' => measure_list}}).map{|m|
+        *Measure.where({'hqmf_set_id' => {'$in' => measure_list}}).map{|m|
           m.value_sets.map do |value_set|
             preferred_set = nil
             filtered = HealthDataStandards::SVS::ValueSet.new(value_set.attributes)
