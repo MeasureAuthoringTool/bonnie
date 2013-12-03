@@ -17,7 +17,7 @@
 #= require handlebars/handlebars
 #= require underscore/underscore-min
 #= require backbone/backbone-min
-#= require thorax/thorax.min
+#= require thorax/thorax
 #= require moment/min/moment.min.js
 #= require jQuery-Knob/js/jquery.knob
 #
