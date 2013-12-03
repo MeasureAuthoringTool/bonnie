@@ -139,10 +139,11 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     result = $(e.target).model()
     if @$(".toggle-result-#{result.get('patient_id')}").is(":visible")
       @$(".toggle-result-#{result.get('patient_id')}").hide()
+      @trigger 'rationale:clear'
     else
       @$('.toggle-result').hide()
       @$(".toggle-result-#{result.get('patient_id')}").show()
-    @trigger 'rationale:show', result
+      @trigger 'rationale:show', result
 
   # DEPRECATED
   patientClick: (e) ->
