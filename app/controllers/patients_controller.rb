@@ -50,8 +50,7 @@ class PatientsController < ApplicationController
   end
 
   def materialize
-    patient = Record.by_user(current_user).where({'_id' => params['record_id']}).first || Record.new
-    patient = update_patient(patient)
+    patient = update_patient(Record.new) # Always materialize a patient from scratch
     render :json => patient
   end
 

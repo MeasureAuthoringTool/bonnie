@@ -7,9 +7,11 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     populate: { context: true, children: false }
 
   initialize: ->
-    @sourceDataCriteria = @model.get('source_data_criteria').deepClone()
+    @originalModel = @model # When we're done editing we want to update the original model
+    @setModel @model.deepClone() # Working on a clone allows cancel to easily drop any changes we make
+    @model.get('source_data_criteria').on 'remove', => @materialize()
     @editCriteriaCollectionView = new Thorax.CollectionView
-      collection: @sourceDataCriteria
+      collection: @model.get('source_data_criteria')
       itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure)
     @expectedValuesView = new Thorax.Views.ExpectedValuesView
       model: @model
@@ -18,8 +20,12 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       values: _.extend({}, @model.get('expected_values'))
     @populationLogicView = new Thorax.Views.BuilderPopulationLogic
     @populationLogicView.setPopulation @measure.get('populations').first()
-    @expectedValuesView.on 'populationSelect', (population) =>
+    @populationLogicView.showRationale @model
+    @expectedValuesView.on 'population:select', (population) =>
       @populationLogicView.setPopulation population
+      @materialize()
+    @model.on 'materialize', =>
+      @populationLogicView.showRationale @model
 
   dataCriteriaCategories: ->
     categories = {}
@@ -35,6 +41,9 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       @$('.droppable').droppable accept: '.ui-draggable'
       # TODO move event handling up into events object, if possible
       @$('.droppable').on 'drop', _.bind(@drop, this)
+      # These cannot be handled as a thorax event because we want it to apply to new DOM elements too
+      @$el.on 'blur', 'input[type="text"]', => @materialize()
+      @$el.on 'change', 'select', => @materialize()
     model:
       sync: (model) ->
         @patients.add model # make sure that the patient exist in the global patient collection
@@ -52,18 +61,27 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       birthdate: moment(@model.get('birthdate'), 'X').format('L LT') if @model.get('birthdate')
       expired: @model.get('expired')?.toString() # Convert boolean to string
 
+  serializeWithChildren: ->
+    # Serialize the main view and the child collection views separately because otherwise Thorax wants
+    # to put attributes from the child views on the parent object
+    @serialize(children: false)
+    childView.serialize(children: false) for cid, childView of @editCriteriaCollectionView.children
+    @expectedValuesView.serialize(children: false)
+
   drop: (e, ui) ->
     measureDataCriteria = $(ui.draggable).model()
-    @sourceDataCriteria.add measureDataCriteria.toPatientDataCriteria()
+    @model.get('source_data_criteria').add measureDataCriteria.toPatientDataCriteria()
+    @materialize()
+
+  materialize: ->
+    @serializeWithChildren()
+    @model.materialize()
 
   save: (e) ->
     e.preventDefault()
     $(e.target).button('saving').prop('disabled', true)
-    # Serialize the main view and the child collection views separately
-    @serialize(children: false)
-    childView.serialize(children: false) for cid, childView of @editCriteriaCollectionView.children
-    @expectedValuesView.serialize(children: false)
-    @model.save(source_data_criteria: @sourceDataCriteria, { wait: true })
+    @serializeWithChildren()
+    @originalModel.save @model.toJSON() # FIXME: The sync event on the model, defined above, only fires because there's a Thorax bug!
 
   cancel: (e) ->
     # Go back to wherever the user came from, if possible
@@ -76,6 +94,8 @@ class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   setPopulation: (population) ->
     @setModel(population)
     @setView new Thorax.Views.PopulationLogic(model: population)
+  showRationale: (patient) ->
+    @getView().showRationale(@model.calculate(patient))
   context: ->
     _(super).extend title: @model.get('title') || @model.get('sub_id')
 
@@ -211,7 +231,7 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
       # FIXME: We'd like to do this via straight thorax events, doesn't seem to work...
       @$('a[data-toggle="tab"]').on 'shown.bs.tab', (e) =>
         population = $(e.target).model()
-        @trigger 'populationSelect', population
+        @trigger 'population:select', population
     serialize: (attr) ->
       # get all the checkboxes: $('.expected-value-tab > div > .expected-values > form > .checkbox > label > input')
       # get checkbox by id: $('.expected-value-tab > div > .expected-values > form > .checkbox > label > #DENEX')

@@ -132,7 +132,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
   clonePatient: (e) ->
     result = $(e.target).model()
     patient = @model.get('patients').get result.get('patient_id')
-    bonnie.navigateToPatientBuilder patient.deepClone(), @model
+    bonnie.navigateToPatientBuilder patient.deepClone(omit_id: true), @model
 
   expandResult: (e) ->
     @trigger 'rationale:clear'

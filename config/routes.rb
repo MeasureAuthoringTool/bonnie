@@ -17,10 +17,9 @@ Bonnie::Application.routes.draw do
     collection do 
       get 'create_test'
       post 'materialize'
-      post 'save'
     end
   end
-  resources :records
+
   resources :users do 
     collection do
       get 'index' 

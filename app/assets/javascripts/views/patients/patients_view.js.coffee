@@ -9,4 +9,4 @@ class Thorax.Views.Patients extends Thorax.View
     patient.destroy()
   clonePatient: (e) ->
     patient = $(e.target).model()
-    bonnie.navigateToPatientBuilder patient.deepClone()
+    bonnie.navigateToPatientBuilder patient.deepClone(omit_id: true)

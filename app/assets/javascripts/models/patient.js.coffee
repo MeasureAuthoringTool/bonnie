@@ -15,10 +15,13 @@ class Thorax.Models.Patient extends Thorax.Model
 
     attrs
 
-  deepClone: ->
+  # Create a deep clone of the patient, optionally omitting the id field
+  deepClone: (options = {}) ->
     # Clone by fully serializing and de-derializing; we need to stringify to have recursive JSONification happen
-    json = JSON.stringify _(@toJSON()).omit('_id')
+    data = if options.omit_id then _(@toJSON).omit('_id') else @toJSON() # Don't use @omit in case toJSON is overwritten
+    json = JSON.stringify data
     new @constructor JSON.parse(json), parse: true
+
   getBirthDate: -> new Date(@get('birthdate'))
   getPayerName: -> @get('insurance_providers')[0].name
   getValidMeasureIds: (measures) ->
@@ -66,6 +69,21 @@ class Thorax.Models.Patient extends Thorax.Model
   printDate: (date) ->
     fullDate = new Date(date * 1000)
     (fullDate.getMonth() + 1) + '/' + fullDate.getDay() + '/' + fullDate.getYear()
+
+  materialize: ->
+    $.ajax
+      url:         "#{@urlRoot}/materialize"
+      type:        'POST'
+      dataType:    'json'
+      contentType: 'application/json'
+      data:        JSON.stringify @toJSON()
+      processData: false
+    .done (data) =>
+      # We only want to overwrite certain fields; if the server doesn't provide them, we want them emptied
+      defaults = conditions: [], encounters: [], medications: [], procedures: []
+      @set _(data).chain().pick('conditions', 'encounters', 'medications', 'procedures').defaults(defaults).value(), silent: true
+      @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
+
 
 class Thorax.Collections.Patients extends Thorax.Collection
   model: Thorax.Models.Patient
