@@ -29,10 +29,10 @@ namespace :bonnie do
   end
 
   namespace :db do
-    desc 'Reset DB; by default pulls from bonnie-dev.mitre.org:bonnie-production; use HOST=<host> DB=<db> for another; DEMO=true prunes measures'
+    desc 'Reset DB; by default pulls from bonnie-dev.mitre.org:bonnie-production-gold; use HOST=<host> DB=<db> for another; DEMO=true prunes measures'
     task :reset => :environment do
       host = ENV['HOST'] || 'bonnie-dev.mitre.org'
-      source_db = ENV['DB'] || 'bonnie-production'
+      source_db = ENV['DB'] || 'bonnie-production-gold'
       dest_db = Mongoid.default_session.options[:database]
       puts "Resetting #{dest_db} from #{host}:#{source_db}"
       Mongoid.default_session.with(database: dest_db) { |db| db.drop }
