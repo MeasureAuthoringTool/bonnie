@@ -52,6 +52,7 @@ include Devise::TestHelpers
 
     assert_equal 0,Record.count
     patient = Record.new
+    patient.user = @user
     patient.save!
 
     @patient = {

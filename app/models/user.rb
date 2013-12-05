@@ -32,6 +32,7 @@ class User
   field :admin, type:Boolean, :default => false
 
   has_many :measures
+  has_many :records
 
   scope :by_email, ->(email) { where({email: email}) }
 

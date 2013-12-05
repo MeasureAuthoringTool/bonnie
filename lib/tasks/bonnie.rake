@@ -26,6 +26,35 @@ namespace :bonnie do
       user.revoke_admin()
       puts "#{ENV['EMAIL']} is no longer an administrator."
     end
+
+    desc 'Associate the currently loaded measures with the first User; use EMAIL=<user email> to select another user'
+    task :associate_user_with_measures => :environment do
+      user_email = ENV['EMAIL'] || User.first.email
+      user = User.where(email: user_email).first
+      puts "Associating measures with #{user.email}"
+      Measure.each do |measure|
+        if measure.user != user
+          measure.user = user
+          puts "\tAssociated [Measure] #{measure.title} with #{user.email}"
+          measure.save!
+        end
+      end
+    end
+
+    desc 'Associate the currently loaded patients with the first User; use EMAIL=<user email> to select another user'
+    task :associate_user_with_patients => :environment do
+      user_email = ENV['EMAIL'] || User.first.email
+      user = User.where(email: user_email).first
+      puts "Associating patients with #{user.email}"
+      Record.each do |patient|
+        if patient.user != user
+          patient.user = user
+          puts "\tAssociated [Patient] #{patient.last}, #{patient.first} with #{user.email}"
+          patient.save!
+        end
+      end
+    end
+
   end
 
   namespace :db do
@@ -59,6 +88,8 @@ namespace :bonnie do
         end
         patient.save!
       end
+      Rake::Task['bonnie:users:associate_user_with_measures'].invoke
+      Rake::Task['bonnie:users:associate_user_with_patients'].invoke
       Rake::Task['bonnie:measures:pregenerate_js'].invoke
     end
   end
@@ -68,7 +99,7 @@ namespace :bonnie do
     task :pregenerate_js => :environment do
       puts "Pre-generating measure JavaScript"
       Measure.each do |measure|
-        puts "Generating JavaScript for '#{measure.title}'"
+        puts "\tGenerating JavaScript for '#{measure.title}'"
         measure.pregenerate_js
       end
     end
@@ -82,19 +113,20 @@ namespace :bonnie do
       Record.each do |patient|
         patient.measure_ids.map! { |id| Measure.or({ measure_id: id }, { hqmf_id: id }, { hqmf_set_id: id }).first.try(:hqmf_set_id) }.compact!
         patient.save
-        puts "Updated patient #{patient.first} #{patient.last}."
+        puts "\tUpdated patient #{patient.first} #{patient.last}."
       end
     end
 
     desc 'Reset expected_values hash.'
     task :reset_expected_values => :environment do
+      puts "Resetting expected_values hash for all patients to 0 for patients with associated measures"
       sub_ids = ("a".."z").to_a
       measureHash = Hash.new
       Record.each do |patient|
         patient.expected_values = Hash.new
         if patient.measure_ids.blank?
           patient.save
-          puts "Warning! Patient #{patient.first} #{patient.last} (#{patient.medical_record_number}) has no associated measures!"
+          puts "\tWarning! Patient #{patient.first} #{patient.last} (#{patient.medical_record_number}) has no associated measures!"
         else
           patient.measure_ids.each do |mid|
             if measureHash.include? mid
@@ -115,7 +147,7 @@ namespace :bonnie do
             end
           end
           patient.save
-          puts "Reset expected_values for patient #{patient.first} #{patient.last}."
+          puts "\tReset expected_values for patient #{patient.first} #{patient.last}."
         end
       end
     end

@@ -37,7 +37,7 @@ class PatientsController < ApplicationController
   end
 
   def update
-    patient = Record.find(params[:id]) # FIXME: will we have an ID attribute on server side?
+    patient = Record.by_user(current_user).find(params[:id]) # FIXME: will we have an ID attribute on server side?
     update_patient(patient)
     patient.save!
     render :json => patient
@@ -50,7 +50,7 @@ class PatientsController < ApplicationController
   end
 
   def materialize
-    patient = Record.where({'_id' => params['record_id']}).first || Record.new
+    patient = Record.by_user(current_user).where({'_id' => params['record_id']}).first || Record.new
     patient = update_patient(patient)
     render :json => patient
   end
@@ -59,8 +59,8 @@ class PatientsController < ApplicationController
   end
 
   def destroy
-    patient = Record.find(params[:id]) # FIXME: will we have an ID attribute on server side?
-    Record.find(params[:id]).destroy
+    patient = Record.by_user(current_user).find(params[:id]) # FIXME: will we have an ID attribute on server side?
+    Record.by_user(current_user).find(params[:id]).destroy
     render :json => patient
   end
 
@@ -142,6 +142,7 @@ private
 
     patient.expected_values = params['expected_values']
 
+    patient.user = current_user
     Measures::PatientBuilder.rebuild_patient(patient)
     patient
   end

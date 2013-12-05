@@ -14,8 +14,8 @@ module Measures
       end
       patient.medical_record_number ||= Digest::MD5.hexdigest("#{patient.first} #{patient.last}")
 
-      value_sets = get_value_sets(patient['measure_ids'] || []).values
-      measure_data_criteria = get_data_criteria(patient['measure_ids'] || [])
+      value_sets = get_value_sets(patient['measure_ids'] || [], patient.user).values
+      measure_data_criteria = get_data_criteria(patient['measure_ids'] || [], patient.user)
       
       patient.source_data_criteria.each  do |v|
         next if v['id'] == 'MeasurePeriod'
@@ -50,9 +50,9 @@ module Measures
     end
 
     # get all of the data criteria for the set of measures passed in
-    def self.get_data_criteria(measure_list)
+    def self.get_data_criteria(measure_list, current_user)
       Hash[
-        *Measure.where({'hqmf_set_id' => {'$in' => measure_list}}).map{|m|
+        *Measure.by_user(current_user).where({'hqmf_set_id' => {'$in' => measure_list}}).map{|m|
           m.source_data_criteria.reject{|k,v|
             ['patient_characteristic_birthdate','patient_characteristic_gender', 'patient_characteristic_expired'].include?(v['definition'])
           }.each{|k,v|
@@ -239,9 +239,9 @@ module Measures
     end
 
     # Get a mapping of the valuesets for the selected measures
-    def self.get_value_sets(measure_list)
+    def self.get_value_sets(measure_list, current_user)
       Hash[
-        *Measure.where({'hqmf_set_id' => {'$in' => measure_list}}).map{|m|
+        *Measure.by_user(current_user).where({'hqmf_set_id' => {'$in' => measure_list}}).map{|m|
           m.value_sets.map do |value_set|
             preferred_set = nil
             filtered = HealthDataStandards::SVS::ValueSet.new(value_set.attributes)

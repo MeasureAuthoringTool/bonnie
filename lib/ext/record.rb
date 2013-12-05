@@ -4,4 +4,7 @@ class Record
   field :measure_ids, type: Array
   field :source_data_criteria, type: Array
   field :expected_values, type: Hash
+
+  belongs_to :user
+  scope :by_user, ->(user) { where({'user_id'=>user.id}) }
 end
