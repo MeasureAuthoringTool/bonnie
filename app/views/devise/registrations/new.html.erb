@@ -65,9 +65,20 @@
     <div class="col-md-6">
       <div class="row">
       <div class="col-xs-6"><a class="btn btn-default btn-block btn-lg" href="/">Cancel</a></div>
-      <div class="col-xs-6"><%= f.submit "Register", class: "btn btn-primary btn-block btn-lg" %></div>
+      <div class="col-xs-6"><%= f.submit "Register", class: "btn btn-primary btn-block btn-lg", disabled: true %></div>
       </div>
     </div>
   </div>
 
 <% end -%>
+
+<script>
+  $(function() {
+    $('#agree_license').on('change', function(e) {
+      var $checkbox = $(e.target),
+          $form = $checkbox.closest('form'),
+          $submit = $form.find(':submit');
+      $submit.prop('disabled', !$checkbox.is(':checked'));
+    });
+  });
+</script>
