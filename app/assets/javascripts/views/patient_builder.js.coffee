@@ -19,7 +19,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       measure: @measure
       edit: true
       values: _.extend({}, @model.get('expected_values'))
-    @populationLogicView = new Thorax.Views.BuilderPopulationLogic
+    @populationLogicView = new Thorax.Views.BuilderPopulationLogic(measure: @measure)
     @populationLogicView.setPopulation @measure.get('populations').first()
     @populationLogicView.showRationale @model
     @expectedValuesView.on 'population:select', (population) =>
@@ -98,7 +98,8 @@ class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   showRationale: (patient) ->
     @getView().showRationale(@model.calculate(patient))
   context: ->
-    _(super).extend title: @model.get('title') || @model.get('sub_id')
+    _(super).extend 
+      title: if @measure.get('populations').length > 1 then (@model.get('title') || @model.get('sub_id')) else ''
 
 
 class Thorax.Views.SelectCriteriaView extends Thorax.View
@@ -243,7 +244,7 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
       m = @measure
       @populations.each (p) ->
         pevHash = {}
-        for key in (pop for pop in Object.keys(pc) when p.has(pop))
+        for key in (pop for pop in _.keys(pc) when p.has(pop))
         # selections = @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > input")
           # console.log @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}")
           checkedValue = @$("#expected-#{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}").prop('checked')
@@ -262,7 +263,18 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
   initialize: ->
     c = @criteria
     p = @population
-    @currentCriteria = (pop for pop in Object.keys(c) when pop in Object.keys(p))
+    foundCriteria = (pop for pop in _.keys(c) when pop in _.keys(p))
+    # FIXME: Not sure if this is defined elsewhere, but it should probably be a constant...
+    criteriaMap =
+      IPP: 'INITIAL PATIENT POP.'
+      DENOM: 'DENOMINATOR'
+      NUMER: 'NUMERATOR'
+      DENEXCEP: 'EXCEPTION'
+      DENEX: 'EXCLUSION'
+      MSRPOPL: 'MSRPOPL'
+      OBSERV: 'OBSERV'
+    matchingCriteria = (criteria for criteria in Thorax.Models.Measure.allPopulationCodes when criteria in foundCriteria)
+    @currentCriteria = (criteriaMap[criteria] for criteria in matchingCriteria)
 
   events: ->
     'rendered': 'setValues'
