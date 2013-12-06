@@ -18,7 +18,7 @@ class Thorax.Models.Patient extends Thorax.Model
   # Create a deep clone of the patient, optionally omitting the id field
   deepClone: (options = {}) ->
     # Clone by fully serializing and de-derializing; we need to stringify to have recursive JSONification happen
-    data = if options.omit_id then _(@toJSON).omit('_id') else @toJSON() # Don't use @omit in case toJSON is overwritten
+    data = if options.omit_id then _(@toJSON()).omit('_id') else @toJSON() # Don't use @omit in case toJSON is overwritten
     json = JSON.stringify data
     new @constructor JSON.parse(json), parse: true
 
