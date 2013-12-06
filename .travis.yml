@@ -13,7 +13,3 @@ notifications:
     recipients:
       - healthcare-ci@googlegroups.com
     on_failure: change
-branches: 
-  only:
-    - master
-    - develop
