@@ -1,9 +1,8 @@
 <div class="expected-values">
-  <h2 for="fname">EXPECTED VALUE</h2>
   <form class="form-inline" role="form">
     {{#each currentCriteria}}
-      <div class="checkbox {{#if @index}}checkbox-divider{{/if}}">
-        <label class="checkbox-population">
+      <div class="checkbox">
+        <label>
           <input type="checkbox" id="{{this}}"> {{this}}
         </label>
       </div>
