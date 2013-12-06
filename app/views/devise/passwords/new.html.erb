@@ -1,21 +1,26 @@
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {:name=>"forgot_password_form"}) do |f| %>
-  <h1>That's okay. Everyone forgets.</h1>
-  <p>Just tell us the email address you used to create your Bonnie account, and we'll send you a link to reset your password!</p>
+<div class="navbar row" role="navigation">
+  <a class="navbar-brand" href="/">Bonnie</a>
+</div>
+<div class="login">
+  <h1>Everyone forgets.</h1>
+  <p>Just enter your email address, and we'll send you a link to reset your password.</p>
+  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {:name=>"forgot_password_form"}) do |f| %>
+    <div class="form-group input-group input-group-lg">
+      <span class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw"></i></span>
+      <%= f.email_field :email, class: "form-control", placeholder: "email@example.com" %>
+    </div>
 
-  <div class="fields">
-    <%= f.label "Your Email address" %>
-    <%= f.email_field :email %>
-  </div>
-  <div class="accountError">
-    <%= devise_error_messages! %>
-  </div>
-  <div class="actions">
-    <a class="btn" href="/"><span>Cancel</span></a>
-    <a class="btn btn-success" href="#" onclick="submitResetPasswordinform();" ><span>Continue</span></a>
-  </div>
+    <% if resource.errors.present? %>
+    <div class="alert alert-danger">
+      <%= devise_error_messages! %>
+    </div>
+    <% end %>
+    <!-- <a class="btn btn-primary form-control btn-lg">Login</a> -->
+    <%= f.submit "Send", class: "btn btn-login" %>
 
-  <div class="links">
     <%= render :partial => "devise/shared/links" %>
-  </div>
-<% end %>
+  <% end %>
+</div>
+
+
 
