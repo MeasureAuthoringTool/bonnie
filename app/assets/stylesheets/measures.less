@@ -1,8 +1,10 @@
 // Dashboard - Measures View
 
+// For entire page
 .measure-col {
   .col-xs-7;
   .btn-wrapper {
+    line-height: 1;
     border-left: 5px white solid;
     border-right: 5px white solid;
   }
@@ -21,19 +23,28 @@
   .col-xs-2;
 }
 
+// Just the heading
 .dashboard-heading {
   > * {
     .title-bar;
     height: 2.4em;
   }
+
   .patient-listing-col {
     text-align: center;
   }
 }
 
+// Just the list of measures & populations
 .dashboard-data {
+  .measure, .population {
+    min-height: 65px;
+    > * {
+      margin-top: 40px;
+    }
+  }
+
   .measure {
-    margin-top: @list-top-margin;
     .measure-col {
       font-weight: 800;
       .btn {
@@ -50,11 +61,11 @@
           padding-left: 5px;
         }
       }
+
     }
   }
 
   .population {
-    margin-top: @list-top-margin;
     .population-col {
       .make-sm-column-offset(1);
       .col-xs-6;
@@ -74,11 +85,15 @@
       font-weight: 700;
     }
     &.status-success {
-      .text-success
+      .text-success;
     }
     &.status-failed {
-      .text-danger
+      .text-danger;
     }
+  }
+
+  .expected-col {
+    margin-top: 28px;
   }
 
   .patient-listing-col {
@@ -92,25 +107,7 @@
       font-size: 11px;
     }
     .btn {
-      padding: 6px;
-    }
-  }
-
-  // This grouping can go away after the knob visualizations are in
-  .percent-listing {
-    height: 34px;
-    margin-top: -12px; // FIXME    
-    .circle-listing {
-      border-radius: @circle-listing-radius;
-      height: @circle-listing-radius * 2;
-      width: @circle-listing-radius * 2;
-      background-color: white;
-      border: 2px solid @gray-lighter;
-      margin: -12px auto;
-      padding-top: 14px;
-      text-align: center;
-      font-weight: 200;
-      font-size: 1em;
+      padding: 6px 6px 5px 6px;
     }
   }
 }
