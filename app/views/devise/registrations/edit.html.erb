@@ -1,54 +1,65 @@
+<div class="navbar row" role="navigation">
+  <a class="navbar-brand" href="/">Bonnie</a>
+</div>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put, :name=>"register_form"}) do |f| %>
+<h1>Account Information</h1>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put, :name=>"register_form", class: "registration"}) do |f| %>
 
-  <div class="accountError">
+  <% if resource.errors.present? %>
+  <div class="alert alert-danger">
     <%= devise_error_messages! %>
   </div>
+  <% end %>
 
-  <ul class="register">
-    <li>
-      <%= f.label :first_name %>
-      <%= f.email_field :first_name %>
-    </li>
-    <li>	
-      <%= f.label :last_name %>
-      <%= f.email_field :last_name %>
-    </li>
-    <li>
-      <%= f.label :email %>
-      <%= f.email_field :email %>
-    </li>
-
-    <li>
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-      <p>Must be at least 8 characters long. (leave blank if you don't want to change it)</p>
-    </li>
-
-    <li>
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation %>
-    </li>
-    <li>
-      <%= f.label :current_password %>
-      <%= f.password_field :current_password %>
-      <p>(we need your current password to confirm your changes)</p>
-    </li>
-  </ul>
-
-  <div class="actions">
-    <a class="btn" href="/"><span>Cancel</span></a>
-    <%=
-    content_tag(:a,  {:href=>"#", :class=>"btn btn-success", :onclick=>"submitRegisterform()"} ) do
-      content_tag(:span,"Update")
-    end %>
+  <div class="form-group row">
+    <div class="input-group input-group-lg col-md-6 required">
+      <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
+      <%= f.text_field :first_name, class: "form-control", placeholder: "first name*" %>
+    </div>
+    <div class="input-group input-group-lg col-md-6 required">
+      <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
+      <%= f.text_field :last_name, class: "form-control", placeholder: "last name*" %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="input-group input-group-lg col-md-6">
+      <span class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw"></i></span>
+      <%= f.email_field :email, class: "form-control", placeholder: "email@example.com" %>
+    </div>
+    <div class="input-group input-group-lg col-md-6">
+      <span class="input-group-addon"><i class="fa fa-mobile fa-lg fa-fw"></i></span>
+      <%= f.text_field :telephone, class: "form-control", placeholder: "(000) 000-0000" %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-6">
+      <div class="input-group input-group-lg required">
+        <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></span>
+        <%= f.password_field :password, class: "form-control", placeholder: "password*" %>
+      </div>
+      Must be at least 8 characters long. (leave blank if you don't want to change it)
+    </div>
+    <div class="input-group input-group-lg col-md-6 required">
+      <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></span>
+      <%= f.password_field :password_confirmation, class: "form-control", placeholder: "confirm password*" %>
+    </div>
   </div>
 
-        <!-- <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p> -->
+  <div class="form-group row" style="margin-top: 30px">
+    <div class="col-md-6">
+      <div class="input-group input-group-lg required">
+        <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></span>
+        <%= f.password_field :current_password, class: "form-control", placeholder: "current password*" %>
+      </div>
+      Your current password is needed to confirm your changes.
+    </div>
 
-  <div class="links info">
-    Bonnie <%= Bonnie::Version.current %><br>
+    <div class="col-md-6">
+      <div class="row">
+      <div class="col-xs-6"><a class="btn btn-default btn-block btn-lg" href="/">Cancel</a></div>
+      <div class="col-xs-6"><%= f.submit "Save", class: "btn btn-primary btn-block btn-lg" %></div>
+      </div>
+    </div>
   </div>
-
 
 <% end -%>

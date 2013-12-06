@@ -1,4 +1,5 @@
 class Thorax.Views.PatientBuilder extends Thorax.View
+  className: 'patient-builder'
 
   template: JST['patient_builder/patient_builder']
 
@@ -202,9 +203,9 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.View
 
 
 class Thorax.Views.ExpectedValuesView extends Thorax.View
-  
+
   template: JST['patient_builder/expected_values']
-  
+
   # FIXME: Needs re-writing for elegance
   initialize: ->
     @populations = @measure.get('populations')
@@ -251,7 +252,7 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
       attr.expected_values = _.extend({}, parsedValues)
 
 class Thorax.Views.ExpectedValueView extends Thorax.View
-  
+
   template: JST['patient_builder/expected_value']
   # currently supported ev values are 0/1 for unchecked/checked
   evStatus:
