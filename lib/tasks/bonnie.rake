@@ -107,6 +107,26 @@ namespace :bonnie do
 
   namespace :patients do
 
+    desc "Updated source_data_criteria to include title and description from measure(s)"
+    task :update_source_data_criteria=> :environment do
+
+      Record.where({}).each do |patient|
+        measures = Measure.where({measure_id: {"$in" => patient.measure_ids}})
+        patient.source_data_criteria.each do |patient_data_criteria|
+          measures.each do |measure|
+            measure_data_criteria = measure.source_data_criteria[patient_data_criteria['id']]
+            if  measure_data_criteria && measure_data_criteria.code_list_id == patient_data_criteria.oid
+              patient_data_criteria['title'] = measure_data_criteria['title']
+              patient_data_criteria['description'] = measure_data_criteria['description']
+            end
+          end
+        end
+        patient.save
+      end
+
+    end
+
+
     desc 'Update measure ids from NQF to HQMF.'
     task :update_measure_ids => :environment do
       puts "Updating patient measure_ids from NQF to HQMF"
