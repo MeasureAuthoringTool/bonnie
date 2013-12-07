@@ -108,10 +108,10 @@ namespace :bonnie do
   namespace :patients do
 
     desc "Updated source_data_criteria to include title and description from measure(s)"
-    task :update_source_data_criteria=> :environment do
+    task :update_source_data_criteria=> [:environment,"bonnie:db:reset"] do
 
-      Record.where({}).each do |patient|
-        measures = Measure.where({measure_id: {"$in" => patient.measure_ids}})
+      Record.each do |patient|
+        measures = Measure.where(hqmf_set_id:  patient.measure_ids)
         patient.source_data_criteria.each do |patient_data_criteria|
           measures.each do |measure|
             measure_data_criteria = measure.source_data_criteria[patient_data_criteria['id']]
