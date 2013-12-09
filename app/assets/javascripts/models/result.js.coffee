@@ -54,6 +54,10 @@ class Thorax.Models.Result extends Thorax.Model
       else
         if child.specific_occurrence
           occurrences.push child.key
+      if (child.temporal_references?.length > 0)
+        for temporal_reference in child.temporal_references
+          dataCriteria = @measure.get('data_criteria')[temporal_reference.reference]
+          occurrences = occurrences.concat @getOccurrences(dataCriteria)
     return occurrences
 
   # get good and bad specific occurrences referenced in this part of the measure
@@ -75,29 +79,53 @@ class Thorax.Models.Result extends Thorax.Model
 
   # from each leaf walk up the tree updating the logical statements appropriately to false
   updateLogicTree: (updatedRationale, rationale, code, badOccurrence, orCounts, parentMap) ->
-    parent = parentMap[badOccurrence]
-    while parent
-      parentKey = if parent.id? then "precondition_#{parent.id}" else parent.type
+    parents = parentMap[badOccurrence]
+    @updateLogicTreeChildren(updatedRationale, rationale, code, parents, orCounts, parentMap)
+
+  updateLogicTreeChildren: (updatedRationale, rationale, code, parents, orCounts, parentMap) ->
+    return unless parents
+    for parent in parents
+      parentKey = if parent.id? then "precondition_#{parent.id}" else parent.key || parent.type
+
       negated = parent.negation
-      parent = null
       if updatedRationale[code][parentKey] != false && !negated
         # if this is an OR then remove a true increment since it's a bad true
         orCounts[parentKey]-- if orCounts[parentKey]?
         # if we're either an AND or we're an OR and the count is zero then switch to false and move up the tree
-        if ((!orCounts[parentKey]? || orCounts[parentKey] == 0) && rationale[parentKey])
-          updatedRationale[code][parentKey] = false
-          parent = parentMap[parentKey]
+        if ((!orCounts[parentKey]? || orCounts[parentKey] == 0) && (!!rationale[parentKey] == true || rationale[parentKey] == undefined))
+          updatedRationale[code][parentKey] = false if rationale[parentKey]?
+          @updateLogicTreeChildren(updatedRationale, rationale, code, parentMap[parentKey], orCounts, parentMap)
 
   buildParentMap: (root) ->
+    dataCriteriaMap = @measure.get('data_criteria')
     parentMap = {}
     return parentMap unless root
     if root.preconditions?.length > 0
       for precondition in root.preconditions
-        parentMap["precondition_#{precondition.id}"] = root
-        _.extend(parentMap, @buildParentMap(precondition))
+        parentMap["precondition_#{precondition.id}"] = (parentMap["precondition_#{precondition.id}"] || []).concat root
+        @mergeParentMaps(parentMap, @buildParentMap(precondition))
+    else if root.reference?
+      parentMap[root.reference] = (parentMap[root.reference] || []).concat root
+      @mergeParentMaps(parentMap, @buildParentMap(dataCriteriaMap[root.reference]))
     else
-      parentMap[root.reference] = root
+      if root.temporal_references?
+        for temporal_reference in root.temporal_references
+          if temporal_reference.reference != 'MeasurePeriod'
+            parentMap[temporal_reference.reference] = (parentMap[temporal_reference.reference] || []).concat root
+            @mergeParentMaps(parentMap, @buildParentMap(dataCriteriaMap[temporal_reference.reference]))
+      if root.children_criteria
+        for child in root.children_criteria
+          parentMap[child] = (parentMap[child] || []).concat root
+          @mergeParentMaps(parentMap, @buildParentMap(dataCriteriaMap[child]))
+        debugger
     parentMap
+  mergeParentMaps: (left, right) ->
+    for key,value of right
+      if (left[key])
+        left[key] = left[key].concat right[key]
+      else
+        left[key] = right[key]
+    left
 
   # Or counts are used to know when to turn an OR from green to red.  Once we negate all the true ors, we can switch to red
   calculateOrCounts: (rationale) ->
