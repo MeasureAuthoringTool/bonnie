@@ -14,26 +14,27 @@
       </a>
     </div>
   </div>
-  <h3>Select Patients</h3>
   <br>
   {{#collection results tag="div" class="panel panel-default" item-context=resultContext}}
     <div class="panel-heading">
       <div class="panel-title">
         <div class="patient row">
-          <div class="col-sm-1 {{patientStatusText}}">
+          <div class="patient-status-icon-col status status-{{patientStatusText}}">
             {{#if patientStatus}}
-              <i class="glyphicon glyphicon-ok"></i>
+              <i class="fa fa-check"></i>
             {{else}}
-              <i class="glyphicon glyphicon-remove"></i>
+              <i class="fa fa-times"></i>
             {{/if}}
           </div>
-          <div class="col-sm-3">
-            {{#button "expandResult" class="btn btn-primary"}}<i class="glyphicon glyphicon-user"></i>{{/button}}
+          <div class="patient-btn-col">
+            {{#button "expandResult" class="btn btn-primary"}}
+              <i class="fa fa-user"></i>
+            {{/button}}
           </div>
-          <div class="col-sm-4 name">
+          <div class="patient-name-col">
             {{last}} {{first}}
           </div>
-          <div class="col-sm-3 patient-status {{patientStatusText}}">
+          <div class="patient-status-col status status-{{patientStatusText}}">
             {{patientStatusText}}
           </div>
         </div>
@@ -68,9 +69,9 @@
             </td>
             <td style="text-align: center;">
               {{#if result}}
-                <i class="glyphicon glyphicon-ok"></i>
+                <i class="fa fa-ok"></i>
               {{else}}
-                <i class="glyphicon glyphicon-minus"></i>
+                <i class="fa fa-minus"></i>
               {{/if}}
             </td>
           </tr>
@@ -78,7 +79,7 @@
       </table>
       {{#link "measures/{{measure_id}}/patients/{{patient_id}}/edit" class="btn btn-primary" expand-tokens=true}}EDIT{{/link}}
       {{#button "clonePatient" class="btn btn-primary"}}CLONE{{/button}}
-      {{#button "showDelete" class="btn btn-default"}}<i class="glyphicon glyphicon-minus-sign"></i>{{/button}}
+      {{#button "showDelete" class="btn btn-danger-inverse"}}<i class="fa fa-minus-circle"></i>{{/button}}
       {{#button "deletePatient" class="btn btn-danger delete-{{patient_id}}" style="display: none;" expand-tokens=true}}Delete{{/button}}
     </div>
   {{/collection}}

@@ -28,18 +28,25 @@
   }
 
   .patient {
-    .name {
+    .patient-status-icon-col {
+      .make-sm-column(1);
+      font-size: 1.2em;
+    }
+    .patient-btn-col {
+      .make-sm-column(3);
+    }
+    .patient-name-col {
+      .make-sm-column(4);
       font-size: 14px;
     }
-    .patient-status {
-      text-transform: uppercase;
+    .patient-status-col {
+      .make-sm-column(3);
+      font-size: 1.2em;
     }
-    .pass {
-      .text-success;
-    }
-    .fail {
-      .text-danger;
+    .btn-danger-inverse {
+      color: @btn-danger-bg;
+      background-color: @btn-danger-color;
+      border-color: @btn-danger-border;
     }
   }
-
 }

@@ -115,12 +115,12 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     deleteIcon = @$(e.target)
     # if we clicked on the icon, grab the icon button instead
     if deleteIcon[0].tagName is 'I' then deleteIcon = @$(deleteIcon[0].parentElement)
-    if deleteIcon.hasClass('btn-default')
-      deleteIcon.removeClass('btn-default')
+    if deleteIcon.hasClass('btn-danger-inverse')
+      deleteIcon.removeClass('btn-danger-inverse')
       deleteIcon.addClass('btn-danger')
     else
       deleteIcon.removeClass('btn-danger')
-      deleteIcon.addClass('btn-default')
+      deleteIcon.addClass('btn-danger-inverse')
     deleteButton.toggle()
 
   deletePatient: (e) ->
