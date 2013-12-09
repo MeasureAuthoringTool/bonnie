@@ -19,7 +19,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       measure: @measure
       edit: true
       values: _.extend({}, @model.get('expected_values'))
-    @populationLogicView = new Thorax.Views.BuilderPopulationLogic(measure: @measure)
+    @populationLogicView = new Thorax.Views.BuilderPopulationLogic
     @populationLogicView.setPopulation @measure.get('populations').first()
     @populationLogicView.showRationale @model
     @expectedValuesView.on 'population:select', (population) =>
@@ -99,7 +99,7 @@ class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
     @getView().showRationale(@model.calculate(patient))
   context: ->
     _(super).extend 
-      title: if @measure.get('populations').length > 1 then (@model.get('title') || @model.get('sub_id')) else ''
+      title: if @model.collection.parent.get('populations').length > 1 then (@model.get('title') || @model.get('sub_id')) else ''
 
 
 class Thorax.Views.SelectCriteriaView extends Thorax.View
@@ -272,13 +272,12 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
       DENEX: 'EXCLUSION'
       MSRPOPL: 'MSRPOPL'
       OBSERV: 'OBSERVATION'
-    @currentCriteria = {}
-    cIndex = 0;
+    @currentCriteria = []
     for mc in matchingCriteria
-      @currentCriteria[mc] = {}
-      @currentCriteria[mc].key = mc
-      @currentCriteria[mc].displayName = criteriaMap[mc]
-      @currentCriteria[mc].index = cIndex++;
+      criteriaHash = {}
+      criteriaHash.key = mc
+      criteriaHash.displayName = criteriaMap[mc]
+      @currentCriteria.push criteriaHash
 
   events: ->
     'rendered': 'setValues'
