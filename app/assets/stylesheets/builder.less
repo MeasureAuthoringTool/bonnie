@@ -130,7 +130,11 @@
       .clearfix;
     }
     .sub-measure-tabs {
+      padding-top: 15px;
       padding-left: 15px;
+      .make-sm-column(12);
+      .make-md-column(12);
+      .make-lg-column(12);
 
         .active a {
           background-color: @gray-lighter;
@@ -234,7 +238,23 @@
   .expected-value {
     background-color: @gray-lighter;
     margin-left: 0;
-    padding-left: 15px;
+    padding-left: 5px;
+    .make-sm-column(12);
+    .make-md-column(12);
+    .make-lg-column(12);
+  }
+
+  .checkbox, .checkbox-divider {
+    padding-left: 2px;
+    padding-right: 2px;
+    .checkbox-population {
+      font-size: 9px;
+      font-weight: bold;
+    }
+  }
+
+  .checkbox-divider {
+    border-left: 2px solid @gray-darker;
   }
 
   .time-line {
