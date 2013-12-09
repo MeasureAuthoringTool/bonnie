@@ -54,4 +54,4 @@ class Thorax.Views.Measures extends Thorax.View
   events:
     rendered: ->
       @$('.dial').knob()
-    
+      if @collection.length is 0 then @importMeasure()
