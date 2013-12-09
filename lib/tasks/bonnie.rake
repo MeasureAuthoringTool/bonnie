@@ -91,6 +91,7 @@ namespace :bonnie do
       Rake::Task['bonnie:users:associate_user_with_measures'].invoke
       Rake::Task['bonnie:users:associate_user_with_patients'].invoke
       Rake::Task['bonnie:measures:pregenerate_js'].invoke
+      Rake::Task["bonnie:patients:update_source_data_criteria"].invoke
     end
   end
 
@@ -106,6 +107,27 @@ namespace :bonnie do
   end
 
   namespace :patients do
+
+    desc "Updated source_data_criteria to include title and description from measure(s)"
+    task :update_source_data_criteria=> :environment do
+
+      Record.each do |patient|
+        measures = Measure.in(hqmf_set_id:  patient.measure_ids).to_a
+        puts "Updating source data criteria for record #{patient.first} #{patient.last}"
+        patient.source_data_criteria.each do |patient_data_criteria|
+          measures.each do |measure|
+            measure_data_criteria = measure.source_data_criteria[patient_data_criteria['id']]
+            if  measure_data_criteria && measure_data_criteria['code_list_id'] == patient_data_criteria['oid']
+              patient_data_criteria['title'] = measure_data_criteria['title']
+              patient_data_criteria['description'] = measure_data_criteria['description']
+            end
+          end
+        end
+        patient.save
+      end
+
+    end
+
 
     desc 'Update measure ids from NQF to HQMF.'
     task :update_measure_ids => :environment do
