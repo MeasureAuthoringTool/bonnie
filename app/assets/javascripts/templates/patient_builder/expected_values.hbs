@@ -1,5 +1,5 @@
-{{#if hasMultipleTabs}}
-  <div class="sub-measure-tabs">
+<div class="sub-measure-tabs">
+  {{#if hasMultipleTabs}}
     <!-- Population titles or sub_ids -->
     {{#collection populations tag="ul" class="nav nav-tabs"}}
       <li{{#ifCond sub_id '==' 'a'}} class="active"{{/ifCond}}>
@@ -12,11 +12,10 @@
         </a>
       </li>
     {{/collection}}
-  </div>
-{{/if}}
+  {{/if}}
+</div>
 
 <!-- Expected values per population sub_ids -->
-<h2 for="fname">EXPECTED VALUE</h2>
 {{#collection populations tag="div" class="tab-content expected-value"}}
   <div class="tab-pane{{#ifCond sub_id '==' 'a'}} active{{/ifCond}}" id="expected-{{sub_id}}">
     {{view "ExpectedValueView" population=this model=../model editFlag=../edit criteria=../popCriteria modelValues=../values measure=../measure}}

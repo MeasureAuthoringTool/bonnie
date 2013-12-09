@@ -24,7 +24,7 @@ class Thorax.Views.Measure extends Thorax.View
 
   updateMeasure: (e) ->
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)
-    importMeasureView.appendTo('#updateContainer')
+    importMeasureView.appendTo(@$el)
     importMeasureView.display()
   deleteMeasure: (e) ->
     @model = $(e.target).model()

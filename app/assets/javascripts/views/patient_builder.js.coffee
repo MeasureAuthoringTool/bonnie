@@ -98,7 +98,8 @@ class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   showRationale: (patient) ->
     @getView().showRationale(@model.calculate(patient))
   context: ->
-    _(super).extend title: @model.get('title') || @model.get('sub_id')
+    _(super).extend 
+      title: if @model.collection.parent.get('populations').length > 1 then (@model.get('title') || @model.get('sub_id')) else ''
 
 
 class Thorax.Views.SelectCriteriaView extends Thorax.View
@@ -219,7 +220,7 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
       pc = @popCriteria
       @populations.each (p) ->
         pevHash = {}
-        for key in (pop for pop in Object.keys(pc) when p.has(pop))
+        for key in (pop for pop in _.keys(pc) when p.has(pop))
           pevHash[key] = 0
         evs[m.get('hqmf_set_id')][p.get('sub_id')] = pevHash
 
@@ -243,7 +244,7 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
       m = @measure
       @populations.each (p) ->
         pevHash = {}
-        for key in (pop for pop in Object.keys(pc) when p.has(pop))
+        for key in (pop for pop in _.keys(pc) when p.has(pop))
         # selections = @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > input")
           # console.log @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}")
           checkedValue = @$("#expected-#{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}").prop('checked')
@@ -262,14 +263,29 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
   initialize: ->
     c = @criteria
     p = @population
-    @currentCriteria = (pop for pop in Object.keys(c) when pop in Object.keys(p))
+    matchingCriteria = (criteria for criteria in Thorax.Models.Measure.allPopulationCodes when criteria in _.keys(p))
+    criteriaMap =
+      IPP: 'INITIAL PATIENT POP.'
+      DENOM: 'DENOMINATOR'
+      NUMER: 'NUMERATOR'
+      DENEXCEP: 'EXCEPTION'
+      DENEX: 'EXCLUSION'
+      MSRPOPL: 'MSRPOPL'
+      OBSERV: 'OBSERVATION'
+    @currentCriteria = []
+    for mc in matchingCriteria
+      criteriaHash = {}
+      criteriaHash.key = mc
+      criteriaHash.displayName = criteriaMap[mc]
+      @currentCriteria.push criteriaHash
 
   events: ->
     'rendered': 'setValues'
 
   setValues: ->
-    for c in @currentCriteria
-      if @modelValues[@measure.get('hqmf_set_id')]?[@population.sub_id][c] is 1
-        @$('#' + c).prop('checked', true)
+    for c in _.keys(@currentCriteria)
+      criteria = @currentCriteria[c].key
+      if @modelValues[@measure.get('hqmf_set_id')]?[@population.sub_id][criteria] is 1
+        @$('#' + criteria).prop('checked', true)
       if @editFlag is false
-        @$('#' + c).prop('disabled', true)
+        @$('#' + criteria).prop('disabled', true)

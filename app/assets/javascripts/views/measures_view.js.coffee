@@ -32,7 +32,7 @@ class MeasureRowView extends Thorax.View
         if @success is true then 'success' else 'failed'
   updateMeasure: (e) ->
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)
-    importMeasureView.appendTo('#importUpdateContainer')
+    importMeasureView.appendTo(@$el)
     importMeasureView.display()
   expectedPercentage: ->
     if @hasFraction
@@ -49,7 +49,7 @@ class Thorax.Views.Measures extends Thorax.View
     @finalizeMeasuresView = new Thorax.Views.FinalizeMeasures measures: new Thorax.Collections.Measures(toFinalize)
   importMeasure: (event) ->
     importMeasureView = new Thorax.Views.ImportMeasure()
-    importMeasureView.appendTo('#importUpdateContainer')
+    importMeasureView.appendTo(@$el)
     importMeasureView.display()
   events:
     rendered: ->
