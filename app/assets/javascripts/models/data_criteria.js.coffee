@@ -34,12 +34,20 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   faIcon: ->
     # FIXME: Do this semantically in stylesheet
     icons =
-      intervention:    'fa-scissors'
-      diagnosis:       'fa-stethoscope'
-      medication:      'fa-medkit'
-      laboratory_test: 'fa-flask'
-      encounter:       'fa-user-md'
-    icons[@get('definition')] || 'fa-question'
+      characteristic:            'fa-user'
+      communications:            'fa-files-o'
+      conditions:                'fa-stethoscope'
+      devices:                   'fa-medkit'
+      diagnostic_studies:        'fa-stethoscope'
+      encounters:                'fa-user-md'
+      functional_statuses:       'fa-stethoscope'
+      interventions:             'fa-scissors'
+      laboratory_tests:          'fa-flask'
+      medications:               'fa-medkit'
+      physical_exams:            'fa-user-md'
+      procedures:                'fa-scissors'
+      risk_category_assessments: 'fa-user'
+    icons[@get('type')] || 'fa-question'
 
 
 class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
