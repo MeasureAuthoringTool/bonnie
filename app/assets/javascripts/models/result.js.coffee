@@ -15,7 +15,7 @@ class Thorax.Models.Result extends Thorax.Model
         occurrences = @getOccurrences(@measure.get('population_criteria')[code]) # FIXME can we get these from the population instead
         # get the good and bad specifics
         occurrenceResults = @checkSpecificsForRationale(specifics, occurrences, @measure.get('data_criteria'))
-        parentMap = @buildParentMap(@measure.get('population_criteria')[code], @measure.get('data_criteria'))
+        parentMap = @buildParentMap(@measure.get('population_criteria')[code])
 
         # check each bad occurrence and remove highlights marking true
         for badOccurrence in occurrenceResults.bad
@@ -85,13 +85,7 @@ class Thorax.Models.Result extends Thorax.Model
   updateLogicTreeChildren: (updatedRationale, rationale, code, parents, orCounts, parentMap) ->
     return unless parents
     for parent in parents
-      if parent.id? 
-        parentKey = "precondition_#{parent.id}"
-      else
-        if parent.key?
-          parentKey = parent.key
-        else
-          parentKey = parent.type
+      parentKey = if parent.id? then "precondition_#{parent.id}" else parent.key || parent.type
 
       negated = parent.negation
       if updatedRationale[code][parentKey] != false && !negated
@@ -102,26 +96,27 @@ class Thorax.Models.Result extends Thorax.Model
           updatedRationale[code][parentKey] = false if rationale[parentKey]?
           @updateLogicTreeChildren(updatedRationale, rationale, code, parentMap[parentKey], orCounts, parentMap)
 
-  buildParentMap: (root, dataCriteriaMap) ->
+  buildParentMap: (root) ->
+    dataCriteriaMap = @measure.get('data_criteria')
     parentMap = {}
     return parentMap unless root
     if root.preconditions?.length > 0
       for precondition in root.preconditions
         parentMap["precondition_#{precondition.id}"] = (parentMap["precondition_#{precondition.id}"] || []).concat root
-        @mergeParentMaps(parentMap, @buildParentMap(precondition, dataCriteriaMap))
+        @mergeParentMaps(parentMap, @buildParentMap(precondition))
     else if root.reference?
       parentMap[root.reference] = (parentMap[root.reference] || []).concat root
-      @mergeParentMaps(parentMap, @buildParentMap(dataCriteriaMap[root.reference], dataCriteriaMap))
+      @mergeParentMaps(parentMap, @buildParentMap(dataCriteriaMap[root.reference]))
     else
       if root.temporal_references?
         for temporal_reference in root.temporal_references
           if temporal_reference.reference != 'MeasurePeriod'
             parentMap[temporal_reference.reference] = (parentMap[temporal_reference.reference] || []).concat root
-            @mergeParentMaps(parentMap, @buildParentMap(dataCriteriaMap[temporal_reference.reference], dataCriteriaMap))
+            @mergeParentMaps(parentMap, @buildParentMap(dataCriteriaMap[temporal_reference.reference]))
       if root.children_criteria
         for child in root.children_criteria
           parentMap[child] = (parentMap[child] || []).concat root
-          @mergeParentMaps(parentMap, @buildParentMap(dataCriteriaMap[child], dataCriteriaMap))
+          @mergeParentMaps(parentMap, @buildParentMap(dataCriteriaMap[child]))
         debugger
     parentMap
   mergeParentMaps: (left, right) ->
