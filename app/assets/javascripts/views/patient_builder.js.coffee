@@ -288,7 +288,5 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
   setValues: ->
     for c in _.keys(@currentCriteria)
       criteria = @currentCriteria[c].key
-      # if @modelValues[@measure.get('hqmf_set_id')]?[@population.sub_id][criteria] is 1
-      #   @$('#' + criteria).prop('checked', true)
       if @editFlag is false
         @$('#' + criteria).prop('disabled', true)

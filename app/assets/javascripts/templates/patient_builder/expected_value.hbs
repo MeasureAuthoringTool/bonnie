@@ -18,7 +18,7 @@
         {{else}}
           <div class="checkbox {{#if @index}}checkbox-divider{{/if}}">
             <label class="checkbox-population {{cid}}">
-              <input type="checkbox" id="{{key}}" {{#if value}}checked="checked"{{/if}}> {{displayName}}
+              <input type="checkbox" id="{{key}}" {{#if value}}checked="checked"{{/if}}> <span>{{displayName}}</span>
             </label>
           </div>
         {{/if}}
