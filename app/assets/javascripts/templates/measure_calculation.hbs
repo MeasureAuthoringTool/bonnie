@@ -54,25 +54,41 @@
           <tr>
             <td style="text-align: center;">
               {{#ifCond expected "==" result}}
-                <i class="fa fa-ok pass"></i>
+                <i class="fa fa-check pass"></i>
               {{else}}
-                <i class="fa fa-remove fail"></i>
+                <i class="fa fa-times fail"></i>
               {{/ifCond}}
             </td>
             <td>{{name}}</td>
             <td style="text-align: center;">
-              {{#if expected}}
-                <i class="fa fa-ok"></i>
+              {{#ifCond name "==" "OBSERV"}}
+                {{expected}}%
               {{else}}
-                <i class="fa fa-minus"></i>
-              {{/if}}
+                {{#if ../../../episode_of_care}}
+                  <span class="default">{{expected}}</span>
+                {{else}}
+                  {{#if expected}}
+                    <i class="fa fa-check-square-o default"></i>
+                  {{else}}
+                    <i class="fa fa-square-o default"></i>
+                  {{/if}}
+                {{/if}}
+              {{/ifCond}}
             </td>
             <td style="text-align: center;">
-              {{#if result}}
-                <i class="fa fa-ok"></i>
+              {{#ifCond name "==" "OBSERV"}}
+                <span class="fail">{{result}}%</span>
               {{else}}
-                <i class="fa fa-minus"></i>
-              {{/if}}
+                {{#if ../../../episode_of_care}}
+                  <span class="fail">{{result}}</span>
+                {{else}}
+                  {{#if result}}
+                    <i class="fa fa-check-square-o default"></i>
+                  {{else}}
+                    <i class="fa fa-square-o default"></i>
+                  {{/if}}
+                {{/if}}
+              {{/ifCond}}
             </td>
           </tr>
         {{/each}}

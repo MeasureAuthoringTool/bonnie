@@ -36,10 +36,8 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     combinedResults = {}
     patientStatus = @population.isExactlyMatching(patient)
     for p in validPopulations
-      combinedResults[p] = {}
-      combinedResults[p]['name'] = p
-      combinedResults[p]['expected'] = expectedValues?[p]
-      combinedResults[p]['result'] = result.get(p)
+      combinedResults[p] = { name: p, expected: expectedValues?[p], result: result.get(p) }
+    # console.log combinedResults
     _(result.toJSON()).extend
       measure_id: @model.get('hqmf_set_id')
       populationTitle: popTitle ?= @population.get('sub_id')
