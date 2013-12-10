@@ -247,8 +247,14 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
         for key in (pop for pop in _.keys(pc) when p.has(pop))
         # selections = @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > input")
           # console.log @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}")
-          checkedValue = @$("#expected-#{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}").prop('checked')
-          if checkedValue is true then pevHash[key] = 1 else pevHash[key] = 0
+          # checkedValue = @$("#expected-#{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}").prop('checked')
+          if key is 'OBSERV'
+            pevHash[key] = parseFloat(@$(".#{p.get('sub_id')}-#{key} > ##{key}").prop('value'))
+          else if m.get('episode_of_care') is true
+            pevHash[key] = parseFloat(@$(".#{p.get('sub_id')}-#{key} > ##{key}").prop('value'))
+          else
+            checkedValue = @$(".#{p.get('sub_id')}-#{key} > ##{key}").prop('checked')
+            if checkedValue is true then pevHash[key] = 1 else pevHash[key] = 0
         parsedValues[m.get('hqmf_set_id')][p.get('sub_id')] = pevHash
       attr.expected_values = _.extend({}, parsedValues)
 
@@ -274,7 +280,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
       OBSERV: 'MEASURE OBSERVATIONS'
     @currentCriteria = []
     for mc in matchingCriteria
-      @currentCriteria.push { key: mc, displayName: criteriaMap[mc], value: @modelValues[@measure.get('hqmf_set_id')]?[@population.sub_id][criteria] }
+      @currentCriteria.push { cid: "#{p.sub_id}-#{mc}", key: mc, displayName: criteriaMap[mc], value: @modelValues[@measure.get('hqmf_set_id')]?[@population.sub_id][mc], isEoC: @measure.get('episode_of_care') }
 
   events: ->
     'rendered': 'setValues'
@@ -282,11 +288,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
   setValues: ->
     for c in _.keys(@currentCriteria)
       criteria = @currentCriteria[c].key
-      if @modelValues[@measure.get('hqmf_set_id')]?[@population.sub_id][criteria] is 1
-        @$('#' + criteria).prop('checked', true)
+      # if @modelValues[@measure.get('hqmf_set_id')]?[@population.sub_id][criteria] is 1
+      #   @$('#' + criteria).prop('checked', true)
       if @editFlag is false
         @$('#' + criteria).prop('disabled', true)
-
-  isEpisodeOfCare: ->
-    console.log @
-    @measure.get('episode_of_care')

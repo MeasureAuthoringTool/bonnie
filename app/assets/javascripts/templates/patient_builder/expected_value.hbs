@@ -4,21 +4,21 @@
     {{#each currentCriteria}}
       {{#ifCond key "==" "OBSERV"}}
         <div class="checkbox {{#if @index}}checkbox-divider{{/if}}">
-          <label class="checkbox-population" class="col-xs-1">
-            {{displayName}} <input type="number" id="{{key}}" value="{{value}}">
+          <label class="checkbox-population {{cid}}">
+            {{displayName}} <input class="checkbox-number" type="number" id="{{key}}" value="{{value}}">
           </label>
         </div>
       {{else}}
-        {{#if isEpisodeOfCare}}
+        {{#if isEoC}}
           <div class="checkbox {{#if @index}}checkbox-divider{{/if}}">
-            <label class="checkbox-population">
-              <input type="number" id="{{key}}" value="{{value}}"> {{displayName}}
+            <label class="checkbox-population {{cid}}">
+              <input class="checkbox-number" type="number" id="{{key}}" value="{{value}}"> {{displayName}}
             </label>
           </div>
         {{else}}
           <div class="checkbox {{#if @index}}checkbox-divider{{/if}}">
-            <label class="checkbox-population">
-              <input type="checkbox" id="{{key}}"> {{displayName}}
+            <label class="checkbox-population {{cid}}">
+              <input type="checkbox" id="{{key}}" {{#if value}}checked="checked"{{/if}}> {{displayName}}
             </label>
           </div>
         {{/if}}
