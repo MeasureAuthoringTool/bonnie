@@ -54,7 +54,7 @@
           <tr>
             <td style="text-align: center;">
               {{#ifCond expected "==" result}}
-                <i class="fa fa-ok pass"></i>
+                <i class="fa fa-check pass"></i>
               {{else}}
                 <i class="fa fa-remove fail"></i>
               {{/ifCond}}
@@ -62,14 +62,14 @@
             <td>{{name}}</td>
             <td style="text-align: center;">
               {{#if expected}}
-                <i class="fa fa-ok"></i>
+                <i class="fa fa-check"></i>
               {{else}}
                 <i class="fa fa-minus"></i>
               {{/if}}
             </td>
             <td style="text-align: center;">
               {{#if result}}
-                <i class="fa fa-ok"></i>
+                <i class="fa fa-check"></i>
               {{else}}
                 <i class="fa fa-minus"></i>
               {{/if}}
