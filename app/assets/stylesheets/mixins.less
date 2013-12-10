@@ -1,4 +1,28 @@
+// Set the default color of all icons to black
+
+// Small number in the denominator for any fraction display
+.fraction {
+  font-size: 0.8em;
+}
+
 .title-bar {
   background-color: @gray-lighter;
   padding-left: 15px;
+}
+
+// Test Status - used on Dashboard and Measure/Results View 
+.status {
+  font-size: 1.5em;
+  line-height: 1;
+  text-transform: uppercase;
+  padding-top: 0.25em;
+  &.status-new {
+    font-weight: 700;
+  }
+  &.status-pass {
+    .text-success;
+  }
+  &.status-fail {
+    .text-danger;
+  }
 }

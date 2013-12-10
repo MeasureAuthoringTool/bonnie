@@ -1,41 +1,40 @@
 <div class="measure-calculation">
-  <div class="row">
-    <div class="col-sm-4">
+  <div class="row summary">
+    <div class="expected-col">
       <input type="text" value="{{expectedPercentage}}" class="dial" data-readOnly="true" data-width="60" data-height="60" data-thickness=".2" data-fgColor={{#ifCond status '==' 'pass'}}"#468847"{{/ifCond}}{{#ifCond status '==' 'fail'}}"#b94a48"{{/ifCond}} data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
+    </div> 
+    <div class="status-col">
+      <span class="status status-{{status}}">{{status}}</span>
     </div>
-    <div class="col-sm-6">
-      <div class="status">
-        <span class="{{status}}">{{status}}</span>
-        <span class="patient-listing">{{matches}}</span> <span class="fraction">/{{patients.length}}</span>
-      </div>
-    </div>
-    <div class="col-sm-2 add-button">
+    <div class="patient-data-col">
+      <span class="patient-listing">{{matches}}</span> <span class="fraction">/{{patients.length}}</span>
       <a href="#measures/{{hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
-        <i class="glyphicon glyphicon-user"></i>
-        <i class="glyphicon glyphicon-plus"></i>
+        <i class="fa fa-user"></i>
+        <i class="fa fa-plus"></i>
       </a>
     </div>
   </div>
-  <h3>Select Patients</h3>
   <br>
   {{#collection results tag="div" class="panel panel-default" item-context=resultContext}}
     <div class="panel-heading">
       <div class="panel-title">
         <div class="patient row">
-          <div class="col-sm-1 {{patientStatusText}}">
+          <div class="patient-status-icon-col status status-{{patientStatusText}}">
             {{#if patientStatus}}
-              <i class="glyphicon glyphicon-ok"></i>
+              <i class="fa fa-check"></i>
             {{else}}
-              <i class="glyphicon glyphicon-remove"></i>
+              <i class="fa fa-times"></i>
             {{/if}}
           </div>
-          <div class="col-sm-3">
-            {{#button "expandResult" class="btn btn-primary"}}<i class="glyphicon glyphicon-user"></i>{{/button}}
+          <div class="patient-btn-col">
+            {{#button "expandResult" class="btn btn-primary"}}
+              <i class="fa fa-user"></i>
+            {{/button}}
           </div>
-          <div class="col-sm-4 name">
+          <div class="patient-name-col">
             {{last}} {{first}}
           </div>
-          <div class="col-sm-3 patient-status {{patientStatusText}}">
+          <div class="patient-status-col status status-{{patientStatusText}}">
             {{patientStatusText}}
           </div>
         </div>
@@ -55,24 +54,24 @@
           <tr>
             <td style="text-align: center;">
               {{#ifCond expected "==" result}}
-                <i class="glyphicon glyphicon-ok pass"></i>
+                <i class="fa fa-ok pass"></i>
               {{else}}
-                <i class="glyphicon glyphicon-remove fail"></i>
+                <i class="fa fa-remove fail"></i>
               {{/ifCond}}
             </td>
             <td>{{name}}</td>
             <td style="text-align: center;">
               {{#if expected}}
-                <i class="glyphicon glyphicon-ok"></i>
+                <i class="fa fa-ok"></i>
               {{else}}
-                <i class="glyphicon glyphicon-minus"></i>
+                <i class="fa fa-minus"></i>
               {{/if}}
             </td>
             <td style="text-align: center;">
               {{#if result}}
-                <i class="glyphicon glyphicon-ok"></i>
+                <i class="fa fa-ok"></i>
               {{else}}
-                <i class="glyphicon glyphicon-minus"></i>
+                <i class="fa fa-minus"></i>
               {{/if}}
             </td>
           </tr>
@@ -80,7 +79,7 @@
       </table>
       {{#link "measures/{{measure_id}}/patients/{{patient_id}}/edit" class="btn btn-primary" expand-tokens=true}}EDIT{{/link}}
       {{#button "clonePatient" class="btn btn-primary"}}CLONE{{/button}}
-      {{#button "showDelete" class="btn btn-default"}}<i class="glyphicon glyphicon-minus-sign"></i>{{/button}}
+      {{#button "showDelete" class="btn btn-danger-inverse"}}<i class="fa fa-minus-circle"></i>{{/button}}
       {{#button "deletePatient" class="btn btn-danger delete-{{patient_id}}" style="display: none;" expand-tokens=true}}Delete{{/button}}
     </div>
   {{/collection}}

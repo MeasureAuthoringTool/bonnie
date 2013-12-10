@@ -1,10 +1,12 @@
  <div class="main">
   <div class="measure-title">
-    <div class="short-title"><i class="fa fa-tasks"></i> {{measure_id}}:</div>
-    {{title}}
+    <span class="short-title pull-left"><i class="fa fa-tasks"></i> {{measure_id}}:</span>
+    <span class="full-title">{{title}}</span>
   </div>
   <div class="measure-dsp">
-    <div class="measure-dsp-title">Description: <a class="settings-btn" data-toggle="popover" id="settings" rel="popover" data-placement="bottom" data-html="true"><i class="fa fa-cog"></i></a></div>
+    <div class="measure-dsp-title">
+      Description: <a class="pull-right" data-toggle="popover" id="settings" rel="popover" data-placement="bottom" data-html="true"><i class="fa fa-cog"></i></a>
+    </div>
     <p>{{description}}</p>
     <script type="text/x-handlebars" class="popover-tmpl">
       {{#button "updateMeasure" class="btn btn-primary"}}Update{{/button}}
@@ -16,6 +18,6 @@
 </div>
 
 <div class="right-sidebar">
-  <div class="title-bar">Test Patients</div>
+  <h1 class="title-bar">Test Patients</h1>
   {{view measureCalculation}}
 </div>

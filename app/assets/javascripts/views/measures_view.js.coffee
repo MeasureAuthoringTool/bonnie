@@ -20,7 +20,7 @@ class MeasureRowView extends Thorax.View
     _(population.toJSON()).extend
       measure_id: @model.id
       hasFraction: !@model.get('patients').isEmpty()
-      status: if @model.get('patients').isEmpty() then 'new' else if success is true then 'success' else 'failed'
+      status: if @model.get('patients').isEmpty() then 'new' else if success is true then 'pass' else 'fail'
       expectedPercentage: if @model.get('patients').isEmpty() then '-' else "#{percentage}"
       matches: if @model.get('patients').isEmpty() then 0 else matching
   hasPopulations: -> @model.get('populations').length > 1
@@ -29,7 +29,7 @@ class MeasureRowView extends Thorax.View
     if @hasFraction
       if @model.get('patients').isEmpty() then 'new' 
       else 
-        if @success is true then 'success' else 'failed'
+        if @success is true then 'pass' else 'fail'
   updateMeasure: (e) ->
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)
     importMeasureView.appendTo(@$el)

@@ -1,49 +1,52 @@
-@passed: #468847;
-@failed: #b94a48;
-
 .measure-calculation {
-
   padding-top: 10px;
 
-  .status {
-    text-transform: uppercase;
-    vertical-align: top;
-    line-height: 60px;
-    font-size: 18px;
-    .pass {
-      color: @passed;
+  .summary {
+    > * {
+      line-height: 65px;
     }
-    .fail {
-      color: @failed;
-    }
-    .patient-listing {
-      font-size: 1.2em;
-    }
-    .fraction {
-      font-size: 0.6em;
-    }
-  }
 
-  .add-button {
-    margin-top: 14px;
-    .btn {
-      padding: 6px;
+    .expected-col {
+      .make-sm-column(4);
+    }
+
+    .status-col {
+      .make-sm-column(4);
+    }
+
+    .patient-data-col {
+      .make-sm-column(4);
+      .patient-listing {
+        line-height: 60px;
+        font-size: 1.6em;
+      }
+      .btn-default {
+        margin-top: 14px;
+        padding: 6px;
+      }
     }
   }
 
   .patient {
-    .name {
+    .patient-status-icon-col {
+      .make-sm-column(1);
+      font-size: 1.2em;
+    }
+    .patient-btn-col {
+      .make-sm-column(3);
+    }
+    .patient-name-col {
+      .make-sm-column(4);
       font-size: 14px;
     }
-    .patient-status {
-      text-transform: uppercase;
+    .patient-status-col {
+      .make-sm-column(3);
+      font-size: 1.2em;
     }
-    .pass {
-      color: @passed;
-    }
-    .fail {
-      color: @failed;
+    .btn-danger-inverse {
+      color: @btn-danger-bg;
+      background-color: @btn-danger-color;
+      border-color: @btn-danger-border;
     }
   }
-
 }
