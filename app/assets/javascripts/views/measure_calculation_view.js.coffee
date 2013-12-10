@@ -37,7 +37,7 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
     patientStatus = @population.isExactlyMatching(patient)
     for p in validPopulations
       combinedResults[p] = { name: p, expected: expectedValues?[p], result: result.get(p) }
-    console.log combinedResults
+    # console.log combinedResults
     _(result.toJSON()).extend
       measure_id: @model.get('hqmf_set_id')
       populationTitle: popTitle ?= @population.get('sub_id')
