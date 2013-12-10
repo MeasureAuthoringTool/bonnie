@@ -270,14 +270,11 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
       NUMER: 'NUMERATOR'
       DENEXCEP: 'EXCEPTION'
       DENEX: 'EXCLUSION'
-      MSRPOPL: 'MSRPOPL'
-      OBSERV: 'OBSERVATION'
+      MSRPOPL: 'MEASURE POPULATION'
+      OBSERV: 'MEASURE OBSERVATIONS'
     @currentCriteria = []
     for mc in matchingCriteria
-      criteriaHash = {}
-      criteriaHash.key = mc
-      criteriaHash.displayName = criteriaMap[mc]
-      @currentCriteria.push criteriaHash
+      @currentCriteria.push { key: mc, displayName: criteriaMap[mc], value: @modelValues[@measure.get('hqmf_set_id')]?[@population.sub_id][criteria] }
 
   events: ->
     'rendered': 'setValues'
@@ -289,3 +286,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
         @$('#' + criteria).prop('checked', true)
       if @editFlag is false
         @$('#' + criteria).prop('disabled', true)
+
+  isEpisodeOfCare: ->
+    console.log @
+    @measure.get('episode_of_care')
