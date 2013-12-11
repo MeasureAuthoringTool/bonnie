@@ -6,6 +6,8 @@ class Thorax.Models.Patient extends Thorax.Model
     dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
     attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria, parse: true)
 
+    attrs.expected_values = new Thorax.Collections.ExpectedValues(attrs.expected_values)
+
     # This section is a bit unusual: we map from server side values to a more straight forward client
     # side representation; the reverse mapping would usually happen in toJSON(), but in this case it
     # happens on the server in the controller
@@ -84,6 +86,20 @@ class Thorax.Models.Patient extends Thorax.Model
       @set _(data).chain().pick('conditions', 'encounters', 'medications', 'procedures').defaults(defaults).value(), silent: true
       @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
 
+  getExpectedValue: (population) ->
+    measure = population.collection.parent
+    expectedValue = @get('expected_values').findWhere(measure_id: measure.get('hqmf_set_id'), population_index: population.get('index'))
+    expectedValue ?= new Thorax.Models.ExpectedValue measure_id: measure.get('hqmf_set_id'), population_index: population.get('index')
+    @get('expected_values').add expectedValue # Note: adding back an existing element is a no-op
+    for populationCriteria in Thorax.Models.Measure.allPopulationCodes when population.has populationCriteria
+      expectedValue.set populationCriteria, 0 unless expectedValue.has populationCriteria
+    expectedValue
+
+  getExpectedValues: (measure) ->
+    expectedValues = new Thorax.Collections.ExpectedValues()
+    measure.get('populations').each (population) =>
+      expectedValues.add @getExpectedValue(population)
+    expectedValues
 
 class Thorax.Collections.Patients extends Thorax.Collection
   model: Thorax.Models.Patient

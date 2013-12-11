@@ -7,6 +7,7 @@ class Thorax.Models.Measure extends Thorax.Model
     populations = new Thorax.Collections.Population [], parent: this
     for population, index in attrs.populations
       population.sub_id = alphabet[index]
+      population.index = index
       # copy population criteria data to population
       for code in @constructor.allPopulationCodes
         if populationCriteriaKey = population[code]

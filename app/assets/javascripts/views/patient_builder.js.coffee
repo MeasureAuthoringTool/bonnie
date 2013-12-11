@@ -15,15 +15,13 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       collection: @model.get('source_data_criteria')
       itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure)
     @expectedValuesView = new Thorax.Views.ExpectedValuesView
-      model: @model
+      collection: @model.getExpectedValues(@measure)
       measure: @measure
-      edit: true
-      values: _.extend({}, @model.get('expected_values'))
     @populationLogicView = new Thorax.Views.BuilderPopulationLogic
     @populationLogicView.setPopulation @measure.get('populations').first()
     @populationLogicView.showRationale @model
-    @expectedValuesView.on 'population:select', (population) =>
-      @populationLogicView.setPopulation population
+    @expectedValuesView.on 'population:select', (population_index) =>
+      @populationLogicView.setPopulation @measure.get('populations').findWhere(index: population_index)
       @materialize()
     @model.on 'materialize', =>
       @populationLogicView.showRationale @model
@@ -223,70 +221,63 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
 
   template: JST['patient_builder/expected_values']
 
-  # FIXME: Needs re-writing for elegance
   initialize: ->
-    @populations = @measure.get('populations')
-    @popCriteria = @measure.get('population_criteria')
-    if not @values? or _.size(@values) is 0
-      # if the patient has no expected values, create them
-      @values = {}
-      evs = @values
-      evs[@measure.get('hqmf_set_id')] = {}
-      m = @measure
-      pc = @popCriteria
-      @populations.each (p) ->
-        pevHash = {}
-        for key in (pop for pop in _.keys(pc) when p.has(pop))
-          pevHash[key] = 0
-        evs[m.get('hqmf_set_id')][p.get('sub_id')] = pevHash
+    @expectedValueCollectionView = new Thorax.CollectionView
+      className: 'tab-content expected-value'
+      collection: @collection
+      itemView: (item) => new Thorax.Views.ExpectedValueView
+        model: item.model
+        measure: @measure
+        className: "tab-pane"
+        id: "expected-#{item.model.get('population_index')}"
+
+  serialize: ->
+    childView.serialize() for cid, childView of @expectedValueCollectionView.children
+    super
 
   hasMultipleTabs: ->
-    if @populations.length > 1 then true else false
+    if @collection.length > 1 then true else false
+
+  populationContext: (expectedValue) ->
+    population = @measure.get('populations').findWhere(index: expectedValue.get('population_index'))
+    populationTitle: population.get('title') || population.get('sub_id')
+    population_index: expectedValue.get('population_index')
 
   # When we serialize the form, we want to update the expected_values hash
   events:
     rendered: ->
-      # FIXME: We'd like to do this via straight thorax events, doesn't seem to work...
-      @$('a[data-toggle="tab"]').on 'shown.bs.tab', (e) =>
-        population = $(e.target).model()
-        @trigger 'population:select', population
-    serialize: (attr) ->
-      # get all the checkboxes: $('.expected-value-tab > div > .expected-values > form > .checkbox > label > input')
-      # get checkbox by id: $('.expected-value-tab > div > .expected-values > form > .checkbox > label > #DENEX')
-      parsedValues = {}
-      parsedValues[@measure.get('hqmf_set_id')] = {}
-      # attr.expected_values = _.extend({}, @values)
-      pc = @popCriteria
-      m = @measure
-      @populations.each (p) ->
-        pevHash = {}
-        for key in (pop for pop in _.keys(pc) when p.has(pop))
-        # selections = @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > input")
-          # console.log @$("##{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}")
-          # checkedValue = @$("#expected-#{p.get('sub_id')} > div > .expected-values > form > .checkbox > label > ##{key}").prop('checked')
-          if key is 'OBSERV'
-            pevHash[key] = parseFloat(@$(".#{p.get('sub_id')}-#{key} > ##{key}").prop('value'))
-          # FIXME If enabling EoC measures, uncomment the following two lines to save values correctly
-          # else if m.get('episode_of_care') is true
-          #   pevHash[key] = parseFloat(@$(".#{p.get('sub_id')}-#{key} > ##{key}").prop('value'))
-          else
-            checkedValue = @$(".#{p.get('sub_id')}-#{key} > ##{key}").prop('checked')
-            if checkedValue is true then pevHash[key] = 1 else pevHash[key] = 0
-        parsedValues[m.get('hqmf_set_id')][p.get('sub_id')] = pevHash
-      attr.expected_values = _.extend({}, parsedValues)
+      # We set the active tabs when rendered rather than trying to do it in the template
+      # because changes to the ExpectdValueView that happen when serializing (for materialization)
+      # drive the individual tabs to be re-rendered
+      @$('a[data-toggle="tab"]:first').tab('show')
+      @$('.tab-pane:first').addClass('active') # This seems to be necessary because we're not in the DOM yet?
+      # When the tabs are toggled, we want to send a message over to another view, use an event
+      @$el.on 'shown.bs.tab', 'a[data-toggle="tab"]', (e) =>
+        expectedValue = $(e.target).model()
+        @trigger 'population:select', expectedValue.get('population_index')
 
 class Thorax.Views.ExpectedValueView extends Thorax.View
 
   template: JST['patient_builder/expected_value']
-  # currently supported ev values are 0/1 for unchecked/checked
-  evStatus:
-    '0': ['unchecked', 'danger', 1]
-    '1': ['check', 'success', 0]
+
+  options:
+    populate: { context: true }
+
+  events:
+    serialize: (attr) ->
+      for pc in @model.populationCriteria()
+        attr[pc] = 1 if attr[pc] == true
+        attr[pc] = 0 unless attr[pc]
+
+  context: ->
+    context = super
+    for pc in @model.populationCriteria()
+      unless @measure.get('episode_of_care') || (@measure.get('continuous_variable') && pc == 'OBSERV')
+        context[pc] = true if context[pc] == 1
+        context[pc] = false if context[pc] == 0
+    context
 
   initialize: ->
-    c = @criteria
-    p = @population
-    matchingCriteria = (criteria for criteria in Thorax.Models.Measure.allPopulationCodes when criteria in _.keys(p))
     criteriaMap =
       IPP: 'INITIAL PATIENT POP.'
       DENOM: 'DENOMINATOR'
@@ -296,20 +287,9 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
       MSRPOPL: 'MEASURE POPULATION'
       OBSERV: 'MEASURE OBSERVATIONS'
     @currentCriteria = []
-    for mc in matchingCriteria
+    for pc in @model.populationCriteria()
       # FIXME If enabling EoC measures, replace isEoC with @measure.get('episode_of_care') instead of false
       @currentCriteria.push 
-        cid: "#{p.sub_id}-#{mc}"
-        key: mc
-        displayName: criteriaMap[mc]
-        value: @modelValues[@measure.get('hqmf_set_id')]?[@population.sub_id][mc]
+        key: pc
+        displayName: criteriaMap[pc]
         isEoC: false
-
-  events: ->
-    'rendered': 'setValues'
-
-  setValues: ->
-    for c in _.keys(@currentCriteria)
-      criteria = @currentCriteria[c].key
-      if @editFlag is false
-        @$('#' + criteria).prop('disabled', true)
