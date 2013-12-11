@@ -110,10 +110,10 @@ namespace :bonnie do
 
     desc "Updated source_data_criteria to include title and description from measure(s)"
     task :update_source_data_criteria=> :environment do
-
+      puts "Updating patient source_data_criteria to include title and description"
       Record.each do |patient|
         measures = Measure.in(hqmf_set_id:  patient.measure_ids).to_a
-        puts "Updating source data criteria for record #{patient.first} #{patient.last}"
+        puts "\tUpdating source data criteria for record #{patient.first} #{patient.last}"
         patient.source_data_criteria.each do |patient_data_criteria|
           measures.each do |measure|
             measure_data_criteria = measure.source_data_criteria[patient_data_criteria['id']]
