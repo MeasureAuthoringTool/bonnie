@@ -101,7 +101,7 @@ module Measures
     def self.derive_entry(data_criteria,value, value_sets)
       return nil if data_criteria.type == :characteristic && data_criteria.patient_api_function.nil? 
       time = derive_time_range(value)
-      data_criteria.negation = value["negation"] == "true"
+      data_criteria.negation = value["negation"] == "true" || value["negation"]
       data_criteria.negation_code_list_id = value["negation_code_list_id"]
       entry_type = HQMF::Generator.classify_entry(data_criteria.patient_api_function)
       entry = entry_type.classify.constantize.new
@@ -137,7 +137,7 @@ module Measures
 
     # derive the negation for the source_data_criteria entry if it is negated
     def self.derive_negation(entry,value,value_sets)
-      if value['negation'] == 'true'
+      if value['negation'] == 'true' || value['negation']
           codes = value["negation_code"] || Measures::PatientBuilder.select_code(value['negation_code_list_id'], value_sets)
           entry.negation_ind = true
           entry.negation_reason = codes

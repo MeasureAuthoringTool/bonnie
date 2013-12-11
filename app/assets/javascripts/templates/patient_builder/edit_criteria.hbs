@@ -56,6 +56,21 @@
             </div>
           </div>
         </div>
+        <div class="form-group" style="margin: 15px 0px 15px 15px;">
+          <div class="checkbox">
+            <div style="margin: 0px 0px 0px 20px;"> 
+              <label>
+                <input type="checkbox" name="negation" class="negation-select checkbox" data-toggle="negation-select"> NOT PERFORMED
+              </label>
+            </div>
+          </div>  
+          <select name="negation_code_list_id" class="form-control negation-code-list {{#unless negation}}hide{{/unless}}">
+              <option value="">--</option>
+              {{#each codes tag="select" name="negation_code_list_id"}}
+                <option value="{{oid}}">{{display_name}}</option>
+              {{/each}}
+          </select>
+        </div>
         <div class="form-group minimize">
           {{#button "closeDetails" class="btn btn-primary pull-right"}}CLOSE{{/button}}
         </div>
