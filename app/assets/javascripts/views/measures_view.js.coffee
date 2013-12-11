@@ -7,6 +7,8 @@ class MeasureRowView extends Thorax.View
       unless @model.get('patients').isEmpty()
         @percentage = ((@matching / @model.get('patients').length) * 100).toFixed(0)
       @success = @matching is @model.get('patients').length
+    # if @model.get('continuous_variable') is true then console.log "CV: #{@model.get('measure_id')}"
+    # if @model.get('episode_of_care') is true then console.log "EoC: #{@model.get('measure_id')}"
   context: ->
     s = @status()
     _(super).extend
