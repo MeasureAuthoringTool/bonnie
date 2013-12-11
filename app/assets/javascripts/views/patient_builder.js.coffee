@@ -147,6 +147,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
     _(super).extend
       start_date: moment(@model.get('start_date')).format('L LT') if @model.get('start_date')
       end_date: moment(@model.get('end_date')).format('L LT') if @model.get('end_date')
+      codes: @measure.get('value_sets').map (vs) -> vs.toJSON()
       faIcon: @model.faIcon()
 
   # When we serialize the form, we want to convert formatted dates back to times
@@ -156,12 +157,15 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
       attr.end_date = moment(attr.end_date, 'L LT').format('X') * 1000 if attr.end_date
     rendered: ->
       @$('.patient-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight'
-
+    'change .negation-select': 'toggleNegationSelect'
 
   toggleDetails: (e) ->
     e.preventDefault()
     @$('.concise').toggle()
     @$('.details').toggle()
+
+  toggleNegationSelect: (e) ->
+    @$('.negation-code-list').toggleClass('hide')
 
   closeDetails: ->
     @serialize(children: false)
