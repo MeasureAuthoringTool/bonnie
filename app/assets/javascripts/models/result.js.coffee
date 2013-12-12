@@ -117,7 +117,6 @@ class Thorax.Models.Result extends Thorax.Model
         for child in root.children_criteria
           parentMap[child] = (parentMap[child] || []).concat root
           @mergeParentMaps(parentMap, @buildParentMap(dataCriteriaMap[child]))
-        debugger
     parentMap
   mergeParentMaps: (left, right) ->
     for key,value of right
