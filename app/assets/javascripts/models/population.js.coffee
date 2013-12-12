@@ -2,6 +2,16 @@ class Thorax.Models.Population extends Thorax.Model
 
   index: -> @collection.indexOf(this)
 
+  url: -> "#{@collection.parent.url()}/populations/#{@get('index')}"
+
+  calculate: (patient) ->
+    result = new Thorax.Models.Result({}, patient: patient, population: this)
+    result.on 'change', -> console.log "RESULT UPDATED"
+    # We defer loading the calculation code until it's needed for performance reasons
+    @loadCalculateDeferred ?= $.ajax(url: "#{@url()}/calculate_code.js", dataType: "script", cache: true)
+    @loadCalculateDeferred.done => result.set @deferredCalculate(patient.toJSON())
+    return result
+
   exactMatches: ->
     measure = @collection.parent
     population = @

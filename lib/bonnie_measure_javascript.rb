@@ -9,9 +9,8 @@ module BonnieMeasureJavascript
 
   # The options can be set to those expected by the measure JS code: clear_db_cache and cache_result_in_db
 
-  def self.generate_from_measure(measure, options = {})
-    measure_json = measure.to_json(except: [:map_fns, :record_ids], methods: [:value_sets])
-    population_javascripts = measure.populations.each_with_index.map { |population, index| measure.map_fn(index, options) }
+  def self.generate_for_population(measure, population_index, options = {})
+    population_javascript = measure.map_fn(population_index, options)
     JAVASCRIPT_TEMPLATE.result binding
   end
 

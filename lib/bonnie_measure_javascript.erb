@@ -1,42 +1,26 @@
 (function() {
 
-  <%# NOTE: Value sets are configured to only provide JSON for oid and display_name in lib/ext/value_set.rb %>
-  var measure = new Thorax.Models.Measure(<%= measure_json.html_safe %>, { parse: true });
+  var measure = bonnie.measures.get('<%= measure.id %>');
+  var population = measure.get('populations').at(<%= population_index %>);
 
-  <%# Add the appropriate calculation code to each population %>
-  <% population_javascripts.each_with_index do |population_javascript, index| %>
+  population.deferredCalculate = function(patient) {
 
-    (function() {
+    <%# Set up some variables and functions used in the generated measure calculation %>
+    var enable_logging = false;
+    var enable_rationale = true;
+    var short_circuit = false;
 
-      var population = measure.get('populations').at(<%= index %>);
+    ObjectId = function() { return 1; };
+    var result = null; // Calls to emit() set this local variable
+    emit = function(id, value) { result = value; };
+    var print = function(output) { console.log(output); };
 
-      population.calculate = function(modelPatient) {
-        <%# model patient is a thorax model; we need a JavaScript object %>
-        var patient = modelPatient.toJSON();
+    <%= population_javascript.html_safe %>
 
-        <%# Set up some variables and functions used in the generated measure calculation %>
-        var enable_logging = false;
-        var enable_rationale = true;
-        var short_circuit = false;
+    <%# Delete the functions that we needed to place in the global scope %>
+    delete ObjectId;
+    delete emit;
 
-        ObjectId = function() { return 1; };
-        var result = null; // Calls to emit() set this local variable
-        emit = function(id, value) { result = value; };
-        var print = function(output) { console.log(output); };
-
-        <%= population_javascript.html_safe %>
-
-        <%# Delete the functions that we needed to place in the global scope %>
-        delete ObjectId;
-        delete emit;
-
-        <%# FIXME: we should cache results per-patient someplace %>
-        return new Thorax.Models.Result(result, {population: this, patient: modelPatient});
-      };
-    })();
-
-  <% end %>
-
-  bonnie.measures.add(measure);
-
+    return result;
+  };
 })();

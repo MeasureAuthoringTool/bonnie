@@ -11,6 +11,11 @@ Bonnie::Application.routes.draw do
       get 'add'
       get 'remove'
     end
+    resources :populations do
+      member do
+        get 'calculate_code'
+      end
+    end
   end
 
   resources :patients do
