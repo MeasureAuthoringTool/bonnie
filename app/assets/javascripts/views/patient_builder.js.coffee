@@ -39,9 +39,12 @@ class Thorax.Views.PatientBuilder extends Thorax.View
   events:
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
-      @$('.droppable').droppable accept: '.ui-draggable'
-      # TODO move event handling up into events object, if possible
-      @$('.droppable').on 'drop', _.bind(@drop, this)
+
+      # Make parent droppable
+      @$('.patient-data-list').droppable greedy: true, accept: '.ui-draggable', drop: _.bind(@drop, this)
+      # Make current and future data criteria children droppable
+      @$('.patient-data-list').on 'drop', '.patient-data', _.bind(@drop, this)
+
       # These cannot be handled as a thorax event because we want it to apply to new DOM elements too
       @$el.on 'blur', 'input[type="text"]', => @materialize()
       @$el.on 'change', 'select', => @materialize()
@@ -70,9 +73,14 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @expectedValuesView.serialize(children: false)
 
   drop: (e, ui) ->
-    measureDataCriteria = $(ui.draggable).model()
-    @model.get('source_data_criteria').add measureDataCriteria.toPatientDataCriteria()
+    patientDataCriteria = $(ui.draggable).model().toPatientDataCriteria()
+    dropTargetModel = $(e.target).model()
+    if dropTargetModel instanceof Thorax.Models.PatientDataCriteria
+      patientDataCriteria.set('start_date', dropTargetModel.get('start_date'))
+      patientDataCriteria.set('end_date', dropTargetModel.get('end_date'))
+    @model.get('source_data_criteria').add patientDataCriteria
     @materialize()
+    false
 
   materialize: ->
     @serializeWithChildren()
@@ -146,6 +154,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
     serialize: (attr) ->
       attr.start_date = moment(attr.start_date, 'L LT').format('X') * 1000 if attr.start_date
       attr.end_date = moment(attr.end_date, 'L LT').format('X') * 1000 if attr.end_date
+    rendered: ->
+      @$('.patient-data').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight'
+
 
   toggleDetails: (e) ->
     e.preventDefault()
