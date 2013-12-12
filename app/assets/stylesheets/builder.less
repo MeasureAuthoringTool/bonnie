@@ -56,10 +56,6 @@
       margin: auto;
     }
 
-    .drop-target-highlight {
-      background-color: @blue-lightest;
-    }
-
     .main-head > .fa {
       font-size: 48px;
       color: @brand-primary;
@@ -167,7 +163,7 @@
       }
     }
 
-    .time-line-title {
+    .timeline-title {
       background-color: #99C8E7;
       margin-left: 15px;
       color: #fff;
@@ -217,7 +213,11 @@
           padding: 20px;
           background-color: #fff;
           border: 1px solid @gray-darker;
-          
+
+          &.drop-target-highlight {
+              background-color: @blue-lightest;
+            }
+
           .dl-record {
             .make-sm-column(6);
           }
@@ -239,7 +239,6 @@
             margin-bottom: 30px;
 
             .section-heading {
-              font-size: 12px;
               font-weight: bold;
               margin-left: 15px;
               color: @brand-primary;
