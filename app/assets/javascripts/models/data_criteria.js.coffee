@@ -41,7 +41,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
       diagnostic_studies:        'fa-stethoscope'
       encounters:                'fa-user-md'
       functional_statuses:       'fa-stethoscope'
-      interventions:             'fa-scissors'
+      interventions:             'fa-comments'
       laboratory_tests:          'fa-flask'
       medications:               'fa-medkit'
       physical_exams:            'fa-user-md'
