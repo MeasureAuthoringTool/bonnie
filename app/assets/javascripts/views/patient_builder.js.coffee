@@ -40,10 +40,10 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
 
+      # Make parent droppable
       @$('.record').droppable greedy: true, accept: '.ui-draggable', drop: _.bind(@drop, this)
+      # Make current and future data criteria children droppable
       @$('.record').on 'drop', '.patient-data', _.bind(@drop, this)
-
-      # @$('.record').bind('DOMNodeInserted', @registerPatientDataCriteria)
 
       # These cannot be handled as a thorax event because we want it to apply to new DOM elements too
       @$el.on 'blur', 'input[type="text"]', => @materialize()
@@ -73,7 +73,6 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @expectedValuesView.serialize(children: false)
 
   drop: (e, ui) ->
-    console.log(e.target)
     patientDataCriteria = $(ui.draggable).model().toPatientDataCriteria()
     dropTargetModel = $(e.target).model()
     if dropTargetModel instanceof Thorax.Models.PatientDataCriteria
@@ -156,7 +155,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
       attr.start_date = moment(attr.start_date, 'L LT').format('X') * 1000 if attr.start_date
       attr.end_date = moment(attr.end_date, 'L LT').format('X') * 1000 if attr.end_date
     rendered: ->
-      @$el.find('.patient-data').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight'
+      @$('.patient-data').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight'
 
 
   toggleDetails: (e) ->
