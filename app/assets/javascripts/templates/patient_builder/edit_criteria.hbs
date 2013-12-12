@@ -66,7 +66,7 @@
           </div>  
           <select name="negation_code_list_id" class="form-control negation-code-list {{#unless negation}}hide{{/unless}}">
               <option value="">--</option>
-              {{#each codes tag="select" name="negation_code_list_id"}}
+              {{#each codes}}
                 <option value="{{oid}}">{{display_name}}</option>
               {{/each}}
           </select>
