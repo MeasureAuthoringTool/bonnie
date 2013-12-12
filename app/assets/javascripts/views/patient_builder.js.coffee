@@ -163,6 +163,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
     e.preventDefault()
     @$('.concise').toggle()
     @$('.details').toggle()
+    @$('.circle-icon').toggleClass('active-icon')
 
   toggleNegationSelect: (e) ->
     @$('.negation-code-list').toggleClass('hide')

@@ -25,9 +25,9 @@
     {{#button "save" class="btn btn-primary" data-saving-text="SAVING..."}}SAVE{{/button}}
   </div>
   <h1 class="main-head"><i class="fa fa-user"></i></h1>
-  <div id="time-bar"></div>
-  <div class="demo">  
-    <div class="first">
+  <div id="timeBar"></div>
+  <div class="demographics">  
+    <div class="demographics-left-col">
       <form role="form">
         <div class="form-group">
           <label for="payer">PAYER</label>
@@ -52,10 +52,10 @@
             <option value="2131-1">Other</option>
           </select>
         </div>
-      </form>
+        </form>
     </div>
-    <div class="col-md-2">
-      <form role="form col-md-2">
+    <div class="demographics-right-col">
+      <form role="form">
         <div class="form-group">
           <label for="gender">GENDER</label>
           <select name="gender" class="form-control">
@@ -79,18 +79,16 @@
         </div>
       </form>
     </div>
-    <div class="measure-expected col-md-7">
+    <div class="measure-expected">
       <h2>MEASURE ASSOCIATED</h2>
       <div class="measure-name">
-        <div class="col-md-4">{{measureTitle}}:</div>
-        <div class="col-md-8">{{measureDescription}}</div>
+        <div class="measure-name-primary">{{measureTitle}}:</div>
+        <div class="measure-name-secondary">{{measureDescription}}</div>
       </div>
       {{view expectedValuesView}}
     </div>
   </div>
-  <div class="time-line">
-    <div class="timeline-title">Patient History Relative to Measures</div>
-  </div>
+  <div class="timeline-title">Patient History Relative to Measures</div>
   <div class="record patient-data-list droppable">
     {{view editCriteriaCollectionView}}
   </div>

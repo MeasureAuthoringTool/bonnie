@@ -1,5 +1,5 @@
 <div class="record-listing">
-  <div class="circle-icon active-icon">
+  <div class="circle-icon pull-left">
     <i class="fa {{faIcon}}"></i>
   </div>
   <div class="patient-data droppable">
@@ -17,44 +17,36 @@
       </dl>
     </div>
     <div class="details" style="display: none;">
-      <div class="pull-right">
-        {{#button "removeCriteria" class="btn btn-danger"}}&times;{{/button}}
-      </div>
+      {{#button "removeCriteria" class="btn btn-danger pull-right"}}<i class="fa fa-times"></i>{{/button}}
       <dl class="dl-heading-edit">
         <dt class="definition">{{definition}}</dt>
         <dd>{{description}}</dd>
       </dl>
       <div class="element-edit">
-        <div class="form-group start">
+        <div class="form-group form-date">
           <div class="section-heading time-heading"><i class="fa fa-clock-o"></i>START</div>
           <input type="text" name="start_date" class="form-control" placeholder="xx/xx/xxxx xx:xx">
         </div>
-        <div class="form-group stop">
+        <div class="form-group form-date">
           <div class="section-heading time-heading"><i class="fa fa-clock-o"></i>STOP</div>
           <input name="end_date" type="text" class="form-control" placeholder="xx/xx/xxxx xx:xx">
         </div>
         <div>
           <div class="section-heading"><i class="fa fa-bar-chart-o"></i>VALUE</div>
-          {{! FIXME: replace entirely from design }}
-          <div style="margin: 15px 0px 15px 15px;">
             {{view editValueCollectionView}}
-            <div style="margin: 15px 0px 0px 0px;">
+            <div class="btn-form">
               {{#button "newScalarValue" class="btn btn-default"}}New Scalar{{/button}}
               {{#button "newCodedValue" class="btn btn-default"}}New Coded{{/button}}
             </div>
-          </div>
         </div>
         <div>
           <div class="section-heading"><i class="fa fa-list"></i>FIELD VALUE</div>
-          {{! FIXME: replace entirely from design }}
-          <div style="margin: 15px 0px 15px 15px;">
             {{view editFieldValueCollectionView}}
-            <div style="margin: 15px 0px 0px 0px;">
+            <div class="btn-form">
               {{#button "newScalarFieldValue" class="btn btn-default"}}New Scalar{{/button}}
               {{#button "newCodedFieldValue" class="btn btn-default"}}New Coded{{/button}}
               {{#button "newTimeFieldValue" class="btn btn-default"}}New Time{{/button}}
             </div>
-          </div>
         </div>
         <div class="form-group" style="margin: 15px 0px 15px 15px;">
           <div class="checkbox">
