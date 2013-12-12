@@ -41,9 +41,9 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
 
       # Make parent droppable
-      @$('.record').droppable greedy: true, accept: '.ui-draggable', drop: _.bind(@drop, this)
+      @$('.patient-data-list').droppable greedy: true, accept: '.ui-draggable', drop: _.bind(@drop, this)
       # Make current and future data criteria children droppable
-      @$('.record').on 'drop', '.patient-data', _.bind(@drop, this)
+      @$('.patient-data-list').on 'drop', '.patient-data', _.bind(@drop, this)
 
       # These cannot be handled as a thorax event because we want it to apply to new DOM elements too
       @$el.on 'blur', 'input[type="text"]', => @materialize()
