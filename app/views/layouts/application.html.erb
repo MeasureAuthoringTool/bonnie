@@ -21,7 +21,8 @@
     <script src="<%= libraries_measures_url format: :js %>"></script>
     <script>
       <% @measures.each do |measure| %>
-        bonnie.measures.add(<%= measure.to_json(only: @measure_attributes).html_safe %>, { parse: true });
+        <%# FIXME: Preload data criteria until deferred fetch can be handled gracefully %>
+        bonnie.measures.add(<%= measure.to_json(only: @measure_attributes, methods: [:data_criteria]).html_safe %>, { parse: true });
       <% end %>
       <% @patients.each do |patient| %>
         (function() {
