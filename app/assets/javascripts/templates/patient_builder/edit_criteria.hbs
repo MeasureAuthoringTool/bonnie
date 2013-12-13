@@ -23,25 +23,60 @@
         <dd>{{description}}</dd>
       </dl>
       <div class="element-edit">
-        <div class="form-group form-date">
+        <div class="form-date">
           <div class="section-heading time-heading"><i class="fa fa-clock-o"></i>START</div>
           <input type="text" name="start_date" class="form-control form-control-date" placeholder="xx/xx/xxxx">
           <input type="text" name="start_time" class="form-control form-control-time" placeholder="xx:xx">
         </div>
-        <div class="form-group form-date">
+
+        <div class="form-date">
           <div class="section-heading time-heading"><i class="fa fa-clock-o"></i>STOP</div>
           <input name="end_date" type="text" class="form-control form-control-date" placeholder="xx/xx/xxxx">
           <input type="text" name="end_time" class="form-control form-control-time" placeholder="xx:xx">
         </div>
-        <div>
-          <div class="section-heading"><i class="fa fa-bar-chart-o"></i>VALUE</div>
-            {{view editValueCollectionView}}
-            <div class="btn-form">
-              {{#button "newScalarValue" class="btn btn-default"}}New Scalar{{/button}}
-              {{#button "newCodedValue" class="btn btn-default"}}New Coded{{/button}}
-            </div>
+
+        <div class="section-heading">
+          <i class="fa fa-bar-chart-o"></i>VALUE
         </div>
-        <div>
+        <div class="input-group">
+          <div class="input-group-btn">
+            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Type<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a><i class="fa fa-pencil-square-o"></i> SCALAR</a></li>
+              <li><a><i class="fa fa-list"></i> Coded</a></li>
+            </ul>
+          </div>
+          <div class="inputs row">
+           <span class="form-control-input"><input type="text" class="form-control" id="event-start" placeholder="input"></span>
+            <span class="form-control-units"><input type="text" class="form-control" id="event-start-time" placeholder="units"></span>
+          </div>
+          <button class="btn btn-primary pull-right"><i class="fa fa-plus"></i></button>
+        </div><!-- /input-group -->
+       {{!--  {{view editValueCollectionView}}
+        <div class="btn-form">
+          {{#button "newScalarValue" class="btn btn-default"}}New Scalar{{/button}}
+          {{#button "newCodedValue" class="btn btn-default"}}New Coded{{/button}}
+        </div> --}}
+
+        <div class="section-heading">
+          <i class="fa fa-bar-chart-o"></i>FIELD VALUE
+        </div>
+        <div class="input-group">
+          <div class="input-group-btn">
+            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Type<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a><i class="fa fa-pencil-square-o"></i> SCALAR</a></li>
+              <li><a><i class="fa fa-list"></i> Coded</a></li>
+              <li><a><i class="fa fa-calendar"></i> Time</a></li>
+            </ul>
+          </div>
+          <div class="inputs row">
+           <span class="form-control-input"><input type="text" class="form-control" id="event-start" placeholder="input"></span>
+            <span class="form-control-units"><input type="text" class="form-control" id="event-start-time" placeholder="units"></span>
+          </div>
+          <button class="btn btn-primary pull-right"><i class="fa fa-plus"></i></button>
+        </div><!-- /input-group -->
+        {{!-- <div>
           <div class="section-heading"><i class="fa fa-list"></i>FIELD VALUE</div>
             {{view editFieldValueCollectionView}}
             <div class="btn-form">
@@ -49,14 +84,12 @@
               {{#button "newCodedFieldValue" class="btn btn-default"}}New Coded{{/button}}
               {{#button "newTimeFieldValue" class="btn btn-default"}}New Time{{/button}}
             </div>
-        </div>
-        <div class="form-group section-heading">
+        </div> --}}
+        <div class="form-group not-per">
           <div class="checkbox">
-            {{!-- <div>  --}}
-              <label>
-                <input type="checkbox" name="negation" class="negation-select checkbox" data-toggle="negation-select"> NOT PERFORMED
-              </label>
-            {{!-- </div> --}}
+            <label>
+              <input type="checkbox" name="negation"  class="negation-select checkbox" data-toggle="negation-select"> NOT PERFORMED
+            </label>
           </div>  
           <select name="negation_code_list_id" class="form-control negation-code-list {{#unless negation}}hide{{/unless}}">
               <option value="">--</option>

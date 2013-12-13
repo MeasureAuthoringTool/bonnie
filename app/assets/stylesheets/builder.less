@@ -178,6 +178,7 @@
       .row;
       min-height: 200px; // ADDED
       padding-bottom: 500px; // ADDED
+      margin-left: 0;
 
       .record-listing {
         margin-top: 20px;
@@ -242,10 +243,10 @@
               font-weight: bold;
               margin-left: 15px;
               color: @brand-primary;
+              margin-bottom: 10px;
 
               &.time-heading {
                 margin-left: 0;
-                margin-bottom: 10px;
               }
 
               .fa {
@@ -253,22 +254,54 @@
               }
             }
 
-            .form-group {
-              margin-bottom: 20px;
+            .input-group {
+              > .btn {
+                .make-sm-column(1);
+              }
+              .input-group-btn {
+                .make-sm-column(2);
+                padding-right: 0;
+                > * {
+                  width: 100%;
+                }
+                .dropdown-menu {
+                  margin-left: 15px;
+                }
+              }
+              .inputs {
+                .make-sm-column(9);
+                padding-right: 0;
 
+                .form-control {
+                  margin-bottom: 20px;
+                  width: 100%;
+                }
+                .form-control-input {
+                  .make-sm-column(8);
+                  padding-right: 0;
+                }
+
+                .form-control-units {
+                  .make-sm-column(4);
+                  padding-right: 0;
+                }
+              }
             }
 
             .form-date {
               .make-sm-column(6);
+              margin-bottom: 20px;
             }
               
             .form-control-date {
               .make-sm-column(6);
             }
+
             .form-control-time {
               .make-sm-column-offset(1);
               .make-sm-column(5);
             }
+
             .select {
               #field-value {
                 margin-left: 15px;
@@ -276,22 +309,7 @@
                 .make-sm-column(6);
               }
             }
-            .input {
-              .make-sm-column(8);
-            }
-            .units {
-              .make-sm-column(4);
 
-              .form-control {
-                .make-sm-column(10);
-              }
-              button {
-                i {
-                  color: #fff;
-                }
-              }
-
-            }
             .not-per {
               .make-sm-column(12);
             }
@@ -366,7 +384,7 @@
     }
 
     .measure-view-side {
-      .make-sm-column(4.18);
+      .make-sm-column(4);
       margin-top: 20px;
       padding-right: 0;
       font-size: 12px;
