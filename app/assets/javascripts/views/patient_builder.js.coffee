@@ -152,8 +152,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
     _(super).extend
-      start_date: moment(@model.get('start_date')).format('L LT') if @model.get('start_date')
-      end_date: moment(@model.get('end_date')).format('L LT') if @model.get('end_date')
+      start_date: moment(@model.get('start_date')).format('L') if @model.get('start_date')
+      start_time: moment(@model.get('start_date')).format('LT') if @model.get('start_date')
+      end_date: moment(@model.get('end_date')).format('L') if @model.get('end_date')
+      end_time: moment(@model.get('end_date')).format('LT') if @model.get('end_date')
       codes: @measure.get('value_sets').map (vs) -> vs.toJSON()
       faIcon: @model.faIcon()
 

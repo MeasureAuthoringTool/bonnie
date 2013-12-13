@@ -174,7 +174,7 @@
     }
     
     .record {
-      .make-sm-column(7);
+      .make-sm-column(8);
       .row;
       min-height: 200px; // ADDED
       padding-bottom: 500px; // ADDED
@@ -255,22 +255,57 @@
 
             .form-group {
               margin-bottom: 20px;
-              
-              .btn-group {
-                .fa {
-                  color: black;
-                }
-              }
 
-              &.minimize {
-                margin-bottom: 30px;
-              }
             }
 
             .form-date {
               .make-sm-column(6);
             }
+              
+            .form-control-date {
+              .make-sm-column(6);
+            }
+            .form-control-time {
+              .make-sm-column-offset(1);
+              .make-sm-column(5);
+            }
+            .select {
+              #field-value {
+                margin-left: 15px;
+                margin-bottom: 15px;
+                .make-sm-column(6);
+              }
+            }
+            .input {
+              .make-sm-column(8);
+            }
+            .units {
+              .make-sm-column(4);
 
+              .form-control {
+                .make-sm-column(10);
+              }
+              button {
+                i {
+                  color: #fff;
+                }
+              }
+
+            }
+            .not-per {
+              .make-sm-column(12);
+            }
+
+            .btn-group {
+              .fa {
+                color: black;
+              }
+            }
+
+            &.minimize {
+              margin-bottom: 30px;
+            }
+            
             .btn-form {
               margin: 10px 0px 20px 15px;
             }
@@ -287,12 +322,51 @@
               margin-bottom: 5px;
             }
           }
+          .existing-value {
+            margin-bottom: 20px;
+
+            span{
+              background-color: @gray-lighter;
+              color: @gray-darker;
+              font-size: 14px;
+              margin-left: 15px;
+              margin-top: 10px;
+              margin-bottom: 10px;
+              padding: 10px;
+              display: inline-block;
+
+              .delete {
+                font-size: 21px;
+                font-weight: bold;
+                line-height: 1;
+                color: #000000;
+                text-shadow: 0 1px 0 #ffffff;
+                opacity: 0.2;
+                filter: alpha(opacity=20);
+              }
+              .delete:hover,
+              .delete:focus {
+                color: #000000;
+                text-decoration: none;
+                cursor: pointer;
+                opacity: 0.5;
+                filter: alpha(opacity=50);
+              }
+              button.delete {
+                padding: 0;
+                cursor: pointer;
+                background: transparent;
+                border: 0;
+                -webkit-appearance: none;
+              }
+            }
+          }
         }
       }
     }
 
     .measure-view-side {
-      .make-sm-column(5.38);
+      .make-sm-column(4.18);
       margin-top: 20px;
       padding-right: 0;
       font-size: 12px;
