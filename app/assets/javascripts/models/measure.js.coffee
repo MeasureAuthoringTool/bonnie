@@ -22,6 +22,10 @@ class Thorax.Models.Measure extends Thorax.Model
     attrs.source_data_criteria = new Thorax.Collections.MeasureDataCriteria _(attrs.source_data_criteria).values()
     attrs
 
+  # For speed on the dashboard, we only load partial measures, and rely on all the non-dashboard views to fetch the rest
+  isPopulated: -> @has('data_criteria')
+    
+
 class Thorax.Collections.Measures extends Thorax.Collection
   url: '/measures'
   model: Thorax.Models.Measure

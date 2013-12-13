@@ -1,7 +1,7 @@
 Bonnie::Application.routes.draw do
   devise_for :users
 
-  resources :measures do
+  resources :measures, defaults: { format: :json} do
     collection do
       get 'libraries'
       get 'matrix'

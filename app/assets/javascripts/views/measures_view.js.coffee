@@ -1,4 +1,6 @@
 class MeasureRowView extends Thorax.View
+  options:
+    fetch: false
   initialize: ->
     # only check against the first one since there is only one population
     if @hasFraction

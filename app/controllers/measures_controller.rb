@@ -1,72 +1,14 @@
 class MeasuresController < ApplicationController
 
-  def index
-
-    if (params.include? :show_all)
-      @show_all = params[:show_all].to_i
-    else
-      @show_all = 0
-    end
-
-    # if we want to show measures for a given patient id
-    if (params.include? :pid)
-
-      # grab the patient and reset the measures lists
-      @patient = Record.find(params[:pid])
-      @measures = []
-      @my_measures = []
-      
-      # first find all of the corresponding measures
-      begin
-        unless @patient.measure_id.nil?
-          @measures << Measure.find(@patient.measure_id)
-        end
-        unless @patient.measure_ids.nil?
-          MeasureHelper.get_measure_by_nqf(@patient.measure_ids).each do |mh|
-            @measures << mh
-          end
-        end
-      rescue Mongoid::Errors::DocumentNotFound, Mongoid::Errors::InvalidFind
-        @measures = []
-        if (@patient.measure_id.nil?)
-          @patient.measure_id = 'missing_hqmf_id'
-        end
-      end
-
-      @measures = @measures.uniq{ |ms| ms.hqmf_id }
-
-      # then find the matching current_user's measures
-      begin
-        @measures.each do |m|
-          if (current_user.measures.include? m)
-            @my_measures << m
-          end
-        end
-      rescue Mongoid::Errors::DocumentNotFound, Mongoid::Errors::InvalidFind
-        @my_measures = []
-        if (@patient.measure_ids.nil?)
-          @patient.measure_ids = []
-        end
-      end
-
-      # show a simple flash indicating the selected patient info
-      flash.now[:info] = "Showing measures for Patient [ " + @patient.id.to_s() + " : " + @patient.last.to_s() + ", " + @patient.first.to_s() + ", measures(HQMF): " + @patient.measure_id.to_s() + " , measures(NQF): " + @patient.measure_ids.count.to_s() + " ]!"
-
-    # else just show all the measures and the user's measures
-    else
-      @measures = Measure.asc(:measure_id)
-      @my_measures = current_user.measures.asc(:measure_id)
-    end
-  end
+  respond_to :json
 
   def show
-    @measure = Measure.by_user(current_user).find(params[:id])
-    stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
-  end
-
-  def matrix
-    @measures = Measure.by_user(current_user).asc(:measure_id)
-    @patients = Record.by_user(current_user).asc(:last, :first)
+    @measure = Measure.by_user(current_user).without(:map_fns).find(params[:id])
+    if stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
+      respond_with @measure do |format|
+        format.json { render json: @measure.to_json(except: [:map_fns, :record_ids], methods: [:value_sets]) }
+      end
+    end
   end
 
   def libraries

@@ -6,6 +6,8 @@ class BonnieRouter extends Backbone.Router
     # files (see app/views/measures/show.js.erb)
     @measures = new Thorax.Collections.Measures()
 
+    @calculator = new Calculator()
+
     # FIXME deprecated, use measure.get('patients') to get patients for individual measure
     @patients = new Thorax.Collections.Patients()
 

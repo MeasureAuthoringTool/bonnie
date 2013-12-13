@@ -1,9 +1,9 @@
 (function() {
 
   var measure = bonnie.measures.get('<%= measure.id %>');
-  var population = measure.get('populations').at(<%= population_index %>);
+  var population = measure.get('populations').findWhere({ index: <%= population_index %> });
 
-  population.deferredCalculate = function(patient) {
+  bonnie.calculator.setCalculator(population, function(patient) {
 
     <%# Set up some variables and functions used in the generated measure calculation %>
     var enable_logging = false;
@@ -22,5 +22,5 @@
     delete emit;
 
     return result;
-  };
+  });
 })();
