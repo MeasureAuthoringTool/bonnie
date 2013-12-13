@@ -1,7 +1,7 @@
 require File.expand_path('../../../../config/environment',  __FILE__)
 require 'bonnie_bundler'
-#BonnieBundler.logger = Log4r::Logger.new("Bonnie Bundler")
-#BonnieBundler.logger.outputters = Log4r::Outputter.stdout
+BonnieBundler.logger = Log4r::Logger.new("Bonnie Bundler")
+BonnieBundler.logger.outputters = Log4r::Outputter.stdout
 def export(measures,rebuild,calculate,source_directory)
   measure_config = APP_CONFIG.merge! YAML.load_file(Rails.root.join('config','measures', 'measures_2_4_0.yml'))["measures"]
   config = APP_CONFIG.merge(measure_config)
@@ -37,7 +37,7 @@ namespace :bonnie do
     end
 
     task :bundle ,[:filter,:rebuild,:calculate,:source_directory] do |t, args|
-      export(Measure.where(parse_filter(args.filter)),args.rebuild,args.calculate,args.source_directory)
+      export(Measure.where(JSON.parse(args.filter)),args.rebuild,args.calculate,args.source_directory)
     end
 
   end
