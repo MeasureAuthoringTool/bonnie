@@ -141,12 +141,13 @@ class Thorax.Models.Result extends Thorax.Model
     for precondition in preconditions
       if (precondition.conjunction_code == 'atLeastOneTrue' && !precondition.negation)
         trueCount = 0
-        for child in precondition.preconditions
-          if (child.preconditions)
-            key = "precondition_#{child.id}"
-          else
-            key = child.reference
-          trueCount += 1 if rationale[key]
+        if precondition.preconditions?.length > 0
+          for child in precondition.preconditions
+            if (child.preconditions)
+              key = "precondition_#{child.id}"
+            else
+              key = child.reference
+            trueCount += 1 if rationale[key]
         orCounts["precondition_#{precondition.id}"] = trueCount
       _.extend(orCounts, @calculateOrCountsRecursive(rationale, precondition.preconditions))
     return orCounts
