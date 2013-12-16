@@ -1,4 +1,7 @@
 class Thorax.Models.Population extends Thorax.Model
+
+  index: -> @collection.indexOf(this)
+
   exactMatches: ->
     measure = @collection.parent
     population = @
