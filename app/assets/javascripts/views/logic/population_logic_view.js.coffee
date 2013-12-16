@@ -36,7 +36,7 @@ class Thorax.Views.PopulationLogic extends Thorax.View
         for key, value of rationale
           target = @$(".#{code}_children .#{key}")
           if (target.length > 0)
-            target.addClass(if updatedRationale[code][key] is false then 'bad_specifics' else "#{!!value}_eval")
+            target.addClass(if updatedRationale[code]?[key] is false then 'bad_specifics' else "#{!!value}_eval")
 
   clearRationale: ->
     @$('.rationale .rationale_target').removeClass('false_eval true_eval bad_specifics')
