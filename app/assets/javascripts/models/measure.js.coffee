@@ -14,6 +14,9 @@ class Thorax.Models.Measure extends Thorax.Model
       populations.add new Thorax.Models.Population(population)
     attrs.populations = populations
 
+    for key, data_criteria of attrs.data_criteria
+      data_criteria.key = key
+
     attrs.value_sets = new Thorax.Collection(attrs.value_sets, comparator: (vs) -> vs.get('display_name').toLowerCase())
     attrs.source_data_criteria = new Thorax.Collections.MeasureDataCriteria _(attrs.source_data_criteria).values()
     attrs

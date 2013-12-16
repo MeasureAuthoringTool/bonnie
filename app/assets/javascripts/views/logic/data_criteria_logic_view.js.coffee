@@ -7,7 +7,6 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.View
 
   initialize: ->
     @dataCriteria = @dataCriteriaMap[@reference]
-    @dataCriteria.key = @reference
     # we need to do this because the view helper doesn't seem to be available in an #each.
     if @dataCriteria.field_values
       for key, field of @dataCriteria.field_values
@@ -25,4 +24,4 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.View
     Thorax.Models.Measure.logicFields[field_key]?['title']
 
   translate_source_data: (oid) =>
-    @sourceDataCriteria.findWhere(code_list_id: oid).get('description')
+    @sourceDataCriteria.findWhere(code_list_id: oid)?.get('description')
