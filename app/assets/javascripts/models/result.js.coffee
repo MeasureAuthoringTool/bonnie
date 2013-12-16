@@ -3,6 +3,13 @@ class Thorax.Models.Result extends Thorax.Model
     @population = options.population
     @measure = @population.collection.parent
     @patient = options.patient
+    # FIXME: Work around for current state where the patient_id is taked from the result internals; now this can
+    # happen before populated with current deferred calculation approach...
+    @set patient_id: @patient.id
+
+  # FIXME: is rationale a reasonable proxy for populated?
+  # FIXME: Do we need to do something about thorax auto-fetching? Overwrite fetch()?
+  isPopulated: -> @has('rationale')
 
   specificsRationale: ->
     updatedRationale = {}

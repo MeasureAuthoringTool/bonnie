@@ -6,7 +6,31 @@ class Thorax.Models.Population extends Thorax.Model
 
   measure: -> @collection.parent
 
+  # FIXME: Good idea but only if needed...
+  populationCriteria: -> (criteria for criteria in Thorax.Models.Measure.allPopulationCodes when @has(criteria))
+
   calculate: (patient) -> bonnie.calculator.calculate(this, patient)
+
+  differenceFromExpected: (patient) ->
+    result = @calculate(patient)
+    expected = patient.get('expected_values')?[@measure().get('hqmf_set_id')]?[@get('sub_id')]
+    new Thorax.Models.Difference({}, result: result, expected: expected)
+
+  # FIXME can we use a view that contains a collection that uses an inline template, ie
+  # {{#view statusView}}
+  #   {{#if done}}FOO{{/if}}
+  # {{/view}}
+  # that is instantiated like
+  # @statusView = new Thorax.View
+  #   collection: differences
+  #   context: ->
+  #     done: @collection.all (d) -> d.has('match')
+    
+  differencesFromExpected: ->
+    differences = new Thorax.Collection
+    @measure().get('patients').each (patient) =>
+      differences.add @differenceFromExpected(patient)
+    differences
 
   exactMatches: ->
     measure = @collection.parent

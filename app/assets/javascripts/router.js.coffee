@@ -26,14 +26,18 @@ class BonnieRouter extends Backbone.Router
     'users':                                           'renderUsers'
 
   renderMeasures: ->
+    # FIXME: We want the equivalent of a before filter; can probably override navigate w/super?
+    @calculator.cancelCalculations()
     measuresView = new Thorax.Views.Measures(collection: @measures.sort())
     @mainView.setView(measuresView)
 
   renderMeasure: (hqmfSetId) ->
+    @calculator.cancelCalculations()
     measureView = new Thorax.Views.Measure(model: @measures.findWhere({hqmf_set_id: hqmfSetId}), patients: @patients)
     @mainView.setView(measureView)
 
   renderUsers: ->
+    @calculator.cancelCalculations()
     @users = new Thorax.Collections.Users()
     @users.fetch()
     usersView = new Thorax.Views.Users(collection: @users)
@@ -56,6 +60,7 @@ class BonnieRouter extends Backbone.Router
     matrixView.calculateAsynchronously()
 
   renderPatientBuilder: (measureHqmfSetId, patientId) ->
+    @calculator.cancelCalculations()
     measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_id: measure?.get('hqmf_set_id')}, parse: true
     patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients)
