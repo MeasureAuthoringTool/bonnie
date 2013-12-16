@@ -266,15 +266,14 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
   events:
     serialize: (attr) ->
       for pc in @model.populationCriteria()
-        attr[pc] = 1 if attr[pc] == true
-        attr[pc] = 0 unless attr[pc]
+        unless @measure.get('episode_of_care') || (@measure.get('continuous_variable') && pc == 'OBSERV')
+          attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box to 0/1
 
   context: ->
     context = super
     for pc in @model.populationCriteria()
       unless @measure.get('episode_of_care') || (@measure.get('continuous_variable') && pc == 'OBSERV')
-        context[pc] = true if context[pc] == 1
-        context[pc] = false if context[pc] == 0
+        context[pc] = (context[pc] == 1)
     context
 
   initialize: ->
