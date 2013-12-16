@@ -252,7 +252,7 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
       @$('a[data-toggle="tab"]:first').tab('show')
       @$('.tab-pane:first').addClass('active') # This seems to be necessary because we're not in the DOM yet?
       # When the tabs are toggled, we want to send a message over to another view, use an event
-      @$('a[data-toggle="tab"]').on 'shown.bs.tab', (e) =>
+      @$el.on 'shown.bs.tab', 'a[data-toggle="tab"]', (e) =>
         expectedValue = $(e.target).model()
         @trigger 'population:select', expectedValue.get('population_index')
 
