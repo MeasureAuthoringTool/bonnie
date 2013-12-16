@@ -89,8 +89,9 @@ class Thorax.Models.Patient extends Thorax.Model
   getExpectedValue: (population) ->
     measure = population.collection.parent
     expectedValue = @get('expected_values').findWhere(measure_id: measure.get('hqmf_set_id'), population_index: population.get('index'))
-    expectedValue ?= new Thorax.Models.ExpectedValue measure_id: measure.get('hqmf_set_id'), population_index: population.get('index')
-    @get('expected_values').add expectedValue # Note: adding back an existing element is a no-op
+    unless expectedValue
+      expectedValue = new Thorax.Models.ExpectedValue measure_id: measure.get('hqmf_set_id'), population_index: population.get('index')
+      @get('expected_values').add expectedValue
     for populationCriteria in Thorax.Models.Measure.allPopulationCodes when population.has populationCriteria
       expectedValue.set populationCriteria, 0 unless expectedValue.has populationCriteria
     expectedValue

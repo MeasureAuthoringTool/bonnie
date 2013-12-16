@@ -252,7 +252,7 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
       @$('a[data-toggle="tab"]:first').tab('show')
       @$('.tab-pane:first').addClass('active') # This seems to be necessary because we're not in the DOM yet?
       # When the tabs are toggled, we want to send a message over to another view, use an event
-      @$el.on 'shown.bs.tab', 'a[data-toggle="tab"]', (e) =>
+      @$('a[data-toggle="tab"]').on 'shown.bs.tab', (e) =>
         expectedValue = $(e.target).model()
         @trigger 'population:select', expectedValue.get('population_index')
 
@@ -266,6 +266,8 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
   events:
     serialize: (attr) ->
       for pc in @model.populationCriteria()
+        # We need to explicitly check against true because episode of care measures have truthy non-true values
+        # that we don't want to change
         attr[pc] = 1 if attr[pc] == true
         attr[pc] = 0 unless attr[pc]
 
@@ -273,8 +275,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
     context = super
     for pc in @model.populationCriteria()
       unless @measure.get('episode_of_care') || (@measure.get('continuous_variable') && pc == 'OBSERV')
-        context[pc] = true if context[pc] == 1
-        context[pc] = false if context[pc] == 0
+        context[pc] = (context[pc] == 1)
     context
 
   initialize: ->
