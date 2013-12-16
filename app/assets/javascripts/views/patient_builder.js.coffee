@@ -21,7 +21,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @populationLogicView.setPopulation @measure.get('populations').first()
     @populationLogicView.showRationale @model
     @expectedValuesView.on 'population:select', (population_index) =>
-      @populationLogicView.setPopulation @measure.get('populations').findWhere(index: population_index)
+      @populationLogicView.setPopulation @measure.get('populations').at(population_index)
       @materialize()
     @model.on 'materialize', =>
       @populationLogicView.showRationale @model
@@ -239,7 +239,7 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
     if @collection.length > 1 then true else false
 
   populationContext: (expectedValue) ->
-    population = @measure.get('populations').findWhere(index: expectedValue.get('population_index'))
+    population = @measure.get('populations').at expectedValue.get('population_index')
     populationTitle: population.get('title') || population.get('sub_id')
     population_index: expectedValue.get('population_index')
 
