@@ -15,8 +15,8 @@ gem 'rubyzip', '< 1.0.0'
 gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'mongoid_refactor'
 #gem 'quality-measure-engine', :path => '../quality-measure-engine'
 
-gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'develop'
-# gem 'bonnie_bundler', :path => '../bonnie_bundler'
+# gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'develop'
+gem 'bonnie_bundler', :path => '../bonnie_bundler'
 
 gem 'mongoid', '~> 3.1.0'
 

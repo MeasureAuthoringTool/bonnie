@@ -35,6 +35,12 @@ namespace :bonnie do
       user = User.by_email(email).first
       Measures::BundleLoader.load(args.file, user, measures_yml, load_from_hqmf)
 
+      Rake::Task['bonnie:patients:update_measure_ids'].invoke
+      Rake::Task['bonnie:users:associate_user_with_measures'].invoke(EMAIL: email)
+      Rake::Task['bonnie:users:associate_user_with_patients'].invoke(EMAIL: email)
+      Rake::Task["bonnie:patients:update_source_data_criteria"].invoke
+      Rake::Task['bonnie:measures:pregenerate_js'].invoke
+
     end
   end
 end
