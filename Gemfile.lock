@@ -42,8 +42,10 @@ GIT
       rubyzip (= 0.9.9)
       uuid (~> 2.3.7)
 
-PATH
-  remote: ../bonnie_bundler
+GIT
+  remote: https://github.com/projecttacoma/bonnie_bundler.git
+  revision: e3c894ea9541914c57a671caa7ad5cfa5205e837
+  branch: develop
   specs:
     bonnie_bundler (1.0.0)
 
