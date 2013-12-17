@@ -94,7 +94,7 @@ namespace :bonnie do
   end
 
   namespace :test do
-    desc 'Prune some measures, initiailize the patients, and expected values!'
+    desc 'Deletes all measures except for failing Cypress measures and CV measures; Use after running a bonnie:load:mitre_bundle rake task.'
     task :prune_db => :environment do
       puts "Reducing imported measures"
       some_measure_ids = Measure.in(measure_id: ['0710', '0389', 'ADE_TTR', '0497', '0495', '0496']).pluck('hqmf_set_id')
