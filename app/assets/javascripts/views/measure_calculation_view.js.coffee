@@ -39,8 +39,6 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
       resultValue = if p is 'OBSERV' then result.get('values')?[0] else result.get(p)
       ev = expectedValues?.get(p)
       combinedResults[p] = { name: p, expected: ev, result: resultValue }
-    console.log result
-    console.log combinedResults
     _(result.toJSON()).extend
       measure_id: @model.get('hqmf_set_id')
       populationTitle: popTitle ?= @population.get('sub_id')
