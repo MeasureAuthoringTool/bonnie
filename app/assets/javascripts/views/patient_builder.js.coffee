@@ -143,6 +143,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
     @editFieldValueCollectionView = new Thorax.CollectionView
       collection: @model.get('field_values')
       itemView: (item) => new Thorax.Views.EditCriteriaValueView(model: item.model, measure: @measure, fieldValue: true)
+    @model.get('value').add type: 'PQ'
+    @model.get('field_values').add type: 'PQ'
 
   serialize: ->
     childView.serialize() for cid, childView of @editValueCollectionView.children
@@ -185,25 +187,25 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
     e.preventDefault()
     @model.destroy()
 
-  newScalarValue: (e) ->
-    e.preventDefault()
-    @model.get('value').add type: 'PQ'
+  # newScalarValue: (e) ->
+  #   e.preventDefault()
+  #   @model.get('value').add type: 'PQ'
 
-  newCodedValue: (e) ->
-    e.preventDefault()
-    @model.get('value').add type: 'CD'
+  # newCodedValue: (e) ->
+  #   e.preventDefault()
+  #   @model.get('value').add type: 'CD'
 
-  newScalarFieldValue: (e) ->
-    e.preventDefault()
-    @model.get('field_values').add type: 'PQ'
+  # newScalarFieldValue: (e) ->
+  #   e.preventDefault()
+  #   @model.get('field_values').add type: 'PQ'
 
-  newCodedFieldValue: (e) ->
-    e.preventDefault()
-    @model.get('field_values').add type: 'CD'
+  # newCodedFieldValue: (e) ->
+  #   e.preventDefault()
+  #   @model.get('field_values').add type: 'CD'
 
-  newTimeFieldValue: (e) ->
-    e.preventDefault()
-    @model.get('field_values').add type: 'TS'
+  # newTimeFieldValue: (e) ->
+  #   e.preventDefault()
+  #   @model.get('field_values').add type: 'TS'
 
 
 class Thorax.Views.EditCriteriaValueView extends Thorax.View
@@ -220,12 +222,52 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.View
 
   # When we serialize the form, we want to put the description for any CD codes into the submission
   events:
+    "click .scalar-value": "setScalarValue",
+    "click .coded-value":  "setCodedValue",
+    "click .scalar-field-value": "setScalarFieldValue",
+    "click .coded-field-value": "setCodedFieldValue",
+    "click .time-field-value": "setTimeFieldValue",
     serialize: (attr) ->
       attr.title = @measure.get('value_sets').findWhere(oid: attr.code_list_id)?.get('display_name')
 
   removeValue: (e) ->
     e.preventDefault()
     @model.destroy()
+
+  # Below need to work for any value, not just first
+  setScalarValue: (e) ->
+    e.preventDefault()
+    @model.set 'type', 'PQ'
+
+  setCodedValue: (e) ->
+    e.preventDefault()
+    @model.set 'type', 'CD'
+
+  addValue: (e) ->
+    e.preventDefault()
+    # TODO minimize previous fields to small gray box format
+
+    # Add new form below - default is PQ
+    @model.collection.add type: 'PQ'
+
+  setScalarFieldValue: (e) ->
+    e.preventDefault()
+    @model.set 'type', 'PQ'
+
+  setCodedFieldValue: (e) ->
+    e.preventDefault()
+    @model.set 'type', 'CD'
+
+  setTimeFieldValue: (e) ->
+    e.preventDefault()
+    @model.set 'type', 'TS'
+
+  addFieldValue: (e) ->
+    e.preventDefault()
+    # TODO minimize previous fields to small gray box format
+
+    # Add new form below - default is PQ
+    @model.collection.add type: 'PQ'
 
 
 class Thorax.Views.ExpectedValuesView extends Thorax.View
