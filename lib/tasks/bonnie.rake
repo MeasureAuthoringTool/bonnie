@@ -78,14 +78,12 @@ namespace :bonnie do
         puts "Updating expected values for demo"
         measure_id = Measure.where(measure_id: '0105').first.hqmf_set_id
         patient = Record.where(first: 'BH_Adult', last: 'C').first
-        [['a', 'IPP'], ['a', 'DENOM'], ['b', 'IPP'], ['b', 'DENOM']].each do |sub, pop|
-          patient.expected_values[measure_id][sub][pop] = 1
-        end
+        patient.expected_values << {measure_id: measure_id, population_index: 0, IPP: 1, DENOM: 1, NUMER: 0, DENEX: 0}
+        patient.expected_values << {measure_id: measure_id, population_index: 1, IPP: 1, DENOM: 1, NUMER: 0, DENEX: 0}
         patient.save!
         patient = Record.where(first: 'BH_Adult', last: 'D').first
-        [['a', 'IPP'], ['a', 'DENOM'], ['a', 'NUMER'], ['b', 'IPP'], ['b', 'DENOM']].each do |sub, pop|
-          patient.expected_values[measure_id][sub][pop] = 1
-        end
+        patient.expected_values << {measure_id: measure_id, population_index: 0, IPP: 1, DENOM: 1, NUMER: 1, DENEX: 0}
+        patient.expected_values << {measure_id: measure_id, population_index: 1, IPP: 1, DENOM: 1, NUMER: 0, DENEX: 0}
         patient.save!
       end
       Rake::Task['bonnie:users:associate_user_with_measures'].invoke
@@ -142,36 +140,11 @@ namespace :bonnie do
 
     desc 'Reset expected_values hash.'
     task :reset_expected_values => :environment do
-      puts "Resetting expected_values hash for all patients to 0 for patients with associated measures"
-      sub_ids = ("a".."z").to_a
-      measureHash = Hash.new
+      puts "Resetting expected_values hash for all patients to []"
       Record.each do |patient|
-        patient.expected_values = Hash.new
-        if patient.measure_ids.blank?
-          patient.save
-          puts "\tWarning! Patient #{patient.first} #{patient.last} (#{patient.medical_record_number}) has no associated measures!"
-        else
-          patient.measure_ids.each do |mid|
-            if measureHash.include? mid
-              patient.expected_values[mid] = measureHash[mid]
-            else
-              patient.expected_values[mid] = Hash.new
-              if measure = Measure.where(hqmf_set_id: mid).first
-                measure.populations.each_with_index do |populations, index|
-                  # Initialize all population expected values to 0 (excluded from all populations)
-                  patient.expected_values[mid][sub_ids[index]] = Hash.new
-                  validPopulations = populations.keys & Measure.where(hqmf_set_id: mid).first.population_criteria.keys
-                  validPopulations.each do |population|
-                    patient.expected_values[mid][sub_ids[index]][population] = 0
-                  end
-                end
-                measureHash[mid] = patient.expected_values[mid]
-              end
-            end
-          end
-          patient.save
-          puts "\tReset expected_values for patient #{patient.first} #{patient.last}."
-        end
+        patient.expected_values = []
+        patient.save
+        puts "\tReset expected_values for patient #{patient.first} #{patient.last}."
       end
     end
   end

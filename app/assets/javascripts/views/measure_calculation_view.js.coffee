@@ -30,14 +30,15 @@ class Thorax.Views.MeasureCalculation extends Thorax.View
 
   resultContext: (result) ->
     patient = @model.get('patients').get result.get('patient_id')
-    expectedValues = patient.get('expected_values')?[@model.get('hqmf_set_id')]?[@population.get('sub_id')]
+    expectedValues = patient.getExpectedValue(@population)
     popTitle = @population.get('title')
     validPopulations = (criteria for criteria in Thorax.Models.Measure.allPopulationCodes when @population.has(criteria))
     combinedResults = {}
     patientStatus = @population.isExactlyMatching(patient)
     for p in validPopulations
       resultValue = if p is 'OBSERV' then result.get('values')?[0] else result.get(p)
-      combinedResults[p] = { name: p, expected: expectedValues?[p], result: resultValue }
+      ev = expectedValues?.get(p)
+      combinedResults[p] = { name: p, expected: ev, result: resultValue }
     # console.log result
     # console.log combinedResults
     _(result.toJSON()).extend
