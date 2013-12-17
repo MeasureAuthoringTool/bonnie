@@ -14,7 +14,8 @@ module Measures
       end
       patient.medical_record_number ||= Digest::MD5.hexdigest("#{patient.first} #{patient.last}")
 
-      value_sets = get_value_sets(patient['measure_ids'] || [], patient.user).values
+      value_sets = get_value_sets(patient['measure_ids'] || [], patient.user)
+
       measure_data_criteria = get_data_criteria(patient['measure_ids'] || [], patient.user)
       
       patient.source_data_criteria.each  do |v|
@@ -37,6 +38,7 @@ module Measures
           section.push(entry)
         end
       end
+
     end
 
 
@@ -217,8 +219,8 @@ module Measures
     # @return The value set from the list with the requested OID.
     def self.select_value_sets(oid, value_sets)
       # Pick the value set for this DataCriteria. If it can't be found, it is an error from the value set source. We'll add the entry without codes for now.
-      index = value_sets.index{|value_set| value_set["oid"] == oid}
-      vs = index.nil? ? { "concepts" => [] } : value_sets[index]
+      vs = value_sets[oid]
+      vs = vs || { "concepts" => [] }
       vs
     end
 
@@ -240,19 +242,16 @@ module Measures
 
     # Get a mapping of the valuesets for the selected measures
     def self.get_value_sets(measure_list, current_user)
-      Hash[
-        *Measure.by_user(current_user).where({'hqmf_set_id' => {'$in' => measure_list}}).map{|m|
-          m.value_sets.map do |value_set|
-            preferred_set = nil
-            filtered = HealthDataStandards::SVS::ValueSet.new(value_set.attributes)
-            filtered.concepts.reject! {|c| c.black_list || !c.white_list}
-            filtered['concepts'] = filtered.concepts
-            preferred_set = filtered unless filtered.concepts.empty?
-            preferred_set ||= value_set
-            [value_set.oid, preferred_set]
-          end
-        }.map(&:to_a).flatten
-      ]
+      value_sets = {}
+      Measure.by_user(current_user).where({'hqmf_set_id' => {'$in' => measure_list}}).map do |measure|
+        measure.value_sets.each do |value_set|
+          preferred_set = HealthDataStandards::SVS::ValueSet.new(value_set.as_json(except: ['_id']))
+          preferred_set.concepts.reject! {|c| c.black_list || !c.white_list}
+          preferred_set = value_set if preferred_set.concepts.empty?
+          value_sets[value_set.oid] = preferred_set
+        end
+      end
+      value_sets
     end
   end
 end
