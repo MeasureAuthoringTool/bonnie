@@ -33,10 +33,18 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @measure?.get('source_data_criteria').each (criteria) ->
       type = criteria.get('type').replace(/_/g, ' ')
       # Filter out negations
-      unless criteria.get('negation')
+      filter_criteria = criteria.get('negation') or 
+      ( criteria.get('definition') is 'patient_characteristic_birthdate' ) or 
+      ( criteria.get('definition') is 'patient_characteristic_gender' ) or 
+      ( criteria.get('definition') is 'patient_characteristic_expired' ) or
+      ( criteria.get('definition') is 'patient_characteristic_race' ) or
+      ( criteria.get('definition') is 'patient_characteristic_ethnicity' ) or
+      ( criteria.get('definition') is 'patient_characteristic_payer' )
+      unless filter_criteria
+        if type is 'characteristic' then console.log criteria
         categories[type] ||= new Thorax.Collection
         categories[type].add criteria unless categories[type].any (c) -> c.get('description') == criteria.get('description')
-    _(categories).omit('characteristic', 'transfers')
+    _(categories).omit('transfers')
 
   events:
     rendered: ->
