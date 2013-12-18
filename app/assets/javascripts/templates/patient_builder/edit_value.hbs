@@ -1,66 +1,32 @@
 <div class="value-form">
-{{!--   <div class="pull-right">
-    {{#button "removeValue" tag="a" class="close"}}&times;{{/button}}
-  </div>
-
-  {{#if typePQ}}
-    <label>Value</label>
-  {{/if}}
-
-  {{#if typeCD}}
-    <label>Coded</label>
-  {{/if}}
-
-  {{#if typeTS}}
-    <label>Time</label>
-  {{/if}} --}}
   <div class="input-group">
     {{#if fieldValue}}
       <div class="field-value">
-        <select name="id" class="form-control">
+        <select name="fv_type" class="form-control">
           <option value="">--</option>
           {{#each fields}}
-            <option value="{{@key}}">{{title}}</option>
+            <option value="{{title}}">{{title}}</option>
           {{/each}}
         </select>
       </div>
-      {{!-- <select name="id" class="form-control">
-        <option value="">--</option>
-        {{#each fields}}
-          <option value="{{@key}}">{{title}}</option>
-        {{/each}}
-      </select> --}}
-      <div class="input-group-btn">
-        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Type <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li><a class="scalar-field-value"><i class="fa fa-pencil-square-o"></i> Scalar</a></li>
-          <li><a class="coded-field-value"><i class="fa fa-list"></i> Coded</a></li>
-          <li><a class="time-field-value"><i class="fa fa-calendar"></i> Time</a></li>
-        </ul>
-      </div>
-    {{else}}
-      <div class="input-group-btn">
-        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Type <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li><a class="scalar-value"><i class="fa fa-pencil-square-o"></i> Scalar</a></li>
-          <li><a class="coded-value"><i class="fa fa-list"></i> Coded</a></li>
-        </ul>
-      </div>
     {{/if}}
+    
+    <div class="input-group-btn">
+      <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Type <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li>{{#button "setScalarValue" tag="a"}}<i class="fa fa-pencil-square-o"></i> Scalar{{/button}}</li>
+        <li>{{#button "setCodedValue" tag="a"}}<i class="fa fa-list"></i> Coded{{/button}}</li>
+        {{#if fieldValue}}
+          <li>{{#button "setTimeValue" tag="a"}}<i class="fa fa-calendar"></i> Time{{/button}}</li>
+        {{/if}}
+      </ul>
+    </div>
     
     {{#if typePQ}}
       <div class="inputs row">
-       <span class="form-control-input"><input type="text" class="form-control" id="event-start" placeholder="input"></span>
-        <span class="form-control-units"><input type="text" class="form-control" id="event-start-time" placeholder="units"></span>
+       <span class="form-control-input"><input type="text" name="value" class="form-control" id="event-start" placeholder="input"></span>
+        <span class="form-control-units"><input type="text" name="unit" class="form-control" id="event-start-time" placeholder="units"></span>
       </div>
-    {{!--     <div class="row">
-          <div class="value-input">
-            <input type="text" name="value" class="form-control form-control-input" placeholder="scalar">
-          </div>
-          <div class="value-input">
-            <input type="text" name="unit" class="form-control form-control-units" placeholder="unit">
-          </div>
-        </div> --}}
     {{/if}}
 
     {{#if typeCD}}
@@ -81,10 +47,6 @@
       </div>
     {{/if}}
 
-    {{#if fieldValue}}
-      {{#button "addFieldValue" class="btn btn-primary pull-right"}}<i class="fa fa-plus"></i>{{/button}}
-    {{else}}
-      {{#button "addValue" class="btn btn-primary pull-right"}}<i class="fa fa-plus"></i>{{/button}}
-    {{/if}}
-  </div><!-- /input-group -->
+    {{#button "addValue" class="btn btn-primary pull-right"}}<i class="fa fa-plus"></i>{{/button}}
+  </div>
 </div>
