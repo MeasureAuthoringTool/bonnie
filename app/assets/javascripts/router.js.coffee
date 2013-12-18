@@ -26,7 +26,7 @@ class BonnieRouter extends Backbone.Router
     'users':                                           'renderUsers'
 
   renderMeasures: ->
-    # FIXME: We want the equivalent of a before filter; can probably override navigate w/super?
+    # FIXME: We want the equivalent of a before filter; can probably override navigate w/super? @on route happens after, ok?
     @calculator.cancelCalculations()
     measuresView = new Thorax.Views.Measures(collection: @measures.sort())
     @mainView.setView(measuresView)

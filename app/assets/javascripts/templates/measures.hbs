@@ -18,7 +18,7 @@
   </div>
 </div>
 
-{{#collection class="dashboard-data" item-view=measureRowView}}
+{{#collection class="dashboard-data" item-view='MeasureRowView'}}
 
   <div class="measure row">
     <div class="measure-col">
@@ -33,34 +33,32 @@
       </div>
     </div>
     <div class="expected-col">
-      {{#unless hasPopulations}}
-        <input type="text" value="{{expectedPercentage}}" class="dial" data-readOnly="true" data-width="60" data-height="60" data-thickness=".2" data-fgColor={{#ifCond status '==' 'pass'}}"#468847"{{/ifCond}}{{#ifCond status '==' 'fail'}}"#b94a48"{{/ifCond}} data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
+      {{#unless multiplePopulations}}
+        {{view "MeasurePercentageView" model=differences.summary}}
       {{/unless}}
     </div>
-    <div class="status-col status status-{{status}}">
-      {{#unless hasPopulations}}{{status}}{{/unless}}
+    <div class="status-col">
+      {{#unless multiplePopulations}}
+        {{view "MeasureStatusView" model=differences.summary}}
+      {{/unless}}
     </div>
     <div class="patient-listing-col">
       <a href="#measures/{{hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
         <i class="fa fa-user"></i>
         <i class="fa fa-plus"></i>
       </a>
-      {{!-- FIXME: Should the following be patients.length or some other value? --}}
       <span class="patient-listing">
-        {{#if hasPopulations}}
+        {{#if multiplePopulations}}
           {{patients.length}}
         {{else}}
-          {{matches}}
+          {{view "MeasureFractionView" model=differences.summary}}
         {{/if}}
       </span>
-      {{#if hasFraction}}
-        <span class="fraction">/{{patients.length}}</span>
-      {{/if}}
     </div>
   </div>
 
-  {{#if hasPopulations}}
-    {{#collection populations item-context=populationContext}}
+  {{#if multiplePopulations}}
+    {{#collection differencesCollection}}
       <div class="row population">
         <div class="population-col">
           <div class="population-title">
@@ -68,16 +66,13 @@
           </div>
         </div>
         <div class="expected-col">
-          <input type="text" value="{{expectedPercentage}}" class="dial" data-readOnly="true" data-width="60" data-height="60" data-thickness=".2" data-fgColor={{#ifCond status '==' 'pass'}}"#468847"{{/ifCond}}{{#ifCond status '==' 'fail'}}"#b94a48"{{/ifCond}} data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
+          {{view "MeasurePercentageView" model=differences.summary}}
         </div>
-        <div class="status-col status status-{{status}}">
-          {{status}}
+        <div class="status-col">
+          {{view "MeasureStatusView" model=differences.summary}}
         </div>
         <div class="patient-listing-col">
-          <span class="patient-listing">{{matches}}</span>
-          {{#if hasFraction}}
-            <span class="fraction">/{{../../patients.length}}</span>
-          {{/if}}
+          {{view "MeasureFractionView" model=differences.summary}}
         </div>
       </div>
     {{/collection}}

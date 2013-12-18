@@ -1,7 +1,7 @@
 (function() {
 
   var measure = bonnie.measures.get('<%= measure.id %>');
-  var population = measure.get('populations').findWhere({ index: <%= population_index %> });
+  var population = measure.get('populations').at(<%= population_index %>);
 
   bonnie.calculator.setCalculator(population, function(patient) {
 

@@ -13,23 +13,13 @@ class Thorax.Models.Population extends Thorax.Model
 
   differenceFromExpected: (patient) ->
     result = @calculate(patient)
-    expected = patient.get('expected_values')?[@measure().get('hqmf_set_id')]?[@get('sub_id')]
+    expected = patient.getExpectedValue(this)
     new Thorax.Models.Difference({}, result: result, expected: expected)
 
-  # FIXME can we use a view that contains a collection that uses an inline template, ie
-  # {{#view statusView}}
-  #   {{#if done}}FOO{{/if}}
-  # {{/view}}
-  # that is instantiated like
-  # @statusView = new Thorax.View
-  #   collection: differences
-  #   context: ->
-  #     done: @collection.all (d) -> d.has('match')
-    
   differencesFromExpected: ->
-    differences = new Thorax.Collection
-    @measure().get('patients').each (patient) =>
-      differences.add @differenceFromExpected(patient)
+    # We want to explicitly call reset to fire an event (it doesn't happen if we just initialize)
+    differences = new Thorax.Collections.Differences()
+    differences.reset @measure().get('patients').map (patient) => @differenceFromExpected(patient)
     differences
 
   exactMatches: ->
