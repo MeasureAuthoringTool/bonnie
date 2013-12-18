@@ -137,25 +137,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
     populate: { context: true, children: false }
 
   initialize: ->
-    @editValueView = new Thorax.Views.EditCriteriaValueView(model: new Thorax.Model, measure: @measure, fieldValue: false, values: @model.get('value')) #new Thorax.CollectionView
-      # collection: @model.get('value')
-      # itemView: (item) => new Thorax.Views.EditCriteriaValueView(model: item.model, measure: @measure, fieldValue: false)
-    @editFieldValueView = new Thorax.Views.EditCriteriaValueView(model: new Thorax.Model, measure: @measure, fieldValue: true, values: @model.get('field_values')) #new Thorax.CollectionView
-      # collection: @model.get('field_values')
-      #itemView: (item) => new Thorax.Views.EditCriteriaValueView(model: item.model, measure: @measure, fieldValue: true)
-    # @model.get('value').add type: 'PQ'
-    # @model.get('field_values').add type: 'PQ'
-    # @valueView = new Thorax.CollectionView
-    #   collection: @model.get('value')
-    #   itemView: (item) => new Thorax.Views.dataCriteriaValueView(model: item.model)
-    # @fieldValueView = new Thorax.CollectionView
-    #   collection: @model.get('field_values')
-    #   itemView: (item) => new Thorax.Views.dataCriteriaValueView(model: item.model)
-
-  # serialize: ->
-  #   childView.serialize() for cid, childView of @editValueCollectionView.children
-  #   childView.serialize() for cid, childView of @editFieldValueCollectionView.children
-  #   super
+    @editValueView = new Thorax.Views.EditCriteriaValueView(model: new Thorax.Model, measure: @measure, fieldValue: false, values: @model.get('value'))
+    @editFieldValueView = new Thorax.Views.EditCriteriaValueView(model: new Thorax.Model, measure: @measure, fieldValue: true, values: @model.get('field_values'))
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
@@ -192,26 +175,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
   removeCriteria: (e) ->
     e.preventDefault()
     @model.destroy()
-
-  # newScalarValue: (e) ->
-  #   e.preventDefault()
-  #   @model.get('value').add type: 'PQ'
-
-  # newCodedValue: (e) ->
-  #   e.preventDefault()
-  #   @model.get('value').add type: 'CD'
-
-  # newScalarFieldValue: (e) ->
-  #   e.preventDefault()
-  #   @model.get('field_values').add type: 'PQ'
-
-  # newCodedFieldValue: (e) ->
-  #   e.preventDefault()
-  #   @model.get('field_values').add type: 'CD'
-
-  # newTimeFieldValue: (e) ->
-  #   e.preventDefault()
-  #   @model.get('field_values').add type: 'TS'
 
   removeValue: (e) ->
     e.preventDefault()

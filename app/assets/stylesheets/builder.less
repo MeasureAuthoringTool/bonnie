@@ -174,7 +174,7 @@
     }
     
     .record {
-      .make-sm-column(8);
+      .make-sm-column(7);
       .row;
       min-height: 200px; // ADDED
       padding-bottom: 500px; // ADDED
@@ -254,15 +254,19 @@
             }
 
             .input-group {
+              padding: 0 15px;
+
               > .btn {
                 .make-sm-column(1);
               }
-              .field-value {
-                padding-left: 15px;
-              }
+
+              // .field-value {
+              //   padding-left: 15px;
+              // }
+              
               .input-group-btn {
                 .make-sm-column(2);
-                padding-right: 0;
+                padding: 0;
                 > * {
                   width: 100%;
                 }
@@ -272,24 +276,31 @@
               }
               .inputs {
                 .make-sm-column(9);
-                padding-right: 0;
-                
+                // padding: 0;
                 &.inputs-cd {
-                  padding-right: 15px;
+                  padding: 0 15px;
                 }
 
                 .form-control {
                   margin-bottom: 20px;
-                  // width: 100%;
                 }
+
                 .form-control-input {
                   .make-sm-column(8);
-                  padding-right: 0;
+                  padding: 0;
                 }
 
                 .form-control-units {
                   .make-sm-column(4);
                   padding-right: 0;
+                }
+
+                .form-control-date {
+                  .make-sm-column(6.5);
+                }
+
+                .form-control-time {
+                  .make-sm-column(5.5);
                 }
               }
             }
@@ -304,7 +315,6 @@
             }
 
             .form-control-time {
-              .make-sm-column-offset(1);
               .make-sm-column(5);
             }
 
@@ -351,7 +361,7 @@
     }
 
     .existing-values {
-      margin-bottom: 20px;
+      // margin-bottom: 20px;
 
       span{
         background-color: @gray-lighter;
@@ -384,7 +394,7 @@
     }
 
     .measure-view-side {
-      .make-sm-column(4);
+      .make-sm-column(5);
       margin-top: 20px;
       padding-right: 0;
       font-size: 12px;
