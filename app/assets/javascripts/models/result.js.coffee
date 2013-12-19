@@ -3,6 +3,8 @@ class Thorax.Models.Result extends Thorax.Model
     @population = options.population
     @measure = @population.collection.parent
     @patient = options.patient
+    @listenTo @patient, 'destroy', @destroy # FIXME: what about the calculation cache, do we need to clear that?
+    # FIXME: When the patient is updated, do we update the result or clear the cache...?
     # FIXME: Work around for current state where the patient_id is taked from the result internals; now this can
     # happen before populated with current deferred calculation approach...
     @set patient_id: @patient.id
@@ -10,6 +12,10 @@ class Thorax.Models.Result extends Thorax.Model
   # FIXME: is rationale a reasonable proxy for populated?
   # FIXME: Do we need to do something about thorax auto-fetching? Overwrite fetch()?
   isPopulated: -> @has('rationale')
+
+  differenceFromExpected: ->
+    expected = @patient.getExpectedValue @population
+    new Thorax.Models.Differnece({}, result: this, expected: expected)
 
   specificsRationale: ->
     updatedRationale = {}
@@ -159,6 +165,6 @@ class Thorax.Models.Result extends Thorax.Model
       _.extend(orCounts, @calculateOrCountsRecursive(rationale, precondition.preconditions))
     return orCounts
 
-class Thorax.Collections.Result extends Thorax.Collection
+class Thorax.Collections.Results extends Thorax.Collection
   model: Thorax.Models.Result
   initialize: (models, options) -> @parent = options?.parent

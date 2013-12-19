@@ -1,13 +1,13 @@
 <div class="measure-calculation">
   <div class="row summary">
     <div class="expected-col">
-      <input type="text" value="{{expectedPercentage}}" class="dial" data-readOnly="true" data-width="60" data-height="60" data-thickness=".2" data-fgColor={{#ifCond status '==' 'pass'}}"#468847"{{/ifCond}}{{#ifCond status '==' 'fail'}}"#b94a48"{{/ifCond}} data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
+      {{view "MeasurePercentageView" model=differences.summary}}
     </div> 
     <div class="status-col">
-      <span class="status status-{{status}}">{{status}}</span>
+      {{view "MeasureStatusView" model=differences.summary}}
     </div>
     <div class="patient-data-col">
-      <span class="patient-listing">{{matches}}</span> <span class="fraction">/{{patients.length}}</span>
+      {{view "MeasureFractionView" model=differences.summary tag="span"}}
       <a href="#measures/{{hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
         <i class="fa fa-user"></i>
         <i class="fa fa-plus"></i>
@@ -15,15 +15,17 @@
     </div>
   </div>
   <br>
-  {{#collection results tag="div" class="panel panel-default" item-context=resultContext}}
+  {{#collection differences tag="div" class="panel panel-default" item-context=differenceContext}}
     <div class="panel-heading">
       <div class="panel-title">
         <div class="patient row">
-          <div class="patient-status-icon-col status status-{{patientStatusText}}">
-            {{#if patientStatus}}
-              <i class="fa fa-check"></i>
-            {{else}}
-              <i class="fa fa-times"></i>
+          <div class="patient-status-icon-col status status-{{status}}">
+            {{#if done}}
+              {{#if match}}
+                <i class="fa fa-check"></i>
+              {{else}}
+                <i class="fa fa-times"></i>
+              {{/if}}
             {{/if}}
           </div>
           <div class="patient-btn-col">
@@ -32,17 +34,15 @@
             {{/button}}
           </div>
           <div class="patient-name-col">
-            {{last}} {{first}}
+            {{patient.last}} {{patient.first}}
           </div>
-          <div class="patient-status-col status status-{{patientStatusText}}">
-            {{patientStatusText}}
+          <div class="patient-status-col status status-{{status}}">
+            {{status}}
           </div>
         </div>
       </div>
     </div>
-    <div class="panel-body toggle-result toggle-result-{{patient_id}} patient" style="display: none;">
-      {{!-- FIXME: Remove this subtitle after population selection is working correctly! --}}
-      {{!-- <h5>Results for {{populationTitle}}</h5> --}}
+    <div class="panel-body toggle-result toggle-result-{{patient._id}} patient" style="display: none;">
       <table class="table table-condensed col-xs-3">
         <tr>
           <th></th>
@@ -50,14 +50,14 @@
           <th style="text-align: center;">Expected</th>
           <th style="text-align: center;">Actual</th>
         </tr>
-        {{#each resultRow}}
+        {{#each comparisons}}
           <tr>
             <td style="text-align: center;">
-              {{#ifCond expected "==" result}}
+              {{#if match}}
                 <i class="fa fa-check pass"></i>
               {{else}}
                 <i class="fa fa-times fail"></i>
-              {{/ifCond}}
+              {{/if}}
             </td>
             <td>{{name}}</td>
             <td style="text-align: center;">
@@ -78,13 +78,13 @@
             </td>
             <td style="text-align: center;">
               {{#ifCond name "==" "OBSERV"}}
-                <span class="fail">{{result}}%</span>
+                <span class="fail">{{actual}}%</span>
               {{else}}
                 {{!-- FIXME Uncomment below to enable EoC measure results --}}
                 {{!-- {{#if ../../../episode_of_care}}
-                  <span class="fail">{{result}}</span>
+                  <span class="fail">{{actual}}</span>
                 {{else}} --}}
-                  {{#if result}}
+                  {{#if actual}}
                     <i class="fa fa-check-square-o default"></i>
                   {{else}}
                     <i class="fa fa-square-o default"></i>
@@ -95,10 +95,10 @@
           </tr>
         {{/each}}
       </table>
-      {{#link "measures/{{measure_id}}/patients/{{patient_id}}/edit" class="btn btn-primary" expand-tokens=true}}EDIT{{/link}}
+      {{#link "measures/{{measure_id}}/patients/{{patient._id}}/edit" class="btn btn-primary" expand-tokens=true}}EDIT{{/link}}
       {{#button "clonePatient" class="btn btn-primary"}}CLONE{{/button}}
       {{#button "showDelete" class="btn btn-danger-inverse"}}<i class="fa fa-minus-circle"></i>{{/button}}
-      {{#button "deletePatient" class="btn btn-danger delete-{{patient_id}}" style="display: none;" expand-tokens=true}}Delete{{/button}}
+      {{#button "deletePatient" class="btn btn-danger delete-{{patient._id}}" style="display: none;" expand-tokens=true}}Delete{{/button}}
     </div>
   {{/collection}}
 </div>

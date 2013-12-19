@@ -11,14 +11,16 @@ class Thorax.Models.Population extends Thorax.Model
 
   calculate: (patient) -> bonnie.calculator.calculate(this, patient)
 
+  calculationResults: -> new Thorax.Collections.Results @measure().get('patients').map (p) => @calculate(p)
+
   differenceFromExpected: (patient) ->
     result = @calculate(patient)
     expected = patient.getExpectedValue(this)
     new Thorax.Models.Difference({}, result: result, expected: expected)
 
   differencesFromExpected: ->
-    # We want to explicitly call reset to fire an event (it doesn't happen if we just initialize)
     differences = new Thorax.Collections.Differences()
+    # We want to explicitly call reset to fire an event (it doesn't happen if we just initialize)
     differences.reset @measure().get('patients').map (patient) => @differenceFromExpected(patient)
     differences
 
