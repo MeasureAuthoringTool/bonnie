@@ -122,42 +122,10 @@
             padding-left: 5px;
           }
 
-          .checkbox, .checkbox-divider {
-            padding-left: 5px;
-            padding-right: 5px;
-
-            .checkbox-population {
-              font-size: 9px;
-              font-weight: bold;
-
-              input[type="checkbox"] {
-                display:none;
-              }
-
-              input[type="checkbox"] + span:before {
-                font-family: 'FontAwesome';
-                padding-right: 5px;
-                font-size: 16px;
-                color: @brand-primary;
-                content: "\f096"; /* check-empty */
-              }
-
-              input[type="checkbox"]:checked + span:before {
-                content: "\f046"; /* check */
-              }
-
-              .checkbox-number {
-                width: 15%;
-              }
-
-              span {
-                margin-bottom: 5px;
-              }
-            }
-          }
-
           .checkbox-divider {
             border-left: 2px solid @gray-darker;
+            padding-left: 5px;
+            padding-right: 5px;
           }
         }
       }
@@ -258,11 +226,13 @@
 
               > .btn {
                 .make-sm-column(1);
-              }
+                padding: 6px 6px 4px;
 
-              // .field-value {
-              //   padding-left: 15px;
-              // }
+                .fa {
+                  margin-left: 1px;
+                  padding-top: 2px;
+                }
+              }
               
               .input-group-btn {
                 .make-sm-column(2);
@@ -276,7 +246,6 @@
               }
               .inputs {
                 .make-sm-column(9);
-                // padding: 0;
                 &.inputs-cd {
                   padding: 0 15px;
                 }
@@ -294,14 +263,6 @@
                   .make-sm-column(4);
                   padding-right: 0;
                 }
-
-                .form-control-date {
-                  .make-sm-column(6.5);
-                }
-
-                .form-control-time {
-                  .make-sm-column(5.5);
-                }
               }
             }
 
@@ -311,11 +272,14 @@
             }
               
             .form-control-date {
-              .make-sm-column(6);
+              .make-sm-column(6.5);
+              padding: 12px;
             }
 
             .form-control-time {
-              .make-sm-column(5);
+              .make-sm-column(5.5);
+              padding: 12px;
+              border-left-style: none;
             }
 
             .select {
@@ -328,6 +292,9 @@
 
             .not-per {
               .make-sm-column(12);
+              .checkbox-label {
+                font-size: 12px;
+              }
             }
 
             .btn-group {
@@ -346,8 +313,6 @@
           }
 
           .value-form {
-            // padding: 15px;
-
             .value-input {
               .make-sm-column(5);
             }
@@ -361,7 +326,7 @@
     }
 
     .existing-values {
-      // margin-bottom: 20px;
+      margin-bottom: 15px;
 
       span{
         background-color: @gray-lighter;
