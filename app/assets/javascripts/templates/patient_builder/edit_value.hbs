@@ -2,10 +2,10 @@
   <div class="input-group">
     {{#if fieldValue}}
       <div class="field-value">
-        <select name="fv_type" class="form-control">
+        <select name="id" class="form-control">
           <option value="">--</option>
           {{#each fields}}
-            <option value="{{title}}">{{title}}</option>
+            <option value="{{@key}}">{{title}}</option>
           {{/each}}
         </select>
       </div>

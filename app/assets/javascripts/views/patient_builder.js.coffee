@@ -150,6 +150,11 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
       codes: @measure.get('value_sets').map (vs) -> vs.toJSON()
       faIcon: @model.faIcon()
 
+  serialize: ->
+    # childView.serialize() for cid, childView of @editValueCollectionView.children
+    # childView.serialize() for cid, childView of @editFieldValueCollectionView.children
+    super
+
   # When we serialize the form, we want to convert formatted dates back to times
   events:
     serialize: (attr) ->
@@ -217,7 +222,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.View
   addValue: (e) ->
     e.preventDefault()
     @values.add this.serialize()
-
+    console.log @values
     # Reset form below - default is PQ
     @model.clear()
     @$('select.form-control option[value=""]').prop('selected', true);

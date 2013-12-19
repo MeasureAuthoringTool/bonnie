@@ -53,10 +53,10 @@
         </div>
         {{#collection field_values class="existing-values"}}
           <span>
-            {{fv_type}}:
+            {{id}}:
             {{value}} {{unit}}
             {{title}}
-            {{start_time}} {{end_time}}
+            {{start_date}} {{start_time}}
             {{#button "removeValue" class="btn btn-link delete"}}&times;{{/button}}
           </span>
         {{/collection}}
