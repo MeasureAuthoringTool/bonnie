@@ -41,7 +41,6 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       ( criteria.get('definition') is 'patient_characteristic_ethnicity' ) or
       ( criteria.get('definition') is 'patient_characteristic_payer' )
       unless filter_criteria
-        if type is 'characteristic' then console.log criteria
         categories[type] ||= new Thorax.Collection
         categories[type].add criteria unless categories[type].any (c) -> c.get('description') == criteria.get('description')
     _(categories).omit('transfers')
