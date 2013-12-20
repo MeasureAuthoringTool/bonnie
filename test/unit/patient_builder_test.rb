@@ -8,27 +8,32 @@ class PatientBuilderTest < ActiveSupport::TestCase
     associate_user_with_measures(@user,Measure.all)
     @measure_ids = ["E35791DF-5B25-41BB-B260-673337BC44A8"] # hqmf_set_id
     @data_criteria = Measures::PatientBuilder.get_data_criteria(@measure_ids, @user)
-    @valuesets = {"2.16.840.1.113883.3.526.3.1492"=>{"oid" => "2.16.840.1.113883.3.526.3.1492", "concepts"=>[{"code_system_name" => "SNOMED", "code" =>"99201"},
-                                                                            {"code_system_name" => "SNOMED", "code" =>"99202"},
-                                                                            {"code_system_name" => "CPT", "code" =>"CPT1"},
-                                                                            {"code_system_name" => "CPT", "code" =>"CPT2"}]},
+    @valuesets = {"2.16.840.1.113883.3.526.3.1492"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.526.3.1492", "concepts"=>[
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"99201"}),
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"99202"}),
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CPT1"}),
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CPT2"})]}),
                   
-                  "2.16.840.1.113883.3.464.1003.102.12.1011"=>{"oid" => "2.16.840.1.113883.3.464.1003.102.12.1011" , "concepts"=>[{"code_system_name" => "LOINC", "code" =>"LOINC_1"},
-                                                                                      {"code_system_name" => "LOINC", "code" =>"LOINC_2"},
-                                                                                      {"code_system_name" => "AOCS", "code" =>"A_1"},
-                                                                                      {"code_system_name" => "AOCS", "code" =>"A_2"}]},
+                  "2.16.840.1.113883.3.464.1003.102.12.1011"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.464.1003.102.12.1011" , "concepts"=>[
+                                                                                      HealthDataStandards::SVS::Concept.new({"code_system_name" => "LOINC", "code" =>"LOINC_1"}),
+                                                                                      HealthDataStandards::SVS::Concept.new({"code_system_name" => "LOINC", "code" =>"LOINC_2"}),
+                                                                                      HealthDataStandards::SVS::Concept.new({"code_system_name" => "AOCS", "code" =>"A_1"}),
+                                                                                      HealthDataStandards::SVS::Concept.new({"code_system_name" => "AOCS", "code" =>"A_2"})]}),
                   
-                  "2.16.840.1.113883.3.464.1003.106.12.1005"=>{"oid" => "2.16.840.1.113883.3.464.1003.106.12.1005", "concepts"=>[{"code_system_name" => "SNOMED", "code" =>"999999"},
-                                                                                     {"code_system_name" => "SNOMED", "code" =>"222222"}]},
+                  "2.16.840.1.113883.3.464.1003.106.12.1005"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.464.1003.106.12.1005", "concepts"=>[
+                                                                                     HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"999999"}),
+                                                                                     HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"222222"})]}),
                   
-                  "2.16.840.1.113883.3.526.3.1139"=>{"oid" => "2.16.840.1.113883.3.526.3.1139" , "concepts"=>[{"code_system_name" => "CPT", "code" =>"CHACHA1"},
-                                                                            {"code_system_name" => "CPT", "code" =>"CHACHA2"},
-                                                                            {"code_system_name" => "SNOMED", "code" =>"SNO1"},
-                                                                            {"code_system_name" => "SNOMED", "code" =>"SNO2"}]},
-                   "2.16.840.1.113883.3.526.3.1259"=>{"oid" => "2.16.840.1.113883.3.526.3.1259" , "concepts"=>[{"code_system_name" => "CPT", "code" =>"CHACHA1"},
-                                                                            {"code_system_name" => "CPT", "code" =>"CHACHA2"},
-                                                                            {"code_system_name" => "SNOMED", "code" =>"SNO1"},
-                                                                            {"code_system_name" => "SNOMED", "code" =>"SNO2"}]}                                                          
+                  "2.16.840.1.113883.3.526.3.1139"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.526.3.1139" , "concepts"=>[
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA1"}),
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA2"}),
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"SNO1"}),
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"SNO2"})]}),
+                   "2.16.840.1.113883.3.526.3.1259"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.526.3.1259" , "concepts"=>[
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA1"}),
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA2"}),
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"SNO1"}),
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"SNO2"})]})
                   } # todo need to fake some of these out
 
     @coded_source_data_critria = {
