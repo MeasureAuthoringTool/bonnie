@@ -204,11 +204,12 @@ module Measures
     # @param [Hash] value_sets Value sets that might contain the OID for which we're searching.
     # @return A Hash of code sets corresponding to the given oid, each containing one randomly selected code.
     def self.select_codes(oid, value_sets)
-      vs = Measures::PatientBuilder.select_value_sets(oid, value_sets)
       code_sets = {}
-      vs["concepts"].each do |concept|
-        code_sets[concept["code_system_name"]] ||= [concept["code"]]
-      end
+      vs = value_sets[oid]
+      vs.concepts.each do |concept|
+        code_sets[concept.code_system_name] ||= [concept.code] unless concept.black_list
+        code_sets[concept.code_system_name] = [concept.code] if concept.white_list
+      end if vs
       code_sets
     end
     
@@ -232,7 +233,7 @@ module Measures
     # @return A Hash including a code and code system containing one randomly selected code.
     def self.select_code(oid, value_sets)
       codes = select_codes(oid, value_sets)
-      code_system = codes.keys()[0]
+      code_system = codes.keys[0]
       return nil if code_system.nil?
       {
         'code_system' => code_system,
@@ -245,10 +246,7 @@ module Measures
       value_sets = {}
       Measure.by_user(current_user).where({'hqmf_set_id' => {'$in' => measure_list}}).map do |measure|
         measure.value_sets.each do |value_set|
-          preferred_set = HealthDataStandards::SVS::ValueSet.new(value_set.as_json(except: ['_id']))
-          preferred_set.concepts.reject! {|c| c.black_list || !c.white_list}
-          preferred_set = value_set if preferred_set.concepts.empty?
-          value_sets[value_set.oid] = preferred_set
+          value_sets[value_set.oid] = value_set
         end
       end
       value_sets
