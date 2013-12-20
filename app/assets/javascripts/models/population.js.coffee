@@ -12,10 +12,14 @@ class Thorax.Models.Population extends Thorax.Model
       correct = 0
       result = population.calculate(patient)
       for criteria in validPopulations
-        if patient.has('expected_values') and result.has criteria
-          # FIXME: The ? below is a temporary work around; we want to refactor the models for results and expectations
-          if patient.getExpectedValue(population).get(criteria) is result.get(criteria)
+        if criteria is 'OBSERV' and patient.has('expected_values') and result.has('values')
+          if patient.getExpectedValue(population).get(criteria) is result.get('values')?[0]
             correct++
+        else 
+          if patient.has('expected_values') and result.has criteria
+          # FIXME: The ? below is a temporary work around; we want to refactor the models for results and expectations
+            if patient.getExpectedValue(population).get(criteria) is result.get(criteria)
+              correct++
       # only count it as a match if all the expectations are met
       if correct is validPopulations.length then matches++
     return matches
@@ -29,10 +33,14 @@ class Thorax.Models.Population extends Thorax.Model
     correct = 0
     result = population.calculate(patient)
     for criteria in validPopulations
-      if patient.has('expected_values') and result.has criteria
-        # FIXME: The ? below is a temporary work around; we want to refactor the models for results and expectations
-        if patient.getExpectedValue(population).get(criteria) is result.get(criteria)
+      if criteria is 'OBSERV' and patient.has('expected_values') and result.has('values')
+        if patient.getExpectedValue(population).get(criteria) is result.get('values')?[0]
           correct++
+      else 
+        if patient.has('expected_values') and result.has criteria
+        # FIXME: The ? below is a temporary work around; we want to refactor the models for results and expectations
+          if patient.getExpectedValue(population).get(criteria) is result.get(criteria)
+            correct++
     # only count it as a match if all the expectations are met
     return correct is validPopulations.length
 

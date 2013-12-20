@@ -93,6 +93,15 @@ namespace :bonnie do
     end
   end
 
+  namespace :test do
+    desc 'Deletes all measures except for failing Cypress measures and CV measures; Use after running a bonnie:load:mitre_bundle rake task.'
+    task :prune_db => :environment do
+      puts "Reducing imported measures"
+      some_measure_ids = Measure.in(measure_id: ['0710', '0389', 'ADE_TTR', '0497', '0495', '0496']).pluck('hqmf_set_id')
+      Measure.nin(hqmf_set_id: some_measure_ids).delete
+    end
+  end
+
   namespace :measures do
     desc 'Pre-generate measure JavaScript and cache in the DB'
     task :pregenerate_js => :environment do

@@ -92,7 +92,8 @@ class Thorax.Models.Patient extends Thorax.Model
     unless expectedValue
       expectedValue = new Thorax.Models.ExpectedValue measure_id: measure.get('hqmf_set_id'), population_index: population.index()
       @get('expected_values').add expectedValue
-    for populationCriteria in Thorax.Models.Measure.allPopulationCodes when population.has populationCriteria
+    # We don't want to set a value for OBSERV, it should already exist or be created in the builder
+    for populationCriteria in Thorax.Models.Measure.allPopulationCodes when population.has(populationCriteria) and populationCriteria != 'OBSERV'
       expectedValue.set populationCriteria, 0 unless expectedValue.has populationCriteria
     expectedValue
 
