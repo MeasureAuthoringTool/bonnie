@@ -11,6 +11,9 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
     # Make sure the sort order updates as results come in
     @differences.on 'change', @differences.sort, @differences
 
+  context: ->
+    _(super).extend measure_id: @measure.get('hqmf_set_id')
+
   differenceContext: (difference) ->
     _(difference.toJSON()).extend
       patient: difference.result.patient.toJSON()
