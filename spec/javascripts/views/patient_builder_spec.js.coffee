@@ -39,16 +39,15 @@ describe 'PatientBuilderView', ->
       beforeEach ->
         @patientBuilder.appendTo 'body'
         @addScalarValue = (input, units) ->
-          $('.dropdown-toggle').click()
-          $($('.dropdown-menu li')[0]).click()
-          $('input[name=value]').val(input)
-          $('input[name=unit]').val(units)
-          $('.value-form .btn-primary').click()
-        @addCodedValue = (oid) ->
-          $('.dropdown-toggle').click()
-          $($('.dropdown-menu li')[1]).click()
-          $('option[value=oid]').prop('selected', true)
-          $('.value-form .btn-primary').click()
+          @patientBuilder.$('.dropdown-toggle:first').click()
+          @patientBuilder.$('.dropdown-menu:eq(0) li:eq(0) a').click()
+          @patientBuilder.$('input[name=value]:first').val(input)
+          @patientBuilder.$('input[name=unit]:first').val(units)
+          @patientBuilder.$('.value-form .btn-primary:first').click()
+        @addCodedValue = () ->
+          @patientBuilder.$('.dropdown-toggle:first').click()
+          @patientBuilder.$('.dropdown-menu:eq(0) li:eq(1) a').click()
+          @patientBuilder.$('.value-form .btn-primary:first').click()
 
       it "adds a scalar value", ->
         expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 0
@@ -58,25 +57,27 @@ describe 'PatientBuilderView', ->
 
       it "adds a coded value", ->
         expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 0
-        @addCodedValue '2.16.840.1.113883.3.464.1003.196.12.1171'
+        @addCodedValue()
         expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 1
-        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('type')).toEqual 'PQ'
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('type')).toEqual 'CD'
+
+      afterEach -> @patientBuilder.remove() 
 
     describe "adds field values to an encounter", ->
       beforeEach ->
         @patientBuilder.appendTo 'body'
         @addScalarFieldValue = (input, units) ->
-          $('option[value=SEVERITY]').prop('selected', true)
-          $($('.dropdown-toggle')[1]).click()
-          $($($('.dropdown-menu')[1]).find('li')[0]).click()
-          $($('input[name=value]')[1]).val(input)
-          $($('input[name=unit]')[1]).val(units)
-          $($('.value-form .btn-primary')[1]).click()
-        # @addCodedValue = (oid) ->
-        #   $('.dropdown-toggle').click()
-        #   $($('.dropdown-menu li')[1]).click()
-        #   $('option[value=oid]').prop('selected', true)
-        #   $('.value-form .btn-primary').click()
+          @patientBuilder.$('select[name=id] option[value=SEVERITY]').prop('selected', true)
+          @patientBuilder.$('.dropdown-toggle:eq(1)').click()
+          @patientBuilder.$('.dropdown-menu:eq(0) li:eq(0) a').click()
+          @patientBuilder.$('input[name=value]:eq(1)').val(input)
+          @patientBuilder.$('input[name=unit]:first').val(units)
+          @patientBuilder.$('.value-form .btn-primary:eq(1)').click()
+        @addCodedFieldValue = () ->
+          @patientBuilder.$('select[name=id] option[value=SEVERITY]').prop('selected', true)
+          @patientBuilder.$('.dropdown-toggle:eq(1)').click()
+          @patientBuilder.$('.dropdown-menu:eq(1) li:eq(1) a').click()
+          @patientBuilder.$('.value-form .btn-primary:eq(1)').click()
 
       it "adds a scalar field value", ->
         expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 0
@@ -84,8 +85,10 @@ describe 'PatientBuilderView', ->
         expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 1
         expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('type')).toEqual 'PQ'
 
-      # it "adds a coded value to model", ->
-      #   expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 0
-      #   @addCodedValue '2.16.840.1.113883.3.464.1003.196.12.1171'
-      #   expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 1
-      #   expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('type')).toEqual 'PQ'
+      it "adds a coded value to model", ->
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 0
+        @addCodedFieldValue()
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 1
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('type')).toEqual 'CD'
+
+      afterEach -> @patientBuilder.remove()
