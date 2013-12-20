@@ -26,6 +26,10 @@ class Thorax.Views.PopulationLogic extends Thorax.View
       sourceDataCriteria: measure.get 'source_data_criteria'
 
   showRationale: (result) ->
+    # If the result isn't populated yet, just come back and do this once calculation is complete
+    unless result.isPopulated()
+      @listenToOnce result, 'change', -> @showRationale(result)
+      return
     rationale = result.get('rationale')
     @clearRationale()
     # rationale only handles the logical true/false values
