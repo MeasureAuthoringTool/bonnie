@@ -221,8 +221,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.View
 
   addValue: (e) ->
     e.preventDefault()
-    @values.add this.serialize()
-    console.log @values
+    this.serialize()
+    @values.add @model.clone()
     # Reset form below - default is PQ
     @model.clear()
     @$('select.form-control option[value=""]').prop('selected', true);
