@@ -19,11 +19,10 @@
 
     <%= javascript_include_tag "application" %>
     <script src="<%= libraries_measures_url format: :js %>"></script>
+    <% @measures.each do |measure| %>
+      <script src="<%= measure_url(measure, format: :js) %>"></script>
+    <% end %>
     <script>
-      <% @measures.each do |measure| %>
-        <%# FIXME: Preload data criteria until deferred fetch can be handled gracefully %>
-        bonnie.measures.add(<%= measure.to_json(only: @measure_attributes, methods: [:data_criteria]).html_safe %>, { parse: true });
-      <% end %>
       <% @patients.each do |patient| %>
         (function() {
           var patient = new Thorax.Models.Patient(<%= patient.to_json(except: :results).html_safe %>, { parse: true });

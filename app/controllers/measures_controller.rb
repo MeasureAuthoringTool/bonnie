@@ -1,9 +1,9 @@
 class MeasuresController < ApplicationController
 
-  respond_to :json
+  respond_to :json, :js
 
   def show
-    @measure = Measure.by_user(current_user).without(:map_fns).find(params[:id])
+    @measure = Measure.by_user(current_user).without(:map_fns, :record_ids).find(params[:id])
     if stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
       respond_with @measure do |format|
         format.json { render json: @measure.to_json(except: [:map_fns, :record_ids], methods: [:value_sets]) }
