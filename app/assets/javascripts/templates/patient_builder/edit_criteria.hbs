@@ -51,7 +51,7 @@
         <div class="section-heading">
           <i class="fa fa-bar-chart-o"></i>FIELD VALUE
         </div>
-        {{#collection field_values class="existing-values"}}
+        {{#collection field_values class="existing-values" item-context=valueWithDateContext}}
           <span>
             {{id}}:
             {{value}} {{unit}}
@@ -68,7 +68,7 @@
             <label class="checkbox-label">
               <input type="checkbox" name="negation" class="negation-select checkbox" data-toggle="negation-select"> <span>NOT PERFORMED</span>
             </label>
-          </div>  
+          </div>
           <select name="negation_code_list_id" class="form-control negation-code-list {{#unless negation}}hide{{/unless}}">
               <option value="">--</option>
               {{#each codes}}
