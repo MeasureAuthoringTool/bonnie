@@ -9,9 +9,25 @@
     background-color: @state-success-bg;
     color: @state-success-text;
   }
-  .false_eval, .bad_specifics {
+  .true_eval:before {
+    content: "\f00c";
+    font-family: FontAwesome;
+  }
+  .false_eval {
     background-color: @state-danger-bg;
     color: @state-danger-text;
+  }
+  .bad_specifics {
+    background-color: @state-danger-bg;
+    color: @state-danger-text;
+  }
+  .bad_specifics:before {
+    content: "\f069";
+    font-family: FontAwesome;
+  }
+  .false_eval:before {
+    content: "\f00d";
+    font-family: FontAwesome;
   }
   .no_eval {
     background-color: @body-bg;
