@@ -47,13 +47,11 @@
         <i class="fa fa-user"></i>
         <i class="fa fa-plus"></i>
       </a>
-      <span class="patient-listing">
-        {{#if multiplePopulations}}
-          {{patients.length}}
-        {{else}}
-          {{view "MeasureFractionView" model=differences.summary}}
-        {{/if}}
-      </span>
+      {{#if multiplePopulations}}
+        <span class="patient-listing">{{patients.length}}</span>
+      {{else}}
+        {{view "MeasureFractionView" model=differences.summary}}
+      {{/if}}
     </div>
   </div>
 
