@@ -164,7 +164,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
         attr.start_date = moment(startDate, 'L LT').format('X') * 1000
       delete attr.start_time
       if endDate = attr.end_date
-        endDate += " #{attr.start_time}" if attr.end_time
+        endDate += " #{attr.end_time}" if attr.end_time
         attr.end_date = moment(endDate, 'L LT').format('X') * 1000
       delete attr.end_time
     rendered: ->
