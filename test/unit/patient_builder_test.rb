@@ -93,6 +93,26 @@ class PatientBuilderTest < ActiveSupport::TestCase
 
   test "derive time range"  do 
     time_criteria = { "start_date" => 1333206000000, "end_date" => 1333206000000 }
+    range = Measures::PatientBuilder.derive_time_range(time_criteria)
+    assert range.low.nil? == false
+    assert range.high.nil? == false
+
+    time_criteria = { "start_date" => nil, "end_date" => 1333206000000 }
+    range = Measures::PatientBuilder.derive_time_range(time_criteria)
+    assert range.low.nil?
+    assert range.high.nil? == false
+
+
+    time_criteria = { "start_date" => 1333206000000, "end_date" => nil }
+    range = Measures::PatientBuilder.derive_time_range(time_criteria)
+    assert range.low.nil? == false
+    assert range.high.nil? 
+
+    time_criteria = { "start_date" => nil, "end_date" => nil }
+    range = Measures::PatientBuilder.derive_time_range(time_criteria)
+    assert range.low.nil?
+    assert range.high.nil?
+
   end
 
   test "derive values" do
