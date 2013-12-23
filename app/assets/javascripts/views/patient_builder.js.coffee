@@ -55,6 +55,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       # These cannot be handled as a thorax event because we want it to apply to new DOM elements too
       @$el.on 'blur', 'input[type="text"]', => @materialize()
       @$el.on 'change', 'select', => @materialize()
+      @$('.form-control-time').timepicker()
     model:
       sync: (model) ->
         @patients.add model # make sure that the patient exist in the global patient collection
@@ -62,14 +63,18 @@ class Thorax.Views.PatientBuilder extends Thorax.View
         route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
         bonnie.navigate route, trigger: true
     serialize: (attr) ->
-      attr.birthdate = moment(attr.birthdate, 'L LT').format('X') if attr.birthdate
+      birthdate = attr.birthdate if attr.birthdate
+      birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
+      attr.birthdate = moment(birthdate, 'L LT').format('X') if birthdate
 
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
   context: ->
+    birthdatetime = moment(@model.get('birthdate'), 'X') if @model.has('birthdate')
     _(super).extend
       measureTitle: @measure.get('title')
       measureDescription: @measure.get('description')
-      birthdate: moment(@model.get('birthdate'), 'X').format('L LT') if @model.get('birthdate')
+      birthdate: birthdatetime?.format('L')
+      birthtime: birthdatetime?.format('LT')
       expired: @model.get('expired')?.toString() # Convert boolean to string
 
   serializeWithChildren: ->
@@ -168,6 +173,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
       delete attr.end_time
     rendered: ->
       @$('.patient-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight'
+      @$('.form-control-time').timepicker()
     'change .negation-select': 'toggleNegationSelect'
 
   toggleDetails: (e) ->
@@ -216,6 +222,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.View
       delete attr.start_date
       delete attr.start_time
       attr.title = @measure.get('value_sets').findWhere(oid: attr.code_list_id)?.get('display_name')
+    rendered: ->
+      @$('.form-control-time').timepicker()
 
   # Below need to work for any value, not just first
   setScalarValue: (e) ->
