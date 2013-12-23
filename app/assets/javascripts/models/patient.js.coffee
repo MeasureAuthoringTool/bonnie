@@ -13,7 +13,7 @@ class Thorax.Models.Patient extends Thorax.Model
     # happens on the server in the controller
     attrs.ethnicity = attrs.ethnicity?.code
     attrs.race = attrs.race?.code
-    attrs.payer = insurance_providers?[0]?.type || 'OT'
+    attrs.payer = attrs.insurance_providers?[0]?.type || 'OT'
 
     attrs
 
