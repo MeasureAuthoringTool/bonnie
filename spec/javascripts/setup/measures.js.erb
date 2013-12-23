@@ -24,7 +24,7 @@ bonnie.measures.add(<%= measures_json.html_safe %>, { parse: true });
     (function() {
       var population = bonnie.measures.get('<%= measure._id %>').get('populations').at(<%= population_index %>);
       var cacheKey = bonnie.calculator.calculationKey(population);
-      bonnie.calculator.calculatorLoaded[cacheKey] = $.when(); // A bare when is automatically resolved
+      bonnie.calculator.calculatorLoaded[cacheKey] = $.when(); // A 'when' without arguments is automatically resolved
     })();
   <% end %>
 <% end %>
