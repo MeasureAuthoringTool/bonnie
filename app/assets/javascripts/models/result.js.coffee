@@ -4,13 +4,17 @@ class Thorax.Models.Result extends Thorax.Model
     @measure = @population.collection.parent
     @patient = options.patient
     @listenTo @patient, 'destroy', @destroy # FIXME: what about the calculation cache, do we need to clear that?
+
+    # Provide a deferred that allows usage of a result to be deferred until it's populated
+    @calculation = $.Deferred()
+    if @isPopulated() then @calculation.resolve() else @once 'change:rationale', -> @calculation.resolve()
+
     # FIXME: When the patient is updated, do we update the result or clear the cache...?
     # FIXME: Work around for current state where the patient_id is taked from the result internals; now this can
     # happen before populated with current deferred calculation approach...
     @set patient_id: @patient.id
 
   # FIXME: is rationale a reasonable proxy for populated?
-  # FIXME: Do we need to do something about thorax auto-fetching? Overwrite fetch()?
   isPopulated: -> @has('rationale')
 
   differenceFromExpected: ->
