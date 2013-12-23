@@ -111,6 +111,11 @@ private
     # patient['measure_period_start'] = measure_period['start_date']
     # patient['measure_period_end'] = measure_period['end_date']
 
+    patient.expected_values = params['expected_values']
+
+    patient.user = current_user
+    Measures::PatientBuilder.rebuild_patient(patient)
+
     insurance_provider = InsuranceProvider.new
     insurance_provider.type = params['payer']
     insurance_provider.member_id = '1234567890'
@@ -122,10 +127,6 @@ private
     insurance_provider.codes["SOP"] = [Measures::PatientBuilder::INSURANCE_CODES[params['payer']]]
     patient.insurance_providers.clear << insurance_provider
 
-    patient.expected_values = params['expected_values']
-
-    patient.user = current_user
-    Measures::PatientBuilder.rebuild_patient(patient)
     patient
   end
 end
