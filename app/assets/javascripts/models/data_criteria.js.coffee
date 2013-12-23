@@ -23,13 +23,13 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     # Transform fieldValues object to collection, one element per key/value, with key as additional attribute
     fieldValues = new Thorax.Collection()
     for key, value of attrs.field_values
-      fieldValues.add _(value).extend(id: key)
+      fieldValues.add _(value).extend(key: key)
     attrs.field_values = fieldValues
     attrs
   toJSON: ->
     # Transform fieldValues back to an object from a collection
     fieldValues = {}
-    @get('field_values').each (fv) -> fieldValues[fv.id] = _(fv.toJSON()).omit('id')
+    @get('field_values').each (fv) -> fieldValues[fv.get('key')] = _(fv.toJSON()).omit('key')
     _(super).extend(field_values: fieldValues)
   faIcon: ->
     # FIXME: Do this semantically in stylesheet
