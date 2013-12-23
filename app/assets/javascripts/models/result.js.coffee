@@ -3,18 +3,16 @@ class Thorax.Models.Result extends Thorax.Model
     @population = options.population
     @measure = @population.collection.parent
     @patient = options.patient
-    @listenTo @patient, 'destroy', @destroy # FIXME: what about the calculation cache, do we need to clear that?
 
     # Provide a deferred that allows usage of a result to be deferred until it's populated
     @calculation = $.Deferred()
     if @isPopulated() then @calculation.resolve() else @once 'change:rationale', -> @calculation.resolve()
 
-    # FIXME: When the patient is updated, do we update the result or clear the cache...?
-    # FIXME: Work around for current state where the patient_id is taked from the result internals; now this can
-    # happen before populated with current deferred calculation approach...
-    @set patient_id: @patient.id
+    # When a patient changes, is materialized, or is destroyed, we need to respond appropriately
+    @listenTo @patient, 'change materialize destroy', =>
+      bonnie.calculator.clearResult(@population, @patient) # Remove the result from the cache
+      @destroy() # Destroy the result to remove it from any collections
 
-  # FIXME: is rationale a reasonable proxy for populated?
   isPopulated: -> @has('rationale')
 
   differenceFromExpected: ->

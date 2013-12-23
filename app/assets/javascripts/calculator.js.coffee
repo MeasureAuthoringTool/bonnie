@@ -61,3 +61,6 @@ class Calculator
       setTimeout deferredCalculation, 0
 
     return result
+
+  clearResult: (population, patient) ->
+    delete @resultsCache[@cacheKey(population, patient)]
