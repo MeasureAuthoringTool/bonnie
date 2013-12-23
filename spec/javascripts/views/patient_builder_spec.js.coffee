@@ -34,3 +34,61 @@ describe 'PatientBuilderView', ->
       expect(@patientBuilder.model.get('source_data_criteria').length).toEqual 3
 
     afterEach -> @patientBuilder.remove()
+
+  describe "adds values to an encounter", ->
+      beforeEach ->
+        @patientBuilder.appendTo 'body'
+        @addScalarValue = (input, units) ->
+          @patientBuilder.$('.dropdown-toggle:first').click()
+          @patientBuilder.$('.dropdown-menu:eq(0) li:eq(0) a').click()
+          @patientBuilder.$('input[name=value]:first').val(input)
+          @patientBuilder.$('input[name=unit]:first').val(units)
+          @patientBuilder.$('.value-form .btn-primary:first').click()
+        @addCodedValue = () ->
+          @patientBuilder.$('.dropdown-toggle:first').click()
+          @patientBuilder.$('.dropdown-menu:eq(0) li:eq(1) a').click()
+          @patientBuilder.$('.value-form .btn-primary:first').click()
+
+      it "adds a scalar value", ->
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 0
+        @addScalarValue 1, 'mg'
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 1
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('type')).toEqual 'PQ'
+
+      it "adds a coded value", ->
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 0
+        @addCodedValue()
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 1
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('type')).toEqual 'CD'
+
+      afterEach -> @patientBuilder.remove() 
+
+    describe "adds field values to an encounter", ->
+      beforeEach ->
+        @patientBuilder.appendTo 'body'
+        @addScalarFieldValue = (input, units) ->
+          @patientBuilder.$('select[name=id] option[value=SEVERITY]').prop('selected', true)
+          @patientBuilder.$('.dropdown-toggle:eq(1)').click()
+          @patientBuilder.$('.dropdown-menu:eq(0) li:eq(0) a').click()
+          @patientBuilder.$('input[name=value]:eq(1)').val(input)
+          @patientBuilder.$('input[name=unit]:first').val(units)
+          @patientBuilder.$('.value-form .btn-primary:eq(1)').click()
+        @addCodedFieldValue = () ->
+          @patientBuilder.$('select[name=id] option[value=SEVERITY]').prop('selected', true)
+          @patientBuilder.$('.dropdown-toggle:eq(1)').click()
+          @patientBuilder.$('.dropdown-menu:eq(1) li:eq(1) a').click()
+          @patientBuilder.$('.value-form .btn-primary:eq(1)').click()
+
+      it "adds a scalar field value", ->
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 0
+        @addScalarFieldValue 1, 'mg'
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 1
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('type')).toEqual 'PQ'
+
+      it "adds a coded value to model", ->
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 0
+        @addCodedFieldValue()
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 1
+        expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('type')).toEqual 'CD'
+
+      afterEach -> @patientBuilder.remove()

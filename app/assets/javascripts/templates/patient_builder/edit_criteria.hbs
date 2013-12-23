@@ -23,39 +23,52 @@
         <dd>{{description}}</dd>
       </dl>
       <div class="element-edit">
-        <div class="form-group form-date">
+        <div class="form-date">
           <div class="section-heading time-heading"><i class="fa fa-clock-o"></i>START</div>
-          <input type="text" name="start_date" class="form-control" placeholder="xx/xx/xxxx xx:xx">
+          <input type="text" name="start_date" class="form-control form-control-date" placeholder="xx/xx/xxxx">
+          <input type="text" name="start_time" class="form-control form-control-time" placeholder="xx:xx">
         </div>
-        <div class="form-group form-date">
+
+        <div class="form-date">
           <div class="section-heading time-heading"><i class="fa fa-clock-o"></i>STOP</div>
-          <input name="end_date" type="text" class="form-control" placeholder="xx/xx/xxxx xx:xx">
+          <input name="end_date" type="text" class="form-control form-control-date" placeholder="xx/xx/xxxx">
+          <input type="text" name="end_time" class="form-control form-control-time" placeholder="xx:xx">
         </div>
-        <div>
-          <div class="section-heading"><i class="fa fa-bar-chart-o"></i>VALUE</div>
-            {{view editValueCollectionView}}
-            <div class="btn-form">
-              {{#button "newScalarValue" class="btn btn-default"}}New Scalar{{/button}}
-              {{#button "newCodedValue" class="btn btn-default"}}New Coded{{/button}}
-            </div>
+
+        <div class="section-heading">
+          <i class="fa fa-bar-chart-o"></i>VALUE
         </div>
-        <div>
-          <div class="section-heading"><i class="fa fa-list"></i>FIELD VALUE</div>
-            {{view editFieldValueCollectionView}}
-            <div class="btn-form">
-              {{#button "newScalarFieldValue" class="btn btn-default"}}New Scalar{{/button}}
-              {{#button "newCodedFieldValue" class="btn btn-default"}}New Coded{{/button}}
-              {{#button "newTimeFieldValue" class="btn btn-default"}}New Time{{/button}}
-            </div>
+        {{#collection value class="existing-values"}}
+          <span>
+            {{value}} {{unit}}
+            {{title}}
+            {{#button "removeValue" class="btn btn-link delete"}}&times;{{/button}}
+          </span>
+        {{/collection}}
+
+        {{view editValueView}}
+
+        <div class="section-heading">
+          <i class="fa fa-bar-chart-o"></i>FIELD VALUE
         </div>
-        <div class="form-group section-heading">
+        {{#collection field_values class="existing-values" item-context=valueWithDateContext}}
+          <span>
+            {{id}}:
+            {{value}} {{unit}}
+            {{title}}
+            {{start_date}} {{start_time}}
+            {{#button "removeValue" class="btn btn-link delete"}}&times;{{/button}}
+          </span>
+        {{/collection}}
+
+        {{view editFieldValueView}}
+
+        <div class="form-group not-per">
           <div class="checkbox">
-            {{!-- <div>  --}}
-              <label>
-                <input type="checkbox" name="negation" class="negation-select checkbox" data-toggle="negation-select"> NOT PERFORMED
-              </label>
-            {{!-- </div> --}}
-          </div>  
+            <label class="checkbox-label">
+              <input type="checkbox" name="negation" class="negation-select checkbox" data-toggle="negation-select"> <span>NOT PERFORMED</span>
+            </label>
+          </div>
           <select name="negation_code_list_id" class="form-control negation-code-list {{#unless negation}}hide{{/unless}}">
               <option value="">--</option>
               {{#each codes}}

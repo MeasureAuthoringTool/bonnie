@@ -31,9 +31,9 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @measure?.get('source_data_criteria').each (criteria) ->
       type = criteria.get('type').replace(/_/g, ' ')
       # Filter out negations
-      filter_criteria = criteria.get('negation') or 
-      ( criteria.get('definition') is 'patient_characteristic_birthdate' ) or 
-      ( criteria.get('definition') is 'patient_characteristic_gender' ) or 
+      filter_criteria = criteria.get('negation') or
+      ( criteria.get('definition') is 'patient_characteristic_birthdate' ) or
+      ( criteria.get('definition') is 'patient_characteristic_gender' ) or
       ( criteria.get('definition') is 'patient_characteristic_expired' ) or
       ( criteria.get('definition') is 'patient_characteristic_race' ) or
       ( criteria.get('definition') is 'patient_characteristic_ethnicity' ) or
@@ -113,7 +113,7 @@ class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   showRationale: (patient) ->
     @getView().showRationale(@model.calculate(patient))
   context: ->
-    _(super).extend 
+    _(super).extend
       title: if @model.collection.parent.get('populations').length > 1 then (@model.get('title') || @model.get('sub_id')) else ''
 
 
@@ -137,31 +137,36 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
     populate: { context: true, children: false }
 
   initialize: ->
-    @editValueCollectionView = new Thorax.CollectionView
-      collection: @model.get('value')
-      itemView: (item) => new Thorax.Views.EditCriteriaValueView(model: item.model, measure: @measure, fieldValue: false)
-    @editFieldValueCollectionView = new Thorax.CollectionView
-      collection: @model.get('field_values')
-      itemView: (item) => new Thorax.Views.EditCriteriaValueView(model: item.model, measure: @measure, fieldValue: true)
+    @editValueView = new Thorax.Views.EditCriteriaValueView(model: new Thorax.Model, measure: @measure, fieldValue: false, values: @model.get('value'))
+    @editFieldValueView = new Thorax.Views.EditCriteriaValueView(model: new Thorax.Model, measure: @measure, fieldValue: true, values: @model.get('field_values'))
 
-  serialize: ->
-    childView.serialize() for cid, childView of @editValueCollectionView.children
-    childView.serialize() for cid, childView of @editFieldValueCollectionView.children
-    super
+  valueWithDateContext: (model) ->
+    _(model.toJSON()).extend
+      start_date: moment(model.get('start_date')).format('L') if model.get('start_date')
+      start_time: moment(model.get('start_date')).format('LT') if model.get('start_date')
+
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
     _(super).extend
-      start_date: moment(@model.get('start_date')).format('L LT') if @model.get('start_date')
-      end_date: moment(@model.get('end_date')).format('L LT') if @model.get('end_date')
+      start_date: moment(@model.get('start_date')).format('L') if @model.get('start_date')
+      start_time: moment(@model.get('start_date')).format('LT') if @model.get('start_date')
+      end_date: moment(@model.get('end_date')).format('L') if @model.get('end_date')
+      end_time: moment(@model.get('end_date')).format('LT') if @model.get('end_date')
       codes: @measure.get('value_sets').map (vs) -> vs.toJSON()
       faIcon: @model.faIcon()
 
   # When we serialize the form, we want to convert formatted dates back to times
   events:
     serialize: (attr) ->
-      attr.start_date = moment(attr.start_date, 'L LT').format('X') * 1000 if attr.start_date
-      attr.end_date = moment(attr.end_date, 'L LT').format('X') * 1000 if attr.end_date
+      if startDate = attr.start_date
+        startDate += " #{attr.start_time}" if attr.start_time
+        attr.start_date = moment(startDate, 'L LT').format('X') * 1000
+      delete attr.start_time
+      if endDate = attr.end_date
+        endDate += " #{attr.start_time}" if attr.end_time
+        attr.end_date = moment(endDate, 'L LT').format('X') * 1000
+      delete attr.end_time
     rendered: ->
       @$('.patient-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight'
     'change .negation-select': 'toggleNegationSelect'
@@ -183,30 +188,17 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
     e.preventDefault()
     @model.destroy()
 
-  newScalarValue: (e) ->
+  removeValue: (e) ->
     e.preventDefault()
-    @model.get('value').add type: 'PQ'
-
-  newCodedValue: (e) ->
-    e.preventDefault()
-    @model.get('value').add type: 'CD'
-
-  newScalarFieldValue: (e) ->
-    e.preventDefault()
-    @model.get('field_values').add type: 'PQ'
-
-  newCodedFieldValue: (e) ->
-    e.preventDefault()
-    @model.get('field_values').add type: 'CD'
-
-  newTimeFieldValue: (e) ->
-    e.preventDefault()
-    @model.get('field_values').add type: 'TS'
+    $(e.target).model().destroy()
 
 
 class Thorax.Views.EditCriteriaValueView extends Thorax.View
 
   template: JST['patient_builder/edit_value']
+
+  initialize: ->
+    @model.set('type', 'PQ')
 
   context: ->
     _(super).extend
@@ -219,11 +211,33 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.View
   # When we serialize the form, we want to put the description for any CD codes into the submission
   events:
     serialize: (attr) ->
+      if startDate = attr.start_date
+        startDate += " #{attr.start_time}" if attr.start_time
+        attr.start_date = moment(startDate, 'L LT').format('X') * 1000
+      delete attr.start_time
       attr.title = @measure.get('value_sets').findWhere(oid: attr.code_list_id)?.get('display_name')
 
-  removeValue: (e) ->
+  # Below need to work for any value, not just first
+  setScalarValue: (e) ->
     e.preventDefault()
-    @model.destroy()
+    @model.set 'type', 'PQ'
+
+  setCodedValue: (e) ->
+    e.preventDefault()
+    @model.set 'type', 'CD'
+
+  setTimeValue: (e) ->
+    e.preventDefault()
+    @model.set 'type', 'TS'
+
+  addValue: (e) ->
+    e.preventDefault()
+    @serialize()
+    @values.add @model.clone()
+    # Reset model to default value (as described in initialize), then reset form (unfortunately not re-rendered automatically)
+    @model.clear()
+    @model.set('type', 'PQ') # TODO unify this line with setting the type in `initialize`
+    @$('select').val ''
 
 
 class Thorax.Views.ExpectedValuesView extends Thorax.View
@@ -297,7 +311,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
     @currentCriteria = []
     for pc in @model.populationCriteria()
       # FIXME If enabling EoC measures, replace isEoC with @measure.get('episode_of_care') instead of false
-      @currentCriteria.push 
+      @currentCriteria.push
         key: pc
         displayName: criteriaMap[pc]
         isEoC: false

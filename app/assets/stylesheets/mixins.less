@@ -26,3 +26,37 @@
     .text-danger;
   }
 }
+
+.checkbox {
+  padding-left: 5px;
+  padding-right: 5px;
+
+  .checkbox-label {
+    font-size: 9px;
+    font-weight: bold;
+
+    input[type="checkbox"] {
+      display:none;
+    }
+
+    input[type="checkbox"] + span:before {
+      font-family: 'FontAwesome';
+      padding-right: 5px;
+      font-size: 16px;
+      color: @brand-primary;
+      content: "\f096"; /* check-empty */
+    }
+
+    input[type="checkbox"]:checked + span:before {
+      content: "\f046"; /* check */
+    }
+
+    .checkbox-number {
+      width: 15%;
+    }
+
+    span {
+      margin-bottom: 5px;
+    }
+  }
+}

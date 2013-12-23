@@ -122,42 +122,10 @@
             padding-left: 5px;
           }
 
-          .checkbox, .checkbox-divider {
-            padding-left: 5px;
-            padding-right: 5px;
-
-            .checkbox-population {
-              font-size: 9px;
-              font-weight: bold;
-
-              input[type="checkbox"] {
-                display:none;
-              }
-
-              input[type="checkbox"] + span:before {
-                font-family: 'FontAwesome';
-                padding-right: 5px;
-                font-size: 16px;
-                color: @brand-primary;
-                content: "\f096"; /* check-empty */
-              }
-
-              input[type="checkbox"]:checked + span:before {
-                content: "\f046"; /* check */
-              }
-
-              .checkbox-number {
-                width: 15%;
-              }
-
-              span {
-                margin-bottom: 5px;
-              }
-            }
-          }
-
           .checkbox-divider {
             border-left: 2px solid @gray-darker;
+            padding-left: 5px;
+            padding-right: 5px;
           }
         }
       }
@@ -178,6 +146,7 @@
       .row;
       min-height: 200px; // ADDED
       padding-bottom: 500px; // ADDED
+      margin-left: 0;
 
       .record-listing {
         margin-top: 20px;
@@ -236,16 +205,15 @@
 
           .element-edit{
             display: block;
-            margin-bottom: 30px;
 
             .section-heading {
               font-weight: bold;
               margin-left: 15px;
               color: @brand-primary;
+              margin-bottom: 10px;
 
               &.time-heading {
                 margin-left: 0;
-                margin-bottom: 10px;
               }
 
               .fa {
@@ -253,32 +221,98 @@
               }
             }
 
-            .form-group {
-              margin-bottom: 20px;
-              
-              .btn-group {
+            .input-group {
+              padding: 0 15px;
+
+              > .btn {
+                .make-sm-column(1);
+                padding: 6px 6px 4px;
+
                 .fa {
-                  color: black;
+                  margin-left: 1px;
+                  padding-top: 2px;
                 }
               }
+              
+              .input-group-btn {
+                .make-sm-column(2);
+                padding: 0;
+                > * {
+                  width: 100%;
+                }
+                .dropdown-menu {
+                  margin-left: 15px;
+                }
+              }
+              .inputs {
+                .make-sm-column(9);
+                &.inputs-cd {
+                  padding: 0 15px;
+                }
 
-              &.minimize {
-                margin-bottom: 30px;
+                .form-control {
+                  margin-bottom: 20px;
+                }
+
+                .form-control-input {
+                  .make-sm-column(8);
+                  padding: 0;
+                }
+
+                .form-control-units {
+                  .make-sm-column(4);
+                  padding-right: 0;
+                }
               }
             }
 
             .form-date {
               .make-sm-column(6);
+              margin-bottom: 20px;
+            }
+              
+            .form-control-date {
+              .make-sm-column(6.5);
+              padding: 12px;
             }
 
+            .form-control-time {
+              .make-sm-column(5.5);
+              padding: 12px;
+              border-left-style: none;
+            }
+
+            .select {
+              #field-value {
+                margin-left: 15px;
+                margin-bottom: 15px;
+                .make-sm-column(6);
+              }
+            }
+
+            .not-per {
+              .make-sm-column(12);
+              .checkbox-label {
+                font-size: 12px;
+              }
+            }
+
+            .btn-group {
+              .fa {
+                color: black;
+              }
+            }
+
+            &.minimize {
+              margin-bottom: 30px;
+            }
+            
             .btn-form {
               margin: 10px 0px 20px 15px;
             }
           }
 
           .value-form {
-            padding: 15px;
-
             .value-input {
               .make-sm-column(5);
             }
@@ -286,13 +320,47 @@
             select {
               margin-bottom: 5px;
             }
-          }
+          }      
+        }
+      }
+    }
+
+    .existing-values {
+      margin-bottom: 10px;
+
+      span{
+        background-color: @gray-lighter;
+        color: @gray-darker;
+        font-size: 14px;
+        margin-left: 15px;
+        padding: 10px;
+        display: inline-block;
+        margin-bottom: 5px;
+
+        .delete {
+          font-size: 21px;
+          font-weight: bold;
+          line-height: 1;
+          color: #000000;
+          text-shadow: 0 1px 0 #ffffff;
+          opacity: 0.2;
+          filter: alpha(opacity=20);
+          padding: 0 0 0 5px;
+          margin-top: -5px;
+        }
+        .delete:hover,
+        .delete:focus {
+          color: #000000;
+          text-decoration: none;
+          cursor: pointer;
+          opacity: 0.5;
+          filter: alpha(opacity=50);
         }
       }
     }
 
     .measure-view-side {
-      .make-sm-column(5.38);
+      .make-sm-column(5);
       margin-top: 20px;
       padding-right: 0;
       font-size: 12px;
