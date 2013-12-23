@@ -125,6 +125,7 @@ namespace :bonnie do
           measures.each do |measure|
             measure_data_criteria = measure.source_data_criteria[patient_data_criteria['id']]
             if  measure_data_criteria && measure_data_criteria['code_list_id'] == patient_data_criteria['oid']
+              patient_data_criteria['code_list_id'] = patient_data_criteria['oid']
               patient_data_criteria['title'] = measure_data_criteria['title']
               patient_data_criteria['description'] = measure_data_criteria['description']
               patient_data_criteria['negation'] = patient_data_criteria['negation'] == "true"
