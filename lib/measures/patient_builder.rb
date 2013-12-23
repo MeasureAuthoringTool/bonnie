@@ -155,7 +155,7 @@ module Measures
     def self.derive_field_values(entry, values, value_sets)
       return if values.nil?
       values.each do |name, value|
-        converted_time = Time.strptime(value['value'],"%m/%d/%Y %H:%M").to_time.strftime('%Y%m%d%H%M%S') if (value['type'] == 'TS') 
+        converted_time = Time.at(value['value']/1000).strftime('%Y%m%d%H%M%S') if (value['type'] == 'TS') 
         field = HQMF::DataCriteria.convert_value(value)
         field.value = converted_time if converted_time
 

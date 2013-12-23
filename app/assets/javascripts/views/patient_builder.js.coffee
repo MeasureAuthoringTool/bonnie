@@ -142,8 +142,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
 
   valueWithDateContext: (model) ->
     _(model.toJSON()).extend
-      start_date: moment(model.get('start_date')).format('L') if model.get('start_date')
-      start_time: moment(model.get('start_date')).format('LT') if model.get('start_date')
+      start_date: moment(model.get('value')).format('L') if model.get('type') == 'TS'
+      start_time: moment(model.get('value')).format('LT') if model.get('type') == 'TS'
 
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
@@ -213,7 +213,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.View
     serialize: (attr) ->
       if startDate = attr.start_date
         startDate += " #{attr.start_time}" if attr.start_time
-        attr.start_date = moment(startDate, 'L LT').format('X') * 1000
+        attr.value = moment(startDate, 'L LT').format('X') * 1000
+      delete attr.start_date
       delete attr.start_time
       attr.title = @measure.get('value_sets').findWhere(oid: attr.code_list_id)?.get('display_name')
 

@@ -54,9 +54,12 @@
         {{#collection field_values class="existing-values" item-context=valueWithDateContext}}
           <span>
             {{id}}:
-            {{value}} {{unit}}
-            {{title}}
-            {{start_date}} {{start_time}}
+            {{#if start_date}}
+              {{start_date}} {{start_time}}
+            {{else}}
+              {{value}} {{unit}}
+              {{title}}
+            {{/if}}
             {{#button "removeValue" class="btn btn-link delete"}}&times;{{/button}}
           </span>
         {{/collection}}

@@ -128,6 +128,12 @@ namespace :bonnie do
               patient_data_criteria['title'] = measure_data_criteria['title']
               patient_data_criteria['description'] = measure_data_criteria['description']
               patient_data_criteria['negation'] = patient_data_criteria['negation'] == "true"
+              patient_data_criteria['field_values'].keys.each do |key|
+                field_value = patient_data_criteria['field_values'][key]
+                if (field_value['type'] == 'TS')
+                  field_value['value'] = Time.strptime(field_value['value'],"%m/%d/%Y %H:%M").to_i*1000 rescue field_value['value']
+                end
+              end
             end
           end
         end
