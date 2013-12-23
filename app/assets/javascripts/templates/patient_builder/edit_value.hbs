@@ -1,50 +1,52 @@
 <div class="value-form">
-  <div class="pull-right">
-    {{#button "removeValue" tag="a" class="close"}}&times;{{/button}}
-  </div>
-
-  {{#if typePQ}}
-    <label>Value</label>
-  {{/if}}
-
-  {{#if typeCD}}
-    <label>Coded</label>
-  {{/if}}
-
-  {{#if typeTS}}
-    <label>Time</label>
-  {{/if}}
-
-  {{#if fieldValue}}
-    <select name="id" class="form-control">
-      <option value="">--</option>
-      {{#each fields}}
-        <option value="{{@key}}">{{title}}</option>
-      {{/each}}
-    </select>
-  {{/if}}
-
-  {{#if typePQ}}
-    <div class="row">
-      <div class="value-input">
-        <input type="text" name="value" class="form-control" placeholder="scalar">
+  <div class="input-group">
+    {{#if fieldValue}}
+      <div class="field-value">
+        <select name="id" class="form-control">
+          <option value="">--</option>
+          {{#each fields}}
+            <option value="{{@key}}">{{title}}</option>
+          {{/each}}
+        </select>
       </div>
-      <div class="value-input">
-        <input type="text" name="unit" class="form-control" placeholder="unit">
-      </div>
+    {{/if}}
+    
+    <div class="input-group-btn">
+      <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Type <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li>{{#button "setScalarValue" tag="a"}}<i class="fa fa-pencil-square-o"></i> Scalar{{/button}}</li>
+        <li>{{#button "setCodedValue" tag="a"}}<i class="fa fa-list"></i> Coded{{/button}}</li>
+        {{#if fieldValue}}
+          <li>{{#button "setTimeValue" tag="a"}}<i class="fa fa-calendar"></i> Time{{/button}}</li>
+        {{/if}}
+      </ul>
     </div>
-  {{/if}}
+    
+    {{#if typePQ}}
+      <div class="inputs">
+       <span class="form-control-input"><input type="text" name="value" class="form-control" id="event-start" placeholder="input"></span>
+        <span class="form-control-units"><input type="text" name="unit" class="form-control" id="event-start-time" placeholder="units"></span>
+      </div>
+    {{/if}}
 
-  {{#if typeCD}}
-    <select name="code_list_id" class="form-control">
-      <option value="">--</option>
-      {{#each codes tag="select" name="code_list_id"}}
-        <option value="{{oid}}">{{display_name}}</option>
-      {{/each}}
-    </select>
-  {{/if}}
+    {{#if typeCD}}
+      <div class="inputs inputs-cd">
+        <select name="code_list_id" class="form-control">
+          <option value="">--</option>
+          {{#each codes tag="select" name="code_list_id"}}
+            <option value="{{oid}}">{{display_name}}</option>
+          {{/each}}
+        </select>
+      </div>
+    {{/if}}
 
-  {{#if typeTS}}
-    <input type="text" name="value" class="form-control" placeholder="xx/xx/xxxx xx:xx">
-  {{/if}}
+    {{#if typeTS}}
+      <div class="inputs">
+        <input type="text" name="start_date" class="form-control form-control-date" placeholder="xx/xx/xxxx">
+        <input type="text" name="start_time" class="form-control form-control-time" placeholder="xx:xx">
+      </div>
+    {{/if}}
+
+    {{#button "addValue" class="btn btn-primary pull-right"}}<i class="fa fa-plus"></i>{{/button}}
+  </div>
 </div>

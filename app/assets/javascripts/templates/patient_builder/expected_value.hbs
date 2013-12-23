@@ -4,7 +4,7 @@
     {{#each currentCriteria}}
       {{#ifCond key "==" "OBSERV"}}
         <div class="checkbox {{#if @index}}checkbox-divider{{/if}}">
-          <label class="checkbox-population">
+          <label class="checkbox-label">
             {{displayName}}
             <input class="checkbox-number" type="number" name="{{key}}">
           </label>
@@ -12,14 +12,14 @@
       {{else}}
         {{#if isEoC}}
           <div class="checkbox {{#if @index}}checkbox-divider{{/if}}">
-            <label class="checkbox-population">
+            <label class="checkbox-label">
               <input class="checkbox-number" type="number" name="{{key}}">
               {{displayName}}
             </label>
           </div>
         {{else}}
           <div class="checkbox {{#if @index}}checkbox-divider{{/if}}">
-            <label class="checkbox-population">
+            <label class="checkbox-label">
               <input type="checkbox" name="{{key}}">
               <span>{{displayName}}</span>
             </label>
