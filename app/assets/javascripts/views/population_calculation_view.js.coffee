@@ -1,4 +1,3 @@
-# FIXME: We want to change the file name and the template name
 class Thorax.Views.PopulationCalculation extends Thorax.View
   template: JST['population_calculation']
 

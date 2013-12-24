@@ -127,7 +127,6 @@ class Thorax.Views.SelectCriteriaView extends Thorax.View
   faIcon: -> @collection.first()?.toPatientDataCriteria()?.faIcon()
 
 
-# FIXME: When we get coffeescript scoping working again, don't need to put this in Thorax.Views scope
 class Thorax.Views.EditCriteriaView extends Thorax.View
 
   template: JST['patient_builder/edit_criteria']
