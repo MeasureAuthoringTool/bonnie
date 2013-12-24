@@ -64,32 +64,30 @@
               {{#ifCond name "==" "OBSERV"}}
                 {{expected}}%
               {{else}}
-                {{!-- FIXME Uncomment below to enable EoC measure results--}}
-                {{!-- {{#if ../../../episode_of_care}}
+                {{#if ../../episode_of_care}}
                   <span class="default">{{expected}}</span>
-                {{else}} --}}
+                {{else}}
                   {{#if expected}}
                     <i class="fa fa-check-square-o default"></i>
                   {{else}}
                     <i class="fa fa-square-o default"></i>
                   {{/if}}
-                {{!-- {{/if}} --}}
+                {{/if}}
               {{/ifCond}}
             </td>
             <td style="text-align: center;">
               {{#ifCond name "==" "OBSERV"}}
                 <span class="fail">{{actual}}%</span>
               {{else}}
-                {{!-- FIXME Uncomment below to enable EoC measure results --}}
-                {{!-- {{#if ../../../episode_of_care}}
+                {{#if ../../episode_of_care}}
                   <span class="fail">{{actual}}</span>
-                {{else}} --}}
+                {{else}}
                   {{#if actual}}
                     <i class="fa fa-check-square-o default"></i>
                   {{else}}
                     <i class="fa fa-square-o default"></i>
                   {{/if}}
-                {{!-- {{/if}} --}}
+                {{/if}}
               {{/ifCond}}
             </td>
           </tr>

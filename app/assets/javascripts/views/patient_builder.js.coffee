@@ -311,8 +311,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
       OBSERV: 'MEASURE OBSERVATIONS'
     @currentCriteria = []
     for pc in @model.populationCriteria()
-      # FIXME If enabling EoC measures, replace isEoC with @measure.get('episode_of_care') instead of false
       @currentCriteria.push
         key: pc
         displayName: criteriaMap[pc]
-        isEoC: false
+        isEoC: @measure.get('episode_of_care')
