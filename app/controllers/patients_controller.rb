@@ -92,8 +92,9 @@ private
 
   def update_patient(patient)
 
-    patient['measure_ids'] ||= []
-    patient['measure_ids'] << params['measure_id'] unless patient['measure_ids'].include? params['measure_id']
+    # FIXME: This code handles current confused state of client side patient/measure association; everything should use measure_ids only
+    patient['measure_ids'] ||= params['measure_ids'] || []
+    patient['measure_ids'] << params['measure_id'] unless patient['measure_ids'].include? params['measure_id'] || params['measure_id'].nil?
 
     ['first', 'last', 'gender', 'expired', 'birthdate', 'description', 'description_category'].each {|param| patient[param] = params[param]}
 
