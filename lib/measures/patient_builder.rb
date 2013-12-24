@@ -1,23 +1,29 @@
 module Measures
   # Utility class for building test patients
   class PatientBuilder
-    JAN_ONE_THREE_THOUSAND=32503698000000
+
+    INSURANCE_TYPES = {
+      'MA' => 'Medicare',
+      'MC' => 'Medicaid',
+      'OT' => 'Other'
+    }
+
+    INSURANCE_CODES = {
+      'MA' => '1',
+      'MC' => '2',
+      'OT' => '349'
+    }
   
 
     def self.rebuild_patient(patient)
 
-      # clear out patient data
-      if (patient.id)
-        Record::Sections.each do |section|
-          patient.method(section).call.delete_all
-        end
-      end
-      patient.medical_record_number ||= Digest::MD5.hexdigest("#{patient.first} #{patient.last}")
+      patient.medical_record_number ||= Digest::MD5.hexdigest("#{patient.first} #{patient.last} #{Time.now}")
 
       value_sets = get_value_sets(patient['measure_ids'] || [], patient.user)
 
       measure_data_criteria = get_data_criteria(patient['measure_ids'] || [], patient.user)
       
+      sections = {}
       patient.source_data_criteria.each  do |v|
         next if v['id'] == 'MeasurePeriod'
 
@@ -34,20 +40,20 @@ module Measures
           section_name = (entry_type == "lab_results") ? "results" : entry_type
 
           # Add the updated section to this patient.
-          section = patient.send(section_name)
-          section.push(entry)
+          sections[section_name] ||= []
+          sections[section_name].push(entry)
         end
+      end
+      # if the patient is persisted, monoid will send the updates at this point.
+      Record::Sections.each do |section|
+        patient.send(section).clear.concat(sections[section.to_s] || [])
       end
 
     end
 
-
-   
-
     def self.derive_time_range(value)
-      low = {'value' => Time.at(value['start_date'].to_i / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' }
-      high = {'value' => Time.at(value['end_date'].to_i / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' }
-      high = nil if value['end_date'] == JAN_ONE_THREE_THOUSAND
+      low = {'value' => Time.at(value['start_date'].to_i / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' } unless value['start_date'].nil?
+      high = {'value' => Time.at(value['end_date'].to_i / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' } unless value['end_date'].nil?
       HQMF::Range.from_json({'low' => low,'high' => high})
     end
 
@@ -155,6 +161,7 @@ module Measures
     def self.derive_field_values(entry, values, value_sets)
       return if values.nil?
       values.each do |name, value|
+
         converted_time = Time.at(value['value']/1000).strftime('%Y%m%d%H%M%S') if (value['type'] == 'TS') 
         field = HQMF::DataCriteria.convert_value(value)
         field.value = converted_time if converted_time
