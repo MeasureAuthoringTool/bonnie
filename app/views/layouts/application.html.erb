@@ -17,28 +17,24 @@
       <%= render 'layouts/footer' %>
     </div>
 
-
     <%= javascript_include_tag "application" %>
     <script src="<%= libraries_measures_url format: :js %>"></script>
-    <%# A page can have one measure or many; load each measure %>
-    <% (@measures || Array(@measure)).each do |measure| %>
+    <% @measures.each do |measure| %>
       <script src="<%= measure_url(measure, format: :js) %>"></script>
     <% end %>
     <script>
-      <% if @patient || @patients %>
-        <% (@patients || Array(@patient)).each do |patient| %>
-          (function() {
-            var patient = new Thorax.Models.Patient(<%= patient.to_json(except: :results).html_safe %>, { parse: true });
-            bonnie.measures.each(function(measure) { 
-              if(_(patient.get('measure_ids')).contains(measure.get('hqmf_set_id'))) {
-                measure.get('patients').add(patient);
-              }
-            });
-            // FIXME bonnie.patients is deprecated and will be going away shortly
-            bonnie.patients.add(patient);
-          })();
-         <% end %>
-      <% end %>
+      <% @patients.each do |patient| %>
+        (function() {
+          var patient = new Thorax.Models.Patient(<%= patient.to_json(except: :results).html_safe %>, { parse: true });
+          bonnie.measures.each(function(measure) { 
+            if(_(patient.get('measure_ids')).contains(measure.get('hqmf_set_id'))) {
+              measure.get('patients').add(patient);
+            }
+          });
+          // FIXME bonnie.patients is deprecated and will be going away shortly
+          bonnie.patients.add(patient);
+        })();
+       <% end %>
       $(document).ready(function() {
         Backbone.history.start();
       });

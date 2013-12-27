@@ -7,6 +7,7 @@ class Thorax.Models.Measure extends Thorax.Model
     populations = new Thorax.Collections.Population [], parent: this
     for population, index in attrs.populations
       population.sub_id = alphabet[index]
+      population.index = index
       # copy population criteria data to population
       for code in @constructor.allPopulationCodes
         if populationCriteriaKey = population[code]
@@ -20,6 +21,10 @@ class Thorax.Models.Measure extends Thorax.Model
     attrs.value_sets = new Thorax.Collection(attrs.value_sets, comparator: (vs) -> vs.get('display_name').toLowerCase())
     attrs.source_data_criteria = new Thorax.Collections.MeasureDataCriteria _(attrs.source_data_criteria).values()
     attrs
+
+  # For speed on the dashboard, we only load partial measures, and rely on all the non-dashboard views to fetch the rest
+  isPopulated: -> @has('data_criteria')
+    
 
 class Thorax.Collections.Measures extends Thorax.Collection
   url: '/measures'

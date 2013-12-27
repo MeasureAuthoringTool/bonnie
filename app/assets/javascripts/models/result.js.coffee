@@ -4,6 +4,21 @@ class Thorax.Models.Result extends Thorax.Model
     @measure = @population.collection.parent
     @patient = options.patient
 
+    # Provide a deferred that allows usage of a result to be deferred until it's populated
+    @calculation = $.Deferred()
+    if @isPopulated() then @calculation.resolve() else @once 'change:rationale', -> @calculation.resolve()
+
+    # When a patient changes, is materialized, or is destroyed, we need to respond appropriately
+    @listenTo @patient, 'change materialize destroy', =>
+      bonnie.calculator.clearResult(@population, @patient) # Remove the result from the cache
+      @destroy() # Destroy the result to remove it from any collections
+
+  isPopulated: -> @has('rationale')
+
+  differenceFromExpected: ->
+    expected = @patient.getExpectedValue @population
+    new Thorax.Models.Differnece({}, result: this, expected: expected)
+
   specificsRationale: ->
     updatedRationale = {}
     rationale = @get('rationale')
@@ -152,6 +167,6 @@ class Thorax.Models.Result extends Thorax.Model
       _.extend(orCounts, @calculateOrCountsRecursive(rationale, precondition.preconditions))
     return orCounts
 
-class Thorax.Collections.Result extends Thorax.Collection
+class Thorax.Collections.Results extends Thorax.Collection
   model: Thorax.Models.Result
   initialize: (models, options) -> @parent = options?.parent

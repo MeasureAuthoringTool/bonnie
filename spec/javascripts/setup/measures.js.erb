@@ -2,14 +2,29 @@
 <%= HQMF2JS::Generator::JS.map_reduce_utils %>
 <%= HQMF2JS::Generator::JS.library_functions(false, false) %>
 
-<%# Generate the measure objects with calculation code %>
+<%# Load the JSON for our fixture measures %>
 <% measures_fixture_file = File.join File.dirname(__FILE__), '../fixtures/json/measures.json' %>
-<% measures = JSON.parse File.read(measures_fixture_file) %>
+<% measures_json = File.read(measures_fixture_file) %>
+
+<%# Set up the measures in the bonnie router %>
+bonnie.measures.add(<%= measures_json.html_safe %>, { parse: true });
+
+<%# Load the calculation JavaScript %>
+<% measures = JSON.parse measures_json %>
 <% measures.each do |measure_data| %>
   <%# Initialize measure object from data in JSON, setting _id by hand because it's attr protected %>
   <% measure = Measure.new(measure_data) %>
   <% measure._id = measure_data['_id'] %>
   <%# Manually set value sets to prime cache so as to not require mongod %>
   <% measure.instance_variable_set("@value_sets", measure_data['value_sets']) %>
-  <%= BonnieMeasureJavascript.generate_from_measure(measure, cache_result_in_db: false).html_safe %>
+  <% measure.populations.length.times do |population_index| %>
+    <%# Load the calculation code into the calculator %>
+    <%= BonnieMeasureJavascript.generate_for_population(measure, population_index, cache_result_in_db: false).html_safe %>
+    <%# Fake out the calculator to pre-set the deferred that it usually uses to tell when calculators are loaded %>
+    (function() {
+      var population = bonnie.measures.get('<%= measure._id %>').get('populations').at(<%= population_index %>);
+      var cacheKey = bonnie.calculator.calculationKey(population);
+      bonnie.calculator.calculatorLoaded[cacheKey] = $.when(); // A 'when' without arguments is automatically resolved
+    })();
+  <% end %>
 <% end %>

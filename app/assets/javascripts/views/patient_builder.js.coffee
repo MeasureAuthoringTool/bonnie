@@ -127,7 +127,6 @@ class Thorax.Views.SelectCriteriaView extends Thorax.View
   faIcon: -> @collection.first()?.toPatientDataCriteria()?.faIcon()
 
 
-# FIXME: When we get coffeescript scoping working again, don't need to put this in Thorax.Views scope
 class Thorax.Views.EditCriteriaView extends Thorax.View
 
   template: JST['patient_builder/edit_criteria']
@@ -290,8 +289,10 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
   events:
     serialize: (attr) ->
       for pc in @model.populationCriteria()
-        unless @measure.get('episode_of_care') || (@measure.get('continuous_variable') && pc == 'OBSERV')
-          attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box to 0/1
+        if @measure.get('episode_of_care') || (@measure.get('continuous_variable') && pc == 'OBSERV')
+          attr[pc] = parseFloat(attr[pc])
+        else
+          attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
 
   context: ->
     context = super
@@ -311,8 +312,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
       OBSERV: 'MEASURE OBSERVATIONS'
     @currentCriteria = []
     for pc in @model.populationCriteria()
-      # FIXME If enabling EoC measures, replace isEoC with @measure.get('episode_of_care') instead of false
       @currentCriteria.push
         key: pc
         displayName: criteriaMap[pc]
-        isEoC: false
+        isEoC: @measure.get('episode_of_care')

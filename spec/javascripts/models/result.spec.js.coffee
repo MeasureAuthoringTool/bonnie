@@ -6,8 +6,18 @@ describe 'Result', ->
     @patient = collection.findWhere(first: 'GP_Peds', last: 'A')
 
   it 'correctly handles fixing specific occurrence results', ->
-  	result = this.measure.get('populations').at(0).calculate(@patient)
-  	specificsRationale = result.specificsRationale()
-  	expect(specificsRationale.DENEX.OccurrenceAAcutePharyngitis1_precondition_4).toEqual false
-  	expect(specificsRationale.DENEX.GROUP_SBS_CHILDREN_47).toEqual false
-  	expect(specificsRationale.NUMER.OccurrenceAAmbulatoryEdVisit3).toEqual false
+    result = this.measure.get('populations').at(0).calculate(@patient)
+    waitsFor -> result.isPopulated()
+    runs ->
+      specificsRationale = result.specificsRationale()
+      expect(specificsRationale.DENEX.OccurrenceAAcutePharyngitis1_precondition_4).toEqual false
+      expect(specificsRationale.DENEX.GROUP_SBS_CHILDREN_47).toEqual false
+      expect(specificsRationale.NUMER.OccurrenceAAmbulatoryEdVisit3).toEqual false
+
+  it 'allows for deferring use of results until populated', ->
+    result1 = new Thorax.Models.Result({}, population: @measure.get('populations').first(), patient: @patient)
+    expect(result1.calculation.state()).toEqual 'pending'
+    result1.set(rationale: 'RATIONALE')
+    expect(result1.calculation.state()).toEqual 'resolved'
+    result2 = new Thorax.Models.Result({ rationale: 'RATIONALE' }, population: @measure.get('populations').first(), patient: @patient)
+    expect(result2.calculation.state()).toEqual 'resolved'

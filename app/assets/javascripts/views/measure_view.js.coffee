@@ -5,9 +5,6 @@ class Thorax.Views.Measure extends Thorax.View
     'click .delete-measure': 'deleteMeasure'
 
   initialize: ->
-    # FIXME: display calculation for first population only for now, eventually we'll want them selectable
-    @measureCalculation = new Thorax.Views.MeasureCalculation(model: @model, populationIndex: 0)
-
     populations = @model.get 'populations'
     population = populations.first()
     populationLogicView = new Thorax.Views.PopulationLogic(model: population)
@@ -18,14 +15,19 @@ class Thorax.Views.Measure extends Thorax.View
       @logicView.setView populationLogicView
     else
       @logicView = populationLogicView
-    @logicView.listenTo @measureCalculation, 'rationale:clear', -> @clearRationale()
-    @logicView.listenTo @measureCalculation, 'rationale:show', (result) -> @showRationale(result)
-    @measureCalculation.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
+
+    @populationCalculation = new Thorax.Views.PopulationCalculation(model: population)
+
+    @populationCalculation.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
+    # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
+    @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
+    @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
 
   updateMeasure: (e) ->
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)
     importMeasureView.appendTo(@$el)
     importMeasureView.display()
+
   deleteMeasure: (e) ->
     @model = $(e.target).model()
     @model.destroy()

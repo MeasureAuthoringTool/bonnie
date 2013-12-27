@@ -25,6 +25,7 @@
 #= require_tree ./templates
 #= require_tree ./models
 #= require_tree ./views
+#= require calculator
 #= require router
 #= require_self
 #= require_tree .
