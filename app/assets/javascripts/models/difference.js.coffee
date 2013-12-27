@@ -32,3 +32,4 @@ class Thorax.Collections.Differences extends Thorax.Collection
              else
                'fail'
     @summary.set total: @length, matching: successful.length, percent: percent, done: done, status: status
+    if done then @trigger 'differences:done', this
