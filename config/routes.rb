@@ -1,7 +1,7 @@
 Bonnie::Application.routes.draw do
   devise_for :users
 
-  resources :measures, defaults: { format: :json} do
+  resources :measures, defaults: { format: :json } do
     collection do
       get 'libraries'
       get 'matrix'
@@ -10,6 +10,8 @@ Bonnie::Application.routes.draw do
     member do
       get 'add'
       get 'remove'
+      get 'debug', defaults: { format: :html }
+      post 'clear_cached_javascript'
     end
     resources :populations do
       member do

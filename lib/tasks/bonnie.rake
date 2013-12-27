@@ -108,7 +108,7 @@ namespace :bonnie do
       puts "Pre-generating measure JavaScript"
       Measure.each do |measure|
         puts "\tGenerating JavaScript for '#{measure.title}'"
-        measure.pregenerate_js
+        measure.generate_js
       end
     end
   end

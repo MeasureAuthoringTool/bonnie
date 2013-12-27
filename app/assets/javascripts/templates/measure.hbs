@@ -8,6 +8,9 @@
       Description: <a class="pull-right" data-toggle="popover" id="settings" rel="popover" data-placement="bottom" data-html="true"><i class="fa fa-cog"></i></a>
     </div>
     <p>{{description}}</p>
+    {{#ifAdmin}}
+      <a href="/measures/{{_id}}/debug" class="btn btn-danger">Debug</a>
+    {{/ifAdmin}}
     <script type="text/x-handlebars" class="popover-tmpl">
       {{#button "updateMeasure" class="btn btn-primary"}}Update{{/button}}
       {{#link "" class="btn btn-danger delete-measure"}}Delete{{/link}}

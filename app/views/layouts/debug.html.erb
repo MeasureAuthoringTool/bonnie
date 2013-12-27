@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Bonnie: Measure Debug</title>
+  <%= stylesheet_link_tag :application %>
+  <%= javascript_include_tag :application %>
+  <%= csrf_meta_tag %>
+</head>
+
+<body>
+
+  <div class="debug container">
+    <%= yield %>
+  </div>
+
+  <script>
+    var measure = new Thorax.Models.Measure(<%= @measure.to_json(except: [:map_fns, :record_ids], methods: [:value_sets]).html_safe %>, { parse: true });
+    // Put all the patients on the measure, even if they don't belong, we'll sort them out later
+    var patients = new Thorax.Collections.Patients(<%= @patients.to_json(except: :results).html_safe %>, { parse: true });
+    measure.set('patients', patients);
+    // Overwrite pieces as necessary to load calculation code in a way that's debuggable, ie no deferred loading or calculation
+    bonnie.measures.add(measure);
+    bonnie.calculator.setCalculator = function(population, calcFunction) {
+      // When we call setCalculate below, this will just overwrite the calculate method for the population 
+      population.calculate = function(patient) {
+        result = calcFunction(patient.toJSON());
+        result = new Thorax.Models.Result(result, { population: population, patient: patient });
+        result.state = 'complete';
+        return result;
+      }
+    }
+  </script>
+
+  <%# Load up the calculation libray code and individual calculation code for each population %>
+  <script src="<%= libraries_measures_url format: :js %>"></script>
+  <% @measure.populations.each_with_index do |population, idx| %>
+    <script src="<%= calculate_code_measure_population_url(@measure, idx, format: :js) %>"></script>
+  <% end %>
+
+  <script>
+    var debugView = new Thorax.Views.MeasureDebug({ model: measure });
+    debugView.appendTo('.debug');
+  </script>
+
+</body>
+</html>
