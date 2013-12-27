@@ -5,7 +5,8 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
 
   isMatch: (result) ->
     for popCrit in @populationCriteria()
-      return false unless @get(popCrit) == result.get(popCrit)
+      if popCrit is 'OBSERV' then return false unless @get(popCrit) == result.get('values')?[0]
+      else return false unless @get(popCrit) == result.get(popCrit)
     return true
 
   comparison: (result) ->
