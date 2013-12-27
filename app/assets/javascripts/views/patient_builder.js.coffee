@@ -302,13 +302,13 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
 
   initialize: ->
     criteriaMap =
-      IPP: 'INITIAL PATIENT POP.'
-      DENOM: 'DENOMINATOR'
-      NUMER: 'NUMERATOR'
+      IPP: 'IPP'
+      DENOM: 'DENOM'
+      NUMER: 'NUMER'
       DENEXCEP: 'EXCEPTION'
       DENEX: 'EXCLUSION'
-      MSRPOPL: 'MEASURE POPULATION'
-      OBSERV: 'MEASURE OBSERVATIONS'
+      MSRPOPL: 'MEASURE POP.'
+      OBSERV: 'OBSERV'
     @currentCriteria = []
     for pc in @model.populationCriteria()
       # FIXME If enabling EoC measures, replace isEoC with @measure.get('episode_of_care') instead of false
