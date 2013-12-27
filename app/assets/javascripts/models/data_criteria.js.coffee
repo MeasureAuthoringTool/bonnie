@@ -1,9 +1,8 @@
 class Thorax.Models.MeasureDataCriteria extends Thorax.Model
   toPatientDataCriteria: ->
     # FIXME: Temporary approach
-    attr = _(@pick('negation', 'definition', 'status', 'title', 'description', 'type')).extend
+    attr = _(@pick('negation', 'definition', 'status', 'title', 'description', 'code_list_id', 'type')).extend
              id: @get('source_data_criteria')
-             oid: @get('code_list_id')
              start_date: new Date().getTime()
              end_date: new Date().getTime()
              value: new Thorax.Collection()

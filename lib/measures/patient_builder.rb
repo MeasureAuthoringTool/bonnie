@@ -14,20 +14,21 @@ module Measures
       'OT' => '349'
     }
   
-
     def self.rebuild_patient(patient)
 
       patient.medical_record_number ||= Digest::MD5.hexdigest("#{patient.first} #{patient.last} #{Time.now}")
-
       value_sets = get_value_sets(patient['measure_ids'] || [], patient.user)
-
-      measure_data_criteria = get_data_criteria(patient['measure_ids'] || [], patient.user)
       
       sections = {}
       patient.source_data_criteria.each  do |v|
         next if v['id'] == 'MeasurePeriod'
-
-        data_criteria = HQMF::DataCriteria.from_json(v['id'], measure_data_criteria[v['id']])
+        data_criteria = nil
+        begin
+          data_criteria = HQMF::DataCriteria.get_settings_for_definition(v['definition'], v['status'])
+        rescue
+          #unsupported data criteria.
+          puts $!
+        end
         entry = Measures::PatientBuilder.derive_entry(data_criteria, v, value_sets)
         # if its a thing like result, condition, encounter it will have an entry otherwise 
         # its most likely a characteristic
@@ -36,7 +37,7 @@ module Measures
           derive_negation(entry, v, value_sets)
           derive_field_values(entry, v['field_values'],value_sets)
          
-          entry_type = HQMF::Generator.classify_entry(data_criteria.patient_api_function)
+          entry_type = HQMF::Generator.classify_entry(data_criteria['patient_api_function'].to_sym)
           section_name = (entry_type == "lab_results") ? "results" : entry_type
 
           # Add the updated section to this patient.
@@ -57,47 +58,7 @@ module Measures
       HQMF::Range.from_json({'low' => low,'high' => high})
     end
 
-    # get all of the data criteria for the set of measures passed in
-    def self.get_data_criteria(measure_list, current_user)
-      Hash[
-        *Measure.by_user(current_user).where({'hqmf_set_id' => {'$in' => measure_list}}).map{|m|
-          m.source_data_criteria.reject{|k,v|
-            ['patient_characteristic_birthdate','patient_characteristic_gender', 'patient_characteristic_expired'].include?(v['definition'])
-          }.each{|k,v|
-            v['title'] += ' (' + m.measure_id + ')'
-          }
-        }.map(&:to_a).flatten
-      ]
-    end
-
-    def self.missing_data_criteria(record, data_criteria)
-      record.source_data_criteria.select {|e| data_criteria[e['id']].nil? && e['id'] != 'MeasurePeriod' }
-    end
-
-    def self.check_data_criteria!(record, data_criteria)
-      dropped_data_criteria = []
-      if (record.respond_to? :source_data_criteria)
-        # check to see if there are any data criteria that we cannot find.  If there are, we want to remove them.
-        dropped_source_criteria = Measures::PatientBuilder.missing_data_criteria(record, data_criteria)
-        dropped_source_criteria.each do |dc|
-          alternates = data_criteria.select {|key,value| value['code_list_id'] == dc['oid'] && value['status'] == dc['status'] && value['definition'] == dc['definition'] }.keys
-          if (!alternates.empty?)
-            alternate = (alternates.sort {|left, right| Text::Levenshtein.distance(left, dc['id']) <=> Text::Levenshtein.distance(right, dc['id'])}).first
-            # update the source data criteria to set the alternate id with the closes id and a matching code set id
-            puts "\talternate: #{alternate} for #{dc['id']}"
-            dc['id'] = alternate
-          end
-        end
-
-        dropped_ids = Measures::PatientBuilder.missing_data_criteria(record, data_criteria).map {|dc| dc['id'] }
-
-        record.source_data_criteria.delete_if {|dc| dropped = dropped_ids.include? dc['id']; dropped_data_criteria << dc if dropped; dropped}
-        
-      end
-      dropped_data_criteria
-    end
-
-
+  
 
     # Determine the apporpriate coded entry type from this data criteria and create one to match.
     #
@@ -107,18 +68,17 @@ module Measures
     # @param [Hash] value_sets The value sets that this data criteria references.
     # @return A coded entry with basic data defined by this data criteria.
     def self.derive_entry(data_criteria,value, value_sets)
-      return nil if data_criteria.type == :characteristic && data_criteria.patient_api_function.nil? 
+ 
+      return nil if data_criteria.nil? || (data_criteria['type'] == 'characteristic' && data_criteria['patient_api_function'].nil?)
       time = derive_time_range(value)
-      data_criteria.negation = value["negation"]
-      data_criteria.negation_code_list_id = value["negation_code_list_id"]
-      entry_type = HQMF::Generator.classify_entry(data_criteria.patient_api_function)
+      entry_type = HQMF::Generator.classify_entry(data_criteria['patient_api_function'].to_sym)
       entry = entry_type.classify.constantize.new
-      entry.description = value["description"] || "#{data_criteria.description} (Code List: #{data_criteria.code_list_id})"
+      entry.description = value["description"]
       entry.start_time = time.low.to_seconds if time.low
       entry.end_time = time.high.to_seconds if time.high
-      entry.status = data_criteria.status
-      entry.codes = value["codes"] || Measures::PatientBuilder.select_codes(data_criteria.code_list_id, value_sets)
-      entry.oid = HQMF::DataCriteria.template_id_for_definition(data_criteria.definition, data_criteria.status, data_criteria.negation)
+      entry.status = value['status']
+      entry.codes = value["codes"] || Measures::PatientBuilder.select_codes(value['code_list_id'], value_sets)
+      entry.oid = HQMF::DataCriteria.template_id_for_definition(value['definition'], value['status'], value['negation'])
       entry
     end
 
@@ -228,7 +188,7 @@ module Measures
     def self.select_value_sets(oid, value_sets)
       # Pick the value set for this DataCriteria. If it can't be found, it is an error from the value set source. We'll add the entry without codes for now.
       vs = value_sets[oid]
-      vs = vs || { "concepts" => [] }
+      vs = vs || HealthDataStandards::SVS::ValueSet.new({ "concepts" => [] })
       vs
     end
 
