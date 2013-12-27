@@ -20,3 +20,6 @@ class Thorax.Views.ValueLogic extends Thorax.View
       @unit_map[unit] + (if value > 1 then 's' else '')
     else
       unit
+
+  translate_oid: (oid) =>
+    @measure.get('value_sets').findWhere({oid: oid})?.get('display_name')
