@@ -67,6 +67,9 @@ namespace :bonnie do
       Mongoid.default_session.with(database: dest_db) { |db| db.drop }
       Mongoid.default_session.with(database: 'admin') { |db| db.command copydb: 1, fromhost: host, fromdb: source_db, todb: dest_db }
       Rake::Task['bonnie:patients:update_measure_ids'].invoke
+      Rake::Task['bonnie:users:associate_user_with_measures'].invoke
+      Rake::Task['bonnie:users:associate_user_with_patients'].invoke
+      Rake::Task["bonnie:patients:update_source_data_criteria"].invoke
       if ENV['DEMO'] == 'true'
         puts "Deleting non-demo measures and patients"
         demo_measure_ids = Measure.in(measure_id: ['0105', '0069']).pluck('hqmf_set_id') # Note: measure_id is nqf, id is hqmf_set_id!
@@ -86,10 +89,7 @@ namespace :bonnie do
         patient.expected_values << {measure_id: measure_id, population_index: 1, IPP: 1, DENOM: 1, NUMER: 0, DENEX: 0}
         patient.save!
       end
-      Rake::Task['bonnie:users:associate_user_with_measures'].invoke
-      Rake::Task['bonnie:users:associate_user_with_patients'].invoke
       Rake::Task['bonnie:measures:pregenerate_js'].invoke
-      Rake::Task["bonnie:patients:update_source_data_criteria"].invoke
     end
   end
 
@@ -134,7 +134,7 @@ namespace :bonnie do
                 if (field_value['type'] == 'TS')
                   field_value['value'] = Time.strptime(field_value['value'],"%m/%d/%Y %H:%M").to_i*1000 rescue field_value['value']
                 end
-              end
+              end if patient_data_criteria['field_values']
             end
           end
         end
