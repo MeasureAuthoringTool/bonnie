@@ -10,21 +10,17 @@
           </label>
         </div>
       {{else}}
-        {{#if isEoC}}
-          <div class="checkbox {{#if @index}}checkbox-divider{{/if}}">
-            <label class="checkbox-label">
+        <div class="checkbox {{#if @index}}checkbox-divider{{/if}}">
+          <label class="checkbox-label">
+            {{#if isEoC}}
               <input class="checkbox-number" type="number" name="{{key}}">
               {{displayName}}
-            </label>
-          </div>
-        {{else}}
-          <div class="checkbox {{#if @index}}checkbox-divider{{/if}}">
-            <label class="checkbox-label">
+            {{else}}
               <input type="checkbox" name="{{key}}">
               <span>{{displayName}}</span>
-            </label>
-          </div>
-        {{/if}}
+            {{/if}}
+          </label>
+        </div>
       {{/ifCond}}
     {{/each}}
   </form>
