@@ -7,7 +7,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_measures(@user,Measure.all)
     @measure_ids = ["E35791DF-5B25-41BB-B260-673337BC44A8"] # hqmf_set_id
-    @data_criteria = Measures::PatientBuilder.get_data_criteria(@measure_ids, @user)
+    @data_criteria = HQMF::DataCriteria.get_settings_for_definition('diagnosis','active')
     @valuesets = {"2.16.840.1.113883.3.526.3.1492"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.526.3.1492", "concepts"=>[
                                                                             HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"99201"}),
                                                                             HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"99202"}),
@@ -45,7 +45,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
           "negation_code_list_id"=>"2.16.840.1.113883.3.464.1003.106.12.1005",
           "negation_code" => {"code_system" => "SNOMED", "code" =>"222222"},
           "field_values"=>{"ORDINAL"=>{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.526.3.1139","title"=>"ACE inhibitor or ARB", "code" =>{"code_system"=>"CPT", "code"=>"CHACHA2", "title"=>nil}}},
-          "oid"=> "2.16.840.1.113883.3.526.3.1492",
+          "code_list_id"=> "2.16.840.1.113883.3.526.3.1492",
           "codes"=> [{"CPT" =>["CPT1"]}]
         }
 
@@ -57,26 +57,25 @@ class PatientBuilderTest < ActiveSupport::TestCase
           "negation"=>"true",
           "negation_code_list_id"=>"2.16.840.1.113883.3.464.1003.106.12.1005",
           "field_values"=>{"ORDINAL"=>{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.526.3.1139","title"=>"ACE inhibitor or ARB"}},
-          "oid"=> "2.16.840.1.113883.3.526.3.1492"
+          "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
           }    
   end
 
 
   test "derive entry" do
-    data_criteria = HQMF::DataCriteria.from_json("DiagnosisActiveLimitedLifeExpectancy", @data_criteria["DiagnosisActiveLimitedLifeExpectancy"])
-    entry = Measures::PatientBuilder.derive_entry(data_criteria,@un_coded_source_data_critria, @valuesets)
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@un_coded_source_data_critria, @valuesets)
     assert entry, "Should have created an entry with un coded data"
     assert_equal Condition, entry.class, "should have created and Encounter object"
     
-    entry = Measures::PatientBuilder.derive_entry(data_criteria,@coded_source_data_critria, @valuesets)
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@coded_source_data_critria, @valuesets)
     assert entry, "Should have created an entry with  coded data"
     assert_equal Condition, entry.class, "should have created and Encounter object"
     assert_equal @coded_source_data_critria["codes"], entry.codes
   end
 
   test "derive negation" do
-    data_criteria = HQMF::DataCriteria.from_json("DiagnosisActiveLimitedLifeExpectancy", @data_criteria["DiagnosisActiveLimitedLifeExpectancy"])
-    entry = Measures::PatientBuilder.derive_entry(data_criteria,@un_coded_source_data_critria, @valuesets)
+    
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@un_coded_source_data_critria, @valuesets)
     assert  !entry.negation_ind, "negation should be false"
     assert entry.negation_reason.nil?, "Negation should have no codes"
 
@@ -85,7 +84,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
     code ={"code_system" => "SNOMED" , "code" =>"999999"}
     assert_equal code, entry.negation_reason, "Negation codes should have been auto selected"
 
-    entry = Measures::PatientBuilder.derive_entry(data_criteria,@coded_source_data_critria, @valuesets)
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@coded_source_data_critria, @valuesets)
     
     Measures::PatientBuilder.derive_negation(entry,@coded_source_data_critria,@valuesets)
     assert entry.negation_ind, "negation should be true"
@@ -98,8 +97,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
 
   test "derive values" do
 
-    data_criteria = HQMF::DataCriteria.from_json("DiagnosisActiveLimitedLifeExpectancy", @data_criteria["DiagnosisActiveLimitedLifeExpectancy"])
-    entry = Measures::PatientBuilder.derive_entry(data_criteria,@un_coded_source_data_critria,@valuesets)
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@un_coded_source_data_critria,@valuesets)
     
     assert entry.values.nil? || entry.values.empty? , "There should be no values"
 
@@ -108,7 +106,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
     assert_equal expected_length, entry.values.length, "Should have created #{expected_length} values"
     assert_equal({"LOINC"=>["LOINC_1"], "AOCS"=>["A_1"]}, entry.values[0].codes ) 
 
-    entry = Measures::PatientBuilder.derive_entry(data_criteria,@coded_source_data_critria, @valuesets)
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@coded_source_data_critria, @valuesets)
     assert entry.values.nil? || entry.values.empty? , "There should be no values"
     Measures::PatientBuilder.derive_values(entry,@coded_source_data_critria["value"],@valuesets)
     expected_length = @un_coded_source_data_critria["value"].length
@@ -117,14 +115,13 @@ class PatientBuilderTest < ActiveSupport::TestCase
   end
 
   test "derive field"  do 
-    data_criteria = HQMF::DataCriteria.from_json("DiagnosisActiveLimitedLifeExpectancy", @data_criteria["DiagnosisActiveLimitedLifeExpectancy"])
-    entry = Measures::PatientBuilder.derive_entry(data_criteria,@un_coded_source_data_critria, @valuesets)
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@un_coded_source_data_critria, @valuesets)
     assert entry.values.nil? || entry.values.empty? , "There should be no values"
     Measures::PatientBuilder.derive_field_values(entry,@un_coded_source_data_critria["field_values"],@valuesets)
 
     assert !entry.ordinality.nil?, "Should have created an ordinal filed value"
     
-    entry = Measures::PatientBuilder.derive_entry(data_criteria,@coded_source_data_critria, @valuesets)
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@coded_source_data_critria, @valuesets)
     assert entry.values.nil? || entry.values.empty? , "There should be no values"
     Measures::PatientBuilder.derive_field_values(entry,@coded_source_data_critria["field_values"],@valuesets)
     assert_equal({"code_system"=>"CPT", "code"=>"CHACHA2", "title"=>nil}, entry.ordinality, "Should have created an ordinal filed value")

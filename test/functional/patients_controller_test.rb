@@ -24,7 +24,7 @@ include Devise::TestHelpers
      'race'=> 'B',
      'start_date'=>'2012-01-01',
      'end_date'=>'2012-12-31',
-     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","start_date"=>1333206000000,"end_date"=>1333206000000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"oid"=>"2.16.840.1.113883.3.526.3.1492"}],
+     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation", "status"=>"performed", "definition"=>"encounter", "start_date"=>1333206000000,"end_date"=>1333206000000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492"}],
      'measure_id' => @measure.hqmf_set_id}
 
     post :create, @patient
@@ -67,7 +67,7 @@ include Devise::TestHelpers
      'race'=> 'B',
      'start_date'=>'2012-01-01',
      'end_date'=>'2012-12-31',
-     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","start_date"=>1333206000000,"end_date"=>1333206000000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"oid"=>"2.16.840.1.113883.3.526.3.1492"}],
+     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","status"=>"performed", "definition"=>"encounter", "start_date"=>1333206000000,"end_date"=>1333206000000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492"}],
      'measure_id' => @measure.hqmf_set_id}
 
     post :update,@patient
@@ -102,7 +102,7 @@ include Devise::TestHelpers
      'race'=> 'B',
      'start_date'=>'2012-01-01',
      'end_date'=>'2012-12-31',
-     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","start_date"=>1333206000000,"end_date"=>1333206000000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"oid"=>"2.16.840.1.113883.3.526.3.1492"}],
+     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","status"=>"performed", "definition"=>"encounter", "start_date"=>1333206000000,"end_date"=>1333206000000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492"}],
      'measure_id' => @measure.hqmf_set_id}
 
     post :materialize, @patient
