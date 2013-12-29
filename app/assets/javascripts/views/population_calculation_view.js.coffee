@@ -9,9 +9,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
     @differences.sort()
     # Make sure the sort order updates as results come in
     @differences.on 'change', @differences.sort, @differences
-    @totalCoverage = new Thorax.Model
-    @listenTo @differences, 'differences:done', (differences) -> @computeTotalCoverage(differences.map (d) -> d.result)
-    if @differences.summary.get('done') then @computeTotalCoverage(@differences.map (d) -> d.result)
+    @totalCoverage = @model.coverage()
 
   context: ->
     _(super).extend measure_id: @measure.get('hqmf_set_id')
@@ -67,25 +65,4 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
       @$('.toggle-result').hide()
       @$(".toggle-result-#{result.patient.id}").show()
       @trigger 'rationale:show', result
-
-  computeTotalCoverage: (results) ->
-    dataCriteria = @measure.get 'data_criteria'
-    rationaleCoverage = {}
-    for result in results
-      rationale = result.get 'rationale'
-      for key, value of dataCriteria
-        criteriaId = value['key']
-        if !!rationale[criteriaId]
-          rationaleCoverage[criteriaId] = true
-        else
-          unless !!rationaleCoverage[criteriaId]
-            rationaleCoverage[criteriaId] = false
-
-    matches = 0
-    mismatches = 0
-    for criteriaId, match of rationaleCoverage
-      if match then matches++ else mismatches++
-    unless matches == mismatches == 0
-      @totalCoverage.set coverage: ( matches * 100 / ( matches + mismatches )).toFixed()
-    else
-      @totalCoverage.set coverage: 0
+      
