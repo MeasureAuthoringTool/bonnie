@@ -5,24 +5,15 @@ class Thorax.Model.Coverage extends Thorax.Model
     @listenTo @results, 'change add reset destroy remove', @update
     @update()
   update: ->
-    completedResults = @results.select (d) -> d.isPopulated()
-    dataCriteria = @measure.get 'data_criteria'
-    rationaleCoverage = {}
-    for result in completedResults
-      rationale = result.get 'rationale'
-      for key, value of dataCriteria
-        criteriaId = value['key']
-        if !!rationale[criteriaId]
-          rationaleCoverage[criteriaId] = true
-        else
-          unless !!rationaleCoverage[criteriaId]
-            rationaleCoverage[criteriaId] = false
+    # Get all the criteria from the measure
+    measureCriteria = _(@measure.get 'data_criteria').keys()
 
-    matches = 0
-    mismatches = 0
-    for criteriaId, match of rationaleCoverage
-      if match then matches++ else mismatches++
-    unless matches == mismatches == 0
-      @set coverage: ( matches * 100 / ( matches + mismatches )).toFixed()
-    else
-      @set coverage: 0
+    # Find all unique criteria that evaluated true in the rationale that are also in the measure
+    rationaleCriteria = []
+    for result in (@results.select (d) -> d.isPopulated())
+      rationale = result.get 'rationale'
+      rationaleCriteria.push(criteria) for criteria, result of rationale when result
+    rationaleCriteria = _(rationaleCriteria).intersection(measureCriteria)
+
+    # Set coverage to the fraction of measure criteria that were true in the rationale
+    @set coverage: ( rationaleCriteria.length * 100 / measureCriteria.length ).toFixed()
