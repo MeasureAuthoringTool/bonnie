@@ -44,6 +44,8 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     _(categories).omit('transfers')
 
   events:
+    'blur :text':     'materialize'
+    'change select':  'materialize'
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
 
@@ -52,10 +54,8 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       # Make current and future data criteria children droppable
       @$('.patient-data-list').on 'drop', '.patient-data.droppable', _.bind(@drop, this)
 
-      # These cannot be handled as a thorax event because we want it to apply to new DOM elements too
-      @$el.on 'blur', 'input[type="text"]', => @materialize()
-      @$el.on 'change', 'select', => @materialize()
-      @$('.form-control-time').timepicker()
+      @$('.form-control-date').datepicker().on 'changeDate', _.bind(@materialize, this)
+      @$('.form-control-time').timepicker().on 'changeTime.timepicker', _.bind(@materialize, this)
     model:
       sync: (model) ->
         @patients.add model # make sure that the patient exist in the global patient collection
@@ -94,6 +94,9 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @materialize()
     false
 
+  registerMaterializer: (materializer) ->
+    materializer.on 'bonnie:materialize', @materialize, this
+
   materialize: ->
     @serializeWithChildren()
     @model.materialize()
@@ -108,6 +111,19 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     # Go back to wherever the user came from, if possible
     e.preventDefault()
     window.history.back()
+
+
+class Thorax.Views.Materializer extends Thorax.View
+  events:
+    ready: -> @patientBuilder().registerMaterializer this
+  patientBuilder: ->
+    parent = @parent
+    until parent instanceof Thorax.Views.PatientBuilder
+      parent = parent.parent
+    parent
+  triggerMaterialize: ->
+    @trigger 'bonnie:materialize'
+
 
 
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
@@ -132,7 +148,7 @@ class Thorax.Views.SelectCriteriaView extends Thorax.View
   faIcon: -> @collection.first()?.toPatientDataCriteria()?.faIcon()
 
 
-class Thorax.Views.EditCriteriaView extends Thorax.View
+class Thorax.Views.EditCriteriaView extends Thorax.Views.Materializer
 
   template: JST['patient_builder/edit_criteria']
 
@@ -157,6 +173,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
       start_time: moment(@model.get('start_date')).format('LT') if @model.get('start_date')
       end_date: moment(@model.get('end_date')).format('L') if @model.get('end_date')
       end_time: moment(@model.get('end_date')).format('LT') if @model.get('end_date')
+      end_date_is_undefined: !@model.has('end_date')
       codes: @measure.get('value_sets').map (vs) -> vs.toJSON()
       faIcon: @model.faIcon()
 
@@ -167,20 +184,34 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
         startDate += " #{attr.start_time}" if attr.start_time
         attr.start_date = moment(startDate, 'L LT').format('X') * 1000
       delete attr.start_time
-      if endDate = attr.end_date
+      if attr.end_date_is_undefined
+        attr.end_date = undefined
+      else if endDate = attr.end_date
         endDate += " #{attr.end_time}" if attr.end_time
         attr.end_date = moment(endDate, 'L LT').format('X') * 1000
+      delete attr.end_date_is_undefined
       delete attr.end_time
     rendered: ->
       @$('.patient-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight'
-      @$('.form-control-time').timepicker()
-    'change .negation-select': 'toggleNegationSelect'
+      @$('.form-control-date').datepicker().on 'changeDate', _.bind(@triggerMaterialize, this)
+      @$('.form-control-time').timepicker().on 'changeTime.timepicker', _.bind(@triggerMaterialize, this)
+    'change .negation-select':    'toggleNegationSelect'
+    'change .undefined-end-date': 'toggleEndDateDefinition'
+    'blur :text':                 'triggerMaterialize'
+    'change select':              'triggerMaterialize'
 
   toggleDetails: (e) ->
     e.preventDefault()
     @$('.concise').toggle()
     @$('.details').toggle()
     @$('.circle-icon').toggleClass('active-icon')
+
+  toggleEndDateDefinition: (e) ->
+    $cb = $(e.target)
+    $endDateTime = @$('input[name=end_date], input[name=end_time]')
+    $endDateTime.val('') if $cb.is(':checked')
+    $endDateTime.prop 'disabled', $cb.is(':checked')
+    @triggerMaterialize()
 
   toggleNegationSelect: (e) ->
     @$('.negation-code-list').toggleClass('hide')
@@ -196,9 +227,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.View
   removeValue: (e) ->
     e.preventDefault()
     $(e.target).model().destroy()
+    @triggerMaterialize()
 
 
-class Thorax.Views.EditCriteriaValueView extends Thorax.View
+class Thorax.Views.EditCriteriaValueView extends Thorax.Views.Materializer
 
   template: JST['patient_builder/edit_value']
 
@@ -246,6 +278,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.View
     @model.clear()
     @model.set('type', 'PQ') # TODO unify this line with setting the type in `initialize`
     @$('select').val ''
+    @triggerMaterialize()
 
 
 class Thorax.Views.ExpectedValuesView extends Thorax.View
