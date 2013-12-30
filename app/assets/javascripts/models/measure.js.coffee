@@ -24,7 +24,7 @@ class Thorax.Models.Measure extends Thorax.Model
 
   # For speed on the dashboard, we only load partial measures, and rely on all the non-dashboard views to fetch the rest
   isPopulated: -> @has('data_criteria')
-    
+  populationCriteria: -> _.intersection(Thorax.Models.Measure.allPopulationCodes, _(@get('population_criteria')).keys())
 
 class Thorax.Collections.Measures extends Thorax.Collection
   url: '/measures'
