@@ -90,7 +90,7 @@ class MeasuresController < ApplicationController
       measure.populations.each_with_index do |population, population_index|
         population['title'] = data['titles']["#{population_index}"] if (data['titles'])
       end
-      measure.generate_js
+      measure.generate_js(clear_db_cache: true)
       measure.save!
     end
     redirect_to root_path
