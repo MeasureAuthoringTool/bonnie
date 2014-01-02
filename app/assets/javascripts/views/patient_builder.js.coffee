@@ -335,7 +335,11 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
     serialize: (attr) ->
       for pc in @model.populationCriteria()
         if @measure.get('episode_of_care') || (@measure.get('continuous_variable') && pc == 'OBSERV')
-          attr[pc] = parseFloat(attr[pc])
+          # Only parse a value for OBSERV if it exists
+          if attr[pc]
+            attr[pc] = parseFloat(attr[pc])
+            # otherwise line it up with the nonexistent value
+          else attr[pc] = undefined
         else
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
 
@@ -356,7 +360,8 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
       MSRPOPL: 'MEASURE POP.'
       OBSERV: 'OBSERV'
     @currentCriteria = []
-    for pc in @model.populationCriteria()
+    # get population criteria from the measure to include OBSERV
+    for pc in @measure.populationCriteria()
       @currentCriteria.push
         key: pc
         displayName: criteriaMap[pc]

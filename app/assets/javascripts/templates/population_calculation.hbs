@@ -63,7 +63,11 @@
             <td>{{name}}</td>
             <td style="text-align: center;">
               {{#ifCond name "==" "OBSERV"}}
-                {{expected}}%
+                {{#ifCond expected "==" undefined}}
+                  <i class="fa fa-question-circle default"></i>
+                {{else}}
+                  {{expected}}%
+                {{/ifCond}}
               {{else}}
                 {{#if ../../episode_of_care}}
                   <span class="default">{{expected}}</span>
@@ -78,7 +82,11 @@
             </td>
             <td style="text-align: center;">
               {{#ifCond name "==" "OBSERV"}}
-                <span class="fail">{{actual}}%</span>
+                {{#ifCond actual "==" undefined}}
+                  <i class="fa fa-question-circle fail"></i>
+                {{else}}
+                  <span class="fail">{{actual}}%</span>
+                {{/ifCond}}
               {{else}}
                 {{#if ../../episode_of_care}}
                   <span class="fail">{{actual}}</span>
