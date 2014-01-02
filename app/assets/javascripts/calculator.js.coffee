@@ -8,8 +8,9 @@ class Calculator
   # Key for storing calculators on a population
   calculationKey: (population) -> "#{population.measure().id}/#{population.get('index')}"
 
-  # Key for storing results for a patient / population calculation
-  cacheKey: (population, patient) -> "#{@calculationKey(population)}/#{patient.id || patient.cid}"
+  # Key for storing results for a patient / population calculation; we use the CID for the patient portion
+  # of the key so that clones can have different calculation results
+  cacheKey: (population, patient) -> "#{@calculationKey(population)}/#{patient.cid}"
 
   # Utility function for setting the calculator function for a population, used in the calculator loading JS
   setCalculator: (population, calcFunction) -> @calculator[@calculationKey(population)] = calcFunction
