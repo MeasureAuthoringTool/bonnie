@@ -14,6 +14,9 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @model.get('source_data_criteria')
       itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure)
+      events:
+        collection:
+          close: -> @collection.sort()
     @expectedValuesView = new Thorax.Views.ExpectedValuesView
       collection: @model.getExpectedValues(@measure)
       measure: @measure
@@ -218,7 +221,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.Materializer
 
   closeDetails: ->
     @serialize(children: false)
-    @render()
+    @model.trigger 'close', @model
+    # @render() # re-sorting the collection will re-render this view
 
   removeCriteria: (e) ->
     e.preventDefault()
