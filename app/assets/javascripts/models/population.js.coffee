@@ -24,7 +24,39 @@ class Thorax.Models.Population extends Thorax.Model
     differences
 
   coverage: ->
-    new Thorax.Model.Coverage({}, results: @calculationResults(), measure: @measure())
+    new Thorax.Model.Coverage({}, population: this)
+
+  dataCriteriaKeys: ->
+    return @populationDataCriteriaKeys if @populationDataCriteriaKeys
+    populations = @measure().get('population_criteria')
+    criteriaKeys = []
+    for code in Thorax.Models.Measure.allPopulationCodes
+      criteriaKeys = criteriaKeys.concat @getDataCriteriaKeys(populations[code], false)
+    @populationDataCriteriaKeys = _.uniq(criteriaKeys)
+    @populationDataCriteriaKeys
+
+
+  getDataCriteriaKeys: (child, specificsOnly=true) ->
+    occurrences = []
+    return occurrences unless child
+    if child.preconditions?.length > 0
+      for precondition in child.preconditions
+        occurrences = occurrences.concat @getDataCriteriaKeys(precondition,specificsOnly)
+    else if child.reference
+      occurrences = occurrences.concat @getDataCriteriaKeys(@measure().get('data_criteria')[child.reference],specificsOnly)
+    else
+      if child.type is 'derived' && child.children_criteria
+        for dataCriteriaKey in child.children_criteria
+          dataCriteria = @measure().get('data_criteria')[dataCriteriaKey]
+          occurrences = occurrences.concat @getDataCriteriaKeys(dataCriteria,specificsOnly)
+      else
+        if child.specific_occurrence || !specificsOnly
+          occurrences.push child.key
+      if (child.temporal_references?.length > 0)
+        for temporal_reference in child.temporal_references
+          dataCriteria = @measure().get('data_criteria')[temporal_reference.reference]
+          occurrences = occurrences.concat @getDataCriteriaKeys(dataCriteria,specificsOnly)
+    return occurrences
 
 class Thorax.Collections.Population extends Thorax.Collection
   model: Thorax.Models.Population
