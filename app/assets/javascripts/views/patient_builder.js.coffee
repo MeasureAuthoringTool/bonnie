@@ -221,8 +221,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.Materializer
 
   closeDetails: ->
     @serialize(children: false)
-    @model.trigger 'close', @model
-    # @render() # re-sorting the collection will re-render this view
+    # FIXME sortable: commenting out due to odd bug in droppable
+    # @model.trigger 'close', @model
+    @render() # re-sorting the collection will re-render this view, remove this if we use above approach
 
   removeCriteria: (e) ->
     e.preventDefault()

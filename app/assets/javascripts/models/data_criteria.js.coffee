@@ -51,4 +51,5 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
 
 class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
   model: Thorax.Models.PatientDataCriteria
-  comparator: (m) -> [m.get('start_date'), m.get('end_date')]
+  # FIXME sortable: commenting out due to odd bug in droppable
+  # comparator: (m) -> [m.get('start_date'), m.get('end_date')]
