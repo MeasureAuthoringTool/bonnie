@@ -28,10 +28,9 @@ class Thorax.Models.Population extends Thorax.Model
 
   dataCriteriaKeys: ->
     return @populationDataCriteriaKeys if @populationDataCriteriaKeys
-    populations = @measure().get('population_criteria')
     criteriaKeys = []
-    for code in Thorax.Models.Measure.allPopulationCodes
-      criteriaKeys = criteriaKeys.concat @getDataCriteriaKeys(populations[code], false)
+    for code in @populationCriteria()
+      criteriaKeys = criteriaKeys.concat @getDataCriteriaKeys(@get(code), false)
     @populationDataCriteriaKeys = _.uniq(criteriaKeys)
     @populationDataCriteriaKeys
 
