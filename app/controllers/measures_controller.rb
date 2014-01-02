@@ -1,6 +1,6 @@
 class MeasuresController < ApplicationController
 
-  respond_to :json, :js
+  respond_to :json, :js, :html
 
   def show
     @measure = Measure.by_user(current_user).without(:map_fns, :record_ids).find(params[:id])
@@ -69,7 +69,7 @@ class MeasuresController < ApplicationController
 
     Measures::ADEHelper.update_if_ade(measure)
 
-    measure.pregenerate_js
+    measure.generate_js
 
     measure.save!
 
@@ -90,10 +90,22 @@ class MeasuresController < ApplicationController
       measure.populations.each_with_index do |population, population_index|
         population['title'] = data['titles']["#{population_index}"] if (data['titles'])
       end
-      measure.pregenerate_js
+      measure.generate_js
       measure.save!
     end
     redirect_to root_path
+  end
+
+  def debug
+    @measure = Measure.by_user(current_user).without(:map_fns, :record_ids).find(params[:id])
+    @patients = Record.by_user(current_user).asc(:last, :first)
+    render layout: 'debug'
+  end
+
+  def clear_cached_javascript
+    measure = Measure.by_user(current_user).find(params[:id])
+    measure.generate_js clear_db_cache: true
+    redirect_to :back
   end
 
 end
