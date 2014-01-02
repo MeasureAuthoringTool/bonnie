@@ -26,6 +26,57 @@ class Thorax.Models.Measure extends Thorax.Model
   isPopulated: -> @has('data_criteria')
   populationCriteria: -> _.intersection(Thorax.Models.Measure.allPopulationCodes, _(@get('population_criteria')).keys())
 
+  @logicFieldsFor: (criteriaType) ->
+
+    # Define field values for all criteria types
+    globalInclusions = ['anatomical_structure', 'cumulative_medication_duration', 'dose', 
+    'frequency', 'incision_time', 'length_of_stay', 'ordinality', 'reason', 'removal_time', 
+    'route', 'severity', 'source', 'start_date', 'end_date']
+
+    # Define criteria type-specific field values
+    typeInclusions = 
+      care_goals: []
+      characteristics: []
+      communications: []
+      conditions: []
+      devices: []
+      diagnostic_studies: []
+      encounters: ['admit_time', 'discharge_time', 'discharge_disposition', 'facility', 
+        'facility_arrival', 'facility_departure', 'transfer_to', 'transfer_from']
+      functional_statuses: []
+      interventions: []
+      laboratory_tests: []
+      medications: []
+      patient_care_experiences: []
+      physical_exams: []
+      preferences: []
+      procedures: []
+      provider_care_experiences: []
+      provider_characteristics: []
+      risk_category_assessments: []
+      substances: []
+      symptoms: []
+      system_characteristics: []
+      transfers: []
+
+    # start with all field values
+    fields = Thorax.Models.Measure.logicFields
+
+    # grab all defined field values, merging global and type-specific specs
+    allInclusions = _(globalInclusions).union(typeInclusions[criteriaType])
+    allInclusions ?= []
+
+    # check any defined inclusions against the coded_entry_value of each field value
+    matchedInclusions = []
+    for field, attrs of fields
+      for inclusion in allInclusions when attrs['coded_entry_method'] is inclusion
+        matchedInclusions.push field
+    fields = _(fields).pick(matchedInclusions) if matchedInclusions.length > 0
+
+    # sort field values by title
+    fields = _.sortBy(fields, (f) -> f.title)
+    fields
+
 class Thorax.Collections.Measures extends Thorax.Collection
   url: '/measures'
   model: Thorax.Models.Measure

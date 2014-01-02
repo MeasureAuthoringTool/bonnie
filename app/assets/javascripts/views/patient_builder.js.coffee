@@ -161,7 +161,12 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.Materializer
 
   initialize: ->
     @editValueView = new Thorax.Views.EditCriteriaValueView(model: new Thorax.Model, measure: @measure, fieldValue: false, values: @model.get('value'))
-    @editFieldValueView = new Thorax.Views.EditCriteriaValueView(model: new Thorax.Model, measure: @measure, fieldValue: true, values: @model.get('field_values'))
+    @editFieldValueView = new Thorax.Views.EditCriteriaValueView
+      model: new Thorax.Model
+      measure: @measure
+      fieldValue: true
+      values: @model.get('field_values')
+      criteriaType: @model.get('type')
 
   valueWithDateContext: (model) ->
     _(model.toJSON()).extend
@@ -250,7 +255,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.Materializer
       typeCD: @model.get('type') is 'CD'
       typeTS: @model.get('type') is 'TS'
       codes: @measure.get('value_sets').map (vs) -> vs.toJSON()
-      fields: Thorax.Models.Measure.logicFields
+      fields: Thorax.Models.Measure.logicFieldsFor(@criteriaType)
 
   # When we serialize the form, we want to put the description for any CD codes into the submission
   events:
@@ -286,7 +291,6 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.Materializer
     @model.set('type', 'PQ') # TODO unify this line with setting the type in `initialize`
     @$('select').val ''
     @triggerMaterialize()
-
 
 class Thorax.Views.ExpectedValuesView extends Thorax.View
 
