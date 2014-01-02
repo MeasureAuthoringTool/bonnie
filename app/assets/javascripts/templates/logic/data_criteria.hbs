@@ -1,6 +1,6 @@
 <span class="{{dataCriteria.key}} rationale_target">
 {{#each dataCriteria.subset_operators}}
-  {{view "SubsetOperatorLogic" subsetOperator=this tag="span" sourceDataCriteria=../sourceDataCriteria}}
+  {{view "SubsetOperatorLogic" subsetOperator=this tag="span"}}
 {{/each}}
 {{#ifCond dataCriteria.type '==' 'derived'}}
   {{#if dataCriteria.children_criteria}}
@@ -8,7 +8,7 @@
       {{#each dataCriteria.children_criteria}}
         <li>
           <span class="{{../dataCriteria.key}} rationale_target">{{translate_operator ../dataCriteria.derivation_operator}} : </span>
-          {{view "DataCriteriaLogic" reference=this dataCriteriaMap=../dataCriteriaMap sourceDataCriteria=../sourceDataCriteria tag="span"}}
+          {{view "DataCriteriaLogic" reference=this measure=../measure tag="span"}}
         </li>
       {{/each}}
     </ul>
@@ -17,20 +17,20 @@
   {{#if dataCriteria.specific_occurrence}}Occurrence {{dataCriteria.specific_occurrence}}: {{/if}}{{dataCriteria.description}}
   {{#if dataCriteria.value}}
     {{#ifCond dataCriteria.type '!=' 'characteristic' }}
-      (result{{view "ValueLogic" value=dataCriteria.value tag="span"}})
+      (result{{view "ValueLogic" value=dataCriteria.value measure=../measure tag="span"}})
     {{/ifCond}}
   {{/if}}
   {{#if dataCriteria.field_values}}
     ({{#each dataCriteria.field_values}}
-      {{key_title}}{{#ifCond type '!=' 'ANYNonNull'}}{{view "ValueLogic" value=this tag="span"}} {{/ifCond}}
+      {{key_title}}{{#ifCond type '!=' 'ANYNonNull'}}{{view "ValueLogic" value=this measure=../../measure tag="span"}} {{/ifCond}}
     {{/each}})
   {{/if}}
   {{#if dataCriteria.negation}}
-    {{translate_source_data dataCriteria.negation_code_list_id}}
+    (Not Done: {{translate_oid dataCriteria.negation_code_list_id}})
   {{/if}}
   {{#if dataCriteria.temporal_references}}
     {{#each dataCriteria.temporal_references}}
-      {{view "TemporalReferenceLogic" temporalReference=this dataCriteriaMap=../dataCriteriaMap tag="span"}}
+      {{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}
     {{/each}}
   {{/if}}
 {{/ifCond}}

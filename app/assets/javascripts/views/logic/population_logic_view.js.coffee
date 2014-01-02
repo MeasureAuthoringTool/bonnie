@@ -22,8 +22,7 @@ class Thorax.Views.PopulationLogic extends Thorax.View
   context: ->
     measure = @model.collection.parent
     _(super).extend
-      dataCriteriaMap: measure.get 'data_criteria'
-      sourceDataCriteria: measure.get 'source_data_criteria'
+      measure: measure
 
   showRationale: (result) ->
     # Only show the rationale once the result is populated

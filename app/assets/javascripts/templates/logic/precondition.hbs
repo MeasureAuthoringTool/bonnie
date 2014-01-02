@@ -6,10 +6,10 @@
     </span>
     {{#if precondition.preconditions }}
         {{#each precondition.preconditions}}
-          {{view "PreconditionLogic" precondition=this parentPrecondition=../precondition dataCriteriaMap=../dataCriteriaMap sourceDataCriteria=../sourceDataCriteria}}
+          {{view "PreconditionLogic" precondition=this parentPrecondition=../precondition measure=../measure}}
         {{/each}}
     {{else}}
-      {{view "DataCriteriaLogic" reference=precondition.reference dataCriteriaMap=../dataCriteriaMap sourceDataCriteria=../sourceDataCriteria negatedParent=../parentPrecondition.negation tag="span"}}
+      {{view "DataCriteriaLogic" reference=precondition.reference measure=../measure negatedParent=../parentPrecondition.negation tag="span"}}
     {{/if}}
   </li>
 </ul>
