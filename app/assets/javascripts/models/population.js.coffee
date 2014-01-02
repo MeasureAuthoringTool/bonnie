@@ -23,6 +23,9 @@ class Thorax.Models.Population extends Thorax.Model
     differences.reset @measure().get('patients').map (patient) => @differenceFromExpected(patient)
     differences
 
+  coverage: ->
+    new Thorax.Model.Coverage({}, results: @calculationResults(), measure: @measure())
+
 class Thorax.Collections.Population extends Thorax.Collection
   model: Thorax.Models.Population
   initialize: (models, options) -> @parent = options?.parent

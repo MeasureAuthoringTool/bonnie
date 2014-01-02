@@ -49,3 +49,6 @@ class Thorax.Views.MeasureStatusView extends Thorax.View
 
 class Thorax.Views.MeasureFractionView extends Thorax.View
   template: JST['measure/fraction']
+
+class Thorax.Views.MeasureCoverageView extends Thorax.View
+  template: JST['measure/coverage']

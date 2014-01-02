@@ -13,7 +13,8 @@
         <i class="fa fa-plus"></i>
       </a>
     </div>
-  </div>
+  </div>  
+  {{view "MeasureCoverageView" model=totalCoverage}}
   <br>
   {{#collection differences tag="div" class="panel panel-default" item-context=differenceContext}}
     <div class="panel-heading">

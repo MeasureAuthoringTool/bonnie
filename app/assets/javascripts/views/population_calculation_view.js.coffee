@@ -9,6 +9,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
     @differences.sort()
     # Make sure the sort order updates as results come in
     @differences.on 'change', @differences.sort, @differences
+    @totalCoverage = @model.coverage()
 
   context: ->
     _(super).extend measure_id: @measure.get('hqmf_set_id')
@@ -64,3 +65,4 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
       @$('.toggle-result').hide()
       @$(".toggle-result-#{result.patient.id}").show()
       @trigger 'rationale:show', result
+      
