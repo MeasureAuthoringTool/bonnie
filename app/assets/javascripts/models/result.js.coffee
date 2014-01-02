@@ -27,7 +27,7 @@ class Thorax.Models.Result extends Thorax.Model
       if specifics = @get('finalSpecifics')?[code]
         updatedRationale[code] ||= {} # FIXME why '||=' instead of '=' ?
         # get the referenced occurrences in the logic tree
-        occurrences = @getOccurrences(@measure.get('population_criteria')[code]) # FIXME can we get these from the population instead
+        occurrences = @population.getDataCriteriaKeys(@measure.get('population_criteria')[code])
         # get the good and bad specifics
         occurrenceResults = @checkSpecificsForRationale(specifics, occurrences, @measure.get('data_criteria'))
         parentMap = @buildParentMap(@measure.get('population_criteria')[code])
@@ -52,28 +52,6 @@ class Thorax.Models.Result extends Thorax.Model
         updatedRationale[goodOccurrence] = false
         return
       parent = parentMap["precondition_#{parent.id}"]
-
-  getOccurrences: (child) ->
-    occurrences = []
-    return occurrences unless child
-    if child.preconditions?.length > 0
-      for precondition in child.preconditions
-        occurrences = occurrences.concat @getOccurrences(precondition)
-    else if child.reference
-      occurrences = occurrences.concat @getOccurrences(@measure.get('data_criteria')[child.reference])
-    else
-      if child.type is 'derived' && child.children_criteria
-        for dataCriteriaKey in child.children_criteria
-          dataCriteria = @measure.get('data_criteria')[dataCriteriaKey]
-          occurrences = occurrences.concat @getOccurrences(dataCriteria)
-      else
-        if child.specific_occurrence
-          occurrences.push child.key
-      if (child.temporal_references?.length > 0)
-        for temporal_reference in child.temporal_references
-          dataCriteria = @measure.get('data_criteria')[temporal_reference.reference]
-          occurrences = occurrences.concat @getOccurrences(dataCriteria)
-    return occurrences
 
   # get good and bad specific occurrences referenced in this part of the measure
   checkSpecificsForRationale: (finalSpecifics, occurrences, dataCriteriaMap) ->
