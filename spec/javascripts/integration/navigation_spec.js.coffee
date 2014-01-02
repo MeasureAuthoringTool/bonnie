@@ -52,15 +52,3 @@ describe 'Navigation', ->
       expect($('a[href="#patients/' + @patients.first().id + '/build"]')).toExist
       expect($('a[href="#patients"]')).toExist
       patientView.remove()
-
-  describe 'navigating the matrix view', ->
-
-    beforeEach ->
-      @matrixView = new Thorax.Views.Matrix(measures: @measures, patients: @patients)
-      @matrixView.render()
-
-    afterEach ->
-      @matrixView.remove()
-
-    it 'should link to the measures list', ->
-      expect($('a[href="#measures"]')).toExist

@@ -17,7 +17,6 @@ class BonnieRouter extends Backbone.Router
   routes:
     '':                                                'renderMeasures'
     'measures':                                        'renderMeasures'
-    'measures/matrix':                                 'renderMatrix'
     'measures/:hqmf_set_id':                           'renderMeasure'
     'patients':                                        'renderPatients'
     'patients/:id':                                    'renderPatient'
@@ -52,12 +51,6 @@ class BonnieRouter extends Backbone.Router
   renderPatient: (id) ->
     patientView = new Thorax.Views.Patient(measures: @measures, model: @patients.get(id))
     @mainView.setView patientView
-
-  # FIXME deprecated
-  renderMatrix: ->
-    matrixView = new Thorax.Views.Matrix(measures: @measures, patients: @patients)
-    @mainView.setView(matrixView)
-    matrixView.calculateAsynchronously()
 
   renderPatientBuilder: (measureHqmfSetId, patientId) ->
     @calculator.cancelCalculations()
