@@ -18,6 +18,7 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
       expected: expected
       actual: actual
       match: expected == actual
+      unit: if popCrit == 'OBSERV' then @get('OBSERV_UNIT')
 
 
 class Thorax.Collections.ExpectedValues extends Thorax.Collection
