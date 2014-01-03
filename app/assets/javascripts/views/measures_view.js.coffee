@@ -13,7 +13,7 @@ class Thorax.Views.Measures extends Thorax.View
 
   events:
     rendered: ->
-      if @collection.isEmpty() then @importMeasure()
+      if @collection.length is 0 then @importMeasure()
 
 
 class Thorax.Views.MeasureRowView extends Thorax.View
