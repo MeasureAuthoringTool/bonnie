@@ -8,26 +8,26 @@
   .true_eval {
     background-color: @state-success-bg;
     color: @state-success-text;
-  }
-  .true_eval:before {
-    content: "\f00c";
-    font-family: FontAwesome;
+    &:before {
+      content: @fa-var-check;
+      font-family: FontAwesome;
+    }
   }
   .false_eval {
     background-color: @state-danger-bg;
     color: @state-danger-text;
+    &:before {
+      content: @fa-var-times;
+      font-family: FontAwesome;
+    }
   }
   .bad_specifics {
     background-color: @state-danger-bg;
     color: @state-danger-text;
-  }
-  .bad_specifics:before {
-    content: "\f069";
-    font-family: FontAwesome;
-  }
-  .false_eval:before {
-    content: "\f00d";
-    font-family: FontAwesome;
+    &:before {
+      content: @fa-var-asterisk;
+      font-family: FontAwesome;
+    }
   }
   .no_eval {
     background-color: @body-bg;
