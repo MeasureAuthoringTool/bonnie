@@ -8,6 +8,11 @@
             {{displayName}}
             <input class="checkbox-number" type="number" name="{{key}}">
           </label>
+          <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">{{../../OBSERV_UNIT}}</button>
+          <ul class="dropdown-menu">
+            <li>{{#button "setObservMins" tag="a"}}mins{{/button}}</li>
+            <li>{{#button "setObservPerc" tag="a"}}%{{/button}}</li>
+          </ul>
         </div>
       {{else}}
         <div class="checkbox {{#if @index}}checkbox-divider{{/if}}">
@@ -16,8 +21,13 @@
               <input class="checkbox-number" type="number" name="{{key}}">
               {{displayName}}
             {{else}}
-              <input type="checkbox" name="{{key}}">
-              <span>{{displayName}}</span>
+              {{#ifCond key "==" "MSRPOPL"}}
+                <input class="checkbox-number" type="number" name="{{key}}">
+                {{displayName}}
+              {{else}}
+                <input type="checkbox" name="{{key}}">
+                <span>{{displayName}}</span>
+              {{/ifCond}}
             {{/if}}
           </label>
         </div>
