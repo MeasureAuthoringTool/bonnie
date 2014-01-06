@@ -334,20 +334,20 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
 
   events:
     serialize: (attr) ->
-      for pc in @model.populationCriteria()
-        if @measure.get('episode_of_care') || (@measure.get('continuous_variable') && pc == 'OBSERV')
-          # Only parse a value for OBSERV if it exists
+      for pc in @measure.populationCriteria()
+        if @measure.get('episode_of_care') || (@measure.get('continuous_variable') && (pc == 'OBSERV' || pc == 'MSRPOPL'))
+          # Only parse existing values
           if attr[pc]
             attr[pc] = parseFloat(attr[pc])
-            # otherwise line it up with the nonexistent value
-          else attr[pc] = undefined
+            # if we're dealing with OBSERV or MSRPOPL, set to undefined for empty value
+          else attr[pc] = undefined if pc == 'OBSERV' or pc == 'MSRPOPL'
         else
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
 
   context: ->
     context = super
-    for pc in @model.populationCriteria()
-      unless @measure.get('episode_of_care') || (@measure.get('continuous_variable') && pc == 'OBSERV')
+    for pc in @measure.populationCriteria()
+      unless @measure.get('episode_of_care') || (@measure.get('continuous_variable') && (pc == 'OBSERV' || pc == 'MSRPOPL'))
         context[pc] = (context[pc] == 1)
     context
 
@@ -367,3 +367,11 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
         key: pc
         displayName: criteriaMap[pc]
         isEoC: @measure.get('episode_of_care')
+    unless @model.has('OBSERV_UNIT') then @model.set 'OBSERV_UNIT', ' mins'
+
+  setObservMins: ->
+    @model.set 'OBSERV_UNIT', ' mins'
+
+  setObservPerc: ->
+    @model.set 'OBSERV_UNIT', '%'
+

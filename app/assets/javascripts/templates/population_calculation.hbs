@@ -66,17 +66,25 @@
                 {{#ifCond expected "==" undefined}}
                   <i class="fa fa-question-circle default"></i>
                 {{else}}
-                  {{expected}}%
+                  {{expected}}{{unit}}
                 {{/ifCond}}
               {{else}}
                 {{#if ../../episode_of_care}}
                   <span class="default">{{expected}}</span>
                 {{else}}
-                  {{#if expected}}
-                    <i class="fa fa-check-square-o default"></i>
+                  {{#ifCond name "==" "MSRPOPL"}}
+                    {{#ifCond expected "==" undefined}}
+                      <i class="fa fa-question-circle default"></i>
+                    {{else}}
+                      <span class="default">{{expected}}</span>
+                    {{/ifCond}}
                   {{else}}
-                    <i class="fa fa-square-o default"></i>
-                  {{/if}}
+                    {{#if expected}}
+                      <i class="fa fa-check-square-o default"></i>
+                    {{else}}
+                      <i class="fa fa-square-o default"></i>
+                    {{/if}}
+                  {{/ifCond}}
                 {{/if}}
               {{/ifCond}}
             </td>
@@ -85,17 +93,25 @@
                 {{#ifCond actual "==" undefined}}
                   <i class="fa fa-question-circle fail"></i>
                 {{else}}
-                  <span class="fail">{{actual}}%</span>
+                  <span class="fail">{{actual}}{{unit}}</span>
                 {{/ifCond}}
               {{else}}
                 {{#if ../../episode_of_care}}
                   <span class="fail">{{actual}}</span>
                 {{else}}
-                  {{#if actual}}
-                    <i class="fa fa-check-square-o default"></i>
+                  {{#ifCond name "==" "MSRPOPL"}}
+                    {{#ifCond expected "==" undefined}}
+                      <i class="fa fa-question-circle fail"></i>
+                    {{else}}
+                      <span class="default">{{actual}}</span>
+                    {{/ifCond}}
                   {{else}}
-                    <i class="fa fa-square-o default"></i>
-                  {{/if}}
+                    {{#if actual}}
+                      <i class="fa fa-check-square-o default"></i>
+                    {{else}}
+                      <i class="fa fa-square-o default"></i>
+                    {{/if}}
+                  {{/ifCond}}
                 {{/if}}
               {{/ifCond}}
             </td>
