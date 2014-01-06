@@ -192,6 +192,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.Materializer
       else if endDate = attr.end_date
         endDate += " #{attr.end_time}" if attr.end_time
         attr.end_date = moment(endDate, 'L LT').format('X') * 1000
+      attr.negation = !!attr.negation && !_.isEmpty(attr.negation_code_list_id)
       delete attr.end_date_is_undefined
       delete attr.end_time
     rendered: ->
@@ -217,7 +218,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.Materializer
     @triggerMaterialize()
 
   toggleNegationSelect: (e) ->
-    @$('.negation-code-list').toggleClass('hide')
+    @$('.negation-code-list').prop('selectedIndex',0).toggleClass('hide')
+    @triggerMaterialize()
 
   closeDetails: ->
     @serialize(children: false)
