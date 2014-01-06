@@ -52,3 +52,9 @@ class Thorax.Views.MeasureFractionView extends Thorax.View
 
 class Thorax.Views.MeasureCoverageView extends Thorax.View
   template: JST['measure/coverage']
+
+  # Uncommet below for debugging
+  # identifyCoverage: (e) ->
+  #   for criteria in @model.rationaleCriteria
+  #     logicLine = $(".#{criteria}")
+  #     if logicLine.hasClass('text-primary') then logicLine.removeClass('text-primary') else logicLine.addClass('text-primary')

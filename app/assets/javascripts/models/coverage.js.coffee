@@ -9,11 +9,11 @@ class Thorax.Model.Coverage extends Thorax.Model
   update: ->
 
     # Find all unique criteria that evaluated true in the rationale that are also in the measure
-    rationaleCriteria = []
+    @rationaleCriteria = []
     for result in (@results.select (d) -> d.isPopulated())
-      rationale = result.get 'rationale'
-      rationaleCriteria.push(criteria) for criteria, result of rationale when result
-    rationaleCriteria = _(rationaleCriteria).intersection(@measureCriteria)
+      rationale = result.updatedRationale()
+      @rationaleCriteria.push(criteria) for criteria, result of rationale when result
+    @rationaleCriteria = _(@rationaleCriteria).intersection(@measureCriteria)
 
     # Set coverage to the fraction of measure criteria that were true in the rationale
-    @set coverage: ( rationaleCriteria.length * 100 / @measureCriteria.length ).toFixed()
+    @set coverage: ( @rationaleCriteria.length * 100 / @measureCriteria.length ).toFixed()
