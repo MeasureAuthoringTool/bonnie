@@ -45,6 +45,15 @@ class Thorax.Models.Result extends Thorax.Model
           @updatedNegatedGood(updatedRationale[code], rationale, goodOccurrence, parentMap)
     return updatedRationale
 
+  updatedRationale: ->
+    updatedRationale = @specificsRationale()
+    currentRationale = @get 'rationale'
+    cleanup = []
+    for code in @population.populationCriteria() when currentRationale[code]?
+      for key, value of currentRationale
+        if _(updatedRationale).has(code) and updatedRationale[code][key] is false then cleanup.push(key)
+    _(currentRationale).omit(cleanup)
+
   updatedNegatedGood: (updatedRationale, rationale, goodOccurrence, parentMap) ->
     parent = parentMap[goodOccurrence]
     while parent
