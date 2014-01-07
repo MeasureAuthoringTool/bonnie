@@ -1,7 +1,11 @@
 class Thorax.Views.Measure extends Thorax.View
   template: JST['measure']
   events:
-    rendered: -> @$("[rel='popover']").popover(content: @$('.popover-tmpl').text())
+    rendered: -> 
+      @$("[rel='popover']").popover(content: @$('.popover-tmpl').text())
+      $('html').click( (e) -> 
+        unless $(e.target).hasClass('popover-content')
+          if $('#settings').has(e.target).length == 0 or $(e.target).is('.close') then $('#settings').popover('hide'))
     'click .delete-measure': 'deleteMeasure'
 
   initialize: ->
