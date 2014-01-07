@@ -63,15 +63,11 @@ class Thorax.Models.Measure extends Thorax.Model
     fields = Thorax.Models.Measure.logicFields
 
     # grab all defined field values, merging global and type-specific specs
-    allInclusions = _(globalInclusions).union(typeInclusions[criteriaType])
-    allInclusions ?= []
+    desiredInclusions = _(globalInclusions).union(typeInclusions[criteriaType])
 
     # check any defined inclusions against the coded_entry_value of each field value
-    matchedInclusions = []
-    for field, attrs of fields
-      for inclusion in allInclusions when attrs['coded_entry_method'] is inclusion
-        matchedInclusions.push field
-    fields = _(fields).pick(matchedInclusions) if matchedInclusions.length > 0
+    filteredKeys = (criteria for criteria, value of fields when value['coded_entry_method'] in desiredInclusions)
+    fields = _(fields).pick(filteredKeys)    
 
     # sort field values by title
     fields = _.sortBy(fields, (f) -> f.title)
