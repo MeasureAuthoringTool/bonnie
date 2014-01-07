@@ -67,11 +67,13 @@ class Thorax.Models.Measure extends Thorax.Model
 
     # check any defined inclusions against the coded_entry_value of each field value
     filteredKeys = (criteria for criteria, value of fields when value['coded_entry_method'] in desiredInclusions)
-    fields = _(fields).pick(filteredKeys)    
+    fields = _(fields).pick(filteredKeys)
 
-    # sort field values by title
-    fields = _.sortBy(fields, (f) -> f.title)
-    fields
+    # we return an array of objects instead of a hash (because we need them sorted), so add the keys to the objects
+    _(fields).each (field, key) -> field.key = key
+
+    # return field values sorted by title
+    _(fields).sortBy (field) -> field.title
 
 class Thorax.Collections.Measures extends Thorax.Collection
   url: '/measures'
