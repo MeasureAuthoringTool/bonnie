@@ -52,10 +52,8 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
 
-      # Make parent droppable
+      # Make criteria list a drop target
       @$('.patient-data-list.droppable').droppable greedy: true, accept: '.ui-draggable', drop: _.bind(@drop, this)
-      # Make current and future data criteria children droppable
-      @$('.patient-data-list').on 'drop', '.patient-data.droppable', _.bind(@drop, this)
 
       @$('.form-control-date').datepicker().on 'changeDate', _.bind(@materialize, this)
       @$('.form-control-time').timepicker().on 'changeTime.timepicker', _.bind(@materialize, this)
@@ -89,20 +87,20 @@ class Thorax.Views.PatientBuilder extends Thorax.View
 
   drop: (e, ui) ->
     patientDataCriteria = $(ui.draggable).model().toPatientDataCriteria()
-    dropTargetModel = $(e.target).model()
-    if dropTargetModel instanceof Thorax.Models.PatientDataCriteria
-      patientDataCriteria.set('start_date', dropTargetModel.get('start_date'))
-      patientDataCriteria.set('end_date', dropTargetModel.get('end_date'))
-    @model.get('source_data_criteria').add patientDataCriteria
-    @materialize()
-    false
+    @addCriteria patientDataCriteria
+    return false
 
-  registerMaterializer: (materializer) ->
-    materializer.on 'bonnie:materialize', @materialize, this
+  registerChild: (child) ->
+    child.on 'bonnie:materialize', @materialize, this
+    child.on 'bonnie:dropCriteria', (criteria) => @addCriteria(criteria)
 
   materialize: ->
     @serializeWithChildren()
     @model.materialize()
+
+  addCriteria: (criteria) ->
+    @model.get('source_data_criteria').add criteria
+    @materialize()
 
   save: (e) ->
     e.preventDefault()
@@ -116,9 +114,10 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     window.history.back()
 
 
-class Thorax.Views.Materializer extends Thorax.View
+# Abstract base class for children of the patient builder that need to communicate with the top-level via events
+class Thorax.Views.BuilderChildView extends Thorax.View
   events:
-    ready: -> @patientBuilder().registerMaterializer this
+    ready: -> @patientBuilder().registerChild this
   patientBuilder: ->
     parent = @parent
     until parent instanceof Thorax.Views.PatientBuilder
@@ -126,7 +125,6 @@ class Thorax.Views.Materializer extends Thorax.View
     parent
   triggerMaterialize: ->
     @trigger 'bonnie:materialize'
-
 
 
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
@@ -151,7 +149,7 @@ class Thorax.Views.SelectCriteriaView extends Thorax.View
   faIcon: -> @collection.first()?.toPatientDataCriteria()?.faIcon()
 
 
-class Thorax.Views.EditCriteriaView extends Thorax.Views.Materializer
+class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   template: JST['patient_builder/edit_criteria']
 
@@ -201,13 +199,21 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.Materializer
       delete attr.end_date_is_undefined
       delete attr.end_time
     rendered: ->
-      @$('.patient-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight'
+      @$('.patient-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight', drop: _.bind(@dropCriteria, this)
       @$('.form-control-date').datepicker().on 'changeDate', _.bind(@triggerMaterialize, this)
       @$('.form-control-time').timepicker().on 'changeTime.timepicker', _.bind(@triggerMaterialize, this)
     'change .negation-select':    'toggleNegationSelect'
     'change .undefined-end-date': 'toggleEndDateDefinition'
     'blur :text':                 'triggerMaterialize'
     'change select':              'triggerMaterialize'
+
+  dropCriteria: (e, ui) ->
+    # When we drop a new criteria on an existing criteria
+    droppedCriteria = $(ui.draggable).model().toPatientDataCriteria()
+    targetCriteria = $(e.target).model()
+    droppedCriteria.set start_date: targetCriteria.get('start_date'), end_date: targetCriteria.get('end_date')
+    @trigger 'bonnie:dropCriteria', droppedCriteria
+    return false
 
   toggleDetails: (e) ->
     e.preventDefault()
@@ -242,7 +248,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.Materializer
     @triggerMaterialize()
 
 
-class Thorax.Views.EditCriteriaValueView extends Thorax.Views.Materializer
+class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
 
   template: JST['patient_builder/edit_value']
 
