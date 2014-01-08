@@ -3,9 +3,10 @@ class Thorax.Views.Measure extends Thorax.View
   events:
     rendered: -> 
       @$("[rel='popover']").popover(content: @$('.popover-tmpl').text())
-      $('html').click( (e) -> 
-        unless $(e.target).hasClass('popover-content') or $(e.target).hasClass('show-delete')
-          if $('#settings').has(e.target).length == 0 or $(e.target).is('.close') then $('#settings').popover('hide'))
+      # if we click anywhere but the gear icon or the delete icon, close the popover
+      $('html').click( (e) => 
+        unless @$(e.target).hasClass('popover-content') or @$(e.target).hasClass('show-delete')
+          if @$('#settings').has(e.target).length == 0 or @$(e.target).is('.close') then @$('#settings').popover('hide'))
 
   initialize: ->
     populations = @model.get 'populations'
