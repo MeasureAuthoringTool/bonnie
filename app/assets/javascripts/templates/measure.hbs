@@ -12,9 +12,9 @@
       <a href="/measures/{{_id}}/debug" class="btn btn-danger">Debug</a>
     {{/ifAdmin}}
     <script type="text/x-handlebars" class="popover-tmpl">
-      {{#button "updateMeasure" class="btn btn-primary"}}Update{{/button}}
-      {{#button "deleteMeasure" class="btn btn-danger delete-measure" style="display: none;"}}Delete{{/button}}
+      {{#button "deleteMeasure" class="btn btn-danger delete-measure" style="display: none;"}}<i class="fa fa-times "></i> Delete{{/button}}
       {{#button "showDelete" class="btn btn-danger-inverse show-delete"}}<i class="fa fa-minus-circle show-delete"></i>{{/button}}
+      {{#button "updateMeasure" class="btn btn-primary btn-update"}}<i class="fa fa-upload "></i> Update{{/button}}
     </script>
   </div>
 
