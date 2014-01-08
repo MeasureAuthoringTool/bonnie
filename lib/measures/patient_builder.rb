@@ -17,8 +17,8 @@ module Measures
     def self.rebuild_patient(patient)
 
       patient.medical_record_number ||= Digest::MD5.hexdigest("#{patient.first} #{patient.last} #{Time.now}")
-      value_sets = get_value_sets(patient['measure_ids'] || [], patient.user)
-      
+      vs_oids = patient.source_data_criteria.collect{|dc| dc['code_list_id']}.uniq
+      value_sets =  Hash[*HealthDataStandards::SVS::ValueSet.in({oid: vs_oids}).collect{|vs| [vs.oid,vs]}]
       sections = {}
       patient.source_data_criteria.each  do |v|
         next if v['id'] == 'MeasurePeriod'
@@ -207,16 +207,6 @@ module Measures
         'code' => codes[code_system][0]
       }
     end
-
-    # Get a mapping of the valuesets for the selected measures
-    def self.get_value_sets(measure_list, current_user)
-      value_sets = {}
-      Measure.by_user(current_user).where({'hqmf_set_id' => {'$in' => measure_list}}).map do |measure|
-        measure.value_sets.each do |value_set|
-          value_sets[value_set.oid] = value_set
-        end
-      end
-      value_sets
-    end
+    
   end
 end
