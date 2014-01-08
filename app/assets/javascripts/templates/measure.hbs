@@ -13,7 +13,8 @@
     {{/ifAdmin}}
     <script type="text/x-handlebars" class="popover-tmpl">
       {{#button "updateMeasure" class="btn btn-primary"}}Update{{/button}}
-      {{#link "" class="btn btn-danger delete-measure"}}Delete{{/link}}
+      {{#button "deleteMeasure" class="btn btn-danger delete-measure" style="display: none;"}}Delete{{/button}}
+      {{#button "showDelete" class="btn btn-danger-inverse show-delete"}}<i class="fa fa-minus-circle show-delete"></i>{{/button}}
     </script>
   </div>
 
