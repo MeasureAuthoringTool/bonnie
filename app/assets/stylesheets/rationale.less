@@ -1,11 +1,11 @@
 // Displays colors according to patient results on the measure logic
 
 .rationale {
-  .true_eval, .false_eval, .bad_specifics {
+  .eval-true, .eval-false, .eval-bad-specifics {
     font-weight: 500;
     padding: 2px;
   }
-  .true_eval {
+  .eval-true {
     background-color: @state-success-bg;
     color: @state-success-text;
     &:before {
@@ -13,7 +13,7 @@
       font-family: FontAwesome;
     }
   }
-  .false_eval {
+  .eval-false {
     background-color: @state-danger-bg;
     color: @state-danger-text;
     &:before {
@@ -21,15 +21,12 @@
       font-family: FontAwesome;
     }
   }
-  .bad_specifics {
+  .eval-bad-specifics {
     background-color: @state-danger-bg;
     color: @state-danger-text;
     &:before {
       content: @fa-var-asterisk;
       font-family: FontAwesome;
     }
-  }
-  .no_eval {
-    background-color: @body-bg;
   }
 }
