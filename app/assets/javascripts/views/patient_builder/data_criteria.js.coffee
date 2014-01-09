@@ -143,7 +143,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
         attr.value = moment(startDate, 'L LT').format('X') * 1000
       delete attr.start_date
       delete attr.start_time
-      attr.title = @measure.get('value_sets').findWhere(oid: attr.code_list_id)?.get('display_name')
+      title = @measure.get('value_sets').findWhere(oid: attr.code_list_id)?.get('display_name')
+      attr.title = title if title
     rendered: ->
       @$('.form-control-time').timepicker()
 
