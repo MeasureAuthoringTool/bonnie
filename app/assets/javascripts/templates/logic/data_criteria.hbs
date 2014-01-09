@@ -1,4 +1,4 @@
-<span class="{{dataCriteria.key}} rationale_target">
+<span class="{{dataCriteria.key}} rationale-target">
 {{#each dataCriteria.subset_operators}}
   {{view "SubsetOperatorLogic" subsetOperator=this tag="span"}}
 {{/each}}
@@ -7,7 +7,7 @@
     <ul>
       {{#each dataCriteria.children_criteria}}
         <li>
-          <span class="{{../dataCriteria.key}} rationale_target">{{translate_operator ../dataCriteria.derivation_operator}} : </span>
+          <span class="{{../dataCriteria.key}} rationale-target">{{translate_operator ../dataCriteria.derivation_operator}} : </span>
           {{view "DataCriteriaLogic" reference=this measure=../measure tag="span"}}
         </li>
       {{/each}}
