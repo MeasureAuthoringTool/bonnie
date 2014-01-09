@@ -17,8 +17,9 @@ module Measures
     def self.rebuild_patient(patient)
 
       patient.medical_record_number ||= Digest::MD5.hexdigest("#{patient.first} #{patient.last} #{Time.now}")
-      vs_oids = patient.source_data_criteria.collect{|dc| dc['code_list_id']}.uniq
-      value_sets =  Hash[*HealthDataStandards::SVS::ValueSet.in({oid: vs_oids}).collect{|vs| [vs.oid,vs]}]
+      vs_oids = patient.source_data_criteria.collect{|dc| get_vs_oids(dc)}.flatten.uniq
+
+      value_sets =  Hash[*HealthDataStandards::SVS::ValueSet.in({oid: vs_oids}).collect{|vs| [vs.oid,vs]}.flatten]
       sections = {}
       patient.source_data_criteria.each  do |v|
         next if v['id'] == 'MeasurePeriod'
@@ -50,6 +51,13 @@ module Measures
         patient.send(section).clear.concat(sections[section.to_s] || [])
       end
 
+    end
+
+    def self.get_vs_oids(source_data_criteria)
+      oids = [source_data_criteria['code_list_id']]
+      oids.concat source_data_criteria['field_values'].values.collect {|field| field['code_list_id']} if source_data_criteria['field_values']
+      oids.concat source_data_criteria['value'].collect {|value| value['code_list_id']} if source_data_criteria['value']
+      oids.compact.uniq
     end
 
     def self.derive_time_range(value)
