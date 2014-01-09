@@ -3,6 +3,8 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   events:
     rendered: ->
+      d3.select(@el).select('.measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
+      @$('rect').popover()
       @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
       @exportPatientsView.appendTo(@$el)
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
@@ -13,6 +15,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     populations = @model.get 'populations'
     population = populations.first()
     populationLogicView = new Thorax.Views.PopulationLogic(model: population)
+    @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria"))
 
     # display layout view when there are multiple populations; otherwise, just show logic view
     if populations.length > 1

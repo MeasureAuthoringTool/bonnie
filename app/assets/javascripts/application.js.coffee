@@ -28,6 +28,7 @@
 #= require jquery-placeholder/jquery.placeholder.min
 #= require jquery-color/jquery.color
 #= require bootstrap-file-input/bootstrap.file-input
+
 #
 #= require helpers
 #= require_tree ./templates
