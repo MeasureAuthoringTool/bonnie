@@ -3,38 +3,50 @@ Bonnie.viz ||= {}
 Bonnie.viz.measureVisualzation = ->
     my = (selection) ->
         selection.each (data) ->
+            console.log data
             # Draw the visualization here?
             svg = d3.select(this).selectAll('svg').data([data])
             gEnter = svg.enter().append('svg')
                 .attr('width', @width)
                 .attr('height', 400)
-            gIPP = gEnter.append('g')
-            gIPP.attr("width", width)
-            gIPP.attr("class", "IPP")
-            rows = drawCondition(data.IPP.preconditions[0], gIPP, 0)
-            if data.DENOM.preconditions?
-                gDENOM = gEnter.append('g')
-                gDENOM.attr("width", width)
-                gDENOM.attr("class", "DENOM")
-                rows = drawCondition(data.DENOM.preconditions[0], gDENOM, ++rows)
-            else
-                rows++
-            if data.NUMER.preconditions?
-                gNUMER = gEnter.append('g')
-                gNUMER.attr("width", width)
-                gNUMER.attr("class", "NUMER")
-                rows = drawCondition(data.NUMER.preconditions[0], gNUMER, ++rows)
-            else
-                rows++
+
+            rows = 0
+            for population in Thorax.Models.Measure.allPopulationCodes
+                if not data[population]?
+                    # rows++
+                    continue
+
+                populationElement = gEnter.append('g')
+                    .attr("width", width)
+                    .attr("class", population)
+                    rows += drawCondition(data[population].preconditions[0], populationElement, ++rows) if data[population].preconditions?
+            # gIPP = gEnter.append('g')
+            # gIPP.attr("width", width)
+            # gIPP.attr("class", "IPP")
+            # rows = drawCondition(data.IPP.preconditions[0], gIPP, 0)
+            # if data.DENOM.preconditions?
+            #     gDENOM = gEnter.append('g')
+            #     gDENOM.attr("width", width)
+            #     gDENOM.attr("class", "DENOM")
+            #     rows = drawCondition(data.DENOM.preconditions[0], gDENOM, ++rows)
+            # else
+            #     rows++
+            # if data.NUMER.preconditions?
+            #     gNUMER = gEnter.append('g')
+            #     gNUMER.attr("width", width)
+            #     gNUMER.attr("class", "NUMER")
+            #     rows = drawCondition(data.NUMER.preconditions[0], gNUMER, ++rows)
+            # else
+            #     rows++
 
 
-            if data.DENEX.preconditions?
-                gDENEX = gEnter.append('g')
-                gDENEX.attr("width", width)
-                gDENEX.attr("class", "DENEX")
-                rows = drawCondition(data.DENEX.preconditions[0], gDENEX, ++rows)
-            else
-                rows++
+            # if data.DENEX?
+            #     gDENEX = gEnter.append('g')
+            #     gDENEX.attr("width", width)
+            #     gDENEX.attr("class", "DENEX")
+            #     rows = drawCondition(data.DENEX.preconditions[0], gDENEX, ++rows)
+            # else
+            #     rows++
             
 
 
@@ -92,8 +104,9 @@ Bonnie.viz.measureVisualzation = ->
         element.attr("row", row)
             .attr("col", col)
         
+
         # If there's no condition, return before it causes an error.
-        if not condition
+        if not condition?
             return row
     
         if condition.preconditions?
@@ -123,7 +136,7 @@ Bonnie.viz.measureVisualzation = ->
                 .attr('data-content', dataCriteria[condition.reference]['description'])
                 .attr('data-trigger', "hover focus")
                 .attr('data-container', '.measure-viz')
-                console.log dataCriteria[condition.reference]
+                .attr('condition', JSON.stringify(condition))
         return row
             
         
