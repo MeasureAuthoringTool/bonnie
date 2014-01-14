@@ -22,6 +22,10 @@ class Thorax.Views.ImportMeasure extends Thorax.View
 
   events:
     'ready': 'setup'
+    'change input:file':  'enableLoad'
+
+  enableLoad: -> 
+    @$('#loadButton').prop('disabled', !@$('input:file').val().length > 0)
 
   setup: ->
     @importDialog = @$("#importMeasureDialog")
