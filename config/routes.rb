@@ -4,7 +4,6 @@ Bonnie::Application.routes.draw do
   resources :measures, defaults: { format: :json } do
     collection do
       get 'libraries'
-      get 'matrix'
       post 'finalize'
     end
     member do
@@ -22,7 +21,6 @@ Bonnie::Application.routes.draw do
 
   resources :patients do
     collection do 
-      get 'create_test'
       post 'materialize'
     end
   end
@@ -34,10 +32,6 @@ Bonnie::Application.routes.draw do
   end
 
   root to: 'home#index'
-  match '/about',   to: 'pages#about',   via: 'get'
-  match '/contact', to: 'pages#contact', via: 'get'
-  match '/help',    to: 'pages#help',    via: 'get'
-  match '/matrix',  to: 'pages#matrix',  via: 'get'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
