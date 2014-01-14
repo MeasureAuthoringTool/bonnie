@@ -1,52 +1,56 @@
-<div class="value-form">
-  <div class="input-group">
-    {{#if fieldValue}}
-      <div class="field-value">
-        <select name="key" class="form-control">
-          <option value="">--</option>
-          {{#each fields}}
-            <option value="{{key}}">{{title}}</option>
-          {{/each}}
-        </select>
-      </div>
-    {{/if}}
+{{#if fieldValue}}
+<p>
+  <select name="key" class="form-control">
+    <option value="">--</option>
+    {{#each fields}}
+      <option value="{{key}}">{{title}}</option>
+    {{/each}}
+  </select>
+</p>
+{{/if}}
 
-    <div class="input-group-btn">
-      <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Type <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li>{{#button "setScalarValue" tag="a"}}<i class="fa fa-pencil-square-o"></i> Scalar{{/button}}</li>
-        <li>{{#button "setCodedValue" tag="a"}}<i class="fa fa-list"></i> Coded{{/button}}</li>
-        {{#if fieldValue}}
-          <li>{{#button "setTimeValue" tag="a"}}<i class="fa fa-calendar"></i> Time{{/button}}</li>
-        {{/if}}
-      </ul>
+<div class="row">
+  <div class="btn-group col-md-2">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Type <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li>{{#button "setScalarValue" tag="a"}}<i class="fa fa-pencil-square-o"></i> Scalar{{/button}}</li>
+      <li>{{#button "setCodedValue" tag="a"}}<i class="fa fa-list"></i> Coded{{/button}}</li>
+      {{#if fieldValue}}
+        <li>{{#button "setTimeValue" tag="a"}}<i class="fa fa-calendar"></i> Time{{/button}}</li>
+      {{/if}}
+    </ul>
+  </div>
+
+  {{#if typePQ}}
+    <div class="col-md-6">
+      <input type="text" name="value" class="form-control" placeholder="input">
     </div>
+    <div class="col-md-3">
+      <input type="text" name="unit" class="form-control" placeholder="units">
+    </div>
+  {{/if}}
 
-    {{#if typePQ}}
-      <div class="inputs">
-        <span class="form-control-input"><input type="text" name="value" class="form-control" placeholder="input"></span>
-        <span class="form-control-units"><input type="text" name="unit" class="form-control" placeholder="units"></span>
-      </div>
-    {{/if}}
+  {{#if typeCD}}
+    <div class="col-md-9">
+      <select name="code_list_id" class="form-control">
+        <option value="">--</option>
+        {{#each codes tag="select" name="code_list_id"}}
+          <option value="{{oid}}">{{display_name}}</option>
+        {{/each}}
+      </select>
+    </div>
+  {{/if}}
 
-    {{#if typeCD}}
-      <div class="inputs inputs-cd">
-        <select name="code_list_id" class="form-control">
-          <option value="">--</option>
-          {{#each codes tag="select" name="code_list_id"}}
-            <option value="{{oid}}">{{display_name}}</option>
-          {{/each}}
-        </select>
-      </div>
-    {{/if}}
+  {{#if typeTS}}
+    <div class="col-md-5">
+      <input type="text" name="start_date" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-autoclose="true">
+    </div>
+    <div class="col-md-4">
+      <input type="text" name="start_time" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="false">
+    </div>
+  {{/if}}
 
-    {{#if typeTS}}
-      <div class="inputs">
-        <input type="text" name="start_date" class="form-control form-control-date" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-autoclose="true" data-provide="datepicker">
-        <input type="text" name="start_time" class="form-control form-control-time" placeholder="h:mm PM" data-show-inputs="false" data-default-time="false">
-      </div>
-    {{/if}}
-
+  <div class="col-md-1">
     {{#button "addValue" class="btn btn-primary pull-right"}}<i class="fa fa-plus"></i>{{/button}}
   </div>
 </div>

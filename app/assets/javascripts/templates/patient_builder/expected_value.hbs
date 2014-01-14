@@ -1,37 +1,39 @@
-<div class="expected-values">
-  <h2>EXPECTED VALUE</h2>
-  <form class="form-inline" role="form">
-    {{#each currentCriteria}}
-      {{#ifCond key "==" "OBSERV"}}
-        <div class="checkbox {{#if @index}}checkbox-divider{{/if}}">
-          <label class="checkbox-label">
-            {{displayName}}
-            <input class="checkbox-number" type="number" name="{{key}}">
+<h2>Expected Value</h2>
+<div class="form-inline tab-pane">
+  {{#each currentCriteria}}
+    {{#ifCond key "==" "OBSERV"}}
+      <label>
+        {{displayName}}
+        <input type="number" name="{{key}}" min="0">
+      </label>
+      <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">{{../../OBSERV_UNIT}}</button>
+      <ul class="dropdown-menu">
+        <li>{{#button "setObservMins" tag="a"}}mins{{/button}}</li>
+        <li>{{#button "setObservPerc" tag="a"}}%{{/button}}</li>
+      </ul>
+    {{else}}
+      {{#if isEoC}}
+        <div class="form-group">
+          <label>
+             <input type="number" name="{{key}}" min="0">
+             {{displayName}}
           </label>
-          <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">{{../../OBSERV_UNIT}}</button>
-          <ul class="dropdown-menu">
-            <li>{{#button "setObservMins" tag="a"}}mins{{/button}}</li>
-            <li>{{#button "setObservPerc" tag="a"}}%{{/button}}</li>
-          </ul>
         </div>
       {{else}}
-        <div class="checkbox {{#if @index}}checkbox-divider{{/if}}">
-          <label class="checkbox-label">
-            {{#if isEoC}}
-              <input class="checkbox-number" type="number" name="{{key}}">
-              {{displayName}}
-            {{else}}
-              {{#ifCond key "==" "MSRPOPL"}}
-                <input class="checkbox-number" type="number" name="{{key}}">
-                {{displayName}}
-              {{else}}
-                <input type="checkbox" name="{{key}}">
-                <span>{{displayName}}</span>
-              {{/ifCond}}
-            {{/if}}
+        {{#ifCond key "==" "MSRPOPL"}}
+          <div class="form-group">
+            <label>
+               <input type="number" name="{{key}}" min="0">
+               {{displayName}}
+            </label>
+          </div>
+        {{else}}
+          <label class="checkbox-inline">
+            <input type="checkbox" name="{{key}}">
+            {{displayName}}
           </label>
-        </div>
-      {{/ifCond}}
-    {{/each}}
-  </form>
+        {{/ifCond}}
+      {{/if}}
+    {{/ifCond}}
+  {{/each}}
 </div>

@@ -19,7 +19,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
       patient: difference.result.patient.toJSON()
       measure_id: @measure.get('hqmf_set_id')
       episode_of_care: @measure.get('episode_of_care')
-      
+
   updatePopulation: (population) ->
     selectedResult = @$('.toggle-result').filter(':visible').model().result
     @setModel(population)
@@ -32,16 +32,10 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
 
   showDelete: (e) ->
     result = @$(e.target).model().result
-    deleteButton = @$('.delete-' + result.get('patient_id'))
-    deleteIcon = @$(e.target)
+    deleteButton = @$(".delete-#{result.get('patient_id')}")
+    deleteIcon = @$(e.currentTarget)
     # if we clicked on the icon, grab the icon button instead
-    if deleteIcon[0].tagName is 'I' then deleteIcon = @$(deleteIcon[0].parentElement)
-    if deleteIcon.hasClass('btn-danger-inverse')
-      deleteIcon.removeClass('btn-danger-inverse')
-      deleteIcon.addClass('btn-danger')
-    else
-      deleteIcon.removeClass('btn-danger')
-      deleteIcon.addClass('btn-danger-inverse')
+    deleteIcon.toggleClass('btn-danger btn-danger-inverse')
     deleteButton.toggle()
 
   deletePatient: (e) ->
@@ -65,4 +59,4 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
       @$('.toggle-result').hide()
       @$(".toggle-result-#{result.patient.id}").show()
       @trigger 'rationale:show', result
-      
+

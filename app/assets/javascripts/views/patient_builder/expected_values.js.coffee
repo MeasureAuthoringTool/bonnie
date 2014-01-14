@@ -66,13 +66,13 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
 
   initialize: ->
     criteriaMap =
-      IPP: 'IPP'
-      DENOM: 'DENOM'
-      NUMER: 'NUMER'
-      DENEXCEP: 'EXCEPTION'
-      DENEX: 'EXCLUSION'
-      MSRPOPL: 'MEASURE POP.'
-      OBSERV: 'OBSERV'
+      IPP:      'IPP'
+      DENOM:    'DEN'
+      NUMER:    'NUM'
+      DENEXCEP: 'EXCP'
+      DENEX:    'EXCL'
+      MSRPOPL:  'MSRPOPL'
+      OBSERV:   'OBSERV'
     @currentCriteria = []
     # get population criteria from the measure to include OBSERV
     for pc in @measure.populationCriteria()

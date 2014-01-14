@@ -56,7 +56,7 @@ describe 'PatientBuilderView', ->
       @patientBuilder.appendTo 'body'
       # simulate dragging an encounter onto the patient
       @addEncounter = (position, targetSelector) ->
-        $('.element-title').click() # Expand the criteria to make draggables visible
+        $('.panel-title').click() # Expand the criteria to make draggables visible
         criteria = @$el.find(".draggable:eq(#{position})").draggable()
         criteriaOffset = criteria.offset()
         droppableOffset = @$el.find(targetSelector).offset()
@@ -64,26 +64,26 @@ describe 'PatientBuilderView', ->
 
     it "adds data criteria to model when dragged", ->
       expect(@patientBuilder.model.get('source_data_criteria').length).toEqual 3 # Patient starts with existing criteria
-      @addEncounter 1, '.patient-data-list.droppable'
+      @addEncounter 1, '.criteria-container.droppable'
       expect(@patientBuilder.model.get('source_data_criteria').length).toEqual 4
 
     it "can add multiples of the same criterion", ->
       expect(@patientBuilder.model.get('source_data_criteria').length).toEqual 3
-      @addEncounter 1, '.patient-data-list.droppable'
-      @addEncounter 1, '.patient-data-list.droppable' # add the same one again
+      @addEncounter 1, '.criteria-container.droppable'
+      @addEncounter 1, '.criteria-container.droppable' # add the same one again
       expect(@patientBuilder.model.get('source_data_criteria').length).toEqual 5
 
     it "acquires the dates of the drop target when dropping on an existing criteria", ->
       startDate = @patientBuilder.model.get('source_data_criteria').first().get('start_date')
       endDate = @patientBuilder.model.get('source_data_criteria').first().get('end_date')
       @patientBuilder.model.get('source_data_criteria').first().set end_date: endDate
-      @addEncounter 1, '.patient-data.droppable:first'
+      @addEncounter 1, '.criteria-data.droppable:first'
       expect(@patientBuilder.model.get('source_data_criteria').last().get('start_date')).toEqual startDate
       expect(@patientBuilder.model.get('source_data_criteria').last().get('end_date')).toEqual endDate
 
     it "materializes the patient", ->
       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
-      @addEncounter 1, '.patient-data-list.droppable'
+      @addEncounter 1, '.criteria-container.droppable'
       expect(@patientBuilder.model.materialize).toHaveBeenCalled()
 
     afterEach -> @patientBuilder.remove()
@@ -116,7 +116,7 @@ describe 'PatientBuilderView', ->
       expect(@patientBuilder.model.get('source_data_criteria').first().get('negation_code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.196.12.1253'
 
     afterEach -> @patientBuilder.remove()
-    
+
 
   describe "blurring basic fields of a criteria", ->
     beforeEach ->
@@ -138,12 +138,12 @@ describe 'PatientBuilderView', ->
           @patientBuilder.$('.dropdown-menu:eq(0) li:eq(0) a').click()
           @patientBuilder.$('input[name=value]:first').val(input)
           @patientBuilder.$('input[name=unit]:first').val(units)
-          @patientBuilder.$('.value-form .btn-primary:first').click()
+          @patientBuilder.$('.value-formset .btn-primary:first').click()
         @addCodedValue = (codeListId) ->
           @patientBuilder.$('.dropdown-toggle:first').click()
           @patientBuilder.$('.dropdown-menu:eq(0) li:eq(1) a').click()
           @patientBuilder.$("select[name=code_list_id] option[value='#{codeListId}']").prop('selected', true)
-          @patientBuilder.$('.value-form .btn-primary:first').click()
+          @patientBuilder.$('.value-formset .btn-primary:first').click()
 
       it "adds a scalar value", ->
         expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 0
@@ -169,7 +169,7 @@ describe 'PatientBuilderView', ->
         @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1001'
         expect(@patientBuilder.model.materialize.calls.length).toEqual 2
 
-      afterEach -> @patientBuilder.remove() 
+      afterEach -> @patientBuilder.remove()
 
 
   describe "adds field values to an encounter", ->
@@ -181,13 +181,13 @@ describe 'PatientBuilderView', ->
         @patientBuilder.$('.dropdown-menu:eq(0) li:eq(0) a').click()
         @patientBuilder.$('input[name=value]:eq(1)').val(input)
         @patientBuilder.$('input[name=unit]:eq(1)').val(units)
-        @patientBuilder.$('.value-form .btn-primary:eq(1)').click()
+        @patientBuilder.$('.field-value-formset .btn-primary:first').click()
       @addCodedFieldValue = (fieldType, codeListId) ->
         @patientBuilder.$("select[name=key] option[value=#{fieldType}]").prop('selected', true)
         @patientBuilder.$('.dropdown-toggle:eq(1)').click()
         @patientBuilder.$('.dropdown-menu:eq(1) li:eq(1) a').click()
         @patientBuilder.$("select[name=code_list_id] option[value='#{codeListId}']").prop('selected', true)
-        @patientBuilder.$('.value-form .btn-primary:eq(1)').click()
+        @patientBuilder.$('.field-value-formset .btn-primary:first').click()
 
     it "adds a scalar field value", ->
       expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 0

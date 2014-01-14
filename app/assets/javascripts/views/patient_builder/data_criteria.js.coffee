@@ -22,6 +22,7 @@ class Thorax.Views.SelectCriteriaView extends Thorax.View
 
 
 class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
+  className: 'patient-criteria'
 
   template: JST['patient_builder/edit_criteria']
 
@@ -71,9 +72,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       delete attr.end_date_is_undefined
       delete attr.end_time
     rendered: ->
-      @$('.patient-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight', drop: _.bind(@dropCriteria, this)
-      @$('.form-control-date').datepicker().on 'changeDate', _.bind(@triggerMaterialize, this)
-      @$('.form-control-time').timepicker().on 'changeTime.timepicker', _.bind(@triggerMaterialize, this)
+      @$('.criteria-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight', drop: _.bind(@dropCriteria, this)
+      @$('.date-picker').datepicker().on 'changeDate', _.bind(@triggerMaterialize, this)
+      @$('.time-picker').timepicker().on 'changeTime.timepicker', _.bind(@triggerMaterialize, this)
     'change .negation-select':    'toggleNegationSelect'
     'change .undefined-end-date': 'toggleEndDateDefinition'
     'blur :text':                 'triggerMaterialize'
@@ -89,9 +90,18 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   toggleDetails: (e) ->
     e.preventDefault()
-    @$('.concise').toggle()
-    @$('.details').toggle()
-    @$('.circle-icon').toggleClass('active-icon')
+    @$('.criteria-details, form').toggleClass('hide')
+    @$('.criteria-type-marker').toggleClass('open')
+    unless @$('form').is ':visible'
+      @serialize(children: false)
+      # FIXME sortable: commenting out due to odd bug in droppable
+      # @model.trigger 'close', @model
+      @render() # re-sorting the collection will re-render this view, remove this if we use above approach
+
+  showDelete: (e) ->
+    e.preventDefault()
+    $btn = $(e.currentTarget)
+    $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
 
   toggleEndDateDefinition: (e) ->
     $cb = $(e.target)
@@ -104,12 +114,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @$('.negation-code-list').prop('selectedIndex',0).toggleClass('hide')
     @triggerMaterialize()
 
-  closeDetails: ->
-    @serialize(children: false)
-    # FIXME sortable: commenting out due to odd bug in droppable
-    # @model.trigger 'close', @model
-    @render() # re-sorting the collection will re-render this view, remove this if we use above approach
-
   removeCriteria: (e) ->
     e.preventDefault()
     @model.destroy()
@@ -121,6 +125,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
 
 class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
+  className: -> "#{if @fieldValue then 'field-' else ''}value-formset"
 
   template: JST['patient_builder/edit_value']
 
@@ -146,7 +151,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       title = @measure.get('value_sets').findWhere(oid: attr.code_list_id)?.get('display_name')
       attr.title = title if title
     rendered: ->
-      @$('.form-control-time').timepicker()
+      @$('.time-picker').timepicker()
 
   # Below need to work for any value, not just first
   setScalarValue: (e) ->
