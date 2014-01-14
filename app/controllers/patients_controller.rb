@@ -1,39 +1,8 @@
 class PatientsController < ApplicationController
-	before_filter :authenticate_user!
-	# before_filter :validate_authorization!
+  before_filter :authenticate_user!
 
   RACE_NAME_MAP={'1002-5' => 'American Indian or Alaska Native','2028-9' => 'Asian','2054-5' => 'Black or African American','2076-8' => 'Native Hawaiian or Other Pacific Islander','2106-3' => 'White','2131-1' => 'Other'}
   ETHNICITY_NAME_MAP={'2186-5'=>'Not Hispanic or Latino', '2135-2'=>'Hispanic Or Latino'}
-
-  def index
-
-    # if we want to show patients for a given measure id
-    if(params.include? :mid)
-
-      # grab the measure and reset the patients list
-      @measure = Measure.find(params[:mid])
-      @patients = []
-
-      begin
-        @patients = PatientHelper.get_patients_by_measure_hqmf_and_nqf(@measure)
-      rescue Mongoid::Errors::DocumentNotFound, Mongoid::Errors::InvalidFind
-        @patients = []
-      end
-
-      flash.now[:info] = "Showing patients for Measure [ " + @measure.hqmf_id.to_s() + " : " + @measure.title.to_s() + " : " + @measure.measure_id + " ]!"
-
-    else
-      @patients = Record.asc(:id)
-    end
-    
-  end
-
-  def show
-    @patient = Record.find(params[:id])
-  end
-
-  def edit
-  end
 
   def update
     patient = Record.by_user(current_user).find(params[:id]) # FIXME: will we have an ID attribute on server side?
@@ -53,42 +22,13 @@ class PatientsController < ApplicationController
     render :json => patient
   end
 
-  def download
-  end
-
   def destroy
     patient = Record.by_user(current_user).find(params[:id]) # FIXME: will we have an ID attribute on server side?
     Record.by_user(current_user).find(params[:id]).destroy
     render :json => patient
   end
 
-  def validate_authorization!
-  end
-
-  def new
-    @patient = HQMF::Generator.create_base_patient
-  end
-
-  def create_test
-    @patient = HQMF::Generator.create_base_patient
-
-    @measure = Measure.skip(rand(Measure.count)).first
-    @patient.measure_id = @measure.hqmf_id
-    if @patient.measure_ids.nil?
-      @patient.measure_ids = []
-    end
-    @patient.measure_ids << @measure.measure_id
-
-    if @patient.save!
-      flash[:success] = "Test patient [ " + @patient.id.to_s() + " : " + @patient.last.to_s() + ", " + @patient.first.to_s() + " ] was created and saved!"
-    else
-      flash[:error] = "Failed to save test patient!"
-    end
-    redirect_to patients_path
-  end
-
 private 
-
 
   def update_patient(patient)
 
