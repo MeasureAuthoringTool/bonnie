@@ -1,61 +1,77 @@
-<div class="record-listing">
-  <div class="circle-icon pull-left">
-    <i class="fa {{faIcon}}"></i>
-  </div>
-  <div class="patient-data droppable">
-    <div class="concise">
-      <div class="pull-right">
-        {{#button "toggleDetails" tag="a"}}<i class="fa fa-gear"></i>{{/button}}
-      </div>
-      <dl class="dl-record">
-        <dt class="definition">{{definition}}</dt>
-        <dd>{{description}}</dd>
-      </dl>
-      <dl class="dl-date">
-        <dt>DATE</dt>
-        <dd>{{start_date}} {{end_date}}</dd>
-      </dl>
-    </div>
-    <div class="details" style="display: none;">
-      {{#button "removeCriteria" class="btn btn-danger pull-right"}}<i class="fa fa-times"></i>{{/button}}
-      <dl class="dl-heading-edit">
-        <dt class="definition">{{definition}}</dt>
-        <dd>{{description}}</dd>
-      </dl>
-      <div class="element-edit">
-        <div class="form-date">
-          <div class="section-heading time-heading"><i class="fa fa-clock-o"></i>START</div>
-          <input type="text" name="start_date" class="form-control form-control-date" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-autoclose="true">
-          <input type="text" name="start_time" class="form-control form-control-time" placeholder="h:mm PM" data-show-inputs="false" data-default-time="false">
+<div class="criteria-type-marker">
+  <i class="fa fa-fw fa-lg {{faIcon}}"></i>
+</div>
+<div class="criteria-body">
+  <div class="criteria-data droppable">
+    <div class="criteria-details">
+      <div class="row">
+        <div class="col-md-6">
+          <label>{{definition}}</label>
+          <div>{{description}}</div>
         </div>
 
-        <div class="form-date">
-          <div class="section-heading time-heading"><i class="fa fa-clock-o"></i>STOP</div>
-          <input type="text" name="end_date" class="form-control form-control-date" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-autoclose="true"{{#if end_date_is_undefined}} disabled{{/if}}>
-          <input type="text" name="end_time" class="form-control form-control-time" placeholder="h:mm PM" data-show-inputs="false" data-default-time="false"{{#if end_date_is_undefined}} disabled{{/if}}>
-          <div class="checkbox">
-            <label class="checkbox-label">
-              <input type="checkbox" class="undefined-end-date" name="end_date_is_undefined"> <span>undefined</span>
-            </label>
+        <div class="col-md-6">
+          {{#button "toggleDetails" class="close"}}<i class="fa fa-lg fa-angle-right"></i>{{/button}}
+          <label>Date</label>
+          <div>{{start_date}}{{#if end_date}} &ndash; {{end_date}}{{/if}}</div>
+        </div>
+      </div>
+    </div>
+    <form class="hide" role="form">
+      {{#button "toggleDetails" class="close"}}<i class="fa fa-lg fa-angle-down"></i>{{/button}}
+
+      <p><strong>{{definition}}:</strong> {{description}}</p>
+
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label class="control-label"><i class="fa fa-clock-o"></i> Start</label>
+          <div class="datetime-control">
+            <div>
+              <input type="text" name="start_date" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
+            </div>
+
+            <div>
+              <input type="text" name="start_time" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="false">
+            </div>
           </div>
         </div>
 
-        <div class="section-heading">
-          <i class="fa fa-bar-chart-o"></i>VALUE
+        <div class="form-group col-md-6">
+          <label class="control-label"><i class="fa fa-clock-o"></i> Stop</label>
+          <div class="datetime-control">
+            <div>
+              <input type="text" name="end_date" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true"{{#if end_date_is_undefined}} disabled{{/if}}>
+            </div>
+
+            <div>
+              <input type="text" name="end_time" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="false"{{#if end_date_is_undefined}} disabled{{/if}}>
+            </div>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="end_date_is_undefined"> undefined
+            </label>
+          </div>
         </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label"><i class="fa fa-bar-chart-o"></i> Value</label>
+
         {{#collection value class="existing-values"}}
           <span>
             {{value}} {{unit}}
             {{title}}
-            {{#button "removeValue" class="btn btn-link delete"}}&times;{{/button}}
+            {{#button "removeValue" class="btn btn-link close delete"}}&times;{{/button}}
           </span>
         {{/collection}}
 
         {{view editValueView}}
+      </div>
 
-        <div class="section-heading">
-          <i class="fa fa-bar-chart-o"></i>FIELD VALUE
-        </div>
+      <div class="form-group">
+        <label class="control-label"><i class="fa fa-bar-chart-o"></i> Field Value</label>
+
         {{#collection field_values class="existing-values" item-context=valueWithDateContext}}
           <span>
             {{key}}:
@@ -65,29 +81,35 @@
               {{value}} {{unit}}
               {{title}}
             {{/if}}
-            {{#button "removeValue" class="btn btn-link delete"}}&times;{{/button}}
+            {{#button "removeValue" class="btn btn-link close delete"}}&times;{{/button}}
           </span>
         {{/collection}}
 
         {{view editFieldValueView}}
+      </div>
 
-        <div class="form-group not-per">
-          <div class="checkbox">
-            <label class="checkbox-label">
-              <input type="checkbox" name="negation" class="negation-select checkbox"> <span>NOT PERFORMED</span>
-            </label>
-          </div>
-          <select name="negation_code_list_id" class="form-control negation-code-list {{#unless negation}}hide{{/unless}}">
-              <option value="">--</option>
-              {{#each codes}}
-                <option value="{{oid}}">{{display_name}}</option>
-              {{/each}}
-          </select>
+      <div class="form-group">
+        <div class="checkbox">
+          <label class="checkbox-label">
+            <input type="checkbox" name="negation" class="negation-select checkbox" data-toggle="negation-select">
+            <span>NOT PERFORMED</span>
+          </label>
         </div>
-        <div class="form-group minimize">
-          {{#button "closeDetails" class="btn btn-primary pull-right"}}CLOSE{{/button}}
+        <select name="negation_code_list_id" class="form-control negation-code-list hide">
+          <option value="">--</option>
+          {{#each codes}}
+            <option value="{{oid}}">{{display_name}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div class="clearfix">
+        <div class="pull-right">
+          &nbsp; {{! If we take this out, say goodbye to space between the buttons. Why, Chrome? Firefox and Safari don't have this problem. }}
+          {{#button "removeCriteria" class="btn btn-danger hide"}}Delete{{/button}}
+          {{#button "showDelete" class="btn btn-danger-inverse"}}<i class="fa fa-minus-circle"></i>{{/button}}
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>

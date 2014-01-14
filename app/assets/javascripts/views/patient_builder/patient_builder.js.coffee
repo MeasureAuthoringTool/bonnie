@@ -53,10 +53,10 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
 
       # Make criteria list a drop target
-      @$('.patient-data-list.droppable').droppable greedy: true, accept: '.ui-draggable', drop: _.bind(@drop, this)
+      @$('.criteria-container.droppable').droppable greedy: true, accept: '.ui-draggable', drop: _.bind(@drop, this)
 
-      @$('.form-control-date').datepicker().on 'changeDate', _.bind(@materialize, this)
-      @$('.form-control-time').timepicker().on 'changeTime.timepicker', _.bind(@materialize, this)
+      @$('.date-picker').datepicker().on 'changeDate', _.bind(@materialize, this)
+      @$('.time-picker').timepicker().on 'changeTime.timepicker', _.bind(@materialize, this)
     model:
       sync: (model) ->
         @patients.add model # make sure that the patient exist in the global patient collection

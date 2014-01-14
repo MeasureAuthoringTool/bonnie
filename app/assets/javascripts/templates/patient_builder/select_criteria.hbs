@@ -1,13 +1,16 @@
-{{! FIXME: Address the pointer issue, use bootstrap as per bootstrap example }}
-<div class="element-title" data-toggle="collapse" data-parent="#criteriaElements" href="#collapse-{{cid}}">
-  <i class="fa {{faIcon}}"><i class="indicator fa fa-angle-right pull-right"></i></i>
-  {{title}}
-</div>
-<div id="collapse-{{cid}}" class="collapse">
-  {{#collection}}
-    <div class="paramText draggable">
-      <label class="ui-draggable">{{description}}</label>
-      <i class="fa fa-arrows pull-right"></i>
-    </div>
-  {{/collection}}
+<div class="panel">
+  <a class="panel-title collapsed" data-toggle="collapse" data-parent="#criteriaElements" href="#collapse-{{cid}}">
+    <i class="fa fa-angle-right fa-2x panel-expander"></i>
+    <i class="fa {{faIcon}} fa-3x panel-icon"></i>
+    {{title}}
+  </a>
+
+  <div id="collapse-{{cid}}" class="collapse">
+    {{#collection}}
+      <div class="draggable">
+        <div class="pull-right" style="margin: 0 0 3px 3px"><i class="fa fa-arrows"></i></div>
+        <strong class="ui-draggable">{{description}}</strong>
+      </div>
+    {{/collection}}
+  </div>
 </div>

@@ -1,15 +1,13 @@
-<div class="sub-measure-tabs">
-  {{#if hasMultipleTabs}}
-    <!-- Population titles or sub_ids -->
-    {{#collection tag="ul" class="nav nav-tabs" item-context="populationContext"}}
-      <li>
-        <a href="#expected-{{population_index}}" data-toggle="tab">
-          {{populationTitle}}
-        </a>
-      </li>
-    {{/collection}}
-  {{/if}}
-</div>
+{{#if hasMultipleTabs}}
+  <!-- Population titles or sub_ids -->
+  {{#collection tag="ul" class="nav nav-tabs" item-context="populationContext"}}
+    <li>
+      <a href="#expected-{{population_index}}" data-toggle="tab">
+        {{populationTitle}}
+      </a>
+    </li>
+  {{/collection}}
+{{/if}}
 
 <!-- Expected values per population sub_ids -->
 {{view expectedValueCollectionView}}

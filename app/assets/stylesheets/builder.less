@@ -1,37 +1,107 @@
-// builder view
-
 .patient-builder {
-  .left-sidebar-builder{
-    .make-sm-column(2);
+  @time-bar-width: 8px;
+  .time-bar(@color: @gray-lighter) {
+    border-left: @time-bar-width solid @color;
+  }
 
-    .panel-heading {
-      font-size: 18px;
-      font-weight: bold;
+  label {
+    text-transform: uppercase;
+  }
+
+  .col-left {
+    .make-md-column(2);
+    &.measure-data-container {
+      // jog content over by @{offset} so that the border-right overlaps with the .col-center's border-left
+      @offset: @grid-gutter-width / 2 + @time-bar-width;
+      border-right: @time-bar-width solid @gray-lighter;
+      margin-left:  @offset;
+      margin-right: -@offset;
+
+      &> * {
+        margin-left: -@offset;
+        padding-right: (@grid-gutter-width / 2); // leave out @time-bar-width to account for parent's border-right
+      }
+    }
+  }
+
+  .col-center {
+    .make-md-column(6);
+    &> * {
+      .time-bar();
+      &.form-data {
+        // FIXME this border is attached here because this column is taller, but really belongs on .col-right
+        border-right: 4px solid @brand-primary;
+        margin-left: 0;
+        padding-left: (@grid-gutter-width / 2);
+      }
+    }
+  }
+
+  .col-right {
+    .make-md-column(4);
+  }
+
+  .timeline-icon {
+    color: @brand-primary;
+    margin-left: -12px;
+  }
+
+  .expected-values {
+    .nav-tabs .active a, .tab-content {
       background-color: @gray-lighter;
     }
+    .tab-content {
+      padding-bottom: 10px;
+      h2 {
+        margin-top: 0;
+        padding-top: 6px;
+      }
 
-    .element-title {
-      color: #fff;
-      background-color: @blue-lighter;
-      margin-top: 10px;
-      font-size: 10px;
-      padding: 15px;
-      text-transform: uppercase;
-
-      .fa {
-        display: block;
-        color: #fff;
-        margin-right: 5px;
-        font-size: 36px;
-        margin-left: 10px;
-
-        .fa {
-          font-size: 32px;
-          vertical-align: middle;
+      .form-inline {
+        .form-group {
+          padding-right: 10px;
+          label {
+            font-weight: normal;
+          }
+          input[type=number] {
+            display: inline-block;
+            width: 40px;
+          }
         }
       }
     }
+  }
 
+
+  .heading-muted {
+    background-color: @gray-lighter;
+    padding-left: 3px;
+  }
+  .heading-primary {
+    background-color: @blue-lightest;
+    color: white;
+    padding-left: @grid-gutter-width;
+  }
+
+  .panel {
+    .panel-title {
+      background-color: @blue-lighter;
+      color: white;
+      display: block;
+      font-size: @font-size-base;
+      padding: (@grid-gutter-width / 2);
+      text-transform: uppercase;
+      .panel-icon {
+        display: block;
+      }
+      .panel-expander {
+        .pull-right;
+        line-height: 2;
+      }
+      &:hover {
+        text-decoration: none;
+      }
+    }
     .draggable {
       border: 2px solid @blue-lighter;
       margin: 10px 0;
@@ -41,361 +111,87 @@
         color: @gray-darker;
       }
 
-      .ui-draggable {
-        font-size: 12px;
-        max-width: 80px;
-      }
     }
   }
 
-  .main-builder {
-    .make-sm-column(10);
 
-    .fa {
-      font-size: 18px;
-      margin: auto;
+  .criteria-container {
+    &.droppable {
+      // establish drop target below last criteria
+      min-height: 500px;
+      padding-bottom: 100px;
     }
-
-    .main-head > .fa {
-      font-size: 48px;
-      color: @brand-primary;
-    }
-
-    .form-control-date {
-      .make-sm-column(6.5);
-      padding: 12px;
-    }
-
-    .form-control-time {
-      .make-sm-column(5.5);
-      padding: 12px;
-      border-left-style: none;
-    }
-
-    #timeBar {
-      position: absolute;
-      left: 29px;
-      top: 63px;
-      width: 8px;
-      height: 100%;
-      background-color: @blue-lightest;
-    }
-
-    .demographics {
-      .clearfix;
-      .row;
-      margin: 20px 0 20px 39px;
-
-      .demographics-left-col {
-        .make-sm-column(3);
+    .patient-criteria {
+      &.during-measurement-period {
+        .time-bar(@blue-lightest);
       }
-
-      .demographics-right-col {
-        .make-sm-column(2);
-      }
-
-      .measure-expected {
-        .clearfix;
-        .make-sm-column(7);
-        border-left: 4px solid @brand-primary;
-        padding-left: 10px;
-        padding-right: 0;
-
-        .form-group {
-          padding-bottom: 15px;
-          margin-bottom: 0;
-        }
-
-        .measure-name-primary {
-          .make-sm-column(4);
-        }
-        .measure-name-secondary {
-          .make-sm-column(8);
-        }
-
-        .sub-measure-tabs {
-          .make-sm-column(12);
-          padding: 15px 0 0 0;
-
-          .active a {
-            background-color: @gray-lighter;
-          }
-        }
-
-        .expected-value {
-          .make-sm-column(12);
-          background-color: @gray-lighter;
-          margin-left: 0;
-          padding-left: 5px;
-          border-left: 1px solid #dddddd;
-
-          h2 {
-            padding-left: 5px;
-          }
-
-          .checkbox-divider {
-            border-left: 2px solid @gray-darker;
-            padding-left: 5px;
-            padding-right: 5px;
-
-            button {
-              font-size: 11px;
-              padding: 1px;
-              text-transform: none;
-            }
-
-            ul {
-              left: initial;
-            }
-
-          }
+      .criteria-type-marker {
+        @radius: 18px;
+        .pull-left;
+        background-color: white;
+        border: 2px solid @brand-primary;
+        border-radius: @radius;
+        color: @brand-primary;
+        .square(@radius * 2);
+        line-height: 2;
+        margin-left: -22px;
+        margin-top: 10px;
+        text-align: center;
+        &.open {
+          background-color: @brand-primary;
+          color: white;
         }
       }
-    }
-
-    .timeline-title {
-      background-color: #99C8E7;
-      margin-left: 15px;
-      color: #fff;
-      font-size: 24px;
-      font-weight: bold;
-      text-transform: uppercase;
-      padding-left: 30px;
-    }
-
-    .record {
-      .make-sm-column(7);
-      .row;
-      min-height: 200px; // ADDED
-      padding-bottom: 500px; // ADDED
-      margin-left: 0;
-
-      .record-listing {
-        margin-top: 20px;
-
-        .circle-icon {
-          .make-sm-column(1);
-          display: inline-block;
-          margin-top: 15px;
-          padding-left: 0;
-
-          &.active-icon .fa {
-            background-color: @brand-primary;
-            border-radius: 18px;
-            color: #fff;
+      .criteria-body {
+        margin-left: (@grid-gutter-width / 2);
+        padding: 5px 0;
+        .criteria-data {
+          &.drop-target-highlight, &.drop-target-highlight:before {
+            background-color: @blue-lightest;
           }
-
-          .fa {
-            text-align: center;
-            vertical-align: middle;
-            padding-top: 8px;
-            width: 36px;
-            height: 36px;
-            background-color: #fff;
-            border-radius: 18px;
-            border: 2px solid @brand-primary;
+          &:before {
+            content: ' ';
+            background-color: white;
+            border-bottom: 1px solid @gray;
+            border-left: 1px solid @gray;
+            position: absolute;
+            .square(@grid-gutter-width / 2);
+            left: -(@grid-gutter-width / 4) - 1; // width/2 (-1 to account for border)
+            .rotate(45deg);
+          }
+          border: 1px solid @gray;
+          margin-left: (@grid-gutter-width / 2);
+          padding: (@grid-gutter-width / 2);
+          position: relative;
+          .control-label {
             color: @brand-primary;
           }
-        }
-
-        .patient-data {
-          .make-sm-column(11);
-          margin-bottom: 20px;
-          padding: 20px;
-          background-color: #fff;
-          border: 1px solid @gray-darker;
-
-          &.drop-target-highlight {
-              background-color: @blue-lightest;
+          .datetime-control {
+            .make-row(0);
+            &> * {
+              .make-md-column(6; 0);
             }
-
-          .dl-record {
-            .make-sm-column(6);
-          }
-
-          .dl-date {
-            .make-md-column(5);
-          }
-
-          .definition {
-            text-transform: uppercase;
-          }
-
-          .btn-danger {
-            margin-top: -7px;
-          }
-
-          .element-edit{
-            display: block;
-
-            .section-heading {
-              font-weight: bold;
-              margin-left: 15px;
-              color: @brand-primary;
-              margin-bottom: 10px;
-
-              &.time-heading {
-                margin-left: 0;
-              }
-
-              .fa {
-                padding-right: 5px;
-              }
-            }
-
-            .input-group {
-              padding: 0 15px;
-
-              > .btn {
-                .make-sm-column(1);
-                padding: 6px 6px 4px;
-
-                .fa {
-                  margin-left: 1px;
-                  padding-top: 2px;
-                }
-              }
-
-              .input-group-btn {
-                .make-sm-column(2);
-                padding: 0;
-                > * {
-                  width: 100%;
-                }
-                .dropdown-menu {
-                  margin-left: 15px;
-                }
-              }
-              .inputs {
-                .make-sm-column(9);
-                &.inputs-cd {
-                  padding: 0 15px;
-                }
-
-                .form-control {
-                  margin-bottom: 20px;
-                }
-
-                .form-control-input {
-                  .make-sm-column(8);
-                  padding: 0;
-                }
-
-                .form-control-units {
-                  .make-sm-column(4);
-                  padding-right: 0;
-                }
-              }
-            }
-
-            .form-date {
-              .make-sm-column(6);
-              margin-bottom: 20px;
-            }
-
-            .select {
-              #field-value {
-                margin-left: 15px;
-                margin-bottom: 15px;
-                .make-sm-column(6);
-              }
-            }
-
-            .not-per {
-              .make-sm-column(12);
-              .checkbox-label {
-                font-size: 12px;
-              }
-            }
-
-            .btn-group {
-              .fa {
-                color: black;
-              }
-            }
-
-            &.minimize {
-              margin-bottom: 30px;
-            }
-
-            .btn-form {
-              margin: 10px 0px 20px 15px;
+            &> :last-child input {
+              border-left: 0;
             }
           }
+          .existing-values {
+            margin-bottom: 10px;
 
-          .value-form {
-            .value-input {
-              .make-sm-column(5);
-            }
-
-            select {
+            &> span {
+              background-color: @gray-lighter;
+              color: @gray-darker;
+              display: inline-block;
+              padding: 10px;
               margin-bottom: 5px;
+              margin-right: 15px;
+              vertical-align: bottom;
+            }
+            .delete {
+              float: none;
             }
           }
         }
-      }
-    }
-
-    .existing-values {
-      margin-bottom: 10px;
-
-      span{
-        background-color: @gray-lighter;
-        color: @gray-darker;
-        font-size: 14px;
-        margin-left: 15px;
-        padding: 10px;
-        display: inline-block;
-        margin-bottom: 5px;
-
-        .delete {
-          font-size: 21px;
-          font-weight: bold;
-          line-height: 1;
-          color: #000000;
-          text-shadow: 0 1px 0 #ffffff;
-          opacity: 0.2;
-          filter: alpha(opacity=20);
-          padding: 0 0 0 5px;
-          margin-top: -5px;
-        }
-        .delete:hover,
-        .delete:focus {
-          color: #000000;
-          text-decoration: none;
-          cursor: pointer;
-          opacity: 0.5;
-          filter: alpha(opacity=50);
-        }
-      }
-    }
-
-    .measure-view-side {
-      .make-sm-column(5);
-      margin-top: 20px;
-      padding-right: 0;
-      font-size: 12px;
-
-      .measure-title {
-        background-color: @gray-lighter;
-        padding: 10px;
-
-        .short-title {
-          font-size: 18px;
-          font-weight: bold;
-          padding-bottom: 5px;
-          .fa {
-            padding-right: 5px;
-          }
-
-          .population-title {
-            font-size: 14px;
-          }
-        }
-      }
-
-      .measure-viz {
-
       }
     }
   }
