@@ -61,9 +61,9 @@ class MeasuresController < ApplicationController
         FileUtils.cp(params[:measure_file].tempfile, File.join(errors_dir, "#{current_user.email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.zip"))
         File.open(File.join(errors_dir, "#{current_user.email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
         if e.is_a? Measures::ValueSetException
-          flash[:error] = {title: "Error Loading Measure", body: "The measure value sets could not be found.  Please re-package the measure in the MAT and make sure VSAC Value Sets are included in the package, then re-export the MAT Measure bundle.    If the problem continues please contact bonnie-talk@googlegroups.com."}
+          flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure VSAC Value Sets are included in the package, then re-export the MAT Measure bundle."}
         else
-          flash[:error] = {title: "Error Loading Measure", body: "The measure could not be loaded.  Please re-package the measure in the MAT, then re-download the MAT Measure Export.  If the problem continues please contact bonnie-talk@googlegroups.com."}
+          flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Please re-package the measure in the MAT, then re-download the MAT Measure Export."}
         end
       else
         flash[:error] = {title: "Error Loading Measure", body: "You must specify a Measure Authoring tool measusre export to use."}
