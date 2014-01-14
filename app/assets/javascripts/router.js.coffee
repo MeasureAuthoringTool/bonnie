@@ -13,7 +13,6 @@ class BonnieRouter extends Backbone.Router
 
     @on 'route', -> window.scrollTo(0)
 
-
   routes:
     '':                                                'renderMeasures'
     'measures':                                        'renderMeasures'
@@ -66,3 +65,9 @@ class BonnieRouter extends Backbone.Router
     measure ?= @measures.findWhere {hqmf_set_id: patient.get('measure_id')}
     @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients)
     @navigate "measures/#{measure.get('hqmf_set_id')}/patients/new"
+
+  showError: (error)->
+    errorDialogView = new Thorax.Views.ErrorDialog error: error
+    errorDialogView.appendTo('#bonnie')
+    errorDialogView.display();
+

@@ -52,7 +52,25 @@ class MeasuresController < ApplicationController
       existing.delete
     end
 
-    measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
+    begin
+      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
+    rescue Exception => e
+      errors_dir = File.join('tmp','load_errors')
+      FileUtils.mkdir_p(errors_dir)
+      if params[:measure_file]
+        FileUtils.cp(params[:measure_file].tempfile, File.join(errors_dir, "#{current_user.email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.zip"))
+        File.open(File.join(errors_dir, "#{current_user.email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
+        if e.is_a? Measures::ValueSetException
+          flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
+        else
+          flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Please re-package the measure in the MAT, then re-download the MAT Measure Export.  If the measure has QDM elements without a VSAC Value Set defined the measure will not load."}
+        end
+      else
+        flash[:error] = {title: "Error Loading Measure", body: "You must specify a Measure Authoring tool measusre export to use."}
+      end
+      redirect_to "#{root_path}##{params[:redirect_route]}"
+      return
+    end
     current_user.measures << measure
     current_user.save!
 

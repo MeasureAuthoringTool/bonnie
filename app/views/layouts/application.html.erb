@@ -37,6 +37,9 @@
        <% end %>
       $(document).ready(function() {
         Backbone.history.start();
+        <% if (flash[:error]) %>
+          bonnie.showError(<%= flash[:error].to_json.html_safe %>);
+        <% end %>
       });
       bonnie.isAdmin = <%= current_user.admin %>;
     </script>
