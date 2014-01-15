@@ -54,7 +54,7 @@ module Measures
     end
 
     def self.get_vs_oids(source_data_criteria)
-      oids = [source_data_criteria['code_list_id']]
+      oids = [source_data_criteria['code_list_id'], source_data_criteria['negation_code_list_id']]
       oids.concat source_data_criteria['field_values'].values.collect {|field| field['code_list_id']} if source_data_criteria['field_values']
       oids.concat source_data_criteria['value'].collect {|value| value['code_list_id']} if source_data_criteria['value']
       oids.compact.uniq
