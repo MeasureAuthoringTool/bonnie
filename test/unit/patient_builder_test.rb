@@ -147,4 +147,13 @@ class PatientBuilderTest < ActiveSupport::TestCase
     assert_equal({"code_system"=>"CPT", "code"=>"CHACHA2", "title"=>nil}, entry.ordinality, "Should have created an ordinal filed value")
   end
 
+  test "get value sets" do
+    vs_oids = Measures::PatientBuilder.get_vs_oids(@coded_source_data_critria)
+    assert vs_oids.include?('2.16.840.1.113883.3.464.1003.102.12.1011')
+    assert vs_oids.include?('2.16.840.1.113883.3.464.1003.106.12.1005')
+    assert vs_oids.include?('2.16.840.1.113883.3.464.1003.102.12.1011')
+    assert vs_oids.include?('2.16.840.1.113883.3.526.3.1139')
+    assert vs_oids.include?('2.16.840.1.113883.3.526.3.1492')
+  end
+
 end 
