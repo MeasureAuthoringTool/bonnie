@@ -1,8 +1,12 @@
 class Thorax.Views.Measure extends Thorax.View
   template: JST['measure']
   events:
-    rendered: -> @$("[rel='popover']").popover(content: @$('.popover-tmpl').text())
-    'click .delete-measure': 'deleteMeasure'
+    rendered: -> 
+      @$("[rel='popover']").popover(content: @$('.popover-tmpl').text())
+      # if we click anywhere but the gear icon or the delete icon, close the popover
+      $('html').click( (e) => 
+        unless @$(e.target).hasClass('popover-content') or @$(e.target).hasClass('show-delete')
+          if @$('#settings').has(e.target).length == 0 and @$('.popover').is(':visible') then @$('#settings').popover('toggle'))
 
   initialize: ->
     populations = @model.get 'populations'
@@ -28,6 +32,15 @@ class Thorax.Views.Measure extends Thorax.View
     importMeasureView.appendTo(@$el)
     importMeasureView.display()
 
+  showDelete: (e) ->
+    deleteButton = @$('.delete-measure')
+    deleteIcon = @$(e.target)
+    # if we clicked on the icon, grab the icon button instead
+    if deleteIcon[0].tagName is 'I' then deleteIcon = @$(deleteIcon[0].parentElement)
+    deleteIcon.toggle()
+    deleteButton.toggle()
+
   deleteMeasure: (e) ->
     @model = $(e.target).model()
     @model.destroy()
+    bonnie.renderMeasures()
