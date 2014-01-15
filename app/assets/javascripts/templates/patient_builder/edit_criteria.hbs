@@ -95,7 +95,7 @@
             <span>NOT PERFORMED</span>
           </label>
         </div>
-        <select name="negation_code_list_id" class="form-control negation-code-list hide">
+        <select name="negation_code_list_id" class="form-control negation-code-list{{#unless negation}} hide{{/unless}}">
           <option value="">--</option>
           {{#each codes}}
             <option value="{{oid}}">{{display_name}}</option>
