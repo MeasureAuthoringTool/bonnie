@@ -3,7 +3,6 @@ Bonnie.viz ||= {}
 Bonnie.viz.measureVisualzation = ->
     my = (selection) ->
         selection.each (data) ->
-            console.log data
             # Draw the visualization here?
             svg = d3.select(this).selectAll('svg').data([data])
             gEnter = svg.enter().append('svg')
@@ -19,38 +18,8 @@ Bonnie.viz.measureVisualzation = ->
                 populationElement = gEnter.append('g')
                     .attr("width", width)
                     .attr("class", population)
-                    rows += drawCondition(data[population].preconditions[0], populationElement, ++rows) if data[population].preconditions?
-            # gIPP = gEnter.append('g')
-            # gIPP.attr("width", width)
-            # gIPP.attr("class", "IPP")
-            # rows = drawCondition(data.IPP.preconditions[0], gIPP, 0)
-            # if data.DENOM.preconditions?
-            #     gDENOM = gEnter.append('g')
-            #     gDENOM.attr("width", width)
-            #     gDENOM.attr("class", "DENOM")
-            #     rows = drawCondition(data.DENOM.preconditions[0], gDENOM, ++rows)
-            # else
-            #     rows++
-            # if data.NUMER.preconditions?
-            #     gNUMER = gEnter.append('g')
-            #     gNUMER.attr("width", width)
-            #     gNUMER.attr("class", "NUMER")
-            #     rows = drawCondition(data.NUMER.preconditions[0], gNUMER, ++rows)
-            # else
-            #     rows++
-
-
-            # if data.DENEX?
-            #     gDENEX = gEnter.append('g')
-            #     gDENEX.attr("width", width)
-            #     gDENEX.attr("class", "DENEX")
-            #     rows = drawCondition(data.DENEX.preconditions[0], gDENEX, ++rows)
-            # else
-            #     rows++
-            
-
-
-                
+                    rows = render(data[population], populationElement, ++rows, 0) if data[population].preconditions?
+                            
 
 
     width = 600
@@ -120,8 +89,13 @@ Bonnie.viz.measureVisualzation = ->
                 element.attr("width", parent.attr("width"))
                     .attr("negation", condition.negation)
                 for precondition in condition.preconditions
-                    drawCondition(precondition, element, row, col++, condition.preconditions.length)
+                    drawCondition(precondition, element, row, col, condition.preconditions.length)
         else
+            if condition.conjunction_code? and dataCriteria[condition.reference].children_criteria?
+                for precondition in dataCriteria[condition.reference].children_criteria
+                    element.attr("width", parent.attr("width"))
+                        .attr("negation", condition.negation)
+                    drawGroupData(precondition, element, row++, col)
             element.append("rect")
                 .attr("id", condition.id)
                 .attr("y", (d) -> row*rowHeight)
@@ -138,8 +112,97 @@ Bonnie.viz.measureVisualzation = ->
                 .attr('data-container', '.measure-viz')
                 .attr('condition', JSON.stringify(condition))
         return row
-            
         
+    drawGroupData = (reference, parent, row, col, columns) -> 
+        col = 0 unless col?
+        columns = 1 unless columns?
+        parent.append("rect")
+                .attr("id", reference.id)
+                .attr("y", (d) -> row*rowHeight)
+                .attr("x", (d) -> parent.attr("width")/columns * col)
+                .attr("height", rowHeight - rowPadding.top)
+                .attr("width", parent.attr("width")/columns-rowPadding.left)
+                .attr("precondition",(d) => reference.reference)
+                .attr("negation", reference.negation)
+                .attr("class", "precondition")
+                .attr('data-placement', "auto")
+                .attr('data-html', true)
+                .attr('data-content', dataCriteria[reference]['description'])
+                .attr('data-trigger', "hover focus")
+                .attr('data-container', '.measure-viz')
+                .attr('reference', JSON.stringify(reference))
+
+    render = (population, parent, row, col) ->
+        if population.preconditions[0].conjunction_code == "allTrue"
+            return renderAnd(population.preconditions, parent, row++, col, width)
+        if population.conjunction_code == "atLeastOneTrue"
+            return renderOr(population.preconditions, parent, row, col++, width/population.preconditions.length)
+        return row
+
+            
+
+    renderAnd = (conditions, parent, row, col, width) ->
+        for condition in conditions
+            # If this is a leaf node we should just render it
+            if not condition.conjunction_code?
+                renderElement(condition, parent, row++, col, width)
+                continue
+                
+
+            # If this is a node with a groupData lookup we should handle that    
+            if condition.conjunction_code? and not condition.preconditions?
+                parent.append("g").attr("type", "groupData")
+                console.log condition.reference
+                continue
+
+            element = parent.append("g").attr("id", condition.id).attr("type", "AND")
+            
+            if condition.conjunction_code == "allTrue"
+                renderAnd(condition.preconditions, element, row++, col, width)              
+                continue
+
+            if condition.conjunction_code == "atLeastOneTrue"
+                renderOr(condition.preconditions, element, row, col, width)
+                continue
+    
+    renderOr = (conditions, parent, row, col, width) ->
+        for condition in conditions
+            # If this is a leaf node we should just render it
+            if not condition.conjunction_code?
+                renderElement(condition, parent, row, col++, width)
+                continue
+
+            # If this is a node with a groupData lookup we should handle that    
+            if condition.conjunction_code? and not condition.preconditions?
+                # Handling logic here
+                parent.append("g").attr("type", "groupData")
+                console.log condition.reference
+                continue
+                
+
+            element = parent.append("g").attr("id", condition.id).attr("type", "OR")
+            
+            if condition.conjunction_code == "allTrue"
+                renderAnd(condition.preconditions, element, row++, col, width)
+
+            if condition.conjunction_code == "atLeastOneTrue"
+                renderOr(condition.preconditions, element, row, col, width/conditions.length)
+
+    renderElement = (condition, parent, row, col, width) -> 
+        parent.append("rect")
+            .attr("id", condition.id)
+            .attr("y", (d) -> row*rowHeight)
+            .attr("x", (d) -> col * width)
+            .attr("height", rowHeight - rowPadding.top)
+            .attr("width", width-rowPadding.left)
+            .attr("precondition",(d) => condition.reference)
+            .attr("negation", condition.negation)
+            .attr("class", "precondition")
+            .attr('data-placement', "auto")
+            .attr('data-html', true)
+            .attr('data-content', dataCriteria[condition.reference].description)
+            .attr('data-trigger', "hover focus")
+            .attr('data-container', '.measure-viz')
 
     my
 
