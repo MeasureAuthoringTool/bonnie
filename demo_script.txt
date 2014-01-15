@@ -57,3 +57,15 @@ Demo Script (Target 12/22/2013)
 26. User clicks the load button to dismiss the dialog and the measure loads
 27. User is returned to the measure view with the NQF0435 re-loaded.
 28. User notes that all patients are now passing
+29. User notes total coverage amount, and wishes to expand it with another test patient
+30. User clones the "Ischemic No Meds" patient to create an "Ischemic Refused Meds" patient
+31. User changes the name to "Ischemic Refused Meds", changes the expected values to include "EXCP", and adds "Medication, Order: Antithrombotic Therapy" NOT PERFORMED (Patient refusal)
+
+  Name: Ischemic Refused Meds
+  Expected Values: IPP, DEN, EXCP
+  Medication, Order: Antithrombotic Therapy
+    start: 11/08/2012 02:00
+    end: 11/08/2012 03:00
+    NOT PERFORMED (Patient refusal)
+
+32. User notes that the total coverage amount has increased
