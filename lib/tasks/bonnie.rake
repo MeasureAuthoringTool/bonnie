@@ -27,6 +27,32 @@ namespace :bonnie do
       puts "#{ENV['EMAIL']} is no longer an administrator."
     end
 
+    desc %{Grant an existing bonnie user portfolio privileges.
+
+    You must identify the user by USER_ID or EMAIL:
+
+    $ rake bonnie:users:grant_portfolio USER_ID=###
+    or
+    $ rake bonnie:users:grant_portfolio EMAIL=xxx}
+    task :grant_portfolio => :environment do
+      user = User.find_by email: ENV['EMAIL']
+      user.grant_portfolio()
+      puts "#{ENV['EMAIL']} is now a portfolio user."
+    end
+
+    desc %{Remove the portfolio role from an existing bonnie user.
+
+    You must identify the user by USER_ID or EMAIL:
+
+    $ rake bonnie:users:revoke_portfolio USER_ID=###
+    or
+    $ rake bonnie:users:revoke_portfolio EMAIL=xxx}
+    task :revoke_portfolio => :environment do
+      user = User.find_by email: ENV["EMAIL"]
+      user.revoke_portfolio()
+      puts "#{ENV['EMAIL']} is no longer a portfolio user."
+    end
+
     desc 'Associate the currently loaded measures with the first User; use EMAIL=<user email> to select another user'
     task :associate_user_with_measures => :environment do
       user_email = ENV['EMAIL'] || User.first.email

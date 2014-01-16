@@ -30,6 +30,7 @@ class User
   field :last_name,    :type => String
   field :telephone,    :type => String
   field :admin, type:Boolean, :default => false
+  field :portfolio, type:Boolean, :default => false
 
   has_many :measures
   has_many :records
@@ -60,6 +61,18 @@ class User
 
   def revoke_admin
     update_attribute(:admin, false)
+  end
+
+  def is_portfolio?
+    portfolio || false
+  end
+
+  def grant_portfolio
+    update_attribute(:portfolio, true)
+  end
+
+  def revoke_portfolio
+    update_attribute(:portfolio, false)
   end
 
 end
