@@ -134,9 +134,6 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
 
   context: ->
     _(super).extend
-      typePQ: @model.get('type') is 'PQ'
-      typeCD: @model.get('type') is 'CD'
-      typeTS: @model.get('type') is 'TS'
       codes: @measure.get('value_sets').map (vs) -> vs.toJSON()
       fields: Thorax.Models.Measure.logicFieldsFor(@criteriaType)
 
@@ -151,27 +148,17 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       title = @measure.get('value_sets').findWhere(oid: attr.code_list_id)?.get('display_name')
       attr.title = title if title
     rendered: ->
+      @$("select[name=type]").selectBoxIt()
       @$('.time-picker').timepicker()
-
-  # Below need to work for any value, not just first
-  setScalarValue: (e) ->
-    e.preventDefault()
-    @model.set 'type', 'PQ'
-
-  setCodedValue: (e) ->
-    e.preventDefault()
-    @model.set 'type', 'CD'
-
-  setTimeValue: (e) ->
-    e.preventDefault()
-    @model.set 'type', 'TS'
+    'change select[name=type]': (e) -> @model.set type: $(e.target).val()
 
   addValue: (e) ->
     e.preventDefault()
     @serialize()
     @values.add @model.clone()
-    # Reset model to default value (as described in initialize), then reset form (unfortunately not re-rendered automatically)
-    @model.clear()
-    @model.set('type', 'PQ') # TODO unify this line with setting the type in `initialize`
-    @$('select').val ''
+    # Reset model to default values
+    @model.set(key, null, silent: true) for key in @model.keys() # @model.clear() removes attributes; that doesn't reset form
+    @model.set type: 'PQ'
+    # Let the selectBoxIt() select box know that its value may have changed
+    @$('select[name=type]').change()
     @triggerMaterialize()
