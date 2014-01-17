@@ -55,7 +55,7 @@ class BonnieRouter extends Backbone.Router
     @calculator.cancelCalculations()
     measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_id: measure?.get('hqmf_set_id')}, parse: true
-    patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients)
+    patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
     @mainView.setView patientBuilderView
 
   # This method is to be called directly, and not triggered via a
@@ -63,7 +63,7 @@ class BonnieRouter extends Backbone.Router
   # mode populated with data from an existing patient, ie a clone
   navigateToPatientBuilder: (patient, measure) ->
     measure ?= @measures.findWhere {hqmf_set_id: patient.get('measure_id')}
-    @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients)
+    @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
     @navigate "measures/#{measure.get('hqmf_set_id')}/patients/new"
 
   showError: (error)->
