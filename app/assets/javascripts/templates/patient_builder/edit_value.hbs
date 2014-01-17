@@ -10,28 +10,27 @@
 {{/if}}
 
 <div class="row">
-  <div class="btn-group col-md-2">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Type <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-      <li>{{#button "setScalarValue" tag="a"}}<i class="fa fa-pencil-square-o"></i> Scalar{{/button}}</li>
-      <li>{{#button "setCodedValue" tag="a"}}<i class="fa fa-list"></i> Coded{{/button}}</li>
+  <div class="col-md-3">
+    <select name="type">
+      <option value="PQ" data-icon="fa fa-pencil-square-o">Scalar</option>
+      <option value="CD" data-icon="fa fa-list">Coded</option>
       {{#if fieldValue}}
-        <li>{{#button "setTimeValue" tag="a"}}<i class="fa fa-calendar"></i> Time{{/button}}</li>
+        <option value="TS" data-icon="fa fa-calendar">Time</option>
       {{/if}}
-    </ul>
+    </select>
   </div>
 
-  {{#if typePQ}}
+  {{#ifCond type '==' 'PQ'}}
     <div class="col-md-6">
       <input type="text" name="value" class="form-control" placeholder="input">
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       <input type="text" name="unit" class="form-control" placeholder="units">
     </div>
-  {{/if}}
+  {{/ifCond}}
 
-  {{#if typeCD}}
-    <div class="col-md-9">
+  {{#ifCond type '==' 'CD'}}
+    <div class="col-md-8">
       <select name="code_list_id" class="form-control">
         <option value="">--</option>
         {{#each codes tag="select" name="code_list_id"}}
@@ -39,16 +38,16 @@
         {{/each}}
       </select>
     </div>
-  {{/if}}
+  {{/ifCond}}
 
-  {{#if typeTS}}
+  {{#ifCond type '==' 'TS'}}
     <div class="col-md-5">
       <input type="text" name="start_date" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-autoclose="true">
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <input type="text" name="start_time" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="false">
     </div>
-  {{/if}}
+  {{/ifCond}}
 
   <div class="col-md-1">
     {{#button "addValue" class="btn btn-primary pull-right"}}<i class="fa fa-plus"></i>{{/button}}

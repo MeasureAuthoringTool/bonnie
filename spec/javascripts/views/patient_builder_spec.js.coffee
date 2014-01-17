@@ -18,12 +18,12 @@ describe 'PatientBuilderView', ->
       @patientBuilder.appendTo 'body'
       @patientBuilder.$(':input[name=last]').val("LAST NAME")
       @patientBuilder.$(':input[name=first]').val("FIRST NAME")
-      @patientBuilder.$('select[name=payer] option[value=MA]').prop('selected', true)
-      @patientBuilder.$('select[name=gender] option[value=F]').prop('selected', true)
+      @patientBuilder.$('select[name=payer]').val('MA')
+      @patientBuilder.$('select[name=gender]').val('F')
       @patientBuilder.$(':input[name=birthdate]').val('01/02/1993')
       @patientBuilder.$(':input[name=birthtime]').val('1:15 PM')
-      @patientBuilder.$("select[name=race] option[value='2131-1']").prop('selected', true)
-      @patientBuilder.$("select[name=ethnicity] option[value='2135-2']").prop('selected', true)
+      @patientBuilder.$('select[name=race]').val('2131-1')
+      @patientBuilder.$('select[name=ethnicity]').val('2135-2')
       @patientBuilder.$("button[data-call-method=save]").click()
 
     it "serializes the attributes correctly", ->
@@ -43,7 +43,7 @@ describe 'PatientBuilderView', ->
 
   describe "changing and blurring basic fields", ->
     beforeEach ->
-      @patientBuilder.$('select[name=gender] option[value=F]').change()
+      @patientBuilder.$('select[name=gender]').val('F').change()
       @patientBuilder.$(':input[name=birthdate]').blur()
 
     it "materializes the patient", ->
@@ -108,7 +108,7 @@ describe 'PatientBuilderView', ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
       @patientBuilder.$('input[name=negation]:first').click()
-      @patientBuilder.$("select[name=negation_code_list_id]:first option[value='2.16.840.1.113883.3.464.1003.196.12.1253']").prop('selected', true)
+      @patientBuilder.$('select[name=negation_code_list_id]:first').val('2.16.840.1.113883.3.464.1003.196.12.1253')
       @patientBuilder.$("button[data-call-method=save]").click()
 
     it "serializes correctly", ->
@@ -130,19 +130,17 @@ describe 'PatientBuilderView', ->
     afterEach -> @patientBuilder.remove()
 
 
-  describe "adds values to an encounter", ->
+  describe "adding values to an encounter", ->
       beforeEach ->
         @patientBuilder.appendTo 'body'
         @addScalarValue = (input, units) ->
-          @patientBuilder.$('.dropdown-toggle:first').click()
-          @patientBuilder.$('.dropdown-menu:eq(0) li:eq(0) a').click()
+          @patientBuilder.$('select[name=type]:first').val('PQ').change()
           @patientBuilder.$('input[name=value]:first').val(input)
           @patientBuilder.$('input[name=unit]:first').val(units)
           @patientBuilder.$('.value-formset .btn-primary:first').click()
         @addCodedValue = (codeListId) ->
-          @patientBuilder.$('.dropdown-toggle:first').click()
-          @patientBuilder.$('.dropdown-menu:eq(0) li:eq(1) a').click()
-          @patientBuilder.$("select[name=code_list_id] option[value='#{codeListId}']").prop('selected', true)
+          @patientBuilder.$('select[name=type]:first').val('CD').change()
+          @patientBuilder.$('select[name=code_list_id]').val(codeListId)
           @patientBuilder.$('.value-formset .btn-primary:first').click()
 
       it "adds a scalar value", ->
@@ -172,21 +170,19 @@ describe 'PatientBuilderView', ->
       afterEach -> @patientBuilder.remove()
 
 
-  describe "adds field values to an encounter", ->
+  describe "adding field values to an encounter", ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
       @addScalarFieldValue = (fieldType, input, units) ->
-        @patientBuilder.$("select[name=key] option[value=#{fieldType}]").prop('selected', true)
-        @patientBuilder.$('.dropdown-toggle:eq(1)').click()
-        @patientBuilder.$('.dropdown-menu:eq(0) li:eq(0) a').click()
+        @patientBuilder.$('select[name=key]').val(fieldType)
+        @patientBuilder.$('select[name=type]:eq(1)').val('PQ').change()
         @patientBuilder.$('input[name=value]:eq(1)').val(input)
         @patientBuilder.$('input[name=unit]:eq(1)').val(units)
         @patientBuilder.$('.field-value-formset .btn-primary:first').click()
       @addCodedFieldValue = (fieldType, codeListId) ->
-        @patientBuilder.$("select[name=key] option[value=#{fieldType}]").prop('selected', true)
-        @patientBuilder.$('.dropdown-toggle:eq(1)').click()
-        @patientBuilder.$('.dropdown-menu:eq(1) li:eq(1) a').click()
-        @patientBuilder.$("select[name=code_list_id] option[value='#{codeListId}']").prop('selected', true)
+        @patientBuilder.$('select[name=key]').val(fieldType)
+        @patientBuilder.$('select[name=type]:eq(1)').val('CD').change()
+        @patientBuilder.$('select[name=code_list_id]').val(codeListId)
         @patientBuilder.$('.field-value-formset .btn-primary:first').click()
 
     it "adds a scalar field value", ->
@@ -198,7 +194,7 @@ describe 'PatientBuilderView', ->
       expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('value')).toEqual '1'
       expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('unit')).toEqual 'mg'
 
-    it "adds a coded value to model", ->
+    it "adds a coded field value", ->
       expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 0
       @addCodedFieldValue 'REASON', '2.16.840.1.113883.3.464.1003.101.12.1023'
       expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 1
@@ -218,7 +214,7 @@ describe 'PatientBuilderView', ->
     afterEach -> @patientBuilder.remove()
 
 
-  describe "sets expected values", ->
+  describe "seting expected values", ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
       @patientBuilder.$('input[type=checkbox][name=DENOM]:first').click()
