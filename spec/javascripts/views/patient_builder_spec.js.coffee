@@ -135,59 +135,66 @@ describe 'PatientBuilderView', ->
 
 
   describe "adding values to an encounter", ->
-      beforeEach ->
-        @patientBuilder.appendTo 'body'
-        @addScalarValue = (input, units) ->
-          @patientBuilder.$('select[name=type]:first').val('PQ').change()
-          @patientBuilder.$('input[name=value]:first').val(input)
-          @patientBuilder.$('input[name=unit]:first').val(units)
-          @patientBuilder.$('.value-formset .btn-primary:first').click()
-        @addCodedValue = (codeListId) ->
-          @patientBuilder.$('select[name=type]:first').val('CD').change()
-          @patientBuilder.$('select[name=code_list_id]').val(codeListId)
-          @patientBuilder.$('.value-formset .btn-primary:first').click()
+    beforeEach ->
+      @patientBuilder.appendTo 'body'
+      @addScalarValue = (input, units, submit=true) ->
+        @patientBuilder.$('select[name=type]:first').val('PQ').change()
+        @patientBuilder.$('input[name=value]:first').val(input).keyup()
+        @patientBuilder.$('input[name=unit]:first').val(units)
+        @patientBuilder.$('.value-formset .btn-primary:first').click() if submit
+      @addCodedValue = (codeListId, submit=true) ->
+        @patientBuilder.$('select[name=type]:first').val('CD').change()
+        @patientBuilder.$('select[name=code_list_id]').val(codeListId).change()
+        @patientBuilder.$('.value-formset .btn-primary:first').click() if submit
 
-      it "adds a scalar value", ->
-        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 0
-        @addScalarValue 1, 'mg'
-        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 1
-        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('type')).toEqual 'PQ'
-        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('value')).toEqual '1'
-        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('unit')).toEqual 'mg'
+    it "adds a scalar value", ->
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 0
+      @addScalarValue 1, 'mg'
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 1
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('type')).toEqual 'PQ'
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('value')).toEqual '1'
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('unit')).toEqual 'mg'
 
-      it "adds a coded value", ->
-        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 0
-        @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1001'
-        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 1
-        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('type')).toEqual 'CD'
-        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1001'
-        expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('title')).toEqual 'Office Visit'
+    it "adds a coded value", ->
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 0
+      @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1001'
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 1
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('type')).toEqual 'CD'
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1001'
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('title')).toEqual 'Office Visit'
 
-      it "materializes the patient", ->
-        expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
-        @addScalarValue 1, 'mg'
-        expect(@patientBuilder.model.materialize).toHaveBeenCalled()
-        expect(@patientBuilder.model.materialize.calls.length).toEqual 1
-        @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1001'
-        expect(@patientBuilder.model.materialize.calls.length).toEqual 2
+    it "materializes the patient", ->
+      expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
+      @addScalarValue 1, 'mg'
+      expect(@patientBuilder.model.materialize).toHaveBeenCalled()
+      expect(@patientBuilder.model.materialize.calls.length).toEqual 1
+      @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1001'
+      expect(@patientBuilder.model.materialize.calls.length).toEqual 2
 
-      afterEach -> @patientBuilder.remove()
+    it "disables input until form is filled out", ->
+      expect(@patientBuilder.$('.value-formset .btn-primary:first')).toBeDisabled()
+      @addScalarValue 1, 'mg', false
+      expect(@patientBuilder.$('.value-formset .btn-primary:first')).not.toBeDisabled()
+      @addScalarValue '', '', false
+      expect(@patientBuilder.$('.value-formset .btn-primary:first')).toBeDisabled()
+
+    afterEach -> @patientBuilder.remove()
 
 
   describe "adding field values to an encounter", ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
-      @addScalarFieldValue = (fieldType, input, units) ->
+      @addScalarFieldValue = (fieldType, input, units, submit=true) ->
         @patientBuilder.$('select[name=key]').val(fieldType)
         @patientBuilder.$('select[name=type]:eq(1)').val('PQ').change()
-        @patientBuilder.$('input[name=value]:eq(1)').val(input)
+        @patientBuilder.$('input[name=value]:eq(1)').val(input).keyup()
         @patientBuilder.$('input[name=unit]:eq(1)').val(units)
-        @patientBuilder.$('.field-value-formset .btn-primary:first').click()
-      @addCodedFieldValue = (fieldType, codeListId) ->
-        @patientBuilder.$('select[name=key]').val(fieldType)
+        @patientBuilder.$('.field-value-formset .btn-primary:first').click() if submit
+      @addCodedFieldValue = (fieldType, codeListId, submit=true) ->
+        @patientBuilder.$('select[name=key]').val(fieldType).change()
         @patientBuilder.$('select[name=type]:eq(1)').val('CD').change()
-        @patientBuilder.$('select[name=code_list_id]').val(codeListId)
-        @patientBuilder.$('.field-value-formset .btn-primary:first').click()
+        @patientBuilder.$('select[name=code_list_id]').val(codeListId).change()
+        @patientBuilder.$('.field-value-formset .btn-primary:first').click() if submit
 
     it "adds a scalar field value", ->
       expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 0
@@ -209,11 +216,18 @@ describe 'PatientBuilderView', ->
 
     it "materializes the patient", ->
       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
-      @addScalarFieldValue 1, 'mg'
+      @addScalarFieldValue 'DOSE', 1, 'mg'
       expect(@patientBuilder.model.materialize).toHaveBeenCalled()
       expect(@patientBuilder.model.materialize.calls.length).toEqual 1
-      @addCodedFieldValue()
+      @addCodedFieldValue 'REASON', '2.16.840.1.113883.3.464.1003.101.12.1023'
       expect(@patientBuilder.model.materialize.calls.length).toEqual 2
+
+    it "disables input until form is filled out", ->
+      expect(@patientBuilder.$('.field-value-formset .btn-primary:first')).toBeDisabled()
+      @addScalarFieldValue 'DOSE', 1, 'mg', false
+      expect(@patientBuilder.$('.field-value-formset .btn-primary:first')).not.toBeDisabled()
+      @addScalarFieldValue '', '', '', false
+      expect(@patientBuilder.$('.field-value-formset .btn-primary:first')).toBeDisabled()
 
     afterEach -> @patientBuilder.remove()
 

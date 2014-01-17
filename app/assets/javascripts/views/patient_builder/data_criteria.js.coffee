@@ -150,15 +150,29 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     rendered: ->
       @$("select[name=type]").selectBoxIt()
       @$('.time-picker').timepicker()
-    'change select[name=type]': (e) -> @model.set type: $(e.target).val()
+    'change select[name=type]': (e) ->
+      @model.set type: $(e.target).val()
+      @validateForAddition()
+    'change select': 'validateForAddition'
+    'keyup input': 'validateForAddition'
+
+  validateForAddition: ->
+    attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
+    isDisabled = (attributes.type == 'PQ' && !attributes.value) ||
+                 (attributes.type == 'CD' && !attributes.code_list_id) ||
+                 (attributes.type == 'TS' && !attributes.start_date) ||
+                 (@fieldValue && !attributes.key)
+    @$('button[data-call-method=addValue]').prop 'disabled', isDisabled
 
   addValue: (e) ->
     e.preventDefault()
     @serialize()
     @values.add @model.clone()
     # Reset model to default values
-    @model.set(key, null, silent: true) for key in @model.keys() # @model.clear() removes attributes; that doesn't reset form
+    @model.clear()
     @model.set type: 'PQ'
+    # clear() removes fields (which we want), but then populate() doesn't clear the select; clear it
+    @$('select[name=key]').val('')
     # Let the selectBoxIt() select box know that its value may have changed
     @$('select[name=type]').change()
     @triggerMaterialize()
