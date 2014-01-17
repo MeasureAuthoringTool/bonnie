@@ -4,6 +4,9 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
     _(@pick(Thorax.Models.Measure.allPopulationCodes)).keys()
 
   isMatch: (result) ->
+    # account for OBSERV if an actual value exists
+    unless @has 'OBSERV' then if result.get('values')?[0]? then @set 'OBSERV', undefined
+
     for popCrit in @populationCriteria()
       if popCrit is 'OBSERV' then return false unless @get(popCrit) == result.get('values')?[0]
       else return false unless @get(popCrit) == result.get(popCrit)
