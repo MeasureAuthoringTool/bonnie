@@ -92,9 +92,13 @@ describe 'PatientBuilderView', ->
   describe "editing basic attributes of a criteria", ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
+      @patientBuilder.$('button[data-call-method=toggleDetails]:first').click()
       @patientBuilder.$(':input[name=start_date]:first').val('08/10/2012')
       @patientBuilder.$(':input[name=start_time]:first').val('3:33')
       @patientBuilder.$(':input[name=end_date_is_undefined]:first').click()
+      # verify DOM as well
+      expect(@patientBuilder.$(':input[name=end_date]:first')).toBeDisabled()
+      expect(@patientBuilder.$(':input[name=end_time]:first')).toBeDisabled()
       @patientBuilder.$("button[data-call-method=save]").click()
 
     it "serializes the attributes correctly", ->
