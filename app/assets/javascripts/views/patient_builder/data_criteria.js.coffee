@@ -16,8 +16,7 @@ class Thorax.Views.SelectCriteriaView extends Thorax.View
   events:
     rendered: ->
       # FIXME: We'd like to do this via straight thorax events, doesn't seem to work...
-      @$('.collapse').on 'show.bs.collapse', (e) => @$('.indicator').removeClass('fa-angle-right').addClass('fa-angle-down')
-      @$('.collapse').on 'hide.bs.collapse', (e) => @$('.indicator').removeClass('fa-angle-down').addClass('fa-angle-right')
+      @$('.collapse').on 'show.bs.collapse hide.bs.collapse', => @$('.panel-expander').toggleClass('fa-angle-right fa-angle-down')
   faIcon: -> @collection.first()?.toPatientDataCriteria()?.faIcon()
 
 
