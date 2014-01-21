@@ -159,10 +159,35 @@
             left: -(@grid-gutter-width / 4) - 1; // width/2 (-1 to account for border)
             .rotate(45deg);
           }
+
+          .clearfix;
           border: 1px solid @gray;
           margin-left: (@grid-gutter-width / 2);
           padding: (@grid-gutter-width / 2);
           position: relative;
+          
+          .criteria-tag {
+            .pull-right;
+            background-color: @gray-lighter;
+            color: @gray-darker;
+            font-size: .8em;
+            margin-top: 10px;
+            padding: @padding-base-vertical @padding-base-horizontal;
+            margin-right: -(@grid-gutter-width / 2);
+
+            .criteria-tag-cms {
+              font-weight: 200;
+
+            }
+            .criteria-tag-num {
+              font-weight: bold;
+            }
+            .criteria-tag-version {
+              font-weight: 200;
+            }
+
+          }
+
           .control-label {
             color: @brand-primary;
           }
