@@ -7,10 +7,12 @@ class Thorax.Models.MeasureDataCriteria extends Thorax.Model
              end_date: new Date().getTime()
              value: new Thorax.Collection()
              field_values: new Thorax.Collection()
+             cms_id: @collection.parent.get("cms_id")
     new Thorax.Models.PatientDataCriteria attr
 
 class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
   model: Thorax.Models.MeasureDataCriteria
+  initialize: (models, options) -> @parent = options?.parent
 
 # Used for patient encounters. idAttribute is null, as the model itself
 # isn't responsible for persisting itself, and the collection must support

@@ -53,6 +53,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
+    cms_id_parts = (@model.get("cms_id").match(/CMS(\d+)(V\d+)/i) || [])
     _(super).extend
       start_date: moment(@model.get('start_date')).format('L') if @model.get('start_date')
       start_time: moment(@model.get('start_date')).format('LT') if @model.get('start_date')
@@ -60,6 +61,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       end_time: moment(@model.get('end_date')).format('LT') if @model.get('end_date')
       end_date_is_undefined: !@model.has('end_date')
       codes: @measure.get('value_sets').map (vs) -> vs.toJSON()
+      cms_id_number: cms_id_parts[1]
+      cms_id_version: cms_id_parts[2]
       faIcon: @model.faIcon()
 
   # When we serialize the form, we want to convert formatted dates back to times

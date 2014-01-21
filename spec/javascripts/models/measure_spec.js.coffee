@@ -10,6 +10,9 @@ describe 'Measure', ->
   it 'has the expected number of populations', ->
     expect(@measure.get('populations').length).toEqual 1
 
+  it 'has set itself as parent on measure_data_criteria', ->
+    expect(@measure.get("source_data_criteria").get('parent') == @measure)  
+
   it 'can calulate results for a patient', ->
     collection = new Thorax.Collections.Patients getJSONFixture('patients.json')
     patient = collection.findWhere(first: 'GP_Peds', last: 'A')
