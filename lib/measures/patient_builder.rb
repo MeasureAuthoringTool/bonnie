@@ -34,7 +34,7 @@ module Measures
         # if its a thing like result, condition, encounter it will have an entry otherwise 
         # its most likely a characteristic
         if entry
-          derive_values(entry, v['values'] ,value_sets)
+          derive_values(entry, v['value'] ,value_sets)
           derive_negation(entry, v, value_sets)
           derive_field_values(entry, v['field_values'],value_sets)
          
@@ -93,7 +93,7 @@ module Measures
 
     # derive the values for the source data criteira
     def self.derive_values(entry, values, value_sets)
-      return if values.nil?
+      return if values.nil? || values.empty?
       derived = []
       result_vals = values
       result_vals = [result_vals] if !result_vals.is_a? Array 
