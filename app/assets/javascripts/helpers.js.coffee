@@ -5,10 +5,12 @@ Handlebars.registerHelper 'debug', -> debugger
 # add a helper for formatting dates
 Handlebars.registerHelper 'moment', (date, format) -> moment(date).format(format)
 
-# Is the current user an admin? For convenience in deciding what UI
+# Is the current user an admin or portfolio user? For convenience in deciding what UI
 # elements to display, not trustable for security purposes
 Handlebars.registerHelper 'ifAdmin', (options) ->
   if bonnie.isAdmin then options.fn(this) else options.inverse(this)
+Handlebars.registerHelper 'ifPortfolio', (options) ->
+  if bonnie.isPortfolio then options.fn(this) else options.inverse(this)
 
 Handlebars.registerHelper 'ifCond', (v1, operator, v2, options) ->
   switch operator

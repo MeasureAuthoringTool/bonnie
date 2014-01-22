@@ -26,8 +26,10 @@
       <% @patients.each do |patient| %>
         (function() {
           var patient = new Thorax.Models.Patient(<%= patient.to_json(except: :results).html_safe %>, { parse: true });
-          bonnie.measures.each(function(measure) { 
-            if(_(patient.get('measure_ids')).contains(measure.get('hqmf_set_id'))) {
+          bonnie.measures.each(function(measure) {
+            if (<%= current_user.is_portfolio? %>) {
+              measure.get('patients').add(patient);
+            } else if(_(patient.get('measure_ids')).contains(measure.get('hqmf_set_id'))) {
               measure.get('patients').add(patient);
             }
           });
@@ -41,7 +43,8 @@
           bonnie.showError(<%= flash[:error].to_json.html_safe %>);
         <% end %>
       });
-      bonnie.isAdmin = <%= current_user.admin %>;
+      bonnie.isAdmin = <%= current_user.is_admin? %>;
+      bonnie.isPortfolio = <%= current_user.is_portfolio? %>;
     </script>
   </body>
 </html>
