@@ -1,8 +1,5 @@
 class Thorax.Views.Measure extends Thorax.View
   template: JST['measure']
-  events:
-    rendered: -> @$("[rel='popover']").popover(content: @$('.popover-tmpl').text())
-    'click .delete-measure': 'deleteMeasure'
 
   initialize: ->
     populations = @model.get 'populations'
@@ -31,3 +28,15 @@ class Thorax.Views.Measure extends Thorax.View
   deleteMeasure: (e) ->
     @model = $(e.target).model()
     @model.destroy()
+    bonnie.renderMeasures()
+
+  toggleDetails: (e) ->
+    e.preventDefault()
+    unless @$('.measure-settings').hasClass('measure-settings-expanded-delete')
+      @$('.measure-settings').toggleClass('measure-settings-expanded')
+
+  showDelete: (e) ->
+    e.preventDefault()
+    $btn = $(e.currentTarget)
+    @$('.measure-settings-expanded').toggleClass('measure-settings-expanded-delete')
+    $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
