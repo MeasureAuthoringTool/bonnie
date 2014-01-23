@@ -25,11 +25,50 @@
     .title-bar;
     .short-title {
       font-size: 1.8em;
-      padding-right: 15px;
       line-height: 1.75;
+      padding-right: 15px;
     }
     .full-title {
       line-height: 1.6;
+      padding-right: 10px;
+    }
+    .settings-container {
+      position: absolute;
+      top: 0;
+      right: 15px;
+    }
+    .btn-settings {
+      font-size: 1.8em;
+      line-height: 1.75;
+    }
+    .measure-settings {
+      visibility: hidden;
+      opacity: 0;
+      background-color: @gray-lighter;
+      position: absolute;
+      top: 4px;
+      .transition(opacity 0.5s linear);
+      .btn-danger {
+        .fa {
+          color: @btn-danger-color;
+        }
+      }
+      .btn-danger-inverse {
+        .fa {
+          color: @btn-danger-bg;
+        }
+      }
+      .update-measure {
+        .fa {
+          color: @brand-primary;
+        }
+      }
+    }
+    .measure-settings-expanded {
+      visibility: visible;
+      opacity: 1;
+      right: 1.8em;
+      white-space: nowrap;
     }
   }
 
