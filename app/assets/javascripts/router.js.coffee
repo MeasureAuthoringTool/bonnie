@@ -54,7 +54,7 @@ class BonnieRouter extends Backbone.Router
   renderPatientBuilder: (measureHqmfSetId, patientId) ->
     @calculator.cancelCalculations()
     measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
-    patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_id: measure?.get('hqmf_set_id')}, parse: true
+    patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
     patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
     @mainView.setView patientBuilderView
 
@@ -62,7 +62,8 @@ class BonnieRouter extends Backbone.Router
   # route; it allows the patient builder to be used in new patient
   # mode populated with data from an existing patient, ie a clone
   navigateToPatientBuilder: (patient, measure) ->
-    measure ?= @measures.findWhere {hqmf_set_id: patient.get('measure_id')}
+    # FIXME: Remove this when the Patients View is removed; select the first measure if a measure isn't passed in
+    measure ?= @measures.findWhere {hqmf_set_id: patient.get('measure_ids')[0]}
     @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
     @navigate "measures/#{measure.get('hqmf_set_id')}/patients/new"
 
