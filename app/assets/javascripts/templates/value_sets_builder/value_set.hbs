@@ -1,0 +1,31 @@
+<div class="value-set-entry">
+  <div class="criteria-details">
+    <div class="row">
+      {{#button "toggleDetails" class="close"}}<i class="fa fa-lg fa-angle-right"></i>{{/button}}
+      <div>
+        <h4><i class="fa fa-fw fa-lg fa-list"></i> <span class="badge">{{oid}}</span> {{display_name}}</h4>
+      </div>
+    </div>
+  </div>
+  <form class="hide" role="form">
+    <div class="row">
+      {{#button "toggleDetails" class="close"}}<i class="fa fa-lg fa-angle-down"></i>{{/button}}
+
+      <h4><i class="fa fa-fw fa-lg fa-list"></i> <span class="badge">{{oid}}</span> {{display_name}}</h4>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h5 class="panel-title"><i class="fa fa-list-ul"></i> Codes</h5>
+        </div>
+        <div class="panel-body">
+          {{#collection codes class="existing-values list-group" tag="ul"}}
+            <li class="list-group-item">
+              <span class="badge">{{code}}</span> <span class="label label-default">{{code_system}}</span> <span class="label label-{{#if ../white}}success{{else}}{{#if ../../black}}danger{{else}}info{{/if}}{{/if}}">{{code_system_name}}</span> {{display_name}}
+              {{!-- {{#button "removeValue" class="btn btn-link close delete"}}&times;{{/button}} --}}
+            </li>
+          {{/collection}}
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

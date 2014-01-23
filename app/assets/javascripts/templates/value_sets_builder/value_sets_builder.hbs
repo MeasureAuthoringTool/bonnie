@@ -1,0 +1,38 @@
+<div class="row">
+  <h1 class="heading-primary">Value Sets</h1>
+  
+  {{!-- <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">Default List</h2>
+    </div>
+    <div class="panel-body">
+      {{view defaultListCollectionView}}
+    </div>
+  </div> --}}
+
+  {{#empty whiteList}}
+    <h2>No white-listed Value Sets found!</h2>
+  {{else}}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">White List</h2>
+      </div>
+      <div class="panel-body">
+        {{view whiteListCollectionView}}
+      </div>
+    </div>
+  {{/empty}}
+
+  {{#empty blackList}}
+    <h2>No black-listed Value Sets found!</h2>
+  {{else}}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Black List</h2>
+      </div>
+      <div class="panel-body">
+        {{view blackListCollectionView}}
+      </div>
+    </div>
+  {{/empty}}
+</div>
