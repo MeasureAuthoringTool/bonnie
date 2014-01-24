@@ -148,6 +148,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       attr.title = title if title
     rendered: ->
       @$("select[name=type]").selectBoxIt()
+      @$('.date-picker').datepicker()
       @$('.time-picker').timepicker()
     'change select[name=type]': (e) ->
       @model.set type: $(e.target).val()
