@@ -41,6 +41,8 @@ module Measures
           entry_type = HQMF::Generator.classify_entry(data_criteria['patient_api_function'].to_sym)
           section_name = (entry_type == "lab_results") ? "results" : entry_type
 
+          v['coded_entry_id'] = entry.id
+
           # Add the updated section to this patient.
           sections[section_name] ||= []
           sections[section_name].push(entry)
