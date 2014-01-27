@@ -43,6 +43,7 @@ class Thorax.Views.ValueSetView extends Thorax.View
   template: JST['value_sets_builder/value_set']
   events:
     'change .filter-vs': 'updateLists'
+    rendered: -> @$('.value-set-save').prop('disabled', true)
 
   initialize: ->
     @codes = new Thorax.Collection()
@@ -59,28 +60,17 @@ class Thorax.Views.ValueSetView extends Thorax.View
     @$('.criteria-type-marker').toggleClass('open')
 
   updateLists: (e) ->
-    # console.log e
-    # console.log $(e.target).model()
-    # debugger
     concept = $(e.target).model()
     originalConcept = _(@model.get('concepts')).findWhere({code: concept.get('code')})
-    # debugger
     if e.target.value is 'White-List'
-      # concept.set 'white_list', true
       originalConcept.white_list = true
-      # concept.set 'black_list', false
       originalConcept.black_list = false
     else if e.target.value is 'Black-List'
-      # concept.set 'white_list', false
       originalConcept.white_list = false
-      # concept.set 'black_list', true
       originalConcept.black_list = true
     else if e.target.value is 'None'
-      # concept.set 'white_list', false
       originalConcept.white_list = false
-      # concept.set 'black_list', false
       originalConcept.black_list = false
-    # @render()
     @codes.reset()
     for concept in @model.get('concepts')
       if @white or @black
@@ -88,11 +78,21 @@ class Thorax.Views.ValueSetView extends Thorax.View
         if concept.black_list and @black then @codes.add concept
       else
         @codes.add concept
+    @$('.value-set-save').prop('disabled', false)
+
+  # compareConcept: (originalConcept, currentConcept) ->
+  #   if originalConcept.white_list == currentConcept.get('white_list') and originalConcept.black_list == currentConcept.get('black_list') then true else false
 
   save: (e) ->
+    e.preventDefault()
     console.log "Saving #{@model.get('display_name')}"
-    console.log e
-    console.log $(e.target).model()
+    # console.log e
+    # console.log $(e.target).model()
+    # console.log @model
+    @model.id = @model.get('_id')
+    @model.url = "/valuesets/#{@model.id}"
+    console.log @model
     @model.save()
+    bonnie.renderValueSetsBuilder()
 
 

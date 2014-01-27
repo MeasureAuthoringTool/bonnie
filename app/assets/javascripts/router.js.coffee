@@ -76,11 +76,8 @@ class BonnieRouter extends Backbone.Router
   renderValueSetsBuilder: ->
     valueSets = new Thorax.Collection(null,comparator: (vs) -> vs.get('display_name').toLowerCase())
     @measures.each (m) =>
-      # valueSets.add m.get('value_sets').models
       for valueSet in m.get('value_sets').models
-        # debugger
         valueSets.add valueSet unless valueSet.get('oid') in valueSets.pluck('oid')
-    # debugger
     valueSetsBuilderView = new Thorax.Views.ValueSetsBuilder(collection: valueSets)
     @mainView.setView(valueSetsBuilderView)
 
