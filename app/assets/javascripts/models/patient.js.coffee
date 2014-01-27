@@ -82,7 +82,8 @@ class Thorax.Models.Patient extends Thorax.Model
       processData: false
     .done (data) =>
       # We only want to overwrite certain fields; if the server doesn't provide them, we want them emptied
-      defaults = conditions: [], encounters: [], medications: [], procedures: []
+      defaults = {}
+      defaults[section] = [] for section in Thorax.Models.Patient.sections
       @set _(data).chain().pick(_(defaults).keys()).defaults(defaults).value(), silent: true
       @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
 

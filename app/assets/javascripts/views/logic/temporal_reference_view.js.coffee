@@ -8,7 +8,7 @@ class Thorax.Views.TemporalReferenceLogic extends Thorax.View
     'SBE':'Starts Before or During'
     'SAE':'Starts After End of'
     'EBS':'Ends Before Start of'
-    'EAS':'Ends During or After'
+    'EAS':'Ends After Start'
     'EBE':'Ends Before or During'
     'EAE':'Ends After End of'
     'SDU':'Starts During'
