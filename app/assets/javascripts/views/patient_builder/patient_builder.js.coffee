@@ -28,6 +28,8 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       @materialize()
     @model.on 'materialize', =>
       @populationLogicView.showRationale @model
+    @model.on 'clearHighlight', =>
+      @$('.criteria-data').removeClass('drop-target-highlight')
 
   dataCriteriaCategories: ->
     categories = {}

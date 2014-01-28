@@ -154,6 +154,13 @@ class Thorax.Models.Result extends Thorax.Model
       _.extend(orCounts, @calculateOrCountsRecursive(rationale, precondition.preconditions))
     return orCounts
 
+  highlightPatientData: (dataCriteriaKey) ->
+    matchingCodedEntries = @get('rationale')[dataCriteriaKey]?['results']
+    return unless matchingCodedEntries
+    for codedEntry in matchingCodedEntries
+      @patient.highlightCodedEntry(codedEntry.id)
+
+
 class Thorax.Collections.Results extends Thorax.Collection
   model: Thorax.Models.Result
   initialize: (models, options) -> @parent = options?.parent

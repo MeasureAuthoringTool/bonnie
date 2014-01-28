@@ -27,6 +27,7 @@ class Thorax.Views.PopulationLogic extends Thorax.View
   showRationale: (result) ->
     # Only show the rationale once the result is populated
     result.calculation.done =>
+      @latestResult = result
       rationale = result.get('rationale')
       @clearRationale()
       # rationale only handles the logical true/false values
@@ -38,6 +39,18 @@ class Thorax.Views.PopulationLogic extends Thorax.View
             target = @$(".#{code}_children .#{key}")
             if (target.length > 0)
               target.addClass(if updatedRationale[code]?[key] is false then 'eval-bad-specifics' else "eval-#{!!value}")
+  events:
+    rendered: ->
+      @$('.rationale-target').mouseover(_.bind(@highlightEntry, this))
+      @$('.rationale-target').mouseout(_.bind(@clearHighlightEntry, this))
+
+  highlightEntry: (e) ->
+    key = $(e.target)?.view()?.dataCriteria?.key
+    @latestResult.highlightPatientData(key) if @latestResult
+
+  clearHighlightEntry: (e) ->
+    # picked up by PatientBuilder
+    @latestResult.patient.trigger 'clearHighlight'
 
   clearRationale: ->
     @$('.rationale .rationale-target').removeClass('eval-false eval-true eval-bad-specifics')
