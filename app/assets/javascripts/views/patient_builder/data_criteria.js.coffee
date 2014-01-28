@@ -148,8 +148,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       attr.title = title if title
     rendered: ->
       @$("select[name=type]").selectBoxIt()
-      @$('.date-picker').datepicker()
-      @$('.time-picker').timepicker()
+      @$('.date-picker').datepicker().on 'changeDate', _.bind(@validateForAddition, this)
+      @$('.time-picker').timepicker().on 'changeTime.timepicker', _.bind(@validateForAddition, this)
     'change select[name=type]': (e) ->
       @model.set type: $(e.target).val()
       @validateForAddition()
@@ -160,7 +160,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
     isDisabled = (attributes.type == 'PQ' && !attributes.value) ||
                  (attributes.type == 'CD' && !attributes.code_list_id) ||
-                 (attributes.type == 'TS' && !attributes.start_date) ||
+                 (attributes.type == 'TS' && !attributes.value) ||
                  (@fieldValue && !attributes.key)
     @$('button[data-call-method=addValue]').prop 'disabled', isDisabled
 
