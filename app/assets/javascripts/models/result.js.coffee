@@ -157,9 +157,8 @@ class Thorax.Models.Result extends Thorax.Model
   highlightPatientData: (dataCriteriaKey, populationCriteriaKey) ->
     matchingCodedEntries = @get('rationale')[dataCriteriaKey]?['results']
     if matchingCodedEntries
-      console.log dataCriteriaKey
       index = hqmf.SpecificsManager.indexLookup[@measure.get('data_criteria')[dataCriteriaKey].source_data_criteria]
-      goodElements = (row[index] for row in @get('finalSpecifics')[populationCriteriaKey]) if index
+      goodElements = (row[index] for row in @get('finalSpecifics')[populationCriteriaKey]) if index?
       for codedEntry in matchingCodedEntries
         type = (if goodElements && goodElements.indexOf(codedEntry.id) < 0 then "partial" else "valid")
         @patient.highlightCodedEntry(codedEntry.id, type)
