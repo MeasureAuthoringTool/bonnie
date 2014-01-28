@@ -36,6 +36,35 @@
             </li>
           {{/collection}}
         </div>
+        {{#empty associatedMeasures}}
+        {{else}}
+          <div class="well">
+            <i class="fa fa-tasks"></i> <label>Associated Measures</label>
+            {{!-- {{#log measures}}{{/log}} --}}
+            {{#collection associatedMeasures}}
+              {{#link "measures/{{hqmf_set_id}}" class="btn btn-primary" expand-tokens=true}}{{!-- <span class="label label-primary"> --}}{{measure_id}}{{!-- </span> --}}{{/link}}
+            {{/collection}}
+          </div>
+        {{/empty}}
+        {{#empty associatedPatients}}
+        {{else}}
+          <div class="well">
+            <i class="fa fa-users"></i> <label>Associated Patients</label>
+            {{#collection associatedPatients item-context="patientContext" class="list-group" tag="ul"}}
+              <li class="list-group-item">
+              {{#link "measures/{{measureId}}/patients/{{_id}}/edit" class="btn btn-primary" expand-tokens=true}}{{!-- <span class="label label-primary"> --}}{{last}}, {{first}}{{!-- </span> --}}{{/link}}
+              {{#empty associatedSDC}}
+              {{else}}
+                {{#collection associatedSDC class="list-group" tag="ul"}}
+                  <li class="list-group-item">
+                    {{description}}
+                  </li>
+                {{/collection}}
+              {{/empty}}
+              </li>
+            {{/collection}}
+          </div>
+        {{/empty}}
         <div class="panel-footer">
           {{#button "save" class="btn btn-primary value-set-save"}}<i class="fa fa-save"></i> Save{{/button}}
         </div>
