@@ -25,3 +25,9 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.View
 
   translate_oid: (oid) =>
     @measure.get('value_sets').findWhere({oid: oid})?.get('display_name')
+
+  populationCriteriaKey: ->
+    parent = @parent
+    until parent instanceof Thorax.Views.PopulationCriteriaLogic
+      parent = parent.parent
+    parent.population.type

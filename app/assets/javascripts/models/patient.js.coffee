@@ -110,13 +110,12 @@ class Thorax.Models.Patient extends Thorax.Model
       expectedValues.add @getExpectedValue(population)
     expectedValues
 
-  highlightCodedEntry: (codedEntryId) ->
+  highlightCodedEntry: (codedEntryId, type) ->
     # picked up by EditCriteriaView
-    sourceDataCriterium.trigger 'highlight' for sourceDataCriterium in @get('source_data_criteria').models when sourceDataCriterium.get('coded_entry_id') == codedEntryId
+    sourceDataCriterium.trigger 'highlight', type for sourceDataCriterium in @get('source_data_criteria').models when sourceDataCriterium.get('coded_entry_id') == codedEntryId
 
 class Thorax.Collections.Patients extends Thorax.Collection
-  model: Thorax.Models.Patient  
-  dedupName: (patient) ->
+  model: Thorax.Models.Patient  dedupName: (patient) ->
     return patient.first if !(patient.first && patient.last)
     #matcher to find all of the records that have the same last name and the first name starts with the first name of the 
     #patient data being duplicated 

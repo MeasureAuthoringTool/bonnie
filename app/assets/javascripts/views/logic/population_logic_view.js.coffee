@@ -41,12 +41,15 @@ class Thorax.Views.PopulationLogic extends Thorax.View
               target.addClass(if updatedRationale[code]?[key] is false then 'eval-bad-specifics' else "eval-#{!!value}")
   events:
     rendered: ->
-      @$('.rationale-target').mouseover(_.bind(@highlightEntry, this))
-      @$('.rationale-target').mouseout(_.bind(@clearHighlightEntry, this))
+      @$('.highlight-target').mouseover(_.bind(@highlightEntry, this))
+      @$('.highlight-target').mouseout(_.bind(@clearHighlightEntry, this))
 
   highlightEntry: (e) ->
-    key = $(e.target)?.view()?.dataCriteria?.key
-    @latestResult.highlightPatientData(key) if @latestResult
+    return unless $(e.target).hasClass('highlight-target')
+    view = $(e.target).view()
+    dataCriteriaKey = view?.dataCriteria?.key
+    populationCriteriaKey = view.populationCriteriaKey?()
+    @latestResult.highlightPatientData(dataCriteriaKey, populationCriteriaKey) if @latestResult
 
   clearHighlightEntry: (e) ->
     # picked up by PatientBuilder

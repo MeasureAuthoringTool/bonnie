@@ -154,11 +154,15 @@ class Thorax.Models.Result extends Thorax.Model
       _.extend(orCounts, @calculateOrCountsRecursive(rationale, precondition.preconditions))
     return orCounts
 
-  highlightPatientData: (dataCriteriaKey) ->
+  highlightPatientData: (dataCriteriaKey, populationCriteriaKey) ->
     matchingCodedEntries = @get('rationale')[dataCriteriaKey]?['results']
-    return unless matchingCodedEntries
-    for codedEntry in matchingCodedEntries
-      @patient.highlightCodedEntry(codedEntry.id)
+    if matchingCodedEntries
+      console.log dataCriteriaKey
+      index = hqmf.SpecificsManager.indexLookup[@measure.get('data_criteria')[dataCriteriaKey].source_data_criteria]
+      goodElements = (row[index] for row in @get('finalSpecifics')[populationCriteriaKey]) if index
+      for codedEntry in matchingCodedEntries
+        type = (if goodElements && goodElements.indexOf(codedEntry.id) < 0 then "partial" else "valid")
+        @patient.highlightCodedEntry(codedEntry.id, type)
 
 
 class Thorax.Collections.Results extends Thorax.Collection

@@ -38,8 +38,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       values: @model.get('field_values')
       criteriaType: @model.get('type')
 
-    @model.on 'highlight', =>
-      @$('.criteria-data').addClass('drop-target-highlight')
+    @model.on 'highlight', (type) =>
+      @$('.criteria-data').addClass("highlight-#{type}")
 
   valueWithDateContext: (model) ->
     _(model.toJSON()).extend
