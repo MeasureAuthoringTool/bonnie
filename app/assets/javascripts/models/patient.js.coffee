@@ -89,6 +89,8 @@ class Thorax.Models.Patient extends Thorax.Model
       defaults = {}
       defaults[section] = [] for section in Thorax.Models.Patient.sections
       @set _(data).chain().pick(_(defaults).keys()).defaults(defaults).value(), silent: true
+      for criterium, i in _this.get('source_data_criteria').models
+        criterium.set 'coded_entry_id', data['source_data_criteria'][i]['coded_entry_id'], silent: true
       @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
 
   getExpectedValue: (population) ->
