@@ -16,3 +16,8 @@ describe 'Patient', ->
     cloneWithoutId = @patient.deepClone(omit_id: true)
     expect(cloneWithoutId.cid).not.toEqual @patient.cid
     expect(_(@patient.keys()).difference(cloneWithoutId.keys())).toEqual ['_id']
+
+  it 'correctly deduplicates the name when deep cloning and dedupName is an option', ->
+    clone = @patient.deepClone({dedupName: true})
+    expect(clone.get("first")).toEqual @patient.get("first") + " (1)"
+    
