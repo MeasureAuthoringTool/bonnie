@@ -36,6 +36,7 @@ end
 group :test, :development do
   gem 'pry-debugger'
   gem 'thin'
+  gem 'capistrano-rails'
 end
 
 # Gems used only for assets and not required
