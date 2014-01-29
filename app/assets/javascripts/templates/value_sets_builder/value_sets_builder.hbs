@@ -22,7 +22,7 @@
         <div class="input-group-btn">
           <button type="button" class="btn btn-default dropdown-toggle measure-button" data-toggle="dropdown">Measures <span class="caret"></span></button>
           {{#collection measures tag="ul" class="dropdown-menu pull-right"}}
-            <li>{{#button 'selectMeasure' tag="a"}}[{{measure_id}}] {{hqmf_set_id}}{{/button}}</li>
+            <li>{{#button 'selectMeasure' tag="a"}}[ {{cms_id}} ({{measure_id}}) ] {{hqmf_set_id}}{{/button}}</li>
           {{/collection}}
         </div>
         {{!-- </div> --}}

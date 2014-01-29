@@ -42,7 +42,7 @@
             <i class="fa fa-tasks"></i> <label>Associated Measures</label>
             {{!-- {{#log measures}}{{/log}} --}}
             {{#collection associatedMeasures}}
-              {{#link "measures/{{hqmf_set_id}}" class="btn btn-primary" expand-tokens=true}}{{!-- <span class="label label-primary"> --}}{{measure_id}}{{!-- </span> --}}{{/link}}
+              {{#link "measures/{{hqmf_set_id}}" class="btn btn-primary" expand-tokens=true}}{{!-- <span class="label label-primary"> --}}{{cms_id}} ({{measure_id}}){{!-- </span> --}}{{/link}}
             {{/collection}}
           </div>
         {{/empty}}
