@@ -93,12 +93,18 @@ class Thorax.Views.ValueSetView extends Thorax.View
 
   initialize: ->
     @codes = new Thorax.Collection()
+    @codeSystems = {}
     for concept in @model.get('concepts')
       if @white or @black
-        if concept.white_list and @white then @codes.add concept
-        if concept.black_list and @black then @codes.add concept
+        if concept.white_list and @white
+          @codes.add concept
+          @addToCodeSystems(concept)
+        if concept.black_list and @black 
+          @codes.add concept
+          @addToCodeSystems(concept)
       else
         @codes.add concept
+        @addToCodeSystems(concept)
     @associatedMeasures = new Thorax.Collection()
     if @measures?
       @measures.each (m) =>
@@ -109,7 +115,8 @@ class Thorax.Views.ValueSetView extends Thorax.View
         @associatedPatients.add p if @model.get('oid') in @patientsToOids[p.get('medical_record_number')]
         # console.log p.get('source_data_criteria').select((sdc) => sdc in @patientsToSdc[p.get('medical_record_number')])
     # console.log @patientsToSdc
-
+    console.log @model.get('display_name')
+    console.log @codeSystems
     
   toggleDetails: (e) ->
     e.preventDefault()
@@ -141,6 +148,13 @@ class Thorax.Views.ValueSetView extends Thorax.View
     _(p.toJSON()).extend
       measureId: @measures.detect((m) -> m.get('patients').include(p)).get('hqmf_set_id')
       associatedSDC: new Thorax.Collection(p.get('source_data_criteria').filter((sdc) => sdc.get('oid') == @model.get('oid')))
+
+  addToCodeSystems: (concept) ->
+    if @codeSystems[concept['code_system_name']]?
+      @codeSystems[concept['code_system_name']]['count']++
+      @codeSystems[concept['code_system_name']]['collection'].add concept
+    else
+      @codeSystems[concept['code_system_name']] = {code_system: concept['code_system_name'], count: 1, collection: new Thorax.Collection(concept)}
 
   # compareConcept: (originalConcept, currentConcept) ->
   #   if originalConcept.white_list == currentConcept.get('white_list') and originalConcept.black_list == currentConcept.get('black_list') then true else false
