@@ -48,8 +48,8 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
   search: (e) ->
     e.preventDefault()
     @query = @$('#searchByNameOrOID').val()
-    matchedNames = _(@names).filter( (name)=> name.indexOf(@query) != -1 )
-    matchedOids = _(@oids).filter( (oid) => oid.indexOf(@query) != -1 )
+    matchedNames = _(@names).filter( (name)=> name.toLowerCase().indexOf(@query.toLowerCase()) != -1 )
+    matchedOids = _(@oids).filter( (oid) => oid.toLowerCase().indexOf(@query.toLowerCase()) != -1 )
     if matchedNames.length > 0
       @searchResults.reset(@collection.filter((vs) -> vs.get('display_name') in matchedNames))
       @$('.input-group').addClass('has-success')
@@ -136,13 +136,20 @@ class Thorax.Views.ValueSetView extends Thorax.View
       originalConcept.white_list = false
       originalConcept.black_list = false
     @codes.reset()
+    @codeSystems[concept['code_system_name']]['collection'].reset() for concept in @model.get('concepts')
     for concept in @model.get('concepts')
       if @white or @black
-        if concept.white_list and @white then @codes.add concept
-        if concept.black_list and @black then @codes.add concept
+        if concept.white_list and @white
+          @codes.add concept
+          @codeSystems[concept['code_system_name']]['collection'].add concept
+        if concept.black_list and @black 
+          @codes.add concept
+          @codeSystems[concept['code_system_name']]['collection'].add concept
       else
         @codes.add concept
+        @codeSystems[concept['code_system_name']]['collection'].add concept
     @$('.value-set-save').prop('disabled', false)
+
 
   patientContext: (p) ->
     _(p.toJSON()).extend
@@ -154,7 +161,7 @@ class Thorax.Views.ValueSetView extends Thorax.View
       @codeSystems[concept['code_system_name']]['count']++
       @codeSystems[concept['code_system_name']]['collection'].add concept
     else
-      @codeSystems[concept['code_system_name']] = {code_system: concept['code_system_name'], count: 1, collection: new Thorax.Collection(concept)}
+      @codeSystems[concept['code_system_name']] = {code_system: concept['code_system_name'], count: 1, collection: new Thorax.Collection(concept), index: _(@codeSystems).keys().length}
 
   # compareConcept: (originalConcept, currentConcept) ->
   #   if originalConcept.white_list == currentConcept.get('white_list') and originalConcept.black_list == currentConcept.get('black_list') then true else false

@@ -1,37 +1,28 @@
 <div class="value-set-entry">
   <div class="criteria-details">
-    <div class="row">
       {{#button "toggleDetails" class="close"}}<i class="fa fa-lg fa-angle-right"></i>{{/button}}
-      <div>
         <h4><i class="fa fa-fw fa-lg fa-list-alt"></i> {{display_name}}  <small>{{oid}}</small>
         {{#each codeSystems}}
           <span class="label label-info">{{code_system}} <span class="badge">{{count}}</span></span>
         {{/each}}
         </h4>
-      </div>
-    </div>
   </div>
   <form class="hide" role="form">
-    <div class="row">
       {{#button "toggleDetails" class="close"}}<i class="fa fa-lg fa-angle-down"></i>{{/button}}
 
       <h4><i class="fa fa-fw fa-lg fa-list-alt"></i> {{display_name}}  <small>{{oid}}</small></h4>
 
-      <div class="panel panel-default">
-        {{!-- <div class="panel-heading">
-          <h5 class="panel-title"><i class="fa fa-list"></i> Codes</h5>
-        </div> --}}
+      <div class="panel panel-default value-set-listing">
         <div class="panel-body">
-          {{!-- <h5 class="panel-title"><i class="fa fa-list"></i> Codes</h5> --}}
           <i class="fa fa-list"></i> <label>Codes</label>
           <ul class="nav nav-pills">
             {{#each codeSystems}}
-              <li><a href="#{{../cid}}-{{code_system}}" data-toggle="tab">{{code_system}} <span class="badge">{{count}}</span></a></li>
+              <li{{#unless index}} class="active"{{/unless}}><a href="#{{../cid}}-{{index}}" data-toggle="tab">{{code_system}} <span class="badge">{{count}}</span></a></li>
             {{/each}}
           </ul>
           <div class="tab-content">
             {{#each codeSystems}}
-              <div id="{{../cid}}-{{code_system}}" class="tab-pane">
+              <div id="{{../cid}}-{{index}}" class="tab-pane{{#unless index}} active{{/unless}}">
                 {{#collection collection class="list-group" tag="ul"}}
                   <li class="list-group-item">
                     <div class="row">
@@ -59,9 +50,8 @@
         {{else}}
           <div class="well">
             <i class="fa fa-tasks"></i> <label>Associated Measures</label>
-            {{!-- {{#log measures}}{{/log}} --}}
             {{#collection associatedMeasures}}
-              {{#link "measures/{{hqmf_set_id}}" class="btn btn-primary" expand-tokens=true}}{{!-- <span class="label label-primary"> --}}{{cms_id}} ({{measure_id}}){{!-- </span> --}}{{/link}}
+              {{#link "measures/{{hqmf_set_id}}" class="btn btn-default" expand-tokens=true}}{{cms_id}} ({{measure_id}}){{/link}}
             {{/collection}}
           </div>
         {{/empty}}
@@ -71,7 +61,7 @@
             <i class="fa fa-users"></i> <label>Associated Patients</label>
             {{#collection associatedPatients item-context="patientContext" class="list-group" tag="ul"}}
               <li class="list-group-item">
-              {{#link "measures/{{measureId}}/patients/{{_id}}/edit" class="btn btn-primary" expand-tokens=true}}{{!-- <span class="label label-primary"> --}}{{last}}, {{first}}{{!-- </span> --}}{{/link}}
+              {{#link "measures/{{measureId}}/patients/{{_id}}/edit" class="btn btn-default" expand-tokens=true}}{{last}}, {{first}}{{/link}}
               {{#empty associatedSDC}}
               {{else}}
                 {{#collection associatedSDC class="list-group" tag="ul"}}
@@ -88,6 +78,5 @@
           {{#button "save" class="btn btn-primary value-set-save"}}<i class="fa fa-save"></i> Save{{/button}}
         </div>
       </div>
-    </div>
   </form>
 </div>
