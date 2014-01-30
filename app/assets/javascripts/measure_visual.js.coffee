@@ -1,208 +1,218 @@
 window.Bonnie ||= {}
 Bonnie.viz ||= {}
 Bonnie.viz.measureVisualzation = ->
-    my = (selection) ->
-        selection.each (data) ->
-            # Draw the visualization here?
-            svg = d3.select(this).selectAll('svg').data([data])
-            gEnter = svg.enter().append('svg')
-                .attr('width', @width)
-                .attr('height', 400)
+		my = (selection) ->
+				selection.each (data) ->
+						# Draw the visualization here?
+						svg = d3.select(this).append('svg')
+								.append("svg:g")
 
-            rows = 0
-            for population in Thorax.Models.Measure.allPopulationCodes
-                if not data[population]?
-                    # rows++
-                    continue
+						offset = 0
+						for population in Thorax.Models.Measure.allPopulationCodes
+								offset+= rowHeight+rowPadding.top
+								populationElement = svg.append('svg:g')
+										.attr("width", width)
+										.attr("class", population)
+										.attr("transform", "translate(0,#{offset})")
+								textField = populationElement.append('text')
+									.attr("transform", "translate(0, -3)")
 
-                populationElement = gEnter.append('g')
-                    .attr("width", width)
-                    .attr("class", population)
-                    rows = render(data[population], populationElement, ++rows, 0) if data[population].preconditions?
-                            
+								if not data[population] 
+									continue 		
+								if not data[population].preconditions?
+									textField.text("#{population}: None")
+									continue
+								populationElement = svg.append('svg:g')
+										.attr("width", width)
+										.attr("class", population)
+										.attr("transform", "translate(0,#{offset})")
+								populationElement.append('text').text(population)
+									.attr("transform", "translate(0, -3)")
 
-
-    width = 600
-    rowHeight = 22
-    margin = 
-        top: 10
-        right: 10
-        bottom: 10
-        left: 10
-    rowPadding = 
-        top: 5
-        bottom: 5
-        left: 10
-        right: 10
-
-    dataCriteria = {}
+								renderPrecondition(populationElement, data[population].preconditions[0]) if data[population].preconditions?
+								offset+= getElementHeight(populationElement)
+														
 
 
-    my.width = (_) ->
-        return width unless arguments.length
-        width = _
-        my
+		width = 600
+		rowHeight = 22
+		margin = 
+				top: 10
+				right: 10
+				bottom: 10
+				left: 10
+		rowPadding = 
+				top: 5
+				bottom: 5
+				left: 5
+				right: 5
 
-    my.rowHeight = (_) ->
-        return rowHeight unless arguments.length
-        rowHeight = _
-        my
+		dataCriteria = {}
 
-    my.margin = (_) ->
-        return margin unless arguments.length
-        margin = _
-        my
 
-    my.rowPadding  = (_) ->
-        return rowPadding  unless arguments.length
-        rowPadding  = _
-        my
+		my.width = (_) ->
+				return width unless arguments.length
+				width = _
+				my
 
-    my.dataCriteria = (_) ->
-        return dataCriteria unless arguments.length
-        dataCriteria = _
-        my
+		my.rowHeight = (_) ->
+				return rowHeight unless arguments.length
+				rowHeight = _
+				my
 
-    drawCondition = (condition, parent, row, col, columns) ->
-        if not col?
-            col = 0
-        if not columns?
-            columns = 1
-        # Create an element to hold all children of this precondition    
-        element = parent.append("g")
-        element.attr("row", row)
-            .attr("col", col)
-        
+		my.margin = (_) ->
+				return margin unless arguments.length
+				margin = _
+				my
 
-        # If there's no condition, return before it causes an error.
-        if not condition?
-            return row
-    
-        if condition.preconditions?
-            if condition.conjunction_code == "allTrue" or condition.conjunction?
-                for precondition in condition.preconditions
-                    element.attr("width", parent.attr("width"))
-                        .attr("negation", condition.negation)
-                    drawCondition(precondition, element, row++)
+		my.rowPadding  = (_) ->
+				return rowPadding  unless arguments.length
+				rowPadding  = _
+				my
 
-            else if condition.conjunction_code == "atLeastOneTrue"
-                element.attr("width", parent.attr("width"))
-                    .attr("negation", condition.negation)
-                for precondition in condition.preconditions
-                    drawCondition(precondition, element, row, col, condition.preconditions.length)
-        else
-            if condition.conjunction_code? and dataCriteria[condition.reference].children_criteria?
-                for precondition in dataCriteria[condition.reference].children_criteria
-                    element.attr("width", parent.attr("width"))
-                        .attr("negation", condition.negation)
-                    drawGroupData(precondition, element, row++, col)
-            element.append("rect")
-                .attr("id", condition.id)
-                .attr("y", (d) -> row*rowHeight)
-                .attr("x", (d) -> parent.attr("width")/columns * col)
-                .attr("height", rowHeight - rowPadding.top)
-                .attr("width", parent.attr("width")/columns-rowPadding.left)
-                .attr("precondition",(d) => condition.reference)
-                .attr("negation", condition.negation)
-                .attr("class", "precondition")
-                .attr('data-placement', "auto")
-                .attr('data-html', true)
-                .attr('data-content', dataCriteria[condition.reference]['description'])
-                .attr('data-trigger', "hover focus")
-                .attr('data-container', '.measure-viz')
-                .attr('condition', JSON.stringify(condition))
-        return row
-        
-    drawGroupData = (reference, parent, row, col, columns) -> 
-        col = 0 unless col?
-        columns = 1 unless columns?
-        parent.append("rect")
-                .attr("id", reference.id)
-                .attr("y", (d) -> row*rowHeight)
-                .attr("x", (d) -> parent.attr("width")/columns * col)
-                .attr("height", rowHeight - rowPadding.top)
-                .attr("width", parent.attr("width")/columns-rowPadding.left)
-                .attr("precondition",(d) => reference.reference)
-                .attr("negation", reference.negation)
-                .attr("class", "precondition")
-                .attr('data-placement', "auto")
-                .attr('data-html', true)
-                .attr('data-content', dataCriteria[reference]['description'])
-                .attr('data-trigger', "hover focus")
-                .attr('data-container', '.measure-viz')
-                .attr('reference', JSON.stringify(reference))
+		my.dataCriteria = (_) ->
+				return dataCriteria unless arguments.length
+				dataCriteria = _
+				my
 
-    render = (population, parent, row, col) ->
-        if population.preconditions[0].conjunction_code == "allTrue"
-            return renderAnd(population.preconditions, parent, row++, col, width)
-        if population.conjunction_code == "atLeastOneTrue"
-            return renderOr(population.preconditions, parent, row, col++, width/population.preconditions.length)
-        return row
 
-            
+		renderPrecondition = (parent, preconditions) -> 
+				# Let's get the width of this element so we can operate on it
+				preconditionWidth = parent.attr("width")
+				elWidth = switch preconditions.conjunction_code
+												when "allTrue" then parent.attr('width')
+												when "atLeastOneTrue" then parent.attr('width')/preconditions.preconditions.length
+				switch
+						when preconditions.preconditions?
+								# This is clearly a sub element, recurse...
+								for precondition in preconditions.preconditions
+										
 
-    renderAnd = (conditions, parent, row, col, width) ->
-        for condition in conditions
-            # If this is a leaf node we should just render it
-            if not condition.conjunction_code?
-                renderElement(condition, parent, row++, col, width)
-                continue
-                
+										yOffset = switch preconditions.conjunction_code
+												when "allTrue" then getElementHeight(parent)#parent.node().childNodes.length * (rowHeight+rowPadding.top)
+												when "atLeastOneTrue" then 0
+										xOffset = switch preconditions.conjunction_code
+												when "allTrue" then 0
+												when "atLeastOneTrue" then parent.node().childNodes.length * elWidth
 
-            # If this is a node with a groupData lookup we should handle that    
-            if condition.conjunction_code? and not condition.preconditions?
-                parent.append("g").attr("type", "groupData")
-                console.log condition.reference
-                continue
+										element = parent.append("svg:g")
+												.attr("transform", "translate(#{xOffset},#{yOffset})")
+												.attr("id", preconditions.id)
+												.attr("conjunction_code", preconditions.conjunction_code)
+												.attr("preconditions", preconditions.preconditions.length)
+												.attr("width", elWidth)
+										renderPrecondition(element, precondition)
+										
 
-            element = parent.append("g").attr("id", condition.id).attr("type", "AND")
-            
-            if condition.conjunction_code == "allTrue"
-                renderAnd(condition.preconditions, element, row++, col, width)              
-                continue
+						
+						when preconditions.conjunction_code?
+								element = parent.append("svg:g")
+										.attr("id", preconditions.id)
+										.attr('reference', preconditions.reference)
+										.attr("conjunction_code", preconditions.conjunction_code)
+										.attr("width", elWidth)
+								renderDerivedElement(element, dataCriteria[preconditions.reference])
+						else
+								# This is an actual data Element
+								element = renderElement(parent, preconditions)
+	
+		renderDerivedElement = (parent, derivedElement) ->
+			index = 0
+			elWidth = parent.attr('width')/derivedElement.children_criteria.length
+			for condition in derivedElement.children_criteria
+				condition = dataCriteria[condition]
+				container = parent.append("g").attr('transform', "translate(#{index*elWidth},0)").attr('width', elWidth)
+				container.append("rect")
+						.attr("width", elWidth-rowPadding.right)
+						.attr("height", rowHeight)
+						.attr("precondition", condition.source_data_criteria)
+						.classed("precondition", true)
+						.classed("rationale_target", true)
+						.classed(condition.source_data_criteria, true)
+						.attr('data-placement', "auto")
+						.attr('data-html', true)
+						.attr('data-content', getTextDescription(condition))
+						.attr('data-trigger', "hover focus")
+						.attr('data-container', '.measure-viz')
+						# .attr('conjunction_code', parent.attr('conjunction_code'))
+				index++
+			
 
-            if condition.conjunction_code == "atLeastOneTrue"
-                renderOr(condition.preconditions, element, row, col, width)
-                continue
-    
-    renderOr = (conditions, parent, row, col, width) ->
-        for condition in conditions
-            # If this is a leaf node we should just render it
-            if not condition.conjunction_code?
-                renderElement(condition, parent, row, col++, width)
-                continue
+		renderElement = (parent, precondition) ->
+				# console.log precondition
+				parent.append("rect")
+						.attr("width", parent.attr("width")-rowPadding.right)
+						.attr("height", rowHeight)
+						.attr("precondition", precondition.reference)
+						.attr("negation", precondition.negation)
+						.classed("precondition", true)
+						.classed("rationale_target", true)
+						.classed(precondition.reference, true)
+						.attr('data-placement', "auto")
+						.attr('data-html', true)
+						.attr('data-content', getTextDescription(dataCriteria[precondition.reference]))
+						.attr('data-trigger', "hover focus")
+						.attr('data-container', '.measure-viz')
+						.attr('conjunction_code', parent.attr('conjunction_code'))
 
-            # If this is a node with a groupData lookup we should handle that    
-            if condition.conjunction_code? and not condition.preconditions?
-                # Handling logic here
-                parent.append("g").attr("type", "groupData")
-                console.log condition.reference
-                continue
-                
+		getTextDescription = (data) ->
+			# debugger
+			specific_occurrence = switch data.type
+				when "medications"	
+					 "Occurrence #{data.specific_occurrence}: " 
+				else
+					""
+			negation = ""
+			if data["negation?"] 
+				negation = "NOT"
 
-            element = parent.append("g").attr("id", condition.id).attr("type", "OR")
-            
-            if condition.conjunction_code == "allTrue"
-                renderAnd(condition.preconditions, element, row++, col, width)
+			return "#{negation}#{specific_occurrence}#{data.description} #{parseTemporalReference(data.temporal_references[0])}"
 
-            if condition.conjunction_code == "atLeastOneTrue"
-                renderOr(condition.preconditions, element, row, col, width/conditions.length)
+		pluralizeUnit = (unit, value) ->
+	  	unit_map = {'a':'year', 'mo':'month', 'wk':'week', 'd':'day', 'h':'hour', 'min':'minute', 's':'second'}
+	  	if unit_map[unit]
+	  		if value > 1 
+	  			unit_map[unit] + 's' 
+  			else 
+  				unit_map[unit] 
+	  	else
+	  		unit
 
-    renderElement = (condition, parent, row, col, width) -> 
-        parent.append("rect")
-            .attr("id", condition.id)
-            .attr("y", (d) -> row*rowHeight)
-            .attr("x", (d) -> col * width)
-            .attr("height", rowHeight - rowPadding.top)
-            .attr("width", width-rowPadding.left)
-            .attr("precondition",(d) => condition.reference)
-            .attr("negation", condition.negation)
-            .attr("class", "precondition")
-            .attr('data-placement', "auto")
-            .attr('data-html', true)
-            .attr('data-content', dataCriteria[condition.reference].description)
-            .attr('data-trigger', "hover focus")
-            .attr('data-container', '.measure-viz')
 
-    my
+
+		parseTemporalReference = (temporalReference) -> 
+		  timing_map = {'DURING':'During', 'SBS':'Starts Before Start of', 'SAS':'Starts After Start of', 'SBE':'Starts Before or During', 'SAE':'Starts After End of', 'EBS':'Ends Before Start of', 'EAS':'Ends During or After', 'EBE':'Ends Before or During', 'EAE':'Ends After End of', 'SDU':'Starts During', 'EDU':'Ends During', 'ECW':'Ends Concurrent with', 'SCW':'Starts Concurrent with', 'CONCURRENT':'Concurrent with'}
+
+				  	
+		  returnVal = ""
+		  if temporalReference.range
+		  	if temporalReference.range.low
+		  		if temporalReference.range.low['inclusive?'] == true
+			  		returnVal += ">="
+			  	else
+			  		returnVal += ">"
+		  		returnVal += "#{temporalReference.range.low.value} #{pluralizeUnit(temporalReference.range.low.unit, temporalReference.range.low.value)}"
+		  	if temporalReference.range.high
+		  		if temporalReference.range.high['inclusive?'] == true
+			  		returnVal += "<="
+			  	else
+			  		returnVal += "<"
+		  		returnVal += "#{temporalReference.range.high.value} #{pluralizeUnit(temporalReference.range.high.unit, temporalReference.range.high.value)}"
+
+		  reference = ""
+		 	if temporalReference.reference == "MeasurePeriod"
+		 		reference = "Measurement Period"
+		 	else
+		 		reference = "Occurrence #{dataCriteria[temporalReference.reference].specific_occurrence}: #{dataCriteria[temporalReference.reference].description}"
+		 		
+
+		  returnVal += " #{timing_map[temporalReference.type]} #{reference}"
+		  
+
+	  
+
+		getElementHeight = (element) ->
+			element.selectAll("rect").size()*(rowHeight + rowPadding.top)
+
+		my
 
