@@ -75,6 +75,9 @@
           </div>
         {{/empty}}
         <div class="panel-footer">
+          {{#if filters}}
+            {{#button "addFilter" class="btn btn-primary value-set-filter"}}<i class="fa fa-plus"></i> Add Filter{{/button}}
+          {{/if}}
           {{#button "save" class="btn btn-primary value-set-save"}}<i class="fa fa-save"></i> Save{{/button}}
         </div>
       </div>

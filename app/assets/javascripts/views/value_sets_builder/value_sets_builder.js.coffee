@@ -9,6 +9,7 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     @whiteList = new Thorax.Collection()
     @blackList = new Thorax.Collection()
     @searchResults = new Thorax.Collection(null,comparator: (vs) -> vs.get('display_name')?.toLowerCase())
+    @filters = new Thorax.Collection()
     @query = ''
     @measureToOids = {}
     @patientToOids = {}
@@ -43,7 +44,7 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
       itemView: (item) => new Thorax.Views.ValueSetView(model: item.model, white: false, black: true, measures: @measures, measuresToOids: @measureToOids, patients: @patients, patientsToOids: @patientToOids, patientsToSdc: @patientToSdc)
     @searchResultsCollectionView = new Thorax.CollectionView
       collection: @searchResults
-      itemView: (item) => new Thorax.Views.ValueSetView(model: item.model, white: false, black: false)
+      itemView: (item) => new Thorax.Views.ValueSetView(model: item.model, white: false, black: false, filters: @filters)
 
   search: (e) ->
     e.preventDefault()
@@ -177,5 +178,13 @@ class Thorax.Views.ValueSetView extends Thorax.View
     console.log @model
     @model.save()
     bonnie.renderValueSetsBuilder()
+
+  addFilter: (e) ->
+    e.preventDefault()
+    if @filters?
+      console.log @filters
+      @filters.add @model
+    @$('.value-set-filter').toggle()
+
 
 

@@ -1,5 +1,11 @@
 <div class="row">
-  <h1 class="heading-primary">Value Sets</h1>
+  <h1 class="heading-primary">White-List / Black-List Builder</h1>
+
+  {{#collection filters tag="ul" class="list-group"}}
+    <li class="list-group-item">
+      {{display_name}}
+    </li>
+  {{/collection}}
 
   {{!-- <form class="form-horizontal search-form" role="form">
     <div class="form-group">
