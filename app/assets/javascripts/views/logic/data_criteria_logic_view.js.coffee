@@ -5,6 +5,10 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.View
     'XPRODUCT':'AND'
     'UNION':'OR'
 
+  events:
+    'mouseover .highlight-target': 'highlightEntry'
+    'mouseout .highlight-target': 'clearHighlightEntry'
+
   initialize: ->
     @dataCriteria = @measure.get('data_criteria')[@reference]
     # we need to do this because the view helper doesn't seem to be available in an #each.
@@ -26,8 +30,17 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.View
   translate_oid: (oid) =>
     @measure.get('value_sets').findWhere({oid: oid})?.get('display_name')
 
-  populationCriteriaKey: ->
+  highlightEntry: (e) ->
+    dataCriteriaKey = @dataCriteria.key
+    populationView = @populationCriteriaView()
+    populationCriteriaKey = populationView.population.type
+    populationView.parent.highlightPatientData(dataCriteriaKey, populationCriteriaKey)
+
+  clearHighlightEntry: (e) ->
+    @populationCriteriaView().parent.clearHighlightPatientData()
+
+  populationCriteriaView: ->
     parent = @parent
     until parent instanceof Thorax.Views.PopulationCriteriaLogic
       parent = parent.parent
-    parent.population.type
+    parent

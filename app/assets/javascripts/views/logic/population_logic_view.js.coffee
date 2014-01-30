@@ -18,6 +18,7 @@ class Thorax.Views.PopulationLogic extends Thorax.View
     for code in Thorax.Models.Measure.allPopulationCodes
       match = @model.get code
       @submeasurePopulations.push(match) if match
+    @on 'foo', -> alert('here')
 
   context: ->
     measure = @model.collection.parent
@@ -39,19 +40,18 @@ class Thorax.Views.PopulationLogic extends Thorax.View
             target = @$(".#{code}_children .#{key}")
             if (target.length > 0)
               target.addClass(if updatedRationale[code]?[key] is false then 'eval-bad-specifics' else "eval-#{!!value}")
-  events:
-    rendered: ->
-      @$('.highlight-target').mouseover(_.bind(@highlightEntry, this))
-      @$('.highlight-target').mouseout(_.bind(@clearHighlightEntry, this))
 
-  highlightEntry: (e) ->
-    return unless $(e.target).hasClass('highlight-target')
-    view = $(e.target).view()
-    dataCriteriaKey = view?.dataCriteria?.key
-    populationCriteriaKey = view.populationCriteriaKey?()
-    @latestResult.highlightPatientData(dataCriteriaKey, populationCriteriaKey) if @latestResult
+  highlightPatientData: (dataCriteriaKey, populationCriteriaKey) ->
+    if @latestResult && @latestResult.get('finalSpecifics')?[populationCriteriaKey]
+      matchingCodedEntries = @latestResult.codedEntriesForDataCriteria(dataCriteriaKey)
+      if matchingCodedEntries
+        goodElements = @latestResult.codedEntriesPassingSpecifics(dataCriteriaKey, populationCriteriaKey)
+        for codedEntry in matchingCodedEntries
+          type = (if goodElements && goodElements.indexOf(codedEntry.id) < 0 then Thorax.Views.EditCriteriaView.highlight.partial else Thorax.Views.EditCriteriaView.highlight.valid)
+          # picked up by EditCriteriaView
+          sourceDataCriterium.trigger 'highlight', type for sourceDataCriterium in @latestResult.patient.get('source_data_criteria').models when sourceDataCriterium.get('coded_entry_id') == codedEntry.id
 
-  clearHighlightEntry: (e) ->
+  clearHighlightPatientData: ->
     # picked up by PatientBuilder
     @latestResult.patient.trigger 'clearHighlight'
 

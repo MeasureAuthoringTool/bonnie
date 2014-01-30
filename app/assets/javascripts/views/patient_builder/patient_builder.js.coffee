@@ -29,7 +29,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @model.on 'materialize', =>
       @populationLogicView.showRationale @model
     @model.on 'clearHighlight', =>
-      @$('.criteria-data').removeClass('highlight-valid highlight-partial')
+      @$('.criteria-data').removeClass("#{Thorax.Views.EditCriteriaView.highlight.valid} #{Thorax.Views.EditCriteriaView.highlight.partial}")
 
   dataCriteriaCategories: ->
     categories = {}
