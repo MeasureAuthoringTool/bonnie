@@ -3,16 +3,27 @@ Bonnie.viz ||= {}
 Bonnie.viz.measureVisualzation = ->
 		my = (selection) ->
 				selection.each (data) ->
+
+						populationCodes = {'IPP': 'Initial Patient Population', 'DENOM': 'Denominator', 'NUMER': 'Numerator', 'DENEXCEP': 'Denominator Exceptions', 'DENEX': 'Denominator Exclusions', 'MSRPOPL': 'Measure Population', 'OBSERV': 'Measure Observations'}
 						# Draw the visualization here?
 						svg = d3.select(this).append('svg')
 								.append("svg:g")
-
+						
+						window.observer=new MutationObserver((mutations) -> 
+							mutations.map( (mutation) ->
+								for el in mutation.addedNodes
+									if el.nextSibling?
+										next = el.nextSibling 
+										next.transform.baseVal.getItem(0).matrix.f = el.getBBox().height+rowHeight + el.transform.baseVal.getItem(0).matrix.f
+							))
+							.observe(svg.node(), {attributes: true, childList: true, subtree:false})
 						offset = 0
 						for population in Thorax.Models.Measure.allPopulationCodes
 								offset+= rowHeight+rowPadding.top
 								populationElement = svg.append('svg:g')
 										.attr("width", width)
 										.attr("class", population)
+										.classed("population", true)
 										.attr("transform", "translate(0,#{offset})")
 								textField = populationElement.append('text')
 									.attr("transform", "translate(0, -3)")
@@ -20,32 +31,27 @@ Bonnie.viz.measureVisualzation = ->
 								if not data[population] 
 									continue 		
 								if not data[population].preconditions?
-									textField.text("#{population}: None")
+									textField.text("#{populationCodes[[population]]}: None")
 									continue
-								populationElement = svg.append('svg:g')
-										.attr("width", width)
-										.attr("class", population)
-										.attr("transform", "translate(0,#{offset})")
-								populationElement.append('text').text(population)
-									.attr("transform", "translate(0, -3)")
+								textField.text(populationCodes[[population]])
 
 								renderPrecondition(populationElement, data[population].preconditions[0]) if data[population].preconditions?
 								offset+= getElementHeight(populationElement)
-														
+
+
+
 
 
 		width = 600
-		rowHeight = 22
+		rowHeight = 15
 		margin = 
 				top: 10
 				right: 10
 				bottom: 10
 				left: 10
 		rowPadding = 
-				top: 5
-				bottom: 5
-				left: 5
-				right: 5
+				top: 15
+				right: 15
 
 		dataCriteria = {}
 
@@ -101,6 +107,7 @@ Bonnie.viz.measureVisualzation = ->
 												.attr("conjunction_code", preconditions.conjunction_code)
 												.attr("preconditions", preconditions.preconditions.length)
 												.attr("width", elWidth)
+
 										renderPrecondition(element, precondition)
 										
 
@@ -201,7 +208,7 @@ Bonnie.viz.measureVisualzation = ->
 
 		  reference = ""
 		 	if temporalReference.reference == "MeasurePeriod"
-		 		reference = "Measurement Period"
+		 		reference = "\"Measurement Period\""
 		 	else
 		 		reference = "Occurrence #{dataCriteria[temporalReference.reference].specific_occurrence}: #{dataCriteria[temporalReference.reference].description}"
 		 		
