@@ -46,7 +46,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
-    cms_id_parts = (@model.get("cms_id").match(/CMS(\d+)(V\d+)/i) || [])
+    cms_id_parts = if @model.get("cms_id") then @model.get("cms_id").match(/CMS(\d+)(V\d+)/i) else []
     _(super).extend
       start_date: moment(@model.get('start_date')).format('L') if @model.get('start_date')
       start_time: moment(@model.get('start_date')).format('LT') if @model.get('start_date')
