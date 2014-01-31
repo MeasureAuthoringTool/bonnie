@@ -21,7 +21,11 @@ class Thorax.Models.Patient extends Thorax.Model
   deepClone: (options = {}) ->
     # Clone by fully serializing and de-derializing; we need to stringify to have recursive JSONification happen
     data = if options.omit_id then _(@toJSON()).omit('_id') else @toJSON() # Don't use @omit in case toJSON is overwritten
+    if options.dedupName
+       data['first'] = bonnie.patients.dedupName(data)
+
     json = JSON.stringify data
+
     new @constructor JSON.parse(json), parse: true
 
   getBirthDate: -> new Date(@get('birthdate'))
@@ -106,3 +110,17 @@ class Thorax.Models.Patient extends Thorax.Model
 
 class Thorax.Collections.Patients extends Thorax.Collection
   model: Thorax.Models.Patient
+  
+  dedupName: (patient) ->
+    return patient.first if !(patient.first && patient.last)
+    #matcher to find all of the records that have the same last name and the first name starts with the first name of the 
+    #patient data being duplicated 
+    matcher =  (record) -> 
+      return false if !(record.get('first') && record.get('last')) || record.get('last') != patient.last 
+      return record.get('first').substring( 0, patient.first.length ) == patient.first;
+  
+    matches = @.filter(matcher)
+    index = 1
+    #increment the index for any copy index that may have been previously used
+    index++ while _.find(matches, (record) -> record.get("first") == patient.first + " ("+index+")")
+    patient.first + " (" + index + ")"
