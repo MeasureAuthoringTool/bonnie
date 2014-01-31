@@ -63,4 +63,16 @@ Bonnie::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  # Configure to send email
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
+  # Send notification when application exceptions happen
+  config.middleware.use ExceptionNotification::Rack, email: {
+    email_prefix: "[Bonnie] ",
+    sender_address: %{"Bonnie" <bonnie@bonnie.projecttacoma.org>},
+    exception_recipients: %w{bonnie-feedback-list@lists.mitre.org}
+  }
+
 end
