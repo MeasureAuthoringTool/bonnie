@@ -23,6 +23,10 @@ class Thorax.Views.SelectCriteriaView extends Thorax.View
 class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   className: 'patient-criteria'
 
+  @highlight:
+    partial: 'highlight-partial'
+    valid: 'highlight-valid'
+
   template: JST['patient_builder/edit_criteria']
 
   options:
@@ -37,6 +41,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       fieldValue: true
       values: @model.get('field_values')
       criteriaType: @model.get('type')
+
+    @model.on 'highlight', (type) =>
+      @$('.criteria-data').addClass(type)
 
   valueWithDateContext: (model) ->
     _(model.toJSON()).extend

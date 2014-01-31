@@ -154,6 +154,13 @@ class Thorax.Models.Result extends Thorax.Model
       _.extend(orCounts, @calculateOrCountsRecursive(rationale, precondition.preconditions))
     return orCounts
 
+  codedEntriesForDataCriteria: (dataCriteriaKey) ->
+    @get('rationale')[dataCriteriaKey]?['results']
+
+  codedEntriesPassingSpecifics: (dataCriteriaKey, populationCriteriaKey) ->
+    index = hqmf.SpecificsManager.indexLookup[@measure.get('data_criteria')[dataCriteriaKey].source_data_criteria]
+    goodElements = (row[index] for row in @get('finalSpecifics')[populationCriteriaKey]) if index? and @get('finalSpecifics')?[populationCriteriaKey]?
+
 class Thorax.Collections.Results extends Thorax.Collection
   model: Thorax.Models.Result
   initialize: (models, options) -> @parent = options?.parent

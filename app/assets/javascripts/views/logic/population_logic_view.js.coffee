@@ -27,6 +27,7 @@ class Thorax.Views.PopulationLogic extends Thorax.View
   showRationale: (result) ->
     # Only show the rationale once the result is populated
     result.calculation.done =>
+      @latestResult = result
       rationale = result.get('rationale')
       @clearRationale()
       # rationale only handles the logical true/false values
@@ -38,6 +39,24 @@ class Thorax.Views.PopulationLogic extends Thorax.View
             target = @$(".#{code}_children .#{key}")
             if (target.length > 0)
               target.addClass(if updatedRationale[code]?[key] is false then 'eval-bad-specifics' else "eval-#{!!value}")
+
+  highlightPatientData: (dataCriteriaKey, populationCriteriaKey) ->
+    if @latestResult?.get('finalSpecifics')?[populationCriteriaKey]
+      matchingCodedEntries = @latestResult.codedEntriesForDataCriteria(dataCriteriaKey)
+      if matchingCodedEntries
+        goodElements = @latestResult.codedEntriesPassingSpecifics(dataCriteriaKey, populationCriteriaKey)
+        partial = Thorax.Views.EditCriteriaView.highlight.partial
+        valid = Thorax.Views.EditCriteriaView.highlight.valid
+        for codedEntry in matchingCodedEntries
+          type = (if goodElements?.indexOf(codedEntry.id) < 0 then partial else valid)
+          # picked up by EditCriteriaView
+          for sourceDataCriterium in @latestResult.patient.get('source_data_criteria').models 
+            if sourceDataCriterium.get('coded_entry_id') == codedEntry.id
+              sourceDataCriterium.trigger 'highlight', type 
+
+  clearHighlightPatientData: ->
+    # picked up by PatientBuilder
+    @latestResult?.patient.trigger 'clearHighlight'
 
   clearRationale: ->
     @$('.rationale .rationale-target').removeClass('eval-false eval-true eval-bad-specifics')

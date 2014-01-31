@@ -89,6 +89,8 @@ class Thorax.Models.Patient extends Thorax.Model
       defaults = {}
       defaults[section] = [] for section in Thorax.Models.Patient.sections
       @set _(data).chain().pick(_(defaults).keys()).defaults(defaults).value(), silent: true
+      for criterium, i in @get('source_data_criteria').models
+        criterium.set 'coded_entry_id', data['source_data_criteria'][i]['coded_entry_id'], silent: true
       @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
 
   getExpectedValue: (population) ->
@@ -109,8 +111,7 @@ class Thorax.Models.Patient extends Thorax.Model
     expectedValues
 
 class Thorax.Collections.Patients extends Thorax.Collection
-  model: Thorax.Models.Patient
-  
+  model: Thorax.Models.Patient  
   dedupName: (patient) ->
     return patient.first if !(patient.first && patient.last)
     #matcher to find all of the records that have the same last name and the first name starts with the first name of the 
