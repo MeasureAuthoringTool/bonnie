@@ -1,9 +1,21 @@
 class User
   include Mongoid::Document
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  # :confirmable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable, :lockable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  # Validate password complexity
+  validate :password_complexity
+  def password_complexity
+    if password.present?
+      # Passwords must have characters from at least two groups, identified by these regexes (last one is punctuation)
+      matches = [/[a-z]/, /[A-Z]/, /[0-9]/, /[^\w\s]/].select { |rx| rx.match(password) }.size
+      unless matches >= 2
+        errors.add :password, "must include characters from at least two groups (lower case, upper case, numbers, special characters)"
+      end
+    end
+  end
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -25,6 +37,11 @@ class User
   field :last_sign_in_at,    :type => Time
   field :current_sign_in_ip, :type => String
   field :last_sign_in_ip,    :type => String
+
+  ## Lockable
+  field :failed_attempts,    :type => Integer, :default => 0
+  field :unlock_token,       :type => String
+  field :locked_at,          :type => Time
 
   field :first_name,    :type => String
   field :last_name,    :type => String
