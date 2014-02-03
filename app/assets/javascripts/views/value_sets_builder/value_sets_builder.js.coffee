@@ -92,9 +92,9 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
   removeFilter: (e) ->
     e.preventDefault()
     filter = @$(e.target).model()
-    filterCodes = _(filter.get('concepts')).pluck('code')
-    removedIncCodes = @inclusions.filter((c) => c.get('code') in filterCodes)
-    removedExCodes = @exclusions.filter((c) => c.get('code') in filterCodes)
+    filterCodes = _(filter.get('concepts')).pluck('_id')
+    removedIncCodes = @inclusions.filter((c) => c.get('_id') in filterCodes)
+    removedExCodes = @exclusions.filter((c) => c.get('_id') in filterCodes)
     @inclusions.remove removedIncCodes
     @exclusions.remove removedExCodes
     @filters.remove filter
@@ -103,21 +103,21 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
   includeFilter: (e) ->
     e.preventDefault()
     filter = @$(e.target).model()
-    filterCodes = _(filter.get('concepts')).pluck('code')
-    removedExCodes = @exclusions.filter((c) => c.get('code') in filterCodes)
+    filterCodes = _(filter.get('concepts')).pluck('_id')
+    removedExCodes = @exclusions.filter((c) => c.get('_id') in filterCodes)
     @exclusions.remove removedExCodes
     for concept in filter.get('concepts')
-      unless concept.code in @inclusions.pluck('code') then @inclusions.add concept
+      unless concept.code in @inclusions.pluck('_id') then @inclusions.add concept
     @updateSearchResults()
 
   excludeFilter: (e) ->
     e.preventDefault()
     filter = @$(e.target).model()
-    filterCodes = _(filter.get('concepts')).pluck('code')
-    removedIncCodes = @inclusions.filter((c) => c.get('code') in filterCodes)
+    filterCodes = _(filter.get('concepts')).pluck('_id')
+    removedIncCodes = @inclusions.filter((c) => c.get('_id') in filterCodes)
     @inclusions.remove removedIncCodes
     for concept in filter.get('concepts')
-      unless concept.code in @exclusions.pluck('code') then @exclusions.add concept
+      unless concept.code in @exclusions.pluck('_id') then @exclusions.add concept
     @updateSearchResults()
 
   updateSearchResults: ->

@@ -17,24 +17,18 @@
         </tbody>
       </table>
     </div>
-    {{#empty inclusions}}
-    {{else}}
-      <label>Inclusions</label>
-      {{#collection inclusions tag="ul" class="list-group"}}
-        <li class="list-group-item">
-          {{display_name}}
-        </li>
-      {{/collection}}
-    {{/empty}}
-    {{#empty exlcusions}}
-    {{else}}
-      <label>Exclusions</label>
-      {{#collection exclusions tag="ul" class="list-group"}}
-        <li class="list-group-item">
-          {{display_name}}
-        </li>
-      {{/collection}}
-    {{/empty}}
+    <label>Inclusions</label>
+    {{#collection inclusions tag="ul" class="list-group"}}
+      <li class="list-group-item">
+        <strong><small>{{code}}</small></strong> {{display_name}} <span class="label label-{{#if white_list}}success{{else}}{{#if black_list}}danger{{else}}info{{/if}}{{/if}}">{{code_system_name}}</span> 
+      </li>
+    {{/collection}}
+    <label>Exclusions</label>
+    {{#collection exclusions tag="ul" class="list-group"}}
+      <li class="list-group-item">
+        <strong><small>{{code}}</small></strong> {{display_name}} <span class="label label-{{#if white_list}}success{{else}}{{#if black_list}}danger{{else}}info{{/if}}{{/if}}">{{code_system_name}}</span> 
+      </li>
+    {{/collection}}
   {{/empty}}
 
   {{!-- <form class="form-horizontal search-form" role="form">

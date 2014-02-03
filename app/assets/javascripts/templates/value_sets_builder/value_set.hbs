@@ -32,7 +32,7 @@
                         {{#if white_list}}<i class="fa fa-fw fa-lg fa-check"></i>{{else}}{{#if black_list}}<i class="fa fa-fw fa-lg fa-times"></i>{{else}}{{/if}}{{/if}} 
                       </div>
                       <div class="col-xs-9">
-                        {{display_name}} <strong><small>{{code}}</small></strong> <span class="label label-{{#if white_list}}success{{else}}{{#if black_list}}danger{{else}}info{{/if}}{{/if}}">{{code_system_name}}</span> 
+                        <strong><small>{{code}}</small></strong> {{display_name}} <span class="label label-{{#if white_list}}success{{else}}{{#if black_list}}danger{{else}}info{{/if}}{{/if}}">{{code_system_name}}</span> 
                       </div>
                       <div class="col-xs-2">
                         <select class="filter-vs">
