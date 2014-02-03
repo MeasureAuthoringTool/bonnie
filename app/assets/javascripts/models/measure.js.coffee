@@ -29,19 +29,19 @@ class Thorax.Models.Measure extends Thorax.Model
   @logicFieldsFor: (criteriaType) ->
 
     # Define field values for all criteria types
-    globalInclusions = ['anatomical_structure', 'cumulative_medication_duration', 'dose', 
-    'frequency', 'incision_time', 'length_of_stay', 'ordinality', 'reason', 'removal_time', 
+    globalInclusions = ['anatomical_structure', 'cumulative_medication_duration', 'dose',
+    'frequency', 'incision_time', 'length_of_stay', 'ordinality', 'reason', 'removal_time',
     'route', 'severity', 'source', 'start_date', 'end_date']
 
     # Define criteria type-specific field values
-    typeInclusions = 
+    typeInclusions =
       care_goals: []
       characteristics: []
       communications: []
       conditions: []
       devices: []
       diagnostic_studies: []
-      encounters: ['admit_time', 'discharge_time', 'discharge_disposition', 'facility', 
+      encounters: ['admit_time', 'discharge_time', 'discharge_disposition', 'facility',
         'facility_arrival', 'facility_departure', 'transfer_to', 'transfer_from']
       functional_statuses: []
       interventions: []
@@ -91,7 +91,7 @@ class Thorax.Collections.Measures extends Thorax.Collection
     else
       if isM1New
         return -1
-      else 
+      else
         if isM2New
           return 1
         else
@@ -100,4 +100,7 @@ class Thorax.Collections.Measures extends Thorax.Collection
     populations = new Thorax.Collections.Population
     @each (m) -> m.get('populations').each (p) -> populations.add(p)
     populations
+
+  valueSets: ->
+    _(@map (m) -> m.get('value_sets')?.models or []).chain().flatten().uniq((vs) -> vs.get('oid')).value()
 

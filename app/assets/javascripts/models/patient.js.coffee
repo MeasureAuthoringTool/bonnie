@@ -1,7 +1,7 @@
 class Thorax.Models.Patient extends Thorax.Model
   idAttribute: '_id'
   urlRoot: '/patients'
-  
+
   parse: (attrs) ->
     dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
     attrs.source_data_criteria = new Thorax.Collections.PatientDataCriteria(dataCriteria, parse: true)
@@ -38,7 +38,7 @@ class Thorax.Models.Patient extends Thorax.Model
   getEntrySections: ->
     s for s in Thorax.Models.Patient.sections when @has(s)
   ### Patient HTML Header values ###
-  getGender: -> 
+  getGender: ->
     if @get('gender') == 'M'
       "Male"
     else
@@ -54,10 +54,8 @@ class Thorax.Models.Patient extends Thorax.Model
     else unless @get('ethnicity').name? then "CDC-RE: #{@get('ethnicity').code}"
     else @get('ethnicity').name
   getInsurance: ->
-    insurances = @get('insurance_providers')?map (ip) ->
-      ip.name
-    insurances?join(", ")
-    unless insurances? then ''
+    insurances = @get('insurance_providers')?.map (ip) -> ip.name
+    insurances?.join(", ") or ''
   getAddresses: ->
     address = ""
     if @get('addresses')
@@ -91,6 +89,11 @@ class Thorax.Models.Patient extends Thorax.Model
       @set _(data).chain().pick(_(defaults).keys()).defaults(defaults).value(), silent: true
       for criterium, i in @get('source_data_criteria').models
         criterium.set 'coded_entry_id', data['source_data_criteria'][i]['coded_entry_id'], silent: true
+        # if we already have codes, then we know we're up to date; no change is necessary
+        if criterium.get('codes').isEmpty()
+          codes = for codeset, codes of data['source_data_criteria'][i]['codes']
+            {codeset, code} for code in codes
+          criterium.get('codes').reset _(codes).flatten()
       @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
 
   getExpectedValue: (population) ->
@@ -125,3 +128,4 @@ class Thorax.Collections.Patients extends Thorax.Collection
     #increment the index for any copy index that may have been previously used
     index++ while _.find(matches, (record) -> record.get("first") == patient.first + " ("+index+")")
     patient.first + " (" + index + ")"
+

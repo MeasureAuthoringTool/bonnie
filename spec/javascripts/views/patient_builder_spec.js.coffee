@@ -133,6 +133,17 @@ describe 'PatientBuilderView', ->
 
     afterEach -> @patientBuilder.remove()
 
+  # FIXME Our test JSON doesn't yet support value sets very well... write these tests when we have a source of value sets independent of the measures
+  xdescribe "adding codes to an encounter", ->
+    beforeEach ->
+      @patientBuilder.appendTo 'body'
+      @addCode = (codeSet, code, submit = true) ->
+        @patientBuilder.$('.codeset-control:first').val(codeSet).change()
+        $codelist = @patientBuilder.$('.codelist-control:first')
+        expect($codelist.children("[value=#{code}]")).toExist()
+        $codelist.val(code).change()
+
+    it "adds a code"
 
   describe "adding values to an encounter", ->
     beforeEach ->
