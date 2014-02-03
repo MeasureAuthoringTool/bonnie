@@ -10,6 +10,8 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     @blackList = new Thorax.Collection()
     @searchResults = new Thorax.Collection(null,comparator: (vs) -> vs.get('display_name')?.toLowerCase())
     @filters = new Thorax.Collection()
+    @exclusions = new Thorax.Collection()
+    @inclusions = new Thorax.Collection()
     @query = ''
     @measureToOids = {}
     @patientToOids = {}
@@ -44,7 +46,7 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
       itemView: (item) => new Thorax.Views.ValueSetView(model: item.model, white: false, black: true, measures: @measures, measuresToOids: @measureToOids, patients: @patients, patientsToOids: @patientToOids, patientsToSdc: @patientToSdc)
     @searchResultsCollectionView = new Thorax.CollectionView
       collection: @searchResults
-      itemView: (item) => new Thorax.Views.ValueSetView(model: item.model, white: false, black: false, filters: @filters)
+      itemView: (item) => new Thorax.Views.ValueSetView(model: item.model, white: false, black: false, filters: @filters, inclusions: @inclusions, exclusions: @exclusions)
 
   search: (e) ->
     e.preventDefault()
@@ -60,8 +62,8 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     else 
       console.log "No search results found for #{@query}"
       @$('.input-group').addClass('has-error')
-    console.log @searchResults
 
+  # deprecated
   associatedMeasures: (valueSets) ->
     associatedMeasures = new Thorax.Collection()
     valueSets.each (vs) =>
@@ -69,6 +71,7 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
         associatedMeasures.add m if vs.get('oid') in @measuresToOids[m.get('hqmf_set_id')]
     associatedMeasures
 
+  # deprecated
   associatedPatients: (valueSets) ->
     associatedPatients = new Thorax.Collection()
     valueSets.each (vs) =>
@@ -86,26 +89,72 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
   resetSearchBar: ->
     @$('.input-group').removeClass('has-success has-error')
 
+  removeFilter: (e) ->
+    e.preventDefault()
+    filter = @$(e.target).model()
+    filterCodes = _(filter.get('concepts')).pluck('code')
+    removedIncCodes = @inclusions.filter((c) => c.get('code') in filterCodes)
+    removedExCodes = @exclusions.filter((c) => c.get('code') in filterCodes)
+    @inclusions.remove removedIncCodes
+    @exclusions.remove removedExCodes
+    @filters.remove filter
+    @updateSearchResults()
+
+  includeFilter: (e) ->
+    e.preventDefault()
+    filter = @$(e.target).model()
+    filterCodes = _(filter.get('concepts')).pluck('code')
+    removedExCodes = @exclusions.filter((c) => c.get('code') in filterCodes)
+    @exclusions.remove removedExCodes
+    for concept in filter.get('concepts')
+      unless concept.code in @inclusions.pluck('code') then @inclusions.add concept
+    @updateSearchResults()
+
+  excludeFilter: (e) ->
+    e.preventDefault()
+    filter = @$(e.target).model()
+    filterCodes = _(filter.get('concepts')).pluck('code')
+    removedIncCodes = @inclusions.filter((c) => c.get('code') in filterCodes)
+    @inclusions.remove removedIncCodes
+    for concept in filter.get('concepts')
+      unless concept.code in @exclusions.pluck('code') then @exclusions.add concept
+    @updateSearchResults()
+
+  updateSearchResults: ->
+    for vcid, vsv of @searchResultsCollectionView.children
+      vsv.rebuildCodes()
+      vsv.render()
+
 class Thorax.Views.ValueSetView extends Thorax.View
   template: JST['value_sets_builder/value_set']
   events:
     'change .filter-vs': 'updateLists'
-    rendered: -> @$('.value-set-save').prop('disabled', true)
+    rendered: -> 
+      @$('.value-set-save').prop('disabled', true)
 
   initialize: ->
-    @codes = new Thorax.Collection()
     @codeSystems = {}
     for concept in @model.get('concepts')
       if @white or @black
         if concept.white_list and @white
-          @codes.add concept
           @addToCodeSystems(concept)
         if concept.black_list and @black 
-          @codes.add concept
           @addToCodeSystems(concept)
       else
-        @codes.add concept
-        @addToCodeSystems(concept)
+        if @inclusions? and @exclusions?
+          if @inclusions.isEmpty() and @exclusions.isEmpty() 
+            @addToCodeSystems(concept)
+          else if @inclusions.isEmpty()
+            unless concept.code in @exclusions.pluck('code')
+              @addToCodeSystems(concept)
+          else if @exclusions.isEmpty()
+            if concept.code in @inclusions.pluck('code')
+              @addToCodeSystems(concept)
+          else if concept.code in @inclusions.pluck('code')
+            unless concept.code in @exclusions.pluck('code')
+              @addToCodeSystems(concept)
+        else
+          @addToCodeSystems(concept)
     @associatedMeasures = new Thorax.Collection()
     if @measures?
       @measures.each (m) =>
@@ -114,10 +163,6 @@ class Thorax.Views.ValueSetView extends Thorax.View
     if @patients?
       @patients.each (p) =>
         @associatedPatients.add p if @model.get('oid') in @patientsToOids[p.get('medical_record_number')]
-        # console.log p.get('source_data_criteria').select((sdc) => sdc in @patientsToSdc[p.get('medical_record_number')])
-    # console.log @patientsToSdc
-    console.log @model.get('display_name')
-    console.log @codeSystems
     
   toggleDetails: (e) ->
     e.preventDefault()
@@ -136,21 +181,35 @@ class Thorax.Views.ValueSetView extends Thorax.View
     else if e.target.value is 'None'
       originalConcept.white_list = false
       originalConcept.black_list = false
-    @codes.reset()
-    @codeSystems[concept['code_system_name']]['collection'].reset() for concept in @model.get('concepts')
+    @rebuildCodes()
+    @$('.value-set-save').prop('disabled', false)
+
+  rebuildCodes: ->
+    console.log "Rebuilding #{@model.get('display_name')} codes..."
+    for csn, cs of @codeSystems
+      cs['count'] = 0
+      cs['collection'].reset()
     for concept in @model.get('concepts')
       if @white or @black
         if concept.white_list and @white
-          @codes.add concept
-          @codeSystems[concept['code_system_name']]['collection'].add concept
+          @addToCodeSystems(concept)
         if concept.black_list and @black 
-          @codes.add concept
-          @codeSystems[concept['code_system_name']]['collection'].add concept
+          @addToCodeSystems(concept)
       else
-        @codes.add concept
-        @codeSystems[concept['code_system_name']]['collection'].add concept
-    @$('.value-set-save').prop('disabled', false)
-
+        if @inclusions? and @exclusions?
+          if @inclusions.isEmpty() and @exclusions.isEmpty() 
+            @addToCodeSystems(concept)
+          else if @inclusions.isEmpty()
+            unless concept.code in @exclusions.pluck('code')
+              @addToCodeSystems(concept)
+          else if @exclusions.isEmpty()
+            if concept.code in @inclusions.pluck('code')
+              @addToCodeSystems(concept)
+          else if concept.code in @inclusions.pluck('code')
+            unless concept.code in @exclusions.pluck('code')
+              @addToCodeSystems(concept)
+        else
+          @addToCodeSystems(concept)
 
   patientContext: (p) ->
     _(p.toJSON()).extend
@@ -164,15 +223,9 @@ class Thorax.Views.ValueSetView extends Thorax.View
     else
       @codeSystems[concept['code_system_name']] = {code_system: concept['code_system_name'], count: 1, collection: new Thorax.Collection(concept), index: _(@codeSystems).keys().length}
 
-  # compareConcept: (originalConcept, currentConcept) ->
-  #   if originalConcept.white_list == currentConcept.get('white_list') and originalConcept.black_list == currentConcept.get('black_list') then true else false
-
   save: (e) ->
     e.preventDefault()
     console.log "Saving #{@model.get('display_name')}"
-    # console.log e
-    # console.log $(e.target).model()
-    # console.log @model
     @model.id = @model.get('_id')
     @model.url = "/valuesets/#{@model.id}"
     console.log @model
@@ -182,9 +235,4 @@ class Thorax.Views.ValueSetView extends Thorax.View
   addFilter: (e) ->
     e.preventDefault()
     if @filters?
-      console.log @filters
       @filters.add @model
-    @$('.value-set-filter').toggle()
-
-
-

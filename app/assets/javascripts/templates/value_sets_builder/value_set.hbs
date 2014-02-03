@@ -3,7 +3,9 @@
       {{#button "toggleDetails" class="close"}}<i class="fa fa-lg fa-angle-right"></i>{{/button}}
         <h4><i class="fa fa-fw fa-lg fa-list-alt"></i> {{display_name}}  <small>{{oid}}</small>
         {{#each codeSystems}}
-          <span class="label label-info">{{code_system}} <span class="badge">{{count}}</span></span>
+          {{#if count}}
+            <span class="label label-info">{{code_system}} <span class="badge">{{count}}</span></span>
+          {{/if}}
         {{/each}}
         </h4>
   </div>

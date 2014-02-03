@@ -1,11 +1,41 @@
 <div class="row">
   <h1 class="heading-primary">White-List / Black-List Builder</h1>
 
-  {{#collection filters tag="ul" class="list-group"}}
-    <li class="list-group-item">
-      {{display_name}}
-    </li>
-  {{/collection}}
+  {{#empty filters}}
+  {{else}}
+    <label>Filters</label>
+    <div class="well">
+      <table class="table table-striped table-bordered table-condensed table-hover">
+        <tbody>
+          {{#collection filters}}
+            <tr>
+              <th>{{display_name}} {{#button 'removeFilter' class="btn btn-danger"}}<i class="fa fa-times"></i>{{/button}}</th>
+              <th>{{#button 'includeFilter' class="btn btn-info"}}Include{{/button}}</th>
+              <th>{{#button 'excludeFilter' class="btn btn-info"}}Exclude{{/button}}</th>
+            </tr>
+          {{/collection}}
+        </tbody>
+      </table>
+    </div>
+    {{#empty inclusions}}
+    {{else}}
+      <label>Inclusions</label>
+      {{#collection inclusions tag="ul" class="list-group"}}
+        <li class="list-group-item">
+          {{display_name}}
+        </li>
+      {{/collection}}
+    {{/empty}}
+    {{#empty exlcusions}}
+    {{else}}
+      <label>Exclusions</label>
+      {{#collection exclusions tag="ul" class="list-group"}}
+        <li class="list-group-item">
+          {{display_name}}
+        </li>
+      {{/collection}}
+    {{/empty}}
+  {{/empty}}
 
   {{!-- <form class="form-horizontal search-form" role="form">
     <div class="form-group">
@@ -19,9 +49,7 @@
   <div class="panel panel-default">
     <form class="form-horizontal search-form" role="form">
       <div class="input-group input-group-lg">
-        {{!-- <label for="searchByNameOrOID">Search by Name or OID</label> --}}
         <input type="text" class="form-control" id="searchByNameOrOID" placeholder="Enter Value Set name or oid...">
-        {{!-- <div class="col-xs-1"> --}}
         <span class="input-group-btn">
           <button type="submit" class="btn btn-default search-button">Search</button>
         </span>
@@ -31,7 +59,6 @@
             <li>{{#button 'selectMeasure' tag="a"}}[ {{cms_id}} ({{measure_id}}) ] {{hqmf_set_id}}{{/button}}</li>
           {{/collection}}
         </div>
-        {{!-- </div> --}}
       </div>
     </form>
   </div>
