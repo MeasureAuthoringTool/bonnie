@@ -32,8 +32,7 @@
     }
   </script>
 
-  <%# Load up the calculation libray code and individual calculation code for each population %>
-  <script src="<%= libraries_measures_url format: :js %>"></script>
+  <%# Load up the individual calculation code for each population %>
   <% @measure.populations.each_with_index do |population, idx| %>
     <script src="<%= calculate_code_measure_population_url(@measure, idx, format: :js) %>"></script>
   <% end %>
