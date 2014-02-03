@@ -51,6 +51,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
   events:
     'blur :text':     'materialize'
     'change select':  'materialize'
+    'click .deceased-checkbox': -> @model.set 'expired', true
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
 
@@ -71,16 +72,22 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
       attr.birthdate = moment(birthdate, 'L LT').format('X') if birthdate
+      deathdate = attr.deathdate if attr.deathdate
+      deathdate += " #{attr.deathtime}" if attr.deathdate && attr.deathtime
+      attr.deathdate = moment(deathdate, 'L LT').format('X') if deathdate
 
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
   context: ->
     birthdatetime = moment(@model.get('birthdate'), 'X') if @model.has('birthdate')
+    deathdatetime = moment(@model.get('deathdate'), 'X') if @model.get('expired') && @model.has('deathdate')
     _(super).extend
       measureTitle: @measure.get('title')
       measureDescription: @measure.get('description')
       birthdate: birthdatetime?.format('L')
       birthtime: birthdatetime?.format('LT')
-      expired: @model.get('expired')?.toString() # Convert boolean to string
+      deathdate: deathdatetime?.format('L')
+      deathtime: deathdatetime?.format('LT')
+      # expired: @model.get('expired')?.toString() # Convert boolean to string
 
   serializeWithChildren: ->
     # Serialize the main view and the child collection views separately because otherwise Thorax wants
@@ -117,6 +124,9 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     e.preventDefault()
     window.history.back()
 
+  removeDeathDate: (e) ->
+    @model.unset 'deathdate'
+    @model.set 'expired', false
 
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
