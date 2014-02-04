@@ -87,7 +87,6 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       birthtime: birthdatetime?.format('LT')
       deathdate: deathdatetime?.format('L')
       deathtime: deathdatetime?.format('LT')
-      # expired: @model.get('expired')?.toString() # Convert boolean to string
 
   serializeWithChildren: ->
     # Serialize the main view and the child collection views separately because otherwise Thorax wants
