@@ -30,10 +30,12 @@ class Thorax.Views.Measure extends Thorax.View
     @model.destroy()
     bonnie.renderMeasures()
 
-  toggleDetails: (e) ->
+  toggleSettings: (e) ->
     e.preventDefault()
-    unless @$('.measure-settings').hasClass('measure-settings-expanded-delete')
-      @$('.measure-settings').toggleClass('measure-settings-expanded')
+    if @$('.measure-settings').hasClass('measure-settings-expanded-delete')
+      @$('.delete-icon').click()
+      # @$('.measure-settings').toggleClass('measure-settings-expanded-delete')
+    @$('.measure-settings').toggleClass('measure-settings-expanded')
 
   showDelete: (e) ->
     e.preventDefault()
