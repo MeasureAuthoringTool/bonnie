@@ -53,6 +53,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
+    description = (@model.get('description').split("#{@model.get('definition')?[0].toUpperCase() + @model.get('definition')?[1..-1]}, "))?[1]
+    description ?= @model.get('description')
     _(super).extend
       start_date: moment(@model.get('start_date')).format('L') if @model.get('start_date')
       start_time: moment(@model.get('start_date')).format('LT') if @model.get('start_date')
@@ -61,6 +63,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       end_date_is_undefined: !@model.has('end_date')
       codes: @measure.get('value_sets').map (vs) -> vs.toJSON()
       faIcon: @model.faIcon()
+      specificDescription: description
 
   # When we serialize the form, we want to convert formatted dates back to times
   events:
