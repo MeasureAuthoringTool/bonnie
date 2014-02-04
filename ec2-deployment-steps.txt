@@ -123,6 +123,8 @@ With the following content:
     <Directory /var/www/rails_apps/bonnie/current/public>
       AllowOverride all
       Options -MultiViews
+      # Compress css and js
+      AddOutputFilterByType DEFLATE text/css application/x-javascript application/javascript text/javascript
     </Directory>
     SetEnvIf User-Agent ".*MSIE.*" \
              nokeepalive ssl-unclean-shutdown \
