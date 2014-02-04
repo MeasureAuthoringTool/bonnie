@@ -88,6 +88,9 @@ With the following content:
     CustomLog /var/log/httpd/access.log combined
   </VirtualHost>
 
+  LoadModule headers_module modules/mod_headers.so
+  LoadModule expires_module modules/mod_expires.so
+
   LoadModule ssl_module modules/mod_ssl.so
   Listen 443
   SSLPassPhraseDialog  builtin
@@ -109,6 +112,14 @@ With the following content:
     SSLCertificateFile    /etc/httpd/ssl/self-signed-server.crt
     SSLCertificateKeyFile /etc/httpd/ssl/self-signed-server.key
     DocumentRoot /var/www/rails_apps/bonnie/current/public
+    <Location /assets/>
+      # Use of ETag is discouraged when Last-Modified is present
+      Header unset ETag
+      FileETag None
+      # RFC says only cache for 1 year
+      ExpiresActive On
+      ExpiresDefault "access plus 1 year"
+    </Location>
     <Directory /var/www/rails_apps/bonnie/current/public>
       AllowOverride all
       Options -MultiViews
