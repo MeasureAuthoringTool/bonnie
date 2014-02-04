@@ -75,15 +75,11 @@
 
         <div class="form-group">
           <label for="expired">{{#if expired}}Date of Death{{else}}Living Status{{/if}}</label>
-          {{!-- <select id="expired" name="expired" class="form-control">
-            <option value="false">Alive</option>
-            <option value="true">Deceased</option>
-          </select> --}}
           {{#if expired}}
             <div class="row">
               {{#button "removeDeathDate" tag="i" class="btn fa fa-times-circle remove-death-date"}}{{/button}}
 
-              <div class="col-md-5">
+              <div class="col-md-6">
                 <input type="text" id="deathdate" name="deathdate" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
               </div>
 
@@ -92,7 +88,6 @@
               </div>
             </div>
           {{else}}
-            {{!-- {{#button "setExpired" class="form-control"}}<i class="fa fa-square-o default"></i> Deceased{{/button}} --}}
             <div class="checkbox deceased-checkbox">
               <label>
                 <input type="checkbox" id="expired" name="expired"> Deceased

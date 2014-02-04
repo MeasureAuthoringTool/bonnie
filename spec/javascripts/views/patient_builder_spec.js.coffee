@@ -232,7 +232,7 @@ describe 'PatientBuilderView', ->
     afterEach -> @patientBuilder.remove()
 
 
-  describe "seting expected values", ->
+  describe "setting expected values", ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
       @patientBuilder.$('input[type=checkbox][name=DENOM]:first').click()
@@ -243,5 +243,25 @@ describe 'PatientBuilderView', ->
       expect(expectedValues.get('IPP')).toEqual 0
       expect(expectedValues.get('DENOM')).toEqual 1
       expect(expectedValues.get('NUMER')).toEqual 0
+
+    afterEach -> @patientBuilder.remove()
+
+  describe "modifying living status", ->
+    beforeEach ->
+      @patientBuilder.appendTo 'body'
+
+    it "expires patient correctly", ->
+      @patientBuilder.$('input[type=checkbox][name=expired]:first').click()
+      @patientBuilder.$(':input[name=deathdate]').val('01/02/1994')
+      @patientBuilder.$(':input[name=deathtime]').val('1:15 PM')
+      @patientBuilder.$("button[data-call-method=save]").click()
+      expect(@patientBuilder.model.get('expired')).toEqual true
+      expect(@patientBuilder.model.get('deathdate')).toEqual moment('01/02/1994 1:15 PM').format('X')
+
+    it "revives patient correctly", ->
+      @patientBuilder.$("button[data-call-method=removeDeathDate]").click()
+      @patientBuilder.$("button[data-call-method=save]").click()
+      expect(@patientBuilder.model.get('expired')).toEqual false
+      expect(@patientBuilder.model.get('deathdate')).toEqual null
 
     afterEach -> @patientBuilder.remove()

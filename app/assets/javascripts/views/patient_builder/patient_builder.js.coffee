@@ -125,7 +125,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     window.history.back()
 
   removeDeathDate: (e) ->
-    @model.unset 'deathdate'
+    @model.set 'deathdate', null
     @model.set 'expired', false
 
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
