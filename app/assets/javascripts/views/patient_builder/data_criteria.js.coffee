@@ -61,6 +61,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       end_date_is_undefined: !@model.has('end_date')
       codes: @measure.get('value_sets').map (vs) -> vs.toJSON()
       faIcon: @model.faIcon()
+      specificDescription: (@model.get('description').split("#{@model.get('definition')[0].toUpperCase() + @model.get('definition')[1..-1]}, "))[1]
 
   # When we serialize the form, we want to convert formatted dates back to times
   events:
