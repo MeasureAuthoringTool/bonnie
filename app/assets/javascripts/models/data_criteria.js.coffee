@@ -20,7 +20,7 @@ class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
 class Thorax.Models.PatientDataCriteria extends Thorax.Model
   idAttribute: null
   initialize: ->
-    @set 'codes', new Thorax.Collection
+    @set('codes', new Thorax.Collection) unless @has 'codes'
   parse: (attrs) ->
     attrs.value = new Thorax.Collection(attrs.value)
     # Transform fieldValues object to collection, one element per key/value, with key as additional attribute

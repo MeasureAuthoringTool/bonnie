@@ -37,23 +37,25 @@ module Measures
           puts $!
         end
         entry = Measures::PatientBuilder.derive_entry(data_criteria, source_criteria, value_sets)
-        # if its a thing like result, condition, encounter it will have an entry otherwise 
+        # if its a thing like result, condition, encounter it will have an entry otherwise
         # its most likely a characteristic
         if entry
           derive_values(entry, source_criteria['value'] ,value_sets)
           derive_negation(entry, source_criteria, value_sets)
           derive_field_values(entry, source_criteria['field_values'],value_sets)
-         
+
           entry_type = HQMF::Generator.classify_entry(data_criteria['patient_api_function'].to_sym)
           section_name = (entry_type == "lab_results") ? "results" : entry_type
 
           source_criteria['coded_entry_id'] = entry.id
 
           source_criteria['codes'] = entry['codes']
-          source_criteria['code_source'] = if Measures::PatientBuilder.white_list?(source_criteria['code_list_id'], value_sets)
-            Measures::PatientBuilder::CODE_SOURCE[:WHITE_LIST]
-          else
-            Measures::PatientBuilder::CODE_SOURCE[:DEFAULT]
+          if source_criteria['code_source'] != Measures::PatientBuilder::CODE_SOURCE[:USER_DEFINED]
+            source_criteria['code_source'] = if Measures::PatientBuilder.white_list?(source_criteria['code_list_id'], value_sets)
+              Measures::PatientBuilder::CODE_SOURCE[:WHITE_LIST]
+            else
+              Measures::PatientBuilder::CODE_SOURCE[:DEFAULT]
+            end
           end
 
 
@@ -82,7 +84,7 @@ module Measures
       HQMF::Range.from_json({'low' => low,'high' => high})
     end
 
-  
+
 
     # Determine the apporpriate coded entry type from this data criteria and create one to match.
     #
@@ -92,7 +94,7 @@ module Measures
     # @param [Hash] value_sets The value sets that this data criteria references.
     # @return A coded entry with basic data defined by this data criteria.
     def self.derive_entry(data_criteria,source_criteria, value_sets)
- 
+
       return nil if data_criteria.nil? || (data_criteria['type'] == 'characteristic' && data_criteria['patient_api_function'].nil?)
       time = derive_time_range(source_criteria)
       entry_type = HQMF::Generator.classify_entry(data_criteria['patient_api_function'].to_sym)
@@ -116,7 +118,7 @@ module Measures
       return if values.nil? || values.empty?
       derived = []
       result_vals = values
-      result_vals = [result_vals] if !result_vals.is_a? Array 
+      result_vals = [result_vals] if !result_vals.is_a? Array
       result_vals.each do |result_value|
         if result_value['type'] == 'CD'
          oid = result_value['code_list_id']
@@ -150,7 +152,7 @@ module Measures
       return if values.nil?
       values.each do |name, value|
 
-        converted_time = Time.at(value['value']/1000).strftime('%Y%m%d%H%M%S') if (value['type'] == 'TS') 
+        converted_time = Time.at(value['value']/1000).strftime('%Y%m%d%H%M%S') if (value['type'] == 'TS')
         field = HQMF::DataCriteria.convert_value(value)
         field.value = converted_time if converted_time
 
@@ -161,18 +163,18 @@ module Measures
         else
           field_value = field.format
         end
-        
+
         field_accessor = nil
         # Facilities are a special case where we store a whole object on the entry in Record. Create or augment the existing facility with this piece of data.
         if name.include? "FACILITY"
           facility = entry.facility
           facility ||= Facility.new
           facility_map = {"FACILITY_LOCATION" => :code, "FACILITY_LOCATION_ARRIVAL_DATETIME" => :start_time, "FACILITY_LOCATION_DEPARTURE_DATETIME" => :end_time}
-          
+
           facility.name = field.title if field.type == "CD"
           facility_accessor = facility_map[name]
           facility.send("#{facility_accessor}=", field_value)
-          
+
           field_accessor = :facility
           field_value = facility
         end
@@ -185,7 +187,7 @@ module Measures
           noop_fields = ["LENGTH_OF_STAY", "START_DATETIME", "STOP_DATETIME"]
           unless noop_fields.include? name
             field_accessor = HQMF::DataCriteria::FIELDS[name][:coded_entry_method]
-            puts "Unknown field #{name} was unable to be added via #{field_accessor} to the patient" 
+            puts "Unknown field #{name} was unable to be added via #{field_accessor} to the patient"
           end
         end
       end
@@ -213,7 +215,7 @@ module Measures
       value_sets[oid].concepts.any? {|x| x.white_list}
     end
 
-    
+
     # Filter through a list of value sets and choose only the ones marked with a given OID.
     #
     # @param [String] oid The OID being used for filtering.
@@ -241,6 +243,6 @@ module Measures
         'code' => codes[code_system][0]
       }
     end
-    
+
   end
 end

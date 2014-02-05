@@ -102,5 +102,5 @@ class Thorax.Collections.Measures extends Thorax.Collection
     populations
 
   valueSets: ->
-    _(@map (m) -> m.get('value_sets')?.models or []).chain().flatten().uniq((vs) -> vs.get('oid')).value()
+    @chain().map((m) -> m.get('value_sets')?.models or []).flatten().uniq((vs) -> vs.get('oid')).value()
 
