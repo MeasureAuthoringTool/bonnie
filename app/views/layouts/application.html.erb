@@ -44,6 +44,8 @@
       });
       bonnie.isAdmin = <%= current_user.is_admin? %>;
       bonnie.isPortfolio = <%= current_user.is_portfolio? %>;
+      // prevent fetching directly from server after bootstrapping measures
+      bonnie.measures._fetched = true;
     </script>
   </body>
 </html>
