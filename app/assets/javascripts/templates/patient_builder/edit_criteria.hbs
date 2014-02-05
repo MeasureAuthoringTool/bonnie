@@ -16,9 +16,11 @@
           <div>{{start_date}}{{#if end_date}} &ndash; {{end_date}}{{/if}}</div>
         </div>
       </div>
-      <span class="criteria-tag">
-        <span class="criteria-tag-cms">CMS</span> <span class="criteria-tag-num">{{cms_id_number}}</span> <span class="criteria-tag-version">{{cms_id_version}}</span>
-      </span>
+      {{#ifPortfolio}}
+        <span class="criteria-tag">
+          <span class="criteria-tag-cms">CMS</span> <span class="criteria-tag-num">{{cms_id_number}}</span> <span class="criteria-tag-version">{{cms_id_version}}</span>
+        </span>
+      {{/ifPortfolio}}
     </div>
     <form class="hide" role="form">
       {{#button "toggleDetails" class="close"}}<i class="fa fa-lg fa-angle-down"></i>{{/button}}
