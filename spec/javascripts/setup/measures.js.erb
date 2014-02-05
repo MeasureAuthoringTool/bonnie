@@ -1,7 +1,3 @@
-<%# Load measure calculation utility JS %>
-<%= HQMF2JS::Generator::JS.map_reduce_utils %>
-<%= HQMF2JS::Generator::JS.library_functions(false, false) %>
-
 <%# Load the JSON for our fixture measures %>
 <% measures_fixture_file = File.join File.dirname(__FILE__), '../fixtures/json/measures.json' %>
 <% measures_json = File.read(measures_fixture_file) %>

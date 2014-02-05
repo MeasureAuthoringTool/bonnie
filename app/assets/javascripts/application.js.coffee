@@ -30,6 +30,7 @@
 #= require_tree ./views
 #= require calculator
 #= require router
+#= require measure_libraries
 #= require_self
 #= require_tree .
 
