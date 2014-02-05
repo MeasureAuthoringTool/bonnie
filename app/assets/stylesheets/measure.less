@@ -24,66 +24,51 @@
     .make-sm-column(12);
     .title-bar;
     .short-title {
-      font-size: 1.8em;
+      .vertical-spacing;
       padding-right: 15px;
-      line-height: 1.75;
     }
     .full-title {
       line-height: 1.6;
       padding-right: 2%;
     }
     .settings-btn {
-      position: absolute;
-      font-size: 1.8em;
-      line-height: 1.75;
+      .fixed-vertical-spacing;
       border: 0;
-      top: -2px;
       right: 0;
       background: transparent;
     }
     .measure-settings {
-      position: absolute;
-      line-height: 1.75;
+      .fixed-vertical-spacing;
       height: 100%;
-      top: -2px;
       right: 30px;
       width: 0px;
       overflow: hidden;
-      white-space:nowrap;
-      -webkit-transition: width 0.3s linear;
-      -moz-transition: width 0.3s linear;
-      -ms-transition: width 0.3s linear;
-      -o-transition: width 0.3s linear;
-      transition: width 0.3s linear;
+      .btn-transition(width 0.3s linear);
+      .btn-danger {
+        .fa {
+          color: @btn-danger-color;
+        }
+      }
+      .btn-danger-inverse {
+        .fa {
+          color: @btn-danger-bg;
+        }
+      }
+      .delete-measure {
+        .measure-settings-padding;
+      }
+      .update-measure {
+        .measure-settings-padding;
+        .fa {
+          color: @brand-primary;
+        }
+      }
     }
     .measure-settings-expanded {
       width: 16%;
     }
     .measure-settings-expanded-delete {
       width: 27%;
-    }
-    .btn-danger {
-      .fa {
-        color: @btn-danger-color;
-      }
-    }
-    .btn-danger-inverse {
-      .fa {
-        color: @btn-danger-bg;
-      }
-    }
-    .delete-measure {
-      margin-top: 7px;
-      padding-left: 6px;
-      padding-right: 6px;
-    }
-    .update-measure {
-      margin-top: 7px;
-      padding-left: 6px;
-      padding-right: 6px;
-      .fa {
-        color: @brand-primary;
-      }
     }
   }
 
