@@ -212,7 +212,9 @@ module Measures
     end
 
     def self.white_list?(oid, value_sets)
-      value_sets[oid].concepts.any? {|x| x.white_list}
+      if value_sets[oid]
+        value_sets[oid].concepts.any? {|x| x.white_list}
+      end
     end
 
 
