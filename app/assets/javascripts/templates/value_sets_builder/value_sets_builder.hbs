@@ -7,11 +7,11 @@
     <div class="well">
       <table class="table table-striped table-bordered table-condensed table-hover">
         <tbody>
-          {{#collection filters}}
+          {{#collection filters item-context="filterContext"}}
             <tr>
               <th>{{display_name}} {{#button 'removeFilter' class="btn btn-danger"}}<i class="fa fa-times"></i>{{/button}}</th>
-              <th>{{#button 'includeFilter' class="btn btn-info"}}Include{{/button}}</th>
-              <th>{{#button 'excludeFilter' class="btn btn-info"}}Exclude{{/button}}</th>
+              <th>{{#button 'includeFilter' class="btn btn-info include-{{cid}}" expand-tokens=true}}Include{{#if included}}d{{/if}}{{/button}}</th>
+              <th>{{#button 'excludeFilter' class="btn btn-info exclude-{{cid}}" expand-tokens=true}}Exclude{{#if excluded}}d{{/if}}{{/button}}</th>
             </tr>
           {{/collection}}
         </tbody>

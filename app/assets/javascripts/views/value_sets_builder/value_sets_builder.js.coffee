@@ -48,6 +48,11 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
       collection: @searchResults
       itemView: (item) => new Thorax.Views.ValueSetView(model: item.model, white: false, black: false, filters: @filters, inclusions: @inclusions, exclusions: @exclusions)
 
+  filterContext: (f) ->
+    _(f.toJSON()).extend
+      includedState: if f.get('included') then 'default' else 'info'
+      excludedState: if f.get('excluded') then 'default' else 'info'
+
   search: (e) ->
     e.preventDefault()
     @query = @$('#searchByNameOrOID').val()
@@ -98,6 +103,8 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     @inclusions.remove removedIncCodes
     @exclusions.remove removedExCodes
     @filters.remove filter
+    filter.set 'included', false
+    filter.set 'excluded', false
     @updateSearchResults()
 
   includeFilter: (e) ->
@@ -107,7 +114,9 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     removedExCodes = @exclusions.filter((c) => c.get('_id') in filterCodes)
     @exclusions.remove removedExCodes
     for concept in filter.get('concepts')
-      unless concept.code in @inclusions.pluck('_id') then @inclusions.add concept
+      unless concept.code in @inclusions.pluck('code') then @inclusions.add concept
+    filter.set 'included', true
+    filter.set 'excluded', false
     @updateSearchResults()
 
   excludeFilter: (e) ->
@@ -117,7 +126,9 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     removedIncCodes = @inclusions.filter((c) => c.get('_id') in filterCodes)
     @inclusions.remove removedIncCodes
     for concept in filter.get('concepts')
-      unless concept.code in @exclusions.pluck('_id') then @exclusions.add concept
+      unless concept.code in @exclusions.pluck('code') then @exclusions.add concept
+    filter.set 'excluded', true
+    filter.set 'included', false
     @updateSearchResults()
 
   updateSearchResults: ->
@@ -235,4 +246,6 @@ class Thorax.Views.ValueSetView extends Thorax.View
   addFilter: (e) ->
     e.preventDefault()
     if @filters?
+      @model.set 'included', false
+      @model.set 'excluded', false
       @filters.add @model
