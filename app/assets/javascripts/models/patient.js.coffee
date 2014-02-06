@@ -91,9 +91,7 @@ class Thorax.Models.Patient extends Thorax.Model
         criterium.set 'coded_entry_id', data['source_data_criteria'][i]['coded_entry_id'], silent: true
         # if we already have codes, then we know we're up to date; no change is necessary
         if criterium.get('codes').isEmpty()
-          codes = for codeset, codes of data['source_data_criteria'][i]['codes']
-            {codeset, code} for code in codes
-          criterium.get('codes').reset _(codes).flatten()
+          criterium.get('codes').reset data['source_data_criteria'][i]['codes'], parse: true
       @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
 
   getExpectedValue: (population) ->
@@ -114,15 +112,15 @@ class Thorax.Models.Patient extends Thorax.Model
     expectedValues
 
 class Thorax.Collections.Patients extends Thorax.Collection
-  model: Thorax.Models.Patient  
+  model: Thorax.Models.Patient
   dedupName: (patient) ->
     return patient.first if !(patient.first && patient.last)
-    #matcher to find all of the records that have the same last name and the first name starts with the first name of the 
-    #patient data being duplicated 
-    matcher =  (record) -> 
-      return false if !(record.get('first') && record.get('last')) || record.get('last') != patient.last 
+    #matcher to find all of the records that have the same last name and the first name starts with the first name of the
+    #patient data being duplicated
+    matcher =  (record) ->
+      return false if !(record.get('first') && record.get('last')) || record.get('last') != patient.last
       return record.get('first').substring( 0, patient.first.length ) == patient.first;
-  
+
     matches = @.filter(matcher)
     index = 1
     #increment the index for any copy index that may have been previously used
