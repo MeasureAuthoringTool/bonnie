@@ -20,7 +20,7 @@ class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
 class Thorax.Models.PatientDataCriteria extends Thorax.Model
   idAttribute: null
   initialize: ->
-    @set('codes', new Thorax.Collection) unless @has 'codes'
+    @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
   parse: (attrs) ->
     attrs.value = new Thorax.Collection(attrs.value)
     # Transform fieldValues object to collection, one element per key/value, with key as additional attribute
@@ -29,7 +29,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
       fieldValues.add _(value).extend(key: key)
     attrs.field_values = fieldValues
     if attrs.codes
-      attrs.codes = new Thorax.Collection attrs.codes
+      attrs.codes = new Thorax.Collections.Codes attrs.codes, parse: true
     attrs
   valueSet: -> _(bonnie.measures.valueSets()).detect (vs) => vs.get('oid') is @get('code_list_id')
   toJSON: ->
@@ -60,3 +60,15 @@ class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
   model: Thorax.Models.PatientDataCriteria
   # FIXME sortable: commenting out due to odd bug in droppable
   # comparator: (m) -> [m.get('start_date'), m.get('end_date')]
+
+class Thorax.Collections.Codes extends Thorax.Collection
+  parse: (results, options) ->
+    codes = for codeset, codes of results
+      {codeset, code} for code in codes
+    _(codes).flatten()
+
+  toJSON: ->
+    json = {}
+    for codeset, codes of @groupBy 'codeset'
+      json[codeset] = _(codes).map (c) -> c.get('code')
+    json
