@@ -29,9 +29,9 @@
     }
     .full-title {
       line-height: 1.6;
-      padding-right: 2%;
+      padding-right: 10px;
     }
-    .settings-btn {
+    .btn-settings {
       .fixed-vertical-spacing;
       border: 0;
       right: 0;
@@ -40,10 +40,10 @@
     .measure-settings {
       .fixed-vertical-spacing;
       height: 100%;
-      right: 30px;
+      right: 3*@padding-small-horizontal;
       width: 0px;
       overflow: hidden;
-      .btn-transition(width 0.3s linear);
+      .transition(width 0.3s linear);
       .btn-danger {
         .fa {
           color: @btn-danger-color;
@@ -65,10 +65,10 @@
       }
     }
     .measure-settings-expanded {
-      width: 16%;
+      width: 125px;
     }
     .measure-settings-expanded-delete {
-      width: 27%;
+      width: 214px;
     }
   }
 

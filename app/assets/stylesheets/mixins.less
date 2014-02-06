@@ -34,15 +34,6 @@
   .button-variant(@btn-danger-bg; @btn-danger-color; @btn-danger-border);
 }
 
-// Sliding transitions - used in Measure View settings
-.btn-transition(@transition) {
-  -webkit-transition: @transition;
-  -moz-transition: @transition;
-  -ms-transition: @transition;
-  -o-transition: @transition;
-  transition: @transition;
-}
-
 // Vertical spacing - used in Measure View title bar
 .vertical-spacing() {
   font-size: 1.8em;
@@ -53,9 +44,9 @@
 .fixed-vertical-spacing() {
   .vertical-spacing;
   position: absolute;
-  top: -3px;
+  top: -@border-radius-small;
 }
 .measure-settings-padding {
-  padding-left: 6px;
-  padding-right: 6px;
+  padding-left: @padding-base-vertical;
+  padding-right: @padding-base-vertical;
 }
