@@ -24,26 +24,29 @@
     .make-sm-column(12);
     .title-bar;
     .short-title {
-      .vertical-spacing;
+      font-size: 1.8em;
+      line-height: 1.75;
       padding-right: 15px;
     }
     .full-title {
       line-height: 1.6;
       padding-right: 10px;
     }
+    .settings-container {
+      .pull-right;
+      position: relative;
+    }
     .btn-settings {
-      .fixed-vertical-spacing;
-      border: 0;
-      right: 0;
-      background: transparent;
+      font-size: 1.8em;
+      line-height: 1.75;
     }
     .measure-settings {
-      .fixed-vertical-spacing;
-      height: 100%;
-      right: 3*@padding-small-horizontal;
-      width: 0px;
-      overflow: hidden;
-      .transition(width 0.3s linear);
+      visibility: hidden;
+      opacity: 0;
+      background-color: @gray-lighter;
+      position: absolute;
+      top: 4px;
+      .transition(opacity 0.5s linear);
       .btn-danger {
         .fa {
           color: @btn-danger-color;
@@ -54,21 +57,17 @@
           color: @btn-danger-bg;
         }
       }
-      .delete-measure {
-        .measure-settings-padding;
-      }
       .update-measure {
-        .measure-settings-padding;
         .fa {
           color: @brand-primary;
         }
       }
     }
     .measure-settings-expanded {
-      width: 125px;
-    }
-    .measure-settings-expanded-delete {
-      width: 214px;
+      visibility: visible;
+      opacity: 1;
+      right: 1.8em;
+      white-space: nowrap;
     }
   }
 

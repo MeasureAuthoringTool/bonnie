@@ -32,12 +32,10 @@ class Thorax.Views.Measure extends Thorax.View
 
   toggleSettings: (e) ->
     e.preventDefault()
-    if @$('.measure-settings').hasClass('measure-settings-expanded-delete')
-      @$('.delete-icon').click()
+    @$('.delete-icon').click() if @$('.delete-measure').is(':visible')
     @$('.measure-settings').toggleClass('measure-settings-expanded')
 
   showDelete: (e) ->
     e.preventDefault()
     $btn = $(e.currentTarget)
     $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
-    @$('.measure-settings-expanded').toggleClass('measure-settings-expanded-delete')
