@@ -33,3 +33,20 @@
 .btn-danger-inverse {
   .button-variant(@btn-danger-bg; @btn-danger-color; @btn-danger-border);
 }
+
+// Vertical spacing - used in Measure View title bar
+.vertical-spacing() {
+  font-size: 1.8em;
+  line-height: 1.75;
+}
+
+// Fixed vertical spacing and button padding - used in Measure View settings buttons
+.fixed-vertical-spacing() {
+  .vertical-spacing;
+  position: absolute;
+  top: -@border-radius-small;
+}
+.measure-settings-padding {
+  padding-left: @padding-base-vertical;
+  padding-right: @padding-base-vertical;
+}

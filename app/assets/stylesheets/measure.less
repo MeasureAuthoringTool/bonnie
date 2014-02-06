@@ -24,12 +24,51 @@
     .make-sm-column(12);
     .title-bar;
     .short-title {
-      font-size: 1.8em;
+      .vertical-spacing;
       padding-right: 15px;
-      line-height: 1.75;
     }
     .full-title {
       line-height: 1.6;
+      padding-right: 10px;
+    }
+    .btn-settings {
+      .fixed-vertical-spacing;
+      border: 0;
+      right: 0;
+      background: transparent;
+    }
+    .measure-settings {
+      .fixed-vertical-spacing;
+      height: 100%;
+      right: 3*@padding-small-horizontal;
+      width: 0px;
+      overflow: hidden;
+      .transition(width 0.3s linear);
+      .btn-danger {
+        .fa {
+          color: @btn-danger-color;
+        }
+      }
+      .btn-danger-inverse {
+        .fa {
+          color: @btn-danger-bg;
+        }
+      }
+      .delete-measure {
+        .measure-settings-padding;
+      }
+      .update-measure {
+        .measure-settings-padding;
+        .fa {
+          color: @brand-primary;
+        }
+      }
+    }
+    .measure-settings-expanded {
+      width: 125px;
+    }
+    .measure-settings-expanded-delete {
+      width: 214px;
     }
   }
 
