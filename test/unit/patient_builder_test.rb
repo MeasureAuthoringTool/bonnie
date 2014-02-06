@@ -46,7 +46,8 @@ class PatientBuilderTest < ActiveSupport::TestCase
           "negation_code" => {"code_system" => "SNOMED", "code" =>"222222"},
           "field_values"=>{"ORDINAL"=>{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.526.3.1139","title"=>"ACE inhibitor or ARB", "code" =>{"code_system"=>"CPT", "code"=>"CHACHA2", "title"=>nil}}},
           "code_list_id"=> "2.16.840.1.113883.3.526.3.1492",
-          "codes"=> [{"CPT" =>["CPT1"]}]
+          "codes"=> [{"CPT" =>["CPT1"]}],
+          "code_source"=>Measures::PatientBuilder::CODE_SOURCE[:USER_DEFINED]
         }
 
     @un_coded_source_data_critria = {
