@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-3">
+    <select name="codeset" class="codeset-control">
+      <option value="">Code Set</option>
+      {{#each codeSets}}
+      <option>{{this}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="col-md-8">
+    <select name="code" class="form-control codelist-control">
+      <option value="">--</option>
+    </select>
+  </div>
+
+  <div class="col-md-1">
+    {{#button "addCode" class="btn btn-primary pull-right" disabled="disabled"}}<i class="fa fa-plus"></i>{{/button}}
+  </div>
+</div>

@@ -13,7 +13,13 @@ module Measures
       'MC' => '2',
       'OT' => '349'
     }
-  
+
+    CODE_SOURCE = {
+      DEFAULT: 'DEFAULT',
+      WHITE_LIST: 'WHITE_LIST',
+      USER_DEFINED: 'USER_DEFINED'
+    }
+
     def self.rebuild_patient(patient)
 
       patient.medical_record_number ||= Digest::MD5.hexdigest("#{patient.first} #{patient.last} #{Time.now}")
@@ -21,27 +27,37 @@ module Measures
 
       value_sets =  Hash[*HealthDataStandards::SVS::ValueSet.in({oid: vs_oids}).collect{|vs| [vs.oid,vs]}.flatten]
       sections = {}
-      patient.source_data_criteria.each  do |v|
-        next if v['id'] == 'MeasurePeriod'
+      patient.source_data_criteria.each  do |source_criteria|
+        next if source_criteria['id'] == 'MeasurePeriod'
         data_criteria = nil
         begin
-          data_criteria = HQMF::DataCriteria.get_settings_for_definition(v['definition'], v['status'])
+          data_criteria = HQMF::DataCriteria.get_settings_for_definition(source_criteria['definition'], source_criteria['status'])
         rescue
           #unsupported data criteria.
           puts $!
         end
-        entry = Measures::PatientBuilder.derive_entry(data_criteria, v, value_sets)
-        # if its a thing like result, condition, encounter it will have an entry otherwise 
+        entry = Measures::PatientBuilder.derive_entry(data_criteria, source_criteria, value_sets)
+        # if its a thing like result, condition, encounter it will have an entry otherwise
         # its most likely a characteristic
         if entry
-          derive_values(entry, v['value'] ,value_sets)
-          derive_negation(entry, v, value_sets)
-          derive_field_values(entry, v['field_values'],value_sets)
-         
+          derive_values(entry, source_criteria['value'] ,value_sets)
+          derive_negation(entry, source_criteria, value_sets)
+          derive_field_values(entry, source_criteria['field_values'],value_sets)
+
           entry_type = HQMF::Generator.classify_entry(data_criteria['patient_api_function'].to_sym)
           section_name = (entry_type == "lab_results") ? "results" : entry_type
 
-          v['coded_entry_id'] = entry.id
+          source_criteria['coded_entry_id'] = entry.id
+
+          source_criteria['codes'] = entry['codes']
+          if source_criteria['code_source'] != Measures::PatientBuilder::CODE_SOURCE[:USER_DEFINED]
+            source_criteria['code_source'] = if Measures::PatientBuilder.white_list?(source_criteria['code_list_id'], value_sets)
+              Measures::PatientBuilder::CODE_SOURCE[:WHITE_LIST]
+            else
+              Measures::PatientBuilder::CODE_SOURCE[:DEFAULT]
+            end
+          end
+
 
           # Add the updated section to this patient.
           sections[section_name] ||= []
@@ -68,27 +84,31 @@ module Measures
       HQMF::Range.from_json({'low' => low,'high' => high})
     end
 
-  
+
 
     # Determine the apporpriate coded entry type from this data criteria and create one to match.
     #
     # @param [data_criteria]  The data_criteria object to create the entry for
     # @param [Range] time The period of time during which the entry happens.
-    # @param [value] the hash that represents the patients sopurce_data_criteria
+    # @param [source_criteria] the hash that represents the patients sopurce_data_criteria
     # @param [Hash] value_sets The value sets that this data criteria references.
     # @return A coded entry with basic data defined by this data criteria.
-    def self.derive_entry(data_criteria,value, value_sets)
- 
+    def self.derive_entry(data_criteria,source_criteria, value_sets)
+
       return nil if data_criteria.nil? || (data_criteria['type'] == 'characteristic' && data_criteria['patient_api_function'].nil?)
-      time = derive_time_range(value)
+      time = derive_time_range(source_criteria)
       entry_type = HQMF::Generator.classify_entry(data_criteria['patient_api_function'].to_sym)
       entry = entry_type.classify.constantize.new
-      entry.description = value["description"]
+      entry.description = source_criteria["description"]
       entry.start_time = time.low.to_seconds if time.low
       entry.end_time = time.high.to_seconds if time.high
-      entry.status = value['status']
-      entry.codes = value["codes"] || Measures::PatientBuilder.select_codes(value['code_list_id'], value_sets)
-      entry.oid = HQMF::DataCriteria.template_id_for_definition(value['definition'], value['status'], value['negation'])
+      entry.status = source_criteria['status']
+      if (source_criteria['code_source'] == Measures::PatientBuilder::CODE_SOURCE[:USER_DEFINED])
+        entry.codes = source_criteria['codes']
+      else
+        entry.codes = Measures::PatientBuilder.select_codes(source_criteria['code_list_id'], value_sets)
+      end
+      entry.oid = HQMF::DataCriteria.template_id_for_definition(source_criteria['definition'], source_criteria['status'], source_criteria['negation'])
       entry
     end
 
@@ -98,7 +118,7 @@ module Measures
       return if values.nil? || values.empty?
       derived = []
       result_vals = values
-      result_vals = [result_vals] if !result_vals.is_a? Array 
+      result_vals = [result_vals] if !result_vals.is_a? Array
       result_vals.each do |result_value|
         if result_value['type'] == 'CD'
          oid = result_value['code_list_id']
@@ -132,7 +152,7 @@ module Measures
       return if values.nil?
       values.each do |name, value|
 
-        converted_time = Time.at(value['value']/1000).strftime('%Y%m%d%H%M%S') if (value['type'] == 'TS') 
+        converted_time = Time.at(value['value']/1000).strftime('%Y%m%d%H%M%S') if (value['type'] == 'TS')
         field = HQMF::DataCriteria.convert_value(value)
         field.value = converted_time if converted_time
 
@@ -143,18 +163,18 @@ module Measures
         else
           field_value = field.format
         end
-        
+
         field_accessor = nil
         # Facilities are a special case where we store a whole object on the entry in Record. Create or augment the existing facility with this piece of data.
         if name.include? "FACILITY"
           facility = entry.facility
           facility ||= Facility.new
           facility_map = {"FACILITY_LOCATION" => :code, "FACILITY_LOCATION_ARRIVAL_DATETIME" => :start_time, "FACILITY_LOCATION_DEPARTURE_DATETIME" => :end_time}
-          
+
           facility.name = field.title if field.type == "CD"
           facility_accessor = facility_map[name]
           facility.send("#{facility_accessor}=", field_value)
-          
+
           field_accessor = :facility
           field_value = facility
         end
@@ -167,7 +187,7 @@ module Measures
           noop_fields = ["LENGTH_OF_STAY", "START_DATETIME", "STOP_DATETIME"]
           unless noop_fields.include? name
             field_accessor = HQMF::DataCriteria::FIELDS[name][:coded_entry_method]
-            puts "Unknown field #{name} was unable to be added via #{field_accessor} to the patient" 
+            puts "Unknown field #{name} was unable to be added via #{field_accessor} to the patient"
           end
         end
       end
@@ -181,15 +201,21 @@ module Measures
     # @param [Hash] value_sets Value sets that might contain the OID for which we're searching.
     # @return A Hash of code sets corresponding to the given oid, each containing one randomly selected code.
     def self.select_codes(oid, value_sets)
-      code_sets = {}
+      default_code_sets = {}
+      listed_sets = {}
       vs = value_sets[oid]
       vs.concepts.each do |concept|
-        code_sets[concept.code_system_name] ||= [concept.code] unless concept.black_list
-        code_sets[concept.code_system_name] = [concept.code] if concept.white_list
+        default_code_sets[concept.code_system_name] ||= [concept.code] unless concept.black_list
+        listed_sets[concept.code_system_name] ||= [concept.code] if concept.white_list
       end if vs
-      code_sets
+      (listed_sets.empty? ? default_code_sets : listed_sets)
     end
-    
+
+    def self.white_list?(oid, value_sets)
+      value_sets[oid].concepts.any? {|x| x.white_list}
+    end
+
+
     # Filter through a list of value sets and choose only the ones marked with a given OID.
     #
     # @param [String] oid The OID being used for filtering.
@@ -217,6 +243,6 @@ module Measures
         'code' => codes[code_system][0]
       }
     end
-    
+
   end
 end

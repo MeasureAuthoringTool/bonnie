@@ -41,9 +41,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       fieldValue: true
       values: @model.get('field_values')
       criteriaType: @model.get('type')
+    @editCodeSelectionView = new Thorax.Views.CodeSelectionView criteria: @model
 
-    @model.on 'highlight', (type) =>
-      @$('.criteria-data').addClass(type)
+    @model.on 'highlight', (type) => @$('.criteria-data').addClass(type)
 
   valueWithDateContext: (model) ->
     _(model.toJSON()).extend
@@ -60,7 +60,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       end_date: moment(@model.get('end_date')).format('L') if @model.get('end_date')
       end_time: moment(@model.get('end_date')).format('LT') if @model.get('end_date')
       end_date_is_undefined: !@model.has('end_date')
-      codes: @measure.get('value_sets').map (vs) -> vs.toJSON()
+      value_sets: @measure.get('value_sets').map (vs) -> vs.toJSON()
       cms_id_number: cmsIdParts[1]
       cms_id_version: cmsIdParts[2]
       faIcon: @model.faIcon()
@@ -130,6 +130,44 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   removeValue: (e) ->
     e.preventDefault()
     $(e.target).model().destroy()
+    @triggerMaterialize()
+
+
+class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
+  template: JST['patient_builder/edit_codes']
+  events:
+    'change select':           'validateForAddition'
+    'change .codeset-control': 'changeConcepts'
+    rendered: ->
+      @$('select.codeset-control').selectBoxIt()
+
+  initialize: ->
+    @model = new Thorax.Model
+    @codes = @criteria.get('codes')
+    @codes.on 'add remove', => @criteria.set 'code_source', (if @codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
+    @codeSets = _(concept.code_system_name for concept in @criteria.valueSet()?.get('concepts') || []).uniq()
+  validateForAddition: ->
+    attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
+    @$('.btn[data-call-method=addCode]').prop 'disabled', attributes.codeset is '' or attributes.code is ''
+
+  changeConcepts: (e) ->
+    codeSet = $(e.target).val()
+    $codeList = @$('.codelist-control').empty()
+    blankEntry = if codeSet is '' then '--' else "Choose a #{codeSet} code"
+    $codeList.append("<option value>#{blankEntry}</option>")
+    for concept in @criteria.valueSet().get('concepts') when concept.code_system_name is codeSet and !concept.black_list
+      $('<option>').attr('value', concept.code).text("#{concept.code} (#{concept.display_name})").appendTo $codeList
+
+  addCode: (e) ->
+    e.preventDefault()
+    @serialize()
+    # add the code unless there is a pre-existing code with the same codeset/code
+    @codes.add @model.clone() unless @codes.any (c) => c.get('codeset') is @model.get('codeset') and c.get('code') is @model.get('code')
+    # Reset model to default values
+    @model.clear()
+    @$('select').val('')
+    # # Let the selectBoxIt() select box know that its value may have changed
+    @$('select[name=codeset]').change()
     @triggerMaterialize()
 
 

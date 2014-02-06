@@ -61,6 +61,20 @@
       </div>
 
       <div class="form-group">
+        <label class="control-label"><i class="fa fa-code"></i> Codes</label>
+
+        {{#collection codes class="existing-values"}}
+        <span>
+          {{codeset}}:
+          {{code}}
+          {{#button "removeValue" class="btn btn-link close delete"}}&times;{{/button}}
+        </span>
+        {{/collection}}
+
+        {{view editCodeSelectionView}}
+      </div>
+
+      <div class="form-group">
         <label class="control-label"><i class="fa fa-bar-chart-o"></i> Value</label>
 
         {{#collection value class="existing-values"}}
@@ -102,7 +116,7 @@
         </div>
         <select name="negation_code_list_id" class="form-control negation-code-list{{#unless negation}} hide{{/unless}}">
           <option value="">--</option>
-          {{#each codes}}
+          {{#each value_sets}}
             <option value="{{oid}}">{{display_name}}</option>
           {{/each}}
         </select>

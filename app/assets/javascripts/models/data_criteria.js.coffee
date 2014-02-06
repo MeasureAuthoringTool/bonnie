@@ -19,6 +19,8 @@ class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
 # multiple criteria with the same ID.
 class Thorax.Models.PatientDataCriteria extends Thorax.Model
   idAttribute: null
+  initialize: ->
+    @set('codes', new Thorax.Collection) unless @has 'codes'
   parse: (attrs) ->
     attrs.value = new Thorax.Collection(attrs.value)
     # Transform fieldValues object to collection, one element per key/value, with key as additional attribute
@@ -26,7 +28,10 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     for key, value of attrs.field_values
       fieldValues.add _(value).extend(key: key)
     attrs.field_values = fieldValues
+    if attrs.codes
+      attrs.codes = new Thorax.Collection attrs.codes
     attrs
+  valueSet: -> _(bonnie.measures.valueSets()).detect (vs) => vs.get('oid') is @get('code_list_id')
   toJSON: ->
     # Transform fieldValues back to an object from a collection
     fieldValues = {}
