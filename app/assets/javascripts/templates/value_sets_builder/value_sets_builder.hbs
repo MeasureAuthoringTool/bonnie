@@ -10,15 +10,23 @@
           {{#collection filters item-context="filterContext"}}
             <tr>
               <th>{{display_name}} {{#button 'removeFilter' class="btn btn-danger"}}<i class="fa fa-times"></i>{{/button}}</th>
-              <th>{{#button 'includeFilter' class="btn btn-info include-{{_id}}" expand-tokens=true}}Include{{#if included}}d{{/if}}{{/button}}</th>
-              <th>{{#button 'excludeFilter' class="btn btn-info exclude-{{_id}}" expand-tokens=true}}Exclude{{#if excluded}}d{{/if}}{{/button}}</th>
+              <th>{{#if included}}
+                    {{#button 'includeFilter' class="btn btn-default" disabled="disabled"}}Included{{/button}}
+                  {{else}}
+                    {{#button 'includeFilter' class="btn btn-info"}}Include{{/button}}
+                  {{/if}}</th>
+              <th>{{#if excluded}}
+                    {{#button 'excludeFilter' class="btn btn-default" disabled="disabled"}}Excluded{{/button}}
+                  {{else}}
+                    {{#button 'excludeFilter' class="btn btn-info"}}Exclude{{/button}}
+                  {{/if}}</th>
             </tr>
           {{/collection}}
         </tbody>
       </table>
     </div>
     <label>Inclusions</label>
-    {{#collection inclusions tag="ul" class="list-group"}}
+    {{!-- {{#collection inclusions tag="ul" class="list-group"}}
       <li class="list-group-item">
         <strong><small>{{code}}</small></strong> {{display_name}} <span class="label label-{{#if white_list}}success{{else}}{{#if black_list}}danger{{else}}info{{/if}}{{/if}}">{{code_system_name}}</span> 
       </li>
@@ -28,17 +36,8 @@
       <li class="list-group-item">
         <strong><small>{{code}}</small></strong> {{display_name}} <span class="label label-{{#if white_list}}success{{else}}{{#if black_list}}danger{{else}}info{{/if}}{{/if}}">{{code_system_name}}</span> 
       </li>
-    {{/collection}}
+    {{/collection}} --}}
   {{/empty}}
-
-  {{!-- <form class="form-horizontal search-form" role="form">
-    <div class="form-group">
-      <input type="text" class="col-xs-11" id="searchByNameOrOID" placeholder="Enter Value Set name or oid...">
-      <div class="col-xs-1">
-        <button type="submit" class="btn btn-default search-button">Search</button>
-      </div>
-    </div>
-  </form> --}}
 
   <div class="panel panel-default">
     <form class="form-horizontal search-form" role="form">
@@ -53,6 +52,9 @@
             <li>{{#button 'selectMeasure' tag="a"}}[ {{cms_id}} ({{measure_id}}) ] {{hqmf_set_id}}{{/button}}</li>
           {{/collection}}
         </div>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default rebuild-patients" data-call-method="rebuildPatients">Rebuild Patients</button>
+        </span>
       </div>
     </form>
   </div>

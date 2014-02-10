@@ -5,23 +5,25 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     'focus input#searchByNameOrOID': 'resetSearchBar'
 
   initialize: ->
-    @defaultList = new Thorax.Collection()
-    @whiteList = new Thorax.Collection()
-    @blackList = new Thorax.Collection()
+    @whiteList = new Thorax.Collection(null,comparator: (vs) -> vs.get('display_name')?.toLowerCase())
+    @blackList = new Thorax.Collection(null,comparator: (vs) -> vs.get('display_name')?.toLowerCase())
     @searchResults = new Thorax.Collection(null,comparator: (vs) -> vs.get('display_name')?.toLowerCase())
-    @filters = new Thorax.Collection()
+    @filters = new Thorax.Collection(null,comparator: (vs) -> vs.get('display_name')?.toLowerCase())
     @exclusions = new Thorax.Collection()
     @inclusions = new Thorax.Collection()
     @query = ''
-    @measureToOids = {}
-    @patientToOids = {}
-    @patientToSdc = {}
+    @measureToOids = {} # measure hqmf_set_id : valueSet oid
+    @patientToOids = {} # patient medical_record_number : valueSet oid
+    @patientToSdc = {} # patient medical_record_number : source_data_criteria
     @measures.each (m) =>
       @measureToOids[m.get('hqmf_set_id')] = []
       for valueSet in m.get('value_sets').models
         unless valueSet.get('oid') in @collection.pluck('oid')
           @collection.add valueSet 
           @measureToOids[m.get('hqmf_set_id')].push valueSet.get('oid')
+          for concept in valueSet.get('concepts')
+            if concept.black_list then @blackList.add valueSet
+            else if concept.white_list then @whiteList.add valueSet
     @patients.each (p) =>
       @patientToOids[p.get('medical_record_number')] = []
       @patientToSdc[p.get('medical_record_number')] = []
@@ -30,14 +32,6 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
         @patientToSdc[p.get('medical_record_number')].push sdc
     @names = @collection.pluck('display_name')
     @oids = @collection.pluck('oid')
-    @collection.each (vs) =>
-      for concept in vs.get('concepts')
-        if concept.black_list then @blackList.add vs
-        else if concept.white_list then @whiteList.add vs
-        else @defaultList.add vs
-    @defaultListCollectionView = new Thorax.CollectionView
-      collection: @defaultList
-      itemView: (item) => new Thorax.Views.ValueSetView(model: item.model, white: false, black: false)
     @whiteListCollectionView = new Thorax.CollectionView
       collection: @whiteList
       itemView: (item) => new Thorax.Views.ValueSetView(model: item.model, white: true, black: false, measures: @measures, measuresToOids: @measureToOids, patients: @patients, patientsToOids: @patientToOids, patientsToSdc: @patientToSdc)
@@ -56,16 +50,19 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
   search: (e) ->
     e.preventDefault()
     @query = @$('#searchByNameOrOID').val()
-    matchedNames = _(@names).filter( (name)=> name.toLowerCase().indexOf(@query.toLowerCase()) != -1 )
-    matchedOids = _(@oids).filter( (oid) => oid.toLowerCase().indexOf(@query.toLowerCase()) != -1 )
-    if matchedNames.length > 0
-      @searchResults.reset(@collection.filter((vs) -> vs.get('display_name') in matchedNames))
-      @$('.input-group').addClass('has-success')
-    else if matchedOids.length > 0
-      @searchResults.reset(@collection.filter((vs) -> vs.get('oid') in matchedOids))
-      @$('.input-group').addClass('has-success')
-    else 
-      console.log "No search results found for #{@query}"
+    unless @query == ''
+      matchedNames = _(@names).filter( (name)=> name.toLowerCase().indexOf(@query.toLowerCase()) != -1 )
+      matchedOids = _(@oids).filter( (oid) => oid.toLowerCase().indexOf(@query.toLowerCase()) != -1 )
+      if matchedNames.length > 0
+        @searchResults.reset(@collection.filter((vs) -> vs.get('display_name') in matchedNames))
+        @$('.input-group').addClass('has-success')
+      else if matchedOids.length > 0
+        @searchResults.reset(@collection.filter((vs) -> vs.get('oid') in matchedOids))
+        @$('.input-group').addClass('has-success')
+      else 
+        console.log "No search results found for #{@query}"
+        @$('.input-group').addClass('has-error')
+    else
       @$('.input-group').addClass('has-error')
 
   # deprecated
@@ -113,14 +110,13 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     unless filter.get('included')
       filterCodes = _(filter.get('concepts')).pluck('_id')
       removedExCodes = @exclusions.filter((c) => c.get('_id') in filterCodes)
-      # debugger
-      @$(".exclude-#{filter.get('_id')}").toggleClass('btn-info btn-default') if filter.get('excluded')
+      # @$(".exclude-#{filter.get('_id')}").toggleClass('btn-info btn-default') if filter.get('excluded')
       @exclusions.remove removedExCodes
       for concept in filter.get('concepts')
         unless concept.code in @inclusions.pluck('code') then @inclusions.add concept
       filter.set 'included', true
       filter.set 'excluded', false
-      @$(".include-#{filter.get('_id')}").toggleClass('btn-info btn-default')
+      # @$(".include-#{filter.get('_id')}").toggleClass('btn-info btn-default')
       @updateSearchResults()
 
   excludeFilter: (e) ->
@@ -129,19 +125,30 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     unless filter.get('excluded')
       filterCodes = _(filter.get('concepts')).pluck('_id')
       removedIncCodes = @inclusions.filter((c) => c.get('_id') in filterCodes)
-      @$(".include-#{filter.get('_id')}").toggleClass('btn-info btn-default') if filter.get('included')
+      # @$(".include-#{filter.get('_id')}").toggleClass('btn-info btn-default') if filter.get('included')
       @inclusions.remove removedIncCodes
       for concept in filter.get('concepts')
         unless concept.code in @exclusions.pluck('code') then @exclusions.add concept
-      filter.set 'excluded', true
       filter.set 'included', false
-      @$(".exclude-#{filter.get('_id')}").toggleClass('btn-info btn-default')
+      filter.set 'excluded', true
+      # @$(".exclude-#{filter.get('_id')}").toggleClass('btn-info btn-default')
       @updateSearchResults()
 
   updateSearchResults: ->
     for vcid, vsv of @searchResultsCollectionView.children
       vsv.rebuildCodes()
       vsv.render()
+
+  rebuildPatients: (e) ->
+    e.preventDefault()
+    @savePatients()
+
+  savePatients: ->
+    @$(".rebuild-patients").prop('disabled', true)
+    console.log "Rebuilding #{@patients.length} patients..."
+    @patients.each (p) ->
+      p.save()
+    @$(".rebuild-patients").prop('disabled', false)
 
 class Thorax.Views.ValueSetView extends Thorax.View
   template: JST['value_sets_builder/value_set']
@@ -247,6 +254,7 @@ class Thorax.Views.ValueSetView extends Thorax.View
     @model.id = @model.get('_id')
     @model.url = "/valuesets/#{@model.id}"
     console.log @model
+    @parent.parent.savePatients()
     @model.save()
     bonnie.renderValueSetsBuilder()
 
