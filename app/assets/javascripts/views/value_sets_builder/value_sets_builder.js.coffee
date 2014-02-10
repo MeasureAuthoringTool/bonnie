@@ -110,26 +110,33 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
   includeFilter: (e) ->
     e.preventDefault()
     filter = @$(e.target).model()
-    filterCodes = _(filter.get('concepts')).pluck('_id')
-    removedExCodes = @exclusions.filter((c) => c.get('_id') in filterCodes)
-    @exclusions.remove removedExCodes
-    for concept in filter.get('concepts')
-      unless concept.code in @inclusions.pluck('code') then @inclusions.add concept
-    filter.set 'included', true
-    filter.set 'excluded', false
-    @updateSearchResults()
+    unless filter.get('included')
+      filterCodes = _(filter.get('concepts')).pluck('_id')
+      removedExCodes = @exclusions.filter((c) => c.get('_id') in filterCodes)
+      # debugger
+      @$(".exclude-#{filter.get('_id')}").toggleClass('btn-info btn-default') if filter.get('excluded')
+      @exclusions.remove removedExCodes
+      for concept in filter.get('concepts')
+        unless concept.code in @inclusions.pluck('code') then @inclusions.add concept
+      filter.set 'included', true
+      filter.set 'excluded', false
+      @$(".include-#{filter.get('_id')}").toggleClass('btn-info btn-default')
+      @updateSearchResults()
 
   excludeFilter: (e) ->
     e.preventDefault()
     filter = @$(e.target).model()
-    filterCodes = _(filter.get('concepts')).pluck('_id')
-    removedIncCodes = @inclusions.filter((c) => c.get('_id') in filterCodes)
-    @inclusions.remove removedIncCodes
-    for concept in filter.get('concepts')
-      unless concept.code in @exclusions.pluck('code') then @exclusions.add concept
-    filter.set 'excluded', true
-    filter.set 'included', false
-    @updateSearchResults()
+    unless filter.get('excluded')
+      filterCodes = _(filter.get('concepts')).pluck('_id')
+      removedIncCodes = @inclusions.filter((c) => c.get('_id') in filterCodes)
+      @$(".include-#{filter.get('_id')}").toggleClass('btn-info btn-default') if filter.get('included')
+      @inclusions.remove removedIncCodes
+      for concept in filter.get('concepts')
+        unless concept.code in @exclusions.pluck('code') then @exclusions.add concept
+      filter.set 'excluded', true
+      filter.set 'included', false
+      @$(".exclude-#{filter.get('_id')}").toggleClass('btn-info btn-default')
+      @updateSearchResults()
 
   updateSearchResults: ->
     for vcid, vsv of @searchResultsCollectionView.children
