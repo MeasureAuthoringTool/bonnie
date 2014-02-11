@@ -52,9 +52,20 @@ class Thorax.Views.MeasureFractionView extends Thorax.View
 
 class Thorax.Views.MeasureCoverageView extends Thorax.View
   template: JST['measure/coverage']
+  events:
+    rendered: -> 
+      @$('.dial').knob()
+      @showCoverage()
 
-  # Uncommet below for debugging
-  # identifyCoverage: (e) ->
-  #   for criteria in @model.rationaleCriteria
-  #     logicLine = $(".#{criteria}")
-  #     if logicLine.hasClass('text-primary') then logicLine.removeClass('text-primary') else logicLine.addClass('text-primary')
+  showCoverage: ->
+    @trigger 'logicView:showCoverage'
+    @$('.btn-show-coverage').removeClass('btn-default').addClass('btn-primary').prop('disabled',true)
+
+  hideCoverage: ->
+    @trigger 'logicView:clearCoverage'
+    @$('.btn-show-coverage').removeClass('btn-primary').addClass('btn-default').prop('disabled',false)
+
+  identifyCoverage: (e) ->
+    $('.toggle-result').hide()
+    @showCoverage()
+
