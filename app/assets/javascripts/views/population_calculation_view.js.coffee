@@ -55,8 +55,11 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
     if @$(".toggle-result-#{result.patient.id}").is(":visible")
       @$(".toggle-result-#{result.patient.id}").hide()
       @trigger 'rationale:clear'
+      @$(".expand-result-icon-#{result.patient.id}").removeClass('fa-angle-down').addClass('fa-angle-right')
     else
       @$('.toggle-result').hide()
+      @$('.expand-result-icon').removeClass('fa-angle-down').addClass('fa-angle-right')
       @$(".toggle-result-#{result.patient.id}").show()
+      @$(".expand-result-icon-#{result.patient.id}").removeClass('fa-angle-right').addClass('fa-angle-down')
       @trigger 'rationale:show', result
 
