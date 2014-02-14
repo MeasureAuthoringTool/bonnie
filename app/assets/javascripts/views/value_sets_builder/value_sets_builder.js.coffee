@@ -60,7 +60,7 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
         @searchResults.reset(@collection.filter((vs) -> vs.get('oid') in matchedOids))
         @$('.input-group').addClass('has-success')
       else 
-        console.log "No search results found for #{@query}"
+        # console.log "No search results found for #{@query}"
         @$('.input-group').addClass('has-error')
     else
       @$('.input-group').addClass('has-error')
@@ -125,7 +125,7 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
 
   savePatients: ->
     @$(".rebuild-patients").prop('disabled', true)
-    console.log "Rebuilding #{@patients.length} patients..."
+    # console.log "Rebuilding #{@patients.length} patients..."
     @patients.each (p) ->
       p.save()
     @$(".rebuild-patients").prop('disabled', false)
@@ -190,7 +190,7 @@ class Thorax.Views.ValueSetView extends Thorax.View
     @$('.value-set-save').prop('disabled', false)
 
   rebuildCodes: ->
-    console.log "Rebuilding #{@model.get('display_name')} codes..."
+    # console.log "Rebuilding #{@model.get('display_name')} codes..."
     for csn, cs of @codeSystems
       cs['count'] = 0
       cs['collection'].reset()
@@ -230,10 +230,10 @@ class Thorax.Views.ValueSetView extends Thorax.View
 
   save: (e) ->
     e.preventDefault()
-    console.log "Saving #{@model.get('display_name')}"
+    # console.log "Saving #{@model.get('display_name')}"
     @model.id = @model.get('_id')
     @model.url = "/valuesets/#{@model.id}"
-    console.log @model
+    # console.log @model
     @parent.parent.savePatients()
     @model.save()
     bonnie.renderValueSetsBuilder()
