@@ -7,7 +7,7 @@ describe 'PatientBuilderView', ->
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
     @patientBuilder.render()
     spyOn(@patientBuilder.model, 'materialize')
-    spyOn(@patientBuilder.originalModel, 'save')
+    spyOn(@patientBuilder.originalModel, 'save').andReturn(true)
     @$el = @patientBuilder.$el
 
   it 'renders the builder correctly', ->
