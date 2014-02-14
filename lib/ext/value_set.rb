@@ -5,7 +5,6 @@ module HealthDataStandards
       # def serializable_hash(options=nil)
       #   super({ only: [:oid, :display_name] }.merge(options || {}))
       # end
-      accepts_nested_attributes_for :concepts
     end
   end
 end
