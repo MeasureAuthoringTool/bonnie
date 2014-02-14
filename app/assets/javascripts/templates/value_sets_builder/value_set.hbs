@@ -7,6 +7,9 @@
             <span class="label label-info">{{code_system}} <span class="badge">{{count}}</span></span>
           {{/if}}
         {{/each}}
+        {{#if filters}}
+          {{#button "addFilter" class="btn btn-xs btn-primary value-set-filter pull-right"}} <i class="fa fa-filter"></i> <i class="fa fa-plus"></i> {{/button}}
+        {{/if}}
         </h4>
   </div>
   <form class="hide" role="form">
@@ -78,7 +81,7 @@
         {{/empty}}
         <div class="panel-footer">
           {{#if filters}}
-            {{#button "addFilter" class="btn btn-primary value-set-filter"}}<i class="fa fa-plus"></i> Add Filter{{/button}}
+            {{#button "addFilter" class="btn btn-primary value-set-filter"}} <i class="fa fa-filter"></i> <i class="fa fa-plus"></i> Add Filter{{/button}}
           {{/if}}
           {{#button "save" class="btn btn-primary value-set-save"}}<i class="fa fa-save"></i> Save{{/button}}
         </div>

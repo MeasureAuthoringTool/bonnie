@@ -1,31 +1,33 @@
-<div class="row">
-  <h1 class="heading-primary">White-List / Black-List Builder</h1>
+<h1 class="heading-primary">White-List / Black-List Builder</h1>
 
   {{#empty filters}}
   {{else}}
     <label>Filters</label>
-    <div class="well">
-      <table class="table table-striped table-bordered table-condensed table-hover">
-        <tbody>
-          {{#collection filters item-context="filterContext"}}
-            <tr>
-              <th>{{display_name}} {{#button 'removeFilter' class="btn btn-danger"}}<i class="fa fa-times"></i>{{/button}}</th>
-              <th>{{#if included}}
-                    {{#button 'includeFilter' class="btn btn-default" disabled="disabled"}}Included{{/button}}
-                  {{else}}
-                    {{#button 'includeFilter' class="btn btn-info"}}Include{{/button}}
-                  {{/if}}</th>
-              <th>{{#if excluded}}
-                    {{#button 'excludeFilter' class="btn btn-default" disabled="disabled"}}Excluded{{/button}}
-                  {{else}}
-                    {{#button 'excludeFilter' class="btn btn-info"}}Exclude{{/button}}
-                  {{/if}}</th>
-            </tr>
-          {{/collection}}
-        </tbody>
-      </table>
-    </div>
-    <label>Inclusions</label>
+      {{#collection filters item-context="filterContext" tag="div" class="well value-set-filters"}}
+        <tr>
+          <th>
+            {{#button 'removeFilter' class="btn btn-xs btn-danger"}}<i class="fa fa-times"></i>{{/button}}
+          </th>
+          <th>
+            {{display_name}}
+          </th>
+          <th>
+            {{#if included}}
+              {{#button 'includeFilter' class="btn btn-primary" disabled="disabled"}}<i class="fa fa-plus-square"></i> Included{{/button}}
+            {{else}}
+              {{#button 'includeFilter' class="btn btn-default"}}<i class="fa fa-square-o"></i> Include{{/button}}
+            {{/if}}
+          </th>
+          <th>
+            {{#if excluded}}
+              {{#button 'excludeFilter' class="btn btn-primary" disabled="disabled"}}<i class="fa fa-minus-square"></i> Excluded{{/button}}
+            {{else}}
+              {{#button 'excludeFilter' class="btn btn-default"}}<i class="fa fa-square-o"></i> Exclude{{/button}}
+            {{/if}}
+          </th>
+        </tr>
+      {{/collection}}
+    {{!-- <label>Inclusions</label> --}}
     {{!-- {{#collection inclusions tag="ul" class="list-group"}}
       <li class="list-group-item">
         <strong><small>{{code}}</small></strong> {{display_name}} <span class="label label-{{#if white_list}}success{{else}}{{#if black_list}}danger{{else}}info{{/if}}{{/if}}">{{code_system_name}}</span> 
@@ -95,4 +97,3 @@
       </div>
     </div>
   {{/empty}}
-</div>

@@ -65,22 +65,6 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     else
       @$('.input-group').addClass('has-error')
 
-  # deprecated
-  associatedMeasures: (valueSets) ->
-    associatedMeasures = new Thorax.Collection()
-    valueSets.each (vs) =>
-      @measures.each (m) =>
-        associatedMeasures.add m if vs.get('oid') in @measuresToOids[m.get('hqmf_set_id')]
-    associatedMeasures
-
-  # deprecated
-  associatedPatients: (valueSets) ->
-    associatedPatients = new Thorax.Collection()
-    valueSets.each (vs) =>
-      @patients.each (p) =>
-        associatedPatients.add p if vs.get('oid') in @patientsToOids[p.get('medical_record_number')]
-    associatedPatients
-
   selectMeasure: (e) ->
     measure = @$(e.target).model()
     @query = measure.get('title')
@@ -110,13 +94,11 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     unless filter.get('included')
       filterCodes = _(filter.get('concepts')).pluck('_id')
       removedExCodes = @exclusions.filter((c) => c.get('_id') in filterCodes)
-      # @$(".exclude-#{filter.get('_id')}").toggleClass('btn-info btn-default') if filter.get('excluded')
       @exclusions.remove removedExCodes
       for concept in filter.get('concepts')
         unless concept.code in @inclusions.pluck('code') then @inclusions.add concept
       filter.set 'included', true
       filter.set 'excluded', false
-      # @$(".include-#{filter.get('_id')}").toggleClass('btn-info btn-default')
       @updateSearchResults()
 
   excludeFilter: (e) ->
@@ -125,13 +107,11 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     unless filter.get('excluded')
       filterCodes = _(filter.get('concepts')).pluck('_id')
       removedIncCodes = @inclusions.filter((c) => c.get('_id') in filterCodes)
-      # @$(".include-#{filter.get('_id')}").toggleClass('btn-info btn-default') if filter.get('included')
       @inclusions.remove removedIncCodes
       for concept in filter.get('concepts')
         unless concept.code in @exclusions.pluck('code') then @exclusions.add concept
       filter.set 'included', false
       filter.set 'excluded', true
-      # @$(".exclude-#{filter.get('_id')}").toggleClass('btn-info btn-default')
       @updateSearchResults()
 
   updateSearchResults: ->
