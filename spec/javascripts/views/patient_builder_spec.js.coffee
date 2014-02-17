@@ -60,7 +60,7 @@ describe 'PatientBuilderView', ->
         criteria = @$el.find(".draggable:eq(#{position})").draggable()
         criteriaOffset = criteria.offset()
         droppableOffset = @$el.find(targetSelector).offset()
-        criteria.simulate 'drag', dx: droppableOffset.left - criteriaOffset.left, dy: droppableOffset.top - criteriaOffset.top
+        criteria.simulate 'drag', dx: droppableOffset.left - criteriaOffset.left - (criteria.width()/2), dy: droppableOffset.top - criteriaOffset.top - (criteria.height()/2)
 
     it "adds data criteria to model when dragged", ->
       expect(@patientBuilder.model.get('source_data_criteria').length).toEqual 3 # Patient starts with existing criteria
