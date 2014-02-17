@@ -60,14 +60,6 @@ class Thorax.Views.PatientBuilder extends Thorax.View
 
       @$('.date-picker').datepicker().on 'changeDate', _.bind(@materialize, this)
       @$('.time-picker').timepicker().on 'changeTime.timepicker', _.bind(@materialize, this)
-    model:
-      sync: (model) ->
-        @patients.add model # make sure that the patient exist in the global patient collection
-        @measure?.get('patients').add model # and the measure's patient collection
-        if bonnie.isPortfolio
-          @measures.each (m) -> m.get('patients').add model
-        route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
-        bonnie.navigate route, trigger: true
     serialize: (attr) ->
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
@@ -114,9 +106,24 @@ class Thorax.Views.PatientBuilder extends Thorax.View
 
   save: (e) ->
     e.preventDefault()
+    @$('.has-error').removeClass('has-error')
     $(e.target).button('saving').prop('disabled', true)
     @serializeWithChildren()
-    @originalModel.save @model.toJSON() # FIXME: The sync event on the model, defined above, only fires because there's a Thorax bug!
+    status = @originalModel.save @model.toJSON(),
+      success: (model) =>
+        @patients.add model # make sure that the patient exist in the global patient collection
+        @measure?.get('patients').add model # and the measure's patient collection
+        if bonnie.isPortfolio
+          @measures.each (m) -> m.get('patients').add model
+        route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
+        bonnie.navigate route, trigger: true
+    unless status
+      $(e.target).button('reset').prop('disabled', false)
+      messages = []
+      for [field, message] in @originalModel.validationError
+        @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
+        messages.push message
+      @$('.alert').text(_(messages).uniq().join(', ')).removeClass('hidden')
 
   cancel: (e) ->
     # Go back to wherever the user came from, if possible

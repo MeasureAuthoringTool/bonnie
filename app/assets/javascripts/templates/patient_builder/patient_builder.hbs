@@ -1,10 +1,14 @@
 <div class="row">
-  <div class="col-xs-2">
+  <div class="col-md-2">
     <h1>Test Patient</h1>
   </div>
 
-  <div class="col-xs-10">
-    <span class="timeline-icon"><i class="fa fa-user fa-3x"></i></span>
+  <div class="col-md-6">
+    <div class="timeline-icon pull-left"><i class="fa fa-user fa-fw fa-4x"></i></div>
+    <div class="validation-alerts"><div class="alert alert-danger hidden"></div></div>
+  </div>
+
+  <div class="col-md-4">
     <div class="pull-right">
       {{#button "cancel" class="btn btn-default"}}CANCEL{{/button}}
       {{#button "save" class="btn btn-primary" data-saving-text="SAVING..."}}SAVE{{/button}}
@@ -15,12 +19,12 @@
 <div class="row">
   <form class="col-left" role="form">
     <div class="form-group">
-      <label for="last">Last Name</label>
+      <label for="last" class="control-label">Last Name</label>
       <input type="text" id="last" name="last" class="form-control" placeholder="Smith">
     </div>
 
     <div class="form-group">
-      <label for="first">First Name</label>
+      <label for="first" class="control-label">First Name</label>
       <input type="text" id="first" name="first" class="form-control" placeholder="John">
     </div>
   </form>
@@ -29,7 +33,7 @@
     <form class="row form-data" role="form">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="payer">Payer</label>
+          <label for="payer" class="control-label">Payer</label>
           <select id="payer" name="payer" class="form-control">
             <option value="MA">Medicare</option>
             <option value="MC">Medicaid</option>
@@ -38,7 +42,7 @@
         </div>
 
         <div class="form-group">
-          <label for="birthdate">DoB</label>
+          <label for="birthdate" class="control-label">DoB</label>
 
           <div class="row">
             <div class="col-md-6">
@@ -52,7 +56,7 @@
         </div>
 
         <div class="form-group">
-          <label for="race">Race</label>
+          <label for="race" class="control-label">Race</label>
           <select id="race" name="race" class="form-control">
             <option value="1002-5">American Indian or Alaska Native</option>
             <option value="2028-9">Asian</option>
@@ -66,7 +70,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="gender">Gender</label>
+          <label for="gender" class="control-label">Gender</label>
           <select id="gender" name="gender" class="form-control">
             <option value="M">Male</option>
             <option value="F">Female</option>
@@ -74,7 +78,7 @@
         </div>
 
         <div class="form-group">
-          <label for="expired">{{#if expired}}Date of Death{{else}}Living Status{{/if}}</label>
+          <label for="expired" class="control-label">{{#if expired}}Date of Death{{else}}Living Status{{/if}}</label>
           {{#if expired}}
             <div class="row">
               {{#button "removeDeathDate" tag="i" class="btn fa fa-times-circle remove-death-date"}}{{/button}}
@@ -89,7 +93,7 @@
             </div>
           {{else}}
             <div class="checkbox deceased-checkbox">
-              <label>
+              <label class="control-label">
                 <input type="checkbox" id="expired" name="expired"> Deceased
               </label>
             </div>
@@ -97,7 +101,7 @@
         </div>
 
         <div class="form-group">
-          <label for="ethnicity">Ethnicity</label>
+          <label for="ethnicity" class="control-label">Ethnicity</label>
           <select id="ethnicity" name="ethnicity" class="form-control">
             <option value="2186-5">Not Hispanic or Latino</option>
             <option value="2135-2">Hispanic Or Latino</option>

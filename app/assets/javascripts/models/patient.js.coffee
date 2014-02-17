@@ -111,6 +111,12 @@ class Thorax.Models.Patient extends Thorax.Model
       expectedValues.add @getExpectedValue(population)
     expectedValues
 
+  validate: ->
+    errors = []
+    errors.push ['first', 'Name fields cannot be blank'] unless @get('first').length > 0
+    errors.push ['last', 'Name fields cannot be blank'] unless @get('last').length > 0
+    return errors if errors.length > 0
+
 class Thorax.Collections.Patients extends Thorax.Collection
   model: Thorax.Models.Patient
   dedupName: (patient) ->
