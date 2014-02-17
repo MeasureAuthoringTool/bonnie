@@ -29,16 +29,17 @@
               {{/if}}
             {{/if}}
           </div>
-          <div class="patient-btn-col">
-            {{#button "expandResult" class="btn btn-primary"}}
-              <i class="fa fa-user"></i>
-            {{/button}}
+          <div class="patient-user-icon-col">
+            <i class="fa fa-user"></i>
           </div>
           <div class="patient-name-col">
             {{patient.last}} {{patient.first}}
           </div>
           <div class="patient-status-col status status-{{status}}">
             {{status}}
+          </div>
+          <div class="patient-btn-col">
+            {{#button "expandResult" class="close"}}<i class="fa fa-lg fa-angle-right expand-result-icon expand-result-icon-{{patient._id}}"></i>{{/button}}
           </div>
         </div>
       </div>
