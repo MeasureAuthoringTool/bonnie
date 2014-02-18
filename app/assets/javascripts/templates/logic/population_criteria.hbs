@@ -1,20 +1,28 @@
-
-<div class="{{population.type}}_children">
-  <div><span class="{{population.type}} rationale-target"><b>{{translate_population population.type}}: 
-</b>{{#unless rootPreconditon}}None{{/unless}}</span></div>
-  <div>
-    {{#if rootPreconditon}}
-      {{#if rootPreconditon.preconditions }}
-       {{#each rootPreconditon.preconditions}}
-        {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPreconditon measure=../measure}}
-      {{/each}}
+<div class="panel panel-default {{population.type}}_children">
+  <div class="panel-heading">
+    <h4 class="panel-title panel-population">
+      <a data-toggle="collapse" href="#collapse{{cid}}">
+        <div><span class="{{population.type}} rationale-target"><b>{{translate_population population.type}}: </b></span></div>
+      </a>
+    </h4>
+  </div>
+  <div id="collapse{{cid}}" class="panel-collapse collapse">
+    <div class="panel-body">
+      {{#if rootPreconditon}}
+        {{#if rootPreconditon.preconditions }}
+         {{#each rootPreconditon.preconditions}}
+          {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPreconditon measure=../measure}}
+        {{/each}}
+        {{else}}
+          <ul>
+            <li>
+              {{#if aggregator}}{{translate_aggregator aggregator}}: {{/if}} {{view "DataCriteriaLogic" reference=rootPreconditon.reference measure=../measure tag="span"}}
+            </li>
+          </ul>
+        {{/if}}
       {{else}}
-        <ul>
-          <li>
-            {{#if aggregator}}{{translate_aggregator aggregator}}: {{/if}} {{view "DataCriteriaLogic" reference=rootPreconditon.reference measure=../measure tag="span"}}
-          </li>
-        </ul>
+        None
       {{/if}}
-    {{/if}}
+    </div>
   </div>
 </div>
