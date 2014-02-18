@@ -10,17 +10,19 @@ class Thorax.Views.ImportMeasure extends Thorax.View
       else if @model.get('episode_of_care') is true then 'Episode of Care'
       else if @model.get('continuous_variable') is true then 'Continuous Variable'
     currentRoute = Backbone.history.fragment
-    titleSize: 3
-    dataSize: 9
-    token: $("meta[name='csrf-token']").attr('content')
-    dialogTitle: if @model? then @model.get('title') else "New Measure"
-    isUpdate: @model?
-    measureTypeLabel: measureTypeLabel
-    calculationTypeLabel: calculationTypeLabel
-    hqmfSetId: hqmfSetId
-    redirectRoute: currentRoute
+    _(super).extend
+      titleSize: 3
+      dataSize: 9
+      token: $("meta[name='csrf-token']").attr('content')
+      dialogTitle: if @model? then @model.get('title') else "New Measure"
+      isUpdate: @model?
+      measureTypeLabel: measureTypeLabel
+      calculationTypeLabel: calculationTypeLabel
+      hqmfSetId: hqmfSetId
+      redirectRoute: currentRoute
 
   events:
+    rendered: -> @$("option[value=\"#{eoc}\"]").attr('selected','selected') for eoc in @model.get('episode_ids') if @model? && @model.get('episode_of_care')
     'ready': 'setup'
     'change input:file':  'enableLoad'
 

@@ -54,7 +54,11 @@ class MeasuresController < ApplicationController
       existing = Measure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
       measure_details['type'] = existing.type
       measure_details['episode_of_care'] = existing.episode_of_care
-      measure_details['episode_ids'] = existing.episode_ids
+      if params["eoc_#{existing.hqmf_set_id}"]['episode_ids'] && !params["eoc_#{existing.hqmf_set_id}"]['episode_ids'].empty?
+        measure_details['episode_ids'] = params["eoc_#{existing.hqmf_set_id}"]['episode_ids']
+      else
+        measure_details['episode_ids'] = existing.episode_ids
+      end
       measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
       existing.delete
     end
