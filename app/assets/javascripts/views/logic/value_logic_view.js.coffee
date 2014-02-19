@@ -22,4 +22,4 @@ class Thorax.Views.ValueLogic extends Thorax.View
       unit
 
   translate_oid: (oid) =>
-    @measure.get('value_sets').findWhere({oid: oid})?.get('display_name')
+    @measure.valueSets().findWhere({oid: oid})?.get('display_name')

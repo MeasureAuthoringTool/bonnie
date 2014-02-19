@@ -28,7 +28,7 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.View
     Thorax.Models.Measure.logicFields[field_key]?['title']
 
   translate_oid: (oid) =>
-    @measure.get('value_sets').findWhere({oid: oid})?.get('display_name')
+    @measure.valueSets().findWhere({oid: oid})?.get('display_name')
 
   highlightEntry: (e) ->
     dataCriteriaKey = @dataCriteria.key

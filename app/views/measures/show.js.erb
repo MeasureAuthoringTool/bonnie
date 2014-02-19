@@ -1,1 +1,1 @@
-bonnie.measures.add(<%= @measure.to_json(except: [:map_fns, :record_ids], methods: [:value_sets]).html_safe %>, { parse: true });
+bonnie.measures.add(<%= @measure_json.html_safe %>, { parse: true });

@@ -18,13 +18,14 @@
     </div>
 
     <%= javascript_include_tag "application" %>
+    <script src="<%= value_sets_measures_url(format: :js) %>"></script>
     <% @measures.each do |measure| %>
       <script src="<%= measure_url(measure, format: :js) %>"></script>
     <% end %>
     <script>
       <% @patients.each do |patient| %>
         (function() {
-          var patient = new Thorax.Models.Patient(<%= patient.to_json(except: :results).html_safe %>, { parse: true });
+          var patient = new Thorax.Models.Patient(<%= MultiJson.encode(patient.as_json(except: :results)).html_safe %>, { parse: true });
           bonnie.measures.each(function(measure) {
             if (<%= current_user.is_portfolio? %>) {
               measure.get('patients').add(patient);

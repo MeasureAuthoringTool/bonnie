@@ -3,10 +3,23 @@ class MeasuresController < ApplicationController
   respond_to :json, :js, :html
 
   def show
-    @measure = Measure.by_user(current_user).without(:map_fns, :record_ids).find(params[:id])
+    skippable_fields = [:map_fns, :record_ids, :measure_attributes]
+    @measure = Measure.by_user(current_user).without(*skippable_fields).find(params[:id])
     if stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
+      @measure_json = MultiJson.encode(@measure.as_json(except: skippable_fields))
       respond_with @measure do |format|
-        format.json { render json: @measure.to_json(except: [:map_fns, :record_ids], methods: [:value_sets]) }
+        format.json { render json: @measure_json }
+      end
+    end
+  end
+
+  def value_sets
+    if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
+      value_set_oids = Measure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
+      value_sets_by_oid = HealthDataStandards::SVS::ValueSet.in(oid: value_set_oids).index_by(&:oid)
+      @value_sets_by_oid_json = MultiJson.encode(value_sets_by_oid.as_json(except: [:_id, :code_system, :code_system_version]))
+      respond_with @value_sets_by_oid_json do |format|
+        format.json { render json: @value_sets_by_oid_json }
       end
     end
   end
