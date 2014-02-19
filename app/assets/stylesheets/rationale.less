@@ -33,4 +33,21 @@
     background-color: @blue-lightest;
     color: @brand-primary;
   }
+  .panel {
+    padding: 5px 0;
+    .panel-heading {
+      background-color: white;
+      border: 1px solid gray;
+      padding: 10px 15px;
+    }
+    .eval-panel-true {
+      background-color: @state-success-bg;
+    }
+    .eval-panel-false {
+      background-color: @state-danger-bg;
+    }
+    .eval-panel-bad-specifics {
+      background-color: @state-danger-bg;
+    }
+  }
 }

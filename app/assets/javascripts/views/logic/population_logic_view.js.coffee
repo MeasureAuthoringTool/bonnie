@@ -45,6 +45,7 @@ class Thorax.Views.PopulationLogic extends Thorax.View
             target = @$(".#{code}_children .#{key}")
             if (target.length > 0)
               target.addClass(if updatedRationale[code]?[key] is false then 'eval-bad-specifics' else "eval-#{!!value}")
+              target.closest('.panel-heading').addClass(if updatedRationale[code]?[key] is false then 'eval-panel-bad-specifics' else "eval-panel-#{!!value}")
 
   highlightPatientData: (dataCriteriaKey, populationCriteriaKey) ->
     if @latestResult?.get('finalSpecifics')?[populationCriteriaKey]
@@ -66,6 +67,7 @@ class Thorax.Views.PopulationLogic extends Thorax.View
 
   clearRationale: ->
     @$('.rationale .rationale-target').removeClass('eval-false eval-true eval-bad-specifics')
+    @$('.rationale .panel-heading').removeClass('eval-panel-false eval-panel-true eval-panel-bad-specifics')
 
   showCoverage: ->
     @clearRationale()
