@@ -1,16 +1,17 @@
 class Thorax.Model.Coverage extends Thorax.Model
   initialize: (attrs, options) ->
     @population = options.population
-    @results = @population.calculationResults()
+    @differences = @population.differencesFromExpected()
     @measureCriteria = @population.dataCriteriaKeys()
 
-    @listenTo @results, 'change add reset destroy remove', @update
+    @listenTo @differences, 'change add reset destroy remove', @update
     @update()
   update: ->
 
     # Find all unique criteria that evaluated true in the rationale that are also in the measure
     @rationaleCriteria = []
-    for result in (@results.select (d) -> d.isPopulated())
+    @differences.each (difference) => if difference.get('done') and difference.get('match')
+      result = difference.result
       rationale = result.updatedRationale()
       @rationaleCriteria.push(criteria) for criteria, result of rationale when result
     @rationaleCriteria = _(@rationaleCriteria).intersection(@measureCriteria)
