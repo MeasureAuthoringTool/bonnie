@@ -30,7 +30,8 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
     @trigger 'rationale:clear'
     if selectedResult? && selectedResult.isPopulated()
       @$(".toggle-result-#{selectedResult.patient.id}").show()
-      @trigger 'rationale:show', selectedResult
+      @trigger 'rationale:show', @$(".toggle-result-#{selectedResult.patient.id}").model().result
+      @$(".expand-result-icon-#{selectedResult.patient.id}").removeClass('fa-angle-right').addClass('fa-angle-down')
     else @coverageView.showCoverage()
 
   showDelete: (e) ->
