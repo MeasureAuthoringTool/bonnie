@@ -11,7 +11,7 @@ class BonnieRouter extends Backbone.Router
     # FIXME deprecated, use measure.get('patients') to get patients for individual measure
     @patients = new Thorax.Collections.Patients()
 
-    @on 'route', -> window.scrollTo(0)
+    @on 'route', -> window.scrollTo(0, 0)
 
   routes:
     '':                                                'renderMeasures'
