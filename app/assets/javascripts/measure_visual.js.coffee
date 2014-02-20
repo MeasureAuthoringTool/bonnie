@@ -140,7 +140,7 @@ Bonnie.viz.measureVisualzation = ->
 						.attr('data-html', true)
 						.attr('data-content', getTextDescription(condition))
 						.attr('data-trigger', "hover focus")
-						.attr('data-container', '.measure-viz')
+						.attr('data-container', '.d3-measure-viz')
 						# .attr('conjunction_code', parent.attr('conjunction_code'))
 				index++
 			
@@ -159,7 +159,7 @@ Bonnie.viz.measureVisualzation = ->
 						.attr('data-html', true)
 						.attr('data-content', getTextDescription(dataCriteria[precondition.reference]))
 						.attr('data-trigger', "hover focus")
-						.attr('data-container', '.measure-viz')
+						.attr('data-container', '.d3-measure-viz')
 						.attr('conjunction_code', parent.attr('conjunction_code'))
 
 		getTextDescription = (data) ->
