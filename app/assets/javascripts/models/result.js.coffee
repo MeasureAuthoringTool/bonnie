@@ -27,7 +27,7 @@ class Thorax.Models.Result extends Thorax.Model
       if specifics = @get('finalSpecifics')?[code]
         updatedRationale[code] ||= {} # FIXME why '||=' instead of '=' ?
         # get the referenced occurrences in the logic tree using original population code
-        occurrences = @population.getDataCriteriaKeys(@measure.get('population_criteria')[@population.get(code).code])
+        occurrences = @population.getDataCriteriaKeys(@measure.get('population_criteria')[@population.get(code)?.code])
         # get the good and bad specifics
         occurrenceResults = @checkSpecificsForRationale(specifics, occurrences, @measure.get('data_criteria'))
         parentMap = @buildParentMap(@measure.get('population_criteria')[code])
