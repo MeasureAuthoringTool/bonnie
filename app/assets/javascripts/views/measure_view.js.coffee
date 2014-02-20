@@ -3,12 +3,11 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   events:
     rendered: ->
-      d3.select(@el).select('.measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
-      @$('rect').popover()
       @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
       @exportPatientsView.appendTo(@$el)
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.indicator-results').addClass('active')
+      @$('.d3-measure-viz').hide()
     'click .measure-listing': 'selectMeasureListing'
 
   initialize: ->
@@ -126,3 +125,10 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     e.preventDefault()
     $btn = $(e.currentTarget)
     $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
+
+  toggleVisualization: (e) ->
+    @$('.measure-viz').toggle()
+    @$('.d3-measure-viz').toggle()
+    if @$('.d3-measure-viz').children().length == 0
+      d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
+      @$('rect').popover()

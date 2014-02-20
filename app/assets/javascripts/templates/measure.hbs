@@ -4,6 +4,7 @@
     <div class="full-title">{{title}}</div>
     <span class="settings-container">
       <div class="measure-settings">
+        {{#button "toggleVisualization" class="btn btn-default update-measure"}}<i class="fa fa-sitemap"></i> D3 Viz{{/button}}
         {{#button "updateMeasure" class="btn btn-default update-measure"}}<i class="fa fa-upload" aria-hidden="true"></i> Update{{/button}}
         {{#button "deleteMeasure" class="btn btn-danger delete-measure hide"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
         {{#button "showDelete" class="btn btn-danger-inverse delete-icon"}}<i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>{{/button}}
