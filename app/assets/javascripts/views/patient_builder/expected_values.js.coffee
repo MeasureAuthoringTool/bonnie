@@ -16,8 +16,7 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
     childView.serialize() for cid, childView of @expectedValueCollectionView.children
     super
 
-  hasMultipleTabs: ->
-    if @collection.length > 1 then true else false
+  hasMultipleTabs: -> @collection.length > 1
 
   populationContext: (expectedValue) ->
     population = @measure.get('populations').at expectedValue.get('population_index')

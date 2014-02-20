@@ -21,6 +21,7 @@
 #= require backbone/backbone-min
 #= require thorax/thorax
 #= require moment/min/moment.min.js
+#= require d3/d3
 #= require jQuery-Knob/js/jquery.knob
 #= require jquery-selectboxit/src/javascripts/jquery.selectBoxIt.min
 #

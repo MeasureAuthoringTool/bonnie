@@ -11,6 +11,8 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @originalModel = @model # When we're done editing we want to update the original model
     @setModel @model.deepClone() # Working on a clone allows cancel to easily drop any changes we make
     @model.get('source_data_criteria').on 'remove', => @materialize()
+    if bonnie.isPortfolio
+      @measureRibbon = new Thorax.Views.MeasureRibbon model: @model
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @model.get('source_data_criteria')
       itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure)
@@ -94,7 +96,8 @@ class Thorax.Views.PatientBuilder extends Thorax.View
 
   registerChild: (child) ->
     child.on 'bonnie:materialize', @materialize, this
-    child.on 'bonnie:dropCriteria', (criteria) => @addCriteria(criteria)
+    child.on 'bonnie:dropCriteria', @addCriteria, this
+    child.on 'bonnie:loadPopulation', @loadPopulation, this
 
   materialize: ->
     @serializeWithChildren()
@@ -103,6 +106,18 @@ class Thorax.Views.PatientBuilder extends Thorax.View
   addCriteria: (criteria) ->
     @model.get('source_data_criteria').add criteria
     @materialize()
+
+  loadPopulation: (population) ->
+    @measure = population.collection.parent
+    @render()
+    @expectedValuesView = new Thorax.Views.ExpectedValuesView
+      collection: @model.getExpectedValues(@measure)
+      measure: @measure
+      el: @expectedValuesView.el
+    @expectedValuesView.render()
+    @expectedValuesView.$("a[data-toggle=tab]:eq(#{population.collection.indexOf(population)})").tab('show')
+    @populationLogicView.setPopulation population
+    bonnie.navigate "measures/#{@measure.get('hqmf_set_id')}/patients/#{@model.id}/edit"
 
   save: (e) ->
     e.preventDefault()
