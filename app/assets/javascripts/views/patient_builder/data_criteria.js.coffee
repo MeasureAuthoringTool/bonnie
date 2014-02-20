@@ -118,6 +118,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     $cb = $(e.target)
     $endDateTime = @$('input[name=end_date], input[name=end_time]')
     $endDateTime.val('') if $cb.is(':checked')
+    unless $cb.is(':checked') # set default date to 8:00am, current day
+      @$('input[name=end_date]').datepicker('setDate', new Date())
+      @$('input[name=end_date]').datepicker('update')
+      @$('input[name=end_time]').timepicker('setTime','8:00 AM')
     $endDateTime.prop 'disabled', $cb.is(':checked')
     @triggerMaterialize()
 
