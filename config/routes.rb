@@ -3,7 +3,7 @@ Bonnie::Application.routes.draw do
 
   resources :measures, defaults: { format: :json } do
     collection do
-      get 'libraries'
+      get 'value_sets'
       post 'finalize'
     end
     member do

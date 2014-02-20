@@ -18,13 +18,18 @@ class Thorax.Models.Measure extends Thorax.Model
     for key, data_criteria of attrs.data_criteria
       data_criteria.key = key
 
-    attrs.value_sets = new Thorax.Collection(attrs.value_sets, comparator: (vs) -> vs.get('display_name').toLowerCase())
     attrs.source_data_criteria = new Thorax.Collections.MeasureDataCriteria _(attrs.source_data_criteria).values(), parent: this
     attrs
 
-  # For speed on the dashboard, we only load partial measures, and rely on all the non-dashboard views to fetch the rest
   isPopulated: -> @has('data_criteria')
+
   populationCriteria: -> _.intersection(Thorax.Models.Measure.allPopulationCodes, _(@get('population_criteria')).keys())
+
+  valueSets: ->
+    unless @cachedValueSets
+      matchingSets = (bonnie.valueSetsByOid[oid] for oid in @get('value_set_oids'))
+      @cachedValueSets = new Thorax.Collection(matchingSets, comparator: (vs) -> vs.get('display_name').toLowerCase())
+    @cachedValueSets
 
   @logicFieldsFor: (criteriaType) ->
 
@@ -102,5 +107,5 @@ class Thorax.Collections.Measures extends Thorax.Collection
     populations
 
   valueSets: ->
-    @chain().map((m) -> m.get('value_sets')?.models or []).flatten().uniq((vs) -> vs.get('oid')).value()
+    @chain().map((m) -> m.valueSets()?.models or []).flatten().uniq((vs) -> vs.get('oid')).value()
 
