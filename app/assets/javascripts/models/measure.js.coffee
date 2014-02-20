@@ -11,7 +11,8 @@ class Thorax.Models.Measure extends Thorax.Model
       # copy population criteria data to population
       for code in @constructor.allPopulationCodes
         if populationCriteriaKey = population[code]
-          population[code] = attrs.population_criteria[populationCriteriaKey]
+          # preserve the original population code for specifics rationale
+          population[code] = _(code: population[code]).extend(attrs.population_criteria[populationCriteriaKey])
       populations.add new Thorax.Models.Population(population)
     attrs.populations = populations
 
