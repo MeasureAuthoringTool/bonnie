@@ -11,7 +11,8 @@ class Thorax.Views.Measure extends Thorax.View
     populations = @model.get 'populations'
     population = populations.first()
     populationLogicView = new Thorax.Views.PopulationLogic(model: population)
-    @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria"))
+    # @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria"))
+    @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population)
 
     # display layout view when there are multiple populations; otherwise, just show logic view
     if populations.length > 1
@@ -25,6 +26,11 @@ class Thorax.Views.Measure extends Thorax.View
     @logicView.listenTo @populationCalculation, 'logicView:clearCoverage', -> @clearCoverage()
 
     @populationCalculation.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
+    @listenTo @logicView, 'population:update', (population) ->
+      @$('.d3-measure-viz').empty()
+      @$('.d3-measure-viz').hide()
+      @$('.btn-measure-viz').removeClass('btn-primary').addClass('btn-default')
+
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
@@ -60,8 +66,15 @@ class Thorax.Views.Measure extends Thorax.View
     $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
 
   toggleVisualization: (e) ->
+    @$('.btn-measure-viz').toggleClass('btn-default btn-primary')
     @$('.measure-viz').toggle()
     @$('.d3-measure-viz').toggle()
     if @$('.d3-measure-viz').children().length == 0
-      d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
-      @$('rect').popover()
+      try
+        d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
+        @$('rect').popover()
+      catch error
+        @$('svg').toggle()
+        @$('.d3-measure-viz').append( "<p>Sorry, this measure visualization isn't ready yet!</p>" )
+        console.log error
+    console.log @$('.d3-measure-viz')
