@@ -14,7 +14,8 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     populations = @model.get 'populations'
     population = populations.first()
     populationLogicView = new Thorax.Views.PopulationLogic(model: population)
-    @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria"))
+    # @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria"))
+    @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population)
 
     # display layout view when there are multiple populations; otherwise, just show logic view
     if populations.length > 1
@@ -31,6 +32,9 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @populationCalculation.listenTo @, 'patients:toggleListing', -> @togglePatientsListing()
     @listenTo @logicView, 'population:update', (population) =>
       @$('.panel, .right-sidebar').animate(backgroundColor: '#fcf8e3').animate(backgroundColor: 'inherit')
+      @$('.d3-measure-viz').empty()
+      @$('.d3-measure-viz').hide()
+      @$('.btn-measure-viz').removeClass('btn-primary').addClass('btn-default')
     @listenTo @populationCalculation, 'select-patients:change', ->
       if @$('.select-patient:checked').size()
         @$('.measure-listing').removeClass('disabled')
@@ -127,8 +131,15 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
 
   toggleVisualization: (e) ->
+    @$('.btn-measure-viz').toggleClass('btn-default btn-primary')
     @$('.measure-viz').toggle()
     @$('.d3-measure-viz').toggle()
     if @$('.d3-measure-viz').children().length == 0
-      d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
-      @$('rect').popover()
+      try
+        d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
+        @$('rect').popover()
+      catch error
+        @$('svg').toggle()
+        @$('.d3-measure-viz').append( "<p>Sorry, this measure visualization isn't ready yet!</p>" )
+        console.log error
+    console.log @$('.d3-measure-viz')

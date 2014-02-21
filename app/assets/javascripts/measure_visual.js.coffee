@@ -27,13 +27,14 @@ Bonnie.viz.measureVisualzation = ->
 										.attr("transform", "translate(0,#{offset})")
 								textField = populationElement.append('text')
 									.attr("transform", "translate(0, -3)")
+									.style("font-weight", "bold")
 
 								if not data[population] 
 									continue 		
 								if not data[population].preconditions?
 									textField.text("#{populationCodes[[population]]}: None")
 									continue
-								textField.text(populationCodes[[population]])
+								textField.text("#{populationCodes[[population]]}:")
 
 								renderPrecondition(populationElement, data[population].preconditions[0]) if data[population].preconditions?
 								offset+= getElementHeight(populationElement)
@@ -54,6 +55,7 @@ Bonnie.viz.measureVisualzation = ->
 				right: 15
 
 		dataCriteria = {}
+		measurePopulation = {}
 
 
 		my.width = (_) ->
@@ -81,6 +83,10 @@ Bonnie.viz.measureVisualzation = ->
 				dataCriteria = _
 				my
 
+		my.measurePopulation = (_) ->
+				return measurePopulation unless arguments.length
+				measurePopulation = _
+				my
 
 		renderPrecondition = (parent, preconditions) -> 
 				# Let's get the width of this element so we can operate on it
