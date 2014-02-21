@@ -1,5 +1,7 @@
 class Thorax.Views.PopulationCriteriaLogic extends Thorax.View
   template: JST['logic/population_criteria']
+  events:
+    'click .panel-population' : -> @$('.toggle-icon').toggleClass('fa-angle-right fa-angle-down')
   population_map:
     'IPP': 'Initial Patient Population'
     'DENOM': 'Denominator'
@@ -11,7 +13,6 @@ class Thorax.Views.PopulationCriteriaLogic extends Thorax.View
   aggregator_map:
     'MEAN':'Mean of'
     'MEDIAN':'Median of'
-
 
   initialize: ->
     @rootPreconditon = @population.preconditions[0] if @population.preconditions?.length > 0
