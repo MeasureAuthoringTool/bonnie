@@ -16,8 +16,15 @@ class MeasuresController < ApplicationController
   def value_sets
     if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
       value_set_oids = Measure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
-      value_sets_by_oid = HealthDataStandards::SVS::ValueSet.in(oid: value_set_oids).index_by(&:oid)
-      @value_sets_by_oid_json = MultiJson.encode(value_sets_by_oid.as_json(except: [:_id, :code_system, :code_system_version]))
+
+      # Not the cleanest code, but we get a many second performance improvement by going directly to Moped
+      # (The two commented lines are functionally equivalent to the following three uncommented lines, if slower)
+      # value_sets_by_oid = HealthDataStandards::SVS::ValueSet.in(oid: value_set_oids).index_by(&:oid)
+      # @value_sets_by_oid_json = MultiJson.encode(value_sets_by_oid.as_json(except: [:_id, :code_system, :code_system_version]))
+      value_sets = Mongoid::Sessions.default[HealthDataStandards::SVS::ValueSet.collection_name].find(oid: { '$in' => value_set_oids })
+      value_sets = value_sets.select('concepts._id' => 0, 'concepts.code_system' => 0, 'concepts.code_system_version' => 0)
+      @value_sets_by_oid_json = MultiJson.encode value_sets.index_by { |vs| vs['oid'] }
+
       respond_with @value_sets_by_oid_json do |format|
         format.json { render json: @value_sets_by_oid_json }
       end
