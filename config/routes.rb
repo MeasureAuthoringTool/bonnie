@@ -22,6 +22,7 @@ Bonnie::Application.routes.draw do
   resources :patients do
     collection do 
       post 'materialize'
+      get 'export'
     end
   end
 

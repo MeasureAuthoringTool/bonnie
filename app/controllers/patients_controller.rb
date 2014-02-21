@@ -28,6 +28,33 @@ class PatientsController < ApplicationController
     render :json => patient
   end
 
+  def export
+    records = Record.by_user(current_user)
+    unless current_user.portfolio?
+      records = records.where({:measure_ids.in => [params[:hqmf_set_id]]})
+    end
+
+    qrda_exporter = HealthDataStandards::Export::Cat1.new
+    html_exporter = HealthDataStandards::Export::HTML.new
+
+    measures = Measure.all.map(&:as_hqmf_model)
+    start_time = Time.new(2012, 1, 1)
+    end_time = Time.new(2012, 12, 31)
+
+    stringio = Zip::ZipOutputStream::write_buffer do |zip|
+      records.each_with_index do |patient, index|
+        zip.put_next_entry("qrda_#{index+1}.xml")
+        zip.puts qrda_exporter.export(patient, measures, start_time, end_time)
+        zip.put_next_entry("patient_#{index+1}.html")
+        zip.puts html_exporter.export(patient, measures)
+      end
+    end
+
+    stringio.rewind
+    send_data stringio.sysread, :type => 'application/zip', :disposition => 'attachment', :filename => "patient_export.zip"
+
+  end
+
 private 
 
   def update_patient(patient)
@@ -70,4 +97,5 @@ private
 
     patient
   end
+
 end
