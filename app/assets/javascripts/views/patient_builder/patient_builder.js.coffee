@@ -110,12 +110,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
   loadPopulation: (population) ->
     @measure = population.collection.parent
     @render()
-    @expectedValuesView = new Thorax.Views.ExpectedValuesView
-      collection: @model.getExpectedValues(@measure)
-      measure: @measure
-      el: @expectedValuesView.el
-    @expectedValuesView.render()
-    @expectedValuesView.$("a[data-toggle=tab]:eq(#{population.collection.indexOf(population)})").tab('show')
+    @expectedValuesView.refresh(population, @model.getExpectedValues(@measure))
     @populationLogicView.setPopulation population
     bonnie.navigate "measures/#{@measure.get('hqmf_set_id')}/patients/#{@model.id}/edit"
 

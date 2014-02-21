@@ -23,6 +23,15 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
     populationTitle: population.get('title') || population.get('sub_id')
     population_index: expectedValue.get('population_index')
 
+  refresh: (population, expectedValues) ->
+    @measure = population.collection.parent
+    @setCollection expectedValues
+    @expectedValueCollectionView.remove()
+    @initialize()
+    @render()
+    @$("a[data-toggle=tab]:eq(#{population.collection.indexOf(population)})").tab('show')
+
+
   # When we serialize the form, we want to update the expected_values hash
   events:
     rendered: ->
@@ -37,7 +46,7 @@ class Thorax.Views.ExpectedValuesView extends Thorax.View
         @trigger 'population:select', expectedValue.get('population_index')
 
 
-class Thorax.Views.ExpectedValueView extends Thorax.View
+class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
 
   template: JST['patient_builder/expected_value']
 
@@ -55,6 +64,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.View
           else attr[pc] = undefined if pc == 'OBSERV' or pc == 'MSRPOPL'
         else
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
+    'blur input': 'triggerMaterialize'
 
   context: ->
     context = super
