@@ -21,6 +21,7 @@ gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.g
 gem 'mongoid', '~> 3.1.0'
 
 gem 'devise'
+gem 'systemu'
 
 # needed for parsing value sets (we need to use roo rather than rubyxl because the value sets are in xls rather than xlsx)
 gem 'roo'

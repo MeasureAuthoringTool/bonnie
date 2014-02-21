@@ -27,24 +27,25 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 18babd3901d45e6175a1087e1f20125263c804cd
+  revision: 160bcfb361b402b08e9e047f2e37b7cfd53c2de7
   branch: master
   specs:
-    health-data-standards (3.3.1)
+    health-data-standards (3.4.2)
       activesupport (~> 3.2.14)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       log4r (~> 1.1.10)
       memoist (~> 0.9.1)
       mongoid (~> 3.1.4)
-      nokogiri (~> 1.6.0)
+      mongoid-tree (~> 1.0.4)
+      nokogiri (= 1.6.0)
       rest-client (~> 1.6.7)
       rubyzip (= 0.9.9)
       uuid (~> 2.3.7)
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: c19bb6e88f2ee6c0fd78e01ae94fd11a1e69f9e8
+  revision: 3842b6c2c643cb2615d0584f3f6849ae078fa445
   branch: develop
   specs:
     bonnie_bundler (1.0.0)
@@ -162,8 +163,7 @@ GEM
       less (~> 2.4.0)
     libv8 (3.16.14.3)
     log4r (1.1.10)
-    macaddr (1.6.1)
-      systemu (~> 2.5.0)
+    macaddr (1.6.2)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -177,8 +177,10 @@ GEM
       moped (~> 1.4)
       origin (~> 1.0)
       tzinfo (~> 0.3.29)
-    moped (1.5.1)
-    multi_json (1.8.2)
+    mongoid-tree (1.0.4)
+      mongoid (>= 3.0, <= 4.0)
+    moped (1.5.2)
+    multi_json (1.8.4)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.7.0)
@@ -318,6 +320,7 @@ DEPENDENCIES
   rubyzip (< 1.0.0)
   simplecov
   sprockets (= 2.2.2.backport1)
+  systemu
   therubyracer
   thin
   turn
