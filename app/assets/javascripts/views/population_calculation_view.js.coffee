@@ -2,6 +2,9 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
   template: JST['population_calculation']
 
   initialize: ->
+    @coverageView = new Thorax.Views.MeasureCoverageView(model: @model.coverage())
+    @listenTo @coverageView, 'logicView:showCoverage', -> @trigger 'logicView:showCoverage'
+    @listenTo @coverageView, 'logicView:clearCoverage', -> @trigger 'logicView:clearCoverage'
     @measure = @model.measure()
     @differences = @model.differencesFromExpected()
     # We want to display the results sorted by 1) failures first, then 2) last name, then 3) first name
@@ -9,7 +12,6 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
     @differences.sort()
     # Make sure the sort order updates as results come in
     @differences.on 'change', @differences.sort, @differences
-    @totalCoverage = @model.coverage()
 
   context: ->
     _(super).extend measure_id: @measure.get('hqmf_set_id')
@@ -26,9 +28,10 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
     @initialize()
     @render() # FIXME: we'd prefer not to explicitly render(), prefer to use a layout view or similar
     @trigger 'rationale:clear'
-    if selectedResult?
+    if selectedResult? && selectedResult.get('done')? == true
       @$(".toggle-result-#{selectedResult.patient.id}").show()
       @trigger 'rationale:show', selectedResult
+    else @coverageView.showCoverage()
 
   showDelete: (e) ->
     result = @$(e.target).model().result
@@ -54,12 +57,13 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
     result = $(e.target).model().result
     if @$(".toggle-result-#{result.patient.id}").is(":visible")
       @$(".toggle-result-#{result.patient.id}").hide()
-      @trigger 'rationale:clear'
       @$(".expand-result-icon-#{result.patient.id}").removeClass('fa-angle-down').addClass('fa-angle-right')
+      @coverageView.showCoverage()
     else
       @$('.toggle-result').hide()
       @$('.expand-result-icon').removeClass('fa-angle-down').addClass('fa-angle-right')
       @$(".toggle-result-#{result.patient.id}").show()
       @$(".expand-result-icon-#{result.patient.id}").removeClass('fa-angle-right').addClass('fa-angle-down')
       @trigger 'rationale:show', result
+      @coverageView.hideCoverage()
 

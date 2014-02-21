@@ -14,6 +14,8 @@ class Thorax.Views.Measure extends Thorax.View
       @logicView = populationLogicView
 
     @populationCalculation = new Thorax.Views.PopulationCalculation(model: population)
+    @logicView.listenTo @populationCalculation, 'logicView:showCoverage', -> @showCoverage()
+    @logicView.listenTo @populationCalculation, 'logicView:clearCoverage', -> @clearCoverage()
 
     @populationCalculation.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying

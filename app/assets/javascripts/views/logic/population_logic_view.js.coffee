@@ -6,12 +6,17 @@ class Thorax.Views.PopulationsLogic extends Thorax.LayoutView
     @trigger 'population:update', population
   showRationale: (result) -> @getView().showRationale(result)
   clearRationale: -> @getView().clearRationale()
+  showCoverage: -> @getView().showCoverage()
+  clearCoverage: -> @getView().clearCoverage()
   populationContext: (population) ->
     _(population.toJSON()).extend isActive: population is @collection.first()
 
 class Thorax.Views.PopulationLogic extends Thorax.View
 
   template: JST['logic/logic']
+
+  events:
+    rendered: -> @showCoverage()
 
   initialize: ->
     @submeasurePopulations = []
@@ -29,6 +34,7 @@ class Thorax.Views.PopulationLogic extends Thorax.View
     result.calculation.done =>
       @latestResult = result
       rationale = result.get('rationale')
+      @clearCoverage()
       @clearRationale()
       # rationale only handles the logical true/false values
       # we need to go in and modify the highlighting based on the final specific contexts for each population
@@ -60,3 +66,10 @@ class Thorax.Views.PopulationLogic extends Thorax.View
 
   clearRationale: ->
     @$('.rationale .rationale-target').removeClass('eval-false eval-true eval-bad-specifics')
+
+  showCoverage: ->
+    @clearRationale()
+    @$(".#{criteria}").addClass('eval-coverage') for criteria in @model.coverage().rationaleCriteria
+
+  clearCoverage: ->
+    @$('.rationale .rationale-target').removeClass('eval-coverage')

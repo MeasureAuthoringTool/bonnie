@@ -1,7 +1,7 @@
 // Displays colors according to patient results on the measure logic
 
 .rationale {
-  .eval-true, .eval-false, .eval-bad-specifics {
+  .eval-true, .eval-false, .eval-bad-specifics, .eval-coverage {
     font-weight: 500;
     padding: 2px;
   }
@@ -28,5 +28,9 @@
       content: @fa-var-asterisk;
       font-family: FontAwesome;
     }
+  }
+  .eval-coverage{
+    background-color: @blue-lightest;
+    color: @brand-primary;
   }
 }
