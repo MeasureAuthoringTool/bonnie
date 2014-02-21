@@ -75,6 +75,13 @@ class Thorax.Models.Patient extends Thorax.Model
     (fullDate.getMonth() + 1) + '/' + fullDate.getDay() + '/' + fullDate.getYear()
 
   materialize: ->
+
+    # Keep track of patient state and don't materialize if unchanged; we can't rely on Backbone's
+    # "changed" functionality because that doesn't capture new sub-models
+    patientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections)
+    return if @previousPatientJSON == patientJSON
+    @previousPatientJSON = patientJSON
+    
     $.ajax
       url:         "#{@urlRoot}/materialize"
       type:        'POST'
@@ -92,6 +99,7 @@ class Thorax.Models.Patient extends Thorax.Model
         # if we already have codes, then we know we're up to date; no change is necessary
         if criterium.get('codes').isEmpty()
           criterium.get('codes').reset data['source_data_criteria'][i]['codes'], parse: true
+      @previousPatientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections) # Capture post-materialize changes too
       @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
 
   getExpectedValue: (population) ->
