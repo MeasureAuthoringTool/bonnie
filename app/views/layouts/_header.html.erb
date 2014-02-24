@@ -1,24 +1,3 @@
-<!-- <header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="navbar-inner">
-    <div class="container">
-      <%= link_to "bonnie", root_path, id: "logo" %>
-      <nav>
-        <ul>
-          <% if user_signed_in? %>
-            <li class="greeting">Welcome, <%= current_user.email %></li>
-            <li>|</li>
-            <li><%= link_to "Measures", root_path + "#measures" %></li>
-            <li><%= link_to "Patients", root_path + "#patients" %></li>
-            <li><%= link_to "Account", root_path + "#account" %></li>
-            <li><%= button_to('Logout', destroy_user_session_path, :method => :delete) %></li>
-          <% end %>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</header>
- -->
-
 <div class="navbar row" role="navigation">
   <ul class="nav navbar-nav pull-right">
     <li class="active"><a href="#">Measures</a></li>
