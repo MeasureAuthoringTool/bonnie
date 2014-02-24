@@ -1,8 +1,55 @@
 // White/Bleck-List Value Set Builder styles
 
+.value-sets-builder {
+   .white-list {
+     color: white;
+   }
+   .black-list {
+     color: black;
+   }
+   .white-black-list {
+    background-color: @gray-light;
+   }
+   .search-button {
+    color: white;
+    background-color: @brand-primary;
+   }
+   .btn-default {
+    border-color: @brand-primary;
+   }
+}
+
 .value-set-filters {
   th {
     padding: 2px;
+  }
+  .filter-cell {
+    background-color: @gray-lighter;
+  }
+  .btn {
+    border-color: transparent;
+    border-radius: 0;
+    opacity: 1;
+  }
+  .btn-primary-included {
+    color: white;
+    background-color: @brand-primary;
+  }
+  .btn-primary-excluded {
+    color: white;
+    background-color: @gray-darker;
+  }
+  .btn-default-include {
+    color: @gray-darker;
+    background-color: white;
+  }
+  .btn-default-exclude {
+    color: @gray-darker;
+    background-color: @gray-lighter;
+  }
+  .btn-close {
+    color: gray;
+    background-color: white;
   }
 }
 
@@ -15,6 +62,12 @@
   }
   .value-set-listing {
     border: 1px solid @gray-darker;
+    .success {
+      color: @brand-success;
+    }
+    .danger {
+      color: @brand-danger;
+    }
   }
   small {
     color: @gray-darker;
@@ -26,6 +79,15 @@
     }
     .value-set-filter {
       margin-right: 6px;
+    }
+    .empty {
+      color: @gray-lighter;
+    }
+    .success {
+      color: @brand-success;
+    }
+    .danger {
+      color: @brand-danger;
     }
   }
 }
