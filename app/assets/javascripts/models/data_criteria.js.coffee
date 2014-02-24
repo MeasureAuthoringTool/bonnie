@@ -7,7 +7,7 @@ class Thorax.Models.MeasureDataCriteria extends Thorax.Model
              end_date: new Date().getTime()
              value: new Thorax.Collection()
              field_values: new Thorax.Collection()
-             cms_id: @collection.parent.get("cms_id")
+             hqmf_set_id: @collection.parent.get('hqmf_set_id')
     new Thorax.Models.PatientDataCriteria attr
 
 class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
@@ -31,6 +31,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     if attrs.codes
       attrs.codes = new Thorax.Collections.Codes attrs.codes, parse: true
     attrs
+  measure: -> bonnie.measures.findWhere hqmf_set_id: @get('hqmf_set_id')
   valueSet: -> _(bonnie.measures.valueSets()).detect (vs) => vs.get('oid') is @get('code_list_id')
   toJSON: ->
     # Transform fieldValues back to an object from a collection
