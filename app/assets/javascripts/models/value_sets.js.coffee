@@ -10,7 +10,7 @@ class Thorax.Collections.ValueSetsCollection extends Thorax.Collection
   measureToOids: (measures) ->
     measureToOids = {} # measure hqmf_set_id : valueSet oid
     measures.each (m) =>
-      measureToOids[m.get('hqmf_set_id')] = m.valueSets().models
+      measureToOids[m.get('hqmf_set_id')] = m.valueSets().pluck('oid')
     measureToOids
 
   patientToOids: (patients) ->
