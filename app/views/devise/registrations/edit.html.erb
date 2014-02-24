@@ -12,23 +12,31 @@
   <% end %>
 
   <div class="form-group row">
-    <div class="input-group input-group-lg col-md-6 required">
-      <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
-      <%= f.text_field :first_name, class: "form-control", placeholder: "first name*" %>
+    <div class="col-md-6">
+      <div class="input-group input-group-lg required">
+        <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
+        <%= f.text_field :first_name, class: "form-control", placeholder: "first name*" %>
+      </div>
     </div>
-    <div class="input-group input-group-lg col-md-6 required">
-      <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
-      <%= f.text_field :last_name, class: "form-control", placeholder: "last name*" %>
+    <div class="col-md-6">
+      <div class="input-group input-group-lg required">
+        <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
+        <%= f.text_field :last_name, class: "form-control", placeholder: "last name*" %>
+      </div>
     </div>
   </div>
   <div class="form-group row">
-    <div class="input-group input-group-lg col-md-6">
-      <span class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw"></i></span>
-      <%= f.email_field :email, class: "form-control", placeholder: "email@example.com" %>
+    <div class="col-md-6">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw"></i></span>
+        <%= f.email_field :email, class: "form-control", placeholder: "email@example.com" %>
+      </div>
     </div>
-    <div class="input-group input-group-lg col-md-6">
-      <span class="input-group-addon"><i class="fa fa-mobile fa-lg fa-fw"></i></span>
-      <%= f.text_field :telephone, class: "form-control", placeholder: "(000) 000-0000" %>
+    <div class="col-md-6">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon"><i class="fa fa-mobile fa-lg fa-fw"></i></span>
+        <%= f.text_field :telephone, class: "form-control", placeholder: "(000) 000-0000" %>
+      </div>
     </div>
   </div>
   <div class="form-group row">
@@ -39,9 +47,11 @@
       </div>
       Must be at least 8 characters long and contain characters from at least two of: lowercase letters, uppercase letters, numbers, and special characters (leave blank if you don't want to change it).
     </div>
-    <div class="input-group input-group-lg col-md-6 required">
-      <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></span>
-      <%= f.password_field :password_confirmation, class: "form-control", placeholder: "confirm password*" %>
+    <div class="col-md-6">
+      <div class="input-group input-group-lg required">
+        <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></span>
+        <%= f.password_field :password_confirmation, class: "form-control", placeholder: "confirm password*" %>
+      </div>
     </div>
   </div>
 
@@ -56,8 +66,8 @@
 
     <div class="col-md-6">
       <div class="row">
-      <div class="col-xs-6"><a class="btn btn-default btn-block btn-lg" href="/">Cancel</a></div>
-      <div class="col-xs-6"><%= f.submit "Save", class: "btn btn-primary btn-block btn-lg" %></div>
+        <div class="col-xs-6"><a class="btn btn-default btn-block btn-lg" href="/">Cancel</a></div>
+        <div class="col-xs-6"><%= f.submit "Save", class: "btn btn-primary btn-block btn-lg" %></div>
       </div>
     </div>
   </div>
