@@ -5,33 +5,18 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     'focus input#searchByNameOrOID': 'resetSearchBar'
 
   initialize: ->
-    @whiteList = new Thorax.Collection(null,comparator: (vs) -> vs.get('display_name')?.toLowerCase())
-    @blackList = new Thorax.Collection(null,comparator: (vs) -> vs.get('display_name')?.toLowerCase())
-    @searchResults = new Thorax.Collection(null,comparator: (vs) -> vs.get('display_name')?.toLowerCase())
-    @filters = new Thorax.Collection(null,comparator: (vs) -> vs.get('display_name')?.toLowerCase())
+    @searchResults = new Thorax.Collections.ValueSetsCollection()
+    @filters = new Thorax.Collections.ValueSetsCollection()
     @exclusions = new Thorax.Collection()
     @inclusions = new Thorax.Collection()
     @query = ''
-    @measureToOids = {} # measure hqmf_set_id : valueSet oid
-    @patientToOids = {} # patient medical_record_number : valueSet oid
-    @patientToSdc = {} # patient medical_record_number : source_data_criteria
-    @measures.each (m) =>
-      @measureToOids[m.get('hqmf_set_id')] = []
-      for valueSet in m.get('value_sets').models
-        unless valueSet.get('oid') in @collection.pluck('oid')
-          @collection.add valueSet 
-          @measureToOids[m.get('hqmf_set_id')].push valueSet.get('oid')
-          for concept in valueSet.get('concepts')
-            if concept.black_list then @blackList.add valueSet
-            else if concept.white_list then @whiteList.add valueSet
-    @patients.each (p) =>
-      @patientToOids[p.get('medical_record_number')] = []
-      @patientToSdc[p.get('medical_record_number')] = []
-      p.get('source_data_criteria').each (sdc) =>
-        @patientToOids[p.get('medical_record_number')].push sdc.get('oid')
-        @patientToSdc[p.get('medical_record_number')].push sdc
     @names = @collection.pluck('display_name')
     @oids = @collection.pluck('oid')
+    @whiteList = new Thorax.Collections.ValueSetsCollection(@collection.whiteList())
+    @blackList = new Thorax.Collections.ValueSetsCollection(@collection.blackList())
+    @measureToOids = @collection.measureToOids(@measures) # measure hqmf_set_id : valueSet oid
+    @patientToOids = @collection.patientToOids(@patients) # patient medical_record_number : valueSet oid
+    @patientToSdc = @collection.patientToSdc(@patients) # patient medical_record_number : source_data_criteria
     @whiteListCollectionView = new Thorax.CollectionView
       collection: @whiteList
       itemView: (item) => new Thorax.Views.ValueSetView(model: item.model, white: true, black: false, measures: @measures, measuresToOids: @measureToOids, patients: @patients, patientsToOids: @patientToOids, patientsToSdc: @patientToSdc)
@@ -68,8 +53,7 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
   selectMeasure: (e) ->
     measure = @$(e.target).model()
     @query = measure.get('title')
-    matchingValueSets = @collection.filter((vs) -> measure.get('value_sets').include(vs))
-    @searchResults.reset(matchingValueSets)
+    @searchResults.reset(measure.valueSets().models)
     @$('.input-group').addClass('has-success')
 
   resetSearchBar: ->
@@ -141,9 +125,7 @@ class Thorax.Views.ValueSetView extends Thorax.View
     @codeSystems = {}
     for concept in @model.get('concepts')
       if @white or @black
-        if concept.white_list and @white
-          @addToCodeSystems(concept)
-        if concept.black_list and @black 
+        if concept.white_list and @white or concept.black_list and @black 
           @addToCodeSystems(concept)
       else
         if @inclusions? and @exclusions?
