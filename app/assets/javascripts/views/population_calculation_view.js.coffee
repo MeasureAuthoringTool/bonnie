@@ -3,7 +3,9 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
 
   initialize: ->
     @coverageView = new Thorax.Views.MeasureCoverageView(model: @model.coverage())
-    @listenTo @coverageView, 'logicView:showCoverage', -> @trigger 'logicView:showCoverage'
+    @listenTo @coverageView, 'logicView:showCoverage', -> 
+      @trigger 'logicView:showCoverage'
+      @$('.expand-result-icon').removeClass('fa-angle-down').addClass('fa-angle-right')
     @listenTo @coverageView, 'logicView:clearCoverage', -> @trigger 'logicView:clearCoverage'
     @measure = @model.measure()
     @differences = @model.differencesFromExpected()
@@ -32,6 +34,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
       @$(".toggle-result-#{selectedResult.patient.id}").show()
       @trigger 'rationale:show', @$(".toggle-result-#{selectedResult.patient.id}").model().result
       @$(".expand-result-icon-#{selectedResult.patient.id}").removeClass('fa-angle-right').addClass('fa-angle-down')
+      @coverageView.hideCoverage()
     else @coverageView.showCoverage()
 
   showDelete: (e) ->
