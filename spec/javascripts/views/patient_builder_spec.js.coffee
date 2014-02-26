@@ -3,7 +3,7 @@ describe 'PatientBuilderView', ->
   beforeEach ->
 
     @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[0], parse: true
-    @measure = bonnie.measures.first()
+    @measure = bonnie.measures.last()
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
     @patientBuilder.render()
     spyOn(@patientBuilder.model, 'materialize')
@@ -63,15 +63,15 @@ describe 'PatientBuilderView', ->
         criteria.simulate 'drag', dx: droppableOffset.left - criteriaOffset.left - (criteria.width()/2), dy: droppableOffset.top - criteriaOffset.top - (criteria.height()/2)
 
     it "adds data criteria to model when dragged", ->
-      expect(@patientBuilder.model.get('source_data_criteria').length).toEqual 3 # Patient starts with existing criteria
+      initialSourceDataCriteriaCount = @patientBuilder.model.get('source_data_criteria').length
       @addEncounter 1, '.criteria-container.droppable'
-      expect(@patientBuilder.model.get('source_data_criteria').length).toEqual 4
+      expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 1
 
     it "can add multiples of the same criterion", ->
-      expect(@patientBuilder.model.get('source_data_criteria').length).toEqual 3
+      initialSourceDataCriteriaCount = @patientBuilder.model.get('source_data_criteria').length
       @addEncounter 1, '.criteria-container.droppable'
       @addEncounter 1, '.criteria-container.droppable' # add the same one again
-      expect(@patientBuilder.model.get('source_data_criteria').length).toEqual 5
+      expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 2
 
     it "acquires the dates of the drop target when dropping on an existing criteria", ->
       startDate = @patientBuilder.model.get('source_data_criteria').first().get('start_date')
@@ -111,6 +111,7 @@ describe 'PatientBuilderView', ->
   describe "setting a criteria as not performed", ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
+      @patientBuilder.$('.criteria-data').children().toggleClass('hide')
       @patientBuilder.$('input[name=negation]:first').click()
       @patientBuilder.$('select[name=negation_code_list_id]:first').val('2.16.840.1.113883.3.464.1003.196.12.1253')
       @patientBuilder.$("button[data-call-method=save]").click()

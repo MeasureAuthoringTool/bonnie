@@ -11,11 +11,11 @@ describe 'Measure', ->
     expect(@measure.get('populations').length).toEqual 1
 
   it 'has set itself as parent on measure_data_criteria', ->
-    expect(@measure.get("source_data_criteria").get('parent') == @measure)  
+    expect(@measure.get("source_data_criteria").get('parent') == @measure)
 
   it 'can calulate results for a patient', ->
     collection = new Thorax.Collections.Patients getJSONFixture('patients.json')
-    patient = collection.findWhere(first: 'GP_Peds', last: 'A')
+    patient = collection.findWhere(first: 'GP_Peds', last: 'B')
     results = @measure.get('populations').at(0).calculate(patient)
     waitsFor -> results.isPopulated()
     runs ->
@@ -23,4 +23,4 @@ describe 'Measure', ->
       expect(results.get('DENEXCEP')).toEqual 0
       expect(results.get('DENOM')).toEqual 1
       expect(results.get('IPP')).toEqual 1
-      expect(results.get('NUMER')).toEqual 0
+      expect(results.get('NUMER')).toEqual 1

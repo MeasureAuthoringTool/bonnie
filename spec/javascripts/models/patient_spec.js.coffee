@@ -2,7 +2,7 @@ describe 'Patient', ->
 
   beforeEach ->
     collection = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
-    @patient = collection.findWhere(first: 'GP_Peds', last: 'A')
+    @patient = collection.findWhere(first: 'GP_Peds', last: 'B')
 
   it 'has basic attributes available', ->
     expect(@patient.get('gender')).toEqual 'F'
@@ -20,4 +20,4 @@ describe 'Patient', ->
   it 'correctly deduplicates the name when deep cloning and dedupName is an option', ->
     clone = @patient.deepClone({dedupName: true})
     expect(clone.get("first")).toEqual @patient.get("first") + " (1)"
-    
+

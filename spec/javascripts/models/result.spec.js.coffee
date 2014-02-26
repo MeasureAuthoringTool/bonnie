@@ -3,7 +3,7 @@ describe 'Result', ->
   beforeEach ->
     @measure = bonnie.measures.get('40280381-3D61-56A7-013E-5D1EF9B76A48')
     collection = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
-    @patient = collection.findWhere(first: 'GP_Peds', last: 'A')
+    @patient = collection.findWhere(first: 'GP_Peds', last: 'B')
 
   it 'correctly handles fixing specific occurrence results', ->
     result = this.measure.get('populations').at(0).calculate(@patient)
