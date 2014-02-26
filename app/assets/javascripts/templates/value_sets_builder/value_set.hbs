@@ -1,0 +1,90 @@
+<div class="value-set-entry">
+  <div class="criteria-details">
+      {{#button "toggleDetails" class="close"}}<i class="fa fa-lg fa-angle-right"></i>{{/button}}
+        <h4><i class="fa fa-fw fa-lg fa-list-alt"></i> {{display_name}}  <small>{{oid}}</small>
+        {{#each codeSystems}}
+          {{#if count}}
+            <span class="label label-info">{{code_system}} <span class="badge">{{count}}</span></span>
+          {{/if}}
+        {{/each}}
+        {{#if filters}}
+          {{#button "addFilter" class="btn btn-xs btn-default value-set-filter pull-right"}} <i class="fa fa-filter"></i> <i class="fa fa-plus"></i> {{/button}}
+        {{/if}}
+        </h4>
+  </div>
+  <form class="hide" role="form">
+      {{#button "toggleDetails" class="close"}}<i class="fa fa-lg fa-angle-down"></i>{{/button}}
+
+      <h4><i class="fa fa-fw fa-lg fa-list-alt"></i> {{display_name}}  <small>{{oid}}</small></h4>
+
+      <div class="panel panel-default value-set-listing">
+        <div class="panel-body">
+          <i class="fa fa-list"></i> <label>Codes</label>
+          <ul class="nav nav-pills">
+            {{#each codeSystems}}
+              <li{{#unless index}} class="active"{{/unless}}><a href="#{{../cid}}-{{index}}" data-toggle="tab">{{code_system}} <span class="badge">{{count}}</span></a></li>
+            {{/each}}
+          </ul>
+          <div class="tab-content">
+            {{#each codeSystems}}
+              <div id="{{../cid}}-{{index}}" class="tab-pane{{#unless index}} active{{/unless}}">
+                {{#collection collection class="list-group" tag="ul"}}
+                  <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-xs-1">
+                        {{#if white_list}}<i class="fa fa-fw fa-lg fa-check"></i>{{else}}{{#if black_list}}<i class="fa fa-fw fa-lg fa-times"></i>{{else}}{{/if}}{{/if}} 
+                      </div>
+                      <div class="col-xs-9">
+                        <strong><small>{{code}}</small></strong> {{display_name}} <span class="label label-{{#if white_list}}success{{else}}{{#if black_list}}danger{{else}}info{{/if}}{{/if}}">{{code_system_name}}</span> 
+                      </div>
+                      <div class="col-xs-2">
+                        <select class="filter-vs">
+                          <option class="default-option" {{#if white_list}}{{else}}{{#if black_list}}{{else}}selected{{/if}}{{/if}}>None</option>
+                          <option class="white-list-option" {{#if white_list}}selected{{/if}}>White-List</option>
+                          <option class="black-list-option" {{#if black_list}}selected{{/if}}>Black-List</option>
+                        </select>
+                      </div>
+                    </div>
+                  </li>
+                {{/collection}}
+              </div>
+            {{/each}}
+          </div>
+        </div>
+        {{#empty associatedMeasures}}
+        {{else}}
+          <div class="well">
+            <i class="fa fa-tasks"></i> <label>Associated Measures</label>
+            {{#collection associatedMeasures}}
+              {{#link "measures/{{hqmf_set_id}}" class="btn btn-default" expand-tokens=true}}{{cms_id}} ({{measure_id}}){{/link}}
+            {{/collection}}
+          </div>
+        {{/empty}}
+        {{#empty associatedPatients}}
+        {{else}}
+          <div class="well">
+            <i class="fa fa-users"></i> <label>Associated Patients</label>
+            {{#collection associatedPatients item-context="patientContext" class="list-group" tag="ul"}}
+              <li class="list-group-item">
+              {{#link "measures/{{measureId}}/patients/{{_id}}/edit" class="btn btn-default" expand-tokens=true}}{{last}}, {{first}}{{/link}}
+              {{#empty associatedSDC}}
+              {{else}}
+                {{#collection associatedSDC class="list-group" tag="ul"}}
+                  <li class="list-group-item">
+                    {{description}}
+                  </li>
+                {{/collection}}
+              {{/empty}}
+              </li>
+            {{/collection}}
+          </div>
+        {{/empty}}
+        <div class="panel-footer">
+          {{#if filters}}
+            {{#button "addFilter" class="btn btn-default value-set-filter"}} <i class="fa fa-filter"></i> <i class="fa fa-plus"></i> Add Filter{{/button}}
+          {{/if}}
+          {{#button "save" class="btn btn-default value-set-save"}}<i class="fa fa-save"></i> Save{{/button}}
+        </div>
+      </div>
+  </form>
+</div>

@@ -22,6 +22,7 @@ class BonnieRouter extends Backbone.Router
     'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
     'users':                                           'renderUsers'
+    'value_sets/edit':                                 'renderValueSetsBuilder'
 
   renderMeasures: ->
     # FIXME: We want the equivalent of a before filter; can probably override navigate w/super? @on route happens after, ok?
@@ -71,4 +72,9 @@ class BonnieRouter extends Backbone.Router
     errorDialogView = new Thorax.Views.ErrorDialog error: error
     errorDialogView.appendTo('#bonnie')
     errorDialogView.display();
+
+  renderValueSetsBuilder: ->
+    valueSets = new Thorax.Collections.ValueSetsCollection(_(bonnie.valueSetsByOid).values())
+    valueSetsBuilderView = new Thorax.Views.ValueSetsBuilder(collection: valueSets, measures: @measures.sort(), patients: @patients)
+    @mainView.setView(valueSetsBuilderView)
 
