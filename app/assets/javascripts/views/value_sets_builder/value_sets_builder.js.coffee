@@ -14,9 +14,9 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     @oids = @collection.pluck('oid')
     @whiteList = new Thorax.Collections.ValueSetsCollection(@collection.whiteList())
     @blackList = new Thorax.Collections.ValueSetsCollection(@collection.blackList())
-    @measureToOids = @collection.measureToOids(@measures) # measure hqmf_set_id : valueSet oid
-    @patientToOids = @collection.patientToOids(@patients) # patient medical_record_number : valueSet oid
-    @patientToSdc = @collection.patientToSdc(@patients) # patient medical_record_number : source_data_criteria
+    @measureToOids = @measures.toOids() # measure hqmf_set_id : valueSet oid
+    @patientToOids = @patients.toOids() # patient medical_record_number : valueSet oid
+    @patientToSdc = @patients.toSdc() # patient medical_record_number : source_data_criteria
     @whiteListCollectionView = new Thorax.CollectionView
       collection: @whiteList
       itemView: (item) => new Thorax.Views.ValueSetView(model: item.model, white: true, black: false, measures: @measures, measuresToOids: @measureToOids, patients: @patients, patientsToOids: @patientToOids, patientsToSdc: @patientToSdc)

@@ -110,3 +110,8 @@ class Thorax.Collections.Measures extends Thorax.Collection
   valueSets: ->
     @chain().map((m) -> m.valueSets()?.models or []).flatten().uniq((vs) -> vs.get('oid')).value()
 
+  toOids: ->
+    measureToOids = {} # measure hqmf_set_id : valueSet oid
+    @each (m) => measureToOids[m.get('hqmf_set_id')] = m.valueSets().pluck('oid')
+    measureToOids
+

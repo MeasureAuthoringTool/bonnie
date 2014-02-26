@@ -141,3 +141,12 @@ class Thorax.Collections.Patients extends Thorax.Collection
     index++ while _.find(matches, (record) -> record.get("first") == patient.first + " ("+index+")")
     patient.first + " (" + index + ")"
 
+  toOids: ->
+    patientToOids = {} # patient medical_record_number : valueSet oid
+    @each (p) => patientToOids[p.get('medical_record_number')] = p.get('source_data_criteria').pluck('oid')
+    patientToOids
+
+  toSdc: ->
+    patientToSdc = {} # patient medical_record_number : source_data_criteria
+    @each (p) => patientToSdc[p.get('medical_record_number')] = p.get('source_data_criteria').models
+    patientToSdc
