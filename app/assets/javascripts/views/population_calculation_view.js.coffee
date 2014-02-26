@@ -28,9 +28,10 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
     @initialize()
     @render() # FIXME: we'd prefer not to explicitly render(), prefer to use a layout view or similar
     @trigger 'rationale:clear'
-    if selectedResult? && selectedResult.get('done')? == true
+    if selectedResult? && selectedResult.isPopulated()
       @$(".toggle-result-#{selectedResult.patient.id}").show()
-      @trigger 'rationale:show', selectedResult
+      @trigger 'rationale:show', @$(".toggle-result-#{selectedResult.patient.id}").model().result
+      @$(".expand-result-icon-#{selectedResult.patient.id}").removeClass('fa-angle-right').addClass('fa-angle-down')
     else @coverageView.showCoverage()
 
   showDelete: (e) ->
