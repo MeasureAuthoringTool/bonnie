@@ -1,7 +1,11 @@
 Contents of measures.json were created using:
 
-  json = Measure.in(measure_id: ['0002', '0022']).to_json(except: [:map_fns, :record_ids])
+  json = Measure.in(measure_id: ['0002', '0022']).to_json(except: [:map_fns, :record_ids], methods: [:value_sets])
   File.write('measures.json', JSON.pretty_generate(JSON.parse(json)))
+
+(Note that we're including value sets in the measure JSON even though
+our client side code doesn't use it; that's because this JSON is also
+needed to generate the calculation code for the tests)
 
 Contents of patients.json were generated using:
 
