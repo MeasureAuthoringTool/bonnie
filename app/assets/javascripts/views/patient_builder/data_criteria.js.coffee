@@ -34,10 +34,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     populate: { context: true, children: false }
 
   initialize: ->
-    @editValueView = new Thorax.Views.EditCriteriaValueView(model: new Thorax.Model, measure: @measure, fieldValue: false, values: @model.get('value'))
+    @editValueView = new Thorax.Views.EditCriteriaValueView(model: new Thorax.Model, measure: @model.measure(), fieldValue: false, values: @model.get('value'))
     @editFieldValueView = new Thorax.Views.EditCriteriaValueView
       model: new Thorax.Model
-      measure: @measure
+      measure: @model.measure()
       fieldValue: true
       values: @model.get('field_values')
       criteriaType: @model.get('type')
@@ -53,7 +53,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
-    cmsIdParts = @model.get("cms_id")?.match(/CMS(\d+)(V\d+)/i) or []
+    cmsIdParts = @model.get("cms_id").match(/CMS(\d+)(V\d+)/i)
     desc = @model.get('description').split(", ")?[1] or @model.get('description')
     _(super).extend
       start_date: moment(@model.get('start_date')).format('L') if @model.get('start_date')
@@ -62,7 +62,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       end_time: moment(@model.get('end_date')).format('LT') if @model.get('end_date')
       end_date_is_undefined: !@model.has('end_date')
       description: desc
-      value_sets: @measure.valueSets().map (vs) -> vs.toJSON()
+      value_sets: @model.measure()?.valueSets().map((vs) -> vs.toJSON()) or []
       cms_id_number: cmsIdParts[1]
       cms_id_version: cmsIdParts[2]
       faIcon: @model.faIcon()
@@ -187,7 +187,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
 
   context: ->
     _(super).extend
-      codes: @measure.valueSets().map (vs) -> vs.toJSON()
+      codes: @measure?.valueSets().map((vs) -> vs.toJSON()) or []
       fields: Thorax.Models.Measure.logicFieldsFor(@criteriaType)
 
   # When we serialize the form, we want to put the description for any CD codes into the submission
@@ -198,7 +198,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
         attr.value = moment(startDate, 'L LT').format('X') * 1000
       delete attr.start_date
       delete attr.start_time
-      title = @measure.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
+      title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
       attr.title = title if title
     rendered: ->
       @$("select[name=type]").selectBoxIt()

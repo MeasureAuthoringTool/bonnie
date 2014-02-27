@@ -151,6 +151,7 @@ namespace :bonnie do
           measures.each do |measure|
             measure_data_criteria = measure.source_data_criteria[patient_data_criteria['id']]
             if  measure_data_criteria && measure_data_criteria['code_list_id'] == patient_data_criteria['oid']
+              patient_data_criteria['hqmf_set_id'] = measure['hqmf_set_id']
               patient_data_criteria['cms_id'] = measure['cms_id']
               patient_data_criteria['code_list_id'] = patient_data_criteria['oid']
               patient_data_criteria['title'] = measure_data_criteria['title']

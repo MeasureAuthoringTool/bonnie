@@ -8,6 +8,41 @@
     text-transform: uppercase;
   }
 
+  .measure-ribbon {
+    .pull-right;
+    max-width: 100%;
+    overflow: auto;
+    white-space: nowrap;
+    .ribbon-cell {
+      display: inline-block;
+      margin-left: 3px;
+      margin-top: 35px; // FIXME trying to get around overflow:auto on .measure-ribbon
+      height: 50px;
+      width: 25px;
+      .title {
+        .rotate(-30deg);
+        .transform-origin(top left);
+      }
+      a {
+        cursor: pointer;
+      }
+      svg {
+        .expectation-success {
+          fill: @state-success-bg;
+        }
+        .expectation-fail {
+          fill: @state-danger-bg;
+        }
+        .expectation-absent {
+          fill: @state-warning-bg;
+        }
+        .expectation-none {
+          fill: @gray-lighter;
+        }
+      }
+    }
+  }
+
   .col-left {
     .make-md-column(2);
     &.measure-data-container {
@@ -196,7 +231,7 @@
           margin-left: (@grid-gutter-width / 2);
           padding: (@grid-gutter-width / 2);
           position: relative;
-          
+
           .criteria-tag {
             .pull-right;
             background-color: @gray-lighter;

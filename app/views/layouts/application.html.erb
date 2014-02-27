@@ -28,11 +28,13 @@
       <script src="<%= measure_url(measure, format: :js) %>"></script>
     <% end %>
     <script>
+      bonnie.isPortfolio = <%= current_user.is_portfolio? %>;
+      bonnie.isAdmin = <%= current_user.is_admin? %>;
       <% @patients.each do |patient| %>
         (function() {
           var patient = new Thorax.Models.Patient(<%= MultiJson.encode(patient.as_json(except: :results)).html_safe %>, { parse: true });
           bonnie.measures.each(function(measure) {
-            if (<%= current_user.is_portfolio? %>) {
+            if (bonnie.isPortfolio) {
               measure.get('patients').add(patient);
             } else if(_(patient.get('measure_ids')).contains(measure.get('hqmf_set_id'))) {
               measure.get('patients').add(patient);
@@ -48,8 +50,6 @@
           bonnie.showError(<%= flash[:error].to_json.html_safe %>);
         <% end %>
       });
-      bonnie.isAdmin = <%= current_user.is_admin? %>;
-      bonnie.isPortfolio = <%= current_user.is_portfolio? %>;
       // prevent fetching directly from server after bootstrapping measures
       bonnie.measures._fetched = true;
     </script>
