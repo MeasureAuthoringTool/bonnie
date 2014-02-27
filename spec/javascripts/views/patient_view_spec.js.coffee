@@ -15,7 +15,8 @@ describe 'PatientView', ->
       # $('a[href="#patients/' + id + '"]')
       expect($('a[href="#patients/' + patient.id + '"]')).toExist
 
-  it 'renders HTML Report for Cancer_Adult_Female B correctly', ->
+  # FIXME: We're not currently using the patient view; consider removing it and these tests
+  xit 'renders HTML Report for Cancer_Adult_Female B correctly', ->
     patient = @patients.findWhere(first: 'Cancer_Adult_Female', last: 'B')
     patientView = new Thorax.Views.Patient(measures: bonnie.measures, model: patient)
     patientView.render()

@@ -8,6 +8,7 @@ class Thorax.Models.MeasureDataCriteria extends Thorax.Model
              value: new Thorax.Collection()
              field_values: new Thorax.Collection()
              hqmf_set_id: @collection.parent.get('hqmf_set_id')
+             cms_id: @collection.parent.get('cms_id')
     new Thorax.Models.PatientDataCriteria attr
 
 class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection

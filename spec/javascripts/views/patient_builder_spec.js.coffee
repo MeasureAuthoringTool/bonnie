@@ -113,12 +113,12 @@ describe 'PatientBuilderView', ->
       @patientBuilder.appendTo 'body'
       @patientBuilder.$('.criteria-data').children().toggleClass('hide')
       @patientBuilder.$('input[name=negation]:first').click()
-      @patientBuilder.$('select[name=negation_code_list_id]:first').val('2.16.840.1.113883.3.464.1003.196.12.1253')
+      @patientBuilder.$('select[name=negation_code_list_id]:first').val('2.16.840.1.113883.3.464.1003.101.12.1061')
       @patientBuilder.$("button[data-call-method=save]").click()
 
     it "serializes correctly", ->
       expect(@patientBuilder.model.get('source_data_criteria').first().get('negation')).toBe true
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('negation_code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.196.12.1253'
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('negation_code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1061'
 
     afterEach -> @patientBuilder.remove()
 
@@ -169,18 +169,18 @@ describe 'PatientBuilderView', ->
 
     it "adds a coded value", ->
       expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 0
-      @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1001'
+      @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1061'
       expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 1
       expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('type')).toEqual 'CD'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1001'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('title')).toEqual 'Office Visit'
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1061'
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('title')).toEqual 'Ambulatory/ED Visit'
 
     it "materializes the patient", ->
       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
       @addScalarValue 1, 'mg'
       expect(@patientBuilder.model.materialize).toHaveBeenCalled()
       expect(@patientBuilder.model.materialize.calls.length).toEqual 1
-      @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1001'
+      @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1061'
       expect(@patientBuilder.model.materialize.calls.length).toEqual 2
 
     it "disables input until form is filled out", ->
@@ -219,19 +219,19 @@ describe 'PatientBuilderView', ->
 
     it "adds a coded field value", ->
       expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 0
-      @addCodedFieldValue 'REASON', '2.16.840.1.113883.3.464.1003.101.12.1023'
+      @addCodedFieldValue 'REASON', '2.16.840.1.113883.3.464.1003.102.12.1011'
       expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 1
       expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('type')).toEqual 'CD'
       expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('key')).toEqual 'REASON'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1023'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('title')).toEqual 'Preventive Care Services-Initial Office Visit, 18 and Up'
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.102.12.1011'
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('title')).toEqual 'Acute Pharyngitis'
 
     it "materializes the patient", ->
       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
       @addScalarFieldValue 'DOSE', 1, 'mg'
       expect(@patientBuilder.model.materialize).toHaveBeenCalled()
       expect(@patientBuilder.model.materialize.calls.length).toEqual 1
-      @addCodedFieldValue 'REASON', '2.16.840.1.113883.3.464.1003.101.12.1023'
+      @addCodedFieldValue 'REASON', '2.16.840.1.113883.3.464.1003.102.12.1011'
       expect(@patientBuilder.model.materialize.calls.length).toEqual 2
 
     it "disables input until form is filled out", ->
