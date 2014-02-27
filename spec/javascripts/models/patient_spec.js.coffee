@@ -2,7 +2,7 @@ describe 'Patient', ->
 
   beforeEach ->
     collection = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
-    @patient = collection.findWhere(first: 'GP_Peds', last: 'B')
+    @patient = collection.findWhere(first: 'GP_Peds', last: 'A')
 
   it 'has basic attributes available', ->
     expect(@patient.get('gender')).toEqual 'F'

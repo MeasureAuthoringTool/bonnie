@@ -3,7 +3,7 @@ describe 'PatientBuilderView', ->
   beforeEach ->
 
     @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[0], parse: true
-    @measure = bonnie.measures.last()
+    @measure = bonnie.measures.first()
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
     @patientBuilder.render()
     spyOn(@patientBuilder.model, 'materialize')

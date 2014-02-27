@@ -15,7 +15,7 @@ describe 'Measure', ->
 
   it 'can calulate results for a patient', ->
     collection = new Thorax.Collections.Patients getJSONFixture('patients.json')
-    patient = collection.findWhere(first: 'GP_Peds', last: 'B')
+    patient = collection.findWhere(first: 'GP_Peds', last: 'A')
     results = @measure.get('populations').at(0).calculate(patient)
     waitsFor -> results.isPopulated()
     runs ->
@@ -23,4 +23,4 @@ describe 'Measure', ->
       expect(results.get('DENEXCEP')).toEqual 0
       expect(results.get('DENOM')).toEqual 1
       expect(results.get('IPP')).toEqual 1
-      expect(results.get('NUMER')).toEqual 1
+      expect(results.get('NUMER')).toEqual 0
