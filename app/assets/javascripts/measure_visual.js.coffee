@@ -19,6 +19,7 @@ Bonnie.viz.measureVisualzation = ->
 							.observe(svg.node(), {attributes: true, childList: true, subtree:false})
 						offset = 0
 						for population in Thorax.Models.Measure.allPopulationCodes
+								population_code = measurePopulation?.get(population)?.code
 								offset+= rowHeight+rowPadding.top
 								populationElement = svg.append('svg:g')
 										.attr("width", width)
@@ -29,21 +30,21 @@ Bonnie.viz.measureVisualzation = ->
 									.attr("transform", "translate(0, -3)")
 									.style("font-weight", "bold")
 
-								if not data[population] 
+								if not data[population_code] 
 									continue 		
-								if not data[population].preconditions?
+								if not data[population_code].preconditions?
 									textField.text("#{populationCodes[[population]]}: None")
 									continue
 								textField.text("#{populationCodes[[population]]}:")
 
-								renderPrecondition(populationElement, data[population].preconditions[0]) if data[population].preconditions?
+								renderPrecondition(populationElement, data[population_code].preconditions[0]) if data[population_code].preconditions?
 								offset+= getElementHeight(populationElement)
 
 
 
 
 
-		width = 600
+		width = 750
 		rowHeight = 15
 		margin = 
 				top: 10
