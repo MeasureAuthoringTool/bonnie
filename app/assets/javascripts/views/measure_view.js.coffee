@@ -11,7 +11,6 @@ class Thorax.Views.Measure extends Thorax.View
     populations = @model.get 'populations'
     population = populations.first()
     populationLogicView = new Thorax.Views.PopulationLogic(model: population)
-    # @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria"))
     @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population)
 
     # display layout view when there are multiple populations; otherwise, just show logic view
@@ -79,4 +78,3 @@ class Thorax.Views.Measure extends Thorax.View
         @$('svg').toggle()
         @$('.d3-measure-viz').append( "<p>Sorry, this measure visualization isn't ready yet!</p>" )
         console.log error
-    # console.log @$('.d3-measure-viz')
