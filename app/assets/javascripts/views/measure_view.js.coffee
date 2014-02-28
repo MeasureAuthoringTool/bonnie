@@ -27,6 +27,9 @@ class Thorax.Views.Measure extends Thorax.View
     importMeasureView.appendTo(@$el)
     importMeasureView.display()
 
+  exportPatients: (e) ->
+    window.location = "patients/export?hqmf_set_id=#{@model.get('hqmf_set_id')}"
+
   deleteMeasure: (e) ->
     @model = $(e.target).model()
     @model.destroy()
