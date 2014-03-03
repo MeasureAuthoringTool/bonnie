@@ -10,7 +10,7 @@ class Thorax.Model.Coverage extends Thorax.Model
 
     # Find all unique criteria that evaluated true in the rationale that are also in the measure
     @rationaleCriteria = []
-    @differences.each (difference) => if difference.get('done') and difference.get('match')
+    @differences.each (difference) => if difference.get('done')
       result = difference.result
       rationale = result.updatedRationale()
       @rationaleCriteria.push(criteria) for criteria, result of rationale when result
