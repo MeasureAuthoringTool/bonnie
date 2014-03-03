@@ -1,6 +1,11 @@
 class Thorax.Views.Measure extends Thorax.View
   template: JST['measure']
 
+  events:
+    rendered: ->
+      @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
+      @exportPatientsView.appendTo(@$el)
+
   initialize: ->
     populations = @model.get 'populations'
     population = populations.first()
@@ -28,7 +33,10 @@ class Thorax.Views.Measure extends Thorax.View
     importMeasureView.display()
 
   exportPatients: (e) ->
-    window.location = "patients/export?hqmf_set_id=#{@model.get('hqmf_set_id')}"
+    @exportPatientsView.exporting()
+    $.fileDownload "patients/export?hqmf_set_id=#{@model.get('hqmf_set_id')}",
+      successCallback: => @exportPatientsView.success()
+      failCallback: => @exportPatientsView.fail()
 
   deleteMeasure: (e) ->
     @model = $(e.target).model()

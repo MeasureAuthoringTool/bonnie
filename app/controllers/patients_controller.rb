@@ -50,6 +50,8 @@ class PatientsController < ApplicationController
       end
     end
 
+    cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
+
     stringio.rewind
     send_data stringio.sysread, :type => 'application/zip', :disposition => 'attachment', :filename => "patient_export.zip"
 
