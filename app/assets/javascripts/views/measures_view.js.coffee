@@ -59,11 +59,11 @@ class Thorax.Views.MeasureCoverageView extends Thorax.View
 
   showCoverage: ->
     @trigger 'logicView:showCoverage'
-    @$('.btn-show-coverage').removeClass('btn-default').addClass('btn-primary').prop('disabled',true)
+    @$('.btn-show-coverage').hide()
 
   hideCoverage: ->
     @trigger 'logicView:clearCoverage'
-    @$('.btn-show-coverage').removeClass('btn-primary').addClass('btn-default').prop('disabled',false)
+    @$('.btn-show-coverage').show()
 
   identifyCoverage: (e) ->
     $('.toggle-result').hide()
