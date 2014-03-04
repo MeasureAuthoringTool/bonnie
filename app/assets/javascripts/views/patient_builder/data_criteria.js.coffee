@@ -20,6 +20,10 @@ class Thorax.Views.SelectCriteriaView extends Thorax.View
   faIcon: -> @collection.first()?.toPatientDataCriteria()?.faIcon()
 
 
+class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
+  addCriteriaToPatient: -> @trigger 'bonnie:dropCriteria', @model.toPatientDataCriteria()
+
+
 class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   className: 'patient-criteria'
 
