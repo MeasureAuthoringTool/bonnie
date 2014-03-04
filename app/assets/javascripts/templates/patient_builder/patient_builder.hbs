@@ -50,15 +50,15 @@
         </div>
 
         <div class="form-group">
-          <label for="birthdate" class="control-label">DoB</label>
+          <label for="birthdate" class="control-label">Date of Birth</label>
 
           <div class="row">
             <div class="col-md-6">
-              <input type="text" id="birthdate" name="birthdate" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
+              <input type="text" id="birthdate" name="birthdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/day/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
             </div>
 
             <div class="col-md-6">
-              <input type="text" id="birthtime" name="birthtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
+              <input type="text" id="birthtime" name="birthtime" class="time-picker form-control" placeholder="--:-- --" title="time" data-show-inputs="false" data-default-time="8:00 AM">
             </div>
           </div>
         </div>
@@ -89,14 +89,16 @@
           <label for="expired" class="control-label">{{#if expired}}Date of Death{{else}}Living Status{{/if}}</label>
           {{#if expired}}
             <div class="row">
-              {{#button "removeDeathDate" tag="i" class="btn fa fa-times-circle remove-death-date"}}{{/button}}
-
+              {{#button "removeDeathDate" class="btn btn-link remove-death-date"}}
+                <i class="fa fa-times-circle"></i>
+                <span class="sr-only">remove date of death</span>
+              {{/button}}
               <div class="col-md-6">
-                <input type="text" id="deathdate" name="deathdate" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
+                <input type="text" id="deathdate" name="deathdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/date/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
               </div>
 
               <div class="col-md-5">
-                <input type="text" id="deathtime" name="deathtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
+                <input type="text" id="deathtime" name="deathtime" class="time-picker form-control" placeholder="--:-- --" title="time" data-show-inputs="false" data-default-time="8:00 AM">
               </div>
             </div>
           {{else}}

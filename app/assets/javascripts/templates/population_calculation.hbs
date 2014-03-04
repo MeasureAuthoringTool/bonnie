@@ -2,7 +2,7 @@
   <div class="row summary">
     <div class="expected-col">
       {{view "MeasurePercentageView" model=differences.summary}}
-    </div> 
+    </div>
     <div class="status-col">
       {{view "MeasureStatusView" model=differences.summary}}
     </div>
@@ -11,9 +11,10 @@
       <a href="#measures/{{measure_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
         <i class="fa fa-user"></i>
         <i class="fa fa-plus"></i>
+        <span class="sr-only">build patient</span>
       </a>
     </div>
-  </div>  
+  </div>
   {{view coverageView}}
   <br>
   {{#collection differences tag="div" class="panel panel-default" item-context=differenceContext}}
@@ -39,7 +40,7 @@
             {{status}}
           </div>
           <div class="patient-btn-col">
-            {{#button "expandResult" class="close"}}<i class="fa fa-lg fa-angle-right expand-result-icon expand-result-icon-{{patient._id}}"></i>{{/button}}
+            {{#button "expandResult" class="close"}}<i class="fa fa-lg fa-angle-right expand-result-icon expand-result-icon-{{patient._id}}"></i> <span class="sr-only">Toggle Logic Pass/Fail</span>{{/button}}
           </div>
         </div>
       </div>
@@ -121,7 +122,10 @@
       </table>
       {{#link "measures/{{measure_id}}/patients/{{patient._id}}/edit" class="btn btn-primary" expand-tokens=true}}EDIT{{/link}}
       {{#button "clonePatient" class="btn btn-primary"}}CLONE{{/button}}
-      {{#button "showDelete" class="btn btn-danger-inverse"}}<i class="fa fa-minus-circle"></i>{{/button}}
+      {{#button "showDelete" class="btn btn-danger-inverse"}}
+        <i class="fa fa-minus-circle"></i>
+        <span class="sr-only">Show Delete</span>
+      {{/button}}
       {{#button "deletePatient" class="btn btn-danger delete-{{patient._id}}" style="display: none;" expand-tokens=true}}Delete{{/button}}
     </div>
   {{/collection}}

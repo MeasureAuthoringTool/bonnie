@@ -15,13 +15,13 @@
     <div class="col-md-6">
       <div class="input-group input-group-lg required">
         <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
-        <%= f.text_field :first_name, class: "form-control", placeholder: "first name*" %>
+        <%= f.text_field :first_name, class: "form-control", placeholder: "first name*", title: "first name (required)" %>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-lg required">
         <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
-        <%= f.text_field :last_name, class: "form-control", placeholder: "last name*" %>
+        <%= f.text_field :last_name, class: "form-control", placeholder: "last name*", title: "last name (required)" %>
       </div>
     </div>
   </div>
@@ -29,13 +29,13 @@
     <div class="col-md-6">
       <div class="input-group input-group-lg">
         <span class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw"></i></span>
-        <%= f.email_field :email, class: "form-control", placeholder: "email@example.com" %>
+        <%= f.email_field :email, class: "form-control", placeholder: "email@example.com", title: "email@example.com" %>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-lg">
         <span class="input-group-addon"><i class="fa fa-mobile fa-lg fa-fw"></i></span>
-        <%= f.text_field :telephone, class: "form-control", placeholder: "(000) 000-0000" %>
+        <%= f.text_field :telephone, class: "form-control", placeholder: "(000) 000-0000", title: "phone number" %>
       </div>
     </div>
   </div>
@@ -43,14 +43,14 @@
     <div class="col-md-6">
       <div class="input-group input-group-lg required">
         <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></span>
-        <%= f.password_field :password, class: "form-control", placeholder: "password*" %>
+        <%= f.password_field :password, class: "form-control", placeholder: "password*", title: "password (required)" %>
       </div>
       Must be at least 8 characters long and contain characters from at least two of: lowercase letters, uppercase letters, numbers, and special characters (leave blank if you don't want to change it).
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-lg required">
         <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></span>
-        <%= f.password_field :password_confirmation, class: "form-control", placeholder: "confirm password*" %>
+        <%= f.password_field :password_confirmation, class: "form-control", placeholder: "confirm password*", title: "confirm password (required)" %>
       </div>
     </div>
   </div>
@@ -59,7 +59,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-lg required">
         <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></span>
-        <%= f.password_field :current_password, class: "form-control", placeholder: "current password*" %>
+        <%= f.password_field :current_password, class: "form-control", placeholder: "current password*", title: "current password (required)" %>
       </div>
       Your current password is needed to confirm your changes.
     </div>

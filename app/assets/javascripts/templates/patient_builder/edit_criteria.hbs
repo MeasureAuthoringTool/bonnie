@@ -11,7 +11,10 @@
         </div>
 
         <div class="col-md-6">
-          {{#button "toggleDetails" class="close"}}<i class="fa fa-lg fa-angle-right"></i>{{/button}}
+          {{#button "toggleDetails" class="close"}}
+            <i class="fa fa-lg fa-angle-right"></i>
+            <span class="sr-only">Expand Data Criteria</span>
+          {{/button}}
           <label>Date</label>
           <div>{{start_date}}{{#if end_date}} &ndash; {{end_date}}{{/if}}</div>
         </div>
@@ -23,7 +26,10 @@
       {{/ifPortfolio}}
     </div>
     <form class="hide" role="form">
-      {{#button "toggleDetails" class="close"}}<i class="fa fa-lg fa-angle-down"></i>{{/button}}
+      {{#button "toggleDetails" class="close"}}
+        <i class="fa fa-lg fa-angle-down"></i>
+        <span class="sr-only">Collapse Data Criteria</span>
+      {{/button}}
 
       <p><strong>{{definition}}:</strong> {{description}}</p>
 
@@ -32,11 +38,11 @@
           <label class="control-label"><i class="fa fa-clock-o"></i> Start</label>
           <div class="datetime-control">
             <div>
-              <input type="text" name="start_date" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
+              <input type="text" name="start_date" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/day/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
             </div>
 
             <div>
-              <input type="text" name="start_time" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
+              <input type="text" name="start_time" class="time-picker form-control" placeholder="--:-- --" title="time" data-show-inputs="false" data-default-time="8:00 AM">
             </div>
           </div>
         </div>
@@ -67,7 +73,7 @@
         <span>
           {{codeset}}:
           {{code}}
-          {{#button "removeValue" class="btn btn-link close delete"}}&times;{{/button}}
+          {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
         </span>
         {{/collection}}
 
@@ -81,7 +87,7 @@
           <span>
             {{value}} {{unit}}
             {{title}}
-            {{#button "removeValue" class="btn btn-link close delete"}}&times;{{/button}}
+            {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
           </span>
         {{/collection}}
 
@@ -100,7 +106,7 @@
               {{value}} {{unit}}
               {{title}}
             {{/if}}
-            {{#button "removeValue" class="btn btn-link close delete"}}&times;{{/button}}
+            {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
           </span>
         {{/collection}}
 
@@ -126,7 +132,10 @@
         <div class="pull-right">
           &nbsp; {{! If we take this out, say goodbye to space between the buttons. Why, Chrome? Firefox and Safari don't have this problem. }}
           {{#button "removeCriteria" class="btn btn-danger hide"}}Delete{{/button}}
-          {{#button "showDelete" class="btn btn-danger-inverse"}}<i class="fa fa-minus-circle"></i>{{/button}}
+          {{#button "showDelete" class="btn btn-danger-inverse"}}
+            <i class="fa fa-minus-circle"></i>
+            <span class="sr-only">show delete</span>
+          {{/button}}
         </div>
       </div>
     </form>

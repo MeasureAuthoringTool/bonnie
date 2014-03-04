@@ -7,14 +7,14 @@
         {{#button "updateMeasure" class="btn btn-default update-measure"}}<i class="fa fa-upload"></i> Update{{/button}}
         {{#button "exportPatients" class="btn btn-default export-patients"}}<i class="fa fa-download"></i> Export{{/button}}
         {{#button "deleteMeasure" class="btn btn-danger delete-measure hide"}}<i class="fa fa-times"></i> Delete{{/button}}
-        {{#button "showDelete" class="btn btn-danger-inverse delete-icon"}}<i class="fa fa-minus-circle"></i>{{/button}}
+        {{#button "showDelete" class="btn btn-danger-inverse delete-icon"}}<i class="fa fa-minus-circle"></i> <span class="sr-only">Show Delete</span>{{/button}}
       </div>
-      {{#button "toggleSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog"></i>{{/button}}
+      {{#button "toggleSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog"></i> <span class="sr-only">Settings</span>{{/button}}
     </span>
   </div>
   <div class="measure-dsp">
     <div class="measure-dsp-title">
-      Description: 
+      Description:
     </div>
     <p>{{description}}</p>
     {{#ifAdmin}}
