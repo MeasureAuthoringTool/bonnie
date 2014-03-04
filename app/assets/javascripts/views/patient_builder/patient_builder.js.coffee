@@ -133,7 +133,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
       for [field, message] in @originalModel.validationError
         @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
         messages.push message
-      @$('.alert').text(_(messages).uniq().join(', ')).removeClass('hidden')
+      @$('.alert').text(_(messages).uniq().join('; ')).removeClass('hidden')
 
   cancel: (e) ->
     # Go back to wherever the user came from, if possible

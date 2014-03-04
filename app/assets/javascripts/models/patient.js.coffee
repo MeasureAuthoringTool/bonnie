@@ -123,6 +123,7 @@ class Thorax.Models.Patient extends Thorax.Model
     errors = []
     errors.push ['first', 'Name fields cannot be blank'] unless @get('first').length > 0
     errors.push ['last', 'Name fields cannot be blank'] unless @get('last').length > 0
+    errors.push ['birthdate', 'Date of birth cannot be blank'] unless @get('birthdate').length > 0
     return errors if errors.length > 0
 
 class Thorax.Collections.Patients extends Thorax.Collection
