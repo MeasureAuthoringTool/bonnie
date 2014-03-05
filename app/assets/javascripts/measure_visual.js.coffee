@@ -36,7 +36,6 @@ Bonnie.viz.measureVisualzation = ->
                   textField.text("#{populationCodes[[population]]}: None")
                   continue
                 textField.text("#{populationCodes[[population]]}:")
-
                 renderPrecondition(populationElement, data[population_code].preconditions[0]) if data[population_code].preconditions?
                 offset+= getElementHeight(populationElement)
 
@@ -92,6 +91,7 @@ Bonnie.viz.measureVisualzation = ->
     renderPrecondition = (parent, preconditions) -> 
         # Let's get the width of this element so we can operate on it
         preconditionWidth = parent.attr("width")
+        if preconditions.conjunction_code? && !preconditions.preconditions? then preconditions.conjunction_code = null
         elWidth = switch preconditions.conjunction_code
                         when "allTrue" then parent.attr('width')
                         when "atLeastOneTrue" then parent.attr('width')/preconditions.preconditions.length
@@ -102,6 +102,7 @@ Bonnie.viz.measureVisualzation = ->
 
                     yOffset = switch preconditions.conjunction_code
                         when "allTrue" then getElementHeight(parent)#parent.node().childNodes.length * (rowHeight+rowPadding.top)
+                        # when "allTrue" then parent.node().childNodes.length * (rowHeight+rowPadding.top)
                         when "atLeastOneTrue" then 0
                     xOffset = switch preconditions.conjunction_code
                         when "allTrue" then 0
@@ -116,7 +117,7 @@ Bonnie.viz.measureVisualzation = ->
 
                     renderPrecondition(element, precondition)
 
-            when preconditions.conjunction_code?
+            when preconditions.conjunction_code? && dataCriteria[preconditions.reference].children_criteria?
                 element = parent.append("svg:g")
                     .attr("id", preconditions.id)
                     .attr('reference', preconditions.reference)
@@ -176,7 +177,11 @@ Bonnie.viz.measureVisualzation = ->
       if data["negation?"] 
         negation = "NOT"
 
-      return "#{negation}#{specific_occurrence}#{data.description} #{parseTemporalReference(data.temporal_references[0])}"
+      temporal_reference = ""
+      if data.temporal_references?
+        temporal_reference = parseTemporalReference(data.temporal_references[0]) 
+
+      return "#{negation}#{specific_occurrence}#{data.description} #{temporal_reference}"
 
     pluralizeUnit = (unit, value) ->
       unit_map = {'a':'year', 'mo':'month', 'wk':'week', 'd':'day', 'h':'hour', 'min':'minute', 's':'second'}
