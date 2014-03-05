@@ -21,6 +21,7 @@ class BonnieRouter extends Backbone.Router
     'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
     'admin/users':                                     'renderUsers'
     'value_sets/edit':                                 'renderValueSetsBuilder'
+    'vt':                                              'testViz'
 
   renderMeasures: ->
     # FIXME: We want the equivalent of a before filter; can probably override navigate w/super? @on route happens after, ok?
@@ -66,3 +67,20 @@ class BonnieRouter extends Backbone.Router
     valueSetsBuilderView = new Thorax.Views.ValueSetsBuilder(collection: valueSets, measures: @measures.sort(), patients: @patients)
     @mainView.setView(valueSetsBuilderView)
 
+  testViz: ->
+    measureVizTest = []
+    @measures.each (m) =>
+      measureView = new Thorax.Views.Measure(model: m, patients: @patients)
+      console.log "Testing #{m.get('measure_id')}"
+      @mainView.setView(measureView)
+      if m.get('populations').length > 1
+        tabs = $('a[data-toggle="tab"')
+        for tab in tabs
+          tab.click()
+          measureView.$('.btn-measure-viz').click()
+          if measureView.$('.d3-measure-viz > p').length == 1
+            measureVizTest.push "#{m.get('measure_id')} [#{tab.text}]"
+          else
+            measureView.$('.btn-measure-viz').click()
+    console.log measureVizTest
+    console.log measureVizTest.length
