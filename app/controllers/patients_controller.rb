@@ -37,16 +37,16 @@ class PatientsController < ApplicationController
     qrda_exporter = HealthDataStandards::Export::Cat1.new
     html_exporter = HealthDataStandards::Export::HTML.new
 
-    measures = Measure.all.map(&:as_hqmf_model)
+    measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).map(&:as_hqmf_model)
     start_time = Time.new(2012, 1, 1)
     end_time = Time.new(2012, 12, 31)
 
     stringio = Zip::ZipOutputStream::write_buffer do |zip|
       records.each_with_index do |patient, index|
         zip.put_next_entry("qrda_#{index+1}.xml")
-        zip.puts qrda_exporter.export(patient, measures, start_time, end_time)
+        zip.puts qrda_exporter.export(patient, measure, start_time, end_time)
         zip.put_next_entry("patient_#{index+1}.html")
-        zip.puts html_exporter.export(patient, measures)
+        zip.puts html_exporter.export(patient, measure)
       end
     end
 

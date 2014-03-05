@@ -5,11 +5,10 @@
     <span class="settings-container">
       <div class="measure-settings">
         {{#button "updateMeasure" class="btn btn-default update-measure"}}<i class="fa fa-upload"></i> Update{{/button}}
-        {{#button "exportPatients" class="btn btn-default export-patients"}}<i class="fa fa-download"></i> Export{{/button}}
         {{#button "deleteMeasure" class="btn btn-danger delete-measure hide"}}<i class="fa fa-times"></i> Delete{{/button}}
         {{#button "showDelete" class="btn btn-danger-inverse delete-icon"}}<i class="fa fa-minus-circle"></i> <span class="sr-only">Show Delete</span>{{/button}}
       </div>
-      {{#button "toggleSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog"></i> <span class="sr-only">Settings</span>{{/button}}
+      {{#button "measureSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog"></i> <span class="sr-only">Measure Settings</span>{{/button}}
     </span>
   </div>
   <div class="measure-dsp">
@@ -26,6 +25,14 @@
 </div>
 
 <div class="right-sidebar">
-  <h1 class="title-bar">Test Patients</h1>
+  <div class="patients-title">
+    <span class="short-title pull-left">Test Patients</span>
+    <span class="settings-container">
+      <div class="patients-settings">
+        {{#button "exportPatients" class="btn btn-default export-patients"}}<i class="fa fa-download"></i> Export{{/button}}
+      </div>
+      {{#button "patientsSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog"></i> <span class="sr-only">Patient Options</span>{{/button}}
+    </span>
+  </div>
   {{view populationCalculation}}
 </div>
