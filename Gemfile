@@ -40,6 +40,7 @@ group :test, :development do
   gem 'pry-debugger'
   gem 'thin'
   gem 'capistrano-rails'
+  gem 'rvm1-capistrano3', require: false
 end
 
 group :production do

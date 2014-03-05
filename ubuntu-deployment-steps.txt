@@ -1,0 +1,115 @@
+On Ubuntu 12.04 system:
+-----------------------
+
+Update packages:
+
+  sudo apt-get -y update
+
+Install apache:
+
+  sudo apt-get install -y apache2
+
+Install some other dependencies:
+
+  sudo apt-get install -y libcurl4-openssl-dev apache2-threaded-dev libapr1-dev libaprutil1-dev
+
+Install mongodb:
+
+  sudo sh -c "echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' >> /etc/apt/sources.list"
+  sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+  sudo apt-get update
+  sudo apt-get install mongodb-10gen
+
+Install RVM:
+
+  curl -L https://get.rvm.io | sudo -i bash -s stable
+
+Log out and back in, then install ruby using rvm and some related components
+
+  sudo -i
+  rvm autolibs enable
+  rvm install 2.0.0
+  rvm --default 2.0.0
+  gem install bundler
+  gem install passenger
+  gem install capistrano -v 3.1.0
+  gem install capistrano-bundler -v 1.1.1
+  gem install capistrano-rails -v 1.1.1
+  gem install rvm1-capistrano3 -v 1.2.1
+  exit
+
+Install passenger apache 2 module (select ruby only)
+
+  sudo -i
+  passenger-install-apache2-module
+  exit
+
+Add some needed apache modules
+
+  sudo a2enmod headers
+  sudo a2enmod expires
+
+Add a file (as root, using sudo -i):
+
+  /etc/apache2/conf.d/mod_passenger.conf
+
+With the following content (use output from passenger-install-apache2-module):
+
+  LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p451/gems/passenger-4.0.37/buildout/apache2/mod_passenger.so
+  <IfModule mod_passenger.c>
+    PassengerRoot /usr/local/rvm/gems/ruby-2.0.0-p451/gems/passenger-4.0.37
+    PassengerDefaultRuby /usr/local/rvm/gems/ruby-2.0.0-p451/wrappers/ruby
+  </IfModule>
+
+Add a file (as root, using sudo -i):
+
+  /etc/apache2/sites-available/bonnie
+
+NOTE: THIS WILL NEED TO SUPPORT SSL ONCE WE HAVE AN SSL CERTIFICATE
+NOTE: THIS WILL NEED A ServerName ONCE WE HAVE DNS SET UP
+With the following content (changing the path appropriately):
+
+  <VirtualHost *:80>
+    DocumentRoot <path>/bonnie/current/public
+    <Location /assets/>
+      # Use of ETag is discouraged when Last-Modified is present
+      Header unset ETag
+      FileETag None
+      # RFC says only cache for 1 year
+      ExpiresActive On
+      ExpiresDefault "access plus 1 year"
+    </Location>
+    <Directory <path>/bonnie/current/public>
+      AllowOverride all
+      Options -MultiViews
+      # Compress css and js
+      AddOutputFilterByType DEFLATE text/css application/x-javascript application/javascript text/javascript
+    </Directory>
+  </VirtualHost>
+
+Configure sites:
+
+  sudo a2dissite default
+  sudo a2ensite bonnie
+
+If necessary, create a deploy user account (if one already exists skip this step)
+
+  sudo adduser <deployuser>
+
+If Capistrano will be run from the deploy system (kicked off externally by a
+deployment hook), create an ssh key for the deployment account and allow the
+account to ssh to itself using that key
+
+  sudo -u <deployuser> -i
+  ssh-keygen -f ~/.ssh/id_rsa -N ''
+  cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+  chmod 600 ~/.ssh/authorized_keys
+  ssh -oStrictHostKeyChecking=no localhost exit
+  exit
+
+Restart apache
+
+  sudo service apache2 reload
+
+Issue: restart.txt should probably be touched *after* chown takes place
+Issue: correctly set permissions of deploy location
