@@ -91,10 +91,12 @@ Bonnie.viz.measureVisualzation = ->
     renderPrecondition = (parent, preconditions) -> 
         # Let's get the width of this element so we can operate on it
         preconditionWidth = parent.attr("width")
-        if preconditions.conjunction_code? && !preconditions.preconditions? then preconditions.conjunction_code = null
         elWidth = switch preconditions.conjunction_code
                         when "allTrue" then parent.attr('width')
-                        when "atLeastOneTrue" then parent.attr('width')/preconditions.preconditions.length
+                        when "atLeastOneTrue" 
+                          if preconditions.preconditions?
+                            parent.attr('width')/preconditions.preconditions.length
+                          else parent.attr('width')
         switch
             when preconditions.preconditions?
                 # This is clearly a sub element, recurse...
@@ -117,12 +119,14 @@ Bonnie.viz.measureVisualzation = ->
 
                     renderPrecondition(element, precondition)
 
-            when preconditions.conjunction_code? && dataCriteria[preconditions.reference].children_criteria?
+            # when preconditions.conjunction_code?
+            when dataCriteria[preconditions.reference].definition == "derived"
                 element = parent.append("svg:g")
                     .attr("id", preconditions.id)
                     .attr('reference', preconditions.reference)
                     .attr("conjunction_code", preconditions.conjunction_code)
                     .attr("width", elWidth)
+                debugger
                 renderDerivedElement(element, dataCriteria[preconditions.reference])
             else
                 # This is an actual data Element
