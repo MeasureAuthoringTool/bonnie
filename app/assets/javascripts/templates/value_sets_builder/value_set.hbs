@@ -1,6 +1,9 @@
 <div class="value-set-entry">
   <div class="criteria-details">
-      {{#button "toggleDetails" class="close"}}<i class="fa fa-lg fa-angle-right"></i>{{/button}}
+      {{#button "toggleDetails" class="close"}}
+        <i class="fa fa-lg fa-angle-right"></i>
+        <span class="sr-only">toggle details</span>
+      {{/button}}
         <h4><i class="fa fa-fw fa-lg fa-list-alt"></i> {{display_name}}  <small>{{oid}}</small>
         {{#each codeSystems}}
           {{#if count}}
@@ -8,12 +11,19 @@
           {{/if}}
         {{/each}}
         {{#if filters}}
-          {{#button "addFilter" class="btn btn-xs btn-default value-set-filter pull-right"}} <i class="fa fa-filter"></i> <i class="fa fa-plus"></i> {{/button}}
+          {{#button "addFilter" class="btn btn-xs btn-default value-set-filter pull-right"}}
+            <i class="fa fa-filter"></i>
+            <i class="fa fa-plus"></i>
+            <span class="sr-only">add filter</span>
+          {{/button}}
         {{/if}}
         </h4>
   </div>
   <form class="hide" role="form">
-      {{#button "toggleDetails" class="close"}}<i class="fa fa-lg fa-angle-down"></i>{{/button}}
+      {{#button "toggleDetails" class="close"}}
+        <i class="fa fa-lg fa-angle-down"></i>
+        <span class="sr-only">toggle details</span>
+      {{/button}}
 
       <h4><i class="fa fa-fw fa-lg fa-list-alt"></i> {{display_name}}  <small>{{oid}}</small></h4>
 
@@ -32,10 +42,10 @@
                   <li class="list-group-item">
                     <div class="row">
                       <div class="col-xs-1">
-                        {{#if white_list}}<i class="fa fa-fw fa-lg fa-check"></i>{{else}}{{#if black_list}}<i class="fa fa-fw fa-lg fa-times"></i>{{else}}{{/if}}{{/if}} 
+                        {{#if white_list}}<i class="fa fa-fw fa-lg fa-check"></i>{{else}}{{#if black_list}}<i class="fa fa-fw fa-lg fa-times"></i>{{else}}{{/if}}{{/if}}
                       </div>
                       <div class="col-xs-9">
-                        <strong><small>{{code}}</small></strong> {{display_name}} <span class="label label-{{#if white_list}}success{{else}}{{#if black_list}}danger{{else}}info{{/if}}{{/if}}">{{code_system_name}}</span> 
+                        <strong><small>{{code}}</small></strong> {{display_name}} <span class="label label-{{#if white_list}}success{{else}}{{#if black_list}}danger{{else}}info{{/if}}{{/if}}">{{code_system_name}}</span>
                       </div>
                       <div class="col-xs-2">
                         <select class="filter-vs">

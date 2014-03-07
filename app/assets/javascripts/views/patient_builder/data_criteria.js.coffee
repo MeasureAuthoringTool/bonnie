@@ -20,6 +20,10 @@ class Thorax.Views.SelectCriteriaView extends Thorax.View
   faIcon: -> @collection.first()?.toPatientDataCriteria()?.faIcon()
 
 
+class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
+  addCriteriaToPatient: -> @trigger 'bonnie:dropCriteria', @model.toPatientDataCriteria()
+
+
 class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   className: 'patient-criteria'
 
@@ -108,6 +112,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       # FIXME sortable: commenting out due to odd bug in droppable
       # @model.trigger 'close', @model
       @render() # re-sorting the collection will re-render this view, remove this if we use above approach
+    @$(':focusable:visible:first').focus()
 
   showDelete: (e) ->
     e.preventDefault()
@@ -175,6 +180,7 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     # # Let the selectBoxIt() select box know that its value may have changed
     @$('select[name=codeset]').change()
     @triggerMaterialize()
+    @$(':focusable:visible:first').focus()
 
 
 class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
@@ -230,3 +236,4 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     # Let the selectBoxIt() select box know that its value may have changed
     @$('select[name=type]').change()
     @triggerMaterialize()
+    @$(':focusable:visible:first').focus()

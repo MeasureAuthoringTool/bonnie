@@ -6,10 +6,11 @@
   </a>
 
   <div id="collapse-{{cid}}" class="collapse">
-    {{#collection}}
+    {{#collection item-view="SelectCriteriaItemView"}}
       <div class="draggable">
         <div class="pull-right" style="margin: 0 0 3px 3px"><i class="fa fa-arrows"></i></div>
         <strong class="ui-draggable">{{description}}</strong>
+        <span class="sr-only">{{#button "addCriteriaToPatient"}}add criteria to patient: {{description}}{{/button}}</span>
       </div>
     {{/collection}}
   </div>
