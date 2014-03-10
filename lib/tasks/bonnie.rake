@@ -102,7 +102,7 @@ namespace :bonnie do
         Measure.nin(hqmf_set_id: demo_measure_ids).delete
         Record.nin(measure_ids: demo_measure_ids).delete
       end
-      Rake::Task['bonnie:patients:reset_expected_values'].invoke # FIXME: We shouldn't need to do this once we refactor expected values
+      Rake::Task['bonnie:patients:reset_expected_values'].invoke
       if ENV['DEMO'] == 'true'
         puts "Updating expected values for demo"
         measure_id = Measure.where(measure_id: '0105').first.hqmf_set_id
