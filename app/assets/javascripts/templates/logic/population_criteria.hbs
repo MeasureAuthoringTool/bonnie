@@ -5,14 +5,14 @@
         <div>
           <span class="{{population.type}} rationale-target"><b>{{translate_population population.type}}: </b></span>
           <div class="pull-right">
-            <i class="fa fa-lg fa-angle-right toggle-icon"></i>
+            <i class="fa fa-lg fa-angle-down toggle-icon"></i>
             <span class="sr-only">toggle {{translate_population population.type}}</span>
           </div>
-        </div>
+        </div> 
       </a>
     </h4>
   </div>
-  <div id="collapse{{cid}}" class="panel-collapse collapse">
+  <div id="collapse{{cid}}" class="panel-collapse collapse in">
     <div class="panel-body">
       {{#if rootPreconditon}}
         {{#if rootPreconditon.preconditions }}
