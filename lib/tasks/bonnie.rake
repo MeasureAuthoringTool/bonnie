@@ -92,6 +92,11 @@ namespace :bonnie do
       puts "Resetting #{dest_db} from #{host}:#{source_db}"
       Mongoid.default_session.with(database: dest_db) { |db| db.drop }
       Mongoid.default_session.with(database: 'admin') { |db| db.command copydb: 1, fromhost: host, fromdb: source_db, todb: dest_db }
+      puts "Dropping unneeded collections: measures, bundles, patient_cache, query_cache..."
+      MONGO_DB['bundles'].drop()
+      MONGO_DB['measures'].drop()
+      MONGO_DB['query_cache'].drop()
+      MONGO_DB['patient_cache'].drop()
       Rake::Task['bonnie:patients:update_measure_ids'].invoke
       Rake::Task['bonnie:users:associate_user_with_measures'].invoke
       Rake::Task['bonnie:users:associate_user_with_patients'].invoke
