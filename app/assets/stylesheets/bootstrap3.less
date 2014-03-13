@@ -50,10 +50,14 @@ h2 {
   }
   .nav {
     font-size: 1.5em;
-    a { color: @gray; }
+    a { color: @brand-primary; }
     .active {
       border-bottom: 4px solid @brand-primary;
-      a { color: @gray-darker; }
+      a { 
+        color: @gray-darker; 
+        padding-top: 16px;
+      }
+      font-weight: bold;
     }
     &.nav-tabs {
       > li > a {
