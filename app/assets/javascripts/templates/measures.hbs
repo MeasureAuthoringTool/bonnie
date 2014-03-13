@@ -27,6 +27,7 @@
       </div>
       <div class="measure-title">
          <span class="nqf-listing pull-right">
+          <span class="sr-only">NQF ID: </span>
           {{measure_id}}
         </span>
         {{#link "measures/{{hqmf_set_id}}" expand-tokens=true}}{{title}}{{/link}}
@@ -49,7 +50,8 @@
         <span class="sr-only">build patient</span>
       </a>
       {{#if multiplePopulations}}
-        <span class="patient-listing">{{patients.length}}</span>
+        <span class="patient-listing">{{patients.length}}</span><span class="sr-only"> patients</span>
+
       {{else}}
         {{view "MeasureFractionView" model=differences.summary}}
       {{/if}}
