@@ -29,9 +29,17 @@
     (Not Done: {{translate_oid dataCriteria.negation_code_list_id}})
   {{/if}}
   {{#if dataCriteria.temporal_references}}
-    {{#each dataCriteria.temporal_references}}
-      {{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}
-    {{/each}}
+    {{#ifCond dataCriteria.temporal_references.length '>' 1}}
+      <ul>
+      {{#each dataCriteria.temporal_references}}
+        <li>{{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}</li>
+      {{/each}}
+      </ul>
+    {{else}}
+      {{#each dataCriteria.temporal_references}}
+        {{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}
+      {{/each}}
+    {{/ifCond}}
   {{/if}}
 {{/ifCond}}
 </span>
