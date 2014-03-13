@@ -25,7 +25,7 @@ module Measures
       patient.medical_record_number ||= Digest::MD5.hexdigest("#{patient.first} #{patient.last} #{Time.now}")
       vs_oids = patient.source_data_criteria.collect{|dc| get_vs_oids(dc)}.flatten.uniq
 
-      value_sets =  Hash[*HealthDataStandards::SVS::ValueSet.in({oid: vs_oids}).collect{|vs| [vs.oid,vs]}.flatten]
+      value_sets =  Hash[*HealthDataStandards::SVS::ValueSet.in({oid: vs_oids, user_id: patient.user_id}).collect{|vs| [vs.oid,vs]}.flatten]
       sections = {}
       patient.source_data_criteria.each  do |source_criteria|
         next if source_criteria['id'] == 'MeasurePeriod'
