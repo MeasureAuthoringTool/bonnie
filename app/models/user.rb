@@ -74,7 +74,6 @@ class User
    #make sure that the use has a bundle associated with them
   after_create :ensure_bundle
 
- 
   def is_admin?
     admin || false
   end
@@ -100,7 +99,8 @@ class User
   end
 
   protected
-   def ensure_bundle
+  
+  def ensure_bundle
     unless self.bundle 
       b = HealthDataStandards::CQM::Bundle.new(title: "Bundle for user #{self.id}", version: "1")
       b.save
