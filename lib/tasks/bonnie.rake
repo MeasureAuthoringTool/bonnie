@@ -58,13 +58,15 @@ namespace :bonnie do
       user_email = ENV['EMAIL'] || User.first.email
       user = User.where(email: user_email).first
       puts "Associating measures with #{user.email}"
-      Measure.each do |measure|
-        if measure.user != user
-          measure.user = user
-          puts "\tAssociated [Measure] #{measure.title} with #{user.email}"
-          measure.save!
-        end
-      end
+      Measure.all.update_all(user_id: user.id, bundle_id: user.bundle_id)
+    end
+
+    desc 'Associate the currently loaded measures with the first User; use EMAIL=<user email> to select another user'
+    task :associate_user_with_valuesets => :environment do
+      user_email = ENV['EMAIL'] || User.first.email
+      user = User.where(email: user_email).first
+      puts "Associating Valuesets with #{user.email}"
+      HealthDataStandards::SVS::ValueSet.all.update_all(user_id: user.id, bundle_id: user.bundle_id)
     end
 
     desc 'Associate the currently loaded patients with the first User; use EMAIL=<user email> to select another user'
@@ -72,11 +74,18 @@ namespace :bonnie do
       user_email = ENV['EMAIL'] || User.first.email
       user = User.where(email: user_email).first
       puts "Associating patients with #{user.email}"
-      Record.each do |patient|
-        if patient.user != user
-          patient.user = user
-          puts "\tAssociated [Patient] #{patient.last}, #{patient.first} with #{user.email}"
-          patient.save!
+      Record.all.update_all(user_id: user.id, bundle_id: user.bundle_id)
+    end
+
+
+    desc 'Make sure all of the users in the system have a bundle'
+    task :ensure_users_have_bundles => :environment do
+      User.all.each do |u|
+        unless u.bundle 
+            b = HealthDataStandards::CQM::Bundle.new(title: "Bundle for user #{u.id.to_s}", version: "1")
+            b.save
+            u.bundle = b
+            u.save
         end
       end
     end
@@ -97,9 +106,11 @@ namespace :bonnie do
       MONGO_DB['measures'].drop()
       MONGO_DB['query_cache'].drop()
       MONGO_DB['patient_cache'].drop()
+      Rake::Task['bonnie:users:ensure_users_have_bundles'].invoke
       Rake::Task['bonnie:patients:update_measure_ids'].invoke
       Rake::Task['bonnie:users:associate_user_with_measures'].invoke
       Rake::Task['bonnie:users:associate_user_with_patients'].invoke
+      Rake::Task['bonnie:users:associate_user_with_valuesets'].invoke
       Rake::Task["bonnie:patients:update_source_data_criteria"].invoke
       if ENV['DEMO'] == 'true'
         puts "Deleting non-demo measures and patients"

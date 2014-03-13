@@ -53,6 +53,7 @@ class User
   
   has_many :measures
   has_many :records
+  belongs_to :bundle, class_name: 'HealthDataStandards::CQM::Bundle'
 
   scope :by_email, ->(email) { where({email: email}) }
 
@@ -69,6 +70,9 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+
+   #make sure that the use has a bundle associated with them
+  after_create :ensure_bundle
 
   def is_admin?
     admin || false
@@ -92,6 +96,17 @@ class User
 
   def revoke_portfolio
     update_attribute(:portfolio, false)
+  end
+
+  protected
+  
+  def ensure_bundle
+    unless self.bundle 
+      b = HealthDataStandards::CQM::Bundle.new(title: "Bundle for user #{self.id}", version: "1")
+      b.save
+      self.bundle=b
+      self.save
+    end
   end
 
 end

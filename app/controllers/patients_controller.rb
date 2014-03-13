@@ -84,6 +84,7 @@ private
     patient.expected_values = params['expected_values']
 
     patient.user = current_user
+    patient.bundle = current_user.bundle
     Measures::PatientBuilder.rebuild_patient(patient)
 
     insurance_provider = InsuranceProvider.new
