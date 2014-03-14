@@ -22,7 +22,7 @@ class Thorax.Views.ImportMeasure extends Thorax.View
       redirectRoute: currentRoute
 
   events:
-    rendered: -> @$("option[value=\"#{eoc}\"]").attr('selected','selected') for eoc in @model.get('episode_ids') if @model? && @model.get('episode_of_care')
+    rendered: -> @$("option[value=\"#{eoc}\"]").attr('selected','selected') for eoc in @model.get('episode_ids') if @model? && @model.get('episode_of_care') && @model.get('episode_ids')?
     'ready': 'setup'
     'change input:file':  'enableLoad'
 
