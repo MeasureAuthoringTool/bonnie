@@ -72,6 +72,12 @@ class MeasuresController < ApplicationController
 
     begin
       measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
+      if measure_details['episode_of_care'] && measure.data_criteria.values.select {|d| d['specific_occurrence']}.empty?
+        measure.delete
+        flash[:error] = {title: "Error Loading Measure", summary: "An episode of care measure requires at least one speciific occurrence for the episode of care.", body: "You have loaded the measure as an episode of care measure.  Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."}
+        redirect_to "#{root_path}##{params[:redirect_route]}"
+        return
+      end
     rescue Exception => e
       errors_dir = File.join('tmp','load_errors')
       FileUtils.mkdir_p(errors_dir)
