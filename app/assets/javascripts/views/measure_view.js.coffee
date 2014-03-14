@@ -5,6 +5,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     rendered: ->
       @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
       @exportPatientsView.appendTo(@$el)
+    'click .measure-listing': 'selectMeasureListing'
 
   initialize: ->
     populations = @model.get 'populations'
@@ -23,9 +24,11 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @logicView.listenTo @populationCalculation, 'logicView:clearCoverage', -> @clearCoverage()
 
     @populationCalculation.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
+    @populationCalculation.listenTo @, 'patients:toggleListing', -> @togglePatientsListing()
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
+    @measures = @model.collection
 
   episodesOfCare: ->
     @model.get('source_data_criteria').filter((sdc) => sdc.get('source_data_criteria') in @model.get('episode_ids'))
@@ -40,6 +43,35 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     $.fileDownload "patients/export?hqmf_set_id=#{@model.get('hqmf_set_id')}",
       successCallback: => @exportPatientsView.success()
       failCallback: => @exportPatientsView.fail()
+
+  toggleMeasureListing: (e) ->
+    @$('.main').toggleClass('col-sm-8 col-sm-5')
+    @$('.toggle-measure-listing').toggleClass('btn-default btn-measure-listing btn-primary btn-measure-listing-toggled')
+    @$('.patients-listing-header').toggle()
+    @trigger 'patients:toggleListing'
+    @$('.measure-listing-sidebar').toggle()
+
+  selectMeasureListing: (e) ->
+    @$('.measure-listing').removeClass('active')
+    m = @$(e.target).model()
+    @$(".measure-#{m.get('hqmf_set_id')}").addClass('active')
+
+  cloneIntoMeasure: (e) ->
+    $d = @$('.select-patient:checked')
+    measure = @$('.measure-listing.active').model()
+    for diff in $d
+      difference = @$(diff).model()
+      patient = @patients.findWhere({medical_record_number: difference.result.get('medical_record_id')})
+      clonedPatient = patient.deepClone(omit_id: true, dedupName: true)
+      console.log clonedPatient
+      console.log measure.get('hqmf_set_id')
+      clonedPatient.set('measure_ids', [measure.get('hqmf_set_id')])
+      clonedPatient.save()
+      @patients.add clonedPatient
+      console.log clonedPatient
+
+      # console.log difference.result
+      # console.log @patients.findWhere({medical_record_number: difference.result.get('medical_record_id')})
 
   deleteMeasure: (e) ->
     @model = $(e.target).model()

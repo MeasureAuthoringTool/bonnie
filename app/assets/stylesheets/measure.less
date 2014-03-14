@@ -12,6 +12,27 @@
   }
 }
 
+.measure-listing-sidebar {
+  .measures-title {
+    .make-sm-column(12);
+    .title-bar;
+    margin-bottom: 10px;
+    .short-title {
+      font-size: 1.8em;
+      line-height: 1.75;
+      margin-top: 0;
+      color: black;
+      text-transform: uppercase;
+    }
+    .fa {
+      color: black;
+    }
+  }
+  .list-group {
+    padding-top: 30px;
+  }
+}
+
 .right-sidebar {
   .make-sm-column(3.5);
   .patient-row {
@@ -52,9 +73,14 @@
       position: absolute;
       top: 4px;
       .transition(opacity 0.5s linear);
-      .export-patients {
+      .export-patients, .btn-measure-listing {
         .fa {
           color: @brand-primary;
+        }
+      }
+      .btn-measure-listing-toggled {
+        .fa {
+          color: white;
         }
       }
     }
@@ -68,7 +94,7 @@
 }
 
 .main {
-  .make-sm-column(8.5);
+  // .make-sm-column(8.5);
   > * {
     padding: 0 15px;
   }
