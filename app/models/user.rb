@@ -17,6 +17,17 @@ class User
     end
   end
 
+  # Should devise allow this user to log in?
+  def active_for_authentication?
+    super && is_approved?
+  end
+
+  # Send admins an email after a user account is created
+  after_create :send_user_signup_email
+  def send_user_signup_email
+    UserMailer.user_signup_email(self).deliver
+  end
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :telephone, :crosswalk_enabled
 
@@ -48,6 +59,7 @@ class User
   field :telephone,    :type => String
   field :admin, type:Boolean, :default => false
   field :portfolio, type:Boolean, :default => false
+  field :approved, type:Boolean, :default => false
 
   field :crosswalk_enabled,  type:Boolean, default: false
   
@@ -96,6 +108,18 @@ class User
 
   def revoke_portfolio
     update_attribute(:portfolio, false)
+  end
+
+  def is_approved?
+    approved || false
+  end
+
+  def measure_count
+    measures.count
+  end
+
+  def patient_count
+    records.count
   end
 
   protected

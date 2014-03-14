@@ -26,9 +26,12 @@ Bonnie::Application.routes.draw do
     end
   end
 
-  resources :users do 
-    collection do
-      get 'index' 
+  namespace :admin do
+    resources :users do
+      member do
+        post 'approve'
+        post 'disable'
+      end
     end
   end
 

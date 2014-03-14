@@ -71,7 +71,7 @@ Bonnie::Application.configure do
   # Send notification when application exceptions happen
   config.middleware.use ExceptionNotification::Rack, email: {
     email_prefix: "[Bonnie] ",
-    sender_address: %{"Bonnie" <bonnie@bonnie.projecttacoma.org>},
+    sender_address: %{"Bonnie" <bonnie-feedback-list@lists.mitre.org>},
     exception_recipients: %w{bonnie-feedback-list@lists.mitre.org}
   }
 

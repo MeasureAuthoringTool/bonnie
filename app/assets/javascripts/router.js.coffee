@@ -19,7 +19,7 @@ class BonnieRouter extends Backbone.Router
     'measures/:hqmf_set_id':                           'renderMeasure'
     'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
-    'users':                                           'renderUsers'
+    'admin/users':                                     'renderUsers'
     'value_sets/edit':                                 'renderValueSetsBuilder'
 
   renderMeasures: ->
