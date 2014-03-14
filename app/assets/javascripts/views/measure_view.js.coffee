@@ -63,15 +63,16 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       difference = @$(diff).model()
       patient = @patients.findWhere({medical_record_number: difference.result.get('medical_record_id')})
       clonedPatient = patient.deepClone(omit_id: true, dedupName: true)
-      console.log clonedPatient
+      console.log "Saving #{clonedPatient.get('last')}, #{clonedPatient.get('first')}"
       console.log measure.get('hqmf_set_id')
       clonedPatient.set('measure_ids', [measure.get('hqmf_set_id')])
-      clonedPatient.save()
-      @patients.add clonedPatient
-      console.log clonedPatient
-
-      # console.log difference.result
-      # console.log @patients.findWhere({medical_record_number: difference.result.get('medical_record_id')})
+      clonedPatient.save clonedPatient.toJSON(),
+        success: (model) =>
+          @patients.add model # make sure that the patient exist in the global patient collection
+          measure?.get('patients').add model # and the measure's patient collection
+          if bonnie.isPortfolio then @measures.each (m) -> m.get('patients').add model
+          console.log "Succeeded!"
+    bonnie.navigate "measures/#{measure.get('hqmf_set_id')}", trigger: true
 
   deleteMeasure: (e) ->
     @model = $(e.target).model()
