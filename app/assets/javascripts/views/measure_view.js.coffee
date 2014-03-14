@@ -58,21 +58,20 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   cloneIntoMeasure: (e) ->
     $d = @$('.select-patient:checked')
-    measure = @$('.measure-listing.active').model()
+    measure = @measures.findWhere({hqmf_set_id: @$('.measure-listing.active').model().get('hqmf_set_id')})
+    count = 0
     for diff in $d
       difference = @$(diff).model()
       patient = @patients.findWhere({medical_record_number: difference.result.get('medical_record_id')})
       clonedPatient = patient.deepClone(omit_id: true, dedupName: true)
-      console.log "Saving #{clonedPatient.get('last')}, #{clonedPatient.get('first')}"
-      console.log measure.get('hqmf_set_id')
       clonedPatient.set('measure_ids', [measure.get('hqmf_set_id')])
       clonedPatient.save clonedPatient.toJSON(),
         success: (model) =>
           @patients.add model # make sure that the patient exist in the global patient collection
-          measure?.get('patients').add model # and the measure's patient collection
+          measure.get('patients').add model # and the measure's patient collection
           if bonnie.isPortfolio then @measures.each (m) -> m.get('patients').add model
-          console.log "Succeeded!"
-    bonnie.navigate "measures/#{measure.get('hqmf_set_id')}", trigger: true
+          count++
+          bonnie.navigate "measures/#{measure.get('hqmf_set_id')}", trigger: true if count == $d.length
 
   deleteMeasure: (e) ->
     @model = $(e.target).model()
