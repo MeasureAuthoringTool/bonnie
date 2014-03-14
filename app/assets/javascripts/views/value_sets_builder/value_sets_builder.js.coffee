@@ -26,6 +26,12 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     @searchResultsCollectionView = new Thorax.CollectionView
       collection: @searchResults
       itemView: (item) => new Thorax.Views.ValueSetView(model: item.model, white: false, black: false, filters: @filters, inclusions: @inclusions, exclusions: @exclusions)
+    @listenTo @searchResultsCollectionView, 'update-lists', (model) -> 
+      @savePatients()
+      @collection.remove(@collection.findWhere('oid':model.get('oid')))
+      @collection.add model
+      @whiteList.reset(@collection.whiteList())
+      @blackList.reset(@collection.blackList())
 
   filterContext: (f) ->
     _(f.toJSON()).extend
@@ -109,9 +115,15 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
 
   savePatients: ->
     @$(".rebuild-patients").prop('disabled', true)
-    # console.log "Rebuilding #{@patients.length} patients..."
-    @patients.each (p) ->
-      p.save()
+    @$("#rebuildPatientsDialog").modal backdrop: 'static'
+    @$(".rebuild-patients-progress-bar").css('width', '0%')
+    @patients.each (p) =>
+      p.save null, success: (model, response) => 
+        # console.log "Saved #{model.get('last')}, #{@patients.indexOf(p)}"
+        index = @patients.indexOf(p)
+        perc = (index / @patients.length) * 100
+        @$(".rebuild-patients-progress-bar").css('width', perc.toFixed() + '%')
+        if @patients.indexOf(p) == @patients.length - 1 then @$("#rebuildPatientsDialog").modal 'hide'
     @$(".rebuild-patients").prop('disabled', false)
 
 class Thorax.Views.ValueSetView extends Thorax.View
@@ -120,6 +132,7 @@ class Thorax.Views.ValueSetView extends Thorax.View
     'change .filter-vs': 'updateLists'
     rendered: -> 
       @$('.value-set-save').prop('disabled', true)
+      @$('select.filter-vs').selectBoxIt()
 
   initialize: ->
     @codeSystems = {}
@@ -150,6 +163,12 @@ class Thorax.Views.ValueSetView extends Thorax.View
     if @patients?
       @patients.each (p) =>
         @associatedPatients.add p if @model.get('oid') in @patientsToOids[p.get('medical_record_number')]
+
+  context: ->
+    _(super).extend
+      isEmpty: _(_(@codeSystems).pluck('count')).every((c) -> c == 0)
+      isWhiteList: @white && !@black
+      isBlackList: @black && !@white
     
   toggleDetails: (e) ->
     e.preventDefault()
@@ -170,6 +189,7 @@ class Thorax.Views.ValueSetView extends Thorax.View
       originalConcept.black_list = false
     @rebuildCodes()
     @$('.value-set-save').prop('disabled', false)
+    @$('select.filter-vs').selectBoxIt()
 
   rebuildCodes: ->
     # console.log "Rebuilding #{@model.get('display_name')} codes..."
@@ -216,9 +236,8 @@ class Thorax.Views.ValueSetView extends Thorax.View
     @model.id = @model.get('_id')
     @model.url = "/valuesets/#{@model.id}"
     # console.log @model
-    @parent.parent.savePatients()
     @model.save()
-    bonnie.renderValueSetsBuilder()
+    @parent.trigger 'update-lists', @model
 
   addFilter: (e) ->
     e.preventDefault()
