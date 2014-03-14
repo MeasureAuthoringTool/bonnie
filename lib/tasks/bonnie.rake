@@ -132,6 +132,10 @@ namespace :bonnie do
         patient.save!
       end
       Rake::Task['bonnie:measures:pregenerate_js'].invoke
+      User.each do |u|
+        u.approved = true
+        u.save
+      end
     end
   end
 
