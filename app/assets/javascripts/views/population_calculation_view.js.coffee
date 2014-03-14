@@ -14,6 +14,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
     @differences.sort()
     # Make sure the sort order updates as results come in
     @differences.on 'change', @differences.sort, @differences
+    @patientsListing = false
 
   context: ->
     _(super).extend measure_id: @measure.get('hqmf_set_id')
@@ -70,4 +71,11 @@ class Thorax.Views.PopulationCalculation extends Thorax.View
       @$(".expand-result-icon-#{result.patient.id}").removeClass('fa-angle-right').addClass('fa-angle-down')
       @trigger 'rationale:show', result
       @coverageView.hideCoverage()
+
+  togglePatientsListing: ->
+    @patientsListing = !@patientsListing
+    @$('.coverage-summary').toggle()
+    @render()
+    if @patientsListing then @$('.summary').hide() else @$('.summary').show()
+
 
