@@ -31,6 +31,8 @@ Bonnie::Application.routes.draw do
       member do
         post 'approve'
         post 'disable'
+        get 'patients'
+        get 'measures'
       end
     end
   end
