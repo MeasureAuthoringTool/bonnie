@@ -26,7 +26,9 @@ namespace :bonnie do
 
       username = email.split('@')[0]
       password = "#{username}1234"
-      User.create!({agree_license: true, approved: true, password: password, password_confirmation: password, email: email, first_name: username, last_name: username})
+      user = User.create!({agree_license: true, password: password, password_confirmation: password, email: email, first_name: username, last_name: username})
+      user.approved = true
+      user.save!
       puts "created user #{email}/#{password}"
 
       Rake::Task["bundle:import"].invoke(args.file,'true','true',measure_type,'false')
