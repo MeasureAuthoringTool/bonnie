@@ -7,7 +7,7 @@
     <ul>
       {{#each dataCriteria.children_criteria}}
         <li>
-          <span class="conjunction {{../dataCriteria.key}} rationale-target">{{translate_operator ../dataCriteria.derivation_operator}} : </span>
+          <span class="conjunction {{../dataCriteria.key}} rationale-target">{{translate_operator ../dataCriteria.derivation_operator}} : <span class="sr-only sr-highlight-status"></span></span>
           {{view "DataCriteriaLogic" reference=this measure=../measure tag="span"}}
         </li>
       {{/each}}
@@ -28,6 +28,7 @@
   {{#if dataCriteria.negation}}
     (Not Done: {{translate_oid dataCriteria.negation_code_list_id}})
   {{/if}}
+  <span class="sr-only sr-highlight-status"></span>
   {{#if dataCriteria.temporal_references}}
     {{#ifCond dataCriteria.temporal_references.length '>' 1}}
       <ul class="multi-temporal">
@@ -41,6 +42,7 @@
       {{/each}}
     {{/ifCond}}
   {{/if}}
+
 {{/ifCond}}
 </span>
 

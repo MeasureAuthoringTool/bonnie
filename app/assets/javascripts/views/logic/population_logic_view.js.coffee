@@ -46,7 +46,15 @@ class Thorax.Views.PopulationLogic extends Thorax.View
             if (target.length > 0)
               target.addClass(if updatedRationale[code]?[key] is false then 'eval-bad-specifics' else "eval-#{!!value}")
               target.closest('.panel-heading').addClass(if updatedRationale[code]?[key] is false then 'eval-panel-bad-specifics' else "eval-panel-#{!!value}")
+      @rationaleScreenReaderStatus()
     @expandPopulations()
+
+  rationaleScreenReaderStatus: ->
+    @$('.rationale .rationale-target').find('.sr-highlight-status').html('(status: none)')
+    @$('.eval-bad-specifics').children('.sr-highlight-status').html('(status: bad specifics)')
+    @$('.eval-false').children('.sr-highlight-status').html('(status: false)')
+    @$('.eval-true').children('.sr-highlight-status').html('(status: true)')
+
 
   highlightPatientData: (dataCriteriaKey, populationCriteriaKey) ->
     if @latestResult?.get('finalSpecifics')?[populationCriteriaKey]
@@ -69,15 +77,29 @@ class Thorax.Views.PopulationLogic extends Thorax.View
   clearRationale: ->
     @$('.rationale .rationale-target').removeClass('eval-false eval-true eval-bad-specifics')
     @$('.rationale .panel-heading').removeClass('eval-panel-false eval-panel-true eval-panel-bad-specifics')
+    @$('.sr-highlight-status').html('')
 
   showCoverage: ->
     @clearRationale()
-    @$(".#{criteria}").addClass('eval-coverage') for criteria in @model.coverage().rationaleCriteria
+    @$('.rationale .rationale-target').addClass('eval-uncovered')
+    for criteria in @model.coverage().rationaleCriteria
+      @$(".#{criteria}").removeClass('eval-uncovered')
+      @$(".#{criteria}").addClass('eval-coverage') 
+    @coverageScreenReaderStatus()
+
+  coverageScreenReaderStatus: ->
+    @$('.rationale .rationale-target').find('.sr-highlight-status').html('(status: not covered)')
+    @$('.eval-coverage').children('.sr-highlight-status').html('(status: covered)')
+    @$('.conjunction').children('.sr-highlight-status').html('')
+    @$('.population-label').children('.sr-highlight-status').html('')
 
   clearCoverage: ->
-    @$('.rationale .rationale-target').removeClass('eval-coverage')
+    if @$('.eval-coverage').length > 0
+      @$('.rationale .rationale-target').removeClass('eval-coverage eval-uncovered')
+      @$('.sr-highlight-status').html('')
 
   expandPopulations: ->
     @$('.panel-population > a[data-toggle="collapse"]').removeClass('collapsed')
     @$('.toggle-icon').removeClass('fa-angle-right').addClass('fa-angle-down')
     @$('.panel-collapse').removeClass('collapse').addClass('in').css('height','auto')
+
