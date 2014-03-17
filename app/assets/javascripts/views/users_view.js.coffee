@@ -8,7 +8,9 @@ class Thorax.Views.User extends Thorax.View
   tagName: 'tr'
 
   context: ->
-    _(super).extend isCurrentUser: bonnie.currentUserId == @model.get('_id')
+    _(super).extend
+      isCurrentUser: bonnie.currentUserId == @model.get('_id')
+      csrfToken: $("meta[name='csrf-token']").attr('content')
 
   events:
     serialize: (attr) ->

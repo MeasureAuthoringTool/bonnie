@@ -50,6 +50,12 @@ class Admin::UsersController < ApplicationController
     send_data JSON.pretty_generate(JSON.parse(user.measures.to_json)), :type => 'application/json', :disposition => 'attachment', :filename => "measures_#{user.email}.json"
   end
 
+  def log_in_as
+    user = User.find(params[:id])
+    sign_in user
+    redirect_to root_path
+  end
+
   private
 
   def require_admin!

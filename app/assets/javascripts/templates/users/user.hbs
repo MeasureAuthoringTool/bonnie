@@ -14,10 +14,17 @@
   </td>
   <td>{{#button "edit" class="btn btn-primary"}}Edit{{/button}}</td>
   <td>
-      {{#button "showDelete" class="btn btn-danger-inverse"}}<i class="fa fa-minus-circle"></i>{{/button}}
-      {{#button "delete" class="btn btn-danger delete-user hide"}}<i class="fa fa-times"></i> Delete{{/button}}
+    {{#button "showDelete" class="btn btn-danger-inverse"}}<i class="fa fa-minus-circle"></i>{{/button}}
+    {{#button "delete" class="btn btn-danger delete-user hide"}}<i class="fa fa-times"></i> Delete{{/button}}
+  </td>
+  <td>
+    <form action="/admin/users/{{_id}}/log_in_as" method="POST">
+      <input name="authenticity_token" type="hidden" value="{{csrfToken}}">
+      <button type="submit" class="btn btn-danger">Log In As</button>
+    </form>
   </td>
 {{else}}
+  <td></td>
   <td></td>
   <td></td>
   <td></td>
