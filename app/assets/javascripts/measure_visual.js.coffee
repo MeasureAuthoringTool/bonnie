@@ -220,10 +220,10 @@ Bonnie.viz.measureVisualzation = ->
         heights = heights + parseInt("#{d3.select(@).attr('width')}") + rowPadding.top
         widths[d3.select(@).attr('width')] ?= 0
         widths[d3.select(@).attr('width')]++
-      console.log widths
-      console.log heights
-      console.log heights / element.attr('width')
-      console.log "#{element.selectAll("rect").size()} vs #{Math.ceil(heights / element.attr('width'))}"
+      # console.log widths
+      # console.log heights
+      # console.log heights / element.attr('width')
+      # console.log "#{element.selectAll("rect").size()} vs #{Math.ceil(heights / element.attr('width'))}"
       ( Math.ceil(heights / element.attr('width')) ) * (rowHeight + rowPadding.top)
 
     my
