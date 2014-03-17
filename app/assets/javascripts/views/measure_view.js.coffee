@@ -74,7 +74,8 @@ class Thorax.Views.Measure extends Thorax.View
         d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
         @$('rect').popover()
         @$('.d3-measure-viz').css('height', ( d3.selectAll('rect').size() + @populationCalculation.model.populationCriteria().length) * 30)
-        @$('.d3-measure-viz').css('width', 5000)
+        # @$('.d3-measure-viz').css('width', 5000)
+        # @$('.d3-measure-viz').css('height', 5000)
       catch error
         @$('svg').toggle()
         @$('.d3-measure-viz').append( "<p>Sorry, this measure visualization isn't ready yet!</p>" )
