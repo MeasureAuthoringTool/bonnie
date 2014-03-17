@@ -37,6 +37,7 @@ Bonnie.viz.measureVisualzation = ->
                   continue
                 textField.text("#{populationCodes[[population]]}:")
                 renderPrecondition(populationElement, data[population_code].preconditions[0]) if data[population_code].preconditions?
+                # debugger
                 offset+= getElementHeight(populationElement)
 
 
@@ -103,7 +104,9 @@ Bonnie.viz.measureVisualzation = ->
                 for precondition in preconditions.preconditions
 
                     yOffset = switch preconditions.conjunction_code
-                        when "allTrue" then getElementHeight(parent)#parent.node().childNodes.length * (rowHeight+rowPadding.top)
+                        when "allTrue" 
+                          # debugger
+                          getElementHeight(parent)#parent.node().childNodes.length * (rowHeight+rowPadding.top)
                         # when "allTrue" then parent.node().childNodes.length * (rowHeight+rowPadding.top)
                         when "atLeastOneTrue" then 0
                     xOffset = switch preconditions.conjunction_code
@@ -126,7 +129,7 @@ Bonnie.viz.measureVisualzation = ->
                     .attr('reference', preconditions.reference)
                     .attr("conjunction_code", preconditions.conjunction_code)
                     .attr("width", elWidth)
-                debugger
+                # debugger
                 renderDerivedElement(element, dataCriteria[preconditions.reference])
             else
                 # This is an actual data Element
@@ -224,6 +227,32 @@ Bonnie.viz.measureVisualzation = ->
       returnVal += " #{timing_map[temporalReference.type]} #{reference}"
 
     getElementHeight = (element) ->
-      element.selectAll("rect").size()*(rowHeight + rowPadding.top)
+      # debugger
+      heights = 0
+      widths = {}
+      element.selectAll("rect").each (d, i) -> 
+        # console.log d3.select(@).attr('width')
+        # debugger
+        heights = heights + parseInt("#{d3.select(@).attr('width')}") + rowPadding.top
+        widths[d3.select(@).attr('width')] ?= 0
+        widths[d3.select(@).attr('width')]++
+      # element.selectAll("rect").size()*(rowHeight + rowPadding.top)
+      # debugger
+      # widths['735'] ?= 0
+      # rows = widths['735']
+      console.log widths
+      console.log heights
+      console.log heights / element.attr('width')
+      # console.log "#{element.selectAll("rect").size()} vs #{heights / element.attr('width')}"
+      console.log "#{element.selectAll("rect").size()} vs #{Math.ceil(heights / element.attr('width'))}"
+      # console.log _(_(widths).keys()).sortBy((n)-> n).reverse()
+      # for key, index in _(_(widths).keys()).sortBy((n)-> n).reverse() when index > 0
+      #   rows += parseInt("#{widths[key] / (2 * index)}")
+      # console.log (rows) * (rowHeight + rowPadding.top)
+      # (rows) * (rowHeight + rowPadding.top)
+      # x = element.selectAll("rect").size()*(rowHeight + rowPadding.top)
+      ( Math.ceil(heights / element.attr('width')) ) * (rowHeight + rowPadding.top)
+      # if y < 1 then x else y
+
 
     my
