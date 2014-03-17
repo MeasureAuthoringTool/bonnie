@@ -45,7 +45,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       failCallback: => @exportPatientsView.fail()
 
   toggleMeasureListing: (e) ->
-    @$('.main').toggleClass('col-sm-8 col-sm-5')
+    @$('.main').toggleClass('col-sm-8 col-sm-6')
     @$('.toggle-measure-listing').toggleClass('btn-default btn-measure-listing btn-primary btn-measure-listing-toggled')
     @$('.patients-listing-header').toggle()
     @trigger 'patients:toggleListing'
@@ -53,8 +53,10 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   selectMeasureListing: (e) ->
     @$('.measure-listing').removeClass('active')
+    @$('.btn-clone-patients').hide()
     m = @$(e.target).model()
     @$(".measure-#{m.get('hqmf_set_id')}").addClass('active')
+    @$(".btn-clone-#{m.get('hqmf_set_id')}").show()
 
   cloneIntoMeasure: (e) ->
     $d = @$('.select-patient:checked')

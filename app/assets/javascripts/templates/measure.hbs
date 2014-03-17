@@ -50,24 +50,23 @@
   {{view populationCalculation}}
 </div>
 
-<div class="measure-listing-sidebar col-sm-3" style="display:none;">
+<div class="measure-listing-sidebar" style="display:none;">
   <div class="measures-title">
     <span class="short-title pull-left">Measure Listing</span>
-    {{!-- <span class="settings-container">
-      <div class="patients-settings">
-        {{#button "exportPatients" class="btn btn-default export-patients"}}<i class="fa fa-download"></i> Export{{/button}}
-        {{#button "toggleMeasureListing" class="btn btn-default btn-measure-listing toggle-measure-listing"}}<i class="fa fa-users"></i> <i class="fa fa-arrow-right"></i> <i class="fa fa-tasks"></i>{{/button}}
-      </div>
-      {{#button "patientsSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog"></i> <span class="sr-only">Patient Options</span>{{/button}}
-    </span> --}}
   </div>
   <span class="measure-listing-header">Select Measure:</span>
-  {{#button "cloneIntoMeasure" class="btn btn-primary pull-right"}}CLONE{{/button}}
   <div class="list-group">
     {{#collection measures}}
-      <a class="list-group-item measure-listing measure-{{hqmf_set_id}}">{{cms_id}}</a>
+      <a class="list-group-item measure-listing measure-{{hqmf_set_id}}">
+        <div class="row">
+          <div class="col-sm-6">
+            {{cms_id}}
+          </div>
+          <div class="col-sm-6">
+            {{#button "cloneIntoMeasure" class="btn btn-default btn-clone-patients btn-clone-{{hqmf_set_id}}" style="display: none;" expand-tokens=true}}CLONE{{/button}}
+          </div>
+        </div>
+      </a>
     {{/collection}}
   </div>
-  {{!-- <span class="patients-listing-header" style="display:none;">Select Patients to Clone:</span>
-  {{view populationCalculation}} --}}
 </div>
