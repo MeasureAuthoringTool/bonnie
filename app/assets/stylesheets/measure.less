@@ -196,14 +196,22 @@
     .make-sm-column(12);
     padding-top: 15px;
     padding-left: 0px;
+    .conjunction {
+      font-weight: bold;
+    }
+    ul {
+      padding-left: 20px;
+      list-style-type: none;
+      margin-bottom: 0px;
+    }
+  }
+  .negation {
+    .text-danger;
   }
 }
-.negation {
-  .text-danger;
-}
 .precondition {
-  fill:@brand-primary;;
-  stroke:black;
+  fill:@gray-light;
+  stroke:gray;
 }
 .logic-comment {
   font-style: italic;

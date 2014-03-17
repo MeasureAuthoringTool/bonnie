@@ -95,6 +95,7 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
     @clearRationale()
     for criteria in @model.coverage().rationaleCriteria
       @$(".#{criteria}").addClass('eval-coverage')
+      @$("rect[precondition=\"#{criteria}\"]").css('stroke','#006cb4').css('fill','#daeaf5') # FIXME: replace with classes, if possible
     @coverageScreenReaderStatus()
 
   coverageScreenReaderStatus: ->
