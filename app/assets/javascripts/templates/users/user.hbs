@@ -4,15 +4,21 @@
 <td class="centered check">{{#if admin}}<i class="fa fa-check"></i>{{/if}}</td>
 <td class="centered check">{{#if portfolio}}<i class="fa fa-check"></i>{{/if}}</td>
 <td class="centered check">{{#if approved}}<i class="fa fa-check"></i>{{/if}}</td>
-<td>
-  {{#if approved}}
-    {{#button "disable" class="btn btn-primary"}}Disable{{/button}}
-  {{else}}
-    {{#button "approve" class="btn btn-primary"}}Approve{{/button}}
-  {{/if}}
-</td>
-<td>{{#button "edit" class="btn btn-primary"}}Edit{{/button}}</td>
-<td>
-  {{#button "showDelete" class="btn btn-danger-inverse"}}<i class="fa fa-minus-circle"></i>{{/button}}
-  {{#button "delete" class="btn btn-danger delete-user hide"}}<i class="fa fa-times"></i> Delete{{/button}}
-</td>
+{{#unless isCurrentUser}}
+  <td>
+    {{#if approved}}
+      {{#button "disable" class="btn btn-primary"}}Disable{{/button}}
+    {{else}}
+      {{#button "approve" class="btn btn-primary"}}Approve{{/button}}
+    {{/if}}
+  </td>
+  <td>{{#button "edit" class="btn btn-primary"}}Edit{{/button}}</td>
+  <td>
+      {{#button "showDelete" class="btn btn-danger-inverse"}}<i class="fa fa-minus-circle"></i>{{/button}}
+      {{#button "delete" class="btn btn-danger delete-user hide"}}<i class="fa fa-times"></i> Delete{{/button}}
+  </td>
+{{else}}
+  <td></td>
+  <td></td>
+  <td></td>
+{{/unless}}

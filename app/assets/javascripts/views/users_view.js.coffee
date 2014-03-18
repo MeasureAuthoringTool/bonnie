@@ -7,6 +7,9 @@ class Thorax.Views.User extends Thorax.View
   editTemplate: JST['users/edit_user']
   tagName: 'tr'
 
+  context: ->
+    _(super).extend isCurrentUser: bonnie.currentUserId == @model.get('_id')
+
   events:
     serialize: (attr) ->
       attr.admin ?= false

@@ -36,6 +36,7 @@
     <script>
       bonnie.isPortfolio = <%= current_user.is_portfolio? %>;
       bonnie.isAdmin = <%= current_user.is_admin? %>;
+      bonnie.currentUserId = '<%= current_user.id %>';
       <% @patients.each do |patient| %>
         (function() {
           var patient = new Thorax.Models.Patient(<%= MultiJson.encode(patient.as_json(except: :results)).html_safe %>, { parse: true });
