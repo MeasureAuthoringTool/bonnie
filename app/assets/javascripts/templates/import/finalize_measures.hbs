@@ -17,20 +17,22 @@
           {{#collection measures tag="div"}}
             <h4>{{title}}</h4>
             <input type="hidden" name="{{@cid}}[hqmf_id]" value="{{hqmf_id}}">
-            <div class="form-group">
-              <label for="episodeSelect_{{@cid}}" class="col-lg-3 control-label">Episode(s) of Care:</label>
-              <div class="col-lg-9">
-                <select multiple="true" class="form-control" id="episodeSelect_{{@cid}}" name="{{@cid}}[episode_ids][]">
-                  {{#each source_data_criteria.models}}
-                    {{#with attributes}}
-                      {{#if specific_occurrence}}
-                        <option value="{{source_data_criteria}}" id="{{@cid}}">{{description}}</option>
-                      {{/if}}
-                    {{/with}}
-                  {{/each}}
-                </select>
+            {{#if episode_of_care}}
+              <div class="form-group">
+                <label for="episodeSelect_{{@cid}}" class="col-lg-3 control-label">Episode(s) of Care:</label>
+                <div class="col-lg-9">
+                  <select multiple="true" class="form-control" id="episodeSelect_{{@cid}}" name="{{@cid}}[episode_ids][]">
+                    {{#each source_data_criteria.models}}
+                      {{#with attributes}}
+                        {{#if specific_occurrence}}
+                          <option value="{{source_data_criteria}}" id="{{@cid}}">{{description}}</option>
+                        {{/if}}
+                      {{/with}}
+                    {{/each}}
+                  </select>
+                </div>
               </div>
-            </div>
+            {{/if}}
             {{#ifCond populations.models.length '>' 1}}
               <div class="form-group">
                 <label for="populationTitles" class="col-lg-3 control-label">Titles:</label>
@@ -60,7 +62,7 @@
       </div>
       <div class="modal-footer">
         <!--button type="button" class="btn btn-default" data-dismiss="modal">Close</button-->
-        <button type="button" id="finalizeMeasureSubmit" class="btn btn-primary">Done</button>
+        <button type="button" id="finalizeMeasureSubmit" class="btn btn-primary" disabled="disabled">Done</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
