@@ -30,7 +30,7 @@
   {{/if}}
   {{#if dataCriteria.temporal_references}}
     {{#ifCond dataCriteria.temporal_references.length '>' 1}}
-      <ul>
+      <ul class="multi-temporal">
       {{#each dataCriteria.temporal_references}}
         <li>{{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}</li>
       {{/each}}
