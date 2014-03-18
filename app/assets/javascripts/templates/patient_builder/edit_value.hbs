@@ -47,11 +47,11 @@
   {{#ifCond type '==' 'TS'}}
     <div class="col-md-5">
       <label for="start_date_{{@cid}}" class="sr-only">{{#if fieldValue}}field {{/if}}value date</label>
-      <input type="text" name="start_date" id="start_date" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-autoclose="true">
+      <input type="text" name="start_date" id="start_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-autoclose="true">
     </div>
     <div class="col-md-3">
       <label for="start_time_{{@cid}}" class="sr-only">{{#if fieldValue}}field {{/if}}value time</label>
-      <input type="text" name="start_time" id="start_time" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
+      <input type="text" name="start_time" id="start_time_{{@cid}}" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
     </div>
   {{/ifCond}}
 
