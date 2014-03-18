@@ -1,7 +1,7 @@
 <div class="value-set-entry">
   <div class="criteria-details">
       {{#button "toggleDetails" class="close"}}
-        <i class="fa fa-lg fa-fw fa-angle-right"></i>
+        {{#if isWhiteList}}<i class="fa fa-fw fa-search"></i>{{else}}{{#if isBlackList}}<i class="fa fa-fw fa-search"></i>{{else}}<i class="fa fa-lg fa-fw fa-angle-right"></i>{{/if}}{{/if}}
         <span class="sr-only">toggle details</span>
       {{/button}}
         <h4 class="{{#if isEmpty}}empty{{/if}}"><i class="fa fa-fw fa-lg {{#if isWhiteList}}fa-check-circle success{{else}}{{#if isBlackList}}fa-times-circle danger{{else}}fa-list-alt{{/if}}{{/if}}"></i>  {{display_name}}  {{!-- <small>{{oid}}</small> --}}
