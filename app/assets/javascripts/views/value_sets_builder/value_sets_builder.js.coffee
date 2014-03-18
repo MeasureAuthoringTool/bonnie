@@ -33,6 +33,7 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
       @whiteList.reset(@collection.whiteList())
       @blackList.reset(@collection.blackList())
     @listenTo @whiteListCollectionView, 'search-lookup', (model) -> @lookupValueSet(model)
+    @listenTo @blackListCollectionView, 'search-lookup', (model) -> @lookupValueSet(model)
 
   filterContext: (f) ->
     _(f.toJSON()).extend
