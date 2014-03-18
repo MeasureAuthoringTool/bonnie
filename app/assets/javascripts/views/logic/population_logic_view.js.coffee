@@ -9,7 +9,9 @@ class Thorax.Views.PopulationsLogic extends Thorax.LayoutView
   showCoverage: -> @getView().showCoverage()
   clearCoverage: -> @getView().clearCoverage()
   populationContext: (population) ->
-    _(population.toJSON()).extend isActive: population is @collection.first()
+    _(population.toJSON()).extend 
+      isActive: population is @collection.first()
+      populationTitle: population.get('title') || population.get('sub_id')
 
 class Thorax.Views.PopulationLogic extends Thorax.View
 
