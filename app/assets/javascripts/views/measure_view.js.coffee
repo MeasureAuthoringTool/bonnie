@@ -5,11 +5,13 @@ class Thorax.Views.Measure extends Thorax.View
     rendered: ->
       @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
       @exportPatientsView.appendTo(@$el)
+      @$('.d3-measure-viz').hide()
 
   initialize: ->
     populations = @model.get 'populations'
     population = populations.first()
     populationLogicView = new Thorax.Views.PopulationLogic(model: population)
+    @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population)
 
     # display layout view when there are multiple populations; otherwise, just show logic view
     if populations.length > 1
@@ -23,6 +25,12 @@ class Thorax.Views.Measure extends Thorax.View
     @logicView.listenTo @populationCalculation, 'logicView:clearCoverage', -> @clearCoverage()
 
     @populationCalculation.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
+    @listenTo @logicView, 'population:update', (population) ->
+      @$('.d3-measure-viz').empty()
+      @$('.d3-measure-viz').hide()
+      @$('.btn-measure-viz').removeClass('btn-primary').addClass('btn-default')
+      @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population)
+
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
@@ -56,3 +64,13 @@ class Thorax.Views.Measure extends Thorax.View
     e.preventDefault()
     $btn = $(e.currentTarget)
     $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
+
+  toggleVisualization: (e) ->
+    @$('.btn-measure-viz').toggleClass('btn-default btn-primary')
+    @$('.measure-viz').toggle()
+    @$('.d3-measure-viz').toggle()
+    if @$('.d3-measure-viz').children().length == 0
+      d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
+      @$('rect').popover()
+      @$('.d3-measure-viz').css('height', ( d3.selectAll('rect').size() + @populationCalculation.model.populationCriteria().length) * 30)
+      @logicView.showCoverage()
