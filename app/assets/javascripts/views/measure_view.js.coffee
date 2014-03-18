@@ -41,7 +41,7 @@ class Thorax.Views.Measure extends Thorax.View
   deleteMeasure: (e) ->
     @model = $(e.target).model()
     @model.destroy()
-    bonnie.renderMeasures()
+    bonnie.navigate '', trigger: true
 
   measureSettings: (e) ->
     e.preventDefault()
