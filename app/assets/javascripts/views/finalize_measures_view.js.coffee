@@ -8,6 +8,10 @@ class Thorax.Views.FinalizeMeasures extends Thorax.View
   events:
     'click #finalizeMeasureSubmit': 'submit'
     'ready': 'setup'
+    'change select':  'enableDone'
+
+  enableDone: -> 
+    @$('#finalizeMeasureSubmit').prop('disabled', !@$('select').val()?.length > 0)
 
   setup: ->
     # if we have no measures to finalize than there's nothing to do
