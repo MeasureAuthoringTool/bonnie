@@ -46,17 +46,20 @@ class Thorax.Views.PopulationLogic extends Thorax.View
           for key, value of rationale
             target = @$(".#{code}_children .#{key}")
             if (target.length > 0)
-              target.addClass(if updatedRationale[code]?[key] is false then 'eval-bad-specifics' else "eval-#{!!value}")
-              target.closest('.panel-heading').addClass(if updatedRationale[code]?[key] is false then 'eval-panel-bad-specifics' else "eval-panel-#{!!value}")
-      @rationaleScreenReaderStatus()
+              if updatedRationale[code]?[key] is false
+                targetClass = 'eval-bad-specifics'
+                targetPanelClass = 'eval-panel-bad-specifics'
+                srTitle = '(status: bad specifics)'
+              else
+                bool = !!value
+                targetClass = "eval-#{bool}"
+                targetPanelClass = "eval-panel-#{bool}"
+                srTitle = "(status: #{bool})"
+              target.addClass(targetClass)
+              target.closest('.panel-heading').addClass(targetPanelClass)
+              target.children('.sr-highlight-status').html(srTitle)
+              target.children('.criteria-title').children('.sr-highlight-status').html(srTitle)
     @expandPopulations()
-
-  rationaleScreenReaderStatus: ->
-    @$('.rationale .rationale-target').find('.sr-highlight-status').html('(status: none)')
-    @$('.eval-bad-specifics').children('.sr-highlight-status').html('(status: bad specifics)')
-    @$('.eval-false').children('.sr-highlight-status').html('(status: false)')
-    @$('.eval-true').children('.sr-highlight-status').html('(status: true)')
-
 
   highlightPatientData: (dataCriteriaKey, populationCriteriaKey) ->
     if @latestResult?.get('finalSpecifics')?[populationCriteriaKey]
@@ -83,7 +86,7 @@ class Thorax.Views.PopulationLogic extends Thorax.View
 
   showCoverage: ->
     @clearRationale()
-    @$('.rationale .rationale-target').addClass('eval-uncovered')
+    @$('.rationale .rationale-target').addClass('eval-uncovered') if @model.coverage().rationaleCriteria.length > 0
     for criteria in @model.coverage().rationaleCriteria
       @$(".#{criteria}").removeClass('eval-uncovered')
       @$(".#{criteria}").addClass('eval-coverage') 
