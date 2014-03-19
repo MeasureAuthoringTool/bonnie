@@ -48,8 +48,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView criteria: @model
 
     @model.on 'highlight', (type) =>
-      # add highlight
       @$('.criteria-data').addClass(type)
+      @$('.highlight-indicator').attr('tabindex', 0).text 'matches selected logic, '
 
   valueWithDateContext: (model) ->
     _(model.toJSON()).extend
