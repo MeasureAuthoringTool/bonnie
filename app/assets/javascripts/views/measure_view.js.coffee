@@ -28,7 +28,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @listenTo @logicView, 'population:update', (population) ->
       @$('.right-sidebar').removeClass('indicator-off').addClass('indicator-on')
       @$('.panel').removeClass('indicator-off').addClass('indicator-on')
-      setTimeout @resetIndicator, 250
+      setTimeout @resetIndicator, 125
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
