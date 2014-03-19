@@ -33,6 +33,7 @@ Bonnie::Application.routes.draw do
         post 'disable'
         get 'patients'
         get 'measures'
+        get 'bundle'
         post 'log_in_as'
       end
     end
