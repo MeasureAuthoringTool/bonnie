@@ -67,6 +67,14 @@
   }
 }
 
+.indicator-on {
+  background-color: @blue-lightest;
+}
+.indicator-off {
+  background-color: inherit;
+  .transition(background-color 1s linear);
+}
+
 .main {
   .make-sm-column(8.5);
   > * {
