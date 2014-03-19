@@ -83,7 +83,7 @@ class Thorax.Views.PopulationLogic extends Thorax.View
 
   showCoverage: ->
     @clearRationale()
-    @$('.rationale .rationale-target').addClass('eval-uncovered')
+    @$('.rationale .rationale-target').addClass('eval-uncovered') if @model.coverage().rationaleCriteria.length > 0
     for criteria in @model.coverage().rationaleCriteria
       @$(".#{criteria}").removeClass('eval-uncovered')
       @$(".#{criteria}").addClass('eval-coverage') 
