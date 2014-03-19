@@ -94,6 +94,14 @@
   }
 }
 
+.indicator-on {
+  background-color: @blue-lightest;
+}
+.indicator-off {
+  background-color: inherit;
+  .transition(background-color 1s linear);
+}
+
 .main {
   > * {
     padding: 0 15px;
