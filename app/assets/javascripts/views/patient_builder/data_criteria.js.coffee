@@ -92,6 +92,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$('.criteria-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight', drop: _.bind(@dropCriteria, this)
       @$('.date-picker').datepicker().on 'changeDate', _.bind(@triggerMaterialize, this)
       @$('.time-picker').timepicker().on 'changeTime.timepicker', _.bind(@triggerMaterialize, this)
+      @$el.toggleClass 'during-measurement-period', @model.isDuringMeasurePeriod()
     'change .negation-select':                    'toggleNegationSelect'
     'change :input[name=end_date_is_undefined]':  'toggleEndDateDefinition'
     'blur :text':                                 'triggerMaterialize'

@@ -34,6 +34,8 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     attrs
   measure: -> bonnie.measures.findWhere hqmf_set_id: @get('hqmf_set_id')
   valueSet: -> _(bonnie.measures.valueSets()).detect (vs) => vs.get('oid') is @get('code_list_id')
+  isDuringMeasurePeriod: ->
+    moment(@get('start_date')).year() is moment(@get('end_date')).year() is bonnie.measurePeriod
   toJSON: ->
     # Transform fieldValues back to an object from a collection
     fieldValues = {}
