@@ -46,15 +46,13 @@ class Thorax.Views.PopulationLogic extends Thorax.View
           for key, value of rationale
             target = @$(".#{code}_children .#{key}")
             if (target.length > 0)
-              if updatedRationale[code]?[key] is false
-                targetClass = 'eval-bad-specifics'
-                targetPanelClass = 'eval-panel-bad-specifics'
-                srTitle = '(status: bad specifics)'
+
+              [targetClass, targetPanelClass, srTitle] = if updatedRationale[code]?[key] is false
+                ['eval-bad-specifics', 'eval-panel-bad-specifics', '(status: bad specifics)']
               else
                 bool = !!value
-                targetClass = "eval-#{bool}"
-                targetPanelClass = "eval-panel-#{bool}"
-                srTitle = "(status: #{bool})"
+                ["eval-#{bool}", "eval-panel-#{bool}", "(status: #{bool})"]
+
               target.addClass(targetClass)
               target.closest('.panel-heading').addClass(targetPanelClass)
               target.children('.sr-highlight-status').html(srTitle)
