@@ -93,6 +93,7 @@ namespace :bonnie do
   end
 
   namespace :db do
+
     desc 'Reset DB; by default pulls from bonnie-dev.mitre.org:bonnie-production-gold; use HOST=<host> DB=<db> for another; DEMO=true prunes measures'
     task :reset => :environment do
       host = ENV['HOST'] || 'bonnie-dev.mitre.org'
@@ -137,6 +138,49 @@ namespace :bonnie do
         u.save
       end
     end
+
+    DUMP_TIME_FORMAT = "%Y-%m-%d-%H-%M-%S"
+
+    desc 'Dumps the local database matching the supplied RAILS_ENV'
+    task :dump => :environment do
+      db = Mongoid.default_session.options[:database]
+      datestamp = Time.now.strftime(DUMP_TIME_FORMAT)
+      path = Rails.root.join 'db', 'backups'
+      file = "#{db}-#{datestamp}"
+      command = "mkdir -p #{path} && mongodump --db #{db} --out #{path.join(file)} && cd #{path} && tar czf #{file}.tgz #{file} && rm -r #{file}"
+      puts command
+      system command
+    end
+
+    desc 'Prune database dumps to keep daily dumps for last month, weekly dumps before that, for the supplied RAILS_ENV'
+    task :prune_dumps => :environment do
+      puts "Pruning database dumps for #{Rails.env}"
+      def file_time(filename)
+        return unless match = filename.match(%r(-([0-9-]+).tgz))
+        Time.strptime(match[1], DUMP_TIME_FORMAT)
+      end
+      path = Rails.root.join 'db', 'backups', '*.tgz'
+      files = Dir.glob(path).select { |f| file_time(f) } # Only interested in files where we can determine time
+      # File from older than past month, keep most recent weekly
+      files.select { |f| file_time(f) < 1.month.ago }.group_by { |f| file_time(f).strftime('%Y week %V') }.each do |week, ff|
+        sorted = ff.sort_by { |f| file_time(f) }
+        sorted[0..-2].each do |f|
+          puts "Deleting #{f}"
+          system "rm #{f}"
+        end
+        puts "Keeping #{sorted.last}"
+      end
+      # Files from past month, keep most recent daily
+      files.select { |f| file_time(f) >= 1.month.ago }.group_by { |f| file_time(f).strftime('%Y-%m-%d') }.each do |day, ff|
+        sorted = ff.sort_by { |f| file_time(f) }
+        sorted[0..-2].each do |f|
+          puts "Deleting #{f}"
+          system "rm #{f}"
+        end
+        puts "Keeping #{sorted.last}"
+      end
+    end
+
   end
 
   namespace :test do
