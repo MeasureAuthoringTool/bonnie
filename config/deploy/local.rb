@@ -1,3 +1,5 @@
+require 'rvm1/capistrano3'
+
 # Capistrano is run on the deploy-to server via a Bamboo hook, so just deploy to the current host and user
 # account into a directory relative to our current directory
 

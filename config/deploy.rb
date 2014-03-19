@@ -5,6 +5,8 @@ set :application, 'bonnie'
 set :repo_url, 'https://github.com/projecttacoma/bonnie.git'
 set :deploy_to, '/var/www/rails_apps/bonnie'
 
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system db/backups}
+
 namespace :deploy do
 
   desc 'Restart application'
