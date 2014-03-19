@@ -53,20 +53,12 @@ class Admin::UsersController < ApplicationController
   def bundle
     user = User.find(params[:id])
     measures = user.measures
-
-    config = {}
-    config["hqmf_path"] = 'none'
-    config['version'] = '1.0'
-    config["use_nqf"] = false
-    stringio = Zip::ZipOutputStream::write_buffer do |zip|
-      exporter = Measures::Exporter::BundleExporter.new(measures,config,zip)
-      exporter.export
-    end
+    exporter = Measures::Exporter::BundleExporter.new(measures, hqmf_path: 'none', version: '1.0', use_nqf: false)
+    zip_data = exporter.export_zip
 
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
 
-    stringio.rewind
-    send_data stringio.sysread, :type => 'application/zip', :disposition => 'attachment', :filename => "bundle_#{user.email}_export.zip"
+    send_data zip_data, :type => 'application/zip', :disposition => 'attachment', :filename => "bundle_#{user.email}_export.zip"
   end
 
   def log_in_as
