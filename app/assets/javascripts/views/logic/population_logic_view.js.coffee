@@ -46,17 +46,20 @@ class Thorax.Views.PopulationLogic extends Thorax.View
           for key, value of rationale
             target = @$(".#{code}_children .#{key}")
             if (target.length > 0)
-              target.addClass(if updatedRationale[code]?[key] is false then 'eval-bad-specifics' else "eval-#{!!value}")
-              target.closest('.panel-heading').addClass(if updatedRationale[code]?[key] is false then 'eval-panel-bad-specifics' else "eval-panel-#{!!value}")
-      @rationaleScreenReaderStatus()
+
+              [targetClass, targetPanelClass, srTitle] = if updatedRationale[code]?[key] is false
+                ['eval-bad-specifics', 'eval-panel-bad-specifics', '(status: bad specifics)']
+              else
+                bool = !!value
+                ["eval-#{bool}", "eval-panel-#{bool}", "(status: #{bool})"]
+
+              target.addClass(targetClass)
+              target.closest('.panel-heading').addClass(targetPanelClass)
+              target.children('.sr-highlight-status').html(srTitle)
+              # this second line is there to fix an issue with sr-only in Chrome making text in inline elements not display
+              # by having the sr-only span and the DC title wrapped in a criteria-title span, the odd behavior goes away.
+              target.children('.criteria-title').children('.sr-highlight-status').html(srTitle)
     @expandPopulations()
-
-  rationaleScreenReaderStatus: ->
-    @$('.rationale .rationale-target').find('.sr-highlight-status').html('(status: none)')
-    @$('.eval-bad-specifics').children('.sr-highlight-status').html('(status: bad specifics)')
-    @$('.eval-false').children('.sr-highlight-status').html('(status: false)')
-    @$('.eval-true').children('.sr-highlight-status').html('(status: true)')
-
 
   highlightPatientData: (dataCriteriaKey, populationCriteriaKey) ->
     if @latestResult?.get('finalSpecifics')?[populationCriteriaKey]
@@ -83,9 +86,7 @@ class Thorax.Views.PopulationLogic extends Thorax.View
 
   showCoverage: ->
     @clearRationale()
-    @$('.rationale .rationale-target').addClass('eval-uncovered')
     for criteria in @model.coverage().rationaleCriteria
-      @$(".#{criteria}").removeClass('eval-uncovered')
       @$(".#{criteria}").addClass('eval-coverage') 
     @coverageScreenReaderStatus()
 
@@ -97,7 +98,7 @@ class Thorax.Views.PopulationLogic extends Thorax.View
 
   clearCoverage: ->
     if @$('.eval-coverage').length > 0
-      @$('.rationale .rationale-target').removeClass('eval-coverage eval-uncovered')
+      @$('.rationale .rationale-target').removeClass('eval-coverage')
       @$('.sr-highlight-status').html('')
 
   expandPopulations: ->
