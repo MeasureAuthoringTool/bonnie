@@ -32,6 +32,12 @@
   .eval-coverage {
     background-color: @blue-lightest;
     color: @blue-darker;
+    // FIXME: Back out this change when pophealth logic viz is integrated; intended as short-term fix for coverage
+    li {
+      background-color: white;
+      color: black;
+      font-weight: 400;
+    }
   }
   .panel {
     padding: 5px 0;
