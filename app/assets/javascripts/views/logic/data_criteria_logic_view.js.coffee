@@ -1,15 +1,17 @@
 class Thorax.Views.DataCriteriaLogic extends Thorax.View
-  
+
   template: JST['logic/data_criteria']
-  operator_map: 
+  operator_map:
     'XPRODUCT':'AND'
     'UNION':'OR'
 
   events:
     'mouseover .highlight-target': 'highlightEntry'
     'mouseout .highlight-target': 'clearHighlightEntry'
+    'click .toggle-highlight-target': 'toggleHighlightEntry'
 
   initialize: ->
+    # @populationCode =
     @dataCriteria = @measure.get('data_criteria')[@reference]
     # we need to do this because the view helper doesn't seem to be available in an #each.
     if @dataCriteria.field_values
@@ -38,6 +40,9 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.View
 
   clearHighlightEntry: (e) ->
     @populationCriteriaView().parent.clearHighlightPatientData()
+
+  toggleHighlightEntry: (e) ->
+    if $(e.target).is(':checked') then @highlightEntry() else @clearHighlightEntry()
 
   populationCriteriaView: ->
     parent = @parent
