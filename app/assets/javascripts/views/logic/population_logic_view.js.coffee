@@ -58,6 +58,8 @@ class Thorax.Views.PopulationLogic extends Thorax.View
               target.addClass(targetClass)
               target.closest('.panel-heading').addClass(targetPanelClass)
               target.children('.sr-highlight-status').html(srTitle)
+              # this second line is there to fix an issue with sr-only in Chrome making text in inline elements not display
+              # by having the sr-only span and the DC title wrapped in a criteria-title span, the odd behavior goes away.
               target.children('.criteria-title').children('.sr-highlight-status').html(srTitle)
     @expandPopulations()
 
