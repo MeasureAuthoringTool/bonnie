@@ -119,6 +119,12 @@ class Thorax.Models.Patient extends Thorax.Model
       expectedValues.add @getExpectedValue(population)
     expectedValues
 
+  sortCriteriaBy: (attribute) ->
+    originalComparator = @get('source_data_criteria').comparator
+    @get('source_data_criteria').comparator = attribute
+    @get('source_data_criteria').sort()
+    @get('source_data_criteria').comparator = originalComparator
+
   validate: ->
     errors = []
     errors.push ['first', 'Name fields cannot be blank'] unless @get('first').length > 0

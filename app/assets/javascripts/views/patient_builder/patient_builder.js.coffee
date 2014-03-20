@@ -120,6 +120,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @$('.has-error').removeClass('has-error')
     $(e.target).button('saving').prop('disabled', true)
     @serializeWithChildren()
+    @model.sortCriteriaBy 'start_date'
     status = @originalModel.save @model.toJSON(),
       success: (model) =>
         @patients.add model # make sure that the patient exist in the global patient collection
