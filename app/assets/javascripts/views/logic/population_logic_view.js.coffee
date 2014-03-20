@@ -9,7 +9,7 @@ class Thorax.Views.PopulationsLogic extends Thorax.LayoutView
   showCoverage: -> @getView().showCoverage()
   clearCoverage: -> @getView().clearCoverage()
   populationContext: (population) ->
-    _(population.toJSON()).extend 
+    _(population.toJSON()).extend
       isActive: population is @collection.first()
       populationTitle: population.get('title') || population.get('sub_id')
 
@@ -71,9 +71,9 @@ class Thorax.Views.PopulationLogic extends Thorax.View
         for codedEntry in matchingCodedEntries
           type = (if goodElements?.indexOf(codedEntry.id) < 0 then partial else valid)
           # picked up by EditCriteriaView
-          for sourceDataCriterium in @latestResult.patient.get('source_data_criteria').models 
+          for sourceDataCriterium in @latestResult.patient.get('source_data_criteria').models
             if sourceDataCriterium.get('coded_entry_id') == codedEntry.id
-              sourceDataCriterium.trigger 'highlight', type 
+              sourceDataCriterium.trigger 'highlight', type
 
   clearHighlightPatientData: ->
     # picked up by PatientBuilder
@@ -82,24 +82,25 @@ class Thorax.Views.PopulationLogic extends Thorax.View
   clearRationale: ->
     @$('.rationale .rationale-target').removeClass('eval-false eval-true eval-bad-specifics')
     @$('.rationale .panel-heading').removeClass('eval-panel-false eval-panel-true eval-panel-bad-specifics')
-    @$('.sr-highlight-status').html('')
+    @$('.sr-highlight-status').empty()
 
   showCoverage: ->
     @clearRationale()
     for criteria in @model.coverage().rationaleCriteria
-      @$(".#{criteria}").addClass('eval-coverage') 
+      @$(".#{criteria}").addClass('eval-coverage')
     @coverageScreenReaderStatus()
 
   coverageScreenReaderStatus: ->
     @$('.rationale .rationale-target').find('.sr-highlight-status').html('(status: not covered)')
     @$('.eval-coverage').children('.sr-highlight-status').html('(status: covered)')
-    @$('.conjunction').children('.sr-highlight-status').html('')
-    @$('.population-label').children('.sr-highlight-status').html('')
+    @$('.eval-coverage').children('.criteria-title').children('.sr-highlight-status').html('(status: covered)')
+    @$('.conjunction').children('.sr-highlight-status').empty()
+    @$('.population-label').children('.sr-highlight-status').empty()
 
   clearCoverage: ->
     if @$('.eval-coverage').length > 0
       @$('.rationale .rationale-target').removeClass('eval-coverage')
-      @$('.sr-highlight-status').html('')
+      @$('.sr-highlight-status').empty()
 
   expandPopulations: ->
     @$('.panel-population > a[data-toggle="collapse"]').removeClass('collapsed')

@@ -1,13 +1,14 @@
 class Thorax.Views.DataCriteriaLogic extends Thorax.View
-  
+
   template: JST['logic/data_criteria']
-  operator_map: 
+  operator_map:
     'XPRODUCT':'AND'
     'UNION':'OR'
 
   events:
     'mouseover .highlight-target': 'highlightEntry'
     'mouseout .highlight-target': 'clearHighlightEntry'
+    'click .toggle-highlight-target': 'toggleHighlightEntry'
 
   initialize: ->
     @dataCriteria = @measure.get('data_criteria')[@reference]
@@ -38,6 +39,10 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.View
 
   clearHighlightEntry: (e) ->
     @populationCriteriaView().parent.clearHighlightPatientData()
+
+  toggleHighlightEntry: (e) ->
+    @clearHighlightEntry()
+    if $(e.target).is(':checked') then @highlightEntry()
 
   populationCriteriaView: ->
     parent = @parent

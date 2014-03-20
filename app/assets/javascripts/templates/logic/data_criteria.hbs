@@ -1,4 +1,10 @@
-<span class="{{dataCriteria.key}} rationale-target{{#ifCond dataCriteria.type '!=' 'derived'}} highlight-target{{/ifCond}}">
+<label class="{{dataCriteria.key}} rationale-target{{#ifCond dataCriteria.type '!=' 'derived'}} highlight-target{{/ifCond}}">
+{{#ifCond dataCriteria.type '!=' 'derived'}}
+  <span class="sr-only">
+    <input type="radio" name="toggleHighlight" class="toggle-highlight-target">
+  </span>
+{{/ifCond}}
+
 {{#each dataCriteria.subset_operators}}
   {{view "SubsetOperatorLogic" subsetOperator=this tag="span"}}
 {{/each}}
@@ -46,6 +52,4 @@
   {{/if}}
 
 {{/ifCond}}
-</span>
-
-
+</label>
