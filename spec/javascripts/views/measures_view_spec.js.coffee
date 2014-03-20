@@ -9,5 +9,5 @@ describe 'MeasuresView', ->
     # expect(@measuresView.$el).toContainText "Total measures: #{@measures.length}"
     expect(@measuresView.$('.measure').length).toBe @measures.length
     measure = @measures.first()
-    expect(@measuresView.$el).toContainText measure.get('measure_id')
+    expect(@measuresView.$el).toContainText measure.get('cms_id')
     expect(@measuresView.$el).toContainText measure.get('title')
