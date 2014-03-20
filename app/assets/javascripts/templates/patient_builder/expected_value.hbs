@@ -1,5 +1,83 @@
-<h3>Expected Value</h3>
-<div class="form-inline tab-pane">
+<h3>Expected Value</h3> <button type="button" class="btn btn-default pull-right btn-expected-value" data-toggle="popover" data-placement="left" data-html="true"><i class="fa fa-plus"></i></button>
+<script type="text/x-handlebars" class="popover-tmpl">
+  <div class="form-inline">
+    {{#each currentCriteria}}
+      {{#ifCond key "==" "OBSERV"}}
+        <label>
+          {{displayName}}
+          <input type="number" name="{{key}}" min="0" value="{{value}}">
+        </label>
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">{{../../OBSERV_UNIT}}</button>
+        <ul class="dropdown-menu">
+          <li>{{#button "setObservMins" tag="a"}}mins{{/button}}</li>
+          <li>{{#button "setObservPerc" tag="a"}}%{{/button}}</li>
+        </ul>
+      {{else}}
+        {{#if isEoC}}
+          <div class="form-group">
+            <label>
+               <input type="number" name="{{key}}" min="0" value="{{value}}">
+               {{displayName}}
+            </label>
+          </div>
+        {{else}}
+          {{#ifCond key "==" "MSRPOPL"}}
+            <div class="form-group">
+              <label>
+                 <input type="number" name="{{key}}" min="0" value="{{value}}">
+                 {{displayName}}
+              </label>
+            </div>
+          {{else}}
+            <label class="checkbox-inline">
+              <input type="checkbox" name="{{key}}" {{#if value}}checked="{{value}}"{{/if}}>
+              {{displayName}}
+            </label>
+          {{/ifCond}}
+        {{/if}}
+      {{/ifCond}}
+    {{/each}}
+  </div>
+</script>
+<div class="tab-pane">
+  {{#each currentCriteria}}
+    {{#ifCond key "==" "OBSERV"}}
+      <label>
+        {{displayName}}: {{value}} {{../../OBSERV_UNIT}}
+        {{!-- <input type="number" name="{{key}}" min="0"> --}}
+      </label>
+      {{!-- <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">{{../../OBSERV_UNIT}}</button>
+      <ul class="dropdown-menu">
+        <li>{{#button "setObservMins" tag="a"}}mins{{/button}}</li>
+        <li>{{#button "setObservPerc" tag="a"}}%{{/button}}</li>
+      </ul> --}}
+    {{else}}
+      {{#if isEoC}}
+        {{!-- <div class="form-group"> --}}
+          <label>
+             {{!-- <input type="number" name="{{key}}" min="0"> --}}
+             {{displayName}}: {{value}}
+          </label>
+        {{!-- </div> --}}
+      {{else}}
+        {{#ifCond key "==" "MSRPOPL"}}
+          {{!-- <div class="form-group"> --}}
+            <label>
+               {{!-- <input type="number" name="{{key}}" min="0"> --}}
+               {{displayName}}: {{value}}
+            </label>
+          {{!-- </div> --}}
+        {{else}}
+          <label>
+            {{!-- <input type="checkbox" name="{{key}}"> --}}
+            {{displayName}}: {{value}}
+          </label>
+        {{/ifCond}}
+      {{/if}}
+    {{/ifCond}}
+  {{/each}}
+</div>
+{{!-- <div class="form-inline tab-pane">
   {{#each currentCriteria}}
     {{#ifCond key "==" "OBSERV"}}
       <div class="form-group">
@@ -28,4 +106,4 @@
       {{/if}}
     {{/ifCond}}
   {{/each}}
-</div>
+</div> --}}

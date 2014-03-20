@@ -71,7 +71,9 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
     'blur input': 'triggerMaterialize'
     'blur input[name="MSRPOPL"]': 'updateObserv'
-    'rendered': 'setObservs'
+    rendered: -> 
+      @$('.btn-expected-value').popover(content: @$('.popover-tmpl').text())
+      @setObservs()
 
   context: ->
     context = super
@@ -98,6 +100,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         key: pc
         displayName: criteriaMap[pc]
         isEoC: @measure.get('episode_of_care')
+        value: @model.get(pc)
     unless @model.has('OBSERV_UNIT') or not @measure.get('continuous_variable') then @model.set 'OBSERV_UNIT', ' mins', {silent:true}
 
   updateObserv: ->
