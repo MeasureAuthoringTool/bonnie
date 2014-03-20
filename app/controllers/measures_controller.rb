@@ -121,6 +121,14 @@ class MeasuresController < ApplicationController
 
     measure.save!
 
+    # rebuild the users patients if set to do so
+    if params[:rebuild_patients] == "true"
+      Record.by_user(current_user).each do |r| 
+        Measures::PatientBuilder.rebuild_patient(r)
+        r.save!
+      end
+    end
+
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
