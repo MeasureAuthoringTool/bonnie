@@ -12,6 +12,17 @@
     </span>
   </div>
   <div class="measure-dsp">
+    {{#if episode_of_care}}
+      <div class="measure-dsp-title">
+        Episode(s) of Care:
+      </div>
+        {{#each episodesOfCare tag="ul"}}
+          {{#with attributes}}
+            <li>{{description}}</li>
+          {{/with}}
+        {{/each}}
+      <p></p>
+    {{/if}}
     <div class="measure-dsp-title">
       Description:
     </div>
