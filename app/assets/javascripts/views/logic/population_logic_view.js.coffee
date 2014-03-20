@@ -93,6 +93,7 @@ class Thorax.Views.PopulationLogic extends Thorax.View
   coverageScreenReaderStatus: ->
     @$('.rationale .rationale-target').find('.sr-highlight-status').html('(status: not covered)')
     @$('.eval-coverage').children('.sr-highlight-status').html('(status: covered)')
+    @$('.eval-coverage').children('.criteria-title').children('.sr-highlight-status').html('(status: covered)')
     @$('.conjunction').children('.sr-highlight-status').empty()
     @$('.population-label').children('.sr-highlight-status').empty()
 
