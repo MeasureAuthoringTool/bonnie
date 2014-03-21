@@ -10,7 +10,7 @@
     <label>
       <i class="fa fa-tasks"></i> measure period:
     </label>
-    <span class="year">2012</span>
+    <span class="year"><%= Time.zone.at(APP_CONFIG['measure_period_start']).year %></span>
   </div>
 
 </div>
