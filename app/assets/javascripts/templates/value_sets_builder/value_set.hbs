@@ -1,7 +1,7 @@
 <div class="value-set-entry">
   <div class="criteria-details">
       {{#button "toggleDetails" class="close"}}
-        <i class="fa fa-lg fa-fw fa-angle-right"></i>
+        {{#if isWhiteList}}<i class="fa fa-fw fa-search"></i>{{else}}{{#if isBlackList}}<i class="fa fa-fw fa-search"></i>{{else}}<i class="fa fa-lg fa-fw fa-angle-right"></i>{{/if}}{{/if}}
         <span class="sr-only">toggle details</span>
       {{/button}}
         <h4 class="{{#if isEmpty}}empty{{/if}}"><i class="fa fa-fw fa-lg {{#if isWhiteList}}fa-check-circle success{{else}}{{#if isBlackList}}fa-times-circle danger{{else}}fa-list-alt{{/if}}{{/if}}"></i>  {{display_name}}  {{!-- <small>{{oid}}</small> --}}
@@ -43,7 +43,7 @@
                       <div class="col-xs-1">
                         {{#if white_list}}<i class="fa fa-fw fa-lg fa-check"></i>{{else}}{{#if black_list}}<i class="fa fa-fw fa-lg fa-times"></i>{{else}}{{/if}}{{/if}}
                       </div>
-                      <div class="col-xs-9">
+                      <div class="col-xs-8">
                         <strong><small>{{code}}</small></strong> {{display_name}} <span class="label label-{{#if white_list}}success{{else}}{{#if black_list}}danger{{else}}info{{/if}}{{/if}}">{{code_system_name}}</span>
                       </div>
                       <div class="col-xs-3">
