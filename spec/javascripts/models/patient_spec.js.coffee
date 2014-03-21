@@ -21,3 +21,16 @@ describe 'Patient', ->
     clone = @patient.deepClone({dedupName: true})
     expect(clone.get("first")).toEqual @patient.get("first") + " (1)"
 
+  it 'correctly sorts criteria by multiple attributes', ->
+    # Patient has for existing criteria; first get their current order
+    startOrder = @patient.get('source_data_criteria').map (dc) -> dc.cid
+    # Set some attribute values so that they should sort 4,3,2,1 and sort
+    @patient.get('source_data_criteria').at(0).set start_date: 2, end_date: 2
+    @patient.get('source_data_criteria').at(1).set start_date: 2, end_date: 1
+    @patient.get('source_data_criteria').at(2).set start_date: 1, end_date: 2
+    @patient.get('source_data_criteria').at(3).set start_date: 1, end_date: 1
+    @patient.sortCriteriaBy 'start_date', 'end_date'
+    expect(@patient.get('source_data_criteria').at(0).cid).toEqual startOrder[3]
+    expect(@patient.get('source_data_criteria').at(1).cid).toEqual startOrder[2]
+    expect(@patient.get('source_data_criteria').at(2).cid).toEqual startOrder[1]
+    expect(@patient.get('source_data_criteria').at(3).cid).toEqual startOrder[0]

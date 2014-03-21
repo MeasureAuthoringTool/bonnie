@@ -93,7 +93,7 @@ describe 'PatientBuilderView', ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
       @patientBuilder.$('button[data-call-method=toggleDetails]:first').click()
-      @patientBuilder.$(':input[name=start_date]:first').val('08/10/2012')
+      @patientBuilder.$(':input[name=start_date]:first').val('01/1/2012')
       @patientBuilder.$(':input[name=start_time]:first').val('3:33')
       @patientBuilder.$(':input[name=end_date_is_undefined]:first').click()
       # verify DOM as well
@@ -102,7 +102,7 @@ describe 'PatientBuilderView', ->
       @patientBuilder.$("button[data-call-method=save]").click()
 
     it "serializes the attributes correctly", ->
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('start_date')).toEqual moment('08/10/2012 3:33').format('X') * 1000
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('start_date')).toEqual moment('01/1/2012 3:33').format('X') * 1000
       expect(@patientBuilder.model.get('source_data_criteria').first().get('end_date')).toBeUndefined()
 
     afterEach -> @patientBuilder.remove()
