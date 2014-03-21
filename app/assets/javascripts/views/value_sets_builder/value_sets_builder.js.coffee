@@ -32,6 +32,8 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
       @collection.add model
       @whiteList.reset(@collection.whiteList())
       @blackList.reset(@collection.blackList())
+    @listenTo @whiteListCollectionView, 'search-lookup', (model) -> @lookupValueSet(model)
+    @listenTo @blackListCollectionView, 'search-lookup', (model) -> @lookupValueSet(model)
 
   filterContext: (f) ->
     _(f.toJSON()).extend
@@ -61,6 +63,11 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     @query = measure.get('title')
     @searchResults.reset(measure.valueSets().models)
     @$('.input-group').addClass('has-success')
+
+  lookupValueSet: (vs) ->
+    @query = vs.get('display_name')
+    matchedOids = [vs.get('oid')]
+    @searchResults.reset(@collection.filter((vs) -> vs.get('oid') in matchedOids))
 
   resetSearchBar: ->
     @$('.input-group').removeClass('has-success has-error')
@@ -172,8 +179,11 @@ class Thorax.Views.ValueSetView extends Thorax.View
     
   toggleDetails: (e) ->
     e.preventDefault()
-    @$('.criteria-details, form').toggleClass('hide')
-    @$('.criteria-type-marker').toggleClass('open')
+    if @white or @black
+      @parent.trigger 'search-lookup', @model
+    else
+      @$('.criteria-details, form').toggleClass('hide')
+      @$('.criteria-type-marker').toggleClass('open')
 
   updateLists: (e) ->
     concept = $(e.target).model()
