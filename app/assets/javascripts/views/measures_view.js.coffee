@@ -1,4 +1,4 @@
-class Thorax.Views.Measures extends Thorax.View
+class Thorax.Views.Measures extends Thorax.Views.BonnieView
 
   template: JST['measures']
 
@@ -16,7 +16,7 @@ class Thorax.Views.Measures extends Thorax.View
       if @collection.isEmpty() then @importMeasure()
 
 
-class Thorax.Views.MeasureRowView extends Thorax.View
+class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
 
   options:
     fetch: false
@@ -37,23 +37,23 @@ class Thorax.Views.MeasureRowView extends Thorax.View
     importMeasureView.display()
 
 
-class Thorax.Views.MeasurePercentageView extends Thorax.View
+class Thorax.Views.MeasurePercentageView extends Thorax.Views.BonnieView
   template: JST['measure/percentage']
   events:
     rendered: -> @$('.dial').knob()
 
 
-class Thorax.Views.MeasureStatusView extends Thorax.View
+class Thorax.Views.MeasureStatusView extends Thorax.Views.BonnieView
   template: JST['measure/status']
 
 
-class Thorax.Views.MeasureFractionView extends Thorax.View
+class Thorax.Views.MeasureFractionView extends Thorax.Views.BonnieView
   template: JST['measure/fraction']
 
-class Thorax.Views.MeasureCoverageView extends Thorax.View
+class Thorax.Views.MeasureCoverageView extends Thorax.Views.BonnieView
   template: JST['measure/coverage']
   events:
-    rendered: -> 
+    rendered: ->
       @$('.dial').knob()
       @showCoverage()
 

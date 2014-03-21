@@ -1,4 +1,4 @@
-class Thorax.Views.ValueSetsBuilder extends Thorax.View
+class Thorax.Views.ValueSetsBuilder extends Thorax.Views.BonnieView
   template: JST['value_sets_builder/value_sets_builder']
   events:
     'click .search-button': 'search'
@@ -26,7 +26,7 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     @searchResultsCollectionView = new Thorax.CollectionView
       collection: @searchResults
       itemView: (item) => new Thorax.Views.ValueSetView(model: item.model, white: false, black: false, filters: @filters, inclusions: @inclusions, exclusions: @exclusions)
-    @listenTo @searchResultsCollectionView, 'update-lists', (model) -> 
+    @listenTo @searchResultsCollectionView, 'update-lists', (model) ->
       @savePatients()
       @collection.remove(@collection.findWhere('oid':model.get('oid')))
       @collection.add model
@@ -52,7 +52,7 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
       else if matchedOids.length > 0
         @searchResults.reset(@collection.filter((vs) -> vs.get('oid') in matchedOids))
         @$('.input-group').addClass('has-success')
-      else 
+      else
         # console.log "No search results found for #{@query}"
         @$('.input-group').addClass('has-error')
     else
@@ -125,7 +125,7 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
     @$("#rebuildPatientsDialog").modal backdrop: 'static'
     @$(".rebuild-patients-progress-bar").css('width', '0%')
     @patients.each (p) =>
-      p.save null, success: (model, response) => 
+      p.save null, success: (model, response) =>
         # console.log "Saved #{model.get('last')}, #{@patients.indexOf(p)}"
         index = @patients.indexOf(p)
         perc = (index / @patients.length) * 100
@@ -133,11 +133,11 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.View
         if @patients.indexOf(p) == @patients.length - 1 then @$("#rebuildPatientsDialog").modal 'hide'
     @$(".rebuild-patients").prop('disabled', false)
 
-class Thorax.Views.ValueSetView extends Thorax.View
+class Thorax.Views.ValueSetView extends Thorax.Views.BonnieView
   template: JST['value_sets_builder/value_set']
   events:
     'change .filter-vs': 'updateLists'
-    rendered: -> 
+    rendered: ->
       @$('.value-set-save').prop('disabled', true)
       @$('select.filter-vs').selectBoxIt()
 
@@ -145,11 +145,11 @@ class Thorax.Views.ValueSetView extends Thorax.View
     @codeSystems = {}
     for concept in @model.get('concepts')
       if @white or @black
-        if concept.white_list and @white or concept.black_list and @black 
+        if concept.white_list and @white or concept.black_list and @black
           @addToCodeSystems(concept)
       else
         if @inclusions? and @exclusions?
-          if @inclusions.isEmpty() and @exclusions.isEmpty() 
+          if @inclusions.isEmpty() and @exclusions.isEmpty()
             @addToCodeSystems(concept)
           else if @inclusions.isEmpty()
             unless concept.code in @exclusions.pluck('code')
@@ -176,7 +176,7 @@ class Thorax.Views.ValueSetView extends Thorax.View
       isEmpty: _(_(@codeSystems).pluck('count')).every((c) -> c == 0)
       isWhiteList: @white && !@black
       isBlackList: @black && !@white
-    
+
   toggleDetails: (e) ->
     e.preventDefault()
     if @white or @black
@@ -210,11 +210,11 @@ class Thorax.Views.ValueSetView extends Thorax.View
       if @white or @black
         if concept.white_list and @white
           @addToCodeSystems(concept)
-        if concept.black_list and @black 
+        if concept.black_list and @black
           @addToCodeSystems(concept)
       else
         if @inclusions? and @exclusions?
-          if @inclusions.isEmpty() and @exclusions.isEmpty() 
+          if @inclusions.isEmpty() and @exclusions.isEmpty()
             @addToCodeSystems(concept)
           else if @inclusions.isEmpty()
             unless concept.code in @exclusions.pluck('code')

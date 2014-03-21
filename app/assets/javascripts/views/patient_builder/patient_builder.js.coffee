@@ -1,4 +1,4 @@
-class Thorax.Views.PatientBuilder extends Thorax.View
+class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   className: 'patient-builder'
 
   template: JST['patient_builder/patient_builder']

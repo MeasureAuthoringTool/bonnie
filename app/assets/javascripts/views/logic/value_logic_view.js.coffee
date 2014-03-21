@@ -1,7 +1,7 @@
-class Thorax.Views.ValueLogic extends Thorax.View
-  
+class Thorax.Views.ValueLogic extends Thorax.Views.BonnieView
+
   template: JST['logic/value']
-  unit_map: 
+  unit_map:
     'a':'year'
     'mo':'month'
     'wk':'week'

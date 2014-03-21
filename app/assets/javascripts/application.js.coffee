@@ -25,7 +25,7 @@
 #= require jQuery-Knob/js/jquery.knob
 #= require jquery-selectboxit/src/javascripts/jquery.selectBoxIt.min
 #= require jquery.fileDownload/src/Scripts/jquery.fileDownload
-#= require jquery-placeholder/jquery.placeholder.min.js
+#= require jquery-placeholder/jquery.placeholder.min
 #
 #= require helpers
 #= require_tree ./templates

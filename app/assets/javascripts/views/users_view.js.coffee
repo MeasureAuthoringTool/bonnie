@@ -1,8 +1,8 @@
-class Thorax.Views.Users extends Thorax.View
+class Thorax.Views.Users extends Thorax.Views.BonnieView
   className: 'user-management'
   template: JST['users/users']
 
-class Thorax.Views.User extends Thorax.View
+class Thorax.Views.User extends Thorax.Views.BonnieView
   template: JST['users/user']
   editTemplate: JST['users/edit_user']
   tagName: 'tr'
@@ -19,7 +19,7 @@ class Thorax.Views.User extends Thorax.View
     rendered: ->
       @exportBundleView = new Thorax.Views.ExportBundleView() # Modal dialogs for exporting
       @exportBundleView.appendTo(@$el)
-  
+
   approve: -> @model.approve()
 
   disable: -> @model.disable()

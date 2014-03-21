@@ -1,4 +1,4 @@
-class Thorax.Views.ErrorDialog extends Thorax.View
+class Thorax.Views.ErrorDialog extends Thorax.Views.BonnieView
   template: JST['error_dialog']
 
   display: ->

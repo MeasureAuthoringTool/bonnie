@@ -1,7 +1,7 @@
-class Thorax.Views.RecordSection extends Thorax.View  
+class Thorax.Views.RecordSection extends Thorax.Views.BonnieView
   template: JST['patients/record_section']
   initialize: ->
-    @entries = @model.get(@section) if @section? 
+    @entries = @model.get(@section) if @section?
   render: ->
     _(super).extend
     for entry in @entries

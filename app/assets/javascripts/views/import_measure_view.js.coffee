@@ -1,4 +1,4 @@
-class Thorax.Views.ImportMeasure extends Thorax.View
+class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
   template: JST['import/import_measure']
   context: ->
     hqmfSetId = @model.get('hqmf_set_id') if @model?
@@ -26,7 +26,7 @@ class Thorax.Views.ImportMeasure extends Thorax.View
     'ready': 'setup'
     'change input:file':  'enableLoad'
 
-  enableLoad: -> 
+  enableLoad: ->
     @$('#loadButton').prop('disabled', !@$('input:file').val().length > 0)
 
   setup: ->
