@@ -1,5 +1,5 @@
 # Abstract base class for children of the patient builder that need to communicate with the top-level via events
-class Thorax.Views.BuilderChildView extends Thorax.View
+class Thorax.Views.BuilderChildView extends Thorax.Views.BonnieView
   events:
     ready: -> @patientBuilder().registerChild this
   patientBuilder: ->
@@ -11,7 +11,7 @@ class Thorax.Views.BuilderChildView extends Thorax.View
     @trigger 'bonnie:materialize'
 
 
-class Thorax.Views.SelectCriteriaView extends Thorax.View
+class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
   template: JST['patient_builder/select_criteria']
   events:
     rendered: ->

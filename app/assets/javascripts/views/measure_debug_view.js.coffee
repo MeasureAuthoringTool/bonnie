@@ -1,4 +1,4 @@
-class Thorax.Views.MeasureDebug extends Thorax.View
+class Thorax.Views.MeasureDebug extends Thorax.Views.BonnieView
   template: JST['measure_debug']
 
   events:

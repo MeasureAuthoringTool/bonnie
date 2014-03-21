@@ -1,4 +1,4 @@
-class Thorax.Views.DataCriteriaLogic extends Thorax.View
+class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
 
   template: JST['logic/data_criteria']
   operator_map:

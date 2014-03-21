@@ -1,15 +1,15 @@
-class Thorax.Views.RecordEntry extends Thorax.View
+class Thorax.Views.RecordEntry extends Thorax.Views.BonnieView
   template: JST['patients/record_entry']
   getDescription: -> @entry.description
   # FIXME: Migrate hqmf decoding
-  getCodes: -> 
+  getCodes: ->
     codes = []
     if @entry.codes
       for code, value of @entry.codes
         codes.push("#{code}: #{value}")
     codes
   # FIXME: Default value should be UNK, but can't pass in params via templates...
-  getTime: (nil_string='present') -> 
+  getTime: (nil_string='present') ->
     if @entry.start_time? or @entry.end_time?
       start_string = if @entry.start_time? then new Date(@entry.start_time * 1000) else nil_string
       end_string = if @entry.end_time? then new Date(@entry.end_time * 1000) else nil_string
