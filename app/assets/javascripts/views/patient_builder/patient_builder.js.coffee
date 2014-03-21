@@ -27,7 +27,7 @@ class Thorax.Views.PatientBuilder extends Thorax.View
     @populationLogicView.showRationale @model
     @expectedValuesView.on 'population:select', (population_index) =>
       @populationLogicView.setPopulation @measure.get('populations').at(population_index)
-      @materialize()
+      @populationLogicView.showRationale @model
     @model.on 'materialize', =>
       @populationLogicView.showRationale @model
     @model.on 'clearHighlight', =>
