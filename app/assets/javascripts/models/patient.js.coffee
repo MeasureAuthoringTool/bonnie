@@ -119,9 +119,10 @@ class Thorax.Models.Patient extends Thorax.Model
       expectedValues.add @getExpectedValue(population)
     expectedValues
 
-  sortCriteriaBy: (attribute) ->
+  # Sort criteria by any number of attributes, first given highest priority
+  sortCriteriaBy: (attributes...) ->
     originalComparator = @get('source_data_criteria').comparator
-    @get('source_data_criteria').comparator = attribute
+    @get('source_data_criteria').comparator = (crit) -> _(attributes).map((attr) -> crit.get(attr))
     @get('source_data_criteria').sort()
     @get('source_data_criteria').comparator = originalComparator
 
