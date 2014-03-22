@@ -34,13 +34,13 @@ namespace :bonnie do
       Rake::Task["bundle:import"].invoke(args.file,'true','true',measure_type,'false')
 
       puts "dropping unneeded collections: measures, bundles, patient_cache, query_cache..."
-      MONGO_DB['bundles'].drop()
-      MONGO_DB['measures'].drop()
-      MONGO_DB['query_cache'].drop()
-      MONGO_DB['patient_cache'].drop()
+      Mongoid.default_session['bundles'].drop()
+      Mongoid.default_session['measures'].drop()
+      Mongoid.default_session['query_cache'].drop()
+      Mongoid.default_session['patient_cache'].drop()
 
       puts "clearing out system.js"
-      MONGO_DB['system.js'].find({}).remove_all
+      Mongoid.default_session['system.js'].find({}).remove_all
 
       user = User.by_email(email).first
       Measures::BundleLoader.load(args.file, user, measures_yml, load_from_hqmf, measure_type)

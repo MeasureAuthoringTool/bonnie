@@ -16,11 +16,11 @@ class ActiveSupport::TestCase
 
   def collection_fixtures(*collection_names)
     collection_names.each do |collection|
-      MONGO_DB[collection].drop
+      Mongoid.default_session[collection].drop
       Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
         fixture_json = JSON.parse(File.read(json_fixture_file))
         set_mongoid_ids(fixture_json)
-        MONGO_DB[collection].insert(fixture_json)
+        Mongoid.default_session[collection].insert(fixture_json)
       end
     end
   end

@@ -20,8 +20,8 @@ namespace :bonnie do
       end
 
       if args.drop_db? != 'false'
-        MONGO_DB['draft_measures'].drop()
-        MONGO_DB['health_data_standards_svs_value_sets'].drop()
+        Mongoid.default_session['draft_measures'].drop()
+        Mongoid.default_session['health_data_standards_svs_value_sets'].drop()
       end
 
       user = User.by_email(email).first
