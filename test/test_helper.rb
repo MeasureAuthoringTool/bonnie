@@ -45,5 +45,13 @@ class ActiveSupport::TestCase
       m.save
     end
   end
+
+  def associate_user_with_patients(user,patients)
+    patients.each do |p|
+      p.user = user
+      p.save
+    end
+  end
   
 end
+
