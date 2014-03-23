@@ -55,25 +55,32 @@ class Thorax.Views.Measure extends Thorax.View
     @$('.measure-listing').removeClass('active')
     @$('.btn-clone-patients').hide()
     m = @$(e.target).model()
-    @$(".measure-#{m.get('hqmf_set_id')}").addClass('active')
-    @$(".btn-clone-#{m.get('hqmf_set_id')}").show()
+    if @$('.select-patient:checked').length
+      @$(".measure-#{m.get('hqmf_set_id')}").addClass('active')
+      @$(".btn-clone-#{m.get('hqmf_set_id')}").show()
 
   cloneIntoMeasure: (e) ->
     $d = @$('.select-patient:checked')
-    measure = @measures.findWhere({hqmf_set_id: @$('.measure-listing.active').model().get('hqmf_set_id')})
+    measure = @measures.findWhere({hqmf_set_id: @$(e.target).model().get('hqmf_set_id')})
     count = 0
+    # @$("#clonePatientsDialog").modal backdrop: 'static'
+    @$(".rebuild-patients-progress-bar").css('width', '0%')
     for diff in $d
       difference = @$(diff).model()
       patient = @patients.findWhere({medical_record_number: difference.result.get('medical_record_id')})
-      clonedPatient = patient.deepClone(omit_id: true, dedupName: true)
+      clonedPatient = patient.deepClone(omit_id: true)
       clonedPatient.set('measure_ids', [measure.get('hqmf_set_id')])
       clonedPatient.save clonedPatient.toJSON(),
         success: (model) =>
           @patients.add model # make sure that the patient exist in the global patient collection
           measure.get('patients').add model # and the measure's patient collection
           if bonnie.isPortfolio then @measures.each (m) -> m.get('patients').add model
-          count++
-          bonnie.navigate "measures/#{measure.get('hqmf_set_id')}", trigger: true if count == $d.length
+          count += 1
+          perc = (count / $d.length) * 100
+          @$(".clone-patients-progress-bar").css('width', perc.toFixed() + '%')
+          if count == $d.length
+            # @$("#clonePatientsDialog").modal 'hide'
+            bonnie.navigate "measures/#{measure.get('hqmf_set_id')}", trigger: true
 
   deleteMeasure: (e) ->
     @model = $(e.target).model()
