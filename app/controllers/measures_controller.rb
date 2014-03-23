@@ -31,24 +31,6 @@ class MeasuresController < ApplicationController
     end
   end
 
-  def add
-    @measure = Measure.find(params[:id])
-    unless current_user.measures.include?(@measure)
-      current_user.measures << @measure
-      flash[:success] = "Added " + @measure.title.to_s() + " to your list!"
-    end
-    redirect_to measures_path
-  end
-
-  def remove
-    @measure = Measure.find(params[:id])
-    if current_user.measures.include?(@measure)
-      current_user.measures.delete(@measure)
-      flash[:alert] = "Removed " + @measure.title.to_s() + " from your list!"
-    end
-    redirect_to measures_path
-  end
-
   def create
     measure_details = {
      'type'=>params[:measure_type],
@@ -83,6 +65,7 @@ class MeasuresController < ApplicationController
       FileUtils.mkdir_p(errors_dir)
       if params[:measure_file]
         filename = "#{current_user.email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.zip"
+
         FileUtils.cp(params[:measure_file].tempfile, File.join(errors_dir, filename))
         File.open(File.join(errors_dir, "#{current_user.email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
         if e.is_a? Measures::ValueSetException

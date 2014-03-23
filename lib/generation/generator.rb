@@ -20,7 +20,7 @@ module HQMF
     end
 
 
-     # Map all patient api coded entry types from HQMF data criteria to Record sections.
+    # Map all patient api coded entry types from HQMF data criteria to Record sections.
     #
     # @param [String] type The type of the coded entry requried by a data criteria.
     # @return The section type for the given patient api function type
