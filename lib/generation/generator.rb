@@ -8,7 +8,7 @@ module HQMF
       patient = Record.new
       
       patient.gender = (Time.now.to_i % 2 == 0) ? ("M") : ("F")
-      patient.birthdate = Randomizer.randomize_birthdate(patient)
+      patient.birthdate = Randomizer.randomize_birthdate
 
       if initial_attributes.nil?
         patient = Randomizer.randomize_demographics(patient)
