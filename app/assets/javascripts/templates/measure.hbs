@@ -57,16 +57,34 @@
   <span class="measure-listing-header">Select Measure:</span>
   <div class="list-group">
     {{#collection measures}}
-      <a class="list-group-item measure-listing measure-{{hqmf_set_id}}">
-        <div class="row">
-          <div class="col-sm-6">
-            {{cms_id}}
+      {{#ifCond hqmf_set_id "!=" ../hqmf_set_id}}
+        <a class="list-group-item measure-listing measure-{{hqmf_set_id}}">
+          <div class="row">
+            <div class="col-sm-6">
+              {{cms_id}}
+            </div>
+            <div class="col-sm-6">
+              {{#button "cloneIntoMeasure" class="btn btn-default btn-clone-patients btn-clone-{{hqmf_set_id}}" style="display: none;" expand-tokens=true}}CLONE{{/button}}
+            </div>
           </div>
-          <div class="col-sm-6">
-            {{#button "cloneIntoMeasure" class="btn btn-default btn-clone-patients btn-clone-{{hqmf_set_id}}" style="display: none;" expand-tokens=true}}CLONE{{/button}}
-          </div>
-        </div>
-      </a>
+        </a>
+      {{/ifCond}}
     {{/collection}}
+  </div>
+</div>
+
+<div class="modal fade" id="clonePatientsDialog" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Cloning Patients...</h1>
+      </div>
+      <div class="modal-body">
+        <div class="progress progress-striped active">
+          <div class="progress-bar progress-bar-primary clone-patients-progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+            <span class="sr-only">Cloning...</span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
