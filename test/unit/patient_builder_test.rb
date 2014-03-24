@@ -8,6 +8,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
     associate_user_with_measures(@user,Measure.all)
     @measure_ids = ["E35791DF-5B25-41BB-B260-673337BC44A8"] # hqmf_set_id
     @data_criteria = HQMF::DataCriteria.get_settings_for_definition('diagnosis','active')
+    @data_criteria_encounter = HQMF::DataCriteria.get_settings_for_definition('encounter','performed')
     @valuesets = {"2.16.840.1.113883.3.526.3.1492"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.526.3.1492", "concepts"=>[
                                                                             HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"99201"}),
                                                                             HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"99202"}),
@@ -33,7 +34,9 @@ class PatientBuilderTest < ActiveSupport::TestCase
                                                                             HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA1"}),
                                                                             HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA2"}),
                                                                             HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"SNO1"}),
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"SNO2"})]})
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"SNO2"})]}),
+                   "2.16.840.1.113883.3.666.5.1084"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.666.5.1084" , "concepts"=>[
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA1"})]})
                   } # todo need to fake some of these out
 
     @coded_source_data_critria = {
@@ -60,6 +63,30 @@ class PatientBuilderTest < ActiveSupport::TestCase
           "field_values"=>{"ORDINAL"=>{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.526.3.1139","title"=>"ACE inhibitor or ARB"}},
           "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
           }    
+
+    @un_coded_with_facility = {
+          "id"=> "EncounterPerformedInpatient",
+          "start_date"=> 1333206000000,
+          "end_date"=> 1333206000000,
+          "negation"=>"false",
+          "field_values"=>{"FACILITY_LOCATION"=>{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.666.5.1084","title"=>"Non-icu"},
+            "FACILITY_LOCATION_ARRIVAL_DATETIME"=>{"type"=>"TS","value"=>1333206000000},
+            "FACILITY_LOCATION_DEPARTURE_DATETIME"=>{"type"=>"TS","value"=>1333206000000},
+            "START_DATETIME"=>{"type"=>"TS","value"=>1333206000000},
+            "STOP_DATETIME"=>{"type"=>"TS","value"=>1333206000000},
+            "LENGTH_OF_STAY"=>{"type"=>"PQ","value"=>"1","unit"=>"d"}
+          },
+          "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
+          }    
+    @source_with_range_value = {
+          "id"=> "DiagnosisActiveLimitedLifeExpectancy",
+          "start_date"=> 1333206000000,
+          "end_date"=> 1333206000000,
+          "value"=>[{"type"=>"PQ","value"=>"1","unit"=>"xx"}],
+          "negation"=>"false",
+          "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
+        }
+
   end
 
 
@@ -90,6 +117,17 @@ class PatientBuilderTest < ActiveSupport::TestCase
     Measures::PatientBuilder.derive_negation(entry,@coded_source_data_critria,@valuesets)
     assert entry.negation_ind, "negation should be true"
     assert_equal @coded_source_data_critria["negation_code"], entry.negation_reason, "Negation codes shoudl equal provided codes"
+  end
+
+  test "derive entry with facility" do
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria_encounter,@un_coded_with_facility, @valuesets)
+    assert entry, "Should have created an entry with un coded data"
+    assert_equal Encounter, entry.class, "should have created and Encounter object"
+    Measures::PatientBuilder.derive_field_values(entry, @un_coded_with_facility['field_values'],@valuesets)
+    assert !entry.facility.nil?, "facility should have been created"
+    assert !entry.facility.code.nil?, "facility should have a code"
+    assert !entry.facility.start_time.nil?, "facility should have a start time"
+    assert !entry.facility.end_time.nil?, "facility should have an end time"
   end
 
   test "derive time range"  do 
@@ -133,6 +171,14 @@ class PatientBuilderTest < ActiveSupport::TestCase
     expected_length = @un_coded_source_data_critria["value"].length
     assert_equal expected_length, entry.values.length, "Should have created #{expected_length} values"
     assert_equal @coded_source_data_critria["value"][0]["codes"], entry.values[0].codes 
+
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@source_with_range_value, @valuesets)
+    assert entry.values.nil? || entry.values.empty? , "There should be no values"
+    Measures::PatientBuilder.derive_values(entry,@source_with_range_value["value"],@valuesets)
+    expected_length = @source_with_range_value["value"].length
+    assert_equal expected_length, entry.values.length, "Should have created #{expected_length} values"
+    assert_equal @source_with_range_value["value"][0]["value"], entry.values[0].scalar 
+    assert_equal @source_with_range_value["value"][0]["unit"], entry.values[0].units
   end
 
   test "derive field"  do 
