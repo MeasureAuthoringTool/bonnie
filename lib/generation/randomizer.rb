@@ -9,17 +9,32 @@ module HQMF
     #         race/ethnicity, language, last name
     def self.randomize_demographics(patient)
       race_and_ethnicity = randomize_race_and_ethnicity
-      patient.race = {"code" => race_and_ethnicity[:race], "code_set" => "CDC-RE"}
-      patient.ethnicity = {"code" => race_and_ethnicity[:ethnicity], "code_set" => "CDC-RE"}
+      patient.race = {"code" => race_and_ethnicity[:race], "code_set" => "CDC-RE"} unless patient.race
+      patient.ethnicity = {"code" => race_and_ethnicity[:ethnicity], "code_set" => "CDC-RE"} unless patient.ethnicity
       
-      patient.languages = []
-      patient.languages << randomize_language
-      patient.first = randomize_first_name(patient.gender) if patient.gender
-      patient.last = randomize_last_name
+      patient.languages ||= []
+      patient.languages << randomize_language if patient.languages.empty?
+      patient.gender = randomize_gender unless patient.gender
+      patient.first = randomize_first_name(patient.gender) unless patient.first
+      patient.last = randomize_last_name unless patient.last
       patient.medical_record_number = Digest::MD5.hexdigest("#{patient.first} #{patient.last}")
+      patient.addresses ||= []
+      patient.addresses << randomize_address if patient.addresses.empty?
       
+      patient.birthdate = randomize_birthdate unless patient.birthdate
       patient
     end
+
+    def self.randomize_gender(percent = nil)
+      percent ||= rand(999)
+      case percent
+        when 0..499
+          'M'
+        when 500..999
+          'F'
+      end
+    end
+ 
 
     # Picks a race based on 2010 census estimates
     #
@@ -161,14 +176,9 @@ module HQMF
       }
       
       zip = zipcodes.keys[rand(zipcodes.length)]
-      street = "#{rand(100)} #{streetnames[rand(streetnames.length)]} Street"
+      street = "#{rand(100)+1} #{streetnames[rand(streetnames.length)]} Street"
       
-      {
-        'street' => street,
-        'city' => zipcodes[zip]['city'],
-        'state' => zipcodes[zip]['state'],
-        'postalCode' => zip
-      }.to_json
+      Address.new(street: street, city: zipcodes[zip]['city'], state: zipcodes[zip]['state'], zip: zip)
     end
 
     # More accurately, randomize a believable birthdate. Given a patient, find all coded entries that
@@ -177,9 +187,9 @@ module HQMF
     #
     # @param A patient with coded entries that dictate potential birthdates
     # @return A realistic birthdate for the given patient
-    def self.randomize_birthdate(patient)
+    def self.randomize_birthdate(low=35, high=60)
       now = Time.now
-      range = randomize_range(now.advance(years: -40), now.advance(years: -35))
+      range = randomize_range(now.advance(years: (-1*high)), now.advance(years: (-1 * low)))
       range.low.to_time_object
     end
 
@@ -202,24 +212,6 @@ module HQMF
       high = Value.new("TS", nil, Value.time_to_ts(high), true, false, false)
       
       time = Range.new("IVL_TS", low, high, 1)
-    end
-
-    # Return a set of randomly selected numbers between two bounds
-    #
-    # @param [int] min The lower inclusive bound
-    # @param [int] max The upper inclusive bound
-    # @param [int] least The minimum count to return
-    # @param [int] most The maximum count to return
-    # @return [String] A JSON format array of numbers
-    def self.n_between(min, max, least=1, most=1)
-      count = least + rand(1 + most - least).to_i
-      result = []
-      
-      count.times do
-        result << between(min, max)
-      end
-      
-      result.to_json
     end
 
     # Return a randomly selected number between two bounds

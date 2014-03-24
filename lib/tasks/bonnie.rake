@@ -96,6 +96,7 @@ namespace :bonnie do
 
     desc 'Reset DB; by default pulls from bonnie-dev.mitre.org:bonnie-production-gold; use HOST=<host> DB=<db> for another; DEMO=true prunes measures'
     task :reset => :environment do
+      
       host = ENV['HOST'] || 'bonnie-dev.mitre.org'
       source_db = ENV['DB'] || 'bonnie-production-gold'
       dest_db = Mongoid.default_session.options[:database]
@@ -103,10 +104,10 @@ namespace :bonnie do
       Mongoid.default_session.with(database: dest_db) { |db| db.drop }
       Mongoid.default_session.with(database: 'admin') { |db| db.command copydb: 1, fromhost: host, fromdb: source_db, todb: dest_db }
       puts "Dropping unneeded collections: measures, bundles, patient_cache, query_cache..."
-      MONGO_DB['bundles'].drop()
-      MONGO_DB['measures'].drop()
-      MONGO_DB['query_cache'].drop()
-      MONGO_DB['patient_cache'].drop()
+      Mongoid.default_session['bundles'].drop()
+      Mongoid.default_session['measures'].drop()
+      Mongoid.default_session['query_cache'].drop()
+      Mongoid.default_session['patient_cache'].drop()
       Rake::Task['bonnie:users:ensure_users_have_bundles'].invoke
       Rake::Task['bonnie:patients:update_measure_ids'].invoke
       Rake::Task['bonnie:users:associate_user_with_measures'].invoke
