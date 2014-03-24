@@ -1,4 +1,4 @@
-class Thorax.Views.PopulationCriteriaLogic extends Thorax.View
+class Thorax.Views.PopulationCriteriaLogic extends Thorax.Views.BonnieView
   template: JST['logic/population_criteria']
   events:
     'click .panel-population' : -> @$('.toggle-icon').toggleClass('fa-angle-right fa-angle-down')

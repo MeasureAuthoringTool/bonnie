@@ -1,4 +1,4 @@
-class Thorax.Views.RecordHeader extends Thorax.View  
+class Thorax.Views.RecordHeader extends Thorax.Views.BonnieView
   template: JST['patients/record_header']
   patientGender: -> @model.getGender()
   patientBirthdate: -> @model.getBirthdate()

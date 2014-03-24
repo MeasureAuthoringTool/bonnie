@@ -1,4 +1,4 @@
-class Thorax.Views.Measure extends Thorax.View
+class Thorax.Views.Measure extends Thorax.Views.BonnieView
   template: JST['measure']
 
   events:

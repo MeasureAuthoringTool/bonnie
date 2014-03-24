@@ -1,9 +1,9 @@
-class Thorax.Views.PopulationCalculation extends Thorax.View
+class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
   template: JST['population_calculation']
 
   initialize: ->
     @coverageView = new Thorax.Views.MeasureCoverageView(model: @model.coverage())
-    @listenTo @coverageView, 'logicView:showCoverage', -> 
+    @listenTo @coverageView, 'logicView:showCoverage', ->
       @trigger 'logicView:showCoverage'
       @$('.expand-result-icon').removeClass('fa-angle-down').addClass('fa-angle-right')
     @listenTo @coverageView, 'logicView:clearCoverage', -> @trigger 'logicView:clearCoverage'

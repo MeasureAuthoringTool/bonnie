@@ -1,4 +1,4 @@
-class Thorax.Views.ExportBundleView extends Thorax.View
+class Thorax.Views.ExportBundleView extends Thorax.Views.BonnieView
   template: JST['users/export_bundle']
   exporting: -> @$("#exportBundleDialog").modal backdrop: 'static'
   success: -> @$("#exportBundleDialog").modal 'hide'

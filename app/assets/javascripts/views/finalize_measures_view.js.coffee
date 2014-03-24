@@ -1,4 +1,4 @@
-class Thorax.Views.FinalizeMeasures extends Thorax.View
+class Thorax.Views.FinalizeMeasures extends Thorax.Views.BonnieView
   template: JST['import/finalize_measures']
   context: ->
     titleSize: 3

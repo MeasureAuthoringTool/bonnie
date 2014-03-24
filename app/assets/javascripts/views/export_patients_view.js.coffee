@@ -1,4 +1,4 @@
-class Thorax.Views.ExportPatientsView extends Thorax.View
+class Thorax.Views.ExportPatientsView extends Thorax.Views.BonnieView
   template: JST['measure/export_patients']
   exporting: -> @$("#exportPatientsDialog").modal backdrop: 'static'
   success: -> @$("#exportPatientsDialog").modal 'hide'

@@ -1,4 +1,4 @@
-class Thorax.Views.ExpectedValuesView extends Thorax.View
+class Thorax.Views.ExpectedValuesView extends Thorax.Views.BonnieView
 
   template: JST['patient_builder/expected_values']
 

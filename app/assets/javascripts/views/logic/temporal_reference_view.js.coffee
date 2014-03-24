@@ -1,7 +1,7 @@
-class Thorax.Views.TemporalReferenceLogic extends Thorax.View
-  
+class Thorax.Views.TemporalReferenceLogic extends Thorax.Views.BonnieView
+
   template: JST['logic/temporal_reference']
-  timing_map: 
+  timing_map:
     'DURING':'During'
     'SBS':'Starts Before Start of'
     'SAS':'Starts After Start of'

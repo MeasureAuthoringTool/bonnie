@@ -13,7 +13,7 @@ class Thorax.Views.PopulationsLogic extends Thorax.LayoutView
       isActive: population is @collection.first()
       populationTitle: population.get('title') || population.get('sub_id')
 
-class Thorax.Views.PopulationLogic extends Thorax.View
+class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
 
   template: JST['logic/logic']
 

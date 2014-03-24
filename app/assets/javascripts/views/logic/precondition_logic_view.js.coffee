@@ -1,7 +1,7 @@
-class Thorax.Views.PreconditionLogic extends Thorax.View
-  
+class Thorax.Views.PreconditionLogic extends Thorax.Views.BonnieView
+
   template: JST['logic/precondition']
-  conjunction_map: 
+  conjunction_map:
   	'allTrue':'AND'
   	'atLeastOneTrue':'OR'
 

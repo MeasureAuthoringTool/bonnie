@@ -1,5 +1,5 @@
-class Thorax.Views.SubsetOperatorLogic extends Thorax.View
-  
+class Thorax.Views.SubsetOperatorLogic extends Thorax.Views.BonnieView
+
   template: JST['logic/subset_operator']
   subset_map:
     'COUNT':'COUNT'
