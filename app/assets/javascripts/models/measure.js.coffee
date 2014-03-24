@@ -36,33 +36,31 @@ class Thorax.Models.Measure extends Thorax.Model
   @logicFieldsFor: (criteriaType) ->
 
     # Define field values for all criteria types
-    globalInclusions = ['anatomical_structure', 'cumulative_medication_duration', 'dose',
-    'frequency', 'incision_time', 'length_of_stay', 'ordinality', 'reason', 'removal_time',
-    'route', 'severity', 'source', 'start_date', 'end_date']
+    globalInclusions = ['reason', 'source']
 
     # Define criteria type-specific field values
     typeInclusions =
       care_goals: []
       characteristics: []
       communications: []
-      conditions: []
-      devices: []
+      conditions: ['anatomical_structure', 'ordinality', 'severity']
+      devices: ['removal_time', 'anatomical_structure']
       diagnostic_studies: []
       encounters: ['admit_time', 'discharge_time', 'discharge_disposition', 'facility',
         'facility_arrival', 'facility_departure', 'transfer_to', 'transfer_from']
       functional_statuses: []
-      interventions: []
+      interventions: ['anatomical_structure']
       laboratory_tests: []
-      medications: []
+      medications: ['cumulative_medication_duration', 'dose', 'route', 'frequency']
       patient_care_experiences: []
-      physical_exams: []
+      physical_exams: ['anatomical_structure']
       preferences: []
-      procedures: []
+      procedures: ['incision_time', 'anatomical_structure', 'ordinality']
       provider_care_experiences: []
       provider_characteristics: []
-      risk_category_assessments: []
-      substances: []
-      symptoms: []
+      risk_category_assessments: ['severity']
+      substances: ['cumulative_medication_duration', 'dose', 'route', 'frequency']
+      symptoms: ['ordinality', 'severity']
       system_characteristics: []
       transfers: []
 
