@@ -7,8 +7,6 @@ Bonnie::Application.routes.draw do
       post 'finalize'
     end
     member do
-      get 'add'
-      get 'remove'
       get 'debug', defaults: { format: :html }
       post 'clear_cached_javascript'
     end
