@@ -55,7 +55,7 @@ class Thorax.Views.Measure extends Thorax.View
     @$('.measure-listing').removeClass('active')
     @$('.btn-clone-patients').hide()
     m = @$(e.target).model()
-    if @$('.select-patient:checked').length
+    if @$('.select-patient:checked').size()
       @$(".measure-#{m.get('hqmf_set_id')}").addClass('active')
       @$(".btn-clone-#{m.get('hqmf_set_id')}").show()
 
@@ -63,8 +63,9 @@ class Thorax.Views.Measure extends Thorax.View
     $d = @$('.select-patient:checked')
     measure = @measures.findWhere({hqmf_set_id: @$(e.target).model().get('hqmf_set_id')})
     count = 0
-    # @$("#clonePatientsDialog").modal backdrop: 'static'
+    @$("#clonePatientsDialog").modal backdrop: 'static'
     @$(".rebuild-patients-progress-bar").css('width', '0%')
+    @$("#clonePatientsDialog").on('hidden.bs.modal', -> bonnie.navigate "measures/#{measure.get('hqmf_set_id')}", trigger: true)
     for diff in $d
       difference = @$(diff).model()
       patient = @patients.findWhere({medical_record_number: difference.result.get('medical_record_id')})
@@ -75,12 +76,11 @@ class Thorax.Views.Measure extends Thorax.View
           @patients.add model # make sure that the patient exist in the global patient collection
           measure.get('patients').add model # and the measure's patient collection
           if bonnie.isPortfolio then @measures.each (m) -> m.get('patients').add model
-          count += 1
-          perc = (count / $d.length) * 100
+          count++
+          perc = (count / $d.size()) * 100
           @$(".clone-patients-progress-bar").css('width', perc.toFixed() + '%')
-          if count == $d.length
-            # @$("#clonePatientsDialog").modal 'hide'
-            bonnie.navigate "measures/#{measure.get('hqmf_set_id')}", trigger: true
+          if count == $d.size()
+            @$("#clonePatientsDialog").modal 'hide'
 
   deleteMeasure: (e) ->
     @model = $(e.target).model()
