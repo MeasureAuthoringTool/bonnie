@@ -119,5 +119,40 @@ include Devise::TestHelpers
     assert_equal 1, json["encounters"].length
   end
 
+  test "destroy" do
+    collection_fixtures("records")
+    associate_user_with_patients(@user,Record.all)
+    patient = Record.first
+    @user.records.count.must_equal 4
+    delete :destroy, {id: patient.id}
+    assert_response :success
+    @user.records.count.must_equal 3
+    patient = Record.where({id: patient.id}).first
+    patient.must_be_nil
+
+  end
+
+  test "export patients" do
+    collection_fixtures("records")
+    associate_user_with_patients(@user,Record.all)
+    associate_measure_with_patients(@measure,Record.all)
+    get :export, hqmf_set_id: @measure.hqmf_set_id
+    assert_response :success
+    response.header['Content-Type'].must_equal 'application/zip'
+    response.header['Content-Disposition'].must_equal "attachment; filename=\"patient_export.zip\""
+    response.header['Set-Cookie'].must_equal 'fileDownload=true; path=/'
+    response.header['Content-Transfer-Encoding'].must_equal 'binary'
+
+    zip_path = File.join('tmp','test.zip')
+    File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
+    Zip::ZipFile.open(zip_path) do |zip_file|
+      zip_file.glob(File.join('qrda','**.xml')).length.must_equal 4
+      zip_file.glob(File.join('html','**.html')).length.must_equal 4
+    end
+    File.delete(zip_path)
+
+
+  end
+
 
 end
