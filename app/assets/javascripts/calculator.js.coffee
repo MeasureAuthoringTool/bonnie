@@ -46,7 +46,6 @@ class Calculator
     result.state = 'pending'
 
     # Load the calculator code if not already loaded
-    # FIXME: We need a view that allows measure debugging (no cache, no deferred, etc); ok if it's a single measure
     @calculatorLoaded[calcKey] ?= $.ajax(url: "#{population.url()}/calculate_code.js", dataType: "script", cache: true)
 
     # Once the calculation code is loaded, we can call it
