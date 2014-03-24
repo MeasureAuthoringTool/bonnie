@@ -52,7 +52,7 @@ class Admin::UsersController < ApplicationController
 
   def bundle
     user = User.find(params[:id])
-    exporter = Measures::Exporter::BundleExporter.new(user, hqmf_path: 'none', version: '1.0', use_nqf: false)
+    exporter = Measures::Exporter::BundleExporter.new(user, version: '1.0', use_nqf: false)
     zip_data = exporter.export_zip
 
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload

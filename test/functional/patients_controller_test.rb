@@ -143,7 +143,14 @@ include Devise::TestHelpers
     response.header['Set-Cookie'].must_equal 'fileDownload=true; path=/'
     response.header['Content-Transfer-Encoding'].must_equal 'binary'
 
-    #TODO: add some way to test the content of the zip file??
+    zip_path = File.join('tmp','test.zip')
+    File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
+    Zip::ZipFile.open(zip_path) do |zip_file|
+      zip_file.glob(File.join('qrda','**.xml')).length.must_equal 4
+      zip_file.glob(File.join('html','**.html')).length.must_equal 4
+    end
+    File.delete(zip_path)
+
 
   end
 
