@@ -43,9 +43,9 @@ class PatientsController < ApplicationController
 
     stringio = Zip::ZipOutputStream::write_buffer do |zip|
       records.each_with_index do |patient, index|
-        zip.put_next_entry("qrda_#{index+1}.xml")
+        zip.put_next_entry(File.join("qrda","#{index+1}_#{patient.last}_#{patient.first}.xml"))
         zip.puts qrda_exporter.export(patient, measure, start_time, end_time)
-        zip.put_next_entry("patient_#{index+1}.html")
+        zip.put_next_entry(File.join("html","#{index+1}_#{patient.last}_#{patient.first}.html"))
         zip.puts html_exporter.export(patient, measure)
       end
     end

@@ -52,6 +52,13 @@ class ActiveSupport::TestCase
       p.save
     end
   end
+
+  def associate_measure_with_patients(measure,patients)
+    patients.each do |p|
+      p.measure_ids = [measure.hqmf_set_id]
+      p.save
+    end
+  end
   
 end
 
