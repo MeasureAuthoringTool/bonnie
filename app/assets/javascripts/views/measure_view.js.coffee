@@ -23,6 +23,9 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @logicView.listenTo @populationCalculation, 'logicView:clearCoverage', -> @clearCoverage()
 
     @populationCalculation.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
+    @listenTo @logicView, 'population:update', (population) =>
+      @resetIndicator()
+      setTimeout @resetIndicator, 125
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
@@ -59,3 +62,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     e.preventDefault()
     $btn = $(e.currentTarget)
     $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
+
+  resetIndicator: ->
+    @$('.panel, .right-sidebar').toggleClass('indicator-on indicator-off')
