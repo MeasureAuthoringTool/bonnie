@@ -1,11 +1,13 @@
 <div class="row">
   <div class="col-md-3">
-    <select name="codeset" class="codeset-control">
+    <label class="sr-only" for="codeset_{{@cid}}"> Code Set</label>
+    <select id="codeset_{{@cid}}" name="codeset" class="codeset-control">
       <option value="">Code Set</option>
       {{#each codeSets}}
       <option>{{this}}</option>
       {{/each}}
     </select>
+    
   </div>
 
   <div class="col-md-8">

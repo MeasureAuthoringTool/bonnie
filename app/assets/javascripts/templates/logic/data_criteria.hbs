@@ -1,8 +1,8 @@
-<label class="{{dataCriteria.key}} rationale-target{{#ifCond dataCriteria.type '!=' 'derived'}} highlight-target{{/ifCond}}">
+<span class="{{dataCriteria.key}} rationale-target{{#ifCond dataCriteria.type '!=' 'derived'}} highlight-target{{/ifCond}}">
 {{#ifCond dataCriteria.type '!=' 'derived'}}
-  <span class="sr-only">
+  <label class="sr-only"> toggle data criteria
     <input type="radio" name="toggleHighlight" class="toggle-highlight-target">
-  </span>
+  </label>
 {{/ifCond}}
 
 {{#each dataCriteria.subset_operators}}
@@ -52,4 +52,4 @@
   {{/if}}
 
 {{/ifCond}}
-</label>
+</span>
