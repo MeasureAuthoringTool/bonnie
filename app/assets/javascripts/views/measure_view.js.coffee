@@ -25,9 +25,8 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
     @populationCalculation.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
     @populationCalculation.listenTo @, 'patients:toggleListing', -> @togglePatientsListing()
-    @listenTo @logicView, 'population:update', (population) ->
-      @$('.right-sidebar').removeClass('indicator-off').addClass('indicator-on')
-      @$('.panel').removeClass('indicator-off').addClass('indicator-on')
+    @listenTo @logicView, 'population:update', (population) =>
+      @resetIndicator()
       setTimeout @resetIndicator, 125
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
@@ -106,5 +105,4 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
 
   resetIndicator: ->
-    @$('.right-sidebar').removeClass('indicator-on').addClass('indicator-off')
-    @$('.panel').removeClass('indicator-on').addClass('indicator-off')
+    @$('.panel, .right-sidebar').toggleClass('indicator-on indicator-off')
