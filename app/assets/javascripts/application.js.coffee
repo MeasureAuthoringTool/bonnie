@@ -20,12 +20,13 @@
 #= require underscore/underscore-min
 #= require backbone/backbone-min
 #= require thorax/thorax
-#= require moment/min/moment.min.js
+#= require moment/min/moment.min
 #= require d3/d3
 #= require jQuery-Knob/js/jquery.knob
 #= require jquery-selectboxit/src/javascripts/jquery.selectBoxIt.min
 #= require jquery.fileDownload/src/Scripts/jquery.fileDownload
 #= require jquery-placeholder/jquery.placeholder.min
+#= require jquery-color/jquery.color
 #
 #= require helpers
 #= require_tree ./templates
