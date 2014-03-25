@@ -2,12 +2,16 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.14'
 
-gem 'hqmf2js', :git => 'https://github.com/pophealth/hqmf2js.git', :branch => 'develop'
-#gem 'hqmf2js', path: '../hqmf2js'
-gem 'hquery-patient-api', :git => 'https://github.com/pophealth/patientapi.git', :branch => 'develop'
-#gem 'hquery-patient-api', :path => '../patientapi'
+gem 'hqmf2js', '1.3.0'
+gem 'hquery-patient-api', '1.0.4'
+
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 #gem 'health-data-standards', :path => '../health-data-standards'
+
+#gem 'hqmf2js', path: '../hqmf2js'
+#gem 'hquery-patient-api', :path => '../patientapi'
+
+
 # needed for HDS
 gem 'rubyzip', '< 1.0.0'
 

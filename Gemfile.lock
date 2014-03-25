@@ -1,18 +1,4 @@
 GIT
-  remote: https://github.com/pophealth/hqmf2js.git
-  revision: 7b6c7680e01d06b723e3c21d553f98524dc61afa
-  branch: develop
-  specs:
-    hqmf2js (1.2.1)
-
-GIT
-  remote: https://github.com/pophealth/patientapi.git
-  revision: 6e5e231a6078409a4f5a7d0bafdacb0a63c2d54a
-  branch: develop
-  specs:
-    hquery-patient-api (1.0.2)
-
-GIT
   remote: https://github.com/pophealth/quality-measure-engine.git
   revision: 730fea5959293f27f52ab04bbf4438c3abf96182
   branch: mongoid_refactor
@@ -27,7 +13,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 7a5673f90ab59b1350e22a71aefc1de5b569d98b
+  revision: 66331ee4fe396b7c076bb11ae969d7eb8676a97f
   branch: master
   specs:
     health-data-standards (3.4.3)
@@ -144,6 +130,8 @@ GEM
       sprockets (>= 2.0.3)
       tilt
     hike (1.2.3)
+    hqmf2js (1.3.0)
+    hquery-patient-api (1.0.4)
     i18n (0.6.9)
     jasmine (1.3.2)
       jasmine-core (~> 1.3.1)
@@ -171,7 +159,7 @@ GEM
     memoist (0.9.1)
     method_source (0.8.2)
     mime-types (1.25.1)
-    mini_portile (0.5.2)
+    mini_portile (0.5.3)
     minitest (4.7.5)
     mongoid (3.1.6)
       activemodel (~> 3.2)
@@ -308,8 +296,8 @@ DEPENDENCIES
   foreman
   handlebars_assets
   health-data-standards!
-  hqmf2js!
-  hquery-patient-api!
+  hqmf2js (= 1.3.0)
+  hquery-patient-api (= 1.0.4)
   jasmine
   jquery-rails
   less-rails
