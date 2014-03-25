@@ -22,11 +22,15 @@
       <div class="panel-title">
         <div class="patient row">
           <div class="patient-status-icon-col status status-{{status}}">
-            {{#if done}}
-              {{#if match}}
-                <i class="fa fa-check"></i>
-              {{else}}
-                <i class="fa fa-times"></i>
+            {{#if ../patientsListing}}
+              <input type="checkbox" class="select-patient">
+            {{else}}
+              {{#if done}}
+                {{#if match}}
+                  <i class="fa fa-check"></i>
+                {{else}}
+                  <i class="fa fa-times"></i>
+                {{/if}}
               {{/if}}
             {{/if}}
           </div>
