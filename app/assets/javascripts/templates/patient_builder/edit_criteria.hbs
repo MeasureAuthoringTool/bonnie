@@ -6,7 +6,7 @@
     <div class="criteria-details">
       <div class="row">
         <div class="col-md-6">
-          <label>{{definition}}</label>
+          <h2>{{definition}}</h2>
           <div>{{description}}</div>
         </div>
 
@@ -16,7 +16,7 @@
             <span class="sr-only">Expand Data Criteria</span>
           {{/button}}
           <span class="highlight-indicator sr-only"></span>
-          <label>Date</label>
+          <h2>Date</h2>
           <div>{{start_date}}{{#if end_date}} &ndash; {{end_date}}{{/if}}</div>
         </div>
       </div>
@@ -37,10 +37,9 @@
 
       <div class="row">
         <div class="form-group col-md-6">
-          <label class="control-label"><i class="fa fa-clock-o"></i> Start</label>
+          <label for="start_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o"></i> Start<span class="sr-only"> start date month/day/year</span></label></label>
           <div class="datetime-control">
             <div>
-              <label for="start_date_{{@cid}}" class="sr-only">start date month/day/year</label>
               <input type="text" name="start_date" id="start_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
             </div>
 
@@ -52,10 +51,9 @@
         </div>
 
         <div class="form-group col-md-6">
-          <label class="control-label"><i class="fa fa-clock-o"></i> Stop</label>
+          <label for="end_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o"></i> Stop<span class="sr-only"> end date month/day/year</span></label>
           <div class="datetime-control">
             <div>
-              <label for="end_date_{{@cid}}" class="sr-only">end date month/day/year</label>
               <input type="text" name="end_date" id="end_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true"{{#if end_date_is_undefined}} disabled{{/if}}>
             </div>
 
@@ -74,7 +72,7 @@
       </div>
 
       <div class="form-group">
-        <label class="control-label"><i class="fa fa-code"></i> Codes</label>
+        <label class="control-label"><i class="fa fa-code"></i> Codes<input class="sr-only" disabled></label>
 
         {{#collection codes class="existing-values"}}
         <span>
@@ -88,7 +86,7 @@
       </div>
 
       <div class="form-group">
-        <label class="control-label"><i class="fa fa-bar-chart-o"></i> Value</label>
+        <label class="control-label"><i class="fa fa-bar-chart-o"></i> Value<input class="sr-only" disabled></label>
 
         {{#collection value class="existing-values"}}
           <span>
@@ -102,7 +100,7 @@
       </div>
 
       <div class="form-group">
-        <label class="control-label"><i class="fa fa-bar-chart-o"></i> Field Value</label>
+        <label class="control-label"><i class="fa fa-bar-chart-o"></i> Field Value<input class="sr-only" disabled></label>
 
         {{#collection field_values class="existing-values" item-context=valueWithDateContext}}
           <span>
@@ -127,7 +125,8 @@
             <span>NOT PERFORMED</span>
           </label>
         </div>
-        <select name="negation_code_list_id" class="form-control negation-code-list{{#unless negation}} hide{{/unless}}">
+        <label for="negationCodeListId_{{@cid}}" class="sr-only">Negation Code Set</label>
+        <select id="negationCodeListId_{{@cid}}" name="negation_code_list_id" class="form-control negation-code-list{{#unless negation}} hide{{/unless}}">
           <option value="">--</option>
           {{#each value_sets}}
             <option value="{{oid}}">{{display_name}}</option>

@@ -12,7 +12,8 @@
 
 <div class="row">
   <div class="col-md-3">
-    <select name="type">
+    <label class="sr-only" for="type_{{@cid}}">Value type</label>
+    <select id="type_{{@cid}}" name="type">
       <option value="PQ" data-icon="fa fa-pencil-square-o">Scalar</option>
       <option value="CD" data-icon="fa fa-list">Coded</option>
       {{#if fieldValue}}
