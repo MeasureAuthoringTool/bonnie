@@ -28,6 +28,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @expectedValuesView.on 'population:select', (population_index) =>
       @populationLogicView.setPopulation @measure.get('populations').at(population_index)
       @populationLogicView.showRationale @model
+      @populationLogicView.$('.panel').animate(backgroundColor: '#fcf8e3').animate(backgroundColor: 'inherit')
     @model.on 'materialize', =>
       @populationLogicView.showRationale @model
     @model.on 'clearHighlight', =>
