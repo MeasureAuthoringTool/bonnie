@@ -63,7 +63,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.criteria-container.droppable').droppable greedy: true, accept: '.ui-draggable', drop: _.bind(@drop, this)
 
       @$('.date-picker').datepicker().on 'changeDate', _.bind(@materialize, this)
-      @$('.time-picker').timepicker().on 'changeTime.timepicker', _.bind(@materialize, this)
+      @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
     serialize: (attr) ->
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
