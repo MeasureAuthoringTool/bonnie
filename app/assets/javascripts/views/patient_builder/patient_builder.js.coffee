@@ -53,9 +53,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     _(categories).omit('transfers')
 
   events:
-    'blur :text':     'materialize'
-    'change select':  'materialize'
-    'click .deceased-checkbox': -> @model.set 'expired', true
+    'blur :text':               'materialize'
+    'change select':            'materialize'
+    'click .deceased-checkbox': 'toggleDeceased'
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
 
@@ -143,9 +143,15 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     e.preventDefault()
     window.history.back()
 
+  toggleDeceased: (e) ->
+    @model.set 'expired', true
+    @$('#deathdate').focus()
+
   removeDeathDate: (e) ->
+    e.preventDefault()
     @model.set 'deathdate', null
     @model.set 'expired', false
+    @$('#expired').focus()
 
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
