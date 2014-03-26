@@ -2,25 +2,20 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.14'
 
+gem 'health-data-standards', '3.4.4'
 gem 'hqmf2js', '1.3.0'
+gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'master'
+gem 'quality-measure-engine', '3.0.0'
 gem 'hquery-patient-api', '1.0.4'
 
-gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 #gem 'health-data-standards', :path => '../health-data-standards'
-
 #gem 'hqmf2js', path: '../hqmf2js'
+#gem 'bonnie_bundler', :path => '../bonnie_bundler'
+#gem 'quality-measure-engine', :path => '../quality-measure-engine'
 #gem 'hquery-patient-api', :path => '../patientapi'
-
 
 # needed for HDS
 gem 'rubyzip', '< 1.0.0'
-
-# bonnie_bundler depends on QME, but currently on an unreleased version, so it's not in the gemspec now, so must be here
-gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'mongoid_refactor'
-#gem 'quality-measure-engine', :path => '../quality-measure-engine'
-
-gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'develop'
-#gem 'bonnie_bundler', :path => '../bonnie_bundler'
 
 gem 'mongoid', '~> 3.1.0'
 
