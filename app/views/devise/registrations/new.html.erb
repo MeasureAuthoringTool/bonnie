@@ -13,12 +13,14 @@
   <div class="form-group row">
     <div class="col-md-6">
       <div class="input-group input-group-lg">
+        <label for="user_first_name" class="sr-only">First Name: </label>
         <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
         <%= f.text_field :first_name, class: "form-control", placeholder: "first name", title: "first name" %>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-lg">
+        <label for="user_last_name" class="sr-only">Last Name: </label>
         <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
         <%= f.text_field :last_name, class: "form-control", placeholder: "last name", title: "last name" %>
       </div>
@@ -27,12 +29,14 @@
   <div class="form-group row">
     <div class="col-md-6">
       <div class="input-group input-group-lg required">
+        <label for="user_email" class="sr-only">Email: </label>
         <span class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw"></i></span>
         <%= f.email_field :email, class: "form-control", placeholder: "email@example.com", title: "email" %>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-lg">
+        <label for="user_telephone" class="sr-only">Telephone: </label>
         <span class="input-group-addon"><i class="fa fa-mobile fa-lg fa-fw"></i></span>
         <%= f.text_field :telephone, class: "form-control", placeholder: "(000) 000-0000", title: "phone number" %>
       </div>
@@ -41,6 +45,7 @@
   <div class="form-group row">
     <div class="col-md-6">
       <div class="input-group input-group-lg required">
+        <label for="user_password" class="sr-only">Password: </label>
         <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></span>
         <%= f.password_field :password, class: "form-control", placeholder: "password*", title: "password (required)" %>
       </div>
@@ -48,6 +53,7 @@
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-lg required">
+        <label for="user_password_confirmation" class="sr-only">Password Confirmation: </label>
         <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></span>
         <%= f.password_field :password_confirmation, class: "form-control", placeholder: "confirm password*", title: "password (required)" %>
       </div>

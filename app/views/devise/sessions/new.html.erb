@@ -9,9 +9,11 @@
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:name=>"login_form"}) do |f| %>
     <div class="form-group input-group input-group-lg">
       <span class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw"></i></span>
+      <label for="user_email" class="sr-only">Email: </label>
       <%= f.email_field :email, class: "form-control", placeholder: "email@example.com", title: "email" %>
     </div>
     <div class="form-group input-group input-group-lg">
+      <label for="user_password" class="sr-only">Password: </label>
       <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></span>
       <%= f.password_field :password, class: "form-control", placeholder: "password", title: "password" %>
     </div>
