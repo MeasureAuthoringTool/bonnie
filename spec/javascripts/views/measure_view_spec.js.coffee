@@ -15,10 +15,10 @@ describe 'MeasureView', ->
     @measureView.$('.toggle-measure-listing').click()
     expect(@measureView.$('.measure-listing')).not.toContainText @measure.get('cms_id')
     @measureView.$('.measure-listing').click()
-    expect(@measureView.$('.measure-listing.active').length).toEqual 0
+    expect(@measureView.$('.measure-listing.active')).not.toExist()
     expect(@measureView.$(".btn-clone-#{bonnie.measures.last().get('hqmf_set_id')}")).toBeHidden()
     @measureView.$('.select-patient').click()
     @measureView.$('.measure-listing:first').click()
-    expect(@measureView.$('.measure-listing.active').length).not.toEqual 0
+    expect(@measureView.$('.measure-listing.active')).toExist()
     expect(@measureView.$(".btn-clone-#{bonnie.measures.last().get('hqmf_set_id')}")).toBeVisible()
     @measureView.remove()
