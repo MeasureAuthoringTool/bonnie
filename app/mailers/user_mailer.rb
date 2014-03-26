@@ -1,5 +1,4 @@
 class UserMailer < ActionMailer::Base
-  default from: 'bonnie-feedback-list@lists.mitre.org'
 
   def user_signup_email(user)
     @user = user
@@ -8,12 +7,12 @@ class UserMailer < ActionMailer::Base
                    when 'production' then 'bonnie.healthit.gov'
                    else 'localhost:3000'
                    end
-    mail to: 'bonnie-feedback-list@lists.mitre.org', subject: '[Bonnie] New user signup'
+    mail to: 'bonnie-feedback-list@lists.mitre.org', subject: '[Bonnie] New user signup', from: "bonnie@#{@bonnie_host}"
   end
 
   def account_activation_email(user)
     @user = user
-    mail to: @user.email, subject: 'Welcome to Bonnie'
+    mail to: @user.email, subject: 'Welcome to Bonnie', from: 'bonnie-feedback-list@lists.mitre.org'
   end
 
 end
