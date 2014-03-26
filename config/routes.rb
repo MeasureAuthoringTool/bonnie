@@ -1,6 +1,10 @@
 Bonnie::Application.routes.draw do
   devise_for :users,:controllers => {:registrations => "registrations"}
 
+  devise_scope :user do 
+    get "/needs_approval" => "registrations#needs_approval"
+  end
+
   resources :measures, defaults: { format: :json } do
     collection do
       get 'value_sets'
