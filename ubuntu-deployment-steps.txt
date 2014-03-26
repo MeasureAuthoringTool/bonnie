@@ -59,14 +59,16 @@ With the following content (use output from passenger-install-apache2-module):
   <IfModule mod_passenger.c>
     PassengerRoot /usr/local/rvm/gems/ruby-2.0.0-p451/gems/passenger-4.0.37
     PassengerDefaultRuby /usr/local/rvm/gems/ruby-2.0.0-p451/wrappers/ruby
+    PassengerMinInstances 5
+    PassengerMaxPoolSize 5
+    PassengerMaxRequests 1000
+    PassengerPreStart http://localhost/
   </IfModule>
 
 Add a file (as root, using sudo -i):
 
   /etc/apache2/sites-available/bonnie
 
-NOTE: THIS WILL NEED TO SUPPORT SSL ONCE WE HAVE AN SSL CERTIFICATE
-NOTE: THIS WILL NEED A ServerName ONCE WE HAVE DNS SET UP
 With the following content (changing the path appropriately):
 
   <VirtualHost *:80>
