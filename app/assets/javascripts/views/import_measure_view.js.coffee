@@ -49,6 +49,3 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       "keyboard" : false,
       "show" : true)
     @$('form').submit()
-
-  # FIXME: Is anything additional required for cleaning up this view on close?
-  close: -> ''
