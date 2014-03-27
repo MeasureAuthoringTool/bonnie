@@ -15,9 +15,9 @@ describe 'MeasureView', ->
     expect(@measureView.$('.measure-title')).toContainText @measure.get('title')
     expect(@measureView.$('.measure-title')).toContainText @measure.get('cms_id')
     expect(@measureView.$('.measure-dsp')).toContainText @measure.get('description')
-    expect(@measureView.$('[data-toggle="tab"]')).toExist()
 
   it 'renders measure populations correctly', ->
+    expect(@measureView.$('[data-toggle="tab"]')).toExist()
     expect(@measureView.$('.rationale-target')).toBeVisible()
     expect(@measureView.$('[data-toggle="collapse"]')).not.toHaveClass('collapsed')
     @measureView.$('[data-toggle="collapse"]').click()
@@ -25,8 +25,16 @@ describe 'MeasureView', ->
     @measureView.$('[data-toggle="tab"]').last().click()
     expect(@measureView.$('[data-toggle="collapse"]')).not.toHaveClass('collapsed')
 
+  it 'renders patient results correctly', ->
+    expect(@measureView.$('.patient.row')).toExist()
+    expect(@measureView.$('[data-call-method="expandResult"]')).toExist()
+    expect(@measureView.$('.toggle-result')).not.toBeVisible()
+    expect(@measureView.$('.btn-show-coverage')).not.toBeVisible()
+    @measureView.$('[data-call-method="expandResult"]').click()
+    expect(@measureView.$('.toggle-result')).toBeVisible()
+    expect(@measureView.$('.btn-show-coverage')).toBeVisible()
+
   it 'sets up patient transfers correctly', ->
-    @measureView.appendTo 'body'
     @measureView.$('.toggle-measure-listing').click()
     expect(@measureView.$('.measure-listing')).not.toContainText @measure.get('cms_id')
     @measureView.$('.measure-listing').click()
