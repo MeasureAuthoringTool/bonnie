@@ -22,7 +22,9 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       redirectRoute: currentRoute
 
   events:
-    rendered: -> @$("option[value=\"#{eoc}\"]").attr('selected','selected') for eoc in @model.get('episode_ids') if @model? && @model.get('episode_of_care') && @model.get('episode_ids')?
+    rendered: -> 
+      @$("option[value=\"#{eoc}\"]").attr('selected','selected') for eoc in @model.get('episode_ids') if @model? && @model.get('episode_of_care') && @model.get('episode_ids')?
+      @$el.on 'hidden.bs.modal', -> @remove()
     'ready': 'setup'
     'change input:file':  'enableLoad'
 
