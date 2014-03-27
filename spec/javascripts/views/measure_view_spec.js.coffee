@@ -15,6 +15,8 @@ describe 'MeasureView', ->
     expect(@measureView.$('.measure-title')).toContainText @measure.get('title')
     expect(@measureView.$('.measure-title')).toContainText @measure.get('cms_id')
     expect(@measureView.$('.measure-dsp')).toContainText @measure.get('description')
+    expect(@measureView.$('[data-call-method="measureSettings"]')).toExist()
+    expect(@measureView.$('[data-call-method="patientsSettings"]')).toExist()
 
   it 'renders measure populations correctly', ->
     expect(@measureView.$('[data-toggle="tab"]')).toExist()
