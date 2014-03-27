@@ -20,7 +20,7 @@ Bonnie::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  Rails.application.routes.default_url_options[:host] = ENV['host'] 
+  Rails.application.routes.default_url_options[:host] = HOSTNAME
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
@@ -72,7 +72,7 @@ Bonnie::Application.configure do
   # Send notification when application exceptions happen
   config.middleware.use ExceptionNotification::Rack, email: {
     email_prefix: "[Bonnie] ",
-    sender_address: %{"Bonnie" <bonnie-feedback-list@lists.mitre.org>},
+    sender_address: %{"Bonnie" <bonnie@#{HOSTNAME}>},
     exception_recipients: %w{bonnie-feedback-list@lists.mitre.org}
   }
 
