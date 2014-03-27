@@ -10,4 +10,8 @@ class RegistrationsController < Devise::RegistrationsController
     return saved
   end
 
+  def after_inactive_sign_up_path_for(resource)
+    "/needs_approval"
+  end
+
 end
