@@ -6,11 +6,26 @@ describe 'MeasureView', ->
     @measure.get('patients').add @patient
     @measureView = new Thorax.Views.Measure(model: @measure, patients: @measure.get('patients'))
     @measureView.render()
+    @measureView.appendTo 'body'
 
-  it 'renders correctly', ->
-    expect(@measureView.$el).toContainText @measure.get('description')
+  afterEach ->
+    @measureView.remove()
 
-  it 'sets up patient tranfers correctly', ->
+  it 'renders measure details correctly', ->
+    expect(@measureView.$('.measure-title')).toContainText @measure.get('title')
+    expect(@measureView.$('.measure-title')).toContainText @measure.get('cms_id')
+    expect(@measureView.$('.measure-dsp')).toContainText @measure.get('description')
+    expect(@measureView.$('[data-toggle="tab"]')).toExist()
+
+  it 'renders measure populations correctly', ->
+    expect(@measureView.$('.rationale-target')).toBeVisible()
+    expect(@measureView.$('[data-toggle="collapse"]')).not.toHaveClass('collapsed')
+    @measureView.$('[data-toggle="collapse"]').click()
+    expect(@measureView.$('[data-toggle="collapse"]')).toHaveClass('collapsed')
+    @measureView.$('[data-toggle="tab"]').last().click()
+    expect(@measureView.$('[data-toggle="collapse"]')).not.toHaveClass('collapsed')
+
+  it 'sets up patient transfers correctly', ->
     @measureView.appendTo 'body'
     @measureView.$('.toggle-measure-listing').click()
     expect(@measureView.$('.measure-listing').text()).not.toContainText @measure.get('cms_id')
