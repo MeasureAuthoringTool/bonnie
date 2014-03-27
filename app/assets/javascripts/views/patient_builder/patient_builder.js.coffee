@@ -64,6 +64,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
       @$('.date-picker').datepicker().on 'changeDate', _.bind(@materialize, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
+      
     serialize: (attr) ->
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime

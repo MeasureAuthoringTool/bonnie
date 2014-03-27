@@ -51,6 +51,7 @@
 
         <div class="form-group">
           <label for="birthdate" class="control-label">Date of Birth</label>
+          <label for="birthtime" class="sr-only">Time of Birth</label>
 
           <div class="row">
             <div class="col-md-6">
@@ -94,6 +95,7 @@
               </div>
 
               <div class="col-md-5">
+                <label for="deathtime" class="sr-only">Time of Death</label>
                 <input type="text" id="deathtime" name="deathtime" class="time-picker form-control" placeholder="--:-- --" title="time" data-show-inputs="false" data-default-time="8:00 AM">
               </div>
               {{#button "removeDeathDate" class="btn btn-link remove-death-date"}}
@@ -143,9 +145,13 @@
     <h1 class="heading-primary">Patient History Relative To Measures</h1>
     {{view editCriteriaCollectionView}}
   </div>
+  {{#button "cancel" class="sr-only"}}CANCEL{{/button}}
+  {{#button "save" class="sr-only"}}SAVE{{/button}}
+
 
   <div class="col-right">
     <h1 class="heading-muted"><i class="fa fa-tasks"></i> Measure</h1>
     {{view populationLogicView}}
   </div>
+
 </div>
