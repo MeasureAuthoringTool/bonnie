@@ -2,11 +2,7 @@ class UserMailer < ActionMailer::Base
 
   def user_signup_email(user)
     @user = user
-    @bonnie_host = case Rails.env
-                   when 'staging' then 'bonnie.ahrqstg.org'
-                   when 'production' then 'bonnie.healthit.gov'
-                   else 'localhost:3000'
-                   end
+    @bonnie_host = HOSTNAME
     mail to: 'bonnie-feedback-list@lists.mitre.org', subject: '[Bonnie] New user signup', from: "bonnie@#{@bonnie_host}"
   end
 

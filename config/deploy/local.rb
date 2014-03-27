@@ -10,10 +10,13 @@ set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 # Don't keep older releases
 set :keep_releases, 1
 
+# Hostname gets specified in a config file that's local to the server
+set :linked_files, %w{config/hostname}
+
 # Repository gets cloned to /apps/dev/tacoma/ruby/repository/bonnie, bonnie gets deployed to /apps/dev/tacoma/ruby/bonnie
 set :deploy_to, File.join(File.dirname(File.dirname(Dir.pwd)), 'bonnie')
 
-# Login using the username running the cap process (not necessarily the loging user returned by Etc.getlogin!)
+# Login using the username running the cap process (not necessarily the login user returned by Etc.getlogin!)
 role :app, "#{Etc.getpwuid(Process.uid).name}@localhost"
 role :web, "#{Etc.getpwuid(Process.uid).name}@localhost"
 role :db,  "#{Etc.getpwuid(Process.uid).name}@localhost"
