@@ -1,19 +1,19 @@
 <div class="links">
   <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
     <p>
-      <%= link_to new_password_path(resource_name) do %>
+      <!-- %= link_to new_password_path(resource_name) do % --> <!--
         <i class="fa fa-question-circle"></i>
-        forgot password?
-      <% end %>
+        forgot password? -->
+      <!-- % end % -->
     </p>
   <% end -%>
 
   <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
     <p>
-      <%= link_to new_registration_path(resource_name) do %>
+      <!-- %= link_to new_registration_path(resource_name) do %--><!--
         <i class="fa fa-plus-circle"></i>
-        register
-      <% end %>
+        register -->
+      <!--% end %-->
     </p>
   <% end -%>
 
