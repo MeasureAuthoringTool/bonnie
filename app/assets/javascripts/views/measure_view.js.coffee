@@ -5,6 +5,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     rendered: ->
       @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
       @exportPatientsView.appendTo(@$el)
+      @$('.toggle-measure-listing').prop('disabled', @measures.length <= 1)
     'click .measure-listing': 'selectMeasureListing'
 
   initialize: ->
