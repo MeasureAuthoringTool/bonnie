@@ -150,8 +150,8 @@ include Devise::TestHelpers
     flash[:error][:summary].must_equal 'The measure value sets could not be found.'
     flash.clear
 
-    Dir.glob(File.join('tmp','load_errors','**')).count.must_equal 2
-    FileUtils.rm_r File.join('tmp','load_errors')
+    Dir.glob(Rails.root.join('log','load_errors','**')).count.must_equal 2
+    FileUtils.rm_r Rails.root.join('log','load_errors')
 
   end
 
@@ -200,8 +200,8 @@ include Devise::TestHelpers
     flash[:error][:summary].must_equal 'The measure could not be loaded.'
     flash.clear
 
-    Dir.glob(File.join('tmp','load_errors','**')).count.must_equal 2
-    FileUtils.rm_r File.join('tmp','load_errors')
+    Dir.glob(Rails.root.join('log','load_errors','**')).count.must_equal 2
+    FileUtils.rm_r Rails.root.join('log','load_errors')
 
   end
 
