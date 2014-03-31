@@ -4,6 +4,8 @@ class MeasuresControllerTest  < ActionController::TestCase
 include Devise::TestHelpers
       
   setup do
+    @error_dir = File.join('log','load_errors')
+    FileUtils.rm_r @error_dir if File.directory?(@error_dir)
     dump_database
     collection_fixtures("draft_measures", "users")
     @user = User.by_email('bonnie@example.com').first
@@ -150,8 +152,7 @@ include Devise::TestHelpers
     flash[:error][:summary].must_equal 'The measure value sets could not be found.'
     flash.clear
 
-    Dir.glob(Rails.root.join('log','load_errors','**')).count.must_equal 2
-    FileUtils.rm_r Rails.root.join('log','load_errors')
+    Dir.glob(File.join(@error_dir,'**')).count.must_equal 2
 
   end
 
@@ -200,9 +201,7 @@ include Devise::TestHelpers
     flash[:error][:summary].must_equal 'The measure could not be loaded.'
     flash.clear
 
-    Dir.glob(Rails.root.join('log','load_errors','**')).count.must_equal 2
-    FileUtils.rm_r Rails.root.join('log','load_errors')
-
+    Dir.glob(File.join(@error_dir,'**')).count.must_equal 2
   end
 
   test "load with no zip" do
@@ -221,5 +220,25 @@ include Devise::TestHelpers
     assert_response :success
   end
 
+
+  test "update a patient based measure" do
+    measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
+    class << measure_file
+      attr_reader :tempfile
+    end
+
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'patient'}
+
+    assert_response :redirect
+    measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
+    measure.hqmf_set_id.must_equal "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"
+
+    post :create, {measure_file: measure_file, hqmf_set_id: measure.hqmf_set_id}
+
+    assert_response :redirect
+    measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
+    measure.hqmf_set_id.must_equal "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"
+
+  end
 
 end
