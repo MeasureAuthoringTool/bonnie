@@ -49,17 +49,27 @@ class MeasuresController < ApplicationController
         measure_details['episode_ids'] = existing.episode_ids
       end
       measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
-      existing.delete
     end
 
     begin
       measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
+      if (!is_update)
+        existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
+        if existing.count > 1
+          measure.delete
+          flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded alread.  Either update that measure with the update button, or delete that measure and re-upload it."}
+          redirect_to "#{root_path}##{params[:redirect_route]}"
+          return
+        end
+      end
       if measure_details['episode_of_care'] && measure.data_criteria.values.select {|d| d['specific_occurrence']}.empty?
         measure.delete
         flash[:error] = {title: "Error Loading Measure", summary: "An episode of care measure requires at least one speciific occurrence for the episode of care.", body: "You have loaded the measure as an episode of care measure.  Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
+
+      existing.delete if (existing && is_update)
     rescue Exception => e
       errors_dir = File.join('tmp','load_errors')
       FileUtils.mkdir_p(errors_dir)
@@ -87,11 +97,19 @@ class MeasuresController < ApplicationController
     current_user.measures << measure
     current_user.save!
 
-
     if (is_update)
       measure.episode_ids = measure_details['episode_ids']
       measure.populations.each_with_index do |population, population_index|
         population['title'] = measure_details['population_titles']["#{population_index}"] if (measure_details['population_titles'])
+      end
+      # check if episode ids have changed
+      if (measure.episode_of_care?)
+        keys = measure.data_criteria.values.map {|d| d['source_data_criteria'] if d['specific_occurrence']}.compact.uniq
+        measure.needs_finalize = (measure.episode_ids & keys).length != measure.episode_ids.length
+        if measure.needs_finalize
+          measure.episode_ids = [] 
+          params[:redirect_route] = ''
+        end
       end
     else
       measure.needs_finalize = (measure_details['episode_of_care'] || measure.populations.size > 1)
