@@ -77,13 +77,14 @@ class MeasuresController < ApplicationController
 
       existing.delete if (existing && is_update)
     rescue Exception => e
-      errors_dir = File.join('tmp','load_errors')
-      FileUtils.mkdir_p(errors_dir)
       if params[:measure_file]
-        filename = "#{current_user.email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.zip"
+        errors_dir = Rails.root.join('log', 'load_errors')
+        FileUtils.mkdir_p(errors_dir)
+        clean_email = File.basename(current_user.email) # Prevent path traversal
+        filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.zip"
 
         FileUtils.cp(params[:measure_file].tempfile, File.join(errors_dir, filename))
-        File.open(File.join(errors_dir, "#{current_user.email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
+        File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
         if e.is_a? Measures::ValueSetException
           flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
         else
