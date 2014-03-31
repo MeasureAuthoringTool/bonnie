@@ -54,6 +54,8 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     patient = @measure.get('patients').get result.get('patient_id')
     patient.destroy()
     result.destroy()
+    @trigger 'rationale:clear'
+    @coverageView.showCoverage()
 
   clonePatient: (e) ->
     result = $(e.target).model().result
