@@ -14,7 +14,9 @@ class Thorax.Views.Measures extends Thorax.Views.BonnieView
   events:
     rendered: ->
       if @collection.isEmpty() then @importMeasure()
-
+      else if @finalizeMeasuresView.measures.length
+        @finalizeMeasuresView.appendTo(@$el)
+        @finalizeMeasuresView.display()
 
 class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
 
