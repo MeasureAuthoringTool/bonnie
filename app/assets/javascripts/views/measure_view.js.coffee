@@ -27,6 +27,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @populationCalculation.listenTo @, 'patients:toggleListing', -> @togglePatientsListing()
     @listenTo @logicView, 'population:update', (population) =>
       @$('.panel, .right-sidebar').animate(backgroundColor: '#fcf8e3').animate(backgroundColor: 'inherit')
+    @listenTo @populationCalculation, 'select-patients:change', -> unless @$('.select-patient:checked').size() then @clearMeasureListings()
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
@@ -50,16 +51,20 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @$('.main').toggleClass('col-sm-8 col-sm-6')
     @$('.toggle-measure-listing').toggleClass('btn-default btn-measure-listing btn-primary btn-measure-listing-toggled')
     @$('.patients-listing-header').toggle()
+    @clearMeasureListings()
     @trigger 'patients:toggleListing'
     @$('.measure-listing-sidebar').toggle()
 
   selectMeasureListing: (e) ->
-    @$('.measure-listing').removeClass('active')
-    @$('.btn-clone-patients').hide()
+    @clearMeasureListings()
     m = @$(e.target).model()
     if @$('.select-patient:checked').size()
       @$(".measure-#{m.get('hqmf_set_id')}").addClass('active')
       @$(".btn-clone-#{m.get('hqmf_set_id')}").show()
+
+  clearMeasureListings: ->
+    @$('.measure-listing').removeClass('active')
+    @$('.btn-clone-patients').hide()
 
   cloneIntoMeasure: (e) ->
     $d = @$('.select-patient:checked')
@@ -97,6 +102,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
   patientsSettings: (e) ->
     e.preventDefault()
     @$('.patients-settings').toggleClass('patients-settings-expanded')
+    if @$('.measure-listing-sidebar').is(':visible') then @toggleMeasureListing(e)
 
   showDelete: (e) ->
     e.preventDefault()

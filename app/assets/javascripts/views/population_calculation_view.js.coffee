@@ -19,6 +19,9 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
   context: ->
     _(super).extend measure_id: @measure.get('hqmf_set_id')
 
+  events:
+    'click .select-patient': -> @trigger 'select-patients:change'
+
   differenceContext: (difference) ->
     _(difference.toJSON()).extend
       patient: difference.result.patient.toJSON()
