@@ -23,7 +23,10 @@
         <div class="patient row">
           <div class="patient-status-icon-col status status-{{status}}">
             {{#if ../patientsListing}}
-              <input type="checkbox" class="select-patient">
+              <label>
+                <span class="sr-only">Select {{patient.last}} {{patient.first}}</span>
+                <input type="checkbox" class="select-patient">
+              </label>
             {{else}}
               {{#if done}}
                 {{#if match}}
