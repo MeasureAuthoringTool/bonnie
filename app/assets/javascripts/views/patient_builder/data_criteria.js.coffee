@@ -69,8 +69,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       end_date_is_undefined: !@model.has('end_date')
       description: desc
       value_sets: @model.measure()?.valueSets().map((vs) -> vs.toJSON()) or []
-      cms_id_number: cmsIdParts[1]
-      cms_id_version: cmsIdParts[2]
+      cms_id_number: cmsIdParts[1] if cmsIdParts
+      cms_id_version: cmsIdParts[2] if cmsIdParts
       faIcon: @model.faIcon()
 
   # When we serialize the form, we want to convert formatted dates back to times
