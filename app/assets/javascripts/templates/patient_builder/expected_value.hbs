@@ -14,24 +14,18 @@
     {{else}}
       {{#if isEoC}}
         <div class="form-group">
-          <label>
-             <input type="number" name="{{key}}" min="0">
-             {{displayName}}
-          </label>
+          <label for="{{key}}_{{@cid}}">{{displayName}}</label>
+          <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0">
         </div>
       {{else}}
         {{#ifCond key "==" "MSRPOPL"}}
           <div class="form-group">
-            <label>
-               <input type="number" name="{{key}}" min="0">
-               {{displayName}}
-            </label>
+            <label for="{{key}}_{{@cid}}">{{displayName}}</label>
+            <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0">
           </div>
         {{else}}
-          <label class="checkbox-inline">
-            <input type="checkbox" name="{{key}}">
-            {{displayName}}
-          </label>
+          <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
+          <input type="checkbox" id="{{key}}_{{@cid}}" name="{{key}}">
         {{/ifCond}}
       {{/if}}
     {{/ifCond}}
