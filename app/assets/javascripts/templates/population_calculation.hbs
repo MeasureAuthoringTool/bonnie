@@ -55,21 +55,22 @@
     <div class="panel-body toggle-result toggle-result-{{patient._id}} patient" style="display: none;">
       <table class="table table-condensed col-xs-3">
         <tr>
-          <th></th>
           <th>Population</th>
           <th style="text-align: center;">Expected</th>
           <th style="text-align: center;">Actual</th>
         </tr>
         {{#each comparisons}}
           <tr>
-            <td style="text-align: center;">
-              {{#if match}}
-                <i class="fa fa-check pass"></i>
-              {{else}}
-                <i class="fa fa-times fail"></i>
-              {{/if}}
+            <td>
+              <span class="population-status-indicator">
+                {{#if match}}
+                  <i class="fa fa-check pass"></i><span class="sr-only">pass</span>
+                {{else}}
+                  <i class="fa fa-times fail"></i><span class="sr-only">fail</span>
+                {{/if}}
+              </span>
+              {{name}}
             </td>
-            <td>{{name}}</td>
             <td style="text-align: center;">
               {{#ifCond name "==" "OBSERV"}}
                 {{#ifCond expected "==" undefined}}
