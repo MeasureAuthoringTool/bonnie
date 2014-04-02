@@ -32,7 +32,9 @@ class BonnieRouter extends Backbone.Router
   renderMeasure: (hqmfSetId) ->
     document.title = "Bonnie v#{bonnie.applicationVersion}: Measure View";
     @calculator.cancelCalculations()
-    measureView = new Thorax.Views.Measure(model: @measures.findWhere({hqmf_set_id: hqmfSetId}), patients: @patients)
+    measure = @measures.findWhere({hqmf_set_id: hqmfSetId})
+    document.title += "- #{measure.get('cms_id')}" if measure?
+    measureView = new Thorax.Views.Measure(model: measure, patients: @patients)
     @mainView.setView(measureView)
 
   renderUsers: ->
@@ -47,6 +49,7 @@ class BonnieRouter extends Backbone.Router
     @calculator.cancelCalculations()
     measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
+    document.title += "- #{measure.get('cms_id')}" if measure?
     patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
     @mainView.setView patientBuilderView
 
