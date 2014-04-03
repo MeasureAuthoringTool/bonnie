@@ -6,4 +6,4 @@ class Thorax.Models.User extends Thorax.Model
 class Thorax.Collections.Users extends Thorax.Collection
   url: '/admin/users'
   model: Thorax.Models.User
-  comparator: (u) -> u.get('approved')
+  comparator: (u) -> [ u.get('approved'), u.get('email') ]
