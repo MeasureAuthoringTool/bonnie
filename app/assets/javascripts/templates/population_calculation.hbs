@@ -30,15 +30,15 @@
             {{else}}
               {{#if done}}
                 {{#if match}}
-                  <i class="fa fa-check"></i>
+                  <i class="fa fa-check"><span class="sr-only">patient expectations matched</span></i>
                 {{else}}
-                  <i class="fa fa-times"></i>
+                  <i class="fa fa-times"><span class="sr-only">patient expectations not matched</span></i>
                 {{/if}}
               {{/if}}
             {{/if}}
           </div>
           <div class="patient-user-icon-col">
-            <i class="fa fa-user"></i>
+            <i class="fa fa-user"><span class="sr-only">patient result</span></i>
           </div>
           <div class="patient-name-col">
             {{patient.last}} {{patient.first}}
@@ -54,19 +54,20 @@
     </div>
     <div class="panel-body toggle-result toggle-result-{{patient._id}} patient" style="display: none;">
       <table class="table table-condensed col-xs-3">
+        <caption><span class="sr-only">Patient population results for {{patient.last}}, {{patient.first}}</span></caption>
         <tr>
-          <td></td>
-          <th>Population</th>
-          <th style="text-align: center;">Expected</th>
-          <th style="text-align: center;">Actual</th>
+          <td><span class="sr-only">Status</span></td>
+          <th scope="col">Population</th>
+          <th scope="col" style="text-align: center;">Expected</th>
+          <th scope="col" style="text-align: center;">Actual</th>
         </tr>
         {{#each comparisons}}
           <tr>
             <td style="text-align: center;">
               {{#if match}}
-                <i class="fa fa-check pass"></i>
+                <i class="fa fa-check pass"><span class="sr-only">passed</span></i>
               {{else}}
-                <i class="fa fa-times fail"></i>
+                <i class="fa fa-times fail"><span class="sr-only">failed</span></i>
               {{/if}}
             </td>
             <td>{{name}}</td>
@@ -89,9 +90,9 @@
                     {{/ifCond}}
                   {{else}}
                     {{#if expected}}
-                      <i class="fa fa-check-square-o default"></i>
+                      <i class="fa fa-check-square-o default"><span class="sr-only">checked</span></i>
                     {{else}}
-                      <i class="fa fa-square-o default"></i>
+                      <i class="fa fa-square-o default"><span class="sr-only">unchecked</span></i>
                     {{/if}}
                   {{/ifCond}}
                 {{/if}}
@@ -116,9 +117,9 @@
                     {{/ifCond}}
                   {{else}}
                     {{#if actual}}
-                      <i class="fa fa-check-square-o default"></i>
+                      <i class="fa fa-check-square-o default"><span class="sr-only">checked</span></i>
                     {{else}}
-                      <i class="fa fa-square-o default"></i>
+                      <i class="fa fa-square-o default"><span class="sr-only">unchecked</span></i>
                     {{/if}}
                   {{/ifCond}}
                 {{/if}}
