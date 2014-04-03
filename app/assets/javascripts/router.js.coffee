@@ -23,14 +23,18 @@ class BonnieRouter extends Backbone.Router
     'value_sets/edit':                                 'renderValueSetsBuilder'
 
   renderMeasures: ->
+    document.title = "Bonnie v#{bonnie.applicationVersion}: Measures";
     # FIXME: We want the equivalent of a before filter; can probably override navigate w/super? @on route happens after, ok?
     @calculator.cancelCalculations()
     measuresView = new Thorax.Views.Measures(collection: @measures.sort())
     @mainView.setView(measuresView)
 
   renderMeasure: (hqmfSetId) ->
+    document.title = "Bonnie v#{bonnie.applicationVersion}: Measure View";
     @calculator.cancelCalculations()
-    measureView = new Thorax.Views.Measure(model: @measures.findWhere({hqmf_set_id: hqmfSetId}), patients: @patients)
+    measure = @measures.findWhere({hqmf_set_id: hqmfSetId})
+    document.title += " - #{measure.get('cms_id')}" if measure?
+    measureView = new Thorax.Views.Measure(model: measure, patients: @patients)
     @mainView.setView(measureView)
 
   renderUsers: ->
@@ -41,9 +45,11 @@ class BonnieRouter extends Backbone.Router
     @mainView.setView(usersView)
 
   renderPatientBuilder: (measureHqmfSetId, patientId) ->
+    document.title = "Bonnie v#{bonnie.applicationVersion}: Patient Builder";
     @calculator.cancelCalculations()
     measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
+    document.title += " - #{measure.get('cms_id')}" if measure?
     patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
     @mainView.setView patientBuilderView
 
