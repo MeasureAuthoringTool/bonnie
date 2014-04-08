@@ -50,7 +50,7 @@ class Thorax.Models.Population extends Thorax.Model
           occurrences = occurrences.concat @getDataCriteriaKeys(dataCriteria,specificsOnly)
       else
         if child.specific_occurrence || !specificsOnly
-          occurrences.push child.key
+          occurrences.push child.key if child.key
       if (child.temporal_references?.length > 0)
         for temporal_reference in child.temporal_references
           dataCriteria = @measure().get('data_criteria')[temporal_reference.reference]
