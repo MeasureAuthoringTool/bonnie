@@ -88,6 +88,7 @@ class MeasuresController < ApplicationController
         filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.zip"
 
         FileUtils.cp(params[:measure_file].tempfile, File.join(errors_dir, filename))
+        File.chmod(0644, File.join(errors_dir, filename))
         File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
         if e.is_a? Measures::ValueSetException
           flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
