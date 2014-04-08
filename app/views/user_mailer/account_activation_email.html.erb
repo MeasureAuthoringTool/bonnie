@@ -4,7 +4,8 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to Bonnie</h1>
-    <p>Your Bonnie account for email address <%= @user.email %> has been activated.</p>
+    <h1>Welcome to <a href="<%= root_url protocol: 'https' %>">Bonnie</a></h1>
+    <p>Your <a href="<%= root_url protocol: 'https' %>">Bonnie</a> account for email address <%= @user.email %> has been activated.</p>
+    <p><a href="<%= root_url protocol: 'https' %>"><%= root_url protocol: 'https' %></a></p>
   </body>
 </html>
