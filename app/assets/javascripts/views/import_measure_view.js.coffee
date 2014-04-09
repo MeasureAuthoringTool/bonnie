@@ -43,7 +43,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
     @$('#loadButton').prop('disabled', !(hasUser && hasPassword)) 
 
   enableLoad: ->
-    if /^.*\.xml$/.test(this.$('input:file').val().toLowerCase())
+    if @$('input:file').val().match /xml$/i
       @$('#vsacSignIn').removeClass('hidden')
     else
       @$('#vsacSignIn').addClass('hidden')
