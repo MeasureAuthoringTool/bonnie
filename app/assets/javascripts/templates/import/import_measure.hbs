@@ -14,10 +14,34 @@
             <input name="_method" type="hidden" value="post">
             <input name="authenticity_token" type="hidden" value="{{token}}">
           </div>
+          {{#if showLoadInformation}}
+            <div class="alert alert-warning">
+              Measure Data file types can include: 
+              <ul>
+                <li><a href="https://www.emeasuretool.cms.gov/" target="_blank">Measure Authoring Tool Zip file export</a></li>
+                <li><a href="http://www.cms.gov/Regulations-and-Guidance/Legislation/EHRIncentivePrograms/eCQM_Library.html" target="_blank">HQMF XML File (eCQM specifications)</a></li>
+              </ul>
+            </div>
+          {{/if}}
           <div class="form-group">
             <label for="measureFileInput" class="col-lg-{{titleSize}} control-label">Measure Data:</label>
             <div class="col-lg-{{dataSize}}">
               <input type="file" class="form-control" id="measureFileInput" name="measure_file">
+            </div>
+          </div>
+          <div class="hidden" id="vsacSignIn">
+            <div class="form-group has-error">
+              <label for="vsacUser" class="col-lg-{{titleSize}} control-label">VSAC Username:</label>
+              <div class="col-lg-{{dataSize}}">
+                <input type="text" class="form-control" id="vsacUser" name="vsac_username" placeholder="username">
+              </div>
+            </div>
+            <div class="form-group has-error">
+              <label for="vsacPassword" class="col-lg-{{titleSize}} control-label">VSAC Password:</label>
+              <div class="col-lg-{{dataSize}}">
+                <input type="password" class="form-control" id="vsacPassword" name="vsac_password" placeholder="password">
+              </div>
+              <div class="col-lg-offset-{{titleSize}} vsac-registration"><a href="https://uts.nlm.nih.gov/license.html" target="_blank"><i class="fa fa-plus-circle"></i> Register for VSAC</a></div>
             </div>
           </div>
           <div class="form-group">

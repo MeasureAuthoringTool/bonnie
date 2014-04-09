@@ -37,7 +37,8 @@ class MeasuresController < ApplicationController
      'episode_of_care'=>params[:calculation_type] == 'episode'
     }
 
-    if params[:measure_file] && File.extname(params[:measure_file].original_filename).downcase != '.zip'
+    extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
+    if extension && !['.zip', '.xml'].include?(extension)
         flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you has uploaded does not appear to be a Measure Authoring Tool zip export of a measure.  Please re-export your measure from the MAT and select the 'eMeasure Package' option."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
@@ -62,7 +63,12 @@ class MeasuresController < ApplicationController
     end
 
     begin
-      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
+      if extension == '.xml'
+        measure = Measures::SourcesLoader.load_measure_hqmf(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details)
+      else
+        measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
+      end
+
       if (!is_update)
         existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
         if existing.count > 1
@@ -71,7 +77,15 @@ class MeasuresController < ApplicationController
           redirect_to "#{root_path}##{params[:redirect_route]}"
           return
         end
+      else
+        if existing.hqmf_set_id != measure.hqmf_set_id
+          measure.delete
+          flash[:error] = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a differnt measure.  Please update the correct measure or upload the file as a new measure."}
+          redirect_to "#{root_path}##{params[:redirect_route]}"
+          return
+        end
       end
+
       if measure_details['episode_of_care'] && measure.data_criteria.values.select {|d| d['specific_occurrence']}.empty?
         measure.delete
         flash[:error] = {title: "Error Loading Measure", summary: "An episode of care measure requires at least one speciific occurrence for the episode of care.", body: "You have loaded the measure as an episode of care measure.  Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."}
@@ -85,13 +99,17 @@ class MeasuresController < ApplicationController
         errors_dir = Rails.root.join('log', 'load_errors')
         FileUtils.mkdir_p(errors_dir)
         clean_email = File.basename(current_user.email) # Prevent path traversal
-        filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.zip"
+        filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}#{extension}"
 
         FileUtils.cp(params[:measure_file].tempfile, File.join(errors_dir, filename))
         File.chmod(0644, File.join(errors_dir, filename))
         File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
         if e.is_a? Measures::ValueSetException
           flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
+        elsif e.is_a? Measures::HQMFException
+          flash[:error] = {title: "Error Loading Measure", summary: "Error loading HQMF XML file.", body: "There was an error loading the HQMF file you selected.  Please verify that the file you are uploading is an HQMF XML file."}
+        elsif e.is_a? Measures::VSACException
+          flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password."}
         else
           flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Please re-package the measure in the MAT, then re-download the MAT Measure Export.  If the measure has QDM elements without a VSAC Value Set defined the measure will not load."}
         end
@@ -112,7 +130,7 @@ class MeasuresController < ApplicationController
     if (is_update)
       measure.episode_ids = measure_details['episode_ids']
       measure.populations.each_with_index do |population, population_index|
-        population['title'] = measure_details['population_titles']["#{population_index}"] if (measure_details['population_titles'])
+        population['title'] = measure_details['population_titles'][population_index] if (measure_details['population_titles'])
       end
       # check if episode ids have changed
       if (measure.episode_of_care?)
