@@ -38,7 +38,7 @@ class MeasuresController < ApplicationController
     }
 
     if params[:measure_file] && File.extname(params[:measure_file].original_filename).downcase != '.zip'
-        flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you has uploaded does not appear to be a Measure Authoring Tool zip export of a measure.  Please re-export your measure from the MAT and select the 'eMeasure Package' option."}
+        flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure.  Please re-export your measure from the MAT and select the 'eMeasure Package' option."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
     end
