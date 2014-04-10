@@ -223,6 +223,7 @@ namespace :bonnie do
               patient_data_criteria['description'] = measure_data_criteria['description']
               patient_data_criteria['negation'] = patient_data_criteria['negation'] == "true"
               patient_data_criteria['type'] = measure_data_criteria['type']
+              patient_data_criteria['end_date']=nil if patient_data_criteria['end_date'] == 32503698000000
 
               # FIXME Not sure why field_values has no keys now, did the Cypress patient set change?
               unless patient_data_criteria['field_values'].blank?
