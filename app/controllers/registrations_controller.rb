@@ -11,7 +11,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_inactive_sign_up_path_for(resource)
-    "/needs_approval"
+    set_flash_message :notice, :signed_up_but_inactive
+    "#{(respond_to?(:root_path) ? root_path : "/")}users/sign_in"
   end
 
 end
