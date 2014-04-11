@@ -7,7 +7,7 @@ class Thorax.Views.Measures extends Thorax.Views.BonnieView
     @finalizeMeasuresView = new Thorax.Views.FinalizeMeasures measures: new Thorax.Collections.Measures(toFinalize)
 
   importMeasure: (event) ->
-    importMeasureView = new Thorax.Views.ImportMeasure()
+    importMeasureView = new Thorax.Views.ImportMeasure(firstMeasure: (@collection.length == 0))
     importMeasureView.appendTo(@$el)
     importMeasureView.display()
 
