@@ -39,12 +39,12 @@ class MeasuresController < ApplicationController
 
     extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
     if extension && !['.zip', '.xml'].include?(extension)
-        flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you has uploaded does not appear to be a Measure Authoring Tool zip export of a measure.  Please re-export your measure from the MAT and select the 'eMeasure Package' option."}
+        flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure or HQMF XML measure file. Please re-export your measure from the MAT and select the 'eMeasure Package' option, or select the correct HQMF XML file."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
     elsif extension == '.zip'
       if !Measures::MATLoader.mat_export?(params[:measure_file])
-        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file.  If the zip file contains HQMF XML, please unzip the file and upload the HQMF XML file instead of the zip file."}
+        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file. If the zip file contains HQMF XML, please unzip the file and upload the HQMF XML file instead of the zip file. Otherwise, please re-export your measure from the MAT and select the 'eMeasure Package' option"}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
