@@ -10,6 +10,7 @@ def export(user, rebuild, calculate, source_directory)
   config["base_dir"] ||= "tmp/bundle-#{config["version"]}"
   config["name"] ||= "bundle-#{config["version"]}-#{Time.now.to_i}"
   config["valueset_sources"] ="db"
+  config['use_cms'] = true
   exporter = Measures::Exporter::BundleExporter.new(user, config)
   exporter.rebuild_measures if rebuild=="true" || config["rebuild_measures"]
   exporter.calculate if calculate=="true"|| config["calculate"]
