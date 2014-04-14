@@ -89,7 +89,8 @@ class Thorax.Models.Result extends Thorax.Model
     for parent in parents
       parentKey = if parent.id? then "precondition_#{parent.id}" else parent.key || parent.type
 
-      negated = parent.negation
+      # we are negated if the parent is negated and the parent is a precondition.  If it's a data criteria, then negation is fine
+      negated = parent.negation && parent.id?
       if updatedRationale[code][parentKey] != false && !negated
         # if this is an OR then remove a true increment since it's a bad true
         orCounts[parentKey]-- if orCounts[parentKey]?
