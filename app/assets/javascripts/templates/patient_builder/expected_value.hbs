@@ -2,15 +2,14 @@
 <div class="form-inline tab-pane">
   {{#each currentCriteria}}
     {{#ifCond key "==" "OBSERV"}}
-      <label>
-        {{displayName}}
-        <input type="number" name="{{key}}" min="0">
-      </label>
-      <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">{{../../OBSERV_UNIT}}</button>
-      <ul class="dropdown-menu">
-        <li>{{#button "setObservMins" tag="a"}}mins{{/button}}</li>
-        <li>{{#button "setObservPerc" tag="a"}}%{{/button}}</li>
-      </ul>
+      <div class="form-group">
+        <label for="{{key}}_{{@cid}}">{{displayName}}</label>
+        {{#button "toggleUnits" class="btn btn-xs btn-default"}}{{../../../OBSERV_UNIT}}{{/button}}
+        {{#each ../../OBSERV}}
+          {{#log this}}{{/log}}
+          <input type="number" id="{{../key}}_{{@index}}_{{@cid}}" name="{{../key}}" min="0" value="{{this}}">
+        {{/each}}
+      </div>
     {{else}}
       {{#if isEoC}}
         <div class="form-group">
