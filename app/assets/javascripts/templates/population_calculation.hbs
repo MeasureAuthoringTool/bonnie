@@ -72,7 +72,7 @@
             </td>
             <td>{{name}}</td>
             <td style="text-align: center;">
-              {{#ifCond name "==" "OBSERV"}}
+              {{#ifCond key "==" "OBSERV"}}
                 {{#ifCond expected "==" undefined}}
                   <p class="text-muted">N/A</p>
                 {{else}}
@@ -99,7 +99,7 @@
               {{/ifCond}}
             </td>
             <td style="text-align: center;">
-              {{#ifCond name "==" "OBSERV"}}
+              {{#ifCond key "==" "OBSERV"}}
                 {{#ifCond actual "==" undefined}}
                   <p class="text-muted">N/A</p>
                 {{else}}

@@ -6,8 +6,7 @@
         <label for="{{key}}_{{@cid}}">{{displayName}}</label>
         {{#button "toggleUnits" class="btn btn-xs btn-default"}}{{../../../OBSERV_UNIT}}{{/button}}
         {{#each ../../OBSERV}}
-          {{#log this}}{{/log}}
-          <input type="number" id="{{../key}}_{{@index}}_{{@cid}}" name="{{../key}}" min="0" value="{{this}}">
+          <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}">
         {{/each}}
       </div>
     {{else}}

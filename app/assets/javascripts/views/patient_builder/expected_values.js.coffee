@@ -69,6 +69,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
     'blur input': 'triggerMaterialize'
     'blur input[name="MSRPOPL"]': -> @updateObserv()
+    rendered: -> @updateObserv()
 
   context: ->
     context = super
@@ -102,21 +103,19 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       if @model.get('OBSERV')
         current = @model.get('OBSERV').length
         if values > current
-          @model.set 'OBSERV', _(@model.get('OBSERV')).first(values)
+          @model.set 'OBSERV', @model.get('OBSERV').concat(0 for n in [(current+1)..values])
         else if values < current
-          @model.get('OBSERV').push(0) for n in [current..values]
+          @model.set 'OBSERV', _(@model.get('OBSERV')).first(values)
       else
         @model.set 'OBSERV', (0 for n in [1..values])
-    console.log @model.get('OBSERV')
+      console.log @model.get('OBSERV')
+      for val, index in @model.get('OBSERV')
+        @$("#OBSERV_#{index}").val(val)
+        console.log "OBSERV_#{index} #{val}"
 
   toggleUnits: (e) ->
     if @model.get('OBSERV_UNIT') == ' mins'
       @model.set 'OBSERV_UNIT', '%'
     else
       @model.set 'OBSERV_UNIT', ' mins'
-
-  setObservMins: ->
-    @model.set 'OBSERV_UNIT', ' mins'
-
-  setObservPerc: ->
-    @model.set 'OBSERV_UNIT', '%'
+    @updateObserv()
