@@ -210,6 +210,15 @@ namespace :bonnie do
     end
   end
 
+  namespace :test do
+    desc 'Delete all non-CV measures after importing from bonnie-production-eh'
+    task :clean_up => :environment do
+      puts "Reducing imported measures"
+      some_measure_ids = Measure.in(cms_id: ['CMS112v2', 'CMS55v2', 'CMS32v3']).pluck('hqmf_set_id')
+      Measure.nin(hqmf_set_id: some_measure_ids).delete
+    end
+  end
+
   namespace :measures do
     desc 'Pre-generate measure JavaScript and cache in the DB'
     task :pregenerate_js => :environment do

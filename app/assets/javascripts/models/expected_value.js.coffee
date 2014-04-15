@@ -21,8 +21,8 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
     for popCrit in @populationCriteria()
       key = popCrit
       if popCrit.indexOf('OBSERV') != -1
-        expected = @get('OBSERV')?[popCrit.split('_')[1]]
-        actual = result.get('values')?[popCrit.split('_')[1]]
+        expected = if popCrit == 'OBSERV' then @get('OBSERV') else @get('OBSERV')?[popCrit.split('_')[1]]
+        actual = if popCrit == 'OBSERV' then result.get('values')?[0] else result.get('values')?[popCrit.split('_')[1]]
         unit = @get('OBSERV_UNIT')
         key = 'OBSERV'
         # console.log "#{popCrit} exp: #{expected} act: #{actual}"
