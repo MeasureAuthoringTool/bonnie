@@ -15,8 +15,6 @@ describe 'MeasureView', ->
     expect(@measureView.$el).toContainText @measure.get('title')
     expect(@measureView.$el).toContainText @measure.get('cms_id')
     expect(@measureView.$el).toContainText @measure.get('description')
-    expect(@measureView.$('[data-call-method="measureSettings"]')).toExist()
-    expect(@measureView.$('[data-call-method="patientsSettings"]')).toExist()
 
   it 'renders measure populations', ->
     expect(@measureView.$('[data-toggle="tab"]')).toExist()
@@ -29,7 +27,6 @@ describe 'MeasureView', ->
 
   it 'renders patient results', ->
     expect(@measureView.$('.patient.row')).toExist()
-    expect(@measureView.$('[data-call-method="expandResult"]')).toExist()
     expect(@measureView.$('.toggle-result')).not.toBeVisible()
     expect(@measureView.$('.btn-show-coverage')).not.toBeVisible()
     @measureView.$('[data-call-method="expandResult"]').click()

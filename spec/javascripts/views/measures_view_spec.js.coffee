@@ -10,8 +10,6 @@ describe 'MeasuresView', ->
     expect(@measuresView.$('.measure').length).toBe @measures.length
     expect(@measuresView.$el).toContainText @measure.get('cms_id')
     expect(@measuresView.$el).toContainText @measure.get('title')
-    expect(@measuresView.$('[data-call-method="importMeasure"]').length).toBe 1
-    expect(@measuresView.$('[data-call-method="updateMeasure"]').length).toBe @measures.length
     expect(@measuresView.$('.patient-listing-col > a').length).toBe @measures.length
 
   it 'renders measures with populations on dashboard', ->
