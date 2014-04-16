@@ -59,7 +59,7 @@
 
             <div>
               <label for="end_time_{{@cid}}" class="sr-only">end time</label>
-              <input type="text" name="end_time" id="end_time_{{@cid}}" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM"{{#if end_date_is_undefined}} disabled{{/if}}>
+              <input type="text" name="end_time" id="end_time_{{@cid}}" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="{{#unless end_date_is_undefined}}8:00 AM{{/unless}}"{{#if end_date_is_undefined}} disabled{{/if}}>
             </div>
           </div>
           <div class="checkbox">
