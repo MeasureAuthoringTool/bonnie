@@ -11,7 +11,7 @@
       <a href="#measures/{{measure_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
         <i class="fa fa-user"></i>
         <i class="fa fa-plus"></i>
-        <span class="sr-only">build patient</span>
+        <span class="sr-only">add new patient</span>
       </a>
     </div>
   </div>
@@ -30,24 +30,24 @@
             {{else}}
               {{#if done}}
                 {{#if match}}
-                  <i class="fa fa-check"><span class="sr-only">patient expectations matched</span></i>
+                  <i class="fa fa-check"><span class="sr-only">{{patient.last}} {{patient.first}}, patient passing</span></i>
                 {{else}}
-                  <i class="fa fa-times"><span class="sr-only">patient expectations not matched</span></i>
+                  <i class="fa fa-times"><span class="sr-only">{{patient.last}} {{patient.first}}, patient failing</span></i>
                 {{/if}}
               {{/if}}
             {{/if}}
           </div>
           <div class="patient-user-icon-col">
-            <i class="fa fa-user"><span class="sr-only">patient result</span></i>
+            <i class="fa fa-user"><span class="sr-only">{{patient.last}} {{patient.first}}, patient result</span></i>
           </div>
           <div class="patient-name-col">
-            {{patient.last}} {{patient.first}}
+            <span class="sr-only">patient name: </span>{{patient.last}} {{patient.first}}
           </div>
           <div class="patient-status-col status status-{{status}}">
-            {{status}}
+            <span class="sr-only">{{patient.last}} {{patient.first}}, status </span>{{status}}
           </div>
           <div class="patient-btn-col">
-            {{#button "expandResult" class="close"}}<i class="fa fa-lg fa-angle-right expand-result-icon expand-result-icon-{{patient._id}}"></i> <span class="sr-only">Toggle Logic Pass/Fail</span>{{/button}}
+            {{#button "expandResult" class="close"}}<i class="fa fa-lg fa-angle-right expand-result-icon expand-result-icon-{{patient._id}}"></i> <span class="sr-only">{{patient.last}} {{patient.first}}, Toggle Logic Pass/Fail</span>{{/button}}
           </div>
         </div>
       </div>
@@ -128,13 +128,13 @@
           </tr>
         {{/each}}
       </table>
-      {{#link "measures/{{measure_id}}/patients/{{patient._id}}/edit" class="btn btn-primary" expand-tokens=true}}EDIT{{/link}}
-      {{#button "clonePatient" class="btn btn-primary"}}CLONE{{/button}}
+      {{#link "measures/{{measure_id}}/patients/{{patient._id}}/edit" class="btn btn-primary" expand-tokens=true}}EDIT<span class="sr-only"> patient {{patient.last}} {{patient.first}}</span>{{/link}}
+      {{#button "clonePatient" class="btn btn-primary"}}CLONE<span class="sr-only"> patient {{patient.last}} {{patient.first}}</span>{{/button}}
       {{#button "showDelete" class="btn btn-danger-inverse"}}
         <i class="fa fa-minus-circle"></i>
-        <span class="sr-only">Show Delete</span>
+        <span class="sr-only">{{patient.last}} {{patient.first}}, Show Delete</span>
       {{/button}}
-      {{#button "deletePatient" class="btn btn-danger delete-{{patient._id}}" style="display: none;" expand-tokens=true}}Delete{{/button}}
+      {{#button "deletePatient" class="btn btn-danger delete-{{patient._id}}" style="display: none;" expand-tokens=true}}Delete<span class="sr-only"> patient {{patient.last}} {{patient.first}}</span>{{/button}}
     </div>
   {{/collection}}
 </div>

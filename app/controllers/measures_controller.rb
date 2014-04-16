@@ -79,7 +79,7 @@ class MeasuresController < ApplicationController
         existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
         if existing.count > 1
           measure.delete
-          flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded alread.  Either update that measure with the update button, or delete that measure and re-upload it."}
+          flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
           redirect_to "#{root_path}##{params[:redirect_route]}"
           return
         end
