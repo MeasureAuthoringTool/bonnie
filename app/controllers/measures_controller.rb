@@ -99,6 +99,15 @@ class MeasuresController < ApplicationController
         return
       end
 
+      missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids)
+      if missing_value_sets.length > 0
+        measure.delete
+        flash[:error] = {title: "Measure is missing value sets", summary: "The measure you have tried to load is missing value sets.", body: "The measure you are trying to load is missing value sets.  Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"}
+        redirect_to "#{root_path}##{params[:redirect_route]}"
+        return
+      end
+      
+
       existing.delete if (existing && is_update)
     rescue Exception => e
       if params[:measure_file]
