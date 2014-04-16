@@ -1,6 +1,24 @@
 GIT
+  remote: https://github.com/projectcypress/health-data-standards.git
+  revision: 1992aa22c47b8e9a8a5e53150de70dfd9322a1e9
+  branch: master
+  specs:
+    health-data-standards (3.4.5)
+      activesupport (~> 3.2.14)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 3.1.4)
+      mongoid-tree (~> 1.0.4)
+      nokogiri (= 1.6.0)
+      rest-client (~> 1.6.7)
+      rubyzip (= 0.9.9)
+      uuid (~> 2.3.7)
+
+GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 93042c48ae507f019f5eb6f46a41e60aee13b0d2
+  revision: d7643e9d567e0d255e401832b7cd31f19866b12b
   branch: master
   specs:
     bonnie_bundler (1.0.0)
@@ -98,18 +116,6 @@ GEM
       multi_json
       sprockets (>= 2.0.3)
       tilt
-    health-data-standards (3.4.4)
-      activesupport (~> 3.2.14)
-      builder (~> 3.0.0)
-      erubis (~> 2.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 3.1.4)
-      mongoid-tree (~> 1.0.4)
-      nokogiri (= 1.6.0)
-      rest-client (~> 1.6.7)
-      rubyzip (= 0.9.9)
-      uuid (~> 2.3.7)
     hike (1.2.3)
     hqmf2js (1.3.0)
     hquery-patient-api (1.0.4)
@@ -132,7 +138,7 @@ GEM
       less (~> 2.4.0)
     libv8 (3.16.14.3)
     log4r (1.1.10)
-    macaddr (1.6.7)
+    macaddr (1.7.1)
       systemu (~> 2.6.2)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -280,7 +286,7 @@ DEPENDENCIES
   exception_notification
   foreman
   handlebars_assets
-  health-data-standards (= 3.4.4)
+  health-data-standards!
   hqmf2js (= 1.3.0)
   hquery-patient-api (= 1.0.4)
   jasmine
