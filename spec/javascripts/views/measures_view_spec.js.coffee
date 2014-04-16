@@ -2,12 +2,16 @@ describe 'MeasuresView', ->
 
   beforeEach ->
     @measures = bonnie.measures
+    @measure = @measures.first()
     @measuresView = new Thorax.Views.Measures(collection: @measures)
     @measuresView.render()
 
-  it 'renders correctly', ->
-    # expect(@measuresView.$el).toContainText "Total measures: #{@measures.length}"
+  it 'renders dashboard', ->
     expect(@measuresView.$('.measure').length).toBe @measures.length
-    measure = @measures.first()
-    expect(@measuresView.$el).toContainText measure.get('cms_id')
-    expect(@measuresView.$el).toContainText measure.get('title')
+    expect(@measuresView.$el).toContainText @measure.get('cms_id')
+    expect(@measuresView.$el).toContainText @measure.get('title')
+    expect(@measuresView.$('.patient-listing-col > a').length).toBe @measures.length
+
+  it 'renders measures with populations on dashboard', ->
+    expect(@measuresView.$el).toContainText @measure.get('populations').first().get('title')
+    expect(@measuresView.$el).toContainText @measure.get('populations').last().get('title')

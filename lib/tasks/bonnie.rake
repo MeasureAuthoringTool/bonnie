@@ -95,7 +95,7 @@ namespace :bonnie do
   namespace :db do
 
     desc 'Reset DB; by default pulls from bonnie-dev.mitre.org:bonnie-production-gold; use HOST=<host> DB=<db> for another; DEMO=true prunes measures'
-    task :reset => :environment do
+    task :reset_legacy => :environment do
       
       host = ENV['HOST'] || 'bonnie-dev.mitre.org'
       source_db = ENV['DB'] || 'bonnie-production-gold'
@@ -137,6 +137,23 @@ namespace :bonnie do
       User.each do |u|
         u.approved = true
         u.save
+      end
+    end
+
+    desc 'Reset DB; by default pulls from bonnie-dev.mitre.org:bonnie2-production-gold; use HOST=<host> DB=<db> for another; DEMO=true prunes measures'
+    task :reset => :environment do
+
+      host = ENV['HOST'] || 'bonnie-dev.mitre.org'
+      source_db = ENV['DB'] || 'bonnie2-production-gold'
+      dest_db = Mongoid.default_session.options[:database]
+      puts "Resetting #{dest_db} from #{host}:#{source_db}"
+      Mongoid.default_session.with(database: dest_db) { |db| db.drop }
+      Mongoid.default_session.with(database: 'admin') { |db| db.command copydb: 1, fromhost: host, fromdb: source_db, todb: dest_db }
+      if ENV['DEMO'] == 'true'
+        puts "Deleting non-demo measures and patients"
+        demo_measure_ids = Measure.in(measure_id: ['0105', '0069']).pluck('hqmf_set_id') # Note: measure_id is nqf, id is hqmf_set_id!
+        Measure.nin(hqmf_set_id: demo_measure_ids).delete
+        Record.nin(measure_ids: demo_measure_ids).delete
       end
     end
 
@@ -223,6 +240,7 @@ namespace :bonnie do
               patient_data_criteria['description'] = measure_data_criteria['description']
               patient_data_criteria['negation'] = patient_data_criteria['negation'] == "true"
               patient_data_criteria['type'] = measure_data_criteria['type']
+              patient_data_criteria['end_date']=nil if patient_data_criteria['end_date'] == 32503698000000
 
               # FIXME Not sure why field_values has no keys now, did the Cypress patient set change?
               unless patient_data_criteria['field_values'].blank?
