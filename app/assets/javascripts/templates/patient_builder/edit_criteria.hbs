@@ -13,9 +13,9 @@
         <div class="col-md-6">
           {{#button "toggleDetails" class="close"}}
             <i class="fa fa-lg fa-angle-right"></i>
-            <span class="sr-only">Expand Data Criteria</span>
+            <span class="sr-only">Expand Data Criteria, {{definition}}, {{description}} </span>
+            <span class="highlight-indicator sr-only"></span>
           {{/button}}
-          <span class="highlight-indicator sr-only"></span>
           <h2>Date</h2>
           <div>{{start_date}}{{#if end_date}} &ndash; {{end_date}}{{/if}}</div>
         </div>
@@ -29,7 +29,7 @@
     <form class="hide" role="form">
       {{#button "toggleDetails" class="close"}}
         <i class="fa fa-lg fa-angle-down"></i>
-        <span class="sr-only">Collapse Data Criteria</span>
+        <span class="sr-only">Collapse Data Criteria, {{definition}}, {{description}}</span>
       {{/button}}
       <span class="highlight-indicator sr-only"></span>
 

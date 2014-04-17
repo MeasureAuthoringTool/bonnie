@@ -1,8 +1,8 @@
-<div class="modal fade" id="errorDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="errorDialog" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1>{{error.title}}</h1>
+        <h1 id="modalTitle">{{error.title}}</h1>
       </div>
       <div class="modal-body">
         {{#if error.summary}}

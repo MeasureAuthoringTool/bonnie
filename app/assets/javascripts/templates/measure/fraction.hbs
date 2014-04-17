@@ -1,5 +1,6 @@
 {{#if done}}
+  <span class="sr-only">{{#if cms_id}}{{cms_id}}, {{/if}}{{#if population}}population {{population}}, {{/if}}</span>
   <span class="patient-listing">{{matching}}</span>
   <span class="fraction">/{{total}}</span>
-  <span class="sr-only"> patients meet expected</span>
+  <span class="sr-only"> test patients meet expected results</span>
 {{/if}}

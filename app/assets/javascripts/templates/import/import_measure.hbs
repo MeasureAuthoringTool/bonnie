@@ -1,9 +1,9 @@
-<div class="modal fade" id="importMeasureDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="importMeasureDialog" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         {{#button "close" class="close" data-dismiss="modal" aria-hidden="true"}}&times;{{/button}}
-        <h4 class="modal-title">{{dialogTitle}}</h4>
+        <h4 class="modal-title" id="modalTitle">{{dialogTitle}}</h4>
       </div>
       <div class="modal-body">
         <form action="measures" method="post" class="form-horizontal" enctype="multipart/form-data" role="form">
@@ -136,11 +136,12 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div class="modal fade" id="pleaseWaitDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="pleaseWaitDialog" tabindex="-1" role="dialog" aria-labelledby="modalTitle modalInstructions" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1>Loading Measure...</h1>
+        <h1 id="modalTitle">Loading Measure...</h1>
+        <span class="sr-only" id="modalInstructions">This dialog will dismiss automatically once processing is complete.</span>
       </div>
       <div class="modal-body">
         <div class="progress progress-striped active">

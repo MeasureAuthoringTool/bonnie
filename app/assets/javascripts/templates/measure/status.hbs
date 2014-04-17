@@ -1,4 +1,4 @@
-<span class="sr-only">Measure status: </span>
+<span class="sr-only">{{#if cms_id}}{{cms_id}}, {{/if}}{{#if population}}population {{population}}, {{/if}}Measure status: </span>
 {{#if done}}
   <span class="status status-{{status}}">{{status}}</span>
 {{else}}
