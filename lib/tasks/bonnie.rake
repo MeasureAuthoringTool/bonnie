@@ -142,18 +142,21 @@ namespace :bonnie do
 
     desc 'Reset DB; by default pulls from bonnie-dev.mitre.org:bonnie2-production-gold; use HOST=<host> DB=<db> for another; DEMO=true prunes measures'
     task :reset => :environment do
-
-      host = ENV['HOST'] || 'bonnie-dev.mitre.org'
-      source_db = ENV['DB'] || 'bonnie2-production-gold'
-      dest_db = Mongoid.default_session.options[:database]
-      puts "Resetting #{dest_db} from #{host}:#{source_db}"
-      Mongoid.default_session.with(database: dest_db) { |db| db.drop }
-      Mongoid.default_session.with(database: 'admin') { |db| db.command copydb: 1, fromhost: host, fromdb: source_db, todb: dest_db }
-      if ENV['DEMO'] == 'true'
-        puts "Deleting non-demo measures and patients"
-        demo_measure_ids = Measure.in(measure_id: ['0105', '0069']).pluck('hqmf_set_id') # Note: measure_id is nqf, id is hqmf_set_id!
-        Measure.nin(hqmf_set_id: demo_measure_ids).delete
-        Record.nin(measure_ids: demo_measure_ids).delete
+      if ENV['HOST'] || ENV['DB']
+        Rake::Task['bonnie:db:reset_legacy'].invoke
+      else
+        host = 'bonnie-dev.mitre.org'
+        source_db = 'bonnie2-production-gold'
+        dest_db = Mongoid.default_session.options[:database]
+        puts "Resetting #{dest_db} from #{host}:#{source_db}"
+        Mongoid.default_session.with(database: dest_db) { |db| db.drop }
+        Mongoid.default_session.with(database: 'admin') { |db| db.command copydb: 1, fromhost: host, fromdb: source_db, todb: dest_db }
+        if ENV['DEMO'] == 'true'
+          puts "Deleting non-demo measures and patients"
+          demo_measure_ids = Measure.in(measure_id: ['0105', '0069']).pluck('hqmf_set_id') # Note: measure_id is nqf, id is hqmf_set_id!
+          Measure.nin(hqmf_set_id: demo_measure_ids).delete
+          Record.nin(measure_ids: demo_measure_ids).delete
+        end
       end
     end
 
@@ -205,7 +208,8 @@ namespace :bonnie do
     desc 'Deletes all measures except for failing Cypress measures and CV measures; Use after running a bonnie:load:mitre_bundle rake task.'
     task :prune_db => :environment do
       puts "Reducing imported measures"
-      some_measure_ids = Measure.in(measure_id: ['0710', '0389', 'ADE_TTR', '0497', '0495', '0496']).pluck('hqmf_set_id')
+      # some_measure_ids = Measure.in(measure_id: ['0710', '0389', 'ADE_TTR', '0497', '0495', '0496']).pluck('hqmf_set_id')
+      some_measure_ids = Measure.in(cms_id: ['CMS179v2', 'CMS159v2', 'CMS129v3', 'CMS111v2', 'CMS55v2', 'CMS32v3']).pluck('hqmf_set_id')
       Measure.nin(hqmf_set_id: some_measure_ids).delete
     end
   end
@@ -214,7 +218,7 @@ namespace :bonnie do
     desc 'Delete all non-CV measures after importing from bonnie-production-eh'
     task :clean_up => :environment do
       puts "Reducing imported measures"
-      some_measure_ids = Measure.in(cms_id: ['CMS112v2', 'CMS55v2', 'CMS32v3']).pluck('hqmf_set_id')
+      some_measure_ids = Measure.in(cms_id: ['CMS111v2', 'CMS55v2', 'CMS32v3']).pluck('hqmf_set_id')
       Measure.nin(hqmf_set_id: some_measure_ids).delete
     end
   end
