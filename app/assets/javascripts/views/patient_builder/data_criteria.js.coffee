@@ -120,7 +120,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   showDelete: (e) ->
     e.preventDefault()
     $btn = $(e.currentTarget)
-    $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
+    $btn.toggleClass('btn-danger btn-danger-inverse').next().toggleClass('hide')
 
   toggleEndDateDefinition: (e) ->
     $cb = $(e.target)

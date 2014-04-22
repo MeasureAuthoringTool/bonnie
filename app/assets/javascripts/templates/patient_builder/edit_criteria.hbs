@@ -134,14 +134,13 @@
         </select>
       </div>
 
-      <div class="clearfix">
+      <div class="criteria-delete">
         <div class="pull-right">
-          &nbsp; {{! If we take this out, say goodbye to space between the buttons. Why, Chrome? Firefox and Safari don't have this problem. }}
-          {{#button "removeCriteria" class="btn btn-danger hide"}}Delete{{/button}}
-          {{#button "showDelete" class="btn btn-danger-inverse"}}
+          {{#button "showDelete" class="btn btn-danger-inverse criteria-delete-check"}}
             <i class="fa fa-minus-circle"></i>
             <span class="sr-only">show delete</span>
           {{/button}}
+          {{#button "removeCriteria" class="btn btn-danger hide"}}Delete{{/button}}
         </div>
       </div>
     </form>
