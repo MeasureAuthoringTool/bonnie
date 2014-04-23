@@ -18,6 +18,9 @@
       .btn-lg;
       margin: 30px 0;
     }
+    .field_with_errors{
+      .devise_error;
+    }
   }
   .input-group-lg > .input-group-addon {
     padding-left: 6px;
@@ -39,11 +42,8 @@
     .required {
       .form-control-validation(@brand-primary; @brand-primary; @input-bg);
     }
-    .field_with_errors {
-      .has-error;
-      input {
-        .input-lg;
-      }
+    .field_with_errors{
+      .devise_error;
     }
   }
 }
