@@ -57,7 +57,11 @@ class Calculator
           result.state = 'unstarted'
           return
         result.state = 'complete'
-        result.set @calculator[calcKey](patient.toJSON())
+        try
+          result.set @calculator[calcKey](patient.toJSON())
+        catch error
+          bonnie.showError({title: "Measure Calculation Error", summary: "There was an error calculating the measure #{result.measure.get('cms_id')}.", body: "One of the data elements associated with the measure is causing an issue.  Please review the elements associated with the measure to verify that they are all constructed properly.  Error message: #{error.message}."})
+
       setTimeout deferredCalculation, 0
 
     return result
