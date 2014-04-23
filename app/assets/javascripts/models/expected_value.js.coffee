@@ -27,16 +27,15 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
       result.set 'values', _(result.get('values')).sortBy( (v) -> v)
 
     for popCrit in @populationCriteria()
-      key = popCrit
       if popCrit.indexOf('OBSERV') != -1
         expected = if popCrit == 'OBSERV' then @get('OBSERV')?[0] else @get('OBSERV')?[@observIndex(popCrit)]
         actual = if popCrit == 'OBSERV' then result.get('values')?[0] else result.get('values')?[@observIndex(popCrit)]
         unit = @get('OBSERV_UNIT')
         key = 'OBSERV'
-        # console.log "#{popCrit} exp: #{expected} act: #{actual}"
       else
         expected = @get(popCrit)
         actual = result.get(popCrit)
+        key = popCrit
       # Here's the hash we return:
       name: popCrit
       key: key
