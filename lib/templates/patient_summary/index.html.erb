@@ -1,0 +1,61 @@
+<html>
+<body>
+
+  <h1><%=measure.cms_id%>: <%=measure.title%></h1>
+
+  <% results.each_with_index do |result, pop_index| %>
+
+    <% if results.length > 1%>
+      <% 
+        title = measure.populations[pop_index]['title'] 
+        title = "Sub Measure #{(a..zz)[pop_index]}" if title.empty?
+      %>
+      <h2>Population: <%= title %></h2>
+    <% end %>
+
+    <p>
+      <div>Coverage: <%= result['coverage']%>%</div>
+      <div>Status: <%= result['summary']['status'] %></div>
+      <div>Percent Passing: <%= result['summary']['percent'] %>%</div>
+      <div>Patients Passing: <%= result['summary']['matching'] %>/<%= result['summary']['total'] %></div>
+    </p>
+
+    
+    <table>
+      <% records.each_with_index do |record, index| %>
+        <% patient_result = result['differences'][record.medical_record_number] %>
+        <tr>
+          <td><%=record.last%>, <%=record.first%></td>
+          <td><a href="<%= File.join(".","html","#{index+1}_#{record.last}_#{record.first}.html")%>">html</a></td>
+          <td><a href="<%= File.join(".","qrda","#{index+1}_#{record.last}_#{record.first}.xml")%>">qrda</a></td>
+          <td><%= patient_result['status']%></td>
+          <td>
+            <table>
+              <tr>
+                <th>Population</th>
+                <th>Expected</th>
+                <th>Actual</th>
+                <th>Status</th>
+              </tr>
+              <% HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |code| %>
+                <% 
+                  comparison = patient_result['comparisons'][code] 
+                  if comparison 
+                %>
+                  <tr>
+                    <td><%= code %></td>
+                    <td><%= comparison['expected'] %><%= comparison['unit'] %></td>
+                    <td><%= comparison['actual'] %><%= comparison['unit'] %></td>
+                    <td><%= (comparison['match'] == 'true') ? 'pass' : 'fail' %></td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </table>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+
+</body>
+</html>
