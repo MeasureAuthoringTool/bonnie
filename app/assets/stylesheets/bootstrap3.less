@@ -102,7 +102,7 @@ h2 {
 
 .navbar {
   margin-bottom: 50px;
-  .navbar-brand {
+  .navbar-brand a {
     font-size: 36px;
     font-weight: 100;
     text-transform: uppercase;
@@ -126,15 +126,14 @@ h2 {
   }
   // TODO: this should not be in the bootstrap styles
   .measure-period {
+    display: inline-block;
     padding-top: 10px;
-    margin-left:10px;
-    font-size: 1.2em;
+    margin-left:25px;
     font-weight: bold;
     color: @gray-darker;
-    .make-md-column(3);
 
     .year {
-      font-size: 1.5em;
+      font-size: 1.4em;
       font-weight: 100;
     }
   }
