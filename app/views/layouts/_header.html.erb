@@ -1,4 +1,11 @@
 <div class="navbar row" role="navigation">
+  <div class="navbar-brand">
+    <a href="#">Bonnie</a>
+    <span class="measure-period">
+      <i class="fa fa-tasks"></i> measure period:
+      <span class="year"><%= Time.zone.at(APP_CONFIG['measure_period_start']).year %></span>
+    </span>
+  </div>
   <ul class="nav navbar-nav pull-right">
     <li class="active"><a href="#">Measures</a></li>
     <li><a href="/users/edit">Account</a></li>
@@ -15,10 +22,5 @@
     </li>
     <li><%= link_to 'Logout', destroy_user_session_path, :method => :delete %></li>
   </ul>
-  <a class="navbar-brand" href="#">Bonnie</a>
-  <div class="measure-period">
-    <i class="fa fa-tasks"></i> measure period:
-    <span class="year"><%= Time.zone.at(APP_CONFIG['measure_period_start']).year %></span>
-  </div>
 
 </div>
