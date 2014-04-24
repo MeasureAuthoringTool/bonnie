@@ -22,15 +22,15 @@
 
   <div class="measure row">
     <div class="measure-col">
-      <div class="btn-wrapper pull-right">
-        {{#button "updateMeasure" class="btn btn-primary"}}<i class="fa fa-refresh fa-fw"></i><span class="sr-only">{{cms_id}}, </span> Update <span class="sr-only">existing measure</span>{{/button}}
-      </div>
       <div class="measure-title">
-        <span class="nqf-listing pull-right">
+        {{#link "measures/{{hqmf_set_id}}" expand-tokens=true}}<span class="sr-only">{{cms_id}}, Measure Title: </span>{{title}}{{/link}}
+        <span class="nqf-listing">
           <span class="sr-only">CMS ID: </span>
           {{cms_id}}
         </span>
-        {{#link "measures/{{hqmf_set_id}}" expand-tokens=true}}<span class="sr-only">{{cms_id}}, Measure Title: </span>{{title}}{{/link}}
+      </div>
+      <div class="btn-wrapper">
+        {{#button "updateMeasure" class="btn btn-primary"}}<i class="fa fa-refresh fa-fw"></i><span class="sr-only">{{cms_id}}, </span> Update <span class="sr-only">existing measure</span>{{/button}}
       </div>
     </div>
     <div class="expected-col">
@@ -44,16 +44,16 @@
       {{/unless}}
     </div>
     <div class="patient-listing-col">
-      <a href="#measures/{{hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
-        <i class="fa fa-user"></i>
-        <i class="fa fa-plus"></i>
-        <span class="sr-only">{{cms_id}}, add new patient to measure</span>
-      </a>
       {{#if multiplePopulations}}
         <span class="sr-only">{{cms_id}} has </span><span class="patient-listing">{{patients.length}}</span><span class="sr-only"> test patients</span>
       {{else}}
         {{view "MeasureFractionView" model=differences.summary cms_id=cms_id}}
       {{/if}}
+      <a href="#measures/{{hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}">
+        <i class="fa fa-user"></i>
+        <i class="fa fa-plus"></i>
+        <span class="sr-only">{{cms_id}}, add new patient to measure</span>
+      </a>
     </div>
   </div>
 

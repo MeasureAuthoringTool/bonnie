@@ -11,13 +11,15 @@
         </div>
 
         <div class="col-md-6">
+          <div class="pull-left">
+            <h2>Date</h2>
+            <div>{{start_date}}{{#if end_date}} &ndash; {{end_date}}{{/if}}</div>
+          </div>
           {{#button "toggleDetails" class="close"}}
             <i class="fa fa-lg fa-angle-right"></i>
             <span class="sr-only">Expand Data Criteria, {{definition}}, {{description}} </span>
             <span class="highlight-indicator sr-only"></span>
           {{/button}}
-          <h2>Date</h2>
-          <div>{{start_date}}{{#if end_date}} &ndash; {{end_date}}{{/if}}</div>
         </div>
       </div>
       {{#ifPortfolio}}
@@ -27,13 +29,17 @@
       {{/ifPortfolio}}
     </div>
     <form class="hide" role="form">
-      {{#button "toggleDetails" class="close"}}
-        <i class="fa fa-lg fa-angle-down"></i>
-        <span class="sr-only">Collapse Data Criteria, {{definition}}, {{description}}</span>
-      {{/button}}
-      <span class="highlight-indicator sr-only"></span>
+      <div class="clearfix">
+        <div class="pull-left">
+          <span class="highlight-indicator sr-only"></span>
 
-      <p><strong>{{definition}}:</strong> {{description}}</p>
+          <p><strong>{{definition}}:</strong> {{description}}</p>
+        </div>
+        {{#button "toggleDetails" class="close"}}
+          <i class="fa fa-lg fa-angle-down"></i>
+          <span class="sr-only">Collapse Data Criteria, {{definition}}, {{description}}</span>
+        {{/button}}
+      </div>
 
       <div class="row">
         <div class="form-group col-md-6">
@@ -134,14 +140,13 @@
         </select>
       </div>
 
-      <div class="clearfix">
+      <div class="criteria-delete">
         <div class="pull-right">
-          &nbsp; {{! If we take this out, say goodbye to space between the buttons. Why, Chrome? Firefox and Safari don't have this problem. }}
-          {{#button "removeCriteria" class="btn btn-danger hide"}}Delete{{/button}}
-          {{#button "showDelete" class="btn btn-danger-inverse"}}
+          {{#button "showDelete" class="btn btn-danger-inverse criteria-delete-check"}}
             <i class="fa fa-minus-circle"></i>
             <span class="sr-only">show delete</span>
           {{/button}}
+          {{#button "removeCriteria" class="btn btn-danger hide"}}Delete{{/button}}
         </div>
       </div>
     </form>

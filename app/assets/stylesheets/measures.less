@@ -3,10 +3,22 @@
 // For entire page
 .measure-col {
   .make-xs-column(7);
+  position: relative;
+  .measure-title {
+    .clearfix;
+    a {
+      .make-md-column(10; 0);
+    }
+    .nqf-listing {
+      .make-md-column(2; 0);
+    }
+  }
   .btn-wrapper {
-    line-height: 1;
     border-left: 5px white solid;
     border-right: 5px white solid;
+    line-height: 1;
+    position: absolute;
+    top: 0; right: 15px;
   }
 }
 
@@ -21,6 +33,12 @@
 
 .patient-listing-col {
   .make-xs-column(2);
+  position: relative;
+  .btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 }
 
 // Just the heading
