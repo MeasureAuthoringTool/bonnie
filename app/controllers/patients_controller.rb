@@ -41,12 +41,29 @@ class PatientsController < ApplicationController
     start_time = Time.new(2012, 1, 1)
     end_time = Time.new(2012, 12, 31)
 
+    if (params[:results])
+      results = params[:results].values
+
+      results.each do |r| 
+        r[:differences] = convert_to_hash(:medicalRecordNumber, r[:differences].values)
+        r[:differences].values.each {|d| d[:comparisons] = convert_to_hash(:name, d[:comparisons].values)}
+      end
+
+      rendering_context = HealthDataStandards::Export::RenderingContext.new
+      rendering_context.template_helper = HealthDataStandards::Export::TemplateHelper.new('html', 'patient_summary', Rails.root.join('lib', 'templates'))
+      summary_content = rendering_context.render(:template => 'index', :locals => {records: records, results: results, measure: measure.first})
+    end
+
     stringio = Zip::ZipOutputStream::write_buffer do |zip|
       records.each_with_index do |patient, index|
         zip.put_next_entry(File.join("qrda","#{index+1}_#{patient.last}_#{patient.first}.xml"))
         zip.puts qrda_exporter.export(patient, measure, start_time, end_time)
         zip.put_next_entry(File.join("html","#{index+1}_#{patient.last}_#{patient.first}.html"))
         zip.puts html_exporter.export(patient, measure)
+      end
+      if summary_content
+        zip.put_next_entry("#{measure.first.cms_id}_results.html")
+        zip.puts summary_content
       end
     end
 
@@ -99,6 +116,10 @@ private
     patient.insurance_providers.clear << insurance_provider
 
     patient
+  end
+
+  def convert_to_hash(key, array)
+    Hash[array.map {|element| [element[key],element.except(key)]}]
   end
 
 end

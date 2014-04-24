@@ -15,6 +15,9 @@ class Thorax.Models.Difference extends Thorax.Model
                else 'pending'
     @set done: match?, match: match, status: status, comparisons: @expected.comparison(@result)
 
+  toJSON: ->
+    _(super).extend({medicalRecordNumber: @result.patient.get('medical_record_number')} if @result.isPopulated()) 
+
 class Thorax.Collections.Differences extends Thorax.Collection
   model: Thorax.Models.Difference
   initialize: ->
@@ -32,3 +35,5 @@ class Thorax.Collections.Differences extends Thorax.Collection
              else
                'fail'
     @summary.set total: @length, matching: successful.length, percent: percent, done: done, status: status
+  toJSON: ->
+    {differences: super, summary: @summary.toJSON()}
