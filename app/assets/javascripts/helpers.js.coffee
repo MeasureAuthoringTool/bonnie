@@ -3,7 +3,7 @@ Handlebars.registerHelper 'log', (message) -> console.log(message)
 Handlebars.registerHelper 'debug', -> debugger
 
 # add a helper for formatting dates
-Handlebars.registerHelper 'moment', (date, format) -> moment(date).format(format)
+Handlebars.registerHelper 'moment', (date, format) -> moment.utc(date).format(format)
 
 # Is the current user an admin or portfolio user? For convenience in deciding what UI
 # elements to display, not trustable for security purposes

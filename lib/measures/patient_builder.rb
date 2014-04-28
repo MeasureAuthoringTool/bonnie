@@ -79,8 +79,8 @@ module Measures
     end
 
     def self.derive_time_range(value)
-      low = {'value' => Time.at(value['start_date'].to_i / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' } unless value['start_date'].nil?
-      high = {'value' => Time.at(value['end_date'].to_i / 1000).strftime('%Y%m%d%H%M%S'), 'type'=>'TS' } unless value['end_date'].nil?
+      low = {'value' => Time.at(value['start_date'].to_i / 1000).utc.strftime('%Y%m%d%H%M%S'), 'type'=>'TS' } unless value['start_date'].nil?
+      high = {'value' => Time.at(value['end_date'].to_i / 1000).utc.strftime('%Y%m%d%H%M%S'), 'type'=>'TS' } unless value['end_date'].nil?
       HQMF::Range.from_json({'low' => low,'high' => high})
     end
 
@@ -152,7 +152,7 @@ module Measures
       return if values.nil?
       values.each do |name, value|
 
-        converted_time = Time.at(value['value']/1000).strftime('%Y%m%d%H%M%S') if (value['type'] == 'TS')
+        converted_time = Time.at(value['value']/1000).utc.strftime('%Y%m%d%H%M%S') if (value['type'] == 'TS')
         field = HQMF::DataCriteria.convert_value(value)
         field.value = converted_time if converted_time
 

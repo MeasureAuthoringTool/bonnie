@@ -3,13 +3,16 @@ class Thorax.Models.MeasureDataCriteria extends Thorax.Model
     # FIXME: Temporary approach
     attr = _(@pick('negation', 'definition', 'status', 'title', 'description', 'code_list_id', 'type')).extend
              id: @get('source_data_criteria')
-             start_date: new Date().getTime()
-             end_date: new Date().getTime()
+             start_date: @getDefaultTime()
+             end_date: @getDefaultTime()
              value: new Thorax.Collection()
              field_values: new Thorax.Collection()
              hqmf_set_id: @collection.parent.get('hqmf_set_id')
              cms_id: @collection.parent.get('cms_id')
     new Thorax.Models.PatientDataCriteria attr
+
+  getDefaultTime: ->
+    parseInt(moment.utc().set('year', 2012).set('hour',8).set('minute',0).set('second',0).format('X'))*1000
 
 class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
   model: Thorax.Models.MeasureDataCriteria
@@ -35,7 +38,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   measure: -> bonnie.measures.findWhere hqmf_set_id: @get('hqmf_set_id')
   valueSet: -> _(bonnie.measures.valueSets()).detect (vs) => vs.get('oid') is @get('code_list_id')
   isDuringMeasurePeriod: ->
-    moment(@get('start_date')).year() is moment(@get('end_date')).year() is bonnie.measurePeriod
+    moment.utc(@get('start_date')).year() is moment.utc(@get('end_date')).year() is bonnie.measurePeriod
   toJSON: ->
     # Transform fieldValues back to an object from a collection
     fieldValues = {}
