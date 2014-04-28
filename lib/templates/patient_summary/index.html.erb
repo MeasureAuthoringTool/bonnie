@@ -20,6 +20,10 @@
       color: #888;
       font-weight: 300;
     }
+    .summary-card {
+      border: 2px #E2E2E2 solid;
+      padding: 10px;
+    }
     table {
       border: none;
       width: 100%;
@@ -73,35 +77,37 @@
 
   <% results.each_with_index do |result, pop_index| %>
 
-    <% if results.length > 1%>
-      <% 
-        title = measure.populations[pop_index]['title'] 
-        title = "Sub Measure #{(a..zz)[pop_index]}" if title.empty?
-      %>
-      <h2>Population: <%= title %></h2>
-    <% end %>
+    <div class="summary-card">
+      <% if results.length > 1%>
+        <% 
+          title = measure.populations[pop_index]['title'] 
+          title = "Sub Measure #{(a..zz)[pop_index]}" if title.empty?
+        %>
+        <h2>Population: <%= title %></h2>
+      <% end %>
 
-    <% summary = result['summary'] %>
-    <table>
-      <tbody>
-        <tr>
-          <th>RESULT</th>
-          <th>CATEGORY</th>
-        </tr>
-        <tr>
-          <td class="<%= summary['status'].downcase %>"><%= summary['status'] %></td>
-          <td><span class="patient-number"><%= summary['matching'] %></span>/<%= summary['total'] %></td>
-        </tr>
-        <tr>
-          <td class="percentage"><%= summary['percent'] %>%</td>
-          <td>Passing</td>
-        </tr>
-        <tr>
-          <td class="percentage"><%= result['coverage']%>%</td>
-          <td>Coverage</td>
-        </tr>
-      </tbody>
-    </table>
+      <% summary = result['summary'] %>
+      <table>
+        <tbody>
+          <tr>
+            <th>RESULT</th>
+            <th>CATEGORY</th>
+          </tr>
+          <tr>
+            <td class="<%= summary['status'].downcase %>"><%= summary['status'] %></td>
+            <td><span class="patient-number"><%= summary['matching'] %></span>/<%= summary['total'] %></td>
+          </tr>
+          <tr>
+            <td class="percentage"><%= summary['percent'] %>%</td>
+            <td>Passing</td>
+          </tr>
+          <tr>
+            <td class="percentage"><%= result['coverage']%>%</td>
+            <td>Coverage</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <br>
     <% records.each_with_index do |record, index| %>
     <% patient_result = result['differences'][record.medical_record_number] %>
@@ -143,6 +149,8 @@
         <% end %>
       </table>
     <% end %>
+    <br><br>
+
   <% end %>
 </body>
 </html>
