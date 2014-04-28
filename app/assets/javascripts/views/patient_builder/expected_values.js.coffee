@@ -60,6 +60,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           # Only parse existing values
           if attr[pc]
             if pc == 'OBSERV'
+              attr[pc] = [].concat(attr[pc])
               attr[pc] = (parseFloat(o) for o in attr[pc])
             else
               attr[pc] = parseFloat(attr[pc])

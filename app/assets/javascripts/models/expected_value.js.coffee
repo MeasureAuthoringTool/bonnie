@@ -12,7 +12,13 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
 
   isMatch: (result) ->
     # account for OBSERV if an actual value exists
-    unless @has 'OBSERV' then if result.get('values')?.length then @set 'OBSERV', (undefined for val in result.get('values'))
+    unless @has 'OBSERV'
+      if result.get('values')?.length
+        @set 'OBSERV', (undefined for val in result.get('values'))
+    else
+      if result.get('values')?.length
+        if @get('OBSERV').length - result.get('values').length < 0
+          @get('OBSERV').push(undefined) for n in [(@get('OBSERV').length + 1)..result.get('values').length]
 
     for popCrit in @populationCriteria()
       if popCrit.indexOf('OBSERV') != -1 then return false unless @get('OBSERV')[@observIndex(popCrit)] == result.get('values')?[@observIndex(popCrit)]
