@@ -51,6 +51,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       values: @model.get('field_values')
       criteriaType: @model.get('type')
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView criteria: @model
+    @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView criteria: @model
 
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
@@ -198,6 +199,8 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     @triggerMaterialize()
     @$(':focusable:visible:first').focus()
 
+class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildView
+  template: JST['patient_builder/edit_fulfillments']
 
 class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   className: -> "#{if @fieldValue then 'field-' else ''}value-formset"

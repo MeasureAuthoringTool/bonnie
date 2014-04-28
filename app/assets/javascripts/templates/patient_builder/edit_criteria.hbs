@@ -107,6 +107,17 @@
         </div>
       {{/if}}
 
+      {{#ifCond definition "==" "medication"}}
+        <div class="form-group">
+
+          {{!-- {{#collection fulfillments class="existing-values"}}
+          {{/collection}} --}}
+
+          {{view editFulfillmentHistoryView}}
+
+        </div>
+      {{/ifCond}}
+
       <div class="form-group">
         <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Field Value<input class="sr-only" disabled></label>
 

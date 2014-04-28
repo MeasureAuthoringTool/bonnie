@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="form-group col-md-6">
+    <label for="dose_value_{{@cid}}" class="control-label"><i class="fa fa-medkit"></i> Dose<span class="sr-only"> dose value</span></label>
+    <div class="row">
+      <div class="col-xs-6">
+        <input type="text" name="dose_value" id="dose_value_{{@cid}}" class="form-control" placeholder="value">
+      </div>
+      <div class="col-xs-6">
+        <label for="dose_unit_{{@cid}}" class="sr-only">dose unit</label>
+        <input type="text" name="dose_unit" id="dose_unit{{@cid}}" class="form-control" placeholder="unit">
+      </div>
+    </div>
+  </div>
+  <div class="form-group col-md-6">
+    <label for="frequency_value_{{@cid}}" class="control-label"><i class="fa fa-spinner"></i> Frequency<span class="sr-only"> frequency value</span></label>
+    <div class="row">
+      <div class="col-xs-6">
+        <input type="text" name="frequency_value" id="frequency_value_{{@cid}}" class="form-control" placeholder="value">
+      </div>
+      <div class="col-xs-6">
+        <label for="frequency_unit_{{@cid}}" class="sr-only">frequency unit</label>
+        <input type="text" name="frequency_unit" id="frequency_unit{{@cid}}" class="form-control" placeholder="unit">
+      </div>
+    </div>
+  </div>
+</div>
+
+<label class="control-label"><i class="fa fa-files-o"></i> Medications<input class="sr-only" disabled></label>
+<div class="row">
+  <div class="col-md-4">
+    <label for="start_date_{{@cid}}" class="sr-only">{{#if fieldValue}}field {{/if}}value date</label>
+    <input type="text" name="start_date" id="start_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-autoclose="true">
+  </div>
+  <div class="col-md-3">
+    <label for="start_time_{{@cid}}" class="sr-only">{{#if fieldValue}}field {{/if}}value time</label>
+    <input type="text" name="start_time" id="start_time_{{@cid}}" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
+  </div>
+
+  <div class="form-group col-md-4">
+    <div class="row">
+      <div class="col-xs-6">
+        <input type="text" name="frequency_value" id="frequency_value_{{@cid}}" class="form-control" placeholder="value">
+      </div>
+      <div class="col-xs-6">
+        <label for="frequency_unit_{{@cid}}" class="sr-only">frequency unit</label>
+        <input type="text" name="frequency_unit" id="frequency_unit{{@cid}}" class="form-control" placeholder="unit">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-1">
+    {{#button "addValue" class="btn btn-primary pull-right" disabled="disabled"}}
+      <i class="fa fa-plus"></i>
+      <span class="sr-only">add {{#if fieldValue}}field {{/if}}value</span>
+    {{/button}}
+  </div>
+</div>
