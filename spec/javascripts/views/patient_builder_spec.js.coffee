@@ -31,7 +31,7 @@ describe 'PatientBuilderView', ->
       expect(@patientBuilder.model.get('first')).toEqual 'FIRST NAME'
       expect(@patientBuilder.model.get('payer')).toEqual 'MA'
       expect(@patientBuilder.model.get('gender')).toEqual 'F'
-      expect(@patientBuilder.model.get('birthdate')).toEqual moment('01/02/1993 1:15 PM').format('X')
+      expect(@patientBuilder.model.get('birthdate')).toEqual moment.utc('01/02/1993 1:15 PM', 'L LT').format('X')
       expect(@patientBuilder.model.get('race')).toEqual '2131-1'
       expect(@patientBuilder.model.get('ethnicity')).toEqual '2135-2'
 
@@ -102,7 +102,7 @@ describe 'PatientBuilderView', ->
       @patientBuilder.$("button[data-call-method=save]").click()
 
     it "serializes the attributes correctly", ->
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('start_date')).toEqual moment('01/1/2012 3:33').format('X') * 1000
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('start_date')).toEqual moment.utc('01/1/2012 3:33', 'L LT').format('X') * 1000
       expect(@patientBuilder.model.get('source_data_criteria').first().get('end_date')).toBeUndefined()
 
     afterEach -> @patientBuilder.remove()
@@ -268,7 +268,7 @@ describe 'PatientBuilderView', ->
       @patientBuilder.$(':input[name=deathtime]').val('1:15 PM')
       @patientBuilder.$("button[data-call-method=save]").click()
       expect(@patientBuilder.model.get('expired')).toEqual true
-      expect(@patientBuilder.model.get('deathdate')).toEqual moment('01/02/1994 1:15 PM').format('X')
+      expect(@patientBuilder.model.get('deathdate')).toEqual moment.utc('01/02/1994 1:15 PM', 'L LT').format('X')
 
     it "revives patient correctly", ->
       @patientBuilder.$("button[data-call-method=removeDeathDate]").click()
