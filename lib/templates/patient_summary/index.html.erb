@@ -1,7 +1,75 @@
 <html>
-<body>
+<head>
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.428571429;
+      color: #333333;
+      background-color: #ffffff;
+      margin: auto;
+      width: 800px;
+    }
+    .logo {
+        font-size: 36px;
+        font-weight: 100;
+        color: #0075C4;
+    }
+    .title {
+      font-size: 24px;
+      color: #888;
+      font-weight: 300;
+    }
+    table {
+      border: none;
+      width: 100%;
+      text-align: left;
+      border-collapse: collapse;
+    }
 
-  <h1><%=measure.cms_id%>: <%=measure.title%></h1>
+    th {
+      background-color: #f2f2f2;
+      padding: 10px;
+    }
+    td {
+       padding-left: 10px;
+    }
+    .percentage {
+      font-size: 36px;
+      font-weight: 100;
+    }
+    .pass {
+      color: #20744c;
+      font-size: 24px;
+      font-weight: bold;      
+    }
+    .fail {
+      color: #782b0d;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .patient-number {
+        font-size: 36px;
+    }
+    .btn {
+      border: 2px solid #0075C4;
+      padding: 6px 12px;
+      color: #0075C4;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      float: right;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .btn:hover {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1 <span class="logo">BONNIE</span><span class="title">: TEST PATIENT RESULTS BY MEASURE</span></h1>
+  <h1 class="measure-title"><%=measure.cms_id%>: <%=measure.title%></h1>
 
   <% results.each_with_index do |result, pop_index| %>
 
@@ -13,49 +81,68 @@
       <h2>Population: <%= title %></h2>
     <% end %>
 
-    <p>
-      <div>Coverage: <%= result['coverage']%>%</div>
-      <div>Status: <%= result['summary']['status'] %></div>
-      <div>Percent Passing: <%= result['summary']['percent'] %>%</div>
-      <div>Patients Passing: <%= result['summary']['matching'] %>/<%= result['summary']['total'] %></div>
-    </p>
-
-    
+    <% summary = result['summary'] %>
     <table>
-      <% records.each_with_index do |record, index| %>
-        <% patient_result = result['differences'][record.medical_record_number] %>
+      <tbody>
         <tr>
-          <td><%=record.last%>, <%=record.first%></td>
-          <td><a href="<%= File.join(".","html","#{index+1}_#{record.last}_#{record.first}.html")%>">html</a></td>
-          <td><a href="<%= File.join(".","qrda","#{index+1}_#{record.last}_#{record.first}.xml")%>">qrda</a></td>
-          <td><%= patient_result['status']%></td>
+          <th>RESULT</th>
+          <th>CATEGORY</th>
+        </tr>
+        <tr>
+          <td class="<%= summary['status'].downcase %>"><%= summary['status'] %></td>
+          <td><span class="patient-number"><%= summary['matching'] %></span>/<%= summary['total'] %></td>
+        </tr>
+        <tr>
+          <td class="percentage"><%= summary['percent'] %>%</td>
+          <td>Passing</td>
+        </tr>
+        <tr>
+          <td class="percentage"><%= result['coverage']%>%</td>
+          <td>Coverage</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <% records.each_with_index do |record, index| %>
+    <% patient_result = result['differences'][record.medical_record_number] %>
+      <br>
+      <table>
+        <tr>
           <td>
-            <table>
-              <tr>
-                <th>Population</th>
-                <th>Expected</th>
-                <th>Actual</th>
-                <th>Status</th>
-              </tr>
-              <% HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |code| %>
-                <% 
-                  comparison = patient_result['comparisons'][code] 
-                  if comparison 
-                %>
-                  <tr>
-                    <td><%= code %></td>
-                    <td><%= comparison['expected'] %><%= comparison['unit'] %></td>
-                    <td><%= comparison['actual'] %><%= comparison['unit'] %></td>
-                    <td><%= (comparison['match'] == 'true') ? 'pass' : 'fail' %></td>
-                  </tr>
-                <% end %>
-              <% end %>
-            </table>
+            <h2>
+              <span class="<%= patient_result['status'] %>"><%= patient_result['status'] %>: </span>
+              <a href="<%= File.join(".","html","#{index+1}_#{record.last}_#{record.first}.html")%>"><%=record.last%>, <%=record.first%></a>
+              <a class="btn" href="<%= File.join(".","qrda","#{index+1}_#{record.last}_#{record.first}.xml")%>">qrda</a>
+            </h2>
           </td>
         </tr>
-      <% end %>
-    </table>
+      </table>
+      <table>
+        <tr>
+          <th>Population</th>
+          <th>Expected</th>
+          <th>Actual</th>
+          <th>Status</th>
+        </tr>
+        <% HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |code| %>
+          <% 
+            comparison = patient_result['comparisons'][code] 
+            if comparison 
+          %>
+            <tr>
+              <% if (comparison['match'] == 'true') %>
+                <td class="pass">&#10003;</td>
+              <% else %>
+                <td class="fail">&times;</td>
+              <% end %>
+              <td><%= code %></td>
+              <td><%= comparison['expected'] %><%= comparison['unit'] %></td>
+              <td><%= comparison['actual'] %><%= comparison['unit'] %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    <% end %>
   <% end %>
-
 </body>
 </html>

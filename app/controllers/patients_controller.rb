@@ -41,18 +41,8 @@ class PatientsController < ApplicationController
     start_time = Time.new(2012, 1, 1)
     end_time = Time.new(2012, 12, 31)
 
-    if (params[:results])
-      results = params[:results].values
-
-      results.each do |r| 
-        r[:differences] = convert_to_hash(:medicalRecordNumber, r[:differences].values)
-        r[:differences].values.each {|d| d[:comparisons] = convert_to_hash(:name, d[:comparisons].values)}
-      end
-
-      rendering_context = HealthDataStandards::Export::RenderingContext.new
-      rendering_context.template_helper = HealthDataStandards::Export::TemplateHelper.new('html', 'patient_summary', Rails.root.join('lib', 'templates'))
-      summary_content = rendering_context.render(:template => 'index', :locals => {records: records, results: results, measure: measure.first})
-    end
+    # if we have results we want to write a summary
+    summary_content = get_summary_content(measure, records, params[:results].values) if (params[:results])
 
     stringio = Zip::ZipOutputStream::write_buffer do |zip|
       records.each_with_index do |patient, index|
@@ -116,6 +106,18 @@ private
     patient.insurance_providers.clear << insurance_provider
 
     patient
+  end
+
+  def get_summary_content(measure, records, results) 
+    # restructure differences for output
+    results.each do |r| 
+      r[:differences] = convert_to_hash(:medicalRecordNumber, r[:differences].values)
+      r[:differences].values.each {|d| d[:comparisons] = convert_to_hash(:name, d[:comparisons].values)}
+    end
+
+    rendering_context = HealthDataStandards::Export::RenderingContext.new
+    rendering_context.template_helper = HealthDataStandards::Export::TemplateHelper.new('html', 'patient_summary', Rails.root.join('lib', 'templates'))
+    rendering_context.render(:template => 'index', :locals => {records: records, results: results, measure: measure.first})
   end
 
   def convert_to_hash(key, array)
