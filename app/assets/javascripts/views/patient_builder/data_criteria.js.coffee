@@ -51,7 +51,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       values: @model.get('field_values')
       criteriaType: @model.get('type')
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView criteria: @model
-    @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView criteria: @model
+    @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView 
+      model: new Thorax.Model
+      criteria: @model
 
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
@@ -201,6 +203,26 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
 
 class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_fulfillments']
+
+  events:
+    'blur input': 'validateForAddition'
+
+  initialize: ->
+    @model = new Thorax.Model
+    @fulfillments = @criteria.get('fulfillments')
+    # @fulfillments.on 'add remove', => @criteria.set 'fulfillments', @fulfillments, silent: true
+
+  validateForAddition: ->
+    attributes = @serialize(set: false)
+    isDisabled = false
+    @$('button[data-call-method=addFulfillment]').prop 'disabled', isDisabled
+
+  addFulfillment: (e) ->
+    e.preventDefault()
+    @serialize()
+    @fulfillments.add @model.clone()
+    @model.clear()
+    @triggerMaterialize()
 
 class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   className: -> "#{if @fieldValue then 'field-' else ''}value-formset"

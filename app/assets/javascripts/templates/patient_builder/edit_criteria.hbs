@@ -108,10 +108,48 @@
       {{/if}}
 
       {{#ifCond definition "==" "medication"}}
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="dose_value_{{@cid}}" class="control-label"><i class="fa fa-medkit"></i> Dose<span class="sr-only"> dose value</span></label>
+            <div class="row">
+              <div class="col-xs-8">
+                <input type="text" name="dose_value" id="dose_value_{{@cid}}" class="form-control" placeholder="input">
+              </div>
+              <div class="col-xs-4">
+                <label for="dose_unit_{{@cid}}" class="sr-only">dose unit</label>
+                <select id="dose_unit_{{@cid}}" name="dose_unit" class="form-control medications-control">
+                  <option value="mg">mg</option>
+                </select>
+                {{!-- <input type="text" name="dose_unit" id="dose_unit{{@cid}}" class="form-control" placeholder="units"> --}}
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="frequency_value_{{@cid}}" class="control-label"><i class="fa fa-spinner"></i> Frequency<span class="sr-only"> frequency value</span></label>
+            <div class="row">
+              <div class="col-xs-7">
+                <input type="text" name="frequency_value" id="frequency_value_{{@cid}}" class="form-control" placeholder="input">
+              </div>
+              <div class="col-xs-5">
+                <label for="frequency_unit_{{@cid}}" class="sr-only">frequency unit</label>
+                <select id="frequency_unit_{{@cid}}" name="frequency_unit" class="form-control medications-control">
+                  <option value="h">hour(s)</option>
+                  <option value="d">day(s)</option>
+                </select>
+                {{!-- <input type="text" name="frequency_unit" id="frequency_unit{{@cid}}" class="form-control" placeholder="units"> --}}
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="form-group">
 
-          {{!-- {{#collection fulfillments class="existing-values"}}
-          {{/collection}} --}}
+          {{#collection fulfillments class="existing-values"}}
+            <span>
+              {{dispense_date}} {{dispense_time}}:
+              {{quantity_dispensed_value}} {{quantity_dispensed_unit}}
+              {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
+            </span>
+          {{/collection}}
 
           {{view editFulfillmentHistoryView}}
 

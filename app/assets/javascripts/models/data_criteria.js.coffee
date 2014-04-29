@@ -25,6 +25,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   idAttribute: null
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
+    if @get('type') == "medications" then @set('fulfillments', new Thorax.Collection()) unless @has 'fulfillments'
   parse: (attrs) ->
     attrs.value = new Thorax.Collection(attrs.value)
     # Transform fieldValues object to collection, one element per key/value, with key as additional attribute
