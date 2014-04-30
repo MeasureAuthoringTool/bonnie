@@ -35,6 +35,10 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     attrs.field_values = fieldValues
     if attrs.codes
       attrs.codes = new Thorax.Collections.Codes attrs.codes, parse: true
+    if attrs.type == "medications" and attrs.fulfillments
+      fulfillments = new Thorax.Collection()
+      fulfillments.add f for f in attrs.fulfillments
+      attrs.fulfillments = fulfillments
     attrs
   measure: -> bonnie.measures.findWhere hqmf_set_id: @get('hqmf_set_id')
   valueSet: -> _(bonnie.measures.valueSets()).detect (vs) => vs.get('oid') is @get('code_list_id')

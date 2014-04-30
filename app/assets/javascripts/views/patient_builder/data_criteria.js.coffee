@@ -206,6 +206,10 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
 
   events:
     'blur input': 'validateForAddition'
+    serialize: (attr) ->
+      if dispenseDate = attr.dispense_date
+        dispenseDate += " #{attr.dispense_time}" if attr.dispense_time
+        attr.dispense_datetime = moment(dispenseDate, 'L LT').format('X') * 1000
 
   initialize: ->
     @model = new Thorax.Model
@@ -216,6 +220,13 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
     attributes = @serialize(set: false)
     isDisabled = false
     @$('button[data-call-method=addFulfillment]').prop 'disabled', isDisabled
+
+  setDateTime: ->
+    attributes = @serialize(set: false)
+    dispenseDate = attributes.dispense_date
+    dispenseDate += " #{attributes.dispense_time}" if attributes.dispense_time
+    dispense_datetime = moment(dispenseDate, 'L LT').format('X') * 1000
+    @model.set 'dispense_datetime', dispense_datetime
 
   addFulfillment: (e) ->
     e.preventDefault()
