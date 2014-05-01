@@ -60,13 +60,17 @@ module Measures
 
           if section_name == "medications"
             if !source_criteria[:dose_value].blank? && !source_criteria[:dose_unit].blank?
-              # entry[:dose] = { "value" => source_criteria[:dose_value], "unit" => source_criteria[:dose_unit] }
+              entry[:dose] = { "value" => source_criteria[:dose_value], "unit" => source_criteria[:dose_unit] }
             end
             if !source_criteria[:frequency_value].blank? && !source_criteria[:frequency_unit].blank?
-              # entry[:administrationTiming] = { "period" => { "value" => source_criteria[:frequency_value], "unit" => source_criteria[:frequency_unit] } }
+              entry[:administrationTiming] = { "period" => { "value" => source_criteria[:frequency_value], "unit" => source_criteria[:frequency_unit] } }
             end
             if !source_criteria[:fulfillments].blank?
-              binding.pry
+              fulfillments = []
+              source_criteria[:fulfillments].each do |fulfillment|
+                fulfillments.push(FulfillmentHistory.new({:dispenseDate => fulfillment[:dispense_datetime], :quantityDispensed => {:value => fulfillment[:quantity_dispensed_value], :unit => fulfillment[:quantity_dispensed_unit]}}))
+              end
+              entry[:fulfillmentHistory] = fulfillments
             end
           end
 

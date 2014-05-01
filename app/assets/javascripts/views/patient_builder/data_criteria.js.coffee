@@ -218,7 +218,7 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
 
   validateForAddition: ->
     attributes = @serialize(set: false)
-    isDisabled = false
+    isDisabled = !attributes.dispense_date || !attributes.dispense_time || !attributes.quantity_dispensed_value
     @$('button[data-call-method=addFulfillment]').prop 'disabled', isDisabled
 
   setDateTime: ->
@@ -233,7 +233,11 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
     @serialize()
     @fulfillments.add @model.clone()
     @model.clear()
+    @$('input[name="dispense_date"]').val('')
+    @$('input[name="dispense_date"]').datepicker('update')
+    @$('input[name="quantity_dispensed_value"]').val('')
     @triggerMaterialize()
+    @$(':focusable:visible:first').focus()
 
 class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   className: -> "#{if @fieldValue then 'field-' else ''}value-formset"
