@@ -12,6 +12,9 @@
 <body>
   <%= render 'layouts/ie8_alert' %>
   <div class="auth container">
+    <% if current_user %>
+      <%= render 'layouts/header' %>
+    <% end %>
     <%= yield %>
   </div>
   <script>
