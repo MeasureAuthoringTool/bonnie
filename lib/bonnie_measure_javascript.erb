@@ -14,6 +14,7 @@
     var result = null; // Calls to emit() set this local variable
     emit = function(id, value) { result = value; };
     var print = function(output) { console.log(output); };
+    hqmfjs = {};
 
     <%= population_javascript.html_safe %>
 
