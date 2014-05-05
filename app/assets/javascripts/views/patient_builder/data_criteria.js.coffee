@@ -209,7 +209,7 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
     serialize: (attr) ->
       if dispenseDate = attr.dispense_date
         dispenseDate += " #{attr.dispense_time}" if attr.dispense_time
-        attr.dispense_datetime = moment(dispenseDate, 'L LT').format('X') * 1000
+        attr.dispense_datetime = moment(dispenseDate, 'L LT').format('X')
 
   initialize: ->
     @model = new Thorax.Model
