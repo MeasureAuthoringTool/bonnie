@@ -1,7 +1,7 @@
 <% account_info = request.env['PATH_INFO'].starts_with?('/users') %>
 <div class="navbar row" role="navigation">
   <div class="navbar-brand">
-    <a href="#">Bonnie</a>
+    <a <% unless account_info %>href="#"<% else %>href="/#"<% end %>>Bonnie</a>
   </div>
   <ul class="nav navbar-nav pull-right">
     <li <% unless account_info %>class="nav-dashboard active"<% end %>>
