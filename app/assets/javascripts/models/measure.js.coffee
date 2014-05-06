@@ -51,7 +51,7 @@ class Thorax.Models.Measure extends Thorax.Model
       functional_statuses: []
       interventions: ['anatomical_structure']
       laboratory_tests: []
-      medications: ['cumulative_medication_duration', 'route']
+      medications: ['route']
       patient_care_experiences: []
       physical_exams: ['anatomical_structure']
       preferences: []
