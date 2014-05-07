@@ -103,16 +103,23 @@
   }
 
   .measure-title {
+    display:table;
+    > div {
+      display: table-cell;
+      vertical-align: middle;
+    }
     .make-sm-column(12);
     .title-bar;
     .short-title {
+      white-space: nowrap;
       font-size: 1.8em;
       line-height: 1.75;
-      padding-right: 15px;
+      padding-right: .5em;
     }
     .full-title {
       line-height: 1.6;
-      padding-right: 10px;
+      padding: .25em 0;
+      padding-right: 1.8em;
     }
     .settings-container {
       position: absolute;
