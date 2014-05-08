@@ -214,19 +214,11 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
   initialize: ->
     @model = new Thorax.Model
     @fulfillments = @criteria.get('fulfillments')
-    # @fulfillments.on 'add remove', => @criteria.set 'fulfillments', @fulfillments, silent: true
 
   validateForAddition: ->
     attributes = @serialize(set: false)
     isDisabled = !attributes.dispense_date || !attributes.dispense_time || !attributes.quantity_dispensed_value
     @$('button[data-call-method=addFulfillment]').prop 'disabled', isDisabled
-
-  setDateTime: ->
-    attributes = @serialize(set: false)
-    dispenseDate = attributes.dispense_date
-    dispenseDate += " #{attributes.dispense_time}" if attributes.dispense_time
-    dispense_datetime = moment(dispenseDate, 'L LT').format('X') * 1000
-    @model.set 'dispense_datetime', dispense_datetime
 
   addFulfillment: (e) ->
     e.preventDefault()
