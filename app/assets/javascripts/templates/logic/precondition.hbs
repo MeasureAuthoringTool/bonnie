@@ -1,5 +1,5 @@
 <ul id="precondition_{{precondition.id}}">
-  <li>
+  <li{{#unless precondition.preconditions }} class="criteria-{{parentPrecondition.conjunction_code}}"{{/unless}}>
     <span class="conjunction {{parentPreconditionKey}} rationale-target">
       {{translate_conjunction parentPrecondition.conjunction_code}}
       {{#if parentPrecondition.negation}} NOT{{/if}}: 
