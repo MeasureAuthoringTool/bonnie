@@ -6,4 +6,15 @@ class Thorax.Models.User extends Thorax.Model
 class Thorax.Collections.Users extends Thorax.Collection
   url: '/admin/users'
   model: Thorax.Models.User
-  comparator: (u) -> [ u.get('approved'), u.get('email') ]
+  comparators:
+    'approved': (u) -> [ u.get('approved'), u.get('email') ]
+    'email': 'email'
+    'measure_count': (u) -> [ u.get('measure_count') ]
+    'patient_count': (u) -> [ u.get('patient_count') ]
+
+  initialize: ->
+    @setComparator('approved')
+
+  setComparator: (key) ->
+    @comparator = @comparators[key]
+    @
