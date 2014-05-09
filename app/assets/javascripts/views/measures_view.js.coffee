@@ -17,6 +17,8 @@ class Thorax.Views.Measures extends Thorax.Views.BonnieView
       else if @finalizeMeasuresView.measures.length
         @finalizeMeasuresView.appendTo(@$el)
         @finalizeMeasuresView.display()
+      $('.indicator-circle, .navbar-nav > li').removeClass('active')
+      $('.indicator-dashboard, .nav-dashboard').addClass('active')
 
 class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
 
