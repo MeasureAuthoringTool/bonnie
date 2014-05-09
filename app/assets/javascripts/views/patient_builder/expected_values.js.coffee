@@ -59,12 +59,18 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         if @measure.get('episode_of_care') || (@measure.get('continuous_variable') && (pc == 'OBSERV' || pc == 'MSRPOPL'))
           # Only parse existing values
           if attr[pc]
-            attr[pc] = parseFloat(attr[pc])
+            if pc == 'OBSERV'
+              attr[pc] = [].concat(attr[pc])
+              attr[pc] = (parseFloat(o) for o in attr[pc])
+            else
+              attr[pc] = parseFloat(attr[pc])
             # if we're dealing with OBSERV or MSRPOPL, set to undefined for empty value
           else attr[pc] = undefined if pc == 'OBSERV' or pc == 'MSRPOPL'
         else
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
     'blur input': 'triggerMaterialize'
+    'blur input[name="MSRPOPL"]': 'updateObserv'
+    'rendered': 'setObservs'
 
   context: ->
     context = super
@@ -91,8 +97,27 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         isEoC: @measure.get('episode_of_care')
     unless @model.has('OBSERV_UNIT') then @model.set 'OBSERV_UNIT', ' mins'
 
-  setObservMins: ->
-    @model.set 'OBSERV_UNIT', ' mins'
+  updateObserv: ->
+    if @measure.get('continuous_variable') and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
+      values = @model.get('MSRPOPL')
+      if @model.get('OBSERV')
+        current = @model.get('OBSERV').length
+        if values > current
+          @model.set 'OBSERV', @model.get('OBSERV').concat(0 for n in [(current+1)..values])
+        else if values < current
+          @model.set 'OBSERV', _(@model.get('OBSERV')).first(values)
+      else
+        @model.set 'OBSERV', (0 for n in [1..values]) if values
+      @setObservs()
 
-  setObservPerc: ->
-    @model.set 'OBSERV_UNIT', '%'
+  setObservs: ->
+    if @model.get('OBSERV')?.length
+        for val, index in @model.get('OBSERV')
+          @$("#OBSERV_#{index}").val(val)
+
+  toggleUnits: (e) ->
+    if @model.get('OBSERV_UNIT') == ' mins'
+      @model.set 'OBSERV_UNIT', '%'
+    else
+      @model.set 'OBSERV_UNIT', ' mins'
+    @updateObserv()

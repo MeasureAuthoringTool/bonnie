@@ -72,9 +72,9 @@
             </td>
             <td>{{name}}</td>
             <td style="text-align: center;">
-              {{#ifCond name "==" "OBSERV"}}
+              {{#ifCond key "==" "OBSERV"}}
                 {{#ifCond expected "==" undefined}}
-                  <p class="text-muted">N/A</p>
+                  <p class="text-muted" style="margin: auto;">N/A</p>
                 {{else}}
                   {{expected}}{{unit}}
                 {{/ifCond}}
@@ -84,7 +84,7 @@
                 {{else}}
                   {{#ifCond name "==" "MSRPOPL"}}
                     {{#ifCond expected "==" undefined}}
-                      <p class="text-muted">N/A</p>
+                      <p class="text-muted" style="margin: auto;">N/A</p>
                     {{else}}
                       <span class="default">{{expected}}</span>
                     {{/ifCond}}
@@ -99,9 +99,9 @@
               {{/ifCond}}
             </td>
             <td style="text-align: center;">
-              {{#ifCond name "==" "OBSERV"}}
+              {{#ifCond key "==" "OBSERV"}}
                 {{#ifCond actual "==" undefined}}
-                  <p class="text-muted">N/A</p>
+                  <p class="text-muted" style="margin: auto;">N/A</p>
                 {{else}}
                   <span class="fail">{{actual}}{{unit}}</span>
                 {{/ifCond}}
@@ -111,7 +111,7 @@
                 {{else}}
                   {{#ifCond name "==" "MSRPOPL"}}
                     {{#ifCond expected "==" undefined}}
-                      <p class="text-muted">N/A</p>
+                      <p class="text-muted" style="margin: auto;">N/A</p>
                     {{else}}
                       <span class="default">{{actual}}</span>
                     {{/ifCond}}
