@@ -67,15 +67,15 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     serialize: (attr) ->
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
-      attr.birthdate = moment(birthdate, 'L LT').format('X') if birthdate
+      attr.birthdate = moment.utc(birthdate, 'L LT').format('X') if birthdate
       deathdate = attr.deathdate if attr.deathdate
       deathdate += " #{attr.deathtime}" if attr.deathdate && attr.deathtime
-      attr.deathdate = moment(deathdate, 'L LT').format('X') if deathdate
+      attr.deathdate = moment.utc(deathdate, 'L LT').format('X') if deathdate
 
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
   context: ->
-    birthdatetime = moment(@model.get('birthdate'), 'X') if @model.has('birthdate')
-    deathdatetime = moment(@model.get('deathdate'), 'X') if @model.get('expired') && @model.has('deathdate')
+    birthdatetime = moment.utc(@model.get('birthdate'), 'X') if @model.has('birthdate')
+    deathdatetime = moment.utc(@model.get('deathdate'), 'X') if @model.get('expired') && @model.has('deathdate')
     _(super).extend
       measureTitle: @measure.get('title')
       measureDescription: @measure.get('description')
