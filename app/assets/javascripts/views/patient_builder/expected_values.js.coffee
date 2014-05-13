@@ -13,7 +13,7 @@ class Thorax.Views.ExpectedValuesView extends Thorax.Views.BonnieView
         id: "expected-#{item.model.get('population_index')}"
 
   serialize: ->
-    childView.serialize() for cid, childView of @expectedValueCollectionView.children
+    console.log(childView.serialize()) for cid, childView of @expectedValueCollectionView.children
     super
 
   hasMultipleTabs: -> @collection.length > 1
@@ -69,8 +69,18 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           else attr[pc] = undefined if pc == 'OBSERV' or pc == 'MSRPOPL'
         else
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
-    'blur input': 'triggerMaterialize'
     'blur input[name="MSRPOPL"]': 'updateObserv'
+    # 'blur input': -> 
+      # @model.set @serialize()
+      # console.log @model.attributes
+    'click .btn-expected-value': ->
+      @popover = not @popover
+      @populate() if @popover
+      unless @popover
+        @initialize()
+        # console.log @currentCriteria
+        @render()
+        @triggerMaterialize()
     rendered: -> 
       @$('.btn-expected-value').popover(content: @$('.popover-tmpl').text())
       @setObservs()
@@ -102,6 +112,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         isEoC: @measure.get('episode_of_care')
         value: @model.get(pc)
     unless @model.has('OBSERV_UNIT') or not @measure.get('continuous_variable') then @model.set 'OBSERV_UNIT', ' mins', {silent:true}
+    @popover ?= false
 
   updateObserv: ->
     if @measure.get('continuous_variable') and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
@@ -118,8 +129,8 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
 
   setObservs: ->
     if @model.get('OBSERV')?.length
-        for val, index in @model.get('OBSERV')
-          @$("#OBSERV_#{index}").val(val)
+      for val, index in @model.get('OBSERV')
+        @$("#OBSERV_#{index}").val(val)
 
   toggleUnits: (e) ->
     if @model.get('OBSERV_UNIT') == ' mins'
