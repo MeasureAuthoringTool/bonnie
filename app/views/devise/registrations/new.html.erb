@@ -98,5 +98,9 @@
           $submit = $form.find(':submit');
       $submit.prop('disabled', !$checkbox.is(':checked'));
     });
+
+    $('.field_with_errors').each(function() {
+      $(this).parent().removeClass('required').addClass('has-error');
+    }); //allows icon to change color appropriately for validation
   });
 </script>
