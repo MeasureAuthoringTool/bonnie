@@ -1,0 +1,296 @@
+.patient-builder {
+  $time-bar-width: 8px;
+  @mixin time-bar($color: $gray-lighter) {
+    border-left: $time-bar-width solid $color;
+  }
+
+  label {
+    text-transform: uppercase;
+  }
+
+  .measure-ribbon {
+    @extend .pull-right;
+    max-width: 100%;
+    overflow: auto;
+    white-space: nowrap;
+    .ribbon-cell {
+      display: inline-block;
+      margin-left: 3px;
+      margin-top: 35px; // FIXME trying to get around overflow:auto on .measure-ribbon
+      height: 50px;
+      width: 25px;
+      .title {
+        @include rotate(-30deg);
+        @include transform-origin(top left);
+      }
+      a {
+        cursor: pointer;
+      }
+      svg {
+        .expectation-success {
+          fill: $state-success-bg;
+        }
+        .expectation-fail {
+          fill: $state-danger-bg;
+        }
+        .expectation-absent {
+          fill: $state-warning-bg;
+        }
+        .expectation-none {
+          fill: $gray-lighter;
+        }
+      }
+    }
+  }
+
+  .col-left {
+    @include make-md-column(2);
+    &.measure-data-container {
+      // jog content over by @{offset} so that the border-right overlaps with the .col-center's border-left
+      $offset: $grid-gutter-width / 2 + $time-bar-width;
+      border-right: $time-bar-width solid $gray-lighter;
+      margin-left:  $offset;
+      margin-right: -$offset;
+
+      &> * {
+        margin-left: -$offset;
+        padding-right: ($grid-gutter-width / 2); // leave out $time-bar-width to account for parent's border-right
+      }
+    }
+  }
+
+  .col-center {
+    @include make-md-column(6);
+    .form-data {
+      @include time-bar();
+      // FIXME this border is attached here because this column is taller, but really belongs on .col-right
+      border-right: 4px solid $brand-primary;
+      margin-left: 0;
+      padding-left: ($grid-gutter-width / 2);
+    }
+    .deceased-checkbox {
+      height: 24px;
+      label {
+        text-transform: none;
+      }
+    }
+    .remove-death-date {
+      float: right;
+      padding-top: 8px;
+      padding-right: 8px;
+      padding-left: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .col-right {
+    @include make-md-column(4);
+  }
+
+  .timeline-icon {
+    color: $brand-primary;
+    margin-left: -32px;
+  }
+
+  .validation-alerts {
+    margin-left: $grid-gutter-width + $time-bar-width;
+    .alert {
+      margin-bottom: 0px;
+    }
+  }
+
+  .expected-values {
+    .nav-tabs .active a, .tab-content {
+      background-color: $gray-lighter;
+    }
+    .tab-content {
+      padding-bottom: 10px;
+      h2 {
+        margin-top: 0;
+        padding-top: 6px;
+      }
+
+      .form-inline {
+        .form-group {
+          padding-right: 10px;
+          label {
+            font-weight: normal;
+          }
+          input[type=number] {
+            display: inline-block;
+            width: 40px;
+          }
+        }
+      }
+    }
+  }
+
+
+  .heading-muted {
+    background-color: $gray-lighter;
+    padding-left: 3px;
+  }
+  .heading-primary {
+    @include time-bar();
+    background-color: $blue-lighter;
+    color: white;
+    padding-left: $grid-gutter-width;
+  }
+
+  .panel {
+    .panel-title {
+      background-color: $blue-lighter;
+      color: white;
+      display: block;
+      font-size: $font-size-base;
+      padding: ($grid-gutter-width / 2);
+      text-transform: uppercase;
+      .panel-icon {
+        display: block;
+      }
+      .panel-expander {
+        @extend .pull-right;
+        line-height: 2;
+      }
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    .draggable {
+      border: 2px solid $blue-lighter;
+      margin: 10px 0;
+      padding: 10px;
+
+      .fa-arrows {
+        color: $gray-darker;
+      }
+
+    }
+    .panel-population {
+      background-color: inherit;
+      color: inherit;
+      padding: 0;
+    }
+  }
+
+
+  .criteria-container {
+    &.droppable {
+      // establish drop target below last criteria
+      min-height: 500px;
+      padding-bottom: 100px;
+    }
+    .patient-criteria {
+      @include time-bar();
+      &.during-measurement-period {
+        @include time-bar($blue-lightest);
+      }
+      .criteria-type-marker {
+        $radius: 18px;
+        @extend .pull-left;
+        background-color: white;
+        border: 2px solid $brand-primary;
+        border-radius: $radius;
+        color: $brand-primary;
+        @include square($radius * 2);
+        line-height: 2;
+        margin-left: -22px;
+        margin-top: 10px;
+        text-align: center;
+        &.open {
+          background-color: $brand-primary;
+          color: white;
+        }
+      }
+      .criteria-body {
+        margin-left: ($grid-gutter-width / 2);
+        padding: 5px 0;
+        .criteria-data {
+          &.drop-target-highlight, &.drop-target-highlight:before {
+            background-color: $blue-lightest;
+          }
+          &.highlight-partial, &.highlight-partial:before {
+            background-color: $gray-light;
+          }
+          &.highlight-valid, &.highlight-valid:before {
+            background-color: $state-success-bg;
+          }
+          &:before {
+            content: ' ';
+            background-color: white;
+            border-bottom: 1px solid $gray;
+            border-left: 1px solid $gray;
+            position: absolute;
+            @include square($grid-gutter-width / 2);
+            left: -($grid-gutter-width / 4) - 1; // width/2 (-1 to account for border)
+            @include rotate(45deg);
+          }
+
+          @extend .clearfix;
+          border: 1px solid $gray;
+          margin-left: ($grid-gutter-width / 2);
+          padding: ($grid-gutter-width / 2);
+          position: relative;
+
+          .criteria-tag {
+            @extend .pull-right;
+            background-color: $gray-lighter;
+            color: $gray-darker;
+            font-size: .8em;
+            margin-top: 10px;
+            padding: $padding-base-vertical $padding-base-horizontal;
+            margin-right: -($grid-gutter-width / 2);
+
+            .criteria-tag-cms {
+              font-weight: 200;
+
+            }
+            .criteria-tag-num {
+              font-weight: bold;
+            }
+            .criteria-tag-version {
+              font-weight: 200;
+            }
+
+          }
+
+          .control-label {
+            color: $brand-primary;
+          }
+          .datetime-control {
+            @include make-row(0);
+            &> * {
+              @include make-md-column(6, 0);
+            }
+            &> :last-child input {
+              border-left: 0;
+            }
+          }
+          .existing-values {
+            margin-bottom: 10px;
+
+            &> span {
+              background-color: $gray-lighter;
+              color: $gray-darker;
+              display: inline-block;
+              padding: 10px;
+              margin-bottom: 5px;
+              margin-right: 15px;
+              vertical-align: bottom;
+            }
+            .delete {
+              float: none;
+            }
+          }
+        }
+        .criteria-delete {
+          @extend .clearfix;
+          .criteria-delete-check {
+            @extend .pull-right;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
+}

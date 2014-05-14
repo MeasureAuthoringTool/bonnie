@@ -1,0 +1,25 @@
+// Handle non-less assets first with the asset pipeline
+//= require jquery-selectboxit/src/stylesheets/jquery.selectBoxIt
+
+$icon-font-path: "bootstrap-sass/dist/fonts/";
+$fa-font-path: "font-awesome/fonts";
+// Import external dependencies
+@import "bootstrap-sass/lib/bootstrap";
+@import "font-awesome/scss/font-awesome";
+@import "bootstrap-datepicker/css/datepicker3";
+@import "bootstrap-timepicker/css/bootstrap-timepicker";
+
+// Helper files
+@import "_bootstrap3";
+@import "_variables";
+@import "_mixins";
+
+// Styles by page
+@import "_login";
+@import "_measures";
+@import "_measure";
+@import "_measure_calculation";
+@import "_rationale";
+@import "_builder";
+@import "_vsbuilder";
+@import "_users";

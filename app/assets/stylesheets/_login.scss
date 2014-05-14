@@ -1,0 +1,54 @@
+.auth {
+  .login {
+    // center horizontally, give it some breathing room across the top
+    margin-top: 200px;
+    @include make-md-column(4);
+    @include make-sm-column-offset(4);
+
+    header h1 {
+      font-size: 7.5em;
+      font-weight: 100;
+      line-height: 1.2;
+      text-transform: uppercase;
+      color: $brand-primary;
+    }
+    .btn-login {
+      @extend .btn-primary;
+      @extend .btn-block;
+      @extend .btn-lg;
+      margin: 30px 0;
+    }
+  }
+  .input-group-lg > .input-group-addon {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .input-group-addon {
+    background-color: $input-bg;
+    &+ .form-control {
+      border-left: 0;
+    }
+  }
+
+  .registration {
+    #termsAndConditions {
+      @extend .well;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+    .required {
+      @include form-control-validation($brand-primary, $brand-primary, $input-bg);
+    }
+    // override brand-primary styling on input fields with errors
+    .field_with_errors {
+      @extend .has-error;
+    }
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  input {
+    @extend .input-lg;
+  }
+}
