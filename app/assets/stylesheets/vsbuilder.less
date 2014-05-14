@@ -7,12 +7,29 @@
   }
   .white-list {
     color: black;
-    background-color: white;
+    background-color: #f3f3f3;
+    padding: .25em .75em;
     margin-top: 20px;
+    margin-bottom: 0em;
+    font-size: 1.15em;
+    letter-spacing: .05em;
   }
   .black-list {
     color: white;
-    background-color: black;
+    background-color: #666;
+    padding: .25em .75em;
+    margin-bottom: 0em;
+    font-size: 1.15em;
+    letter-spacing: .05em;
+  }
+  .panel-body {
+    padding: 10px;
+  }
+  .white-list-panel {
+    border-color: #f3f3f3;
+  }
+  .black-list-panel {
+    border-color: #666;
   }
   .white-black-list {
     background-color: @gray-light;
@@ -80,6 +97,9 @@
     color: @gray-darker;
   }
   .criteria-details {
+    h4 {
+      font-size: 1.15em;
+    }
     .badge {
       color: @brand-info;
       background-color: white;
