@@ -96,3 +96,9 @@
   <a href="/#value_sets/edit" class="btn btn-primary btn-lg" >Edit</a>
   <span class="help-block">Search loaded value sets, correlate codes across value sets via filters, and modify current white/black list value set entries.</span>
 <% end %>
+
+<script>
+  $(function() {
+    $('.field_with_errors').parent().removeClass('required').addClass('has-error'); //allows icon to change color appropriately for validation
+  });
+</script>
