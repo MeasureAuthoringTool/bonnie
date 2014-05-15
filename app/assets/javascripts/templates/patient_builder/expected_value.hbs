@@ -1,4 +1,4 @@
-<h3>Expected Value</h3> <button type="button" class="btn btn-default pull-right btn-expected-value" data-toggle="popover" data-placement="left" data-html="true"><i class="fa fa-plus"></i></button>
+<h3>Expected Value</h3> <button type="button" class="btn-xs btn-default pull-right btn-expected-value ev-{{population_index}}" data-toggle="popover" data-placement="left" data-html="true"><i class="fa fa-pencil"></i></button>
 <script type="text/x-handlebars" class="popover-tmpl">
   <div class="form-inline tab-pane">
     <ul class="list-group">
@@ -15,8 +15,9 @@
         {{else}}
           {{#if isEoC}}
             <div class="form-group">
-              <label for="{{key}}_{{@cid}}">{{displayName}}</label>
-              <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0">
+              <label for="{{key}}_{{@cid}}">
+                <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0"> {{displayName}}
+              </label>
             </div>
           {{else}}
             {{#ifCond key "==" "MSRPOPL"}}
@@ -41,10 +42,10 @@
 <div class="tab-pane">
   {{#each currentCriteria}}
     {{#ifCond key "==" "OBSERV"}}
-      <label>
+      {{!-- <label> --}}
         {{displayName}}: {{value}} {{../../OBSERV_UNIT}}
         {{!-- <input type="number" name="{{key}}" min="0"> --}}
-      </label>
+      {{!-- </label> --}}
       {{!-- <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">{{../../OBSERV_UNIT}}</button>
       <ul class="dropdown-menu">
         <li>{{#button "setObservMins" tag="a"}}mins{{/button}}</li>
@@ -53,18 +54,23 @@
     {{else}}
       {{#if isEoC}}
         {{!-- <div class="form-group"> --}}
-          <label>
+          {{!-- <label> --}}
              {{!-- <input type="number" name="{{key}}" min="0"> --}}
              {{displayName}}: {{value}}
-          </label>
+          {{!-- </label> --}}
         {{!-- </div> --}}
+        {{!-- <div class="form-group">
+          <label for="{{key}}_{{@cid}}">
+            <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0" disabled> {{displayName}}
+          </label>
+        </div> --}}
       {{else}}
         {{#ifCond key "==" "MSRPOPL"}}
           {{!-- <div class="form-group"> --}}
-            <label>
+            {{!-- <label> --}}
                {{!-- <input type="number" name="{{key}}" min="0"> --}}
                {{displayName}}: {{value}}
-            </label>
+            {{!-- </label> --}}
           {{!-- </div> --}}
         {{else}}
           {{!-- <label>
@@ -72,10 +78,11 @@
             {{displayName}}: {{value}}
           </label> --}}
           {{!-- <div class="checkbox"> --}}
-            <label for="{{key}}_{{@cid}}" class="control-label">
-              <input type="checkbox" id="{{key}}_{{@cid}}" name="{{key}}" class="expected-value-checkbox" disabled> {{displayName}}
-            </label>
+            {{!-- <label for="{{key}}_{{@cid}}_display" class="control-label">
+              <input type="checkbox" id="{{key}}_{{@cid}}_display" name="{{key}}" class="expected-value-checkbox display-ev" disabled> {{displayName}}
+            </label> --}}
           {{!-- </div> --}}
+          {{displayName}}: {{value}}
         {{/ifCond}}
       {{/if}}
     {{/ifCond}}
