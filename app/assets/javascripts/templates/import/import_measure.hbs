@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         {{#button "close" class="close" data-dismiss="modal" aria-hidden="true"}}&times;{{/button}}
-        <h4 class="modal-title" id="modalTitle">{{dialogTitle}}</h4>
+        <h1 class="modal-title" id="modalTitle">{{dialogTitle}}</h1>
       </div>
       <div class="modal-body">
         <form action="measures" method="post" class="form-horizontal" enctype="multipart/form-data" role="form">
@@ -23,12 +23,22 @@
               </ul>
             </div>
           {{/if}}
+
           <div class="form-group">
-            <label for="measureFileInput" class="col-lg-{{titleSize}} control-label">Measure Data:</label>
-            <div class="col-lg-{{dataSize}}">
-              <input type="file" class="form-control" id="measureFileInput" name="measure_file">
-            </div>
+          {{!-- <div class="col-lg-3"> --}}
+            <label for="measureFileInput" class="col-lg-3 control-label">Measure Data:</label>
+          {{!-- </div> --}}
+          
+          <div class="col-lg-9">
+          <div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">
+            <div class="form-control" data-trigger="fileinput"><i class="fa fa-file fileinput-exists"> </i> <span class="fileinput-filename">No file chosen</span></div>
+            <span class="input-group-addon btn btn-info btn-file"><input type="file" class="form-control" id="measureFileInput" name="measure_file"><span class="fileinput-new">Choose file</span><span class="fileinput-exists">Change</span></span>
+            <a href="#" class="input-group-addon btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
           </div>
+        </div>
+
+      </div>
+          
           <div class="hidden" id="vsacSignIn">
             <div class="form-group has-error">
               <label for="vsacUser" class="col-lg-{{titleSize}} control-label">VSAC Username:</label>
@@ -55,21 +65,18 @@
               </div>
             {{else}}
               <div class="col-lg-{{dataSize}}">
-                <div class="radio">
-                  <label>
-                    <input id="measureTypeRadios" type="radio" name="measure_type" value="ep" checked="true"> Eligible Professional (EP)
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="measure_type" value="eh"> Eligible Hospital (EH)
-                  </label>
+                <div class="switch-toggle well">
+                  <input id="measureTypeRadios" type="radio" name="measure_type" value="ep" checked="true">
+                  <label for="measureTypeRadios" onclick="">Eligible Professional (EP)</label>
+                  <input id="EH" type="radio" name="measure_type" value="eh"> 
+                  <label for="EH" onclick="">Eligible Hospital (EH)</label>
+                  <a class="btn btn-info"></a>
                 </div>
               </div>
             {{/if}}
           </div>
           <div class="form-group">
-            <label for="calculationTypeRadios" class="col-lg-{{titleSize}} control-label">Calculation Type:</label>
+            <label for="calculationTypeRadios" class="col-lg-{{titleSize}} control-label">Calculation Based:</label>
             {{#if isUpdate}}
               <div id="calculationTypeModel" class="col-lg-{{dataSize}}">
                 <div class="col-lg-{{dataSize}}">
@@ -79,34 +86,29 @@
               </div>
             {{else}}
               <div class="col-lg-{{dataSize}}">
-                <div class="radio">
-                  <label>
-                    <input id="calculationTypeRadios" type="radio" name="calculation_type" value="patient" checked="true"> Patient Based
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="calculation_type" value="episode"> Episode of Care
-                  </label>
+                <div class="switch-toggle well">
+                  <input id="EC" type="radio" name="calculation_type" value="episode">
+                  <label for="EC" onclick="">Episode of Care</label>
+                  <input id="calculationTypeRadios" type="radio" name="calculation_type" value="patient" checked="true"> 
+                  <label for="calculationTypeRadios" onclick="">Patient Based</label>
+                  <a class="btn btn-info"></a>
                 </div>
               </div>
             {{/if}}
           </div>
-           <div class="form-group">
-            <label for="rebuildPatientsCheckbox" class="col-lg-{{titleSize}} control-label">Rebuild Patients:</label>
-              <div class="col-lg-{{dataSize}}">
-                <div class="radio">
-                  <label>
-                    <input id="rebuildPatientsCheckbox" type="radio" name="rebuild_patients" value="true" >  Yes
-                  </label>
-                </div>
-                   <div class="radio">
-                  <label>
-                    <input type="radio" name="rebuild_patients" value="false" checked="true">  No
-                  </label>
-                </div>
-              </div>
-          </div>
+          {{!--   <div class="form-group">
+            <div class="col-sm-4 col-xs-6">
+              <label for="rebuildPatientsCheckbox" class="control-label">Rebuild Patients?</label>
+              <label class="switch-light switch-ios" onclick="">
+                <input id="rebuildPatientsCheckbox" name="rebuild_patients" type="checkbox">
+                <span>&nbsp;
+                  <span>No</span>
+                  <span>Yes</span>
+                </span>
+                <a class="btn btn-info"></a>
+              </label>
+            </div>
+          </div> --}}
           {{#if isUpdate}}
             {{#if episode_of_care}}
               <input type="hidden" name="{{@cid}}[hqmf_id]" value="{{hqmf_id}}">
@@ -129,8 +131,22 @@
         </form>
       </div>
       <div class="modal-footer">
-        {{#button "close" class="btn btn-default" data-dismiss="modal"}}Close{{/button}}
-        {{#button "submit" class="btn btn-primary" id="loadButton" disabled=true}}Load{{/button}}
+          <div class="form-group">
+            <div class="col-sm-8">           
+              <label class="switch-light switch-ios" onclick="">
+                <input id="rebuildPatientsCheckbox" name="rebuild_patients" type="checkbox">
+                <span><label for="rebuildPatientsCheckbox" class="sr-only">Rebuild patients?</label>&nbsp;
+                  <span>Don't rebuild patients</span>
+                  <span>Rebuild patients</span>
+                </span>
+                <a class="btn btn-info"></a>
+              </label>
+            </div>
+            <div class="col-sm-4">
+            {{#button "close" class="btn btn-default" data-dismiss="modal"}}Close{{/button}}
+            {{#button "submit" class="btn btn-primary" id="loadButton" disabled=true}}Load{{/button}}
+            </div>  
+          </div>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
