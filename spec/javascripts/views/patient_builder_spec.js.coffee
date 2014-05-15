@@ -257,6 +257,7 @@ describe 'PatientBuilderView', ->
   describe "setting expected values", ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
+      @patientBuilder.$(".btn-expected-value").click() #open the popover before setting the expected value
       @patientBuilder.$('input[type=checkbox][name=DENOM]:first').click()
       @patientBuilder.$("button[data-call-method=save]").click()
 
