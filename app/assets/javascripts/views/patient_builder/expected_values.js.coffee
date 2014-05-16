@@ -120,12 +120,14 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
 
   updateObserv: ->
     @model.set @serialize() if @popover
+    focusIndex = 0
     if @measure.get('continuous_variable') and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
       values = @model.get('MSRPOPL')
       if @model.get('OBSERV')
         current = @model.get('OBSERV').length
         if values > current
           @model.set 'OBSERV', @model.get('OBSERV').concat(0 for n in [(current+1)..values])
+          focusIndex = current
         else if values < current
           @model.set 'OBSERV', _(@model.get('OBSERV')).first(values)
       else
@@ -135,7 +137,10 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       @popover = not @popover
       @triggerMaterialize()
       @parseValues()
-      @render() # if _(@model.changedAttributes()).size()
+      @render()
+      # open the popover and re-focus on the correct OBSERV input
+      @$(".btn-expected-value.ev-#{@model.get('population_index')}").click()
+      @$("#OBSERV_#{focusIndex}").focus()
 
   setObservs: ->
     if @model.get('OBSERV')?.length
