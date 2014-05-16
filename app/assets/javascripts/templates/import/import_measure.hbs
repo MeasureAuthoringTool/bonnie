@@ -25,19 +25,14 @@
           {{/if}}
 
           <div class="form-group">
-          {{!-- <div class="col-lg-3"> --}}
-            <label for="measureFileInput" class="col-lg-3 control-label">Measure Data:</label>
-          {{!-- </div> --}}
-          
-          <div class="col-lg-9">
-          <div class="fileinput fileinput-new input-group col-lg-9" data-provides="fileinput">
-            <div class="form-control" data-trigger="fileinput"><i class="fa fa-file fileinput-exists"> </i> <span class="fileinput-filename">No file chosen</span></div>
-            <span class="input-group-addon btn btn-info btn-file"><input type="file" class="form-control" id="measureFileInput" name="measure_file"><span class="fileinput-new">Choose file</span><span class="fileinput-exists">Change</span></span>
-            <a href="#" class="input-group-addon btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
-          </div>
-        </div>
 
-      </div>
+            <label for="measureFileInput" class="col-lg-{{titleSize}} control-label">Measure Data:</label>
+             <div class="col-lg-{{dataSize}}">
+               <input class="file" type="file" id="measureFileInput" name="measure_file">
+             </div>
+
+
+          </div>
           
           <div class="hidden" id="vsacSignIn">
             <div class="form-group has-error">
