@@ -1,18 +1,25 @@
-<h3>Expected Value</h3> <button type="button" class="btn-xs btn-default pull-right btn-expected-value ev-{{population_index}}" data-toggle="popover" data-placement="left" data-html="true"><i class="fa fa-pencil"></i></button>
+<h3>Expected Value</h3>
 <script type="text/x-handlebars" class="popover-tmpl">
   <div class="form-inline tab-pane">
     <ul class="list-group">
     {{#each currentCriteria}}
-      <li class="list-group-item">
         {{#ifCond key "==" "OBSERV"}}
-          <div class="form-group">
-            <label for="{{key}}_{{@cid}}">{{displayName}}</label>
-            {{#button "toggleUnits" class="btn btn-xs btn-default"}}{{../../../OBSERV_UNIT}}{{/button}}
-            {{#each ../../OBSERV}}
-              <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}">
-            {{/each}}
-          </div>
+          <li class="list-group-item">
+            <div class="form-group">
+              <h5>{{displayName}} {{#button "toggleUnits" class="btn btn-xs btn-default"}}{{../../../OBSERV_UNIT}}{{/button}}</h5>
+            </div>
+          </li>
+          {{#each ../../OBSERV}}
+            <li class="list-group-item">
+              <div class="form-group">
+                <label for="{{../key}}_{{@index}}">
+                  <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}"> {{../displayName}}_{{@index}}
+                </label>
+              </div>
+            </li>
+          {{/each}}
         {{else}}
+          <li class="list-group-item">
           {{#if isEoC}}
             <div class="form-group">
               <label for="{{key}}_{{@cid}}">
@@ -22,8 +29,9 @@
           {{else}}
             {{#ifCond key "==" "MSRPOPL"}}
               <div class="form-group">
-                <label for="{{key}}_{{@cid}}">{{displayName}}</label>
-                <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0">
+                <label for="{{key}}_{{@cid}}">
+                  <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0"> {{displayName}}
+                </label>
               </div>
             {{else}}
               <div class="checkbox">
@@ -33,88 +41,33 @@
               </div>
             {{/ifCond}}
           {{/if}}
+          </li>
         {{/ifCond}}
-      </li>
     {{/each}}
     </ul>
 </div>
 </script>
 <div class="tab-pane">
-  {{#each currentCriteria}}
+  {{#each setValues}}
     {{#ifCond key "==" "OBSERV"}}
-      {{!-- <label> --}}
-        {{displayName}}: {{value}} {{../../OBSERV_UNIT}}
-        {{!-- <input type="number" name="{{key}}" min="0"> --}}
-      {{!-- </label> --}}
-      {{!-- <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">{{../../OBSERV_UNIT}}</button>
-      <ul class="dropdown-menu">
-        <li>{{#button "setObservMins" tag="a"}}mins{{/button}}</li>
-        <li>{{#button "setObservPerc" tag="a"}}%{{/button}}</li>
-      </ul> --}}
+      {{#if value}}
+        <strong>{{displayName}}</strong>: {{value}}{{../../../OBSERV_UNIT}}
+      {{/if}}
     {{else}}
       {{#if isEoC}}
-        {{!-- <div class="form-group"> --}}
-          {{!-- <label> --}}
-             {{!-- <input type="number" name="{{key}}" min="0"> --}}
-             {{displayName}}: {{value}}
-          {{!-- </label> --}}
-        {{!-- </div> --}}
-        {{!-- <div class="form-group">
-          <label for="{{key}}_{{@cid}}">
-            <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0" disabled> {{displayName}}
-          </label>
-        </div> --}}
+        <Strong>{{displayName}}</strong>: {{value}}
       {{else}}
         {{#ifCond key "==" "MSRPOPL"}}
-          {{!-- <div class="form-group"> --}}
-            {{!-- <label> --}}
-               {{!-- <input type="number" name="{{key}}" min="0"> --}}
-               {{displayName}}: {{value}}
-            {{!-- </label> --}}
-          {{!-- </div> --}}
+          <Strong>{{displayName}}</strong>: {{value}}
         {{else}}
-          {{!-- <label>
-            <input type="checkbox" name="{{key}}">
-            {{displayName}}: {{value}}
-          </label> --}}
-          {{!-- <div class="checkbox"> --}}
-            {{!-- <label for="{{key}}_{{@cid}}_display" class="control-label">
-              <input type="checkbox" id="{{key}}_{{@cid}}_display" name="{{key}}" class="expected-value-checkbox display-ev" disabled> {{displayName}}
-            </label> --}}
-          {{!-- </div> --}}
-          {{displayName}}: {{value}}
+          {{#if value}}
+            <Strong>{{displayName}}</strong>
+          {{/if}}
         {{/ifCond}}
       {{/if}}
     {{/ifCond}}
+  {{else}}
+    None
   {{/each}}
 </div>
-{{!-- <div class="form-inline tab-pane">
-  {{#each currentCriteria}}
-    {{#ifCond key "==" "OBSERV"}}
-      <div class="form-group">
-        <label for="{{key}}_{{@cid}}">{{displayName}}</label>
-        {{#button "toggleUnits" class="btn btn-xs btn-default"}}{{../../../OBSERV_UNIT}}{{/button}}
-        {{#each ../../OBSERV}}
-          <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}">
-        {{/each}}
-      </div>
-    {{else}}
-      {{#if isEoC}}
-        <div class="form-group">
-          <label for="{{key}}_{{@cid}}">{{displayName}}</label>
-          <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0">
-        </div>
-      {{else}}
-        {{#ifCond key "==" "MSRPOPL"}}
-          <div class="form-group">
-            <label for="{{key}}_{{@cid}}">{{displayName}}</label>
-            <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0">
-          </div>
-        {{else}}
-          <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
-          <input type="checkbox" id="{{key}}_{{@cid}}" name="{{key}}">
-        {{/ifCond}}
-      {{/if}}
-    {{/ifCond}}
-  {{/each}}
-</div> --}}
+<button type="button" class="btn-xs btn-default btn-expected-value ev-{{population_index}}" data-toggle="popover" data-placement="bottom" data-html="true"><i class="fa fa-pencil"></i></button>

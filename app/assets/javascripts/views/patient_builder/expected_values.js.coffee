@@ -77,13 +77,11 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         @populate()
         @setObservs()
       else
-        # console.log @serialize()
-        # @$('.display-ev').removeAttr('name') #remove name from display to prevent duplicate serialization
         @triggerMaterialize()
         @parseValues()
         @render()
     rendered: -> 
-      @$(".btn-expected-value.ev-#{@index}").popover(content: @$('.popover-tmpl').text())
+      @$(".btn-expected-value.ev-#{@model.get('population_index')}").popover(content: @$('.popover-tmpl').text())
       @setObservs()
 
   context: ->
@@ -103,7 +101,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       DENEX:    'EXCL'
       MSRPOPL:  'MSRPOPL'
       OBSERV:   'OBSERV'
-    @index = @model.get('population_index')
+    @filter = not @measure.get('episode_of_care') and not @measure.get('continuous_variable')
     @popover ?= false
     @parseValues()
 
@@ -118,9 +116,9 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         isEoC: @measure.get('episode_of_care')
         value: @model.get(pc)
     unless @model.has('OBSERV_UNIT') or not @measure.get('continuous_variable') then @model.set 'OBSERV_UNIT', ' mins', {silent:true}
+    if @filter then @setValues = _(@currentCriteria).filter( (pc) => pc.value ) else @setValues = @currentCriteria
 
   updateObserv: ->
-    debugger
     @model.set @serialize() if @popover
     if @measure.get('continuous_variable') and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
       values = @model.get('MSRPOPL')
@@ -137,7 +135,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       @popover = not @popover
       @triggerMaterialize()
       @parseValues()
-      @render()
+      @render() # if _(@model.changedAttributes()).size()
 
   setObservs: ->
     if @model.get('OBSERV')?.length
