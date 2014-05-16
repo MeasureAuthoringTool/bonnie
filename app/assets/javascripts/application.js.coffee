@@ -27,7 +27,6 @@
 #= require jquery.fileDownload/src/Scripts/jquery.fileDownload
 #= require jquery-placeholder/jquery.placeholder.min
 #= require jquery-color/jquery.color
-#= require jasny-bootstrap/dist/js/jasny-bootstrap
 #
 #= require helpers
 #= require_tree ./templates
