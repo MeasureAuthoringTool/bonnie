@@ -48,26 +48,28 @@
 </div>
 </script>
 <div class="tab-pane">
-  {{#each setValues}}
-    {{#ifCond key "==" "OBSERV"}}
-      {{#if value}}
-        <strong>{{displayName}}</strong>: {{value}}{{../../../OBSERV_UNIT}}
-      {{/if}}
-    {{else}}
-      {{#if isEoC}}
-        <Strong>{{displayName}}</strong>: {{value}}
+  <span class="span-expected-values">
+    {{#each setValues}}
+      {{#ifCond key "==" "OBSERV"}}
+        {{#if value}}
+          <strong>{{displayName}}</strong>: {{value}}{{../../../OBSERV_UNIT}}
+        {{/if}}
       {{else}}
-        {{#ifCond key "==" "MSRPOPL"}}
+        {{#if isEoC}}
           <Strong>{{displayName}}</strong>: {{value}}
         {{else}}
-          {{#if value}}
-            <Strong>{{displayName}}</strong>
-          {{/if}}
-        {{/ifCond}}
-      {{/if}}
-    {{/ifCond}}
-  {{else}}
-    None
-  {{/each}}
+          {{#ifCond key "==" "MSRPOPL"}}
+            <Strong>{{displayName}}</strong>: {{value}}
+          {{else}}
+            {{#if value}}
+              <Strong>{{displayName}}</strong>
+            {{/if}}
+          {{/ifCond}}
+        {{/if}}
+      {{/ifCond}}
+    {{else}}
+      None
+    {{/each}}
+  </span>
 </div>
 <button type="button" class="btn-xs btn-default btn-expected-value ev-{{population_index}}" data-toggle="popover" data-placement="bottom" data-html="true"><i class="fa fa-pencil"></i></button>

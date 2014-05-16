@@ -69,7 +69,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           else attr[pc] = undefined if pc == 'OBSERV' or pc == 'MSRPOPL'
         else
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
-    'blur input[name="MSRPOPL"]': 'updateObserv'
+    'change input[name="MSRPOPL"]': 'updateObserv'
     'click .btn-expected-value': ->
       @popover = not @popover
       if @popover
