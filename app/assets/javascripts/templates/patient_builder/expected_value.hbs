@@ -6,7 +6,13 @@
         {{#ifCond key "==" "OBSERV"}}
           <li class="list-group-item">
             <div class="form-group">
-              <h5>{{displayName}} {{#button "toggleUnits" class="btn btn-xs btn-default"}}{{../../../OBSERV_UNIT}}{{/button}}</h5>
+              <h5>
+                {{displayName}}
+                <div class="btn-group">
+                  {{#button "setPerc" class="btn btn-xs btn-observ-unit-perc"}} % {{/button}}
+                  {{#button "setMins" class="btn btn-xs btn-observ-unit-mins"}} mins {{/button}}
+                </div>
+              </h5>
             </div>
           </li>
           {{#each ../../OBSERV}}

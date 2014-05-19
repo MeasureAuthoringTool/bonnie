@@ -146,11 +146,18 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     if @model.get('OBSERV')?.length
       for val, index in @model.get('OBSERV')
         @$("#OBSERV_#{index}").val(val)
-
-  toggleUnits: (e) ->
-    if @model.get('OBSERV_UNIT') == ' mins'
-      @model.set 'OBSERV_UNIT', '%'
+    if @model.get('OBSERV_UNIT') == '%'
+      @$('.btn-observ-unit-perc').removeClass('btn-default').addClass('btn-primary').prop('disabled',true)
+      @$('.btn-observ-unit-mins').addClass('btn-default').removeClass('btn-primary').prop('disabled',false)
     else
-      @model.set 'OBSERV_UNIT', ' mins'
+      @$('.btn-observ-unit-mins').removeClass('btn-default').addClass('btn-primary').prop('disabled',true)
+      @$('.btn-observ-unit-perc').addClass('btn-default').removeClass('btn-primary').prop('disabled',false)
+
+  setPerc: (e) ->
+    @model.set 'OBSERV_UNIT', '%'
+    @updateObserv()
+
+  setMins: (e) ->
+    @model.set 'OBSERV_UNIT', ' mins'
     @updateObserv()
 
