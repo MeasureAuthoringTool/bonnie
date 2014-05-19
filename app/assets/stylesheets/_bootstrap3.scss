@@ -75,6 +75,8 @@ $font-family-sans-serif: "Helvetica Neue", Roboto, Helvetica, Arial, sans-serif;
   font-style: normal;
 }
 
+@import "_bootstrap_libs.scss";
+
 // Custom styles on HTML tags that are part of the theme
 
 h1 {
