@@ -18,8 +18,6 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
   sortUsers: (e) ->
     attr = $(e.target).val()
     @collection.setComparator(attr).sort()
-    # need to reverse the models for descending order on measure/patient counts
-    if attr is 'measure_count' or attr is 'patient_count' then @collection.reset(@collection.models.reverse(), {sort: false})
 
 class Thorax.Views.User extends Thorax.Views.BonnieView
   template: JST['users/user']

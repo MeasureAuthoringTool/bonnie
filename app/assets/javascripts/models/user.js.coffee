@@ -9,8 +9,8 @@ class Thorax.Collections.Users extends Thorax.Collection
   comparators:
     'approved': (u) -> [ u.get('approved'), u.get('email') ]
     'email': 'email'
-    'measure_count': (u) -> [ u.get('measure_count') ]
-    'patient_count': (u) -> [ u.get('patient_count') ]
+    'measure_count': (u) -> parseInt(u.get('measure_count')) * -1 # -1 reverses
+    'patient_count': (u) -> parseInt(u.get('patient_count')) * -1 # -1 reverses
 
   initialize: ->
     @setComparator('approved')
