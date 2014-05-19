@@ -139,7 +139,7 @@ include Devise::TestHelpers
     get :export, hqmf_set_id: @measure.hqmf_set_id
     assert_response :success
     response.header['Content-Type'].must_equal 'application/zip'
-    response.header['Content-Disposition'].must_equal "attachment; filename=\"patient_export.zip\""
+    response.header['Content-Disposition'].must_equal "attachment; filename=\"#{@measure.cms_id}_patient_export.zip\""
     response.header['Set-Cookie'].must_equal 'fileDownload=true; path=/'
     response.header['Content-Transfer-Encoding'].must_equal 'binary'
 

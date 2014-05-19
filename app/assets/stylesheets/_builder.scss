@@ -120,15 +120,23 @@
             display: inline-block;
             width: 40px;
           }
+          input[name=OBSERV] {
+            width: 45px;
+          }
         }
       }
     }
   }
 
-
   .heading-muted {
     background-color: $gray-lighter;
     padding-left: 3px;
+  }
+  .submeasure {
+    text-transform: lowercase;
+    font-weight: normal;
+    background-color: $gray-lighter;
+    padding-left: 30px;
   }
   .heading-primary {
     @include time-bar();

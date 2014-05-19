@@ -34,3 +34,28 @@ describe 'Patient', ->
     expect(@patient.get('source_data_criteria').at(1).cid).toEqual startOrder[2]
     expect(@patient.get('source_data_criteria').at(2).cid).toEqual startOrder[1]
     expect(@patient.get('source_data_criteria').at(3).cid).toEqual startOrder[0]
+
+  describe 'validation', ->
+
+    beforeEach ->
+      @errorsForPatientWithout = (field, extraAttrs) ->
+        clone = @patient.deepClone()
+        clone.set field, ''
+        clone.set extraAttrs
+        clone.validate()
+
+    it 'passes patient with no issues', ->
+      errors = @patient.validate()
+      expect(errors).toBeUndefined()
+
+    it 'fails patient missing a first name', ->
+      expect(@errorsForPatientWithout('first')).toEqual [['first', 'Name fields cannot be blank']]
+
+    it 'fails patient missing a last name', ->
+      expect(@errorsForPatientWithout('last')).toEqual [['last', 'Name fields cannot be blank']]
+
+    it 'fails patient missing a birthdate', ->
+      expect(@errorsForPatientWithout('birthdate')).toEqual [['birthdate', 'Date of birth cannot be blank']]
+
+    it 'fails deceased patient without a deathdate', ->
+      expect(@errorsForPatientWithout('deathdate', expired: true)).toEqual [['deathdate', 'Deceased patient must have date of death']]

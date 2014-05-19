@@ -60,3 +60,9 @@ class Thorax.Models.Population extends Thorax.Model
 class Thorax.Collections.Population extends Thorax.Collection
   model: Thorax.Models.Population
   initialize: (models, options) -> @parent = options?.parent
+  whenDifferencesComputed: (callback) ->
+    @each (population) => population.differencesFromExpected().once 'complete', => callback(@) if @differencesComputed()
+    callback(@) if @differencesComputed()
+
+  differencesComputed: ->
+    _.isEmpty(@select (population) -> !population.differencesFromExpected().summary.get('done'))

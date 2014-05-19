@@ -2,6 +2,23 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
   className: 'user-management'
   template: JST['users/users']
 
+  events:
+    'change .users-sort-list': 'sortUsers'
+
+  initialize: ->
+    @totalMeasures = 0
+    @totalPatients = 0
+    @collection.on 'change add reset destroy remove', @updateSummary, this
+
+  updateSummary: ->
+    @totalMeasures = @collection.reduce(((sum, user) -> sum + user.get('measure_count')), 0)
+    @totalPatients = @collection.reduce(((sum, user) -> sum + user.get('patient_count')), 0)
+    @render()
+
+  sortUsers: (e) ->
+    attr = $(e.target).val()
+    @collection.setComparator(attr).sort()
+
 class Thorax.Views.User extends Thorax.Views.BonnieView
   template: JST['users/user']
   editTemplate: JST['users/edit_user']

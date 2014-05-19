@@ -5,6 +5,8 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     rendered: ->
       @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
       @exportPatientsView.appendTo(@$el)
+      $('.indicator-circle, .navbar-nav > li').removeClass('active')
+      $('.indicator-results').addClass('active')
     'click .measure-listing': 'selectMeasureListing'
 
   initialize: ->
@@ -43,9 +45,17 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   exportPatients: (e) ->
     @exportPatientsView.exporting()
-    $.fileDownload "patients/export?hqmf_set_id=#{@model.get('hqmf_set_id')}",
-      successCallback: => @exportPatientsView.success()
-      failCallback: => @exportPatientsView.fail()
+
+    @model.get('populations').whenDifferencesComputed =>
+      differences = []
+      @model.get('populations').each (population) ->
+        differences.push(_(population.differencesFromExpected().toJSON()).extend(population.coverage().toJSON()))
+
+      $.fileDownload "patients/export?hqmf_set_id=#{@model.get('hqmf_set_id')}", 
+        successCallback: => @exportPatientsView.success()
+        failCallback: => @exportPatientsView.fail()
+        httpMethod: "POST"
+        data: {authenticity_token: $("meta[name='csrf-token']").attr('content'), results: differences }
 
   toggleMeasureListing: (e) ->
     @$('.main').toggleClass('col-sm-8 col-sm-6')

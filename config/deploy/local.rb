@@ -1,6 +1,9 @@
 # Capistrano is run on the deploy-to server via a Bamboo hook, so just deploy to the current host and user
 # account into a directory relative to our current directory
 
+# Deploy with production environment
+set :stage, :production
+
 # Tell RVM to use the current ruby when running capistrano
 set :rvm1_ruby_version, ENV['GEM_HOME'].gsub(/.*\//, '')
 
@@ -11,7 +14,7 @@ set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 set :keep_releases, 1
 
 # Hostname gets specified in a config file that's local to the server
-set :linked_files, %w{config/hostname}
+set :linked_files, (fetch(:linked_files) || []).concat(%w{config/hostname})
 
 # Repository gets cloned to /apps/dev/tacoma/ruby/repository/bonnie, bonnie gets deployed to /apps/dev/tacoma/ruby/bonnie
 set :deploy_to, File.join(File.dirname(File.dirname(Dir.pwd)), 'bonnie')

@@ -53,8 +53,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   valueWithDateContext: (model) ->
     _(model.toJSON()).extend
-      start_date: moment(model.get('value')).format('L') if model.get('type') == 'TS'
-      start_time: moment(model.get('value')).format('LT') if model.get('type') == 'TS'
+      start_date: moment.utc(model.get('value')).format('L') if model.get('type') == 'TS'
+      start_time: moment.utc(model.get('value')).format('LT') if model.get('type') == 'TS'
 
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
@@ -62,10 +62,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     cmsIdParts = @model.get("cms_id").match(/CMS(\d+)(V\d+)/i)
     desc = @model.get('description').split(", ")?[1] or @model.get('description')
     _(super).extend
-      start_date: moment(@model.get('start_date')).format('L') if @model.get('start_date')
-      start_time: moment(@model.get('start_date')).format('LT') if @model.get('start_date')
-      end_date: moment(@model.get('end_date')).format('L') if @model.get('end_date')
-      end_time: moment(@model.get('end_date')).format('LT') if @model.get('end_date')
+      start_date: moment.utc(@model.get('start_date')).format('L') if @model.get('start_date')
+      start_time: moment.utc(@model.get('start_date')).format('LT') if @model.get('start_date')
+      end_date: moment.utc(@model.get('end_date')).format('L') if @model.get('end_date')
+      end_time: moment.utc(@model.get('end_date')).format('LT') if @model.get('end_date')
       end_date_is_undefined: !@model.has('end_date')
       description: desc
       value_sets: @model.measure()?.valueSets().map((vs) -> vs.toJSON()) or []
@@ -78,13 +78,13 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     serialize: (attr) ->
       if startDate = attr.start_date
         startDate += " #{attr.start_time}" if attr.start_time
-        attr.start_date = moment(startDate, 'L LT').format('X') * 1000
+        attr.start_date = moment.utc(startDate, 'L LT').format('X') * 1000
       delete attr.start_time
       if attr.end_date_is_undefined
         attr.end_date = undefined
       else if endDate = attr.end_date
         endDate += " #{attr.end_time}" if attr.end_time
-        attr.end_date = moment(endDate, 'L LT').format('X') * 1000
+        attr.end_date = moment.utc(endDate, 'L LT').format('X') * 1000
       attr.negation = !!attr.negation && !_.isEmpty(attr.negation_code_list_id)
       delete attr.end_date_is_undefined
       delete attr.end_time
@@ -204,7 +204,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     serialize: (attr) ->
       if startDate = attr.start_date
         startDate += " #{attr.start_time}" if attr.start_time
-        attr.value = moment(startDate, 'L LT').format('X') * 1000
+        attr.value = moment.utc(startDate, 'L LT').format('X') * 1000
       delete attr.start_date
       delete attr.start_time
       title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
