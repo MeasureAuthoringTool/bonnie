@@ -293,7 +293,13 @@ namespace :bonnie do
       end
     end
 
-    desc 'Date shift patient records for a given user.'
+    desc %{Date shift patient records for a given user.
+      Use EMAIL to denote the user to scope the date_shift for all associated patients' source data criteria; first user by default.
+      Use DIR to denote direction [forward, backward]; direction is forward by default.
+      Use SECONDS, MINUTES, HOURS, DAYS, WEEKS, MONTHS, YEARS to denote time offset [###]; offsets are 0 by default.
+
+      e.g., rake bonnie:patients:date_shift DIR=backward YEARS=2 MONTHS=2 will shift the first user's patients' source data criteria backwards by 2 years and 2 months.
+    }
     task :date_shift => :environment do
       user_email = ENV['EMAIL'] || User.first.email
       user = User.where(email: user_email).first
@@ -310,8 +316,12 @@ namespace :bonnie do
       direction.downcase == 'backward' ? dir = -1 : dir = 1
       Record.by_user(user).each do |patient|
         patient.source_data_criteria.each do |sdc|
-          sdc["start_date"] = ( Time.at(sdc["start_date"] / 1000 ).utc + dir * ( years.to_i.years + months.to_i.months + weeks.to_i.weeks + days.to_i.days + hours.to_i.hours + minutes.to_i.minutes + seconds.to_i.seconds ) ).to_i * 1000
-          sdc["end_date"] = ( Time.at(sdc["end_date"] / 1000 ).utc + dir * ( years.to_i.years + months.to_i.months + weeks.to_i.weeks + days.to_i.days + hours.to_i.hours + minutes.to_i.minutes + seconds.to_i.seconds ) ).to_i * 1000
+          unless sdc["start_date"].blank?
+            sdc["start_date"] = ( Time.at(sdc["start_date"] / 1000 ).utc + dir * ( years.to_i.years + months.to_i.months + weeks.to_i.weeks + days.to_i.days + hours.to_i.hours + minutes.to_i.minutes + seconds.to_i.seconds ) ).to_i * 1000
+          end
+          unless sdc["end_date"].blank?
+            sdc["end_date"] = ( Time.at(sdc["end_date"] / 1000 ).utc + dir * ( years.to_i.years + months.to_i.months + weeks.to_i.weeks + days.to_i.days + hours.to_i.hours + minutes.to_i.minutes + seconds.to_i.seconds ) ).to_i * 1000
+          end
         end
         Measures::PatientBuilder.rebuild_patient(patient)
         patient.save!
