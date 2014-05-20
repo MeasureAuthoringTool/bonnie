@@ -303,14 +303,8 @@ namespace :bonnie do
     task :date_shift => :environment do
       user_email = ENV['EMAIL'] || User.first.email
       user = User.where(email: user_email).first
+      seconds, minutes, hours, days, weeks, months, years = ENV['SECONDS'] || 0, ENV['MINUTES'] || 0, ENV['HOURS'] || 0, ENV['DAYS'] || 0, ENV['WEEKS'] || 0, ENV['MONTHS'] || 0, ENV['YEARS'] || 0
       direction = ENV['DIR'] || 'forward'
-      seconds = ENV['SECONDS'] || 0
-      minutes = ENV['MINUTES'] || 0
-      hours = ENV['HOURS'] || 0
-      days = ENV['DAYS'] || 0
-      weeks = ENV['WEEKS'] || 0
-      months = ENV['MONTHS'] || 0
-      years = ENV['YEARS'] || 0
       direction = 'forward' if !direction.downcase == 'backward'
       puts "Shifting dates #{direction} [ #{years}ys, #{months}mos, #{weeks}wks, #{days}d, #{hours}hrs, #{minutes}mins, #{seconds}s ] for source_data_criteria on all associated patient records for #{user.email}"
       direction.downcase == 'backward' ? dir = -1 : dir = 1
