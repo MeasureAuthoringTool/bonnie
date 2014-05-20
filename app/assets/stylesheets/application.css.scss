@@ -1,9 +1,6 @@
 // Handle non-less assets first with the asset pipeline
 //= require jquery-selectboxit/src/stylesheets/jquery.selectBoxIt
 
-$icon-font-path: "bootstrap-sass/dist/fonts/";
-$fa-font-path: "font-awesome/fonts";
-
 // Helper files
 @import "_bootstrap3";
 @import "_variables";
