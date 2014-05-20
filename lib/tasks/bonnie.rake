@@ -292,5 +292,30 @@ namespace :bonnie do
         puts "\tReset expected_values for patient #{patient.first} #{patient.last}."
       end
     end
+
+    desc 'Date shift patient records for a given user.'
+    task :date_shift => :environment do
+      user_email = ENV['EMAIL'] || User.first.email
+      user = User.where(email: user_email).first
+      direction = ENV['DIR'] || 'forward'
+      seconds = ENV['SECONDS'] || 0
+      minutes = ENV['MINUTES'] || 0
+      hours = ENV['HOURS'] || 0
+      days = ENV['DAYS'] || 0
+      weeks = ENV['WEEKS'] || 0
+      months = ENV['MONTHS'] || 0
+      years = ENV['YEARS'] || 0
+      direction = 'forward' if !direction.downcase == 'backward'
+      puts "Shifting dates #{direction} [ #{years}ys, #{months}mos, #{weeks}wks, #{days}d, #{hours}hrs, #{minutes}mins, #{seconds}s ] for source_data_criteria on all associated patient records for #{user.email}"
+      direction.downcase == 'backward' ? dir = -1 : dir = 1
+      Record.by_user(user).each do |patient|
+        patient.source_data_criteria.each do |sdc|
+          sdc["start_date"] = ( Time.at(sdc["start_date"] / 1000 ).utc + dir * ( years.to_i.years + months.to_i.months + weeks.to_i.weeks + days.to_i.days + hours.to_i.hours + minutes.to_i.minutes + seconds.to_i.seconds ) ).to_i * 1000
+          sdc["end_date"] = ( Time.at(sdc["end_date"] / 1000 ).utc + dir * ( years.to_i.years + months.to_i.months + weeks.to_i.weeks + days.to_i.days + hours.to_i.hours + minutes.to_i.minutes + seconds.to_i.seconds ) ).to_i * 1000
+        end
+        Measures::PatientBuilder.rebuild_patient(patient)
+        patient.save!
+      end
+    end
   end
 end
