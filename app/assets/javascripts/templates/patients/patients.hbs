@@ -8,7 +8,7 @@
   </thead>
   {{#collection patients tag="tbody"}}
     <tr class="tr patient-listing">
-      <td width="5%" class="td delete-icon">{{#button "delStart" class="btn btn-danger"}}<i class="fa fa-minus-circle" aria-hidden="true"></i>{{/button}}</td>
+      <td width="5%" class="td delete-icon">{{#button "delStart" class="btn btn-danger"}}<i class="fa fa-minus-circle" aria-hidden="true"></i><span class="sr-only">Delete</span>{{/button}}</td>
       <td>{{last}}, {{first}}</td>
       <td width="24%">
         {{#link "patients/{{_id}}" class="btn btn-primary" expand-tokens=true}}View{{/link}}

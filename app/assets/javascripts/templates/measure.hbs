@@ -42,12 +42,12 @@
       <div class="patients-settings">
         {{#button "exportPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> Export{{/button}}
         {{#empty patients}}
-          {{#button "toggleMeasureListing" class="btn btn-default btn-measure-listing toggle-measure-listing" disabled="disabled"}}<i class="fa fa-users" aria-hidden="true"></i> <i class="fa fa-arrow-right" aria-hidden="true"></i> <i class="fa fa-tasks" aria-hidden="true"></i>{{/button}}
+          {{#button "toggleMeasureListing" class="btn btn-default btn-measure-listing toggle-measure-listing" disabled="disabled"}}<i class="fa fa-users" aria-hidden="true"></i> <i class="fa fa-arrow-right" aria-hidden="true"></i> <i class="fa fa-tasks" aria-hidden="true"></i><span class="sr-only">Toggle measure listing</span>{{/button}}
         {{else}}
           {{#ifCond measures.length "<=" "1"}}
-            {{#button "toggleMeasureListing" class="btn btn-default btn-measure-listing toggle-measure-listing" disabled="disabled"}}<i class="fa fa-users" aria-hidden="true"></i> <i class="fa fa-arrow-right" aria-hidden="true"></i> <i class="fa fa-tasks" aria-hidden="true"></i>{{/button}}
+            {{#button "toggleMeasureListing" class="btn btn-default btn-measure-listing toggle-measure-listing" disabled="disabled"}}<i class="fa fa-users" aria-hidden="true"></i> <i class="fa fa-arrow-right" aria-hidden="true"></i> <i class="fa fa-tasks" aria-hidden="true"></i><span class="sr-only">Toggle measure listing</span>{{/button}}
           {{else}}
-            {{#button "toggleMeasureListing" class="btn btn-default btn-measure-listing toggle-measure-listing"}}<i class="fa fa-users" aria-hidden="true"></i> <i class="fa fa-arrow-right" aria-hidden="true"></i> <i class="fa fa-tasks" aria-hidden="true"></i>{{/button}}
+            {{#button "toggleMeasureListing" class="btn btn-default btn-measure-listing toggle-measure-listing"}}<i class="fa fa-users" aria-hidden="true"></i> <i class="fa fa-arrow-right" aria-hidden="true"></i> <i class="fa fa-tasks" aria-hidden="true"></i><span class="sr-only">Toggle measure listing</span>{{/button}}
           {{/ifCond}}
         {{/empty}}
       </div>
