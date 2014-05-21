@@ -1,10 +1,10 @@
 <td>{{email}}</td>
-<td>{{#button "bundle" class="btn btn-primary"}}<i class="fa fa-download"></i>{{/button}}</td>
+<td>{{#button "bundle" class="btn btn-primary"}}<i class="fa fa-download" aria-hidden="true"></i>{{/button}}</td>
 <td class="centered"><a href="admin/users/{{_id}}/measures">{{measure_count}}</a></td>
 <td class="centered"><a href="admin/users/{{_id}}/patients">{{patient_count}}</a></td>
-<td class="centered check">{{#if admin}}<i class="fa fa-check"></i>{{/if}}</td>
-<td class="centered check">{{#if portfolio}}<i class="fa fa-check"></i>{{/if}}</td>
-<td class="centered check">{{#if approved}}<i class="fa fa-check"></i>{{/if}}</td>
+<td class="centered check">{{#if admin}}<i class="fa fa-check" aria-hidden="true"></i>{{/if}}</td>
+<td class="centered check">{{#if portfolio}}<i class="fa fa-check" aria-hidden="true"></i>{{/if}}</td>
+<td class="centered check">{{#if approved}}<i class="fa fa-check" aria-hidden="true"></i>{{/if}}</td>
 {{#unless isCurrentUser}}
   <td>
     {{#if approved}}
@@ -15,8 +15,8 @@
   </td>
   <td>{{#button "edit" class="btn btn-primary"}}Edit{{/button}}</td>
   <td>
-    {{#button "showDelete" class="btn btn-danger-inverse"}}<i class="fa fa-minus-circle"></i>{{/button}}
-    {{#button "delete" class="btn btn-danger delete-user hide"}}<i class="fa fa-times"></i> Delete{{/button}}
+    {{#button "showDelete" class="btn btn-danger-inverse"}}<i class="fa fa-minus-circle" aria-hidden="true"></i>{{/button}}
+    {{#button "delete" class="btn btn-danger delete-user hide"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
   </td>
   <td>
     <form action="/admin/users/{{_id}}/log_in_as" method="POST">

@@ -26,7 +26,7 @@
   <% unless account_info %>
   <div class="col-md-4">
     <span class="measure-period">
-      <i class="fa fa-tasks"></i> measure period:
+      <i class="fa fa-tasks" aria-hidden="true"></i> measure period:
       <span class="year"><%= Time.zone.at(APP_CONFIG['measure_period_start']).year %></span>
     </span>
   </div>
