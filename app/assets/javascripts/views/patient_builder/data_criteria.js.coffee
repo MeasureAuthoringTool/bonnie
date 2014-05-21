@@ -206,6 +206,7 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
 
   events:
     'blur input': 'validateForAddition'
+    'keyup input': 'validateForAddition'
     serialize: (attr) ->
       if dispenseDate = attr.dispense_date
         dispenseDate += " #{attr.dispense_time}" if attr.dispense_time
@@ -229,7 +230,6 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
     @$('input[name="dispense_date"]').datepicker('update')
     @$('input[name="quantity_dispensed_value"]').val('')
     @triggerMaterialize()
-    @$(':focusable:visible:first').focus()
 
 class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   className: -> "#{if @fieldValue then 'field-' else ''}value-formset"
