@@ -12,7 +12,7 @@ class Thorax.Models.MeasureDataCriteria extends Thorax.Model
     new Thorax.Models.PatientDataCriteria attr
 
   getDefaultTime: ->
-    parseInt(moment.utc().set('year', 2012).set('hour',8).set('minute',0).set('second',0).format('X'))*1000
+    parseInt(moment.utc().set('year', bonnie.measurePeriod).set('hour',8).set('minute',0).set('second',0).format('X'))*1000
 
 class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
   model: Thorax.Models.MeasureDataCriteria
