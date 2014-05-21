@@ -7,7 +7,7 @@
     <li <% unless account_info %>class="nav-dashboard active"<% end %>>
       <a <% unless account_info %>href="#"<% else %>href="/#"<% end %>>Dashboard</a>
     </li>
-    <li <% if account_info %>class="active"<% end %>><a href="/users/edit">Account</a></li>
+    <li class="<% if account_info %>active<% else %>nav-account<% end %>"><a href="/users/edit">Account</a></li>
     <% if (current_user.is_admin?)%><li><a href="/#admin/users">Admin</a></li><% end %>
     <li class="dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="">
