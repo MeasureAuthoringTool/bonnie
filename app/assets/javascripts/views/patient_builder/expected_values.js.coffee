@@ -95,7 +95,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         key: pc
         displayName: criteriaMap[pc]
         isEoC: @measure.get('episode_of_care')
-    unless @model.has('OBSERV_UNIT') then @model.set 'OBSERV_UNIT', ' mins'
+    unless @model.has('OBSERV_UNIT') or not @measure.get('continuous_variable') then @model.set 'OBSERV_UNIT', ' mins', {silent:true}
 
   updateObserv: ->
     if @measure.get('continuous_variable') and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
