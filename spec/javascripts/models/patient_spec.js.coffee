@@ -49,13 +49,21 @@ describe 'Patient', ->
       expect(errors).toBeUndefined()
 
     it 'fails patient missing a first name', ->
-      expect(@errorsForPatientWithout('first')).toEqual [['first', 'Name fields cannot be blank']]
+      errors = @errorsForPatientWithout('first')
+      expect(errors.length).toEqual 1
+      expect(errors[0][2]).toEqual 'Name fields cannot be blank'
 
     it 'fails patient missing a last name', ->
-      expect(@errorsForPatientWithout('last')).toEqual [['last', 'Name fields cannot be blank']]
+      errors = @errorsForPatientWithout('last')
+      expect(errors.length).toEqual 1
+      expect(errors[0][2]).toEqual 'Name fields cannot be blank'
 
     it 'fails patient missing a birthdate', ->
-      expect(@errorsForPatientWithout('birthdate')).toEqual [['birthdate', 'Date of birth cannot be blank']]
+      errors = @errorsForPatientWithout('birthdate')
+      expect(errors.length).toEqual 1
+      expect(errors[0][2]).toEqual 'Date of birth cannot be blank'
 
     it 'fails deceased patient without a deathdate', ->
-      expect(@errorsForPatientWithout('deathdate', expired: true)).toEqual [['deathdate', 'Deceased patient must have date of death']]
+      errors = @errorsForPatientWithout('deathdate', expired: true)
+      expect(errors.length).toEqual 1
+      expect(errors[0][2]).toEqual 'Deceased patient must have date of death'
