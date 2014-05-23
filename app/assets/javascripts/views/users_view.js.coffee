@@ -19,6 +19,12 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
     attr = $(e.target).val()
     @collection.setComparator(attr).sort()
 
+  emailAllUsers: ->
+    if !@emailAllUsersView
+      @emailAllUsersView = new Thorax.Views.EmailAllUsers()
+      @emailAllUsersView.appendTo(@$el)
+    @emailAllUsersView.display()
+
 class Thorax.Views.User extends Thorax.Views.BonnieView
   template: JST['users/user']
   editTemplate: JST['users/edit_user']
@@ -63,3 +69,47 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
   showDelete: -> @$('.delete-user').toggleClass('hide')
 
   delete: -> @model.destroy()
+
+class Thorax.Views.EmailAllUsers extends Thorax.Views.BonnieView
+  template: JST['users/email_all']
+
+  context: ->
+    _(super).extend
+      token: $("meta[name='csrf-token']").attr('content')
+
+  events:
+    'ready': 'setup'
+    'keypress input:text': 'enableSend'
+    'keypress textarea': 'enableSend'
+
+  setup: ->
+    @emailAllUsersDialog = @$("#emailAllUsersDialog")
+    @subjectField = @$("#emailAllSubject")
+    @bodyArea = @$("#emailAllBody")
+    @sendButton = @$("#sendButton")
+    @enableSend();
+
+  display: ->
+    @emailAllUsersDialog.modal(
+      "backdrop" : "static",
+      "keyboard" : true,
+      "show" : true).find('.modal-dialog').css('width','650px')
+
+  enableSend: ->
+    @sendButton.prop('disabled', @subjectField.val().length == 0 || @bodyArea.val().length == 0)
+
+  close: -> ''
+    # Should we ask the user to confirm that they want to cancel if there's content?
+
+  submit: ->
+    form = @$('form')
+    me = this
+    $.ajax(form.attr('action'), {
+      'type': 'POST',
+      'data': form.serialize(),
+      'success': ->
+        # Kill the subject and body areas if we've successfully sent our message
+        me.subjectField.val('')
+        me.bodyArea.val('')
+      'complete': @emailAllUsersDialog.modal('hide')
+    })
