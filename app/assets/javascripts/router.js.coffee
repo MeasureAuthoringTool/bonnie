@@ -23,7 +23,7 @@ class BonnieRouter extends Backbone.Router
     'value_sets/edit':                                 'renderValueSetsBuilder'
 
   renderMeasures: ->
-    document.title = "Bonnie v#{bonnie.applicationVersion}: Measures";
+    document.title = "Bonnie v#{bonnie.applicationVersion}: Dashboard";
     # FIXME: We want the equivalent of a before filter; can probably override navigate w/super? @on route happens after, ok?
     @calculator.cancelCalculations()
     measuresView = new Thorax.Views.Measures(collection: @measures.sort())
