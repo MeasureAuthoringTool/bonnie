@@ -150,13 +150,11 @@ class Thorax.Models.Patient extends Thorax.Model
       # Note that birth and death dates are stored in seconds, data criteria dates in milliseconds
       unless sdc.get('start_date')
         errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} must have start date"]
-      unless sdc.get('end_date')
-        errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} must have stop date"]
       if sdc.get('end_date') && sdc.get('start_date') && sdc.get('end_date') < sdc.get('start_date')
         errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date cannot be before start date"]
       if sdc.get('start_date') && moment(@get('start_date') / 1000, 'X').year() < 100
         errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must have four digit year"]
-      if sdc.get('start_date') && moment(@get('start_date') / 1000, 'X').year() < 100
+      if sdc.get('end_date') && moment(@get('end_date') / 1000, 'X').year() < 100
         errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must have four digit year"]
       if sdc.get('start_date') && @get('birthdate') && sdc.get('start_date') < @get('birthdate') * 1000
         errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must be after patient date of birth"]
