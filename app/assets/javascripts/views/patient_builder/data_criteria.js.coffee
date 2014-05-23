@@ -106,11 +106,13 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @trigger 'bonnie:dropCriteria', droppedCriteria
     return false
 
+  isExpanded: -> @$('form').is ':visible'
+
   toggleDetails: (e) ->
     e.preventDefault()
     @$('.criteria-details, form').toggleClass('hide')
     @$('.criteria-type-marker').toggleClass('open')
-    unless @$('form').is ':visible'
+    unless @isExpanded()
       @serialize(children: false)
       # FIXME sortable: commenting out due to odd bug in droppable
       # @model.trigger 'close', @model
@@ -145,6 +147,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     e.preventDefault()
     $(e.target).model().destroy()
     @triggerMaterialize()
+
+  highlightError: (e, field) ->
+    @toggleDetails(e) unless @isExpanded()
+    @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
 
 
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView

@@ -130,12 +130,43 @@ class Thorax.Models.Patient extends Thorax.Model
 
   validate: ->
     errors = []
-    errors.push ['first', 'Name fields cannot be blank'] unless @get('first').length > 0
-    errors.push ['last', 'Name fields cannot be blank'] unless @get('last').length > 0
-    errors.push ['birthdate', 'Date of birth cannot be blank'] unless @get('birthdate')
-    errors.push ['birthdate', 'Date of birth cannot have two digit year'] if @get('birthdate') && moment(@get('birthdate'), 'X').year() < 100
-    errors.push ['deathdate', 'Deceased patient must have date of death'] if @get('expired') && !@get('deathdate')
-    errors.push ['deathdate', 'Date of death cannot have two digit year'] if @get('deathdate') && moment(@get('deathdate'), 'X').year() < 100
+
+    unless @get('first').length > 0
+      errors.push [@cid, 'first', 'Name fields cannot be blank']
+    unless @get('last').length > 0
+      errors.push [@cid, 'last', 'Name fields cannot be blank']
+    unless @get('birthdate')
+      errors.push [@cid, 'birthdate', 'Date of birth cannot be blank']
+    if @get('expired') && !@get('deathdate')
+      errors.push [@cid, 'deathdate', 'Deceased patient must have date of death']
+    if @get('birthdate') && moment(@get('birthdate'), 'X').year() < 100
+      errors.push [@cid, 'birthdate', 'Date of birth must have four digit year']
+    if @get('deathdate') && moment(@get('deathdate'), 'X').year() < 100
+      errors.push [@cid, 'deathdate', 'Date of death must have four digit year']
+    if @get('deathdate') && @get('birthdate') && @get('deathdate') < @get('birthdate')
+      errors.push [@cid, 'deathdate', 'Date of death cannot be before date of birth']
+
+    @get('source_data_criteria').each (sdc) =>
+      # Note that birth and death dates are stored in seconds, data criteria dates in milliseconds
+      unless sdc.get('start_date')
+        errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} must have start date"]
+      unless sdc.get('end_date')
+        errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} must have stop date"]
+      if sdc.get('end_date') && sdc.get('start_date') && sdc.get('end_date') < sdc.get('start_date')
+        errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date cannot be before start date"]
+      if sdc.get('start_date') && moment(@get('start_date') / 1000, 'X').year() < 100
+        errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must have four digit year"]
+      if sdc.get('start_date') && moment(@get('start_date') / 1000, 'X').year() < 100
+        errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must have four digit year"]
+      if sdc.get('start_date') && @get('birthdate') && sdc.get('start_date') < @get('birthdate') * 1000
+        errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must be after patient date of birth"]
+      if sdc.get('start_date') && @get('deathdate') && sdc.get('start_date') > @get('deathdate') * 1000
+        errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must be before patient date of death"]
+      if sdc.get('end_date') && @get('birthdate') && sdc.get('end_date') < @get('birthdate') * 1000
+        errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must be after patient date of birth"]
+      if sdc.get('end_date') && @get('deathdate') && sdc.get('end_date') > @get('deathdate') * 1000
+        errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must be before patient date of death"]
+
     return errors if errors.length > 0
 
 class Thorax.Collections.Patients extends Thorax.Collection
