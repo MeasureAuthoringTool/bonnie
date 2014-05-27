@@ -298,7 +298,7 @@ namespace :bonnie do
       Use DIR to denote direction [forward, backward]; direction is forward by default.
       Use SECONDS, MINUTES, HOURS, DAYS, WEEKS, MONTHS, YEARS to denote time offset [###]; offsets are 0 by default.
 
-      e.g., rake bonnie:patients:date_shift DIR=backward YEARS=2 MONTHS=2 will shift the first user's patients' source data criteria backwards by 2 years and 2 months.
+      e.g., rake bonnie:patients:date_shift DIR=backward YEARS=2 MONTHS=2 will shift the first user's patients' source data criteria start/stop dates and birth/death dates backwards by 2 years and 2 months.
     }
     task :date_shift => :environment do
       user_email = ENV['EMAIL'] || User.first.email
@@ -306,9 +306,13 @@ namespace :bonnie do
       seconds, minutes, hours, days, weeks, months, years = ENV['SECONDS'] || 0, ENV['MINUTES'] || 0, ENV['HOURS'] || 0, ENV['DAYS'] || 0, ENV['WEEKS'] || 0, ENV['MONTHS'] || 0, ENV['YEARS'] || 0
       direction = ENV['DIR'] || 'forward'
       direction = 'forward' if !direction.downcase == 'backward'
-      puts "Shifting dates #{direction} [ #{years}ys, #{months}mos, #{weeks}wks, #{days}d, #{hours}hrs, #{minutes}mins, #{seconds}s ] for source_data_criteria on all associated patient records for #{user.email}"
+      puts "Shifting dates #{direction} [ #{years}ys, #{months}mos, #{weeks}wks, #{days}d, #{hours}hrs, #{minutes}mins, #{seconds}s ] for source_data_criteria start/stop dates and birth/death dates on all associated patient records for #{user.email}"
       direction.downcase == 'backward' ? dir = -1 : dir = 1
       Record.by_user(user).each do |patient|
+        patient.birthdate = ( Time.at(patient.birthdate ).utc + dir * ( years.to_i.years + months.to_i.months + weeks.to_i.weeks + days.to_i.days + hours.to_i.hours + minutes.to_i.minutes + seconds.to_i.seconds ) ).to_i
+        if patient.expired
+          patient.deathdate = ( Time.at(patient.deathdate ).utc + dir * ( years.to_i.years + months.to_i.months + weeks.to_i.weeks + days.to_i.days + hours.to_i.hours + minutes.to_i.minutes + seconds.to_i.seconds ) ).to_i
+        end
         patient.source_data_criteria.each do |sdc|
           unless sdc["start_date"].blank?
             sdc["start_date"] = ( Time.at(sdc["start_date"] / 1000 ).utc + dir * ( years.to_i.years + months.to_i.months + weeks.to_i.weeks + days.to_i.days + hours.to_i.hours + minutes.to_i.minutes + seconds.to_i.seconds ) ).to_i * 1000
