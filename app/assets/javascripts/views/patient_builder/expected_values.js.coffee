@@ -71,8 +71,8 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
     'change input[name="MSRPOPL"]': 'updateObserv'
     'click .btn-expected-value': ->
-      @popover = not @popover
-      if @popover
+      @popoverVisible = not @popoverVisible
+      if @popoverVisible
         @$('.popover-title').remove()
         @populate()
         @setObservs()
@@ -102,7 +102,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       MSRPOPL:  'MSRPOPL'
       OBSERV:   'OBSERV'
     @filter = not @measure.get('episode_of_care') and not @measure.get('continuous_variable')
-    @popover ?= false
+    @popoverVisible ?= false
     @parseValues()
 
   parseValues: ->
@@ -119,7 +119,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     if @filter then @setValues = _(@currentCriteria).filter( (pc) => pc.value ) else @setValues = @currentCriteria
 
   updateObserv: ->
-    @model.set @serialize() if @popover
+    @model.set @serialize() if @popoverVisible
     focusIndex = 0
     if @measure.get('continuous_variable') and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
       values = @model.get('MSRPOPL')
@@ -133,8 +133,8 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       else
         @model.set 'OBSERV', (0 for n in [1..values]) if values
       @setObservs()
-    if @popover
-      @popover = not @popover
+    if @popoverVisible
+      @popoverVisible = not @popoverVisible
       @triggerMaterialize()
       @parseValues()
       @render()
