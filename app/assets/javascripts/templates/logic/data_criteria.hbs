@@ -1,9 +1,4 @@
 <span class="{{dataCriteria.key}} rationale-target{{#ifCond dataCriteria.type '!=' 'derived'}} highlight-target{{/ifCond}}">
-{{#ifCond dataCriteria.type '!=' 'derived'}}
-  <label class="sr-only"> toggle data criteria {{#if dataCriteria.specific_occurrence}}Occurrence {{dataCriteria.specific_occurrence}}: {{/if}}{{dataCriteria.description}}
-    <input type="radio" name="toggleHighlight" class="toggle-highlight-target">
-  </label>
-{{/ifCond}}
 
 {{#each dataCriteria.subset_operators}}
   {{view "SubsetOperatorLogic" subsetOperator=this tag="span"}}
