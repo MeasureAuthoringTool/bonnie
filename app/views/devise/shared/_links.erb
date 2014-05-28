@@ -2,7 +2,7 @@
   <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
     <p>
       <%= link_to new_password_path(resource_name) do %>
-        <i class="fa fa-question-circle"></i>
+        <i class="fa fa-question-circle" aria-hidden="true"></i>
         forgot password?
       <% end %>
     </p>
@@ -11,7 +11,7 @@
   <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
     <p>
       <%= link_to new_registration_path(resource_name) do %>
-        <i class="fa fa-plus-circle"></i>
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
         register
       <% end %>
     </p>
@@ -20,7 +20,7 @@
   <%- if controller_name != 'sessions' %>
     <p>
       <%= link_to new_session_path(resource_name) do %>
-        <i class="fa fa-plus-circle"></i>
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
         sign in
       <% end %>
     </p>

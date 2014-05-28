@@ -1,5 +1,5 @@
 <div class="criteria-type-marker">
-  <i class="fa fa-fw fa-lg {{faIcon}}"></i>
+  <i class="fa fa-fw fa-lg {{faIcon}}" aria-hidden="true"></i>
 </div>
 <div class="criteria-body">
   <div class="criteria-data droppable">
@@ -16,7 +16,7 @@
             <div>{{start_date}}{{#if end_date}} &ndash; {{end_date}}{{/if}}</div>
           </div>
           {{#button "toggleDetails" class="close"}}
-            <i class="fa fa-lg fa-angle-right"></i>
+            <i class="fa fa-lg fa-angle-right" aria-hidden="true"></i>
             <span class="sr-only">Expand Data Criteria, {{definition}}, {{description}} </span>
             <span class="highlight-indicator sr-only"></span>
           {{/button}}
@@ -36,14 +36,14 @@
           <p><strong>{{definition}}:</strong> {{description}}</p>
         </div>
         {{#button "toggleDetails" class="close"}}
-          <i class="fa fa-lg fa-angle-down"></i>
+          <i class="fa fa-lg fa-angle-down" aria-hidden="true"></i>
           <span class="sr-only">Collapse Data Criteria, {{definition}}, {{description}}</span>
         {{/button}}
       </div>
 
       <div class="row">
         <div class="form-group col-md-6">
-          <label for="start_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o"></i> Start<span class="sr-only">date month/day/year</span></label></label>
+          <label for="start_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> Start<span class="sr-only"> start date month/day/year</span></label></label>
           <div class="datetime-control">
             <div>
               <input type="text" name="start_date" id="start_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
@@ -57,7 +57,7 @@
         </div>
 
         <div class="form-group col-md-6">
-          <label for="end_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o"></i> Stop<span class="sr-only"> date month/day/year</span></label>
+          <label for="end_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> Stop<span class="sr-only"> end date month/day/year</span></label>
           <div class="datetime-control">
             <div>
               <input type="text" name="end_date" id="end_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true"{{#if end_date_is_undefined}} disabled{{/if}}>
@@ -78,7 +78,7 @@
       </div>
 
       <div class="form-group">
-        <label class="control-label"><i class="fa fa-code"></i> Codes<input class="sr-only" disabled></label>
+        <label class="control-label"><i class="fa fa-code" aria-hidden="true"></i> Codes<input class="sr-only" disabled></label>
 
         {{#collection codes class="existing-values"}}
         <span>
@@ -92,7 +92,7 @@
       </div>
 
       <div class="form-group">
-        <label class="control-label"><i class="fa fa-bar-chart-o"></i> Value<input class="sr-only" disabled></label>
+        <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Value<input class="sr-only" disabled></label>
 
         {{#collection value class="existing-values"}}
           <span>
@@ -106,7 +106,7 @@
       </div>
 
       <div class="form-group">
-        <label class="control-label"><i class="fa fa-bar-chart-o"></i> Field Value<input class="sr-only" disabled></label>
+        <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Field Value<input class="sr-only" disabled></label>
 
         {{#collection field_values class="existing-values" item-context=valueWithDateContext}}
           <span>
@@ -143,7 +143,7 @@
       <div class="criteria-delete">
         <div class="pull-right">
           {{#button "showDelete" class="btn btn-danger-inverse criteria-delete-check"}}
-            <i class="fa fa-minus-circle"></i>
+            <i class="fa fa-minus-circle" aria-hidden="true"></i>
             <span class="sr-only">show delete</span>
           {{/button}}
           {{#button "removeCriteria" class="btn btn-danger hide"}}Delete{{/button}}
