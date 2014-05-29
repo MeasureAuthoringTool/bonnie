@@ -4,7 +4,7 @@ class Thorax.Models.MeasureDataCriteria extends Thorax.Model
     attr = _(@pick('negation', 'definition', 'status', 'title', 'description', 'code_list_id', 'type')).extend
              id: @get('source_data_criteria')
              start_date: @getDefaultTime()
-             end_date: @getDefaultTime()
+             end_date: @getDefaultTime() + (15 * 60 * 1000) # Default 15 minute duration
              value: new Thorax.Collection()
              field_values: new Thorax.Collection()
              hqmf_set_id: @collection.parent.get('hqmf_set_id')
