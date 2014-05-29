@@ -239,8 +239,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   changeFieldValueKey: (e) ->
     # If it's a date/time field, automatically chose the date type and pre-enter a date
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
-    if attributes.key in ['ADMISSION_DATETIME', 'DISCHARGE_DATETIME', 'FACILITY_LOCATION_ARRIVAL_DATETIME', 'FACILITY_LOCATION_DEPARTURE_DATETIME',
-                          'INCISION_DATETIME', 'REMOVAL_DATETIME']
+    if attributes.key in ['ADMISSION_DATETIME', 'DISCHARGE_DATETIME', 'FACILITY_LOCATION_ARRIVAL_DATETIME',
+                          'FACILITY_LOCATION_DEPARTURE_DATETIME', 'INCISION_DATETIME', 'REMOVAL_DATETIME']
       @$('select[name=type]').val('TS').change()
       criteria = @parent.model
       switch attributes.key
@@ -248,9 +248,12 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
           date = moment.utc(criteria.get('start_date')) if criteria.has('start_date')
         when 'DISCHARGE_DATETIME', 'FACILITY_LOCATION_DEPARTURE_DATETIME', 'REMOVAL_DATETIME'
           date = moment.utc(criteria.get('end_date')) if criteria.has('end_date')
+          date ?= moment.utc(criteria.get('start_date') + (15 * 60 * 1000)) if criteria.has('start_date')
       @$('input[name=start_date]').datepicker('setDate', date.format('L')) if date
       @$('input[name=start_date]').datepicker('update')
       @$('input[name=start_time]').timepicker('setTime', date.format('LT')) if date
+    else if @$('select[name=type]').val() == 'TS'
+      @$('select[name=type]').val('PQ').change()
 
   addValue: (e) ->
     e.preventDefault()
