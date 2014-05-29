@@ -82,19 +82,11 @@
                 {{#if ../../episode_of_care}}
                   <span class="default">{{expected}}</span>
                 {{else}}
-                  {{#ifCond name "==" "MSRPOPL"}}
-                    {{#ifCond expected "==" undefined}}
-                      <p class="text-muted" style="margin: auto;">N/A</p>
-                    {{else}}
-                      <span class="default">{{expected}}</span>
-                    {{/ifCond}}
+                  {{#if expected}}
+                    <i class="fa fa-check-square-o default" aria-hidden="true"><span class="sr-only">checked</span></i>
                   {{else}}
-                    {{#if expected}}
-                      <i class="fa fa-check-square-o default" aria-hidden="true"></i><span class="sr-only">checked</span>
-                    {{else}}
-                      <i class="fa fa-square-o default" aria-hidden="true"></i><span class="sr-only">unchecked</span>
-                    {{/if}}
-                  {{/ifCond}}
+                    <i class="fa fa-square-o default" aria-hidden="true"><span class="sr-only">unchecked</span></i>
+                  {{/if}}
                 {{/if}}
               {{/ifCond}}
             </td>
@@ -109,19 +101,11 @@
                 {{#if ../../episode_of_care}}
                   <span class="fail">{{actual}}</span>
                 {{else}}
-                  {{#ifCond name "==" "MSRPOPL"}}
-                    {{#ifCond expected "==" undefined}}
-                      <p class="text-muted" style="margin: auto;">N/A</p>
-                    {{else}}
-                      <span class="default">{{actual}}</span>
-                    {{/ifCond}}
+                  {{#if actual}}
+                    <i class="fa fa-check-square-o default" aria-hidden="true"><span class="sr-only">checked</span></i>
                   {{else}}
-                    {{#if actual}}
-                      <i class="fa fa-check-square-o default" aria-hidden="true"></i><span class="sr-only">checked</span>
-                    {{else}}
-                      <i class="fa fa-square-o default" aria-hidden="true"></i><span class="sr-only">unchecked</span>
-                    {{/if}}
-                  {{/ifCond}}
+                    <i class="fa fa-square-o default" aria-hidden="true"><span class="sr-only">unchecked</span></i>
+                  {{/if}}
                 {{/if}}
               {{/ifCond}}
             </td>

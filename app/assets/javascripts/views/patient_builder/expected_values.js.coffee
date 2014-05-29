@@ -57,7 +57,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     serialize: (attr) ->
       population = @measure.get('populations').at @model.get('population_index')
       for pc in @measure.populationCriteria() when population.has(pc) and _(attr).size()
-        if @measure.get('episode_of_care') || (@measure.get('continuous_variable') && (pc == 'OBSERV' || pc == 'MSRPOPL'))
+        if @measure.get('episode_of_care') || (@measure.get('continuous_variable') && pc == 'OBSERV')
           # Only parse existing values
           if attr[pc]
             if pc == 'OBSERV'
@@ -87,7 +87,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
   context: ->
     context = super
     for pc in @measure.populationCriteria()
-      unless @measure.get('episode_of_care') || (@measure.get('continuous_variable') && (pc == 'OBSERV' || pc == 'MSRPOPL'))
+      unless @measure.get('episode_of_care') || (@measure.get('continuous_variable') && pc == 'OBSERV')
         context[pc] = (context[pc] == 1)
     context
 

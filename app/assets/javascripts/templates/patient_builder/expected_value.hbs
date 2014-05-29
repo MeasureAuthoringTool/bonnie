@@ -33,19 +33,11 @@
               </label>
             </div>
           {{else}}
-            {{#ifCond key "==" "MSRPOPL"}}
-              <div class="form-group">
-                <label for="{{key}}_{{@cid}}">
-                  <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0"> {{displayName}}
-                </label>
-              </div>
-            {{else}}
-              <div class="checkbox">
-                <label for="{{key}}_{{@cid}}" class="control-label">
-                  <input type="checkbox" id="{{key}}_{{@cid}}" name="{{key}}" class="expected-value-checkbox"> {{displayName}}
-                </label>
-              </div>
-            {{/ifCond}}
+            <div class="checkbox">
+              <label for="{{key}}_{{@cid}}" class="control-label">
+                <input type="checkbox" id="{{key}}_{{@cid}}" name="{{key}}" class="expected-value-checkbox"> {{displayName}}
+              </label>
+            </div>
           {{/if}}
           </li>
         {{/ifCond}}
@@ -64,13 +56,9 @@
         {{#if isEoC}}
           <Strong>{{displayName}}</strong>: {{value}}
         {{else}}
-          {{#ifCond key "==" "MSRPOPL"}}
-            <Strong>{{displayName}}</strong>: {{value}}
-          {{else}}
-            {{#if value}}
-              <Strong>{{displayName}}</strong>
-            {{/if}}
-          {{/ifCond}}
+          {{#if value}}
+            <Strong>{{displayName}}</strong>
+          {{/if}}
         {{/if}}
       {{/ifCond}}
     {{else}}
