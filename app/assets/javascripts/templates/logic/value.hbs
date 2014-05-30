@@ -7,8 +7,12 @@
   {{else}}
     {{#if isRange}}
       {{#ifCond value.high '&&' value.low}}
+        {{#if isEquivalent}}
+          {{view "ValueLogic" value=value.low rangeComparison="=" tag="span"}} and
+        {{else}}
           {{view "ValueLogic" value=value.low rangeComparison=">" tag="span"}} and
           {{view "ValueLogic" value=value.high rangeComparison="<" tag="span"}}
+        {{/if}}
       {{else}}
         {{#if value.high}}
           {{view "ValueLogic" value=value.high rangeComparison="<" tag="span"}}
