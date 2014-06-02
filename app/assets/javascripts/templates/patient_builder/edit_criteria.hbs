@@ -91,19 +91,21 @@
         {{view editCodeSelectionView}}
       </div>
 
-      <div class="form-group">
-        <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Value<input class="sr-only" disabled></label>
+      {{#if editValueView}}
+        <div class="form-group">
+          <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Value<input class="sr-only" disabled></label>
 
-        {{#collection value class="existing-values"}}
-          <span>
-            {{value}} {{unit}}
-            {{title}}
-            {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
-          </span>
-        {{/collection}}
+          {{#collection value class="existing-values"}}
+            <span>
+              {{value}} {{unit}}
+              {{title}}
+              {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
+            </span>
+          {{/collection}}
 
-        {{view editValueView}}
-      </div>
+          {{view editValueView}}
+        </div>
+      {{/if}}
 
       <div class="form-group">
         <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Field Value<input class="sr-only" disabled></label>

@@ -61,7 +61,11 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
       procedures:                'fa-scissors'
       risk_category_assessments: 'fa-user'
     icons[@get('type')] || 'fa-question'
-
+  canHaveResult: ->
+    # This list is based on V4.0 of the QDM: http://www.healthit.gov/sites/default/files/qdm_4_0_final.pdf
+    "#{@get('definition')}_#{@get('status')}" in ['diagnostic_study_performed', 'functional_status_performed', 'intervention_performed',
+                                                  'laboratory_test_performed', 'physical_exam_performed', 'procedure_performed',
+                                                  'risk_category_assessment']
 
 class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
   model: Thorax.Models.PatientDataCriteria
