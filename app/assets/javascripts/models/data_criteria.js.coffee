@@ -25,6 +25,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   idAttribute: null
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
+    if @get('type') == "medications" then @set('fulfillments', new Thorax.Collection()) unless @has 'fulfillments'
   parse: (attrs) ->
     attrs.value = new Thorax.Collection(attrs.value)
     # Transform fieldValues object to collection, one element per key/value, with key as additional attribute
@@ -34,6 +35,8 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     attrs.field_values = fieldValues
     if attrs.codes
       attrs.codes = new Thorax.Collections.Codes attrs.codes, parse: true
+    if attrs.type == "medications" and attrs.fulfillments
+      attrs.fulfillments = new Thorax.Collection attrs.fulfillments
     attrs
   measure: -> bonnie.measures.findWhere hqmf_set_id: @get('hqmf_set_id')
   valueSet: -> _(bonnie.measures.valueSets()).detect (vs) => vs.get('oid') is @get('code_list_id')
