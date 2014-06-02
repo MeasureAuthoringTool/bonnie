@@ -101,7 +101,6 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       DENEX:    'EXCL'
       MSRPOPL:  'MSRPOPL'
       OBSERV:   'OBSERV'
-    @filter = not @measure.get('episode_of_care') and not @measure.get('continuous_variable')
     @popoverVisible ?= false
     @parseValues()
 
@@ -116,7 +115,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         isEoC: @measure.get('episode_of_care')
         value: @model.get(pc)
     unless @model.has('OBSERV_UNIT') or not @measure.get('continuous_variable') then @model.set 'OBSERV_UNIT', ' mins', {silent:true}
-    if @filter then @setValues = _(@currentCriteria).filter( (pc) => pc.value ) else @setValues = @currentCriteria
+    if not @measure.get('episode_of_care') then @setValues = _(@currentCriteria).filter( (pc) => pc.value ) else @setValues = @currentCriteria
 
   updateObserv: ->
     @model.set @serialize() if @popoverVisible
