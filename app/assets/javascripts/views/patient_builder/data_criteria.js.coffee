@@ -38,7 +38,12 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     populate: { context: true, children: false }
 
   initialize: ->
-    @editValueView = new Thorax.Views.EditCriteriaValueView(model: new Thorax.Model, measure: @model.measure(), fieldValue: false, values: @model.get('value'))
+    if @model.canHaveResult()
+      @editValueView = new Thorax.Views.EditCriteriaValueView
+        model: new Thorax.Model
+        measure: @model.measure()
+        fieldValue: false
+        values: @model.get('value')
     @editFieldValueView = new Thorax.Views.EditCriteriaValueView
       model: new Thorax.Model
       measure: @model.measure()
