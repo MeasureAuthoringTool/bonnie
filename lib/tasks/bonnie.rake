@@ -303,28 +303,29 @@ namespace :bonnie do
     task :date_shift => :environment do
       user_email = ENV['EMAIL'] || User.first.email
       user = User.where(email: user_email).first
-      seconds, minutes, hours, days, weeks, months, years = ENV['SECONDS'] || 0, ENV['MINUTES'] || 0, ENV['HOURS'] || 0, ENV['DAYS'] || 0, ENV['WEEKS'] || 0, ENV['MONTHS'] || 0, ENV['YEARS'] || 0
       direction = ENV['DIR'] || 'forward'
       direction = 'forward' if !direction.downcase == 'backward'
+      seconds, minutes, hours, days, weeks, months, years = ENV['SECONDS'] || 0, ENV['MINUTES'] || 0, ENV['HOURS'] || 0, ENV['DAYS'] || 0, ENV['WEEKS'] || 0, ENV['MONTHS'] || 0, ENV['YEARS'] || 0
       puts "Shifting dates #{direction} [ #{years}ys, #{months}mos, #{weeks}wks, #{days}d, #{hours}hrs, #{minutes}mins, #{seconds}s ] for source_data_criteria start/stop dates and birth/death dates on all associated patient records for #{user.email}"
       direction.downcase == 'backward' ? dir = -1 : dir = 1
+      seconds, minutes, hours, days, weeks, months, years = dir * seconds.to_i, dir * minutes.to_i, dir * hours.to_i, dir * days.to_i, dir * weeks.to_i, dir * months.to_i, dir * years.to_i
       timestamps = ['FACILITY_LOCATION_ARRIVAL_DATETIME','FACILITY_LOCATION_DEPARTURE_DATETIME','DISCHARGE_DATETIME','ADMISSION_DATETIME','START_DATETIME','STOP_DATETIME','INCISION_DATETIME','REMOVAL_DATETIME']
       Record.by_user(user).each do |patient|
-        patient.birthdate = ( Time.at( patient.birthdate ).utc + dir * ( years.to_i.years + months.to_i.months + weeks.to_i.weeks + days.to_i.days + hours.to_i.hours + minutes.to_i.minutes + seconds.to_i.seconds ) ).to_i
+        patient.birthdate = ( Time.at( patient.birthdate ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i
         if patient.expired
-          patient.deathdate = ( Time.at( patient.deathdate ).utc + dir * ( years.to_i.years + months.to_i.months + weeks.to_i.weeks + days.to_i.days + hours.to_i.hours + minutes.to_i.minutes + seconds.to_i.seconds ) ).to_i
+          patient.deathdate = ( Time.at( patient.deathdate ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i
         end
         patient.source_data_criteria.each do |sdc|
           unless sdc["start_date"].blank?
-            sdc["start_date"] = ( Time.at( sdc["start_date"] / 1000 ).utc + dir * ( years.to_i.years + months.to_i.months + weeks.to_i.weeks + days.to_i.days + hours.to_i.hours + minutes.to_i.minutes + seconds.to_i.seconds ) ).to_i * 1000
+            sdc["start_date"] = ( Time.at( sdc["start_date"] / 1000 ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i * 1000
           end
           unless sdc["end_date"].blank?
-            sdc["end_date"] = ( Time.at( sdc["end_date"] / 1000 ).utc + dir * ( years.to_i.years + months.to_i.months + weeks.to_i.weeks + days.to_i.days + hours.to_i.hours + minutes.to_i.minutes + seconds.to_i.seconds ) ).to_i * 1000
+            sdc["end_date"] = ( Time.at( sdc["end_date"] / 1000 ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i * 1000
           end
           unless sdc['field_values'].blank?
             sdc_timestamps = timestamps & sdc['field_values'].keys
             sdc_timestamps.each do |sdc_timestamp|
-              sdc['field_values'][sdc_timestamp]['value'] = ( Time.at( sdc['field_values'][sdc_timestamp]['value'] / 1000 ).utc + dir * ( years.to_i.years + months.to_i.months + weeks.to_i.weeks + days.to_i.days + hours.to_i.hours + minutes.to_i.minutes + seconds.to_i.seconds ) ).to_i * 1000
+              sdc['field_values'][sdc_timestamp]['value'] = ( Time.at( sdc['field_values'][sdc_timestamp]['value'] / 1000 ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i * 1000
             end
           end
         end
