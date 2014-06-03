@@ -12,7 +12,7 @@
 #
 #= require jquery/jquery.min
 #= require jquery_ujs
-#= require bootstrap/dist/js/bootstrap.min
+#= require bootstrap-sass/dist/js/bootstrap.min
 #= require bootstrap-datepicker/js/bootstrap-datepicker
 #= require bootstrap-timepicker/js/bootstrap-timepicker
 #= require jquery-ui-1.10.3.custom

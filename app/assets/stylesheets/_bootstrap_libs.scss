@@ -1,0 +1,9 @@
+// Third-party libraries
+
+$icon-font-path: "bootstrap-sass/dist/fonts/";
+$fa-font-path: "font-awesome/fonts";
+// Import external dependencies
+@import "bootstrap-sass/lib/bootstrap";
+@import "font-awesome/scss/font-awesome";
+@import "bootstrap-datepicker/css/datepicker3";
+@import "bootstrap-timepicker/css/bootstrap-timepicker";

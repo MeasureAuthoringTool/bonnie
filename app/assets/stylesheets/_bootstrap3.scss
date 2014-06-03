@@ -1,0 +1,147 @@
+// Bootstrap Variables
+
+$brand-primary: #0075C4;
+$gray-lighter: #f6f6f6;
+$gray-light: #e2e2e2;
+$gray-darker: #888;
+
+$border-radius-base: 0px;
+$border-radius-large: 0px;
+
+$btn-default-color: $brand-primary; // button hover color
+$btn-default-bg: white;
+$btn-default-border: $brand-primary;
+
+$panel-default-border: white;
+$panel-default-heading-bg: $gray-lighter;
+$panel-primary-border: white;
+
+$font-family-sans-serif: "Helvetica Neue", Roboto, Helvetica, Arial, sans-serif;
+
+// Fonts
+
+@font-face {
+  font-family: 'Roboto';
+  src: font-url('Roboto-Thin/Roboto-Thin-webfont.eot');
+  src: font-url('Roboto-Thin/Roboto-Thin-webfont.eot?#iefix') format('embedded-opentype'),
+       font-url('Roboto-Thin/Roboto-Thin-webfont.woff') format('woff'),
+       font-url('Roboto-Thin/Roboto-Thin-webfont.ttf') format('truetype'),
+       font-url('Roboto-Thin/Roboto-Thin-webfont.svg#RobotoRegular') format('svg');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: font-url('Roboto-Light/Roboto-Light-webfont.eot');
+  src: font-url('Roboto-Light/Roboto-Light-webfont.eot?#iefix') format('embedded-opentype'),
+       font-url('Roboto-Light/Roboto-Light-webfont.woff') format('woff'),
+       font-url('Roboto-Light/Roboto-Light-webfont.ttf') format('truetype'),
+       font-url('Roboto-Light/Roboto-Light-webfont.svg#RobotoRegular') format('svg');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: font-url('Roboto-Regular/Roboto-Regular-webfont.eot');
+  src: font-url('Roboto-Regular/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+       font-url('Roboto-Regular/Roboto-Regular-webfont.woff') format('woff'),
+       font-url('Roboto-Regular/Roboto-Regular-webfont.ttf') format('truetype'),
+       font-url('Roboto-Regular/Roboto-Regular-webfont.svg#RobotoRegular') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: font-url('Roboto-Medium/Roboto-Medium-webfont.eot');
+  src: font-url('Roboto-Medium/Roboto-Medium-webfont.eot?#iefix') format('embedded-opentype'),
+       font-url('Roboto-Medium/Roboto-Medium-webfont.woff') format('woff'),
+       font-url('Roboto-Medium/Roboto-Medium-webfont.ttf') format('truetype'),
+       font-url('Roboto-Medium/Roboto-Medium-webfont.svg#RobotoRegular') format('svg');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: font-url('Roboto-Bold/Roboto-Bold-webfont.eot');
+  src: font-url('Roboto-Bold/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+       font-url('Roboto-Bold/Roboto-Bold-webfont.woff') format('woff'),
+       font-url('Roboto-Bold/Roboto-Bold-webfont.ttf') format('truetype'),
+       font-url('Roboto-Bold/Roboto-Bold-webfont.svg#RobotoRegular') format('svg');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@import "_bootstrap_libs.scss";
+
+// Custom styles on HTML tags that are part of the theme
+
+h1 {
+  margin-top: 0;
+  color: black;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+h2 {
+  margin-top: 6px;
+  color: $gray;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+// Additions to Bootstrap classes
+
+.navbar {
+  margin-bottom: 0px;
+  .navbar-brand a {
+    font-size: 36px;
+    font-weight: 100;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .nav {
+    font-size: 1.5em;
+    a { color: $brand-primary; }
+    .active {
+      border-bottom: 4px solid $brand-primary;
+      a {
+        color: $gray-darker;
+        padding-top: 16px;
+      }
+      font-weight: bold;
+    }
+    &.nav-tabs {
+      > li > a {
+        margin-right: 2px;
+      }
+    }
+  }
+}
+
+.btn {
+  text-transform: uppercase;
+}
+
+.input-group-btn .btn {
+  background-color: white;
+  border-color: #CCCCCC;
+}
+
+.popover {
+  box-shadow: none;
+}
+
+//hack that Twitter uses to fix input field widths in IE9
+.input-group {
+  .form-control {
+    float:left;
+  }
+}

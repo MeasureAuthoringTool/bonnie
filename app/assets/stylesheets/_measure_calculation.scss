@@ -1,0 +1,104 @@
+.measure-calculation {
+  padding-top: 10px;
+
+  .summary {
+    > * {
+      line-height: 65px;
+    }
+
+    .expected-col {
+      @include make-sm-column(4);
+    }
+
+    .status-col {
+      @include make-sm-column(3);
+    }
+
+    .patient-data-col {
+      @include make-sm-column(4);
+      padding-right: 0;
+      .patient-listing {
+        line-height: 60px;
+        font-size: 1.6em;
+      }
+      .btn {
+        margin-top: 14px;
+        padding: 6px;
+      }
+    }
+  }
+
+  .coverage-summary {
+    > * {
+      line-height: 65px;
+    }
+
+    .coverage {
+      @include make-sm-column(4);
+      text-align: center;
+    }
+
+    .coverage-label {
+      @include make-sm-column(4);
+      padding: 0;
+      margin-left: -6px;
+    }
+
+    .coverage-data {
+      @include make-sm-column(4);
+      @extend .pull-right;
+      padding: 0;
+      .btn-show-coverage {
+        margin-left: -6px;
+      }
+    }
+  }
+
+  .patient {
+    .patient-status-icon-col {
+      @include make-sm-column(1);
+      font-size: 1.375em;
+      line-height: 1;
+      padding: 0;
+      margin-left: 6px;
+    }
+    .patient-user-icon-col {
+      @include make-sm-column(1);
+      font-size: 1.375em;
+      line-height: 1;
+      padding: 0;
+    }
+    .patient-btn-col {
+      @include make-sm-column(1);
+      @extend .pull-right;
+      line-height: 1;
+      padding-left: 0px;
+      padding-right: 8px;
+      padding-top: 0px;
+    }
+    .patient-name-col {
+      @include make-sm-column(7);
+      font-size: 14px;
+      line-height: 1;
+      padding: 0;
+      margin-top: 6px;
+    }
+    .patient-status-col {
+      @include make-sm-column(2);
+      font-size: 1.2em;
+      line-height: 1;
+      padding: 0;
+      margin-top: 3px;
+      margin-left: -6px;
+    }
+    .pass {
+      @extend .text-success;
+    }
+    .fail {
+      @extend .text-danger;
+    }
+    .default {
+      color: $brand-primary;
+    }
+  }
+}
