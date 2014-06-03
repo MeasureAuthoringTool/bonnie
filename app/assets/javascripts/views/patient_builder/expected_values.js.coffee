@@ -55,7 +55,8 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
 
   events:
     serialize: (attr) ->
-      for pc in @measure.populationCriteria()
+      population = @measure.get('populations').at @model.get('population_index')
+      for pc in @measure.populationCriteria() when population.has(pc)
         if @measure.get('episode_of_care') || (@measure.get('continuous_variable') && (pc == 'OBSERV' || pc == 'MSRPOPL'))
           # Only parse existing values
           if attr[pc]
@@ -82,6 +83,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
   initialize: ->
     criteriaMap =
       IPP:      'IPP'
+      STRAT:    'STRAT'
       DENOM:    'DEN'
       NUMER:    'NUM'
       DENEXCEP: 'EXCP'
@@ -90,7 +92,8 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       OBSERV:   'OBSERV'
     @currentCriteria = []
     # get population criteria from the measure to include OBSERV
-    for pc in @measure.populationCriteria()
+    population = @measure.get('populations').at @model.get('population_index')
+    for pc in @measure.populationCriteria() when population.has(pc)
       @currentCriteria.push
         key: pc
         displayName: criteriaMap[pc]

@@ -70,7 +70,7 @@ class MeasuresController < ApplicationController
 
     begin
       if extension == '.xml'
-        measure = Measures::SourcesLoader.load_measure_hqmf(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details)
+        measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details)
       else
         measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
       end
