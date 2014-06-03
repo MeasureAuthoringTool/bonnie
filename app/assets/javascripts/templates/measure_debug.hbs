@@ -9,7 +9,7 @@
 <div data-toggle="buttons-checkbox">
   {{#collection patients item-context="patientContext"}}
     {{#button 'togglePatient' class='btn btn-primary toggle-patient' style='width: 180px; margin: 5px 5px 0px 0px;'}}
-      {{last}}, {{first}} {{#if inMeasure}}<i class="fa fa-tag" style="padding-left: 10px;"></i>{{/if}}
+      {{last}}, {{first}} {{#if inMeasure}}<i class="fa fa-tag" style="padding-left: 10px;" aria-hidden="true"></i><span class="sr-only">in measure</span>{{/if}}
     {{/button}}
   {{/collection}}
 </div>
@@ -37,11 +37,11 @@
   {{#collection results tag="tbody"}}
     <tr>
       <td>{{last}}, {{first}}</td>
-      <td style="text-align: center;">{{#if IPP}}<i class="fa fa-check"></i>{{/if}}</td>
-      <td style="text-align: center;">{{#if DENOM}}<i class="fa fa-check"></i>{{/if}}</td>
-      <td style="text-align: center;">{{#if NUMER}}<i class="fa fa-check"></i>{{/if}}</td>
-      <td style="text-align: center;">{{#if DENEX}}<i class="fa fa-check"></i>{{/if}}</td>
-      <td style="text-align: center;">{{#if DENEXCEP}}<i class="fa fa-check"></i>{{/if}}</td>
+      <td style="text-align: center;">{{#if IPP}}<i class="fa fa-check" aria-hidden="true"></i><span class="sr-only">IPP</span>{{/if}}</td>
+      <td style="text-align: center;">{{#if DENOM}}<i class="fa fa-check" aria-hidden="true"></i><span class="sr-only">DENOM</span>{{/if}}</td>
+      <td style="text-align: center;">{{#if NUMER}}<i class="fa fa-check" aria-hidden="true"></i><span class="sr-only">NUMER</span>{{/if}}</td>
+      <td style="text-align: center;">{{#if DENEX}}<i class="fa fa-check" aria-hidden="true"></i><span class="sr-only">DENEX</span>{{/if}}</td>
+      <td style="text-align: center;">{{#if DENEXCEP}}<i class="fa fa-check" aria-hidden="true"></i><span class="sr-only">DENEXCEP</span>{{/if}}</td>
     </tr>
   {{/collection}}
 </table>

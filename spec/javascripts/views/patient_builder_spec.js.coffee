@@ -5,6 +5,9 @@ describe 'PatientBuilderView', ->
     @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[0], parse: true
     @measure = bonnie.measures.first()
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
+    @firstCriteria = @patientBuilder.model.get('source_data_criteria').first()
+    # Normally the first criteria can't have a value (wrong type); for testing we allow it
+    @firstCriteria.canHaveResult = -> true
     @patientBuilder.render()
     spyOn(@patientBuilder.model, 'materialize')
     spyOn(@patientBuilder.originalModel, 'save').andReturn(true)
@@ -160,20 +163,20 @@ describe 'PatientBuilderView', ->
         @patientBuilder.$('.value-formset .btn-primary:first').click() if submit
 
     it "adds a scalar value", ->
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 0
+      expect(@firstCriteria.get('value').length).toEqual 0
       @addScalarValue 1, 'mg'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 1
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('type')).toEqual 'PQ'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('value')).toEqual '1'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('unit')).toEqual 'mg'
+      expect(@firstCriteria.get('value').length).toEqual 1
+      expect(@firstCriteria.get('value').first().get('type')).toEqual 'PQ'
+      expect(@firstCriteria.get('value').first().get('value')).toEqual '1'
+      expect(@firstCriteria.get('value').first().get('unit')).toEqual 'mg'
 
     it "adds a coded value", ->
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 0
+      expect(@firstCriteria.get('value').length).toEqual 0
       @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1061'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').length).toEqual 1
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('type')).toEqual 'CD'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1061'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('value').first().get('title')).toEqual 'Ambulatory/ED Visit'
+      expect(@firstCriteria.get('value').length).toEqual 1
+      expect(@firstCriteria.get('value').first().get('type')).toEqual 'CD'
+      expect(@firstCriteria.get('value').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1061'
+      expect(@firstCriteria.get('value').first().get('title')).toEqual 'Ambulatory/ED Visit'
 
     it "materializes the patient", ->
       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
@@ -209,26 +212,26 @@ describe 'PatientBuilderView', ->
         @patientBuilder.$('.field-value-formset .btn-primary:first').click() if submit
 
     it "adds a scalar field value", ->
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 0
-      @addScalarFieldValue 'DOSE', 1, 'mg'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 1
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('type')).toEqual 'PQ'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('key')).toEqual 'DOSE'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('value')).toEqual '1'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('unit')).toEqual 'mg'
+      expect(@firstCriteria.get('field_values').length).toEqual 0
+      @addScalarFieldValue 'SOURCE', 1, 'unit'
+      expect(@firstCriteria.get('field_values').length).toEqual 1
+      expect(@firstCriteria.get('field_values').first().get('type')).toEqual 'PQ'
+      expect(@firstCriteria.get('field_values').first().get('key')).toEqual 'SOURCE'
+      expect(@firstCriteria.get('field_values').first().get('value')).toEqual '1'
+      expect(@firstCriteria.get('field_values').first().get('unit')).toEqual 'unit'
 
     it "adds a coded field value", ->
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 0
+      expect(@firstCriteria.get('field_values').length).toEqual 0
       @addCodedFieldValue 'REASON', '2.16.840.1.113883.3.464.1003.102.12.1011'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').length).toEqual 1
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('type')).toEqual 'CD'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('key')).toEqual 'REASON'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.102.12.1011'
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('field_values').first().get('title')).toEqual 'Acute Pharyngitis'
+      expect(@firstCriteria.get('field_values').length).toEqual 1
+      expect(@firstCriteria.get('field_values').first().get('type')).toEqual 'CD'
+      expect(@firstCriteria.get('field_values').first().get('key')).toEqual 'REASON'
+      expect(@firstCriteria.get('field_values').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.102.12.1011'
+      expect(@firstCriteria.get('field_values').first().get('title')).toEqual 'Acute Pharyngitis'
 
     it "materializes the patient", ->
       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
-      @addScalarFieldValue 'DOSE', 1, 'mg'
+      @addScalarFieldValue 'SOURCE', 1, 'unit'
       expect(@patientBuilder.model.materialize).toHaveBeenCalled()
       expect(@patientBuilder.model.materialize.calls.length).toEqual 1
       @addCodedFieldValue 'REASON', '2.16.840.1.113883.3.464.1003.102.12.1011'
@@ -236,7 +239,7 @@ describe 'PatientBuilderView', ->
 
     it "disables input until form is filled out", ->
       expect(@patientBuilder.$('.field-value-formset .btn-primary:first')).toBeDisabled()
-      @addScalarFieldValue 'DOSE', 1, 'mg', false
+      @addScalarFieldValue 'SOURCE', 1, 'unit', false
       expect(@patientBuilder.$('.field-value-formset .btn-primary:first')).not.toBeDisabled()
       @addScalarFieldValue '', '', '', false
       expect(@patientBuilder.$('.field-value-formset .btn-primary:first')).toBeDisabled()

@@ -1,14 +1,14 @@
 <div class="panel">
   <a class="panel-title collapsed" data-toggle="collapse" data-parent="#criteriaElements" href="#collapse-{{cid}}">
-    <i class="fa fa-angle-right fa-2x panel-expander"></i>
-    <i class="fa {{faIcon}} fa-3x panel-icon"></i>
+    <i class="fa fa-angle-right fa-2x panel-expander" aria-hidden="true"></i>
+    <i class="fa {{faIcon}} fa-3x panel-icon" aria-hidden="true"></i>
     {{title}}
   </a>
 
   <div id="collapse-{{cid}}" class="collapse">
     {{#collection item-view="SelectCriteriaItemView"}}
       <div class="draggable">
-        <div class="pull-right" style="margin: 0 0 3px 3px"><i class="fa fa-arrows"></i></div>
+        <div class="pull-right" style="margin: 0 0 3px 3px"><i class="fa fa-arrows" aria-hidden="true"></i></div>
         <strong class="ui-draggable">{{description}}</strong>
         <span class="sr-only">{{#button "addCriteriaToPatient"}}add criteria to patient: {{description}}{{/button}}</span>
       </div>
