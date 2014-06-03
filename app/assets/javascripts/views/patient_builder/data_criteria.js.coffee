@@ -162,7 +162,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']
   events:
-    'change select':           'validateForAddition'
+    'change select':           'validateForAddition' #'advanceFocusToButton'
     'change .codeset-control': 'changeConcepts'
     rendered: ->
       @$('select.codeset-control').selectBoxIt()
@@ -176,6 +176,7 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   validateForAddition: ->
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
     @$('.btn[data-call-method=addCode]').prop 'disabled', attributes.codeset is '' or attributes.code is ''
+    @$('.btn').focus() #  advances the focus too the add Button
 
   changeConcepts: (e) ->
     codeSet = $(e.target).val()
