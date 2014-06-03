@@ -65,10 +65,13 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
       risk_category_assessments: 'fa-user'
     icons[@get('type')] || 'fa-question'
   canHaveResult: ->
+    criteriaType = @get('definition')
+    criteriaType += "_#{@get('status')}" if @get('status')
+    # Before V4.0 of the QDM there were result criteria types, which we need to support
+    return true if criteriaType.match /_result$/
     # This list is based on V4.0 of the QDM: http://www.healthit.gov/sites/default/files/qdm_4_0_final.pdf
-    "#{@get('definition')}_#{@get('status')}" in ['diagnostic_study_performed', 'functional_status_performed', 'intervention_performed',
-                                                  'laboratory_test_performed', 'physical_exam_performed', 'procedure_performed',
-                                                  'risk_category_assessment']
+    criteriaType in ['diagnostic_study_performed', 'functional_status_performed', 'intervention_performed', 'laboratory_test_performed',
+                     'physical_exam_performed', 'procedure_performed', 'risk_category_assessment']
 
 class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
   model: Thorax.Models.PatientDataCriteria
