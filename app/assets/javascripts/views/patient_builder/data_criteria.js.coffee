@@ -38,7 +38,12 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     populate: { context: true, children: false }
 
   initialize: ->
-    @editValueView = new Thorax.Views.EditCriteriaValueView(model: new Thorax.Model, measure: @model.measure(), fieldValue: false, values: @model.get('value'))
+    if @model.canHaveResult()
+      @editValueView = new Thorax.Views.EditCriteriaValueView
+        model: new Thorax.Model
+        measure: @model.measure()
+        fieldValue: false
+        values: @model.get('value')
     @editFieldValueView = new Thorax.Views.EditCriteriaValueView
       model: new Thorax.Model
       measure: @model.measure()
@@ -46,6 +51,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       values: @model.get('field_values')
       criteriaType: @model.get('type')
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView criteria: @model
+    @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView 
+      model: new Thorax.Model
+      criteria: @model
 
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
@@ -128,10 +136,11 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     $cb = $(e.target)
     $endDateTime = @$('input[name=end_date], input[name=end_time]')
     $endDateTime.val('') if $cb.is(':checked')
-    unless $cb.is(':checked') # set default date to 8:00am, current day
-      @$('input[name=end_date]').datepicker('setDate', new Date())
+    unless $cb.is(':checked') # set to 15 minutes after start
+      endDate = moment.utc(@model.get('start_date') + (15 * 60 * 1000)) if @model.has('start_date')
+      @$('input[name=end_date]').datepicker('setDate', endDate.format('L')) if endDate
       @$('input[name=end_date]').datepicker('update')
-      @$('input[name=end_time]').timepicker('setTime','8:00 AM')
+      @$('input[name=end_time]').timepicker('setTime', endDate.format('LT')) if endDate
     $endDateTime.prop 'disabled', $cb.is(':checked')
     @triggerMaterialize()
 
@@ -166,6 +175,7 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     @codes = @criteria.get('codes')
     @codes.on 'add remove', => @criteria.set 'code_source', (if @codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
     @codeSets = _(concept.code_system_name for concept in @criteria.valueSet()?.get('concepts') || []).uniq()
+
   validateForAddition: ->
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
     @$('.btn[data-call-method=addCode]').prop 'disabled', attributes.codeset is '' or attributes.code is ''
@@ -191,6 +201,35 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     @triggerMaterialize()
     @$(':focusable:visible:first').focus()
 
+class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildView
+  template: JST['patient_builder/edit_fulfillments']
+
+  events:
+    'blur input': 'validateForAddition'
+    'keyup input': 'validateForAddition'
+    serialize: (attr) ->
+      if dispenseDate = attr.dispense_date
+        dispenseDate += " #{attr.dispense_time}" if attr.dispense_time
+        attr.dispense_datetime = moment(dispenseDate, 'L LT').format('X')
+
+  initialize: ->
+    @model = new Thorax.Model
+    @fulfillments = @criteria.get('fulfillments')
+
+  validateForAddition: ->
+    attributes = @serialize(set: false)
+    isDisabled = !attributes.dispense_date || !attributes.dispense_time || !attributes.quantity_dispensed_value
+    @$('button[data-call-method=addFulfillment]').prop 'disabled', isDisabled
+
+  addFulfillment: (e) ->
+    e.preventDefault()
+    @serialize()
+    @fulfillments.add @model.clone()
+    @model.clear()
+    @$('input[name="dispense_date"]').val('')
+    @$('input[name="dispense_date"]').datepicker('update')
+    @$('input[name="quantity_dispensed_value"]').val('')
+    @triggerMaterialize()
 
 class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   className: -> "#{if @fieldValue then 'field-' else ''}value-formset"
@@ -224,6 +263,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       @validateForAddition()
     'change select': 'validateForAddition'
     'keyup input': 'validateForAddition'
+    'change select[name=key]': 'changeFieldValueKey'
 
   validateForAddition: ->
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
@@ -232,6 +272,25 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
                  (attributes.type == 'TS' && !attributes.value) ||
                  (@fieldValue && !attributes.key)
     @$('button[data-call-method=addValue]').prop 'disabled', isDisabled
+
+  changeFieldValueKey: (e) ->
+    # If it's a date/time field, automatically chose the date type and pre-enter a date
+    attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
+    if attributes.key in ['ADMISSION_DATETIME', 'DISCHARGE_DATETIME', 'FACILITY_LOCATION_ARRIVAL_DATETIME',
+                          'FACILITY_LOCATION_DEPARTURE_DATETIME', 'INCISION_DATETIME', 'REMOVAL_DATETIME']
+      @$('select[name=type]').val('TS').change()
+      criteria = @parent.model
+      switch attributes.key
+        when 'ADMISSION_DATETIME', 'FACILITY_LOCATION_ARRIVAL_DATETIME', 'INCISION_DATETIME'
+          date = moment.utc(criteria.get('start_date')) if criteria.has('start_date')
+        when 'DISCHARGE_DATETIME', 'FACILITY_LOCATION_DEPARTURE_DATETIME', 'REMOVAL_DATETIME'
+          date = moment.utc(criteria.get('end_date')) if criteria.has('end_date')
+          date ?= moment.utc(criteria.get('start_date') + (15 * 60 * 1000)) if criteria.has('start_date')
+      @$('input[name=start_date]').datepicker('setDate', date.format('L')) if date
+      @$('input[name=start_date]').datepicker('update')
+      @$('input[name=start_time]').timepicker('setTime', date.format('LT')) if date
+    else if @$('select[name=type]').val() == 'TS'
+      @$('select[name=type]').val('PQ').change()
 
   addValue: (e) ->
     e.preventDefault()

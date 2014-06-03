@@ -12,6 +12,7 @@ class Thorax.Views.ValueLogic extends Thorax.Views.BonnieView
 
   initialize: ->
     @isRange = @value.type == 'IVL_PQ'
+    @isEquivalent = @isRange && @value.high?.value == @value.low?.value && @value.high['inclusive?'] && @value.low['inclusive?']
     @isValue = @value.type == 'PQ'
     @isAnyNonNull = @value.type == 'ANYNonNull'
 

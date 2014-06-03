@@ -8,7 +8,6 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
   events:
     'mouseover .highlight-target': 'highlightEntry'
     'mouseout .highlight-target': 'clearHighlightEntry'
-    'click .toggle-highlight-target': 'toggleHighlightEntry'
 
   initialize: ->
     @dataCriteria = @measure.get('data_criteria')[@reference]
@@ -35,14 +34,10 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
     dataCriteriaKey = @dataCriteria.key
     populationView = @populationCriteriaView()
     populationCriteriaKey = populationView.population.type
-    populationView.parent.highlightPatientData(dataCriteriaKey, populationCriteriaKey)
+    populationView.parent.highlightPatientData(dataCriteriaKey, populationCriteriaKey) if bonnie.isAdmin
 
   clearHighlightEntry: (e) ->
-    @populationCriteriaView().parent.clearHighlightPatientData()
-
-  toggleHighlightEntry: (e) ->
-    @clearHighlightEntry()
-    if $(e.target).is(':checked') then @highlightEntry()
+    @populationCriteriaView().parent.clearHighlightPatientData() if bonnie.isAdmin
 
   populationCriteriaView: ->
     parent = @parent

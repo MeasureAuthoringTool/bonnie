@@ -8,7 +8,7 @@
   <p>Just enter your email address, and we'll send you a link to reset your password.</p>
   <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {:name=>"forgot_password_form"}) do |f| %>
     <div class="form-group input-group input-group-lg">
-      <span class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw"></i></span>
+      <span class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i></span>
       <label for="user_email" class="sr-only">Email: </label>
       <%= f.email_field :email, class: "form-control", placeholder: "email@example.com" %>
     </div>
