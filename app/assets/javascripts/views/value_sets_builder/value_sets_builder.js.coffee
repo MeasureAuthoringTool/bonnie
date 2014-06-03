@@ -3,6 +3,9 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.Views.BonnieView
   events:
     'click .search-button': 'search'
     'focus input#searchByNameOrOID': 'resetSearchBar'
+    rendered: ->
+      $('.indicator-circle, .navbar-nav > li').removeClass('active')
+      $('.nav-account').addClass('active')
 
   initialize: ->
     @searchResults = new Thorax.Collections.ValueSetsCollection()

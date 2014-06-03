@@ -1,9 +1,16 @@
 GIT
-  remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 1992aa22c47b8e9a8a5e53150de70dfd9322a1e9
+  remote: https://github.com/pophealth/hqmf2js.git
+  revision: 6a7b24e54580d863f28fe90d99763932f57b8949
   branch: master
   specs:
-    health-data-standards (3.4.5)
+    hqmf2js (1.3.0)
+
+GIT
+  remote: https://github.com/projectcypress/health-data-standards.git
+  revision: 3dccdd2d93da67bfecd0fd93caaca57635f4d02c
+  branch: master
+  specs:
+    health-data-standards (3.4.6)
       activesupport (~> 3.2.14)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
@@ -79,7 +86,6 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     columnize (0.3.6)
-    commonjs (0.2.7)
     daemons (1.1.9)
     debugger (1.6.3)
       columnize (>= 0.3.1)
@@ -117,7 +123,6 @@ GEM
       sprockets (>= 2.0.3)
       tilt
     hike (1.2.3)
-    hqmf2js (1.3.0)
     hquery-patient-api (1.0.4)
     i18n (0.6.9)
     jasmine (1.3.2)
@@ -131,11 +136,6 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
-    less (2.4.0)
-      commonjs (~> 0.2.7)
-    less-rails (2.4.2)
-      actionpack (>= 3.1)
-      less (~> 2.4.0)
     libv8 (3.16.14.3)
     log4r (1.1.10)
     macaddr (1.7.1)
@@ -143,7 +143,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    memoist (0.9.1)
+    memoist (0.9.2)
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.3)
@@ -156,7 +156,7 @@ GEM
     mongoid-tree (1.0.4)
       mongoid (>= 3.0, <= 4.0)
     moped (1.5.2)
-    multi_json (1.9.2)
+    multi_json (1.10.1)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.7.0)
@@ -223,6 +223,11 @@ GEM
     rvm1-capistrano3 (1.2.1)
       capistrano (~> 3.0)
       sshkit (>= 1.2)
+    sass (3.3.8)
+    sass-rails (3.2.6)
+      railties (~> 3.2.0)
+      sass (>= 3.1.10)
+      tilt (~> 1.3)
     selenium-webdriver (2.35.1)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
@@ -287,11 +292,10 @@ DEPENDENCIES
   foreman
   handlebars_assets
   health-data-standards!
-  hqmf2js (= 1.3.0)
+  hqmf2js!
   hquery-patient-api (= 1.0.4)
   jasmine
   jquery-rails
-  less-rails
   minitest (~> 4.0)
   mongoid (~> 3.1.0)
   oj
@@ -302,6 +306,7 @@ DEPENDENCIES
   roo
   rubyzip (< 1.0.0)
   rvm1-capistrano3
+  sass-rails
   simplecov
   sprockets (= 2.2.2.backport1)
   systemu

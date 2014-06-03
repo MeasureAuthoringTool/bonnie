@@ -7,8 +7,8 @@
     <li <% unless account_info %>class="nav-dashboard active"<% end %>>
       <a <% unless account_info %>href="#"<% else %>href="/#"<% end %>>Dashboard</a>
     </li>
-    <li <% if account_info %>class="active"<% end %>><a href="/users/edit">Account</a></li>
-    <% if (current_user.is_admin?)%><li><a href="/#admin/users">Admin</a></li><% end %>
+    <li class="<% if account_info %>active<% else %>nav-account<% end %>"><a href="/users/edit">Account</a></li>
+    <% if (current_user.is_admin?)%><li class="nav-admin"><a href="/#admin/users">Admin</a></li><% end %>
     <li class="dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="">
         Help <b class="caret"></b>
@@ -26,7 +26,7 @@
   <% unless account_info %>
   <div class="col-md-4">
     <span class="measure-period">
-      <i class="fa fa-tasks"></i> measure period:
+      <i class="fa fa-tasks" aria-hidden="true"></i> measure period:
       <span class="year"><%= Time.zone.at(APP_CONFIG['measure_period_start']).year %></span>
     </span>
   </div>

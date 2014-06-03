@@ -4,7 +4,7 @@ class Thorax.Models.MeasureDataCriteria extends Thorax.Model
     attr = _(@pick('negation', 'definition', 'status', 'title', 'description', 'code_list_id', 'type')).extend
              id: @get('source_data_criteria')
              start_date: @getDefaultTime()
-             end_date: @getDefaultTime()
+             end_date: @getDefaultTime() + (15 * 60 * 1000) # Default 15 minute duration
              value: new Thorax.Collection()
              field_values: new Thorax.Collection()
              hqmf_set_id: @collection.parent.get('hqmf_set_id')
@@ -25,6 +25,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   idAttribute: null
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
+    if @get('type') == "medications" then @set('fulfillments', new Thorax.Collection()) unless @has 'fulfillments'
   parse: (attrs) ->
     attrs.value = new Thorax.Collection(attrs.value)
     # Transform fieldValues object to collection, one element per key/value, with key as additional attribute
@@ -34,6 +35,8 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     attrs.field_values = fieldValues
     if attrs.codes
       attrs.codes = new Thorax.Collections.Codes attrs.codes, parse: true
+    if attrs.type == "medications" and attrs.fulfillments
+      attrs.fulfillments = new Thorax.Collection attrs.fulfillments
     attrs
   measure: -> bonnie.measures.findWhere hqmf_set_id: @get('hqmf_set_id')
   valueSet: -> _(bonnie.measures.valueSets()).detect (vs) => vs.get('oid') is @get('code_list_id')
@@ -61,7 +64,11 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
       procedures:                'fa-scissors'
       risk_category_assessments: 'fa-user'
     icons[@get('type')] || 'fa-question'
-
+  canHaveResult: ->
+    # This list is based on V4.0 of the QDM: http://www.healthit.gov/sites/default/files/qdm_4_0_final.pdf
+    "#{@get('definition')}_#{@get('status')}" in ['diagnostic_study_performed', 'functional_status_performed', 'intervention_performed',
+                                                  'laboratory_test_performed', 'physical_exam_performed', 'procedure_performed',
+                                                  'risk_category_assessment']
 
 class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
   model: Thorax.Models.PatientDataCriteria

@@ -1,22 +1,45 @@
 // White/Bleck-List Value Set Builder styles
 
 .value-sets-builder {
-   .white-list {
-     color: white;
-   }
-   .black-list {
-     color: black;
-   }
-   .white-black-list {
+  h1 {
+    font-weight: normal;
+  }
+  .white-list {
+    font-size: 1.15em;
+    margin-top: 20px;
+    margin-bottom: 0em;
+    padding: .25em .75em;
+    letter-spacing: .05em;
+    color: black;
+    background-color: #f3f3f3;
+  }
+  .black-list {
+    font-size: 1.15em;
+    margin-bottom: 0em;
+    padding: .25em .75em;
+    letter-spacing: .05em;
+    color: white;
+    background-color: #666;
+  }
+  .panel-body {
+    padding: 10px;
+  }
+  .white-list-panel {
+    border-color: #f3f3f3;
+  }
+  .black-list-panel {
+    border-color: #666;
+  }
+  .white-black-list {
     background-color: $gray-light;
-   }
-   .search-button {
+  }
+  .search-button {
     color: white;
     background-color: $brand-primary;
-   }
-   .btn-default {
+  }
+  .btn-default {
     border-color: $brand-primary;
-   }
+  }
 }
 
 .value-set-filters {
@@ -73,6 +96,9 @@
     color: $gray-darker;
   }
   .criteria-details {
+    h4 {
+      font-size: 1.15em;
+    }
     .badge {
       color: $brand-info;
       background-color: white;

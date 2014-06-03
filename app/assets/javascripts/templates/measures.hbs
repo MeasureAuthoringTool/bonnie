@@ -3,18 +3,18 @@
 <div class="dashboard-heading row">
   <div class="measure-col">
     <div class="btn-wrapper pull-right">
-      {{#button "importMeasure" class="btn btn-primary"}}<i class="fa fa-upload"></i> Upload <span class="sr-only">new measure</span>{{/button}}
+      {{#button "importMeasure" class="btn btn-primary"}}<i class="fa fa-upload" aria-hidden="true"></i> Upload <span class="sr-only">new measure</span>{{/button}}
     </div>
-    <h1><i class="glyphicon glyphicon-tasks"></i> Measures</h1>
+    <h1><i class="fa fa-tasks" aria-hidden="true"></i> Measures</h1>
   </div>
   <div class="expected-col">
-    <h2>Expected</h2>
+    <h2 aria-hidden="true">Expected</h2>
   </div>
   <div class="status-col">
-    <h2>Status</h2>
+    <h2 aria-hidden="true">Status</h2>
   </div>
   <div class="patient-listing-col">
-    <h2>Test Patients</h2>
+    <h2 aria-hidden="true">Test Patients</h2>
   </div>
 </div>
 
@@ -30,7 +30,7 @@
         </span>
       </div>
       <div class="btn-wrapper">
-        {{#button "updateMeasure" class="btn btn-primary"}}<i class="fa fa-refresh fa-fw"></i><span class="sr-only">{{cms_id}}, </span> Update <span class="sr-only">existing measure</span>{{/button}}
+        {{#button "updateMeasure" class="btn btn-primary"}}<i class="fa fa-refresh fa-fw" aria-hidden="true"></i><span class="sr-only">{{cms_id}}, </span> Update <span class="sr-only">existing measure</span>{{/button}}
       </div>
     </div>
     <div class="expected-col">
@@ -50,8 +50,8 @@
         {{view "MeasureFractionView" model=differences.summary cms_id=cms_id}}
       {{/if}}
       <a href="#measures/{{hqmf_set_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}}">
-        <i class="fa fa-user"></i>
-        <i class="fa fa-plus"></i>
+        <i class="fa fa-user" aria-hidden="true"></i>
+        <i class="fa fa-plus" aria-hidden="true"></i>
         <span class="sr-only">{{cms_id}}, add new patient to measure</span>
       </a>
     </div>

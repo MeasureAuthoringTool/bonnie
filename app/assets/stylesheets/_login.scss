@@ -2,7 +2,8 @@
   .login {
     // center horizontally, give it some breathing room across the top
     margin-top: 200px;
-    @include make-sm-column-offset(4);
+    @extend .center-block;
+
     width: $form-width;
 
     header h1 {

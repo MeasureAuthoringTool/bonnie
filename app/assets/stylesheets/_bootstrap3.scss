@@ -138,3 +138,10 @@ h2 {
 .popover {
   box-shadow: none;
 }
+
+//hack that Twitter uses to fix input field widths in IE9
+.input-group {
+  .form-control {
+    float:left;
+  }
+}
