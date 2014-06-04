@@ -165,7 +165,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']
   events:
-    'change select':           'validateForAddition' #'advanceFocusToButton'
+    'change select':           'validateForAddition'
     'change .codeset-control': 'changeConcepts'
     rendered: ->
       @$('select.codeset-control').selectBoxIt()
@@ -188,6 +188,7 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     $codeList.append("<option value>#{blankEntry}</option>")
     for concept in @criteria.valueSet().get('concepts') when concept.code_system_name is codeSet and !concept.black_list
       $('<option>').attr('value', concept.code).text("#{concept.code} (#{concept.display_name})").appendTo $codeList
+    @$('.codelist-control').focus()
 
   addCode: (e) ->
     e.preventDefault()
@@ -238,7 +239,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_value']
 
   initialize: ->
-    @model.set('type', 'PQ')
+    @model.set('type', 'CD')
 
   context: ->
     _(super).extend
@@ -262,9 +263,21 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     'change select[name=type]': (e) ->
       @model.set type: $(e.target).val()
       @validateForAddition()
-    'change select': 'validateForAddition'
+      @advanceFocusToInput()
+    'change select': -> 
+      @validateForAddition()
+      @advanceFocusToInput()
     'keyup input': 'validateForAddition'
     'change select[name=key]': 'changeFieldValueKey'
+
+  advanceFocusToInput: ->
+    switch @model.get('type')
+      when 'PQ'
+        @$('input[name="value"]').focus()
+      when 'CD'
+        @$('select[name="code_list_id"]').focus()
+      when 'TS'
+        @$('input[name="start_date"]').focus()
 
   validateForAddition: ->
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
@@ -291,7 +304,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       @$('input[name=start_date]').datepicker('update')
       @$('input[name=start_time]').timepicker('setTime', date.format('LT')) if date
     else if @$('select[name=type]').val() == 'TS'
-      @$('select[name=type]').val('PQ').change()
+      @$('select[name=type]').val('CD').change()
 
   addValue: (e) ->
     e.preventDefault()
