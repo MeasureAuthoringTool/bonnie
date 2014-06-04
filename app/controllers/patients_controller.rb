@@ -38,8 +38,8 @@ class PatientsController < ApplicationController
     html_exporter = HealthDataStandards::Export::HTML.new
 
     measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).map(&:as_hqmf_model)
-    start_time = Time.new(2012, 1, 1)
-    end_time = Time.new(2012, 12, 31)
+    start_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 1, 1)
+    end_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 12, 31)
 
     # if we have results we want to write a summary
     summary_content = get_summary_content(measure, records, params[:results].values) if (params[:results])
