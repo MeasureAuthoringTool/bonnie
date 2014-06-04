@@ -1,6 +1,7 @@
 class BonnieRouter extends Backbone.Router
 
   initialize: ->
+    @maxErrorCount = 3
     @mainView = new Thorax.LayoutView(el: '#bonnie')
     # This measure collection gets populated as measures are loaded via their individual JS
     # files (see app/views/measures/show.js.erb)
@@ -62,7 +63,11 @@ class BonnieRouter extends Backbone.Router
     @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
     @navigate "measures/#{measure.get('hqmf_set_id')}/patients/new"
 
-  showError: (error)->
+  showError: (error) ->
+    return if $('.errorDialog').size() > @maxErrorCount
+    if $('.errorDialog').size() == @maxErrorCount
+      error.title = "Multiple Errors: #{error.title}"
+      error.summary = "This page has generated multiple errors... addtitional errors will be suppressed. #{error.summary}"
     errorDialogView = new Thorax.Views.ErrorDialog error: error
     errorDialogView.appendTo('#bonnie')
     errorDialogView.display();

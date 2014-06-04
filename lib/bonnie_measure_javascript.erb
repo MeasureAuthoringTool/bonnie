@@ -9,11 +9,13 @@
     var enable_logging = false;
     var enable_rationale = true;
     var short_circuit = false;
+    <% if APP_CONFIG['measure_period_start']%>var effective_date = <%= ( Time.at(APP_CONFIG['measure_period_start']).utc + 1.year - 1.minute ).to_i%>;<% end %>
 
     ObjectId = function() { return 1; };
     var result = null; // Calls to emit() set this local variable
     emit = function(id, value) { result = value; };
     var print = function(output) { console.log(output); };
+    hqmfjs = {};
 
     <%= population_javascript.html_safe %>
 
