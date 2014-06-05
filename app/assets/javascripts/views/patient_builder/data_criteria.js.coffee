@@ -51,6 +51,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       values: @model.get('field_values')
       criteriaType: @model.get('type')
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView criteria: @model
+    @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView 
+      model: new Thorax.Model
+      criteria: @model
 
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
@@ -200,6 +203,35 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     @triggerMaterialize()
     @$(':focusable:visible:first').focus()
 
+class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildView
+  template: JST['patient_builder/edit_fulfillments']
+
+  events:
+    'blur input': 'validateForAddition'
+    'keyup input': 'validateForAddition'
+    serialize: (attr) ->
+      if dispenseDate = attr.dispense_date
+        dispenseDate += " #{attr.dispense_time}" if attr.dispense_time
+        attr.dispense_datetime = moment(dispenseDate, 'L LT').format('X')
+
+  initialize: ->
+    @model = new Thorax.Model
+    @fulfillments = @criteria.get('fulfillments')
+
+  validateForAddition: ->
+    attributes = @serialize(set: false)
+    isDisabled = !attributes.dispense_date || !attributes.dispense_time || !attributes.quantity_dispensed_value
+    @$('button[data-call-method=addFulfillment]').prop 'disabled', isDisabled
+
+  addFulfillment: (e) ->
+    e.preventDefault()
+    @serialize()
+    @fulfillments.add @model.clone()
+    @model.clear()
+    @$('input[name="dispense_date"]').val('')
+    @$('input[name="dispense_date"]').datepicker('update')
+    @$('input[name="quantity_dispensed_value"]').val('')
+    @triggerMaterialize()
 
 class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   className: -> "#{if @fieldValue then 'field-' else ''}value-formset"
@@ -280,7 +312,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @values.add @model.clone()
     # Reset model to default values
     @model.clear()
-    @model.set type: 'PQ'
+    @model.set type: 'CD'
     # clear() removes fields (which we want), but then populate() doesn't clear the select; clear it
     @$('select[name=key]').val('')
     # Let the selectBoxIt() select box know that its value may have changed

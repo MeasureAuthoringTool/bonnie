@@ -6,3 +6,6 @@ class Thorax.Views.ErrorDialog extends Thorax.Views.BonnieView
       "backdrop" : "static",
       "keyboard" : true,
       "show" : true)
+  events:
+    rendered: -> 
+      @$el.on 'hidden.bs.modal', -> @remove()
