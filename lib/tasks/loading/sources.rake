@@ -25,6 +25,7 @@ namespace :bonnie do
       end
 
       user = User.by_email(email).first
+      raise "user #{email} could not be found" unless user
       Measures::SourcesLoader.load(args.sources_dir, user, measures_yml, args.vsac_user, args.vsac_password)
       puts "done loading measure sources"
     end

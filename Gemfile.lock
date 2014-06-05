@@ -1,14 +1,14 @@
 GIT
   remote: https://github.com/pophealth/hqmf2js.git
-  revision: 6a7b24e54580d863f28fe90d99763932f57b8949
+  revision: 988ee60d2c9eaed388d1779ff2ff12f7bf3fb5ff
   branch: master
   specs:
     hqmf2js (1.3.0)
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 3dccdd2d93da67bfecd0fd93caaca57635f4d02c
-  branch: master
+  revision: f9cb5734fd61c58461de6723597a8bfefacbd9c1
+  branch: hqmf_r2.1
   specs:
     health-data-standards (3.4.6)
       activesupport (~> 3.2.14)
@@ -25,10 +25,17 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 5242edef8c16fc1fbb904101e68a82b30a72c845
+  revision: 2f3862acf9f82a09ffb8e00895ea3a9e703cd3ac
   branch: master
   specs:
     bonnie_bundler (1.0.0)
+
+GIT
+  remote: https://github.com/projecttacoma/simplexml_parser.git
+  revision: 09c26675bf492fa9564a20fd5601d0234d522526
+  branch: master
+  specs:
+    simplexml_parser (1.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -309,6 +316,7 @@ DEPENDENCIES
   rubyzip (< 1.0.0)
   rvm1-capistrano3
   simplecov
+  simplexml_parser!
   sprockets (= 2.2.2.backport1)
   systemu
   therubyracer

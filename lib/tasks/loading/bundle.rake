@@ -24,13 +24,6 @@ namespace :bonnie do
         Rake::Task["db:drop"].invoke()
       end
 
-      username = email.split('@')[0]
-      password = "#{username}1234"
-      user = User.create!({agree_license: true, password: password, password_confirmation: password, email: email, first_name: username, last_name: username})
-      user.approved = true
-      user.save!
-      puts "created user #{email}/#{password}"
-
       Rake::Task["bundle:import"].invoke(args.file,'true','true',measure_type,'false')
 
       puts "dropping unneeded collections: measures, bundles, patient_cache, query_cache..."
@@ -41,6 +34,13 @@ namespace :bonnie do
 
       puts "clearing out system.js"
       Mongoid.default_session['system.js'].find({}).remove_all
+
+      username = email.split('@')[0]
+      password = "#{username}1234"
+      user = User.create!({agree_license: true, password: password, password_confirmation: password, email: email, first_name: username, last_name: username})
+      user.approved = true
+      user.save!
+      puts "created user #{email}/#{password}"
 
       user = User.by_email(email).first
       Measures::BundleLoader.load(args.file, user, measures_yml, load_from_hqmf, measure_type)
