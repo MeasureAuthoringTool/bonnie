@@ -67,7 +67,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
           '' #where should the next field jump to?
     'click .deceased-checkbox': 'toggleDeceased'
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
-    'focus input': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
+    'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
 
