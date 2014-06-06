@@ -203,6 +203,7 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     @triggerMaterialize()
     @$(':focusable:visible:first').focus()
 
+
 class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_fulfillments']
 
@@ -278,6 +279,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
         @$('select[name="code_list_id"]').focus()
       when 'TS'
         @$('input[name="start_date"]').focus()
+    @$('.btn').focus() # advances the focus to the add Button
 
   validateForAddition: ->
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
