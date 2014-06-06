@@ -145,4 +145,37 @@ h2 {
   .form-control {
     float:left;
   }
+
+h1.modal-title {
+  font-weight: normal;
+  text-transform: none;
+}
+
+.modal-body > form  label.control-label {
+  text-transform: uppercase;
+  font-size: 0.85em;
+}
+
+.form-horizontal .control-label {
+  margin-bottom: .5em;
+}
+
+//change css-toggle-switch default margins
+.switch-light {
+  margin-left: 0px;
+  margin-bottom: 0em;
+}
+
+.switch-toggle {
+  margin-bottom: 0em;
+}
+
+//make css-toggle-switch text responsive. needs a better fix to make the .switch-toggle input itself to be responsive
+.switch-toggle input + label {
+  font-size: 0.8em;
+  font-weight: normal;
+  /* Small devices (tablets, 768px and up) */
+  @media (min-width: @screen-sm) { 
+    font-size: 1em;
+    font-weight: bold; }
 }
