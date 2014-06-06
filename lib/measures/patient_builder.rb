@@ -94,8 +94,8 @@ module Measures
     end
 
     def self.derive_time_range(value)
-      low = {'value' => Time.at(value['start_date'].to_i / 1000).utc.strftime('%Y%m%d%H%M%S'), 'type'=>'TS' } unless value['start_date'].nil?
-      high = {'value' => Time.at(value['end_date'].to_i / 1000).utc.strftime('%Y%m%d%H%M%S'), 'type'=>'TS' } unless value['end_date'].nil?
+      low = {'value' => Time.at(value['start_date'].to_i / 1000).utc.strftime('%Y%m%d%H%M%S'), 'type'=>'TS' } unless value['start_date'].blank?
+      high = {'value' => Time.at(value['end_date'].to_i / 1000).utc.strftime('%Y%m%d%H%M%S'), 'type'=>'TS' } unless value['end_date'].blank?
       HQMF::Range.from_json({'low' => low,'high' => high})
     end
 
