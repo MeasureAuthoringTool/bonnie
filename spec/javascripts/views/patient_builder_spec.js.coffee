@@ -202,8 +202,8 @@ describe 'PatientBuilderView', ->
       @addScalarFieldValue = (fieldType, input, units, submit=true) ->
         @patientBuilder.$('select[name=key]').val(fieldType)
         @patientBuilder.$('select[name=type]:eq(1)').val('PQ').change()
-        @patientBuilder.$('input[name=value]:eq(1)').val(input).keyup()
-        @patientBuilder.$('input[name=unit]:eq(1)').val(units)
+        @patientBuilder.$('input[name=value]').val(input).keyup()
+        @patientBuilder.$('input[name=unit]').val(units)
         @patientBuilder.$('.field-value-formset .btn-primary:first').click() if submit
       @addCodedFieldValue = (fieldType, codeListId, submit=true) ->
         @patientBuilder.$('select[name=key]').val(fieldType).change()
