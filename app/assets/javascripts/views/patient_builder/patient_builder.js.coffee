@@ -53,8 +53,18 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     _(categories).omit('transfers')
 
   events:
-    'blur :text':               'materialize'
-    'change select':            'materialize'
+    'blur :text':               'materialize'  
+    'change select': (e) ->
+      @materialize()
+      switch @$(e.target).attr('name') #jquery with focusable next for each select elements change
+        when 'payer'
+          @$('input[name="birthdate"]').focus()
+        when 'race'
+          @$('select[name="gender"]').focus()
+        when 'gender'
+          @$('input[name="expired"]').focus()
+        when 'ethnicity'
+          '' #where should the next field jump to?
     'click .deceased-checkbox': 'toggleDeceased'
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
