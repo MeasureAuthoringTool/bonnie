@@ -1,5 +1,8 @@
+require 'protected_attributes'
 class User
+  include ActiveModel::MassAssignmentSecurity
   include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
   # Include default devise modules. Others available are:
   # :confirmable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :lockable,

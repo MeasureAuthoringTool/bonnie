@@ -17,10 +17,13 @@ describe 'Measure', ->
     collection = new Thorax.Collections.Patients getJSONFixture('patients.json')
     patient = collection.findWhere(first: 'GP_Peds', last: 'A')
     results = @measure.get('populations').at(0).calculate(patient)
-    waitsFor -> results.isPopulated()
-    runs ->
-      expect(results.get('DENEX')).toEqual 0
-      expect(results.get('DENEXCEP')).toEqual 0
-      expect(results.get('DENOM')).toEqual 1
-      expect(results.get('IPP')).toEqual 1
-      expect(results.get('NUMER')).toEqual 0
+    waitsForAndRuns( -> results.isPopulated()
+      ,
+      ->
+        expect(results.get('DENEX')).toEqual 0
+        expect(results.get('DENEXCEP')).toEqual 0
+        expect(results.get('DENOM')).toEqual 1
+        expect(results.get('IPP')).toEqual 1
+        expect(results.get('NUMER')).toEqual 0
+        )
+

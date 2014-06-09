@@ -10,7 +10,7 @@ describe 'PatientBuilderView', ->
     @firstCriteria.canHaveResult = -> true
     @patientBuilder.render()
     spyOn(@patientBuilder.model, 'materialize')
-    spyOn(@patientBuilder.originalModel, 'save').andReturn(true)
+    spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
     @$el = @patientBuilder.$el
 
   it 'renders the builder correctly', ->
@@ -51,7 +51,7 @@ describe 'PatientBuilderView', ->
 
     it "materializes the patient", ->
       expect(@patientBuilder.model.materialize).toHaveBeenCalled()
-      expect(@patientBuilder.model.materialize.calls.length).toEqual 2
+      expect(@patientBuilder.model.materialize.calls.count()).toEqual 2
 
 
   describe "adding encounters to patient", ->
@@ -133,7 +133,7 @@ describe 'PatientBuilderView', ->
 
     it "materializes the patient", ->
       expect(@patientBuilder.model.materialize).toHaveBeenCalled()
-      expect(@patientBuilder.model.materialize.calls.length).toEqual 1
+      expect(@patientBuilder.model.materialize.calls.count()).toEqual 1
 
     afterEach -> @patientBuilder.remove()
 
@@ -182,9 +182,9 @@ describe 'PatientBuilderView', ->
       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
       @addScalarValue 1, 'mg'
       expect(@patientBuilder.model.materialize).toHaveBeenCalled()
-      expect(@patientBuilder.model.materialize.calls.length).toEqual 1
+      expect(@patientBuilder.model.materialize.calls.count()).toEqual 1
       @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1061'
-      expect(@patientBuilder.model.materialize.calls.length).toEqual 2
+      expect(@patientBuilder.model.materialize.calls.count()).toEqual 2
 
     it "disables input until form is filled out", ->
       expect(@patientBuilder.$('.value-formset .btn-primary:first')).toBeDisabled()
@@ -233,9 +233,9 @@ describe 'PatientBuilderView', ->
       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
       @addScalarFieldValue 'SOURCE', 1, 'unit'
       expect(@patientBuilder.model.materialize).toHaveBeenCalled()
-      expect(@patientBuilder.model.materialize.calls.length).toEqual 1
+      expect(@patientBuilder.model.materialize.calls.count()).toEqual 1
       @addCodedFieldValue 'REASON', '2.16.840.1.113883.3.464.1003.102.12.1011'
-      expect(@patientBuilder.model.materialize.calls.length).toEqual 2
+      expect(@patientBuilder.model.materialize.calls.count()).toEqual 2
 
     it "disables input until form is filled out", ->
       expect(@patientBuilder.$('.field-value-formset .btn-primary:first')).toBeDisabled()
