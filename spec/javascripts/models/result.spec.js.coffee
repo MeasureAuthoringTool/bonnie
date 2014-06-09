@@ -7,12 +7,14 @@ describe 'Result', ->
 
   it 'correctly handles fixing specific occurrence results', ->
     result = this.measure.get('populations').at(0).calculate(@patient)
-    waitsFor -> result.isPopulated()
-    runs ->
-      specificsRationale = result.specificsRationale()
-      expect(specificsRationale.DENEX.OccurrenceAAcutePharyngitis1_precondition_4).toEqual false
-      expect(specificsRationale.DENEX.GROUP_SBS_CHILDREN_47).toEqual false
-      expect(specificsRationale.NUMER.OccurrenceAAmbulatoryEdVisit3).toEqual false
+    waitsForAndRuns( -> result.isPopulated()
+      ,
+      ->
+        specificsRationale = result.specificsRationale()
+        expect(specificsRationale.DENEX.OccurrenceAAcutePharyngitis1_precondition_4).toEqual false
+        expect(specificsRationale.DENEX.GROUP_SBS_CHILDREN_47).toEqual false
+        expect(specificsRationale.NUMER.OccurrenceAAmbulatoryEdVisit3).toEqual false
+        )
 
   it 'allows for deferring use of results until populated', ->
     result1 = new Thorax.Models.Result({}, population: @measure.get('populations').first(), patient: @patient)
