@@ -12,9 +12,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def email_all
-    users = User.asc(:email)
-    email = Admin::AllUsersMailer.send_to_all(users, params[:subject], params[:body])
-    email.deliver
+    User.asc(:email).each do |user|
+      email = Admin::AllUsersMailer.all_users_email(user, params[:subject], params[:body])
+      email.deliver
+    end
     render json: {}
   end
 
