@@ -95,6 +95,7 @@ class User
 
   def grant_admin
     update_attribute(:admin, true)
+    update_attribute(:approved, true)
   end
 
   def revoke_admin
@@ -107,6 +108,7 @@ class User
 
   def grant_portfolio
     update_attribute(:portfolio, true)
+    update_attribute(:approved, true)
   end
 
   def revoke_portfolio
