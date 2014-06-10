@@ -43,13 +43,13 @@ class PatientBuilderTest < ActiveSupport::TestCase
           "id"=> "DiagnosisActiveLimitedLifeExpectancy",
           "start_date"=> 1333206000000,
           "end_date"=> 1333206000000,
-          "value"=>[{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.464.1003.102.12.1011","title"=>"Acute Pharyngitis", "codes" =>[{"LOINC"=>["LOINC_2"]}]}],
+          "value"=>[{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.464.1003.102.12.1011","title"=>"Acute Pharyngitis", "codes" =>{"LOINC"=>["LOINC_2"]}}],
           "negation"=>"true",
           "negation_code_list_id"=>"2.16.840.1.113883.3.464.1003.106.12.1005",
           "negation_code" => {"code_system" => "SNOMED", "code" =>"222222"},
           "field_values"=>{"ORDINAL"=>{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.526.3.1139","title"=>"ACE inhibitor or ARB", "code" =>{"code_system"=>"CPT", "code"=>"CHACHA2", "title"=>nil}}},
           "code_list_id"=> "2.16.840.1.113883.3.526.3.1492",
-          "codes"=> [{"CPT" =>["CPT1"]}],
+          "codes"=> {"CPT" =>["CPT1"]},
           "code_source"=>Measures::PatientBuilder::CODE_SOURCE[:USER_DEFINED]
         }
 

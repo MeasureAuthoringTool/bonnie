@@ -17,6 +17,10 @@
     var print = function(output) { console.log(output); };
     hqmfjs = {};
 
+    emitResult = function(value) {
+      emit(ObjectId(), value);
+    }
+
     <%= population_javascript.html_safe %>
 
     <%# Delete the functions that we needed to place in the global scope %>

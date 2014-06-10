@@ -101,6 +101,7 @@ class Thorax.Models.Patient extends Thorax.Model
           criterium.get('codes').reset data['source_data_criteria'][i]['codes'], parse: true
       @previousPatientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections) # Capture post-materialize changes too
       @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
+      $('#ariaalerts').html "This patient has been updated" #tell SR something changed
     .fail ->
       bonnie.showError({title: "Patient Data Error", summary: 'There was an error handling the data associated with this patient.', body: 'One of the data elements associated with the patient is causing an issue.  Please review the elements associated with the patient to verify that they are all constructed properly.'})
 
