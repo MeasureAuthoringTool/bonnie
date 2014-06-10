@@ -58,7 +58,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
     @importDialog.modal(
       "backdrop" : "static",
       "keyboard" : true,
-      "show" : true).find('.modal-dialog').css('width','650px')
+      "show" : true)
 
   submit: ->
     @importWait.modal(

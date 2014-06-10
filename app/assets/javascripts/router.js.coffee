@@ -63,6 +63,7 @@ class BonnieRouter extends Backbone.Router
     @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
     @navigate "measures/#{measure.get('hqmf_set_id')}/patients/new"
 
+
   showError: (error) ->
     return if $('.errorDialog').size() > @maxErrorCount
     if $('.errorDialog').size() == @maxErrorCount
