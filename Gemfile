@@ -46,7 +46,7 @@ group :test, :development, :ci do
 end
 
 group :test, :development do
-  gem 'pry-debugger'
+  gem 'pry-byebug'
   gem 'thin'
   gem 'capistrano-rails'
   gem 'rvm1-capistrano3', require: false
