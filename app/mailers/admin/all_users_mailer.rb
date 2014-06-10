@@ -1,10 +1,9 @@
 class Admin::AllUsersMailer < ActionMailer::Base
 
-  def send_to_all(users, subject, body)
+  def all_users_email(user, subject, body)
     @subject = subject
     @body = body
-    mail to: "Bonnie Users",
-      bcc: users.map { |user| user.email },
+    mail to: user.email,
       subject: subject,
       from: 'bonnie-feedback-list@lists.mitre.org'
   end
