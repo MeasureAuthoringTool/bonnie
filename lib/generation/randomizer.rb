@@ -178,7 +178,7 @@ module HQMF
       zip = zipcodes.keys[rand(zipcodes.length)]
       street = "#{rand(100)+1} #{streetnames[rand(streetnames.length)]} Street"
       
-      Address.new(street: street, city: zipcodes[zip]['city'], state: zipcodes[zip]['state'], zip: zip)
+      Address.new(street: [street], city: zipcodes[zip]['city'], state: zipcodes[zip]['state'], zip: zip)
     end
 
     # More accurately, randomize a believable birthdate. Given a patient, find all coded entries that

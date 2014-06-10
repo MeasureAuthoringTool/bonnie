@@ -124,3 +124,4 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     else
       @model.set 'OBSERV_UNIT', ' mins'
     @updateObserv()
+
