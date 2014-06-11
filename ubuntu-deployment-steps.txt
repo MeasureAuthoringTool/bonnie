@@ -32,10 +32,10 @@ Log out and back in, then install ruby using rvm and some related components
   rvm --default 2.0.0
   gem install bundler
   gem install passenger
-  gem install capistrano -v 3.1.0
-  gem install capistrano-bundler -v 1.1.1
+  gem install capistrano -v 3.2.1
+  gem install capistrano-bundler -v 1.1.2
   gem install capistrano-rails -v 1.1.1
-  gem install rvm1-capistrano3 -v 1.2.1
+  gem install rvm1-capistrano3 -v 1.2.2
   exit
 
 Install passenger apache 2 module (select ruby only)
