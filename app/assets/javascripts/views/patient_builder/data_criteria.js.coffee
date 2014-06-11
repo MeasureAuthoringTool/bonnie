@@ -163,6 +163,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @toggleDetails(e) unless @isExpanded()
     @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
 
+  jumpToSelectCriteria: (e) ->
+    e.preventDefault()
+    type = @$(e.target).model().get('type')
+    $(".#{type}-elements").focus()
 
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']

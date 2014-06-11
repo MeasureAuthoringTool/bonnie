@@ -9,8 +9,7 @@
           <h2>{{definition}}</h2>
           <div>{{description}}</div>
         </div>
-
-        <div class="col-md-6">
+        <div class="col-md-6  criteria-{{model.cid}}">
           <div class="pull-left">
             <h2>Date</h2>
             <div>{{start_date}}{{#if end_date}} &ndash; {{end_date}}{{/if}}</div>
@@ -201,6 +200,7 @@
           {{#button "removeCriteria" class="btn btn-danger hide"}}Delete{{/button}}
         </div>
       </div>
+      <span class="sr-only">{{#button "jumpToSelectCriteria"}}Return to {{type}} Clinical Elements{{/button}}</span>
     </form>
   </div>
 </div>
