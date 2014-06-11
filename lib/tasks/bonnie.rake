@@ -104,6 +104,7 @@ namespace :bonnie do
       Mongoid.default_session.with(database: dest_db) { |db| db.drop }
       Mongoid.default_session.with(database: 'admin') { |db| db.command copydb: 1, fromhost: host, fromdb: source_db, todb: dest_db }
       puts "Dropping unneeded collections: measures, bundles, patient_cache, query_cache..."
+
       Mongoid.default_session['bundles'].drop()
       Mongoid.default_session['measures'].drop()
       Mongoid.default_session['query_cache'].drop()
@@ -140,17 +141,19 @@ namespace :bonnie do
       end
     end
 
-    desc 'Reset DB; by default pulls from bonnie-dev.mitre.org:bonnie2-production-gold; use HOST=<host> DB=<db> for another; DEMO=true prunes measures'
+    desc 'Reset DB; by default pulls from a local dump under the db directory; use HOST=<host> DB=<db> for another; DEMO=true prunes measures'
     task :reset => :environment do
       if ENV['HOST'] || ENV['DB']
         Rake::Task['bonnie:db:reset_legacy'].invoke
       else
-        host = 'bonnie-dev.mitre.org'
-        source_db = 'bonnie2-production-gold'
-        dest_db = Mongoid.default_session.options[:database]
-        puts "Resetting #{dest_db} from #{host}:#{source_db}"
-        Mongoid.default_session.with(database: dest_db) { |db| db.drop }
-        Mongoid.default_session.with(database: 'admin') { |db| db.command copydb: 1, fromhost: host, fromdb: source_db, todb: dest_db }
+        dump_archive = File.join('db','bonnie_reset.tar.gz')
+        dump_extract = File.join('tmp','bonnie_reset')
+        target_db = Mongoid.default_session.options[:database]
+        puts "Resetting #{target_db} from #{dump_archive}"
+        Mongoid.default_session.with(database: target_db) { |db| db.drop }
+        system "tar xf #{dump_archive} -C tmp"
+        system "mongorestore -d #{target_db} #{dump_extract}"
+        FileUtils.rm_r dump_extract
         if ENV['DEMO'] == 'true'
           puts "Deleting non-demo measures and patients"
           demo_measure_ids = Measure.in(measure_id: ['0105', '0069']).pluck('hqmf_set_id') # Note: measure_id is nqf, id is hqmf_set_id!
@@ -271,7 +274,6 @@ namespace :bonnie do
       end
 
     end
-
 
     desc 'Update measure ids from NQF to HQMF.'
     task :update_measure_ids => :environment do
