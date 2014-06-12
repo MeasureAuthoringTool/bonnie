@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '>= 4.0.0'
 
+# Need to require sprockets-rails expicitly to get asset pipeline, at least untill we move to SASS
+gem 'sprockets-rails'
 
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
@@ -63,7 +65,7 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-# gem 'sprockets', '2.2.2.backport1'
+
 gem 'foreman'
 
 gem 'handlebars_assets'

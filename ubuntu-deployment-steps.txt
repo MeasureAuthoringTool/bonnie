@@ -109,9 +109,11 @@ account to ssh to itself using that key
   ssh -oStrictHostKeyChecking=no localhost exit
   exit
 
+Create some shared resources local to the deployment system
+
+  shared/config/initializers/secret_token.rb (with unique local key created with 'rake secret')
+  shared/config/hostname (if host doesn't know it's own public name)
+
 Restart apache
 
   sudo service apache2 reload
-
-Issue: restart.txt should probably be touched *after* chown takes place
-Issue: correctly set permissions of deploy location
