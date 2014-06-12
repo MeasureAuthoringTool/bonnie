@@ -6,6 +6,8 @@ gem 'rails', '>= 4.0.0'
 gem 'sprockets-rails'
 # We need less-rails outside of the assets group so that assets will build in production
 gem 'less-rails'
+# We want non-digest versions of our assets for font-awesome
+gem "non-stupid-digest-assets"
 
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
