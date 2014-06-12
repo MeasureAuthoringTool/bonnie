@@ -4,6 +4,8 @@ gem 'rails', '>= 4.0.0'
 
 # Need to require sprockets-rails expicitly to get asset pipeline, at least untill we move to SASS
 gem 'sprockets-rails'
+# We need less-rails outside of the assets group so that assets will build in production
+gem 'less-rails'
 
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
@@ -57,7 +59,6 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'less-rails'
   gem 'coffee-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
