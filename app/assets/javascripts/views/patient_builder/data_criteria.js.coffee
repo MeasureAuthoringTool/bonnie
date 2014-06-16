@@ -105,6 +105,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     'change :input[name=end_date_is_undefined]':  'toggleEndDateDefinition'
     'blur :text':                                 'triggerMaterialize'
     'change select':                              'triggerMaterialize'
+    # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
+    'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
 
   dropCriteria: (e, ui) ->
     # When we drop a new criteria on an existing criteria
@@ -270,6 +272,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       @advanceFocusToInput()
     'keyup input': 'validateForAddition'
     'change select[name=key]': 'changeFieldValueKey'
+    # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
+    'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
 
   advanceFocusToInput: ->
     switch @model.get('type')
