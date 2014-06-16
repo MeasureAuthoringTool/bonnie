@@ -170,7 +170,7 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     'change select':           'validateForAddition'
     'change .codeset-control': 'changeConcepts'
     rendered: ->
-      @$('select.codeset-control').selectBoxIt()
+      @$('select.codeset-control').selectBoxIt('native': true)
 
   initialize: ->
     @model = new Thorax.Model
@@ -260,7 +260,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
       attr.title = title if title
     rendered: ->
-      @$("select[name=type]").selectBoxIt()
+      @$("select[name=type]").selectBoxIt('native': true)
       @$('.date-picker').datepicker().on 'changeDate', _.bind(@validateForAddition, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@validateForAddition, this)
     'change select[name=type]': (e) ->
@@ -318,7 +318,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @values.add @model.clone()
     # Reset model to default values
     @model.clear()
-    @model.set type: 'PQ'
+    @model.set type: 'CD'
     # clear() removes fields (which we want), but then populate() doesn't clear the select; clear it
     @$('select[name=key]').val('')
     # Let the selectBoxIt() select box know that its value may have changed
