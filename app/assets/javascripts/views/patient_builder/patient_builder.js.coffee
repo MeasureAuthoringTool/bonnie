@@ -122,6 +122,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   addCriteria: (criteria) ->
     @model.get('source_data_criteria').add criteria
     @materialize()
+    # close any open elements and then open the new element
+    @$('button[data-call-method="toggleDetails"] > .fa-angle-down:visible').click()
+    @$(".criteria-#{criteria.cid} > button").click()
 
   loadPopulation: (population) ->
     @measure = population.collection.parent
