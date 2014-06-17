@@ -26,6 +26,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
     rendered: -> 
       @$("option[value=\"#{eoc}\"]").attr('selected','selected') for eoc in @model.get('episode_ids') if @model? && @model.get('episode_of_care') && @model.get('episode_ids')?
       @$el.on 'hidden.bs.modal', -> @remove() unless $('#pleaseWaitDialog').is(':visible')
+      @$('.nice_input').bootstrapFileInput()
     'ready': 'setup'
     'change input:file':  'enableLoad'
     'keypress input:text': 'enableLoadVsac'
