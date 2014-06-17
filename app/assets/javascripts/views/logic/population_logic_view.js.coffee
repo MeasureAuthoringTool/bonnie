@@ -43,23 +43,29 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
       updatedRationale = result.specificsRationale()
       for code in Thorax.Models.Measure.allPopulationCodes
         if rationale[code]?
-          for key, value of rationale
-            target = @$(".#{code}_children .#{key}")
-            if (target.length > 0)
+          @showRationaleForPopulation(code, rationale, updatedRationale)
+      @showRationaleForPopulation('variables', rationale, updatedRationale)
 
-              [targetClass, targetPanelClass, srTitle] = if updatedRationale[code]?[key] is false
-                ['eval-bad-specifics', 'eval-panel-bad-specifics', '(status: bad specifics)']
-              else
-                bool = !!value
-                ["eval-#{bool}", "eval-panel-#{bool}", "(status: #{bool})"]
-
-              target.addClass(targetClass)
-              target.closest('.panel-heading').addClass(targetPanelClass)
-              target.children('.sr-highlight-status').html(srTitle)
-              # this second line is there to fix an issue with sr-only in Chrome making text in inline elements not display
-              # by having the sr-only span and the DC title wrapped in a criteria-title span, the odd behavior goes away.
-              target.children('.criteria-title').children('.sr-highlight-status').html(srTitle)
     @expandPopulations()
+
+  showRationaleForPopulation: (code, rationale, updatedRationale) ->
+    for key, value of rationale
+      target = @$(".#{code}_children .#{key}")
+      if (target.length > 0)
+
+        [targetClass, targetPanelClass, srTitle] = if updatedRationale[code]?[key] is false
+          ['eval-bad-specifics', 'eval-panel-bad-specifics', '(status: bad specifics)']
+        else
+          bool = !!value
+          ["eval-#{bool}", "eval-panel-#{bool}", "(status: #{bool})"]
+
+        target.addClass(targetClass)
+        target.closest('.panel-heading').addClass(targetPanelClass)
+        target.children('.sr-highlight-status').html(srTitle)
+        # this second line is there to fix an issue with sr-only in Chrome making text in inline elements not display
+        # by having the sr-only span and the DC title wrapped in a criteria-title span, the odd behavior goes away.
+        target.children('.criteria-title').children('.sr-highlight-status').html(srTitle)
+
 
   highlightPatientData: (dataCriteriaKey, populationCriteriaKey) ->
     if @latestResult?.get('finalSpecifics')?[populationCriteriaKey]

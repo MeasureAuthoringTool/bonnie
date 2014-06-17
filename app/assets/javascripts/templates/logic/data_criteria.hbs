@@ -3,38 +3,44 @@
 {{#each dataCriteria.subset_operators}}
   {{view "SubsetOperatorLogic" subsetOperator=this tag="span"}}
 {{/each}}
-{{#ifCond dataCriteria.type '==' 'derived'}}
-  {{#if dataCriteria.children_criteria}}
-    <ul>
-      {{#each dataCriteria.children_criteria}}
-        <li>
-          <span class="conjunction {{../dataCriteria.key}} rationale-target">{{translate_operator ../dataCriteria.derivation_operator}} : <span class="sr-only sr-highlight-status"></span></span>
-          {{view "DataCriteriaLogic" reference=this measure=../measure tag="span"}}
-        </li>
-      {{/each}}
-    </ul>
+{{#if hasChildren}}
+  {{#if isSatisfies}}
+    {{view "SatisfiesLogic" reference=dataCriteria.key measure=../measure tag="span"}}
+  {{else}}
+    {{#if dataCriteria.children_criteria}}
+      <ul>
+        {{#each dataCriteria.children_criteria}}
+          <li>
+            <span class="conjunction {{../dataCriteria.key}} rationale-target">{{translate_operator ../dataCriteria.derivation_operator}} : <span class="sr-only sr-highlight-status"></span></span>
+            {{view "DataCriteriaLogic" reference=this measure=../measure tag="span"}}
+          </li>
+        {{/each}}
+      </ul>
+    {{/if}}
   {{/if}}
 {{else}}
-  <span class="criteria-title">
-    {{#if dataCriteria.specific_occurrence}}Occurrence {{dataCriteria.specific_occurrence}}: {{/if}}{{dataCriteria.description}}
-    {{#if dataCriteria.value}}
-      {{#ifCond dataCriteria.type '!=' 'characteristic' }}
-        (result{{view "ValueLogic" value=dataCriteria.value measure=../measure tag="span"}})
-      {{/ifCond}}
-    {{/if}}
-    {{#if dataCriteria.field_values}}
-      ({{#each dataCriteria.field_values}}
-        {{key_title}}{{#ifCond type '!=' 'ANYNonNull'}}{{view "ValueLogic" value=this measure=../../measure tag="span"}} {{/ifCond}}
-      {{/each}})
-    {{/if}}
-    {{#if dataCriteria.negation}}
-      (Not Done: {{translate_oid dataCriteria.negation_code_list_id}})
-    {{/if}}
-    <span class="sr-only sr-highlight-status"></span>
-  </span>
+  {{#unless hideTitle}}
+    <span class="criteria-title">
+      {{#if dataCriteria.specific_occurrence}}Occurrence {{dataCriteria.specific_occurrence}}: {{/if}}{{#if dataCriteria.variable}}${{/if}}{{dataCriteria.description}}
+      {{#if dataCriteria.value}}
+        {{#ifCond dataCriteria.type '!=' 'characteristic' }}
+          (result{{view "ValueLogic" value=dataCriteria.value measure=../measure tag="span"}})
+        {{/ifCond}}
+      {{/if}}
+      {{#if dataCriteria.field_values}}
+        ({{#each dataCriteria.field_values}}
+          {{key_title}}{{#ifCond type '!=' 'ANYNonNull'}}{{view "ValueLogic" value=this measure=../../measure tag="span"}} {{/ifCond}}
+        {{/each}})
+      {{/if}}
+      {{#if dataCriteria.negation}}
+        (Not Done: {{translate_oid dataCriteria.negation_code_list_id}})
+      {{/if}}
+      <span class="sr-only sr-highlight-status"></span>
+    </span>
+  {{/unless}}
   {{#if dataCriteria.temporal_references}}
     {{#ifCond dataCriteria.temporal_references.length '>' 1}}
-      <ul class="multi-temporal">
+      <ul class="multi-statement">
       {{#each dataCriteria.temporal_references}}
         <li>{{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}</li>
       {{/each}}
@@ -45,6 +51,5 @@
       {{/each}}
     {{/ifCond}}
   {{/if}}
-
-{{/ifCond}}
+{{/if}}
 </span>
