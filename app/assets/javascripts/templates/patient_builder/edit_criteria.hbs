@@ -42,7 +42,7 @@
 
       <div class="row">
         <div class="form-group col-md-6">
-          <label for="start_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> Start<span class="sr-only"> start date month/day/year</span></label></label>
+          <label for="start_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> Start<span class="sr-only"> date month/day/year</span></label></label>
           <div class="datetime-control">
             <div>
               <input type="text" name="start_date" id="start_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
@@ -56,7 +56,7 @@
         </div>
 
         <div class="form-group col-md-6">
-          <label for="end_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> Stop<span class="sr-only"> end date month/day/year</span></label>
+          <label for="end_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> Stop<span class="sr-only"> date month/day/year</span></label>
           <div class="datetime-control">
             <div>
               <input type="text" name="end_date" id="end_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true"{{#if end_date_is_undefined}} disabled{{/if}}>
@@ -109,7 +109,7 @@
       {{#ifCond definition "==" "medication"}}
         <div class="row">
           <div class="form-group col-md-6">
-            <label for="dose_value_{{@cid}}" class="control-label"><i class="fa fa-medkit"></i> Dose<span class="sr-only"> dose value</span></label>
+            <label for="dose_value_{{@cid}}" class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Dose<span class="sr-only"> value</span></label>
             <div class="row">
               <div class="col-xs-8">
                 <input type="text" name="dose_value" id="dose_value_{{@cid}}" class="form-control" placeholder="input">
@@ -124,7 +124,7 @@
             </div>
           </div>
           <div class="form-group col-md-6">
-            <label for="frequency_value_{{@cid}}" class="control-label"><i class="fa fa-spinner"></i> Frequency<span class="sr-only"> frequency value</span></label>
+            <label for="frequency_value_{{@cid}}" class="control-label"><i class="fa fa-spinner" aria-hidden="true"></i> Frequency<span class="sr-only"> value</span></label>
             <div class="row">
               <div class="col-xs-7">
                 <input type="text" name="frequency_value" id="frequency_value_{{@cid}}" class="form-control" placeholder="input">
