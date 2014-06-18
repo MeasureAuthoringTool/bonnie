@@ -238,11 +238,8 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
     # if dosage and frequency are specified then compute a CMD offset (derived from HQMF2JS Patient API Extension)
     if @criteria.get('dose_value') and @criteria.get('frequency_value')
       switch @criteria.get('frequency_unit')
-        when 'h'
-          days = 24
-        when 'd'
-          days = 1
-      dosesPerDay = days / @criteria.get('frequency_value')
+        when 'h' then dosesPerDay = 24 / @criteria.get('frequency_value')
+        when 'd' then dosesPerDay = 1 / @criteria.get('frequency_value')
       offset = ( latest_fulfillment.get('quantity_dispensed_value') / @criteria.get('dose_value') / dosesPerDay ) * 60 * 60 * 24 * 1000
     offset ?= 15 * 60 * 1000 # otherwise use a default offset of 15 mins
     # use the latest date, starting with the start_date
