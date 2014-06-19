@@ -59,8 +59,8 @@
                 </div>
               </div>
             {{else}}
-                <div class="switch-toggle well">
               <div class="col-sm-{{dataSize}}">
+                <div class="switch-toggle switch-custom">
                   <input id="measureTypeRadios" type="radio" name="measure_type" value="ep" checked="true">
                   <label for="measureTypeRadios" onclick=""><i class="fa fa-user-md" aria-hidden="true"></i> Eligible Professional</label>
                   <input id="EH" type="radio" name="measure_type" value="eh"> 
@@ -80,8 +80,8 @@
                 </div>
               </div>
             {{else}}
-                <div class="switch-toggle well">
               <div class="col-sm-{{dataSize}}">
+                <div class="switch-toggle switch-custom">
                   <input id="calculationTypeRadios" type="radio" name="calculation_type" value="patient" checked="true"> 
                   <label for="calculationTypeRadios" onclick=""><i class="fa fa-user" aria-hidden="true"></i> Patient Based</label>
                   <input id="EC" type="radio" name="calculation_type" value="episode">
@@ -93,15 +93,17 @@
           </div>
           <div class="form-group">
             <p class="col-sm-{{titleSize}} control-label">Rebuild patients</p>
-            <div class="col-sm-{{dataSize}}">
-              <label for="rebuildPatientsCheckbox" class="switch-light switch-ios" onclick="">
-                <input id="rebuildPatientsCheckbox" name="rebuild_patients" type="checkbox">
-                <span>&nbsp;
-                  <span>No</span>
-                  <span>Yes</span>
-                </span>
+            <div class="col-sm-3">
+
+              <div class="switch-toggle switch-custom">
+                <input id="rebuildNo" type="radio" name="rebuild_patients" checked="true"> 
+                <label for="rebuildNo" onclick=""> No</label>
+                <input id="rebuildYes" type="radio" name="rebuild_patients">
+                <label for="rebuildYes" onclick=""> Yes</label>
                 <a class="btn btn-primary"></a>
-              </label>
+              </div>
+
+  
             </div>
           </div>
           {{#if isUpdate}}
