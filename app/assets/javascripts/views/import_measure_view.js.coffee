@@ -11,8 +11,8 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       else if @model.get('continuous_variable') is true then 'Continuous Variable'
     currentRoute = Backbone.history.fragment
     _(super).extend
-      titleSize: 3
-      dataSize: 9
+      titleSize: 4
+      dataSize: 8
       token: $("meta[name='csrf-token']").attr('content')
       dialogTitle: if @model? then @model.get('title') else "New Measure"
       isUpdate: @model?

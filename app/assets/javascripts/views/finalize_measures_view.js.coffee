@@ -1,8 +1,8 @@
 class Thorax.Views.FinalizeMeasures extends Thorax.Views.BonnieView
   template: JST['import/finalize_measures']
   context: ->
-    titleSize: 3
-    dataSize: 9
+    titleSize: 4
+    dataSize: 8
     token: $("meta[name='csrf-token']").attr('content')
 
   events:
