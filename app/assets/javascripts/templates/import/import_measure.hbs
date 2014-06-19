@@ -62,9 +62,9 @@
               <div class="col-lg-{{dataSize}}">
                 <div class="switch-toggle well">
                   <input id="measureTypeRadios" type="radio" name="measure_type" value="ep" checked="true">
-                  <label for="measureTypeRadios" onclick="">Eligible Professional</label>
+                  <label for="measureTypeRadios" onclick=""><i class="fa fa-user-md" aria-hidden="true"></i> Eligible Professional</label>
                   <input id="EH" type="radio" name="measure_type" value="eh"> 
-                  <label for="EH" onclick="">Eligible Hospital</label>
+                  <label for="EH" onclick=""><i class="fa fa-h-square" aria-hidden="true"></i> Eligible Hospital</label>
                   <a class="btn btn-info"></a>
                 </div>
               </div>
@@ -82,10 +82,10 @@
             {{else}}
               <div class="col-lg-{{dataSize}}">
                 <div class="switch-toggle well">
-                  <input id="EC" type="radio" name="calculation_type" value="episode">
-                  <label for="EC" onclick="">Episode of Care</label>
                   <input id="calculationTypeRadios" type="radio" name="calculation_type" value="patient" checked="true"> 
-                  <label for="calculationTypeRadios" onclick="">Patient Based</label>
+                  <label for="calculationTypeRadios" onclick=""><i class="fa fa-user" aria-hidden="true"></i> Patient Based</label>
+                  <input id="EC" type="radio" name="calculation_type" value="episode">
+                  <label for="EC" onclick=""><i class="fa fa-stethoscope" aria-hidden="true"></i> Episode of Care</label>
                   <a class="btn btn-info"></a>
                 </div>
               </div>
