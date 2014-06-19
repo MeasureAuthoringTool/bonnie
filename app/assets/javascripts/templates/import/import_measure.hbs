@@ -26,8 +26,8 @@
 
           <div class="form-group">
 
-            <label for="measureFileInput" class="col-xs-{{titleSize}} control-label">Bundle</label>
-             <div class="col-xs-{{dataSize}}">
+            <label for="measureFileInput" class="col-sm-{{titleSize}} control-label">Bundle</label>
+             <div class="col-sm-{{dataSize}}">
                <input class="file nice_input" type="file" id="measureFileInput" name="measure_file">
              </div>
 
@@ -36,31 +36,31 @@
           
           <div class="hidden" id="vsacSignIn">
             <div class="form-group">
-              <label for="vsacUser" class="col-xs-{{titleSize}} control-label">VSAC Username:</label>
-              <div class="col-xs-{{dataSize}}">
+              <label for="vsacUser" class="col-sm-{{titleSize}} control-label">VSAC Username</label>
+              <div class="col-sm-{{dataSize}}">
                 <input type="text" class="form-control" id="vsacUser" name="vsac_username" placeholder="username">
               </div>
             </div>
             <div class="form-group">
-              <label for="vsacPassword" class="col-xs-{{titleSize}} control-label">VSAC Password:</label>
-              <div class="col-xs-{{dataSize}}">
+              <label for="vsacPassword" class="col-sm-{{titleSize}} control-label">VSAC Password</label>
+              <div class="col-sm-{{dataSize}}">
                 <input type="password" class="form-control" id="vsacPassword" name="vsac_password" placeholder="password">
               </div>
-              <div class="col-xs-offset-{{titleSize}} vsac-registration"><a href="https://uts.nlm.nih.gov/license.html" target="_blank"><i class="fa fa-plus-circle" aria-hidden="true"></i> Register for VSAC</a></div>
+              <div class="col-sm-offset-{{titleSize}} vsac-registration"><a href="https://uts.nlm.nih.gov/license.html" target="_blank"><i class="fa fa-plus-circle" aria-hidden="true"></i> Register for VSAC</a></div>
             </div>
           </div>
           <div class="form-group">
-            <p class="col-xs-{{titleSize}} control-label">Type</p>
+            <p class="col-sm-{{titleSize}} control-label">Type</p>
             {{#if isUpdate}}
-              <div id="measureTypeModel" class="col-xs-{{dataSize}}">
-                <div class="col-xs-{{dataSize}}">
+              <div id="measureTypeModel" class="col-sm-{{dataSize}}">
+                <div class="col-sm-{{dataSize}}">
                   <input id="measureTypeRadios" class="sr-only" disabled>
                   <p class="form-control-static">{{measureTypeLabel}}</p>
                 </div>
               </div>
             {{else}}
-              <div class="col-xs-{{dataSize}}">
                 <div class="switch-toggle well">
+              <div class="col-sm-{{dataSize}}">
                   <input id="measureTypeRadios" type="radio" name="measure_type" value="ep" checked="true">
                   <label for="measureTypeRadios" onclick=""><i class="fa fa-user-md" aria-hidden="true"></i> Eligible Professional</label>
                   <input id="EH" type="radio" name="measure_type" value="eh"> 
@@ -71,29 +71,29 @@
             {{/if}}
           </div>
           <div class="form-group">
-            <p class="col-xs-{{titleSize}} control-label">Calculation</p>
+            <p class="col-sm-{{titleSize}} control-label">Calculation</p>
             {{#if isUpdate}}
-              <div id="calculationTypeModel" class="col-xs-{{dataSize}}">
-                <div class="col-xs-{{dataSize}}">
+              <div id="calculationTypeModel" class="col-sm-{{dataSize}}">
+                <div class="col-sm-{{dataSize}}">
                   <input id="calculationTypeRadios" class="sr-only" disabled>
                   <p class="form-control-static">{{calculationTypeLabel}}</p>
                 </div>
               </div>
             {{else}}
-              <div class="col-xs-{{dataSize}}">
                 <div class="switch-toggle well">
+              <div class="col-sm-{{dataSize}}">
                   <input id="calculationTypeRadios" type="radio" name="calculation_type" value="patient" checked="true"> 
                   <label for="calculationTypeRadios" onclick=""><i class="fa fa-user" aria-hidden="true"></i> Patient Based</label>
                   <input id="EC" type="radio" name="calculation_type" value="episode">
-                  <label for="EC" onclick="" class="btn"><i class="fa fa-stethoscope" aria-hidden="true"></i> Episode of Care</label>
+                  <label for="EC" onclick=""><i class="fa fa-stethoscope" aria-hidden="true"></i> Episode of Care</label>
                   <a class="btn btn-primary"></a>
                 </div>
               </div>
             {{/if}}
           </div>
           <div class="form-group">
-            <p class="col-xs-{{titleSize}} control-label">Rebuild patients</p>
-            <div class="col-xs-{{dataSize}}">
+            <p class="col-sm-{{titleSize}} control-label">Rebuild patients</p>
+            <div class="col-sm-{{dataSize}}">
               <label for="rebuildPatientsCheckbox" class="switch-light switch-ios" onclick="">
                 <input id="rebuildPatientsCheckbox" name="rebuild_patients" type="checkbox">
                 <span>&nbsp;
@@ -108,8 +108,8 @@
             {{#if episode_of_care}}
               <input type="hidden" name="{{@cid}}[hqmf_id]" value="{{hqmf_id}}">
               <div class="form-group">
-                <label for="episodeSelect_{{@cid}}" class="col-xs-{{titleSize}} control-label">Episode(s) of Care:</label>
-                <div class="col-xs-{{titleSize}}">
+                <label for="episodeSelect_{{@cid}}" class="col-sm-{{titleSize}} control-label">Episode(s) of Care:</label>
+                <div class="col-sm-{{titleSize}}">
                   <select multiple="true" class="form-control" id="episodeSelect_{{@cid}}" name="eoc_{{hqmfSetId}}[episode_ids][]">
                     {{#each source_data_criteria.models}}
                       {{#with attributes}}
