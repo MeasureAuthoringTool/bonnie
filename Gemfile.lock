@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/pophealth/hqmf2js.git
-  revision: 85f3ac0cbd7bc5768abbd6b8e5a70f3a0530d7c8
-  branch: add_intersection_operator
+  revision: edbda409da9f1701d2cc804238ad9957d44c70ed
+  branch: master
   specs:
     hqmf2js (1.3.0)
 
@@ -18,8 +18,8 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 04930e11567d4557cbe9e8094b9444d89d7ca918
-  branch: update_variable_example
+  revision: f75230c736cbb53208a68889438c12b02af885a5
+  branch: master
   specs:
     health-data-standards (3.4.6)
       activesupport (~> 4.0.0)
@@ -27,7 +27,7 @@ GIT
       erubis (~> 2.7.0)
       log4r (~> 1.1.10)
       memoist (~> 0.9.1)
-      mongoid (~> 4.0.0.beta2)
+      mongoid (~> 4.0.0.rc2)
       mongoid-tree (~> 1.0.4)
       nokogiri (= 1.6.0)
       protected_attributes (~> 1.0.5)
