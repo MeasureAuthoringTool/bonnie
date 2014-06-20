@@ -171,7 +171,6 @@ h1.modal-title {
   .button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-base; @line-height-base; @border-radius-base);
   border: @btn-default-border 1px solid;
   color: @brand-primary;
-  .box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
 
   label {
     font-weight: @btn-font-weight;
@@ -182,7 +181,7 @@ h1.modal-title {
 
   a {
     .btn-primary;
-    .active;
+    .slide-button-transition(0); //remove sliding
   }
 }
 
