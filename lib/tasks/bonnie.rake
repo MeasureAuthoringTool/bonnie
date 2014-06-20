@@ -81,7 +81,7 @@ namespace :bonnie do
     desc 'Make sure all of the users in the system have a bundle'
     task :ensure_users_have_bundles => :environment do
       User.all.each do |u|
-        unless u.bundle 
+        unless u.bundle
             b = HealthDataStandards::CQM::Bundle.new(title: "Bundle for user #{u.id.to_s}", version: "1")
             b.save
             u.bundle = b
@@ -96,7 +96,7 @@ namespace :bonnie do
 
     desc 'Reset DB; by default pulls from bonnie-dev.mitre.org:bonnie-production-gold; use HOST=<host> DB=<db> for another; DEMO=true prunes measures'
     task :reset_legacy => :environment do
-      
+
       host = ENV['HOST'] || 'bonnie-dev.mitre.org'
       source_db = ENV['DB'] || 'bonnie-production-gold'
       dest_db = Mongoid.default_session.options[:database]
@@ -238,6 +238,11 @@ namespace :bonnie do
   end
 
   namespace :patients do
+
+    desc "Materializes all patients"
+    task :materialize_all=> :environment do
+
+    end
 
     desc "Updated source_data_criteria to include title and description from measure(s)"
     task :update_source_data_criteria=> :environment do
