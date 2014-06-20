@@ -62,14 +62,13 @@ describe 'PatientBuilderView', ->
         $('.panel-title').click() # Expand the criteria to make draggables visible
         criteria = @$el.find(".draggable:eq(#{position})").draggable()
         target = @$el.find(targetSelector)
-        criteriaOffset = criteria.offset()
-        droppableOffset = target.offset()
-        # use approximate center points of droppable and criteria for dragging
-        droppableCenterX = droppableOffset.left + target.width()/2
-        droppableCenterY = droppableOffset.top + target.height()/2
-        criteriaCenterX = criteriaOffset.left + criteria.width()/2
-        criteriaCenterY = criteriaOffset.top + criteria.height()/2
-        criteria.simulate 'drag', dx: droppableCenterX - criteriaCenterX, dy: droppableCenterY - criteriaCenterY
+        targetView = target.view()
+        # We used to simulate a drag, but that had issues with different viewport sizes, so instead we just
+        # directly call the appropriate drop event handler
+        if targetView.dropCriteria
+          target.view().dropCriteria({ target: target }, { draggable: criteria })
+        else
+          target.view().drop({ target: target }, { draggable: criteria })
 
     it "adds data criteria to model when dragged", ->
       initialSourceDataCriteriaCount = @patientBuilder.model.get('source_data_criteria').length
@@ -82,14 +81,13 @@ describe 'PatientBuilderView', ->
       @addEncounter 1, '.criteria-container.droppable' # add the same one again
       expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 2
 
-    # TODO: This is failing on the command line after the Rails 4 update
-    # it "acquires the dates of the drop target when dropping on an existing criteria", ->
-    #   startDate = @patientBuilder.model.get('source_data_criteria').first().get('start_date')
-    #   endDate = @patientBuilder.model.get('source_data_criteria').first().get('end_date')
-    #   @patientBuilder.model.get('source_data_criteria').first().set end_date: endDate
-    #   @addEncounter 1, '.criteria-data.droppable:first'
-    #   expect(@patientBuilder.model.get('source_data_criteria').last().get('start_date')).toEqual startDate
-    #   expect(@patientBuilder.model.get('source_data_criteria').last().get('end_date')).toEqual endDate
+    it "acquires the dates of the drop target when dropping on an existing criteria", ->
+      startDate = @patientBuilder.model.get('source_data_criteria').first().get('start_date')
+      endDate = @patientBuilder.model.get('source_data_criteria').first().get('end_date')
+      @patientBuilder.model.get('source_data_criteria').first().set end_date: endDate
+      @addEncounter 1, '.criteria-data.droppable:first'
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('start_date')).toEqual startDate
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('end_date')).toEqual endDate
 
     it "materializes the patient", ->
       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
@@ -144,8 +142,7 @@ describe 'PatientBuilderView', ->
 
     afterEach -> @patientBuilder.remove()
 
-  # FIXME Our test JSON doesn't yet support value sets very well... write these tests when we have a source of value sets independent of the measures
-  xdescribe "adding codes to an encounter", ->
+  describe "adding codes to an encounter", ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
       @addCode = (codeSet, code, submit = true) ->
@@ -154,7 +151,10 @@ describe 'PatientBuilderView', ->
         expect($codelist.children("[value=#{code}]")).toExist()
         $codelist.val(code).change()
 
-    it "adds a code"
+    # FIXME Our test JSON doesn't yet support value sets very well... write these tests when we have a source of value sets independent of the measures
+    it "adds a code", ->
+
+    afterEach -> @patientBuilder.remove()
 
   describe "adding values to an encounter", ->
     beforeEach ->
