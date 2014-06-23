@@ -105,6 +105,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     'change :input[name=end_date_is_undefined]':  'toggleEndDateDefinition'
     'blur :text':                                 'triggerMaterialize'
     'change select':                              'triggerMaterialize'
+    # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
+    'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
 
   dropCriteria: (e, ui) ->
     # When we drop a new criteria on an existing criteria
@@ -161,6 +163,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @toggleDetails(e) unless @isExpanded()
     @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
 
+  jumpToSelectCriteria: (e) ->
+    e.preventDefault()
+    type = @$(e.target).model().get('type')
+    $(".#{type}-elements").focus()
 
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']
@@ -168,7 +174,7 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     'change select':           'validateForAddition'
     'change .codeset-control': 'changeConcepts'
     rendered: ->
-      @$('select.codeset-control').selectBoxIt()
+      @$('select.codeset-control').selectBoxIt('native': true)
 
   initialize: ->
     @model = new Thorax.Model
@@ -258,7 +264,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
       attr.title = title if title
     rendered: ->
-      @$("select[name=type]").selectBoxIt()
+      @$("select[name=type]").selectBoxIt('native': true)
       @$('.date-picker').datepicker().on 'changeDate', _.bind(@validateForAddition, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@validateForAddition, this)
     'change select[name=type]': (e) ->
@@ -270,6 +276,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       @advanceFocusToInput()
     'keyup input': 'validateForAddition'
     'change select[name=key]': 'changeFieldValueKey'
+    # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
+    'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
 
   advanceFocusToInput: ->
     switch @model.get('type')
@@ -314,7 +322,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @values.add @model.clone()
     # Reset model to default values
     @model.clear()
-    @model.set type: 'PQ'
+    @model.set type: 'CD'
     # clear() removes fields (which we want), but then populate() doesn't clear the select; clear it
     @$('select[name=key]').val('')
     # Let the selectBoxIt() select box know that its value may have changed

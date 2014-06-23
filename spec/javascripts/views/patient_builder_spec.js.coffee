@@ -61,9 +61,15 @@ describe 'PatientBuilderView', ->
       @addEncounter = (position, targetSelector) ->
         $('.panel-title').click() # Expand the criteria to make draggables visible
         criteria = @$el.find(".draggable:eq(#{position})").draggable()
+        target = @$el.find(targetSelector)
         criteriaOffset = criteria.offset()
-        droppableOffset = @$el.find(targetSelector).offset()
-        criteria.simulate 'drag', dx: droppableOffset.left - criteriaOffset.left - (criteria.width()/2), dy: droppableOffset.top - criteriaOffset.top - (criteria.height()/2)
+        droppableOffset = target.offset()
+        # use approximate center points of droppable and criteria for dragging
+        droppableCenterX = droppableOffset.left + target.width()/2
+        droppableCenterY = droppableOffset.top + target.height()/2
+        criteriaCenterX = criteriaOffset.left + criteria.width()/2
+        criteriaCenterY = criteriaOffset.top + criteria.height()/2
+        criteria.simulate 'drag', dx: droppableCenterX - criteriaCenterX, dy: droppableCenterY - criteriaCenterY
 
     it "adds data criteria to model when dragged", ->
       initialSourceDataCriteriaCount = @patientBuilder.model.get('source_data_criteria').length
