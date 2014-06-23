@@ -239,7 +239,7 @@ namespace :bonnie do
 
   namespace :patients do
 
-    desc "Materializes all patients"
+    desc "Materialize all patients"
     task :materialize_all=> :environment do
       pt_count = 0
       Record.each do |r|
