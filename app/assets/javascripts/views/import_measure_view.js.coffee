@@ -11,8 +11,8 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       else if @model.get('continuous_variable') is true then 'Continuous Variable'
     currentRoute = Backbone.history.fragment
     _(super).extend
-      titleSize: 3
-      dataSize: 9
+      titleSize: 4
+      dataSize: 8
       token: $("meta[name='csrf-token']").attr('content')
       dialogTitle: if @model? then @model.get('title') else "New Measure"
       isUpdate: @model?
@@ -26,10 +26,19 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
     rendered: -> 
       @$("option[value=\"#{eoc}\"]").attr('selected','selected') for eoc in @model.get('episode_ids') if @model? && @model.get('episode_of_care') && @model.get('episode_ids')?
       @$el.on 'hidden.bs.modal', -> @remove() unless $('#pleaseWaitDialog').is(':visible')
+      @$('.nice_input').bootstrapFileInput()
+      @$("input[type=radio]:checked").next().css("color","white")
+
     'ready': 'setup'
     'change input:file':  'enableLoad'
     'keypress input:text': 'enableLoadVsac'
     'keypress input:password': 'enableLoadVsac'
+    'change input[type=radio]': ->
+      @$('input[type=radio]').each (index, element) =>
+        if @$(element).prop("checked")
+          @$(element).next().css("color","white")
+        else
+          @$(element).next().css("color","")
 
   enableLoadVsac: ->
     username = @$('#vsacUser')

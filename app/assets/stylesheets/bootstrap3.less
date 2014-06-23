@@ -152,31 +152,50 @@ h1.modal-title {
   text-transform: none;
 }
 
-.modal-body > form  label.control-label {
+.modal-body > form .control-label {
   text-transform: uppercase;
-  font-size: 0.85em;
+  font-weight: bold;
 }
 
 .form-horizontal .control-label {
   margin-bottom: .5em;
 }
 
-//change css-toggle-switch default margins
-.switch-light {
-  margin-left: 0px;
-  margin-bottom: 0em;
-}
-
+//link css-toggle-switch height to text size and line height and padding
 .switch-toggle {
-  margin-bottom: 0em;
+  height: @padding-base-vertical*2 + @line-height-base*@font-size-base;
 }
 
-//make css-toggle-switch text responsive. needs a better fix to make the .switch-toggle input itself to be responsive
-.switch-toggle input + label {
-  font-size: 0.8em;
-  font-weight: normal;
-  /* Small devices (tablets, 768px and up) */
-  @media (min-width: @screen-sm) { 
-    font-size: 1em;
-    font-weight: bold; }
+//custom css-toggle-switch theme matching our design
+.switch-custom {
+  .button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-base; @line-height-base; @border-radius-base);
+  border: @btn-default-border 1px solid;
+  color: @brand-primary;
+
+  label {
+    font-weight: @btn-font-weight;
+    white-space: nowrap; //avoid overflow
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  a {
+    .btn-primary;
+    .slide-button-transition(0); //remove sliding
+  }
+}
+
+.nice_input {
+  .btn-primary;
+}
+
+.file-input-name {
+  .small;
+  .text-primary;
+  overflow-wrap: break-word;
+}
+
+.modal-footer {
+  margin-top: 0px;
+  padding: 20px 20px 10px 0px;
 }
