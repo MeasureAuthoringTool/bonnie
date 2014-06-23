@@ -241,13 +241,17 @@ namespace :bonnie do
 
     desc "Materialize all patients"
     task :materialize_all=> :environment do
-      pt_count = 0
-      Record.each do |r|
+      pt_count = Record.all.inject(0) do |total, r|
         puts "Materializing #{r.last} #{r.first}"
-        r.rebuild!
-        pt_count += 1
+        begin
+          r.rebuild!
+          total + 1
+        rescue Exception => e
+          puts "Error materializing #{r.first} #{r.last}: #{e.message}"
+          total
+        end
       end
-      puts "Materialized #{pt_count} of #{Record.all.count} patients"
+      puts "Materialized #{pt_count} of #{Record.count} patients"
     end
 
     desc "Updated source_data_criteria to include title and description from measure(s)"
