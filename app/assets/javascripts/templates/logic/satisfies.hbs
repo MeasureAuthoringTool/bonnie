@@ -1,0 +1,13 @@
+  <span class="criteria-title">
+    {{#if rootCriteria.specific_occurrence}}Occurrence {{rootCriteria.specific_occurrence}}: {{/if}}{{rootCriteria.description}}
+    <span class="sr-only sr-highlight-status"></span>
+    {{translate_operator dataCriteria.definition}}
+    <ul class="multi-statement">
+      {{#each dataCriteria.children_criteria}}
+        <li>
+          <span class="sr-only sr-highlight-status"></span></span>
+          {{view "DataCriteriaLogic" reference=this measure=../measure tag="span" hideTitle=true}}
+        </li>
+      {{/each}}
+    </ul>
+  </span>
