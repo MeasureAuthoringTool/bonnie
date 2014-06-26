@@ -532,7 +532,7 @@ measures: &measures
     type: eh
     category: Venous Thromboembolism
     episode_of_care: true
-    episode_ids:  [OccurrenceAInpatientEncounter1]
+    episode_ids:  [OccurrenceAEncounterInpatient3]
     continuous_variable: false
   BCCE43DD-08E3-46C3-BFDD-0B1B472690F0:
     nqf_id: '0374'
@@ -616,7 +616,7 @@ measures: &measures
     type: eh
     category: Pregnancy
     episode_of_care: true
-    episode_ids:  [OccurrenceAInpatientEncounter1]
+    episode_ids:  [OccurrenceAEncounterInpatient2]
     continuous_variable: false
   7D374C6A-3821-4333-A1BC-4531005D77B8:
     nqf_id: '0480'
