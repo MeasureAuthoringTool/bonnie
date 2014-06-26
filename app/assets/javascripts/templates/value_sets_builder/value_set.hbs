@@ -30,6 +30,7 @@
         <div class="panel-body">
           <label class="pull-right"><small>{{oid}}</small></label>
           <i class="fa fa-list" aria-hidden="true"></i> <label>Codes</label>
+          <small>( {{version}} )</small>
           <ul class="nav nav-pills">
             {{#each codeSystems}}
               <li{{#unless index}} class="active"{{/unless}}><a href="#{{../cid}}-{{index}}" data-toggle="tab">{{code_system}} <span class="badge">{{count}}</span></a></li>
