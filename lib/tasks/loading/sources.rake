@@ -2,7 +2,7 @@ require File.expand_path('../../../../config/environment',  __FILE__)
 
 namespace :bonnie do
   namespace :load do
-  
+
     desc 'Load measures from HQMF and VSAC'
     task :sources, [:sources_dir, :email, :measures_yml, :vsac_user, :vsac_password, :clear_vs_cache?, :drop_db?] do |t, args|
       raise "The sources directory containing measure definitions must be specified" unless args.sources_dir
@@ -52,6 +52,7 @@ namespace :bonnie do
           white_black << {oid: vs.oid, code_system_name: c.code_system_name, code: c.code, white_list: c.white_list, black_list: c.black_list} if c.white_list || c.black_list
         end
       end
+      Dir.mkdir('tmp') unless Dir.exist?('tmp')
       outfile = File.join('tmp','white_black_backup.json')
       File.open(outfile, 'w') {|f| f.write(JSON.pretty_generate(JSON.parse(white_black.to_json))) }
       puts "wrote white/black list to #{outfile}"
@@ -69,7 +70,7 @@ namespace :bonnie do
         if (vs)
           concepts = vs.concepts
           match = false
-          concepts.each do |c| 
+          concepts.each do |c|
             if (c.code_system_name == wb['code_system_name'] && c.code == wb['code'])
               c.white_list=wb['white_list']
               c.black_list=wb['black_list']
