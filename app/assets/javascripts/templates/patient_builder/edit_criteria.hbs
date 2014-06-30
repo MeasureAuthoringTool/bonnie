@@ -109,10 +109,10 @@
       {{#ifCond definition "==" "medication"}}
         <div class="row">
           <div class="form-group col-md-6">
-            <label for="dose_value_{{@cid}}" class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Dose<span class="sr-only"> value</span></label>
+            <label for="dose_value_{{@cid}}" class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Prescription<span class="sr-only"> value</span></label>
             <div class="row">
               <div class="col-xs-8">
-                <input type="text" name="dose_value" id="dose_value_{{@cid}}" class="form-control" placeholder="input">
+                <input type="text" name="dose_value" id="dose_value_{{@cid}}" class="form-control" placeholder="dose">
               </div>
               <div class="col-xs-4">
                 <label for="dose_unit_{{@cid}}" class="sr-only">dose unit</label>
@@ -124,10 +124,10 @@
             </div>
           </div>
           <div class="form-group col-md-6">
-            <label for="frequency_value_{{@cid}}" class="control-label"><i class="fa fa-spinner" aria-hidden="true"></i> Frequency<span class="sr-only"> value</span></label>
+            <label for="frequency_value_{{@cid}}" class="control-label"><i class="fa fa-spinner" aria-hidden="true"></i> Regiment<span class="sr-only"> value</span></label>
             <div class="row">
               <div class="col-xs-7">
-                <input type="text" name="frequency_value" id="frequency_value_{{@cid}}" class="form-control" placeholder="input">
+                <input type="text" name="frequency_value" id="frequency_value_{{@cid}}" class="form-control" placeholder="frequency">
               </div>
               <div class="col-xs-5">
                 <label for="frequency_unit_{{@cid}}" class="sr-only">frequency unit</label>
@@ -141,12 +141,12 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label"><i class="fa fa-files-o" aria-hidden="true"></i> Fulfillments<input class="sr-only" disabled></label>
+          <label class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Filled<input class="sr-only" disabled></label>
 
           {{#collection fulfillments class="existing-values"}}
             <span>
-              {{dispense_date}} {{dispense_time}}:
-              {{quantity_dispensed_value}} {{quantity_dispensed_unit}}
+              {{quantity_dispensed_value}} {{quantity_dispensed_unit}}:
+              {{dispense_date}} {{dispense_time}}
               {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
             </span>
           {{/collection}}
