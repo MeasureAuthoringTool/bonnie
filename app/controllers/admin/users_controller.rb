@@ -11,6 +11,14 @@ class Admin::UsersController < ApplicationController
     respond_with users.as_json(methods: [:measure_count, :patient_count])
   end
 
+  def email_all
+    User.asc(:email).each do |user|
+      email = Admin::AllUsersMailer.all_users_email(user, params[:subject], params[:body])
+      email.deliver
+    end
+    render json: {}
+  end
+
   def update
     user = User.find(params[:id])
     # Update select attributes directly so we can keep a more restrictive attr_accessible for other contexts

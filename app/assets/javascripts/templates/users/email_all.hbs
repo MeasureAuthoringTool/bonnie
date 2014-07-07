@@ -1,0 +1,27 @@
+<div class="modal fade" id="emailAllUsersDialog" tabindex="-1" aria-hidden="true">
+<div class="modal-dialog" role="dialog" aria-labelledby="modalTitle">
+	<div class="modal-content">
+	<div class="modal-header">
+		{{#button "close" class="close" data-dismiss="modal" aria-hidden="true"}}&times;{{/button}}
+		<h4 class="modal-title" id="modalTitle">Email All Users</h4>
+	</div>
+	<div class="modal-body">
+		<form action="admin/users/email_all" method="post" role="form">
+			<input name="authenticity_token" type="hidden" value="{{token}}">
+			<div class="form-group">
+				<label for="emailAllSubject">Subject</label>
+				<input type="text" class="form-control" name="subject" id="emailAllSubject" placeholder="Subject">
+			</div>
+			<div class="form-group">
+				<label for="emailAllBody">Body</label>
+				<textarea class="form-control" rows="10" name="body" id="emailAllBody" placeholder="Email body"></textarea>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		{{#button "close" class="btn btn-default" data-dismiss="modal"}}Cancel{{/button}}
+		{{#button "submit" class="btn btn-primary" id="sendButton" disabled=true}}Send Email{{/button}}
+	</div>
+	</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

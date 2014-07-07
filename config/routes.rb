@@ -1,7 +1,7 @@
 Bonnie::Application.routes.draw do
   devise_for :users,:controllers => {:registrations => "registrations"}
 
-  devise_scope :user do 
+  devise_scope :user do
     get "/needs_approval" => "registrations#needs_approval"
   end
 
@@ -22,7 +22,7 @@ Bonnie::Application.routes.draw do
   end
 
   resources :patients do
-    collection do 
+    collection do
       post 'materialize'
       post 'export'
     end
@@ -30,6 +30,9 @@ Bonnie::Application.routes.draw do
 
   namespace :admin do
     resources :users do
+      collection do
+        post 'email_all'
+      end
       member do
         post 'approve'
         post 'disable'
