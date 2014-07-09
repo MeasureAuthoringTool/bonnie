@@ -49,7 +49,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       ( criteria.get('definition') is 'patient_characteristic_payer' )
       unless filter_criteria
         categories[type] ||= new Thorax.Collection
-        categories[type].add criteria unless categories[type].any (c) -> c.get('description') == criteria.get('description')
+        categories[type].add criteria unless categories[type].any (c) -> c.get('description').replace(/,/g , "") == criteria.get('description').replace(/,/g , "")
     _(categories).omit('transfers')
     _(categories).omit('derived')
 
