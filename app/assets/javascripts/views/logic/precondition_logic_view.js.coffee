@@ -19,6 +19,5 @@ class Thorax.Views.PreconditionLogic extends Thorax.Views.BonnieView
     if @precondition.preconditions?.length == 1
       @precondition = @precondition.preconditions[0]
 
-
   translate_conjunction: (conjunction) ->
     @conjunction_map[conjunction]
