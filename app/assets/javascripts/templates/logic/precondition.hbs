@@ -3,7 +3,7 @@
     {{#if comments}}{{#each comments}}<div># {{this}}</div>{{/each}}{{/if}}
     <span class="conjunction {{parentPreconditionKey}} rationale-target">
       {{translate_conjunction parentPrecondition.conjunction_code}}
-      {{#if parentPrecondition.negation}} NOT{{/if}}: 
+      {{#if negation}} NOT{{/if}}: 
       <span class="sr-only sr-highlight-status"></span>
     </span>
     {{#if precondition.preconditions }}
