@@ -14,14 +14,15 @@ gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_pars
 gem 'hqmf2js', :git => 'https://github.com/pophealth/hqmf2js.git', :branch => 'master'
 gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'master'
 gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'master'
+gem 'hquery-patient-api', :git => 'https://github.com/pophealth/patientapi.git', :branch => 'master'
 
-gem 'hquery-patient-api', '1.0.4'
+#gem 'hquery-patient-api', '1.0.4'
 
 # gem 'health-data-standards', :path => '../health-data-standards'
 # gem 'hqmf2js', path: '../hqmf2js'
 # gem 'bonnie_bundler', :path => '../bonnie_bundler'
 # gem 'quality-measure-engine', :path => '../quality-measure-engine'
-# #gem 'hquery-patient-api', :path => '../patientapi'
+# gem 'hquery-patient-api', :path => '../patientapi'
 # gem 'simplexml_parser', :path => '../simplexml_parser'
 
 # needed for HDS
