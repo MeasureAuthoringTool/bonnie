@@ -57,7 +57,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     serialize: (attr) ->
       population = @measure.get('populations').at @model.get('population_index')
       for pc in @measure.populationCriteria() when population.has(pc)
-        if @measure.get('episode_of_care') || (@measure.get('continuous_variable') && (pc == 'OBSERV' || pc == 'MSRPOPL'))
+        if @isNumbers || (@isMultipleObserv && (pc == 'OBSERV' || pc == 'MSRPOPL'))
           # Only parse existing values
           if attr[pc]
             if pc == 'OBSERV'
@@ -69,14 +69,14 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           else attr[pc] = undefined if pc == 'OBSERV' or pc == 'MSRPOPL'
         else
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
-    'blur input': 'triggerMaterialize'
+    'blur input': 'selectPopulations'
     'blur input[name="MSRPOPL"]': 'updateObserv'
     'rendered': 'setObservs'
 
   context: ->
     context = super
     for pc in @measure.populationCriteria()
-      unless @measure.get('episode_of_care') || (@measure.get('continuous_variable') && (pc == 'OBSERV' || pc == 'MSRPOPL'))
+      unless @isNumbers || (@isMultipleObserv && (pc == 'OBSERV' || pc == 'MSRPOPL'))
         context[pc] = (context[pc] == 1)
     context
 
@@ -93,15 +93,19 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     @currentCriteria = []
     # get population criteria from the measure to include OBSERV
     population = @measure.get('populations').at @model.get('population_index')
+    @isNumbers = @measure.get('episode_of_care')
+    @isMultipleObserv = @measure.get('continuous_variable')
+    @isCheckboxes = not @isNumbers and not @isMultipleObserv
     for pc in @measure.populationCriteria() when population.has(pc)
       @currentCriteria.push
         key: pc
         displayName: criteriaMap[pc]
-        isEoC: @measure.get('episode_of_care')
-    unless @model.has('OBSERV_UNIT') or not @measure.get('continuous_variable') then @model.set 'OBSERV_UNIT', ' mins', {silent:true}
+        isEoC: @isNumbers
+    unless @model.has('OBSERV_UNIT') or not @isMultipleObserv then @model.set 'OBSERV_UNIT', ' mins', {silent:true}
+
 
   updateObserv: ->
-    if @measure.get('continuous_variable') and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
+    if @isMultipleObserv and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
       values = @model.get('MSRPOPL')
       if @model.get('OBSERV')
         current = @model.get('OBSERV').length
@@ -125,3 +129,51 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       @model.set 'OBSERV_UNIT', ' mins'
     @updateObserv()
 
+  selectPopulations: (e) ->
+    populationCode = @$(e.target).attr('name')
+    if @isCheckboxes
+      currentValue = @$(e.target).prop('checked')
+      @handleSelect(populationCode, currentValue, currentValue)
+    else if @isNumbers
+      currentValue = @$(e.target).val()
+      increment = currentValue > @model.get(populationCode)
+      console.log "#{increment} = #{currentValue} >= #{@model.get(populationCode)}"
+      @handleSelect(populationCode, currentValue, increment)
+    else if @isMultipleObserv
+      ''
+    @triggerMaterialize()
+
+  handleSelect: (population, value, increment) ->
+    if increment
+      switch population
+        when 'IPP'
+          if @model.has('STRAT') and @model.get('STRAT')
+            @setPopulation('STRAT', value) unless @isNumbers and @model.get('STRAT') >= value
+        when 'DENOM', 'MSRPOPL'
+          @setPopulation('IPP', value) unless @isNumbers and @model.get('IPP') >= value
+          @handleSelect('IPP', value, increment)
+        when 'DENEX', 'DENEXCEP', 'NUMER'
+          @setPopulation('DENOM', value) unless @isNumbers and @model.get('DENOM') >= value
+          @handleSelect('DENOM', value, increment)
+    else
+      switch population
+        when 'STRAT'
+          @setPopulation('IPP', value)
+          @handleSelect('IPP', value, increment)
+        when 'IPP'
+          @setPopulation('DENOM', value)
+          @setPopulation('MSRPOPL', value) if @isMultipleObserv
+          @handleSelect('DENOM', value, increment)
+        when 'DENOM', 'MSRPOPL'
+          @setPopulation('DENEX', value) unless @isNumbers and @model.get('DENEX') < value
+          @setPopulation('DENEXCEP', value) unless @isNumbers and @model.get('DENEXCEP') < value
+          @setPopulation('NUMER', value) unless @isNumbers and @model.get('NUMER') < value
+
+  setPopulation: (population, value) ->
+    if @model.has(population) and @model.get(population)?
+      if @isCheckboxes
+        @$("input[name=\"#{population}\"]").prop('checked', value)
+      else if @isNumbers
+        @$("input[name=\"#{population}\"]").val(value)
+      else if @isMultipleObserv
+        ''
