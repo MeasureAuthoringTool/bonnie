@@ -220,7 +220,8 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
     serialize: (attr) ->
       if dispenseDate = attr.dispense_date
         dispenseDate += " #{attr.dispense_time}" if attr.dispense_time
-        attr.dispense_datetime = moment(dispenseDate, 'L LT').format('X')
+        attr.dispense_datetime = moment.utc(dispenseDate, 'L LT').format('X')
+    rendered: -> @setDefaultDate()
 
   initialize: ->
     @model = new Thorax.Model
@@ -231,13 +232,29 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
     isDisabled = !attributes.dispense_date || !attributes.dispense_time || !attributes.quantity_dispensed_value
     @$('button[data-call-method=addFulfillment]').prop 'disabled', isDisabled
 
+  setDefaultDate: ->
+    # use the latest fulfillment as a template
+    latest_fulfillment = @fulfillments.max((f) -> f.get('dispense_datetime')) if @fulfillments.length
+    # if dosage and frequency are specified then compute a CMD offset (derived from HQMF2JS Patient API Extension)
+    if @criteria.get('dose_value') and @criteria.get('frequency_value')
+      switch @criteria.get('frequency_unit')
+        when 'h' then dosesPerDay = 24 / @criteria.get('frequency_value')
+        when 'd' then dosesPerDay = 1 / @criteria.get('frequency_value')
+      offset = ( latest_fulfillment.get('quantity_dispensed_value') / @criteria.get('dose_value') / dosesPerDay ) * 60 * 60 * 24 * 1000
+    offset ?= 15 * 60 * 1000 # otherwise use a default offset of 15 mins
+    # use the latest date, starting with the start_date
+    date = moment.utc( @criteria.get('start_date') + offset ) if @criteria.has('start_date')
+    if latest_fulfillment?.get('dispense_datetime') * 1000 > @criteria.get('start_date')
+      date = moment.utc( latest_fulfillment.get('dispense_datetime') * 1000 + offset )
+    @$('input[name=dispense_date]').datepicker('setDate', date.format('L')) if date
+    @$('input[name=dispense_date]').datepicker('update')
+    @$('input[name=dispense_time]').timepicker('setTime', date.format('LT')) if date
+
   addFulfillment: (e) ->
     e.preventDefault()
     @serialize()
     @fulfillments.add @model.clone()
     @model.clear()
-    @$('input[name="dispense_date"]').val('')
-    @$('input[name="dispense_date"]').datepicker('update')
     @$('input[name="quantity_dispensed_value"]').val('')
     @triggerMaterialize()
 
