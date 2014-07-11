@@ -25,7 +25,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: f75230c736cbb53208a68889438c12b02af885a5
+  revision: 7cf6ba52a8eb9aa6bb5c87ff4de78a4fdddd2585
   branch: bonnie_master
   specs:
     health-data-standards (3.4.6)
@@ -44,7 +44,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 85c7943db393a70163781ecd7f5bb16bf38e0776
+  revision: 9fc0fe6fc4749a1cb34b3a34581618854bd75fe8
   branch: master
   specs:
     bonnie_bundler (1.0.0)
@@ -145,7 +145,7 @@ GEM
       sprockets (>= 2.0.3)
       tilt
     hike (1.2.3)
-    i18n (0.6.9)
+    i18n (0.6.11)
     jasmine (2.0.2)
       jasmine-core (~> 2.0.0)
       phantomjs
@@ -277,7 +277,7 @@ GEM
     turn (0.9.7)
       ansi
       minitest (~> 4)
-    tzinfo (0.3.39)
+    tzinfo (0.3.40)
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
