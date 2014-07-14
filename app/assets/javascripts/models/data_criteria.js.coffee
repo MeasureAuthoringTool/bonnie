@@ -69,8 +69,8 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   canHaveResult: ->
     criteriaType = @get('definition')
     criteriaType += "_#{@get('status')}" if @get('status')
-    # We must support criteria types with results from before V4.0 of the QDM; they all end with "result" except "laboratory_test"
-    return true if criteriaType.match(/_result$/) || criteriaType == 'laboratory_test'
+    # We must support criteria types with results from before V4.0 of the QDM; they all end with "result" except two
+    return true if criteriaType.match(/_result$/) || criteriaType == 'laboratory_test' || criteriaType == 'physical_exam'
     # This list is based on V4.0 of the QDM: http://www.healthit.gov/sites/default/files/qdm_4_0_final.pdf
     criteriaType in ['diagnostic_study_performed', 'functional_status_performed', 'intervention_performed', 'laboratory_test_performed',
                      'physical_exam_performed', 'procedure_performed', 'risk_category_assessment']
