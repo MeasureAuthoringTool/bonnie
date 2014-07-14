@@ -57,7 +57,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     serialize: (attr) ->
       population = @measure.get('populations').at @model.get('population_index')
       for pc in @measure.populationCriteria() when population.has(pc)
-        if @isNumbers || (@isMultipleObserv && (pc == 'OBSERV' || pc == 'MSRPOPL'))
+        if @isNumbers || (@isMultipleObserv && (pc == 'OBSERV'))
           # Only parse existing values
           if attr[pc]
             if pc == 'OBSERV'
@@ -66,7 +66,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
             else
               attr[pc] = parseFloat(attr[pc])
             # if we're dealing with OBSERV or MSRPOPL, set to undefined for empty value
-          else attr[pc] = undefined if pc == 'OBSERV' or pc == 'MSRPOPL'
+          else attr[pc] = undefined if pc == 'OBSERV'
         else
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
     'blur input': 'selectPopulations'
@@ -76,7 +76,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
   context: ->
     context = super
     for pc in @measure.populationCriteria()
-      unless @isNumbers || (@isMultipleObserv && (pc == 'OBSERV' || pc == 'MSRPOPL'))
+      unless @isNumbers || (@isMultipleObserv && (pc == 'OBSERV'))
         context[pc] = (context[pc] == 1)
     context
 
@@ -103,7 +103,6 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         isEoC: @isNumbers
     unless @model.has('OBSERV_UNIT') or not @isMultipleObserv then @model.set 'OBSERV_UNIT', ' mins', {silent:true}
 
-
   updateObserv: ->
     if @isMultipleObserv and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
       values = @model.get('MSRPOPL')
@@ -121,26 +120,37 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     if @model.get('OBSERV')?.length
         for val, index in @model.get('OBSERV')
           @$("#OBSERV_#{index}").val(val)
+    @toggleUnits()
 
   toggleUnits: (e) ->
-    if @model.get('OBSERV_UNIT') == ' mins'
-      @model.set 'OBSERV_UNIT', '%'
+    if @model.has('OBSERV_UNIT') and @model.get('OBSERV')?.length
+      if @model.get('OBSERV_UNIT') == '%'
+        @$('.btn-observ-unit-perc').removeClass('btn-default').addClass('btn-primary').prop('disabled',true)
+        @$('.btn-observ-unit-mins').addClass('btn-default').removeClass('btn-primary').prop('disabled',false)
+      else
+        @$('.btn-observ-unit-mins').removeClass('btn-default').addClass('btn-primary').prop('disabled',true)
+        @$('.btn-observ-unit-perc').addClass('btn-default').removeClass('btn-primary').prop('disabled',false)
     else
-      @model.set 'OBSERV_UNIT', ' mins'
+      @$('.btn-observ-unit-mins').removeClass('btn-default btn-primary').prop('disabled',true)
+      @$('.btn-observ-unit-perc').removeClass('btn-default btn-primary').prop('disabled',true)
+
+  setPerc: (e) ->
+    @model.set 'OBSERV_UNIT', '%'
+    @updateObserv()
+
+  setMins: (e) ->
+    @model.set 'OBSERV_UNIT', ' mins'
     @updateObserv()
 
   selectPopulations: (e) ->
     populationCode = @$(e.target).attr('name')
-    if @isCheckboxes
+    if @isCheckboxes or not @isNumbers and @isMultipleObserv
       currentValue = @$(e.target).prop('checked')
       @handleSelect(populationCode, currentValue, currentValue)
     else if @isNumbers
       currentValue = @$(e.target).val()
       increment = currentValue > @model.get(populationCode)
-      console.log "#{increment} = #{currentValue} >= #{@model.get(populationCode)}"
       @handleSelect(populationCode, currentValue, increment)
-    else if @isMultipleObserv
-      ''
     @triggerMaterialize()
 
   handleSelect: (population, value, increment) ->
@@ -171,9 +181,10 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
 
   setPopulation: (population, value) ->
     if @model.has(population) and @model.get(population)?
-      if @isCheckboxes
+      if @isCheckboxes or not @isNumbers and @isMultipleObserv
         @$("input[name=\"#{population}\"]").prop('checked', value)
       else if @isNumbers
         @$("input[name=\"#{population}\"]").val(value)
-      else if @isMultipleObserv
-        ''
+    if @isMultipleObserv
+      @serialize()
+      @updateObserv() if @isMultipleObserv and population == 'MSRPOPL'
