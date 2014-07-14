@@ -15,6 +15,11 @@
             {{view "DataCriteriaLogic" reference=this measure=../measure tag="span"}}
           </li>
         {{/each}}
+        {{#if dataCriteria.temporal_references}}
+          {{#each dataCriteria.temporal_references}}
+            <li>{{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}</li>
+          {{/each}}
+        {{/if}}
       </ul>
     {{/if}}
   {{/if}}
