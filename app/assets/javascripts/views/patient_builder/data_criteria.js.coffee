@@ -256,7 +256,6 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
     @serialize()
     @fulfillments.add @model.clone()
     @model.clear()
-    @$('input[name="quantity_dispensed_value"]').val('')
     @triggerMaterialize()
 
 class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
