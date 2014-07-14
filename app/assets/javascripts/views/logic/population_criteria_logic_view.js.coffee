@@ -24,3 +24,9 @@ class Thorax.Views.PopulationCriteriaLogic extends Thorax.Views.BonnieView
 
   translate_aggregator: (code) ->
     @aggregator_map[code]
+
+  # If we have complexity data, and if it exceeds 50 (a reasonable baseline indicating
+  # a complex measure) for this population, we start with the panel unexpanded
+  exceedsComplexityThreshold: ->
+    return false unless complexity = @measure.get('complexity')
+    return !!complexity[@population.code] && complexity[@population.code] > 50
