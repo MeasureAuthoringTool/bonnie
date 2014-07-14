@@ -59,8 +59,8 @@ With the following content (use output from passenger-install-apache2-module):
   <IfModule mod_passenger.c>
     PassengerRoot /usr/local/rvm/gems/ruby-2.0.0-p451/gems/passenger-4.0.37
     PassengerDefaultRuby /usr/local/rvm/gems/ruby-2.0.0-p451/wrappers/ruby
-    PassengerMinInstances 5
-    PassengerMaxPoolSize 5
+    PassengerMinInstances 4
+    PassengerMaxPoolSize 4
     PassengerMaxRequests 1000
     PassengerPreStart http://localhost/
   </IfModule>
