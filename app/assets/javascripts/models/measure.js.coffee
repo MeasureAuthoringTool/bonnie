@@ -25,7 +25,7 @@ class Thorax.Models.Measure extends Thorax.Model
 
   isPopulated: -> @has('data_criteria')
 
-  populationCriteria: -> _.intersection(Thorax.Models.Measure.allPopulationCodes, _(@get('population_criteria')).keys())
+  populationCriteria: -> _.intersection(Thorax.Models.Measure.allPopulationCodes, _(@get('population_criteria')).map (p) -> p.type)
 
   valueSets: ->
     unless @cachedValueSets
