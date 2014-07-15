@@ -19,25 +19,25 @@
     {{/if}}
   {{/if}}
 {{else}}
-  {{#unless hideTitle}}
-    <span class="criteria-title">
+  <span class="criteria-title">
+    {{#unless hideTitle}}
       {{#if dataCriteria.specific_occurrence}}Occurrence {{dataCriteria.specific_occurrence}}: {{/if}}{{#if dataCriteria.variable}}${{/if}}{{dataCriteria.description}}
-      {{#if dataCriteria.value}}
-        {{#ifCond dataCriteria.type '!=' 'characteristic' }}
-          (result{{view "ValueLogic" value=dataCriteria.value measure=../measure tag="span"}})
-        {{/ifCond}}
-      {{/if}}
-      {{#if dataCriteria.field_values}}
-        ({{#each dataCriteria.field_values}}
-          {{key_title}}{{#ifCond type '!=' 'ANYNonNull'}}{{view "ValueLogic" value=this measure=../../measure tag="span"}} {{/ifCond}}
-        {{/each}})
-      {{/if}}
-      {{#if dataCriteria.negation}}
-        (Not Done: {{translate_oid dataCriteria.negation_code_list_id}})
-      {{/if}}
-      <span class="sr-only sr-highlight-status"></span>
-    </span>
-  {{/unless}}
+    {{/unless}}
+    {{#if dataCriteria.value}}
+      {{#ifCond dataCriteria.type '!=' 'characteristic' }}
+        (result{{view "ValueLogic" value=dataCriteria.value measure=../measure tag="span"}})
+      {{/ifCond}}
+    {{/if}}
+    {{#if dataCriteria.field_values}}
+      ({{#each dataCriteria.field_values}}
+        {{key_title}}{{#ifCond type '!=' 'ANYNonNull'}}{{view "ValueLogic" value=this measure=../../measure tag="span"}} {{/ifCond}}
+      {{/each}})
+    {{/if}}
+    {{#if dataCriteria.negation}}
+      (Not Done: {{translate_oid dataCriteria.negation_code_list_id}})
+    {{/if}}
+    <span class="sr-only sr-highlight-status"></span>
+  </span>
   {{#if dataCriteria.temporal_references}}
     {{#ifCond dataCriteria.temporal_references.length '>' 1}}
       <ul class="multi-statement">
