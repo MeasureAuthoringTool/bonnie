@@ -36,15 +36,18 @@ class MeasuresController < ApplicationController
      'type'=>params[:measure_type],
      'episode_of_care'=>params[:calculation_type] == 'episode'
     }
-
     extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
-    if extension && !['.zip', '.xml'].include?(extension)
-        flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure or HQMF XML measure file. Please re-export your measure from the MAT and select the 'eMeasure Package' option, or select the correct HQMF XML file."}
+    if extension && !['.zip', '.xml', '.cql'].include?(extension)
+        flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not APpear to be a Measure Authoring Tool zip export of a measure or HQMF XML measure file. Please re-export your measure from the MAT and select the 'eMeasure Package' option, or select the correct HQMF XML file."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
+    elsif extension == '.cql'
+        flash[:error] = {title: "LOADING CQL", summary: "YUME", body: "NASU"}
+        #redirect_to "#{root_path}##{params[:redirect_route]}"
+        #return
     elsif extension == '.zip'
       if !Measures::MATLoader.mat_export?(params[:measure_file])
-        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file. If the zip file contains HQMF XML, please unzip the file and upload the HQMF XML file instead of the zip file. Otherwise, please re-export your measure from the MAT and select the 'eMeasure Package' option"}
+        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not APpear to be a Measure Authoring Tool zip file. If the zip file contains HQMF XML, please unzip the file and upload the HQMF XML file instead of the zip file. Otherwise, please re-export your measure from the MAT and select the 'eMeasure Package' option"}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
@@ -72,10 +75,11 @@ class MeasuresController < ApplicationController
       if extension == '.xml'
         effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
         measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, true) # overwrite_valuesets=true, cache=false, includeDraft=true
+      elsif extension == '.cql'
+        measure = Measures::SourcesLoader.load_measure_cql(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, true) # overwrite_valuesets=true, cache=false, includeDraft=true
       else
         measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
       end
-
       if (!is_update)
         existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
         if existing.count > 1
