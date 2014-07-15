@@ -5,6 +5,16 @@ Bonnie::Application.routes.draw do
     get "/needs_approval" => "registrations#needs_approval"
   end
 
+  authenticated do
+    root to: 'home#index', as: 'authenticated_root'
+  end
+
+  unauthenticated do
+    root to: 'home#show', as: 'unauthenticated_root'
+  end
+
+  root to: 'home#index'
+
   resources :measures, defaults: { format: :json } do
     collection do
       get 'value_sets'
@@ -45,8 +55,6 @@ Bonnie::Application.routes.draw do
   end
 
   resources :valuesets
-
-  root to: 'home#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
