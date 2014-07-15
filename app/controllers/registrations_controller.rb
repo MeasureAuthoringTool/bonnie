@@ -15,6 +15,15 @@ class RegistrationsController < Devise::RegistrationsController
     "#{(respond_to?(:root_path) ? root_path : "/")}users/sign_in"
   end
 
+  def destroy
+    if current_user.valid_password? params[:user][:current_password]
+      super
+    else
+      flash[:error] = "Incorrect password supplied, account not deleted"
+      redirect_to edit_user_registration_url
+    end
+  end
+
   protected
   
   def configure_permitted_parameters

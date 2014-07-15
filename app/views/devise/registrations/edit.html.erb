@@ -7,6 +7,12 @@
   </div>
   <% end %>
 
+  <% if flash[:error] %>
+    <div class="alert alert-danger">
+      <%= flash[:error] %>
+    </div>
+  <% end %>
+
   <div class="form-group row">
     <div class="col-md-6">
       <div class="input-group input-group-lg required">
@@ -96,6 +102,33 @@
   <a href="/#value_sets/edit" class="btn btn-primary btn-lg" >Edit</a>
   <span class="help-block">Search loaded value sets, correlate codes across value sets via filters, and modify current white/black list value set entries.</span>
 <% end %>
+
+<a href="#" data-toggle="modal" data-target="#deleteAccountDialog">Delete your account</a>
+
+<div class="modal fade" id="deleteAccountDialog" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Delete Your Account</h1>
+      </div>
+      <%= form_for resource, url: registration_path(resource_name), html: { method: :delete } do %>
+        <div class="modal-body">
+          <p>To delete your account, please supply your password and click the delete button. This action cannot be undone.</p>
+          <div class="input-group input-group-lg required">
+            <label for="user_current_password" class="sr-only">current password</label>
+            <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
+            <input class="form-control" name="user[current_password]" placeholder="current password" type="password">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 
 <script>
   $(function() {
