@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bonnie v<%=Bonnie::Version.current()%></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= render 'layouts/shim' %>
+  </head>
+  <body>
+    <div class="landing-masthead">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <h1 class="logo">BONNIE</h1>
+            <p class="tagline">A tool for testing electronic clinical quality measures</p>
+          </div>
+          <div class="login col-md-4">
+            <a href="/users/sign_in" class="btn-login">login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="landing-subhead">
+      <div class="container">
+        <a href="/resource/Bonnie_user_guide.pdf" class="btn btn-default">learn more</a>
+      </div>
+    </div> 
+    <div class="container">
+      <section class="highlights row">
+        <div class="col-md-4">
+          <h2>streamlined and efficient</h2>
+          <i class="fa fa-fighter-jet lg"></i>
+          <p>pre-testing for eCQMs</p>
+        </div>
+        <div class="col-md-4">
+          <h2>developer empowerment</h2>
+          <i class="fa fa-bolt lg"></i>
+          <p>provides specific feedback on the behavior of the CQM logic</p>
+        </div>
+        <div class="col-md-4">
+          <h2>meaningful use support</h2>
+          <i class="fa fa-plus lg"></i>
+          <p>supports the Meaningful Use (MU) Program</p>
+        </div>
+      </section>
+      <section>
+        <p class="lead">Bonnie is a tool designed to support streamlined and efficient pre-testing of electronic clinical quality measures (eCQMs) used in the Meaningful Use (MU) program.</p>
+      </section>
+      <section class="row">
+        <div class="col-md-6 section-heading">
+          <h1 class="section-heading">Current <span class="version-num">Version 1.1</span></h1>
+          <p>The current version, released on July 24, 2014, is focused on supporting new measure formats and logic constructs. The introduction of HQMF R2.1 import allows loading measures represented in the updated version of the HQMF specification. The introduction of MAT SimpleXML measure imports allows the continued testing of measures in Bonnie while the MAT develops support for HQMF R2 export. Finally, the support for QDM V4.1 in Bonnie allows testing Clinical Quality Measures that take advantage of the latest QDM constructs and operators.</p>
+        </div>
+        <div class="col-md-6">
+          <h1 class="section-heading">Capabilities<span class="version-num"> v1.1</span></h1>
+          <ul class="list-cap">
+            <li>Health Quality Measures Format (HQMF) release 2.1 measure import</li>
+            <li>Measure Authoring Tool (MAT) SimpleXML measure import</li>
+            <li>Support for QDM V4.1 constructs including:
+              <ul>
+                <li>Variable assignments</li>
+                <li> Inline comments</li>
+                <li>Satisfies Any / Satisfies All operators</li>
+                <li>New temporal operators</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <div class="container">
+        <p>BONNIE is sponsored by the <a href="http://cms.hhs.gov/">Centers for Medicare & Medicaid Services (CMS)</a> and <a href="http://healthit.gov">Office of the National Coordinator for Health Information Technology (ONC)</a> and has been developed by <a href="http://www.mitre.org">The MITRE Corporation</a></p>
+      </div>
+    </footer>
+  </body>
+</html>

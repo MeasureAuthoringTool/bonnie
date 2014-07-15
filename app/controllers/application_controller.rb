@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def after_sign_out_path_for(resource)
+    "#{(respond_to?(:root_path) ? root_path : "/")}users/sign_in"
+  end
+
   protected
     def log_additional_data
       request.env["exception_notifier.exception_data"] = {
