@@ -13,6 +13,8 @@ Bonnie::Application.routes.draw do
     root to: 'home#show', as: 'unauthenticated_root'
   end
 
+  root to: 'home#index'
+
   resources :measures, defaults: { format: :json } do
     collection do
       get 'value_sets'
