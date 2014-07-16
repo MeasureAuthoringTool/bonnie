@@ -69,9 +69,9 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           else attr[pc] = undefined if pc == 'OBSERV'
         else
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
-    'blur input': 'selectPopulations'
-    'blur input[name="MSRPOPL"]': 'updateObserv'
-    'rendered': 'setObservs'
+    'change input': 'selectPopulations'
+    'change input[name="MSRPOPL"]': 'updateObserv'
+    'rendered': -> 'setObservs'
 
   context: ->
     context = super
@@ -121,6 +121,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         for val, index in @model.get('OBSERV')
           @$("#OBSERV_#{index}").val(val)
     @toggleUnits()
+    $("a[href=\"#expected-#{@model.get('population_index')}\"]").parent().addClass('active') # reset the active tab for CV measures
 
   toggleUnits: (e) ->
     if @model.has('OBSERV_UNIT') and @model.get('OBSERV')?.length
@@ -143,27 +144,27 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     @updateObserv()
 
   selectPopulations: (e) ->
+    @attrs ?= @model.attributes
     populationCode = @$(e.target).attr('name')
     if @isCheckboxes or not @isNumbers and @isMultipleObserv
       currentValue = @$(e.target).prop('checked')
       @handleSelect(populationCode, currentValue, currentValue)
     else if @isNumbers
       currentValue = @$(e.target).val()
-      increment = currentValue > @model.get(populationCode)
+      increment = currentValue > @attrs[populationCode]
       @handleSelect(populationCode, currentValue, increment)
-    @triggerMaterialize()
+    @attrs = @serialize(set: false)
 
   handleSelect: (population, value, increment) ->
     if increment
       switch population
         when 'IPP'
-          if @model.has('STRAT') and @model.get('STRAT')
-            @setPopulation('STRAT', value) unless @isNumbers and @model.get('STRAT') >= value
+          @setPopulation('STRAT', value) unless @isNumbers and @attrs['STRAT'] >= value
         when 'DENOM', 'MSRPOPL'
-          @setPopulation('IPP', value) unless @isNumbers and @model.get('IPP') >= value
+          @setPopulation('IPP', value) unless @isNumbers and @attrs['IPP'] >= value
           @handleSelect('IPP', value, increment)
         when 'DENEX', 'DENEXCEP', 'NUMER'
-          @setPopulation('DENOM', value) unless @isNumbers and @model.get('DENOM') >= value
+          @setPopulation('DENOM', value) unless @isNumbers and @attrs['DENOM'] >= value
           @handleSelect('DENOM', value, increment)
     else
       switch population
@@ -175,9 +176,9 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           @setPopulation('MSRPOPL', value) if @isMultipleObserv
           @handleSelect('DENOM', value, increment)
         when 'DENOM', 'MSRPOPL'
-          @setPopulation('DENEX', value) unless @isNumbers and @model.get('DENEX') < value
-          @setPopulation('DENEXCEP', value) unless @isNumbers and @model.get('DENEXCEP') < value
-          @setPopulation('NUMER', value) unless @isNumbers and @model.get('NUMER') < value
+          @setPopulation('DENEX', value) unless @isNumbers and @attrs['DENEX'] < value
+          @setPopulation('DENEXCEP', value) unless @isNumbers and @attrs['DENEXCEP'] < value
+          @setPopulation('NUMER', value) unless @isNumbers and @attrs['NUMER'] < value
 
   setPopulation: (population, value) ->
     if @model.has(population) and @model.get(population)?
