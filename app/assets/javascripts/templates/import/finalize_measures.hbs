@@ -17,6 +17,7 @@
             <h4>{{title}}</h4>
             <input type="hidden" name="{{@cid}}[hqmf_id]" value="{{hqmf_id}}">
             {{#if episode_of_care}}
+              <div class="alert alert-info">Please select which episode of care to use for this measure.</div>
               <div class="form-group">
                 <label for="episodeSelect_{{@cid}}" class="col-lg-3 control-label">Episode(s) of Care:</label>
                 <div class="col-lg-9">
@@ -29,10 +30,12 @@
                       {{/with}}
                     {{/each}}
                   </select>
+                  <span class="">Ctrl+click to select multiple</span>
                 </div>
               </div>
             {{/if}}
             {{#ifCond populations.models.length '>' 1}}
+              <div class="alert alert-info">Please update the titles for the populations or stratifications.</div>
               <div class="form-group">
                 <label for="populationTitles" class="col-lg-3 control-label">Titles:</label>
                 <div id="populationTitles" class="col-lg-9">
@@ -46,7 +49,7 @@
                            {{sub_id}}:
                         </label>
                         <div class="col-lg-7">
-                          <input type="text" id="title{{@index}}_{{@cid}}" name="{{@cid}}[titles[{{@index}}]]" class="form-control" >
+                          <input type="text" id="title{{@index}}_{{@cid}}" name="{{@cid}}[titles[{{@index}}]]" class="form-control" value="{{title}}">
                         </div>
                       </div>
                     {{/with}}
