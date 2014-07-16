@@ -159,6 +159,16 @@ class MeasuresController < ApplicationController
       end
     else
       measure.needs_finalize = (measure_details['episode_of_care'] || measure.populations.size > 1)
+      if measure.populations.size > 1
+        strat_index = 1
+        measure.populations.each do |population| 
+          if (population[HQMF::PopulationCriteria::STRAT])
+            population['title'] = "Stratification #{strat_index}"
+            strat_index += 1
+          end
+        end
+      end
+
     end
 
 
