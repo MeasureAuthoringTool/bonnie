@@ -42,9 +42,6 @@ class MeasuresController < ApplicationController
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
     elsif extension == '.cql'
-        flash[:error] = {title: "LOADING CQL", summary: "YUME", body: "NASU"}
-        #redirect_to "#{root_path}##{params[:redirect_route]}"
-        #return
     elsif extension == '.zip'
       if !Measures::MATLoader.mat_export?(params[:measure_file])
         flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not APpear to be a Measure Authoring Tool zip file. If the zip file contains HQMF XML, please unzip the file and upload the HQMF XML file instead of the zip file. Otherwise, please re-export your measure from the MAT and select the 'eMeasure Package' option"}

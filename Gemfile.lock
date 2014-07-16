@@ -43,18 +43,16 @@ GIT
       uuid (~> 2.3.7)
 
 GIT
-  remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 9fc0fe6fc4749a1cb34b3a34581618854bd75fe8
-  branch: master
-  specs:
-    bonnie_bundler (1.0.0)
-
-GIT
   remote: https://github.com/projecttacoma/simplexml_parser.git
   revision: d87562f6cf9eafc35436be9550df00ca942d580b
   branch: master
   specs:
     simplexml_parser (1.0.0)
+
+PATH
+  remote: ../bonnie_bundler
+  specs:
+    bonnie_bundler (1.0.0)
 
 GEM
   remote: https://rubygems.org/
