@@ -56,8 +56,8 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
   events:
     serialize: (attr) ->
       population = @measure.get('populations').at @model.get('population_index')
-      for pc in @measure.populationCriteria() when population.has(pc)
-        if @measure.get('episode_of_care') || (@measure.get('continuous_variable') && (pc == 'OBSERV' || pc == 'MSRPOPL'))
+      for pc in @measure.populationCriteria() when population.has(pc) and _(attr).size()
+        if @measure.get('episode_of_care') || (@measure.get('continuous_variable') && pc == 'OBSERV')
           # Only parse existing values
           if attr[pc]
             if pc == 'OBSERV'
@@ -69,19 +69,30 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           else attr[pc] = undefined if pc == 'OBSERV' or pc == 'MSRPOPL'
         else
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
-    'blur input': 'triggerMaterialize'
-    'blur input[name="MSRPOPL"]': 'updateObserv'
-    'rendered': 'setObservs'
+    'change input[name="MSRPOPL"]': 'updateObserv'
+    'click .btn-expected-value': ->
+      @popoverVisible = not @popoverVisible
+      if @popoverVisible
+        @$('.popover-title').remove()
+        @populate()
+        @setObservs()
+      else
+        @triggerMaterialize()
+        @parseValues()
+        @render()
+    rendered: -> 
+      @$(".btn-expected-value.ev-#{@model.get('population_index')}").popover(content: @$('.popover-tmpl').text())
+      @setObservs()
 
   context: ->
     context = super
     for pc in @measure.populationCriteria()
-      unless @measure.get('episode_of_care') || (@measure.get('continuous_variable') && (pc == 'OBSERV' || pc == 'MSRPOPL'))
+      unless @measure.get('episode_of_care') || (@measure.get('continuous_variable') && pc == 'OBSERV')
         context[pc] = (context[pc] == 1)
     context
 
   initialize: ->
-    criteriaMap =
+    @criteriaMap =
       IPP:      'IPP'
       STRAT:    'STRAT'
       DENOM:    'DEN'
@@ -90,38 +101,62 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       DENEX:    'EXCL'
       MSRPOPL:  'MSRPOPL'
       OBSERV:   'OBSERV'
+    @popoverVisible ?= false
+    @parseValues()
+
+  parseValues: ->
     @currentCriteria = []
     # get population criteria from the measure to include OBSERV
     population = @measure.get('populations').at @model.get('population_index')
     for pc in @measure.populationCriteria() when population.has(pc)
       @currentCriteria.push
         key: pc
-        displayName: criteriaMap[pc]
+        displayName: @criteriaMap[pc]
         isEoC: @measure.get('episode_of_care')
+        value: @model.get(pc)
     unless @model.has('OBSERV_UNIT') or not @measure.get('continuous_variable') then @model.set 'OBSERV_UNIT', ' mins', {silent:true}
+    if not @measure.get('episode_of_care') then @setValues = _(@currentCriteria).filter( (pc) => pc.value ) else @setValues = @currentCriteria
 
   updateObserv: ->
+    @model.set @serialize() if @popoverVisible
+    focusIndex = 0
     if @measure.get('continuous_variable') and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
       values = @model.get('MSRPOPL')
       if @model.get('OBSERV')
         current = @model.get('OBSERV').length
         if values > current
           @model.set 'OBSERV', @model.get('OBSERV').concat(0 for n in [(current+1)..values])
+          focusIndex = current
         else if values < current
           @model.set 'OBSERV', _(@model.get('OBSERV')).first(values)
       else
         @model.set 'OBSERV', (0 for n in [1..values]) if values
       @setObservs()
+    if @popoverVisible
+      @popoverVisible = not @popoverVisible
+      @triggerMaterialize()
+      @parseValues()
+      @render()
+      # open the popover and re-focus on the correct OBSERV input
+      @$(".btn-expected-value.ev-#{@model.get('population_index')}").click()
+      @$("#OBSERV_#{focusIndex}").focus()
 
   setObservs: ->
     if @model.get('OBSERV')?.length
-        for val, index in @model.get('OBSERV')
-          @$("#OBSERV_#{index}").val(val)
-
-  toggleUnits: (e) ->
-    if @model.get('OBSERV_UNIT') == ' mins'
-      @model.set 'OBSERV_UNIT', '%'
+      for val, index in @model.get('OBSERV')
+        @$("#OBSERV_#{index}").val(val)
+    if @model.get('OBSERV_UNIT') == '%'
+      @$('.btn-observ-unit-perc').removeClass('btn-default').addClass('btn-primary').prop('disabled',true)
+      @$('.btn-observ-unit-mins').addClass('btn-default').removeClass('btn-primary').prop('disabled',false)
     else
-      @model.set 'OBSERV_UNIT', ' mins'
+      @$('.btn-observ-unit-mins').removeClass('btn-default').addClass('btn-primary').prop('disabled',true)
+      @$('.btn-observ-unit-perc').addClass('btn-default').removeClass('btn-primary').prop('disabled',false)
+
+  setPerc: (e) ->
+    @model.set 'OBSERV_UNIT', '%'
+    @updateObserv()
+
+  setMins: (e) ->
+    @model.set 'OBSERV_UNIT', ' mins'
     @updateObserv()
 

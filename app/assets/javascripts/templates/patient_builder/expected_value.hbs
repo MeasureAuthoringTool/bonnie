@@ -1,31 +1,69 @@
 <h3>Expected Value</h3>
-<div class="form-inline tab-pane">
-  {{#each currentCriteria}}
-    {{#ifCond key "==" "OBSERV"}}
-      <div class="form-group">
-        <label for="{{key}}_{{@cid}}">{{displayName}}</label>
-        {{#button "toggleUnits" class="btn btn-xs btn-default"}}{{../../../OBSERV_UNIT}}{{/button}}
-        {{#each ../../OBSERV}}
-          <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}">
-        {{/each}}
-      </div>
-    {{else}}
-      {{#if isEoC}}
-        <div class="form-group">
-          <label for="{{key}}_{{@cid}}">{{displayName}}</label>
-          <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0">
-        </div>
-      {{else}}
-        {{#ifCond key "==" "MSRPOPL"}}
-          <div class="form-group">
-            <label for="{{key}}_{{@cid}}">{{displayName}}</label>
-            <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0">
-          </div>
+<script type="text/x-handlebars" class="popover-tmpl">
+  <div class="form-inline tab-pane">
+    <ul class="list-group">
+    {{#each currentCriteria}}
+        {{#ifCond key "==" "OBSERV"}}
+          <li class="list-group-item">
+            <div class="form-group">
+              <h5>
+                {{displayName}}
+                <div class="btn-group">
+                  {{#button "setPerc" class="btn btn-xs btn-observ-unit-perc"}} % {{/button}}
+                  {{#button "setMins" class="btn btn-xs btn-observ-unit-mins"}} mins {{/button}}
+                </div>
+              </h5>
+            </div>
+          </li>
+          {{#each ../../OBSERV}}
+            <li class="list-group-item">
+              <div class="form-group">
+                <label for="{{../key}}_{{@index}}">
+                  <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}"> {{../displayName}}_{{@index}}
+                </label>
+              </div>
+            </li>
+          {{/each}}
         {{else}}
-          <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
-          <input type="checkbox" id="{{key}}_{{@cid}}" name="{{key}}">
+          <li class="list-group-item">
+          {{#if isEoC}}
+            <div class="form-group">
+              <label for="{{key}}_{{@cid}}">
+                <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0"> {{displayName}}
+              </label>
+            </div>
+          {{else}}
+            <div class="checkbox">
+              <label for="{{key}}_{{@cid}}" class="control-label">
+                <input type="checkbox" id="{{key}}_{{@cid}}" name="{{key}}" class="expected-value-checkbox"> {{displayName}}
+              </label>
+            </div>
+          {{/if}}
+          </li>
         {{/ifCond}}
-      {{/if}}
-    {{/ifCond}}
-  {{/each}}
+    {{/each}}
+    </ul>
 </div>
+</script>
+<div class="tab-pane">
+  <span class="span-expected-values">
+    {{#each setValues}}
+      {{#ifCond key "==" "OBSERV"}}
+        {{#if value}}
+          <strong>{{displayName}}</strong>: {{value}}{{../../../OBSERV_UNIT}}
+        {{/if}}
+      {{else}}
+        {{#if isEoC}}
+          <Strong>{{displayName}}</strong>: {{value}}
+        {{else}}
+          {{#if value}}
+            <Strong>{{displayName}}</strong>
+          {{/if}}
+        {{/if}}
+      {{/ifCond}}
+    {{else}}
+      None
+    {{/each}}
+  </span>
+</div>
+<button type="button" class="btn-xs btn-default btn-expected-value ev-{{population_index}}" data-toggle="popover" data-placement="bottom" data-html="true"><i class="fa fa-pencil"></i></button>
