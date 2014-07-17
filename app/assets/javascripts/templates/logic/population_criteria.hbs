@@ -18,12 +18,15 @@
   </div>
   <div id="collapse{{cid}}" class="panel-collapse collapse{{#unless exceedsComplexityThreshold}} in{{/unless}}">
     <div class="panel-body">
-    {{#if population.comments}}{{#each population.comments}}<div># {{this}}</div>{{/each}}{{/if}}
+    {{#if deferRender}}
+      <img src="/assets/loading.gif"></img>
+    {{else}}
+      {{#if population.comments}}{{#each population.comments}}<div># {{this}}</div>{{/each}}{{/if}}
       {{#if rootPreconditon}}
         {{#if rootPreconditon.preconditions }}
-         {{#each rootPreconditon.preconditions}}
-          {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPreconditon measure=../measure}}
-        {{/each}}
+          {{#each rootPreconditon.preconditions}}
+            {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPreconditon measure=../measure}}
+          {{/each}}
         {{else}}
           <ul>
             <li>
@@ -34,6 +37,7 @@
       {{else}}
         None
       {{/if}}
+    {{/if}}
     </div>
   </div>
 </div>
