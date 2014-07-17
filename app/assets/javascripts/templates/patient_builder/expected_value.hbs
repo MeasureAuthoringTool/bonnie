@@ -3,8 +3,11 @@
   {{#each currentCriteria}}
     {{#ifCond key "==" "OBSERV"}}
       <div class="form-group">
-        <label for="{{key}}_{{@cid}}">{{displayName}}</label>
-        {{#button "toggleUnits" class="btn btn-xs btn-default"}}{{../../../OBSERV_UNIT}}{{/button}}
+        <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
+        <div class="btn-group">
+          {{#button "setPerc" class="btn btn-xs btn-observ-unit-perc"}} % {{/button}}
+          {{#button "setMins" class="btn btn-xs btn-observ-unit-mins"}} mins {{/button}}
+        </div>
         {{#each ../../OBSERV}}
           <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}">
         {{/each}}
@@ -16,15 +19,8 @@
           <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0">
         </div>
       {{else}}
-        {{#ifCond key "==" "MSRPOPL"}}
-          <div class="form-group">
-            <label for="{{key}}_{{@cid}}">{{displayName}}</label>
-            <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0">
-          </div>
-        {{else}}
-          <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
-          <input type="checkbox" id="{{key}}_{{@cid}}" name="{{key}}">
-        {{/ifCond}}
+        <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
+        <input type="checkbox" id="{{key}}_{{@cid}}" name="{{key}}">
       {{/if}}
     {{/ifCond}}
   {{/each}}

@@ -17,7 +17,11 @@
         {{/each}}
         {{#if dataCriteria.temporal_references}}
           {{#each dataCriteria.temporal_references}}
-            <li>{{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}</li>
+            <li>
+              <span class="{{../dataCriteria.key}} rationale-target">
+                {{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}
+              </span>
+            </li>
           {{/each}}
         {{/if}}
       </ul>
