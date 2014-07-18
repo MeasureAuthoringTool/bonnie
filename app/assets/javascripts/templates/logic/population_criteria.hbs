@@ -5,21 +5,28 @@
         <div>
           <span class="population-label {{population.type}} rationale-target"><b>{{translate_population population.type}}: </b><span class="sr-only sr-highlight-status"></span></span>
           <div class="pull-right">
-            <i class="fa fa-lg fa-angle-down toggle-icon" aria-hidden="true"></i>
+            {{#if exceedsComplexityThreshold}}
+              <i class="fa fa-lg fa-angle-right toggle-icon" aria-hidden="true"></i>
+            {{else}}
+              <i class="fa fa-lg fa-angle-down toggle-icon" aria-hidden="true"></i>
+            {{/if}}
             <span class="sr-only">toggle {{translate_population population.type}}</span>
           </div>
         </div>
       </a>
     </h4>
   </div>
-  <div id="collapse{{cid}}" class="panel-collapse collapse in">
+  <div id="collapse{{cid}}" class="panel-collapse collapse{{#unless exceedsComplexityThreshold}} in{{/unless}}">
     <div class="panel-body">
-    {{#if population.comments}}{{#each population.comments}}<div># {{this}}</div>{{/each}}{{/if}}
+    {{#if deferRender}}
+      <img src="/assets/loading.gif"></img>
+    {{else}}
+      {{#if population.comments}}{{#each population.comments}}<div># {{this}}</div>{{/each}}{{/if}}
       {{#if rootPreconditon}}
         {{#if rootPreconditon.preconditions }}
-         {{#each rootPreconditon.preconditions}}
-          {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPreconditon measure=../measure}}
-        {{/each}}
+          {{#each rootPreconditon.preconditions}}
+            {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPreconditon measure=../measure}}
+          {{/each}}
         {{else}}
           <ul>
             <li>
@@ -30,6 +37,7 @@
       {{else}}
         None
       {{/if}}
+    {{/if}}
     </div>
   </div>
 </div>

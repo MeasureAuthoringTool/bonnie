@@ -46,8 +46,6 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
           @showRationaleForPopulation(code, rationale, updatedRationale)
       @showRationaleForPopulation('variables', rationale, updatedRationale)
 
-    @expandPopulations()
-
   showRationaleForPopulation: (code, rationale, updatedRationale) ->
     for key, value of rationale
       target = @$(".#{code}_children .#{key}")
@@ -107,9 +105,3 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
     if @$('.eval-coverage').length > 0
       @$('.rationale .rationale-target').removeClass('eval-coverage')
       @$('.sr-highlight-status').empty()
-
-  expandPopulations: ->
-    @$('.panel-population > a[data-toggle="collapse"]').removeClass('collapsed')
-    @$('.toggle-icon').removeClass('fa-angle-right').addClass('fa-angle-down')
-    @$('.panel-collapse').removeClass('collapse').addClass('in').css('height','auto')
-
