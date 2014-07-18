@@ -169,11 +169,11 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     else
       switch population
         when 'STRAT'
-          @setPopulation('IPP', value)
+          @setPopulation('IPP', value) unless @isNumbers and @attrs['IPP'] < value
           @handleSelect('IPP', value, increment)
         when 'IPP'
-          @setPopulation('DENOM', value)
-          @setPopulation('MSRPOPL', value) if @isMultipleObserv
+          @setPopulation('DENOM', value) unless @isNumbers and @attrs['DENOM'] < value
+          @setPopulation('MSRPOPL', value) unless @isNumbers and @attrs['MSRPOPL'] < value or not @isMultipleObserv
           @handleSelect('DENOM', value, increment)
         when 'DENOM', 'MSRPOPL'
           @setPopulation('DENEX', value) unless @isNumbers and @attrs['DENEX'] < value
@@ -188,4 +188,5 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         @$("input[name=\"#{population}\"]").val(value)
     if @isMultipleObserv
       @serialize()
+      $("a[href=\"#expected-#{@model.get('population_index')}\"]").parent().addClass('active') # reset the active tab for CV measures
       @updateObserv() if @isMultipleObserv and population == 'MSRPOPL'
