@@ -107,13 +107,16 @@
       background-color: @gray-lighter;
     }
     .tab-content {
+      padding-left: 10px;
       padding-bottom: 10px;
       h2, h3 {
         &:extend(h2);
         margin-top: 0;
         padding-top: 6px;
       }
-
+      .span-expected-values {
+        word-wrap: break-word;
+      }
       .form-inline {
         .form-group {
           padding-right: 10px;
@@ -129,6 +132,16 @@
           }
           .btn-observ-unit-perc, .btn-observ-unit-mins {
             opacity: 1.0;
+          }
+        }
+        .list-group {
+          margin-bottom: 0;
+          .list-group-item {
+            padding: 5px 5px;
+            border: none;
+            .expected-value-checkbox {
+              vertical-align: top;
+            }
           }
         }
       }
