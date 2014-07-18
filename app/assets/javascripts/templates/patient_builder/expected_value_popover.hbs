@@ -1,0 +1,40 @@
+<div class="form-inline">
+  <ul class="list-group">
+    {{#each currentCriteria}}
+      {{#ifCond key "==" "OBSERV"}}
+        <li class="list-group-item">
+          <div class="form-group">
+            <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
+            <div class="btn-group">
+              {{#button "setPerc" class="btn btn-xs btn-observ-unit-perc"}} % {{/button}}
+              {{#button "setMins" class="btn btn-xs btn-observ-unit-mins"}} mins {{/button}}
+            </div>
+          </div>
+        </li>
+        {{#each ../../OBSERV}}
+          <li class="list-group-item">
+            <div class="form-group">
+              <label for="{{../key}}_{{@index}}">
+                <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}">
+              </label>
+            </div>
+          </li>
+        {{/each}}
+      {{else}}
+        <li class="list-group-item">
+          {{#if isEoC}}
+            <div class="form-group">
+              <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0">
+              <label for="{{key}}_{{@cid}}">{{displayName}}</label>
+            </div>
+          {{else}}
+            <div class="checkbox">
+              <input type="checkbox" id="{{key}}_{{@cid}}" name="{{key}}">
+              <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
+            </div>
+          {{/if}}
+        </li>
+      {{/ifCond}}
+    {{/each}}
+  </ul>
+</div>
