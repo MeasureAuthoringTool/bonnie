@@ -83,6 +83,9 @@ class Thorax.Views.PopulationLogic extends Thorax.View
   clearRationale: ->
     @$('.rationale .rationale-target').removeClass('eval-false eval-true eval-bad-specifics')
     @$('.rationale .panel-heading').removeClass('eval-panel-false eval-panel-true eval-panel-bad-specifics')
+    @$('.sr-highlight-status').empty()
+    @$("rect").attr 'class', (index, classNames) ->
+      return classNames.replace('eval-true','').replace('eval-false','').replace('eval-bad-specifics','')
 
   showCoverage: ->
     @clearRationale()
@@ -90,9 +93,22 @@ class Thorax.Views.PopulationLogic extends Thorax.View
       @$(".#{criteria}").addClass('eval-coverage')
       @$("rect[precondition=\"#{criteria}\"]").attr 'class', (index, classNames) ->
         return "#{classNames} coverage"
+      
+    @coverageScreenReaderStatus()
+
+  coverageScreenReaderStatus: ->
+    @$('.rationale .rationale-target').find('.sr-highlight-status').html('(status: not covered)')
+    @$('.eval-coverage').children('.sr-highlight-status').html('(status: covered)')
+    @$('.eval-coverage').children('.criteria-title').children('.sr-highlight-status').html('(status: covered)')
+    @$('.conjunction').children('.sr-highlight-status').empty()
+    @$('.population-label').children('.sr-highlight-status').empty()
 
   clearCoverage: ->
-    @$('.rationale .rationale-target').removeClass('eval-coverage')
+    if @$('.eval-coverage').length > 0
+      @$('.rationale .rationale-target').removeClass('eval-coverage')
+      @$('.sr-highlight-status').empty()
+      @$("rect").attr 'class', (index, classNames) ->
+        return classNames.replace('coverage','')
 
   expandPopulations: ->
     @$('.panel-population > a[data-toggle="collapse"]').removeClass('collapsed')
