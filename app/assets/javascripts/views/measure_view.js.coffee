@@ -137,5 +137,5 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     if @$('.d3-measure-viz').children().length == 0
       d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
       @$('rect').popover()
-      @$('.d3-measure-viz').css('height', ( d3.selectAll('rect').size() + @populationCalculation.model.populationCriteria().length) * 30)
+      @$('.d3-measure-viz > svg').css('height', ( d3.selectAll('rect').size() + @populationCalculation.model.populationCriteria().length) * 30).css('width', 700)
       @logicView.showCoverage()
