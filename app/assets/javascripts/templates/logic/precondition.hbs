@@ -1,6 +1,6 @@
 <ul id="precondition_{{precondition.id}}">
   <li>
-    {{#if comments}}{{#each comments}}<div># {{this}}</div>{{/each}}{{/if}}
+    {{#if comments}}{{#each comments}}<div class="logic-comment"># {{this}}</div>{{/each}}{{/if}}
     <span class="conjunction {{parentPreconditionKey}} rationale-target">
       {{translate_conjunction parentPrecondition.conjunction_code}}
       {{#if negation}} NOT{{/if}}: 

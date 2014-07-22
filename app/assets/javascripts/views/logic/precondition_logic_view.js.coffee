@@ -10,9 +10,10 @@ class Thorax.Views.PreconditionLogic extends Thorax.Views.BonnieView
     @parentPreconditionKey = "precondition_#{@parentPrecondition.id}"
     @negation = @precondition.negation
     @unwrapNegation() if @negation
+    @comments = @precondition.comments
     if @precondition.reference
       dataCriteria = @measure.get('data_criteria')[@precondition.reference]
-      @comments = dataCriteria?.comments
+      @comments = _(@comments || []).union(dataCriteria?.comments || [])
 
   # this gets negation logic display to align with the human readable from the MAT
   unwrapNegation: ->

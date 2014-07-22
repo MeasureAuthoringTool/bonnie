@@ -21,7 +21,7 @@
     {{#if deferRender}}
       <img src="/assets/loading.gif"></img>
     {{else}}
-      {{#if population.comments}}{{#each population.comments}}<div># {{this}}</div>{{/each}}{{/if}}
+      {{#if comments}}{{#each comments}}<div class="logic-comment"># {{this}}</div>{{/each}}{{/if}}
       {{#if rootPreconditon}}
         {{#if rootPreconditon.preconditions }}
           {{#each rootPreconditon.preconditions}}
