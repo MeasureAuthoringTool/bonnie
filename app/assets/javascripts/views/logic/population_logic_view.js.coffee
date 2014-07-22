@@ -94,6 +94,8 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
     @$('.rationale .rationale-target').removeClass('eval-false eval-true eval-bad-specifics')
     @$('.rationale .panel-heading').removeClass('eval-panel-false eval-panel-true eval-panel-bad-specifics')
     @$('.sr-highlight-status').empty()
+    @$("rect").attr 'class', (index, classNames) ->
+      return classNames.replace('eval-true','').replace('eval-false','').replace('eval-bad-specifics','')
 
   showCoverage: ->
     @clearRationale()
@@ -114,3 +116,5 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
     if @$('.eval-coverage').length > 0
       @$('.rationale .rationale-target').removeClass('eval-coverage')
       @$('.sr-highlight-status').empty()
+      @$("rect").attr 'class', (index, classNames) ->
+        return classNames.replace('coverage','')
