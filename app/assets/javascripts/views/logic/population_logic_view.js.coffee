@@ -42,10 +42,24 @@ class Thorax.Views.PopulationLogic extends Thorax.View
       for code in Thorax.Models.Measure.allPopulationCodes
         if rationale[code]?
           for key, value of rationale
-            target = @$(".#{code}_children .#{key}")
-            if (target.length > 0)
-              target.addClass(if updatedRationale[code]?[key] is false then 'eval-bad-specifics' else "eval-#{!!value}")
-              target.closest('.panel-heading').addClass(if updatedRationale[code]?[key] is false then 'eval-panel-bad-specifics' else "eval-panel-#{!!value}")
+            targettext = @$(".#{code}_children .#{key}") #text version of logic
+            targetrect = @$("rect[precondition=#{key}]") #viz version of logic (svg)
+            if (targettext.length > 0)     
+              [targetClass, targetPanelClass, srTitle] = if updatedRationale[code]?[key] is false
+                ['eval-bad-specifics', 'eval-panel-bad-specifics', '(status: bad specifics)']
+              else
+                bool = !!value
+                ["eval-#{bool}", "eval-panel-#{bool}", "(status: #{bool})"]
+
+              targetrect.attr "class", (index, classNames) ->
+                return "#{classNames} #{targetClass}" #add styling to svg without removing all the other classes
+
+              targettext.addClass(targetClass)
+              targettext.closest('.panel-heading').addClass(targetPanelClass)
+              targettext.children('.sr-highlight-status').html(srTitle)
+              # this second line is there to fix an issue with sr-only in Chrome making text in inline elements not display
+              # by having the sr-only span and the DC title wrapped in a criteria-title span, the odd behavior goes away.
+              targettext.children('.criteria-title').children('.sr-highlight-status').html(srTitle)
     @expandPopulations()
 
   highlightPatientData: (dataCriteriaKey, populationCriteriaKey) ->
