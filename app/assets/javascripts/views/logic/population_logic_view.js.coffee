@@ -88,7 +88,8 @@ class Thorax.Views.PopulationLogic extends Thorax.View
     @clearRationale()
     for criteria in @model.coverage().rationaleCriteria
       @$(".#{criteria}").addClass('eval-coverage')
-      @$("rect[precondition=\"#{criteria}\"]").css('stroke','#006cb4').css('fill','#daeaf5') # FIXME: replace with classes, if possible
+      @$("rect[precondition=\"#{criteria}\"]").attr 'class', (index, classNames) ->
+        return "#{classNames} coverage"
 
   clearCoverage: ->
     @$('.rationale .rationale-target').removeClass('eval-coverage')
