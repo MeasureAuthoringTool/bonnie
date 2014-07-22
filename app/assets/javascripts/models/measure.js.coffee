@@ -30,7 +30,9 @@ class Thorax.Models.Measure extends Thorax.Model
   valueSets: ->
     unless @cachedValueSets
       matchingSets = (bonnie.valueSetsByOid[oid] for oid in @get('value_set_oids'))
-      @cachedValueSets = new Thorax.Collection(matchingSets, comparator: (vs) -> vs.get('display_name').toLowerCase())
+      @cachedValueSets = new Thorax.Collection(matchingSets, comparator: (vs) -> 
+        console.log('WARNING: missing value set') if !vs.get('display_name') && console?
+        vs.get('display_name')?.toLowerCase())
     @cachedValueSets
 
   @logicFieldsFor: (criteriaType) ->
