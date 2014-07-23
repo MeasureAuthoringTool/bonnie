@@ -13,6 +13,12 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
   updateSummary: ->
     @totalMeasures = @collection.reduce(((sum, user) -> sum + user.get('measure_count')), 0)
     @totalPatients = @collection.reduce(((sum, user) -> sum + user.get('patient_count')), 0)
+    @activeUsers = new Thorax.Collection(@collection.filter((u) -> u.get('measure_count')))
+    @activeMeasuresCount = @activeUsers.reduce(((sum, user) -> sum + user.get('measure_count')), 0)
+    @activeMeasuresMax = _.max(@activeUsers.pluck('measure_count'))
+    @activePatientsCount = @activeUsers.reduce(((sum, user) -> sum + user.get('measure_count')), 0)
+    @activePatientsMax = _.max(@activeUsers.pluck('patient_count'))
+    @topTenPatientCounts = _((new Thorax.Collection(@collection.models, comparator: (u) -> parseInt(u.get('patient_count')) * -1 )).sort().pluck('patient_count')).first(10)
     @render()
 
   sortUsers: (e) ->
@@ -24,6 +30,10 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
       @emailAllUsersView = new Thorax.Views.EmailAllUsers()
       @emailAllUsersView.appendTo(@$el)
     @emailAllUsersView.display()
+
+  toggleStats: ->
+    @$('.stats-panel').toggleClass('hidden')
+    @$('.btn-toggle-stats').toggleClass('btn-default btn-primary')
 
 class Thorax.Views.User extends Thorax.Views.BonnieView
   template: JST['users/user']
