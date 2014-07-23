@@ -16,7 +16,7 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
     @activeUsers = new Thorax.Collection(@collection.filter((u) -> u.get('measure_count')))
     @activeMeasuresCount = @activeUsers.reduce(((sum, user) -> sum + user.get('measure_count')), 0)
     @activeMeasuresMax = _.max(@activeUsers.pluck('measure_count'))
-    @activePatientsCount = @activeUsers.reduce(((sum, user) -> sum + user.get('measure_count')), 0)
+    @activePatientsCount = @activeUsers.reduce(((sum, user) -> sum + user.get('patient_count')), 0)
     @activePatientsMax = _.max(@activeUsers.pluck('patient_count'))
     @topTenPatientCounts = _((new Thorax.Collection(@collection.models, comparator: (u) -> parseInt(u.get('patient_count')) * -1 )).sort().pluck('patient_count')).first(10)
     @render()
