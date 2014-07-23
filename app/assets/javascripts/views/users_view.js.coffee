@@ -19,7 +19,6 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
     @activePatientsCount = @activeUsers.reduce(((sum, user) -> sum + user.get('patient_count')), 0)
     @activePatientsMax = _.max(@activeUsers.pluck('patient_count'))
     @topTenPatientCounts = _((new Thorax.Collection(@collection.models, comparator: (u) -> parseInt(u.get('patient_count')) * -1 )).sort().pluck('patient_count')).first(10)
-    @render()
 
   sortUsers: (e) ->
     attr = $(e.target).val()
