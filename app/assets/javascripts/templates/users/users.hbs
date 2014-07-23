@@ -1,4 +1,18 @@
+{{#button "toggleStats" class="btn btn-default pull-right btn-toggle-stats"}}<i class="fa fa-bar-chart-o"></i> Stats{{/button}}
+
 <h1><i class="fa fa-users" aria-hidden="true"></i> Users ({{collection.length}})</h1>
+
+<div class="panel panel-default stats-panel hidden">
+  <div class="panel-heading">
+    <h3 class="panel-title">Stats</h3>
+  </div>
+  <div class="panel-body">
+    Total registered users: <strong>{{collection.length}}</strong></br>
+    <strong>{{activeUsers.length}}</strong> users have measures loaded.</br>
+    Those <strong>{{activeUsers.length}}</strong> users have <strong>{{activeMeasuresCount}}</strong> measures loaded; the user with the most measures loaded has <strong>{{activeMeasuresMax}}</strong>.</br>
+    Those <strong>{{activeUsers.length}}</strong> users have created <strong>{{activePatientsCount}}</strong> patients; the user with the most patients has <strong>{{activePatientsMax}}</strong>. The top 10 users have the following patient counts ({{topTenPatientCounts}}).
+  </div>
+</div>
 
 Sort by: <select name="users_sort_list" class="users-sort-list">
   <option value="approved">Approval Status</option>
