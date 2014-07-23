@@ -42,7 +42,6 @@ class BonnieRouter extends Backbone.Router
     @calculator.cancelCalculations()
     @users = new Thorax.Collections.Users()
     usersView = new Thorax.Views.Users(collection: @users)
-    @users.fetch(success: => usersView.render())
     @mainView.setView(usersView)
 
   renderPatientBuilder: (measureHqmfSetId, patientId) ->
