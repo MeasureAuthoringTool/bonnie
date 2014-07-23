@@ -110,8 +110,8 @@
             {{#if episode_of_care}}
               <input type="hidden" name="{{@cid}}[hqmf_id]" value="{{hqmf_id}}">
               <div class="form-group">
-                <label for="episodeSelect_{{@cid}}" class="col-sm-{{titleSize}} control-label">Episode(s) of Care:</label>
-                <div class="col-sm-{{titleSize}}">
+                <label for="episodeSelect_{{@cid}}" class="col-sm-{{titleSize}} control-label">Episode(s) of Care</label>
+                <div class="col-sm-{{dataSize}}">
                   <select multiple="true" class="form-control" id="episodeSelect_{{@cid}}" name="eoc_{{hqmfSetId}}[episode_ids][]">
                     {{#each source_data_criteria.models}}
                       {{#with attributes}}
