@@ -6,20 +6,8 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
     'change .users-sort-list': 'sortUsers'
 
   initialize: ->
-    @totalMeasures = 0
-    @totalPatients = 0
-    @collection.on 'change add reset destroy remove', @updateSummary, this
-
-  updateSummary: ->
-    @totalMeasures = @collection.reduce(((sum, user) -> sum + user.get('measure_count')), 0)
-    @totalPatients = @collection.reduce(((sum, user) -> sum + user.get('patient_count')), 0)
-    @activeUsers = new Thorax.Collection(@collection.filter((u) -> u.get('measure_count')))
-    @activeMeasuresCount = @activeUsers.reduce(((sum, user) -> sum + user.get('measure_count')), 0)
-    @activeMeasuresMax = _.max(@activeUsers.pluck('measure_count'))
-    @activePatientsCount = @activeUsers.reduce(((sum, user) -> sum + user.get('patient_count')), 0)
-    @activePatientsMax = _.max(@activeUsers.pluck('patient_count'))
-    @topTenPatientCounts = _((new Thorax.Collection(@collection.models, comparator: (u) -> parseInt(u.get('patient_count')) * -1 )).sort().pluck('patient_count')).first(10)
-    @render()
+    @userSummaryView = new Thorax.View model: @collection.summary, template: JST['users/user_summary']
+    @tableHeaderView = new Thorax.View model: @collection.summary, template: JST['users/table_header'], tagName: 'thead'
 
   sortUsers: (e) ->
     attr = $(e.target).val()
