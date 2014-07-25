@@ -6,7 +6,9 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
     'change .users-sort-list': 'sortUsers'
 
   initialize: ->
-    @userSummaryView = new Thorax.View model: @collection.summary, template: JST['users/user_summary']
+    @userSummaryView = new Thorax.View model: @collection.summary, template: JST['users/user_summary'], toggleStats: ->
+      @$('.stats-panel').toggleClass('hidden')
+      @$('.btn-toggle-stats').toggleClass('btn-default btn-primary')
     @tableHeaderView = new Thorax.View model: @collection.summary, template: JST['users/table_header'], tagName: 'thead'
 
   sortUsers: (e) ->
@@ -18,10 +20,6 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
       @emailAllUsersView = new Thorax.Views.EmailAllUsers()
       @emailAllUsersView.appendTo(@$el)
     @emailAllUsersView.display()
-
-  toggleStats: ->
-    @$('.stats-panel').toggleClass('hidden')
-    @$('.btn-toggle-stats').toggleClass('btn-default btn-primary')
 
 class Thorax.Views.User extends Thorax.Views.BonnieView
   template: JST['users/user']
