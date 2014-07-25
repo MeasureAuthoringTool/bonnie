@@ -70,8 +70,12 @@ class MeasuresController < ApplicationController
 
     begin
       if extension == '.xml'
-        effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
-        measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, true) # overwrite_valuesets=true, cache=false, includeDraft=true
+        includeDraft = params[:include_draft] == 'true'
+        effectiveDate = nil
+        unless includeDraft
+          effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
+        end
+        measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, includeDraft) # overwrite_valuesets=true, cache=false, includeDraft=true
       else
         measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
       end
@@ -125,7 +129,7 @@ class MeasuresController < ApplicationController
         elsif e.is_a? Measures::HQMFException
           flash[:error] = {title: "Error Loading Measure", summary: "Error loading XML file.", body: "There was an error loading the XML file you selected.  Please verify that the file you are uploading is an HQMF XML or SimpleXML file.  Message: #{e.message}"}
         elsif e.is_a? Measures::VSACException
-          flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password."}
+          flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
         else
           flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Please re-package the measure in the MAT, then re-download the MAT Measure Export.  If the measure has QDM elements without a VSAC Value Set defined the measure will not load."}
         end
