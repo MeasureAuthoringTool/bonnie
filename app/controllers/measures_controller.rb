@@ -70,8 +70,12 @@ class MeasuresController < ApplicationController
 
     begin
       if extension == '.xml'
-        effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
-        measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, true) # overwrite_valuesets=true, cache=false, includeDraft=true
+        includeDraft = params[:include_draft] == 'true'
+        effectiveDate = nil
+        unless includeDraft
+          effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
+        end
+        measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, includeDraft) # overwrite_valuesets=true, cache=false, includeDraft=true
       else
         measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
       end
