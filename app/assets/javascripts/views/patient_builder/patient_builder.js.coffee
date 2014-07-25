@@ -70,6 +70,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
 
     rendered: ->
+      @$('#criteriaElements').affix offset: top:409
+      @$('#populationLogic').affix offset: top:409
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', appendTo: '.patient-builder', zIndex: 10
       # Make criteria list a drop target
       @$('.criteria-container.droppable').droppable greedy: true, accept: '.ui-draggable', drop: _.bind(@drop, this)
