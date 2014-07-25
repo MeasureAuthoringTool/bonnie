@@ -69,6 +69,11 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
 
+    # get the widths needed for affixed elements
+    'affixed.bs.affix #criteriaElements': 'setAffixWidths'
+    'affixed.bs.affix #populationLogic': 'setAffixWidths'
+
+
     rendered: ->
       @$('#criteriaElements').affix offset: top:409
       @$('#populationLogic').affix offset: top:409
@@ -114,6 +119,17 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       birthtime: birthdatetime?.format('LT')
       deathdate: deathdatetime?.format('L')
       deathtime: deathdatetime?.format('LT')
+
+  setAffixWidths: ->
+    @$('#criteriaElements').on 'affixed.bs.affix', 
+      console.log 'affixed left' 
+      elwidth = $('#criteriaElements').parent().innerWidth()
+      $('#criteriaElements').css width: elwidth-15 #to account for offset
+
+    @$('#populationLogic').on 'affixed.bs.affix', 
+      console.log 'affixed right' 
+      elwidth = $('#populationLogic').parent().innerWidth()
+      $('#populationLogic').css width: elwidth
 
   serializeWithChildren: ->
     # Serialize the main view and the child collection views separately because otherwise Thorax wants
