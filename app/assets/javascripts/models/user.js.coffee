@@ -14,6 +14,22 @@ class Thorax.Collections.Users extends Thorax.Collection
 
   initialize: ->
     @setComparator('approved')
+    @summary = new Thorax.Model
+    @on 'change add reset destroy remove', @updateSummary, this
+    @updateSummary()
+
+  updateSummary: ->
+    activeUsers = new Thorax.Collection(@filter((u) -> u.get('measure_count')))
+    @summary.set
+      totalUsers: @length
+      totalMeasures: @reduce(((sum, user) -> sum + user.get('measure_count')), 0)
+      totalPatients: @reduce(((sum, user) -> sum + user.get('patient_count')), 0)
+      activeUsers: activeUsers
+      activeMeasuresCount: activeUsers.reduce(((sum, user) -> sum + user.get('measure_count')), 0)
+      activeMeasuresMax: _.max(activeUsers.pluck('measure_count'))
+      activePatientsCount: activeUsers.reduce(((sum, user) -> sum + user.get('patient_count')), 0)
+      activePatientsMax: _.max(activeUsers.pluck('patient_count'))
+      topTenPatientCounts: _((new Thorax.Collection(@models, comparator: (u) -> parseInt(u.get('patient_count')) * -1 )).sort().pluck('patient_count')).first(10)
 
   setComparator: (key) ->
     @comparator = @comparators[key]

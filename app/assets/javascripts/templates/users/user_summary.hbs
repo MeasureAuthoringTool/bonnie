@@ -1,0 +1,34 @@
+{{#button "toggleStats" class="btn btn-default pull-right btn-toggle-stats"}}<i class="fa fa-bar-chart-o"></i> Stats{{/button}}
+
+<h1><i class="fa fa-users" aria-hidden="true"></i> Users ({{totalUsers}})</h1>
+
+<div class="row stats-panel hidden">
+  <div class="panel panel-primary col-sm-4">
+    <div class="panel-heading">
+      <h4 class="panel-title">Users</h4>
+    </div>
+    <div class="panel-body">
+      <p><strong>{{totalUsers}}</strong> registered users.</p>
+      <p><strong>{{activeUsers.length}}</strong> users have measures loaded.</p>
+    </div>
+  </div>
+  <div class="panel panel-primary col-sm-4">
+    <div class="panel-heading">
+      <h4 class="panel-title">Measures</h4>
+    </div>
+    <div class="panel-body">
+      <p><strong>{{activeMeasuresCount}}</strong> measures loaded by <strong>{{activeUsers.length}}</strong> users.</p>
+      <p>The user with the most measures loaded has <strong>{{activeMeasuresMax}}</strong> measures.</p>
+    </div>
+  </div>
+  <div class="panel panel-primary col-sm-4">
+    <div class="panel-heading">
+      <h4 class="panel-title">Patients</h4>
+    </div>
+    <div class="panel-body">
+      <p><strong>{{activePatientsCount}}</strong> patients created by <strong>{{activeUsers.length}}</strong> users.</p>
+      <p>The user with the most patients has <strong>{{activePatientsMax}}</strong> patients.</p>
+      <p>The top users have the following patient counts: <strong>{{topTenPatientCounts}}</strong>.</p>
+    </div>
+  </div>
+</div>
