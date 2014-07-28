@@ -9,6 +9,7 @@ include Devise::TestHelpers
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_measures(@user,Measure.all)
     @measure = Measure.where({"cms_id" => "CMS138v2"}).first
+    @measure_two = Measure.where({"cms_id" => "CMS104v2"}).first
     sign_in @user
   end
 
@@ -135,7 +136,7 @@ include Devise::TestHelpers
   test "export patients" do
     collection_fixtures("records")
     associate_user_with_patients(@user,Record.all)
-    associate_measure_with_patients(@measure,Record.all)
+    associate_measures_with_patients([@measure, @measure_two],Record.all)
     get :export, hqmf_set_id: @measure.hqmf_set_id
     assert_response :success
     response.header['Content-Type'].must_equal 'application/zip'
@@ -147,10 +148,43 @@ include Devise::TestHelpers
     File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
     Zip::ZipFile.open(zip_path) do |zip_file|
       zip_file.glob(File.join('qrda','**.xml')).length.must_equal 4
-      zip_file.glob(File.join('html','**.html')).length.must_equal 4
+      html_files = zip_file.glob(File.join('html', '**.html'))
+      html_files.length.must_equal 4
+      html_files.each do |html_file| # search each HTML file to ensure alternate measure data is not included
+        doc = Nokogiri::HTML(html_file.get_input_stream.read)
+        xpath = "//b[contains(text(), 'SNOMED-CT:')]/i/span[@onmouseover and contains(text(), '417005')]"
+        doc.xpath(xpath).length.must_equal 0
+      end
     end
     File.delete(zip_path)
+    
+  end
+    
+  test "export patients portfolio" do
+    collection_fixtures("records")
+    associate_user_with_patients(@user,Record.all)
+    associate_measures_with_patients([@measure, @measure_two],Record.all)
+    @user.grant_portfolio()
+    get :export, hqmf_set_id: @measure.hqmf_set_id
+    assert_response :success
+    response.header['Content-Type'].must_equal 'application/zip'
+    response.header['Content-Disposition'].must_equal "attachment; filename=\"#{@measure.cms_id}_patient_export.zip\""
+    response.header['Set-Cookie'].must_equal 'fileDownload=true; path=/'
+    response.header['Content-Transfer-Encoding'].must_equal 'binary'
 
+    zip_path = File.join('tmp','test.zip')
+    File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
+    Zip::ZipFile.open(zip_path) do |zip_file|
+      zip_file.glob(File.join('qrda','**.xml')).length.must_equal 4
+      html_files = zip_file.glob(File.join('html', '**.html'))
+      html_files.length.must_equal 4
+      html_files.each do |html_file| # search each HTML file to ensure alternate measure data is not included
+        doc = Nokogiri::HTML(html_file.get_input_stream.read)
+        xpath = "//b[contains(text(), 'SNOMED-CT:')]/i/span[@onmouseover and contains(text(), '417005')]"
+        assert_operator doc.xpath(xpath).length, :>, 0
+      end
+    end
+    File.delete(zip_path)
 
   end
 
