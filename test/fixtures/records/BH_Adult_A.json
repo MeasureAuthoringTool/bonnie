@@ -139,6 +139,34 @@
       },
       "time": null,
       "_type": "Encounter"
+    },
+    {
+      "_id": "53ce64a74d4d32e2cdf50500",
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "SNOMED-CT": [
+          "417005"
+        ]
+      },
+      "description": "Encounter, Performed: Inpatient Encounter",
+      "dischargeDisposition": null,
+      "dischargeTime": 1352422800,
+      "end_time": 1352441700,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "reason": null,
+      "specifics": null,
+      "start_time": 1352268000,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
     }
   ],
   "ethnicity": {
