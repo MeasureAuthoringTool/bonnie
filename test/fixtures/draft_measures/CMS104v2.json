@@ -10,7 +10,6 @@
         "NUMER": 1
     },
     "continuous_variable": false,
-    "created_at": "2014-07-22T13:13:24.175Z",
     "custom_functions": null,
     "data_criteria": {
         "DiagnosisActiveHemorrhagicStroke_precondition_68": {
@@ -891,8 +890,8 @@
     ],
     "episode_of_care": true,
     "force_sources": null,
-    "hqmf_id": "40280381-3D27-5493-013D-4DCA4B826AE4",
-    "hqmf_set_id": "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+    "hqmf_id": "40280381-3D27-TEST-013D-4DCA4B826AE4",
+    "hqmf_set_id": "42BF391F-38A3-TEST-9ECE-DCD47E9609D9",
     "hqmf_version_number": 2,
     "id": "53ce63744d4d32e2cd4b0500",
     "map_fns": [
@@ -1321,7 +1320,7 @@
     "population_criteria": {
         "DENEX": {
             "conjunction?": true,
-            "hqmf_id": "725DFAF3-18A8-4667-BE34-2E1A9D32DB34",
+            "hqmf_id": "725DFAF3-18A8-TEST-BE34-2E1A9D32DB34",
             "preconditions": [
                 {
                     "conjunction_code": "allTrue",
