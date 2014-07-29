@@ -318,9 +318,11 @@
     overflow: auto;
     height: 100%;
     &#criteriaElements {
-      padding-right: 0px;
+      width: 2/@grid-columns * @container-md + @grid-gutter-width/2;
     }
     &#populationLogic {
+      width: 4/@grid-columns * (@container-md + @grid-gutter-width*4);
+
     }
   }
 
@@ -333,27 +335,4 @@
 }
 .selectBoxIt-native {
   height: @input-height-base !important;
-}
-
-#criteriaElements.affix {
-  // width: inherit; //add an explicity defined width
-  width: 157px;
-  position: fixed !important;
-  top: 10px;
-  left: inherit;
-}
-
-#criteriaElements.affix-top {
-  position: static;
-}
-
-#populationLogic.affix {
-  width: 361px;
-  position: fixed !important;
-  top: 10px;
-  left: inherit;
-}
-
-#populationLogic.affix-top {
-  position: static;
 }
