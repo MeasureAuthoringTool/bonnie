@@ -75,6 +75,8 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BonnieView
     if not @isNumbers then @parsedValues = _(@parsedValues).filter( (pc) => pc.value )
     # console.log @model.attributes
 
+  # FIXME: this is required to serialize popovers that are left open during Save
+  serialize: (attr) ->
   # serialize: ->
     # childView.serialize() for cid, childView of @expectedValueCollectionView.children
     # if @popoverVisible then @$('.btn-expected-value').click()
@@ -107,6 +109,8 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BonnieView
       @$('.btn-expected-value').popover('show')
       @$('.popover > .arrow').css('left', '25%') # hack for fixing the arrow after rendering form
       @popover.appendTo(@$('.popover-content'))
+      @popover.toggleUnits()
+      @popover.setObservs()
 
 class Thorax.Views.ExpectedValuePopoverView extends Thorax.Views.BuilderChildView
 
@@ -140,7 +144,7 @@ class Thorax.Views.ExpectedValuePopoverView extends Thorax.Views.BuilderChildVie
 
   context: ->
     context = super
-    console.log context
+    # console.log context
     for pc in @measure.populationCriteria()
       unless @isNumbers || (@isMultipleObserv && (pc == 'OBSERV'))
         context[pc] = (context[pc] == 1)
@@ -159,7 +163,7 @@ class Thorax.Views.ExpectedValuePopoverView extends Thorax.Views.BuilderChildVie
         displayName: pc
         isEoC: @isNumbers
     unless @model.has('OBSERV_UNIT') or not @isMultipleObserv then @model.set 'OBSERV_UNIT', ' mins', {silent:true}
-    console.log @model
+    # console.log @model
 
   updateObserv: ->
     if @isMultipleObserv and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
