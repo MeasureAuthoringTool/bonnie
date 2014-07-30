@@ -88,8 +88,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
           return distance } # set affix to activate at a certain distance down the page
         .on 'affix.bs.affix', ->    
           $(@).each -> 
-            w = $(@).width() #get current width
-            $(@).css width: w #assign that width via css
+            $(@).css width: $(@).width() #assign current width via css for fixed element
         .on 'affixed-top.bs.affix', ->
           $(@).each ->
             $(@).css width:'' #revert to default css  
