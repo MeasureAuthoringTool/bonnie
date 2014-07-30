@@ -235,6 +235,21 @@ namespace :bonnie do
         measure.generate_js
       end
     end
+
+    desc 'Clear generated measure cache for a user'
+    task :clear_js => :environment do
+      puts "Clearing measure JavaScript"
+      Measure.each do |measure|
+        puts "\tClearing JavaScript for '#{measure.title}'"
+        measure.clear_cached_js
+      end
+    end
+
+    desc 'Reset measure JavaScript -- clears existing cache and regenerates JavaScript and cache in the DB'
+    task :reset_js => :environment do
+      Rake::Task['bonnie:measures:clear_js'].invoke
+      Rake::Task['bonnie:measures:pregenerate_js'].invoke
+    end
   end
 
   namespace :patients do
