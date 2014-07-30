@@ -17,7 +17,7 @@ class Thorax.Models.Result extends Thorax.Model
 
   differenceFromExpected: ->
     expected = @patient.getExpectedValue @population
-    new Thorax.Models.Differnece({}, result: this, expected: expected)
+    new Thorax.Models.Difference({}, result: this, expected: expected)
 
   specificsRationale: ->
     updatedRationale = {}
