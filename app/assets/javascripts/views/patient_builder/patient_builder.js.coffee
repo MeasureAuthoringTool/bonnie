@@ -80,18 +80,20 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.indicator-patient-builder').addClass('active')
 
-      # affix with a top offset based on the heights of all the previous rows. however this constantly fires (making it rather responsive!)
-      @$('#criteriaElements').affix offset: { top: -> 
-        height = $('.navbar.row:eq(0)').height() + $('.navbar.row:eq(1)').height() + $('#bonnie > .patient-builder > .row:eq(0)').height() + $('#bonnie > .patient-builder > .row:eq(1)').height() + 14
-        console.log height
-        return height }
-
-      @$('#populationLogic').affix offset: { top: -> 
-        height = $('.navbar.row:eq(0)').height() + $('.navbar.row:eq(1)').height() + $('#bonnie > .patient-builder > .row:eq(0)').height() + $('#bonnie > .patient-builder > .row:eq(1)').height() + 14
-        console.log height
-        return height }
-
-      @setAffixWidths()
+      # affix side columns to get desired scrolling behavior
+      cols = @$('#criteriaElements, #populationLogic')
+        .affix offset: { top: -> 
+          distance = parseInt($('.container').css('padding-top')) #start calculating distance from top
+          $('.navbar.row:eq(0), .navbar.row:eq(1), #bonnie>.patient-builder>.row:eq(0),#bonnie>.patient-builder>.row:eq(1)').each ->
+            distance += $(@).height() # add heights of nav bar and upper patient builder section
+          return distance } # set affix to activate at a certain distance down the page
+        .on 'affix.bs.affix', ->    
+          $(@).each -> 
+            w = $(@).width() #get current width
+            $(@).css width: w #assign that width via css
+        .on 'affixed-top.bs.affix', ->
+          $(@).each ->
+            $(@).css width:'' #revert to default css  
 
     serialize: (attr) ->
       birthdate = attr.birthdate if attr.birthdate
@@ -112,19 +114,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       birthtime: birthdatetime?.format('LT')
       deathdate: deathdatetime?.format('L')
       deathtime: deathdatetime?.format('LT')
-
-  setAffixWidths: ->
-    @$('#criteriaElements').on 'affix.bs.affix', ->
-      # get the width of columns before affixing and apply explicity to the affixed fixed-position columns 
-      thiswid = $('#criteriaElements').width()
-      thatwid = $('#populationLogic').width()
-      $('#criteriaElements').css width: thiswid+15 #to account for offset
-      $('#populationLogic').css width: thatwid
-
-    # reset the column widths when not affixed
-    @$('#criteriaElements').on 'affixed-top.bs.affix', ->
-      $('#criteriaElements').css width:''
-      $('#populationLogic').css width:''
 
   serializeWithChildren: ->
     # Serialize the main view and the child collection views separately because otherwise Thorax wants
