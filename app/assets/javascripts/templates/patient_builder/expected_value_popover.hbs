@@ -4,7 +4,7 @@
       {{#ifCond key "==" "OBSERV"}}
         <li class="list-group-item">
           <div class="form-group">
-            <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
+            <label for="{{key}}_{{@cid}}">{{displayName}}</label>
             <div class="btn-group">
               {{#button "setPerc" class="btn btn-xs btn-observ-unit-perc"}} % {{/button}}
               {{#button "setMins" class="btn btn-xs btn-observ-unit-mins"}} mins {{/button}}
@@ -15,7 +15,7 @@
           <li class="list-group-item">
             <div class="form-group">
               <label for="{{../key}}_{{@index}}">
-                <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}">
+                <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}"> {{../displayName}}_{{#math @index "+" 1}}{{/math}}
               </label>
             </div>
           </li>

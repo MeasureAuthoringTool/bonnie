@@ -31,3 +31,16 @@ Handlebars.registerHelper 'ifCond', (v1, operator, v2, options) ->
     when '||'
       if (v1 || v2) then options.fn(this) else options.inverse(this)
     else return options.inverse(this)
+
+# A simple math helper for basic arithmetic operations within templates
+# Useful for rendering indexes starting from 1
+Handlebars.registerHelper 'math', (lvalue, operator, rvalue, options) ->
+  lvalue = parseFloat(lvalue)
+  rvalue = parseFloat(rvalue)
+  return {
+    '+' : lvalue + rvalue,
+    '-' : lvalue - rvalue,
+    '*' : lvalue * rvalue,
+    '/' : lvalue / rvalue,
+    '%' : lvalue % rvalue
+  }[operator]
