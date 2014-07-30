@@ -84,6 +84,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.indicator-patient-builder').addClass('active')
+
       # affix side columns to get desired scrolling behavior
       cols = @$('#criteriaElements, #populationLogic')
         .affix offset: { top: -> 
@@ -117,19 +118,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       birthtime: birthdatetime?.format('LT')
       deathdate: deathdatetime?.format('L')
       deathtime: deathdatetime?.format('LT')
-
-  setAffixWidths: ->
-    @$('#criteriaElements').on 'affix.bs.affix', ->
-      # get the width of columns before affixing and apply explicity to the affixed fixed-position columns 
-      thiswid = $('#criteriaElements').width()
-      thatwid = $('#populationLogic').width()
-      $('#criteriaElements').css width: thiswid+15 #to account for offset
-      $('#populationLogic').css width: thatwid
-
-    # reset the column widths when not affixed
-    @$('#criteriaElements').on 'affixed-top.bs.affix', ->
-      $('#criteriaElements').css width:''
-      $('#populationLogic').css width:''
 
   serializeWithChildren: ->
     # Serialize the main view and the child collection views separately because otherwise Thorax wants
