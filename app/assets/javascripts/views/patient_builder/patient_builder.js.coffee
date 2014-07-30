@@ -114,15 +114,17 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       deathtime: deathdatetime?.format('LT')
 
   setAffixWidths: ->
-    @$('#criteriaElements').on 'affixed.bs.affix', 
-      console.log 'affixed left' 
-      elwidth = $('#criteriaElements').parent().innerWidth()
-      $('#criteriaElements').css width: elwidth-15 #to account for offset
+    @$('#criteriaElements').on 'affix.bs.affix', ->
+      # get the width of columns before affixing and apply explicity to the affixed fixed-position columns 
+      thiswid = $('#criteriaElements').width()
+      thatwid = $('#populationLogic').width()
+      $('#criteriaElements').css width: thiswid+15 #to account for offset
+      $('#populationLogic').css width: thatwid
 
-    @$('#populationLogic').on 'affixed.bs.affix', 
-      console.log 'affixed right' 
-      elwidth = $('#populationLogic').parent().innerWidth()
-      $('#populationLogic').css width: elwidth
+    # reset the column widths when not affixed
+    @$('#criteriaElements').on 'affixed-top.bs.affix', ->
+      $('#criteriaElements').css width:''
+      $('#populationLogic').css width:''
 
   serializeWithChildren: ->
     # Serialize the main view and the child collection views separately because otherwise Thorax wants
