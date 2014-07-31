@@ -63,7 +63,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BonnieView
     @isMultipleObserv = @measure.get('continuous_variable')
     @isCheckboxes = not @isNumbers and not @isMultipleObserv
     @parseValues()
-    @model.on 'change', => @parseValues()
+    @model.on 'change', => @parseValues() # parse model changes -- needed for CV render triggers
 
   parseValues: ->
     @parsedValues = []
@@ -75,7 +75,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BonnieView
         value: @model.get(pc)
     if not @isNumbers then @parsedValues = _(@parsedValues).filter( (pc) => pc.value )
 
-  # FIXME: this is required to serialize popovers that are left open during Save
+  # FIXME: this is required to serialize popovers that are left open when saving the patient
   serialize: (attr) ->
 
   togglePopover: (e) ->
@@ -150,21 +150,18 @@ class Thorax.Views.ExpectedValuePopoverView extends Thorax.Views.BuilderChildVie
 
   updateObserv: ->
     popoverVisible = $('.popover').is(':visible')
-    focusIndex = 0
     if @isMultipleObserv and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
       values = @model.get('MSRPOPL')
       if @model.get('OBSERV')
         current = @model.get('OBSERV').length
         if values > current
           @model.set 'OBSERV', @model.get('OBSERV').concat(0 for n in [(current+1)..values])
-          focusIndex = current
         else if values < current
           @model.set 'OBSERV', _(@model.get('OBSERV')).first(values)
       else
         @model.set 'OBSERV', (0 for n in [1..values]) if values
       @setObservs()
-    if popoverVisible
-      @parent.togglePopover('MSRPOPL')
+    @parent.togglePopover('MSRPOPL') if popoverVisible
 
   setObservs: ->
     if @model.get('OBSERV')?.length
