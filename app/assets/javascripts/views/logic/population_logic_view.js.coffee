@@ -44,6 +44,9 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
       for code in Thorax.Models.Measure.allPopulationCodes
         if rationale[code]?
           @showRationaleForPopulation(code, rationale, updatedRationale)
+          # FIXME: Update patient population panel heading styling based on calculation results until rationale is fixed to bubble-up negations!
+          @$(".#{code}_children .#{code}").closest('.panel-heading').removeClass('eval-panel-true eval-panel-false').addClass("eval-panel-#{!!result.get(code)}")
+          @$(".#{code}").removeClass('eval-true eval-false').addClass("eval-#{!!result.get(code)}")
       @showRationaleForPopulation('variables', rationale, updatedRationale)
 
   showRationaleForPopulation: (code, rationale, updatedRationale) ->
