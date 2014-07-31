@@ -258,25 +258,27 @@ describe 'PatientBuilderView', ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
       @selectPopulationEV = (population, save=true) ->
+        @patientBuilder.$(".btn-expected-value:first").click() # open the popover before setting the expected value
         @patientBuilder.$("input[type=checkbox][name=#{population}]:first").click()
+        @patientBuilder.$(".btn-expected-value:first").click() # close the popover before saving the patient
         @patientBuilder.$("button[data-call-method=save]").click() if save
 
     it "serializes the expected values correctly", ->
-      @selectPopulationEV('DENOM')
-      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
-      expect(expectedValues.get('IPP')).toEqual 1
-      expect(expectedValues.get('DENOM')).toEqual 1
-      expect(expectedValues.get('NUMER')).toEqual 0
-
-    it "auto selects IPP when DENOM is selected", ->
       @selectPopulationEV('DENOM', true)
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
       expect(expectedValues.get('IPP')).toEqual 1
       expect(expectedValues.get('DENOM')).toEqual 1
       expect(expectedValues.get('NUMER')).toEqual 0
 
+    it "auto selects IPP when DENOM is selected", ->
+      @selectPopulationEV('DENOM')
+      expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
+      expect(expectedValues.get('IPP')).toEqual 1
+      expect(expectedValues.get('DENOM')).toEqual 1
+      expect(expectedValues.get('NUMER')).toEqual 0
+
     it "auto selects DENOM and IPP when NUMER is selected", ->
-      @selectPopulationEV('NUMER', true)
+      @selectPopulationEV('NUMER')
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
       expect(expectedValues.get('IPP')).toEqual 1
       expect(expectedValues.get('DENOM')).toEqual 1
@@ -284,7 +286,7 @@ describe 'PatientBuilderView', ->
 
     it "auto unselects DENOM when IPP is unselected", ->
       @selectPopulationEV('DENOM', false)
-      @selectPopulationEV('IPP', true)
+      @selectPopulationEV('IPP')
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
       expect(expectedValues.get('IPP')).toEqual 0
       expect(expectedValues.get('DENOM')).toEqual 0
@@ -292,7 +294,7 @@ describe 'PatientBuilderView', ->
 
     it "auto unselects DENOM and NUMER when IPP is unselected", ->
       @selectPopulationEV('NUMER', false)
-      @selectPopulationEV('IPP', true)
+      @selectPopulationEV('IPP')
       expectedValues = @patientBuilder.model.get('expected_values').findWhere(population_index: 0)
       expect(expectedValues.get('IPP')).toEqual 0
       expect(expectedValues.get('DENOM')).toEqual 0
