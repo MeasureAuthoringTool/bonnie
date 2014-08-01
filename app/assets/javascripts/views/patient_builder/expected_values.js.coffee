@@ -100,6 +100,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BonnieView
       @popover.setObservs()
       @popover.$('input[name="MSRPOPL"]').focus() if e == 'MSRPOPL'
       @popover.$(".#{e}").focus() if e == 'btn-observ-unit-mins' or e == 'btn-observ-unit-perc'
+      $("a[href=\"#expected-#{@model.get('population_index')}\"]").parent().addClass('active') # reset active tab
 
 class Thorax.Views.ExpectedValuePopoverView extends Thorax.Views.BuilderChildView
 
