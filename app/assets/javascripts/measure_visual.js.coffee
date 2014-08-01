@@ -39,7 +39,7 @@ Bonnie.viz.measureVisualzation = ->
                 renderPrecondition(populationElement, data[population_code].preconditions[0]) if data[population_code].preconditions?
                 offset+= getElementHeight(populationElement)
 
-    width = 750
+    width = 450
     rowHeight = 15
     margin = 
         top: 10
