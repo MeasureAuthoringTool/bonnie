@@ -9,7 +9,9 @@
   {{else}}
     {{#if dataCriteria.children_criteria}}
       {{#if isSetOp}}
-        <span class="set-op">{{translate_set_operator dataCriteria.derivation_operator}} :</span>
+        {{#unless expandVariable}}
+          <span class="set-op">{{translate_set_operator dataCriteria.derivation_operator}} :</span>
+        {{/unless}}
       {{/if}}
       <ul>
         {{#each dataCriteria.children_criteria}}
