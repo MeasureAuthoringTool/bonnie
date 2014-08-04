@@ -229,18 +229,22 @@ namespace :bonnie do
   namespace :measures do
     desc 'Pre-generate measure JavaScript and cache in the DB'
     task :pregenerate_js => :environment do
-      puts "Pre-generating measure JavaScript"
-      Measure.each do |measure|
-        puts "\tGenerating JavaScript for '#{measure.title}'"
+      user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
+      measures = user ? Measure.by_user(user) : Measure.all
+      puts "Pre-generating measure JavaScript for #{ user ? user.email : 'all users'}"
+      measures.each do |measure|
+        puts "\tGenerating JavaScript [ #{measure.user.email} ] '#{measure.title}'"
         measure.generate_js
       end
     end
 
     desc 'Clear generated measure cache for a user'
     task :clear_js => :environment do
-      puts "Clearing measure JavaScript"
-      Measure.each do |measure|
-        puts "\tClearing JavaScript for '#{measure.title}'"
+      user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
+      measures = user ? Measure.by_user(user) : Measure.all
+      puts "Clearing measure JavaScript for #{ user ? user.email : 'all users'}"
+      measures.each do |measure|
+        puts "\tClearing JavaScript [ #{measure.user.email} ] '#{measure.title}'"
         measure.clear_cached_js
       end
     end
