@@ -1,10 +1,11 @@
 class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
 
   template: JST['logic/data_criteria']
-  operator_map:
+  logic_operator_map:
     'XPRODUCT':'AND'
-    'INTERSECT':'AND'
-    'UNION':'OR'
+  set_operator_map:
+    'INTERSECT':'Intersection of'
+    'UNION':'Union of'
 
   satisfiesDefinitions: Thorax.Models.MeasureDataCriteria.satisfiesDefinitions
   events:
@@ -32,8 +33,11 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
     @isDerived = @dataCriteria.type == 'derived'
     @hasChildren = @isDerived && (!@dataCriteria.variable || @expandVariable)
 
-  translate_operator: (conjunction) =>
-    @operator_map[conjunction]
+  isSetOp: => @dataCriteria.derivation_operator in _(@set_operator_map).keys()
+
+  translate_logic_operator: (conjunction) => @logic_operator_map[conjunction]
+
+  translate_set_operator: (conjunction) => @set_operator_map[conjunction]
 
   translate_field: (field_key) =>
     Thorax.Models.Measure.logicFields[field_key]?['title']
