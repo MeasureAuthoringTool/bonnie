@@ -1,4 +1,6 @@
-<span class="{{dataCriteria.key}} rationale-target{{#ifCond dataCriteria.type '!=' 'derived'}} highlight-target{{/ifCond}}">
+{{#unless expandVariable}}
+  <span class="{{dataCriteria.key}} rationale-target{{#ifCond dataCriteria.type '!=' 'derived'}} highlight-target{{/ifCond}}">
+{{/unless}}
 
 {{#each dataCriteria.subset_operators}}
   {{view "SubsetOperatorLogic" subsetOperator=this tag="span"}}
@@ -68,4 +70,7 @@
     {{/ifCond}}
   {{/if}}
 {{/if}}
-</span>
+
+{{#unless expandVariable}}
+  </span>
+{{/unless}}
