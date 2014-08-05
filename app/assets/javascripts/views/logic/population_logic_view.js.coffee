@@ -62,8 +62,7 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
           bool = !!value
           ["eval-#{bool}", "eval-panel-#{bool}", "(status: #{bool})"]
 
-        targetrect.attr "class", (index, classNames) ->
-          return "#{classNames} #{targetClass}" #add styling to svg without removing all the other classes
+        targetrect.attr "class", (index, classNames) -> "#{classNames} #{targetClass}" #add styling to svg without removing all the other classes
 
         targettext.addClass(targetClass)
         targettext.closest('.panel-heading').addClass(targetPanelClass)
@@ -95,14 +94,13 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
     @$('.rationale .panel-heading').removeClass('eval-panel-false eval-panel-true eval-panel-bad-specifics')
     @$('.sr-highlight-status').empty()
     @$("rect").attr 'class', (index, classNames) ->
-      return classNames.replace('eval-true','').replace('eval-false','').replace('eval-bad-specifics','')
+      classNames.replace('eval-true','').replace('eval-false','').replace('eval-bad-specifics','')
 
   showCoverage: ->
     @clearRationale()
     for criteria in @model.coverage().rationaleCriteria
       @$(".#{criteria}").addClass('eval-coverage')
-      @$("rect[precondition=\"#{criteria}\"]").attr 'class', (index, classNames) ->
-        return "#{classNames} coverage"
+      @$("rect[precondition=\"#{criteria}\"]").attr 'class', (index, classNames) -> "#{classNames} coverage"
     @coverageScreenReaderStatus()
 
   coverageScreenReaderStatus: ->
@@ -116,5 +114,4 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
     if @$('.eval-coverage').length > 0
       @$('.rationale .rationale-target').removeClass('eval-coverage')
       @$('.sr-highlight-status').empty()
-      @$("rect").attr 'class', (index, classNames) ->
-        return classNames.replace('coverage','')
+      @$("rect").attr 'class', (index, classNames) -> classNames.replace('coverage','')

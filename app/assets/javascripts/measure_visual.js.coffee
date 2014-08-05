@@ -39,7 +39,7 @@ Bonnie.viz.measureVisualzation = ->
                 renderPrecondition(populationElement, data[population_code].preconditions[0]) if data[population_code].preconditions?
                 offset+= getElementHeight(populationElement)
 
-    width = 450
+    width = 350
     rowHeight = 15
     margin = 
         top: 10
@@ -134,10 +134,10 @@ Bonnie.viz.measureVisualzation = ->
         container.append("rect")
             .attr("width", elWidth-rowPadding.right)
             .attr("height", rowHeight)
-            .attr("precondition", condition.source_data_criteria)
+            .attr("precondition", condition.key)
             .classed("precondition", true)
             .classed("rationale_target", true)
-            .classed(condition.source_data_criteria, true)
+            .classed(condition.key, true)
             .attr('data-placement', "auto")
             .attr('data-html', true)
             .attr('data-content', getTextDescription(condition))
