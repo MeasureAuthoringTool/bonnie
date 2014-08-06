@@ -8,7 +8,7 @@ class Thorax.Views.PreconditionLogic extends Thorax.Views.BonnieView
   initialize: ->
     @preconditionKey = "precondition_#{@precondition.id}"
     @parentPreconditionKey = "precondition_#{@parentPrecondition.id}"
-    @negation = @precondition.negation
+    @negation = @precondition.negation || @parentNegation
     @unwrapNegation() if @negation
     @comments = @precondition.comments
     if @precondition.reference
