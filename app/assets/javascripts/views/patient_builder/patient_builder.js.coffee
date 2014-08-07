@@ -50,8 +50,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       unless filter_criteria
         categories[type] ||= new Thorax.Collection
         categories[type].add criteria unless categories[type].any (c) -> c.get('description').replace(/,/g , "") == criteria.get('description').replace(/,/g , "")
-    _(categories).omit('transfers')
-    _(categories).omit('derived')
+    _(categories).omit('transfers','derived')
 
   events:
     'blur :text':               'materialize'  
