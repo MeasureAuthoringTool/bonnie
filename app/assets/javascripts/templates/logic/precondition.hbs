@@ -1,17 +1,21 @@
+{{#unless suppress}}
 <ul id="precondition_{{precondition.id}}">
   <li>
     {{#if comments}}{{#each comments}}<div class="logic-comment"># {{this}}</div>{{/each}}{{/if}}
     <span class="conjunction {{parentPreconditionKey}} rationale-target">
-      {{translate_conjunction parentPrecondition.conjunction_code}}
-      {{#if negation}} NOT{{/if}}: 
+      {{conjunction}}
+      {{#if parentNegation}} NOT{{/if}}: 
       <span class="sr-only sr-highlight-status"></span>
     </span>
+{{/unless}}
     {{#if precondition.preconditions }}
         {{#each precondition.preconditions}}
-          {{view "PreconditionLogic" precondition=this parentPrecondition=../precondition measure=../measure}}
+          {{view "PreconditionLogic" precondition=this parentPrecondition=../precondition parentNegation=../precondition.negation measure=../measure}}
         {{/each}}
     {{else}}
       {{view "DataCriteriaLogic" reference=precondition.reference measure=../measure negatedParent=../parentPrecondition.negation tag="span"}}
     {{/if}}
+{{#unless suppress}}
   </li>
 </ul>
+{{/unless}}
