@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RandomizerTest < ActiveSupport::TestCase
+class RandomizerTest < ActionController::TestCase
 
   setup do
 

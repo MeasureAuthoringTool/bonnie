@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GeneratorTest < ActiveSupport::TestCase
+class GeneratorTest < ActionController::TestCase
 
   setup do
 

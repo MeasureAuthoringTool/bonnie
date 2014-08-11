@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PatientBuilderTest < ActiveSupport::TestCase
+class PatientBuilderTest < ActionController::TestCase
 
   setup do
     collection_fixtures("draft_measures", "users")
