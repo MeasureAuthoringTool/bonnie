@@ -37,9 +37,11 @@ class PatientsController < ApplicationController
     qrda_exporter = HealthDataStandards::Export::Cat1.new
     html_exporter = HealthDataStandards::Export::HTML.new
 
-    measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).map(&:as_hqmf_model)
-    start_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 1, 1)
-    end_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 12, 31)
+    unless current_user.portfolio?
+      measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).map(&:as_hqmf_model)
+      start_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 1, 1)
+      end_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 12, 31)
+    end
 
     # if we have results we want to write a summary
     summary_content = get_summary_content(measure, records, params[:results].values) if (params[:results])
@@ -49,7 +51,11 @@ class PatientsController < ApplicationController
         zip.put_next_entry(File.join("qrda","#{index+1}_#{patient.last}_#{patient.first}.xml"))
         zip.puts qrda_exporter.export(patient, measure, start_time, end_time)
         zip.put_next_entry(File.join("html","#{index+1}_#{patient.last}_#{patient.first}.html"))
-        zip.puts html_exporter.export(patient, measure)
+        if current_user.portfolio?
+        zip.puts html_exporter.export(patient)
+        else
+          zip.puts html_exporter.export(patient, measure)
+        end
       end
       if summary_content
         zip.put_next_entry("#{measure.first.cms_id}_results.html")
@@ -64,7 +70,7 @@ class PatientsController < ApplicationController
 
   end
 
-private 
+private
 
   def update_patient(patient)
 
@@ -98,9 +104,9 @@ private
     patient
   end
 
-  def get_summary_content(measure, records, results) 
+  def get_summary_content(measure, records, results)
     # restructure differences for output
-    results.each do |r| 
+    results.each do |r|
       r[:differences] = convert_to_hash(:medicalRecordNumber, r[:differences].values)
       r[:differences].values.each {|d| d[:comparisons] = convert_to_hash(:name, d[:comparisons].values)}
     end
