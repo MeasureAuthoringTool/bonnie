@@ -205,27 +205,22 @@
       margin-bottom: 0px;
     }
   }
-  .negation {
-    .text-danger;
+  .d3-measure-viz {
+    .precondition {
+      fill: @gray-light;
+    }
+    .coverage {
+      fill: @brand-primary;
+    }
+    .eval-true {
+      //for measure viz
+      fill: #449d44;
+    }
+    .eval-false, .eval-bad-specifics {
+      //for measure viz
+      fill: #c9302c;
+    }
   }
-}
-.precondition {
-  fill: white;
-  stroke: gray;
-}
-.coverage {
-  fill: @blue-lightest;
-  stroke: @blue-darker;
-}
-.eval-true {
-  //for measure viz
-    fill: @state-success-bg;
-    stroke: @state-success-text;
-}
-.eval-false, .eval-bad-specifics {
-    //for measure viz
-    fill: @state-danger-bg;
-    stroke: @state-danger-text;
 }
 .logic-comment {
   font-style: italic;

@@ -14,7 +14,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     populations = @model.get 'populations'
     population = populations.first()
     populationLogicView = new Thorax.Views.PopulationLogic(model: population)
-    @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population)
+    @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
 
     # display layout view when there are multiple populations; otherwise, just show logic view
     if populations.length > 1
@@ -34,7 +34,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @$('.d3-measure-viz').empty()
       @$('.d3-measure-viz').hide()
       @$('.btn-measure-viz').removeClass('btn-primary').addClass('btn-default')
-      @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population)
+      @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
     @listenTo @populationCalculation, 'select-patients:change', ->
       if @$('.select-patient:checked').size()
         @$('.measure-listing').removeClass('disabled')
@@ -137,5 +137,5 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     if @$('.d3-measure-viz').children().length == 0
       d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
       @$('rect').popover()
-      @$('.d3-measure-viz > svg').css('height', ( d3.selectAll('rect').size() + @populationCalculation.model.populationCriteria().length) * 30).css('width', 700)
-      @logicView.showCoverage()
+      @$('.d3-measure-viz > svg').css('height', @$('#measureVizSVG')[0].getBBox().height + @populationCalculation.model.populationCriteria().length * 15 ).css('width', 700)
+      if @populationCalculation.toggledPatient? then @logicView.showRationale(@populationCalculation.toggledPatient) else @logicView.showCoverage()

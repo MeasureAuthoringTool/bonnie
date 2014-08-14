@@ -15,6 +15,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     # Make sure the sort order updates as results come in
     @differences.on 'change', @differences.sort, @differences
     @patientsListing = false
+    @toggledPatient = null
 
   context: ->
     _(super).extend measure_id: @measure.get('hqmf_set_id')
@@ -69,6 +70,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
       @$(".toggle-result-#{result.patient.id}").hide()
       @$(".expand-result-icon-#{result.patient.id}").removeClass('fa-angle-down').addClass('fa-angle-right')
       @coverageView.showCoverage()
+      @toggledPatient = null
     else
       @$('.toggle-result').hide()
       @$('.expand-result-icon').removeClass('fa-angle-down').addClass('fa-angle-right')
@@ -76,6 +78,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
       @$(".expand-result-icon-#{result.patient.id}").removeClass('fa-angle-right').addClass('fa-angle-down')
       @trigger 'rationale:show', result
       @coverageView.hideCoverage()
+      @toggledPatient = result
 
   togglePatientsListing: ->
     @patientsListing = !@patientsListing
