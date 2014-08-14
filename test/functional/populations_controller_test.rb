@@ -25,7 +25,7 @@ class PopulationsControllerTest  < ActionController::TestCase
     measure = Measure.all.first
     measure.map_fns = []
     measure.save!
-    get :calculate_code, {measure_id: measure.id, id: 0, format: :js}
+    xhr :get, :calculate_code, {measure_id: measure.id, id: 0, format: :js}
     assert_response :success
     response.body.length.must_be :>,100
     assert response.body.starts_with? "(function()"
