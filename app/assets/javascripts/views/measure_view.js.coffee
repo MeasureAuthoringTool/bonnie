@@ -29,7 +29,12 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @populationCalculation.listenTo @, 'patients:toggleListing', -> @togglePatientsListing()
     @listenTo @logicView, 'population:update', (population) =>
       @$('.panel, .right-sidebar').animate(backgroundColor: '#fcf8e3').animate(backgroundColor: 'inherit')
-    @listenTo @populationCalculation, 'select-patients:change', -> unless @$('.select-patient:checked').size() then @clearMeasureListings()
+    @listenTo @populationCalculation, 'select-patients:change', ->
+      if @$('.select-patient:checked').size()
+        @$('.measure-listing').removeClass('disabled')
+      else
+        @clearMeasureListings()
+        @$('.measure-listing').addClass('disabled')
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
