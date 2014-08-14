@@ -40,6 +40,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
       @trigger 'rationale:show', @$(".toggle-result-#{selectedResult.patient.id}").model().result
       @$(".expand-result-icon-#{selectedResult.patient.id}").removeClass('fa-angle-right').addClass('fa-angle-down')
       @coverageView.hideCoverage()
+      @toggledPatient = @$(".toggle-result-#{selectedResult.patient.id}").model().result
     else @coverageView.showCoverage()
 
   showDelete: (e) ->
