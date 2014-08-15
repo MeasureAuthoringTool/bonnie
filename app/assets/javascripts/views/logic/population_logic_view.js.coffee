@@ -43,7 +43,10 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
       updatedRationale = result.specificsRationale()
       for code in Thorax.Models.Measure.allPopulationCodes
         if rationale[code]?
-          @showRationaleForPopulation(code, rationale, updatedRationale)
+          # if we are highlighting exceptions, have a numerator but don't qualify for the exceptions, then do not hightlight
+          # even if we are in the numerator we have to highlight if we are in the exceptions because we could be in both for EoC
+          if !(code == 'DENEXCEP' && result.get('NUMER') && !result.get(code))
+            @showRationaleForPopulation(code, rationale, updatedRationale)
       @showRationaleForPopulation('variables', rationale, updatedRationale)
 
   showRationaleForPopulation: (code, rationale, updatedRationale) ->
