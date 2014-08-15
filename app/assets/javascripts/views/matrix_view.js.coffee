@@ -24,9 +24,9 @@ class Thorax.Views.MatrixCell extends Thorax.Views.BonnieView
   events:
     rendered: ->
       if @model.differenceFromExpected().has('match')
-        popoverContent = JST['population_calculation_results'](patient: @model.patient.toJSON(), comparisons: @model.differenceFromExpected().get('comparisons'))
         title = "#{@model.population.displayName()} - #{@model.patient.get('last')}, #{@model.patient.get('first')}"
-        @$el.popover trigger: 'hover', placement: 'bottom', container: 'body', title: title, html: true, content: popoverContent
+        content = JST['population_calculation_results'](patient: @model.patient.toJSON(), comparisons: @model.differenceFromExpected().get('comparisons'))
+        @$el.popover trigger: 'hover', placement: 'bottom', container: 'body', title: title, html: true, content: content
     mouseover: ->
       @$el.addClass('highlight-box')
       @$el.parent().find('td.patient-name').addClass('highlight-font')
@@ -35,12 +35,15 @@ class Thorax.Views.MatrixCell extends Thorax.Views.BonnieView
       @$el.removeClass('highlight-box')
       @$el.parent().find('td.patient-name').removeClass('highlight-font')
       @$el.closest('table').find("th.measure-#{@model.population.displayName()}").removeClass('highlight-font')
+    click: ->
+      @$el.popover 'destroy'
+      bonnie.navigate "measures/#{@model.measure.get('hqmf_set_id')}/patients/#{@model.patient.id}/edit", trigger: true
     model:
       change: -> @$el.addClass(@className())
 
   className: ->
     difference = @model.differenceFromExpected()
-    return 'blank' if !difference.has('match') # Not yet calculated
-    return 'blank' if difference.get('match') && @model.get('IPP') == 0 # Matches expectations, but not in IPP, so not noteworthy
-    return 'match' if difference.get('match') # Matches expectations
-    return 'problem' # Doesn't match
+    return 'blank link' if !difference.has('match') # Not yet calculated
+    return 'blank link' if difference.get('match') && @model.get('IPP') == 0 # Matches expectations, but not in IPP, so not noteworthy
+    return 'match link' if difference.get('match') # Matches expectations
+    return 'problem link' # Doesn't match
