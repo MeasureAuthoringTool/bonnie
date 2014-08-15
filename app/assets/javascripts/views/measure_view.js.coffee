@@ -7,12 +7,14 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @exportPatientsView.appendTo(@$el)
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.indicator-results').addClass('active')
+      @$('.d3-measure-viz').hide()
     'click .measure-listing': 'selectMeasureListing'
 
   initialize: ->
     populations = @model.get 'populations'
     population = populations.first()
     populationLogicView = new Thorax.Views.PopulationLogic(model: population)
+    @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
 
     # display layout view when there are multiple populations; otherwise, just show logic view
     if populations.length > 1
@@ -29,6 +31,10 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @populationCalculation.listenTo @, 'patients:toggleListing', -> @togglePatientsListing()
     @listenTo @logicView, 'population:update', (population) =>
       @$('.panel, .right-sidebar').animate(backgroundColor: '#fcf8e3').animate(backgroundColor: 'inherit')
+      @$('.d3-measure-viz').empty()
+      @$('.d3-measure-viz').hide()
+      @$('.btn-measure-viz').removeClass('btn-primary').addClass('btn-default')
+      @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
     @listenTo @populationCalculation, 'select-patients:change', ->
       if @$('.select-patient:checked').size()
         @$('.measure-listing').removeClass('disabled')
@@ -123,3 +129,13 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     e.preventDefault()
     $btn = $(e.currentTarget)
     $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
+
+  toggleVisualization: (e) ->
+    @$('.btn-measure-viz').toggleClass('btn-default btn-primary')
+    @$('.measure-viz').toggle()
+    @$('.d3-measure-viz').toggle()
+    if @$('.d3-measure-viz').children().length == 0
+      d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
+      @$('rect').popover()
+      @$('.d3-measure-viz > svg').css('height', @$('#measureVizSVG')[0].getBBox().height + @populationCalculation.model.populationCriteria().length * 15 ).css('width', 700)
+      if @populationCalculation.toggledPatient? then @logicView.showRationale(@populationCalculation.toggledPatient) else @logicView.showCoverage()
