@@ -82,9 +82,11 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       cols = @$('#criteriaElements, #populationLogic')
         .affix offset: { top: -> 
           distance = parseInt($('.container').css('padding-top')) #start calculating distance from top
-          $('.navbar.row:eq(0), .navbar.row:eq(1), #bonnie>.patient-builder>.row:eq(0),#bonnie>.patient-builder>.row:eq(1)').each ->
-            distance += $(@).height() # add heights of nav bar and upper patient builder section
-          return distance } # set affix to activate at a certain distance down the page
+          $('.navbar.row').each ->
+            distance += $(@).height() #add navbar heights
+          $('.criteria-container').prevAll().parent().prevAll().each ->
+            distance += $(@).height() #add heights of all previous rows in pb   
+          return distance } # set affix to activate at this certain distance down the page
         .on 'affix.bs.affix', ->    
           $(@).each -> 
             $(@).css width: $(@).width() #assign current width via css for fixed element
