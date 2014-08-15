@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PatientGeneratorTest < ActiveSupport::TestCase
+class PatientGeneratorTest < ActionController::TestCase
 
   setup do
 

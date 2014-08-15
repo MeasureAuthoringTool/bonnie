@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '>= 4.0.0'
+gem 'rails', '>= 4.1.2'
 
 # Need to require sprockets-rails expicitly to get asset pipeline, at least untill we move to SASS
 gem 'sprockets-rails'
@@ -9,7 +9,7 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'bonnie_master'
+gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
 gem 'hqmf2js', :git => 'https://github.com/pophealth/hqmf2js.git', :branch => 'master'
 gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'master'
@@ -33,7 +33,6 @@ gem 'protected_attributes'
 gem 'devise'
 gem 'systemu'
 
-
 # needed for parsing value sets (we need to use roo rather than rubyxl because the value sets are in xls rather than xlsx)
 gem 'roo'
 
@@ -45,7 +44,8 @@ group :test, :development, :ci do
   gem 'jasmine-jquery-rails'
   gem 'turn', :require => false
   gem 'simplecov', :require => false
-  gem 'minitest', '~> 4.0'
+  gem 'minitest', '~> 5.3'
+  gem 'minitest-reporters'
 end
 
 group :test, :development do

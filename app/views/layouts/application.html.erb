@@ -31,44 +31,50 @@
         <%= HQMF2JS::Generator::JS.crosswalk_functions.html_safe %>
       </script>
     <% end %>
-    <script src="<%= value_sets_measures_url(format: :js) %>"></script>
-    <% @measures.each do |measure| %>
-      <script src="<%= measure_url(measure, format: :js) %>"></script>
-    <% end %>
     <script>
-      bonnie.isPortfolio = <%= current_user.is_portfolio? %>;
-      bonnie.isAdmin = <%= current_user.is_admin? %>;
-      bonnie.currentUserId = '<%= current_user.id %>';
-      bonnie.measurePeriod = <%= Time.zone.at(APP_CONFIG['measure_period_start']).year %>;
-      bonnie.applicationVersion = '<%=Bonnie::Version.current()%>';
-      <% @patients.each do |patient| %>
-        (function() {
-          var patient = new Thorax.Models.Patient(<%= MultiJson.encode(patient.as_json(except: :results)).html_safe %>, { parse: true });
-          bonnie.measures.each(function(measure) {
-            if (bonnie.isPortfolio) {
-              measure.get('patients').add(patient);
-            } else if(_(patient.get('measure_ids')).contains(measure.get('hqmf_set_id'))) {
-              measure.get('patients').add(patient);
-            }
-          });
-          // FIXME bonnie.patients is deprecated and will be going away shortly
-          bonnie.patients.add(patient);
-        })();
-       <% end %>
-      $(document).ready(function() {
-        Backbone.history.start();
-        <% if (flash[:error]) %>
-          bonnie.showError(<%= flash[:error].to_json.html_safe %>);
+      $.getScript("<%= value_sets_measures_url(format: :js) %>");
+	    $.when(
+        <% @measures.each_with_index do |measure, index| %>
+          $.getScript("<%= measure_url(measure, format: :js) %>")
+          <% if measure != @measures.last %>
+            ,
+          <% end %>
         <% end %>
-        $('.skip-content').click(function(e) {
-          e.preventDefault();
-          $('#bonnie').attr('tabindex', -1).on('blur focusout', function() {
-            $(this).removeAttr('tabindex');
-          }).focus();
+      ).then(function() {
+        bonnie.isPortfolio = <%= current_user.is_portfolio? %>;
+        bonnie.isAdmin = <%= current_user.is_admin? %>;
+        bonnie.currentUserId = '<%= current_user.id %>';
+        bonnie.measurePeriod = <%= Time.zone.at(APP_CONFIG['measure_period_start']).year %>;
+        bonnie.applicationVersion = '<%=Bonnie::Version.current()%>';
+        <% @patients.each do |patient| %>
+          (function() {
+            var patient = new Thorax.Models.Patient(<%= MultiJson.encode(patient.as_json(except: :results)).html_safe %>, { parse: true });
+            bonnie.measures.each(function(measure) {
+              if (bonnie.isPortfolio) {
+                measure.get('patients').add(patient);
+              } else if(_(patient.get('measure_ids')).contains(measure.get('hqmf_set_id'))) {
+                measure.get('patients').add(patient);
+              }
+            });
+            // FIXME bonnie.patients is deprecated and will be going away shortly
+            bonnie.patients.add(patient);
+          })();
+        <% end %>
+        $(document).ready(function() {
+          Backbone.history.start();
+          <% if (flash[:error]) %>
+            bonnie.showError(<%= flash[:error].to_json.html_safe %>);
+          <% end %>
+          $('.skip-content').click(function(e) {
+            e.preventDefault();
+            $('#bonnie').attr('tabindex', -1).on('blur focusout', function() {
+              $(this).removeAttr('tabindex');
+            }).focus();
+          });
         });
+        // prevent fetching directly from server after bootstrapping measures
+        bonnie.measures._fetched = true;
       });
-      // prevent fetching directly from server after bootstrapping measures
-      bonnie.measures._fetched = true;
     </script>
   </body>
 </html>
