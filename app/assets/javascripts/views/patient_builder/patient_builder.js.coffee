@@ -88,9 +88,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         .on 'affix.bs.affix', ->    
           $(@).each -> 
             $(@).css width: $(@).width() #assign current width via css for fixed element
-        .on 'affixed.bs.affix', ->    
-          $(@).each -> 
-            $(@).delay(100).animate scrollTop: 0, 800 #scroll overflowed div back to top
         .on 'affixed-top.bs.affix', ->
           $(@).each ->
             $(@).css width:'' #revert to default css  
