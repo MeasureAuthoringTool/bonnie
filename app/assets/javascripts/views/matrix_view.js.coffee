@@ -25,7 +25,8 @@ class Thorax.Views.MatrixCell extends Thorax.Views.BonnieView
     rendered: ->
       if @model.differenceFromExpected().has('match')
         popoverContent = JST['population_calculation_results'](patient: @model.patient.toJSON(), comparisons: @model.differenceFromExpected().get('comparisons'))
-        @$el.popover trigger: 'hover', placement: 'bottom', container: 'body', title: @model.population.displayName(), html: true, content: popoverContent
+        title = "#{@model.population.displayName()} - #{@model.patient.get('last')}, #{@model.patient.get('first')}"
+        @$el.popover trigger: 'hover', placement: 'bottom', container: 'body', title: title, html: true, content: popoverContent
     mouseover: ->
       @$el.addClass('highlight-box')
       @$el.parent().find('td.patient-name').addClass('highlight-font')
