@@ -11,12 +11,20 @@ class Thorax.Views.Measures extends Thorax.Views.BonnieView
     importMeasureView.appendTo(@$el)
     importMeasureView.display()
 
+  bundle: ->
+    @exportBundleView.exporting()
+    $.fileDownload "/users/bundle",
+      successCallback: => @exportBundleView.success()
+      failCallback: => @exportBundleView.fail()
+
   events:
     rendered: ->
       if @collection.isEmpty() then @importMeasure()
       else if @finalizeMeasuresView.measures.length
         @finalizeMeasuresView.appendTo(@$el)
         @finalizeMeasuresView.display()
+      @exportBundleView = new Thorax.Views.ExportBundleView() # Modal dialogs for exporting
+      @exportBundleView.appendTo(@$el)
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.indicator-dashboard, .nav-dashboard').addClass('active')
 
