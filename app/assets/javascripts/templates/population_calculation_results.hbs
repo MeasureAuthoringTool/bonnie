@@ -1,0 +1,75 @@
+<table class="table table-condensed col-xs-3">
+  <caption><span class="sr-only">Patient population results for {{patient.last}}, {{patient.first}}</span></caption>
+  <tr>
+    <th><span class="sr-only">Status</span></th>
+    <th scope="col">Population</th>
+    <th scope="col" style="text-align: center;">Expected</th>
+    <th scope="col" style="text-align: center;">Actual</th>
+  </tr>
+  {{#each comparisons}}
+    <tr>
+      <td style="text-align: center;">
+        {{#if match}}
+          <i class="fa fa-check pass" aria-hidden="true"></i><span class="sr-only">passed</span>
+        {{else}}
+          <i class="fa fa-times fail" aria-hidden="true"></i><span class="sr-only">failed</span>
+        {{/if}}
+      </td>
+      <td>{{name}}</td>
+      <td style="text-align: center;">
+        {{#ifCond key "==" "OBSERV"}}
+          {{#ifCond expected "==" undefined}}
+            <p class="text-muted" style="margin: auto;">N/A</p>
+          {{else}}
+            {{expected}}{{unit}}
+          {{/ifCond}}
+        {{else}}
+          {{#if ../../episode_of_care}}
+            <span class="default">{{expected}}</span>
+          {{else}}
+            {{#ifCond name "==" "MSRPOPL"}}
+              {{#ifCond expected "==" undefined}}
+                <p class="text-muted" style="margin: auto;">N/A</p>
+              {{else}}
+                <span class="default">{{expected}}</span>
+              {{/ifCond}}
+            {{else}}
+              {{#if expected}}
+                <i class="fa fa-check-square-o default" aria-hidden="true"></i><span class="sr-only">checked</span>
+              {{else}}
+                <i class="fa fa-square-o default" aria-hidden="true"></i><span class="sr-only">unchecked</span>
+              {{/if}}
+            {{/ifCond}}
+          {{/if}}
+        {{/ifCond}}
+      </td>
+      <td style="text-align: center;">
+        {{#ifCond key "==" "OBSERV"}}
+          {{#ifCond actual "==" undefined}}
+            <p class="text-muted" style="margin: auto;">N/A</p>
+          {{else}}
+            <span class="fail">{{actual}}{{unit}}</span>
+          {{/ifCond}}
+        {{else}}
+          {{#if ../../episode_of_care}}
+            <span class="fail">{{actual}}</span>
+          {{else}}
+            {{#ifCond name "==" "MSRPOPL"}}
+              {{#ifCond expected "==" undefined}}
+                <p class="text-muted" style="margin: auto;">N/A</p>
+              {{else}}
+                <span class="default">{{actual}}</span>
+              {{/ifCond}}
+            {{else}}
+              {{#if actual}}
+                <i class="fa fa-check-square-o default" aria-hidden="true"></i><span class="sr-only">checked</span>
+              {{else}}
+                <i class="fa fa-square-o default" aria-hidden="true"></i><span class="sr-only">unchecked</span>
+              {{/if}}
+            {{/ifCond}}
+          {{/if}}
+        {{/ifCond}}
+      </td>
+    </tr>
+  {{/each}}
+</table>

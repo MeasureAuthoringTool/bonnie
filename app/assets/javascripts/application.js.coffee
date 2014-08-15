@@ -39,8 +39,10 @@
 #= require_self
 #= require_tree .
 
-# add the rails authenticity token to Backbone.sync
+# Make all JST templates available as Handlebars templates, so the {{template 'foo'}} helper works as expected
+Handlebars.templates[name] = template for name, template of JST
 
+# add the rails authenticity token to Backbone.sync
 Backbone.sync = _.wrap Backbone.sync, (originalSync, method, model, options) ->
   if (method == 'create' || method == 'update' || method == 'delete')
     options.beforeSend = _.wrap options.beforeSend, (originalBeforeSend, xhr) ->
