@@ -10,8 +10,8 @@ set :rvm1_ruby_version, ENV['GEM_HOME'].gsub(/.*\//, '')
 # Set the branch to the currently checked out branch
 set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
-# Don't keep older releases
-set :keep_releases, 1
+# Keep a few older releases
+set :keep_releases, 3
 
 # Hostname and secret token get specified in config files local to the server
 set :linked_files, (fetch(:linked_files) || []).concat(%w{config/hostname config/initializers/secret_token.rb})

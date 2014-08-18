@@ -1,0 +1,32 @@
+<div class="matrix">
+
+  {{!--
+  <select id="order">
+    <option value="byALL">all</option>
+    <option value="byNUM">by numberator</option>
+    <option value="byDEN">by denominator</option>
+    <option value="byEXC">by exception</option>
+    <option value="byEXL">by exclusion</option>
+  </select>
+  --}}
+
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        {{#each measures}}
+          <th class="measure-{{name}}"><div><span>{{#link "measures/{{hqmf_set_id}}" expand-tokens=true}}{{name}}{{/link}}</span></div></th>
+        {{/each}}
+      </tr>
+    </thead>
+    {{#collection patients tag="tbody" item-context=patientContext}}
+      <tr>
+        <td class="patient-name">{{last}}, {{first}}</td>
+        {{#each results}}
+          {{view 'MatrixCell' model=this}}
+        {{/each}}
+      </tr>
+    {{/collection}}
+  </table>
+
+</div>

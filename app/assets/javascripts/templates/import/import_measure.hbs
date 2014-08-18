@@ -46,9 +46,21 @@
               <div class="col-sm-offset-{{titleSize}} vsac-registration"><a href="https://uts.nlm.nih.gov/license.html" target="_blank"><i class="fa fa-plus-circle" aria-hidden="true"></i> Register for VSAC</a></div>
             </div>
             <div class="form-group">
-              <label for="vsacDate" class="col-sm-{{titleSize}} control-label">VSAC Effective Date</label>
-              <div class="col-sm-{{dataSize}}">
-                <input type="text" name="vsac_date" id="vsacDate" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-autoclose="true">
+              <label for="vsacDraft" class="col-sm-{{titleSize}} control-label">Value Sets</label>
+              <div class="col-sm-4">
+                <div class="switch-toggle switch-custom">
+                  <input id="value_sets_draft" type="radio" name="include_draft" value="true" checked="true">
+                  <label for="value_sets_draft" onclick=""><span class="sr-only">Value Sets</span> Draft</label>
+                  <input id="value_sets_published" type="radio" name="include_draft" value="false">
+                  <label for="value_sets_published" onclick=""><span class="sr-only">Value Sets</span> Published</label>
+                  <a class="btn btn-primary"></a>
+                </div>
+              </div>
+              <div class="col-sm-4 effective-date">
+                <label for="vsacDate" class="control-label pull-left">Before</label>
+                <div class="col-sm-{{dataSize}} effective-date-picker">
+                  <input type="text" name="vsac_date" id="vsacDate" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-autoclose="true">
+                </div>
               </div>
             </div>
           </div>
@@ -110,8 +122,8 @@
             {{#if episode_of_care}}
               <input type="hidden" name="{{@cid}}[hqmf_id]" value="{{hqmf_id}}">
               <div class="form-group">
-                <label for="episodeSelect_{{@cid}}" class="col-sm-{{titleSize}} control-label">Episode(s) of Care:</label>
-                <div class="col-sm-{{titleSize}}">
+                <label for="episodeSelect_{{@cid}}" class="col-sm-{{titleSize}} control-label">Episode(s) of Care</label>
+                <div class="col-sm-{{dataSize}}">
                   <select multiple="true" class="form-control" id="episodeSelect_{{@cid}}" name="eoc_{{hqmfSetId}}[episode_ids][]">
                     {{#each source_data_criteria.models}}
                       {{#with attributes}}

@@ -4,21 +4,22 @@ class Thorax.Views.PreconditionLogic extends Thorax.Views.BonnieView
   conjunction_map:
     'allTrue':'AND'
     'atLeastOneTrue':'OR'
+  flip_conjunction_map:
+    'AND': 'OR'
+    'OR': 'AND'
 
   initialize: ->
     @preconditionKey = "precondition_#{@precondition.id}"
     @parentPreconditionKey = "precondition_#{@parentPrecondition.id}"
-    @negation = @precondition.negation
-    @unwrapNegation() if @negation
+    @conjunction = @translate_conjunction(@parentPrecondition.conjunction_code)
+
+    @suppress = true if @precondition.negation && @precondition.preconditions?.length == 1
+    @conjunction = @flip_conjunction_map[@conjunction] if @parentNegation
+
     @comments = @precondition.comments
     if @precondition.reference
       dataCriteria = @measure.get('data_criteria')[@precondition.reference]
       @comments = _(@comments || []).union(dataCriteria?.comments || [])
-
-  # this gets negation logic display to align with the human readable from the MAT
-  unwrapNegation: ->
-    if @precondition.preconditions?.length == 1
-      @precondition = @precondition.preconditions[0]
 
   translate_conjunction: (conjunction) ->
     @conjunction_map[conjunction]

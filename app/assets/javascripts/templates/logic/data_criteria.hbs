@@ -1,4 +1,6 @@
-<span class="{{dataCriteria.key}} rationale-target{{#ifCond dataCriteria.type '!=' 'derived'}} highlight-target{{/ifCond}}">
+{{#unless expandVariable}}
+  <span class="{{dataCriteria.key}} rationale-target{{#ifCond dataCriteria.type '!=' 'derived'}} highlight-target{{/ifCond}}">
+{{/unless}}
 
 {{#each dataCriteria.subset_operators}}
   {{view "SubsetOperatorLogic" subsetOperator=this tag="span"}}
@@ -8,10 +10,17 @@
     {{view "SatisfiesLogic" reference=dataCriteria.key measure=../measure tag="span"}}
   {{else}}
     {{#if dataCriteria.children_criteria}}
+      {{#if isSetOp}}
+        {{#unless expandVariable}}
+          <span class="set-op">{{translate_set_operator dataCriteria.derivation_operator}} :</span>
+        {{/unless}}
+      {{/if}}
       <ul>
         {{#each dataCriteria.children_criteria}}
           <li>
-            <span class="conjunction {{../dataCriteria.key}} rationale-target">{{translate_operator ../dataCriteria.derivation_operator}} : <span class="sr-only sr-highlight-status"></span></span>
+            {{#unless ../isSetOp}}
+              <span class="conjunction {{../../dataCriteria.key}} rationale-target">{{translate_logic_operator ../../dataCriteria.derivation_operator}} : <span class="sr-only sr-highlight-status"></span></span>
+            {{/unless}}
             {{view "DataCriteriaLogic" reference=this measure=../measure tag="span"}}
           </li>
         {{/each}}
@@ -61,4 +70,7 @@
     {{/ifCond}}
   {{/if}}
 {{/if}}
-</span>
+
+{{#unless expandVariable}}
+  </span>
+{{/unless}}

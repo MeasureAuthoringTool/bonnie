@@ -10,6 +10,16 @@
   padding-left: 15px;
 }
 
+.pass {
+  .text-success;
+}
+.fail {
+  .text-danger;
+}
+.default {
+  color: @brand-primary;
+}
+
 // Test Status - used on Dashboard and Measure/Results View
 .status {
   font-size: 1.5em;
@@ -38,6 +48,9 @@
   .conjunction {
     font-weight: bold;
   }
+  .set-op {
+    font-weight: bold;
+  }
   ul {
     padding-left: 20px;
     list-style-type: none;
@@ -51,4 +64,10 @@
 
 .btn-danger-inverse {
   .button-variant(@btn-danger-bg; @btn-danger-color; @btn-danger-border);
+}
+
+.transform(@string) {
+  -webkit-transform: @string;
+      -ms-transform: @string;
+          transform: @string;
 }

@@ -21,7 +21,7 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
           @get('OBSERV').push(undefined) for n in [(@get('OBSERV').length + 1)..result.get('values').length]
 
     for popCrit in @populationCriteria()
-      if popCrit.indexOf('OBSERV') != -1 then return false unless @get('OBSERV')[@observIndex(popCrit)] == result.get('values')?[@observIndex(popCrit)]
+      if popCrit.indexOf('OBSERV') != -1 then return false unless @get('OBSERV')?[@observIndex(popCrit)] == result.get('values')?[@observIndex(popCrit)]
       else return false unless @get(popCrit) == result.get(popCrit)
     return true
 

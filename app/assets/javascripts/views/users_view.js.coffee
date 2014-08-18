@@ -6,14 +6,10 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
     'change .users-sort-list': 'sortUsers'
 
   initialize: ->
-    @totalMeasures = 0
-    @totalPatients = 0
-    @collection.on 'change add reset destroy remove', @updateSummary, this
-
-  updateSummary: ->
-    @totalMeasures = @collection.reduce(((sum, user) -> sum + user.get('measure_count')), 0)
-    @totalPatients = @collection.reduce(((sum, user) -> sum + user.get('patient_count')), 0)
-    @render()
+    @userSummaryView = new Thorax.View model: @collection.summary, template: JST['users/user_summary'], toggleStats: ->
+      @$('.stats-panel').toggleClass('hidden')
+      @$('.btn-toggle-stats').toggleClass('btn-default btn-primary')
+    @tableHeaderView = new Thorax.View model: @collection.summary, template: JST['users/table_header'], tagName: 'thead'
 
   sortUsers: (e) ->
     attr = $(e.target).val()
