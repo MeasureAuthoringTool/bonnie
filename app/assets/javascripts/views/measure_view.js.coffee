@@ -7,7 +7,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @exportPatientsView.appendTo(@$el)
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.indicator-results').addClass('active')
-      @$('.d3-measure-viz').hide()
+      @$('.d3-measure-viz, .btn-viz-text').hide()
     'click .measure-listing': 'selectMeasureListing'
 
   initialize: ->
@@ -32,8 +32,8 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @listenTo @logicView, 'population:update', (population) =>
       @$('.panel, .right-sidebar').animate(backgroundColor: '#fcf8e3').animate(backgroundColor: 'inherit')
       @$('.d3-measure-viz').empty()
-      @$('.d3-measure-viz').hide()
-      @$('.btn-measure-viz').removeClass('btn-primary').addClass('btn-default')
+      @$('.d3-measure-viz, .btn-viz-text').hide()
+      @$('.btn-viz-chords').show()
       @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
     @listenTo @populationCalculation, 'select-patients:change', ->
       if @$('.select-patient:checked').size()
@@ -117,6 +117,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   measureSettings: (e) ->
     e.preventDefault()
+    @$('.btn-measure-viz:visible').click() if @$('.btn-measure-viz:visible').hasClass('btn-viz-text')
     @$('.delete-icon').click() if @$('.delete-measure').is(':visible')
     @$('.measure-settings').toggleClass('measure-settings-expanded')
 
@@ -131,9 +132,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     $btn.toggleClass('btn-danger btn-danger-inverse').prev().toggleClass('hide')
 
   toggleVisualization: (e) ->
-    @$('.btn-measure-viz').toggleClass('btn-default btn-primary')
-    @$('.measure-viz').toggle()
-    @$('.d3-measure-viz').toggle()
+    @$('.btn-viz-chords, .btn-viz-text, .measure-viz, .d3-measure-viz').toggle()
     if @$('.d3-measure-viz').children().length == 0
       d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
       @$('rect').popover()
