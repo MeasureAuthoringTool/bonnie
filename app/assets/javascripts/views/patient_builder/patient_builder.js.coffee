@@ -184,3 +184,4 @@ class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   context: ->
     _(super).extend
       title: if @model.collection.parent.get('populations').length > 1 then (@model.get('title') || @model.get('sub_id')) else ''
+      cms_id: @model.collection.parent.get('cms_id')
