@@ -1,5 +1,5 @@
   <span class="criteria-title">
-    {{#if rootCriteria.specific_occurrence}}Occurrence {{rootCriteria.specific_occurrence}}: {{/if}}{{rootCriteria.description}}
+    {{#if rootCriteria.specific_occurrence}}Occurrence {{rootCriteria.specific_occurrence}}: {{/if}}{{#if rootCriteria.variable}}${{/if}}{{rootCriteria.description}}
     <span class="sr-only sr-highlight-status"></span>
     {{translate_operator dataCriteria.definition}}
     <ul class="multi-statement">
