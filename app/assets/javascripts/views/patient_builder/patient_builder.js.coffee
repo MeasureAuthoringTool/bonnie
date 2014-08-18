@@ -78,33 +78,21 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.indicator-patient-builder').addClass('active')
 
-      # affix side columns to get desired scrolling behavior. add event listeners here
-      @$('#criteriaElements, #populationLogic')
+      # affix side columns to get desired scrolling behavior
+      $cols = @$('#criteriaElements, #populationLogic') #these get affixed. add listeners
         .on 'affix.bs.affix', ->    
-          $(@).each -> 
-            $(@).css width: $(@).width() #assign current width via css for fixed element
-            console.log "affix activating" 
+          $(@).each -> $(@).css width: $(@).width() #assign current width via css for fixed element
         .on 'affixed-top.bs.affix', ->
-          $(@).each ->
-            $(@).css width:'' #revert to default css
-            console.log "affix deactivated" 
-      #active affix only when the patient history reaches a certain length  
-      @$('.criteria-container > div').bind "resize", ->
-        #get distance from the top of the page 
-        above_height = parseInt($('.container').css('padding-top')) #add the top padding
-        $('.criteria-container').parents('.row').prevAll().add('.navbar.row').each ->
-          above_height += $(@).height() #add all the previous rows of content
-        #add the height of the center content to find where it ends
-        distance = $('.criteria-container > div').outerHeight() + above_height 
-        #columns to be affixed. apply affix if center column content overflows window
-        cols = $('#criteriaElements, #populationLogic')
-        if distance > $(window).height() 
-          console.log "turn affix on" 
-          cols.affix offset: { top: above_height } 
-        else
-          console.log "turn affix off" 
-          $(window).off('.affix')
-          cols.each -> $(@).removeData("bs.affix").removeClass("affix affix-top affix-bottom").css width:'' 
+          $(@).each -> $(@).css width:'' #revert to default css
+
+      $history = @$('.criteria-container > div') #this is where the patient history is 
+        .bind "resetAffix", ->
+          #activate affix only when the patient history is longer than the window
+          if $history.outerHeight() > $(window).height() 
+            $cols.affix offset: { top: $history.parent().offset().top } 
+          else
+            $(window).off('.affix')
+            $cols.each -> $(@).removeData("bs.affix").removeClass("affix affix-top affix-bottom").css width:''    
 
     serialize: (attr) ->
       birthdate = attr.birthdate if attr.birthdate
@@ -146,7 +134,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   materialize: ->
     @serializeWithChildren()
     @model.materialize()
-    @$('.criteria-container > div').trigger "resize"
+    @$('.criteria-container > div').trigger "resetAffix"
 
   addCriteria: (criteria) ->
     @model.get('source_data_criteria').add criteria
