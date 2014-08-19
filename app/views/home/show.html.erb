@@ -47,24 +47,27 @@
         </div>
       </section>
       <section>
-        <p class="lead">Bonnie is a tool designed to support streamlined and efficient pretesting of electronic clinical quality measures (eCQMs) used in the Meaningful Use (MU) Program.</p>
+        <p class="lead">Bonnie is a tool for testing electronic clinical quality measures (eCQMs) designed to support streamlined and efficient pre-testing of eCQMs, particularly those used in the Meaningful Use (MU) program.</p>
       </section>
       <section class="row">
         <div class="col-md-6 section-heading">
-          <h1 class="section-heading">Current <span class="version-num">Version 1.1</span></h1>
-          <p>The current version, released on July 24, 2014, is focused on supporting new measure formats and logic constructs. The introduction of HQMF R2.1 import allows loading measures represented in the updated version of the HQMF specification. The introduction of MAT SimpleXML measure imports allows the continued testing of measures in Bonnie while the MAT develops support for HQMF R2 export. Finally, the support for QDM V4.1 in Bonnie allows testing Clinical Quality Measures that take advantage of the latest QDM constructs and operators.</p>
+          <h1 class="section-heading">Current <span class="version-num">Version 1.2</span></h1>
+          <p>The version 1.2 release of Bonnie introduces a new compact visualization of the measure logic.  This compact visualization provides a high-level view of the measure logic, including a summary analysis of the structure of the logic. This provides a clear view into how a patient calculates against a measure and the level of test case coverage for sections of the logic. Additionally, this release resolves issues identified with SimpleXML and HQMF R2 measure import providing a more robust measure-loading infrastructure.</p>
         </div>
         <div class="col-md-6">
-          <h1 class="section-heading">Capabilities<span class="version-num"> v1.1</span></h1>
+          <h1 class="section-heading">Capabilities<span class="version-num"> v1.2</span></h1>
           <ul class="list-cap">
-            <li>Health Quality Measures Format (HQMF) release 2.1 measure import</li>
-            <li>Measure Authoring Tool (MAT) SimpleXML measure import</li>
-            <li>Support for QDM V4.1 constructs including:
+            <li>A compact visualization of measure logic
               <ul>
-                <li>Variable assignments</li>
-                <li> Inline comments</li>
-                <li>Satisfies Any / Satisfies All operators</li>
-                <li>New temporal operators</li>
+                <li>Allows a summary analysis of the measure structure</li>
+                <li>Provides a compact view of test coverage</li>
+                <li>Introduces a high level display of a synthetic test patient calculation against measure logic</li>
+              </ul>
+            </li>
+            <li>Improved measure import infrastructure for:
+              <ul>
+                <li>Measure Authoring Tool (MAT) SimpleXML</li>
+                <li>HQMF R2.1</li>
               </ul>
             </li>
           </ul>
