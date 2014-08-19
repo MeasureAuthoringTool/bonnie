@@ -21,8 +21,7 @@ class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
         @$('.panel-icon').toggleClass('fa-3x fa-1x').each ->
           if $(@).hasClass 'fa-1x' then $(@).css 'display', 'inline-block' else $(@).css 'display', 'block'
       @$('.collapse').on 'show.bs.collapse', (e) ->
-        $('#criteriaElements > div > .panel > div').not(e.target).each -> #every other grouping of elements
-          if $(@).hasClass 'in' then $(@).collapse 'hide' #if opened, then hide it
+        $('a[data-parent="#criteriaElements"]').next('.in').not(e.target).collapse 'hide' #hide open groups
 
   faIcon: -> @collection.first()?.toPatientDataCriteria()?.faIcon()
 
