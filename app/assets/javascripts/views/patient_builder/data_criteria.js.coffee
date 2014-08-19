@@ -28,7 +28,7 @@ class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
 class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
   addCriteriaToPatient: -> @trigger 'bonnie:dropCriteria', @model.toPatientDataCriteria()
   context: ->
-    desc = @model.get('description').split(", ")?[1] or @model.get('description')
+    desc = @model.get('description').split(/, (.*)/)?[1] or @model.get('description')
     _(super).extend
       type: desc.split(": ")[0]
       detail: desc.split(": ")[1]
@@ -78,7 +78,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
     cmsIdParts = @model.get("cms_id").match(/CMS(\d+)(V\d+)/i)
-    desc = @model.get('description').split(", ")?[1] or @model.get('description')
+    desc = @model.get('description').split(/, (.*)/)?[1] or @model.get('description')
     _(super).extend
       start_date: moment.utc(@model.get('start_date')).format('L') if @model.get('start_date')
       start_time: moment.utc(@model.get('start_date')).format('LT') if @model.get('start_date')
