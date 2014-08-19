@@ -29,6 +29,11 @@ class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
 
 class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
   addCriteriaToPatient: -> @trigger 'bonnie:dropCriteria', @model.toPatientDataCriteria()
+  context: ->
+    desc = @model.get('description').split(", ")?[1] or @model.get('description')
+    _(super).extend
+      type: desc.split(": ")[0]
+      detail: desc.split(": ")[1]
 
 
 class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
