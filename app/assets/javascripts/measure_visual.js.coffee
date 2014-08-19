@@ -328,7 +328,7 @@ Bonnie.viz.measureVisualzation = ->
       # derive test description from data
       subset_operator = getSubsetOperatorDescription(data)
       specific_occurrence = getSpecificOccurrenceDescription(data)
-      value = if data.value? then parseValue(data.value) else ""
+      value = if data.value? and data.type != 'characteristic' then parseValue(data.value) else ""
       fieldValues = if data.field_values? then parseFieldValues(data.field_values) else ""
       negation = if data.negation then "(Not Done: #{translateOid(data.negation_code_list_id)})" else ""
       temporal_reference = getTemporalReferenceDescription(data)
