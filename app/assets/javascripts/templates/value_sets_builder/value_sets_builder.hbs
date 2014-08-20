@@ -50,10 +50,10 @@
           <span class="input-group-btn">
             <button type="submit" class="btn btn-default search-button"> <i class="fa fa-search" aria-hidden="true"></i> Search</button>
           </span>
-          <div class="input-group-btn">
+          <div class="input-group-btn measure-dropdown-group">
             <button type="button" class="btn btn-default dropdown-toggle measure-button" data-toggle="dropdown"> <i class="fa fa-tasks" aria-hidden="true"></i> Measures <span class="caret"></span></button>
-            {{#collection measures tag="ul" class="dropdown-menu pull-right"}}
-              <li>{{#button 'selectMeasure' tag="a"}}[ <strong>{{cms_id}}</strong> ({{measure_id}}) ] {{hqmf_set_id}}{{/button}}</li>
+            {{#collection measures tag="ul" class="dropdown-menu scrollable-menu"}}
+              <li rel="popover" title="{{cms_id}}" data-content="{{hqmf_set_id}} {{title}}">{{#button 'selectMeasure' tag="a"}}{{cms_id}}{{/button}}</li>
             {{/collection}}
           </div>
           <span class="input-group-btn">
