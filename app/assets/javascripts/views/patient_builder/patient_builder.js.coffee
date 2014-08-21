@@ -77,13 +77,20 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.indicator-patient-builder').addClass('active')
+      @$('.logic-scroller').on 'click', _.bind(@logicScroll, this)
 
       # affix side columns to get desired scrolling behavior
       $cols = @$('#criteriaElements, #populationLogic') #these get affixed. add listeners
         .on 'affix.bs.affix', ->    
-          $(@).each -> $(@).css width: $(@).width() #assign current width via css for fixed element
+          $(@).each -> 
+            $(@).css width: $(@).width() #assign current width via css for fixed element
+            $(@).find('.logic-scroller').show() # add the pagination parts
+            $(@).find('.scrolling').css height: 675 # set the height of the logic to the right height
         .on 'affixed-top.bs.affix', ->
-          $(@).each -> $(@).css width:'' #revert to default css
+          $(@).each -> 
+            $(@).css width:'' #revert to default css
+            $(@).find('.scrolling').css("height",'').animate scrollTop: 0 #scroll div back to top, remove height
+            $(@).find('.logic-scroller').hide()
 
       $history = @$('.criteria-container > div') #this is where the patient history is 
         .bind "resetAffix", ->
@@ -113,6 +120,12 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       birthtime: birthdatetime?.format('LT')
       deathdate: deathdatetime?.format('L')
       deathtime: deathdatetime?.format('LT')
+
+  logicScroll: (e) ->
+    if $(e.target).attr('class').match('down')
+      @$(".scrolling").animate scrollTop: $('.scrolling').scrollTop() + 600, 500
+    else
+      @$(".scrolling").animate scrollTop: $('.scrolling').scrollTop() - 600, 500
 
   serializeWithChildren: ->
     # Serialize the main view and the child collection views separately because otherwise Thorax wants

@@ -151,6 +151,29 @@
     padding-left: @grid-gutter-width;
   }
 
+  .scrolling {
+    overflow: auto;
+  }
+
+  .logic-scroller { 
+    display: none;
+    padding: (@grid-gutter-width / 4);
+    text-align: center;
+    font-size: @font-size-base*3;
+    background-color: white;
+    color: @blue-lighter;
+    width: 100%;
+    &:hover {
+      color: @blue-darker;
+      background-color: @gray-lighter;
+      cursor: pointer;
+    }
+    &.down {
+      bottom: 0px;
+      position: absolute;
+    }
+  }
+  
   .panel {
     .panel-title {
       background-color: @blue-lighter;
