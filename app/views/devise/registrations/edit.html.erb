@@ -114,7 +114,7 @@
       <%= form_for resource, url: registration_path(resource_name), html: { method: :delete } do %>
         <div class="modal-body">
           <p>To delete your account, please supply your password and click the delete button. This action cannot be undone.</p>
-          <div class="input-group input-group-lg required">
+          <div class="input-group input-group-lg required" id="passwordInput">
             <label for="user_current_password" class="sr-only">current password</label>
             <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
             <input class="form-control" name="user[current_password]" placeholder="current password" type="password">
@@ -131,6 +131,17 @@
 
 
 <script>
+
+  // Don't allow enter key to submit password when confirming account deletion
+  $(document).ready(function() {
+    $("#passwordInput").keydown(function(event){
+      if(event.keyCode == 13) {
+        event.preventDefault();
+        return false;
+      }
+    });
+  });
+
   $(function() {
     $('.field_with_errors').parent().removeClass('required').addClass('has-error'); //allows icon to change color appropriately for validation
   });
