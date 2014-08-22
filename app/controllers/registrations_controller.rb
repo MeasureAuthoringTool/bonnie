@@ -27,7 +27,8 @@ class RegistrationsController < Devise::RegistrationsController
   protected
   
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:account_update) << :crosswalk_enabled
+    devise_parameter_sanitizer.for(:account_update).push(:crosswalk_enabled, :first_name, :last_name, :telephone)
+    devise_parameter_sanitizer.for(:sign_up).push(:first_name, :last_name, :telephone)
   end
 
 end
