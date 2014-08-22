@@ -79,28 +79,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       $('.indicator-patient-builder').addClass('active')
       @$('.logic-scroller').on 'click', _.bind(@logicScroll, this)
 
-      # affix side columns to get desired scrolling behavior
-      $cols = @$('#criteriaElements, #populationLogic') #these get affixed. add listeners
-        .on 'affix.bs.affix', ->    
-          $(@).each -> 
-            $(@).css width: $(@).width() #assign current width via css for fixed element
-            $(@).find('.logic-scroller').show() # add the pagination parts
-            $(@).find('.scrolling').css height: 675 # set the height of the logic to the right height
-        .on 'affixed-top.bs.affix', ->
-          $(@).each -> 
-            $(@).css width:'' #revert to default css
-            $(@).find('.scrolling').css("height",'').animate scrollTop: 0 #scroll div back to top, remove height
-            $(@).find('.logic-scroller').hide()
-
-      $history = @$('.criteria-container > div') #this is where the patient history is 
-        .bind "resetAffix", ->
-          #activate affix only when the patient history is longer than the window
-          if $history.outerHeight() > $(window).height() 
-            $cols.affix offset: { top: $history.parent().offset().top } 
-          else
-            $(window).off('.affix')
-            $cols.each -> $(@).removeData("bs.affix").removeClass("affix affix-top affix-bottom").css width:''    
-
     serialize: (attr) ->
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
@@ -123,9 +101,27 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   logicScroll: (e) ->
     if $(e.target).attr('class').match('down')
-      @$(".scrolling").animate scrollTop: $('.scrolling').scrollTop() + 600, 500
+      @$(".scrolling").animate scrollTop: $('.scrolling').scrollTop() + $('.scrolling').height(), 1500
     else
-      @$(".scrolling").animate scrollTop: $('.scrolling').scrollTop() - 600, 500
+      @$(".scrolling").animate scrollTop: $('.scrolling').scrollTop() - $('.scrolling').height(), 1500
+
+  handleAffix: ->
+    @$('.criteria-container').css("min-height",$(window).height()) #ensure history is long enough to not cause weird behavior
+    # affix side columns to get desired scrolling behavior
+    $cols = @$('#criteriaElements, #populationLogic') #these get affixed. add listeners
+      .on 'affix.bs.affix', ->    
+        $(@).each -> 
+          $(@).css width: $(@).width() #assign current width via css for fixed element
+          $(@).find('.logic-scroller').show() # add the pagination parts
+          $(@).find('.scrolling').css 
+            height: $(window).height() - $('.logic-scroller.up').position().top - $('.logic-scroller.up').height()*2  # set the height of the logic to the right height
+      .on 'affixed-top.bs.affix', ->
+        $(@).each -> 
+          $(@).css width:'' #revert to default css
+          $(@).find('.scrolling').css("height",'').animate scrollTop: 0 #scroll div back to top, remove height
+          $(@).find('.logic-scroller').hide()
+
+    $cols.affix offset: { top: @$('.criteria-container > div').parent().offset().top } 
 
   serializeWithChildren: ->
     # Serialize the main view and the child collection views separately because otherwise Thorax wants
@@ -147,7 +143,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   materialize: ->
     @serializeWithChildren()
     @model.materialize()
-    @$('.criteria-container > div').trigger "resetAffix"
 
   addCriteria: (criteria) ->
     @model.get('source_data_criteria').add criteria

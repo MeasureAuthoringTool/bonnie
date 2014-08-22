@@ -52,6 +52,7 @@ class BonnieRouter extends Backbone.Router
     document.title += " - #{measure.get('cms_id')}" if measure?
     patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
     @mainView.setView patientBuilderView
+    patientBuilderView.handleAffix()
 
   # This method is to be called directly, and not triggered via a
   # route; it allows the patient builder to be used in new patient
