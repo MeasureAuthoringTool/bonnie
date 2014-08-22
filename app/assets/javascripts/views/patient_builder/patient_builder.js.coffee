@@ -106,22 +106,22 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$(".scrolling").animate scrollTop: $('.scrolling').scrollTop() - $('.scrolling').height(), 1500
 
   handleAffix: ->
-    @$('.criteria-container').css("min-height",$(window).height()) #ensure history is long enough to not cause weird behavior
+    # ensure patient history is always long enough to not cause weird behavior
+    @$('.criteria-container').css("min-height",$(window).height())
+    $(window).on 'resize', -> @$('.criteria-container').css("min-height",$(window).height())
+
     # affix side columns to get desired scrolling behavior
     $cols = @$('#criteriaElements, #populationLogic') #these get affixed. add listeners
-      .on 'affix.bs.affix', ->    
-        $(@).each -> 
-          $(@).css width: $(@).width() #assign current width via css for fixed element
-          $(@).find('.logic-scroller').show() # add the pagination parts
-          $(@).find('.scrolling').css 
-            height: $(window).height() - $('.logic-scroller.up').position().top - $('.logic-scroller.up').height()*2  # set the height of the logic to the right height
+      .on 'affix.bs.affix', ->
+        $('.logic-scroller').show() # add the pagination parts
+        $('.scrolling').css height: $(window).height() - $('.logic-scroller.up').position().top - $('.logic-scroller.up').height()*2  # set the height of the logic to the right height
+        $(@).each -> $(@).css width: $(@).width() #assign current width via css for fixed element
       .on 'affixed-top.bs.affix', ->
-        $(@).each -> 
-          $(@).css width:'' #revert to default css
-          $(@).find('.scrolling').css("height",'').animate scrollTop: 0 #scroll div back to top, remove height
-          $(@).find('.logic-scroller').hide()
+        $('.logic-scroller').hide() # hide pagination
+        $('.scrolling').css("height",'').animate scrollTop: 0 #scroll div back to top, remove height
+        $(@).each -> $(@).css width:'' #revert to default css widths
 
-    $cols.affix offset: { top: @$('.criteria-container > div').parent().offset().top } 
+    $cols.affix offset: { top: @$('.criteria-container > div').parent().offset().top } # tell affix to activate after scrolling this many pixels
 
   serializeWithChildren: ->
     # Serialize the main view and the child collection views separately because otherwise Thorax wants
