@@ -77,7 +77,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.indicator-patient-builder').addClass('active')
-      @$('.logic-scroller').on 'click', _.bind(@logicScroll, this)
+      @$('.logic-pager').on 'click', _.bind(@logicScroll, this)
 
     serialize: (attr) ->
       birthdate = attr.birthdate if attr.birthdate
