@@ -101,9 +101,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   logicScroll: (e) ->
     if $(e.target).attr('class').match('down')
-      @$(".scrolling").animate scrollTop: $('.scrolling').scrollTop() + $('.scrolling').height(), 1500
+      @$(".scrolling").animate scrollTop: $('.scrolling').scrollTop() + $('.scrolling').height(), 500
     else
-      @$(".scrolling").animate scrollTop: $('.scrolling').scrollTop() - $('.scrolling').height(), 1500
+      @$(".scrolling").animate scrollTop: $('.scrolling').scrollTop() - $('.scrolling').height(), 500
 
   handleAffix: ->
     # ensure patient history is always long enough to not cause weird behavior
