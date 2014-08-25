@@ -100,10 +100,11 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       deathtime: deathdatetime?.format('LT')
 
   logicScroll: (e) ->
+    $logic = @$("#populationLogic").find('.scrolling')
     if $(e.target).attr('class').match('down')
-      @$(".scrolling").animate scrollTop: $('.scrolling').scrollTop() + $('.scrolling').height(), 500
+      $logic.animate scrollTop: $logic.scrollTop() + $logic.height() - parseInt($logic.css('line-height')) # scroll down 1 line less than whole screen length
     else
-      @$(".scrolling").animate scrollTop: $('.scrolling').scrollTop() - $('.scrolling').height(), 500
+      $logic.animate scrollTop: $logic.scrollTop() - $logic.height() + parseInt($logic.css('line-height'))
 
   handleAffix: ->
     # ensure patient history is always long enough to not cause weird behavior
