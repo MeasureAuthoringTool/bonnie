@@ -334,13 +334,24 @@
     position: static;
   }
 
+  #history .scrolling {
+    //needed the keep the icons visible when div overflows
+    padding-left: 15px;
+    margin-left: -15px;
+  }
+
   .affix {
     position: fixed;
     top: 0px;
-    overflow: auto;
     height: 100%;
     &#criteriaElements {
       padding-right: 0px;
+    } 
+    & .scrolling {
+      position: absolute;
+      width: 100%;
+      top: 0px;
+      bottom: 0px;
     }
   }
 

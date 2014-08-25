@@ -112,17 +112,29 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     $(window).on 'resize', -> @$('.criteria-container').css("min-height",$(window).height())
 
     # affix side columns to get desired scrolling behavior
-    $cols = @$('#criteriaElements, #populationLogic') #these get affixed. add listeners
+    $cols = @$('#criteriaElements, #populationLogic, #history') #these get affixed. add listeners
       .on 'affix.bs.affix', ->
-        $('.logic-scroller').show() # add the pagination parts
-        $('.scrolling').css height: $(window).height() - $('.logic-scroller.up').position().top - $('.logic-scroller.up').height()*2  # set the height of the logic to the right height
-        $(@).each -> $(@).css width: $(@).width() #assign current width via css for fixed element
+        $('.logic-pager').show() # add the pagination parts
+        $(@).each -> 
+          $(@).find('*').not('div').first().nextAll('div').first().prev().css("margin-bottom",'0') #make affixed element flush with header      
+          if $(@).find('.logic-pager').length #if there is pagination inside this affixed element
+            $(@).find('.scrolling').css # set proper attributes of scrolling section
+              overflow: "hidden" #disables scrolling of paging div
+              bottom: $('.logic-pager.down').height()
+              top: $('.logic-pager.up').position().top + $('.logic-pager.up').height()
+              width: $(@).find('.scrolling').outerWidth() 
+          else 
+            $(@).find('.scrolling').css 
+              top: $(@).find('*').not('div').first().nextAll('div').first().prev().height()
+              width: $(@).find('.scrolling').outerWidth() 
+          $(@).css width: $(@).width() #assign current width explicitly to affixed element  
       .on 'affixed-top.bs.affix', ->
-        $('.logic-scroller').hide() # hide pagination
-        $('.scrolling').css("height",'').animate scrollTop: 0 #scroll div back to top, remove height
-        $(@).each -> $(@).css width:'' #revert to default css widths
-
-    $cols.affix offset: { top: @$('.criteria-container > div').parent().offset().top } # tell affix to activate after scrolling this many pixels
+        $('.logic-pager').hide() # hide pagination parts
+        $(@).each -> 
+          $(@).removeAttr('style') #revert each affixed element to default css styling
+          $(@).find('*').not('div').first().nextAll('div').first().prev().css("margin-bottom",'') #undo make affixed element flush with header
+          $(@).find('.scrolling').removeAttr('style').animate scrollTop: 0 #scroll div back to top, remove custom styling
+    $cols.affix offset: { top: @$('.criteria-container').parent().offset().top } # tell affix to activate after scrolling this many pixels
 
   serializeWithChildren: ->
     # Serialize the main view and the child collection views separately because otherwise Thorax wants
