@@ -77,6 +77,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.indicator-patient-builder').addClass('active')
+      @$('.logic-pager').on 'click', _.bind(@logicPaging, this)
     serialize: (attr) ->
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
@@ -180,17 +181,33 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     # affix side columns to get desired behavior
     $cols = @$('#criteriaElements, #populationLogic, #history') #these get affixed. add listeners
       .on 'affix.bs.affix', ->
-        $(@).each -> 
-          $(@).find('.scrolling').css 
-            top: $(@).find('.scrolling').prev().height() + $(@).find('.scrolling').prev().position().top
-            width: $(@).find('.scrolling').outerWidth() 
+        $('.logic-pager').show() # add the pagination part
+        $(@).each ->
+          if $(@).find('.logic-pager').length #if there is pagination inside this affixed element
+            $(@).find('.scrolling').css # set proper attributes of scrolling section
+              overflow: "hidden" #disables scrolling of paging div
+              bottom: $('.logic-pager.down').height()
+              top: $('.logic-pager.up').position().top + $('.logic-pager.up').height()
+              width: $(@).find('.scrolling').outerWidth()
+          else 
+            $(@).find('.scrolling').css 
+              top: $(@).find('.scrolling').prev().height() + $(@).find('.scrolling').prev().position().top
+              width: $(@).find('.scrolling').outerWidth() 
           $(@).css width: $(@).width() #assign current width explicitly to affixed element  
       .on 'affixed-top.bs.affix', ->
+        $('.logic-pager').hide() # hide the pagination part
         $(@).each -> 
           $(@).removeAttr('style') #revert each affixed element to default css styling
           $(@).find('.scrolling').removeAttr('style').animate scrollTop: 0 #scroll div back to top, remove custom styling  
     $cols.affix offset: { top: @$('.criteria-container').parent().offset().top } # tell affix to activate after scrolling this many pixels
-      
+    
+  logicPaging: (e) ->
+  	$logic = @$("#populationLogic").find('.scrolling')
+  	if $(e.target).attr('class').match('down')
+  	  $logic.animate scrollTop: $logic.scrollTop() + $logic.height() - parseInt($logic.css('line-height')) # scroll down 1 line less than whole screen length
+  	else
+  	  $logic.animate scrollTop: $logic.scrollTop() - $logic.height() + parseInt($logic.css('line-height'))
+
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
   setPopulation: (population) ->

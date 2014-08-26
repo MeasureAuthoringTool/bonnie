@@ -321,6 +321,24 @@
     overflow: auto;
   }
 
+  .logic-pager { 
+  	display: none;
+  	text-align: center;
+  	color: white;
+  	font-size: @font-size-base*2;
+  	background-color: @blue-lighter;
+  	width: 100%;
+  	&:hover {
+  	  background-color: @blue-darker;
+  	  color: @gray-light;
+  	  cursor: pointer;
+  	}
+  	&.down {
+  	  bottom: 0px;
+  	  position: absolute;
+  	}
+  }
+
   #history .scrolling {
     //needed the keep the icons visible when div overflows
     padding-left: 15px;
