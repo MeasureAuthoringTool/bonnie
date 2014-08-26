@@ -106,7 +106,6 @@ class UsersControllerTest  < ActionController::TestCase
     JSON.parse(response.body).length.must_equal 2
   end
 
->>>>>>> master
   test "bundle download" do
     sign_in @user
     get :bundle
