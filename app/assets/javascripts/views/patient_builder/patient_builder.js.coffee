@@ -69,7 +69,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
     rendered: ->
-      @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
+      @$('.draggable').draggable revert: 'invalid', helper: 'clone', appendTo: '.patient-builder', zIndex: 10
 
       # Make criteria list a drop target
       @$('.criteria-container.droppable').droppable greedy: true, accept: '.ui-draggable', drop: _.bind(@drop, this)
