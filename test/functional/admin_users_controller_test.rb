@@ -107,7 +107,7 @@ include Devise::TestHelpers
     sign_in @user_admin
     get :measures, {id: @user.id}
     assert_response :success
-    JSON.parse(response.body).length.must_equal 1
+    JSON.parse(response.body).length.must_equal 2
   end
 
   test "bundle download" do
@@ -124,8 +124,8 @@ include Devise::TestHelpers
     Zip::ZipFile.open(zip_path) do |zip_file|
       zip_file.glob(File.join('patients','**','*.json')).count.must_equal 4
       zip_file.glob(File.join('patients','**','*.html')).count.must_equal 4
-      zip_file.glob(File.join('sources','**','*.json')).count.must_equal 1
-      zip_file.glob(File.join('sources','**','*.metadata')).count.must_equal 1
+      zip_file.glob(File.join('sources','**','*.json')).count.must_equal 2
+      zip_file.glob(File.join('sources','**','*.metadata')).count.must_equal 2
       zip_file.glob(File.join('value_sets','**','*.json')).count.must_equal 27
     end
     File.delete(zip_path)
