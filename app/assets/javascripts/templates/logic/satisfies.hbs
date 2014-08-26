@@ -1,13 +1,22 @@
   <span class="criteria-title">
-    {{#if rootCriteria.specific_occurrence}}Occurrence {{rootCriteria.specific_occurrence}}: {{/if}}{{rootCriteria.description}}
+    {{#if rootCriteria.specific_occurrence}}Occurrence {{rootCriteria.specific_occurrence}}: {{/if}}{{#if rootCriteria.variable}}${{/if}}{{rootCriteria.description}}
     <span class="sr-only sr-highlight-status"></span>
     {{translate_operator dataCriteria.definition}}
     <ul class="multi-statement">
       {{#each dataCriteria.children_criteria}}
         <li>
-          <span class="sr-only sr-highlight-status"></span></span>
+          <span class="sr-only sr-highlight-status"></span>
           {{view "DataCriteriaLogic" reference=this measure=../measure tag="span" hideTitle=true}}
         </li>
       {{/each}}
+      {{#if dataCriteria.temporal_references}}
+        {{#each dataCriteria.temporal_references}}
+          <li>
+            <span class="{{../dataCriteria.key}} rationale-target">
+              {{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}
+            </span>
+          </li>
+        {{/each}}
+      {{/if}}
     </ul>
   </span>
