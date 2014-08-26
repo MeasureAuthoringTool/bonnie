@@ -136,21 +136,29 @@
   <div class="col-left measure-data-container">
     <div class="panel-group" id="criteriaElements">
       <h1 class="heading-muted">Elements</h1>
+      <div class="scrolling">
       {{#each dataCriteriaCategories}}
         {{view "SelectCriteriaView" title=@key collection=this}}
       {{/each}}
+      </div>
     </div>
   </div>
   <div class="col-center criteria-container droppable">
-    <h1 class="heading-primary">Patient History Relative To Measures</h1>
-    {{view editCriteriaCollectionView}}
+    <div id="history">
+      <h1 class="heading-primary">Patient History Relative To Measures</h1>
+      <div class="scrolling">
+      {{view editCriteriaCollectionView}}
+      </div>
+    </div>
   </div>
   {{#button "cancel" class="sr-only"}}CANCEL{{/button}}
   {{#button "save" class="sr-only"}}SAVE{{/button}}
 
 
   <div class="col-right">
+    <div id="populationLogic">
     {{view populationLogicView}}
+    </div>
   </div>
 
 </div>
