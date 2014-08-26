@@ -174,6 +174,21 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @model.set 'expired', false
     @$('#expired').focus()
 
+  handleAffix: ->
+    # affix side columns to get desired behavior
+    $cols = @$('#criteriaElements, #populationLogic, #history') #these get affixed. add listeners
+      .on 'affix.bs.affix', ->
+        $(@).each -> 
+          $(@).find('.scrolling').css 
+            top: $(@).find('.scrolling').prev().height() + $(@).find('.scrolling').prev().position().top
+            width: $(@).find('.scrolling').outerWidth() 
+          $(@).css width: $(@).width() #assign current width explicitly to affixed element  
+      .on 'affixed-top.bs.affix', ->
+        $(@).each -> 
+          $(@).removeAttr('style') #revert each affixed element to default css styling
+          $(@).find('.scrolling').removeAttr('style').animate scrollTop: 0 #scroll div back to top, remove custom styling  
+    $cols.affix offset: { top: @$('.criteria-container').parent().offset().top } # tell affix to activate after scrolling this many pixels
+      
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
   setPopulation: (population) ->

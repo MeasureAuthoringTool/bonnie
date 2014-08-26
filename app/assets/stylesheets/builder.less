@@ -316,6 +316,36 @@
       }
     }
   }
+
+  .scrolling {
+    overflow: auto;
+  }
+
+  #history .scrolling {
+    //needed the keep the icons visible when div overflows
+    padding-left: 15px;
+    margin-left: -15px;
+  }
+
+  .affix-top {
+    position: static;
+  }
+
+  .affix {
+    position: fixed;
+    top: 0px;
+    height: 100%;
+    &#criteriaElements {
+      padding-right: 0px;
+    }
+    & .scrolling {
+      position: absolute;
+      width: 100%
+      top: 0px;
+      bottom: 0px;
+    }
+  }
+
 }
 .selectBoxIt-native {
   height: @input-height-base !important;
