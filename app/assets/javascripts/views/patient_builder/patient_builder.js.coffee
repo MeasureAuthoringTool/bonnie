@@ -175,6 +175,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @$('#expired').focus()
 
   handleAffix: ->
+    # ensure patient history is always long enough to not cause weird behavior
+    @$('.criteria-container').css("min-height",$(window).height())
+    $(window).on 'resize', -> @$('.criteria-container').css("min-height",$(window).height())
     # affix side columns to get desired behavior
     $cols = @$('#criteriaElements, #populationLogic, #history') #these get affixed. add listeners
       .on 'affix.bs.affix', ->
