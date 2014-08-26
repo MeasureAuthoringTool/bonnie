@@ -9,7 +9,7 @@
     {{#collection item-view="SelectCriteriaItemView"}}
       <div class="draggable">
         <div class="pull-right" style="margin: 0 0 3px 3px"><i class="fa fa-arrows" aria-hidden="true"></i></div>
-        <strong class="ui-draggable">{{description}}</strong>
+        <strong class="ui-draggable"><span class="criteriatype">{{type}}</span> {{detail}}</strong>
         <span class="sr-only">{{#button "addCriteriaToPatient"}}{{description}}; add criteria to patient{{/button}}</span>
       </div>
     {{/collection}}

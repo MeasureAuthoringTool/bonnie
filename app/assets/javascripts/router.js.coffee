@@ -25,10 +25,14 @@ class BonnieRouter extends Backbone.Router
 
   renderMeasures: ->
     document.title = "Bonnie v#{bonnie.applicationVersion}: Dashboard";
-    # FIXME: We want the equivalent of a before filter; can probably override navigate w/super? @on route happens after, ok?
     @calculator.cancelCalculations()
-    measuresView = new Thorax.Views.Measures(collection: @measures.sort(), patients: @patients)
-    @mainView.setView(measuresView)
+
+    if @isPortfolio
+      dashboardView = new Thorax.Views.Matrix(collection: @measures, patients: @patients)
+    else
+      dashboardView = new Thorax.Views.Measures(collection: @measures.sort(), patients: @patients)
+    @mainView.setView(dashboardView)
+    
 
   renderMeasure: (hqmfSetId) ->
     document.title = "Bonnie v#{bonnie.applicationVersion}: Measure View";
@@ -76,4 +80,3 @@ class BonnieRouter extends Backbone.Router
     valueSets = new Thorax.Collections.ValueSetsCollection(_(bonnie.valueSetsByOid).values())
     valueSetsBuilderView = new Thorax.Views.ValueSetsBuilder(collection: valueSets, measures: @measures.sort(), patients: @patients)
     @mainView.setView(valueSetsBuilderView)
-

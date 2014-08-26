@@ -1,18 +1,4 @@
 GIT
-  remote: https://github.com/pophealth/hqmf2js.git
-  revision: 9906468bab35a054b58ffc85e55d3b515be4e980
-  branch: master
-  specs:
-    hqmf2js (1.3.0)
-
-GIT
-  remote: https://github.com/pophealth/patientapi.git
-  revision: 57220411b17cdd59a006bd1d9989998f9c078a97
-  branch: master
-  specs:
-    hquery-patient-api (1.0.4)
-
-GIT
   remote: https://github.com/pophealth/quality-measure-engine.git
   revision: 3a1df9a6240e94425d7c867a7b3d674cab39a0f1
   branch: master
@@ -25,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: c412f671a99aa001bc3c528d4d01674fce264f73
+  revision: 8e0a800a3de157cfadbc871520ac6bb8f8458c6b
   branch: bonnie_master
   specs:
     health-data-standards (3.4.6)
@@ -48,6 +34,20 @@ GIT
   branch: master
   specs:
     bonnie_bundler (1.0.0)
+
+GIT
+  remote: https://github.com/projecttacoma/hqmf2js.git
+  revision: 699222f597d218889991fae425e14265e06bc7b9
+  branch: master
+  specs:
+    hqmf2js (1.3.0)
+
+GIT
+  remote: https://github.com/projecttacoma/patientapi.git
+  revision: 57220411b17cdd59a006bd1d9989998f9c078a97
+  branch: master
+  specs:
+    hquery-patient-api (1.0.4)
 
 GIT
   remote: https://github.com/projecttacoma/simplexml_parser.git

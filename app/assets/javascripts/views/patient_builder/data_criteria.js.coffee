@@ -16,12 +16,22 @@ class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
   events:
     rendered: ->
       # FIXME: We'd like to do this via straight thorax events, doesn't seem to work...
-      @$('.collapse').on 'show.bs.collapse hide.bs.collapse', => @$('.panel-expander').toggleClass('fa-angle-right fa-angle-down')
+      @$('.collapse').on 'show.bs.collapse hide.bs.collapse', => 
+        @$('.panel-expander').toggleClass('fa-angle-right fa-angle-down').toggleClass('fa-2x fa-1x')
+        @$('.panel-icon').toggleClass('fa-3x fa-1x').toggleClass('opened')
+      @$('.collapse').on 'show.bs.collapse', (e) ->
+        $('a[data-parent="#criteriaElements"]').next('.in').not(e.target).collapse 'hide' #hide open groups
+
   faIcon: -> @collection.first()?.toPatientDataCriteria()?.faIcon()
 
 
 class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
   addCriteriaToPatient: -> @trigger 'bonnie:dropCriteria', @model.toPatientDataCriteria()
+  context: ->
+    desc = @model.get('description').split(/, (.*)/)?[1] or @model.get('description')
+    _(super).extend
+      type: desc.split(": ")[0]
+      detail: desc.split(": ")[1]
 
 
 class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
@@ -68,7 +78,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
     cmsIdParts = @model.get("cms_id").match(/CMS(\d+)(V\d+)/i)
-    desc = @model.get('description').split(", ")?[1] or @model.get('description')
+    desc = @model.get('description').split(/, (.*)/)?[1] or @model.get('description')
     _(super).extend
       start_date: moment.utc(@model.get('start_date')).format('L') if @model.get('start_date')
       start_time: moment.utc(@model.get('start_date')).format('LT') if @model.get('start_date')

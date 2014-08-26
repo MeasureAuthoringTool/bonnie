@@ -12,7 +12,7 @@ class Thorax.Model.Coverage extends Thorax.Model
     @rationaleCriteria = []
     @differences.each (difference) => if difference.get('done')
       result = difference.result
-      rationale = result.updatedRationale()
+      rationale = result.get('rationale')
       @rationaleCriteria.push(criteria) for criteria, result of rationale when result
     @rationaleCriteria = _(@rationaleCriteria).intersection(@measureCriteria)
 

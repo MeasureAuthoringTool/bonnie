@@ -31,6 +31,16 @@
   }
   .list-group {
     padding-top: 30px;
+    a.disabled  {
+      color: @nav-disabled-link-color;
+      &:hover,
+      &:focus {
+        color: @nav-disabled-link-hover-color;
+        text-decoration: none;
+        background-color: transparent;
+        cursor: not-allowed;
+      }
+    }
   }
 }
 
@@ -147,15 +157,15 @@
           color: @btn-danger-bg;
         }
       }
-      .update-measure {
+      .update-measure, .btn-measure-viz, .export-patients {
         .fa {
           color: @brand-primary;
         }
       }
-      .export-patients {
+      .btn-primary {
         .fa {
-          color: @brand-primary;
-        }
+          color: white;
+        }  
       }
     }
     .measure-settings-expanded {
@@ -186,6 +196,30 @@
     .make-sm-column(12);
     padding-top: 15px;
     padding-left: 0px;
+    .conjunction {
+      font-weight: bold;
+    }
+    ul {
+      padding-left: 20px;
+      list-style-type: none;
+      margin-bottom: 0px;
+    }
+  }
+  .d3-measure-viz {
+    .precondition {
+      fill: @gray-light;
+    }
+    .coverage {
+      fill: @brand-primary;
+    }
+    .eval-true {
+      //for measure viz
+      fill: #449d44;
+    }
+    .eval-false, .eval-bad-specifics {
+      //for measure viz
+      fill: #c9302c;
+    }
   }
 }
 .logic-comment {

@@ -27,6 +27,7 @@ class Thorax.Views.MeasureDebug extends Thorax.Views.BonnieView
       @results.remove result
     else
       @results.add @population.calculate(patient)
+    $("textarea").val(Logger.logger.join("\n"))
 
   selectAll: ->
     @model.get('patients').each (p) => @results.add @population.calculate(p) unless @results.findWhere(patient_id: p.id)
