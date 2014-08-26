@@ -7,9 +7,11 @@
     </div>
     <div class="dashboard-title">
         <h1><i class="fa fa-tasks" aria-hidden="true"></i> Measures</h1>
-        <div class="btn-wrapper-bundle">
-          {{#button "bundle" class="btn btn-primary"}}<i class="fa fa-download" aria-hidden="true"></i><span class="sr-only">bundle export</span>{{/button}}
-        </div>
+        {{#ifCond measures.length '||' patients.length}}
+          <div class="btn-wrapper-bundle">
+            {{#button "bundle" class="btn btn-primary"}}<i class="fa fa-download" aria-hidden="true"></i><span class="sr-only">bundle export</span>{{/button}}
+          </div>
+        {{/ifCond}}
     </div>
   </div>
   <div class="expected-col">
