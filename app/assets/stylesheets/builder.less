@@ -337,6 +337,14 @@
   	  bottom: 0px;
   	  position: absolute;
   	}
+    &.disabled {
+      background-color: @gray-lighter;
+      color: @gray-light;
+      cursor: default;
+      &:hover {
+        cursor: default;
+      }
+    }
   }
 
   #history .scrolling {
