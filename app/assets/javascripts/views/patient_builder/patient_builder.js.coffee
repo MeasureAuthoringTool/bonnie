@@ -68,16 +68,17 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     'click .deceased-checkbox': 'toggleDeceased'
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
+
     rendered: ->
-      @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
-
+      @$('.draggable').draggable revert: 'invalid', helper: 'clone', appendTo: '.patient-builder', zIndex: 10
       # Make criteria list a drop target
-      @$('.criteria-container.droppable').droppable greedy: true, accept: '.ui-draggable', drop: _.bind(@drop, this)
-
+      @$('.criteria-container.droppable').droppable greedy: true, accept: '.ui-draggable', activeClass: 'active-drop', drop: _.bind(@drop, this)
       @$('.date-picker').datepicker().on 'changeDate', _.bind(@materialize, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.indicator-patient-builder').addClass('active')
+      @$('.logic-pager').on 'click', _.bind(@logicScroll, this)
+
     serialize: (attr) ->
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
@@ -97,6 +98,43 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       birthtime: birthdatetime?.format('LT')
       deathdate: deathdatetime?.format('L')
       deathtime: deathdatetime?.format('LT')
+
+  logicScroll: (e) ->
+    $logic = @$("#populationLogic").find('.scrolling')
+    if $(e.target).attr('class').match('down')
+      $logic.animate scrollTop: $logic.scrollTop() + $logic.height() - parseInt($logic.css('line-height')) # scroll down 1 line less than whole screen length
+    else
+      $logic.animate scrollTop: $logic.scrollTop() - $logic.height() + parseInt($logic.css('line-height'))
+
+  handleAffix: ->
+    # ensure patient history is always long enough to not cause weird behavior
+    @$('.criteria-container').css("min-height",$(window).height())
+    $(window).on 'resize', -> @$('.criteria-container').css("min-height",$(window).height())
+
+    # affix side columns to get desired scrolling behavior
+    $cols = @$('#criteriaElements, #populationLogic, #history') #these get affixed. add listeners
+      .on 'affix.bs.affix', ->
+        $('.logic-pager').show() # add the pagination parts
+        $(@).each -> 
+          $(@).find('*').not('div').first().nextAll('div').first().prev().css("margin-bottom",'0') #make affixed element flush with header      
+          if $(@).find('.logic-pager').length #if there is pagination inside this affixed element
+            $(@).find('.scrolling').css # set proper attributes of scrolling section
+              overflow: "hidden" #disables scrolling of paging div
+              bottom: $('.logic-pager.down').height()
+              top: $('.logic-pager.up').position().top + $('.logic-pager.up').height()
+              width: $(@).find('.scrolling').outerWidth() 
+          else 
+            $(@).find('.scrolling').css 
+              top: $(@).find('*').not('div').first().nextAll('div').first().prev().height()
+              width: $(@).find('.scrolling').outerWidth() 
+          $(@).css width: $(@).width() #assign current width explicitly to affixed element  
+      .on 'affixed-top.bs.affix', ->
+        $('.logic-pager').hide() # hide pagination parts
+        $(@).each -> 
+          $(@).removeAttr('style') #revert each affixed element to default css styling
+          $(@).find('*').not('div').first().nextAll('div').first().prev().css("margin-bottom",'') #undo make affixed element flush with header
+          $(@).find('.scrolling').removeAttr('style').animate scrollTop: 0 #scroll div back to top, remove custom styling
+    $cols.affix offset: { top: @$('.criteria-container').parent().offset().top } # tell affix to activate after scrolling this many pixels
 
   serializeWithChildren: ->
     # Serialize the main view and the child collection views separately because otherwise Thorax wants
