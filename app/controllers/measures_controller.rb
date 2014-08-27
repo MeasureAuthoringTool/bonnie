@@ -99,7 +99,7 @@ class MeasuresController < ApplicationController
 
       if measure_details['episode_of_care'] && measure.data_criteria.values.select {|d| d['specific_occurrence']}.empty?
         measure.delete
-        flash[:error] = {title: "Error Loading Measure", summary: "An episode of care measure requires at least one speciific occurrence for the episode of care.", body: "You have loaded the measure as an episode of care measure.  Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."}
+        flash[:error] = {title: "Error Loading Measure", summary: "An episode of care measure requires at least one specific occurrence for the episode of care.", body: "You have loaded the measure as an episode of care measure.  Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
@@ -122,14 +122,18 @@ class MeasuresController < ApplicationController
         clean_email = File.basename(current_user.email) # Prevent path traversal
         filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}#{extension}"
 
+	operator_error = false # certain types of errors are operator errors and do not need to be emailed out.	
+
         FileUtils.cp(params[:measure_file].tempfile, File.join(errors_dir, filename))
         File.chmod(0644, File.join(errors_dir, filename))
         File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
         if e.is_a? Measures::ValueSetException
           flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
         elsif e.is_a? Measures::HQMFException
+	  operator_error = true
           flash[:error] = {title: "Error Loading Measure", summary: "Error loading XML file.", body: "There was an error loading the XML file you selected.  Please verify that the file you are uploading is an HQMF XML or SimpleXML file.  Message: #{e.message}"}
         elsif e.is_a? Measures::VSACException
+	  operator_error = true
           flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
         else
           flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Please re-package the measure in the MAT, then re-download the MAT Measure Export.  If the measure has QDM elements without a VSAC Value Set defined the measure will not load."}
@@ -138,10 +142,12 @@ class MeasuresController < ApplicationController
         flash[:error] = {title: "Error Loading Measure", body: "You must specify a Measure Authoring tool measusre export to use."}
       end
       # email the error
-      if defined? ExceptionNotifier::Notifier
+ 
+      if !operator_error && defined? ExceptionNotifier::Notifier
         params[:error_file] = filename
         ExceptionNotifier::Notifier.exception_notification(env, e).deliver
       end
+
       redirect_to "#{root_path}##{params[:redirect_route]}"
       return
     end
