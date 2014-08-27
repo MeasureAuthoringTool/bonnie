@@ -32,17 +32,6 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
     if result.get('values')?
       result.set 'values', _(result.get('values')).sortBy( (v) -> v)
 
-    # criteria map from expected_values.js.coffee
-    criteriaMap =
-      IPP:      'IPP'
-      STRAT:    'STRAT'
-      DENOM:    'DEN'
-      NUMER:    'NUM'
-      DENEXCEP: 'EXCP'
-      DENEX:    'EXCL'
-      MSRPOPL:  'MSRPOPL'
-      OBSERV:   'OBSERV'  
-
     for popCrit in @populationCriteria()
       if popCrit.indexOf('OBSERV') != -1
         expected = if popCrit == 'OBSERV' then @get('OBSERV')?[0] else @get('OBSERV')?[@observIndex(popCrit)]
@@ -54,7 +43,7 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
         actual = result.get(popCrit)
         key = popCrit
       # Here's the hash we return:
-      name: criteriaMap[popCrit]
+      name: popCrit
       key: key
       expected: expected
       actual: actual
