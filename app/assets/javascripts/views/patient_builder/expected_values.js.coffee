@@ -81,15 +81,6 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     context
 
   initialize: ->
-    criteriaMap =
-      IPP:      'IPP'
-      STRAT:    'STRAT'
-      DENOM:    'DEN'
-      NUMER:    'NUM'
-      DENEXCEP: 'EXCP'
-      DENEX:    'EXCL'
-      MSRPOPL:  'MSRPOPL'
-      OBSERV:   'OBSERV'
     @currentCriteria = []
     # get population criteria from the measure to include OBSERV
     population = @measure.get('populations').at @model.get('population_index')
@@ -99,7 +90,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     for pc in @measure.populationCriteria() when population.has(pc)
       @currentCriteria.push
         key: pc
-        displayName: criteriaMap[pc]
+        displayName: pc
         isEoC: @isNumbers
     unless @model.has('OBSERV_UNIT') or not @isMultipleObserv then @model.set 'OBSERV_UNIT', ' mins', {silent:true}
 
