@@ -170,7 +170,7 @@ include Devise::TestHelpers
     flash[:error].keys.must_include :title
     flash[:error].keys.must_include :summary
     flash[:error].keys.must_include :body
-    flash[:error][:summary].must_equal 'An episode of care measure requires at least one speciific occurrence for the episode of care.'
+    flash[:error][:summary].must_equal 'An episode of care measure requires at least one specific occurrence for the episode of care.'
     flash.clear
 
     # loads patient based
@@ -210,7 +210,7 @@ include Devise::TestHelpers
 
     flash[:error].keys.must_include :title
     flash[:error].keys.must_include :body
-    flash[:error][:body].must_equal 'You must specify a Measure Authoring tool measusre export to use.'
+    flash[:error][:body].must_equal 'You must specify a Measure Authoring tool measure export to use.'
     flash.clear
 
   end
