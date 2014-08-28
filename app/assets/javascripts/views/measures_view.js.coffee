@@ -22,6 +22,16 @@ class Thorax.Views.Measures extends Thorax.Views.BonnieView
 
 class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
 
+  events:
+    'click .edit-pop': (e) ->
+      $(e.currentTarget).find('i').toggleClass 'fa-pencil fa-save'
+      title = $(e.currentTarget).prev() 
+      if title.is('span') 
+        title.replaceWith -> return '<input type="text" value="'+$(@).html()+'">' #make it editable
+      else 
+        title.replaceWith -> 
+          return '<span>'+this.value+'</span>' #make it uneditable
+
   options:
     fetch: false
 
