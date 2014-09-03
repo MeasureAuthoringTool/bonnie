@@ -23,14 +23,7 @@ class Thorax.Views.Measures extends Thorax.Views.BonnieView
 class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
 
   events:
-    'click .edit-pop': (e) ->
-      $(e.currentTarget).find('i').toggleClass 'fa-pencil fa-save'
-      title = $(e.currentTarget).prev() 
-      if title.is('span') 
-        title.replaceWith -> return '<input type="text" value="'+$(@).html()+'">' #make it editable
-      else 
-        title.replaceWith -> 
-          return '<span>'+this.value+'</span>' #make it uneditable
+    'click .edit-pop': 'editPopulationName'
 
   options:
     fetch: false
@@ -44,12 +37,29 @@ class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
       @differencesCollection = new Thorax.Collection differencesCollection
     else
       @differences = @model.get('populations').first().differencesFromExpected()
-
+ 
   updateMeasure: (e) ->
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)
     importMeasureView.appendTo(@$el)
     importMeasureView.display()
 
+  editPopulationName: (e) ->
+    $(e.currentTarget).find('i').toggleClass 'fa-pencil fa-save'
+    title = $(e.currentTarget).prev() 
+
+    if title.is('span') 
+      title.replaceWith -> return '<input id="population_edit" name="population_edit" type="text" value="'+$(@).html()+'">' #make it editable
+    else 
+      title.replaceWith -> 
+        return '<span>'+this.value+'</span>' #make it uneditable
+
+      pop =  $(e.currentTarget).closest('.row.population') #this population
+      y = pop.siblings().addBack().index(pop) #tells us where this pop is in its group of pops
+
+      @model.get('populations').at(y).set 'title', title.val()
+      @model.save()
+
+      console.log @model.get('populations').at(y).attributes.title
 
 class Thorax.Views.MeasurePercentageView extends Thorax.Views.BonnieView
   template: JST['measure/percentage']
