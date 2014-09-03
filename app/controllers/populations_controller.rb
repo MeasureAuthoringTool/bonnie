@@ -7,4 +7,11 @@ class PopulationsController < ApplicationController
     end
   end
 
+  def update_population_titles
+    measure = Measure.by_user(current_user).find(params[:id])
+    measure.populations.at(params[:index])['title'] = params[:name]
+    measure.save
+    render :json => measure
+  end
+
 end

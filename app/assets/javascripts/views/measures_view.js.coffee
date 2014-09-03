@@ -50,16 +50,14 @@ class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
     if title.is('span') 
       title.replaceWith -> return '<input id="population_edit" name="population_edit" type="text" value="'+$(@).html()+'">' #make it editable
     else 
+      newTitle = title.val()
       title.replaceWith -> 
-        return '<span>'+this.value+'</span>' #make it uneditable
+        return '<span>'+newTitle+'</span>' #make it uneditable
 
       pop =  $(e.currentTarget).closest('.row.population') #this population
       y = pop.siblings().addBack().index(pop) #tells us where this pop is in its group of pops
 
-      @model.get('populations').at(y).set 'title', title.val()
-      @model.save()
-
-      console.log @model.get('populations').at(y).attributes.title
+      @model.save(name: newTitle, index: y) #sets it in model
 
 class Thorax.Views.MeasurePercentageView extends Thorax.Views.BonnieView
   template: JST['measure/percentage']
