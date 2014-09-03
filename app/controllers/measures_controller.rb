@@ -91,7 +91,7 @@ class MeasuresController < ApplicationController
       else
         if existing.hqmf_set_id != measure.hqmf_set_id
           measure.delete
-          flash[:error] = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a differnt measure.  Please update the correct measure or upload the file as a new measure."}
+          flash[:error] = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
           redirect_to "#{root_path}##{params[:redirect_route]}"
           return
         end
