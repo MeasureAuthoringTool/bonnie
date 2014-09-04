@@ -40,12 +40,6 @@ class Thorax.Views.MatrixCell extends Thorax.Views.BonnieView
       $(".popover").remove()
       bonnie.navigate "measures/#{@model.measure.get('hqmf_set_id')}/patients/#{@model.patient.id}/edit", trigger: true
 
-      #
-
-      #setTimeout(=>
-       # bonnie.navigate "measures/#{@model.measure.get('hqmf_set_id')}/patients/#{@model.patient.id}/edit", trigger: true     ,5000)
-      #$.when(@$el.popover 'destroy').then(=> bonnie.navigate "measures/#{@model.measure.get('hqmf_set_id')}/patients/#{@model.patient.id}/edit", trigger: true )
-
     model:
       change: -> @$el.addClass(@className())
 
