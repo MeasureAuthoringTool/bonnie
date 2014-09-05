@@ -78,7 +78,7 @@
 
       <div class="form-group">
         <label class="control-label"><i class="fa fa-code" aria-hidden="true"></i> Codes<input class="sr-only" disabled></label>
-
+        <span class="label label-primary pull-right edit-criteria">Edit this</span>
         {{#collection codes class="existing-values"}}
         <span>
           {{codeset}}:
@@ -86,14 +86,15 @@
           {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
         </span>
         {{/collection}}
-
+        <div class="editing">
         {{view editCodeSelectionView}}
+        </div>
       </div>
 
       {{#if editValueView}}
         <div class="form-group">
           <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Result<input class="sr-only" disabled></label>
-
+          <span class="label label-primary pull-right edit-criteria">Edit this</span>
           {{#collection value class="existing-values"}}
             <span>
               {{value}} {{unit}}
@@ -101,8 +102,9 @@
               {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
             </span>
           {{/collection}}
-
+          <div class="editing">
           {{view editValueView}}
+          </div>
         </div>
       {{/if}}
 
@@ -142,7 +144,7 @@
         </div>
         <div class="form-group">
           <label class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Filled<input class="sr-only" disabled></label>
-
+          <span class="label label-primary pull-right edit-criteria">Edit this</span>
           {{#collection fulfillments class="existing-values"}}
             <span>
               {{quantity_dispensed_value}} {{quantity_dispensed_unit}}:
@@ -150,15 +152,15 @@
               {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
             </span>
           {{/collection}}
-
+          <div class="editing">
           {{view editFulfillmentHistoryView}}
-
+          </div>
         </div>
       {{/ifCond}}
 
       <div class="form-group">
         <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Field Value<input class="sr-only" disabled></label>
-
+        <span class="label label-primary pull-right edit-criteria">Edit this</span>
         {{#collection field_values class="existing-values" item-context=valueWithDateContext}}
           <span>
             {{key}}:
@@ -171,8 +173,9 @@
             {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
           </span>
         {{/collection}}
-
+        <div class="editing">
         {{view editFieldValueView}}
+        </div>
       </div>
 
       <div class="form-group">

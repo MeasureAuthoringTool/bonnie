@@ -1,7 +1,14 @@
 # Abstract base class for children of the patient builder that need to communicate with the top-level via events
 class Thorax.Views.BuilderChildView extends Thorax.Views.BonnieView
   events:
-    ready: -> @patientBuilder().registerChild this
+    ready: -> 
+      @patientBuilder().registerChild this
+      @$('.editing').hide()
+    'click .edit-criteria': (e) => 
+      @$(e.target).toggleClass('label-primary label-warning')
+        .text(if @$(e.target).text() == "Edit this" then "Finish editing" else "Edit this")
+        .nextAll('.editing').toggle()
+
   patientBuilder: ->
     parent = @parent
     until parent instanceof Thorax.Views.PatientBuilder
