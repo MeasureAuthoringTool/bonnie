@@ -16,6 +16,7 @@ class Thorax.Views.SubsetOperatorLogic extends Thorax.Views.BonnieView
     'MEDIAN':'MEDIAN'
     'TIMEDIFF':'Difference between times'
     'DATEDIFF':'Difference between dates'
+    'DATETIMEDIFF':'Difference between date/times'
 
   initialize: ->
     ""

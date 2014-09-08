@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 98c5bbc4029530bac07d5754976312906a1d51eb
+  revision: ab978c45f0141ea56fd12e3f03c3dcc953549ecf
   branch: bonnie_master
   specs:
     health-data-standards (3.4.6)
@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/hqmf2js.git
-  revision: 699222f597d218889991fae425e14265e06bc7b9
+  revision: a05ad2eda3f0925ae13bd1154ceba7190d6d62f1
   branch: master
   specs:
     hqmf2js (1.3.0)
@@ -51,7 +51,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/simplexml_parser.git
-  revision: a67d66a17931736081ba0d8c257dbbecd2699c5d
+  revision: 714d24ec06dbf4dc7796fc044de5952a82b35b18
   branch: master
   specs:
     simplexml_parser (1.0.0)
@@ -277,7 +277,7 @@ GEM
     turn (0.9.7)
       ansi
       minitest (~> 4)
-    tzinfo (0.3.40)
+    tzinfo (0.3.41)
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)

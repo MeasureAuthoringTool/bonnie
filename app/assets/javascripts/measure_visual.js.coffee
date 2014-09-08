@@ -108,7 +108,8 @@ Bonnie.viz.measureVisualzation = ->
       'MEAN': 'MEAN'
       'MEDIAN': 'MEDIAN'
       'TIMEDIFF': 'Difference between times'
-      'DATEDIFF': 'DIfference between dates'
+      'DATEDIFF': 'Difference between dates'
+      'DATETIMEDIFF': 'Difference between date/times'
 
     timing_map =
       'DURING':'during'
