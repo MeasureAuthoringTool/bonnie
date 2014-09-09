@@ -158,7 +158,7 @@ class Thorax.Models.Result extends Thorax.Model
   # walk through data criteria to account for specific occurrences within a UNION
   calculateDataCriteriaOrCounts: (rationale) ->
     orCounts = {}
-    for key, dc of @measure.get('data_criteria') when dc.derivation_operator == 'UNION'
+    for key, dc of @measure.get('data_criteria') when dc.derivation_operator == 'UNION' && dc.key.indexOf('UNION') != -1
       trueCount = 0
       for child in dc.children_criteria
         trueCount++
