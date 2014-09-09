@@ -161,7 +161,7 @@ class Thorax.Models.Result extends Thorax.Model
     for key, dc of @measure.get('data_criteria') when dc.derivation_operator == 'UNION' && dc.key.indexOf('UNION') != -1
       trueCount = 0
       for child in dc.children_criteria
-        trueCount++
+        trueCount++ if rationale[dc.key]
       if orCounts[dc.key]? then orCounts[dc.key] += trueCount else orCounts[dc.key] = trueCount
     orCounts
 
