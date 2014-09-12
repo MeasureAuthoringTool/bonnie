@@ -134,9 +134,49 @@
       .make-sm-column-offset(1);
       .make-xs-column(6);
       .population-title {
+        .clearfix;
         padding: 6px 15px 7px;
         background: @gray-lighter;
         margin-right: 108px;
+        .form-inline {
+          display: table-row;
+          div {
+            display: table-cell;
+            vertical-align: middle;
+            white-space: nowrap;
+          }
+          & div:nth-child(2) {
+            width: 100%;
+            padding: 0 6px;
+            input {
+              width: 100%;
+            }
+          }
+        }
+        .edit-pop {
+          background: white;
+          padding: 1px 6px;
+          color: @blue-darker;
+          text-align: right;
+          &:before {
+            content: @fa-var-pencil;
+            font-family: FontAwesome;
+            color: inherit;
+          }
+          &:hover {
+            background: @gray-light;
+          }
+        }
+        .save-pop {
+          .edit-pop;
+          color: @state-success-text;
+          &:before { content: @fa-var-check; }
+        }
+        .cancel-pop {
+          .edit-pop;
+          color: @state-danger-text;
+          &:before { content: @fa-var-times; }
+        }
       }
     }
   }
