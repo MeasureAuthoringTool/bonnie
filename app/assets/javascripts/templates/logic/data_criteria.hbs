@@ -1,5 +1,5 @@
 {{#unless expandVariable}}
-  <span class="{{dataCriteria.key}} rationale-target{{#ifCond dataCriteria.type '!=' 'derived'}} highlight-target{{/ifCond}}">
+  <span class="{{#if ../isSetOp}}{{#unless ../../dataCriteria.variable}}set-op-group{{/unless}}{{/if}} {{dataCriteria.key}} rationale-target{{#ifCond dataCriteria.type '!=' 'derived'}} highlight-target{{/ifCond}}">
 {{/unless}}
 
 {{#each dataCriteria.subset_operators}}
@@ -12,7 +12,7 @@
     {{#if dataCriteria.children_criteria}}
       {{#if isSetOp}}
         {{#unless expandVariable}}
-          <ul><li><span class="set-op {{dataCriteria.key}} rationale-target">{{translate_set_operator dataCriteria.derivation_operator}}:</span></li>
+          <ul><li><span class="set-op {{dataCriteria.key}} rationale-target"> {{translate_set_operator dataCriteria.derivation_operator}}:</span></li>
         {{/unless}}
       {{/if}}
       <ul>

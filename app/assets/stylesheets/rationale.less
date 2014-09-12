@@ -4,8 +4,13 @@
   .eval-true, .eval-false, .eval-bad-specifics, .eval-coverage {
     font-weight: 500;
     padding: 2px 0px;
-    ul li.set-op-item {
-      list-style-type: none;
+    &.set-op-group {
+      &:before {
+        content: none;
+      }
+      ul li.set-op-item {
+        list-style-type: none;
+      }
     }
   }
   .eval-true {
