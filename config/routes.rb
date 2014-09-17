@@ -15,6 +15,8 @@ Bonnie::Application.routes.draw do
 
   root to: 'home#index'
 
+  put 'measures/:id' => 'populations#update_population_titles'
+
   resources :measures, defaults: { format: :json } do
     collection do
       get 'value_sets'
