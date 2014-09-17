@@ -4,11 +4,13 @@ class Thorax.Views.BuilderChildView extends Thorax.Views.BonnieView
     ready: -> @patientBuilder().registerChild this
       
     rendered: -> @$('.editing').hide()
-    
-    'click .edit-criteria': (e) -> 
-      $(e.currentTarget).toggleClass('label-primary label-warning')
-        .text(if @$(e.currentTarget).text() == "Edit this" then "Finish editing" else "Edit this")
-        .nextAll('.editing').toggle()
+
+  editCriteria: (e) ->
+    e.preventDefault()
+    $(e.currentTarget)
+      .nextAll('.editing')
+        .show('slow').end()
+      .hide()
 
   patientBuilder: ->
     parent = @parent
