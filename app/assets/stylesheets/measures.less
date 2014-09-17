@@ -56,6 +56,16 @@
     position: absolute;
     top: 0; right: 15px;
   }
+  .dashboard-title {
+   h1 {
+    display: inline-block;
+   }
+   .btn-wrapper-bundle {
+    .btn-wrapper;
+    display: inline-block;
+    right: inherit; // overrides the value from .btn-wrapper
+   }
+  }
 }
 
 .expected-col {
@@ -83,6 +93,7 @@
     .title-bar;
     height: 2.4em;
   }
+
 
   .patient-listing-col {
     text-align: center;

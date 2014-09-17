@@ -26,11 +26,13 @@ class BonnieRouter extends Backbone.Router
   renderMeasures: ->
     document.title = "Bonnie v#{bonnie.applicationVersion}: Dashboard";
     @calculator.cancelCalculations()
+
     if @isPortfolio
       dashboardView = new Thorax.Views.Matrix(collection: @measures, patients: @patients)
     else
-      dashboardView = new Thorax.Views.Measures(collection: @measures.sort())
+      dashboardView = new Thorax.Views.Measures(collection: @measures.sort(), patients: @patients)
     @mainView.setView(dashboardView)
+    
 
   renderMeasure: (hqmfSetId) ->
     document.title = "Bonnie v#{bonnie.applicationVersion}: Measure View";
