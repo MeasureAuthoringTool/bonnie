@@ -49,6 +49,8 @@ Add some needed apache modules
   sudo a2enmod headers
   sudo a2enmod expires
 
+============= FOR APACHE 2.2 =============
+
 Add a file (as root, using sudo -i):
 
   /etc/apache2/conf.d/mod_passenger.conf
@@ -73,6 +75,11 @@ With the following content (changing the path appropriately):
 
   <VirtualHost *:80>
     DocumentRoot <path>/bonnie/current/public
+    RewriteEngine On
+    ErrorDocument 503 /system/maintenance.html
+    RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
+    RewriteCond %{SCRIPT_FILENAME} !maintenance.html
+    RewriteRule ^.*$ - [L,R=503]
     <Location /assets/>
       # Use of ETag is discouraged when Last-Modified is present
       Header unset ETag
@@ -88,6 +95,60 @@ With the following content (changing the path appropriately):
       AddOutputFilterByType DEFLATE text/css application/x-javascript application/javascript text/javascript
     </Directory>
   </VirtualHost>
+
+============= FOR APACHE 2.4 =============
+
+Add a file (as root, using sudo -i):
+
+  /etc/apache2/conf-available/mod_passenger.conf
+
+With the following content (use output from passenger-install-apache2-module):
+
+  LoadModule passenger_module /usr/local/rvm/gems/ruby-2.0.0-p451/gems/passenger-4.0.37/buildout/apache2/mod_passenger.so
+  <IfModule mod_passenger.c>
+    PassengerRoot /usr/local/rvm/gems/ruby-2.0.0-p451/gems/passenger-4.0.37
+    PassengerDefaultRuby /usr/local/rvm/gems/ruby-2.0.0-p451/wrappers/ruby
+    PassengerMinInstances 4
+    PassengerMaxPoolSize 4
+    PassengerMaxRequests 1000
+    PassengerPreStart http://localhost/
+  </IfModule>
+
+Then run
+
+  sudo a2enconf mod_passenger
+
+Add a file (as root, using sudo -i):
+
+  /etc/apache2/sites-available/bonnie
+
+With the following content (changing the path appropriately):
+
+  <VirtualHost *:80>
+    DocumentRoot <path>/bonnie/current/public
+    RewriteEngine On
+    ErrorDocument 503 /system/maintenance.html
+    RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
+    RewriteCond %{SCRIPT_FILENAME} !maintenance.html
+    RewriteRule ^.*$ - [L,R=503]
+    <Location /assets/>
+      # Use of ETag is discouraged when Last-Modified is present
+      Header unset ETag
+      FileETag None
+      # RFC says only cache for 1 year
+      ExpiresActive On
+      ExpiresDefault "access plus 1 year"
+    </Location>
+    <Directory <path>/bonnie/current/public>
+      AllowOverride all
+      Options -MultiViews
+      Require all granted
+      # Compress css and js
+      AddOutputFilterByType DEFLATE text/css application/x-javascript application/javascript text/javascript
+    </Directory>
+  </VirtualHost>
+
+============= END APACHE 2.4 =============
 
 Configure sites:
 
