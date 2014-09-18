@@ -9,8 +9,8 @@ class Thorax.Views.BuilderChildView extends Thorax.Views.BonnieView
     e.preventDefault()
     $(e.currentTarget)
       .nextAll('.editing')
-        .show('slow').end()
-      .hide()
+        .slideToggle('fast').end()
+      .toggleClass('open')
 
   patientBuilder: ->
     parent = @parent
