@@ -37,6 +37,7 @@ class Thorax.Views.MatrixCell extends Thorax.Views.BonnieView
       @$el.closest('table').find("th.measure-#{@model.population.displayName()}").removeClass('highlight-font')
     click: ->
       @$el.popover 'destroy'
+      $(".popover").remove() # Destroy doesn't seem to remove the popover, so remove it directly
       bonnie.navigate "measures/#{@model.measure.get('hqmf_set_id')}/patients/#{@model.patient.id}/edit", trigger: true
     model:
       change: -> @$el.addClass(@className())
