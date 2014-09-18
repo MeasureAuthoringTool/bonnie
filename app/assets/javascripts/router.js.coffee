@@ -29,7 +29,7 @@ class BonnieRouter extends Backbone.Router
     if @isPortfolio
       dashboardView = new Thorax.Views.Matrix(collection: @measures, patients: @patients)
     else
-      dashboardView = new Thorax.Views.Measures(collection: @measures.sort())
+      dashboardView = new Thorax.Views.Measures(collection: @measures.sort(), patients: @patients)
     @mainView.setView(dashboardView)
 
   renderMeasure: (hqmfSetId) ->
