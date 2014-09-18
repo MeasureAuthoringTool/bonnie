@@ -50,14 +50,10 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       unless filter_criteria
         categories[type] ||= new Thorax.Collection
         categories[type].add criteria unless categories[type].any (c) -> c.get('description').replace(/,/g , "") == criteria.get('description').replace(/,/g , "")
-    _(categories).omit('transfers','derived')
-    # Pass an array to the view so ordering is consistent
-    sorted_categories = []
-    sorted_keys = Object.keys(categories)
-    sorted_keys.sort()
-    for key in sorted_keys
-      sorted_categories.push {'key': key, 'collection': categories[key]}
-    sorted_categories
+    categories = _(categories).omit('transfers','derived')
+    # Pass a sorted array to the view so ordering is consistent
+    categoriesArray = ({ type: type, criteria: criteria } for type, criteria of categories)
+    _(categoriesArray).sortBy (entry) -> entry.type
 
   events:
     'blur :text':               'materialize'  
