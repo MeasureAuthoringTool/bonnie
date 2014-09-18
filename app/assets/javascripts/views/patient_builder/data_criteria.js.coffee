@@ -5,12 +5,20 @@ class Thorax.Views.BuilderChildView extends Thorax.Views.BonnieView
       
     rendered: -> @$('.editing').hide()
 
+    'mouseover .btn-xs': 'highlightCriteria'
+    'mouseout .btn-xs': 'highlightCriteria'
+
+  highlightCriteria: (e) -> 
+    if !$(e.currentTarget).hasClass('open')
+      $(e.currentTarget).parent('.form-group').toggleClass('highlighted')
+
   editCriteria: (e) ->
     e.preventDefault()
     $(e.currentTarget)
       .nextAll('.editing')
         .slideToggle('fast').end()
       .toggleClass('open')
+      .parent('.form-group').toggleClass('highlighted')
 
   patientBuilder: ->
     parent = @parent
