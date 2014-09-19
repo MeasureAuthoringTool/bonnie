@@ -157,8 +157,9 @@ class Thorax.Models.Patient extends Thorax.Model
         errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must have four digit year"]
       if sdc.get('end_date') && moment(sdc.get('end_date') / 1000, 'X').year() < 100
         errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must have four digit year"]
-      if sdc.get('start_date') && @get('birthdate') && sdc.get('start_date') < @get('birthdate') * 1000
-        errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must be after patient date of birth"]
+      # Start date *can* be before patient birth, if the encounter is when the patient is being born!
+      # if sdc.get('start_date') && @get('birthdate') && sdc.get('start_date') < @get('birthdate') * 1000
+      #   errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must be after patient date of birth"]
       if sdc.get('start_date') && @get('deathdate') && sdc.get('start_date') > @get('deathdate') * 1000
         errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must be before patient date of death"]
       if sdc.get('end_date') && @get('birthdate') && sdc.get('end_date') < @get('birthdate') * 1000
