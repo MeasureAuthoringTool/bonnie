@@ -20,7 +20,7 @@ Bonnie::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  Rails.application.routes.default_url_options[:host] = HOSTNAME
+  Rails.application.routes.default_url_options[:host] = APP_CONFIG['hostname']
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
@@ -65,14 +65,22 @@ Bonnie::Application.configure do
 
   # Configure to send email
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { address: 'smtp', openssl_verify_mode: 'none'}
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = {
+    address:              APP_CONFIG['smtp_hostname'],
+    port:                 APP_CONFIG['smtp_port'],
+    user_name:            APP_CONFIG['smtp_username'],
+    password:             APP_CONFIG['smtp_password'],
+    authentication:       'plain',
+    enable_starttls_auto: true,
+    tls:                  true
+  }
 
   # Send notification when application exceptions happen
   config.middleware.use ExceptionNotification::Rack, email: {
     email_prefix: "[Bonnie] ",
-    sender_address: %{"Bonnie" <bonnie@#{HOSTNAME}>},
+    sender_address: %{"Bonnie (#{APP_CONFIG['hostname']})" <bonnie@#{APP_CONFIG['hostname']}>},
     exception_recipients: %w{bonnie-feedback-list@lists.mitre.org},
     sections: %w{request session user_info environment backtrace}
   }

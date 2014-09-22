@@ -1,4 +1,3 @@
-APP_CONFIG = YAML.load_file(Rails.root.join('config', 'bonnie.yml'))[Rails.env]
 # TODO: need to figure out something better for measures.yml
 # APP_CONFIG.merge! YAML.load_file(Rails.root.join('config', 'measures.yml'))
 
