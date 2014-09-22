@@ -3,7 +3,7 @@
 {{else}} 
   {{#if isValue}}
     {{rangeComparison}}{{#if value.inclusive?}}={{/if}}
-    {{value.value}}{{#if value.unit }} {{translate_unit value.unit value.value}} {{/if}}
+    {{#if isTS}}{{translate_date value.value}}{{else}}{{value.value}}{{/if}}{{#if value.unit }} {{translate_unit value.unit value.value}} {{/if}}
   {{else}}
     {{#if isRange}}
       {{#ifCond value.high '&&' value.low}}
