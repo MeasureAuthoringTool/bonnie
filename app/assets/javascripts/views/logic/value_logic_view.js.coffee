@@ -11,10 +11,11 @@ class Thorax.Views.ValueLogic extends Thorax.Views.BonnieView
     's':'second'
 
   initialize: ->
-    @isRange = @value.type == 'IVL_PQ'
+    @isRange = _(['IVL_PQ', 'IVL_TS']).contains @value.type
     @isEquivalent = @isRange && @value.high?.value == @value.low?.value && @value.high?['inclusive?'] && @value.low?['inclusive?']
-    @isValue = @value.type == 'PQ'
+    @isValue = _(['PQ', 'TS']).contains @value.type
     @isAnyNonNull = @value.type == 'ANYNonNull'
+    @isTS = @value.type == 'TS'
 
   translate_unit: (unit, value) ->
     if (@unit_map[unit])
@@ -24,3 +25,6 @@ class Thorax.Views.ValueLogic extends Thorax.Views.BonnieView
 
   translate_oid: (oid) =>
     @measure.valueSets().findWhere({oid: oid})?.get('display_name')
+
+  translate_date: (date) ->
+    moment(date,'YYYYMMDD').format('l')
