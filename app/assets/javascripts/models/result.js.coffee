@@ -30,7 +30,8 @@ class Thorax.Models.Result extends Thorax.Model
         occurrences = _.uniq @population.getDataCriteriaKeys(@measure.get('population_criteria')[@population.get(code)?.code])
         # get the good and bad specifics
         occurrenceResults = @checkSpecificsForRationale(specifics, occurrences, @measure.get('data_criteria'))
-        parentMap = @buildParentMap(@measure.get('population_criteria')[code])
+        submeasureCode = @population.get(code)?.code || code
+        parentMap = @buildParentMap(@measure.get('population_criteria')[submeasureCode])
 
         # check each bad occurrence and remove highlights marking true
         for badOccurrence in occurrenceResults.bad
