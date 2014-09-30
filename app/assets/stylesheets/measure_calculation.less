@@ -57,6 +57,7 @@
   .patient {
     .patient-status-icon-col {
       .make-sm-column(1);
+      .hidden-sm;
       font-size: 1.375em;
       line-height: 1;
       padding: 0;
@@ -64,6 +65,7 @@
     }
     .patient-user-icon-col {
       .make-sm-column(1);
+      .visible-lg;
       font-size: 1.375em;
       line-height: 1;
       padding: 0;
@@ -77,13 +79,17 @@
       padding-top: 0px;      
     }
     .patient-name-col {
-      .make-sm-column(7);
+      .make-md-column(7);
+      .make-md-column-pull(1);
+      .make-sm-column(6);
+      .make-sm-column-offset(1);
       font-size: 14px;
       line-height: 1;
       padding: 0;
       margin-top: 6px;
     }
     .patient-status-col {
+      .make-md-column(3);
       .make-sm-column(2);
       font-size: 1.2em;
       line-height: 1;
