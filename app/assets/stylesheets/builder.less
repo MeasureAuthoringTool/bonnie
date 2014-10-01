@@ -45,6 +45,7 @@
 
   .col-left {
     .make-md-column(2);
+    .make-sm-column(2);
     &.measure-data-container {
       // jog content over by @{offset} so that the border-right overlaps with the .col-center's border-left
       @offset: @grid-gutter-width / 2 + @time-bar-width;
@@ -61,6 +62,7 @@
 
   .col-center {
     .make-md-column(6);
+    .make-sm-column(6);
     .form-data {
       .time-bar();
       // FIXME this border is attached here because this column is taller, but really belongs on .col-right
@@ -85,6 +87,7 @@
 
   .col-right {
     .make-md-column(4);
+    .make-sm-column(4);
   }
 
   .timeline-icon {
