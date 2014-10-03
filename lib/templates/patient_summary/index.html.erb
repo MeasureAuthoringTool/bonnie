@@ -82,7 +82,7 @@
       <% if results.length > 1%>
         <% 
           title = measure.populations[pop_index]['title'] 
-          title = "Sub Measure #{(a..zz)[pop_index]}" if title.empty?
+          title = "Sub Measure #{('a'..'zz').to_a[pop_index]}" if title.blank?
         %>
         <h2>Population: <%= title %></h2>
       <% end %>

@@ -27,10 +27,11 @@ class Thorax.Models.Result extends Thorax.Model
       if specifics = @get('finalSpecifics')?[code]
         updatedRationale[code] = {} 
         # get the referenced occurrences in the logic tree using original population code
-        occurrences = @population.getDataCriteriaKeys(@measure.get('population_criteria')[@population.get(code)?.code])
+        occurrences = _.uniq @population.getDataCriteriaKeys(@measure.get('population_criteria')[@population.get(code)?.code])
         # get the good and bad specifics
         occurrenceResults = @checkSpecificsForRationale(specifics, occurrences, @measure.get('data_criteria'))
-        parentMap = @buildParentMap(@measure.get('population_criteria')[code])
+        submeasureCode = @population.get(code)?.code || code
+        parentMap = @buildParentMap(@measure.get('population_criteria')[submeasureCode])
 
         # check each bad occurrence and remove highlights marking true
         for badOccurrence in occurrenceResults.bad
@@ -88,7 +89,6 @@ class Thorax.Models.Result extends Thorax.Model
     return unless parents
     for parent in parents
       parentKey = if parent.id? then "precondition_#{parent.id}" else parent.key || parent.type
-
       # we are negated if the parent is negated and the parent is a precondition.  If it's a data criteria, then negation is fine
       negated = parent.negation && parent.id?
       # do not bubble up negated unless we have no final specifics.  If we have no final specifics then we may not have positive statements to bubble up.
@@ -136,7 +136,7 @@ class Thorax.Models.Result extends Thorax.Model
     for code in Thorax.Models.Measure.allPopulationCodes
       if populationCriteria = @population.get(code)
         _.extend(orCounts, @calculateOrCountsRecursive(rationale, populationCriteria.preconditions))
-    orCounts
+    _.extend(orCounts, @calculateDataCriteriaOrCounts(rationale))
 
   # recursively walk preconditions to count true values for child ORs moving down the tree
   calculateOrCountsRecursive: (rationale, preconditions) ->
@@ -155,6 +155,14 @@ class Thorax.Models.Result extends Thorax.Model
         orCounts["precondition_#{precondition.id}"] = trueCount
       _.extend(orCounts, @calculateOrCountsRecursive(rationale, precondition.preconditions))
     return orCounts
+
+  # walk through data criteria to account for specific occurrences within a UNION
+  calculateDataCriteriaOrCounts: (rationale) ->
+    orCounts = {}
+    for key, dc of @measure.get('data_criteria') when dc.derivation_operator == 'UNION' && key.indexOf('UNION') != -1
+      for child in dc.children_criteria
+        orCounts[key] = (orCounts[key] || 0) + 1 if rationale[key]
+    orCounts
 
   codedEntriesForDataCriteria: (dataCriteriaKey) ->
     @get('rationale')[dataCriteriaKey]?['results']

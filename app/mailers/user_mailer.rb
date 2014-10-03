@@ -2,7 +2,7 @@ class UserMailer < ActionMailer::Base
 
   def user_signup_email(user)
     @user = user
-    @bonnie_host = HOSTNAME
+    @bonnie_host = APP_CONFIG['hostname']
     mail to: 'bonnie-feedback-list@lists.mitre.org', subject: '[Bonnie] New user signup', from: "bonnie@#{@bonnie_host}"
   end
 
