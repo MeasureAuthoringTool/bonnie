@@ -80,7 +80,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.indicator-patient-builder').addClass('active')
-      @$('.logic-pager').on 'click', _.bind(@logicPaging, this)
+
     serialize: (attr) ->
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
@@ -202,16 +202,26 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
           $(@).removeAttr('style') #revert each affixed element to default css styling
           $(@).find('.scrolling').removeAttr('style').animate scrollTop: 0 #scroll div back to top, remove custom styling  
     $cols.affix offset: { top: @$('.criteria-container').parent().offset().top } # tell affix to activate after scrolling this many pixels
+    @logicMoving() #handle scrolling and paging the logic pane
     
-  logicPaging: (e) ->
+  logicMoving: ->  # this takes care of everything when dealing with either scrolling or paging the logic.
     $logic = @$("#populationLogic").find('.scrolling')
-    page = $logic.height() - $logic.css('line-height').replace('px', '') # scroll down 1 line less than whole screen length
-    if $(e.target).attr('class').match('down')
-      $logic.animate scrollTop: $logic.scrollTop() + page, -> 
-        if $logic.scrollTop() == $logic.prop('scrollHeight') - $logic.outerHeight() then $(e.target).addClass('disabled') else $('.logic-pager').removeClass('disabled')
-    else
-      $logic.animate scrollTop: $logic.scrollTop() - page, ->
-        if $logic.scrollTop() == 0 then $(e.target).addClass('disabled') else $('.logic-pager').removeClass('disabled')
+    $logic.on 'scroll', -> logicPagingUpdate()
+    @$('.logic-pager.up').on 'click', -> moveLogic('up')
+    @$('.logic-pager.down').on 'click', -> moveLogic('down')
+
+    logicPagingUpdate = () ->
+      buffer = @$('.logic-pager.up').height()/2
+      @$('.logic-pager').removeClass('disabled')
+      if $logic.scrollTop() <= buffer
+        @$('.logic-pager.up').addClass('disabled') 
+      else if $logic.scrollTop() >= $logic.prop('scrollHeight') - $logic.height() - buffer
+        @$('.logic-pager.down').addClass('disabled') 
+
+    moveLogic = (dir) ->
+      page = $logic.height() - $logic.css('line-height').replace('px', '') # scroll down 1 line less than whole screen length
+      if dir is 'up' then $logic.animate scrollTop: $logic.scrollTop() - page, -> logicPagingUpdate()
+      if dir is 'down' then $logic.animate scrollTop: $logic.scrollTop() + page, -> logicPagingUpdate()
 
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
