@@ -188,7 +188,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         $(@).each ->
           if $(@).find('.logic-pager').length #if there is pagination inside this affixed element
             $(@).find('.scrolling').css # set proper attributes of scrolling section
-              overflow: "hidden" #disables scrolling of paging div
               bottom: $('.logic-pager.down').height()
               top: $('.logic-pager.up').position().top + $('.logic-pager.up').height()
               width: $(@).find('.scrolling').outerWidth()
