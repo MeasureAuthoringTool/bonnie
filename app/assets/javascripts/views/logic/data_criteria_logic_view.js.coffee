@@ -50,11 +50,11 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
     populationView = @populationCriteriaView()
     return unless populationView
     populationCriteriaKey = populationView.population.type
-    populationView.parent.highlightPatientData(dataCriteriaKey, populationCriteriaKey) if bonnie.isAdmin
+    populationView.parent.highlightPatientData(dataCriteriaKey, populationCriteriaKey)
 
   clearHighlightEntry: (e) ->
-    view = @populationCriteriaView()
-    view.parent.clearHighlightPatientData() if bonnie.isAdmin && view
+    if view = @populationCriteriaView()
+      view.parent.clearHighlightPatientData()
 
   populationCriteriaView: ->
     parent = @parent
