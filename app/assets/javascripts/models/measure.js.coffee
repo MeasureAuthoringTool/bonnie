@@ -49,7 +49,7 @@ class Thorax.Models.Measure extends Thorax.Model
       devices: ['removal_time', 'anatomical_structure']
       diagnostic_studies: []
       encounters: ['admit_time', 'discharge_time', 'discharge_disposition', 'facility',
-        'facility_arrival', 'facility_departure', 'transfer_to', 'transfer_from']
+        'facility_arrival', 'facility_departure', 'transfer_to', 'transfer_to_time', 'transfer_from', 'transfer_from_time']
       functional_statuses: []
       interventions: ['anatomical_structure']
       laboratory_tests: []
