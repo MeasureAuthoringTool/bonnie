@@ -81,6 +81,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.indicator-patient-builder').addClass('active')
 
+      $('.logic-pager').hide()
+
     serialize: (attr) ->
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
@@ -184,20 +186,21 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     # affix side columns to get desired behavior
     $cols = @$('#criteriaElements, #populationLogic, #history') #these get affixed. add listeners
       .on 'affix.bs.affix', ->
-        $('.logic-pager').show().filter('.up').addClass('disabled') # add the pagination part, disable up button
+        $('.logic-pager').show()
         $(@).each ->
           if $(@).find('.logic-pager').length #if there is pagination inside this affixed element
             $(@).find('.scrolling').css # set proper attributes of scrolling section
               bottom: $('.logic-pager.down').height()
-              top: $('.logic-pager.up').position().top + $('.logic-pager.up').height()
+              top: $(@).find('.scrolling').prev().position().top + $(@).find('.scrolling').prev().height()
               width: $(@).find('.scrolling').outerWidth()
           else 
             $(@).find('.scrolling').css 
               top: $(@).find('.scrolling').prev().height() + $(@).find('.scrolling').prev().position().top
               width: $(@).find('.scrolling').outerWidth() 
           $(@).css width: $(@).width() #assign current width explicitly to affixed element  
+        $('.logic-pager.up').hide()
       .on 'affixed-top.bs.affix', ->
-        $('.logic-pager').removeClass('disabled').hide() # hide the pagination part, removed disabled buttons
+        $('.logic-pager').hide() # hide the pagination part, removed disabled buttons
         $(@).each -> 
           $(@).removeAttr('style') #revert each affixed element to default css styling
           $(@).find('.scrolling').removeAttr('style').animate scrollTop: 0 #scroll div back to top, remove custom styling  
@@ -212,11 +215,11 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
     logicPagingUpdate = () ->
       buffer = @$('.logic-pager.up').height()/2
-      @$('.logic-pager').removeClass('disabled')
+      @$('.logic-pager').show()
       if $logic.scrollTop() <= buffer
-        @$('.logic-pager.up').addClass('disabled') 
+        @$('.logic-pager.up').hide()
       else if $logic.scrollTop() >= $logic.prop('scrollHeight') - $logic.height() - buffer
-        @$('.logic-pager.down').addClass('disabled') 
+        @$('.logic-pager.down').hide()     
 
     moveLogic = (dir) ->
       page = $logic.height() - $logic.css('line-height').replace('px', '') # scroll down 1 line less than whole screen length

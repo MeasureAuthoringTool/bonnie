@@ -156,26 +156,41 @@
 
   .panel {
     .panel-title {
-      background-color: @blue-lighter;
       color: white;
       display: block;
       font-size: @font-size-base;
       padding: (@grid-gutter-width / 2);
       text-transform: uppercase;
-      .panel-icon {
-        display: block;
-        .transition(font-size .35s ease);
-        &.opened {
-          display: inline-block;
+      &[class*="-elements"] {  
+        .transition(all .35s ease-in-out);
+        background-color: @blue-lighter;
+        &.closed {
+          padding: 4px (@grid-gutter-width / 2);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          .panel-icon {
+            display: inline-block;
+          }
+          .element-title {
+            display: none;
+          }
         }
-      }
-      .panel-expander {
-        .transition(font-size .35s ease);
-        .pull-right;
-        line-height: 2;
-      }
-      &:hover {
-        text-decoration: none;
+        .panel-icon {
+          display: block;
+        }
+        .panel-expander {
+          .pull-right;
+        }
+        &:hover {
+          text-decoration: none;
+          background-color: @blue-darker;
+          &.closed {
+            & .element-title {
+              display: initial;
+            }
+          }
+        }
       }
     }
     .draggable {
@@ -324,30 +339,35 @@
     overflow: auto;
   }
 
+  .logic-page {
+    display: table; 
+    width:100%;
+    &>div {
+      display: table-row;
+    }
+  }
+
   .logic-pager { 
-  	display: none;
   	text-align: center;
   	color: white;
   	font-size: @font-size-base*2;
   	background-color: @blue-lighter;
   	width: 100%;
-  	&:hover {
-  	  background-color: @blue-darker;
-  	  color: @gray-light;
-  	  cursor: pointer;
-  	}
+    &:hover {
+      background-color: @blue-darker;
+    }
+    &:before {
+      content: @fa-var-chevron-circle-up;
+      font-family: FontAwesome;
+    }
   	&.down {
   	  bottom: 0px;
   	  position: absolute;
-  	}
-    &.disabled {
-      background-color: @gray-lighter;
-      color: @gray-light;
-      cursor: default;
-      &:hover {
-        cursor: default;
+      &:before {
+        content: @fa-var-chevron-circle-down;
+        font-family: FontAwesome;
       }
-    }
+  	}
   }
 
   #history .scrolling {
@@ -383,8 +403,7 @@
   }
   
   .active-drop {
-  	background-color: @gray-lighter;
-  	background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.5) 20px, rgba(255,255,255,.5) 0px);
+    background-color: fadeout(@blue-lightest, 75%);
   }
 }
 .selectBoxIt-native {
