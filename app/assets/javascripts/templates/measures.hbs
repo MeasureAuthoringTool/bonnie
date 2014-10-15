@@ -65,11 +65,11 @@
   </div>
 
   {{#if multiplePopulations}}
-    {{#collection differencesCollection}}
+    {{#collection populations item-view='PopulationView'}}
       <div class="row population">
         <div class="population-col">
           <div class="population-title">
-            <span class="sr-only">{{../cms_id}} </span><strong>population:</strong> {{title}}
+            {{view "PopulationTitle" model=this.model}}
           </div>
         </div>
         <div class="expected-col">
