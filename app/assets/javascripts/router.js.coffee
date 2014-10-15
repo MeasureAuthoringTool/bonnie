@@ -22,6 +22,7 @@ class BonnieRouter extends Backbone.Router
     'measures/:hqmf_set_id':                           'renderMeasure'
     'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
+    'measures/:measure_hqmf_set_id/patient_bank':      'renderPatientBank'
     'admin/users':                                     'renderUsers'
     'value_sets/edit':                                 'renderValueSetsBuilder'
 
@@ -92,3 +93,17 @@ class BonnieRouter extends Backbone.Router
     errorDialogView = new Thorax.Views.ErrorDialog error: error
     errorDialogView.appendTo('#bonnie')
     errorDialogView.display();
+<<<<<<< HEAD
+=======
+
+  renderValueSetsBuilder: ->
+    valueSets = new Thorax.Collections.ValueSetsCollection(_(bonnie.valueSetsByOid).values())
+    valueSetsBuilderView = new Thorax.Views.ValueSetsBuilder(collection: valueSets, measures: @measures.sort(), patients: @patients)
+    @mainView.setView(valueSetsBuilderView)
+
+  renderPatientBank: (measureHqmfSetId) ->
+    measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
+    document.title = "Bonnie v#{bonnie.applicationVersion}: Patient Bank - #{measure.get('cms_id')}"
+    @mainView.setView new Thorax.Views.PatientBankView model: measure
+
+>>>>>>> Add initial buttons to share a patient and go to patient bank

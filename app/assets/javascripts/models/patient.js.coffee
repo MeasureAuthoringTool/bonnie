@@ -175,6 +175,7 @@ class Thorax.Models.Patient extends Thorax.Model
     return errors if errors.length > 0
 
 class Thorax.Collections.Patients extends Thorax.Collection
+  url: '/patients'
   model: Thorax.Models.Patient
   dedupName: (patient) ->
     return patient.first if !(patient.first && patient.last)
