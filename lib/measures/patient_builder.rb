@@ -194,6 +194,28 @@ module Measures
           field_value = facility
         end
 
+        if name.include? "TRANSFER"
+          if name.starts_with? "TRANSFER_FROM"
+            transfer = entry.transfer_from
+            field_accessor = :transfer_from
+            default_time = entry.start_time
+          else
+            transfer = entry.transfer_to
+            field_accessor = :transfer_to
+            default_time = entry.end_time
+          end
+          transfer ||= Transfer.new
+
+          if field.type == "CD"
+            transfer = Transfer.new(transfer.attributes.merge(field_value))
+          else
+            transfer.time = field_value
+          end
+          transfer.time ||= default_time
+
+          field_value = transfer
+        end
+
         begin
           field_accessor ||= HQMF::DataCriteria::FIELDS[name][:coded_entry_method]
           entry.send("#{field_accessor}=", field_value)
