@@ -11,8 +11,9 @@ class Thorax.Models.Patient extends Thorax.Model
     # This section is a bit unusual: we map from server side values to a more straight forward client
     # side representation; the reverse mapping would usually happen in toJSON(), but in this case it
     # happens on the server in the controller
-    attrs.ethnicity = attrs.ethnicity?.code if typeof attrs.ethnicity == 'object'
-    attrs.race = attrs.race?.code if typeof attrs.race == 'object'
+    # extract demographics from hash, or use extracted values when cloning
+    attrs.ethnicity = attrs.ethnicity?.code || attrs.ethnicity
+    attrs.race = attrs.race?.code || attrs.race
     attrs.payer = attrs.insurance_providers?[0]?.type || 'OT'
 
     attrs
