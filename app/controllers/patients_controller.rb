@@ -41,16 +41,25 @@ class PatientsController < ApplicationController
     start_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 1, 1)
     end_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 12, 31)
 
-    # if we have results we want to write a summary
-    summary_content = get_summary_content(measure, records, params[:results].values) if (params[:results])
-
+    qrda_errors = {}
+    html_errors = {}
     stringio = Zip::ZipOutputStream::write_buffer do |zip|
       records.each_with_index do |patient, index|
-        zip.put_next_entry(File.join("qrda","#{index+1}_#{patient.last}_#{patient.first}.xml"))
-        zip.puts qrda_exporter.export(patient, measure, start_time, end_time)
-        zip.put_next_entry(File.join("html","#{index+1}_#{patient.last}_#{patient.first}.html"))
-        zip.puts html_exporter.export(patient, if current_user.portfolio? then [] else measure end)
+        begin
+          zip.put_next_entry(File.join("qrda","#{index+1}_#{patient.last}_#{patient.first}.xml"))
+          zip.puts qrda_exporter.export(patient, measure, start_time, end_time)
+        rescue Exception => e
+          qrda_errors[patient.id] = e
+        end
+        begin
+          zip.put_next_entry(File.join("html","#{index+1}_#{patient.last}_#{patient.first}.html"))
+          zip.puts html_exporter.export(patient, if current_user.portfolio? then [] else measure end)
+        rescue Exception => e
+          html_errors[patient.id] = e
+        end
       end
+      # if we have results we want to write a summary
+      summary_content = get_summary_content(measure, records, params[:results].values, qrda_errors, html_errors) if (params[:results])
       if summary_content
         zip.put_next_entry("#{measure.first.cms_id}_results.html")
         zip.puts summary_content
@@ -98,7 +107,7 @@ private
     patient
   end
 
-  def get_summary_content(measure, records, results) 
+  def get_summary_content(measure, records, results, qrda_errors, html_errors)
     # restructure differences for output
     results.each do |r| 
       r[:differences] = convert_to_hash(:medicalRecordNumber, r[:differences].values)
@@ -107,7 +116,7 @@ private
 
     rendering_context = HealthDataStandards::Export::RenderingContext.new
     rendering_context.template_helper = HealthDataStandards::Export::TemplateHelper.new('html', 'patient_summary', Rails.root.join('lib', 'templates'))
-    rendering_context.render(:template => 'index', :locals => {records: records, results: results, measure: measure.first})
+    rendering_context.render(:template => 'index', :locals => {records: records, results: results, qrda_errors: qrda_errors, html_errors: html_errors, measure: measure.first})
   end
 
   def convert_to_hash(key, array)
