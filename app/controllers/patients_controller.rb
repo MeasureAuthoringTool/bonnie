@@ -46,14 +46,16 @@ class PatientsController < ApplicationController
     stringio = Zip::ZipOutputStream::write_buffer do |zip|
       records.each_with_index do |patient, index|
         begin
+          qrda = qrda_exporter.export(patient, measure, start_time, end_time) # allow error to stop execution before header is written
           zip.put_next_entry(File.join("qrda","#{index+1}_#{patient.last}_#{patient.first}.xml"))
-          zip.puts qrda_exporter.export(patient, measure, start_time, end_time)
+          zip.puts qrda
         rescue Exception => e
           qrda_errors[patient.id] = e
         end
         begin
+          html = html_exporter.export(patient, if current_user.portfolio? then [] else measure end) # allow error to stop execution before header is written
           zip.put_next_entry(File.join("html","#{index+1}_#{patient.last}_#{patient.first}.html"))
-          zip.puts html_exporter.export(patient, if current_user.portfolio? then [] else measure end)
+          zip.puts html
         rescue Exception => e
           html_errors[patient.id] = e
         end
