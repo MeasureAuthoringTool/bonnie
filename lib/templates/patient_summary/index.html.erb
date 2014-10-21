@@ -70,6 +70,21 @@
     .btn:hover {
       background-color: #f2f2f2;
     }
+    div.error {
+      color: #a94442;
+      background-color: #f2dede;
+      border-color: #ebccd1;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
+    div.error span.important {
+      font-weight: bold;
+    }
+    div.error span.secondary {
+      color: #888;
+    }
   </style>
 </head>
 <body>
@@ -118,12 +133,42 @@
           <td>
             <h2>
               <span class="<%= patient_result['status'] %>"><%= patient_result['status'] %>: </span>
-              <a href="<%= File.join(".","html","#{index+1}_#{record.last}_#{record.first}.html")%>"><%=record.last%>, <%=record.first%></a>
-              <a class="btn" href="<%= File.join(".","qrda","#{index+1}_#{record.last}_#{record.first}.xml")%>">qrda</a>
+              <% unless html_errors[record.id] %>
+                <a href="<%= File.join(".","html","#{index+1}_#{record.last}_#{record.first}.html")%>"><%=record.last%>, <%=record.first%></a>
+              <% else %>
+                <%=record.last%>, <%=record.first%>
+              <% end %>
+              <% unless qrda_errors[record.id] %>
+                <a class="btn" href="<%= File.join(".","qrda","#{index+1}_#{record.last}_#{record.first}.xml")%>">qrda</a>
+              <% end %>
             </h2>
           </td>
         </tr>
       </table>
+      <% if qrda_errors[record.id] %>
+        <div class="error">
+          <span class="important">There was an error exporting the QRDA for this patient record:</span>
+          <% data_criteria = qrda_errors[record.id].data_criteria rescue nil %>
+          <% if data_criteria %>
+            <span class="important">could not generate appropriate QRDA content for <%= data_criteria.description %></span>
+            <span class="secondary">(<%= qrda_errors[record.id].message %>)</span>
+          <% else %>
+            <%= qrda_errors[record.id].message %>
+          <% end %>
+        </div>
+      <% end %>
+      <% if html_errors[record.id] %>
+        <div class="error">
+          <span class="important">There was an error exporting the HTML for this patient record:</span>
+          <% data_criteria = html_errors[record.id].data_criteria rescue nil %>
+          <% if data_criteria %>
+            <span class="important">could not generate appropriate HTML content for <%= data_criteria.description %></span>
+            <span class="secondary">(<%= html_errors[record.id].message %>)</span>
+          <% else %>
+            <%= html_errors[record.id].message %>
+          <% end %>
+        </div>
+      <% end %>
       <table>
         <tr>
           <th>Status</th>
