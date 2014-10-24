@@ -11,7 +11,8 @@ class PopulationsController < ApplicationController
     measure = Measure.by_user(current_user).find(params[:measure_id])
     measure.populations.at(params[:id].to_i)['title'] = params[:title]
     measure.save!
-    render :json => measure.populations.at(params[:id].to_i)
+    # Only return title to client side since that's all we're updating and all we want to overwrite
+    render :json => measure.populations.at(params[:id].to_i).slice('title')
   end
 
 end
