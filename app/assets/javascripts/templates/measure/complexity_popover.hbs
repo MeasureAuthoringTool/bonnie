@@ -1,0 +1,15 @@
+<table>
+  {{#each complexities}}
+    <tr><td>{{label}}</td><td class="score-icons">{{complexityIcon value}}</td></tr>
+  {{/each}}
+</table>
+
+<hr/>
+
+<h4>Key</h4>
+<table>
+  <tr><td class="key-icons">{{complexityIcon 1}}</td><td>Simple, without much risk</td></tr>
+  <tr><td class="key-icons">{{complexityIcon 11}}</td><td>More complex, moderate risk</td></tr>
+  <tr><td class="key-icons">{{complexityIcon 21}}</td><td>Complex, high risk</td></tr>
+  <tr><td class="key-icons">{{complexityIcon 51}}</td><td>Untestable, very high risk</td></tr>
+</table>
