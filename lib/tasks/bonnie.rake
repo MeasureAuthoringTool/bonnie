@@ -163,6 +163,19 @@ namespace :bonnie do
       end
     end
 
+    desc 'Re-save all measures, ensuring that all post processing steps (like calculating complexity) are performed again'
+    task :resave_measures => :environment do
+      Measure.each do |m|
+        puts "Re-saving \"#{m.title}\" [#{m.user.email}]"
+        begin
+          m.save
+        rescue => e
+          puts "ERROR re-saving measure!"
+          puts e.message
+        end
+      end
+    end
+
     DUMP_TIME_FORMAT = "%Y-%m-%d-%H-%M-%S"
 
     desc 'Dumps the local database matching the supplied RAILS_ENV'
