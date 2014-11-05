@@ -29,6 +29,9 @@
       Description:
     </div>
     <p>{{description}}</p>
+
+    {{view complexityView}}
+
     {{#ifAdmin}}
       <a href="/measures/{{_id}}/debug" class="btn btn-danger">Debug</a>
     {{/ifAdmin}}

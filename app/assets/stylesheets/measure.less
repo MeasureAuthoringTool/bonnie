@@ -190,6 +190,38 @@
         }
       }
     }
+    .measure-complexity {
+      font-weight: 700;
+      font-size: 1.2em;
+      .exclamation {
+        color: @grey;
+      }
+      .good {
+        color: @green;
+      }
+      .popover-title {
+        font-weight: 700;
+        font-size: 1.2em;
+      }
+      .popover {
+        font-weight: 400;
+        font-size: 0.8em;
+        max-width: inherit;
+        .good, .exclamation {
+          font-size: 1.2em;
+        }
+        .score-icons {
+          padding-left: 15px;
+        }
+        .key-icons {
+          text-align: right;
+          padding-right: 15px;
+        }
+        td {
+          white-space: nowrap;
+        }
+      }
+    }
   }
 
   .measure-viz {

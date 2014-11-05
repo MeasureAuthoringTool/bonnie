@@ -3,6 +3,16 @@
     "_id": "40280381-3D61-56A7-013E-5D1EF9B76A48",
     "category": "Core",
     "cms_id": "CMS146v2",
+    "complexity": {
+      "populations": {
+        "DENEX": 2,
+        "NUMER": 2,
+        "DENOM": 1,
+        "IPP": 8
+      },
+      "variables": {
+      }
+    },
     "continuous_variable": false,
     "created_at": null,
     "custom_functions": null,
@@ -8228,6 +8238,16 @@
     "_id": "40280381-3D61-56A7-013E-65C9C3043E54",
     "category": "Core",
     "cms_id": "CMS156v2",
+    "complexity": {
+      "populations": {
+        "NUMER": 2,
+        "NUMER_1": 2,
+        "DENOM": 1,
+        "IPP": 7
+      },
+      "variables": {
+      }
+    },
     "continuous_variable": false,
     "created_at": null,
     "custom_functions": null,
