@@ -91,7 +91,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
   context: ->
-    birthdatetime = moment.utc(@model.get('birthdate'), 'X') if @model.has('birthdate')
+    birthdatetime = moment.utc(@model.get('birthdate'), 'X') if @model.has('birthdate') && !!@model.get('birthdate')
     deathdatetime = moment.utc(@model.get('deathdate'), 'X') if @model.get('expired') && @model.has('deathdate')
     _(super).extend
       measureTitle: @measure.get('title')
