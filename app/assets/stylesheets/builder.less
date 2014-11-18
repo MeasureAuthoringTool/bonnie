@@ -170,6 +170,9 @@
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          &:before {
+            content: ''; // IE9 ellipsis fix
+          }
           .panel-icon {
             display: inline-block;
             font-weight: bold;
