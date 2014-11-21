@@ -55,6 +55,10 @@ Bonnie::Application.routes.draw do
     end
   end
 
+  namespace :complexity_dashboard do
+    resources :measure_sets
+  end
+
   resources :valuesets
 
   # The priority is based upon order of creation:

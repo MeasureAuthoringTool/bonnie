@@ -53,6 +53,58 @@ namespace :bonnie do
       puts "#{ENV['EMAIL']} is no longer a portfolio user."
     end
 
+    desc %{Grant an existing bonnie user dashboard privileges.
+
+    You must identify the user by USER_ID or EMAIL:
+
+    $ rake bonnie:users:grant_dashboard USER_ID=###
+    or
+    $ rake bonnie:users:grant_dashboard EMAIL=xxx}
+    task :grant_dashboard => :environment do
+      user = User.find_by email: ENV['EMAIL']
+      user.grant_dashboard()
+      puts "#{ENV['EMAIL']} is now a dashboard user."
+    end
+
+    desc %{Remove the dashboard role from an existing bonnie user.
+
+    You must identify the user by USER_ID or EMAIL:
+
+    $ rake bonnie:users:revoke_dashboard USER_ID=###
+    or
+    $ rake bonnie:users:revoke_dashboard EMAIL=xxx}
+    task :revoke_dashboard => :environment do
+      user = User.find_by email: ENV["EMAIL"]
+      user.revoke_dashboard()
+      puts "#{ENV['EMAIL']} is no longer a dashboard user."
+    end
+
+    desc %{Grant an existing bonnie user dashboard_set privileges.
+
+    You must identify the user by USER_ID or EMAIL:
+
+    $ rake bonnie:users:grant_dashboard_set USER_ID=###
+    or
+    $ rake bonnie:users:grant_dashboard_set EMAIL=xxx}
+    task :grant_dashboard_set => :environment do
+      user = User.find_by email: ENV['EMAIL']
+      user.grant_dashboard_set()
+      puts "#{ENV['EMAIL']} is now a dashboard_set user."
+    end
+
+    desc %{Remove the dashboard_set role from an existing bonnie user.
+
+    You must identify the user by USER_ID or EMAIL:
+
+    $ rake bonnie:users:revoke_dashboard_set USER_ID=###
+    or
+    $ rake bonnie:users:revoke_dashboard_set EMAIL=xxx}
+    task :revoke_dashboard_set => :environment do
+      user = User.find_by email: ENV["EMAIL"]
+      user.revoke_dashboard_set()
+      puts "#{ENV['EMAIL']} is no longer a dashboard_set user."
+    end
+
     desc 'Associate the currently loaded measures with the first User; use EMAIL=<user email> to select another user'
     task :associate_user_with_measures => :environment do
       user_email = ENV['EMAIL'] || User.first.email
