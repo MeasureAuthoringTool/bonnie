@@ -22,7 +22,7 @@ bonnie.viz.MeasureComplexity = ->
     bottom: 39.5
     left: 39.5
 
-  width = 1200 - margin.right
+  width = 1100 - margin.right
   height = 500 - margin.top - margin.bottom
   x = d3.scale.ordinal().rangeRoundBands([
     0
