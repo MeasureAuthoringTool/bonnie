@@ -17,8 +17,8 @@ class BonnieRouter extends Backbone.Router
   routes:
     '':                                                'renderMeasures'
     'measures':                                        'renderMeasures'
-    'dashboard/complexity':                            'renderMeasures'
-    'dashboard/size':                                  'renderMeasures'
+    'dashboard/complexity/:set_1/:set_2':              'renderComplexity'
+    'dashboard/size/:set_1/:set_2':                    'renderSize'
     'measures/:hqmf_set_id':                           'renderMeasure'
     'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
@@ -28,18 +28,29 @@ class BonnieRouter extends Backbone.Router
   renderMeasures: ->
     document.title = "Bonnie v#{bonnie.applicationVersion}: Dashboard";
     @calculator.cancelCalculations()
-    if @isDashboard
-      if Backbone.history.fragment?.indexOf('size') != -1
-        dashboardView = new Thorax.Views.Dashboard(collection: @measures.sort(), isSize: true)
-        @navigate 'dashboard/size'
-      else
-        dashboardView = new Thorax.Views.Dashboard(collection: @measures.sort(), isSize: false)
-        @navigate 'dashboard/complexity'
-    else if @isPortfolio
+    if @isPortfolio
       dashboardView = new Thorax.Views.Matrix(collection: @measures, patients: @patients)
+    else if @isDashboard
+      dashboardView = new Thorax.Views.Dashboard
     else
       dashboardView = new Thorax.Views.Measures(collection: @measures.sort(), patients: @patients)
     @mainView.setView(dashboardView)
+
+  renderComplexity: (measureSet1, measureSet2) ->
+    document.title = "Bonnie v#{bonnie.applicationVersion}: Complexity Dashboard";
+    @calculator.cancelCalculations()
+    pairs = new Thorax.Collections.MeasurePairs([], measureSet1: measureSet1, measureSet2: measureSet2)
+    pairs.fetch()
+    complexityDashboard = new Thorax.Views.ComplexityDashboard(collection: pairs)
+    @mainView.setView(complexityDashboard)
+
+  renderSize: (measureSet1, measureSet2) ->
+    document.title = "Bonnie v#{bonnie.applicationVersion}: Size Dashboard";
+    @calculator.cancelCalculations()
+    pairs = new Thorax.Collections.MeasurePairs([], measureSet1: measureSet1, measureSet2: measureSet2)
+    pairs.fetch()
+    sizeDashboard = new Thorax.Views.SizeDashboard(collection: pairs)
+    @mainView.setView(sizeDashboard)
 
   renderMeasure: (hqmfSetId) ->
     document.title = "Bonnie v#{bonnie.applicationVersion}: Measure View";

@@ -1,19 +1,14 @@
-class Thorax.Views.Dashboard extends Thorax.LayoutView
-  template: JST['dashboard/layout']
-
-  events:
-    rendered: ->
-      $('.indicator-circle, .navbar-nav > li').removeClass('active')
-      if @isSize
-        $('.nav-dashboard-size').addClass('active')
-      else
-        $('.nav-dashboard').addClass('active')
+class Thorax.Views.Dashboard extends Thorax.Views.BonnieView
+  template: JST['dashboard/setup']
 
   initialize: ->
-    if @isSize
-      @setView new Thorax.Views.SizeDashboard(collection: @collection)
-    else
-      @setView new Thorax.Views.ComplexityDashboard(collection: @collection)
+    @collection = new Thorax.Collections.MeasureSets
+    @collection.fetch()
+
+  compare: ->
+    measureSet1 = @$('#measureSet1').val()
+    measureSet2 = @$('#measureSet2').val()
+    bonnie.navigate "dashboard/complexity/#{measureSet1}/#{measureSet2}", trigger: true
 
 class Thorax.Views.SizeDashboard extends Thorax.Views.BonnieView
   template: JST['dashboard/size']
@@ -24,6 +19,9 @@ class Thorax.Views.SizeDashboard extends Thorax.Views.BonnieView
     'mouseover .deleted-box': 'showDeletedLines'
     'mouseout .deleted-box': 'hideDeletedLines'
     rendered: ->
+      # FIXME: instead of these two lines, maybe just more buttons in the grid/graph area
+      $('.indicator-circle, .navbar-nav > li').removeClass('active')
+      $('.nav-dashboard-size').addClass('active')
       example_data = [
         {
           cms_id: 'cms126v1'
@@ -131,83 +129,22 @@ class Thorax.Views.ComplexityDashboard extends Thorax.Views.BonnieView
 
   events:
     rendered: ->
-      example_data = [
-        {
-          name: 'cms146'
-          version: 1
-          complexity: 49
-          change: 24
-        }, {
-          name: 'cms155'
-          version: 1
-          complexity: 28
-          change: 74
-        }, {
-          name: 'cms153'
-          version: 1
-          complexity: 10
-          change: 51
-        }, {
-          name: 'cms126'
-          version: 1
-          complexity: 28
-          change: 30
-        }, {
-          name: 'cms117'
-          version: 1
-          complexity: 20
-          change: 50
-        }, {
-          name: 'cms136'
-          version: 1
-          complexity: 47
-          change: 76
-        }, {
-          name: 'cms2'
-          version: 1
-          complexity: 30
-          change: 49
-        }, {
-          name: 'cms75'
-          version: 1
-          complexity: 21
-          change: 25
-        }, {
-          name: 'cms165'
-          version: 1
-          complexity: 18
-          change: 49
-        }
-      ]
-
-      for i in [0..(93 - example_data.length)]
-        measure = {}
-        measure['name'] = "cms#{Math.floor(Math.random() * 300) + 1}v#{Math.floor(Math.random() * 4) + 1}"
-        measure['version'] = Math.floor(Math.random() * 5) + 1
-        measure['complexity'] = Math.floor(Math.random() * 150)
-        measure['change'] = Math.floor(Math.random() * 100)
-        example_data.push measure
-
-      real_data = []
-      change = 1
-      @collection.each (m) ->
-
-        c = m.get('complexity')
-        # Calculate overall score; this is just the worst population or variable, over the entire measure
-        scores = _(c?.populations).pluck('complexity')
-        scores = scores.concat _(c?.variables).pluck('complexity')
-        overall = _(scores).max()
-
-        context = 
-          name: m.get('cms_id')
-          version: m.get('hqmf_version_number')
-          complexity: overall || 10
-          change: change
-
-        change += 25
-        real_data.push context
+      # FIXME: instead of these two lines, maybe just more buttons in the grid/graph area
+      $('.indicator-circle, .navbar-nav > li').removeClass('active')
+      $('.nav-dashboard').addClass('active')
+      # Transform data to something appropriate for the D3 visualization
+      data = []
+      @collection.each (pair) ->
+        measure1 = pair.get('measure_1')
+        measure2 = pair.get('measure_2')
+        data.push
+          name: measure2.cms_id
+          complexity: measure2.complexity.populations[0].complexity
+          change: measure2.complexity.populations[0].complexity - measure1.complexity.populations[0].complexity
       @viz = bonnie.viz.MeasureComplexity()
-      d3.select(@$el.find('#chart').get(0)).datum(example_data).call(@viz)
+      d3.select(@$el.find('#chart').get(0)).datum(data).call(@viz)
+    collection:
+      sync: -> @render()
 
   switchGrid: (e) -> 
     @viz.switchGrid()

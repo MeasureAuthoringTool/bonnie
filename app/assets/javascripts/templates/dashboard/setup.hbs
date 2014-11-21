@@ -1,0 +1,25 @@
+<h2>Select the two sets of measure to compare:</h2>
+
+<div class="form-inline">
+
+  <label>Compare</label>
+
+  <div class="form-group">
+    {{#collection tag="select" id="measureSet1" class="form-control"}}
+      <option value={{_id}}>{{first_name}} {{last_name}}</option>
+    {{/collection}}
+  </div>
+
+  <label>with</label>
+
+  <div class="form-group">
+    {{#collection tag="select" id="measureSet2" class="form-control"}}
+     <option value={{_id}}>{{first_name}} {{last_name}}</option>
+    {{/collection}}
+  </div>
+
+  <div class="form-group">
+    {{#button "compare" class="btn btn-primary"}}Compare!{{/button}}
+  </div>
+
+</div>
