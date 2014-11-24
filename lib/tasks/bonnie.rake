@@ -90,6 +90,51 @@ namespace :bonnie do
       end
     end
 
+    desc 'Move a meaure from one user account to another'
+    task :move_measure => :environment do
+      source_email = ENV['SOURCE_EMAIL']
+      dest_email = ENV['DEST_EMAIL']
+      cms_id = ENV['CMS_ID']
+
+      puts "Moving '#{cms_id}' from '#{source_email}' to '#{dest_email}'..."
+
+      # Find source and destination user accounts
+      raise "#{source_email} not found" unless source = User.find_by(email: source_email)
+      raise "#{dest_email} not found" unless dest = User.find_by(email: dest_email)
+
+      # Find the measure and associated records we're moving
+      raise "#{cms_id} not found" unless measure = source.measures.find_by(cms_id: cms_id)
+      records = source.records.where(measure_ids: measure.hqmf_set_id)
+
+      # Find the value sets we'll be *copying* (not moving!)
+      value_sets = measure.value_sets.map(&:clone) # Clone ensures we save a copy and don't overwrite original
+
+      # Write the value set copies, updating the user id and bundle
+      raise "No destination user bundle" unless dest.bundle
+      puts "Copying value sets..."
+      value_sets.each do |vs|
+        vs.user = dest
+        vs.bundle = dest.bundle
+        vs.save
+      end
+
+      # Update the user id and bundle for the existing records
+      puts "Moving patient records..."
+      records.each do |r|
+        puts "  #{r.first} #{r.last}"
+        r.user = dest
+        r.bundle = dest.bundle
+        r.save
+      end
+
+      # Same for the measure
+      puts "Moving measure..."
+      measure.user = dest
+      measure.bundle = dest.bundle
+      measure.save
+
+      puts "Done!"
+    end
   end
 
   namespace :db do
