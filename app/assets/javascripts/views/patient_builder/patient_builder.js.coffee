@@ -72,15 +72,17 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
     rendered: ->
-      @$('.draggable').draggable revert: 'invalid', helper: 'clone', zIndex: 10
+      @$('.draggable').draggable revert: 'invalid', helper: 'clone', appendTo: '.patient-builder', zIndex: 10
 
       # Make criteria list a drop target
-      @$('.criteria-container.droppable').droppable greedy: true, accept: '.ui-draggable', drop: _.bind(@drop, this)
-
+      @$('.criteria-container.droppable').droppable greedy: true, accept: '.ui-draggable', activeClass: 'active-drop', drop: _.bind(@drop, this)
       @$('.date-picker').datepicker().on 'changeDate', _.bind(@materialize, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.indicator-patient-builder').addClass('active')
+
+      $('.logic-pager').hide()
+
     serialize: (attr) ->
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
@@ -176,6 +178,53 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @model.set 'deathdate', null
     @model.set 'expired', false
     @$('#expired').focus()
+
+  handleAffix: ->
+    # ensure patient history is always long enough to not cause weird behavior
+    @$('.criteria-container').css("min-height",$(window).height())
+    $(window).on 'resize', -> @$('.criteria-container').css("min-height",$(window).height())
+    # affix side columns to get desired behavior
+    $cols = @$('#criteriaElements, #populationLogic, #history') #these get affixed. add listeners
+      .on 'affix.bs.affix', ->
+        $('.logic-pager').show()
+        $(@).each ->
+          if $(@).find('.logic-pager').length #if there is pagination inside this affixed element
+            $(@).find('.scrolling').css # set proper attributes of scrolling section
+              bottom: $('.logic-pager.down').height()
+              top: $(@).find('.scrolling').prev().position().top + $(@).find('.scrolling').prev().height()
+              width: $(@).find('.scrolling').outerWidth()
+          else 
+            $(@).find('.scrolling').css 
+              top: $(@).find('.scrolling').prev().height() + $(@).find('.scrolling').prev().position().top
+              width: $(@).find('.scrolling').outerWidth() 
+          $(@).css width: $(@).width() #assign current width explicitly to affixed element  
+        $('.logic-pager.up').hide()
+      .on 'affixed-top.bs.affix', ->
+        $('.logic-pager').hide() # hide the pagination part, removed disabled buttons
+        $(@).each -> 
+          $(@).removeAttr('style') #revert each affixed element to default css styling
+          $(@).find('.scrolling').removeAttr('style').animate scrollTop: 0 #scroll div back to top, remove custom styling  
+    $cols.affix offset: { top: @$('.criteria-container').parent().offset().top } # tell affix to activate after scrolling this many pixels
+    @logicMoving() #handle scrolling and paging the logic pane
+    
+  logicMoving: ->  # this takes care of everything when dealing with either scrolling or paging the logic.
+    $logic = @$("#populationLogic").find('.scrolling')
+    $logic.on 'scroll', -> logicPagingUpdate()
+    @$('.logic-pager.up').on 'click', -> moveLogic('up')
+    @$('.logic-pager.down').on 'click', -> moveLogic('down')
+
+    logicPagingUpdate = () ->
+      buffer = @$('.logic-pager.up').height()/2
+      @$('.logic-pager').show()
+      if $logic.scrollTop() <= buffer
+        @$('.logic-pager.up').hide()
+      else if $logic.scrollTop() >= $logic.prop('scrollHeight') - $logic.height() - buffer
+        @$('.logic-pager.down').hide()     
+
+    moveLogic = (dir) ->
+      page = $logic.height() - $logic.css('line-height').replace('px', '') # scroll down 1 line less than whole screen length
+      if dir is 'up' then $logic.animate scrollTop: $logic.scrollTop() - page, -> logicPagingUpdate()
+      if dir is 'down' then $logic.animate scrollTop: $logic.scrollTop() + page, -> logicPagingUpdate()
 
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']

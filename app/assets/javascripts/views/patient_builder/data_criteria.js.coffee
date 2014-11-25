@@ -16,11 +16,12 @@ class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
   events:
     rendered: ->
       # FIXME: We'd like to do this via straight thorax events, doesn't seem to work...
-      @$('.collapse').on 'show.bs.collapse hide.bs.collapse', => 
-        @$('.panel-expander').toggleClass('fa-angle-right fa-angle-down').toggleClass('fa-2x fa-1x')
-        @$('.panel-icon').toggleClass('fa-3x fa-1x').toggleClass('opened')
-      @$('.collapse').on 'show.bs.collapse', (e) ->
-        $('a[data-parent="#criteriaElements"]').next('.in').not(e.target).collapse 'hide' #hide open groups
+      @$('.collapse').on 'show.bs.collapse hide.bs.collapse', (e) => 
+        $('a.panel-title[data-toggle="collapse"]').toggleClass('closed').find('.panel-icon').toggleClass('fa-3x fa-2x') #shrink others
+        @$('.panel-expander').toggleClass('fa-angle-right fa-angle-down')
+        @$('.panel-icon').toggleClass('fa-3x fa-2x')
+        @$('a.panel-title[data-toggle="collapse"]').toggleClass('closed')
+        if e.type is 'show' then $('a.panel-title[data-toggle="collapse"]').next('div.in').not(e.target).collapse('hide') # hide open ones
 
   faIcon: -> @collection.first()?.toPatientDataCriteria()?.faIcon()
 

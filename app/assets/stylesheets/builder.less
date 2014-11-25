@@ -156,26 +156,41 @@
 
   .panel {
     .panel-title {
-      background-color: @blue-lighter;
       color: white;
       display: block;
       font-size: @font-size-base;
       padding: (@grid-gutter-width / 2);
       text-transform: uppercase;
-      .panel-icon {
-        display: block;
-        .transition(font-size .35s ease);
-        &.opened {
-          display: inline-block;
+      &[class*="-elements"] {  
+        .transition(all .35s ease-in-out);
+        background-color: @blue-lighter;
+        &.closed {
+          padding: 4px (@grid-gutter-width / 2);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          .panel-icon {
+            display: inline-block;
+          }
+          .element-title {
+            display: none;
+          }
         }
-      }
-      .panel-expander {
-        .transition(font-size .35s ease);
-        .pull-right;
-        line-height: 2;
-      }
-      &:hover {
-        text-decoration: none;
+        .panel-icon {
+          display: block;
+        }
+        .panel-expander {
+          .pull-right;
+        }
+        &:hover {
+          text-decoration: none;
+          background-color: @blue-darker;
+          &.closed {
+            & .element-title {
+              display: initial;
+            }
+          }
+        }
       }
     }
     .draggable {
@@ -318,6 +333,77 @@
         }
       }
     }
+  }
+
+  .scrolling {
+    overflow: auto;
+  }
+
+  .logic-page {
+    display: table; 
+    width:100%;
+    &>div {
+      display: table-row;
+    }
+  }
+
+  .logic-pager { 
+  	text-align: center;
+  	color: white;
+  	font-size: @font-size-base*2;
+  	background-color: @blue-lighter;
+  	width: 100%;
+    &:hover {
+      background-color: @blue-darker;
+    }
+    &:before {
+      content: @fa-var-chevron-circle-up;
+      font-family: FontAwesome;
+    }
+  	&.down {
+  	  bottom: 0px;
+  	  position: absolute;
+      &:before {
+        content: @fa-var-chevron-circle-down;
+        font-family: FontAwesome;
+      }
+  	}
+  }
+
+  #history .scrolling {
+    //needed the keep the icons visible when div overflows
+    padding-left: 15px;
+    margin-left: -15px;
+  }
+
+  .affix-top {
+    position: static;
+  }
+
+  .affix {
+    position: fixed;
+    top: 0px;
+    height: 100%;
+    &#criteriaElements {
+      padding-right: 0px;
+    }
+    & .scrolling {
+      position: absolute;
+      width: 100%
+      top: 0px;
+      bottom: 0px;
+    }
+  }
+
+  .ui-draggable-dragging {
+    background: white;
+  	width: 200px;
+  	.panel > .draggable;
+  	.box-shadow(0 1px 3px rgba(0,0,0,.25));
+  }
+  
+  .active-drop {
+    background-color: fadeout(@blue-lightest, 75%);
   }
 }
 .selectBoxIt-native {
