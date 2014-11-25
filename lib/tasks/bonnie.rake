@@ -205,6 +205,7 @@ namespace :bonnie do
           Measure.nin(hqmf_set_id: demo_measure_ids).delete
           Record.nin(measure_ids: demo_measure_ids).delete
         end
+        Rake::Task['bonnie:db:resave_measures'].invoke # Updates the complexity data to most recent format
       end
     end
 
