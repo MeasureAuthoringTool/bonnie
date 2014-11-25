@@ -141,9 +141,11 @@
   <div class="col-left measure-data-container">
     <div class="panel-group" id="criteriaElements">
       <h1 class="heading-muted">Elements</h1>
+      <div class="scrolling">
       {{#each dataCriteriaCategories}}
         {{view "SelectCriteriaView" title=type collection=criteria}}
       {{/each}}
+      </div>
     </div>
   </div>
   <div class="col-center criteria-container droppable">
@@ -155,7 +157,9 @@
 
 
   <div class="col-right">
+    <div id="populationLogic">
     {{view populationLogicView}}
+    </div>
   </div>
 
 </div>
