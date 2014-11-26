@@ -15,6 +15,12 @@ bonnie.viz.MeasureComplexity = ->
   ComplexListing = (d) ->
     d.ComplexListing
 
+  gridLength = 8
+  minComplexity = 0
+  maxComplexity = 150
+  minChange = -100
+  maxChange = 100
+
   # Chart dimensions.
   margin =
     top: 79.5
@@ -23,7 +29,7 @@ bonnie.viz.MeasureComplexity = ->
     left: 39.5
 
   width = 1100 - margin.right
-  height = 500 - margin.top - margin.bottom
+  height = 2000 - margin.top - margin.bottom
   x = d3.scale.ordinal().rangeRoundBands([
     0
     width
@@ -32,22 +38,22 @@ bonnie.viz.MeasureComplexity = ->
 
   # Various scales. These domains make assumptions of data, naturally.
   xScale = d3.scale.linear().domain([
-    0
-    50
+    minComplexity
+    maxComplexity
   ]).range([
     0
     width
   ])
   yScale = d3.scale.linear().domain([
-    -100
-    100
+    minChange
+    maxChange
   ]).range([
     height
     0
   ])
   radiusScale = d3.scale.linear().domain([
-    0
-    50
+    minComplexity
+    maxComplexity
   ]).range([
     0
     50
@@ -138,19 +144,19 @@ bonnie.viz.MeasureComplexity = ->
       textLabels = text
         .attr("class", "cmsLabel")
         .attr("x", (d) -> xScale(radius(d)) - 25)
-        .attr("y", (d) -> yScale(y(d)) + (radius(d)) + 20)
+        .attr("y", (d) -> yScale(y(d)) + (radiusScale(radius(d))) + 20)
         .text(name = (d) -> d.name)
 
   my.switchGrid = ->
     #Defines interaction for pressing grid button
     d3.selectAll(".dot").transition()
-      .attr("cx", (d, i) -> i * 125 + 100)
-      .attr("cy", (d, i) -> d.cy)
+      .attr("cx", (d, i) -> ( i % gridLength ) * 125 + 100 )
+      .attr("cy", (d, i) -> ( i // gridLength ) * 140 )
 
     #label transistion
     d3.selectAll(".cmsLabel").transition()
-      .attr("x", (d, i) -> i * 125 + 75)
-      .attr("y", (d, i) -> 75)
+      .attr("x", (d, i) -> ( i % gridLength ) * 125 + 75 )
+      .attr("y", (d, i) -> ( i // gridLength ) * 140 + 75 )
 
     #Add the axis
     active = (if xAxis.active then false else true)
@@ -177,6 +183,6 @@ bonnie.viz.MeasureComplexity = ->
     #Move the labels back
     d3.selectAll(".cmsLabel").transition()
       .attr("x", (d) -> xScale(radius(d)) - 25)
-      .attr("y", (d) -> yScale(y(d)) + (radius(d)) + 20)
+      .attr("y", (d) -> yScale(y(d)) + (radiusScale(radius(d))) + 20)
 
   my
