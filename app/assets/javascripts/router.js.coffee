@@ -17,6 +17,8 @@ class BonnieRouter extends Backbone.Router
   routes:
     '':                                                'renderMeasures'
     'measures':                                        'renderMeasures'
+    'dashboard/complexity':                            'renderMeasures'
+    'dashboard/size':                                  'renderMeasures'
     'measures/:hqmf_set_id':                           'renderMeasure'
     'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
@@ -27,7 +29,12 @@ class BonnieRouter extends Backbone.Router
     document.title = "Bonnie v#{bonnie.applicationVersion}: Dashboard";
     @calculator.cancelCalculations()
     if @isDashboard
-      dashboardView = new Thorax.Views.Dashboard(collection: @measures.sort())
+      if Backbone.history.fragment?.indexOf('size') != -1
+        dashboardView = new Thorax.Views.Dashboard(collection: @measures.sort(), isSize: true)
+        @navigate 'dashboard/size'
+      else
+        dashboardView = new Thorax.Views.Dashboard(collection: @measures.sort(), isSize: false)
+        @navigate 'dashboard/complexity'
     else if @isPortfolio
       dashboardView = new Thorax.Views.Matrix(collection: @measures, patients: @patients)
     else
@@ -65,7 +72,6 @@ class BonnieRouter extends Backbone.Router
     measure ?= @measures.findWhere {hqmf_set_id: patient.get('measure_ids')[0]}
     @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
     @navigate "measures/#{measure.get('hqmf_set_id')}/patients/new"
-
 
   showError: (error) ->
     return if $('.errorDialog').size() > @maxErrorCount

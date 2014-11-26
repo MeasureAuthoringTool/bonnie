@@ -1,12 +1,18 @@
 <% account_info = request.env['PATH_INFO'].starts_with?('/users') %>
+<% dashboard = true %> <!-- FIXME: Replace with current_user.is_dashboard? -->
 <div class="navbar row" role="navigation">
   <div class="navbar-brand">
     <a <% unless account_info %>href="#"<% else %>href="/#"<% end %>>Bonnie</a>
   </div>
   <ul class="nav navbar-nav pull-right">
     <li <% unless account_info %>class="nav-dashboard active"<% end %>>
-      <a <% unless account_info %>href="#"<% else %>href="/#"<% end %>>Dashboard</a>
+      <a <% unless account_info %>href="#"<% else %>href="/#"<% end %>><% unless dashboard %>Dashboard<% else %>Complexity<% end %></a>
     </li>
+    <% if dashboard %>
+      <li class="nav-dashboard-size">
+        <a href="/#dashboard/size">Size</a>
+      </li>
+    <% end %>
     <li class="<% if account_info %>active<% else %>nav-account<% end %>"><a href="/users/edit">Account</a></li>
     <% if (current_user.is_admin?)%><li class="nav-admin"><a href="/#admin/users">Admin</a></li><% end %>
     <li class="dropdown">
