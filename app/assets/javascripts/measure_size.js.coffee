@@ -5,6 +5,18 @@ bonnie.viz.MeasureSize = ->
     d.cms_id
   population_title = (d) ->
     d.code
+  updateLines = (c) ->
+    for line in ['ins','del','unchanged']
+      d3.selectAll(".#{line}-line").transition()
+        .attr('class', "logic-line #{line}-line#{c}")
+  addedLabels = (show) ->
+    c = if show then '' else ' hidden'
+    d3.selectAll(".added-label").transition()
+      .attr('class', "label added-label#{c}")
+  deletedLabels = (show) ->
+    c = if show then '' else ' hidden'
+    d3.selectAll(".deleted-label").transition()
+      .attr('class', "label deleted-label#{c}")
 
   width = 165
   height = 460
@@ -28,13 +40,13 @@ bonnie.viz.MeasureSize = ->
         svg = d3.select(this).append('svg')
           .attr('width', width)
           # .attr('height', height)
-          .attr('height', measure.totals.total * barHeight + measure.totals.total * spacing + measure.populations.length * 17 + spacing*5)
+          .attr('height', measure.totals.total * barHeight + measure.totals.total * spacing + measure.populations.length * 17 + spacing * 5)
           .attr('style', 'padding: 10px 15px 0 15px;')
 
         svg.append('text')
           .attr('id', 'measure_title')
           .attr('class', 'label')
-          .attr('x', width*.3)
+          .attr('x', width * .3)
           .attr('y', yOffset)
           .text(measure.cms_id)
 
@@ -42,15 +54,15 @@ bonnie.viz.MeasureSize = ->
 
         svg.append('text')
           .attr('id', 'deleted_title')
-          .attr('class', 'label')
+          .attr('class', 'label deleted-label hidden')
           .attr('x', 0)
           .attr('y', yOffset)
           .text("del: #{measure.totals.deletions} / #{measure.totals.total}")
 
         svg.append('text')
           .attr('id', 'added_title')
-          .attr('class', 'label')
-          .attr('x', width*.55)
+          .attr('class', 'label added-label hidden')
+          .attr('x', width * .55)
           .attr('y', yOffset)
           .text("ins: #{measure.totals.insertions} / #{measure.totals.total}")
 
@@ -62,12 +74,12 @@ bonnie.viz.MeasureSize = ->
             .attr('id', 'population_title')
             .attr('class', 'label')
             .attr('x', 0)
-            .attr('y', yOffset+=spacing)
+            .attr('y', yOffset += spacing)
             .text(datum.code)
 
           for line in datum.lines
 
-            yOffset+=spacing
+            yOffset += spacing
 
             # Add a line for each line of logic
             svg.append('rect')
@@ -75,20 +87,26 @@ bonnie.viz.MeasureSize = ->
               .attr('y', yOffset)
               .attr('width', width)
               .attr('height', barHeight)
-              .attr('class', "#{datum.code}-logic-line")
-              .style('fill', color(line) )
+              .attr('class', "logic-line #{line}-line")
 
-            # svg.append('line')
-            #   .attr('x1', 0)
-            #   .attr('y1', yOffset)
-            #   .attr('x2', width)
-            #   .attr('y2', yOffset)
-            #   .attr('class', "#{datum.code}-logic-line")
-            #   .attr('stroke-width', barHeight)
-            #   .attr('stroke', color(line))
+            yOffset += barHeight
 
-            yOffset+=barHeight
+          yOffset += spacing * 2
 
-          yOffset += 10
+  my.showAddedLines = ->
+    updateLines(' added-darker')
+    addedLabels(true)
+
+  my.hideAddedLines = ->
+    updateLines('')
+    addedLabels(false)
+
+  my.showDeletedLines = ->
+    updateLines(' deleted-darker')
+    deletedLabels(true)
+
+  my.hideDeletedLines = ->
+    updateLines('')
+    deletedLabels(false)
 
   my

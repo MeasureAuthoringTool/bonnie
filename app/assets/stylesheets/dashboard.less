@@ -15,3 +15,53 @@
   stroke: #000;
   shape-rendering: crispEdges;
 }
+
+.legend, .added-key, .deleted-key {
+  display: inline-block;
+  float: right;
+}
+
+.legend-box {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  &.added-box {
+    background: @red-lighter;
+    &.darker {
+      background: @red-darker;
+    }
+  }
+  &.deleted-box {
+    background: @gray-light;
+    &.darker {
+      background: @gray-darker;
+    }
+  }
+}
+
+.logic-line {
+  &.ins-line {
+    fill: @red-darker;
+    &.added-darker {
+      fill: @red-darker;
+    }
+    &.deleted-darker {
+      fill: @red-lighter;
+    }
+  }
+  &.del-line {
+    fill: @gray-light;
+    &.added-darker {
+      fill: @gray-light;
+    }
+    &.deleted-darker {
+      fill: @gray-darker;
+    }
+  }
+  &.unchanged-line {
+    fill: @brand-primary;
+    &.added-darker,&.deleted-darker {
+      fill: @blue-lightest;
+    }
+  }
+}
