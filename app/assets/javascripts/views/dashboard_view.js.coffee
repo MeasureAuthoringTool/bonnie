@@ -19,6 +19,10 @@ class Thorax.Views.SizeDashboard extends Thorax.Views.BonnieView
   template: JST['dashboard/size']
 
   events:
+    'mouseover .added-box': 'showAddedLines'
+    'mouseout .added-box': 'hideAddedLines'
+    'mouseover .deleted-box': 'showDeletedLines'
+    'mouseout .deleted-box': 'hideDeletedLines'
     rendered: ->
       example_data = [
         {
@@ -97,6 +101,22 @@ class Thorax.Views.SizeDashboard extends Thorax.Views.BonnieView
 
       @viz = bonnie.viz.MeasureSize()
       d3.select(@$el.find('#size-grid').get(0)).datum(example_data).call(@viz)
+
+  showAddedLines: (e) ->
+    @$('.added-box').addClass('darker')
+    @viz.showAddedLines()
+
+  hideAddedLines: (e) ->
+    @$('.added-box').removeClass('darker')
+    @viz.hideAddedLines()
+
+  showDeletedLines: (e) ->
+    @$('.deleted-box').addClass('darker')
+    @viz.showDeletedLines()
+
+  hideDeletedLines: (e) ->
+    @$('.deleted-box').removeClass('darker')
+    @viz.hideDeletedLines()
 
   sortByLargest: (e) ->
     console.log "Should sort by largest size..."
