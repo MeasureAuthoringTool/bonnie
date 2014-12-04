@@ -30,7 +30,7 @@ namespace :bonnie do
                 puts "Loading #{measure_xml_entry.name}"
                 begin
                   Measures::SourcesLoader.load_measure_xml(measure_xml_filename, user, ENV['VSAC_USERNAME'], ENV['VSAC_PASSWORD'], {})
-                rescue => e
+                rescue Exception => e
                   puts "ERROR loading #{measure_xml_entry.name}: #{e.message}"
                 end
               end
