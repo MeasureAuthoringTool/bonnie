@@ -28,19 +28,12 @@ bonnie.viz.MeasureComplexity = ->
   height = 700 - margin.top - margin.bottom
   xScale = null
   yScale = null
+  radiusScale = null
   x = d3.scale.ordinal().rangeRoundBands([
     0
     width
   ], .5)
   charted = false
-
-  # TODO Update the domain to reflect accurate range of complexity values
-  colorScale = d3.scale.quantile().domain([0..100]).range([
-    "#0075C4" # -25
-    "#3391D0" # 26 to 50
-    "#eca9a7" # 51 to 75
-    "#d9534f" # 76+
-  ])
 
   my = (selection) ->
     selection.each (data) ->
@@ -49,9 +42,10 @@ bonnie.viz.MeasureComplexity = ->
 
         # Create a dynamic scale based on the actual data
         minComplexity = 0
-        maxComplexity = d3.max(data, (d) -> d.complexity) * 1.1
-        minChange = d3.min(data, (d) -> d.change) * 1.1
-        maxChange = d3.max(data, (d) -> d.change) * 1.1
+        maxComplexity = d3.max(data, (d) -> d.complexity) * 1.2
+        biggestChange = d3.max(data, (d) -> Math.abs(d.change))
+        minChange = d3.max([biggestChange, 1]) * -1.2
+        maxChange = d3.max([biggestChange, 1]) * 1.2
         # Various scales. These domains make assumptions of data, naturally.
         xScale = d3.scale.linear().domain([
           minComplexity
@@ -74,6 +68,12 @@ bonnie.viz.MeasureComplexity = ->
           5
           50
         ])
+        colorScale = (input) ->
+          return "#0075C4" if input <= -25
+          return "#3391D0" if input < 0
+          return "#CCCCCC" if input == 0
+          return "#eca9a7" if input <= 25
+          return "#d9534f"
 
         # The x & y axes.
         # FIXME had to remove [, d3.format(",d")] from ticks()...

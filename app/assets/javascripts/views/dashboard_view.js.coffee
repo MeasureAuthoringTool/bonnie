@@ -1,5 +1,6 @@
 class Thorax.Views.Dashboard extends Thorax.Views.BonnieView
   template: JST['dashboard/setup']
+  className: "dashboard"
 
   initialize: ->
     @collection = new Thorax.Collections.MeasureSets
@@ -12,6 +13,7 @@ class Thorax.Views.Dashboard extends Thorax.Views.BonnieView
 
 class Thorax.Views.SizeDashboard extends Thorax.Views.BonnieView
   template: JST['dashboard/size']
+  className: "dashboard"
 
   events:
     'mouseover .added-box': 'showAddedLines'
@@ -126,6 +128,7 @@ class Thorax.Views.SizeDashboard extends Thorax.Views.BonnieView
 
 class Thorax.Views.ComplexityDashboard extends Thorax.Views.BonnieView
   template: JST['dashboard/complexity']
+  className: "dashboard"
 
   events:
     rendered: ->
