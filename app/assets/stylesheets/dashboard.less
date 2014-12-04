@@ -1,67 +1,74 @@
-.cmsLabel {
-  font-size: 1em;
-  font-weight: 300;
-  font-color: #f2f2f2;
-}
+.dashboard {
 
-.dot {
-  z-index: 0;
-  stroke: none;
-}
+  h3 {
+    margin: 50px 0px 25px 0px;
+  }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
+  .cmsLabel {
+    font-size: 0.9em;
+  }
 
-.legend, .added-key, .deleted-key {
-  display: inline-block;
-  float: right;
-}
+  .dot {
+    z-index: 0;
+    stroke: white;
+    fill-opacity: 0.8;
+  }
 
-.legend-box {
-  display: inline-block;
-  width: 34px;
-  height: 34px;
-  &.added-box {
-    background: @red-lighter;
-    &.darker {
-      background: @red-darker;
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .legend, .added-key, .deleted-key {
+    display: inline-block;
+    float: right;
+  }
+
+  .legend-box {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    &.added-box {
+      background: @red-lighter;
+      &.darker {
+        background: @red-darker;
+      }
+    }
+    &.deleted-box {
+      background: @gray-light;
+      &.darker {
+        background: @gray-darker;
+      }
     }
   }
-  &.deleted-box {
-    background: @gray-light;
-    &.darker {
-      background: @gray-darker;
-    }
-  }
-}
 
-.logic-line {
-  &.ins-line {
-    fill: @red-darker;
-    &.added-darker {
+  .logic-line {
+    &.ins-line {
       fill: @red-darker;
+      &.added-darker {
+        fill: @red-darker;
+      }
+      &.deleted-darker {
+        fill: @red-lighter;
+      }
     }
-    &.deleted-darker {
-      fill: @red-lighter;
-    }
-  }
-  &.del-line {
-    fill: @gray-light;
-    &.added-darker {
+    &.del-line {
       fill: @gray-light;
+      &.added-darker {
+        fill: @gray-light;
+      }
+      &.deleted-darker {
+        fill: @gray-darker;
+      }
     }
-    &.deleted-darker {
-      fill: @gray-darker;
+    &.unchanged-line {
+      fill: @brand-primary;
+      &.added-darker,&.deleted-darker {
+        fill: @blue-lightest;
+      }
     }
   }
-  &.unchanged-line {
-    fill: @brand-primary;
-    &.added-darker,&.deleted-darker {
-      fill: @blue-lightest;
-    }
-  }
+
 }
