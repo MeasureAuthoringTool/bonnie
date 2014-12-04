@@ -16,10 +16,6 @@ bonnie.viz.MeasureComplexity = ->
     d.ComplexListing
 
   gridLength = 8
-  minComplexity = 0
-  maxComplexity = 150
-  minChange = -100
-  maxChange = 100
 
   # Chart dimensions.
   margin =
@@ -29,35 +25,15 @@ bonnie.viz.MeasureComplexity = ->
     left: 39.5
 
   width = 1100 - margin.right
-  height = 2000 - margin.top - margin.bottom
+  height = 700 - margin.top - margin.bottom
+  xScale = null
+  yScale = null
   x = d3.scale.ordinal().rangeRoundBands([
     0
     width
   ], .5)
   charted = false
 
-  # Various scales. These domains make assumptions of data, naturally.
-  xScale = d3.scale.linear().domain([
-    minComplexity
-    maxComplexity
-  ]).range([
-    0
-    width
-  ])
-  yScale = d3.scale.linear().domain([
-    minChange
-    maxChange
-  ]).range([
-    height
-    0
-  ])
-  radiusScale = d3.scale.linear().domain([
-    minComplexity
-    maxComplexity
-  ]).range([
-    0
-    50
-  ])
   # TODO Update the domain to reflect accurate range of complexity values
   colorScale = d3.scale.quantile().domain([0..100]).range([
     "#0075C4" # -25
@@ -70,6 +46,35 @@ bonnie.viz.MeasureComplexity = ->
     selection.each (data) ->
 
       unless charted
+
+        # Create a dynamic scale based on the actual data
+        minComplexity = 0
+        maxComplexity = d3.max(data, (d) -> d.complexity) * 1.1
+        minChange = d3.min(data, (d) -> d.change) * 1.1
+        maxChange = d3.max(data, (d) -> d.change) * 1.1
+        # Various scales. These domains make assumptions of data, naturally.
+        xScale = d3.scale.linear().domain([
+          minComplexity
+          maxComplexity
+        ]).range([
+          0
+          width
+        ])
+        yScale = d3.scale.linear().domain([
+          minChange
+          maxChange
+        ]).range([
+          height
+          0
+        ])
+        radiusScale = d3.scale.linear().domain([
+          minComplexity
+          maxComplexity
+        ]).range([
+          5
+          50
+        ])
+
         # The x & y axes.
         # FIXME had to remove [, d3.format(",d")] from ticks()...
         xAxis = d3.svg.axis().orient("bottom").scale(xScale).ticks(12)
