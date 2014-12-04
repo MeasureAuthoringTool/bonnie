@@ -132,17 +132,8 @@ class Thorax.Views.ComplexityDashboard extends Thorax.Views.BonnieView
       # FIXME: instead of these two lines, maybe just more buttons in the grid/graph area
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.nav-dashboard').addClass('active')
-      # Transform data to something appropriate for the D3 visualization
-      data = []
-      @collection.each (pair) ->
-        measure1 = pair.get('measure_1')
-        measure2 = pair.get('measure_2')
-        data.push
-          name: measure2.cms_id
-          complexity: measure2.complexity.populations[0].complexity
-          change: measure2.complexity.populations[0].complexity - measure1.complexity.populations[0].complexity
       @viz = bonnie.viz.MeasureComplexity()
-      d3.select(@$el.find('#chart').get(0)).datum(data).call(@viz)
+      d3.select(@$el.find('#chart').get(0)).datum(@collection.complexityVizData()).call(@viz)
     collection:
       sync: -> @render()
 
