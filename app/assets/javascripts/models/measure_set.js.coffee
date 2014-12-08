@@ -23,6 +23,14 @@ class Thorax.Models.MeasurePair extends Thorax.Model
     scores = scores.concat _(complexity.variables).pluck('complexity')
     _(scores).max()
 
+  # Transform data to something approrpriate for the D3 size visualization
+  sizeVizData: ->
+    measure2 = @get('measure_2')
+    data = measure2['latest_diff']
+    data['size'] = data['totals']['total']
+    data['change'] = data['totals']['insertions'] + data['totals']['deletions']
+    data
+
 class Thorax.Collections.MeasurePairs extends Thorax.Collection
   url: -> "complexity_dashboard/measure_sets/#{@measureSet1},#{@measureSet2}"
   model: Thorax.Models.MeasurePair
@@ -30,3 +38,8 @@ class Thorax.Collections.MeasurePairs extends Thorax.Collection
     @measureSet1 = options.measureSet1
     @measureSet2 = options.measureSet2
   complexityVizData: -> @map (pair) -> pair.complexityVizData()
+  sizeVizData: (sort) ->
+    if sort
+      _(@map (pair) -> pair.sizeVizData()).sortBy((p) => -p[sort])
+    else
+      @map (pair) -> pair.sizeVizData()

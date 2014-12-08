@@ -21,6 +21,11 @@
     shape-rendering: crispEdges;
   }
 
+  .legend {
+    position: fixed;
+    right: 50px;
+  }
+
   .legend, .added-key, .deleted-key {
     display: inline-block;
     float: right;
@@ -45,6 +50,7 @@
   }
 
   .logic-line {
+    fill-opacity: 0.8;
     &.ins-line {
       fill: @red-darker;
       &.added-darker {

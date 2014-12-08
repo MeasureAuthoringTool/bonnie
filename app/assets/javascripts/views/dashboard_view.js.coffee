@@ -24,83 +24,10 @@ class Thorax.Views.SizeDashboard extends Thorax.Views.BonnieView
       # FIXME: instead of these two lines, maybe just more buttons in the grid/graph area
       $('.indicator-circle, .navbar-nav > li').removeClass('active')
       $('.nav-dashboard-size').addClass('active')
-      example_data = [
-        {
-          cms_id: 'cms126v1'
-          populations: [
-            {
-              code: 'IPP'
-              lines: ['unchanged', 'unchanged', 'ins', 'del', 'unchanged', 'del']
-              insertions: 1
-              deletions: 2
-              unchanged: 3
-              total: 6
-            },{
-              code: 'DENOM'
-              lines: ['unchanged', 'ins', 'ins', 'del', 'ins', 'del']
-              insertions: 3
-              deletions: 2
-              unchanged: 1
-              total: 6
-            },{
-              code: 'NUMER'
-              lines: ['unchanged', 'unchanged', 'unchanged', 'unchanged', 'unchanged', 'del']
-              insertions: 0
-              deletions: 1
-              unchanged: 5
-              total: 6
-            }
-          ]
-          totals: {
-            total: 18
-            deletions: 5
-            insertions: 4
-          }
-        }
-      ]
-
-      LINE_STATES = ['unchanged', 'ins', 'del']
-      MEASURE_POPULATIONS = [
-        ['IPP', 'DENOM', 'NUMER']
-        ['IPP', 'DENOM', 'DENEX', 'NUMER']
-        ['IPP', 'DENOM', 'NUMER', 'DENEXCL']
-        ['IPP', 'DENOM', 'DENEX', 'NUMER', 'DENEXCL']
-        ['IPP', 'MSRPOPL', 'OBSERV']
-      ]
-
-      for i in [0..93]
-        measure = {}
-        measure['cms_id'] = "cms#{Math.floor(Math.random() * 300) + 1}v#{Math.floor(Math.random() * 4) + 1}"
-        measure['populations'] = []
-        sum =
-          total: 0
-          deletions: 0
-          insertions: 0
-
-        p = Math.floor(Math.random() * 5)
-        for criteria in MEASURE_POPULATIONS[p]
-          n = Math.floor(Math.random() * 10) + 1
-          population = {
-            code: "#{criteria}_#{i}"
-          }
-          lines = []
-          for ii in [0..n]
-            lines.push LINE_STATES[Math.floor(Math.random() * 3)]
-          population['lines'] = lines
-          population['insertions'] = _(lines).filter( (l) -> l == 'ins' ).length
-          population['deletions'] = _(lines).filter( (l) -> l == 'del' ).length
-          population['unchanged'] = _(lines).filter( (l) -> l == 'unchanged' ).length
-          population['total'] = lines.length
-          measure['populations'].push population
-          sum.total += lines.length
-          sum.deletions += population['insertions']
-          sum.insertions += population['deletions']
-
-        measure['totals'] = sum
-        example_data.push measure
-
       @viz = bonnie.viz.MeasureSize()
-      d3.select(@$el.find('#size-grid').get(0)).datum(example_data).call(@viz)
+      d3.select(@$el.find('#size-grid').get(0)).datum(@collection.sizeVizData('change')).call(@viz)
+    collection:
+      sync: -> @render()
 
   showAddedLines: (e) ->
     @$('.added-box').addClass('darker')
@@ -119,11 +46,11 @@ class Thorax.Views.SizeDashboard extends Thorax.Views.BonnieView
     @viz.hideDeletedLines()
 
   sortByLargest: (e) ->
-    console.log "Should sort by largest size..."
+    d3.select(@$el.find('#size-grid').get(0)).datum(@collection.sizeVizData('size')).call(@viz)
     @$('.sort').toggleClass('btn-primary btn-default') unless @$('.sort-largest').hasClass('btn-primary')
 
   sortByMostChange: (e) ->
-    console.log "Should sort by most change..."
+    d3.select(@$el.find('#size-grid').get(0)).datum(@collection.sizeVizData('change')).call(@viz)
     @$('.sort').toggleClass('btn-primary btn-default') unless @$('.sort-change').hasClass('btn-primary')
 
 class Thorax.Views.ComplexityDashboard extends Thorax.Views.BonnieView
