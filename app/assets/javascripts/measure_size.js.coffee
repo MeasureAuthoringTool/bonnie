@@ -22,9 +22,14 @@ bonnie.viz.MeasureSize = ->
   height = 460
   barHeight = 3
   spacing = 5
+  # size_data = null
 
   my = (selection) ->
     selection.each (data) ->
+
+      # data.sort( (a,b) -> b.change - a.change)
+      # size_data = data
+      d3.selectAll('svg').remove()
 
       color = (line) ->
         switch line
@@ -108,5 +113,11 @@ bonnie.viz.MeasureSize = ->
   my.hideDeletedLines = ->
     updateLines('')
     deletedLabels(false)
+
+  my.sortByLargest = ->
+    d3.selectAll('svg').data(size_data.sort( (a,b) -> b.size - a.size))
+
+  my.sortByMostChange = ->
+    d3.selectAll('svg').data(size_data.sort( (a,b) -> b.change - a.change))
 
   my
