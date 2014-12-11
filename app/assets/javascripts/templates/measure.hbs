@@ -30,7 +30,9 @@
     </div>
     <p>{{description}}</p>
 
-    {{view complexityView}}
+    {{#ifAdmin}}
+      {{view complexityView}}
+    {{/ifAdmin}}
 
     {{#ifAdmin}}
       <a href="/measures/{{_id}}/debug" class="btn btn-danger">Debug</a>
