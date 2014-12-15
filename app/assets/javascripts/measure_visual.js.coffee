@@ -95,18 +95,7 @@ Bonnie.viz.measureVisualzation = ->
       's':'second'
 
     subset_map =
-      'COUNT': 'COUNT'
-      'FIRST': 'FIRST'
-      'SECOND': 'SECOND'
-      'THIRD': 'THIRD'
-      'FOURTH': 'FOURTH'
-      'FIFTH': 'FIFTH'
       'RECENT': 'MOST RECENT'
-      'LAST': 'LAST'
-      'MIN': 'MIN'
-      'MAX': 'MAX'
-      'MEAN': 'MEAN'
-      'MEDIAN': 'MEDIAN'
       'TIMEDIFF': 'Difference between times'
       'DATEDIFF': 'Difference between dates'
       'DATETIMEDIFF': 'Difference between date/times'
@@ -397,7 +386,7 @@ Bonnie.viz.measureVisualzation = ->
         when 'satisfies_all' then 'SATISFIES ALL'
         when 'satisfies_any' then 'SATISFIES ANY'
 
-    translateSubset = (subset) -> subset_map[subset]
+    translateSubset = (subset) -> subset_map[subset] || subset
 
     translateOid = (oid) -> measureValueSets.findWhere({oid: oid})?.get('display_name')
 
