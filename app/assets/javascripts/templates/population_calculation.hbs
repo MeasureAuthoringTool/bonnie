@@ -20,8 +20,8 @@
   {{#collection differences tag="div" class="panel panel-default" item-context=differenceContext}}
     <div class="panel-heading">
       <div class="panel-title">
-        <div class="patient row">
-          <div class="patient-status-icon-col status status-{{status}}">
+        <div class="patient">
+          <div class="patient-status-icon status status-{{status}}">
             {{#if ../patientsListing}}
               <label>
                 <span class="sr-only">Select {{patient.last}} {{patient.first}}</span>
@@ -37,17 +37,17 @@
               {{/if}}
             {{/if}}
           </div>
-          <div class="patient-user-icon-col">
+          <div class="patient-user-icon">
             <i class="fa fa-user" aria-hidden="true"></i><span class="sr-only">{{patient.last}} {{patient.first}}, patient result</span>
           </div>
-          <div class="patient-name-col">
-            <span class="sr-only">patient name: </span>{{patient.last}} {{patient.first}}
+          <div class="patient-btn">
+            {{#button "expandResult" class="close"}}<i class="fa fa-lg fa-angle-right expand-result-icon expand-result-icon-{{patient._id}}" aria-hidden="true"></i> <span class="sr-only">{{patient.last}} {{patient.first}}, Toggle Logic Pass/Fail</span>{{/button}}
           </div>
-          <div class="patient-status-col status status-{{status}}">
+          <div class="patient-status status status-{{status}}">
             <span class="sr-only">{{patient.last}} {{patient.first}}, status </span>{{status}}
           </div>
-          <div class="patient-btn-col">
-            {{#button "expandResult" class="close"}}<i class="fa fa-lg fa-angle-right expand-result-icon expand-result-icon-{{patient._id}}" aria-hidden="true"></i> <span class="sr-only">{{patient.last}} {{patient.first}}, Toggle Logic Pass/Fail</span>{{/button}}
+          <div class="patient-name">
+            <span class="sr-only">patient name: </span>{{patient.last}} {{patient.first}}
           </div>
         </div>
       </div>

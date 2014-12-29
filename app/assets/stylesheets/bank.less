@@ -1,0 +1,77 @@
+.patient-bank {
+  .make-row();
+  .bank-measure {
+    .make-sm-column(4);
+  }
+  .bank-patients {
+    .make-sm-column(8);
+    .patients-results {
+      .clearfix();
+      .patient-count { font-weight: normal; }
+      .patient-select-count {
+        color: @gray-darker;
+        padding-right: 5px;
+      }
+    }
+  }
+}
+
+.patient-results {
+  .content-columns(2,@grid-gutter-width/2);
+  .shared-patient {
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid-column;
+    & .status { color: @brand-primary; }
+    & .status.status-fail { color: @state-danger-text; }
+    & .status.status-pass { color: @state-success-text; }
+  }
+}
+
+.shared-patient > .selected-patient { background-color: @gray-light; }
+
+.shared-patient > .opened-patient {
+  background-color: @brand-primary;
+  color: white;
+  & .close { color: white; }
+  & .status.status-fail { color: @state-danger-bg; }
+  & .status.status-pass { color: @state-success-bg; }
+  & .status { color: @blue-lightest; }
+}
+
+.patient {
+  width: 100%;
+  & > div { padding-top: 0px; }
+  .patient-checkbox {
+    float: left;
+    padding-right: 10px;
+    input[type="checkbox"] {
+    }
+  }
+  .patient-status-icon {
+    float: left;
+    width: 26px;
+  }
+  .patient-user-icon { float: left; }
+  .patient-name {
+    margin-left: 50px;
+    margin-right: 90px;
+    // let long patient names break onto following lines
+    -ms-word-break: break-all;
+       word-break: break-all;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+       -moz-hyphens: auto;
+        -ms-hyphens: auto;
+            hyphens: auto;
+  }
+  .patient-status {
+    width: 60px;
+    float: right;
+  }
+  .patient-btn {
+    width: 20px;
+    float: right;
+  }
+}
+

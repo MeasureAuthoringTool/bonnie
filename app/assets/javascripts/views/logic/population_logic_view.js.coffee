@@ -8,6 +8,7 @@ class Thorax.Views.PopulationsLogic extends Thorax.LayoutView
   clearRationale: -> @getView().clearRationale()
   showCoverage: -> @getView().showCoverage()
   clearCoverage: -> @getView().clearCoverage()
+  showSelectCoverage: (rationaleCriteria) -> @getView().showSelectCoverage(rationaleCriteria)
   populationContext: (population) ->
     _(population.toJSON()).extend
       isActive: population is @collection.first()
@@ -99,6 +100,14 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
   showCoverage: ->
     @clearRationale()
     for criteria in @model.coverage().rationaleCriteria
+      @$(".#{criteria}").addClass('eval-coverage')
+      @$("rect[precondition=\"#{criteria}\"]").attr 'class', (index, classNames) -> "#{classNames} coverage"
+    @coverageScreenReaderStatus()
+
+  showSelectCoverage: (rationaleCriteria) ->
+    @clearCoverage()
+    @clearRationale()
+    for criteria in rationaleCriteria
       @$(".#{criteria}").addClass('eval-coverage')
       @$("rect[precondition=\"#{criteria}\"]").attr 'class', (index, classNames) -> "#{classNames} coverage"
     @coverageScreenReaderStatus()
