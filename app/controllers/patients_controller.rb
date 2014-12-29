@@ -5,7 +5,9 @@ class PatientsController < ApplicationController
   ETHNICITY_NAME_MAP={'2186-5'=>'Not Hispanic or Latino', '2135-2'=>'Hispanic Or Latino'}
 
   def index
-    render :json => Record.where(is_shared: true)
+    # FIXME: this suffers from a 1+N problem: there's a separate query for each
+    # record; we should probably just store these on the patient record when the record is first created
+    render :json => MultiJson.encode(Record.where(is_shared: true).as_json(methods: [:cms_id, :user_email]))
   end
 
   def update

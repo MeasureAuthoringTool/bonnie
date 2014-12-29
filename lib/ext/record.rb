@@ -6,11 +6,20 @@ class Record
   field :expected_values, type: Array
   field :notes, type: String
   field :is_shared, :type => Boolean
-  field :origin_cms_id, :type => String
 
   belongs_to :user
   belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle"
   scope :by_user, ->(user) { where({'user_id'=>user.id}) }
+
+  def user_email
+    user.try(:email)
+  end
+
+  def cms_id
+    measure_id = measure_ids.first # gets the primary measure ID
+    measure = Measure.where(hqmf_set_id: measure_id).first # gets corresponding measure
+    measure.try(:cms_id)
+  end
 
   def rebuild!(payer=nil)
     Measures::PatientBuilder.rebuild_patient(self)

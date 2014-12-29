@@ -52,10 +52,8 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
 
     @listenTo @bankLogicView, 'population:update', (population) ->
       @currentPopulation = population # change to reflect the selection
-      # keep track of patients who are currently toggled and/or selected
-      toggledResult = @toggledPatient # {} one result model, also contains patient
-      selectedPatients = @selectedPatients # a collection of patient models
-      @differences.reset @allDifferences.filter (d) => _(d.result.population).isEqual @currentPopulation
+      @bankFilterView.population = @currentPopulation
+      @bankFilterView.createFilters()
       # make sure whatever patients are selected or toggled still hold
       if @toggledPatient
         associatedDifference = @differences.filter (d) => _(d.result.patient).isEqual @toggledPatient.patient
@@ -65,10 +63,28 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
         _(associatedDifferences).each (d) ->
           @$('[data-model-cid="'+d.cid+'"]').find('input.select-patient').prop('checked',true).trigger("change")
 
+    @bankFilterView = new Thorax.Views.BankFilters population: @currentPopulation
+    @bankFilterView.listenTo @bankFilterView.appliedFilters, 'add remove', =>
+      @updateFilter() # force item-filter to show new results
+      @showFilteredPatientCount()
+      # when selected patients get filtered out, properly remove them from selected patients.
+      $hiddenPatients = @$('input.select-patient:checked:hidden')
+      $hiddenPatients.prop('checked',false).trigger("change")
+      # if a toggled patients get filtered out
+      $hiddenToggledPatient = @$("[data-parent='#sharedResults']:not(.collapsed):hidden")
+      $hiddenToggledPatient.click()
+
+  patientFilter: (difference) ->
+    patient = difference.result.patient
+    @bankFilterView.appliedFilters.all (filter) -> filter.apply(patient)
+
   differenceContext: (difference) ->
     _(difference.toJSON()).extend
       patient: difference.result.patient.toJSON()
       cms_id: @model.get('cms_id')
+
+  showFilteredPatientCount: ->
+    @$('.patient-count').text "("+@$('.shared-patient:visible').length+")" # thorax 'filters' models with $.hide and $.show
 
   changeSelectedPatients: (e) ->
     @$(e.target).closest('.panel-heading').toggleClass('selected-patient')
