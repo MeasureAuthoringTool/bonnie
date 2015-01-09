@@ -14,6 +14,9 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
         @differences.reset @allDifferences.filter (d) => _(d.result.population).isEqual @currentPopulation
 
     rendered: ->
+      @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
+      @exportPatientsView.appendTo(@$el)
+
       @$('#sharedResults').on 'shown.bs.collapse hidden.bs.collapse', (e) =>
         @bankLogicView.clearRationale()
         if e.type is 'shown'
@@ -150,3 +153,14 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
     @$(e.target).button('cloned')
     bonnie.navigate "measures/#{@model.get('hqmf_set_id')}" # return to measure
     window.location.reload() # refreshes the measure page so it shows newly imported patients
+
+  exportBankPatients: ->
+    @exportPatientsView.exporting()
+    patients = @selectedPatients.map (p) -> p.id
+    $.fileDownload "patients/export",
+      successCallback: => @exportPatientsView.banksuccess()
+      failCallback: => @exportPatientsView.fail()
+      httpMethod: "POST"
+      data:
+        authenticity_token: $("meta[name='csrf-token']").attr('content'),
+        patients: patients

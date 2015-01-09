@@ -35,53 +35,54 @@ class PatientsController < ApplicationController
   end
 
   def export
-    records = Record.by_user(current_user)
-    unless current_user.portfolio?
-      records = records.where({:measure_ids.in => [params[:hqmf_set_id]]})
+    if params[:patients]
+      records = Record.find(params[:patients]) # if patients are given, use those patients
+    else
+      records = Record.by_user(current_user)
+      measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).map(&:as_hqmf_model)
+      records = records.where({:measure_ids.in => [params[:hqmf_set_id]]}) unless current_user.portfolio?
     end
-
-    qrda_exporter = HealthDataStandards::Export::Cat1.new
-    html_exporter = HealthDataStandards::Export::HTML.new
-
-    measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).map(&:as_hqmf_model)
-    start_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 1, 1)
-    end_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 12, 31)
 
     qrda_errors = {}
     html_errors = {}
+
     stringio = Zip::ZipOutputStream::write_buffer do |zip|
       records.each_with_index do |patient, index|
+        unless measure
+          measure = get_associated_measure(patient).map(&:as_hqmf_model) # if no measure defined, find the patient's measure
+        end
+        # attach the QRDA export, or the error
         begin
-          qrda = qrda_exporter.export(patient, measure, start_time, end_time) # allow error to stop execution before header is written
+          qrda = qrda_patient_export(patient, measure) # if it didn't work it'll return an exception
           zip.put_next_entry(File.join("qrda","#{index+1}_#{patient.last}_#{patient.first}.xml"))
           zip.puts qrda
         rescue Exception => e
           qrda_errors[patient.id] = e
         end
+        # attach the HTML export, or the error
         begin
-          html = html_exporter.export(patient, if current_user.portfolio? then [] else measure end) # allow error to stop execution before header is written
+          html = html_patient_export(patient, measure)  # if it didn't work it'll return an exception
           zip.put_next_entry(File.join("html","#{index+1}_#{patient.last}_#{patient.first}.html"))
           zip.puts html
         rescue Exception => e
           html_errors[patient.id] = e
         end
       end
-      # if we have results we want to write a summary
-      summary_content = get_summary_content(measure, records, params[:results].values, qrda_errors, html_errors) if (params[:results])
-      if summary_content
-        zip.put_next_entry("#{measure.first.cms_id}_results.html")
-        zip.puts summary_content
+      # add the summary content if there are results
+      if (params[:results] && !params[:patients])
+        measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
+        zip.put_next_entry("#{measure.cms_id}_patients_results.html")
+        zip.puts measure_patients_summary(records, params[:results].values, qrda_errors, html_errors, measure)
       end
     end
-
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
-
     stringio.rewind
-    send_data stringio.sysread, :type => 'application/zip', :disposition => 'attachment', :filename => "#{measure.first.cms_id}_patient_export.zip"
-
+    filename = if params[:hqmf_set_id] then "#{Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first.cms_id}_patient_export.zip" else "bonnie_patient_export.zip" end
+    send_data stringio.sysread, :type => 'application/zip', :disposition => 'attachment', :filename => filename
   end
 
-private 
+
+private
 
   def update_patient(patient)
 
@@ -115,20 +116,38 @@ private
     patient
   end
 
-  def get_summary_content(measure, records, results, qrda_errors, html_errors)
+  def convert_to_hash(key, array)
+    Hash[array.map {|element| [element[key],element.except(key)]}]
+  end
+
+  def get_associated_measure(patient)
+    measure_id = patient.measure_ids.first
+    measure = Measure.where({:hqmf_set_id => measure_id})
+    measure
+  end
+
+  def qrda_patient_export(patient, measure)
+    start_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 1, 1)
+    end_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 12, 31)
+    qrda_exporter = HealthDataStandards::Export::Cat1.new
+    qrda_exporter.export(patient, measure, start_time, end_time)
+  end
+
+  def html_patient_export(patient, measure)
+    html_exporter = HealthDataStandards::Export::HTML.new
+    html_exporter.export(patient, measure)
+  end
+
+  def measure_patients_summary(records, results, qrda_errors, html_errors, measure)
     # restructure differences for output
-    results.each do |r| 
+    results.each do |r|
       r[:differences] = convert_to_hash(:medicalRecordNumber, r[:differences].values)
       r[:differences].values.each {|d| d[:comparisons] = convert_to_hash(:name, d[:comparisons].values)}
     end
-
+    results
     rendering_context = HealthDataStandards::Export::RenderingContext.new
     rendering_context.template_helper = HealthDataStandards::Export::TemplateHelper.new('html', 'patient_summary', Rails.root.join('lib', 'templates'))
-    rendering_context.render(:template => 'index', :locals => {records: records, results: results, qrda_errors: qrda_errors, html_errors: html_errors, measure: measure.first})
-  end
-
-  def convert_to_hash(key, array)
-    Hash[array.map {|element| [element[key],element.except(key)]}]
+    rendering_context.render(:template => 'index', :locals => {records: records, results: results, qrda_errors: qrda_errors, html_errors: html_errors, measure: measure})
   end
 
 end
