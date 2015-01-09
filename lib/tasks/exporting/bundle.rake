@@ -24,7 +24,7 @@ namespace :bonnie do
   namespace :export do
 
     desc "bundle all measures for a user (identified by email address)"
-    task :bundle_user, [:user, :rebuild, :calculate, :source_directory, :measures_yml?] do |t, args|
+    task :bundle_user, [:user, :rebuild, :calculate, :source_directory, :measures_yml] do |t, args|
       user = User.where(email: args.user).first
       measures_yml = args.measures_yml || 'measures_2_5_0.yml'
       export(user, args.rebuild, args.calculate, args.source_directory, measures_yml)
