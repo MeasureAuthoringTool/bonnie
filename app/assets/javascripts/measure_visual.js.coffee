@@ -6,15 +6,14 @@ Bonnie.viz.measureVisualzation = ->
 
             # create the root SVG, addressable by #measureVizSVG
             svg = d3.select(this).append('svg')
-                .append("svg:g")
                 .attr('id','measureVizSVG')
 
             # used to reorganize patient populations after rendering rect's
-            window.observer=new MutationObserver((mutations) -> 
+            window.observer=new MutationObserver((mutations) ->
               mutations.map( (mutation) ->
                 for el in mutation.addedNodes
                   if el.nextSibling?
-                    next = el.nextSibling 
+                    next = el.nextSibling
                     next.transform.baseVal.getItem(0).matrix.f = el.getBBox().height+rowHeight + el.transform.baseVal.getItem(0).matrix.f
               ))
               .observe(svg.node(), {attributes: true, childList: true, subtree:false})
@@ -35,6 +34,7 @@ Bonnie.viz.measureVisualzation = ->
                     .classed("population", true)
                     .attr("transform", "translate(0,#{offset})")
                 textField = populationElement.append('text')
+                  .style("font-size", fontSize)
                   .attr("transform", "translate(0, #{rowHeight})")
                   .style("font-weight", "bold")
 
@@ -56,16 +56,24 @@ Bonnie.viz.measureVisualzation = ->
                   renderPrecondition(populationElement, rootPrecondition, data[population_code].aggregator, rootPrecondition.conjunction_code == 'atLeastOneTrue')
                 offset+= getElementHeight(populationElement)
 
+            # allow the viz to be responsive! specify a viewbox with appropriate dimensions
+            calculatedHeight = getElementHeight(svg) + rowHeight*3 # just some buffer room
+            svg.attr("viewBox", "0 0 #{width} #{calculatedHeight}")
+                .attr("preserveAspectRatio", "xMaxYMin")
+                .attr('height',"#{calculatedHeight}")
+                .attr('width',"100%")
+
     width = 700
-    rowHeight = 7
-    margin = 
+    rowHeight = 26
+    margin =
         top: 10
         right: 10
         bottom: 10
         left: 10
     rowPadding =
-        top: 5
-        right: 5
+        top: 18
+        right: 6
+    fontSize = "2em"
 
     dataCriteria = {}
     measurePopulation = {}
@@ -149,6 +157,11 @@ Bonnie.viz.measureVisualzation = ->
         rowPadding  = _
         my
 
+    my.fontSize = (_) ->
+        return fontSize unless arguments.length
+        fontSize = _
+        my
+
     my.dataCriteria = (_) ->
         return dataCriteria unless arguments.length
         dataCriteria = _
@@ -174,7 +187,7 @@ Bonnie.viz.measureVisualzation = ->
         # compute width based on conjunction code
         elWidth = switch preconditions.conjunction_code
                         when "allTrue" then parent.attr('width')
-                        when "atLeastOneTrue" 
+                        when "atLeastOneTrue"
                           if preconditions.preconditions?
                             parent.attr('width')/preconditions.preconditions.length
                           else parent.attr('width')
@@ -368,10 +381,10 @@ Bonnie.viz.measureVisualzation = ->
 
     pluralizeUnit = (unit, value) ->
       if unit_map[unit]
-        if value > 1 
-          unit_map[unit] + 's' 
-        else 
-          unit_map[unit] 
+        if value > 1
+          unit_map[unit] + 's'
+        else
+          unit_map[unit]
       else
         unit
 

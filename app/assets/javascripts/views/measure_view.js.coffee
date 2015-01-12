@@ -11,7 +11,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     populations = @model.get 'populations'
     population = populations.first()
     populationLogicView = new Thorax.Views.PopulationLogic(model: population)
-    @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
+    @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
 
     # display layout view when there are multiple populations; otherwise, just show logic view
     if populations.length > 1
@@ -33,7 +33,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @$('.d3-measure-viz').empty()
       @$('.d3-measure-viz, .btn-viz-text').hide()
       @$('.btn-viz-chords').show()
-      @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
+      @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
@@ -86,5 +86,4 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     if @$('.d3-measure-viz').children().length == 0
       d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
       @$('rect').popover()
-      @$('.d3-measure-viz > svg').css('height', @$('#measureVizSVG')[0].getBBox().height + @populationCalculation.model.populationCriteria().length * 15 ).css('width', 700)
       if @populationCalculation.toggledPatient? then @logicView.showRationale(@populationCalculation.toggledPatient) else @logicView.showCoverage()
