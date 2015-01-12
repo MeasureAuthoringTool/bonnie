@@ -54,11 +54,26 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
     else
       @bankLogicView = populationLogicView
 
+    @populationCalculation = new Thorax.Views.PopulationCalculation(model: @currentPopulation)
+    @listenTo @bankLogicView, 'ready', ->
+      @toggledViz = true
+      @$('.measure-viz').hide()
+      @$('.d3-measure-viz').show()
+      @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(@currentPopulation).measureValueSets(@model.valueSets())
+      if @$('.d3-measure-viz').children().length == 0
+        d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz)
+        @$('rect').popover()
+        @showSelectedCoverage()
+
     @listenTo @bankLogicView, 'population:update', (population) ->
       @currentPopulation = population # change to reflect the selection
       @bankFilterView.population = @currentPopulation
+
       @bankFilterView.createFilters()
       @differences.reset @allDifferences[@currentPopulation.get('index')]
+      # make sure viz updates properly
+      @$('.d3-measure-viz').empty()
+      @redrawVizualization()
       # make sure whatever patients are selected or toggled still hold
       if @toggledPatient
         associatedDifference = @differences.filter (d) => _(d.result.patient).isEqual @toggledPatient.patient
@@ -164,3 +179,21 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
       data:
         authenticity_token: $("meta[name='csrf-token']").attr('content'),
         patients: patients
+
+  toggleVisualization: ->
+    @toggledViz = !@toggledViz
+    @$('.btn-measure-viz').toggleClass('btn-primary btn-default')
+    @redrawVizualization()
+
+  redrawVizualization: ->
+    if @toggledViz
+      @$('.measure-viz').hide()
+      @$('.d3-measure-viz').show()
+      @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(@currentPopulation).measureValueSets(@model.valueSets())
+      if @$('.d3-measure-viz').children().length == 0
+        d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz)
+        @$('rect').popover()
+        if @toggledPatient? then @bankLogicView.showRationale(@toggledPatient) else @showSelectedCoverage()
+    else
+      @$('.measure-viz').show()
+      @$('.d3-measure-viz').hide()
