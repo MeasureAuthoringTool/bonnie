@@ -11,6 +11,10 @@
 
     <div class="patients-results">
       <h1 class="pull-left">Results <span class="patient-count"></span></h1>
+      <div class="pull-right">
+        <span class="patient-select-count"></span>
+        {{#button "cloneBankPatients" class="btn btn-primary bank-actions" data-cloning-text="Cloning..." data-cloned-text="Cloned successfully" disabled="true"}}Clone into {{cms_id}}<span class="sr-only"> patients selected from patient bank</span>{{/button}}
+      </div>
     </div>
 
     {{#collection differences id="sharedResults" class="patient-results panel-group" item-context=differenceContext item-filter=patientFilter}}
@@ -51,6 +55,7 @@
         <div id="toggle{{@cid}}" class="panel-collapse collapse">
           <div class="panel-body">
             {{template "population_calculation_results"}}
+            {{#button "cloneOnePatient" class="btn btn-primary" data-cloning-text="Cloning..." data-cloned-text="Cloned"}}Clone <span class="sr-only">patient {{patient.last}} {{patient.first}}</span> into {{cms_id}}{{/button}}
           </div>
         </div>
       </div>
