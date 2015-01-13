@@ -110,32 +110,32 @@
         <div class="row">
           <div class="form-group col-md-6">
             <label for="dose_value_{{@cid}}" class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Prescription<span class="sr-only"> value</span></label>
-            <div class="row">
-              <div class="col-xs-8">
+            <div class="form-inline">
+              <div class="input-group">
                 <input type="text" name="dose_value" id="dose_value_{{@cid}}" class="form-control" placeholder="dose">
-              </div>
-              <div class="col-xs-4">
-                <label for="dose_unit_{{@cid}}" class="sr-only">dose unit</label>
-                <select id="dose_unit_{{@cid}}" name="dose_unit" class="form-control medications-control">
-                  <option value="mg">mg</option>
-                </select>
-                {{!-- <input type="text" name="dose_unit" id="dose_unit{{@cid}}" class="form-control" placeholder="units"> --}}
+                <div class="input-group-addon">
+                  <label for="dose_unit_{{@cid}}" class="sr-only">dose unit</label>
+                  <select id="dose_unit_{{@cid}}" name="dose_unit" class="form-control medications-control">
+                    <option value="mg">mg</option>
+                    <option value="tablet(s)">tablet(s)</option>
+                    <option value="capsule(s)">capsule(s)</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
           <div class="form-group col-md-6">
             <label for="frequency_value_{{@cid}}" class="control-label"><i class="fa fa-spinner" aria-hidden="true"></i> Regimen<span class="sr-only"> value</span></label>
-            <div class="row">
-              <div class="col-xs-7">
+            <div class="form-inline">
+              <div class="input-group">
                 <input type="text" name="frequency_value" id="frequency_value_{{@cid}}" class="form-control" placeholder="frequency">
-              </div>
-              <div class="col-xs-5">
-                <label for="frequency_unit_{{@cid}}" class="sr-only">frequency unit</label>
-                <select id="frequency_unit_{{@cid}}" name="frequency_unit" class="form-control medications-control">
-                  <option value="h">hour(s)</option>
-                  <option value="d">day(s)</option>
-                </select>
-                {{!-- <input type="text" name="frequency_unit" id="frequency_unit{{@cid}}" class="form-control" placeholder="units"> --}}
+                <div class="input-group-addon">
+                  <label for="frequency_unit_{{@cid}}" class="sr-only">frequency unit</label>
+                  <select id="frequency_unit_{{@cid}}" name="frequency_unit" class="form-control medications-control">
+                    <option value="h">hour(s)</option>
+                    <option value="d">day(s)</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>

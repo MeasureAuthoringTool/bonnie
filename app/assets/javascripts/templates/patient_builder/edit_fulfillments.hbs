@@ -1,26 +1,34 @@
 <div class="row">
   <div class="col-md-6">
-    <div class="row">
-      <div class="col-xs-8">
-        <input type="number" name="quantity_dispensed_value" id="quantity_dispensed_value_{{@cid}}" class="form-control" placeholder="dose">
+    <div class="datetime-control">
+      <div>
+        <label for="dispense_date_{{@cid}}" class="sr-only">dispense date</label>
+        <input type="text" name="dispense_date" id="dispense_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-autoclose="true">
       </div>
-      <div class="col-xs-4">
-        <label for="quantity_dispensed_unit_{{@cid}}" class="sr-only">quantity dispensed unit</label>
-        <select id="quantity_dispensed_unit_{{@cid}}" name="quantity_dispensed_unit" class="form-control medications-control">
-          <option value="mg">mg</option>
-        </select>
+      <div>
+        <label for="dispense_time_{{@cid}}" class="sr-only">dispense time</label>
+        <input type="text" name="dispense_time" id="dispense_time_{{@cid}}" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
       </div>
     </div>
   </div>
-  <div class="col-md-3">
-    <label for="dispense_date_{{@cid}}" class="sr-only">dispense date</label>
-    <input type="text" name="dispense_date" id="dispense_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-autoclose="true">
+  <div class="col-md-5">
+    <div class="form-inline">
+    <div class="input-group">
+      <label for="quantity_dispensed_value_{{@cid}}" class="sr-only">quantity dispensed value</label>
+      <input type="number" name="quantity_dispensed_value" id="quantity_dispensed_value_{{@cid}}" class="form-control" placeholder="dose">
+
+      <div class="input-group-addon">
+        <label for="quantity_dispensed_unit_{{@cid}}" class="sr-only">quantity dispensed unit</label>
+        <select id="quantity_dispensed_unit_{{@cid}}" name="quantity_dispensed_unit" class="form-control medications-control">
+          <option value="mg">mg</option>
+          <option value="tablet(s)">tablet(s)</option>
+          <option value="capsule(s)">capsule(s)</option>
+        </select>
+      </div>
+    </div>
+    </div>
   </div>
-  <div class="col-md-2">
-    <label for="dispense_time_{{@cid}}" class="sr-only">dispense time</label>
-    <input type="text" name="dispense_time" id="dispense_time_{{@cid}}" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
-  </div>
-  <div class="col-md-1">
+  <div class="col-xs-1">
     {{#button "addFulfillment" class="btn btn-primary pull-right" disabled="disabled"}}
       <i class="fa fa-plus"></i>
       <span class="sr-only">add fulfillment</span>
