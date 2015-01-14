@@ -175,6 +175,26 @@
         {{view editFieldValueView}}
       </div>
 
+    <div class="form-group">
+        <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> References<input class="sr-only" disabled></label>
+
+        {{#collection references class="existing-values" item-context=valueWithDateContext}}
+          <span>
+
+            {{reference_type}}: {{description}}
+            {{#if start_date}}
+              {{start_date}}
+            {{/if}}
+            {{#if end_date}}
+              - {{end_date}}
+            {{/if}}
+            {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
+          </span>
+        {{/collection}}
+
+        {{view editReferenceView}}
+      </div>
+
       <div class="form-group">
         <div class="checkbox">
           <label class="checkbox-label">
