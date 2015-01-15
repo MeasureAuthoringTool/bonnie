@@ -32,7 +32,6 @@ class UsersControllerTest  < ActionController::TestCase
     File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
     Zip::ZipFile.open(zip_path) do |zip_file|
       zip_file.glob(File.join('patients','**','*.json')).count.must_equal 4
-      zip_file.glob(File.join('patients','**','*.html')).count.must_equal 4
       zip_file.glob(File.join('sources','**','*.json')).count.must_equal 2
       zip_file.glob(File.join('sources','**','*.metadata')).count.must_equal 2
       zip_file.glob(File.join('value_sets','**','*.json')).count.must_equal 27
