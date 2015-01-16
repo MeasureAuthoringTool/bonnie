@@ -2,7 +2,6 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
   template: JST['patient_bank/patient_bank']
   events:
     'change input.select-patient':          'changeSelectedPatients'
-    'click .clear-selected':                (e) -> @$('input.select-patient:checked').prop('checked',false).trigger("change")
 
     collection:
       sync: ->
@@ -24,7 +23,7 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
           @bankLogicView.showRationale(@toggledPatient)
         else
           @toggledPatient = null
-          @showSelectedPatients()
+          @showSelectedCoverage()
 
       @$('#sharedResults').on 'show.bs.collapse hidden.bs.collapse', (e) =>
         @$(e.target).prev('.panel-heading').toggleClass('opened-patient')
@@ -34,15 +33,16 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
     @collection = new Thorax.Collections.Patients
     @differences = new Thorax.Collections.Differences
     @selectedPatients = new Thorax.Collection
-    @listenTo @selectedPatients, 'add remove reset', _.bind(@showSelectedPatients, this)
-    @selectedDifferences = new Thorax.Collection
+    @listenTo @selectedPatients, 'reset', -> @$('input.select-patient:checked').prop('checked',false).trigger("change")
+    @listenTo @selectedPatients, 'add remove reset', _.bind(@showSelectedCoverage, this)
+
     @allDifferences = new Thorax.Collection
 
     # wait so everything calculates
     @listenTo @differences, 'complete', ->
       @$('button[type=submit]').button('ready').removeAttr("disabled")
-      @$('.patient-count').text "("+@$('.shared-patient:visible').length+")"  # show number of patients in bank
-      @showSelectedPatients()
+      @$('.patient-count').text "("+@differences.length+")"
+      @showSelectedCoverage()
 
     populations = @model.get('populations')
     @currentPopulation = populations.first()
@@ -77,6 +77,9 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
       $hiddenToggledPatient = @$("[data-parent='#sharedResults']:not(.collapsed):hidden")
       $hiddenToggledPatient.click()
 
+    @selectedPatientsView = new Thorax.Views.SelectedPatients collection: @selectedPatients
+    @selectedPatientsView.listenTo @selectedPatients, 'add remove reset', => @selectedPatientsView.render()
+
   patientFilter: (difference) ->
     patient = difference.result.patient
     @bankFilterView.appliedFilters.all (filter) -> filter.apply(patient)
@@ -93,21 +96,16 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
     @$(e.target).closest('.panel-heading').toggleClass('selected-patient')
     patient = @$(e.target).model().result.patient # gets the patient model to add or remove
     if @$(e.target).is(':checked') then @selectedPatients.add patient else @selectedPatients.remove patient
+    if @selectedPatients.isEmpty() then @$('.bank-actions').attr("disabled", true) else @$('.bank-actions').removeAttr("disabled")
 
-  showSelectedPatients: ->
-    #reflects the selected patient across the view
+  showSelectedCoverage: ->
+    selectedDifferences = new Thorax.Collection
     if @selectedPatients.isEmpty()
-      @$('.bank-actions').attr("disabled", true)
-      @$('.patient-select-count').html 'Please select patients below.'
-      @selectedDifferences.reset @differences.models # show the coverage for everyone
+      selectedDifferences.reset @differences.models # show the coverage for everyone
     else
-      @$('.bank-actions').removeAttr("disabled")
-      if @selectedPatients.length == 1 then @$('.patient-select-count').html '1 patient selected <i class="fa fa-times-circle clear-selected"></i>'
-      else @$('.patient-select-count').html @selectedPatients.length + ' patients selected <i class="fa fa-times-circle clear-selected"></i>'
-      # return the difference already calculated for this patient
-      @selectedDifferences.reset @differences.filter (d) => @selectedPatients.contains d.result.patient
+      selectedDifferences.reset @differences.filter (d) => @selectedPatients.contains d.result.patient
     @rationaleCriteria = []
-    @selectedDifferences.each (difference) => if difference.get('done')
+    selectedDifferences.each (difference) => if difference.get('done')
       result = difference.result
       rationale = result.get('rationale')
       @rationaleCriteria.push(criteria) for criteria, result of rationale when result
