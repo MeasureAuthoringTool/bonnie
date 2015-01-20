@@ -5,12 +5,13 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
 
     collection:
       sync: ->
+        # calculate all the differences for all patients and all populations
         @model.get('populations').each (population) =>
-          population_differences = @collection.map (patient) =>
-            population.differenceFromExpected(patient)
+          population_differences = @collection.map (patient) => population.differenceFromExpected(patient)
           @allDifferences.add population_differences
         # set the differences to those calculated for the currently selected population
-        @differences.reset @allDifferences.filter (d) => _(d.result.population).isEqual @currentPopulation
+        @allDifferences = @allDifferences.groupBy (difference) -> difference.result.population.get('index')
+        @differences.reset @allDifferences[@currentPopulation.get('index')]
 
     rendered: ->
       @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
@@ -57,6 +58,7 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
       @currentPopulation = population # change to reflect the selection
       @bankFilterView.population = @currentPopulation
       @bankFilterView.createFilters()
+      @differences.reset @allDifferences[@currentPopulation.get('index')]
       # make sure whatever patients are selected or toggled still hold
       if @toggledPatient
         associatedDifference = @differences.filter (d) => _(d.result.patient).isEqual @toggledPatient.patient
