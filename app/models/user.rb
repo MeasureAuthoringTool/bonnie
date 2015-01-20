@@ -119,12 +119,15 @@ class User
     approved || false
   end
 
+  # Measure and patient counts can be pre-populated or just retrieved
+  attr_writer :measure_count
   def measure_count
-    measures.count
+    @measure_count || measures.count
   end
 
+  attr_writer :patient_count
   def patient_count
-    records.count
+    @patient_count || records.count
   end
 
   protected

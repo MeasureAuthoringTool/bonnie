@@ -7,8 +7,21 @@ class Admin::UsersController < ApplicationController
   respond_to :json
 
   def index
-    users = User.asc(:email)
-    respond_with users.as_json(methods: [:measure_count, :patient_count])
+    # Getting the count for user measures and patients via the DB is a 1+n problem, and a bit slow, so we grab
+    # the counts separately via map reduce and plug them in
+    users = User.asc(:email).all.to_a # Need to convert to array so counts stick
+    map = "function() { emit(this.user_id, 1); }"
+    reduce = "function(user_id, counts) { return Array.sum(counts); }"
+    measure_counts = Measure.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
+    patient_counts = Record.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
+    users.each do |u|
+      u.measure_count = measure_counts[u.id] || 0
+      u.patient_count = patient_counts[u.id] || 0
+    end
+    users_json = MultiJson.encode(users.as_json(methods: [:measure_count, :patient_count]))
+    respond_with users do |format|
+      format.json { render json: users_json }
+    end
   end
 
   def email_all
