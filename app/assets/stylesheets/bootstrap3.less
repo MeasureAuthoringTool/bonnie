@@ -110,6 +110,7 @@ h2 {
   }
   .nav {
     font-size: 1.5em;
+    li { border-bottom: 4px solid white; }
     a { color: @brand-primary; }
     .active {
       border-bottom: 4px solid @brand-primary;
@@ -202,4 +203,34 @@ h1.modal-title {
 .modal-footer {
   margin-top: 0px;
   padding: 20px 20px 10px 0px;
+}
+
+.breadcrumb {
+  font-size: 16px;
+  background: white;
+  > li {
+    display: table-cell;
+    padding: 12px;
+    background-color: @gray-lighter;
+    color: @gray-darker;
+    a {
+      padding: 12px 0px;
+      color: @gray-darker;
+    }
+    + li:before {
+      content: @fa-var-caret-right;
+      font-family: FontAwesome;
+      padding: 0 10px 0 0;
+      margin-left: -12px;
+      color: @gray-lighter;
+    }
+    &:hover {
+      background-color: @gray-light;
+      + li:before {
+        color: @gray-light;
+      }
+      & > a:hover { text-decoration: none; }
+    }
+    &:last-child:not(:first-child) { background-color: white; }
+  }
 }
