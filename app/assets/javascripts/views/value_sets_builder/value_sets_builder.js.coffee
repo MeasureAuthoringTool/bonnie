@@ -4,8 +4,6 @@ class Thorax.Views.ValueSetsBuilder extends Thorax.Views.BonnieView
     'click .search-button': 'search'
     'focus input#searchByNameOrOID': 'resetSearchBar'
     rendered: ->
-      $('.indicator-circle, .navbar-nav > li').removeClass('active')
-      $('.nav-account').addClass('active')
       @$("[rel='popover']").popover trigger: 'hover', container: 'div.measure-dropdown-group'
 
   initialize: ->

@@ -17,8 +17,8 @@ class BonnieRouter extends Backbone.Router
   routes:
     '':                                                'renderMeasures'
     'measures':                                        'renderMeasures'
-    'dashboard/complexity/:set_1/:set_2':              'renderComplexity'
-    'dashboard/size/:set_1/:set_2':                    'renderSize'
+    'complexity':                                      'renderComplexity'
+    'complexity/:set_1/:set_2':                        'renderComplexity'
     'measures/:hqmf_set_id':                           'renderMeasure'
     'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
@@ -26,54 +26,51 @@ class BonnieRouter extends Backbone.Router
     'value_sets/edit':                                 'renderValueSetsBuilder'
 
   renderMeasures: ->
-    document.title = "Bonnie v#{bonnie.applicationVersion}: Dashboard";
-    @calculator.cancelCalculations()
+    @navigationSetup "Dashboard", "dashboard"
     if @isPortfolio
       dashboardView = new Thorax.Views.Matrix(collection: @measures, patients: @patients)
-    else if @isDashboard
-      dashboardView = new Thorax.Views.Dashboard
     else
       dashboardView = new Thorax.Views.Measures(collection: @measures.sort(), patients: @patients)
     @mainView.setView(dashboardView)
 
   renderComplexity: (measureSet1, measureSet2) ->
-    document.title = "Bonnie v#{bonnie.applicationVersion}: Complexity Dashboard";
-    @calculator.cancelCalculations()
-    pairs = new Thorax.Collections.MeasurePairs([], measureSet1: measureSet1, measureSet2: measureSet2)
-    pairs.fetch()
-    complexityDashboard = new Thorax.Views.ComplexityDashboard(collection: pairs)
-    @mainView.setView(complexityDashboard)
-
-  renderSize: (measureSet1, measureSet2) ->
-    document.title = "Bonnie v#{bonnie.applicationVersion}: Size Dashboard";
-    @calculator.cancelCalculations()
-    pairs = new Thorax.Collections.MeasurePairs([], measureSet1: measureSet1, measureSet2: measureSet2)
-    pairs.fetch()
-    sizeDashboard = new Thorax.Views.SizeDashboard(collection: pairs)
-    @mainView.setView(sizeDashboard)
+    @navigationSetup "Complexity Dashboard", "complexity"
+    complexityView = new Thorax.Views.Dashboard(measureSet1, measureSet2)
+    @mainView.setView(complexityView)
 
   renderMeasure: (hqmfSetId) ->
-    document.title = "Bonnie v#{bonnie.applicationVersion}: Measure View";
-    @calculator.cancelCalculations()
+    @navigationSetup "Measure View", "measure"
     measure = @measures.findWhere({hqmf_set_id: hqmfSetId})
     document.title += " - #{measure.get('cms_id')}" if measure?
     measureView = new Thorax.Views.Measure(model: measure, patients: @patients)
     @mainView.setView(measureView)
 
   renderUsers: ->
-    @calculator.cancelCalculations()
+    @navigationSetup "Admin", "admin"
     @users = new Thorax.Collections.Users()
     usersView = new Thorax.Views.Users(collection: @users)
     @mainView.setView(usersView)
 
   renderPatientBuilder: (measureHqmfSetId, patientId) ->
-    document.title = "Bonnie v#{bonnie.applicationVersion}: Patient Builder";
-    @calculator.cancelCalculations()
+    @navigationSetup "Patient Builder", "patient-builder"
     measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
     document.title += " - #{measure.get('cms_id')}" if measure?
     patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
     @mainView.setView patientBuilderView
+
+  renderValueSetsBuilder: ->
+    @navigationSetup "Value Sets Builder", "value-sets-builder"
+    valueSets = new Thorax.Collections.ValueSetsCollection(_(bonnie.valueSetsByOid).values())
+    valueSetsBuilderView = new Thorax.Views.ValueSetsBuilder(collection: valueSets, measures: @measures.sort(), patients: @patients)
+    @mainView.setView(valueSetsBuilderView)
+
+  # Common setup method used by all routes
+  navigationSetup: (title, selectedNav) ->
+    @calculator.cancelCalculations()
+    document.title = "Bonnie v#{bonnie.applicationVersion}: #{title}"
+    if selectedNav?
+      $('ul.nav > li, .indicator-circle').removeClass('active').filter(".nav-#{selectedNav}, .indicator-#{selectedNav}").addClass('active')
 
   # This method is to be called directly, and not triggered via a
   # route; it allows the patient builder to be used in new patient
@@ -92,8 +89,3 @@ class BonnieRouter extends Backbone.Router
     errorDialogView = new Thorax.Views.ErrorDialog error: error
     errorDialogView.appendTo('#bonnie')
     errorDialogView.display();
-
-  renderValueSetsBuilder: ->
-    valueSets = new Thorax.Collections.ValueSetsCollection(_(bonnie.valueSetsByOid).values())
-    valueSetsBuilderView = new Thorax.Views.ValueSetsBuilder(collection: valueSets, measures: @measures.sort(), patients: @patients)
-    @mainView.setView(valueSetsBuilderView)

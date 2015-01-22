@@ -6,7 +6,7 @@
 
   <div class="form-group">
     {{#collection tag="select" id="measureSet1" class="form-control"}}
-      <option value={{_id}}>{{first_name}} {{last_name}}</option>
+      <option value={{_id}}{{#ifCond ../measureSet1 '==' _id}} selected{{/ifCond}}>{{first_name}} {{last_name}}</option>
     {{/collection}}
   </div>
 
@@ -14,7 +14,7 @@
 
   <div class="form-group">
     {{#collection tag="select" id="measureSet2" class="form-control"}}
-     <option value={{_id}}>{{first_name}} {{last_name}}</option>
+      <option value={{_id}}{{#ifCond ../measureSet2 '==' _id}} selected{{/ifCond}}>{{first_name}} {{last_name}}</option>
     {{/collection}}
   </div>
 
@@ -23,3 +23,5 @@
   </div>
 
 </div>
+
+{{view vizView}}

@@ -10,7 +10,10 @@ class ComplexityDashboard::MeasureSetsController < ApplicationController
     # We implement measure sets using user accounts, specially marked as "complexity_set" accounts; this lets
     # us use existing account interfaces to manage the sets of measures available on the complexity dashboard
     measure_sets = User.where(dashboard_set: true).only(:_id, :first_name, :last_name)
-    respond_with measure_sets
+    measure_sets_json = MultiJson.encode(measure_sets)
+    respond_with measure_sets do |format|
+      format.json { render json: measure_sets_json }
+    end
   end
 
   def show
@@ -31,7 +34,10 @@ class ComplexityDashboard::MeasureSetsController < ApplicationController
         measure_pairs << { measure_1: measure_1, measure_2: measure_2 }
       end
     end
-    respond_with measure_pairs
+    measure_pairs_json = MultiJson.encode(measure_pairs)
+    respond_with measure_pairs do |format|
+      format.json { render json: measure_pairs_json }
+    end
   end
 
   private

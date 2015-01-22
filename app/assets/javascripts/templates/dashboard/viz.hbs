@@ -1,0 +1,16 @@
+{{#button 'complexityGraph' disabled=true class="btn btn-primary complexity-graph"}}graph{{/button}}
+{{#button 'complexityGrid' disabled=true class="btn btn-default complexity-grid"}}grid{{/button}}
+{{#button 'sizeByLargest' disabled=true class="btn btn-default size-largest"}}largest{{/button}}
+{{#button 'sizeByChange' disabled=true class="btn btn-default size-change"}}most change{{/button}}
+
+<div class="size-legend legend hidden">
+  <div class="added-key"><div class="legend-box added-box"/> added lines</div>
+  <div class="deleted-key"><div class="legend-box deleted-box"/> removed lines</div> 
+</div>
+
+<div id="dashboard-viz">
+  <div class="loading-indicator">
+    <img alt="Loading" src="/assets/loading.gif">
+    <div class="loading-text">loading</div>
+  </div>
+</div>

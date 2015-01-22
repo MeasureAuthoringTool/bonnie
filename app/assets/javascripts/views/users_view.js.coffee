@@ -38,8 +38,6 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
     rendered: ->
       @exportBundleView = new Thorax.Views.ExportBundleView() # Modal dialogs for exporting
       @exportBundleView.appendTo(@$el)
-      $('.indicator-circle, .navbar-nav > li').removeClass('active')
-      $('.nav-admin').addClass('active')
 
   approve: -> @model.approve()
 
