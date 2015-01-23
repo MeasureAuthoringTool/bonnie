@@ -71,6 +71,9 @@ class BonnieRouter extends Backbone.Router
     document.title = "Bonnie v#{bonnie.applicationVersion}: #{title}"
     if selectedNav?
       $('ul.nav > li, .indicator-circle').removeClass('active').filter(".nav-#{selectedNav}, .indicator-#{selectedNav}").addClass('active')
+    switch selectedNav
+      when 'complexity', 'admin' then $('.nav-context').addClass('hidden')
+      else $('.nav-context').removeClass('hidden')
 
   # This method is to be called directly, and not triggered via a
   # route; it allows the patient builder to be used in new patient

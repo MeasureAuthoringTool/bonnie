@@ -25,8 +25,7 @@ class Thorax.Models.MeasurePair extends Thorax.Model
 
   # Transform data to something approrpriate for the D3 size visualization
   sizeVizData: ->
-    measure2 = @get('measure_2')
-    data = measure2['latest_diff']
+    data = @get('diff')
     data['size'] = data['totals']['total']
     data['change'] = data['totals']['insertions'] + data['totals']['deletions']
     data

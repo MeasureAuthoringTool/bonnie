@@ -19,7 +19,7 @@ bonnie.viz.MeasureComplexity = ->
 
   # Chart dimensions.
   margin =
-    top: 79.5
+    top: 39.5
     right: 49.5
     bottom: 39.5
     left: 39.5
@@ -40,13 +40,13 @@ bonnie.viz.MeasureComplexity = ->
 
       unless charted
 
-        # Create a dynamic scale based on the actual data
+        # Create dynamic scales based on the actual data
         minComplexity = 0
         maxComplexity = d3.max(data, (d) -> d.complexity) * 1.2
         biggestChange = d3.max(data, (d) -> Math.abs(d.change))
         minChange = d3.max([biggestChange, 1]) * -1.2
         maxChange = d3.max([biggestChange, 1]) * 1.2
-        # Various scales. These domains make assumptions of data, naturally.
+
         xScale = d3.scale.linear().domain([
           minComplexity
           maxComplexity
@@ -63,17 +63,23 @@ bonnie.viz.MeasureComplexity = ->
         ])
         radiusScale = d3.scale.linear().domain([
           minComplexity
-          maxComplexity
+          d3.max([maxComplexity, 50])
         ]).range([
           5
           50
         ])
         colorScale = (input) ->
-          return "#0075C4" if input <= -25
-          return "#3391D0" if input < 0
+          return "#0075C4" if input <= -40
+          return "#C1D1F1" if input < 0
           return "#CCCCCC" if input == 0
-          return "#eca9a7" if input <= 25
-          return "#d9534f"
+          return "#ECA9A7" if input <= 40
+          return "#D9534F"
+        colorLegend = (input) ->
+          return "Large -" if input <= -40
+          return "Moderate -" if input < 0
+          return "No Change" if input == 0
+          return "Moderate +" if input <= 40
+          return "Large +"
 
         # The x & y axes.
         # FIXME had to remove [, d3.format(",d")] from ticks()...
@@ -125,9 +131,9 @@ bonnie.viz.MeasureComplexity = ->
           .attr("cy", (d) -> yScale y(d))
           .attr "r", (d) -> radiusScale radius(d)
 
-      # Defines a sort order so that the smallest dots are drawn on top.
+      # Defines a sort order so that the rightmost dots are drawn on top.
       order = (a, b) ->
-        radius(b) - radius(a)
+        radius(a) - radius(b)
 
       # Add a dot per measure and set the colors. 
       dot = svg.append("g")
@@ -152,16 +158,37 @@ bonnie.viz.MeasureComplexity = ->
         .attr("y", (d) -> yScale(y(d)) + (radiusScale(radius(d))) + 20)
         .text(name = (d) -> d.name)
 
+      # Add legend
+      legend = svg.selectAll(".legend")
+        #.data(["#0075C4", "#3391D0", "#CCCCCC", "#eca9a7", "#d9534f"])
+        .data([50, 20, 0, -20, -50])
+        .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", (d, i) -> "translate(0," + i * 20 + ")")
+
+      legend.append("rect")
+        .attr("x", width - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", colorScale)
+
+      legend.append("text")
+        .attr("x", width - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(colorLegend)
+
   my.switchGrid = ->
     #Defines interaction for pressing grid button
     d3.selectAll(".dot").transition()
-      .attr("cx", (d, i) -> ( i % gridLength ) * 125 + 100 )
-      .attr("cy", (d, i) -> ( i // gridLength ) * 140 )
+      .attr("cx", (d, i) -> ( i % gridLength ) * 125 + 40 )
+      .attr("cy", (d, i) -> ( i // gridLength ) * 140 + 40 )
 
     #label transistion
     d3.selectAll(".cmsLabel").transition()
-      .attr("x", (d, i) -> ( i % gridLength ) * 125 + 75 )
-      .attr("y", (d, i) -> ( i // gridLength ) * 140 + 75 )
+      .attr("x", (d, i) -> ( i % gridLength ) * 125 + 15 )
+      .attr("y", (d, i) -> ( i // gridLength ) * 140 + 115 )
 
     #Add the axis
     active = (if xAxis.active then false else true)

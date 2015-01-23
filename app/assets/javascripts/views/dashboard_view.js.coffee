@@ -3,6 +3,9 @@ class Thorax.Views.Dashboard extends Thorax.Views.BonnieView
   template: JST['dashboard/setup']
   className: "dashboard"
 
+  events:
+    rendered: -> @$('h3.instruction').addClass('hidden') if @vizView
+
   initialize: (@measureSet1, @measureSet2) ->
 
     # FIXME: We can add some caching; probably best at the collection level
