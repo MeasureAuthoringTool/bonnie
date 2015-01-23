@@ -34,6 +34,10 @@ class Thorax.Views.ComplexityViz extends Thorax.Views.BonnieView
   className: "dashboard"
 
   events:
+    'mouseover .added-box': 'showAddedLines'
+    'mouseout .added-box': 'hideAddedLines'
+    'mouseover .deleted-box': 'showDeletedLines'
+    'mouseout .deleted-box': 'hideDeletedLines'
     rendered: ->
       if @vizData.length > 0
         @$('#dashboard-viz').empty()
@@ -90,3 +94,19 @@ class Thorax.Views.ComplexityViz extends Thorax.Views.BonnieView
   updateButtonsAndLegend: ->
     @$('button').removeClass('btn-primary').addClass('btn-default').filter(".#{@state.viz}-#{@state.mode}").addClass('btn-primary')
     @$('.size-legend').removeClass('hidden') if @state.viz == 'size'
+
+  showAddedLines: (e) ->
+    @$('.added-box').addClass('darker')
+    @viz.showAddedLines()
+
+  hideAddedLines: (e) ->
+    @$('.added-box').removeClass('darker')
+    @viz.hideAddedLines()
+
+  showDeletedLines: (e) ->
+    @$('.deleted-box').addClass('darker')
+    @viz.showDeletedLines()
+
+  hideDeletedLines: (e) ->
+    @$('.deleted-box').removeClass('darker')
+    @viz.hideDeletedLines()

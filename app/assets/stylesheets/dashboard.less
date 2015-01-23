@@ -44,43 +44,37 @@
     width: 34px;
     height: 34px;
     &.added-box {
+      background: @blue-lighter;
+      &.darker {
+        background: @blue-darker;
+      }
+    }
+    &.deleted-box {
       background: @red-lighter;
       &.darker {
         background: @red-darker;
       }
     }
-    &.deleted-box {
-      background: @gray-light;
-      &.darker {
-        background: @gray-darker;
-      }
-    }
   }
 
   .logic-line {
-    fill-opacity: 0.8;
+    fill-opacity: 0.9;
     &.ins-line {
-      fill: @red-darker;
-      &.added-darker {
-        fill: @red-darker;
-      }
-      &.deleted-darker {
-        fill: @red-lighter;
+      fill: @brand-primary;
+      &.faded {
+        fill-opacity: 0.2;
       }
     }
     &.del-line {
-      fill: @gray-light;
-      &.added-darker {
-        fill: @gray-light;
-      }
-      &.deleted-darker {
-        fill: @gray-darker;
+      fill: @red-darker;
+      &.faded {
+        fill-opacity: 0.2;
       }
     }
     &.unchanged-line {
-      fill: @brand-primary;
-      &.added-darker,&.deleted-darker {
-        fill: @blue-lightest;
+      fill: @gray-light;
+      &.faded {
+        fill-opacity: 0.2;
       }
     }
   }

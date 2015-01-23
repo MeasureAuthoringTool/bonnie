@@ -5,10 +5,6 @@ bonnie.viz.MeasureSize = ->
     d.cms_id
   population_title = (d) ->
     d.code
-  updateLines = (c) ->
-    for line in ['ins','del','unchanged']
-      d3.selectAll(".#{line}-line").transition()
-        .attr('class', "logic-line #{line}-line#{c}")
   addedLabels = (show) ->
     c = if show then '' else ' hidden'
     d3.selectAll(".added-label").transition()
@@ -30,13 +26,6 @@ bonnie.viz.MeasureSize = ->
       # data.sort( (a,b) -> b.change - a.change)
       # size_data = data
       d3.selectAll('svg').remove()
-
-      color = (line) ->
-        switch line
-          when 'unchanged' then '#0075c4'
-          when 'ins' then '#d9534f'
-          when 'del' then '#e2e2e2'
-          else 'brand-warning'
 
       for measure in data
 
@@ -99,19 +88,23 @@ bonnie.viz.MeasureSize = ->
           yOffset += spacing * 2
 
   my.showAddedLines = ->
-    updateLines(' added-darker')
+    d3.selectAll('.del-line').transition().attr('class', 'logic-line del-line faded')
+    d3.selectAll('.unchanged-line').transition().attr('class', 'logic-line unchanged-line faded')
     addedLabels(true)
 
   my.hideAddedLines = ->
-    updateLines('')
+    d3.selectAll('.del-line').transition().attr('class', 'logic-line del-line')
+    d3.selectAll('.unchanged-line').transition().attr('class', 'logic-line unchanged-line')
     addedLabels(false)
 
   my.showDeletedLines = ->
-    updateLines(' deleted-darker')
+    d3.selectAll('.ins-line').transition().attr('class', 'logic-line ins-line faded')
+    d3.selectAll('.unchanged-line').transition().attr('class', 'logic-line unchanged-line faded')
     deletedLabels(true)
 
   my.hideDeletedLines = ->
-    updateLines('')
+    d3.selectAll('.ins-line').transition().attr('class', 'logic-line ins-line')
+    d3.selectAll('.unchanged-line').transition().attr('class', 'logic-line unchanged-line')
     deletedLabels(false)
 
   my.sortByLargest = ->
