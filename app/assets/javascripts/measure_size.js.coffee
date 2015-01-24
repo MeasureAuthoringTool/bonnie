@@ -18,14 +18,9 @@ bonnie.viz.MeasureSize = ->
   height = 460
   barHeight = 3
   spacing = 5
-  # size_data = null
 
   my = (selection) ->
     selection.each (data) ->
-
-      # data.sort( (a,b) -> b.change - a.change)
-      # size_data = data
-      d3.selectAll('svg').remove()
 
       for measure in data
 
@@ -33,9 +28,8 @@ bonnie.viz.MeasureSize = ->
 
         svg = d3.select(this).append('svg')
           .attr('width', width)
-          # .attr('height', height)
-          .attr('height', measure.totals.total * barHeight + measure.totals.total * spacing + measure.populations.length * 17 + spacing * 5)
-          .attr('style', 'padding: 10px 15px 0 15px;')
+          .attr('height', measure.totals.total * (barHeight + spacing) + measure.populations.length * 17 + spacing * 5)
+          .attr('style', 'padding: 30px 15px 0px 15px; vertical-align: top;')
 
         svg.append('text')
           .attr('id', 'measure_title')
