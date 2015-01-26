@@ -45,10 +45,66 @@ class Thorax.Views.ExpectedValuesView extends Thorax.Views.BonnieView
         expectedValue = $(e.target).model()
         @trigger 'population:select', expectedValue.get('population_index')
 
-
-class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
+class Thorax.Views.ExpectedValueView extends Thorax.Views.BonnieView
 
   template: JST['patient_builder/expected_value']
+
+  initialize: ->
+    @criteriaMap =
+      IPP:      'IPP'
+      STRAT:    'STRAT'
+      DENOM:    'DEN'
+      NUMER:    'NUM'
+      DENEXCEP: 'EXCP'
+      DENEX:    'EXCL'
+      MSRPOPL:  'MSRPOPL'
+      OBSERV:   'OBSERV'
+    @isNumbers = @measure.get('episode_of_care')
+    @isMultipleObserv = @measure.get('continuous_variable')
+    @isCheckboxes = not @isNumbers and not @isMultipleObserv
+    @parseValues()
+    @model.on 'change', => @parseValues() # parse model changes -- needed for CV render triggers
+
+  parseValues: ->
+    @parsedValues = []
+    population = @measure.get('populations').at @model.get('population_index')
+    for pc in @measure.populationCriteria() when population.has(pc)
+      @parsedValues.push
+        key: pc
+        displayName: @criteriaMap[pc]
+        value: @model.get(pc)
+    if not @isNumbers then @parsedValues = _(@parsedValues).filter( (pc) => pc.value )
+
+  # FIXME: this is required to serialize popovers that are left open when saving the patient
+  serialize: (attr) ->
+
+  togglePopover: (e) ->
+    @popoverVisible = @$('.btn-expected-value').hasClass('btn-primary')
+    @$('.btn-expected-value').toggleClass('btn-default btn-primary')
+    if @popoverVisible
+      @popover.serialize(set: true)
+      @$('.btn-expected-value').popover('hide')
+      @parseValues()
+      @render()
+      $("a[href=\"#expected-#{@model.get('population_index')}\"]").parent().addClass('active') # reset the active tab
+    else
+      @popover = new Thorax.Views.ExpectedValuePopoverView
+        model: @model
+        measure: @measure
+      @popover.parent = @
+      @$('.btn-expected-value').popover({title: 'Edit'})
+      @$('.btn-expected-value').popover('show')
+      @$('.popover > .arrow').css('left', "#{if @isMultipleObserv then '18' else '25'}%") # hack for fixing the arrow after rendering form
+      @popover.appendTo(@$('.popover-content'))
+      @popover.toggleUnits()
+      @popover.setObservs()
+      @popover.$('input[name="MSRPOPL"]').focus() if e == 'MSRPOPL'
+      @popover.$(".#{e}").focus() if e == 'btn-observ-unit-mins' or e == 'btn-observ-unit-perc'
+      $("a[href=\"#expected-#{@model.get('population_index')}\"]").parent().addClass('active') # reset active tab
+
+class Thorax.Views.ExpectedValuePopoverView extends Thorax.Views.BuilderChildView
+
+  template: JST['patient_builder/expected_value_popover']
 
   options:
     populate: { context: true }
@@ -70,7 +126,6 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         else
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
     'change input': 'selectPopulations'
-    'change input[name="MSRPOPL"]': 'updateObserv'
     'rendered': -> 'setObservs'
 
   context: ->
@@ -95,6 +150,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
     unless @model.has('OBSERV_UNIT') or not @isMultipleObserv then @model.set 'OBSERV_UNIT', ' mins', {silent:true}
 
   updateObserv: ->
+    popoverVisible = $('.popover').is(':visible')
     if @isMultipleObserv and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
       values = @model.get('MSRPOPL')
       if @model.get('OBSERV')
@@ -106,13 +162,13 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       else
         @model.set 'OBSERV', (0 for n in [1..values]) if values
       @setObservs()
+    @parent.togglePopover('MSRPOPL') if popoverVisible
 
   setObservs: ->
     if @model.get('OBSERV')?.length
         for val, index in @model.get('OBSERV')
           @$("#OBSERV_#{index}").val(val)
     @toggleUnits()
-    $("a[href=\"#expected-#{@model.get('population_index')}\"]").parent().addClass('active') # reset the active tab for CV measures
 
   toggleUnits: (e) ->
     if @model.has('OBSERV_UNIT') and @model.get('OBSERV')?.length
@@ -127,12 +183,14 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       @$('.btn-observ-unit-perc').removeClass('btn-default btn-primary').prop('disabled',true)
 
   setPerc: (e) ->
+    popoverVisible = $('.popover').is(':visible')
     @model.set 'OBSERV_UNIT', '%'
-    @updateObserv()
+    @parent.togglePopover('btn-observ-unit-mins') if popoverVisible
 
   setMins: (e) ->
+    popoverVisible = $('.popover').is(':visible')
     @model.set 'OBSERV_UNIT', ' mins'
-    @updateObserv()
+    @parent.togglePopover('btn-observ-unit-perc') if popoverVisible
 
   selectPopulations: (e) ->
     @attrs ?= @model.attributes
@@ -144,7 +202,9 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
       currentValue = @$(e.target).val()
       increment = currentValue > @attrs[populationCode]
       @handleSelect(populationCode, currentValue, increment)
-    @attrs = @serialize(set: false)
+    @attrs = @serialize(set: true)
+    if @isMultipleObserv and populationCode == 'MSRPOPL' then @updateObserv()
+    $("a[href=\"#expected-#{@model.get('population_index')}\"]").parent().addClass('active') # reset active tab
 
   handleSelect: (population, value, increment) ->
     if increment
@@ -179,5 +239,4 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         @$("input[name=\"#{population}\"]").val(value)
     if @isMultipleObserv
       @serialize()
-      $("a[href=\"#expected-#{@model.get('population_index')}\"]").parent().addClass('active') # reset the active tab for CV measures
       @updateObserv() if @isMultipleObserv and population == 'MSRPOPL'
