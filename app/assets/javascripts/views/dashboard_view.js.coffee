@@ -4,7 +4,7 @@ class Thorax.Views.Dashboard extends Thorax.Views.BonnieView
   className: "dashboard"
 
   events:
-    rendered: -> @$('h3.instruction').addClass('hidden') if @vizView
+    rendered: -> @$('.instruction').addClass('hidden') if @vizView
 
   initialize: (@measureSet1, @measureSet2) ->
 
