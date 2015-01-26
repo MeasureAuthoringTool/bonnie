@@ -41,13 +41,12 @@
     <form class="row form-data" role="form">
       <div class="col-sm-12">
         <div class="form-group">
-          <label for="payer" class="control-label">Payer</label>
-          <select id="payer" name="payer" class="form-control">
-            <option value="MA">Medicare</option>
-            <option value="MC">Medicaid</option>
-            <option value="OT">Other</option>
-          </select>
+          <label for="notes" class="control-label">Patient Description</label>
+          <textarea id="notes" name="notes"class="form-control" placeholder="Patient is..." rows="2" maxlength="250"></textarea>
         </div>
+      </div>
+
+      <div class="col-sm-6">
 
         <div class="form-group">
           <label for="birthdate" class="control-label">Date of Birth</label>
@@ -75,16 +74,17 @@
             <option value="2131-1">Other</option>
           </select>
         </div>
-      </div>
 
-      <div class="col-md-6 col-sm-6">
         <div class="form-group">
-          <label for="gender" class="control-label">Gender</label>
-          <select id="gender" name="gender" class="form-control">
-            <option value="M">Male</option>
-            <option value="F">Female</option>
+          <label for="ethnicity" class="control-label">Ethnicity</label>
+          <select id="ethnicity" name="ethnicity" class="form-control">
+            <option value="2186-5">Not Hispanic or Latino</option>
+            <option value="2135-2">Hispanic Or Latino</option>
           </select>
         </div>
+      </div>
+
+      <div class="col-sm-6">
 
         <div class="form-group">
           <label for="{{#if expired}}deathdate{{else}}expired{{/if}}" class="control-label">{{#if expired}}Date of Death{{else}}Living Status{{/if}}</label>
@@ -113,10 +113,19 @@
         </div>
 
         <div class="form-group">
-          <label for="ethnicity" class="control-label">Ethnicity</label>
-          <select id="ethnicity" name="ethnicity" class="form-control">
-            <option value="2186-5">Not Hispanic or Latino</option>
-            <option value="2135-2">Hispanic Or Latino</option>
+          <label for="gender" class="control-label">Gender</label>
+          <select id="gender" name="gender" class="form-control">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="payer" class="control-label">Payer</label>
+          <select id="payer" name="payer" class="form-control">
+            <option value="MA">Medicare</option>
+            <option value="MC">Medicaid</option>
+            <option value="OT">Other</option>
           </select>
         </div>
       </div>

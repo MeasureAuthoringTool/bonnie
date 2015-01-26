@@ -4,6 +4,7 @@ class Record
   field :measure_ids, type: Array
   field :source_data_criteria, type: Array
   field :expected_values, type: Array
+  field :notes, type: String
 
   belongs_to :user
   belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle"
