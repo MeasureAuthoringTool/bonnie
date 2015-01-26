@@ -2,6 +2,13 @@
   .make-row();
   .bank-measure {
     .make-sm-column(4);
+    .measure-patient-count {
+      padding: 0 0 20px 0;
+      & .fa-stack {
+        & .fa-circle { color: @gray-darker; }
+        & .fa-user { color: @gray-lighter; }
+      }
+    }
   }
   .bank-patients {
     .make-sm-column(8);
@@ -31,7 +38,10 @@
   }
 }
 
-.shared-patient > .selected-patient { background-color: @gray-light; }
+.shared-patient > .selected-patient {
+  background-color: @gray-light;
+  & .fa-user { color: @brand-primary; }
+}
 
 .shared-patient > .opened-patient {
   background-color: @brand-primary;
@@ -40,6 +50,13 @@
   & .status.status-fail { color: @state-danger-bg; }
   & .status.status-pass { color: @state-success-bg; }
   & .status { color: @blue-lightest; }
+  & .patient-user-icon {
+    & .fa-user { color: white; }
+    & .fa-stack.cloned {
+      & .fa-circle { color: @gray-darker; }
+      & .fa-user { color: @gray-lighter; }
+    }
+  }
 }
 
 .patient {
@@ -55,7 +72,20 @@
     float: left;
     width: 26px;
   }
-  .patient-user-icon { float: left; }
+  .patient-user-icon {
+    float: left;
+    & .fa-stack {
+      margin: -.25em 0 0 -0.5em;
+      & .fa-circle { visibility: hidden; }
+      &.cloned {
+        & .fa-circle {
+          visibility: visible;
+          color: @gray-darker;
+        }
+        & .fa-user { color: @gray-lighter; }
+      }
+    }
+  }
   .patient-name {
     margin-left: 50px;
     margin-right: 90px;

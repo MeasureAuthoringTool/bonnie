@@ -40,10 +40,14 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
     @allDifferences = new Thorax.Collection
 
     # wait so everything calculates
-    @listenTo @differences, 'complete', ->
-      @$('button[type=submit]').button('ready').removeAttr("disabled")
-      @$('.patient-count').text "("+@differences.length+")"
+    @listenTo @differences, 'complete', =>
+      @bankFilterView.enableFiltering()
+      @showFilteredPatientCount()
       @showSelectedCoverage()
+      myPatients = @model.get('patients').where({'is_shared': true}).map (p) -> p.id # your patients in this measure
+      myDifferences = @differences.filter (d) -> _(myPatients).contains d.result.patient.id
+      #find associated dom elements and set class 'cloned'
+      _(myDifferences).each (d) -> @$('[data-model-cid="'+d.cid+'"]').find('.patient-user-icon > .fa-stack').addClass('cloned')
 
     populations = @model.get('populations')
     @currentPopulation = populations.first()
@@ -96,6 +100,8 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
 
     @selectedPatientsView = new Thorax.Views.SelectedPatients collection: @selectedPatients
     @selectedPatientsView.listenTo @selectedPatients, 'add remove reset', => @selectedPatientsView.render()
+
+    @measurePatientsCount = new Thorax.Views.MeasurePatientCount(patients: @model.get('patients'))
 
   patientFilter: (difference) ->
     patient = difference.result.patient
@@ -152,6 +158,7 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
       success: (patient) =>
         @patients.add patient # make sure that the patient exist in the global patient collection
         @model.get('patients').add patient # and that measure's patient collection
+        @measurePatientsCount.updatePatientCount(@model.get('patients')) #update count
         if bonnie.isPortfolio
           @measures.each (m) -> m.get('patients').add patient
 
@@ -161,6 +168,9 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
     @clonePatientIntoMeasure(patient)
     @$(e.target).button('cloned')
     @$(e.target).attr("disabled", true)
+    # add indicator
+    icon = @$(e.target).closest('.shared-patient').find('.patient-user-icon > .fa-stack')
+    icon.addClass('cloned')
 
   cloneBankPatients: (e) ->
     @$(e.target).button('cloning')
@@ -197,3 +207,11 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
     else
       @$('.measure-viz').show()
       @$('.d3-measure-viz').hide()
+
+class Thorax.Views.MeasurePatientCount extends Thorax.Views.BonnieView
+  template: JST['patient_bank/measure_patients']
+  className: "measure-patient-count"
+
+  updatePatientCount: (patients) ->
+    @patients = patients
+    @render()
