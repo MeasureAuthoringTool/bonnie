@@ -14,7 +14,7 @@ bonnie.viz.MeasureSize = ->
     d3.selectAll(".deleted-label").transition()
       .attr('class', "label deleted-label#{c}")
 
-  width = 165
+  width = 140
   height = 460
   barHeight = 3
   spacing = 5

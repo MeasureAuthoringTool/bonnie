@@ -17,6 +17,7 @@
 
   #dashboard-viz {
     margin-left: -40px;
+    max-width: 1000px;
   }
 
   .cmsLabel {
@@ -36,20 +37,18 @@
     shape-rendering: crispEdges;
   }
 
-  .legend {
+  .legend{
     position: fixed;
-    right: 50px;
-  }
-
-  .legend, .added-key, .deleted-key {
+    right: 70px;
     display: inline-block;
-    float: right;
+    .key {
+    }
   }
 
   .legend-box {
     display: inline-block;
-    width: 34px;
-    height: 34px;
+    width: 25px;
+    height: 9px;
     &.added-box {
       background: @blue-lighter;
       &.darker {
@@ -61,6 +60,9 @@
       &.darker {
         background: @red-darker;
       }
+    }
+    &.unchanged-box {
+      background: @gray-light;
     }
   }
 
