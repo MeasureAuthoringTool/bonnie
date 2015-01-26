@@ -47,16 +47,13 @@
       </div>
 
       <div class="col-sm-6">
-
         <div class="form-group">
           <label for="birthdate" class="control-label">Date of Birth</label>
-
-          <div class="row">
-            <div class="col-sm-6">
+          <div class="datetime-control">
+            <div>
               <input type="text" id="birthdate" name="birthdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/day/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
             </div>
-
-            <div class="col-sm-6">
+            <div>
               <label for="birthtime" class="sr-only">Time of Birth</label>
               <input type="text" id="birthtime" name="birthtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
             </div>
@@ -89,19 +86,18 @@
         <div class="form-group">
           <label for="{{#if expired}}deathdate{{else}}expired{{/if}}" class="control-label">{{#if expired}}Date of Death{{else}}Living Status{{/if}}</label>
           {{#if expired}}
-            <div class="row">
-              <div class="col-md-6 col-sm-6">
+            {{#button "removeDeathDate" class="btn btn-link remove-death-date"}}
+              <i class="fa fa-times-circle" aria-hidden="true"></i>
+              <span class="sr-only">remove date of death</span>
+            {{/button}}
+            <div class="datetime-control">
+              <div>
                 <input type="text" id="deathdate" name="deathdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/date/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
               </div>
-
-              <div class="col-sm-5">
+              <div>
                 <label for="deathtime" class="sr-only">Time of Death</label>
                 <input type="text" id="deathtime" name="deathtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
               </div>
-              {{#button "removeDeathDate" class="btn btn-link remove-death-date"}}
-                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                <span class="sr-only">remove date of death</span>
-              {{/button}}
             </div>
           {{else}}
             <div class="checkbox deceased-checkbox">
