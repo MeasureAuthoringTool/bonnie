@@ -25,7 +25,9 @@ bonnie.viz.MeasureComplexity = ->
     left: 39.5
 
   width = 1100 - margin.right
-  height = 700 - margin.top - margin.bottom
+  graphHeight = 700 - margin.top - margin.bottom
+  gridHeight = null
+
   xScale = null
   yScale = null
   radiusScale = null
@@ -34,11 +36,15 @@ bonnie.viz.MeasureComplexity = ->
     width
   ], .5)
   charted = false
+  positionDotGraph = positionLabelGraph = positionDotGrid = positionLabelGrid = null
+  gridOrder = graphOrder = null
 
   my = (selection) ->
     selection.each (data) ->
 
       unless charted
+        # Set the height for the grid dynamically based on number of measures
+        gridHeight = Math.ceil(data.length / gridLength) * 140 + 40
 
         # Create dynamic scales based on the actual data
         minComplexity = 0
@@ -58,7 +64,7 @@ bonnie.viz.MeasureComplexity = ->
           minChange
           maxChange
         ]).range([
-          height
+          graphHeight
           0
         ])
         radiusScale = d3.scale.linear().domain([
@@ -89,14 +95,14 @@ bonnie.viz.MeasureComplexity = ->
         # Create the SVG container and set the origin.
         svg = d3.select(this).append("svg")
           .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom).append("g")
+          .attr("height", graphHeight + margin.top + margin.bottom).append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
         # Add the x-axis.
         svg.append("g")
           .attr("id", "xAxis")
           .attr("class", "x axis")
-          .attr("transform", "translate(0," + height + ")")
+          .attr("transform", "translate(0," + graphHeight + ")")
           .call xAxis
 
         # Add the y-axis.
@@ -111,7 +117,7 @@ bonnie.viz.MeasureComplexity = ->
           .attr("class", "x label")
           .attr("text-anchor", "end")
           .attr("x", width)
-          .attr("y", height - 6)
+          .attr("y", graphHeight - 6)
           .text "complexity"
 
         # Add a y-axis label.
@@ -125,42 +131,53 @@ bonnie.viz.MeasureComplexity = ->
           .text "change in complexity"
         charted = true
 
-      # Position the dots on the x/y axis  
-      position = (dot) ->
+      # Helpers for positioning the dots and labels in grid and graph mode
+      positionDotGraph = (dot) ->
         dot.attr("cx", (d) -> xScale radius(d))
-          .attr("cy", (d) -> yScale y(d))
-          .attr "r", (d) -> radiusScale radius(d)
+           .attr("cy", (d) -> yScale y(d))
+           .attr "r", (d) -> radiusScale radius(d)
 
-      # Defines a sort order so that the rightmost dots are drawn on top.
+      positionLabelGraph = (label) ->
+        label.attr("x", (d) -> xScale(radius(d)) - 30)
+             .attr("y", (d) -> yScale(y(d)) + (radiusScale(radius(d))) + 20)
+             .style('opacity', 0)
+
+      positionDotGrid = (dot) ->
+        dot.attr("cx", (d, i) -> ( i % gridLength ) * 125 + 40 )
+           .attr("cy", (d, i) -> ( i // gridLength ) * 140 + 40 )
+           .attr "r", (d) -> radiusScale radius(d)
+
+      positionLabelGrid = (label) ->
+        label.attr("x", (d, i) -> ( i % gridLength ) * 125 + 10 )
+             .attr("y", (d, i) -> ( i // gridLength ) * 140 + 115 )
+             .style('opacity', 1)
+
+      # Defines a sort order to show the largest dots first
       order = (a, b) ->
-        radius(a) - radius(b)
+        radius(b) - radius(a)
 
       # Add a dot per measure and set the colors. 
       dot = svg.append("g")
-        .attr("class", "dots")
         .selectAll(".dot")
         .data(data)
         .enter().append("circle")
         .attr("class", "dot")
         .style("fill", (d) -> colorScale color(d))
-        .call(position)
         .sort(order)
+        .call(positionDotGraph)
 
-      text = svg.selectAll("dot")
+      # Add CMS labels, hidden
+      text = svg.append("g")
+        .selectAll(".cmsLabel")
         .data(data)
-        .enter()
-        .append("text")
-
-      # Add CMS label
-      textLabels = text
+        .enter().append("text")
         .attr("class", "cmsLabel")
-        .attr("x", (d) -> xScale(radius(d)) - 25)
-        .attr("y", (d) -> yScale(y(d)) + (radiusScale(radius(d))) + 20)
         .text(name = (d) -> d.name)
+        .sort(order)
+        .call(positionLabelGraph)
 
       # Add legend
       legend = svg.selectAll(".legend")
-        #.data(["#0075C4", "#3391D0", "#CCCCCC", "#eca9a7", "#d9534f"])
         .data([50, 20, 0, -20, -50])
         .enter().append("g")
         .attr("class", "legend")
@@ -179,42 +196,31 @@ bonnie.viz.MeasureComplexity = ->
         .style("text-anchor", "end")
         .text(colorLegend)
 
-  my.switchGrid = ->
-    #Defines interaction for pressing grid button
-    d3.selectAll(".dot").transition()
-      .attr("cx", (d, i) -> ( i % gridLength ) * 125 + 40 )
-      .attr("cy", (d, i) -> ( i // gridLength ) * 140 + 40 )
-
-    #label transistion
-    d3.selectAll(".cmsLabel").transition()
-      .attr("x", (d, i) -> ( i % gridLength ) * 125 + 15 )
-      .attr("y", (d, i) -> ( i // gridLength ) * 140 + 115 )
-
-    #Add the axis
-    active = (if xAxis.active then false else true)
-    newOpacity = (if active then 0 else 1)
+  setAxisVisibility = (visible) ->
+    newOpacity = (if visible then 1 else 0)
     d3.selectAll(".axis").style "opacity", newOpacity
     d3.select(".y .axis").style "opacity", newOpacity
     d3.select("#xLabel").style "opacity", newOpacity
     d3.select("#yLabel").style "opacity", newOpacity
+
+  my.switchGrid = ->
+    # Adjust height
+    d3.select("svg").attr("height", gridHeight + margin.top + margin.bottom)
+    # Defines interaction for pressing grid button; first move the dots
+    d3.selectAll(".dot").transition().call(positionDotGrid)
+    # Next the labels, plus make them visible
+    d3.selectAll(".cmsLabel").transition().sort(gridOrder).call(positionLabelGrid)
+    # Hide the axis
+    setAxisVisibility(false)
 
   my.switchGraph = ->
-    # Defines interaction for pressing graph button
-    d3.selectAll(".dot").transition()
-      .attr("cx", (d) -> xScale radius(d))
-      .attr("cy", (d) -> yScale y(d))
-
-    #Remove axis
-    active = (if xAxis.active then true else false)
-    newOpacity = (if active then 0 else 1)
-    d3.selectAll(".axis").style "opacity", newOpacity
-    d3.select(".y .axis").style "opacity", newOpacity
-    d3.select("#xLabel").style "opacity", newOpacity
-    d3.select("#yLabel").style "opacity", newOpacity
-
-    #Move the labels back
-    d3.selectAll(".cmsLabel").transition()
-      .attr("x", (d) -> xScale(radius(d)) - 25)
-      .attr("y", (d) -> yScale(y(d)) + (radiusScale(radius(d))) + 20)
+    # Adjust height
+    d3.select("svg").attr("height", graphHeight + margin.top + margin.bottom)
+    # Defines interaction for pressing graph button; first move the dots
+    d3.selectAll(".dot").transition().call(positionDotGraph)
+    # Move the labels back and hide them
+    d3.selectAll(".cmsLabel").transition().sort(graphOrder).call(positionLabelGraph)
+    # Show the axis
+    setAxisVisibility(true)
 
   my
