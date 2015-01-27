@@ -5,9 +5,18 @@ class PatientsController < ApplicationController
   ETHNICITY_NAME_MAP={'2186-5'=>'Not Hispanic or Latino', '2135-2'=>'Hispanic Or Latino'}
 
   def index
-    # FIXME: this suffers from a 1+N problem: there's a separate query for each
-    # record; we should probably just store these on the patient record when the record is first created
-    render :json => MultiJson.encode(Record.where(is_shared: true).as_json(methods: [:cms_id, :user_email]))
+    # We go through some gymnastics to deal with a 1+N problem, so we don't need additional queries for each
+    # record for cms_id and user_email: prepoulate these values using lookup tables
+    records = Record.where(is_shared: true).to_a
+    users = User.only(:_id, :email).find(records.map(&:user_id).uniq)
+    email_by_user_id = users.each_with_object({}) { |u, h| h[u.id] = u.email }
+    measures = Measure.only(:_id, :hqmf_set_id, :cms_id).where(:hqmf_set_id.in => records.map { |r| r.measure_ids.first }.uniq)
+    cms_id_by_measure_id = measures.each_with_object({}) { |m, h| h[m.hqmf_set_id] = m.cms_id }
+    records.each do |record|
+      record.user_email = email_by_user_id[record.user_id]
+      record.cms_id = cms_id_by_measure_id[record.measure_ids.first]
+    end
+    render :json => MultiJson.encode(records.as_json(methods: [:cms_id, :user_email]))
   end
 
   def update
