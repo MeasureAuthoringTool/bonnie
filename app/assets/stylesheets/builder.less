@@ -57,17 +57,24 @@
         margin-left: -@offset;
         padding-right: (@grid-gutter-width / 2); // leave out @time-bar-width to account for parent's border-right
       }
+      & .heading-muted {
+        margin-right: -@grid-gutter-width;
+      }
     }
   }
 
   .col-center {
-    .make-md-column(6);
     .make-sm-column(6);
+    padding-bottom: @grid-gutter-width;
     .form-data {
       .time-bar();
-      // FIXME this border is attached here because this column is taller, but really belongs on .col-right
-      border-right: 4px solid @brand-primary;
       margin-left: 0;
+      margin-top: -5px;
+      padding-top: 5px;
+      // FIXME: hack to get the grey bar to extend to next row
+      margin-bottom: -450px;
+      padding-bottom: 450px;
+      padding-right: (@grid-gutter-width / 2);
       padding-left: (@grid-gutter-width / 2);
     }
     .deceased-checkbox {
@@ -78,7 +85,7 @@
     }
     .remove-death-date {
       float: right;
-      padding-top: 8px;
+      padding-top: 0px;
       padding-right: 8px;
       padding-left: 0;
       padding-bottom: 0;
@@ -92,7 +99,7 @@
 
   .timeline-icon {
     color: @brand-primary;
-    margin-left: -32px;
+    margin-left: -23px;
   }
 
   .validation-alerts {
@@ -107,14 +114,16 @@
       background-color: @gray-lighter;
     }
     .tab-content {
-      padding-bottom: 10px;
+      padding: @grid-gutter-width/2;
+      padding-bottom: @grid-gutter-width * 1.5;
       h2, h3 {
         &:extend(h2);
         margin-top: 0;
-        padding-top: 6px;
       }
-
       .form-inline {
+        .checkbox-inline:first-child {
+          padding-left: 0px;
+        }
         .form-group {
           padding-right: 10px;
           label {
@@ -137,7 +146,7 @@
 
   .heading-muted {
     background-color: @gray-lighter;
-    padding-left: 3px;
+    padding-left: 8px;
   }
   .submeasure {
     text-transform: lowercase;
@@ -152,6 +161,7 @@
     background-color: @blue-lighter;
     color: white;
     padding-left: @grid-gutter-width;
+    margin-right: -@grid-gutter-width;
   }
 
   .panel {
@@ -209,7 +219,7 @@
     .patient-criteria {
       .time-bar();
       &.during-measurement-period {
-        .time-bar(@blue-lightest);
+        .time-bar(@blue-lighter);
       }
       .criteria-type-marker {
         @radius: 18px;
@@ -283,15 +293,6 @@
           .control-label {
             color: @brand-primary;
           }
-          .datetime-control {
-            .make-row(0);
-            &> * {
-              .make-md-column(6; 0);
-            }
-            &> :last-child input {
-              border-left: 0;
-            }
-          }
           .input-group-addon {
             padding: 0;
             border: none;
@@ -321,6 +322,15 @@
           }
         }
       }
+    }
+  }
+  .datetime-control {
+    .make-row(0);
+    &> * {
+      .make-md-column(6; 0);
+    }
+    &> :last-child input {
+      border-left: 0;
     }
   }
 }

@@ -8,11 +8,11 @@
 
 <div class="row">
   <div class="col-md-2">
-    <h1>Test Patient</h1>
+    <h1>Patient</h1>
   </div>
 
   <div class="col-md-6">
-    <div class="timeline-icon pull-left"><i class="fa fa-user fa-fw fa-4x" aria-hidden="true"></i></div>
+    <div class="timeline-icon pull-left"><i class="fa fa-user fa-fw fa-3x" aria-hidden="true"></i></div>
     <div class="validation-alerts"><div class="alert alert-danger hidden"></div></div>
   </div>
 
@@ -39,25 +39,21 @@
 
   <div class="col-center">
     <form class="row form-data" role="form">
-      <div class="col-md-6 col-sm-6">
+      <div class="col-sm-12">
         <div class="form-group">
-          <label for="payer" class="control-label">Payer</label>
-          <select id="payer" name="payer" class="form-control">
-            <option value="MA">Medicare</option>
-            <option value="MC">Medicaid</option>
-            <option value="OT">Other</option>
-          </select>
+          <label for="notes" class="control-label">Patient Description</label>
+          <textarea id="notes" name="notes"class="form-control" placeholder="Patient is..." rows="2" maxlength="250"></textarea>
         </div>
+      </div>
 
+      <div class="col-sm-6">
         <div class="form-group">
           <label for="birthdate" class="control-label">Date of Birth</label>
-
-          <div class="row">
-            <div class="col-md-6 col-sm-6">
+          <div class="datetime-control">
+            <div>
               <input type="text" id="birthdate" name="birthdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/day/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
             </div>
-
-            <div class="col-md-6 col-sm-6">
+            <div>
               <label for="birthtime" class="sr-only">Time of Birth</label>
               <input type="text" id="birthtime" name="birthtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
             </div>
@@ -75,33 +71,33 @@
             <option value="2131-1">Other</option>
           </select>
         </div>
-      </div>
 
-      <div class="col-md-6 col-sm-6">
         <div class="form-group">
-          <label for="gender" class="control-label">Gender</label>
-          <select id="gender" name="gender" class="form-control">
-            <option value="M">Male</option>
-            <option value="F">Female</option>
+          <label for="ethnicity" class="control-label">Ethnicity</label>
+          <select id="ethnicity" name="ethnicity" class="form-control">
+            <option value="2186-5">Not Hispanic or Latino</option>
+            <option value="2135-2">Hispanic Or Latino</option>
           </select>
         </div>
+      </div>
+
+      <div class="col-sm-6">
 
         <div class="form-group">
           <label for="{{#if expired}}deathdate{{else}}expired{{/if}}" class="control-label">{{#if expired}}Date of Death{{else}}Living Status{{/if}}</label>
           {{#if expired}}
-            <div class="row">
-              <div class="col-md-6 col-sm-6">
+            {{#button "removeDeathDate" class="btn btn-link remove-death-date"}}
+              <i class="fa fa-times-circle" aria-hidden="true"></i>
+              <span class="sr-only">remove date of death</span>
+            {{/button}}
+            <div class="datetime-control">
+              <div>
                 <input type="text" id="deathdate" name="deathdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/date/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
               </div>
-
-              <div class="col-md-5 col-sm-5">
+              <div>
                 <label for="deathtime" class="sr-only">Time of Death</label>
                 <input type="text" id="deathtime" name="deathtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
               </div>
-              {{#button "removeDeathDate" class="btn btn-link remove-death-date"}}
-                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                <span class="sr-only">remove date of death</span>
-              {{/button}}
             </div>
           {{else}}
             <div class="checkbox deceased-checkbox">
@@ -113,10 +109,19 @@
         </div>
 
         <div class="form-group">
-          <label for="ethnicity" class="control-label">Ethnicity</label>
-          <select id="ethnicity" name="ethnicity" class="form-control">
-            <option value="2186-5">Not Hispanic or Latino</option>
-            <option value="2135-2">Hispanic Or Latino</option>
+          <label for="gender" class="control-label">Gender</label>
+          <select id="gender" name="gender" class="form-control">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="payer" class="control-label">Payer</label>
+          <select id="payer" name="payer" class="form-control">
+            <option value="MA">Medicare</option>
+            <option value="MC">Medicaid</option>
+            <option value="OT">Other</option>
           </select>
         </div>
       </div>
@@ -125,8 +130,8 @@
 
 
   <div class="col-right expected-values">
-    <h2>Measure Associated</h2>
-    <p>{{measureTitle}}</p>
+    <h2>{{measureTitle}}</h2>
+    <p>{{measureDescription}}</p>
 
     {{view expectedValuesView}}
   </div>
@@ -142,7 +147,7 @@
     </div>
   </div>
   <div class="col-center criteria-container droppable">
-    <h1 class="heading-primary">Patient History Relative To Measures</h1>
+    <h1 class="heading-primary">Patient History</h1>
     {{view editCriteriaCollectionView}}
   </div>
   {{#button "cancel" class="sr-only"}}CANCEL{{/button}}
