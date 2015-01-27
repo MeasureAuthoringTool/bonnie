@@ -348,6 +348,66 @@
       border-left: 0;
     }
   }
+
+  .logic-pager {
+    text-align: center;
+    color: @brand-primary;
+    font-size: @font-size-base*2;
+    width: 100%;
+    &.disabled {
+      color: @gray-lighter;
+    }
+    &:not(.disabled):hover {
+      color: @blue-darker;
+      background-color: @gray-lighter;
+      cursor: pointer;
+    }
+    &:before {
+      content: @fa-var-chevron-circle-up;
+      font-family: FontAwesome;
+    }
+    &.down {
+      bottom: 0px;
+      position: absolute;
+      &:before {
+        content: @fa-var-chevron-circle-down;
+        font-family: FontAwesome;
+      }
+    }
+  }
+
+  .affix-top {
+    position: static;
+  }
+
+  .affix {
+    position: fixed;
+    top: 0px;
+    height: 100%;
+    box-sizing: content-box; // for IE9
+    &#criteriaElements {
+      padding-right: 0px;
+    }
+    & .scrolling {
+      overflow: auto;
+      box-sizing: content-box; // for IE9
+      position: absolute;
+      width: 100%;
+      top: 0px;
+      bottom: 0px;
+    }
+  }
+
+  .ui-draggable-dragging {
+    background: white;
+    width: 200px;
+    .panel > .draggable;
+    .box-shadow(0 1px 3px rgba(0,0,0,.25));
+  }
+
+  .active-drop {
+    background-color: fadeout(@blue-lightest, 75%);
+  }
 }
 .selectBoxIt-native {
   height: @input-height-base !important;
