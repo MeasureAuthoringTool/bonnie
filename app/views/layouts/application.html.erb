@@ -37,6 +37,7 @@
     <% end %>
     <script>
       bonnie.isPortfolio = <%= current_user.is_portfolio? %>;
+      bonnie.isDashboard = <%= current_user.is_dashboard? %>;
       bonnie.isAdmin = <%= current_user.is_admin? %>;
       bonnie.currentUserId = '<%= current_user.id %>';
       bonnie.measurePeriod = <%= Time.zone.at(APP_CONFIG['measure_period_start']).year %>;

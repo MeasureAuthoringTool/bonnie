@@ -25,8 +25,6 @@ class Thorax.Views.Measures extends Thorax.Views.BonnieView
         @finalizeMeasuresView.display()
       @exportBundleView = new Thorax.Views.ExportBundleView() # Modal dialogs for exporting
       @exportBundleView.appendTo(@$el)
-      $('.indicator-circle, .navbar-nav > li').removeClass('active')
-      $('.indicator-dashboard, .nav-dashboard').addClass('active')
 
 class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
 

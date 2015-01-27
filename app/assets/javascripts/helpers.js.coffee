@@ -7,6 +7,7 @@ Handlebars.registerHelper 'moment', (date, format) -> moment.utc(date).format(fo
 
 # helper for displaying complexity score in graphical form
 Handlebars.registerHelper 'complexityIcon', (score) ->
+  return '' unless score?
   good = '<i class="good fa fa-2x fa-check-circle"></i>'
   exclamation = '<i class="exclamation fa fa-2x fa-exclamation-triangle"></i> '
   return new Handlebars.SafeString(good) if score <= 10

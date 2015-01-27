@@ -1,14 +1,29 @@
-<% account_info = request.env['PATH_INFO'].starts_with?('/users') %>
 <div class="navbar row" role="navigation">
   <div class="navbar-brand">
-    <a <% unless account_info %>href="#"<% else %>href="/#"<% end %>>Bonnie</a>
+    <a href="/#">Bonnie</a>
   </div>
   <ul class="nav navbar-nav pull-right">
-    <li <% unless account_info %>class="nav-dashboard active"<% end %>>
-      <a <% unless account_info %>href="#"<% else %>href="/#"<% end %>>Dashboard</a>
-    </li>
-    <li class="<% if account_info %>active<% else %>nav-account<% end %>"><a href="/users/edit">Account</a></li>
+
+    <% if current_page?(controller: 'home', action: 'index') %>
+      <li class="nav-dashboard active"><a href="/#">Dashboard</a></li>
+    <% else %>
+      <li><a href="/#">Dashboard</a></li>
+    <% end %>
+
+    <% if current_user.is_dashboard? %>
+      <li class="nav-complexity">
+        <a href="/#complexity">Complexity</a>
+      </li>
+    <% end %>
+
+    <% if current_page?(controller: 'registrations', action: 'edit') %>
+      <li class="nav-account active"><a href="/users/edit">Account</a></li>
+    <% else %>
+      <li><a href="/users/edit">Account</a></li>
+    <% end %>
+
     <% if (current_user.is_admin?)%><li class="nav-admin"><a href="/#admin/users">Admin</a></li><% end %>
+
     <li class="dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="">
         Help <b class="caret"></b>
@@ -19,11 +34,13 @@
         <li><%= link_to 'User Guide', '/resource/Bonnie_user_guide.pdf' %></li>
       </ul>
     </li>
+
     <li><%= link_to 'Logout', destroy_user_session_path, :method => :delete %></li>
+
   </ul>
 </div>
-<div class="navbar row">
-  <% unless account_info %>
+<div class="navbar row nav-context">
+  <% if current_page?(controller: 'home', action: 'index') %>
   <div class="col-md-4">
     <span class="measure-period">
       <i class="fa fa-tasks" aria-hidden="true"></i> measure period:
@@ -32,11 +49,11 @@
   </div>
   <div class="col-md-8">
     <div class="indicator">
-      <div class="indicator-circle indicator-dashboard "></div>
+      <div class="indicator-circle indicator-dashboard"></div>
       <div class="indicator-bar "></div>
       <div class="indicator-circle indicator-patient-builder"></div>
       <div class="indicator-bar"></div>
-      <div class="indicator-circle indicator-results"></div>
+      <div class="indicator-circle indicator-measure"></div>
     </div>
   </div>
   <% end %>

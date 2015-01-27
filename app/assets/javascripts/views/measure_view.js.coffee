@@ -5,8 +5,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     rendered: ->
       @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
       @exportPatientsView.appendTo(@$el)
-      $('.indicator-circle, .navbar-nav > li').removeClass('active')
-      $('.indicator-results').addClass('active')
       @$('.d3-measure-viz, .btn-viz-text').hide()
     'click .measure-listing': 'selectMeasureListing'
 

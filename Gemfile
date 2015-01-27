@@ -32,6 +32,7 @@ gem 'mongoid'
 gem 'protected_attributes'
 gem 'devise'
 gem 'systemu'
+gem 'diffy'
 
 
 # needed for parsing value sets (we need to use roo rather than rubyxl because the value sets are in xls rather than xlsx)

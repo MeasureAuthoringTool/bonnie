@@ -1,0 +1,36 @@
+<h2>{{name}}</h2>
+
+<hr/>
+
+<table>
+  <tr>
+    <th></th><th class="top-heading">From</th><th class="top-heading">To</th>
+  </tr>
+  <tr>
+    <th>Overall</th>
+    <th class="score-icons">{{complexityIcon old}}</td>
+    <th class="score-icons">{{complexityIcon new}}</td>
+  </tr>
+  <tr>
+    <th colspan=3>Populations</th>
+  </tr>
+  {{#each pairs}}
+    <tr>
+      <td>{{name}}</td>
+      <td class="score-icons">{{complexityIcon oldScore}}</td>
+      <td class="score-icons">{{complexityIcon newScore}}</td>
+    </tr>
+  {{/each}}
+  {{#if variables.length}}
+    <tr>
+      <th colspan=3>Variables</th>
+    </tr>
+  {{/if}}
+  {{#each variables}}
+    <tr>
+      <td>{{name}}</td>
+      <td class="score-icons">{{complexityIcon oldScore}}</td>
+      <td class="score-icons">{{complexityIcon newScore}}</td>
+    </tr>
+  {{/each}}
+</table>

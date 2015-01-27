@@ -1,0 +1,178 @@
+.dashboard {
+
+  margin-top: 50px;
+
+  p.instruction {
+    font-size: 1.2em;
+    width: 620px;
+  }
+
+  h3.instruction {
+    margin-top: 30px;
+  }
+
+  .selection {
+    margin: 30px 0px;
+  }
+
+  #dashboard-viz {
+    margin-left: -40px;
+    max-width: 1000px;
+  }
+
+  .cmsLabel {
+    font-size: 0.9em;
+  }
+
+  .dot {
+    z-index: 0;
+    stroke: white;
+    fill-opacity: 0.8;
+  }
+
+  .label.header {
+    font-size: 100%
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .legend{
+    position: fixed;
+    right: 70px;
+    display: inline-block;
+    .key {
+    }
+  }
+
+  .legend-box {
+    display: inline-block;
+    width: 25px;
+    height: 9px;
+    &.added-box {
+      background: @blue-lighter;
+      &.darker {
+        background: @blue-darker;
+      }
+    }
+    &.deleted-box {
+      background: @red-lighter;
+      &.darker {
+        background: @red-darker;
+      }
+    }
+    &.unchanged-box {
+      background: @gray-light;
+    }
+  }
+
+  .logic-line {
+    fill-opacity: 0.9;
+    &.ins-line {
+      fill: @brand-primary;
+      &.faded {
+        fill-opacity: 0.2;
+      }
+    }
+    &.del-line {
+      fill: @red-darker;
+      &.faded {
+        fill-opacity: 0.2;
+      }
+    }
+    &.unchanged-line {
+      fill: @gray-light;
+      &.faded {
+        fill-opacity: 0.2;
+      }
+    }
+  }
+}
+
+.complexity-tooltip {
+  padding: 12px;
+  background: rgba(240, 240, 240, 0.95);
+  color: #333;
+  border-radius: 2px;
+  pointer-events: none;
+  font-weight: 400;
+  hr {
+    margin: 10px 0px 5px 0px;
+  }
+  .exclamation {
+    color: @grey;
+  }
+  .good {
+    color: @green;
+  }
+  .good, .exclamation {
+    font-size: 1.2em;
+  }
+  .score-icons {
+    padding-left: 15px;
+  }
+  .key-icons {
+    text-align: right;
+    padding-right: 15px;
+  }
+  td, th {
+    white-space: nowrap;
+    padding: 0px 10px;
+  }
+  th {
+    padding-top: 10px;
+    &.top-heading {
+      text-align: center;
+    }
+  }
+}
+
+/* Creates a small triangle extender for the tooltip */
+.complexity-tooltip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(240, 240, 240, 0.95);
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Northward tooltips */
+.complexity-tooltip.n:after {
+  content: "\25BC";
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+  text-align: center;
+}
+
+/* Eastward tooltips */
+.complexity-tooltip.e:after {
+  content: "\25C0";
+  margin: -4px 0 0 0;
+  top: 50%;
+  left: -8px;
+}
+
+/* Southward tooltips */
+.complexity-tooltip.s:after {
+  content: "\25B2";
+  margin: 0 0 1px 0;
+  top: -8px;
+  left: 0;
+  text-align: center;
+}
+
+/* Westward tooltips */
+.complexity-tooltip.w:after {
+  content: "\25B6";
+  margin: -4px 0 0 -1px;
+  top: 50%;
+  left: 100%;
+}
