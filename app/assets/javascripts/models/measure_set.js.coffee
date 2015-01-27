@@ -14,7 +14,10 @@ class Thorax.Models.MeasurePair extends Thorax.Model
     complexity2 = @overallComplexity('measure_2')
     name: measure2.cms_id
     complexity: complexity2
+    oldComplexity: complexity1
     change: complexity2 - complexity1
+    measure1Scores: measure1.complexity
+    measure2Scores: measure2.complexity
 
   # Get the overall complexity score for one of the two measures in the pair
   overallComplexity: (measure) ->

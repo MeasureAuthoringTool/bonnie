@@ -87,6 +87,37 @@ bonnie.viz.MeasureComplexity = ->
           return "Moderate +" if input <= 40
           return "Large +"
 
+        # Tooltip
+        tooltip = d3.tip().attr('class', 'complexity-tooltip').direction('e').html (d) ->
+          # We display the old complexity scores (overall then by population) compared to the new scores; we
+          # display populations by canonical order, then numerical order, ie IPP then IPP_1 then DENOM etc
+          # First pair up all the old and new population scores, using an algorithm that doesn't assume the
+          # measures have the same populations
+          pairs = []
+          for population in d.measure1Scores.populations
+            pairs.push { name: population.name, oldScore: population.complexity }
+          for population in d.measure2Scores.populations
+            if match = _(pairs).findWhere(name: population.name)
+              match.newScore = population.complexity
+            else
+              pairs.push { name: population.name, newScore: population.complexity }
+          # Then sort canonically, using Thorax.Models.Measure.allPopulationCodes
+          pairs = _(pairs).sortBy (p) ->
+            sortArray = p.name.split('_')
+            sortArray[0] = Thorax.Models.Measure.allPopulationCodes.indexOf(sortArray[0])
+            sortArray.push(0) if sortArray.length == 1
+            sortArray # Sorts by an array where first element is order of the population and second is population num
+          # Finally, variables
+          variables = []
+          for variable in d.measure1Scores.variables
+            variables.push { name: variable.name, oldScore: variable.complexity }
+          for variable in d.measure2Scores.variables
+            if match = _(variables).findWhere(name: variable.name)
+              match.newScore = variable.complexity
+            else
+              variables.push { name: variable.name, newScore: variable.complexity }
+          JST['dashboard/complexity_popover'](name: d.name, old: d.oldComplexity, new: d.complexity, pairs: pairs, variables: variables)
+
         # The x & y axes.
         # FIXME had to remove [, d3.format(",d")] from ticks()...
         xAxis = d3.svg.axis().orient("bottom").scale(xScale).ticks(12)
@@ -156,6 +187,9 @@ bonnie.viz.MeasureComplexity = ->
       order = (a, b) ->
         radius(b) - radius(a)
 
+      # Set up tooltips
+      svg.call(tooltip)
+
       # Add a dot per measure and set the colors. 
       dot = svg.append("g")
         .selectAll(".dot")
@@ -165,6 +199,8 @@ bonnie.viz.MeasureComplexity = ->
         .style("fill", (d) -> colorScale color(d))
         .sort(order)
         .call(positionDotGraph)
+        .on('mouseover', tooltip.show)
+        .on('mouseout', tooltip.hide)
 
       # Add CMS labels, hidden
       text = svg.append("g")
