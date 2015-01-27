@@ -54,7 +54,7 @@
     </div>
     <div class="panel-body toggle-result toggle-result-{{patient._id}} patient" style="display: none;">
       {{template "population_calculation_results"}}
-      {{#link "measures/{{measure_id}}/patients/{{patient._id}}/edit" class="btn btn-primary" expand-tokens=true}}EDIT<span class="sr-only"> patient {{patient.last}} {{patient.first}}</span>{{/link}}
+      {{#link "measures/{{measure_id}}/patients/{{patient._id}}/edit" class="btn btn-primary" expand-tokens=true}}<i class="fa fa-pencil" aria-hidden="true"></i><span class="sr-only">edit patient {{patient.last}} {{patient.first}}</span>{{/link}}
       {{#button "clonePatient" class="btn btn-primary"}}CLONE<span class="sr-only"> patient {{patient.last}} {{patient.first}}</span>{{/button}}
       {{#button "showDelete" class="btn btn-danger-inverse"}}
         <i class="fa fa-minus-circle" aria-hidden="true"></i>
