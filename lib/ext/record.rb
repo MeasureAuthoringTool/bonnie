@@ -11,14 +11,19 @@ class Record
   belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle"
   scope :by_user, ->(user) { where({'user_id'=>user.id}) }
 
+  # User email or measure CMS ID can be prepopulated (to solve 1+N performance issue) or just retrieved
+  attr_writer :user_email
   def user_email
-    user.try(:email)
+    @user_email || user.try(:email)
   end
 
+  attr_writer :cms_id
   def cms_id
-    measure_id = measure_ids.first # gets the primary measure ID
-    measure = Measure.where(hqmf_set_id: measure_id).first # gets corresponding measure
-    measure.try(:cms_id)
+    @cms_id || begin
+                 measure_id = measure_ids.first # gets the primary measure ID
+                 measure = Measure.where(hqmf_set_id: measure_id).first # gets corresponding measure
+                 measure.try(:cms_id)
+               end
   end
 
   def rebuild!(payer=nil)
