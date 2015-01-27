@@ -33,28 +33,28 @@ bonnie.viz.MeasureSize = ->
 
         svg.append('text')
           .attr('id', 'measure_title')
-          .attr('class', 'label')
-          .attr('x', width * .3)
+          .attr('class', 'label header')
+          .attr('x', width * .2)
           .attr('y', yOffset)
           .text(measure.cms_id)
 
-        yOffset += 11
+        yOffset += 15
 
         svg.append('text')
           .attr('id', 'deleted_title')
           .attr('class', 'label deleted-label hidden')
           .attr('x', 0)
           .attr('y', yOffset)
-          .text("del: #{measure.totals.deletions} / #{measure.totals.total}")
+          .text("removed: #{Math.round((measure.totals.deletions / measure.totals.total) * 100)}%")
 
         svg.append('text')
           .attr('id', 'added_title')
           .attr('class', 'label added-label hidden')
-          .attr('x', width * .55)
+          .attr('x', width * .45)
           .attr('y', yOffset)
-          .text("ins: #{measure.totals.insertions} / #{measure.totals.total}")
+          .text("added: #{Math.round((measure.totals.insertions / measure.totals.total) * 100)}%")
 
-        yOffset += 10
+        yOffset += 12
 
         for datum in measure.populations
           # Add text for the population
