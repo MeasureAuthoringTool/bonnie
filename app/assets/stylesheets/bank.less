@@ -1,0 +1,156 @@
+.patient-bank {
+  .make-row();
+  .bank-measure {
+    .make-sm-column(4);
+    .measure-patient-count {
+      padding: 0 0 20px 0;
+      & .fa-stack {
+        & .fa-circle { color: @gray-darker; }
+        & .fa-user { color: @gray-lighter; }
+      }
+    }
+  }
+  .bank-patients {
+    .make-sm-column(8);
+    .patients-results {
+      .clearfix();
+      .patient-count { font-weight: normal; }
+      .patient-select-count {
+        color: @brand-primary;
+        font-size: 18px;
+        padding-right: 8px;
+        .clear-selected { color: @gray-darker; }
+      }
+    }
+  }
+  .patient-filters { padding: 15px 0 30px 0; }
+}
+
+.patient-results {
+  .content-columns(2,@grid-gutter-width/2);
+  .shared-patient {
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid-column;
+    & .status { color: @brand-primary; }
+    & .status.status-fail { color: @state-danger-text; }
+    & .status.status-pass { color: @state-success-text; }
+  }
+}
+
+.shared-patient > .selected-patient {
+  background-color: @gray-light;
+  & .fa-user { color: @brand-primary; }
+}
+
+.shared-patient > .opened-patient {
+  background-color: @brand-primary;
+  color: white;
+  & .close { color: white; }
+  & .status.status-fail { color: @state-danger-bg; }
+  & .status.status-pass { color: @state-success-bg; }
+  & .status { color: @blue-lightest; }
+  & .patient-user-icon {
+    & .fa-user { color: white; }
+    & .fa-stack.cloned {
+      & .fa-circle { color: @gray-darker; }
+      & .fa-user { color: @gray-lighter; }
+    }
+  }
+}
+
+.patient {
+  width: 100%;
+  & > div { padding-top: 0px; }
+  .patient-checkbox {
+    float: left;
+    padding-right: 10px;
+    input[type="checkbox"] {
+    }
+  }
+  .patient-status-icon {
+    float: left;
+    width: 26px;
+  }
+  .patient-user-icon {
+    float: left;
+    & .fa-stack {
+      margin: -.25em 0 0 -0.5em;
+      & .fa-circle { visibility: hidden; }
+      &.cloned {
+        & .fa-circle {
+          visibility: visible;
+          color: @gray-darker;
+        }
+        & .fa-user { color: @gray-lighter; }
+      }
+    }
+  }
+  .patient-name {
+    margin-left: 50px;
+    margin-right: 90px;
+    // let long patient names break onto following lines
+    -ms-word-break: break-all;
+       word-break: break-all;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+       -moz-hyphens: auto;
+        -ms-hyphens: auto;
+            hyphens: auto;
+  }
+  .patient-status {
+    width: 60px;
+    float: right;
+  }
+  .patient-btn {
+    width: 20px;
+    float: right;
+  }
+}
+
+.added-filter {
+  background-color: #f6f6f6;
+  color: #888888;
+  display: inline-block;
+  padding: 10px;
+  margin-bottom: 5px;
+  margin-right: 15px;
+  vertical-align: bottom;
+  .delete { float: none; }
+}
+
+// define custom dropdown with SelectBoxIt
+.bank-dropdown-container .selectboxit-option { text-indent: 8px; }
+// override list styling
+.bank-dropdown-list {
+  top: 0px !important; // open on top of rather than below select box
+  & .selectboxit-option-first, .selectboxit-option-last { border-radius: 0px; }
+}
+// override hover over option styling
+.bank-dropdown-focus {
+  background-color: @brand-primary;
+  &.selectboxit-open {
+    background: white;
+    border-color: @brand-primary;
+   }
+  & .selectboxit-option-anchor { color: white; }
+}
+// custom arrow for dropdown
+.bank-dropdown-button > .selectboxit-arrow-container {
+  background-color: @brand-primary;
+  color: white;
+  text-align: center;
+  height: 100%;
+  &:before {
+    content: @fa-var-sort;
+    font-family: FontAwesome;
+  }
+}
+// overide plugin's border and define background
+.bank-dropdown-list, .bank-dropdown-button {
+  border:  3px solid @brand-primary;
+  border-radius: 0px !important;
+  background-color: white;
+}
+
+

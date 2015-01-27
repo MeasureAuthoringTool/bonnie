@@ -2,7 +2,7 @@ describe 'MeasuresView', ->
 
   beforeEach ->
     @measures = bonnie.measures
-    @measure = @measures.first()
+    @measure = bonnie.measures.filter( (m) -> return m.get('populations').length > 1 )[0]
     @measuresView = new Thorax.Views.Measures(collection: @measures)
     @measuresView.render()
 

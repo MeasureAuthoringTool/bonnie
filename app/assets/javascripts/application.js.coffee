@@ -29,6 +29,7 @@
 #= require jquery-placeholder/jquery.placeholder.min
 #= require jquery-color/jquery.color
 #= require bootstrap-file-input/bootstrap.file-input
+#= require MutationObserver-shim/dist/mutationobserver.min
 #
 #= require helpers
 #= require_tree ./templates

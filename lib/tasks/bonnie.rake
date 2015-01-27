@@ -369,6 +369,19 @@ namespace :bonnie do
 
   namespace :patients do
 
+    desc "Share a random set of patients to the patient bank"
+    task :share_with_bank=> :environment do
+      Record.where(is_shared: true).update_all(is_shared: false) # reset everyone to not shared.
+      # share specified number of patients if possible, else share 25% of all existing patients
+      to_share = ((ENV["NUMBER"].to_i > 0) && (ENV["NUMBER"].to_i <= Record.count)) ? ENV["NUMBER"].to_i : (Record.count*0.25).round
+      patients = Record.all.sample(to_share)
+      patients.each do |patient|
+        patient['is_shared'] = true
+        patient.save
+      end
+      puts "Shared patients to the patient bank."
+    end
+
     desc "Materialize all patients"
     task :materialize_all=> :environment do
       pt_count = Record.all.inject(0) do |total, r|

@@ -12,7 +12,11 @@
         {{#if match}}
           <i class="fa fa-check pass" aria-hidden="true"></i><span class="sr-only">passed</span>
         {{else}}
-          <i class="fa fa-times fail" aria-hidden="true"></i><span class="sr-only">failed</span>
+          {{#ifCond expected "==" undefined}}
+            <span class="sr-only">no expectation set</span>
+          {{else}}
+            <i class="fa fa-times fail" aria-hidden="true"></i><span class="sr-only">failed</span>
+          {{/ifCond}}
         {{/if}}
       </td>
       <td>{{name}}</td>
@@ -34,11 +38,15 @@
                 <span class="default">{{expected}}</span>
               {{/ifCond}}
             {{else}}
-              {{#if expected}}
+              {{#ifCond expected "==" 1 }}
                 <i class="fa fa-check-square-o default" aria-hidden="true"></i><span class="sr-only">checked</span>
               {{else}}
-                <i class="fa fa-square-o default" aria-hidden="true"></i><span class="sr-only">unchecked</span>
-              {{/if}}
+                {{#ifCond expected "==" 0 }}
+                  <i class="fa fa-square-o default" aria-hidden="true"></i><span class="sr-only">unchecked</span>
+                {{else}}
+                  -
+                {{/ifCond}}
+              {{/ifCond}}
             {{/ifCond}}
           {{/if}}
         {{/ifCond}}

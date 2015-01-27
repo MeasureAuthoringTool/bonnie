@@ -13,6 +13,8 @@ class Thorax.Models.Difference extends Thorax.Model
                when true then 'pass'
                when false then 'fail'
                else 'pending'
+    # if no expectations are set, use null status instead of failing or passing.
+    if _.every(@expected.attributes, (value, key) -> return !value?) then status = null
     @set done: match?, match: match, status: status, comparisons: @expected.comparison(@result)
 
   toJSON: ->

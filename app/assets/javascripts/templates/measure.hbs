@@ -48,58 +48,10 @@
     <span class="settings-container">
       <div class="patients-settings">
         {{#button "exportPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> Export{{/button}}
-        {{#empty patients}}
-          {{#button "toggleMeasureListing" class="btn btn-default btn-measure-listing toggle-measure-listing" disabled="disabled"}}<i class="fa fa-users" aria-hidden="true"></i> <i class="fa fa-arrow-right" aria-hidden="true"></i> <i class="fa fa-tasks" aria-hidden="true"></i><span class="sr-only">Toggle measure listing</span>{{/button}}
-        {{else}}
-          {{#ifCond measures.length "<=" "1"}}
-            {{#button "toggleMeasureListing" class="btn btn-default btn-measure-listing toggle-measure-listing" disabled="disabled"}}<i class="fa fa-users" aria-hidden="true"></i> <i class="fa fa-arrow-right" aria-hidden="true"></i> <i class="fa fa-tasks" aria-hidden="true"></i><span class="sr-only">Toggle measure listing</span>{{/button}}
-          {{else}}
-            {{#button "toggleMeasureListing" class="btn btn-default btn-measure-listing toggle-measure-listing"}}<i class="fa fa-users" aria-hidden="true"></i> <i class="fa fa-arrow-right" aria-hidden="true"></i> <i class="fa fa-tasks" aria-hidden="true"></i><span class="sr-only">Toggle measure listing</span>{{/button}}
-          {{/ifCond}}
-        {{/empty}}
+        {{#link "measures/{{hqmf_set_id}}/patient_bank" expand-tokens=true class="btn btn-primary import-patients"}}<i class="fa fa-group" aria-hidden="true"></i> <i class="fa fa-plus" aria-hidden="true"></i><span class="sr-only">Import patients from patient bank</span>{{/link}}
       </div>
       {{#button "patientsSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Patient Options</span>{{/button}}
     </span>
   </div>
-  <span class="patients-listing-header" style="display:none;">Select Patients to Clone:</span>
   {{view populationCalculation}}
-</div>
-
-<div class="measure-listing-sidebar" style="display:none;">
-  <div class="measures-title">
-    <span class="short-title pull-left">Measure Listing</span>
-  </div>
-  <span class="measure-listing-header">Select Measure:</span>
-  <div class="list-group">
-    {{#collection measures}}
-      {{#ifCond hqmf_set_id "!=" ../hqmf_set_id}}
-        <a class="list-group-item measure-listing measure-{{hqmf_set_id}} disabled">
-          <div class="row">
-            <div class="col-sm-6">
-              {{cms_id}}
-            </div>
-            <div class="col-sm-6">
-              {{#button "cloneIntoMeasure" class="btn btn-default btn-clone-patients btn-clone-{{hqmf_set_id}}" style="display: none;" expand-tokens=true}}CLONE{{/button}}
-            </div>
-          </div>
-        </a>
-      {{/ifCond}}
-    {{/collection}}
-  </div>
-</div>
-
-<div class="modal fade" id="clonePatientsDialog" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1>Cloning Patients...</h1>
-      </div>
-      <div class="modal-body">
-        <div class="progress progress-striped active">
-          <div class="progress-bar progress-bar-primary clone-patients-progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-            <span class="sr-only">Cloning...</span>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

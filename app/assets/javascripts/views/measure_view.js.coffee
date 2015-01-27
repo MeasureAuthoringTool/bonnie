@@ -6,13 +6,12 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
       @exportPatientsView.appendTo(@$el)
       @$('.d3-measure-viz, .btn-viz-text').hide()
-    'click .measure-listing': 'selectMeasureListing'
 
   initialize: ->
     populations = @model.get 'populations'
     population = populations.first()
     populationLogicView = new Thorax.Views.PopulationLogic(model: population)
-    @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
+    @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
 
     # display layout view when there are multiple populations; otherwise, just show logic view
     if populations.length > 1
@@ -29,19 +28,12 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @logicView.listenTo @populationCalculation, 'logicView:clearCoverage', -> @clearCoverage()
 
     @populationCalculation.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
-    @populationCalculation.listenTo @, 'patients:toggleListing', -> @togglePatientsListing()
     @listenTo @logicView, 'population:update', (population) =>
       @$('.panel, .right-sidebar').animate(backgroundColor: '#fcf8e3').animate(backgroundColor: 'inherit')
       @$('.d3-measure-viz').empty()
       @$('.d3-measure-viz, .btn-viz-text').hide()
       @$('.btn-viz-chords').show()
-      @measureViz = Bonnie.viz.measureVisualzation().dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
-    @listenTo @populationCalculation, 'select-patients:change', ->
-      if @$('.select-patient:checked').size()
-        @$('.measure-listing').removeClass('disabled')
-      else
-        @clearMeasureListings()
-        @$('.measure-listing').addClass('disabled')
+      @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
     # FIXME: change the name of these events to reflect what the measure calculation view is actually saying
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
@@ -69,48 +61,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         httpMethod: "POST"
         data: {authenticity_token: $("meta[name='csrf-token']").attr('content'), results: differences }
 
-  toggleMeasureListing: (e) ->
-    @$('.main').toggleClass('col-sm-8 col-sm-6')
-    @$('.toggle-measure-listing').toggleClass('btn-default btn-measure-listing btn-primary btn-measure-listing-toggled')
-    @$('.patients-listing-header').toggle()
-    @clearMeasureListings()
-    @trigger 'patients:toggleListing'
-    @$('.measure-listing-sidebar').toggle()
-
-  selectMeasureListing: (e) ->
-    @clearMeasureListings()
-    m = @$(e.target).model()
-    if @$('.select-patient:checked').size()
-      @$(".measure-#{m.get('hqmf_set_id')}").addClass('active')
-      @$(".btn-clone-#{m.get('hqmf_set_id')}").show()
-
-  clearMeasureListings: ->
-    @$('.measure-listing').removeClass('active')
-    @$('.btn-clone-patients').hide()
-
-  cloneIntoMeasure: (e) ->
-    $d = @$('.select-patient:checked')
-    measure = @measures.findWhere({hqmf_set_id: @$(e.target).model().get('hqmf_set_id')})
-    count = 0
-    @$("#clonePatientsDialog").modal backdrop: 'static'
-    @$(".rebuild-patients-progress-bar").css('width', '0%')
-    @$("#clonePatientsDialog").on('hidden.bs.modal', -> bonnie.navigate "measures/#{measure.get('hqmf_set_id')}", trigger: true)
-    for diff in $d
-      difference = @$(diff).model()
-      patient = @patients.findWhere({medical_record_number: difference.result.get('medical_record_id')})
-      clonedPatient = patient.deepClone(omit_id: true)
-      clonedPatient.set('measure_ids', [measure.get('hqmf_set_id')])
-      clonedPatient.save clonedPatient.toJSON(),
-        success: (model) =>
-          @patients.add model # make sure that the patient exist in the global patient collection
-          measure.get('patients').add model # and the measure's patient collection
-          if bonnie.isPortfolio then @measures.each (m) -> m.get('patients').add model
-          count++
-          perc = (count / $d.size()) * 100
-          @$(".clone-patients-progress-bar").css('width', perc.toFixed() + '%')
-          if count == $d.size()
-            @$("#clonePatientsDialog").modal 'hide'
-
   deleteMeasure: (e) ->
     @model = $(e.target).model()
     @model.destroy()
@@ -125,7 +75,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
   patientsSettings: (e) ->
     e.preventDefault()
     @$('.patients-settings').toggleClass('patients-settings-expanded')
-    if @$('.measure-listing-sidebar').is(':visible') then @toggleMeasureListing(e)
 
   showDelete: (e) ->
     e.preventDefault()
@@ -137,5 +86,4 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     if @$('.d3-measure-viz').children().length == 0
       d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
       @$('rect').popover()
-      @$('.d3-measure-viz > svg').css('height', @$('#measureVizSVG')[0].getBBox().height + @populationCalculation.model.populationCriteria().length * 15 ).css('width', 700)
       if @populationCalculation.toggledPatient? then @logicView.showRationale(@populationCalculation.toggledPatient) else @logicView.showCoverage()

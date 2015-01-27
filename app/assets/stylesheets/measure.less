@@ -89,6 +89,11 @@
           color: @brand-primary;
         }
       }
+      .import-patients, .btn-measure-listing {
+        .fa {
+          color: white;
+        }
+      }
       .btn-measure-listing-toggled {
         .fa {
           color: white;
@@ -165,7 +170,7 @@
       .btn-primary {
         .fa {
           color: white;
-        }  
+        }
       }
     }
     .measure-settings-expanded {
@@ -242,7 +247,25 @@
       }
     }
   }
-  .d3-measure-viz {
+  // .d3-measure-viz {
+  //   .precondition {
+  //     fill: @gray-light;
+  //   }
+  //   .coverage {
+  //     fill: @brand-primary;
+  //   }
+  //   .eval-true {
+  //     //for measure viz
+  //     fill: #449d44;
+  //   }
+  //   .eval-false, .eval-bad-specifics {
+  //     //for measure viz
+  //     fill: #c9302c;
+  //   }
+  // }
+}
+
+.d3-measure-viz {
     .precondition {
       fill: @gray-light;
     }
@@ -258,7 +281,7 @@
       fill: #c9302c;
     }
   }
-}
+
 .logic-comment {
   font-style: italic;
   color: @gray-darker;

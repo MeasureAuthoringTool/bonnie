@@ -1,0 +1,24 @@
+{
+    "globals": {
+        "MutationRecord": true,
+        "MutationObserver": true,
+        "webkitMutationObserver": true,
+
+        "$": true,
+        "jQuery": true,
+
+        "QUnit": true,
+        "ok": true,
+        "expect": true,
+        "test": true,
+        "equal": true,
+        "deepEqual": true,
+        "strictEqual": true,
+
+        "define": true,
+        "yepnope": true,
+        "curl": true
+    },
+
+    "strict": false
+}
