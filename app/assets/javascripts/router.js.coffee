@@ -67,8 +67,8 @@ class BonnieRouter extends Backbone.Router
     @mainView.setView(valueSetsBuilderView)
 
   renderPatientBank: (measureHqmfSetId) ->
-    @navigationSetup "Patient Bank - #{measure.get('cms_id')}", 'patient-bank'
     measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
+    @navigationSetup "Patient Bank - #{measure.get('cms_id')}", 'patient-bank'
     @mainView.setView new Thorax.Views.PatientBankView model: measure, patients: @patients
 
   # Common setup method used by all routes
