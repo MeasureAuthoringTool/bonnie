@@ -36,11 +36,14 @@ class PatientsController < ApplicationController
 
   def export
     if params[:patients]
-      records = Record.find(params[:patients]) # if patients are given, use those patients
+      # if patients are given, they're from the patient bank; use those patients
+      records = Record.find(params[:patients]).where(is_shared: true)
     else
       records = Record.by_user(current_user)
+      unless current_user.portfolio?
+        records = records.where({:measure_ids.in => [params[:hqmf_set_id]]})
+      end
       measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).map(&:as_hqmf_model)
-      records = records.where({:measure_ids.in => [params[:hqmf_set_id]]}) unless current_user.portfolio?
     end
 
     qrda_errors = {}
@@ -48,12 +51,11 @@ class PatientsController < ApplicationController
 
     stringio = Zip::ZipOutputStream::write_buffer do |zip|
       records.each_with_index do |patient, index|
-        unless measure
-          measure = get_associated_measure(patient).map(&:as_hqmf_model) # if no measure defined, find the patient's measure
-        end
+        # Use defined measure if available, else get the specific measure for this patient
+        patient_measure = measure || get_associated_measure(patient).map(&:as_hqmf_model)
         # attach the QRDA export, or the error
         begin
-          qrda = qrda_patient_export(patient, measure) # if it didn't work it'll return an exception
+          qrda = qrda_patient_export(patient, patient_measure) # allow error to stop execution before header is written
           zip.put_next_entry(File.join("qrda","#{index+1}_#{patient.last}_#{patient.first}.xml"))
           zip.puts qrda
         rescue Exception => e
@@ -61,7 +63,7 @@ class PatientsController < ApplicationController
         end
         # attach the HTML export, or the error
         begin
-          html = html_patient_export(patient, measure)  # if it didn't work it'll return an exception
+          html = html_patient_export(patient, if current_user.portfolio? then [] else measure end) # allow error to stop execution before header is written
           zip.put_next_entry(File.join("html","#{index+1}_#{patient.last}_#{patient.first}.html"))
           zip.puts html
         rescue Exception => e
