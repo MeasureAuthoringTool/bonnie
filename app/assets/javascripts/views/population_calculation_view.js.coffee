@@ -50,6 +50,8 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     # if we clicked on the icon, grab the icon button instead
     deleteIcon.toggleClass('btn-danger btn-danger-inverse')
     deleteButton.toggle()
+    shareButton = @$(".share-#{result.get('patient_id')}")
+    shareButton.toggle() # get share button out the way
 
   deletePatient: (e) ->
     result = $(e.target).model().result
