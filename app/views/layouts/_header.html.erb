@@ -35,7 +35,7 @@
       </ul>
     </li>
 
-    <li><%= link_to 'Logout', destroy_user_session_path, :method => :delete %></li>
+    <li><%= link_to '<i class="fa fa-sign-out"></i> Logout'.html_safe, destroy_user_session_path, :method => :delete %></li>
 
   </ul>
 </div>
@@ -44,4 +44,3 @@
   <ol class="breadcrumb">
   </ol>
 </div>
-
