@@ -35,7 +35,7 @@ class Admin::UsersController < ApplicationController
   def update
     user = User.find(params[:id])
     # Update select attributes directly so we can keep a more restrictive attr_accessible for other contexts
-    [:email, :admin, :portfolio].each { |attr| user.send("#{attr}=", params[attr]) }
+    [:email, :admin, :portfolio, :dashboard].each { |attr| user.send("#{attr}=", params[attr]) }
     user.save
     respond_with user
   end
