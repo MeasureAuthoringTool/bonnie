@@ -78,7 +78,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     'click .expand.closed': ->
       if @$('.description')[0].scrollHeight > @$('.description').height()
         @$('.description').animate 'max-height': @$('.description')[0].scrollHeight # expand
-        @$('.expand').toggleClass('closed opened').html 'Hide <i class="fa fa-caret-up"></i>'
+        @$('.expand').toggleClass('closed opened').html 'Show less <i class="fa fa-caret-up"></i>'
       else
         # FIXME: remove this toggle if the description is too short on render rather than on this click.
         @$('.expand').html('Nothing more to show...').fadeOut 2000, -> $(@).remove()
