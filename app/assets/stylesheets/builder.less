@@ -110,6 +110,15 @@
   }
 
   .expected-values {
+    .description {
+      max-height: @line-height-computed * 3; //show 3 lines of text.
+      overflow: hidden;
+      margin-bottom: @grid-gutter-width;
+    }
+    .expand {
+      color: @brand-primary;
+      margin-top: -@grid-gutter-width;
+    }
     .nav-tabs .active a, .tab-content {
       background-color: @gray-lighter;
     }
