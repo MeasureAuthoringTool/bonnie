@@ -71,6 +71,18 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     'click .deceased-checkbox': 'toggleDeceased'
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
+    # toggle showing the measure description
+    'click .expand.opened': ->
+      @$('.description').animate 'max-height': parseInt(@$('.description').css('line-height')) * 3 # contract
+      @$('.expand').toggleClass('closed opened').html 'Show more <i class="fa fa-caret-down"></i>'
+    'click .expand.closed': ->
+      if @$('.description')[0].scrollHeight > @$('.description').height()
+        @$('.description').animate 'max-height': @$('.description')[0].scrollHeight # expand
+        @$('.expand').toggleClass('closed opened').html 'Show less <i class="fa fa-caret-up"></i>'
+      else
+        # FIXME: remove this toggle if the description is too short on render rather than on this click.
+        @$('.expand').html('Nothing more to show...').fadeOut 2000, -> $(@).remove()
+
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', appendTo: '.patient-builder', zIndex: 10
 
