@@ -37,7 +37,6 @@ bonnie.viz.MeasureComplexity = ->
   ], .5)
   charted = false
   positionDotGraph = positionLabelGraph = positionDotGrid = positionLabelGrid = null
-  gridOrder = graphOrder = null
 
   my = (selection) ->
     selection.each (data) ->
@@ -245,7 +244,7 @@ bonnie.viz.MeasureComplexity = ->
     # Defines interaction for pressing grid button; first move the dots
     d3.selectAll(".dot").transition().call(positionDotGrid)
     # Next the labels, plus make them visible
-    d3.selectAll(".cmsLabel").transition().sort(gridOrder).call(positionLabelGrid)
+    d3.selectAll(".cmsLabel").transition().call(positionLabelGrid)
     # Hide the axis
     setAxisVisibility(false)
 
@@ -255,7 +254,7 @@ bonnie.viz.MeasureComplexity = ->
     # Defines interaction for pressing graph button; first move the dots
     d3.selectAll(".dot").transition().call(positionDotGraph)
     # Move the labels back and hide them
-    d3.selectAll(".cmsLabel").transition().sort(graphOrder).call(positionLabelGraph)
+    d3.selectAll(".cmsLabel").transition().call(positionLabelGraph)
     # Show the axis
     setAxisVisibility(true)
 
