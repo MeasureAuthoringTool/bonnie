@@ -12,40 +12,8 @@
   }
 }
 
-.measure-listing-sidebar {
-  .make-sm-column(2.5);
-  .measures-title {
-    .make-sm-column(12);
-    .title-bar;
-    margin-bottom: 10px;
-    .short-title {
-      font-size: 1.4em;
-      line-height: 2.15;
-      margin-top: 0;
-      color: black;
-      text-transform: uppercase;
-    }
-    .fa {
-      color: black;
-    }
-  }
-  .list-group {
-    padding-top: 30px;
-    a.disabled  {
-      color: @nav-disabled-link-color;
-      &:hover,
-      &:focus {
-        color: @nav-disabled-link-hover-color;
-        text-decoration: none;
-        background-color: transparent;
-        cursor: not-allowed;
-      }
-    }
-  }
-}
-
 .right-sidebar {
-  .make-sm-column(3.5);
+  .make-sm-column(4);
   .patient-row {
     .make-sm-column(12);
     font-size: 1.6em;
@@ -57,13 +25,10 @@
     .make-sm-column(12);
     .title-bar;
     margin-bottom: 10px;
-    .short-title {
+    h1 {
       font-size: 1.8em;
       line-height: 1.75;
-      padding-right: 15px;
-      margin-top: 0;
-      color: black;
-      text-transform: uppercase;
+      margin-bottom: 0;
     }
     .fa {
       color: black;
@@ -110,6 +75,7 @@
 }
 
 .main {
+  .make-sm-column(8);
   > * {
     padding: 0 15px;
   }
@@ -118,12 +84,11 @@
   }
 
   .measure-title {
-    display:table;
+    // display:table;
     > div {
       display: table-cell;
       vertical-align: middle;
     }
-    .make-sm-column(12);
     .title-bar;
     .short-title {
       white-space: nowrap;
@@ -132,14 +97,17 @@
       padding-right: .5em;
     }
     .full-title {
-      line-height: 1.6;
+      font-size: 0.6em;
+      font-weight: normal;
+      line-height: 1;
       padding: .25em 0;
       padding-right: 1.8em;
+      text-transform: none;
     }
     .settings-container {
       position: absolute;
       top: 0;
-      right: 15px;
+      right: 30px;
     }
     .btn-settings {
       font-size: 1.8em;
@@ -182,7 +150,6 @@
   }
 
   .measure-dsp {
-    .make-sm-column(12);
     padding-top: 15px;
     padding-bottom: 30px;
     .measure-dsp-title {
@@ -200,6 +167,7 @@
       font-size: 1.2em;
       .exclamation {
         color: @grey;
+        font-size: 1.5em;
       }
       .good {
         color: @green;
@@ -230,7 +198,6 @@
   }
 
   .measure-viz {
-    .make-sm-column(12);
     padding-top: 15px;
     padding-left: 0px;
     .conjunction {
@@ -247,22 +214,6 @@
       }
     }
   }
-  // .d3-measure-viz {
-  //   .precondition {
-  //     fill: @gray-light;
-  //   }
-  //   .coverage {
-  //     fill: @brand-primary;
-  //   }
-  //   .eval-true {
-  //     //for measure viz
-  //     fill: #449d44;
-  //   }
-  //   .eval-false, .eval-bad-specifics {
-  //     //for measure viz
-  //     fill: #c9302c;
-  //   }
-  // }
 }
 
 .d3-measure-viz {
