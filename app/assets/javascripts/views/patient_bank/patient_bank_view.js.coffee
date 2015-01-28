@@ -145,22 +145,17 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
       cms_id: patient.get('cms_id')
       user_id: patient.get('user_id')
       user_email: patient.get('user_email')
-    # set clone to this measure, user, and default to unshared
-    patient_measures = clonedPatient.get('measure_ids')
-    patient_measures[0] = @model.get('hqmf_set_id')
+    # set clone to this measure and default to unshared
     clonedPatient.set
-      'measure_ids': patient_measures,
-      'cms_id': @model.get('cms_id'),
-      'user_id': @model.get('user_id'),
+      'measure_ids': [@model.get('hqmf_set_id')],
       'is_shared': false,
       'origin_data': origin_data
-    clonedPatient.save clonedPatient.toJSON(),
+    # We return the results of the save, which is a promise object; that way we can take an action after a bunch of saves are done
+    return clonedPatient.save {},
       success: (patient) =>
         @patients.add patient # make sure that the patient exist in the global patient collection
         @model.get('patients').add patient # and that measure's patient collection
-        @measurePatientsCount.updatePatientCount(@model.get('patients')) #update count
-        if bonnie.isPortfolio
-          @measures.each (m) -> m.get('patients').add patient
+        @measurePatientsCount.updatePatientCount(@model.get('patients')) # update count
 
   cloneOnePatient: (e) ->
     @$(e.target).button('cloning')
@@ -174,10 +169,11 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
 
   cloneBankPatients: (e) ->
     @$(e.target).button('cloning')
-    @selectedPatients.each (patient) => @clonePatientIntoMeasure(patient)
-    @$(e.target).button('cloned')
-    bonnie.navigate "measures/#{@model.get('hqmf_set_id')}" # return to measure
-    window.location.reload() # refreshes the measure page so it shows newly imported patients
+    promises = @selectedPatients.map (patient) => @clonePatientIntoMeasure(patient)
+    $.when(promises...).then =>
+      # All the selected patients have been saved
+      @$(e.target).button('cloned')
+      bonnie.navigate "measures/#{@model.get('hqmf_set_id')}", trigger: true # return to measure
 
   exportBankPatients: ->
     @exportPatientsView.exporting()
