@@ -46,7 +46,7 @@ class PatientsController < ApplicationController
   def export
     if params[:patients]
       # if patients are given, they're from the patient bank; use those patients
-      records = Record.find(params[:patients]).where(is_shared: true)
+      records = Record.where(is_shared: true).find(params[:patients])
     else
       records = Record.by_user(current_user)
       unless current_user.portfolio?
