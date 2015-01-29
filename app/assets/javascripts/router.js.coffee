@@ -12,7 +12,7 @@ class BonnieRouter extends Backbone.Router
     # FIXME deprecated, use measure.get('patients') to get patients for individual measure
     @patients = new Thorax.Collections.Patients()
 
-    @breadcrumb = new Thorax.Views.Breadcrumb(el: '.breadcrumb')
+    @breadcrumb = new Thorax.Views.Breadcrumb()
 
     @on 'route', -> window.scrollTo(0, 0)
 
@@ -43,13 +43,12 @@ class BonnieRouter extends Backbone.Router
     @mainView.setView(complexityView)
 
   renderMeasure: (hqmfSetId) ->
-    @navigationSetup "Measure View", "measure"
+    @navigationSetup "Measure View", "dashboard"
     measure = @measures.findWhere({hqmf_set_id: hqmfSetId})
     document.title += " - #{measure.get('cms_id')}" if measure?
     measureView = new Thorax.Views.Measure(model: measure, patients: @patients)
     @mainView.setView(measureView)
     @breadcrumb.addMeasure(measure)
-    $('.navbar-nav > li').removeClass('active').filter('.nav-dashboard').addClass('active')
 
   renderUsers: ->
     @navigationSetup "Admin", "admin"

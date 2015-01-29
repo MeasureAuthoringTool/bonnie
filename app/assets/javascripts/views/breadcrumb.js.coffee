@@ -1,9 +1,14 @@
 class Thorax.Views.Breadcrumb extends Thorax.Views.BonnieView
 
+  className: 'breadcrumb'
+
+  tagName: 'ol'
+
   template: JST['breadcrumb']
 
   initialize: ->
-    @setModel new Thorax.Model, render: true
+    @setModel new Thorax.Model
+    @appendTo('.navbar.breadcrumb-container')
 
   clear: -> @model.clear()
 
