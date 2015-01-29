@@ -35,7 +35,7 @@ class BonnieRouter extends Backbone.Router
     else
       dashboardView = new Thorax.Views.Measures(collection: @measures.sort(), patients: @patients)
     @mainView.setView(dashboardView)
-    @breadcrumb.setup "dashboard"
+    @breadcrumb.addMeasurePeriod()
 
   renderComplexity: (measureSet1, measureSet2) ->
     @navigationSetup "Complexity Dashboard", "complexity"
@@ -48,7 +48,7 @@ class BonnieRouter extends Backbone.Router
     document.title += " - #{measure.get('cms_id')}" if measure?
     measureView = new Thorax.Views.Measure(model: measure, patients: @patients)
     @mainView.setView(measureView)
-    @breadcrumb.setup "measure", measure
+    @breadcrumb.addMeasure(measure)
     $('.navbar-nav > li').removeClass('active').filter('.nav-dashboard').addClass('active')
 
   renderUsers: ->
@@ -64,7 +64,7 @@ class BonnieRouter extends Backbone.Router
     document.title += " - #{measure.get('cms_id')}" if measure?
     patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
     @mainView.setView patientBuilderView
-    @breadcrumb.setup "patient builder", measure, patient
+    @breadcrumb.addPatient(measure, patient)
 
   renderValueSetsBuilder: ->
     @navigationSetup "Value Sets Builder", "value-sets-builder"
@@ -76,7 +76,7 @@ class BonnieRouter extends Backbone.Router
     measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
     @navigationSetup "Patient Bank - #{measure.get('cms_id')}", 'patient-bank'
     @mainView.setView new Thorax.Views.PatientBankView model: measure, patients: @patients
-    @breadcrumb.setup "patient bank", measure
+    @breadcrumb.addBank(measure)
 
   # Common setup method used by all routes
   navigationSetup: (title, selectedNav) ->
@@ -93,6 +93,7 @@ class BonnieRouter extends Backbone.Router
     # FIXME: Remove this when the Patients View is removed; select the first measure if a measure isn't passed in
     measure ?= @measures.findWhere {hqmf_set_id: patient.get('measure_ids')[0]}
     @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
+    @breadcrumb.addPatient(measure, patient)
     @navigate "measures/#{measure.get('hqmf_set_id')}/patients/new"
 
   showError: (error) ->

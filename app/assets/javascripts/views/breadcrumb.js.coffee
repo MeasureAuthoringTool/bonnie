@@ -1,25 +1,35 @@
 class Thorax.Views.Breadcrumb extends Thorax.Views.BonnieView
 
-  clear: -> @$el.empty()
+  template: JST['breadcrumb']
 
-  setup: (title, measure, patient) ->
-    @addMeasurePeriod()
-    if measure?
-      @addMeasure(measure)
-      if title is "patient builder" and patient?
-        @addPatient(patient)
-      else if title is "patient bank"
-        @addBank()
+  initialize: ->
+    @setModel new Thorax.Model
+    @model.on 'change', => @render()
+
+  clear: -> @model.clear
 
   addMeasurePeriod: ->
-    @$el.append "<li><a href='/#'><i class='fa fa-fw fa-clock-o' aria-hidden='true'></i> Measure Period: #{bonnie.measurePeriod}</a></li>"
+    @model.clear silent: true
+    @model.set
+      period: bonnie.measurePeriod
 
   addMeasure: (measure) ->
-    @$el.append "<li><a href='#measures/#{measure.get('hqmf_set_id')}'><i class='fa fa-fw fa-tasks' aria-hidden='true'></i> #{measure.get('cms_id')}</a></li>"
+    @model.clear silent: true
+    @model.set
+      period: bonnie.measurePeriod
+      measure: measure.toJSON()
 
-  addPatient: (patient) ->
+  addPatient: (measure, patient) ->
     patient_name = if patient.get('first') then "#{patient.get('last')} #{patient.get('first')}" else "Create new patient"
-    @$el.append "<li><i class='fa fa-fw fa-user' aria-hidden='true'></i> #{patient_name}</li>"
+    @model.clear silent: true
+    @model.set
+      period: bonnie.measurePeriod
+      patientName: patient_name
+      measure: measure.toJSON()
 
-  addBank: ->
-    @$el.append "<li><i class='fa fa-fw fa-group' aria-hidden='true'></i> Import patients from the patient bank</li>"
+  addBank: (measure) ->
+    @model.clear silent: true
+    @model.set
+      period: bonnie.measurePeriod
+      bankView: true
+      measure: measure.toJSON()
