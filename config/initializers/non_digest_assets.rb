@@ -1,1 +1,1 @@
-NonStupidDigestAssets.whitelist = [/fontawesome/, /FontAwesome/]
+NonStupidDigestAssets.whitelist = [/fontawesome/, /FontAwesome/, 'loading.gif']
