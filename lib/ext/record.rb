@@ -21,7 +21,7 @@ class Record
   def cms_id
     @cms_id || begin
                  measure_id = measure_ids.first # gets the primary measure ID
-                 measure = Measure.where(hqmf_set_id: measure_id).first # gets corresponding measure
+                 measure = Measure.where(hqmf_set_id: measure_id, user_id: user_id).first # gets corresponding measure, for this user
                  measure.try(:cms_id)
                end
   end
