@@ -3,10 +3,9 @@ class Thorax.Views.Breadcrumb extends Thorax.Views.BonnieView
   template: JST['breadcrumb']
 
   initialize: ->
-    @setModel new Thorax.Model
-    @model.on 'change', => @render()
+    @setModel new Thorax.Model, render: true
 
-  clear: -> @model.clear
+  clear: -> @model.clear()
 
   addMeasurePeriod: ->
     @model.clear silent: true
