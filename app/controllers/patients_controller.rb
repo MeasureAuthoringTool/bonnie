@@ -76,7 +76,7 @@ class PatientsController < ApplicationController
         end
         # attach the HTML export, or the error
         begin
-          html = html_patient_export(patient, if current_user.portfolio? then [] else measure end) # allow error to stop execution before header is written
+          html = html_patient_export(patient, if current_user.portfolio? then [] else patient_measure end) # allow error to stop execution before header is written
           zip.put_next_entry(File.join("html","#{index+1}_#{patient.last}_#{patient.first}.html"))
           zip.puts html
         rescue Exception => e
