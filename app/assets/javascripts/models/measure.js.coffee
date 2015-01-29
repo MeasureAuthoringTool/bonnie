@@ -1,7 +1,8 @@
 class Thorax.Models.Measure extends Thorax.Model
   idAttribute: '_id'
   initialize: ->
-    @set 'patients', new Thorax.Collections.Patients
+    # Becasue we bootstrap patients we mark them as _fetched, so isEmpty() will be sensible
+    @set 'patients', new Thorax.Collections.Patients [], _fetched: true
   parse: (attrs) ->
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
     populations = new Thorax.Collections.Population [], parent: this

@@ -3,7 +3,7 @@ describe 'PatientBuilderView', ->
   beforeEach ->
 
     @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[0], parse: true
-    @measure = bonnie.measures.first()
+    @measure = bonnie.measures.findWhere(cms_id: 'CMS146v2')
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
     @firstCriteria = @patientBuilder.model.get('source_data_criteria').first()
     # Normally the first criteria can't have a value (wrong type); for testing we allow it

@@ -1,7 +1,7 @@
 describe 'MeasureView', ->
 
   beforeEach ->
-    @measure = bonnie.measures.filter( (m) -> return m.get('populations').length > 1 )[0]
+    @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
     @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[0], parse: true
     @measure.get('patients').add @patient
     @measureView = new Thorax.Views.Measure(model: @measure, patients: @measure.get('patients'))
