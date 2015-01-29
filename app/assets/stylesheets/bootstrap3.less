@@ -112,11 +112,14 @@ h2 {
     font-size: 1.5em;
     li { border-bottom: 4px solid white; }
     a { color: @brand-primary; }
+    & > li > a {
+      font-size: 18px;
+      padding: 12px 16px;
+    }
     .active {
       border-bottom: 4px solid @brand-primary;
       a {
         color: @gray-darker;
-        padding-top: 16px;
       }
       font-weight: bold;
     }
