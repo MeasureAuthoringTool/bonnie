@@ -44,10 +44,6 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
       @bankFilterView.enableFiltering()
       @showFilteredPatientCount()
       @showSelectedCoverage()
-      myPatients = @model.get('patients').where({'is_shared': true}).map (p) -> p.id # your patients in this measure
-      myDifferences = @differences.filter (d) -> _(myPatients).contains d.result.patient.id
-      #find associated dom elements and set class 'cloned'
-      _(myDifferences).each (d) -> @$('[data-model-cid="'+d.cid+'"]').find('.patient-user-icon > .fa-stack').addClass('cloned')
 
     populations = @model.get('populations')
     @currentPopulation = populations.first()
@@ -108,9 +104,11 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
     @bankFilterView.appliedFilters.all (filter) -> filter.apply(patient)
 
   differenceContext: (difference) ->
+    patient = difference.result.patient
     _(difference.toJSON()).extend
-      patient: difference.result.patient.toJSON()
+      patient: patient.toJSON()
       cms_id: @model.get('cms_id')
+      localClone: patient.get('user_id') == bonnie.currentUserId
 
   showFilteredPatientCount: ->
     @$('.patient-count').text "("+@$('.shared-patient:visible').length+")" # thorax 'filters' models with $.hide and $.show
