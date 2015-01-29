@@ -108,7 +108,7 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
     _(difference.toJSON()).extend
       patient: patient.toJSON()
       cms_id: @model.get('cms_id')
-      localClone: patient.get('user_id') == bonnie.currentUserId
+      localClone: patient.get('user_id') == bonnie.currentUserId && @model.get('hqmf_set_id') == patient.get('measure_ids')[0]
 
   showFilteredPatientCount: ->
     @$('.patient-count').text "("+@$('.shared-patient:visible').length+")" # thorax 'filters' models with $.hide and $.show
