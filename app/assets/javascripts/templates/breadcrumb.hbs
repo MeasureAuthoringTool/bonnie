@@ -1,0 +1,21 @@
+{{#if period}}
+
+  <li>{{#link "/"}}<i class='fa fa-fw fa-clock-o' aria-hidden='true'></i> Measure Period: {{period}} {{/link}}</li>
+
+  {{#if measure}}
+
+    <li>{{#link "measures/{{measure.hqmf_set_id}}" expand-tokens=true}}<i class='fa fa-fw fa-tasks' aria-hidden='true'></i> {{measure.cms_id}} {{/link}}</li>
+
+    {{#if patientName}}
+      <li><i class='fa fa-fw fa-user' aria-hidden='true'></i> {{patientName}}</li>
+    {{/if}}
+
+    {{#if bankView}}
+      <li><i class='fa fa-fw fa-group' aria-hidden='true'></i> Import patients from the patient bank</li>
+    {{/if}}
+
+  {{/if}}
+
+{{/if}}
+
+

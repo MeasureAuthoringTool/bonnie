@@ -1,6 +1,6 @@
 {{!-- <p>Total measures: {{measures.length}}</p> --}}
 
-<div class="dashboard-heading row">
+<div class="dashboard-heading">
   <div class="measure-col">
     <div class="dashboard-title">
       <h1><i class="fa fa-tasks" aria-hidden="true"></i> Measures</h1>
@@ -27,7 +27,7 @@
 
 {{#collection class="dashboard-data" item-view='MeasureRowView'}}
 
-  <div class="measure row">
+  <div class="measure">
     <div class="measure-col">
       <div class="measure-title">
         {{#link "measures/{{hqmf_set_id}}" expand-tokens=true}}<span class="sr-only">{{cms_id}}, Measure Title: </span>{{title}}{{/link}}
@@ -66,7 +66,7 @@
 
   {{#if multiplePopulations}}
     {{#collection populations item-view='PopulationView'}}
-      <div class="row population">
+      <div class="population">
         <div class="population-col">
           <div class="population-title">
             {{view "PopulationTitle" model=this.model}}

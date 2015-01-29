@@ -1,41 +1,5 @@
 // Dashboard - Measures View
 
-// measurement period header
-.measure-period {
-  display: inline-block;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  font-weight: bold;
-  color: @gray-darker;
-
-  .year {
-    font-size: 1.4em;
-    font-weight: 100;
-  }
-}
-
-// navigation indicator
-.indicator {
-  .indicator-circle {
-    float: left;
-    background: @gray-lighter;
-    width: @indicator-size;
-    height: @indicator-size;
-    border-radius: 50%;
-    border: 2px solid @gray-lighter;
-  }
-  .indicator-bar {
-    float: left;
-    background: @gray-lighter;
-    width: @indicator-size / 2;
-    height: @indicator-size / 4;
-    margin-top: @indicator-size / 2 - @indicator-size / 8;
-  }
-  .active {
-    background: @brand-primary;
-  }
-}
-
 // For entire page
 .measure-col {
   .make-xs-column(7);

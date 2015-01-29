@@ -12,6 +12,8 @@ class BonnieRouter extends Backbone.Router
     # FIXME deprecated, use measure.get('patients') to get patients for individual measure
     @patients = new Thorax.Collections.Patients()
 
+    @breadcrumb = new Thorax.Views.Breadcrumb()
+
     @on 'route', -> window.scrollTo(0, 0)
 
   routes:
@@ -33,6 +35,7 @@ class BonnieRouter extends Backbone.Router
     else
       dashboardView = new Thorax.Views.Measures(collection: @measures.sort(), patients: @patients)
     @mainView.setView(dashboardView)
+    @breadcrumb.addMeasurePeriod()
 
   renderComplexity: (measureSet1, measureSet2) ->
     @navigationSetup "Complexity Dashboard", "complexity"
@@ -40,11 +43,12 @@ class BonnieRouter extends Backbone.Router
     @mainView.setView(complexityView)
 
   renderMeasure: (hqmfSetId) ->
-    @navigationSetup "Measure View", "measure"
+    @navigationSetup "Measure View", "dashboard"
     measure = @measures.findWhere({hqmf_set_id: hqmfSetId})
     document.title += " - #{measure.get('cms_id')}" if measure?
     measureView = new Thorax.Views.Measure(model: measure, patients: @patients)
     @mainView.setView(measureView)
+    @breadcrumb.addMeasure(measure)
 
   renderUsers: ->
     @navigationSetup "Admin", "admin"
@@ -59,6 +63,7 @@ class BonnieRouter extends Backbone.Router
     document.title += " - #{measure.get('cms_id')}" if measure?
     patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
     @mainView.setView patientBuilderView
+    @breadcrumb.addPatient(measure, patient)
 
   renderValueSetsBuilder: ->
     @navigationSetup "Value Sets Builder", "value-sets-builder"
@@ -70,16 +75,15 @@ class BonnieRouter extends Backbone.Router
     measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
     @navigationSetup "Patient Bank - #{measure.get('cms_id')}", 'patient-bank'
     @mainView.setView new Thorax.Views.PatientBankView model: measure, patients: @patients
+    @breadcrumb.addBank(measure)
 
   # Common setup method used by all routes
   navigationSetup: (title, selectedNav) ->
     @calculator.cancelCalculations()
+    @breadcrumb.clear()
     document.title = "Bonnie v#{bonnie.applicationVersion}: #{title}"
     if selectedNav?
-      $('ul.nav > li, .indicator-circle').removeClass('active').filter(".nav-#{selectedNav}, .indicator-#{selectedNav}").addClass('active')
-    switch selectedNav
-      when 'complexity', 'admin' then $('.nav-context').addClass('hidden')
-      else $('.nav-context').removeClass('hidden')
+      $('ul.nav > li').removeClass('active').filter(".nav-#{selectedNav}").addClass('active')
 
   # This method is to be called directly, and not triggered via a
   # route; it allows the patient builder to be used in new patient
@@ -88,6 +92,7 @@ class BonnieRouter extends Backbone.Router
     # FIXME: Remove this when the Patients View is removed; select the first measure if a measure isn't passed in
     measure ?= @measures.findWhere {hqmf_set_id: patient.get('measure_ids')[0]}
     @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
+    @breadcrumb.addPatient(measure, patient)
     @navigate "measures/#{measure.get('hqmf_set_id')}/patients/new"
 
   showError: (error) ->

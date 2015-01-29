@@ -1,7 +1,6 @@
 <div class="patient-bank">
 
   <div class="bank-measure">
-    <h1>{{#link "measures/{{hqmf_set_id}}" expand-tokens=true}}<i class="fa fa-tasks" aria-hidden="true"></i> {{cms_id}}{{/link}}</h1>
     <h2>{{title}}</h2>
     <p>{{description}}</p>
     {{view measurePatientsCount}}
@@ -12,7 +11,7 @@
     {{view bankFilterView}}
 
     <div class="patients-results">
-      <h1 class="pull-left"><i class="fa fa-group" aria-hidden="true"></i> Results <span class="patient-count"></span></h1>
+      <h1 class="pull-left"><i class="fa fa-group" aria-hidden="true"></i> Test Patients <span class="patient-count"></span></h1>
       <div class="pull-right">
         {{view selectedPatientsView}}
         {{#button "cloneBankPatients" class="btn btn-primary bank-actions" data-cloning-text="Cloning..." data-cloned-text="Cloned successfully" disabled="true"}}Clone into {{cms_id}}<span class="sr-only"> patients selected from patient bank</span>{{/button}}
