@@ -56,7 +56,7 @@ class PatientsController < ApplicationController
       unless current_user.portfolio?
         records = records.where({:measure_ids.in => [params[:hqmf_set_id]]})
       end
-      measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).map(&:as_hqmf_model)
+      measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]})
     end
 
     qrda_errors = {}
@@ -65,7 +65,7 @@ class PatientsController < ApplicationController
     stringio = Zip::ZipOutputStream::write_buffer do |zip|
       records.each_with_index do |patient, index|
         # Use defined measure if available, else get the specific measure for this patient
-        patient_measure = measure || get_associated_measure(patient).map(&:as_hqmf_model)
+        patient_measure = measure || get_associated_measure(patient)
         # attach the QRDA export, or the error
         begin
           qrda = qrda_patient_export(patient, patient_measure) # allow error to stop execution before header is written
@@ -136,21 +136,20 @@ private
   end
 
   def get_associated_measure(patient)
-    measure_id = patient.measure_ids.first
-    measure = Measure.where({:hqmf_set_id => measure_id})
-    measure
+    Measure.where(hqmf_set_id: patient.measure_ids.first)
   end
 
   def qrda_patient_export(patient, measure)
     start_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 1, 1)
     end_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 12, 31)
     qrda_exporter = HealthDataStandards::Export::Cat1.new
-    qrda_exporter.export(patient, measure, start_time, end_time)
+    qrda_exporter.export(patient, measure.map(&:as_hqmf_model), start_time, end_time)
   end
 
   def html_patient_export(patient, measure)
+    value_sets = measure.map(&:value_sets).flatten unless measure.empty?
     html_exporter = HealthDataStandards::Export::HTML.new
-    html_exporter.export(patient, measure)
+    html_exporter.export(patient, measure.map(&:as_hqmf_model), value_sets)
   end
 
   def measure_patients_summary(records, results, qrda_errors, html_errors, measure)
