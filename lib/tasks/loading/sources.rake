@@ -16,7 +16,7 @@ namespace :bonnie do
 
       measures_yml = args.measures_yml
 
-      if (args.clear_vs_cache == 'true')
+      if (args.clear_vs_cache? == 'true')
         puts "Clearing value set cache"
         FileUtils.rm_r Measures::Loader::VALUE_SET_PATH
       else
