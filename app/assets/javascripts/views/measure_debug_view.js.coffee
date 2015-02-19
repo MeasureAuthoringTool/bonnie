@@ -42,3 +42,10 @@ class Thorax.Views.MeasureDebug extends Thorax.Views.BonnieView
     for p in @model.get('patients').select((p) => _(p.get('measure_ids')).contains @model.get('hqmf_set_id'))
       @results.add @population.calculate(p) unless @results.findWhere(patient_id: p.id)
       @$("button[data-model-cid='#{p.cid}']").addClass('active')
+
+  hideNonMeasurePatients: ->
+    @model.get('patients').each (p) =>
+      @$("button[data-model-cid='#{p.cid}']").hide() unless _(p.get('measure_ids')).contains @model.get('hqmf_set_id')
+
+  showNonMeasurePatients: ->
+    @$('button.toggle-patient').show()
