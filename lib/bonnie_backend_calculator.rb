@@ -20,13 +20,9 @@ class BonnieBackendCalculator
 
   # Specify the measure and population to calculate against; can be called multiple times to change
   def set_measure_and_population(measure, population, options = {})
-    options.reverse_merge! rationale: false
-    begin
-      @v8.eval BonnieBackendMeasureJavascript.generate_for_population(measure, population, rationale: options[:rationale])
-    rescue
-      return false
-    end
-    return true
+    options.reverse_merge! rationale: false # Don't generate rationale by default (more expensive)
+    options.reverse_merge! clear_db_cache: false # Don't regenerate the JavaScript by default
+    @v8.eval BonnieBackendMeasureJavascript.generate_for_population(measure, population, options)
   end
 
   # Calculate a patient against the previously set up measure and population, returning the result
