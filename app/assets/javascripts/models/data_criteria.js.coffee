@@ -18,7 +18,7 @@ class Thorax.Models.MeasureDataCriteria extends Thorax.Model
   getDefaultTime: ->
     parseInt(moment.utc().set('year', bonnie.measurePeriod).set('hour',8).set('minute',0).set('second',0).format('X'))*1000
 
-Thorax.Models.MeasureDataCriteria.generateCriteriaId =  -> 
+Thorax.Models.MeasureDataCriteria.generateCriteriaId = ->
     chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     today = new Date()
     result = today.valueOf().toString 16
@@ -40,17 +40,15 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     if @get('type') == "medications" then @set('fulfillments', new Thorax.Collection()) unless @has 'fulfillments'
 
   parse: (attrs) ->
-    if !attrs.criteria_id? 
-      attrs.criteria_id = Thorax.Models.MeasureDataCriteria.generateCriteriaId()
+    attrs.criteria_id ||= Thorax.Models.MeasureDataCriteria.generateCriteriaId()
     attrs.value = new Thorax.Collection(attrs.value)
     # Transform fieldValues object to collection, one element per key/value, with key as additional attribute
     fieldValues = new Thorax.Collection()
     references = new Thorax.Collection()
     for key, value of attrs.field_values
       fieldValues.add _(value).extend(key: key)
-    if attrs.references?       
-      for value in attrs.references
-        references.add value
+    if attrs.references?
+      references.add value for value in attrs.references
 
     attrs.field_values = fieldValues
     attrs.references = references
