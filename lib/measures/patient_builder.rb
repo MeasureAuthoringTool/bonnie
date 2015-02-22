@@ -27,6 +27,7 @@ module Measures
 
       value_sets =  Hash[*HealthDataStandards::SVS::ValueSet.in({oid: vs_oids, user_id: patient.user_id}).collect{|vs| [vs.oid,vs]}.flatten]
       sections = {}
+      entries = {}
       patient.source_data_criteria.each  do |source_criteria|
         next if source_criteria['id'] == 'MeasurePeriod'
         data_criteria = nil
@@ -37,9 +38,14 @@ module Measures
           puts $!
         end
         entry = Measures::PatientBuilder.derive_entry(data_criteria, source_criteria, value_sets)
+
         # if its a thing like result, condition, encounter it will have an entry otherwise
         # its most likely a characteristic
         if entry
+          if source_criteria["criteria_id"]
+            entries[source_criteria["criteria_id"]] = entry
+          end
+
           derive_values(entry, source_criteria['value'] ,value_sets)
           derive_negation(entry, source_criteria, value_sets)
           derive_field_values(entry, source_criteria['field_values'],value_sets)
@@ -59,19 +65,19 @@ module Measures
           end
 
           if section_name == "medications"
-             fulfillments = []
+            fulfillments = []
             if !source_criteria[:dose_value].blank? && !source_criteria[:dose_unit].blank?
               entry[:dose] = { "value" => source_criteria[:dose_value], "unit" => source_criteria[:dose_unit] }
             end
             if !source_criteria[:frequency_value].blank? && !source_criteria[:frequency_unit].blank?
               entry[:administrationTiming] = { "period" => { "value" => source_criteria[:frequency_value], "unit" => source_criteria[:frequency_unit] } }
-             end
-             if !source_criteria[:fulfillments].blank?
-               source_criteria[:fulfillments].each do |fulfillment|
-                 fulfillments.push(FulfillmentHistory.new({:dispenseDate => fulfillment[:dispense_datetime], :quantityDispensed => {:value => fulfillment[:quantity_dispensed_value], :unit => fulfillment[:quantity_dispensed_unit]}}))
-               end
-             end
-             entry[:fulfillmentHistory] = fulfillments
+            end
+            if !source_criteria[:fulfillments].blank?
+              source_criteria[:fulfillments].each do |fulfillment|
+                fulfillments.push(FulfillmentHistory.new({:dispenseDate => fulfillment[:dispense_datetime], :quantityDispensed => {:value => fulfillment[:quantity_dispensed_value], :unit => fulfillment[:quantity_dispensed_unit]}}))
+              end
+            end
+            entry[:fulfillmentHistory] = fulfillments
           end
 
           # Add the updated section to this patient.
@@ -79,9 +85,34 @@ module Measures
           sections[section_name].push(entry)
         end
       end
+
+
       # if the patient is persisted, monoid will send the updates at this point.
       Record::Sections.each do |section|
         patient.send(section).clear.concat(sections[section.to_s] || [])
+      end
+
+      # now handle all of the references -- this needs to be done after all of the entries have been materialized
+      # because there is no gaurentee of order in the source data criteria
+
+      patient.source_data_criteria.each  do |source_criteria|
+        refs = nil
+        if source_criteria["references"]
+          refs = []
+          source_ref = entries[source_criteria["criteria_id"]]
+          if source_ref
+            source_criteria["references"].each do |ref|
+              #find the referenced entry in the list of materialized objects
+              entry = entries[ref["reference_id"]]
+              if entry
+                source_ref.add_reference(entry,ref["reference_type"])
+                refs << ref
+              end
+            end
+          end
+        end
+        #only keep the references that can be matched.
+        source_criteria["references"] = refs
       end
 
     end
@@ -136,10 +167,10 @@ module Measures
       result_vals = [result_vals] if !result_vals.is_a? Array
       result_vals.each do |result_value|
         if result_value['type'] == 'CD'
-         oid = result_value['code_list_id']
-         codes = result_value['codes'] || Measures::PatientBuilder.select_codes(oid, value_sets)
-         vs = Measures::PatientBuilder.select_value_sets(oid, value_sets)
-         derived << CodedResultValue.new({codes:codes, description: vs["display_name"]})
+          oid = result_value['code_list_id']
+          codes = result_value['codes'] || Measures::PatientBuilder.select_codes(oid, value_sets)
+          vs = Measures::PatientBuilder.select_value_sets(oid, value_sets)
+          derived << CodedResultValue.new({codes:codes, description: vs["display_name"]})
         else
           range = HQMF::Range.from_json('low' => {'value' => result_value['value'], 'unit' => result_value['unit']})
           derived << PhysicalQuantityResultValue.new(range.format)
@@ -151,10 +182,10 @@ module Measures
     # derive the negation for the source_data_criteria entry if it is negated
     def self.derive_negation(entry,value,value_sets)
       if value['negation']
-          codes = value["negation_code"] || Measures::PatientBuilder.select_code(value['negation_code_list_id'], value_sets)
-          entry.negation_ind = true
-          entry.negation_reason = codes
-        end
+        codes = value["negation_code"] || Measures::PatientBuilder.select_code(value['negation_code_list_id'], value_sets)
+        entry.negation_ind = true
+        entry.negation_reason = codes
+      end
     end
 
     # Add this data criteria's field related data to a coded entry.

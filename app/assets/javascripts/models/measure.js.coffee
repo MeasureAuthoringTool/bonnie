@@ -20,6 +20,14 @@ class Thorax.Models.Measure extends Thorax.Model
 
     for key, data_criteria of attrs.data_criteria
       data_criteria.key = key
+      if data_criteria.field_values
+        data_criteria.references = {}
+        for k,field of data_criteria.field_values
+          if field.reference?
+            data_criteria.references[k] = field
+            ref = attrs.data_criteria[field.reference]
+            field["referenced_criteria"] = ref
+            delete data_criteria.field_values[k]
 
     attrs.source_data_criteria = new Thorax.Collections.MeasureDataCriteria _(attrs.source_data_criteria).values(), parent: this
     attrs
@@ -35,6 +43,9 @@ class Thorax.Models.Measure extends Thorax.Model
         console.log('WARNING: missing value set') if !vs.get('display_name') && console?
         vs.get('display_name')?.toLowerCase())
     @cachedValueSets
+
+  @referencesFor: (criteriaType) ->
+    [{key: "fulfills", title: "Fulfills"}]
 
   @logicFieldsFor: (criteriaType) ->
 

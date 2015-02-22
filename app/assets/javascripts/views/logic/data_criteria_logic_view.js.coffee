@@ -25,9 +25,15 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
         # timing fields can have a null value
         unless field?
           field = {}
+          field['key'] = key
+          field['key_title'] = @translate_field(key)
           @dataCriteria.field_values[key] = field
-        field['key'] = key
-        field['key_title'] = @translate_field(key)
+
+    if @dataCriteria.references
+      for key , field of @dataCriteria.references
+        field['key'] = @translate_reference_type(key)
+        field["key_title"] = @translate_reference_to_title(field.referenced_criteria)
+    @dataCriteria.references = null if @dataCriteria && _.isEmpty(@dataCriteria.references)
     @dataCriteria.field_values = null if @dataCriteria && _.isEmpty(@dataCriteria.field_values)
     @isSatisfies = @dataCriteria.definition in @satisfiesDefinitions
     @isDerived = @dataCriteria.type == 'derived'
@@ -42,6 +48,14 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
   translate_field: (field_key) =>
     Thorax.Models.Measure.logicFields[field_key]?['title']
 
+  translate_reference_type: (type) ->
+    type = 'fulfills' if type == 'FLFS'
+    type
+  translate_reference_to_title: (ref) ->
+    if ref.specific_occurrence?
+      "Occurrence " + ref.specific_occurrence + ": " + ref.description
+    else
+      ref.description
   translate_oid: (oid) =>
     @measure.valueSets().findWhere({oid: oid})?.get('display_name')
 

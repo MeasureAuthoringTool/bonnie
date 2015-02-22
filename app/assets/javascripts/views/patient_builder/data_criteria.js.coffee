@@ -61,6 +61,14 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       fieldValue: true
       values: @model.get('field_values')
       criteriaType: @model.get('type')
+    @editReferenceView = new Thorax.Views.EditCriteriaReferenceView
+      model: new Thorax.Model
+      measure: @model.measure()
+      fieldValue: false
+      reference: true
+      values: @model.get('references')
+      criteriaType: @model.get('type')
+      vals: JSON.stringify(@model.get('references'))
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView criteria: @model
     @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView 
       model: new Thorax.Model
@@ -358,3 +366,49 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @$('select[name=type]').change()
     @triggerMaterialize()
     @$(':focusable:visible:first').focus()
+
+ class Thorax.Views.EditCriteriaReferenceView extends Thorax.Views.EditCriteriaValueView
+  className: -> "#{if @fieldValue then 'field-' else ''}value-formset"
+
+  template: JST['patient_builder/edit_reference']
+
+  addValue: (e) ->
+    e.preventDefault()
+    @serialize()
+
+    ref = @find_reference(@model.get("reference_id"))
+    @model.set description: ref?.get("description")
+    start_date = ref?.get("start_date")
+    end_date = ref?.get("end_date")
+    if start_date
+      @model.set start_date: moment.utc(start_date).format('L')
+    if end_date
+      @model.set end_date: moment.utc(end_date).format('L')
+
+    @values.add @model.clone()
+    # Reset model to default values
+    @model.clear()
+
+    # clear() removes fields (which we want), but then populate() doesn't clear the select; clear it
+    @$('select[name=key]').val('')
+    # Let the selectBoxIt() select box know that its value may have changed
+    @$('select[name=type]').change()
+    @triggerMaterialize()
+    @$(':focusable:visible:first').focus()
+
+  find_reference: (reference_id) ->
+    for c in this.parent.model.collection.models
+      if c.get("criteria_id") == reference_id
+        return c
+  #pulls all of the other data criteria on the page
+  #todo -- needs to be able to update the list when items are added to the builder
+  otherCriteria: ->
+    crit = []
+    for c in this.parent.model.collection.models
+      if c.get("criteria_id")!= this.parent.model.get("criteria_id")
+        crit.push { cid: c.get("criteria_id"), "description" : c.get("description")}
+    crit
+
+  context: ->
+    _(super).extend
+      references: Thorax.Models.Measure.referencesFor(@criteriaType)

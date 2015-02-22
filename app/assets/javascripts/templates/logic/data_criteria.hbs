@@ -56,6 +56,11 @@
         {{key_title}}{{#ifCond type '!=' 'ANYNonNull'}}{{view "ValueLogic" value=this measure=../../measure tag="span"}} {{/ifCond}}
       {{/each}})
     {{/if}}
+    {{#if dataCriteria.references}}
+      {{#each dataCriteria.references}}
+        {{key}} {{key_title}}
+      {{/each}}
+    {{/if}}
     {{#if dataCriteria.negation}}
       (Not Done: {{translate_oid dataCriteria.negation_code_list_id}})
     {{/if}}

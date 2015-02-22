@@ -1,5 +1,6 @@
 class Thorax.Models.MeasureDataCriteria extends Thorax.Model
   @satisfiesDefinitions: ['satisfies_all', 'satisfies_any']
+
   toPatientDataCriteria: ->
     # FIXME: Temporary approach
     attr = _(@pick('negation', 'definition', 'status', 'title', 'description', 'code_list_id', 'type')).extend
@@ -7,14 +8,23 @@ class Thorax.Models.MeasureDataCriteria extends Thorax.Model
              start_date: @getDefaultTime()
              end_date: @getDefaultTime() + (15 * 60 * 1000) # Default 15 minute duration
              value: new Thorax.Collection()
+             references: new Thorax.Collection()
              field_values: new Thorax.Collection()
              hqmf_set_id: @collection.parent.get('hqmf_set_id')
              cms_id: @collection.parent.get('cms_id')
+             criteria_id: @get("criteria_id") || Thorax.Models.MeasureDataCriteria.generateCriteriaId()
     new Thorax.Models.PatientDataCriteria attr
 
   getDefaultTime: ->
     parseInt(moment.utc().set('year', bonnie.measurePeriod).set('hour',8).set('minute',0).set('second',0).format('X'))*1000
 
+Thorax.Models.MeasureDataCriteria.generateCriteriaId = ->
+    chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    today = new Date()
+    result = today.valueOf().toString 16
+    result += chars.substr Math.floor(Math.random() * chars.length), 1
+    result += chars.substr Math.floor(Math.random() * chars.length), 1
+    result
 
 class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
   model: Thorax.Models.MeasureDataCriteria
@@ -28,13 +38,20 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
     if @get('type') == "medications" then @set('fulfillments', new Thorax.Collection()) unless @has 'fulfillments'
+
   parse: (attrs) ->
+    attrs.criteria_id ||= Thorax.Models.MeasureDataCriteria.generateCriteriaId()
     attrs.value = new Thorax.Collection(attrs.value)
     # Transform fieldValues object to collection, one element per key/value, with key as additional attribute
     fieldValues = new Thorax.Collection()
+    references = new Thorax.Collection()
     for key, value of attrs.field_values
       fieldValues.add _(value).extend(key: key)
+    if attrs.references?
+      references.add value for value in attrs.references
+
     attrs.field_values = fieldValues
+    attrs.references = references
     if attrs.codes
       attrs.codes = new Thorax.Collections.Codes attrs.codes, parse: true
     if attrs.type == "medications" and attrs.fulfillments
