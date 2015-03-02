@@ -64,7 +64,7 @@ namespace :bonnie do
           else
             failed += 1
             # Display error immediately instead of waiting 'till end, it's a long wait...
-            puts "\n\n  FAILURE: User #{measure.user.email} measure #{measure.cms_id} patient '#{patient.first} #{patient.last}'\n\n"
+            puts "\n\n  FAILURE: User #{measure.user.email} measure #{measure.cms_id} population #{population_index} patient '#{patient.first} #{patient.last}'\n\n"
             puts "             Expected: #{gold.result} #{gold.error}"
             puts "                Found: #{result} #{error}"
             puts
