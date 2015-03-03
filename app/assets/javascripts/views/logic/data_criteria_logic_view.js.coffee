@@ -25,12 +25,12 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
         # timing fields can have a null value
         unless field?
           field = {}
-          field['key'] = key
-          field['key_title'] = @translate_field(key)
           @dataCriteria.field_values[key] = field
+        field['key'] = key
+        field['key_title'] = @translate_field(key)
 
     if @dataCriteria.references
-      for key , field of @dataCriteria.references
+      for key, field of @dataCriteria.references
         field['key'] = @translate_reference_type(key)
         field["key_title"] = @translate_reference_to_title(field.referenced_criteria)
     @dataCriteria.references = null if @dataCriteria && _.isEmpty(@dataCriteria.references)
