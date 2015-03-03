@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <style>
+      <%= app_css %>
+    </style>
+    <script>
+      <%# This is intended to create a standalone HTML file that displays measure logic; because %>
+      <%# logic is displayed using JavaScript, we need to load up all the app JavaScript in this %>
+      <%# script tag, instantiate the measure, and run the appropriate display code %>
+      <%= app_javascript %>
+      var measure = new Thorax.Models.Measure(<%= measure.to_json.html_safe %>, { parse: true });
+      var populations = measure.get('populations');
+      bonnie.valueSetsByOid = <%= value_sets_by_oid.to_json.html_safe %>;
+      $(document).ready(function() {
+        populations.each(function(population) {
+          var populationLogicView = new Thorax.Views.PopulationLogic({ model: population });
+          $('body').append('<h1>Population ' + population.get('index') + '</h1>')
+          populationLogicView.appendTo('body');
+        });
+      });
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
