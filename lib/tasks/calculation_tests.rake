@@ -12,9 +12,13 @@ namespace :bonnie do
     end
 
     # Calculate all patients against their measures, yielding the results or, if there's an error, the error
-    def calculate_all
+    def calculate_all(options = {})
       calculator = BonnieBackendCalculator.new
-      Measure.each do |measure|
+      query = {}
+      query[:user_id] = User.where(email: options[:user_email]).first.try(:id) if options[:user_email]
+      query[:cms_id] = options[:cms_id] if options[:cms_id]
+      measures = Measure.where(query)
+      measures.each do |measure|
         measure.populations.each_with_index do |population, population_index|
           # Set up calculator for this measure and population, making sure we regenerate the javascript
           begin
@@ -54,7 +58,7 @@ namespace :bonnie do
     task :test_regression => :environment do
       passed = failed = nogold = 0
       STDOUT.sync = true
-      calculate_all do |measure, population_index, patient, result, error|
+      calculate_all(user_email: ENV['USER'], cms_id: ENV['CMS_ID']) do |measure, population_index, patient, result, error|
         gold = CalculationRegressionResult.where(measure_id: measure.id, population_index: population_index, patient_id: patient.id).first
         if gold
           # See if result and/or error are the same (it's a regression, so we don't care about errors, just change)
