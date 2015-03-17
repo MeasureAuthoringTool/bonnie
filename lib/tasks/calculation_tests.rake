@@ -58,7 +58,7 @@ namespace :bonnie do
     task :test_regression => :environment do
       passed = failed = nogold = 0
       STDOUT.sync = true
-      calculate_all(user_email: ENV['USER'], cms_id: ENV['CMS_ID']) do |measure, population_index, patient, result, error|
+      calculate_all(user_email: ENV['USER_EMAIL'], cms_id: ENV['CMS_ID']) do |measure, population_index, patient, result, error|
         gold = CalculationRegressionResult.where(measure_id: measure.id, population_index: population_index, patient_id: patient.id).first
         if gold
           # See if result and/or error are the same (it's a regression, so we don't care about errors, just change)
