@@ -20,55 +20,61 @@ namespace :bonnie do
       html_template.result binding
     end
 
+    class MeasureZipExtractor
+      attr_reader :value_set_models
+      def initialize(zip_file_name)
+        @zip_file = Zip::ZipFile.open(zip_file_name)
+        @tmpdir = Dir.mktmpdir("measure_files", Rails.root.join('tmp'))
+        value_sets = @zip_file.glob(File.join('**','**.xls')).first
+        value_sets_path = File.join(@tmpdir, Pathname.new(value_sets.name).basename)
+        @zip_file.extract(value_sets, value_sets_path)
+        @value_set_models = Measures::ValueSetLoader.load_value_sets_from_xls(value_sets_path)
+      end
+      def extract(type)
+        case type
+        when :simple_xml
+          file_matcher = '**SimpleXML.xml'
+        when :hqmf
+          file_matcher = '**eMeasure.xml'
+        end
+        zip_data = @zip_file.glob(File.join('**', file_matcher)).first
+        path = File.join(@tmpdir, Pathname.new(zip_data.name).basename)
+        @zip_file.extract(zip_data, path)
+        model = Measures::Loader.parse_hqmf_model(path)
+        model.backfill_patient_characteristics_with_codes(HQMF2JS::Generator::CodesToJson.from_value_sets(@value_set_models))
+        model = model.to_json
+        model.convert_keys_to_strings
+        Measures::Loader.load_hqmf_model_json(model, nil, @value_set_models.map(&:oid))
+      end
+      def close
+        @zip_file.close
+        FileUtils.remove_entry_secure @tmpdir
+      end
+    end
+
     desc 'Given a zip file with SimpleXML and HQMF, create HTML that shows logic for each'
     task :create_html => :environment do
 
       raise "Need to specify zip file using FILE" unless ENV['FILE']
 
-      Zip::ZipFile.open(ENV['FILE']) do |zip_file|
+      zip_extractor = MeasureZipExtractor.new(ENV['FILE'])
 
-        hqmf = zip_file.glob(File.join('**','**eMeasure.xml')).first
-        simple_xml = zip_file.glob(File.join('**','**SimpleXML.xml')).first
-        value_sets = zip_file.glob(File.join('**','**.xls')).first
+      hqmf_model = zip_extractor.extract :hqmf
+      hqmf_html = measure_logic_html(hqmf_model, zip_extractor.value_set_models)
+      hqmf_html_file = "#{hqmf_model.cms_id}_HQMFR2.html"
+      File.write(hqmf_html_file, hqmf_html)
+      puts "Wrote HQMFR2.1 HTML to #{hqmf_html_file}"
 
-        Dir.mktmpdir("measure_files", Rails.root.join('tmp')) do |tmpdir|
+      simple_xml_model = zip_extractor.extract :simple_xml
+      simple_xml_html = measure_logic_html(simple_xml_model, zip_extractor.value_set_models)
+      simple_xml_html_file = "#{simple_xml_model.cms_id}_SimpleXML.html"
+      File.write(simple_xml_html_file, simple_xml_html)
+      puts "Wrote SimpleXML HTML to #{simple_xml_html_file}"
 
-          hqmf_path = File.join(tmpdir, Pathname.new(hqmf.name).basename)
-          zip_file.extract(hqmf, hqmf_path)
-          simple_xml_path = File.join(tmpdir, Pathname.new(simple_xml.name).basename)
-          zip_file.extract(simple_xml, simple_xml_path)
-          value_sets_path = File.join(tmpdir, Pathname.new(value_sets.name).basename)
-          zip_file.extract(value_sets, value_sets_path)
+      raise 'Bad file names' unless (hqmf_html_file + simple_xml_html_file).match(/\A[a-zA-Z0-9._-]+\Z/)
+      system("open #{hqmf_html_file} #{simple_xml_html_file}")
 
-          hqmf_model = Measures::Loader.parse_hqmf_model(hqmf_path)
-          simple_xml_model = Measures::Loader.parse_hqmf_model(simple_xml_path)
-          value_set_models = Measures::ValueSetLoader.load_value_sets_from_xls(value_sets_path)
-
-          hqmf_model.backfill_patient_characteristics_with_codes(HQMF2JS::Generator::CodesToJson.from_value_sets(value_set_models))
-          hqmf_model = hqmf_model.to_json
-          hqmf_model.convert_keys_to_strings
-          hqmf_model = Measures::Loader.load_hqmf_model_json(hqmf_model, nil, value_set_models.map(&:oid))
-
-          hqmf_html = measure_logic_html(hqmf_model, value_set_models)
-          hqmf_html_file = "#{hqmf_model.cms_id}_HQMFR2.html"
-          File.write(hqmf_html_file, hqmf_html)
-          puts "Wrote HQMFR2.1 HTML to #{hqmf_html_file}"
-
-          simple_xml_model.backfill_patient_characteristics_with_codes(HQMF2JS::Generator::CodesToJson.from_value_sets(value_set_models))
-          simple_xml_model = simple_xml_model.to_json
-          simple_xml_model.convert_keys_to_strings
-          simple_xml_model = Measures::Loader.load_hqmf_model_json(simple_xml_model, nil, value_set_models.map(&:oid))
-
-          simple_xml_html = measure_logic_html(simple_xml_model, value_set_models)
-          simple_xml_html_file = "#{simple_xml_model.cms_id}_SimpleXML.html"
-          File.write(simple_xml_html_file, simple_xml_html)
-          puts "Wrote SimpleXML HTML to #{simple_xml_html_file}"
-
-          raise 'Bad file names' unless (hqmf_html_file + simple_xml_html_file).match(/\A[a-zA-Z0-9._-]+\Z/)
-          system("open #{hqmf_html_file} #{simple_xml_html_file}")
-
-        end
-      end
+      zip_extractor.close
 
     end
 
