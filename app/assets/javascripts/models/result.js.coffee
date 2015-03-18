@@ -117,6 +117,10 @@ class Thorax.Models.Result extends Thorax.Model
           if temporal_reference.reference != 'MeasurePeriod'
             parentMap[temporal_reference.reference] = (parentMap[temporal_reference.reference] || []).concat root
             @mergeParentMaps(parentMap, @buildParentMap(dataCriteriaMap[temporal_reference.reference]))
+      if root.references?
+        for type, reference of root.references
+          parentMap[reference.reference] = (parentMap[reference.reference] || []).concat root
+          @mergeParentMaps(parentMap, @buildParentMap(dataCriteriaMap[reference.reference]))
       if root.children_criteria
         for child in root.children_criteria
           parentMap[child] = (parentMap[child] || []).concat root

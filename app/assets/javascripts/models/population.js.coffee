@@ -59,6 +59,10 @@ class Thorax.Models.Population extends Thorax.Model
         for temporal_reference in child.temporal_references
           dataCriteria = @measure().get('data_criteria')[temporal_reference.reference]
           occurrences = occurrences.concat @getDataCriteriaKeys(dataCriteria,specificsOnly)
+      if (child.references?)
+        for type, reference of child.references
+          dataCriteria = @measure().get('data_criteria')[reference.reference]
+          occurrences = occurrences.concat @getDataCriteriaKeys(dataCriteria,specificsOnly)
     return occurrences
 
 class Thorax.Collections.Population extends Thorax.Collection
