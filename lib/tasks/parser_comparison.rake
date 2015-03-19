@@ -78,5 +78,83 @@ namespace :bonnie do
 
     end
 
+    desc 'Given a zip file with SimpleXML and HQMF, find appropriate patients and calculate them all against both'
+    task :compare_calculation => :environment do
+
+      STDOUT.sync = true
+
+      raise "Need to specify zip file using FILE" unless ENV['FILE']
+
+      zip_extractor = MeasureZipExtractor.new(ENV['FILE'])
+
+      hqmf_model = zip_extractor.extract :hqmf
+      simple_xml_model = zip_extractor.extract :simple_xml
+
+      raise "HQMF set IDs don't match" unless hqmf_model.hqmf_set_id == simple_xml_model.hqmf_set_id
+      raise "Population counts don't match" unless hqmf_model.populations.size == simple_xml_model.populations.size
+
+      patients = Record.where(measure_ids: hqmf_model.hqmf_set_id)
+
+      hqmf_calculator = BonnieBackendCalculator.new
+      simple_xml_calculator = BonnieBackendCalculator.new
+
+      passed = failed = errored = 0
+
+      hqmf_model.populations.each_with_index do |population, population_index|
+
+        begin
+          hqmf_calculator.set_measure_and_population(hqmf_model, population_index, clear_db_cache: true)
+        rescue => e
+          puts "Error setting up calculation for HQMF measure population #{population_index}: #{e.message}"
+          next
+        end
+
+        begin
+          simple_xml_calculator.set_measure_and_population(simple_xml_model, population_index, clear_db_cache: true)
+        rescue => e
+          puts "Error setting up calculation for SimpleXML measure population #{population_index}: #{e.message}"
+          next
+        end
+
+        puts "\nTesting #{patients.size} patients with population #{population_index}"
+
+        patients.each do |patient|
+
+          begin
+            hqmf_result = hqmf_calculator.calculate(patient).slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES)
+          rescue => e
+            puts "Error calculating HQMF measure for patient '#{patient.first} #{patient.last}' (#{patient.user.email}): #{e.message}"
+            errored += 1
+            next
+          end
+
+          begin
+            simple_xml_result = simple_xml_calculator.calculate(patient).slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES)
+          rescue => e
+            puts "Error calculating SimpleXML measure for patient '#{patient.first} #{patient.last}' (#{patient.user.email}): #{e.message}"
+            errored += 1
+            next
+          end
+
+          if hqmf_result == simple_xml_result
+            print '.'
+            passed += 1
+          else
+            puts "\n\n  FAILURE: Population #{population_index} patient '#{patient.first} #{patient.last}' (#{patient.user.email})\n\n"
+            puts "             HQMF: #{hqmf_result}"
+            puts "        SimpleXML: #{simple_xml_result}"
+            puts
+            failed += 1
+          end
+
+        end
+
+      end
+
+      puts
+      puts "#{passed+failed+errored} tests, #{passed} passed, #{failed} failures, #{errored} errors"
+
+    end
+
   end
 end
