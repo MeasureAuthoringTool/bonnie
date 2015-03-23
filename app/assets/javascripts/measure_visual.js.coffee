@@ -81,7 +81,7 @@ Bonnie.viz.measureVisualzation = ->
 
     populationCodes =
       'STRAT': 'Stratification'
-      'IPP': 'Initial Patient Population'
+      'IPP': 'Initial Population'
       'DENOM': 'Denominator'
       'NUMER': 'Numerator'
       'DENEXCEP': 'Denominator Exceptions'

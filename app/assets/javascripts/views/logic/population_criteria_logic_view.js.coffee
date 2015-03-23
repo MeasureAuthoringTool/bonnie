@@ -3,7 +3,7 @@ class Thorax.Views.PopulationCriteriaLogic extends Thorax.Views.BonnieView
   events:
     'click .panel-population' : -> @$('.toggle-icon').toggleClass('fa-angle-right fa-angle-down')
   population_map:
-    'IPP': 'Initial Patient Population'
+    'IPP': 'Initial Population'
     'STRAT': 'Stratification'
     'DENOM': 'Denominator'
     'NUMER': 'Numerator'
