@@ -16,6 +16,11 @@ namespace :bonnie do
       app_javascript.gsub!('Δ', 'bigDeltaForD3')
       value_sets ||= measure.value_sets
       value_sets_by_oid = value_sets.index_by(&:oid)
+      measure_javascript = ''
+      measure.populations.each_with_index do |population, idx|
+        measure_javascript += "/////////////////////// JAVASCRIPT FOR POPULATION #{idx} ///////////////////////"
+        measure_javascript += measure.as_javascript(idx)
+      end
       html_template = ERB.new File.read(Rails.root.join('lib', 'templates', 'measure_logic.html.erb'))
       html_template.result binding
     end
@@ -153,6 +158,8 @@ namespace :bonnie do
 
       puts
       puts "#{passed+failed+errored} tests, #{passed} passed, #{failed} failures, #{errored} errors"
+
+      zip_extractor.close
 
     end
 
