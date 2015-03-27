@@ -40,7 +40,7 @@
 
   <%# Load up the individual calculation code for each population %>
   <% @measure.populations.each_with_index do |population, idx| %>
-    <script src="<%= calculate_code_measure_population_url(@measure, idx, format: :js) %>"></script>
+    <script src="<%= calculate_code_measure_population_url(@measure, idx, format: :js, rationale: false) %>"></script>
   <% end %>
 
   <script>
