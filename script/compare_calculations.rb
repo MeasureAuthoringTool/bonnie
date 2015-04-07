@@ -10,7 +10,9 @@ ARGV.each do |file|
   puts "=" * (file.length + 8)
   puts "Testing #{file}\n\n"
 
-  result = `bundle exec rake bonnie:parser_comparison:compare_calculation FILE=#{file}`
+  environment = ENV.select { |k, v| k.match(/VSAC/) }.map { |k, v| "#{k}=#{v}" }.join(' ')
+
+  result = `bundle exec rake bonnie:parser_comparison:compare_calculation FILE=#{file} #{environment}`
 
   if summary = result.match(/(\d+) tests, (\d+) passed, (\d+) failures, (\d+) errors/)
     tests += summary[1].to_i
