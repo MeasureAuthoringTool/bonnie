@@ -30,35 +30,54 @@ namespace :bonnie do
     end
 
     class MeasureZipExtractor
-      attr_reader :value_set_models
-      def initialize(zip_file_name)
+
+      def initialize(zip_file_name, options={})
+        @options = options
         @zip_file = Zip::ZipFile.open(zip_file_name)
         @tmpdir = Dir.mktmpdir("measure_files", Rails.root.join('tmp'))
-        value_sets = @zip_file.glob(File.join('**','**.xls')).first
-        value_sets_path = File.join(@tmpdir, Pathname.new(value_sets.name).basename)
-        @zip_file.extract(value_sets, value_sets_path)
-        @value_set_models = Measures::ValueSetLoader.load_value_sets_from_xls(value_sets_path)
+        @cached_models = {}
+        if value_sets = @zip_file.glob(File.join('**','**.xls')).first
+          value_sets_path = File.join(@tmpdir, Pathname.new(value_sets.name).basename)
+          @zip_file.extract(value_sets, value_sets_path)
+          @value_set_models = Measures::ValueSetLoader.load_value_sets_from_xls(value_sets_path)
+        end
       end
-      def extract(type)
+
+      def value_set_models
+        return @value_set_models if @value_set_models
+        raise "VSAC_USERNAME and VSAC_PASSWORD are required" unless @options[:vsac_username] && @options[:vsac_password]
+        oids = extract_model(:simple_xml).all_code_set_oids
+        return @value_set_models = Measures::ValueSetLoader.load_value_sets_from_vsac(oids, @options[:vsac_username], @options[:vsac_password])
+      end
+
+      def extract_model(type)
+        return @cached_models[type] if @cached_models[type]
         case type
         when :simple_xml
-          file_matcher = '**SimpleXML.xml'
+          zip_data = @zip_file.glob(File.join('**', '**SimpleXML.xml')).first
         when :hqmf
-          file_matcher = '**eMeasure.xml'
+          # Some files it's CMSXXvX_eMeasure.xml, others it's just CMSXXvX.xml
+          zip_data = @zip_file.glob(File.join('**', '**eMeasure.xml')).first
+          zip_data ||= @zip_file.glob(File.join('**', '*.xml')).reject { |f| f.name.match(/SimpleXML/) }.first
         end
-        zip_data = @zip_file.glob(File.join('**', file_matcher)).first
         path = File.join(@tmpdir, Pathname.new(zip_data.name).basename)
         @zip_file.extract(zip_data, path)
-        model = Measures::Loader.parse_hqmf_model(path)
-        model.backfill_patient_characteristics_with_codes(HQMF2JS::Generator::CodesToJson.from_value_sets(@value_set_models))
+        return @cached_models[type] = Measures::Loader.parse_hqmf_model(path)
+      end
+
+      def extract(type)
+        model = extract_model(type)
+        model.backfill_patient_characteristics_with_codes(HQMF2JS::Generator::CodesToJson.from_value_sets(value_set_models))
         model = model.to_json
         model.convert_keys_to_strings
-        Measures::Loader.load_hqmf_model_json(model, nil, @value_set_models.map(&:oid))
+        Measures::Loader.load_hqmf_model_json(model, nil, value_set_models.map(&:oid))
       end
+
       def close
         @zip_file.close
         FileUtils.remove_entry_secure @tmpdir
       end
+
     end
 
     desc 'Given a zip file with SimpleXML and HQMF, create HTML that shows logic for each'
@@ -66,7 +85,7 @@ namespace :bonnie do
 
       raise "Need to specify zip file using FILE" unless ENV['FILE']
 
-      zip_extractor = MeasureZipExtractor.new(ENV['FILE'])
+      zip_extractor = MeasureZipExtractor.new(ENV['FILE'], vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'])
 
       hqmf_model = zip_extractor.extract :hqmf
       hqmf_html = measure_logic_html(hqmf_model, zip_extractor.value_set_models)
@@ -94,7 +113,7 @@ namespace :bonnie do
 
       raise "Need to specify zip file using FILE" unless ENV['FILE']
 
-      zip_extractor = MeasureZipExtractor.new(ENV['FILE'])
+      zip_extractor = MeasureZipExtractor.new(ENV['FILE'], vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'])
 
       hqmf_model = zip_extractor.extract :hqmf
       simple_xml_model = zip_extractor.extract :simple_xml
