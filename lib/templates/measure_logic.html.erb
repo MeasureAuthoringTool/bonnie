@@ -14,12 +14,16 @@
       $(document).ready(function() {
         populations.each(function(population) {
           var populationLogicView = new Thorax.Views.PopulationLogic({ model: population });
-          $('body').append('<h1>Population ' + population.get('index') + '</h1>')
-          populationLogicView.appendTo('body');
+          $('#logic').append('<h1>Population ' + population.get('index') + '</h1>')
+          populationLogicView.appendTo('#logic');
         });
       });
     </script>
   </head>
   <body>
+    <div id="logic"></div>
+    <pre><code>
+      <%= measure_javascript %>
+    </code></pre>
   </body>
 </html>
