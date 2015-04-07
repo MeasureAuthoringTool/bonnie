@@ -5,6 +5,8 @@ class Thorax.Views.MeasureDebug extends Thorax.Views.BonnieView
     rendered: ->
       # Fill in the authenticity token
       @$("form input[name='authenticity_token']").val($("meta[name='csrf-token']").attr('content'))
+      # Hide buttons that are for non-measure patients
+      @hideNonMeasurePatients()
       # When a tab is selected, change the population and re-calculate selected patients against population
       @$('a[data-toggle="tab"]').on 'shown.bs.tab', (e) =>
         @population = $(e.target).model()
