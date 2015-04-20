@@ -60,6 +60,7 @@
         </div>
         <div id="toggle{{@cid}}" class="panel-collapse collapse">
           <div class="panel-body">
+            <p><i class="fa fa-fw fa-tasks" aria-hidden="true"></i> {{patient.cms_id}}</p>
             <p>{{patient.notes}}</p>
             {{template "population_calculation_results"}}
             {{#button "cloneOnePatient" class="btn btn-primary" data-cloning-text="Cloning..." data-cloned-text="Cloned"}}Clone <span class="sr-only">patient {{patient.last}} {{patient.first}}</span> into {{cms_id}}{{/button}}
