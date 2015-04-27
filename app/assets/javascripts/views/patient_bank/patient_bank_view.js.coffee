@@ -39,6 +39,11 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
 
     @allDifferences = new Thorax.Collection
 
+    # We want to display the results sorted by 1) existence of defined expectations 2) passing status 3) last name 4) first name
+    @differences.comparator = (d) -> [-!!d.expected.get('measure_id'), !d.get('match'), d.result.patient.get('last'), d.result.patient.get('first')]
+    # Make sure the sort order updates as the collection completes
+    @differences.on 'complete, reset', @differences.sort, @differences
+
     # wait so everything calculates
     @listenTo @differences, 'complete', =>
       @bankFilterView.enableFiltering()
