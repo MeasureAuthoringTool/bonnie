@@ -40,7 +40,7 @@
 
 .shared-patient > .selected-patient {
   background-color: @gray-light;
-  & .fa-user { color: @brand-primary; }
+  & .fa-stack-1x { color: @brand-primary; }
 }
 
 .shared-patient > .opened-patient {
@@ -50,13 +50,6 @@
   & .status.status-fail { color: @state-danger-bg; }
   & .status.status-pass { color: @state-success-bg; }
   & .status { color: @blue-lightest; }
-  & .patient-user-icon {
-    & .fa-user { color: white; }
-    & .fa-stack.cloned {
-      & .fa-circle { color: @gray-darker; }
-      & .fa-user { color: @gray-lighter; }
-    }
-  }
 }
 
 .patient {
@@ -76,13 +69,13 @@
     float: left;
     & .fa-stack {
       margin: -.25em 0 0 -0.5em;
-      & .fa-circle { visibility: hidden; }
+      & .fa-stack-2x { visibility: hidden; }
       &.cloned {
-        & .fa-circle {
+        & .fa-stack-2x {
           visibility: visible;
           color: @gray-darker;
         }
-        & .fa-user { color: @gray-lighter; }
+        & .fa-stack-1x { color: @gray-lighter; }
       }
     }
   }

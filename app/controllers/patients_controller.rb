@@ -124,6 +124,8 @@ private
 
     patient.expected_values = params['expected_values']
 
+    patient['origin_data'] = params['origin_data']
+
     patient.user = current_user
     patient.bundle = current_user.bundle
 
