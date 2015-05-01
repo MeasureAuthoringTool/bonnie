@@ -1,19 +1,63 @@
 // Handle non-less assets first with the asset pipeline
 //= require jquery-selectboxit/src/stylesheets/jquery.selectBoxIt
 
-// Import external dependencies
-@import "bootstrap/less/bootstrap";
+// Import bootstrap files individually so we can exclude parts we don't need
+
+// Bootstrap - Core variables and mixins
+@import "bootstrap/less/variables";
+@import "bootstrap/less/mixins";
+
+// Bootstrap - Reset and dependencies
+@import "bootstrap/less/normalize";
+@import "bootstrap/less/print";
+
+// Bootstrap - Core CSS
+@import "bootstrap/less/scaffolding";
+@import "bootstrap/less/type";
+@import "bootstrap/less/grid";
+@import "bootstrap/less/tables";
+@import "bootstrap/less/forms";
+@import "bootstrap/less/buttons";
+
+// Bootstrap - Components
+@import "bootstrap/less/component-animations";
+@import "bootstrap/less/dropdowns";
+@import "bootstrap/less/button-groups";
+@import "bootstrap/less/input-groups";
+@import "bootstrap/less/navs";
+@import "bootstrap/less/navbar";
+@import "bootstrap/less/breadcrumbs";
+@import "bootstrap/less/labels";
+@import "bootstrap/less/badges";
+@import "bootstrap/less/jumbotron";
+@import "bootstrap/less/alerts";
+@import "bootstrap/less/progress-bars";
+@import "bootstrap/less/list-group";
+@import "bootstrap/less/panels";
+@import "bootstrap/less/wells";
+@import "bootstrap/less/close";
+
+// Bootstrap - Components w/ JavaScript
+@import "bootstrap/less/modals";
+@import "bootstrap/less/tooltip";
+@import "bootstrap/less/popovers";
+
+// Bootstrap - Utility classes
+@import "bootstrap/less/utilities";
+@import "bootstrap/less/responsive-utilities";
+
+// Import other external dependencies
 @import "font-awesome/less/font-awesome";
 @import "bootstrap-datepicker/less/datepicker3";
 @import "bootstrap-timepicker/less/timepicker";
 @import "css-toggle-switch/src/toggle-switch";
 
-// Helper files
+// Bonnie - Helper files
 @import "bootstrap3";
 @import "variables";
 @import "mixins";
 
-// Styles by page
+// Bonnie - Styles by page
 @import "landing";
 @import "login";
 @import "measures";
