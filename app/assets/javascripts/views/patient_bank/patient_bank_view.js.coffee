@@ -46,6 +46,7 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
 
     # wait so everything calculates
     @listenTo @differences, 'complete', =>
+      @differences.sort()
       @bankFilterView.enableFiltering()
       @showFilteredPatientCount()
       @showSelectedCoverage()
