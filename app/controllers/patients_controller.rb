@@ -6,7 +6,7 @@ class PatientsController < ApplicationController
 
   # Index method used for patient bank, returning all shared patient records
   def index
-    records = Record.where(is_shared: true).to_a
+    records = Record.where(is_shared: true).to_a.select { |r| get_associated_measure(r).exists? } # select shared patients with existing measures
     # Some gymnastics to deal with a 1+N problem, so we don't need additional queries for each
     # record for cms_id and user_email; prepopulate these values using lookup tables, with lookups
     # for email by user_id and cms_id by user_id and measure_id
