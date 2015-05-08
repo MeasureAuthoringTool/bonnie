@@ -6,7 +6,7 @@ class PatientsController < ApplicationController
 
   # Index method used for patient bank, returning all shared patient records
   def index
-    records = Record.where(is_shared: true).to_a.select { |r| get_associated_measure(r).exists? } # select shared patients with existing measures
+    records = Record.where(is_shared: true).to_a
     # Some gymnastics to deal with a 1+N problem, so we don't need additional queries for each
     # record for cms_id and user_email; prepopulate these values using lookup tables, with lookups
     # for email by user_id and cms_id by user_id and measure_id
@@ -16,6 +16,7 @@ class PatientsController < ApplicationController
     measure_ids = records.map { |r| r.measure_ids.first }.uniq
     measures = Measure.only(:_id, :hqmf_set_id, :user_id, :cms_id).where(:hqmf_set_id.in => measure_ids, :user_id.in => user_ids)
     cms_lookup = measures.each_with_object(Hash.new { |h, k| h[k] = {} }) { |m, h| h[m.user_id][m.hqmf_set_id] = m.cms_id }
+    records = records.select { |r| measures.map(&:hqmf_set_id).include? r.measure_ids.first } # select shared patients with existing measures
     records.each do |record|
       record.user_email = email_lookup[record.user_id]
       record.cms_id = cms_lookup[record.user_id][record.measure_ids.first]
