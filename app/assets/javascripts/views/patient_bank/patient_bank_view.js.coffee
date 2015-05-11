@@ -109,11 +109,14 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
     @bankFilterView.appliedFilters.all (filter) -> filter.apply(patient)
 
   differenceContext: (difference) ->
+    origins = @model.get('patients').models.map (p) -> p.get('origin_data')
+    origin_ids = _.compact(origins).map (o) -> o[0].patient_id
     patient = difference.result.patient
     _(difference.toJSON()).extend
       patient: patient.toJSON()
       cms_id: @model.get('cms_id')
       localClone: patient.get('user_id') == bonnie.currentUserId && @model.get('hqmf_set_id') == patient.get('measure_ids')[0]
+      alreadyCloned: _.contains(origin_ids, patient.id)
 
   showFilteredPatientCount: ->
     @$('.patient-count').text "("+@$('.shared-patient:visible').length+")" # thorax 'filters' models with $.hide and $.show

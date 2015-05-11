@@ -33,7 +33,7 @@
               <div class="patient-user-icon">
                 <span class="fa-stack{{#if localClone}} cloned{{/if}}" aria-hidden="true">
                   <i class="fa fa-fw fa-circle fa-stack-2x" aria-hidden="true"></i>
-                  <i class="fa fa-fw {{#if patient.origin_data}}fa-user-plus{{else}}fa-user{{/if}} fa-stack-1x" aria-hidden="true"></i>
+                  <i class="fa fa-fw {{#if alreadyCloned}}fa-user-plus{{else}}fa-user{{/if}} fa-stack-1x" aria-hidden="true"></i>
                 </span>
                 <span class="sr-only">{{patient.last}} {{patient.first}}, patient result</span>
               </div>
@@ -63,7 +63,7 @@
             <p><i class="fa fa-fw fa-tasks" aria-hidden="true"></i> {{patient.cms_id}}</p>
             <p>{{patient.notes}}</p>
             {{template "population_calculation_results"}}
-            {{#button "cloneOnePatient" class="btn btn-primary" data-cloning-text="Cloning..." data-cloned-text="Cloned"}}Clone <span class="sr-only">patient {{patient.last}} {{patient.first}}</span> into {{cms_id}}{{/button}}
+            {{#button "cloneOnePatient" class="btn btn-primary" data-cloning-text="Cloning..." data-cloned-text="Cloned"}}Clone <span class="sr-only">patient {{patient.last}} {{patient.first}}</span> {{#if alreadyCloned}}again{{/if}} into {{cms_id}} {{/button}}
           </div>
         </div>
       </div>
