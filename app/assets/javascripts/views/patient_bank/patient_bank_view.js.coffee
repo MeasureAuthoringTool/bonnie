@@ -31,7 +31,6 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
         @$(e.target).parent('.panel').find('.panel-chevron').toggleClass 'fa-angle-right fa-angle-down'
 
   initialize: ->
-    @collection = new Thorax.Collections.Patients
     @differences = new Thorax.Collections.Differences
     @selectedPatients = new Thorax.Collection
     @listenTo @selectedPatients, 'reset', -> @$('input.select-patient:checked').prop('checked',false).trigger("change")
