@@ -6,6 +6,7 @@ class Record
   field :expected_values, type: Array
   field :notes, type: String
   field :is_shared, :type => Boolean
+  field :origin_data, type: Array
 
   belongs_to :user
   belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle"
