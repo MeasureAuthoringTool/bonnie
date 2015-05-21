@@ -39,7 +39,10 @@ class BonnieRouter extends Backbone.Router
 
   renderComplexity: (measureSet1, measureSet2) ->
     @navigationSetup "Complexity Dashboard", "complexity"
+    @collection = new Thorax.Collections.MeasureSets
+    @collection.fetch()
     complexityView = new Thorax.Views.Dashboard(measureSet1, measureSet2)
+    complexityView.collection = @collection
     @mainView.setView(complexityView)
 
   renderMeasure: (hqmfSetId) ->
