@@ -25,9 +25,13 @@ describe 'ComplexityVizView', ->
   beforeEach ->
     measureSet1 = "54cad5fc69702d74b4000000"
     measureSet2 = "54cad74a69702d755a000000"
-    @complexityView = new Thorax.Views.Dashboard(measureSet1, measureSet2)
-    @complexityView.render()
+    @complexityView = new Thorax.Views.Dashboard
+    @measurePairs = new Thorax.Collections.MeasurePairs(getJSONFixture('measure_diff.json'), measureSet1: measureSet1, measureSet2: measureSet2)
+    @vizView = new Thorax.Views.ComplexityViz(collection: @measurePairs)
+    @complexityView.vizView = @vizView
     @complexityView.appendTo 'body'
+    @complexityView.render()
+    @complexityView.vizView.render()
     spyOn(@complexityView.vizView, 'complexityGraph')
     spyOn(@complexityView.vizView, 'complexityGrid')
     spyOn(@complexityView.vizView, 'sizeByLargest')
@@ -46,9 +50,6 @@ describe 'ComplexityVizView', ->
     expect(@complexityView.vizView.$('button.size-change')).toExist()
 
   it 'uses buttons to call appropriate viz', ->
-    # vizView doesn't called render() here, so enable buttons manually
-    @complexityView.vizView.$('button[disabled=true]').prop('disabled',false)
-
     @complexityView.vizView.$('button.complexity-graph').click()
     expect(@complexityView.vizView.complexityGraph).toHaveBeenCalled()
     @complexityView.vizView.$('button.complexity-grid').click()
@@ -57,3 +58,7 @@ describe 'ComplexityVizView', ->
     expect(@complexityView.vizView.sizeByLargest).toHaveBeenCalled()
     @complexityView.vizView.$('button.size-change').click()
     expect(@complexityView.vizView.sizeByChange).toHaveBeenCalled()
+
+  it 'shows the complexity graph viz', ->
+    expect(@complexityView.$("svg").length).toEqual 1
+    expect(@complexityView.$("circle.dot").length).toEqual 29
