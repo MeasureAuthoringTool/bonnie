@@ -10,9 +10,6 @@ class Thorax.Views.Dashboard extends Thorax.Views.BonnieView
 
     # FIXME: We can add some caching; probably best at the collection level
 
-    # Always display the measure sets selector
-    @collection = new Thorax.Collections.MeasureSets
-    @collection.fetch()
 
     # If measure sets have been selected, we display the visualization
     if measureSet1? && measureSet2?
