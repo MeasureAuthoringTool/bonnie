@@ -32,8 +32,8 @@ class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
     desc = @model.get('description').split(/, (.*)/)?[1] or @model.get('description')
     _(super).extend
       type: desc.split(": ")[0]
-      detail: desc.split(": ")[1]
-
+      # everything after the data criteria type is the detailed description
+      detail: desc.substring(desc.indexOf(':')+2)
 
 class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   className: 'patient-criteria'
@@ -70,7 +70,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       criteriaType: @model.get('type')
       vals: JSON.stringify(@model.get('references'))
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView criteria: @model
-    @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView 
+    @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView
       model: new Thorax.Model
       criteria: @model
 
@@ -308,7 +308,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       @model.set type: $(e.target).val()
       @validateForAddition()
       @advanceFocusToInput()
-    'change select': -> 
+    'change select': ->
       @validateForAddition()
       @advanceFocusToInput()
     'keyup input': 'validateForAddition'
