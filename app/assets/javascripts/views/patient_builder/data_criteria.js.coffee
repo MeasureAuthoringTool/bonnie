@@ -32,8 +32,8 @@ class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
     desc = @model.get('description').split(/, (.*)/)?[1] or @model.get('description')
     _(super).extend
       type: desc.split(": ")[0]
-      # replace first ':' with '#' and split on that to allow subsequent colons
-      detail: desc.replace(': ', '#').split('#')[1]
+      # everything after the data criteria type is the detailed description
+      detail: desc.substring(desc.indexOf(':')+2)
 
 class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   className: 'patient-criteria'
