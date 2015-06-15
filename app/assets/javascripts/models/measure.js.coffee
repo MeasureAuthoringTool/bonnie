@@ -39,7 +39,7 @@ class Thorax.Models.Measure extends Thorax.Model
   valueSets: ->
     unless @cachedValueSets
       matchingSets = (bonnie.valueSetsByOid[oid] for oid in @get('value_set_oids'))
-      @cachedValueSets = new Thorax.Collection(matchingSets, comparator: (vs) -> 
+      @cachedValueSets = new Thorax.Collection(matchingSets, comparator: (vs) ->
         console.log('WARNING: missing value set') if !vs.get('display_name') && console?
         vs.get('display_name')?.toLowerCase())
     @cachedValueSets
@@ -54,7 +54,7 @@ class Thorax.Models.Measure extends Thorax.Model
 
     # Define criteria type-specific field values
     typeInclusions =
-      care_goals: []
+      care_goals: ['related_to', 'target_outcome']
       characteristics: []
       communications: []
       conditions: ['anatomical_structure', 'ordinality', 'severity', 'laterality']
@@ -127,4 +127,3 @@ class Thorax.Collections.Measures extends Thorax.Collection
     measureToOids = {} # measure hqmf_set_id : valueSet oid
     @each (m) => measureToOids[m.get('hqmf_set_id')] = m.valueSets().pluck('oid')
     measureToOids
-
