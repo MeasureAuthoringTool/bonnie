@@ -1,7 +1,12 @@
 development:
   sessions:
     default:
-      database: bonnie_development
+      database: bonnie_production_2015_05_28
+      #database: bonnie_production_2015_03_25
+      #database: bonnie_production_2015_03_09
+      #database: bonnie_complexity_demo
+      #database: bonnie_patient_bank_demo
+      #database: bonnie_webinar_2015_02_10
       hosts:
         - localhost:27017
 test:
