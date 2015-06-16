@@ -1,12 +1,12 @@
 module HQMF
-	class Generator
+  class Generator
 
     # Create a patient with trivial demographic information and no coded entries.
     #
     # @return A Record with a blank slate.
     def self.create_base_patient(initial_attributes = nil)
       patient = Record.new
-      
+
       patient.gender = (Time.now.to_i % 2 == 0) ? ("M") : ("F")
       patient.birthdate = Randomizer.randomize_birthdate
 
@@ -15,14 +15,14 @@ module HQMF
       else
         initial_attributes.each {|attribute, value| patient.send("#{attribute}=", value)}
       end
-      
+
       patient
     end
 
 
     # Map all patient api coded entry types from HQMF data criteria to Record sections.
     #
-    # @param [String] type The type of the coded entry requried by a data criteria.
+    # @param [String] type The type of the coded entry required by a data criteria.
     # @return The section type for the given patient api function type
     def self.classify_entry(type)
       # The possible matches per patientAPI function can be found in hqmf-parser's README
@@ -47,10 +47,12 @@ module HQMF
         "conditions"
       when :allDevices
         "medical_equipment"
+      when :careGoals
+        "care_goals"
       else
         type.to_s
       end
     end
 
-	end
+  end
 end

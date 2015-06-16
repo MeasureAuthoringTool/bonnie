@@ -87,13 +87,13 @@ module Measures
       end
 
 
-      # if the patient is persisted, monoid will send the updates at this point.
+      # if the patient is persisted, mongoid will send the updates at this point.
       Record::Sections.each do |section|
         patient.send(section).clear.concat(sections[section.to_s] || [])
       end
 
       # now handle all of the references -- this needs to be done after all of the entries have been materialized
-      # because there is no gaurentee of order in the source data criteria
+      # because there is no guarantee of order in the source data criteria
 
       patient.source_data_criteria.each  do |source_criteria|
         refs = nil
@@ -132,7 +132,7 @@ module Measures
 
 
 
-    # Determine the apporpriate coded entry type from this data criteria and create one to match.
+    # Determine the appropriate coded entry type from this data criteria and create one to match.
     #
     # @param [data_criteria]  The data_criteria object to create the entry for
     # @param [Range] time The period of time during which the entry happens.
@@ -159,7 +159,7 @@ module Measures
     end
 
 
-    # derive the values for the source data criteira
+    # derive the values for the source data criteria
     def self.derive_values(entry, values, value_sets)
       return if values.nil? || values.empty?
       derived = []
