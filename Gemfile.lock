@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 0594c0c83d446f0e8039ae3c80f376f5e2f6a048
+  revision: 792cca9c50bee8a5f7936b70853c4136eba001f9
   branch: bonnie_master
   specs:
     health-data-standards (3.4.6)
@@ -225,12 +225,9 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.3.2)
-    rdoc (4.2.0)
-      json (~> 1.4)
     ref (1.0.5)
-    rest-client (1.6.8)
+    rest-client (1.6.9)
       mime-types (~> 1.16)
-      rdoc (>= 2.4.2)
     roo (1.13.2)
       nokogiri
       rubyzip
@@ -282,7 +279,7 @@ GEM
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    uuid (2.3.7)
+    uuid (2.3.8)
       macaddr (~> 1.0)
     warden (1.2.3)
       rack (>= 1.0)
