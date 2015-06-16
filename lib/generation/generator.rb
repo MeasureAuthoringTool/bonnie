@@ -1,5 +1,5 @@
 module HQMF
-	class Generator
+  class Generator
 
     # Create a patient with trivial demographic information and no coded entries.
     #
@@ -47,12 +47,12 @@ module HQMF
         "conditions"
       when :allDevices
         "medical_equipment"
-			when :careGoals
-				"care_goals"
+      when :careGoals
+        "care_goals"
       else
         type.to_s
       end
     end
 
-	end
+  end
 end
