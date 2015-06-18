@@ -41,12 +41,12 @@ class MeasuresController < ApplicationController
 
     extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
     if extension && !['.zip', '.xml'].include?(extension)
-        flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure or HQMF XML measure file. Please re-export your measure from the MAT and select the 'eMeasure Package' option, or select the correct HQMF XML file."}
-        redirect_to "#{root_path}##{params[:redirect_route]}"
-        return
+      flash[:error] = show_error(match, format)
+      redirect_to "#{root_path}##{params[:redirect_route]}"
+      return
     elsif extension == '.zip'
       if !Measures::MATLoader.mat_export?(params[:measure_file])
-        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file. If the zip file contains HQMF XML, please unzip the file and upload the HQMF XML file instead of the zip file. Otherwise, please re-export your measure from the MAT and select the 'eMeasure Package' option"}
+        flash[:error] = show_error(match, zip)
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
@@ -86,14 +86,14 @@ class MeasuresController < ApplicationController
         existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
         if existing.count > 1
           measure.delete
-          flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
+          flash[:error] = show_error(match, already_loaded)
           redirect_to "#{root_path}##{params[:redirect_route]}"
           return
         end
       else
         if existing.hqmf_set_id != measure.hqmf_set_id
           measure.delete
-          flash[:error] = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
+          flash[:error] = show_error(match, update_file)
           redirect_to "#{root_path}##{params[:redirect_route]}"
           return
         end
@@ -101,7 +101,7 @@ class MeasuresController < ApplicationController
 
       if measure_details['episode_of_care'] && measure.data_criteria.values.select {|d| d['specific_occurrence']}.empty?
         measure.delete
-        flash[:error] = {title: "Error Loading Measure", summary: "An episode of care measure requires at least one specific occurrence for the episode of care.", body: "You have loaded the measure as an episode of care measure.  Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."}
+        flash[:error] = show_error(match, eoc)
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
@@ -110,7 +110,7 @@ class MeasuresController < ApplicationController
       missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
       if missing_value_sets.length > 0
         measure.delete
-        flash[:error] = {title: "Measure is missing value sets", summary: "The measure you have tried to load is missing value sets.", body: "The measure you are trying to load is missing value sets.  Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"}
+        flash[:error] = show_error(match, value_sets, {}, missing_value_sets)
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
@@ -130,18 +130,18 @@ class MeasuresController < ApplicationController
         File.chmod(0644, File.join(errors_dir, filename))
         File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
         if e.is_a? Measures::ValueSetException
-          flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
+          flash[:error] = show_error(loading, value_sets)
         elsif e.is_a? Measures::HQMFException
           operator_error = true
-          flash[:error] = {title: "Error Loading Measure", summary: "Error loading XML file.", body: "There was an error loading the XML file you selected.  Please verify that the file you are uploading is an HQMF XML or SimpleXML file.  Message: #{e.message}"}
+          flash[:error] = show_error(loading, hqmf, e)
         elsif e.is_a? Measures::VSACException
           operator_error = true
-          flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
+          flash[:error] = show_error(loading, vsac, e)
         else
-          flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Please re-package the measure in the MAT, then re-download the MAT Measure Export.  If the measure has QDM elements without a VSAC Value Set defined the measure will not load."}
+          flash[:error] = show_error(loading, other)
         end
       else
-        flash[:error] = {title: "Error Loading Measure", body: "You must specify a Measure Authoring tool measure export to use."}
+        flash[:error] = show_error(loading, missing_file)
       end
 
       # email the error
@@ -232,6 +232,28 @@ class MeasuresController < ApplicationController
     measure = Measure.by_user(current_user).find(params[:id])
     measure.generate_js clear_db_cache: true
     redirect_to :back
+  end
+
+  private
+  def show_error(category, type, e={}, missing_value_sets*)
+    available_messages = {
+      match: {
+        format: {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure or HQMF XML measure file. Please re-export your measure from the MAT and select the 'eMeasure Package' option, or select the correct HQMF XML file."},
+        zip: {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file. If the zip file contains HQMF XML, please unzip the file and upload the HQMF XML file instead of the zip file. Otherwise, please re-export your measure from the MAT and select the 'eMeasure Package' option"},
+        already_loaded: {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."},
+        update_file: {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."},
+        eoc: {title: "Error Loading Measure", summary: "An episode of care measure requires at least one specific occurrence for the episode of care.", body: "You have loaded the measure as an episode of care measure.  Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."},
+        value_sets: {title: "Measure is missing value sets", summary: "The measure you have tried to load is missing value sets.", body: "The measure you are trying to load is missing value sets.  Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"}
+      },
+      loading: {
+        value_sets: {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."},
+        hqmf: {title: "Error Loading Measure", summary: "Error loading XML file.", body: "There was an error loading the XML file you selected.  Please verify that the file you are uploading is an HQMF XML or SimpleXML file.  Message: #{e.message}"},
+        vsac: {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"},
+        other: {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Please re-package the measure in the MAT, then re-download the MAT Measure Export.  If the measure has QDM elements without a VSAC Value Set defined the measure will not load."},
+        missing_file: {title: "Error Loading Measure", body: "You must specify a Measure Authoring tool measure export to use."}
+      }
+    }
+    return available_messages[category][type]
   end
 
 end
