@@ -20,6 +20,7 @@ Bonnie::Application.routes.draw do
     collection do
       get 'value_sets'
       post 'finalize'
+      post 'update'
     end
     member do
       get 'debug', defaults: { format: :html }

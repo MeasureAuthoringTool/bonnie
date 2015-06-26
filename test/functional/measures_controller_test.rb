@@ -2,7 +2,7 @@ require 'test_helper'
 
 class MeasuresControllerTest  < ActionController::TestCase
 include Devise::TestHelpers
-      
+
   setup do
     @error_dir = File.join('log','load_errors')
     FileUtils.rm_r @error_dir if File.directory?(@error_dir)
@@ -110,7 +110,7 @@ include Devise::TestHelpers
     assert_operator measure.map_fns[0].length, :>, 100
 
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_update.zip'),'application/zip')
-    post :create, {measure_file: measure_file, hqmf_set_id: measure.hqmf_set_id, 'eoc_42BF391F-38A3-4C0F-9ECE-DCD47E9609D9'=>{'episode_ids'=>['OccurrenceAInpatientEncounter1']}}
+    post :update, {measure_file: measure_file, hqmf_set_id: measure.hqmf_set_id, 'eoc_42BF391F-38A3-4C0F-9ECE-DCD47E9609D9'=>{'episode_ids'=>['OccurrenceAInpatientEncounter1']},  measure_type: 'eh', calculation_type: 'episode'}
     assert_response :redirect
 
     measure = Measure.where({hqmf_id: '40280381-3D27-5493-013D-4DCA4B826XXX'}).first
@@ -124,7 +124,6 @@ include Devise::TestHelpers
     assert_includes measure.episode_ids, 'OccurrenceAInpatientEncounter1'
     assert_equal 1, measure.episode_ids.length
     assert_operator measure.map_fns[0].length, :>, 100
-
     assert !measure.population_criteria['DENOM']['preconditions'].nil?
     assert_equal 1, measure.population_criteria['DENOM']['preconditions'].count
 

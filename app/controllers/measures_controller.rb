@@ -34,166 +34,34 @@ class MeasuresController < ApplicationController
   end
 
   def create
-    measure_details = {
-     'type'=>params[:measure_type],
-     'episode_of_care'=>params[:calculation_type] == 'episode'
-    }
-
-    extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
-    if extension && !['.zip', '.xml'].include?(extension)
-      flash[:error] = show_error(match, format)
+    if params[:measure_file].present?
+      uploaded_measure = process_measure_file(params)
+      measure = write_measure(uploaded_measure, params) if uploaded_measure
+    else
+      flash[:error] = show_error('loading', 'missingfile')
       redirect_to "#{root_path}##{params[:redirect_route]}"
-      return
-    elsif extension == '.zip'
-      if !Measures::MATLoader.mat_export?(params[:measure_file])
-        flash[:error] = show_error(match, zip)
-        redirect_to "#{root_path}##{params[:redirect_route]}"
-        return
-      end
+      return false
     end
 
-    is_update = false
-    if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
-      is_update = true
-      existing = Measure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
-      measure_details['type'] = existing.type
-      measure_details['episode_of_care'] = existing.episode_of_care
-      if measure_details['episode_of_care']
-        episodes = params["eoc_#{existing.hqmf_set_id}"]
-        if episodes && episodes['episode_ids'] && !episodes['episode_ids'].empty?
-          measure_details['episode_ids'] = episodes['episode_ids']
-        else
-          measure_details['episode_ids'] = existing.episode_ids
-        end
-      end
- 
-      measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
-    end
-
-    begin
-      if extension == '.xml'
-        includeDraft = params[:include_draft] == 'true'
-        effectiveDate = nil
-        unless includeDraft
-          effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
-        end
-        measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, includeDraft) # overwrite_valuesets=true, cache=false, includeDraft=true
-      else
-        measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
-      end
-
-      if (!is_update)
-        existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
-        if existing.count > 1
-          measure.delete
-          flash[:error] = show_error(match, already_loaded)
-          redirect_to "#{root_path}##{params[:redirect_route]}"
-          return
-        end
-      else
-        if existing.hqmf_set_id != measure.hqmf_set_id
-          measure.delete
-          flash[:error] = show_error(match, update_file)
-          redirect_to "#{root_path}##{params[:redirect_route]}"
-          return
-        end
-      end
-
-      if measure_details['episode_of_care'] && measure.data_criteria.values.select {|d| d['specific_occurrence']}.empty?
-        measure.delete
-        flash[:error] = show_error(match, eoc)
-        redirect_to "#{root_path}##{params[:redirect_route]}"
-        return
-      end
-
-      # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
-      missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
-      if missing_value_sets.length > 0
-        measure.delete
-        flash[:error] = show_error(match, value_sets, {}, missing_value_sets)
-        redirect_to "#{root_path}##{params[:redirect_route]}"
-        return
-      end
-      
-
-      existing.delete if (existing && is_update)
-    rescue Exception => e
-      if params[:measure_file]
-        errors_dir = Rails.root.join('log', 'load_errors')
-        FileUtils.mkdir_p(errors_dir)
-        clean_email = File.basename(current_user.email) # Prevent path traversal
-        filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}#{extension}"
-
-        operator_error = false # certain types of errors are operator errors and do not need to be emailed out.
-
-        FileUtils.cp(params[:measure_file].tempfile, File.join(errors_dir, filename))
-        File.chmod(0644, File.join(errors_dir, filename))
-        File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
-        if e.is_a? Measures::ValueSetException
-          flash[:error] = show_error(loading, value_sets)
-        elsif e.is_a? Measures::HQMFException
-          operator_error = true
-          flash[:error] = show_error(loading, hqmf, e)
-        elsif e.is_a? Measures::VSACException
-          operator_error = true
-          flash[:error] = show_error(loading, vsac, e)
-        else
-          flash[:error] = show_error(loading, other)
-        end
-      else
-        flash[:error] = show_error(loading, missing_file)
-      end
-
-      # email the error
-      if !operator_error && defined? ExceptionNotifier::Notifier
-        params[:error_file] = filename
-        ExceptionNotifier::Notifier.exception_notification(env, e).deliver
-      end
-
-      redirect_to "#{root_path}##{params[:redirect_route]}"
-      return
-    end
     current_user.measures << measure
     current_user.save!
 
-    if (is_update)
-      measure.episode_ids = measure_details['episode_ids']
-      measure.populations.each_with_index do |population, population_index|
-        population['title'] = measure_details['population_titles'][population_index] if (measure_details['population_titles'])
-      end
-      # check if episode ids have changed
-      if (measure.episode_of_care?)
-        keys = measure.data_criteria.values.map {|d| d['source_data_criteria'] if d['specific_occurrence']}.compact.uniq
-        measure.needs_finalize = (measure.episode_ids & keys).length != measure.episode_ids.length
-        if measure.needs_finalize
-          measure.episode_ids = [] 
-          params[:redirect_route] = ''
-        end
-      end
+    redirect_to "#{root_path}##{params[:redirect_route]}"
+  end
+
+  def update
+    existing = Measure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
+
+    if params[:measure_file].present?
+      uploaded_measure = process_measure_file(params, existing)
+      measure = write_measure(uploaded_measure, params) if uploaded_measure
     else
-      measure.needs_finalize = (measure_details['episode_of_care'] || measure.populations.size > 1)
-      if measure.populations.size > 1
-        strat_index = 1
-        measure.populations.each do |population| 
-          if (population[HQMF::PopulationCriteria::STRAT])
-            population['title'] = "Stratification #{strat_index}"
-            strat_index += 1
-          end
-        end
-      end
-
+      measure = write_measure(existing, params)
     end
-
-
-    Measures::ADEHelper.update_if_ade(measure)
-
-    measure.generate_js
-
-    measure.save!
 
     # rebuild the users patients if set to do so
     if params[:rebuild_patients] == "true"
-      Record.by_user(current_user).each do |r| 
+      Record.by_user(current_user).each do |r|
         Measures::PatientBuilder.rebuild_patient(r)
         r.save!
       end
@@ -235,25 +103,163 @@ class MeasuresController < ApplicationController
   end
 
   private
-  def show_error(category, type, e={}, missing_value_sets*)
+  def show_error(category, type, missing_value_sets=[])
     available_messages = {
-      match: {
-        format: {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure or HQMF XML measure file. Please re-export your measure from the MAT and select the 'eMeasure Package' option, or select the correct HQMF XML file."},
-        zip: {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file. If the zip file contains HQMF XML, please unzip the file and upload the HQMF XML file instead of the zip file. Otherwise, please re-export your measure from the MAT and select the 'eMeasure Package' option"},
-        already_loaded: {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."},
-        update_file: {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."},
-        eoc: {title: "Error Loading Measure", summary: "An episode of care measure requires at least one specific occurrence for the episode of care.", body: "You have loaded the measure as an episode of care measure.  Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."},
-        value_sets: {title: "Measure is missing value sets", summary: "The measure you have tried to load is missing value sets.", body: "The measure you are trying to load is missing value sets.  Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"}
+      "match" => {
+        "format" => {:title => "Error Loading Measure", :summary => "Incorrect Upload Format.", :body => "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure or HQMF XML measure file. Please re-export your measure from the MAT and select the 'eMeasure Package' option, or select the correct HQMF XML file."},
+        "zip" => {:title => "Error Uploading Measure", :summary => "The uploaded zip file is not a Measure Authoring Tool export.", :body => "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file. If the zip file contains HQMF XML, please unzip the file and upload the HQMF XML file instead of the zip file. Otherwise, please re-export your measure from the MAT and select the 'eMeasure Package' option"},
+        "already_loaded" => {:title => "Error Loading Measure", :summary => "A version of this measure is already loaded.", :body => "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."},
+        "update_file" => {:title => "Error Updating Measure", :summary => "The update file does not match the measure.", :body => "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."},
+        "eoc" => {:title => "Error Loading Measure", :summary => "An episode of care measure requires at least one specific occurrence for the episode of care.", :body => "You have loaded the measure as an episode of care measure.  Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."},
+        "value_sets" => {:title => "Measure is missing value sets", :summary => "The measure you have tried to load is missing value sets.", :body => "The measure you are trying to load is missing value sets.  Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"}
       },
-      loading: {
-        value_sets: {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."},
-        hqmf: {title: "Error Loading Measure", summary: "Error loading XML file.", body: "There was an error loading the XML file you selected.  Please verify that the file you are uploading is an HQMF XML or SimpleXML file.  Message: #{e.message}"},
-        vsac: {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"},
-        other: {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Please re-package the measure in the MAT, then re-download the MAT Measure Export.  If the measure has QDM elements without a VSAC Value Set defined the measure will not load."},
-        missing_file: {title: "Error Loading Measure", body: "You must specify a Measure Authoring tool measure export to use."}
+      "loading" => {
+        "valuesets" => {:title => "Error Loading Measure", :summary => "The measure value sets could not be found.", :body => "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."},
+        "other" => {:title => "Error Loading Measure", :summary => "The measure could not be loaded.", :body => "Please re-package the measure in the MAT, then re-download the MAT Measure Export.  If the measure has QDM elements without a VSAC Value Set defined the measure will not load."},
+        "missingfile" => {:title => "Error Loading Measure", :body => "You must specify a Measure Authoring tool measure export to use."}
       }
     }
     return available_messages[category][type]
   end
+
+  def show_error_with_message(type, e)
+    available_messages = {
+      "hqmf" => {:title => "Error Loading Measure", :summary => "Error loading XML file.", :body => "There was an error loading the XML file you selected.  Please verify that the file you are uploading is an HQMF XML or SimpleXML file.  Message: #{e.message}"},
+      "vsac" => {:title => "Error Loading VSAC Value Sets", :summary => "VSAC value sets could not be loaded.", :body => "Please verify that you are using the correct VSAC username and password. #{e.message}"}
+    }
+    return available_messages[type]
+  end
+
+  def process_measure_file(params, existing=nil)
+
+    measure_file = params[:measure_file]
+    extension = File.extname(measure_file.original_filename).downcase
+    if extension && !['.zip', '.xml'].include?(extension)
+      flash[:error] = show_error('match', 'format')
+      redirect_to "#{root_path}##{params[:redirect_route]}"
+      return false
+    elsif extension == '.zip'
+      if !Measures::MATLoader.mat_export?(measure_file)
+        flash[:error] = show_error('match', 'zip')
+        return false
+      end
+    end
+
+    begin
+      if extension == '.xml'
+        includeDraft = params[:include_draft] == 'true'
+        effectiveDate = nil
+        unless includeDraft
+          effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
+        end
+        measure = Measures::SourcesLoader.load_measure_xml(measure_file.tempfile.path, current_user, params[:vsac_username], params[:vsac_password], {}, true, false, effectiveDate, includeDraft) # overwrite_valuesets=true, cache=false, includeDraft=true
+      else
+        measure = Measures::MATLoader.load(measure_file, current_user, {})
+      end
+
+      # throw error if this is not actually an episode of care measure
+      if (params[:calculation_type] == 'episode') && measure.data_criteria.values.select {|d| d['specific_occurrence']}.empty?
+        measure.delete
+        flash[:error] = show_error('match', 'eoc')
+        return false
+      end
+
+      # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
+      missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
+      if missing_value_sets.length > 0
+        measure.delete
+        flash[:error] = show_error('match', 'value_sets', missing_value_sets)
+        return false
+      end
+
+      # has this measure already been uploaded? or might it be uploaded to the wrong update?
+      if !existing
+        existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
+        if existing.count > 1
+          measure.delete
+          flash[:error] = show_error('match', 'already_loaded')
+          return false
+        end
+      elsif existing.hqmf_set_id != measure.hqmf_set_id # update, doesn't match
+        measure.delete
+        flash[:error] = show_error('match', 'update_file')
+        return false
+      end
+
+    rescue Exception => e
+      errors_dir = Rails.root.join('log', 'load_errors')
+      FileUtils.mkdir_p(errors_dir)
+      clean_email = File.basename(current_user.email) # Prevent path traversal
+      filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}#{extension}"
+
+      operator_error = false # certain types of errors are operator errors and do not need to be emailed out.
+
+      FileUtils.cp(measure_file.tempfile, File.join(errors_dir, filename))
+      File.chmod(0644, File.join(errors_dir, filename))
+      File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
+      if e.is_a? Measures::ValueSetException
+        flash[:error] = show_error('loading', 'valuesets')
+      elsif e.is_a? Measures::HQMFException
+        operator_error = true
+        flash[:error] = show_error_with_message('hqmf', e)
+      elsif e.is_a? Measures::VSACException
+        operator_error = true
+        flash[:error] = show_error_with_message('vsac', e)
+      else
+        flash[:error] = show_error('loading', 'other')
+      end
+
+      # email the error
+      if !operator_error && defined? ExceptionNotifier::Notifier
+        params[:error_file] = filename
+        ExceptionNotifier::Notifier.exception_notification(env, e).deliver
+      end
+
+      return false
+    end
+
+    measure.needs_finalize = ((params[:calculation_type] == 'episode') || measure.populations.size > 1)
+    if measure.populations.size > 1
+      strat_index = 1
+      measure.populations.each do |population|
+        if (population[HQMF::PopulationCriteria::STRAT])
+          population['title'] = "Stratification #{strat_index}"
+          strat_index += 1
+        end
+      end
+    end
+
+    measure
+  end
+
+  def write_measure(measure, params)
+
+    measure_details = {
+      'type' => params[:measure_type],
+      'episode_of_care' => params[:calculation_type] == 'episode'
+    }
+
+    if measure_details['episode_of_care']
+      episodes = params["eoc_#{params[:hqmf_set_id]}"]
+      if episodes && episodes['episode_ids'] && !episodes['episode_ids'].empty?
+        measure_details['episode_ids'] = episodes['episode_ids']
+      end
+    end
+
+    if measure.populations
+      measure_details['population_titles'] = measure.populations.map {|p| p['title']} if measure.populations.length > 1
+      measure.populations.each_with_index do |population, population_index|
+        population['title'] = measure_details['population_titles'][population_index] if (measure_details['population_titles'])
+      end
+    end
+
+    measure.update_attributes(measure_details)
+
+    Measures::ADEHelper.update_if_ade(measure)
+    measure.generate_js
+    measure.save!
+    measure
+  end
+
 
 end

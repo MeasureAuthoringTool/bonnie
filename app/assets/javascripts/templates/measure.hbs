@@ -15,20 +15,30 @@
     </div>
     <div class="measure-dsp">
       <h2 class="full-title">{{title}}</h2>
+      <p>{{description}}</p>
+
+      <p><strong>Measure Type</strong>: {{measureTypeLabel}}</p>
+      <p><strong>Calculation Type</strong>: {{calculationTypeLabel}}</p>
+
+      <p></p>
+
       {{#if episode_of_care}}
         <div class="measure-dsp-title">
           Episode(s) of Care:
         </div>
+        {{#if episodesOfCare}}
           {{#each episodesOfCare tag="ul"}}
             {{#with attributes}}
               <li>{{description}}</li>
             {{/with}}
           {{/each}}
-        <p></p>
+        {{else}}
+          No episode of care selected.
+        {{/if}}
+
       {{/if}}
 
-      <p>{{description}}</p>
-
+      <p></p>
       {{view complexityView}}
 
       {{#ifAdmin}}
