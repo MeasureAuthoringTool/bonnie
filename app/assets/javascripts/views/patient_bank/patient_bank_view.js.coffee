@@ -51,7 +51,7 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
       @showSelectedCoverage()
 
     populations = @model.get('populations')
-    @currentPopulation = populations.first()
+    @currentPopulation = Bonnie.getPopulationForMeasure(@model, populations.first())
     populationLogicView = new Thorax.Views.PopulationLogic(model: @currentPopulation)
     if populations.length > 1
       @bankLogicView = new Thorax.Views.PopulationsLogic collection: populations

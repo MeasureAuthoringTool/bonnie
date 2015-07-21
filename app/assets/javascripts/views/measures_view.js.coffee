@@ -35,7 +35,7 @@ class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
     # What we display changes for single vs multiple population measures
     @multiplePopulations = @model.get('populations').length > 1
     unless @multiplePopulations
-      @differences = @model.get('populations').first().differencesFromExpected()
+      @differences = if Bonnie.State.population then Bonnie.State.population.differencesFromExpected() else @model.get('populations').first().differencesFromExpected()
 
   updateMeasure: (e) ->
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)
