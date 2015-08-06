@@ -18,7 +18,7 @@ class Thorax.Views.MeasureDebug extends Thorax.Views.BonnieView
 
   initialize: ->
     @results = new Thorax.Collection()
-    @population = @model.get('population')
+    @population = @model.get('displayedPopulation')
 
   patientContext: (p) ->
     _(p.toJSON()).extend inMeasure: _(p.get('measure_ids')).contains @model.get('hqmf_set_id')

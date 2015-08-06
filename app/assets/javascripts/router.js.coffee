@@ -29,6 +29,9 @@ class BonnieRouter extends Backbone.Router
     'value_sets/edit':                                 'renderValueSetsBuilder'
 
   renderMeasures: ->
+    _.each(@measures.models, (measure) =>
+      measure.set('displayedPopulation', measure.get('populations').first())
+    )
     @navigationSetup "Dashboard", "dashboard"
     if @isPortfolio
       dashboardView = new Thorax.Views.Matrix(collection: @measures, patients: @patients)

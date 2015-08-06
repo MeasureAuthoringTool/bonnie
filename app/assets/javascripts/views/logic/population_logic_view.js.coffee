@@ -2,7 +2,7 @@ class Thorax.Views.PopulationsLogic extends Thorax.LayoutView
   template: JST['logic/layout']
   switchPopulation: (e) ->
     population = $(e.target).model()
-    population.measure().set('population', population)
+    population.measure().set('displayedPopulation', population)
     @setView new Thorax.Views.PopulationLogic(model: population)
     @trigger 'population:update', population
   showRationale: (result) -> @getView().showRationale(result)
@@ -12,7 +12,7 @@ class Thorax.Views.PopulationsLogic extends Thorax.LayoutView
   showSelectCoverage: (rationaleCriteria) -> @getView().showSelectCoverage(rationaleCriteria)
   populationContext: (population) ->
     _(population.toJSON()).extend
-      isActive:  population is population.measure().get('population')
+      isActive:  population is population.measure().get('displayedPopulation')
       populationTitle: population.get('title') || population.get('sub_id')
 
 class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView

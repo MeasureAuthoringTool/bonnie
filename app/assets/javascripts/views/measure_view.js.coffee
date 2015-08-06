@@ -9,7 +9,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   initialize: ->
     populations = @model.get 'populations'
-    population = @model.get 'population'
+    population = @model.get 'displayedPopulation'
     populationLogicView = new Thorax.Views.PopulationLogic(model: population)
     @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
 

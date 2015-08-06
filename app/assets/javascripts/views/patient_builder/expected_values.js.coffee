@@ -37,7 +37,7 @@ class Thorax.Views.ExpectedValuesView extends Thorax.Views.BonnieView
       # We set the active tabs when rendered rather than trying to do it in the template
       # because changes to the ExpectdValueView that happen when serializing (for materialization)
       # drive the individual tabs to be re-rendered
-      population_index = @measure.get('population').index()
+      population_index = @measure.get('displayedPopulation').index()
       @$('a[href="#expected-'+population_index+'"]').tab('show')
       @$('.tab-pane#expected-'+population_index).addClass('active') # This seems to be necessary because we're not in the DOM yet?
       # When the tabs are toggled, we want to send a message over to another view, use an event
