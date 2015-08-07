@@ -1,5 +1,7 @@
 class MeasuresController < ApplicationController
 
+  skip_before_action :verify_authenticity_token, only: [:show, :value_sets]
+
   respond_to :json, :js, :html
 
   def show
