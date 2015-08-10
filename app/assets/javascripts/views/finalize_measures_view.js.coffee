@@ -1,9 +1,12 @@
 class Thorax.Views.FinalizeMeasures extends Thorax.Views.BonnieView
   template: JST['import/finalize_measures']
   context: ->
-    titleSize: 4
-    dataSize: 8
-    token: $("meta[name='csrf-token']").attr('content')
+    currentRoute = Backbone.history.fragment
+    _(super).extend
+      titleSize: 4
+      dataSize: 8
+      token: $("meta[name='csrf-token']").attr('content')
+      redirectRoute: currentRoute
 
   events:
     'click #finalizeMeasureSubmit': 'submit'
@@ -39,4 +42,3 @@ class Thorax.Views.FinalizeMeasures extends Thorax.Views.BonnieView
       "keyboard" : false,
       "show" : true)
     @$('form').submit()
-

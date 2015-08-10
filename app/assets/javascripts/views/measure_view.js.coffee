@@ -18,6 +18,10 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @exportPatientsView.appendTo(@$el)
       @$('.d3-measure-viz, .btn-viz-text').hide()
 
+      if @finalizeMeasuresView
+        @finalizeMeasuresView.appendTo(@$el)
+        @finalizeMeasuresView.display()
+
   initialize: ->
     populations = @model.get 'populations'
     population = @model.get 'displayedPopulation'
@@ -49,6 +53,9 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @logicView.listenTo @populationCalculation, 'rationale:clear', -> @clearRationale()
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
     @measures = @model.collection
+
+    if @model.get('needs_finalize')
+      @finalizeMeasuresView = new Thorax.Views.FinalizeMeasures measures: new Thorax.Collections.Measures(@model)
 
   episodesOfCare: ->
     if @model.get('episode_ids')

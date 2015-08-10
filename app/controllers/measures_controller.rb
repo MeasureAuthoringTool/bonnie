@@ -87,7 +87,7 @@ class MeasuresController < ApplicationController
       measure.generate_js(clear_db_cache: true)
       measure.save!
     end
-    redirect_to root_path
+    redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
   def debug
@@ -218,7 +218,6 @@ class MeasuresController < ApplicationController
       return false
     end
 
-    measure.needs_finalize = ((params[:calculation_type] == 'episode') || measure.populations.size > 1)
     if measure.populations.size > 1
       strat_index = 1
       measure.populations.each do |population|
@@ -236,7 +235,8 @@ class MeasuresController < ApplicationController
 
     measure_details = {
       'type' => params[:measure_type],
-      'episode_of_care' => params[:calculation_type] == 'episode'
+      'episode_of_care' => params[:calculation_type] == 'episode',
+      'needs_finalize' => ((params[:calculation_type] == 'episode') || measure.populations.size > 1)
     }
 
     if measure_details['episode_of_care']
