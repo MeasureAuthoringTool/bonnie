@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 1d0e8ce5d55370e2bb8d454fb79964fda23e6045
+  revision: 1a2a50237c49b9e4f2087a9945c41f3ac98f564a
   branch: master
   specs:
     bonnie_bundler (1.0.0)
@@ -323,3 +323,6 @@ DEPENDENCIES
   thin
   turn
   uglifier (>= 1.0.3)
+
+BUNDLED WITH
+   1.10.6
