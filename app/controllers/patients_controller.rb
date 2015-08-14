@@ -147,13 +147,13 @@ private
     start_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 1, 1)
     end_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 12, 31)
     qrda_exporter = HealthDataStandards::Export::Cat1.new
-    qrda_exporter.export(patient, measure.map(&:as_hqmf_model), start_time, end_time)
+    qrda_exporter.export(patient, measure, start_time, end_time)
   end
 
   def html_patient_export(patient, measure)
     value_sets = measure.map(&:value_sets).flatten unless measure.empty?
     html_exporter = HealthDataStandards::Export::HTML.new
-    html_exporter.export(patient, measure.map(&:as_hqmf_model), value_sets)
+    html_exporter.export(patient, measure, value_sets)
   end
 
   def measure_patients_summary(records, results, qrda_errors, html_errors, measure)

@@ -11,8 +11,8 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 6f5cd36968468d719fdeb6edc677057b8e9de574
-  branch: bonnie_master_merge_to_master
+  revision: eddd7a487bbce7d68e16e8e21606c41798ff15b9
+  branch: master
   specs:
     health-data-standards (3.6.1)
       activesupport (~> 4.1.1)
@@ -31,7 +31,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 1a2a50237c49b9e4f2087a9945c41f3ac98f564a
+  revision: d29af95467665ad3440bdd530e5793cf1506b4a8
   branch: master
   specs:
     bonnie_bundler (1.0.0)
@@ -86,7 +86,6 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    ansi (1.5.0)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.10)
     bson (3.2.1)
@@ -275,8 +274,6 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
-    turn (0.9.6)
-      ansi
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.1)
@@ -328,7 +325,6 @@ DEPENDENCIES
   systemu
   therubyracer
   thin
-  turn
   uglifier (>= 1.0.3)
 
 BUNDLED WITH

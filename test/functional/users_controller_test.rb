@@ -23,18 +23,18 @@ class UsersControllerTest  < ActionController::TestCase
     sign_in @user
     get :bundle
     assert_response :success
-    response.header['Content-Type'].must_equal 'application/zip'
-    response.header['Content-Disposition'].must_equal "attachment; filename=\"bundle_#{@user.email}_export.zip\""
-    response.header['Set-Cookie'].must_equal 'fileDownload=true; path=/'
-    response.header['Content-Transfer-Encoding'].must_equal 'binary'
+    assert_equal 'application/zip', response.header['Content-Type']
+    assert_equal "attachment; filename=\"bundle_#{@user.email}_export.zip\"", response.header['Content-Disposition']
+    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
 
     zip_path = File.join('tmp','test.zip')
     File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
     Zip::ZipFile.open(zip_path) do |zip_file|
-      zip_file.glob(File.join('patients','**','*.json')).count.must_equal 4
-      zip_file.glob(File.join('sources','**','*.json')).count.must_equal 2
-      zip_file.glob(File.join('sources','**','*.metadata')).count.must_equal 2
-      zip_file.glob(File.join('value_sets','**','*.json')).count.must_equal 27
+      assert_equal 4, zip_file.glob(File.join('patients','**','*.json')).count
+      assert_equal 2, zip_file.glob(File.join('sources','**','*.json')).count
+      assert_equal 2, zip_file.glob(File.join('sources','**','*.metadata')).count
+      assert_equal 27, zip_file.glob(File.join('value_sets','**','*.json')).count
     end
     File.delete(zip_path)
   end

@@ -20,6 +20,6 @@ class HomeControllerTest < ActionController::TestCase
     sign_in @user_unapproved
     get :index
     assert_response :redirect
-    flash[:alert].must_equal "Your account is not activated yet.  You will receive an email when your account has been activated."
+    assert_equal "Your account is not activated yet.  You will receive an email when your account has been activated.", flash[:alert]
   end
 end

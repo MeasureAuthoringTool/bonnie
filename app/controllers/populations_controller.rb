@@ -1,5 +1,7 @@
 class PopulationsController < ApplicationController
 
+  skip_before_action :verify_authenticity_token, only: :calculate_code
+
   def calculate_code
     measure = Measure.by_user(current_user).find(params[:measure_id])
     if stale? last_modified: measure.updated_at.try(:utc), etag: measure.cache_key
