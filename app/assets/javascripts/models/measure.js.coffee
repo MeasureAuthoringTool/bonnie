@@ -17,6 +17,7 @@ class Thorax.Models.Measure extends Thorax.Model
           population[code] = _(code: population[code]).extend(attrs.population_criteria[populationCriteriaKey])
       populations.add new Thorax.Models.Population(population)
     attrs.populations = populations
+    attrs.displayedPopulation = populations.first()
 
     for key, data_criteria of attrs.data_criteria
       data_criteria.key = key

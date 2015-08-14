@@ -3,7 +3,7 @@ class Thorax.Views.MeasureComplexity extends Thorax.Views.BonnieView
   template: JST['measure/complexity']
 
   initialize: ->
-    @population = @model.get('populations').at(0)
+    @population = @model.get('displayedPopulation')
 
   updatePopulation: (population) ->
     @population = population

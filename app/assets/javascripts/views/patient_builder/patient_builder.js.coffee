@@ -23,7 +23,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       collection: @model.getExpectedValues(@measure)
       measure: @measure
     @populationLogicView = new Thorax.Views.BuilderPopulationLogic
-    @populationLogicView.setPopulation @measure.get('populations').first()
+    @populationLogicView.setPopulation @measure.get('displayedPopulation')
     @populationLogicView.showRationale @model
     @expectedValuesView.on 'population:select', (population_index) =>
       @populationLogicView.setPopulation @measure.get('populations').at(population_index)
@@ -251,6 +251,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
   setPopulation: (population) ->
+    population.measure().set('displayedPopulation', population)
     @setModel(population)
     @setView new Thorax.Views.PopulationLogic(model: population)
   showRationale: (patient) ->
