@@ -11,6 +11,7 @@ class Thorax.Views.PopulationCriteriaLogic extends Thorax.Views.BonnieView
     'DENEX': 'Denominator Exclusions'
     'MSRPOPL': 'Measure Population'
     'OBSERV': 'Measure Observations'
+    'MSRPOPLEX': 'Measure Population Exclusions'
   aggregator_map:
     'MEAN':'Mean of'
     'MEDIAN':'Median of'
