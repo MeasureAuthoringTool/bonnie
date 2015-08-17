@@ -145,6 +145,7 @@ GEM
       sprockets (>= 2.0.3)
       tilt
     highline (1.7.3)
+    hike (1.2.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     i18n (0.7.0)
@@ -253,8 +254,11 @@ GEM
     slop (3.6.0)
     spreadsheet (1.0.4)
       ruby-ole (>= 1.0)
-    sprockets (3.2.0)
+    sprockets (2.12.4)
+      hike (~> 1.2)
+      multi_json (~> 1.0)
       rack (~> 1.0)
+      tilt (~> 1.1, != 1.3.0)
     sprockets-rails (2.3.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -321,6 +325,7 @@ DEPENDENCIES
   rvm1-capistrano3
   simplecov
   simplexml_parser!
+  sprockets (~> 2.8)
   sprockets-rails
   systemu
   therubyracer

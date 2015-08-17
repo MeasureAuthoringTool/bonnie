@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 gem 'rails', '>= 4.0.0'
 
+# There's an issue with capistrano-rails related to the asset pipeline, which needs older sprockets
+# https://github.com/capistrano/rails/issues/111
+gem 'sprockets', '~> 2.8'
+
 # Need to require sprockets-rails expicitly to get asset pipeline, at least untill we move to SASS
 gem 'sprockets-rails'
 # We need less-rails outside of the assets group so that assets will build in production
