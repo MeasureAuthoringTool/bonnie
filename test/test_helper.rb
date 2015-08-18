@@ -4,8 +4,6 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require './lib/ext/record'
 
-require 'turn'
-
 class ActiveSupport::TestCase
  
   def dump_database

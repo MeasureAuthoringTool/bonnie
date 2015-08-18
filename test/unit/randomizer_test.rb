@@ -14,40 +14,40 @@ class RandomizerTest < ActiveSupport::TestCase
     assert !p.last.nil?
     assert !p.gender.nil?
     assert !p.languages.nil?
-    p.languages.length.must_equal 1
+    assert_equal 1, p.languages.length
     assert !p.race.nil?
-    p.race.keys.must_include 'code'
-    p.race.keys.must_include 'code_set'
-    p.race.keys.length.must_equal 2
-    p.race.values.length.must_equal 2
+    assert_includes p.race.keys, 'code'
+    assert_includes p.race.keys, 'code_set'
+    assert_equal 2, p.race.keys.length
+    assert_equal 2, p.race.values.length
     assert !p.ethnicity.nil?
-    p.ethnicity.keys.must_include 'code'
-    p.ethnicity.keys.must_include 'code_set'
-    p.ethnicity.keys.length.must_equal 2
-    p.ethnicity.values.length.must_equal 2
+    assert_includes p.ethnicity.keys, 'code'
+    assert_includes p.ethnicity.keys, 'code_set'
+    assert_equal 2, p.ethnicity.keys.length
+    assert_equal 2, p.ethnicity.values.length
     assert !p.medical_record_number.nil?
     assert !p.addresses.nil?
-    p.addresses.length.must_equal 1
+    assert_equal 1, p.addresses.length
     assert !p.birthdate.nil?
 
     p2 = p.dup
     HQMF::Randomizer.randomize_demographics(p2)
 
-    p.first.must_equal p2.first
-    p.last.must_equal p2.last
-    p.gender.must_equal p2.gender
-    p2.languages.length.must_equal 1
-    p.race['code'].must_equal p2.race['code']
-    p.ethnicity['code'].must_equal p2.ethnicity['code']
-    # p.medical_record_number.must_equal p2.medical_record_number
-    p2.addresses.length.must_equal 1
-    p.birthdate.must_equal p2.birthdate
+    assert_equal p2.first, p.first
+    assert_equal p2.last, p.last
+    assert_equal p2.gender, p.gender
+    assert_equal 1, p2.languages.length
+    assert_equal p2.race['code'], p.race['code']
+    assert_equal p2.ethnicity['code'], p.ethnicity['code']
+    # assert_equal p2.medical_record_number, p.medical_record_number
+    assert_equal 1, p2.addresses.length
+    assert_equal p2.birthdate, p.birthdate
 
   end
 
   test "randomize gender" do
-    HQMF::Randomizer.randomize_gender(100).must_equal 'M'
-    HQMF::Randomizer.randomize_gender(900).must_equal 'F'
+    assert_equal 'M', HQMF::Randomizer.randomize_gender(100)
+    assert_equal 'F', HQMF::Randomizer.randomize_gender(900)
   end
 
   test 'randomize language' do

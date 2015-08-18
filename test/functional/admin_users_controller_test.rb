@@ -29,70 +29,70 @@ include Devise::TestHelpers
     not_authorized = assert_raises(RuntimeError) do
       get :index, {format: :json}
     end
-    not_authorized.message.must_equal "User #{@user_plain.email} requesting resource requiring admin access"
+    assert_equal "User #{@user_plain.email} requesting resource requiring admin access", not_authorized.message
   end
 
   test "get index json" do
     sign_in @user_admin
     get :index, {format: :json}
     assert_response :success
-    JSON.parse(response.body).count.must_equal 4
+    assert_equal 4, JSON.parse(response.body).count
   end
 
   test "approve user" do
     sign_in @user_admin
-    @user_unapproved.approved?.must_equal false
+    assert_equal false, @user_unapproved.approved?
     post :approve, {id: @user_unapproved.id, format: :json}
     assert_response :success
     @user_unapproved.reload
-    @user_unapproved.approved?.must_equal true
+    assert_equal true, @user_unapproved.approved?
 
     mail = ActionMailer::Base.deliveries.last
-    mail.to.first.must_equal @user_unapproved.email
-    mail.from.first.must_equal "bonnie-feedback-list@lists.mitre.org"
-    mail.subject.must_equal "Welcome to Bonnie"
+    assert_equal @user_unapproved.email, mail.to.first
+    assert_equal "bonnie-feedback-list@lists.mitre.org", mail.from.first
+    assert_equal "Welcome to Bonnie", mail.subject
   end
 
   test "disable user" do
     sign_in @user_admin
-    @user_plain.approved?.must_equal true
+    assert_equal true, @user_plain.approved?
     post :disable, {id: @user_plain.id, format: :json}
     assert_response :success
     @user_plain.reload
-    @user_plain.approved?.must_equal false
+    assert_equal false, @user_plain.approved?
   end
 
   test "delete user" do
     sign_in @user_admin
-    User.all.count.must_equal 4
-    User.where({id: @user_plain.id}).count.must_equal 1
+    assert_equal 4, User.all.count
+    assert_equal 1, User.where({id: @user_plain.id}).count
     delete :destroy, {id: @user_plain.id, format: :json}
     assert_response :success
-    User.all.count.must_equal 3
-    User.where({id: @user_plain.id}).count.must_equal 0
+    assert_equal 3, User.all.count
+    assert_equal 0, User.where({id: @user_plain.id}).count
   end
 
   test "update user" do
     sign_in @user_admin
 
-    @user_plain.email.must_equal "user_plain@example.com"
-    @user_plain.is_admin?.must_equal false
-    @user_plain.is_portfolio?.must_equal false
+    assert_equal "user_plain@example.com", @user_plain.email
+    assert_equal false, @user_plain.is_admin?
+    assert_equal false, @user_plain.is_portfolio?
     put :update, {id: @user_plain.id, email: 'plain2@example.com', admin: true, portfolio: false, format: :json}
     assert_response :success
 
     @user_plain.reload
-    @user_plain.email.must_equal "plain2@example.com"
-    @user_plain.is_admin?.must_equal true
-    @user_plain.is_portfolio?.must_equal false
+    assert_equal "plain2@example.com", @user_plain.email
+    assert_equal true, @user_plain.is_admin?
+    assert_equal false, @user_plain.is_portfolio?
 
     put :update, {id: @user_plain.id, email: 'plain2@example.com', admin: false, portfolio: true, format: :json}
     assert_response :success
 
     @user_plain.reload
-    @user_plain.email.must_equal "plain2@example.com"
-    @user_plain.is_admin?.must_equal false
-    @user_plain.is_portfolio?.must_equal true
+    assert_equal "plain2@example.com", @user_plain.email
+    assert_equal false, @user_plain.is_admin?
+    assert_equal true, @user_plain.is_portfolio?
 
   end
 
@@ -100,32 +100,32 @@ include Devise::TestHelpers
     sign_in @user_admin
     get :patients, {id: @user.id}
     assert_response :success
-    JSON.parse(response.body).length.must_equal 4
+    assert_equal 4, JSON.parse(response.body).length
   end
 
   test "measures download" do
     sign_in @user_admin
     get :measures, {id: @user.id}
     assert_response :success
-    JSON.parse(response.body).length.must_equal 2
+    assert_equal 2, JSON.parse(response.body).length
   end
 
   test "bundle download" do
     sign_in @user_admin
     get :bundle, {id: @user.id}
     assert_response :success
-    response.header['Content-Type'].must_equal 'application/zip'
-    response.header['Content-Disposition'].must_equal "attachment; filename=\"bundle_#{@user.email}_export.zip\""
-    response.header['Set-Cookie'].must_equal 'fileDownload=true; path=/'
-    response.header['Content-Transfer-Encoding'].must_equal 'binary'
+    assert_equal 'application/zip', response.header['Content-Type']
+    assert_equal "attachment; filename=\"bundle_#{@user.email}_export.zip\"", response.header['Content-Disposition']
+    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
 
     zip_path = File.join('tmp','test.zip')
     File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
     Zip::ZipFile.open(zip_path) do |zip_file|
-      zip_file.glob(File.join('patients','**','*.json')).count.must_equal 4
-      zip_file.glob(File.join('sources','**','*.json')).count.must_equal 2
-      zip_file.glob(File.join('sources','**','*.metadata')).count.must_equal 2
-      zip_file.glob(File.join('value_sets','**','*.json')).count.must_equal 27
+      assert_equal 4, zip_file.glob(File.join('patients','**','*.json')).count
+      assert_equal 2, zip_file.glob(File.join('sources','**','*.json')).count
+      assert_equal 2, zip_file.glob(File.join('sources','**','*.metadata')).count
+      assert_equal 27, zip_file.glob(File.join('value_sets','**','*.json')).count
     end
     File.delete(zip_path)
   end

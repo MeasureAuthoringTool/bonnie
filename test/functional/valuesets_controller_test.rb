@@ -48,14 +48,14 @@ class ValuesetsControllerTest  < ActionController::TestCase
       end
     end
 
-    (vs_to_change.concepts.select {|c| c.code == 'bar_4'}).first.white_list.must_equal true
-    (vs_to_change.concepts.select {|c| c.code == 'bar_4'}).first.black_list.must_equal false
+    assert_equal true, (vs_to_change.concepts.select {|c| c.code == 'bar_4'}).first.white_list
+    assert_equal false, (vs_to_change.concepts.select {|c| c.code == 'bar_4'}).first.black_list
 
-    (vs_to_change.concepts.select {|c| c.code == 'bar_8'}).first.white_list.must_equal false
-    (vs_to_change.concepts.select {|c| c.code == 'bar_8'}).first.black_list.must_equal true
+    assert_equal false, (vs_to_change.concepts.select {|c| c.code == 'bar_8'}).first.white_list
+    assert_equal true, (vs_to_change.concepts.select {|c| c.code == 'bar_8'}).first.black_list
 
-    (vs_to_change.concepts.select {|c| c.code == 'bar_9'}).first.white_list.must_equal false
-    (vs_to_change.concepts.select {|c| c.code == 'bar_9'}).first.black_list.must_equal true
+    assert_equal false, (vs_to_change.concepts.select {|c| c.code == 'bar_9'}).first.white_list
+    assert_equal true, (vs_to_change.concepts.select {|c| c.code == 'bar_9'}).first.black_list
 
   end
 

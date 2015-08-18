@@ -14,45 +14,45 @@ class GeneratorTest < ActiveSupport::TestCase
     assert !p.last.nil?
     assert !p.gender.nil?
     assert !p.languages.nil?
-    p.languages.length.must_equal 1
+    assert_equal 1, p.languages.length
     assert !p.race.nil?
-    p.race.keys.must_include 'code'
-    p.race.keys.must_include 'code_set'
-    p.race.keys.length.must_equal 2
-    p.race.values.length.must_equal 2
+    assert_includes p.race.keys, 'code'
+    assert_includes p.race.keys, 'code_set'
+    assert_equal 2, p.race.keys.length
+    assert_equal 2, p.race.values.length
     assert !p.ethnicity.nil?
-    p.ethnicity.keys.must_include 'code'
-    p.ethnicity.keys.must_include 'code_set'
-    p.ethnicity.keys.length.must_equal 2
-    p.ethnicity.values.length.must_equal 2
+    assert_includes p.ethnicity.keys, 'code'
+    assert_includes p.ethnicity.keys, 'code_set'
+    assert_equal 2, p.ethnicity.keys.length
+    assert_equal 2, p.ethnicity.values.length
     assert !p.medical_record_number.nil?
     assert !p.addresses.nil?
-    p.addresses.length.must_equal 1
+    assert_equal 1, p.addresses.length
     assert !p.birthdate.nil?
 
     p = HQMF::Generator.create_base_patient({first: 'John', last: 'Smith'})
 
-    p.first.must_equal 'John'
-    p.last.must_equal 'Smith'
+    assert_equal 'John', p.first
+    assert_equal 'Smith', p.last
     assert !p.gender.nil?
     assert !p.birthdate.nil?
 
   end
 
   test "validate classify entry" do
-    HQMF::Generator.classify_entry(:allProcedures).must_equal "procedures"
-    HQMF::Generator.classify_entry(:proceduresPerformed).must_equal "procedures"
-    HQMF::Generator.classify_entry(:procedureResults).must_equal "procedures"
-    HQMF::Generator.classify_entry(:laboratoryTests).must_equal "vital_signs"
-    HQMF::Generator.classify_entry(:allMedications).must_equal "medications"
-    HQMF::Generator.classify_entry(:activeDiagnoses).must_equal "conditions"
-    HQMF::Generator.classify_entry(:inactiveDiagnoses).must_equal "conditions"
-    HQMF::Generator.classify_entry(:resolvedDiagnoses).must_equal "conditions"
-    HQMF::Generator.classify_entry(:allProblems).must_equal "conditions"
-    HQMF::Generator.classify_entry(:allDevices).must_equal "medical_equipment"
+    assert_equal "procedures", HQMF::Generator.classify_entry(:allProcedures)
+    assert_equal "procedures", HQMF::Generator.classify_entry(:proceduresPerformed)
+    assert_equal "procedures", HQMF::Generator.classify_entry(:procedureResults)
+    assert_equal "vital_signs", HQMF::Generator.classify_entry(:laboratoryTests)
+    assert_equal "medications", HQMF::Generator.classify_entry(:allMedications)
+    assert_equal "conditions", HQMF::Generator.classify_entry(:activeDiagnoses)
+    assert_equal "conditions", HQMF::Generator.classify_entry(:inactiveDiagnoses)
+    assert_equal "conditions", HQMF::Generator.classify_entry(:resolvedDiagnoses)
+    assert_equal "conditions", HQMF::Generator.classify_entry(:allProblems)
+    assert_equal "medical_equipment", HQMF::Generator.classify_entry(:allDevices)
 
-    HQMF::Generator.classify_entry(:conditions).must_equal "conditions"
-    HQMF::Generator.classify_entry(:encounters).must_equal "encounters"
+    assert_equal "conditions", HQMF::Generator.classify_entry(:conditions)
+    assert_equal "encounters", HQMF::Generator.classify_entry(:encounters)
   end
 
 

@@ -124,12 +124,12 @@ include Devise::TestHelpers
     collection_fixtures("records")
     associate_user_with_patients(@user,Record.all)
     patient = Record.first
-    @user.records.count.must_equal 4
+    assert_equal 4, @user.records.count
     delete :destroy, {id: patient.id}
     assert_response :success
-    @user.records.count.must_equal 3
+    assert_equal 3, @user.records.count
     patient = Record.where({id: patient.id}).first
-    patient.must_be_nil
+    assert_nil patient
 
   end
 
@@ -139,21 +139,21 @@ include Devise::TestHelpers
     associate_measures_with_patients([@measure, @measure_two],Record.all)
     get :export, hqmf_set_id: @measure.hqmf_set_id
     assert_response :success
-    response.header['Content-Type'].must_equal 'application/zip'
-    response.header['Content-Disposition'].must_equal "attachment; filename=\"#{@measure.cms_id}_patient_export.zip\""
-    response.header['Set-Cookie'].must_equal 'fileDownload=true; path=/'
-    response.header['Content-Transfer-Encoding'].must_equal 'binary'
+    assert_equal 'application/zip', response.header['Content-Type']
+    assert_equal "attachment; filename=\"#{@measure.cms_id}_patient_export.zip\"", response.header['Content-Disposition']
+    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
 
     zip_path = File.join('tmp','test.zip')
     File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
     Zip::ZipFile.open(zip_path) do |zip_file|
-      zip_file.glob(File.join('qrda','**.xml')).length.must_equal 4
+      assert_equal 4, zip_file.glob(File.join('qrda','**.xml')).length
       html_files = zip_file.glob(File.join('html', '**.html'))
-      html_files.length.must_equal 4
+      assert_equal 4, html_files.length
       html_files.each do |html_file| # search each HTML file to ensure alternate measure data is not included
         doc = Nokogiri::HTML(html_file.get_input_stream.read)
         xpath = "//b[contains(text(), 'SNOMED-CT:')]/i/span[@onmouseover and contains(text(), '417005')]"
-        doc.xpath(xpath).length.must_equal 0
+        assert_equal 0, doc.xpath(xpath).length
       end
     end
     File.delete(zip_path)
@@ -167,17 +167,17 @@ include Devise::TestHelpers
     @user.grant_portfolio()
     get :export, hqmf_set_id: @measure.hqmf_set_id
     assert_response :success
-    response.header['Content-Type'].must_equal 'application/zip'
-    response.header['Content-Disposition'].must_equal "attachment; filename=\"#{@measure.cms_id}_patient_export.zip\""
-    response.header['Set-Cookie'].must_equal 'fileDownload=true; path=/'
-    response.header['Content-Transfer-Encoding'].must_equal 'binary'
+    assert_equal 'application/zip', response.header['Content-Type']
+    assert_equal "attachment; filename=\"#{@measure.cms_id}_patient_export.zip\"", response.header['Content-Disposition']
+    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
 
     zip_path = File.join('tmp','test.zip')
     File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
     Zip::ZipFile.open(zip_path) do |zip_file|
-      zip_file.glob(File.join('qrda','**.xml')).length.must_equal 4
+      assert_equal 4, zip_file.glob(File.join('qrda','**.xml')).length
       html_files = zip_file.glob(File.join('html', '**.html'))
-      html_files.length.must_equal 4
+      assert_equal 4, html_files.length
       html_files.each do |html_file| # search each HTML file to ensure alternate measure data is not included
         doc = Nokogiri::HTML(html_file.get_input_stream.read)
         xpath = "//b[contains(text(), 'SNOMED-CT:')]/i/span[@onmouseover and contains(text(), '417005')]"

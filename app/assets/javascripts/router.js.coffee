@@ -1,4 +1,4 @@
-class BonnieRouter extends Backbone.Router
+@BonnieRouter = class BonnieRouter extends Backbone.Router
 
   initialize: ->
     @maxErrorCount = 3

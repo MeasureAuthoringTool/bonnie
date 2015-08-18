@@ -18,23 +18,23 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "grant and revoke admin" do
-    @user.is_admin?.must_equal false
+    assert_equal false, @user.is_admin?
     @user.grant_admin
     @user.reload
-    @user.is_admin?.must_equal true
+    assert_equal true, @user.is_admin?
     @user.revoke_admin
     @user.reload
-    @user.is_admin?.must_equal false
+    assert_equal false, @user.is_admin?
   end
 
   test "grant and revoke portfolio" do
-    @user.is_portfolio?.must_equal false
+    assert_equal false, @user.is_portfolio?
     @user.grant_portfolio
     @user.reload
-    @user.is_portfolio?.must_equal true
+    assert_equal true, @user.is_portfolio?
     @user.revoke_portfolio
     @user.reload
-    @user.is_portfolio?.must_equal false
+    assert_equal false, @user.is_portfolio?
   end
 
   test "test bad password fails" do
@@ -43,14 +43,14 @@ class UserTest < ActiveSupport::TestCase
       u = User.new(email: "test@test.com", first: "first" , last: 'last',password: 'Test1234!')
       u.save!
     end
-    (bad_user.message.match /Email is already taken/).nil?.must_equal false
+    assert_equal false, (bad_user.message.match /Email is already taken/).nil?
 
     bad_user = assert_raises(Mongoid::Errors::Validations) do
       u = User.new(email: "test2@test.com", first: "first" , last: 'last',password: 'test')
       u.save!
     end
-    (bad_user.message.match /Password is too short/).nil?.must_equal false
-    (bad_user.message.match /assword must include characters from at least two groups/).nil?.must_equal false
+    assert_equal false, (bad_user.message.match /Password is too short/).nil?
+    assert_equal false, (bad_user.message.match /assword must include characters from at least two groups/).nil?
 
   end
 

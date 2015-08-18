@@ -25,13 +25,13 @@ class RegistrationsControllerTest < ActionController::TestCase
 
   test "yield resource to block on update success" do
     sign_in @user
-    @user.crosswalk_enabled.must_equal false
+    assert_equal false, @user.crosswalk_enabled
     Measure.by_user(@user).each do |measure|
       assert !measure.map_fns.compact.empty?
     end
     put :update, { user: { current_password: 'Test1234!', crosswalk_enabled: true } }
     @user.reload
-    @user.crosswalk_enabled.must_equal true
+    assert_equal true, @user.crosswalk_enabled
     Measure.by_user(@user).each do |measure|
       assert measure.map_fns.compact.empty?
     end

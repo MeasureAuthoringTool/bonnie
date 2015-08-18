@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 gem 'rails', '>= 4.0.0'
 
+# There's an issue with capistrano-rails related to the asset pipeline, which needs older sprockets
+# https://github.com/capistrano/rails/issues/111
+gem 'sprockets', '~> 2.8'
+
 # Need to require sprockets-rails expicitly to get asset pipeline, at least untill we move to SASS
 gem 'sprockets-rails'
 # We need less-rails outside of the assets group so that assets will build in production
@@ -9,7 +13,7 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'bonnie_master'
+gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
 gem 'hqmf2js', :git => 'https://github.com/projecttacoma/hqmf2js.git', :branch => 'master'
 gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'master'
@@ -33,7 +37,7 @@ gem 'protected_attributes'
 gem 'devise'
 gem 'systemu'
 gem 'diffy'
-
+gem 'multi_json'
 
 # needed for parsing value sets (we need to use roo rather than rubyxl because the value sets are in xls rather than xlsx)
 gem 'roo'
@@ -44,9 +48,8 @@ group :test, :development, :ci do
   gem 'pry'
   gem 'jasmine'
   gem 'jasmine-jquery-rails'
-  gem 'turn', :require => false
   gem 'simplecov', :require => false
-  gem 'minitest', '~> 4.0'
+  gem 'minitest'
 end
 
 group :test, :development do
@@ -73,5 +76,5 @@ end
 
 gem 'foreman'
 
-gem 'handlebars_assets'
+gem 'handlebars_assets', '0.16'
 gem 'jquery-rails'

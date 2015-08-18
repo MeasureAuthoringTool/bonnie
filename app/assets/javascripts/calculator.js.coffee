@@ -1,4 +1,4 @@
-class Calculator
+@Calculator = class Calculator
 
   constructor: ->
     @calculator = {}
