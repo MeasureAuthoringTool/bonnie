@@ -88,6 +88,7 @@ Bonnie.viz.measureVisualzation = ->
       'DENEX': 'Denominator Exclusions'
       'MSRPOPL': 'Measure Population'
       'OBSERV': 'Measure Observations'
+      'MSRPOPLEX': 'Measure Population Exclusions'
 
     aggregator_map =
       'MEAN': 'Mean of'

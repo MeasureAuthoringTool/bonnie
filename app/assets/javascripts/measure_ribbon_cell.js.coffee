@@ -5,7 +5,7 @@ bonnie.viz.MeasureRibbonCell = ->
   height = 50
   barHeight = height / 5
   # Display order for Continuous Variable
-  cvOrder = ['OBSERV', 'MSRPOPL', 'IPP']
+  cvOrder = ['OBSERV', 'MSRPOPL', 'MSRPOPLEX', 'IPP']
   # Display order for Episode of Care
   ecOrder = ['NUMER', 'DENOM', 'IPP', 'DENEXCEP', 'DENEX']
   my = (selection) ->
