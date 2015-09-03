@@ -109,8 +109,8 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
     @bankFilterView.appliedFilters.all (filter) -> filter.apply(patient)
 
   differenceContext: (difference) ->
-    origins = @model.get('patients').models.map (p) -> p.get('origin_data')
-    origin_ids = _.compact(origins).map (o) -> o[0].patient_id
+    origins = @model.get('patients').map (p) -> p.get('origin_data')
+    origin_ids = _.compact(_.flatten(origins)).map (o) -> o.patient_id
     patient = difference.result.patient
     _(difference.toJSON()).extend
       patient: patient.toJSON()
