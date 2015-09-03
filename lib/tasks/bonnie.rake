@@ -264,7 +264,7 @@ namespace :bonnie do
     desc 'Re-save all measures, ensuring that all post processing steps (like calculating complexity) are performed again'
     task :resave_measures => :environment do
       Measure.each do |m|
-        puts "Re-saving \"#{m.title}\" [#{m.user.email}]"
+        puts "Re-saving \"#{m.title}\" [#{ m.user ? m.user.email : 'deleted user' }]"
         begin
           m.save
         rescue => e
@@ -344,7 +344,7 @@ namespace :bonnie do
       measures = user ? Measure.by_user(user) : Measure.all
       puts "Pre-generating measure JavaScript for #{ user ? user.email : 'all users'}"
       measures.each do |measure|
-        puts "\tGenerating JavaScript [ #{measure.user.email} ] '#{measure.title}'"
+        puts "\tGenerating JavaScript [ #{ measure.user ? measure.user.email : 'deleted user' } ] '#{measure.title}'"
         measure.generate_js
       end
     end
@@ -355,7 +355,7 @@ namespace :bonnie do
       measures = user ? Measure.by_user(user) : Measure.all
       puts "Clearing measure JavaScript for #{ user ? user.email : 'all users'}"
       measures.each do |measure|
-        puts "\tClearing JavaScript [ #{measure.user.email} ] '#{measure.title}'"
+        puts "\tClearing JavaScript [ #{ measure.user ? measure.user.email : 'deleted user' } ] '#{measure.title}'"
         measure.clear_cached_js
       end
     end
