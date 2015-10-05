@@ -64,6 +64,7 @@ module Measures
             end
           end
 
+
           if section_name == "medications"
             fulfillments = []
             if !source_criteria[:dose_value].blank? && !source_criteria[:dose_unit].blank?
@@ -78,6 +79,11 @@ module Measures
               end
             end
             entry[:fulfillmentHistory] = fulfillments
+          end
+
+          #Add source and destination fields to Communications class. 
+          if section_name == "communications"
+            entry[:direction] = source_criteria["definition"] # "communication_from_provider_to_patient"
           end
 
           # Add the updated section to this patient.
