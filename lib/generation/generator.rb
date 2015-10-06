@@ -49,6 +49,8 @@ module HQMF
         "medical_equipment"
       when :careGoals
         "care_goals"
+      when :communications
+        "communications"
       else
         type.to_s
       end
