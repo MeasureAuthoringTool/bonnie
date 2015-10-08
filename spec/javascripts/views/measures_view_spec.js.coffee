@@ -6,6 +6,9 @@ describe 'MeasuresView', ->
     @measuresView = new Thorax.Views.Measures(collection: @measures)
     @measuresView.render()
 
+  afterEach ->
+    @measuresView.remove()
+
   it 'renders dashboard', ->
     expect(@measuresView.$('.measure').length).toBe @measures.length
     expect(@measuresView.$el).toContainText @measure.get('cms_id')

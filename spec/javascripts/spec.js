@@ -2,6 +2,6 @@
 //= require_tree ./vendor
 //= require_tree ./helpers
 //= require_tree ./setup
+//= require_tree ./integration
 //= require_tree ./models
 //= require_tree ./views
-//= require_tree ./integration
