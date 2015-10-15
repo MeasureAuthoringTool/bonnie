@@ -10,10 +10,9 @@ class Thorax.Views.Dashboard extends Thorax.Views.BonnieView
 
     # FIXME: We can add some caching; probably best at the collection level
 
-
     # If measure sets have been selected, we display the visualization
-    if measureSet1? && measureSet2?
-      pairs = new Thorax.Collections.MeasurePairs([], measureSet1: measureSet1, measureSet2: measureSet2)
+    if @measureSet1? && @measureSet2?
+      pairs = new Thorax.Collections.MeasurePairs([], measureSet1: @measureSet1, measureSet2: @measureSet2)
       pairs.fetch()
       @vizView = new Thorax.Views.ComplexityViz(collection: pairs)
 
