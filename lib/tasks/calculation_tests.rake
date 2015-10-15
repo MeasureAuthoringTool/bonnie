@@ -85,15 +85,25 @@ namespace :bonnie do
     desc 'Calculate every patient in the database and display any errors (does not test for correct results)'
     task :calculate_all => :environment do
       STDOUT.sync = true
+      in_error = 0
+      good = 0
       calculate_all do |measure, population_index, patient, result, error|
         if error
+          in_error += 1
+          value_sets = measure.value_sets
+          if (value_sets.length != measure.bonnie_hashes.length)
+            puts "\n\nversion_oid: #{measure.bonnie_hashes.length} ||| set length #{value_sets.length}"
+            puts "#{measure.value_set_oids}"
+            puts "#{measure.bonnie_hashes}"
+          end
           puts "\n\n  Error with user #{measure.user.email} measure #{measure.cms_id} patient '#{patient.first} #{patient.last}':"
           puts "  #{error}\n\n"
         else
+          good += 1
           print '.'
         end
       end
-      puts
+      puts "#{in_error} in error vs #{good} working"
     end
 
   end

@@ -10,13 +10,15 @@ class PopulationsControllerTest  < ActionController::TestCase
     
     associate_user_with_measures(@user,Measure.all)
 
-    @user.measures.first.value_set_oids.uniq.each_with_index do |oid|
-      vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
-      (0..10).each do |index|
-        vs.concepts << HealthDataStandards::SVS::Concept.new(code_set: 'foo', code:"bar_#{index}")
+    @user.measures.each do |measure|
+      measure.value_set_oids.uniq.each_with_index do |oid|
+        vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
+        (0..10).each do |index|
+          vs.concepts << HealthDataStandards::SVS::Concept.new(code_set: 'foo', code:"bar_#{index}")
+        end
+        vs.save!
+        measure.bonnie_hashes.push(vs.bonnie_version_hash)
       end
-      vs.user = @user
-      vs.save!
     end
     sign_in @user
   end

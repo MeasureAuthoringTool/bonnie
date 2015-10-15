@@ -19,18 +19,19 @@ class MeasuresController < ApplicationController
     # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
     # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
     if true
-      value_set_oids = Measure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
+      bonnie_hashes = Measure.by_user(current_user).only(:bonnie_hashes).pluck(:bonnie_hashes).flatten.uniq
 
       # Not the cleanest code, but we get a many second performance improvement by going directly to Moped
       # (The two commented lines are functionally equivalent to the following three uncommented lines, if slower)
       # value_sets_by_oid = HealthDataStandards::SVS::ValueSet.in(oid: value_set_oids).index_by(&:oid)
       # @value_sets_by_oid_json = MultiJson.encode(value_sets_by_oid.as_json(except: [:_id, :code_system, :code_system_version]))
-      value_sets = Mongoid::Sessions.default[HealthDataStandards::SVS::ValueSet.collection_name].find(oid: { '$in' => value_set_oids }, user_id: current_user.id)
-      value_sets = value_sets.select('concepts.code_system' => 0, 'concepts.code_system_version' => 0)
-      @value_sets_by_oid_json = MultiJson.encode value_sets.index_by { |vs| vs['oid'] }
+      value_sets = Mongoid::Sessions.default[HealthDataStandards::SVS::ValueSet.collection_name].find(bonnie_version_hash: { '$in' => bonnie_hashes })
 
-      respond_with @value_sets_by_oid_json do |format|
-        format.json { render json: @value_sets_by_oid_json }
+      value_sets = value_sets.select('concepts.code_system' => 0, 'concepts.code_system_version' => 0)
+      @value_sets_by_bonnie_version_hash_json = MultiJson.encode value_sets.index_by { |vs| vs['bonnie_version_hash'] }
+
+      respond_with @value_sets_by_bonnie_version_hash_json do |format|
+        format.json { render json: @value_sets_by_bonnie_version_hash_json }
       end
     end
   end
@@ -68,7 +69,7 @@ class MeasuresController < ApplicationController
           measure_details['episode_ids'] = existing.episode_ids
         end
       end
- 
+
       measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
     end
 
@@ -116,7 +117,7 @@ class MeasuresController < ApplicationController
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
-      
+
 
       existing.delete if (existing && is_update)
     rescue Exception => e
@@ -168,7 +169,7 @@ class MeasuresController < ApplicationController
         keys = measure.data_criteria.values.map {|d| d['source_data_criteria'] if d['specific_occurrence']}.compact.uniq
         measure.needs_finalize = (measure.episode_ids & keys).length != measure.episode_ids.length
         if measure.needs_finalize
-          measure.episode_ids = [] 
+          measure.episode_ids = []
           params[:redirect_route] = ''
         end
       end
@@ -176,7 +177,7 @@ class MeasuresController < ApplicationController
       measure.needs_finalize = (measure_details['episode_of_care'] || measure.populations.size > 1)
       if measure.populations.size > 1
         strat_index = 1
-        measure.populations.each do |population| 
+        measure.populations.each do |population|
           if (population[HQMF::PopulationCriteria::STRAT])
             population['title'] = "Stratification #{strat_index}"
             strat_index += 1
@@ -195,7 +196,7 @@ class MeasuresController < ApplicationController
 
     # rebuild the users patients if set to do so
     if params[:rebuild_patients] == "true"
-      Record.by_user(current_user).each do |r| 
+      Record.by_user(current_user).each do |r|
         Measures::PatientBuilder.rebuild_patient(r)
         r.save!
       end
