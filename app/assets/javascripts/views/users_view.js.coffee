@@ -21,6 +21,12 @@ class Thorax.Views.Users extends Thorax.Views.BonnieView
       @emailAllUsersView.appendTo(@$el)
     @emailAllUsersView.display()
 
+  emailActiveUsers: ->
+    if !@emailActiveUsersView
+      @emailActiveUsersView = new Thorax.Views.EmailActiveUsers()
+      @emailActiveUsersView.appendTo(@$el)
+    @emailActiveUsersView.display()
+    
 class Thorax.Views.User extends Thorax.Views.BonnieView
   template: JST['users/user']
   editTemplate: JST['users/edit_user']
@@ -64,12 +70,8 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
 
   delete: -> @model.destroy()
 
-class Thorax.Views.EmailAllUsers extends Thorax.Views.BonnieView
-  template: JST['users/email_all']
-
-  context: ->
-    _(super).extend
-      token: $("meta[name='csrf-token']").attr('content')
+class Thorax.Views.EmailUsers extends Thorax.Views.BonnieView
+  template: JST['users/email_users']
 
   events:
     'ready': 'setup'
@@ -77,14 +79,14 @@ class Thorax.Views.EmailAllUsers extends Thorax.Views.BonnieView
     'keypress textarea': 'enableSend'
 
   setup: ->
-    @emailAllUsersDialog = @$("#emailAllUsersDialog")
-    @subjectField = @$("#emailAllSubject")
-    @bodyArea = @$("#emailAllBody")
+    @emailUsersDialog = @$("#emailUsersDialog")
+    @subjectField = @$("#emailSubject")
+    @bodyArea = @$("#emailBody")
     @sendButton = @$("#sendButton")
     @enableSend();
 
   display: ->
-    @emailAllUsersDialog.modal(
+    @emailUsersDialog.modal(
       "backdrop" : "static",
       "keyboard" : true,
       "show" : true).find('.modal-dialog').css('width','650px')
@@ -105,5 +107,19 @@ class Thorax.Views.EmailAllUsers extends Thorax.Views.BonnieView
         # Kill the subject and body areas if we've successfully sent our message
         me.subjectField.val('')
         me.bodyArea.val('')
-      'complete': @emailAllUsersDialog.modal('hide')
+      'complete': @emailUsersDialog.modal('hide')
     })
+
+class Thorax.Views.EmailAllUsers extends Thorax.Views.EmailUsers
+  context: ->
+    _(super).extend
+      token: $("meta[name='csrf-token']").attr('content')
+      email_type_label: "All"
+      email_action: "admin/users/email_all"
+      
+class Thorax.Views.EmailActiveUsers extends Thorax.Views.EmailUsers
+  context: ->
+    _(super).extend
+      token: $("meta[name='csrf-token']").attr('content')
+      email_type_label: "Active"
+      email_action: "admin/users/email_active"

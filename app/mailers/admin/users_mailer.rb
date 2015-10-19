@@ -1,6 +1,6 @@
-class Admin::AllUsersMailer < ActionMailer::Base
+class Admin::UsersMailer < ActionMailer::Base
 
-  def all_users_email(user, subject, body)
+  def users_email(user, subject, body)
     @subject = subject
     @body = body
     mail to: user.email,
