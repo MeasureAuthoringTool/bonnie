@@ -17,13 +17,7 @@ class MeasuresController < ApplicationController
 
   def value_sets
    if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
-      user_measures = Measure.by_user(current_user).uniq.flatten
-      version_enriched_oids = Array.new
-      user_measures.each do |measure|
-        if(!measure.nil?)
-          measure.get_versioned_oid_search_array(version_enriched_oids)
-        end
-      end
+      version_enriched_oids = Measure.by_user(current_user).only(:oid_to_version).pluck(:oid_to_version).uniq.flatten
 
       # Not the cleanest code, but we get a many second performance improvement by going directly to Moped
       # (The two commented lines are functionally equivalent to the following three uncommented lines, if slower)
@@ -31,7 +25,7 @@ class MeasuresController < ApplicationController
       # @value_sets_by_oid_json = MultiJson.encode(value_sets_by_oid.as_json(except: [:_id, :code_system, :code_system_version]))
       value_sets = Mongoid::Sessions.default[HealthDataStandards::SVS::ValueSet.collection_name].find(versioned_oid: { '$in' => version_enriched_oids })
       value_sets = value_sets.select('concepts.code_system' => 0, 'concepts.code_system_version' => 0)
-      @value_sets_by_oid_json = MultiJson.encode value_sets.index_by { |vs| vs['oid'] }
+      @value_sets_by_oid_json = MultiJson.encode value_sets.index_by { |vs| vs['versioned_oid'] }
 
       respond_with @value_sets_by_oid_json do |format|
         format.json { render json: @value_sets_by_oid_json }

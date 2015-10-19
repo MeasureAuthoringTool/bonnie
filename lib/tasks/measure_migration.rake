@@ -21,12 +21,10 @@ namespace :bonnie do
       end
 
       Measure.each do |m|
-        m.oid_to_version = Hash.new
+        m.oid_to_version = []
         m.value_set_oids.each do |oid|
-          sanatized_oid = oid.gsub(".", "_")
-          m.oid_to_version[oid] = user_oid_to_version[[oid, m.user]]
+          m.oid_to_version.push(oid + ":::" + user_oid_to_version[[oid, m.user]])
         end
-        m.sanitize_oid_to_version
         m.save!
       end
     end
