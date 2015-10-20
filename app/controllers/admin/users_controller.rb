@@ -18,7 +18,7 @@ class Admin::UsersController < ApplicationController
       u.measure_count = measure_counts[u.id] || 0
       u.patient_count = patient_counts[u.id] || 0
     end
-    users_json = MultiJson.encode(users.as_json(methods: [:measure_count, :patient_count]))
+    users_json = MultiJson.encode(users.as_json(methods: [:measure_count, :patient_count, :last_sign_in_at]))
     respond_with users do |format|
       format.json { render json: users_json }
     end

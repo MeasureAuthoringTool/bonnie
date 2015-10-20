@@ -43,21 +43,6 @@ Bonnie::Application.routes.draw do
     resources :users do
       collection do
         post 'email_active'
-      end
-      member do
-        post 'approve'
-        post 'disable'
-        get 'patients'
-        get 'measures'
-        get 'bundle'
-        post 'log_in_as'
-      end
-    end
-  end
-    
-  namespace :admin do
-    resources :users do
-      collection do
         post 'email_all'
       end
       member do

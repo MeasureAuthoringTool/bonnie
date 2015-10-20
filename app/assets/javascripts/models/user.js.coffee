@@ -25,6 +25,8 @@ class Thorax.Collections.Users extends Thorax.Collection
       totalMeasures: @reduce(((sum, user) -> sum + user.get('measure_count')), 0)
       totalPatients: @reduce(((sum, user) -> sum + user.get('patient_count')), 0)
       activeUsers: activeUsers
+      activeRecentUsers: activeUsers.filter((user) -> 
+        moment().subtract(6, 'months') < moment(user.get('last_sign_in_at')))
       activeMeasuresCount: activeUsers.reduce(((sum, user) -> sum + user.get('measure_count')), 0)
       activeMeasuresMax: _.max(activeUsers.pluck('measure_count'))
       activePatientsCount: activeUsers.reduce(((sum, user) -> sum + user.get('patient_count')), 0)
