@@ -17,8 +17,21 @@ class ActiveSupport::TestCase
       Mongoid.default_session[collection].drop
       Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
         fixture_json = JSON.parse(File.read(json_fixture_file))
+        convert_times(fixture_json)
         set_mongoid_ids(fixture_json)
         Mongoid.default_session[collection].insert(fixture_json)
+      end
+    end
+  end
+  
+  # JSON.parse doesn't catch time fields, so this converts fields ending in _at
+  # to a Time object.
+  def convert_times(json)
+    if json.kind_of?(Hash)
+      json.each_pair do |k,v|
+        if k.ends_with?("_at")
+          json[k] = Time.parse(v)
+        end
       end
     end
   end
@@ -67,4 +80,3 @@ class ActiveSupport::TestCase
   end
   
 end
-
