@@ -155,10 +155,11 @@ module Measures
       entry.start_time = time.low.to_seconds if time.low
       entry.end_time = time.high.to_seconds if time.high
       entry.status = source_criteria['status']
-      if (source_criteria['code_source'] == Measures::PatientBuilder::CODE_SOURCE[:USER_DEFINED])
-        entry.codes = source_criteria['codes']
-      else
+      # If there are no source criteria codes or a white list is used, select new codes, otherwise use existing codes
+      if source_criteria['codes'].blank? || source_criteria['code_source'] == Measures::PatientBuilder::CODE_SOURCE[:WHITE_LIST]
         entry.codes = Measures::PatientBuilder.select_codes(source_criteria['code_list_id'], value_sets)
+      else
+        entry.codes = source_criteria['codes']
       end
       entry.oid = HQMF::DataCriteria.template_id_for_definition(source_criteria['definition'], source_criteria['status'], source_criteria['negation'])
       entry
