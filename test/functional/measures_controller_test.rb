@@ -2,7 +2,7 @@ require 'test_helper'
 
 class MeasuresControllerTest  < ActionController::TestCase
 include Devise::TestHelpers
-      
+
   setup do
     @error_dir = File.join('log','load_errors')
     FileUtils.rm_r @error_dir if File.directory?(@error_dir)
@@ -73,15 +73,11 @@ include Devise::TestHelpers
     class << measure_file
       attr_reader :tempfile
     end
-
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :redirect
     measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
-
     assert_equal "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure.hqmf_set_id
     assert_equal 29, measure.value_sets.count
-    assert_equal @user.id, measure.user_id
-    measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
     assert_equal true, measure.needs_finalize
     assert_equal true, measure.episode_of_care?
     assert_equal 'eh', measure.type
@@ -99,8 +95,6 @@ include Devise::TestHelpers
     measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
     assert_equal "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure.hqmf_set_id
     assert_equal 29, measure.value_sets.count
-    assert_equal @user.id, measure.user_id
-    measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
     assert_equal false, measure.needs_finalize
     assert_equal true, measure.episode_of_care?
     assert_equal 'eh', measure.type
@@ -116,8 +110,6 @@ include Devise::TestHelpers
     measure = Measure.where({hqmf_id: '40280381-3D27-5493-013D-4DCA4B826XXX'}).first
     assert_equal "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure.hqmf_set_id
     assert_equal 29, measure.value_sets.count
-    assert_equal @user.id, measure.user_id
-    measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
     assert_equal false, measure.needs_finalize
     assert_equal true, measure.episode_of_care?
     assert_equal 'eh', measure.type
