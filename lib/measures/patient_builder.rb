@@ -158,7 +158,7 @@ module Measures
       # If there are no source criteria codes or a white list is used, select new codes, otherwise use existing codes
       if source_criteria['codes'].blank? ||
          (Measures::PatientBuilder.white_list_black_list?(source_criteria['code_list_id'], value_sets) &&
-          !source_criteria['code_source'] == CODE_SOURCE[:USER_DEFINED])
+          source_criteria['code_source'] != CODE_SOURCE[:USER_DEFINED])
         entry.codes = Measures::PatientBuilder.select_codes(source_criteria['code_list_id'], value_sets)
       else
         entry.codes = source_criteria['codes']
