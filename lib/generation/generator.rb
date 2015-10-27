@@ -51,6 +51,8 @@ module HQMF
         "care_goals"
       when :communications
         "communications"
+      when :family_history
+        "family_history"
       else
         type.to_s
       end
