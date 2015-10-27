@@ -93,6 +93,13 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     criteriaType in ['diagnostic_study_performed', 'functional_status_performed', 'intervention_performed', 'laboratory_test_performed',
                      'physical_exam_performed', 'procedure_performed', 'risk_category_assessment']
 
+  hasRecordedTime: ->
+    criteriaType = @get('definition')
+    # FIXME to be changed as necessary for family_history
+    criteriaType += "_#{@get('status')}" if @get('status')
+    criteriaType in ['diagnostic_study_performed', 'functional_status_performed', 'intervention_performed', 'laboratory_test_performed',
+                     'physical_exam_performed', 'procedure_performed', 'risk_category_assessment']
+
 class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
   model: Thorax.Models.PatientDataCriteria
   # FIXME sortable: commenting out due to odd bug in droppable
