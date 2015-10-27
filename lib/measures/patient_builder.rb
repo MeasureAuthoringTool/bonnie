@@ -56,12 +56,12 @@ module Measures
           source_criteria['coded_entry_id'] = entry.id
 
           source_criteria['codes'] = entry['codes']
-          if source_criteria['code_source'] != Measures::PatientBuilder::CODE_SOURCE[:USER_DEFINED]
-            source_criteria['code_source'] = if Measures::PatientBuilder.white_list?(source_criteria['code_list_id'], value_sets)
-              Measures::PatientBuilder::CODE_SOURCE[:WHITE_LIST]
-            else
-              Measures::PatientBuilder::CODE_SOURCE[:DEFAULT]
-            end
+          if source_criteria['code_source'] != CODE_SOURCE[:USER_DEFINED]
+            source_criteria['code_source'] = if Measures::PatientBuilder.white_list_black_list?(source_criteria['code_list_id'], value_sets)
+                                               CODE_SOURCE[:WHITE_LIST]
+                                             else
+                                               CODE_SOURCE[:DEFAULT]
+                                             end
           end
 
 
@@ -155,10 +155,13 @@ module Measures
       entry.start_time = time.low.to_seconds if time.low
       entry.end_time = time.high.to_seconds if time.high
       entry.status = source_criteria['status']
-      if (source_criteria['code_source'] == Measures::PatientBuilder::CODE_SOURCE[:USER_DEFINED])
-        entry.codes = source_criteria['codes']
-      else
+      # If there are no source criteria codes or a white list is used, select new codes, otherwise use existing codes
+      if source_criteria['codes'].blank? ||
+         (Measures::PatientBuilder.white_list_black_list?(source_criteria['code_list_id'], value_sets) &&
+          source_criteria['code_source'] != CODE_SOURCE[:USER_DEFINED])
         entry.codes = Measures::PatientBuilder.select_codes(source_criteria['code_list_id'], value_sets)
+      else
+        entry.codes = source_criteria['codes']
       end
       entry.oid = HQMF::DataCriteria.template_id_for_definition(source_criteria['definition'], source_criteria['status'], source_criteria['negation'])
       entry
@@ -285,9 +288,9 @@ module Measures
       (listed_sets.empty? ? default_code_sets : listed_sets)
     end
 
-    def self.white_list?(oid, value_sets)
+    def self.white_list_black_list?(oid, value_sets)
       if value_sets[oid]
-        value_sets[oid].concepts.any? {|x| x.white_list}
+        value_sets[oid].concepts.any? { |x| x.white_list || x.black_list }
       end
     end
 
