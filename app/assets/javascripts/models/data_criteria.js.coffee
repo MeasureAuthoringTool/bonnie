@@ -35,6 +35,8 @@ class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
 # multiple criteria with the same ID.
 class Thorax.Models.PatientDataCriteria extends Thorax.Model
   idAttribute: null
+  criteriaTypeWhiteList = ['diagnosis', 'symptom']
+  
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
     if @get('type') == "medications" then @set('fulfillments', new Thorax.Collection()) unless @has 'fulfillments'
@@ -66,6 +68,21 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     fieldValues = {}
     @get('field_values').each (fv) -> fieldValues[fv.get('key')] = _(fv.toJSON()).omit('key')
     _(super).extend(field_values: fieldValues)
+  
+  startLabel: ->
+    # Return the correct start label
+    startLabel = 'Start'
+    if @get('definition') in criteriaTypeWhiteList && @get('status') != 'active'
+      startLabel = 'Onset'  #If in whitelist and status is empty
+    startLabel
+
+  endLabel: ->
+    # Return the correct end label
+    endLabel = 'Stop'
+    if @get('definition') in criteriaTypeWhiteList && @get('status') != 'active'
+      endLabel 'Abatement'
+    endLabel
+
   faIcon: ->
     # FIXME: Do this semantically in stylesheet
     icons =
@@ -92,6 +109,30 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     # This list is based on V4.0 of the QDM: http://www.healthit.gov/sites/default/files/qdm_4_0_final.pdf
     criteriaType in ['diagnostic_study_performed', 'functional_status_performed', 'intervention_performed', 'laboratory_test_performed',
                      'physical_exam_performed', 'procedure_performed', 'risk_category_assessment']
+
+  canHaveNegation: ->
+    #We must support criteria types with "Negation Rational" for QDM 4.2 changes.
+    criteriaType = @get('definition')
+
+    #First check to see if criteriaType definition matches any of these (no need to worry about status with these) 
+    return true if criteriaType in ['communication_from_patient_to_provider', 'communication_from_provider_to_patient', 
+                                    'communication_from_provider_to_provider', 'risk_category_assessment', 'transfer_from', 'transfer_to']
+
+    #If Criteria Definition exists in object
+    negationList = 
+      device:           ['applied', 'ordered', 'recommended']
+      diagnostic_study: ['performed', 'ordered', 'recommended']
+      encounter:        ['ordered', 'performed', 'recommended']
+      function_status:  ['ordered', 'performed', 'recommended']
+      immunization:     ['administered', 'ordered']
+      intervention:     ['ordered', 'performed', 'recommended']
+      laboratory_test:  ['ordered', 'performed', 'recommended']
+      medication:       ['administered', 'discharge', 'dispensed', 'ordered']
+      physical_exam:    ['ordered', 'performed', 'recommended']
+      procedure:        ['ordered', 'performed', 'recommended']
+      substance:        ['administered', 'ordered', 'recommended']
+
+    return negationList[criteriaType] and @get('status') in negationList[criteriaType]
 
 class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
   model: Thorax.Models.PatientDataCriteria
