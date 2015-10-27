@@ -40,6 +40,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
     if @get('type') == "medications" then @set('fulfillments', new Thorax.Collection()) unless @has 'fulfillments'
+    if !@hasStopTime() then @set('end_date', null)
 
   parse: (attrs) ->
     attrs.criteria_id ||= Thorax.Models.MeasureDataCriteria.generateCriteriaId()
@@ -120,6 +121,27 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
 
     return negationList[criteriaType] and @get('status') in negationList[criteriaType]
 
+  hasStopTime: ->
+    criteriaType = @get('definition')
+    return !(criteriaType in ['family_history'])
+    
+  startLabel: ->
+    startLabel = 'Start'
+    if @get('definition') in criteriaTypeWhiteList && @get('status') != 'active'
+      startLabel = 'Onset'  #If in whitelist and status is empty
+    else if @get('definition') in ['family_history']
+      startLabel = 'Recorded'
+    startLabel
+
+  stopLabel: ->
+    # Return the correct end label
+    stopLabel = 'Stop'
+    if @get('definition') in criteriaTypeWhiteList && @get('status') != 'active'
+      stopLabel = 'Abatement'
+    stopLabel
+
+
+    
 class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
   model: Thorax.Models.PatientDataCriteria
   # FIXME sortable: commenting out due to odd bug in droppable
