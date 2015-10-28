@@ -100,8 +100,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       cms_id_version: cmsIdParts[2] if cmsIdParts
       faIcon: @model.faIcon()
       definition_title: @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
-      startOrOnset: @model.startLabel()
-      stopOrAbatement: @model.endLabel()
       canHaveNegation: @model.canHaveNegation()
 
   # When we serialize the form, we want to convert formatted dates back to times

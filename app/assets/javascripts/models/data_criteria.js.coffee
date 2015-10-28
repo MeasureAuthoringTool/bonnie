@@ -69,20 +69,6 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     @get('field_values').each (fv) -> fieldValues[fv.get('key')] = _(fv.toJSON()).omit('key')
     _(super).extend(field_values: fieldValues)
   
-  startLabel: ->
-    # Return the correct start label
-    startLabel = 'Start'
-    if @get('definition') in criteriaTypeWhiteList && @get('status') != 'active'
-      startLabel = 'Onset'  #If in whitelist and status is empty
-    startLabel
-
-  endLabel: ->
-    # Return the correct end label
-    endLabel = 'Stop'
-    if @get('definition') in criteriaTypeWhiteList && @get('status') != 'active'
-      endLabel 'Abatement'
-    endLabel
-
   faIcon: ->
     # FIXME: Do this semantically in stylesheet
     icons =
