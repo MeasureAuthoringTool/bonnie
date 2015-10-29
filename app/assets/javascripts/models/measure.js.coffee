@@ -64,7 +64,7 @@ class Thorax.Models.Measure extends Thorax.Model
       encounters: ['admit_time', 'discharge_time', 'discharge_disposition', 'facility',
         'facility_arrival', 'facility_departure', 'transfer_to', 'transfer_to_time', 
         'transfer_from', 'transfer_from_time', 'principal_diagnosis', 'diagnosis']
-      family_history: ['relationship_to_patient', 'onset_age', 'recorded_datetime']
+      family_history: ['relationship_to_patient', 'onset_age']
       functional_statuses: []
       immunizations: ['route', 'dose', 'reaction']
       interventions: ['anatomical_structure']
