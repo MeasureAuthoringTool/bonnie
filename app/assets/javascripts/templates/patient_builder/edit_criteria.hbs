@@ -42,7 +42,7 @@
 
       <div class="row">
         <div class="form-group col-md-6">
-          <label for="start_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i>{{#if hasRecordedTime}} Recorded Time{{else}} Start{{/if}}<span class="sr-only"> date month/day/year</span></label></label>
+          <label for="start_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> {{startLabel}}<span class="sr-only"> date month/day/year</span></label></label>
           <div class="datetime-control">
             <div>
               <input type="text" name="start_date" id="start_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
@@ -55,9 +55,9 @@
           </div>
         </div>
         
-        {{#unless hasRecordedTime}}
+        {{#if hasStopTime}}
         <div class="form-group col-md-6">
-          <label for="end_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> Stop<span class="sr-only"> date month/day/year</span></label>
+          <label for="end_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> {{stopLabel}}<span class="sr-only"> date month/day/year</span></label>
           <div class="datetime-control">
             <div>
               <input type="text" name="end_date" id="end_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true"{{#if end_date_is_undefined}} disabled{{/if}}>
@@ -75,7 +75,7 @@
             </label>
           </div>
         </div>
-        {{/unless}}
+        {{/if}}
       </div>
 
       <div class="form-group">

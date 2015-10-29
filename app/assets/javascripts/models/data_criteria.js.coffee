@@ -40,7 +40,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
     if @get('type') == "medications" then @set('fulfillments', new Thorax.Collection()) unless @has 'fulfillments'
-    if @hasRecordedTime() then @set('end_date', null)
+    if !@hasStopTime() then @set('end_date', null)
 
   parse: (attrs) ->
     attrs.criteria_id ||= Thorax.Models.MeasureDataCriteria.generateCriteriaId()
@@ -121,13 +121,27 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
 
     return negationList[criteriaType] and @get('status') in negationList[criteriaType]
 
-  hasRecordedTime: ->
+  hasStopTime: ->
     criteriaType = @get('definition')
-    # FIXME to be changed as necessary for family_history
-    criteriaType += "_#{@get('status')}" if @get('status')
-    criteriaType in ['diagnostic_study_performed', 'functional_status_performed', 'intervention_performed', 'laboratory_test_performed',
-                     'physical_exam_performed', 'procedure_performed', 'risk_category_assessment']
+    return !(criteriaType in ['family_history'])
+    
+  startLabel: ->
+    startLabel = 'Start'
+    if @get('definition') in criteriaTypeWhiteList && @get('status') != 'active'
+      startLabel = 'Onset'  #If in whitelist and status is empty
+    else if @get('definition') in ['family_history']
+      startLabel = 'Recorded'
+    startLabel
 
+  stopLabel: ->
+    # Return the correct end label
+    stopLabel = 'Stop'
+    if @get('definition') in criteriaTypeWhiteList && @get('status') != 'active'
+      stopLabel = 'Abatement'
+    stopLabel
+
+
+    
 class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
   model: Thorax.Models.PatientDataCriteria
   # FIXME sortable: commenting out due to odd bug in droppable
