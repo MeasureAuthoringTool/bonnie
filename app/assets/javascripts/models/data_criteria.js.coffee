@@ -35,7 +35,6 @@ class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
 # multiple criteria with the same ID.
 class Thorax.Models.PatientDataCriteria extends Thorax.Model
   idAttribute: null
-  criteriaTypeWhiteList = ['diagnosis', 'symptom']
   
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
@@ -126,19 +125,19 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     return !(criteriaType in ['family_history'])
     
   startLabel: ->
-    startLabel = 'Start'
-    if @get('definition') in criteriaTypeWhiteList && @get('status') != 'active'
-      startLabel = 'Onset'  #If in whitelist and status is empty
+    if @get('definition') in ['diagnosis', 'symptom'] && !@get('status')?
+      'Onset'  # If in whitelist and status is empty
     else if @get('definition') in ['family_history']
-      startLabel = 'Recorded'
-    startLabel
+      'Recorded'
+    else
+      'Start'
 
   stopLabel: ->
     # Return the correct end label
-    stopLabel = 'Stop'
-    if @get('definition') in criteriaTypeWhiteList && @get('status') != 'active'
-      stopLabel = 'Abatement'
-    stopLabel
+    if @get('definition') in ['diagnosis', 'symptom'] && !@get('status')?
+      'Abatement'
+    else
+      'Stop'
 
 
     
