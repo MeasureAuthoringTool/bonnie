@@ -38,10 +38,11 @@ Bonnie::Application.routes.draw do
       post 'export'
     end
   end
-
+  
   namespace :admin do
     resources :users do
       collection do
+        post 'email_active'
         post 'email_all'
       end
       member do

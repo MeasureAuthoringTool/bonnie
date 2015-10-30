@@ -18,7 +18,7 @@ class Admin::UsersController < ApplicationController
       u.measure_count = measure_counts[u.id] || 0
       u.patient_count = patient_counts[u.id] || 0
     end
-    users_json = MultiJson.encode(users.as_json(methods: [:measure_count, :patient_count]))
+    users_json = MultiJson.encode(users.as_json(methods: [:measure_count, :patient_count, :last_sign_in_at]))
     respond_with users do |format|
       format.json { render json: users_json }
     end
@@ -26,8 +26,20 @@ class Admin::UsersController < ApplicationController
 
   def email_all
     User.asc(:email).each do |user|
-      email = Admin::AllUsersMailer.all_users_email(user, params[:subject], params[:body])
+      email = Admin::UsersMailer.users_email(user, params[:subject], params[:body])
       email.deliver
+    end
+    render json: {}
+  end
+
+  def email_active
+    # only send email to users who have logged in sometime in the last 6 months
+    # and have at least one measure loaded
+    User.asc(:email).where(:last_sign_in_at.gt => Date.today - 6.months).each do |user|
+      if user.measure_count > 0
+        email = Admin::UsersMailer.users_email(user, params[:subject], params[:body])
+        email.deliver
+      end
     end
     render json: {}
   end
