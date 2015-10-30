@@ -18,3 +18,6 @@ describe 'MeasuresView', ->
   it 'renders measures with populations on dashboard', ->
     expect(@measuresView.$el).toContainText @measure.get('populations').first().get('title')
     expect(@measuresView.$el).toContainText @measure.get('populations').last().get('title')
+
+  it 'renders an update button for each measure', ->
+    expect(@measuresView.$('button[data-call-method="updateMeasure"]').length).toBe @measures.length
