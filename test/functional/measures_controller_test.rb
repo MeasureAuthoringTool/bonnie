@@ -232,7 +232,7 @@ include Devise::TestHelpers
     measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
     assert_equal "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure.hqmf_set_id
 
-    post :create, {measure_file: measure_file, hqmf_set_id: measure.hqmf_set_id}
+    post :create, {measure_file: measure_file, hqmf_set_id: measure.hqmf_set_id, hqmf_id: measure.hqmf_id}
 
     assert_response :redirect
     measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first

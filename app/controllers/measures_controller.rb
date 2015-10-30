@@ -50,7 +50,7 @@ class MeasuresController < ApplicationController
   end
 
   def update
-    existing = Measure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
+    existing = Measure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id], hqmf_id: params[:hqmf_id]).first
 
     if params[:measure_file].present?
       uploaded_measure = process_measure_file(params, existing)
