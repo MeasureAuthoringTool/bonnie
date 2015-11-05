@@ -63,40 +63,26 @@ class Thorax.Models.Result extends Thorax.Model
         return
       parent = parentMap["precondition_#{parent.id}"]
 
-  # strategy:
-  # check to see that the criteria specifics are a subset of a set of final
-  # specifics within the final specifics list.
-  # do this by finding any exact matches, and then associating inexact matches
-  # with final specifics wildcards. if there aren't enough wildcards, then there
-  # isn't a match.
-  criteriaSpecificsMatchFinalSpecifics: (criteriaSpecifics, finalSpecificsList) ->
-    # the criteria is true regardless of specifics
-    if criteriaSpecifics.length == 0
+  idsMatch: (criteriaSpecificIds, finalSpecificIdsSet) ->
+    if criteriaSpecificIds.length == 0
       return true
+    if finalSpecificIdsSet.length == 0
+      for criteriaSpecificId in criteriaSpecificIds
+        if criteriaSpecificId != "*"
+          return false
+      return true
+      
+    for finalSpecificIds in finalSpecificIdsSet
+      matches = true
+      # should have the same length
+      for i in [0..criteriaSpecificIds.length]
+        criteriaSpecificId = criteriaSpecificIds[i]
+        finalSpecificId = finalSpecificIds[i]
+        
+        if criteriaSpecificId != finalSpecificId && criteriaSpecificId != "*" && finalSpecificId != "*"
+          matches = false
 
-    for finalSpecifics in finalSpecificsList
-      unmatchedFinalSpecifics = []
-      unmatchedFinalStarCount = 0
-
-      for finalSpecific in finalSpecifics
-        if finalSpecific == "*"
-          unmatchedFinalStarCount += 1
-        else
-          unmatchedFinalSpecifics.push(finalSpecific)
-
-      for criteriaSpecific in criteriaSpecifics
-        matchedFinalSpecific = null
-        for finalSpecific in unmatchedFinalSpecifics
-          if criteriaSpecific == finalSpecific
-            matchedFinalSpecific = finalSpecific
-            break
-        if matchedFinalSpecific == null
-          unmatchedFinalStarCount -= 1
-        else
-          index = unmatchedFinalSpecifics.indexOf(matchedFinalSpecific);
-          unmatchedFinalSpecifics.splice(index, 1);
-
-      if unmatchedFinalStarCount >= 0
+      if matches
         return true
 
     return false
@@ -107,17 +93,12 @@ class Thorax.Models.Result extends Thorax.Model
 
     for criterion in criteria
       criterionRationale = rationale[criterion]
-      if criterionRationale == false || typeof criterionRationale.specificContext == 'undefined'
+      if criterionRationale == false || typeof criterionRationale.specifics == 'undefined' || criterionRationale.specifics.length == 0
         results.good.push(criterion)
       else
         matches = false
-        for criteriaSpecificSet in criterionRationale.specificContext.rows
-          criteriaSpecificIdSet = []
-          for criteriaSpecific in criteriaSpecificSet.values
-            if criteriaSpecific != "*" # only care about non-star specifics here
-              criteriaSpecificIdSet.push(criteriaSpecific.id)
-
-          if @criteriaSpecificsMatchFinalSpecifics(criteriaSpecificIdSet, finalSpecifics)
+        for criteriaSpecificIds in criterionRationale.specifics
+          if @idsMatch(criteriaSpecificIds, finalSpecifics)
             matches = true
             break
 
