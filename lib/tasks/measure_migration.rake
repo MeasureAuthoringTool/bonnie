@@ -10,7 +10,7 @@ namespace :bonnie do
           if (vs.concepts == oid_to_content[[vs.oid, vs.version]].concepts)
             vs.delete
           else
-            puts "We gots a problem boss!"
+            
           end
         else
           oid_to_content[[vs.oid, vs.version]] = vs
