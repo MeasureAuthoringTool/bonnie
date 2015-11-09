@@ -31,7 +31,7 @@ describe "Population state between routes", ->
     active = @measureView.$('.nav.nav-tabs > li.active > a')[0]
     # ensure that the second is currently selected
     expect(active).toBe(populationNavs[1])
-    expect(active.text).toBe(@measureToTest.get('displayedPopulation').get('title'))
+    expect(active.text.trim()).toBe(@measureToTest.get('displayedPopulation').get('title').trim())
     expect(@measureToTest.get('displayedPopulation').cid).toBe(@measureToTest.get('populations').at(1).cid)
 
     @measureView.remove()
@@ -53,7 +53,7 @@ describe "Population state between routes", ->
     active = @patientBuilder.$('.nav.nav-tabs > li.active > a')[0]
     # ensure that the second is currently selected
     expect(active).toBe(populationNavs[1])
-    expect(active.text).toBe(@measureToTest.get('displayedPopulation').get('title'))
+    expect(active.text.trim()).toBe(@measureToTest.get('displayedPopulation').get('title').trim())
     expect(@measureToTest.get('displayedPopulation').cid).toBe(@measureToTest.get('populations').at(1).cid)
 
     @patientBuilder.remove()

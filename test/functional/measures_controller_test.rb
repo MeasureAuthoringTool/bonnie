@@ -2,7 +2,7 @@ require 'test_helper'
 
 class MeasuresControllerTest  < ActionController::TestCase
 include Devise::TestHelpers
-      
+
   setup do
     @error_dir = File.join('log','load_errors')
     FileUtils.rm_r @error_dir if File.directory?(@error_dir)
@@ -68,7 +68,7 @@ include Devise::TestHelpers
     assert_operator Measure.all.first.map_fns[0].length, :>, 100
   end
 
-  test "create/finalize/update a measure" do
+  test "create/finalize a measure" do
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
     class << measure_file
       attr_reader :tempfile
@@ -109,8 +109,21 @@ include Devise::TestHelpers
     assert_equal 1, measure.episode_ids.length
     assert_operator measure.map_fns[0].length, :>, 100
 
+  end
+
+  test "update/finalize a measure" do
+    measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
+    class << measure_file
+      attr_reader :tempfile
+    end
+
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
+    post :finalize, {"t679"=>{"hqmf_id"=>"40280381-3D27-5493-013D-4DCA4B826AE4","episode_ids"=>["OccurrenceAInpatientEncounter1"]}}
+    measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
+
+    # UPDATE 1 - Upload new measure file
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_update.zip'),'application/zip')
-    post :create, {measure_file: measure_file, hqmf_set_id: measure.hqmf_set_id, 'eoc_42BF391F-38A3-4C0F-9ECE-DCD47E9609D9'=>{'episode_ids'=>['OccurrenceAInpatientEncounter1']}}
+    post :update, {measure_file: measure_file, hqmf_set_id: measure.hqmf_set_id, hqmf_id: measure.hqmf_id, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :redirect
 
     measure = Measure.where({hqmf_id: '40280381-3D27-5493-013D-4DCA4B826XXX'}).first
@@ -118,13 +131,42 @@ include Devise::TestHelpers
     assert_equal 29, measure.value_sets.count
     assert_equal @user.id, measure.user_id
     measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
+    assert_equal true, measure.needs_finalize
+    assert !measure.population_criteria['DENOM']['preconditions'].nil?
+    assert_equal 1, measure.population_criteria['DENOM']['preconditions'].count
+
+    post :finalize, {"t679"=>{"hqmf_id"=>'40280381-3D27-5493-013D-4DCA4B826XXX',"episode_ids"=>["OccurrenceAInpatientEncounter1"]}}
+    assert_response :redirect
+    measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826XXX"}).first
+
     assert_equal false, measure.needs_finalize
     assert_equal true, measure.episode_of_care?
     assert_equal 'eh', measure.type
     assert_includes measure.episode_ids, 'OccurrenceAInpatientEncounter1'
     assert_equal 1, measure.episode_ids.length
     assert_operator measure.map_fns[0].length, :>, 100
+    assert !measure.population_criteria['DENOM']['preconditions'].nil?
+    assert_equal 1, measure.population_criteria['DENOM']['preconditions'].count
 
+    assert_equal "UPDATED_435838", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.93'}).first.concepts.first.code
+    assert_equal "UPDATED_144582", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.201'}).first.concepts.first.code
+    assert_equal "UPDATED_802054", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.233'}).first.concepts.first.code
+    assert_equal "UPDATED_802054", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.212'}).first.concepts.first.code
+    assert_equal "UPDATED_224349", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.247'}).first.concepts.first.code
+
+    # UPDATE 2 - No new file, change calculation_type and measure_type
+    post :update, {hqmf_set_id: measure.hqmf_set_id, hqmf_id: measure.hqmf_id, measure_type: 'ep', calculation_type: 'patient'}
+    assert_response :redirect
+    measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826XXX"}).first
+
+    assert_equal "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure.hqmf_set_id
+    assert_equal 29, measure.value_sets.count
+    assert_equal @user.id, measure.user_id
+    measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
+    assert_equal false, measure.needs_finalize
+    assert_equal false, measure.episode_of_care?
+    assert_equal 'ep', measure.type
+    assert_operator measure.map_fns[0].length, :>, 100
     assert !measure.population_criteria['DENOM']['preconditions'].nil?
     assert_equal 1, measure.population_criteria['DENOM']['preconditions'].count
 
@@ -233,7 +275,7 @@ include Devise::TestHelpers
     measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
     assert_equal "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure.hqmf_set_id
 
-    post :create, {measure_file: measure_file, hqmf_set_id: measure.hqmf_set_id}
+    post :create, {measure_file: measure_file, hqmf_set_id: measure.hqmf_set_id, hqmf_id: measure.hqmf_id}
 
     assert_response :redirect
     measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first

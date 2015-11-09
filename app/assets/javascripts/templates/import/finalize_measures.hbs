@@ -11,6 +11,7 @@
             <input name="utf8" type="hidden" value="✓">
             <input name="_method" type="hidden" value="post">
             <input name="authenticity_token" type="hidden" value="{{token}}">
+            <input type="hidden" name="redirect_route" value="{{redirectRoute}}"/>
           </div>
 
           {{#collection measures tag="div"}}

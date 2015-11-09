@@ -6,8 +6,13 @@
         <h1 class="modal-title" id="modalTitle">{{dialogTitle}}</h1>
       </div>
       <div class="modal-body">
+      {{#if isUpdate}}
+        <form action="measures/update" method="post" class="form-horizontal" enctype="multipart/form-data" role="form">
+      {{else}}
         <form action="measures" method="post" class="form-horizontal" enctype="multipart/form-data" role="form">
+      {{/if}}
           <input type="hidden" name="hqmf_set_id" value="{{hqmfSetId}}"/>
+          <input type="hidden" name="hqmf_id" value="{{hqmf_id}}">
           <input type="hidden" name="redirect_route" value="{{redirectRoute}}"/>
           <div style="margin:0;padding:0;display:inline">
             <input name="utf8" type="hidden" value="✓">
@@ -16,7 +21,7 @@
           </div>
           {{#if showLoadInformation}}
             <div class="alert alert-warning">
-              Measure Data file types can include: 
+              Measure Data file types can include:
               <ul>
                 <li><a href="https://www.emeasuretool.cms.gov/" target="_blank">Measure Authoring Tool Zip file export</a></li>
                 <li><a href="http://www.cms.gov/Regulations-and-Guidance/Legislation/EHRIncentivePrograms/eCQM_Library.html" target="_blank">HQMF XML File (eCQM specifications)</a></li>
@@ -66,47 +71,33 @@
           </div>
           <div class="form-group">
             <p class="col-sm-{{titleSize}} control-label">Type</p>
-            {{#if isUpdate}}
-              <div id="measureTypeModel" class="col-sm-{{dataSize}}">
-                <input id="measureTypeRadios" class="sr-only" disabled>
-                <p class="form-control-static"><span class="sr-only">Measure type set to</span>{{measureTypeLabel}}</p>
-              </div>
-            {{else}}
               <div class="col-sm-{{dataSize}}">
                 <div class="switch-toggle switch-custom">
-                  <input id="measureTypeRadios" type="radio" name="measure_type" value="ep" checked="true">
+                  <input id="measureTypeRadios" type="radio" name="measure_type" value="ep" {{#ifCond measureTypeLabel "!==" 'Eligible Professional (EP)'}}checked="true"{{/ifCond}}>
                   <label for="measureTypeRadios" onclick=""><i class="fa fa-user-md" aria-hidden="true"></i><span class="sr-only">Measure type</span> Eligible Professional</label>
-                  <input id="EH" type="radio" name="measure_type" value="eh"> 
+                  <input id="EH" type="radio" name="measure_type" value="eh" {{#ifCond measureTypeLabel "!==" 'Eligible Hospital (EH)'}}checked="true"{{/ifCond}}>
                   <label for="EH" onclick=""><i class="fa fa-h-square" aria-hidden="true"></i><span class="sr-only">Measure type</span> Eligible Hospital</label>
                   <a class="btn btn-primary"></a>
                 </div>
               </div>
-            {{/if}}
           </div>
           <div class="form-group">
             <p class="col-sm-{{titleSize}} control-label">Calculation</p>
-            {{#if isUpdate}}
-              <div id="calculationTypeModel" class="col-sm-{{dataSize}}">
-                <input id="calculationTypeRadios" class="sr-only" disabled>
-                <p class="form-control-static"><span class="sr-only">Calculation type set to</span>{{calculationTypeLabel}}</p>
-              </div>
-            {{else}}
               <div class="col-sm-{{dataSize}}">
                 <div class="switch-toggle switch-custom">
-                  <input id="calculationTypeRadios" type="radio" name="calculation_type" value="patient" checked="true"> 
+                  <input id="calculationTypeRadios" type="radio" name="calculation_type" value="patient">
                   <label for="calculationTypeRadios" onclick=""><i class="fa fa-user" aria-hidden="true"></i><span class="sr-only">Calculation type</span> Patient Based</label>
                   <input id="EC" type="radio" name="calculation_type" value="episode">
                   <label for="EC" onclick=""><i class="fa fa-stethoscope" aria-hidden="true"></i><span class="sr-only">Calculation type</span> Episode of Care</label>
                   <a class="btn btn-primary"></a>
                 </div>
               </div>
-            {{/if}}
           </div>
           <div class="form-group">
             <p class="col-sm-{{titleSize}} control-label">Rebuild patients</p>
             <div class="col-sm-3">
               <div class="switch-toggle switch-custom">
-                <input id="rebuildNo" type="radio" name="rebuild_patients" value="false" checked="true"> 
+                <input id="rebuildNo" type="radio" name="rebuild_patients" value="false" checked="true">
                 <label for="rebuildNo" onclick=""><span class="sr-only">Rebuild patients</span> No</label>
                 <input id="rebuildYes" type="radio" name="rebuild_patients" value="true">
                 <label for="rebuildYes" onclick=""><span class="sr-only">Rebuild patients</span> Yes</label>
@@ -139,8 +130,12 @@
           <div class="form-group">
             <div class="col-sm-offset-{{titleSize}}">
             {{#button "close" class="btn btn-default" data-dismiss="modal"}}Close{{/button}}
-            {{#button "submit" class="btn btn-primary" id="loadButton" disabled=true}}Load{{/button}}
-            </div>  
+            {{#if isUpdate}}
+              {{#button "submit" class="btn btn-primary" id="loadButton"}}Update{{/button}}
+            {{else}}
+              {{#button "submit" class="btn btn-primary" id="loadButton" disabled=true}}Load{{/button}}
+            {{/if}}
+            </div>
           </div>
       </div>
     </div><!-- /.modal-content -->

@@ -1,11 +1,26 @@
 class Thorax.Views.Measure extends Thorax.Views.BonnieView
   template: JST['measure']
+  context: ->
+    measureTypeLabel = if @model?
+      if @model.get('type') is 'eh' then 'Eligible Hospital (EH)'
+      else if @model.get('type') is 'ep' then 'Eligible Professional (EP)'
+    calculationTypeLabel = if @model?
+      if @model.get('episode_of_care') is false and @model.get('continuous_variable') is false then 'Patient Based'
+      else if @model.get('episode_of_care') is true then 'Episode of Care'
+      else if @model.get('continuous_variable') is true then 'Continuous Variable'
+    _(super).extend
+      measureTypeLabel: measureTypeLabel
+      calculationTypeLabel: calculationTypeLabel
 
   events:
     rendered: ->
       @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
       @exportPatientsView.appendTo(@$el)
       @$('.d3-measure-viz, .btn-viz-text').hide()
+
+      if @finalizeMeasuresView
+        @finalizeMeasuresView.appendTo(@$el)
+        @finalizeMeasuresView.display()
 
   initialize: ->
     populations = @model.get 'populations'
@@ -39,8 +54,12 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @logicView.listenTo @populationCalculation, 'rationale:show', (result) -> @showRationale(result)
     @measures = @model.collection
 
+    if @model.get('needs_finalize')
+      @finalizeMeasuresView = new Thorax.Views.FinalizeMeasures measures: new Thorax.Collections.Measures(@model)
+
   episodesOfCare: ->
-    @model.get('source_data_criteria').filter((sdc) => sdc.get('source_data_criteria') in @model.get('episode_ids'))
+    if @model.get('episode_ids')
+      @model.get('source_data_criteria').filter((sdc) => sdc.get('source_data_criteria') in @model.get('episode_ids'))
 
   updateMeasure: (e) ->
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)
@@ -55,7 +74,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @model.get('populations').each (population) ->
         differences.push(_(population.differencesFromExpected().toJSON()).extend(population.coverage().toJSON()))
 
-      $.fileDownload "patients/export?hqmf_set_id=#{@model.get('hqmf_set_id')}", 
+      $.fileDownload "patients/export?hqmf_set_id=#{@model.get('hqmf_set_id')}",
         successCallback: => @exportPatientsView.success()
         failCallback: => @exportPatientsView.fail()
         httpMethod: "POST"
@@ -84,6 +103,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
   toggleVisualization: (e) ->
     @$('.btn-viz-chords, .btn-viz-text, .measure-viz, .d3-measure-viz').toggle()
     if @$('.d3-measure-viz').children().length == 0
-      d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
+      d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz)
       @$('rect').popover()
       if @populationCalculation.toggledPatient? then @logicView.showRationale(@populationCalculation.toggledPatient) else @logicView.showCoverage()
