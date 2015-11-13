@@ -50,7 +50,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       ( criteria.has('specific_occurrence') )
       unless filter_criteria
         categories[type] ||= new Thorax.Collection
-        categories[type].add criteria unless categories[type].any (c) -> c.get('description').replace(/,/g , "") == criteria.get('description').replace(/,/g , "")
+        categories[type].add criteria unless categories[type].any (c) -> c.get('description').replace(/,/g , '') == criteria.get('description').replace(/,/g , '') && c.get('code_list_id') == criteria.get('code_list_id')
     categories = _(categories).omit('transfers','derived')
     # Pass a sorted array to the view so ordering is consistent
     categoriesArray = ({ type: type, criteria: criteria } for type, criteria of categories)
