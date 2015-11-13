@@ -18,6 +18,7 @@ module HQMF
       patient.first = randomize_first_name(patient.gender) unless patient.first
       patient.last = randomize_last_name unless patient.last
       patient.medical_record_number = Digest::MD5.hexdigest("#{patient.first} #{patient.last} #{Time.now}")
+      patient.medical_record_assigner = "Bonnie"
       patient.addresses ||= []
       patient.addresses << randomize_address if patient.addresses.empty?
       
