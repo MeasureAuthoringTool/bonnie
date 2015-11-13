@@ -26,16 +26,18 @@ class GeneratorTest < ActiveSupport::TestCase
     assert_equal 2, p.ethnicity.keys.length
     assert_equal 2, p.ethnicity.values.length
     assert !p.medical_record_number.nil?
+    assert !p.medical_record_assigner.nil?
     assert !p.addresses.nil?
     assert_equal 1, p.addresses.length
     assert !p.birthdate.nil?
 
-    p = HQMF::Generator.create_base_patient({first: 'John', last: 'Smith'})
+    p2 = HQMF::Generator.create_base_patient({first: 'John', last: 'Smith'})
 
-    assert_equal 'John', p.first
-    assert_equal 'Smith', p.last
-    assert !p.gender.nil?
-    assert !p.birthdate.nil?
+    assert_equal 'John', p2.first
+    assert_equal 'Smith', p2.last
+    assert !p2.gender.nil?
+    assert !p2.birthdate.nil?
+    assert_not_equal p.medical_record_number, p2.medical_record_number  # Should differ each time generated
 
   end
 
