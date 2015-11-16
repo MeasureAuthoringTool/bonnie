@@ -42,6 +42,12 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
   episodesOfCare: ->
     @model.get('source_data_criteria').filter((sdc) => sdc.get('source_data_criteria') in @model.get('episode_ids'))
 
+  dataCriteria: ->
+    @model.get('source_data_criteria').filter((sdc) => sdc.get('type') != "characteristic" && sdc.get('code_list_id'))
+
+  supplementalDataElements: ->
+    @model.get('source_data_criteria').filter((sdc) => sdc.get('type') == "characteristic" && sdc.get('code_list_id'))
+
   updateMeasure: (e) ->
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)
     importMeasureView.appendTo(@$el)
