@@ -23,6 +23,8 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @complexityView = new Thorax.Views.MeasureComplexity model: @model
     @complexityView.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
 
+    @valueSetsView = new Thorax.Views.MeasureValueSets model: @model
+
     @populationCalculation = new Thorax.Views.PopulationCalculation(model: population)
     @logicView.listenTo @populationCalculation, 'logicView:showCoverage', -> @showCoverage()
     @logicView.listenTo @populationCalculation, 'logicView:clearCoverage', -> @clearCoverage()
@@ -41,12 +43,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   episodesOfCare: ->
     @model.get('source_data_criteria').filter((sdc) => sdc.get('source_data_criteria') in @model.get('episode_ids'))
-
-  dataCriteria: ->
-    @model.get('source_data_criteria').filter((sdc) => sdc.get('type') != "characteristic" && sdc.get('code_list_id'))
-
-  supplementalDataElements: ->
-    @model.get('source_data_criteria').filter((sdc) => sdc.get('type') == "characteristic" && sdc.get('code_list_id'))
 
   updateMeasure: (e) ->
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)

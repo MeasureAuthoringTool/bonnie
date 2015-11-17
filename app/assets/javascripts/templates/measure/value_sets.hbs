@@ -1,0 +1,27 @@
+<div class="row">
+  {{#each valueSets}}
+  <h2>{{name}}</h2>
+  <small>
+    {{#each criteria}}
+    <a data-toggle="collapse" href="#codes_{{cid}}" class="collapsed">
+      <div class="row valueset-hover">
+        <div class="col-md-4 col-sm-4">{{name}}</div>
+        <div class="col-md-5 col-sm-4"><strong>{{valueSetName}}</strong></div>
+        <div class="col-md-3 col-sm-4 text-right">{{oid}}</div>
+      </div>
+    </a>
+    <div id="codes_{{cid}}" class="panel-collapse collapse">
+      <div class="panel-body">
+        {{#each code_concepts}}
+        <div class="row valueset-hover">
+          <div class="col-md-1 col-sm-2 text-right" style="padding-left:0px">{{code_system_name}}</div>
+          <div class="col-md-10 col-sm-8">{{display_name}}</div>
+          <div class="col-md-1 col-sm-2 text-right">{{code}}</div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/each}}
+  </small>
+  {{/each}}
+</div>

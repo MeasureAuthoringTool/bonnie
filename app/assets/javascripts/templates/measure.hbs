@@ -37,7 +37,6 @@
     </div>
 
     {{view logicView}}
-    
   </div>
 
   <div class="right-sidebar">
@@ -54,13 +53,5 @@
     {{view populationCalculation}}
   </div>
 </div>
-<div class="row">
-  <h2>Data Criteria</h2>
-  {{#each dataCriteria tag="ul"}}
-    <li><small>"{{attributes.description}}" using "{{attributes.title}} ({{attributes.code_list_id}})"</small></li>
-  {{/each}}
-  <h2>Supplemental Data Elements</h2>
-  {{#each supplementalDataElements tag="ul"}}
-    <li><small>"{{attributes.description}}" using "{{attributes.title}} ({{attributes.code_list_id}})"</small></li>
-  {{/each}}
-</div>
+
+{{view valueSetsView}}
