@@ -64,28 +64,23 @@ class Thorax.Models.Result extends Thorax.Model
       parent = parentMap["precondition_#{parent.id}"]
 
   idsMatch: (criteriaSpecificIds, finalSpecificIdsSet) ->
+    # if we have no criteria specifics, then there are no specific requirements
+    # for the criteria
     if criteriaSpecificIds.length == 0
       return true
+    # if we have no specifics in the final specifics list, all criteria specifics 
+    # should be wild cards.
     if finalSpecificIdsSet.length == 0
-      for criteriaSpecificId in criteriaSpecificIds
-        if criteriaSpecificId != "*"
-          return false
-      return true
+      return criteriaSpecificIds.every (criteriaSpecificId) ->
+        return criteriaSpecificId == "*"
       
-    for finalSpecificIds in finalSpecificIdsSet
-      matches = true
-      # should have the same length
-      for i in [0..criteriaSpecificIds.length]
-        criteriaSpecificId = criteriaSpecificIds[i]
-        finalSpecificId = finalSpecificIds[i]
-        
-        if criteriaSpecificId != finalSpecificId && criteriaSpecificId != "*" && finalSpecificId != "*"
-          matches = false
-
-      if matches
-        return true
-
-    return false
+    # at least one set of final specific ids should match the criteria specific ids
+    return finalSpecificIdsSet.some (finalSpecificIds) ->
+      # every criteria specific id and every final specific id should either 
+      # match or be a wild card.
+      return criteriaSpecificIds.every (criteriaSpecificId, idx) ->
+        finalSpecificId = finalSpecificIds[idx]
+        return criteriaSpecificId == finalSpecificId || criteriaSpecificId == "*" || finalSpecificId == "*"
 
   # get good and bad specific occurrences referenced in this part of the measure
   checkCriteriaForRationale: (finalSpecifics, criteria, rationale, dataCriteriaMap) ->
@@ -93,18 +88,17 @@ class Thorax.Models.Result extends Thorax.Model
 
     for criterion in criteria
       criterionRationale = rationale[criterion]
-      if criterionRationale == false || typeof criterionRationale.specifics == 'undefined' || criterionRationale.specifics.length == 0
+      if criterionRationale == false || !criterionRationale.specifics? || criterionRationale.specifics.length == 0
         results.good.push(criterion)
       else
-        matches = false
-        for criteriaSpecificIds in criterionRationale.specifics
-          if @idsMatch(criteriaSpecificIds, finalSpecifics)
-            matches = true
-            break
+        matches = criterionRationale.specifics.some (criteriaSpecificIds) => 
+          return @idsMatch(criteriaSpecificIds, finalSpecifics)
+        if matches
+          results.good.push(criterion)
+        else
+          results.bad.push(criterion)
 
-        if matches then results.good.push(criterion) else results.bad.push(criterion)
-
-    results
+    return results
 
   # from each leaf walk up the tree updating the logical statements appropriately to false
   updateLogicTree: (updatedRationale, rationale, code, badOccurrence, orCounts, parentMap) ->
