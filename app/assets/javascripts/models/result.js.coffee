@@ -92,7 +92,7 @@ class Thorax.Models.Result extends Thorax.Model
       # we are negated if the parent is negated and the parent is a precondition.  If it's a data criteria, then negation is fine
       negated = parent.negation && parent.id?
       # do not bubble up negated unless we have no final specifics.  If we have no final specifics then we may not have positive statements to bubble up.
-      if updatedRationale[code][parentKey] != false && (!negated || _.isEmpty(finalSpecifics[code]))
+      if updatedRationale[code][parentKey] != false && (!negated || _.isEmpty(@get('finalSpecifics')[code]))
         # if this is an OR then remove a true increment since it's a bad true
         orCounts[parentKey]-- if orCounts[parentKey]?
         # if we're either an AND or we're an OR and the count is zero then switch to false and move up the tree
