@@ -53,6 +53,11 @@ class Thorax.Models.Measure extends Thorax.Model
         vs.get('display_name')?.toLowerCase())
     @cachedValueSets
 
+  hasCode: (code, code_system) ->
+    @valueSets().any (vs) ->
+      _(vs.get('concepts')).any (c) ->
+        c.code == code && c.code_system_name == code_system
+
   @referencesFor: (criteriaType) ->
     [{key: "fulfills", title: "Fulfills"}]
 
