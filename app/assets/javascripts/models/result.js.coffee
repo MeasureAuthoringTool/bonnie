@@ -71,16 +71,15 @@ class Thorax.Models.Result extends Thorax.Model
     # if we have no specifics in the final specifics list, all criteria specifics 
     # should be wild cards.
     if finalSpecificIdsSet.length == 0
-      return criteriaSpecificIds.every (criteriaSpecificId) ->
-        return criteriaSpecificId == "*"
+      return criteriaSpecificIds.every (criteriaSpecificId) -> criteriaSpecificId == "*"
       
     # at least one set of final specific ids should match the criteria specific ids
     return finalSpecificIdsSet.some (finalSpecificIds) ->
       # every criteria specific id and every final specific id should either 
       # match or be a wild card.
-      return criteriaSpecificIds.every (criteriaSpecificId, idx) ->
+      criteriaSpecificIds.every (criteriaSpecificId, idx) ->
         finalSpecificId = finalSpecificIds[idx]
-        return criteriaSpecificId == finalSpecificId || criteriaSpecificId == "*" || finalSpecificId == "*"
+        criteriaSpecificId == finalSpecificId || criteriaSpecificId == "*" || finalSpecificId == "*"
 
   # get good and bad specific occurrences referenced in this part of the measure
   checkCriteriaForRationale: (finalSpecifics, criteria, rationale, dataCriteriaMap) ->
@@ -92,7 +91,7 @@ class Thorax.Models.Result extends Thorax.Model
         results.good.push(criterion)
       else
         matches = criterionRationale.specifics.some (criteriaSpecificIds) => 
-          return @idsMatch(criteriaSpecificIds, finalSpecifics)
+          @idsMatch(criteriaSpecificIds, finalSpecifics)
         if matches
           results.good.push(criterion)
         else
