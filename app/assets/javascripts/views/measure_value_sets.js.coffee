@@ -3,6 +3,10 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
   template: JST['measure/value_sets']
 
   context: ->
+    # the property values that indicate a supplemental criteria. this list is derived from 
+    # the human readable html for measures.
+    supplementalCriteriaProperties = ["ethnicity", "gender", "payer", "race"]
+    
     dataCriteria = []
     supplementalCriteria = []
     for sdc in @model.get('source_data_criteria').models
@@ -15,7 +19,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
 
         criteria = {name: name, oid: oid, valueSetName: valueSetName, code_concepts: code_concepts, cid: cid}
 
-        if sdc.get('type') == "characteristic"
+        if sdc.get('property') in supplementalCriteriaProperties
           supplementalCriteria.push(criteria)
         else
           dataCriteria.push(criteria)
