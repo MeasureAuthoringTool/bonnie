@@ -26,24 +26,24 @@ class Thorax.Models.Result extends Thorax.Model
     for code in Thorax.Models.Measure.allPopulationCodes
       if specifics = @get('finalSpecifics')?[code]
         updatedRationale[code] = {} 
+        
         # get the referenced occurrences in the logic tree using original population code
-        occurrences = _.uniq @population.getDataCriteriaKeys(@measure.get('population_criteria')[@population.get(code)?.code])
-        # get the good and bad specifics
-        occurrenceResults = @checkSpecificsForRationale(specifics, occurrences, @measure.get('data_criteria'))
+        criteria = _.uniq @population.getDataCriteriaKeys(@measure.get('population_criteria')[@population.get(code)?.code], false)
+        criteriaResults = @checkCriteriaForRationale(specifics, criteria, rationale, @measure.get('data_criteria'))
         submeasureCode = @population.get(code)?.code || code
         parentMap = @buildParentMap(@measure.get('population_criteria')[submeasureCode])
 
         # check each bad occurrence and remove highlights marking true
-        for badOccurrence in occurrenceResults.bad
-          if (rationale[badOccurrence])
-            updatedRationale[code][badOccurrence] = false
+        for badCriteria in criteriaResults.bad
+          if (rationale[badCriteria])
+            updatedRationale[code][badCriteria] = false
             # move up the logic tree to set AND/ORs to false based on the removal of the bad specific's true eval
-            @updateLogicTree(updatedRationale, rationale, code, badOccurrence, orCounts, parentMap)
+            @updateLogicTree(updatedRationale, rationale, code, badCriteria, orCounts, parentMap)
         # check the good specifics with a negated parent.  If there are multiple candidate specifics
         # and one is good while the other is bad, the child of the negation will evaluate to true, we want it to
         # evaluate to false since if there's a good negation then there's an occurrence for which it evaluated to false
-        for goodOccurrence in occurrenceResults.good
-          @updatedNegatedGood(updatedRationale[code], rationale, goodOccurrence, parentMap)
+        for goodCriteria in criteriaResults.good
+          @updatedNegatedGood(updatedRationale[code], rationale, goodCriteria, parentMap)
     return updatedRationale
 
   updatedRationale: ->
@@ -63,22 +63,41 @@ class Thorax.Models.Result extends Thorax.Model
         return
       parent = parentMap["precondition_#{parent.id}"]
 
+  idsMatch: (criteriaSpecificIds, finalSpecificIdsSet) ->
+    # if we have no criteria specifics, then there are no specific requirements
+    # for the criteria
+    if criteriaSpecificIds.length == 0
+      return true
+    # if we have no specifics in the final specifics list, all criteria specifics 
+    # should be wild cards.
+    if finalSpecificIdsSet.length == 0
+      return criteriaSpecificIds.every (criteriaSpecificId) -> criteriaSpecificId == "*"
+      
+    # at least one set of final specific ids should match the criteria specific ids
+    return finalSpecificIdsSet.some (finalSpecificIds) ->
+      # every criteria specific id and every final specific id should either 
+      # match or be a wild card.
+      criteriaSpecificIds.every (criteriaSpecificId, idx) ->
+        finalSpecificId = finalSpecificIds[idx]
+        criteriaSpecificId == finalSpecificId || criteriaSpecificId == "*" || finalSpecificId == "*"
+
   # get good and bad specific occurrences referenced in this part of the measure
-  checkSpecificsForRationale: (finalSpecifics, occurrences, dataCriteriaMap) ->
-    results = {bad: occurrences, good: []}
-    # if we dont't have any specifics rows then they are all bad
-    return results if finalSpecifics.length == 0
-    results.bad = []
-    # check for good and bad specifics.  Bad will be used to clear out logical true values that are false
-    # when specifics are applied.  Good will be used to fix negations of specific occurrences
-    for occurrence in occurrences
-      index = hqmf.SpecificsManager.indexLookup[dataCriteriaMap[occurrence].source_data_criteria]
-      good = false
-      # we're good if the occurrence is referenced by ID, Any indicates that we did not use it in the true path, thus it's bad
-      for row in finalSpecifics
-        good = true if row[index] != hqmf.SpecificsManager.any
-      if good then results.good.push(occurrence) else results.bad.push(occurrence)
-    results
+  checkCriteriaForRationale: (finalSpecifics, criteria, rationale, dataCriteriaMap) ->
+    results = {bad: [], good: []}
+
+    for criterion in criteria
+      criterionRationale = rationale[criterion]
+      if criterionRationale == false || !criterionRationale.specifics? || criterionRationale.specifics.length == 0
+        results.good.push(criterion)
+      else
+        matches = criterionRationale.specifics.some (criteriaSpecificIds) => 
+          @idsMatch(criteriaSpecificIds, finalSpecifics)
+        if matches
+          results.good.push(criterion)
+        else
+          results.bad.push(criterion)
+
+    return results
 
   # from each leaf walk up the tree updating the logical statements appropriately to false
   updateLogicTree: (updatedRationale, rationale, code, badOccurrence, orCounts, parentMap) ->
