@@ -18,4 +18,4 @@ class Thorax.Views.ValueSetCodeChecker extends Thorax.Views.BonnieView
         missingCodes.push dc.get('description')
 
     hasElementsWithMissingCodes: missingCodes.length > 0
-    elementsWithMissingCodes: missingCodes.join('; ')
+    elementsWithMissingCodes: missingCodes

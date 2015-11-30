@@ -1,6 +1,10 @@
 {{#if hasElementsWithMissingCodes}}
   <div class="alert alert-warning">
     Warning: There are elements in the Patient History that do not use any codes from this measure's value sets:
-    {{elementsWithMissingCodes}}
+    <ul>
+    {{#each elementsWithMissingCodes}}
+      <li>{{this}}</li>
+    {{/each}}
+    </ul>
   </div>
 {{/if}}
