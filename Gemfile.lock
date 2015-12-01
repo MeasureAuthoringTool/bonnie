@@ -87,6 +87,10 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    axlsx (2.0.0)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (= 0.9.9)
     bcrypt (3.1.10)
     bson (3.2.1)
     builder (3.2.2)
@@ -146,6 +150,7 @@ GEM
       tilt
     highline (1.7.8)
     hike (1.2.3)
+    htmlentities (4.3.4)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     i18n (0.7.0)
@@ -295,6 +300,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  axlsx
   bonnie_bundler!
   capistrano-rails
   coffee-rails

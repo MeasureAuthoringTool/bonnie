@@ -49,6 +49,7 @@ class PatientsController < ApplicationController
   end
 
   def export
+    export_excel
     if params[:patients]
       # if patients are given, they're from the patient bank; use those patients
       records = Record.where(is_shared: true).find(params[:patients])
@@ -97,6 +98,12 @@ class PatientsController < ApplicationController
     send_data stringio.sysread, :type => 'application/zip', :disposition => 'attachment', :filename => filename
   end
 
+  def export_excel
+    #Grab all records for the given measure
+    records = Record.by_user(current_user).where({:measure_ids.in => [params[:hqmf_set_id]]})
+    PatientExport.new.export_excel_file(records)
+    #TODO Do something with patients.
+  end
 
 private
 
