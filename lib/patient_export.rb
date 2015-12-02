@@ -9,7 +9,7 @@ class PatientExport
 	@@expected_values = ['IPP', 'DENOM', 'DENEX', 'NUMER', 'NUMEX', 'DENEXCEP']
 
 
-	def export_excel_file(records)
+	def export_excel_file(measure, records)
  		Axlsx::Package.new do |p|
  			p.workbook do |wb|
  				#Create styles.
@@ -28,21 +28,47 @@ class PatientExport
 					sheet.add_row ['Expected Value'], style:[text_center]
 					sheet.merge_cells "A3:F3"
 
-					#Populates the patient data
-					records.each do |patient|
-		    			patient_attributes = Array.new
-		    			@@expected_values.each do |value|
-		    				patient_attributes.push(patient['expected_values'][0][value])
-		    			end
-		       			@@attributes.each do |attr_name| 
-		    	    		patient_attributes.push(patient[attr_name])
-		    			end
-						sheet.add_row patient_attributes
-		    		end
+        			#Write a row per patient
+ 				    generate_row(sheet, records, measure)
+ 				    
 		    		sheet.column_widths 6,6,6,6,6,6,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
   				end
   			end
   			p.serialize('test.xlsx')
   		end
+ 	end
+
+ 	def generate_row(sheet, records, measure)
+ 		#Setup the BonnieCalculator
+		calculator = BonnieBackendCalculator.new
+ 		begin
+          	calculator.set_measure_and_population(measure, 0, rationale: true)
+        rescue => e
+      	  	setup_exception = "Measure setup exception: #{e.message}"
+        end
+
+ 		#Populates the patient data
+	    records.each do |patient|
+	    	patient_attributes = Array.new
+		    @@expected_values.each do |value|
+		    	patient_attributes.push(patient['expected_values'][0][value])
+		    end
+		    @@attributes.each do |attr_name| 
+		    	patient_attributes.push(patient[attr_name])
+		    end
+
+		    #Generate the calculated rationale for each patient against the measure.
+		    unless setup_exception
+      	    begin
+      		  result = calculator.calculate(patient)
+      		  result['rationale'].each do  |key, value|
+      		    patient_attributes.push(key)
+      		  end
+      		rescue => e
+      		  calculation_exception = "Measure calculation exception: #{e.message}"
+      		end
+      	  end
+		    sheet.add_row patient_attributes
+		end
  	end
 end
