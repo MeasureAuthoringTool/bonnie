@@ -19,11 +19,16 @@ describe 'MeasureView', ->
   it 'renders measure populations', ->
     expect(@measureView.$('[data-toggle="tab"]')).toExist()
     expect(@measureView.$('.rationale-target')).toBeVisible()
-    expect(@measureView.$('[data-toggle="collapse"]')).not.toHaveClass('collapsed')
-    @measureView.$('[data-toggle="collapse"]').click()
-    expect(@measureView.$('[data-toggle="collapse"]')).toHaveClass('collapsed')
-    @measureView.$('[data-toggle="tab"]').last().click()
-    expect(@measureView.$('[data-toggle="collapse"]')).not.toHaveClass('collapsed')
+    expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).not.toHaveClass('collapsed')
+    @measureView.$('[data-toggle="collapse"]').not('.value_sets').click()
+    expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).toHaveClass('collapsed')
+    @measureView.$('[data-toggle="tab"]').not('.value_sets').last().click()
+    expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).not.toHaveClass('collapsed')
+
+    # TODO: LDY 12/03/15: where is the appropriate location (if any) for these tests?
+    #expect(@measureView.$('[data-toggle="collapse"].value_sets')).toHaveClass('collapsed')
+    #@measureView.$('[data-toggle="collapse"].value_sets').click()
+    #expect(@measureView.$('[data-toggle="collapse"].value_sets')).not.toHaveClass('collapsed')
 
   it 'renders patient results', ->
     expect(@measureView.$('.patient')).toExist()
