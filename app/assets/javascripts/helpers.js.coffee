@@ -41,3 +41,18 @@ Handlebars.registerHelper 'ifCond', (v1, operator, v2, options) ->
     when '||'
       if (v1 || v2) then options.fn(this) else options.inverse(this)
     else return options.inverse(this)
+
+Handlebars.registerHelper 'eachModN', (context, N, options) ->
+  fn = options.fn
+  inverse = options.inverse
+  ret = ""
+  
+  if(context && context.length > 0)
+    for i in [0..context.length-1]
+      value = i % N
+      isZero = (value == 0)
+      isOne = (value == 1)
+      ret = ret + fn(_.extend({}, context[i], value: value, modIsZero: isZero, modIsOne: isOne))
+  else
+    ret = inverse(this)
+  return ret
