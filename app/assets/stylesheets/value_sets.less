@@ -8,44 +8,15 @@
     color: @brand-primary;
     cursor: pointer;
   }
-  .panel {
-    .panel-title {
-      background-color: @blue-lighter;
-      color: white;
-      display: block;
-      font-size: @font-size-base;
-      padding: (@grid-gutter-width / 2);
-      text-transform: uppercase;
-      &[class*="-elements"] {
-        .transition(all .35s ease);
-        background-color: @blue-lighter;
-        &.closed {
-          padding: 4px (@grid-gutter-width / 2);
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          &:before {
-            content: ''; // IE9 ellipsis fix
-          }
-          .panel-icon {
-            display: inline-block;
-            font-weight: bold;
-          }
-          .element-title {
-            line-height: 28px; // center it with arrow
-          }
-        }
-        .panel-icon {
-          display: block;
-        }
-        .panel-expander {
-          .pull-right;
-        }
-        &:hover {
-          background-color: @blue-darker;
-          text-decoration: none;
-        }
-      }
-    }
+  .row {
+    padding-bottom: 5px;
+    padding-top: 5px;
+  }
+  .code {
+    padding-right: 0;
+  }
+  td.description {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }

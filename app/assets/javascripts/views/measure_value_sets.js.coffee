@@ -16,9 +16,10 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     # the human readable html for measures.
     supplementalCriteriaProperties = ["ethnicity", "gender", "payer", "race"]
     
-    dataCriteria = []
-    supplementalCriteria = []
-    summaryValueSets = []
+    dataCriteria = [] # all criteria that aren't supplemental criteria
+    supplementalCriteria = [] # ethnicity/gender/payer/race criteria
+    summaryValueSets = [] # array of {generic value set descriptor, oid, and code}
+    
     for sdc in @model.get('source_data_criteria').models
       if sdc.get('code_list_id')
         name = sdc.get('description')
@@ -32,6 +33,8 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
 
         valueSet = {name: name, oid: oid, valueSetName: valueSetName, code_concepts: code_concepts, cid: cid}
 
+        # only add value set info summaryValueSets if it isn't there already
+        # includes the common name for the value set, the oid, and the codes.
         if _.where(summaryValueSets, {oid: oid}).length == 0
           nameParts = valueSet.name.split(':')
           if nameParts.length > 1
@@ -49,8 +52,8 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     supplementalCriteria = @sortAndFilterValueSets(supplementalCriteria)
     summaryValueSets = _.chain(summaryValueSets).sortBy((valueSet) => valueSet.oid).value()
 
-    criteriaSets = [{name:"Data Criteria", listOrder: 0, criteria:dataCriteria},
-                 {name:"Supplemental Data Elements", listOrder: 1, criteria: supplementalCriteria}]
+    criteriaSets = [{name:"Data Criteria", criteria:dataCriteria},
+                    {name:"Supplemental Data Elements", criteria: supplementalCriteria}]
 
     @criteriaSets = criteriaSets
     @summaryValueSets = summaryValueSets
@@ -72,34 +75,39 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
                     code.code_system_name + code.display_name + code.code)
                   .value()
 
+  # determines if one or more codes in a value set are equal to codes in another value set.
   findOverlappingValueSets: ->
     overlappingValueSets = []
-    for {oid: oid1, cid: cid1, codes: codes1, name: name1} in @summaryValueSets
-      for {oid: oid2, cid: cid2, codes: codes2, name: name2} in @summaryValueSets
-        if oid1 == oid2
+    for valueSet1 in @summaryValueSets
+      for valueSet2 in @summaryValueSets
+        if valueSet1.oid == valueSet2.oid
           continue
         matchedCodes = []
-        for code1 in codes1
-          for code2 in codes2
+        for code1 in valueSet1.codes
+          for code2 in valueSet2.codes
             if code1.code_system_name == code2.code_system_name && code1.code == code2.code
               matchedCodes.push(code1)
         if matchedCodes.length > 0
-          cid = cid1 + "_" + cid2
-          overlappingValueSets.push({cid: cid, oid1: oid1, oid2: oid2, name1:name1, name2: name2, codes:matchedCodes})
+          cid = valueSet1.cid + "_" + valueSet2.cid
+          overlappingValueSets.push({cid: cid, codes:matchedCodes,\
+                                     oid1: valueSet1.oid, name1:valueSet1.name,\
+                                     oid2: valueSet2.oid, name2: valueSet2.name})
           
     @overlappingValueSets = overlappingValueSets
 
   events:
-    # toggle showing the measure description
+    # toggle showing the code description
     'click .expand.opened': (event) ->
-      description_id = event.currentTarget.id
-      @$('.' + description_id).animate 'max-height': parseInt(@$('.' + description_id).css('line-height')) * 1 # contract
-      @$('#' + description_id).toggleClass('closed opened').html 'Show more <i class="fa fa-caret-down"></i>'
+      expand_id = event.currentTarget.id
+      description_id = expand_id.replace('expand', 'description')
+      @$('#' + description_id).animate 'max-height': parseInt(@$('#' + description_id).css('line-height')) # contract
+      @$('#' + expand_id).toggleClass('closed opened').html 'Show more <i class="fa fa-caret-down"></i>'
     'click .expand.closed': (event) ->
-      description_id = event.currentTarget.id
-      if @$('.' + description_id)[0].scrollHeight > @$('.' + description_id).height()
-        @$('.' + description_id).animate 'max-height': @$('.' + description_id)[0].scrollHeight # expand
-        @$('#' + description_id).toggleClass('closed opened').html 'Show less <i class="fa fa-caret-up"></i>'
+      expand_id = event.currentTarget.id
+      description_id = expand_id.replace('expand', 'description')
+      if @$('#' + description_id)[0].scrollHeight > @$('#' + description_id).height()
+        @$('#' + description_id).animate 'max-height': @$('#' + description_id)[0].scrollHeight # expand
+        @$('#' + expand_id).toggleClass('closed opened').html 'Show less <i class="fa fa-caret-up"></i>'
       else
         # FIXME: remove this toggle if the description is too short on render rather than on this click.
-        @$('#' + description_id).html('Nothing more to show...').fadeOut 2000, -> $(@).remove()
+        @$('#' + expand_id).html('Nothing more to show...').fadeOut 2000, -> $(@).remove()

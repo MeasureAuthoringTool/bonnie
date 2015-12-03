@@ -2,9 +2,10 @@
   {{#each criteriaSets}}
   <h2>{{name}}</h2>
     <small>
+      <!-- use a custom modulo helper to enable alternating color bands -->
       {{#eachModN criteria 2}}
-      <a data-toggle="collapse" href="#codes_{{cid}}" class="collapsed">
-        <div class="row" style="padding-bottom: 5px; padding-top: 5px;{{#if modIsZero}} background-color: #f6f9ff;{{/if}}">
+      <a data-toggle="collapse" href="#codes_{{cid}}" class="collapsed value_sets">
+        <div class="row" {{#if modIsZero}}style="background-color: #f6f9ff;"{{/if}}>
           <div class="col-md-3 col-sm-4"><strong>{{oid}}</strong></div>
           <div class="col-md-5 col-sm-4">{{name}}</div>
           <div class="col-md-4 col-sm-4">{{valueSetName}}</div>
@@ -15,11 +16,11 @@
           <table class="table table-condensed table-striped">
           {{#each code_concepts}}
           <tr>
-            <td class="col-md-1 col-sm-2" style="padding-left:0; padding-right: 0;">{{code_system_name}}</td>
-            <td class="col-md-10 col-sm-8" style="padding-left:10px; padding-right:10px">
-              <div {{#if display_name_is_long}}class="description description_{{../cid}}_{{_id}}"{{/if}}>{{display_name}}</div>
+            <td class="col-md-1 col-sm-2 code">{{code_system_name}}</td>
+            <td class="col-md-10 col-sm-8 description">
+              <div {{#if display_name_is_long}}class="description" id="description_{{../../cid}}_{{_id}}"{{/if}}>{{display_name}}</div>
               {{#if display_name_is_long}}
-              <div class="expand closed pull-right" id="description_{{../cid}}_{{_id}}">Show more<i class="fa fa-caret-down"></i></div>
+              <div class="expand closed pull-right" id="expand_{{../../cid}}_{{_id}}">Show more<i class="fa fa-caret-down"></i></div>
               {{/if}}
             </td>
             <td class="col-md-1 col-sm-2">{{code}}</td>
@@ -34,18 +35,19 @@
   
   {{#if overlappingValueSets.length}}
   <h2>Overlapping Value Sets</h2>
-  <div class="row" style="padding-bottom: 5px; padding-top: 5px;">
+  <div class="row">
     <strong>
     <div class="col-md-5 col-sm-5">Value Set</div>
     <div class="col-md-5 col-sm-4">Overlaps With</div>
     <div class="col-md-2 col-sm-3">Codes</div>
     </strong>
   </div>
+  <!-- use a custom modulo helper to enable alternating color bands -->
   {{#eachModN overlappingValueSets 2}}
   <small>
-    <a data-toggle="collapse" href="#overlapping_{{cid}}" class="collapsed">
+    <a data-toggle="collapse" href="#overlapping_{{cid}}" class="collapsed value_sets">
       <div>
-        <div class="row" style="padding-bottom: 5px; padding-top: 5px;{{#if modIsZero}} background-color: #f6f9ff;{{/if}}">
+        <div class="row" {{#if modIsZero}}style="background-color: #f6f9ff;"{{/if}}>
           <div class="col-md-5 col-sm-5">
             <div><strong>{{oid1}}</strong></div>
             <div>{{name1}}</div>
@@ -66,11 +68,11 @@
         <table class="table table-condensed table-striped">
         {{#each codes}}
         <tr>
-          <td class="col-md-1 col-sm-2" style="padding-left:0; padding-right: 0;">{{code_system_name}}</td>
-          <td class="col-md-10 col-sm-8" style="padding-left:10px; padding-right:10px">
-            <div {{#if display_name_is_long}}class="description description_{{../cid}}_{{_id}}"{{/if}}>{{display_name}}</div>
+          <td class="col-md-1 col-sm-2 code">{{code_system_name}}</td>
+          <td class="col-md-10 col-sm-8 description">
+            <div {{#if display_name_is_long}}class="description" id="description_{{../../cid}}_{{_id}}"{{/if}}>{{display_name}}</div>
             {{#if display_name_is_long}}
-            <div class="expand closed pull-right" id="description_{{../cid}}_{{_id}}">Show more<i class="fa fa-caret-down"></i></div>
+            <div class="expand closed pull-right" id="expand_{{../../cid}}_{{_id}}">Show more<i class="fa fa-caret-down"></i></div>
             {{/if}}
           </td>
           <td class="col-md-1 col-sm-2">{{code}}</td>
