@@ -14,20 +14,25 @@
       </a>
       <div id="codes_{{cid}}" class="panel-collapse collapse">
         <div class="panel-body">
+          {{#ifCond code_concepts.length ">" 0}}
           <table class="table table-condensed table-striped">
-          {{#each code_concepts}}
-          <tr>
-            <td class="col-md-1 col-sm-2 code">{{code_system_name}}</td>
-            <td class="col-md-10 col-sm-8 description">
-              <div {{#if display_name_is_long}}class="description" id="description_{{../../cid}}_{{_id}}"{{/if}}>{{display_name}}</div>
-              {{#if display_name_is_long}}
-              <div class="expand closed pull-right" id="expand_{{../../cid}}_{{_id}}">Show more<i class="fa fa-caret-down"></i></div>
-              {{/if}}
-            </td>
-            <td class="col-md-1 col-sm-2">{{code}}</td>
-          </tr>
-          {{/each}}
-        </table>
+            {{#each code_concepts}}
+            <tr>
+              <td class="col-md-1 col-sm-2 code">{{code_system_name}}</td>
+              <td class="col-md-10 col-sm-8 description">
+                <div {{#if display_name_is_long}}class="description" id="description_{{../../cid}}_{{_id}}"{{/if}}>{{display_name}}</div>
+                {{#if display_name_is_long}}
+                <div class="expand closed pull-right" id="expand_{{../../cid}}_{{_id}}">Show more<i class="fa fa-caret-down"></i></div>
+                {{/if}}
+              </td>
+              <td class="col-md-1 col-sm-2">{{code}}</td>
+            </tr>
+            {{/each}}
+          </table>
+          {{/ifCond}}
+          {{#ifCond code_concepts.length "==" 0}}
+          No codes related to this value set were found in Bonnie.
+          {{/ifCond}}
         </div>
       </div>
       {{/eachModN}}

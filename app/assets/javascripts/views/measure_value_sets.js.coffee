@@ -25,7 +25,10 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
         name = sdc.get('description')
         oid = sdc.get('code_list_id')
         valueSetName = sdc.get('title')
-        code_concepts = @sortAndFilterCodes(bonnie.valueSetsByOid[oid].concepts)
+        if bonnie.valueSetsByOid[oid]?
+          code_concepts = @sortAndFilterCodes(bonnie.valueSetsByOid[oid].concepts)
+        else
+          code_concepts = []
         cid = sdc.cid
 
         for code_concept in code_concepts
