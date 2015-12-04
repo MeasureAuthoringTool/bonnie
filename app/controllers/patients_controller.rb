@@ -100,11 +100,9 @@ class PatientsController < ApplicationController
 
   def export_excel
     #Grab all records for the given measure
-    patientExporter = PatientExport.new
     measure = Measure.where(hqmf_set_id: params[:hqmf_set_id], user_id: current_user.id).first
     records = Record.by_user(current_user).where({:measure_ids.in => [params[:hqmf_set_id]]})
-    #rationales = patientExporter.calculate_patient_against_measure(measure, records)
-    patientExporter.export_excel_file(measure, records)
+    PatientExport.new.export_excel_file(measure, records)
   end
 
 private
