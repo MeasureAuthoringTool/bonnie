@@ -87,6 +87,13 @@ class Thorax.Models.Result extends Thorax.Model
 
     for criterion in criteria
       criterionRationale = rationale[criterion]
+
+      # handle the case where the rationale does not contain a criteria
+      if !criterionRationale?
+        if console?
+          console.log('WARNING: data criteria ' + criterion + ' is not contained in the rationale')
+        continue
+
       if criterionRationale == false || !criterionRationale.specifics? || criterionRationale.specifics.length == 0
         results.good.push(criterion)
       else
