@@ -52,8 +52,8 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     supplementalCriteria = @sortAndFilterValueSets(supplementalCriteria)
     summaryValueSets = _.chain(summaryValueSets).sortBy((valueSet) => valueSet.oid).value()
 
-    criteriaSets = [{name:"Data Criteria", criteria:dataCriteria},
-                    {name:"Supplemental Data Elements", criteria: supplementalCriteria}]
+    criteriaSets = [{name:"Data Criteria", id:"data_criteria", criteria:dataCriteria},
+                    {name:"Supplemental Data Elements", id:"supplemental_criteria", criteria: supplementalCriteria}]
 
     @criteriaSets = criteriaSets
     @summaryValueSets = summaryValueSets
