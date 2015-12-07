@@ -1,3 +1,5 @@
+
+{{#unless fieldValue}}<div class="edit_value_view {{#if hideEditValueView}}hide{{/if}}">{{/unless}}
 {{#if fieldValue}}
 <p>
   <label for="key_{{@cid}}" class="sr-only">field value type</label>
@@ -63,3 +65,4 @@
     {{/button}}
   </div>
 </div>
+{{#unless fieldValue}}</div>{{/unless}}
