@@ -6,16 +6,30 @@
       {{#each codeSets}}
       <option>{{this}}</option>
       {{/each}}
+      <option value="custom">Custom</option>
     </select>
     
   </div>
 
+  {{#ifCond codeset '==' 'custom'}}
+    <div class="col-md-4">
+      <label for="custom_codeset_{{@cid}}" class="sr-only">input</label>
+      <input type="text" name="value" id="custom_codeset_{{@cid}}" class="form-control" placeholder="code set">
+    </div>
+    <div class="col-md-4">
+      <label for="custom_code_{{@cid}}" class="sr-only">units</label>
+      <input type="text" name="unit" id="custom_code_{{@cid}}" class="form-control" placeholder="code">
+    </div>
+  {{/ifCond}}
+  
+  {{#ifCond codeset '!=' 'custom'}}
   <div class="col-md-8">
     <label for="code_{{@cid}}" class="sr-only">code value</label>
     <select name="code" id="code_{{@cid}}" class="form-control codelist-control">
       <option value="">--</option>
     </select>
   </div>
+  {{/ifCond}}
 
   <div class="col-md-1">
     {{#button "addCode" class="btn btn-primary pull-right" disabled="disabled"}}

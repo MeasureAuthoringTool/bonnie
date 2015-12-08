@@ -197,13 +197,19 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']
   events:
-    'change select':           'validateForAddition'
-    'change .codeset-control': 'changeConcepts'
+    'change select[name=codeset]': (e) ->
+      @model.set codeset: $(e.target).val()
+      @changeConcepts(e)
+      @validateForAddition()
+    'change select[name=code]' : ->
+      @validateForAddition()
     rendered: ->
       @$('select.codeset-control').selectBoxIt('native': true)
 
   initialize: ->
     @model = new Thorax.Model
+    @model.set('codeset', "")
+
     @codes = @criteria.get('codes')
     @codes.on 'add remove', => @criteria.set 'code_source', (if @codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
     @codeSets = _(concept.code_system_name for concept in @criteria.valueSet()?.get('concepts') || []).uniq()
@@ -216,10 +222,11 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   changeConcepts: (e) ->
     codeSet = $(e.target).val()
     $codeList = @$('.codelist-control').empty()
-    blankEntry = if codeSet is '' then '--' else "Choose a #{codeSet} code"
-    $codeList.append("<option value>#{blankEntry}</option>")
-    for concept in @criteria.valueSet().get('concepts') when concept.code_system_name is codeSet and !concept.black_list
-      $('<option>').attr('value', concept.code).text("#{concept.code} (#{concept.display_name})").appendTo $codeList
+    if codeSet isnt 'custom'
+      blankEntry = if codeSet is '' then '--' else "Choose a #{codeSet} code"
+      $codeList.append("<option value>#{blankEntry}</option>")
+      for concept in @criteria.valueSet().get('concepts') when concept.code_system_name is codeSet and !concept.black_list
+        $('<option>').attr('value', concept.code).text("#{concept.code} (#{concept.display_name})").appendTo $codeList
     @$('.codelist-control').focus()
 
   addCode: (e) ->
