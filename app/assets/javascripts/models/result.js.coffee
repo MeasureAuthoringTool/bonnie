@@ -190,7 +190,7 @@ class Thorax.Models.Result extends Thorax.Model
     orCounts = {}
     for key, dc of @measure.get('data_criteria') when dc.derivation_operator == 'UNION' && key.indexOf('UNION') != -1
       for child in dc.children_criteria
-        orCounts[key] = (orCounts[key] || 0) + 1 if rationale[key]
+        orCounts[key] = (orCounts[key] || 0) + 1 if rationale[child] # Only add to orCount for logically true branches
     orCounts
 
   codedEntriesForDataCriteria: (dataCriteriaKey) ->
