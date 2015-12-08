@@ -6,7 +6,7 @@ class PatientExport
 
   def export_excel_file(measure, records)
 
-    @@expected_values = measure.populations[0].keys
+    @@expected_values = HQMF::PopulationCriteria::ALL_POPULATION_CODES & measure.populations[0].keys
 
     Axlsx::Package.new do |p|
       p.workbook do |wb|
@@ -22,7 +22,7 @@ class PatientExport
                                         :border => header_border,
                                         :fg_color => fg_color,
                                         :bg_color => bg_color)
-        text_center = styles.add_style(:b => true, :sz => 14, :alignment => {:horizontal => :center}, :b => true)
+        text_center = styles.add_style(:b => true, :sz => 14, :alignment => {:horizontal => :center})
         header = styles.add_style(:b => true,
                                   :sz => 14,
                                   :alignment => {:wrap_text => true},
@@ -64,11 +64,10 @@ class PatientExport
           column_widths[0..@@expected_values.length*2] = Array.new(@@expected_values.length*2, 6) # Narrower width for the population columns
           column_widths[@@expected_values.length*2..(@@expected_values.length*2+@@attributes.length)] = Array.new(@@attributes.length, 16) # Width for attributes
           sheet.column_widths *column_widths
-
           sheet["A4:#{headers.length.excel_column}#{records.length+3}"].each { |c| c.style = default }
         end
       end
-      p.serialize('test.xlsx')
+      p.serialize("#{measure.cms_id}.xlsx")
     end
   end
 
@@ -86,8 +85,6 @@ class PatientExport
   end
 
   def generate_rows(sheet, records, measure)
-
-    @@expected_values = measure.populations[0].keys
 
     #Setup the BonnieCalculator
     calculator = BonnieBackendCalculator.new
