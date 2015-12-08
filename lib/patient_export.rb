@@ -3,7 +3,6 @@ class PatientExport
   #List of attributes we want to print to excel.
   @@attributes = ['notes', 'first', 'last', 'birthdate', 'expired', 'deathdate',
           'ethnicity', 'race', 'gender']
-  @@data_criteria_keys = Array.new()
 
   def export_excel_file(measure, records)
 
@@ -37,8 +36,6 @@ class PatientExport
                                   :fg_color => fg_color,
                                   :bg_color => bg_color)
 
-        # satisfiesCriteria = styles.add_style :fg_color => 'FF428751', :sz => 14, :type => :dxf, :b => true
-
         wb.add_worksheet(:name => "#{measure.cms_id} Patients") do |sheet|
           #Generate a list of all the headers we want.
           headers = @@expected_values*2 + @@attributes + generate_data_criteria_headers(measure)
@@ -68,14 +65,7 @@ class PatientExport
           column_widths[@@expected_values.length*2..(@@expected_values.length*2+@@attributes.length)] = Array.new(@@attributes.length, 16) # Width for attributes
           sheet.column_widths *column_widths
 
-          sheet["A4:#{headers.length.excel_column}#{records.length+3}"].each { |c| c.style = default } 
-
-          # sheet.add_conditional_formatting "A4:#{headers.length.excel_column}#{records.length+3}", { :type => :containsText,
-          #                                                                                            :operator => :equal,
-          #                                                                                            :text => "False",
-          #                                                                                            :dxfId => satisfiesCriteria,
-          #                                                                                            :priority => 1 }
-
+          sheet["A4:#{headers.length.excel_column}#{records.length+3}"].each { |c| c.style = default }
         end
       end
       p.serialize('test.xlsx')
@@ -87,6 +77,7 @@ class PatientExport
     logic_extractor.population_logic(measure)
     data_criteria_headers = Array.new()
 
+    @@data_criteria_keys = Array.new()
     measure.data_criteria.each do |key, value|
       data_criteria_headers.push(logic_extractor.data_criteria_logic(key).map(&:strip).join(' '))
       @@data_criteria_keys.push(key)
