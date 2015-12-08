@@ -203,26 +203,31 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
       @validateForAddition()
     'change select[name=code]' : ->
       @validateForAddition()
+    'keyup input[name=custom_code]': 'validateForAddition'
+    'keyup input[name=custom_codeset]': 'validateForAddition'
     rendered: ->
       @$('select.codeset-control').selectBoxIt('native': true)
 
   initialize: ->
+    @custom_key = 'custom'
     @model = new Thorax.Model
-    @model.set('codeset', "")
-
     @codes = @criteria.get('codes')
     @codes.on 'add remove', => @criteria.set 'code_source', (if @codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
     @codeSets = _(concept.code_system_name for concept in @criteria.valueSet()?.get('concepts') || []).uniq()
 
   validateForAddition: ->
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
-    @$('.btn[data-call-method=addCode]').prop 'disabled', attributes.codeset is '' or attributes.code is ''
-    @$('.btn').focus() #  advances the focus too the add Button
+    if attributes.codeset is @custom_key
+      @$('.btn[data-call-method=addCode]').prop 'disabled', attributes.custom_codeset is '' or attributes.custom_code is ''
+      # focusing on the button causes an interruption in typing, so no focus for custom code entry
+    else
+      @$('.btn[data-call-method=addCode]').prop 'disabled', attributes.codeset is '' or attributes.code is ''
+      @$('.btn').focus() #  advances the focus too the add Button
 
   changeConcepts: (e) ->
     codeSet = $(e.target).val()
     $codeList = @$('.codelist-control').empty()
-    if codeSet isnt 'custom'
+    if codeSet isnt @custom_key
       blankEntry = if codeSet is '' then '--' else "Choose a #{codeSet} code"
       $codeList.append("<option value>#{blankEntry}</option>")
       for concept in @criteria.valueSet().get('concepts') when concept.code_system_name is codeSet and !concept.black_list
@@ -233,6 +238,9 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     e.preventDefault()
     @serialize()
     # add the code unless there is a pre-existing code with the same codeset/code
+    if @model.get('codeset') is @custom_key
+      @model.set('codeset', @model.get('custom_codeset'))
+      @model.set('code', @model.get('custom_code'))
     @codes.add @model.clone() unless @codes.any (c) => c.get('codeset') is @model.get('codeset') and c.get('code') is @model.get('code')
     # Reset model to default values
     @model.clear()
@@ -259,6 +267,10 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
   initialize: ->
     @model = new Thorax.Model
     @fulfillments = @criteria.get('fulfillments')
+
+  context: ->
+    _(super).extend
+      custom_key: @custom_key
 
   validateForAddition: ->
     attributes = @serialize(set: false)
