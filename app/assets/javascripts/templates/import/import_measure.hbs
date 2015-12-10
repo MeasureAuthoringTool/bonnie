@@ -35,13 +35,13 @@
             <div class="form-group">
               <label for="vsacUser" class="col-sm-{{titleSize}} control-label">VSAC Username</label>
               <div class="col-sm-{{dataSize}}">
-                <input type="text" class="form-control" id="vsacUser" name="vsac_username" placeholder="username">
+                <input type="text" class="form-control" id="vsacUser" name="vsac_username" value="{{vsacUsernameSession}}" placeholder="username">
               </div>
             </div>
             <div class="form-group">
               <label for="vsacPassword" class="col-sm-{{titleSize}} control-label">VSAC Password</label>
               <div class="col-sm-{{dataSize}}">
-                <input type="password" class="form-control" id="vsacPassword" name="vsac_password" placeholder="password">
+                <input type="password" class="form-control" id="vsacPassword" name="vsac_password" value="{{vsacPasswordSession}}" placeholder="password">
               </div>
               <div class="col-sm-offset-{{titleSize}} vsac-registration"><a href="https://uts.nlm.nih.gov/license.html" target="_blank"><i class="fa fa-plus-circle" aria-hidden="true"></i> Register for VSAC</a></div>
             </div>

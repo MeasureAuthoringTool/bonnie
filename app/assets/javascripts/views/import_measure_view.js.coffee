@@ -21,6 +21,8 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       calculationTypeLabel: calculationTypeLabel
       hqmfSetId: hqmfSetId
       redirectRoute: currentRoute
+      vsacUsernameSession: sessionStorage.getItem('vsacUser')
+      vsacPasswordSession: sessionStorage.getItem('vsacPassword')
 
   events:
     rendered: -> 
@@ -68,6 +70,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
     @importDialog = @$("#importMeasureDialog")
     @importWait = @$("#pleaseWaitDialog")
     @finalizeDialog = @$("#finalizeMeasureDialog")
+    @enableLoadVsac()
 
   display: ->
     @importDialog.modal(
@@ -82,6 +85,8 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       "keyboard" : false,
       "show" : true)
     @importDialog.modal('hide')
+    sessionStorage.setItem('vsacUser', @$('#vsacUser').val())
+    sessionStorage.setItem('vsacPassword', @$('#vsacPassword').val())
     @$('form').submit()
 
   # FIXME: Is anything additional required for cleaning up this view on close?
