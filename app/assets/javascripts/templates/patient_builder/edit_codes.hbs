@@ -6,12 +6,12 @@
       {{#each codeSets}}
       <option>{{this}}</option>
       {{/each}}
-      <option value="{{custom_key}}">Custom</option>
+      <option value="custom">Custom</option>
     </select>
     
   </div>
 
-  {{#ifCond codeset '==' custom_key}}
+  {{#ifCond codeset '==' 'custom'}}
     <div class="col-md-4">
       <label for="custom_codeset_{{@cid}}" class="sr-only">input</label>
       <input type="text" name="custom_codeset" id="custom_codeset_{{@cid}}" class="form-control" placeholder="code set">
@@ -22,7 +22,7 @@
     </div>
   {{/ifCond}}
 
-  {{#ifCond codeset '!=' custom_key}}
+  {{#ifCond codeset '!=' 'custom'}}
   <div class="col-md-8">
     <label for="code_{{@cid}}" class="sr-only">code value</label>
     <select name="code" id="code_{{@cid}}" class="form-control codelist-control">
