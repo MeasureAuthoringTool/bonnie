@@ -3,13 +3,13 @@ namespace :bonnie do
 
     desc "Migrates measures and value_sets away from User versioning"
     task :apply_hash => :environment do
+      
       user_oid_to_version = Hash.new
       seen_hashes = Set.new
       to_delete = []
       to_save = []
       size = HealthDataStandards::SVS::ValueSet.count()
       progress = 0
-
 
       HealthDataStandards::SVS::ValueSet.each do |vs|
         progress += 1
@@ -83,29 +83,34 @@ namespace :bonnie do
       end
 
       to_proc.each do |vs|
+        unversioned_hash = HealthDataStandards::SVS::ValueSet.gen_versionless_hash(vs)
+        
         progress += 1
         if (progress % 50 == 0)
           puts "\n#{progress} / #{size}"
         end
+        if (vs.version != "draft")
+          version_doc = Nokogiri::XML(api.get_versions(vs.oid))
 
-        version_doc = Nokogiri::XML(api.get_versions(vs.oid))
+          version_doc.xpath("//version").each do |node|
+            begin
+              to_check = nil
+              retrieved_value = api.get_valueset(vs.oid, {version: node.content})
+              retrieved_doc = Nokogiri::XML(retrieved_value)
+              to_check = HealthDataStandards::SVS::ValueSet.load_from_xml(retrieved_doc)
+              to_check_hash = HealthDataStandards::SVS::ValueSet.gen_versionless_hash(to_check)
 
-        version_doc.xpath("//version").each do |node|
-          begin
-            to_check = nil
-            retrieved_value = api.get_valueset(vs.oid, {version: node.content})
-            retrieved_doc = Nokogiri::XML(retrieved_value)
-            to_check = HealthDataStandards::SVS::ValueSet.load_from_xml(retrieved_doc)
-            to_check.bonnie_hash = HealthDataStandards::SVS::ValueSet.gen_bonnie_hash(to_check)
-
-            if (to_check.bonnie_hash == vs.bonnie_hash)
-              vs.version = node.content
-              to_save.push(vs)
-              break
+              if (to_check_hash == unversioned_hash)
+                vs.version = node.content
+                vs.bonnie_hash = nil
+                vs.bonnie_hash = HealthDataStandards::SVS::ValueSet.gen_bonnie_hash(vs)
+                to_save.push(vs)
+                break
+              end
+            rescue Exception => e
+              puts e.message
+              puts "Ya broke it!"
             end
-          rescue Exception => e
-            puts e.message
-            puts "Ya broke it!"
           end
         end
       end
@@ -116,11 +121,13 @@ namespace :bonnie do
     end
 
     task :check_sets => :environment do
-      unique_vs = Set.new
       HealthDataStandards::SVS::ValueSet.each do |vs|
-        unique_vs.add([vs.oid, vs.version])
+        puts vs.bonnie_hash
       end
-      puts unique_vs.length
+      
+      Measure.each do |m|
+        puts m.oid_to_version
+      end
     end
   end
 end
