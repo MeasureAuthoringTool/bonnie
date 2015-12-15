@@ -48,8 +48,10 @@ namespace :bonnie do
 
       size = to_delete.count()      
       progress = 0
+
       
       to_delete.each do |vs|
+        
         progress += 1
         if (progress % 500 == 0)
           puts "#{progress} / #{size}"
@@ -78,6 +80,8 @@ namespace :bonnie do
       oid_version_to_content = Hash.new
       to_proc = []
 
+      old_hash_to_new = Hash.new
+
       HealthDataStandards::SVS::ValueSet.each do |vs|
         to_proc.push(vs)
       end
@@ -101,9 +105,9 @@ namespace :bonnie do
               to_check_hash = HealthDataStandards::SVS::ValueSet.gen_versionless_hash(to_check)
 
               if (to_check_hash == unversioned_hash)
+                old_hash_to_new[vs.bonnie_hash] = to_check.bonnie_hash
                 vs.version = node.content
-                vs.bonnie_hash = nil
-                vs.bonnie_hash = HealthDataStandards::SVS::ValueSet.gen_bonnie_hash(vs)
+                vs.bonnie_hash = to_check.bonnie_hash
                 to_save.push(vs)
                 break
               end
@@ -114,6 +118,18 @@ namespace :bonnie do
           end
         end
       end
+
+      Measure.each do |m|
+        m.oid_to_version.map! { |hash|
+          if (!old_hash_to_new[hash].nil?)
+            hash = old_hash_to_new[hash]
+          else
+            hash
+          end
+        }
+        m.save!
+      end
+
       to_save.each do |vs|
         vs.save!
       end
