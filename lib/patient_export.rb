@@ -4,17 +4,20 @@ class PatientExport
   @@attributes = ['notes', 'first', 'last', 'birthdate', 'expired', 'deathdate',
           'ethnicity', 'race', 'gender']
 
-  def export_excel_file(measure, records)
+  #Hash of populcation codes, and number of data criteria for each
+  @@population_hash = Hash.new
+
+  def self.export_excel_file(measure, records)
 
     @@expected_values = HQMF::PopulationCriteria::ALL_POPULATION_CODES & measure.populations[0].keys
 
-    Axlsx::Package.new do |p|
-      p.workbook do |wb|
+    Axlsx::Package.new do |package|
+      package.workbook do |workbook|
         #Create styles.
         bg_color = "DDDDDD"
         fg_color = "000033"
         header_border = { :style => :thick, :color =>"000066", :edges => [:bottom] }
-        styles = wb.styles
+        styles = workbook.styles
         default = styles.add_style(:sz => 14)
         rotated_style = styles.add_style(:b => true,
                                         :sz => 12,
@@ -36,9 +39,14 @@ class PatientExport
                                   :fg_color => fg_color,
                                   :bg_color => bg_color)
 
-        wb.add_worksheet(:name => "#{measure.cms_id} Patients") do |sheet|
+        workbook.add_worksheet(:name => "#{measure.cms_id} Patients") do |sheet|
           #Generate a list of all the headers we want.
           headers = @@expected_values*2 + @@attributes + generate_data_criteria_headers(measure)
+
+          #Cristen - SAMPLE HOW TO GET THE LENGTH OF EACH POPULATION
+          HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |population|
+            len = @@population_hash[population]
+          end
 
           #Add top row
           sheet.add_row ['Answer Key'], style:[text_center]
@@ -67,24 +75,90 @@ class PatientExport
           sheet["A4:#{headers.length.excel_column}#{records.length+3}"].each { |c| c.style = default }
         end
       end
-      p.serialize("#{measure.cms_id}.xlsx")
+      package.serialize("#{measure.cms_id}.xlsx")
     end
   end
 
-  def generate_data_criteria_headers(measure)
+  #Grabs all references of data_criteria. from the measure.
+  def self.find_references(jsonData, references)
+    if jsonData.is_a?(Hash)
+      if jsonData.key?('preconditions')
+        references = find_references(jsonData['preconditions'], references)
+      elsif jsonData.key?('reference')
+        references.push(jsonData['reference'])
+      end
+    else 
+      jsonData.each do |value|
+        if value.key?('preconditions')
+          references = find_references(value['preconditions'], references)
+        else
+          references.push(value['reference'])
+        end
+      end
+    end
+    references
+  end
+
+  #Extract a list of data criteria, including child criteria and temporal criteria.
+  def self.extract_data_criteria(valuesArray, measure, criteria_list, is_temporal_references)
+    valuesArray.each do |value|
+    
+      reference = is_temporal_references ? value['reference'] : value
+
+      #Does not allow duplicates to be added 
+      unless criteria_list.include? reference #data_criteria['key']
+        unless reference == "MeasurePeriod"
+          criteria_list.push(reference) #data_criteria['key'])
+        end
+      end
+     
+      data_criteria = measure.data_criteria[reference]
+      if data_criteria != nil
+        if data_criteria.key?('children_criteria')  
+          criteria_list = extract_data_criteria(data_criteria['children_criteria'], measure, criteria_list, false)
+        end
+        if data_criteria.key?('temporal_references')
+          criteria_list = extract_data_criteria(data_criteria['temporal_references'], measure, criteria_list, true)
+        end
+      end
+    end
+    criteria_list
+  end
+
+  def self.generate_data_criteria_headers(measure)
     logic_extractor = HQMF::Measure::LogicExtractor.new()
     logic_extractor.population_logic(measure)
-    data_criteria_headers = Array.new()
 
+    data_criteria_headers = Array.new()
+    data_criteria_list = Array.new()
     @@data_criteria_keys = Array.new()
-    measure.data_criteria.each do |key, value|
+
+    HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |population|
+      if measure.population_criteria.key?(population)
+        references = Array.new()
+        data_criteria_by_population = Array.new()
+        #Using Recursion to get a list of references.
+        #Grabs references to data_criteria by population
+        references = find_references(measure.population_criteria[population], references)
+        data_criteria_by_population = extract_data_criteria(references, measure, data_criteria_by_population, false)
+
+        #Setting population codes and length of each category
+        @@population_hash[population] = data_criteria_by_population.length
+
+        #Add the data criteria for current population to complete list
+        data_criteria_list.push(*data_criteria_by_population)
+      end
+    end
+
+    data_criteria_list.each do |key| 
       data_criteria_headers.push(logic_extractor.data_criteria_logic(key).map(&:strip).join(' '))
       @@data_criteria_keys.push(key)
     end
+    
     data_criteria_headers
   end
 
-  def generate_rows(sheet, records, measure)
+  def self.generate_rows(sheet, records, measure)
 
     #Setup the BonnieCalculator
     calculator = BonnieBackendCalculator.new
@@ -117,7 +191,6 @@ class PatientExport
       unless setup_exception
         begin
           result = calculator.calculate(patient)
-
           #Insert the results after the expected values but before the attributes
           actual_values = []
           @@expected_values.each do |key|
@@ -128,10 +201,10 @@ class PatientExport
           #Populate the values of each row, in the order that the headers were generated.
           @@data_criteria_keys.each do |key|
             value = result['rationale'][key]
-            if value != false
-              patient_attributes.push("True")
+            if value != false and value!= nil
+              patient_attributes.push(true)
             else
-              patient_attributes.push("False")
+              patient_attributes.push(value)
             end
           end
         rescue => e

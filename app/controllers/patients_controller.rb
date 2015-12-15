@@ -101,8 +101,10 @@ class PatientsController < ApplicationController
   def export_excel
     #Grab all records for the given measure
     measure = Measure.where(hqmf_set_id: params[:hqmf_set_id], user_id: current_user.id).first
-    records = Record.by_user(current_user).where({:measure_ids.in => [params[:hqmf_set_id]]})
-    PatientExport.new.export_excel_file(measure, records)
+    records = Record.by_user(current_user).where({:measure_ids.in => [params[:hqmf_set_id]]})   
+    if records.length > 0
+      PatientExport.export_excel_file(measure, records)
+    end
   end
 
 private
