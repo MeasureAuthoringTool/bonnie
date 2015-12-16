@@ -13,19 +13,26 @@ class PatientExport
 
     Axlsx::Package.new do |package|
       package.workbook do |workbook|
-        #Create styles.
-        bg_color = "DDDDDD"
+
+        # Styles
         fg_color = "000033"
         header_border = { :style => :thick, :color =>"000066", :edges => [:bottom] }
         styles = workbook.styles
-        default = styles.add_style(:sz => 14)
+        default = styles.add_style(:sz => 14,
+                                  :bg_color => "FFFFFFF",
+                                  :border => { :style => :thin,
+                                              :color =>"DDDDDD",
+                                              :edges => [:bottom] })
         rotated_style = styles.add_style(:b => true,
                                         :sz => 12,
                                         :alignment => {:textRotation => 90},
                                         :border => header_border,
                                         :fg_color => fg_color,
                                         :bg_color => "FFFFFFF")
-        text_center = styles.add_style(:b => true, :sz => 14, :alignment => {:horizontal => :center})
+        text_center = styles.add_style(:b => true,
+                                        :sz => 14,
+                                        :border => { :style => :thin, :color =>"000066" },
+                                        :alignment => {:horizontal => :center, :vertical => :center})
         header = styles.add_style(:b => true,
                                   :sz => 14,
                                   :alignment => {:wrap_text => true},
@@ -38,6 +45,13 @@ class PatientExport
                                   :fg_color => fg_color,
                                   :bg_color => "FFFFFFF")
 
+        needs_fix = styles.add_style(:sz => 14,
+                                  :bg_color => "FFFFFFF",
+                                  :border => { :style => :thin,
+                                              :color =>"DDDDDD",
+                                              :edges => [:bottom] },
+                                  :fg_color => "FF0000" )
+
         workbook.add_worksheet(:name => "#{measure.cms_id} Patients") do |sheet|
           #Generate a list of all the headers we want.
           headers = @@expected_values*2 + @@attributes + generate_data_criteria_headers(measure)
@@ -47,7 +61,6 @@ class PatientExport
           population_headings = Array.new(headers.length, nil)
           population_headings[0] = 'Expected'
           population_headings[@@expected_values.length] = 'Actual'
-
 
           heading_positions = {}
           previous_length = @@expected_values.length*2 + @@attributes.length
@@ -60,8 +73,8 @@ class PatientExport
             end
           end
 
-
-          sheet.add_row(population_headings, style: text_center)
+          # Adds first header column
+          sheet.add_row(population_headings, style: text_center, height: 30)
           sheet.merge_cells "A1:#{@@expected_values.length.excel_column}1"
           sheet.merge_cells "#{(@@expected_values.length+1).excel_column}1:#{(@@expected_values.length*2).excel_column}1"
           HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |population|
@@ -73,13 +86,11 @@ class PatientExport
             end
           end
 
-
-          #Creates the labels for the top row. And adds styles.
+          # Adds second header column
           header_column_styles = Array.new(headers.length+2, header_dc)
           header_column_styles[0..@@expected_values.length*2] = Array.new(@@expected_values.length*2, rotated_style) # Rotated style for population columns
           header_column_styles[@@expected_values.length*2..(@@expected_values.length*2+@@attributes.length)] = Array.new(@@attributes.length, header) # Style with larger text for attributes
           sheet.add_row(headers, style: header_column_styles)
-
 
           #Writes one row per record
           generate_rows(sheet, records, measure)
@@ -89,7 +100,17 @@ class PatientExport
           column_widths[0..@@expected_values.length*2] = Array.new(@@expected_values.length*2, 6) # Narrower width for the population columns
           column_widths[@@expected_values.length*2..(@@expected_values.length*2+@@attributes.length)] = Array.new(@@attributes.length, 16) # Width for attributes
           sheet.column_widths *column_widths
-          # sheet["A4:#{headers.length.excel_column}#{records.length+3}"].each { |c| c.style = default }
+
+          # If not meeting expectations, make row red. else use default style
+          for i in 1..records.length
+            row = i + 2 # account for the two header rows
+            if sheet["A#{row}"].value != sheet["#{(@@expected_values.length+1).excel_column}#{row}"].value
+              sheet["A#{row}:#{headers.length.excel_column}#{row}"].each { |c| c.style = needs_fix }
+            else
+              sheet["A#{row}:#{headers.length.excel_column}#{row}"].each { |c| c.style = default }
+            end
+          end
+
         end
       end
       package.serialize("#{measure.cms_id}.xlsx")
@@ -228,7 +249,7 @@ class PatientExport
           calculation_exception = "Measure calculation exception: #{e.message}"
         end
       end
-      sheet.add_row patient_attributes
+      sheet.add_row patient_attributes, height: 24
     end
   end
 end
