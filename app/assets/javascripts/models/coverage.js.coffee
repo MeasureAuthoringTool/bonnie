@@ -14,7 +14,7 @@ class Thorax.Model.Coverage extends Thorax.Model
       result = difference.result
       rationale = result.get('rationale')
       @rationaleCriteria.push(criteria) for criteria, result of rationale when result
-    @rationaleCriteria = _.unique(@rationaleCriteria)
+    @rationaleCriteria = _.difference(_.unique(@rationaleCriteria), Thorax.Models.Measure.allPopulationCodes)
 
     # Set coverage to the fraction of measure criteria that were true in the rationale
     @set coverage: ( @rationaleCriteria.length * 100 / @measureCriteria.length ).toFixed()
