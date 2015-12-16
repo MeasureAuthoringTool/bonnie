@@ -1,13 +1,13 @@
 class PatientExport
 
-  #List of attributes we want to print to excel.
-  @@attributes = ['notes', 'first', 'last', 'birthdate', 'expired', 'deathdate',
-          'ethnicity', 'race', 'gender']
-
-  #Hash of populcation codes, and number of data criteria for each
-  @@population_hash = Hash.new
-
   def self.export_excel_file(measure, records)
+
+    #List of attributes we want to print to excel.
+    @@attributes = ['notes', 'first', 'last', 'birthdate', 'expired', 'deathdate',
+            'ethnicity', 'race', 'gender']
+
+    #Hash of populcation codes, and number of data criteria for each
+    @@population_hash = Hash.new
 
     @@expected_values = HQMF::PopulationCriteria::ALL_POPULATION_CODES & measure.populations[0].keys
 
@@ -21,48 +21,65 @@ class PatientExport
         default = styles.add_style(:sz => 14)
         rotated_style = styles.add_style(:b => true,
                                         :sz => 12,
-                                        :alignment => {:textRotation => 60, :horizontal => :center, :vertical => :bottom},
+                                        :alignment => {:textRotation => 90},
                                         :border => header_border,
                                         :fg_color => fg_color,
-                                        :bg_color => bg_color)
+                                        :bg_color => "FFFFFFF")
         text_center = styles.add_style(:b => true, :sz => 14, :alignment => {:horizontal => :center})
         header = styles.add_style(:b => true,
                                   :sz => 14,
                                   :alignment => {:wrap_text => true},
                                   :border => header_border,
                                   :fg_color => fg_color,
-                                  :bg_color => bg_color)
-        header_dc = styles.add_style(:b => true,
-                                  :sz => 12,
+                                  :bg_color => "FFFFFFF")
+        header_dc = styles.add_style(:sz => 12,
                                   :alignment => {:wrap_text => true},
                                   :border => header_border,
                                   :fg_color => fg_color,
-                                  :bg_color => bg_color)
+                                  :bg_color => "FFFFFFF")
 
         workbook.add_worksheet(:name => "#{measure.cms_id} Patients") do |sheet|
           #Generate a list of all the headers we want.
           headers = @@expected_values*2 + @@attributes + generate_data_criteria_headers(measure)
 
-          #Cristen - SAMPLE HOW TO GET THE LENGTH OF EACH POPULATION
+
+          #Add top row with the "Expected Value" and "Actual Value" labels
+          population_headings = Array.new(headers.length, nil)
+          population_headings[0] = 'Expected'
+          population_headings[@@expected_values.length] = 'Actual'
+
+
+          heading_positions = {}
+          previous_length = @@expected_values.length*2 + @@attributes.length
+
           HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |population|
-            len = @@population_hash[population]
+            if @@population_hash[population] && @@population_hash[population] > 0
+              population_headings[previous_length] = population
+              heading_positions[population] = previous_length + 1
+              previous_length += @@population_hash[population]
+            end
           end
 
-          #Add top row
-          sheet.add_row ['Answer Key'], style:[text_center]
+
+          sheet.add_row(population_headings, style: text_center)
           sheet.merge_cells "A1:#{@@expected_values.length.excel_column}1"
+          sheet.merge_cells "#{(@@expected_values.length+1).excel_column}1:#{(@@expected_values.length*2).excel_column}1"
+          HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |population|
+            if @@population_hash[population] && @@population_hash[population] > 0
+              start_position = heading_positions[population]
+              start_column = start_position.excel_column
+              end_column = (start_position + @@population_hash[population] - 1).excel_column
+              sheet.merge_cells "#{start_column}1:#{end_column}1"
+            end
+          end
+
+
           #Creates the labels for the top row. And adds styles.
           header_column_styles = Array.new(headers.length+2, header_dc)
           header_column_styles[0..@@expected_values.length*2] = Array.new(@@expected_values.length*2, rotated_style) # Rotated style for population columns
           header_column_styles[@@expected_values.length*2..(@@expected_values.length*2+@@attributes.length)] = Array.new(@@attributes.length, header) # Style with larger text for attributes
           sheet.add_row(headers, style: header_column_styles)
-          # Adds the "Expected Value" and "Actual Value" labels
-          population_headings = Array.new(@@expected_values.length*2, nil)
-          population_headings[0] = 'Expected Value'
-          population_headings[@@expected_values.length] = 'Actual Value'
-          sheet.add_row(population_headings, style: text_center)
-          sheet.merge_cells "A3:#{@@expected_values.length.excel_column}3"
-          sheet.merge_cells "#{(@@expected_values.length+1).excel_column}3:#{(@@expected_values.length*2).excel_column}3"
+
 
           #Writes one row per record
           generate_rows(sheet, records, measure)
@@ -72,7 +89,7 @@ class PatientExport
           column_widths[0..@@expected_values.length*2] = Array.new(@@expected_values.length*2, 6) # Narrower width for the population columns
           column_widths[@@expected_values.length*2..(@@expected_values.length*2+@@attributes.length)] = Array.new(@@attributes.length, 16) # Width for attributes
           sheet.column_widths *column_widths
-          sheet["A4:#{headers.length.excel_column}#{records.length+3}"].each { |c| c.style = default }
+          # sheet["A4:#{headers.length.excel_column}#{records.length+3}"].each { |c| c.style = default }
         end
       end
       package.serialize("#{measure.cms_id}.xlsx")
@@ -87,7 +104,7 @@ class PatientExport
       elsif jsonData.key?('reference')
         references.push(jsonData['reference'])
       end
-    else 
+    else
       jsonData.each do |value|
         if value.key?('preconditions')
           references = find_references(value['preconditions'], references)
@@ -102,19 +119,19 @@ class PatientExport
   #Extract a list of data criteria, including child criteria and temporal criteria.
   def self.extract_data_criteria(valuesArray, measure, criteria_list, is_temporal_references)
     valuesArray.each do |value|
-    
+
       reference = is_temporal_references ? value['reference'] : value
 
-      #Does not allow duplicates to be added 
+      #Does not allow duplicates to be added
       unless criteria_list.include? reference #data_criteria['key']
         unless reference == "MeasurePeriod"
           criteria_list.push(reference) #data_criteria['key'])
         end
       end
-     
+
       data_criteria = measure.data_criteria[reference]
       if data_criteria != nil
-        if data_criteria.key?('children_criteria')  
+        if data_criteria.key?('children_criteria')
           criteria_list = extract_data_criteria(data_criteria['children_criteria'], measure, criteria_list, false)
         end
         if data_criteria.key?('temporal_references')
@@ -150,11 +167,11 @@ class PatientExport
       end
     end
 
-    data_criteria_list.each do |key| 
+    data_criteria_list.each do |key|
       data_criteria_headers.push(logic_extractor.data_criteria_logic(key).map(&:strip).join(' '))
       @@data_criteria_keys.push(key)
     end
-    
+
     data_criteria_headers
   end
 
@@ -211,7 +228,7 @@ class PatientExport
           calculation_exception = "Measure calculation exception: #{e.message}"
         end
       end
-      sheet.add_row patient_attributes, :height => 20
+      sheet.add_row patient_attributes
     end
   end
 end
