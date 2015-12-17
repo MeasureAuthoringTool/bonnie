@@ -57,8 +57,22 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @model.get('populations').each (population) ->
         differences.push(_(population.differencesFromExpected().toJSON()).extend(population.coverage().toJSON()))
 
-      $.fileDownload "patients/export?hqmf_set_id=#{@model.get('hqmf_set_id')}", 
-        successCallback: => @exportPatientsView.success()
+      $.fileDownload "patients/qrda_export?hqmf_set_id=#{@model.get('hqmf_set_id')}", 
+        successCallback: => @exportPatientsView.qrdaSuccess()
+        failCallback: => @exportPatientsView.fail()
+        httpMethod: "POST"
+        data: {authenticity_token: $("meta[name='csrf-token']").attr('content'), results: differences }
+
+  exportExcelPatients: (e) ->
+    @exportPatientsView.exporting()
+
+    @model.get('populations').whenDifferencesComputed =>
+      differences = []
+      @model.get('populations').each (population) ->
+        differences.push(_(population.differencesFromExpected().toJSON()).extend(population.coverage().toJSON()))
+
+      $.fileDownload "patients/excel_export?hqmf_set_id=#{@model.get('hqmf_set_id')}", 
+        successCallback: => @exportPatientsView.excelSuccess()
         failCallback: => @exportPatientsView.fail()
         httpMethod: "POST"
         data: {authenticity_token: $("meta[name='csrf-token']").attr('content'), results: differences }

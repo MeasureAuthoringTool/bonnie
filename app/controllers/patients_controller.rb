@@ -48,8 +48,7 @@ class PatientsController < ApplicationController
     render :json => patient
   end
 
-  def export
-    export_excel
+  def qrda_export
     if params[:patients]
       # if patients are given, they're from the patient bank; use those patients
       records = Record.where(is_shared: true).find(params[:patients])
@@ -98,13 +97,18 @@ class PatientsController < ApplicationController
     send_data stringio.sysread, :type => 'application/zip', :disposition => 'attachment', :filename => filename
   end
 
-  def export_excel
+  def excel_export
     #Grab all records for the given measure
     measure = Measure.where(hqmf_set_id: params[:hqmf_set_id], user_id: current_user.id).first
     records = Record.by_user(current_user).where({:measure_ids.in => [params[:hqmf_set_id]]})   
+
+    package = nil
+    #Only generate excel document if there are patients for the given measure.
     if records.length > 0
-      PatientExport.export_excel_file(measure, records)
+      cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
+      package = PatientExport.export_excel_file(measure, records)
     end
+      send_data package.to_stream.read, type: "application/xlsx", filename: "#{measure.cms_id}.xlsx"
   end
 
 private

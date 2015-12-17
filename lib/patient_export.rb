@@ -113,7 +113,7 @@ class PatientExport
 
         end
       end
-      package.serialize("#{measure.cms_id}.xlsx")
+       package
     end
   end
 
