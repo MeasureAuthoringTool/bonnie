@@ -184,7 +184,7 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
   exportBankPatients: ->
     @exportPatientsView.exporting()
     patients = @selectedPatients.map (p) -> p.id
-    $.fileDownload "patients/export",
+    $.fileDownload "patients/qrda_export",
       successCallback: => @exportPatientsView.banksuccess()
       failCallback: => @exportPatientsView.fail()
       httpMethod: "POST"
