@@ -1,96 +1,87 @@
-<div class="row value_sets">
+<div class="value_sets">
   {{#each criteriaSets}}
-  <div class="row" id="{{id}}">
+  <div id="{{id}}">
     <h2>{{name}}</h2>
-    <small>
-      <!-- use a custom modulo helper to enable alternating color bands -->
-      {{#eachModN criteria 2}}
+
+      {{#each criteria}}
       <a data-toggle="collapse" href="#codes_{{cid}}" class="collapsed value_sets">
-        <div class="row" {{#if modIsZero}}style="background-color: #f6f9ff;"{{/if}}>
-          <div class="col-md-3 col-sm-4"><strong>{{oid}}</strong></div>
-          <div class="col-md-5 col-sm-4">{{name}}</div>
-          <div class="col-md-4 col-sm-4">{{valueSetName}}</div>
+        <div class="row">
+          <div class="col-sm-6"><strong>{{oid}}</strong></div>
+          <div class="col-sm-6">{{name}}</div>
         </div>
       </a>
-      <div id="codes_{{cid}}" class="panel-collapse collapse">
-        <div class="panel-body">
-          {{#ifCond code_concepts.length ">" 0}}
-          <table class="table table-condensed table-striped">
-            {{#each code_concepts}}
-            <tr>
-              <td class="col-md-1 col-sm-2 code">{{code_system_name}}</td>
-              <td class="col-md-10 col-sm-8 description">
-                <div {{#if display_name_is_long}}class="description" id="description_{{../../cid}}_{{_id}}"{{/if}}>{{display_name}}</div>
-                {{#if display_name_is_long}}
-                <div class="expand closed pull-right" id="expand_{{../../cid}}_{{_id}}">Show more<i class="fa fa-caret-down"></i></div>
-                {{/if}}
-              </td>
-              <td class="col-md-1 col-sm-2">{{code}}</td>
-            </tr>
-            {{/each}}
-          </table>
-          {{/ifCond}}
-          {{#ifCond code_concepts.length "==" 0}}
-          No codes related to this value set were found in Bonnie.
-          {{/ifCond}}
-        </div>
-      </div>
-      {{/eachModN}}
-    </small>
-  </div>
-  {{/each}}
-  
-  {{#if overlappingValueSets.length}}
-  <div class="row" id="overlapping_value_sets">
-    <h2>Overlapping Value Sets</h2>
-    <div class="row">
-      <strong>
-      <div class="col-md-5 col-sm-5">Value Set</div>
-      <div class="col-md-5 col-sm-4">Overlaps With</div>
-      <div class="col-md-2 col-sm-3">Codes</div>
-      </strong>
-    </div>
-    <!-- use a custom modulo helper to enable alternating color bands -->
-    {{#eachModN overlappingValueSets 2}}
-    <small>
-      <a data-toggle="collapse" href="#overlapping_{{cid}}" class="collapsed value_sets">
-        <div>
-          <div class="row" {{#if modIsZero}}style="background-color: #f6f9ff;"{{/if}}>
-            <div class="col-md-5 col-sm-5">
-              <div><strong>{{oid1}}</strong></div>
-              <div>{{name1}}</div>
-            </div>
-            <div class="col-md-5 col-sm-4">
-              <div><strong>{{oid2}}</strong></div>
-              <div>{{name2}}</div>
-            </div>
-            <div class="col-md-2 col-sm-3 pull-right">
-              <div>&nbsp;</div>
-              <div>{{codes.length}} overlapping code{{#ifCond codes.length ">" 1}}s{{/ifCond}}</div>
-            </div>
-          </div>
-        </div>
-      </a>
-      <div id="overlapping_{{cid}}" class="panel-collapse collapse">
-        <div class="panel-body">
-          <table class="table table-condensed table-striped">
-          {{#each codes}}
+      <div id="codes_{{cid}}" class="row collapse">
+        {{#ifCond code_concepts.length ">" 0}}
+        <table class="table table-condensed table-striped">
           <tr>
-            <td class="col-md-1 col-sm-2 code">{{code_system_name}}</td>
-            <td class="col-md-10 col-sm-8 description">
+            <th class="code">Code System</th>
+            <th>Code</th>
+            <th>Name</th>
+          </tr>
+          {{#each code_concepts}}
+          <tr>
+            <td class="code">{{code_system_name}}</td>
+            <td>{{code}}</td>
+            <td class="description">
               <div {{#if display_name_is_long}}class="description" id="description_{{../../cid}}_{{_id}}"{{/if}}>{{display_name}}</div>
               {{#if display_name_is_long}}
               <div class="expand closed pull-right" id="expand_{{../../cid}}_{{_id}}">Show more<i class="fa fa-caret-down"></i></div>
               {{/if}}
             </td>
-            <td class="col-md-1 col-sm-2">{{code}}</td>
           </tr>
           {{/each}}
         </table>
-        </div>
+        {{else}}
+        No codes related to this value set were found in Bonnie.
+        {{/ifCond}}
       </div>
-    </small>
-    {{/eachModN}}
+      {{/each}}
+
+  </div>
+  {{/each}}
+
+  {{#if overlappingValueSets.length}}
+  <div id="overlapping_value_sets">
+    <h2>Overlapping Value Sets</h2>
+
+    {{#each overlappingValueSets}}
+      <a data-toggle="collapse" href="#overlapping_{{cid}}" class="collapsed value_sets">
+        <div class="row">
+          <div class="col-sm-5">
+            <div><strong>{{oid1}}</strong></div>
+            <div>{{name1}}</div>
+          </div>
+          <div class="col-sm-4">
+            <div><strong>{{oid2}}</strong></div>
+            <div>{{name2}}</div>
+          </div>
+          <div class="col-sm-3">
+            {{codes.length}} overlapping code{{#ifCond codes.length ">" 1}}s{{/ifCond}}
+          </div>
+        </div>
+      </a>
+      <div id="overlapping_{{cid}}" class="row collapse">
+        <table class="table table-condensed table-striped">
+            <tr>
+              <th class="code">Code System</th>
+              <th>Code</th>
+              <th>Name</th>
+            </tr>
+          {{#each codes}}
+          <tr>
+            <td class="code">{{code_system_name}}</td>
+            <td>{{code}}</td>
+            <td class="description">
+              <div {{#if display_name_is_long}}class="description" id="description_{{../../cid}}_{{_id}}"{{/if}}>{{display_name}}</div>
+              {{#if display_name_is_long}}
+              <div class="expand closed pull-right" id="expand_{{../../cid}}_{{_id}}">Show more<i class="fa fa-caret-down"></i></div>
+              {{/if}}
+            </td>
+          </tr>
+          {{/each}}
+        </table>
+      </div>
+    {{/each}}
     {{/if}}
   </div>
 </div>

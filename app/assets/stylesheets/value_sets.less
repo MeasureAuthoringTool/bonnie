@@ -9,14 +9,21 @@
     cursor: pointer;
   }
   .row {
-    padding-bottom: 5px;
-    padding-top: 5px;
+    padding: 10px 0;
   }
-  .code {
-    padding-right: 0;
+  //for striped effect
+  &:nth-of-type(odd) > .row {
+    background-color: lighten(@blue-lightest, 6%);
   }
-  td.description {
-    padding-left: 10px;
-    padding-right: 10px;
+
+  .table {
+
+    th, td {
+      padding: 5px 15px;
+    }
+
+    .code {
+      white-space: nowrap;
+    }
   }
 }
