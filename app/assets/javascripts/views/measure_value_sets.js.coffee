@@ -95,22 +95,22 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
           overlappingValueSets.push({cid: cid, codes:matchedCodes,\
                                      oid1: valueSet1.oid, name1:valueSet1.name,\
                                      oid2: valueSet2.oid, name2: valueSet2.name})
-          
+
     @overlappingValueSets = overlappingValueSets
 
   events:
     # toggle showing the code description
-    'click .expand.opened': (event) ->
-      expand_id = event.currentTarget.id
-      description_id = expand_id.replace('expand', 'description')
-      @$('#' + description_id).animate 'max-height': parseInt(@$('#' + description_id).css('line-height')) # contract
-      @$('#' + expand_id).toggleClass('closed opened').html 'Show more <i class="fa fa-caret-down"></i>'
-    'click .expand.closed': (event) ->
-      expand_id = event.currentTarget.id
-      description_id = expand_id.replace('expand', 'description')
-      if @$('#' + description_id)[0].scrollHeight > @$('#' + description_id).height()
-        @$('#' + description_id).animate 'max-height': @$('#' + description_id)[0].scrollHeight # expand
-        @$('#' + expand_id).toggleClass('closed opened').html 'Show less <i class="fa fa-caret-up"></i>'
-      else
-        # FIXME: remove this toggle if the description is too short on render rather than on this click.
-        @$('#' + expand_id).html('Nothing more to show...').fadeOut 2000, -> $(@).remove()
+    'click .expand': (event) -> @toggleDescription(event.currentTarget.id)
+
+  toggleDescription: (expand_id) ->
+    description_id = expand_id.replace('expand', 'description')
+    @$('#' + expand_id).toggleClass('closed opened')
+
+    if @$('#' + description_id)[0].scrollHeight > @$('#' + description_id).height()
+      @$('#' + description_id).animate
+        'max-height': @$('#' + description_id)[0].scrollHeight # expand
+      @$('#' + expand_id).html 'Show less <i class="fa fa-caret-up"></i>'
+    else
+      @$('#' + description_id).animate
+        'max-height': parseInt(@$('#' + description_id).css('line-height')) # contracts
+      @$('#' + expand_id).html 'Show more <i class="fa fa-caret-down"></i>'
