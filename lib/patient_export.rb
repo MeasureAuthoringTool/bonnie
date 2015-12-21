@@ -1,15 +1,12 @@
 class PatientExport
 
   def self.export_excel_file(measure, records)
-
     #List of attributes we want to print to excel.
     @@attributes = ['notes', 'first', 'last', 'birthdate', 'expired', 'deathdate',
             'ethnicity', 'race', 'gender']
 
     #Hash of populcation codes, and number of data criteria for each
     @@population_hash = Hash.new
-
-    @@expected_values = HQMF::PopulationCriteria::ALL_POPULATION_CODES & measure.populations[0].keys
 
     Axlsx::Package.new do |package|
       package.workbook do |workbook|
@@ -52,65 +49,71 @@ class PatientExport
                                               :edges => [:bottom] },
                                   :fg_color => "FF0000" )
 
-        workbook.add_worksheet(:name => "#{measure.cms_id} Patients") do |sheet|
-          #Generate a list of all the headers we want.
-          headers = @@expected_values*2 + @@attributes + generate_data_criteria_headers(measure)
+        #Adding a new sheet per population
+        measure.populations.each_with_index do |val, population_index| 
+          @@expected_values = HQMF::PopulationCriteria::ALL_POPULATION_CODES & measure.populations[population_index].keys
+          
+          #Sheet name cannot be longer than 31 characters long. Replace with generic name if too long.
+          worksheet_title = "#{val['title']} Patients".length > 31 ? "Population #{population_index+1}" : "#{val['title']} Patients" 
 
+          workbook.add_worksheet(:name => worksheet_title) do |sheet|
+            #Generate a list of all the headers we want.
+            headers = @@expected_values*2 + @@attributes + generate_data_criteria_headers(measure)
 
-          #Add top row with the "Expected Value" and "Actual Value" labels
-          population_headings = Array.new(headers.length, nil)
-          population_headings[0] = 'Expected'
-          population_headings[@@expected_values.length] = 'Actual'
+            #Add top row with the "Expected Value" and "Actual Value" labels
+            population_headings = Array.new(headers.length, nil)
+            population_headings[0] = 'Expected'
+            population_headings[@@expected_values.length] = 'Actual'
 
-          heading_positions = {}
-          previous_length = @@expected_values.length*2 + @@attributes.length
+            heading_positions = {}
+            previous_length = @@expected_values.length*2 + @@attributes.length
 
-          HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |population|
-            if @@population_hash[population] && @@population_hash[population] > 0
-              population_headings[previous_length] = population
-              heading_positions[population] = previous_length + 1
-              previous_length += @@population_hash[population]
+            HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |population|
+              if @@population_hash[population] && @@population_hash[population] > 0
+                population_headings[previous_length] = population
+                heading_positions[population] = previous_length + 1
+                previous_length += @@population_hash[population]
+              end
+            end
+
+            # Adds first header column
+            sheet.add_row(population_headings, style: text_center, height: 30)
+            sheet.merge_cells "A1:#{@@expected_values.length.excel_column}1"
+            sheet.merge_cells "#{(@@expected_values.length+1).excel_column}1:#{(@@expected_values.length*2).excel_column}1"
+            HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |population|
+              if @@population_hash[population] && @@population_hash[population] > 0
+                start_position = heading_positions[population]
+                start_column = start_position.excel_column
+                end_column = (start_position + @@population_hash[population] - 1).excel_column
+                sheet.merge_cells "#{start_column}1:#{end_column}1"
+              end
+            end
+
+            # Adds second header column
+            header_column_styles = Array.new(headers.length+2, header_dc)
+            header_column_styles[0..@@expected_values.length*2] = Array.new(@@expected_values.length*2, rotated_style) # Rotated style for population columns
+            header_column_styles[@@expected_values.length*2..(@@expected_values.length*2+@@attributes.length)] = Array.new(@@attributes.length, header) # Style with larger text for attributes
+            sheet.add_row(headers, style: header_column_styles)
+
+            #Writes one row per record
+            generate_rows(sheet, records, measure, population_index)
+
+            #Specifies column widths
+            column_widths = Array.new(headers.length+2, 25)
+            column_widths[0..@@expected_values.length*2] = Array.new(@@expected_values.length*2, 6) # Narrower width for the population columns
+            column_widths[@@expected_values.length*2..(@@expected_values.length*2+@@attributes.length)] = Array.new(@@attributes.length, 16) # Width for attributes
+            sheet.column_widths *column_widths
+
+            # If not meeting expectations, make row red. else use default style
+            for i in 1..records.length
+              row = i + 2 # account for the two header rows
+              if sheet["A#{row}"].value != sheet["#{(@@expected_values.length+1).excel_column}#{row}"].value
+                sheet["A#{row}:#{headers.length.excel_column}#{row}"].each { |c| c.style = needs_fix }
+              else
+                sheet["A#{row}:#{headers.length.excel_column}#{row}"].each { |c| c.style = default }
+              end
             end
           end
-
-          # Adds first header column
-          sheet.add_row(population_headings, style: text_center, height: 30)
-          sheet.merge_cells "A1:#{@@expected_values.length.excel_column}1"
-          sheet.merge_cells "#{(@@expected_values.length+1).excel_column}1:#{(@@expected_values.length*2).excel_column}1"
-          HQMF::PopulationCriteria::ALL_POPULATION_CODES.each do |population|
-            if @@population_hash[population] && @@population_hash[population] > 0
-              start_position = heading_positions[population]
-              start_column = start_position.excel_column
-              end_column = (start_position + @@population_hash[population] - 1).excel_column
-              sheet.merge_cells "#{start_column}1:#{end_column}1"
-            end
-          end
-
-          # Adds second header column
-          header_column_styles = Array.new(headers.length+2, header_dc)
-          header_column_styles[0..@@expected_values.length*2] = Array.new(@@expected_values.length*2, rotated_style) # Rotated style for population columns
-          header_column_styles[@@expected_values.length*2..(@@expected_values.length*2+@@attributes.length)] = Array.new(@@attributes.length, header) # Style with larger text for attributes
-          sheet.add_row(headers, style: header_column_styles)
-
-          #Writes one row per record
-          generate_rows(sheet, records, measure)
-
-          #Specifies column widths
-          column_widths = Array.new(headers.length+2, 25)
-          column_widths[0..@@expected_values.length*2] = Array.new(@@expected_values.length*2, 6) # Narrower width for the population columns
-          column_widths[@@expected_values.length*2..(@@expected_values.length*2+@@attributes.length)] = Array.new(@@attributes.length, 16) # Width for attributes
-          sheet.column_widths *column_widths
-
-          # If not meeting expectations, make row red. else use default style
-          for i in 1..records.length
-            row = i + 2 # account for the two header rows
-            if sheet["A#{row}"].value != sheet["#{(@@expected_values.length+1).excel_column}#{row}"].value
-              sheet["A#{row}:#{headers.length.excel_column}#{row}"].each { |c| c.style = needs_fix }
-            else
-              sheet["A#{row}:#{headers.length.excel_column}#{row}"].each { |c| c.style = default }
-            end
-          end
-
         end
       end
        package
@@ -175,8 +178,7 @@ class PatientExport
       if measure.population_criteria.key?(population)
         references = Array.new()
         data_criteria_by_population = Array.new()
-        #Using Recursion to get a list of references.
-        #Grabs references to data_criteria by population
+        #Using Recursion to get a list of references. Grabs references to data_criteria by population
         references = find_references(measure.population_criteria[population], references)
         data_criteria_by_population = extract_data_criteria(references, measure, data_criteria_by_population, false)
 
@@ -196,7 +198,7 @@ class PatientExport
     data_criteria_headers
   end
 
-  def self.generate_rows(sheet, records, measure)
+  def self.generate_rows(sheet, records, measure, population_index)
 
     #Setup the BonnieCalculator
     calculator = BonnieBackendCalculator.new
@@ -210,7 +212,7 @@ class PatientExport
     records.each do |patient|
       patient_attributes = Array.new
       @@expected_values.each do |value|
-        patient_attributes.push(patient['expected_values'][0][value])
+        patient_attributes.push(patient['expected_values'][population_index][value])
       end
       @@attributes.each do |value|
         if value == 'ethnicity'
@@ -245,7 +247,8 @@ class PatientExport
               patient_attributes.push(value)
             end
           end
-        rescue => e
+        rescue Exception => e
+          #TODO what do we want to do if there is an error here.
           calculation_exception = "Measure calculation exception: #{e.message}"
         end
       end
