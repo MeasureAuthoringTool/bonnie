@@ -196,7 +196,7 @@ namespace :bonnie do
       Measure.where(user_id: user.id).each do |measure|
         records = Record.by_user(user).where({:measure_ids.in => [measure.hqmf_set_id]})
         next unless records.size > 0
-        PatientExport.export_excel_file(measure, records)
+        File.open("#{measure.cms_id}.xlsx", "w") { |f| f.write(PatientExport.export_excel_file(measure, records).to_stream.read) }
       end
     end
 
