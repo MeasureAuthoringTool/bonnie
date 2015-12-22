@@ -12,29 +12,31 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       overlappingValueSets: @overlappingValueSets
 
   getValueSets: ->
-    # the property values that indicate a supplemental criteria. this list is derived from 
+    # the property values that indicate a supplemental criteria. this list is derived from
     # the human readable html for measures.
     supplementalCriteriaProperties = ["ethnicity", "gender", "payer", "race"]
-    
+
     dataCriteria = [] # all criteria that aren't supplemental criteria
     supplementalCriteria = [] # ethnicity/gender/payer/race criteria
     summaryValueSets = [] # array of {generic value set descriptor, oid, and code}
-    
+
     for sdc in @model.get('source_data_criteria').models
       if sdc.get('code_list_id')
         name = sdc.get('description')
         oid = sdc.get('code_list_id')
         valueSetName = sdc.get('title')
         if bonnie.valueSetsByOid[oid]?
+          version = bonnie.valueSetsByOid[oid].version
           code_concepts = @sortAndFilterCodes(bonnie.valueSetsByOid[oid].concepts)
         else
+          version = ''
           code_concepts = []
         cid = sdc.cid
 
         for code_concept in code_concepts
           code_concept.display_name_is_long = code_concept.display_name.length > 160
 
-        valueSet = {name: name, oid: oid, valueSetName: valueSetName, code_concepts: code_concepts, cid: cid}
+        valueSet = {name: name, oid: oid, valueSetName: valueSetName, version: version, code_concepts: code_concepts, cid: cid}
 
         # only add value set info summaryValueSets if it isn't there already
         # includes the common name for the value set, the oid, and the codes.
@@ -45,7 +47,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
           else
             name = nameParts[0]
           summaryValueSets.push({oid: oid, cid: cid, name: name, codes:code_concepts})
-        
+
         if sdc.get('property') in supplementalCriteriaProperties
           supplementalCriteria.push(valueSet)
         else

@@ -6,8 +6,9 @@
       {{#each criteria}}
       <a data-toggle="collapse" href="#codes_{{cid}}" class="collapsed value_sets">
         <div class="row">
-          <div class="col-sm-6"><strong>{{oid}}</strong></div>
-          <div class="col-sm-6">{{name}}</div>
+          <div class="col-sm-5"><strong>{{oid}}</strong></div>
+          <div class="col-sm-5">{{name}}</div>
+          <div class="col-sm-2">{{version}}</div>
         </div>
       </a>
       <div id="codes_{{cid}}" class="row collapse">
