@@ -27,25 +27,25 @@ describe 'MeasureView', ->
 
 
   it 'renders value sets and codes', ->
-    expect(@measureView.$('.row.value_sets')).toExist()
-    expect(@measureView.$('.row.value_sets')).toBeVisible()
-    
+    expect(@measureView.$('.value_sets')).toExist()
+    expect(@measureView.$('.value_sets')).toBeVisible()
+
     expect(@measureView.$('#data_criteria')).toExist()
     expect(@measureView.$('#data_criteria')).toBeVisible()
     expect(@measureView.$('#data_criteria').find('[data-toggle="collapse"].value_sets')).toExist()
-    expect(@measureView.$('#data_criteria').find('.panel-collapse')).toExist()
-    
+    expect(@measureView.$('#data_criteria').find('.row.collapse')).toExist()
+
     expect(@measureView.$('#supplemental_criteria')).toExist()
     expect(@measureView.$('#supplemental_criteria')).toBeVisible()
     expect(@measureView.$('#supplemental_criteria').find('[data-toggle="collapse"].value_sets')).toExist()
-    expect(@measureView.$('#supplemental_criteria').find('.panel-collapse')).toExist()
-    
+    expect(@measureView.$('#supplemental_criteria').find('.row.collapse')).toExist()
+
     # if we have overlapping value sets:
     if @measureView.$('#overlapping_value_sets').length
       expect(@measureView.$('#overlapping_value_sets')).toBeVisible()
       expect(@measureView.$('#overlapping_value_sets').find('[data-toggle="collapse"].value_sets')).toExist()
-      expect(@measureView.$('#overlapping_value_sets').find('.panel-collapse')).toExist()
-      
+      expect(@measureView.$('#overlapping_value_sets').find('.row.collapse')).toExist()
+
     expect(@measureView.$('[data-toggle="collapse"].value_sets')).toHaveClass('collapsed')
     @measureView.$('[data-toggle="collapse"].value_sets').click()
     expect(@measureView.$('[data-toggle="collapse"].value_sets')).not.toHaveClass('collapsed')
