@@ -123,8 +123,18 @@ class PatientExport
 
             # If not meeting expectations, make row red. else use default style
             records.length.times do |i|
+
               row = i + 3 # account for the two header rows
-              if sheet["A#{row}"].value != sheet["#{excel_column(population_criteria.length+1)}#{row}"].value
+
+              # See if any of the expectations don't match
+              mismatch = false
+              population_criteria.length.times do |j|
+                if sheet["#{excel_column(j+1)}#{row}"].value != sheet["#{excel_column(population_criteria.length+j+1)}#{row}"].value
+                  mismatch = true
+                end
+              end
+
+              if mismatch
                 sheet["A#{row}:#{excel_column(headers.length)}#{row}"].each { |c| c.style = needs_fix }
               else
                 sheet["A#{row}:#{excel_column(headers.length)}#{row}"].each { |c| c.style = default }
