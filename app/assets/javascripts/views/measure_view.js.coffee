@@ -23,6 +23,8 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @complexityView = new Thorax.Views.MeasureComplexity model: @model
     @complexityView.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
 
+    @valueSetsView = new Thorax.Views.MeasureValueSets model: @model
+
     @populationCalculation = new Thorax.Views.PopulationCalculation(model: population)
     @logicView.listenTo @populationCalculation, 'logicView:showCoverage', -> @showCoverage()
     @logicView.listenTo @populationCalculation, 'logicView:clearCoverage', -> @clearCoverage()

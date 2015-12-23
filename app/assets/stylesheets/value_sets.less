@@ -1,0 +1,29 @@
+.value_sets {
+  .description {
+    max-height: @line-height-computed; //show 1 lines of text.
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .expand {
+    color: @brand-primary;
+    cursor: pointer;
+  }
+  .row {
+    padding: 10px 0;
+  }
+  //for striped effect
+  &:nth-of-type(odd) > .row {
+    background-color: lighten(@blue-lightest, 6%);
+  }
+
+  .table {
+
+    th, td {
+      padding: 5px 15px;
+    }
+
+    .code {
+      white-space: nowrap;
+    }
+  }
+}

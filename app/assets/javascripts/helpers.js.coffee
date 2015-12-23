@@ -24,9 +24,9 @@ Handlebars.registerHelper 'ifPortfolio', (options) ->
 
 Handlebars.registerHelper 'ifCond', (v1, operator, v2, options) ->
   switch operator
-    when '==' 
+    when '=='
       if (v1 == v2) then options.fn(this) else options.inverse(this)
-    when '!=' 
+    when '!='
       if (v1 != v2) then options.fn(this) else options.inverse(this)
     when '<'
       if (v1 < v2) then options.fn(this) else options.inverse(this)
