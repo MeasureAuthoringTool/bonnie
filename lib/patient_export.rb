@@ -1,3 +1,4 @@
+# Generates a formatted Excel document of Patients for the given measure and records. 
 class PatientExport
 
   # List of attributes we want to print to excel
@@ -11,6 +12,7 @@ class PatientExport
     result
   end
 
+  # Records cannot be less than 1
   def self.export_excel_file(measure, records)
 
     criteria_keys_by_population = measure.criteria_keys_by_population

@@ -98,17 +98,17 @@ class PatientsController < ApplicationController
   end
 
   def excel_export
-    #Grab all records for the given measure
+    # Grab all records for the given measure
     measure = Measure.where(hqmf_set_id: params[:hqmf_set_id], user_id: current_user.id).first
     records = Record.by_user(current_user).where({:measure_ids.in => [params[:hqmf_set_id]]})   
-    package = nil
-    #Only generate excel document if there are patients for the given measure.
+    
+    # Only generate excel document if there are patients for the given measure.
     if records.length > 0
       cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
       package = PatientExport.export_excel_file(measure, records)
       send_data package.to_stream.read, type: "application/xlsx", filename: "#{measure.cms_id}.xlsx"
     else
-      render :json => measure
+      render nothing: true
     end 
   end
 
