@@ -32,6 +32,7 @@ gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.g
 # needed for HDS
 gem 'rubyzip', '< 1.0.0'
 
+gem 'axlsx'
 gem 'mongoid'
 gem 'protected_attributes'
 gem 'devise'

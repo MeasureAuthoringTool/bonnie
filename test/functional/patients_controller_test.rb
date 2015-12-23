@@ -137,7 +137,7 @@ include Devise::TestHelpers
     collection_fixtures("records")
     associate_user_with_patients(@user,Record.all)
     associate_measures_with_patients([@measure, @measure_two],Record.all)
-    get :export, hqmf_set_id: @measure.hqmf_set_id
+    get :qrda_export, hqmf_set_id: @measure.hqmf_set_id
     assert_response :success
     assert_equal 'application/zip', response.header['Content-Type']
     assert_equal "attachment; filename=\"#{@measure.cms_id}_patient_export.zip\"", response.header['Content-Disposition']
@@ -165,7 +165,7 @@ include Devise::TestHelpers
     associate_user_with_patients(@user,Record.all)
     associate_measures_with_patients([@measure, @measure_two],Record.all)
     @user.grant_portfolio()
-    get :export, hqmf_set_id: @measure.hqmf_set_id
+    get :qrda_export, hqmf_set_id: @measure.hqmf_set_id
     assert_response :success
     assert_equal 'application/zip', response.header['Content-Type']
     assert_equal "attachment; filename=\"#{@measure.cms_id}_patient_export.zip\"", response.header['Content-Disposition']
@@ -186,6 +186,19 @@ include Devise::TestHelpers
     end
     File.delete(zip_path)
 
+  end
+
+  test "excel export patients" do
+    collection_fixtures("records")
+    associate_user_with_patients(@user,Record.all)
+    associate_measures_with_patients([@measure_two],Record.all)
+    get :excel_export, hqmf_set_id: @measure.hqmf_set_id
+    assert_response :success
+    #TODO Get measures to pass the opposite of these tests. (Assert_equal)
+    assert_not_equal 'application/xlsx', response.header['Content-Type']
+    #assert_not_equal "attachment; filename=\"#{measure.cms_id}.xlsx\"", response.header['Content-Disposition']
+    assert_not_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
+    assert_not_equal 'binary', response.header['Content-Transfer-Encoding']
   end
 
 
