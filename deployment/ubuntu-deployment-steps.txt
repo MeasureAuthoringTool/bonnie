@@ -178,3 +178,25 @@ Create some shared resources local to the deployment system
 Restart apache
 
   sudo service apache2 reload
+
+If desired, configure monit to monitor services
+
+  sudo apt-get install monit
+
+  edit /etc/monit/monitrc for 1 minute monitoring interval
+
+    set daemon 60            # check services at 1-minute intervals
+
+  add a file: /etc/monit/conf.d/mongod
+
+    check process mongodb with pidfile /var/lib/mongodb/mongod.lock
+      start program = "/usr/sbin/service mongodb start"
+      stop program = "/usr/sbin/service mongodb stop"
+      if failed host 127.0.0.1 port 28017 protocol http
+        and request "/" with timeout 10 seconds then restart
+      if memory usage > 70% for 5 cycles then restart
+      if 5 restarts within 5 cycles then timeout
+
+  restart monit to include changes
+
+    sudo service monit restart
