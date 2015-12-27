@@ -77,7 +77,7 @@ class MeasuresController < ApplicationController
         unless includeDraft
           effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
         end
-        measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, includeDraft) # overwrite_valuesets=true, cache=false, includeDraft=true
+        measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # overwrite_valuesets=true, cache=false, includeDraft=true
       else
         measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
       end
@@ -202,6 +202,22 @@ class MeasuresController < ApplicationController
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
+  def vsac_auth_valid
+    # If VSAC TGT is still valid, return its expiration date/time
+    tgt = session[:tgt]
+    if tgt.nil? || tgt.empty? || tgt[:expires] < Time.now
+      render :json => {valid: false}
+    else
+      render :json => {valid: true, expires: tgt[:expires]}
+    end
+  end
+  
+  def vsac_auth_expire
+    # Force expire the VSAC session
+    session[:tgt] = nil
+    render :nothing => true
+  end
+
   def destroy
     measure = Measure.by_user(current_user).find(params[:id])
     Measure.by_user(current_user).find(params[:id]).destroy
@@ -232,6 +248,31 @@ class MeasuresController < ApplicationController
     measure = Measure.by_user(current_user).find(params[:id])
     measure.generate_js clear_db_cache: true
     redirect_to :back
+  end
+  
+  private
+
+  def get_ticket_granting_ticket
+    # Retreive a (possibly) existing ticket granting ticket
+    tgt = session[:tgt]
+    
+    # If the ticket granting ticket doesn't exist (or has expired), get a new one
+    if tgt.nil? || tgt.empty? || tgt[:expires] < Time.now
+      # Retrieve a new ticket granting ticket
+      ticket = String.new(HealthDataStandards::Util::VSApi.get_tgt_using_credentials(
+        params[:vsac_username], 
+        params[:vsac_password], 
+        APP_CONFIG['nlm']['ticket_url']
+      ))
+      # Create a new ticket granting ticket session variable that expires 
+      # 7.5hrs from now
+      if !ticket.nil? && !ticket.empty?
+        session[:tgt] = {ticket: ticket, expires: Time.now + 27000}
+        ticket
+      end
+    else
+      tgt[:ticket]
+    end
   end
 
 end
