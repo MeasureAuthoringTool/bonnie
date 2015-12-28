@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 1abd8f17fd29e8fd57a5fa641824f75318f76f96
+  revision: cd22784c80341e4f8826034ffd9e6db1c4902ecd
   branch: master
   specs:
     health-data-standards (3.6.1)
@@ -23,7 +23,7 @@ GIT
       memoist (~> 0.9.1)
       mongoid (~> 4.0.0)
       mongoid-tree (~> 1.0.4)
-      nokogiri (~> 1.6.6.2)
+      nokogiri (~> 1.6.7.1)
       protected_attributes (~> 1.0.5)
       rest-client (~> 1.8.0)
       rubyzip (= 0.9.9)
@@ -181,7 +181,7 @@ GEM
     memoist (0.9.3)
     method_source (0.8.2)
     mime-types (2.6.1)
-    mini_portile (0.6.2)
+    mini_portile2 (2.0.0)
     minitest (5.8.0)
     mongoid (4.0.0)
       activemodel (~> 4.0)
@@ -199,8 +199,8 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
     netrc (0.11.0)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    nokogiri (1.6.7.1)
+      mini_portile2 (~> 2.0.0.rc2)
     non-stupid-digest-assets (1.0.4)
     oj (2.12.11)
     optionable (0.2.0)
@@ -339,4 +339,4 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
