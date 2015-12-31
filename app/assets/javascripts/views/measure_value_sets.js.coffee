@@ -1,118 +1,103 @@
 class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
-
-  template: JST['measure/value_sets']
+  template: JST['measure/value_sets/value_sets']
 
   initialize: ->
-    @getValueSets()
-    @findOverlappingValueSets()
+    @summaryValueSets = [] # array of {generic value set descriptor, oid, and code}
+    @dataCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # all criteria that aren't supplemental criteria
+    @supplementalCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # ethnicity/gender/payer/race criteria
+    @overlappingValueSets = new Thorax.Collections.ValueSetsCollection([]) # all value sets that overlap
+    @overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]
+
+    # options passed to a Backbone.PageableCollection instance
+    @pagination_options =
+      mode: 'client'
+      state: { pageSize: 10, firstPage: 1, currentPage: 1 }
+
+    @getValueSets() # populates @dataCriteria and @supplementalCriteria
+    @findOverlappingValueSets() # populates @overlappingValueSets
 
   context: ->
     _(super).extend
-      criteriaSets: @criteriaSets
       overlappingValueSets: @overlappingValueSets
+      criteriaSets: [
+        { name: "Data Criteria", id: "data_criteria", criteria: @dataCriteria },
+        { name: "Supplemental Data Elements", id: "supplemental_criteria", criteria: @supplementalCriteria }
+      ]
 
   getValueSets: ->
-    # the property values that indicate a supplemental criteria. this list is derived from
-    # the human readable html for measures.
-    supplementalCriteriaProperties = ["ethnicity", "gender", "payer", "race"]
+    supplementalCriteria = []
+    dataCriteria = []
 
-    dataCriteria = [] # all criteria that aren't supplemental criteria
-    supplementalCriteria = [] # ethnicity/gender/payer/race criteria
-    summaryValueSets = [] # array of {generic value set descriptor, oid, and code}
-
-    for sdc in @model.get('source_data_criteria').models
+    @model.get('source_data_criteria').each (sdc) =>
       if sdc.get('code_list_id')
         name = sdc.get('description')
         oid = sdc.get('code_list_id')
-        valueSetName = sdc.get('title')
-        if bonnie.valueSetsByOid[oid]?
-          version = bonnie.valueSetsByOid[oid].version
-          code_concepts = @sortAndFilterCodes(bonnie.valueSetsByOid[oid].concepts)
-        else
-          version = ''
-          code_concepts = []
         cid = sdc.cid
 
-        for code_concept in code_concepts
-          code_concept.display_name_is_long = code_concept.display_name.length > 160
+        if bonnie.valueSetsByOid[oid]?
+          version = bonnie.valueSetsByOid[oid].version
+          # if it's a date (rather than "Draft"), format the version
+          version = moment(version, "YYYYMMDD").format("MM/DD/YYYY") if moment(version, "YYYYMMDD").isValid()
+          codeConcepts = bonnie.valueSetsByOid[oid].concepts
+          for code in codeConcepts
+            code.hasLongDisplayName = code.display_name.length > 160
+        else
+          version = ''
+          codeConcepts = []
 
-        valueSet = {name: name, oid: oid, valueSetName: valueSetName, version: version, code_concepts: code_concepts, cid: cid}
+        codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @pagination_options)
+        valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
 
-        # only add value set info summaryValueSets if it isn't there already
-        # includes the common name for the value set, the oid, and the codes.
-        if _.where(summaryValueSets, {oid: oid}).length == 0
-          nameParts = valueSet.name.split(':')
-          if nameParts.length > 1
-            name = nameParts[1]
-          else
-            name = nameParts[0]
-          summaryValueSets.push({oid: oid, cid: cid, name: name, codes:code_concepts})
-
-        if sdc.get('property') in supplementalCriteriaProperties
+        # the property values that indicate a supplemental criteria. this list is derived from
+        # the human readable html for measures.
+        if sdc.get('property') in ["ethnicity", "gender", "payer", "race"]
           supplementalCriteria.push(valueSet)
         else
           dataCriteria.push(valueSet)
 
-    dataCriteria = @sortAndFilterValueSets(dataCriteria)
-    supplementalCriteria = @sortAndFilterValueSets(supplementalCriteria)
-    summaryValueSets = _.chain(summaryValueSets).sortBy((valueSet) => valueSet.oid).value()
+        # only add value set info summaryValueSets if it isn't there already
+        # includes the common name for the value set, the oid, and the codes.
+        if _.where(@summaryValueSets, { oid: oid }).length == 0
+          nameParts = valueSet.name.split(':')
+          name = if nameParts.length > 1 then nameParts[1] else nameParts[0]
+          @summaryValueSets.push({ oid: oid, cid: cid, name: name, codes: codes })
 
-    criteriaSets = [{name:"Data Criteria", id:"data_criteria", criteria:dataCriteria},
-                    {name:"Supplemental Data Elements", id:"supplemental_criteria", criteria: supplementalCriteria}]
+    # now that we have all the value sets, filter them
+    @supplementalCriteria.add(@filterValueSets(supplementalCriteria))
+    @dataCriteria.add(@filterValueSets(dataCriteria))
 
-    @criteriaSets = criteriaSets
-    @summaryValueSets = summaryValueSets
-
-  sortAndFilterValueSets: (valueSets) ->
-    _.chain(valueSets).sortBy((valueSet) => valueSet.name)
-                      .sortBy((valueSet) => valueSet.valueSetName)
-                      .sortBy((valueSet) => valueSet.oid)
-                      .uniq(true, (valueSet) =>
-                        (valueSet.name + valueSet.valueSetName + valueSet.oid).replace(/\s/g, "")
-                                                                              .replace(/[\.,;:-]/g, "")
-                                                                              .toLowerCase())
-                      .value()
+  filterValueSets: (valueSets) ->
+    # returns unique (by name and oid) value sets
+    _(valueSets).uniq (vs) ->
+      (vs.name + vs.oid).replace(/\s/g, "").replace(/[\.,;:-]/g, "").toLowerCase()
 
   sortAndFilterCodes: (codes) ->
-    _.chain(codes).sortBy((code) => code.display_name)
-                  .sortBy((code) => code.code_system_name)
-                  .uniq(true, (code) =>
-                    code.code_system_name + code.display_name + code.code)
+    # returns unique codes sorted by code system and code
+    _.chain(codes).sortBy((c) -> c.code_system_name + c.code)
+                  .uniq(true, (c) -> c.code_system_name + c.display_name + c.code)
                   .value()
 
-  # determines if one or more codes in a value set are equal to codes in another value set.
   findOverlappingValueSets: ->
-    overlappingValueSets = []
-    for valueSet1 in @summaryValueSets
-      for valueSet2 in @summaryValueSets
-        if valueSet1.oid == valueSet2.oid
-          continue
+    # determines if one or more codes in a value set are in another value set.
+    summaryValueSets = @filterValueSets(@summaryValueSets)
+
+    for valueSet1 in summaryValueSets
+      for valueSet2 in _(summaryValueSets).without(valueSet1)
         matchedCodes = []
-        for code1 in valueSet1.codes
-          for code2 in valueSet2.codes
-            if code1.code_system_name == code2.code_system_name && code1.code == code2.code
-              matchedCodes.push(code1)
+
+        valueSet1.codes.each (code1) =>
+          hasOverlap = valueSet2.codes.models.some (code2) ->
+            overlapsCode = code2.get('code') == code1.get('code')
+            overlapsCodeSystem = code2.get('code_system_name') == code1.get('code_system_name')
+            return overlapsCode && overlapsCodeSystem
+
+          if hasOverlap then matchedCodes.push(code1)
+
         if matchedCodes.length > 0
-          cid = valueSet1.cid + "_" + valueSet2.cid
-          overlappingValueSets.push({cid: cid, codes:matchedCodes,\
-                                     oid1: valueSet1.oid, name1:valueSet1.name,\
-                                     oid2: valueSet2.oid, name2: valueSet2.name})
-
-    @overlappingValueSets = overlappingValueSets
-
-  events:
-    # toggle showing the code description
-    'click .expand': (event) -> @toggleDescription(event.currentTarget.id)
-
-  toggleDescription: (expand_id) ->
-    description_id = expand_id.replace('expand', 'description')
-    @$('#' + expand_id).toggleClass('closed opened')
-
-    if @$('#' + description_id)[0].scrollHeight > @$('#' + description_id).height()
-      @$('#' + description_id).animate
-        'max-height': @$('#' + description_id)[0].scrollHeight # expand
-      @$('#' + expand_id).html 'Show less <i class="fa fa-caret-up"></i>'
-    else
-      @$('#' + description_id).animate
-        'max-height': parseInt(@$('#' + description_id).css('line-height')) # contracts
-      @$('#' + expand_id).html 'Show more <i class="fa fa-caret-down"></i>'
+          @overlappingValueSets.add
+            cid: valueSet1.cid + "_" + valueSet2.cid
+            codes: new Backbone.PageableCollection(@sortAndFilterCodes(matchedCodes), @pagination_options)
+            oid1: valueSet1.oid
+            name1: valueSet1.name
+            oid2: valueSet2.oid
+            name2: valueSet2.name

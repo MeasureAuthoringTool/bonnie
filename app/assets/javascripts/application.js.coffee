@@ -16,9 +16,11 @@
 #= require bootstrap-datepicker/js/bootstrap-datepicker
 #= require bootstrap-timepicker/js/bootstrap-timepicker
 #= require jquery-ui-1.11.1.custom
+#= require twbs-pagination/jquery.twbsPagination.min
 #= require handlebars/handlebars
 #= require underscore/underscore-min
 #= require backbone/backbone-min
+#= require backbone.paginator/lib/backbone.paginator.min
 #= require thorax/thorax
 #= require moment/min/moment.min
 #= require d3/d3
