@@ -57,3 +57,8 @@ describe 'MeasureView', ->
     @measureView.$('[data-call-method="expandResult"]').click()
     expect(@measureView.$('.toggle-result')).toBeVisible()
     expect(@measureView.$('.btn-show-coverage')).toBeVisible()
+
+  # makes sure the calculation percentage hasn't changed.
+  # should be 33% for CMS156v2 with given test patients as of 1/4/2016
+  it 'computes coverage', ->
+    expect(@measureView.$('.dial')).toHaveAttr('value', '33')
