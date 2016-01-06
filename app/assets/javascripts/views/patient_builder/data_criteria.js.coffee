@@ -197,8 +197,14 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']
   events:
-    'change select':           'validateForAddition'
-    'change .codeset-control': 'changeConcepts'
+    'change select[name=codeset]': (e) ->
+      @model.set codeset: $(e.target).val()
+      @changeConcepts(e)
+      @validateForAddition()
+    'change select[name=code]' : ->
+      @validateForAddition()
+    'keyup input[name=custom_code]': 'validateForAddition'
+    'keyup input[name=custom_codeset]': 'validateForAddition'
     rendered: ->
       @$('select.codeset-control').selectBoxIt('native': true)
 
@@ -210,22 +216,30 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
 
   validateForAddition: ->
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
-    @$('.btn[data-call-method=addCode]').prop 'disabled', attributes.codeset is '' or attributes.code is ''
-    @$('.btn').focus() #  advances the focus too the add Button
+    if attributes.codeset is 'custom'
+      @$('.btn[data-call-method=addCode]').prop 'disabled', attributes.custom_codeset is '' or attributes.custom_code is ''
+      # focusing on the button causes an interruption in typing, so no focus for custom code entry
+    else
+      @$('.btn[data-call-method=addCode]').prop 'disabled', attributes.codeset is '' or attributes.code is ''
+      @$('.btn').focus() #  advances the focus too the add Button
 
   changeConcepts: (e) ->
     codeSet = $(e.target).val()
     $codeList = @$('.codelist-control').empty()
-    blankEntry = if codeSet is '' then '--' else "Choose a #{codeSet} code"
-    $codeList.append("<option value>#{blankEntry}</option>")
-    for concept in @criteria.valueSet().get('concepts') when concept.code_system_name is codeSet and !concept.black_list
-      $('<option>').attr('value', concept.code).text("#{concept.code} (#{concept.display_name})").appendTo $codeList
+    if codeSet isnt 'custom'
+      blankEntry = if codeSet is '' then '--' else "Choose a #{codeSet} code"
+      $codeList.append("<option value>#{blankEntry}</option>")
+      for concept in @criteria.valueSet().get('concepts') when concept.code_system_name is codeSet and !concept.black_list
+        $('<option>').attr('value', concept.code).text("#{concept.code} (#{concept.display_name})").appendTo $codeList
     @$('.codelist-control').focus()
 
   addCode: (e) ->
     e.preventDefault()
     @serialize()
     # add the code unless there is a pre-existing code with the same codeset/code
+    if @model.get('codeset') is 'custom'
+      @model.set('codeset', @model.get('custom_codeset'))
+      @model.set('code', @model.get('custom_code'))
     @codes.add @model.clone() unless @codes.any (c) => c.get('codeset') is @model.get('codeset') and c.get('code') is @model.get('code')
     # Reset model to default values
     @model.clear()
