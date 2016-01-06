@@ -10,11 +10,6 @@ namespace :bonnie do
       include_draft = false
       config = APP_CONFIG["nlm"]
       
-      # This would be for V1 API:
-      #config['api_url'] = 'https://vsac.nlm.nih.gov/vsac/ws/RetrieveValueSet'
-      #api = HealthDataStandards::Util::VSApi.new(config["ticket_url"], config["api_url"], ENV['USERNAME'], ENV['PASSWORD'])
-      #result = api.get_valueset(ENV['OID'], effective_date, include_draft)
-      
       # We are using V2 API:
       api = HealthDataStandards::Util::VSApiV2.new(config["ticket_url"], config["api_url"], ENV['USERNAME'], ENV['PASSWORD'])
       result = api.get_valueset(ENV['OID'], effective_date: effective_date)
