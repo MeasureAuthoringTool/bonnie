@@ -31,8 +31,10 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       @$('.effective-date').hide()
     'ready': 'setup'
     'change input:file':  'enableLoad'
-    'keypress input:text': 'enableLoadVsac'
-    'keypress input:password': 'enableLoadVsac'
+    'keyup input:text': 'enableLoadVsac'
+    'keyup input:password': 'enableLoadVsac'
+    'change input:text': 'enableLoadVsac'
+    'change input:password': 'enableLoadVsac'
     'change input[type=radio]': ->
       @$('input[type=radio]').each (index, element) =>
         if @$(element).prop("checked")
