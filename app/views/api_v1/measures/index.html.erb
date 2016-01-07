@@ -1,8 +1,23 @@
-<h1>Listing api_v1_measures</h1>
-
+<h1>api_v1/measures</h1>
+<style>
+body {
+  font-family: monospace;
+}
+td, th {
+  border: 1px solid black;
+}
+table {
+  border-collapse: collapse;
+}
+</style>
 <table>
   <thead>
     <tr>
+      <th>ID</th>
+      <th>HQMF ID</th>
+      <th>CMS ID</th>
+      <th>Type</th>
+      <th>Title</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -10,14 +25,17 @@
   <tbody>
     <% @api_v1_measures.each do |api_v1_measure| %>
       <tr>
-        <td><%= link_to 'Show', api_v1_measure %></td>
-        <td><%= link_to 'Edit', edit_api_v1_measure_path(api_v1_measure) %></td>
-        <td><%= link_to 'Destroy', api_v1_measure, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= api_v1_measure.id %></td>        
+        <td><%= api_v1_measure.hqmf_id %></td>        
+        <td><%= api_v1_measure.cms_id %></td>
+        <td><%= api_v1_measure.type.try(:upcase) %></td>
+        <td><%= api_v1_measure.title %></td>
+        <td><%= link_to 'JSON', api_v1_measure_path(api_v1_measure).split('/')[0..-2].join('/') %></td>
+        <td><%= link_to 'Patients', patients_api_v1_measure_url(api_v1_measure) %></td>
+        <td><%= link_to 'Evaluate', evaluate_api_v1_measure_url(api_v1_measure) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Measure', new_api_v1_measure_path %>

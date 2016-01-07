@@ -73,6 +73,21 @@ Bonnie::Application.routes.draw do
     end
   end
 
+  namespace :api_v1 do
+    resources :measures, :defaults => { :format => 'json' } do
+      collection do
+        get 'index'
+      end
+      member do
+        get 'show'
+        get 'patients'
+        get 'evaluate'
+        post 'create'
+        put 'update'
+      end
+    end
+  end
+
   namespace :complexity_dashboard do
     resources :measure_sets
   end
