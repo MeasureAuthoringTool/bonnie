@@ -27,7 +27,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       @$("option[value=\"#{eoc}\"]").attr('selected','selected') for eoc in @model.get('episode_ids') if @model? && @model.get('episode_of_care') && @model.get('episode_ids')?
       @$el.on 'hidden.bs.modal', -> @remove() unless $('#pleaseWaitDialog').is(':visible')
       @$("input[type=radio]:checked").next().css("color","white")
-      @$('.date-picker').datepicker('setDate', moment().format('L'))
+      @$('.date-picker').datepicker('orientation': 'bottom left').datepicker('setDate', moment().format('L'))
       @$('.effective-date').hide()
     'ready': 'setup'
     'change input:file':  'enableLoad'

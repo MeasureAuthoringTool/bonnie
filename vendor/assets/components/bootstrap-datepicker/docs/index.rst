@@ -1,7 +1,7 @@
 bootstrap-datepicker
 ====================
 
-Bootstrap-datepicker provides a flexible datepicker widget in the Twitter bootstrap style.
+Bootstrap-datepicker provides a flexible datepicker widget in the Bootstrap style.
 
 .. figure:: _static/screenshots/demo_head.png
     :align: center
@@ -21,7 +21,7 @@ Requirements
 * `Bootstrap`_ 2.0.4+
 * `jQuery`_ 1.7.1+
 
-.. _Bootstrap: http://twitter.github.com/bootstrap/
+.. _Bootstrap: http://getbootstrap.com/
 .. _jQuery: http://jquery.com/
 
 These are the specific versions bootstrap-datepicker is tested against (``js`` files) and built against (``css`` files).  Use other versions at your own risk.
@@ -53,6 +53,17 @@ As with bootstrap's own plugins, datepicker provides a data-api that can be used
 .. code-block:: html
 
     <input data-provide="datepicker">
+
+Markup with component
+
+.. code-block:: html
+
+    <div class="input-group date" data-provide="datepicker">
+        <input type="text" class="form-control">
+        <div class="input-group-addon">
+            <span class="glyphicon glyphicon-th"></span>
+        </div>
+    </div>
 
 You can disable datepicker's data-api in the same way as you would disable other bootstrap plugins::
 
@@ -88,6 +99,14 @@ Defaults for all options can be modified directly by changing values in the ``$.
         startDate: '-3d'
     })
 
+
+Stylesheets
+^^^^^^^^^^^
+
+There are a few different stylesheets included in the library. This is an overview of what each file is to be used for:
+
+:code:`bootstrap-datepicker.css` gives legacy support for twitter bootstrap v2, :code:`bootstrap-datepicker3.css` is used for twitter bootstrap v3 support
+and :code:`bootstrap-datepicker.standalone.css` can be used the include the datepicker without depending on the twitter bootstrap library.
 
 No Conflict mode
 ^^^^^^^^^^^^^^^^

@@ -123,7 +123,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       delete attr.end_time
     rendered: ->
       @$('.criteria-data.droppable').droppable greedy: true, accept: '.ui-draggable', hoverClass: 'drop-target-highlight', drop: _.bind(@dropCriteria, this)
-      @$('.date-picker').datepicker().on 'changeDate', _.bind(@triggerMaterialize, this)
+      @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@triggerMaterialize, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@triggerMaterialize, this)
       @$el.toggleClass 'during-measurement-period', @model.isDuringMeasurePeriod()
     'change .negation-select':                    'toggleNegationSelect'
@@ -165,7 +165,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     $endDateTime.val('') if $cb.is(':checked')
     unless $cb.is(':checked') # set to 15 minutes after start
       endDate = moment.utc(@model.get('start_date') + (15 * 60 * 1000)) if @model.has('start_date')
-      @$('input[name=end_date]').datepicker('setDate', endDate.format('L')) if endDate
+      @$('input[name=end_date]').datepicker('orientation': 'bottom left').datepicker('setDate', endDate.format('L')) if endDate
       @$('input[name=end_date]').datepicker('update')
       @$('input[name=end_time]').timepicker('setTime', endDate.format('LT')) if endDate
     $endDateTime.prop 'disabled', $cb.is(':checked')
@@ -286,7 +286,7 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
     date = moment.utc( @criteria.get('start_date') + offset ) if @criteria.has('start_date')
     if latest_fulfillment?.get('dispense_datetime') * 1000 > @criteria.get('start_date')
       date = moment.utc( latest_fulfillment.get('dispense_datetime') * 1000 + offset )
-    @$('input[name=dispense_date]').datepicker('setDate', date.format('L')) if date
+    @$('input[name=dispense_date]').datepicker('orientation': 'bottom left').datepicker('setDate', date.format('L')) if date
     @$('input[name=dispense_date]').datepicker('update')
     @$('input[name=dispense_time]').timepicker('setTime', date.format('LT')) if date
 
