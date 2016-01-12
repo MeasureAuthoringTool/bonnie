@@ -31,7 +31,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     assert_equal response.content_type, 'application/json'
     json = JSON.parse(response.body)
     assert_equal 3, json.size
-    assert_equal ['CMS104v2','CMS128v2','CMS138v2'], json.map{|x|x['cms_id']}
+    assert_equal [], (json.map{|x|x['cms_id']} - ['CMS104v2','CMS128v2','CMS138v2'])
     assert_not_nil assigns(:api_v1_measures)
   end
 
@@ -54,7 +54,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     assert_response :success
     json = JSON.parse(response.body)
     assert_equal @num_patients, json.size
-    assert_equal ['A','B','C','D'], json.map{|x|x["last"]}
+    assert_equal [], (json.map{|x|x["last"]} - ['A','B','C','D'])
   end
 
   test "should not show patients for unknown measure" do
