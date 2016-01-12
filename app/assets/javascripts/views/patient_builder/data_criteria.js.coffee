@@ -2,7 +2,6 @@
 class Thorax.Views.BuilderChildView extends Thorax.Views.BonnieView
   events:
     ready: -> @patientBuilder().registerChild this
-    
   patientBuilder: ->
     parent = @parent
     until parent instanceof Thorax.Views.PatientBuilder
@@ -183,7 +182,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     e.preventDefault()
     $(e.target).model().destroy()
     @triggerMaterialize()
-    @editValueView.render()
 
   highlightError: (e, field) ->
     @toggleDetails(e) unless @isExpanded()
@@ -309,7 +307,6 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     _(super).extend
       codes: @measure?.valueSets().map((vs) -> vs.toJSON()) or []
       fields: Thorax.Models.Measure.logicFieldsFor(@criteriaType)
-      hideEditValueView: @values.models.length > 0
 
   # When we serialize the form, we want to put the description for any CD codes into the submission
   events:
