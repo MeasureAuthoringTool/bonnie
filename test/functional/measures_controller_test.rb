@@ -33,10 +33,10 @@ include Devise::TestHelpers
     m2.hqmf_id = 'xxx123'
     m2.hqmf_set_id = 'yyy123'
     m2.save!
-    assert_equal 3, Measure.all.count
+    assert_equal 4, Measure.all.count
     delete :destroy, {id: m2.id}
     assert_response :success
-    assert_equal 2, Measure.all.count
+    assert_equal 3, Measure.all.count
   end
 
   test "measure value sets" do
