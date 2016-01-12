@@ -58,18 +58,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     _(categoriesArray).sortBy (entry) -> entry.type
 
   events:
-    'blur :text':               'materialize'
-    'change select': (e) ->
-      @materialize()
-      switch @$(e.target).attr('name') #jquery with focusable next for each select elements change
-        when 'payer'
-          @$('input[name="birthdate"]').focus()
-        when 'race'
-          @$('select[name="gender"]').focus()
-        when 'gender'
-          @$('input[name="expired"]').focus()
-        when 'ethnicity'
-          '' #where should the next field jump to?
+    'blur :text': 'materialize'
+    'change select': (e) -> @materialize()
     'click .deceased-checkbox': 'toggleDeceased'
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
