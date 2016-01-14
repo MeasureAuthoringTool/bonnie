@@ -179,7 +179,7 @@ class PatientExport
         if patient['expected_values'] && patient['expected_values'][population_index] && patient['expected_values'][population_index][value]
           patient_row.push(patient['expected_values'][population_index][value])
         else
-          patient_row.push('X')
+          patient_row.push(0)
         end
       end
 
