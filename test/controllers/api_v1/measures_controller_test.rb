@@ -62,15 +62,15 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
-  test "should evaluate api_v1_measure" do
-    get :evaluate, id: @api_v1_measure
+  test "should get calculated_results for api_v1_measure" do
+    get :calculated_results, id: @api_v1_measure
     assert_response :success
     json = JSON.parse(response.body)
     assert_equal @num_patients, json.size
   end
 
-  test "should not evaluate unknown measure" do
-    get :evaluate, id: 'foo'
+  test "should not get calculated_results for unknown measure" do
+    get :calculated_results, id: 'foo'
     assert_response :missing
   end
 
