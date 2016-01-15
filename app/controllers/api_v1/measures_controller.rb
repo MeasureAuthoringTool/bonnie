@@ -1,5 +1,10 @@
 class ApiV1::MeasuresController < ApplicationController
 
+  MEASURE_WHITELIST = ["id", "cms_id", "complexity", "continuous_variable", "created_at", "description", "episode_of_care", "hqmf_id", "hqmf_set_id", "hqmf_version_number", "title", "type", "updated_at"]
+  PATIENT_WHITELIST = ["_id", "birthdate", "created_at", "deathdate", "description", "ethnicity", "expected_values", "expired", "first", "gender", "insurance_providers", "last", "notes", "race", "updated_at"]
+  INSURANCE_WHITELIST = ["member_id","payer"]
+  POPULATION_TYPES = ['population_index','STRAT','IPP','DENOM','NUMER','DENEXCEP','DENEX','MSRPOPL','OBSERV','MSRPOPLEX']
+
   respond_to :json, :html
 
   # GET /api_v1/measures
@@ -12,7 +17,7 @@ class ApiV1::MeasuresController < ApplicationController
         render json: MultiJson.encode(
           @api_v1_measures.map do |x|
             h = x.measure_json
-            h[:id] = x.id
+            h[:id] = x.hqmf_set_id
             skippable_fields.each{|f|h.delete(f)}
             h
           end
@@ -27,11 +32,13 @@ class ApiV1::MeasuresController < ApplicationController
     hash = {}
     http_status = 200
     begin
-      @api_v1_measure = Measure.by_user(current_user).find(params[:id])
-      hash = @api_v1_measure.measure_json
-      hash[:id] = @api_v1_measure.id
+      @api_v1_measure = Measure.by_user(current_user).where({:hqmf_set_id=> params[:id]}).sort_by{|x|x.updated_at}.first
+      hash = @api_v1_measure.as_json
+      hash[:id] = @api_v1_measure.hqmf_set_id
+      hash.select!{|key,value|MEASURE_WHITELIST.include?(key)&&!value.nil?}
     rescue
       http_status = 404
+      hash = {}
     end
     render json: hash, status: http_status
   end
@@ -42,27 +49,29 @@ class ApiV1::MeasuresController < ApplicationController
     http_status = 200
     begin
       # Get the measure
-      @api_v1_measure = Measure.by_user(current_user).find(params[:id])
+      @api_v1_measure = Measure.by_user(current_user).where({:hqmf_set_id=> params[:id]}).sort_by{|x|x.updated_at}.first
       # Extract out the HQMF set id, which we'll use to get related patients
-      hqmf_set_id = @api_v1_measure.measure_json[:hqmf_set_id]
+      hqmf_set_id = @api_v1_measure.hqmf_set_id
       # Get the patients for this measure
       @api_v1_patients = Record.by_user(current_user).where({:measure_ids.in => [ hqmf_set_id ]})
+      @api_v1_patients = process_patient_records(@api_v1_patients)
     rescue
       http_status = 404
+      @api_v1_patients = []
     end
     render json: @api_v1_patients, status: http_status
   end
 
-  # GET /api_v1/measures/1/evaluate
-  def evaluate
+  # GET /api_v1/measures/1/calculated_results
+  def calculated_results
     http_status = 200
     response = {}
 
     begin
       # Get the measure
-      @api_v1_measure = Measure.by_user(current_user).find(params[:id])
-      # Extract out the HQMF set id, which we'll use to get related patients
-      hqmf_set_id = @api_v1_measure.measure_json[:hqmf_set_id]
+      @api_v1_measure = Measure.by_user(current_user).where({:hqmf_set_id=> params[:id]}).sort_by{|x|x.updated_at}.first
+       # Extract out the HQMF set id, which we'll use to get related patients
+      hqmf_set_id = @api_v1_measure.hqmf_set_id
       # Get the patients for this measure
       @api_v1_patients = Record.by_user(current_user).where({:measure_ids.in => [ hqmf_set_id ]})
     rescue
@@ -73,14 +82,16 @@ class ApiV1::MeasuresController < ApplicationController
       response['status'] = 'complete'
       response['messages'] = []
       response['measure_id'] = params[:id]
+      response['summary'] = []
       response['patient_count'] = @api_v1_patients.size
-      response['populations'] = []
+      response['patients'] = process_patient_records(@api_v1_patients)
+      response['patients'].each{|p|p['actual_values']=[]}
 
       calculator = BonnieBackendCalculator.new
 
       @api_v1_measure.populations.each_with_index do |population,population_index|
        
-        population_response = []
+        population_response = {}
 
         begin
           calculator.set_measure_and_population(@api_v1_measure, population_index, rationale: true)
@@ -93,14 +104,18 @@ class ApiV1::MeasuresController < ApplicationController
           @api_v1_patients.each do |patient|
             # Generate the calculated rationale for each patient against the measure.
             begin
-              population_response << calculator.calculate(patient)
-              # binding.pry
+              patient_result = calculator.calculate(patient)
+              patient_hash = response['patients'].select{|i|i['_id']==patient.id}.first
+              actual_values = patient_result.select{|k,v|POPULATION_TYPES.include?(k)}
+              patient_hash['actual_values'] << actual_values
+              population_response.merge!(actual_values){|k,i,j|i+j}
             rescue Exception => e
               response['status'] = 'error'
               response['messages'] << "Measure calculation exception: #{e.message}"
             end
           end
-          response['populations'] << population_response
+          population_response.delete('measure_id')
+          response['summary'] << population_response
         end
       end
 
@@ -121,6 +136,29 @@ class ApiV1::MeasuresController < ApplicationController
   def update
     # TODO
     # TODO: update test/controllers/api_v1/measures_controller_test.rb::test "should update api_v1_measure"
+  end
+
+  private 
+  def process_patient_records(selector)
+    patients = selector.map{|p|p.as_json}
+    patients.each do |p|
+      p.select!{|key,value|PATIENT_WHITELIST.include?(key)&&!value.nil?}
+      if !p["insurance_providers"].nil?
+        p["insurance_providers"].map! do |hash|
+          hash.select!{|k,v|INSURANCE_WHITELIST.include?(k) && !v.nil?}
+          hash["payer"] = hash["payer"]["name"] if hash["payer"]
+          hash
+        end
+      end
+      if !p["expected_values"].nil?
+        p["expected_values"].map! do |hash|
+          hash.select!{|k,v|POPULATION_TYPES.include?(k) && !v.nil?}
+        end
+      end
+      p["birthdate"] = Time.at(p["birthdate"]).iso8601 if p["birthdate"]
+      p["deathdate"] = Time.at(p["deathdate"]).iso8601 if p["deathdate"]
+    end
+    patients
   end
 
 end
