@@ -70,7 +70,7 @@ Bonnie::Application.routes.draw do
       member do
         get 'show'
         get 'patients'
-        get 'evaluate'
+        get 'calculated_results'
         post 'create'
         put 'update'
       end
