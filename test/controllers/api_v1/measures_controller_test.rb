@@ -14,7 +14,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     associate_measures_with_patients(Measure.all, Record.all)
     @num_patients = Record.all.size
     @measure = Measure.where({"cms_id" => "CMS128v2"}).first
-    @api_v1_measure = @measure.measure_json[:id]
+    @api_v1_measure = @measure.hqmf_set_id
     sign_in @user
   end
 
@@ -66,7 +66,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     get :calculated_results, id: @api_v1_measure
     assert_response :success
     json = JSON.parse(response.body)
-    assert_equal @num_patients, json.size
+    assert_equal @num_patients, json['patient_count']
   end
 
   test "should not get calculated_results for unknown measure" do
