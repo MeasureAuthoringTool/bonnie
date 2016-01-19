@@ -1,3 +1,42 @@
+class Thorax.Views.MeasureLayout extends Thorax.LayoutView
+  template: JST['measure_layout']
+  className: 'measure-layout'
+
+  initialize: ->
+    @populations = @measure.get 'populations'
+  
+  context: ->
+    _(super).extend
+      cms_id: @measure.get 'cms_id'
+
+  showDashboard:(e) ->
+    # because of how thorax transitions between views (it removes the $el associated with the view - line 2080 thorax.js)
+    # the view needs to be re-created each time it is shown.
+    population = @measure.get 'displayedPopulation'
+    populationPatientDashboardView = new Thorax.Views.MeasurePopulationPatientDashboard(measure: @measure, population: population)
+    patientDashboardView = new Thorax.Views.MeasurePatientDashboardLayout collection: @populations, population: population
+    
+    # NOTE: the populationPatientDashboard view has to be set as the subview at this point in time. Otherwise,
+    # the rendering order is off and the dashboard renders terribly
+    if @populations.length > 1
+      @setView patientDashboardView
+      patientDashboardView.setView populationPatientDashboardView
+    else
+      @setView populationPatientDashboardView
+    @setButton(e)
+
+  showMeasure: (e) ->
+    # because of how thorax transitions between views (it removes the $el associated with the view - line 2080 thorax.js)
+    # the view needs to be re-created each time it is shown. super annoying...
+    population = @measure.get 'displayedPopulation'
+    @setView new Thorax.Views.Measure(model: @measure, patients: @patients, populations: @populations, population: population)
+    @setButton(e)
+      
+  setButton: (event) ->
+    if event
+      @$('.actions-container button').removeClass('btn-primary')
+      @$(event.currentTarget).addClass('btn-primary')
+
 class Thorax.Views.Measure extends Thorax.Views.BonnieView
   template: JST['measure']
 
@@ -7,25 +46,29 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @exportPatientsView.appendTo(@$el)
       @$('.d3-measure-viz, .btn-viz-text').hide()
 
+  context: ->
+    _(super).extend
+      isPrimaryView: @isPrimaryView
+
   initialize: ->
-    populations = @model.get 'populations'
-    population = @model.get 'displayedPopulation'
-    populationLogicView = new Thorax.Views.PopulationLogic(model: population)
-    @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(population).measureValueSets(@model.valueSets())
+    populationLogicView = new Thorax.Views.PopulationLogic(model: @population)
+    @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
 
     # display layout view when there are multiple populations; otherwise, just show logic view
-    if populations.length > 1
-      @logicView = new Thorax.Views.PopulationsLogic collection: populations
+    if @populations.length > 1
+      @logicView = new Thorax.Views.PopulationsLogic collection: @populations
       @logicView.setView populationLogicView
     else
       @logicView = populationLogicView
+      
+    
 
     @complexityView = new Thorax.Views.MeasureComplexity model: @model
     @complexityView.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
 
     @valueSetsView = new Thorax.Views.MeasureValueSets model: @model
 
-    @populationCalculation = new Thorax.Views.PopulationCalculation(model: population)
+    @populationCalculation = new Thorax.Views.PopulationCalculation(model: @population)
     @logicView.listenTo @populationCalculation, 'logicView:showCoverage', -> @showCoverage()
     @logicView.listenTo @populationCalculation, 'logicView:clearCoverage', -> @clearCoverage()
 
