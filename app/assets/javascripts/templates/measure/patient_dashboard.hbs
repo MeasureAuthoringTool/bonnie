@@ -1,0 +1,23 @@
+<table id="patientDashboardTable" class="cell-border" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      {{#each head1}}
+      <th scope="col" style="width: {{lookup ../widths @index}}px;"><div>{{{this}}}</div></th>
+      {{/each}}
+    </tr
+    <tr>
+      {{#each head2}}
+      <th scope="col">{{{this}}}</th>
+      {{/each}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#each patients}}
+    <tr>
+      {{#each this}}
+      <td>{{{this}}}</td>
+      {{/each}}
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
