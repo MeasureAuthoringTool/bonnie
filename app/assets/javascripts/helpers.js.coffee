@@ -53,3 +53,5 @@ Handlebars.registerHelper 'times', (n, opts) ->
     out = opts.inverse(this)
 
   return out
+Handlebars.registerHelper 'lookup', (obj, field) ->
+  obj && obj[field]

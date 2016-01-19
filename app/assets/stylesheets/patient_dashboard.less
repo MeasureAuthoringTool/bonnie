@@ -1,0 +1,146 @@
+html, body, .container-fluid, [role="main"], .measure-layout, .patient-dashboard-layout, .patient-dashboard {
+  // height: 100%;
+}
+
+
+.patient-dashboard {
+  .make-sm-column(12);
+}
+
+.scroll-container {
+  margin: 1rem 0 1rem;
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  z-index: 10;
+}
+
+table.dataTable {
+  z-index: 10;
+  table-layout: fixed;
+
+  td {
+    // border-right: inherit;
+    border-bottom: inherit;
+  }
+  
+  // thead th,
+  // thead td,
+  // tbody th,
+  // tbody td,
+  // tfoot th,
+  // tfoot td {
+  //   padding: 8px;
+  // }
+  
+  /* coloring population headers */
+  /* the handsontable.bootstrap file is stupid and has !important so we need to use it also to override */
+  tr:first-child th.ipp {
+    background-color: #ddeeee !important;
+  }
+  tr:first-child th.denom {
+    background-color: #eeddee !important;
+  }
+  tr:first-child th.numer {
+    background-color: #aaeedd !important;
+  }
+  tr:first-child th.denex {
+    background-color: #eeeedd !important;
+  }
+  tr:first-child th.numex {
+    background-color: #aaeeee !important;
+  }
+  tr:first-child th.denexcep {
+    background-color: #ddeedd !important;
+  }
+  
+  // makes sure there's an appropriate border line for the last two rows
+  tr:nth-last-child(2) > td {
+    border-bottom-style:solid;
+    border-bottom-width:1px;
+    border-bottom-color:rgb(204,204,204);
+  }
+  tr:nth-last-child(1) > td {
+    border-top-style:none;
+    border-bottom-style:solid;
+    border-bottom-width:1px;
+    border-bottom-color:rgb(204,204,204);
+  }
+  
+  tr.inline-edit-mode > td.editable {
+    background-color: #ddeeee !important;
+  }
+
+  /* header styling */
+  th {
+    font-weight: bold;
+    border-bottom: 2px solid #000 !important;
+    background-color: #fff !important;
+  }
+
+  th > div.tableScrollContainer {
+    padding: 0px;
+    position: relative;
+    height: 150px;
+  }
+
+  th > div > div.tableScroll {
+    max-height:100%;
+    max-width:100%;
+    overflow-y:auto;
+    overflow-x:auto;
+    position:absolute;
+    bottom: 0;
+    left: 0;
+    white-space: normal;
+  }
+
+  /* population header styling so text is vertical */
+  th.rotate {
+    font-size: 90%;
+    height: 60px;
+    width: 40px;
+    text-align: left;
+  }
+
+  th.rotate > div {
+    transform:
+      translate(-100px, 33px) /* magic numbers to get the text placement correct */
+      rotate(-90deg);
+    width: 80px;
+  }
+  
+  /* basic cell styling. keeping in div because can managing text overflow more easily */
+  th > div,
+  td > div {
+    height: 20px;
+    overflow: hidden;
+  }
+
+  td.action {
+    vertical-align:middle;
+  }
+
+  td.action > div {
+    height: 25px;
+    padding: 0px;
+  }
+  
+  /* TODO: rework these so that they work for any number of actions */
+  td.action:nth-child(1)  {
+    border-right-style:none;
+  }
+  th.action:nth-child(1) {
+    border-right-style:none;
+  }
+
+  td.warn {
+    background-color: pink;
+  }
+
+  /* added to remove border when an action is selected */
+  /* TODO: make this so it ONLY removes the border for actions */
+  .wtBorder {
+    display: none !important;
+  }
+}
