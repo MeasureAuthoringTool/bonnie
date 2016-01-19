@@ -32,6 +32,11 @@
 #= require jquery-color/jquery.color
 #= require bootstrap-file-input/bootstrap.file-input
 #= require MutationObserver-shim/dist/mutationobserver.min
+#= require datatables.net/js/jquery.dataTables
+#= require datatables.net-bs/js/dataTables.bootstrap
+#= require datatables.net-fixedColumns/js/dataTables.fixedColumns
+# LDY: need to use the non-minified version because we've made a change.
+#= require handsontable/dist/handsontable.full
 #
 #= require helpers
 #= require_tree ./templates
@@ -42,6 +47,7 @@
 #= require measure_libraries
 #= require_self
 #= require_tree .
+
 
 # Make all JST templates available as Handlebars templates, so the {{template 'foo'}} helper works as expected
 Handlebars.templates[name] = template for name, template of JST
