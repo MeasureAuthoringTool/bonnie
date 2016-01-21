@@ -56,6 +56,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
         measure: @model.measure()
         fieldValue: false
         values: @model.get('value')
+        criteriaType: @model.get('type')
     @editFieldValueView = new Thorax.Views.EditCriteriaValueView
       model: new Thorax.Model
       measure: @model.measure()
@@ -309,7 +310,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     _(super).extend
       codes: @measure?.valueSets().map((vs) -> vs.toJSON()) or []
       fields: Thorax.Models.Measure.logicFieldsFor(@criteriaType)
-      hideEditValueView: @values.models.length > 0
+      hideEditValueView: @criteriaType == 'risk_category_assessments' && @values.models.length > 0
 
   # When we serialize the form, we want to put the description for any CD codes into the submission
   events:
