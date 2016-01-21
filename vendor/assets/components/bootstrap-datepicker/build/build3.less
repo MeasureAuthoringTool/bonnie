@@ -2,7 +2,7 @@
 // and imports the included datepicker.less to output a minimal datepicker.css
 //
 // Usage:
-//     lessc build.less datepicker.css
+//     lessc build3.less datepicker.css
 //
 // Variables and mixins copied from bootstrap 2.0.2
 
@@ -27,9 +27,15 @@
 @input-group-addon-bg:           @gray-lighter;
 @input-group-addon-border-color: @input-border;
 
+@state-info-bg:           #d9edf7;
+
 @font-size-base:          14px;
 @line-height-base:        1.428571429; // 20/14
 @line-height-computed:    floor(@font-size-base * @line-height-base); // ~20px
+@border-radius-base:      4px;
+
+@dropdown-bg:                   #fff;
+@dropdown-border:               rgba(0,0,0,.15);
 
 
 // Mixins
@@ -40,30 +46,45 @@
   background-color: @background;
   border-color: @border;
 
-  &:hover,
   &:focus,
-  &:active,
-  &.active,
-  .open .dropdown-toggle& {
+  &.focus {
     color: @color;
-    background-color: darken(@background, 8%);
+    background-color: darken(@background, 10%);
+        border-color: darken(@border, 25%);
+  }
+  &:hover {
+    color: @color;
+    background-color: darken(@background, 10%);
         border-color: darken(@border, 12%);
   }
   &:active,
   &.active,
-  .open .dropdown-toggle& {
+  .open > .dropdown-toggle& {
+    color: @color;
+    background-color: darken(@background, 10%);
+        border-color: darken(@border, 12%);
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: @color;
+      background-color: darken(@background, 17%);
+          border-color: darken(@border, 25%);
+    }
+  }
+  &:active,
+  &.active,
+  .open > .dropdown-toggle& {
     background-image: none;
   }
   &.disabled,
   &[disabled],
   fieldset[disabled] & {
-    &,
     &:hover,
     &:focus,
-    &:active,
-    &.active {
+    &.focus {
       background-color: @background;
-          border-color: @border
+          border-color: @border;
     }
   }
 }
