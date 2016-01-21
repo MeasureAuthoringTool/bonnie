@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: cd22784c80341e4f8826034ffd9e6db1c4902ecd
+  revision: bcdc234b9a64f3180d330f6d7926d8cd23a11527
   branch: master
   specs:
     health-data-standards (3.6.1)
@@ -31,7 +31,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: e9733e42a4a4033448842046a7ec3ebca283bd64
+  revision: 84d095cb5b1421eb7630d6212437da68f2f07f28
   branch: master
   specs:
     bonnie_bundler (1.0.0)
@@ -92,7 +92,7 @@ GEM
       nokogiri (>= 1.4.1)
       rubyzip (= 0.9.9)
     bcrypt (3.1.10)
-    bson (3.2.1)
+    bson (3.2.6)
     builder (3.2.2)
     byebug (5.0.0)
       columnize (= 0.9.0)
@@ -180,9 +180,9 @@ GEM
       mime-types (>= 1.16, < 3)
     memoist (0.9.3)
     method_source (0.8.2)
-    mime-types (2.6.1)
+    mime-types (2.99)
     mini_portile2 (2.0.0)
-    minitest (5.8.0)
+    minitest (5.8.3)
     mongoid (4.0.0)
       activemodel (~> 4.0)
       moped (~> 2.0.0)
@@ -190,7 +190,7 @@ GEM
       tzinfo (>= 0.3.37)
     mongoid-tree (1.0.4)
       mongoid (>= 3.0, <= 4.0)
-    moped (2.0.6)
+    moped (2.0.7)
       bson (~> 3.0)
       connection_pool (~> 2.0)
       optionable (~> 0.2.0)

@@ -7,7 +7,7 @@ defaults: &defaults
   measure_period_start: 1325376000
   nlm:
     ticket_url: https://vsac.nlm.nih.gov/vsac/ws/Ticket
-    api_url: https://vsac.nlm.nih.gov/vsac/ws/RetrieveValueSet
+    api_url: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets
 
 development:
   <<: *defaults
