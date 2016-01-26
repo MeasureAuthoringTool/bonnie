@@ -1,0 +1,626 @@
+{
+  "measures#calculated_results": [
+    {
+      "verb": "GET",
+      "path": "/api_v1/measures/8924F2B3-EC06-4650-B634-D70A53DEE577/calculated_results",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "status": "complete",
+        "measure_id": "8924F2B3-EC06-4650-B634-D70A53DEE577",
+        "summary": [
+          {
+            "IPP": 0,
+            "DENOM": 0,
+            "NUMER": 0,
+            "DENEXCEP": 0,
+            "DENEX": 0
+          },
+          {
+            "IPP": 0,
+            "DENOM": 0,
+            "NUMER": 0,
+            "DENEXCEP": 0,
+            "DENEX": 0
+          }
+        ],
+        "patient_count": 4,
+        "patients": [
+          {
+            "_id": "56a7e1254bfcf642e1d46ab6",
+            "birthdate": "1970-01-01T08:30:00-05:00",
+            "description": "",
+            "ethnicity": {
+              "code": "2186-5",
+              "name": "Not Hispanic or Latino",
+              "codeSystem": "CDC Race"
+            },
+            "expected_values": [
+              {
+                "population_index": 0,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 0,
+                "DENEX": 0
+              },
+              {
+                "population_index": 1,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 0,
+                "DENEX": 0
+              }
+            ],
+            "expired": false,
+            "first": "BH_Adult",
+            "gender": "M",
+            "insurance_providers": [
+              {
+                "member_id": "1234567890",
+                "payer": "Other"
+              }
+            ],
+            "last": "A",
+            "race": {
+              "code": "1002-5",
+              "name": "American Indian or Alaska Native",
+              "codeSystem": "CDC Race"
+            },
+            "updated_at": "2016-01-26T21:12:05.874Z",
+            "actual_values": [
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              },
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              }
+            ]
+          },
+          {
+            "_id": "56a7e1254bfcf642e1d46ab7",
+            "birthdate": "1991-02-01T10:00:00-05:00",
+            "description": "",
+            "ethnicity": {
+              "code": "2186-5",
+              "name": "Not Hispanic or Latino",
+              "codeSystem": "CDC Race"
+            },
+            "expected_values": [
+              {
+                "population_index": 0,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 1,
+                "DENEX": 0
+              },
+              {
+                "population_index": 1,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 0,
+                "DENEX": 0
+              }
+            ],
+            "expired": false,
+            "first": "BH_Adult",
+            "gender": "M",
+            "insurance_providers": [
+              {
+                "member_id": "1234567890",
+                "payer": "Other"
+              }
+            ],
+            "last": "B",
+            "race": {
+              "code": "1002-5",
+              "name": "American Indian or Alaska Native",
+              "codeSystem": "CDC Race"
+            },
+            "updated_at": "2016-01-26T21:12:05.882Z",
+            "actual_values": [
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              },
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              }
+            ]
+          },
+          {
+            "_id": "56a7e1254bfcf642e1d46ab8",
+            "birthdate": "1991-02-01T05:30:00-05:00",
+            "description": "",
+            "ethnicity": {
+              "code": "2186-5",
+              "name": "Not Hispanic or Latino",
+              "codeSystem": "CDC Race"
+            },
+            "expected_values": [
+              {
+                "population_index": 0,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 0,
+                "DENEX": 0
+              },
+              {
+                "population_index": 1,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 0,
+                "DENEX": 0
+              }
+            ],
+            "expired": false,
+            "first": "BH_Adult",
+            "gender": "M",
+            "insurance_providers": [
+              {
+                "member_id": "1234567890",
+                "payer": "Other"
+              }
+            ],
+            "last": "C",
+            "race": {
+              "code": "1002-5",
+              "name": "American Indian or Alaska Native",
+              "codeSystem": "CDC Race"
+            },
+            "updated_at": "2016-01-26T21:12:05.888Z",
+            "actual_values": [
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              },
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              }
+            ]
+          },
+          {
+            "_id": "56a7e1254bfcf642e1d46ab9",
+            "birthdate": "1991-01-07T04:30:00-05:00",
+            "description": "",
+            "ethnicity": {
+              "code": "2186-5",
+              "name": "Not Hispanic or Latino",
+              "codeSystem": "CDC Race"
+            },
+            "expected_values": [
+              {
+                "population_index": 0,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 1,
+                "DENEX": 0
+              },
+              {
+                "population_index": 1,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 0,
+                "DENEX": 0
+              }
+            ],
+            "expired": false,
+            "first": "BH_Adult",
+            "gender": "M",
+            "insurance_providers": [
+              {
+                "member_id": "1234567890",
+                "payer": "Other"
+              }
+            ],
+            "last": "D",
+            "race": {
+              "code": "1002-5",
+              "name": "American Indian or Alaska Native",
+              "codeSystem": "CDC Race"
+            },
+            "updated_at": "2016-01-26T21:12:05.894Z",
+            "actual_values": [
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              },
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              }
+            ]
+          }
+        ]
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api_v1/measures/foo/calculated_results",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+      },
+      "code": "404",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "measures#index": [
+    {
+      "verb": "GET",
+      "path": "/api_v1/measures/index",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": null,
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api_v1/measures/index",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": "42BF391F-38A3-TEST-9ECE-DCD47E9609D9",
+          "nqf_id": "0435",
+          "hqmf_id": "40280381-3D27-TEST-013D-4DCA4B826AE4",
+          "hqmf_set_id": "42BF391F-38A3-TEST-9ECE-DCD47E9609D9",
+          "hqmf_version_number": 2,
+          "cms_id": "CMS104v2",
+          "name": "Discharged on Antithrombotic Therapy",
+          "description": "Ischemic stroke patients prescribed antithrombotic therapy at hospital discharge",
+          "type": "eh",
+          "category": "Miscellaneous",
+          "continuous_variable": false,
+          "episode_of_care": true
+        },
+        {
+          "id": "8924F2B3-EC06-4650-B634-D70A53DEE577",
+          "nqf_id": "0105",
+          "hqmf_id": "40280381-3D61-56A7-013E-7AF612436402",
+          "hqmf_set_id": "8924F2B3-EC06-4650-B634-D70A53DEE577",
+          "hqmf_version_number": 2,
+          "cms_id": "CMS128v2",
+          "name": "Anti-depressant Medication Management",
+          "description": "Percentage of patients 18 years of age and older who were diagnosed with major depression and treated with antidepressant medication, and who remained on antidepressant medication treatment. Two rates are reported. \na. Percentage of patients who remained on an antidepressant medication for at least 84 days (12 weeks). \nb. Percentage of patients who remained on an antidepressant medication for at least 180 days (6 months).",
+          "type": "ep",
+          "category": "Behavioral Health Adult",
+          "continuous_variable": false,
+          "episode_of_care": false,
+          "sub_id": "a",
+          "subtitle": "84 days",
+          "short_subtitle": "84 days"
+        },
+        {
+          "id": "E35791DF-5B25-41BB-B260-673337BC44A8",
+          "nqf_id": "0028",
+          "hqmf_id": "40280381-3D61-56A7-013E-5CD94A4D64FA",
+          "hqmf_set_id": "E35791DF-5B25-41BB-B260-673337BC44A8",
+          "hqmf_version_number": 2,
+          "cms_id": "CMS138v2",
+          "name": "Preventive Care and Screening: Tobacco Use: Screening and Cessation Intervention",
+          "description": "Percentage of patients aged 18 years and older who were screened for tobacco use one or more times within 24 months AND who received cessation counseling intervention if identified as a tobacco user",
+          "type": "ep",
+          "category": "Core",
+          "continuous_variable": false,
+          "episode_of_care": false
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "measures#patients": [
+    {
+      "verb": "GET",
+      "path": "/api_v1/measures/foo/patients",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+
+      ],
+      "code": "404",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api_v1/measures/8924F2B3-EC06-4650-B634-D70A53DEE577/patients",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "_id": "56a7e1294bfcf642e1d46ad2",
+          "birthdate": "1970-01-01T08:30:00-05:00",
+          "description": "",
+          "ethnicity": {
+            "code": "2186-5",
+            "name": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race"
+          },
+          "expected_values": [
+            {
+              "population_index": 0,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 0,
+              "DENEX": 0
+            },
+            {
+              "population_index": 1,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 0,
+              "DENEX": 0
+            }
+          ],
+          "expired": false,
+          "first": "BH_Adult",
+          "gender": "M",
+          "insurance_providers": [
+            {
+              "member_id": "1234567890",
+              "payer": "Other"
+            }
+          ],
+          "last": "A",
+          "race": {
+            "code": "1002-5",
+            "name": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race"
+          },
+          "updated_at": "2016-01-26T21:12:09.458Z"
+        },
+        {
+          "_id": "56a7e1294bfcf642e1d46ad3",
+          "birthdate": "1991-02-01T10:00:00-05:00",
+          "description": "",
+          "ethnicity": {
+            "code": "2186-5",
+            "name": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race"
+          },
+          "expected_values": [
+            {
+              "population_index": 0,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 1,
+              "DENEX": 0
+            },
+            {
+              "population_index": 1,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 0,
+              "DENEX": 0
+            }
+          ],
+          "expired": false,
+          "first": "BH_Adult",
+          "gender": "M",
+          "insurance_providers": [
+            {
+              "member_id": "1234567890",
+              "payer": "Other"
+            }
+          ],
+          "last": "B",
+          "race": {
+            "code": "1002-5",
+            "name": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race"
+          },
+          "updated_at": "2016-01-26T21:12:09.465Z"
+        },
+        {
+          "_id": "56a7e1294bfcf642e1d46ad4",
+          "birthdate": "1991-02-01T05:30:00-05:00",
+          "description": "",
+          "ethnicity": {
+            "code": "2186-5",
+            "name": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race"
+          },
+          "expected_values": [
+            {
+              "population_index": 0,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 0,
+              "DENEX": 0
+            },
+            {
+              "population_index": 1,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 0,
+              "DENEX": 0
+            }
+          ],
+          "expired": false,
+          "first": "BH_Adult",
+          "gender": "M",
+          "insurance_providers": [
+            {
+              "member_id": "1234567890",
+              "payer": "Other"
+            }
+          ],
+          "last": "C",
+          "race": {
+            "code": "1002-5",
+            "name": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race"
+          },
+          "updated_at": "2016-01-26T21:12:09.471Z"
+        },
+        {
+          "_id": "56a7e1294bfcf642e1d46ad5",
+          "birthdate": "1991-01-07T04:30:00-05:00",
+          "description": "",
+          "ethnicity": {
+            "code": "2186-5",
+            "name": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race"
+          },
+          "expected_values": [
+            {
+              "population_index": 0,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 1,
+              "DENEX": 0
+            },
+            {
+              "population_index": 1,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 0,
+              "DENEX": 0
+            }
+          ],
+          "expired": false,
+          "first": "BH_Adult",
+          "gender": "M",
+          "insurance_providers": [
+            {
+              "member_id": "1234567890",
+              "payer": "Other"
+            }
+          ],
+          "last": "D",
+          "race": {
+            "code": "1002-5",
+            "name": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race"
+          },
+          "updated_at": "2016-01-26T21:12:09.478Z"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "measures#show": [
+    {
+      "verb": "GET",
+      "path": "/api_v1/measures/foo/show",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+      },
+      "code": "404",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api_v1/measures/8924F2B3-EC06-4650-B634-D70A53DEE577/show",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "cms_id": "CMS128v2",
+        "complexity": {
+          "populations": [
+            {
+              "name": "DENEX",
+              "complexity": 1
+            },
+            {
+              "name": "NUMER",
+              "complexity": 1
+            },
+            {
+              "name": "NUMER_1",
+              "complexity": 1
+            },
+            {
+              "name": "DENOM",
+              "complexity": 1
+            },
+            {
+              "name": "IPP",
+              "complexity": 13
+            }
+          ],
+          "variables": [
+
+          ]
+        },
+        "continuous_variable": false,
+        "description": "Percentage of patients 18 years of age and older who were diagnosed with major depression and treated with antidepressant medication, and who remained on antidepressant medication treatment. Two rates are reported. \na. Percentage of patients who remained on an antidepressant medication for at least 84 days (12 weeks). \nb. Percentage of patients who remained on an antidepressant medication for at least 180 days (6 months).",
+        "episode_of_care": false,
+        "hqmf_id": "40280381-3D61-56A7-013E-7AF612436402",
+        "hqmf_set_id": "8924F2B3-EC06-4650-B634-D70A53DEE577",
+        "hqmf_version_number": 2,
+        "id": "40280381-3D61-56A7-013E-7AF612436402",
+        "title": "Anti-depressant Medication Management",
+        "type": "ep",
+        "updated_at": "2016-01-26T21:12:09.015Z"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ]
+}

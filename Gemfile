@@ -53,6 +53,7 @@ gem 'roo'
 
 
 gem 'oj' # Faster JSON
+gem 'apipie-rails' # API documentation generation
 
 group :test, :development, :ci do
   gem 'pry'
