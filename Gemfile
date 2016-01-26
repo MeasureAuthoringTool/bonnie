@@ -46,7 +46,8 @@ gem 'roo'
 
 gem 'oj' # Faster JSON
 
-gem 'mongoid-history'    # For adding versions
+gem 'mongoid-history'
+gem 'apipie-rails' # API documentation generation
 
 group :test, :development, :ci do
   gem 'pry'

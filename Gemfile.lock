@@ -127,6 +127,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (6.0.4)
+    apipie-rails (0.3.5)
+      json
     bcrypt (3.1.11)
     brakeman (3.6.2)
     bson (4.2.2)
@@ -369,6 +371,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apipie-rails
   axlsx!
   bonnie_bundler!
   brakeman

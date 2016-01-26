@@ -7,7 +7,20 @@ class ApiV1::MeasuresController < ApplicationController
 
   respond_to :json, :html
 
-  # GET /api_v1/measures
+  resource_description do
+    formats [:json]
+    api_versions '1'
+    error :code => 401, :desc => 'Unauthorized'
+  end
+
+  def_param_group :measure do
+    param :id, String, :required => true, :desc => 'The HQMF Set ID of the Measure.'
+    error :code => 404, :desc => 'Not Found'
+  end
+
+  api :GET, '/api_v1/measures', 'List of Measures'
+  description 'Retrieve the list of measures for the authorized user.'
+  formats [:json, :html]
   def index
     # TODO filter by search parameters, for example an NQF ID or partial description
     skippable_fields = [:map_fn, :hqmf_document, :oids, :population_ids]
@@ -27,7 +40,9 @@ class ApiV1::MeasuresController < ApplicationController
     end
   end
 
-  # GET /api_v1/measures/1
+  api :GET, '/api_v1/measures/:id', 'Read a Specific Measure'
+  description 'Retrieve the details of a specific measure by HQMF Set ID.'
+  param_group :measure
   def show
     hash = {}
     http_status = 200
@@ -43,7 +58,9 @@ class ApiV1::MeasuresController < ApplicationController
     render json: hash, status: http_status
   end
 
-  # GET /api_v1/measures/1/patients
+  api :GET, '/api_v1/measures/:id/patients', 'List of Patients for a Specific Measure'
+  description 'Get all the patients associated with a measure.'
+  param_group :measure
   def patients
     @api_v1_patients = []
     http_status = 200
@@ -62,7 +79,10 @@ class ApiV1::MeasuresController < ApplicationController
     render json: @api_v1_patients, status: http_status
   end
 
-  # GET /api_v1/measures/1/calculated_results
+  api :GET, '/api_v1/measures/:id/calculated_results', 'Calculated Results for a Specific Measure'
+  description 'Retrieve the calculated results of the measure logic for each patient.'
+  param_group :measure
+  error :code => 500, :desc => 'Server-side Error Calculating the HQMF Measure Logic'
   def calculated_results
     http_status = 200
     response = {}
@@ -126,13 +146,16 @@ class ApiV1::MeasuresController < ApplicationController
     render json: response, status: http_status
   end
 
-  # POST /api_v1/measures
+  api :POST, '/api_v1/measures', 'Create a New Measure'
+  description 'Creating a new measure.'
   def create
     # TODO
     # TODO: update test/controllers/api_v1/measures_controller_test.rb::test "should create api_v1_measure"
   end
 
-  # PUT /api_v1/measures/1
+  api :PUT, '/api_v1/measures/:id', 'Update an Existing Measure'
+  description 'Updating an existing measure. This is a full update (e.g. no partial updates allowed).'
+  param_group :measure
   def update
     # TODO
     # TODO: update test/controllers/api_v1/measures_controller_test.rb::test "should update api_v1_measure"
