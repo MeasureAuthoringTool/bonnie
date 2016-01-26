@@ -87,6 +87,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    apipie-rails (0.3.5)
+      json
     arel (5.0.1.20140414130214)
     axlsx (2.0.0)
       htmlentities (~> 4.3.1)
@@ -310,6 +312,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apipie-rails
   axlsx
   bonnie_bundler!
   capistrano-rails
