@@ -199,11 +199,10 @@ class PatientExport
         end
       end
 
-###################################################################################
+      #Create a hash of population type and index of the list of criteria
       population_hash = Hash.new
       index_key = 0
 
-      #TODO there must be a better way
       criteria_keys_by_population.each do |key, list|
         list.each do |value| 
           population_hash[index_key] = key
@@ -224,6 +223,5 @@ class PatientExport
       sheet.add_row patient_row, height: 24
 
     end
-###################################################################################
   end
 end
