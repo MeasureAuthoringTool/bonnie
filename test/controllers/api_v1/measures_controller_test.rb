@@ -74,8 +74,79 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
-  test "should create api_v1_measure" do
-    skip
+  test "should return bad_request when measure_file not provided" do
+    post :create, {measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :bad_request
+    expected_response = { "status" => "error", "messages" => "Missing parameter: measure_file" }
+    assert_equal expected_response, JSON.parse(response.body)
+  end
+  
+  test "should return bad_request when measure_file is not a file" do
+    post :create, {measure_file: 'not-a-file.gif', measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :bad_request
+    expected_response = { "status" => "error", "messages" => "Invalid parameter: measure_file must be a file" }
+    assert_equal expected_response, JSON.parse(response.body)
+  end
+  
+  test "should return bad_request when the measure zip is not a MAT Export" do
+    measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','not_mat_export.zip'),'application/zip')
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :bad_request
+    expected_response = { "status" => "error", "messages" => "measure_file does not appear to be a MAT export." }
+    assert_equal expected_response, JSON.parse(response.body)
+  end
+  
+  test "should return bad_request when measure_file is not a .zip or .xml" do
+    measure_file = fixture_file_upload(File.join('test','fixtures','draft_measures','CMS104v2.json'),'application/json')
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :bad_request
+    expected_response = { "status" => "error", "messages" => "Incorrect measure_file format." }
+    assert_equal expected_response, JSON.parse(response.body)
+  end
+  
+  test "should return bad_request when measure_type is invalid" do
+    measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
+    post :create, {measure_file: measure_file, measure_type: 'no', calculation_type: 'episode'}
+    assert_response :bad_request
+    expected_response = { "status" => "error", "messages" => "Invalid value: measure_type must be 'eh' or 'ep'." }
+    assert_equal expected_response, JSON.parse(response.body)
+  end
+  
+  test "should return bad_request when calculation_type is invalid" do
+    measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
+    post :create, {measure_file: measure_file, measure_type: 'ep', calculation_type: 'addition'}
+    assert_response :bad_request
+    expected_response = { "status" => "error", "messages" => "Invalid value: calculation_type must be 'patient' or 'episode'." }
+    assert_equal expected_response, JSON.parse(response.body)
+  end
+
+  test "should create api_v1_measure initial" do
+    measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
+
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :success
+    expected_response = { "status" => "success", "url" => "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}
+    assert_equal expected_response, JSON.parse(response.body)
+    
+    measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
+
+    assert_equal 29, measure.value_sets.count
+  end
+  
+  test "should error on duplicate measure" do
+    measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
+
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :success
+    expected_response = { "status" => "success", "url" => "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}
+    assert_equal expected_response, JSON.parse(response.body)
+    
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :conflict
+    
+    measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
+
+    assert_equal 29, measure.value_sets.count
   end
 
   test "should update api_v1_measure" do
