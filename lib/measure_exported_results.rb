@@ -26,10 +26,6 @@ class MeasureExportedResults
   def get_criteria_value(criteria_key, population_type)
     value = @patient['rationale'][criteria_key]
     #Change value if specific rationale is involved.
-    adjust_value_for_specific_rationale(value, criteria_key, population_type)
-  end
-
-  def adjust_value_for_specific_rationale(value, criteria_key, population_type)
     if @patient.key?('specificsRationale')
       if @patient['specificsRationale'].key?(population_type)
         value = @patient['specificsRationale'][population_type][criteria_key]
