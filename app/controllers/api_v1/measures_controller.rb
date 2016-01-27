@@ -6,6 +6,7 @@ class ApiV1::MeasuresController < ApplicationController
   POPULATION_TYPES = ['population_index','STRAT','IPP','DENOM','NUMER','DENEXCEP','DENEX','MSRPOPL','OBSERV','MSRPOPLEX']
 
   respond_to :json, :html
+  rescue_from ActionController::ParameterMissing, :with => :error_parameter_missing
 
   resource_description do
     formats [:json]
@@ -149,8 +150,68 @@ class ApiV1::MeasuresController < ApplicationController
   api :POST, '/api_v1/measures', 'Create a New Measure'
   description 'Creating a new measure.'
   def create
-    # TODO
-    # TODO: update test/controllers/api_v1/measures_controller_test.rb::test "should create api_v1_measure"
+    # ensure required params exist
+    params.require(:measure_file)
+    params.require(:measure_type)
+    params.require(:calculation_type)
+    
+    # ensure other required params have valid values
+    if !['eh', 'ep'].include?(params[:measure_type])
+      render json: {status: "error", messages: "Invalid value: measure_type must be 'eh' or 'ep'."},
+             status: :bad_request
+      return
+    end
+    
+    if !['episode', 'patient'].include?(params[:calculation_type])
+      render json: {status: "error", messages: "Invalid value: calculation_type must be 'patient' or 'episode'."},
+             status: :bad_request
+      return
+    end
+    
+    # Ensure that measure_file is indeed a file
+    if !params[:measure_file].respond_to?('original_filename')
+      # return with an error and 400 status
+      render json: {status: "error", messages: "Invalid parameter: measure_file must be a file" },
+             status: :bad_request
+      return
+    end
+    measure_file = params[:measure_file]
+    
+    # Understand which sort of measure_file we are retrieving
+    extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
+    
+    begin
+      # See if it is a MAT Export and try loading it.
+      if extension == '.zip'
+        if !Measures::MATLoader.mat_export?(params[:measure_file])
+          render json: {status: "error", messages: "measure_file does not appear to be a MAT export." },
+                 status: :bad_request
+          return
+        else
+          measure = load_mat_export(params)
+        end
+        
+      # If it is a measure file.
+      elsif extension == '.xml'
+        # VSAC info is required
+        params.require(:vsac_username)
+        params.require(:vsac_password)
+        include_draft = params.fetch(:include_draft, true)
+        params.require(:vsac_date) unless include_draft
+        
+        
+      else
+        render json: {status: "error", messages: "Incorrect measure_file format." },
+               status: :bad_request
+        return
+      end
+
+    rescue Exception => e
+      render json: {status: "error", messages: e }
+      return
+    end
+    
+    render json: {status: "success", url: "/api_v1/measures/#{measure.hqmf_set_id}"}, status: :ok
   end
 
   api :PUT, '/api_v1/measures/:id', 'Update an Existing Measure'
@@ -182,6 +243,19 @@ class ApiV1::MeasuresController < ApplicationController
       p["deathdate"] = Time.at(p["deathdate"]).iso8601 if p["deathdate"]
     end
     patients
+  end
+  
+  def load_mat_export(params)
+    measure_details = {
+      'type' => params[:measure_type],
+      'episode_of_care' => params[:calculation_type]
+    }
+    measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
+  end
+  
+  def error_parameter_missing(exception)
+    render json: {status: "error", messages: "Missing parameter: #{exception.param}" },
+           status: :bad_request
   end
 
 end
