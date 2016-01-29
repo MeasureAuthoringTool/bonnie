@@ -25,16 +25,25 @@ class MeasureExportedResults
 
   def get_criteria_value(criteria_key, population_type)
     value = @patient['rationale'][criteria_key]
-    #Change value if specific rationale is involved.
-    if @patient.key?('specificsRationale')
-      if @patient['specificsRationale'].key?(population_type)
-        value = @patient['specificsRationale'][population_type][criteria_key]
+    #value could be true, false, or nil.
+    if value != nil && value != "false"
+      value = "TRUE"
+    elsif value == "false"
+      value = "FALSE"
+    end
+
+    #Change value if specific rationale is involved. 
+    if @patient['specificsRationale'] && @patient['specificsRationale'][population_type] 
+      value = @patient['specificsRationale'][population_type][criteria_key]
+      
+      #value could be "false", nil, "true"
+      if value = "false"
+        value = "SPECIFICALLY FALSE"
+      elsif value = "true"
+        value = "SPECIFICALLY TRUE"
       end
     end
-    if value == "false"
-      return false
-    else
-      return value
-    end
+
+    return value
   end
 end

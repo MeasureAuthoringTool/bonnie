@@ -199,25 +199,18 @@ class PatientExport
         end
       end
 
-      #Create a hash of population type and index of the list of criteria
-      population_hash = Hash.new
-      index_key = 0
-
+      # Generate a list of population types in order of the population_criteria_keys
+      population_list = []
       criteria_keys_by_population.each do |key, list|
         list.each do |value| 
-          population_hash[index_key] = key
-          index_key = index_key + 1
+          population_list.push(key)
         end
       end
 
-       # Populate the values of each row, in the order that the headers were generated.
+      # Populate the values of each row, in the order that the headers were generated.
       population_criteria_keys.each_with_index do |key, index|
-        value = exported_results.get_criteria_value(key, population_hash[index])  
-        if value != false && value != nil
-          patient_row.push(true)
-        else
-          patient_row.push(value)
-        end
+        value = exported_results.get_criteria_value(key, population_list[index]) 
+        patient_row.push(value)
       end
 
       sheet.add_row patient_row, height: 24
