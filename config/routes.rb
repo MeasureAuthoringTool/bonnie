@@ -20,6 +20,8 @@ Bonnie::Application.routes.draw do
     collection do
       get 'value_sets'
       post 'finalize'
+      get 'vsac_auth_valid'
+      post 'vsac_auth_expire'
     end
     member do
       get 'debug', defaults: { format: :html }

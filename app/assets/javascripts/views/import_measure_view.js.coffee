@@ -43,6 +43,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
           @$(element).next().css("color","")
     'focus input': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
     'change input[name="include_draft"]': 'toggleDraft'
+    'click #clearVSACCreds': 'clearCachedVSACTicket'
 
   enableLoadVsac: ->
     username = @$('#vsacUser')
@@ -55,9 +56,33 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       hasPassword = true
     @$('#loadButton').prop('disabled', !(hasUser && hasPassword)) 
 
+  clearCachedVSACTicket: ->
+    @$('#vsacSignIn').removeClass('hidden')
+    @$('#vsacCachedMsg').addClass('hidden')
+    @$('#loadButton').prop('disabled', true)
+    $.post '/measures/vsac_auth_expire' 
+
+  toggleVSAC: ->
+    $.ajax
+      url: '/measures/vsac_auth_valid'
+      success: (data, textStatus, jqXHR) ->
+        if data? && data.valid
+          $('#vsacSignIn').addClass('hidden')
+          $('#vsacCachedMsg').removeClass('hidden')
+          $('#loadButton').prop('disabled', false) 
+          # If the measure import window is open long enough for the VSAC
+          # credentials to expire, we need to reshow the username and
+          # password dialog.
+          setTimeout ->
+            @clearCachedVSACTicket()
+          , new Date(data.expires) - new Date()
+        else
+          $('#vsacSignIn').removeClass('hidden')
+          $('#vsacCachedMsg').addClass('hidden')   
+
   enableLoad: ->
     if @$('input:file').val().match /xml$/i
-      @$('#vsacSignIn').removeClass('hidden')
+      @toggleVSAC()
     else
       @$('#vsacSignIn').addClass('hidden')
       @$('#loadButton').prop('disabled', !@$('input:file').val().length > 0)
