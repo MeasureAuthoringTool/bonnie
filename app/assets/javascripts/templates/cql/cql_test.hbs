@@ -1,0 +1,30 @@
+<div class="modal fade" id="cqlTestDialog" tabindex="-1" aria-hidden="true">
+  <div class="cql-modal modal-dialog" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        {{#button "close" class="close" data-dismiss="modal" aria-hidden="true"}}&times;{{/button}}
+        <h1 class="modal-title" id="modalTitle">CQL Evaluation (Alpha)</h1>
+      </div>
+      <div class="modal-body">
+        <label for="cqlButtons">
+          {{#button "addSnippet1" class="btn btn-xs"}}Snippet 1{{/button}}
+          <i class="fa fa-arrow-right" aria-hidden="true"></i>
+          {{#button "addSnippet2" class="btn btn-xs"}}Snippet 2{{/button}}
+          <i class="fa fa-arrow-right" aria-hidden="true"></i>
+          {{#button "addSnippet3" class="btn btn-xs"}}Snippet 3{{/button}}
+          <i class="fa fa-arrow-right" aria-hidden="true"></i>
+          {{#button "addSnippet4" class="btn btn-xs"}}Snippet 4{{/button}}
+          <i class="fa fa-arrow-right" aria-hidden="true"></i>
+          {{#button "addSnippet5" class="btn btn-xs"}}Snippet 5{{/button}}
+        </label>
+        <form>
+          <div class="form-group">
+            <textarea class="form-control" rows="15" name="cql" id="cql"></textarea>
+          </div>
+          <input type="submit" value="Evaluate" class="btn btn-default">
+        </form>
+        {{view resultsView}}
+      </div>
+    </div>
+  </div>
+</div>
