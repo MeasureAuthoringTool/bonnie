@@ -215,3 +215,54 @@ If desired, configure logrotate to rotate log files
         copytruncate
         su <user> <group>
     }
+
+============= FOR ENABLING CQL->ELM TRANSLATION SERVER =============
+
+Install JRE (used for CQL service)
+  sudo apt-add-repository ppa:webupd8team/java
+  sudo apt-get update
+  sudo apt-get install oracle-java8-installer
+
+If necessary, set the system Java to a previously installed version
+  sudo apt-get install icedtea-7-plugin
+  sudo update-java-alternatives -s java-1.7.0-openjdk-amd64
+
+Set up the CQL service to run via upstart
+  copy the CQL service JAR file into /usr/local/bin/
+  change ownership of CQL service JAR to <deploy user>
+    chown <deploy user>:<deploy user> <CQL service JAR>
+
+  add a file: /etc/init/cqlTranslationServer.conf with the content:
+
+    description "Starts the CQL Translation Server jar"
+    author "MITRE Bonnie team"
+
+    start on runlevel [2345]
+    stop on runlevel [!2345]
+
+    script
+            sudo -u <deploy user> screen -Sdm cqlTranslationServer /usr/lib/jvm/java-8-oracle/jre/bin/java -jar /usr/local/bin/cqlTranslationServer-1.0-SNAPSHOT-jar-with-dependencies.jar
+    end script
+
+check the syntax of the file
+  init-checkconf /etc/init/cqlTranslationServer.conf
+
+reload upstart configurations
+  sudo initctl reload-configuration
+
+start and check the status of the cql start service
+  sudo service cqlTranslationServer start
+  sudo service cqlTranslationServer status
+
+check that the service is actually running
+  ps aux | grep java
+
+
+OBSOLETE: If simply interested in starting the CQL service manually, it can be run using:
+
+  screen -dmS cqlTranslationServer /usr/lib/jvm/java-8-oracle/jre/bin/java -jar cqlTranslationServer-1.0-SNAPSHOT-jar-with-dependencies.jar
+  screen -list
+  screen -r <pid>.cqlTranslationServer
+
+
+============= END FOR ENABLING CQL->ELM TRANSLATION SERVER =============

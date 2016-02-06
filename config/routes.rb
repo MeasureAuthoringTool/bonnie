@@ -25,6 +25,7 @@ Bonnie::Application.routes.draw do
       post 'finalize'
       get 'vsac_auth_valid'
       post 'vsac_auth_expire'
+      post 'cql_to_elm'
     end
     member do
       get 'debug', defaults: { format: :html }
