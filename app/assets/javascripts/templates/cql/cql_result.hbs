@@ -1,0 +1,29 @@
+{{#ifCond type "==" "literal"}}
+  {{result}}
+{{/ifCond}}
+
+{{#ifCond type "==" "boolean"}}
+  {{#if result}}
+    <i class="fa fa-check status status-pass" aria-hidden="true"></i>
+  {{else}}
+    <i class="fa fa-times status status-fail" aria-hidden="true"></i>
+  {{/if}}
+{{/ifCond}}
+
+{{#ifCond type "==" "array"}}
+  {{#each result}}
+    {{view "CQLResultView" result=this}}
+  {{/each}}
+{{/ifCond}}
+
+{{#ifCond type "==" "entry"}}
+  <div class="cql-entry well well-sm">
+    {{result.description}}
+  </div>
+  <div class="cql-entry-details hidden">
+    <table class="table table-condensed">
+      <tr><td>Start</td><td>{{result.startTime}}</td></tr>
+      <tr><td>Stop</td><td>{{result.stopTime}}</td></tr>
+    </table>
+  </div>
+{{/ifCond}}
