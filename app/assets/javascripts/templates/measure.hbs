@@ -1,30 +1,34 @@
-<div class="main">
-  <div class="measure-title">
-    <h1 class="short-title"><i class="fa fa-fw fa-tasks" aria-hidden="true"></i> Measure details</h1>
-    <span class="settings-container">
-      <div class="measure-settings">
-        {{#button "toggleVisualization" class="btn btn-default btn-measure-viz btn-viz-chords"}}<i class="fa fa-sitemap" aria-hidden="true"></i> Chords View{{/button}}
-        {{#button "toggleVisualization" class="btn btn-default btn-measure-viz btn-viz-text"}}<i class="fa fa-list" aria-hidden="true"></i> Text View{{/button}}
-        {{#button "updateMeasure" class="btn btn-default update-measure"}}<i class="fa fa-upload" aria-hidden="true"></i> Update{{/button}}
-        {{#button "deleteMeasure" class="btn btn-danger delete-measure hide"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
-        {{#button "showDelete" class="btn btn-danger-inverse delete-icon"}}<i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>{{/button}}
-      </div>
-      {{#button "measureSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Measure Settings</span>{{/button}}
-    </span>
-  </div>
-  <div class="measure-dsp">
-    <h2 class="full-title">{{title}}</h2>
-    {{#if episode_of_care}}
-      <div class="measure-dsp-title">
-        Episode(s) of Care:
-      </div>
-        {{#each episodesOfCare tag="ul"}}
-          {{#with attributes}}
-            <li>{{description}}</li>
-          {{/with}}
-        {{/each}}
-      <p></p>
-    {{/if}}
+<div class="row">
+  <div class="main">
+    <div class="measure-title">
+      <h1 class="short-title"><i class="fa fa-fw fa-tasks" aria-hidden="true"></i> {{cms_id}}</h1>
+      <span class="settings-container">
+        <div class="measure-settings">
+          {{#button "toggleVisualization" class="btn btn-default btn-measure-viz btn-viz-chords"}}<i class="fa fa-sitemap" aria-hidden="true"></i> Chords View{{/button}}
+          {{#button "toggleVisualization" class="btn btn-default btn-measure-viz btn-viz-text"}}<i class="fa fa-list" aria-hidden="true"></i> Text View{{/button}}
+          {{#button "showCQL" class="btn btn-default"}}CQL (alpha){{/button}}
+          {{#button "updateMeasure" class="btn btn-default update-measure"}}<i class="fa fa-upload" aria-hidden="true"></i> Update{{/button}}
+          {{#button "deleteMeasure" class="btn btn-danger delete-measure hide"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
+          {{#button "showDelete" class="btn btn-danger-inverse delete-icon"}}<i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>{{/button}}
+        </div>
+        {{#button "measureSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Measure Settings</span>{{/button}}
+      </span>
+    </div>
+    <div class="measure-dsp">
+      <h2 class="full-title">{{title}}</h2>
+      {{#if episode_of_care}}
+        <div class="measure-dsp-title">
+          Episode(s) of Care:
+        </div>
+          {{#each episodesOfCare tag="ul"}}
+            {{#with attributes}}
+              <li>{{description}}</li>
+            {{/with}}
+          {{/each}}
+        <p></p>
+      {{/if}}
+
+      <p>{{description}}</p>
 
     <p>{{description}}</p>
 
@@ -54,3 +58,4 @@
   </div>
   {{view populationCalculation}}
 </div>
+{{view cqlView}}

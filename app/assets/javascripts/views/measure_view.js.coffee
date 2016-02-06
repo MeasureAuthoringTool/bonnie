@@ -87,6 +87,10 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     importMeasureView.appendTo(@$el)
     importMeasureView.display()
 
+  showCQL: (e) ->
+    cqlView = new Thorax.Views.CqlTestView(collection: @model.get('patients'))
+    cqlView.appendTo(@$el)
+
   exportQrdaPatients: (e) ->
     @exportPatientsView.exporting()
 

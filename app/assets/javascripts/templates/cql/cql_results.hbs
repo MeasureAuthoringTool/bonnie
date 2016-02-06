@@ -1,0 +1,19 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Statement</th>
+      {{#each patients}}
+        <th>{{this}}</th>
+      {{/each}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#each rows}}
+      <tr>
+        <td><b>{{statement}}</b></td>
+        {{#each results}}
+          <td>{{view "CQLResultView" result=this}}</td>
+        {{/each}}
+      </tr>
+    {{/each}}
+</table>

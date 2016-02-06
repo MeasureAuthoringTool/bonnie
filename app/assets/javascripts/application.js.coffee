@@ -32,6 +32,7 @@
 #= require jquery-color/jquery.color
 #= require bootstrap-file-input/bootstrap.file-input
 #= require MutationObserver-shim/dist/mutationobserver.min
+#= require cql/cql4browsers
 #
 #= require datatables.net/js/jquery.dataTables
 #= require datatables.net-bs/js/dataTables.bootstrap
