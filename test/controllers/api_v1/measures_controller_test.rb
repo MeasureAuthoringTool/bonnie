@@ -84,7 +84,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   test "should return bad_request when measure_file is not a file" do
     post :create, {measure_file: 'not-a-file.gif', measure_type: 'eh', calculation_type: 'episode'}
     assert_response :bad_request
-    expected_response = { "status" => "error", "messages" => "Invalid parameter: measure_file must be a file" }
+    expected_response = { "status" => "error", "messages" => "Invalid parameter 'measure_file': Must be a valid MAT Export or HQMF File." }
     assert_equal expected_response, JSON.parse(response.body)
   end
   
@@ -92,7 +92,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','not_mat_export.zip'),'application/zip')
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :bad_request
-    expected_response = { "status" => "error", "messages" => "measure_file does not appear to be a MAT export." }
+    expected_response = { "status" => "error", "messages" => "Invalid parameter 'measure_file': Must be a valid MAT Export or HQMF File." }
     assert_equal expected_response, JSON.parse(response.body)
   end
   
@@ -100,7 +100,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     measure_file = fixture_file_upload(File.join('test','fixtures','draft_measures','CMS104v2.json'),'application/json')
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :bad_request
-    expected_response = { "status" => "error", "messages" => "Incorrect measure_file format." }
+    expected_response = { "status" => "error", "messages" => "Invalid parameter 'measure_file': Must be a valid MAT Export or HQMF File." }
     assert_equal expected_response, JSON.parse(response.body)
   end
   
@@ -108,7 +108,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
     post :create, {measure_file: measure_file, measure_type: 'no', calculation_type: 'episode'}
     assert_response :bad_request
-    expected_response = { "status" => "error", "messages" => "Invalid value: measure_type must be 'eh' or 'ep'." }
+    expected_response = { "status" => "error", "messages" => "Invalid parameter 'measure_type': Must be one of: eh, ep." }
     assert_equal expected_response, JSON.parse(response.body)
   end
   
@@ -116,7 +116,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
     post :create, {measure_file: measure_file, measure_type: 'ep', calculation_type: 'addition'}
     assert_response :bad_request
-    expected_response = { "status" => "error", "messages" => "Invalid value: calculation_type must be 'patient' or 'episode'." }
+    expected_response = { "status" => "error", "messages" => "Invalid parameter 'calculation_type': Must be one of: episode, patient." }
     assert_equal expected_response, JSON.parse(response.body)
   end
 
@@ -131,6 +131,8 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
 
     assert_equal 29, measure.value_sets.count
+    assert_equal ["OccurrenceAInpatientEncounter1"], measure.episode_ids
+    
   end
   
   test "should error on duplicate measure" do
@@ -143,12 +145,62 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :conflict
-    
-    measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
-
-    assert_equal 29, measure.value_sets.count
+    expected_response = { "status" => "error", "messages" => "A measure with this HQMF Set ID already exists.", "url" => "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}
+    assert_equal expected_response, JSON.parse(response.body)
   end
-
+  
+  test "should return bad request on episode of care measurement with no specific occurrence" do
+    measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','no_ipp_Artifacts.zip'),'application/zip')
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :bad_request
+    expected_response = { "status" => "error", "messages" => "Episode of care calculation was specified. Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic." }
+    assert_equal expected_response, JSON.parse(response.body)
+  end
+  
+  test "should return bad request on episode of care measurement with episode_of_care out of bounds" do
+    measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', episode_of_care: 7}
+    assert_response :bad_request
+    expected_response = { "status" => "error", "messages" => "The episode_of_care index is out of bounds of the set of specific occurrences found in the mesasure." }
+    assert_equal expected_response, JSON.parse(response.body)
+  end
+  
+  test "should choose default titles for populations" do
+    measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_Artifacts.zip'),'application/zip')
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :ok
+    expected_response = { "status" => "success", "url" => "/api_v1/measures/E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"}
+    assert_equal expected_response, JSON.parse(response.body)
+    
+    measure = Measure.where({hqmf_set_id: "E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"}).first
+    assert_equal 3, measure.populations.size
+    assert_equal "Population 1", measure.populations[0]['title']
+    assert_equal "Population 2", measure.populations[1]['title']
+    assert_equal "Stratification 1", measure.populations[2]['title']
+  end
+  
+  test "should use provided population titles for populations" do
+    measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_Artifacts.zip'),'application/zip')
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat']}
+    assert_response :ok
+    expected_response = { "status" => "success", "url" => "/api_v1/measures/E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"}
+    assert_equal expected_response, JSON.parse(response.body)
+    
+    measure = Measure.where({hqmf_set_id: "E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"}).first
+    assert_equal 3, measure.populations.size
+    assert_equal "First Pop", measure.populations[0]['title']
+    assert_equal "Second Pop", measure.populations[1]['title']
+    assert_equal "Only Strat", measure.populations[2]['title']
+  end
+  
+  test "should error on measure with missing value sets" do
+    measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_no_vs.zip'),'application/zip')
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :bad_request
+    expected_response = { "status" => "error", "messages" => "The measure value sets could not be found. Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
+    assert_equal expected_response, JSON.parse(response.body)
+  end
+  
   test "should update api_v1_measure" do
     skip
   end
