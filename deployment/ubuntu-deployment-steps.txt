@@ -11,7 +11,7 @@ Install apache:
 
 Install some other dependencies:
 
-  sudo apt-get install -y libcurl4-openssl-dev apache2-threaded-dev libapr1-dev libaprutil1-dev
+  sudo apt-get install -y libcurl4-openssl-dev apache2-threaded-dev libapr1-dev libaprutil1-dev libgmp3-dev
 
 Install mongodb:
 
@@ -28,8 +28,8 @@ Log out and back in, then install ruby using rvm and some related components
 
   sudo -i
   rvm autolibs enable
-  rvm install 2.0.0
-  rvm --default 2.0.0
+  rvm install 2.2.3
+  rvm --default 2.2.3
   gem install bundler
   gem install passenger
   gem install capistrano -v 3.2.1
@@ -200,3 +200,18 @@ If desired, configure monit to monitor services
   restart monit to include changes
 
     sudo service monit restart
+
+If desired, configure logrotate to rotate log files
+
+  Create a file called /etc/logrotate.d/bonnie containing
+
+    <path>/bonnie/current/log/production.log {
+        monthly
+        missingok
+        notifempty
+        rotate 36
+        compress
+        delaycompress
+        copytruncate
+        su <user> <group>
+    }
