@@ -20,7 +20,7 @@ class MeasureExportedResults
         return 0
       end
     end
-  	@patient[population_type]
+    @patient[population_type]
   end
 
   def get_criteria_value(criteria_key, population_type)
