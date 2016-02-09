@@ -106,7 +106,7 @@ class PatientsController < ApplicationController
     # Only generate excel document if there are patients for the given measure.
     if records.length > 0
       cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
-      package = PatientExport.export_excel_file(measure, records, params['results'])
+      package = PatientExport.export_excel_file(measure, records, params[:results])
       send_data package.to_stream.read, type: "application/xlsx", filename: "#{measure.cms_id}.xlsx"
     else
       render nothing: true

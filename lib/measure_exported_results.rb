@@ -7,15 +7,15 @@ class MeasureExportedResults
 
   def match_patient_to_patient_id(patient_id, population_index)
     patients = @results[population_index.to_s]
-    #Iterate over each of the patients to match the patient_id
-    patients.map{ |key, value| value if value['patient_id'] == patient_id }.compact.try(:first)
+    # Iterate over each of the patients to match the patient_id
+    patients.map{ |key, value| value if value[:patient_id] == patient_id }.compact.try(:first)
   end
 
   def value_for_population_type(population_type)
     if population_type == 'OBSERV'
-      if @patient.key?('values') && @patient['rationale'].key?('OBSERV')
-        #Use eval to remove quotes around numbers ['75'] -> [75] 
-        return eval @patient['values'].to_s.gsub('"', '')
+      if @patient.key?('values') && @patient[:rationale].key?('OBSERV')
+        # Convert the array of strings to an array of integers. 
+        return @patient[:values].map { |x| x.to_i }.to_s
       else
         return 0
       end
@@ -24,22 +24,22 @@ class MeasureExportedResults
   end
 
   def get_criteria_value(criteria_key, population_type)
-    value = @patient['rationale'][criteria_key]
-    #value could be true, false, or nil.
+    value = @patient[:rationale][criteria_key]
+    # value could be true, false, or nil.
     if value != nil && value != "false"
       value = "TRUE"
     elsif value == "false"
       value = "FALSE"
     end
 
-    #Change value if specific rationale is involved. 
-    if @patient['specificsRationale'] && @patient['specificsRationale'][population_type] 
-      value = @patient['specificsRationale'][population_type][criteria_key]
+    # Change value if specific rationale is involved. 
+    if @patient[:specificsRationale] && @patient[:specificsRationale][population_type] 
+      specific_value = @patient[:specificsRationale][population_type][criteria_key]
       
-      #value could be "false", nil, "true"
-      if value = "false"
+      # value could be "false", nil, "true"
+      if specific_value == "false" && value == "TRUE"
         value = "SPECIFICALLY FALSE"
-      elsif value = "true"
+      elsif specific_value == "true" && value == "FALSE"
         value = "SPECIFICALLY TRUE"
       end
     end

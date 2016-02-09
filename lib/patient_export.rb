@@ -162,23 +162,25 @@ class PatientExport
     criteria_key_header_lookup
   end
 
-  def self.generate_rows(sheet, records, measure, population_index, expected_value_keys, population_criteria_keys, results, criteria_keys_by_population)
+  def self.generate_rows(sheet, records, measure, population_index, population_categories, population_criteria_keys, results, criteria_keys_by_population)
     # Populates the patient data
     records.each do |patient|
-      #Removes \" from beignning and end of the patient_id string 
+      # Removes \" from beignning and end of the patient_id string 
       exported_results = MeasureExportedResults.new(patient.id.to_json.tr('\"',''), population_index, results)
       patient_row = []
 
-      expected_value_keys.each do |value|
-        if patient['expected_values'] && patient['expected_values'][population_index] && patient['expected_values'][population_index][value]
-          patient_row.push(patient['expected_values'][population_index][value])
+      # populates the array with expected values for each population
+      population_categories.each do |population_category|
+        if patient[:expected_values] && patient[:expected_values][population_index] && patient[:expected_values][population_index][population_category]
+          patient_row.push(patient[:expected_values][population_index][population_category])
         else
           patient_row.push(0)
         end
       end
 
-      expected_value_keys.each do |key|
-        value = exported_results.value_for_population_type(key)
+      # populates the array with actual values for each population
+      population_categories.each do |population_category|
+        value = exported_results.value_for_population_type(population_category)
         if value == nil
           patient_row.push('X')
         else
