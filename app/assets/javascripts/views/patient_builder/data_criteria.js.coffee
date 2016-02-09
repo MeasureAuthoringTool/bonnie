@@ -184,7 +184,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     e.preventDefault()
     $(e.target).model().destroy()
     @triggerMaterialize()
-    @editValueView.render()
+    @editValueView?.render() # Re-render edit view, if used
 
   highlightError: (e, field) ->
     @toggleDetails(e) unless @isExpanded()
@@ -281,7 +281,8 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
       switch @criteria.get('frequency_unit')
         when 'h' then dosesPerDay = 24 / @criteria.get('frequency_value')
         when 'd' then dosesPerDay = 1 / @criteria.get('frequency_value')
-      offset = ( latest_fulfillment.get('quantity_dispensed_value') / @criteria.get('dose_value') / dosesPerDay ) * 60 * 60 * 24 * 1000
+      if latest_fulfillment
+        offset = ( latest_fulfillment.get('quantity_dispensed_value') / @criteria.get('dose_value') / dosesPerDay ) * 60 * 60 * 24 * 1000
     offset ?= 15 * 60 * 1000 # otherwise use a default offset of 15 mins
     # use the latest date, starting with the start_date
     date = moment.utc( @criteria.get('start_date') + offset ) if @criteria.has('start_date')
