@@ -13,7 +13,7 @@ class PatientExport
   end
 
   # Records cannot be less than 1
-  def self.export_excel_file(measure, records)
+  def self.export_excel_file(measure, records, results)
 
     criteria_keys_by_population = measure.criteria_keys_by_population
     criteria_key_header_lookup = self.create_criteria_key_header_lookup(measure, criteria_keys_by_population)
@@ -85,6 +85,7 @@ class PatientExport
 
             heading_positions = {}
             previous_length = population_criteria.length*2 + DISPLAYED_ATTRIBUTES.length
+          
             population_criteria.each do |pc|
               if criteria_keys_by_population[population[pc]].length > 0
                 toplevel_headings[previous_length] = pc
@@ -97,6 +98,7 @@ class PatientExport
             sheet.add_row(toplevel_headings, style: text_center, height: 30)
             sheet.merge_cells "A1:#{excel_column(population_criteria.length)}1"
             sheet.merge_cells "#{excel_column(population_criteria.length+1)}1:#{excel_column(population_criteria.length*2)}1"
+      
             population_criteria.each do |pc|
               if criteria_keys_by_population[population[pc]].length > 0
                 start_position = heading_positions[pc]
@@ -113,7 +115,7 @@ class PatientExport
             sheet.add_row(headers, style: header_column_styles)
 
             # Writes one row per record
-            generate_rows(sheet, records, measure, population_index, population_criteria, population_criteria_keys)
+            generate_rows(sheet, records, measure, population_index, population_criteria, population_criteria_keys, results, criteria_keys_by_population)
 
             # Specifies column widths
             column_widths = Array.new(headers.length+2, 25)
@@ -160,41 +162,29 @@ class PatientExport
     criteria_key_header_lookup
   end
 
-  def self.generate_rows(sheet, records, measure, population_index, expected_value_keys, population_criteria_keys)
-
-    # Setup the BonnieCalculator
-    calculator = BonnieBackendCalculator.new
-    begin
-      calculator.set_measure_and_population(measure, population_index, rationale: true)
-    rescue => e
-      setup_exception = "Measure setup exception: #{e.message}"
-    end
-
+  def self.generate_rows(sheet, records, measure, population_index, population_categories, population_criteria_keys, results, criteria_keys_by_population)
     # Populates the patient data
     records.each do |patient|
-
+      # Removes \" from beignning and end of the patient_id string 
+      exported_results = MeasureExportedResults.new(patient.id.to_json.tr('\"',''), population_index, results)
       patient_row = []
 
-      expected_value_keys.each do |value|
-        if patient['expected_values'] && patient['expected_values'][population_index] && patient['expected_values'][population_index][value]
-          patient_row.push(patient['expected_values'][population_index][value])
+      # populates the array with expected values for each population
+      population_categories.each do |population_category|
+        if patient[:expected_values] && patient[:expected_values][population_index] && patient[:expected_values][population_index][population_category]
+          patient_row.push(patient[:expected_values][population_index][population_category])
         else
           patient_row.push(0)
         end
       end
 
-      # Generate the calculated rationale for each patient against the measure.
-      begin
-        result = calculator.calculate(patient)
-      rescue Exception => e
-        calculation_exception = "Measure calculation exception: #{e.message}"
-      end
-
-      expected_value_keys.each do |key|
-        if setup_exception || calculation_exception
+      # populates the array with actual values for each population
+      population_categories.each do |population_category|
+        value = exported_results.value_for_population_type(population_category)
+        if value == nil
           patient_row.push('X')
         else
-          patient_row.push(result[key])
+          patient_row.push(value)
         end
       end
 
@@ -211,18 +201,18 @@ class PatientExport
         end
       end
 
+      # Generate a list of population types in order of the population_criteria_keys
+      population_list = []
+      criteria_keys_by_population.each do |key, list|
+        list.each do |value| 
+          population_list.push(key)
+        end
+      end
+
       # Populate the values of each row, in the order that the headers were generated.
-      population_criteria_keys.each do |key|
-        if setup_exception || calculation_exception
-          value = 'X'
-        else
-          value = result['rationale'][key]
-        end
-        if value != false && value != nil && value != 'X'
-          patient_row.push(true)
-        else
-          patient_row.push(value)
-        end
+      population_criteria_keys.each_with_index do |key, index|
+        value = exported_results.get_criteria_value(key, population_list[index]) 
+        patient_row.push(value)
       end
 
       sheet.add_row patient_row, height: 24

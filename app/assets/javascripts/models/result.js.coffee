@@ -200,6 +200,11 @@ class Thorax.Models.Result extends Thorax.Model
     index = hqmf.SpecificsManager.indexLookup[@measure.get('data_criteria')[dataCriteriaKey].source_data_criteria]
     goodElements = (row[index] for row in @get('finalSpecifics')[populationCriteriaKey]) if index? and @get('finalSpecifics')?[populationCriteriaKey]?
 
+  # adds specific rationale results to the toJSON output.
+  toJSON: ->
+    _(super).extend({specificsRationale: @specificsRationale()}) 
+
+
 class Thorax.Collections.Results extends Thorax.Collection
   model: Thorax.Models.Result
   initialize: (models, options) -> @parent = options?.parent

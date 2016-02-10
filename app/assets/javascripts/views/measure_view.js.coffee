@@ -65,11 +65,11 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   exportExcelPatients: (e) ->
     @exportPatientsView.exporting()
-
+    
     @model.get('populations').whenDifferencesComputed =>
       differences = []
       @model.get('populations').each (population) ->
-        differences.push(_(population.differencesFromExpected().toJSON()).extend(population.coverage().toJSON()))
+        differences.push(_(population.calculationResults().toJSON()).extend(population.coverage().toJSON()))
 
       $.fileDownload "patients/excel_export?hqmf_set_id=#{@model.get('hqmf_set_id')}", 
         successCallback: => @exportPatientsView.excelSuccess()
