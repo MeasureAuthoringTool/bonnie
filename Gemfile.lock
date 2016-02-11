@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/hqmf2js.git
-  revision: 0d805d1ba6ca7ca229d4a46d1aa608cf98f5f455
+  revision: 5bb81c265d21d6c3bf33a172d0310f6e51759477
   branch: master
   specs:
     hqmf2js (1.3.0)
@@ -133,7 +133,7 @@ GEM
       warden (~> 1.2.3)
     diffy (3.0.7)
     docile (1.1.5)
-    domain_name (0.5.25)
+    domain_name (0.5.20160128)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     eventmachine (1.0.7)
@@ -199,6 +199,7 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
     netrc (0.11.0)
+    newrelic_rpm (3.14.3.313)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     non-stupid-digest-assets (1.0.4)
@@ -290,7 +291,7 @@ GEM
       json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.1)
+    unf_ext (0.0.7.2)
     uuid (2.3.8)
       macaddr (~> 1.0)
     warden (1.2.3)
@@ -319,6 +320,7 @@ DEPENDENCIES
   minitest
   mongoid
   multi_json
+  newrelic_rpm
   non-stupid-digest-assets
   oj
   protected_attributes
