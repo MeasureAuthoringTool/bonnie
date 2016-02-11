@@ -12,6 +12,7 @@ class Thorax.Views.Measures extends Thorax.Views.BonnieView
     importMeasureView.display()
 
   exportBundle: ->
+    return alert("Exporting bundles is temporarily disabled due to a server issue; we expect to turn this feature back on within a few days.")
     @exportBundleView.exporting()
     $.fileDownload "/users/bundle",
       successCallback: => @exportBundleView.success()
