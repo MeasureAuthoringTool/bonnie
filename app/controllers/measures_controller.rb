@@ -16,7 +16,9 @@ class MeasuresController < ApplicationController
   end
 
   def value_sets
-    if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
+    # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
+    # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
+    if true
       value_set_oids = Measure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
 
       # Not the cleanest code, but we get a many second performance improvement by going directly to Moped
