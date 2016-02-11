@@ -173,8 +173,9 @@ class Thorax.Models.Patient extends Thorax.Model
         errors.push [sdc.cid, 'start_date', "#{sdc.get('title')} start date must be before patient date of death"]
       if end_date && birthdate && end_date.isBefore birthdate
         errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must be after patient date of birth"]
-      if end_date && deathdate && end_date.isAfter deathdate
-        errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must be before patient date of death"]
+      # Stop date *can* be after patient death, if the patient has died during an encounter or procedure
+      # if end_date && deathdate && end_date.isAfter deathdate
+      #   errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must be before patient date of death"]
 
     return errors if errors.length > 0
 
