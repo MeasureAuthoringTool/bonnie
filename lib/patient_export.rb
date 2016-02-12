@@ -16,6 +16,12 @@ class PatientExport
   def self.export_excel_file(measure, records, results)
 
     criteria_keys_by_population = measure.criteria_keys_by_population
+
+    #Remove duplicates by population type
+    criteria_keys_by_population.each do | population_type, values | 
+      values.uniq!
+    end
+
     criteria_key_header_lookup = self.create_criteria_key_header_lookup(measure, criteria_keys_by_population)
 
     Axlsx::Package.new do |package|
