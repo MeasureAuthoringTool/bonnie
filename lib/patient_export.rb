@@ -17,7 +17,7 @@ class PatientExport
 
     criteria_keys_by_population = measure.criteria_keys_by_population
 
-    #Remove duplicates by population type
+    # Remove duplicates by population type
     criteria_keys_by_population.each do | population_type, values | 
       values.uniq!
     end
