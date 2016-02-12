@@ -196,6 +196,8 @@ class PatientExport
         elsif value == 'birthdate' || value == 'deathdate'
           time = Time.at(patient[value]).strftime("%m/%d/%Y") unless patient[value].nil?
           patient_row.push(time)
+        elsif value == 'expired' && patient[value] == nil
+          patient_row.push(false)
         else
           patient_row.push(patient[value])
         end
