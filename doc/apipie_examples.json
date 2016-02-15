@@ -30,7 +30,7 @@
         "patient_count": 4,
         "patients": [
           {
-            "_id": "56c1fd51055a769b8cf8cc3c",
+            "_id": "56c1ffb8055a769b8cf8cd00",
             "birthdate": "1970-01-01T08:30:00-05:00",
             "description": "",
             "ethnicity": {
@@ -69,7 +69,7 @@
               "name": "American Indian or Alaska Native",
               "codeSystem": "CDC Race"
             },
-            "updated_at": "2016-02-15T16:31:13.310Z",
+            "updated_at": "2016-02-15T16:41:29.089Z",
             "actual_values": [
               {
                 "IPP": 0,
@@ -88,7 +88,7 @@
             ]
           },
           {
-            "_id": "56c1fd51055a769b8cf8cc3d",
+            "_id": "56c1ffb8055a769b8cf8cd01",
             "birthdate": "1991-02-01T10:00:00-05:00",
             "description": "",
             "ethnicity": {
@@ -127,7 +127,7 @@
               "name": "American Indian or Alaska Native",
               "codeSystem": "CDC Race"
             },
-            "updated_at": "2016-02-15T16:31:13.322Z",
+            "updated_at": "2016-02-15T16:41:29.116Z",
             "actual_values": [
               {
                 "IPP": 0,
@@ -146,7 +146,7 @@
             ]
           },
           {
-            "_id": "56c1fd51055a769b8cf8cc3e",
+            "_id": "56c1ffb8055a769b8cf8cd02",
             "birthdate": "1991-02-01T05:30:00-05:00",
             "description": "",
             "ethnicity": {
@@ -185,7 +185,7 @@
               "name": "American Indian or Alaska Native",
               "codeSystem": "CDC Race"
             },
-            "updated_at": "2016-02-15T16:31:13.334Z",
+            "updated_at": "2016-02-15T16:41:29.128Z",
             "actual_values": [
               {
                 "IPP": 0,
@@ -204,7 +204,7 @@
             ]
           },
           {
-            "_id": "56c1fd51055a769b8cf8cc3f",
+            "_id": "56c1ffb8055a769b8cf8cd03",
             "birthdate": "1991-01-07T04:30:00-05:00",
             "description": "",
             "ethnicity": {
@@ -243,7 +243,7 @@
               "name": "American Indian or Alaska Native",
               "codeSystem": "CDC Race"
             },
-            "updated_at": "2016-02-15T16:31:13.344Z",
+            "updated_at": "2016-02-15T16:41:29.138Z",
             "actual_values": [
               {
                 "IPP": 0,
@@ -440,6 +440,25 @@
       "response_data": {
         "status": "error",
         "messages": "Invalid parameter 'calculation_type': Must be one of: episode, patient."
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'measure_initial.zip'>",
+        "measure_type": "ep"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "Missing parameter: calculation_type"
       },
       "code": "400",
       "show_in_doc": 1,
@@ -710,7 +729,7 @@
       "request_data": null,
       "response_data": [
         {
-          "_id": "56c1fd5a055a769b8cf8cc80",
+          "_id": "56c1ffc3055a769b8cf8cd48",
           "birthdate": "1970-01-01T08:30:00-05:00",
           "description": "",
           "ethnicity": {
@@ -749,10 +768,10 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2016-02-15T16:31:23.003Z"
+          "updated_at": "2016-02-15T16:41:39.204Z"
         },
         {
-          "_id": "56c1fd5a055a769b8cf8cc81",
+          "_id": "56c1ffc3055a769b8cf8cd49",
           "birthdate": "1991-02-01T10:00:00-05:00",
           "description": "",
           "ethnicity": {
@@ -791,10 +810,10 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2016-02-15T16:31:23.015Z"
+          "updated_at": "2016-02-15T16:41:39.215Z"
         },
         {
-          "_id": "56c1fd5a055a769b8cf8cc82",
+          "_id": "56c1ffc3055a769b8cf8cd4a",
           "birthdate": "1991-02-01T05:30:00-05:00",
           "description": "",
           "ethnicity": {
@@ -833,10 +852,10 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2016-02-15T16:31:23.027Z"
+          "updated_at": "2016-02-15T16:41:39.227Z"
         },
         {
-          "_id": "56c1fd5a055a769b8cf8cc83",
+          "_id": "56c1ffc3055a769b8cf8cd4b",
           "birthdate": "1991-01-07T04:30:00-05:00",
           "description": "",
           "ethnicity": {
@@ -875,7 +894,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2016-02-15T16:31:23.037Z"
+          "updated_at": "2016-02-15T16:41:39.237Z"
         }
       ],
       "code": "200",
@@ -944,7 +963,7 @@
         "id": "40280381-3D61-56A7-013E-7AF612436402",
         "title": "Anti-depressant Medication Management",
         "type": "ep",
-        "updated_at": "2016-02-15T16:31:22.613Z"
+        "updated_at": "2016-02-15T16:41:38.800Z"
       },
       "code": "200",
       "show_in_doc": 1,
