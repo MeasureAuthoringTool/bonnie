@@ -2,6 +2,273 @@
   "measures#calculated_results": [
     {
       "verb": "GET",
+      "path": "/api_v1/measures/8924F2B3-EC06-4650-B634-D70A53DEE577/calculated_results",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "status": "complete",
+        "measure_id": "8924F2B3-EC06-4650-B634-D70A53DEE577",
+        "summary": [
+          {
+            "IPP": 0,
+            "DENOM": 0,
+            "NUMER": 0,
+            "DENEXCEP": 0,
+            "DENEX": 0
+          },
+          {
+            "IPP": 0,
+            "DENOM": 0,
+            "NUMER": 0,
+            "DENEXCEP": 0,
+            "DENEX": 0
+          }
+        ],
+        "patient_count": 4,
+        "patients": [
+          {
+            "_id": "56c1fd51055a769b8cf8cc3c",
+            "birthdate": "1970-01-01T08:30:00-05:00",
+            "description": "",
+            "ethnicity": {
+              "code": "2186-5",
+              "name": "Not Hispanic or Latino",
+              "codeSystem": "CDC Race"
+            },
+            "expected_values": [
+              {
+                "population_index": 0,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 0,
+                "DENEX": 0
+              },
+              {
+                "population_index": 1,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 0,
+                "DENEX": 0
+              }
+            ],
+            "expired": false,
+            "first": "BH_Adult",
+            "gender": "M",
+            "insurance_providers": [
+              {
+                "member_id": "1234567890",
+                "payer": "Other"
+              }
+            ],
+            "last": "A",
+            "race": {
+              "code": "1002-5",
+              "name": "American Indian or Alaska Native",
+              "codeSystem": "CDC Race"
+            },
+            "updated_at": "2016-02-15T16:31:13.310Z",
+            "actual_values": [
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              },
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              }
+            ]
+          },
+          {
+            "_id": "56c1fd51055a769b8cf8cc3d",
+            "birthdate": "1991-02-01T10:00:00-05:00",
+            "description": "",
+            "ethnicity": {
+              "code": "2186-5",
+              "name": "Not Hispanic or Latino",
+              "codeSystem": "CDC Race"
+            },
+            "expected_values": [
+              {
+                "population_index": 0,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 1,
+                "DENEX": 0
+              },
+              {
+                "population_index": 1,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 0,
+                "DENEX": 0
+              }
+            ],
+            "expired": false,
+            "first": "BH_Adult",
+            "gender": "M",
+            "insurance_providers": [
+              {
+                "member_id": "1234567890",
+                "payer": "Other"
+              }
+            ],
+            "last": "B",
+            "race": {
+              "code": "1002-5",
+              "name": "American Indian or Alaska Native",
+              "codeSystem": "CDC Race"
+            },
+            "updated_at": "2016-02-15T16:31:13.322Z",
+            "actual_values": [
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              },
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              }
+            ]
+          },
+          {
+            "_id": "56c1fd51055a769b8cf8cc3e",
+            "birthdate": "1991-02-01T05:30:00-05:00",
+            "description": "",
+            "ethnicity": {
+              "code": "2186-5",
+              "name": "Not Hispanic or Latino",
+              "codeSystem": "CDC Race"
+            },
+            "expected_values": [
+              {
+                "population_index": 0,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 0,
+                "DENEX": 0
+              },
+              {
+                "population_index": 1,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 0,
+                "DENEX": 0
+              }
+            ],
+            "expired": false,
+            "first": "BH_Adult",
+            "gender": "M",
+            "insurance_providers": [
+              {
+                "member_id": "1234567890",
+                "payer": "Other"
+              }
+            ],
+            "last": "C",
+            "race": {
+              "code": "1002-5",
+              "name": "American Indian or Alaska Native",
+              "codeSystem": "CDC Race"
+            },
+            "updated_at": "2016-02-15T16:31:13.334Z",
+            "actual_values": [
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              },
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              }
+            ]
+          },
+          {
+            "_id": "56c1fd51055a769b8cf8cc3f",
+            "birthdate": "1991-01-07T04:30:00-05:00",
+            "description": "",
+            "ethnicity": {
+              "code": "2186-5",
+              "name": "Not Hispanic or Latino",
+              "codeSystem": "CDC Race"
+            },
+            "expected_values": [
+              {
+                "population_index": 0,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 1,
+                "DENEX": 0
+              },
+              {
+                "population_index": 1,
+                "IPP": 1,
+                "DENOM": 1,
+                "NUMER": 0,
+                "DENEX": 0
+              }
+            ],
+            "expired": false,
+            "first": "BH_Adult",
+            "gender": "M",
+            "insurance_providers": [
+              {
+                "member_id": "1234567890",
+                "payer": "Other"
+              }
+            ],
+            "last": "D",
+            "race": {
+              "code": "1002-5",
+              "name": "American Indian or Alaska Native",
+              "codeSystem": "CDC Race"
+            },
+            "updated_at": "2016-02-15T16:31:13.344Z",
+            "actual_values": [
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              },
+              {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "DENEXCEP": 0,
+                "DENEX": 0
+              }
+            ]
+          }
+        ]
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "GET",
       "path": "/api_v1/measures/foo/calculated_results",
       "versions": [
         "1"
@@ -11,6 +278,334 @@
       "response_data": {
       },
       "code": "404",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "measures#create": [
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT '435ComplexV2_v4_Artifacts.zip'>",
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "success",
+        "url": "/api_v1/measures/E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'measure_initial.zip'>",
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "success",
+        "url": "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'measure_initial.zip'>",
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "success",
+        "url": "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'measure_initial.zip'>",
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "A measure with this HQMF Set ID already exists.",
+        "url": "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"
+      },
+      "code": "409",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'measure_no_vs.zip'>",
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "The measure value sets could not be found. Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'measure_initial.zip'>",
+        "measure_type": "eh",
+        "calculation_type": "episode",
+        "episode_of_care": "7"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "The episode_of_care index is out of bounds of the set of specific occurrences found in the mesasure."
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'no_ipp_Artifacts.zip'>",
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "Episode of care calculation was specified. Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'measure_initial.zip'>",
+        "measure_type": "ep",
+        "calculation_type": "addition"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "Invalid parameter 'calculation_type': Must be one of: episode, patient."
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'CMS104v2.json'>",
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "Invalid parameter 'measure_file': Must be a valid MAT Export or HQMF File."
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "not-a-file.gif",
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "Invalid parameter 'measure_file': Must be a valid MAT Export or HQMF File."
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "Missing parameter: measure_file"
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'measure_initial.zip'>",
+        "measure_type": "no",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "Invalid parameter 'measure_type': Must be one of: eh, ep."
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'not_mat_export.zip'>",
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "Invalid parameter 'measure_file': Must be a valid MAT Export or HQMF File."
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'measure_initial.zip'>",
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "success",
+        "url": "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'measure_initial.zip'>",
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "success",
+        "url": "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT '435ComplexV2_v4_Artifacts.zip'>",
+        "measure_type": "eh",
+        "calculation_type": "episode",
+        "population_titles": [
+          "First Pop",
+          "Second Pop",
+          "Only Strat"
+        ]
+      },
+      "response_data": {
+        "status": "success",
+        "url": "/api_v1/measures/E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"
+      },
+      "code": "200",
       "show_in_doc": 1,
       "recorded": true
     }
@@ -114,9 +709,176 @@
       "query": "",
       "request_data": null,
       "response_data": [
-
+        {
+          "_id": "56c1fd5a055a769b8cf8cc80",
+          "birthdate": "1970-01-01T08:30:00-05:00",
+          "description": "",
+          "ethnicity": {
+            "code": "2186-5",
+            "name": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race"
+          },
+          "expected_values": [
+            {
+              "population_index": 0,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 0,
+              "DENEX": 0
+            },
+            {
+              "population_index": 1,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 0,
+              "DENEX": 0
+            }
+          ],
+          "expired": false,
+          "first": "BH_Adult",
+          "gender": "M",
+          "insurance_providers": [
+            {
+              "member_id": "1234567890",
+              "payer": "Other"
+            }
+          ],
+          "last": "A",
+          "race": {
+            "code": "1002-5",
+            "name": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race"
+          },
+          "updated_at": "2016-02-15T16:31:23.003Z"
+        },
+        {
+          "_id": "56c1fd5a055a769b8cf8cc81",
+          "birthdate": "1991-02-01T10:00:00-05:00",
+          "description": "",
+          "ethnicity": {
+            "code": "2186-5",
+            "name": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race"
+          },
+          "expected_values": [
+            {
+              "population_index": 0,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 1,
+              "DENEX": 0
+            },
+            {
+              "population_index": 1,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 0,
+              "DENEX": 0
+            }
+          ],
+          "expired": false,
+          "first": "BH_Adult",
+          "gender": "M",
+          "insurance_providers": [
+            {
+              "member_id": "1234567890",
+              "payer": "Other"
+            }
+          ],
+          "last": "B",
+          "race": {
+            "code": "1002-5",
+            "name": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race"
+          },
+          "updated_at": "2016-02-15T16:31:23.015Z"
+        },
+        {
+          "_id": "56c1fd5a055a769b8cf8cc82",
+          "birthdate": "1991-02-01T05:30:00-05:00",
+          "description": "",
+          "ethnicity": {
+            "code": "2186-5",
+            "name": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race"
+          },
+          "expected_values": [
+            {
+              "population_index": 0,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 0,
+              "DENEX": 0
+            },
+            {
+              "population_index": 1,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 0,
+              "DENEX": 0
+            }
+          ],
+          "expired": false,
+          "first": "BH_Adult",
+          "gender": "M",
+          "insurance_providers": [
+            {
+              "member_id": "1234567890",
+              "payer": "Other"
+            }
+          ],
+          "last": "C",
+          "race": {
+            "code": "1002-5",
+            "name": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race"
+          },
+          "updated_at": "2016-02-15T16:31:23.027Z"
+        },
+        {
+          "_id": "56c1fd5a055a769b8cf8cc83",
+          "birthdate": "1991-01-07T04:30:00-05:00",
+          "description": "",
+          "ethnicity": {
+            "code": "2186-5",
+            "name": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race"
+          },
+          "expected_values": [
+            {
+              "population_index": 0,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 1,
+              "DENEX": 0
+            },
+            {
+              "population_index": 1,
+              "IPP": 1,
+              "DENOM": 1,
+              "NUMER": 0,
+              "DENEX": 0
+            }
+          ],
+          "expired": false,
+          "first": "BH_Adult",
+          "gender": "M",
+          "insurance_providers": [
+            {
+              "member_id": "1234567890",
+              "payer": "Other"
+            }
+          ],
+          "last": "D",
+          "race": {
+            "code": "1002-5",
+            "name": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race"
+          },
+          "updated_at": "2016-02-15T16:31:23.037Z"
+        }
       ],
-      "code": "404",
+      "code": "200",
       "show_in_doc": 1,
       "recorded": true
     }
@@ -182,7 +944,69 @@
         "id": "40280381-3D61-56A7-013E-7AF612436402",
         "title": "Anti-depressant Medication Management",
         "type": "ep",
-        "updated_at": "2016-02-03T14:32:19.872Z"
+        "updated_at": "2016-02-15T16:31:22.613Z"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "measures#update": [
+    {
+      "verb": "PUT",
+      "path": "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9/update",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'measure_update.zip'>",
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "No measure found for this HQMF Set ID."
+      },
+      "code": "404",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "PUT",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT '435ComplexV2_v4_Artifacts.zip'>",
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "PUT",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT 'measure_update.zip'>",
+        "measure_type": "eh",
+        "calculation_type": "episode"
+      },
+      "response_data": {
+        "status": "success",
+        "url": "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"
       },
       "code": "200",
       "show_in_doc": 1,
