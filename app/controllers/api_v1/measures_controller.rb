@@ -2,26 +2,26 @@ class ApiV1::MeasuresController < ApplicationController
 
   class IntegerValidator < Apipie::Validator::BaseValidator
 
-  def initialize(param_description, argument)
-    super(param_description)
-    @type = argument
-  end
+    def initialize(param_description, argument)
+      super(param_description)
+      @type = argument
+    end
 
-  def validate(value)
-    return false if value.nil?
-    !!(value.to_s =~ /^[-+]?[0-9]+$/)
-  end
+    def validate(value)
+      return false if value.nil?
+      !!(value.to_s =~ /^[-+]?[0-9]+$/)
+    end
 
-  def self.build(param_description, argument, options, block)
-    if argument == Integer || argument == Fixnum
-      self.new(param_description, argument)
+    def self.build(param_description, argument, options, block)
+      if argument == Integer || argument == Fixnum
+        self.new(param_description, argument)
+      end
+    end
+
+    def description
+      "Must be #{@type}."
     end
   end
-
-  def description
-    "Must be #{@type}."
-  end
-end
 
   class MeasureFileValidator < Apipie::Validator::BaseValidator
     def initialize(param_description, argument)
@@ -98,7 +98,7 @@ end
   def_param_group :measure_upload do
     param :measure_file, File, :required => true, :desc => "The measure file."
     param :measure_type, ["eh", "ep"], :required => true, :desc => "The type of the measure."
-    param :calculation_type, ["episode", "patient"], :required => true, :desc => "The type of calculation."
+    param :calculation_type, ["episode", "patient"], :desc => "The type of calculation."
     param :episode_of_care, Integer, :required => false, :desc => "The index of the episode of care. Defaults to 0. This means that the first specific occurence in the logic will be used for the episode of care calculation."
     param :population_titles, Array, of: String, :required => false, :desc => "The titles of the populations. If this is not included, populations will assume default values. i.e. \"Population 1\", \"Population 2\", etc."
     param :vsac_username, String, :required => false, :desc => "Username for VSAC. Required when uploading a HQMF .xml measure."
@@ -243,6 +243,51 @@ end
   error :code => 500, :desc => "A server error occured."
   param_group :measure_upload
   def create
+    load_measure(params, false)
+  end
+
+  api :PUT, '/api_v1/measures/:id', 'Update an Existing Measure'
+  description 'Updating an existing measure. This is a full update (e.g. no partial updates allowed).'
+  formats ["multipart/form-data"]
+  error :code => 400, :desc => "Client sent bad parameters. Response contains explanation."
+  error :code => 404, :desc => "Measure with this HQMF Set ID does not exist."
+  error :code => 500, :desc => "A server error occured."
+  param_group :measure
+  def update
+    existing = Measure.by_user(current_user).where({:hqmf_set_id=> params[:id]})
+    if existing.count == 0
+      render json: {status: "error", messages: "No measure found for this HQMF Set ID."},
+           status: :not_found
+      return
+    end
+    
+    load_measure(params, true)
+  end
+
+  private 
+  def process_patient_records(selector)
+    patients = selector.map{|p|p.as_json}
+    patients.each do |p|
+      p.select!{|key,value|PATIENT_WHITELIST.include?(key)&&!value.nil?}
+      if !p["insurance_providers"].nil?
+        p["insurance_providers"].map! do |hash|
+          hash.select!{|k,v|INSURANCE_WHITELIST.include?(k) && !v.nil?}
+          hash["payer"] = hash["payer"]["name"] if hash["payer"]
+          hash
+        end
+      end
+      if !p["expected_values"].nil?
+        p["expected_values"].map! do |hash|
+          hash.select!{|k,v|POPULATION_TYPES.include?(k) && !v.nil?}
+        end
+      end
+      p["birthdate"] = Time.at(p["birthdate"]).iso8601 if p["birthdate"]
+      p["deathdate"] = Time.at(p["deathdate"]).iso8601 if p["deathdate"]
+    end
+    patients
+  end
+  
+  def load_measure(params, is_update)
     # Understand which sort of measure_file we are retrieving
     extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
     
@@ -258,6 +303,13 @@ end
         params.require(:vsac_password)
         include_draft = params.fetch(:include_draft, true)
         params.require(:vsac_date) unless include_draft
+      end
+      
+      #if its an update make sure we are actually updating the proper one
+      if is_update && measure.hqmf_set_id != params[:id]
+        render json: {status: "error", messages: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."},
+             status: :bad_request
+        return
       end
       
       # Handle episode of care measurements.
@@ -285,7 +337,7 @@ end
       missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
       if missing_value_sets.length > 0
         measure.delete
-        render json: {status: "Error", messages: "The measure you have tried to load is missing value sets. Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"},
+        render json: {status: "error", messages: "The measure you have tried to load is missing value sets. Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"},
              status: :bad_request
         return
       end
@@ -314,63 +366,39 @@ end
       #return
     end
     
-    # Make sure we didn't create a duplicate measure
+    
     existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
-    if existing.count > 1
-      measure.delete
-      render json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
-             status: :conflict
+    if is_update
+      existing_measure = existing.first
+      existing_measure. delete
     else
-      Measures::ADEHelper.update_if_ade(measure)
-      measure.generate_js
-      measure.save!
-
-      render json: {status: "success", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
-             status: :ok
-    end
-  end
-
-  api :PUT, '/api_v1/measures/:id', 'Update an Existing Measure'
-  description 'Updating an existing measure. This is a full update (e.g. no partial updates allowed).'
-  param_group :measure
-  def update
-    # TODO
-    # TODO: update test/controllers/api_v1/measures_controller_test.rb::test "should update api_v1_measure"
-  end
-
-  private 
-  def process_patient_records(selector)
-    patients = selector.map{|p|p.as_json}
-    patients.each do |p|
-      p.select!{|key,value|PATIENT_WHITELIST.include?(key)&&!value.nil?}
-      if !p["insurance_providers"].nil?
-        p["insurance_providers"].map! do |hash|
-          hash.select!{|k,v|INSURANCE_WHITELIST.include?(k) && !v.nil?}
-          hash["payer"] = hash["payer"]["name"] if hash["payer"]
-          hash
-        end
+      # Make sure we didn't create a duplicate measure
+      if existing.count > 1
+        measure.delete
+        render json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
+               status: :conflict
+        return
       end
-      if !p["expected_values"].nil?
-        p["expected_values"].map! do |hash|
-          hash.select!{|k,v|POPULATION_TYPES.include?(k) && !v.nil?}
-        end
-      end
-      p["birthdate"] = Time.at(p["birthdate"]).iso8601 if p["birthdate"]
-      p["deathdate"] = Time.at(p["deathdate"]).iso8601 if p["deathdate"]
     end
-    patients
+    Measures::ADEHelper.update_if_ade(measure)
+    measure.generate_js
+    measure.save!
+
+    render json: {status: "success", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
+           status: :ok
+
   end
   
   def load_mat_export(params)
     measure_details = {
       'type' => params[:measure_type],
-      'episode_of_care' => params[:calculation_type]
+      'episode_of_care' => params[:calculation_type] == 'episode'
     }
     measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
   end
   
   def error_parameter_missing(exception)
-    render json: {status: "error", messages: "Missing parameter: #{exception.param}" },
+    render json: {status: "error", messages: "Missing parameter: #{exception.param.name}" },
            status: :bad_request
   end
   
