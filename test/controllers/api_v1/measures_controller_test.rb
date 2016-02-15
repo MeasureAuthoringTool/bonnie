@@ -75,7 +75,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   end
 
   test "should return bad_request when measure_file not provided" do
-    post :create, {measure_type: 'eh', calculation_type: 'episode'}
+    post :create, {measure_type: 'eh', calculation_type: 'episode'}, "CONTENT_TYPE" => 'multipart/form-data'
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "Missing parameter: measure_file" }
     assert_equal expected_response, JSON.parse(response.body)
@@ -131,6 +131,13 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
 
     assert_equal 29, measure.value_sets.count
+    assert_equal @user.id, measure.user_id
+    measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
+    assert_equal false, measure.needs_finalize
+    assert_equal true, measure.episode_of_care?
+    assert_equal 'eh', measure.type
+    assert_nil measure.population_criteria['DENOM']['preconditions']
+    assert_operator measure.map_fns[0].length, :>, 100
     assert_equal ["OccurrenceAInpatientEncounter1"], measure.episode_ids
     
   end
@@ -202,7 +209,83 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   end
   
   test "should update api_v1_measure" do
-    skip
-  end
+    measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
 
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :success
+    expected_response = { "status" => "success", "url" => "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}
+    assert_equal expected_response, JSON.parse(response.body)
+    
+    measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
+
+    assert_equal 29, measure.value_sets.count
+    assert_equal @user.id, measure.user_id
+    measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
+    assert_equal false, measure.needs_finalize
+    assert_equal true, measure.episode_of_care?
+    assert_equal 'eh', measure.type
+    assert_nil measure.population_criteria['DENOM']['preconditions']
+    assert_operator measure.map_fns[0].length, :>, 100
+    assert_equal ["OccurrenceAInpatientEncounter1"], measure.episode_ids
+    
+    assert_equal "FAKE_941657", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.93'}).first.concepts.first.code
+    assert_equal "FAKE_977601", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.201'}).first.concepts.first.code
+    assert_equal "FAKE_312269", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.233'}).first.concepts.first.code
+    assert_equal "FAKE_312269", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.212'}).first.concepts.first.code
+    assert_equal "FAKE_435307", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.247'}).first.concepts.first.code
+    
+    measure_update_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_update.zip'),'application/zip')
+
+    put :update, {id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure_file: measure_update_file, measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :success
+    expected_response = { "status" => "success", "url" => "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}
+    assert_equal expected_response, JSON.parse(response.body)
+    
+    measure = Measure.where({hqmf_id: '40280381-3D27-5493-013D-4DCA4B826XXX'}).first
+    assert_equal "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure.hqmf_set_id
+    assert_equal 29, measure.value_sets.count
+    assert_equal @user.id, measure.user_id
+    measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
+    assert_equal false, measure.needs_finalize
+    assert_equal true, measure.episode_of_care?
+    assert_equal 'eh', measure.type
+    assert_includes measure.episode_ids, 'OccurrenceAInpatientEncounter1'
+    assert_equal 1, measure.episode_ids.length
+    assert_operator measure.map_fns[0].length, :>, 100
+
+    assert !measure.population_criteria['DENOM']['preconditions'].nil?
+    assert_equal 1, measure.population_criteria['DENOM']['preconditions'].count
+
+    assert_equal "UPDATED_435838", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.93'}).first.concepts.first.code
+    assert_equal "UPDATED_144582", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.201'}).first.concepts.first.code
+    assert_equal "UPDATED_802054", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.233'}).first.concepts.first.code
+    assert_equal "UPDATED_802054", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.212'}).first.concepts.first.code
+    assert_equal "UPDATED_224349", (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.117.1.7.1.247'}).first.concepts.first.code
+  end
+  
+  test "should return 404 on updating non existent measure" do
+    measure_update_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_update.zip'),'application/zip')
+
+    put :update, {id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure_file: measure_update_file, measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :not_found
+    expected_response = { "status" => "error", "messages" => "No measure found for this HQMF Set ID."}
+    assert_equal expected_response, JSON.parse(response.body)
+  end
+  
+  test "should return error on updating measure with incorrect hqmf_set_id" do
+    measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
+
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :success
+    expected_response = { "status" => "success", "url" => "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}
+    assert_equal expected_response, JSON.parse(response.body)
+    
+    
+    measure_update_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_Artifacts.zip'),'application/zip')
+    
+    put :update, {id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure_file: measure_update_file, measure_type: 'eh', calculation_type: 'episode'}
+    assert_response :bad_request
+    expected_response = { "status" => "error", "messages" => "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
+    assert_equal expected_response, JSON.parse(response.body)
+  end
 end
