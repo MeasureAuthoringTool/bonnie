@@ -98,7 +98,7 @@ class ApiV1::MeasuresController < ApplicationController
   def_param_group :measure_upload do
     param :measure_file, File, :required => true, :desc => "The measure file."
     param :measure_type, ["eh", "ep"], :required => true, :desc => "The type of the measure."
-    param :calculation_type, ["episode", "patient"], :desc => "The type of calculation."
+    param :calculation_type, ["episode", "patient"], :required => true, :desc => "The type of calculation."
     param :episode_of_care, Integer, :required => false, :desc => "The index of the episode of care. Defaults to 0. This means that the first specific occurence in the logic will be used for the episode of care calculation."
     param :population_titles, Array, of: String, :required => false, :desc => "The titles of the populations. If this is not included, populations will assume default values. i.e. \"Population 1\", \"Population 2\", etc."
     param :vsac_username, String, :required => false, :desc => "Username for VSAC. Required when uploading a HQMF .xml measure."
