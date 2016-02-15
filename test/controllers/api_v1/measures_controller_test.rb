@@ -119,6 +119,14 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     expected_response = { "status" => "error", "messages" => "Invalid parameter 'calculation_type': Must be one of: episode, patient." }
     assert_equal expected_response, JSON.parse(response.body)
   end
+  
+  test "should return bad_request when calculation_type is not provided" do
+    measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
+    post :create, {measure_file: measure_file, measure_type: 'ep'}
+    assert_response :bad_request
+    expected_response = { "status" => "error", "messages" => "Missing parameter: calculation_type" }
+    assert_equal expected_response, JSON.parse(response.body)
+  end
 
   test "should create api_v1_measure initial" do
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
