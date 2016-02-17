@@ -1,5 +1,8 @@
 class ApiV1::MeasuresController < ApplicationController
-
+  skip_before_action :verify_authenticity_token
+  skip_before_filter :authenticate_user!
+  before_action :doorkeeper_authorize! # Require access token for all actions
+  
   class IntegerValidator < Apipie::Validator::BaseValidator
 
     def initialize(param_description, argument)
@@ -88,6 +91,10 @@ class ApiV1::MeasuresController < ApplicationController
     formats [:json]
     api_versions '1'
     error :code => 401, :desc => 'Unauthorized'
+    description <<-EOS
+      This resource allows access to `Measures`, `Patients`, and calculated
+      results for a given user.
+    EOS
   end
 
   def_param_group :measure do
@@ -113,7 +120,7 @@ class ApiV1::MeasuresController < ApplicationController
   def index
     # TODO filter by search parameters, for example an NQF ID or partial description
     skippable_fields = [:map_fn, :hqmf_document, :oids, :population_ids]
-    @api_v1_measures = Measure.by_user(current_user)
+    @api_v1_measures = Measure.by_user(current_resource_owner)
     respond_with @api_v1_measures do |format|
       format.json{ 
         render json: MultiJson.encode(
@@ -136,7 +143,7 @@ class ApiV1::MeasuresController < ApplicationController
     hash = {}
     http_status = 200
     begin
-      @api_v1_measure = Measure.by_user(current_user).where({:hqmf_set_id=> params[:id]}).sort_by{|x|x.updated_at}.first
+      @api_v1_measure = Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by{|x|x.updated_at}.first
       hash = @api_v1_measure.as_json
       hash[:id] = @api_v1_measure.hqmf_set_id
       hash.select!{|key,value|MEASURE_WHITELIST.include?(key)&&!value.nil?}
@@ -155,11 +162,11 @@ class ApiV1::MeasuresController < ApplicationController
     http_status = 200
     begin
       # Get the measure
-      @api_v1_measure = Measure.by_user(current_user).where({:hqmf_set_id=> params[:id]}).sort_by{|x|x.updated_at}.first
+      @api_v1_measure = Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by{|x|x.updated_at}.first
       # Extract out the HQMF set id, which we'll use to get related patients
       hqmf_set_id = @api_v1_measure.hqmf_set_id
       # Get the patients for this measure
-      @api_v1_patients = Record.by_user(current_user).where({:measure_ids.in => [ hqmf_set_id ]})
+      @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [ hqmf_set_id ]})
       @api_v1_patients = process_patient_records(@api_v1_patients)
     rescue
       http_status = 404
@@ -178,11 +185,11 @@ class ApiV1::MeasuresController < ApplicationController
 
     begin
       # Get the measure
-      @api_v1_measure = Measure.by_user(current_user).where({:hqmf_set_id=> params[:id]}).sort_by{|x|x.updated_at}.first
+      @api_v1_measure = Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by{|x|x.updated_at}.first
        # Extract out the HQMF set id, which we'll use to get related patients
       hqmf_set_id = @api_v1_measure.hqmf_set_id
       # Get the patients for this measure
-      @api_v1_patients = Record.by_user(current_user).where({:measure_ids.in => [ hqmf_set_id ]})
+      @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [ hqmf_set_id ]})
     rescue
       http_status = 404
     end
@@ -366,11 +373,10 @@ class ApiV1::MeasuresController < ApplicationController
       #return
     end
     
-    
-    existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
+    existing = Measure.by_user(current_resource_owner).where(hqmf_set_id: measure.hqmf_set_id)
     if is_update
       existing_measure = existing.first
-      existing_measure. delete
+      existing_measure.delete
     else
       # Make sure we didn't create a duplicate measure
       if existing.count > 1
@@ -394,7 +400,7 @@ class ApiV1::MeasuresController < ApplicationController
       'type' => params[:measure_type],
       'episode_of_care' => params[:calculation_type] == 'episode'
     }
-    measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
+    measure = Measures::MATLoader.load(params[:measure_file], current_resource_owner, measure_details)
   end
   
   def error_parameter_missing(exception)
@@ -405,6 +411,10 @@ class ApiV1::MeasuresController < ApplicationController
   def error_parameter_invalid(exception)
     render json: {status: "error", messages: "Invalid parameter '#{exception.param}': #{exception.error}" },
            status: :bad_request
+  end
+
+  def current_resource_owner
+    User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
   end
 
 end
