@@ -1,4 +1,20 @@
 GIT
+  remote: https://github.com/Apipie/apipie-rails
+  revision: 9ec60c5b71b9258b6e5ca4485022e5319fabc32e
+  branch: master
+  specs:
+    apipie-rails (0.3.5)
+      json
+
+GIT
+  remote: https://github.com/doorkeeper-gem/doorkeeper-mongodb
+  revision: 432fab9457054ef71b4bae839bf033a15a99b204
+  branch: master
+  specs:
+    doorkeeper-mongodb (3.0.0)
+      doorkeeper (>= 3.0.0)
+
+GIT
   remote: https://github.com/projectcypress/health-data-standards.git
   revision: 548eefb22a606282f2e362646c5ae1e2aae133a6
   branch: mongoid5
@@ -126,6 +142,10 @@ GEM
     arel (6.0.4)
     apipie-rails (0.3.5)
       json
+    axlsx (2.0.0)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (= 0.9.9)
     bcrypt (3.1.11)
     brakeman (3.6.2)
     bson (4.2.2)
@@ -369,7 +389,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  apipie-rails
+  apipie-rails!
   axlsx!
   bonnie_bundler!
   brakeman
