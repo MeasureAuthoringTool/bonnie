@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/Apipie/apipie-rails
+  revision: 9ec60c5b71b9258b6e5ca4485022e5319fabc32e
+  branch: master
+  specs:
+    apipie-rails (0.3.5)
+      json
+
+GIT
   remote: https://github.com/doorkeeper-gem/doorkeeper-mongodb
   revision: 432fab9457054ef71b4bae839bf033a15a99b204
   branch: master
@@ -323,7 +331,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  apipie-rails
+  apipie-rails!
   axlsx
   bonnie_bundler!
   capistrano-rails
