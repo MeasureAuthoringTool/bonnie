@@ -17,10 +17,11 @@ class PatientExport
 
     criteria_keys_by_population = measure.criteria_keys_by_population
 
+    # COMMENTED OUT -- until we decide whether or not we want duplicate data.
     # Remove duplicates by population type
-    criteria_keys_by_population.each do | population_type, values | 
-      values.uniq!
-    end
+    #criteria_keys_by_population.each do | population_type, values | 
+    #  values.uniq!
+    #end
 
     criteria_key_header_lookup = self.create_criteria_key_header_lookup(measure, criteria_keys_by_population)
 
@@ -177,8 +178,11 @@ class PatientExport
 
       # populates the array with expected values for each population
       population_categories.each do |population_category|
-        if patient[:expected_values] && patient[:expected_values][population_index] && patient[:expected_values][population_index][population_category]
-          patient_row.push(patient[:expected_values][population_index][population_category])
+        # Filter out the expected values that match the measure hqmf_set_id. Return the first object in the array.
+        expected_values = patient[:expected_values].select{ | expected_values | expected_values[:measure_id] == measure.hqmf_set_id && 
+                                                                                expected_values[:population_index] == population_index.to_i }.compact.try(:first)
+        if expected_values[population_category]  
+          patient_row.push(expected_values[population_category])
         else
           patient_row.push(0)
         end
