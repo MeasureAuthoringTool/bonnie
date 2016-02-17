@@ -1,4 +1,5 @@
 Bonnie::Application.routes.draw do
+  use_doorkeeper
   apipie
   devise_for :users,:controllers => {:registrations => "registrations"}
 
