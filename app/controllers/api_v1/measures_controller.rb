@@ -409,7 +409,7 @@ class ApiV1::MeasuresController < ApplicationController
   end
   
   def error_parameter_invalid(exception)
-    render json: {status: "error", messages: "Invalid parameter '#{exception.param}': #{exception.error}" },
+    render json: {status: "error", messages: "Invalid parameter '#{exception.param}': #{exception.error.gsub(/<\/?code>/, '')}" },
            status: :bad_request
   end
 
