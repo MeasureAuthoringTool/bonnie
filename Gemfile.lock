@@ -177,6 +177,8 @@ GEM
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     easy_diff (1.0.0)
+    doorkeeper (3.0.0)
+      railties (>= 3.2)
     erubis (2.7.0)
     eventmachine (1.0.7)
     execjs (2.5.2)
@@ -216,6 +218,7 @@ GEM
       systemu (~> 2.6.2)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    maruku (0.7.2)
     memoist (0.9.3)
     method_source (0.8.2)
     mime-types (2.99.3)
@@ -376,6 +379,8 @@ DEPENDENCIES
   cql_qdm_patientapi!
   devise
   diffy (~> 3.1.0)
+  doorkeeper (= 3.0.0)
+  doorkeeper-mongodb!
   exception_notification!
   foreman
   handlebars_assets (= 0.16)
@@ -384,6 +389,7 @@ DEPENDENCIES
   hquery-patient-api!
   jquery-rails
   less-rails
+  maruku
   minitest
   mongoid
   mongoid-history

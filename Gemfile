@@ -50,6 +50,9 @@ gem 'oj' # Faster JSON
 
 gem 'mongoid-history'
 gem 'apipie-rails' # API documentation generation
+gem 'maruku' # enable Markup for API documentation
+gem 'doorkeeper', '=3.0.0'
+gem "doorkeeper-mongodb", :git => 'https://github.com/doorkeeper-gem/doorkeeper-mongodb', :branch => 'master'
 
 group :test, :development, :ci do
   gem 'pry'
