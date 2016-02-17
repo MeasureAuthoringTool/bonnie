@@ -1,4 +1,62 @@
 GIT
+<<<<<<< HEAD
+=======
+  remote: https://github.com/Apipie/apipie-rails
+  revision: 9ec60c5b71b9258b6e5ca4485022e5319fabc32e
+  branch: master
+  specs:
+    apipie-rails (0.3.5)
+      json
+
+GIT
+  remote: https://github.com/doorkeeper-gem/doorkeeper-mongodb
+  revision: 432fab9457054ef71b4bae839bf033a15a99b204
+  branch: master
+  specs:
+    doorkeeper-mongodb (3.0.0)
+      doorkeeper (>= 3.0.0)
+
+GIT
+  remote: https://github.com/projectcypress/health-data-standards.git
+  revision: 0f6b8c448bb6ae287e30b2990d26a8b7024d599a
+  branch: mongoid5
+  specs:
+    health-data-standards (3.7.0)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.2)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 1.8.0)
+      rubyzip (~> 1.2.1)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/projectcypress/quality-measure-engine.git
+  revision: 2fd3fc4d2a9e7ce58b7a856ae8ef74e0d08c172d
+  branch: bump_mongoid
+  specs:
+    quality-measure-engine (3.1.2)
+      delayed_job_mongoid (~> 2.2.0)
+      mongoid (~> 5.0.0)
+      rubyzip (>= 1.0.0)
+      zip-zip
+
+GIT
+  remote: https://github.com/projecttacoma/bonnie_bundler.git
+  revision: c62052e699736735129f89d3ed2d1abaf023d5c7
+  branch: bonnie-prior
+  specs:
+    bonnie_bundler (1.0.0)
+
+GIT
+>>>>>>> 67af91b5... Updated to latest version of apipie from master.
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
   revision: e97079366baaa94697c1eb8c4a9c803568c7db85
   branch: master
@@ -74,6 +132,10 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     apipie-rails (0.3.5)
       json
+    axlsx (2.0.0)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (= 0.9.9)
     bcrypt (3.1.11)
     bonnie_bundler (2.1.0)
       diffy (~> 3.0.0)
@@ -410,7 +472,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  apipie-rails
+  apipie-rails!
   axlsx!
   bonnie_bundler (~> 2.1.0)
   brakeman
