@@ -2,7 +2,18 @@ require 'test_helper'
 
 class ApiV1::MeasuresControllerTest < ActionController::TestCase
   include Devise::TestHelpers
-      
+  
+  # StubToken simulates an OAuth2 token... we're not actually
+  # verifying that a token was issued. This test completely
+  # bypasses OAuth2 authentication and authorization provided
+  # by Doorkeeper.
+  class StubToken
+    attr_accessor :resource_owner_id
+    def acceptable?(value)
+      true
+    end
+  end
+
   setup do
     @error_dir = File.join('log','load_errors')
     FileUtils.rm_r @error_dir if File.directory?(@error_dir)
@@ -16,6 +27,9 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     @measure = Measure.where({"cms_id" => "CMS128v2"}).first
     @api_v1_measure = @measure.hqmf_set_id
     sign_in @user
+    @token = StubToken.new
+    @token.resource_owner_id = @user.id
+    @controller.instance_variable_set('@_doorkeeper_token', @token)
   end
 
   test "should get index as html" do
