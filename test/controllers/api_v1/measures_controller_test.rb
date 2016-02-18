@@ -206,6 +206,8 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     assert_equal "Population 1", measure.populations[0]['title']
     assert_equal "Population 2", measure.populations[1]['title']
     assert_equal "Stratification 1", measure.populations[2]['title']
+    
+    assert_equal ["OccurrenceAInpatientEncounter1"], measure.episode_ids
   end
   
   test "should use provided population titles for populations" do
@@ -220,6 +222,8 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     assert_equal "First Pop", measure.populations[0]['title']
     assert_equal "Second Pop", measure.populations[1]['title']
     assert_equal "Only Strat", measure.populations[2]['title']
+    
+    assert_equal ["OccurrenceAInpatientEncounter1"], measure.episode_ids
   end
   
   test "should error on measure with missing value sets" do
@@ -227,6 +231,58 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "The measure value sets could not be found. Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
+    assert_equal expected_response, JSON.parse(response.body)
+  end
+  
+  test "should create measure from hqmf xml with vsac creds" do
+    VCR.use_cassette("mat_api_435Complex") do
+      measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
+      post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+      assert_response :ok
+      expected_response = { "status" => "success", "url" => "/api_v1/measures/E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"}
+      assert_equal expected_response, JSON.parse(response.body)
+      
+      measure = Measure.where({hqmf_set_id: "E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"}).first
+      assert_equal 3, measure.populations.size
+      assert_equal "First Pop", measure.populations[0]['title']
+      assert_equal "Second Pop", measure.populations[1]['title']
+      assert_equal "Only Strat", measure.populations[2]['title']
+      
+      assert_equal ["OccurrenceAInpatientEncounter1"], measure.episode_ids
+    end
+  end
+  
+  test "should error on create measure from hqmf xml with bad vsac creds" do
+    VCR.use_cassette("bad_vsac_creds") do
+      measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
+      post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_username: "sketchyguy", vsac_password: "goodpassword"}
+      assert_response :internal_server_error
+      expected_response = { "status" => "error", "messages" => "Error Loading Value Sets from VSAC: Error Loading Value Sets from VSAC: 401 Unauthorized"}
+      assert_equal expected_response, JSON.parse(response.body)
+    end
+  end
+  
+  test "should error on create measure from hqmf xml without vsac creds" do
+    measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat']}
+    assert_response :bad_request
+    expected_response = { "status" => "error", "messages" => "Missing parameter: vsac_username"}
+    assert_equal expected_response, JSON.parse(response.body)
+  end
+  
+  test "should error on create measure from hqmf xml with include_draft false and bad vsac_date" do
+    measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_username: 'test', vsac_password: 'false', include_draft: false, vsac_date: 'notadate'}
+    assert_response :bad_request
+    expected_response = { "status" => "error", "messages" => "Invalid parameter 'vsac_date': Must be a date in the form mm/dd/yyyy."}
+    assert_equal expected_response, JSON.parse(response.body)
+  end
+  
+  test "should error on create measure from hqmf xml with include_draft false and no vsac_date" do
+    measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_username: 'test', vsac_password: 'false', include_draft: false}
+    assert_response :bad_request
+    expected_response = { "status" => "error", "messages" => "Missing parameter: vsac_date"}
     assert_equal expected_response, JSON.parse(response.body)
   end
   
