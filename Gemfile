@@ -59,6 +59,8 @@ group :test, :development, :ci do
   gem 'jasmine-jquery-rails'
   gem 'simplecov', :require => false
   gem 'minitest'
+  gem 'webmock'
+  gem 'vcr'
 end
 
 group :test, :development do
