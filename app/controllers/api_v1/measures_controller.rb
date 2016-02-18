@@ -1,3 +1,5 @@
+require './test/vcr_setup.rb'
+
 class ApiV1::MeasuresController < ApplicationController
   skip_before_action :verify_authenticity_token
   skip_before_filter :authenticate_user!
@@ -299,17 +301,18 @@ class ApiV1::MeasuresController < ApplicationController
     extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
     
     begin
+      
+      measure_details = {
+        'type' => params[:measure_type],
+        'episode_of_care' => params[:calculation_type] == 'episode'
+      }
       # If it is a MAT export
       if extension == '.zip'
-        measure = load_mat_export(params)
+        measure = load_mat_export(params, measure_details)
         
       # If it is a measure file.
       elsif extension == '.xml'
-        # VSAC info is required
-        params.require(:vsac_username)
-        params.require(:vsac_password)
-        include_draft = params.fetch(:include_draft, true)
-        params.require(:vsac_date) unless include_draft
+        measure = load_hqmf_xml(params, measure_details)
       end
       
       #if its an update make sure we are actually updating the proper one
@@ -367,6 +370,10 @@ class ApiV1::MeasuresController < ApplicationController
       render json: {status: "error", messages: "The measure value sets could not be found. Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle." },
            status: :bad_request
       return
+    rescue Measures::VSACException => e
+      render json: {status: "error", messages: e.message },
+           status: :internal_server_error
+      return
     rescue Exception => e
       raise e
       #render json: {status: "error", messages: e }, status: :error
@@ -395,16 +402,28 @@ class ApiV1::MeasuresController < ApplicationController
 
   end
   
-  def load_mat_export(params)
-    measure_details = {
-      'type' => params[:measure_type],
-      'episode_of_care' => params[:calculation_type] == 'episode'
-    }
+  def load_mat_export(params, measure_details)
     measure = Measures::MATLoader.load(params[:measure_file], current_resource_owner, measure_details)
   end
   
+  def load_hqmf_xml(params, measure_details)
+    # VSAC info is required
+    params.require(:vsac_username)
+    params.require(:vsac_password)
+    includeDraft = params.fetch(:include_draft, true)
+    params.require(:vsac_date) unless includeDraft
+    effectiveDate = nil
+    unless includeDraft
+      effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
+    end
+    
+    measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_resource_owner, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, includeDraft)
+  end
+  
   def error_parameter_missing(exception)
-    render json: {status: "error", messages: "Missing parameter: #{exception.param.name}" },
+    param_name = exception.is_a?(Apipie::ParamMissing) ? exception.param.name : exception.param
+    
+    render json: {status: "error", messages: "Missing parameter: #{param_name}" },
            status: :bad_request
   end
   
