@@ -173,7 +173,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       $(e.target).button('reset').prop('disabled', false)
       messages = []
       for [cid, field, message] in @originalModel.validationError
-        # Location holds the cid of the model with the error, either toplevel or a data criteria, from whcih we get the view
+        # Location holds the cid of the model with the error, either toplevel or a data criteria, from which we get the view
         if cid == @originalModel.cid
           @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
         else

@@ -24,47 +24,47 @@
           <div class="patient-status-icon status status-{{status}}">
             {{#if ../patientsListing}}
               <label>
-                <span class="sr-only">Select {{patient.last}} {{patient.first}}</span>
+                <span class="sr-only">Select {{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}{{patient.last}} {{patient.first}}</span>
                 <input type="checkbox" class="select-patient">
               </label>
             {{else}}
               {{#if done}}
                 {{#if match}}
-                  <i class="fa fa-check" aria-hidden="true"></i><span class="sr-only">{{patient.last}} {{patient.first}}, patient passing</span>
+                  <i class="fa fa-check" aria-hidden="true"></i><span class="sr-only">{{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}{{patient.last}} {{patient.first}}, patient passing</span>
                 {{else}}
-                  <i class="fa fa-times" aria-hidden="true"></i><span class="sr-only">{{patient.last}} {{patient.first}}, patient failing</span>
+                  <i class="fa fa-times" aria-hidden="true"></i><span class="sr-only">{{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}{{patient.last}} {{patient.first}}, patient failing</span>
                 {{/if}}
               {{/if}}
             {{/if}}
           </div>
           <div class="patient-user-icon">
-            <i class="fa fa-user" aria-hidden="true"></i><span class="sr-only">{{patient.last}} {{patient.first}}, patient result</span>
+            <i class="fa fa-user" aria-hidden="true"></i><span class="sr-only">{{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}{{patient.last}} {{patient.first}} patient result</span>
           </div>
           <div class="patient-btn">
-            {{#button "expandResult" class="close"}}<i class="fa fa-lg fa-angle-right expand-result-icon expand-result-icon-{{patient._id}}" aria-hidden="true"></i> <span class="sr-only">{{patient.last}} {{patient.first}}, Toggle Logic Pass/Fail</span>{{/button}}
+            {{#button "expandResult" class="close"}}<i class="fa fa-lg fa-angle-right expand-result-icon expand-result-icon-{{patient._id}}" aria-hidden="true"></i> <span class="sr-only">{{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}{{patient.last}} {{patient.first}}, Toggle Logic Pass/Fail</span>{{/button}}
           </div>
           <div class="patient-status status status-{{status}}">
-            <span class="sr-only">{{patient.last}} {{patient.first}}, status </span>{{status}}
+            <span class="sr-only">{{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}{{patient.last}} {{patient.first}}, status </span>{{status}}
           </div>
           <div class="patient-name">
-            <span class="sr-only">patient name: </span>{{patient.last}} {{patient.first}}
+            {{#if patient.caseNumber}}<span class="sr-only">test case </span>{{patient.caseNumber}}: {{/if}}<span class="sr-only">patient name: </span>{{patient.last}} {{patient.first}}
           </div>
         </div>
       </div>
     </div>
     <div class="panel-body toggle-result toggle-result-{{patient._id}} patient" style="display: none;">
       {{template "population_calculation_results"}}
-      {{#link "measures/{{measure_id}}/patients/{{patient._id}}/edit" class="btn btn-primary" expand-tokens=true}}<i class="fa fa-pencil" aria-hidden="true"></i><span class="sr-only">edit patient {{patient.last}} {{patient.first}}</span>{{/link}}
-      {{#button "clonePatient" class="btn btn-primary"}}CLONE<span class="sr-only"> patient {{patient.last}} {{patient.first}}</span>{{/button}}
+      {{#link "measures/{{measure_id}}/patients/{{patient._id}}/edit" class="btn btn-primary" expand-tokens=true}}<i class="fa fa-pencil" aria-hidden="true"></i><span class="sr-only">edit {{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}patient {{patient.last}} {{patient.first}}</span>{{/link}}
+      {{#button "clonePatient" class="btn btn-primary"}}CLONE<span class="sr-only"> {{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}patient {{patient.last}} {{patient.first}}</span>{{/button}}
       {{#button "showDelete" class="btn btn-danger-inverse"}}
         <i class="fa fa-minus-circle" aria-hidden="true"></i>
-        <span class="sr-only">{{patient.last}} {{patient.first}}, Show Delete</span>
+        <span class="sr-only">{{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}{{patient.last}} {{patient.first}}, Show Delete</span>
       {{/button}}
-      {{#button "deletePatient" class="btn btn-danger delete-{{patient._id}}" style="display: none;" expand-tokens=true}}Delete<span class="sr-only"> patient {{patient.last}} {{patient.first}}</span>{{/button}}
+      {{#button "deletePatient" class="btn btn-danger delete-{{patient._id}}" style="display: none;" expand-tokens=true}}Delete<span class="sr-only">{{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}} patient {{patient.last}} {{patient.first}}</span>{{/button}}
 
       <button class="btn btn-primary{{#if patient.is_shared}}-inverse{{/if}} pull-right share-{{patient._id}}" data-call-method="togglePatient">
         <span class="btn-label">{{#if patient.is_shared}}Shared{{else}}Share{{/if}}</span>
-        <span class="sr-only"> patient {{patient.last}} {{patient.first}}</span>&nbsp;
+        <span class="sr-only">{{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}patient {{patient.last}} {{patient.first}}</span>&nbsp;
         <i class="fa {{#if patient.is_shared}}fa-minus{{else}}fa-plus{{/if}} share-icon" aria-hidden="true"></i>
       </button>
     </div>
