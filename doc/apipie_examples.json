@@ -30,7 +30,7 @@
         "patient_count": 4,
         "patients": [
           {
-            "_id": "56c4bdce055a769b8cf8cfbc",
+            "_id": "56c510ac055a769b8cf8dec8",
             "birthdate": "1970-01-01T08:30:00-05:00",
             "description": "",
             "ethnicity": {
@@ -69,7 +69,7 @@
               "name": "American Indian or Alaska Native",
               "codeSystem": "CDC Race"
             },
-            "updated_at": "2016-02-17T18:37:02.910Z",
+            "updated_at": "2016-02-18T00:30:37.077Z",
             "actual_values": [
               {
                 "IPP": 0,
@@ -88,7 +88,7 @@
             ]
           },
           {
-            "_id": "56c4bdce055a769b8cf8cfbd",
+            "_id": "56c510ac055a769b8cf8dec9",
             "birthdate": "1991-02-01T10:00:00-05:00",
             "description": "",
             "ethnicity": {
@@ -127,7 +127,7 @@
               "name": "American Indian or Alaska Native",
               "codeSystem": "CDC Race"
             },
-            "updated_at": "2016-02-17T18:37:02.922Z",
+            "updated_at": "2016-02-18T00:30:37.088Z",
             "actual_values": [
               {
                 "IPP": 0,
@@ -146,7 +146,7 @@
             ]
           },
           {
-            "_id": "56c4bdce055a769b8cf8cfbe",
+            "_id": "56c510ac055a769b8cf8deca",
             "birthdate": "1991-02-01T05:30:00-05:00",
             "description": "",
             "ethnicity": {
@@ -185,7 +185,7 @@
               "name": "American Indian or Alaska Native",
               "codeSystem": "CDC Race"
             },
-            "updated_at": "2016-02-17T18:37:02.934Z",
+            "updated_at": "2016-02-18T00:30:37.097Z",
             "actual_values": [
               {
                 "IPP": 0,
@@ -204,7 +204,7 @@
             ]
           },
           {
-            "_id": "56c4bdce055a769b8cf8cfbf",
+            "_id": "56c510ac055a769b8cf8decb",
             "birthdate": "1991-01-07T04:30:00-05:00",
             "description": "",
             "ethnicity": {
@@ -243,7 +243,7 @@
               "name": "American Indian or Alaska Native",
               "codeSystem": "CDC Race"
             },
-            "updated_at": "2016-02-17T18:37:02.944Z",
+            "updated_at": "2016-02-18T00:30:37.106Z",
             "actual_values": [
               {
                 "IPP": 0,
@@ -320,6 +320,142 @@
         "url": "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"
       },
       "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT '435ComplexV2_v4_SimpleXML.xml'>",
+        "measure_type": "eh",
+        "calculation_type": "episode",
+        "population_titles": [
+          "First Pop",
+          "Second Pop",
+          "Only Strat"
+        ],
+        "vsac_username": "vcrtest",
+        "vsac_password": "vcrpass"
+      },
+      "response_data": {
+        "status": "success",
+        "url": "/api_v1/measures/E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT '435ComplexV2_v4_SimpleXML.xml'>",
+        "measure_type": "eh",
+        "calculation_type": "episode",
+        "population_titles": [
+          "First Pop",
+          "Second Pop",
+          "Only Strat"
+        ],
+        "vsac_username": "sketchyguy",
+        "vsac_password": "goodpassword"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "Error Loading Value Sets from VSAC: Error Loading Value Sets from VSAC: 401 Unauthorized"
+      },
+      "code": "500",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT '435ComplexV2_v4_SimpleXML.xml'>",
+        "measure_type": "eh",
+        "calculation_type": "episode",
+        "population_titles": [
+          "First Pop",
+          "Second Pop",
+          "Only Strat"
+        ],
+        "vsac_username": "test",
+        "vsac_password": "false",
+        "include_draft": false,
+        "vsac_date": "notadate"
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "Invalid parameter 'vsac_date': Must be a date in the form mm/dd/yyyy."
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT '435ComplexV2_v4_SimpleXML.xml'>",
+        "measure_type": "eh",
+        "calculation_type": "episode",
+        "population_titles": [
+          "First Pop",
+          "Second Pop",
+          "Only Strat"
+        ],
+        "vsac_username": "test",
+        "vsac_password": "false",
+        "include_draft": false
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "Missing parameter: vsac_date"
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": {
+        "measure_file": "<FILE CONTENT '435ComplexV2_v4_SimpleXML.xml'>",
+        "measure_type": "eh",
+        "calculation_type": "episode",
+        "population_titles": [
+          "First Pop",
+          "Second Pop",
+          "Only Strat"
+        ]
+      },
+      "response_data": {
+        "status": "error",
+        "messages": "Missing parameter: vsac_username"
+      },
+      "code": "400",
       "show_in_doc": 1,
       "recorded": true
     },
@@ -729,7 +865,7 @@
       "request_data": null,
       "response_data": [
         {
-          "_id": "56c4bdd8055a769b8cf8d004",
+          "_id": "56c510b7055a769b8cf8df10",
           "birthdate": "1970-01-01T08:30:00-05:00",
           "description": "",
           "ethnicity": {
@@ -768,10 +904,10 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2016-02-17T18:37:12.977Z"
+          "updated_at": "2016-02-18T00:30:47.274Z"
         },
         {
-          "_id": "56c4bdd8055a769b8cf8d005",
+          "_id": "56c510b7055a769b8cf8df11",
           "birthdate": "1991-02-01T10:00:00-05:00",
           "description": "",
           "ethnicity": {
@@ -810,10 +946,10 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2016-02-17T18:37:12.989Z"
+          "updated_at": "2016-02-18T00:30:47.290Z"
         },
         {
-          "_id": "56c4bdd8055a769b8cf8d006",
+          "_id": "56c510b7055a769b8cf8df12",
           "birthdate": "1991-02-01T05:30:00-05:00",
           "description": "",
           "ethnicity": {
@@ -852,10 +988,10 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2016-02-17T18:37:12.997Z"
+          "updated_at": "2016-02-18T00:30:47.300Z"
         },
         {
-          "_id": "56c4bdd8055a769b8cf8d007",
+          "_id": "56c510b7055a769b8cf8df13",
           "birthdate": "1991-01-07T04:30:00-05:00",
           "description": "",
           "ethnicity": {
@@ -894,7 +1030,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2016-02-17T18:37:13.007Z"
+          "updated_at": "2016-02-18T00:30:47.312Z"
         }
       ],
       "code": "200",
@@ -963,7 +1099,7 @@
         "id": "40280381-3D61-56A7-013E-7AF612436402",
         "title": "Anti-depressant Medication Management",
         "type": "ep",
-        "updated_at": "2016-02-17T18:37:12.591Z"
+        "updated_at": "2016-02-18T00:30:46.888Z"
       },
       "code": "200",
       "show_in_doc": 1,
