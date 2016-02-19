@@ -17,16 +17,17 @@
     @on 'route', -> window.scrollTo(0, 0)
 
   routes:
-    '':                                                'renderMeasures'
-    'measures':                                        'renderMeasures'
-    'complexity':                                      'renderComplexity'
-    'complexity/:set_1/:set_2':                        'renderComplexity'
-    'measures/:hqmf_set_id':                           'renderMeasure'
-    'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
-    'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
-    'measures/:measure_hqmf_set_id/patient_bank':      'renderPatientBank'
-    'admin/users':                                     'renderUsers'
-    'value_sets/edit':                                 'renderValueSetsBuilder'
+    '':                                                 'renderMeasures'
+    'measures':                                         'renderMeasures'
+    'complexity':                                       'renderComplexity'
+    'complexity/:set_1/:set_2':                         'renderComplexity'
+    'measures/:hqmf_set_id':                            'renderMeasure'
+    'measures/:measure_hqmf_set_id/patients/:id/edit':  'renderPatientBuilder'
+    'measures/:measure_hqmf_set_id/patients/new':       'renderPatientBuilder'
+    'measures/:measure_hqmf_set_id/patient_bank':       'renderPatientBank'
+    'measures/:measure_hqmf_set_id/test_case_history':  'renderTestCaseHistory'
+    'admin/users':                                      'renderUsers'
+    'value_sets/edit':                                  'renderValueSetsBuilder'
 
   renderMeasures: ->
     @measures.each (measure) -> measure.set('displayedPopulation', measure.get('populations').first())
@@ -81,6 +82,13 @@
     @collection = new Thorax.Collections.Patients
     @mainView.setView new Thorax.Views.PatientBankView model: measure, patients: @patients, collection: @collection
     @breadcrumb.addBank(measure)
+
+  renderTestCaseHistory: (measureHqmfSetId) ->
+    measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
+    @navigationSetup "Test Case History - #{measure.get('cms_id')}", 'test-case-history'
+    # @collection = new Thorax.Collections.Patients
+    @mainView.setView new Thorax.Views.TestCaseHistoryView model: measure, patients: @patients, collection: @collection # TODO Anything else?
+    @breadcrumb.viewTestCaseHistory(measure)
 
   # Common setup method used by all routes
   navigationSetup: (title, selectedNav) ->
