@@ -1,6 +1,14 @@
 {{#if done}}
   <label><span class="sr-only">{{#if cms_id}}{{cms_id}}, {{/if}}{{#if population}}population {{population}}, {{/if}}{{percent}}% patients meet expected</span>
-  <input type="text" value="{{percent}}"  class="dial" data-readOnly="true" data-width="60" data-height="60" data-thickness=".2" data-fgColor={{#ifCond status '==' 'pass'}}"#009a65"{{else}}{{#ifCond status '==' 'fail'}}"#a52700"{{else}}"#f6f6f6"{{/ifCond}}{{/ifCond}} data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
+  {{#ifCond percent '==' 0}}
+    <input type="text" value="{{percent}}"  class="dial" data-readOnly="true" data-width="60" rotation="anticlockwise" data-height="60" data-thickness=".2"  data-bgColor={{#ifCond status '==' 'fail'}}"#a52700"{{else}}"#f6f6f6"{{/ifCond}} data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
+  {{else}}
+    {{#ifCond percent '==' 100}}
+      <input type="text" value="{{percent}}"  class="dial" data-readOnly="true" data-width="60" rotation="anticlockwise" data-height="60" data-thickness=".2"  data-fgColor="#009a65" data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
+    {{else}}
+      <input type="text" value="{{percent}}"  class="dial" data-readOnly="true" data-width="60" rotation="anticlockwise" data-height="60" data-thickness=".2"  data-bgColor={{#ifCond status '==' 'fail'}}"#f6f6f6"{{else}}"#009a65"{{/ifCond}} data-fgColor="#a52700" data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
+    {{/ifCond}}
+  {{/ifCond}}
   </label>
 {{else}}
   {{! FIXME: Add a spinner here }}

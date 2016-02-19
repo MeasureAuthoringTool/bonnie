@@ -1,0 +1,93 @@
+.measure-history-main {
+  width: 100%;
+}
+
+#measureDiff {
+  padding:10px;
+}
+
+.history-circle {
+  display: block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border: 2px solid;
+  text-align: center;
+  line-height: 20px;
+  font-size: 18px;
+}
+
+table.measure-history-table {
+  width: auto;
+  margin-top: 55px;
+}
+
+.history-circle i.history-pass-icon {
+  color: #004119;
+}
+
+.history-pass {
+  background-color: rgba(32, 116, 76, 0.5);
+  border-color: #004119;
+}
+
+.history-circle i.history-fail-icon {
+  color: #730800;
+}
+
+.history-fail {
+  background-color: rgba(166, 59, 18, 0.5);
+  border-color: #730800;
+}
+
+td.history-patient-cell {
+  /*
+  width: 30px;
+  height: 30px;
+  padding: 3px;
+  */
+}
+
+.measure-history-table > thead > tr > th,
+.measure-history-table > thead > tr > tr {
+  border-top: none;
+  height: 55px;
+  white-space: nowrap;
+}
+
+th.history-patient-header div {
+  transform:
+    /* Magic Numbers */
+    translate(-3px, -3px)
+    /* 45 is really 360 - 45 */
+    rotate(315deg);
+  width: 30px;
+
+  span {
+    padding: 5px 5px;
+  }
+}
+
+.history-patient-header-name {
+  width: 115px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+body .modal-huge {
+  width: 90%;
+}
+
+.measureUploadSummaryDialog {
+  h5 {
+    margin-bottom: 2px;
+  }
+  .modal-body {
+    padding-top: 7px;
+  }
+  .vertically-centered {
+    padding-top: 0px;
+  }
+}

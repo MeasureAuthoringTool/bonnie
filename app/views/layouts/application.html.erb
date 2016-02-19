@@ -61,6 +61,9 @@
         <% if (flash[:error]) %>
           bonnie.showError(<%= json_escape(flash[:error].to_json).html_safe %>);
         <% end %>
+        <% if flash[:uploaded_summary_id] && flash[:uploaded_hqmf_set_id]%>
+          bonnie.showMeasureUploadSummary("<%= flash[:uploaded_summary_id]%>","<%= flash[:uploaded_hqmf_set_id]%>");
+        <% end %>
         $('.skip-content').click(function(e) {
           e.preventDefault();
           $('#bonnie').attr('tabindex', -1).on('blur focusout', function() {

@@ -10,10 +10,10 @@
 {{/unless}}
     {{#if precondition.preconditions }}
         {{#each precondition.preconditions}}
-          {{view "PreconditionLogic" precondition=this parentPrecondition=../precondition parentNegation=../precondition.negation measure=../measure}}
+          {{view "PreconditionLogic" precondition=this parentPrecondition=../precondition parentNegation=../precondition.negation measure=../measure suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}
         {{/each}}
     {{else}}
-      {{view "DataCriteriaLogic" reference=precondition.reference measure=../measure negatedParent=../parentPrecondition.negation tag="span"}}
+      {{view "DataCriteriaLogic" reference=precondition.reference measure=../measure negatedParent=../parentPrecondition.negation tag="span" suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}
     {{/if}}
 {{#unless suppress}}
   </li>

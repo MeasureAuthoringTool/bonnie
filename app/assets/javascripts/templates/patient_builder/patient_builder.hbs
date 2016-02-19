@@ -138,6 +138,9 @@
     <div class="description">{{measureDescription}}</div>
     <div class="expand closed pull-right">Show more <i class="fa fa-caret-down"></i></div>
     {{view expectedValuesView}}
+    {{#if has_measure_history}}
+      {{#button "showCompare" class="btn btn-primary btn-wrap"}}<i class="fa fa-fw fa-columns" aria-hidden="true"></i>Compare patient results to last measure upload{{/button}}
+    {{/if}}
   </div>
 </div>
 
@@ -166,4 +169,22 @@
     </div>
   </div>
 
+</div>
+
+<div class="modal fade diff-view-dialog" id="patient-compare-dialog" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-huge" role="dialog" aria-labelledby="diff-view-title">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button data-dismiss="modal" aria-hidden="true" class="close" data-call-method="close">×</button>
+        <h1 id="diff-view-title">Patient Compare</h1>
+      </div>
+      <div class="modal-body" id="patient-compare-content">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

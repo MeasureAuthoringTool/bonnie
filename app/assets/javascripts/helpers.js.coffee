@@ -19,8 +19,12 @@ Handlebars.registerHelper 'complexityIcon', (score) ->
 # elements to display, not trustable for security purposes
 Handlebars.registerHelper 'ifAdmin', (options) ->
   if bonnie.isAdmin then options.fn(this) else options.inverse(this)
+
 Handlebars.registerHelper 'ifPortfolio', (options) ->
   if bonnie.isPortfolio then options.fn(this) else options.inverse(this)
+  
+Handlebars.registerHelper "times", (n, block) ->
+  (block.fn(i) for i in [0...n]).join("")    
 
 Handlebars.registerHelper 'ifCond', (v1, operator, v2, options) ->
   switch operator
@@ -53,6 +57,7 @@ Handlebars.registerHelper 'times', (n, opts) ->
     out = opts.inverse(this)
 
   return out
+
 Handlebars.registerHelper 'lookup', (obj, field) ->
   obj && obj[field]
 
@@ -69,3 +74,8 @@ that screen readers will read out the complete name
 Handlebars.registerHelper 'populationName', (population) =>
   return '' unless population?
   return new Handlebars.SafeString Thorax.Models.Measure.PopulationMap[population]
+
+# Helper to make use of moment date formatting
+# TODO: Replace this helper with the 'moment' helper defined above.
+Handlebars.registerHelper 'dateFormat', (date, fmt) ->
+  return moment(date).format(fmt)

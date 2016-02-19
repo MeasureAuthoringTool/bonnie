@@ -17,18 +17,20 @@
     @on 'route', -> window.scrollTo(0, 0)
 
   routes:
-    '':                                                'renderMeasures'
-    'measures':                                        'renderMeasures'
-    'complexity':                                      'renderComplexity'
-    'complexity/:set_1/:set_2':                        'renderComplexity'
-    'measures/:hqmf_set_id':                           'renderMeasure'
-    'measures/:hqmf_set_id/patient_dashboard':         'renderPatientDashboard'
-    'measures/:hqmf_set_id/508_patient_dashboard':     'renderPatientDashboard'
-    'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
-    'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
-    'measures/:measure_hqmf_set_id/patient_bank':      'renderPatientBank'
-    'admin/users':                                     'renderUsers'
-    'value_sets/edit':                                 'renderValueSetsBuilder'
+    '':                                                 'renderMeasures'
+    'measures':                                         'renderMeasures'
+    'complexity':                                       'renderComplexity'
+    'complexity/:set_1/:set_2':                         'renderComplexity'
+    'measures/:hqmf_set_id':                            'renderMeasure'
+    'measures/:hqmf_set_id/patient_dashboard':          'renderPatientDashboard'
+    'measures/:hqmf_set_id/508_patient_dashboard':      'renderPatientDashboard'
+    'measures/:measure_hqmf_set_id/patients/:id/edit':  'renderPatientBuilder'
+    'measures/:measure_hqmf_set_id/patients/new':       'renderPatientBuilder'
+    'measures/:measure_hqmf_set_id/patient_bank':       'renderPatientBank'
+    'measures/:measure_hqmf_set_id/history':            'renderMeasureUploadHistory'
+    'measures/:measure_hqmf_set_id/patients/:id/compare/at_upload/:upload_id':  'renderHistoricPatientCompare'
+    'admin/users':                                      'renderUsers'
+    'value_sets/edit':                                  'renderValueSetsBuilder'
 
   renderMeasures: ->
     @measures.each (measure) -> measure.set('displayedPopulation', measure.get('populations').first())
@@ -94,6 +96,42 @@
     @mainView.setView new Thorax.Views.PatientBankView model: measure, patients: @patients, collection: @collection
     @breadcrumb.addBank(measure)
 
+  renderMeasureUploadHistory: (measureHqmfSetId) ->
+    measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
+    measure.get('upload_summaries').fetchAll().done( (uploadSummaries) =>
+      @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
+      # @collection = new Thorax.Collections.Patients
+      @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: measure.get('patients'), upload_summaries: uploadSummaries
+      @breadcrumb.viewMeasureHistory(measure)
+    )
+
+
+  renderHistoricPatientCompare: (measureHqmfSetId, patientId, uploadId) ->
+    @navigationSetup "Patient Builder", "patient-compare"
+    measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
+    patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
+    document.title += " - #{measure.get('cms_id')}" if measure?
+    # Deal with getting the archived measure and the calculation snapshot for the patient at measure upload
+    uploadSummaries = measure.get('upload_summaries')
+    archivedMeasures = measure.get('archived_measures')
+    upload_summary = null
+    beforeMeasure = null
+    afterMeasure = null
+    $.when(uploadSummaries.fetchDeferred(), archivedMeasures.fetchDeferred())
+      .then( -> uploadSummaries.findWhere({_id: uploadId}).fetchDeferred() )
+      .then((upsum) ->
+        upload_summary = upsum
+        archivedMeasures.findWhere(_id: upload_summary.get('measure_db_id_pre_upload')).fetchDeferred())
+      .then((before) ->
+        beforeMeasure = before
+        if measure.id isnt upload_summary.get('measure_db_id_post_upload')
+          archivedMeasures.findWhere(_id: upload_summary.get('measure_db_id_post_upload')).fetchDeferred())
+      .then((afterMeasure) => 
+        patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, preUploadMeasureVersion: beforeMeasure, uploadSummary: upload_summary, postUploadMeasureVersion: afterMeasure)
+        @mainView.setView patientBuilderView
+        @breadcrumb.viewComparePatient(measure, patient)
+        )
+
   # Common setup method used by all routes
   navigationSetup: (title, selectedNav) ->
     @calculator.cancelCalculations()
@@ -120,3 +158,16 @@
     errorDialogView = new Thorax.Views.ErrorDialog error: error
     errorDialogView.appendTo('#bonnie')
     errorDialogView.display();
+
+  showMeasureUploadSummary: (summaryId, hqmfSetId) ->
+    measure = @measures.findWhere(hqmf_set_id: hqmfSetId)
+    measure_summaries = measure.get('upload_summaries')
+    measure_summaries.fetchDeferred()
+      .then( ->
+        measure_summaries.findWhere({_id: summaryId}).fetchDeferred()
+        )
+      .then( (upload_summary) ->
+        measureUploadSummaryDialogView = new Thorax.Views.MeasureUploadSummaryDialog model: upload_summary, measure: measure
+        measureUploadSummaryDialogView.appendTo('#bonnie')
+        measureUploadSummaryDialogView.display()
+        )

@@ -1,9 +1,16 @@
 class MeasuresController < ApplicationController
 
+  include UploadSummary
+
   skip_before_action :verify_authenticity_token, only: [:show, :value_sets]
 
   respond_to :json, :js, :html
-
+  
+  ##
+  # GET /measures/:id 
+  # 
+  # Returns a measure in JSON format. The :id path param is used to retrieve the
+  # measure by database '_id'.
   def show
     skippable_fields = [:map_fns, :record_ids, :measure_attributes]
     @measure = Measure.by_user(current_user).without(*skippable_fields).find(params[:id])
@@ -14,7 +21,70 @@ class MeasuresController < ApplicationController
       end
     end
   end
+  
+  ##
+  # GET /measures/historic_diff
+  #
+  # Uses the diffy gem to build a diff of the measure logic between two
+  # measures. Takes two query params 'new_id' and 'old_id'. The ID's can be
+  # either of current versions or archived versions of measures.
+  def historic_diff
+    # get the two versions to diff
+    @new_measure = Measure.by_user(current_user).where({:_id => params[:new_id]}).first
+    unless @new_measure
+      @new_measure = ArchivedMeasure.where({:measure_db_id => params[:new_id]}).first.to_measure
+    end
 
+    @old_measure = Measure.by_user(current_user).where({:_id => params[:old_id]}).first
+    unless @old_measure
+      @old_measure = ArchivedMeasure.where({:measure_db_id => params[:old_id]}).first.to_measure
+    end
+
+    results = {}
+    results['diff'] = []
+    results['pre_upload'] = { 'cms_id' => @old_measure.cms_id, 'updateTime' => (@old_measure.updated_at.tv_sec * 1000), 'hqmf_id' => @old_measure.hqmf_id }
+    results['post_upload'] = { 'cms_id' => @new_measure.cms_id, 'updateTime' => (@new_measure.updated_at.tv_sec * 1000), 'hqmf_id' => @new_measure.hqmf_id }
+
+    measure_logic_names = HQMF::Measure::LogicExtractor::POPULATION_MAP.clone
+    measure_logic_names['VARIABLES'] = 'Variables'
+
+    # Walk through the population sets and populations for the measure and create a
+    # diffy for each populationm.
+    @new_measure.populations.each_with_index do |new_population_set, population_set_index|
+      old_population_set = @old_measure.populations[population_set_index]
+      population_diff = []
+
+      # For each population within the population set, get the population logic and
+      # perform the diffy
+      measure_logic_names.each_pair do |population_code, population_title|
+        # if the code is for VARIABLE, leave it. If it's IPP, etc., then access the actual code name from the
+        # population set (e.g. IPP_1).
+        code = (population_code == 'VARIABLES') ? 'VARIABLES' : new_population_set[population_code]
+        new_logic = @new_measure.measure_logic.find { |logic| logic['code'] == code }
+        old_logic = @old_measure.measure_logic.find { |logic| logic['code'] == code }
+
+        # skip if both are non existent
+        next if !new_logic && !old_logic
+        
+        # Remove the first line of the measure logic, which is the the name of the population.
+        old_logic_text = old_logic ? old_logic['lines'][1..-1].join() : ""
+        new_logic_text = new_logic ? new_logic['lines'][1..-1].join() : ""
+
+        logic_diff = Diffy::SplitDiff.new(old_logic_text, new_logic_text,
+          format: :html, include_plus_and_minus_in_html: true, allow_empty_diff: false)
+
+        population_diff << {code: population_code, title: population_title, pre_upload: logic_diff.left, post_upload: logic_diff.right}
+      end
+
+      results['diff'] << population_diff
+    end
+
+    render :json => results
+  end
+
+  ##
+  # GET /measures/value_sets
+  #
   def value_sets
     # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
     # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
@@ -68,7 +138,7 @@ class MeasuresController < ApplicationController
           measure_details['episode_ids'] = existing.episode_ids
         end
       end
- 
+
       measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
     end
 
@@ -117,7 +187,12 @@ class MeasuresController < ApplicationController
         return
       end
 
-      existing.delete if (existing && is_update)
+      # if a measure is being updated, save out the pre-existing measure as an archived measure.
+      if (existing && is_update)
+        arch_measure = ArchivedMeasure.from_measure(existing)
+        arch_measure.save
+        existing.delete
+      end
 
     rescue Exception => e
       if params[:measure_file]
@@ -171,7 +246,7 @@ class MeasuresController < ApplicationController
         keys = measure.data_criteria.values.map {|d| d['source_data_criteria'] if d['specific_occurrence']}.compact.uniq
         measure.needs_finalize = (measure.episode_ids & keys).length != measure.episode_ids.length
         if measure.needs_finalize
-          measure.episode_ids = [] 
+          measure.episode_ids = []
           params[:redirect_route] = ''
         end
       end
@@ -179,7 +254,7 @@ class MeasuresController < ApplicationController
       measure.needs_finalize = (measure_details['episode_of_care'] || measure.populations.size > 1)
       if measure.populations.size > 1
         strat_index = 1
-        measure.populations.each do |population| 
+        measure.populations.each do |population|
           if (population[HQMF::PopulationCriteria::STRAT])
             population['title'] = "Stratification #{strat_index}"
             strat_index += 1
@@ -194,11 +269,28 @@ class MeasuresController < ApplicationController
 
     measure.generate_js
 
+    # Initialize an Upload Summary by taking a snapshot of the patients before the measure is updated.
+    # For the initial release of the Measure Upload History the feature will be disabled for portfolio users
+    upload_summary_id = UploadSummary.collect_before_upload_state(measure, arch_measure) unless current_user.is_portfolio?
     measure.save!
+
+    # run the calcs for the patients with the new version of the measure
+    # if the measure needs finalize (measure.needs_finalize == true) hold the calc of the patients until after the finalize
+
+    # trigger the measure upload summary for the user.
+    # TODO Eventually enable for portfolio users
+    if !measure.needs_finalize && !current_user.is_portfolio?
+      check_patient_expected_values(measure)
+      UploadSummary.calculate_updated_actuals(measure)
+      UploadSummary.collect_after_upload_state(measure, upload_summary_id)
+      flash[:uploaded_summary_id] = upload_summary_id
+      flash[:uploaded_hqmf_set_id] = measure.hqmf_set_id
+    end
+
 
     # rebuild the users patients if set to do so
     if params[:rebuild_patients] == "true"
-      Record.by_user(current_user).each do |r| 
+      Record.by_user(current_user).each do |r|
         Measures::PatientBuilder.rebuild_patient(r)
         r.save!
       end
@@ -207,6 +299,9 @@ class MeasuresController < ApplicationController
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
+  ##
+  # GET /measures/vsac_auth_valid
+  #
   def vsac_auth_valid
     # If VSAC TGT is still valid, return its expiration date/time
     tgt = session[:tgt]
@@ -216,7 +311,10 @@ class MeasuresController < ApplicationController
       render :json => {valid: true, expires: tgt[:expires]}
     end
   end
-  
+
+  ##
+  # GET /measures/vsac_auth_expire
+  #
   def vsac_auth_expire
     # Force expire the VSAC session
     session[:tgt] = nil
@@ -226,9 +324,14 @@ class MeasuresController < ApplicationController
   def destroy
     measure = Measure.by_user(current_user).find(params[:id])
     Measure.by_user(current_user).find(params[:id]).destroy
+    #TODO: Determine what to do with archived measures.
+
     render :json => measure
   end
 
+  ##
+  # GET /measures/finalize
+  #
   def finalize
     measure_finalize_data = params.values.select {|p| p['hqmf_id']}.uniq
     measure_finalize_data.each do |data|
@@ -239,6 +342,21 @@ class MeasuresController < ApplicationController
       end
       measure.generate_js(clear_db_cache: true)
       measure.save!
+
+
+      # Take a snapshot of the measure patients after using the updated measure
+      # logic to do the calculation.
+      # For the initial relase of the Measure Upload History the feature will be disabled for portfolio users
+      # TODO Enable for portfolio users
+      unless current_user.is_portfolio?
+        UploadSummary.calculate_updated_actuals(measure)
+        upload_summary_id = UploadSummary::MeasureSummary.where(measure_db_id_post_upload: measure.id).first.id
+        UploadSummary.collect_after_upload_state(measure, upload_summary_id)
+      end
+
+      # Make UI show upload summary
+      flash[:uploaded_summary_id] = upload_summary_id
+
     end
     redirect_to root_path
   end
@@ -266,27 +384,27 @@ class MeasuresController < ApplicationController
       render json: e.response, :status => 400
     end
   end
-  
+
   private
 
   def get_ticket_granting_ticket
     # Retreive a (possibly) existing ticket granting ticket
     tgt = session[:tgt]
-    
+
     # If the ticket granting ticket doesn't exist (or has expired), get a new one
     if tgt.nil? || tgt.empty? || tgt[:expires] < Time.now
       # Retrieve a new ticket granting ticket
       begin
         ticket = String.new(HealthDataStandards::Util::VSApi.get_tgt_using_credentials(
-          params[:vsac_username], 
-          params[:vsac_password], 
+          params[:vsac_username],
+          params[:vsac_password],
           APP_CONFIG['nlm']['ticket_url']
         ))
       rescue Exception
         # Given username and password are invalid, ticket cannot be created
         return nil
       end
-      # Create a new ticket granting ticket session variable that expires 
+      # Create a new ticket granting ticket session variable that expires
       # 7.5hrs from now
       if !ticket.nil? && !ticket.empty?
         session[:tgt] = {ticket: ticket, expires: Time.now + 27000}
@@ -295,6 +413,47 @@ class MeasuresController < ApplicationController
     else
       tgt[:ticket]
     end
+  end
+
+  def check_patient_expected_values(measure)
+    patients = Record.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id)
+    if patients.count > 0
+      corrected_expected = []
+      measure.populations.each_with_index do |population_set, index|
+        measure_current_pop_codes = {"measure_id" => measure.hqmf_set_id, "population_index" => index}
+        population_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).each do |my_code, _v|
+          # The populations are a key, value pair; slice returns this as an array.  We want the key.
+          # Putting in zero for the value as the default value.
+          measure_current_pop_codes.store(my_code, 0)
+        end
+        corrected_expected << measure_current_pop_codes
+
+      end
+      ########################################
+      # As of now the assumption is that when a measure changes the number of
+      # stratifications or population sets, the index for those stays the same.
+      # This means that if the number of populations goes from 3 to 2,
+      # populations 1 and 2 will be the same before and after the change.
+      # The same will hold true when the number of populations increases.
+      ########################################
+      patients.each do |patient|
+        #For each patient make a new copy of the current expected population sets and populations
+        new_expected_values = corrected_expected.dup
+        new_expected_values.each_with_index do |population_set, ps_index|
+          # Copy any existing values to the new expected values but only
+          # if it exists in the new expected values
+          next if ps_index >= patient.expected_values.size
+          population_set.each_key do |population| 
+            population_set.each_key { |population| population_set[population] = patient.expected_values[ps_index][population] unless patient.expected_values[ps_index].nil? }
+          end
+        end
+        unless patient.expected_values == new_expected_values
+            patient.expected_values = new_expected_values
+            patient.save!
+        end
+      end
+    end # patients.count > 0
+
   end
 
 end
