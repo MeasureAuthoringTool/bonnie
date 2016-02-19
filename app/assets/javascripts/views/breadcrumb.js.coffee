@@ -37,3 +37,10 @@ class Thorax.Views.Breadcrumb extends Thorax.Views.BonnieView
       period: bonnie.measurePeriod
       bankView: true
       measure: measure.toJSON()
+
+  viewTestCaseHistory: (measure) ->
+    @model.clear silent: true
+    @model.set
+      period: bonnie.measurePeriod
+      testCaseHistoryView: true
+      measure: measure.toJSON()

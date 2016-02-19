@@ -28,6 +28,7 @@ Bonnie::Application.routes.draw do
       get 'vsac_auth_valid'
       post 'vsac_auth_expire'
       post 'cql_to_elm'
+      get 'history'
     end
     member do
       get 'debug', defaults: { format: :html }
@@ -45,6 +46,7 @@ Bonnie::Application.routes.draw do
       post 'materialize'
       post 'qrda_export'
       post 'excel_export'
+      get 'history'
     end
   end
 
