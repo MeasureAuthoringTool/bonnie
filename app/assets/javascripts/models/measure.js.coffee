@@ -44,7 +44,9 @@ class Thorax.Models.Measure extends Thorax.Model
         if criteria.get('type') == 'communications'
           criteria.set('description', criteria.get('description').replace('Communication:', 'Communication'))
         criteria.set('description', "#{criteria.get('description').split(':')[0]}: #{bonnie.valueSetsByOid[criteria.get('code_list_id')].display_name}")
-
+    
+    attrs.archived_measures = new Thorax.Collections.ArchivedMeasures null, {measure_id: attrs._id, _fetched: false}
+    attrs.upload_summaries = new Thorax.Collections.UploadSummaries null, {measure_id: attrs._id, _fetched: false}
     attrs
 
   isPopulated: -> @has('data_criteria')

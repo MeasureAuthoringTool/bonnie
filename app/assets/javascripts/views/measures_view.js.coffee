@@ -71,8 +71,10 @@ class Thorax.Views.PopulationTitle extends Thorax.Views.BonnieView
 class Thorax.Views.MeasurePercentageView extends Thorax.Views.BonnieView
   template: JST['measure/percentage']
   events:
-    rendered: -> @$('.dial').knob()
-
+    # Draws a % sign on the output of the dial.
+    rendered: -> @$('.dial').knob
+      draw: ->
+        $(@i).val @cv + '%'
 
 class Thorax.Views.MeasureStatusView extends Thorax.Views.BonnieView
   template: JST['measure/status']

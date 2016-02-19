@@ -11,8 +11,8 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 3a3d808e0f284e8e81fc8036dedaa81e1d1d3e1f
-  branch: bonnie_master_2016
+  revision: ad4b153ce8d3e715a4361e02e0f86667c8405561
+  branch: measure_history
   specs:
     health-data-standards (3.6.1)
       activesupport (~> 4.1.1)
@@ -31,8 +31,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: d9c6044b3a12aa3e4d37f2f19de8c5a478a8802f
-  branch: master
+  revision: d25df9cf7fd5e904bc32344da30d983d2acf1741
+  branch: hqmf_version_number_tweak
   specs:
     bonnie_bundler (1.0.0)
 
@@ -145,8 +145,9 @@ GEM
       warden (~> 1.2.3)
     diffy (3.0.7)
     docile (1.1.5)
-    domain_name (0.5.20161021)
+    domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
+    easy_diff (1.0.0)
     erubis (2.7.0)
     eventmachine (1.0.7)
     exception_notification (4.1.1)
@@ -195,6 +196,14 @@ GEM
       moped (~> 2.0.0)
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
+    mongoid-compatibility (0.4.0)
+      activesupport
+      mongoid (>= 2.0)
+    mongoid-history (0.6.0)
+      activesupport
+      easy_diff
+      mongoid (>= 3.0)
+      mongoid-compatibility
     mongoid-tree (1.0.4)
       mongoid (>= 3.0, <= 4.0)
     moped (2.0.7)
@@ -343,6 +352,7 @@ DEPENDENCIES
   less-rails
   minitest
   mongoid
+  mongoid-history
   multi_json
   newrelic_rpm
   non-stupid-digest-assets

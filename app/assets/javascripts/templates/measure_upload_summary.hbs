@@ -1,0 +1,71 @@
+{{! The total number of patients remains constant across different populations}}
+{{! We are guaranteed to have at least one population, hence the [0] index}}
+{{#ifCond populationInformation.[0].totalPatients "!=" 0}} {{! Don't display anything if there are no patients}}
+<h5> Total Number of Test Patients: {{../populationInformation.[0].totalPatients}} </h5>
+  {{#each populationInformation}}
+    {{#ifCond totalChanged "==" 0}}
+      <p>
+        <table class="table table-striped table-condensed">
+          <thead>
+            <tr>
+              {{#ifCond ../../../numberOfPopulations "==" 1}}
+                <th width="1300px" class="centered"> <h2>Upload Summary</h2>No Patients were affected by the updated measure! </th>
+              {{else}}
+                <th width="1300px" class="centered"> <h2>{{populationTitle}}</h2>No Patients were affected by the updated measure! </th>
+              {{/ifCond}}
+            </tr>
+          </thead>
+        </table>
+      </p>
+    {{else}} {{! We have patients who were affected by the upload}}
+      <p>
+        <table class="table table-striped table-condensed">
+          <thead>
+            <tr>
+              {{#ifCond ../../../numberOfPopulations "==" 1}}
+                <th width="1300px" class="centered"> <h2>Upload Summary</h2> </th>
+              {{else}}
+                <th width="1300px" class="centered"> <h2>{{populationTitle}}</h2> </th>
+              {{/ifCond}}
+              <th width="200px" class="centered">Previous &nbsp;Version</th>
+              <th width="150px" class="centered">&ensp;Current &emsp;&nbsp;Version</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="vertically-centered"> <h5> Number of Test Patients Affected: {{totalChanged}} </h5> </td>
+              <td rowspan="3">{{view "MeasurePercentageView" done=percentageDialBeforeMeasureUpload.done percent=percentageDialBeforeMeasureUpload.percent status=percentageDialBeforeMeasureUpload.status}}</td>
+              <td rowspan="3">{{view "MeasurePercentageView" done=percentageDialAfterMeasureUpload.done percent=percentageDialAfterMeasureUpload.percent status=percentageDialAfterMeasureUpload.status}}</td>
+            </tr>
+          <tbody>
+        </table>
+        <table class="table table-condensed table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Test Patient Name</th>
+              <th>Before Status</th>
+              <th>After Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each patientsWhoChanged}}
+              <tr>
+                {{#ifCond post_upload_status "==" "pass"}}
+                  <td> <i class="pass fa fa-fw fa-check"></i> <i class="fa fa-fw fa-user"> </i>
+                  <a class="patient-link" href="/#measures/{{../../../../hqmfSetId}}/patients/{{patientID}}/edit">{{name}}</a></td>
+                  <td class="fail">Failing</td>
+                  <td class="pass">Passing</td>
+                {{else}}
+                  <td> <i class="fail fa fa-fw fa-times"></i> <i class="fa fa-fw fa-user"> </i>
+                  <a class="patient-link" href="/#measures/{{../../../../hqmfSetId}}/patients/{{patientID}}/edit">{{name}}</a></td>
+                  <td class="pass">Passing</td>
+                  <td class="fail">Failing</td>
+                {{/ifCond}}
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </p>
+    {{/ifCond}}
+  {{/each}}
+{{/ifCond}}
