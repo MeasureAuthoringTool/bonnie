@@ -24,6 +24,46 @@ class PatientsController < ApplicationController
     render :json => MultiJson.encode(records.as_json(methods: [:cms_id, :user_email]))
   end
 
+   # get the change history of patients for a measure (by HQMF Set ID)
+  def history
+    # get all previous versions of this measure, ordering by version
+    # TODO add by_user(current_user) clause into query
+    @measure_patients = Record.where({:measure_ids.in => [ params[:id] ]}).order_by(updated_at: :desc)
+
+    results = []
+    @measure_patients.each_with_index do |patient,index|
+      results << {}
+      results[-1]['label'] = "#{patient.first} #{patient.last}"
+      results[-1]['times'] = []
+      # TODO LOOP for each version of the patient
+      change = {}
+      change['result'] = 'pass' # or 'fail'
+      change['updateTime'] = (patient.updated_at.tv_sec * 1000)
+      change['changed'] = 'TODO generate change description'
+      results[-1]['times'] << change
+      # end LOOP    
+    end
+   render :json => results
+  end
+  # wrap patientData in stratifications
+  # var patientData = [
+  #   {label: "Jack Sparrow", times: [{result:"pass", updateTime: 1451606400000}, 
+  #                               {result:"pass", updateTime: 1451952000000, changed: "Measure Updated"}, 
+  #                               {result:"fail", updateTime: 1452556800000, changed: "Encounter Added, Name Changed"}, 
+  #                               {result:"pass", updateTime: 1453075200000, changed: "Measure Updated"}
+  #                               ]},
+  #   {label: "Jack Skellington", times: [{result:"fail", updateTime: 1451692800000}, 
+  #                               {result:"fail", updateTime: 1451952000000, changed: "Measure Updated"},
+  #                               {result:"fail", updateTime: 1452384000000, changed: "Name Changed"}, 
+  #                               {result:"pass", updateTime: 1453075200000, changed: "Measure Updated"},
+  #                               {result:"pass", updateTime: 1453079200000, changed: "Medication Removed"}
+  #                               ]},
+  #   {label: "Jack Sprat", times: [{result:"pass", updateTime: 1451865600000}, 
+  #                               {result:"pass", updateTime: 1451952000000, changed: "Measure Updated"}, 
+  #                               {result:"pass", updateTime: 1453075200000, changed: "Measure Updated"}
+  #                               ]}
+  # ];
+
   def update
     patient = Record.by_user(current_user).find(params[:id]) # FIXME: will we have an ID attribute on server side?
     update_patient(patient)

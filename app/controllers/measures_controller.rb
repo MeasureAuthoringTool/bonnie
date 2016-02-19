@@ -15,6 +15,23 @@ class MeasuresController < ApplicationController
     end
   end
 
+  # get the change history for a measure (by HQMF Set ID)
+  def history
+    skippable_fields = [:map_fns, :record_ids, :measure_attributes]
+    # get all previous versions of this measure, ordering by version
+    # TODO add by_user(current_user) clause into query
+    # TODO order by update time, not HQMF version number
+    @measure_history = Measure.without(*skippable_fields).where({:hqmf_set_id => params[:id]}).order_by(hqmf_version_number: :desc)
+    results = []
+    @measure_history.each_with_index do |version,index|
+      results << {}
+      results[-1]['updateTime'] = (version.updated_at.tv_sec * 1000)
+      results[-1]['oldVersion'] = @measure_history[index+1].id.to_s if((index+1) < @measure_history.length)
+      results[-1]['newVersion'] = version.id.to_s
+    end
+   render :json => results
+  end
+
   def value_sets
     # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
     # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)

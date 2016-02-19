@@ -45,6 +45,8 @@ gem 'roo'
 
 gem 'oj' # Faster JSON
 
+gem 'mongoid-history'    # For adding versions
+
 group :test, :development, :ci do
   gem 'pry'
   gem 'jasmine'

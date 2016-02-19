@@ -10,6 +10,10 @@
       <li><i class='fa fa-fw fa-user' aria-hidden='true'></i> {{patientName}}</li>
     {{/if}}
 
+    {{#if testCaseHistoryView}}
+      <li><i class='fa fa-fw fa-history' aria-hidden='true'></i> Test Case History</li>
+    {{/if}}
+
     {{#if bankView}}
       <li><i class='fa fa-fw fa-group' aria-hidden='true'></i> Import patients from the patient bank</li>
     {{/if}}
