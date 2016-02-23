@@ -261,9 +261,9 @@ class ApiV1::MeasuresController < ApplicationController
   error :code => 400, :desc => "Client sent bad parameters. Response contains explanation."
   error :code => 404, :desc => "Measure with this HQMF Set ID does not exist."
   error :code => 500, :desc => "A server error occured."
-  param_group :measure
+  param_group :measure_upload
   def update
-    existing = Measure.by_user(current_user).where({:hqmf_set_id=> params[:id]})
+    existing = Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]})
     if existing.count == 0
       render json: {status: "error", messages: "No measure found for this HQMF Set ID."},
            status: :not_found
