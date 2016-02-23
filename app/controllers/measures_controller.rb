@@ -261,11 +261,16 @@ class MeasuresController < ApplicationController
     # If the ticket granting ticket doesn't exist (or has expired), get a new one
     if tgt.nil? || tgt.empty? || tgt[:expires] < Time.now
       # Retrieve a new ticket granting ticket
-      ticket = String.new(HealthDataStandards::Util::VSApi.get_tgt_using_credentials(
-        params[:vsac_username], 
-        params[:vsac_password], 
-        APP_CONFIG['nlm']['ticket_url']
-      ))
+      begin
+        ticket = String.new(HealthDataStandards::Util::VSApi.get_tgt_using_credentials(
+          params[:vsac_username], 
+          params[:vsac_password], 
+          APP_CONFIG['nlm']['ticket_url']
+        ))
+      rescue Exception
+        # Given username and password are invalid, ticket cannot be created
+        return nil
+      end
       # Create a new ticket granting ticket session variable that expires 
       # 7.5hrs from now
       if !ticket.nil? && !ticket.empty?
