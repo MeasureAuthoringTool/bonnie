@@ -1,4 +1,4 @@
-<h1>Account Information</h1>
+<h1>Change Account Information</h1>
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put, :name=>"register_form", class: "registration"}) do |f| %>
 
   <% if resource.errors.present? %>
@@ -18,23 +18,23 @@
       <div class="input-group input-group-lg required">
         <label for="user_first_name" class="sr-only">First Name (required) </label>
         <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.text_field :first_name, class: "form-control", placeholder: "first name*" %>
+        <%= f.text_field :first_name, class: "form-control", placeholder: "first name*", required: true, 'aria-required': true %>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-lg required">
         <label for="user_last_name" class="sr-only">Last Name (required) </label>
         <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.text_field :last_name, class: "form-control", placeholder: "last name*" %>
+        <%= f.text_field :last_name, class: "form-control", placeholder: "last name*", required: true, 'aria-required': true %>
       </div>
     </div>
   </div>
   <div class="form-group row">
     <div class="col-md-6">
-      <div class="input-group input-group-lg">
+      <div class="input-group input-group-lg required">
         <label for="user_email" class="sr-only">Email </label>
         <span class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.email_field :email, class: "form-control", placeholder: "email@example.com" %>
+        <%= f.email_field :email, class: "form-control", placeholder: "email@example.com*", required: true, 'aria-required': true %>
       </div>
     </div>
     <div class="col-md-6">
@@ -59,20 +59,21 @@
     </div>
   <% end %>
 
+<h1>Change Password</h1>
   <div class="form-group row">
     <div class="col-md-6">
-      <div class="input-group input-group-lg required">
+      <div class="input-group input-group-lg">
         <label for="user_password" class="sr-only">Password (required) </label>
         <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.password_field :password, class: "form-control", placeholder: "password*" %>
+        <%= f.password_field :password, class: "form-control", placeholder: "new password" %>
       </div>
       Must be at least 8 characters long and contain characters from at least two of: lowercase letters, uppercase letters, numbers, and special characters (leave blank if you don't want to change it).
     </div>
     <div class="col-md-6">
-      <div class="input-group input-group-lg required">
+      <div class="input-group input-group-lg">
         <label for="user_password_confirmation" class="sr-only">confirm password (required) </label>
         <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.password_field :password_confirmation, class: "form-control", placeholder: "confirm password*" %>
+        <%= f.password_field :password_confirmation, class: "form-control", placeholder: "confirm new password" %>
       </div>
     </div>
   </div>
@@ -82,7 +83,7 @@
       <div class="input-group input-group-lg required">
         <label for="user_current_password" class="sr-only">current password (required: </label>
         <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
-        <%= f.password_field :current_password, class: "form-control", placeholder: "current password*" %>
+        <%= f.password_field :current_password, class: "form-control", placeholder: "current password*", required: true, 'aria-required': true %>
       </div>
       Your current password is needed to confirm your changes.
     </div>
