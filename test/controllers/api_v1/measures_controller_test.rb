@@ -89,14 +89,16 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   end
 
   test "should return bad_request when measure_file not provided" do
-    post :create, {measure_type: 'eh', calculation_type: 'episode'}, "CONTENT_TYPE" => 'multipart/form-data'
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
+    post :create, {measure_type: 'eh', calculation_type: 'episode'}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "Missing parameter: measure_file" }
     assert_equal expected_response, JSON.parse(response.body)
   end
   
   test "should return bad_request when measure_file is not a file" do
-    post :create, {measure_file: 'not-a-file.gif', measure_type: 'eh', calculation_type: 'episode'}
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
+    post :create, {measure_file: 'not-a-file.gif', measure_type: 'eh', calculation_type: 'episode'}, {format: 'multipart/form-data'}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "Invalid parameter 'measure_file': Must be a valid MAT Export or HQMF File." }
     assert_equal expected_response, JSON.parse(response.body)
@@ -104,7 +106,8 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   
   test "should return bad_request when the measure zip is not a MAT Export" do
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','not_mat_export.zip'),'application/zip')
-    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}, {"Content-Type" => 'multipart/form-data'}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "Invalid parameter 'measure_file': Must be a valid MAT Export or HQMF File." }
     assert_equal expected_response, JSON.parse(response.body)
@@ -112,7 +115,8 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   
   test "should return bad_request when measure_file is not a .zip or .xml" do
     measure_file = fixture_file_upload(File.join('test','fixtures','draft_measures','CMS104v2.json'),'application/json')
-    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}, {"Content-Type" => 'multipart/form-data'}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "Invalid parameter 'measure_file': Must be a valid MAT Export or HQMF File." }
     assert_equal expected_response, JSON.parse(response.body)
@@ -120,7 +124,8 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   
   test "should return bad_request when measure_type is invalid" do
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
-    post :create, {measure_file: measure_file, measure_type: 'no', calculation_type: 'episode'}
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
+    post :create, {measure_file: measure_file, measure_type: 'no', calculation_type: 'episode'}, {"Content-Type" => 'multipart/form-data'}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "Invalid parameter 'measure_type': Must be one of: eh, ep." }
     assert_equal expected_response, JSON.parse(response.body)
@@ -128,7 +133,8 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   
   test "should return bad_request when calculation_type is invalid" do
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
-    post :create, {measure_file: measure_file, measure_type: 'ep', calculation_type: 'addition'}
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
+    post :create, {measure_file: measure_file, measure_type: 'ep', calculation_type: 'addition'}, {"Content-Type" => 'multipart/form-data'}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "Invalid parameter 'calculation_type': Must be one of: episode, patient." }
     assert_equal expected_response, JSON.parse(response.body)
@@ -136,6 +142,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   
   test "should return bad_request when calculation_type is not provided" do
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     post :create, {measure_file: measure_file, measure_type: 'ep'}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "Missing parameter: calculation_type" }
@@ -144,7 +151,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
 
   test "should create api_v1_measure initial" do
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
-
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :success
     expected_response = { "status" => "success", "url" => "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}
@@ -166,12 +173,14 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   
   test "should error on duplicate measure" do
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
-
+    
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :success
     expected_response = { "status" => "success", "url" => "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}
     assert_equal expected_response, JSON.parse(response.body)
     
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :conflict
     expected_response = { "status" => "error", "messages" => "A measure with this HQMF Set ID already exists.", "url" => "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}
@@ -180,6 +189,8 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   
   test "should return bad request on episode of care measurement with no specific occurrence" do
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','no_ipp_Artifacts.zip'),'application/zip')
+    
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "Episode of care calculation was specified. Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic." }
@@ -188,6 +199,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   
   test "should return bad request on episode of care measurement with episode_of_care out of bounds" do
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', episode_of_care: 7}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "The episode_of_care index is out of bounds of the set of specific occurrences found in the mesasure." }
@@ -196,6 +208,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   
   test "should choose default titles for populations" do
     measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_Artifacts.zip'),'application/zip')
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :ok
     expected_response = { "status" => "success", "url" => "/api_v1/measures/E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"}
@@ -212,6 +225,8 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   
   test "should use provided population titles for populations" do
     measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_Artifacts.zip'),'application/zip')
+    
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat']}
     assert_response :ok
     expected_response = { "status" => "success", "url" => "/api_v1/measures/E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"}
@@ -228,6 +243,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   
   test "should error on measure with missing value sets" do
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_no_vs.zip'),'application/zip')
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "The measure value sets could not be found. Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
@@ -237,6 +253,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   test "should create measure from hqmf xml with vsac creds" do
     VCR.use_cassette("mat_api_435Complex") do
       measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
       post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
       assert_response :ok
       expected_response = { "status" => "success", "url" => "/api_v1/measures/E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"}
@@ -255,6 +272,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   test "should error on create measure from hqmf xml with bad vsac creds" do
     VCR.use_cassette("bad_vsac_creds") do
       measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
       post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_username: "sketchyguy", vsac_password: "goodpassword"}
       assert_response :internal_server_error
       expected_response = { "status" => "error", "messages" => "Error Loading Value Sets from VSAC: Error Loading Value Sets from VSAC: 401 Unauthorized"}
@@ -264,6 +282,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   
   test "should error on create measure from hqmf xml without vsac creds" do
     measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat']}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "Missing parameter: vsac_username"}
@@ -272,7 +291,8 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   
   test "should error on create measure from hqmf xml with include_draft false and bad vsac_date" do
     measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
-    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_username: 'test', vsac_password: 'false', include_draft: false, vsac_date: 'notadate'}
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_username: 'test', vsac_password: 'badpass', include_draft: false, vsac_date: 'notadate'}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "Invalid parameter 'vsac_date': Must be a date in the form mm/dd/yyyy."}
     assert_equal expected_response, JSON.parse(response.body)
@@ -280,7 +300,8 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   
   test "should error on create measure from hqmf xml with include_draft false and no vsac_date" do
     measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
-    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_username: 'test', vsac_password: 'false', include_draft: false}
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_username: 'test', vsac_password: 'badpass', include_draft: false}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "Missing parameter: vsac_date"}
     assert_equal expected_response, JSON.parse(response.body)
@@ -289,6 +310,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   test "should update api_v1_measure" do
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
 
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :success
     expected_response = { "status" => "success", "url" => "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}
@@ -314,6 +336,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     
     measure_update_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_update.zip'),'application/zip')
 
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     put :update, {id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure_file: measure_update_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :success
     expected_response = { "status" => "success", "url" => "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}
@@ -344,6 +367,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   test "should return 404 on updating non existent measure" do
     measure_update_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_update.zip'),'application/zip')
 
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     put :update, {id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure_file: measure_update_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :not_found
     expected_response = { "status" => "error", "messages" => "No measure found for this HQMF Set ID."}
@@ -353,6 +377,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   test "should return error on updating measure with incorrect hqmf_set_id" do
     measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
 
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :success
     expected_response = { "status" => "success", "url" => "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}
@@ -361,6 +386,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     
     measure_update_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_Artifacts.zip'),'application/zip')
     
+    @request.env["CONTENT_TYPE"] = "multipart/form-data"
     put :update, {id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure_file: measure_update_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
