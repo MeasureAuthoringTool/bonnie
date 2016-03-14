@@ -23,6 +23,9 @@ class Thorax.Models.Measure extends Thorax.Model
       data_criteria.key = key
       # Apply value set display name if one exists for this criteria
       if !data_criteria.variable && bonnie.valueSetsByOid?[data_criteria.code_list_id]?.display_name?
+        # For communication criteria we want to include the direction, which is separated from the type with a colon
+        if data_criteria.type == 'communications'
+          data_criteria.description = data_criteria.description.replace('Communication:', 'Communication')
         data_criteria.description = "#{data_criteria.description.split(':')[0]}: #{bonnie.valueSetsByOid[data_criteria.code_list_id].display_name}"
       if data_criteria.field_values
         data_criteria.references = {}
@@ -37,6 +40,9 @@ class Thorax.Models.Measure extends Thorax.Model
     attrs.source_data_criteria.each (criteria) ->
       # Apply value set display name if one exists for this criteria
       if !criteria.get('variable') && bonnie.valueSetsByOid?[criteria.get('code_list_id')]?.display_name?
+        # For communication criteria we want to include the direction, which is separated from the type with a colon
+        if criteria.get('type') == 'communications'
+          criteria.set('description', criteria.get('description').replace('Communication:', 'Communication'))
         criteria.set('description', "#{criteria.get('description').split(':')[0]}: #{bonnie.valueSetsByOid[criteria.get('code_list_id')].display_name}")
 
     attrs
