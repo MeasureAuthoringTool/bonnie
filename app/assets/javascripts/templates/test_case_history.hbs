@@ -52,38 +52,14 @@
   }
 </style>
 
-<script type="text/javascript">
-  /* TODO: get real data instead of this fake data */
-  var patientData = [
-    {label: "Jack Sparrow", times: [{result:"pass", updateTime: 1451606400000}, 
-                                {result:"pass", updateTime: 1451952000000, changed: "Measure Updated"}, 
-                                {result:"fail", updateTime: 1452556800000, changed: "Encounter Added, Name Changed"}, 
-                                {result:"pass", updateTime: 1453075200000, changed: "Measure Updated"}
-                                ]},
-    {label: "Jack Skellington", times: [{result:"fail", updateTime: 1451692800000}, 
-                                {result:"fail", updateTime: 1451952000000, changed: "Measure Updated"},
-                                {result:"fail", updateTime: 1452384000000, changed: "Name Changed"}, 
-                                {result:"pass", updateTime: 1453075200000, changed: "Measure Updated"},
-                                {result:"pass", updateTime: 1453079200000, changed: "Medication Removed"}
-                                ]},
-    {label: "Jack Sprat", times: [{result:"pass", updateTime: 1451865600000}, 
-                                {result:"pass", updateTime: 1451952000000, changed: "Measure Updated"}, 
-                                {result:"pass", updateTime: 1453075200000, changed: "Measure Updated"}
-                                ]}
-  ];
-  
-  var measureData = [
-    {updateTime: 1451952000000, oldVersion: "40280581-50F8-D482-0151-91FEDE0601F9", newVersion: "40280381-3D61-56A7-013E-5CC8AA6D6290"},
-    {updateTime: 1453075200000, oldVersion: "40280381-3D61-56A7-013E-5CC8AA6D6290", newVersion: "40280381-75JH-JH9I-IJ8U-887JHUYHGD67"},
-  ];
-  
+<script type="text/javascript">  
   /* TODO: Move a bunch of this js to the view file? */
   function prettyDate(UnixDate) {
     d = new Date(UnixDate)
     return d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
   };
   
-  function patientHistory () {
+  function patientHistory (patientData,measureData) {
   // Get all the unique patient and measure dates to use for the ordinal xScale
     patientDates = [];
     $.each(patientData, function (index,value){
@@ -246,7 +222,7 @@
     });
   } // patientHistory
     
-  patientHistory();
+  // patientHistory();
 </script>
 <div class="row">
   <div class="main">
@@ -268,4 +244,28 @@
     <div id="patientHistory"></div>
     <div id="measureDiff"></div>
   </div>
+  <script>
+    console.log("GENERATE NEW MEASURE DATA - START");
+  
+    var patientData;
+    var measureData;
+
+    $.when(
+      // Get the measure data
+      $.get("/measures/history?id={{hqmf_set_id}}", function(data) {
+        measureData = data;
+        console.log("RETRIEVED MEASURE DATA - " + JSON.stringify(measureData));    
+      }),
+      // Get the patient data
+      $.get("/patients/history?id={{hqmf_set_id}}", function(data) {
+        patientData = data;
+        console.log("RETRIEVED TEMP DATA - " + JSON.stringify(patientData));    
+      })
+    ).then(function() {
+      patientHistory(patientData,measureData);
+    });
+
+    console.log("GENERATE NEW MEASURE DATA - STOP");
+    console.log("LOG MESSAGE: {{cms_id}}");
+  </script>
 </div>
