@@ -62,5 +62,8 @@ module Bonnie
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # This lets us define our own routes for error pages
+    config.exceptions_app = self.routes
   end
 end
