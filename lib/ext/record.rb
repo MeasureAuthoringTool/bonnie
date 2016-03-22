@@ -1,5 +1,8 @@
 # Extensions to the Record model in health-data-standards to add needed functionality for test patient generation
 class Record
+
+  include Mongoid::History::Trackable
+
   field :type, type: String
   field :measure_ids, type: Array
   field :source_data_criteria, type: Array
@@ -42,5 +45,17 @@ class Record
       self.insurance_providers.clear << insurance_provider
     end
   end
+
+  ##############################
+  #    History Tracking
+  ##############################
+  track_history :on => [:source_data_criteria],
+                :modifier_field => :modifier,
+                :version_field => :version,   # adds "field :version, :type => Integer" to track current version, default is :version
+                :track_create   =>  true,   # track document creation, default is true
+                :track_update   =>  true,   # track document updates, default is true
+                :track_destroy  =>  true    # track document destruction, default is true
+
+    #self.source_data_criteria
 
 end
