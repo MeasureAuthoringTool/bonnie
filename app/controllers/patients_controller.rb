@@ -45,6 +45,7 @@ class PatientsController < ApplicationController
     end
    render :json => results
   end
+  # wrap patientData in stratifications
   # var patientData = [
   #   {label: "Jack Sparrow", times: [{result:"pass", updateTime: 1451606400000}, 
   #                               {result:"pass", updateTime: 1451952000000, changed: "Measure Updated"}, 
