@@ -58,6 +58,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
 
   clearCachedVSACTicket: ->
     @$('#vsacSignIn').removeClass('hidden')
+    @$('#vsacSignInDraft').removeClass('hidden')
     @$('#vsacCachedMsg').addClass('hidden')
     @$('#loadButton').prop('disabled', true)
     $.post '/measures/vsac_auth_expire' 
@@ -68,6 +69,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       success: (data, textStatus, jqXHR) ->
         if data? && data.valid
           $('#vsacSignIn').addClass('hidden')
+          $('#vsacSignInDraft').removeClass('hidden')
           $('#vsacCachedMsg').removeClass('hidden')
           $('#loadButton').prop('disabled', false) 
           # If the measure import window is open long enough for the VSAC
@@ -78,6 +80,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
           , new Date(data.expires) - new Date()
         else
           $('#vsacSignIn').removeClass('hidden')
+          $('#vsacSignInDraft').removeClass('hidden')
           $('#vsacCachedMsg').addClass('hidden')   
 
   enableLoad: ->
@@ -85,6 +88,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       @toggleVSAC()
     else
       @$('#vsacSignIn').addClass('hidden')
+      @$('#vsacSignInDraft').addClass('hidden')
       @$('#loadButton').prop('disabled', !@$('input:file').val().length > 0)
 
   toggleDraft: ->
