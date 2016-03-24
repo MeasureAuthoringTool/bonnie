@@ -12,24 +12,27 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
       patientData = data
       # console.log 'RETRIEVED TEMP DATA - ' + JSON.stringify(patientData)
       return
-    )).then ->
-      patientHistory patientData, measureData
+    )).then =>
+      @patientHistory patientData, measureData
       return
+    @measureDiffView = new Thorax.Views.TestCaseHistoryDiffView()
 
-  prettyDate = (UnixDate) ->
+  prettyDate: (UnixDate) =>
     d = new Date(UnixDate)
     d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear()
 
-  patientHistory = (patientData, measureData) ->
+  patientHistory: (patientData, measureData) ->
+    thatHistoryView = @
+    
     # Get all the unique patient and measure dates to use for the ordinal xScale
     patientDates = []
-    $.each patientData, (index, value) ->
-      $.each value.times, (index, value) ->
+    $.each patientData, (index, value) =>
+      $.each value.times, (index, value) =>
         patientDates.push value.updateTime
         return
       return
     measureDates = []
-    $.each measureData, (index, value) ->
+    $.each measureData, (index, value) =>
       measureDates.push value.updateTime
       return
     uniqueDates = jQuery.unique(patientDates.concat(measureDates)).sort()
@@ -73,15 +76,16 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
     # Draw the measure update labels
     chart.selectAll('text').data(measureData).enter().append('text').attr('x', (d) ->
       x(d.updateTime) + margin.left
-    ).attr('y', height + 11).attr('text-anchor', 'middle').attr('fill', 'blue').text('MEASURE').attr('class', 'measureUpdateLabel').on('click', (d) ->
-      alert 'Set up diff between ' + d.oldVersion + ' and ' + d.newVersion
+    ).attr('y', height + 11).attr('text-anchor', 'middle').attr('fill', 'blue').text('MEASURE').attr('class', 'measureUpdateLabel').on('click', (d) =>
+      #alert 'Set up diff between ' + d.oldVersion + ' and ' + d.newVersion
+      @measureDiffView.loadDiff d.oldVersion, d.newVersion
       return
     ).append('svg:tspan').attr('x', (d) ->
       x(d.updateTime) + margin.left
     ).attr('dy', 13).text('UPDATED').append('svg:tspan').attr('x', (d) ->
       x(d.updateTime) + margin.left
-    ).attr('dy', 13).text (d) ->
-      prettyDate d.updateTime
+    ).attr('dy', 13).text (d) =>
+      @prettyDate d.updateTime
     # Draw the patient update bubbles
     patientData.forEach (datum, index) ->
       data = datum.times
