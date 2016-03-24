@@ -26,6 +26,7 @@ Bonnie::Application.routes.draw do
       get 'vsac_auth_valid'
       post 'vsac_auth_expire'
       get 'history'
+      get 'historic_diff'
     end
     member do
       get 'debug', defaults: { format: :html }
