@@ -28,22 +28,61 @@ class PatientsController < ApplicationController
   def history
     # get all previous versions of this measure, ordering by version
     # TODO add by_user(current_user) clause into query
-    @measure_patients = Record.where({:measure_ids.in => [ params[:id] ]}).order_by(updated_at: :desc)
-
+    @measure_patients = Record.by_user(current_user).where({:measure_ids.in => [ params[:id] ]}).order_by(updated_at: :desc)
     results = []
     @measure_patients.each_with_index do |patient,index|
       results << {}
       results[-1]['label'] = "#{patient.first} #{patient.last}"
       results[-1]['times'] = []
-      # TODO LOOP for each version of the patient
       change = {}
       change['result'] = 'pass' # or 'fail'
-      change['updateTime'] = (patient.updated_at.tv_sec * 1000)
-      change['changed'] = 'TODO generate change description'
+      # for updateTime, we use the ObjectId generation time (because created_at is nil)
+      change['updateTime'] = (patient._id.generation_time.tv_sec * 1000)
+      change['changed'] = 'Initial Patient Creation'
       results[-1]['times'] << change
+      # LOOP for each version of the patient
+      patient.history_tracks.each do |track|
+        change = {}
+        change['result'] = 'pass' # or 'fail'
+        change['updateTime'] = (track.updated_at.tv_sec * 1000)
+        description = ''
+        track.tracked_changes.each do |key,value|
+          description += "Changes in #{key.gsub('_',' ')}: "
+          description += history_changes(value['from'],value['to'])
+          description += "<br/>"
+        end
+        change['changed'] = description
+        results[-1]['times'] << change
+      end
       # end LOOP    
     end
    render :json => results
+  end
+
+  def history_changes(from,to)
+    changes = {}
+
+    removed = from.map{|x|x['id']} - to.map{|x|x['id']}
+    changes['Removed'] = removed.join(', ') if !removed.empty?
+
+    added = to.map{|x|x['id']} - from.map{|x|x['id']}
+    changes['Added'] = added.join(', ') if !added.empty?
+
+    changes['Changed'] = ''
+    change_keys = to.map{|x|x['id']} - (added + removed)
+    change_keys.each do |key|
+      original = from.select{|x|x['id']==key}.first
+      updated = to.select{|x|x['id']==key}.first
+      diffs = updated.easy_diff(original)
+      description = diffs.map{|x|x.keys}.flatten.uniq.join(', ')
+      changes['Changed'] += "<br/>\n&nbsp;&nbsp;- #{key} #{description}"
+    end
+
+    narrative = ''
+    changes.each do |key,value|
+      narrative += "#{key} #{value}<br/>\n"
+    end
+    narrative
   end
   # wrap patientData in stratifications
   # var patientData = [
