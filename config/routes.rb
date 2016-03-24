@@ -29,6 +29,7 @@ Bonnie::Application.routes.draw do
       post 'vsac_auth_expire'
       post 'cql_to_elm'
       get 'history'
+      get 'historic_diff'
     end
     member do
       get 'debug', defaults: { format: :html }

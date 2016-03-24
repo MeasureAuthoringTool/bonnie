@@ -31,6 +31,46 @@ class MeasuresController < ApplicationController
     end
    render :json => results
   end
+  
+  def historic_diff
+    # get the two versions to diff
+    # TODO add by_user(current_user) clause into query
+    @new_measure = Measure.where({:_id => params[:new_id]}).first
+    @old_measure = Measure.where({:_id => params[:old_id]}).first
+    results = [];
+    
+    measure_logic_names = HQMF::Measure::LogicExtractor::POPULATION_MAP.clone
+    measure_logic_names['VARIABLES'] = 'Variables'
+    
+    
+    @new_measure.populations.each_with_index do |new_population, pop_index|
+      old_population = @old_measure.populations[pop_index]
+      population_diff = []
+      
+      measure_logic_names.each_pair do |logic_code, logic_title|
+        new_logic = @new_measure.measure_logic.select { |logic| logic['code'] == logic_code }.first
+        old_logic = @old_measure.measure_logic.select { |logic| logic['code'] == logic_code }.first
+        
+        # skip if both are non existent
+        next if !new_logic && !old_logic
+        old_logic_text = old_logic ? old_logic['lines'].slice(1, old_logic['lines'].length-1).join() : ""
+        new_logic_text = new_logic ? new_logic['lines'].slice(1, new_logic['lines'].length-1).join() : ""
+        
+        logic_diff = Diffy::SplitDiff.new(old_logic_text, new_logic_text,
+          format: :html, include_plus_and_minus_in_html: true, allow_empty_diff: false)
+        
+        population_diff << {}
+        population_diff[-1]['code'] = logic_code
+        population_diff[-1]['title'] = logic_title
+        population_diff[-1]['left'] = logic_diff.left
+        population_diff[-1]['right'] = logic_diff.right
+      end
+      
+      results << population_diff
+    end
+    
+    render :json => results
+  end
 
   def value_sets
     # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
