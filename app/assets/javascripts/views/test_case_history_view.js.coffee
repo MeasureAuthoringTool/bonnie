@@ -22,8 +22,11 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
     d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear()
 
   patientHistory: (patientData, measureData) ->
-    thatHistoryView = @
-    
+    console.log '-------------------------------'
+    console.log patientData
+    console.log measureData
+    console.log '-------------------------------'    
+
     # Get all the unique patient and measure dates to use for the ordinal xScale
     patientDates = []
     $.each patientData, (index, value) =>
@@ -58,10 +61,7 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
       -10
       0
     ]).html((d) ->
-      if d.changed
-        '<span>' + d.changed + '</span>'
-      else
-        'Patient Created'
+      "<span>" + d.changed.replace(/\n/g,'<br/>') + "</span>"
     )
     # Draw the chart
     chart = d3.select('#patientHistory').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + gutter)
