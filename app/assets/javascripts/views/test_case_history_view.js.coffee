@@ -34,11 +34,15 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
     d = new Date(UnixDate)
     d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear()
 
+  prettyDateTime: (UnixDate) =>
+    d = new Date(UnixDate)
+    d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds()
+
   patientHistory: (patientData, measureData) ->
     console.log '-------------------------------'
     console.log patientData
     console.log measureData
-    console.log '-------------------------------'    
+    console.log '-------------------------------'
 
     # Get all the unique patient and measure dates to use for the ordinal xScale
     patientDates = []
@@ -60,7 +64,7 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
     width = uniqueDates.length * 50
     # 50px per event
     height = patientData.length * (bubbleRadius + bubbleMargin) * 2
-    margin = 
+    margin =
       top: 10
       right: 30
       bottom: 10
@@ -112,7 +116,7 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
         return
       # Background for each patient
       chart.append('line').attr('x1', x(minTime) + margin.left).attr('y1', (index + 1) * (bubbleRadius + bubbleMargin) * 2 - (bubbleRadius * 2 + bubbleMargin) + bubbleRadius).attr('x2', x(maxTime) + margin.left).attr('y2', (index + 1) * (bubbleRadius + bubbleMargin) * 2 - (bubbleRadius * 2 + bubbleMargin) + bubbleRadius).attr('stroke-width', 2).attr 'stroke', 'gray'
-      # Patient labels              
+      # Patient labels
       chart.append('text').attr('x', x(minTime)).attr('y', (index + 1) * (bubbleRadius + bubbleMargin) * 2 - (bubbleRadius * 2 + bubbleMargin) - (bubbleMargin / 4)).text(datum.label).attr 'class', 'timeline-label'
       # Create a group for the bubble and icon
       bubbles = chart.append('g').selectAll('circle').data(data).enter().append('g')
@@ -122,7 +126,7 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
         return
       ).attr 'id', (d, i) ->
         if d.id then d.id else 'timelineItem_' + index + '_' + i
-      # Add a backing to the bubbles so none of the background shows through   
+      # Add a backing to the bubbles so none of the background shows through
       bubbles.append('circle').attr('cx', (d) ->
         x(d.updateTime) + margin.left
       ).attr('cy', (index + 1) * (bubbleRadius + bubbleMargin) * 2 - (bubbleRadius + bubbleMargin)).attr('r', bubbleRadius).style('fill', 'white').style('stroke', 'white').style 'stroke-width', 2
@@ -140,7 +144,7 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
         else
           '#730800'
       ).style('font-family', 'FontAwesome').attr('text-anchor', 'middle').attr('dominant-baseline', 'central').attr 'font-size', bubbleRadius * 1.5 + 'px'
-      # Add the bubbles in the correct place with fill and stroke    
+      # Add the bubbles in the correct place with fill and stroke
       bubbles.append('circle').attr('cx', (d) ->
         x(d.updateTime) + margin.left
       ).attr('cy', (index + 1) * (bubbleRadius + bubbleMargin) * 2 - (bubbleRadius + bubbleMargin)).attr('r', bubbleRadius).style('fill', (d) ->
@@ -155,4 +159,42 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
           '#730800'
       ).style 'stroke-width', 2
       return
+    # Set up the 508-compliant version of the timeline table
+    header = '<thead><tr><th>Patient</th>'
+    body = '<tbody>'
+    footer = '<tfoot><tr><th>Measure Updates</th>'
+    # Print out the header with all the dates involved in patient/measure history
+    $.each uniqueDates, (index, value) =>
+      header += '<th>' + (@prettyDateTime value) + '</th>'
+      return
+    # For each patinet, if an event occurred, populate the table cell
+    # TODO: link to the specific version of the patient after the change was made
+    $.each patientData, (index, patient) =>
+      rowData = '<th>' + patient['label'] + '</th>'
+      i = 0
+      $.each uniqueDates, (index, dateValue) =>
+        rowData += '<td>'
+        $.each patient['times'], (index, patientTime) =>
+          if dateValue == patientTime['updateTime']
+            if patientTime['changed']
+              rowData += '<strong>Updates:</strong> ' + patientTime['changed']
+            else
+              rowData += 'Patient Created'
+            rowData += '<br><strong>Result:</strong> ' + patientTime['result']
+          return
+        i++
+        return
+      body += '<tr>' + rowData
+      return
+    # For each measure update, add a row with diff links
+    $.each uniqueDates, (index, dateValue) =>
+      footer += '<td>'
+      i = 0
+      $.each measureData, (index, updateDate) =>
+        if dateValue == updateDate['updateTime']
+          footer += '<a href="/measures/historic_diff?new_id=' + updateDate['newVersion'] + '&old_id=' + updateDate['oldVersion'] + '">Show updates to this measure made on '+(@prettyDateTime updateDate['updateTime'])+'</a>'
+        i++
+        return
+      return
+    $('#508timeline').html '<table class="sr-only">' + header + body + footer + '</table>'
     return
