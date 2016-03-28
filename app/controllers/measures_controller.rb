@@ -37,7 +37,10 @@ class MeasuresController < ApplicationController
     # TODO add by_user(current_user) clause into query
     @new_measure = Measure.where({:_id => params[:new_id]}).first
     @old_measure = Measure.where({:_id => params[:old_id]}).first
-    results = [];
+    results = {}
+    results['diff'] = []
+    results['left'] = { 'title' => "#{@old_measure.cms_id} @ #{@old_measure.updated_at}", 'hqmf_id' => @old_measure.hqmf_id }
+    results['right'] = { 'title' => "#{@new_measure.cms_id} @ #{@new_measure.updated_at}", 'hqmf_id' => @new_measure.hqmf_id }
     
     measure_logic_names = HQMF::Measure::LogicExtractor::POPULATION_MAP.clone
     measure_logic_names['VARIABLES'] = 'Variables'
@@ -48,8 +51,8 @@ class MeasuresController < ApplicationController
       population_diff = []
       
       measure_logic_names.each_pair do |logic_code, logic_title|
-        new_logic = @new_measure.measure_logic.select { |logic| logic['code'] == logic_code }.first
-        old_logic = @old_measure.measure_logic.select { |logic| logic['code'] == logic_code }.first
+        new_logic = @new_measure.measure_logic.select { |logic| logic['code'] == ((logic_code == 'VARIABLES') ? 'VARIABLES' : new_population[logic_code]) }.first
+        old_logic = @old_measure.measure_logic.select { |logic| logic['code'] == ((logic_code == 'VARIABLES') ? 'VARIABLES' : old_population[logic_code]) }.first
         
         # skip if both are non existent
         next if !new_logic && !old_logic
@@ -66,7 +69,7 @@ class MeasuresController < ApplicationController
         population_diff[-1]['right'] = logic_diff.right
       end
       
-      results << population_diff
+      results['diff'] << population_diff
     end
     
     render :json => results

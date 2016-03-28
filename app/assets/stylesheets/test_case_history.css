@@ -13,6 +13,11 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+.measureCreatedLabel {
+  font-size: 12px;
+}
+
 #patientHistory {
   overflow-x:scroll;
   margin: 25px 0 10px 10px;
