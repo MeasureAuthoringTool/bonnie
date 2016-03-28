@@ -10,13 +10,14 @@
     </div>
     <!-- TODO: Ensure that the stratification tabs toggle a render for the data -->
     {{#ifCond populations.length ">" 1}}
-      {{#collection populations tag='ul' class='nav nav-tabs'}}
-        <li{{#ifCond sub_id "==" 'a'}} class="active"{{/ifCond}}>
-          <a href data-toggle="tab">{{#if title}}{{title}}{{else}}{{sub_id}}{{/if}}</a>
+      {{#collection populations tag='ul' class='nav nav-tabs' item-context=populationContext}}
+        <li{{#if isActive}} class="active"{{/if}}>
+        {{#button "switchPopulation" href="" tag="a" data-toggle="tab"}}{{populationTitle}}{{/button}}
         </li>
       {{/collection}}
     {{/ifCond}}
     <div id="patientHistory"></div>
+    <div id="508timeline"></div>
     {{view measureDiffView}}
   </div>
 </div>

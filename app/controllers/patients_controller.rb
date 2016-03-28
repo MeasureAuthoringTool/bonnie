@@ -40,8 +40,11 @@ class PatientsController < ApplicationController
       change['updateTime'] = (patient._id.generation_time.tv_sec * 1000)
       change['changed'] = 'Initial Patient Creation'
       results[-1]['times'] << change
+      
       # LOOP for each version of the patient
       patient.history_tracks.each do |track|
+        next if track.original.empty? #skip if this is the creation one
+        
         change = {}
         change['result'] = 'pass' # or 'fail'
         change['updateTime'] = (track.updated_at.tv_sec * 1000)
@@ -61,7 +64,8 @@ class PatientsController < ApplicationController
 
   def history_changes(from,to)
     changes = {}
-
+    return '' unless from
+    
     removed = from.map{|x|x['id']} - to.map{|x|x['id']}
     changes['Removed'] = removed.join(', ') if !removed.empty?
 

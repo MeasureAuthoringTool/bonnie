@@ -2,30 +2,49 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
   template: JST['test_case_history']
 
   initialize: ->
-    patientData = undefined
-    measureData = undefined
-    $.when($.get('/measures/history?id='+@model.attributes['hqmf_set_id'], (data) ->
-      measureData = data
+    @patientData = undefined
+    @measureData = undefined
+    $.when($.get('/measures/history?id='+@model.attributes['hqmf_set_id'], (data) =>
+      @measureData = data
       # console.log 'RETRIEVED MEASURE DATA - ' + JSON.stringify(measureData)
       return
-    ), $.get('/patients/history?id='+@model.attributes['hqmf_set_id'], (data) ->
-      patientData = data
+    ), $.get('/patients/history?id='+@model.attributes['hqmf_set_id'], (data) =>
+      @patientData = data
       # console.log 'RETRIEVED TEMP DATA - ' + JSON.stringify(patientData)
       return
     )).then =>
-      @patientHistory patientData, measureData
+      @patientHistory @patientData, @measureData
       return
-    @measureDiffView = new Thorax.Views.TestCaseHistoryDiffView()
+    @measureDiffView = new Thorax.Views.TestCaseHistoryDiffView(model: @model)
+    
+  switchPopulation: (e) ->
+    population = $(e.target).model()
+    console.log(population)
+    population.measure().set('displayedPopulation', population)
+    @trigger 'population:update', population
+    @measureDiffView.updatePopulation(population)
+    @patientHistory @patientData, @measureData
+  
+  populationContext: (population) ->
+    _(population.toJSON()).extend
+      isActive:  population is population.measure().get('displayedPopulation')
+      populationTitle: population.get('title') || population.get('sub_id')
 
   prettyDate: (UnixDate) =>
     d = new Date(UnixDate)
     d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear()
 
-  patientHistory = (patientData, measureData) ->
+  prettyDateTime: (UnixDate) =>
+    d = new Date(UnixDate)
+    d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds()
+
+  patientHistory: (patientData, measureData) ->
     console.log '-------------------------------'
     console.log patientData
     console.log measureData
-    console.log '-------------------------------'    
+    console.log '-------------------------------'
+
+    @$('#patientHistory').empty();
     # Get all the unique patient and measure dates to use for the ordinal xScale
     patientDates = []
     $.each patientData, (index, value) =>
@@ -46,7 +65,7 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
     width = uniqueDates.length * 50
     # 50px per event
     height = patientData.length * (bubbleRadius + bubbleMargin) * 2
-    margin = 
+    margin =
       top: 10
       right: 30
       bottom: 10
@@ -75,13 +94,19 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
     # Draw the measure update labels
     chart.selectAll('text').data(measureData).enter().append('text').attr('x', (d) ->
       x(d.updateTime) + margin.left
-    ).attr('y', height + 11).attr('text-anchor', 'middle').attr('fill', 'blue').text('MEASURE').attr('class', 'measureUpdateLabel').on('click', (d) =>
+    ).attr('y', height + 11).attr('text-anchor', 'middle').attr('fill', (d) ->
+      return if d.oldVersion then 'blue' else 'black'
+    ).text('MEASURE').attr('class', (d) ->
+      return if d.oldVersion then 'measureUpdateLabel' else 'measureCreatedLabel'
+    ).on('click', (d) =>
       #alert 'Set up diff between ' + d.oldVersion + ' and ' + d.newVersion
       @measureDiffView.loadDiff d.oldVersion, d.newVersion
       return
     ).append('svg:tspan').attr('x', (d) ->
       x(d.updateTime) + margin.left
-    ).attr('dy', 13).text('UPDATED').append('svg:tspan').attr('x', (d) ->
+    ).attr('dy', 13).text((d) -> 
+      return if d.oldVersion then "UPDATED" else "CREATED"
+    ).append('svg:tspan').attr('x', (d) ->
       x(d.updateTime) + margin.left
     ).attr('dy', 13).text (d) =>
       @prettyDate d.updateTime
@@ -98,7 +123,7 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
         return
       # Background for each patient
       chart.append('line').attr('x1', x(minTime) + margin.left).attr('y1', (index + 1) * (bubbleRadius + bubbleMargin) * 2 - (bubbleRadius * 2 + bubbleMargin) + bubbleRadius).attr('x2', x(maxTime) + margin.left).attr('y2', (index + 1) * (bubbleRadius + bubbleMargin) * 2 - (bubbleRadius * 2 + bubbleMargin) + bubbleRadius).attr('stroke-width', 2).attr 'stroke', 'gray'
-      # Patient labels              
+      # Patient labels
       chart.append('text').attr('x', x(minTime)).attr('y', (index + 1) * (bubbleRadius + bubbleMargin) * 2 - (bubbleRadius * 2 + bubbleMargin) - (bubbleMargin / 4)).text(datum.label).attr 'class', 'timeline-label'
       # Create a group for the bubble and icon
       bubbles = chart.append('g').selectAll('circle').data(data).enter().append('g')
@@ -108,7 +133,7 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
         return
       ).attr 'id', (d, i) ->
         if d.id then d.id else 'timelineItem_' + index + '_' + i
-      # Add a backing to the bubbles so none of the background shows through   
+      # Add a backing to the bubbles so none of the background shows through
       bubbles.append('circle').attr('cx', (d) ->
         x(d.updateTime) + margin.left
       ).attr('cy', (index + 1) * (bubbleRadius + bubbleMargin) * 2 - (bubbleRadius + bubbleMargin)).attr('r', bubbleRadius).style('fill', 'white').style('stroke', 'white').style 'stroke-width', 2
@@ -126,7 +151,7 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
         else
           '#730800'
       ).style('font-family', 'FontAwesome').attr('text-anchor', 'middle').attr('dominant-baseline', 'central').attr 'font-size', bubbleRadius * 1.5 + 'px'
-      # Add the bubbles in the correct place with fill and stroke    
+      # Add the bubbles in the correct place with fill and stroke
       bubbles.append('circle').attr('cx', (d) ->
         x(d.updateTime) + margin.left
       ).attr('cy', (index + 1) * (bubbleRadius + bubbleMargin) * 2 - (bubbleRadius + bubbleMargin)).attr('r', bubbleRadius).style('fill', (d) ->
@@ -141,4 +166,42 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
           '#730800'
       ).style 'stroke-width', 2
       return
+    # Set up the 508-compliant version of the timeline table
+    header = '<thead><tr><th>Patient</th>'
+    body = '<tbody>'
+    footer = '<tfoot><tr><th>Measure Updates</th>'
+    # Print out the header with all the dates involved in patient/measure history
+    $.each uniqueDates, (index, value) =>
+      header += '<th>' + (@prettyDateTime value) + '</th>'
+      return
+    # For each patinet, if an event occurred, populate the table cell
+    # TODO: link to the specific version of the patient after the change was made
+    $.each patientData, (index, patient) =>
+      rowData = '<th>' + patient['label'] + '</th>'
+      i = 0
+      $.each uniqueDates, (index, dateValue) =>
+        rowData += '<td>'
+        $.each patient['times'], (index, patientTime) =>
+          if dateValue == patientTime['updateTime']
+            if patientTime['changed']
+              rowData += '<strong>Updates:</strong> ' + patientTime['changed']
+            else
+              rowData += 'Patient Created'
+            rowData += '<br><strong>Result:</strong> ' + patientTime['result']
+          return
+        i++
+        return
+      body += '<tr>' + rowData
+      return
+    # For each measure update, add a row with diff links
+    $.each uniqueDates, (index, dateValue) =>
+      footer += '<td>'
+      i = 0
+      $.each measureData, (index, updateDate) =>
+        if dateValue == updateDate['updateTime']
+          footer += '<a href="/measures/historic_diff?new_id=' + updateDate['newVersion'] + '&old_id=' + updateDate['oldVersion'] + '">Show updates to this measure made on '+(@prettyDateTime updateDate['updateTime'])+'</a>'
+        i++
+        return
+      return
+    $('#508timeline').html '<table class="sr-only">' + header + body + footer + '</table>'
     return
