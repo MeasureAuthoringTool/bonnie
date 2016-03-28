@@ -39,19 +39,26 @@ class MeasuresController < ApplicationController
     @old_measure = Measure.where({:_id => params[:old_id]}).first
     results = [];
     
+    measure_logic_names = HQMF::Measure::LogicExtractor::POPULATION_MAP.clone
+    measure_logic_names['VARIABLES'] = 'Variables'
+    
     
     @new_measure.populations.each_with_index do |new_population, pop_index|
       old_population = @old_measure.populations[pop_index]
       population_diff = []
       
-      HQMF::Measure::LogicExtractor::POPULATION_MAP.each_pair do |logic_code, logic_title|
+      measure_logic_names.each_pair do |logic_code, logic_title|
         new_logic = @new_measure.measure_logic.select { |logic| logic['code'] == logic_code }.first
         old_logic = @old_measure.measure_logic.select { |logic| logic['code'] == logic_code }.first
-        next if !new_logic
         
-        logic_diff = Diffy::SplitDiff.new(
-          old_logic['lines'].slice(1, old_logic['lines'].length-1).join(),
-          new_logic['lines'].slice(1, new_logic['lines'].length-1).join(), format: :html, include_plus_and_minus_in_html: true, allow_empty_diff: false)
+        # skip if both are non existent
+        next if !new_logic && !old_logic
+        old_logic_text = old_logic ? old_logic['lines'].slice(1, old_logic['lines'].length-1).join() : ""
+        new_logic_text = new_logic ? new_logic['lines'].slice(1, new_logic['lines'].length-1).join() : ""
+        
+        logic_diff = Diffy::SplitDiff.new(old_logic_text, new_logic_text,
+          format: :html, include_plus_and_minus_in_html: true, allow_empty_diff: false)
+        
         population_diff << {}
         population_diff[-1]['code'] = logic_code
         population_diff[-1]['title'] = logic_title
