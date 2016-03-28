@@ -2,20 +2,33 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
   template: JST['test_case_history']
 
   initialize: ->
-    patientData = undefined
-    measureData = undefined
-    $.when($.get('/measures/history?id='+@model.attributes['hqmf_set_id'], (data) ->
-      measureData = data
+    @patientData = undefined
+    @measureData = undefined
+    $.when($.get('/measures/history?id='+@model.attributes['hqmf_set_id'], (data) =>
+      @measureData = data
       # console.log 'RETRIEVED MEASURE DATA - ' + JSON.stringify(measureData)
       return
-    ), $.get('/patients/history?id='+@model.attributes['hqmf_set_id'], (data) ->
-      patientData = data
+    ), $.get('/patients/history?id='+@model.attributes['hqmf_set_id'], (data) =>
+      @patientData = data
       # console.log 'RETRIEVED TEMP DATA - ' + JSON.stringify(patientData)
       return
     )).then =>
-      @patientHistory patientData, measureData
+      @patientHistory @patientData, @measureData
       return
-    @measureDiffView = new Thorax.Views.TestCaseHistoryDiffView()
+    @measureDiffView = new Thorax.Views.TestCaseHistoryDiffView(model: @model)
+    
+  switchPopulation: (e) ->
+    population = $(e.target).model()
+    console.log(population)
+    population.measure().set('displayedPopulation', population)
+    @trigger 'population:update', population
+    @measureDiffView.updatePopulation(population)
+    @patientHistory @patientData, @measureData
+  
+  populationContext: (population) ->
+    _(population.toJSON()).extend
+      isActive:  population is population.measure().get('displayedPopulation')
+      populationTitle: population.get('title') || population.get('sub_id')
 
   prettyDate: (UnixDate) =>
     d = new Date(UnixDate)

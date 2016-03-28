@@ -48,8 +48,8 @@ class MeasuresController < ApplicationController
       population_diff = []
       
       measure_logic_names.each_pair do |logic_code, logic_title|
-        new_logic = @new_measure.measure_logic.select { |logic| logic['code'] == logic_code }.first
-        old_logic = @old_measure.measure_logic.select { |logic| logic['code'] == logic_code }.first
+        new_logic = @new_measure.measure_logic.select { |logic| logic['code'] == ((logic_code == 'VARIABLES') ? 'VARIABLES' : new_population[logic_code]) }.first
+        old_logic = @old_measure.measure_logic.select { |logic| logic['code'] == ((logic_code == 'VARIABLES') ? 'VARIABLES' : old_population[logic_code]) }.first
         
         # skip if both are non existent
         next if !new_logic && !old_logic
