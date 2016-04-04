@@ -44,6 +44,7 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
     console.log measureData
     console.log '-------------------------------'
 
+    @$('#patientHistory').empty();
     # Get all the unique patient and measure dates to use for the ordinal xScale
     patientDates = []
     $.each patientData, (index, value) =>
