@@ -52,6 +52,7 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
       @showRationaleForPopulation('variables', rationale, updatedRationale)
 
   showRationaleForPopulation: (code, rationale, updatedRationale) ->
+    #This is the logic that does the highlighting for the text on the right
     for key, value of rationale
       target = @$(".#{code}_children .#{key}")
       targettext = @$(".#{code}_children .#{key}") #text version of logic
@@ -66,7 +67,7 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
 
         targetrect.attr "class", (index, classNames) -> "#{classNames} #{targetClass}" #add styling to svg without removing all the other classes
 
-        targettext.addClass(targetClass)
+        targettext.addClass(targetClass)  #<<-- When this is executed the coloring is applied to the right on the right
         targettext.closest('.panel-heading').addClass(targetPanelClass)
         targettext.children('.sr-highlight-status').html(srTitle)
         # this second line is there to fix an issue with sr-only in Chrome making text in inline elements not display
@@ -74,7 +75,9 @@ class Thorax.Views.PopulationLogic extends Thorax.Views.BonnieView
         targettext.children('.criteria-title').children('.sr-highlight-status').html(srTitle)
 
   highlightPatientData: (dataCriteriaKey, populationCriteriaKey) ->
-    if @latestResult?.get('finalSpecifics')?[populationCriteriaKey]
+    isVariablePopulation = populationCriteriaKey == 'VAR'
+    # VARiables don't have a specific occurrence so we are letting it through; i.e. we aren't going to look for an entry in finalSpecifics
+    if @latestResult?.get('finalSpecifics')?[populationCriteriaKey] || isVariablePopulation
       matchingCodedEntries = @latestResult.codedEntriesForDataCriteria(dataCriteriaKey)
       if matchingCodedEntries
         goodElements = @latestResult.codedEntriesPassingSpecifics(dataCriteriaKey, populationCriteriaKey)
