@@ -8,6 +8,12 @@ class Thorax.Views.TestCaseHistoryDiffView extends Thorax.Views.BonnieView
     console.log("current pop index is: " + @populationIndex)
     
   loadDiff: (oldVersion, newVersion) ->
+    if !oldVersion
+      @diff = undefined
+      @diffView = undefined
+      @render()
+      return
+    
     $.get('/measures/historic_diff?new_id='+newVersion+'&old_id='+oldVersion, (data) =>
       console.log data
       # console.log 'RETRIEVED MEASURE DATA - ' + JSON.stringify(measureData)
