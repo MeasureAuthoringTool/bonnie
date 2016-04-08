@@ -5,7 +5,6 @@ class Thorax.Views.TestCaseHistoryDiffView extends Thorax.Views.BonnieView
     @diff = undefined
     @diffView = undefined
     @populationIndex = @model.get('displayedPopulation').index()
-    console.log("current pop index is: " + @populationIndex)
     
   loadDiff: (oldVersion, newVersion) ->
     if !oldVersion
@@ -18,6 +17,8 @@ class Thorax.Views.TestCaseHistoryDiffView extends Thorax.Views.BonnieView
       console.log data
       # console.log 'RETRIEVED MEASURE DATA - ' + JSON.stringify(measureData)
       @diff = data
+      @diff.left.updateTime = moment(@diff.left.updateTime).format('M/D/YYYY h:mm a')
+      @diff.right.updateTime = moment(@diff.right.updateTime).format('M/D/YYYY h:mm a')
       @diffView = @diff.diff[@populationIndex]
       @render()
       return
