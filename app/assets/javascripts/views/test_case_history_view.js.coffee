@@ -94,13 +94,19 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
     # Draw the measure update labels
     chart.selectAll('text').data(measureData).enter().append('text').attr('x', (d) ->
       x(d.updateTime) + margin.left
-    ).attr('y', height + 11).attr('text-anchor', 'middle').attr('fill', 'blue').text('MEASURE').attr('class', 'measureUpdateLabel').on('click', (d) =>
+    ).attr('y', height + 11).attr('text-anchor', 'middle').attr('fill', (d) ->
+      return if d.oldVersion then 'blue' else 'black'
+    ).text('MEASURE').attr('class', (d) ->
+      return if d.oldVersion then 'measureUpdateLabel' else 'measureCreatedLabel'
+    ).on('click', (d) =>
       #alert 'Set up diff between ' + d.oldVersion + ' and ' + d.newVersion
       @measureDiffView.loadDiff d.oldVersion, d.newVersion
       return
     ).append('svg:tspan').attr('x', (d) ->
       x(d.updateTime) + margin.left
-    ).attr('dy', 13).text('UPDATED').append('svg:tspan').attr('x', (d) ->
+    ).attr('dy', 13).text((d) -> 
+      return if d.oldVersion then "UPDATED" else "CREATED"
+    ).append('svg:tspan').attr('x', (d) ->
       x(d.updateTime) + margin.left
     ).attr('dy', 13).text (d) =>
       @prettyDate d.updateTime

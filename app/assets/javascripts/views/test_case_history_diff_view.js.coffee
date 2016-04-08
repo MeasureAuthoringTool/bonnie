@@ -18,7 +18,7 @@ class Thorax.Views.TestCaseHistoryDiffView extends Thorax.Views.BonnieView
       console.log data
       # console.log 'RETRIEVED MEASURE DATA - ' + JSON.stringify(measureData)
       @diff = data
-      @diffView = @diff[@populationIndex]
+      @diffView = @diff.diff[@populationIndex]
       @render()
       return
     )
@@ -31,5 +31,5 @@ class Thorax.Views.TestCaseHistoryDiffView extends Thorax.Views.BonnieView
   updatePopulation: (population) ->
     @populationIndex = population.index()
     if @diff
-      @diffView = @diff[@populationIndex]
+      @diffView = @diff.diff[@populationIndex]
     @render()

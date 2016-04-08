@@ -37,7 +37,10 @@ class MeasuresController < ApplicationController
     # TODO add by_user(current_user) clause into query
     @new_measure = Measure.where({:_id => params[:new_id]}).first
     @old_measure = Measure.where({:_id => params[:old_id]}).first
-    results = [];
+    results = {}
+    results['diff'] = []
+    results['leftTitle'] = "#{@old_measure.cms_id} @ #{@old_measure.updated_at}"
+    results['rightTitle'] = "#{@new_measure.cms_id} @ #{@new_measure.updated_at}"
     
     measure_logic_names = HQMF::Measure::LogicExtractor::POPULATION_MAP.clone
     measure_logic_names['VARIABLES'] = 'Variables'
@@ -66,7 +69,7 @@ class MeasuresController < ApplicationController
         population_diff[-1]['right'] = logic_diff.right
       end
       
-      results << population_diff
+      results['diff'] << population_diff
     end
     
     render :json => results
