@@ -9,8 +9,13 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     @listenTo @coverageView, 'logicView:clearCoverage', -> @trigger 'logicView:clearCoverage'
     @measure = @model.measure()
     @differences = @model.differencesFromExpected()
-    # We want to display the results sorted by 1) failures first, then 2) last name, then 3) first name
-    @differences.comparator = (d) -> [!d.get('done'), d.get('match'), d.result.patient.get('last'), d.result.patient.get('first')]
+    # We want to display the results sorted by 1) failures first, then 2) test case number, then 3) last name, then 4) first name
+    @differences.comparator = (d) -> [!d.get('done'), 
+                                      d.get('match'),
+                                      # caseNumber is not a required field
+                                      d.result.patient.get('caseNumber') || '000',
+                                      d.result.patient.get('last'),
+                                      d.result.patient.get('first')]
     @differences.sort()
     # Make sure the sort order updates as results come in
     @differences.on 'change', @differences.sort, @differences

@@ -26,7 +26,7 @@
             <div class="patient">
               <div class="patient-checkbox">
                 <label>
-                  <span class="sr-only">Select {{patient.last}} {{patient.first}}</span>
+                  <span class="sr-only">Select {{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}{{patient.last}}, {{patient.first}}</span>
                   <input type="checkbox" class="select-patient">
                 </label>
               </div>
@@ -35,16 +35,16 @@
                   <i class="fa fa-fw fa-circle fa-stack-2x" aria-hidden="true"></i>
                   <i class="fa fa-fw {{#if alreadyCloned}}fa-user-plus{{else}}fa-user{{/if}} fa-stack-1x" aria-hidden="true"></i>
                 </span>
-                <span class="sr-only">{{patient.last}} {{patient.first}}, patient result</span>
+                <span class="sr-only">{{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}{{patient.last}}, {{patient.first}}, patient result</span>
               </div>
               <div class="patient-btn">
                 <a data-toggle="collapse" data-parent="#sharedResults" href="#toggle{{@cid}}" class="close collapsed">
                   <i class="fa fa-lg panel-chevron fa-angle-right expand-result-icon expand-result-icon-{{patient._id}}" aria-hidden="true"></i>
-                  <span class="sr-only">{{patient.last}} {{patient.first}}, Toggle Logic Pass/Fail</span>
+                  <span class="sr-only">{{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}{{patient.last}}, {{patient.first}}, Toggle Logic Pass/Fail</span>
                 </a>
               </div>
               <div class="patient-status status status-{{status}}">
-                <span class="sr-only">{{patient.last}} {{patient.first}}, status </span>
+                <span class="sr-only">{{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}{{patient.last}}, {{patient.first}}, status </span>
                 {{#if status}}
                   {{status}}
                 {{else}}
@@ -52,7 +52,7 @@
                 {{/if}}
               </div>
               <div class="patient-name">
-                <span class="sr-only">patient name: </span>{{patient.last}} {{patient.first}}
+                <span class="sr-only">{{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}patient name: </span>{{patient.last}}, {{patient.first}}
               </div>
 
             </div>
@@ -63,7 +63,7 @@
             <p><i class="fa fa-fw fa-tasks" aria-hidden="true"></i> {{patient.cms_id}}</p>
             <p>{{patient.notes}}</p>
             {{template "population_calculation_results"}}
-            {{#button "cloneOnePatient" class="btn btn-primary" data-cloning-text="Cloning..." data-cloned-text="Cloned"}}Clone <span class="sr-only">patient {{patient.last}} {{patient.first}}</span> {{#if alreadyCloned}}again{{/if}} into {{cms_id}} {{/button}}
+            {{#button "cloneOnePatient" class="btn btn-primary" data-cloning-text="Cloning..." data-cloned-text="Cloned"}}Clone <span class="sr-only">{{#if patient.caseNumber}}test case {{patient.caseNumber}}: {{/if}}patient {{patient.last}}, {{patient.first}}</span> {{#if alreadyCloned}}again{{/if}} into {{cms_id}} {{/button}}
           </div>
         </div>
       </div>
