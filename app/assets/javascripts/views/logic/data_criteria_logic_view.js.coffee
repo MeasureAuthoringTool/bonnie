@@ -64,8 +64,8 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
     populationView = @populationCriteriaView()
     return unless populationView
     populationCriteriaKey = populationView.population.type  # IPP, DEN, etc. including VAR(iables)
-    populationView.parent.highlightPatientData(dataCriteriaKey, populationCriteriaKey)  
-    
+    populationView.parent.highlightPatientData(dataCriteriaKey, populationCriteriaKey)
+
   clearHighlightEntry: (e) ->
     if view = @populationCriteriaView()
       view.parent.clearHighlightPatientData()
