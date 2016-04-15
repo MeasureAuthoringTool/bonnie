@@ -17,6 +17,10 @@
   </div>
   {{view coverageView}}
   <br>
+  <div style="text-align:center;">
+    <a href="#measures/{{measure_id}}/test_case_history"><i class="fa fa-history"></i> </i>TEST CASE HISTORY</a>
+  </div>
+  <br>
   {{#collection differences tag="div" class="panel panel-default" item-context=differenceContext}}
     <div class="panel-heading">
       <div class="panel-title">
@@ -69,7 +73,4 @@
       </button>
     </div>
   {{/collection}}
-  <div style="text-align:center;">
-    <a href="#measures/{{measure_id}}/test_case_history"><i class="fa fa-history"></i> </i>TEST CASE HISTORY</a>
-  </div>
 </div>

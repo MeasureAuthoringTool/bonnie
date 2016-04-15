@@ -155,31 +155,67 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @populationLogicView.setPopulation population
     bonnie.navigate "measures/#{@measure.get('hqmf_set_id')}/patients/#{@model.id}/edit"
 
+  calculateAllResults: (callback) =>
+    populations = @measure.get('populations')
+    population_index = 0
+    population_names = ['IPP', 'STRAT', 'DENOM', 'NUMER', 'DENEXCEP', 'DENEX', 'MSRPOPL', 'OBSERV', 'MSRPOPLEX']
+    results = [];
+    
+    calcNextResult = () =>
+      popCalc = populations.models[population_index].calculate(@model)
+      popCalc.calculation.done(() =>
+        results.push popCalc
+        if ++population_index < populations.length
+          calcNextResult()
+        else
+          actual_values = []
+          count = 0
+          for result in results
+            actual_value = 
+              population_index: count++
+              measure_id: @measure.get('hqmf_set_id')
+            
+            for rkey, rvalue of result.attributes
+              if rkey in population_names
+                actual_value[rkey] = rvalue
+            actual_values.push actual_value
+          callback(actual_values)
+        )
+    calcNextResult()
+  
+  
+  
   save: (e) ->
     e.preventDefault()
     @$('.has-error').removeClass('has-error')
     $(e.target).button('saving').prop('disabled', true)
     @serializeWithChildren()
     @model.sortCriteriaBy 'start_date', 'end_date'
-    status = @originalModel.save @model.toJSON(),
-      success: (model) =>
-        @patients.add model # make sure that the patient exist in the global patient collection
-        @measure?.get('patients').add model # and the measure's patient collection
-        if bonnie.isPortfolio
-          @measures.each (m) -> m.get('patients').add model
-        route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
-        bonnie.navigate route, trigger: true
-    unless status
-      $(e.target).button('reset').prop('disabled', false)
-      messages = []
-      for [cid, field, message] in @originalModel.validationError
-        # Location holds the cid of the model with the error, either toplevel or a data criteria, from whcih we get the view
-        if cid == @originalModel.cid
-          @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
-        else
-          @$("[data-model-cid=#{cid}]").view().highlightError(e, field)
-        messages.push message
-      @$('.alert').text(_(messages).uniq().join('; ')).removeClass('hidden')
+    
+    @calculateAllResults((actual_values) =>
+      patientJSON = @model.toJSON()
+      patientJSON.actual_values = actual_values
+      
+      status = @originalModel.save patientJSON,
+        success: (model) =>
+          @patients.add model # make sure that the patient exist in the global patient collection
+          @measure?.get('patients').add model # and the measure's patient collection
+          if bonnie.isPortfolio
+            @measures.each (m) -> m.get('patients').add model
+          route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
+          bonnie.navigate route, trigger: true
+      unless status
+        $(e.target).button('reset').prop('disabled', false)
+        messages = []
+        for [cid, field, message] in @originalModel.validationError
+          # Location holds the cid of the model with the error, either toplevel or a data criteria, from whcih we get the view
+          if cid == @originalModel.cid
+            @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
+          else
+            @$("[data-model-cid=#{cid}]").view().highlightError(e, field)
+          messages.push message
+        @$('.alert').text(_(messages).uniq().join('; ')).removeClass('hidden')
+      )
 
   cancel: (e) ->
     # Go back to wherever the user came from, if possible
