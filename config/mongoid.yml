@@ -2,6 +2,7 @@ development:
   sessions:
     default:
       database: bonnie_development
+      # database: bonnie_production-2016-03-24-23
       hosts:
         - localhost:27017
 test:
