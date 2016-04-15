@@ -30,43 +30,114 @@ class PatientsController < ApplicationController
     # TODO add by_user(current_user) clause into query
     @measure_patients = Record.by_user(current_user).where({:measure_ids.in => [ params[:id] ]}).order_by(updated_at: :desc)
     results = []
+    @measure_id = params[:id]
     @measure_patients.each_with_index do |patient,index|
       results << {}
       results[-1]['label'] = "#{patient.first} #{patient.last}"
       results[-1]['times'] = []
-      change = {}
-      change['result'] = 'pass' # or 'fail'
-      # for updateTime, we use the ObjectId generation time (because created_at is nil)
-      change['updateTime'] = (patient._id.generation_time.tv_sec * 1000)
-      change['changed'] = 'Initial Patient Creation'
-      results[-1]['times'] << change
       
-      # LOOP for each version of the patient
-      patient.history_tracks.each do |track|
-        next if track.original.empty? #skip if this is the creation one
-        
+      #results[-1]['times'] << change
+      curr_expected = []
+      curr_actual = []
+      
+      
+      
+      # if this patient has no history we need to create a initial patient creation and leave
+      if patient.history_tracks.count == 0
         change = {}
-        change['result'] = 'pass' # or 'fail'
-        change['updateTime'] = (track.updated_at.tv_sec * 1000)
-        description = ''
-        track.tracked_changes.each do |key,value|
-          description += "Changes in #{key.gsub('_',' ')}: "
-          description += history_changes(value['from'],value['to'])
-          description += "<br/>"
-        end
-        change['changed'] = description
+        # change['result'] = 'pass' # or 'fail'
+        # for updateTime, we use the ObjectId generation time (because created_at is nil)
+        change['updateTime'] = (patient._id.generation_time.tv_sec * 1000)
+        change['changed'] = 'Initial Patient Creation'
+        
+        calc_results = calculate_value_results(filter_values_by_measure(patient.actual_values),
+          filter_values_by_measure(patient.expected_values))
+        
+        change['result'] = calc_results[:result]
+        change['results'] = calc_results[:results]
+        change['values'] = calc_results[:values]
+        
         results[-1]['times'] << change
-      end
-      # end LOOP    
-    end
+        
+      else
+        # if the patient was created before history_tracking. the first tracker will be update instead of create
+        # make an Initial patient for this 
+        if patient.history_tracks.first.action == 'update'
+          change = {}
+          # change['result'] = 'pass' # or 'fail'
+          # for updateTime, we use the ObjectId generation time (because created_at is nil)
+          change['updateTime'] = (patient._id.generation_time.tv_sec * 1000)
+          change['changed'] = 'Initial Patient Creation'
+          
+          # TODO: figure out how to get values for this.
+          calc_results = calculate_value_results(filter_values_by_measure(patient.actual_values),
+            filter_values_by_measure(patient.expected_values))
+          
+          change['result'] = calc_results[:result]
+          change['results'] = calc_results[:results]
+          change['values'] = calc_results[:values]
+          
+          results[-1]['times'] << change
+        end
+        # LOOP for each version of the patient
+        patient.history_tracks.each do |track|
+          curr_actual = filter_values_by_measure(track.modified['actual_values']) if track.modified['actual_values']
+          curr_expected = filter_values_by_measure(track.modified['expected_values']) if track.modified['expected_values']
+          
+          # next if track.original.empty? # skip if this is the creation one
+          @calc_values = {
+            curr_actual: curr_actual,
+            curr_expected: curr_expected
+          }
+          
+          change = {}
+          # change['result'] = 'pass' # or 'fail'
+          change['updateTime'] = (track.updated_at.tv_sec * 1000)
+          
+          calc_results = calculate_value_results(curr_actual, curr_expected)
+          
+          change['result'] = calc_results[:result]
+          change['results'] = calc_results[:results]
+          change['values'] = calc_results[:values]
+          description = ''
+          
+          if track.action == 'create'
+            description = 'Initial Patient Creation'
+          else 
+            # loop through each of the attributes that were tracked on this change
+            track.tracked_changes.each do |key, value|
+              # puts key
+              # puts "   " + value.to_s
+              if key == 'actual_values'
+                @calc_values.store(:from_act, value['from'])
+                @calc_values.store(:to_act, value['to'])
+              end
+
+              if key == 'expected_values'
+                @calc_values.store(:from_exp, value['from'])
+                @calc_values.store(:to_exp, value['to'])
+              end
+              description += "Changes in #{key.gsub('_',' ')}: "
+              description += history_changes(value['from'],value['to']) if key == 'source_data_criteria'
+              description += history_changes_singles(key, value['from'], value['to']) unless value['from'].class == Array
+              # history_changes_results(key, value['from'], value['to'], curr_actual, curr_expected, change['result']) unless key.index('value').nil?
+              description += "<br/>"
+            end
+          end
+          @calc_values[:curr_expected] = curr_expected
+          @calc_values[:curr_actual] = curr_actual
+          change['changed'] = description
+          results[-1]['times'] << change
+        end  # end LOOP
+      end # end no history
+    end # end patient loop
    render :json => results
   end
 
   def history_changes(from,to)
     changes = {}
     return '' unless from
-    
-    removed = from.map{|x|x['id']} - to.map{|x|x['id']}
+    removed = from.map{ |x|x['id'] } - to.map{ |x|x['id']}
     changes['Removed'] = removed.join(', ') if !removed.empty?
 
     added = to.map{|x|x['id']} - from.map{|x|x['id']}
@@ -88,6 +159,123 @@ class PatientsController < ApplicationController
     end
     narrative
   end
+
+  def history_changes_singles(field, from, to)
+    narrative = ''
+    if field.index('date').nil?
+      narrative = "#{field} changed from #{from} to #{to}"
+    else
+      narrative = "#{field} changed from #{Time.at(from).strftime("%m/%d/%Y")} to #{Time.at(to).strftime("%m/%d/%Y")}"
+    end
+    narrative
+  end
+
+  def history_changes_results(field, from, to, acts, exps, fordot)
+    puts "The from is #{from}"
+    # binding.pry
+    blah = {}
+    unless from.nil?
+      from.each do |pops|
+        me = {}
+        pops.to_a[2..pops.size - 1].each { |k, v| me[k.to_sym] = { field.to_sym => v } } # need to find a way to filter out measure_id and population_index
+        blah[pops['population_index']] = me
+      end # from.each
+    end
+    meh = {}
+    unless to.nil?
+      # acts = to if field == 'actual_values'
+      # exps = to if field == 'expected_values'
+      to.each do |pops|
+        me = {}
+        pops.to_a[2..pops.size - 1].each { |k, v| me[k.to_sym] = { field.to_sym => v } }
+        meh[pops['population_index']] = me
+      end # to.each
+    end
+
+    result = []
+    evald = ''
+    exps.each do |pop| # Run through excepted in case there are more logic populations in actual
+      pop.keys[2..pop.size - 1].each do |k|
+        if pop[k] == acts[pop['population_index']][k]
+          evald = 'pass'
+        else
+          evald = 'fail'
+          break
+        end
+      end
+      result << evald
+      fordot = result
+    end
+
+    # finale = { from: blah, to: meh }
+    # if @big_finale.empty?
+    #   @big_finale = finale
+    # else
+    #   finale.map do |ftk, ftv| # for from and to
+    #     ftv.map do |pk, pv| # for each strat population
+    #       pv.map do |plk, plv| # for each logic population
+    #         @big_finale[ftk][pk][plk].store(plv.keys.first.to_sym, plv.values.first) if @big_finale[ftk][pk][plk].class != NilClass
+    #       end # for each logic population
+    #     end # for each strat population
+    #   end # for from and to
+    # end # @big_finale.empty?
+
+    return acts, exps, fordot
+  end
+
+
+
+  # Returns the expected or actuals for the measure that this is being processed
+  def filter_values_by_measure(values)
+    if !values
+      return []
+    end
+    result = []
+    values.each do |value|
+      result << value if value['measure_id'] == @measure_id
+    end
+    result
+  end
+  
+  # takes the actual and expected values and determines the pass_fail situation for each population_set
+  # returns the overall result and result for each population set
+  def calculate_value_results(actual, expected)
+    
+    # TODO: determine what to do when actual is empty, just use expected
+    actual = expected unless actual
+    
+    results = { result: 'pass', results: [], values: [] }
+    
+    # iterate through each actual for each population set
+    actual.each do |pop_actual|
+      pop_index = pop_actual['population_index']
+      pop_expected = expected.find { |exp| exp['population_index'] == pop_index }
+      
+      pop_result = 'pass'
+      pop_values = { population_index: pop_index }
+      
+      # compare each value
+      HQMF::Measure::LogicExtractor::POPULATION_MAP.each_pair do |logic_code, logic_name|
+        actual_value = pop_actual.fetch(logic_code, nil)
+        expected_value = pop_expected.fetch(logic_code, 0)
+        
+        next if !actual_value
+        
+        pop_values[logic_code] = { expected: expected_value, actual: actual_value }
+        
+        if actual_value != expected_value
+          pop_result = 'fail'
+          results[:result] = 'fail'
+        end
+      end
+      
+      results[:results][pop_index] = pop_result
+      results[:values][pop_index] = pop_values
+    end
+    
+    return results
+  end
+  
   # wrap patientData in stratifications
   # var patientData = [
   #   {label: "Jack Sparrow", times: [{result:"pass", updateTime: 1451606400000}, 
@@ -221,6 +409,7 @@ private
     # patient['measure_period_end'] = measure_period['end_date']
 
     patient.expected_values = params['expected_values']
+    patient.actual_values = params['actual_values']
 
     patient['origin_data'] ||= []
     patient['origin_data'] << params['origin_data'] if params['origin_data']
