@@ -7,7 +7,7 @@ bonnie.viz.MeasureRibbonCell = ->
   # Display order for Continuous Variable
   cvOrder = ['OBSERV', 'MSRPOPL', 'MSRPOPLEX', 'IPP']
   # Display order for Episode of Care
-  ecOrder = ['NUMER', 'DENOM', 'IPP', 'DENEXCEP', 'DENEX']
+  ecOrder = ['NUMER', 'DENOM', 'IPP', 'DENEXCEP', 'DENEX', 'NUMEX']
   my = (selection) ->
     selection.each (data) ->
       order = if _(data).any((d) -> d.name is 'MSRPOPL') then cvOrder else ecOrder

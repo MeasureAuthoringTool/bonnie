@@ -157,6 +157,9 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         when 'DENEX', 'DENEXCEP', 'NUMER'
           @setPopulation('DENOM', value) unless @isNumbers and @attrs['DENOM'] >= value
           @handleSelect('DENOM', value, increment)
+        when 'NUMEX'
+          @setPopulation('NUMER', value) unless @isNumbers and @attrs['NUMER'] >= value
+          @handleSelect('NUMER', value, increment)
     else
       switch population
         when 'STRAT'
@@ -170,7 +173,9 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           @setPopulation('DENEX', value) unless @isNumbers and @attrs['DENEX'] < value
           @setPopulation('DENEXCEP', value) unless @isNumbers and @attrs['DENEXCEP'] < value
           @setPopulation('NUMER', value) unless @isNumbers and @attrs['NUMER'] < value
-
+          @handleSelect('NUMER', value, increment)
+        when 'NUMER'
+          @setPopulation('NUMEX', value) unless @isNumbers and @attrs['NUMEX'] < value
   setPopulation: (population, value) ->
     if @model.has(population) and @model.get(population)?
       if @isCheckboxes or not @isNumbers and @isMultipleObserv
