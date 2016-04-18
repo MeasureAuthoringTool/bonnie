@@ -7,6 +7,7 @@ class Thorax.Views.PopulationCriteriaLogic extends Thorax.Views.BonnieView
     'STRAT': 'Stratification'
     'DENOM': 'Denominator'
     'NUMER': 'Numerator'
+    'NUMEX': 'Numerator Exclusions'
     'DENEXCEP': 'Denominator Exceptions'
     'DENEX': 'Denominator Exclusions'
     'MSRPOPL': 'Measure Population'
