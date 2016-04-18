@@ -30,7 +30,7 @@ class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
 class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
   addCriteriaToPatient: -> @trigger 'bonnie:dropCriteria', @model.toPatientDataCriteria()
   context: ->
-    desc = @model.get('description').split(/, (.*)/)?[1] or @model.get('description')
+    desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
     _(super).extend
       type: desc.split(": ")[0]
       # everything after the data criteria type is the detailed description
@@ -89,7 +89,12 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
     cmsIdParts = @model.get("cms_id").match(/CMS(\d+)(V\d+)/i)
-    desc = @model.get('description').split(/, (.*)/)?[1] or @model.get('description')
+    
+    desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
+    definition_title = @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
+    if desc.split(": ")[0] is definition_title
+      desc = desc.substring(desc.indexOf(':')+2)
+    
     _(super).extend
       start_date: moment.utc(@model.get('start_date')).format('L') if @model.get('start_date')
       start_time: moment.utc(@model.get('start_date')).format('LT') if @model.get('start_date')
@@ -101,7 +106,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       cms_id_number: cmsIdParts[1] if cmsIdParts
       cms_id_version: cmsIdParts[2] if cmsIdParts
       faIcon: @model.faIcon()
-      definition_title: @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
+      definition_title: definition_title
       canHaveNegation: @model.canHaveNegation()
       hasStopTime: @model.hasStopTime()
       startLabel: @model.startLabel()
