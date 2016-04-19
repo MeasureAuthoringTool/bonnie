@@ -49,14 +49,8 @@ class Record
   ##############################
   #    History Tracking
   ##############################
-  track_history :on => [:expected_results, :birthdate, :expired, :deathdate, :gender],
-                :modifier_field => :modifier,
-                :version_field => :version,   # adds "field :version, :type => Integer" to track current version, default is :version
-                :track_create   =>  true,   # track document creation, default is true
-                :track_update   =>  true,   # track document updates, default is true
-                :track_destroy  =>  true    # track document destruction, default is true
 
-  track_history :on => [:source_data_criteria], changes_method: :my_changes,
+  track_history :on => [:source_data_criteria, :birthdate, :gender, :deathdate, :race, :ethncity, :expected_values, :expired, :deathdate], changes_method: :my_changes,
                 :modifier_field => :modifier,
                 :version_field => :version,   # adds "field :version, :type => Integer" to track current version, default is :version
                 :track_create   =>  true,   # track document creation, default is true
@@ -64,8 +58,12 @@ class Record
                 :track_destroy  =>  true    # track document destruction, default is true
 
   def my_changes
+    sdc_changes
+  end
+
+  def sdc_changes
     return changes if source_data_criteria.nil?
-binding.pry
+
     original_dc = changes['source_data_criteria'][0].index_by { |sdc| sdc['criteria_id'] }
     modified_dc = changes['source_data_criteria'][1].index_by { |sdc| sdc['criteria_id'] }
 
@@ -86,21 +84,22 @@ binding.pry
       original << odc unless mdc
     end
 
-
     modified_dc.each do |id, mdc|
       odc = original_dc[id]
-      if !odc
-        # Added
-        modified << mdc
-      end
+      # Added
+      modified << mdc unless odc
     end
 
     # We don't need to track the MeasurePeriod changes
     modified.reject! { |dc| dc['id'] == 'MeasurePeriod' }
 
-    return changes.merge('source_data_criteria' => [original, modified])
-
+    # Set the retrun value
+    # return source_data_criteria only if there are changes to it that we are interested in
+    if !original.empty? || !modified.empty?
+      changes.merge('source_data_criteria' => [original, modified])
+    else
+      changes.reject! { |k| k == 'source_data_criteria' }
+    end
   end # def
-
 
 end
