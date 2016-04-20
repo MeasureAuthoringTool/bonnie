@@ -170,6 +170,11 @@
               {{value}} {{unit}}
               {{title}}
             {{/if}}
+            {{#if codes}} - Codes:
+              {{#each codes}}
+                {{@key}}: {{this}}
+              {{/each}}
+            {{/if}}
             {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
           </span>
         {{/collection}}
