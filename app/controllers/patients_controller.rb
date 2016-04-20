@@ -221,6 +221,7 @@ private
     # patient['measure_period_end'] = measure_period['end_date']
 
     patient.expected_values = params['expected_values']
+    patient.actual_values = params['actual_values']
 
     patient['origin_data'] ||= []
     patient['origin_data'] << params['origin_data'] if params['origin_data']

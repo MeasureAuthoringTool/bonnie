@@ -173,7 +173,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
           for result in results
             actual_value = 
               population_index: count++
-              measure_id: @measure.get('hqmf_id')
+              measure_id: @measure.get('hqmf_set_id')
             
             for rkey, rvalue of result.attributes
               if rkey in population_names
@@ -193,8 +193,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @model.sortCriteriaBy 'start_date', 'end_date'
     
     @calculateAllResults((actual_values) =>
-      console.log actual_values
-      
       patientJSON = @model.toJSON()
       patientJSON.actual_values = actual_values
       

@@ -10,6 +10,7 @@ class Record
   field :notes, type: String
   field :is_shared, :type => Boolean
   field :origin_data, type: Array
+  field :actual_values, type: Array
 
   belongs_to :user
   belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle"
@@ -50,7 +51,7 @@ class Record
   #    History Tracking
   ##############################
 
-  track_history :on => [:source_data_criteria, :birthdate, :gender, :deathdate, :race, :ethncity, :expected_values, :expired, :deathdate], changes_method: :my_changes,
+  track_history :on => [:source_data_criteria, :birthdate, :gender, :deathdate, :race, :ethncity, :expected_values, :expired, :deathdate, :actual_values], changes_method: :my_changes,
                 :modifier_field => :modifier,
                 :version_field => :version,   # adds "field :version, :type => Integer" to track current version, default is :version
                 :track_create   =>  true,   # track document creation, default is true
@@ -58,6 +59,7 @@ class Record
                 :track_destroy  =>  true    # track document destruction, default is true
 
   def my_changes
+    binding.pry
     sdc_changes
   end
 
