@@ -51,7 +51,7 @@ class Record
   #    History Tracking
   ##############################
 
-  track_history :on => [:source_data_criteria, :birthdate, :gender, :deathdate, :race, :ethncity, :expected_values, :expired, :deathdate, :actual_values], changes_method: :my_changes,
+  track_history :on => [:source_data_criteria, :birthdate, :gender, :deathdate, :race, :ethnicity, :expected_values, :expired, :deathdate, :actual_values], changes_method: :my_changes,
                 :modifier_field => :modifier,
                 :version_field => :version,   # adds "field :version, :type => Integer" to track current version, default is :version
                 :track_create   =>  true,   # track document creation, default is true
@@ -59,12 +59,11 @@ class Record
                 :track_destroy  =>  true    # track document destruction, default is true
 
   def my_changes
-    binding.pry
     sdc_changes
   end
 
   def sdc_changes
-    return changes if source_data_criteria.nil?
+    return changes if changes['source_data_criteria'].nil?
 
     original_dc = changes['source_data_criteria'][0].index_by { |sdc| sdc['criteria_id'] }
     modified_dc = changes['source_data_criteria'][1].index_by { |sdc| sdc['criteria_id'] }
