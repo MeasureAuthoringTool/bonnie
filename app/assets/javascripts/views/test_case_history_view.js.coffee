@@ -13,7 +13,7 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
       # console.log 'RETRIEVED TEMP DATA - ' + JSON.stringify(patientData)
       return
     )).then =>
-      @patientHistory @patientData, @measureData
+      @patientHistory @patientData, @measureData, @model.get('displayedPopulation')
       return
     @measureDiffView = new Thorax.Views.TestCaseHistoryDiffView(model: @model)
     
@@ -23,7 +23,7 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
     population.measure().set('displayedPopulation', population)
     @trigger 'population:update', population
     @measureDiffView.updatePopulation(population)
-    @patientHistory @patientData, @measureData
+    @patientHistory @patientData, @measureData, population
   
   populationContext: (population) ->
     _(population.toJSON()).extend
@@ -38,10 +38,11 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
     d = new Date(UnixDate)
     d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds()
 
-  patientHistory: (patientData, measureData) ->
+  patientHistory: (patientData, measureData, population) ->
     console.log '-------------------------------'
     console.log patientData
     console.log measureData
+    console.log population
     console.log '-------------------------------'
 
     @$('#patientHistory').empty();

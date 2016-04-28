@@ -35,60 +35,102 @@ class PatientsController < ApplicationController
       results << {}
       results[-1]['label'] = "#{patient.first} #{patient.last}"
       results[-1]['times'] = []
-      change = {}
-      # change['result'] = 'pass' # or 'fail'
-      # for updateTime, we use the ObjectId generation time (because created_at is nil)
-      change['updateTime'] = (patient._id.generation_time.tv_sec * 1000)
-      change['changed'] = 'Initial Patient Creation'
-      results[-1]['times'] << change
+      
+      #results[-1]['times'] << change
       curr_expected = []
       curr_actual = []
-
-      # LOOP for each version of the patient
-      patient.history_tracks.each do |track|
-        # next if track.original.empty? # skip if this is the creation one
-        @big_finale = {}
       
-        if track.original.empty? # need to prime the @curr arrays for later testing
-          # curr_actual = track.modified['actual_values']  # actuals are always generated
-          curr_actual = hx_in_this_measure(track.modified['actual_values'])
-          curr_expected = hx_in_this_measure(track.modified['expected_values']) # excepted will be there if user doesn't enter anything
-          @big_finale.store(:curr_actual, curr_actual)
-          @big_finale.store(:curr_expected, curr_expected)
-          next
-        end
-
+      
+      
+      # if this patient has no history we need to create a initial patient creation and leave
+      if patient.history_tracks.count == 0
         change = {}
         # change['result'] = 'pass' # or 'fail'
-        change['updateTime'] = (track.updated_at.tv_sec * 1000)
-        description = ''
-        track.tracked_changes.each do |key, value|
-          # puts key
-          # puts "   " + value.to_s
-          if key == 'actual_values'
-            @big_finale.store(:from_act, value['from'])
-            @big_finale.store(:to_act, value['to'])
-            curr_actual = value['to']
-          end
-
-          if key == 'expected_values'
-            @big_finale.store(:from_exp, value['from'])
-            @big_finale.store(:to_exp, value['to'])
-            curr_expected = value['to']
-          end
-          description += "Changes in #{key.gsub('_',' ')}: "
-          description += history_changes(value['from'],value['to']) if key == 'source_data_criteria'
-          description += history_changes_singles(key, value['from'], value['to']) unless value['from'].class == Array
-          # history_changes_results(key, value['from'], value['to'], curr_actual, curr_expected, change['result']) unless key.index('value').nil?
-          description += "<br/>"
-        end
-        @big_finale[:curr_expected] = curr_expected
-        @big_finale[:curr_actual] = curr_actual
-        change['changed'] = description
+        # for updateTime, we use the ObjectId generation time (because created_at is nil)
+        change['updateTime'] = (patient._id.generation_time.tv_sec * 1000)
+        change['changed'] = 'Initial Patient Creation'
+        
+        calc_results = calculate_value_results(filter_values_by_measure(patient.actual_values),
+          filter_values_by_measure(patient.expected_values))
+        
+        change['result'] = calc_results[:result]
+        change['results'] = calc_results[:results]
+        change['values'] = calc_results[:values]
+        
         results[-1]['times'] << change
-      end  # end LOOP
+        
+      else
+        # if the patient was created before history_tracking. the first tracker will be update instead of create
+        # make an Initial patient for this 
+        if patient.history_tracks.first.action == 'update'
+          change = {}
+          # change['result'] = 'pass' # or 'fail'
+          # for updateTime, we use the ObjectId generation time (because created_at is nil)
+          change['updateTime'] = (patient._id.generation_time.tv_sec * 1000)
+          change['changed'] = 'Initial Patient Creation'
+          
+          # TODO: figure out how to get values for this.
+          calc_results = calculate_value_results(filter_values_by_measure(patient.actual_values),
+            filter_values_by_measure(patient.expected_values))
+          
+          change['result'] = calc_results[:result]
+          change['results'] = calc_results[:results]
+          change['values'] = calc_results[:values]
+          
+          results[-1]['times'] << change
+        end
+        # LOOP for each version of the patient
+        patient.history_tracks.each do |track|
+          curr_actual = filter_values_by_measure(track.modified['actual_values']) if track.modified['actual_values']
+          curr_expected = filter_values_by_measure(track.modified['expected_values']) if track.modified['expected_values']
+          
+          # next if track.original.empty? # skip if this is the creation one
+          @calc_values = {
+            curr_actual: curr_actual,
+            curr_expected: curr_expected
+          }
+          
+          change = {}
+          # change['result'] = 'pass' # or 'fail'
+          change['updateTime'] = (track.updated_at.tv_sec * 1000)
+          
+          calc_results = calculate_value_results(curr_actual, curr_expected)
+          
+          change['result'] = calc_results[:result]
+          change['results'] = calc_results[:results]
+          change['values'] = calc_results[:values]
+          description = ''
+          
+          if track.action == 'create'
+            description = 'Initial Patient Creation'
+          else 
+            # loop through each of the attributes that were tracked on this change
+            track.tracked_changes.each do |key, value|
+              # puts key
+              # puts "   " + value.to_s
+              if key == 'actual_values'
+                @calc_values.store(:from_act, value['from'])
+                @calc_values.store(:to_act, value['to'])
+              end
 
-    end
+              if key == 'expected_values'
+                @calc_values.store(:from_exp, value['from'])
+                @calc_values.store(:to_exp, value['to'])
+              end
+              description += "Changes in #{key.gsub('_',' ')}: "
+              description += history_changes(value['from'],value['to']) if key == 'source_data_criteria'
+              description += history_changes_singles(key, value['from'], value['to']) unless value['from'].class == Array
+              # history_changes_results(key, value['from'], value['to'], curr_actual, curr_expected, change['result']) unless key.index('value').nil?
+              description += "<br/>"
+            end
+          end
+          @calc_values[:curr_expected] = curr_expected
+          @calc_values[:curr_actual] = curr_actual
+          change['changed'] = description
+          results[-1]['times'] << change
+        end  # end LOOP
+      end # end no history
+    end # end patient loop
    render :json => results
   end
 
@@ -181,18 +223,59 @@ class PatientsController < ApplicationController
     return acts, exps, fordot
   end
 
-  def hx_pass_now
-    @big_finale[:curr_expected] == @big_finale[:curr_actual] ? 'pass' : 'fail'
-  end
+
 
   # Returns the expected or actuals for the measure that this is being processed
-  def hx_in_this_measure (harry)
-    passback = []
-    harry.each_with_index do |_, i|
-      passback << harry[i] if harry[i]['measure_id'] == @measure_id
+  def filter_values_by_measure(values)
+    if !values
+      return []
     end
-    passback
+    result = []
+    values.each do |value|
+      result << value if value['measure_id'] == @measure_id
+    end
+    result
   end
+  
+  # takes the actual and expected values and determines the pass_fail situation for each population_set
+  # returns the overall result and result for each population set
+  def calculate_value_results(actual, expected)
+    
+    # TODO: determine what to do when actual is empty, just use expected
+    actual = expected unless actual
+    
+    results = { result: 'pass', results: [], values: [] }
+    
+    # iterate through each actual for each population set
+    actual.each do |pop_actual|
+      pop_index = pop_actual['population_index']
+      pop_expected = expected.find { |exp| exp['population_index'] == pop_index }
+      
+      pop_result = 'pass'
+      pop_values = { population_index: pop_index }
+      
+      # compare each value
+      HQMF::Measure::LogicExtractor::POPULATION_MAP.each_pair do |logic_code, logic_name|
+        actual_value = pop_actual.fetch(logic_code, nil)
+        expected_value = pop_expected.fetch(logic_code, 0)
+        
+        next if !actual_value
+        
+        pop_values[logic_code] = { expected: expected_value, actual: actual_value }
+        
+        if actual_value != expected_value
+          pop_result = 'fail'
+          results[:result] = 'fail'
+        end
+      end
+      
+      results[:results][pop_index] = pop_result
+      results[:values][pop_index] = pop_values
+    end
+    
+    return results
+  end
+  
   # wrap patientData in stratifications
   # var patientData = [
   #   {label: "Jack Sparrow", times: [{result:"pass", updateTime: 1451606400000}, 
