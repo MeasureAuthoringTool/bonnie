@@ -30,34 +30,64 @@ class PatientsController < ApplicationController
     # TODO add by_user(current_user) clause into query
     @measure_patients = Record.by_user(current_user).where({:measure_ids.in => [ params[:id] ]}).order_by(updated_at: :desc)
     results = []
+    @measure_id = params[:id]
     @measure_patients.each_with_index do |patient,index|
       results << {}
       results[-1]['label'] = "#{patient.first} #{patient.last}"
       results[-1]['times'] = []
       change = {}
-      change['result'] = 'pass' # or 'fail'
+      # change['result'] = 'pass' # or 'fail'
       # for updateTime, we use the ObjectId generation time (because created_at is nil)
       change['updateTime'] = (patient._id.generation_time.tv_sec * 1000)
       change['changed'] = 'Initial Patient Creation'
       results[-1]['times'] << change
-      
+      curr_expected = []
+      curr_actual = []
+
       # LOOP for each version of the patient
       patient.history_tracks.each do |track|
-        next if track.original.empty? #skip if this is the creation one
-        
+        # next if track.original.empty? # skip if this is the creation one
+        @big_finale = {}
+      
+        if track.original.empty? # need to prime the @curr arrays for later testing
+          # curr_actual = track.modified['actual_values']  # actuals are always generated
+          curr_actual = hx_in_this_measure(track.modified['actual_values'])
+          curr_expected = hx_in_this_measure(track.modified['expected_values']) # excepted will be there if user doesn't enter anything
+          @big_finale.store(:curr_actual, curr_actual)
+          @big_finale.store(:curr_expected, curr_expected)
+          next
+        end
+
         change = {}
-        change['result'] = 'pass' # or 'fail'
+        # change['result'] = 'pass' # or 'fail'
         change['updateTime'] = (track.updated_at.tv_sec * 1000)
         description = ''
-        track.tracked_changes.each do |key,value|
+        track.tracked_changes.each do |key, value|
+          # puts key
+          # puts "   " + value.to_s
+          if key == 'actual_values'
+            @big_finale.store(:from_act, value['from'])
+            @big_finale.store(:to_act, value['to'])
+            curr_actual = value['to']
+          end
+
+          if key == 'expected_values'
+            @big_finale.store(:from_exp, value['from'])
+            @big_finale.store(:to_exp, value['to'])
+            curr_expected = value['to']
+          end
           description += "Changes in #{key.gsub('_',' ')}: "
-          description += history_changes(value['from'],value['to'])
+          description += history_changes(value['from'],value['to']) if key == 'source_data_criteria'
+          description += history_changes_singles(key, value['from'], value['to']) unless value['from'].class == Array
+          # history_changes_results(key, value['from'], value['to'], curr_actual, curr_expected, change['result']) unless key.index('value').nil?
           description += "<br/>"
         end
+        @big_finale[:curr_expected] = curr_expected
+        @big_finale[:curr_actual] = curr_actual
         change['changed'] = description
         results[-1]['times'] << change
-      end
-      # end LOOP    
+      end  # end LOOP
+
     end
    render :json => results
   end
@@ -65,8 +95,7 @@ class PatientsController < ApplicationController
   def history_changes(from,to)
     changes = {}
     return '' unless from
-    
-    removed = from.map{|x|x['id']} - to.map{|x|x['id']}
+    removed = from.map{ |x|x['id'] } - to.map{ |x|x['id']}
     changes['Removed'] = removed.join(', ') if !removed.empty?
 
     added = to.map{|x|x['id']} - from.map{|x|x['id']}
@@ -87,6 +116,82 @@ class PatientsController < ApplicationController
       narrative += "#{key} #{value}<br/>\n"
     end
     narrative
+  end
+
+  def history_changes_singles(field, from, to)
+    narrative = ''
+    if field.index('date').nil?
+      narrative = "#{field} changed from #{from} to #{to}"
+    else
+      narrative = "#{field} changed from #{Time.at(from).strftime("%m/%d/%Y")} to #{Time.at(to).strftime("%m/%d/%Y")}"
+    end
+    narrative
+  end
+
+  def history_changes_results(field, from, to, acts, exps, fordot)
+    puts "The from is #{from}"
+    # binding.pry
+    blah = {}
+    unless from.nil?
+      from.each do |pops|
+        me = {}
+        pops.to_a[2..pops.size - 1].each { |k, v| me[k.to_sym] = { field.to_sym => v } } # need to find a way to filter out measure_id and population_index
+        blah[pops['population_index']] = me
+      end # from.each
+    end
+    meh = {}
+    unless to.nil?
+      # acts = to if field == 'actual_values'
+      # exps = to if field == 'expected_values'
+      to.each do |pops|
+        me = {}
+        pops.to_a[2..pops.size - 1].each { |k, v| me[k.to_sym] = { field.to_sym => v } }
+        meh[pops['population_index']] = me
+      end # to.each
+    end
+
+    result = []
+    evald = ''
+    exps.each do |pop| # Run through excepted in case there are more logic populations in actual
+      pop.keys[2..pop.size - 1].each do |k|
+        if pop[k] == acts[pop['population_index']][k]
+          evald = 'pass'
+        else
+          evald = 'fail'
+          break
+        end
+      end
+      result << evald
+      fordot = result
+    end
+
+    # finale = { from: blah, to: meh }
+    # if @big_finale.empty?
+    #   @big_finale = finale
+    # else
+    #   finale.map do |ftk, ftv| # for from and to
+    #     ftv.map do |pk, pv| # for each strat population
+    #       pv.map do |plk, plv| # for each logic population
+    #         @big_finale[ftk][pk][plk].store(plv.keys.first.to_sym, plv.values.first) if @big_finale[ftk][pk][plk].class != NilClass
+    #       end # for each logic population
+    #     end # for each strat population
+    #   end # for from and to
+    # end # @big_finale.empty?
+
+    return acts, exps, fordot
+  end
+
+  def hx_pass_now
+    @big_finale[:curr_expected] == @big_finale[:curr_actual] ? 'pass' : 'fail'
+  end
+
+  # Returns the expected or actuals for the measure that this is being processed
+  def hx_in_this_measure (harry)
+    passback = []
+    harry.each_with_index do |_, i|
+      passback << harry[i] if harry[i]['measure_id'] == @measure_id
+    end
+    passback
   end
   # wrap patientData in stratifications
   # var patientData = [
