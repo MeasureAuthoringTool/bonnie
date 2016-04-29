@@ -71,7 +71,11 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       values: @model.get('references')
       criteriaType: @model.get('type')
       vals: JSON.stringify(@model.get('references'))
-    @editCodeSelectionView = new Thorax.Views.CodeSelectionView criteria: @model
+    codes = @model.get('codes')
+    concepts = @model.valueSet().get('concepts')
+    codes.on 'add remove', => @model.set 'code_source', (if codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
+    @editCodeSelectionView = new Thorax.Views.CodeSelectionView codes: codes
+    @editCodeSelectionView.updateConcepts(concepts)
     @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView
       model: new Thorax.Model
       criteria: @model
@@ -216,9 +220,6 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
 
   initialize: ->
     @model = new Thorax.Model
-    @codes = @criteria.get('codes')
-    @codes.on 'add remove', => @criteria.set 'code_source', (if @codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
-    @codeSets = _(concept.code_system_name for concept in @criteria.valueSet()?.get('concepts') || []).uniq()
 
   validateForAddition: ->
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
@@ -235,9 +236,14 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     if codeSet isnt 'custom'
       blankEntry = if codeSet is '' then '--' else "Choose a #{codeSet} code"
       $codeList.append("<option value>#{blankEntry}</option>")
-      for concept in @criteria.valueSet().get('concepts') when concept.code_system_name is codeSet and !concept.black_list
+      for concept in @concepts when concept.code_system_name is codeSet and !concept.black_list
         $('<option>').attr('value', concept.code).text("#{concept.code} (#{concept.display_name})").appendTo $codeList
     @$('.codelist-control').focus()
+
+  updateConcepts: (concepts) ->
+    @concepts = concepts
+    @codeSets = _(concept.code_system_name for concept in @concepts || []).uniq()
+    @render()
 
   addCode: (e) ->
     e.preventDefault()
@@ -250,7 +256,7 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     # Reset model to default values
     @model.clear()
     @$('select').val('')
-    # # Let the selectBoxIt() select box know that its value may have changed
+    # Let the selectBoxIt() select box know that its value may have changed
     @$('select[name=codeset]').change()
     @triggerMaterialize()
     @$(':focusable:visible:first').focus()
@@ -304,6 +310,7 @@ class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildV
     @model.clear()
     @triggerMaterialize()
 
+
 class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   className: -> "#{if @fieldValue then 'field-' else ''}value-formset"
 
@@ -311,6 +318,9 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
 
   initialize: ->
     @model.set('type', 'CD')
+    @fieldValueCodesCollection = new Thorax.Collections.Codes {}, parse: true
+    @showAddCodesButton = false
+    @showAddCodes = false
 
   context: ->
     _(super).extend
@@ -328,21 +338,63 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       delete attr.start_time
       title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
       attr.title = title if title
+      attr.codes = @fieldValueCodesCollection.toJSON() unless jQuery.isEmptyObject(@fieldValueCodesCollection.toJSON())
     rendered: ->
+      @codeSelectionViewForFieldValues = new Thorax.Views.CodeSelectionView codes: @fieldValueCodesCollection
       @$("select[name=type]").selectBoxIt('native': true)
       @$('.date-picker').datepicker().on 'changeDate', _.bind(@validateForAddition, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@validateForAddition, this)
     'change select[name=type]': (e) ->
       @model.set type: $(e.target).val()
+      @toggleAddCodesButton()
       @validateForAddition()
       @advanceFocusToInput()
+    'change select[name=code_list_id]': ->
+      @toggleAddCodesButton()
+      @validateForAddition()
     'change select': ->
+      @toggleAddCodesButton()
       @validateForAddition()
       @advanceFocusToInput()
     'keyup input': 'validateForAddition'
     'change select[name=key]': 'changeFieldValueKey'
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
+    'click #addCodes': (e) ->
+      @showFieldValueCodeSelection(e)
+      @validateForAddition()
+
+  canSelectFieldValueCode: (concepts, key) ->
+    return bonnie.isPortfolio and @fieldValue and key in ['PRINCIPAL_DIAGNOSIS', 'DIAGNOSIS'] and concepts and @$("select[name=type]").val() == "CD"
+
+  getConcepts: (code_list_id) ->
+    return @measure?.valueSets().findWhere(oid: code_list_id)?.get('concepts')
+
+  toggleAddCodesButton: ->
+    attributes = @serialize(set: false)
+    if @canSelectFieldValueCode(@getConcepts(attributes.code_list_id), attributes.key)
+      # Show code selection for field value
+      @showAddCodesButton = true
+      @fieldValueCodesCollection.reset()
+    else
+      @showAddCodesButton = false
+    @showAddCodes = false
+    @render()
+
+  showFieldValueCodeSelection: (e) ->
+    attributes = @serialize(set: false)
+    @codeSelectionViewForFieldValues.updateConcepts(@getConcepts(attributes.code_list_id))
+    e.preventDefault()
+    @showAddCodesButton = false
+    @showAddCodes = true
+    @render()
+
+  removeFieldValueCode: (e) ->
+    e.preventDefault()
+    codeSet = $(e.target).model()?.attributes['codeset']
+    codeToRemove = $(e.target).model()?.attributes['code']
+    codeModel = @fieldValueCodesCollection.find (model) -> model.get('code') is codeToRemove and model.get('codeset') is codeSet
+    @fieldValueCodesCollection.remove(codeModel) if codeModel
 
   advanceFocusToInput: ->
     switch @model.get('type')
@@ -394,6 +446,9 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @$('select[name=type]').change()
     @triggerMaterialize()
     @$(':focusable:visible:first').focus()
+    @fieldValueCodesCollection.reset()
+    @showAddCodes = false
+    @render()
 
  class Thorax.Views.EditCriteriaReferenceView extends Thorax.Views.EditCriteriaValueView
   className: -> "#{if @fieldValue then 'field-' else ''}value-formset"

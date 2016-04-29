@@ -65,4 +65,21 @@
     {{/button}}
   </div>
 </div>
+
+{{#if showAddCodesButton}}
+  <br><a href="#" id="addCodes" class="btn btn-default btn-sm">Add Codes</a>
+{{/if}}
+
+{{#if showAddCodes}}
+  <br>
+  {{#collection fieldValueCodesCollection class="existing-values"}}
+  <span>
+    {{codeset}}:
+    {{code}}
+    {{#button "removeFieldValueCode" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
+  </span>
+  {{/collection}}
+  {{view codeSelectionViewForFieldValues}}
+{{/if}}
+
 {{#unless fieldValue}}</div>{{/unless}}
