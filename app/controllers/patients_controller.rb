@@ -69,9 +69,10 @@ class PatientsController < ApplicationController
           change['updateTime'] = (patient._id.generation_time.tv_sec * 1000)
           change['changed'] = 'Initial Patient Creation'
           
+          curr_actual = filter_values_by_measure(patient.actual_values)
+          curr_expected = filter_values_by_measure(patient.expected_values)
           # TODO: figure out how to get values for this.
-          calc_results = calculate_value_results(filter_values_by_measure(patient.actual_values),
-            filter_values_by_measure(patient.expected_values))
+          calc_results = calculate_value_results(curr_actual, curr_expected)
           
           change['result'] = calc_results[:result]
           change['results'] = calc_results[:results]

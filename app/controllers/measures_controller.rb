@@ -18,25 +18,35 @@ class MeasuresController < ApplicationController
   # get the change history for a measure (by HQMF Set ID)
   def history
     skippable_fields = [:map_fns, :record_ids, :measure_attributes]
-    # get all previous versions of this measure, ordering by version
-    # TODO add by_user(current_user) clause into query
-    # TODO order by update time, not HQMF version number
-    @measure_history = Measure.without(*skippable_fields).where({:hqmf_set_id => params[:id]}).order_by(hqmf_version_number: :desc)
+    # get the current measure
+    @measure = Measure.by_user(current_user).without(*skippable_fields).where({:hqmf_set_id => params[:id]}).first
     results = []
+    
+    # get all previous versions of this measure, ordering by uploaded_at
+    @measure_history = ArchivedMeasure.by_user_and_hqmf_set_id(current_user, params[:id]).order_by(uploaded_at: :asc)
     @measure_history.each_with_index do |version,index|
       results << {}
-      results[-1]['updateTime'] = (version.updated_at.tv_sec * 1000)
-      results[-1]['oldVersion'] = @measure_history[index+1].id.to_s if((index+1) < @measure_history.length)
+      results[-1]['updateTime'] = (version.uploaded_at.tv_sec * 1000)
+      results[-1]['oldVersion'] = @measure_history[index-1].id.to_s if((index-1) >= 0)
       results[-1]['newVersion'] = version.id.to_s
     end
+    
+    # create item for the current measure
+    results << {}
+    results[-1]['updateTime'] = (@measure.updated_at.tv_sec * 1000)
+    results[-1]['oldVersion'] = @measure_history.last.id.to_s
+    results[-1]['newVersion'] = @measure.id.to_s
    render :json => results
   end
   
   def historic_diff
     # get the two versions to diff
-    # TODO add by_user(current_user) clause into query
     @new_measure = Measure.where({:_id => params[:new_id]}).first
+    @new_measure = ArchivedMeasure.where({:_id => params[:new_id]}).first.to_measure unless @new_measure
+    
     @old_measure = Measure.where({:_id => params[:old_id]}).first
+    @old_measure = ArchivedMeasure.where({:_id => params[:old_id]}).first.to_measure unless @old_measure
+    
     results = {}
     results['diff'] = []
     results['left'] = { 'cms_id' => @old_measure.cms_id, 'updateTime' => (@old_measure.updated_at.tv_sec * 1000), 'hqmf_id' => @old_measure.hqmf_id }
@@ -178,7 +188,11 @@ class MeasuresController < ApplicationController
       end
       
 
-      existing.delete if (existing && is_update)
+      if (existing && is_update)
+        arch_measure = ArchivedMeasure.from_measure(existing)
+        arch_measure.save
+        existing.delete
+      end
     rescue Exception => e
       if params[:measure_file]
         errors_dir = Rails.root.join('log', 'load_errors')
