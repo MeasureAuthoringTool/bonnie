@@ -72,10 +72,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       criteriaType: @model.get('type')
       vals: JSON.stringify(@model.get('references'))
     codes = @model.get('codes')
-    concepts = @model.valueSet().get('concepts')
+    concepts = @model.valueSet()?.get('concepts')
     codes.on 'add remove', => @model.set 'code_source', (if codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView codes: codes
-    @editCodeSelectionView.updateConcepts(concepts)
+    @editCodeSelectionView.updateConcepts(concepts) if concepts
     @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView
       model: new Thorax.Model
       criteria: @model
