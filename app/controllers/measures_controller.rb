@@ -36,7 +36,7 @@ class MeasuresController < ApplicationController
     # create item for the current measure
     results << {}
     results[-1]['updateTime'] = (@measure.updated_at.tv_sec * 1000)
-    results[-1]['oldVersion'] = @measure_history.last.id.to_s
+    results[-1]['oldVersion'] = @measure_history.last.id.to_s unless @measure_history.count == 0
     results[-1]['newVersion'] = @measure.id.to_s
    render :json => results
   end
