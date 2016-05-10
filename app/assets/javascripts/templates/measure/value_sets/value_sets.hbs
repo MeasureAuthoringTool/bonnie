@@ -1,0 +1,49 @@
+<div class="value_sets">
+  {{#each criteriaSets}}
+  <div id="{{id}}">
+    <h2>{{name}}</h2>
+      {{#collection criteria}}
+      <a data-toggle="collapse" href="#codes_{{cid}}" class="collapsed value_sets">
+        <div class="row">
+          <div class="col-sm-5"><strong>{{name}}</strong></div>
+          <div class="col-sm-5">{{oid}}</div>
+          <div class="col-sm-2">{{version}}</div>
+        </div>
+      </a>
+      <div id="codes_{{cid}}" class="row collapse">
+        {{#ifCond codes.length ">" 0}}
+          {{view "ValueSetCodesPageableList" collection=codes}}
+        {{else}}
+          No codes related to this value set were found in Bonnie.
+        {{/ifCond}}
+      </div>
+      {{/collection}}
+  </div>
+  {{/each}}
+
+  {{#ifCond overlappingValueSets.length ">" 0}}
+  <div id="overlapping_value_sets">
+    <h2>Overlapping Value Sets</h2>
+    {{#collection overlappingValueSets}}
+      <a data-toggle="collapse" href="#overlapping_{{cid}}" class="collapsed value_sets">
+        <div class="row">
+          <div class="col-sm-5">
+            <div><strong>{{name1}}</strong></div>
+            <div>{{oid1}}</div>
+          </div>
+          <div class="col-sm-5">
+            <div><strong>{{name2}}</strong></div>
+            <div>{{oid2}}</div>
+          </div>
+          <div class="col-sm-2">
+            {{codes.state.totalRecords}} code{{#ifCond codes.state.totalRecords ">" 1}}s{{/ifCond}}
+          </div>
+        </div>
+      </a>
+      <div id="overlapping_{{cid}}" class="row collapse">
+        {{view "ValueSetCodesPageableList" collection=codes}}
+      </div>
+    {{/collection}}
+  </div>
+  {{/ifCond}}
+</div>

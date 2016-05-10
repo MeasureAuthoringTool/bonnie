@@ -1,0 +1,37 @@
+{{#ifCond collection.state.totalPages ">" 1}}
+<nav class="text-center">
+  <ul class="pagination pagination-sm">
+    <li {{#ifCond collection.state.currentPage "==" collection.state.firstPage}}class="disabled"{{/ifCond}}>
+      <a href="#" aria-label="Previous" class="prev-page">
+        <span aria-hidden="true">&laquo;</span> Previous
+      </a>
+    </li>
+
+    {{#times collection.state.totalPages}}
+      <li {{#ifCond @index "==" collection.state.currentPage}}class="active"{{/ifCond}}>
+        <a href="#" class="numbered-page">
+          {{@index}}
+        </a>
+      </li>
+    {{/times}}
+
+    <li {{#ifCond collection.state.currentPage "==" collection.state.lastPage}}class="disabled"{{/ifCond}}>
+      <a href="#" aria-label="Next" class="next-page">
+        Next <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+{{/ifCond}}
+
+<table class="table table-condensed table-striped">
+  <thead>
+    <tr>
+      <th class="code-system">Code System</th>
+      <th class="code">Code</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+
+  {{collection item-view="ValueSetCodes" tag="tbody"}}
+</table>

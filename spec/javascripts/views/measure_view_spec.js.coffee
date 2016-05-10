@@ -34,6 +34,10 @@ describe 'MeasureView', ->
     expect(@measureView.$('#data_criteria')).toBeVisible()
     expect(@measureView.$('#data_criteria').find('[data-toggle="collapse"].value_sets')).toExist()
     expect(@measureView.$('#data_criteria').find('.row.collapse')).toExist()
+    # should only show 10 code results at a time
+    longTables = @measureView.$('#data_criteria').find('tbody').filter ->
+      return $(@).children('tr').length > 10
+    expect(longTables).not.toExist()
 
     expect(@measureView.$('#supplemental_criteria')).toExist()
     expect(@measureView.$('#supplemental_criteria')).toBeVisible()

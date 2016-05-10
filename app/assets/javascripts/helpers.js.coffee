@@ -41,3 +41,15 @@ Handlebars.registerHelper 'ifCond', (v1, operator, v2, options) ->
     when '||'
       if (v1 || v2) then options.fn(this) else options.inverse(this)
     else return options.inverse(this)
+
+# Adds support for repeating a block N number of times
+# Provides @index context variable (indexed at 1 rather than 0)
+Handlebars.registerHelper 'times', (n, opts) ->
+  if n
+    out = ''
+    for index in [1..n]
+      out += opts.fn(this, data: { index: index })
+  else
+    out = opts.inverse(this)
+
+  return out

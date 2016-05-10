@@ -1,13 +1,4 @@
 .value_sets {
-  .description {
-    max-height: @line-height-computed; //show 1 lines of text.
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .expand {
-    color: @brand-primary;
-    cursor: pointer;
-  }
   .row {
     padding: 10px 0;
   }
@@ -17,13 +8,42 @@
   }
 
   .table {
+    margin-bottom: 5px;
 
     th, td {
       padding: 5px 15px;
     }
 
-    .code {
+    th {
+      text-transform: uppercase;
+    }
+
+    .code, .code-system {
       white-space: nowrap;
+    }
+
+    .code_system { width: 150px; }
+    .code { width: 100px; }
+
+    .description {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &.opened { max-height: inherit; }
+      &.closed { max-height: @line-height-computed; } //show 1 lines of text.
+
+      .expand {
+        color: @brand-primary;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .pagination {
+    margin: 10px 0;
+
+    &.pagination-sm > li:first-child > a,
+    &.pagination-sm > li:last-child > a {
+      border-radius: 0;
     }
   }
 }

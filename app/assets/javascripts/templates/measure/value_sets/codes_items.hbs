@@ -1,0 +1,13 @@
+<td class="code">{{code_system_name}}</td>
+<td class="code">{{code}}</td>
+<td class="description">
+  <div class="description {{#if hasLongDisplayName}}{{#if descriptionExpanded}}opened{{else}}closed{{/if}}{{/if}}">{{display_name}}</div>
+
+  {{#if hasLongDisplayName}}
+    {{#if descriptionExpanded}}
+    <div class="expand opened pull-right">Show less <i class="fa fa-caret-up"></i></div>
+    {{else}}
+    <div class="expand closed pull-right">Show more <i class="fa fa-caret-down"></i></div>
+    {{/if}}
+  {{/if}}
+</td>
