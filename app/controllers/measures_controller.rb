@@ -1,4 +1,6 @@
 class MeasuresController < ApplicationController
+  
+  include TestCaseMeasureHistory
 
   skip_before_action :verify_authenticity_token, only: [:show, :value_sets]
 
@@ -265,7 +267,13 @@ class MeasuresController < ApplicationController
 
     measure.generate_js
 
+    upl_id = TestCaseMeasureHistory.something(measure)
     measure.save!
+    TestCaseMeasureHistory.calculate_updated_actuals(measure)
+    TestCaseMeasureHistory.something_else(measure, upl_id)
+    # TODO - run the calcs for the patients with the new version of the measure
+    # if the measure needs finalize (measure.needs_finalize == true) hold the calc of the patients until after the finalize
+    # TODO - take the patient after snapshot
 
     # rebuild the users patients if set to do so
     if params[:rebuild_patients] == "true"
@@ -310,6 +318,7 @@ class MeasuresController < ApplicationController
       end
       measure.generate_js(clear_db_cache: true)
       measure.save!
+      # TODO - take the after snapshot of the patients after the calc
     end
     redirect_to root_path
   end
