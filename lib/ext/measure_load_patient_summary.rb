@@ -39,12 +39,11 @@ module TestCaseMeasureHistory
       self[:patients][patient.id.to_s] = {
         expected: trim_expected,
         before: trim_before,
-        before_status: status
+        before_status: status}
     end
-
   end
   
-  def self.something(measure)
+  def self.something(measure, old_measure)
     patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
     if patients.count > 0
       blah = MeasureUploadPatientSummary.new
@@ -58,6 +57,8 @@ module TestCaseMeasureHistory
       blah.hqmf_id = measure.hqmf_id
       blah.hqmf_set_id = measure.hqmf_set_id
       blah.user_id = measure.user_id
+      blah.measure_db_id_before = old_measure.id
+      blah.measure_db_id_after = measure.id
       blah.save!
       blah.id
     end
@@ -84,12 +85,9 @@ module TestCaseMeasureHistory
     end
   end
 
+  def self.calculate_updated_actuals(m)
     calculator = BonnieBackendCalculator.new
-    # query = {}
-    # query[:user_id] = User.where(email: options[:user_email]).first.try(:id) if options[:user_email]
-    # query[:cms_id] = options[:cms_id] if options[:cms_id]
-    # measures = Measure.where(query)
-    # measures.each do |measure|
+    measure = Measure.where(id: m.id).first
     measure.populations.each_with_index do |population, population_index|
       # Set up calculator for this measure and population, making sure we regenerate the javascript
       begin
@@ -107,7 +105,8 @@ module TestCaseMeasureHistory
           end
         end
         res = []
-        result.merge!('measure_id',measure.hqmf_set_id, 'population_index', population_index)
+        result[:measure_id] = measure.hqmf_set_id
+        result[:population_index] = population_index
         res << result
         if !patient.actual_values.present?
           patient.write_attribute(:actual_values, res)
@@ -115,7 +114,6 @@ module TestCaseMeasureHistory
           patient.actual_values << result
         end
         patient.save!
-        yield measure, population_index, patient, result, setup_exception || calculation_exception
       end
     end
   end
