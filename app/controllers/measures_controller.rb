@@ -29,7 +29,7 @@ class MeasuresController < ApplicationController
     @measure_history.each_with_index do |version,index|
       results << {}
       results[-1]['updateTime'] = (version.uploaded_at.tv_sec * 1000)
-      results[-1]['oldVersion'] = @measure_history[index-1].id.to_s if((index-1) >= 0)
+      results[-1]['oldVersion'] = @measure_history[index-1].measure_db_id.to_s if((index-1) >= 0)
       results[-1]['newVersion'] = version.id.to_s
     end
     
@@ -44,10 +44,10 @@ class MeasuresController < ApplicationController
   def historic_diff
     # get the two versions to diff
     @new_measure = Measure.where({:_id => params[:new_id]}).first
-    @new_measure = ArchivedMeasure.where({:_id => params[:new_id]}).first.to_measure unless @new_measure
+    @new_measure = ArchivedMeasure.where({:measure_db_id => params[:new_id]}).first.to_measure unless @new_measure
     
     @old_measure = Measure.where({:_id => params[:old_id]}).first
-    @old_measure = ArchivedMeasure.where({:_id => params[:old_id]}).first.to_measure unless @old_measure
+    @old_measure = ArchivedMeasure.where({:measure_db_id => params[:old_id]}).first.to_measure unless @old_measure
     
     results = {}
     results['diff'] = []
