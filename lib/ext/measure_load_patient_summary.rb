@@ -29,6 +29,8 @@ module TestCaseMeasureHistory
       trim_before = patient.actual_values.find(measure_id: m_id, popluation_index: pop_idx).first.reject { |k, _v| k.include?('_') }
       trim_expected = patient.expected_values.find(measure_id: m_id, popluation_index: pop_idx).first.reject { |k, _v| k.include?('_') }
       cat = (trim_before.to_a - trim_expected.to_a).to_h
+      
+      # TODO: Make sure this can handle continuous value measures.
       if cat.size == 0 || !cat.has_value?(1)
         status = 'pass'
         self[:summary][:pass_before] += 1
@@ -57,7 +59,7 @@ module TestCaseMeasureHistory
       blah.hqmf_id = measure.hqmf_id
       blah.hqmf_set_id = measure.hqmf_set_id
       blah.user_id = measure.user_id
-      blah.measure_db_id_before = old_measure.id
+      blah.measure_db_id_before = old_measure.id unless !old_measure
       blah.measure_db_id_after = measure.id
       blah.save!
       blah.id
@@ -105,7 +107,6 @@ module TestCaseMeasureHistory
           end
         end
         res = []
-        binding.pry
         result[:measure_id] = measure.hqmf_set_id
         result[:population_index] = population_index
         res << result
