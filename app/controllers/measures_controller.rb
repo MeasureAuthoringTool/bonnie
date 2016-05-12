@@ -267,7 +267,7 @@ class MeasuresController < ApplicationController
 
     measure.generate_js
 
-    upl_id = TestCaseMeasureHistory.something(measure)
+    upl_id = TestCaseMeasureHistory.something(measure, arch_measure)
     measure.save!
     TestCaseMeasureHistory.calculate_updated_actuals(measure)
     TestCaseMeasureHistory.something_else(measure, upl_id)
