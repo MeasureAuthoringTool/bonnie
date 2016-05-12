@@ -9,6 +9,8 @@ module TestCaseMeasureHistory
     field :hqmf_id, type: String
     field :hqmf_set_id, type: String
     field :upload_dtm, type: Time, default: -> { Time.current }
+    field :measure_db_id_before, type: BSON::ObjectId # The mongoid id of the measure before it is archived
+    field :measure_db_id_after, type: BSON::ObjectId # The mongoid id of the measure after it is has been updateed
     belongs_to :user
     embeds_many :measure_upload_population_summaries, cascade_callbacks: true
     accepts_nested_attributes_for :measure_upload_population_summaries
@@ -38,7 +40,6 @@ module TestCaseMeasureHistory
         expected: trim_expected,
         before: trim_before,
         before_status: status
-      }
     end
 
   end
@@ -83,7 +84,6 @@ module TestCaseMeasureHistory
     end
   end
 
-  def calculate_updated_actuals(measure)
     calculator = BonnieBackendCalculator.new
     # query = {}
     # query[:user_id] = User.where(email: options[:user_email]).first.try(:id) if options[:user_email]
