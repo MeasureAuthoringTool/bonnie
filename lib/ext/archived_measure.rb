@@ -8,7 +8,7 @@ class ArchivedMeasure
   field :id, type: String
   field :hqmf_id, type: String # should be using this one as primary id!!
   field :hqmf_set_id, type: String
-  field :measure_db_id, type: String
+  field :measure_db_id, type: BSON::ObjectId
   
   field :uploaded_at, type: Time
   
@@ -17,6 +17,7 @@ class ArchivedMeasure
   belongs_to :user
   
   index "user_id" => 1
+  index "measure_db_id" => 1
   
   scope :by_measure_db_id, ->(id) { where({'measure_db_id'=>id }) }
   scope :by_user, ->(user) { where({'user_id'=>user.id}) }
