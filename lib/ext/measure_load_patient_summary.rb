@@ -105,13 +105,14 @@ module TestCaseMeasureHistory
           end
         end
         res = []
+        binding.pry
         result[:measure_id] = measure.hqmf_set_id
         result[:population_index] = population_index
         res << result
         if !patient.actual_values.present?
           patient.write_attribute(:actual_values, res)
         else
-          patient.actual_values << result
+          patient.actual_values[population_index] = result
         end
         patient.save!
       end
