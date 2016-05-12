@@ -32,7 +32,7 @@ namespace :upgrade_add_hx_tracks do
             if !patient.actual_values.present?
               patient.write_attribute(:actual_values, res)
               else
-                patient.actual_values << result
+                patient.actual_values[population_index] = result
               end
             patient.save!
             yield measure, population_index, patient, result, setup_exception || calculation_exception
