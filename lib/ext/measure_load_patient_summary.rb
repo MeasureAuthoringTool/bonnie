@@ -107,7 +107,6 @@ module TestCaseMeasureHistory
           end
         end
         res = []
-        binding.pry
         result[:measure_id] = measure.hqmf_set_id
         result[:population_index] = population_index
         res << result
