@@ -32,13 +32,33 @@ class MeasuresController < ApplicationController
       results[-1]['oldVersion'] = @measure_history[index-1].measure_db_id.to_s if((index-1) >= 0)
       results[-1]['newVersion'] = version.measure_db_id.to_s
     end
-    
+
     # create item for the current measure
     results << {}
     results[-1]['updateTime'] = (@measure.updated_at.tv_sec * 1000)
     results[-1]['oldVersion'] = @measure_history.last.measure_db_id.to_s unless @measure_history.count == 0
     results[-1]['newVersion'] = @measure.id.to_s
    render :json => results
+
+    names = {}
+    patients = Record.where(:measure_ids => params[:id]).only(:_id, :first, :last)
+    patients.each do |p|
+      names[p[:_id].to_s] = { first: p[:first], last: p[:last] }
+    end
+
+    snaps = TestCaseMeasureHistory::MeasureUploadPatientSummary.where(hqmf_set_id: params[:id]).desc(:created_at)
+    small_snaps = []
+    snaps.each_with_index do |upload, idx|
+      ul = {upload_dtm: upload[:upload_dtm], measure_db_id_before: upload[:measure_db_id_before], measure_db_id_after: upload[:measure_db_id_after], populations: [] }
+      upload[:measure_upload_population_summaries].each_with_index do |pop, pidx|
+        meow = { summary: pop[:summary] }
+        pop[:patients].each do |ptt|
+          meow[ptt[0]] = { before_status: ptt[1][:before_status], after_status: ptt[1][:after_status], first: names.fetch(ptt[0])[:first], last: names.fetch(ptt[0])[:last] }
+        end
+        ul[:populations] << meow
+      end
+      small_snaps << ul
+    end
   end
   
   def historic_diff

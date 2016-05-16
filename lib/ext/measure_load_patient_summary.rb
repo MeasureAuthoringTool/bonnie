@@ -10,7 +10,7 @@ module TestCaseMeasureHistory
     field :hqmf_set_id, type: String
     field :upload_dtm, type: Time, default: -> { Time.current }
     field :measure_db_id_before, type: BSON::ObjectId # The mongoid id of the measure before it is archived
-    field :measure_db_id_after, type: BSON::ObjectId # The mongoid id of the measure after it is has been updateed
+    field :measure_db_id_after, type: BSON::ObjectId # The mongoid id of the measure after it is has been updated
     belongs_to :user
     embeds_many :measure_upload_population_summaries, cascade_callbacks: true
     accepts_nested_attributes_for :measure_upload_population_summaries
@@ -28,10 +28,10 @@ module TestCaseMeasureHistory
     def before_measure_load(patient, pop_idx, m_id)
       trim_before = patient.actual_values.find(measure_id: m_id, popluation_index: pop_idx).first.reject { |k, _v| k.include?('_') }
       trim_expected = patient.expected_values.find(measure_id: m_id, popluation_index: pop_idx).first.reject { |k, _v| k.include?('_') }
-      cat = (trim_before.to_a - trim_expected.to_a).to_h
-      
+      feline = (trim_before.to_a - trim_expected.to_a).to_h
+
       # TODO: Make sure this can handle continuous value measures.
-      if cat.size == 0 || !cat.has_value?(1)
+      if feline.empty? || !feline.value?(1)
         status = 'pass'
         self[:summary][:pass_before] += 1
       else
@@ -41,7 +41,8 @@ module TestCaseMeasureHistory
       self[:patients][patient.id.to_s] = {
         expected: trim_expected,
         before: trim_before,
-        before_status: status}
+        before_status: status }
+      self[:patients][patient.id.to_s].merge!(test_case_version_at_upload: patient.version) unless !patient.version
     end
   end
   
@@ -73,8 +74,8 @@ module TestCaseMeasureHistory
       fish[:patients].keys.each do |patient|
         ptt = Record.where(id: patient).first
         trim_after = ptt.actual_values.find(measure_id: measure.hqmf_set_id, population_index: pop_idx).first.reject { |k, _v| k.include?('_') }
-        cat = (trim_after.to_a - fish[:patients][patient][:expected].to_a).to_h
-        if cat.size == 0 || !cat.has_value?(1)
+        feline = (trim_after.to_a - fish[:patients][patient][:expected].to_a).to_h
+        if feline.empty? || !feline.value?(1)
           status = 'pass'
           fish.summary[:pass_after] += 1
         else
