@@ -32,7 +32,7 @@ namespace :upgrade_add_hx_tracks do
             if !patient.actual_values.present?
               patient.write_attribute(:actual_values, res)
               else
-                patient.actual_values[population_index] = result
+                patient.actual_values << result
               end
             patient.save!
             yield measure, population_index, patient, result, setup_exception || calculation_exception
@@ -41,8 +41,19 @@ namespace :upgrade_add_hx_tracks do
       end
     end
     
+    desc 'Clear any existing actual values'
+    task :clear_actuals => :environment do
+      STDOUT.sync = true
+      patients = Record
+      patients.each do |patient|
+        patient.unset(:actual_values)
+        patient.save!
+      end
+    end
+    
     desc 'Calculate every patient in the database and display any errors (does not test for correct results)'
     task :calculate_all => :environment do
+      Rake::Task['upgrade_add_hx_tracks:patients:clear_actuals'].invoke 
       STDOUT.sync = true
       start = Time.now
       calculate_all do |measure, population_index, patient, result, error|
@@ -53,11 +64,6 @@ namespace :upgrade_add_hx_tracks do
           print '.'
         end
         puts "Measure: #{measure.cms_id}\n\tPatient: #{patient.first} #{patient.last} (#{patient._id})\n\t\tPopulation Index: #{population_index}\n\t\t\tResult #{result}"
-        ptt = Record.find(patient._id)
-        # res = []
-        # res << result
-        # ptt.write_attribute(:actual_values, res)
-        # ptt.save!
       end
       puts
       finish = Time.now
