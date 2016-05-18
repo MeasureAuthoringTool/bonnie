@@ -293,6 +293,13 @@ class MeasuresController < ApplicationController
     TestCaseMeasureHistory.something_else(measure, upl_id)
     # TODO - run the calcs for the patients with the new version of the measure
     # if the measure needs finalize (measure.needs_finalize == true) hold the calc of the patients until after the finalize
+    
+    # trigger the measure upload summary for the user.
+    if (!measure.needs_finalize)
+      flash[:uploaded_summary_id] = upl_id
+    end
+    
+    
     # TODO - take the patient after snapshot
 
     # rebuild the users patients if set to do so
@@ -338,6 +345,7 @@ class MeasuresController < ApplicationController
       end
       measure.generate_js(clear_db_cache: true)
       measure.save!
+      flash[:uploaded_summary_id] = upl_id
       # TODO - take the after snapshot of the patients after the calc
     end
     redirect_to root_path
