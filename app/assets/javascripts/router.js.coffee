@@ -116,3 +116,8 @@
     errorDialogView = new Thorax.Views.ErrorDialog error: error
     errorDialogView.appendTo('#bonnie')
     errorDialogView.display();
+    
+  showMeasureUploadSummary: (summaryId) ->
+    measureUploadSummaryDialogView = new Thorax.Views.MeasureUploadSummaryDialog summaryId: summaryId
+    measureUploadSummaryDialogView.appendTo('#bonnie')
+    measureUploadSummaryDialogView.display()
