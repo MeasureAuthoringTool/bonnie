@@ -107,14 +107,17 @@ module TestCaseMeasureHistory
             calculation_exception = "Measure calculation exception: #{e.message}"
           end
         end
-        res = []
         result[:measure_id] = measure.hqmf_set_id
         result[:population_index] = population_index
-        res << result
         if !patient.actual_values.present?
           patient.write_attribute(:actual_values, res)
         else
-          patient.actual_values[population_index] = result
+          begin
+            actual_values = patient.actual_values.dup
+            index = actual_values.find_index { |av| av['measure_id'] == measure.hqmf_set_id && av['population_index'] == population_index }
+            actual_values[index] = result
+            patient.actual_values = actual_values
+          end
         end
         patient.save!
       end
