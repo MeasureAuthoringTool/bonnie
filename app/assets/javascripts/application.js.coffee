@@ -32,7 +32,9 @@
 #= require jquery-color/jquery.color
 #= require bootstrap-file-input/bootstrap.file-input
 #= require MutationObserver-shim/dist/mutationobserver.min
-#= require cql/cql4browsers
+#= require cql_qdm_patientapi
+#= require ace-builds/src-min-noconflict/ace.js
+#= require ace-builds/src-min-noconflict/theme-chrome.js
 #
 #= require helpers
 #= require_tree ./templates
