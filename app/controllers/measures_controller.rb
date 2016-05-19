@@ -287,10 +287,10 @@ class MeasuresController < ApplicationController
 
     measure.generate_js
 
-    upl_id = TestCaseMeasureHistory.something(measure, arch_measure)
+    upl_id = TestCaseMeasureHistory.collect_before_upload_state(measure, arch_measure)
     measure.save!
     TestCaseMeasureHistory.calculate_updated_actuals(measure)
-    TestCaseMeasureHistory.something_else(measure, upl_id)
+    TestCaseMeasureHistory.collect_after_upload_state(measure, upl_id)
     # TODO - run the calcs for the patients with the new version of the measure
     # if the measure needs finalize (measure.needs_finalize == true) hold the calc of the patients until after the finalize
     

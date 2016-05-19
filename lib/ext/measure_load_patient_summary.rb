@@ -25,13 +25,13 @@ module TestCaseMeasureHistory
     embedded_in :measure_upload_patient_summaries
     # attr_accessor :patients, :summary
 
-    def before_measure_load(patient, pop_idx, m_id)
+    def before_measure_load_compare(patient, pop_idx, m_id)
       trim_before = patient.actual_values.find(measure_id: m_id, popluation_index: pop_idx).first.reject { |k, _v| k.include?('_') }
       trim_expected = patient.expected_values.find(measure_id: m_id, popluation_index: pop_idx).first.reject { |k, _v| k.include?('_') }
-      feline = (trim_before.to_a - trim_expected.to_a).to_h
+      diff_before_expected = (trim_before.to_a - trim_expected.to_a).to_h
 
       # TODO: Make sure this can handle continuous value measures.
-      if feline.empty? || !feline.value?(1)
+      if diff_before_expected.empty? || !diff_before_expected.value?(1)
         status = 'pass'
         self[:summary][:pass_before] += 1
       else
@@ -46,45 +46,48 @@ module TestCaseMeasureHistory
     end
   end
   
-  def self.something(measure, old_measure)
+  def self.collect_before_upload_state(measure, old_measure)
     patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
     if patients.count > 0
-      blah = MeasureUploadPatientSummary.new
+      mups = MeasureUploadPatientSummary.new
       measure.populations.each_with_index do |m, index|
         moo = MeasureUploadPopulationSummary.new
         patients.each do |patient|
-          moo.before_measure_load(patient, index, measure.hqmf_set_id)
+          moo.before_measure_load_compare(patient, index, measure.hqmf_set_id)
         end
-        blah.measure_upload_population_summaries << moo
+        mups.measure_upload_population_summaries << moo
       end
-      blah.hqmf_id = measure.hqmf_id
-      blah.hqmf_set_id = measure.hqmf_set_id
-      blah.user_id = measure.user_id
-      blah.measure_db_id_before = old_measure.id unless !old_measure
-      blah.measure_db_id_after = measure.id
-      blah.save!
-      blah.id
+      mups.hqmf_id = measure.hqmf_id
+      mups.hqmf_set_id = measure.hqmf_set_id
+      mups.user_id = measure.user_id
+      mups.measure_db_id_before = old_measure.id unless !old_measure
+      mups.measure_db_id_after = measure.id
+      mups.save!
+      mups.id
     end
   end
 
-  def self.something_else(measure, upl_id)
-    the_befores = MeasureUploadPatientSummary.where(id: upl_id).first
-    the_befores.measure_upload_population_summaries.each_index do |pop_idx|
-      fish = the_befores.measure_upload_population_summaries[pop_idx]
-      fish[:patients].keys.each do |patient|
-        ptt = Record.where(id: patient).first
-        trim_after = ptt.actual_values.find(measure_id: measure.hqmf_set_id, population_index: pop_idx).first.reject { |k, _v| k.include?('_') }
-        feline = (trim_after.to_a - fish[:patients][patient][:expected].to_a).to_h
-        if feline.empty? || !feline.value?(1)
-          status = 'pass'
-          fish.summary[:pass_after] += 1
-        else
-          status = 'fail'
-          fish.summary[:fail_after] += 1
+  def self.collect_after_upload_state(measure, upl_id)
+    nbrPatients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id).count
+    if nbrPatients >0
+      the_befores = MeasureUploadPatientSummary.where(id: upl_id).first
+      the_befores.measure_upload_population_summaries.each_index do |pop_idx|
+        b_mups = the_befores.measure_upload_population_summaries[pop_idx]
+        b_mups[:patients].keys.each do |patient|
+          ptt = Record.where(id: patient).first
+          trim_after = ptt.actual_values.find(measure_id: measure.hqmf_set_id, population_index: pop_idx).first.reject { |k, _v| k.include?('_') }
+          diff_after_expected = (trim_after.to_a - b_mups[:patients][patient][:expected].to_a).to_h
+          if diff_after_expected.empty? || !diff_after_expected.value?(1)
+            status = 'pass'
+            b_mups.summary[:pass_after] += 1
+          else
+            status = 'fail'
+            b_mups.summary[:fail_after] += 1
+          end
+          b_mups.patients[patient].merge!(after: trim_after, after_status: status)
         end
-        fish.patients[patient].merge!(after: trim_after, after_status: status)
+        b_mups.save!
       end
-      fish.save!
     end
   end
 
