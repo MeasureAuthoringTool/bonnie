@@ -165,6 +165,7 @@ module Measures
         entry.codes = source_criteria['codes']
       end
       entry.oid = HQMF::DataCriteria.template_id_for_definition(source_criteria['definition'], source_criteria['status'], source_criteria['negation'])
+      entry.oid ||= HQMF::DataCriteria.template_id_for_definition(source_criteria['definition'], source_criteria['status'], source_criteria['negation'], 'r2')
       entry
     end
 
