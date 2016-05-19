@@ -40,9 +40,9 @@ module TestCaseMeasureHistory
       end
       self[:patients][patient.id.to_s] = {
         expected: trim_expected,
-        before: trim_before,
+        actual_before: trim_before,
         before_status: status }
-      self[:patients][patient.id.to_s].merge!(test_case_version_at_upload: patient.version) unless !patient.version
+      self[:patients][patient.id.to_s].merge!(patient_version_at_upload: patient.version) unless !patient.version
     end
   end
   
@@ -84,7 +84,7 @@ module TestCaseMeasureHistory
             status = 'fail'
             b_mups.summary[:fail_after] += 1
           end
-          b_mups.patients[patient].merge!(after: trim_after, after_status: status)
+          b_mups.patients[patient].merge!(actual_after: trim_after, after_status: status)
         end
         b_mups.save!
       end
