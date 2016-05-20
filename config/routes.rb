@@ -14,6 +14,9 @@ Bonnie::Application.routes.draw do
     root to: 'home#show', as: 'unauthenticated_root'
   end
 
+  get '404', :to => 'application#page_not_found'
+  get '500', :to => 'application#server_error'
+
   root to: 'home#index'
 
   resources :measures, defaults: { format: :json } do
@@ -44,7 +47,7 @@ Bonnie::Application.routes.draw do
       get 'history'
     end
   end
-  
+
   namespace :admin do
     resources :users do
       collection do

@@ -84,6 +84,7 @@ Bonnie.viz.measureVisualzation = ->
       'IPP': 'Initial Population'
       'DENOM': 'Denominator'
       'NUMER': 'Numerator'
+      'NUMEX': 'Numerator Exclusions'
       'DENEXCEP': 'Denominator Exceptions'
       'DENEX': 'Denominator Exclusions'
       'MSRPOPL': 'Measure Population'

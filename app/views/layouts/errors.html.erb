@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bonnie v<%=Bonnie::Version.current()%></title>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= csrf_meta_tags %>
+    <%= render 'layouts/shim' %>
+  </head>
+
+  <body>
+    <a href class="sr-only skip-content">Skip to main content</a>
+    <%= render 'layouts/ie8_alert' %>
+    <div class="container">
+      <%= render 'layouts/header' if signed_in? %>
+      <div id="bonnie" role="main">
+        <div class="error-page">
+          <%= yield %>
+        </div>
+      </div>
+      <p id="ariaalerts" class="sr-only" role="log" aria-live="polite"></p>
+    </div>
+  </body>
+
+  <%= javascript_include_tag "application" %>
+</html>

@@ -29,13 +29,13 @@
 <div class="row">
   <form class="col-left" role="form">
     <div class="form-group">
-      <label for="last" class="control-label">Last Name</label>
-      <input type="text" id="last" name="last" class="form-control" placeholder="Smith">
+      <label for="last" class="control-label">Last Name*</label>
+      <input type="text" id="last" name="last" class="form-control" placeholder="Smith" required aria-required="true">
     </div>
 
     <div class="form-group">
-      <label for="first" class="control-label">First Name</label>
-      <input type="text" id="first" name="first" class="form-control" placeholder="John">
+      <label for="first" class="control-label">First Name*</label>
+      <input type="text" id="first" name="first" class="form-control" placeholder="John" required aria-required="true">
     </div>
   </form>
 
@@ -50,14 +50,14 @@
 
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="birthdate" class="control-label">Date of Birth</label>
+          <label for="birthdate" class="control-label">Date of Birth*</label>
           <div class="datetime-control">
             <div>
-              <input type="text" id="birthdate" name="birthdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/day/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
+              <input type="text" id="birthdate" name="birthdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/day/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" required aria-required="true">
             </div>
             <div>
               <label for="birthtime" class="sr-only">Time of Birth</label>
-              <input type="text" id="birthtime" name="birthtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
+              <input type="text" id="birthtime" name="birthtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM" required aria-required="true">
             </div>
           </div>
         </div>

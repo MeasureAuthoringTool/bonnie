@@ -214,7 +214,17 @@ module Measures
 
         # Format the field to be stored in a Record.
         if field.type == "CD"
-          field_value = value["code"] || Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
+          if value["codes"]
+            # Multiple codes were specified
+            field_value = {}
+            field_value["codes"] = value["codes"]
+          elsif value["code"] && !value["code"].empty?
+            # A single code was specified
+            field_value = value["code"]
+          else
+            # No codes specified, default to first possible code
+            field_value = Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
+          end
           field_value["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id, value_sets)["display_name"] if field_value
         else
           field_value = field.format

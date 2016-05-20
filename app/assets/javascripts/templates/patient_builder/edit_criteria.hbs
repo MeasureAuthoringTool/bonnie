@@ -118,9 +118,14 @@
                 <div class="input-group-addon">
                   <label for="dose_unit_{{@cid}}" class="sr-only">dose unit</label>
                   <select id="dose_unit_{{@cid}}" name="dose_unit" class="form-control medications-control">
-                    <option value="mg">mg</option>
-                    <option value="tablet(s)">tablet(s)</option>
                     <option value="capsule(s)">capsule(s)</option>
+                    <option value="dose(s)">dose(s)</option>
+                    <option value="gram(s)">gram(s)</option>
+                    <option value="mcg(s)">mcg(s)</option>
+                    <option value="mg">mg(s)</option>
+                    <option value="ml(s)">ml(s)</option>
+                    <option value="tablet(s)">tablet(s)</option>
+                    <option value="unit(s)">unit(s)</option>
                   </select>
                 </div>
               </div>
@@ -134,6 +139,7 @@
                 <div class="input-group-addon">
                   <label for="frequency_unit_{{@cid}}" class="sr-only">frequency unit</label>
                   <select id="frequency_unit_{{@cid}}" name="frequency_unit" class="form-control medications-control">
+                    <option value="min">min(s)</option>
                     <option value="h">hour(s)</option>
                     <option value="d">day(s)</option>
                   </select>
@@ -169,6 +175,11 @@
             {{else}}
               {{value}} {{unit}}
               {{title}}
+            {{/if}}
+            {{#if codes}} - Codes:
+              {{#each codes}}
+                {{@key}}: {{this}}
+              {{/each}}
             {{/if}}
             {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
           </span>
