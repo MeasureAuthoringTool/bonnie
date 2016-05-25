@@ -5,7 +5,107 @@ class MeasuresController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:show, :value_sets]
 
   respond_to :json, :js, :html
+  def upload_summary
+    #Creates an array of N elements, where N is the number of populations
+    #Each of those sub-arrays will be arrays containing hashes of patient information
+    array_of_test_patient_information = Array.new
+    #Creates an array of N elements, where N is the number of populations
+    #Each of those elements will be hashes containing general calculations about that population
+    array_of_patient_numbers_information = Array.new
+    array_containing_population_titles = Array.new
 
+    general_upload_summary = TestCaseMeasureHistory::MeasureUploadPatientSummary.where(id: BSON::ObjectId(params[:id])).first
+    
+    #Loop through each of the populations    
+    general_upload_summary[:measure_upload_population_summaries].each_with_index do |eachPopulation, current_population_index|
+      array_of_test_patient_information << [] #append N arrays (where N is the number of populations within the measure)
+      
+      if general_upload_summary[:measure_upload_population_summaries][current_population_index][:patients].empty?
+        #If there are no patients in the population, set all the values to 0
+        #If you don't have this separate hash you get a divide by zero error below
+        patient_numbers_hash = {
+          number_of_patients_passed_before_measure_update: 0,
+          number_of_patients_passed_after_measure_update: 0,
+          percent_passed_before: 0,
+          percent_passed_after: 0,
+          total_patient_size: 0,      
+          number_of_patients_who_change: 0
+      }
+      else
+        #If there are patients, do the calculations
+        
+        #Variables to help calculate the percent who pass before && after
+        #Variables are local to be specific for each population
+        number_who_pass_before = 0 
+        number_who_pass_after = 0
+        #-----------------------------
+        #if two patients swap, from pass to fail and fail to pass
+        #you can't detect it by just subtracting those who pass from total
+        #which is why this variable exists
+        number_who_change = 0
+        #hash loop to get information about the patient
+        general_upload_summary[:measure_upload_population_summaries][current_population_index][:patients].each do |patientOID, _value|
+          if (_value[:before_status].eql? "pass")
+            number_who_pass_before += 1
+          end  
+          if (_value[:after_status].eql? "pass")
+            number_who_pass_after += 1
+          end
+          #We only care about the patients who change their status
+          if (_value[:before_status] != _value[:after_status])
+            number_who_change += 1
+            patientInfo = Record.where(id: patientOID).first
+              currentPatient = {
+                first_name: patientInfo[:first],
+                last_name: patientInfo[:last],
+                full_name: patientInfo[:first]+" "+patientInfo[:last],
+                before_status: _value[:before_status].to_s.capitalize,
+                after_status: _value[:after_status].to_s.capitalize,
+                oid_number: patientOID
+              }
+              #Add the current test patient's information to the array containing every test patient's info
+            array_of_test_patient_information[current_population_index] << currentPatient
+          end
+        end
+        #some calculations on general patient info
+        #One of these hashes per population
+        patient_numbers_hash = {
+          number_of_patients_passed_before_measure_update: number_who_pass_before,
+          number_of_patients_passed_after_measure_update: number_who_pass_after,
+          percent_passed_before: (number_who_pass_before.to_f/general_upload_summary[:measure_upload_population_summaries][current_population_index][:patients].size.to_f*100).round(2).round,
+          percent_passed_after: (number_who_pass_after.to_f/general_upload_summary[:measure_upload_population_summaries][current_population_index][:patients].size.to_f*100).round(2).round,
+          total_patient_size: general_upload_summary[:measure_upload_population_summaries][current_population_index][:patients].size,      
+          number_of_patients_who_change: number_who_change
+        }
+        #add the hash to an array containing each hash
+        array_of_patient_numbers_information << patient_numbers_hash
+      end  
+    end
+    #Only get the Population Names/Titles if there is more than one population
+    if array_of_test_patient_information.length > 1
+
+      measureInformation =  Measure.by_user(current_user).where(hqmf_set_id: general_upload_summary[:hqmf_set_id].to_s).first
+      for population_title in measureInformation[:populations]
+        array_containing_population_titles << population_title[:title]
+        #store those names/titles in an array
+      end  
+
+    end
+    
+    upload_Summary = {  
+      array_of_population_titles: array_containing_population_titles,
+      array_of_populations: array_of_test_patient_information,
+      hqmf_set_id: general_upload_summary[:hqmf_set_id].to_s,
+      array_of_patient_numbers_information: array_of_patient_numbers_information,
+      number_of_populations: Array(1..array_of_test_patient_information.length)
+      #handlebars can't loop something x number of times, but it can loop through each element in an array
+      #That's why this last item is an Array, as opposed to just a fixnum
+    }
+    
+    render :json => upload_Summary
+  end
+  
+  
   def show
     skippable_fields = [:map_fns, :record_ids, :measure_attributes]
     @measure = Measure.by_user(current_user).without(*skippable_fields).find(params[:id])

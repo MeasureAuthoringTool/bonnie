@@ -30,6 +30,7 @@ Bonnie::Application.routes.draw do
       post 'cql_to_elm'
       get 'history'
       get 'historic_diff'
+      get 'upload_summary'
     end
     member do
       get 'debug', defaults: { format: :html }
