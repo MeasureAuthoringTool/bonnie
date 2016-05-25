@@ -27,19 +27,19 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     @COL_WIDTH_FREETEXT = 240
     @COL_WIDTH_CRITERIA = 180
     
-    criteriaKeysByPopulation = {} # "Type" => "Preconditions"
+    @criteriaKeysByPopulation = {} # "Type" => "Preconditions"
     for population in @populations
       preconditions = @populationSet.get(population)?['preconditions']
       if preconditions
-        criteriaKeysByPopulation[population] = @_preconditionCriteriaKeys(preconditions[0]).filter (ck) -> ck != 'MeasurePeriod'
+        @criteriaKeysByPopulation[population] = @_preconditionCriteriaKeys(preconditions[0]).filter (ck) -> ck != 'MeasurePeriod'
       else
-        criteriaKeysByPopulation[population] = []
+        @criteriaKeysByPopulation[population] = []
     
-    @dataIndices = @getDataIndices(@populations, criteriaKeysByPopulation)
-    @dataCollections = @getDataCollections(@populations, @dataIndices, criteriaKeysByPopulation)
+    @dataIndices = @getDataIndices(@populations, @criteriaKeysByPopulation)
+    @dataCollections = @getDataCollections(@populations, @dataIndices, @criteriaKeysByPopulation)
     @_dataInfo = @getDataInfo(@populations, @dataIndices, @dataCollections)
 
-  getDataIndices: (populations, criteriaKeysByPopulation) =>
+  getDataIndices: (populations, @criteriaKeysByPopulation) =>
     dataIndices = []
     
     dataIndices.push(PatientDashboard.EDIT)
@@ -61,7 +61,7 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     dataIndices.push(PatientDashboard.GENDER)
     
     for population in populations
-      criteria = criteriaKeysByPopulation[population]
+      criteria = @criteriaKeysByPopulation[population]
       for criterium in criteria
         dataIndices.push(population + '_' + criterium)
     
