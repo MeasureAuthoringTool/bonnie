@@ -289,13 +289,14 @@ class MeasuresController < ApplicationController
 
     upl_id = TestCaseMeasureHistory.collect_before_upload_state(measure, arch_measure)
     measure.save!
-    TestCaseMeasureHistory.calculate_updated_actuals(measure)
-    TestCaseMeasureHistory.collect_after_upload_state(measure, upl_id)
-    # TODO - run the calcs for the patients with the new version of the measure
+    
+    # run the calcs for the patients with the new version of the measure
     # if the measure needs finalize (measure.needs_finalize == true) hold the calc of the patients until after the finalize
     
     # trigger the measure upload summary for the user.
     if (!measure.needs_finalize)
+      TestCaseMeasureHistory.calculate_updated_actuals(measure)
+      TestCaseMeasureHistory.collect_after_upload_state(measure, upl_id)
       flash[:uploaded_summary_id] = upl_id
     end
     
@@ -332,6 +333,8 @@ class MeasuresController < ApplicationController
   def destroy
     measure = Measure.by_user(current_user).find(params[:id])
     Measure.by_user(current_user).find(params[:id]).destroy
+    #TODO: Determine what to do with archived measures.
+    
     render :json => measure
   end
 
@@ -345,8 +348,16 @@ class MeasuresController < ApplicationController
       end
       measure.generate_js(clear_db_cache: true)
       measure.save!
+      
+      
+      # Take the after snapshot of the patients after the calc
+      TestCaseMeasureHistory.calculate_updated_actuals(measure)
+      upl_id = TestCaseMeasureHistory::MeasureUploadPatientSummary.where(measure_db_id_after: measure.id).first.id
+      TestCaseMeasureHistory.collect_after_upload_state(measure, upl_id)
+      
+      # Make UI show upload summary
       flash[:uploaded_summary_id] = upl_id
-      # TODO - take the after snapshot of the patients after the calc
+      
     end
     redirect_to root_path
   end

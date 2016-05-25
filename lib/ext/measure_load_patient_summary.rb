@@ -28,8 +28,8 @@ module TestCaseMeasureHistory
     def before_measure_load_compare(patient, pop_idx, m_id)
       trim_before = patient.actual_values.find(measure_id: m_id, popluation_index: pop_idx).first.reject { |k, _v| k.include?('_') }
       trim_expected = patient.expected_values.find(measure_id: m_id, popluation_index: pop_idx).first.reject { |k, _v| k.include?('_') }
-      diff_before_expected = (trim_before.to_a - trim_expected.to_a).to_h
-
+      diff_before_expected = (trim_expected.to_a - trim_before.to_a).to_h
+      
       # TODO: Make sure this can handle continuous value measures.
       if diff_before_expected.empty? || !diff_before_expected.value?(1)
         status = 'pass'
@@ -48,23 +48,22 @@ module TestCaseMeasureHistory
   
   def self.collect_before_upload_state(measure, old_measure)
     patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
-    if patients.count > 0
-      mups = MeasureUploadPatientSummary.new
-      measure.populations.each_with_index do |m, index|
-        moo = MeasureUploadPopulationSummary.new
-        patients.each do |patient|
-          moo.before_measure_load_compare(patient, index, measure.hqmf_set_id)
-        end
-        mups.measure_upload_population_summaries << moo
+
+    mups = MeasureUploadPatientSummary.new
+    measure.populations.each_with_index do |m, index|
+      moo = MeasureUploadPopulationSummary.new
+      patients.each do |patient|
+        moo.before_measure_load_compare(patient, index, measure.hqmf_set_id)
       end
-      mups.hqmf_id = measure.hqmf_id
-      mups.hqmf_set_id = measure.hqmf_set_id
-      mups.user_id = measure.user_id
-      mups.measure_db_id_before = old_measure.id unless !old_measure
-      mups.measure_db_id_after = measure.id
-      mups.save!
-      mups.id
+      mups.measure_upload_population_summaries << moo
     end
+    mups.hqmf_id = measure.hqmf_id
+    mups.hqmf_set_id = measure.hqmf_set_id
+    mups.user_id = measure.user_id
+    mups.measure_db_id_before = old_measure.id unless !old_measure
+    mups.measure_db_id_after = measure.id
+    mups.save!
+    mups.id
   end
 
   def self.collect_after_upload_state(measure, upl_id)
@@ -91,9 +90,8 @@ module TestCaseMeasureHistory
     end
   end
 
-  def self.calculate_updated_actuals(m)
+  def self.calculate_updated_actuals(measure)
     calculator = BonnieBackendCalculator.new
-    measure = Measure.where(id: m.id).first
     measure.populations.each_with_index do |population, population_index|
       # Set up calculator for this measure and population, making sure we regenerate the javascript
       begin
