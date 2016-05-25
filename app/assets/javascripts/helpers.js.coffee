@@ -19,8 +19,12 @@ Handlebars.registerHelper 'complexityIcon', (score) ->
 # elements to display, not trustable for security purposes
 Handlebars.registerHelper 'ifAdmin', (options) ->
   if bonnie.isAdmin then options.fn(this) else options.inverse(this)
+
 Handlebars.registerHelper 'ifPortfolio', (options) ->
   if bonnie.isPortfolio then options.fn(this) else options.inverse(this)
+  
+Handlebars.registerHelper "times", (n, block) ->
+  (block.fn(i) for i in [0...n]).join("")    
 
 Handlebars.registerHelper 'ifCond', (v1, operator, v2, options) ->
   switch operator
