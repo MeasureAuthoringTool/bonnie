@@ -503,6 +503,15 @@ namespace :bonnie do
               sdc['field_values'][sdc_timestamp]['value'] = ( Time.at( sdc['field_values'][sdc_timestamp]['value'] / 1000 ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i * 1000
             end
           end
+          unless sdc["fulfillments"].blank?
+            sdc["fulfillments"].each do |fulfillment|
+              dispense_datetime = fulfillment["dispense_datetime"].to_i
+              changed_time = Time.at( dispense_datetime ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds )
+              fulfillment["dispense_time"] = changed_time.strftime('%I:%M:%p')
+              fulfillment["dispense_date"] = changed_time.strftime('%m/%d/%Y')
+              fulfillment["dispense_datetime"] = changed_time.to_i.to_s
+            end
+          end
         end
         Measures::PatientBuilder.rebuild_patient(patient)
         patient.save!
