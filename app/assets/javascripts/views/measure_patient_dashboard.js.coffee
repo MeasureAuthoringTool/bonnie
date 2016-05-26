@@ -186,7 +186,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     if isNaN(rowIndex)
       return
     row = @getRow(rowIndex)
-    # TODO: James
+    patient = _.findWhere(@measure.get('patients').models, {id: row.id})
+    @patientEditView.display patient, rowIndex
 
   ###
   @returns {Array} an array containing the contents of both headers
@@ -216,9 +217,18 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
   setup: ->
     @editDialog = @$("#patientEditModal")
 
-  display: (model, measure, patients, measures) ->
-    @patientBuilderView = new Thorax.Views.PatientBuilder(model: model, measure: measure, patients: patients, measures: measures, showCompleteView: false)
+  display: (patient, rowIndex) ->
+    @patient = patient
+    @rowIndex = rowIndex
+    @measure = @dashboard.measure
+    @population = @dashboard.population
+    @populations = @dashboard.populations
+    @patients = @measure.get('patients')
+    @measures = @measure.collection
+
+    @patientBuilderView = new Thorax.Views.PatientBuilder model: patient, measure: @measure, patients: @patients, measures: @measures, showCompleteView: false
     @patientBuilderView.appendTo(@$('.modal-body'))
+    $("#saveButton").prop('disabled', false) # Save button was being set to disabled
     @editDialog.modal(
       "backdrop" : "static",
       "keyboard" : true,
@@ -228,7 +238,11 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
     @patientBuilderView.save(e)
     @editDialog.modal('hide')
     @$('.modal-body').empty() # clear out patientBuilderView
-    # @dashboard.createTable()
+    @result = @population.calculateResult @patient
+    @result.calculationsComplete =>
+      @patientResult = @result.toJSON()[0] #Grab the first and only item from collection
+      @patientData = new Thorax.Models.PatientDashboardPatient @patient, @dashboard.pd, @measure, @patientResult, @populations, @population
+      $('#patientDashboardTable').DataTable().row(@rowIndex).data(@patientData)
 
   close: ->
     @$('.modal-body').empty() # clear out patientBuilderView
