@@ -158,8 +158,24 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   calculateAllResults: (callback) =>
     populations = @measure.get('populations')
     population_index = 0
-    population_names = ['IPP', 'STRAT', 'DENOM', 'NUMER', 'DENEXCEP', 'DENEX', 'MSRPOPL', 'OBSERV', 'MSRPOPLEX']
+    population_names = Thorax.Models.Measure.allPopulationCodes
+    # desired_attr_names = ['rationale', 'finalSpecifics']
     results = [];
+    
+    final_pops = [];
+    
+    for mkey, mvalue of populations.models
+      this_pop = [];
+      for dankey in population_names
+        for mv of mvalue.attributes
+          if dankey == mv
+            # this_pop[dankey] = dankey
+            this_pop.push dankey
+      final_pops[mkey] = this_pop
+      
+      final_pops
+      
+    # desired_attr_names.push final_pops
     
     calcNextResult = () =>
       popCalc = populations.models[population_index].calculate(@model)
@@ -176,7 +192,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
               measure_id: @measure.get('hqmf_set_id')
             
             for rkey, rvalue of result.attributes
-              if rkey in population_names
+              if rkey in final_pops[population_index-1]
                 actual_value[rkey] = rvalue
             actual_values.push actual_value
           callback(actual_values)
