@@ -42,7 +42,7 @@ module TestCaseMeasureHistory
         expected: trim_expected,
         before: trim_before,
         before_status: status }
-      self[:patients][patient.id.to_s].merge!(test_case_version_at_upload: patient.version) unless !patient.version
+      self[:patients][patient.id.to_s].merge!(patient_version_at_upload: patient.version) unless !patient.version
     end
   end
   
