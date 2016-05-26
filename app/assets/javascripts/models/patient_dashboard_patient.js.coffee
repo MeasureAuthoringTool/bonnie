@@ -1,5 +1,5 @@
 class Thorax.Models.PatientDashboardPatient extends Thorax.Model
-  
+
   initialize: (@patient, @pd, @measure, @patientResult, @populations, @population) ->
     # Set known patient attributes
     @_id = @patient.get('_id')
@@ -10,12 +10,12 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     @_deathdate = @patient.get('deathdate')
     @deathdate = if @_deathdate then moment.utc(@_deathdate, 'X').format('L') else ''
     @gender = @patient.get('gender')
-    
+
     # Get expected population results; check if patient is passing
     @_expected = @getExpectedResults()
     @_actual = @getActualResults()
     @passes = @isPatientPassing()
-    
+
     # Set up instance variables for use by Patient Dashboard
     @saveExpectedResults()
     @saveActualResults()
@@ -53,7 +53,7 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
   savePopulationResults: ->
     for k, v of @pd.criteriaKeysByPopulation
       for dc in v
-        @[k + '_' + dc] =  @getPatientCriteriaResult(dc)
+        @[k + '_' + dc] =  @getPatientCriteriaResult(dc, k)
 
   ###
   @returns {Object} a mapping of populations to their expected results
@@ -88,7 +88,7 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
   ###
   @returns {String} describes the patient's result for a single data criteria
   ###
-  getPatientCriteriaResult: (criteriaKey) ->
+  getPatientCriteriaResult: (criteriaKey, populationKey) ->
     if criteriaKey of @patientResult['rationale']
       value = @patientResult['rationale'][criteriaKey]
       if value != null && value != 'false' && value != false
@@ -96,8 +96,8 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
       else if value == 'false' || value == false
         result = 'FALSE'
       value = result
-      if 'specificsRationale' of @patientResult && @population of @patientResult['specificsRationale']
-        specific_value = @patientResult['specificsRationale'][@population][criteriaKey]
+      if 'specificsRationale' of @patientResult && populationKey of @patientResult['specificsRationale']
+        specific_value = @patientResult['specificsRationale'][populationKey][criteriaKey]
         if specific_value == false && value == 'TRUE'
           result = 'SPECIFICALLY FALSE'
         else if specific_value == true && value == 'FALSE'
