@@ -67,23 +67,19 @@ module TestCaseMeasureHistory
   end
 
   def self.collect_after_upload_state(measure, upl_id)
-    nbrPatients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id).count
-    if nbrPatients >0
-      the_befores = MeasureUploadPatientSummary.where(id: upl_id).first
-      the_befores.measure_upload_population_summaries.each_index do |pop_idx|
-        b_mups = the_befores.measure_upload_population_summaries[pop_idx]
-        b_mups[:patients].keys.each do |patient|
-          ptt = Record.where(id: patient).first
-          trim_after = ptt.actual_values.find(measure_id: measure.hqmf_set_id, population_index: pop_idx).first.reject { |k, _v| k.include?('_') }
-          diff_after_expected = (trim_after.to_a - b_mups[:patients][patient][:expected].to_a).to_h
-          if diff_after_expected.empty? || !diff_after_expected.value?(1)
-            status = 'pass'
-            b_mups.summary[:pass_after] += 1
-          else
-            status = 'fail'
-            b_mups.summary[:fail_after] += 1
-          end
-          b_mups.patients[patient].merge!(actual_after: trim_after, after_status: status)
+    the_befores = MeasureUploadPatientSummary.where(id: upl_id).first
+    the_befores.measure_upload_population_summaries.each_index do |pop_idx|
+      b_mups = the_befores.measure_upload_population_summaries[pop_idx]
+      b_mups[:patients].keys.each do |patient|
+        ptt = Record.where(id: patient).first
+        trim_after = ptt.actual_values.find(measure_id: measure.hqmf_set_id, population_index: pop_idx).first.reject { |k, _v| k.include?('_') }
+        diff_after_expected = (b_mups[:patients][patient][:expected].to_a - trim_after.to_a).to_h
+        if diff_after_expected.empty? || !diff_after_expected.value?(1)
+          status = 'pass'
+          b_mups.summary[:pass_after] += 1
+        else
+          status = 'fail'
+          b_mups.summary[:fail_after] += 1
         end
         b_mups.patients[patient].merge!(after: trim_after, after_status: status)
       end
