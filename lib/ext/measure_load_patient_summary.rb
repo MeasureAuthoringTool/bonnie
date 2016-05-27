@@ -73,7 +73,7 @@ module TestCaseMeasureHistory
       b_mups[:patients].keys.each do |patient|
         ptt = Record.where(id: patient).first
         trim_after = ptt.actual_values.find(measure_id: measure.hqmf_set_id, population_index: pop_idx).first.reject { |k, _v| k.include?('_') }
-        diff_after_expected = (trim_after.to_a - b_mups[:patients][patient][:expected].to_a).to_h
+        diff_after_expected = (b_mups[:patients][patient][:expected].to_a - trim_after.to_a).to_h
         if diff_after_expected.empty? || !diff_after_expected.value?(1)
           status = 'pass'
           b_mups.summary[:pass_after] += 1
