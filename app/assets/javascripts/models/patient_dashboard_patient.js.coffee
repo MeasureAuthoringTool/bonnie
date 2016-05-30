@@ -3,11 +3,13 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
   initialize: (@patient, @pd, @measure, @patientResult, @populations, @population) ->
     # Set known patient attributes
     @_id = @patient.get('_id')
-    @firstname = @patient.get('first')
-    @lastname = @patient.get('last')
-    @description = @patient.get('description')
+    @first = @patient.get('first')
+    @last = @patient.get('last')
+    @description = if @patient.get('description') then @patient.get('description') else ''
     @birthdate = moment.utc(@patient.get('birthdate'), 'X').format('L')
-    @_deathdate = @patient.get('deathdate')
+    @birthtime = @patient.get('birthdate') - moment.utc(@birthdate, 'L LT').format('X')
+    @deathdate = moment.utc(@patient.get('deathdate'), 'X').format('L')
+    @deathtime = @patient.get('deathdate') - moment.utc(@deathdate, 'L LT').format('X')
     @deathdate = if @_deathdate then moment.utc(@_deathdate, 'X').format('L') else ''
     @gender = @patient.get('gender')
 
@@ -15,6 +17,10 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     @_expected = @getExpectedResults()
     @_actual = @getActualResults()
     @passes = @isPatientPassing()
+    
+    # Edit and open attributes for patient dashboard
+    @edit
+    @open
 
     # Set up instance variables for use by Patient Dashboard
     @saveExpectedResults()
@@ -34,7 +40,7 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
   ###
   saveExpectedResults: ->
     for k, v of @_expected
-      @['expected_' + k] = v
+      @['expected' + k] = v
 
   ###
   Sets the actual results for each population as instance variables
@@ -43,7 +49,7 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
   ###
   saveActualResults: ->
     for k, v of @_actual
-      @['actual_' + k] = v
+      @['actual' + k] = v
 
   ###
   Sets the results for each individual data criteria as instance variables
