@@ -77,6 +77,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         fixedColumns:
           leftColumns: 5
       )
+      # Update actual warnings
+      for i in [0..@patientData.length-1]
+        @updateActualWarnings(i)
 
   ###
   @returns {Array} an array of "instructions" for each column in a row that
@@ -181,6 +184,20 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     row['open'] = $('#openButton').html()
 
   ###
+  Updates actual warnings for a given row index
+  ###
+  updateActualWarnings: (rowIndex) ->
+    nodes = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
+    row = $('#patientDashboardTable').DataTable().row(rowIndex).data()
+    for population in @populations
+      actualIndex = (@pd.getIndex 'actual' + population) + 1
+      td = $('td:nth-child(' + actualIndex + ')', nodes[0])
+      if row['expected' + population] != row['actual' + population]
+        td.addClass('pdwarn')
+      else
+        td.removeClass('pdwarn')
+
+  ###
   Makes a patient row inline editable
   ###
   makeInlineEditable: (sender) ->
@@ -278,6 +295,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Update row on recalculation
     result = @population.calculateResult patient
     result.calculationsComplete =>
+      @updateActualWarnings(rowIndex)
       row['edit'] = $('#editButton').html()
       @enableOpenButton(row)
       @patientData[rowIndex] = row
