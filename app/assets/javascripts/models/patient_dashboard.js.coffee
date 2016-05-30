@@ -5,11 +5,9 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
   @RESULT = "result"
   @FIRST_NAME = "first"
   @LAST_NAME = "last"
-  @NOTES = "notes"
+  @DESCRIPTION = "description"
   @BIRTHDATE = "birthdate"
   @DEATHDATE = "deathdate"
-  #@RACE = "race"
-  #@ETHNICITY = "ethnicity"
   @GENDER = "gender"
   @EXPECTED = "expected"
   @ACTUAL = "actual"
@@ -46,7 +44,7 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     dataIndices.push(PatientDashboard.OPEN)
     dataIndices.push(PatientDashboard.FIRST_NAME)
     dataIndices.push(PatientDashboard.LAST_NAME)
-    dataIndices.push(PatientDashboard.NOTES)
+    dataIndices.push(PatientDashboard.DESCRIPTION)
         
     for population in populations
       dataIndices.push(PatientDashboard.EXPECTED_PREFIX + population)
@@ -56,8 +54,6 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     dataIndices.push(PatientDashboard.RESULT)
     dataIndices.push(PatientDashboard.BIRTHDATE)
     dataIndices.push(PatientDashboard.DEATHDATE)
-    #dataIndices.push(PatientDashboard.RACE)
-    #dataIndices.push(PatientDashboard.ETHNICITY)
     dataIndices.push(PatientDashboard.GENDER)
     
     for population in populations
@@ -83,11 +79,9 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     dataInfo[PatientDashboard.RESULT] = { name: "Passes?", width: @COL_WIDTH_META }
     dataInfo[PatientDashboard.FIRST_NAME] = { name: "First Name", width: @COL_WIDTH_NAME }
     dataInfo[PatientDashboard.LAST_NAME] = { name: "Last Name", width: @COL_WIDTH_NAME }
-    dataInfo[PatientDashboard.NOTES] = { name: "Description", width: @COL_WIDTH_FREETEXT }
+    dataInfo[PatientDashboard.DESCRIPTION] = { name: "Description", width: @COL_WIDTH_FREETEXT }
     dataInfo[PatientDashboard.BIRTHDATE] = { name: "Birthdate", width: @COL_WIDTH_META }
     dataInfo[PatientDashboard.DEATHDATE] = { name: "Deathdate", width: @COL_WIDTH_META }
-    #dataInfo[PatientDashboard.RACE] = { name: "Race", width: @COL_WIDTH_META }
-    #dataInfo[PatientDashboard.ETHNICITY] = { name: "Ethnicity", width: @COL_WIDTH_META }
     dataInfo[PatientDashboard.GENDER] = { name: "Gender", width: @COL_WIDTH_META }
 
     for population in populations
@@ -109,11 +103,10 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
   getDataCollections: (populations, dataIndices, criteria_keys_by_population) =>
     dataCollections = {}
     dataCollections[PatientDashboard.ACTIONS] = {name: "", items: [PatientDashboard.EDIT, PatientDashboard.OPEN] }
-    dataCollections[PatientDashboard.NOTES] = {name: "", items: [PatientDashboard.NOTES] }
+    dataCollections[PatientDashboard.DESCRIPTION] = {name: "", items: [PatientDashboard.DESCRIPTION] }
     dataCollections[PatientDashboard.NAME] = { name: "Names", items: [PatientDashboard.FIRST_NAME, PatientDashboard.LAST_NAME] }
     dataCollections[PatientDashboard.EXPECTED] = { name: "Expected", items: PatientDashboard.EXPECTED_PREFIX + pop for pop in populations }
     dataCollections[PatientDashboard.ACTUAL] = { name: "Actual", items: PatientDashboard.ACTUAL_PREFIX + pop for pop in populations }
-    #dataCollections[PatientDashboard.METADATA] = {name: "Metadata", items: [PatientDashboard.RESULT, PatientDashboard.BIRTHDATE, PatientDashboard.DEATHDATE, PatientDashboard.RACE, PatientDashboard.ETHNICITY, PatientDashboard.GENDER]}
     dataCollections[PatientDashboard.METADATA] = {name: "Metadata", items: [PatientDashboard.RESULT, PatientDashboard.BIRTHDATE, PatientDashboard.DEATHDATE, PatientDashboard.GENDER]}
     
     for population in populations

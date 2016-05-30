@@ -65,15 +65,18 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       @patientData = []
       for patient in @measure.get('patients').models
         @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
+      # Create column access info for use by DataTables
+      @tableColumns = @getTableColumns(@patientData?[0])
       # Initialize patient dashboard using DataTables
-      table = $('#patientDashboardTable').DataTable({
+      table = $('#patientDashboardTable').DataTable(
         data: @patientData,
-        columns: @getTableColumns(@patientData[0]),
+        columns: @tableColumns,
         scrollX: true,
         scrollY: "500px",
         paging: false,
-        fixedColumns: { leftColumns: 5 }
-      })
+        fixedColumns:
+          leftColumns: 5
+      )
 
   ###
   @returns {Array} an array of "instructions" for each column in a row that
@@ -84,15 +87,15 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     width_index = 0
     if patient == null
       return column
-    column.push data: null, width: @widths[width_index++], defaultContent: $('#editButton').html()
-    column.push data: null, width: @widths[width_index++], defaultContent: $('#openButton').html()
-    column.push data: 'firstname', width: @widths[width_index++]
-    column.push data: 'lastname', width: @widths[width_index++]
+    column.push data: 'edit', width: @widths[width_index++], defaultContent: $('#editButton').html()
+    column.push data: 'open', width: @widths[width_index++], defaultContent: $('#openButton').html()
+    column.push data: 'first', width: @widths[width_index++]
+    column.push data: 'last', width: @widths[width_index++]
     column.push data: 'description', width: @widths[width_index++]
     for k, v of patient._expected
-      column.push data: 'expected_' + k, width: @widths[width_index++]
+      column.push data: 'expected' + k, width: @widths[width_index++]
     for k, v of patient._actual
-      column.push data: 'actual_' + k, width: @widths[width_index++]
+      column.push data: 'actual' + k, width: @widths[width_index++]
     column.push data: 'passes', width: @widths[width_index++]
     column.push data: 'birthdate', width: @widths[width_index++]
     column.push data: 'deathdate', width: @widths[width_index++]
@@ -113,7 +116,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   @returns {Array} an array of widths for each column in patient dashboard
   ###
-  getColWidths: ()  =>
+  getColWidths: ()  ->
     colWidths = []
     for dataKey in @pd.dataIndices
       colWidths.push(@pd.getWidth(dataKey))
@@ -122,15 +125,15 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   @returns {Object} a mapping of editable column field names to row indices
   ###
-  getEditableCols: =>
-    editableFields = ['first', 'last', 'notes', 'birthdate', 'gender', 'deathdate']
+  getEditableCols: ->
+    editableFields = ['first', 'last', 'description', 'birthdate', 'gender', 'deathdate']
     editableCols = {}
     # Add patient characteristics to editable fields
     for editableField in editableFields
       editableCols[editableField] = @pd.getIndex editableField
-    # Add expecteds to editable fields
-    for population in @populations
-      editableCols['expected' + population] = @pd.getIndex 'expected' + population
+    # Add expecteds to editable fields #TODO: Should this be an option?
+    # for population in @populations
+    #   editableCols['expected' + population] = @pd.getIndex 'expected' + population
     return editableCols
 
   ###
@@ -144,7 +147,38 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Sets a row to a PatientDashboardPatient
   ###
   setRow: (rowIndex, data) ->
-    $('#patientDashboardTable').DataTable().row(rowIndex).data(data)
+    $('#patientDashboardTable').DataTable().row(rowIndex).data(data).draw()
+    $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().relayout()
+
+  ###
+  Highlights the row at the given index
+  ###
+  selectRow: (rowIndex) ->
+    nodes = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
+    $(nodes).addClass('pdhighlight')
+    $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().update()
+
+  ###
+  Removes highlighting of the row at the given index
+  ###
+  deselectRow: (rowIndex) ->
+    nodes = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
+    $(nodes).removeClass('pdhighlight')
+    $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().update()
+
+  ###
+  Disables the patient builder modal button for the given row
+  ###
+  disableOpenButton: (row) ->
+    openButton = $('#openButton').clone()
+    $(':first-child', openButton).attr("disabled", true)
+    row['open'] = openButton.html()
+
+  ###
+  Enables the patient builder modal button for the given row
+  ###
+  enableOpenButton: (row) ->
+    row['open'] = $('#openButton').html()
 
   ###
   Makes a patient row inline editable
@@ -157,24 +191,113 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       return
     row = @getRow(rowIndex)
 
-    # TODO: Adam
+    # Clone the old patient in case the user decides to cancel their edits
+    row['old'] = jQuery.extend(true, {}, row)
+
+    for k, v of @editableCols
+      if k in ['first', 'last', 'description']
+        inputFieldDiv = $('#inputField').clone()
+        $(':first-child', inputFieldDiv).prop('id', k + rowIndex).prop('name', k + rowIndex).addClass(k + rowIndex)
+        row[k] = inputFieldDiv.html()
+      else if k in ['birthdate', 'deathdate']
+        inputDateDiv = $('#inputDate').clone()
+        $(':first-child', inputDateDiv).prop('id', k + rowIndex).prop('name', k + rowIndex).addClass(k + rowIndex)
+        row[k] = inputDateDiv.html()
+      else if k == 'gender'
+        if row[k] == 'M'
+          inputGenderDiv = $('#inputGenderM').clone()
+        else
+          inputGenderDiv = $('#inputGenderF').clone()
+        $(':first-child', inputGenderDiv).prop('id', k + rowIndex).prop('name', k + rowIndex).addClass(k + rowIndex)
+        row[k] = inputGenderDiv.html()
 
     # Change edit button to save and cancel buttons
-    targetCell.innerHTML = $('#saveEditButton').html() + $('#closeEditButton').html()
+    row['edit'] = $('#saveEditButton').html() + $('#closeEditButton').html()
+
+    # Disable open button
+    @disableOpenButton(row)
+
+    # Update row
+    @setRow(rowIndex, row)
+    @selectRow(rowIndex)
+
+    # Set current values in added inputs
+    for k, v of @editableCols
+      if k != 'gender'
+        $('.' + k + rowIndex).val(row['old'][k])
+
+    # Make datepickers active
+    $('.birthdate' + rowIndex).datepicker()
+    $('.deathdate' + rowIndex).datepicker()
+
 
   ###
   Saves the inline edits made to a patient
   ###
   saveEdits: (sender) ->
-    sender.currentTarget.parentElement.innerHTML = $('#editButton').html()
-    # TODO: Adam
+    # Get row index of selected patient
+    targetCell = sender?.currentTarget?.parentElement
+    rowIndex = parseInt(targetCell?.getAttribute 'data-dt-row')
+    if isNaN(rowIndex)
+      return
+    row = @getRow(rowIndex)
+
+    # Remove the backup row
+    delete row['old']
+
+    # Get user inputs. Since the FixedColumns plugin essentially adds another
+    # whole table above a few columns of the original, these inputs are
+    # actually duplicated, and changes are only registered in the top table.
+    # Because of this added complexity, we need to be certain we are grabbing
+    # the correct values.
+    inputs = $(':input').serializeArray()
+    inputGroups = []
+    for k, v of @editableCols
+      inputGroups.push inputs.filter (a) -> a.name == k + rowIndex
+    for inputGroup in inputGroups
+      different = false
+      for input in inputGroup
+        name = input.name.replace(rowIndex, '')
+        if input.value != row[name]
+          row[name] = input.value
+          different = true
+      unless different
+        name = inputGroup?[0]?.name.replace(rowIndex, '')
+        row[name?] = inputGroup?[0]?.value
+
+    # Update Bonnie patient
+    patient = _.findWhere(@measure.get('patients').models, id: row.id)
+    for k, v of @editableCols
+      if k == 'birthdate'
+        patient.set(k, parseInt(moment.utc(row[k], 'L LT').format('X')) + row['birthtime'])
+      else if k == 'deathdate'
+        patient.set(k, parseInt(moment.utc(row[k], 'L LT').format('X')) + row['deathtime'])
+      else
+        patient.set(k, row[k])
+
+    # Update row on recalculation
+    result = @population.calculateResult patient
+    result.calculationsComplete =>
+      row['edit'] = $('#editButton').html()
+      @enableOpenButton(row)
+      @patientData[rowIndex] = row
+      @setRow(rowIndex, row)
+      @deselectRow(rowIndex)
 
   ###
   Cancels the edits made to an inline patient
   ###
   cancelEdits: (sender) ->
-    sender.currentTarget.parentElement.innerHTML = $('#editButton').html()
-    # TODO: Adam
+    # Get row index of selected patient
+    targetCell = sender?.currentTarget?.parentElement
+    rowIndex = parseInt(targetCell?.getAttribute 'data-dt-row')
+    if isNaN(rowIndex)
+      return
+    row = @getRow(rowIndex)
+    @setRow(rowIndex, row['old'])
+
+    # Remove row selection
+    @deselectRow(rowIndex)
 
   ###
   Opens the full patient builder modal for more advanced patient editing
