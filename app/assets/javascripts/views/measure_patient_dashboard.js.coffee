@@ -90,8 +90,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     width_index = 0
     if patient == null
       return column
-    column.push data: 'edit', width: @widths[width_index++], defaultContent: $('#editButton').html()
-    column.push data: 'open', width: @widths[width_index++], defaultContent: $('#openButton').html()
+    column.push data: 'edit', orderable: false, width: @widths[width_index++], defaultContent: $('#editButton').html()
+    column.push data: 'open', orderable: false, width: @widths[width_index++], defaultContent: $('#openButton').html()
     column.push data: 'first', width: @widths[width_index++]
     column.push data: 'last', width: @widths[width_index++]
     column.push data: 'description', width: @widths[width_index++]
