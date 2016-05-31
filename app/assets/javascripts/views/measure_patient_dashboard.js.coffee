@@ -81,6 +81,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       for i in [0..@patientData.length-1]
         @updateActualWarnings(i)
 
+      # Attaches popover to datacriteria class.
+      $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
+
   ###
   @returns {Array} an array of "instructions" for each column in a row that
   tells patient dashboard how to display a PatientDashboardPatient properly
@@ -113,8 +116,40 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         dc.push v
     dc.sort (a, b) -> a.index - b.index
     for entry in dc
-      column.push data: entry.name, width: @widths[width_index++]
+      column.push data: entry.name, width: @widths[width_index++], render: @insertText
     column
+
+  ###
+  Populates the Popover with children data criteria if they exist and populates
+  the table cells with the datacriteria value.
+  ###
+  insertText: (data, type, row, meta) ->
+    cloneElement = $('.table-popover-container').clone()
+    if data != ""
+      dataCriteria = row.pd.dataIndices[meta.col] # Formatted "PopulationKey_DataCriteriaKey"
+      dataCriteriaKey = dataCriteria.substring(dataCriteria.indexOf('_') + 1)
+      populationKey = dataCriteria.substring(0, dataCriteria.indexOf('_'))
+      children_criteria = row.pd.getChildrenCriteria dataCriteriaKey
+
+      if Object.keys(children_criteria).length > 0
+        formatCriteria = '<div class="tableScrollContainerList"><ul class="popover-ul">'
+        for childDataCriteriaKey, childDataCriteriaText of children_criteria
+          if row.patientResult.rationale[childDataCriteriaKey]? && childDataCriteriaKey != dataCriteriaKey
+            result = row.getPatientCriteriaResult childDataCriteriaKey, populationKey
+            if result == "SPECIFICALLY FALSE"
+              formatCriteria += '<li class="popover-eval-specifics-li">' + childDataCriteriaText + '</li>'
+            else if result == 'TRUE'
+              formatCriteria += '<li class="popover-eval-true-li">' + childDataCriteriaText + '</li>'
+            else if result == 'FALSE'
+              formatCriteria += '<li class="popover-eval-false-li">' + childDataCriteriaText + '</li>'
+        formatCriteria += '</ul></div>'
+      else
+        formatCriteria = "No Children Data Criteria"
+      $('.table-popover-div', cloneElement).attr('data-content', formatCriteria)
+      $('.table-cell-popover-div', cloneElement).text(data)
+      cloneElement.html()
+    else
+      return ''
 
   ###
   @returns {Array} an array of widths for each column in patient dashboard
@@ -246,6 +281,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Make datepickers active
     $('.birthdate' + rowIndex).datepicker()
     $('.deathdate' + rowIndex).datepicker()
+    # Attaches popover to datacriteria class.
+    $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
 
 
   ###
@@ -301,6 +338,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       @patientData[rowIndex] = row
       @setRow(rowIndex, row)
       @deselectRow(rowIndex)
+      # Attaches popover to datacriteria class.
+      $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
 
   ###
   Cancels the edits made to an inline patient
@@ -316,6 +355,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
     # Remove row selection
     @deselectRow(rowIndex)
+    # Attaches popover to datacriteria class.
+    $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
 
   ###
   Opens the full patient builder modal for more advanced patient editing
@@ -383,7 +424,8 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
     @result.calculationsComplete =>
       @patientResult = @result.toJSON()[0] #Grab the first and only item from collection
       @patientData = new Thorax.Models.PatientDashboardPatient @patient, @dashboard.pd, @measure, @patientResult, @populations, @population
-      $('#patientDashboardTable').DataTable().row(@rowIndex).data(@patientData)
+      $('#patientDashboardTable').DataTable().row(@rowIndex).data(@patientData).draw()
+      $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
 
   close: ->
     @$('.modal-body').empty() # clear out patientBuilderView
