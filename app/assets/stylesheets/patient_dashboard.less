@@ -2,6 +2,53 @@ html, body, .container-fluid, [role="main"], .measure-layout, .patient-dashboard
   // height: 100%;
 }
 
+.tableScrollContainerList {
+  overflow-y: scroll;
+  max-height: 300px !important;
+  height: auto;
+}
+
+.popover-ul {
+  list-style: none;
+  marging-left: 0;
+  padding-left: 0;
+}
+
+.popover-eval-true-li {
+  padding-left: 1em;
+  text-indent: -1em;
+  background-color: @state-success-bg;
+  color: @state-success-text;
+  &:before {
+      padding-left: 2px;
+      content: @fa-var-check;
+      font-family: FontAwesome;
+  }
+}
+
+.popover-eval-false-li {
+  padding-left: 1em;
+  text-indent: -1em;
+  background-color: @state-danger-bg;
+  color: @state-danger-text;
+  &:before {
+      padding-left: 2px;
+      content: @fa-var-times;
+      font-family: FontAwesome;
+  }
+}
+
+.popover-eval-specifics-li {
+  padding-left: 1em;
+  text-indent: -1em;
+  background-color: @state-danger-bg;
+  color: @state-danger-text;
+  &:before {
+    padding-left: 2px;
+    content: @fa-var-asterisk;
+    font-family: FontAwesome;
+  }
+}
 
 .patient-dashboard {
   .make-sm-column(12);
@@ -23,7 +70,7 @@ table.dataTable {
     // border-right: inherit;
     border-bottom: inherit;
   }
-  
+
   // thead th,
   // thead td,
   // tbody th,
@@ -32,7 +79,7 @@ table.dataTable {
   // tfoot td {
   //   padding: 8px;
   // }
-  
+
   /* coloring population headers */
   /* the handsontable.bootstrap file is stupid and has !important so we need to use it also to override */
   tr:first-child th.ipp {
@@ -53,7 +100,7 @@ table.dataTable {
   tr:first-child th.denexcep {
     background-color: #ddeedd !important;
   }
-  
+
   // makes sure there's an appropriate border line for the last two rows
   tr:nth-last-child(2) > td {
     border-bottom-style:solid;
@@ -66,7 +113,7 @@ table.dataTable {
     border-bottom-width:1px;
     border-bottom-color:rgb(204,204,204);
   }
-  
+
   tr.inline-edit-mode > td.editable {
     background-color: #ddeeee !important;
   }
@@ -109,7 +156,7 @@ table.dataTable {
       rotate(-90deg);
     width: 80px;
   }
-  
+
   /* basic cell styling. keeping in div because can managing text overflow more easily */
   th > div,
   td > div {
@@ -125,7 +172,7 @@ table.dataTable {
     height: 25px;
     padding: 0px;
   }
-  
+
   /* TODO: rework these so that they work for any number of actions */
   td.action:nth-child(1)  {
     border-right-style:none;
