@@ -3,7 +3,7 @@ class PatientSource
   currentPatient: -> new CQL_QDM.CQLPatient(@patients.at(@index)) if @patients.at(@index)
   nextPatient: -> @index += 1
 
-class Thorax.Views.CqlPlaygroundView extends Thorax.Views.BonnieView
+class Thorax.Views.CQLPlaygroundView extends Thorax.Views.BonnieView
 
   template: JST['cql/cql_playground']
 
@@ -11,7 +11,7 @@ class Thorax.Views.CqlPlaygroundView extends Thorax.Views.BonnieView
     @resultCollection = new Thorax.Collection()
     @collection.each (patient) =>
       @resultCollection.add(new Thorax.Model(id: patient.id, first: patient.get('first'), last: patient.get('last'), results: {}))
-    @resultsView = new Thorax.Views.CqlResultsView(collection: @resultCollection)
+    @resultsView = new Thorax.Views.CQLResultsView(collection: @resultCollection)
 
   events:
     "ready": ->
@@ -28,8 +28,10 @@ class Thorax.Views.CqlPlaygroundView extends Thorax.Views.BonnieView
     post = $.post "measures/cql_to_elm", { cql: cql, authenticity_token: $("meta[name='csrf-token']").attr('content') }
     post.done (response) => @updateElm(response)
     post.fail (response) => @displayErrors(response)
+    @editor.focus()
 
   updateElm: (elm) ->
+    @editor.getSession().clearAnnotations()
     patientSource = new PatientSource(@collection)
     results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService())
     @resultCollection.each (patient) => patient.set(results: results.patientResults[patient.id])
@@ -39,8 +41,15 @@ class Thorax.Views.CqlPlaygroundView extends Thorax.Views.BonnieView
       when 500
         alert "CQL translation error: #{response.statusText}"
       when 400
-        errors = response.responseJSON.library.annotation.map (annotation) -> "Line #{annotation.startLine}: #{annotation.message}"
-        alert "Errors:\n\n#{errors.join("\n\n")}"
+        errors = []
+        for annotation in response.responseJSON.library.annotation
+          error =
+            row: annotation.startLine-1
+            column: 0
+            text: annotation.message
+            type: 'error'
+          errors.push error
+        @editor.getSession().setAnnotations(errors)
 
   valueSetsForCodeService: ->
     valueSetsForCodeService = {}
@@ -53,9 +62,19 @@ class Thorax.Views.CqlPlaygroundView extends Thorax.Views.BonnieView
     valueSetsForCodeService
 
 
-class Thorax.Views.CqlResultsView extends Thorax.Views.BonnieView
+class Thorax.Views.CQLResultView extends Thorax.Views.BonnieView
+  template: JST['cql/cql_result_view']
 
-  template: JST['cql/result_view']
+  initialize: ->
+    @description = ''
+    for k, v of @result
+      @description += k + ': ' + v + '\n'
+
+
+
+class Thorax.Views.CQLResultsView extends Thorax.Views.BonnieView
+
+  template: JST['cql/cql_results_view']
 
   initialize: ->
     # Perform a full re-render on collection update since we don't use collection template helpers
