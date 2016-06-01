@@ -1,38 +1,44 @@
-{{#each types}}
-  {{#ifCond this.type "==" "literal"}}
-    {{this.name}}: {{this.value.description}}
-    <br>
-  {{/ifCond}}
-
-  {{#ifCond this.type "==" "boolean"}}
-    {{#if this.value}}
-      <i class="fa fa-check status status-pass" aria-hidden="true"></i>
-    {{else}}
-      <i class="fa fa-times status status-fail" aria-hidden="true"></i>
-    {{/if}}
-    {{this.name}}
-    <br>
-  {{/ifCond}}
-
-  {{#ifCond this.type "==" "array"}}
-    <div class="cql-entry-{{this.id}} well well-sm hideOverflow">
-      {{this.name}}
-    </div>
-    <div class="cql-entry-details-{{this.id}} hidden hideOverflow">
-      {{#each this.value}}
-      <p>
-        <b>{{this.entry.description}}</b>
-        <br>
-        {{#if this.entry.start_time}}
-          Start: {{this.entry.start_time}}
-          <br>
+<table class="table">
+  {{#each types}}
+    <tr>
+      <td>{{this.name}}</td>
+      
+      {{#ifCond this.type "==" "literal"}}
+        <td>{{this.value}}</td>
+      {{/ifCond}}
+      
+      {{#ifCond this.type "==" "boolean"}}
+        {{#if this.value}}
+          <td><i class="fa fa-check status status-pass" aria-hidden="true"></i></td>
+        {{else}}
+          <td><i class="fa fa-times status status-fail" aria-hidden="true"></i></td>
         {{/if}}
-        {{#if this.entry.end_time}}
-          Stop: {{this.entry.end_time}}
-          <br>
-        {{/if}}
-      </p>
-      {{/each}}
-    </div>
-  {{/ifCond}}
-{{/each}}
+      {{/ifCond}}
+      
+      {{#ifCond this.type "==" "array"}}
+        <td>
+          {{#each this.value}}
+            <div class="cql-entry-{{this.entry._id}} cql-dc">
+              <i class="fa {{this.bonnie_type}} fa-2x cql-dc-icon"></i>
+            </div>
+            <div class="cql-entry-details-{{this.entry._id}} hidden">
+              <b>{{this.entry.description}}</b>
+              <br>
+              {{#if this.entry.start_time}}
+                Start: {{this.entry.start_time}}
+                <br>
+              {{/if}}
+              {{#if this.entry.end_time}}
+                Stop: {{this.entry.end_time}}
+                <br>
+              {{/if}}
+            </div>
+          {{else}}
+            No Results
+          {{/each}}
+        </td>
+      {{/ifCond}}
+      
+    </tr>
+  {{/each}}
+</table>
