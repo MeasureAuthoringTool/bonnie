@@ -18,6 +18,7 @@ class Thorax.Views.CqlPlaygroundView extends Thorax.Views.BonnieView
       @$('#cqlPlayground').modal(backdrop: 'static', show: true)
       @editor = ace.edit("editor")
       @editor.setTheme("ace/theme/chrome")
+      @editor.session.setMode("ace/mode/cql_highlight_rules")
       @editor.setShowPrintMargin(false)
       $("#cqlPlayground").on 'hide.bs.modal', ->
         $('#editor').remove()
