@@ -54,6 +54,7 @@ var supportedModes = {
     CSharp:      ["cs"],
     CSS:         ["css"],
     Curly:       ["curly"],
+    Cql:         ['cql_highlight_rules'],
     D:           ["d|di"],
     Dart:        ["dart"],
     Diff:        ["diff|patch"],
