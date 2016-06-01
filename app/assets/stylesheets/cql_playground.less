@@ -2,6 +2,11 @@
   position: relative;
   height: 800px;
 }
+.cql-results {
+  position: relative;
+  overflow: auto;
+  height: 800px;
+}
 .row.vdivide [class*='col-']:not(:last-child):after {
   background: #e0e0e0;
   width: 1px;
@@ -12,4 +17,11 @@
   bottom: 0;
   right: 0;
   min-height: 70px;
+}
+.hideOverflow {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: block;
 }
