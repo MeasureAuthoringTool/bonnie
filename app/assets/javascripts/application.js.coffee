@@ -34,6 +34,9 @@
 #= require MutationObserver-shim/dist/mutationobserver.min
 #= require cql_qdm_patientapi
 #= require ace-builds/src/ace.js
+#= require ace-builds/src/ext-language_tools.js
+#= require ace-builds/src/mode-cql_highlight_rules.js
+#= require ace-builds/src/mode-cql.js
 #= require ace-builds/src/theme-chrome.js
 #
 #= require datatables.net/js/jquery.dataTables
