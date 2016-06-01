@@ -65,11 +65,33 @@ class Thorax.Views.CQLPlaygroundView extends Thorax.Views.BonnieView
 class Thorax.Views.CQLResultView extends Thorax.Views.BonnieView
   template: JST['cql/cql_result_view']
 
-  initialize: ->
-    @description = ''
-    for k, v of @result
-      @description += k + ': ' + v + '\n'
+  events:
+    rendered: ->
+      for type in @types
+        popoverContent = @$('.cql-entry-details-'+type.id).html()
+        @$('.cql-entry-'+type.id).popover trigger: 'hover', placement: 'left', container: 'body', title: "Details", html: true, content: popoverContent
 
+  initialize: ->
+    @types = []
+    for key, value of @result
+      if key == 'Patient'
+        continue
+      type = switch
+        when Array.isArray(value) then 'array'
+        when typeof value == 'boolean' then 'boolean'
+        else 'literal'
+      if type == 'array'
+        for item in value # Format start and stop times for displaying.
+          if typeof item.entry.start_time == 'number'
+            item.entry.start_time = moment.utc(item.entry.start_time, 'X').format('L LT')
+          if typeof item.entry.end_time == 'number'
+            item.entry.end_time = moment.utc(item.entry.end_time, 'X').format('L LT')
+      dataCriteria = {}
+      dataCriteria['name'] = key
+      dataCriteria['type'] = type
+      dataCriteria['value'] = value
+      dataCriteria['id'] = key.replace(/[^\w\s!?]/g,'') # Remove all special characters
+      @types.push dataCriteria
 
 
 class Thorax.Views.CQLResultsView extends Thorax.Views.BonnieView
