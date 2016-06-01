@@ -33,8 +33,8 @@
 #= require bootstrap-file-input/bootstrap.file-input
 #= require MutationObserver-shim/dist/mutationobserver.min
 #= require cql_qdm_patientapi
-#= require ace-builds/src-min-noconflict/ace.js
-#= require ace-builds/src-min-noconflict/theme-chrome.js
+#= require ace-builds/src/ace.js
+#= require ace-builds/src/theme-chrome.js
 #
 #= require datatables.net/js/jquery.dataTables
 #= require datatables.net-bs/js/dataTables.bootstrap
