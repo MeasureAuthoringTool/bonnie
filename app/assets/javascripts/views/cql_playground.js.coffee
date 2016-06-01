@@ -23,7 +23,8 @@ class Thorax.Views.CQLPlaygroundView extends Thorax.Views.BonnieView
       $("#cqlPlayground").on 'hide.bs.modal', ->
         $('#editor').remove()
 
-  evaluateCql: ->
+  evaluateCql: (sender) ->
+    @startEvaluateSpinner()
     cql = @editor.getValue()
     post = $.post "measures/cql_to_elm", { cql: cql, authenticity_token: $("meta[name='csrf-token']").attr('content') }
     post.done (response) => @updateElm(response)
@@ -31,12 +32,14 @@ class Thorax.Views.CQLPlaygroundView extends Thorax.Views.BonnieView
     @editor.focus()
 
   updateElm: (elm) ->
+    @stopEvaluateSpinner()
     @editor.getSession().clearAnnotations()
     patientSource = new PatientSource(@collection)
     results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService())
     @resultCollection.each (patient) => patient.set(results: results.patientResults[patient.id])
 
   displayErrors: (response) ->
+    @stopEvaluateSpinner()
     switch response.status
       when 500
         alert "CQL translation error: #{response.statusText}"
@@ -61,17 +64,43 @@ class Thorax.Views.CQLPlaygroundView extends Thorax.Views.BonnieView
         valueSetsForCodeService[oid][vs.version].push code: concept.code, system: concept.code_system_name, version: vs.version
     valueSetsForCodeService
 
+  startEvaluateSpinner: ->
+    $('#evaluate').button('loading')
+
+  stopEvaluateSpinner: ->
+    setTimeout ( ->
+      $('#evaluate').button('reset')
+    ), 500
 
 class Thorax.Views.CQLResultView extends Thorax.Views.BonnieView
   template: JST['cql/cql_result_view']
 
   events:
     rendered: ->
+      # Add hover to all data criteria results
       for type in @types
-        popoverContent = @$('.cql-entry-details-'+type.id).html()
-        @$('.cql-entry-'+type.id).popover trigger: 'hover', placement: 'left', container: 'body', title: "Details", html: true, content: popoverContent
+        if type.value instanceof Array
+          for dc in type.value
+            popoverContent = @$('.cql-entry-details-' + dc.entry._id).html()
+            @$('.cql-entry-' + dc.entry._id).popover trigger: 'hover', placement: 'left', container: 'body', title: "Details", html: true, content: popoverContent
 
   initialize: ->
+    @icons =
+      characteristic:            'fa-user'
+      communications:            'fa-files-o'
+      conditions:                'fa-stethoscope'
+      devices:                   'fa-medkit'
+      diagnostic_studies:        'fa-stethoscope'
+      encounters:                'fa-user-md'
+      functional_statuses:       'fa-stethoscope'
+      interventions:             'fa-comments'
+      laboratory_tests:          'fa-flask'
+      medications:               'fa-medkit'
+      physical_exams:            'fa-user-md'
+      procedures:                'fa-scissors'
+      risk_category_assessments: 'fa-user'
+      care_goals:                'fa-sliders'
+
     @types = []
     for key, value of @result
       if key == 'Patient'
@@ -89,6 +118,11 @@ class Thorax.Views.CQLResultView extends Thorax.Views.BonnieView
       dataCriteria = {}
       dataCriteria['name'] = key
       dataCriteria['type'] = type
+      # If this object resolves to an array, make sure the bonnie_type is set
+      # to the name of the icon used for displaying this type.
+      if value instanceof Array
+        for dc in value
+          dc.bonnie_type = @icons[dc.bonnie_type]
       dataCriteria['value'] = value
       dataCriteria['id'] = key.replace(/[^\w\s!?]/g,'') # Remove all special characters
       @types.push dataCriteria
