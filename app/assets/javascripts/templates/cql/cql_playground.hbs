@@ -7,11 +7,11 @@
       </div>
       <div class="modal-body">
         <div class="row vdivide">
-          <div class="col-md-9">
+          <div class="col-md-7">
             <div class="cql-editor" id="editor"></div>
           </div>
-          <div class="col-md-3">
-            <input type="submit" value="Evaluate" class="btn btn-primary btn-block" data-call-method="evaluateCql">
+          <div class="col-md-5">
+            <button class="btn btn-primary btn-block" id="evaluate" data-call-method="evaluateCql" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Evaluating...">Evaluate</button>
             <br>
             {{view resultsView}}
           </div>
