@@ -1,0 +1,20 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+{{#each patients}}
+   <div class="panel panel-default">
+   <div class="panel-heading" role="tab" id="headingTwo">
+     <h4 class="panel-title">
+       <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" aria-controls="{{id}}">
+         {{attributes.first}}, {{attributes.last}}
+       </a>
+     </h4>
+   </div>
+   <div id="{{id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+     <div class="panel-body">
+       Test! Here is where results would go
+     </div>
+   </div>
+   </div>
+{{/each}}
+
+</div>

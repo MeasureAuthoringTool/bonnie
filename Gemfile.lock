@@ -37,6 +37,13 @@ GIT
     bonnie_bundler (1.0.0)
 
 GIT
+  remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
+  revision: 92ca8aaa9f98a59361acd34eb073e405de34c2fe
+  branch: master
+  specs:
+    cql_qdm_patientapi (0.1.0)
+
+GIT
   remote: https://github.com/projecttacoma/hqmf2js.git
   revision: 8722ce23ade6b32d56e8fde425895cf3a9c37df5
   branch: master
@@ -314,6 +321,7 @@ DEPENDENCIES
   bonnie_bundler!
   capistrano-rails
   coffee-rails
+  cql_qdm_patientapi!
   devise
   diffy
   exception_notification

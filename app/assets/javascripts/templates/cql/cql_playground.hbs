@@ -1,8 +1,8 @@
-<div class="modal fade" id="cqlTestDialog" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="cqlPlayground" tabindex="-1" aria-hidden="true">
   <div class="cql-modal modal-dialog" role="dialog" aria-labelledby="modalTitle">
     <div class="modal-content">
       <div class="modal-header">
-        {{#button "close" class="close" data-dismiss="modal" aria-hidden="true"}}&times;{{/button}}
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</button>
         <h1 class="modal-title" id="modalTitle">CQL Playground</h1>
       </div>
       <div class="modal-body">
@@ -13,7 +13,7 @@
           <div class="col-md-3">
             <input type="submit" value="Evaluate" class="btn btn-primary btn-block" data-call-method="evaluateCql">
             <br>
-            results
+            {{view resultsView}}
           </div>
         </div>
       </div>
