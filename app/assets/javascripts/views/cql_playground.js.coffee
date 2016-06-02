@@ -22,7 +22,7 @@ class Thorax.Views.CQLPlaygroundView extends Thorax.Views.BonnieView
       @editor.session.setMode("ace/mode/cql")
       @editor.setShowPrintMargin(false)
       $("#cqlPlayground").on 'hide.bs.modal', ->
-        $('#editor').remove()
+        $('#cqlPlayground').remove()
 
   evaluateCql: (sender) ->
     @startEvaluateSpinner()
@@ -139,12 +139,12 @@ class Thorax.Views.CQLResultsView extends Thorax.Views.BonnieView
       @render()
       @collapsedId = @parent.collapsedId
       if @collapsedId == null # If no saved state exists, expand first div.
-        $("#"+@collection.models[0].id).collapse(toggle: true)
+        $("#" + @collection.models[0].id).collapse(toggle: true)
       else
-        $("#"+@collapsedId).collapse(toggle: true)
+        $("#" + @collapsedId).collapse(toggle: true)
       # Event listener to set current collapsedId
       $('.panel-group').on 'shown.bs.collapse', (e) =>
-        @parent.collapsedId  = e.target.id
+        @parent.collapsedId = e.target.id
 
   context: ->
     # We use the list of patients for the header
