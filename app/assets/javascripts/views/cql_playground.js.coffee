@@ -135,14 +135,15 @@ class Thorax.Views.CQLResultsView extends Thorax.Views.BonnieView
 
   events:
     rendered: ->
-      @collapsedId = @parent.collapsedId
-      if @collapsedId == null # If no saved state exists, expand first div.
-        $("#" + @collection.models[0].id).collapse(toggle: true)
+      if @parent.collapsedId == null # If no saved state exists, expand first div.
+        $("#" + @collection.models[0].id).collapse 'show'
       else
-        $("#" + @collapsedId).collapse(toggle: true)
+        $("#" + @parent.collapsedId).collapse 'show'
       # Event listener to set current collapsedId
-      $('.panel-group').on 'shown.bs.collapse', (e) =>
-        @parent.collapsedId = e.target.id
+      $('.panel-group').on 'show.bs.collapse', (e) =>
+        if e.target.id != @parent.collapsedId
+          $('#' + @parent.collapsedId).collapse 'hide'
+        @parent.collapsedId  = e.target.id
 
   initialize: ->
     @collection.on 'add remove change', =>
