@@ -41,3 +41,11 @@ Handlebars.registerHelper 'ifCond', (v1, operator, v2, options) ->
     when '||'
       if (v1 || v2) then options.fn(this) else options.inverse(this)
     else return options.inverse(this)
+
+# Helper to retrieve the element at a given position in an array
+Handlebars.registerHelper 'lookup', (array, index) ->
+  return array[index] || undefined
+  
+# Helper to make use of moment date formatting
+Handlebars.registerHelper 'dateFormat', (date, fmt) ->
+  return moment(date).format(fmt)

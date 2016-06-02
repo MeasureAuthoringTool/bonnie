@@ -1,0 +1,46 @@
+<div>
+  {{#if measureHistory}}
+    <table class="table">
+      <tr>
+        <td></td>
+        {{#each patientIndex}}
+          <th data-patient-id="{{id}}">{{name}}</th>
+        {{/each}}
+      </tr>
+      
+      {{! Loop through each measure history summary}}
+      {{#each measureHistory}}
+        {{! Get the specific population }}
+        {{#with (lookup populations ../../populationIndex)}}
+          <tr data-upload-id="{{../upload_id}}">
+            <th rowspan="2">{{dateFormat ../upload_dtm "M/D/YY"}}</th>
+            {{! Loop through each patient in same order as header }}
+            {{#each ../../../patientIndex}}
+              {{#with (lookup .. id)}}
+                {{debug}}
+                <td>{{after_status}}</td>
+              {{else}}
+                <td>N/A</td>
+              {{/with}}
+            {{/each}}
+          </tr>
+          <tr data-upload-id="{{../upload_id}}">
+            {{! Loop through each patient in same order as header }}
+            {{#each ../../../patientIndex}}
+              {{#with (lookup .. id)}}
+                <td>{{before_status}}</td>
+              {{else}}
+                <td>N/A</td>
+              {{/with}}
+            {{/each}}
+          </tr>
+        {{/with}}
+      {{/each}}
+    </table>
+  {{else}}
+    <div class="loading-indicator" style="margin-top: 5px">
+      <img alt="Loading" src="/assets/loading.gif">
+      <div class="loading-text">loading</div>
+    </div>
+  {{/if}}
+</div>

@@ -14,6 +14,10 @@ module TestCaseMeasureHistory
     belongs_to :user
     embeds_many :measure_upload_population_summaries, cascade_callbacks: true
     accepts_nested_attributes_for :measure_upload_population_summaries
+    
+    index "user_id" => 1
+    scope :by_user, ->(user) { where({'user_id'=>user.id}) }
+    scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where({'user_id'=>user.id, 'hqmf_set_id'=>hqmf_set_id}) }
   end
   
   # 

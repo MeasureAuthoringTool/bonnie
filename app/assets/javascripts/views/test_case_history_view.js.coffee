@@ -4,18 +4,15 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
   initialize: ->
     @patientData = undefined
     @measureData = undefined
-    $.when($.get('/measures/history?id='+@model.attributes['hqmf_set_id'], (data) =>
-      @measureData = data
-      # console.log 'RETRIEVED MEASURE DATA - ' + JSON.stringify(measureData)
-      return
-    ), $.get('/patients/history?id='+@model.attributes['hqmf_set_id'], (data) =>
+    $.get('/patients/history?id='+@model.attributes['hqmf_set_id'], (data) =>
       @patientData = data
       # console.log 'RETRIEVED TEMP DATA - ' + JSON.stringify(patientData)
       return
-    )).then =>
-      @patientHistory @patientData, @measureData, @model.get('displayedPopulation')
+    ).then =>
+      #@patientHistory @patientData, @measureData, @model.get('displayedPopulation')
       return
     @measureDiffView = new Thorax.Views.TestCaseHistoryDiffView(model: @model)
+    @measureTimelineView = new Thorax.Views.TestCaseHistoryTimelineView(model: @model)
     
   switchPopulation: (e) ->
     population = $(e.target).model()
@@ -23,6 +20,7 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
     population.measure().set('displayedPopulation', population)
     @trigger 'population:update', population
     @measureDiffView.updatePopulation(population)
+    @measureTimelineView.updatePopulation(population)
     @patientHistory @patientData, @measureData, population
   
   populationContext: (population) ->
