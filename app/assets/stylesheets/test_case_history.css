@@ -70,3 +70,31 @@
 .diff ins strong{font-weight:normal;background:#9f9;}
 .diff li.diff-comment { display: none; }
 .diff li.diff-block-info { background: none repeat scroll 0 0 gray; }
+
+.history-circle {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border: 3px solid;
+  text-align: center;
+  line-height: 24px;
+  
+}
+
+.history-pass-icon {
+  color: #004119;
+}
+  
+.history-pass {
+  background-color: #20744c;
+  border-color: #004119;
+}
+
+.history-fail-icon {
+  color: #730800;
+}
+
+.history-fail {
+  background-color: #a63b12;
+  border-color: #730800;
+}

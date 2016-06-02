@@ -17,8 +17,13 @@
             {{! Loop through each patient in same order as header }}
             {{#each ../../../patientIndex}}
               {{#with (lookup .. id)}}
-                {{debug}}
-                <td>{{after_status}}</td>
+                {{!debug}}
+                <td>
+                  <div class="history-circle history-{{after_status}}">
+                    <span class="sr-only">{{after_status}}</span>
+                    <i class="fa {{#ifCond after_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
+                  </div>
+                </td>
               {{else}}
                 <td>N/A</td>
               {{/with}}
@@ -28,7 +33,12 @@
             {{! Loop through each patient in same order as header }}
             {{#each ../../../patientIndex}}
               {{#with (lookup .. id)}}
-                <td>{{before_status}}</td>
+                <td>
+                  <div class="history-circle history-{{before_status}}">
+                    <span class="sr-only">{{after_status}}</span>
+                    <i class="fa {{#ifCond before_status '==' 'pass'}}fa-check{{else}}fa-times{{/ifCond}}" aria-hidden="true"></i>
+                  </div>
+                </td>
               {{else}}
                 <td>N/A</td>
               {{/with}}
