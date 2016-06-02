@@ -85,7 +85,7 @@
 
   renderTestCaseHistory: (measureHqmfSetId) ->
     measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
-    @navigationSetup "Test Case History - #{measure.get('cms_id')}", 'test-case-history'
+    @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
     # @collection = new Thorax.Collections.Patients
     @mainView.setView new Thorax.Views.TestCaseHistoryView model: measure, patients: @patients, collection: @collection # TODO Anything else?
     @breadcrumb.viewTestCaseHistory(measure)

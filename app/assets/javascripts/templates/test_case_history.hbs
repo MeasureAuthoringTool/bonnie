@@ -2,7 +2,7 @@
 <div class="row">
   <div class="main">
     <div class="measure-title">
-      <h1 class="short-title"><i class="fa fa-fw fa-history" aria-hidden="true"></i> Test Case History - {{cms_id}}</h1>
+      <h1 class="short-title"><i class="fa fa-fw fa-history" aria-hidden="true"></i> Measure Upload History - {{cms_id}}</h1>
     </div>
     <div class="measure-dsp">
       <h2 class="full-title">{{title}}</h2>
@@ -16,8 +16,6 @@
         </li>
       {{/collection}}
     {{/ifCond}}
-    <div id="patientHistory"></div>
-    <div id="508timeline"></div>
-    {{view measureDiffView}}
+    {{view measureTimelineView}}
   </div>
 </div>
