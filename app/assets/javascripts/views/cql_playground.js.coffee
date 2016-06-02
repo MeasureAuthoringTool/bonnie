@@ -123,7 +123,7 @@ class Thorax.Views.CQLResultView extends Thorax.Views.BonnieView
       # to the name of the icon used for displaying this type.
       if value instanceof Array
         for dc in value
-          dc.bonnie_type = @icons[dc.bonnie_type]
+          dc.bonnie_type = @icons[dc.bonnie_type] if @icons[dc.bonnie_type]?
       dataCriteria['value'] = value
       dataCriteria['id'] = key.replace(/[^\w\s!?]/g,'') # Remove all special characters
       @types.push dataCriteria
@@ -133,10 +133,8 @@ class Thorax.Views.CQLResultsView extends Thorax.Views.BonnieView
 
   template: JST['cql/cql_results_view']
 
-  initialize: ->
-    # Perform a full re-render on collection update since we don't use collection template helpers
-    @collection.on 'add remove change', =>
-      @render()
+  events:
+    rendered: ->
       @collapsedId = @parent.collapsedId
       if @collapsedId == null # If no saved state exists, expand first div.
         $("#" + @collection.models[0].id).collapse(toggle: true)
@@ -145,6 +143,10 @@ class Thorax.Views.CQLResultsView extends Thorax.Views.BonnieView
       # Event listener to set current collapsedId
       $('.panel-group').on 'shown.bs.collapse', (e) =>
         @parent.collapsedId = e.target.id
+
+  initialize: ->
+    @collection.on 'add remove change', =>
+      @render()
 
   context: ->
     # We use the list of patients for the header
