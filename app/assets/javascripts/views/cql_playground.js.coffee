@@ -8,6 +8,7 @@ class Thorax.Views.CQLPlaygroundView extends Thorax.Views.BonnieView
   template: JST['cql/cql_playground']
 
   initialize: ->
+    @collapsedId = null
     @resultCollection = new Thorax.Collection()
     @collection.each (patient) =>
       @resultCollection.add(new Thorax.Model(id: patient.id, first: patient.get('first'), last: patient.get('last'), results: {}))
@@ -134,7 +135,16 @@ class Thorax.Views.CQLResultsView extends Thorax.Views.BonnieView
 
   initialize: ->
     # Perform a full re-render on collection update since we don't use collection template helpers
-    @collection.on 'add remove change', => @render()
+    @collection.on 'add remove change', =>
+      @render()
+      @collapsedId = @parent.collapsedId
+      if @collapsedId == null # If no saved state exists, expand first div.
+        $("#"+@collection.models[0].id).collapse(toggle: true)
+      else
+        $("#"+@collapsedId).collapse(toggle: true)
+      # Event listener to set current collapsedId
+      $('.panel-group').on 'shown.bs.collapse', (e) =>
+        @parent.collapsedId  = e.target.id
 
   context: ->
     # We use the list of patients for the header
