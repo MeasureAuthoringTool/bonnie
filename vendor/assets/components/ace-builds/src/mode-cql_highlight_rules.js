@@ -64,6 +64,11 @@ var CQLHighlightRules = function() {
             "comment" : [
                 {token : "doc.comment", regex : /\*\//,     next  : "start"},
                 {defaultToken : "doc.comment"}
+            ],
+            "qstring" : [
+                {token : "constant.language.escape",   regex : "''"},
+                {token : "string", regex : "'",     next  : "start"},
+                {defaultToken : "string"}
             ]
         };
 
