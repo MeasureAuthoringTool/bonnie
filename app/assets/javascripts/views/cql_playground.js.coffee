@@ -21,6 +21,8 @@ class Thorax.Views.CQLPlaygroundView extends Thorax.Views.BonnieView
       @editor.setTheme("ace/theme/chrome")
       @editor.session.setMode("ace/mode/cql")
       @editor.setShowPrintMargin(false)
+      @editor.setValue(@generateCQLForMeasure(@measure), -1)
+      @editor.moveCursorTo(Infinity, 0)
       $("#cqlPlayground").on 'hide.bs.modal', ->
         $('#cqlPlayground').remove()
 
@@ -72,6 +74,17 @@ class Thorax.Views.CQLPlaygroundView extends Thorax.Views.BonnieView
     setTimeout ( ->
       $('#evaluate').button('reset')
     ), 500
+
+  generateCQLForMeasure: (measure) ->
+    cql = 'library ' + measure.get('title').replace(/[^\w!?]/g,'') + ' version \'1\'\n\nusing QDM\n\n'
+    value_sets = {}
+    for k, v of measure.get('data_criteria')
+      value_sets[v.code_list_id] = v.title if v.code_list_id and v.type != 'characteristic'
+    for k, v of value_sets
+      cql += 'valueset "' + v + '": \'' + k + '\'\n'
+    cql += '\nparameter MeasurementPeriod default Interval[DateTime(2012, 1, 1, 0, 0, 0, 0), DateTime(2013, 1, 1, 0, 0, 0, 0))\n'
+    cql += '\ncontext Patient\n'
+    cql += '\n// Enter CQL here...\n'
 
 class Thorax.Views.CQLResultView extends Thorax.Views.BonnieView
   template: JST['cql/cql_result_view']
