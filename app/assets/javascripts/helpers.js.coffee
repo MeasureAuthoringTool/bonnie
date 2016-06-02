@@ -53,6 +53,7 @@ Handlebars.registerHelper 'times', (n, opts) ->
     out = opts.inverse(this)
 
   return out
+
 Handlebars.registerHelper 'lookup', (obj, field) ->
   obj && obj[field]
 
@@ -61,3 +62,7 @@ Handlebars.registerHelper 'ifIn', (obj, arr, options) ->
     options.fn(this)
   else
     options.inverse(this)
+  
+# Helper to make use of moment date formatting
+Handlebars.registerHelper 'dateFormat', (date, fmt) ->
+  return moment(date).format(fmt)
