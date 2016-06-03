@@ -50,7 +50,7 @@ module TestCaseMeasureHistory
     end
   end
   
-  def self.collect_before_upload_state(measure, old_measure)
+  def self.collect_before_upload_state(measure, arch_measure)
     patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
 
     mups = MeasureUploadPatientSummary.new
@@ -64,7 +64,7 @@ module TestCaseMeasureHistory
     mups.hqmf_id = measure.hqmf_id
     mups.hqmf_set_id = measure.hqmf_set_id
     mups.user_id = measure.user_id
-    mups.measure_db_id_before = old_measure.id unless !old_measure
+    mups.measure_db_id_before = arch_measure.measure_db_id unless !arch_measure
     mups.measure_db_id_after = measure.id
     mups.save!
     mups.id

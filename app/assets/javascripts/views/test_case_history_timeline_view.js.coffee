@@ -4,6 +4,7 @@ class Thorax.Views.TestCaseHistoryTimelineView extends Thorax.Views.BonnieView
   initialize: ->
     @populationIndex = @model.get('displayedPopulation').index()
     $.get('/measures/history?id='+@model.attributes['hqmf_set_id'], @loadHistory)
+    @measureDiffView = new Thorax.Views.TestCaseHistoryDiffView(model: @model)
     
   loadHistory: (data) =>
     @measureHistory = data
@@ -29,3 +30,9 @@ class Thorax.Views.TestCaseHistoryTimelineView extends Thorax.Views.BonnieView
   updatePopulation: (population) ->
     @populationIndex = population.index()
     @render()
+    
+  showDiffClicked: (e) ->
+    uploadID = $(e.target).data('uploadId')
+    upload = _.findWhere(@measureHistory, {upload_id: uploadID})
+    @measureDiffView.loadDiff upload.measure_db_id_before, upload.measure_db_id_after
+    @$('#measure-diff-view-dialog').modal('show');
