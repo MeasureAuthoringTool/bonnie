@@ -71,6 +71,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       table = $('#patientDashboardTable').DataTable(
         data: @patientData,
         columns: @tableColumns,
+        deferRender: true,
         scrollX: true,
         scrollY: "500px",
         paging: false,
