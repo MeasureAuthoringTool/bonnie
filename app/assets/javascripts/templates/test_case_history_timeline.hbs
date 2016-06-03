@@ -15,7 +15,7 @@
         {{#with (lookup populations ../../populationIndex)}}
           <tr class="active" data-upload-id="{{../upload_id}}">
             <th class="history-upload-header">
-              Uploaded <small>{{dateFormat ../upload_dtm "M/D/YY"}} @ {{dateFormat ../upload_dtm "hh:mm a"}}</small>
+              Uploaded <small>{{dateFormat ../upload_dtm "M/D/YY"}} @ {{dateFormat ../upload_dtm "h:mm a"}}</small>
             </th>
             <td class="history-upload-header"><small>After</small></td>
             {{! Loop through each patient in same order as header }}
@@ -34,7 +34,7 @@
             {{/each}}
           </tr>
           <tr data-upload-id="{{../upload_id}}">
-            <td>{{#button "showDiffClicked" data-upload-id=../upload_id class="btn btn-xs btn-default"}}DIFF{{/button}}</td>
+            <td>{{#button "showDiffClicked" data-upload-id=../upload_id class="btn btn-xs btn-default"}}VIEW CHANGES{{/button}}</td>
             <td><small>Before</small></td>
             {{! Loop through each patient in same order as header }}
             {{#each ../../../patientIndex}}
@@ -68,7 +68,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button data-dismiss="modal" aria-hidden="true" class="close" data-call-method="close">×</button>
-        <h1 id="diff-view-title">Measure Logic Diff</h1>
+        <h1 id="diff-view-title">Measure Logic Changes</h1>
       </div>
       <div class="modal-body">
         {{view measureDiffView}}
