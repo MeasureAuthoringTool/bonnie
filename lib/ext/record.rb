@@ -43,4 +43,30 @@ class Record
     end
   end
 
+  # Supports the exporting of the expected values in the QRDA export of the patients
+  # Note: There is logic in health-data-standards _measures.cat1.erb for further formatting.
+  # The special handling of the key 'DENEX' is do to the fact that the description of this population
+  #  stored in many of the measures is incorrect (it is often just 'Denominator' instead of
+  #  'Denominator Exclusion').
+  def expected_values_for_qrda_export(measure)
+    qrda_expected_values = []
+    expected_pop_names = HQMF::PopulationCriteria::ALL_POPULATION_CODES - %w{STRAT OBSERV}
+    measure.populations.each_with_index do |pop, idx|
+      pop.each do |pkey, pvalue|
+        next unless expected_pop_names.include?(pkey)
+        this_ev = {}
+        this_ev[:hqmf_id] = measure.population_criteria[pvalue.to_s]['hqmf_id']
+        if pkey == 'DENEX'
+          this_ev[:display_name] = 'Denominator Exclusions'
+        else
+          this_ev[:display_name] = measure.population_criteria[pvalue.to_s]['title']
+        end
+        this_ev[:code] = pkey
+        this_ev[:expected_value] = self.expected_values[idx][pkey].to_s
+        qrda_expected_values << this_ev
+      end
+    end
+    qrda_expected_values
+  end
+
 end
