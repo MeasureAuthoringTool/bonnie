@@ -159,13 +159,13 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     populations = @measure.get('populations')
     population_index = 0
     population_names = Thorax.Models.Measure.allPopulationCodes
-    # desired_attr_names = ['rationale', 'finalSpecifics']
+    desired_attr_names = ['rationale', 'finalSpecifics']
     results = [];
     
     final_pops = [];
     
     for mkey, mvalue of populations.models
-      this_pop = [];
+      this_pop = ['rationale', 'finalSpecifics'];
       for dankey in population_names
         for mv of mvalue.attributes
           if dankey == mv
@@ -184,18 +184,18 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         if ++population_index < populations.length
           calcNextResult()
         else
-          actual_values = []
+          calc_results = []
           count = 0
           for result in results
-            actual_value = 
+            calc_result = 
               population_index: count++
               measure_id: @measure.get('hqmf_set_id')
             
             for rkey, rvalue of result.attributes
               if rkey in final_pops[population_index-1]
-                actual_value[rkey] = rvalue
-            actual_values.push actual_value
-          callback(actual_values)
+                calc_result[rkey] = rvalue
+            calc_results.push calc_result
+          callback(calc_results)
         )
     calcNextResult()
   
@@ -208,11 +208,12 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @serializeWithChildren()
     @model.sortCriteriaBy 'start_date', 'end_date'
     
-    @calculateAllResults((actual_values) =>
+    @calculateAllResults((calc_results) =>
       patientJSON = @model.toJSON()
-      patientJSON.actual_values = actual_values
-      
+      patientJSON.calc_results = calc_results
+      # Need to have silent: true on save so that the change event (which clears calc_results) doesn't fire 
       status = @originalModel.save patientJSON,
+        silent: true
         success: (model) =>
           @patients.add model # make sure that the patient exist in the global patient collection
           @measure?.get('patients').add model # and the measure's patient collection

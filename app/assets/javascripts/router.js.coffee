@@ -28,6 +28,7 @@
     'measures/:measure_hqmf_set_id/test_case_history':  'renderTestCaseHistory'
     'admin/users':                                      'renderUsers'
     'value_sets/edit':                                  'renderValueSetsBuilder'
+    'measures/:measure_hqmf_set_id/patients/:id/compare':  'renderPatientCompare'
 
   renderMeasures: ->
     @measures.each (measure) -> measure.set('displayedPopulation', measure.get('populations').first())
@@ -89,6 +90,15 @@
     # @collection = new Thorax.Collections.Patients
     @mainView.setView new Thorax.Views.TestCaseHistoryView model: measure, patients: @patients, collection: @collection # TODO Anything else?
     @breadcrumb.viewTestCaseHistory(measure)
+    
+  renderPatientCompare: (measureHqmfSetId, patientId) ->
+    @navigationSetup "Patient Builder", "patient-compare"
+    measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
+    patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
+    document.title += " - #{measure.get('cms_id')}" if measure?
+    patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures)
+    @mainView.setView patientBuilderView
+    @breadcrumb.addPatient(measure, patient)
 
   # Common setup method used by all routes
   navigationSetup: (title, selectedNav) ->
