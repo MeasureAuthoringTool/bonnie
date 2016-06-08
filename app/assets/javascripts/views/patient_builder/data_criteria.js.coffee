@@ -99,64 +99,36 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     results_information_array = []
     references_information_array = []
     fulfillments_information_array = []
-    array_of_result_Ids = []
-    array_of_field_value_Ids = []
-    array_of_reference_Ids = []
-    array_of_fulfillment_Ids = []
     #console.log @model
+    #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     if @model.attributes.fulfillments?
-      for each_fulfillment of @model.attributes.fulfillments._byId
-        array_of_result_Ids.push(each_fulfillment) #Create an array of Fulfillment Ids (eg. c377, c836...etc)
-      if ((Object.keys(@model.attributes.fulfillments._byId).length) > 0) #If there are actually fulfillments (Medications)...
-        for this_specific_element in [0..(Object.keys(@model.attributes.fulfillments._byId).length)-1] #Loop that runs from 0 to the number of fulfillment values 
-          that = @model.attributes.fulfillments._byId["#{array_of_result_Ids[this_specific_element]}"].attributes
-          that = ((that.quantity_dispensed_value + " " + that.quantity_dispensed_unit + " " + that.dispense_date + " ")\
-          .replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + that.dispense_time)
-          #format the QRDA(or whatever healthcare language this is written in) by replacing underscores with spaces and capitalizing each word
-          
-          fulfillments_information_array.push(that)
-          #Add this formatted string to an array containing all the other fulfillment values
+      fulfillments_information_array = @model.attributes.fulfillments.map((ful) ->
+         # using .get to retreive attributes since ful is a Thorax object
+           return ((ful.get('quantity_dispensed_value') + " " + ful.get('quantity_dispensed_unit') + " " + ful.get('dispense_date') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ful.get('dispense_time')))
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     if @model.attributes.field_values?
-      for each_field_value of @model.attributes.field_values._byId
-        array_of_field_value_Ids.push(each_field_value) #Create an array of Field Value Ids (eg. c377, c836...etc)
-      if ((Object.keys(@model.attributes.field_values._byId).length) > 0) #If there are actually field values...
-        for this_specific_element in [0..(Object.keys(@model.attributes.field_values._byId).length)-1] #Loop that runs from 0 to the number of field values
-          that = @model.attributes.field_values._byId["#{array_of_field_value_Ids[this_specific_element]}"].attributes
-          switch that.type #CD = Coded, PG = Scalar, TS = Date Entry. This switch statement is just for formatting the different entry methods
-            when "CD" then that = ((that.key + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ that.title)
-            when "PQ" then that = ((that.key + ": " + that.value + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ that.unit)
-            when "TS" then that = (that.key + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ moment.utc(@model.get('value')).format('L')
-
-          #format the QRDA(or whatever healthcare language this is written in) by replacing underscores with spaces and capitalizing each word
-          field_value_information_array.push(that)
-          #Add this formatted string to an array containing all the other field values
+      that_model = @model #store this.model to be used inside the map
+      field_value_information_array = @model.attributes.field_values.map((field_val) ->
+          # using .get to retreive attributes since field_val is a Thorax object
+         switch field_val.get('type') #CD = Coded, PQ = Scalar, TS = Date Entry. This switch statement is just for formatting the different entry methods
+           when "CD" then return (((field_val.get('key')) + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (field_val.get('title')))
+           when "PQ" then return ((field_val.get('key') + ": " + field_val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (field_val.get('unit')))
+           when "TS" then return ((field_val.get('key') + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ moment.utc(that_model.get('value')).format('L')))
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     if @model.attributes.references?
-      for each_reference of @model.attributes.references._byId
-        array_of_reference_Ids.push(each_reference) #Create an array of References Ids (eg. c377, c836...etc)
-      if ((Object.keys(@model.attributes.references._byId).length) > 0) #If there are actually References Values...
-        for this_specific_element in [0..(Object.keys(@model.attributes.references._byId).length)-1] #Loop that runs from 0 to the number of references values
-          that = @model.attributes.references._byId["#{array_of_reference_Ids[this_specific_element]}"].attributes
-          if that.reference_type == "" #In "References" you can choose to select the prefix "Fulfills: " or leave it blank
-            that =(that.description + ": " + that.start_date) #Doesn't add the word "Fulfills" or a semicolon (before the description)
-          else  #Adds the word "Fulfills "(stored in 'that.reference_type') and a semicolon (before the description)
-            that =((that.reference_type.replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()))+ ": " + that.description + ": " + that.start_date)
-          #format the QRDA(or whatever healthcare language this is written in) by replacing underscores with spaces and capitalizing each word
-          references_information_array.push(that)
-          #Add this formatted string to an array containing all the other reference values
+      references_information_array = @model.attributes.references.map((ref) ->
+         # using .get to retreive attributes since ref is a Thorax object
+         if ref.get('reference_type')
+           return ref.get('reference_type').replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ": " + ref.get('description') + ": " + ref.get('start_date')
+         else
+           return ref.get('description') + ": " + ref.get('start_date'))
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     if @model.attributes.value?
-      for each_result of @model.attributes.value._byId
-        array_of_result_Ids.push(each_result) #Create an array of Result Ids (eg. c377, c836...etc)
-      if ((Object.keys(@model.attributes.value._byId).length) > 0) #If there are actually result values...
-        for this_specific_element in [0..(Object.keys(@model.attributes.value._byId).length)-1] #Loop that runs from 0 to the number of result values
-          that = @model.attributes.value._byId["#{array_of_result_Ids[this_specific_element]}"].attributes
-          that = (that.title).replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
-          #format the QRDA(or whatever healthcare language this is written in) by replacing underscores with spaces and capitalizing each word
-          results_information_array.push(that)
-          #Add this formatted string to an array containing all the other result values
-  
+      results_information_array = @model.attributes.value.map((val) ->
+         # using .get to retreive attributes since val is a Thorax object
+         switch val.get('type') #CD = Coded, PQ = Scalar. This switch statement is just for formatting the different entry methods
+           when "CD" then return val.get('title').replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
+           when "PQ" then return (val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (val.get('unit')))
     definition_title = @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
