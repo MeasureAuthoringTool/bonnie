@@ -30,7 +30,7 @@ module TestCaseMeasureHistory
     # attr_accessor :patients, :summary
 
     def before_measure_load_compare(patient, pop_idx, m_id)
-      trim_before = patient.actual_values.find(measure_id: m_id, popluation_index: pop_idx).first.reject { |k, _v| k.include?('_') }
+      trim_before = patient.calc_results.find(measure_id: m_id, popluation_index: pop_idx).first.reject { |k, _v| k.include?('_') }
       trim_expected = patient.expected_values.find(measure_id: m_id, popluation_index: pop_idx).first.reject { |k, _v| k.include?('_') }
       diff_before_expected = (trim_expected.to_a - trim_before.to_a).to_h
       
@@ -76,7 +76,7 @@ module TestCaseMeasureHistory
       b_mups = the_befores.measure_upload_population_summaries[pop_idx]
       b_mups[:patients].keys.each do |patient|
         ptt = Record.where(id: patient).first
-        trim_after = ptt.actual_values.find(measure_id: measure.hqmf_set_id, population_index: pop_idx).first.reject { |k, _v| k.include?('_') }
+        trim_after = ptt.calc_results.find(measure_id: measure.hqmf_set_id, population_index: pop_idx).first.reject { |k, _v| k.include?('_') }
         diff_after_expected = (b_mups[:patients][patient][:expected].to_a - trim_after.to_a).to_h
         if diff_after_expected.empty? || !diff_after_expected.value?(1)
           status = 'pass'
@@ -111,14 +111,14 @@ module TestCaseMeasureHistory
         end
         result[:measure_id] = measure.hqmf_set_id
         result[:population_index] = population_index
-        if !patient.actual_values.present?
-          patient.write_attribute(:actual_values, res)
+        if !patient.calc_results.present?
+          patient.write_attribute(:calc_results, res)
         else
           begin
-            actual_values = patient.actual_values.dup
-            index = actual_values.find_index { |av| av['measure_id'] == measure.hqmf_set_id && av['population_index'] == population_index }
-            actual_values[index] = result
-            patient.actual_values = actual_values
+            calc_results = patient.calc_results.dup
+            index = calc_results.find_index { |av| av['measure_id'] == measure.hqmf_set_id && av['population_index'] == population_index }
+            calc_results[index] = result
+            patient.calc_results = calc_results
           end
         end
         patient.save!

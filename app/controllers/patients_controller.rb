@@ -50,7 +50,7 @@ class PatientsController < ApplicationController
         change['updateTime'] = (patient._id.generation_time.tv_sec * 1000)
         change['changed'] = 'Initial Patient Creation'
         
-        calc_results = calculate_value_results(filter_values_by_measure(patient.actual_values),
+        calc_results = calculate_value_results(filter_values_by_measure(patient.calc_results),
           filter_values_by_measure(patient.expected_values))
         
         change['result'] = calc_results[:result]
@@ -69,7 +69,7 @@ class PatientsController < ApplicationController
           change['updateTime'] = (patient._id.generation_time.tv_sec * 1000)
           change['changed'] = 'Initial Patient Creation'
           
-          curr_actual = filter_values_by_measure(patient.actual_values)
+          curr_actual = filter_values_by_measure(patient.calc_results)
           curr_expected = filter_values_by_measure(patient.expected_values)
           # TODO: figure out how to get values for this.
           calc_results = calculate_value_results(curr_actual, curr_expected)
@@ -82,7 +82,7 @@ class PatientsController < ApplicationController
         end
         # LOOP for each version of the patient
         patient.history_tracks.each do |track|
-          curr_actual = filter_values_by_measure(track.modified['actual_values']) if track.modified['actual_values']
+          curr_actual = filter_values_by_measure(track.modified['calc_results']) if track.modified['calc_results']
           curr_expected = filter_values_by_measure(track.modified['expected_values']) if track.modified['expected_values']
           
           # next if track.original.empty? # skip if this is the creation one
@@ -109,7 +109,7 @@ class PatientsController < ApplicationController
             track.tracked_changes.each do |key, value|
               # puts key
               # puts "   " + value.to_s
-              if key == 'actual_values'
+              if key == 'calc_results'
                 @calc_values.store(:from_act, value['from'])
                 @calc_values.store(:to_act, value['to'])
               end
@@ -184,7 +184,7 @@ class PatientsController < ApplicationController
     end
     meh = {}
     unless to.nil?
-      # acts = to if field == 'actual_values'
+      # acts = to if field == 'calc_results'
       # exps = to if field == 'expected_values'
       to.each do |pops|
         me = {}
@@ -410,7 +410,7 @@ private
     # patient['measure_period_end'] = measure_period['end_date']
 
     patient.expected_values = params['expected_values']
-    patient.actual_values = params['actual_values']
+    patient.calc_results = params['calc_results']
 
     patient['origin_data'] ||= []
     patient['origin_data'] << params['origin_data'] if params['origin_data']
