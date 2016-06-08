@@ -103,7 +103,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     array_of_field_value_Ids = []
     array_of_reference_Ids = []
     array_of_fulfillment_Ids = []
-    console.log @model
+    #console.log @model
     if @model.attributes.fulfillments?
       for each_fulfillment of @model.attributes.fulfillments._byId
         array_of_result_Ids.push(each_fulfillment) #Create an array of Fulfillment Ids (eg. c377, c836...etc)
