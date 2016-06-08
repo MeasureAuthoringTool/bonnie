@@ -13,6 +13,9 @@
           <div class="pull-left">
             <h2>Date</h2>
             <div>{{start_date}}{{#if end_date}} &ndash; {{end_date}}{{/if}}</div>
+            <!-- 
+              <div>{{start_time}}{{#if end_time}} &ndash; {{end_time}}{{/if}}</div>
+            -->
           </div>
           {{#button "toggleDetails" class="close"}}
             <i class="fa fa-lg fa-angle-right" aria-hidden="true"></i>
@@ -21,6 +24,45 @@
           {{/button}}
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-12">
+      {{!The following ifConds display information when the window is minimized}}
+      {{#ifCond fulfillment_information.length ">" 0}}
+        <div style="line-height:135%">&nbsp;</div> {{!Adds a thin blank line (thinner than <br>) between each item}}
+        <label class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i>&nbsp;Filled<input class="sr-only" disabled></label>
+          {{#each fulfillment_information}}
+          <div> <strong> &ndash; </strong> &nbsp; {{this}} </div> 
+          {{/each}}
+      {{/ifCond}}          
+      {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
+      {{#ifCond result_information.length ">" 0}}
+        <div style="line-height:135%">&nbsp;</div> {{!Adds a thin blank line (thinner than <br>) between each item}}
+        <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i>&nbsp;Result<input class="sr-only" disabled></label>
+          {{#each result_information}}
+          <div> <strong> &ndash; </strong> &nbsp; {{this}} </div> 
+          {{/each}}
+      {{/ifCond}}          
+      {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
+      {{#ifCond field_value_information.length ">" 0}}
+        <div style="line-height:135%">&nbsp;</div> {{!Adds a thin blank line (thinner than <br>) between each item}}
+        <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i>&nbsp;Field Values<input class="sr-only" disabled></label>
+          {{#each field_value_information}}
+          <div> <strong> &ndash; </strong> &nbsp; {{this}} </div> 
+          {{/each}}
+      {{/ifCond}}          
+      {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}  
+      {{#ifCond references_information.length ">" 0}}
+        <div style="line-height:135%">&nbsp;</div> {{!Adds a thin blank line (thinner than <br>) between each item}}
+        <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i>&nbsp;References<input class="sr-only" disabled></label>
+          {{#each references_information}}
+          <div> <strong> &ndash; </strong> &nbsp; {{this}} </div> 
+          {{/each}}
+      {{/ifCond}}            
+      {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}  
+    </div>
+  </div>
+  
+  
       {{#ifPortfolio}}
         <span class="criteria-tag">
           <span class="criteria-tag-cms">CMS</span> <span class="criteria-tag-num">{{cms_id_number}}</span> <span class="criteria-tag-version">{{cms_id_version}}</span>
@@ -165,7 +207,7 @@
       {{/ifCond}}
 
       <div class="form-group">
-        <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Field Value<input class="sr-only" disabled></label>
+        <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Field Values<input class="sr-only" disabled></label>
 
         {{#collection field_values class="existing-values" item-context=valueWithDateContext}}
           <span>
