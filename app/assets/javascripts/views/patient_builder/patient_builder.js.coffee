@@ -211,8 +211,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @calculateAllResults((calc_results) =>
       patientJSON = @model.toJSON()
       patientJSON.calc_results = calc_results
-      debugger
+      # Need to have silent: true on save so that the change event (which clears calc_results) doesn't fire 
       status = @originalModel.save patientJSON,
+        silent: true
         success: (model) =>
           @patients.add model # make sure that the patient exist in the global patient collection
           @measure?.get('patients').add model # and the measure's patient collection

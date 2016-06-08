@@ -410,7 +410,6 @@ private
     # patient['measure_period_end'] = measure_period['end_date']
 
     patient.expected_values = params['expected_values']
-    binding.pry
     patient.calc_results = params['calc_results']
 
     patient['origin_data'] ||= []

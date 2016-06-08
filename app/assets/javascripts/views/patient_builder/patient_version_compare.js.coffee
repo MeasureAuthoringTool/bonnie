@@ -13,7 +13,6 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
     @populationLogicViewAfter.showRationale @model
     
     @populationLogicViewBefore = new Thorax.Views.BuilderPopulationLogic
-    debugger
     @populationLogicViewBefore.setPopulation @measure.get('displayedPopulation')
     @populationLogicViewBefore.showRationale @model
 
