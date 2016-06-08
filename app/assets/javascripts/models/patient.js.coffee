@@ -1,6 +1,9 @@
 class Thorax.Models.Patient extends Thorax.Model
   idAttribute: '_id'
   urlRoot: '/patients'
+  
+  initialize: ->
+    @on 'change materialize', => @unset 'calc_results', silent: true
 
   parse: (attrs) ->
     dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
@@ -126,7 +129,11 @@ class Thorax.Models.Patient extends Thorax.Model
     measure.get('populations').each (population) =>
       expectedValues.add @getExpectedValue(population)
     expectedValues
-
+    
+  getCalcValue: (population) ->
+    measure = population.collection.parent
+    _(this.get('calc_results')).find (result) -> result.measure_id == measure.get('hqmf_set_id') && result.population_index == population.index()
+    
   # Sort criteria by any number of attributes, first given highest priority
   sortCriteriaBy: (attributes...) ->
     originalComparator = @get('source_data_criteria').comparator

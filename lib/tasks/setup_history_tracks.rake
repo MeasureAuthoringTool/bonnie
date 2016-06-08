@@ -12,27 +12,30 @@ namespace :upgrade_add_hx_tracks do
         measure.populations.each_with_index do |population, population_index|
           # Set up calculator for this measure and population, making sure we regenerate the javascript
           begin
-            calculator.set_measure_and_population(measure, population_index, clear_db_cache: true)
+            calculator.set_measure_and_population(measure, population_index, clear_db_cache: true, rationale: true)
           rescue => e
             setup_exception = "Measure setup exception: #{e.message}"
           end
+          strat_pops = population.keys.reject { |k| k == 'id' || k == 'title' }.push('rationale', 'finalSpecifics')
           patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
           patients.each do |patient|
             unless setup_exception
               begin
-                result = calculator.calculate(patient).slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES)
+                result = calculator.calculate(patient).slice(*strat_pops)
               rescue => e
                 calculation_exception = "Measure calculation exception: #{e.message}"
               end
             end
+            next unless result
+            
             res = []
-            result.store('measure_id',measure.hqmf_set_id)
+            result.store('measure_id', measure.hqmf_set_id)
             result.store('population_index', population_index)
             res << result
-            if !patient.actual_values.present?
-              patient.write_attribute(:actual_values, res)
+            if !patient.calc_results.present?
+              patient.write_attribute(:calc_results, res)
               else
-                patient.actual_values << result
+                patient.calc_results << result
               end
             patient.save!
             yield measure, population_index, patient, result, setup_exception || calculation_exception
@@ -46,7 +49,7 @@ namespace :upgrade_add_hx_tracks do
       STDOUT.sync = true
       patients = Record
       patients.each do |patient|
-        patient.unset(:actual_values)
+        patient.unset(:calc_results)
         patient.save!
       end
     end
