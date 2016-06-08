@@ -85,7 +85,7 @@ module TestCaseMeasureHistory
           status = 'fail'
           b_mups.summary[:fail_after] += 1
         end
-        b_mups.patients[patient].merge!(after: trim_after, after_status: status)
+        b_mups.patients[patient].merge!(after: trim_after, after_status: status, patient_version_after_upload: ptt.version)
       end
       b_mups.save!
     end
@@ -96,15 +96,16 @@ module TestCaseMeasureHistory
     measure.populations.each_with_index do |population, population_index|
       # Set up calculator for this measure and population, making sure we regenerate the javascript
       begin
-        calculator.set_measure_and_population(measure, population_index, clear_db_cache: true)
+        calculator.set_measure_and_population(measure, population_index, clear_db_cache: true, rationale: true)
       rescue => e
         setup_exception = "Measure setup exception: #{e.message}"
       end
+      strat_pops = population.keys.reject { |k| k == 'id' || k == 'title' }.push('rationale', 'finalSpecifics')
       patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
       patients.each do |patient|
         unless setup_exception
           begin
-            result = calculator.calculate(patient).slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES)
+            result = calculator.calculate(patient).slice(*strat_pops)
           rescue => e
             calculation_exception = "Measure calculation exception: #{e.message}"
           end
