@@ -25,7 +25,7 @@
         <div class="col-md-12">
           {{!The following if statements display information when the window is minimized}}
           {{#if fulfillment_information}}
-            <hr class= "hr_with_thin_margins"> {{!Thin line break between each element/value}}
+            <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
             <label class="control-label"><i class="fa fa-fw fa-medkit" aria-hidden="true"></i>Filled<input class="sr-only" disabled></label>
               {{#each fulfillment_information}}
               <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div> 
@@ -33,7 +33,7 @@
           {{/if}}          
           {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
           {{#if result_information}}
-            <hr class= "hr_with_thin_margins"> {{!Thin line break between each element/value}}
+            <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
             <label class="control-label"><i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>Result<input class="sr-only" disabled></label>
               {{#each result_information}}
               <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div> 
@@ -41,7 +41,7 @@
           {{/if}}          
           {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
           {{#if field_value_information}}
-            <hr class= "hr_with_thin_margins"> {{!Thin line break between each element/value}}
+            <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
             <label class="control-label"><i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>Field Values<input class="sr-only" disabled></label>
               {{#each field_value_information}}
               <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div> 
@@ -49,7 +49,7 @@
           {{/if}}          
           {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}  
           {{#if references_information}}
-            <hr class= "hr_with_thin_margins"> {{!Thin line break between each element/value}}
+            <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
             <label class="control-label"><i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>References<input class="sr-only" disabled></label>
               {{#each references_information}}
               <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div> 
