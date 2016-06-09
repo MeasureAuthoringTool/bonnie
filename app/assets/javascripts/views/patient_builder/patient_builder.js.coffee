@@ -159,23 +159,18 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     populations = @measure.get('populations')
     population_index = 0
     population_names = Thorax.Models.Measure.allPopulationCodes
-    desired_attr_names = ['rationale', 'finalSpecifics']
     results = [];
     
     final_pops = [];
-    
     for mkey, mvalue of populations.models
       this_pop = ['rationale', 'finalSpecifics'];
       for dankey in population_names
         for mv of mvalue.attributes
           if dankey == mv
-            # this_pop[dankey] = dankey
             this_pop.push dankey
       final_pops[mkey] = this_pop
       
       final_pops
-      
-    # desired_attr_names.push final_pops
     
     calcNextResult = () =>
       popCalc = populations.models[population_index].calculate(@model)
