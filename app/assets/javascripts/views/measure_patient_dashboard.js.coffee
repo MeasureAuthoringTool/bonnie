@@ -118,37 +118,19 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         dc.push v
     dc.sort (a, b) -> a.index - b.index
     for entry in dc
-      column.push data: entry.name, width: @widths[width_index++], render: @insertText
+      column.push data: entry.name, width: @widths[width_index++], render: @insertTextAndPatientData
     column
 
   ###
   Populates the Popover with children data criteria if they exist and populates
   the table cells with the datacriteria value.
   ###
-  insertText: (data, type, row, meta) ->
+  insertTextAndPatientData: (data, type, row, meta) ->
     cloneElement = $('.table-popover-container').clone()
     if data != ""
-      dataCriteria = row.pd.dataIndices[meta.col] # Formatted "PopulationKey_DataCriteriaKey"
-      dataCriteriaKey = dataCriteria.substring(dataCriteria.indexOf('_') + 1)
-      populationKey = dataCriteria.substring(0, dataCriteria.indexOf('_'))
-      children_criteria = row.pd.getChildrenCriteria dataCriteriaKey
-
-      if Object.keys(children_criteria).length > 0
-        formatCriteria = '<div class="tableScrollContainerList"><ul class="popover-ul">'
-        for childDataCriteriaKey, childDataCriteriaText of children_criteria
-          if row.patientResult.rationale[childDataCriteriaKey]? && childDataCriteriaKey != dataCriteriaKey
-            result = row.getPatientCriteriaResult childDataCriteriaKey, populationKey
-            if result == "SPECIFICALLY FALSE"
-              formatCriteria += '<li class="popover-eval-specifics-li">' + childDataCriteriaText + '</li>'
-            else if result == 'TRUE'
-              formatCriteria += '<li class="popover-eval-true-li">' + childDataCriteriaText + '</li>'
-            else if result == 'FALSE'
-              formatCriteria += '<li class="popover-eval-false-li">' + childDataCriteriaText + '</li>'
-        formatCriteria += '</ul></div>'
-      else
-        formatCriteria = "No Children Data Criteria"
-      $('.table-popover-div', cloneElement).attr('data-content', formatCriteria)
       $('.table-cell-popover-div', cloneElement).text(data)
+      $('.table-cell-popover-div', cloneElement).attr('patientId', row.id)
+      $('.table-cell-popover-div', cloneElement).attr('columnNumber', meta.col)
       cloneElement.html()
     else
       return ''
@@ -380,6 +362,32 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     row = @getRow(rowIndex)
     patient = _.findWhere(@measure.get('patients').models, {id: row.id})
     @patientEditView.display patient, rowIndex
+
+  populatePopover: (sender) ->
+    dataCriteria = @pd.dataIndices[$(sender.target).attr('columnNumber')] # Formatted "PopulationKey_DataCriteriaKey"
+    dataCriteriaKey = dataCriteria.substring(dataCriteria.indexOf('_') + 1)
+    populationKey = dataCriteria.substring(0, dataCriteria.indexOf('_'))
+    children_criteria = @pd.getChildrenCriteria dataCriteriaKey
+    patientResult = @matchPatientToPatientId($(sender.target).attr('patientId'))
+
+    if Object.keys(children_criteria).length > 0
+      formatCriteria = '<div class="tableScrollContainerList"><ul class="popover-ul">'
+      for childDataCriteriaKey, childDataCriteriaText of children_criteria
+        if patientResult.rationale[childDataCriteriaKey]? && childDataCriteriaKey != dataCriteriaKey
+          # Searches patientDashboardPatients on patient id.
+          patientDashboardPatient = (patient for patient in @patientData when patient.id == $(sender.target).attr('patientId'))[0]
+          result = patientDashboardPatient.getPatientCriteriaResult childDataCriteriaKey, populationKey
+          if result == "SPECIFICALLY FALSE"
+            formatCriteria += '<li class="popover-eval-specifics-li">' + childDataCriteriaText + '</li>'
+          else if result == 'TRUE'
+            formatCriteria += '<li class="popover-eval-true-li">' + childDataCriteriaText + '</li>'
+          else if result == 'FALSE'
+            formatCriteria += '<li class="popover-eval-false-li">' + childDataCriteriaText + '</li>'
+      formatCriteria += '</ul></div>'
+    else
+      formatCriteria = "No Children Data Criteria"
+
+    $(sender.currentTarget).attr('data-content', formatCriteria)
 
   ###
   @returns {Array} an array containing the contents of both headers
