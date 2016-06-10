@@ -210,14 +210,14 @@
       li {
         .set-op-item {
           list-style-type: square;
-
-          .set-op-group > ul {
-            padding-left: 0; // addresses overly-nested list markup
-          }
         }
       }
     }
   }
+}
+
+li .set-op-item .set-op-group > ul {
+  padding-left: 0; // addresses overly-nested list markup
 }
 
 .d3-measure-viz {
