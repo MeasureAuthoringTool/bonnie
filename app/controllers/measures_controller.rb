@@ -5,6 +5,7 @@ class MeasuresController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:show, :value_sets]
 
   respond_to :json, :js, :html
+  
   def upload_summary
     #Creates an array of N elements, where N is the number of populations
     #Each of those sub-arrays will be arrays containing hashes of patient information
