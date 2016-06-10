@@ -38,7 +38,11 @@ Bonnie::Application.routes.draw do
         get 'calculate_code'
       end
     end
+    resources :archived_measures
+    resources :upload_summaries
   end
+  
+
 
   resources :patients do
     collection do
