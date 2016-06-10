@@ -50,4 +50,5 @@ Apipie.configure do |config|
   config.show_all_examples       = true
   # where is your API defined?
   config.api_controllers_matcher = "#{Rails.root}/app/controllers/api_v1/*.rb"
+  config.ignored_by_recorder     = ["MeasuresController"]
 end
