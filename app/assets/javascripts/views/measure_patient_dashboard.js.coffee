@@ -159,16 +159,25 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     return editableCols
 
   ###
-  @returns {PatientDashboardPatient} given a row index, returns the
-  PatientDashboardPatient contained in that row
+  @returns {PatientDashboardPatient} given something that identifies a row
+  (see: https://datatables.net/reference/type/row-selector), returns
+  the corresponding PatientDashboardPatient
   ###
-  getRow: (rowIndex) ->
-    $('#patientDashboardTable').DataTable().row(rowIndex).data()
+  getRowData: (id) ->
+    $('#patientDashboardTable').DataTable().row(id).data()
 
   ###
-  Sets a row to a PatientDashboardPatient
+  @returns {PatientDashboardPatient} given something that identifies a row
+  (see: https://datatables.net/reference/type/row-selector), returns
+  the corresponding index of this row
   ###
-  setRow: (rowIndex, data) ->
+  getRowIndex: (id) ->
+    $('#patientDashboardTable').DataTable().row(id).index()
+
+  ###
+  Sets the row at the given index to a PatientDashboardPatient
+  ###
+  setRowData: (rowIndex, data) ->
     $('#patientDashboardTable').DataTable().row(rowIndex).data(data).draw()
     $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().relayout()
 
@@ -187,6 +196,13 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     nodes = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
     $(nodes).removeClass('pdhighlight')
     $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().update()
+
+  ###
+  Scrolls the table to a particular population
+  ###
+  scrollToPopulation: (sender) ->
+    pop = sender?.currentTarget.innerText
+    $('.dataTables_scrollBody').scrollTo($('#' + pop), offset: left: -@pd.getHorizontalScrollOffset())
 
   ###
   Disables the patient builder modal button for the given row
@@ -227,12 +243,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Makes a patient row inline editable
   ###
   makeInlineEditable: (sender) ->
-    # Get row index of selected patient
+    # Get row index and data of selected patient
     targetCell = sender?.currentTarget?.parentElement
-    rowIndex = parseInt(targetCell?.getAttribute 'data-dt-row')
-    if isNaN(rowIndex)
-      return
-    row = @getRow(rowIndex)
+    row = @getRowData(targetCell)
+    rowIndex = @getRowIndex(targetCell)
 
     # Clone the old patient in case the user decides to cancel their edits
     row['old'] = jQuery.extend(true, {}, row)
@@ -261,7 +275,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     @disableOpenButton(row)
 
     # Update row
-    @setRow(rowIndex, row)
+    @setRowData(rowIndex, row)
     @selectRow(rowIndex)
 
     # Set current values in added inputs
@@ -280,12 +294,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Saves the inline edits made to a patient
   ###
   saveEdits: (sender) ->
-    # Get row index of selected patient
+    # Get row index and data of selected patient
     targetCell = sender?.currentTarget?.parentElement
-    rowIndex = parseInt(targetCell?.getAttribute 'data-dt-row')
-    if isNaN(rowIndex)
-      return
-    row = @getRow(rowIndex)
+    row = @getRowData(targetCell)
+    rowIndex = @getRowIndex(targetCell)
 
     # Remove the backup row
     delete row['old']
@@ -328,7 +340,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       row['edit'] = $('#editButton').html()
       @enableOpenButton(row)
       @patientData[rowIndex] = row
-      @setRow(rowIndex, row)
+      @setRowData(rowIndex, row)
       @deselectRow(rowIndex)
       # Attaches popover to datacriteria class.
       $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
@@ -337,14 +349,11 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Cancels the edits made to an inline patient
   ###
   cancelEdits: (sender) ->
-    # Get row index of selected patient
+    # Get row index and data of selected patient
     targetCell = sender?.currentTarget?.parentElement
-    rowIndex = parseInt(targetCell?.getAttribute 'data-dt-row')
-    if isNaN(rowIndex)
-      return
-    row = @getRow(rowIndex)
-    @setRow(rowIndex, row['old'])
-
+    row = @getRowData(targetCell)
+    rowIndex = @getRowIndex(targetCell)
+    @setRowData(rowIndex, row['old'])
     # Remove row selection
     @deselectRow(rowIndex)
     # Attaches popover to datacriteria class.
@@ -354,12 +363,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Opens the full patient builder modal for more advanced patient editing
   ###
   openEditDialog: (sender) ->
-    # Get row index of selected patient
+    # Get row index and data of selected patient
     targetCell = sender?.currentTarget?.parentElement
-    rowIndex = parseInt(targetCell?.getAttribute 'data-dt-row')
-    if isNaN(rowIndex)
-      return
-    row = @getRow(rowIndex)
+    row = @getRowData(targetCell)
+    rowIndex = @getRowIndex(targetCell)
     patient = _.findWhere(@measure.get('patients').models, {id: row.id})
     @patientEditView.display patient, rowIndex
 
