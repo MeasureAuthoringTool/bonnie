@@ -178,7 +178,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Sets the row at the given index to a PatientDashboardPatient
   ###
   setRowData: (rowIndex, data) ->
-    $('#patientDashboardTable').DataTable().row(rowIndex).data(data).draw()
+    $('#patientDashboardTable').DataTable().row(rowIndex).data(data)
     $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().relayout()
 
   ###
