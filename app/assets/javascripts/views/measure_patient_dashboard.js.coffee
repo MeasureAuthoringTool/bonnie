@@ -128,7 +128,15 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   insertTextAndPatientData: (data, type, row, meta) ->
     cloneElement = $('.table-popover-container').clone()
     if data != ""
-      $('.table-cell-popover-div', cloneElement).text(data)
+      if data == 'SPECIFICALLY FALSE'
+        $('.table-cell-popover-div', cloneElement).html($('#dcSpecFalse').html() + ' ' + data)
+        $('.table-cell-popover-div', cloneElement).addClass('text-danger')
+      else if data == 'FALSE'
+        $('.table-cell-popover-div', cloneElement).html($('#dcFalse').html() + ' ' + data)
+        $('.table-cell-popover-div', cloneElement).addClass('text-danger')
+      else
+        $('.table-cell-popover-div', cloneElement).html($('#dcTrue').html() + ' ' + data)
+        $('.table-cell-popover-div', cloneElement).addClass('text-success')
       $('.table-cell-popover-div', cloneElement).attr('patientId', row.id)
       $('.table-cell-popover-div', cloneElement).attr('columnNumber', meta.col)
       cloneElement.html()
