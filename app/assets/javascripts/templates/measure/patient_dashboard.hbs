@@ -1,8 +1,15 @@
 <table id="patientDashboardTable" class="cell-border" cellspacing="0" width="100%">
+
+  <div class="btn-group" role="group" aria-label="...">
+    {{#each populations}}
+      <button type="button" class="btn btn-default" data-call-method="scrollToPopulation">{{{this}}}</button>
+    {{/each}}
+  </div>
+
   <thead>
     <tr>
       {{#each head1}}
-      <th scope="col" style="width: {{lookup ../widths @index}}px;"><div>{{{this}}}</div></th>
+      <th scope="col" style="width: {{lookup ../widths @index}}px;" id="{{{this}}}"><div>{{{this}}}</div></th>
       {{/each}}
     </tr
     <tr>
