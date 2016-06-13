@@ -24,6 +24,8 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     @COL_WIDTH_META = 150
     @COL_WIDTH_FREETEXT = 240
     @COL_WIDTH_CRITERIA = 180
+    @COL_WIDTH_EDIT = 65
+    @COL_WIDTH_OPEN = 55
 
     @criteriaKeysByPopulation = {} # "Type" => "Preconditions"
     for population in @populations
@@ -36,6 +38,9 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     @dataIndices = @getDataIndices(@populations, @criteriaKeysByPopulation)
     @dataCollections = @getDataCollections(@populations, @dataIndices, @criteriaKeysByPopulation)
     @_dataInfo = @getDataInfo(@populations, @dataIndices, @dataCollections)
+
+  getHorizontalScrollOffset: ->
+    @COL_WIDTH_EDIT + @COL_WIDTH_OPEN + 2*@COL_WIDTH_NAME + @COL_WIDTH_FREETEXT + @COL_WIDTH_CRITERIA
 
   getDataIndices: (populations, @criteriaKeysByPopulation) =>
     dataIndices = []
@@ -74,8 +79,8 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
       dataCriteriaText[dataLogicView.dataCriteria.key] = dataLogicView.$el[0].outerText
 
     # include the metadata
-    dataInfo[PatientDashboard.EDIT] = { name: "", width: 65 }
-    dataInfo[PatientDashboard.OPEN] = { name: "", width: 55 }
+    dataInfo[PatientDashboard.EDIT] = { name: "", width: @COL_WIDTH_EDIT }
+    dataInfo[PatientDashboard.OPEN] = { name: "", width: @COL_WIDTH_OPEN }
     dataInfo[PatientDashboard.RESULT] = { name: "Passes?", width: @COL_WIDTH_META }
     dataInfo[PatientDashboard.FIRST_NAME] = { name: "First Name", width: @COL_WIDTH_NAME }
     dataInfo[PatientDashboard.LAST_NAME] = { name: "Last Name", width: @COL_WIDTH_NAME }
