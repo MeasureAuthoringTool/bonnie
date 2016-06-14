@@ -155,8 +155,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @populationLogicView.setPopulation population
     bonnie.navigate "measures/#{@measure.get('hqmf_set_id')}/patients/#{@model.id}/edit"
 
-  save: (e) ->
+  save: (e, options) ->
     e.preventDefault()
+    options = _.extend({}, options)
     @$('.has-error').removeClass('has-error')
     $(e.target).button('saving').prop('disabled', true)
     @serializeWithChildren()
@@ -169,6 +170,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
           @measures.each (m) -> m.get('patients').add model
         route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
         bonnie.navigate route, trigger: true
+        options.success(model) if options.success
     unless status
       $(e.target).button('reset').prop('disabled', false)
       messages = []
