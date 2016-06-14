@@ -8,7 +8,6 @@
 </div>
 {{/ifPortfolio}}
 
-{{#if showCompleteView}}
 <div class="row">
   <div class="col-md-2">
     <h1>Test Patient</h1>
@@ -20,12 +19,14 @@
   </div>
 
   <div class="col-md-4">
+    {{#if showCompleteView}}
     <div class="pull-right">
       {{#button "cancel" class="btn btn-default"}}CANCEL{{/button}}
       {{#button "save" class="btn btn-primary" data-saving-text="SAVING..."}}SAVE{{/button}}
     </div>
+    {{/if}}
   </div>
-</div> 
+</div>
 
 <div class="row">
   <form class="col-left" role="form">
@@ -139,7 +140,6 @@
     {{view expectedValuesView}}
   </div>
 </div>
-{{/if}}
 
 <div class="row">
   <div class="col-left measure-data-container">
