@@ -1,11 +1,11 @@
 <table id="patientDashboardTable" class="cell-border" cellspacing="0" width="100%">
 
+  <button class='btn btn-success' data-call-method="createNewPatient"><i aria-hidden="true" class="fa fa-fw fa-plus"></i> Create Patient</button> &nbsp;
   <div class="btn-group" role="group" aria-label="...">
     {{#each populations}}
       <button type="button" class="btn btn-default" data-call-method="scrollToPopulation">{{{this}}}</button>
     {{/each}}
   </div>
-
   <thead>
     <tr>
       {{#each head1}}
