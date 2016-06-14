@@ -378,6 +378,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     patient = _.findWhere(@measure.get('patients').models, {id: row.id})
     @patientEditView.display patient, rowIndex
 
+  ###
+  Grabs the children data criteria to display in a list for the selected cell.
+  ###
   populatePopover: (sender) ->
     dataCriteria = @pd.dataIndices[$(sender.target).attr('columnNumber')] # Formatted "PopulationKey_DataCriteriaKey"
     dataCriteriaKey = dataCriteria.substring(dataCriteria.indexOf('_') + 1)
@@ -423,6 +426,32 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   matchPatientToPatientId: (patient_id) =>
     patient = @results.findWhere({patient_id: patient_id}).toJSON()
 
+  ###
+  Opens up a patient edit modal to create a new patient.
+  ###
+  createNewPatient: (sender) ->
+    patient = new Thorax.Models.Patient {measure_ids: [@measure.get('hqmf_set_id')]}, parse: true
+    @patientEditView.display patient, null #Set rowIndex to null because it is a new patient.
+
+  ###
+  Updates the results object and patientData array with new patient data or updated patient data.
+  ###
+  updatePatientDataSources: (currentResult, currentPatient) =>
+    isNewPatient = true
+    for result, index in @results.models
+      if result.get('patient_id') == currentResult.get('patient_id')
+        @results.models[index] = currentResult.models[0]
+        isNewPatient = false
+        break
+    if isNewPatient
+      @results.models.push currentResult.models[0]
+      @patientData.push(currentPatient)
+    else
+      for patient, index in @patientData
+        if patient.id == currentPatient.id
+          @patientData[index] = currentPatient
+
+
 class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
   template: JST['measure/patient_edit_modal']
 
@@ -449,17 +478,22 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
       "keyboard" : true,
       "show" : true).find('.modal-dialog').css('width','80%') # The same width defined in $modal-lg
 
-  save: (e)->
-    @patientBuilderView.save(e)
-    @editDialog.modal('hide')
-    @$('.modal-body').empty() # clear out patientBuilderView
-    @result = @population.calculateResult @patient
-    @result.calculationsComplete =>
-      @patientResult = @result.toJSON()[0] #Grab the first and only item from collection
-      @patientData = new Thorax.Models.PatientDashboardPatient @patient, @dashboard.pd, @measure, @patientResult, @populations, @population
-      $('#patientDashboardTable').DataTable().row(@rowIndex).data(@patientData).draw()
-      $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
-      @dashboard.updateAllActualWarnings()
+  save: (e) ->
+    # Save via patient builder, sending a callback so we can ensure we get a patient with the ID set
+    @patientBuilderView.save e, success: (patient) =>
+      @editDialog.modal('hide')
+      @$('.modal-body').empty() # clear out patientBuilderView
+      @result = @population.calculateResult patient
+      @result.calculationsComplete =>
+        @patientResult = @result.toJSON()[0] #Grab the first and only item from collection
+        @patientData = new Thorax.Models.PatientDashboardPatient patient, @dashboard.pd, @measure, @patientResult, @populations, @population
+        if rowIndex?
+          $('#patientDashboardTable').DataTable().row(@rowIndex).data(@patientData).draw()
+        else
+          $('#patientDashboardTable').DataTable().row.add(@patientData).draw()
+        $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
+        @dashboard.updateAllActualWarnings()
+        @dashboard.updatePatientDataSources @result, @patientData
 
   close: ->
     @$('.modal-body').empty() # clear out patientBuilderView
