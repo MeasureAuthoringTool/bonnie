@@ -83,12 +83,13 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@materialize, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@materialize, this)
 
-      @$('#criteriaElements, #populationLogic') #these get affixed when user scrolls past a defined offset
-        .on 'affix.bs.affix', _.bind(@setAffix, this) # when applying affix
-        .on 'affix-top.bs.affix', _.bind(@unsetAffix, this) # when removing affix
-        .on 'affixed.bs.affix affixed-top.bs.affix', _.bind(@logicPagingUpdate, this) # right after affixing or unaffixing
-        .affix offset:
-          top: => return @$('.criteria-container').parent().offset().top # always apply affix at the top of the patient history
+      if @showCompleteView
+        @$('#criteriaElements, #populationLogic') #these get affixed when user scrolls past a defined offset
+          .on 'affix.bs.affix', _.bind(@setAffix, this) # when applying affix
+          .on 'affix-top.bs.affix', _.bind(@unsetAffix, this) # when removing affix
+          .on 'affixed.bs.affix affixed-top.bs.affix', _.bind(@logicPagingUpdate, this) # right after affixing or unaffixing
+          .affix offset:
+            top: => return @$('.criteria-container').parent().offset().top # always apply affix at the top of the patient history
 
       # setup to effectively page through the logic section
       @$('.measure-viz').on 'shown.bs.collapse hidden.bs.collapse', (e) => @logicPagingUpdate()
