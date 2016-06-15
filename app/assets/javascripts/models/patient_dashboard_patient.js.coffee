@@ -5,7 +5,7 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     @_id = @patient.get('_id')
     @first = @patient.get('first')
     @last = @patient.get('last')
-    @description = if @patient.get('description') then @patient.get('description') else ''
+    @description = if @patient.get('notes') then @patient.get('notes') else ''
     @birthdate = moment.utc(@patient.get('birthdate'), 'X').format('L')
     @birthtime = @patient.get('birthdate') - moment.utc(@birthdate, 'L LT').format('X')
     @deathdate = moment.utc(@patient.get('deathdate'), 'X').format('L')
