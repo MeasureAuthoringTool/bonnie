@@ -98,17 +98,15 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   getTableColumns: (patient) ->
     column = []
     width_index = 0
-    if patient == undefined
-      return column
     column.push data: 'edit', orderable: false, width: @widths[width_index++], defaultContent: $('#editButton').html()
     column.push data: 'open', orderable: false, width: @widths[width_index++], defaultContent: $('#openButton').html()
     column.push data: 'first', width: @widths[width_index++], className: 'limited'
     column.push data: 'last', width: @widths[width_index++], className: 'limited'
     column.push data: 'description', width: @widths[width_index++], className: 'limited'
-    for k, v of patient._expected
-      column.push data: 'expected' + k, width: @widths[width_index++]
-    for k, v of patient._actual
-      column.push data: 'actual' + k, width: @widths[width_index++]
+    for population in @populations
+       column.push data: 'expected' + population, width: @widths[width_index++]
+     for population in @populations
+       column.push data: 'actual' + population, width: @widths[width_index++]
     column.push data: 'passes', width: @widths[width_index++]
     column.push data: 'birthdate', width: @widths[width_index++]
     column.push data: 'deathdate', width: @widths[width_index++]
@@ -247,8 +245,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Updates actual warnings for all rows
   ###
   updateAllActualWarnings: ->
-    for i in [0..@patientData.length-1]
-      @updateActualWarnings(i)
+    if @patientData.length > 0 # Check if the list is populated.
+      for i in [0..@patientData.length-1]
+        @updateActualWarnings(i)
 
   ###
   Makes a patient row inline editable
@@ -495,7 +494,7 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
           $('#patientDashboardTable').DataTable().row.add(@patientData).draw()
         $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
         @dashboard.updatePatientDataSources @result, @patientData
+        @dashboard.updateAllActualWarnings()
 
   close: ->
     @$('.modal-body').empty() # clear out patientBuilderView
-    @dashboard.updateAllActualWarnings()
