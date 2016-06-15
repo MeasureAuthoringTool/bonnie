@@ -102,9 +102,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       return column
     column.push data: 'edit', orderable: false, width: @widths[width_index++], defaultContent: $('#editButton').html()
     column.push data: 'open', orderable: false, width: @widths[width_index++], defaultContent: $('#openButton').html()
-    column.push data: 'first', width: @widths[width_index++]
-    column.push data: 'last', width: @widths[width_index++]
-    column.push data: 'description', width: @widths[width_index++]
+    column.push data: 'first', width: @widths[width_index++], className: 'limited'
+    column.push data: 'last', width: @widths[width_index++], className: 'limited'
+    column.push data: 'description', width: @widths[width_index++], className: 'limited'
     for k, v of patient._expected
       column.push data: 'expected' + k, width: @widths[width_index++]
     for k, v of patient._actual
