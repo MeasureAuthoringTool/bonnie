@@ -2,7 +2,7 @@
 
   <button class='btn btn-success' data-call-method="createNewPatient"><i aria-hidden="true" class="fa fa-fw fa-plus"></i> Create Patient</button> &nbsp;
   <div class="btn-group" role="group" aria-label="...">
-    {{#each populations}}
+    {{#each nonEmptyPopulations}}
       <button type="button" class="btn btn-default" data-call-method="scrollToPopulation">{{{this}}}</button>
     {{/each}}
   </div>
