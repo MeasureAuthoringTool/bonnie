@@ -32,6 +32,11 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     @patientEditView = new Thorax.Views.MeasurePatientEditModal(dashboard: this)
     @pd = new Thorax.Models.PatientDashboard @measure, @populations, @population
 
+    @nonEmptyPopulations = []
+    for pop in @populations
+      if @pd.criteriaKeysByPopulation[pop].length > 0
+        @nonEmptyPopulations.push pop
+
     # Keep track of editable rows and columns
     @editableRows = []
     @editableCols = @getEditableCols()
@@ -73,7 +78,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         columns: @tableColumns,
         deferRender: true,
         scrollX: true,
-        scrollY: "500px",
+        scrollY: "700px",
         paging: false,
         fixedColumns:
           leftColumns: 5
@@ -93,7 +98,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   getTableColumns: (patient) ->
     column = []
     width_index = 0
-    if patient == null
+    if patient == undefined
       return column
     column.push data: 'edit', orderable: false, width: @widths[width_index++], defaultContent: $('#editButton').html()
     column.push data: 'open', orderable: false, width: @widths[width_index++], defaultContent: $('#openButton').html()
@@ -112,13 +117,11 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # displays dc in the correct order.
     dcStartIndex = @pd._dataInfo['gender'].index + 1
     dc = []
-    for k, v of @pd._dataInfo
-      if v.index >= dcStartIndex
-        v['name'] = k
-        dc.push v
-    dc.sort (a, b) -> a.index - b.index
+    for k, v of @pd.dataCollections
+      if v.firstIndex >= dcStartIndex
+          dc = dc.concat v.items
     for entry in dc
-      column.push data: entry.name, width: @widths[width_index++], render: @insertTextAndPatientData
+      column.push data: entry, width: @widths[width_index++], render: @insertTextAndPatientData
     column
 
   ###
@@ -437,19 +440,18 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Updates the results object and patientData array with new patient data or updated patient data.
   ###
   updatePatientDataSources: (currentResult, currentPatient) =>
-    isNewPatient = true
-    for result, index in @results.models
-      if result.get('patient_id') == currentResult.get('patient_id')
-        @results.models[index] = currentResult.models[0]
-        isNewPatient = false
+    # Add result to results collection
+    @results.add currentResult.models
+
+    # Add patient to patient data
+    hasPatient = false
+    for patient, index in @patientData
+      if patient.id == currentPatient.id
+        @patientData[index] = currentPatient
+        hasPatient = true
         break
-    if isNewPatient
-      @results.models.push currentResult.models[0]
-      @patientData.push(currentPatient)
-    else
-      for patient, index in @patientData
-        if patient.id == currentPatient.id
-          @patientData[index] = currentPatient
+    unless hasPatient
+      @patientData.push currentPatient
 
 
 class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
@@ -487,13 +489,13 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
       @result.calculationsComplete =>
         @patientResult = @result.toJSON()[0] #Grab the first and only item from collection
         @patientData = new Thorax.Models.PatientDashboardPatient patient, @dashboard.pd, @measure, @patientResult, @populations, @population
-        if rowIndex?
+        if @rowIndex?
           $('#patientDashboardTable').DataTable().row(@rowIndex).data(@patientData).draw()
         else
           $('#patientDashboardTable').DataTable().row.add(@patientData).draw()
         $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
-        @dashboard.updateAllActualWarnings()
         @dashboard.updatePatientDataSources @result, @patientData
 
   close: ->
     @$('.modal-body').empty() # clear out patientBuilderView
+    @dashboard.updateAllActualWarnings()
