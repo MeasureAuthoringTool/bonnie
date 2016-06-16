@@ -20,12 +20,12 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
   initialize: (@measure, @populations, @populationSet) ->
     # TODO: I don't think that the width stuff shoudl be in this class. it should be in the view only.
     @COL_WIDTH_NAME = 140
-    @COL_WIDTH_POPULATION = 65
-    @COL_WIDTH_META = 150
+    @COL_WIDTH_POPULATION = 15
+    @COL_WIDTH_META = 100
     @COL_WIDTH_FREETEXT = 240
     @COL_WIDTH_CRITERIA = 180
     @COL_WIDTH_EDIT = 65
-    @COL_WIDTH_OPEN = 55
+    @COL_WIDTH_OPEN = 50
 
     @criteriaKeysByPopulation = {} # "Type" => "Preconditions"
     for population in @populations
