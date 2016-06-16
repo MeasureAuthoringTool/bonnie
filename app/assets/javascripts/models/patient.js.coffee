@@ -130,8 +130,9 @@ class Thorax.Models.Patient extends Thorax.Model
   # Sort criteria by any number of attributes, first given highest priority
   sortCriteriaBy: (attributes...) ->
     originalComparator = @get('source_data_criteria').comparator
-    @get('source_data_criteria').comparator = (crit) -> _(attributes).map((attr) -> crit.get(attr))
-    @get('source_data_criteria').sort()
+    for current_attribute in attributes.reverse() #.reverse() gives the highest priority to the beggining of the array
+      @get('source_data_criteria').comparator = current_attribute #.comparator cannot act on an array, it must be a single element
+      @get('source_data_criteria').sort()
     @get('source_data_criteria').comparator = originalComparator
 
   validate: ->

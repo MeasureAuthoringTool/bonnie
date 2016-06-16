@@ -142,11 +142,20 @@
 <div class="row">
   <div class="col-left measure-data-container">
     <div class="panel-group" id="criteriaElements">
-      <h1 class="heading-muted">Elements</h1>
       <div class="scrolling">
-      {{#each dataCriteriaCategories}}
-        {{view "SelectCriteriaView" title=type collection=criteria}}
-      {{/each}}
+        <h1 class="heading-muted">Arrange By <i id="loading_spinner" class="fa fa-spinner fa-pulse fa-fw hidden"></i> </h1>
+        {{view PatientBuilder}}
+          <div class="btn-group ">
+            {{#button "sort_patient_events_by" id="sort_by_date" class="btn btn-block btn-primary active"}} DATE{{/button}}
+            {{#button "sort_patient_events_by" id="sort_by_elements" class="btn btn-block btn-primary"}}ELEMENTS{{/button}}
+          </div>
+      <hr class="hr-with-thin-margins">
+      <h1 class="heading-muted">Elements</h1>
+
+    {{#each dataCriteriaCategories}}
+      {{view "SelectCriteriaView" title=type collection=criteria}}
+    {{/each}}
+      
       </div>
     </div>
   </div>
@@ -163,5 +172,7 @@
     {{view populationLogicView}}
     </div>
   </div>
+  
+  
 
 </div>

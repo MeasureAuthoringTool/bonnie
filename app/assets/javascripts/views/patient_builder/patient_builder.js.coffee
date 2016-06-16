@@ -35,7 +35,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.criteria-data').removeClass("#{Thorax.Views.EditCriteriaView.highlight.valid} #{Thorax.Views.EditCriteriaView.highlight.partial}")
       @$('.highlight-indicator').removeAttr('tabindex').empty()
     @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
-
+    @previously_sorted_by = [null, -1, 0] #Sorting needs to keep track of (1.)the button clicked before(a string), (2.)number of dataCriteria Elements, and (3.)Seconds since last button click
+  
+    
   dataCriteriaCategories: ->
     categories = {}
     @measure?.get('source_data_criteria').each (criteria) ->
@@ -238,7 +240,49 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       top: shiftDown
       bottom: $logic.nextAll(':visible').height() || 0
 
+  sort_patient_events_by: (e) ->
+    #if the user accidentally clicks on DATE or ELEMENTS multiple times, it will sort multiple times
+    #even if everything is already sorted. By tracking previously_sorted_by, we can prevent the user from
+    #accidentally double clicking and waiting the extra few seconds that sorting takes.
+    if e.target.id?
+      switch e.target.id
+        when "sort_by_elements"
+          if @previously_sorted_by[0] != "sort_by_elements" || (@previously_sorted_by[1] != @model.attributes.source_data_criteria.length || ((@previously_sorted_by[2]+4000) < e.timeStamp))
+            #only proceed if (the last button they clicked wasn't Elements OR (the number of elements has changed OR it has been 4 seconds since the last click))
+            @$('#sort_by_elements').blur() #Removes focus from button
+            @$('#loading_spinner').removeClass('hidden')
+            @$('#sort_by_elements').addClass('active')
+            @$('#sort_by_date').removeClass('active')
+            #Force these previous lines to occur before the sorting begins by waiting 0 seconds
+            setTimeout( =>
+              @model.sortCriteriaBy 'type'
+              @$('#loading_spinner').addClass('hidden')
+              @previously_sorted_by[0] = "sort_by_elements"
+              @previously_sorted_by[1] = @model.attributes.source_data_criteria.length
+              @previously_sorted_by[2] = e.timeStamp
+            , 0)
+          else
+            @$('#sort_by_elements').blur() #Removes focus from button
 
+        when "sort_by_date"
+          if @previously_sorted_by[0] != "sort_by_date" || (@previously_sorted_by[1] != @model.attributes.source_data_criteria.length || ((@previously_sorted_by[2]+4000) < e.timeStamp))
+            #only proceed if (the last button they clicked wasn't Date OR (the number of elements has changed OR it has been 4 seconds since the last click))
+            @$('#sort_by_date').blur() #Removes focus from button   
+            @$('#loading_spinner').removeClass('hidden')
+            @$('#sort_by_date').addClass('active')
+            @$('#sort_by_elements').removeClass('active')
+            #Force these previous lines to occur before the sorting begins by waiting 0 seconds
+            setTimeout( =>
+              @model.sortCriteriaBy 'start_date'
+              @$('#loading_spinner').addClass('hidden')
+              @previously_sorted_by[0] = "sort_by_date"
+              @previously_sorted_by[1] = @model.attributes.source_data_criteria.length
+              @previously_sorted_by[2] = e.timeStamp
+            , 0)
+          else
+            @$('#sort_by_date').blur() #Removes focus from button
+
+            
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
   setPopulation: (population) ->
