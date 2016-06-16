@@ -82,8 +82,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         paging: false,
         fixedColumns:
           leftColumns: 5
-        initComplete: (settings, json) ->
-          $('.dataTables_scrollBody thead tr').css(visibility: 'collapse')
       )
       # Update actual warnings
       @updateAllActualWarnings()
