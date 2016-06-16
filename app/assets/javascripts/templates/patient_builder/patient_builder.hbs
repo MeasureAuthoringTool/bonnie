@@ -151,11 +151,11 @@
           </div>
       <hr class="hr-with-thin-margins">
       <h1 class="heading-muted">Elements</h1>
-
     {{#each dataCriteriaCategories}}
       {{view "SelectCriteriaView" title=type collection=criteria}}
     {{/each}}
-      
+    <hr class="hr-with-thin-margins"> 
+    {{#button "showEverything" id="preview_information" class="btn-width-100-percent btn btn-sm btn-default"}}Hide Information{{/button}}
       </div>
     </div>
   </div>

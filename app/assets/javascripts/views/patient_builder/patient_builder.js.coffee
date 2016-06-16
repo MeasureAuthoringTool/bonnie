@@ -15,7 +15,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @measureRibbon = new Thorax.Views.MeasureRibbon model: @model
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @model.get('source_data_criteria')
-      itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure)
+      itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure, builderView: @)
       events:
         collection:
           close: -> @collection.sort()
@@ -36,7 +36,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.highlight-indicator').removeAttr('tabindex').empty()
     @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
     @previously_sorted_by = [null, -1, 0] #Sorting needs to keep track of (1.)the button clicked before(a string), (2.)number of dataCriteria Elements, and (3.)Seconds since last button click
-  
+    @bool_preview_information = true
     
   dataCriteriaCategories: ->
     categories = {}
@@ -138,7 +138,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     child.on 'bonnie:materialize', @materialize, this
     child.on 'bonnie:dropCriteria', @addCriteria, this
     child.on 'bonnie:loadPopulation', @loadPopulation, this
-
+  
   materialize: ->
     @serializeWithChildren()
     @model.materialize()
@@ -239,7 +239,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     $logic.css
       top: shiftDown
       bottom: $logic.nextAll(':visible').height() || 0
-
+      
+      #myTest = Thorax.Views.EditCriteriaView.previewInformation
+  
   sort_patient_events_by: (e) ->
     #if the user accidentally clicks on DATE or ELEMENTS multiple times, it will sort multiple times
     #even if everything is already sorted. By tracking previously_sorted_by, we can prevent the user from
@@ -281,7 +283,18 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
             , 0)
           else
             @$('#sort_by_date').blur() #Removes focus from button
-
+            
+  showEverything:  ->
+    if @bool_preview_information == false
+      @$('#preview_information').text('Hide Information')
+      @$('#preview_information').blur() #Removes focus from button
+      @trigger "hide_information_in_patient_builder"
+      @bool_preview_information = true
+    else
+      @$('#preview_information').text('Preview Information')
+      @$('#preview_information').blur()#Removes focus from button
+      @bool_preview_information = false
+      @trigger "show_information_in_patient_builder"
             
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']

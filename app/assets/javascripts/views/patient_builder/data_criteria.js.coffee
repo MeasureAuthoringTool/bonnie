@@ -38,7 +38,7 @@ class Thorax.Views.SelectCriteriaItemView extends Thorax.Views.BuilderChildView
 
 class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   className: 'patient-criteria'
-
+  
   @highlight:
     partial: 'highlight-partial'
     valid: 'highlight-valid'
@@ -79,6 +79,16 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView
       model: new Thorax.Model
       criteria: @model
+    @boolean_show_or_hide_patient_information = 0 #Must be integer because Handlebars can't handle true/false
+    @listenTo(@builderView, "hide_information_in_patient_builder", -> 
+      @boolean_show_or_hide_patient_information = 0
+      @render()
+    )
+    @listenTo(@builderView, "show_information_in_patient_builder", -> 
+      @boolean_show_or_hide_patient_information = 1
+      @render()
+    )
+      
 
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
@@ -90,8 +100,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       start_time: moment.utc(model.get('value')).format('LT') if model.get('type') == 'TS'
 
 
+
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
+  
     cmsIdParts = @model.get("cms_id").match(/CMS(\d+)(V\d+)/i)
     
     desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
@@ -132,7 +144,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     definition_title = @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
-    
     _(super).extend
       start_date: moment.utc(@model.get('start_date')).format('L') if @model.get('start_date')
       start_time: moment.utc(@model.get('start_date')).format('LT') if @model.get('start_date')
@@ -149,6 +160,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       hasStopTime: @model.hasStopTime()
       startLabel: @model.startLabel()
       stopLabel: @model.stopLabel()
+      showPatientInfo: @boolean_show_or_hide_patient_information
       field_value_information: field_value_information_array
       references_information: references_information_array
       result_information: results_information_array
@@ -175,6 +187,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@triggerMaterialize, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@triggerMaterialize, this)
       @$el.toggleClass 'during-measurement-period', @model.isDuringMeasurePeriod()
+    
     'change .negation-select':                    'toggleNegationSelect'
     'change :input[name=end_date_is_undefined]':  'toggleEndDateDefinition'
     'blur :text':                                 'triggerMaterialize'
@@ -534,3 +547,4 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   context: ->
     _(super).extend
       references: Thorax.Models.Measure.referencesFor(@criteriaType)
+      
