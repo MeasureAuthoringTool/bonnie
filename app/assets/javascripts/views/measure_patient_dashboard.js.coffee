@@ -105,7 +105,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
        column.push data: 'expected' + population, width: @widths[width_index++]
      for population in @populations
        column.push data: 'actual' + population, width: @widths[width_index++]
-    column.push data: 'passes', width: @widths[width_index++]
+    column.push data: 'passes', width: @widths[width_index++], render: @insertHighlightedText
     column.push data: 'birthdate', width: @widths[width_index++]
     column.push data: 'deathdate', width: @widths[width_index++]
     column.push data: 'gender', width: @widths[width_index++]
@@ -138,6 +138,27 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         $('.table-cell-popover-div', cloneElement).addClass('text-success')
       $('.table-cell-popover-div', cloneElement).attr('patientId', row.id)
       $('.table-cell-popover-div', cloneElement).attr('columnNumber', meta.col)
+      cloneElement.html()
+    else
+      return ''
+
+  ###
+  Highlights passing or failing status
+  ###
+  insertHighlightedText: (data, type, row, meta) ->
+    cloneElement = $('.table-status-container').clone()
+    if data != ""
+      if data == 'SPECIFICALLY FALSE'
+        $('.table-status', cloneElement).html($('#dcSpecFalse').html() + ' ' + data)
+        $('.table-status', cloneElement).addClass('text-danger')
+      else if data == 'FALSE'
+        $('.table-status', cloneElement).html($('#dcFalse').html() + ' ' + data)
+        $('.table-status', cloneElement).addClass('text-danger')
+      else
+        $('.table-status', cloneElement).html($('#dcTrue').html() + ' ' + data)
+        $('.table-status', cloneElement).addClass('text-success')
+      $('.table-status', cloneElement).attr('patientId', row.id)
+      $('.table-status', cloneElement).attr('columnNumber', meta.col)
       cloneElement.html()
     else
       return ''
