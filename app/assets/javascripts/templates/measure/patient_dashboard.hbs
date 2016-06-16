@@ -9,12 +9,16 @@
   <thead>
     <tr>
       {{#each head1}}
-      <th scope="col" style="width: {{lookup ../widths @index}}px;" id="{{{this}}}"><div>{{{this}}}</div></th>
+        <th scope="col" style="width: {{lookup ../widths @index}}px;" id="{{{this}}}"><div>{{{this}}}</div></th>
       {{/each}}
-    </tr
+    </tr>
     <tr>
       {{#each head2}}
-      <th scope="col"><div class="tableScrollContainer"><div class="tableScroll">{{{this}}}</div></div></th>
+        {{#ifIn this ../populations}}
+          <th class="rotate" scope="col"><div>{{{this}}}</div></th>
+        {{else}}
+          <th scope="col"><div class="tableScrollContainer"><div class="tableScroll">{{{this}}}</div></div></th>
+        {{/ifIn}}
       {{/each}}
     </tr>
   </thead>
