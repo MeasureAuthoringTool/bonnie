@@ -96,9 +96,21 @@
     measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
     document.title += " - #{measure.get('cms_id')}" if measure?
-    patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures)
-    @mainView.setView patientBuilderView
-    @breadcrumb.addPatient(measure, patient)
+    # Deal with getting the archived measure and the calculation snapshot for the patient at measure upload
+    upsums = measure.get('upload_summaries')
+    upsums.fetch(success: =>
+      latestUpsum = upsums.at 0 # Comes back ordered desc do 0 is the most recent upload
+      latestUpsum.fetch(success: =>
+        measure.get('archived_measures').fetch(success: (archive) =>
+          beforeMeasure = archive.findWhere(_id: latestUpsum.get('measure_db_id_before'))
+          beforeMeasure.fetch(success: =>
+            patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, beforemeasure: beforeMeasure, latestupsum: latestUpsum)
+            @mainView.setView patientBuilderView
+            @breadcrumb.addPatient(measure, patient)
+            )
+          )
+        )
+    )
 
   # Common setup method used by all routes
   navigationSetup: (title, selectedNav) ->

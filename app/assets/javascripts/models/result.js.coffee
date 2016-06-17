@@ -208,3 +208,13 @@ class Thorax.Models.Result extends Thorax.Model
 class Thorax.Collections.Results extends Thorax.Collection
   model: Thorax.Models.Result
   initialize: (models, options) -> @parent = options?.parent
+
+# Treat/handle cached calculation results like "live" calculation results
+class Thorax.Models.CachedResult extends Thorax.Models.Result
+  initialize: (attrs, options) ->
+    @population = options.population
+    @measure = @population.collection.parent
+    @patient = options.patient
+    @calculation = $.Deferred()
+    
+    @calculation.resolve()
