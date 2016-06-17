@@ -35,9 +35,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.criteria-data').removeClass("#{Thorax.Views.EditCriteriaView.highlight.valid} #{Thorax.Views.EditCriteriaView.highlight.partial}")
       @$('.highlight-indicator').removeAttr('tabindex').empty()
     @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
-    @previously_sorted_by = [null, -1, 0] #Sorting needs to keep track of (1.)the button clicked before(a string), (2.)number of dataCriteria Elements, and (3.)Seconds since last button click
-    @bool_preview_information = true
+    @previouslySortedBy = [null, -1, 0] #Sorting needs to keep track of (1.)the button last clicked (a string), (2.)number of dataCriteria Elements, and (3.)Seconds since last button click
     
+
   dataCriteriaCategories: ->
     categories = {}
     @measure?.get('source_data_criteria').each (criteria) ->
@@ -242,15 +242,15 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       
       #myTest = Thorax.Views.EditCriteriaView.previewInformation
   
-  sort_patient_events_by: (e) ->
+  sortPatientEventsBy: (e) ->
     #if the user accidentally clicks on DATE or ELEMENTS multiple times, it will sort multiple times
-    #even if everything is already sorted. By tracking previously_sorted_by, we can prevent the user from
+    #even if everything is already sorted. By tracking previouslySortedBy, we can prevent the user from
     #accidentally double clicking and waiting the extra few seconds that sorting takes.
     if e.target.id?
       switch e.target.id
         when "sort_by_elements"
-          if @previously_sorted_by[0] != "sort_by_elements" || (@previously_sorted_by[1] != @model.attributes.source_data_criteria.length || ((@previously_sorted_by[2]+4000) < e.timeStamp))
-            #only proceed if (the last button they clicked wasn't Elements OR (the number of elements has changed OR it has been 4 seconds since the last click))
+          if @previouslySortedBy[0] != "sort_by_elements" || (@previouslySortedBy[1] != @model.attributes.source_data_criteria.length || ((@previouslySortedBy[2]+2000) < e.timeStamp))
+            #only proceed if (the last button they clicked wasn't Elements OR (the number of elements has changed OR it has been 2 seconds since the last click))
             @$('#sort_by_elements').blur() #Removes focus from button
             @$('#loading_spinner').removeClass('hidden')
             @$('#sort_by_elements').addClass('active')
@@ -259,16 +259,16 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
             setTimeout( =>
               @model.sortCriteriaBy 'type'
               @$('#loading_spinner').addClass('hidden')
-              @previously_sorted_by[0] = "sort_by_elements"
-              @previously_sorted_by[1] = @model.attributes.source_data_criteria.length
-              @previously_sorted_by[2] = e.timeStamp
+              @previouslySortedBy[0] = "sort_by_elements"
+              @previouslySortedBy[1] = @model.attributes.source_data_criteria.length
+              @previouslySortedBy[2] = e.timeStamp
             , 0)
           else
-            @$('#sort_by_elements').blur() #Removes focus from button
+            @$('#sort_by_elements').blur()
 
         when "sort_by_date"
-          if @previously_sorted_by[0] != "sort_by_date" || (@previously_sorted_by[1] != @model.attributes.source_data_criteria.length || ((@previously_sorted_by[2]+4000) < e.timeStamp))
-            #only proceed if (the last button they clicked wasn't Date OR (the number of elements has changed OR it has been 4 seconds since the last click))
+          if @previouslySortedBy[0] != "sort_by_date" || (@previouslySortedBy[1] != @model.attributes.source_data_criteria.length || ((@previouslySortedBy[2]+2000) < e.timeStamp))
+            #only proceed if (the last button they clicked wasn't Date OR (the number of elements has changed OR it has been 2 seconds since the last click))
             @$('#sort_by_date').blur() #Removes focus from button   
             @$('#loading_spinner').removeClass('hidden')
             @$('#sort_by_date').addClass('active')
@@ -277,24 +277,38 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
             setTimeout( =>
               @model.sortCriteriaBy 'start_date'
               @$('#loading_spinner').addClass('hidden')
-              @previously_sorted_by[0] = "sort_by_date"
-              @previously_sorted_by[1] = @model.attributes.source_data_criteria.length
-              @previously_sorted_by[2] = e.timeStamp
+              @previouslySortedBy[0] = "sort_by_date"
+              @previouslySortedBy[1] = @model.attributes.source_data_criteria.length
+              @previouslySortedBy[2] = e.timeStamp
             , 0)
           else
-            @$('#sort_by_date').blur() #Removes focus from button
-            
-  showEverything:  ->
-    if @bool_preview_information == false
-      @$('#preview_information').text('Hide Information')
-      @$('#preview_information').blur() #Removes focus from button
-      @trigger "hide_information_in_patient_builder"
-      @bool_preview_information = true
-    else
+            @$('#sort_by_date').blur() 
+  
+  previewInformation:  ->
+    if @previousStateWasHideInfo()
       @$('#preview_information').text('Preview Information')
-      @$('#preview_information').blur()#Removes focus from button
-      @bool_preview_information = false
-      @trigger "show_information_in_patient_builder"
+      @$('#preview_information').blur() #Removes focus from button
+      @$('#loading_spinner').removeClass('hidden')
+      #Force these previous lines to occur before previewing patient info by waiting 0 seconds
+      setTimeout( =>
+        @trigger "hide_information_in_patient_builder"
+        @$('#loading_spinner').addClass('hidden')
+      , 0)
+    else
+      @$('#preview_information').text('Hide Information')
+      @$('#preview_information').blur()
+      @$('#loading_spinner').removeClass('hidden')
+      #Force these previous lines to occur before hiding patient info by waiting 0 seconds
+      setTimeout( =>      
+        @trigger "show_information_in_patient_builder"
+        @$('#loading_spinner').addClass('hidden')
+      , 0)
+      
+  previousStateWasHideInfo: ->
+    if @$('#preview_information').text() == "Hide Information"
+      return true
+    else
+      return false  
             
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']

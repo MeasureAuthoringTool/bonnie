@@ -79,13 +79,15 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView
       model: new Thorax.Model
       criteria: @model
-    @boolean_show_or_hide_patient_information = 0 #Must be integer because Handlebars can't handle true/false
-    @listenTo(@builderView, "hide_information_in_patient_builder", -> 
-      @boolean_show_or_hide_patient_information = 0
+    @booleanShowOrHidePatientInformation = if @builderView.previousStateWasHideInfo() then 1 else 0
+    #Convert the true/false to an integer, because our Handlebars {{#ifCond}} helper can't handle true/false
+
+    @listenTo(@builderView, "show_information_in_patient_builder", -> 
+      @booleanShowOrHidePatientInformation = 1
       @render()
     )
-    @listenTo(@builderView, "show_information_in_patient_builder", -> 
-      @boolean_show_or_hide_patient_information = 1
+    @listenTo(@builderView, "hide_information_in_patient_builder", -> 
+      @booleanShowOrHidePatientInformation = 0
       @render()
     )
       
@@ -160,7 +162,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       hasStopTime: @model.hasStopTime()
       startLabel: @model.startLabel()
       stopLabel: @model.stopLabel()
-      showPatientInfo: @boolean_show_or_hide_patient_information
+      showPatientInfo: @booleanShowOrHidePatientInformation
       field_value_information: field_value_information_array
       references_information: references_information_array
       result_information: results_information_array
