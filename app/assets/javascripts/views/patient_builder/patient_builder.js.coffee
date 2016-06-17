@@ -36,7 +36,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.highlight-indicator').removeAttr('tabindex').empty()
     @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
     @previouslySortedBy = [null, -1, 0] #Sorting needs to keep track of (1.)the button last clicked (a string), (2.)number of dataCriteria Elements, and (3.)Seconds since last button click
-    
+    @timeSinceInfoPreviewClick = 0 #Keeps track of last Preview/Hide button click to prevent spam clicking. Only need to track seconds since last click (an integer) for this one
 
   dataCriteriaCategories: ->
     categories = {}
@@ -239,9 +239,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     $logic.css
       top: shiftDown
       bottom: $logic.nextAll(':visible').height() || 0
-      
-      #myTest = Thorax.Views.EditCriteriaView.previewInformation
-  
+
   sortPatientEventsBy: (e) ->
     #if the user accidentally clicks on DATE or ELEMENTS multiple times, it will sort multiple times
     #even if everything is already sorted. By tracking previouslySortedBy, we can prevent the user from
@@ -284,27 +282,37 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
           else
             @$('#sort_by_date').blur() 
   
-  previewInformation:  ->
-    if @previousStateWasHideInfo()
-      @$('#preview_information').text('Preview Information')
-      @$('#preview_information').blur() #Removes focus from button
-      @$('#loading_spinner').removeClass('hidden')
-      #Force these previous lines to occur before previewing patient info by waiting 0 seconds
-      setTimeout( =>
-        @trigger "hide_information_in_patient_builder"
-        @$('#loading_spinner').addClass('hidden')
-      , 0)
-    else
-      @$('#preview_information').text('Hide Information')
+  previewInformation: (e) ->
+  #Just like with the "Arrange By" buttons, if you spam click the "Preview/Hide Information"
+  #button it performs the action for each click. On patients with many events this can
+  #easily mean 20-30 seconds of "lag" if the user has clicked 5+ times
+  #Only allow the previewing/hiding to occur if they haven't clicked in 1.5 seconds
+  #TODO: The previewing/hiding button shares the same loading_spinner as the "Arrange By" buttons
+  #Maybe give it its own loading spinner?
+    if @timeSinceInfoPreviewClick+1500 < e.timeStamp
+      @timeSinceInfoPreviewClick = e.timeStamp #Overwrite previous timestamp with new one
       @$('#preview_information').blur()
       @$('#loading_spinner').removeClass('hidden')
-      #Force these previous lines to occur before hiding patient info by waiting 0 seconds
-      setTimeout( =>      
-        @trigger "show_information_in_patient_builder"
-        @$('#loading_spinner').addClass('hidden')
-      , 0)
+
+      if @previousStateWasHideInfo()
+        @$('#preview_information').text('Preview Information') #sets the button's new text
+        #Force these previous lines to occur before previewing patient info by waiting 0 seconds
+        setTimeout( =>
+          @trigger "hide_information_in_patient_builder"
+          @$('#loading_spinner').addClass('hidden')
+        , 0)
+      else
+        @$('#preview_information').text('Hide Information') #sets the button's new text
+        #Force these previous lines to occur before hiding patient info by waiting 0 seconds
+        setTimeout( =>
+          @trigger "show_information_in_patient_builder"
+          @$('#loading_spinner').addClass('hidden')
+        , 0)
+    else
+      @$('#preview_information').blur()
       
   previousStateWasHideInfo: ->
+    #Checks the text on the button to determine previous state
     if @$('#preview_information').text() == "Hide Information"
       return true
     else
