@@ -215,3 +215,13 @@ class Thorax.Collections.Results extends Thorax.Collection
   calculationsComplete: (callback) ->
     promises = @map (result) -> result.calculation
     $.when(promises...).done -> callback(this)
+
+# Treat/handle cached calculation results like "live" calculation results
+class Thorax.Models.CachedResult extends Thorax.Models.Result
+  initialize: (attrs, options) ->
+    @population = options.population
+    @measure = @population.collection.parent
+    @patient = options.patient
+    @calculation = $.Deferred()
+    
+    @calculation.resolve()
