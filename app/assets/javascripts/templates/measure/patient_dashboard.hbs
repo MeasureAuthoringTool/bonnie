@@ -9,7 +9,7 @@
   <thead>
     <tr>
       {{#each head1}}
-        <th scope="col" style="width: {{lookup ../widths @index}}px;" id="{{{this}}}"><div>{{{this}}}</div></th>
+        <th scope="col" style="width: {{{this.width}}}px;" colspan="{{{this.colspan}}}" id="{{{this.title}}}"><div>{{{this.title}}}</div></th>
       {{/each}}
     </tr>
     <tr>
