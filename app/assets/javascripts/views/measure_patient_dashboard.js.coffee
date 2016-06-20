@@ -40,13 +40,13 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Keep track of editable rows and columns
     @editableRows = []
     @editableCols = @getEditableCols()
+    @widths = @getColWidths()
 
     # Get patient calculation results
     @results = @population.calculationResults()
     @results.calculationsComplete =>
       @patientResults = @results.toJSON()
       patientData = @createHeaderRows()
-      @widths = @getColWidths()
       @head1 = patientData.slice(0, 1)[0]
       @head2 = patientData.slice(1, 2)[0]
 
@@ -78,8 +78,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         columns: @tableColumns,
         deferRender: true,
         scrollX: true,
-        scrollY: "700px",
+        scrollY: "400px",
         paging: false,
+        autoWidth: false,
         fixedColumns:
           leftColumns: 5
       )
@@ -96,19 +97,19 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   getTableColumns: (patient) ->
     column = []
     width_index = 0
-    column.push data: 'edit', orderable: false, width: @widths[width_index++], defaultContent: $('#editButton').html()
-    column.push data: 'open', orderable: false, width: @widths[width_index++], defaultContent: $('#openButton').html()
-    column.push data: 'first', width: @widths[width_index++], className: 'limited'
-    column.push data: 'last', width: @widths[width_index++], className: 'limited'
-    column.push data: 'description', width: @widths[width_index++], className: 'limited'
+    column.push data: 'edit', orderable: false, width: @widths[width_index++] + 'px', defaultContent: $('#editButton').html()
+    column.push data: 'open', orderable: false, width: @widths[width_index++] + 'px', defaultContent: $('#openButton').html()
+    column.push data: 'first', width: @widths[width_index++] + 'px', className: 'limited'
+    column.push data: 'last', width: @widths[width_index++] + 'px', className: 'limited'
+    column.push data: 'description', width: @widths[width_index++] + 'px', className: 'limited'
     for population in @populations
-       column.push data: 'expected' + population, width: @widths[width_index++]
+       column.push data: 'expected' + population, width: @widths[width_index++] + 'px'
      for population in @populations
-       column.push data: 'actual' + population, width: @widths[width_index++]
-    column.push data: 'passes', width: @widths[width_index++], render: @insertHighlightedText
-    column.push data: 'birthdate', width: @widths[width_index++]
-    column.push data: 'deathdate', width: @widths[width_index++]
-    column.push data: 'gender', width: @widths[width_index++]
+       column.push data: 'actual' + population, width: @widths[width_index++] + 'px'
+    column.push data: 'passes', width: @widths[width_index++] + 'px', render: @insertHighlightedText
+    column.push data: 'birthdate', width: @widths[width_index++] + 'px'
+    column.push data: 'deathdate', width: @widths[width_index++] + 'px'
+    column.push data: 'gender', width: @widths[width_index++] + 'px'
     # Collect all actual data criteria and sort to make sure patient dashboard
     # displays dc in the correct order.
     dcStartIndex = @pd._dataInfo['gender'].index + 1
@@ -117,7 +118,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       if v.firstIndex >= dcStartIndex
           dc = dc.concat v.items
     for entry in dc
-      column.push data: entry, width: @widths[width_index++], render: @insertTextAndPatientData
+      column.push data: entry, width: @widths[width_index++] + 'px', render: @insertTextAndPatientData
     column
 
   ###
@@ -431,14 +432,25 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   @returns {Array} an array containing the contents of both headers
   ###
-  createHeaderRows: ->
+  createHeaderRows: =>
     row1 = []
+    row1_full = []
     row2 = []
     for data in @pd.dataIndices
       row2.push(@pd.getName(data))
-    row1.push('') for i in [1..row2.length]
+    row1_full.push('') for i in [1..row2.length]
     for key, dataCollection of @pd.dataCollections
-      row1[dataCollection.firstIndex] = dataCollection.name
+      row1_full[dataCollection.firstIndex] = dataCollection.name
+    # Add bumper to beggining of first header
+    row1.push title: "", colspan: 2, width: (@pd.COL_WIDTH_EDIT + @pd.COL_WIDTH_EDIT)
+    # Construct the top header using colspans for the number of columns
+    # they should cover
+    for header, index in row1_full
+      if !!header
+        row1.push title: header, colspan: 1, width: @widths[index]
+      else if row1[row1.length - 1]? and !!row1[row1.length - 1].title
+        row1[row1.length - 1].colspan = row1[row1.length - 1].colspan + 1
+        row1[row1.length - 1].width = row1[row1.length - 1].width + @widths[index]
     [row1, row2]
 
   ###
