@@ -20,11 +20,13 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
   initialize: (@measure, @populations, @populationSet) ->
     # TODO: I don't think that the width stuff shoudl be in this class. it should be in the view only.
     @COL_WIDTH_NAME = 140
-    @COL_WIDTH_POPULATION = 15
-    @COL_WIDTH_META = 100
+    @COL_WIDTH_POPULATION = 30
+    @COL_WIDTH_META_LARGE = 100
+    @COL_WIDTH_META_MEDIUM = 100
+    @COL_WIDTH_META_SMALL = 40
     @COL_WIDTH_FREETEXT = 240
-    @COL_WIDTH_CRITERIA = 180
-    @COL_WIDTH_EDIT = 65
+    @COL_WIDTH_CRITERIA = 200
+    @COL_WIDTH_EDIT = 100
     @COL_WIDTH_OPEN = 50
 
     @criteriaKeysByPopulation = {} # "Type" => "Preconditions"
@@ -81,13 +83,13 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     # include the metadata
     dataInfo[PatientDashboard.EDIT] = { name: "", width: @COL_WIDTH_EDIT }
     dataInfo[PatientDashboard.OPEN] = { name: "", width: @COL_WIDTH_OPEN }
-    dataInfo[PatientDashboard.RESULT] = { name: "Passes?", width: @COL_WIDTH_META }
+    dataInfo[PatientDashboard.RESULT] = { name: "Passes?", width: @COL_WIDTH_META_MEDIUM }
     dataInfo[PatientDashboard.FIRST_NAME] = { name: "First Name", width: @COL_WIDTH_NAME }
     dataInfo[PatientDashboard.LAST_NAME] = { name: "Last Name", width: @COL_WIDTH_NAME }
     dataInfo[PatientDashboard.DESCRIPTION] = { name: "Description", width: @COL_WIDTH_FREETEXT }
-    dataInfo[PatientDashboard.BIRTHDATE] = { name: "Birthdate", width: @COL_WIDTH_META }
-    dataInfo[PatientDashboard.DEATHDATE] = { name: "Deathdate", width: @COL_WIDTH_META }
-    dataInfo[PatientDashboard.GENDER] = { name: "Gender", width: @COL_WIDTH_META }
+    dataInfo[PatientDashboard.BIRTHDATE] = { name: "Birthdate", width: @COL_WIDTH_META_LARGE }
+    dataInfo[PatientDashboard.DEATHDATE] = { name: "Deathdate", width: @COL_WIDTH_META_LARGE }
+    dataInfo[PatientDashboard.GENDER] = { name: "Gender", width: @COL_WIDTH_META_MEDIUM }
 
     for population in populations
       # include the expected and actual values for each population (IPP/DENOM/etc.)
