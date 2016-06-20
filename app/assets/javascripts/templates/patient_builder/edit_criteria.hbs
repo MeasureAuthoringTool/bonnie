@@ -12,7 +12,19 @@
         <div class="col-md-6  criteria-{{model.cid}}">
           <div class="pull-left">
             <h2>Date</h2>
-            <div>{{start_date}}{{#if end_date}} &ndash; {{end_date}}{{/if}}</div>
+            {{#if end_date}} {{!As long as the end_date exists}}
+              {{#if duration_between_element_start_and_finish}} {{!And the end date comes after the start date}}
+                <div>{{start_date}} &ndash; {{end_date}}</div>
+                <div>Duration: {{duration_between_element_start_and_finish}}</div>
+              {{else}}
+                <h5 class="fail">
+                  <i class="fa fa-times-circle"> </i>
+                  End Date precedes Start Date
+                </h5>
+              {{/if}}
+            {{else}}
+              <div>Ongoing since {{start_date}}</div>
+            {{/if}}
           </div>
           {{#button "toggleDetails" class="close"}}
             <i class="fa fa-lg fa-angle-right" aria-hidden="true"></i>

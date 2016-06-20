@@ -286,10 +286,10 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   #Just like with the "Arrange By" buttons, if you spam click the "Preview/Hide Information"
   #button it performs the action for each click. On patients with many events this can
   #easily mean 20-30 seconds of "lag" if the user has clicked 5+ times
-  #Only allow the previewing/hiding to occur if they haven't clicked in 1.5 seconds
+  #Only allow the previewing/hiding to occur if they haven't clicked in 1 second
   #TODO: The previewing/hiding button shares the same loading_spinner as the "Arrange By" buttons
   #Maybe give it its own loading spinner?
-    if @timeSinceInfoPreviewClick+1500 < e.timeStamp
+    if @timeSinceInfoPreviewClick+1000 < e.timeStamp
       @timeSinceInfoPreviewClick = e.timeStamp #Overwrite previous timestamp with new one
       @$('#preview_information').blur()
       @$('#loading_spinner').removeClass('hidden')

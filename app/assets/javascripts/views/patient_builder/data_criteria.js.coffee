@@ -143,6 +143,30 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
          switch val.get('type') #CD = Coded, PQ = Scalar. This switch statement is just for formatting the different entry methods
            when "CD" then return val.get('title').replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
            when "PQ" then return (val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (val.get('unit')))
+
+    if @model.get('end_date')? #Calculate Duration Between Start and End Dates
+      start_date = moment(@model.get('start_date'))
+      end_date = moment(@model.get('end_date'))
+      if start_date < end_date
+        if end_date.diff(start_date, 'minutes', true) > 60
+          if end_date.diff(start_date, 'hours', true) > 24
+            if end_date.diff(start_date, 'days', true) > 31
+              if end_date.diff(start_date, 'months', true) > 12
+                element_duration = Math.round(end_date.diff(start_date, 'years', true)) + " Year"
+              else
+                element_duration = Math.round(end_date.diff(start_date, 'months', true)) + " Month"
+            else
+              element_duration = Math.round(end_date.diff(start_date, 'days', true)) + " Day"
+          else
+            element_duration = Math.round(end_date.diff(start_date, 'hours', true)) + " Hour"
+        else
+          element_duration = Math.round(end_date.diff(start_date, 'minutes', true)) + " Minute"
+        #If necessary, make the unit plural by appending an 's'
+        if element_duration[0] != '1' || element_duration[1] != ' '
+          element_duration += "s"
+      else #edit_criteria.hbs checks if element_duration exists
+        element_duration = null
+
     definition_title = @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
@@ -167,6 +191,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       references_information: references_information_array
       result_information: results_information_array
       fulfillment_information: fulfillments_information_array
+      duration_between_element_start_and_finish: element_duration
 
 
   # When we serialize the form, we want to convert formatted dates back to times
