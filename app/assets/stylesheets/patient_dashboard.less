@@ -69,6 +69,18 @@ html, body, .container-fluid, [role="main"], .measure-layout, .patient-dashboard
   z-index: 10;
 }
 
+// a loop that shifts the background and border colors
+// on each iteration by -41 degrees for ok contrast
+.set-header-bg-colors(@i) when (@i > 0) {
+  @angle: -41*@i;
+  thead tr:first-of-type th:nth-of-type(@{i}) {
+    background: spin(@blue-lightest, @angle);
+    border: 1px solid darken(spin(@blue-lightest, @angle), 20%)
+  }
+  .set-header-bg-colors(@i - 1); // iterate.
+}
+
+
 table.dataTable {
   z-index: 10;
   table-layout: fixed;
@@ -78,19 +90,18 @@ table.dataTable {
   thead .sorting_desc,
   thead .sorting_asc_disabled,
   thead .sorting_desc_disabled {
-    background-position: bottom right;
+    background-position: 100% 93%; // places the sorting icon at the bottom right
   }
 
+  thead tr:first-of-type th {
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .set-header-bg-colors(12);
 
   tr.inline-edit-mode > td.editable {
     background-color: #ddeeee !important;
-  }
-
-  /* header styling */
-  th {
-    font-weight: bold;
-    border-bottom: 2px solid #000 !important;
-    background-color: #fff !important;
   }
 
   th > div.tableScrollContainer {
