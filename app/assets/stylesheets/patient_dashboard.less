@@ -73,53 +73,14 @@ table.dataTable {
   z-index: 10;
   table-layout: fixed;
 
-  td {
-    // border-right: inherit;
-    border-bottom: inherit;
+  thead .sorting,
+  thead .sorting_asc,
+  thead .sorting_desc,
+  thead .sorting_asc_disabled,
+  thead .sorting_desc_disabled {
+    background-position: bottom right;
   }
 
-  // thead th,
-  // thead td,
-  // tbody th,
-  // tbody td,
-  // tfoot th,
-  // tfoot td {
-  //   padding: 8px;
-  // }
-
-  /* coloring population headers */
-  /* the handsontable.bootstrap file is stupid and has !important so we need to use it also to override */
-  tr:first-child th.ipp {
-    background-color: #ddeeee !important;
-  }
-  tr:first-child th.denom {
-    background-color: #eeddee !important;
-  }
-  tr:first-child th.numer {
-    background-color: #aaeedd !important;
-  }
-  tr:first-child th.denex {
-    background-color: #eeeedd !important;
-  }
-  tr:first-child th.numex {
-    background-color: #aaeeee !important;
-  }
-  tr:first-child th.denexcep {
-    background-color: #ddeedd !important;
-  }
-
-  // makes sure there's an appropriate border line for the last two rows
-  tr:nth-last-child(2) > td {
-    border-bottom-style:solid;
-    border-bottom-width:1px;
-    border-bottom-color:rgb(204,204,204);
-  }
-  tr:nth-last-child(1) > td {
-    border-top-style:none;
-    border-bottom-style:solid;
-    border-bottom-width:1px;
-    border-bottom-color:rgb(204,204,204);
-  }
 
   tr.inline-edit-mode > td.editable {
     background-color: #ddeeee !important;
