@@ -177,7 +177,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   @returns {Object} a mapping of editable column field names to row indices
   ###
   getEditableCols: ->
-    editableFields = ['first', 'last', 'description', 'birthdate', 'gender', 'deathdate']
+    editableFields = ['first', 'last', 'description', 'gender']
     editableCols = {}
     # Add patient characteristics to editable fields
     for editableField in editableFields
@@ -286,10 +286,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         inputFieldDiv = $('#inputField').clone()
         $(':first-child', inputFieldDiv).prop('id', k + rowIndex).prop('name', k + rowIndex).addClass(k + rowIndex)
         row[k] = inputFieldDiv.html()
-      else if k in ['birthdate', 'deathdate']
-        inputDateDiv = $('#inputDate').clone()
-        $(':first-child', inputDateDiv).prop('id', k + rowIndex).prop('name', k + rowIndex).addClass(k + rowIndex)
-        row[k] = inputDateDiv.html()
       else if k == 'gender'
         if row[k] == 'M'
           inputGenderDiv = $('#inputGenderM').clone()
@@ -355,25 +351,25 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Update Bonnie patient
     patient = _.findWhere(@measure.get('patients').models, id: row.id)
     for k, v of @editableCols
-      if k == 'birthdate'
-        patient.set(k, parseInt(moment.utc(row[k], 'L LT').format('X')) + row['birthtime'])
-      else if k == 'deathdate'
-        patient.set(k, parseInt(moment.utc(row[k], 'L LT').format('X')) + row['deathtime'])
+      if k == 'description'
+        patient.set('notes', row[k])
       else
         patient.set(k, row[k])
 
     # Update row on recalculation
-    result = @population.calculateResult patient
-    result.calculationsComplete =>
-      patient.save patient.toJSON()
-      @updateActualWarnings(rowIndex)
-      row['edit'] = $('#editButton').html()
-      @enableOpenButton(row)
-      @patientData[rowIndex] = row
-      @setRowData(rowIndex, row)
-      @deselectRow(rowIndex)
-      # Attaches popover to datacriteria class.
-      $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
+    status = patient.save patient.toJSON(),
+      success: (model) =>
+        result = @population.calculateResult patient
+        result.calculationsComplete =>
+          row['edit'] = $('#editButton').html()
+          @enableOpenButton(row)
+          @patientData[rowIndex] = row
+          @results.add result.models
+          @setRowData(rowIndex, row)
+          @deselectRow(rowIndex)
+          # Attaches popover to datacriteria class.
+          $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
+          @updateActualWarnings(rowIndex)
 
   ###
   Cancels the edits made to an inline patient
