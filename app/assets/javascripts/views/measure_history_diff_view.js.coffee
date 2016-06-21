@@ -1,4 +1,4 @@
-class Thorax.Views.TestCaseHistoryDiffView extends Thorax.Views.BonnieView
+class Thorax.Views.MeasureHistoryDiffView extends Thorax.Views.BonnieView
   template: JST['test_case_history_diff']
   
   initialize: ->
