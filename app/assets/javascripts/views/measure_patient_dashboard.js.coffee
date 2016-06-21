@@ -97,19 +97,19 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   getTableColumns: (patient) ->
     column = []
     width_index = 0
-    column.push data: 'edit', orderable: false, width: @widths[width_index++] + 'px', defaultContent: $('#editButton').html()
-    column.push data: 'open', orderable: false, width: @widths[width_index++] + 'px', defaultContent: $('#openButton').html()
-    column.push data: 'first', width: @widths[width_index++] + 'px', className: 'limited'
-    column.push data: 'last', width: @widths[width_index++] + 'px', className: 'limited'
-    column.push data: 'description', width: @widths[width_index++] + 'px', className: 'limited'
+    column.push data: 'edit', orderable: false, defaultContent: $('#editButton').html()
+    column.push data: 'open', orderable: false, defaultContent: $('#openButton').html()
+    column.push data: 'first', className: 'limited'
+    column.push data: 'last', className: 'limited'
+    column.push data: 'description', className: 'limited'
     for population in @populations
-       column.push data: 'expected' + population, width: @widths[width_index++] + 'px'
+       column.push data: 'expected' + population
      for population in @populations
-       column.push data: 'actual' + population, width: @widths[width_index++] + 'px'
-    column.push data: 'passes', width: @widths[width_index++] + 'px', render: @insertHighlightedText
-    column.push data: 'birthdate', width: @widths[width_index++] + 'px'
-    column.push data: 'deathdate', width: @widths[width_index++] + 'px'
-    column.push data: 'gender', width: @widths[width_index++] + 'px'
+       column.push data: 'actual' + population
+    column.push data: 'passes', render: @insertHighlightedText
+    column.push data: 'birthdate'
+    column.push data: 'deathdate'
+    column.push data: 'gender'
     # Collect all actual data criteria and sort to make sure patient dashboard
     # displays dc in the correct order.
     dcStartIndex = @pd._dataInfo['gender'].index + 1
@@ -118,7 +118,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       if v.firstIndex >= dcStartIndex
           dc = dc.concat v.items
     for entry in dc
-      column.push data: entry, width: @widths[width_index++] + 'px', render: @insertTextAndPatientData
+      column.push data: entry, render: @insertTextAndPatientData
     column
 
   ###
