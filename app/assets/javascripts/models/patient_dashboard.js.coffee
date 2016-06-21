@@ -1,17 +1,12 @@
 class Thorax.Models.PatientDashboard extends Thorax.Model
   @ACTIONS = "actions"
-  @OPEN = "open"
-  @EDIT = "edit"
   @RESULT = "result"
-  @FIRST_NAME = "first"
-  @LAST_NAME = "last"
   @DESCRIPTION = "description"
   @BIRTHDATE = "birthdate"
   @DEATHDATE = "deathdate"
   @GENDER = "gender"
   @EXPECTED = "expected"
   @ACTUAL = "actual"
-  @NAME = "name"
   @METADATA = "metadata"
 
   @EXPECTED_PREFIX = PatientDashboard.EXPECTED
@@ -19,15 +14,12 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
 
   initialize: (@measure, @populations, @populationSet) ->
     # TODO: I don't think that the width stuff shoudl be in this class. it should be in the view only.
-    @COL_WIDTH_NAME = 140
     @COL_WIDTH_POPULATION = 30
     @COL_WIDTH_META_LARGE = 100
     @COL_WIDTH_META_MEDIUM = 100
     @COL_WIDTH_META_SMALL = 40
     @COL_WIDTH_FREETEXT = 240
     @COL_WIDTH_CRITERIA = 200
-    @COL_WIDTH_EDIT = 100
-    @COL_WIDTH_OPEN = 50
 
     @criteriaKeysByPopulation = {} # "Type" => "Preconditions"
     for population in @populations
@@ -42,15 +34,12 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     @_dataInfo = @getDataInfo(@populations, @dataIndices, @dataCollections)
 
   getHorizontalScrollOffset: ->
-    @COL_WIDTH_EDIT + @COL_WIDTH_OPEN + 2*@COL_WIDTH_NAME + @COL_WIDTH_FREETEXT + @COL_WIDTH_CRITERIA
+    @COL_WIDTH_CRITERIA
 
   getDataIndices: (populations, @criteriaKeysByPopulation) =>
     dataIndices = []
 
-    dataIndices.push(PatientDashboard.EDIT)
-    dataIndices.push(PatientDashboard.OPEN)
-    dataIndices.push(PatientDashboard.FIRST_NAME)
-    dataIndices.push(PatientDashboard.LAST_NAME)
+    dataIndices.push(PatientDashboard.ACTIONS)
     dataIndices.push(PatientDashboard.DESCRIPTION)
 
     for population in populations
@@ -81,11 +70,8 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
       dataCriteriaText[dataLogicView.dataCriteria.key] = dataLogicView.$el[0].outerText
 
     # include the metadata
-    dataInfo[PatientDashboard.EDIT] = { name: "", width: @COL_WIDTH_EDIT }
-    dataInfo[PatientDashboard.OPEN] = { name: "", width: @COL_WIDTH_OPEN }
-    dataInfo[PatientDashboard.RESULT] = { name: "Passes?", width: @COL_WIDTH_META_MEDIUM }
-    dataInfo[PatientDashboard.FIRST_NAME] = { name: "First Name", width: @COL_WIDTH_NAME }
-    dataInfo[PatientDashboard.LAST_NAME] = { name: "Last Name", width: @COL_WIDTH_NAME }
+    dataInfo[PatientDashboard.ACTIONS] = { name: "Options", width: @COL_WIDTH_META_MEDIUM }
+    dataInfo[PatientDashboard.RESULT] = { name: "Result", width: @COL_WIDTH_META_MEDIUM }
     dataInfo[PatientDashboard.DESCRIPTION] = { name: "Description", width: @COL_WIDTH_FREETEXT }
     dataInfo[PatientDashboard.BIRTHDATE] = { name: "Birthdate", width: @COL_WIDTH_META_LARGE }
     dataInfo[PatientDashboard.DEATHDATE] = { name: "Deathdate", width: @COL_WIDTH_META_LARGE }
@@ -109,9 +95,7 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
 
   getDataCollections: (populations, dataIndices, criteria_keys_by_population) =>
     dataCollections = {}
-    dataCollections[PatientDashboard.ACTIONS] = {name: "", items: [PatientDashboard.EDIT, PatientDashboard.OPEN] }
-    dataCollections[PatientDashboard.DESCRIPTION] = {name: "", items: [PatientDashboard.DESCRIPTION] }
-    dataCollections[PatientDashboard.NAME] = { name: "Names", items: [PatientDashboard.FIRST_NAME, PatientDashboard.LAST_NAME] }
+    dataCollections[PatientDashboard.ACTIONS] = {name: "Test Case", items: [PatientDashboard.ACTIONS, PatientDashboard.DESCRIPTION] }
     dataCollections[PatientDashboard.EXPECTED] = { name: "Expected", items: PatientDashboard.EXPECTED_PREFIX + pop for pop in populations }
     dataCollections[PatientDashboard.ACTUAL] = { name: "Actual", items: PatientDashboard.ACTUAL_PREFIX + pop for pop in populations }
     dataCollections[PatientDashboard.METADATA] = {name: "Metadata", items: [PatientDashboard.RESULT, PatientDashboard.BIRTHDATE, PatientDashboard.DEATHDATE, PatientDashboard.GENDER]}
