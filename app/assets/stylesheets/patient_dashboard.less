@@ -80,6 +80,11 @@ html, body, .container-fluid, [role="main"], .measure-layout, .patient-dashboard
   .set-header-bg-colors(@i - 1); // iterate.
 }
 
+@table-strong-border: 2px solid black;
+
+.DTFC_LeftHeadWrapper, .DTFC_LeftBodyWrapper {
+  border-right: @table-strong-border;
+}
 
 table.dataTable {
   z-index: 10;
@@ -96,6 +101,10 @@ table.dataTable {
   thead tr:first-of-type th {
     text-align: center;
     text-transform: uppercase;
+  }
+
+  thead th, thead td {
+    border-bottom: @table-strong-border;
   }
 
   .set-header-bg-colors(12);
@@ -138,35 +147,21 @@ table.dataTable {
 
   /* basic cell styling. keeping in div because can managing text overflow more easily */
   th > div,
-  td > div {
+  td > div:not(.btn-group) {
     height: 20px;
     overflow: hidden;
   }
 
-  td.action {
-    vertical-align:middle;
-  }
-
-  td.action > div {
-    height: 25px;
-    padding: 0px;
-  }
-
-  /* TODO: rework these so that they work for any number of actions */
-  td.action:nth-child(1)  {
-    border-right-style:none;
-  }
-  th.action:nth-child(1) {
-    border-right-style:none;
-  }
-
   td.warn {
-    background-color: pink;
+    background-color: @red-lighter;
   }
+}
 
-  /* added to remove border when an action is selected */
-  /* TODO: make this so it ONLY removes the border for actions */
-  .wtBorder {
-    display: none !important;
+.patient-dashboard .dropdown-menu {
+  min-width: initial; // removes min-width: 160px from bootstrap
+  width: 100%;
+
+  & > li > .btn-danger {
+    color: @red-darker;
   }
 }

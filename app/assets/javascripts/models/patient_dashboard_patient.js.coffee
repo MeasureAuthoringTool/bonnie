@@ -3,8 +3,8 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
   initialize: (@patient, @pd, @measure, @patientResult, @populations, @population) ->
     # Set known patient attributes
     @_id = @patient.get('_id')
-    @first = @patient.get('first')
-    @last = @patient.get('last')
+    # @first = @patient.get('first')
+    # @last = @patient.get('last')
     @description = if @patient.get('notes') then @patient.get('notes') else ''
     @_birthdate = @patient.get('birthdate')
     @birthdate = if @_birthdate then moment.utc(@_birthdate, 'X').format('L') else ''
@@ -18,10 +18,10 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     @_expected = @getExpectedResults()
     @_actual = @getActualResults()
     @passes = @isPatientPassing()
-    
+
     # Edit and open attributes for patient dashboard
-    @edit
-    @open
+    # @edit
+    # @open
 
     # Set up instance variables for use by Patient Dashboard
     @saveExpectedResults()

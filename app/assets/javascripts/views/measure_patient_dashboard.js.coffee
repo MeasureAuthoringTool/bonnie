@@ -19,6 +19,7 @@ class Thorax.Views.MeasurePatientDashboardLayout extends Thorax.LayoutView
       view.results = results
       super(view)
 
+
 class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.BonnieView
   template: JST['measure/patient_dashboard']
   className: 'patient-dashboard'
@@ -82,7 +83,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         paging: false,
         autoWidth: false,
         fixedColumns:
-          leftColumns: 5
+          leftColumns: 2
       )
       # Update actual warnings
       @updateAllActualWarnings()
@@ -96,12 +97,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   getTableColumns: (patient) ->
     column = []
-    width_index = 0
-    column.push data: 'edit', orderable: false, defaultContent: $('#editButton').html()
-    column.push data: 'open', orderable: false, defaultContent: $('#openButton').html()
-    column.push data: 'first', className: 'limited'
-    column.push data: 'last', className: 'limited'
+    column.push data: 'actions', defaultContent: $('#actionDropdown').html()
     column.push data: 'description', className: 'limited'
+
+
     for population in @populations
        column.push data: 'expected' + population
      for population in @populations
@@ -177,7 +176,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   @returns {Object} a mapping of editable column field names to row indices
   ###
   getEditableCols: ->
-    editableFields = ['first', 'last', 'description', 'gender']
+    #editableFields = ['first', 'last', 'description', 'gender']
+    editableFields = ['description', 'gender']
     editableCols = {}
     # Add patient characteristics to editable fields
     for editableField in editableFields
@@ -295,7 +295,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         row[k] = inputGenderDiv.html()
 
     # Change edit button to save and cancel buttons
-    row['edit'] = $('#saveEditButton').html() + $('#closeEditButton').html()
+    row['actions'] = $('#saveEditButton').html() + $('#closeEditButton').html()
 
     # Disable open button
     @disableOpenButton(row)
@@ -437,8 +437,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     row1_full.push('') for i in [1..row2.length]
     for key, dataCollection of @pd.dataCollections
       row1_full[dataCollection.firstIndex] = dataCollection.name
-    # Add bumper to beggining of first header
-    row1.push title: "", colspan: 2, width: (@pd.COL_WIDTH_EDIT + @pd.COL_WIDTH_EDIT)
     # Construct the top header using colspans for the number of columns
     # they should cover
     for header, index in row1_full
