@@ -4,7 +4,7 @@ class Thorax.Views.TestCaseHistoryTimelineView extends Thorax.Views.BonnieView
   initialize: ->
     @populationIndex = @model.get('displayedPopulation').index()
     $.get('/measures/history?id='+@model.attributes['hqmf_set_id'], @loadHistory)
-    @measureDiffView = new Thorax.Views.TestCaseHistoryDiffView(model: @model)
+    @measureDiffView = new Thorax.Views.MeasureHistoryDiffView(model: @model)
     
   loadHistory: (data) =>
     @measureHistory = data

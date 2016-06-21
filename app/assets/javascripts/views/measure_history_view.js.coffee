@@ -1,4 +1,4 @@
-class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
+class Thorax.Views.MeasureHistoryView extends Thorax.Views.BonnieView
   template: JST['test_case_history']
 
   initialize: ->
@@ -11,7 +11,7 @@ class Thorax.Views.TestCaseHistoryView extends Thorax.Views.BonnieView
     ).then =>
       #@patientHistory @patientData, @measureData, @model.get('displayedPopulation')
       return
-    @measureDiffView = new Thorax.Views.TestCaseHistoryDiffView(model: @model)
+    @measureDiffView = new Thorax.Views.MeasureHistoryDiffView(model: @model)
     @measureTimelineView = new Thorax.Views.TestCaseHistoryTimelineView(model: @model)
     
   switchPopulation: (e) ->

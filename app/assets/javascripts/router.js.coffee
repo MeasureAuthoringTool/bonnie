@@ -88,7 +88,7 @@
     measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
     @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
     # @collection = new Thorax.Collections.Patients
-    @mainView.setView new Thorax.Views.TestCaseHistoryView model: measure, patients: @patients, collection: @collection # TODO Anything else?
+    @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: @patients, collection: @collection # TODO Anything else?
     @breadcrumb.viewTestCaseHistory(measure)
     
   renderPatientCompare: (measureHqmfSetId, patientId) ->
