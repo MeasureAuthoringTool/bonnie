@@ -37,6 +37,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
     @previouslySortedBy = [null, -1, 0] #Sorting needs to keep track of (1.)the button last clicked (a string), (2.)number of dataCriteria Elements, and (3.)Seconds since last button click
     @timeSinceInfoPreviewClick = 0 #Keeps track of last Preview/Hide button click to prevent spam clicking. Only need to track seconds since last click (an integer) for this one
+    @patientStatus = #Hash for tracking Patient Info when calculating their age
+      patientIsAlive: true
+      patientAge: "NA"
 
   dataCriteriaCategories: ->
     categories = {}
@@ -79,7 +82,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', appendTo: '.patient-builder', zIndex: 10
-
+      @setPatientAge() #Clicking the button that removes Death Date doesn't trigger materialize, it triggers "render"
       # Make criteria list a drop target
       @$('.criteria-container.droppable').droppable greedy: true, accept: '.ui-draggable', activeClass: 'active-drop', drop: _.bind(@drop, this)
       @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@materialize, this)
@@ -141,6 +144,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   
   materialize: ->
     @serializeWithChildren()
+    @setPatientAge() #When a birthdate or deathdate is selected, materialize() is called and sets the Patient's Age
     @model.materialize()
 
   addCriteria: (criteria) ->
@@ -316,8 +320,67 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     if @$('#preview_information').text() == "Hide Information"
       return true
     else
-      return false  
-            
+      return false
+  
+  #Formats duration between a start_date and an end_date and returns that value as a string
+  #(both start and end date must be moments from Moment.js)
+  getDuration: (start_date, end_date) ->
+    if start_date._i <= end_date._i
+      if end_date.diff(start_date, 'minutes', true) > 60
+        if end_date.diff(start_date, 'hours', true) > 24
+          if end_date.diff(start_date, 'days', true) > 31
+            if end_date.diff(start_date, 'months', true) > 12
+              element_duration = Math.round(end_date.diff(start_date, 'years', true)) + " Year"
+            else
+              element_duration = Math.round(end_date.diff(start_date, 'months', true)) + " Month"
+          else
+            element_duration = Math.round(end_date.diff(start_date, 'days', true)) + " Day"
+        else
+          element_duration = Math.round(end_date.diff(start_date, 'hours', true)) + " Hour"
+      else
+        element_duration = Math.round(end_date.diff(start_date, 'minutes', true)) + " Minute"
+      #If necessary, make the unit plural by appending an 's'
+      if element_duration[0] != '1' || element_duration[1] != ' '
+        element_duration += "s"
+    else
+      element_duration = null
+    return element_duration
+
+  getPatientAge: ->
+    if @model.get('birthdate')
+      if @model.get('deathdate')
+        @patientStatus.patientIsAlive = false
+        duration = @getDuration(moment(parseInt(@model.get('birthdate'))*1000), moment(parseInt(@model.get('deathdate'))*1000))
+        @patientStatus.patientAge = duration
+      else
+        @patientStatus.patientIsAlive = true
+        duration = @getDuration(moment(parseInt(@model.get('birthdate'))*1000), moment(Date.now()))
+        @patientStatus.patientAge = duration
+        #patientStatus is an instance variable, so no need to return it
+
+  setPatientAge: ->
+    @getPatientAge() #Determines Patient Age
+    if @patientStatus.patientAge == null #Meaning the Birthdate came after the deathdate or the currentDate
+      if @patientStatus.patientIsAlive #Changes Warning Message based on whether the patient is alive or not
+        @$('.patient-age-label').removeClass('fail fa fa-fw fa-times-circle')
+        @$('.patient-age-label').addClass('fa fa-fw fa-exclamation-circle')
+        @$('.patient-age').text("Current Date precedes Birthdate") #Sets the span tag in patient_builder.hbs
+      else
+        @$('.patient-age-label').removeClass('fa fa-fw fa-exclamation-circle')
+        @$('.patient-age-label').addClass('fail fa fa-fw fa-times-circle')
+        @$('.patient-age').addClass('fail')
+        @$('.patient-age').text("Death Date precedes Birthdate") #Sets the span tag in patient_builder.hbs
+      @$('.patient-age-label').text("") #Sets the span tag in patient_builder.hbs
+    else
+      @$('.patient-age-label').removeClass('fa fa-fw fa-exclamation-circle')
+      @$('.patient-age-label').removeClass('fail fa fa-fw fa-times-circle')
+      @$('.patient-age').removeClass('fail')
+      if @patientStatus.patientIsAlive
+        @$('.patient-age-label').text("Age: ")
+      else
+        @$('.patient-age-label').text("Age at Time of Death: ")
+      @$('.patient-age').text(@patientStatus.patientAge)
+
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
   setPopulation: (population) ->

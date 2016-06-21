@@ -47,7 +47,6 @@
           <textarea id="notes" name="notes"class="form-control" placeholder="Patient is..." rows="2" maxlength="250"></textarea>
         </div>
       </div>
-
       <div class="col-sm-6">
         <div class="form-group">
           <label for="birthdate" class="control-label">Date of Birth*</label>
@@ -60,31 +59,10 @@
               <input type="text" id="birthtime" name="birthtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM" required aria-required="true">
             </div>
           </div>
-        </div>
-
-        <div class="form-group">
-          <label for="race" class="control-label">Race</label>
-          <select id="race" name="race" class="form-control">
-            <option value="1002-5">American Indian or Alaska Native</option>
-            <option value="2028-9">Asian</option>
-            <option value="2054-5">Black or African American</option>
-            <option value="2076-8">Native Hawaiian or Other Pacific Islander</option>
-            <option value="2106-3">White</option>
-            <option value="2131-1">Other</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="ethnicity" class="control-label">Ethnicity</label>
-          <select id="ethnicity" name="ethnicity" class="form-control">
-            <option value="2186-5">Not Hispanic or Latino</option>
-            <option value="2135-2">Hispanic Or Latino</option>
-          </select>
-        </div>
+        </div>      
       </div>
-
+      
       <div class="col-sm-6">
-
         <div class="form-group">
           <label for="{{#if expired}}deathdate{{else}}expired{{/if}}" class="control-label">{{#if expired}}Date of Death{{else}}Living Status{{/if}}</label>
           {{#if expired}}
@@ -108,7 +86,35 @@
               </label>
             </div>
           {{/if}}
+          <hr class="hr-with-thin-margins">
+          <h5><span class="patient-age-label">{{!The text that goes here is added via jQuery in patient_builder.js.coffee}}</span>
+            <span class="patient-age">{{patientAge}}</span>
+          <h5>
         </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="race" class="control-label">Race</label>
+          <select id="race" name="race" class="form-control">
+            <option value="1002-5">American Indian or Alaska Native</option>
+            <option value="2028-9">Asian</option>
+            <option value="2054-5">Black or African American</option>
+            <option value="2076-8">Native Hawaiian or Other Pacific Islander</option>
+            <option value="2106-3">White</option>
+            <option value="2131-1">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="ethnicity" class="control-label">Ethnicity</label>
+          <select id="ethnicity" name="ethnicity" class="form-control">
+            <option value="2186-5">Not Hispanic or Latino</option>
+            <option value="2135-2">Hispanic Or Latino</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
 
         <div class="form-group">
           <label for="gender" class="control-label">Gender</label>
