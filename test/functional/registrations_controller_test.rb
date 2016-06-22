@@ -11,9 +11,9 @@ class RegistrationsControllerTest < ActionController::TestCase
     collection_fixtures("users", "records", "draft_measures")
     @user = User.by_email('bonnie@example.com').first
     @user.grant_portfolio
-    
-    associate_user_with_measures(@user,Measure.all)
-    associate_user_with_patients(@user,Record.all)
+
+    associate_user_with_measures(@user, Measure.all)
+    associate_user_with_patients(@user, Record.all)
 
     @user.measures.first.value_set_oids.uniq.each do |oid|
       vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
@@ -35,6 +35,36 @@ class RegistrationsControllerTest < ActionController::TestCase
     Measure.by_user(@user).each do |measure|
       assert measure.map_fns.compact.empty?
     end
+  end
+
+  test "after_inactive_sign_up_path_for" do
+
+    post :create, {utf8:"✓", authenticity_token: "0n4OMnJb0zHfByZcHZdWBpQpxqW0YolmC/2Iig35tIk=",
+      user: {first_name: "Foo", last_name: "Bar", email: "foobar@mitre.org", telephone: "555-555-5555",
+        password: "[FILTERED]", password_confirmation: "[FILTERED]"}, agree_license: "1", commit: "Register"}
+    assert_response :redirect
+
+    assert_equal "You have signed up successfully. However, we could not sign "+
+    "you in because your account is not yet approved.  You will receive an email"+
+    " once your account has been approved.", flash[:notice]
+  end
+
+  test "destroy with valid password" do
+    sign_in @user
+    delete :destroy, { user: {current_password: 'Test1234!'}}
+    assert_response :redirect
+    deluser = User.by_email(@user.email).first
+    assert_nil(deluser)
+  end
+
+  test "destroy with invalid password" do
+    sign_in @user
+    # Supply incorrect passwordin call to delete account
+    delete :destroy, {user:{users_email: @user.email} , current_password: "wrongpass" }
+    assert_response :redirect
+    deluser = User.by_email(@user.email).first
+    assert_equal(@user,deluser)
+    assert_equal "Incorrect password supplied, account not deleted", flash[:error]
   end
 
 end

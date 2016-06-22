@@ -11,8 +11,8 @@ include Devise::TestHelpers
     @user_plain = User.by_email('user_plain@example.com').first
     @user_unapproved = User.by_email('user_unapproved@example.com').first
 
-    associate_user_with_measures(@user,Measure.all)
-    associate_user_with_patients(@user,Record.all)
+    associate_user_with_measures(@user, Measure.all)
+    associate_user_with_patients(@user, Record.all)
 
     @user.measures.first.value_set_oids.uniq.each do |oid|
       vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
@@ -46,7 +46,7 @@ include Devise::TestHelpers
     assert_response :success
     @user_unapproved.reload
     assert_equal true, @user_unapproved.approved?
-
+    # Verify transmission of new user email
     mail = ActionMailer::Base.deliveries.last
     assert_equal @user_unapproved.email, mail.to.first
     assert_equal "bonnie-feedback-list@lists.mitre.org", mail.from.first
@@ -107,7 +107,7 @@ include Devise::TestHelpers
     sign_in @user_admin
     get :measures, {id: @user.id}
     assert_response :success
-    assert_equal 2, JSON.parse(response.body).length
+    assert_equal 3, JSON.parse(response.body).length
   end
 
   test "bundle download" do
@@ -118,23 +118,25 @@ include Devise::TestHelpers
     assert_equal "attachment; filename=\"bundle_#{@user.email}_export.zip\"", response.header['Content-Disposition']
     assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
     assert_equal 'binary', response.header['Content-Transfer-Encoding']
-
-    zip_path = File.join('tmp','test.zip')
+    # Verify bundle download contains correct amount of files
+    zip_path = File.join('tmp', 'test.zip')
     File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
     Zip::ZipFile.open(zip_path) do |zip_file|
-      assert_equal 4, zip_file.glob(File.join('patients','**','*.json')).count
-      assert_equal 2, zip_file.glob(File.join('sources','**','*.json')).count
-      assert_equal 2, zip_file.glob(File.join('sources','**','*.metadata')).count
-      assert_equal 27, zip_file.glob(File.join('value_sets','**','*.json')).count
+      assert_equal 4, zip_file.glob(File.join('patients', '**', '*.json')).count
+      assert_equal 3, zip_file.glob(File.join('sources', '**', '*.json')).count
+      assert_equal 3, zip_file.glob(File.join('sources', '**', '*.metadata')).count
+      assert_equal 27, zip_file.glob(File.join('value_sets', '**', '*.json')).count
     end
     File.delete(zip_path)
   end
 
-  # does not seem to allow sign in in testing
-  # test "sign in as" do
-  #   sign_in @user_admin
-  #   put :log_in_as, {id: @user_plain.id}
-  #   assert_response :redirect
-  # end
+  test "sign in as" do
+     sign_in @user_admin
+     pre_count = @user_plain.sign_in_count
+     post :log_in_as, {id: @user_plain.id}
+     assert_response :redirect
+     @user_plain.reload
+     assert_equal pre_count +1, @user_plain.sign_in_count
+  end
 
 end
