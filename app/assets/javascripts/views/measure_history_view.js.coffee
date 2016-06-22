@@ -1,5 +1,5 @@
 class Thorax.Views.MeasureHistoryView extends Thorax.Views.BonnieView
-  template: JST['test_case_history']
+  template: JST['measure_history']
 
   initialize: ->
     @patientData = undefined
@@ -12,7 +12,7 @@ class Thorax.Views.MeasureHistoryView extends Thorax.Views.BonnieView
       #@patientHistory @patientData, @measureData, @model.get('displayedPopulation')
       return
     @measureDiffView = new Thorax.Views.MeasureHistoryDiffView(model: @model)
-    @measureTimelineView = new Thorax.Views.TestCaseHistoryTimelineView(model: @model, upload_summaries: @upload_summaries, patients: @patients)
+    @measureTimelineView = new Thorax.Views.MeasureHistoryTimelineView(model: @model, upload_summaries: @upload_summaries, patients: @patients)
     
   switchPopulation: (e) ->
     population = $(e.target).model()
