@@ -99,8 +99,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     column = []
     column.push data: 'actions', defaultContent: $('#actionDropdown').html()
     column.push data: 'description', className: 'limited'
-
-
     for population in @populations
        column.push data: 'expected' + population
      for population in @populations
@@ -234,20 +232,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     $('.dataTables_scrollBody').scrollTo($('#' + pop), offset: left: -@pd.getHorizontalScrollOffset())
 
   ###
-  Disables the patient builder modal button for the given row
-  ###
-  disableOpenButton: (row) ->
-    openButton = $('#openButton').clone()
-    $(':first-child', openButton).attr("disabled", true)
-    row['open'] = openButton.html()
-
-  ###
-  Enables the patient builder modal button for the given row
-  ###
-  enableOpenButton: (row) ->
-    row['open'] = $('#openButton').html()
-
-  ###
   Updates actual warnings for a given row index
   ###
   updateActualWarnings: (rowIndex) ->
@@ -282,7 +266,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     row['old'] = jQuery.extend(true, {}, row)
 
     for k, v of @editableCols
-      if k in ['first', 'last', 'description']
+      if k in ['description']
         inputFieldDiv = $('#inputField').clone()
         $(':first-child', inputFieldDiv).prop('id', k + rowIndex).prop('name', k + rowIndex).addClass(k + rowIndex)
         row[k] = inputFieldDiv.html()
@@ -296,9 +280,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
     # Change edit button to save and cancel buttons
     row['actions'] = $('#saveEditButton').html() + $('#closeEditButton').html()
-
-    # Disable open button
-    @disableOpenButton(row)
 
     # Update row
     @setRowData(rowIndex, row)
@@ -361,8 +342,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       success: (model) =>
         result = @population.calculateResult patient
         result.calculationsComplete =>
-          row['edit'] = $('#editButton').html()
-          @enableOpenButton(row)
+          row['actions'] = $('#actionDropdown').html()
           @patientData[rowIndex] = row
           @results.add result.models
           @setRowData(rowIndex, row)
