@@ -176,7 +176,7 @@ GEM
       multi_json
       sprockets (>= 2.0.3)
       tilt
-    hashdiff (0.2.3)
+    hashdiff (0.3.0)
     highline (1.7.8)
     hike (1.2.3)
     htmlentities (4.3.4)
@@ -327,10 +327,10 @@ GEM
     unf_ext (0.0.7.2)
     uuid (2.3.8)
       macaddr (~> 1.0)
-    vcr (3.0.1)
+    vcr (3.0.3)
     warden (1.2.3)
       rack (>= 1.0)
-    webmock (1.22.3)
+    webmock (2.1.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff

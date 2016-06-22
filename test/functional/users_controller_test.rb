@@ -7,8 +7,8 @@ class UsersControllerTest  < ActionController::TestCase
     dump_database
     collection_fixtures("users", "records", "draft_measures")
     @user = User.by_email('bonnie@example.com').first
-    associate_user_with_measures(@user,Measure.all)
-    associate_user_with_patients(@user,Record.all)
+    associate_user_with_measures(@user, Measure.all)
+    associate_user_with_patients(@user, Record.all)
 
     @user.measures.first.value_set_oids.uniq.each do |oid|
       vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
@@ -28,13 +28,13 @@ class UsersControllerTest  < ActionController::TestCase
     assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
     assert_equal 'binary', response.header['Content-Transfer-Encoding']
 
-    zip_path = File.join('tmp','test.zip')
+    zip_path = File.join('tmp', 'test.zip')
     File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
     Zip::ZipFile.open(zip_path) do |zip_file|
-      assert_equal 4, zip_file.glob(File.join('patients','**','*.json')).count
-      assert_equal 3, zip_file.glob(File.join('sources','**','*.json')).count
-      assert_equal 3, zip_file.glob(File.join('sources','**','*.metadata')).count
-      assert_equal 27, zip_file.glob(File.join('value_sets','**','*.json')).count
+      assert_equal 4, zip_file.glob(File.join('patients', '**', '*.json')).count
+      assert_equal 3, zip_file.glob(File.join('sources', '**', '*.json')).count
+      assert_equal 3, zip_file.glob(File.join('sources', '**', '*.metadata')).count
+      assert_equal 27, zip_file.glob(File.join('value_sets', '**', '*.json')).count
     end
     File.delete(zip_path)
   end

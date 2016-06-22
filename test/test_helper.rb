@@ -8,7 +8,7 @@ require './lib/ext/record'
 WebMock.enable!
 
 class ActiveSupport::TestCase
- 
+
   def dump_database
     Mongoid.default_session.collections.each do |c|
       c.drop()
@@ -26,7 +26,7 @@ class ActiveSupport::TestCase
       end
     end
   end
-  
+
   # JSON.parse doesn't catch time fields, so this converts fields ending in _at
   # to a Time object.
   def convert_times(json)
@@ -47,7 +47,7 @@ class ActiveSupport::TestCase
             json[k] = BSON::ObjectId.from_string(v["$oid"])
           else
             set_mongoid_ids(v)
-          end  
+          end
         end
       end
     end
@@ -73,7 +73,7 @@ class ActiveSupport::TestCase
       p.save
     end
   end
-  
+
   def associate_measures_with_patients(measures,patients)
     measure_ids = measures.map(&:hqmf_set_id)
     patients.each do |p|
@@ -81,5 +81,5 @@ class ActiveSupport::TestCase
       p.save
     end
   end
-  
+
 end
