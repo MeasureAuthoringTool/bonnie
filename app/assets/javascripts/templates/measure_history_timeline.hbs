@@ -8,52 +8,73 @@
           <th class="history-patient-header" data-patient-id="{{id}}"><div><span><i class="fa fa-user" aria-hidden="true"></i> {{name}}</span></div></th>
         {{/each}}
       </tr>
+      
+      {{! Current calcuation status. }}
+      <tr>
+        <th class="history-upload-header">Current</td>
+        <td class="history-upload-header"><small>After</small></td>
+        {{#each patientIndex}}
+          <td class="history-patient-cell">
+            <div class="history-circle history-pass">
+              <span class="sr-only">pass</span>
+              <i class="fa {{#ifCond 'pass' '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
+            </div>
+          </td>
+        {{/each}}
+      </tr>
+      
+      
       {{! Loop through each measure history summary}}
       {{#each upload_summaries.models}}
         {{! Get the specific population }}
         {{#with (lookup attributes.measure_upload_population_summaries ../../populationIndex)}}
           <tr class="active" data-upload-id="{{../_id}}">
             <th class="history-upload-header">
-              Uploaded <small>{{dateFormat ../upload_dtm "M/D/YY"}} @ {{dateFormat ../upload_dtm "h:mm a"}}</small>
+              Uploaded <small>{{dateFormat ../attributes.upload_dtm "M/D/YY @ h:mm a"}}</small>
             </th>
             <td class="history-upload-header"><small>After</small></td>
             {{! Loop through each patient in same order as header }}
             {{#each ../../../patientIndex}}
-              {{#with (lookup ../patients id)}}
-                {{!debug}}
-                <td class="history-patient-cell">
-                  <div class="history-circle history-{{after_status}}">
-                    <span class="sr-only">{{after_status}}</span>
-                    <i class="fa {{#ifCond after_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
-                  </div>
-                </td>
-              {{else}}
-                <td>N/A</td>
-              {{/with}}
-            {{/each}}
-          </tr>
-          <tr data-upload-id="{{../upload_id}}">
-            <td>
-              {{#if ../attributes.measure_db_id_before}}
-                {{#button "showDiffClicked" data-upload-id=../../attributes._id class="btn btn-xs btn-default"}}VIEW CHANGES{{/button}}
+              {{#if (lookup ../patients id)}}
+                {{#with (lookup ../../patients id)}}
+                  <td class="history-patient-cell">
+                    <div class="history-circle history-{{after_status}}">
+                      <span class="sr-only">{{after_status}}</span>
+                      <i class="fa {{#ifCond after_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
+                    </div>
+                  </td>
+                {{/with}}
+              {{else}}{{! Empty cell since patient didnt exist at this time }}
+                <td></td>
               {{/if}}
-            </td>
-            <td><small>Before</small></td>
-            {{! Loop through each patient in same order as header }}
-            {{#each ../../../patientIndex}}
-              {{#with (lookup ../patients id)}}
-                
-                <td class="history-patient-cell">
-                  <div class="history-circle history-{{before_status}}">
-                    <span class="sr-only">{{before_status}}</span>
-                    <i class="fa {{#ifCond before_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
-                  </div>
-                </td>
-              {{else}}
-                <td>N/A</td>
-              {{/with}}
             {{/each}}
           </tr>
+          
+          {{#if ../attributes.measure_db_id_before}}
+            <tr data-upload-id="{{../upload_id}}">
+              <td>
+                  {{#button "showDiffClicked" data-upload-id=../../attributes._id class="btn btn-xs btn-default"}}VIEW CHANGES{{/button}}
+
+              </td>
+              <td><small>Before</small></td>
+              {{! Loop through each patient in same order as header }}
+              {{#each ../../../../patientIndex}}
+                {{#if (lookup ../patients id)}}
+                  {{#with (lookup ../../patients id)}}
+                    <td class="history-patient-cell">
+                      <div class="history-circle history-{{before_status}}">
+                        <span class="sr-only">{{before_status}}</span>
+                        <i class="fa {{#ifCond before_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
+                      </div>
+                    </td>
+                  {{/with}}
+                {{else}}
+                  <td></td>
+                {{/if}}
+              {{/each}}
+            </tr>
+          {{/if}}
+          
         {{/with}}
       {{/each}}
     </table>
