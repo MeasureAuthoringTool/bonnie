@@ -25,7 +25,7 @@
     'measures/:measure_hqmf_set_id/patients/:id/edit':  'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patients/new':       'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patient_bank':       'renderPatientBank'
-    'measures/:measure_hqmf_set_id/test_case_history':  'renderTestCaseHistory'
+    'measures/:measure_hqmf_set_id/test_case_history':  'renderMeasureUploadHistory'
     'admin/users':                                      'renderUsers'
     'value_sets/edit':                                  'renderValueSetsBuilder'
     'measures/:measure_hqmf_set_id/patients/:id/compare':  'renderPatientCompare'
@@ -84,12 +84,14 @@
     @mainView.setView new Thorax.Views.PatientBankView model: measure, patients: @patients, collection: @collection
     @breadcrumb.addBank(measure)
 
-  renderTestCaseHistory: (measureHqmfSetId) ->
+  renderMeasureUploadHistory: (measureHqmfSetId) ->
     measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
-    @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
-    # @collection = new Thorax.Collections.Patients
-    @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: @patients, collection: @collection # TODO Anything else?
-    @breadcrumb.viewTestCaseHistory(measure)
+    measure.get('upload_summaries').fetchAll().done( (upload_summaries) =>
+      @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
+      # @collection = new Thorax.Collections.Patients
+      @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: measure.get('patients'), upload_summaries: upload_summaries
+      @breadcrumb.viewTestCaseHistory(measure)
+    )
     
   renderPatientCompare: (measureHqmfSetId, patientId) ->
     @navigationSetup "Patient Builder", "patient-compare"

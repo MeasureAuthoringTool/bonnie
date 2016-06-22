@@ -12,7 +12,7 @@ class Thorax.Views.MeasureHistoryView extends Thorax.Views.BonnieView
       #@patientHistory @patientData, @measureData, @model.get('displayedPopulation')
       return
     @measureDiffView = new Thorax.Views.MeasureHistoryDiffView(model: @model)
-    @measureTimelineView = new Thorax.Views.TestCaseHistoryTimelineView(model: @model)
+    @measureTimelineView = new Thorax.Views.TestCaseHistoryTimelineView(model: @model, upload_summaries: @upload_summaries, patients: @patients)
     
   switchPopulation: (e) ->
     population = $(e.target).model()

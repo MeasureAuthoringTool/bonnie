@@ -3,28 +3,24 @@ class Thorax.Views.TestCaseHistoryTimelineView extends Thorax.Views.BonnieView
   
   initialize: ->
     @populationIndex = @model.get('displayedPopulation').index()
-    $.get('/measures/history?id='+@model.attributes['hqmf_set_id'], @loadHistory)
+    #$.get('/measures/history?id='+@model.attributes['hqmf_set_id'], @loadHistory)
     @measureDiffView = new Thorax.Views.MeasureHistoryDiffView(model: @model)
+    @loadHistory()
     
   loadHistory: (data) =>
-    @measureHistory = data
-    console.log 'RETRIEVED MEASURE DATA - '
-    console.log @measureHistory
-    
     @patientIndex = [];
     
     # pull out all patients that exist, even deleted ones, map id to names
-    for measureUpdate in @measureHistory
-      for population in measureUpdate.populations
-        for patientId, patient of population
-          if patientId != 'summary' && _.findWhere(@patientIndex, {id: patientId}) == undefined
+    @upload_summaries.each (upload_summary) =>
+      for population in upload_summary.get('measure_upload_population_summaries')
+        for patientId, patient of population.patients
+          if _.findWhere(@patientIndex, {id: patientId}) == undefined
+            patient = @patients.findWhere({_id: patientId})
             @patientIndex.push {
               id: patientId
-              name: "#{patient.first} #{patient.last}"
+              name: "#{patient.get('first')} #{patient.get('last')}"
+              patient: patient
             }
-    
-    
-    @render()
     return
     
   updatePopulation: (population) ->
@@ -33,6 +29,6 @@ class Thorax.Views.TestCaseHistoryTimelineView extends Thorax.Views.BonnieView
     
   showDiffClicked: (e) ->
     uploadID = $(e.target).data('uploadId')
-    upload = _.findWhere(@measureHistory, {upload_id: uploadID})
-    @measureDiffView.loadDiff upload.measure_db_id_before, upload.measure_db_id_after
+    upload = @upload_summaries.findWhere({_id: uploadID})
+    @measureDiffView.loadDiff upload.get('measure_db_id_before'), upload.get('measure_db_id_after')
     @$('#measure-diff-view-dialog').modal('show');
