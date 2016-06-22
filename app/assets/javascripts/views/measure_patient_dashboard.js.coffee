@@ -74,12 +74,14 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       # Create column access info for use by DataTables
       @tableColumns = @getTableColumns(@patientData?[0])
       # Initialize patient dashboard using DataTables
-      table = $('#patientDashboardTable').DataTable(
+      table = @$('#patientDashboardTable').DataTable(
         data: @patientData,
         columns: @tableColumns,
+        dom: '<if<"scrolling-table"t>>', # places table info and filter, then table, then nothing
         deferRender: true,
         scrollX: true,
-        scrollY: "400px",
+        scrollY: "600px",
+        scrollCollapse: true,
         paging: false,
         autoWidth: false,
         fixedColumns:
@@ -87,6 +89,11 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       )
       # Update actual warnings
       @updateAllActualWarnings()
+
+      # Removes the form-inline class from the wrapper so that inputs in our table can
+      # take on full width. This is expected to be fixed in a future release of DataTables.
+      @$('#patientDashboardTable_wrapper').removeClass('form-inline')
+      @$('#patientDashboardTable_filter').addClass('form-inline') # Search input
 
       # Attaches popover to datacriteria class.
       $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
