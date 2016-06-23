@@ -90,7 +90,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       order: [], # disables initial sorting
       paging: false,
       fixedColumns:
-        leftColumns: 2
+        leftColumns: 2 + @populations.length
       preDrawCallback: => @updateDisplay()
     )
 
@@ -118,13 +118,13 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   getTableColumns: (patient) ->
     column = []
-    column.push data: 'actions'
-    column.push data: 'description', className: 'limited'
-    for population in @populations
-       column.push data: 'expected' + population
-     for population in @populations
-       column.push data: 'actual' + population
     column.push data: 'passes'
+    for population in @populations
+      column.push data: 'actual' + population, className: 'value'
+    column.push data: 'actions'
+    for population in @populations
+      column.push data: 'expected' + population, className: 'value'
+    column.push data: 'description', className: 'limited'
     column.push data: 'birthdate'
     column.push data: 'deathdate'
     column.push data: 'gender'
