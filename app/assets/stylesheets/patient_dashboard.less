@@ -90,6 +90,10 @@ table.dataTable {
   z-index: 10;
   table-layout: fixed;
 
+  tbody > tr > td {
+    vertical-align: middle;
+  }
+
   thead .sorting,
   thead .sorting_asc,
   thead .sorting_desc,
@@ -136,6 +140,7 @@ table.dataTable {
     height: 60px;
     width: 40px;
     text-align: left;
+    vertical-align: inherit; // override the bootstrap alignment
   }
 
   th.rotate > div {
@@ -148,25 +153,34 @@ table.dataTable {
   /* basic cell styling. keeping in div because can managing text overflow more easily */
   th > div,
   td > div:not(.btn-group) {
-    height: 20px;
     overflow: hidden;
   }
 
   td.warn {
-    background-color: @red-lighter;
+    border: 2px solid @red-darker;
   }
 }
 
-.patient-dashboard .dropdown-menu {
-  min-width: initial; // removes min-width: 160px from bootstrap
+.patient-options.btn-group {
   width: 100%;
+  & .btn {
+    text-align: left;
+  }
+  & .patient-name {
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  & .dropdown-menu {
+    min-width: initial; // removes min-width: 160px from bootstrap
+    width: 100%;
 
-  & > li > .btn-danger {
-    color: @red-darker;
+    & > li > .btn-danger {
+      color: @red-darker;
+    }
   }
 }
 
 .sorting_1, .sorting_2, .sorting_3 {
   background-color: @blue-lightest;
 }
-

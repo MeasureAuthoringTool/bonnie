@@ -47,9 +47,15 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     @results = @population.calculationResults()
     @results.calculationsComplete =>
       @patientResults = @results.toJSON()
-      patientData = @createHeaderRows()
-      @head1 = patientData.slice(0, 1)[0]
-      @head2 = patientData.slice(1, 2)[0]
+      headerData = @createHeaderRows()
+      @head1 = headerData.slice(0, 1)[0]
+      @head2 = headerData.slice(1, 2)[0]
+
+    # create a PatientDashboardPatient for each patient, these are
+    # used for each row in patient dashboard.
+    @patientData = []
+    for patient in @measure.get('patients').models
+      @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
 
   context: ->
     _(super).extend
@@ -59,44 +65,52 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       widths: @widths
 
   events:
+    'ready': 'setup'
+
     rendered: ->
       $('.container').removeClass('container').addClass('container-fluid')
       @patientEditView.appendTo(@$el)
+
     destroyed: ->
       $('.container-fluid').removeClass('container-fluid').addClass('container')
 
-    ready: ->
-      # On ready, create a PatientDashboardPatient for each patient, these are
-      # used for each row in patient dashboard.
-      @patientData = []
-      for patient in @measure.get('patients').models
-        @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
-      # Create column access info for use by DataTables
-      @tableColumns = @getTableColumns(@patientData?[0])
-      # Initialize patient dashboard using DataTables
-      table = @$('#patientDashboardTable').DataTable(
-        data: @patientData,
-        columns: @tableColumns,
-        dom: '<if<"scrolling-table"t>>', # places table info and filter, then table, then nothing
-        deferRender: true,
-        scrollX: true,
-        scrollY: "600px",
-        scrollCollapse: true,
-        paging: false,
-        autoWidth: false,
-        fixedColumns:
-          leftColumns: 2
-      )
-      # Update actual warnings
+  setup: ->
+    # Create column access info for use by DataTables
+    @tableColumns = @getTableColumns(@patientData?[0])
+
+    # Initialize patient dashboard using DataTables
+    table = @$('#patientDashboardTable').DataTable(
+      data: @patientData,
+      columns: @tableColumns,
+      dom: '<if<"scrolling-table"t>>', # places table info and filter, then table, then nothing
+      deferRender: true,
+      scrollX: true,
+      scrollY: "600px",
+      scrollCollapse: true,
+      order: [], # disables initial sorting
+      paging: false,
+      fixedColumns:
+        leftColumns: 2
+      preDrawCallback: => @updateDisplay()
+    )
+
+    # Removes the form-inline class from the wrapper so that inputs in our table can
+    # take on full width. This is expected to be fixed in a future release of DataTables.
+    @$('#patientDashboardTable_wrapper').removeClass('form-inline')
+    @$('#patientDashboardTable_filter').addClass('form-inline') # Search input
+
+  ###
+  Performs some actions on the DOM to properly render popovers,
+  patient names, and warnings
+  ###
+  updateDisplay: (rowIndex) =>
+    # Attaches popover to datacriteria class.
+    @$('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
+    # Update actual warnings
+    if rowIndex
+      @updateActualWarnings(rowIndex)
+    else
       @updateAllActualWarnings()
-
-      # Removes the form-inline class from the wrapper so that inputs in our table can
-      # take on full width. This is expected to be fixed in a future release of DataTables.
-      @$('#patientDashboardTable_wrapper').removeClass('form-inline')
-      @$('#patientDashboardTable_filter').addClass('form-inline') # Search input
-
-      # Attaches popover to datacriteria class.
-      $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
 
   ###
   @returns {Array} an array of "instructions" for each column in a row that
@@ -104,13 +118,13 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   getTableColumns: (patient) ->
     column = []
-    column.push data: 'actions', defaultContent: $('#actionDropdown').html()
+    column.push data: 'actions'
     column.push data: 'description', className: 'limited'
     for population in @populations
        column.push data: 'expected' + population
      for population in @populations
        column.push data: 'actual' + population
-    column.push data: 'passes', render: @insertHighlightedText
+    column.push data: 'passes'
     column.push data: 'birthdate'
     column.push data: 'deathdate'
     column.push data: 'gender'
@@ -133,14 +147,17 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     cloneElement = $('.table-popover-container').clone()
     if data != ""
       if data == 'SPECIFICALLY FALSE'
-        $('.table-cell-popover-div', cloneElement).html($('#dcSpecFalse').html() + ' ' + data)
-        $('.table-cell-popover-div', cloneElement).addClass('text-danger')
+        $('.table-cell-popover-div', cloneElement)
+          .addClass('text-danger')
+          .html($('#dcSpecFalse').html() + ' ' + data)
       else if data == 'FALSE'
-        $('.table-cell-popover-div', cloneElement).html($('#dcFalse').html() + ' ' + data)
-        $('.table-cell-popover-div', cloneElement).addClass('text-danger')
+        $('.table-cell-popover-div', cloneElement)
+          .addClass('text-danger')
+          .html($('#dcFalse').html() + ' ' + data)
       else
-        $('.table-cell-popover-div', cloneElement).html($('#dcTrue').html() + ' ' + data)
-        $('.table-cell-popover-div', cloneElement).addClass('text-success')
+        $('.table-cell-popover-div', cloneElement)
+          .addClass('text-success')
+          .html($('#dcTrue').html() + ' ' + data)
       $('.table-cell-popover-div', cloneElement).attr('patientId', row.id)
       $('.table-cell-popover-div', cloneElement).attr('columnNumber', meta.col)
       cloneElement.html()
@@ -154,14 +171,17 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     cloneElement = $('.table-status-container').clone()
     if data != ""
       if data == 'SPECIFICALLY FALSE'
-        $('.table-status', cloneElement).html($('#dcSpecFalse').html() + ' ' + data)
-        $('.table-status', cloneElement).addClass('text-danger')
+        $('.table-status', cloneElement)
+          .addClass('text-danger')
+          .html($('#dcSpecFalse').html() + ' ' + data)
       else if data == 'FALSE'
-        $('.table-status', cloneElement).html($('#dcFalse').html() + ' ' + data)
-        $('.table-status', cloneElement).addClass('text-danger')
+        $('.table-status', cloneElement)
+          .addClass('text-danger')
+          .html($('#dcFalse').html() + ' ' + data)
       else
-        $('.table-status', cloneElement).html($('#dcTrue').html() + ' ' + data)
-        $('.table-status', cloneElement).addClass('text-success')
+        $('.table-status', cloneElement)
+          .addClass('text-success')
+          .html($('#dcTrue').html() + ' ' + data)
       $('.table-status', cloneElement).attr('patientId', row.id)
       $('.table-status', cloneElement).attr('columnNumber', meta.col)
       cloneElement.html()
@@ -220,7 +240,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   selectRow: (rowIndex) ->
     nodes = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
-    $(nodes).addClass('pdhighlight')
+    $(nodes).addClass('active')
     $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().update()
 
   ###
@@ -228,7 +248,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   deselectRow: (rowIndex) ->
     nodes = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
-    $(nodes).removeClass('pdhighlight')
+    $(nodes).removeClass('active')
     $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().update()
 
   ###
@@ -236,7 +256,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   scrollToPopulation: (sender) ->
     pop = sender?.currentTarget.innerText
-    $('.dataTables_scrollBody').scrollTo($('#' + pop), offset: left: -@pd.getHorizontalScrollOffset())
+    @$('.dataTables_scrollBody').scrollTo($('#' + pop), offset: left: -@pd.getHorizontalScrollOffset())
 
   ###
   Updates actual warnings for a given row index
@@ -248,9 +268,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       actualIndex = (@pd.getIndex 'actual' + population) + 1
       td = $('td:nth-child(' + actualIndex + ')', nodes[0])
       if row['expected' + population] != row['actual' + population]
-        td.addClass('pdwarn')
+        td.addClass('warn')
       else
-        td.removeClass('pdwarn')
+        td.removeClass('warn')
 
   ###
   Updates actual warnings for all rows
@@ -300,9 +320,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Make datepickers active
     $('.birthdate' + rowIndex).datepicker()
     $('.deathdate' + rowIndex).datepicker()
-    # Attaches popover to datacriteria class.
-    $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
 
+    @updateDisplay(rowIndex)
 
   ###
   Saves the inline edits made to a patient
@@ -312,9 +331,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     targetCell = sender?.currentTarget?.parentElement
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
-
-    # Remove the backup row
-    delete row['old']
 
     # Get user inputs. Since the FixedColumns plugin essentially adds another
     # whole table above a few columns of the original, these inputs are
@@ -349,14 +365,12 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       success: (model) =>
         result = @population.calculateResult patient
         result.calculationsComplete =>
-          row['actions'] = $('#actionDropdown').html()
+          row['actions'] = row['old']['actions']
           @patientData[rowIndex] = row
           @results.add result.models
           @setRowData(rowIndex, row)
           @deselectRow(rowIndex)
-          # Attaches popover to datacriteria class.
-          $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
-          @updateActualWarnings(rowIndex)
+          @updateDisplay(rowIndex)
 
   ###
   Cancels the edits made to an inline patient
@@ -369,8 +383,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     @setRowData(rowIndex, row['old'])
     # Remove row selection
     @deselectRow(rowIndex)
-    # Attaches popover to datacriteria class.
-    $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
+    @updateDisplay()
 
   ###
   Opens the full patient builder modal for more advanced patient editing
@@ -504,7 +517,7 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
           $('#patientDashboardTable').DataTable().row(@rowIndex).data(@patientData).draw()
         else
           $('#patientDashboardTable').DataTable().row.add(@patientData).draw()
-        $('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
+        @dashboard.updateDisplay()
         @dashboard.updatePatientDataSources @result, @patientData
         @dashboard.updateAllActualWarnings()
 
