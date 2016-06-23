@@ -108,7 +108,7 @@
           beforeMeasure.fetch(success: =>
             patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, beforemeasure: beforeMeasure, latestupsum: latestUpsum)
             @mainView.setView patientBuilderView
-            @breadcrumb.addPatient(measure, patient)
+            @breadcrumb.editPatient(measure, patient)
             )
           )
         )
