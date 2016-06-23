@@ -1,4 +1,4 @@
-<table id="patientDashboardTable" class="cell-border" cellspacing="0" width="100%">
+<table id="patientDashboardTable" class="table" cellspacing="0" width="100%">
 
   <button class='btn btn-success' data-call-method="createNewPatient"><i aria-hidden="true" class="fa fa-fw fa-plus"></i> Create Patient</button> &nbsp;
   <div class="btn-group" role="group" aria-label="...">
@@ -25,36 +25,6 @@
   <tbody>
   </tbody>
 </table>
-
-<div class="hidden" id="actionDropdown">
-  <div class="btn-group open">
-    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-      <i class="fa fa-fw fa-user"></i> PatientName
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-      <li>
-        <button class="btn btn-sm btn-link" data-call-method="makeInlineEditable">
-          <i aria-hidden="true" class="fa fa-fw fa-pencil"></i>
-          Edit
-        </button>
-      </li>
-      <li>
-        <button class="btn btn-sm btn-link" data-call-method="openEditDialog">
-          <i aria-hidden="true" class="fa fa-fw fa-square-o"></i>
-          Open
-        </button>
-      </li>
-      <li role="separator" class="divider"></li>
-      <li>
-        <button class="btn btn-sm btn-link btn-danger" data-call-method="openEditDialog">
-          <i aria-hidden="true" class="fa fa-fw fa-times"></i>
-          Delete
-        </button>
-      </li>
-    </ul>
-  </div>
-</div>
 
 <div class="hidden" id="saveEditButton">
   <button class="btn btn-sm btn-success" data-call-method="saveEdits">
@@ -96,7 +66,7 @@
   <div class="table-status"></div>
 </div>
 <div class="hidden" id="dcTrue">
-    <i aria-hidden="true" class="fa fa-fw fa-check-circle"></i>
+  <i aria-hidden="true" class="fa fa-fw fa-check-circle"></i>
 </div>
 <div class="hidden" id="dcFalse">
   <i aria-hidden="true" class="fa fa-fw fa-times-circle"></i>

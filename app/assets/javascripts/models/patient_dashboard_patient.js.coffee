@@ -5,6 +5,7 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     @_id = @patient.get('_id')
     @first = @patient.get('first')
     @last = @patient.get('last')
+    @name = @patient.get('last') + " " + @patient.get('first')
     @description = if @patient.get('notes') then @patient.get('notes') else ''
     @_birthdate = @patient.get('birthdate')
     @birthdate = if @_birthdate then moment.utc(@_birthdate, 'X').format('L') else ''
@@ -17,15 +18,51 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     # Get expected population results; check if patient is passing
     @_expected = @getExpectedResults()
     @_actual = @getActualResults()
-    @passes = @isPatientPassing()
+    @passes = if @isPatientPassing() == "PASS"
+                '<div class="patient-status status status-pass">pass</div>'
+              else
+                '<div class="patient-status status status-fail">fail</div>'
 
-    # Actions button
-    @actions
+    @actions = @makeActionButton(@name, @isPatientPassing())
 
     # Set up instance variables for use by Patient Dashboard
     @saveExpectedResults()
     @saveActualResults()
     @savePopulationResults()
+
+  makeActionButton: (name, passes) ->
+    state = if passes == "PASS" then 'primary' else 'danger'
+    return '<div class="patient-options btn-group">
+      <button type="button" class="btn btn-sm btn-'+state+' patient-name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-fw fa-user"></i>
+        <span class="name">'+name+'</span>
+      </button>
+      <button type="button" class="btn btn-sm btn-'+state+' dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <button class="btn btn-sm btn-block btn-link" data-call-method="makeInlineEditable">
+            <i aria-hidden="true" class="fa fa-fw fa-pencil"></i>
+            Edit
+          </button>
+        </li>
+        <li>
+          <button class="btn btn-sm btn-block btn-link" data-call-method="openEditDialog">
+            <i aria-hidden="true" class="fa fa-fw fa-square-o"></i>
+            Open
+          </button>
+        </li>
+        <li role="separator" class="divider"></li>
+        <li>
+          <button class="btn btn-sm btn-block btn-link btn-danger" data-call-method="openEditDialog">
+            <i aria-hidden="true" class="fa fa-fw fa-times"></i>
+            Delete
+          </button>
+        </li>
+      </ul>
+    </div>'
 
   ###
   @returns {String} id of this patient
@@ -118,5 +155,5 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
   isPatientPassing: ->
     for population in @populations
       if @_expected[population] != @_actual[population]
-        return "FALSE"
-    return "TRUE"
+        return "FAIL"
+    return "PASS"
