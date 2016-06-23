@@ -1,0 +1,172 @@
+html, body, .container-fluid, [role="main"], .measure-layout, .patient-dashboard-layout, .patient-dashboard {
+  // height: 100%;
+}
+
+.limited {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tableScrollContainerList {
+  overflow-y: scroll;
+  max-height: 300px !important;
+  height: auto;
+}
+
+.popover-ul {
+  list-style: none;
+  marging-left: 0;
+  padding-left: 0;
+}
+
+.popover-eval-true-li {
+  padding-left: 1em;
+  text-indent: -1em;
+  background-color: @state-success-bg;
+  color: @state-success-text;
+  &:before {
+      padding-left: 2px;
+      content: @fa-var-check;
+      font-family: FontAwesome;
+  }
+}
+
+.popover-eval-false-li {
+  padding-left: 1em;
+  text-indent: -1em;
+  background-color: @state-danger-bg;
+  color: @state-danger-text;
+  &:before {
+      padding-left: 2px;
+      content: @fa-var-times;
+      font-family: FontAwesome;
+  }
+}
+
+.popover-eval-specifics-li {
+  padding-left: 1em;
+  text-indent: -1em;
+  background-color: @state-danger-bg;
+  color: @state-danger-text;
+  &:before {
+    padding-left: 2px;
+    content: @fa-var-asterisk;
+    font-family: FontAwesome;
+  }
+}
+
+.patient-dashboard {
+  .make-sm-column(12);
+}
+
+.scroll-container {
+  margin: 1rem 0 1rem;
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  z-index: 10;
+}
+
+// a loop that shifts the background and border colors
+// on each iteration by -41 degrees for ok contrast
+.set-header-bg-colors(@i) when (@i > 0) {
+  @angle: -41*@i;
+  thead tr:first-of-type th:nth-of-type(@{i}) {
+    background: spin(@blue-lightest, @angle);
+    border: 1px solid darken(spin(@blue-lightest, @angle), 20%)
+  }
+  .set-header-bg-colors(@i - 1); // iterate.
+}
+
+
+table.dataTable {
+  z-index: 10;
+  table-layout: fixed;
+
+  thead .sorting,
+  thead .sorting_asc,
+  thead .sorting_desc,
+  thead .sorting_asc_disabled,
+  thead .sorting_desc_disabled {
+    background-position: 100% 93%; // places the sorting icon at the bottom right
+  }
+
+  thead tr:first-of-type th {
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .set-header-bg-colors(12);
+
+  tr.inline-edit-mode > td.editable {
+    background-color: #ddeeee !important;
+  }
+
+  th > div.tableScrollContainer {
+    padding: 0px;
+    position: relative;
+    height: 150px;
+  }
+
+  th > div > div.tableScroll {
+    max-height:100%;
+    max-width:100%;
+    overflow-y:auto;
+    overflow-x:hidden;
+    position:absolute;
+    bottom: 0;
+    left: 0;
+    white-space: normal;
+  }
+
+  /* population header styling so text is vertical */
+  th.rotate {
+    font-size: 90%;
+    height: 60px;
+    width: 40px;
+    text-align: left;
+  }
+
+  th.rotate > div {
+    transform:
+      translate(-40px, 35px) /* magic numbers to get the text placement correct */
+      rotate(-90deg);
+    width: 80px;
+  }
+
+  /* basic cell styling. keeping in div because can managing text overflow more easily */
+  th > div,
+  td > div {
+    height: 20px;
+    overflow: hidden;
+  }
+
+  td.action {
+    vertical-align:middle;
+  }
+
+  td.action > div {
+    height: 25px;
+    padding: 0px;
+  }
+
+  /* TODO: rework these so that they work for any number of actions */
+  td.action:nth-child(1)  {
+    border-right-style:none;
+  }
+  th.action:nth-child(1) {
+    border-right-style:none;
+  }
+
+  td.warn {
+    background-color: pink;
+  }
+
+  /* added to remove border when an action is selected */
+  /* TODO: make this so it ONLY removes the border for actions */
+  .wtBorder {
+    display: none !important;
+  }
+}

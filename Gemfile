@@ -13,6 +13,9 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
+#gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
+gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'master'
+
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master'
 gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
 gem 'hqmf2js', :git => 'https://github.com/projecttacoma/hqmf2js.git', :branch => 'master'
@@ -45,12 +48,19 @@ gem 'roo'
 
 gem 'oj' # Faster JSON
 
+gem 'apipie-rails', :git => 'https://github.com/hossenlopp/apipie-rails', :branch => 'master' # API documentation generation
+gem 'maruku' # enable Markup for API documentation
+gem 'doorkeeper', '=3.0.0'
+gem "doorkeeper-mongodb", :git => 'https://github.com/doorkeeper-gem/doorkeeper-mongodb', :branch => 'master'
+
 group :test, :development, :ci do
   gem 'pry'
   gem 'jasmine'
   gem 'jasmine-jquery-rails'
   gem 'simplecov', :require => false
   gem 'minitest'
+  gem 'webmock'
+  gem 'vcr'
 end
 
 group :test, :development do

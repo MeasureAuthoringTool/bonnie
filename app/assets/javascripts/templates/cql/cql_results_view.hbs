@@ -1,0 +1,20 @@
+<div class="panel-group cql-results" id="accordion" role="tablist" aria-multiselectable="false">
+
+{{#each patients}}
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" aria-controls="{{id}}">
+          <i class="fa fa-user fa-fw" aria-hidden="true"></i>{{attributes.first}}, {{attributes.last}}
+        </a>
+      </h4>
+    </div>
+    <div id="{{id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        {{view "CQLResultView" result = this.attributes.results}}
+      </div>
+    </div>
+  </div>
+{{/each}}
+
+</div>

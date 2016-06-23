@@ -1,4 +1,6 @@
 Bonnie::Application.routes.draw do
+  use_doorkeeper
+  apipie
   devise_for :users,:controllers => {:registrations => "registrations"}
 
   devise_scope :user do
@@ -25,6 +27,7 @@ Bonnie::Application.routes.draw do
       post 'finalize'
       get 'vsac_auth_valid'
       post 'vsac_auth_expire'
+      post 'cql_to_elm'
     end
     member do
       get 'debug', defaults: { format: :html }
@@ -58,6 +61,21 @@ Bonnie::Application.routes.draw do
         get 'measures'
         get 'bundle'
         post 'log_in_as'
+      end
+    end
+  end
+
+  namespace :api_v1 do
+    resources :measures, :defaults => { :format => 'json' } do
+      collection do
+        get 'index'
+      end
+      member do
+        get 'show'
+        get 'patients'
+        get 'calculated_results'
+        post 'create'
+        put 'update'
       end
     end
   end
