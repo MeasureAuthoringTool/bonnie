@@ -50,8 +50,9 @@
     @navigationSetup "Measure View", "dashboard"
     measure = @measures.findWhere({hqmf_set_id: hqmfSetId})
     document.title += " - #{measure.get('cms_id')}" if measure?
-    measureView = new Thorax.Views.Measure(model: measure, patients: @patients)
-    @mainView.setView(measureView)
+    measureLayoutView = new Thorax.Views.MeasureLayout(measure: measure, patients: @patients)
+    @mainView.setView(measureLayoutView)
+    measureLayoutView.showMeasure()
     @breadcrumb.addMeasure(measure)
 
   renderUsers: ->
@@ -65,7 +66,7 @@
     measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
     document.title += " - #{measure.get('cms_id')}" if measure?
-    patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
+    patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, showCompleteView: true)
     @mainView.setView patientBuilderView
     @breadcrumb.addPatient(measure, patient)
 
@@ -96,7 +97,7 @@
   navigateToPatientBuilder: (patient, measure) ->
     # FIXME: Remove this when the Patients View is removed; select the first measure if a measure isn't passed in
     measure ?= @measures.findWhere {hqmf_set_id: patient.get('measure_ids')[0]}
-    @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures)
+    @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, showCompleteView: true)
     @breadcrumb.addPatient(measure, patient)
     @navigate "measures/#{measure.get('hqmf_set_id')}/patients/new"
 
