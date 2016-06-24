@@ -15,48 +15,6 @@ html, body, .container-fluid, [role="main"], .measure-layout, .patient-dashboard
   height: auto;
 }
 
-.popover-ul {
-  list-style: none;
-  marging-left: 0;
-  padding-left: 0;
-}
-
-.popover-eval-true-li {
-  padding-left: 1em;
-  text-indent: -1em;
-  background-color: @state-success-bg;
-  color: @state-success-text;
-  &:before {
-      padding-left: 2px;
-      content: @fa-var-check;
-      font-family: FontAwesome;
-  }
-}
-
-.popover-eval-false-li {
-  padding-left: 1em;
-  text-indent: -1em;
-  background-color: @state-danger-bg;
-  color: @state-danger-text;
-  &:before {
-      padding-left: 2px;
-      content: @fa-var-times;
-      font-family: FontAwesome;
-  }
-}
-
-.popover-eval-specifics-li {
-  padding-left: 1em;
-  text-indent: -1em;
-  background-color: @state-danger-bg;
-  color: @state-danger-text;
-  &:before {
-    padding-left: 2px;
-    content: @fa-var-asterisk;
-    font-family: FontAwesome;
-  }
-}
-
 .patient-dashboard {
   .make-sm-column(12);
 }
