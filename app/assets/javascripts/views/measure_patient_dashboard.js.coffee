@@ -407,18 +407,18 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     patientResult = @matchPatientToPatientId($(sender.target).attr('patientId'))
 
     if Object.keys(children_criteria).length > 0
-      formatCriteria = '<div class="tableScrollContainerList"><ul class="popover-ul">'
+      formatCriteria = '<div class="tableScrollContainerList"><ul class="list-unstyled">'
       for childDataCriteriaKey, childDataCriteriaText of children_criteria
         if patientResult.rationale[childDataCriteriaKey]? && childDataCriteriaKey != dataCriteriaKey
           # Searches patientDashboardPatients on patient id.
           patientDashboardPatient = (patient for patient in @patientData when patient.id == $(sender.target).attr('patientId'))[0]
           result = patientDashboardPatient.getPatientCriteriaResult childDataCriteriaKey, populationKey
           if result == "SPECIFICALLY FALSE"
-            formatCriteria += '<li class="popover-eval-specifics-li">' + childDataCriteriaText + '</li>'
+            formatCriteria += '<li class="bg-danger text-danger">' + $('#dcSpecFalse').html() + childDataCriteriaText + '</li>'
           else if result == 'TRUE'
-            formatCriteria += '<li class="popover-eval-true-li">' + childDataCriteriaText + '</li>'
+            formatCriteria += '<li class="bg-success text-success">' + $('#dcTrue').html() + childDataCriteriaText + '</li>'
           else if result == 'FALSE'
-            formatCriteria += '<li class="popover-eval-false-li">' + childDataCriteriaText + '</li>'
+            formatCriteria += '<li class="bg-danger text-danger">' + $('#dcFalse').html() + childDataCriteriaText + '</li>'
       formatCriteria += '</ul></div>'
     else
       formatCriteria = "No Children Data Criteria"
