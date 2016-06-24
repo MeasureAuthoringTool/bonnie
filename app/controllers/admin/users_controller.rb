@@ -28,6 +28,7 @@ class Admin::UsersController < ApplicationController
     User.asc(:email).each do |user|
       email = Admin::UsersMailer.users_email(user, params[:subject], params[:body])
       email.deliver
+      sleep 2 # address issues with mail throttling
     end
     render json: {}
   end
@@ -39,6 +40,7 @@ class Admin::UsersController < ApplicationController
       if user.measure_count > 0
         email = Admin::UsersMailer.users_email(user, params[:subject], params[:body])
         email.deliver
+        sleep 2 # address issues with mail throttling
       end
     end
     render json: {}
