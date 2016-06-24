@@ -96,7 +96,8 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     dataCollections[PatientDashboard.RESULT] = {name: "Result", items: [PatientDashboard.RESULT] }
     dataCollections[PatientDashboard.EXPECTED] = { name: "Expected", items: PatientDashboard.EXPECTED_PREFIX + pop for pop in populations }
     dataCollections[PatientDashboard.ACTUAL] = { name: "Actual", items: PatientDashboard.ACTUAL_PREFIX + pop for pop in populations }
-    dataCollections[PatientDashboard.METADATA] = {name: "Metadata", items: [PatientDashboard.DESCRIPTION, PatientDashboard.BIRTHDATE, PatientDashboard.DEATHDATE, PatientDashboard.GENDER]}
+    dataCollections[PatientDashboard.DESCRIPTION] = {name: "Notes", items: [PatientDashboard.DESCRIPTION] }
+    dataCollections[PatientDashboard.METADATA] = {name: "Metadata", items: [PatientDashboard.BIRTHDATE, PatientDashboard.DEATHDATE, PatientDashboard.GENDER]}
 
     for population in populations
       dataCollections[population] = { name: population, items: population + '_' + criteria for criteria in criteria_keys_by_population[population] }
