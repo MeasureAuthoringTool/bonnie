@@ -120,10 +120,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     column = []
     column.push data: 'passes'
     for population in @populations
-      column.push data: 'actual' + population, className: 'value'
+      column.push data: 'actual' + population, className: 'value', render: @insertResultValue
     column.push data: 'actions'
     for population in @populations
-      column.push data: 'expected' + population, className: 'value'
+      column.push data: 'expected' + population, className: 'value', render: @insertResultValue
     column.push data: 'description', className: 'limited'
     column.push data: 'birthdate'
     column.push data: 'deathdate'
@@ -138,6 +138,19 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     for entry in dc
       column.push data: entry, render: @insertTextAndPatientData
     column
+
+  ###
+  Adjusts the result 0 and 1 to the more familiar checkboxes.
+  ###
+  insertResultValue: (data, type, row, meta) ->
+    # TODO: Check the type of measure and adjust this method for it
+    if row
+      if data == 0
+        '<span class="sr-only">Does not meet this population.</span>
+        <i class="fa fa-square-o default" aria-hidden="true"></i>'
+      else if data == 1
+        '<span class="sr-only">Meets this population.</span>
+        <i class="fa fa-check-square-o default" aria-hidden="true"></i>'
 
   ###
   Populates the Popover with children data criteria if they exist and populates
