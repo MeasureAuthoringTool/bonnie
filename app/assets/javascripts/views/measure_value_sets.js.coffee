@@ -38,7 +38,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
           version = bonnie.valueSetsByOid[oid].version
           # if it's a date (rather than "Draft"), format the version
           version = moment(version, "YYYYMMDD").format("MM/DD/YYYY") if moment(version, "YYYYMMDD").isValid()
-          codeConcepts = bonnie.valueSetsByOid[oid].concepts
+          codeConcepts = bonnie.valueSetsByOid[oid].concepts ? []
           for code in codeConcepts
             code.hasLongDisplayName = code.display_name.length > 160
         else
