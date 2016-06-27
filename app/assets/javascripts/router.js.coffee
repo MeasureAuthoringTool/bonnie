@@ -100,19 +100,15 @@
     document.title += " - #{measure.get('cms_id')}" if measure?
     # Deal with getting the archived measure and the calculation snapshot for the patient at measure upload
     upsums = measure.get('upload_summaries')
-    upsums.fetch(success: =>
-      latestUpsum = upsums.at 0 # Comes back ordered desc do 0 is the most recent upload
-      latestUpsum.fetch(success: =>
-        measure.get('archived_measures').fetch(success: (archive) =>
-          beforeMeasure = archive.findWhere(_id: latestUpsum.get('measure_db_id_before'))
-          beforeMeasure.fetch(success: =>
-            patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, beforemeasure: beforeMeasure, latestupsum: latestUpsum)
-            @mainView.setView patientBuilderView
-            @breadcrumb.editPatient(measure, patient)
-            )
-          )
+    archivedMeausures = measure.get('archived_measures')
+    $.when(upsums.fetchDeferred(), archivedMeausures.fetchDeferred())
+      .then( -> upsums.at(0).fetchDeferred() )
+      .then((latestUpsum) -> archivedMeausures.findWhere(_id: latestUpsum.get('measure_db_id_before')).fetchDeferred())
+      .then((beforeMeasure) => 
+        patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, beforemeasure: beforeMeasure, latestupsum: upsums.at(0))
+        @mainView.setView patientBuilderView
+        @breadcrumb.editPatient(measure, patient) 
         )
-    )
 
   # Common setup method used by all routes
   navigationSetup: (title, selectedNav) ->
