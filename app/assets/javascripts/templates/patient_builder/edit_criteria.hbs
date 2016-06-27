@@ -36,11 +36,35 @@
       {{#ifCond showPatientInfo "==" 1}} {{!If the user wishes to preview the information}}
         <div class="row">
           <div class="col-md-12">
+            {{#if code_information}}
+              <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
+              <label class="control-label"><i class="fa fa-fw fa-code" aria-hidden="true"></i>Code<input class="sr-only" disabled></label>
+              {{#each code_information.[1]}}
+                {{#if this}} {{!If this code's description is over 100 chars long}}
+                  <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i>
+                    {{#with (lookup ../../code_information.[0] @index)}} {{!Display the shortened description}}
+                      <span id="text-to-be-expanded-{{@index}}"> {{this}} </span>
+                    {{/with}}
+                    {{#button 'displayCode' class="btn btn-default btn-xs pull-right"}} {{!And a button to show/hide}}
+                        <span id="hide-long-code-{{@index}}">Show More</span>
+                        <i id="font-awesome-caret-{{@index}}" class="fa fa-fw fa-caret-down fa-lg"></i>
+                    {{/button}}
+                  </div>
+                {{else}} {{!Otherwise}}
+                  {{#with (lookup ../../code_information.[0] @index)}}
+                  <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i>
+                    {{this}} {{!Display the description, because it's less than 100 chars}}
+                  </div>
+                  {{/with}}
+                {{/if}}
+              {{/each}}
+            {{/if}}
+            {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
             {{#if fulfillment_information}}
               <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
               <label class="control-label"><i class="fa fa-fw fa-medkit" aria-hidden="true"></i>Filled<input class="sr-only" disabled></label>
                 {{#each fulfillment_information}}
-                <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div> 
+                <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
                 {{/each}}
             {{/if}}          
             {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
@@ -48,7 +72,7 @@
               <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
               <label class="control-label"><i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>Result<input class="sr-only" disabled></label>
                 {{#each result_information}}
-                <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div> 
+                <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
                 {{/each}}
             {{/if}}          
             {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
@@ -56,7 +80,7 @@
               <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
               <label class="control-label"><i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>Field Values<input class="sr-only" disabled></label>
                 {{#each field_value_information}}
-                <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div> 
+                <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
                 {{/each}}
             {{/if}}          
             {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}  
@@ -64,7 +88,7 @@
               <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
               <label class="control-label"><i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>References<input class="sr-only" disabled></label>
                 {{#each references_information}}
-                <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div> 
+                <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
                 {{/each}}
             {{/if}}            
             {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}  

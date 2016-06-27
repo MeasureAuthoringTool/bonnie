@@ -19,8 +19,12 @@ Handlebars.registerHelper 'complexityIcon', (score) ->
 # elements to display, not trustable for security purposes
 Handlebars.registerHelper 'ifAdmin', (options) ->
   if bonnie.isAdmin then options.fn(this) else options.inverse(this)
+
 Handlebars.registerHelper 'ifPortfolio', (options) ->
   if bonnie.isPortfolio then options.fn(this) else options.inverse(this)
+  
+Handlebars.registerHelper "times", (n, block) ->
+  (block.fn(i) for i in [0...n]).join("")    
 
 Handlebars.registerHelper 'ifCond', (v1, operator, v2, options) ->
   switch operator
@@ -42,14 +46,10 @@ Handlebars.registerHelper 'ifCond', (v1, operator, v2, options) ->
       if (v1 || v2) then options.fn(this) else options.inverse(this)
     else return options.inverse(this)
 
-# Adds support for repeating a block N number of times
-# Provides @index context variable (indexed at 1 rather than 0)
-Handlebars.registerHelper 'times', (n, opts) ->
-  if n
-    out = ''
-    for index in [1..n]
-      out += opts.fn(this, data: { index: index })
-  else
-    out = opts.inverse(this)
-
-  return out
+# Helper to retrieve the element at a given position in an array
+Handlebars.registerHelper 'lookup', (array, index) ->
+  return array[index] || undefined
+  
+# Helper to make use of moment date formatting
+Handlebars.registerHelper 'dateFormat', (date, fmt) ->
+  return moment(date).format(fmt)

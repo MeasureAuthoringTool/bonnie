@@ -73,6 +73,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       vals: JSON.stringify(@model.get('references'))
     codes = @model.get('codes')
     concepts = @model.valueSet()?.get('concepts')
+    @myConcepts = concepts #instance version of concepts
     codes.on 'add remove', => @model.set 'code_source', (if codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView codes: codes
     @editCodeSelectionView.updateConcepts(concepts) if concepts
@@ -111,7 +112,46 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     results_information_array = []
     references_information_array = []
     fulfillments_information_array = []
-    #console.log @model
+    @code_information_array = [[],[]]
+    #The indexes of @code_information_array[0] and @code_information_array[1] "line up" 
+    #so, for example, @code_information_array[0][2] stores properties for @code_information_array[1][2] and vice versa
+    #[1] only exists for those description strings longer than 100 characters, otherwise it'll be null
+    #[0] contains the string to be displayed next to each code (originally). If this string is less than 100 chars, then [1] at the same index will be null
+    #otherwise, if over 100 chars, [1] will contain the un-trimmed string, and [0] will contain the trimmed string
+    #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    if @model.attributes.codes?
+      for index in [0..Object.keys(@myConcepts).length-1]#Get indexes for the "master list" of codes and codesets (@myConcepts)
+        for eachCode in @model.get('codes').models #Loop through each code within our model
+          if eachCode.get('code') == @myConcepts[index].code && eachCode.get('codeset') == @myConcepts[index].code_system_name
+            if @myConcepts[index].display_name.length > 100 #If the code description is longer than 100 chars
+              trimmedString = (@myConcepts[index].display_name).substr(0,100) + "..." #trim it
+              @code_information_array[0].push(@myConcepts[index].code_system_name + ": " + trimmedString)
+              @code_information_array[1].push(@myConcepts[index].code_system_name + ": " + @myConcepts[index].display_name)
+            else #Otherwise store the description string in [0] and null in [1]. Handlebars checks to see if [1][whatever_index] exists,
+                #and if it does, it will display the button to show/hide the longer description
+              @code_information_array[0].push(@myConcepts[index].code_system_name + ": " + @myConcepts[index].display_name)
+              @code_information_array[1].push(null)
+          else
+            existspreviously = 0 #reset this each time
+            for index_of_each_possible_code in [0..Object.keys(@myConcepts).length-1] #Get an index for the "master list" of codes and codesets (@myConcepts)
+              if eachCode.get('code') == @myConcepts[index_of_each_possible_code].code && eachCode.get('codeset') == @myConcepts[index_of_each_possible_code].code_system_name
+                  existspreviously++ #If our code and codeset exist within the list of codes and codesets, then it must existspreviously
+                  break #Prevents us from having to traverse the entire master list if we find it early
+            for eachValue in @code_information_array[0] #Checks our array[0]
+              if eachValue == eachCode.get('codeset') + ": " + eachCode.get('code') #If the string is longer than 100 chars
+                existspreviously++ #it will be found here, and will existspreviously
+            for eachValue in @code_information_array[1] #otherwise, check the array[1]-aka the codes with descriptions longer than 100 chars
+              if eachValue == eachCode.get('codeset') + ": " + eachCode.get('code') 
+                existspreviously++ #And if it matches, it must existspreviously
+            if existspreviously == 0 #If it wasn't found previously, add it
+              regularString = eachCode.get('codeset') + ": " + eachCode.get('code')
+              if regularString.length > 100 #Same trim system as above
+                 trimmedString = regularString.substr(0,100) + "..." 
+                 @code_information_array[0].push(trimmedString)
+                 @code_information_array[1].push(regularString)
+              else
+                @code_information_array[0].push(regularString)
+                @code_information_array[1].push(null)
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     if @model.attributes.fulfillments?
       fulfillments_information_array = @model.attributes.fulfillments.map((ful) ->
@@ -169,6 +209,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       startLabel: @model.startLabel()
       stopLabel: @model.stopLabel()
       showPatientInfo: @booleanShowOrHidePatientInformation
+      code_information: @code_information_array
       field_value_information: field_value_information_array
       references_information: references_information_array
       result_information: results_information_array
@@ -264,6 +305,22 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     e.preventDefault()
     type = @$(e.target).model().get('type')
     $(".#{type}-elements").focus()
+  
+  displayCode: (e) ->
+    index_of_string = e.target.id.substr(-1)
+    textForEachCode = "text-to-be-expanded-" + index_of_string
+    buttonText = "hide-long-code-" + index_of_string
+    buttonFontAwesomeClass = "font-awesome-caret-" + index_of_string
+    if @$("##{buttonText}").text()  == "Show More"
+      @$("##{textForEachCode}").text(@code_information_array[1][index_of_string])
+      @$("##{buttonText}").text("Show Less")
+      @$("##{buttonFontAwesomeClass}").removeClass("fa fa-fw fa-caret-down")
+      @$("##{buttonFontAwesomeClass}").addClass("fa fa-fw fa-caret-up")
+    else
+      @$("##{textForEachCode}").text(@code_information_array[0][index_of_string])
+      @$("##{buttonText}").text("Show More")
+      @$("##{buttonFontAwesomeClass}").removeClass("fa fa-fw fa-caret-up")
+      @$("##{buttonFontAwesomeClass}").addClass("fa fa-fw fa-caret-down")
 
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']
