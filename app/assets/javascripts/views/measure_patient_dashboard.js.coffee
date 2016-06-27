@@ -53,6 +53,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
     # create a PatientDashboardPatient for each patient, these are
     # used for each row in patient dashboard.
+    # TODO: Use a Thorax collection for this instead of array?
     @patientData = []
     for patient in @measure.get('patients').models
       @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
@@ -105,7 +106,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   updateDisplay: (rowIndex) =>
     # Attaches popover to datacriteria class.
-    @$('.table-popover-div').popover({delay: {"show": 500, "hide": 100}})
+    @$('[data-toggle="popover"]').popover()
     # Update actual warnings
     if rowIndex
       @updateActualWarnings(rowIndex)
@@ -141,63 +142,31 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
   ###
   Adjusts the result 0 and 1 to the more familiar checkboxes.
+  TODO: Check the type of measure and adjust this method for it
   ###
-  insertResultValue: (data, type, row, meta) ->
-    # TODO: Check the type of measure and adjust this method for it
+  insertResultValue: (data, type, row, meta) =>
     if row
-      if data == 0
-        '<span class="sr-only">Does not meet this population.</span>
-        <i class="fa fa-square-o default" aria-hidden="true"></i>'
-      else if data == 1
-        '<span class="sr-only">Meets this population.</span>
-        <i class="fa fa-check-square-o default" aria-hidden="true"></i>'
+      JST['pd_result_checkbox']({ result: data })
 
   ###
   Populates the Popover with children data criteria if they exist and populates
   the table cells with the datacriteria value.
   ###
-  insertTextAndPatientData: (data, type, row, meta) ->
-    cloneElement = $('.table-popover-container').clone()
+  insertTextAndPatientData: (data, type, row, meta) =>
     if data != ""
-      if data == 'SPECIFICALLY FALSE'
-        $('.table-cell-popover-div', cloneElement)
-          .addClass('text-danger')
-          .html($('#dcSpecFalse').html() + ' ' + data)
-      else if data == 'FALSE'
-        $('.table-cell-popover-div', cloneElement)
-          .addClass('text-danger')
-          .html($('#dcFalse').html() + ' ' + data)
-      else
-        $('.table-cell-popover-div', cloneElement)
-          .addClass('text-success')
-          .html($('#dcTrue').html() + ' ' + data)
-      $('.table-cell-popover-div', cloneElement).attr('patientId', row.id)
-      $('.table-cell-popover-div', cloneElement).attr('columnNumber', meta.col)
-      cloneElement.html()
-    else
-      return ''
+      popoverContent = @populatePopover(row.id, meta.col)
 
-  ###
-  Highlights passing or failing status
-  ###
-  insertHighlightedText: (data, type, row, meta) ->
-    cloneElement = $('.table-status-container').clone()
-    if data != ""
-      if data == 'SPECIFICALLY FALSE'
-        $('.table-status', cloneElement)
-          .addClass('text-danger')
-          .html($('#dcSpecFalse').html() + ' ' + data)
-      else if data == 'FALSE'
-        $('.table-status', cloneElement)
-          .addClass('text-danger')
-          .html($('#dcFalse').html() + ' ' + data)
-      else
-        $('.table-status', cloneElement)
-          .addClass('text-success')
-          .html($('#dcTrue').html() + ' ' + data)
-      $('.table-status', cloneElement).attr('patientId', row.id)
-      $('.table-status', cloneElement).attr('columnNumber', meta.col)
-      cloneElement.html()
+      return JST['pd_result_with_popover']({
+        content: if popoverContent.length > 0
+                   JST['pd_criteria_list']({ criteria: popoverContent })
+                 else
+                    ''
+        contentLength: popoverContent.length
+        result: JST['pd_result_detail']({
+          passes: data == "TRUE",
+          specifically: data.indexOf('SPECIFICALLY') >= 0
+        })
+      })
     else
       return ''
 
@@ -307,19 +276,12 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
     for k, v of @editableCols
       if k in ['description']
-        inputFieldDiv = $('#inputField').clone()
-        $(':first-child', inputFieldDiv).prop('id', k + rowIndex).prop('name', k + rowIndex).addClass(k + rowIndex)
-        row[k] = inputFieldDiv.html()
+        row[k] = JST['pd_input_field']({ rowIndex: rowIndex, key: k })
       else if k == 'gender'
-        if row[k] == 'M'
-          inputGenderDiv = $('#inputGenderM').clone()
-        else
-          inputGenderDiv = $('#inputGenderF').clone()
-        $(':first-child', inputGenderDiv).prop('id', k + rowIndex).prop('name', k + rowIndex).addClass(k + rowIndex)
-        row[k] = inputGenderDiv.html()
+        row[k] = JST['pd_edit_gender']({ rowIndex: rowIndex, femaleSelected: row[k] == 'F' })
 
     # Change edit button to save and cancel buttons
-    row['actions'] = $('#saveEditButton').html() + $('#closeEditButton').html()
+    row['actions'] = JST['pd_edit_controls']({})
 
     # Update row
     @setRowData(rowIndex, row)
@@ -328,7 +290,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Set current values in added inputs
     for k, v of @editableCols
       if k != 'gender'
-        $('.' + k + rowIndex).val(row['old'][k])
+        $('[name=' + k + rowIndex + ']').val(row['old'][k])
 
     # Make datepickers active
     $('.birthdate' + rowIndex).datepicker()
@@ -410,33 +372,29 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     @patientEditView.display patient, rowIndex
 
   ###
+  @returns {Array} an array of child criteria objects
   Grabs the children data criteria to display in a list for the selected cell.
   ###
-  populatePopover: (sender) ->
-    dataCriteria = @pd.dataIndices[$(sender.target).attr('columnNumber')] # Formatted "PopulationKey_DataCriteriaKey"
+  populatePopover: (patientId, columnNumber) ->
+    dataCriteria = @pd.dataIndices[columnNumber] # Formatted "PopulationKey_DataCriteriaKey"
     dataCriteriaKey = dataCriteria.substring(dataCriteria.indexOf('_') + 1)
     populationKey = dataCriteria.substring(0, dataCriteria.indexOf('_'))
     children_criteria = @pd.getChildrenCriteria dataCriteriaKey
-    patientResult = @matchPatientToPatientId($(sender.target).attr('patientId'))
+    patientResult = @matchPatientToPatientId(patientId)
+    criteriaList = []
 
-    if Object.keys(children_criteria).length > 0
-      formatCriteria = '<div class="tableScrollContainerList"><ul class="list-unstyled">'
-      for childDataCriteriaKey, childDataCriteriaText of children_criteria
-        if patientResult.rationale[childDataCriteriaKey]? && childDataCriteriaKey != dataCriteriaKey
-          # Searches patientDashboardPatients on patient id.
-          patientDashboardPatient = (patient for patient in @patientData when patient.id == $(sender.target).attr('patientId'))[0]
-          result = patientDashboardPatient.getPatientCriteriaResult childDataCriteriaKey, populationKey
-          if result == "SPECIFICALLY FALSE"
-            formatCriteria += '<li class="bg-danger text-danger">' + $('#dcSpecFalse').html() + childDataCriteriaText + '</li>'
-          else if result == 'TRUE'
-            formatCriteria += '<li class="bg-success text-success">' + $('#dcTrue').html() + childDataCriteriaText + '</li>'
-          else if result == 'FALSE'
-            formatCriteria += '<li class="bg-danger text-danger">' + $('#dcFalse').html() + childDataCriteriaText + '</li>'
-      formatCriteria += '</ul></div>'
-    else
-      formatCriteria = "No Children Data Criteria"
+    for childDataCriteriaKey, childDataCriteriaText of children_criteria
+      if patientResult.rationale[childDataCriteriaKey] && childDataCriteriaKey != dataCriteriaKey
+        patientDashboardPatient = _(@patientData).where({ id: patientId })[0]
+        result = patientDashboardPatient.getPatientCriteriaResult childDataCriteriaKey, populationKey
 
-    $(sender.currentTarget).attr('data-content', formatCriteria)
+        criteriaList.push({
+          text: childDataCriteriaText,
+          passes: result == "TRUE",
+          specifically: result.indexOf('SPECIFICALLY') >= 0
+        })
+
+    criteriaList
 
   ###
   @returns {Array} an array containing the contents of both headers
