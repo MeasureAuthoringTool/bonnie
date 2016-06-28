@@ -73,7 +73,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       vals: JSON.stringify(@model.get('references'))
     codes = @model.get('codes')
     concepts = @model.valueSet()?.get('concepts')
-    @myConcepts = concepts #instance version of concepts
+    @instancedConcepts = concepts #instance version of concepts so fnctn "displayCode" can access values
     codes.on 'add remove', => @model.set 'code_source', (if codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView codes: codes
     @editCodeSelectionView.updateConcepts(concepts) if concepts
@@ -120,37 +120,34 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     #otherwise, if over 100 chars, [1] will contain the un-trimmed string, and [0] will contain the trimmed string
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     if @model.attributes.codes?
-      for index in [0..Object.keys(@myConcepts).length-1]#Get indexes for the "master list" of codes and codesets (@myConcepts)
+      for index in [0..Object.keys(@instancedConcepts).length-1]#Get indexes for the "master list" of codes and codesets (@instancedConcepts)
         for eachCode in @model.get('codes').models #Loop through each code within our model
-          if eachCode.get('code') == @myConcepts[index].code && eachCode.get('codeset') == @myConcepts[index].code_system_name
-            if @myConcepts[index].display_name.length > 100 #If the code description is longer than 100 chars
-              trimmedString = (@myConcepts[index].display_name).substr(0,100) + "..." #trim it
-              @code_information_array[0].push(@myConcepts[index].code_system_name + ": " + trimmedString)
-              @code_information_array[1].push(@myConcepts[index].code_system_name + ": " + @myConcepts[index].display_name)
+          if eachCode.get('code') == @instancedConcepts[index].code && eachCode.get('codeset') == @instancedConcepts[index].code_system_name
+            if @instancedConcepts[index].display_name.length > 110 #If the code description is longer than 110 chars
+              trimmedString = (@instancedConcepts[index].display_name).substr(0,110) + "..." #trim it
+              @code_information_array[0].push(eachCode.get('codeset') + ":" + eachCode.get('code') + " - " + trimmedString)
+              @code_information_array[1].push(eachCode.get('codeset') + ":" + eachCode.get('code') + " - " + @instancedConcepts[index].display_name)
             else #Otherwise store the description string in [0] and null in [1]. Handlebars checks to see if [1][whatever_index] exists,
                 #and if it does, it will display the button to show/hide the longer description
-              @code_information_array[0].push(@myConcepts[index].code_system_name + ": " + @myConcepts[index].display_name)
+              @code_information_array[0].push(eachCode.get('codeset') + ":" + eachCode.get('code') + " - " + @instancedConcepts[index].display_name)
               @code_information_array[1].push(null)
           else
             existspreviously = 0 #reset this each time
-            for index_of_each_possible_code in [0..Object.keys(@myConcepts).length-1] #Get an index for the "master list" of codes and codesets (@myConcepts)
-              if eachCode.get('code') == @myConcepts[index_of_each_possible_code].code && eachCode.get('codeset') == @myConcepts[index_of_each_possible_code].code_system_name
+            code_description = eachCode.get('codeset') + ": " + eachCode.get('code')
+            for index_of_each_possible_code in [0..Object.keys(@instancedConcepts).length-1] #Get an index for the "master list" of codes and codesets (@instancedConcepts)
+              if eachCode.get('code') == @instancedConcepts[index_of_each_possible_code].code && eachCode.get('codeset') == @instancedConcepts[index_of_each_possible_code].code_system_name
                   existspreviously++ #If our code and codeset exist within the list of codes and codesets, then it must existspreviously
-                  break #Prevents us from having to traverse the entire master list if we find it early
-            for eachValue in @code_information_array[0] #Checks our array[0]
-              if eachValue == eachCode.get('codeset') + ": " + eachCode.get('code') #If the string is longer than 100 chars
-                existspreviously++ #it will be found here, and will existspreviously
-            for eachValue in @code_information_array[1] #otherwise, check the array[1]-aka the codes with descriptions longer than 100 chars
-              if eachValue == eachCode.get('codeset') + ": " + eachCode.get('code') 
-                existspreviously++ #And if it matches, it must existspreviously
+                  break #Prevents us from having to traverse the entire master list if we find a match early
+            for index_of_codes in [0..@code_information_array[0].length] #Next check through our array of values
+              if @code_information_array[0][index_of_codes] == code_description || @code_information_array[1][index_of_codes] == code_description
+                existspreviously++
             if existspreviously == 0 #If it wasn't found previously, add it
-              regularString = eachCode.get('codeset') + ": " + eachCode.get('code')
-              if regularString.length > 100 #Same trim system as above
-                 trimmedString = regularString.substr(0,100) + "..." 
+              if code_description.length > 110 #Same trim system as above
+                 trimmedString = code_description.substr(0,110) + "..."
                  @code_information_array[0].push(trimmedString)
-                 @code_information_array[1].push(regularString)
+                 @code_information_array[1].push(code_description)
               else
-                @code_information_array[0].push(regularString)
+                @code_information_array[0].push(code_description)
                 @code_information_array[1].push(null)
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     if @model.attributes.fulfillments?
@@ -187,7 +184,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       end_date = moment(@model.get('end_date'))
       #getDuration is within the parent (@builderView - patient_builder.js.coffee)
       element_duration =  @builderView.getDuration(start_date,end_date)
-
 
     definition_title = @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
@@ -311,16 +307,20 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     textForEachCode = "text-to-be-expanded-" + index_of_string
     buttonText = "hide-long-code-" + index_of_string
     buttonFontAwesomeClass = "font-awesome-caret-" + index_of_string
+    hrForSpacing = "hr-for-spacing-" + index_of_string
     if @$("##{buttonText}").text()  == "Show More"
       @$("##{textForEachCode}").text(@code_information_array[1][index_of_string])
       @$("##{buttonText}").text("Show Less")
       @$("##{buttonFontAwesomeClass}").removeClass("fa fa-fw fa-caret-down")
       @$("##{buttonFontAwesomeClass}").addClass("fa fa-fw fa-caret-up")
+      @$("##{hrForSpacing}").removeClass("hr-with-thin-margins")
     else
       @$("##{textForEachCode}").text(@code_information_array[0][index_of_string])
       @$("##{buttonText}").text("Show More")
       @$("##{buttonFontAwesomeClass}").removeClass("fa fa-fw fa-caret-up")
       @$("##{buttonFontAwesomeClass}").addClass("fa fa-fw fa-caret-down")
+      @$("##{hrForSpacing}").addClass("hr-with-thin-margins")
+
 
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']
