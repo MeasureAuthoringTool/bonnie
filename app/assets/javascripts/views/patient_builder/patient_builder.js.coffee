@@ -290,10 +290,10 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   #Just like with the "Arrange By" buttons, if you spam click the "Preview/Hide Information"
   #button it performs the action for each click. On patients with many events this can
   #easily mean 20-30 seconds of "lag" if the user has clicked 5+ times
-  #Only allow the previewing/hiding to occur if they haven't clicked in 1 second
+  #Only allow the previewing/hiding to occur if they haven't clicked in .75 seconds
   #TODO: The previewing/hiding button shares the same loading_spinner as the "Arrange By" buttons
   #Maybe give it its own loading spinner?
-    if @timeSinceInfoPreviewClick+1000 < e.timeStamp
+    if @timeSinceInfoPreviewClick+750 < e.timeStamp
       @timeSinceInfoPreviewClick = e.timeStamp #Overwrite previous timestamp with new one
       @$('#preview_information').blur()
       @$('#loading_spinner').removeClass('hidden')
@@ -354,17 +354,24 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         @patientStatus.patientAge = duration
       else
         @patientStatus.patientIsAlive = true
-        duration = @getDuration(moment(parseInt(@model.get('birthdate'))*1000), moment(Date.now()))
+        durationEndDate = @getDuration(moment(@model.get('birthdate')*1000), moment.unix(moment(bonnie.measurePeriod+1, "YYYY")/1000))
+        if parseInt(moment(@model.get('birthdate')*1000).format("YYYY")) == bonnie.measurePeriod
+          durationStartDate = "Birth" #Patient born during Measure Period
+        else  
+          durationStartDate = @getDuration(moment(@model.get('birthdate')*1000), moment.unix(moment(bonnie.measurePeriod, "YYYY")/1000))
+        if durationStartDate && durationEndDate
+          duration = durationStartDate + " - " + durationEndDate
+        else
+          duration = null
         @patientStatus.patientAge = duration
-        #patientStatus is an instance variable, so no need to return it
 
   setPatientAge: ->
     @getPatientAge() #Determines Patient Age
-    if @patientStatus.patientAge == null #Meaning the Birthdate came after the deathdate or the currentDate
+    if @patientStatus.patientAge == null #Meaning the Birthdate came after the deathdate or the measurePeriod
       if @patientStatus.patientIsAlive #Changes Warning Message based on whether the patient is alive or not
         @$('.patient-age-label').removeClass('fail fa fa-fw fa-times-circle')
         @$('.patient-age-label').addClass('fa fa-fw fa-exclamation-circle')
-        @$('.patient-age').text("Current Date precedes Birthdate") #Sets the span tag in patient_builder.hbs
+        @$('.patient-age').text("Measure Period precedes Birthdate") #Sets the span tag in patient_builder.hbs
       else
         @$('.patient-age-label').removeClass('fa fa-fw fa-exclamation-circle')
         @$('.patient-age-label').addClass('fail fa fa-fw fa-times-circle')
