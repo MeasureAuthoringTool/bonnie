@@ -4,6 +4,9 @@
 # Deploy with production environment
 set :stage, :production
 
+# Don't include CI environment when deploying to production
+set :bundle_without, 'development test ci'
+
 # Tell RVM to use the current ruby when running capistrano
 set :rvm1_ruby_version, ENV['GEM_HOME'].gsub(/.*\//, '')
 
