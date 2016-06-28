@@ -79,29 +79,28 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     actualResults = {}
     for population in @populations
       if population == 'OBSERV'
-        if 'values' of @patientResult && population of @patientResult['rationale']
-          actualResults[population] = @patientResult['values'].toString()
+        if 'values' of @patientResult && population of @patientResult.get('rationale')
+          actualResults[population] = @patientResult.get('values').toString()
         else
           actualResults[population] = 0
-      else if population of @patientResult
-        actualResults[population] = @patientResult[population]
       else
-        actualResults[population] = ' '
+        actualResults[population] = @patientResult.get(population)
+
     actualResults
 
   ###
   @returns {String} describes the patient's result for a single data criteria
   ###
   getPatientCriteriaResult: (criteriaKey, populationKey) ->
-    if criteriaKey of @patientResult['rationale']
-      value = @patientResult['rationale'][criteriaKey]
+    if criteriaKey of @patientResult.get('rationale')
+      value = @patientResult.get('rationale')[criteriaKey]
       if value != null && value != 'false' && value != false
         result = 'TRUE'
       else if value == 'false' || value == false
         result = 'FALSE'
       value = result
-      if 'specificsRationale' of @patientResult && populationKey of @patientResult['specificsRationale']
-        specific_value = @patientResult['specificsRationale'][populationKey][criteriaKey]
+      if @patientResult.get('specificsRationale') && populationKey of @patientResult.get('specificsRationale')
+        specific_value = @patientResult.get('specificsRationale')[populationKey][criteriaKey]
         if specific_value == false && value == 'TRUE'
           result = 'SPECIFICALLY FALSE'
         else if specific_value == true && value == 'FALSE'
