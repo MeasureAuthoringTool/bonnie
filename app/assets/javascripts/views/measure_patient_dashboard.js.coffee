@@ -46,7 +46,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Get patient calculation results
     @results = @population.calculationResults()
     @results.calculationsComplete =>
-      @patientResults = @results.toJSON()
+      @patientResults = @results
       headerData = @createHeaderRows()
       @head1 = headerData.slice(0, 1)[0]
       @head2 = headerData.slice(1, 2)[0]
@@ -328,21 +328,23 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         row[name?] = inputGroup?[0]?.value
 
     # Update Bonnie patient
-    patient = _.findWhere(@measure.get('patients').models, id: row.id)
+    patient = @getRowData(rowIndex).patient
+    editedData = {}
+
     for k, v of @editableCols
       if k == 'description'
-        patient.set('notes', row[k])
+        editedData['notes'] = row[k]
       else
-        patient.set(k, row[k])
+        editedData[k] = row[k]
 
     # Update row on recalculation
-    status = patient.save patient.toJSON(),
+    patient.save editedData,
       success: (model) =>
         result = @population.calculateResult patient
         result.calculationsComplete =>
           row['actions'] = row['old']['actions']
           @patientData[rowIndex] = row
-          @results.add result.models
+          @results.add result.first()
           @setRowData(rowIndex, row)
           @deselectRow(rowIndex)
           @updateDisplay(rowIndex)
@@ -384,8 +386,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     criteriaList = []
 
     for childDataCriteriaKey, childDataCriteriaText of children_criteria
-      if patientResult.rationale[childDataCriteriaKey] && childDataCriteriaKey != dataCriteriaKey
-        patientDashboardPatient = _(@patientData).where({ id: patientId })[0]
+      if patientResult.get('rationale')[childDataCriteriaKey] && childDataCriteriaKey != dataCriteriaKey
+        patientDashboardPatient = _(@patientData).findWhere({ id: patientId })
         result = patientDashboardPatient.getPatientCriteriaResult childDataCriteriaKey, populationKey
 
         criteriaList.push({
@@ -422,7 +424,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   @returns {Object} the results for a given patient given that patient's id
   ###
   matchPatientToPatientId: (patient_id) =>
-    patient = @results.findWhere({patient_id: patient_id}).toJSON()
+    patient = @results.findWhere({ patient_id: patient_id })
 
   ###
   Opens up a patient edit modal to create a new patient.
@@ -482,15 +484,16 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
       @$('.modal-body').empty() # clear out patientBuilderView
       @result = @population.calculateResult patient
       @result.calculationsComplete =>
-        @patientResult = @result.toJSON()[0] #Grab the first and only item from collection
+        @patientResult = @result.first() #Grab the first and only item from collection
         @patientData = new Thorax.Models.PatientDashboardPatient patient, @dashboard.pd, @measure, @patientResult, @populations, @population
+        @dashboard.updatePatientDataSources @result, @patientData
+
         if @rowIndex?
           $('#patientDashboardTable').DataTable().row(@rowIndex).data(@patientData).draw()
+          @dashboard.updateDisplay(@rowIndex)
         else
           $('#patientDashboardTable').DataTable().row.add(@patientData).draw()
-        @dashboard.updateDisplay()
-        @dashboard.updatePatientDataSources @result, @patientData
-        @dashboard.updateAllActualWarnings()
+          @dashboard.updateAllActualWarnings()
 
   close: ->
     @$('.modal-body').empty() # clear out patientBuilderView
