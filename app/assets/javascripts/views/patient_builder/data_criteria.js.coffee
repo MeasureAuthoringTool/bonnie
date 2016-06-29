@@ -112,10 +112,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @code_information_array = [[],[]]
     #The indexes of @code_information_array[0] and @code_information_array[1] "line up"
     #so, for example, @code_information_array[0][2] stores properties for @code_information_array[1][2] and vice versa
-    #[1] only exists for those description strings longer than 115 characters, otherwise it'll be null
+    #[1] only exists for those description strings longer than 125 characters, otherwise it'll be null
     #[1] is checked by Handlebars to see if it needs to display a button to show/hide the longer description
-    #[0] contains the string to be displayed next to each code (originally). If this string is less than 115 chars, then [1] at the same index will be null
-    #otherwise, if over 115 chars, [1] will contain the un-trimmed string, and [0] will contain the trimmed string
+    #[0] contains the string to be displayed next to each code (originally). If this string is less than 125 chars, then [1] at the same index will be null
+    #otherwise, if over 125 chars, [1] will contain the un-trimmed string, and [0] will contain the trimmed string
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     if @showPatientInformation #only perform the calculations if the patient is previewing the information
       if @model.attributes.codes? #CODES
@@ -140,8 +140,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
               break
 
           for codeNameNumberandDescription in codeInformationContainer[0]
-            if codeNameNumberandDescription.length > 115 #If entire description is longer than 115 chars
-               trimmedString = codeNameNumberandDescription.substr(0,115) + "..."
+            if codeNameNumberandDescription.length > 125 #If entire description is longer than 125 chars
+               trimmedString = codeNameNumberandDescription.substr(0,125) + "..."
                @code_information_array[0].push(trimmedString) #trim it
                @code_information_array[1].push(codeNameNumberandDescription) #and store the long one in [1]
             else
@@ -300,7 +300,11 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     $(".#{type}-elements").focus()
 
   displayCode: (e) ->
-    index_of_string = e.target.id.substr(-1)
+    #If you click on the border of the "show more/less" button, e.target is different
+    if e.target.firstElementChild?
+      index_of_string = e.target.firstElementChild.id.substr(-1)
+    else
+      index_of_string = e.target.id.substr(-1)
     textForEachCode = "text-to-be-expanded-" + index_of_string
     buttonText = "hide-long-code-" + index_of_string
     buttonFontAwesomeClass = "font-awesome-caret-" + index_of_string
@@ -311,12 +315,15 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$("##{buttonFontAwesomeClass}").removeClass("fa fa-fw fa-caret-down")
       @$("##{buttonFontAwesomeClass}").addClass("fa fa-fw fa-caret-up")
       @$("##{hrForSpacing}").removeClass("hr-with-thin-margins")
+      @$(".btn.btn-default.btn-xs.pull-right").blur()
+      document.activeElement.blur()
     else
       @$("##{textForEachCode}").text(@code_information_array[0][index_of_string])
       @$("##{buttonText}").text("Show More")
       @$("##{buttonFontAwesomeClass}").removeClass("fa fa-fw fa-caret-up")
       @$("##{buttonFontAwesomeClass}").addClass("fa fa-fw fa-caret-down")
       @$("##{hrForSpacing}").addClass("hr-with-thin-margins")
+      document.activeElement.blur()
 
 
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView

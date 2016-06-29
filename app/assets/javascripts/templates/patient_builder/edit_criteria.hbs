@@ -41,7 +41,7 @@
               <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
               <label class="control-label"><i class="fa fa-fw fa-code" aria-hidden="true"></i>Code<input class="sr-only" disabled></label>
               {{#each code_information.[1]}}
-                {{#if this}} {{!If this code's description is over 115 chars long}}
+                {{#if this}} {{!If this code's description is over 125 chars long}}
                   <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i>
                     {{#with (lookup ../../code_information.[0] @index)}} {{!Display the shortened description}}
                       <span id="text-to-be-expanded-{{@index}}"> {{this}} </span>
@@ -55,7 +55,7 @@
                 {{else}} {{!Otherwise}}
                   {{#with (lookup ../../code_information.[0] @index)}}
                   <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i>
-                    {{this}} {{!Display the description, because it's less than 115 chars}}
+                    {{this}} {{!Display the description, because it's less than 125 chars}}
                   </div>
                   {{/with}}
                 {{/if}}
