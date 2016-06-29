@@ -2,7 +2,6 @@
 class Thorax.Views.BuilderChildView extends Thorax.Views.BonnieView
   events:
     ready: -> @patientBuilder().registerChild this
-    
   patientBuilder: ->
     parent = @parent
     until parent instanceof Thorax.Views.PatientBuilder
@@ -80,16 +79,16 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView
       model: new Thorax.Model
       criteria: @model
-    @booleanShowOrHidePatientInformation = if @builderView.previousStateWasHideInfo() then 1 else 0
+    @showPatientInformation = if @builderView.previousStateWasHideInfo() then 1 else 0
     #builderView refers to parent (patient_builder.js.coffee)
     #Convert the true/false to an integer, because our Handlebars {{#ifCond}} helper can't handle true/false
 
-    @listenTo(@builderView, "show_information_in_patient_builder", -> 
-      @booleanShowOrHidePatientInformation = 1
+    @listenTo(@builderView, "show_information_in_patient_builder", ->
+      @showPatientInformation = 1
       @render()
     )
-    @listenTo(@builderView, "hide_information_in_patient_builder", -> 
-      @booleanShowOrHidePatientInformation = 0
+    @listenTo(@builderView, "hide_information_in_patient_builder", ->
+      @showPatientInformation = 0
       @render()
     )
 
@@ -104,80 +103,79 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
-  
     cmsIdParts = @model.get("cms_id").match(/CMS(\d+)(V\d+)/i)
-    
     desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
     field_value_information_array = []
     results_information_array = []
     references_information_array = []
     fulfillments_information_array = []
     @code_information_array = [[],[]]
-    #The indexes of @code_information_array[0] and @code_information_array[1] "line up" 
+    #The indexes of @code_information_array[0] and @code_information_array[1] "line up"
     #so, for example, @code_information_array[0][2] stores properties for @code_information_array[1][2] and vice versa
-    #[1] only exists for those description strings longer than 100 characters, otherwise it'll be null
-    #[0] contains the string to be displayed next to each code (originally). If this string is less than 100 chars, then [1] at the same index will be null
-    #otherwise, if over 100 chars, [1] will contain the un-trimmed string, and [0] will contain the trimmed string
+    #[1] only exists for those description strings longer than 115 characters, otherwise it'll be null
+    #[1] is checked by Handlebars to see if it needs to display a button to show/hide the longer description
+    #[0] contains the string to be displayed next to each code (originally). If this string is less than 115 chars, then [1] at the same index will be null
+    #otherwise, if over 115 chars, [1] will contain the un-trimmed string, and [0] will contain the trimmed string
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    if @model.attributes.codes?
-      for index in [0..Object.keys(@instancedConcepts).length-1]#Get indexes for the "master list" of codes and codesets (@instancedConcepts)
-        for eachCode in @model.get('codes').models #Loop through each code within our model
-          if eachCode.get('code') == @instancedConcepts[index].code && eachCode.get('codeset') == @instancedConcepts[index].code_system_name
-            if @instancedConcepts[index].display_name.length > 110 #If the code description is longer than 110 chars
-              trimmedString = (@instancedConcepts[index].display_name).substr(0,110) + "..." #trim it
-              @code_information_array[0].push(eachCode.get('codeset') + ":" + eachCode.get('code') + " - " + trimmedString)
-              @code_information_array[1].push(eachCode.get('codeset') + ":" + eachCode.get('code') + " - " + @instancedConcepts[index].display_name)
-            else #Otherwise store the description string in [0] and null in [1]. Handlebars checks to see if [1][whatever_index] exists,
-                #and if it does, it will display the button to show/hide the longer description
-              @code_information_array[0].push(eachCode.get('codeset') + ":" + eachCode.get('code') + " - " + @instancedConcepts[index].display_name)
-              @code_information_array[1].push(null)
-          else
-            existspreviously = 0 #reset this each time
-            code_description = eachCode.get('codeset') + ": " + eachCode.get('code')
-            for index_of_each_possible_code in [0..Object.keys(@instancedConcepts).length-1] #Get an index for the "master list" of codes and codesets (@instancedConcepts)
-              if eachCode.get('code') == @instancedConcepts[index_of_each_possible_code].code && eachCode.get('codeset') == @instancedConcepts[index_of_each_possible_code].code_system_name
-                  existspreviously++ #If our code and codeset exist within the list of codes and codesets, then it must existspreviously
-                  break #Prevents us from having to traverse the entire master list if we find a match early
-            for index_of_codes in [0..@code_information_array[0].length] #Next check through our array of values
-              if @code_information_array[0][index_of_codes] == code_description || @code_information_array[1][index_of_codes] == code_description
-                existspreviously++
-            if existspreviously == 0 #If it wasn't found previously, add it
-              if code_description.length > 110 #Same trim system as above
-                 trimmedString = code_description.substr(0,110) + "..."
-                 @code_information_array[0].push(trimmedString)
-                 @code_information_array[1].push(code_description)
-              else
-                @code_information_array[0].push(code_description)
-                @code_information_array[1].push(null)
-    #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    if @model.attributes.fulfillments?
-      fulfillments_information_array = @model.attributes.fulfillments.map((ful) ->
-         # using .get to retreive attributes since ful is a Thorax object
-           return ((ful.get('quantity_dispensed_value') + " " + ful.get('quantity_dispensed_unit') + " " + ful.get('dispense_date') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ful.get('dispense_time')))
-    #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    if @model.attributes.field_values?
-      that_model = @model #store this.model to be used inside the map
-      field_value_information_array = @model.attributes.field_values.map((field_val) ->
-          # using .get to retreive attributes since field_val is a Thorax object
-         switch field_val.get('type') #CD = Coded, PQ = Scalar, TS = Date Entry. This switch statement is just for formatting the different entry methods
-           when "CD" then return (((field_val.get('key')) + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (field_val.get('title')))
-           when "PQ" then return ((field_val.get('key') + ": " + field_val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (field_val.get('unit')))
-           when "TS" then return ((field_val.get('key') + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ moment.utc(that_model.get('value')).format('L')))
-    #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    if @model.attributes.references?
-      references_information_array = @model.attributes.references.map((ref) ->
-         # using .get to retreive attributes since ref is a Thorax object
-         if ref.get('reference_type')
-           return ref.get('reference_type').replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ": " + ref.get('description') + ": " + ref.get('start_date')
-         else
-           return ref.get('description') + ": " + ref.get('start_date'))
-    #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    if @model.attributes.value?
-      results_information_array = @model.attributes.value.map((val) ->
-         # using .get to retreive attributes since val is a Thorax object
-         switch val.get('type') #CD = Coded, PQ = Scalar. This switch statement is just for formatting the different entry methods
-           when "CD" then return val.get('title').replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
-           when "PQ" then return (val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (val.get('unit')))
+    if @showPatientInformation #only perform the calculations if the patient is previewing the information
+      if @model.attributes.codes? #CODES
+        if @code_information_array[0].length != @model.get('codes').length
+          codeInformationContainer = [[],0] #[0] will contain an array of code name, number, and descriptions (e.g. "ICD-10-CM: M46.46 - Discitis, unspecified, lumbar region")
+          #[1] only exists so we can stop searching the master list if we've matched every one of our codes in the master list. Will only happen if no customs exist
+          @model.get('codes').models.map((codeWithinModel, index) ->
+            if codeWithinModel.attributes.custom_code? #Custom_code only exists the first time a custom has been added, and is dropped after that
+              codeInformationContainer[1]++ #If we've just added a custom, make it possible to break out early
+            codeInformationContainer[0][index] = codeWithinModel.attributes.codeset + " : " +codeWithinModel.attributes.code
+          )
+
+          for index in [0..Object.keys(@instancedConcepts).length-1] #Search @instancedConcepts (the master list of codes names, nums & descriptions)
+            for stringOfCodeSetandCodeNumber, index_within_container in codeInformationContainer[0] #for each @instancedConcepts's code, see if it matches one of our codes
+              if stringOfCodeSetandCodeNumber == (@instancedConcepts[index].code_system_name+" : " +@instancedConcepts[index].code)
+                  codeInformationContainer[0][index_within_container] = @instancedConcepts[index].code_system_name + " : " + @instancedConcepts[index].code + " : " + @instancedConcepts[index].display_name
+                  #If it does, copy out the code name, code num, and code description
+                  codeInformationContainer[1]++ #and allow us to break out early
+                if codeInformationContainer[1] == codeInformationContainer[0].length #Meaning that each code in our list was found (AKA no point searching further)
+                  terminateEarly = true #Can easily save thousands of iterations
+            if terminateEarly
+              break
+
+          for codeNameNumberandDescription in codeInformationContainer[0]
+            if codeNameNumberandDescription.length > 115 #If entire description is longer than 115 chars
+               trimmedString = codeNameNumberandDescription.substr(0,115) + "..."
+               @code_information_array[0].push(trimmedString) #trim it
+               @code_information_array[1].push(codeNameNumberandDescription) #and store the long one in [1]
+            else
+               @code_information_array[0].push(codeNameNumberandDescription)
+               @code_information_array[1].push(null)
+      #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+      if @model.attributes.fulfillments? #FULFILLMENTS
+        fulfillments_information_array = @model.attributes.fulfillments.map((ful) ->
+           # using .get to retreive attributes since ful is a Thorax object
+             return ((ful.get('quantity_dispensed_value') + " " + ful.get('quantity_dispensed_unit') + " " + ful.get('dispense_date') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ful.get('dispense_time')))
+      #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+      if @model.attributes.field_values? #FIELD VALUES
+        that_model = @model #store this.model to be used inside the map
+        field_value_information_array = @model.attributes.field_values.map((field_val) ->
+            # using .get to retreive attributes since field_val is a Thorax object
+           switch field_val.get('type') #CD = Coded, PQ = Scalar, TS = Date Entry. This switch statement is just for formatting the different entry methods
+             when "CD" then return (((field_val.get('key')) + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (field_val.get('title')))
+             when "PQ" then return ((field_val.get('key') + ": " + field_val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (field_val.get('unit')))
+             when "TS" then return ((field_val.get('key') + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ moment.utc(that_model.get('value')).format('L')))
+      #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+      if @model.attributes.references? #REFERENCES
+        references_information_array = @model.attributes.references.map((ref) ->
+           # using .get to retreive attributes since ref is a Thorax object
+           if ref.get('reference_type')
+             return ref.get('reference_type').replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ": " + ref.get('description') + ": " + ref.get('start_date')
+           else
+             return ref.get('description') + ": " + ref.get('start_date'))
+      #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+      if @model.attributes.value? #RESULTS
+        results_information_array = @model.attributes.value.map((val) ->
+           # using .get to retreive attributes since val is a Thorax object
+           switch val.get('type') #CD = Coded, PQ = Scalar. This switch statement is just for formatting the different entry methods
+             when "CD" then return val.get('title')
+             when "PQ" then return (val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (val.get('unit')))
 
     if @model.get('end_date')? #Calculate Duration Between Start and End Dates
       start_date = moment(@model.get('start_date'))
@@ -204,7 +202,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       hasStopTime: @model.hasStopTime()
       startLabel: @model.startLabel()
       stopLabel: @model.stopLabel()
-      showPatientInfo: @booleanShowOrHidePatientInformation
+      showPatientInfo: @showPatientInformation
       code_information: @code_information_array
       field_value_information: field_value_information_array
       references_information: references_information_array
@@ -233,7 +231,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@triggerMaterialize, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@triggerMaterialize, this)
       @$el.toggleClass 'during-measurement-period', @model.isDuringMeasurePeriod()
-    
     'change .negation-select':                    'toggleNegationSelect'
     'change :input[name=end_date_is_undefined]':  'toggleEndDateDefinition'
     'blur :text':                                 'triggerMaterialize'
@@ -301,7 +298,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     e.preventDefault()
     type = @$(e.target).model().get('type')
     $(".#{type}-elements").focus()
-  
+
   displayCode: (e) ->
     index_of_string = e.target.id.substr(-1)
     textForEachCode = "text-to-be-expanded-" + index_of_string
