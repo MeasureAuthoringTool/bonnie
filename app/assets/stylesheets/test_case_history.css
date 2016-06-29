@@ -81,6 +81,10 @@
   font-size: 18px;
 }
 
+.history-circle:hover {
+  cursor: pointer;
+}
+
 table.measure-history-table {
   width: auto;
 }
