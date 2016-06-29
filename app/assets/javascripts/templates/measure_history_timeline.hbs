@@ -15,7 +15,7 @@
         <td class="history-upload-header"><small>After</small></td>
         {{#each patientIndex}}
           <td class="history-patient-cell">
-            <div class="history-circle history-pass">
+            <div class="history-circle history-pass" data-upload-id="current" data-patient-id="{{id}}">
               <span class="sr-only">pass</span>
               <i class="fa {{#ifCond 'pass' '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
             </div>
@@ -38,7 +38,7 @@
               {{#if (lookup ../patients id)}}
                 {{#with (lookup ../../patients id)}}
                   <td class="history-patient-cell">
-                    <div class="history-circle history-{{after_status}}">
+                    <div class="history-circle history-{{after_status}}" data-upload-id="{{../../../../attributes._id}}" data-patient-id="{{../../id}}">
                       <span class="sr-only">{{after_status}}</span>
                       <i class="fa {{#ifCond after_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
                     </div>
@@ -62,7 +62,7 @@
                 {{#if (lookup ../patients id)}}
                   {{#with (lookup ../../patients id)}}
                     <td class="history-patient-cell">
-                      <div class="history-circle history-{{before_status}}">
+                      <div class="history-circle history-{{before_status}}" data-upload-id="{{../../../../../attributes._id}}" data-patient-id="{{../../id}}">
                         <span class="sr-only">{{before_status}}</span>
                         <i class="fa {{#ifCond before_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
                       </div>
