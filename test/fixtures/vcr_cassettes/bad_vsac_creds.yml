@@ -24,24 +24,29 @@ http_interactions:
     headers:
       Server:
       - Apache-Coyote/1.1
+      Strict-Transport-Security:
+      - max-age=0
+      - max-age=31536000
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
       - '0'
       Date:
-      - Fri, 10 Jun 2016 14:22:06 GMT
+      - Wed, 29 Jun 2016 12:31:15 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!SffOuG7hmzML8PGc5XZjCzQnRXoakbkbu+zac7xpmenqxuca2RQ+jCCR3MXC0fHoCYZ+5QbBrktIhvA=;secure;
-        expires=Fri, 10-Jun-2016 16:22:06 GMT; path=/
+      - BIGipServervsacweb_p=!RoofJh85OQO6YEx2Tkbd533fYfga+nNQ9EZI4R3oPQQfKwAAbiiC8I2k1jcJ4IejMSP7GittraCeOkc=;secure;
+        expires=Wed, 29-Jun-2016 14:31:15 GMT; path=/
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
-      Strict-Transport-Security:
-      - max-age=31536000
+      - "/Common/vsacweb_p 10.1.5.110 8080"
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Fri, 10 Jun 2016 14:22:06 GMT
+  recorded_at: Wed, 29 Jun 2016 12:31:15 GMT
 recorded_with: VCR 3.0.1
