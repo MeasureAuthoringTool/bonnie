@@ -15,6 +15,8 @@ class Record
   belongs_to :user
   belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle"
   scope :by_user, ->(user) { where({'user_id'=>user.id}) }
+  
+  before_save :calc_status
 
   # User email or measure CMS ID can be prepopulated (to solve 1+N performance issue) or just retrieved
   attr_writer :user_email
@@ -128,5 +130,13 @@ class Record
       changes.reject! { |k| k == 'source_data_criteria' }
     end
   end # def
+  
+  protected
+  # Centralized place for determining if a test case/patient passes or fails.
+  def calc_status
+    expected_values.each_index do |pop_idx|
+      calc_results[pop_idx][:status] = (expected_values[pop_idx].to_a - calc_results[pop_idx].to_a).empty? ? 'pass' : 'fail'
+    end
+  end
 
 end
