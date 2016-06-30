@@ -29,6 +29,7 @@
     'admin/users':                                      'renderUsers'
     'value_sets/edit':                                  'renderValueSetsBuilder'
     'measures/:measure_hqmf_set_id/patients/:id/compare':  'renderPatientCompare'
+    'measures/:measure_hqmf_set_id/patients/:id/compare/at_upload/:upload_id':  'renderHistoricPatientCompare'
 
   renderMeasures: ->
     @measures.each (measure) -> measure.set('displayedPopulation', measure.get('populations').first())
@@ -106,6 +107,32 @@
       .then((latestUpsum) -> archivedMeausures.findWhere(_id: latestUpsum.get('measure_db_id_before')).fetchDeferred())
       .then((beforeMeasure) => 
         patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, beforemeasure: beforeMeasure, latestupsum: upsums.at(0))
+        @mainView.setView patientBuilderView
+        @breadcrumb.editPatient(measure, patient) 
+        )
+        
+  renderHistoricPatientCompare: (measureHqmfSetId, patientId, uploadId) ->
+    @navigationSetup "Patient Builder", "patient-compare"
+    measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
+    patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
+    document.title += " - #{measure.get('cms_id')}" if measure?
+    # Deal with getting the archived measure and the calculation snapshot for the patient at measure upload
+    upsums = measure.get('upload_summaries')
+    archivedMeausures = measure.get('archived_measures')
+    upload_summary = null
+    beforeMeasure = null
+    afterMeasure = null
+    $.when(upsums.fetchDeferred(), archivedMeausures.fetchDeferred())
+      .then( -> upsums.findWhere({_id: uploadId}).fetchDeferred() )
+      .then((upsum) ->
+        upload_summary = upsum
+        archivedMeausures.findWhere(_id: upload_summary.get('measure_db_id_before')).fetchDeferred())
+      .then((before) ->
+        beforeMeasure = before
+        if measure.id isnt upload_summary.get('measure_db_id_after')
+          archivedMeausures.findWhere(_id: upload_summary.get('measure_db_id_after')).fetchDeferred())
+      .then((afterMeasure) => 
+        patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, beforemeasure: beforeMeasure, latestupsum: upload_summary, aftermeasure: afterMeasure)
         @mainView.setView patientBuilderView
         @breadcrumb.editPatient(measure, patient) 
         )

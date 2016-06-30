@@ -11,7 +11,7 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
     # TODO: need to handle scenario where current patient wasn't part of last upload
     @thePatient = @latestupsum.get('measure_upload_population_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
     
-    @cachedresult = new Thorax.Models.CachedResult({
+    @cachedBeforeResult = new Thorax.Models.CachedResult({
       rationale: @thePatient.before.rationale
       finalSpecifics: @thePatient.before.finalSpecifics}
       , {
@@ -22,13 +22,26 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
     
     @populationLogicViewBefore = new Thorax.Views.ComparePopulationLogic
     @populationLogicViewBefore.setPopulation @beforemeasure.get('displayedPopulation')
-    @populationLogicViewBefore.showRationale @cachedresult
+    @populationLogicViewBefore.showRationale @cachedBeforeResult
 
-    @populationLogicViewAfter = new Thorax.Views.BuilderPopulationLogic
-    @populationLogicViewAfter.setPopulation @measure.get('displayedPopulation')
-    @populationLogicViewAfter.showRationale @model
+    if @aftermeasure is undefined || @measure.id == @aftermeasure.id
+      @populationLogicViewAfter = new Thorax.Views.BuilderPopulationLogic
+      @populationLogicViewAfter.setPopulation @measure.get('displayedPopulation')
+      @populationLogicViewAfter.showRationale @model
+    else
+      @cachedAfterResult = new Thorax.Models.CachedResult({
+        rationale: @thePatient.after.rationale
+        finalSpecifics: @thePatient.after.finalSpecifics}
+        , {
+          population: @aftermeasure.get('displayedPopulation')
+          patient: @model
+        }
+      )
+      @populationLogicViewBefore = new Thorax.Views.ComparePopulationLogic
+      @populationLogicViewBefore.setPopulation @aftermeasure.get('displayedPopulation')
+      @populationLogicViewBefore.showRationale @cachedAfterResult
     
-# Modified Thorax.Views.BuilderPopulationLogic that accepts new Thorax.Models.CachedResult
+# Modified Thorax.Views.BuilderPopulationLogic that accepts new Thorax.Models.cachedResult
 class Thorax.Views.ComparePopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
   setPopulation: (population) ->
