@@ -25,12 +25,12 @@
       {{#if rootPreconditon}}
         {{#if rootPreconditon.preconditions }}
           {{#each rootPreconditon.preconditions}}
-            {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPreconditon parentNegation=../rootPreconditon.negation measure=../measure}}
+            {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPreconditon parentNegation=../rootPreconditon.negation measure=../measure suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}
           {{/each}}
         {{else}}
           <ul>
             <li>
-              {{#if aggregator}}{{translate_aggregator aggregator}}: {{/if}} {{view "DataCriteriaLogic" reference=rootPreconditon.reference measure=../measure tag="span"}}
+              {{#if aggregator}}{{translate_aggregator aggregator}}: {{/if}} {{view "DataCriteriaLogic" reference=rootPreconditon.reference measure=../measure tag="span" suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}
             </li>
           </ul>
         {{/if}}

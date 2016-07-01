@@ -40,14 +40,15 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
       @populationLogicViewBefore = new Thorax.Views.ComparePopulationLogic
       @populationLogicViewBefore.setPopulation @aftermeasure.get('displayedPopulation')
       @populationLogicViewBefore.showRationale @cachedAfterResult
-    
+  
 # Modified Thorax.Views.BuilderPopulationLogic that accepts new Thorax.Models.cachedResult
 class Thorax.Views.ComparePopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
   setPopulation: (population) ->
     population.measure().set('displayedPopulation', population)
     @setModel(population)
-    @setView new Thorax.Views.PopulationLogic(model: population)
+    # suppressDataCriteriaHighlight = set to turn off the data criteria highlighting.
+    @setView new Thorax.Views.PopulationLogic(model: population, suppressDataCriteriaHighlight: true)
   showRationale: (result) ->
     @getView().showRationale(result)
   context: ->

@@ -3,7 +3,7 @@ class Thorax.Views.PopulationsLogic extends Thorax.LayoutView
   switchPopulation: (e) ->
     population = $(e.target).model()
     population.measure().set('displayedPopulation', population)
-    @setView new Thorax.Views.PopulationLogic(model: population)
+    @setView new Thorax.Views.PopulationLogic(model: population, suppressDataCriteriaHighlight: @suppressDataCriteriaHighlight)
     @trigger 'population:update', population
   showRationale: (result) -> @getView().showRationale(result)
   clearRationale: -> @getView().clearRationale()

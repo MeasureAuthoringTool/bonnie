@@ -11,6 +11,7 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
   events:
     'mouseover .highlight-target': 'highlightEntry'
     'mouseout .highlight-target': 'clearHighlightEntry'
+    # TODO: Find a better way than logic in the template to disable highlighting when called from code other than patient builder.
 
   initialize: ->
     @dataCriteria = @measure.get('data_criteria')[@reference]
