@@ -1,5 +1,10 @@
 {{#unless expandVariable}}
-  <span class="{{#if ../isSetOp}}{{#unless ../../dataCriteria.variable}}set-op-group{{/unless}}{{/if}} {{dataCriteria.key}} rationale-target highlight-target">
+  {{#if suppressDataCriteriaHighlight}}
+    <span class="{{#if ../isSetOp}}{{#unless ../../dataCriteria.variable}}set-op-group{{/unless}}{{/if}} {{dataCriteria.key}} rationale-target">
+  {{else}}
+    <span class="{{#if ../isSetOp}}{{#unless ../../dataCriteria.variable}}set-op-group{{/unless}}{{/if}} {{dataCriteria.key}} rationale-target highlight-target">
+  {{/if}}
+  
 {{/unless}}
 
 {{#each dataCriteria.subset_operators}}
@@ -21,7 +26,7 @@
             {{#unless ../isSetOp}}
               <span class="conjunction {{../../dataCriteria.key}} rationale-target">{{translate_logic_operator ../../dataCriteria.derivation_operator}} : <span class="sr-only sr-highlight-status"></span></span>
             {{/unless}}
-            {{view "DataCriteriaLogic" reference=this measure=../measure tag="span"}}
+            {{view "DataCriteriaLogic" reference=this measure=../measure tag="span" suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}
           </li>
         {{/each}}
         {{#if dataCriteria.temporal_references}}
@@ -70,12 +75,12 @@
     {{#ifCond dataCriteria.temporal_references.length '>' 1}}
       <ul class="multi-statement">
       {{#each dataCriteria.temporal_references}}
-        <li>{{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}</li>
+        <li>{{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span" suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}</li>
       {{/each}}
       </ul>
     {{else}}
       {{#each dataCriteria.temporal_references}}
-        {{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}
+        {{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span" suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}
       {{/each}}
     {{/ifCond}}
   {{/if}}

@@ -5,6 +5,6 @@
 {{#ifCond temporalReference.reference '==' 'MeasurePeriod'}}
   "Measurement Period"
 {{else}}
-  {{view "DataCriteriaLogic" reference=temporalReference.reference measure=../measure tag="span"}}
+  {{view "DataCriteriaLogic" reference=temporalReference.reference measure=../measure tag="span" suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}
 {{/ifCond}}
  

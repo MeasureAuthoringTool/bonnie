@@ -22,7 +22,7 @@
     <div class="pull-right">
       {{#button "cancel" class="btn btn-default"}}CANCEL{{/button}}
       {{#button "save" class="btn btn-primary" data-saving-text="SAVING..."}}SAVE{{/button}}
-      {{#link "measures/{{measure.attributes.hqmf_set_id}}/patients/{{_id}}/compare" expand-tokens=true class="btn btn-default"}}COMPARE{{/link}}
+      <!-- {{#link "measures/{{measure.attributes.hqmf_set_id}}/patients/{{_id}}/compare" expand-tokens=true class="btn btn-default"}}COMPARE{{/link}} -->
     </div>
   </div>
 </div> 
@@ -137,6 +137,10 @@
     <div class="description">{{measureDescription}}</div>
     <div class="expand closed pull-right">Show more <i class="fa fa-caret-down"></i></div>
     {{view expectedValuesView}}
+  </div>
+  <br>
+  <div>
+    {{#link "measures/{{measure.attributes.hqmf_set_id}}/patients/{{_id}}/compare" expand-tokens=true}}<i class="fa fa-fw fa-columns" aria-hidden="true"></i> Compare current patient state to state before last measure upload.{{/link}}
   </div>
 </div>
 
