@@ -161,6 +161,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       faIcon: @model.faIcon()
       definition_title: definition_title
       canHaveNegation: @model.canHaveNegation()
+      isNegated: @model?.get('negation')
+      negationCode: @getNegationCodeIDAsText(@model.get('negation_code_list_id'))
       hasStopTime: @model.hasStopTime()
       startLabel: @model.startLabel()
       stopLabel: @model.stopLabel()
@@ -193,6 +195,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@triggerMaterialize, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@triggerMaterialize, this)
       @$el.toggleClass 'during-measurement-period', @model.isDuringMeasurePeriod()
+      @$el.toggleClass 'negated-time-bar', @model.get('negation')
     'change .negation-select':                    'toggleNegationSelect'
     'change :input[name=end_date_is_undefined]':  'toggleEndDateDefinition'
     'blur :text':                                 'triggerMaterialize'
@@ -287,6 +290,11 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$("##{hrForSpacing}").addClass("hr-with-thin-margins")
       document.activeElement.blur()
 
+  getNegationCodeIDAsText: (value_set_oid) ->
+    if @model.measure()?.valueSets().where(oid: value_set_oid).length > 0
+      return @model.measure()?.valueSets().where(oid: value_set_oid)[0].attributes.display_name
+    else
+      return null
 
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']

@@ -1,5 +1,10 @@
-<div class="criteria-type-marker">
+{{#if isNegated}}
+  <div class="criteria-type-marker-with-negation">
+  <i class="fa fail fa-fw fa-lg {{faIcon}}" aria-hidden="true"></i>
+{{else}}
+  <div class="criteria-type-marker">
   <i class="fa fa-fw fa-lg {{faIcon}}" aria-hidden="true"></i>
+{{/if}}
 </div>
 <div class="criteria-body">
   <div class="criteria-data droppable">
@@ -8,6 +13,12 @@
         <div class="col-md-6">
           <h2>{{definition_title}}</h2>
           <div>{{description}}</div>
+          {{#if isNegated}}
+            <h5 class="fail">
+              <i class="fa fa-fw fa-exclamation-circle"></i>
+              Not Performed: {{negationCode}}
+            </h5>
+          {{/if}}
         </div>
         <div class="col-md-6  criteria-{{model.cid}}">
           <div class="pull-left">
@@ -39,7 +50,7 @@
             {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
             {{#if fulfillment_information}}
               <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
-              <label class="control-label"><i class="fa fa-fw fa-medkit" aria-hidden="true"></i>Filled<input class="sr-only" disabled></label>
+              {{#if isNegated}}<label>{{else}}<label class="control-label">{{/if}}<i class="fa fa-fw fa-medkit" aria-hidden="true"></i>Filled<input class="sr-only" disabled></label>
                 {{#each fulfillment_information}}
                 <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
                 {{/each}}
@@ -47,7 +58,7 @@
             {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
             {{#if result_information}}
               <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
-              <label class="control-label"><i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>Result<input class="sr-only" disabled></label>
+              {{#if isNegated}}<label>{{else}}<label class="control-label">{{/if}}<i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>Result<input class="sr-only" disabled></label>
                 {{#each result_information}}
                 <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
                 {{/each}}
@@ -55,7 +66,7 @@
             {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
             {{#if field_value_information}}
               <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
-              <label class="control-label"><i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>Field Values<input class="sr-only" disabled></label>
+              {{#if isNegated}}<label>{{else}}<label class="control-label">{{/if}}<i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>Field Values<input class="sr-only" disabled></label>
                 {{#each field_value_information}}
                 <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
                 {{/each}}
@@ -63,7 +74,7 @@
             {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}  
             {{#if references_information}}
               <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
-              <label class="control-label"><i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>References<input class="sr-only" disabled></label>
+              {{#if isNegated}}<label>{{else}}<label class="control-label">{{/if}}<i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>References<input class="sr-only" disabled></label>
                 {{#each references_information}}
                 <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
                 {{/each}}
