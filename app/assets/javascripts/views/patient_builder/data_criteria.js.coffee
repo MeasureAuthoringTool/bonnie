@@ -72,7 +72,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       vals: JSON.stringify(@model.get('references'))
     codes = @model.get('codes')
     concepts = @model.valueSet()?.get('concepts')
-    @instancedConcepts = concepts #instance version of concepts so fnctn "displayCode" can access values
     codes.on 'add remove', => @model.set 'code_source', (if codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView codes: codes
     @editCodeSelectionView.updateConcepts(concepts) if concepts
@@ -109,45 +108,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     results_information_array = []
     references_information_array = []
     fulfillments_information_array = []
-    @code_information_array = [[],[]]
-    #The indexes of @code_information_array[0] and @code_information_array[1] "line up"
-    #so, for example, @code_information_array[0][2] stores properties for @code_information_array[1][2] and vice versa
-    #[1] only exists for those description strings longer than 125 characters, otherwise it'll be null
-    #[1] is checked by Handlebars to see if it needs to display a button to show/hide the longer description
-    #[0] contains the string to be displayed next to each code (originally). If this string is less than 125 chars, then [1] at the same index will be null
-    #otherwise, if over 125 chars, [1] will contain the un-trimmed string, and [0] will contain the trimmed string
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     if @showPatientInformation #only perform the calculations if the patient is previewing the information
-      if @model.attributes.codes? #CODES
-        if @code_information_array[0].length != @model.get('codes').length
-          codeInformationContainer = [[],0] #[0] will contain an array of code name, number, and descriptions (e.g. "ICD-10-CM: M46.46 - Discitis, unspecified, lumbar region")
-          #[1] only exists so we can stop searching the master list if we've matched every one of our codes in the master list. Will only happen if no customs exist
-          @model.get('codes').models.map((codeWithinModel, index) ->
-            if codeWithinModel.attributes.custom_code? #Custom_code only exists the first time a custom has been added, and is dropped after that
-              codeInformationContainer[1]++ #If we've just added a custom, make it possible to break out early
-            codeInformationContainer[0][index] = codeWithinModel.attributes.codeset + " : " +codeWithinModel.attributes.code
-          )
-
-          for index in [0..Object.keys(@instancedConcepts).length-1] #Search @instancedConcepts (the master list of codes names, nums & descriptions)
-            for stringOfCodeSetandCodeNumber, index_within_container in codeInformationContainer[0] #for each @instancedConcepts's code, see if it matches one of our codes
-              if stringOfCodeSetandCodeNumber == (@instancedConcepts[index].code_system_name+" : " +@instancedConcepts[index].code)
-                  codeInformationContainer[0][index_within_container] = @instancedConcepts[index].code_system_name + " : " + @instancedConcepts[index].code + " : " + @instancedConcepts[index].display_name
-                  #If it does, copy out the code name, code num, and code description
-                  codeInformationContainer[1]++ #and allow us to break out early
-                if codeInformationContainer[1] == codeInformationContainer[0].length #Meaning that each code in our list was found (AKA no point searching further)
-                  terminateEarly = true #Can easily save thousands of iterations
-            if terminateEarly
-              break
-
-          for codeNameNumberandDescription in codeInformationContainer[0]
-            if codeNameNumberandDescription.length > 125 #If entire description is longer than 125 chars
-               trimmedString = codeNameNumberandDescription.substr(0,125) + "..."
-               @code_information_array[0].push(trimmedString) #trim it
-               @code_information_array[1].push(codeNameNumberandDescription) #and store the long one in [1]
-            else
-               @code_information_array[0].push(codeNameNumberandDescription)
-               @code_information_array[1].push(null)
-      #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
       if @model.attributes.fulfillments? #FULFILLMENTS
         fulfillments_information_array = @model.attributes.fulfillments.map((ful) ->
            # using .get to retreive attributes since ful is a Thorax object

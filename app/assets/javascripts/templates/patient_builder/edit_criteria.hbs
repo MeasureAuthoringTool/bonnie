@@ -37,31 +37,6 @@
         <div class="row">
           <div class="col-md-12">
             {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
-            {{#if code_information}}
-              <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
-              <label class="control-label"><i class="fa fa-fw fa-code" aria-hidden="true"></i>Code<input class="sr-only" disabled></label>
-              {{#each code_information.[1]}}
-                {{#if this}} {{!If this code's description is over 125 chars long}}
-                  <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i>
-                    {{#with (lookup ../../code_information.[0] @index)}} {{!Display the shortened description}}
-                      <span id="text-to-be-expanded-{{@index}}"> {{this}} </span>
-                    {{/with}}
-                    {{#button 'displayCode' class="btn btn-default btn-xs pull-right"}} {{!And a button to show/hide the longer one}}
-                        <span id="hide-long-code-{{@index}}">Show More</span>
-                        <i id="font-awesome-caret-{{@index}}" class="fa fa-fw fa-caret-down fa-lg"></i>
-                    {{/button}}
-                    <hr id="hr-for-spacing-{{@index}}" class= "hr-with-thin-margins">
-                  </div>
-                {{else}} {{!Otherwise}}
-                  {{#with (lookup ../../code_information.[0] @index)}}
-                  <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i>
-                    {{this}} {{!Display the description, because it's less than 125 chars}}
-                  </div>
-                  {{/with}}
-                {{/if}}
-              {{/each}}
-            {{/if}}
-            {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
             {{#if fulfillment_information}}
               <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
               <label class="control-label"><i class="fa fa-fw fa-medkit" aria-hidden="true"></i>Filled<input class="sr-only" disabled></label>
