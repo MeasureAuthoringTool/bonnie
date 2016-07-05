@@ -374,6 +374,44 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     @patientEditView.display patient, rowIndex
 
   ###
+  Shows the Delete button and cancel button
+  ###
+  showDelete: (sender) ->
+    # Get row index and data of selected patient
+    targetCell = sender?.currentTarget?.parentElement
+    row = @getRowData(targetCell)
+    rowIndex = @getRowIndex(targetCell)
+
+    # Clone the old patient in case the user decides to cancel their edits
+    row['old'] = jQuery.extend(true, {}, row)
+    row['actions'] = JST['pd_delete_controls']({})
+    @setRowData(rowIndex, row)
+
+  ###
+  Replaces the Delete button and cancel button with the actions button.
+  ###
+  hideDelete: (sender) ->
+    # Get row index and data of selected patient
+    targetCell = sender?.currentTarget?.parentElement
+    row = @getRowData(targetCell)
+    rowIndex = @getRowIndex(targetCell)
+    @setRowData(rowIndex, row['old'])
+
+  ###
+  Removes patient from the table
+  ###
+  deletePatient: (sender) ->
+    # Get row index and data of selected patient
+    targetCell = sender?.currentTarget?.parentElement
+    row = @getRowData(targetCell)
+    rowIndex = @getRowIndex(targetCell)
+
+    @removePatientFromDataSources(row)
+    patient = _.findWhere(@measure.get('patients').models, {id: row.id})
+    patient.destroy()
+    $('#patientDashboardTable').DataTable().row(rowIndex).remove().draw()
+
+  ###
   @returns {Array} an array of child criteria objects
   Grabs the children data criteria to display in a list for the selected cell.
   ###
@@ -450,6 +488,11 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     unless hasPatient
       @patientData.push currentPatient
 
+  ###
+  Removes the passed in patient from the patientData array.
+  ###
+  removePatientFromDataSources: (currentPatient) =>
+    @patientData = _.without @patientData, _.findWhere @patientData, id: currentPatient.id
 
 class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
   template: JST['measure/patient_edit_modal']
