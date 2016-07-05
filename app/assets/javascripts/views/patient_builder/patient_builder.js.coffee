@@ -35,7 +35,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.criteria-data').removeClass("#{Thorax.Views.EditCriteriaView.highlight.valid} #{Thorax.Views.EditCriteriaView.highlight.partial}")
       @$('.highlight-indicator').removeAttr('tabindex').empty()
     @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
-    @previouslySortedBy = [null, -1, 0] #Sorting needs to keep track of (1.)the button last clicked (a string), (2.)number of dataCriteria Elements, and (3.)Seconds since last button click
+    @sortButton = buttonLastClicked: null, numberOfDataCriteria: -1, secondsSinceLastClick: 0
     @timeSinceInfoPreviewClick = 0 #Keeps track of last Preview/Hide button click to prevent spam clicking. Only need to track seconds since last click (an integer) for this one
     @patientStatus = #Hash for tracking Patient Info when calculating their age
       patientIsAlive: true
@@ -141,7 +141,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     child.on 'bonnie:materialize', @materialize, this
     child.on 'bonnie:dropCriteria', @addCriteria, this
     child.on 'bonnie:loadPopulation', @loadPopulation, this
-  
+
   materialize: ->
     @serializeWithChildren()
     @setPatientAge() #When a birthdate or deathdate is selected, materialize() is called and sets the Patient's Age
@@ -246,124 +246,129 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   sortPatientEventsBy: (e) ->
     #if the user accidentally clicks on DATE or ELEMENTS multiple times, it will sort multiple times
-    #even if everything is already sorted. By tracking previouslySortedBy, we can prevent the user from
+    #even if everything is already sorted. By tracking sortButton, we can prevent the user from
     #accidentally double clicking and waiting the extra few seconds that sorting takes.
     if e.target.id?
       switch e.target.id
-        when "sort_by_elements"
-          if @previouslySortedBy[0] != "sort_by_elements" || (@previouslySortedBy[1] != @model.attributes.source_data_criteria.length || ((@previouslySortedBy[2]+2000) < e.timeStamp))
+        when "sort-by-elements"
+          if @sortButton.buttonLastClicked != "Elements Button" || (@sortButton.numberOfDataCriteria != @model.attributes.source_data_criteria.length || ((@sortButton.secondsSinceLastClick+2000) < e.timeStamp))
             #only proceed if (the last button they clicked wasn't Elements OR (the number of elements has changed OR it has been 2 seconds since the last click))
-            @$('#sort_by_elements').blur() #Removes focus from button
-            @$('#loading_spinner').removeClass('hidden')
-            @$('#sort_by_elements').addClass('active')
-            @$('#sort_by_date').removeClass('active')
+            @$('#sort-by-elements').blur() #Removes focus from button
+            @$('#loading-spinner').removeClass('hidden')
+            @$('#sort-by-elements').addClass('active')
+            @$('#sort-by-date').removeClass('active')
             #Force these previous lines to occur before the sorting begins by waiting 0 seconds
             setTimeout( =>
               @model.sortCriteriaBy 'type'
-              @$('#loading_spinner').addClass('hidden')
-              @previouslySortedBy[0] = "sort_by_elements"
-              @previouslySortedBy[1] = @model.attributes.source_data_criteria.length
-              @previouslySortedBy[2] = e.timeStamp
+              @$('#loading-spinner').addClass('hidden')
+              @sortButton.buttonLastClicked = "Elements Button" #arbitrary string
+              @sortButton.numberOfDataCriteria = @model.attributes.source_data_criteria.length
+              @sortButton.secondsSinceLastClick = e.timeStamp
             , 0)
           else
-            @$('#sort_by_elements').blur()
+            @$('#sort-by-elements').blur()
 
-        when "sort_by_date"
-          if @previouslySortedBy[0] != "sort_by_date" || (@previouslySortedBy[1] != @model.attributes.source_data_criteria.length || ((@previouslySortedBy[2]+2000) < e.timeStamp))
+        when "sort-by-date"
+          if @sortButton.buttonLastClicked != "Date Button" || (@sortButton.numberOfDataCriteria != @model.attributes.source_data_criteria.length || ((@sortButton.secondsSinceLastClick+2000) < e.timeStamp))
             #only proceed if (the last button they clicked wasn't Date OR (the number of elements has changed OR it has been 2 seconds since the last click))
-            @$('#sort_by_date').blur() #Removes focus from button   
-            @$('#loading_spinner').removeClass('hidden')
-            @$('#sort_by_date').addClass('active')
-            @$('#sort_by_elements').removeClass('active')
+            @$('#sort-by-date').blur() #Removes focus from button
+            @$('#loading-spinner').removeClass('hidden')
+            @$('#sort-by-date').addClass('active')
+            @$('#sort-by-elements').removeClass('active')
             #Force these previous lines to occur before the sorting begins by waiting 0 seconds
             setTimeout( =>
               @model.sortCriteriaBy 'start_date'
-              @$('#loading_spinner').addClass('hidden')
-              @previouslySortedBy[0] = "sort_by_date"
-              @previouslySortedBy[1] = @model.attributes.source_data_criteria.length
-              @previouslySortedBy[2] = e.timeStamp
+              @$('#loading-spinner').addClass('hidden')
+              @sortButton.buttonLastClicked = "Date Button" #arbitrary string
+              @sortButton.numberOfDataCriteria = @model.attributes.source_data_criteria.length
+              @sortButton.secondsSinceLastClick = e.timeStamp
             , 0)
           else
-            @$('#sort_by_date').blur() 
-  
+            @$('#sort-by-date').blur()
+
   previewInformation: (e) ->
   #Just like with the "Arrange By" buttons, if you spam click the "Preview/Hide Information"
   #button it performs the action for each click. On patients with many events this can
   #easily mean 20-30 seconds of "lag" if the user has clicked 5+ times
   #Only allow the previewing/hiding to occur if they haven't clicked in .75 seconds
-  #TODO: The previewing/hiding button shares the same loading_spinner as the "Arrange By" buttons
+  #TODO: The previewing/hiding button shares the same loading-spinner as the "Arrange By" buttons
   #Maybe give it its own loading spinner?
     if @timeSinceInfoPreviewClick+750 < e.timeStamp
       @timeSinceInfoPreviewClick = e.timeStamp #Overwrite previous timestamp with new one
       @$('#preview_information').blur()
-      @$('#loading_spinner').removeClass('hidden')
+      @$('#loading-spinner').removeClass('hidden')
 
       if @previousStateWasHideInfo()
         @$('#preview_information').text('Preview Information') #sets the button's new text
         #Force these previous lines to occur before previewing patient info by waiting 0 seconds
         setTimeout( =>
           @trigger "hide_information_in_patient_builder"
-          @$('#loading_spinner').addClass('hidden')
+          @$('#loading-spinner').addClass('hidden')
         , 0)
       else
         @$('#preview_information').text('Hide Information') #sets the button's new text
         #Force these previous lines to occur before hiding patient info by waiting 0 seconds
         setTimeout( =>
           @trigger "show_information_in_patient_builder"
-          @$('#loading_spinner').addClass('hidden')
+          @$('#loading-spinner').addClass('hidden')
         , 0)
     else
       @$('#preview_information').blur()
-      
+
   previousStateWasHideInfo: ->
     #Checks the text on the button to determine previous state
     if @$('#preview_information').text() == "Hide Information"
       return true
     else
       return false
-  
-  #Formats duration between a start_date and an end_date and returns that value as a string
+
+  #Formats duration between a start_date and an end_date and returns that value as a string (e.g. "2 years 3 months")
   #(both start and end date must be moments from Moment.js)
   getDuration: (start_date, end_date) ->
-    if start_date._i <= end_date._i
-      if end_date.diff(start_date, 'minutes', true) > 60
-        if end_date.diff(start_date, 'hours', true) > 24
-          if end_date.diff(start_date, 'days', true) > 31
-            if end_date.diff(start_date, 'months', true) > 12
-              element_duration = Math.round(end_date.diff(start_date, 'years', true)) + " Year"
+    if end_date.diff(start_date) > 0 #End Date must follow Start Date
+      durationInformation = years: 0, months: 0, days: 0, hours: 0, minutes: 0
+      elementDurationAsString = ""
+      displayTwoValues = 0 #For durations, only display largest 2 times categories
+      #e.g. "12 years 3 months", not "12 years 3 months, 2 days, 3 hours, 14 minutes"
+      if end_date.diff(start_date, 'minutes', true) >= 60
+        if end_date.diff(start_date, 'hours', true) >= 24
+          if end_date.diff(start_date, 'days', true) >= 31
+            if end_date.diff(start_date, 'months', true) >= 12
+              durationInformation.years = end_date.diff(start_date, 'years')
+              end_date = end_date.subtract(durationInformation.years, 'years')
+            durationInformation.months = end_date.diff(start_date, 'months')
+            end_date = end_date.subtract(durationInformation.months, 'months')
+          durationInformation.days = end_date.diff(start_date, 'days')
+          end_date = end_date.subtract(durationInformation.days, 'days')
+        durationInformation.hours = end_date.diff(start_date, 'hours')
+        end_date = end_date.subtract(durationInformation.hours, 'hours')
+      durationInformation.minutes = end_date.diff(start_date, 'minutes')
+      for durationInformationKey, durationInformationValue of durationInformation
+        if displayTwoValues != 2
+          if durationInformationValue > 0
+            if durationInformationValue > 1
+              durationInformation.durationInformationKey = "#{durationInformationValue} #{durationInformationKey}"
             else
-              element_duration = Math.round(end_date.diff(start_date, 'months', true)) + " Month"
-          else
-            element_duration = Math.round(end_date.diff(start_date, 'days', true)) + " Day"
-        else
-          element_duration = Math.round(end_date.diff(start_date, 'hours', true)) + " Hour"
-      else
-        element_duration = Math.round(end_date.diff(start_date, 'minutes', true)) + " Minute"
-      #If necessary, make the unit plural by appending an 's'
-      if element_duration[0] != '1' || element_duration[1] != ' '
-        element_duration += "s"
+              durationInformation.durationInformationKey = "#{durationInformationValue} #{durationInformationKey.slice(0, -1)}" #if necessary, remove "s" for non-plural
+            elementDurationAsString += "#{durationInformation.durationInformationKey}, "
+            displayTwoValues++
+      elementDurationAsString = elementDurationAsString.slice(0,-2) #Chop off ", " from the string
     else
-      element_duration = null
-    return element_duration
+      elementDurationAsString = null #meaning the end date preceded the start date
+    return elementDurationAsString
 
   getPatientAge: ->
     if @model.get('birthdate')
       if @model.get('deathdate')
         @patientStatus.patientIsAlive = false
-        duration = @getDuration(moment(parseInt(@model.get('birthdate'))*1000), moment(parseInt(@model.get('deathdate'))*1000))
-        @patientStatus.patientAge = duration
+        @patientStatus.patientAge = @getDuration(moment(parseInt(@model.get('birthdate'))*1000), moment(parseInt(@model.get('deathdate'))*1000))
       else
         @patientStatus.patientIsAlive = true
-        durationEndDate = @getDuration(moment(@model.get('birthdate')*1000), moment.unix(moment(bonnie.measurePeriod+1, "YYYY")/1000))
         if parseInt(moment(@model.get('birthdate')*1000).format("YYYY")) == bonnie.measurePeriod
-          durationStartDate = "Birth" #Patient born during Measure Period
-        else  
-          durationStartDate = @getDuration(moment(@model.get('birthdate')*1000), moment.unix(moment(bonnie.measurePeriod, "YYYY")/1000))
-        if durationStartDate && durationEndDate
-          duration = durationStartDate + " - " + durationEndDate
+          @patientStatus.patientAge = "Born during Measure Period" #Patient born during Measure Period
         else
-          duration = null
-        @patientStatus.patientAge = duration
+          #FIXME Ages are being offset by 5 hours by a Timezone (I think) Difference between 01-01-2012 and 01-01-2000 is 12 years 5 hours.
+          @patientStatus.patientAge = @getDuration(moment(@model.get('birthdate')*1000), moment(new Date(bonnie.measurePeriod, 0,1,0,0,0,0)))
 
   setPatientAge: ->
     @getPatientAge() #Determines Patient Age
@@ -376,8 +381,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         @$('.patient-age-label').removeClass('fa fa-fw fa-exclamation-circle')
         @$('.patient-age-label').addClass('fail fa fa-fw fa-times-circle')
         @$('.patient-age').addClass('fail')
-        @$('.patient-age').text("Death Date precedes Birthdate") #Sets the span tag in patient_builder.hbs
-      @$('.patient-age-label').text("") #Sets the span tag in patient_builder.hbs
+        @$('.patient-age').text("Death Date precedes Birthdate")
+      @$('.patient-age-label').text("") #Clear Age Label Text
     else
       @$('.patient-age-label').removeClass('fa fa-fw fa-exclamation-circle')
       @$('.patient-age-label').removeClass('fail fa fa-fw fa-times-circle')

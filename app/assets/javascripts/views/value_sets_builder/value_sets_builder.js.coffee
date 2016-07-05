@@ -186,6 +186,7 @@ class Thorax.Views.ValueSetView extends Thorax.Views.BonnieView
     else
       @$('.criteria-details, form').toggleClass('hide')
       @$('.criteria-type-marker').toggleClass('open')
+      @$('.criteria-type-marker-with-negation').toggleClass('open')
 
   updateLists: (e) ->
     concept = $(e.target).model()

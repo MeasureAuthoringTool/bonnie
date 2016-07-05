@@ -167,7 +167,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       startLabel: @model.startLabel()
       stopLabel: @model.stopLabel()
       showPatientInfo: @showPatientInformation
-      code_information: @code_information_array
       field_value_information: field_value_information_array
       references_information: references_information_array
       result_information: results_information_array
@@ -217,6 +216,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     e.preventDefault()
     @$('.criteria-details, form').toggleClass('hide')
     @$('.criteria-type-marker').toggleClass('open')
+    @$('.criteria-type-marker-with-negation').toggleClass('open')
+
     unless @isExpanded()
       @serialize(children: false)
       # FIXME sortable: commenting out due to odd bug in droppable
@@ -263,32 +264,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     e.preventDefault()
     type = @$(e.target).model().get('type')
     $(".#{type}-elements").focus()
-
-  displayCode: (e) ->
-    #If you click on the border of the "show more/less" button, e.target is different
-    if e.target.firstElementChild?
-      index_of_string = e.target.firstElementChild.id.substr(-1)
-    else
-      index_of_string = e.target.id.substr(-1)
-    textForEachCode = "text-to-be-expanded-" + index_of_string
-    buttonText = "hide-long-code-" + index_of_string
-    buttonFontAwesomeClass = "font-awesome-caret-" + index_of_string
-    hrForSpacing = "hr-for-spacing-" + index_of_string
-    if @$("##{buttonText}").text()  == "Show More"
-      @$("##{textForEachCode}").text(@code_information_array[1][index_of_string])
-      @$("##{buttonText}").text("Show Less")
-      @$("##{buttonFontAwesomeClass}").removeClass("fa fa-fw fa-caret-down")
-      @$("##{buttonFontAwesomeClass}").addClass("fa fa-fw fa-caret-up")
-      @$("##{hrForSpacing}").removeClass("hr-with-thin-margins")
-      @$(".btn.btn-default.btn-xs.pull-right").blur()
-      document.activeElement.blur()
-    else
-      @$("##{textForEachCode}").text(@code_information_array[0][index_of_string])
-      @$("##{buttonText}").text("Show More")
-      @$("##{buttonFontAwesomeClass}").removeClass("fa fa-fw fa-caret-up")
-      @$("##{buttonFontAwesomeClass}").addClass("fa fa-fw fa-caret-down")
-      @$("##{hrForSpacing}").addClass("hr-with-thin-margins")
-      document.activeElement.blur()
 
   getNegationCodeIDAsText: (value_set_oid) ->
     if @model.measure()?.valueSets().where(oid: value_set_oid).length > 0

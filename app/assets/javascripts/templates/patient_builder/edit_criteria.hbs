@@ -1,6 +1,6 @@
 {{#if isNegated}}
   <div class="criteria-type-marker-with-negation">
-  <i class="fa fail fa-fw fa-lg {{faIcon}}" aria-hidden="true"></i>
+  <i class="fa fa-fw fa-lg {{faIcon}}" aria-hidden="true"></i>
 {{else}}
   <div class="criteria-type-marker">
   <i class="fa fa-fw fa-lg {{faIcon}}" aria-hidden="true"></i>
@@ -14,10 +14,12 @@
           <h2>{{definition_title}}</h2>
           <div>{{description}}</div>
           {{#if isNegated}}
-            <h5 class="fail">
-              <i class="fa fa-fw fa-exclamation-circle"></i>
-              Not Performed: {{negationCode}}
-            </h5>
+            {{#ifCond showPatientInfo "==" 1}}
+              <h5 class="fail">
+                <i class="fa fa-fw fa-exclamation-circle"></i>
+                Not Performed: {{negationCode}}
+              </h5>
+            {{/ifCond}}
           {{/if}}
         </div>
         <div class="col-md-6  criteria-{{model.cid}}">
