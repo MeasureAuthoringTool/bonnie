@@ -38,6 +38,20 @@ JST['pd_edit_controls'] = Handlebars.compile '
   </button>'
 
 ###
+Delete and cancel buttons for deleting patients.
+###
+JST['pd_delete_controls'] = Handlebars.compile '
+  <button class="btn btn-sm btn-danger" data-call-method="hideDelete">
+    <i aria-hidden="true" class="fa fa-minus-circle"></i>
+    <span class="sr-only">Hide Delete</span>
+  </button>
+  <button class="btn btn-sm btn-danger" data-call-method="deletePatient">
+    <i aria-hidden="true" class="fa fa-fw fa-close"></i>
+    Delete
+    <span class="sr-only">Delete Patient</span>
+  </button>'
+
+###
 Takes a result (0 or 1) and displays it as a checked/unchecked box.
 TODO: Take into account results other than 0 and 1.
 ###
@@ -87,7 +101,7 @@ JST['pd_action_dropdown'] = Handlebars.compile '<div class="patient-options btn-
       </li>
       <li role="separator" class="divider"></li>
       <li>
-        <button class="btn btn-sm btn-block btn-link btn-danger" data-call-method="openEditDialog">
+        <button class="btn btn-sm btn-block btn-link btn-danger" data-call-method="showDelete">
           <i aria-hidden="true" class="fa fa-fw fa-times"></i>
           Delete
         </button>
