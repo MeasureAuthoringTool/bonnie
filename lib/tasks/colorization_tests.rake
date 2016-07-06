@@ -8,6 +8,10 @@
 #   2) With the desired code changes in place, run the test_regression task using the same user account; this
 #      calculates all the patients again and compares the rationale and specificsRationale against the results
 #      stored in step 1
+#
+# Note: there's an issue when running against older patient data because the principalDiagnosis field was
+# changed from a hash to an embedded class; running the bonnie:patients:resave_patient_records rake task
+# before performing the regression test will prevent the problem
 
 namespace :bonnie do
   namespace :colorization_tests do
@@ -138,7 +142,7 @@ namespace :bonnie do
                 puts "\n\n  FAILURE: User #{measure.user.email} measure #{measure.cms_id} population #{population_index + 1} patient '#{patient.first} #{patient.last}'\n\n"
                 puts "             Difference:"
                 puts
-                puts hash_diff(result, gold.result).pretty_inspect.gsub(/^/, '               ')
+                puts hash_diff(gold.result, result).pretty_inspect.gsub(/^/, '               ')
                 puts
               end
             else
