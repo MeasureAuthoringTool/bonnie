@@ -194,7 +194,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       @$('.date-picker').datepicker('orientation': 'bottom left').on 'changeDate', _.bind(@triggerMaterialize, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@triggerMaterialize, this)
       @$el.toggleClass 'during-measurement-period', @model.isDuringMeasurePeriod()
-      @$el.toggleClass 'negated-time-bar', @model.get('negation')
     'change .negation-select':                    'toggleNegationSelect'
     'change :input[name=end_date_is_undefined]':  'toggleEndDateDefinition'
     'blur :text':                                 'triggerMaterialize'

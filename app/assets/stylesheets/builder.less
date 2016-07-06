@@ -246,9 +246,6 @@
       &.during-measurement-period {
         .time-bar(@blue-lighter);
       }
-      &.negated-time-bar {
-        .time-bar(@state-danger-text);
-      }
       .criteria-type-marker {
         @radius: 18px;
         .pull-left;
@@ -270,16 +267,16 @@
         @radius: 18px;
         .pull-left;
         background-color: white;
-        border: 2px solid @state-danger-text;
+        border: 2px solid @brand-warning;
         border-radius: @radius;
-        color: @state-danger-text;
+        color: @brand-warning;
         .square(@radius * 2);
         line-height: 2;
         margin-left: -22px;
         margin-top: 10px;
         text-align: center;
         &.open {
-          background-color: @state-danger-text;
+          background-color: @brand-warning;
           color: white;
         }
       }
