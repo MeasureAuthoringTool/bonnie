@@ -361,14 +361,16 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     if @model.get('birthdate')
       if @model.get('deathdate')
         @patientStatus.patientIsAlive = false
-        @patientStatus.patientAge = @getDuration(moment(parseInt(@model.get('birthdate'))*1000), moment(parseInt(@model.get('deathdate'))*1000))
+        #Since both birthdate and deathdate are off by 5 hours, they will  calculate correctly without the ".add(5, 'hours')". However, better to account for it
+        @patientStatus.patientAge = @getDuration(moment(parseInt(@model.get('birthdate'))*1000).add(5, 'hours'), moment(parseInt(@model.get('deathdate'))*1000).add(5, 'hours'))
       else
         @patientStatus.patientIsAlive = true
         if parseInt(moment(@model.get('birthdate')*1000).format("YYYY")) == bonnie.measurePeriod
           @patientStatus.patientAge = "Born during Measure Period" #Patient born during Measure Period
         else
-          #FIXME Ages are being offset by 5 hours by a Timezone (I think) Difference between 01-01-2012 and 01-01-2000 is 12 years 5 hours.
-          @patientStatus.patientAge = @getDuration(moment(@model.get('birthdate')*1000), moment(new Date(bonnie.measurePeriod, 0,1,0,0,0,0)))
+          #Time picker wants to offset birthdate by 5 hours - not sure if problem with timepicker or Moment.js
+          #either way, adding 5 hours to birthdate fixes problem
+          @patientStatus.patientAge = @getDuration(moment(@model.get('birthdate')*1000).add(5, 'hours'), moment(new Date(bonnie.measurePeriod, 0,1,0,0,0,0)))
 
   setPatientAge: ->
     @getPatientAge() #Determines Patient Age
