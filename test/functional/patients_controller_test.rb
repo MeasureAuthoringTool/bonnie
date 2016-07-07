@@ -38,7 +38,9 @@ include Devise::TestHelpers
      'start_date'=>'2012-01-01',
      'end_date'=>'2012-12-31',
      'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation", "status"=>"performed", "definition"=>"encounter", "start_date"=>1333206000000,"end_date"=>1333206000000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492"}],
-     'measure_id' => @measure.hqmf_set_id}
+     'measure_id' => @measure.hqmf_set_id,
+     'expected_values' => [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}],
+     'calc_results'=> [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}]}
 
     post :create, @patient
     assert_response :success
@@ -50,6 +52,7 @@ include Devise::TestHelpers
     assert_equal 2, r.source_data_criteria.length
     assert_equal "EncounterPerformedPsychVisitDiagnosticEvaluation", r.source_data_criteria[0]["id"]
     assert_equal 1, r.encounters.length
+    assert_equal "pass", r.calc_results[0]['status'], "Checking that calc_status worked."
     json = JSON.parse(response.body)
 
     assert_equal "Betty", json["first"]
@@ -60,13 +63,72 @@ include Devise::TestHelpers
     assert_equal 1, json["encounters"].length
   end
 
+  test "create expected does not match calculated" do
+
+    assert_equal 0,Record.count
+    @patient = {'first'=> 'Bobby', 
+     'last'=> 'Boop', 
+     'gender'=> 'M', 
+     'expired'=> 'true' ,
+     'birthdate'=> "1930-10-17", 
+     'ethnicity'=> 'B', 
+     'race'=> 'B',
+     'start_date'=>'2012-01-01',
+     'end_date'=>'2012-12-31',
+     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation", "status"=>"performed", "definition"=>"encounter", "start_date"=>1341648000000,"end_date"=>1341648900000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492"}],
+     'measure_id' => @measure.hqmf_set_id,
+     'expected_values' => [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}],
+     'calc_results'=> [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>1, "NUMER"=>1}]}
+
+    post :create, @patient
+    assert_response :success
+    assert_equal 1,Record.count
+    r = Record.first
+    assert_equal "Bobby", r.first
+    assert_equal "Boop", r.last
+    assert_equal "M", r.gender
+    assert_equal 2, r.source_data_criteria.length
+    assert_equal "EncounterPerformedPsychVisitDiagnosticEvaluation", r.source_data_criteria[0]["id"]
+    assert_equal 1, r.encounters.length
+    assert_equal "fail", r.calc_results[0]['status'], "Checking that calc_status worked."
+    json = JSON.parse(response.body)
+
+    assert_equal "Bobby", json["first"]
+    assert_equal "Boop", json["last"]
+    assert_equal "M", json["gender"]
+    assert_equal 2, json["source_data_criteria"].length
+    assert_equal "EncounterPerformedPsychVisitDiagnosticEvaluation", json["source_data_criteria"][0]["id"]
+    assert_equal 1, json["encounters"].length
+  end
 
   test "update" do
 
-    assert_equal 0, Record.count
-    patient = Record.new
-    patient.user = @user
-    patient.save!
+    assert_equal 0,Record.count
+    # patient = Record.new
+    # patient.user = @user
+    # patient.save!
+    
+    @patient = {'first'=> 'Abby', 
+     'last'=> 'Boop', 
+     'gender'=> 'X', 
+     'expired'=> 'true' ,
+     'birthdate'=> 48600, 
+     'ethnicity'=> 'B', 
+     'race'=> 'B',
+     'start_date'=>'2012-01-01',
+     'end_date'=>'2012-12-31',
+     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation", "status"=>"performed", "definition"=>"encounter", "start_date"=>1341648000000,"end_date"=>1341648900000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492"}],
+     'measure_id' => @measure.hqmf_set_id,
+     'expected_values' => [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}],
+     'calc_results'=> [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}]}
+
+    post :create, @patient
+    assert_response :success
+    assert_equal 1,Record.count
+    
+    patient = Record.first
+    assert_equal 1, patient.history_tracks.count
+    assert_equal 0, patient.history_tracks[0]['original'].count
 
     @patient = {
       "id" => patient.id.to_s,
@@ -74,14 +136,16 @@ include Devise::TestHelpers
       'first'=> 'Betty',
      'last'=> 'Boop',
      'gender'=> 'F',
-     'expired'=> 'true' ,
-     'birthdate'=> "1930-10-17",
-     'ethnicity'=> 'B',
+     'expired'=> 'true',
+     'birthdate'=> 9948600, 
+     'ethnicity'=> 'B', 
      'race'=> 'B',
      'start_date'=>'2012-01-01',
      'end_date'=>'2012-12-31',
-     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","status"=>"performed", "definition"=>"encounter", "start_date"=>1333206000000,"end_date"=>1333206000000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492"}],
-     'measure_id' => @measure.hqmf_set_id}
+     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","status"=>"performed", "definition"=>"encounter", "start_date"=>1341648000000,"end_date"=>1341648900000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492"}],
+     'measure_id' => @measure.hqmf_set_id,
+     'expected_values' => [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}],
+     'calc_results'=> [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}]}
 
     post :update,@patient
     assert_response :success
@@ -93,6 +157,11 @@ include Devise::TestHelpers
     assert_equal 2, r.source_data_criteria.length
     assert_equal "EncounterPerformedPsychVisitDiagnosticEvaluation", r.source_data_criteria[0]["id"]
     assert_equal 1, r.encounters.length
+    
+    # Test that the history tracking is working
+    assert_equal 2, r.history_tracks.count
+    assert_equal 2, r.history_tracks[1]['modified'].count
+    
     json = JSON.parse(response.body)
 
     assert_equal "Betty", json["first"]
@@ -103,6 +172,176 @@ include Devise::TestHelpers
     assert_equal 1, json["encounters"].length
   end
 
+  test "exercise history tracking" do
+
+    assert_equal 0,Record.count
+    # patient = Record.new
+    # patient.user = @user
+    # patient.save!
+    
+    @patient = {'first'=> 'Abby', 
+     'last'=> 'Boop', 
+     'gender'=> 'X', 
+     'expired'=> 'true' ,
+     'birthdate'=> 48600, 
+     'ethnicity'=> 'B', 
+     'race'=> 'B',
+     'start_date'=>'2012-01-01',
+     'end_date'=>'2012-12-31',
+     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation", "status"=>"performed", "definition"=>"encounter", "start_date"=>1341648000000,"end_date"=>1341648900000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492", 'criteria_id'=>1}],
+     'measure_id' => @measure.hqmf_set_id,
+     'expected_values' => [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}],
+     'calc_results'=> [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}]}
+
+    post :create, @patient
+    assert_response :success
+    assert_equal 1,Record.count
+    
+    patient = Record.first
+    assert_equal 1, patient.history_tracks.count
+    assert_equal 'pass', patient.calc_results[0]['status']
+
+    @patient = {
+      "id" => patient.id.to_s,
+      "_id" => patient.id.to_s,
+      'first'=> 'Betty', 
+     'last'=> 'Boop', 
+     'gender'=> 'F', 
+     'expired'=> 'true' ,
+     'birthdate'=> 9948600, 
+     'ethnicity'=> 'B', 
+     'race'=> 'B',
+     'start_date'=>'2012-01-01',
+     'end_date'=>'2012-12-31',
+     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","status"=>"performed", "definition"=>"encounter", "start_date"=>1341648000000,"end_date"=>1341648900000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492", 'criteria_id'=>1}],
+     'measure_id' => @measure.hqmf_set_id,
+     'expected_values' => [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}],
+     'calc_results'=> [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}]}
+
+    post :update,@patient
+    assert_response :success
+    assert_equal 1, Record.count
+    r = Record.first
+    assert_equal "Betty", r.first
+    assert_equal "Boop", r.last
+    assert_equal "F", r.gender
+    assert_equal 2, r.source_data_criteria.length
+    assert_equal "EncounterPerformedPsychVisitDiagnosticEvaluation", r.source_data_criteria[0]["id"]
+    assert_equal 1, r.encounters.length
+    
+    # Test that the history tracking is working
+    assert_equal 2, r.history_tracks.count
+    # While the name changed only the DOB and gender should be in the changes recorded
+    assert_equal 2, r.history_tracks[1]['modified'].count
+    assert_equal 'pass', r.calc_results[0]['status']
+    
+    @patient = {
+      "id" => patient.id.to_s,
+      "_id" => patient.id.to_s,
+      'first'=> 'Betty', 
+     'last'=> 'Boop', 
+     'gender'=> 'F', 
+     'expired'=> 'true' ,
+     'birthdate'=> 9948600, 
+     'ethnicity'=> 'B', 
+     'race'=> 'B',
+     'start_date'=>'2012-01-01',
+     'end_date'=>'2012-12-31',
+     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","status"=>"performed", "definition"=>"encounter", "start_date"=>1341648000000,"end_date"=>1341648900000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492",
+     "coded_entry_id"=>BSON::ObjectId.new, 'criteria_id'=>1}],
+     'measure_id' => @measure.hqmf_set_id,
+     'expected_values' => [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}],
+     'calc_results'=> [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}]}
+    
+    post :update, @patient
+    assert_response :success
+    # Adding coded_entry_id should not increase the number of history tracks.
+    assert_equal 2, r.history_tracks.count
+
+    @patient = {
+      "id" => patient.id.to_s,
+      "_id" => patient.id.to_s,
+      'first'=> 'Betty', 
+     'last'=> 'Boop', 
+     'gender'=> 'F', 
+     'expired'=> 'true' ,
+     'birthdate'=> 9948600, 
+     'ethnicity'=> 'B', 
+     'race'=> 'B',
+     'start_date'=>'2012-01-01',
+     'end_date'=>'2012-12-31',
+     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","status"=>"performed", "definition"=>"encounter", "start_date"=>1341648000000,"end_date"=>1341648900000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492",
+     "coded_entry_id"=>BSON::ObjectId.new, 'criteria_id'=>1}],
+     'measure_id' => @measure.hqmf_set_id,
+     'expected_values' => [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>1, "NUMER"=>0}],
+     'calc_results'=> [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}]}
+     
+    post :update, @patient
+    assert_response :success
+    # Changing the expected results should create a new history track. Should also change the status from pass to fail.
+    r = Record.last
+    assert_equal 3, r.history_tracks.count
+    assert_equal "fail", r.calc_results[0]['status']
+    assert_equal "pass", r.history_tracks[2]['original']['calc_results'][0]['status']
+    assert_equal "fail", r.history_tracks[2]['modified']['calc_results'][0]['status']
+    
+    @patient = {
+      "id" => patient.id.to_s,
+      "_id" => patient.id.to_s,
+      'first'=> 'Betty', 
+     'last'=> 'Boop', 
+     'gender'=> 'F', 
+     'expired'=> 'true' ,
+     'birthdate'=> 9948600, 
+     'ethnicity'=> 'B', 
+     'race'=> 'B',
+     'start_date'=>'2012-01-01',
+     'end_date'=>'2012-12-31',
+     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","status"=>"performed", "definition"=>"encounter", "start_date"=>1341648000000,"end_date"=>1341735300000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492",
+     "coded_entry_id"=>BSON::ObjectId.new, 'criteria_id'=>1}],
+     'measure_id' => @measure.hqmf_set_id,
+     'expected_values' => [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>1, "NUMER"=>0}],
+     'calc_results'=> [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}]}
+     
+    post :update, @patient
+    assert_response :success
+    
+    r = Record.last
+    #  Check that the date change in the counter is recorded
+    assert_equal 4, r.history_tracks.count
+    assert_equal 1, r.history_tracks[3]['original']['source_data_criteria'].count
+    assert_equal 1, r.history_tracks[3]['modified']['source_data_criteria'].count
+    
+    @patient = {
+      "id" => patient.id.to_s,
+      "_id" => patient.id.to_s,
+      'first'=> 'Betty', 
+     'last'=> 'Boop', 
+     'gender'=> 'F', 
+     'expired'=> 'true' ,
+     'birthdate'=> 9948600, 
+     'ethnicity'=> 'B', 
+     'race'=> 'B',
+     'start_date'=>'2012-01-01',
+     'end_date'=>'2012-12-31',
+     'source_data_criteria' => [{"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","status"=>"performed", "definition"=>"encounter", "start_date"=>1341648000000,"end_date"=>1341735300000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492",
+     "coded_entry_id"=>BSON::ObjectId.new, 'criteria_id'=>1}, {"id"=>"EncounterPerformedPsychVisitDiagnosticEvaluation","status"=>"performed", "definition"=>"encounter", "start_date"=>1341448000000,"end_date"=>1341535300000,"value"=>[],"negation"=>"","negation_code_list_id"=>nil,"field_values"=>{},"code_list_id"=>"2.16.840.1.113883.3.526.3.1492",
+     "coded_entry_id"=>BSON::ObjectId.new, 'criteria_id'=>2}],
+     'measure_id' => @measure.hqmf_set_id,
+     'expected_values' => [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>1, "NUMER"=>0}],
+     'calc_results'=> [{"measure_id"=>@measure.hqmf_set_id, "population_index"=>0, "IPP"=>1, "DENOM"=>0, "NUMER"=>0}]}
+     
+    post :update, @patient
+    assert_response :success
+    
+    # Adding a second encounter
+    r = Record.last
+    #  Check that the date change in the counter is recorded
+    assert_equal 5, r.history_tracks.count
+    assert_equal 0, r.history_tracks[4]['original']['source_data_criteria'].count
+    assert_equal 1, r.history_tracks[4]['modified']['source_data_criteria'].count
+
+  end
 
   test "materialize" do
    assert_equal 0, Record.count
