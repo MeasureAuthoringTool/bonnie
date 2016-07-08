@@ -122,6 +122,7 @@ module TestCaseMeasureHistory
             patient.calc_results = calc_results
           end
         end
+        patient.has_measure_history = true
         patient.save!
       end
     end
