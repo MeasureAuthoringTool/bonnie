@@ -140,7 +140,9 @@
   </div>
   <br>
   <div>
-    {{#link "measures/{{measure.attributes.hqmf_set_id}}/patients/{{_id}}/compare" expand-tokens=true}}<i class="fa fa-fw fa-columns" aria-hidden="true"></i> Compare current patient state to state before last measure upload.{{/link}}
+    {{#if has_measure_history}}
+      {{#link "measures/{{measure.attributes.hqmf_set_id}}/patients/{{_id}}/compare" expand-tokens=true}}<i class="fa fa-fw fa-columns" aria-hidden="true"></i> Compare current patient state to state before last measure upload.{{/link}}
+    {{/if}}
   </div>
 </div>
 

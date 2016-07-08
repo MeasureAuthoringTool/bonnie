@@ -210,6 +210,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       status = @originalModel.save patientJSON,
         silent: true
         success: (model) =>
+          # We need to clear the cache so that page you are returned to will be forced to refresh its cache for calc_results
+          @.parent._view.patients.get(model).unset('calc_results')
           @patients.add model # make sure that the patient exist in the global patient collection
           @measure?.get('patients').add model # and the measure's patient collection
           if bonnie.isPortfolio

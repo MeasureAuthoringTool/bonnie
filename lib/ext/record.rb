@@ -11,6 +11,7 @@ class Record
   field :is_shared, :type => Boolean
   field :origin_data, type: Array
   field :calc_results, type: Array
+  field :has_measure_history, type: Boolean, default: false
 
   belongs_to :user
   belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle"
