@@ -31,7 +31,8 @@ class MeasuresController < ApplicationController
           percent_passed_after: 0,
           total_patient_size: 0,      
           number_of_patients_who_change: 0
-      }
+        }
+        array_of_patient_numbers_information << patient_numbers_hash
       else
         #If there are patients, do the calculations
         

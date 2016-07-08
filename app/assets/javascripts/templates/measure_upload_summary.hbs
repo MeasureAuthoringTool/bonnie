@@ -5,7 +5,7 @@
           <table class="table-striped table-condensed ">
             <tr>
               <th width="1300px" class="centered">
-                {{!Displays "Your measure has uploaded successful" if there is only 1 population, otherwise it displays "Population N" (1, 2, 3...etc) }}
+                {{!Displays "Your measure has uploaded successfully" if there is only 1 population, otherwise it displays "Population: populationName"}}
                 {{#ifCond ../summary_of_all_information.number_of_populations.length ">" "1"}} {{#with (lookup ../../summary_of_all_information.array_of__population_titles @index) }}Population: {{this}} {{/with}}
                 {{else}}Your measure has uploaded sucessfully!{{/ifCond}} </th>
               <th width="200px" class="centered">Previous &nbsp;Version</th>
@@ -40,22 +40,22 @@
                 {{#each this.[1]}}
                   <td>
                     {{#ifCond after_status "==" "Fail"}}
-                      <i class="fa fa-times" style="color:#a63b12;" aria-hidden="true"></i>&nbsp;
+                      <i class="fail fa fa-fw fa-times" aria-hidden="true"></i>&nbsp;
                     {{else}}
-                      <i class="fa fa-check" style="color:#20744c;" aria-hidden="true"></i>
+                      <i class="pass fa fa-fw fa-check" aria-hidden="true"></i>
                     {{/ifCond}}
-                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <i class="fa fa-fw fa-user" aria-hidden="true"></i>
                     <a class="patient-link" href="/#measures/{{../../../summary_of_all_information.hqmf_set_id}}/patients/{{oid_number}}/edit">{{full_name}}</a>
                   </td>
                     {{#ifCond before_status "==" "Pass"}}
-                      <td style="color:#20744c;">{{before_status}}ing</td>
+                      <td> <span class="pass"> {{before_status}}ing </span> </td>
                     {{else}}
-                      <td style="color:#a63b12;">{{before_status}}ing </td>
+                      <td> <span class="fail"> {{before_status}}ing </span> </td>
                     {{/ifCond}}
                     {{#ifCond after_status "==" "Pass"}}
-                      <td style="color:#20744c;"> {{after_status}}ing </td>
+                      <td> <span class="pass"> {{after_status}}ing </span> </td>
                     {{else}}
-                      <td style="color:#a63b12;">{{after_status}}ing </td>
+                      <td> <span class="fail"> {{after_status}}ing </span> </td>
                     {{/ifCond}}
                   </tr>
                 {{/each}} 
