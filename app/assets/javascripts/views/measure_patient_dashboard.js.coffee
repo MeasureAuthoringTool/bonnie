@@ -50,6 +50,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       headerData = @createHeaderRows()
       @head1 = headerData.slice(0, 1)[0]
       @head2 = headerData.slice(1, 2)[0]
+      @columnsWithChildrenCriteria = @detectChildrenCriteria(@head2)
 
     # create a PatientDashboardPatient for each patient, these are
     # used for each row in patient dashboard.
@@ -105,8 +106,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   patient names, and warnings
   ###
   updateDisplay: (rowIndex) =>
-    # Attaches popover to datacriteria class.
-    @$('[data-toggle="popover"]').popover()
     # Update actual warnings
     if rowIndex
       @updateActualWarnings(rowIndex)
@@ -154,14 +153,14 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   insertTextAndPatientData: (data, type, row, meta) =>
     if data != ""
-      popoverContent = @populatePopover(row.id, meta.col)
-
+      popoverContent = @columnsWithChildrenCriteria[meta.col]
       return JST['pd_result_with_popover']({
-        content: if popoverContent.length > 0
-                   JST['pd_criteria_list']({ criteria: popoverContent })
+        content: if popoverContent?
+                   'TRUE'
                  else
                     ''
-        contentLength: popoverContent.length
+        columnNumber: meta.col
+        patientId: row.id
         result: JST['pd_result_detail']({
           passes: data == "TRUE",
           specifically: data.indexOf('SPECIFICALLY') >= 0
@@ -415,17 +414,17 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   @returns {Array} an array of child criteria objects
   Grabs the children data criteria to display in a list for the selected cell.
   ###
-  populatePopover: (patientId, columnNumber) ->
-    dataCriteria = @pd.dataIndices[columnNumber] # Formatted "PopulationKey_DataCriteriaKey"
+  populatePopover: (sender) ->
+    dataCriteria = @pd.dataIndices[$(sender.target).attr('columnNumber')] # Formatted "PopulationKey_DataCriteriaKey"
     dataCriteriaKey = dataCriteria.substring(dataCriteria.indexOf('_') + 1)
     populationKey = dataCriteria.substring(0, dataCriteria.indexOf('_'))
     children_criteria = @pd.getChildrenCriteria dataCriteriaKey
-    patientResult = @matchPatientToPatientId(patientId)
+    patientResult = @matchPatientToPatientId($(sender.target).attr('patientId'))
     criteriaList = []
 
     for childDataCriteriaKey, childDataCriteriaText of children_criteria
-      if patientResult.get('rationale')[childDataCriteriaKey] && childDataCriteriaKey != dataCriteriaKey
-        patientDashboardPatient = _(@patientData).findWhere({ id: patientId })
+      if childDataCriteriaKey != dataCriteriaKey
+        patientDashboardPatient = _(@patientData).findWhere({ id: $(sender.target).attr('patientId') })
         result = patientDashboardPatient.getPatientCriteriaResult childDataCriteriaKey, populationKey
 
         criteriaList.push({
@@ -434,7 +433,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
           specifically: result.indexOf('SPECIFICALLY') >= 0
         })
 
-    criteriaList
+    $(sender.currentTarget).attr('data-content', JST['pd_criteria_list']({ criteria: criteriaList}))
+    # Attaches popover to currentTarget.
+    $(sender.currentTarget).popover('show')
 
   ###
   @returns {Array} an array containing the contents of both headers
@@ -457,6 +458,19 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         row1[row1.length - 1].colspan = row1[row1.length - 1].colspan + 1
         row1[row1.length - 1].width = row1[row1.length - 1].width + @widths[index]
     [row1, row2]
+
+  ###
+  @returns {object} the column numbers that have children criteria and the dataCriteriaKey
+  ###
+  detectChildrenCriteria: (columns) =>
+    columnWithChildrenCriteria = {}
+    for header, columnNumber in columns
+      dataCriteria = @pd.dataIndices[columnNumber] # Formatted "PopulationKey_DataCriteriaKey"
+      dataCriteriaKey = dataCriteria.substring(dataCriteria.indexOf('_') + 1)
+      children_criteria = @pd.getChildrenCriteria dataCriteriaKey
+      if Object.keys(children_criteria).length > 0
+        columnWithChildrenCriteria[columnNumber] = dataCriteria
+    columnWithChildrenCriteria
 
   ###
   @returns {Object} the results for a given patient given that patient's id
