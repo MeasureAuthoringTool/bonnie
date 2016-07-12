@@ -145,9 +145,11 @@ JST['pd_result_with_popover'] = Handlebars.compile '
       data-toggle="popover"
       data-trigger="focus"
       data-placement="bottom"
+      data-call-method="populatePopover"
       data-html=true
-      data-title="Children Criteria ({{contentLength}})"
-      data-content="{{content}}">
+      patientId={{patientId}}
+      columnNumber={{columnNumber}}
+      data-title="Children Criteria">
       details
     </button>
   {{/if}}'
