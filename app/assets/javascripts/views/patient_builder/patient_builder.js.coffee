@@ -378,7 +378,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       if @patientStatus.patientIsAlive #Changes Warning Message based on whether the patient is alive or not
         @$('.patient-age-label').removeClass('fail fa fa-fw fa-times-circle')
         @$('.patient-age-label').addClass('fa fa-fw fa-exclamation-circle')
-        @$('.patient-age').text("Measure Period precedes Birthdate") #Sets the span tag in patient_builder.hbs
+        @$('.patient-age').html("Measure Period precedes <br> &emsp;&nbsp; Birthdate") #Formats the text to fit properly
       else
         @$('.patient-age-label').removeClass('fa fa-fw fa-exclamation-circle')
         @$('.patient-age-label').addClass('fail fa fa-fw fa-times-circle')
@@ -390,10 +390,10 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.patient-age-label').removeClass('fail fa fa-fw fa-times-circle')
       @$('.patient-age').removeClass('fail')
       if @patientStatus.patientIsAlive
-        @$('.patient-age-label').text("Age at Start of Measure Period: ")
+        @$('.patient-age-label').text("Age at Start of Measure Period:")
       else
         @$('.patient-age-label').text("Age at Time of Death: ")
-      @$('.patient-age').text(@patientStatus.patientAge)
+      @$('.patient-age').html("<br> #{@patientStatus.patientAge}") #Patient Age now displays all on one line (looks cleaner)
 
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
