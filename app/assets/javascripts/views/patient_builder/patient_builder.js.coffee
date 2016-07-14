@@ -390,7 +390,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.patient-age-label').removeClass('fail fa fa-fw fa-times-circle')
       @$('.patient-age').removeClass('fail')
       if @patientStatus.patientIsAlive
-        @$('.patient-age-label').text("Age: ")
+        @$('.patient-age-label').text("Age at Start of Measure Period: ")
       else
         @$('.patient-age-label').text("Age at Time of Death: ")
       @$('.patient-age').text(@patientStatus.patientAge)

@@ -24,7 +24,7 @@
       {{#button "save" class="btn btn-primary" data-saving-text="SAVING..."}}SAVE{{/button}}
     </div>
   </div>
-</div> 
+</div>
 
 <div class="row">
   <form class="col-left" role="form">
@@ -59,9 +59,9 @@
               <input type="text" id="birthtime" name="birthtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM" required aria-required="true">
             </div>
           </div>
-        </div>      
+        </div>
       </div>
-      
+
       <div class="col-sm-6">
         <div class="form-group">
           <label for="{{#if expired}}deathdate{{else}}expired{{/if}}" class="control-label">{{#if expired}}Date of Death{{else}}Living Status{{/if}}</label>
@@ -88,7 +88,7 @@
           {{/if}}
           <hr class="hr-with-thin-margins">
           <h5><span class="patient-age-label">{{!The text that goes here is added via jQuery in patient_builder.js.coffee}}</span>
-            <span class="patient-age">{{patientAge}}</span>
+            <div class="patient-age">{{patientAge}}</div>
           <h5>
         </div>
       </div>
@@ -160,7 +160,7 @@
     {{#each dataCriteriaCategories}}
       {{view "SelectCriteriaView" title=type collection=criteria}}
     {{/each}}
-    <hr class="hr-with-thin-margins"> 
+    <hr class="hr-with-thin-margins">
     {{#button "previewInformation" id="preview_information" class="btn-width-100-percent btn btn-sm btn-default"}}Hide Information{{/button}}
       </div>
     </div>
@@ -178,7 +178,7 @@
     {{view populationLogicView}}
     </div>
   </div>
-  
-  
+
+
 
 </div>
