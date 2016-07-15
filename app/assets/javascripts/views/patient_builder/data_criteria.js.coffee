@@ -79,8 +79,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       model: new Thorax.Model
       criteria: @model
     @showPatientInformation = if @builderView.previousStateWasHideInfo() then 1 else 0
-    #builderView refers to parent (patient_builder.js.coffee)
-    #Convert the true/false to an integer, because our Handlebars {{#ifCond}} helper can't handle true/false
+    # builderView refers to parent (patient_builder.js.coffee)
+    # Convert the true/false to an integer, because our Handlebars {{#ifCond}} helper can't handle true/false]
 
     @listenTo(@builderView, "show_information_in_patient_builder", ->
       @showPatientInformation = 1
@@ -89,6 +89,14 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @listenTo(@builderView, "hide_information_in_patient_builder", ->
       @showPatientInformation = 0
       @render()
+    )
+    @listenTo(@builderView, "close_all_data_criteria", ->
+      @render() # (Re)rendering the view causes each specific data criteria to close
+    )
+    @listenTo(@builderView, "open_all_data_criteria", ->
+      e = arguments[0] # e is only passed within the arguments[] object
+      unless @isExpanded() # Only toggle if this data criteria not already expanded
+        @toggleDetails(e)
     )
 
     @model.on 'highlight', (type) =>

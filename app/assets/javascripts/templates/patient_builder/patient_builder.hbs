@@ -149,24 +149,46 @@
   <div class="col-left measure-data-container">
     <div class="panel-group" id="criteriaElements">
       <div class="scrolling">
-        <h1 class="heading-muted">Arrange By <i id="loading-spinner" class="fa fa-spinner fa-pulse fa-fw hidden"></i> </h1>
         {{view PatientBuilder}}
-          <div class="btn-group ">
-            {{#button "sortPatientEventsBy" id="sort-by-date" class="btn btn-block btn-primary active"}} DATE{{/button}}
-            {{#button "sortPatientEventsBy" id="sort-by-elements" class="btn btn-block btn-primary"}}ELEMENTS{{/button}}
-          </div>
-      <hr class="hr-with-thin-margins">
-      <h1 class="heading-muted">Elements</h1>
-    {{#each dataCriteriaCategories}}
-      {{view "SelectCriteriaView" title=type collection=criteria}}
-    {{/each}}
-    <hr class="hr-with-thin-margins">
-    {{#button "previewInformation" id="preview_information" class="btn-width-100-percent btn btn-sm btn-default"}}Hide Information{{/button}}
+        <h1 class="heading-muted">Elements <i id="loading_spinner" class="fa fa-fw fa-spinner fa-pulse hidden"></i> </h1>
+        {{#each dataCriteriaCategories}}
+          {{view "SelectCriteriaView" title=type collection=criteria}}
+        {{/each}}
+        <hr class="hr-with-thin-margins">
+        <span>
+          {{#button "previewInformation" id="preview_information" class="btn btn-sm btn-default btn-width-100-percent"}}Hide Information{{/button}}
+          <span class="sr-only">Preview or Hide information within Data Criteria</span>
+        </span>
       </div>
     </div>
+
   </div>
   <div class="col-center criteria-container droppable">
     <h1 class="heading-primary">Patient History</h1>
+    <h2 class="heading-muted">
+
+      {{#button "showOrHidePatientBuilderUtilities" class="btn btn-sm btn-link"}}<i class="fa fa-fw fa-lg fa-cog large-cog"> </i>
+        <span class="sr-only">Patient Builder Utilities</span>
+      {{/button}}
+      {{#button "openAllDataCriteria" id="open_all" class="btn btn-sm btn-primary hidden"}}Open All
+        <span class="sr-only">Open all Data Criteria</span>
+      {{/button}}
+      {{#button "closeAllDataCriteria" id="close_all" class="btn btn-sm btn-primary hidden"}}Close All
+        <span class="sr-only">Close all Data Criteria</span>
+      {{/button}}
+      <span class="pull-right">
+        <span class="vertically-center-within-heading"> Order By </span>
+        <span>
+          {{#button "sortPatientEventsBy" id="sort_by_date" class="btn btn-sm btn-primary active"}}<i class="fa fa-chevron-right"></i> Date{{/button}}
+          <span class="sr-only">Order Data Criteria by Date</span>
+        </span>
+        <span>
+          {{#button "sortPatientEventsBy" id="sort_by_elements" class="btn btn-sm btn-primary"}}Elements{{/button}}
+          <span class="sr-only">Order Data Criteria by Element Type</span>
+        </span>
+
+      </span>
+    </h2>
     {{view editCriteriaCollectionView}}
   </div>
   {{#button "cancel" class="sr-only"}}CANCEL{{/button}}

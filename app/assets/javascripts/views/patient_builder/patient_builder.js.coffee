@@ -35,8 +35,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.criteria-data').removeClass("#{Thorax.Views.EditCriteriaView.highlight.valid} #{Thorax.Views.EditCriteriaView.highlight.partial}")
       @$('.highlight-indicator').removeAttr('tabindex').empty()
     @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
-    @sortButton = buttonLastClicked: null, numberOfDataCriteria: -1, secondsSinceLastClick: 0
-    @timeSinceInfoPreviewClick = 0 # Keeps track of last Preview/Hide button click to prevent spam clicking. Only need to track seconds since last click (an integer) for this one
+    @sortButton = buttonLastClicked: null, secondsSinceLastClick: 0
+    @timeSinceInfoPreviewClick = 0 # Keeps track of last Preview/Hide button click to prevent accidental double clicking.
     @patientStatus = # Hash for tracking Patient Info when calculating their age
       patientIsAlive: true
       patientAge: "NA"
@@ -248,72 +248,93 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     # if the user accidentally clicks on DATE or ELEMENTS multiple times, it will sort multiple times
     # even if everything is already sorted. By tracking sortButton, we can prevent the user from
     # accidentally double clicking and waiting the extra few seconds that sorting takes.
+    loadingSpinnerSelector = @$('#loading_spinner')
+    sortByElementsSelector = @$('#sort_by_elements')
+    sortByDateSelector = @$('#sort_by_date')
     if e.target.id?
       switch e.target.id
-        when "sort-by-elements"
-          if @sortButton.buttonLastClicked != "Elements Button" || (@sortButton.numberOfDataCriteria != @model.attributes.source_data_criteria.length || ((@sortButton.secondsSinceLastClick+2000) < e.timeStamp))
-            # only proceed if (the last button they clicked wasn't Elements OR (the number of elements has changed OR it has been 2 seconds since the last click))
-            @$('#sort-by-elements').blur() # Removes focus from button
-            @$('#loading-spinner').removeClass('hidden')
-            @$('#sort-by-elements').addClass('active')
-            @$('#sort-by-date').removeClass('active')
+        when "sort_by_elements"
+          if @sortButton.buttonLastClicked != "Elements Button" || @sortButton.secondsSinceLastClick + 1000 < e.timeStamp
+            # only proceed if the last button they clicked wasn't Elements OR it has been 1 second since the last click
+            loadingSpinnerSelector.removeClass('hidden')
+            sortByElementsSelector.addClass('active')
+            sortByElementsSelector.html('<i class="fa fa-chevron-right"></i> <b>ELEMENTS</b>') # add bold tag and arrow to more visibly show which button is selected
+            sortByDateSelector.removeClass('active')
+            sortByDateSelector.html('DATE') # Remove the chevon arrow and bold tag from the other button, leave just the text
             # Force these previous lines to occur before the sorting begins by waiting 0 seconds
             setTimeout( =>
               @model.sortCriteriaBy 'type'
-              @$('#loading-spinner').addClass('hidden')
+              loadingSpinnerSelector.addClass('hidden')
               @sortButton.buttonLastClicked = "Elements Button" # arbitrary string
-              @sortButton.numberOfDataCriteria = @model.attributes.source_data_criteria.length
               @sortButton.secondsSinceLastClick = e.timeStamp
             , 0)
-          else
-            @$('#sort-by-elements').blur()
-
-        when "sort-by-date"
-          if @sortButton.buttonLastClicked != "Date Button" || (@sortButton.numberOfDataCriteria != @model.attributes.source_data_criteria.length || ((@sortButton.secondsSinceLastClick+2000) < e.timeStamp))
-            # only proceed if (the last button they clicked wasn't Date OR (the number of elements has changed OR it has been 2 seconds since the last click))
-            @$('#sort-by-date').blur() # Removes focus from button
-            @$('#loading-spinner').removeClass('hidden')
-            @$('#sort-by-date').addClass('active')
-            @$('#sort-by-elements').removeClass('active')
+        when "sort_by_date"
+          if @sortButton.buttonLastClicked != "Date Button" || @sortButton.secondsSinceLastClick + 1000 < e.timeStamp
+            # only proceed if the last button they clicked wasn't Date OR it has been 1 second since the last click
+            loadingSpinnerSelector.removeClass('hidden')
+            sortByDateSelector.addClass('active')
+            sortByDateSelector.html('<i class="fa fa-chevron-right"></i> <b>DATE</b>') # add bold tag and arrow to more visibly show which button is selected
+            sortByElementsSelector.removeClass('active')
+            sortByElementsSelector.html('ELEMENTS') # Remove the chevon arrow and bold tag from the other button, leave just the text
             # Force these previous lines to occur before the sorting begins by waiting 0 seconds
             setTimeout( =>
               @model.sortCriteriaBy 'start_date'
-              @$('#loading-spinner').addClass('hidden')
+              loadingSpinnerSelector.addClass('hidden')
               @sortButton.buttonLastClicked = "Date Button" # arbitrary string
-              @sortButton.numberOfDataCriteria = @model.attributes.source_data_criteria.length
               @sortButton.secondsSinceLastClick = e.timeStamp
             , 0)
-          else
-            @$('#sort-by-date').blur()
 
   previewInformation: (e) ->
-  # Just like with the "Arrange By" buttons, if you spam click the "Preview/Hide Information"
+  # Just like with the "Order By" buttons, if you spam/double click the "Preview/Hide Information"
   # button it performs the action for each click. On patients with many events this can
   # easily mean 20-30 seconds of "lag" if the user has clicked 5+ times
   # Only allow the previewing/hiding to occur if they haven't clicked in .75 seconds
-  # TODO: The previewing/hiding button shares the same loading-spinner as the "Arrange By" buttons
+  # TODO: The previewing/hiding button shares the same loading_spinner as the "Order By" buttons
   # Maybe give it its own loading spinner?
-    if @timeSinceInfoPreviewClick+750 < e.timeStamp
+    if @timeSinceInfoPreviewClick + 750 < e.timeStamp
+      loadingSpinnerSelector = @$('#loading_spinner')
       @timeSinceInfoPreviewClick = e.timeStamp # Overwrite previous timestamp with new one
-      @$('#preview_information').blur()
-      @$('#loading-spinner').removeClass('hidden')
+      loadingSpinnerSelector.removeClass('hidden')
 
       if @previousStateWasHideInfo()
         @$('#preview_information').text('Preview Information') # sets the button's new text
         # Force these previous lines to occur before previewing patient info by waiting 0 seconds
         setTimeout( =>
           @trigger "hide_information_in_patient_builder"
-          @$('#loading-spinner').addClass('hidden')
+          loadingSpinnerSelector.addClass('hidden')
         , 0)
       else
         @$('#preview_information').text('Hide Information') # sets the button's new text
         # Force these previous lines to occur before hiding patient info by waiting 0 seconds
         setTimeout( =>
           @trigger "show_information_in_patient_builder"
-          @$('#loading-spinner').addClass('hidden')
+          loadingSpinnerSelector.addClass('hidden')
         , 0)
-    else
-      @$('#preview_information').blur()
+
+  openAllDataCriteria: (e) ->
+    previousScrollLocation = $(window).scrollTop()
+    @$('#loading_spinner').removeClass('hidden')
+    setTimeout( =>
+      @trigger "open_all_data_criteria", e # Opening all the data criteria scrolls down ~half the page
+      @$('#loading_spinner').addClass('hidden')
+      window.scrollTo(0, previousScrollLocation) # Scroll back to original location
+      # Opening shifts focus off "Open All" button,
+      # shift it back for 508 compliance, and easy keyboard navigation
+      @$('#open_all').focus()
+    , 0)
+
+  closeAllDataCriteria: ->
+    @$('#loading_spinner').removeClass('hidden')
+    setTimeout( =>
+      @trigger "close_all_data_criteria"
+      @$('#loading_spinner').addClass('hidden')
+    , 0)
+
+  # Displays or hides the two buttons "Close All" and "Open All"
+  showOrHidePatientBuilderUtilities: (e) ->
+    e.preventDefault()
+    @$('#open_all').toggleClass('hidden')
+    @$('#close_all').toggleClass('hidden')
 
   previousStateWasHideInfo: ->
     # Checks the text on the button to determine previous state
@@ -322,14 +343,14 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     else
       return false
 
-  # Formats duration between a start_date and an end_date and returns that value as a string (e.g. "2 years 3 months")
+  # Formats duration between a start_date and an end_date and returns that value as a string (e.g. "2 years, 3 months")
   # (both start and end date must be moments from Moment.js)
   getDuration: (start_date, end_date) ->
     if end_date.diff(start_date) > 0 # End Date must follow Start Date
       durationInformation = years: 0, months: 0, days: 0, hours: 0, minutes: 0
       elementDurationAsString = ""
       displayTwoValues = 0 # For durations, only display largest 2 times categories
-      # e.g. "12 years 3 months", not "12 years 3 months, 2 days, 3 hours, 14 minutes"
+      # e.g. "12 years, 3 months", not "12 years, 3 months, 2 days, 3 hours, 14 minutes"
       if end_date.diff(start_date, 'minutes', true) >= 60
         if end_date.diff(start_date, 'hours', true) >= 24
           if end_date.diff(start_date, 'days', true) >= 31
@@ -352,7 +373,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
               durationInformation.durationInformationKey = "#{durationInformationValue} #{durationInformationKey.slice(0, -1)}" # if necessary, remove "s" for non-plural
             elementDurationAsString += "#{durationInformation.durationInformationKey}, "
             displayTwoValues++
-      elementDurationAsString = elementDurationAsString.slice(0,-2) # Chop off ", " from the string
+      elementDurationAsString = elementDurationAsString.slice(0,-2) # Chop off the trailing ", " from the string
     else
       elementDurationAsString = null # meaning the end date preceded the start date
     return elementDurationAsString
@@ -361,39 +382,43 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     if @model.get('birthdate')
       if @model.get('deathdate')
         @patientStatus.patientIsAlive = false
-        # Since both birthdate and deathdate are off by 5 hours, they will  calculate correctly without the ".add(5, 'hours')". However, better to account for it
-        @patientStatus.patientAge = @getDuration(moment(parseInt(@model.get('birthdate'))*1000).add(5, 'hours'), moment(parseInt(@model.get('deathdate'))*1000).add(5, 'hours'))
+        # Since both birthdate and deathdate are off by 5 hours, they will calculate correctly without the ".add(5, 'hours')". However, better to account for it
+        @patientStatus.patientAge = @getDuration(moment(parseInt(@model.get('birthdate')) * 1000).add(5, 'hours'), moment(parseInt(@model.get('deathdate')) * 1000).add(5, 'hours'))
       else
         @patientStatus.patientIsAlive = true
-        if parseInt(moment(@model.get('birthdate')*1000).format("YYYY")) == bonnie.measurePeriod
+        if parseInt(moment(@model.get('birthdate') * 1000).format("YYYY")) == bonnie.measurePeriod
           @patientStatus.patientAge = "Born during Measure Period" #Patient born during Measure Period
         else
           # Time picker wants to offset birthdate by 5 hours - not sure if problem with timepicker or Moment.js
           # either way, adding 5 hours to birthdate fixes problem
-          @patientStatus.patientAge = @getDuration(moment(@model.get('birthdate')*1000).add(5, 'hours'), moment(new Date(bonnie.measurePeriod, 0,1,0,0,0,0)))
+          @patientStatus.patientAge = @getDuration(moment(@model.get('birthdate') * 1000).add(5, 'hours'), moment(new Date(bonnie.measurePeriod, 0,1,0,0,0,0)))
 
   setPatientAge: ->
-    @getPatientAge() # Determines Patient Age
+    @getPatientAge() # Determines Patient Age and stores results in instanced hash @patientStatus
+    patientAgeLabelSelector = @$('.patient-age-label')
+    patientAgeSelector = @$('.patient-age')
+
     if @patientStatus.patientAge == null # Meaning the Birthdate came after the deathdate or the measurePeriod
       if @patientStatus.patientIsAlive # Changes Warning Message based on whether the patient is alive or not
-        @$('.patient-age-label').removeClass('fail fa fa-fw fa-times-circle')
-        @$('.patient-age-label').addClass('fa fa-fw fa-exclamation-circle')
-        @$('.patient-age').html("Measure Period precedes <br> &emsp;&nbsp; Birthdate") # Formats the text to fit properly
+        patientAgeLabelSelector.removeClass('fail fa fa-fw fa-times-circle')
+        patientAgeLabelSelector.addClass('fa fa-fw fa-exclamation-circle')
+        patientAgeSelector.html("Measure Period precedes <br> &emsp;&nbsp; Birthdate") # Formats the text to fit properly
       else
-        @$('.patient-age-label').removeClass('fa fa-fw fa-exclamation-circle')
-        @$('.patient-age-label').addClass('fail fa fa-fw fa-times-circle')
-        @$('.patient-age').addClass('fail')
-        @$('.patient-age').text("Death Date precedes Birthdate")
-      @$('.patient-age-label').text("") # Clear Age Label Text
-    else
-      @$('.patient-age-label').removeClass('fa fa-fw fa-exclamation-circle')
-      @$('.patient-age-label').removeClass('fail fa fa-fw fa-times-circle')
-      @$('.patient-age').removeClass('fail')
+        patientAgeLabelSelector.removeClass('fa fa-fw fa-exclamation-circle')
+        patientAgeLabelSelector.addClass('fail fa fa-fw fa-times-circle')
+        patientAgeSelector.addClass('fail')
+        patientAgeSelector.text("Death Date precedes Birthdate")
+      patientAgeLabelSelector.text("") # Clear Age Label Text
+    else # Meaning the birthdate comes before deathdate
+      patientAgeLabelSelector.removeClass('fa fa-fw fa-exclamation-circle')
+      patientAgeLabelSelector.removeClass('fail fa fa-fw fa-times-circle')
+      patientAgeSelector.removeClass('fail')
+
       if @patientStatus.patientIsAlive
-        @$('.patient-age-label').text("Age at Start of Measure Period:")
+        patientAgeLabelSelector.text("Age at Start of Measure Period:")
       else
-        @$('.patient-age-label').text("Age at Time of Death: ")
-      @$('.patient-age').html("<br> #{@patientStatus.patientAge}") # Patient Age now displays all on one line (looks cleaner)
+        patientAgeLabelSelector.text("Age at Time of Death: ")
+      patientAgeSelector.html("<br> #{@patientStatus.patientAge}") # Patient Age now displays all on one line (looks cleaner)
 
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
