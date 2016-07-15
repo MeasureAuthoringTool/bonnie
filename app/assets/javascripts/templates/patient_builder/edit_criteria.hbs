@@ -25,8 +25,8 @@
         <div class="col-md-6  criteria-{{model.cid}}">
           <div class="pull-left">
             <h2>Date</h2>
-            {{#if end_date}} {{!As long as the end_date exists}}
-              {{#if duration_between_element_start_and_finish}} {{!And the end date comes after the start date}}
+            {{#if end_date}} {{! As long as the end_date exists }}
+              {{#if duration_between_element_start_and_finish}} {{! And the end date comes after the start date }}
                 <div>{{start_date}} &ndash; {{end_date}}</div>
                 <div>Duration: {{duration_between_element_start_and_finish}}</div>
               {{else}}
@@ -46,47 +46,47 @@
           {{/button}}
         </div>
       </div>
-      {{#ifCond showPatientInfo "==" 1}} {{!If the user wishes to preview the information}}
+      {{#ifCond showPatientInfo "==" 1}} {{! If the user wishes to preview the information }}
         <div class="row">
           <div class="col-md-12">
-            {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
+
             {{#if fulfillment_information}}
-              <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
+              <hr class= "hr-with-thin-margins"> {{! Thin line break between each element/value }}
               {{#if isNegated}}<label>{{else}}<label class="control-label">{{/if}}<i class="fa fa-fw fa-medkit" aria-hidden="true"></i>Filled<input class="sr-only" disabled></label>
                 {{#each fulfillment_information}}
                 <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
                 {{/each}}
-            {{/if}}          
-            {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
+            {{/if}}
+
             {{#if result_information}}
-              <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
+              <hr class= "hr-with-thin-margins"> {{! Thin line break between each element/value }}
               {{#if isNegated}}<label>{{else}}<label class="control-label">{{/if}}<i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>Result<input class="sr-only" disabled></label>
                 {{#each result_information}}
                 <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
                 {{/each}}
-            {{/if}}          
-            {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}
+            {{/if}}
+
             {{#if field_value_information}}
-              <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
+              <hr class= "hr-with-thin-margins"> {{! Thin line break between each element/value }}
               {{#if isNegated}}<label>{{else}}<label class="control-label">{{/if}}<i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>Field Values<input class="sr-only" disabled></label>
                 {{#each field_value_information}}
                 <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
                 {{/each}}
-            {{/if}}          
-            {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}  
+            {{/if}}
+
             {{#if references_information}}
-              <hr class= "hr-with-thin-margins"> {{!Thin line break between each element/value}}
+              <hr class= "hr-with-thin-margins"> {{! Thin line break between each element/value }}
               {{#if isNegated}}<label>{{else}}<label class="control-label">{{/if}}<i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>References<input class="sr-only" disabled></label>
                 {{#each references_information}}
                 <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
                 {{/each}}
-            {{/if}}            
-            {{!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=}}  
+            {{/if}}
+
           </div>
         </div>
       {{/ifCond}}
 
-  
+
       {{#ifPortfolio}}
         <span class="criteria-tag">
           <span class="criteria-tag-cms">CMS</span> <span class="criteria-tag-num">{{cms_id_number}}</span> <span class="criteria-tag-version">{{cms_id_version}}</span>
@@ -120,7 +120,7 @@
             </div>
           </div>
         </div>
-        
+
         {{#if hasStopTime}}
         <div class="form-group col-md-6">
           <label for="end_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> {{stopLabel}}<span class="sr-only"> date month/day/year</span></label>

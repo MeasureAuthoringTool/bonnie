@@ -17,7 +17,7 @@ class Thorax.Views.SelectCriteriaView extends Thorax.Views.BonnieView
     rendered: ->
       # FIXME: We'd like to do this via straight thorax events, doesn't seem to work...
       @$('.collapse').on 'show.bs.collapse hide.bs.collapse', (e) =>
-        $('a.panel-title[data-toggle="collapse"]').toggleClass('closed').find('.panel-icon').toggleClass('fa-3x fa-1x') #shrink others
+        $('a.panel-title[data-toggle="collapse"]').toggleClass('closed').find('.panel-icon').toggleClass('fa-3x fa-1x') # shrink others
         @$('.panel-expander').toggleClass('fa-angle-right fa-angle-down')
         @$('.panel-icon').toggleClass('fa-3x fa-2x')
         @$('a.panel-title[data-toggle="collapse"]').toggleClass('closed')
@@ -108,41 +108,41 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     results_information_array = []
     references_information_array = []
     fulfillments_information_array = []
-    #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    if @showPatientInformation #only perform the calculations if the patient is previewing the information
-      if @model.attributes.fulfillments? #FULFILLMENTS
+
+    if @showPatientInformation # only perform the calculations if the patient is previewing the information
+      if @model.attributes.fulfillments? # LOGIC FOR FULFILLMENTS
         fulfillments_information_array = @model.attributes.fulfillments.map((ful) ->
            # using .get to retreive attributes since ful is a Thorax object
              return ((ful.get('quantity_dispensed_value') + " " + ful.get('quantity_dispensed_unit') + " " + ful.get('dispense_date') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ful.get('dispense_time')))
-      #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-      if @model.attributes.field_values? #FIELD VALUES
+
+      if @model.attributes.field_values? # LOGIC FOR FIELD VALUES
         that_model = @model #store this.model to be used inside the map
         field_value_information_array = @model.attributes.field_values.map((field_val) ->
             # using .get to retreive attributes since field_val is a Thorax object
-           switch field_val.get('type') #CD = Coded, PQ = Scalar, TS = Date Entry. This switch statement is just for formatting the different entry methods
+           switch field_val.get('type') # CD = Coded, PQ = Scalar, TS = Date Entry. This switch statement is just for formatting the different entry methods
              when "CD" then return (((field_val.get('key')) + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (field_val.get('title')))
              when "PQ" then return ((field_val.get('key') + ": " + field_val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (field_val.get('unit')))
              when "TS" then return ((field_val.get('key') + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ moment.utc(that_model.get('value')).format('L')))
-      #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-      if @model.attributes.references? #REFERENCES
+
+      if @model.attributes.references? # LOGIC FOR REFERENCES
         references_information_array = @model.attributes.references.map((ref) ->
            # using .get to retreive attributes since ref is a Thorax object
            if ref.get('reference_type')
              return ref.get('reference_type').replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ": " + ref.get('description') + ": " + ref.get('start_date')
            else
              return ref.get('description') + ": " + ref.get('start_date'))
-      #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-      if @model.attributes.value? #RESULTS
+
+      if @model.attributes.value? # LOGIC FOR RESULTS
         results_information_array = @model.attributes.value.map((val) ->
            # using .get to retreive attributes since val is a Thorax object
-           switch val.get('type') #CD = Coded, PQ = Scalar. This switch statement is just for formatting the different entry methods
+           switch val.get('type') # CD = Coded, PQ = Scalar. This switch statement is just for formatting the different entry methods
              when "CD" then return val.get('title')
              when "PQ" then return (val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (val.get('unit')))
 
-    if @model.get('end_date')? #Calculate Duration Between Start and End Dates
+    if @model.get('end_date')? # Calculate Duration Between Start and End Dates
       start_date = moment(@model.get('start_date'))
       end_date = moment(@model.get('end_date'))
-      #getDuration is within the parent (@builderView - patient_builder.js.coffee)
+      # getDuration is within the parent (@builderView - patient_builder.js.coffee)
       element_duration =  @builderView.getDuration(start_date,end_date)
 
     definition_title = @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
@@ -549,8 +549,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     for c in this.parent.model.collection.models
       if c.get("criteria_id") == reference_id
         return c
-  #pulls all of the other data criteria on the page
-  #todo -- needs to be able to update the list when items are added to the builder
+  # pulls all of the other data criteria on the page
+  # todo -- needs to be able to update the list when items are added to the builder
   otherCriteria: ->
     crit = []
     for c in this.parent.model.collection.models
@@ -561,4 +561,3 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   context: ->
     _(super).extend
       references: Thorax.Models.Measure.referencesFor(@criteriaType)
-      
