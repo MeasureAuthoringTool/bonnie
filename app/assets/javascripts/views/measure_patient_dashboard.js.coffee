@@ -265,6 +265,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Makes a patient row inline editable
   ###
   makeInlineEditable: (sender) ->
+    # TODO: Set keyboard focus on the newly editable elements!
     # Get row index and data of selected patient
     targetCell = sender?.currentTarget?.parentElement
     row = @getRowData(targetCell)
@@ -371,6 +372,13 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     rowIndex = @getRowIndex(targetCell)
     patient = _.findWhere(@measure.get('patients').models, {id: row.id})
     @patientEditView.display patient, rowIndex
+
+  ###
+  Shows the actions associated with each patient row.
+  ###
+  expandActions: (e) ->
+    e.preventDefault()
+    @$(e.currentTarget).next('.pd-settings').toggleClass('pd-settings-expanded')
 
   ###
   Shows the Delete button and cancel button
