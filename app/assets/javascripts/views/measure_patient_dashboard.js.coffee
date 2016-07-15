@@ -92,7 +92,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       order: [], # disables initial sorting
       paging: false,
       fixedColumns:
-        leftColumns: 2 + @populations.length
+        leftColumns: 4 + @populations.length
       preDrawCallback: => @updateDisplay()
     )
 
@@ -118,10 +118,12 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   getTableColumns: (patient) ->
     column = []
+    column.push data: 'actions', orderable: false
     column.push data: 'passes'
+    column.push data: 'last'
+    column.push data: 'first'
     for population in @populations
       column.push data: 'actual' + population, className: 'value', render: @insertResultValue
-    column.push data: 'actions'
     for population in @populations
       column.push data: 'expected' + population, className: 'value', render: @insertResultValue
     column.push data: 'description', className: 'limited'
@@ -182,8 +184,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   @returns {Object} a mapping of editable column field names to row indices
   ###
   getEditableCols: ->
-    #editableFields = ['first', 'last', 'description', 'gender']
-    editableFields = ['description', 'gender']
+    editableFields = ['first', 'last', 'description', 'gender']
     editableCols = {}
     # Add patient characteristics to editable fields
     for editableField in editableFields
@@ -275,10 +276,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     row['old'] = jQuery.extend(true, {}, row)
 
     for k, v of @editableCols
-      if k in ['description']
-        row[k] = JST['pd_input_field']({ rowIndex: rowIndex, key: k })
-      else if k == 'gender'
+      if k == 'gender'
         row[k] = JST['pd_edit_gender']({ rowIndex: rowIndex, femaleSelected: row[k] == 'F' })
+      else
+        row[k] = JST['pd_input_field']({ rowIndex: rowIndex, key: k })
 
     # Change edit button to save and cancel buttons
     row['actions'] = JST['pd_edit_controls']({})
@@ -293,8 +294,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         $('[name=' + k + rowIndex + ']').val(row['old'][k])
 
     # Make datepickers active
-    $('.birthdate' + rowIndex).datepicker()
-    $('.deathdate' + rowIndex).datepicker()
+    # $('.birthdate' + rowIndex).datepicker()
+    # $('.deathdate' + rowIndex).datepicker()
 
     @updateDisplay(rowIndex)
 
