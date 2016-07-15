@@ -18,7 +18,7 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     @_expected = @getExpectedResults()
     @_actual = @getActualResults()
     @passes = JST['pd_result_text']({ passes: @isPatientPassing() == "PASS" })
-    @actions = JST['pd_action_dropdown']({ name: @patient.get('last') + " " + @patient.get('first'), passes: @isPatientPassing() == "PASS" })
+    @actions = JST['pd_action_gears']({})
 
     # Set up instance variables for use by Patient Dashboard
     @saveExpectedResults()
