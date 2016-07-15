@@ -148,6 +148,34 @@ table.dataTable {
   }
 }
 
+.pd-settings-container {
+  .btn-settings {
+    float: left;
+    font-size: 1.5em;
+    padding: 0;
+    color: black;
+  }
+
+  .pd-settings {
+    visibility: hidden;
+    opacity: 0;
+    background-color: @gray-lighter;
+    position: absolute;
+    .transition(opacity 0.5s linear);
+
+    .btn {
+      .box-shadow(0 1px 3px rgba(0,0,0,.25));
+    }
+  }
+  .pd-settings-expanded {
+    visibility: visible;
+    opacity: 1;
+    left: 2.5em;
+    white-space: nowrap;
+    z-index: 1;
+  }
+}
+
 .sorting_1, .sorting_2, .sorting_3 {
   background-color: @blue-lightest;
 }
