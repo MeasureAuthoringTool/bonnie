@@ -74,40 +74,27 @@ JST['pd_result_text'] = Handlebars.compile '<div
   </div>'
 
 ###
-Renders a dropdown menu for a patient displayed in the Patient Dashboard.
-Colors the button based on whether it is passing or failing.
+When clicked, shows or hides buttons to perform actions on a row
 ###
-JST['pd_action_dropdown'] = Handlebars.compile '<div class="patient-options btn-group">
-    <button type="button" class="btn btn-sm btn-{{#if passes}}primary{{else}}danger{{/if}} patient-name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <i class="fa fa-fw fa-user"></i>
-      <span class="name">{{name}}</span>
-    </button>
-    <button type="button" class="btn btn-sm btn-{{#if passes}}primary{{else}}danger{{/if}} dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="caret"></span>
-      <span class="sr-only">Toggle Dropdown</span>
-    </button>
-    <ul class="dropdown-menu">
-      <li>
-        <button class="btn btn-sm btn-block btn-link" data-call-method="makeInlineEditable">
-          <i aria-hidden="true" class="fa fa-fw fa-pencil"></i>
-          Edit
-        </button>
-      </li>
-      <li>
-        <button class="btn btn-sm btn-block btn-link" data-call-method="openEditDialog">
-          <i aria-hidden="true" class="fa fa-fw fa-square-o"></i>
-          Open
-        </button>
-      </li>
-      <li role="separator" class="divider"></li>
-      <li>
-        <button class="btn btn-sm btn-block btn-link btn-danger" data-call-method="showDelete">
-          <i aria-hidden="true" class="fa fa-fw fa-times"></i>
-          Delete
-        </button>
-      </li>
-    </ul>
-  </div>'
+JST['pd_action_gears'] = Handlebars.compile '<span class="pd-settings-container">
+    <a href="" class="btn btn-settings" data-call-method="expandActions">
+      <i class="fa fa-cog" aria-hidden="true"></i>
+      <span class="sr-only">Patient Actions</span>
+    </a>
+    <div class="pd-settings">
+      <button class="btn btn-sm btn-primary" data-call-method="makeInlineEditable">
+        <i aria-hidden="true" class="fa fa-fw fa-pencil"></i>
+        Edit
+      </button>
+      <button class="btn btn-sm btn-primary" data-call-method="openEditDialog">
+        <i aria-hidden="true" class="fa fa-fw fa-square-o"></i>
+        Open
+      </button>
+      <button class="btn btn-sm btn-danger-inverse" data-call-method="showDelete">
+        <i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>
+      </button>
+    </div>
+  </span>'
 
 ###
 Displays individual results.
