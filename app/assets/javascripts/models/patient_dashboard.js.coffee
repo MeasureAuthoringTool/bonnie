@@ -4,6 +4,8 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
   @DESCRIPTION = "description"
   @BIRTHDATE = "birthdate"
   @DEATHDATE = "deathdate"
+  @FIRST = "first"
+  @LAST = "last"
   @GENDER = "gender"
   @EXPECTED = "expected"
   @ACTUAL = "actual"
@@ -38,10 +40,12 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
 
   getDataIndices: (populations, @criteriaKeysByPopulation) =>
     dataIndices = []
+    dataIndices.push(PatientDashboard.ACTIONS)
     dataIndices.push(PatientDashboard.RESULT)
+    dataIndices.push(PatientDashboard.LAST)
+    dataIndices.push(PatientDashboard.FIRST)
     for population in populations
       dataIndices.push(PatientDashboard.ACTUAL_PREFIX + population)
-    dataIndices.push(PatientDashboard.ACTIONS)
     for population in populations
       dataIndices.push(PatientDashboard.EXPECTED_PREFIX + population)
     dataIndices.push(PatientDashboard.DESCRIPTION)
@@ -68,7 +72,9 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
 
     # include the metadata
     dataInfo[PatientDashboard.RESULT] = { name: "Result", width: 80 }
-    dataInfo[PatientDashboard.ACTIONS] = { name: "Options", width: 150 }
+    dataInfo[PatientDashboard.LAST] = { name: "Last Name", width: @COL_WIDTH_META_MEDIUM }
+    dataInfo[PatientDashboard.FIRST] = { name: "First Name", width: @COL_WIDTH_META_MEDIUM }
+    dataInfo[PatientDashboard.ACTIONS] = { name: "Options", width: @COL_WIDTH_META_SMALL }
     dataInfo[PatientDashboard.DESCRIPTION] = { name: "Description", width: @COL_WIDTH_FREETEXT }
     dataInfo[PatientDashboard.BIRTHDATE] = { name: "Birthdate", width: @COL_WIDTH_META_LARGE }
     dataInfo[PatientDashboard.DEATHDATE] = { name: "Deathdate", width: @COL_WIDTH_META_LARGE }
@@ -93,7 +99,7 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
   getDataCollections: (populations, dataIndices, criteria_keys_by_population) =>
     dataCollections = {}
     dataCollections[PatientDashboard.ACTIONS] = {name: "Options", items: [PatientDashboard.ACTIONS] }
-    dataCollections[PatientDashboard.RESULT] = {name: "Result", items: [PatientDashboard.RESULT] }
+    dataCollections[PatientDashboard.RESULT] = {name: "Result", items: [PatientDashboard.RESULT, PatientDashboard.LAST, PatientDashboard.FIRST] }
     dataCollections[PatientDashboard.EXPECTED] = { name: "Expected", items: PatientDashboard.EXPECTED_PREFIX + pop for pop in populations }
     dataCollections[PatientDashboard.ACTUAL] = { name: "Actual", items: PatientDashboard.ACTUAL_PREFIX + pop for pop in populations }
     dataCollections[PatientDashboard.DESCRIPTION] = {name: "Notes", items: [PatientDashboard.DESCRIPTION] }
