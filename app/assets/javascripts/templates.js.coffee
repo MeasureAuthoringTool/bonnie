@@ -124,9 +124,8 @@ Displays results with a popover. Popover content and result are HTML blobs.
 JST['pd_result_with_popover'] = Handlebars.compile '
   {{{result}}}
   {{#if content}}
-    <button
-      type="button"
-      tabindex="1"
+    <a
+      tabindex="0"
       class="btn btn-default btn-xs trigger-criteria"
       data-container="body"
       data-toggle="popover"
@@ -138,7 +137,7 @@ JST['pd_result_with_popover'] = Handlebars.compile '
       columnNumber={{columnNumber}}
       data-title="Children Criteria">
       details
-    </button>
+    </a>
   {{/if}}'
 
 ###
