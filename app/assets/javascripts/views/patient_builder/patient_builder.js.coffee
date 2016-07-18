@@ -169,7 +169,10 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         @measure?.get('patients').add model # and the measure's patient collection
         if bonnie.isPortfolio
           @measures.each (m) -> m.get('patients').add model
-        route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
+        if @routeToPatientDashboard #Check that is passed in from PatientDashboard, to Route back to patient dashboard.
+          route = if @measure then "measures/#{@measure.get('hqmf_set_id')}/patient_dashboard" else "patients"
+        else
+          route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
         bonnie.navigate route, trigger: true
         options.success(model) if options.success
     unless status
