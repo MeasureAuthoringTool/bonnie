@@ -2,6 +2,10 @@ class Thorax.Views.MeasurePatientDashboardLayout extends Thorax.LayoutView
   template: JST['measure/patient_dashboard_layout']
   className: 'patient-dashboard-layout'
 
+  initialize: ->
+    $('#patient-dashboard-button').addClass('btn-primary')
+    $('#measure-details-button').removeClass('btn-primary')
+
   switchPopulation: (e) ->
     @population = $(e.target).model()
     @population.measure().set('displayedPopulation', @population)
@@ -32,7 +36,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Create patient dashboard layout and patient editor modal
     @patientEditView = new Thorax.Views.MeasurePatientEditModal(dashboard: this)
     @pd = new Thorax.Models.PatientDashboard @measure, @populations, @population
-
     @nonEmptyPopulations = []
     for pop in @populations
       if @pd.criteriaKeysByPopulation[pop].length > 0
@@ -42,22 +45,11 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     @editableRows = []
     @editableCols = @getEditableCols()
     @widths = @getColWidths()
-
-    # Get patient calculation results
-    @results = @population.calculationResults()
-    @results.calculationsComplete =>
-      @patientResults = @results
-      headerData = @createHeaderRows()
-      @head1 = headerData.slice(0, 1)[0]
-      @head2 = headerData.slice(1, 2)[0]
-      @columnsWithChildrenCriteria = @detectChildrenCriteria(@head2)
-
-    # create a PatientDashboardPatient for each patient, these are
-    # used for each row in patient dashboard.
-    # TODO: Use a Thorax collection for this instead of array?
     @patientData = []
-    for patient in @measure.get('patients').models
-      @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
+    headerData = @createHeaderRows()
+    @head1 = headerData.slice(0, 1)[0]
+    @head2 = headerData.slice(1, 2)[0]
+    @columnsWithChildrenCriteria = @detectChildrenCriteria(@head2)
 
   context: ->
     _(super).extend
@@ -77,29 +69,40 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       $('.container-fluid').removeClass('container-fluid').addClass('container')
 
   setup: ->
-    # Create column access info for use by DataTables
-    @tableColumns = @getTableColumns(@patientData?[0])
+    # Get patient calculation results
+    @results = @population.calculationResults()
+    @results.calculationsComplete =>
+      @patientResults = @results
 
-    # Initialize patient dashboard using DataTables
-    table = @$('#patientDashboardTable').DataTable(
-      data: @patientData,
-      columns: @tableColumns,
-      dom: '<if<"scrolling-table"t>>', # places table info and filter, then table, then nothing
-      deferRender: true,
-      scrollX: true,
-      scrollY: "600px",
-      scrollCollapse: true,
-      order: [], # disables initial sorting
-      paging: false,
-      fixedColumns:
-        leftColumns: 4 + @populations.length
-      preDrawCallback: => @updateDisplay()
-    )
+    # create a PatientDashboardPatient for each patient, these are
+    # used for each row in patient dashboard.
+    # TODO: Use a Thorax collection for this instead of array?
+      for patient in @measure.get('patients').models
+        @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
 
-    # Removes the form-inline class from the wrapper so that inputs in our table can
-    # take on full width. This is expected to be fixed in a future release of DataTables.
-    @$('#patientDashboardTable_wrapper').removeClass('form-inline')
-    @$('#patientDashboardTable_filter').addClass('form-inline') # Search input
+      # Create column access info for use by DataTables
+      @tableColumns = @getTableColumns()
+
+      # Initialize patient dashboard using DataTables
+      table = @$('#patientDashboardTable').DataTable(
+        data: @patientData,
+        columns: @tableColumns,
+        dom: '<if<"scrolling-table"t>>', # places table info and filter, then table, then nothing
+        deferRender: true,
+        scrollX: true,
+        scrollY: "600px",
+        scrollCollapse: true,
+        order: [], # disables initial sorting
+        paging: false,
+        fixedColumns:
+          leftColumns: 4 + @populations.length
+        preDrawCallback: => @updateDisplay()
+      )
+
+      # Removes the form-inline class from the wrapper so that inputs in our table can
+      # take on full width. This is expected to be fixed in a future release of DataTables.
+      @$('#patientDashboardTable_wrapper').removeClass('form-inline')
+      @$('#patientDashboardTable_filter').addClass('form-inline') # Search input
 
   ###
   Performs some actions on the DOM to properly render popovers,
@@ -116,7 +119,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   @returns {Array} an array of "instructions" for each column in a row that
   tells patient dashboard how to display a PatientDashboardPatient properly
   ###
-  getTableColumns: (patient) ->
+  getTableColumns: ->
     column = []
     column.push data: 'actions', orderable: false
     column.push data: 'passes'
@@ -258,7 +261,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Updates actual warnings for all rows
   ###
   updateAllActualWarnings: ->
-    if @patientData.length > 0 # Check if the list is populated.
+    if @patientData?.length > 0 # Check if the list is populated.
       for i in [0..@patientData.length-1]
         @updateActualWarnings(i)
 
