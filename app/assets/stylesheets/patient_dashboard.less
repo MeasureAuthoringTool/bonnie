@@ -49,6 +49,17 @@ html, body, .container-fluid, [role="main"], .measure-layout, .patient-dashboard
   border-right: @table-strong-border;
 }
 
+.DTFC_ScrollWrapper,
+.dataTables_scroll,
+.dataTables_scrollHead,
+.dataTables_scrollHeadInner,
+.dataTables_scrollBody {
+  // This is a hack to force Safari to be less lazy in rendering scrolling for the table.
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
 table.dataTable {
   z-index: 10;
   table-layout: fixed;
@@ -125,26 +136,6 @@ table.dataTable {
 
   td.value {
     text-align: center;
-  }
-}
-
-.patient-options.btn-group {
-  width: 100%;
-  & .btn {
-    text-align: left;
-  }
-  & .patient-name {
-    width: 114px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  & .dropdown-menu {
-    min-width: initial; // removes min-width: 160px from bootstrap
-    width: 100%;
-
-    & > li > .btn-danger {
-      color: @red-darker;
-    }
   }
 }
 
