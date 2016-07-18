@@ -4,10 +4,11 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
 
   initialize: ->
     @populations = @measure.get 'populations'
-  
+
   context: ->
     _(super).extend
       cms_id: @measure.get 'cms_id'
+      hqmf_set_id: @measure.get 'hqmf_set_id'
 
   showDashboard:(e) ->
     # because of how thorax transitions between views (it removes the $el associated with the view - line 2080 thorax.js)
@@ -15,7 +16,7 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
     population = @measure.get 'displayedPopulation'
     populationPatientDashboardView = new Thorax.Views.MeasurePopulationPatientDashboard(measure: @measure, population: population)
     patientDashboardView = new Thorax.Views.MeasurePatientDashboardLayout collection: @populations, population: population
-    
+
     # NOTE: the populationPatientDashboard view has to be set as the subview at this point in time. Otherwise,
     # the rendering order is off and the dashboard renders terribly
     if @populations.length > 1
@@ -23,19 +24,13 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
       patientDashboardView.setView populationPatientDashboardView
     else
       @setView populationPatientDashboardView
-    @setButton(e)
 
   showMeasure: (e) ->
     # because of how thorax transitions between views (it removes the $el associated with the view - line 2080 thorax.js)
     # the view needs to be re-created each time it is shown. super annoying...
     population = @measure.get 'displayedPopulation'
     @setView new Thorax.Views.Measure(model: @measure, patients: @patients, populations: @populations, population: population)
-    @setButton(e)
-      
-  setButton: (event) ->
-    if event
-      @$('.actions-container button').removeClass('btn-primary')
-      @$(event.currentTarget).addClass('btn-primary')
+
 
 class Thorax.Views.Measure extends Thorax.Views.BonnieView
   template: JST['measure']
@@ -60,8 +55,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @logicView.setView populationLogicView
     else
       @logicView = populationLogicView
-      
-    
 
     @complexityView = new Thorax.Views.MeasureComplexity model: @model
     @complexityView.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)
@@ -100,7 +93,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @model.get('populations').each (population) ->
         differences.push(_(population.differencesFromExpected().toJSON()).extend(population.coverage().toJSON()))
 
-      $.fileDownload "patients/qrda_export?hqmf_set_id=#{@model.get('hqmf_set_id')}", 
+      $.fileDownload "patients/qrda_export?hqmf_set_id=#{@model.get('hqmf_set_id')}",
         successCallback: => @exportPatientsView.qrdaSuccess()
         failCallback: => @exportPatientsView.fail()
         httpMethod: "POST"
@@ -108,13 +101,13 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   exportExcelPatients: (e) ->
     @exportPatientsView.exporting()
-    
+
     @model.get('populations').whenDifferencesComputed =>
       differences = []
       @model.get('populations').each (population) ->
         differences.push(_(population.calculationResults().toJSON()).extend(population.coverage().toJSON()))
 
-      $.fileDownload "patients/excel_export?hqmf_set_id=#{@model.get('hqmf_set_id')}", 
+      $.fileDownload "patients/excel_export?hqmf_set_id=#{@model.get('hqmf_set_id')}",
         successCallback: => @exportPatientsView.excelSuccess()
         failCallback: => @exportPatientsView.fail()
         httpMethod: "POST"
@@ -143,6 +136,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
   toggleVisualization: (e) ->
     @$('.btn-viz-chords, .btn-viz-text, .measure-viz, .d3-measure-viz').toggle()
     if @$('.d3-measure-viz').children().length == 0
-      d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz) 
+      d3.select(@el).select('.d3-measure-viz').datum(@model.get("population_criteria")).call(@measureViz)
       @$('rect').popover()
       if @populationCalculation.toggledPatient? then @logicView.showRationale(@populationCalculation.toggledPatient) else @logicView.showCoverage()

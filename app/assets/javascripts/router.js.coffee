@@ -22,6 +22,7 @@
     'complexity':                                      'renderComplexity'
     'complexity/:set_1/:set_2':                        'renderComplexity'
     'measures/:hqmf_set_id':                           'renderMeasure'
+    'measures/:hqmf_set_id/patient_dashboard':         'renderPatientDashboard'
     'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patient_bank':      'renderPatientBank'
@@ -37,6 +38,15 @@
       dashboardView = new Thorax.Views.Measures(collection: @measures.sort(), patients: @patients)
     @mainView.setView(dashboardView)
     @breadcrumb.addMeasurePeriod()
+
+  renderPatientDashboard: (hqmfSetId)->
+    @navigationSetup "Patient Dashboard", "patient-dashboard"
+    measure = @measures.findWhere({hqmf_set_id: hqmfSetId})
+    document.title += " - #{measure.get('cms_id')}" if measure?
+    measureLayoutView = new Thorax.Views.MeasureLayout(measure: measure, patients: @patients)
+    @mainView.setView(measureLayoutView)
+    measureLayoutView.showDashboard()
+    @breadcrumb.addMeasure(measure)
 
   renderComplexity: (measureSet1, measureSet2) ->
     @navigationSetup "Complexity Dashboard", "complexity"
