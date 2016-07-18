@@ -68,7 +68,7 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     for reference in Object.keys(@measure.get('data_criteria'))
       dataLogicView = new Thorax.Views.DataCriteriaLogic(reference: reference, measure: @measure)
       dataLogicView.appendTo(@$el)
-      dataCriteriaText[dataLogicView.dataCriteria.key] = dataLogicView.$el[0].outerText
+      dataCriteriaText[dataLogicView.dataCriteria.key] = dataLogicView.$el[0].textContent
 
     # include the metadata
     dataInfo[PatientDashboard.RESULT] = { name: "Result", width: 80 }
@@ -213,7 +213,7 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
         if reference != criteria_key # We want to ignore the data criteria itself when populating map.
           dataLogicView = new Thorax.Views.DataCriteriaLogic(reference: reference, measure: @measure)
           dataLogicView.appendTo(@$el)
-          dataCriteriaViewMap[reference] = dataLogicView.$el[0].outerText
+          dataCriteriaViewMap[reference] = dataLogicView.$el[0].textContent
       dataCriteriaViewMap
 
 
