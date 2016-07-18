@@ -541,7 +541,7 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
     @patients = @measure.get('patients')
     @measures = @measure.collection
 
-    @patientBuilderView = new Thorax.Views.PatientBuilder model: patient, measure: @measure, patients: @patients, measures: @measures, showCompleteView: false
+    @patientBuilderView = new Thorax.Views.PatientBuilder model: patient, measure: @measure, patients: @patients, measures: @measures, showCompleteView: false, routeToPatientDashboard: true
     @patientBuilderView.appendTo(@$('.modal-body'))
     $("#saveButton").prop('disabled', false) # Save button was being set to disabled
     @editDialog.modal(
