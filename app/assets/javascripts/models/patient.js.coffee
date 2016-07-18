@@ -29,7 +29,18 @@ class Thorax.Models.Patient extends Thorax.Model
 
     new @constructor JSON.parse(json), parse: true
 
-  getBirthDate: -> new Date(@get('birthdate'))
+  getBirthDate: -> moment(moment(moment.unix(@get('birthdate'))).utc().format("YYYY-MM-DD HH:mm"))
+  isAlive: ->
+    if @get('expired')
+      false
+    else
+      true
+  getDeathDate: ->
+    if @isAlive()
+      null
+    else
+      return moment(moment(moment.unix(@get('deathdate'))).utc().format("YYYY-MM-DD HH:mm"))
+
   getPayerName: -> @get('insurance_providers')[0].name
   getValidMeasureIds: (measures) ->
     validIds = {}
@@ -82,7 +93,7 @@ class Thorax.Models.Patient extends Thorax.Model
     patientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections)
     return if @previousPatientJSON == patientJSON
     @previousPatientJSON = patientJSON
-    
+
     $.ajax
       url:         "#{@urlRoot}/materialize"
       type:        'POST'
@@ -127,11 +138,10 @@ class Thorax.Models.Patient extends Thorax.Model
       expectedValues.add @getExpectedValue(population)
     expectedValues
 
-  # Sort criteria by any number of attributes, first given highest priority
   sortCriteriaBy: (attributes...) ->
     originalComparator = @get('source_data_criteria').comparator
-    for current_attribute in attributes.reverse() #.reverse() gives the highest priority to the beggining of the array
-      @get('source_data_criteria').comparator = current_attribute #.comparator cannot act on an array, it must be a single element
+    for currentAttribute in attributes.reverse()
+      @get('source_data_criteria').comparator = currentAttribute
       @get('source_data_criteria').sort()
     @get('source_data_criteria').comparator = originalComparator
 

@@ -78,22 +78,20 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView
       model: new Thorax.Model
       criteria: @model
-    @showPatientInformation = if @builderView.previousStateWasHideInfo() then 1 else 0
-    # builderView refers to parent (patient_builder.js.coffee)
-    # Convert the true/false to an integer, because our Handlebars {{#ifCond}} helper can't handle true/false]
+    @showElementInformation = @parentView.displayElementInformation()
 
-    @listenTo(@builderView, "show_information_in_patient_builder", ->
-      @showPatientInformation = 1
+    @listenTo(@parentView, "showInformationInPatientBuilder", ->
+      @showElementInformation = true
       @render()
     )
-    @listenTo(@builderView, "hide_information_in_patient_builder", ->
-      @showPatientInformation = 0
+    @listenTo(@parentView, "hideInformationInPatientBuilder", ->
+      @showElementInformation = false
       @render()
     )
-    @listenTo(@builderView, "close_all_data_criteria", ->
+    @listenTo(@parentView, "closeAllDataCriteria", ->
       @render() # (Re)rendering the view causes each specific data criteria to close
     )
-    @listenTo(@builderView, "open_all_data_criteria", ->
+    @listenTo(@parentView, "openAllDataCriteria", ->
       e = arguments[0] # e is only passed within the arguments[] object
       unless @isExpanded() # Only toggle if this data criteria not already expanded
         @toggleDetails(e)
@@ -112,37 +110,28 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   context: ->
     cmsIdParts = @model.get("cms_id").match(/CMS(\d+)(V\d+)/i)
     desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
-    field_value_information_array = []
-    results_information_array = []
-    references_information_array = []
-    fulfillments_information_array = []
 
-    if @showPatientInformation # only perform the calculations if the patient is previewing the information
-      if @model.attributes.fulfillments? # LOGIC FOR FULFILLMENTS
-        fulfillments_information_array = @model.attributes.fulfillments.map((ful) ->
-           # using .get to retreive attributes since ful is a Thorax object
+    if @showElementInformation # only perform the calculations if the patient is previewing the information
+      if @model.has('fulfillments') # LOGIC FOR FULFILLMENTS
+        fullfillmentInformation = @model.get('fulfillments').map((ful) ->
              return ((ful.get('quantity_dispensed_value') + " " + ful.get('quantity_dispensed_unit') + " " + ful.get('dispense_date') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ful.get('dispense_time')))
 
-      if @model.attributes.field_values? # LOGIC FOR FIELD VALUES
-        that_model = @model #store this.model to be used inside the map
-        field_value_information_array = @model.attributes.field_values.map((field_val) ->
-            # using .get to retreive attributes since field_val is a Thorax object
+      if @model.has('field_values') # LOGIC FOR FIELD VALUES
+        fieldValueInformation = @model.get('field_values').map((field_val) ->
            switch field_val.get('type') # CD = Coded, PQ = Scalar, TS = Date Entry. This switch statement is just for formatting the different entry methods
              when "CD" then return (((field_val.get('key')) + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (field_val.get('title')))
              when "PQ" then return ((field_val.get('key') + ": " + field_val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (field_val.get('unit')))
-             when "TS" then return ((field_val.get('key') + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ moment.utc(that_model.get('value')).format('L')))
+             when "TS" then return ((field_val.get('key') + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ moment.utc(field_val.get('value')).format('L H:mm A')))
 
-      if @model.attributes.references? # LOGIC FOR REFERENCES
-        references_information_array = @model.attributes.references.map((ref) ->
-           # using .get to retreive attributes since ref is a Thorax object
+      if @model.has('references') # LOGIC FOR REFERENCES
+        referencesInformation = @model.get('references').map((ref) ->
            if ref.get('reference_type')
              return ref.get('reference_type').replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ": " + ref.get('description') + ": " + ref.get('start_date')
            else
              return ref.get('description') + ": " + ref.get('start_date'))
 
-      if @model.attributes.value? # LOGIC FOR RESULTS
-        results_information_array = @model.attributes.value.map((val) ->
-           # using .get to retreive attributes since val is a Thorax object
+      if @model.has('value') # LOGIC FOR RESULTS
+        resultInformation = @model.get('value').map((val) ->
            switch val.get('type') # CD = Coded, PQ = Scalar. This switch statement is just for formatting the different entry methods
              when "CD" then return val.get('title')
              when "PQ" then return (val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (val.get('unit')))
@@ -150,8 +139,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     if @model.get('end_date')? # Calculate Duration Between Start and End Dates
       start_date = moment(@model.get('start_date'))
       end_date = moment(@model.get('end_date'))
-      # getDuration is within the parent (@builderView - patient_builder.js.coffee)
-      element_duration =  @builderView.getDuration(start_date,end_date)
+      @elementDuration = bonnie.util.getDurationBetween(start_date, end_date)
 
     definition_title = @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
@@ -169,18 +157,15 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       faIcon: @model.faIcon()
       definition_title: definition_title
       canHaveNegation: @model.canHaveNegation()
-      isNegated: @model?.get('negation')
-      negationCode: @getNegationCodeIDAsText(@model.get('negation_code_list_id'))
+      isNegated: @model.get('negation')
+      negationCode: @getNegationCodeText(@model.get('negation_code_list_id'))
       hasStopTime: @model.hasStopTime()
       startLabel: @model.startLabel()
       stopLabel: @model.stopLabel()
-      showPatientInfo: @showPatientInformation
-      field_value_information: field_value_information_array
-      references_information: references_information_array
-      result_information: results_information_array
-      fulfillment_information: fulfillments_information_array
-      duration_between_element_start_and_finish: element_duration
-
+      fullfillmentInformation: fullfillmentInformation
+      fieldValueInformation: fieldValueInformation
+      referencesInformation: referencesInformation
+      resultInformation: resultInformation
 
   # When we serialize the form, we want to convert formatted dates back to times
   events:
@@ -272,11 +257,11 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     type = @$(e.target).model().get('type')
     $(".#{type}-elements").focus()
 
-  getNegationCodeIDAsText: (value_set_oid) ->
-    if @model.measure()?.valueSets().where(oid: value_set_oid).length > 0
-      return @model.measure()?.valueSets().where(oid: value_set_oid)[0].attributes.display_name
+  getNegationCodeText: (value_set_oid) ->
+    if @model.measure().valueSets().where(oid: value_set_oid).length > 0
+      @model.measure().valueSets().where(oid: value_set_oid)[0].get('display_name')
     else
-      return null
+      null
 
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']

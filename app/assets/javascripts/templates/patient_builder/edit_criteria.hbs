@@ -1,10 +1,5 @@
-{{#if isNegated}}
-  <div class="criteria-type-marker-with-negation">
+{{#if isNegated}}  <div class="criteria-type-marker-with-negation"> {{else}}  <div class="criteria-type-marker"> {{/if}}
   <i class="fa fa-fw fa-lg {{faIcon}}" aria-hidden="true"></i>
-{{else}}
-  <div class="criteria-type-marker">
-  <i class="fa fa-fw fa-lg {{faIcon}}" aria-hidden="true"></i>
-{{/if}}
 </div>
 <div class="criteria-body">
   <div class="criteria-data droppable">
@@ -14,21 +9,21 @@
           <h2>{{definition_title}}</h2>
           <div>{{description}}</div>
           {{#if isNegated}}
-            {{#ifCond showPatientInfo "==" 1}}
+            {{#if showElementInformation}}
               <h5 class="warning">
                 <i class="fa fa-fw fa-exclamation-circle"></i>
                 Not Performed: {{negationCode}}
               </h5>
-            {{/ifCond}}
+            {{/if}}
           {{/if}}
         </div>
         <div class="col-md-6  criteria-{{model.cid}}">
           <div class="pull-left">
             <h2>Date</h2>
             {{#if end_date}} {{! As long as the end_date exists }}
-              {{#if duration_between_element_start_and_finish}} {{! And the end date comes after the start date }}
+              {{#if elementDuration}} {{! And the end date comes after the start date }}
                 <div>{{start_date}} &ndash; {{end_date}}</div>
-                <div>Duration: {{duration_between_element_start_and_finish}}</div>
+                <div>Duration: {{elementDuration}}</div>
               {{else}}
                 <h5 class="fail">
                   <i class="fa fa-times-circle"> </i>
@@ -46,45 +41,45 @@
           {{/button}}
         </div>
       </div>
-      {{#ifCond showPatientInfo "==" 1}} {{! If the user wishes to preview the information }}
+      {{#if showElementInformation}} {{! If the user wishes to preview the information }}
         <div class="row">
           <div class="col-md-12">
 
-            {{#if fulfillment_information}}
-              <hr class= "hr-with-thin-margins"> {{! Thin line break between each element/value }}
-              {{#if isNegated}}<label>{{else}}<label class="control-label">{{/if}}<i class="fa fa-fw fa-medkit" aria-hidden="true"></i>Filled<input class="sr-only" disabled></label>
-                {{#each fulfillment_information}}
-                <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
-                {{/each}}
+            {{#if fullfillmentInformation}}
+              <hr class= "hr-with-thin-margins">
+              <label {{#unless isNegated}}class="control-label"{{/unless}}><i class="fa fa-fw fa-medkit" aria-hidden="true"></i>Filled</label>
+              {{#each fullfillmentInformation}}
+              <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
+              {{/each}}
             {{/if}}
 
-            {{#if result_information}}
-              <hr class= "hr-with-thin-margins"> {{! Thin line break between each element/value }}
-              {{#if isNegated}}<label>{{else}}<label class="control-label">{{/if}}<i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>Result<input class="sr-only" disabled></label>
-                {{#each result_information}}
-                <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
-                {{/each}}
+            {{#if resultInformation}}
+              <hr class= "hr-with-thin-margins">
+              <label {{#unless isNegated}}class="control-label"{{/unless}}><i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>Result</label>
+              {{#each resultInformation}}
+              <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
+              {{/each}}
             {{/if}}
 
-            {{#if field_value_information}}
-              <hr class= "hr-with-thin-margins"> {{! Thin line break between each element/value }}
-              {{#if isNegated}}<label>{{else}}<label class="control-label">{{/if}}<i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>Field Values<input class="sr-only" disabled></label>
-                {{#each field_value_information}}
-                <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
-                {{/each}}
+            {{#if fieldValueInformation}}
+              <hr class= "hr-with-thin-margins">
+              <label {{#unless isNegated}}class="control-label"{{/unless}}><i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>Field Values</label>
+              {{#each fieldValueInformation}}
+              <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
+              {{/each}}
             {{/if}}
 
-            {{#if references_information}}
-              <hr class= "hr-with-thin-margins"> {{! Thin line break between each element/value }}
-              {{#if isNegated}}<label>{{else}}<label class="control-label">{{/if}}<i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>References<input class="sr-only" disabled></label>
-                {{#each references_information}}
-                <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
-                {{/each}}
+            {{#if referencesInformation}}
+              <hr class= "hr-with-thin-margins">
+              <label {{#unless isNegated}}class="control-label"{{/unless}}><i class="fa fa-fw fa-bar-chart-o" aria-hidden="true"></i>References</label>
+              {{#each referencesInformation}}
+              <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
+              {{/each}}
             {{/if}}
 
           </div>
         </div>
-      {{/ifCond}}
+      {{/if}}
 
 
       {{#ifPortfolio}}
