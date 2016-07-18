@@ -9,28 +9,13 @@
         {{/each}}
       </tr>
       
-      {{! Current calcuation status. }}
-      <tr>
-        <th class="history-upload-header">Current</td>
-        <td class="history-upload-header"><small>After</small></td>
-        {{#each patientIndex}}
-          <td class="history-patient-cell">
-            <div class="history-circle history-pass" data-upload-id="current" data-patient-id="{{id}}">
-              <span class="sr-only">pass</span>
-              <i class="fa {{#ifCond 'pass' '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
-            </div>
-          </td>
-        {{/each}}
-      </tr>
-      
-      
       {{! Loop through each measure history summary}}
       {{#each upload_summaries.models}}
         {{! Get the specific population }}
         {{#with (lookup attributes.measure_upload_population_summaries ../../populationIndex)}}
-          <tr class="active" data-upload-id="{{../_id}}">
+          <tr class="active" data-upload-id="{{../attributes._id}}">
             <th class="history-upload-header">
-              Uploaded <small>{{dateFormat ../attributes.upload_dtm "M/D/YY @ h:mm a"}}</small>
+              v{{../attributes.measure_hqmf_version_number_after}} @ <small>{{dateFormat ../attributes.upload_dtm "M/D/YY h:mm a"}}</small>
             </th>
             <td class="history-upload-header"><small>After</small></td>
             {{! Loop through each patient in same order as header }}
