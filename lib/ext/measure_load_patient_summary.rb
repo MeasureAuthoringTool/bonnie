@@ -117,8 +117,9 @@ module TestCaseMeasureHistory
         else
           begin
             calc_results = patient.calc_results.dup
-            index = calc_results.find_index { |av| av['measure_id'] == measure.hqmf_set_id && av['population_index'] == population_index }
-            calc_results[index] = result
+            # Clear any prior results for this measure to ensure a clean update, i.e. a change in the number of populations.
+            calc_results.reject! { |av| av['measure_id'] == measure.hqmf_set_id && (av['population_index'] == population_index || av['population_index'] >= measure.populations.count) }
+            calc_results << result
             patient.calc_results = calc_results
           end
         end

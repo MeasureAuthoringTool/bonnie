@@ -16,6 +16,7 @@ class Record
   belongs_to :user
   belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle"
   scope :by_user, ->(user) { where({'user_id'=>user.id}) }
+  scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where ({'user_id'=>user.id, 'measure_ids'=>{'$in'=>[hqmf_set_id]} }) }
   
   before_save :calc_status
 
@@ -134,8 +135,13 @@ class Record
   
   protected
   # Centralized place for determining if a test case/patient passes or fails.
+  # The number of populations and the expected vales for those populations is determined when the measure
+  #   is loaded or updated.
   def calc_status
     expected_values.each_index do |pop_idx|
+      # indexes are zero based
+      # TODO: fix the expected values on the patient based on what the measure has
+      break if pop_idx == calc_results.length
       calc_results[pop_idx][:status] = (expected_values[pop_idx].to_a - calc_results[pop_idx].to_a).empty? ? 'pass' : 'fail'
     end
   end
