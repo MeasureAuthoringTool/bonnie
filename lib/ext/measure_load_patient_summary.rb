@@ -11,6 +11,10 @@ module TestCaseMeasureHistory
     field :upload_dtm, type: Time, default: -> { Time.current }
     field :measure_db_id_before, type: BSON::ObjectId # The mongoid id of the measure before it is archived
     field :measure_db_id_after, type: BSON::ObjectId # The mongoid id of the measure after it is has been updated
+    field :measure_cms_id_before, type: String
+    field :measure_cms_id_after, type: String
+    field :measure_hqmf_version_number_before, type: String
+    field :measure_hqmf_version_number_after, type: String
     belongs_to :user
     embeds_many :measure_upload_population_summaries, cascade_callbacks: true
     accepts_nested_attributes_for :measure_upload_population_summaries
@@ -64,8 +68,14 @@ module TestCaseMeasureHistory
     mups.hqmf_id = measure.hqmf_id
     mups.hqmf_set_id = measure.hqmf_set_id
     mups.user_id = measure.user_id
-    mups.measure_db_id_before = arch_measure.measure_db_id unless !arch_measure
+    if arch_measure
+      mups.measure_db_id_before = arch_measure.measure_db_id
+      mups.measure_cms_id_before = arch_measure.measure_hash['cms_id']
+      mups.measure_hqmf_version_number_before = arch_measure.measure_hash['hqmf_version_number']
+    end
     mups.measure_db_id_after = measure.id
+    mups.measure_cms_id_after = measure.cms_id
+    mups.measure_hqmf_version_number_after = measure.hqmf_version_number
     mups.save!
     mups.id
   end
