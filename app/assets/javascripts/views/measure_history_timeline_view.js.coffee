@@ -19,11 +19,18 @@ class Thorax.Views.MeasureHistoryTimelineView extends Thorax.Views.BonnieView
         for patientId, patient of population.patients
           if _.findWhere(@patientIndex, {id: patientId}) == undefined
             patient = @patients.findWhere({_id: patientId})
-            @patientIndex.push {
-              id: patientId
-              name: "#{patient.get('first')} #{patient.get('last')}"
-              patient: patient
-            }
+            if patient
+              @patientIndex.push {
+                id: patientId
+                name: "#{patient.get('first')} #{patient.get('last')}"
+                patient: patient
+              }
+            # else
+            #   @patientIndex.push {
+            #     id: patientId
+            #     name: "Deleted Patient"
+            #     patient: patient
+            #   }
     return
     
   updatePopulation: (population) ->
