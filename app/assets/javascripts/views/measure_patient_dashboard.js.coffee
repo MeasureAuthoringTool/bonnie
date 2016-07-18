@@ -145,12 +145,15 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     column
 
   ###
-  Adjusts the result 0 and 1 to the more familiar checkboxes.
-  TODO: Check the type of measure and adjust this method for it
+  Renders the calculation result for a population
+  TODO: get OBSERV_UNIT for CV measures
   ###
   insertResultValue: (data, type, row, meta) =>
     if row
-      JST['pd_result_checkbox']({ result: data })
+      JST['pd_result_checkbox']({
+        result: data,
+        episodeOfCare: row.measure.get('episode_of_care'),
+        continuousVariable: row.measure.get('continuous_variable')  })
 
   ###
   Populates the Popover with children data criteria if they exist and populates

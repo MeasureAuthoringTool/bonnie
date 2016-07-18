@@ -52,16 +52,23 @@ JST['pd_delete_controls'] = Handlebars.compile '
   </button>'
 
 ###
-Takes a result (0 or 1) and displays it as a checked/unchecked box.
-TODO: Take into account results other than 0 and 1.
+Takes a population's calculation result and displays it
 ###
 JST['pd_result_checkbox'] = Handlebars.compile '<div>
-    {{#if result}}
-      <span class="sr-only">Meets this population.</span>
-      <i class="fa fa-check-square-o default" aria-hidden="true"></i>
+    {{#if episodeOfCare}}
+      {{result}}
     {{else}}
-      <span class="sr-only">Does not meet this population.</span>
-      <i class="fa fa-square-o default" aria-hidden="true"></i>
+      {{#if continuousVariable}}
+        {{result}}
+      {{else}}
+        {{#if result}}
+          <span class="sr-only">Meets this population.</span>
+          <i class="fa fa-check-square-o default" aria-hidden="true"></i>
+        {{else}}
+          <span class="sr-only">Does not meet this population.</span>
+          <i class="fa fa-square-o default" aria-hidden="true"></i>
+        {{/if}}
+      {{/if}}
     {{/if}}
   </div>'
 
