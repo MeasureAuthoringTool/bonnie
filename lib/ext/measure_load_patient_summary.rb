@@ -1,5 +1,6 @@
 module TestCaseMeasureHistory
   
+  SLICER = HQMF::PopulationCriteria::ALL_POPULATION_CODES.push('rationale', 'finalSpecifics')
   # 
   class MeasureUploadPatientSummary
 
@@ -34,12 +35,12 @@ module TestCaseMeasureHistory
     # attr_accessor :patients, :summary
 
     def before_measure_load_compare(patient, pop_idx, m_id)
-      trim_before = patient.calc_results.find(measure_id: m_id, popluation_index: pop_idx).first.reject { |k, _v| k.include?('_') }
-      trim_expected = patient.expected_values.find(measure_id: m_id, popluation_index: pop_idx).first.reject { |k, _v| k.include?('_') }
-      diff_before_expected = (trim_expected.to_a - trim_before.to_a).to_h
+      trim_before = patient.calc_results.find(measure_id: m_id, popluation_index: pop_idx).first.slice(*SLICER)
+      trim_expected = patient.expected_values.find(measure_id: m_id, popluation_index: pop_idx).first.slice(*SLICER)
+      # diff_before_expected = (trim_expected.to_a - trim_before.to_a).to_h
       
       # TODO: Make sure this can handle continuous value measures.
-      if diff_before_expected.empty? || !diff_before_expected.value?(1)
+      if patient.calc_results.find(measure_id: m_id, popluation_index: pop_idx).first['status'] == 'pass'
         status = 'pass'
         self[:summary][:pass_before] += 1
       else
@@ -86,9 +87,9 @@ module TestCaseMeasureHistory
       b_mups = the_befores.measure_upload_population_summaries[pop_idx]
       b_mups[:patients].keys.each do |patient|
         ptt = Record.where(id: patient).first
-        trim_after = ptt.calc_results.find(measure_id: measure.hqmf_set_id, population_index: pop_idx).first.reject { |k, _v| k.include?('_') }
-        diff_after_expected = (b_mups[:patients][patient][:expected].to_a - trim_after.to_a).to_h
-        if diff_after_expected.empty? || !diff_after_expected.value?(1)
+        trim_after = ptt.calc_results.find(measure_id: measure.hqmf_set_id, population_index: pop_idx).first.slice(*SLICER)
+        # diff_after_expected = (b_mups[:patients][patient][:expected].to_a - trim_after.to_a).to_h
+        if ptt.calc_results.find(measure_id: measure.hqmf_set_id, population_index: pop_idx).first['status'] == 'pass'
           status = 'pass'
           b_mups.summary[:pass_after] += 1
         else
@@ -110,12 +111,11 @@ module TestCaseMeasureHistory
       rescue => e
         setup_exception = "Measure setup exception: #{e.message}"
       end
-      strat_pops = population.keys.reject { |k| k == 'id' || k == 'title' }.push('rationale', 'finalSpecifics')
       patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
       patients.each do |patient|
         unless setup_exception
           begin
-            result = calculator.calculate(patient).slice(*strat_pops)
+            result = calculator.calculate(patient).slice(*SLICER)
           rescue => e
             calculation_exception = "Measure calculation exception: #{e.message}"
           end
