@@ -8,21 +8,27 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
     populate: { context: true, children: false }
 
   initialize: ->
-    # TODO: need to handle scenario where current patient wasn't part of last upload
+    @selectedPopulation = @measure.get('displayedPopulation').get('index')
     @thePatient = @latestupsum.get('measure_upload_population_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
     
-    @cachedBeforeResult = new Thorax.Models.CachedResult({
-      rationale: @thePatient.before.rationale
-      finalSpecifics: @thePatient.before.finalSpecifics}
-      , {
-        population: @beforemeasure.get('displayedPopulation')
-        patient: @model
-      }
-    )
-    
-    @populationLogicViewBefore = new Thorax.Views.ComparePopulationLogic
-    @populationLogicViewBefore.setPopulation @beforemeasure.get('displayedPopulation')
-    @populationLogicViewBefore.showRationale @cachedBeforeResult
+    if @beforemeasure.get('populations').at(@selectedPopulation)
+      @populationInBefore = true
+      @cachedBeforeResult = new Thorax.Models.CachedResult({
+        rationale: @thePatient.before.rationale
+        finalSpecifics: @thePatient.before.finalSpecifics}
+        , {
+          # population: @beforemeasure.get('displayedPopulation')
+          population: @beforemeasure.get('populations').at(@selectedPopulation)
+          patient: @model
+        }
+      )
+      
+      @populationLogicViewBefore = new Thorax.Views.ComparePopulationLogic
+      # @populationLogicViewBefore.setPopulation @beforemeasure.get('displayedPopulation')
+      @populationLogicViewBefore.setPopulation @cachedBeforeResult.population
+      @populationLogicViewBefore.showRationale @cachedBeforeResult
+    else
+      @populationInBefore = false
 
     if @aftermeasure is undefined || @measure.id == @aftermeasure.id
       @populationLogicViewAfter = new Thorax.Views.BuilderPopulationLogic
