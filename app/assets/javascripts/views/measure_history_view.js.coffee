@@ -4,13 +4,6 @@ class Thorax.Views.MeasureHistoryView extends Thorax.Views.BonnieView
   initialize: ->
     @patientData = undefined
     @measureData = undefined
-    $.get('/patients/history?id='+@model.attributes['hqmf_set_id'], (data) =>
-      @patientData = data
-      # console.log 'RETRIEVED TEMP DATA - ' + JSON.stringify(patientData)
-      return
-    ).then =>
-      #@patientHistory @patientData, @measureData, @model.get('displayedPopulation')
-      return
     @measureDiffView = new Thorax.Views.MeasureHistoryDiffView(model: @model)
     @measureTimelineView = new Thorax.Views.MeasureHistoryTimelineView(model: @model, upload_summaries: @upload_summaries, patients: @patients)
     
@@ -21,7 +14,7 @@ class Thorax.Views.MeasureHistoryView extends Thorax.Views.BonnieView
     @trigger 'population:update', population
     @measureDiffView.updatePopulation(population)
     @measureTimelineView.updatePopulation(population)
-    @patientHistory @patientData, @measureData, population
+    
   
   populationContext: (population) ->
     _(population.toJSON()).extend

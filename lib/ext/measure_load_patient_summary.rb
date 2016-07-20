@@ -35,12 +35,13 @@ module TestCaseMeasureHistory
     # attr_accessor :patients, :summary
 
     def before_measure_load_compare(patient, pop_idx, m_id)
-      trim_before = patient.calc_results.find(measure_id: m_id, popluation_index: pop_idx).first.slice(*SLICER)
-      trim_expected = patient.expected_values.find(measure_id: m_id, popluation_index: pop_idx).first.slice(*SLICER)
+      trim_before = (patient.calc_results.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER)
+      trim_expected = (patient.expected_values.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER)
       # diff_before_expected = (trim_expected.to_a - trim_before.to_a).to_h
       
       # TODO: Make sure this can handle continuous value measures.
-      if patient.calc_results.find(measure_id: m_id, popluation_index: pop_idx).first['status'] == 'pass'
+      binding.pry
+      if (patient.calc_results.find { |p| p[:measure_id] == m_id && p[:population_index] == pop_idx })['status'] == 'pass'
         status = 'pass'
         self[:summary][:pass_before] += 1
       else
@@ -87,9 +88,9 @@ module TestCaseMeasureHistory
       b_mups = the_befores.measure_upload_population_summaries[pop_idx]
       b_mups[:patients].keys.each do |patient|
         ptt = Record.where(id: patient).first
-        trim_after = ptt.calc_results.find(measure_id: measure.hqmf_set_id, population_index: pop_idx).first.slice(*SLICER)
+        trim_after = (ptt.calc_results.find { |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx }).slice(*SLICER)
         # diff_after_expected = (b_mups[:patients][patient][:expected].to_a - trim_after.to_a).to_h
-        if ptt.calc_results.find(measure_id: measure.hqmf_set_id, population_index: pop_idx).first['status'] == 'pass'
+        if (ptt.calc_results.find{ |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx })['status'] == 'pass'
           status = 'pass'
           b_mups.summary[:pass_after] += 1
         else
