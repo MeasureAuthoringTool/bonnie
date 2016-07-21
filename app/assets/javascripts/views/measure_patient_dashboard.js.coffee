@@ -452,6 +452,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Attaches popover to currentTarget.
     $(sender.currentTarget).popover('show')
 
+    # If table scrolls, remove popovers from screen
+    $('div.dataTables_scrollBody').scroll () =>
+      $('.popover').popover('destroy')
+
   ###
   @returns {Array} an array containing the contents of both headers
   ###
