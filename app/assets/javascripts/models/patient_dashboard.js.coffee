@@ -186,10 +186,10 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     if criteria = @measure.get('data_criteria')[criteria_reference]
       if criteria['children_criteria']?
         criteria_keys = criteria_keys.concat(@_dataCriteriaChildrenKeys(criteria) for criteria in criteria['children_criteria'])
-        criteria_keys = flatten(criteria_keys)
+        criteria_keys = _.flatten(criteria_keys)
       if criteria['temporal_references']?
         criteria_keys = criteria_keys.concat(@_dataCriteriaChildrenKeys(temporal_reference['reference']) for temporal_reference in criteria['temporal_references'])
-        criteria_keys = flatten(criteria_keys)
+        criteria_keys = _.flatten(criteria_keys)
 
     return criteria_keys
 
@@ -197,7 +197,7 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
   _preconditionCriteriaKeys: (precondition) =>
     if precondition['preconditions'] && precondition['preconditions'].length > 0
       results = (@_preconditionCriteriaKeys(precondition) for precondition in precondition['preconditions'])
-      results = flatten(results)
+      results = _.flatten(results)
     else if precondition['reference']
       [precondition['reference']]
     else
@@ -217,11 +217,3 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
           dataLogicView.appendTo(@$el)
           dataCriteriaViewMap[reference] = dataLogicView.$el[0].textContent
       dataCriteriaViewMap
-
-
-# TODO: is there a way to write the above so that this isn't even needed?
-#TODO Make this coffeescript. Or use underscore.js
-  `function flatten(arr) {
-    const flat = [].concat(...arr)
-    return flat.some(Array.isArray) ? flatten(flat) : flat;
-  }`
