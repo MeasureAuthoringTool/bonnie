@@ -7,12 +7,9 @@ class Thorax.Views.MeasureHistoryTimelineView extends Thorax.Views.BonnieView
     @measureDiffView = new Thorax.Views.MeasureHistoryDiffView(model: @model)
     @loadHistory()
     
-  events:
-    'click .history-circle': 'patientCircleClicked'
-    
   loadHistory: =>
     @patientIndex = [];
-    
+
     # pull out all patients that exist, even deleted ones, map id to names
     @upload_summaries.each (upload_summary) =>
       for population in upload_summary.get('measure_upload_population_summaries')
@@ -42,16 +39,3 @@ class Thorax.Views.MeasureHistoryTimelineView extends Thorax.Views.BonnieView
     upload = @upload_summaries.findWhere({_id: uploadID})
     @measureDiffView.loadDiff upload.get('measure_db_id_before'), upload.get('measure_db_id_after')
     @$('#measure-diff-view-dialog').modal('show');
-    
-  patientCircleClicked: (e) ->
-    circleDiv = $(e.target).parent('.history-circle')
-    uploadId = circleDiv.data('uploadId');
-    patientId = circleDiv.data('patientId');
-
-    patient = @patients.findWhere({_id: patientId});
-    
-    if uploadId != "current"
-      upload_summary = @upload_summaries.findWhere({_id: uploadId});
-      bonnie.navigate "measures/#{@model.get('hqmf_set_id')}/patients/#{patientId}/compare/at_upload/#{uploadId}", trigger: true
-    else
-      bonnie.navigate "measures/#{@model.get('hqmf_set_id')}/patients/#{patientId}/compare", trigger: true
