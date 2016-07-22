@@ -1,11 +1,11 @@
 <div>
-  {{#if upload_summaries}}
+  {{#ifCond upload_summaries.length '>' 1}}
     <table class="table measure-history-table">
       <tr>
         <th class="history-upload-title">Measure Uploads</th>
         <th class="history-upload-title"></th>
         {{#each patientIndex}}
-          <th class="history-patient-header" data-patient-id="{{id}}"><div><span><i class="fa fa-user" aria-hidden="true"></i> {{name}}</span></div></th>
+          <th class="history-patient-header" data-patient-id="{{id}}"><div><span><i class="fa fa-user" aria-hidden="true"></i> <a href="#measures/{{../../hqmf_set_id}}/patients/{{id}}/edit">{{name}}</a></span></div></th>
         {{/each}}
       </tr>
       
@@ -23,10 +23,10 @@
               {{#if (lookup ../patients id)}}
                 {{#with (lookup ../../patients id)}}
                   <td class="history-patient-cell">
-                    <div class="history-circle history-{{after_status}}" data-upload-id="{{../../../../attributes._id}}" data-patient-id="{{../../id}}">
+                    <a class="history-circle history-{{after_status}}" href="#measures/{{../../../../../hqmf_set_id}}/patients/{{../../id}}/compare/at_upload/{{../../../../attributes._id}}" data-upload-id="{{../../../../attributes._id}}" data-patient-id="{{../../id}}">
                       <span class="sr-only">{{after_status}}</span>
                       <i class="fa {{#ifCond after_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
-                    </div>
+                    </a>
                   </td>
                 {{/with}}
               {{else}}{{! Empty cell since patient didnt exist at this time }}
@@ -47,10 +47,10 @@
                 {{#if (lookup ../patients id)}}
                   {{#with (lookup ../../patients id)}}
                     <td class="history-patient-cell">
-                      <div class="history-circle history-{{before_status}}" data-upload-id="{{../../../../../attributes._id}}" data-patient-id="{{../../id}}">
+                      <a class="history-circle history-{{before_status}}" href="#measures/{{../../../../../../hqmf_set_id}}/patients/{{../../id}}/compare/at_upload/{{../../../../../attributes._id}}" data-upload-id="{{../../../../../attributes._id}}" data-patient-id="{{../../id}}">
                         <span class="sr-only">{{before_status}}</span>
                         <i class="fa {{#ifCond before_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
-                      </div>
+                      </a>
                     </td>
                   {{/with}}
                 {{else}}
@@ -64,11 +64,10 @@
       {{/each}}
     </table>
   {{else}}
-    <div class="loading-indicator" style="margin-top: 5px">
-      <img alt="Loading" src="/assets/loading.gif">
-      <div class="loading-text">loading</div>
+    <div class="alert alert-warning">
+      <strong>No history found.</strong> Update this measure to see history.
     </div>
-  {{/if}}
+  {{/ifCond}}
 </div>
 
 <div class="modal fade diff-view-dialog" id="measure-diff-view-dialog" tabindex="-1" aria-hidden="true">
