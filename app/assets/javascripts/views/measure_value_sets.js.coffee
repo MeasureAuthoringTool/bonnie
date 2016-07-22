@@ -85,8 +85,9 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       for valueSet2 in _(summaryValueSets).without(valueSet1)
         matchedCodes = []
 
-        valueSet1.codes.each (code1) =>
-          hasOverlap = valueSet2.codes.models.some (code2) ->
+        # Because codes are pageable, we need to reference the fullCollection to compare all codes
+        valueSet1.codes.fullCollection.each (code1) =>
+          hasOverlap = valueSet2.codes.fullCollection.some (code2) ->
             overlapsCode = code2.get('code') == code1.get('code')
             overlapsCodeSystem = code2.get('code_system_name') == code1.get('code_system_name')
             return overlapsCode && overlapsCodeSystem
