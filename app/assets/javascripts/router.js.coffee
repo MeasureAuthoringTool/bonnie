@@ -134,7 +134,7 @@
       .then((afterMeasure) => 
         patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, beforemeasure: beforeMeasure, latestupsum: upload_summary, aftermeasure: afterMeasure)
         @mainView.setView patientBuilderView
-        @breadcrumb.editPatient(measure, patient) 
+        @breadcrumb.viewComparePatient(measure, patient) 
         )
 
   # Common setup method used by all routes

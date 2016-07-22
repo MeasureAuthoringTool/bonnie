@@ -8,7 +8,11 @@
 
     {{#if patientName}}
       {{#if comparePatient}}
-        <li>{{#link "measures/{{measure.hqmf_set_id}}/patients/{{patientId}}/edit" expand-tokens=true}}<i class='fa fa-fw fa-user' aria-hidden='true'></i> {{patientName}} {{/link}}</li>
+        {{#if fromHxTimeline}}
+          <li>{{#link "measures/{{measure.hqmf_set_id}}/history" expand-tokens=true}}<i class='fa fa-fw fa-history' aria-hidden='true'></i> Measure Upload History {{/link}}</li>
+        {{else}}
+          <li>{{#link "measures/{{measure.hqmf_set_id}}/patients/{{patientId}}/edit" expand-tokens=true}}<i class='fa fa-fw fa-user' aria-hidden='true'></i> {{patientName}} {{/link}}</li>
+        {{/if}}
       {{else}}
         <li><i class='fa fa-fw fa-user' aria-hidden='true'></i> {{patientName}}</li>
       {{/if}}
@@ -23,7 +27,11 @@
     {{/if}}
     
     {{#if comparePatient}}
-      <li><i class="fa fa-fw fa-columns" aria-hidden="true"></i> Compare </li>
+      {{#if fromHxTimeline}}
+        <li><i class="fa fa-fw fa-columns" aria-hidden="true"></i> Compare - {{patientName}}</li>
+      {{else}}
+        <li><i class="fa fa-fw fa-columns" aria-hidden="true"></i> Compare </li>
+      {{/if}}
     {{/if}}
 
   {{/if}}
