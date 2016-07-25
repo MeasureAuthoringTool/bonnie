@@ -2,6 +2,17 @@ describe 'MeasureView', ->
 
   beforeEach ->
     @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
+
+    # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
+    # We add the overlapping codes after 10 non-overlapping codes to provide regression for a bug
+    @vs1 = @measure.valueSets().findWhere(display_name: 'Annual Wellness Visit')
+    @vs2 = @measure.valueSets().findWhere(display_name: 'Office Visit')
+    for n in [1..10]
+      @vs1.get('concepts').push { code: "ABC#{n}", display_name: "ABC", code_system_name: "ABC" }
+      @vs2.get('concepts').push { code: "XYZ#{n}", display_name: "XYZ", code_system_name: "XYZ" }
+    @vs1.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
+    @vs2.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
+
     @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[0], parse: true
     @measure.get('patients').add @patient
     @measureView = new Thorax.Views.Measure(model: @measure, patients: @measure.get('patients'))
@@ -9,6 +20,9 @@ describe 'MeasureView', ->
     @measureView.appendTo 'body'
 
   afterEach ->
+    # Remove the 11 extra codes that were added for value set overlap testing
+    @vs1.get('concepts').splice(-11, 11)
+    @vs2.get('concepts').splice(-11, 11)
     @measureView.remove()
 
   it 'renders measure details', ->
@@ -44,11 +58,10 @@ describe 'MeasureView', ->
     expect(@measureView.$('#supplemental_criteria').find('[data-toggle="collapse"].value_sets')).toExist()
     expect(@measureView.$('#supplemental_criteria').find('.row.collapse')).toExist()
 
-    # if we have overlapping value sets:
-    if @measureView.$('#overlapping_value_sets').length
-      expect(@measureView.$('#overlapping_value_sets')).toBeVisible()
-      expect(@measureView.$('#overlapping_value_sets').find('[data-toggle="collapse"].value_sets')).toExist()
-      expect(@measureView.$('#overlapping_value_sets').find('.row.collapse')).toExist()
+    expect(@measureView.$('#overlapping_value_sets')).toBeVisible()
+    expect(@measureView.$('#overlapping_value_sets').find('[data-toggle="collapse"].value_sets')).toExist()
+    expect(@measureView.$('#overlapping_value_sets').find('.row.collapse')).toExist()
+    expect(@measureView.$('#overlapping_value_sets')).toContainText 'OVERLAP'
 
     expect(@measureView.$('[data-toggle="collapse"].value_sets')).toHaveClass('collapsed')
     @measureView.$('[data-toggle="collapse"].value_sets').click()
