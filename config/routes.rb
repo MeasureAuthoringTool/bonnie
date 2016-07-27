@@ -65,16 +65,10 @@ Bonnie::Application.routes.draw do
   end
 
   namespace :api_v1 do
-    resources :measures, :defaults => { :format => 'json' } do
-      collection do
-        get 'index'
-      end
+    resources :measures, :defaults => { :format => 'json' }, :only => [:index, :show, :create, :update] do
       member do
-        get 'show'
         get 'patients'
         get 'calculated_results'
-        post 'create'
-        put 'update'
       end
     end
   end
