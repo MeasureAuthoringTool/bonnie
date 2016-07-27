@@ -517,5 +517,18 @@ namespace :bonnie do
         patient.save!
       end
     end
+
+    desc 'Re-save all patient records'
+    task :resave_patient_records => :environment do
+      STDOUT.sync = true
+      index = 0
+      Record.each do |r|
+        r.save
+        index += 1
+        print '.' if index % 500 == 0
+      end
+      puts
+    end
+
   end
 end
