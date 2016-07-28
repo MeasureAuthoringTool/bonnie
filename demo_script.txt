@@ -1,22 +1,22 @@
 Demo Script (Target 07/11/2016)
 
 BEFORE THE DEMO
-Log into the application. If CMS72 exists, delete all patients associated with it. Then delete the CMS72 measure.
+Log into the application. If CMS522v0 exists, delete all patients associated with it. Then delete the CMS522v0 measure.
 
 
 1. User logs into the application
 2. User selects the Upload measure button which brings up the upload dialog.
-3. User navigates to the CMS72v5 "Antithrombotic Therapy By End of Hospital Day 2" zip file (testplan/EH_CMS72_v5.zip)
-    - This is a relatively simple EH measure with one population that is episode of care
+3. User navigates to the CMS522v0 "Simple Discharged on Antithrombotic Therapy" zip file (testplan/SimpleDischargedOnAntithrombotic.zip)
+    - This is NOT a real measure. This is a simplification of CMS72.
 4. User selects "Eligible Hospital" on the upload dialog
 5. User selects "Episode of Care" on the upload dialog
 6. User clicks the Load button to dismiss the dialog. The measure loads and the user is presented with the finalize dialog.
-7. On the finalize dialog, the user selects EncounterInpatientNonElective as the episode of care.
+7. On the finalize dialog, the user selects "Encounter, Performed: Inpatient Encounter" as the episode of care.
 8. User clicks done to dismiss the finalize dialog.
-9. User is returned to the measure dashboard with CMS72v5 loaded.
+9. User is returned to the measure dashboard with CMS522v0 loaded.
 10. User clicks the measure title to navigate to the measure view.
     On the measure view, the user can see the Measure title, description, and logic.
-    (Explain the IPP/DENOM/NUMER fields and variables)
+    (Explain the IPP/DENOM/NUMER fields)
 11. User clicks on the icon with a person and plus sign (add patient button) and navigates to the patient builder view.
 12. The user names the patient "Ischemic No Meds" and provides an expectation that the patient will have IPP and DENOM values of 1.
 13. Based on the logic, the user adds the following to the patient:
@@ -27,7 +27,9 @@ Log into the application. If CMS72 exists, delete all patients associated with i
   Encounter, Performed: Inpatient Encounter
     start: 11/07/2012 06:00
     end: 11/09/2012 06:00
-    Field Value: Principal Diagnosis:Ischemic Stroke
+  Diagnosis: Ischemic Stroke
+    start: 11/07/2012 10:00
+    no end
 
   (Explain why this makes the IPP and DENOM true)
 
