@@ -87,6 +87,13 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       table = @$('#patientDashboardTable').DataTable(
         data: @patientData,
         columns: @tableColumns,
+        columnDefs:
+          targets: 0,
+          cellType: "th", # makes this cell a header element
+          createdCell: (td, cellData, rowData, row, col) ->
+            # add patient name to row header for screen readers
+            srText = $("<span>").addClass('sr-only').text(rowData.last + ", " + rowData.first)
+            $(td).attr('scope', 'row').append(srText)
         dom: '<if<"scrolling-table"t>>', # places table info and filter, then table, then nothing
         deferRender: true,
         scrollX: true,
