@@ -181,14 +181,14 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
 
   # Given a data criteria, return the list of all data criteria keys referenced within, either through
   # children criteria or temporal references; this includes the passed in criteria reference
-  _dataCriteriaChildrenKeys: (criteria_reference) =>
+  dataCriteriaChildrenKeys: (criteria_reference) =>
     criteria_keys = [criteria_reference]
     if criteria = @measure.get('data_criteria')[criteria_reference]
       if criteria['children_criteria']?
-        criteria_keys = criteria_keys.concat(@_dataCriteriaChildrenKeys(criteria) for criteria in criteria['children_criteria'])
+        criteria_keys = criteria_keys.concat(@dataCriteriaChildrenKeys(childCriteria) for childCriteria in criteria['children_criteria'])
         criteria_keys = _.flatten(criteria_keys)
       if criteria['temporal_references']?
-        criteria_keys = criteria_keys.concat(@_dataCriteriaChildrenKeys(temporal_reference['reference']) for temporal_reference in criteria['temporal_references'])
+        criteria_keys = criteria_keys.concat(@dataCriteriaChildrenKeys(temporal_reference['reference']) for temporal_reference in criteria['temporal_references'])
         criteria_keys = _.flatten(criteria_keys)
 
     return criteria_keys
@@ -208,7 +208,7 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
   ###
   getChildrenCriteria: (criteria_key) =>
     if criteria_key?
-      children_criteria = @_dataCriteriaChildrenKeys(criteria_key)
+      children_criteria = @dataCriteriaChildrenKeys(criteria_key)
       children_criteria = children_criteria.filter (ck) -> ck != 'MeasurePeriod'
       dataCriteriaViewMap = {}
       for reference in children_criteria
