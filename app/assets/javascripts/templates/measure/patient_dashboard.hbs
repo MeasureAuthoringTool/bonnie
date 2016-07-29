@@ -1,0 +1,27 @@
+<table id="patientDashboardTable" class="table table-bordered" cellspacing="0" width="100%">
+
+  <button class='btn btn-success' data-call-method="createNewPatient"><i aria-hidden="true" class="fa fa-fw fa-plus"></i> Create Patient</button> &nbsp;
+  <div class="btn-group" role="group" aria-label="...">
+    {{#each nonEmptyPopulations}}
+      <button type="button" class="btn btn-default" data-call-method="scrollToPopulation">{{{this}}}</button>
+    {{/each}}
+  </div>
+  <thead>
+    <tr>
+      {{#each head1}}
+        <th scope="col" style="width: {{{this.width}}}px;" colspan="{{{this.colspan}}}" id="{{{this.title}}}"><div>{{{this.title}}}</div></th>
+      {{/each}}
+    </tr>
+    <tr>
+      {{#each head2}}
+        {{#ifIn this ../populations}}
+          <th class="rotate" scope="col"><div>{{{this}}}</div></th>
+        {{else}}
+          <th scope="col"><div class="tableScrollContainer"><div class="tableScroll">{{{this}}}</div></div></th>
+        {{/ifIn}}
+      {{/each}}
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>

@@ -74,13 +74,36 @@
   }
 }
 
+
+.measure-title-bar {
+  .make-sm-column(12);
+  .measure-title-wide {
+    display:table;
+    width: 100%;
+    .title-bar;
+    padding: 0 15px;
+    margin: 15px 0;
+    .short-title {
+      white-space: nowrap;
+      font-size: 1.8em;
+      line-height: 1.75;
+      padding-right: .5em;
+      display: table-cell;
+      vertical-align: middle;
+    }
+    .actions-container {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: right;
+    }
+  }
+}
+
+
 .main {
   .make-sm-column(8);
   > * {
     padding: 0 15px;
-  }
-  .fa {
-    color: black;
   }
 
   .measure-title {
@@ -90,6 +113,9 @@
       vertical-align: middle;
     }
     .title-bar;
+    .fa {
+      color: black;
+    }
     .short-title {
       white-space: nowrap;
       font-size: 1.8em;
