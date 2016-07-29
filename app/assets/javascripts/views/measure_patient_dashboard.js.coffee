@@ -104,6 +104,27 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       @$('#patientDashboardTable_wrapper').removeClass('form-inline')
       @$('#patientDashboardTable_filter').addClass('form-inline') # Search input
 
+  # This is the code for managing the logic highlighting
+  showRationaleForPopulation: (code, rationale, updatedRationale) ->
+    for key, value of rationale
+      target = $(".#{code}_children .#{key}")
+      targettext = $(".#{code}_children .#{key}") #text version of logic
+      targetrect = $("rect[precondition=#{key}]") #viz version of logic (svg)
+      if (targettext.length > 0)
+        [targetClass, targetPanelClass, srTitle] = if updatedRationale[code]?[key] is false
+          ['eval-bad-specifics', 'eval-panel-bad-specifics', '(status: bad specifics)']
+        else
+          bool = !!value
+          ["eval-#{bool}", "eval-panel-#{bool}", "(status: #{bool})"]
+
+        targetrect.attr "class", (index, classNames) -> "#{classNames} #{targetClass}" #add styling to svg without removing all the other classes
+
+        targettext.addClass(targetClass)  # This does the actually application of the highlighting to the target
+        targettext.children('.sr-highlight-status').html(srTitle)
+        # this second line is there to fix an issue with sr-only in Chrome making text in inline elements not display
+        # by having the sr-only span and the DC title wrapped in a criteria-title span, the odd behavior goes away.
+        targettext.children('.criteria-title').children('.sr-highlight-status').html(srTitle)
+
   ###
   Performs some actions on the DOM to properly render popovers,
   patient names, and warnings
@@ -426,31 +447,31 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     $('#patientDashboardTable').DataTable().row(rowIndex).remove().draw()
 
   ###
-  @returns {Array} an array of child criteria objects
-  Grabs the children data criteria to display in a list for the selected cell.
+  Generates the views for the popover and attaches it to the DOM.
   ###
   populatePopover: (sender) ->
     dataCriteria = @pd.dataIndices[$(sender.target).attr('columnNumber')] # Formatted "PopulationKey_DataCriteriaKey"
     dataCriteriaKey = dataCriteria.substring(dataCriteria.indexOf('_') + 1)
     populationKey = dataCriteria.substring(0, dataCriteria.indexOf('_'))
-    children_criteria = @pd.getChildrenCriteria dataCriteriaKey
-    patientResult = @matchPatientToPatientId($(sender.target).attr('patientId'))
-    criteriaList = []
+    popoverHTML = "<div class='measure-viz rationale panel-group " + populationKey + "_children'>"
+    popoverView = new Thorax.Views.PatientDashboardPopover measure: @measure, populationKey: populationKey, dataCriteriaKey: dataCriteriaKey, allChildrenCriteria: @pd.dataCriteriaChildrenKeys dataCriteriaKey
+    popoverView.appendTo(@$('.rationale'))
+    popoverHTML = popoverHTML + popoverView.$el[0].outerHTML
+    popoverHTML = popoverHTML + "</div></div>"
 
-    for childDataCriteriaKey, childDataCriteriaText of children_criteria
-      if childDataCriteriaKey != dataCriteriaKey
-        patientDashboardPatient = _(@patientData).findWhere({ id: $(sender.target).attr('patientId') })
-        result = patientDashboardPatient.getPatientCriteriaResult childDataCriteriaKey, populationKey
-
-        criteriaList.push({
-          text: childDataCriteriaText,
-          passes: result == "TRUE",
-          specifically: result.indexOf('SPECIFICALLY') >= 0
-        })
-
-    $(sender.currentTarget).attr('data-content', JST['pd_criteria_list']({ criteria: criteriaList}))
+    # Add the html to the popover
+    $(sender.currentTarget).attr('data-content', popoverHTML)
     # Attaches popover to currentTarget.
     $(sender.currentTarget).popover('show')
+
+    # Update rationale for popoverover.
+    patientResult = @matchPatientToPatientId($(sender.target).attr('patientId'))
+    updatedRationale = patientResult.specificsRationale()
+    @showRationaleForPopulation(populationKey, patientResult.get('rationale'), updatedRationale)
+
+    # When popover loses focus (hides), destroy popover so content doesn't flicker on next 'show' event.
+    $(sender.currentTarget).one 'hide.bs.popover', =>
+      $('.popover').popover('destroy')
 
     # If table scrolls, remove popovers from screen
     $('div.dataTables_scrollBody').scroll () =>
