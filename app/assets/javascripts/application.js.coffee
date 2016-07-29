@@ -35,7 +35,7 @@
 #
 #= require datatables.net/js/jquery.dataTables
 #= require datatables.net-bs/js/dataTables.bootstrap
-#= require datatables.net-fixedColumns/js/dataTables.fixedColumns
+#= require datatables.net-fixedcolumns/js/dataTables.fixedColumns
 #= require jquery.scrollTo/jquery.scrollTo
 #
 #= require helpers
