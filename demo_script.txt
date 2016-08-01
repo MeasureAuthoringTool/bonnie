@@ -1,20 +1,25 @@
-Demo Script (Target 12/22/2013)
+Demo Script (Target 07/11/2016)
 
-1. User logs into the application, and is presented with the measure dashboard. Two measures are loaded (use rake bonnie:db:reset DEMO=true).
+BEFORE THE DEMO
+Log into the application. If CMS522v0 exists, delete all patients associated with it. Then delete the CMS522v0 measure.
+
+
+1. User logs into the application
 2. User selects the Upload measure button which brings up the upload dialog.
-3. User navigates to the file 05_DischargedonAntithromboticThe_Artifacts_DEMO.zip the MAT export of NQF0435 Discharged on Antithrombotic Therapy
-    - This is a relatively simple EH measure with one population that is episode of care
-4. User selects EH and Episode of care on the upload dialog.
-5. User clicks the load button to dismiss the dialog, the measure loads, and the user is presented with the finalize dialog
-6. On the finalize dialog the user selects Encounter, Performed: Inpatient Encounter as the episode of care
-7. User clicks done to dismiss the finalize dialog.
-8. User is returned to the measure dashboard with the NQF0435 loaded.
-9. User clicks on the measure title to navigate to the measure view.
-10. On the measure view, the user can see the Measure title and descriptions. The user can also see the NQF logic of the measure (default display until we figure out the compressed view).
-11. The user clicks on add patient from the measure view to add a patient to the measure and is presented with the patient builder dialog.
-12. The user names the patient "Ischemic No Meds" and provides an expectation that the patient will be in the IPP and DENOM.
-13. The user can somehow get access to the measure logic to refer to while building the patient (NQF View)
-14. Based on the logic, the user adds the following to the patient:
+3. User navigates to the CMS522v0 "Simple Discharged on Antithrombotic Therapy" zip file (testplan/SimpleDischargedOnAntithrombotic.zip)
+    - This is NOT a real measure. This is a simplification of CMS72.
+4. User selects "Eligible Hospital" on the upload dialog
+5. User selects "Episode of Care" on the upload dialog
+6. User clicks the Load button to dismiss the dialog. The measure loads and the user is presented with the finalize dialog.
+7. On the finalize dialog, the user selects "Encounter, Performed: Inpatient Encounter" as the episode of care.
+8. User clicks done to dismiss the finalize dialog.
+9. User is returned to the measure dashboard with CMS522v0 loaded.
+10. User clicks the measure title to navigate to the measure view.
+    On the measure view, the user can see the Measure title, description, and logic.
+    (Explain the IPP/DENOM/NUMER fields)
+11. User clicks on the icon with a person and plus sign (add patient button) and navigates to the patient builder view.
+12. The user names the patient "Ischemic No Meds" and provides an expectation that the patient will have IPP and DENOM values of 1.
+13. Based on the logic, the user adds the following to the patient:
 
   Name: Ischemic, No Meds
   DOB: 10/10/1970 00:00
@@ -22,50 +27,27 @@ Demo Script (Target 12/22/2013)
   Encounter, Performed: Inpatient Encounter
     start: 11/07/2012 06:00
     end: 11/09/2012 06:00
-    dischard_date_time: 11/09/2012 06:00
-  Diagnosis, Active: Ischemic Stroke
-    start: 11/08/2012 00:00
-    end: 11/08/2012 01:00
-    ordinal: Attribute Principal Diagnosis
+  Diagnosis: Ischemic Stroke
+    start: 11/07/2012 10:00
+    no end
 
-15. The user saves the patient which takes them to the measure view where they can see the results of the calculation. (Assuming calculation on the patient builder is not yet supported)
-16. The user can see the results of the calculation highlighted on the NQF Logic, the fact that there's a 100% match with expectations, and what populations the patient ended up in.
-17. The user clones the "Ischemic No Meds" patient to create an "Ischemic With Meds" patient. This brings up the patient builder view with the fields pre-populated from the previous patient.
-18. The user changes the name to "Ischemic With Meds", changes the expectation to include the numerator, and adds
+  (Explain why this makes the IPP and DENOM true)
+
+14. User saves the patient which takes them to the measure view where they can see the results of the calculation.
+15. User clicks on the expansion icon for the patient.
+    The user can see the results of the calculation highlighted on the Logic, the fact that there's a 100% match with expectations, and what populations the patient ended up in.
+16. With the patient expanded, User clicks the Clone button to clone the patient.
+17. User renames the patient to "Ischemic With Meds" and changes the NUMER expected value to 1.
+18. User adds the following to the patient
 
   Name: Ischemic, With Meds
-  Expected Values: IPP, DENOM, NUM
-  Medication, Discharge: Antithrombotic Therapy
-    start: 11/09/2012 05:00
-    end: 11/09/2012 05:00
+  Expected Values: IPP, DENOM, NUMER
+  Medication, Administered: Antithrombotic Therapy
+    start: 11/08/2012 05:00
+    end: 11/08/2012 06:00
+    
+  (Explain why this makes the NUMER true)
 
 19. The user saves the patient and is taken to the measure view and can now see two patients.
-20. The user clones the "Ischemic No Meds" patient to create a "Hemorrhagic No Meds" patient. This brings up the patient builder view with the fields pre-populated from the previous patient.
-21. The user changes the name to "Hemorrhagic No Meds", changes the expected values to just IPP, deletes the Diagnosis, Active: Ischemic Stroke, and adds
 
-  Name: Hemorrhagic, No Meds
-  Expected Values: IPP
-  Diagnosis, Active: Hemorrhagic Stroke
-    start: 11/08/2012 00:00
-    end: 11/08/2012 01:00
-    ordinal: Attribute Principal Diagnosis
-
-22. The user saves the patient and is taken to the measure view and can now see three patients, one failing.
-23. The user sees that one of the patients is failing the test; we know that Hemorrhagic stroke patients should not receive Antithrombotic Therapy, but our measure is still considering this patient to be part of the denominator; the measure logic doesn't correctly reflect the intent, and needs to be updated.
-24. User selects the Update Measure button which brings up the upload dialog.
-25. User navigates to the file 05_DischargedonAntithromboticThe_Artifacts.zip the MAT export of NQF0435 Discharged on Antithrombotic Therapy
-26. User clicks the load button to dismiss the dialog and the measure loads
-27. User is returned to the measure view with the NQF0435 re-loaded.
-28. User notes that all patients are now passing
-29. User notes total coverage amount, and wishes to expand it with another test patient
-30. User clones the "Ischemic No Meds" patient to create an "Ischemic Refused Meds" patient
-31. User changes the name to "Ischemic Refused Meds", changes the expected values to include "EXCP", and adds "Medication, Order: Antithrombotic Therapy" NOT PERFORMED (Patient refusal)
-
-  Name: Ischemic Refused Meds
-  Expected Values: IPP, DEN, EXCP
-  Medication, Order: Antithrombotic Therapy
-    start: 11/08/2012 02:00
-    end: 11/08/2012 03:00
-    NOT PERFORMED (Patient refusal)
-
-32. User notes that the total coverage amount has increased
+20. (Explain how the synthetic patients can help show errors in the measure logic)
