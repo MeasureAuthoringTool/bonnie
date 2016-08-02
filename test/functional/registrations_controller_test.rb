@@ -15,11 +15,13 @@ class RegistrationsControllerTest < ActionController::TestCase
     associate_user_with_measures(@user,Measure.all)
     associate_user_with_patients(@user,Record.all)
 
-    @user.measures.first.value_set_oids.uniq.each do |oid|
-      vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
-      vs.concepts << HealthDataStandards::SVS::Concept.new(code_set: 'foo', code:'bar')
-      vs.user = @user
-      vs.save!
+    @user.measures.each do |measure|
+      measure.value_set_oids.uniq.each do |oid|
+        vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
+        vs.concepts << HealthDataStandards::SVS::Concept.new(code_set: 'foo', code:'bar')
+        vs.save!
+        measure.bonnie_hashes.push(vs.bonnie_version_hash)
+      end
     end
   end
 
