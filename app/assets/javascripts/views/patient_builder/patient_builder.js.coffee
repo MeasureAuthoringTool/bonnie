@@ -142,7 +142,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   materialize: ->
     @serializeWithChildren()
-    @patientAgeView.render()
     @model.materialize()
 
   addCriteria: (criteria) ->
@@ -196,14 +195,12 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
   toggleDeceased: (e) ->
     @model.set 'expired', true
     @$('#deathdate').focus()
-    @patientAgeView.render()
 
   removeDeathDate: (e) ->
     e.preventDefault()
     @model.set 'deathdate', null
     @model.set 'expired', false
     @$('#expired').focus()
-    @patientAgeView.render()
 
   setAffix: ->
     @$('.criteria-container').css 'min-height': $(window).height() # in case patient history is too short to scroll, set height
@@ -275,9 +272,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     setTimeout( =>
       @$('#loadingSpinner').addClass('hidden')
       if @displayElementInformation()
-        @trigger "showInformationInPatientBuilder"
+        @trigger "previewInformationinDataCriteria"
       else
-        @trigger "hideInformationInPatientBuilder"
+        @trigger "hideInformationinDataCriteria"
     , 0)
 
   openAllDataCriteria: (e) ->
@@ -317,45 +314,44 @@ class Thorax.Views.PatientAge extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/patient_age']
 
   initialize: ->
-    @errorWithDates = false
-    @importantDate = false
-    @faIcon = ""
-    @patientAge = ""
+    #We shouldn't need to listen for the change event, but Thorax doesn't seem to be updating the model properly
+    @model.on 'change', =>  @render()
+
 
   context: ->
-    @updatePatientAge()
-
-  updatePatientAge: ->
-    if @model.getBirthDate().isValid() # Upon creation of a new patient, the Birthdate will be invalid
-      if @model.isAlive()
+    if @model.isAlive()
+    # if the birthdate/deathdate fields are left blank they default to the epoch
+      unless @model.getBirthDate().isSame(moment("1970-01-01 00:00"))
         if @model.getBirthDate().year() is bonnie.measurePeriod
-          @errorWithDates = false
-          @importantDate = true
-          @faIcon = "fa fa-fw fa-ambulance" # fa-fw does not space the ambulance icon out far enough
-          @patientAge = " Born during Measure Period"
+          errorWithDates = false
+          importantDate = true
+          faIcon = "fa fa-fw fa-ambulance" # fa-fw does not space the ambulance icon out far enough
+          patientAge = " Born during Measure Period"
         else if @model.getBirthDate().year() > bonnie.measurePeriod
-          @errorWithDates = false
-          @importantDate = true
-          @faIcon = "fa fa-fw fa-exclamation-circle"
-          @patientAge = "Measure Period Precedes Date of Birth!"
+          errorWithDates = false
+          importantDate = true
+          faIcon = "fa fa-fw fa-exclamation-circle"
+          patientAge = "Measure Period Precedes Date of Birth!"
         else
-          @errorWithDates = false
-          @importantDate = false
-          @faIcon = ""
-          @patientAge = "Age at Start of Measure Period: #{bonnie.util.getDurationBetween(@model.getBirthDate(), moment([bonnie.measurePeriod]))}"
-      else
-        if bonnie.util.getDurationBetween(@model.getBirthDate(), @model.getDeathDate())
-          @errorWithDates = false
-          @importantDate = false
-          @faIcon = ""
-          @patientAge = "Age at Time of Death: #{bonnie.util.getDurationBetween(@model.getBirthDate(), @model.getDeathDate())}"
-        else
-          @errorWithDates = true
-          @importantDate = true
-          @faIcon = "fa fa-fw fa-times-circle"
-          @patientAge = "Date of Death Precedes Date of Birth!"
+          errorWithDates = false
+          importantDate = false
+          faIcon = null
+          patientAge = "Age at Start of Measure Period: #{Bonnie.util.getDurationBetween(@model.getBirthDate(), moment([bonnie.measurePeriod]))}"
     else
-      @errorWithDates = false
-      @importantDate = false
-      @faIcon = ""
-      @patientAge = ""
+      unless @model.getBirthDate().isSame(moment("1970-01-01 00:00")) || @model.getDeathDate().isSame(moment("1970-01-01 00:00"))
+        if Bonnie.util.getDurationBetween(@model.getBirthDate(), @model.getDeathDate())
+          errorWithDates = false
+          importantDate = false
+          faIcon = null
+          patientAge = "Age at Time of Death: #{Bonnie.util.getDurationBetween(@model.getBirthDate(), @model.getDeathDate())}"
+        else
+          errorWithDates = true
+          importantDate = true
+          faIcon = "fa fa-fw fa-times-circle"
+          patientAge = "Date of Death Precedes Date of Birth!"
+
+    _(super).extend
+      errorWithDates: errorWithDates
+      importantDate: importantDate
+      faIcon: faIcon
+      patientAge: patientAge

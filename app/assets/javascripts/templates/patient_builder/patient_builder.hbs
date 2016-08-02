@@ -47,48 +47,53 @@
           <textarea id="notes" name="notes"class="form-control" placeholder="Patient is..." rows="2" maxlength="250"></textarea>
         </div>
       </div>
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="birthdate" class="control-label">Date of Birth*</label>
-          <div class="datetime-control">
-            <div>
-              <input type="text" id="birthdate" name="birthdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/day/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" required aria-required="true">
-            </div>
-            <div>
-              <label for="birthtime" class="sr-only">Time of Birth</label>
-              <input type="text" id="birthtime" name="birthtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM" required aria-required="true">
+      <div class="patient-age">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="birthdate" class="control-label">Date of Birth*</label>
+            <div class="datetime-control">
+              <div>
+                <input type="text" id="birthdate" name="birthdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/day/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true" required aria-required="true">
+              </div>
+              <div>
+                <label for="birthtime" class="sr-only">Time of Birth</label>
+                <input type="text" id="birthtime" name="birthtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM" required aria-required="true">
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="{{#if expired}}deathdate{{else}}expired{{/if}}" class="control-label">{{#if expired}}Date of Death{{else}}Living Status{{/if}}</label>
-          {{#if expired}}
-            {{#button "removeDeathDate" class="btn btn-link remove-death-date"}}
-              <i class="fa fa-times-circle" aria-hidden="true"></i>
-              <span class="sr-only">remove date of death</span>
-            {{/button}}
-            <div class="datetime-control">
-              <div>
-                <input type="text" id="deathdate" name="deathdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/date/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="{{#if expired}}deathdate{{else}}expired{{/if}}" class="control-label">{{#if expired}}Date of Death{{else}}Living Status{{/if}}</label>
+            {{#if expired}}
+              {{#button "removeDeathDate" class="btn btn-link remove-death-date"}}
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                <span class="sr-only">remove date of death</span>
+              {{/button}}
+              <div class="datetime-control">
+                <div>
+                  <input type="text" id="deathdate" name="deathdate" class="date-picker form-control" placeholder="mm/dd/yyyy" title="month/date/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
+                </div>
+                <div>
+                  <label for="deathtime" class="sr-only">Time of Death</label>
+                  <input type="text" id="deathtime" name="deathtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
+                </div>
               </div>
-              <div>
-                <label for="deathtime" class="sr-only">Time of Death</label>
-                <input type="text" id="deathtime" name="deathtime" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
+            {{else}}
+              <div class="checkbox deceased-checkbox">
+                <label class="control-label">
+                  <input type="checkbox" id="expired" name="expired"> Deceased
+                </label>
               </div>
-            </div>
-          {{else}}
-            <div class="checkbox deceased-checkbox">
-              <label class="control-label">
-                <input type="checkbox" id="expired" name="expired"> Deceased
-              </label>
-            </div>
-          {{/if}}
+            {{/if}}
+          </div>
+        </div>
+        <div class="col-sm-12">
+          {{view patientAgeView}}
         </div>
       </div>
-        {{view patientAgeView}}
+
       <div class="col-sm-6">
         <div class="form-group">
           <label for="race" class="control-label">Race</label>
@@ -158,7 +163,7 @@
     <h1 class="heading-primary">Patient History</h1>
     <h2 class="heading-muted patient-builder-button-heading">
       <div class="pull-left">
-        <i class="fa fa-sort-amount-asc"></i> Order By
+        <i class="fa fa-fw fa-sort-amount-asc"></i> Order By
         <div class="btn-group">
           {{#button "sortDataCriteriaByDate" id="sortByDate" class="btn btn-sm btn-primary"}}Date{{/button}}
           {{#button "sortDataCriteriaByName" id="sortByName" class="btn btn-sm btn-primary"}}Name{{/button}}
@@ -173,7 +178,7 @@
       </div>
       <div class="col-md-offset-7"> {{! Lines the checkbox up better than pull-right}}
         <h6>
-          <label><input type="checkbox" checked="checked" id="previewPatientInformation"> Preview Element Information?</label>
+          <label> <input type="checkbox" checked="checked" id="previewPatientInformation"> Preview Element Information?</label>
           {{! Include checkbox within label to allow label to be clicked as well}}
        </h6>
      </div>

@@ -80,11 +80,11 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       criteria: @model
     @showElementInformation = @parentView.displayElementInformation()
 
-    @listenTo(@parentView, "showInformationInPatientBuilder", ->
+    @listenTo(@parentView, "previewInformationinDataCriteria", ->
       @showElementInformation = true
       @render()
     )
-    @listenTo(@parentView, "hideInformationInPatientBuilder", ->
+    @listenTo(@parentView, "hideInformationinDataCriteria", ->
       @showElementInformation = false
       @render()
     )
@@ -137,9 +137,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
              when "PQ" then return (val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (val.get('unit')))
 
     if @model.get('end_date')? # Calculate Duration Between Start and End Dates
-      start_date = moment(@model.get('start_date'))
-      end_date = moment(@model.get('end_date'))
-      @elementDuration = bonnie.util.getDurationBetween(start_date, end_date)
+      elementDuration = Bonnie.util.getDurationBetween(moment(@model.get('start_date')), moment(@model.get('end_date')))
 
     definition_title = @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
@@ -166,6 +164,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       fieldValueInformation: fieldValueInformation
       referencesInformation: referencesInformation
       resultInformation: resultInformation
+      elementDuration: elementDuration
 
   # When we serialize the form, we want to convert formatted dates back to times
   events:

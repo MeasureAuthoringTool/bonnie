@@ -140,6 +140,11 @@ class Thorax.Models.Patient extends Thorax.Model
 
   sortCriteriaBy: (attributes...) ->
     originalComparator = @get('source_data_criteria').comparator
+    # @get('source_data_criteria').comparator = (crit) -> _(attributes).map((attr) -> crit.get(attr))
+    # @get('source_data_criteria').sort()
+    # Providing the context for a sorting as a function causes all sorting to be done with string comparison
+    # Bonnie tracks times as miliseconds since 1970. At the rollover of 999,999,999,999 to 1,000,000,000,000
+    # This string comparison fails, and puts all dates below 999,999,999,999 *after* the dates above 1,000,000,000,000
     for currentAttribute in attributes.reverse()
       @get('source_data_criteria').comparator = currentAttribute
       @get('source_data_criteria').sort()

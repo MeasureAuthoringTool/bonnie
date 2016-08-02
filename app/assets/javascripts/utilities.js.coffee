@@ -1,6 +1,6 @@
 window.Bonnie ||= {}
-bonnie.util ||= {}
-bonnie.util.getDurationBetween = (start_date, end_date) ->
+Bonnie.util ||= {}
+Bonnie.util.getDurationBetween = (start_date, end_date) ->
   # Formats duration between a start_date and an end_date and returns that value as a string (e.g. "2 years, 3 months")
   # (both start and end date must be moments from Moment.js)
   terms = []
