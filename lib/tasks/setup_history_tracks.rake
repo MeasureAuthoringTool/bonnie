@@ -16,7 +16,8 @@ namespace :upgrade_add_hx_tracks do
           rescue => e
             setup_exception = "Measure setup exception: #{e.message}"
           end
-          strat_pops = population.keys.reject { |k| k == 'id' || k == 'title' }.push('rationale', 'finalSpecifics')
+          strat_pops = population.keys.reject { |k| k == 'id' || k == 'title' }
+          strat_pops.push('rationale', 'finalSpecifics')
           patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
           patients.each do |patient|
             unless setup_exception
@@ -27,22 +28,17 @@ namespace :upgrade_add_hx_tracks do
               end
             end
             next unless result
-            
-            res = []
-            result.store('measure_id', measure.hqmf_set_id)
-            result.store('population_index', population_index)
-            res << result
-            if !patient.calc_results.present?
-              patient.write_attribute(:calc_results, res)
-              else
-                patient.calc_results << result
-              end
-            patient.save!
+            result['population_index'] = population_index
+            result['measure_id'] = measure.hqmf_set_id
+            if result.to_json.size < 10000000
+              patient.calc_results << result
+              patient.save!
+            end
             yield measure, population_index, patient, result, setup_exception || calculation_exception
           end
         end
-      end
-    end
+      end # mesuares
+    end # calculate_all
     
     desc 'Clear any existing actual values'
     task :clear_actuals => :environment do
@@ -54,9 +50,61 @@ namespace :upgrade_add_hx_tracks do
       end
     end
     
+    desc 'Align expected values on patients with the populations defined on the measure.'
+    task :sync_expected => :environment do
+      STDOUT.sync = true
+      puts 'Align expected values on patients with the populations defined on the measure.'
+      measures = Measure
+      mdone = 1
+      measures.each do |measure|
+        corrected_expected = []
+        measure.populations.each_with_index do |pop, idx|
+          here = {"measure_id" => measure.hqmf_set_id, "population_index" => idx}
+          pop.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).each do |my_code, _v|
+          # The populations are a key, value pair; slice returns this as an array.  We want the key.
+            here[my_code] =  0
+          end
+          corrected_expected << here
+        end
+        patients = Record.where({'user_id'=>measure.user_id, 'measure_ids'=>{'$in'=>[measure.hqmf_set_id]} })
+        pdone = 1
+
+        puts "\t#{measure.title}"
+        patients.each do |patient|
+          # next if patient.id == "5509b61769702d5cfa100c00"
+          begin
+          too_many = []
+          patient.expected_values.each_with_index do |ev, i|
+
+            if measure.hqmf_set_id == ev['measure_id']
+              if corrected_expected.fetch(ev['population_index'], "gone") == "gone"
+                 too_many.push(i)
+              else
+                ev.keep_if { |k,v| corrected_expected[ev['population_index']].has_key?(k) } # Remove any extra populations
+                ev.merge!(corrected_expected[ev['population_index']]) { |key, e, c| e } # merge in any missing values
+              end
+            end
+          end
+          if !too_many.empty?
+            too_many.reverse!.each { |tm| patient.expected_values.delete_at(tm) }
+          end
+          patient.calc_results = nil
+          patient.save!
+          rescue
+            puts patient.id
+          end
+          pdone += 1
+          puts "\t\t#{pdone} patients of #{patients.count} completed." if pdone%10 == 0
+        end # patients
+        mdone += 1
+        puts "#{mdone} measures of #{measures.count} completed." if mdone%10 == 0
+      end # measures
+      puts "Done with task :sync_expected"
+    end # task
+
     desc 'Calculate every patient in the database and display any errors (does not test for correct results)'
     task :calculate_all => :environment do
-      Rake::Task['upgrade_add_hx_tracks:patients:clear_actuals'].invoke 
+      # Rake::Task['upgrade_add_hx_tracks:patients:clear_actuals'].invoke 
       STDOUT.sync = true
       start = Time.now
       calculate_all do |measure, population_index, patient, result, error|
@@ -66,12 +114,12 @@ namespace :upgrade_add_hx_tracks do
         else
           print '.'
         end
-        puts "Measure: #{measure.cms_id}\n\tPatient: #{patient.first} #{patient.last} (#{patient._id})\n\t\tPopulation Index: #{population_index}\n\t\t\tResult #{result}"
+       puts "Measure: #{measure.cms_id}\n\tPatient: #{patient.first} #{patient.last} (#{patient._id})\n\t\tPopulation Index: #{population_index}"
       end
       puts
       finish = Time.now
       puts "It took #{finish - start} seconds to run this."
     end
-    
+  
   end
 end

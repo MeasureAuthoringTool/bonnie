@@ -10,7 +10,7 @@ class Record
   field :notes, type: String
   field :is_shared, :type => Boolean
   field :origin_data, type: Array
-  field :calc_results, type: Array
+  field :calc_results, type: Array, default: []
   field :has_measure_history, type: Boolean, default: false
 
   belongs_to :user
@@ -132,7 +132,7 @@ class Record
       changes.reject! { |k| k == 'source_data_criteria' }
     end
   end # def
-  
+
   protected
   # Centralized place for determining if a test case/patient passes or fails.
   # The number of populations and the expected vales for those populations is determined when the measure
@@ -141,7 +141,7 @@ class Record
     expected_values.each_index do |pop_idx|
       # indexes are zero based
       # TODO: fix the expected values on the patient based on what the measure has
-      break if pop_idx == calc_results.length
+      break if (calc_results.nil? || (pop_idx == calc_results.length && calc_results.length != 0))
       calc_results[pop_idx][:status] = (expected_values[pop_idx].to_a - calc_results[pop_idx].to_a).empty? ? 'pass' : 'fail'
     end
   end

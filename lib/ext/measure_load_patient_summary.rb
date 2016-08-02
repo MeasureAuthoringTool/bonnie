@@ -1,6 +1,7 @@
 module TestCaseMeasureHistory
   
-  SLICER = HQMF::PopulationCriteria::ALL_POPULATION_CODES.push('rationale', 'finalSpecifics')
+  SLICER = HQMF::PopulationCriteria::ALL_POPULATION_CODES
+  SLICER.push('rationale', 'finalSpecifics')
   # 
   class MeasureUploadPatientSummary
 
@@ -40,7 +41,6 @@ module TestCaseMeasureHistory
       # diff_before_expected = (trim_expected.to_a - trim_before.to_a).to_h
       
       # TODO: Make sure this can handle continuous value measures.
-      binding.pry
       if (patient.calc_results.find { |p| p[:measure_id] == m_id && p[:population_index] == pop_idx })['status'] == 'pass'
         status = 'pass'
         self[:summary][:pass_before] += 1
