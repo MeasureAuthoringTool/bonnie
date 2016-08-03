@@ -281,6 +281,10 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     systemu (2.6.5)
+    teaspoon (1.1.5)
+      railties (>= 3.2.5, < 6)
+    teaspoon-jasmine (2.3.4)
+      teaspoon (>= 1.0.0)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -348,6 +352,8 @@ DEPENDENCIES
   sprockets (~> 2.8)
   sprockets-rails
   systemu
+  teaspoon
+  teaspoon-jasmine
   therubyracer
   thin
   uglifier (>= 1.0.3)

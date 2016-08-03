@@ -1,3 +1,5 @@
+# require /Users/mmayer/git/bonnie/node_modules/jasmine-jquery-matchers/src/matchers.js
+#  require /Users/mmayer/git/bonnie/spec/javascripts/helpers/jasmine-jquery-2.1.0.js
 describe 'ComplexityDashboardView', ->
 
   beforeEach ->

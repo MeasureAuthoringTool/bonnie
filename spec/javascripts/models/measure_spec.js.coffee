@@ -1,6 +1,7 @@
 describe 'Measure', ->
 
   beforeEach ->
+    collection = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
     @measure = bonnie.measures.get('40280381-3D61-56A7-013E-5D1EF9B76A48')
 
   it 'has basic attributes available', ->
@@ -26,4 +27,3 @@ describe 'Measure', ->
         expect(results.get('IPP')).toEqual 1
         expect(results.get('NUMER')).toEqual 0
         )
-
