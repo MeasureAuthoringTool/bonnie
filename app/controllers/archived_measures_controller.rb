@@ -5,11 +5,15 @@ class ArchivedMeasuresController < ApplicationController
   respond_to :json, :js, :html
   
   def index
-    @measure = Measure.by_user(current_user).only(:hqmf_set_id).find(params[:measure_id])
-    @archived_measures = ArchivedMeasure.by_user(current_user).only(:measure_db_id).where(hqmf_set_id: @measure.hqmf_set_id)
-    
-    respond_with @archived_measure do |format|
-      format.json { render json: @archived_measures }
+    begin
+      @measure = Measure.by_user(current_user).only(:hqmf_set_id).find(params[:measure_id])
+      @archived_measures = ArchivedMeasure.by_user(current_user).only(:measure_db_id).where(hqmf_set_id: @measure.hqmf_set_id)
+      
+      respond_with @archived_measure do |format|
+        format.json { render json: @archived_measures }
+      end
+    rescue Mongoid::Errors::DocumentNotFound
+      render json: { error: "Could not find measure." }, status: :not_found
     end
   end
   
