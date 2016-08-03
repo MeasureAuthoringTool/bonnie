@@ -8,14 +8,6 @@ namespace :bonnie do
       HealthDataStandards::SVS::ValueSet.collection.indexes.drop({"concepts.display_name"=>1})
     end
 
-    desc "Delete Value Set indexes that are not needed in Bonnie"
-    task :delete_unnecessary_value_set_indexes => :environment do
-      HealthDataStandards::SVS::ValueSet.collection.indexes.drop({"concepts.code"=>1})
-      HealthDataStandards::SVS::ValueSet.collection.indexes.drop({"concepts.code_system"=>1})
-      HealthDataStandards::SVS::ValueSet.collection.indexes.drop({"concepts.code_system_name"=>1})
-      HealthDataStandards::SVS::ValueSet.collection.indexes.drop({"concepts.display_name"=>1})
-    end
-
     desc "Migrates measures and value_sets away from User versioning"
     task :consolidate_value_sets => :environment do
 

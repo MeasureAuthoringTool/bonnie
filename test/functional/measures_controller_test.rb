@@ -99,6 +99,7 @@ include Devise::TestHelpers
     assert_equal false, measure.needs_finalize
     assert_equal true, measure.episode_of_care?
     assert_equal 'eh', measure.type
+    assert_equal @user.id, measure.user_id
     assert_nil measure.population_criteria['DENOM']['preconditions']
     assert_includes measure.episode_ids, 'OccurrenceAInpatientEncounter1'
     assert_equal 1, measure.episode_ids.length
@@ -114,6 +115,7 @@ include Devise::TestHelpers
     assert_equal false, measure.needs_finalize
     assert_equal true, measure.episode_of_care?
     assert_equal 'eh', measure.type
+    assert_equal @user.id, measure.user_id
     assert_includes measure.episode_ids, 'OccurrenceAInpatientEncounter1'
     assert_equal 1, measure.episode_ids.length
     assert_operator measure.map_fns[0].length, :>, 100
