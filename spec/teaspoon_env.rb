@@ -1,7 +1,7 @@
 Teaspoon.configure do |config|
   # Determines where the Teaspoon routes will be mounted. Changing this to "/jasmine" would allow you to browse to
   # `http://localhost:3000/jasmine` to run your tests.
-  config.mount_at = "/jasmine"
+  config.mount_at = "/teaspoon"
 
   # Specifies the root where Teaspoon will look for files. If you're testing an engine using a dummy application it can
   # be useful to set this to your engines root (e.g. `Teaspoon::Engine.root`).
