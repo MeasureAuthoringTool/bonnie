@@ -1,7 +1,7 @@
 describe 'PatientBuilderView', ->
 
   beforeEach ->
-
+    jasmine.getJSONFixtures().clearCache()
     @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[0], parse: true
     @measure = bonnie.measures.findWhere(cms_id: 'CMS146v2')
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)

@@ -1,5 +1,6 @@
 describe 'Navigation', ->
 	beforeEach ->
+    jasmine.getJSONFixtures().clearCache()
     @measures = bonnie.measures
     @patients = new Thorax.Collections.Patients getJSONFixture('patients.json')
 

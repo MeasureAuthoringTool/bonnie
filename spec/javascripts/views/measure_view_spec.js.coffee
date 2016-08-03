@@ -13,6 +13,7 @@ describe 'MeasureView', ->
     @vs1.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
     @vs2.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
 
+    jasmine.getJSONFixtures().clearCache()
     @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[0], parse: true
     @measure.get('patients').add @patient
     @measureView = new Thorax.Views.Measure(model: @measure, patients: @measure.get('patients'))

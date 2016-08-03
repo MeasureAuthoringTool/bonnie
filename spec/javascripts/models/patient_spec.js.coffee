@@ -1,6 +1,7 @@
 describe 'Patient', ->
 
   beforeEach ->
+    jasmine.getJSONFixtures().clearCache()
     collection = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
     @patient = collection.findWhere(first: 'GP_Peds', last: 'A')
 

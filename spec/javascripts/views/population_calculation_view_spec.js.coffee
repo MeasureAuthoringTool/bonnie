@@ -1,6 +1,7 @@
 describe 'PopulationCalculationView', ->
 
   beforeEach ->
+    jasmine.getJSONFixtures().clearCache()
     @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
     @patients = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
     @measure.set('patients', @patients)
