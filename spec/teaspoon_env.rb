@@ -157,7 +157,7 @@ Teaspoon.configure do |config|
   # Specify that you always want a coverage configuration to be used. Otherwise, specify that you want coverage
   # on the CLI.
   # Set this to "true" or the name of your coverage config.
-  #config.use_coverage = nil
+  config.use_coverage = true
 
   # You can have multiple coverage configs by passing a name to config.coverage.
   # e.g. config.coverage :ci do |coverage|
@@ -170,7 +170,7 @@ Teaspoon.configure do |config|
 
     # The path that the coverage should be written to - when there's an artifact to write to disk.
     # Note: Relative to `config.root`.
-    coverage.output_path = "coverage"
+    coverage.output_path = "coverage-frontend"
 
     # Assets to be ignored when generating coverage reports. Accepts an array of filenames or regular expressions. The
     # default excludes assets from vendor, gems and support libraries.
