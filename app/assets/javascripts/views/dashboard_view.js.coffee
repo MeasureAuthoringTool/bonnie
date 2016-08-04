@@ -46,7 +46,7 @@ class Thorax.Views.ComplexityViz extends Thorax.Views.BonnieView
         @render()
 
   initialize: ->
-    @viz = bonnie.viz.MeasureComplexity()
+    @viz = Bonnie.viz.MeasureComplexity()
     @vizData = @collection.complexityVizData()
     @state = viz: 'complexity', mode: 'graph'
 
@@ -54,7 +54,7 @@ class Thorax.Views.ComplexityViz extends Thorax.Views.BonnieView
     if @state.viz == 'complexity'
       @viz.switchGraph() unless @state.mode == 'graph'
     else
-      @viz = bonnie.viz.MeasureComplexity()
+      @viz = Bonnie.viz.MeasureComplexity()
       @vizData = @collection.complexityVizData()
       @render()
     @state = viz: 'complexity', mode: 'graph'
@@ -64,7 +64,7 @@ class Thorax.Views.ComplexityViz extends Thorax.Views.BonnieView
     if @state.viz == 'complexity'
       @viz.switchGrid() unless @state.mode == 'grid'
     else
-      @viz = bonnie.viz.MeasureComplexity()
+      @viz = Bonnie.viz.MeasureComplexity()
       @vizData = @collection.complexityVizData()
       @render()
       @viz.switchGrid()
@@ -73,7 +73,7 @@ class Thorax.Views.ComplexityViz extends Thorax.Views.BonnieView
 
   sizeByLargest: ->
     return if @state.viz == 'size' && @state.mode == 'largest'
-    @viz = bonnie.viz.MeasureSize() if @state.viz != 'size'
+    @viz = Bonnie.viz.MeasureSize() if @state.viz != 'size'
     @vizData = @collection.sizeVizData('size')
     @render()
     @state = viz: 'size', mode: 'largest'
@@ -81,7 +81,7 @@ class Thorax.Views.ComplexityViz extends Thorax.Views.BonnieView
 
   sizeByChange: ->
     return if @state.viz == 'size' && @state.mode == 'change'
-    @viz = bonnie.viz.MeasureSize() if @state.viz != 'size'
+    @viz = Bonnie.viz.MeasureSize() if @state.viz != 'size'
     @vizData = @collection.sizeVizData('change')
     @render()
     @state = viz: 'size', mode: 'change'

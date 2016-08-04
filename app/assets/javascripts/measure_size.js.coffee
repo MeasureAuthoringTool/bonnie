@@ -1,6 +1,6 @@
-window.bonnie ||= {}
-bonnie.viz ||= {}
-bonnie.viz.MeasureSize = ->
+window.Bonnie ||= {}
+Bonnie.viz ||= {}
+Bonnie.viz.MeasureSize = ->
   measure_title = (d) ->
     d.cms_id
   population_title = (d) ->

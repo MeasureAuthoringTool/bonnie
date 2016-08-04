@@ -1,6 +1,6 @@
-window.bonnie ||= {}
-bonnie.viz ||= {}
-bonnie.viz.MeasureComplexity = ->
+window.Bonnie ||= {}
+Bonnie.viz ||= {}
+Bonnie.viz.MeasureComplexity = ->
   # Various accessors that specify the four dimensions of data to visualize.
   x = (d) ->
     d.complexity

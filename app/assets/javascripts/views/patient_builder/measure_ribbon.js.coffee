@@ -24,7 +24,7 @@ class Thorax.Views.MeasureRibbonCell extends Thorax.Views.BuilderChildView
         @$el.hide()
       else
         @$el.show()
-        d3.select(@$el.find('.ribbon-viz').get(0)).datum(@model.get('comparisons')).call(bonnie.viz.MeasureRibbonCell())
+        d3.select(@$el.find('.ribbon-viz').get(0)).datum(@model.get('comparisons')).call(Bonnie.viz.MeasureRibbonCell())
   activate: ->
     @$el.addClass('active').siblings('.active').removeClass('active')
     @trigger 'bonnie:loadPopulation', @population

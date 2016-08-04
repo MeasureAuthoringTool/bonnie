@@ -1,6 +1,6 @@
-window.bonnie ||= {}
-bonnie.viz ||= {}
-bonnie.viz.MeasureRibbonCell = ->
+window.Bonnie ||= {}
+Bonnie.viz ||= {}
+Bonnie.viz.MeasureRibbonCell = ->
   width  = 50
   height = 50
   barHeight = height / 5

@@ -65,7 +65,7 @@ describe 'ComplexityVizView', ->
     expect(@complexityView.$("text.cmsLabel").css('opacity')).toEqual '0'
 
   it 'shows the complexity size viz', ->
-    @complexityView.vizView.viz = bonnie.viz.MeasureSize() if @complexityView.vizView.state.viz != 'size'
+    @complexityView.vizView.viz = Bonnie.viz.MeasureSize() if @complexityView.vizView.state.viz != 'size'
     @complexityView.vizView.vizData = @complexityView.vizView.collection.sizeVizData('size')
     @complexityView.vizView.render()
     expect(@complexityView.$("svg").length).toEqual 29
