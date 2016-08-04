@@ -1,0 +1,103 @@
+# This cassette represents an exchange with the VSAC authentication server that
+# results in an unauthorized response. This cassette is used in measures_controller_test.rb
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
+    body:
+      encoding: UTF-8
+      string: username=invaliduser&password=invalidpassword
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '45'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Server:
+      - Apache-Coyote/1.1
+      Strict-Transport-Security:
+      - max-age=0
+      - max-age=31536000
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '0'
+      Date:
+      - Mon, 11 Jul 2016 10:31:26 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!nfO6LcpaYNbQI3F2Tkbd533fYfga+vYVaI/2ew3usC5Tn5H7PKgWAf4qI/9wsxRe/xQgQDl9AzsbpfQ=;secure;
+        expires=Mon, 11-Jul-2016 12:31:26 GMT; path=/
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.114 8080"
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version:
+  recorded_at: Mon, 11 Jul 2016 10:31:26 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
+    body:
+      encoding: UTF-8
+      string: username=invaliduser&password=invalidpassword
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '45'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Server:
+      - Apache-Coyote/1.1
+      Strict-Transport-Security:
+      - max-age=0
+      - max-age=31536000
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '0'
+      Date:
+      - Mon, 11 Jul 2016 10:31:26 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!zwdv5O4rc4Ue0+Sc5XZjCzQnRXoakVomSDsfMVq0l9RTZKfKNPVlXZrH6mohP9t9Q3yg0/J5vHcDUNI=;secure;
+        expires=Mon, 11-Jul-2016 12:31:26 GMT; path=/
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version:
+  recorded_at: Mon, 11 Jul 2016 10:31:26 GMT
+recorded_with: VCR 3.0.3
