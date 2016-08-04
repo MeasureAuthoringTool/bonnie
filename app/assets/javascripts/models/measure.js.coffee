@@ -88,7 +88,7 @@ class Thorax.Models.Measure extends Thorax.Model
       immunizations: ['route', 'dose', 'reaction']
       interventions: ['anatomical_structure']
       laboratory_tests: ['reference_range_low', 'reference_range_high']
-      medications: ['route', 'dose']
+      medications: ['route', 'dose', 'reaction']
       patient_care_experiences: []
       physical_exams: ['anatomical_structure']
       preferences: []
