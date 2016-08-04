@@ -61,8 +61,8 @@
         <% if (flash[:error]) %>
           bonnie.showError(<%= flash[:error].to_json.html_safe %>);
         <% end %>
-        <% if (flash[:uploaded_summary_id]) %>
-          bonnie.showMeasureUploadSummary("<%= flash[:uploaded_summary_id] %>");
+        <% if flash[:uploaded_summary_id] && flash[:uploaded_hqmf_set_id]%>
+          bonnie.showMeasureUploadSummary("<%= flash[:uploaded_summary_id]%>","<%= flash[:uploaded_hqmf_set_id]%>");
         <% end %>
         $('.skip-content').click(function(e) {
           e.preventDefault();

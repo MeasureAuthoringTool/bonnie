@@ -1,66 +1,57 @@
-  {{#if upload_data}}
-    {{!The modal displays information for each of the populations in the measure }}
-    {{#each summary_of_all_information.number_of_populations}}
+{{! The total number of patients remains constant across different populations}}
+{{! We are guaranteed to have at least one population, hence the [0] index}}
+{{#ifCond populationInformation.[0].totalPatients "!=" 0}} {{! Don't display anything if there are no patients}}
+<h5> Total Number of Patients: {{../populationInformation.[0].totalPatients}} </h5>
+  {{#each populationInformation}}
+    {{#ifCond totalChanged "==" 0}}
       <p>
-          <table class="table-striped table-condensed ">
-            <tr>
-              <th width="1300px" class="centered">
-                {{!Displays "Your measure has uploaded successfully" if there is only 1 population, otherwise it displays "Population: populationName"}}
-                {{#ifCond ../summary_of_all_information.number_of_populations.length ">" "1"}} {{#with (lookup ../../summary_of_all_information.array_of__population_titles @index) }}Population: {{this}} {{/with}}
-                {{else}}Your measure has uploaded sucessfully!{{/ifCond}} </th>
-              <th width="200px" class="centered">Previous &nbsp;Version</th>
-              <th width="150px" class="centered">&ensp;Current &emsp;&nbsp;Version</th>
-            </tr>
-            <tr>
-              {{! Changes the scope to this specific population }}
-              {{#with (lookup ../summary_of_all_information.thisPopulation @index)}}
-              {{! [2] refers to a hash of calculations about the current measure }}
-                <td rowspan="3"> Number of Test Patients who Changed:  {{this.[2].number_of_patients_who_change}}<br><br>
-                Total Number of Test Patients: {{this.[2].total_patient_size}}
-                </td>
-                {{! [0] refers to a hash which stores all the information about the JQuery Knob }}
-                <td rowspan="3">{{view "MeasurePercentageView" done=this.[0].before.done percent=this.[0].before.percent status=this.[0].before.status}}</td>
-                <td rowspan="3">{{view "MeasurePercentageView" done=this.[0].after.done percent=this.[0].after.percent status=this.[0].after.status}}</td>
-              {{/with}}
-            </tr>
-            
-        {{! Will only continue if there are actually patients who change }}
-        {{#ifCond ../generalPatientInfo.number_of_patients_who_change '>' 0}}
-          <table class="table table-condensed table-striped table-hover">
-              <tr>
-                <th>Test Patient Name</th>
-                <th>Before Status</th>
-                <th>After Status</th>
-              </tr>
+        <table class="table-striped table-condensed ">
+          <tr>
+            <th width="1300px" class="centered"> {{populationTitle}} - No Patients were affected by the updated measure! </th>
+          </tr>
+        </table>
+      </p>
+    {{else}} {{! We have patients who were affected by the upload}}
+      <p>
+        <table class="table-striped table-condensed ">
+          <tr>
+          {{#ifCond ../../../numberOfPopulations "==" 1}}
+            <th width="1300px" class="centered"> Upload Summary </th>
+          {{else}}
+            <th width="1300px" class="centered"> {{populationTitle}} </th>
           {{/ifCond}}
-            <tr>  
-              {{! Changes the scope to this specific population }}
-              {{#with (lookup ../summary_of_all_information.thisPopulation @index)}}
-              {{! [1] refers to information about each patient who changed within this population }}
-                {{#each this.[1]}}
-                  <td>
-                    {{#ifCond after_status "==" "Fail"}}
-                      <i class="fail fa fa-fw fa-times" aria-hidden="true"></i>&nbsp;
-                    {{else}}
-                      <i class="pass fa fa-fw fa-check" aria-hidden="true"></i>
-                    {{/ifCond}}
-                    <i class="fa fa-fw fa-user" aria-hidden="true"></i>
-                    <a class="patient-link" href="/#measures/{{../../../summary_of_all_information.hqmf_set_id}}/patients/{{oid_number}}/edit">{{full_name}}</a>
-                  </td>
-                    {{#ifCond before_status "==" "Pass"}}
-                      <td> <span class="pass"> {{before_status}}ing </span> </td>
-                    {{else}}
-                      <td> <span class="fail"> {{before_status}}ing </span> </td>
-                    {{/ifCond}}
-                    {{#ifCond after_status "==" "Pass"}}
-                      <td> <span class="pass"> {{after_status}}ing </span> </td>
-                    {{else}}
-                      <td> <span class="fail"> {{after_status}}ing </span> </td>
-                    {{/ifCond}}
-                  </tr>
-                {{/each}} 
-              {{/with}}
-          </table>
-        </p>
-    {{/each}}  
-  {{/if}}
+          <th width="200px" class="centered">Previous &nbsp;Version</th>
+          <th width="150px" class="centered">&ensp;Current &emsp;&nbsp;Version</th>
+        </tr>
+        <tr>
+          <td rowspan="3"> <h5> Number of Test Patients Affected: {{totalChanged}} </h5> </td>
+          <td rowspan="3">{{view "MeasurePercentageView" done=jQueryKnobBefore.done percent=jQueryKnobBefore.percent status=jQueryKnobBefore.status}}</td>
+          <td rowspan="3">{{view "MeasurePercentageView" done=jQueryKnobAfter.done percent=jQueryKnobAfter.percent status=jQueryKnobAfter.status}}</td>
+        </tr>
+      </table>
+        <table class="table table-condensed table-striped table-hover">
+          <tr>
+            <th>Test Patient Name</th>
+            <th>Before Status</th>
+            <th>After Status</th>
+          </tr>
+            {{#each patientsWhoChanged}}
+            <tr>
+              {{#ifCond after_status "==" "pass"}}
+                <td> <i class="pass fa fa-fw fa-check"></i> <i class="fa fa-fw fa-user"> </i>
+                <a class="patient-link" href="/#measures/{{../../../../hqmfSetId}}/patients/{{patientID}}/edit">{{name}}</a></td>
+                <td class="fail">Failing</td>
+                <td class="pass">Passing</td>
+              {{else}}
+                <td> <i class="fail fa fa-fw fa-times"></i> <i class="fa fa-fw fa-user"> </i>
+                <a class="patient-link" href="/#measures/{{../../../../hqmfSetId}}/patients/{{patientID}}/edit">{{name}}</a></td>
+                <td class="pass">Passing</td>
+                <td class="fail">Failing</td>
+              {{/ifCond}}
+            </tr>
+            {{/each}}
+        </table>
+      </p>
+    {{/ifCond}}
+  {{/each}}
+{{/ifCond}}
