@@ -93,7 +93,7 @@
       @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: measure.get('patients'), upload_summaries: upload_summaries
       @breadcrumb.viewMeasureHistory(measure)
     )
-    
+
   renderPatientCompare: (measureHqmfSetId, patientId) ->
     @navigationSetup "Patient Builder", "patient-compare"
     measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
@@ -105,12 +105,12 @@
     $.when(upsums.fetchDeferred(), archivedMeausures.fetchDeferred())
       .then( -> upsums.at(0).fetchDeferred() )
       .then((latestUpsum) -> archivedMeausures.findWhere(_id: latestUpsum.get('measure_db_id_before')).fetchDeferred())
-      .then((beforeMeasure) => 
+      .then((beforeMeasure) =>
         patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, beforemeasure: beforeMeasure, latestupsum: upsums.at(0))
         @mainView.setView patientBuilderView
-        @breadcrumb.editPatient(measure, patient) 
+        @breadcrumb.editPatient(measure, patient)
         )
-        
+
   renderHistoricPatientCompare: (measureHqmfSetId, patientId, uploadId) ->
     @navigationSetup "Patient Builder", "patient-compare"
     measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
@@ -131,10 +131,10 @@
         beforeMeasure = before
         if measure.id isnt upload_summary.get('measure_db_id_after')
           archivedMeausures.findWhere(_id: upload_summary.get('measure_db_id_after')).fetchDeferred())
-      .then((afterMeasure) => 
+      .then((afterMeasure) =>
         patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, beforemeasure: beforeMeasure, latestupsum: upload_summary, aftermeasure: afterMeasure)
         @mainView.setView patientBuilderView
-        @breadcrumb.viewComparePatient(measure, patient) 
+        @breadcrumb.viewComparePatient(measure, patient)
         )
 
   # Common setup method used by all routes
@@ -163,8 +163,16 @@
     errorDialogView = new Thorax.Views.ErrorDialog error: error
     errorDialogView.appendTo('#bonnie')
     errorDialogView.display();
-    
-  showMeasureUploadSummary: (summaryId) ->
-    measureUploadSummaryDialogView = new Thorax.Views.MeasureUploadSummaryDialog summaryId: summaryId
-    measureUploadSummaryDialogView.appendTo('#bonnie')
-    measureUploadSummaryDialogView.display()
+
+  showMeasureUploadSummary: (summaryId, hqmfSetId) ->
+    measure = @measures.findWhere(hqmf_set_id: hqmfSetId)
+    measure_summaries = measure.get('upload_summaries')
+    measure_summaries.fetchDeferred()
+      .then( ->
+        measure_summaries.findWhere({_id: summaryId}).fetchDeferred()
+        )
+      .then( (upload_summary) ->
+        measureUploadSummaryDialogView = new Thorax.Views.MeasureUploadSummaryDialog model: upload_summary, measure: measure
+        measureUploadSummaryDialogView.appendTo('#bonnie')
+        measureUploadSummaryDialogView.display()
+        )
