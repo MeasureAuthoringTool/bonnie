@@ -29,12 +29,9 @@ class Thorax.Models.Patient extends Thorax.Model
 
     new @constructor JSON.parse(json), parse: true
 
-  getBirthDate: -> moment(moment(moment.unix(@get('birthdate'))).utc().format("YYYY-MM-DD HH:mm"))
-  isAlive: ->
-    if @get('expired')
-      false
-    else
-      true
+  # Returns the BirthDate formatted as a moment from Moment JS
+  getBirthDate: -> moment(moment.unix(@get('birthdate')).utc().format("YYYY-MM-DD HH:mm"))
+  isAlive: -> !@get('expired')
   getDeathDate: ->
     if @isAlive()
       null

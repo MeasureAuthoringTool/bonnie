@@ -91,8 +91,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @listenTo(@parentView, "closeAllDataCriteria", ->
       @render() # (Re)rendering the view causes each specific data criteria to close
     )
-    @listenTo(@parentView, "openAllDataCriteria", ->
-      e = arguments[0] # e is only passed within the arguments[] object
+    @listenTo(@parentView, "openAllDataCriteria", (e) ->
       unless @isExpanded() # Only toggle if this data criteria not already expanded
         @toggleDetails(e)
     )
@@ -114,27 +113,27 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     if @showElementInformation # only perform the calculations if the patient is previewing the information
       if @model.has('fulfillments') # LOGIC FOR FULFILLMENTS
         fullfillmentInformation = @model.get('fulfillments').map((ful) ->
-             return ((ful.get('quantity_dispensed_value') + " " + ful.get('quantity_dispensed_unit') + " " + ful.get('dispense_date') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ful.get('dispense_time')))
+             ((ful.get('quantity_dispensed_value') + " " + ful.get('quantity_dispensed_unit') + " " + ful.get('dispense_date') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ful.get('dispense_time')))
 
       if @model.has('field_values') # LOGIC FOR FIELD VALUES
         fieldValueInformation = @model.get('field_values').map((field_val) ->
            switch field_val.get('type') # CD = Coded, PQ = Scalar, TS = Date Entry. This switch statement is just for formatting the different entry methods
-             when "CD" then return (((field_val.get('key')) + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (field_val.get('title')))
-             when "PQ" then return ((field_val.get('key') + ": " + field_val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (field_val.get('unit')))
-             when "TS" then return ((field_val.get('key') + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ moment.utc(field_val.get('value')).format('L H:mm A')))
+             when "CD" then (((field_val.get('key')) + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + (field_val.get('title')))
+             when "PQ" then ((field_val.get('key') + ": " + field_val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + (field_val.get('unit')))
+             when "TS" then ((field_val.get('key') + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + moment.utc(field_val.get('value')).format('L H:mm A')))
 
       if @model.has('references') # LOGIC FOR REFERENCES
         referencesInformation = @model.get('references').map((ref) ->
            if ref.get('reference_type')
-             return ref.get('reference_type').replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ": " + ref.get('description') + ": " + ref.get('start_date')
+             ref.get('reference_type').replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ": " + ref.get('description') + ": " + ref.get('start_date')
            else
-             return ref.get('description') + ": " + ref.get('start_date'))
+             ref.get('description') + ": " + ref.get('start_date'))
 
       if @model.has('value') # LOGIC FOR RESULTS
         resultInformation = @model.get('value').map((val) ->
            switch val.get('type') # CD = Coded, PQ = Scalar. This switch statement is just for formatting the different entry methods
-             when "CD" then return val.get('title')
-             when "PQ" then return (val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())+ (val.get('unit')))
+             when "CD" then val.get('title')
+             when "PQ" then (val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + (val.get('unit')))
 
     if @model.get('end_date')? # Calculate Duration Between Start and End Dates
       elementDuration = Bonnie.util.getDurationBetween(moment(@model.get('start_date')), moment(@model.get('end_date')))
