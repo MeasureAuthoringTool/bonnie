@@ -69,11 +69,16 @@ class Thorax.Models.Measure extends Thorax.Model
 
   @logicFieldsFor: (criteriaType) ->
 
-    # Define field values for all criteria types
-    globalInclusions = ['reason', 'source']
+    # Defines what is included in the drop down menu in the Bonnie Patient Builder for all
+    # criteria. The name should correspond with what is the `coded_entry_method` in the `FIELDS`
+    # hash in health-data-standards:lib/health-model/data_criteria.rb.
+    globalInclusions = ['reason', 'source', 'health_record_field']
 
-    # Define criteria type-specific field values
+    # Defines what is included in the drop down menu in the Bonnie Patient Builder for a particular
+    # criteria. The name should correspond with what is the `coded_entry_method` in the `FIELDS`
+    # hash in health-data-standards:lib/health-model/data_criteria.rb.
     typeInclusions =
+      care_experiences: []
       care_goals: ['related_to', 'target_outcome']
       characteristics: []
       communications: []
@@ -87,12 +92,12 @@ class Thorax.Models.Measure extends Thorax.Model
       functional_statuses: []
       immunizations: ['route', 'dose', 'reaction']
       interventions: ['anatomical_structure']
-      laboratory_tests: ['reference_range_low', 'reference_range_high']
+      laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status']
       medications: ['route', 'dose', 'reaction']
       patient_care_experiences: []
       physical_exams: ['anatomical_structure']
       preferences: []
-      procedures: ['incision_time', 'anatomical_structure', 'ordinality']
+      procedures: ['incision_time', 'anatomical_structure', 'ordinality', 'qdm_status']
       provider_care_experiences: []
       provider_characteristics: []
       risk_category_assessments: ['severity']

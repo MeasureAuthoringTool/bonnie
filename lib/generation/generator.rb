@@ -53,6 +53,8 @@ module HQMF
         "communications"
       when :family_history
         "family_history"
+      when :careExperiences
+        "care_experiences"
       else
         type.to_s
       end
