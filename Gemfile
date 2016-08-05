@@ -47,10 +47,8 @@ gem 'oj' # Faster JSON
 
 group :test, :development, :ci do
   gem 'pry'
-  gem 'jasmine'
   gem 'teaspoon'
   gem 'teaspoon-jasmine'
-  gem 'jasmine-jquery-rails'
   gem 'simplecov', :require => false
   gem 'minitest'
   gem 'webmock'
