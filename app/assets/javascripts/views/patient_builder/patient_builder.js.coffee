@@ -244,9 +244,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       top: shiftDown
       bottom: $logic.nextAll(':visible').height() || 0
 
-  # Allows us to remember state after sorting by name or date REFACTOR ME
+  # Allows us to remember state after sorting by name or date
   displayElementInformation: -> @$('#previewPatientInformation').is(":checked")
-  
+
   sortDataCriteriaByName: ->
     @$('#loadingSpinner').removeClass('hidden')
     setTimeout( =>

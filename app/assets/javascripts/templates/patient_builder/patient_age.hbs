@@ -1,5 +1,7 @@
 <div {{#if errorWithDates}} class="fail" {{/if}}>
-  {{#if importantDate}} <b> {{/if}}
-  <i class="{{faIcon}}"> </i>{{patientAge}}
-  {{#if importantDate}} </b> {{/if}}
+  {{#if importantDate}}
+    <b><i class="{{faIcon}}"></i>{{patientAge}}</b>
+  {{else}}
+      <i class="{{faIcon}}"></i>{{patientAge}}
+  {{/if}}
 </div>
