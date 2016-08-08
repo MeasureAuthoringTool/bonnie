@@ -5,11 +5,15 @@ class UploadSummariesController < ApplicationController
   respond_to :json, :js, :html
   
   def index
-    @measure = Measure.by_user(current_user).only(:hqmf_set_id).find(params[:measure_id])
-    @upload_summaries = TestCaseMeasureHistory::MeasureUploadPatientSummary.by_user_and_hqmf_set_id(current_user, @measure.hqmf_set_id).only([:_id, :created_at]).desc(:created_at)
-    
-    respond_with @upload_summaries do |format|
-      format.json { render json: @upload_summaries }
+    begin
+      @measure = Measure.by_user(current_user).only(:hqmf_set_id).find(params[:measure_id])
+      @upload_summaries = TestCaseMeasureHistory::MeasureUploadPatientSummary.by_user_and_hqmf_set_id(current_user, @measure.hqmf_set_id).only([:_id, :created_at]).desc(:created_at)
+      
+      respond_with @upload_summaries do |format|
+        format.json { render json: @upload_summaries }
+      end
+    rescue Mongoid::Errors::DocumentNotFound
+      render json: { error: "Could not find measure." }, status: :not_found
     end
   end
   
