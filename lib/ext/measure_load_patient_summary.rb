@@ -36,18 +36,29 @@ module TestCaseMeasureHistory
     # attr_accessor :patients, :summary
 
     def before_measure_load_compare(patient, pop_idx, m_id)
-      trim_before = (patient.calc_results.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER)
+      trim_before = (patient.calc_results.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER) if !patient.too_big
       trim_expected = (patient.expected_values.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER)
       # diff_before_expected = (trim_expected.to_a - trim_before.to_a).to_h
       
       # TODO: Make sure this can handle continuous value measures.
-      if (patient.calc_results.find { |p| p[:measure_id] == m_id && p[:population_index] == pop_idx })['status'] == 'pass'
-        status = 'pass'
-        self[:summary][:pass_before] += 1
-      else
-        status = 'fail'
-        self[:summary][:fail_before] += 1
-      end
+        case !patient.too_big
+        when true
+          if (patient.calc_results.find{ |p| p[:measure_id] == m_id && p[:population_index] == pop_idx })['status'] == 'pass'
+            status = 'pass'
+            self.summary[:pass_before] += 1
+          else
+            status = 'fail'
+            self.summary[:fail_before] += 1
+          end
+        else
+          if (patient.too_big_trimmed_results.find{ |p| p[:measure_id] == m_id && p[:population_index] == pop_idx })['status'] == 'pass'
+            status = 'pass'
+            self.summary[:pass_before] += 1
+          else
+            status = 'fail'
+            self.summary[:fail_before] += 1
+          end
+        end # case
       self[:patients][patient.id.to_s] = {
         expected: trim_expected,
         before: trim_before,
@@ -88,15 +99,26 @@ module TestCaseMeasureHistory
       b_mups = the_befores.measure_upload_population_summaries[pop_idx]
       b_mups[:patients].keys.each do |patient|
         ptt = Record.where(id: patient).first
-        trim_after = (ptt.calc_results.find { |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx }).slice(*SLICER)
+        trim_after = (ptt.calc_results.find { |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx }).slice(*SLICER) if !ptt.too_big
         # diff_after_expected = (b_mups[:patients][patient][:expected].to_a - trim_after.to_a).to_h
-        if (ptt.calc_results.find{ |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx })['status'] == 'pass'
-          status = 'pass'
-          b_mups.summary[:pass_after] += 1
+        case !ptt.too_big
+        when true
+          if (ptt.calc_results.find{ |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx })['status'] == 'pass'
+            status = 'pass'
+            b_mups.summary[:pass_after] += 1
+          else
+            status = 'fail'
+            b_mups.summary[:fail_after] += 1
+          end
         else
-          status = 'fail'
-          b_mups.summary[:fail_after] += 1
-        end
+          if (ptt.too_big_trimmed_results.find{ |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx })['status'] == 'pass'
+            status = 'pass'
+            b_mups.summary[:pass_after] += 1
+          else
+            status = 'fail'
+            b_mups.summary[:fail_after] += 1
+          end
+        end # case
         b_mups.patients[patient].merge!(after: trim_after, after_status: status, patient_version_after_upload: ptt.version)
       end
       b_mups.save!
@@ -123,17 +145,13 @@ module TestCaseMeasureHistory
         end
         result[:measure_id] = measure.hqmf_set_id
         result[:population_index] = population_index
-        if !patient.calc_results.present?
-          patient.write_attribute(:calc_results, res)
-        else
-          begin
-            calc_results = patient.calc_results.dup
-            # Clear any prior results for this measure to ensure a clean update, i.e. a change in the number of populations.
-            calc_results.reject! { |av| av['measure_id'] == measure.hqmf_set_id && (av['population_index'] == population_index || av['population_index'] >= measure.populations.count) }
-            calc_results << result
-            patient.calc_results = calc_results
-          end
-        end
+
+        calc_results = patient.calc_results.dup
+        # Clear any prior results for this measure to ensure a clean update, i.e. a change in the number of populations.
+        calc_results.reject! { |av| av['measure_id'] == measure.hqmf_set_id && (av['population_index'] == population_index || av['population_index'] >= measure.populations.count) }
+        calc_results << result
+        patient.calc_results = calc_results
+
         patient.has_measure_history = true
         patient.save!
       end
