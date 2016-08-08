@@ -30,9 +30,21 @@ namespace :upgrade_add_hx_tracks do
             next unless result
             result['population_index'] = population_index
             result['measure_id'] = measure.hqmf_set_id
-            if result.to_json.size < 10000000
+            attempts = 0
+            begin
+              # The size of the results will be checked by the before_save in record.rb
               patient.calc_results << result
               patient.save!
+            rescue Exception => e
+              puts e.message
+              puts e.backtrace.inspect
+              patient.calc_results = []
+              attempts += 1
+              if attempts < 2
+                retry
+              else
+                raise
+              end
             end
             yield measure, population_index, patient, result, setup_exception || calculation_exception
           end

@@ -11,7 +11,9 @@ class Record
   field :is_shared, :type => Boolean
   field :origin_data, type: Array
   field :calc_results, type: Array, default: []
-  field :has_measure_history, type: Boolean, default: false
+  field :has_measure_history, type: Boolean, default: false # has the record gone through an update to the measure
+  field :too_big, type: Boolean, default: false # True when the size of calc_results > 12000000
+  field :too_big_trimmed_results, type: Array
 
   belongs_to :user
   belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle"
@@ -19,6 +21,7 @@ class Record
   scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where ({'user_id'=>user.id, 'measure_ids'=>{'$in'=>[hqmf_set_id]} }) }
   
   before_save :calc_status
+  before_save :size_check
 
   # User email or measure CMS ID can be prepopulated (to solve 1+N performance issue) or just retrieved
   attr_writer :user_email
@@ -144,6 +147,19 @@ class Record
       break if (calc_results.nil? || (pop_idx == calc_results.length && calc_results.length != 0))
       calc_results[pop_idx][:status] = (expected_values[pop_idx].to_a - calc_results[pop_idx].to_a).empty? ? 'pass' : 'fail'
     end
+  end
+
+  def size_check
+    puts "\n\n\tcalc_results is #{calc_results.to_json.size}\n\n"
+    if calc_results.to_json.size > 12000000
+      self.too_big = true
+      calc_results.each do |cr|
+        cr.delete('rationale')
+        cr.delete('finalSpecifics')
+      end
+      self.too_big_trimmed_results = calc_results
+      unset(:calc_results)
+    end 
   end
 
 end
