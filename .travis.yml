@@ -6,7 +6,7 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
 services: mongodb
 bundler_args: --without test development
-script: export DISPLAY=:99.0 && bundle exec rake teaspoon && bundle exec rake
+script: export DISPLAY=:99.0 && bundle exec teaspoon && bundle exec rake
 notifications:
   email:
     recipients:
