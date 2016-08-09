@@ -14,8 +14,8 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
     # because of how thorax transitions between views (it removes the $el associated with the view - line 2080 thorax.js)
     # the view needs to be re-created each time it is shown.
     population = @measure.get 'displayedPopulation'
-    populationPatientDashboardView = new Thorax.Views.MeasurePopulationPatientDashboard(measure: @measure, population: population)
-    patientDashboardView = new Thorax.Views.MeasurePatientDashboardLayout collection: @populations, population: population
+    populationPatientDashboardView = new Thorax.Views.MeasurePopulationPatientDashboard measure: @measure, population: population, showFixedColumns: e.showFixedColumns
+    patientDashboardView = new Thorax.Views.MeasurePatientDashboardLayout collection: @populations, population: population, showFixedColumns: e.showFixedColumns
 
     # NOTE: the populationPatientDashboard view has to be set as the subview at this point in time. Otherwise,
     # the rendering order is off and the dashboard renders terribly
