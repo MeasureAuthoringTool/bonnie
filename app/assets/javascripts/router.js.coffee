@@ -23,6 +23,7 @@
     'complexity/:set_1/:set_2':                        'renderComplexity'
     'measures/:hqmf_set_id':                           'renderMeasure'
     'measures/:hqmf_set_id/patient_dashboard':         'renderPatientDashboard'
+    'measures/:hqmf_set_id/508_patient_dashboard':     'renderPatientDashboard'
     'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patient_bank':      'renderPatientBank'
@@ -45,7 +46,7 @@
     document.title += " - #{measure.get('cms_id')}" if measure?
     measureLayoutView = new Thorax.Views.MeasureLayout(measure: measure, patients: @patients)
     @mainView.setView(measureLayoutView)
-    measureLayoutView.showDashboard()
+    measureLayoutView.showDashboard showFixedColumns: !/508_patient_dashboard/.test(Backbone.history.getFragment()) #Checks to see if 508_patient_dashboard is not in the url
     @breadcrumb.addMeasure(measure)
 
   renderComplexity: (measureSet1, measureSet2) ->
