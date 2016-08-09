@@ -137,7 +137,7 @@
     <div class="expand closed pull-right">Show more <i class="fa fa-caret-down"></i></div>
     {{view expectedValuesView}}
     {{#if has_measure_history}}
-      {{#link "measures/{{measure.attributes.hqmf_set_id}}/patients/{{_id}}/compare" expand-tokens=true}}<i class="fa fa-fw fa-columns" aria-hidden="true"></i> Compare current patient state to state before last measure upload.{{/link}}
+      {{#link "measures/{{measure.attributes.hqmf_set_id}}/patients/{{_id}}/compare" expand-tokens=true}}<i class="fa fa-fw fa-columns" aria-hidden="true"></i> Compare current patient state to state after the last measure upload.{{/link}}
     {{/if}}
   </div>
 </div>

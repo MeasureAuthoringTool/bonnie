@@ -102,11 +102,10 @@
     # Deal with getting the archived measure and the calculation snapshot for the patient at measure upload
     upsums = measure.get('upload_summaries')
     archivedMeausures = measure.get('archived_measures')
-    $.when(upsums.fetchDeferred(), archivedMeausures.fetchDeferred())
+    $.when(upsums.fetchDeferred())
       .then( -> upsums.at(0).fetchDeferred() )
-      .then((latestUpsum) -> archivedMeausures.findWhere(_id: latestUpsum.get('measure_db_id_before')).fetchDeferred())
-      .then((beforeMeasure) =>
-        patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, beforemeasure: beforeMeasure, latestupsum: upsums.at(0))
+      .then((latestUpsum) -> 
+        patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, latestupsum: upsums.at(0), viaRoute: "fromEdit")
         @mainView.setView patientBuilderView
         @breadcrumb.editPatient(measure, patient)
         )
@@ -131,8 +130,8 @@
         beforeMeasure = before
         if measure.id isnt upload_summary.get('measure_db_id_after')
           archivedMeausures.findWhere(_id: upload_summary.get('measure_db_id_after')).fetchDeferred())
-      .then((afterMeasure) =>
-        patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, beforemeasure: beforeMeasure, latestupsum: upload_summary, aftermeasure: afterMeasure)
+      .then((afterMeasure) => 
+        patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, beforemeasure: beforeMeasure, latestupsum: upload_summary, aftermeasure: afterMeasure, viaRoute: "fromTimeline")
         @mainView.setView patientBuilderView
         @breadcrumb.viewComparePatient(measure, patient)
         )
