@@ -36,7 +36,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.highlight-indicator').removeAttr('tabindex').empty()
     @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
     @patientAgeView = new Thorax.Views.PatientAge(model: @model)
-
+    @previewElementInformation = true
 
   dataCriteriaCategories: ->
     categories = {}
@@ -76,7 +76,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       else
         # FIXME: remove this toggle if the description is too short on render rather than on this click.
         @$('.expand').html('Nothing more to show...').fadeOut 2000, -> $(@).remove()
-    'click #previewPatientInformation': 'previewInformation'
+    'click #previewPatientInformation': (e) ->
+      @triggerPreviewInformation(e.target.checked)
+      @previewElementInformation = e.target.checked
 
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', appendTo: '.patient-builder', zIndex: 10
@@ -244,9 +246,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       top: shiftDown
       bottom: $logic.nextAll(':visible').height() || 0
 
-  # Allows us to remember state after sorting by name or date
-  displayElementInformation: -> @$('#previewPatientInformation').is(":checked")
-
   sortDataCriteriaByName: ->
     @$('#loadingSpinner').removeClass('hidden')
     setTimeout( =>
@@ -263,11 +262,11 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('#loadingSpinner').addClass('hidden')
     , 0)
 
-  previewInformation: (e) ->
+  triggerPreviewInformation: (previewInformation) ->
     @$('#loadingSpinner').removeClass('hidden')
     setTimeout( =>
       @$('#loadingSpinner').addClass('hidden')
-      if @displayElementInformation()
+      if previewInformation
         @trigger "previewInformationinDataCriteria"
       else
         @trigger "hideInformationinDataCriteria"

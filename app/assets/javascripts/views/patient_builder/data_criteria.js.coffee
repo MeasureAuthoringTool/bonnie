@@ -78,14 +78,14 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView
       model: new Thorax.Model
       criteria: @model
-    @showElementInformation = @parentView.displayElementInformation()
+    @previewElementInformation = @parentView.previewElementInformation # Allows us to remember state after sorting
 
     @listenTo(@parentView, "previewInformationinDataCriteria", ->
-      @showElementInformation = true
+      @previewElementInformation = true
       @render()
     )
     @listenTo(@parentView, "hideInformationinDataCriteria", ->
-      @showElementInformation = false
+      @previewElementInformation = false
       @render()
     )
     @listenTo(@parentView, "closeAllDataCriteria", ->
@@ -110,7 +110,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     cmsIdParts = @model.get("cms_id").match(/CMS(\d+)(V\d+)/i)
     desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
 
-    if @showElementInformation # only perform the calculations if the patient is previewing the information
+    if @previewElementInformation # only perform the calculations if the patient is previewing the information
       if @model.has('fulfillments') # LOGIC FOR FULFILLMENTS
         fullfillmentInformation = @model.get('fulfillments').map((ful) ->
              ((ful.get('quantity_dispensed_value') + " " + ful.get('quantity_dispensed_unit') + " " + ful.get('dispense_date') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ful.get('dispense_time')))

@@ -9,7 +9,7 @@
           <h2>{{definition_title}}</h2>
           <div>{{description}}</div>
           {{#if isNegated}}
-            {{#if showElementInformation}}
+            {{#if previewElementInformation}}
               <h5 class="warning">
                 <i class="fa fa-fw fa-exclamation-circle"></i>
                 Not Performed: {{negationCode}}
@@ -41,7 +41,7 @@
           {{/button}}
         </div>
       </div>
-      {{#if showElementInformation}} {{! If the user wishes to preview the information }}
+      {{#if previewElementInformation}} {{! If the user wishes to preview the information }}
         <div class="row">
           <div class="col-md-12">
 
