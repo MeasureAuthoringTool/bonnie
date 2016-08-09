@@ -36,9 +36,13 @@ module TestCaseMeasureHistory
     # attr_accessor :patients, :summary
 
     def before_measure_load_compare(patient, pop_idx, m_id)
+      # Handle when measure has more populations 
+      pat_pop_idx = []
+      patient.expected_values.each { |e| pat_pop_idx << e[:population_index] if e[:measure_id] == m_id }
+      return if pop_idx > pat_pop_idx.max
+
       trim_before = (patient.calc_results.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER) if !patient.too_big
       trim_expected = (patient.expected_values.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER)
-      # diff_before_expected = (trim_expected.to_a - trim_before.to_a).to_h
       
       # TODO: Make sure this can handle continuous value measures.
         case !patient.too_big
