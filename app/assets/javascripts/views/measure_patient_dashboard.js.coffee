@@ -112,6 +112,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       @$('#patientDashboardTable_wrapper').removeClass('form-inline')
       @$('#patientDashboardTable_filter').addClass('form-inline') # Search input
 
+      # If table scrolls, remove popovers from screen
+      $('div.dataTables_scrollBody').scroll () =>
+        $('.popover').popover('destroy')
+
   # This is the code for managing the logic highlighting
   showRationaleForPopulation: (code, rationale, updatedRationale) ->
     for key, value of rationale
@@ -458,6 +462,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Generates the views for the popover and attaches it to the DOM.
   ###
   populatePopover: (sender) ->
+    sender.preventDefault()
     dataCriteria = @pd.dataIndices[$(sender.target).attr('columnNumber')] # Formatted "PopulationKey_DataCriteriaKey"
     dataCriteriaKey = dataCriteria.substring(dataCriteria.indexOf('_') + 1)
     populationKey = dataCriteria.substring(0, dataCriteria.indexOf('_'))
@@ -479,10 +484,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
     # When popover loses focus (hides), destroy popover so content doesn't flicker on next 'show' event.
     $(sender.currentTarget).one 'hide.bs.popover', =>
-      $('.popover').popover('destroy')
-
-    # If table scrolls, remove popovers from screen
-    $('div.dataTables_scrollBody').scroll () =>
       $('.popover').popover('destroy')
 
   ###
