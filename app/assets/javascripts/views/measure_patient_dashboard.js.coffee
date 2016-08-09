@@ -53,6 +53,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
   context: ->
     _(super).extend
+      cms_id: @measure.get('cms_id')
       patients: @patientData
       head1: @head1
       head2: @head2
