@@ -133,6 +133,7 @@ JST['pd_result_with_popover'] = Handlebars.compile '
   {{#if content}}
     <a
       tabindex="0"
+      href="#"
       class="btn btn-default btn-xs trigger-criteria"
       data-container="body"
       data-toggle="popover"
