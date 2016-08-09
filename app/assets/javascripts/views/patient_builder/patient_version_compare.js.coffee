@@ -10,15 +10,15 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
   initialize: ->
     @selectedPopulation = @measure.get('displayedPopulation').get('index')
     @thePatient = @latestupsum.get('measure_upload_population_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
-    
-    if @beforemeasure.get('populations').at(@selectedPopulation)
+
+    if @viaRoute == "fromEdit"
       @populationInBefore = true
       @cachedBeforeResult = new Thorax.Models.CachedResult({
-        rationale: @thePatient.before.rationale
-        finalSpecifics: @thePatient.before.finalSpecifics}
+        rationale: @thePatient.after.rationale
+        finalSpecifics: @thePatient.after.finalSpecifics}
         , {
           # population: @beforemeasure.get('displayedPopulation')
-          population: @beforemeasure.get('populations').at(@selectedPopulation)
+          population: @measure.get('displayedPopulation')
           patient: @model
         }
       )
@@ -27,8 +27,26 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
       # @populationLogicViewBefore.setPopulation @beforemeasure.get('displayedPopulation')
       @populationLogicViewBefore.setPopulation @cachedBeforeResult.population
       @populationLogicViewBefore.showRationale @cachedBeforeResult
-    else
-      @populationInBefore = false
+
+    if @viaRoute == "fromTimeline"
+      if @beforemeasure.get('populations').at(@selectedPopulation)
+        @populationInBefore = true
+        @cachedBeforeResult = new Thorax.Models.CachedResult({
+          rationale: @thePatient.before.rationale
+          finalSpecifics: @thePatient.before.finalSpecifics}
+          , {
+            # population: @beforemeasure.get('displayedPopulation')
+            population: @beforemeasure.get('populations').at(@selectedPopulation)
+            patient: @model
+          }
+        )
+        
+        @populationLogicViewBefore = new Thorax.Views.ComparePopulationLogic
+        # @populationLogicViewBefore.setPopulation @beforemeasure.get('displayedPopulation')
+        @populationLogicViewBefore.setPopulation @cachedBeforeResult.population
+        @populationLogicViewBefore.showRationale @cachedBeforeResult
+      else
+        @populationInBefore = false
 
     if @aftermeasure is undefined || @measure.id == @aftermeasure.id
       @populationLogicViewAfter = new Thorax.Views.BuilderPopulationLogic
