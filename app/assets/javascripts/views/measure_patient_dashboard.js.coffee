@@ -3,7 +3,13 @@ class Thorax.Views.MeasurePatientDashboardLayout extends Thorax.LayoutView
   className: 'patient-dashboard-layout'
 
   initialize: ->
-    $('#patient-dashboard-button').addClass('btn-primary')
+    # Highlights correct button, based on selected view
+    if @showFixedColumns
+      $('#patient-dashboard-button').addClass('btn-primary')
+      $('#508-patient-dashboard-button').removeClass('btn-primary')
+    else
+      $('#patient-dashboard-button').removeClass('btn-primary')
+      $('#508-patient-dashboard-button').addClass('btn-primary')
     $('#measure-details-button').removeClass('btn-primary')
 
   switchPopulation: (e) ->
@@ -83,7 +89,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
       # Create column access info for use by DataTables
       @tableColumns = @getTableColumns()
-
       # Initialize patient dashboard using DataTables
       table = @$('#patientDashboardTable').DataTable(
         data: @patientData,
@@ -101,11 +106,14 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         scrollY: "600px",
         scrollCollapse: true,
         order: [], # disables initial sorting
-        paging: false,
-        fixedColumns:
-          leftColumns: 4 + @populations.length
+        paging: false
         preDrawCallback: => @updateDisplay()
       )
+      if @showFixedColumns
+        new $.fn.dataTable.FixedColumns(table,
+          leftColumns: 4 + @populations.length
+        )
+      @updateDisplay() # Highlights the actual warnings on the flat table.
 
       # Removes the form-inline class from the wrapper so that inputs in our table can
       # take on full width. This is expected to be fixed in a future release of DataTables.
