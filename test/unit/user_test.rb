@@ -37,6 +37,29 @@ class UserTest < ActiveSupport::TestCase
     assert_equal false, @user.is_portfolio?
   end
 
+  test "grant and revoke dashboard" do
+    assert_equal false, @user.is_dashboard?
+    @user.grant_dashboard
+    @user.reload
+    assert_equal true, @user.is_dashboard?
+    @user.revoke_dashboard
+    @user.reload
+    assert_equal false, @user.is_dashboard?
+  end
+
+  test "grant and revoke dashboard_set" do
+    assert_equal false, @user.is_dashboard_set?
+    assert_equal false, @user.is_approved?
+    @user.grant_dashboard_set
+    @user.reload
+    assert_equal true, @user.is_dashboard_set?
+    assert_equal true, @user.is_approved?
+    @user.revoke_dashboard_set
+    @user.reload
+    assert_equal false, @user.is_dashboard_set?
+    assert_equal true, @user.is_approved? # revoke_dashboard_set doesn't remove approved status
+  end
+
   test "test bad password fails" do
 
     bad_user = assert_raises(Mongoid::Errors::Validations) do
