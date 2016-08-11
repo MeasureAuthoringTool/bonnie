@@ -155,7 +155,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       definition_title: definition_title
       canHaveNegation: @model.canHaveNegation()
       isNegated: @model.get('negation')
-      negationCode: @getNegationCodeText(@model.get('negation_code_list_id'))
+      negationCode: @model.getNegationCodeText()
       hasStopTime: @model.hasStopTime()
       startLabel: @model.startLabel()
       stopLabel: @model.stopLabel()
@@ -254,12 +254,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     e.preventDefault()
     type = @$(e.target).model().get('type')
     $(".#{type}-elements").focus()
-
-  getNegationCodeText: (value_set_oid) ->
-    if @model.measure().valueSets().where(oid: value_set_oid).length > 0
-      @model.measure().valueSets().where(oid: value_set_oid)[0].get('display_name')
-    else
-      null
 
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']
