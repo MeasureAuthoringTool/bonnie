@@ -127,7 +127,6 @@ describe 'PatientBuilderView', ->
     it "serializes correctly", ->
       expect(@patientBuilder.model.get('source_data_criteria').first().get('negation')).toBe true
       expect(@patientBuilder.model.get('source_data_criteria').first().get('negation_code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1061'
-
     afterEach -> @patientBuilder.remove()
 
 
@@ -317,5 +316,10 @@ describe 'PatientBuilderView', ->
       @patientBuilder.$("button[data-call-method=save]").click()
       expect(@patientBuilder.model.get('expired')).toEqual false
       expect(@patientBuilder.model.get('deathdate')).toEqual null
+
+    it 'correctly calculates patient age', ->
+      expect(Bonnie.util.getDurationBetween(moment(@patient.get('birthdate')), moment(@patient.get('birthdate')).subtract(1, 'years'))).toEqual ''
+      expect(Bonnie.util.getDurationBetween(moment(@patient.get('birthdate')).subtract(1, 'years'), moment(@patient.get('birthdate')))).toEqual "1 year"
+      expect(Bonnie.util.getDurationBetween(moment(@patient.get('birthdate')).subtract(2, 'years').subtract(3, 'months'), moment(@patient.get('birthdate')))).toEqual "2 years, 3 months"
 
     afterEach -> @patientBuilder.remove()

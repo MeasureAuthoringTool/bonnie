@@ -35,6 +35,20 @@ describe 'Patient', ->
     expect(@patient.get('source_data_criteria').at(2).cid).toEqual startOrder[1]
     expect(@patient.get('source_data_criteria').at(3).cid).toEqual startOrder[0]
 
+  it 'correctly sorts criteria in alphabetical order', ->
+    startOrder = @patient.get('source_data_criteria').map (dc) -> dc.cid
+
+    @patient.get('source_data_criteria').at(0).set type: "procedures"
+    @patient.get('source_data_criteria').at(1).set type: "medications"
+    @patient.get('source_data_criteria').at(2).set type: "encounters"
+    @patient.get('source_data_criteria').at(3).set type: "conditions"
+    @patient.sortCriteriaBy 'type'
+    expect(@patient.get('source_data_criteria').at(0).cid).toEqual startOrder[3]
+    expect(@patient.get('source_data_criteria').at(1).cid).toEqual startOrder[2]
+    expect(@patient.get('source_data_criteria').at(2).cid).toEqual startOrder[1]
+    expect(@patient.get('source_data_criteria').at(3).cid).toEqual startOrder[0]
+
+
   describe 'validation', ->
 
     beforeEach ->
