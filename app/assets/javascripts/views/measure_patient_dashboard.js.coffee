@@ -113,6 +113,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         new $.fn.dataTable.FixedColumns(table,
           leftColumns: 4 + @populations.length
         )
+        $('.DTFC_LeftBodyLiner').css('overflow-x':"hidden") # Removes extra scroll bar under fixed columns.
       @updateDisplay() # Highlights the actual warnings on the flat table.
 
       # Removes the form-inline class from the wrapper so that inputs in our table can
