@@ -1,11 +1,11 @@
 <div>
-  {{#ifCond upload_summaries.length '>' 1}}
+  {{#if hasHistory}}
     <table class="table measure-history-table">
       <tr>
         <th class="history-upload-title">Measure Uploads</th>
         <th class="history-upload-title"></th>
         {{#each patientIndex}}
-          <th class="history-patient-header" data-patient-id="{{id}}"><div><span><i class="fa fa-user" aria-hidden="true"></i> <a href="#measures/{{../../hqmf_set_id}}/patients/{{id}}/edit">{{name}}</a></span></div></th>
+          <th class="history-patient-header" data-patient-id="{{id}}"><div><span><i class="fa fa-user" aria-hidden="true"></i> <a class="history-patient-header-name" title="{{name}}" href="#measures/{{../../hqmf_set_id}}/patients/{{id}}/edit">{{name}}</a></span></div></th>
         {{/each}}
       </tr>
       
@@ -67,7 +67,7 @@
     <div class="alert alert-warning">
       <strong>No history found.</strong> History is only available after two or more versions of a measure have been uploaded.
     </div>
-  {{/ifCond}}
+  {{/if}}
 </div>
 
 <div class="modal fade diff-view-dialog" id="measure-diff-view-dialog" tabindex="-1" aria-hidden="true">

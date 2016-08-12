@@ -9,7 +9,13 @@ class Thorax.Views.MeasureHistoryTimelineView extends Thorax.Views.BonnieView
     
   loadHistory: =>
     @patientIndex = [];
-
+    
+    @hasHistory = true
+    if @upload_summaries.size() == 1 && @upload_summaries.at(0).get('measure_db_id_before') == null
+      @hasHistory = false
+    else if @upload_summaries.size() < 1
+      @hasHistory = false
+      
     # pull out all patients that exist, even deleted ones, map id to names
     @upload_summaries.each (upload_summary) =>
       for population in upload_summary.get('measure_upload_population_summaries')
