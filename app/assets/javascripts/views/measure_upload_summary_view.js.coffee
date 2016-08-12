@@ -19,7 +19,7 @@ class Thorax.Views.MeasureUploadSummary extends Thorax.Views.BonnieView
           totalChanged++
           @measure.get('patients').each((thisPatient, arrayIndex) ->
             if thisPatient.get('_id') == patientOID
-              patientsWhoChanged[arrayIndex] = {name: "#{thisPatient.get('first')} #{thisPatient.get('last')}", patientID: thisPatient.id, after_status: patientInformation.after_status}
+              patientsWhoChanged.push({name: "#{thisPatient.get('first')} #{thisPatient.get('last')}", patientID: thisPatient.id, after_status: patientInformation.after_status})
             )
       populationInformation[populationIndex] = {
         totalPatients: totalPatients,
