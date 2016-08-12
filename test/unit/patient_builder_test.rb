@@ -38,7 +38,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
                    "2.16.840.1.113883.3.666.5.1084"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.666.5.1084" , "concepts"=>[
                                                                             HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA1"})]})
                   } # todo need to fake some of these out
-
+    @valuesets.each {|k, v| v.bonnie_version_hash = HealthDataStandards::SVS::ValueSet.generate_bonnie_hash(v)}
     @coded_source_data_critria = {
           "id"=> "DiagnosisActiveLimitedLifeExpectancy",
           "start_date"=> 1333206000000,
@@ -110,7 +110,6 @@ class PatientBuilderTest < ActiveSupport::TestCase
         }
 
   end
-
 
   test "derive entry" do
     entry = Measures::PatientBuilder.derive_entry(@data_criteria,@un_coded_source_data_critria, @valuesets)

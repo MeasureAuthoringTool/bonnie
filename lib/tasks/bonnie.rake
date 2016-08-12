@@ -166,7 +166,7 @@ namespace :bonnie do
       puts "Copying value sets..."
       value_sets.each do |vs|
         vs.user = dest
-        vs.bundle = dest.bundle
+        vs.bundle << dest.bundle
         vs.save
       end
 
