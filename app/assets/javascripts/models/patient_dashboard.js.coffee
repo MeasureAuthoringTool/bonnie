@@ -36,15 +36,6 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     @dataInfo = @getDataInfo(@populations, @dataIndices, @dataCollections)
 
   ###
-  @returns {number} the fixed columns width for use when auto-scrolling the table to a
-  population.
-  ###
-  getHorizontalScrollOffset: =>
-    # TODO: Make more dynamic
-    @COL_WIDTH_RESULT + @COL_WIDTH_META_MEDIUM*2 + @COL_WIDTH_META_SMALL +
-      @COL_WIDTH_POPULATION*(@populations.length+1) + 15
-
-  ###
   @returns {Array} an array of column names in the right order.
   ###
   getDataIndices: (populations, @criteriaKeysByPopulation) =>
@@ -113,112 +104,27 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     dataCollections = {}
     dataCollections[@ACTIONS] = name: "Options", items: [@ACTIONS]
     dataCollections[@RESULT] = name: "Result", items: [@RESULT, @LAST, @FIRST]
-    dataCollections[@EXPECTED] = name: "Expected", items: (@EXPECTED + pop for pop in populations)
-    dataCollections[@ACTUAL] = name: "Actual", items: (@ACTUAL + pop for pop in populations)
+    dataCollections[@EXPECTED] = name: "Expected", items: populations.map (p) => @EXPECTED + p
+    dataCollections[@ACTUAL] = name: "Actual", items: populations.map (p) => @ACTUAL + p
     dataCollections[@DESCRIPTION] = name: "Description", items: [@DESCRIPTION]
     dataCollections[@METADATA] = name: "Metadata", items: [@BIRTHDATE, @DEATHDATE, @GENDER]
     for population in populations
-      dataCollections[population] = name: population, items: (population + '_' + criteria for criteria in criteria_keys_by_population[population])
+      dataCollections[population] = name: population, items: criteria_keys_by_population[population].map (c) => population + '_' + c
     for key, dataCollection of dataCollections
       # This grabs the lowest index in the given items
-      dataCollection.firstIndex = Math.min (dataIndices.indexOf(item) for item in dataCollection.items)...
+      dataCollection.firstIndex = _.min(dataCollection.items.map (item) -> dataIndices.indexOf(item))
       dataCollection.lastIndex = dataCollection.firstIndex + dataCollection.items.length - 1
     return dataCollections
-
-  ###
-  @returns {number} the width of the given column
-  ###
-  getWidth: (dataKey) =>
-    @dataInfo[dataKey].width
-
-  ###
-  @returns {number} the column index (leftmost is zero) of the given column
-  ###
-  getIndex: (dataKey) =>
-    @dataInfo[dataKey].index
-
-  ###
-  @returns {number} the column index (leftmost is zero) of the given column
-  ###
-  getName: (dataKey) =>
-    @dataInfo[dataKey].name
-
-  ###
-  @returns {boolean} checks if the given index is in the given collection
-  ###
-  isIndexInCollection: (index, collectionKey) =>
-    index >= @dataCollections[collectionKey].firstIndex && index <= @dataCollections[collectionKey].lastIndex
-
-  ###
-  @returns {boolean} checks if the given index is a data criteria
-  ###
-  isIndexDataCriteria: (index) =>
-    for population in @populations
-      return true if @isIndexInCollection(index, population)
-    return false
-
-  ###
-  @returns {number} returns the first column index of the given collection
-  ###
-  getCollectionStartIndex: (collectionKey) =>
-    @dataCollections[collectionKey].firstIndex
-
-  ###
-  @returns {number} returns the last column index of the given collection
-  ###
-  getCollectionLastIndex: (collectionKey) =>
-    @dataCollections[collectionKey].lastIndex
-
-  ###
-  @returns {number} returns the first column index of the data criteria
-  ###
-  criteriaStartIndex: =>
-    if !@criteriaStartIndex
-      for pop in @populations
-        if @dataCollections[pop].items.length > 0
-          @criteriaStartIndex = @dataCollections[pop].firstIndex
-          break
-    @criteriaStartIndex
-
-  ###
-  @returns {boolean} checks if the given key is an expected value
-  ###
-  isExpectedValue: (dataKey) =>
-    dataKey in @dataCollections[@EXPECTED].items
-
-  ###
-  @returns {boolean} checks if the given key is an actual value
-  ###
-  isActualValue: (dataKey) =>
-    dataKey in @dataCollections[@ACTUAL].items
-
-  ###
-  @returns {boolean} checks if the given key is a data criteria
-  ###
-  isCriteria: (dataKey) =>
-    isCriteria = false
-    for pop in @populations
-      isCriteria = dataKey in @dataCollections[pop].items
-      break if isCriteria
-    isCriteria
-
-  ###
-  @returns {string} returns the population for the given key
-  ###
-  getCriteriaPopulation: (dataKey) =>
-    if @isCriteria(dataKey)
-      result = dataKey.substring(0, dataKey.indexOf('_'))
-    result
 
   ###
   @returns {string} returns the data criteria id
   ###
   getRealKey: (dataKey) =>
-    if @isExpectedValue(dataKey)
+    if dataKey in @dataCollections[@EXPECTED].items
       keyValue = dataKey.substring(@EXPECTED.length)
-    else if @isActualValue(dataKey)
+    else if dataKey in @dataCollections[@ACTUAL].items
       keyValue = dataKey.substring(@ACTUAL.length)
-    else if @isCriteria(dataKey)
+    else if dataKey in _.flatten(@populations.map (pop) => @dataCollections[pop].items)
       startIndex = dataKey.indexOf('_') + 1
       keyValue = dataKey.substring(startIndex)
     else

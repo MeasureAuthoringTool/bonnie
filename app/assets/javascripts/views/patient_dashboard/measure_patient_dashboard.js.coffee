@@ -241,10 +241,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     editableCols = {}
     # Add patient characteristics to editable fields
     for editableField in editableFields
-      editableCols[editableField] = @pd.getIndex editableField
+      editableCols[editableField] = @pd.dataInfo[editableField].index
     # Add expecteds to editable fields
     # for population in @populations
-    #   editableCols['expected' + population] = @pd.getIndex 'expected' + population
+    #   editableCols['expected' + population] = @pd.dataInfo['expected' + population].index
     return editableCols
 
   ###
@@ -287,11 +287,11 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().update()
 
   ###
-  Scrolls the table to a particular population
+  Scrolls the table to a selected population
   ###
-  scrollToPopulation: (sender) ->
-    pop = sender?.currentTarget.innerText
-    @$('.dataTables_scrollBody').scrollTo($('#' + pop), offset: left: -@pd.getHorizontalScrollOffset())
+  scrollToPopulation: (e) ->
+    leftOffset = $('.DTFC_Cloned').outerWidth() + $('.DTFC_Cloned').offset().left
+    @$('.dataTables_scrollBody').scrollTo @$('#'+ $(e.currentTarget).text()), offset: left: -leftOffset
 
   ###
   Updates actual warnings for a given row index
@@ -300,7 +300,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     nodes = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
     row = $('#patientDashboardTable').DataTable().row(rowIndex).data()
     for population in @populations
-      actualIndex = (@pd.getIndex 'actual' + population) + 1
+      actualIndex = (@pd.dataInfo['actual' + population].index) + 1
       td = $('td:nth-child(' + actualIndex + ')', nodes[0])
       if row['expected' + population] != row['actual' + population]
         td.addClass('warn')
@@ -330,6 +330,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     for k, v of @editableCols
       if k == 'gender'
         row[k] = JST['pd_edit_gender']({ rowIndex: rowIndex, femaleSelected: row[k] == 'F' })
+      # when handling expected values, need to present checkbox or text input field depending on type of measure
       else
         row[k] = JST['pd_input_field']({ rowIndex: rowIndex, key: k })
 
@@ -500,7 +501,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   createHeaderRows: =>
     row1 = []
-    row2 = @pd.dataIndices.map (d) => @pd.getName(d)
+    row2 = @pd.dataIndices.map (d) => @pd.dataInfo[d].name
     row1_full = row2.map (d) => '' # creates an array of empty strings same length as row2
 
     for key, dataCollection of @pd.dataCollections
@@ -509,10 +510,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # they should cover
     for header, index in row1_full
       if !!header
-        row1.push title: header, colspan: 1, width: @pd.getWidth(@pd.dataIndices[index])
+        row1.push title: header, colspan: 1, width: @pd.dataInfo[@pd.dataIndices[index]].width
       else if row1[row1.length - 1]? and !!row1[row1.length - 1].title
         row1[row1.length - 1].colspan = row1[row1.length - 1].colspan + 1
-        row1[row1.length - 1].width = row1[row1.length - 1].width + @pd.getWidth(@pd.dataIndices[index])
+        row1[row1.length - 1].width = row1[row1.length - 1].width + @pd.dataInfo[@pd.dataIndices[index]].width
     [row1, row2]
 
   ###
