@@ -58,11 +58,11 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Keep track of editable rows and columns
     @editableRows = []
     @editableCols = @getEditableCols()
-    @widths = @getColWidths()
+
     @patientData = []
     headerData = @createHeaderRows()
-    @head1 = headerData.slice(0, 1)[0]
-    @head2 = headerData.slice(1, 2)[0]
+    @head1 = headerData[0]
+    @head2 = headerData[1]
     @columnsWithChildrenCriteria = @detectChildrenCriteria(@head2)
 
   context: ->
@@ -71,7 +71,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       patients: @patientData
       head1: @head1
       head2: @head2
-      widths: @widths
 
   events:
     'ready': 'setup'
@@ -233,15 +232,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       })
     else
       return ''
-
-  ###
-  @returns {Array} an array of widths for each column in patient dashboard
-  ###
-  getColWidths: ()  ->
-    colWidths = []
-    for dataKey in @pd.dataIndices
-      colWidths.push(@pd.getWidth(dataKey))
-    colWidths
 
   ###
   @returns {Object} a mapping of editable column field names to row indices
@@ -510,21 +500,19 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   createHeaderRows: =>
     row1 = []
-    row1_full = []
-    row2 = []
-    for data in @pd.dataIndices
-      row2.push(@pd.getName(data))
-    row1_full.push('') for i in [1..row2.length]
+    row2 = @pd.dataIndices.map (d) => @pd.getName(d)
+    row1_full = row2.map (d) => '' # creates an array of empty strings same length as row2
+
     for key, dataCollection of @pd.dataCollections
       row1_full[dataCollection.firstIndex] = dataCollection.name
     # Construct the top header using colspans for the number of columns
     # they should cover
     for header, index in row1_full
       if !!header
-        row1.push title: header, colspan: 1, width: @widths[index]
+        row1.push title: header, colspan: 1, width: @pd.getWidth(@pd.dataIndices[index])
       else if row1[row1.length - 1]? and !!row1[row1.length - 1].title
         row1[row1.length - 1].colspan = row1[row1.length - 1].colspan + 1
-        row1[row1.length - 1].width = row1[row1.length - 1].width + @widths[index]
+        row1[row1.length - 1].width = row1[row1.length - 1].width + @pd.getWidth(@pd.dataIndices[index])
     [row1, row2]
 
   ###
