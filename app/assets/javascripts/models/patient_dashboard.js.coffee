@@ -1,158 +1,200 @@
 class Thorax.Models.PatientDashboard extends Thorax.Model
-  @ACTIONS = "actions"
-  @RESULT = "result"
-  @DESCRIPTION = "description"
-  @BIRTHDATE = "birthdate"
-  @DEATHDATE = "deathdate"
-  @FIRST = "first"
-  @LAST = "last"
-  @GENDER = "gender"
-  @EXPECTED = "expected"
-  @ACTUAL = "actual"
-  @METADATA = "metadata"
-
-  @EXPECTED_PREFIX = PatientDashboard.EXPECTED
-  @ACTUAL_PREFIX = PatientDashboard.ACTUAL
 
   initialize: (@measure, @populations, @populationSet) ->
-    # TODO: I don't think that the width stuff shoudl be in this class. it should be in the view only.
+    # Column names
+    @ACTIONS = "actions"
+    @RESULT = "result"
+    @DESCRIPTION = "description"
+    @BIRTHDATE = "birthdate"
+    @DEATHDATE = "deathdate"
+    @FIRST = "first"
+    @LAST = "last"
+    @GENDER = "gender"
+    @EXPECTED = "expected"
+    @ACTUAL = "actual"
+    @METADATA = "metadata"
+
+    # Column widths
     @COL_WIDTH_POPULATION = 30
-    @COL_WIDTH_META_LARGE = 100
+    @COL_WIDTH_META_LARGE = 110
     @COL_WIDTH_META_MEDIUM = 100
     @COL_WIDTH_META_SMALL = 40
     @COL_WIDTH_FREETEXT = 240
     @COL_WIDTH_CRITERIA = 200
     @COL_WIDTH_RESULT = 80
 
-    @criteriaKeysByPopulation = {} # "Type" => "Preconditions"
+    # Construct a mapping of populations to their data criteria keys
+    @criteriaKeysByPopulation = {}
     for population in @populations
       preconditions = @populationSet.get(population)?['preconditions']
       if preconditions
-        @criteriaKeysByPopulation[population] = @_preconditionCriteriaKeys(preconditions[0]).filter (ck) -> ck != 'MeasurePeriod'
+        @criteriaKeysByPopulation[population] = @preconditionCriteriaKeys(preconditions[0]).filter (ck) -> ck != 'MeasurePeriod'
       else
         @criteriaKeysByPopulation[population] = []
-
     @dataIndices = @getDataIndices(@populations, @criteriaKeysByPopulation)
     @dataCollections = @getDataCollections(@populations, @dataIndices, @criteriaKeysByPopulation)
-    @_dataInfo = @getDataInfo(@populations, @dataIndices, @dataCollections)
+    @dataInfo = @getDataInfo(@populations, @dataIndices, @dataCollections)
 
-  getHorizontalScrollOffset: ->
-    @COL_WIDTH_RESULT + @COL_WIDTH_META_MEDIUM*2 + @COL_WIDTH_META_SMALL + @COL_WIDTH_POPULATION*(@populations.length+1) + 15
+  ###
+  @returns {number} the fixed columns width for use when auto-scrolling the table to a
+  population.
+  ###
+  getHorizontalScrollOffset: =>
+    # TODO: Make more dynamic
+    @COL_WIDTH_RESULT + @COL_WIDTH_META_MEDIUM*2 + @COL_WIDTH_META_SMALL +
+      @COL_WIDTH_POPULATION*(@populations.length+1) + 15
 
-
+  ###
+  @returns {Array} an array of column names in the right order.
+  ###
   getDataIndices: (populations, @criteriaKeysByPopulation) =>
     dataIndices = []
-    dataIndices.push(PatientDashboard.ACTIONS)
-    dataIndices.push(PatientDashboard.RESULT)
-    dataIndices.push(PatientDashboard.LAST)
-    dataIndices.push(PatientDashboard.FIRST)
+    dataIndices.push(@ACTIONS)
+    dataIndices.push(@RESULT)
+    dataIndices.push(@LAST)
+    dataIndices.push(@FIRST)
     for population in populations
-      dataIndices.push(PatientDashboard.ACTUAL_PREFIX + population)
+      dataIndices.push(@ACTUAL + population)
     for population in populations
-      dataIndices.push(PatientDashboard.EXPECTED_PREFIX + population)
-    dataIndices.push(PatientDashboard.DESCRIPTION)
-    dataIndices.push(PatientDashboard.BIRTHDATE)
-    dataIndices.push(PatientDashboard.DEATHDATE)
-    dataIndices.push(PatientDashboard.GENDER)
-
+      dataIndices.push(@EXPECTED + population)
+    dataIndices.push(@DESCRIPTION)
+    dataIndices.push(@BIRTHDATE)
+    dataIndices.push(@DEATHDATE)
+    dataIndices.push(@GENDER)
     for population in populations
       criteria = @criteriaKeysByPopulation[population]
       for criterium in criteria
         dataIndices.push(population + '_' + criterium)
-
     dataIndices
 
+  ###
+  @returns {Array} an array with the top most header columns for the patient
+  dashboard table.
+  ###
   getDataInfo: (populations, dataIndices, dataCollections) =>
     dataInfo = {}
-
-    # get the text for all of the data criteria, mapped by data criteria key
+    # Get the text for all of the data criteria, mapped by data criteria key
     dataCriteriaText = {}
     for reference in Object.keys(@measure.get('data_criteria'))
       dataLogicView = new Thorax.Views.DataCriteriaLogic(reference: reference, measure: @measure)
       dataLogicView.appendTo(@$el)
       dataCriteriaText[dataLogicView.dataCriteria.key] = dataLogicView.$el[0].textContent
 
-    # include the metadata
-    dataInfo[PatientDashboard.RESULT] = { name: "Result", width: @COL_WIDTH_RESULT }
-    dataInfo[PatientDashboard.LAST] = { name: "Last Name", width: @COL_WIDTH_META_MEDIUM }
-    dataInfo[PatientDashboard.FIRST] = { name: "First Name", width: @COL_WIDTH_META_MEDIUM }
-    dataInfo[PatientDashboard.ACTIONS] = { name: "Options", width: @COL_WIDTH_META_SMALL }
-    dataInfo[PatientDashboard.DESCRIPTION] = { name: "Description", width: @COL_WIDTH_FREETEXT }
-    dataInfo[PatientDashboard.BIRTHDATE] = { name: "Birthdate", width: @COL_WIDTH_META_LARGE }
-    dataInfo[PatientDashboard.DEATHDATE] = { name: "Deathdate", width: @COL_WIDTH_META_LARGE }
-    dataInfo[PatientDashboard.GENDER] = { name: "Gender", width: @COL_WIDTH_META_MEDIUM }
+    # Include the metadata
+    dataInfo[@RESULT] = name: "Result", width: @COL_WIDTH_RESULT
+    dataInfo[@LAST] = name: "Last Name", width: @COL_WIDTH_META_MEDIUM
+    dataInfo[@FIRST] = name: "First Name", width: @COL_WIDTH_META_MEDIUM
+    dataInfo[@ACTIONS] = name: "Options", width: @COL_WIDTH_META_LARGE
+    dataInfo[@DESCRIPTION] = name: "Description", width: @COL_WIDTH_FREETEXT
+    dataInfo[@BIRTHDATE] = name: "Birthdate", width: @COL_WIDTH_META_LARGE
+    dataInfo[@DEATHDATE] = name: "Deathdate", width: @COL_WIDTH_META_LARGE
+    dataInfo[@GENDER] = name: "Gender", width: @COL_WIDTH_META_MEDIUM
 
     for population in populations
-      # include the expected and actual values for each population (IPP/DENOM/etc.)
-      dataInfo[PatientDashboard.EXPECTED_PREFIX + population] = { name: population, width: @COL_WIDTH_POPULATION }
-      dataInfo[PatientDashboard.ACTUAL_PREFIX + population] = { name: population, width: @COL_WIDTH_POPULATION }
-
-      # add the data criteria by data criteria key and the data criteria text
+      # Include the expected and actual values for each population (IPP/DENOM/etc.)
+      dataInfo[@EXPECTED + population] = name: population, width: @COL_WIDTH_POPULATION
+      dataInfo[@ACTUAL + population] = name: population, width: @COL_WIDTH_POPULATION
+      # Add the data criteria by data criteria key and the data criteria text
       dataCollection = dataCollections[population]
       for item in dataCollection.items
-        dataInfo[item] = { name: dataCriteriaText[@getRealKey(item)], width: @COL_WIDTH_CRITERIA }
+        dataInfo[item] = name: dataCriteriaText[@getRealKey(item)], width: @COL_WIDTH_CRITERIA
 
-    # add the index from dataIndices for each key
+    # Add the index from dataIndices for each key
     for key, data of dataInfo
       data.index = dataIndices.indexOf(key)
 
     return dataInfo
 
+  ###
+  @returns {Array} an array of the sub header columns for the patient dashboard
+  table.
+  ###
   getDataCollections: (populations, dataIndices, criteria_keys_by_population) =>
     dataCollections = {}
-    dataCollections[PatientDashboard.ACTIONS] = {name: "Options", items: [PatientDashboard.ACTIONS] }
-    dataCollections[PatientDashboard.RESULT] = {name: "Result", items: [PatientDashboard.RESULT, PatientDashboard.LAST, PatientDashboard.FIRST] }
-    dataCollections[PatientDashboard.EXPECTED] = { name: "Expected", items: PatientDashboard.EXPECTED_PREFIX + pop for pop in populations }
-    dataCollections[PatientDashboard.ACTUAL] = { name: "Actual", items: PatientDashboard.ACTUAL_PREFIX + pop for pop in populations }
-    dataCollections[PatientDashboard.DESCRIPTION] = {name: "Description", items: [PatientDashboard.DESCRIPTION] }
-    dataCollections[PatientDashboard.METADATA] = {name: "Metadata", items: [PatientDashboard.BIRTHDATE, PatientDashboard.DEATHDATE, PatientDashboard.GENDER]}
-
+    dataCollections[@ACTIONS] = name: "Options", items: [@ACTIONS]
+    dataCollections[@RESULT] = name: "Result", items: [@RESULT, @LAST, @FIRST]
+    dataCollections[@EXPECTED] = name: "Expected", items: (@EXPECTED + pop for pop in populations)
+    dataCollections[@ACTUAL] = name: "Actual", items: (@ACTUAL + pop for pop in populations)
+    dataCollections[@DESCRIPTION] = name: "Description", items: [@DESCRIPTION]
+    dataCollections[@METADATA] = name: "Metadata", items: [@BIRTHDATE, @DEATHDATE, @GENDER]
     for population in populations
-      dataCollections[population] = { name: population, items: population + '_' + criteria for criteria in criteria_keys_by_population[population] }
-
+      dataCollections[population] = name: population, items: (population + '_' + criteria for criteria in criteria_keys_by_population[population])
     for key, dataCollection of dataCollections
+      # This grabs the lowest index in the given items
       dataCollection.firstIndex = Math.min (dataIndices.indexOf(item) for item in dataCollection.items)...
       dataCollection.lastIndex = dataCollection.firstIndex + dataCollection.items.length - 1
-
     return dataCollections
 
+  ###
+  @returns {number} the width of the given column
+  ###
   getWidth: (dataKey) =>
-    @_dataInfo[dataKey].width
+    @dataInfo[dataKey].width
 
+  ###
+  @returns {number} the column index (leftmost is zero) of the given column
+  ###
   getIndex: (dataKey) =>
-    @_dataInfo[dataKey].index
+    @dataInfo[dataKey].index
 
+  ###
+  @returns {number} the column index (leftmost is zero) of the given column
+  ###
   getName: (dataKey) =>
-    @_dataInfo[dataKey].name
+    @dataInfo[dataKey].name
 
+  ###
+  @returns {boolean} checks if the given index is in the given collection
+  ###
   isIndexInCollection: (index, collectionKey) =>
     index >= @dataCollections[collectionKey].firstIndex && index <= @dataCollections[collectionKey].lastIndex
 
+  ###
+  @returns {boolean} checks if the given index is a data criteria
+  ###
   isIndexDataCriteria: (index) =>
     for population in @populations
       return true if @isIndexInCollection(index, population)
     return false
 
+  ###
+  @returns {number} returns the first column index of the given collection
+  ###
   getCollectionStartIndex: (collectionKey) =>
     @dataCollections[collectionKey].firstIndex
 
+  ###
+  @returns {number} returns the last column index of the given collection
+  ###
   getCollectionLastIndex: (collectionKey) =>
     @dataCollections[collectionKey].lastIndex
 
+  ###
+  @returns {number} returns the first column index of the data criteria
+  ###
   criteriaStartIndex: =>
-    if !@_criteriaStartIndex
+    if !@criteriaStartIndex
       for pop in @populations
         if @dataCollections[pop].items.length > 0
-          @_criteriaStartIndex = @dataCollections[pop].firstIndex
+          @criteriaStartIndex = @dataCollections[pop].firstIndex
           break
-    @_criteriaStartIndex
+    @criteriaStartIndex
 
+  ###
+  @returns {boolean} checks if the given key is an expected value
+  ###
   isExpectedValue: (dataKey) =>
-    dataKey in @dataCollections[PatientDashboard.EXPECTED].items
+    dataKey in @dataCollections[@EXPECTED].items
 
+  ###
+  @returns {boolean} checks if the given key is an actual value
+  ###
   isActualValue: (dataKey) =>
-    dataKey in @dataCollections[PatientDashboard.ACTUAL].items
+    dataKey in @dataCollections[@ACTUAL].items
 
+  ###
+  @returns {boolean} checks if the given key is a data criteria
+  ###
   isCriteria: (dataKey) =>
     isCriteria = false
     for pop in @populations
@@ -160,27 +202,34 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
       break if isCriteria
     isCriteria
 
+  ###
+  @returns {string} returns the population for the given key
+  ###
   getCriteriaPopulation: (dataKey) =>
     if @isCriteria(dataKey)
       result = dataKey.substring(0, dataKey.indexOf('_'))
-
     result
 
+  ###
+  @returns {string} returns the data criteria id
+  ###
   getRealKey: (dataKey) =>
     if @isExpectedValue(dataKey)
-      keyValue = dataKey.substring(PatientDashboard.EXPECTED.length)
+      keyValue = dataKey.substring(@EXPECTED.length)
     else if @isActualValue(dataKey)
-      keyValue = dataKey.substring(PatientDashboard.ACTUAL.length)
+      keyValue = dataKey.substring(@ACTUAL.length)
     else if @isCriteria(dataKey)
       startIndex = dataKey.indexOf('_') + 1
       keyValue = dataKey.substring(startIndex)
     else
       keyValue = dataKey
-
     return keyValue
 
-  # Given a data criteria, return the list of all data criteria keys referenced within, either through
-  # children criteria or temporal references; this includes the passed in criteria reference
+  ###
+  @returns {Array} given a data criteria, return the list of all data criteria
+  keys referenced within, either through children criteria or temporal
+  references; this includes the passed in criteria reference.
+  ###
   dataCriteriaChildrenKeys: (criteria_reference) =>
     criteria_keys = [criteria_reference]
     if criteria = @measure.get('data_criteria')[criteria_reference]
@@ -193,10 +242,13 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
 
     return criteria_keys
 
-  # Given a precondition, return the list of all data criteria keys referenced within
-  _preconditionCriteriaKeys: (precondition) =>
+  ###
+  @returns {Array} given a precondition, return the list of all data criteria
+  keys referenced within.
+  ###
+  preconditionCriteriaKeys: (precondition) =>
     if precondition['preconditions'] && precondition['preconditions'].length > 0
-      results = (@_preconditionCriteriaKeys(precondition) for precondition in precondition['preconditions'])
+      results = (@preconditionCriteriaKeys(precondition) for precondition in precondition['preconditions'])
       results = _.flatten(results)
     else if precondition['reference']
       [precondition['reference']]
@@ -204,7 +256,7 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
       []
 
   ###
-  @returns {Object}  Children criteria keys and criteria_text
+  @returns {Object} children criteria keys and criteria text
   ###
   getChildrenCriteria: (criteria_key) =>
     if criteria_key?

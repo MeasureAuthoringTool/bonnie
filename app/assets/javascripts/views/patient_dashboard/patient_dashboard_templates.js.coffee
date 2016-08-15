@@ -1,6 +1,5 @@
 ###
-These templates will be evaluated as they are called
-in our view functions.
+These templates will be evaluated as they are called in patient dashboard.
 ###
 
 ###
@@ -47,7 +46,7 @@ JST['pd_delete_controls'] = Handlebars.compile '
   </button>
   <button class="btn btn-sm btn-danger" data-call-method="deletePatient">
     <i aria-hidden="true" class="fa fa-fw fa-close"></i>
-    Delete
+    Del
     <span class="sr-only">Delete Patient</span>
   </button>'
 

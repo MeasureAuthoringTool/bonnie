@@ -1,6 +1,5 @@
 class Thorax.Views.MeasurePatientDashboardLayout extends Thorax.LayoutView
-  template: JST['measure/patient_dashboard_layout']
-  className: 'patient-dashboard-layout'
+  template: JST['patient_dashboard/layout']
 
   initialize: ->
     # Highlights correct button, based on selected view
@@ -12,17 +11,26 @@ class Thorax.Views.MeasurePatientDashboardLayout extends Thorax.LayoutView
       $('#508-patient-dashboard-button').addClass('btn-primary')
     $('#measure-details-button').removeClass('btn-primary')
 
+  ###
+  Switches populations (changes the population displayed by patient dashboard)
+  ###
   switchPopulation: (e) ->
     @population = $(e.target).model()
     @population.measure().set('displayedPopulation', @population)
     @setView new Thorax.Views.MeasurePopulationPatientDashboard measure: @population.measure(), population: @population
     @trigger 'population:update', @population
 
+  ###
+  Marks the population as active and gives it a title
+  ###
   populationContext: (population) ->
     _(population.toJSON()).extend
       isActive: population is population.measure().get('displayedPopulation')
       populationTitle: population.get('title') || population.get('sub_id')
 
+  ###
+  Sets the view after results have been calculated
+  ###
   setView: (view) ->
     results = @population.calculationResults()
     results.calculationsComplete =>
@@ -31,7 +39,7 @@ class Thorax.Views.MeasurePatientDashboardLayout extends Thorax.LayoutView
 
 
 class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.BonnieView
-  template: JST['measure/patient_dashboard']
+  template: JST['patient_dashboard/table']
   className: 'patient-dashboard'
 
   initialize: ->
@@ -78,26 +86,29 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   setup: ->
     # Get patient calculation results
     @results = @population.calculationResults()
+
+    # On results being calculated, construct patient data and initialize the
+    # table.
     @results.calculationsComplete =>
       @patientResults = @results
 
-    # create a PatientDashboardPatient for each patient, these are
-    # used for each row in patient dashboard.
-    # TODO: Use a Thorax collection for this instead of array?
+      # Create a PatientDashboardPatient for each patient, these are used for
+      # each row in patient dashboard.
       for patient in @measure.get('patients').models
         @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
 
       # Create column access info for use by DataTables
       @tableColumns = @getTableColumns()
-      # Initialize patient dashboard using DataTables
+
+      # Initialize table using DataTables
       table = @$('#patientDashboardTable').DataTable(
         data: @patientData,
         columns: @tableColumns,
         columnDefs:
           targets: 0,
-          cellType: "th", # makes this cell a header element
+          cellType: "th", # Makes this cell (patient name) a header element
           createdCell: (td, cellData, rowData, row, col) ->
-            # add patient name to row header for screen readers
+            # Add patient name to row header for screen readers
             srText = $("<span>").addClass('sr-only').text(rowData.last + ", " + rowData.first)
             $(td).attr('scope', 'row').append(srText)
         dom: '<if<"scrolling-table"t>>', # places table info and filter, then table, then nothing
@@ -105,14 +116,12 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         scrollX: true,
         scrollY: "600px",
         scrollCollapse: true,
-        order: [], # disables initial sorting
+        order: [], # Disable initial sorting
         paging: false
         preDrawCallback: => @updateDisplay()
       )
       if @showFixedColumns
-        new $.fn.dataTable.FixedColumns(table,
-          leftColumns: 4 + @populations.length
-        )
+        new $.fn.dataTable.FixedColumns(table, leftColumns: 4 + @populations.length)
         $('.DTFC_LeftBodyLiner').css('overflow-x':"hidden") # Removes extra scroll bar under fixed columns.
       @updateDisplay() # Highlights the actual warnings on the flat table.
 
@@ -125,30 +134,28 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       $('div.dataTables_scrollBody').scroll () =>
         $('.popover').popover('destroy')
 
-  # This is the code for managing the logic highlighting
+  ###
+  Manages logic highlighting.
+  ###
   showRationaleForPopulation: (code, rationale, updatedRationale) ->
     for key, value of rationale
       target = $(".#{code}_children .#{key}")
-      targettext = $(".#{code}_children .#{key}") #text version of logic
-      targetrect = $("rect[precondition=#{key}]") #viz version of logic (svg)
+      targettext = $(".#{code}_children .#{key}")
+      targetrect = $("rect[precondition=#{key}]")
       if (targettext.length > 0)
         [targetClass, targetPanelClass, srTitle] = if updatedRationale[code]?[key] is false
           ['eval-bad-specifics', 'eval-panel-bad-specifics', '(status: bad specifics)']
         else
           bool = !!value
           ["eval-#{bool}", "eval-panel-#{bool}", "(status: #{bool})"]
-
-        targetrect.attr "class", (index, classNames) -> "#{classNames} #{targetClass}" #add styling to svg without removing all the other classes
-
-        targettext.addClass(targetClass)  # This does the actually application of the highlighting to the target
+        targetrect.attr "class", (index, classNames) -> "#{classNames} #{targetClass}"
+        targettext.addClass(targetClass)
         targettext.children('.sr-highlight-status').html(srTitle)
-        # this second line is there to fix an issue with sr-only in Chrome making text in inline elements not display
-        # by having the sr-only span and the DC title wrapped in a criteria-title span, the odd behavior goes away.
         targettext.children('.criteria-title').children('.sr-highlight-status').html(srTitle)
 
   ###
   Performs some actions on the DOM to properly render popovers,
-  patient names, and warnings
+  patient names, and warnings.
   ###
   updateDisplay: (rowIndex) =>
     # Update actual warnings
@@ -176,8 +183,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     column.push data: 'deathdate'
     column.push data: 'gender'
     # Collect all actual data criteria and sort to make sure patient dashboard
-    # displays dc in the correct order.
-    dcStartIndex = @pd._dataInfo['gender'].index + 1
+    # displays data criteria in the correct order.
+    dcStartIndex = @pd.dataInfo['gender'].index + 1
     dc = []
     for k, v of @pd.dataCollections
       if v.firstIndex >= dcStartIndex
@@ -187,7 +194,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     column
 
   ###
-  Renders the calculation result for a population
+  Renders the calculation result for a population.
   TODO: get OBSERV_UNIT for CV measures
   ###
   insertResultValue: (data, type, row, meta) =>
@@ -195,7 +202,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       JST['pd_result_checkbox']({
         result: data,
         episodeOfCare: row.measure.get('episode_of_care'),
-        continuousVariable: row.measure.get('continuous_variable')  })
+        continuousVariable: row.measure.get('continuous_variable')})
 
   ###
   Populates the Popover with children data criteria if they exist and populates
@@ -237,7 +244,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Add patient characteristics to editable fields
     for editableField in editableFields
       editableCols[editableField] = @pd.getIndex editableField
-    # Add expecteds to editable fields #TODO: Should this be an option?
+    # Add expecteds to editable fields
     # for population in @populations
     #   editableCols['expected' + population] = @pd.getIndex 'expected' + population
     return editableCols
@@ -314,7 +321,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Makes a patient row inline editable
   ###
   makeInlineEditable: (sender) ->
-    # TODO: Set keyboard focus on the newly editable elements!
     # Get row index and data of selected patient
     targetCell = sender?.currentTarget?.parentElement
     row = @getRowData(targetCell)
@@ -340,10 +346,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     for k, v of @editableCols
       if k != 'gender'
         $('[name=' + k + rowIndex + ']').val(row['old'][k])
-
-    # Make datepickers active
-    # $('.birthdate' + rowIndex).datepicker()
-    # $('.deathdate' + rowIndex).datepicker()
 
     @updateDisplay(rowIndex)
 
@@ -566,6 +568,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   removePatientFromDataSources: (currentPatient) =>
     @patientData = _.without @patientData, _.findWhere @patientData, id: currentPatient.id
 
+
 class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
   template: JST['measure/patient_edit_modal']
 
@@ -583,7 +586,6 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
     @populations = @dashboard.populations
     @patients = @measure.get('patients')
     @measures = @measure.collection
-
     @patientBuilderView = new Thorax.Views.PatientBuilder model: patient, measure: @measure, patients: @patients, measures: @measures, showCompleteView: false, routeToPatientDashboard: true
     @patientBuilderView.appendTo(@$('.modal-body'))
     $("#saveButton").prop('disabled', false) # Save button was being set to disabled
@@ -596,13 +598,12 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
     # Save via patient builder, sending a callback so we can ensure we get a patient with the ID set
     @patientBuilderView.save e, success: (patient) =>
       @editDialog.modal('hide')
-      @$('.modal-body').empty() # clear out patientBuilderView
+      @$('.modal-body').empty() # Clear out patientBuilderView
       @result = @population.calculateResult patient
       @result.calculationsComplete =>
-        @patientResult = @result.first() #Grab the first and only item from collection
+        @patientResult = @result.first() # Grab the first and only item from collection
         @patientData = new Thorax.Models.PatientDashboardPatient patient, @dashboard.pd, @measure, @patientResult, @populations, @population
         @dashboard.updatePatientDataSources @result, @patientData
-
         if @rowIndex?
           $('#patientDashboardTable').DataTable().row(@rowIndex).data(@patientData).draw()
           @dashboard.updateDisplay(@rowIndex)
@@ -611,4 +612,4 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
           @dashboard.updateAllActualWarnings()
 
   close: ->
-    @$('.modal-body').empty() # clear out patientBuilderView
+    @$('.modal-body').empty() # Clear out patientBuilderView
