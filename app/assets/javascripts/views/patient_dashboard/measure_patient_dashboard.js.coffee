@@ -97,20 +97,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       for patient in @measure.get('patients').models
         @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
 
-      # Create column access info for use by DataTables
-      @tableColumns = @getTableColumns()
-
-      # Initialize table using DataTables
+      # Initialize patient dashboard using DataTables
       table = @$('#patientDashboardTable').DataTable(
         data: @patientData,
-        columns: @tableColumns,
-        columnDefs:
-          targets: 0,
-          cellType: "th", # Makes this cell (patient name) a header element
-          createdCell: (td, cellData, rowData, row, col) ->
-            # Add patient name to row header for screen readers
-            srText = $("<span>").addClass('sr-only').text(rowData.last + ", " + rowData.first)
-            $(td).attr('scope', 'row').append(srText)
+        columns: @getTableColumns(),
         dom: '<if<"scrolling-table"t>>', # places table info and filter, then table, then nothing
         deferRender: true,
         scrollX: true,
@@ -169,19 +159,34 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   tells patient dashboard how to display a PatientDashboardPatient properly
   ###
   getTableColumns: ->
-    column = []
-    column.push data: 'actions', orderable: false
-    column.push data: 'passes'
-    column.push data: 'last'
-    column.push data: 'first'
+    columns = []
+    columns.push
+      data: 'actions'
+      orderable: false
+      cellType: "th" # makes this cell a header element
+      createdCell: (td, cellData, rowData, row, col) =>
+        # add patient name to row header for screen readers
+        srText = $("<span>").addClass('sr-only').text(rowData.last + ", " + rowData.first)
+        $(td).attr('scope', 'row').append(srText)
+    columns.push data: 'passes'
+    columns.push data: 'last'
+    columns.push data: 'first'
     for population in @populations
-      column.push data: 'actual' + population, className: 'value', render: @insertResultValue
+      columns.push
+        data: 'actual' + population
+        className: 'value'
+        render: @insertResultValue
     for population in @populations
-      column.push data: 'expected' + population, className: 'value', render: @insertResultValue
-    column.push data: 'description', className: 'limited'
-    column.push data: 'birthdate'
-    column.push data: 'deathdate'
-    column.push data: 'gender'
+      columns.push
+        data: 'expected' + population
+        className: 'value'
+        render: @insertResultValue
+    columns.push
+      data: 'description'
+      className: 'limited'
+    columns.push data: 'birthdate'
+    columns.push data: 'deathdate'
+    columns.push data: 'gender'
     # Collect all actual data criteria and sort to make sure patient dashboard
     # displays data criteria in the correct order.
     dcStartIndex = @pd.dataInfo['gender'].index + 1
@@ -190,8 +195,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       if v.firstIndex >= dcStartIndex
           dc = dc.concat v.items
     for entry in dc
-      column.push data: entry, render: @insertTextAndPatientData
-    column
+      columns.push data: entry, render: @insertTextAndPatientData
+
+    columns
 
   ###
   Renders the calculation result for a population.
@@ -202,14 +208,16 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       JST['pd_result_checkbox']({
         result: data,
         episodeOfCare: row.measure.get('episode_of_care'),
-        continuousVariable: row.measure.get('continuous_variable')})
+        continuousVariable: row.measure.get('continuous_variable')  })
+    else
+      return ''
 
   ###
   Populates the Popover with children data criteria if they exist and populates
   the table cells with the datacriteria value.
   ###
   insertTextAndPatientData: (data, type, row, meta) =>
-    if data != ""
+    if data
       popoverContent = @columnsWithChildrenCriteria[meta.col]
       return JST['pd_result_with_popover']({
         content: if popoverContent?
