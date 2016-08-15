@@ -127,6 +127,7 @@ describe 'PatientBuilderView', ->
     it "serializes correctly", ->
       expect(@patientBuilder.model.get('source_data_criteria').first().get('negation')).toBe true
       expect(@patientBuilder.model.get('source_data_criteria').first().get('negation_code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1061'
+
     afterEach -> @patientBuilder.remove()
 
 

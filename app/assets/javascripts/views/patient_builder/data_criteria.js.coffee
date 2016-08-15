@@ -2,6 +2,7 @@
 class Thorax.Views.BuilderChildView extends Thorax.Views.BonnieView
   events:
     ready: -> @patientBuilder().registerChild this
+    
   patientBuilder: ->
     parent = @parent
     until parent instanceof Thorax.Views.PatientBuilder
@@ -105,9 +106,11 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       start_date: moment.utc(model.get('value')).format('L') if model.get('type') == 'TS'
       start_time: moment.utc(model.get('value')).format('LT') if model.get('type') == 'TS'
 
+
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
     cmsIdParts = @model.get("cms_id").match(/CMS(\d+)(V\d+)/i)
+    
     desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
 
     if @previewElementInformation # only perform the calculations if the patient is previewing the information
@@ -135,12 +138,13 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
              when "CD" then val.get('title')
              when "PQ" then (val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + (val.get('unit')))
 
-    if @model.get('end_date')? # Calculate Duration Between Start and End Dates
+    if @model.has('end_date') # Calculate Duration Between Start and End Dates
       elementDuration = Bonnie.util.getDurationBetween(moment(@model.get('start_date')), moment(@model.get('end_date')))
 
     definition_title = @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
+
     _(super).extend
       start_date: moment.utc(@model.get('start_date')).format('L') if @model.get('start_date')
       start_time: moment.utc(@model.get('start_date')).format('LT') if @model.get('start_date')
@@ -207,7 +211,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @$('.criteria-details, form').toggleClass('hide')
     @$('.criteria-type-marker').toggleClass('open')
     @$('.criteria-type-marker-with-negation').toggleClass('open')
-
     unless @isExpanded()
       @serialize(children: false)
       # FIXME sortable: commenting out due to odd bug in droppable

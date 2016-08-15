@@ -90,7 +90,7 @@ class Thorax.Models.Patient extends Thorax.Model
     patientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections)
     return if @previousPatientJSON == patientJSON
     @previousPatientJSON = patientJSON
-
+    
     $.ajax
       url:         "#{@urlRoot}/materialize"
       type:        'POST'

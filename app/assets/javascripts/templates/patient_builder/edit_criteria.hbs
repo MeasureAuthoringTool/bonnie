@@ -8,8 +8,8 @@
         <div class="col-md-6">
           <h2>{{definition_title}}</h2>
           <div>{{description}}</div>
-          {{#if isNegated}}
-            {{#if previewElementInformation}}
+          {{#if previewElementInformation}}
+            {{#if isNegated}}
               <h5 class="warning">
                 <i class="fa fa-fw fa-exclamation-circle"></i>
                 Not Performed: {{negationCode}}
@@ -81,7 +81,6 @@
         </div>
       {{/if}}
 
-
       {{#ifPortfolio}}
         <span class="criteria-tag">
           <span class="criteria-tag-cms">CMS</span> <span class="criteria-tag-num">{{cms_id_number}}</span> <span class="criteria-tag-version">{{cms_id_version}}</span>
@@ -115,7 +114,7 @@
             </div>
           </div>
         </div>
-
+        
         {{#if hasStopTime}}
         <div class="form-group col-md-6">
           <label for="end_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> {{stopLabel}}<span class="sr-only"> date month/day/year</span></label>
