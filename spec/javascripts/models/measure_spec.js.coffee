@@ -14,6 +14,7 @@ describe 'Measure', ->
     expect(@measure.get("source_data_criteria").get('parent') == @measure)
 
   it 'can calulate results for a patient', ->
+    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
     collection = new Thorax.Collections.Patients getJSONFixture('patients.json')
     patient = collection.findWhere(first: 'GP_Peds', last: 'A')

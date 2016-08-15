@@ -1,6 +1,7 @@
 describe 'PopulationCalculationView', ->
 
   beforeEach ->
+    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
     @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
     @patients = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true

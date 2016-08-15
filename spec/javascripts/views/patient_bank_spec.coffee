@@ -1,6 +1,7 @@
 describe 'PatientBankView', ->
 
   beforeEach ->
+    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
     @patients = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
     @measure = bonnie.measures.first()

@@ -1,6 +1,7 @@
 describe 'ComplexityDashboardView', ->
 
   beforeEach ->
+    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
     @collection = new Thorax.Collection getJSONFixture('measure_sets.json'), parse: true
     @complexityView = new Thorax.Views.Dashboard collection: @collection
