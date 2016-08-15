@@ -1,5 +1,5 @@
 class Thorax.Views.PatientDashboardPopover extends Thorax.Views.BonnieView
-  template: JST['measure/patient_dashboard_popover']
+  template: JST['patient_dashboard/popover']
 
   population_map:
     'IPP': 'Initial Population'
@@ -16,7 +16,6 @@ class Thorax.Views.PatientDashboardPopover extends Thorax.Views.BonnieView
     'MEAN':'Mean of'
     'MEDIAN':'Median of'
 
-
   initialize: ->
     @population = @measure.get('population_criteria')[@populationKey]
     if @population.preconditions?.length > 0
@@ -25,8 +24,9 @@ class Thorax.Views.PatientDashboardPopover extends Thorax.Views.BonnieView
     @aggregator = @population.aggregator
     @variables = new Thorax.Collections.MeasureDataCriteria @getVariables()
 
-
-  # Finds reference that matches the datacriteria key.
+  ###
+  @returns {string} returns the reference that matches the data criteria key.
+  ###
   findReference: (preconditionsObject, criteria) =>
     if preconditionsObject.reference? && preconditionsObject.reference == criteria
       return preconditionsObject
@@ -35,23 +35,16 @@ class Thorax.Views.PatientDashboardPopover extends Thorax.Views.BonnieView
         referenceValue = @findReference(precondition, criteria)
         return referenceValue if referenceValue?
 
-
-  # Retrieves variables if any exist in the logic statement
+  ###
+  @returns {Array} retrieves variables if any exist in the logic statement.
+  ###
   getVariables:() =>
     dataCriteriaObject = @measure.get('data_criteria')[@dataCriteriaKey]
-    #Loop though allChildrenCriteria against data_criteria for if they are a variables
-    #Match source_data_criteria or specific_occurence_const
     variableDataCriterias = []
     dataCriteriaObjects = []
     for criteria in @allChildrenCriteria
       dataCriteriaObjects.push @measure.get('data_criteria')[criteria] if @measure.get('data_criteria')[criteria]?
-
-    #Check this.measure.data_criteria for this.dataCriteriaKey Object
-    #Check if specific_occurrence_const: grab source data criteria from string
-    #Filter source dataCriteria by specific_occurence_const.
-    #Use MeasuredataCriteria object whose key matches source data criteria key found in specific_occurence_const
     for dataCriteriaObject in dataCriteriaObjects
-      #Basic Variable logic that works for simple cases.
       if dataCriteriaObject?.variable
         if dataCriteriaObject.specific_occurrence_const?
           specificOccurrenceString = dataCriteriaObject.specific_occurrence_const
@@ -62,11 +55,16 @@ class Thorax.Views.PatientDashboardPopover extends Thorax.Views.BonnieView
         measureDataCriterias = allMeasureDataCriterias.filter (measureDataCriteria) -> measureDataCriteria.get('source_data_criteria').toUpperCase() == sourceDataCriteriaKey.toUpperCase()
         variableDataCriterias = variableDataCriterias.concat(measureDataCriterias)
         variableDataCriterias = _.flatten(variableDataCriterias)
-
     variableDataCriterias
 
+  ###
+  @returns {string} returns the full name for a population given an abbreviation
+  ###
   translate_population: (code) ->
     @population_map[code]
 
+  ###
+  @returns {string} returns the full name of an aggregation given a type
+  ###
   translate_aggregator: (code) ->
     @aggregator_map[code]

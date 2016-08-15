@@ -2,22 +2,22 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
 
   initialize: (@patient, @pd, @measure, @patientResult, @populations, @population) ->
     # Set known patient attributes
-    @_id = @patient.get('_id')
+    @id = @patient.get('_id')
     @first = @patient.get('first')
     @last = @patient.get('last')
     @description = if @patient.get('notes') then @patient.get('notes') else ''
-    @_birthdate = @patient.get('birthdate')
-    @birthdate = if @_birthdate then moment.utc(@_birthdate, 'X').format('L') else ''
-    @_deathdate = @patient.get('deathdate')
-    @deathdate = if @_deathdate then moment.utc(@_deathdate, 'X').format('L') else ''
-    unless @_deathdate
+    @birthdate = @patient.get('birthdate')
+    @birthdate = if @birthdate then moment.utc(@birthdate, 'X').format('L') else ''
+    @deathdate = @patient.get('deathdate')
+    @deathdate = if @deathdate then moment.utc(@deathdate, 'X').format('L') else ''
+    unless @deathdate
       @deathtime = 28800 # Default to 8 AM
     @gender = @patient.get('gender')
 
     # Get expected population results; check if patient is passing
-    @_expected = @getExpectedResults()
-    @_actual = @getActualResults()
-    @passes = JST['pd_result_text']({ passes: @isPatientPassing() == "PASS" })
+    @expected = @getExpectedResults()
+    @actual = @getActualResults()
+    @passes = JST['pd_result_text']({ passes: @patientStatus() == "PASS" })
     @actions = JST['pd_action_gears']({})
 
     # Set up instance variables for use by Patient Dashboard
@@ -26,18 +26,12 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     @savePopulationResults()
 
   ###
-  @returns {String} id of this patient
-  ###
-  id: ->
-    @_id
-
-  ###
   Sets the expected results for each population as instance variables
   of this object. These will later be accessed by DataTables when populating
   the patient dashboard.
   ###
   saveExpectedResults: ->
-    for k, v of @_expected
+    for k, v of @expected
       @['expected' + k] = v
 
   ###
@@ -46,7 +40,7 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
   the patient dashboard.
   ###
   saveActualResults: ->
-    for k, v of @_actual
+    for k, v of @actual
       @['actual' + k] = v
 
   ###
@@ -85,7 +79,6 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
           actualResults[population] = 0
       else
         actualResults[population] = @patientResult.get(population)
-
     actualResults
 
   ###
@@ -112,8 +105,8 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
   ###
   @returns {String} describes if the patient is passing
   ###
-  isPatientPassing: ->
+  patientStatus: ->
     for population in @populations
-      if @_expected[population] != @_actual[population]
+      if @expected[population] != @actual[population]
         return "FAIL"
     return "PASS"
