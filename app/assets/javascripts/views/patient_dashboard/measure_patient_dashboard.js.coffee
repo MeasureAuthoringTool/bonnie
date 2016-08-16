@@ -100,7 +100,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       table = @$('#patientDashboardTable').DataTable(
         data: @patientData,
         columns: @getTableColumns(),
-        dom: '<if<"scrolling-table"t>>', # places table info and filter, then table, then nothing
+        dom: '<if<"scrolling-table"t>>', # Places table info and filter, then table, then nothing
         deferRender: true,
         scrollX: true,
         scrollY: "600px",
@@ -162,9 +162,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     columns.push
       data: 'actions'
       orderable: false
-      cellType: "th" # makes this cell a header element
+      cellType: "th" # Makes this cell a header element
       createdCell: (td, cellData, rowData, row, col) =>
-        # add patient name to row header for screen readers
+        # Add patient name to row header for screen readers
         srText = $("<span>").addClass('sr-only').text(rowData.last + ", " + rowData.first)
         $(td).attr('scope', 'row').append(srText)
     columns.push data: 'passes'
@@ -503,7 +503,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   createHeaderRows: =>
     row1 = []
     row2 = @pd.dataIndices.map (d) => @pd.dataInfo[d].name
-    row1_full = row2.map (d) => '' # creates an array of empty strings same length as row2
+    row1_full = row2.map (d) => '' # Creates an array of empty strings same length as row2
 
     for key, dataCollection of @pd.dataCollections
       row1_full[dataCollection.firstIndex] = dataCollection.name
