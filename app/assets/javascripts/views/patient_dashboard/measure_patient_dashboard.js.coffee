@@ -330,7 +330,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     for k, v of @editableCols
       if k == 'gender'
         row[k] = JST['pd_edit_gender']({ rowIndex: rowIndex, femaleSelected: row[k] == 'F' })
-      # when handling expected values, need to present checkbox or text input field depending on type of measure
+      # When handling expected values, need to present checkbox or text input
+      # field depending on type of measure.
       else
         row[k] = JST['pd_input_field']({ rowIndex: rowIndex, key: k })
 
