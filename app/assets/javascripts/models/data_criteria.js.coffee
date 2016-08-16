@@ -98,7 +98,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
 
   getNegationCodeText: ->
     if @get('negation')
-      @.measure().valueSets().where(oid: @get('negation_code_list_id'))[0].get('display_name')
+      @measure().valueSets().where(oid: @get('negation_code_list_id'))[0].get('display_name')
     else
       null
 

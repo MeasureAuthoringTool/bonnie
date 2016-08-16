@@ -309,14 +309,14 @@ class Thorax.Views.PatientAge extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/patient_age']
 
   initialize: ->
-    #We shouldn't need to listen for the change event, but Thorax doesn't seem to be updating the model properly
-    @model.on 'change', =>  @render()
+    # We shouldn't need to listen for the change event, but Thorax doesn't seem to be updating the view given the change event
+    @model.on 'change', => @render()
 
 
   context: ->
     if @model.isAlive()
     # if the birthdate/deathdate fields are left blank they default to the epoch
-      unless @model.getBirthDate().isSame(moment("1970-01-01 00:00"))
+      if @model.getBirthDate() != null
         if @model.getBirthDate().year() is bonnie.measurePeriod
           errorWithDates = false
           importantDate = true
@@ -333,8 +333,8 @@ class Thorax.Views.PatientAge extends Thorax.Views.BuilderChildView
           faIcon = null
           patientAge = "Age at Start of Measure Period: #{Bonnie.util.getDurationBetween(@model.getBirthDate(), moment([bonnie.measurePeriod]))}"
     else
-      unless @model.getBirthDate().isSame(moment("1970-01-01 00:00")) || @model.getDeathDate().isSame(moment("1970-01-01 00:00"))
-        if Bonnie.util.getDurationBetween(@model.getBirthDate(), @model.getDeathDate())
+      if @model.getBirthDate() != null && @model.getDeathDate() != null
+        if @model.getBirthDate() < @model.getDeathDate()
           errorWithDates = false
           importantDate = false
           faIcon = null

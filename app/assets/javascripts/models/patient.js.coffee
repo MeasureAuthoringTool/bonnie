@@ -30,13 +30,17 @@ class Thorax.Models.Patient extends Thorax.Model
     new @constructor JSON.parse(json), parse: true
 
   # Returns the BirthDate formatted as a moment from Moment JS
-  getBirthDate: -> moment(moment.unix(@get('birthdate')).utc().format("YYYY-MM-DD HH:mm"))
+  getBirthDate: ->
+    if !!@get('birthdate')
+      moment(moment.unix(@get('birthdate')).utc().format("YYYY-MM-DD HH:mm"))
+    else
+      null
   isAlive: -> !@get('expired')
   getDeathDate: ->
-    if @isAlive()
-      null
+    if !!@get('deathdate')
+      moment(moment.unix(@get('deathdate')).utc().format("YYYY-MM-DD HH:mm"))
     else
-      return moment(moment(moment.unix(@get('deathdate'))).utc().format("YYYY-MM-DD HH:mm"))
+      null
 
   getPayerName: -> @get('insurance_providers')[0].name
   getValidMeasureIds: (measures) ->

@@ -81,21 +81,17 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       criteria: @model
     @previewElementInformation = @parentView.previewElementInformation # Allows us to remember state after sorting
 
-    @listenTo(@parentView, "previewInformationinDataCriteria", ->
+    @listenTo @parentView, "previewInformationinDataCriteria", ->
       @previewElementInformation = true
       @render()
-    )
-    @listenTo(@parentView, "hideInformationinDataCriteria", ->
+    @listenTo @parentView, "hideInformationinDataCriteria", ->
       @previewElementInformation = false
       @render()
-    )
-    @listenTo(@parentView, "closeAllDataCriteria", ->
+    @listenTo @parentView, "closeAllDataCriteria", ->
       @render() # (Re)rendering the view causes each specific data criteria to close
-    )
-    @listenTo(@parentView, "openAllDataCriteria", (e) ->
+    @listenTo @parentView, "openAllDataCriteria", (e) ->
       unless @isExpanded() # Only toggle if this data criteria not already expanded
         @toggleDetails(e)
-    )
 
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
