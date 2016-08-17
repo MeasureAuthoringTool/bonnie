@@ -89,7 +89,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # On results being calculated, construct patient data and initialize the
     # table.
     @results.calculationsComplete =>
-      @patientResults = @results
+      # Use toJSON() to add specificsRationale to the JSON object.
+      @patientResults = @results.toJSON()
 
       # Create a PatientDashboardPatient for each patient, these are used for
       # each row in patient dashboard.
@@ -500,7 +501,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     $(sender.currentTarget).popover('show')
 
     # Update rationale for popoverover.
-    patientResult = @matchPatientToPatientId($(sender.target).attr('patientId'))
+    patientResult = @results.findWhere({ patient_id: $(sender.target).attr('patientId') })
     updatedRationale = patientResult.specificsRationale()
     @showRationaleForPopulation(populationKey, patientResult.get('rationale'), updatedRationale)
 
@@ -545,7 +546,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   @returns {Object} the results for a given patient given that patient's id
   ###
   matchPatientToPatientId: (patient_id) =>
-    patient = @results.findWhere({ patient_id: patient_id })
+    patient = @results.findWhere({ patient_id: patient_id }).toJSON()
 
   ###
   Opens up a patient edit modal to create a new patient.
@@ -610,7 +611,7 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
       @$('.modal-body').empty() # Clear out patientBuilderView
       @result = @population.calculateResult patient
       @result.calculationsComplete =>
-        @patientResult = @result.first() # Grab the first and only item from collection
+        @patientResult = @result.toJSON()[0] # Grab the first and only item from collection
         @patientData = new Thorax.Models.PatientDashboardPatient patient, @dashboard.pd, @measure, @patientResult, @populations, @population
         @dashboard.updatePatientDataSources @result, @patientData
         if @rowIndex?
