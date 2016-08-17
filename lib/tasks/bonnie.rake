@@ -484,7 +484,7 @@ namespace :bonnie do
       puts "Shifting dates #{direction} [ #{years}ys, #{months}mos, #{weeks}wks, #{days}d, #{hours}hrs, #{minutes}mins, #{seconds}s ] for source_data_criteria start/stop dates and birth/death dates on all associated patient records for #{user.email}"
       direction.downcase == 'backward' ? dir = -1 : dir = 1
       seconds, minutes, hours, days, weeks, months, years = dir * seconds.to_i, dir * minutes.to_i, dir * hours.to_i, dir * days.to_i, dir * weeks.to_i, dir * months.to_i, dir * years.to_i
-      timestamps = ['FACILITY_LOCATION_ARRIVAL_DATETIME','FACILITY_LOCATION_DEPARTURE_DATETIME','DISCHARGE_DATETIME','ADMISSION_DATETIME','START_DATETIME','STOP_DATETIME','INCISION_DATETIME','REMOVAL_DATETIME']
+      timestamps = ['FACILITY_LOCATION_ARRIVAL_DATETIME','FACILITY_LOCATION_DEPARTURE_DATETIME','DISCHARGE_DATETIME','ADMISSION_DATETIME','START_DATETIME','STOP_DATETIME','INCISION_DATETIME','REMOVAL_DATETIME', 'TRANSFER_TO_DATETIME', 'TRANSFER_FROM_DATETIME']
       Record.by_user(user).each do |patient|
         patient.birthdate = ( Time.at( patient.birthdate ).utc.advance( :years => years, :months => months, :weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds ) ).to_i
         if patient.expired
