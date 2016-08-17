@@ -110,6 +110,16 @@
 
       {{#ifCond definition "==" "medication"}}
         <div class="row">
+          {{#ifCond status "==" "ordered"}}
+          <div class="form-group col-md-6">
+            <label for="administrations_value_{{@cid}}" class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Allowed Administrations<span class="sr-only"> value</span></label>
+            <div class="form-inline">
+              <div class="input-group">
+                <input type="text" name="administrations_value" id="adminstrations_value_{{@cid}}" class="form-control" placeholder="# of administrations">
+              </div>
+            </div>
+          </div>
+          {{else}}
           <div class="form-group col-md-6">
             <label for="dose_value_{{@cid}}" class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Prescription<span class="sr-only"> value</span></label>
             <div class="form-inline">
@@ -131,6 +141,7 @@
               </div>
             </div>
           </div>
+          {{/ifCond}}
           <div class="form-group col-md-6">
             <label for="frequency_value_{{@cid}}" class="control-label"><i class="fa fa-spinner" aria-hidden="true"></i> Regimen<span class="sr-only"> value</span></label>
             <div class="form-inline">
@@ -148,6 +159,7 @@
             </div>
           </div>
         </div>
+        {{#ifCond status "!=" "ordered"}}
         <div class="form-group">
           <label class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Filled<input class="sr-only" disabled></label>
 
@@ -162,6 +174,7 @@
           {{view editFulfillmentHistoryView}}
 
         </div>
+        {{/ifCond}}
       {{/ifCond}}
 
       <div class="form-group">
