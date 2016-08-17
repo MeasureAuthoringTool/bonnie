@@ -119,9 +119,20 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       @$('#patientDashboardTable_wrapper').removeClass('form-inline')
       @$('#patientDashboardTable_filter').addClass('form-inline') # Search input
 
-      # If table scrolls, remove popovers from screen
+      # If table scrolls, remove popovers and tooltips from screen
       $('div.dataTables_scrollBody').scroll () =>
         $('.popover').popover('destroy')
+        $('.tooltip').tooltip('destroy');
+
+      # Attaches tooltips to descriptions if mouse enters correct cell.
+      $('body').on 'mouseenter', ".limited", (e) =>
+         if e.currentTarget.offsetWidth < e.currentTarget.scrollWidth && !$(e.currentTarget).attr('title')
+           $(e.currentTarget).tooltip({ title: $(e.currentTarget).text(), placement: 'bottom', container: 'body', tabindex: '0'})
+           $(e.currentTarget).tooltip('show')
+
+           # When tooltip loses focus (hides), destroy tooltip so content can update next time it appears.
+           $(e.currentTarget).one 'hide.bs.tooltip', =>
+             $('.tooltip').tooltip('destroy')
 
   ###
   Manages logic highlighting.
