@@ -116,11 +116,12 @@ class MeasuresController < ApplicationController
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
-      
 
       existing.delete if (existing && is_update)
+
     rescue Exception => e
       if params[:measure_file]
+        measure.delete if measure
         errors_dir = Rails.root.join('log', 'load_errors')
         FileUtils.mkdir_p(errors_dir)
         clean_email = File.basename(current_user.email) # Prevent path traversal
