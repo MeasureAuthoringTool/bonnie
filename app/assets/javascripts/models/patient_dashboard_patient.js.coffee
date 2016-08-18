@@ -10,8 +10,6 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     @birthdate = if @birthdate then moment.utc(@birthdate, 'X').format('L') else ''
     @deathdate = @patient.get('deathdate')
     @deathdate = if @deathdate then moment.utc(@deathdate, 'X').format('L') else ''
-    unless @deathdate
-      @deathtime = 28800 # Default to 8 AM
     @gender = @patient.get('gender')
 
     # Get expected population results; check if patient is passing

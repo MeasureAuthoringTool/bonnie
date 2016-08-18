@@ -213,7 +213,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
           dc = dc.concat v.items
     for entry in dc
       columns.push data: entry, render: @insertTextAndPatientData
-
     columns
 
   ###
@@ -255,7 +254,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   @returns {Object} a mapping of editable column field names to row indices
   ###
   getEditableCols: ->
-    editableFields = ['first', 'last', 'description', 'gender']
+    editableFields = ['first', 'last', 'description', 'gender', 'birthdate', 'deathdate']
     editableCols = {}
     # Add patient characteristics to editable fields
     for editableField in editableFields
@@ -347,9 +346,19 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
     for k, v of @editableCols
       if k == 'gender'
+        # Gender (needs a dropdown)
         row[k] = JST['pd_edit_gender']({ rowIndex: rowIndex, femaleSelected: row[k] == 'F' })
-      # When handling expected values, need to present checkbox or text input
-      # field depending on type of measure.
+      else if k in ['birthdate', 'deathdate']
+        # Birth and death date (need date pickers)
+        row[k] = JST['pd_date_field']({ rowIndex: rowIndex, key: k })
+      else if /expected/i.test(k)
+        # Expected values in non-CV measure (needs check boxes)
+        row[k] = JST['pd_actual_expected_value']({
+          rowIndex: rowIndex,
+          key: k,
+          value: row[k],
+          episodeOfCare: row.measure.get('episode_of_care'),
+          continuousVariable: row.measure.get('continuous_variable') })
       else
         row[k] = JST['pd_input_field']({ rowIndex: rowIndex, key: k })
 
@@ -362,8 +371,12 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
     # Set current values in added inputs
     for k, v of @editableCols
-      if k != 'gender'
+      if k != 'gender' && !/expected/i.test(k)
         $('[name=' + k + rowIndex + ']').val(row['old'][k])
+
+    # Initialize birthdate and deathdate date pickers
+    @$('#birthdate' + rowIndex).datepicker()
+    @$('#deathdate' + rowIndex).datepicker()
 
     @updateDisplay(rowIndex)
     #tell SR something changed
@@ -405,6 +418,16 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     for k, v of @editableCols
       if k == 'description'
         editedData['notes'] = row[k]
+      else if /expected/i.test(k)
+        if $('#' + k + rowIndex)[0].checked
+          editedData[k] = 1
+        else
+          editedData[k] = 0
+      else if /birthdate/i.test(k)
+        editedData[k] = moment.utc(row[k], 'L').unix()
+      else if /deathdate/i.test(k)
+        editedData[k] = moment.utc(row[k], 'L').unix()
+        editedData['expired'] = true if editedData[k]
       else
         editedData[k] = row[k]
 
@@ -491,7 +514,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     targetCell = $(sender.currentTarget).closest('th')
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
-
     @removePatientFromDataSources(row)
     patient = _.findWhere(@measure.get('patients').models, {id: row.id})
     patient.destroy()
@@ -571,7 +593,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   createNewPatient: (sender) ->
     patient = new Thorax.Models.Patient {measure_ids: [@measure.get('hqmf_set_id')]}, parse: true
-    @patientEditView.display patient, null #Set rowIndex to null because it is a new patient.
+    @patientEditView.display patient, null # Set rowIndex to null because it is a new patient.
 
   ###
   Updates the results object and patientData array with new patient data or updated patient data.
