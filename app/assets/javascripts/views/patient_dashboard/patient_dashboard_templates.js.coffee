@@ -6,7 +6,7 @@ These templates will be evaluated as they are called in patient dashboard.
 Provides a generic date field
 ###
 JST['pd_date_field'] = Handlebars.compile '
-  <input type="text" id="" name="{{key}}{{rowIndex}}" class="date-picker form-control input-sm" title="month/day/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">'
+  <input type="text" id="{{key}}{{rowIndex}}" name="{{key}}{{rowIndex}}" class="date-picker form-control input-sm" title="month/day/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">'
 
 ###
 Provides a generic input field
@@ -67,6 +67,21 @@ JST['pd_result_checkbox'] = Handlebars.compile '<div>
           <span class="sr-only">Does not meet this population.</span>
           <i class="fa fa-square-o default" aria-hidden="true"></i>
         {{/if}}
+      {{/if}}
+    {{/if}}
+  </div>'
+
+###
+Takes a population's calculation result and displays it
+###
+JST['pd_actual_expected_value'] = Handlebars.compile '<div>
+    {{#if episodeOfCare}}
+      <input class="form-control input-sm" type="text" value="{{value}}" name="{{key}}{{rowIndex}}">
+    {{else}}
+      {{#if continuousVariable}}
+        <input class="form-control input-sm" type="text" value="{{value}}" name="{{key}}{{rowIndex}}">
+      {{else}}
+        <input type="checkbox" value="{{value}}" id="{{key}}{{rowIndex}}">
       {{/if}}
     {{/if}}
   </div>'
