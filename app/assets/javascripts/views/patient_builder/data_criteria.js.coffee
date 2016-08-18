@@ -79,17 +79,11 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView
       model: new Thorax.Model
       criteria: @model
-    @previewElementInformation = @parentView.previewElementInformation # Allows us to remember state after sorting
 
-    @listenTo @parentView, "previewInformationinDataCriteria", ->
-      @previewElementInformation = true
-      @render()
-    @listenTo @parentView, "hideInformationinDataCriteria", ->
-      @previewElementInformation = false
-      @render()
-    @listenTo @parentView, "closeAllDataCriteria", ->
+    @listenTo @builderView, "togglePreviewInformationinDataCriteria", => @render()
+    @listenTo @builderView, "closeAllDataCriteria", =>
       @render() # (Re)rendering the view causes each specific data criteria to close
-    @listenTo @parentView, "openAllDataCriteria", (e) ->
+    @listenTo @builderView, "openAllDataCriteria", (e) =>
       unless @isExpanded() # Only toggle if this data criteria not already expanded
         @toggleDetails(e)
 
@@ -109,30 +103,30 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     
     desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
 
-    if @previewElementInformation # only perform the calculations if the patient is previewing the information
+    if @builderView.previewElementInformation # only perform the calculations if the patient is previewing the information
       if @model.has('fulfillments') # LOGIC FOR FULFILLMENTS
-        fullfillmentInformation = @model.get('fulfillments').map((ful) ->
-             ((ful.get('quantity_dispensed_value') + " " + ful.get('quantity_dispensed_unit') + " " + ful.get('dispense_date') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ful.get('dispense_time')))
+        fullfillmentInformation = @model.get('fulfillments').map (ful) =>
+          @humanReadableString((ful.get('quantity_dispensed_value') + " " + ful.get('quantity_dispensed_unit') + " " + ful.get('dispense_date') + " ")) + ful.get('dispense_time')
 
       if @model.has('field_values') # LOGIC FOR FIELD VALUES
-        fieldValueInformation = @model.get('field_values').map((field_val) ->
+        fieldValueInformation = @model.get('field_values').map (field_val) =>
            switch field_val.get('type') # CD = Coded, PQ = Scalar, TS = Date Entry. This switch statement is just for formatting the different entry methods
-             when "CD" then (((field_val.get('key')) + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + (field_val.get('title')))
-             when "PQ" then ((field_val.get('key') + ": " + field_val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + (field_val.get('unit')))
-             when "TS" then ((field_val.get('key') + ": ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + moment.utc(field_val.get('value')).format('L H:mm A')))
+             when "CD" then @humanReadableString(field_val.get('key')) + ": " + field_val.get('title')
+             when "PQ" then @humanReadableString(field_val.get('key') + ": " + field_val.get('value')) + " " + (field_val.get('unit'))
+             when "TS" then @humanReadableString(field_val.get('key')) + ": " + moment.utc(field_val.get('value')).format('L H:mm A')
 
       if @model.has('references') # LOGIC FOR REFERENCES
-        referencesInformation = @model.get('references').map((ref) ->
+        referencesInformation = @model.get('references').map (ref) =>
            if ref.get('reference_type')
-             ref.get('reference_type').replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + ": " + ref.get('description') + ": " + ref.get('start_date')
+             @humanReadableString(ref.get('reference_type')) + ": " + ref.get('description') + ": " + ref.get('start_date')
            else
-             ref.get('description') + ": " + ref.get('start_date'))
+             ref.get('description') + ": " + ref.get('start_date')
 
       if @model.has('value') # LOGIC FOR RESULTS
-        resultInformation = @model.get('value').map((val) ->
+        resultInformation = @model.get('value').map (val) =>
            switch val.get('type') # CD = Coded, PQ = Scalar. This switch statement is just for formatting the different entry methods
              when "CD" then val.get('title')
-             when "PQ" then (val.get('value') + " ").replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()) + (val.get('unit')))
+             when "PQ" then val.get('value') + " " + val.get('unit')
 
     if @model.has('end_date') # Calculate Duration Between Start and End Dates
       elementDuration = Bonnie.util.getDurationBetween(moment(@model.get('start_date')), moment(@model.get('end_date')))
@@ -159,6 +153,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       hasStopTime: @model.hasStopTime()
       startLabel: @model.startLabel()
       stopLabel: @model.stopLabel()
+      previewElementInformation: @builderView.previewElementInformation
       fullfillmentInformation: fullfillmentInformation
       fieldValueInformation: fieldValueInformation
       referencesInformation: referencesInformation
@@ -253,6 +248,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     e.preventDefault()
     type = @$(e.target).model().get('type')
     $(".#{type}-elements").focus()
+
+  humanReadableString: (string) ->
+    string.replace(/_/g, ' ').replace(/\w\S*/g, (txt) ->  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
 
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']

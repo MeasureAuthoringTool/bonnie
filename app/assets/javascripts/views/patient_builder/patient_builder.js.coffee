@@ -15,7 +15,8 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @measureRibbon = new Thorax.Views.MeasureRibbon model: @model
     @editCriteriaCollectionView = new Thorax.CollectionView
       collection: @model.get('source_data_criteria')
-      itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure, parentView: @)
+      itemView: (item) => new Thorax.Views.EditCriteriaView(model: item.model, measure: @measure, builderView: this)
+      # pass in this, because EditCriteriaView is within a collection and when initialized has no @parent
       events:
         collection:
           close: -> @collection.sort()
@@ -77,8 +78,12 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         # FIXME: remove this toggle if the description is too short on render rather than on this click.
         @$('.expand').html('Nothing more to show...').fadeOut 2000, -> $(@).remove()
     'click #previewPatientInformation': (e) ->
-      @triggerPreviewInformation(e.target.checked)
-      @previewElementInformation = e.target.checked
+      @previewElementInformation = !@previewElementInformation
+      @$('#loadingSpinner').removeClass('hidden')
+      setTimeout( =>
+        @trigger "togglePreviewInformationinDataCriteria"
+        @$('#loadingSpinner').addClass('hidden')
+      , 0)
 
     rendered: ->
       @$('.draggable').draggable revert: 'invalid', helper: 'clone', appendTo: '.patient-builder', zIndex: 10
@@ -108,10 +113,10 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     serialize: (attr) ->
       birthdate = attr.birthdate if attr.birthdate
       birthdate += " #{attr.birthtime}" if attr.birthdate && attr.birthtime
-      attr.birthdate = moment.utc(birthdate, 'L LT').format('X') if birthdate
+      attr.birthdate = if birthdate then moment.utc(birthdate, 'L LT').format('X') else null
       deathdate = attr.deathdate if attr.deathdate
       deathdate += " #{attr.deathtime}" if attr.deathdate && attr.deathtime
-      attr.deathdate = moment.utc(deathdate, 'L LT').format('X') if deathdate
+      attr.deathdate = if deathdate then moment.utc(deathdate, 'L LT').format('X') else null
 
   # When we create the form and populate it, we want to convert some values to those appropriate for the form
   context: ->
@@ -262,16 +267,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('#loadingSpinner').addClass('hidden')
     , 0)
 
-  triggerPreviewInformation: (previewInformation) ->
-    @$('#loadingSpinner').removeClass('hidden')
-    setTimeout( =>
-      @$('#loadingSpinner').addClass('hidden')
-      if previewInformation
-        @trigger "previewInformationinDataCriteria"
-      else
-        @trigger "hideInformationinDataCriteria"
-    , 0)
-
   openAllDataCriteria: (e) ->
     originalVerticalLocation = $(window).scrollTop()
     originalHorizontalLocation = $(window).scrollLeft()
@@ -315,9 +310,8 @@ class Thorax.Views.PatientAge extends Thorax.Views.BuilderChildView
 
   context: ->
     if @model.isAlive()
-    # if the birthdate/deathdate fields are left blank they default to the epoch
-      if @model.getBirthDate() != null
-        if @model.getBirthDate().year() is bonnie.measurePeriod
+      if @model.getBirthDate()?
+        if @model.getBirthDate().year() == bonnie.measurePeriod
           errorWithDates = false
           importantDate = true
           faIcon = "fa fa-fw fa-ambulance" # fa-fw does not space the ambulance icon out far enough
@@ -331,9 +325,9 @@ class Thorax.Views.PatientAge extends Thorax.Views.BuilderChildView
           errorWithDates = false
           importantDate = false
           faIcon = null
-          patientAge = "Age at Start of Measure Period: #{Bonnie.util.getDurationBetween(@model.getBirthDate(), moment([bonnie.measurePeriod]))}"
+          patientAge = "Age at Start of Measure Period: #{Bonnie.util.getDurationBetween(@model.getBirthDate(), moment.utc(year: bonnie.measurePeriod))}"
     else
-      if @model.getBirthDate() != null && @model.getDeathDate() != null
+      if @model.getBirthDate()? && @model.getDeathDate()?
         if @model.getBirthDate() < @model.getDeathDate()
           errorWithDates = false
           importantDate = false
