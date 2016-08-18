@@ -127,7 +127,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       @$('#patientDashboardTable_filter').addClass('form-inline') # Search input
 
       # If table scrolls, remove popovers and tooltips from screen
-      $('div.dataTables_scrollBody').scroll () =>
+      $('div.dataTables_scrollBody, .dataTables_wrapper').scroll () =>
         $('.popover').popover('destroy')
         $('.tooltip').tooltip('destroy');
 
