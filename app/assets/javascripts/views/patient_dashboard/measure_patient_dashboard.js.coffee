@@ -98,21 +98,27 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
 
       # Initialize patient dashboard using DataTables
-      table = @$('#patientDashboardTable').DataTable(
+      tableOptions =
         data: @patientData,
         columns: @getTableColumns(),
         dom: '<if<"scrolling-table"t>>', # Places table info and filter, then table, then nothing
         deferRender: true,
-        scrollX: true,
-        scrollY: "600px",
-        scrollCollapse: true,
-        order: [], # Disable initial sorting
+        language:
+          emptyTable: '<i aria-hidden="true" class="fa fa-fw fa-user"></i> Test Cases Loading...'
+        order: [], #Disable initial sorting
         paging: false
         preDrawCallback: => @updateDisplay()
-      )
+
       if @showFixedColumns
-        new $.fn.dataTable.FixedColumns(table, leftColumns: 4 + @populations.length)
-        $('.DTFC_LeftBodyLiner').css('overflow-x':"hidden") # Removes extra scroll bar under fixed columns.
+        # Add options necessary to enable fixed columns, scrolling, etc.
+        tableOptions = _.extend tableOptions,
+          fixedColumns:
+            leftColumns: 4 + @populations.length
+          scrollX: true,
+          scrollY: "600px",
+          scrollCollapse: true
+
+      table = @$('#patientDashboardTable').DataTable(tableOptions)
       @updateDisplay() # Highlights the actual warnings on the flat table.
 
       # Removes the form-inline class from the wrapper so that inputs in our table can
