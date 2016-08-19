@@ -307,8 +307,11 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Scrolls the table to a selected population
   ###
   scrollToPopulation: (e) ->
-    leftOffset = $('.DTFC_Cloned').outerWidth() + $('.DTFC_Cloned').offset().left
-    @$('.dataTables_scrollBody').scrollTo @$('#'+ $(e.currentTarget).text()), offset: left: -leftOffset
+    if @showFixedColumns
+      leftOffset = $('.DTFC_Cloned').outerWidth() + $('.DTFC_Cloned').offset().left
+      @$('.dataTables_scrollBody').scrollTo @$('#'+ $(e.currentTarget).text()), offset: left: -leftOffset
+    else
+      $('.dataTables_wrapper').scrollTo @$('#'+ $(e.currentTarget).text())
 
   ###
   Updates actual warnings for a given row index
