@@ -93,6 +93,10 @@ namespace :bonnie do
         vs.unset(:bundle_id)
         bundles = HealthDataStandards::CQM::Bundle.where(_id: {'$in' => bonnie_hash_to_bundles[vs.bonnie_version_hash]})
         bundles.each do |b|
+          if (vs.bundle_ids.nil?)
+            vs.bundle_ids = []
+          end
+          vs.bundle_ids.push(b._id)
           if (b.value_set_ids.nil?) 
             b.value_set_ids = []
           end
