@@ -102,7 +102,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         data: @patientData,
         columns: @getTableColumns(),
         dom: '<if<"scrolling-table"t>>', # Places table info and filter, then table, then nothing
-        deferRender: true,
         language:
           emptyTable: '<i aria-hidden="true" class="fa fa-fw fa-user"></i> Test Cases Loading...'
         order: [], #Disable initial sorting
@@ -662,7 +661,7 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
           @dashboard.updateDisplay(@rowIndex)
         else
           $('#patientDashboardTable').DataTable().row.add(@patientData).draw()
-          @dashboard.updateAllActualWarnings()
+          @dashboard.updateDisplay()
 
   close: ->
     @$('.modal-body').empty() # Clear out patientBuilderView
