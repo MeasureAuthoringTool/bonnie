@@ -107,20 +107,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       @$('#patientDashboardTable_wrapper').removeClass('form-inline')
       @$('#patientDashboardTable_filter').addClass('form-inline') # Search input
 
-      # If table scrolls, remove popovers and tooltips from screen
+      # If table scrolls, remove popovers screen
       $('div.dataTables_scrollBody, .dataTables_wrapper').scroll () =>
         $('.popover').popover('destroy')
-        $('.tooltip').tooltip('destroy');
-
-      # Attaches tooltips to descriptions if mouse enters correct cell.
-      $('body').on 'mouseenter', ".limited", (e) =>
-         if e.currentTarget.offsetWidth < e.currentTarget.scrollWidth && !$(e.currentTarget).attr('title')
-           $(e.currentTarget).tooltip({ title: $(e.currentTarget).text(), placement: 'bottom', container: 'body', tabindex: '0'})
-           $(e.currentTarget).tooltip('show')
-
-           # When tooltip loses focus (hides), destroy tooltip so content can update next time it appears.
-           $(e.currentTarget).one 'hide.bs.tooltip', =>
-             $('.tooltip').tooltip('destroy')
 
     destroyed: ->
       $('.container-fluid').removeClass('container-fluid').addClass('container')
@@ -199,9 +188,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         data: 'expected' + population
         className: 'value'
         render: @insertResultValue
-    columns.push
-      data: 'description'
-      className: 'limited'
+    columns.push data: 'description'
     columns.push data: 'birthdate'
     columns.push data: 'deathdate'
     columns.push data: 'gender'
