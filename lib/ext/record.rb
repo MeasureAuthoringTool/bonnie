@@ -14,6 +14,7 @@ class Record
   field :has_measure_history, type: Boolean, default: false # has the record gone through an update to the measure
   field :too_big, type: Boolean, default: false # True when the size of calc_results > 12000000
   field :too_big_trimmed_results, type: Array
+  field :results_size, type: Integer
 
   belongs_to :user
   belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle"
@@ -84,7 +85,7 @@ class Record
   #    History Tracking
   ##############################
 
-  track_history :on => [:source_data_criteria, :birthdate, :gender, :deathdate, :race, :ethnicity, :expected_values, :expired, :deathdate], changes_method: :my_changes,
+  track_history :on => [:source_data_criteria, :birthdate, :gender, :deathdate, :race, :ethnicity, :expected_values, :expired, :deathdate, :too_big, :results_size], changes_method: :my_changes,
                 :modifier_field => :modifier,
                 :version_field => :version,   # adds "field :version, :type => Integer" to track current version, default is :version
                 :track_create   =>  true,   # track document creation, default is true
@@ -150,8 +151,9 @@ class Record
   end
 
   def size_check
-    puts "\n\n\tcalc_results is #{calc_results.to_json.size}\n\n"
-    if calc_results.to_json.size > 12000000
+    self.results_size = calc_results.to_json.size
+    # puts "\n\n\tcalc_results is #{calc_results.to_json.size}\n\n"
+    if self.results_size > 12000000
       self.too_big = true
       calc_results.each do |cr|
         cr.delete('rationale')
@@ -159,6 +161,9 @@ class Record
       end
       self.too_big_trimmed_results = calc_results
       unset(:calc_results)
+    else
+      self.too_big = false
+      unset(:too_big_trimmed_results)
     end 
   end
 

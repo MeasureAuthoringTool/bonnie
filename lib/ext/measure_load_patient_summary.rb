@@ -66,7 +66,8 @@ module TestCaseMeasureHistory
       self[:patients][patient.id.to_s] = {
         expected: trim_expected,
         before: trim_before,
-        before_status: status }
+        before_status: status,
+        before_too_big: patient.too_big }
       self[:patients][patient.id.to_s].merge!(patient_version_at_upload: patient.version) unless !patient.version
     end
   end
@@ -123,7 +124,7 @@ module TestCaseMeasureHistory
             b_mups.summary[:fail_after] += 1
           end
         end # case
-        b_mups.patients[patient].merge!(after: trim_after, after_status: status, patient_version_after_upload: ptt.version)
+        b_mups.patients[patient].merge!(after: trim_after, after_status: status, after_too_big: ptt.too_big, patient_version_after_upload: ptt.version)
       end
       b_mups.save!
     end
@@ -149,12 +150,15 @@ module TestCaseMeasureHistory
         end
         result[:measure_id] = measure.hqmf_set_id
         result[:population_index] = population_index
-
-        calc_results = patient.calc_results.dup
-        # Clear any prior results for this measure to ensure a clean update, i.e. a change in the number of populations.
-        calc_results.reject! { |av| av['measure_id'] == measure.hqmf_set_id && (av['population_index'] == population_index || av['population_index'] >= measure.populations.count) }
-        calc_results << result
-        patient.calc_results = calc_results
+        if !patient.calc_results.nil?
+          calc_results = patient.calc_results.dup
+          # Clear any prior results for this measure to ensure a clean update, i.e. a change in the number of populations.
+          calc_results.reject! { |av| av['measure_id'] == measure.hqmf_set_id && (av['population_index'] == population_index || av['population_index'] >= measure.populations.count) }
+          calc_results << result
+          patient.calc_results = calc_results
+        else
+          patient.calc_results = [result]
+        end
 
         patient.has_measure_history = true
         patient.save!
