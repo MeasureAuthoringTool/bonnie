@@ -366,7 +366,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         $('[name=' + k + rowIndex + ']').val(row['old'][k])
 
     @updateDisplay(rowIndex)
-
+    #tell SR something changed
+    update_message = "Editing turned on for patient " + row.patient.get('last') + row.patient.get('first') + ". Can edit columns for " + _.keys(@editableCols).join(", ") + " by navigating to the associated cells in this table row."
+    $('#ariaalerts').html update_message
   ###
   Saves the inline edits made to a patient
   ###
@@ -406,6 +408,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       else
         editedData[k] = row[k]
 
+    $('#ariaalerts').html "Saving edits on this patient."
+
     # Update row on recalculation
     patient.save editedData,
       success: (model) =>
@@ -430,6 +434,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Remove row selection
     @deselectRow(rowIndex)
     @updateDisplay()
+
+    $('#ariaalerts').html "Canceling edits on this patient."
 
   ###
   Opens the full patient builder modal for more advanced patient editing
@@ -463,6 +469,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     row['actions'] = JST['pd_delete_controls']({})
     @setRowData(rowIndex, row)
 
+    $('#ariaalerts').html "Confirm patient deletion by pressing 'Delete Patient'"
+
   ###
   Replaces the Delete button and cancel button with the actions button.
   ###
@@ -472,6 +480,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
     @setRowData(rowIndex, row['old'])
+
+    $('#ariaalerts').html "Canceling delete patient."
 
   ###
   Removes patient from the table
@@ -486,6 +496,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     patient = _.findWhere(@measure.get('patients').models, {id: row.id})
     patient.destroy()
     $('#patientDashboardTable').DataTable().row(rowIndex).remove().draw()
+
+    $('#ariaalerts').html "Deleting patient."
 
   ###
   Generates the views for the popover and attaches it to the DOM.
