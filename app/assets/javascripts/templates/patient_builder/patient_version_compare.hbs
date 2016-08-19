@@ -1,17 +1,34 @@
 
 <div class="row">
   <div class="col-md-6">
-    <h2>Before the Measure Upload</h2>
+    {{#if fromEdit}}
+      <h2>After Most Recent Upload</h2>
+    {{else}}
+      <h2>Before the Measure Upload</h2>
+    {{/if}}
     {{#if populationInBefore}}
       {{view populationLogicViewBefore}}
     {{else}}
       <br><br>
-      <h3>The selected population does not exist in the prior version of the measure.</h3>
+      {{#if beforeTooBig}}
+        <h3>The selected data are too large.</h3>
+      {{else}}
+        <h3>The data for the selected population does not exist in the prior version of the measure.</h3>
+      {{/if}}
     {{/if}}
   </div>
   
   <div class="col-md-6">
-    <h2>After the Measure Upload</h2>
-    {{view populationLogicViewAfter}}
+    {{#if fromEdit}}
+      <h2>Current State</h2>
+    {{else}}
+      <h2>After the Measure Upload</h2>
+    {{/if}}
+    {{#if populationInAfter}}
+      {{view populationLogicViewAfter}}
+    {{else}}
+      <br><br>
+      <h3>The selected population of the measure is too large.</h3>
+    {{/if}}
   </div>
 </div>

@@ -29,7 +29,6 @@
     'measures/:measure_hqmf_set_id/history':            'renderMeasureUploadHistory'
     'admin/users':                                      'renderUsers'
     'value_sets/edit':                                  'renderValueSetsBuilder'
-    'measures/:measure_hqmf_set_id/patients/:id/compare':  'renderPatientCompare'
     'measures/:measure_hqmf_set_id/patients/:id/compare/at_upload/:upload_id':  'renderHistoricPatientCompare'
     
   renderMeasures: ->
@@ -105,21 +104,6 @@
       @breadcrumb.viewMeasureHistory(measure)
     )
 
-  renderPatientCompare: (measureHqmfSetId, patientId) ->
-    @navigationSetup "Patient Builder", "patient-compare"
-    measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
-    patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
-    document.title += " - #{measure.get('cms_id')}" if measure?
-    # Deal with getting the archived measure and the calculation snapshot for the patient at measure upload
-    upsums = measure.get('upload_summaries')
-    archivedMeausures = measure.get('archived_measures')
-    $.when(upsums.fetchDeferred())
-      .then( -> upsums.at(0).fetchDeferred() )
-      .then((latestUpsum) -> 
-        patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, latestupsum: upsums.at(0), viaRoute: "fromEdit")
-        @mainView.setView patientBuilderView
-        @breadcrumb.editPatient(measure, patient)
-        )
 
   renderHistoricPatientCompare: (measureHqmfSetId, patientId, uploadId) ->
     @navigationSetup "Patient Builder", "patient-compare"

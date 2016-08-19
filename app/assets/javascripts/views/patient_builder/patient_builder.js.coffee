@@ -295,9 +295,23 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       top: shiftDown
       bottom: $logic.nextAll(':visible').height() || 0
 
+  showCompare: ->
+    if @patientCompareView
+      @patientCompareView.remove()
+
+    upsums = @measure.get('upload_summaries')
+    $.when(upsums.fetchDeferred())
+      .then( -> upsums.at(0).fetchDeferred() )
+      .then((latestUpsum) => 
+        @patientCompareView = new Thorax.Views.PatientBuilderCompare(model: @model, measure: @measure, patients: @patients, measures: @measures, latestupsum: upsums.at(0), viaRoute: "fromEdit")
+        @patientCompareView.appendTo('#patient-compare-content')
+        @$('#patient-compare-dialog').modal('show')
+        )
+    
 
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
+  # This view will take a arguement of isCompareView (boolean) that when true will disable the scrolling arrows.
   setPopulation: (population) ->
     population.measure().set('displayedPopulation', population)
     @setModel(population)
