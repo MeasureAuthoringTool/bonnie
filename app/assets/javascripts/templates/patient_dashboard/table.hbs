@@ -18,7 +18,7 @@
     <tr>
       {{#each head2}}
         {{#ifIn this ../populations}}
-          <th class="rotate" scope="col"><div>{{{this}}}</div></th>
+          <th class="rotate" scope="col"><div>{{population this}}</div></th>
         {{else}}
           <th scope="col"><div class="tableScrollContainer"><div class="tableScroll">{{{this}}}</div></div></th>
         {{/ifIn}}
