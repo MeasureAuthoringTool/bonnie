@@ -79,24 +79,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       $('.container').removeClass('container').addClass('container-fluid')
       @patientEditView.appendTo(@$el)
 
-    destroyed: ->
-      $('.container-fluid').removeClass('container-fluid').addClass('container')
-
-  setup: ->
-    # Get patient calculation results
-    @results = @population.calculationResults()
-
-    # On results being calculated, construct patient data and initialize the
-    # table.
-    @results.calculationsComplete =>
-      # Use toJSON() to add specificsRationale to the JSON object.
-      @patientResults = @results.toJSON()
-
-      # Create a PatientDashboardPatient for each patient, these are used for
-      # each row in patient dashboard.
-      for patient in @measure.get('patients').models
-        @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
-
       # Initialize patient dashboard using DataTables
       tableOptions =
         data: @patientData,
@@ -139,6 +121,26 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
            # When tooltip loses focus (hides), destroy tooltip so content can update next time it appears.
            $(e.currentTarget).one 'hide.bs.tooltip', =>
              $('.tooltip').tooltip('destroy')
+
+    destroyed: ->
+      $('.container-fluid').removeClass('container-fluid').addClass('container')
+
+  setup: ->
+    # Get patient calculation results
+    @results = @population.calculationResults()
+
+    # On results being calculated, construct patient data and initialize the
+    # table.
+    @results.calculationsComplete =>
+      # Use toJSON() to add specificsRationale to the JSON object.
+      @patientResults = @results.toJSON()
+
+      # Create a PatientDashboardPatient for each patient, these are used for
+      # each row in patient dashboard.
+      for patient in @measure.get('patients').models
+        @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
+
+      @render()
 
   ###
   Manages logic highlighting.
