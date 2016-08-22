@@ -17,7 +17,7 @@ class Thorax.Views.MeasurePatientDashboardLayout extends Thorax.LayoutView
   switchPopulation: (e) ->
     @population = $(e.target).model()
     @population.measure().set('displayedPopulation', @population)
-    @setView new Thorax.Views.MeasurePopulationPatientDashboard measure: @population.measure(), population: @population
+    @setView new Thorax.Views.MeasurePopulationPatientDashboard measure: @population.measure(), population: @population, showFixedColumns: @showFixedColumns
     @trigger 'population:update', @population
 
   ###
