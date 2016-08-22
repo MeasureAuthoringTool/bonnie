@@ -341,7 +341,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     for k, v of @editableCols
       if k == 'gender'
         # Gender (needs a dropdown)
-        row[k] = JST['pd_edit_gender']({ rowIndex: rowIndex, femaleSelected: row[k] == 'F' })
+        row[k] = JST['pd_edit_gender']({ rowIndex: rowIndex, femaleSelected: row[k] == 'F', key: k })
       else if k in ['birthdate', 'deathdate']
         # Birth and death date (need date pickers)
         row[k] = JST['pd_date_field']({ rowIndex: rowIndex, key: k })
