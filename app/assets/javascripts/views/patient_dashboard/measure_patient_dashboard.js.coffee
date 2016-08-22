@@ -80,13 +80,15 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       @patientEditView.appendTo(@$el)
 
       # Initialize patient dashboard using DataTables
+      columns = @getTableColumns()
+
       tableOptions =
         data: @patientData,
-        columns: @getTableColumns(),
+        columns: columns,
         dom: '<if<"scrolling-table"t>>', # Places table info and filter, then table, then nothing
         language:
           emptyTable: '<i aria-hidden="true" class="fa fa-fw fa-user"></i> Test Cases Loading...'
-        order: [], # Disable initial sorting
+        order: @getColumnOrder(columns)
         paging: false
         preDrawCallback: => @updateDisplay()
         createdRow: (row, data, rowIndex) ->
@@ -134,6 +136,20 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
 
       @render()
+
+  ###
+  Set the order in DT to equate the ordering of patients in the Population Calculation view.
+  We want to display the results sorted by 1) failures first, then 2) last name, then 3) first name
+  ###
+  getColumnOrder: (columns) ->
+    order = []
+    for item in ['passes', 'last', 'first']
+    # DT requires indexes rather than column names. Get the indexes.
+      for column, index in columns
+        if column['data'] == item
+          order.push [index, 'asc']
+
+    return order
 
   ###
   Manages logic highlighting.
