@@ -1,12 +1,14 @@
-module TestCaseMeasureHistory
+module UploadSummary
   
   SLICER = HQMF::PopulationCriteria::ALL_POPULATION_CODES
   SLICER.push('rationale', 'finalSpecifics')
   # 
-  class MeasureUploadPatientSummary
+  class MeasureSummary
 
     include Mongoid::Document
     include Mongoid::Timestamps
+    
+    store_in collection: 'upload_summaries'
 
     field :hqmf_id, type: String
     field :hqmf_set_id, type: String
@@ -18,8 +20,8 @@ module TestCaseMeasureHistory
     field :measure_hqmf_version_number_before, type: String
     field :measure_hqmf_version_number_after, type: String
     belongs_to :user
-    embeds_many :measure_upload_population_summaries, cascade_callbacks: true
-    accepts_nested_attributes_for :measure_upload_population_summaries
+    embeds_many :population_summaries, cascade_callbacks: true
+    accepts_nested_attributes_for :population_summaries
     
     index "user_id" => 1
     scope :by_user, ->(user) { where({'user_id'=>user.id}) }
@@ -27,12 +29,12 @@ module TestCaseMeasureHistory
   end
   
   # 
-  class MeasureUploadPopulationSummary
+  class PopulationSummary
     include Mongoid::Document
     include Mongoid::Timestamps
     field :patients, type: Hash, default: {}
     field :summary, type: Hash, default: { pass_before: 0, pass_after: 0, fail_before: 0, fail_after: 0 }
-    embedded_in :measure_upload_patient_summaries
+    embedded_in :measure_summaries
     # attr_accessor :patients, :summary
 
     def before_measure_load_compare(patient, pop_idx, m_id)
@@ -75,13 +77,13 @@ module TestCaseMeasureHistory
   def self.collect_before_upload_state(measure, arch_measure)
     patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
 
-    mups = MeasureUploadPatientSummary.new
+    mups = MeasureSummary.new
     measure.populations.each_with_index do |m, index|
-      moo = MeasureUploadPopulationSummary.new
+      moo = PopulationSummary.new
       patients.each do |patient|
         moo.before_measure_load_compare(patient, index, measure.hqmf_set_id)
       end
-      mups.measure_upload_population_summaries << moo
+      mups.population_summaries << moo
     end
     mups.hqmf_id = measure.hqmf_id
     mups.hqmf_set_id = measure.hqmf_set_id
@@ -99,9 +101,9 @@ module TestCaseMeasureHistory
   end
 
   def self.collect_after_upload_state(measure, upl_id)
-    the_befores = MeasureUploadPatientSummary.where(id: upl_id).first
-    the_befores.measure_upload_population_summaries.each_index do |pop_idx|
-      b_mups = the_befores.measure_upload_population_summaries[pop_idx]
+    the_befores = MeasureSummary.where(id: upl_id).first
+    the_befores.population_summaries.each_index do |pop_idx|
+      b_mups = the_befores.population_summaries[pop_idx]
       b_mups[:patients].keys.each do |patient|
         ptt = Record.where(id: patient).first
         trim_after = (ptt.calc_results.find { |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx }).slice(*SLICER) if !ptt.too_big

@@ -1,6 +1,6 @@
 class MeasuresController < ApplicationController
 
-  include TestCaseMeasureHistory
+  include UploadSummary
 
   skip_before_action :verify_authenticity_token, only: [:show, :value_sets]
 
@@ -46,11 +46,11 @@ class MeasuresController < ApplicationController
       names[p[:_id].to_s] = { first: p[:first], last: p[:last] }
     end
 
-    snaps = TestCaseMeasureHistory::MeasureUploadPatientSummary.by_user_and_hqmf_set_id(current_user, params[:id]).desc(:created_at)
+    snaps = UploadSummary::MeasureSummary.by_user_and_hqmf_set_id(current_user, params[:id]).desc(:created_at)
     small_snaps = []
     snaps.each_with_index do |upload, idx|
       ul = {upload_id: upload.id, upload_dtm: upload[:upload_dtm], measure_db_id_before: upload[:measure_db_id_before], measure_db_id_after: upload[:measure_db_id_after], populations: [] }
-      upload[:measure_upload_population_summaries].each_with_index do |pop, pidx|
+      upload[:population_summaries].each_with_index do |pop, pidx|
         pop_summary = { summary: pop[:summary] }
         pop[:patients].each do |ptt|
           pop_summary[ptt[0]] = { before_status: ptt[1][:before_status], after_status: ptt[1][:after_status], first: names.fetch(ptt[0])[:first], last: names.fetch(ptt[0])[:last] }
@@ -289,7 +289,7 @@ class MeasuresController < ApplicationController
 
     measure.generate_js
 
-    upl_id = TestCaseMeasureHistory.collect_before_upload_state(measure, arch_measure)
+    upl_id = UploadSummary.collect_before_upload_state(measure, arch_measure)
     measure.save!
 
     # run the calcs for the patients with the new version of the measure
@@ -298,8 +298,8 @@ class MeasuresController < ApplicationController
     # trigger the measure upload summary for the user.
     if (!measure.needs_finalize)
       check_patient_expected_values(measure)
-      TestCaseMeasureHistory.calculate_updated_actuals(measure)
-      TestCaseMeasureHistory.collect_after_upload_state(measure, upl_id)
+      UploadSummary.calculate_updated_actuals(measure)
+      UploadSummary.collect_after_upload_state(measure, upl_id)
       flash[:uploaded_summary_id] = upl_id
       flash[:uploaded_hqmf_set_id] = measure.hqmf_set_id
     end
@@ -397,9 +397,9 @@ class MeasuresController < ApplicationController
 
 
       # Take the after snapshot of the patients after the calc
-      TestCaseMeasureHistory.calculate_updated_actuals(measure)
-      upl_id = TestCaseMeasureHistory::MeasureUploadPatientSummary.where(measure_db_id_after: measure.id).first.id
-      TestCaseMeasureHistory.collect_after_upload_state(measure, upl_id)
+      UploadSummary.calculate_updated_actuals(measure)
+      upl_id = UploadSummary::MeasureSummary.where(measure_db_id_after: measure.id).first.id
+      UploadSummary.collect_after_upload_state(measure, upl_id)
 
       # Make UI show upload summary
       flash[:uploaded_summary_id] = upl_id
