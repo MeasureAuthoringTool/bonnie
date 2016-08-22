@@ -18,7 +18,7 @@ class Thorax.Views.MeasureHistoryTimelineView extends Thorax.Views.BonnieView
       
     # pull out all patients that exist, even deleted ones, map id to names
     @upload_summaries.each (upload_summary) =>
-      for population in upload_summary.get('measure_upload_population_summaries')
+      for population in upload_summary.get('population_summaries')
         for patientId, patient of population.patients
           if _.findWhere(@patientIndex, {id: patientId}) == undefined
             patient = @patients.findWhere({_id: patientId})

@@ -9,7 +9,7 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
 
   initialize: ->
     @selectedPopulation = @measure.get('displayedPopulation').get('index')
-    @thePatient = @latestupsum.get('measure_upload_population_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
+    @thePatient = @latestupsum.get('population_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
 
     if @viaRoute == "fromEdit"
       # @populationInBefore = true
