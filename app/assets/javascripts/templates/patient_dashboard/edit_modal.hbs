@@ -1,14 +1,11 @@
 <div class="modal fade" id="patientEditModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog"  role="dialog" aria-labelledby="modalTitle">
     <div class="modal-content">
-      <div class="modal-header">
-        {{#button "close" class="close" data-dismiss="modal" aria-hidden="true"}}&times;{{/button}}
+      <div class="modal-header clearfix">
         <h1 class="modal-title" id="modalTitle">{{dialogTitle}}</h1>
-        <div class="form-group">
-          <div class="col-sm-offset-{{titleSize}}">
+        <div class="pull-right">
           {{#button "close" class="btn btn-default" data-dismiss="modal"}}Cancel{{/button}}
           {{#button "save" class="btn btn-primary" id="saveButton"}}Save{{/button}}
-          </div>  
         </div>
       </div>
       <div class="modal-body">

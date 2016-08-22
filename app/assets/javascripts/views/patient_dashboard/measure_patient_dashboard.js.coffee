@@ -611,7 +611,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
 
 class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
-  template: JST['measure/patient_edit_modal']
+  template: JST['patient_dashboard/edit_modal']
 
   events:
     'ready': 'setup'
