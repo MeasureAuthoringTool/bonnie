@@ -86,9 +86,13 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         dom: '<if<"scrolling-table"t>>', # Places table info and filter, then table, then nothing
         language:
           emptyTable: '<i aria-hidden="true" class="fa fa-fw fa-user"></i> Test Cases Loading...'
-        order: [], #Disable initial sorting
+        order: [], # Disable initial sorting
         paging: false
         preDrawCallback: => @updateDisplay()
+        createdRow: (row, data, rowIndex) ->
+          # DT adds the 'row' ARIA role to each table body row. This adds the required children roles.
+          $(row).find('td').each (colIndex) -> $(this).attr('role', 'gridcell')
+          $(row).find('th').each (colIndex) -> $(this).attr('role', 'rowheader')
 
       if @showFixedColumns
         # Add options necessary to enable fixed columns, scrolling, etc.
@@ -167,17 +171,16 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   getTableColumns: ->
     columns = []
-    columns.push
-      data: 'actions'
-      orderable: false
-      cellType: "th" # Makes this cell a header element
-      createdCell: (td, cellData, rowData, row, col) =>
-        # Add patient name to row header for screen readers
-        srText = $("<span>").addClass('sr-only').text(rowData.last + ", " + rowData.first)
-        $(td).attr('scope', 'row').append(srText)
+    columns.push data: 'actions', orderable: false
     columns.push data: 'passes'
-    columns.push data: 'last'
-    columns.push data: 'first'
+    columns.push
+      data: 'last',
+      cellType: "th" # Makes this cell a header element
+      createdCell: (td, cellData, rowData, row, col) => $(td).attr('scope', 'row')
+    columns.push
+      data: 'first',
+      cellType: "th" # Makes this cell a header element
+      createdCell: (td, cellData, rowData, row, col) => $(td).attr('scope', 'row')
     for population in @populations
       columns.push
         data: 'actual' + population
@@ -328,7 +331,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   makeInlineEditable: (sender) ->
     # Get row index and data of selected patient
-    targetCell = $(sender.currentTarget).closest('th')
+    targetCell = $(sender.currentTarget).closest('td')
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
 
@@ -378,7 +381,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   saveEdits: (sender) ->
     # Get row index and data of selected patient
-    targetCell = $(sender.currentTarget).closest('th')
+    targetCell = $(sender.currentTarget).closest('td')
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
 
@@ -441,7 +444,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   cancelEdits: (sender) ->
     # Get row index and data of selected patient
-    targetCell = $(sender.currentTarget).closest('th')
+    targetCell = $(sender.currentTarget).closest('td')
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
     @setRowData(rowIndex, row['old'])
@@ -456,7 +459,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   openEditDialog: (sender) ->
     # Get row index and data of selected patient
-    targetCell = $(sender.currentTarget).closest('th')
+    targetCell = $(sender.currentTarget).closest('td')
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
     patient = _.findWhere(@measure.get('patients').models, {id: row.id})
@@ -474,7 +477,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   showDelete: (sender) ->
     # Get row index and data of selected patient
-    targetCell = $(sender.currentTarget).closest('th')
+    targetCell = $(sender.currentTarget).closest('td')
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
 
@@ -490,7 +493,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   hideDelete: (sender) ->
     # Get row index and data of selected patient
-    targetCell = $(sender.currentTarget).closest('th')
+    targetCell = $(sender.currentTarget).closest('td')
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
     @setRowData(rowIndex, row['old'])
@@ -502,7 +505,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   deletePatient: (sender) ->
     # Get row index and data of selected patient
-    targetCell = $(sender.currentTarget).closest('th')
+    targetCell = $(sender.currentTarget).closest('td')
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
     @removePatientFromDataSources(row)

@@ -12,15 +12,15 @@
   <thead>
     <tr>
       {{#each head1}}
-        <th scope="col" style="width: {{{this.width}}}px;" colspan="{{{this.colspan}}}" id="{{{this.title}}}"><div>{{{this.title}}}</div></th>
+        <th scope="col" role="columnheader" style="width: {{{this.width}}}px;" colspan="{{{this.colspan}}}" id="{{{this.title}}}"><div>{{{this.title}}}</div></th>
       {{/each}}
     </tr>
     <tr>
       {{#each head2}}
         {{#ifIn this ../populations}}
-          <th class="rotate" scope="col"><div>{{population this}}</div></th>
+          <th class="rotate" scope="col" role="columnheader"><div>{{population this}}</div></th>
         {{else}}
-          <th scope="col"><div class="tableScrollContainer"><div class="tableScroll">{{{this}}}</div></div></th>
+          <th scope="col" role="columnheader"><div class="tableScrollContainer"><div class="tableScroll">{{{this}}}</div></div></th>
         {{/ifIn}}
       {{/each}}
     </tr>
