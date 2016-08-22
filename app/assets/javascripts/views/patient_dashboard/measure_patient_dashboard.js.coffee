@@ -233,10 +233,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
                     ''
         columnNumber: meta.col
         patientId: row.id
-        result: JST['pd_result_detail']({
-          passes: data == "TRUE",
-          specifically: data.indexOf('SPECIFICALLY') >= 0
-        })
+        result: JST['pd_result_detail']({ passes: data == "TRUE" })
       })
     else
       return ''

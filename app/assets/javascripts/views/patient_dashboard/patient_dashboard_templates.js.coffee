@@ -125,23 +125,15 @@ JST['pd_action_gears'] = Handlebars.compile '<span class="pd-settings-container"
 Displays individual results.
 ###
 JST['pd_result_detail'] = Handlebars.compile '
-  {{#if passes}}
-    <div class="pull-left text-success">
-      {{#if specifically}}
-        <i aria-hidden="true" class="fa fa-fw fa-asterisk"></i> SPECIFICALLY TRUE
-      {{else}}
-        <i aria-hidden="true" class="fa fa-fw fa-check-circle"></i> TRUE
-      {{/if}}
-    </div>
-  {{else}}
-    <div class="pull-left text-danger">
-      {{#if specifically}}
-        <i aria-hidden="true" class="fa fa-fw fa-asterisk"></i> SPECIFICALLY FALSE
-      {{else}}
-        <i aria-hidden="true" class="fa fa-fw fa-times"></i> FALSE
-      {{/if}}
-    </div>
-  {{/if}}'
+  <div class="pull-left {{#if passes}}text-success{{else}}text-danger{{/if}}">
+      <i aria-hidden="true" class="fa fa-fw 
+        {{#if specifically}}
+          fa-asterisk
+        {{else}}
+          {{#if passes}}fa-check-circle{{else}}fa-times{{/if}}
+        {{/if}}"></i>
+      {{#if passes}}TRUE{{else}}FALSE{{/if}}
+  </div>'
 
 ###
 Displays results with a popover. Popover content and result are HTML blobs.
