@@ -7,7 +7,7 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     @last = @patient.get('last')
     @description = if @patient.get('notes') then @patient.get('notes') else ''
     @birthdate = @patient.get('birthdate')
-    @birthdate = if @birthdate then moment.utc(@birthdate, 'X').format('L') else ''
+    @birthdate = moment.utc(@birthdate, 'X').format('L')
     @deathdate = @patient.get('deathdate')
     @deathdate = if @deathdate then moment.utc(@deathdate, 'X').format('L') else ''
     @gender = @patient.get('gender')
