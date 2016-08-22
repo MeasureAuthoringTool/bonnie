@@ -6,19 +6,22 @@ These templates will be evaluated as they are called in patient dashboard.
 Provides a generic date field
 ###
 JST['pd_date_field'] = Handlebars.compile '
+  <label class="sr-only" for="{{key}}{{rowIndex}}">{{key}}</label>
   <input type="text" id="{{key}}{{rowIndex}}" name="{{key}}{{rowIndex}}" class="date-picker form-control input-sm" title="month/day/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">'
 
 ###
 Provides a generic input field
 ###
 JST['pd_input_field'] = Handlebars.compile '
-  <input class="form-control input-sm" type="text" name="{{key}}{{rowIndex}}">'
+  <label class="sr-only" for="{{key}}{{rowIndex}}">{{key}}</label>
+  <input class="form-control input-sm" type="text" id="{{key}}{{rowIndex}}" name="{{key}}{{rowIndex}}">'
 
 ###
 Gender select menu for editing patients.
 ###
 JST['pd_edit_gender'] = Handlebars.compile '
-  <select name="gender{{rowIndex}}" class="form-control input-sm">
+  <label class="sr-only" for="{{key}}{{rowIndex}}">{{key}}</label>
+  <select id="{{key}}{{rowIndex}}" name="gender{{rowIndex}}" class="form-control input-sm">
     <option value="M" {{#unless femaleSelected}}selected{{/unless}}>Male</option>
     <option value="F" {{#if femaleSelected}}selected{{/if}}>Female</option>
   </select>'
@@ -75,11 +78,12 @@ JST['pd_result_checkbox'] = Handlebars.compile '<div>
 Takes a population's calculation result and displays it
 ###
 JST['pd_actual_expected_value'] = Handlebars.compile '<div>
+    <label class="sr-only" for="{{key}}{{rowIndex}}">{{key}} expected value</label>
     {{#if episodeOfCare}}
-      <input class="form-control input-sm" type="text" value="{{value}}" name="{{key}}{{rowIndex}}">
+      <input id="{{key}}{{rowIndex}}" class="form-control input-sm" type="text" value="{{value}}" name="{{key}}{{rowIndex}}">
     {{else}}
       {{#if continuousVariable}}
-        <input class="form-control input-sm" type="text" value="{{value}}" name="{{key}}{{rowIndex}}">
+        <input id="{{key}}{{rowIndex}}" class="form-control input-sm" type="text" value="{{value}}" name="{{key}}{{rowIndex}}">
       {{else}}
         <input type="checkbox" value="{{value}}" id="{{key}}{{rowIndex}}">
       {{/if}}
