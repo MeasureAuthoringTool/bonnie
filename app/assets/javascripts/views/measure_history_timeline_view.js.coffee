@@ -10,11 +10,15 @@ class Thorax.Views.MeasureHistoryTimelineView extends Thorax.Views.BonnieView
   loadHistory: =>
     @patientIndex = [];
     
-    @hasHistory = true
-    if @upload_summaries.size() == 1 && @upload_summaries.at(0).get('measure_db_id_before') == null
+    # if there are no upload_summaries then there is no history.
+    if @upload_summaries.size() < 1
       @hasHistory = false
-    else if @upload_summaries.size() < 1
+    # if there is only one upload summary yet it has no 'measure_db_id_before', it is a new measure and has no history
+    else if @upload_summaries.size() == 1 && !@upload_summaries.at(0).has('measure_db_id_before')
       @hasHistory = false
+    # Otherwise there is history
+    else
+      @hasHistory = true
       
     # pull out all patients that exist, even deleted ones, map id to names
     @upload_summaries.each (upload_summary) =>
@@ -28,13 +32,6 @@ class Thorax.Views.MeasureHistoryTimelineView extends Thorax.Views.BonnieView
                 name: "#{patient.get('first')} #{patient.get('last')}"
                 patient: patient
               }
-            # else
-            #   @patientIndex.push {
-            #     id: patientId
-            #     name: "Deleted Patient"
-            #     patient: patient
-            #   }
-    return
     
   updatePopulation: (population) ->
     @populationIndex = population.index()
