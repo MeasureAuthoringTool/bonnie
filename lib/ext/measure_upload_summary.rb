@@ -43,28 +43,27 @@ module UploadSummary
       patient.expected_values.each { |e| pat_pop_idx << e[:population_index] if e[:measure_id] == m_id }
       return if pop_idx > pat_pop_idx.max
 
-      trim_before = (patient.calc_results.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER) if !patient.too_big
+      trim_before = (patient.calc_results.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER) unless patient.too_big
       trim_expected = (patient.expected_values.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER)
-      
+
       # TODO: Make sure this can handle continuous value measures.
-        case !patient.too_big
-        when true
-          if (patient.calc_results.find{ |p| p[:measure_id] == m_id && p[:population_index] == pop_idx })['status'] == 'pass'
-            status = 'pass'
-            self.summary[:pass_before] += 1
-          else
-            status = 'fail'
-            self.summary[:fail_before] += 1
-          end
+      if !patient.too_big
+        if (patient.calc_results.find{ |p| p[:measure_id] == m_id && p[:population_index] == pop_idx })['status'] == 'pass'
+          status = 'pass'
+          self.summary[:pass_before] += 1
         else
-          if (patient.too_big_trimmed_results.find{ |p| p[:measure_id] == m_id && p[:population_index] == pop_idx })['status'] == 'pass'
-            status = 'pass'
-            self.summary[:pass_before] += 1
-          else
-            status = 'fail'
-            self.summary[:fail_before] += 1
-          end
-        end # case
+          status = 'fail'
+          self.summary[:fail_before] += 1
+        end
+      else
+        if (patient.too_big_trimmed_results.find{ |p| p[:measure_id] == m_id && p[:population_index] == pop_idx })['status'] == 'pass'
+          status = 'pass'
+          self.summary[:pass_before] += 1
+        else
+          status = 'fail'
+          self.summary[:fail_before] += 1
+        end
+      end
       self[:patients][patient.id.to_s] = {
         expected: trim_expected,
         before: trim_before,
@@ -73,7 +72,7 @@ module UploadSummary
       self[:patients][patient.id.to_s].merge!(patient_version_at_upload: patient.version) unless !patient.version
     end
   end
-  
+
   def self.collect_before_upload_state(measure, arch_measure)
     patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
 
@@ -106,10 +105,9 @@ module UploadSummary
       b_mups = the_befores.population_summaries[pop_idx]
       b_mups[:patients].keys.each do |patient|
         ptt = Record.where(id: patient).first
-        trim_after = (ptt.calc_results.find { |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx }).slice(*SLICER) if !ptt.too_big
+        trim_after = (ptt.calc_results.find { |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx }).slice(*SLICER) unless ptt.too_big
         # diff_after_expected = (b_mups[:patients][patient][:expected].to_a - trim_after.to_a).to_h
-        case !ptt.too_big
-        when true
+        if !ptt.too_big
           if (ptt.calc_results.find{ |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx })['status'] == 'pass'
             status = 'pass'
             b_mups.summary[:pass_after] += 1
@@ -125,7 +123,7 @@ module UploadSummary
             status = 'fail'
             b_mups.summary[:fail_after] += 1
           end
-        end # case
+        end 
         b_mups.patients[patient].merge!(after: trim_after, after_status: status, after_too_big: ptt.too_big, patient_version_after_upload: ptt.version)
       end
       b_mups.save!
@@ -167,5 +165,5 @@ module UploadSummary
       end
     end
   end
-  
+
 end
