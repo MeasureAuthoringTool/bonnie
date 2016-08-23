@@ -442,9 +442,13 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         editedData[k] = editedData[k] + parseInt(birthtime_str) if birthtime_str
         editedData[k] = 1 if editedData[k] == 0 # Don't allow missing birthday
       else if /deathdate/i.test(k)
-        deathdate_str = moment.utc(row[k], 'L').format('X')
-        if row[k] && row[k].length > 0
+        deathdate_str = moment.utc(row[k], 'L')
+        deathtime_str = moment.utc(patient['deathtime'], 'L')
+        if deathdate_str.isValid()
+          deathdate_str = deathdate_str.format('X')
+          deathtime_str = deathtime_str.format('X')
           editedData[k] = parseInt(deathdate_str)
+          editedData[k] = editedData[k] + parseInt(deathtime_str) if patient['deathtime']
           editedData['expired'] = true
         else
           editedData['expired'] = false
