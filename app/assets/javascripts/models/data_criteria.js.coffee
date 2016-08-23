@@ -96,11 +96,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     criteriaType in ['diagnostic_study_performed', 'functional_status_performed', 'intervention_performed', 'laboratory_test_performed',
                      'physical_exam_performed', 'procedure_performed', 'risk_category_assessment']
 
-  getNegationCodeText: ->
-    if @get('negation')
-      @measure().valueSets().where(oid: @get('negation_code_list_id'))[0].get('display_name')
-    else
-      null
+  getNegationCodeText: -> @measure().valueSets().where(oid: @get('negation_code_list_id'))[0].get('display_name') if @get('negation')
 
   canHaveNegation: ->
     #We must support criteria types with "Negation Rational" for QDM 4.2 changes.
