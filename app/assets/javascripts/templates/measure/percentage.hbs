@@ -1,7 +1,6 @@
 {{#if done}}
   <label><span class="sr-only">{{#if cms_id}}{{cms_id}}, {{/if}}{{#if population}}population {{population}}, {{/if}}{{percent}}% patients meet expected</span>
   {{#ifCond percent '==' 0}}
-    <script>template: JST['measure/percentage']</script>
     <input type="text" value="{{percent}}"  class="dial" data-readOnly="true" data-width="60" rotation="anticlockwise" data-height="60" data-thickness=".2"  data-bgColor={{#ifCond status '==' 'fail'}}"#a52700"{{else}}"#f6f6f6"{{/ifCond}} data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
   {{else}}
     {{#ifCond percent '==' 100}}
