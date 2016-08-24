@@ -81,11 +81,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       criteria: @model
 
     @listenTo @builderView, "togglePreviewInformationinDataCriteria", => @render()
-    @listenTo @builderView, "closeAllDataCriteria", =>
-      @render() # (Re)rendering the view causes each specific data criteria to close
-    @listenTo @builderView, "openAllDataCriteria", (e) =>
-      unless @isExpanded() # Only toggle if this data criteria not already expanded
-        @toggleDetails(e)
+    # (Re)rendering the view causes each specific data criteria to close
+    @listenTo @builderView, "closeAllDataCriteria", => @render()
+    # Only toggle if this data criteria not already expanded
+    @listenTo @builderView, "openAllDataCriteria", (e) => @toggleDetails(e) unless @isExpanded()
 
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
@@ -106,7 +105,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     if @builderView.previewElementInformation # only perform the calculations if the patient is previewing the information
       if @model.has('fulfillments') # LOGIC FOR FULFILLMENTS
         fullfillmentInformation = @model.get('fulfillments').map (ful) =>
-          @humanReadableString((ful.get('quantity_dispensed_value') + " " + ful.get('quantity_dispensed_unit') + " " + ful.get('dispense_date') + " ")) + ful.get('dispense_time')
+          ful.get('quantity_dispensed_value') + " " + ful.get('quantity_dispensed_unit')  + " " + ful.get('dispense_date')  + " " + ful.get('dispense_time')
 
       if @model.has('field_values') # LOGIC FOR FIELD VALUES
         fieldValueInformation = @model.get('field_values').map (field_val) =>
