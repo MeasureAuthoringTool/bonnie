@@ -5,7 +5,7 @@
   {{#each populationInformation}}
     {{#ifCond totalChanged "==" 0}}
       <p>
-        <table class="table-striped table-condensed ">
+        <table class="table table-striped table-condensed">
           <tr>
             {{#ifCond ../../../numberOfPopulations "==" 1}}
               <th width="1300px" class="centered"> Upload Summary - No Patients were affected by the updated measure! </th>
@@ -17,7 +17,7 @@
       </p>
     {{else}} {{! We have patients who were affected by the upload}}
       <p>
-        <table class="table-striped table-condensed ">
+        <table class="table table-striped table-condensed">
           <tr>
           {{#ifCond ../../../numberOfPopulations "==" 1}}
             <th width="1300px" class="centered"> Upload Summary </th>
