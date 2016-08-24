@@ -7,6 +7,10 @@ class Thorax.Views.MeasureHistoryTimelineView extends Thorax.Views.BonnieView
     @measureDiffView = new Thorax.Views.MeasureHistoryDiffView(model: @model)
     @loadHistory()
     
+  events:
+    'rendered': 
+      -> @$('#measure-diff-view-dialog').on 'hidden.bs.modal', @closeDiff
+    
   loadHistory: =>
     @patientIndex = [];
     
@@ -42,3 +46,6 @@ class Thorax.Views.MeasureHistoryTimelineView extends Thorax.Views.BonnieView
     upload = @upload_summaries.findWhere({_id: uploadID})
     @measureDiffView.loadDiff upload.get('measure_db_id_before'), upload.get('measure_db_id_after')
     @$('#measure-diff-view-dialog').modal('show');
+    
+  closeDiff: =>
+    @measureDiffView.clearDiff()

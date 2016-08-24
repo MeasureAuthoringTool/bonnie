@@ -14,20 +14,18 @@ class Thorax.Views.MeasureHistoryDiffView extends Thorax.Views.BonnieView
       return
     
     $.get('/measures/historic_diff?new_id='+newVersion+'&old_id='+oldVersion, (data) =>
-      console.log data
-      # console.log 'RETRIEVED MEASURE DATA - ' + JSON.stringify(measureData)
       @diff = data
       @diff.left.updateTime = moment(@diff.left.updateTime).format('M/D/YYYY h:mm a')
       @diff.right.updateTime = moment(@diff.right.updateTime).format('M/D/YYYY h:mm a')
       @diffView = @diff.diff[@populationIndex]
       @render()
-      return
     )
         
     
   clearDiff: ->
     @diff = undefined
     @diffView = undefined
+    @render()
     
   updatePopulation: (population) ->
     @populationIndex = population.index()
