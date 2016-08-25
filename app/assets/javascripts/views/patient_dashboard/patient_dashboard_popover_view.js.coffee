@@ -20,7 +20,7 @@ class Thorax.Views.PatientDashboardPopover extends Thorax.Views.BonnieView
     @population = @measure.get('population_criteria')[@populationKey]
     if @population.preconditions?.length > 0
       preconditionsObject = @population.preconditions[0]
-      @rootPrecondition = @findReference(preconditionsObject, @dataCriteriaKey)
+      @rootPrecondition = @findReference preconditionsObject, @dataCriteriaKey
     @aggregator = @population.aggregator
     @variables = new Thorax.Collections.MeasureDataCriteria @getVariables()
 
@@ -39,22 +39,26 @@ class Thorax.Views.PatientDashboardPopover extends Thorax.Views.BonnieView
   @returns {Array} retrieves variables if any exist in the logic statement.
   ###
   getVariables:() =>
-    dataCriteriaObject = @measure.get('data_criteria')[@dataCriteriaKey]
     variableDataCriterias = []
     dataCriteriaObjects = []
+    # Loop over all children criteria make a list data_criteria that are not null and data_criteria that have variable marked as true.
     for criteria in @allChildrenCriteria
-      dataCriteriaObjects.push @measure.get('data_criteria')[criteria] if @measure.get('data_criteria')[criteria]?
+      dataCriteriaObjects.push @measure.get('data_criteria')[criteria] if @measure.get('data_criteria')[criteria]?.variable
+
     for dataCriteriaObject in dataCriteriaObjects
-      if dataCriteriaObject?.variable
-        if dataCriteriaObject.specific_occurrence_const?
-          specificOccurrenceString = dataCriteriaObject.specific_occurrence_const
-          sourceDataCriteriaKey = specificOccurrenceString.substring(0, specificOccurrenceString.lastIndexOf("_")); #Removing "_SOURCE" from end of criteria key
-        else
-          sourceDataCriteriaKey = dataCriteriaObject.source_data_criteria
-        allMeasureDataCriterias = @measure.get('source_data_criteria').select (dc) -> dc.get('variable') && !dc.get('specific_occurrence')
-        measureDataCriterias = allMeasureDataCriterias.filter (measureDataCriteria) -> measureDataCriteria.get('source_data_criteria').toUpperCase() == sourceDataCriteriaKey.toUpperCase()
-        variableDataCriterias = variableDataCriterias.concat(measureDataCriterias)
-        variableDataCriterias = _.flatten(variableDataCriterias)
+      if dataCriteriaObject.specific_occurrence_const? # Is this a specific occurence
+        specificOccurrenceString = dataCriteriaObject.specific_occurrence_const # speciic_occurnce_const = [data_criteria_key]_"SOURCE"
+        sourceDataCriteriaKey = specificOccurrenceString.substring(0, specificOccurrenceString.lastIndexOf("_")); #Removing "_SOURCE" from end of criteria key
+      else  # Not a specific occurence
+        sourceDataCriteriaKey = dataCriteriaObject.source_data_criteria
+      # Select source data criteria down to only data criteria with variable
+      # and not specific occurence and where source data criteria matches the
+      # specified sourceDataCriteria
+      filteredDataCriteria = @measure.get('source_data_criteria').select (dc) =>
+        dc.get('variable') && !dc.get('specific_occurrence') &&
+        dc.get('source_data_criteria').toUpperCase() == sourceDataCriteriaKey.toUpperCase()
+      variableDataCriterias = variableDataCriterias.concat(filteredDataCriteria)
+      variableDataCriterias = _.flatten(variableDataCriterias)
     variableDataCriterias
 
   ###
