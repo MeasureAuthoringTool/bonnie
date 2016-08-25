@@ -6,54 +6,64 @@
     {{#ifCond totalChanged "==" 0}}
       <p>
         <table class="table table-striped table-condensed">
-          <tr>
-            {{#ifCond ../../../numberOfPopulations "==" 1}}
-              <th width="1300px" class="centered"> Upload Summary - No Patients were affected by the updated measure! </th>
-            {{else}}
-              <th width="1300px" class="centered"> {{populationTitle}} - No Patients were affected by the updated measure! </th>
-            {{/ifCond}}
-          </tr>
+          <thead>
+            <tr>
+              {{#ifCond ../../../numberOfPopulations "==" 1}}
+                <th width="1300px" class="centered"> <h2>Upload Summary</h2>No Patients were affected by the updated measure! </th>
+              {{else}}
+                <th width="1300px" class="centered"> <h2>{{populationTitle}}</h2>No Patients were affected by the updated measure! </th>
+              {{/ifCond}}
+            </tr>
+          </thead>
         </table>
       </p>
     {{else}} {{! We have patients who were affected by the upload}}
       <p>
         <table class="table table-striped table-condensed">
-          <tr>
-          {{#ifCond ../../../numberOfPopulations "==" 1}}
-            <th width="1300px" class="centered"> Upload Summary </th>
-          {{else}}
-            <th width="1300px" class="centered"> {{populationTitle}} </th>
-          {{/ifCond}}
-          <th width="200px" class="centered">Previous &nbsp;Version</th>
-          <th width="150px" class="centered">&ensp;Current &emsp;&nbsp;Version</th>
-        </tr>
-        <tr>
-          <td class="vertically-centered"> <h5> Number of Test Patients Affected: {{totalChanged}} </h5> </td>
-          <td rowspan="3">{{view "MeasurePercentageView" done=jQueryKnobBefore.done percent=jQueryKnobBefore.percent status=jQueryKnobBefore.status}}</td>
-          <td rowspan="3">{{view "MeasurePercentageView" done=jQueryKnobAfter.done percent=jQueryKnobAfter.percent status=jQueryKnobAfter.status}}</td>
-        </tr>
-      </table>
-        <table class="table table-condensed table-striped table-hover">
-          <tr>
-            <th>Test Patient Name</th>
-            <th>Before Status</th>
-            <th>After Status</th>
-          </tr>
-            {{#each patientsWhoChanged}}
+          <thead>
             <tr>
-              {{#ifCond after_status "==" "pass"}}
-                <td> <i class="pass fa fa-fw fa-check"></i> <i class="fa fa-fw fa-user"> </i>
-                <a class="patient-link" href="/#measures/{{../../../../hqmfSetId}}/patients/{{patientID}}/edit">{{name}}</a></td>
-                <td class="fail">Failing</td>
-                <td class="pass">Passing</td>
+              {{#ifCond ../../../numberOfPopulations "==" 1}}
+                <th width="1300px" class="centered"> <h2>Upload Summary</h2> </th>
               {{else}}
-                <td> <i class="fail fa fa-fw fa-times"></i> <i class="fa fa-fw fa-user"> </i>
-                <a class="patient-link" href="/#measures/{{../../../../hqmfSetId}}/patients/{{patientID}}/edit">{{name}}</a></td>
-                <td class="pass">Passing</td>
-                <td class="fail">Failing</td>
+                <th width="1300px" class="centered"> <h2>{{populationTitle}}</h2> </th>
               {{/ifCond}}
+              <th width="200px" class="centered">Previous &nbsp;Version</th>
+              <th width="150px" class="centered">&ensp;Current &emsp;&nbsp;Version</th>
             </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="vertically-centered"> <h5> Number of Test Patients Affected: {{totalChanged}} </h5> </td>
+              <td rowspan="3">{{view "MeasurePercentageView" done=jQueryKnobBefore.done percent=jQueryKnobBefore.percent status=jQueryKnobBefore.status}}</td>
+              <td rowspan="3">{{view "MeasurePercentageView" done=jQueryKnobAfter.done percent=jQueryKnobAfter.percent status=jQueryKnobAfter.status}}</td>
+            </tr>
+          <tbody>
+        </table>
+        <table class="table table-condensed table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Test Patient Name</th>
+              <th>Before Status</th>
+              <th>After Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each patientsWhoChanged}}
+              <tr>
+                {{#ifCond after_status "==" "pass"}}
+                  <td> <i class="pass fa fa-fw fa-check"></i> <i class="fa fa-fw fa-user"> </i>
+                  <a class="patient-link" href="/#measures/{{../../../../hqmfSetId}}/patients/{{patientID}}/edit">{{name}}</a></td>
+                  <td class="fail">Failing</td>
+                  <td class="pass">Passing</td>
+                {{else}}
+                  <td> <i class="fail fa fa-fw fa-times"></i> <i class="fa fa-fw fa-user"> </i>
+                  <a class="patient-link" href="/#measures/{{../../../../hqmfSetId}}/patients/{{patientID}}/edit">{{name}}</a></td>
+                  <td class="pass">Passing</td>
+                  <td class="fail">Failing</td>
+                {{/ifCond}}
+              </tr>
             {{/each}}
+          </tbody>
         </table>
       </p>
     {{/ifCond}}
