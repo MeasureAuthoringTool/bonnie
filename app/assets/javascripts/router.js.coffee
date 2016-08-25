@@ -112,19 +112,19 @@
     document.title += " - #{measure.get('cms_id')}" if measure?
     # Deal with getting the archived measure and the calculation snapshot for the patient at measure upload
     upsums = measure.get('upload_summaries')
-    archivedMeausures = measure.get('archived_measures')
+    archivedMeasures = measure.get('archived_measures')
     upload_summary = null
     beforeMeasure = null
     afterMeasure = null
-    $.when(upsums.fetchDeferred(), archivedMeausures.fetchDeferred())
+    $.when(upsums.fetchDeferred(), archivedMeasures.fetchDeferred())
       .then( -> upsums.findWhere({_id: uploadId}).fetchDeferred() )
       .then((upsum) ->
         upload_summary = upsum
-        archivedMeausures.findWhere(_id: upload_summary.get('measure_db_id_before')).fetchDeferred())
+        archivedMeasures.findWhere(_id: upload_summary.get('measure_db_id_before')).fetchDeferred())
       .then((before) ->
         beforeMeasure = before
         if measure.id isnt upload_summary.get('measure_db_id_after')
-          archivedMeausures.findWhere(_id: upload_summary.get('measure_db_id_after')).fetchDeferred())
+          archivedMeasures.findWhere(_id: upload_summary.get('measure_db_id_after')).fetchDeferred())
       .then((afterMeasure) => 
         patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, beforemeasure: beforeMeasure, latestupsum: upload_summary, aftermeasure: afterMeasure, viaRoute: "fromTimeline")
         @mainView.setView patientBuilderView
