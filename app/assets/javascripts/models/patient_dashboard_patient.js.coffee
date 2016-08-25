@@ -59,7 +59,7 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     expected_model = (model for model in @patient.get('expected_values').models when model.get('measure_id') == @measure.get('hqmf_set_id') && model.get('population_index') == @population.get('index'))[0]
     for population in @populations
       if population not in expected_model.keys()
-        expectedResults[population] = ' '
+        expectedResults[population] = 0
       else
         expectedResults[population] = expected_model.get(population)
     expectedResults
