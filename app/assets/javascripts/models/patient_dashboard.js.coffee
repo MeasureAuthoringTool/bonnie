@@ -16,6 +16,7 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
 
     # Column widths
     @COL_WIDTH_POPULATION = 30
+    @COL_WIDTH_META_HUGE = 200
     @COL_WIDTH_META_LARGE = 110
     @COL_WIDTH_META_MEDIUM = 100
     @COL_WIDTH_META_SMALL = 40
@@ -77,8 +78,8 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     dataInfo[@FIRST] = name: "First Name", width: @COL_WIDTH_META_MEDIUM
     dataInfo[@ACTIONS] = name: "Options", width: @COL_WIDTH_META_LARGE
     dataInfo[@DESCRIPTION] = name: "Description", width: @COL_WIDTH_FREETEXT
-    dataInfo[@BIRTHDATE] = name: "Birthdate", width: @COL_WIDTH_META_LARGE
-    dataInfo[@DEATHDATE] = name: "Deathdate", width: @COL_WIDTH_META_LARGE
+    dataInfo[@BIRTHDATE] = name: "Birthdate", width: @COL_WIDTH_META_HUGE
+    dataInfo[@DEATHDATE] = name: "Deathdate", width: @COL_WIDTH_META_HUGE
     dataInfo[@GENDER] = name: "Gender", width: @COL_WIDTH_META_MEDIUM
 
     for population in populations

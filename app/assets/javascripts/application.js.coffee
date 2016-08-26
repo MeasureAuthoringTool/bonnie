@@ -37,6 +37,7 @@
 #= require datatables.net-bs/js/dataTables.bootstrap
 #= require datatables.net-fixedcolumns/js/dataTables.fixedColumns
 #= require jquery.scrollTo/jquery.scrollTo
+#= require eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min
 #
 #= require helpers
 #= require_tree ./templates
