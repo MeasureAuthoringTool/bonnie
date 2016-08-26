@@ -7,7 +7,7 @@ Provides a generic date field
 ###
 JST['pd_date_field'] = Handlebars.compile '
   <label class="sr-only" for="{{key}}{{rowIndex}}">{{key}}</label>
-  <input type="text" id="{{key}}{{rowIndex}}" name="{{key}}{{rowIndex}}" class="date-picker form-control input-sm" title="month/day/year" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">'
+  <input type="text" class="form-control input-sm" id="{{key}}{{rowIndex}}" value="{{date}}" data-trigger="focus" data-call-method="populateDateTimePickerPopover"/>'
 
 ###
 Provides a generic input field
@@ -126,7 +126,7 @@ Displays individual results.
 ###
 JST['pd_result_detail'] = Handlebars.compile '
   <div class="pull-left {{#if passes}}text-success{{else}}text-danger{{/if}}">
-      <i aria-hidden="true" class="fa fa-fw 
+      <i aria-hidden="true" class="fa fa-fw
         {{#if specifically}}
           fa-asterisk
         {{else}}

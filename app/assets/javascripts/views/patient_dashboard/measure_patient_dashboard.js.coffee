@@ -113,9 +113,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       @$('#patientDashboardTable_wrapper').removeClass('form-inline')
       @$('#patientDashboardTable_filter').addClass('form-inline') # Search input
 
-      # If table scrolls, remove popovers screen
+      # If table scrolls, remove popover or datetimepicker screens
       $('div.dataTables_scrollBody, .dataTables_wrapper').scroll () =>
-        $('.popover').popover('destroy')
+        $('.popover').popover('hide')
 
     destroyed: ->
       $('.container-fluid').removeClass('container-fluid').addClass('container')
@@ -148,8 +148,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       for column, index in columns
         if column['data'] == item
           order.push [index, 'asc']
-
-    return order
+    order
 
   ###
   Manages logic highlighting.
@@ -352,13 +351,19 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Clone the old patient in case the user decides to cancel their edits
     row['old'] = jQuery.extend(true, {}, row)
 
+    # Grab patient
+    patient = @getRowData(rowIndex).patient
+
     for k, v of @editableCols
       if k == 'gender'
         # Gender (needs a dropdown)
         row[k] = JST['pd_edit_gender']({ rowIndex: rowIndex, femaleSelected: row[k] == 'F', key: k })
-      else if k in ['birthdate', 'deathdate']
-        # Birth and death date (need date pickers)
-        row[k] = JST['pd_date_field']({ rowIndex: rowIndex, key: k })
+      else if k == 'birthdate'
+        # Birthdate
+        row[k] = JST['pd_date_field']({ rowIndex: rowIndex, key: k, date: row[k] })
+      else if k == 'deathdate'
+        # Deathdate
+        row[k] = JST['pd_date_field']({ rowIndex: rowIndex, key: k, date: row[k] })
       else if /expected/i.test(k)
         # Expected values in non-CV measure (needs check boxes)
         row[k] = JST['pd_actual_expected_value']({
@@ -382,14 +387,47 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       if k != 'gender' && !/expected/i.test(k)
         $('[name=' + k + rowIndex + ']').val(row['old'][k])
 
-    # Initialize birthdate and deathdate date pickers
-    @$('#birthdate' + rowIndex).datepicker()
-    @$('#deathdate' + rowIndex).datepicker()
+    # Initialize the popovers
+    $('#birthdate' + rowIndex).popover(title: 'Birthdate', placement: 'bottom', container: 'body', html: 'true', content: '<div id="birthdate' + rowIndex + '_popover"></div>'}).on('show.bs.popover', @populateDateTimePickerPopover)
+    $('#deathdate' + rowIndex).popover({title: 'Deathdate', placement: 'bottom', container: 'body', html: 'true', content: '<div id="deathdate' + rowIndex + '_popover"></div>'}).on('show.bs.popover', @populateDateTimePickerPopover)
 
     @updateDisplay(rowIndex)
-    #tell SR something changed
+
+    # Tell screen reader something changed
     update_message = "Editing turned on for patient " + row.patient.get('last') + row.patient.get('first') + ". Can edit columns for " + _.keys(@editableCols).join(", ") + " by navigating to the associated cells in this table row."
     $('#ariaalerts').html update_message
+
+  ###
+  Populates a datetime popover with a datetime picker.
+  ###
+  populateDateTimePickerPopover: (sender) ->
+    pickerOptions =
+      icons:
+        time: 'fa fa-clock-o',
+        date: 'fa fa-calendar',
+        up: 'fa fa-chevron-up',
+        down: 'fa fa-chevron-down',
+        previous: 'fa fa-chevron-left',
+        next: 'fa fa-chevron-right',
+        today: 'fa fa-plus',
+        clear: 'fa fa-trash',
+        close: 'fa fa-remove'
+      useCurrent:
+        false
+      inline:
+        true
+      defaultDate:
+        $(sender.currentTarget).val()
+    $('#' + $(sender.currentTarget).attr('id') + '_popover').datetimepicker(pickerOptions).on('dp.change', @updateDateFieldValue)
+
+  ###
+  If the datetime picker's date or time was changed, update the datetime field
+  to reflect the new value.
+  ###
+  updateDateFieldValue: (sender) ->
+    datetimeField = $('#' + $(sender.currentTarget).attr('id').replace('_popover', ''))
+    datetimeField.val(sender.date.format('MM/DD/YYYY hh:mm A'))
+
   ###
   Saves the inline edits made to a patient
   ###
@@ -432,23 +470,12 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         else
           editedData[k] = 0
       else if /birthdate/i.test(k)
-        birthdate_str = moment.utc(row[k], 'L').format('X')
-        birthtime_str = moment.utc(patient['birthtime'], 'L')
-        if birthtime_str.isValid()
-          birthtime_str = birthtime_str.format('X')
-        else
-          birthtime_str = null
-        editedData[k] = parseInt(birthdate_str)
-        editedData[k] = editedData[k] + parseInt(birthtime_str) if birthtime_str
-        editedData[k] = 1 if editedData[k] == 0 # Don't allow missing birthday
+        editedData[k] = moment.utc($('#' + k + rowIndex).val(), 'MM/DD/YYYY hh:mm A').format('X')
+        editedData[k] = 1 if editedData[k] == 0 # TODO
       else if /deathdate/i.test(k)
-        deathdate_str = moment.utc(row[k], 'L')
-        deathtime_str = moment.utc(patient['deathtime'], 'L')
-        if deathdate_str.isValid()
-          deathdate_str = deathdate_str.format('X')
-          deathtime_str = deathtime_str.format('X')
-          editedData[k] = parseInt(deathdate_str)
-          editedData[k] = editedData[k] + parseInt(deathtime_str) if patient['deathtime']
+        if moment.utc($('#' + k + rowIndex).val(), 'MM/DD/YYYY hh:mm A').isValid()
+          editedData[k] = moment.utc($('#' + k + rowIndex).val(), 'MM/DD/YYYY hh:mm A').format('X')
+          editedData[k] = 1 if editedData[k] == 0 # TODO
           editedData['expired'] = true
         else
           editedData['expired'] = false
@@ -458,16 +485,24 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     $('#ariaalerts').html "Saving edits on this patient."
 
     # Update row on recalculation
-    patient.save editedData,
+    status = patient.save editedData,
       success: (model) =>
         result = @population.calculateResult patient
         result.calculationsComplete =>
           row['actions'] = row['old']['actions']
+          row['birthdate'] = $('#birthdate' + rowIndex).val()
+          row['deathdate'] = $('#deathdate' + rowIndex).val()
           @patientData[rowIndex] = row
           @results.add result.first()
           @setRowData(rowIndex, row)
           @deselectRow(rowIndex)
           @updateDisplay(rowIndex)
+          @$('.alert').text('').addClass('hidden')
+    unless status
+      messages = []
+      for [cid, field, message] in patient.validationError
+        messages.push message
+      @$('.alert').text(_(messages).uniq().join('; ')).removeClass('hidden')
 
   ###
   Cancels the edits made to an inline patient
@@ -481,7 +516,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Remove row selection
     @deselectRow(rowIndex)
     @updateDisplay()
-
+    @$('.alert').text('').addClass('hidden')
     $('#ariaalerts').html "Canceling edits on this patient."
 
   ###
