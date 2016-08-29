@@ -56,36 +56,31 @@ JST['pd_delete_controls'] = Handlebars.compile '
 ###
 Takes a population's calculation result and displays it
 ###
-JST['pd_result_checkbox'] = Handlebars.compile '<div>
-    {{#if episodeOfCare}}
-      {{result}}
-    {{else}}
-      {{#if continuousVariable}}
-        {{result}}
-      {{else}}
-        {{#if result}}
-          <span class="sr-only">Meets this population.</span>
-          <i class="fa fa-check-square-o default" aria-hidden="true"></i>
-        {{else}}
-          <span class="sr-only">Does not meet this population.</span>
-          <i class="fa fa-square-o default" aria-hidden="true"></i>
-        {{/if}}
-      {{/if}}
-    {{/if}}
-  </div>'
-
-###
-Takes a population's calculation result and displays it
-###
-JST['pd_actual_expected_value'] = Handlebars.compile '<div>
+JST['pd_actual_expected'] = Handlebars.compile '<div>
     <label class="sr-only" for="{{key}}{{rowIndex}}">{{key}} expected value</label>
-    {{#if episodeOfCare}}
-      <input id="{{key}}{{rowIndex}}" class="form-control input-sm" type="text" value="{{value}}" name="{{key}}{{rowIndex}}">
-    {{else}}
-      {{#if continuousVariable}}
+    {{#if editable}}
+      {{#if episodeOfCare}}
         <input id="{{key}}{{rowIndex}}" class="form-control input-sm" type="text" value="{{value}}" name="{{key}}{{rowIndex}}">
       {{else}}
-        <input type="checkbox" value="{{value}}" id="{{key}}{{rowIndex}}">
+        {{#if continuousVariable}}
+          <input id="{{key}}{{rowIndex}}" class="form-control input-sm" type="text" value="{{value}}" name="{{key}}{{rowIndex}}">
+        {{else}}
+          <input type="checkbox" id="{{key}}{{rowIndex}}" data-call-method="toggledExpected" {{#if result}}checked{{else}}{{/if}}>
+        {{/if}}
+      {{/if}}
+    {{else}}
+      {{#if episodeOfCare}}
+        {{result}}
+      {{else}}
+        {{#if continuousVariable}}
+          {{result}}
+        {{else}}
+          {{#if result}}
+            <i class="fa fa-check-square-o default" aria-hidden="true"></i>
+          {{else}}
+            <i class="fa fa-square-o default" aria-hidden="true"></i>
+          {{/if}}
+        {{/if}}
       {{/if}}
     {{/if}}
   </div>'
