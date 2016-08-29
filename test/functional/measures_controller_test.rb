@@ -78,10 +78,10 @@ include Devise::TestHelpers
     measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
     assert_equal "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure.hqmf_set_id
     assert_equal 29, measure.value_sets.count
+    assert_equal @user.id, measure.user_id
     assert_equal true, measure.needs_finalize
     assert_equal true, measure.episode_of_care?
     assert_equal 'eh', measure.type
-    assert_equal @user.id, measure.user_id
     assert_nil measure.population_criteria['DENOM']['preconditions']
     assert_nil measure.episode_ids
     assert_operator measure.map_fns[0].length, :>, 100
@@ -96,10 +96,10 @@ include Devise::TestHelpers
     measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
     assert_equal "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9", measure.hqmf_set_id
     assert_equal 29, measure.value_sets.count
+    assert_equal @user.id, measure.user_id
     assert_equal false, measure.needs_finalize
     assert_equal true, measure.episode_of_care?
     assert_equal 'eh', measure.type
-    assert_equal @user.id, measure.user_id
     assert_nil measure.population_criteria['DENOM']['preconditions']
     assert_includes measure.episode_ids, 'OccurrenceAInpatientEncounter1'
     assert_equal 1, measure.episode_ids.length

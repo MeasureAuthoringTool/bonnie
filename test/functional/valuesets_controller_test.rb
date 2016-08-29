@@ -34,8 +34,8 @@ class ValuesetsControllerTest  < ActionController::TestCase
       assert !concept.white_list
       assert !concept.black_list
     end
-
-    vs_to_change = HealthDataStandards::SVS::ValueSet.where({bonnie_version_hash: "2f96447ca313cd6b9f3ceb15ac9ff14a"}).first
+    
+    vs_to_change = HealthDataStandards::SVS::ValueSet.where({bonnie_version_hash: "cc923c74bd2fad32b62f8a4c44c6c042"}).first
 
     (vs_to_change.concepts.select {|c| c.code == 'bar_4'}).first.white_list = true
     (vs_to_change.concepts.select {|c| c.code == 'bar_8'}).first.black_list = true
@@ -44,7 +44,7 @@ class ValuesetsControllerTest  < ActionController::TestCase
     post :update, {id: vs_to_change.id, concepts: vs_to_change.concepts.map {|c| c.attributes}}
     assert_response :success
 
-    vs_to_change = HealthDataStandards::SVS::ValueSet.where({bonnie_version_hash: "2f96447ca313cd6b9f3ceb15ac9ff14a"}).first
+    vs_to_change = HealthDataStandards::SVS::ValueSet.where({bonnie_version_hash: "cc923c74bd2fad32b62f8a4c44c6c042"}).first
     vs.concepts.each do |concept|
       unless ['bar_4','bar_8','bar_9'].include?(concept.code)
         assert !concept.white_list
