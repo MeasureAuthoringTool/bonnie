@@ -200,12 +200,12 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       columns.push
         data: 'actual' + population
         className: 'value'
-        render: @insertResultValue
+        render: @insertActualValue
     for population in @populations
       columns.push
         data: 'expected' + population
         className: 'value'
-        render: @insertResultValue
+        render: @insertExpectedValue
     columns.push data: 'description'
     columns.push data: 'birthdate'
     columns.push data: 'deathdate'
@@ -222,15 +222,37 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     columns
 
   ###
-  Renders the calculation result for a population.
-  TODO: get OBSERV_UNIT for CV measures
+  Creates actual result.
   ###
-  insertResultValue: (data, type, row, meta) =>
+  insertActualValue: (data, type, row, meta) =>
     if row
-      JST['pd_result_checkbox']({
+      JST['pd_actual_expected']({
+        editable: false,
         result: data,
-        episodeOfCare: row.measure.get('episode_of_care'),
-        continuousVariable: row.measure.get('continuous_variable')  })
+        episodeOfCare: @measure.get('episode_of_care'),
+        continuousVariable: @measure.get('continuous_variable')
+      })
+    else
+      return ''
+
+  ###
+  Creates expected result.
+  ###
+  insertExpectedValue: (data, type, row, meta) =>
+    if row
+      key = _.first _.filter @pd.dataInfo, (column) => column.index == meta['col']
+      patient = @getRowData(meta['row']).patient
+      population_index = @measure.get('displayedPopulation').index()
+      expected = _.first _.filter patient.get('expected_values').models, (expected) => expected.get('population_index') == population_index
+      data = expected.get(key.name)
+      JST['pd_actual_expected']({
+        rowIndex: meta['row'],
+        key: 'expected' + key.name,
+        editable: row['editable'],
+        result: data,
+        episodeOfCare: @measure.get('episode_of_care'),
+        continuousVariable: @measure.get('continuous_variable')
+      })
     else
       return ''
 
@@ -266,8 +288,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     for editableField in editableFields
       editableCols[editableField] = @pd.dataInfo[editableField].index
     # Add expecteds to editable fields
-    # for population in @populations
-    #   editableCols['expected' + population] = @pd.dataInfo['expected' + population].index
+    for population in @populations
+      editableCols['expected' + population] = @pd.dataInfo['expected' + population].index
     return editableCols
 
   ###
@@ -320,16 +342,21 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   Updates actual warnings for a given row index
   ###
-  updateActualWarnings: (rowIndex) ->
+  updateActualWarnings: (rowIndex) =>
     nodes = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
     row = $('#patientDashboardTable').DataTable().row(rowIndex).data()
     for population in @populations
       actualIndex = (@pd.dataInfo['actual' + population].index) + 1
       td = $('td:nth-child(' + actualIndex + ')', nodes[0])
-      if row['expected' + population] != row['actual' + population]
+      patient = @getRowData(rowIndex).patient
+      population_index = @measure.get('displayedPopulation').index()
+      expected = _.first _.filter patient.get('expected_values').models, (expected) => expected.get('population_index') == population_index
+      patient_results = @matchPatientToPatientId(patient.id)
+      if expected.get(population) != patient_results[population]
         td.addClass('warn')
       else
         td.removeClass('warn')
+    $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().relayout()
 
   ###
   Updates actual warnings for all rows
@@ -351,6 +378,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Clone the old patient in case the user decides to cancel their edits
     row['old'] = jQuery.extend(true, {}, row)
 
+    # Record on the row object that this row is currently inline editable
+    row['editable'] = true
+
     # Grab patient
     patient = @getRowData(rowIndex).patient
 
@@ -365,13 +395,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         # Deathdate
         row[k] = JST['pd_date_field']({ rowIndex: rowIndex, key: k, date: row[k] })
       else if /expected/i.test(k)
-        # Expected values in non-CV measure (needs check boxes)
-        row[k] = JST['pd_actual_expected_value']({
-          rowIndex: rowIndex,
-          key: k,
-          value: row[k],
-          episodeOfCare: row.measure.get('episode_of_care'),
-          continuousVariable: row.measure.get('continuous_variable') })
+        # Expected
+        row[k] = JST['pd_actual_expected']({ rowIndex: rowIndex, key: k, editable: true, episodeOfCare: @measure.get('episode_of_care'), continuousVariable: @measure.get('continuous_variable') })
       else
         row[k] = JST['pd_input_field']({ rowIndex: rowIndex, key: k })
 
@@ -388,7 +413,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         $('[name=' + k + rowIndex + ']').val(row['old'][k])
 
     # Initialize the popovers
-    $('#birthdate' + rowIndex).popover(title: 'Birthdate', placement: 'bottom', container: 'body', html: 'true', content: '<div id="birthdate' + rowIndex + '_popover"></div>'}).on('show.bs.popover', @populateDateTimePickerPopover)
+    $('#birthdate' + rowIndex).popover({title: 'Birthdate', placement: 'bottom', container: 'body', html: 'true', content: '<div id="birthdate' + rowIndex + '_popover"></div>'}).on('show.bs.popover', @populateDateTimePickerPopover)
     $('#deathdate' + rowIndex).popover({title: 'Deathdate', placement: 'bottom', container: 'body', html: 'true', content: '<div id="deathdate' + rowIndex + '_popover"></div>'}).on('show.bs.popover', @populateDateTimePickerPopover)
 
     @updateDisplay(rowIndex)
@@ -459,16 +484,20 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
     # Update Bonnie patient
     patient = @getRowData(rowIndex).patient
+    population_index = @measure.get('displayedPopulation').index()
+    expected = _.first _.filter patient.get('expected_values').models, (expected) => expected.get('population_index') == population_index
     editedData = {}
 
     for k, v of @editableCols
       if k == 'description'
         editedData['notes'] = row[k]
       else if /expected/i.test(k)
-        if $('#' + k + rowIndex)[0].checked
-          editedData[k] = 1
+        if @measure.get('episode_of_care') || @measure.get('continuous_variable')
+          expected.set(k.replace('expected', ''), $('#' + k + rowIndex).val())
         else
-          editedData[k] = 0
+          isChecked = $('#' + k + rowIndex)[0].checked
+          result = if isChecked then 1 else 0
+          expected.set(k.replace('expected', ''), result)
       else if /birthdate/i.test(k)
         editedData[k] = moment.utc($('#' + k + rowIndex).val(), 'MM/DD/YYYY hh:mm A').format('X')
         editedData[k] = 1 if editedData[k] == 0 # TODO
@@ -481,6 +510,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
           editedData['expired'] = false
       else
         editedData[k] = row[k]
+    editedData['expected_values'] = patient.get('expected_values')
 
     $('#ariaalerts').html "Saving edits on this patient."
 
@@ -492,11 +522,13 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
           row['actions'] = row['old']['actions']
           row['birthdate'] = $('#birthdate' + rowIndex).val()
           row['deathdate'] = $('#deathdate' + rowIndex).val()
+          row['editable'] = false
           @patientData[rowIndex] = row
           @results.add result.first()
           @setRowData(rowIndex, row)
           @deselectRow(rowIndex)
           @updateDisplay(rowIndex)
+          @updateAllActualWarnings()
           @$('.alert').text('').addClass('hidden')
     unless status
       messages = []
@@ -512,6 +544,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     targetCell = $(sender.currentTarget).closest('td')
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
+    row['old']['editable'] = false
     @setRowData(rowIndex, row['old'])
     # Remove row selection
     @deselectRow(rowIndex)
@@ -607,6 +640,76 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # When popover loses focus (hides), destroy popover so content doesn't flicker on next 'show' event.
     $(sender.currentTarget).one 'hide.bs.popover', =>
       $('.popover').popover('destroy')
+
+  ###
+  When a user toggles an expected population, make sure the change is valid.
+  ###
+  toggledExpected: (sender) =>
+    return unless $(sender.target).is(':checkbox')
+    # Get row index, data, and current value of selected population
+    targetCell = $(sender.currentTarget).closest('td')
+    row = @getRowData(targetCell)
+    rowIndex = @getRowIndex(targetCell)
+    population = $(sender.target).attr('id').replace('expected', '').replace(/[0-9]/g, '')
+    unless $(sender.target)[0].checked
+      @handleDownSelect(population, 0, rowIndex)
+    else
+      @handleUpSelect(population, 1, rowIndex)
+
+  ###
+  Recursive function that handles expected population logic downselects.
+  ###
+  handleDownSelect: (population, value, rowIndex) =>
+    switch population
+      when 'STRAT'
+        @setPopulation('IPP', value, rowIndex)
+        @handleDownSelect('IPP', value, rowIndex)
+      when 'IPP'
+        @setPopulation('DENOM', value, rowIndex)
+        @setPopulation('MSRPOPL', value, rowIndex)
+        @handleDownSelect('DENOM', value, rowIndex)
+      when 'DENOM', 'MSRPOPL'
+        @setPopulation('DENEX', value, rowIndex)
+        @setPopulation('DENEXCEP', value, rowIndex)
+        @setPopulation('NUMER', value, rowIndex)
+        @handleDownSelect('NUMER', value, rowIndex)
+      when 'NUMER'
+        @setPopulation('NUMEX', value, rowIndex)
+
+  ###
+  Recursive function that handles expected population logic upselects.
+  ###
+  handleUpSelect: (population, value, rowIndex) =>
+    switch population
+      when 'NUMEX'
+        @setPopulation('NUMER', value, rowIndex)
+        @handleUpSelect('NUMER', value, rowIndex)
+      when 'NUMER'
+        @setPopulation('DENOM', value, rowIndex)
+        @setPopulation('MSRPOPL', value, rowIndex)
+        @handleUpSelect('DENOM', value, rowIndex)
+        @handleUpSelect('MSRPOPL', value, rowIndex)
+      when 'DENEX', 'DENEXCEP', 'NUMER'
+        @setPopulation('DENOM', value, rowIndex)
+        @setPopulation('MSRPOPL', value, rowIndex)
+        @handleUpSelect('DENOM', value, rowIndex)
+        @handleUpSelect('MSRPOPL', value, rowIndex)
+      when 'DENOM', 'MSRPOPL'
+        @setPopulation('IPP', value, rowIndex)
+        @handleUpSelect('IPP', value, rowIndex)
+      when 'IPP'
+        @setPopulation('STRAT', value, rowIndex)
+        @handleUpSelect('STRAT', value, rowIndex)
+
+  ###
+  Sets a single expected population's value.
+  ###
+  setPopulation: (population, value, rowIndex) =>
+    if population of @pd.criteriaKeysByPopulation
+      if value
+        $('#expected' + population + rowIndex).prop('checked', true)
+      else
+        $('#expected' + population + rowIndex).prop('checked', false)
 
   ###
   @returns {Array} an array containing the contents of both headers
