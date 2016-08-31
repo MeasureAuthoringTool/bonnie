@@ -1,75 +1,10 @@
 .measure-history-main {
   width: 100%;
 }
-.timeline-label {
-  font-size: 12px;
-  font-weight: bold;
-}
-.patientUpdateIndicator {
-  cursor: pointer;
-}
-.measureUpdateLabel {
-  font-size: 12px;
-  text-decoration: underline;
-  cursor: pointer;
-}
 
-.measureCreatedLabel {
-  font-size: 12px;
-}
-
-#patientHistory {
-  overflow-x:scroll;
-  margin: 25px 0 10px 10px;
-}
-
-.d3-tip {
-  line-height: 1;
-  padding: 6px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
-}
-
-/* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 12px;
-  width: 100%;
-  line-height: 0.8;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-}
 #measureDiff {
   padding:10px;
 }
-
-/* Style northward tooltips differently */
-.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
-}
-
-/* Style from diffy gem */
-.diff{overflow:auto;}
-.diff ul{background:#fff;overflow:auto;font-size:13px;list-style:none;margin:0;padding:0;display:table;width:100%;}
-.diff del, .diff ins{display:block;text-decoration:none;}
-.diff li{padding:0; display:table-row;margin: 0;height:1em;}
-.diff li.ins{background:#dfd; color:#080}
-.diff li.del{background:#fee; color:#b00}
-.diff li:hover{background:#ffc}
-/* try 'whitespace:pre;' if you don't want lines to wrap */
-.diff del, .diff ins, .diff span{white-space:pre-wrap;font-family:courier;tab-size:2;
-    -moz-tab-size: 2;
-    -o-tab-size:  2;}
-.diff del strong{font-weight:normal;background:#fcc;}
-.diff ins strong{font-weight:normal;background:#9f9;}
-.diff li.diff-comment { display: none; }
-.diff li.diff-block-info { background: none repeat scroll 0 0 gray; }
 
 .history-circle {
   display: block;
@@ -80,10 +15,6 @@
   text-align: center;
   line-height: 20px;
   font-size: 18px;
-}
-
-.history-circle:hover {
-  cursor: pointer;
 }
 
 table.measure-history-table {
@@ -128,19 +59,19 @@ th.history-patient-header {
   height: 55px;
   white-space: nowrap;
   border-top: none !important;
-}
-
-th.history-patient-header > div {
-  transform:
-    /* Magic Numbers */
-    translate(-3px, 15px)
-    /* 45 is really 360 - 45 */
-    rotate(315deg);
-  width: 30px;
-}
-th.history-patient-header > div > span {
-  /*border-bottom: 1px solid #ccc;*/
-  padding: 5px 5px;
+  
+  > div {
+    transform:
+      /* Magic Numbers */
+      translate(-3px, 15px)
+      /* 45 is really 360 - 45 */
+      rotate(315deg);
+    width: 30px;
+    
+    > span {
+      padding: 5px 5px;
+    }
+  }
 }
 
 .history-patient-header-name {
