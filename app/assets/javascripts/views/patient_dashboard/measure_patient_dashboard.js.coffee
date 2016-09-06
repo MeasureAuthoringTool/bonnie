@@ -65,6 +65,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     @head2 = headerData[1]
     @columnsWithChildrenCriteria = @detectChildrenCriteria(@head2)
 
+    @episodeOfCare = @measure.get('episode_of_care')
+    @continuousVariable = @measure.get('continuous_variable')
+    @displayedPopulationIndex = @measure.get('displayedPopulation').index()
+
   context: ->
     _(super).extend
       cms_id: @measure.get('cms_id')
@@ -90,7 +94,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
           emptyTable: '<i aria-hidden="true" class="fa fa-fw fa-user"></i> Test Cases Loading...'
         order: @getColumnOrder(columns)
         paging: false
-        preDrawCallback: => @updateDisplay()
         createdRow: (row, data, rowIndex) ->
           # DT adds the 'row' ARIA role to each table body row. This adds the required children roles.
           $(row).find('td').each (colIndex) -> $(this).attr('role', 'gridcell')
@@ -229,8 +232,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       JST['pd_actual_expected']({
         editable: false,
         result: data,
-        episodeOfCare: @measure.get('episode_of_care'),
-        continuousVariable: @measure.get('continuous_variable')
+        episodeOfCare: @episodeOfCare,
+        continuousVariable: @continuousVariable
       })
     else
       return ''
@@ -240,18 +243,16 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   insertExpectedValue: (data, type, row, meta) =>
     if row
-      key = _.first _.filter @pd.dataInfo, (column) => column.index == meta['col']
-      patient = @getRowData(meta['row']).patient
-      population_index = @measure.get('displayedPopulation').index()
-      expected = _.first _.filter patient.get('expected_values').models, (expected) => expected.get('population_index') == population_index
-      data = expected.get(key.name)
+      key = @pd.dataIndices[meta['col']].replace 'expected', ''
+      expected = @getRowData(meta['row']).patient.get('expected_values').models[@displayedPopulationIndex]
+      data = expected.get(key)
       JST['pd_actual_expected']({
         rowIndex: meta['row'],
-        key: 'expected' + key.name,
+        key: 'expected' + key,
         editable: row['editable'],
         result: data,
-        episodeOfCare: @measure.get('episode_of_care'),
-        continuousVariable: @measure.get('continuous_variable')
+        episodeOfCare: @episodeOfCare,
+        continuousVariable: @continuousVariable
       })
     else
       return ''
