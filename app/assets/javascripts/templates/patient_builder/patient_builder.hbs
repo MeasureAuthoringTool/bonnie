@@ -19,12 +19,14 @@
   </div>
 
   <div class="col-md-4">
+    {{#unless inPatientDashboard}}
     <div class="pull-right">
       {{#button "cancel" class="btn btn-default"}}CANCEL{{/button}}
       {{#button "save" class="btn btn-primary" data-saving-text="SAVING..."}}SAVE{{/button}}
     </div>
+    {{/unless}}
   </div>
-</div> 
+</div>
 
 <div class="row">
   <form class="col-left" role="form">

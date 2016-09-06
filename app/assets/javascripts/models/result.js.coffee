@@ -25,8 +25,8 @@ class Thorax.Models.Result extends Thorax.Model
     orCounts = @calculateOrCounts(rationale)
     for code in Thorax.Models.Measure.allPopulationCodes
       if specifics = @get('finalSpecifics')?[code]
-        updatedRationale[code] = {} 
-        
+        updatedRationale[code] = {}
+
         # get the referenced occurrences in the logic tree using original population code
         criteria = _.uniq @population.getDataCriteriaKeys(@measure.get('population_criteria')[@population.get(code)?.code], false)
         criteriaResults = @checkCriteriaForRationale(specifics, criteria, rationale, @measure.get('data_criteria'))
@@ -68,14 +68,14 @@ class Thorax.Models.Result extends Thorax.Model
     # for the criteria
     if criteriaSpecificIds.length == 0
       return true
-    # if we have no specifics in the final specifics list, all criteria specifics 
+    # if we have no specifics in the final specifics list, all criteria specifics
     # should be wild cards.
     if finalSpecificIdsSet.length == 0
       return criteriaSpecificIds.every (criteriaSpecificId) -> criteriaSpecificId == "*"
-      
+
     # at least one set of final specific ids should match the criteria specific ids
     return finalSpecificIdsSet.some (finalSpecificIds) ->
-      # every criteria specific id and every final specific id should either 
+      # every criteria specific id and every final specific id should either
       # match or be a wild card.
       criteriaSpecificIds.every (criteriaSpecificId, idx) ->
         finalSpecificId = finalSpecificIds[idx]
@@ -96,7 +96,7 @@ class Thorax.Models.Result extends Thorax.Model
       if criterionRationale == false || !criterionRationale.specifics? || criterionRationale.specifics.length == 0
         results.good.push(criterion)
       else
-        matches = criterionRationale.specifics.some (criteriaSpecificIds) => 
+        matches = criterionRationale.specifics.some (criteriaSpecificIds) =>
           @idsMatch(criteriaSpecificIds, finalSpecifics)
         if matches
           results.good.push(criterion)
@@ -202,9 +202,15 @@ class Thorax.Models.Result extends Thorax.Model
 
   # adds specific rationale results to the toJSON output.
   toJSON: ->
-    _(super).extend({specificsRationale: @specificsRationale()}) 
+    _(super).extend({specificsRationale: @specificsRationale()})
 
+  calculationComplete: (callback) =>
+    $.when(@calculation).done -> callback(this)
 
 class Thorax.Collections.Results extends Thorax.Collection
   model: Thorax.Models.Result
   initialize: (models, options) -> @parent = options?.parent
+
+  calculationsComplete: (callback) ->
+    promises = @map (result) -> result.calculation
+    $.when(promises...).done -> callback(this)
