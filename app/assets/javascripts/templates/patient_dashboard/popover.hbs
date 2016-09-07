@@ -1,14 +1,8 @@
 {{#if rootPrecondition}}
-  {{#if rootPrecondition.preconditions }}
-    {{#each rootPrecondition.preconditions}}
-      {{view "PreconditionLogic" precondition=this parentPrecondition=../rootPrecondition parentNegation=../rootPrecondition.negation measure=../measure}}
+  {{#if copyParentPrecondition.preconditions }}
+    {{#each copyParentPrecondition.preconditions}}
+      {{view "PreconditionLogic" precondition=this parentPrecondition=../copyParentPrecondition parentNegation=../copyParentPrecondition.negation measure=../measure}}
     {{/each}}
-  {{else}}
-    <ul>
-      <li>
-        {{#if aggregator}}{{translate_aggregator aggregator}}: {{/if}} {{view "DataCriteriaLogic" reference=rootPrecondition.reference measure=../measure tag="span"}}
-      </li>
-    </ul>
   {{/if}}
 {{else}}
   No Children Data Criteria

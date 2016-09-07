@@ -1,31 +1,19 @@
 class Thorax.Views.PatientDashboardPopover extends Thorax.Views.BonnieView
   template: JST['patient_dashboard/popover']
 
-  population_map:
-    'IPP': 'Initial Population'
-    'STRAT': 'Stratification'
-    'DENOM': 'Denominator'
-    'NUMER': 'Numerator'
-    'NUMEX': 'Numerator Exclusions'
-    'DENEXCEP': 'Denominator Exceptions'
-    'DENEX': 'Denominator Exclusions'
-    'MSRPOPL': 'Measure Population'
-    'OBSERV': 'Measure Observations'
-    'MSRPOPLEX': 'Measure Population Exclusions'
-  aggregator_map:
-    'MEAN':'Mean of'
-    'MEDIAN':'Median of'
-
   initialize: ->
     @population = @measure.get('population_criteria')[@populationKey]
     if @population.preconditions?.length > 0
       preconditionsObject = @population.preconditions[0]
       @rootPrecondition = @findReference preconditionsObject, @dataCriteriaKey
+      @parentPrecondition = @findParentOfReference preconditionsObject, @rootPrecondition
+      @copyParentPrecondition = jQuery.extend(true, {}, @parentPrecondition) # Deep clone parentPreconditionObject
+      @copyParentPrecondition.preconditions = _.filter @copyParentPrecondition.preconditions, (precondition) => precondition.reference == @rootPrecondition.reference
     @aggregator = @population.aggregator
     @variables = new Thorax.Collections.MeasureDataCriteria @getVariables()
 
   ###
-  @returns {string} returns the reference that matches the data criteria key.
+  @returns {Object} returns the reference that matches the data criteria key.
   ###
   findReference: (preconditionsObject, criteria) =>
     if preconditionsObject.reference? && preconditionsObject.reference == criteria
@@ -34,6 +22,18 @@ class Thorax.Views.PatientDashboardPopover extends Thorax.Views.BonnieView
       for precondition in preconditionsObject.preconditions
         referenceValue = @findReference(precondition, criteria)
         return referenceValue if referenceValue?
+
+  ###
+  @returns {Object} returns the parent object of object that containes rootPrecondition
+  ###
+  findParentOfReference: (preconditionsObject, rootPrecondition) =>
+    if preconditionsObject.preconditions?.length > 0
+      for precondition in preconditionsObject.preconditions
+        if precondition.reference? && precondition.reference == rootPrecondition.reference
+          return preconditionsObject
+        else if precondition.preconditions?
+          referenceValue = @findParentOfReference(precondition, rootPrecondition)
+          return referenceValue if referenceValue?
 
   ###
   @returns {Array} retrieves variables if any exist in the logic statement.
@@ -60,15 +60,3 @@ class Thorax.Views.PatientDashboardPopover extends Thorax.Views.BonnieView
       variableDataCriterias = variableDataCriterias.concat(filteredDataCriteria)
       variableDataCriterias = _.flatten(variableDataCriterias)
     variableDataCriterias
-
-  ###
-  @returns {string} returns the full name for a population given an abbreviation
-  ###
-  translate_population: (code) ->
-    @population_map[code]
-
-  ###
-  @returns {string} returns the full name of an aggregation given a type
-  ###
-  translate_aggregator: (code) ->
-    @aggregator_map[code]
