@@ -337,7 +337,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   scrollToPopulation: (e) ->
     leftOffset = $('.DTFC_Cloned').outerWidth() + $('.DTFC_Cloned').offset().left
-    buttonText = '#' + $(e.currentTarget).contents().get(1).nodeValue # Grab the text of the button, but not the text in the <span>
+    # Grab the text of the button, but not the text in the <span>
+    buttonText = '#' + $(e.currentTarget).contents().get(1).nodeValue.replace(' ', '')
     @$('.dataTables_scrollBody').scrollTo @$(buttonText), offset: left: -leftOffset
 
   ###
@@ -726,7 +727,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # they should cover
     for header, index in row1_full
       if !!header
-        row1.push title: header, colspan: 1, width: @pd.dataInfo[@pd.dataIndices[index]].width
+        row1.push title: header, noSpaceTitle: header.replace(' ', ''), colspan: 1, width: @pd.dataInfo[@pd.dataIndices[index]].width
       else if row1[row1.length - 1]? and !!row1[row1.length - 1].title
         row1[row1.length - 1].colspan = row1[row1.length - 1].colspan + 1
         row1[row1.length - 1].width = row1[row1.length - 1].width + @pd.dataInfo[@pd.dataIndices[index]].width
