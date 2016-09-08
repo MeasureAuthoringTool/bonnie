@@ -173,7 +173,7 @@ class PatientsController < ApplicationController
 
   def history_changes_results(field, from, to, acts, exps, fordot)
     puts "The from is #{from}"
-    # binding.pry
+
     blah = {}
     unless from.nil?
       from.each do |pops|
@@ -207,19 +207,6 @@ class PatientsController < ApplicationController
       result << evald
       fordot = result
     end
-
-    # finale = { from: blah, to: meh }
-    # if @big_finale.empty?
-    #   @big_finale = finale
-    # else
-    #   finale.map do |ftk, ftv| # for from and to
-    #     ftv.map do |pk, pv| # for each strat population
-    #       pv.map do |plk, plv| # for each logic population
-    #         @big_finale[ftk][pk][plk].store(plv.keys.first.to_sym, plv.values.first) if @big_finale[ftk][pk][plk].class != NilClass
-    #       end # for each logic population
-    #     end # for each strat population
-    #   end # for from and to
-    # end # @big_finale.empty?
 
     return acts, exps, fordot
   end
@@ -277,25 +264,6 @@ class PatientsController < ApplicationController
     return results
   end
   
-  # wrap patientData in stratifications
-  # var patientData = [
-  #   {label: "Jack Sparrow", times: [{result:"pass", updateTime: 1451606400000}, 
-  #                               {result:"pass", updateTime: 1451952000000, changed: "Measure Updated"}, 
-  #                               {result:"fail", updateTime: 1452556800000, changed: "Encounter Added, Name Changed"}, 
-  #                               {result:"pass", updateTime: 1453075200000, changed: "Measure Updated"}
-  #                               ]},
-  #   {label: "Jack Skellington", times: [{result:"fail", updateTime: 1451692800000}, 
-  #                               {result:"fail", updateTime: 1451952000000, changed: "Measure Updated"},
-  #                               {result:"fail", updateTime: 1452384000000, changed: "Name Changed"}, 
-  #                               {result:"pass", updateTime: 1453075200000, changed: "Measure Updated"},
-  #                               {result:"pass", updateTime: 1453079200000, changed: "Medication Removed"}
-  #                               ]},
-  #   {label: "Jack Sprat", times: [{result:"pass", updateTime: 1451865600000}, 
-  #                               {result:"pass", updateTime: 1451952000000, changed: "Measure Updated"}, 
-  #                               {result:"pass", updateTime: 1453075200000, changed: "Measure Updated"}
-  #                               ]}
-  # ];
-
   def update
     patient = Record.by_user(current_user).find(params[:id]) # FIXME: will we have an ID attribute on server side?
     update_patient(patient)

@@ -104,9 +104,6 @@ include Devise::TestHelpers
   test "update" do
 
     assert_equal 0,Record.count
-    # patient = Record.new
-    # patient.user = @user
-    # patient.save!
     
     @patient = {'first'=> 'Abby', 
      'last'=> 'Boop', 
@@ -175,9 +172,6 @@ include Devise::TestHelpers
   test "exercise history tracking" do
 
     assert_equal 0,Record.count
-    # patient = Record.new
-    # patient.user = @user
-    # patient.save!
     
     @patient = {'first'=> 'Abby', 
      'last'=> 'Boop', 
@@ -282,8 +276,6 @@ include Devise::TestHelpers
     r = Record.last
     assert_equal 3, r.history_tracks.count
     assert_equal "fail", r.calc_results[0]['status']
-    # assert_equal "pass", r.history_tracks[2]['original']['calc_results'][0]['status']
-    # assert_equal "fail", r.history_tracks[2]['modified']['calc_results'][0]['status']
     
     @patient = {
       "id" => patient.id.to_s,
@@ -368,10 +360,10 @@ include Devise::TestHelpers
     assert_equal 1, patient.history_tracks.count
     assert_equal 'pass', patient.calc_results[0]['status']
 
-@patient = {
-      "id" => patient.id.to_s,
-      "_id" => patient.id.to_s,
-      'first'=> 'Betty', 
+    @patient = {
+     "id" => patient.id.to_s,
+     "_id" => patient.id.to_s,
+     'first'=> 'Betty', 
      'last'=> 'Boop', 
      'gender'=> 'F', 
      'expired'=> 'true' ,
@@ -390,7 +382,6 @@ include Devise::TestHelpers
     assert_equal 1, Record.count
 
     r = Record.first
-    # binding.pry
     assert_equal 2, r.history_tracks.count
     assert_equal true, r.too_big
     assert_equal 'pass', r.too_big_trimmed_results[0]['status']
@@ -398,10 +389,10 @@ include Devise::TestHelpers
     assert_equal nil, r.too_big_trimmed_results[0]['finalSpecifics']
     assert_equal false, r.calc_results?
 
-@patient = {
-      "id" => patient.id.to_s,
-      "_id" => patient.id.to_s,
-      'first'=> 'Betty', 
+    @patient = {
+     "id" => patient.id.to_s,
+     "_id" => patient.id.to_s,
+     'first'=> 'Betty', 
      'last'=> 'Boop', 
      'gender'=> 'F', 
      'expired'=> 'true' ,
@@ -420,7 +411,6 @@ include Devise::TestHelpers
     assert_equal 1, Record.count
 
     r = Record.first
-    # binding.pry
     assert_equal 3, r.history_tracks.count
     assert_equal false, r.too_big_trimmed_results?
     assert_equal true, r.calc_results?

@@ -28,14 +28,12 @@ module UploadSummary
     scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where({'user_id'=>user.id, 'hqmf_set_id'=>hqmf_set_id}) }
   end
   
-  # 
   class PopulationSummary
     include Mongoid::Document
     include Mongoid::Timestamps
     field :patients, type: Hash, default: {}
     field :summary, type: Hash, default: { pass_before: 0, pass_after: 0, fail_before: 0, fail_after: 0 }
     embedded_in :measure_summaries
-    # attr_accessor :patients, :summary
 
     def before_measure_load_compare(patient, pop_idx, m_id)
       # Handle when measure has more populations 
@@ -106,7 +104,6 @@ module UploadSummary
       b_mups[:patients].keys.each do |patient|
         ptt = Record.where(id: patient).first
         trim_after = (ptt.calc_results.find { |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx }).slice(*SLICER) unless ptt.too_big
-        # diff_after_expected = (b_mups[:patients][patient][:expected].to_a - trim_after.to_a).to_h
         if !ptt.too_big
           if (ptt.calc_results.find{ |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx })['status'] == 'pass'
             status = 'pass'

@@ -152,7 +152,6 @@ class Record
 
   def size_check
     self.results_size = calc_results.to_json.size
-    # puts "\n\n\tcalc_results is #{calc_results.to_json.size}\n\n"
     if self.results_size > 12000000
       self.too_big = true
       calc_results.each do |cr|

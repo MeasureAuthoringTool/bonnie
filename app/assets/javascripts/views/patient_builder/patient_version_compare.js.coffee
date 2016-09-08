@@ -12,23 +12,19 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
     @thePatient = @latestupsum.get('population_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
 
     if @viaRoute == "fromEdit"
-      # @populationInBefore = true
       @fromEdit = true
       if !@thePatient.after_too_big
         if @thePatient.after?
           @populationInBefore = true
-          # @fromEdit = true
           @cachedBeforeResult = new Thorax.Models.CachedResult({
             rationale: @thePatient.after.rationale
             finalSpecifics: @thePatient.after.finalSpecifics}
             , {
-              # population: @beforemeasure.get('displayedPopulation')
               population: @measure.get('displayedPopulation')
               patient: @model
             }
           )
           @populationLogicViewBefore = new Thorax.Views.ComparePopulationLogic(isCompareView: true)
-          # @populationLogicViewBefore.setPopulation @beforemeasure.get('displayedPopulation')
           @populationLogicViewBefore.setPopulation @cachedBeforeResult.population
           @populationLogicViewBefore.showRationale @cachedBeforeResult
         else
@@ -39,20 +35,18 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
 
     if @viaRoute == "fromTimeline"
       if !@thePatient.before_too_big
-        if @beforemeasure.get('populations').at(@selectedPopulation) #&& @thePatient.after is not undefined
+        if @beforemeasure.get('populations').at(@selectedPopulation)
           @populationInBefore = true
           @cachedBeforeResult = new Thorax.Models.CachedResult({
             rationale: @thePatient.before.rationale
             finalSpecifics: @thePatient.before.finalSpecifics}
             , {
-              # population: @beforemeasure.get('displayedPopulation')
               population: @beforemeasure.get('populations').at(@selectedPopulation)
               patient: @model
             }
           )
           
           @populationLogicViewBefore = new Thorax.Views.ComparePopulationLogic(isCompareView: true)
-          # @populationLogicViewBefore.setPopulation @beforemeasure.get('displayedPopulation')
           @populationLogicViewBefore.setPopulation @cachedBeforeResult.population
           @populationLogicViewBefore.showRationale @cachedBeforeResult
         else
@@ -90,7 +84,6 @@ class Thorax.Views.ComparePopulationLogic extends Thorax.LayoutView
   setPopulation: (population) ->
     population.measure().set('displayedPopulation', population)
     @setModel(population)
-    # suppressDataCriteriaHighlight = set to turn off the data criteria highlighting.
     @setView new Thorax.Views.PopulationLogic(model: population, suppressDataCriteriaHighlight: true)
   showRationale: (result) ->
     @getView().showRationale(result)
