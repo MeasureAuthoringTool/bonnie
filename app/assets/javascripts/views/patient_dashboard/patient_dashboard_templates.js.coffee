@@ -7,21 +7,21 @@ Provides a generic date field
 ###
 JST['pd_date_field'] = Handlebars.compile '
   <label class="sr-only" for="{{key}}{{rowIndex}}">{{key}}</label>
-  <input type="text" class="form-control input-sm" id="{{key}}{{rowIndex}}" value="{{date}}" data-trigger="focus" data-call-method="populateDateTimePickerPopover"/>'
+  <input type="text" class="form-control input-sm inline-editing" id="{{key}}{{rowIndex}}" value="{{date}}" data-trigger="focus" data-call-method="populateDateTimePickerPopover"/>'
 
 ###
 Provides a generic input field
 ###
 JST['pd_input_field'] = Handlebars.compile '
   <label class="sr-only" for="{{key}}{{rowIndex}}">{{key}}</label>
-  <input class="form-control input-sm" type="text" id="{{key}}{{rowIndex}}" name="{{key}}{{rowIndex}}">'
+  <input class="form-control input-sm inline-editing" type="text" id="{{key}}{{rowIndex}}" name="{{key}}{{rowIndex}}">'
 
 ###
 Gender select menu for editing patients.
 ###
 JST['pd_edit_gender'] = Handlebars.compile '
   <label class="sr-only" for="{{key}}{{rowIndex}}">{{key}}</label>
-  <select id="{{key}}{{rowIndex}}" name="gender{{rowIndex}}" class="form-control input-sm">
+  <select id="{{key}}{{rowIndex}}" name="gender{{rowIndex}}" class="form-control input-sm inline-editing">
     <option value="M" {{#unless femaleSelected}}selected{{/unless}}>Male</option>
     <option value="F" {{#if femaleSelected}}selected{{/if}}>Female</option>
   </select>'
@@ -60,12 +60,12 @@ JST['pd_actual_expected'] = Handlebars.compile '<div>
     <label class="sr-only" for="{{key}}{{rowIndex}}">{{key}} expected value</label>
     {{#if editable}}
       {{#if episodeOfCare}}
-        <input id="{{key}}{{rowIndex}}" class="form-control input-sm" type="text" value="{{value}}" name="{{key}}{{rowIndex}}">
+        <input id="{{key}}{{rowIndex}}" class="form-control input-sm inline-editing" type="text" value="{{value}}" name="{{key}}{{rowIndex}}">
       {{else}}
         {{#if continuousVariable}}
-          <input id="{{key}}{{rowIndex}}" class="form-control input-sm" type="text" value="{{value}}" name="{{key}}{{rowIndex}}">
+          <input id="{{key}}{{rowIndex}}" class="form-control input-sm inline-editing" type="text" value="{{value}}" name="{{key}}{{rowIndex}}">
         {{else}}
-          <input type="checkbox" id="{{key}}{{rowIndex}}" data-call-method="toggledExpected" {{#if result}}checked{{else}}{{/if}}>
+          <input type="checkbox" id="{{key}}{{rowIndex}}" class="inline-editing" data-call-method="toggledExpected" {{#if result}}checked{{else}}{{/if}}>
         {{/if}}
       {{/if}}
     {{else}}

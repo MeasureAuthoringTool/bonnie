@@ -183,6 +183,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     else
       @updateAllActualWarnings()
 
+    # if the row is showing editable columns, focus on the first input
+    row = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
+    $(row).find('.inline-editing:first').focus()
+
   ###
   @returns {Array} an array of "instructions" for each column in a row that
   tells patient dashboard how to display a PatientDashboardPatient properly
