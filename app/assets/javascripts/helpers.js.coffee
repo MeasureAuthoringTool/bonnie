@@ -66,19 +66,6 @@ Handlebars.registerHelper 'ifIn', (obj, arr, options) ->
 Takes a shorthand population name and renders it such
 that screen readers will read out the complete name
 ###
-Handlebars.registerHelper 'population', (population) ->
+Handlebars.registerHelper 'population', (population) =>
   return '' unless population?
-  population_map =
-    'IPP': 'Initial Population'
-    'STRAT': 'Stratification'
-    'DENOM': 'Denominator'
-    'NUMER': 'Numerator'
-    'NUMEX': 'Numerator Exclusions'
-    'DENEXCEP': 'Denominator Exceptions'
-    'DENEX': 'Denominator Exclusions'
-    'MSRPOPL': 'Measure Population'
-    'OBSERV': 'Measure Observations'
-    'MSRPOPLEX': 'Measure Population Exclusions'
-
-  abbreviation = '<abbr title="' + population_map[population] + '">' + population + '</abbr>'
-  return new Handlebars.SafeString(abbreviation)
+  return new Handlebars.SafeString Thorax.Models.Measure.PopulationMap[population]

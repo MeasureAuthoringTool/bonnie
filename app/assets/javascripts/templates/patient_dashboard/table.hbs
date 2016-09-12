@@ -21,7 +21,9 @@
     <tr>
       {{#each head2}}
         {{#ifIn this ../populations}}
-          <th class="rotate" scope="col" role="columnheader"><div>{{population this}}</div></th>
+          <th class="rotate" scope="col" role="columnheader">
+            <div><span class="sr-only">{{population this}}</span> <span aria-hidden="true">{{this}}</span></div>
+          </th>
         {{else}}
           <th scope="col" role="columnheader"><div class="tableScrollContainer"><div class="tableScroll">{{{this}}}</div></div></th>
         {{/ifIn}}
