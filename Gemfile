@@ -47,8 +47,8 @@ gem 'oj' # Faster JSON
 
 group :test, :development, :ci do
   gem 'pry'
-  gem 'jasmine'
-  gem 'jasmine-jquery-rails'
+  gem 'teaspoon'
+  gem 'teaspoon-jasmine'
   gem 'simplecov', :require => false
   gem 'minitest'
   gem 'webmock'
@@ -60,6 +60,7 @@ group :test, :development do
   gem 'thin'
   gem 'capistrano-rails'
   gem 'rvm1-capistrano3', require: false
+  gem 'phantomjs'
 end
 
 group :production do

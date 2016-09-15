@@ -1,7 +1,8 @@
 describe 'PatientBuilderView', ->
 
   beforeEach ->
-
+    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
+    jasmine.getJSONFixtures().clearCache()
     @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[0], parse: true
     @measure = bonnie.measures.findWhere(cms_id: 'CMS146v2')
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)

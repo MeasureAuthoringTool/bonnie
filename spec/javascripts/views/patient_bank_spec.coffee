@@ -1,6 +1,8 @@
 describe 'PatientBankView', ->
 
   beforeEach ->
+    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
+    jasmine.getJSONFixtures().clearCache()
     @patients = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
     @measure = bonnie.measures.first()
     @patientBankView = new Thorax.Views.PatientBankView model: @measure, patients: @patients
@@ -88,4 +90,3 @@ describe 'PatientBankView', ->
       @patientBankView.bankFilterView.$('button[type="submit"]').click()
       expect(@patientBankView.bankFilterView.appliedFilters).toBeTruthy()
       expect(@patientBankView.bankFilterView.appliedFilters.models[0].cmsId).toEqual("CMS66")
-
