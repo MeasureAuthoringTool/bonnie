@@ -66,6 +66,6 @@ Handlebars.registerHelper 'ifIn', (obj, arr, options) ->
 Takes a shorthand population name and renders it such
 that screen readers will read out the complete name
 ###
-Handlebars.registerHelper 'population', (population) =>
+Handlebars.registerHelper 'populationName', (population) =>
   return '' unless population?
   return new Handlebars.SafeString Thorax.Models.Measure.PopulationMap[population]

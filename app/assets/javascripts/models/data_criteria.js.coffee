@@ -16,7 +16,8 @@ class Thorax.Models.MeasureDataCriteria extends Thorax.Model
     new Thorax.Models.PatientDataCriteria attr
 
   getDefaultTime: ->
-    parseInt(moment.utc().set('year', bonnie.measurePeriod).set('hour',8).set('minute',0).set('second',0).format('X'))*1000
+    time = moment.utc().set({'year': bonnie.measurePeriod, 'hour': 8, 'minute': 0, 'second': 0})
+    parseInt(time.format('X')) * 1000
 
 Thorax.Models.MeasureDataCriteria.generateCriteriaId = ->
     chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
@@ -35,7 +36,7 @@ class Thorax.Collections.MeasureDataCriteria extends Thorax.Collection
 # multiple criteria with the same ID.
 class Thorax.Models.PatientDataCriteria extends Thorax.Model
   idAttribute: null
-  
+
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
     if @get('type') == "medications" then @set('fulfillments', new Thorax.Collection()) unless @has 'fulfillments'
@@ -68,7 +69,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     fieldValues = {}
     @get('field_values').each (fv) -> fieldValues[fv.get('key')] = _(fv.toJSON()).omit('key')
     _(super).extend(field_values: fieldValues)
-  
+
   faIcon: ->
     # FIXME: Do this semantically in stylesheet
     icons =
@@ -100,12 +101,12 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     #We must support criteria types with "Negation Rational" for QDM 4.2 changes.
     criteriaType = @get('definition')
 
-    #First check to see if criteriaType definition matches any of these (no need to worry about status with these) 
-    return true if criteriaType in ['communication_from_patient_to_provider', 'communication_from_provider_to_patient', 
+    #First check to see if criteriaType definition matches any of these (no need to worry about status with these)
+    return true if criteriaType in ['communication_from_patient_to_provider', 'communication_from_provider_to_patient',
                                     'communication_from_provider_to_provider', 'risk_category_assessment', 'transfer_from', 'transfer_to']
 
     #If Criteria Definition exists in object
-    negationList = 
+    negationList =
       device:           ['applied', 'ordered', 'recommended']
       diagnostic_study: ['performed', 'ordered', 'recommended']
       encounter:        ['ordered', 'performed', 'recommended']
@@ -123,7 +124,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   hasStopTime: ->
     criteriaType = @get('definition')
     return !(criteriaType in ['family_history'])
-    
+
   startLabel: ->
     if @get('definition') in ['diagnosis', 'symptom'] && !@get('status')?
       'Onset'  # If in whitelist and status is empty
@@ -140,7 +141,6 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
       'Stop'
 
 
-    
 class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
   model: Thorax.Models.PatientDataCriteria
   # FIXME sortable: commenting out due to odd bug in droppable
