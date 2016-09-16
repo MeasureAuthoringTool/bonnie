@@ -318,7 +318,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   setRowData: (rowIndex, data) ->
     $('#patientDashboardTable').DataTable().row(rowIndex).data(data)
-    $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().relayout()
 
   ###
   Highlights the row at the given index
@@ -326,7 +325,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   selectRow: (rowIndex) ->
     nodes = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
     $(nodes).addClass('active')
-    $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().update()
 
   ###
   Removes highlighting of the row at the given index
@@ -334,7 +332,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   deselectRow: (rowIndex) ->
     nodes = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
     $(nodes).removeClass('active')
-    $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().update()
 
   ###
   Scrolls the table to a selected population
@@ -362,7 +359,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         td.addClass('warn')
       else
         td.removeClass('warn')
-    $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().relayout()
+    @updateFixedColumns()
 
   ###
   Updates actual warnings for all rows
@@ -412,6 +409,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Update row
     @setRowData(rowIndex, row)
     @selectRow(rowIndex)
+    @updateFixedColumns()
 
     # Set current values in added inputs
     for k, v of @editableCols
@@ -533,8 +531,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
           @results.add result.first()
           @setRowData(rowIndex, row)
           @deselectRow(rowIndex)
+          @updateFixedColumns()
           @updateDisplay(rowIndex)
-          @updateAllActualWarnings()
           @$('.alert').text('').addClass('hidden')
     unless status
       messages = []
@@ -554,7 +552,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     @setRowData(rowIndex, row['old'])
     # Remove row selection
     @deselectRow(rowIndex)
-    @updateDisplay()
+    @updateDisplay(rowIndex)
     @$('.alert').text('').addClass('hidden')
     $('#ariaalerts').html "Canceling edits on this patient."
 
@@ -589,7 +587,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     row['old'] = jQuery.extend(true, {}, row)
     row['actions'] = JST['pd_delete_controls']({})
     @setRowData(rowIndex, row)
-
+    @updateFixedColumns()
     $('#ariaalerts').html "Confirm patient deletion by pressing 'Delete Patient'"
 
   ###
@@ -601,8 +599,14 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
     @setRowData(rowIndex, row['old'])
-
+    @updateFixedColumns()
     $('#ariaalerts').html "Canceling delete patient."
+
+  ###
+  Updates the fixedColumns table, using Datatables FixedColumns api
+  ###
+  updateFixedColumns: ->
+    $.fn.dataTable.tables(visible: true, api: true).columns.adjust().fixedColumns().update()
 
   ###
   Removes patient from the table
@@ -745,9 +749,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     for header, columnNumber in columns
       dataCriteria = @pd.dataIndices[columnNumber] # Formatted "PopulationKey_DataCriteriaKey"
       dataCriteriaKey = dataCriteria.substring(dataCriteria.indexOf('_') + 1)
-      children_criteria = @pd.getChildrenCriteria dataCriteriaKey
-      if Object.keys(children_criteria).length > 0
-        columnWithChildrenCriteria[columnNumber] = dataCriteria
+      if @pd.hasChildrenCriteria dataCriteriaKey
+        columnWithChildrenCriteria[columnNumber] = dataCriteriaKey
     columnWithChildrenCriteria
 
   ###

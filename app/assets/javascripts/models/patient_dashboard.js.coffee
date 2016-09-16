@@ -150,6 +150,18 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
     return criteria_keys
 
   ###
+  @returns {Boolean} returns true if criteria_key has children, false if not.
+  ###
+  hasChildrenCriteria: (criteria_reference) =>
+    criteria_keys = [criteria_reference]
+    if criteria = @measure.get('data_criteria')[criteria_reference]
+      if criteria['children_criteria']? && criteria['children_criteria']
+        return true
+      if criteria['temporal_references']? && criteria['temporal_references'][0]['reference'] != 'MeasurePeriod'
+        return true
+    return false
+
+  ###
   @returns {Array} given a precondition, return the list of all data criteria
   keys referenced within.
   ###
@@ -161,18 +173,3 @@ class Thorax.Models.PatientDashboard extends Thorax.Model
       [precondition['reference']]
     else
       []
-
-  ###
-  @returns {Object} children criteria keys and criteria text
-  ###
-  getChildrenCriteria: (criteria_key) =>
-    if criteria_key?
-      children_criteria = @dataCriteriaChildrenKeys(criteria_key)
-      children_criteria = children_criteria.filter (ck) -> ck != 'MeasurePeriod'
-      dataCriteriaViewMap = {}
-      for reference in children_criteria
-        if reference != criteria_key # We want to ignore the data criteria itself when populating map.
-          dataLogicView = new Thorax.Views.DataCriteriaLogic(reference: reference, measure: @measure)
-          dataLogicView.appendTo(@$el)
-          dataCriteriaViewMap[reference] = dataLogicView.$el[0].textContent
-      dataCriteriaViewMap
