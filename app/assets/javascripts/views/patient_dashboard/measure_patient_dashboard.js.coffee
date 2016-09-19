@@ -182,6 +182,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       @updateActualWarnings(rowIndex)
     else
       @updateAllActualWarnings()
+    @updateFixedColumns()
 
     # if the row is showing editable columns, focus on the first input
     row = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
@@ -347,7 +348,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   updateActualWarnings: (rowIndex) =>
     nodes = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
-    row = $('#patientDashboardTable').DataTable().row(rowIndex).data()
+    row = @getRowData(rowIndex)
     for population in @populations
       actualIndex = (@pd.dataInfo['actual' + population].index) + 1
       td = $('td:nth-child(' + actualIndex + ')', nodes[0])
@@ -359,7 +360,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         td.addClass('warn')
       else
         td.removeClass('warn')
-    @updateFixedColumns()
 
   ###
   Updates actual warnings for all rows
@@ -409,7 +409,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Update row
     @setRowData(rowIndex, row)
     @selectRow(rowIndex)
-    @updateFixedColumns()
 
     # Set current values in added inputs
     for k, v of @editableCols
@@ -533,7 +532,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
           row.updatePasses()
           @setRowData(rowIndex, row)
           @deselectRow(rowIndex)
-          @updateFixedColumns()
           @updateDisplay(rowIndex)
           @$('.alert').text('').addClass('hidden')
     unless status
@@ -829,10 +827,10 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
         @dashboard.updatePatientDataSources @result, @patientData
         if @rowIndex?
           $('#patientDashboardTable').DataTable().row(@rowIndex).data(@patientData).draw()
-          @dashboard.updateDisplay(@rowIndex)
-        else
-          $('#patientDashboardTable').DataTable().row.add(@patientData).draw()
-          @dashboard.updateDisplay()
+        else # New patient added, with no pre existing row index.
+          node = $('#patientDashboardTable').DataTable().row.add(@patientData).draw().node()
+          @rowIndex = $('#patientDashboardTable').DataTable().row(node).index()
+        @dashboard.updateDisplay(@rowIndex)
 
   close: ->
     @$('.modal-body').empty() # Clear out patientBuilderView
