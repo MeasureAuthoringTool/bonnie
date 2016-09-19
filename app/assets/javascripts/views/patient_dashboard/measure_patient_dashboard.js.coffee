@@ -136,9 +136,17 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       # Create a PatientDashboardPatient for each patient, these are used for
       # each row in patient dashboard.
       for patient in @measure.get('patients').models
-        @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
+        if @patientHasExpecteds(patient, @measure)
+          @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
 
       @render()
+
+  ###
+  Check to see if the given patient has expected values for the given
+  measure.
+  ###
+  patientHasExpecteds: (patient, measure) ->
+    (model for model in patient.get('expected_values').models when model.get('measure_id') == @measure.get('hqmf_set_id') && model.get('population_index') == @population.get('index'))[0]?
 
   ###
   Set the order in DT to equate the ordering of patients in the Population Calculation view.
