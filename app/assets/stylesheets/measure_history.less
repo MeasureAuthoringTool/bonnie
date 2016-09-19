@@ -48,29 +48,23 @@ td.history-patient-cell {
   */
 }
 
-th.history-upload-header {
-}
-
-th.history-upload-title {
-  border-top: none !important;
-}
-
-th.history-patient-header {
+.measure-history-table > thead > tr > th,
+.measure-history-table > thead > tr > tr {
+  border-top: none;
   height: 55px;
   white-space: nowrap;
-  border-top: none !important;
-  
-  > div {
-    transform:
-      /* Magic Numbers */
-      translate(-3px, 15px)
-      /* 45 is really 360 - 45 */
-      rotate(315deg);
-    width: 30px;
-    
-    > span {
-      padding: 5px 5px;
-    }
+}
+
+th.history-patient-header div {
+  transform:
+    /* Magic Numbers */
+    translate(-3px, -3px)
+    /* 45 is really 360 - 45 */
+    rotate(315deg);
+  width: 30px;
+
+  span {
+    padding: 5px 5px;
   }
 }
 

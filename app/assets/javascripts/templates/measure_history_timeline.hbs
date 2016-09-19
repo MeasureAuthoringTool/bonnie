@@ -1,30 +1,32 @@
 <div>
   {{#if hasHistory}}
     <table class="table measure-history-table">
+      <thead>
       <tr>
-        <th class="history-upload-title">Measure Uploads</th>
-        <th class="history-upload-title"></th>
+        <th class="history-upload-title" scope="col">Measure Uploads</th>
+        <th class="history-upload-title" scope="col"><span class="sr-only">Before or After</span></th>
         {{#each patientIndex}}
-          <th class="history-patient-header" data-patient-id="{{id}}"><div><span><i class="fa fa-user" aria-hidden="true"></i> <a class="history-patient-header-name" title="{{name}}" href="#measures/{{../../hqmf_set_id}}/patients/{{id}}/edit">{{name}}</a></span></div></th>
+          <th class="history-patient-header" data-patient-id="{{id}}" scope="col"><div><span><i class="fa fa-user" aria-hidden="true"></i> <a class="history-patient-header-name" title="{{name}}" href="#measures/{{../../hqmf_set_id}}/patients/{{id}}/edit">{{name}}</a></span></div></th>
         {{/each}}
       </tr>
-      
+      </thead>
+      <tbody>
       {{! Loop through each measure history summary}}
       {{#each upload_summaries.models}}
         {{! Get the specific population }}
         {{#with (lookup attributes.population_summaries ../../populationIndex)}}
           <tr class="active" data-upload-id="{{../attributes._id}}">
-            <th class="history-upload-header">
+            <th class="history-upload-header" scope="row">
               v{{../attributes.measure_hqmf_version_number_after}} @ <small>{{dateFormat ../attributes.upload_dtm "M/D/YY h:mm a"}}</small>
             </th>
-            <td class="history-upload-header"><small>After</small></td>
+            <th class="history-upload-header" scope="row"><small>After</small></th>
             {{! Loop through each patient in same order as header }}
             {{#each ../../../patientIndex}}
               {{#if (lookup ../patients id)}}
                 {{#with (lookup ../../patients id)}}
                   <td class="history-patient-cell">
                     <a class="history-circle history-{{after_status}}" href="#measures/{{../../../../../hqmf_set_id}}/patients/{{../../id}}/compare/at_upload/{{../../../../attributes._id}}" data-upload-id="{{../../../../attributes._id}}" data-patient-id="{{../../id}}">
-                      <span class="sr-only">{{after_status}}</span>
+                      <span class="sr-only">Patient {{after_status}} after measure upload</span>
                       <i class="fa {{#ifCond after_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
                     </a>
                   </td>
@@ -34,21 +36,21 @@
               {{/if}}
             {{/each}}
           </tr>
-          
+
           {{#if ../attributes.measure_db_id_before}}
             <tr data-upload-id="{{../upload_id}}">
-              <td>
-                  {{#button "showDiffClicked" data-upload-id=../../attributes._id class="btn btn-xs btn-default"}}VIEW CHANGES{{/button}}
+              <th class="history-upload-header" scope="row">
+                {{#button "showDiffClicked" data-upload-id=../../attributes._id class="btn btn-xs btn-default"}}VIEW CHANGES{{/button}}
 
-              </td>
-              <td><small>Before</small></td>
+              </th>
+              <th scope="row"><small>Before</small></th>
               {{! Loop through each patient in same order as header }}
               {{#each ../../../../patientIndex}}
                 {{#if (lookup ../patients id)}}
                   {{#with (lookup ../../patients id)}}
                     <td class="history-patient-cell">
                       <a class="history-circle history-{{before_status}}" href="#measures/{{../../../../../../hqmf_set_id}}/patients/{{../../id}}/compare/at_upload/{{../../../../../attributes._id}}" data-upload-id="{{../../../../../attributes._id}}" data-patient-id="{{../../id}}">
-                        <span class="sr-only">{{before_status}}</span>
+                        <span class="sr-only">Patient {{before_status}} before measure upload</span>
                         <i class="fa {{#ifCond before_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
                       </a>
                     </td>
@@ -59,7 +61,7 @@
               {{/each}}
             </tr>
           {{/if}}
-          
+
         {{/with}}
       {{/each}}
     </table>
