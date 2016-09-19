@@ -24,6 +24,14 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     @savePopulationResults()
 
   ###
+  Updates passes status.
+  ###
+  updatePasses: ->
+    @expected = @getExpectedResults()
+    @actual = @getActualResults()
+    @passes = JST['pd_result_text']({ passes: @patientStatus() == "PASS" })
+
+  ###
   Sets the expected results for each population as instance variables
   of this object. These will later be accessed by DataTables when populating
   the patient dashboard.

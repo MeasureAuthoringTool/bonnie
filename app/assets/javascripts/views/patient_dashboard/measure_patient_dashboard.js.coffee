@@ -529,6 +529,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
           row['editable'] = false
           @patientData[rowIndex] = row
           @results.add result.first()
+          row.patientResult = @matchPatientToPatientId(patient.id)
+          row.updatePasses()
           @setRowData(rowIndex, row)
           @deselectRow(rowIndex)
           @updateFixedColumns()
