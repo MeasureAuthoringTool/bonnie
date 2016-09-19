@@ -3,13 +3,12 @@ class Thorax.Views.MeasurePatientDashboardLayout extends Thorax.LayoutView
 
   initialize: ->
     # Highlights correct button, based on selected view
-    if @showFixedColumns
-      $('#patient-dashboard-button').addClass('btn-primary')
-      $('#508-patient-dashboard-button').removeClass('btn-primary')
-    else
-      $('#patient-dashboard-button').removeClass('btn-primary')
-      $('#508-patient-dashboard-button').addClass('btn-primary')
+    $('#patient-dashboard-button').addClass('btn-primary')
     $('#measure-details-button').removeClass('btn-primary')
+
+  context: ->
+    _(super).extend
+      showFixedColumns: @showFixedColumns
 
   ###
   Switches populations (changes the population displayed by patient dashboard)

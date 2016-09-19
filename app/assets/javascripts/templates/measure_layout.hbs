@@ -1,4 +1,4 @@
-<div class="row measure-layout">
+<div class="row">
   <div class="measure-title-bar">
     <div class="measure-title-wide">
       <h1 class="short-title"><i class="fa fa-fw fa-tasks" aria-hidden="true"></i> {{cms_id}}
@@ -7,10 +7,9 @@
       <span class="actions-container">
         {{#link "measures/{{hqmf_set_id}}" id="measure-details-button" expand-tokens=true class="btn btn-default btn-primary"}}<span class="sr-only">Measure Details</span>Measure Details{{/link}}
         {{#link "measures/{{hqmf_set_id}}/patient_dashboard" id="patient-dashboard-button" expand-tokens=true class="btn btn-default"}}<span class="sr-only">Patient Dashboard</span>Patient Dashboard{{/link}}
-        {{#link "measures/{{hqmf_set_id}}/508_patient_dashboard" id="508-patient-dashboard-button" expand-tokens=true class="btn btn-default"}}<span class="sr-only">508 Patient Dashboard</span>508 Patient Dashboard{{/link}}
       </span>
     </div>
   </div>
 
-  {{layout-element className="measure-layout"}}
+  {{layout-element className="patient-dashboard-view"}}
 </div>
