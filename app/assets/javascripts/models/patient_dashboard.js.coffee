@@ -1,136 +1,134 @@
 class Thorax.Models.PatientDashboard extends Thorax.Model
 
-  initialize: (@measure, @populations, @populationSet) ->
+  initialize: (@measure, @populations, @populationSet, @widths) ->
     # Column names
-    @ACTIONS = "actions"
-    @RESULT = "result"
-    @DESCRIPTION = "description"
-    @BIRTHDATE = "birthdate"
-    @DEATHDATE = "deathdate"
-    @FIRST = "first"
-    @LAST = "last"
-    @GENDER = "gender"
-    @EXPECTED = "expected"
-    @ACTUAL = "actual"
-    @METADATA = "metadata"
-
-    # Column widths
-    @COL_WIDTH_POPULATION = 30
-    @COL_WIDTH_META_HUGE = 200
-    @COL_WIDTH_META_LARGE = 110
-    @COL_WIDTH_META_MEDIUM = 100
-    @COL_WIDTH_META_SMALL = 40
-    @COL_WIDTH_FREETEXT = 240
-    @COL_WIDTH_CRITERIA = 200
-    @COL_WIDTH_RESULT = 80
+    @columnNames =
+      actions: "actions"
+      result: "result"
+      description: "description"
+      birthdate: "birthdate"
+      deathdate: "deathdate"
+      first: "first"
+      last: "last"
+      gender: "gender"
+      expected: "expected"
+      actual: "actual"
+      metadata: "metadata"
 
     # Construct a mapping of populations to their data criteria keys
+    # Example:  { IPP:['key', 'key'], DENOM: ['key'] }
     @criteriaKeysByPopulation = {}
     for population in @populations
-      preconditions = @populationSet.get(population)?['preconditions']
-      if preconditions
-        @criteriaKeysByPopulation[population] = @preconditionCriteriaKeys(preconditions[0]).filter (ck) -> ck != 'MeasurePeriod'
+      precondition = _.first @populationSet.get(population)?['preconditions']
+      if precondition
+        @criteriaKeysByPopulation[population] = @preconditionCriteriaKeys(precondition).filter (ck) -> ck != 'MeasurePeriod'
       else
         @criteriaKeysByPopulation[population] = []
-    @dataIndices = @getDataIndices(@populations, @criteriaKeysByPopulation)
-    @dataCollections = @getDataCollections(@populations, @dataIndices, @criteriaKeysByPopulation)
-    @dataInfo = @getDataInfo(@populations, @dataIndices, @dataCollections)
+
+    # An array of column names in the right order
+    @dataIndices = @getDataIndices()
+    # An array of the sub header columns for the patient dashboard table.
+    @dataCollections = @getDataCollections()
+    # An array with the top most header columns for the patient dashboard table.
+    @dataInfo = @getDataInfo()
 
   ###
-  @returns {Array} an array of column names in the right order.
+  @returns {Array} an array of column names/keys in the right order.
+  Note: If the order of the columns change, also change the order in
+  MeasurePopulationPatientDashboard View, in the function getTableColumns().
   ###
-  getDataIndices: (populations, @criteriaKeysByPopulation) =>
+  getDataIndices: () =>
     dataIndices = []
-    dataIndices.push(@ACTIONS)
-    dataIndices.push(@RESULT)
-    dataIndices.push(@LAST)
-    dataIndices.push(@FIRST)
-    for population in populations
-      dataIndices.push(@ACTUAL + population)
-    for population in populations
-      dataIndices.push(@EXPECTED + population)
-    dataIndices.push(@DESCRIPTION)
-    dataIndices.push(@BIRTHDATE)
-    dataIndices.push(@DEATHDATE)
-    dataIndices.push(@GENDER)
-    for population in populations
+    dataIndices.push(@columnNames.actions)
+    dataIndices.push(@columnNames.result)
+    dataIndices.push(@columnNames.last)
+    dataIndices.push(@columnNames.first)
+    for population in @populations
+      dataIndices.push(@columnNames.actual + population)
+    for population in @populations
+      dataIndices.push(@columnNames.expected + population)
+    dataIndices.push(@columnNames.description)
+    dataIndices.push(@columnNames.birthdate)
+    dataIndices.push(@columnNames.deathdate)
+    dataIndices.push(@columnNames.gender)
+    for population in @populations
       criteria = @criteriaKeysByPopulation[population]
       for criterium in criteria
         dataIndices.push(population + '_' + criterium)
     dataIndices
 
   ###
-  @returns {Array} an array with the top most header columns for the patient
-  dashboard table.
+  @returns {Object} an object (mapping) containing metadata information about
+  each column. The metadata information includes the name, the width, and the
+  column index.
   ###
-  getDataInfo: (populations, dataIndices, dataCollections) =>
+  getDataInfo: () =>
     dataInfo = {}
     # Get the text for all of the data criteria, mapped by data criteria key
     dataCriteriaText = {}
     for reference in Object.keys(@measure.get('data_criteria'))
       dataLogicView = new Thorax.Views.DataCriteriaLogic(reference: reference, measure: @measure)
+      # Appends to DOM in order to grab information from the view.
       dataLogicView.appendTo(@$el)
       dataCriteriaText[dataLogicView.dataCriteria.key] = dataLogicView.$el[0].textContent
 
     # Include the metadata
-    dataInfo[@RESULT] = name: "Result", width: @COL_WIDTH_RESULT
-    dataInfo[@LAST] = name: "Last Name", width: @COL_WIDTH_META_MEDIUM
-    dataInfo[@FIRST] = name: "First Name", width: @COL_WIDTH_META_MEDIUM
-    dataInfo[@ACTIONS] = name: "Options", width: @COL_WIDTH_META_LARGE
-    dataInfo[@DESCRIPTION] = name: "Description", width: @COL_WIDTH_FREETEXT
-    dataInfo[@BIRTHDATE] = name: "Birthdate", width: @COL_WIDTH_META_HUGE
-    dataInfo[@DEATHDATE] = name: "Deathdate", width: @COL_WIDTH_META_HUGE
-    dataInfo[@GENDER] = name: "Gender", width: @COL_WIDTH_META_MEDIUM
+    dataInfo[@columnNames.result] = name: "Result", width: @widths.result
+    dataInfo[@columnNames.last] = name: "Last Name", width: @widths.meta_medium
+    dataInfo[@columnNames.first] = name: "First Name", width: @widths.meta_medium
+    dataInfo[@columnNames.actions] = name: "Options", width: @widths.meta_large
+    dataInfo[@columnNames.description] = name: "Description", width: @widths.freetext
+    dataInfo[@columnNames.birthdate] = name: "Birthdate", width: @widths.meta_huge
+    dataInfo[@columnNames.deathdate] = name: "Deathdate", width: @widths.meta_huge
+    dataInfo[@columnNames.gender] = name: "Gender", width: @widths.meta_medium
 
-    for population in populations
+    for population in @populations
       # Include the expected and actual values for each population (IPP/DENOM/etc.)
-      dataInfo[@EXPECTED + population] = name: population, width: @COL_WIDTH_POPULATION
-      dataInfo[@ACTUAL + population] = name: population, width: @COL_WIDTH_POPULATION
+      dataInfo[@columnNames.expected + population] = name: population, width: @widths.population
+      dataInfo[@columnNames.actual + population] = name: population, width: @widths.population
       # Add the data criteria by data criteria key and the data criteria text
-      dataCollection = dataCollections[population]
+      dataCollection = @dataCollections[population]
       for item in dataCollection.items
-        dataInfo[item] = name: dataCriteriaText[@getRealKey(item)], width: @COL_WIDTH_CRITERIA
+        dataInfo[item] = name: dataCriteriaText[@stripLeadingToken(item)], width: @widths.criteria
 
     # Add the index from dataIndices for each key
     for key, data of dataInfo
-      data.index = dataIndices.indexOf(key)
+      data.index = @dataIndices.indexOf(key)
 
     return dataInfo
 
   ###
-  @returns {Array} an array of the sub header columns for the patient dashboard
-  table.
+  @returns {Object} an object (mapping) of the sub header columns for the
+  patient dashboard table.
   ###
-  getDataCollections: (populations, dataIndices, criteria_keys_by_population) =>
+  getDataCollections: () =>
     dataCollections = {}
-    dataCollections[@ACTIONS] = name: "Options", items: [@ACTIONS]
-    dataCollections[@RESULT] = name: "Result", items: [@RESULT, @LAST, @FIRST]
-    dataCollections[@EXPECTED] = name: "Expected", items: populations.map (p) => @EXPECTED + p
-    dataCollections[@ACTUAL] = name: "Actual", items: populations.map (p) => @ACTUAL + p
-    dataCollections[@DESCRIPTION] = name: "Description", items: [@DESCRIPTION]
-    dataCollections[@METADATA] = name: "Metadata", items: [@BIRTHDATE, @DEATHDATE, @GENDER]
-    for population in populations
-      dataCollections[population] = name: population, items: criteria_keys_by_population[population].map (c) => population + '_' + c
+    dataCollections[@columnNames.actions] = name: "Options", items: [@columnNames.actions]
+    dataCollections[@columnNames.result] = name: "Result", items: [@columnNames.result, @columnNames.last, @columnNames.first]
+    dataCollections[@columnNames.expected] = name: "Expected", items: @populations.map (p) => @columnNames.expected + p
+    dataCollections[@columnNames.actual] = name: "Actual", items: @populations.map (p) => @columnNames.actual + p
+    dataCollections[@columnNames.description] = name: "Description", items: [@columnNames.description]
+    dataCollections[@columnNames.metadata] = name: "Metadata", items: [@columnNames.birthdate, @columnNames.deathdate, @columnNames.gender]
+    for population in @populations
+      dataCollections[population] = name: population, items: @criteriaKeysByPopulation[population].map (c) => population + '_' + c
     for key, dataCollection of dataCollections
       # This grabs the lowest index in the given items
-      dataCollection.firstIndex = _.min(dataCollection.items.map (item) -> dataIndices.indexOf(item))
+      dataCollection.firstIndex = _.min(dataCollection.items.map (item) => @dataIndices.indexOf(item))
       dataCollection.lastIndex = dataCollection.firstIndex + dataCollection.items.length - 1
     return dataCollections
 
   ###
-  @returns {string} returns the data criteria id
+  @returns {string} strips an artificially added token from a key
   ###
-  getRealKey: (dataKey) =>
-    if dataKey in @dataCollections[@EXPECTED].items
-      keyValue = dataKey.substring(@EXPECTED.length)
-    else if dataKey in @dataCollections[@ACTUAL].items
-      keyValue = dataKey.substring(@ACTUAL.length)
-    else if dataKey in _.flatten(@populations.map (pop) => @dataCollections[pop].items)
-      startIndex = dataKey.indexOf('_') + 1
-      keyValue = dataKey.substring(startIndex)
+  stripLeadingToken: (key) =>
+    if /expected/i.test(key)
+      key.replace 'expected', ''
+    else if /actual/i.test(key)
+      key.replace 'actual', ''
+    else if /_/i.test(key)
+      key.substring(key.indexOf("_") + 1)
     else
-      keyValue = dataKey
-    return keyValue
+      key
 
   ###
   @returns {Array} given a data criteria, return the list of all data criteria

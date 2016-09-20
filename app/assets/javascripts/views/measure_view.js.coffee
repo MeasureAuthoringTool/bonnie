@@ -10,12 +10,13 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
       cms_id: @measure.get 'cms_id'
       hqmf_set_id: @measure.get 'hqmf_set_id'
 
-  showDashboard:(e) ->
+  # Navigates to the Patient Dashboard
+  showDashboard: (showFixedColumns) ->
     # because of how thorax transitions between views (it removes the $el associated with the view - line 2080 thorax.js)
     # the view needs to be re-created each time it is shown.
-    population = @measure.get 'displayedPopulation'
-    populationPatientDashboardView = new Thorax.Views.MeasurePopulationPatientDashboard measure: @measure, population: population, showFixedColumns: e.showFixedColumns
-    patientDashboardView = new Thorax.Views.MeasurePatientDashboardLayout collection: @populations, population: population, showFixedColumns: e.showFixedColumns
+    populationSet = @measure.get 'displayedPopulation'
+    populationPatientDashboardView = new Thorax.Views.MeasurePopulationPatientDashboard measure: @measure, populationSet: populationSet, showFixedColumns: showFixedColumns
+    patientDashboardView = new Thorax.Views.MeasurePatientDashboardLayout collection: @populations, populationSet: populationSet, showFixedColumns: showFixedColumns
 
     # NOTE: the populationPatientDashboard view has to be set as the subview at this point in time. Otherwise,
     # the rendering order is off and the dashboard renders terribly
@@ -25,7 +26,8 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
     else
       @setView populationPatientDashboardView
 
-  showMeasure: (e) ->
+  # Navigates to the measure details view
+  showMeasure: ->
     # because of how thorax transitions between views (it removes the $el associated with the view - line 2080 thorax.js)
     # the view needs to be re-created each time it is shown. super annoying...
     population = @measure.get 'displayedPopulation'

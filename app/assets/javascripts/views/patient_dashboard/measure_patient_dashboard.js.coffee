@@ -1,38 +1,3 @@
-class Thorax.Views.MeasurePatientDashboardLayout extends Thorax.LayoutView
-  template: JST['patient_dashboard/layout']
-
-  initialize: ->
-    # Highlights correct button, based on selected view
-    $('#patient-dashboard-button').addClass('btn-primary')
-    $('#measure-details-button').removeClass('btn-primary')
-
-  ###
-  Switches populations (changes the population displayed by patient dashboard)
-  ###
-  switchPopulation: (e) ->
-    @population = $(e.target).model()
-    @population.measure().set('displayedPopulation', @population)
-    @setView new Thorax.Views.MeasurePopulationPatientDashboard measure: @population.measure(), population: @population, showFixedColumns: @showFixedColumns
-    @trigger 'population:update', @population
-
-  ###
-  Marks the population as active and gives it a title
-  ###
-  populationContext: (population) ->
-    _(population.toJSON()).extend
-      isActive: population is population.measure().get('displayedPopulation')
-      populationTitle: population.get('title') || population.get('sub_id')
-
-  ###
-  Sets the view after results have been calculated
-  ###
-  setView: (view) ->
-    results = @population.calculationResults()
-    results.calculationsComplete =>
-      view.results = results
-      super(view)
-
-
 class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.BonnieView
   template: JST['patient_dashboard/table']
   className: 'patient-dashboard'
@@ -42,18 +7,30 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     codes = (population['code'] for population in @measure.get('measure_logic'))
     @populations = _.intersection(Thorax.Models.Measure.allPopulationCodes, codes)
 
+    # Column widths
+    @widths =
+      population: 30
+      meta_huge: 200
+      meta_large: 110
+      meta_medium: 100
+      meta_small: 40
+      freetext: 240
+      criteria: 200
+      result: 80
+
     # Create patient dashboard layout and patient editor modal
     @patientEditView = new Thorax.Views.MeasurePatientEditModal(dashboard: this)
-    @pd = new Thorax.Models.PatientDashboard @measure, @populations, @population
+    @patientDashboard = new Thorax.Models.PatientDashboard @measure, @populations, @populationSet, @widths
     @nonEmptyPopulations = []
     for pop in @populations
-      if @pd.criteriaKeysByPopulation[pop].length > 0
+      if @patientDashboard.criteriaKeysByPopulation[pop].length > 0
         @nonEmptyPopulations.push pop
 
     # Keep track of editable rows and columns
     @editableRows = []
     @editableCols = @getEditableCols()
 
+    # Array containing PatientDashboardPatients
     @patientData = []
     headerData = @createHeaderRows()
     @head1 = headerData[0]
@@ -83,15 +60,15 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       columns = @getTableColumns()
 
       tableOptions =
-        data: @patientData,
-        columns: columns,
-        dom: '<if<"scrolling-table"t>>', # Places table info and filter, then table, then nothing
+        data: @patientData
+        columns: columns
+        dom: '<if<"scrolling-table"t>>' # Places table info and filter, then table, then nothing
         language:
           emptyTable: '<i aria-hidden="true" class="fa fa-fw fa-user"></i> Test Cases Loading...'
         order: @getColumnOrder(columns)
         paging: false
         createdRow: (row, data, rowIndex) ->
-          # DT adds the 'row' ARIA role to each table body row. This adds the required children roles.
+          # DataTables adds the 'row' ARIA role to each table body row. This adds the required children roles.
           $(row).find('td').each (colIndex) -> $(this).attr('role', 'gridcell')
           $(row).find('th').each (colIndex) -> $(this).attr('role', 'rowheader')
 
@@ -100,8 +77,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         tableOptions = _.extend tableOptions,
           fixedColumns:
             leftColumns: 4 + @populations.length
-          scrollX: true,
-          scrollY: "600px",
+          scrollX: true
+          scrollY: "600px"
           scrollCollapse: true
 
       table = @$('#patientDashboardTable').DataTable(tableOptions)
@@ -121,7 +98,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
   setup: ->
     # Get patient calculation results
-    @results = @population.calculationResults()
+    @results = @populationSet.calculationResults()
 
     # On results being calculated, construct patient data and initialize the
     # table.
@@ -133,7 +110,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       # each row in patient dashboard.
       for patient in @measure.get('patients').models
         if @patientHasExpecteds(patient, @measure)
-          @patientData.push new Thorax.Models.PatientDashboardPatient patient, @pd, @measure, @matchPatientToPatientId(patient.id), @populations, @population
+          @patientData.push new Thorax.Models.PatientDashboardPatient patient, @patientDashboard, @measure, @getPatientResultsById(patient.id), @populations, @populationSet
 
       @render()
 
@@ -142,16 +119,16 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   measure.
   ###
   patientHasExpecteds: (patient, measure) ->
-    (model for model in patient.get('expected_values').models when model.get('measure_id') == @measure.get('hqmf_set_id') && model.get('population_index') == @population.get('index'))[0]?
+    (model for model in patient.get('expected_values').models when model.get('measure_id') == @measure.get('hqmf_set_id') && model.get('population_index') == @populationSet.get('index'))[0]?
 
   ###
-  Set the order in DT to equate the ordering of patients in the Population Calculation view.
+  Set the order in DataTables to equate the ordering of patients in the Population Calculation view.
   We want to display the results sorted by 1) failures first, then 2) last name, then 3) first name
   ###
   getColumnOrder: (columns) ->
     order = []
     for item in ['passes', 'last', 'first']
-    # DT requires indexes rather than column names. Get the indexes.
+    # DataTables requires indexes rather than column names. Get the indexes.
       for column, index in columns
         if column['data'] == item
           order.push [index, 'asc']
@@ -162,17 +139,21 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   showRationaleForPopulation: (code, rationale, updatedRationale) ->
     for key, value of rationale
-      target = $(".#{code}_children .#{key}")
-      targettext = $(".#{code}_children .#{key}")
-      targetrect = $("rect[precondition=#{key}]")
+      targettext = $(".#{code}_children .#{key}") #text version of logic
+      targetrect = $("rect[precondition=#{key}]") #viz version of logic (svg)
       if (targettext.length > 0)
-        [targetClass, targetPanelClass, srTitle] = if updatedRationale[code]?[key] is false
-          ['eval-bad-specifics', 'eval-panel-bad-specifics', '(status: bad specifics)']
+        if updatedRationale[code]?[key] is false
+          targetClass = 'eval-bad-specifics'
+          srTitle = '(status: bad specifics)'
         else
-          bool = !!value
-          ["eval-#{bool}", "eval-panel-#{bool}", "(status: #{bool})"]
-        targetrect.attr "class", (index, classNames) -> "#{classNames} #{targetClass}"
-        targettext.addClass(targetClass)
+          bool = !!value # Converts value to boolean value
+          targetClass = "eval-#{bool}"
+          srTitle = "(status: #{bool})"
+
+        targetrect.attr "class", (index, classNames) -> "#{classNames} #{targetClass}" #add styling to svg without removing all the other classes
+        targettext.addClass(targetClass) # This does the actually application of the highlighting to the target
+        # this line is there to fix an issue with sr-only in Chrome making text in inline elements not display
+        # by having the sr-only span and the DC title wrapped in a criteria-title span, the odd behavior goes away.
         targettext.children('.sr-highlight-status').html(srTitle)
         targettext.children('.criteria-title').children('.sr-highlight-status').html(srTitle)
 
@@ -186,15 +167,14 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       @updateActualWarnings(rowIndex)
     else
       @updateAllActualWarnings()
+    # Update fixed columns
     @updateFixedColumns()
-
-    # if the row is showing editable columns, focus on the first input
-    row = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
-    $(row).find('.inline-editing:first').focus()
 
   ###
   @returns {Array} an array of "instructions" for each column in a row that
-  tells patient dashboard how to display a PatientDashboardPatient properly
+  tells patient dashboard how to display a PatientDashboardPatient properly.
+  Note: If the order of the columns change, also change the order in
+  PatientDashboard Model, in the function getDataIndices().
   ###
   getTableColumns: ->
     columns = []
@@ -224,12 +204,12 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     columns.push data: 'gender'
     # Collect all actual data criteria and sort to make sure patient dashboard
     # displays data criteria in the correct order.
-    dcStartIndex = @pd.dataInfo['gender'].index + 1
-    dc = []
-    for k, v of @pd.dataCollections
-      if v.firstIndex >= dcStartIndex
-          dc = dc.concat v.items
-    for entry in dc
+    dataCriteriaStartIndex = @patientDashboard.dataInfo['gender'].index + 1
+    dataCriteria = []
+    for k, v of @patientDashboard.dataCollections
+      if v.firstIndex >= dataCriteriaStartIndex
+          dataCriteria = dataCriteria.concat v.items
+    for entry in dataCriteria
       columns.push data: entry, render: @insertTextAndPatientData
     columns
 
@@ -252,8 +232,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   insertExpectedValue: (data, type, row, meta) =>
     if row
-      key = @pd.dataIndices[meta['col']].replace 'expected', ''
-      expected = @getRowData(meta['row']).patient.get('expected_values').models[@displayedPopulationIndex]
+      key = @patientDashboard.stripLeadingToken(@patientDashboard.dataIndices[meta['col']])
+      expected = row.patient.get('expected_values').models[@displayedPopulationIndex]
       data = expected.get(key)
       JST['pd_actual_expected']({
         rowIndex: meta['row'],
@@ -281,7 +261,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         columnNumber: meta.col
         patientId: row.id
         result: JST['pd_result_detail']({
-          passes: data == "TRUE",
+          passes: data == 'TRUE',
           specifically: data.indexOf('SPECIFICALLY') >= 0
         })
       })
@@ -296,10 +276,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     editableCols = {}
     # Add patient characteristics to editable fields
     for editableField in editableFields
-      editableCols[editableField] = @pd.dataInfo[editableField].index
+      editableCols[editableField] = @patientDashboard.dataInfo[editableField].index
     # Add expecteds to editable fields
     for population in @populations
-      editableCols['expected' + population] = @pd.dataInfo['expected' + population].index
+      editableCols['expected' + population] = @patientDashboard.dataInfo['expected' + population].index
     return editableCols
 
   ###
@@ -342,6 +322,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Scrolls the table to a selected population
   ###
   scrollToPopulation: (e) ->
+    # Calculates the offset due to fixedColumns
     leftOffset = $('.DTFC_Cloned').outerWidth() + $('.DTFC_Cloned').offset().left
     # Grab the text of the button, but not the text in the <span>
     buttonText = '#' + $(e.currentTarget).contents().get(1).nodeValue.replace(' ', '')
@@ -354,12 +335,11 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     nodes = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
     row = @getRowData(rowIndex)
     for population in @populations
-      actualIndex = (@pd.dataInfo['actual' + population].index) + 1
+      actualIndex = (@patientDashboard.dataInfo['actual' + population].index) + 1
       td = $('td:nth-child(' + actualIndex + ')', nodes[0])
-      patient = @getRowData(rowIndex).patient
-      population_index = @measure.get('displayedPopulation').index()
-      expected = _.first _.filter patient.get('expected_values').models, (expected) => expected.get('population_index') == population_index
-      patient_results = @matchPatientToPatientId(patient.id)
+      patient = row.patient
+      expected = _.first _.filter patient.get('expected_values').models, (expected) => expected.get('population_index') == @displayedPopulationIndex
+      patient_results = @getPatientResultsById(patient.id)
       if expected.get(population) != patient_results[population]
         td.addClass('warn')
       else
@@ -388,9 +368,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Record on the row object that this row is currently inline editable
     row['editable'] = true
 
-    # Grab patient
-    patient = @getRowData(rowIndex).patient
-
     for k, v of @editableCols
       if k == 'gender'
         # Gender (needs a dropdown)
@@ -414,16 +391,20 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     @setRowData(rowIndex, row)
     @selectRow(rowIndex)
 
-    # Set current values in added inputs
+    # Initialize inputs with current values
     for k, v of @editableCols
-      if k != 'gender' && !/expected/i.test(k)
-        $('[name=' + k + rowIndex + ']').val(row['old'][k])
+      if k != 'gender' && !/expected/i.test(k) # Only set if an input field
+        $('[name=' + k + rowIndex + ']').val(row['old'][k]) # Set the input fields value to the current value
 
     # Initialize the popovers
     $('#birthdate' + rowIndex).popover({title: 'Birthdate', placement: 'bottom', container: 'body', html: 'true', content: '<div id="birthdate' + rowIndex + '_popover"></div>'}).on('show.bs.popover', @populateDateTimePickerPopover)
     $('#deathdate' + rowIndex).popover({title: 'Deathdate', placement: 'bottom', container: 'body', html: 'true', content: '<div id="deathdate' + rowIndex + '_popover"></div>'}).on('show.bs.popover', @populateDateTimePickerPopover)
 
     @updateDisplay(rowIndex)
+
+    # If the row is showing editable columns, focus on the first input
+    htmlRow = $('#patientDashboardTable').DataTable().row(rowIndex).nodes()
+    $(htmlRow).find('.inline-editing:first').focus()
 
     # Tell screen reader something changed
     update_message = "Editing turned on for patient " + row.patient.get('last') + row.patient.get('first') + ". Can edit columns for " + _.keys(@editableCols).join(", ") + " by navigating to the associated cells in this table row."
@@ -477,7 +458,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     inputs = $(':input').serializeArray()
     inputGroups = []
     for k, v of @editableCols
-      inputGroups.push inputs.filter (a) -> a.name == k + rowIndex
+      inputGroups.push inputs.filter (input) -> input.name == k + rowIndex
     for inputGroup in inputGroups
       different = false
       for input in inputGroup
@@ -490,9 +471,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         row[name?] = inputGroup?[0]?.value
 
     # Update Bonnie patient
-    patient = @getRowData(rowIndex).patient
-    population_index = @measure.get('displayedPopulation').index()
-    expected = _.first _.filter patient.get('expected_values').models, (expected) => expected.get('population_index') == population_index
+    patient = row.patient
+    expected = _.first _.filter patient.get('expected_values').models, (expected) => expected.get('population_index') == @displayedPopulationIndex
     editedData = {}
 
     for k, v of @editableCols
@@ -524,7 +504,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Update row on recalculation
     status = patient.save editedData,
       success: (model) =>
-        result = @population.calculateResult patient
+        result = @populationSet.calculateResult patient
         result.calculationsComplete =>
           row['actions'] = row['old']['actions']
           row['birthdate'] = $('#birthdate' + rowIndex).val()
@@ -532,7 +512,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
           row['editable'] = false
           @patientData[rowIndex] = row
           @results.add result.first()
-          row.patientResult = @matchPatientToPatientId(patient.id)
+          row.patientResult = @getPatientResultsById(patient.id)
           row.updatePasses()
           @setRowData(rowIndex, row)
           @deselectRow(rowIndex)
@@ -568,8 +548,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     targetCell = $(sender.currentTarget).closest('td')
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
-    patient = _.findWhere(@measure.get('patients').models, {id: row.id})
-    @patientEditView.display patient, rowIndex
+    @patientEditView.display row.patient, rowIndex
 
   ###
   Shows the actions associated with each patient row.
@@ -621,8 +600,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
     @removePatientFromDataSources(row)
-    patient = _.findWhere(@measure.get('patients').models, {id: row.id})
-    patient.destroy()
+    row.patient.destroy()
     $('#patientDashboardTable').DataTable().row(rowIndex).remove().draw()
 
     $('#ariaalerts').html "Deleting patient."
@@ -632,11 +610,11 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   populatePopover: (sender) ->
     sender.preventDefault()
-    dataCriteria = @pd.dataIndices[$(sender.target).attr('columnNumber')] # Formatted "PopulationKey_DataCriteriaKey"
-    dataCriteriaKey = dataCriteria.substring(dataCriteria.indexOf('_') + 1)
+    dataCriteria = @patientDashboard.dataIndices[$(sender.target).attr('columnNumber')] # Formatted "PopulationKey_DataCriteriaKey"
+    dataCriteriaKey = @patientDashboard.stripLeadingToken(dataCriteria)
     populationKey = dataCriteria.substring(0, dataCriteria.indexOf('_'))
     popoverHTML = "<div class='measure-viz rationale panel-group " + populationKey + "_children'>"
-    popoverView = new Thorax.Views.PatientDashboardPopover measure: @measure, populationKey: populationKey, dataCriteriaKey: dataCriteriaKey, allChildrenCriteria: @pd.dataCriteriaChildrenKeys dataCriteriaKey
+    popoverView = new Thorax.Views.PatientDashboardPopover measure: @measure, populationKey: populationKey, dataCriteriaKey: dataCriteriaKey, allChildrenCriteria: @patientDashboard.dataCriteriaChildrenKeys dataCriteriaKey
     popoverView.appendTo(@$('.rationale'))
     popoverHTML = popoverHTML + popoverView.$el[0].outerHTML
     popoverHTML = popoverHTML + "</div></div>"
@@ -659,68 +637,64 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   When a user toggles an expected population, make sure the change is valid.
   ###
   toggledExpected: (sender) =>
-    return unless $(sender.target).is(':checkbox')
     # Get row index, data, and current value of selected population
     targetCell = $(sender.currentTarget).closest('td')
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
-    population = $(sender.target).attr('id').replace('expected', '').replace(/[0-9]/g, '')
+    population = $(sender.target).attr('id').replace('expected', '').replace(/[0-9+]/g, '')
     unless $(sender.target)[0].checked
-      @handleDownSelect(population, 0, rowIndex)
+      @selectDependentPopulations(population, 0, rowIndex)
     else
-      @handleUpSelect(population, 1, rowIndex)
+      @deselectDependingPopulations(population, 1, rowIndex)
 
   ###
   Recursive function that handles expected population logic downselects.
   ###
-  handleDownSelect: (population, value, rowIndex) =>
+  selectDependentPopulations: (population, value, rowIndex) =>
     switch population
       when 'STRAT'
         @setPopulation('IPP', value, rowIndex)
-        @handleDownSelect('IPP', value, rowIndex)
+        @selectDependentPopulations('IPP', value, rowIndex)
       when 'IPP'
         @setPopulation('DENOM', value, rowIndex)
         @setPopulation('MSRPOPL', value, rowIndex)
-        @handleDownSelect('DENOM', value, rowIndex)
+        # Only down select for DENOM because it's the same as for MSRPOPL
+        @selectDependentPopulations('DENOM', value, rowIndex)
       when 'DENOM', 'MSRPOPL'
         @setPopulation('DENEX', value, rowIndex)
         @setPopulation('DENEXCEP', value, rowIndex)
         @setPopulation('NUMER', value, rowIndex)
-        @handleDownSelect('NUMER', value, rowIndex)
+        # A down select for DENEX and DENEXCEP is not required because they
+        # don't have any dependent populations
+        @selectDependentPopulations('NUMER', value, rowIndex)
       when 'NUMER'
         @setPopulation('NUMEX', value, rowIndex)
 
   ###
   Recursive function that handles expected population logic upselects.
   ###
-  handleUpSelect: (population, value, rowIndex) =>
+  deselectDependingPopulations: (population, value, rowIndex) =>
     switch population
       when 'NUMEX'
         @setPopulation('NUMER', value, rowIndex)
-        @handleUpSelect('NUMER', value, rowIndex)
-      when 'NUMER'
-        @setPopulation('DENOM', value, rowIndex)
-        @setPopulation('MSRPOPL', value, rowIndex)
-        @handleUpSelect('DENOM', value, rowIndex)
-        @handleUpSelect('MSRPOPL', value, rowIndex)
+        @deselectDependingPopulations('NUMER', value, rowIndex)
       when 'DENEX', 'DENEXCEP', 'NUMER'
         @setPopulation('DENOM', value, rowIndex)
         @setPopulation('MSRPOPL', value, rowIndex)
-        @handleUpSelect('DENOM', value, rowIndex)
-        @handleUpSelect('MSRPOPL', value, rowIndex)
+        @deselectDependingPopulations('DENOM', value, rowIndex)
       when 'DENOM', 'MSRPOPL'
         @setPopulation('IPP', value, rowIndex)
-        @handleUpSelect('IPP', value, rowIndex)
+        @deselectDependingPopulations('IPP', value, rowIndex)
       when 'IPP'
         @setPopulation('STRAT', value, rowIndex)
-        @handleUpSelect('STRAT', value, rowIndex)
+        @deselectDependingPopulations('STRAT', value, rowIndex)
 
   ###
   Sets a single expected population's value.
   ###
   setPopulation: (population, value, rowIndex) =>
-    if population of @pd.criteriaKeysByPopulation
-      if value
+    if population of @patientDashboard.criteriaKeysByPopulation
+      if !!value
         $('#expected' + population + rowIndex).prop('checked', true)
       else
         $('#expected' + population + rowIndex).prop('checked', false)
@@ -730,19 +704,19 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   createHeaderRows: =>
     row1 = []
-    row2 = @pd.dataIndices.map (d) => @pd.dataInfo[d].name
+    row2 = @patientDashboard.dataIndices.map (d) => @patientDashboard.dataInfo[d].name
     row1_full = row2.map (d) => '' # Creates an array of empty strings same length as row2
 
-    for key, dataCollection of @pd.dataCollections
+    for key, dataCollection of @patientDashboard.dataCollections
       row1_full[dataCollection.firstIndex] = dataCollection.name
     # Construct the top header using colspans for the number of columns
     # they should cover
     for header, index in row1_full
       if !!header
-        row1.push title: header, noSpaceTitle: header.replace(' ', ''), colspan: 1, width: @pd.dataInfo[@pd.dataIndices[index]].width
+        row1.push title: header, noSpaceTitle: header.replace(' ', ''), colspan: 1, width: @patientDashboard.dataInfo[@patientDashboard.dataIndices[index]].width
       else if row1[row1.length - 1]? and !!row1[row1.length - 1].title
         row1[row1.length - 1].colspan = row1[row1.length - 1].colspan + 1
-        row1[row1.length - 1].width = row1[row1.length - 1].width + @pd.dataInfo[@pd.dataIndices[index]].width
+        row1[row1.length - 1].width = row1[row1.length - 1].width + @patientDashboard.dataInfo[@patientDashboard.dataIndices[index]].width
     [row1, row2]
 
   ###
@@ -751,16 +725,16 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   detectChildrenCriteria: (columns) =>
     columnWithChildrenCriteria = {}
     for header, columnNumber in columns
-      dataCriteria = @pd.dataIndices[columnNumber] # Formatted "PopulationKey_DataCriteriaKey"
-      dataCriteriaKey = dataCriteria.substring(dataCriteria.indexOf('_') + 1)
-      if @pd.hasChildrenCriteria dataCriteriaKey
+      dataCriteria = @patientDashboard.dataIndices[columnNumber] # Formatted "PopulationKey_DataCriteriaKey"
+      dataCriteriaKey = @patientDashboard.stripLeadingToken(dataCriteria)
+      if @patientDashboard.hasChildrenCriteria dataCriteriaKey
         columnWithChildrenCriteria[columnNumber] = dataCriteriaKey
     columnWithChildrenCriteria
 
   ###
   @returns {Object} the results for a given patient given that patient's id
   ###
-  matchPatientToPatientId: (patient_id) =>
+  getPatientResultsById: (patient_id) =>
     patient = @results.findWhere({ patient_id: patient_id }).toJSON()
 
   ###
@@ -772,6 +746,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
   ###
   Updates the results object and patientData array with new patient data or updated patient data.
+  Note: After a result is updated, the old result is automatically removed.
   ###
   updatePatientDataSources: (currentResult, currentPatient) =>
     # Add result to results collection
@@ -791,50 +766,4 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Removes the passed in patient from the patientData array.
   ###
   removePatientFromDataSources: (currentPatient) =>
-    @patientData = _.without @patientData, _.findWhere @patientData, id: currentPatient.id
-
-
-class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
-  template: JST['patient_dashboard/edit_modal']
-
-  events:
-    'ready': 'setup'
-
-  setup: ->
-    @editDialog = @$("#patientEditModal")
-
-  display: (patient, rowIndex) ->
-    @patient = patient
-    @rowIndex = rowIndex
-    @measure = @dashboard.measure
-    @population = @dashboard.population
-    @populations = @dashboard.populations
-    @patients = @measure.get('patients')
-    @measures = @measure.collection
-    @patientBuilderView = new Thorax.Views.PatientBuilder model: patient, measure: @measure, patients: @patients, measures: @measures, showCompleteView: false, routeToPatientDashboard: true
-    @patientBuilderView.appendTo(@$('.modal-body'))
-    $("#saveButton").prop('disabled', false) # Save button was being set to disabled
-    @editDialog.modal(
-      "backdrop" : "static",
-      "keyboard" : true,
-      "show" : true).find('.modal-dialog').css('width','80%') # The same width defined in $modal-lg
-
-  save: (e) ->
-    # Save via patient builder, sending a callback so we can ensure we get a patient with the ID set
-    @patientBuilderView.save e, success: (patient) =>
-      @editDialog.modal('hide')
-      @$('.modal-body').empty() # Clear out patientBuilderView
-      @result = @population.calculateResult patient
-      @result.calculationsComplete =>
-        @patientResult = @result.toJSON()[0] # Grab the first and only item from collection
-        @patientData = new Thorax.Models.PatientDashboardPatient patient, @dashboard.pd, @measure, @patientResult, @populations, @population
-        @dashboard.updatePatientDataSources @result, @patientData
-        if @rowIndex?
-          $('#patientDashboardTable').DataTable().row(@rowIndex).data(@patientData).draw()
-        else # New patient added, with no pre existing row index.
-          node = $('#patientDashboardTable').DataTable().row.add(@patientData).draw().node()
-          @rowIndex = $('#patientDashboardTable').DataTable().row(node).index()
-        @dashboard.updateDisplay(@rowIndex)
-
-  close: ->
-    @$('.modal-body').empty() # Clear out patientBuilderView
+    @patientData = _.without(@patientData, _.findWhere(@patientData, id: currentPatient.id))

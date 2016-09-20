@@ -24,15 +24,15 @@ class Thorax.Views.PatientDashboardPopover extends Thorax.Views.BonnieView
         return referenceValue if referenceValue?
 
   ###
-  @returns {Object} returns the parent object of object that containes rootPrecondition
+  @returns {Object} returns the parent object of object that containes referencePrecondition
   ###
-  findParentOfReference: (preconditionsObject, rootPrecondition) =>
+  findParentOfReference: (preconditionsObject, referencePrecondition) =>
     if preconditionsObject.preconditions?.length > 0
       for precondition in preconditionsObject.preconditions
-        if precondition.reference? && precondition.reference == rootPrecondition.reference
+        if precondition.reference? && precondition.reference == referencePrecondition.reference
           return preconditionsObject
         else if precondition.preconditions?
-          referenceValue = @findParentOfReference(precondition, rootPrecondition)
+          referenceValue = @findParentOfReference(precondition, referencePrecondition)
           return referenceValue if referenceValue?
 
   ###

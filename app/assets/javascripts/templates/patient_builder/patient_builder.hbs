@@ -19,12 +19,12 @@
   </div>
 
   <div class="col-md-4">
-    {{#if showCompleteView}}
+    {{#unless inPatientDashboard}}
     <div class="pull-right">
       {{#button "cancel" class="btn btn-default"}}CANCEL{{/button}}
       {{#button "save" class="btn btn-primary" data-saving-text="SAVING..."}}SAVE{{/button}}
     </div>
-    {{/if}}
+    {{/unless}}
   </div>
 </div>
 

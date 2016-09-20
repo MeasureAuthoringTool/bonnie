@@ -1,15 +1,13 @@
 class Thorax.Models.PatientDashboardPatient extends Thorax.Model
 
-  initialize: (@patient, @pd, @measure, @patientResult, @populations, @population) ->
+  initialize: (@patient, @patientDashboard, @measure, @patientResult, @populations, @populationSet) ->
     # Set known patient attributes
     @id = @patient.get('_id')
     @first = @patient.get('first')
     @last = @patient.get('last')
     @description = if @patient.get('notes') then @patient.get('notes') else ''
-    @birthdate = @patient.get('birthdate')
-    @birthdate = moment.utc(@birthdate, 'X').format('MM/DD/YYYY hh:mm A')
-    @deathdate = @patient.get('deathdate')
-    @deathdate = if @deathdate then moment.utc(@deathdate, 'X').format('MM/DD/YYYY hh:mm A') else ''
+    @birthdate = moment.utc(@patient.get('birthdate'), 'X').format('MM/DD/YYYY hh:mm A')
+    @deathdate = if @patient.get('deathdate') then moment.utc(@patient.get('deathdate'), 'X').format('MM/DD/YYYY hh:mm A') else ''
     @gender = @patient.get('gender')
 
     # Get expected population results; check if patient is passing
@@ -19,8 +17,8 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     @actions = JST['pd_action_gears']({})
 
     # Set up instance variables for use by Patient Dashboard
-    @saveExpectedResults()
-    @saveActualResults()
+    @setExpectedResults()
+    @setActualResults()
     @savePopulationResults()
 
   ###
@@ -30,24 +28,26 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     @expected = @getExpectedResults()
     @actual = @getActualResults()
     @passes = JST['pd_result_text']({ passes: @patientStatus() == "PASS" })
+    @setExpectedResults()
+    @setActualResults()
 
   ###
   Sets the expected results for each population as instance variables
   of this object. These will later be accessed by DataTables when populating
   the patient dashboard.
   ###
-  saveExpectedResults: ->
-    for k, v of @expected
-      @['expected' + k] = v
+  setExpectedResults: ->
+    for population, result of @expected
+      @['expected' + population] = result
 
   ###
   Sets the actual results for each population as instance variables
   of this object. These will later be accessed by DataTables when populating
   the patient dashboard.
   ###
-  saveActualResults: ->
-    for k, v of @actual
-      @['actual' + k] = v
+  setActualResults: ->
+    for population, result of @actual
+      @['actual' + population] = result
 
   ###
   Sets the results for each individual data criteria as instance variables
@@ -55,16 +55,16 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
   the patient dashboard.
   ###
   savePopulationResults: ->
-    for k, v of @pd.criteriaKeysByPopulation
-      for dc in v
-        @[k + '_' + dc] =  @getPatientCriteriaResult(dc, k)
+    for population, criteria of @patientDashboard.criteriaKeysByPopulation
+      for dc in criteria
+        @[population + '_' + dc] =  @getPatientCriteriaResult(dc, population)
 
   ###
   @returns {Object} a mapping of populations to their expected results
   ###
   getExpectedResults: ->
     expectedResults = {}
-    expected_model = (model for model in @patient.get('expected_values').models when model.get('measure_id') == @measure.get('hqmf_set_id') && model.get('population_index') == @population.get('index'))[0]
+    expected_model = (model for model in @patient.get('expected_values').models when model.get('measure_id') == @measure.get('hqmf_set_id') && model.get('population_index') == @populationSet.get('index'))[0]
     for population in @populations
       if population not in expected_model.keys()
         expectedResults[population] = 0

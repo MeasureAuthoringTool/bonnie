@@ -46,7 +46,7 @@
     document.title += " - #{measure.get('cms_id')}" if measure?
     measureLayoutView = new Thorax.Views.MeasureLayout(measure: measure, patients: @patients)
     @mainView.setView(measureLayoutView)
-    measureLayoutView.showDashboard showFixedColumns: !/508_patient_dashboard/.test(Backbone.history.getFragment()) #Checks to see if 508_patient_dashboard is not in the url
+    measureLayoutView.showDashboard !/508_patient_dashboard/.test(Backbone.history.getFragment()) # Checks to see if 508_patient_dashboard is not in the url
     @breadcrumb.addMeasure(measure)
 
   renderComplexity: (measureSet1, measureSet2) ->
@@ -77,7 +77,7 @@
     measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
     document.title += " - #{measure.get('cms_id')}" if measure?
-    patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, showCompleteView: true)
+    patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, inPatientDashboard: false)
     @mainView.setView patientBuilderView
     @breadcrumb.addPatient(measure, patient)
 
@@ -108,7 +108,7 @@
   navigateToPatientBuilder: (patient, measure) ->
     # FIXME: Remove this when the Patients View is removed; select the first measure if a measure isn't passed in
     measure ?= @measures.findWhere {hqmf_set_id: patient.get('measure_ids')[0]}
-    @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, showCompleteView: true)
+    @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, inPatientDashboard: true)
     @breadcrumb.addPatient(measure, patient)
     @navigate "measures/#{measure.get('hqmf_set_id')}/patients/new"
 
