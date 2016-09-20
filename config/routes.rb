@@ -48,7 +48,6 @@ Bonnie::Application.routes.draw do
       post 'materialize'
       post 'qrda_export'
       post 'excel_export'
-      get 'history'
     end
   end
 
