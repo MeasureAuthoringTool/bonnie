@@ -641,7 +641,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     targetCell = $(sender.currentTarget).closest('td')
     row = @getRowData(targetCell)
     rowIndex = @getRowIndex(targetCell)
-    population = $(sender.target).attr('id').replace('expected', '').replace(/[0-9+]/g, '')
+    population = @patientDashboard.stripLeadingToken($(sender.target).attr('id')).replace(/[0-9+]/g, '')
     unless $(sender.target)[0].checked
       @selectDependentPopulations(population, 0, rowIndex)
     else
@@ -746,11 +746,10 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
   ###
   Updates the results object and patientData array with new patient data or updated patient data.
-  Note: After a result is updated, the old result is automatically removed.
   ###
   updatePatientDataSources: (currentResult, currentPatient) =>
     # Add result to results collection
-    @results.add currentResult.models
+    @results.add currentResult.models # Note: After a result is updated, the old result is automatically removed.
 
     # Add patient to patient data
     hasPatient = false
