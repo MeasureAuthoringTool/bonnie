@@ -1,17 +1,3 @@
-{{#if showFixedColumns}}
-  {{#link "measures/{{hqmf_set_id}}/508_patient_dashboard" class="pull-right" expand-tokens=true}}
-  <i class="fa fa-fw fa-eye-slash" aria-hidden="true"></i>
-  View patient table without scrolling features.
-  <span class="sr-only">Recommended for screen reader compatibility.</span>
-  {{/link}}
-{{else}}
-  {{#link "measures/{{hqmf_set_id}}/patient_dashboard" class="pull-right" expand-tokens=true}}
-  <i class="fa fa-fw fa-eye" aria-hidden="true"></i>
-  Activate scrolling features.
-  <span class="sr-only">Not recommended for screen reader compatibility.</span>
-  {{/link}}
-{{/if}}
-
 {{#collection tag="ul" class="nav nav-tabs" item-context=populationContext}}
   <li{{#if isActive}} class="active"{{/if}}>{{#button "switchPopulation" href="" tag="a" data-toggle="tab"}}{{populationTitle}}{{/button}}</li>
 {{/collection}}

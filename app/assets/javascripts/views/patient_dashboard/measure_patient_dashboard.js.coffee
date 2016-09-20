@@ -6,10 +6,6 @@ class Thorax.Views.MeasurePatientDashboardLayout extends Thorax.LayoutView
     $('#patient-dashboard-button').addClass('btn-primary')
     $('#measure-details-button').removeClass('btn-primary')
 
-  context: ->
-    _(super).extend
-      showFixedColumns: @showFixedColumns
-
   ###
   Switches populations (changes the population displayed by patient dashboard)
   ###
@@ -70,6 +66,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
   context: ->
     _(super).extend
+      hqmf_set_id: @measure.get('hqmf_set_id')
       cms_id: @measure.get('cms_id')
       patients: @patientData
       head1: @head1

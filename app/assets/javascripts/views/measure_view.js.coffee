@@ -15,7 +15,7 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
     # the view needs to be re-created each time it is shown.
     population = @measure.get 'displayedPopulation'
     populationPatientDashboardView = new Thorax.Views.MeasurePopulationPatientDashboard measure: @measure, population: population, showFixedColumns: e.showFixedColumns
-    patientDashboardView = new Thorax.Views.MeasurePatientDashboardLayout collection: @populations, population: population, showFixedColumns: e.showFixedColumns, hqmf_set_id: @measure.get 'hqmf_set_id'
+    patientDashboardView = new Thorax.Views.MeasurePatientDashboardLayout collection: @populations, population: population, showFixedColumns: e.showFixedColumns
 
     # NOTE: the populationPatientDashboard view has to be set as the subview at this point in time. Otherwise,
     # the rendering order is off and the dashboard renders terribly
