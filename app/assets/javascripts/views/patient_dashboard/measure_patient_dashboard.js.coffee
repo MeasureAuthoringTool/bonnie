@@ -178,8 +178,13 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   getTableColumns: ->
     columns = []
-    columns.push data: 'actions', orderable: false
-    columns.push data: 'passes'
+    columns.push
+      data: 'actions'
+      orderable: false
+      render: @insertActions
+    columns.push
+      data: 'passes'
+      render: @insertPassStatus
     columns.push
       data: 'last',
       cellType: "th" # Makes this cell a header element
@@ -212,6 +217,24 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     for entry in dataCriteria
       columns.push data: entry, render: @insertTextAndPatientData
     columns
+
+  ###
+  Inserts actions gear into row
+  ###
+  insertActions: (data, type, row, meta) =>
+    if data && data.length > 0
+      data
+    else
+      JST['pd_action_gears']({})
+
+  ###
+  Inserts pass status into row.
+  ###
+  insertPassStatus: (data, type, row, meta) =>
+    if row
+      JST['pd_result_text']({ passes: data == "PASS" })
+    else
+      ''
 
   ###
   Creates actual result.
