@@ -528,13 +528,12 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     status = patient.save editedData,
       success: (model) =>
         result = @populationSet.calculateResult patient
-        result.calculationsComplete =>
+        result.calculationComplete =>
           row['actions'] = row['old']['actions']
           row['birthdate'] = $('#birthdate' + rowIndex).val()
           row['deathdate'] = $('#deathdate' + rowIndex).val()
           row['editable'] = false
-          @patientData[rowIndex] = row
-          @results.add result.first()
+          @updatePatientDataSources result, row
           row.patientResult = @getPatientResultsById(patient.id)
           row.updatePasses()
           @setRowData(rowIndex, row)
@@ -772,7 +771,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   updatePatientDataSources: (currentResult, currentPatient) =>
     # Add result to results collection
-    @results.add currentResult.models # Note: After a result is updated, the old result is automatically removed.
+    @results.add currentResult # Note: After a result is updated, the old result is automatically removed.
 
     # Add patient to patient data
     hasPatient = false

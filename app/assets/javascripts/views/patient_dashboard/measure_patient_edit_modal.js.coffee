@@ -30,9 +30,8 @@ class Thorax.Views.MeasurePatientEditModal extends Thorax.Views.BonnieView
       @editDialog.modal('hide')
       @$('.modal-body').empty() # Clear out patientBuilderView
       @result = @populationSet.calculateResult patient
-      @result.calculationsComplete =>
-        @patientResult = @result.toJSON()[0] # Grab the first and only item from collection
-        @patientData = new Thorax.Models.PatientDashboardPatient patient, @dashboard.patientDashboard, @measure, @patientResult, @populations, @populationSet
+      @result.calculationComplete =>
+        @patientData = new Thorax.Models.PatientDashboardPatient patient, @dashboard.patientDashboard, @measure, @result.toJSON(), @populations, @populationSet
         @dashboard.updatePatientDataSources @result, @patientData
         if @rowIndex?
           $('#patientDashboardTable').DataTable().row(@rowIndex).data(@patientData).draw()
