@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 8db65b4571e67fbcf7d61d6ab570643f2d69b270
+  revision: a6d272e6b5d0dc8503d2b0f8a1a5b0c35e43138b
   branch: bonnie_master_2016
   specs:
     health-data-standards (3.6.1)
@@ -45,7 +45,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/patientapi.git
-  revision: 10298520ee60416387ef1f9836bc351fc9a9e1c2
+  revision: afedd131636d5b06ffeb48851644301ee84e311b
   branch: master
   specs:
     hquery-patient-api (1.0.4)
@@ -136,7 +136,7 @@ GEM
       warden (~> 1.2.3)
     diffy (3.0.7)
     docile (1.1.5)
-    domain_name (0.5.20160615)
+    domain_name (0.5.20160826)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     eventmachine (1.0.7)
@@ -353,4 +353,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.12.5
+   1.13.1
