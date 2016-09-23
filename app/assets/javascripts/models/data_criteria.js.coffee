@@ -94,7 +94,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     return true if criteriaType.match(/_result$/) || criteriaType == 'laboratory_test' || criteriaType == 'physical_exam'
     # This list is based on V4.0 of the QDM: http://www.healthit.gov/sites/default/files/qdm_4_0_final.pdf
     criteriaType in ['diagnostic_study_performed', 'functional_status_performed', 'intervention_performed', 'laboratory_test_performed',
-                     'physical_exam_performed', 'procedure_performed', 'risk_category_assessment']
+                     'physical_exam_performed', 'procedure_performed', 'risk_category_assessment', 'assessment_performed']
 
   canHaveNegation: ->
     #We must support criteria types with "Negation Rational" for QDM 4.2 changes.
@@ -106,6 +106,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
 
     #If Criteria Definition exists in object
     negationList = 
+      assessment:       ['performed', 'recommended']
       device:           ['applied', 'ordered', 'recommended']
       diagnostic_study: ['performed', 'ordered', 'recommended']
       encounter:        ['ordered', 'performed', 'recommended']
