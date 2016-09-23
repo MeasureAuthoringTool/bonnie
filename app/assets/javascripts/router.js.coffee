@@ -108,7 +108,7 @@
   navigateToPatientBuilder: (patient, measure) ->
     # FIXME: Remove this when the Patients View is removed; select the first measure if a measure isn't passed in
     measure ?= @measures.findWhere {hqmf_set_id: patient.get('measure_ids')[0]}
-    @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, inPatientDashboard: true)
+    @mainView.setView new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, inPatientDashboard: false)
     @breadcrumb.addPatient(measure, patient)
     @navigate "measures/#{measure.get('hqmf_set_id')}/patients/new"
 
