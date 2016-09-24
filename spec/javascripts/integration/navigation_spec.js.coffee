@@ -28,8 +28,8 @@ describe 'Navigation', ->
 
     it 'should link to measures list and update measure for a measure', ->
       p = @patients
-      @measureView = new Thorax.Views.Measure(model: @measures.first(), patients: p)
-      @measureView.render()
+      @measureView = new Thorax.Views.MeasureLayout(measure: @measures.first(), patients: p)
+      @measureView = @measureView.showMeasure()
       expect(@measureView.$('a[href="#measures"]')).toExist
       expect(@measureView.$('#updateMeasureTrigger')).toExist
       @measureView.remove()

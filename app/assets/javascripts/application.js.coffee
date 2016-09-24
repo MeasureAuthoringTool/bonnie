@@ -33,6 +33,12 @@
 #= require bootstrap-file-input/bootstrap.file-input
 #= require MutationObserver-shim/dist/mutationobserver.min
 #
+#= require datatables.net/js/jquery.dataTables
+#= require datatables.net-bs/js/dataTables.bootstrap
+#= require datatables.net-fixedcolumns/js/dataTables.fixedColumns
+#= require jquery.scrollTo/jquery.scrollTo
+#= require eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min
+#
 #= require helpers
 #= require_tree ./templates
 #= require_tree ./models
@@ -42,6 +48,7 @@
 #= require measure_libraries
 #= require_self
 #= require_tree .
+
 
 # Make all JST templates available as Handlebars templates, so the {{template 'foo'}} helper works as expected
 Handlebars.templates[name] = template for name, template of JST
