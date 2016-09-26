@@ -86,6 +86,16 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
       procedures:                'fa-scissors'
       risk_category_assessments: 'fa-user'
       care_goals:                'fa-sliders'
+      assessments:               'fa-eye'
+      care_experiences:          'fa-heartbeat'
+      family_history:            'fa-sitemap'
+      immunizations:             'fa-medkit'
+      preferences:               'fa-comment'
+      provider_characteristics:  'fa-user-md'
+      substances:                'fa-medkit'
+      symptoms:                  'fa-bug'
+      system_characteristics:    'fa-tachometer'
+      transfers:                 'fa-random'
     icons[@get('type')] || 'fa-question'
   canHaveResult: ->
     criteriaType = @get('definition')
