@@ -2,7 +2,7 @@ class Thorax.Views.MeasureUploadSummary extends Thorax.Views.BonnieView
   template: JST['measure_upload_summary']
 
   events:
-    'click .patient-link': 'patientSelected'
+    'click .patient-link': -> @trigger "patient:selected" # Event for if the link on the modal is clicked
 
   context: ->
     populationInformation = [] # One element per population
@@ -12,25 +12,20 @@ class Thorax.Views.MeasureUploadSummary extends Thorax.Views.BonnieView
       totalChanged = 0
       totalPatients = @measure.get('patients').length
       populationSummary = eachPopulation.summary
-      percentPassedBefore = parseFloat(((populationSummary.pass_before/totalPatients) * 100).toFixed(1)) # toFixed converts to string
+      # toFixed(1) trims decimal to 1 decimal point, but converts to string. parseFloat converts to float, because the Knob requires input as float
+      percentPassedBefore = parseFloat(((populationSummary.pass_before/totalPatients) * 100).toFixed(1))
       percentPassedAfter = parseFloat(((populationSummary.pass_after/totalPatients) * 100).toFixed(1))
       for patientOID, patientInformation of eachPopulation.patients
         if patientInformation.before_status != patientInformation.after_status
           totalChanged++
-          @measure.get('patients').each((thisPatient, arrayIndex) ->
-            if thisPatient.get('_id') == patientOID
-              patientsWhoChanged.push({name: "#{thisPatient.get('first')} #{thisPatient.get('last')}", patientID: thisPatient.id, after_status: patientInformation.after_status})
-            )
+          patient = @measure.get('patients').findWhere(_id: patientOID)
+          patientsWhoChanged.push({name: "#{patient.get('first')} #{patient.get('last')}", patientID: patient.id, after_status: patientInformation.after_status})
       populationInformation[populationIndex] = {
         totalPatients: totalPatients,
         totalChanged: totalChanged,
-        jQueryKnobBefore: {done: true, percent: percentPassedBefore, status: if percentPassedBefore == 100 then 'pass' else 'fail'}
-        jQueryKnobAfter: {done: true, percent: percentPassedAfter, status: if percentPassedAfter == 100 then 'pass' else 'fail'}
+        percentageDialBeforeMeasureUpload: {done: true, percent: percentPassedBefore, status: if percentPassedBefore == 100 then 'pass' else 'fail'}
+        percentageDialAfterMeasureUpload: {done: true, percent: percentPassedAfter, status: if percentPassedAfter == 100 then 'pass' else 'fail'}
         patientsWhoChanged: patientsWhoChanged
         populationTitle: populationTitles[populationIndex]
         }
     _(super).extend(populationInformation: populationInformation, numberOfPopulations: @measure.get('populations').size(), hqmfSetId: @measure.get('hqmf_set_id'))
-
-  #Event for if the link on the modal is clicked
-  patientSelected: =>
-    @trigger "patient:selected"
