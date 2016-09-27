@@ -53,3 +53,19 @@ Handlebars.registerHelper 'times', (n, opts) ->
     out = opts.inverse(this)
 
   return out
+Handlebars.registerHelper 'lookup', (obj, field) ->
+  obj && obj[field]
+
+Handlebars.registerHelper 'ifIn', (obj, arr, options) ->
+  if obj in arr
+    options.fn(this)
+  else
+    options.inverse(this)
+
+###
+Takes a shorthand population name and renders it such
+that screen readers will read out the complete name
+###
+Handlebars.registerHelper 'populationName', (population) =>
+  return '' unless population?
+  return new Handlebars.SafeString Thorax.Models.Measure.PopulationMap[population]

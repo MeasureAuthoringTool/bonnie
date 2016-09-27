@@ -1,0 +1,189 @@
+html, body, .container-fluid, [role="main"], .measure-layout, .patient-dashboard-layout, .patient-dashboard {
+  // height: 100%;
+}
+
+.patient-dashboard-view {
+  padding: 1em;
+}
+
+.limited {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.children-criteria li {
+  padding: .5em;
+  margin: .5em;
+  margin-left: -1em;
+  font-size: smaller;
+}
+
+.trigger-criteria {
+  margin-left: 1em;
+}
+
+.patient-dashboard {
+  padding-top: 1em;
+}
+
+.scroll-container {
+  margin: 1rem 0 1rem;
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  z-index: 10;
+}
+
+// a loop that shifts the background and border colors
+// on each iteration by -41 degrees for ok contrast
+.set-header-bg-colors(@i) when (@i > 0) {
+  @angle: -41*@i;
+  thead tr:first-of-type th:nth-of-type(@{i}) {
+    background: spin(@blue-lightest, @angle);
+    border: 1px solid darken(spin(@blue-lightest, @angle), 20%)
+  }
+  .set-header-bg-colors(@i - 1); // iterate.
+}
+
+@table-strong-border: 2px solid black;
+
+.DTFC_LeftHeadWrapper, .DTFC_LeftBodyWrapper {
+  border-right: @table-strong-border;
+}
+
+.DTFC_LeftBodyLiner {
+  overflow-x: hidden;
+}
+
+.dataTables_wrapper {
+  overflow-x: auto;
+}
+
+.DTFC_ScrollWrapper,
+.dataTables_scroll,
+.dataTables_scrollHead,
+.dataTables_scrollHeadInner,
+.dataTables_scrollBody {
+  // This is a hack to force Safari to be less lazy in rendering scrolling for the table.
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+table.dataTable {
+  z-index: 10;
+  table-layout: fixed;
+
+  tbody > tr > td {
+    vertical-align: middle;
+  }
+
+  thead .sorting,
+  thead .sorting_asc,
+  thead .sorting_desc,
+  thead .sorting_asc_disabled,
+  thead .sorting_desc_disabled {
+    background-position: 100% 93%; // places the sorting icon at the bottom right
+  }
+
+  thead tr:first-of-type th {
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  thead th, thead td {
+    border-bottom: @table-strong-border;
+  }
+
+  .set-header-bg-colors(12);
+
+  tr.inline-edit-mode > td.editable {
+    background-color: #ddeeee !important;
+  }
+
+  th > div.tableScrollContainer {
+    padding: 0px;
+    position: relative;
+    height: 150px;
+  }
+
+  th > div > div.tableScroll {
+    max-height:100%;
+    max-width:100%;
+    overflow-y:auto;
+    overflow-x:hidden;
+    position:absolute;
+    bottom: 0;
+    left: 0;
+    white-space: normal;
+  }
+
+  /* population header styling so text is vertical */
+  th.rotate {
+    font-size: 90%;
+    height: 60px;
+    width: 40px;
+    text-align: left;
+    vertical-align: inherit; // override the bootstrap alignment
+  }
+
+  th.rotate > div {
+    transform:
+      translate(-40px, 35px) /* magic numbers to get the text placement correct */
+      rotate(-90deg);
+    width: 80px;
+  }
+
+  /* basic cell styling. keeping in div because can managing text overflow more easily */
+  th > div,
+  td > div:not(.btn-group) {
+    overflow: hidden;
+  }
+
+  tbody th, tbody td {
+    word-wrap: break-word;
+    vertical-align: middle;
+  }
+
+  td.warn {
+    border: 2px solid @red-darker;
+  }
+
+  td.value {
+    text-align: center;
+  }
+}
+
+.pd-settings-container {
+  .btn-settings {
+    float: left;
+    font-size: 1.5em;
+    padding: 0;
+    color: black;
+  }
+
+  .pd-settings {
+    visibility: hidden;
+    opacity: 0;
+    background-color: @gray-lighter;
+    position: absolute;
+    .transition(opacity 0.5s linear);
+
+    .btn {
+      .box-shadow(0 1px 3px rgba(0,0,0,.25));
+    }
+  }
+  .pd-settings-expanded {
+    visibility: visible;
+    opacity: 1;
+    left: 2.5em;
+    white-space: nowrap;
+    z-index: 1;
+  }
+}
+
+.sorting_1, .sorting_2, .sorting_3 {
+  background-color: @blue-lightest;
+}

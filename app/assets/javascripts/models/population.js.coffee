@@ -12,7 +12,11 @@ class Thorax.Models.Population extends Thorax.Model
 
   calculate: (patient) -> bonnie.calculator.calculate(this, patient)
 
+  # Calculates results for all measure patients
   calculationResults: -> new Thorax.Collections.Results @measure().get('patients').map (p) => @calculate(p)
+
+  # Calculates a result for the given patient
+  calculateResult: (patient) -> @calculate(patient)
 
   differenceFromExpected: (patient) ->
     result = @calculate(patient)
