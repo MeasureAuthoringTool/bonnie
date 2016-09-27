@@ -32,6 +32,12 @@
 #= require jquery-color/jquery.color
 #= require bootstrap-file-input/bootstrap.file-input
 #= require MutationObserver-shim/dist/mutationobserver.min
+#= require cql_qdm_patientapi
+#= require ace-builds/src/ace.js
+#= require ace-builds/src/ext-language_tools.js
+#= require ace-builds/src/mode-cql_highlight_rules.js
+#= require ace-builds/src/mode-cql.js
+#= require ace-builds/src/theme-chrome.js
 #
 #= require datatables.net/js/jquery.dataTables
 #= require datatables.net-bs/js/dataTables.bootstrap

@@ -252,6 +252,18 @@ class MeasuresController < ApplicationController
     measure.generate_js clear_db_cache: true
     redirect_to :back
   end
+
+  # This is a fairly simple passthrough to a back-end service, which we use to simplify server configuration
+  def cql_to_elm
+    begin
+      render json: RestClient.post('http://localhost:8080/cql/translator',
+                                   params[:cql],
+                                   content_type: 'application/cql',
+                                   accept: 'application/elm+json')
+    rescue RestClient::BadRequest => e
+      render json: e.response, :status => 400
+    end
+  end
   
   private
 
