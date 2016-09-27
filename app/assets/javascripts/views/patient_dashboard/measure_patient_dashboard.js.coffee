@@ -504,7 +504,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
     for k, v of @editableCols
       if k == 'description'
-        editedData['notes'] = row[k]
+        editedData['notes'] = _.escape(row[k])
       else if /expected/i.test(k)
         if @measure.get('episode_of_care') || @measure.get('continuous_variable')
           expected.set(k.replace('expected', ''), $('#' + k + rowIndex).val())
@@ -523,7 +523,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         else
           editedData['expired'] = false
       else
-        editedData[k] = row[k]
+        editedData[k] = _.escape(row[k])
     editedData['expected_values'] = patient.get('expected_values')
 
     $('#ariaalerts').html "Saving edits on this patient."
