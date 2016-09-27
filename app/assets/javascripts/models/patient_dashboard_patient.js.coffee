@@ -3,9 +3,9 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
   initialize: (@patient, @patientDashboard, @measure, @patientResult, @populations, @populationSet) ->
     # Set known patient attributes
     @id = @patient.get('_id')
-    @first = @patient.get('first')
-    @last = @patient.get('last')
-    @description = if @patient.get('notes') then @patient.get('notes') else ''
+    @first = _.escape(@patient.get('first'))
+    @last = _.escape(@patient.get('last'))
+    @description = if @patient.get('notes') then _.escape(@patient.get('notes')) else ''
     @birthdate = moment.utc(@patient.get('birthdate'), 'X').format('MM/DD/YYYY hh:mm A')
     @deathdate = if @patient.get('deathdate') then moment.utc(@patient.get('deathdate'), 'X').format('MM/DD/YYYY hh:mm A') else ''
     @gender = @patient.get('gender')
