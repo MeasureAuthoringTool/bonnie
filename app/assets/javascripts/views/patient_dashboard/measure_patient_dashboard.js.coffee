@@ -747,7 +747,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   createHeaderRows: =>
     row1 = []
-    row2 = @patientDashboard.dataIndices.map (d) => @patientDashboard.dataInfo[d].name
+    row2 = @patientDashboard.dataIndices.map (d) => @renderFreeText(@patientDashboard.dataInfo[d].name)
     row1_full = row2.map (d) => '' # Creates an array of empty strings same length as row2
 
     for key, dataCollection of @patientDashboard.dataCollections
@@ -756,7 +756,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # they should cover
     for header, index in row1_full
       if !!header
-        row1.push title: header, noSpaceTitle: header.replace(' ', ''), colspan: 1, width: @patientDashboard.dataInfo[@patientDashboard.dataIndices[index]].width
+        row1.push title: @renderFreeText(header), noSpaceTitle: header.replace(' ', ''), colspan: 1, width: @patientDashboard.dataInfo[@patientDashboard.dataIndices[index]].width
       else if row1[row1.length - 1]? and !!row1[row1.length - 1].title
         row1[row1.length - 1].colspan = row1[row1.length - 1].colspan + 1
         row1[row1.length - 1].width = row1[row1.length - 1].width + @patientDashboard.dataInfo[@patientDashboard.dataIndices[index]].width
