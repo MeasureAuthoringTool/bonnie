@@ -44,7 +44,7 @@
       bonnie.applicationVersion = '<%=Bonnie::Version.current()%>';
       <% @patients.each do |patient| %>
         (function() {
-          var patient = new Thorax.Models.Patient(<%= MultiJson.encode(patient.as_json(except: :results)).html_safe %>, { parse: true });
+          var patient = new Thorax.Models.Patient(<%= json_escape(MultiJson.encode(patient.as_json(except: :results))).html_safe %>, { parse: true });
           bonnie.measures.each(function(measure) {
             if (bonnie.isPortfolio) {
               measure.get('patients').add(patient);
@@ -59,7 +59,7 @@
       $(document).ready(function() {
         Backbone.history.start();
         <% if (flash[:error]) %>
-          bonnie.showError(<%= flash[:error].to_json.html_safe %>);
+          bonnie.showError(<%= json_escape(flash[:error].to_json).html_safe %>);
         <% end %>
         $('.skip-content').click(function(e) {
           e.preventDefault();
