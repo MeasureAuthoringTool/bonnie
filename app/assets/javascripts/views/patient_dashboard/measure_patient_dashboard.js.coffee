@@ -226,13 +226,13 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     columns
 
   ###
-  Escapes HTML using built in datatables helper
+  Escapes HTML using built in datatables helper. Helps prevent XSS vulnerabilities.
   ###
   renderFreeText: (text) =>
       $.fn.dataTable.render.text().display(text)
 
   ###
-  Renders a free text cell
+  Renders a free text cell. Helps prevent XSS vulnerabilities.
   ###
   renderCell: (data, type, row, meta) =>
     # If the row is currently editable, these cells contain inputs, which have
