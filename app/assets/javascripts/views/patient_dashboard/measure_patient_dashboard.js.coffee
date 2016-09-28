@@ -154,8 +154,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         targettext.addClass(targetClass) # This does the actually application of the highlighting to the target
         # this line is there to fix an issue with sr-only in Chrome making text in inline elements not display
         # by having the sr-only span and the DC title wrapped in a criteria-title span, the odd behavior goes away.
-        targettext.children('.sr-highlight-status').html(srTitle)
-        targettext.children('.criteria-title').children('.sr-highlight-status').html(srTitle)
+        targettext.children('.sr-highlight-status').html(@renderFreeText(srTitle))
+        targettext.children('.criteria-title').children('.sr-highlight-status').html(@renderFreeText(srTitle))
 
   ###
   Performs some actions on the DOM to properly render popovers,
@@ -186,13 +186,15 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       data: 'passes'
       render: @insertPassStatus
     columns.push
-      data: 'last',
+      data: 'last'
       cellType: "th" # Makes this cell a header element
       createdCell: (td, cellData, rowData, row, col) => $(td).attr('scope', 'row')
+      render: @renderCell
     columns.push
-      data: 'first',
+      data: 'first'
       cellType: "th" # Makes this cell a header element
       createdCell: (td, cellData, rowData, row, col) => $(td).attr('scope', 'row')
+      render: @renderCell
     for population in @populations
       columns.push
         data: 'actual' + population
@@ -203,10 +205,15 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         data: 'expected' + population
         className: 'value'
         render: @insertExpectedValue
-    columns.push data: 'description'
+    columns.push
+      data: 'description'
+      render: @renderCell
     columns.push data: 'birthdate'
     columns.push data: 'deathdate'
-    columns.push data: 'gender'
+    columns.push
+      data: 'gender'
+      render: @renderCell
+
     # Collect all actual data criteria and sort to make sure patient dashboard
     # displays data criteria in the correct order.
     dataCriteriaStartIndex = @patientDashboard.dataInfo['gender'].index + 1
@@ -217,6 +224,21 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     for entry in dataCriteria
       columns.push data: entry, render: @insertTextAndPatientData
     columns
+
+  ###
+  Escapes HTML using built in datatables helper
+  ###
+  renderFreeText: (text) =>
+      $.fn.dataTable.render.text().display(text)
+
+  ###
+  Renders a free text cell
+  ###
+  renderCell: (data, type, row, meta) =>
+    if row?['editable']
+      data
+    else
+      @renderFreeText(data)
 
   ###
   Inserts actions gear into row
@@ -409,7 +431,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
         # Expected
         row[k] = JST['pd_actual_expected']({ rowIndex: rowIndex, key: k, editable: true, episodeOfCare: @measure.get('episode_of_care'), continuousVariable: @measure.get('continuous_variable') })
       else
-        row[k] = JST['pd_input_field']({ rowIndex: rowIndex, key: k })
+        row[k] = JST['pd_input_field']({ rowIndex: rowIndex, key: k, value: row[k] })
 
     # Change edit button to save and cancel buttons
     row['actions'] = JST['pd_edit_controls']({})
@@ -417,11 +439,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     # Update row
     @setRowData(rowIndex, row)
     @selectRow(rowIndex)
-
-    # Initialize inputs with current values
-    for k, v of @editableCols
-      if k != 'gender' && !/expected/i.test(k) # Only set if an input field
-        $('[name=' + k + rowIndex + ']').val(row['old'][k]) # Set the input fields value to the current value
 
     # Initialize the popovers
     $('#birthdate' + rowIndex).popover({title: 'Birthdate', placement: 'bottom', container: 'body', html: 'true', content: '<div id="birthdate' + rowIndex + '_popover"></div>'}).on('show.bs.popover', @populateDateTimePickerPopover)
@@ -435,7 +452,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
     # Tell screen reader something changed
     update_message = "Editing turned on for patient " + row.patient.get('last') + row.patient.get('first') + ". Can edit columns for " + _.keys(@editableCols).join(", ") + " by navigating to the associated cells in this table row."
-    $('#ariaalerts').html update_message
+    $('#ariaalerts').html @renderFreeText(update_message)
 
   ###
   Populates a datetime popover with a datetime picker.
