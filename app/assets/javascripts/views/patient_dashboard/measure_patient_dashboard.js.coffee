@@ -235,6 +235,9 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Renders a free text cell
   ###
   renderCell: (data, type, row, meta) =>
+    # If the row is currently editable, these cells contain inputs, which have
+    # been populated by their respective Handlebars template. The template
+    # itself handles escaping HTML (so no extra steps are necessary).
     if row?['editable']
       data
     else
