@@ -14,7 +14,7 @@ Provides a generic input field
 ###
 JST['pd_input_field'] = Handlebars.compile '
   <label class="sr-only" for="{{key}}{{rowIndex}}">{{key}}</label>
-  <input class="form-control input-sm inline-editing" type="text" id="{{key}}{{rowIndex}}" name="{{key}}{{rowIndex}}">'
+  <input class="form-control input-sm inline-editing" type="text" id="{{key}}{{rowIndex}}" name="{{key}}{{rowIndex}}" value="{{value}}">'
 
 ###
 Gender select menu for editing patients.
