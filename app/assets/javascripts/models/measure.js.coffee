@@ -78,6 +78,8 @@ class Thorax.Models.Measure extends Thorax.Model
     # criteria. The name should correspond with what is the `coded_entry_method` in the `FIELDS`
     # hash in health-data-standards:lib/health-model/data_criteria.rb.
     typeInclusions =
+      adverse_events: ['facility', 'severity', 'type'] # TODO: (LDY 9/29/2016) we care about "facility location". this appears to be the same as "facility"
+      allergies_intolerances: ['severity', 'type']
       assessments: ['method']
       care_experiences: []
       care_goals: ['related_to', 'target_outcome']

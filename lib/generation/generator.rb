@@ -55,6 +55,10 @@ module HQMF
         "family_history"
       when :careExperiences
         "care_experiences"
+      when :adverseEvents
+        "adverse_events"
+      when :allergiesIntolerances
+        "allergies_intolerances"
       else
         type.to_s
       end
