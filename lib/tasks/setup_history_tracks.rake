@@ -83,7 +83,6 @@ namespace :upgrade_add_hx_tracks do
 
         puts "\t#{measure.title}"
         patients.each do |patient|
-          # next if patient.id == "5509b61769702d5cfa100c00"
           begin
           too_many = []
           patient.expected_values.each_with_index do |ev, i|
@@ -116,7 +115,6 @@ namespace :upgrade_add_hx_tracks do
 
     desc 'Calculate every patient in the database and display any errors (does not test for correct results)'
     task :calculate_all => :environment do
-      # Rake::Task['upgrade_add_hx_tracks:patients:clear_actuals'].invoke 
       STDOUT.sync = true
       start = Time.now
       calculate_all do |measure, population_index, patient, result, error|
