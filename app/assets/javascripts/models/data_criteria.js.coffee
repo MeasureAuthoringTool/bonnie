@@ -145,7 +145,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     if @get('definition') in ['diagnosis', 'symptom'] && !@get('status')?
       'Onset'  # If in whitelist and status is empty
     else if @get('definition') in ['family_history']
-      'Recorded'
+      'Authored'
     else
       'Start'
 
