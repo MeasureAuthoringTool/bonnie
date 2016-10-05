@@ -87,7 +87,7 @@ class Thorax.Models.Measure extends Thorax.Model
       communications: []
       conditions: ['anatomical_structure', 'anatomical_location', 'ordinality', 'severity', 'laterality']
       devices: ['removal_time', 'anatomical_structure']
-      diagnostic_studies: ['facility', 'method', 'qdm_status']
+      diagnostic_studies: ['facility', 'method', 'qdm_status', 'result_date_time']
       encounters: ['admit_time', 'discharge_time', 'discharge_disposition', 'facility',
         'facility_arrival', 'facility_departure', 'transfer_to', 'transfer_to_time',
         'transfer_from', 'transfer_from_time', 'principal_diagnosis', 'diagnosis']
@@ -95,7 +95,7 @@ class Thorax.Models.Measure extends Thorax.Model
       functional_statuses: []
       immunizations: ['route', 'dose', 'reaction', 'supply']
       interventions: ['anatomical_structure']
-      laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status']
+      laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status', 'result_date_time']
       medications: ['route', 'dose', 'reaction', 'supply']
       patient_care_experiences: []
       physical_exams: ['anatomical_structure']
