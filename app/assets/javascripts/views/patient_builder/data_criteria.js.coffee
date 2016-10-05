@@ -339,7 +339,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       delete attr.start_time
       title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
       attr.title = title if title
-      attr.codes = @fieldValueCodesCollection.toJSON() unless jQuery.isEmptyObject(@fieldValueCodesCollection.toJSON)
+      attr.codes = @fieldValueCodesCollection.toJSON() unless jQuery.isEmptyObject(@fieldValueCodesCollection.toJSON())
       # gets the pretty printed title (e.g., "Result Date/Time" instead of "RESULT_DATETIME")
       attr.field_title = (field for field in @fields when field.key == attr.key)[0]?.title
     rendered: ->
