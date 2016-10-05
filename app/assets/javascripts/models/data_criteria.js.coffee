@@ -49,6 +49,11 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     fieldValues = new Thorax.Collection()
     references = new Thorax.Collection()
     for key, value of attrs.field_values
+      # add a human readable attribute for the field name
+      fields = Thorax.Models.Measure.logicFieldsFor(attrs.type)
+      field_title = (field for field in fields when field.key == key)[0]?.title
+      value = _(value).extend(field_title: field_title)
+
       fieldValues.add _(value).extend(key: key)
     if attrs.references?
       references.add value for value in attrs.references

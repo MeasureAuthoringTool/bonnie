@@ -180,7 +180,11 @@
 
         {{#collection field_values class="existing-values" item-context=valueWithDateContext}}
           <span>
-            {{key}}:
+            {{#if field_title}}
+              {{field_title}}:
+            {{else}}
+              {{key}}:
+            {{/if}}
             {{#if start_date}}
               {{start_date}} {{start_time}}
             {{else}}

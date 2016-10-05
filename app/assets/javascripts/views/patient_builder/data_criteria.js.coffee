@@ -322,11 +322,11 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @fieldValueCodesCollection = new Thorax.Collections.Codes {}, parse: true
     @showAddCodesButton = false
     @showAddCodes = false
+    @fields = Thorax.Models.Measure.logicFieldsFor(@criteriaType)
 
   context: ->
     _(super).extend
       codes: @measure?.valueSets().map((vs) -> vs.toJSON()) or []
-      fields: Thorax.Models.Measure.logicFieldsFor(@criteriaType)
       hideEditValueView: @criteriaType == 'risk_category_assessments' && @values.models.length > 0
 
   # When we serialize the form, we want to put the description for any CD codes into the submission
@@ -339,7 +339,9 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       delete attr.start_time
       title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
       attr.title = title if title
-      attr.codes = @fieldValueCodesCollection.toJSON() unless jQuery.isEmptyObject(@fieldValueCodesCollection.toJSON())
+      attr.codes = @fieldValueCodesCollection.toJSON() unless jQuery.isEmptyObject(@fieldValueCodesCollection.toJSON)
+      # gets the pretty printed title (e.g., "Result Date/Time" instead of "RESULT_DATETIME")
+      attr.field_title = (field for field in @fields when field.key == attr.key)[0]?.title
     rendered: ->
       @codeSelectionViewForFieldValues = new Thorax.Views.CodeSelectionView codes: @fieldValueCodesCollection
       @$("select[name=type]").selectBoxIt('native': true)
@@ -419,7 +421,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     # If it's a date/time field, automatically chose the date type and pre-enter a date
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
     if attributes.key in ['ADMISSION_DATETIME', 'DISCHARGE_DATETIME', 'FACILITY_LOCATION_ARRIVAL_DATETIME',
-                          'FACILITY_LOCATION_DEPARTURE_DATETIME', 'INCISION_DATETIME', 'REMOVAL_DATETIME', 'TRANSFER_TO_DATETIME', 'TRANSFER_FROM_DATETIME']
+                          'FACILITY_LOCATION_DEPARTURE_DATETIME', 'INCISION_DATETIME', 'REMOVAL_DATETIME',
+                          'TRANSFER_TO_DATETIME', 'TRANSFER_FROM_DATETIME', 'RESULT_DATETIME']
       @$('select[name=type]').val('TS').change()
       criteria = @parent.model
       switch attributes.key
