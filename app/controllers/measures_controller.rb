@@ -243,6 +243,7 @@ class MeasuresController < ApplicationController
 
     measure.generate_js
 
+    #  Initialize an Upload Summary by taking a snapshot of the patients before the measure is updated.
     upl_id = UploadSummary.collect_before_upload_state(measure, arch_measure)
     measure.save!
 
@@ -258,8 +259,6 @@ class MeasuresController < ApplicationController
       flash[:uploaded_hqmf_set_id] = measure.hqmf_set_id
     end
 
-
-    # TODO - take the patient after snapshot
 
     # rebuild the users patients if set to do so
     if params[:rebuild_patients] == "true"
@@ -287,10 +286,10 @@ class MeasuresController < ApplicationController
       end
       ########################################
       # As of now the assumption is that when a measure changes the number of
-      # stratification populations, those with the same index are the same
-      # population.  This means that if the number of populations goes from 3 to 2,
-      # populations 1 and 2 will be the same.  The same will hold true when the
-      # number of populations increases.
+      # stratifications or population sets, the index for those stays the same.
+      # This means that if the number of populations goes from 3 to 2,
+      # populations 1 and 2 will be the same before and after the change.
+      # The same will hold true when the number of populations increases.
       ########################################
       patients.each do |patient|
         # If the number of populations is the same do nothing
@@ -350,7 +349,8 @@ class MeasuresController < ApplicationController
       measure.save!
 
 
-      # Take the after snapshot of the patients after the calc
+      # Take a snapshot of the measure patients after using the updated measure
+      # logic to do the calculation.
       UploadSummary.calculate_updated_actuals(measure)
       upl_id = UploadSummary::MeasureSummary.where(measure_db_id_after: measure.id).first.id
       UploadSummary.collect_after_upload_state(measure, upl_id)

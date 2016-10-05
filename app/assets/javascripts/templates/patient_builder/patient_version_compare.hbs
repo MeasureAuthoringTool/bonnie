@@ -6,7 +6,7 @@
     {{else}}
       <h2>Before the Measure Upload</h2>
     {{/if}}
-    {{#if populationInBefore}}
+    {{#if populationPresentBeforeUpload}}
       {{view populationLogicViewBefore}}
     {{else}}
       <br><br>
@@ -24,7 +24,7 @@
     {{else}}
       <h2>After the Measure Upload</h2>
     {{/if}}
-    {{#if populationInAfter}}
+    {{#if populationPresentAfterUpload}}
       {{view populationLogicViewAfter}}
     {{else}}
       <br><br>

@@ -66,4 +66,4 @@ class Thorax.Views.Breadcrumb extends Thorax.Views.BonnieView
       patientId: patient_id
       measure: measure.toJSON()
       comparePatient: true
-      fromHxTimeline: true
+      fromHistoryTimeline: true

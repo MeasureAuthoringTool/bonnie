@@ -26,9 +26,10 @@
     'measures/:measure_hqmf_set_id/patients/new':       'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patient_bank':       'renderPatientBank'
     'measures/:measure_hqmf_set_id/history':            'renderMeasureUploadHistory'
+    'measures/:measure_hqmf_set_id/patients/:id/compare/at_upload/:upload_id':  'renderHistoricPatientCompare'
     'admin/users':                                      'renderUsers'
     'value_sets/edit':                                  'renderValueSetsBuilder'
-    'measures/:measure_hqmf_set_id/patients/:id/compare/at_upload/:upload_id':  'renderHistoricPatientCompare'
+
 
   renderMeasures: ->
     @measures.each (measure) -> measure.set('displayedPopulation', measure.get('populations').first())
@@ -86,10 +87,10 @@
 
   renderMeasureUploadHistory: (measureHqmfSetId) ->
     measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
-    measure.get('upload_summaries').fetchAll().done( (upload_summaries) =>
+    measure.get('upload_summaries').fetchAll().done( (uploadSummaries) =>
       @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
       # @collection = new Thorax.Collections.Patients
-      @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: measure.get('patients'), upload_summaries: upload_summaries
+      @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: measure.get('patients'), upload_summaries: uploadSummaries
       @breadcrumb.viewMeasureHistory(measure)
     )
 
@@ -100,13 +101,13 @@
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
     document.title += " - #{measure.get('cms_id')}" if measure?
     # Deal with getting the archived measure and the calculation snapshot for the patient at measure upload
-    upsums = measure.get('upload_summaries')
+    uploadSummaries = measure.get('upload_summaries')
     archivedMeasures = measure.get('archived_measures')
     upload_summary = null
     beforeMeasure = null
     afterMeasure = null
-    $.when(upsums.fetchDeferred(), archivedMeasures.fetchDeferred())
-      .then( -> upsums.findWhere({_id: uploadId}).fetchDeferred() )
+    $.when(uploadSummaries.fetchDeferred(), archivedMeasures.fetchDeferred())
+      .then( -> uploadSummaries.findWhere({_id: uploadId}).fetchDeferred() )
       .then((upsum) ->
         upload_summary = upsum
         archivedMeasures.findWhere(_id: upload_summary.get('measure_db_id_before')).fetchDeferred())

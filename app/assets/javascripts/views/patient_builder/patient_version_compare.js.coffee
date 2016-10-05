@@ -15,7 +15,7 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
       @fromEdit = true
       if !@thePatient.after_too_big
         if @thePatient.after?
-          @populationInBefore = true
+          @populationPresentBeforeUpload = true
           @cachedBeforeResult = new Thorax.Models.CachedResult({
             rationale: @thePatient.after.rationale
             finalSpecifics: @thePatient.after.finalSpecifics}
@@ -28,7 +28,7 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
           @populationLogicViewBefore.setPopulation @cachedBeforeResult.population
           @populationLogicViewBefore.showRationale @cachedBeforeResult
         else
-          @populationInBefore = false
+          @populationPresentBeforeUpload = false
       else
         @beforeTooBig = true
       
@@ -36,7 +36,7 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
     if @viaRoute == "fromTimeline"
       if !@thePatient.before_too_big
         if @beforemeasure.get('populations').at(@selectedPopulation)
-          @populationInBefore = true
+          @populationPresentBeforeUpload = true
           @cachedBeforeResult = new Thorax.Models.CachedResult({
             rationale: @thePatient.before.rationale
             finalSpecifics: @thePatient.before.finalSpecifics}
@@ -50,7 +50,7 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
           @populationLogicViewBefore.setPopulation @cachedBeforeResult.population
           @populationLogicViewBefore.showRationale @cachedBeforeResult
         else
-          @populationInBefore = false
+          @populationPresentBeforeUpload = false
       else
         @beforeTooBig = true
 
@@ -58,7 +58,7 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
       @populationLogicViewAfter = new Thorax.Views.BuilderPopulationLogic(isCompareView: true)
       @populationLogicViewAfter.setPopulation @measure.get('displayedPopulation')
       @populationLogicViewAfter.showRationale @model
-      @populationInAfter = true
+      @populationPresentAfterUpload = true
     else if @thePatient.after? # is not undefined
       @cachedAfterResult = new Thorax.Models.CachedResult({
         rationale: @thePatient.after.rationale
@@ -71,9 +71,9 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
       @populationLogicViewAfter = new Thorax.Views.ComparePopulationLogic
       @populationLogicViewAfter.setPopulation @aftermeasure.get('displayedPopulation')
       @populationLogicViewAfter.showRationale @cachedAfterResult
-      @populationInAfter = true
+      @populationPresentAfterUpload = true
     else
-      @populationInAfter = false
+      @populationPresentAfterUpload = false
 
     @render()  
   

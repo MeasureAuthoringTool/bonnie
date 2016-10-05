@@ -130,7 +130,8 @@ class Thorax.Models.Patient extends Thorax.Model
       expectedValues.add @getExpectedValue(population)
     expectedValues
     
-  getCalcValue: (population) ->
+  # Expose the stored value for the last time that actual results where calculated for the patient. 
+  getCalculatedResultsValues: (population) ->
     measure = population.collection.parent
     _(this.get('calc_results')).find (result) -> result.measure_id == measure.get('hqmf_set_id') && result.population_index == population.index()
     

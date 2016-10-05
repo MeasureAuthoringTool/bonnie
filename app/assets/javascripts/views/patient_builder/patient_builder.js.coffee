@@ -162,16 +162,17 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     population_names = Thorax.Models.Measure.allPopulationCodes
     results = [];
     
-    final_pops = [];
-    for mkey, mvalue of populations.models
-      this_pop = ['rationale', 'finalSpecifics'];
-      for dankey in population_names
-        for mv of mvalue.attributes
-          if dankey == mv
-            this_pop.push dankey
-      final_pops[mkey] = this_pop
+    populationLabelsForPopulationSets = [];
+    
+    # Get the population labels (i.e. 'IPP') for each population set in the measure
+    populations.forEach (value, index) ->
+      thisPopulationLabels = ['rationale', 'finalSpecifics'];
+      for attributeName of value.attributes
+        if population_names.includes(attributeName)
+          thisPopulationLabels.push attributeName
+      populationLabelsForPopulationSets[index] = thisPopulationLabels
       
-      final_pops
+    populationLabelsForPopulationSets
     
     calcNextResult = () =>
       popCalc = populations.models[population_index].calculate(@model)
@@ -187,9 +188,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
               population_index: count++
               measure_id: @measure.get('hqmf_set_id')
             
-            for rkey, rvalue of result.attributes
-              if rkey in final_pops[population_index-1]
-                calc_result[rkey] = rvalue
+            for populationLabel in populationLabelsForPopulationSets[population_index-1]
+              if result.has(populationLabel)
+                calc_result[populationLabel] = result.get(populationLabel)
             calc_results.push calc_result
           callback(calc_results)
         )
@@ -294,11 +295,11 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     if @patientCompareView
       @patientCompareView.remove()
 
-    upsums = @measure.get('upload_summaries')
-    $.when(upsums.fetchDeferred())
-      .then( -> upsums.at(0).fetchDeferred() )
+    uploadSummaries = @measure.get('upload_summaries')
+    $.when(uploadSummaries.fetchDeferred())
+      .then( -> uploadSummaries.at(0).fetchDeferred() )
       .then((latestUpsum) => 
-        @patientCompareView = new Thorax.Views.PatientBuilderCompare(model: @model, measure: @measure, patients: @patients, measures: @measures, latestupsum: upsums.at(0), viaRoute: "fromEdit")
+        @patientCompareView = new Thorax.Views.PatientBuilderCompare(model: @model, measure: @measure, patients: @patients, measures: @measures, latestupsum: uploadSummaries.at(0), viaRoute: "fromEdit")
         @patientCompareView.appendTo('#patient-compare-content')
         @$('#patient-compare-dialog').modal('show')
         )

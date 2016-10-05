@@ -1,10 +1,5 @@
 {{#unless expandVariable}}
-  {{#if suppressDataCriteriaHighlight}}
-    <span class="{{#if ../isSetOp}}{{#unless ../../dataCriteria.variable}}set-op-group{{/unless}}{{/if}} {{dataCriteria.key}} rationale-target">
-  {{else}}
-    <span class="{{#if ../isSetOp}}{{#unless ../../dataCriteria.variable}}set-op-group{{/unless}}{{/if}} {{dataCriteria.key}} rationale-target highlight-target">
-  {{/if}}
-  
+  <span class="{{#if ../isSetOp}}{{#unless ../../dataCriteria.variable}}set-op-group{{/unless}}{{/if}} {{dataCriteria.key}} rationale-target {{#unless suppressDataCriteriaHighlight}}highlight-target{{/unless}}">
 {{/unless}}
 
 {{#each dataCriteria.subset_operators}}

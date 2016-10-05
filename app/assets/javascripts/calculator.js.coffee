@@ -43,8 +43,8 @@
     return result if result.state == 'complete' || result.state == 'pending'
 
     # If the result is already present on the patient we will use that.
-    if patient.getCalcValue(population)
-      result.set(patient.getCalcValue(population))
+    if patient.getCalculatedResultsValues(population)
+      result.set(patient.getCalculatedResultsValues(population))
       result.set({patient_id: patient.id})
       result.state = 'complete'
       return result

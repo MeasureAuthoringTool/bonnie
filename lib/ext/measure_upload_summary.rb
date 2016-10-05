@@ -1,8 +1,7 @@
 module UploadSummary
   
-  SLICER = HQMF::PopulationCriteria::ALL_POPULATION_CODES
-  SLICER.push('rationale', 'finalSpecifics')
-  # 
+  SLICER = HQMF::PopulationCriteria::ALL_POPULATION_CODES + ['rationale', 'finalSpecifics']
+  
   class MeasureSummary
 
     include Mongoid::Document
