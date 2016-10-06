@@ -57,6 +57,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
         fieldValue: false
         values: @model.get('value')
         criteriaType: @model.get('type')
+        # TODO: (LDY 10/6/2016) should this be rewritten so criteriaType works with what @model.getCriteriaType returns?
+        # this would move us towards having more directed field drop downs for each criteria type
+        fullCriteriaType: @model.getCriteriaType() # includes the full type information. e.g., instead of 'encounters' it's 'encounter_performed'
     @editFieldValueView = new Thorax.Views.EditCriteriaValueView
       model: new Thorax.Model
       measure: @model.measure()
@@ -324,6 +327,10 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @showAddCodesButton = false
     @showAddCodes = false
     @fields = Thorax.Models.Measure.logicFieldsFor(@criteriaType)
+    @showDateTimeSelection = @fieldValue || @fullCriteriaType in ['assessment_performed']
+    # TODO: for QDM 5.0, assessment performed should also have a percentage selection.
+    # We need to see what this would look like to determine best implementation path.
+    # Until then, PQ (Scalar) can be used with "%" as the unit
 
   context: ->
     _(super).extend

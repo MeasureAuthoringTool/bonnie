@@ -103,10 +103,14 @@
         <div class="form-group">
           <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Result<input class="sr-only" disabled></label>
 
-          {{#collection value class="existing-values"}}
+          {{#collection value class="existing-values" item-context=valueWithDateContext}}
             <span>
+            {{#if start_date}}
+              {{start_date}} {{start_time}}
+            {{else}}
               {{value}} {{unit}}
               {{title}}
+            {{/if}}
               {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
             </span>
           {{/collection}}
