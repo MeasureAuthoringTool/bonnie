@@ -112,9 +112,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       faIcon: @model.faIcon()
       definition_title: definition_title
       canHaveNegation: @model.canHaveNegation()
-      hasStopTime: @model.hasStopTime()
       startLabel: @model.startLabel()
       stopLabel: @model.stopLabel()
+      periodLabel: @model.periodLabel()
+      isPeriod: @model.isPeriod()
 
   # When we serialize the form, we want to convert formatted dates back to times
   events:
