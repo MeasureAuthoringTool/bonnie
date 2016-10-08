@@ -71,12 +71,12 @@ namespace :upgrade_add_hx_tracks do
       measures.each do |measure|
         corrected_expected = []
         measure.populations.each_with_index do |pop, idx|
-          here = {"measure_id" => measure.hqmf_set_id, "population_index" => idx}
+          currentPopulations = {"measure_id" => measure.hqmf_set_id, "population_index" => idx}
           pop.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).each do |my_code, _v|
           # The populations are a key, value pair; slice returns this as an array.  We want the key.
-            here[my_code] =  0
+            currentPopulations[my_code] = 0
           end
-          corrected_expected << here
+          corrected_expected << currentPopulations
         end
         patients = Record.where({'user_id'=>measure.user_id, 'measure_ids'=>{'$in'=>[measure.hqmf_set_id]} })
         pdone = 1
@@ -84,20 +84,25 @@ namespace :upgrade_add_hx_tracks do
         puts "\t#{measure.title}"
         patients.each do |patient|
           begin
-          too_many = []
+          extraPopulationSets = []
           patient.expected_values.each_with_index do |ev, i|
 
             if measure.hqmf_set_id == ev['measure_id']
-              if corrected_expected.fetch(ev['population_index'], "gone") == "gone"
-                 too_many.push(i)
+              # Check if the population set exists
+              if corrected_expected.fetch(ev['population_index'], 'gone') == 'gone'
+                # It does not
+                extraPopulationSets.push(i)
               else
+                # It does so make sure the populations within the set match
                 ev.keep_if { |k,v| corrected_expected[ev['population_index']].has_key?(k) } # Remove any extra populations
                 ev.merge!(corrected_expected[ev['population_index']]) { |key, e, c| e } # merge in any missing values
               end
             end
           end
-          if !too_many.empty?
-            too_many.reverse!.each { |tm| patient.expected_values.delete_at(tm) }
+          if !extraPopulationSets.empty?
+            # Remove any extra population sets
+            # Walking the array backwards so as not to get an index violation
+            extraPopulationSets.reverse!.each { |tm| patient.expected_values.delete_at(tm) }
           end
           patient.calc_results = nil
           patient.save!
