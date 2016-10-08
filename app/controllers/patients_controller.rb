@@ -138,7 +138,7 @@ private
     # patient['measure_period_end'] = measure_period['end_date']
 
     patient.expected_values = params['expected_values']
-    patient.calc_results = params['calc_results']
+     patient.calc_results = params['calc_results'] unless current_user.is_portfolio?
 
     patient['origin_data'] ||= []
     patient['origin_data'] << params['origin_data'] if params['origin_data']

@@ -244,14 +244,15 @@ class MeasuresController < ApplicationController
     measure.generate_js
 
     #  Initialize an Upload Summary by taking a snapshot of the patients before the measure is updated.
-    upl_id = UploadSummary.collect_before_upload_state(measure, arch_measure)
+    # For the initial relase of the Measure Upload History the feature will be disabled for portfolio users
+    upl_id = UploadSummary.collect_before_upload_state(measure, arch_measure) unless current_user.is_portfolio?
     measure.save!
 
     # run the calcs for the patients with the new version of the measure
     # if the measure needs finalize (measure.needs_finalize == true) hold the calc of the patients until after the finalize
 
     # trigger the measure upload summary for the user.
-    if (!measure.needs_finalize)
+    if (!measure.needs_finalize && !current_user.is_portfolio?)
       check_patient_expected_values(measure)
       UploadSummary.calculate_updated_actuals(measure)
       UploadSummary.collect_after_upload_state(measure, upl_id)
@@ -351,9 +352,12 @@ class MeasuresController < ApplicationController
 
       # Take a snapshot of the measure patients after using the updated measure
       # logic to do the calculation.
-      UploadSummary.calculate_updated_actuals(measure)
-      upl_id = UploadSummary::MeasureSummary.where(measure_db_id_after: measure.id).first.id
-      UploadSummary.collect_after_upload_state(measure, upl_id)
+      # For the initial relase of the Measure Upload History the feature will be disabled for portfolio users
+      unless current_user.is_portfolio?
+        UploadSummary.calculate_updated_actuals(measure)
+        upl_id = UploadSummary::MeasureSummary.where(measure_db_id_after: measure.id).first.id
+        UploadSummary.collect_after_upload_state(measure, upl_id)
+      end
 
       # Make UI show upload summary
       flash[:uploaded_summary_id] = upl_id
