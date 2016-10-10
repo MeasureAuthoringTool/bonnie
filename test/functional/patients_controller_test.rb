@@ -15,7 +15,8 @@ include Devise::TestHelpers
   end
 
   test "get all patients" do
-    collection_fixtures("records")
+    records_set = File.join("records","set_1")
+    collection_fixtures(records_set)
     associate_user_with_measures(@user, Measure.all)
     associate_measures_with_patients([@measure, @measure_two, @measure_three], Record.all)
     associate_user_with_patients(@user, Record.all)
@@ -133,7 +134,8 @@ include Devise::TestHelpers
   end
 
   test "destroy" do
-    collection_fixtures("records")
+    records_set = File.join("records","set_1")
+    collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     patient = Record.first
     assert_equal 4, @user.records.count
@@ -146,7 +148,8 @@ include Devise::TestHelpers
   end
 
   test "export patients" do
-    collection_fixtures("records")
+    records_set = File.join("records","set_1")
+    collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     associate_measures_with_patients([@measure, @measure_two], Record.all)
     get :qrda_export, hqmf_set_id: @measure.hqmf_set_id
@@ -173,7 +176,8 @@ include Devise::TestHelpers
   end
 
   test "export patients portfolio" do
-    collection_fixtures("records")
+    records_set = File.join("records","set_1")
+    collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     associate_measures_with_patients([@measure, @measure_two], Record.all)
     @user.grant_portfolio()
@@ -201,7 +205,8 @@ include Devise::TestHelpers
   end
 
   test "excel export patients" do
-    collection_fixtures("records")
+    records_set = File.join("records","set_1")
+    collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     associate_measures_with_patients([@measure_two], Record.all)
     get :excel_export, hqmf_set_id: @measure.hqmf_set_id
