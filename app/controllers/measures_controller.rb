@@ -272,47 +272,7 @@ class MeasuresController < ApplicationController
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
-  def check_patient_expected_values(measure)
-    patients = Record.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id)
-    if patients.count > 0
-      corrected_expected = []
-      measure.populations.each_with_index do |pop, idx|
-        here = {"measure_id" => measure.hqmf_set_id, "population_index" => idx}
-        pop.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).each do |my_code, _v|
-          # The populations are a key, value pair; slice returns this as an array.  We want the key.
-          here.store(my_code, 0)
-        end
-        corrected_expected << here
-
-      end
-      ########################################
-      # As of now the assumption is that when a measure changes the number of
-      # stratifications or population sets, the index for those stays the same.
-      # This means that if the number of populations goes from 3 to 2,
-      # populations 1 and 2 will be the same before and after the change.
-      # The same will hold true when the number of populations increases.
-      ########################################
-      patients.each do |patient|
-        # If the number of populations is the same do nothing
-        next if measure.populations.count == patient['expected_values'].to_s.scan(/#{measure.hqmf_set_id}/).count
-        exptd_vals = patient.expected_values.dup
-        # Remove populatons that exceed the number present in the meausre
-        exptd_vals.reject! { |ev| ev['population_index'] >= measure.populations.count } if measure.populations.count < patient['expected_values'].count
-        # Add in expected values when the number of populations increases
-        corrected_expected.each_index { |i| exptd_vals << corrected_expected[i] if i >= patient['expected_values'].count } if measure.populations.count > patient['expected_values'].count
-        # Now that the correct number of populations are present, ensure the members fo the populations line up
-        # First remove any extra members
-        # Then add in any missing members
-        exptd_vals.each_index do |evi|
-          exptd_vals[evi].keep_if { |k, v| corrected_expected[evi].key?(k) }
-          exptd_vals[evi].merge!(corrected_expected[evi]) { |key, ev, ce| ce }
-        end
-        patient.expected_values = exptd_vals
-        patient.save!
-      end
-    end # patients.count > 0
-
-  end
+  
 
   def vsac_auth_valid
     # If VSAC TGT is still valid, return its expiration date/time
@@ -406,6 +366,50 @@ class MeasuresController < ApplicationController
     else
       tgt[:ticket]
     end
+  end
+
+  def check_patient_expected_values(measure)
+    patients = Record.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id)
+    if patients.count > 0
+      corrected_expected = []
+      measure.populations.each_with_index do |pop, idx|
+        measure_current_pop_codes = {"measure_id" => measure.hqmf_set_id, "population_index" => idx}
+        pop.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).each do |my_code, _v|
+          # The populations are a key, value pair; slice returns this as an array.  We want the key.
+          measure_current_pop_codes.store(my_code, 0)
+        end
+        corrected_expected << measure_current_pop_codes
+
+      end
+      ########################################
+      # As of now the assumption is that when a measure changes the number of
+      # stratifications or population sets, the index for those stays the same.
+      # This means that if the number of populations goes from 3 to 2,
+      # populations 1 and 2 will be the same before and after the change.
+      # The same will hold true when the number of populations increases.
+      ########################################
+      patients.each do |patient|
+        # Get the number of population sets for this patient for this measure
+        patient_population_set_count = patient.expected_values.select { |value| value[:measure_id] == measure.hqmf_set_id }.count
+        # If the number of populations is the same do nothing
+        next if measure.populations.count == patient_population_set_count
+        exptd_vals = patient.expected_values.dup
+        # Remove populatons that exceed the number present in the meausre
+        exptd_vals = patient.expected_values.reject! { |ev| ev['population_index'] >= measure.populations.count && ev['measure_id'] == measure.hqmf_set_id } if measure.populations.count < patient_population_set_count
+        # Add in expected values when the number of populations increases
+        corrected_expected.each_index { |i| exptd_vals << corrected_expected[i] if i >= patient_population_set_count } if measure.populations.count > patient_population_set_count
+        # Now that the correct number of populations are present, ensure the members fo the populations line up
+        # First remove any extra members
+        # Then add in any missing members
+        exptd_vals.each_index do |evi|
+          exptd_vals[evi].keep_if { |k, v| corrected_expected[evi].key?(k) }
+          exptd_vals[evi].merge!(corrected_expected[evi]) { |key, ev, ce| ce }
+        end
+        patient.expected_values = exptd_vals
+        patient.save!
+      end
+    end # patients.count > 0
+
   end
 
 end
