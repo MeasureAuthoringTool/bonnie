@@ -157,44 +157,23 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     bonnie.navigate "measures/#{@measure.get('hqmf_set_id')}/patients/#{@model.id}/edit"
 
   calculateAllResults: (callback) =>
-    populations = @measure.get('populations')
-    population_index = 0
-    population_names = Thorax.Models.Measure.allPopulationCodes
-    results = [];
-    
-    populationLabelsForPopulationSets = [];
-    
-    # Get the population labels (i.e. 'IPP') for each population set in the measure
-    populations.forEach (value, index) ->
-      thisPopulationLabels = ['rationale', 'finalSpecifics'];
-      for attributeName of value.attributes
-        if population_names.includes(attributeName)
-          thisPopulationLabels.push attributeName
-      populationLabelsForPopulationSets[index] = thisPopulationLabels
-      
-    populationLabelsForPopulationSets
-    
-    calcNextResult = () =>
-      popCalc = populations.models[population_index].calculate(@model)
-      popCalc.calculation.done(() =>
-        results.push popCalc
-        if ++population_index < populations.length
-          calcNextResult()
-        else
-          calc_results = []
-          count = 0
-          for result in results
-            calc_result = 
-              population_index: count++
-              measure_id: @measure.get('hqmf_set_id')
-            
-            for populationLabel in populationLabelsForPopulationSets[population_index-1]
-              if result.has(populationLabel)
-                calc_result[populationLabel] = result.get(populationLabel)
-            calc_results.push calc_result
-          callback(calc_results)
-        )
-    calcNextResult()
+    results = []
+    @measure.get('populations').forEach (population) =>
+      calculationResult = population.calculate(@model)
+      calculationResult.calculation.done () =>
+        filteredResult = {}
+        for populationName in Thorax.Models.Measure.allPopulationCodes
+          filteredResult[populationName] = calculationResult.get(populationName) if calculationResult.get(populationName)?
+        filteredResult['rationale'] = calculationResult.get('rationale') if calculationResult.get('rationale')?
+        filteredResult['finalSpecifics'] = calculationResult.get('finalSpecifics') if calculationResult.get('finalSpecifics')?
+
+        filteredResult['measure_id'] = @measure.get('hqmf_set_id')
+        filteredResult['population_index'] = population.get('index')
+
+        results.push(filteredResult)
+
+        if results.length == @measure.get('populations').length
+          callback(results)
   
   
   
