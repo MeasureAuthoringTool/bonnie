@@ -96,8 +96,8 @@ module UploadSummary
     mups.id
   end
 
-  def self.collect_after_upload_state(measure, upl_id)
-    the_befores = MeasureSummary.where(id: upl_id).first
+  def self.collect_after_upload_state(measure, upload_summary_id)
+    the_befores = MeasureSummary.where(id: upload_summary_id).first
     the_befores.population_summaries.each_index do |pop_idx|
       b_mups = the_befores.population_summaries[pop_idx]
       b_mups[:patients].keys.each do |patient|

@@ -245,18 +245,18 @@ class MeasuresController < ApplicationController
 
     #  Initialize an Upload Summary by taking a snapshot of the patients before the measure is updated.
     # For the initial relase of the Measure Upload History the feature will be disabled for portfolio users
-    upl_id = UploadSummary.collect_before_upload_state(measure, arch_measure) unless current_user.is_portfolio?
+    upload_summary_id = UploadSummary.collect_before_upload_state(measure, arch_measure) unless current_user.is_portfolio?
     measure.save!
 
     # run the calcs for the patients with the new version of the measure
     # if the measure needs finalize (measure.needs_finalize == true) hold the calc of the patients until after the finalize
 
     # trigger the measure upload summary for the user.
-    if (!measure.needs_finalize && !current_user.is_portfolio?)
+    if !measure.needs_finalize && !current_user.is_portfolio?
       check_patient_expected_values(measure)
       UploadSummary.calculate_updated_actuals(measure)
-      UploadSummary.collect_after_upload_state(measure, upl_id)
-      flash[:uploaded_summary_id] = upl_id
+      UploadSummary.collect_after_upload_state(measure, upload_summary_id)
+      flash[:uploaded_summary_id] = upload_summary_id
       flash[:uploaded_hqmf_set_id] = measure.hqmf_set_id
     end
 
@@ -272,7 +272,7 @@ class MeasuresController < ApplicationController
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
-  
+
 
   def vsac_auth_valid
     # If VSAC TGT is still valid, return its expiration date/time
@@ -315,12 +315,12 @@ class MeasuresController < ApplicationController
       # For the initial relase of the Measure Upload History the feature will be disabled for portfolio users
       unless current_user.is_portfolio?
         UploadSummary.calculate_updated_actuals(measure)
-        upl_id = UploadSummary::MeasureSummary.where(measure_db_id_after: measure.id).first.id
-        UploadSummary.collect_after_upload_state(measure, upl_id)
+        upload_summary_id = UploadSummary::MeasureSummary.where(measure_db_id_after: measure.id).first.id
+        UploadSummary.collect_after_upload_state(measure, upload_summary_id)
       end
 
       # Make UI show upload summary
-      flash[:uploaded_summary_id] = upl_id
+      flash[:uploaded_summary_id] = upload_summary_id
 
     end
     redirect_to root_path
