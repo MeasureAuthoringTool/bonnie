@@ -12,15 +12,15 @@ class Record
   field :origin_data, type: Array
   field :calc_results, type: Array, default: []
   field :has_measure_history, type: Boolean, default: false # has the record gone through an update to the measure
-  field :too_big, type: Boolean, default: false # True when the size of calc_results > 12000000
-  field :too_big_trimmed_results, type: Array
+  field :results_exceed_storage, type: Boolean, default: false # True when the size of calc_results > 12000000
+  field :condensed_bc_of_size_results, type: Array
   field :results_size, type: Integer
 
   belongs_to :user
   belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle"
   scope :by_user, ->(user) { where({'user_id'=>user.id}) }
   scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where ({'user_id'=>user.id, 'measure_ids'=>{'$in'=>[hqmf_set_id]} }) }
-  
+
   before_save :calc_status
   before_save :size_check
 
@@ -85,7 +85,7 @@ class Record
   #    History Tracking
   ##############################
 
-  track_history :on => [:source_data_criteria, :birthdate, :gender, :deathdate, :race, :ethnicity, :expected_values, :expired, :deathdate, :too_big, :results_size], changes_method: :my_changes,
+  track_history :on => [:source_data_criteria, :birthdate, :gender, :deathdate, :race, :ethnicity, :expected_values, :expired, :deathdate, :results_exceed_storage, :results_size], changes_method: :my_changes,
                 :modifier_field => :modifier,
                 :version_field => :version,   # adds "field :version, :type => Integer" to track current version, default is :version
                 :track_create   =>  true,   # track document creation, default is true
@@ -145,7 +145,7 @@ class Record
     expected_values.each_index do |pop_idx|
       # indexes are zero based
       # TODO: fix the expected values on the patient based on what the measure has
-      break if (calc_results.nil? || (pop_idx == calc_results.length && calc_results.length != 0))
+      break if (calc_results.empty? || (pop_idx == calc_results.length && calc_results.length != 0))
       calc_results[pop_idx][:status] = (expected_values[pop_idx].to_a - calc_results[pop_idx].to_a).empty? ? 'pass' : 'fail'
     end
   end
@@ -153,16 +153,16 @@ class Record
   def size_check
     self.results_size = calc_results.to_json.size
     if self.results_size > 12000000
-      self.too_big = true
+      self.results_exceed_storage = true
       calc_results.each do |cr|
         cr.delete('rationale')
         cr.delete('finalSpecifics')
       end
-      self.too_big_trimmed_results = calc_results
+      self.condensed_bc_of_size_results = calc_results
       unset(:calc_results)
     else
-      self.too_big = false
-      unset(:too_big_trimmed_results)
+      self.results_exceed_storage = false
+      unset(:condensed_bc_of_size_results)
     end 
   end
 

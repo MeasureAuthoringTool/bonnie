@@ -16,10 +16,10 @@ class Thorax.Views.MeasureUploadSummary extends Thorax.Views.BonnieView
       percentPassedBefore = parseFloat(((populationSummary.pass_before/totalPatients) * 100).toFixed(1))
       percentPassedAfter = parseFloat(((populationSummary.pass_after/totalPatients) * 100).toFixed(1))
       for patientOID, patientInformation of eachPopulation.patients
-        if patientInformation.before_status != patientInformation.after_status
+        if patientInformation.pre_upload_status != patientInformation.post_upload_status
           totalChanged++
           patient = @measure.get('patients').findWhere(_id: patientOID)
-          patientsWhoChanged.push({name: "#{patient.get('first')} #{patient.get('last')}", patientID: patient.id, after_status: patientInformation.after_status})
+          patientsWhoChanged.push({name: "#{patient.get('first')} #{patient.get('last')}", patientID: patient.id, post_upload_status: patientInformation.post_upload_status})
       populationInformation[populationIndex] = {
         totalPatients: totalPatients,
         totalChanged: totalChanged,

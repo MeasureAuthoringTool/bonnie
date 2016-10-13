@@ -50,7 +50,7 @@
           <tbody>
             {{#each patientsWhoChanged}}
               <tr>
-                {{#ifCond after_status "==" "pass"}}
+                {{#ifCond post_upload_status "==" "pass"}}
                   <td> <i class="pass fa fa-fw fa-check"></i> <i class="fa fa-fw fa-user"> </i>
                   <a class="patient-link" href="/#measures/{{../../../../hqmfSetId}}/patients/{{patientID}}/edit">{{name}}</a></td>
                   <td class="fail">Failing</td>

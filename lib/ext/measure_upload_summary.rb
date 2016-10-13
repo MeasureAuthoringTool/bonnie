@@ -13,7 +13,7 @@ module UploadSummary
     field :hqmf_set_id, type: String
     field :upload_dtm, type: Time, default: -> { Time.current }
     field :measure_db_id_before, type: BSON::ObjectId # The mongoid id of the measure before it is archived
-    field :measure_db_id_after, type: BSON::ObjectId # The mongoid id of the measure after it is has been updated
+    field :measure_db_id_after, type: BSON::ObjectId # The mongoid id of the measure post_upload_results it is has been updated
     field :measure_cms_id_before, type: String
     field :measure_cms_id_after, type: String
     field :measure_hqmf_version_number_before, type: String
@@ -40,11 +40,11 @@ module UploadSummary
       patient.expected_values.each { |e| pat_pop_idx << e[:population_index] if e[:measure_id] == m_id }
       return if pop_idx > pat_pop_idx.max
 
-      trim_before = (patient.calc_results.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER) unless patient.too_big
+      trim_before = (patient.calc_results.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER) unless patient.results_exceed_storage
       trim_expected = (patient.expected_values.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER)
 
       # TODO: Make sure this can handle continuous value measures.
-      if !patient.too_big
+      if !patient.results_exceed_storage
         if (patient.calc_results.find{ |p| p[:measure_id] == m_id && p[:population_index] == pop_idx })['status'] == 'pass'
           status = 'pass'
           self.summary[:pass_before] += 1
@@ -53,7 +53,7 @@ module UploadSummary
           self.summary[:fail_before] += 1
         end
       else
-        if (patient.too_big_trimmed_results.find{ |p| p[:measure_id] == m_id && p[:population_index] == pop_idx })['status'] == 'pass'
+        if (patient.condensed_bc_of_size_results.find{ |p| p[:measure_id] == m_id && p[:population_index] == pop_idx })['status'] == 'pass'
           status = 'pass'
           self.summary[:pass_before] += 1
         else
@@ -63,9 +63,9 @@ module UploadSummary
       end
       self[:patients][patient.id.to_s] = {
         expected: trim_expected,
-        before: trim_before,
-        before_status: status,
-        before_too_big: patient.too_big }
+        pre_upload_results: trim_before,
+        pre_upload_status: status,
+        results_exceeds_storage_pre_upload: patient.results_exceed_storage }
       self[:patients][patient.id.to_s].merge!(patient_version_at_upload: patient.version) unless !patient.version
     end
   end
@@ -102,8 +102,8 @@ module UploadSummary
       b_mups = the_befores.population_summaries[pop_idx]
       b_mups[:patients].keys.each do |patient|
         ptt = Record.where(id: patient).first
-        trim_after = (ptt.calc_results.find { |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx }).slice(*SLICER) unless ptt.too_big
-        if !ptt.too_big
+        trim_after = (ptt.calc_results.find { |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx }).slice(*SLICER) unless ptt.results_exceed_storage
+        if !ptt.results_exceed_storage
           if (ptt.calc_results.find{ |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx })['status'] == 'pass'
             status = 'pass'
             b_mups.summary[:pass_after] += 1
@@ -112,7 +112,7 @@ module UploadSummary
             b_mups.summary[:fail_after] += 1
           end
         else
-          if (ptt.too_big_trimmed_results.find{ |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx })['status'] == 'pass'
+          if (ptt.condensed_bc_of_size_results.find{ |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx })['status'] == 'pass'
             status = 'pass'
             b_mups.summary[:pass_after] += 1
           else
@@ -120,7 +120,7 @@ module UploadSummary
             b_mups.summary[:fail_after] += 1
           end
         end 
-        b_mups.patients[patient].merge!(after: trim_after, after_status: status, after_too_big: ptt.too_big, patient_version_after_upload: ptt.version)
+        b_mups.patients[patient].merge!(post_upload_results: trim_after, post_upload_status: status, results_exceeds_storage_post_upload: ptt.results_exceed_storage, patient_version_after_upload: ptt.version)
       end
       b_mups.save!
     end

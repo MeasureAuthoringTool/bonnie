@@ -25,9 +25,9 @@
               {{#if (lookup ../patients id)}}
                 {{#with (lookup ../../patients id)}}
                   <td class="history-patient-cell">
-                    <a class="history-circle history-{{after_status}}" href="#measures/{{../../../../../hqmf_set_id}}/patients/{{../../id}}/compare/at_upload/{{../../../../attributes._id}}" data-upload-id="{{../../../../attributes._id}}" data-patient-id="{{../../id}}">
-                      <span class="sr-only">Patient {{after_status}} after measure upload</span>
-                      <i class="fa {{#ifCond after_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
+                    <a class="history-circle history-{{post_upload_status}}" href="#measures/{{../../../../../hqmf_set_id}}/patients/{{../../id}}/compare/at_upload/{{../../../../attributes._id}}" data-upload-id="{{../../../../attributes._id}}" data-patient-id="{{../../id}}">
+                      <span class="sr-only">Patient {{post_upload_status}} after measure upload</span>
+                      <i class="fa {{#ifCond post_upload_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
                     </a>
                   </td>
                 {{/with}}
@@ -49,9 +49,9 @@
                 {{#if (lookup ../patients id)}}
                   {{#with (lookup ../../patients id)}}
                     <td class="history-patient-cell">
-                      <a class="history-circle history-{{before_status}}" href="#measures/{{../../../../../../hqmf_set_id}}/patients/{{../../id}}/compare/at_upload/{{../../../../../attributes._id}}" data-upload-id="{{../../../../../attributes._id}}" data-patient-id="{{../../id}}">
-                        <span class="sr-only">Patient {{before_status}} before measure upload</span>
-                        <i class="fa {{#ifCond before_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
+                      <a class="history-circle history-{{pre_upload_status}}" href="#measures/{{../../../../../../hqmf_set_id}}/patients/{{../../id}}/compare/at_upload/{{../../../../../attributes._id}}" data-upload-id="{{../../../../../attributes._id}}" data-patient-id="{{../../id}}">
+                        <span class="sr-only">Patient {{pre_upload_status}} before measure upload</span>
+                        <i class="fa {{#ifCond pre_upload_status '==' 'pass'}}fa-check history-pass-icon{{else}}fa-times history-fail-icon{{/ifCond}}" aria-hidden="true"></i>
                       </a>
                     </td>
                   {{/with}}
