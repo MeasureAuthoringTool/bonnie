@@ -7,69 +7,53 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
     serialize: { children: false }
     populate: { context: true, children: false }
 
-  initialize: ->
+  initialize: =>
     @selectedPopulation = @measure.get('displayedPopulation').get('index')
-    @thePatient = @latestupsum.get('population_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
+    @thePatient = @mostRecentUploadSummary.get('population_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
 
-    if @viaRoute == "fromEdit"
-      @fromEdit = true
-      if !@thePatient.after_too_big
-        if @thePatient.after?
-          @populationPresentBeforeUpload = true
-          @cachedBeforeResult = new Thorax.Models.CachedResult({
-            rationale: @thePatient.after.rationale
-            finalSpecifics: @thePatient.after.finalSpecifics}
-            , {
-              population: @measure.get('displayedPopulation')
-              patient: @model
-            }
-          )
-          @populationLogicViewBefore = new Thorax.Views.ComparePopulationLogic(isCompareView: true)
-          @populationLogicViewBefore.setPopulation @cachedBeforeResult.population
-          @populationLogicViewBefore.showRationale @cachedBeforeResult
-        else
-          @populationPresentBeforeUpload = false
-      else
-        @beforeTooBig = true
-      
+    # @postuploadmeasureversion and @preuploadmeasureversion are parameters when viewing the comparsion from the the measure page
+    # When they are not present it means that the comparison has been called from patient builder
+    if @postuploadmeasureversion is undefined && @preuploadmeasureversion is undefined
+      @fromPatientBuilder = true
+      populationToShow = @measure.get('displayedPopulation')
+      if !@thePatient.results_exceeds_storage_post_upload
+        rationaleToShow = @thePatient.post_upload_results.rationale
+    else
+      populationToShow = @preuploadmeasureversion.get('populations').at(@selectedPopulation)
+      if !@thePatient.results_exceeds_storage_pre_upload
+        rationaleToShow = @thePatient.pre_upload_results.rationale
 
-    if @viaRoute == "fromTimeline"
-      if !@thePatient.before_too_big
-        if @beforemeasure.get('populations').at(@selectedPopulation)
-          @populationPresentBeforeUpload = true
-          @cachedBeforeResult = new Thorax.Models.CachedResult({
-            rationale: @thePatient.before.rationale
-            finalSpecifics: @thePatient.before.finalSpecifics}
-            , {
-              population: @beforemeasure.get('populations').at(@selectedPopulation)
-              patient: @model
-            }
-          )
-          
-          @populationLogicViewBefore = new Thorax.Views.ComparePopulationLogic(isCompareView: true)
-          @populationLogicViewBefore.setPopulation @cachedBeforeResult.population
-          @populationLogicViewBefore.showRationale @cachedBeforeResult
-        else
-          @populationPresentBeforeUpload = false
-      else
-        @beforeTooBig = true
+    if rationaleToShow isnt undefined
+      @cachedBeforeResult = new Thorax.Models.CachedResult({
+        rationale: rationaleToShow #@thePatient.post_upload_results.rationale
+        finalSpecifics: @thePatient.post_upload_results.finalSpecifics}
+        , {
+          population: populationToShow
+          patient: @model
+        }
+      )
+      @populationLogicViewBefore = new Thorax.Views.ComparePopulationLogic(isCompareView: true)
+      @populationLogicViewBefore.setPopulation @cachedBeforeResult.population
+      @populationLogicViewBefore.showRationale @cachedBeforeResult
+    else
+      @preUploadResultsSizeTooBig = true
 
-    if @aftermeasure is undefined || @measure.id == @aftermeasure.id
+    if @postuploadmeasureversion is undefined || @measure.id == @postuploadmeasureversion.id
       @populationLogicViewAfter = new Thorax.Views.BuilderPopulationLogic(isCompareView: true)
       @populationLogicViewAfter.setPopulation @measure.get('displayedPopulation')
       @populationLogicViewAfter.showRationale @model
       @populationPresentAfterUpload = true
-    else if @thePatient.after? # is not undefined
+    else if @thePatient.post_upload_results? # is not undefined
       @cachedAfterResult = new Thorax.Models.CachedResult({
-        rationale: @thePatient.after.rationale
-        finalSpecifics: @thePatient.after.finalSpecifics}
+        rationale: @thePatient.post_upload_results.rationale
+        finalSpecifics: @thePatient.post_upload_results.finalSpecifics}
         , {
-          population: @aftermeasure.get('displayedPopulation')
+          population: @postuploadmeasureversion.get('displayedPopulation')
           patient: @model
         }
       )
       @populationLogicViewAfter = new Thorax.Views.ComparePopulationLogic
-      @populationLogicViewAfter.setPopulation @aftermeasure.get('displayedPopulation')
+      @populationLogicViewAfter.setPopulation @postuploadmeasureversion.get('displayedPopulation')
       @populationLogicViewAfter.showRationale @cachedAfterResult
       @populationPresentAfterUpload = true
     else

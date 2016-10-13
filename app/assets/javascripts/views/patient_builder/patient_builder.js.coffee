@@ -278,7 +278,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     $.when(uploadSummaries.fetchDeferred())
       .then( -> uploadSummaries.at(0).fetchDeferred() )
       .then((latestUpsum) => 
-        @patientCompareView = new Thorax.Views.PatientBuilderCompare(model: @model, measure: @measure, patients: @patients, measures: @measures, latestupsum: uploadSummaries.at(0), viaRoute: "fromEdit")
+        @patientCompareView = new Thorax.Views.PatientBuilderCompare(model: @model, measure: @measure, patients: @patients, measures: @measures, mostRecentUploadSummary: uploadSummaries.at(0))
         @patientCompareView.appendTo('#patient-compare-content')
         @$('#patient-compare-dialog').modal('show')
         )

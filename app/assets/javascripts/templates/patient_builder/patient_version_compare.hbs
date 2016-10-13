@@ -6,15 +6,11 @@
     {{else}}
       <h2>Before the Measure Upload</h2>
     {{/if}}
-    {{#if populationPresentBeforeUpload}}
-      {{view populationLogicViewBefore}}
-    {{else}}
+    {{#if preUploadResultsSizeTooBig}}
       <br><br>
-      {{#if beforeTooBig}}
-        <h3>The selected data are too large.</h3>
-      {{else}}
-        <h3>The data for the selected population does not exist in the prior version of the measure.</h3>
-      {{/if}}
+      <h3>The selected data are too large.</h3>
+    {{else}}
+      {{view populationLogicViewBefore}}
     {{/if}}
   </div>
   
