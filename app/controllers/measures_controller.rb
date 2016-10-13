@@ -47,11 +47,17 @@ class MeasuresController < ApplicationController
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
     elsif extension == '.zip'
-      if !Measures::MATLoader.mat_export?(params[:measure_file])
+      if !Measures::MATLoader.mat_export?(params[:measure_file]) && !Measures::MATLoader.mat_cql_export?(params[:measure_file])
         flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file. If the zip file contains HQMF XML, please unzip the file and upload the HQMF XML file instead of the zip file. Otherwise, please re-export your measure from the MAT and select the 'eMeasure Package' option"}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
+    end
+
+    # Is this a CQL measure, or a CQL MAT export?
+    # TODO: This will need to change when we know what the MAT will be exporting!
+    if extension == '.cql' || (extension == '.zip' && Measures::CQLLoader.mat_cql_export?(params[:measure_file]))
+      return create_cql(measure_details, params)
     end
 
     is_update = false
@@ -189,7 +195,6 @@ class MeasuresController < ApplicationController
 
     end
 
-
     Measures::ADEHelper.update_if_ade(measure)
 
     measure.generate_js
@@ -204,6 +209,17 @@ class MeasuresController < ApplicationController
       end
     end
 
+    redirect_to "#{root_path}##{params[:redirect_route]}"
+  end
+
+  # Handles creating a measure that is HQMF + QDM + CQL (using CQL for the
+  # logic and QDM for the data model).
+  # TODO: This will need to change when we know what the MAT will be exporting!
+  def create_cql(measure_details, params)
+    require 'byebug'; debugger
+
+    measure = Measures::CqlLoader.load(params[:measure_file], current_user, measure_details)
+    
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
