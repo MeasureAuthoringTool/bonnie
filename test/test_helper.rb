@@ -20,7 +20,8 @@ class ActiveSupport::TestCase
         fixture_json = JSON.parse(File.read(json_fixture_file))
         convert_times(fixture_json)
         set_mongoid_ids(fixture_json)
-        # The collection (Record,User,Measures) is the root of the collection sets
+        # The collection (Record,User,Measures) is the root of the collection file path
+        # For instance, records records/base_set will be filed under the records collection
         collection = collection.split(File::SEPARATOR)[0]
         Mongoid.default_session[collection].insert(fixture_json)
       end

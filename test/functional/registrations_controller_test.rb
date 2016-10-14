@@ -8,7 +8,7 @@ class RegistrationsControllerTest < ActionController::TestCase
     request.env["devise.mapping"] = Devise.mappings[:user]
 
     dump_database
-    records_set = File.join("records","set_1")
+    records_set = File.join("records","base_set")
     collection_fixtures("users", records_set, "draft_measures")
     @user = User.by_email('bonnie@example.com').first
     @user.grant_portfolio

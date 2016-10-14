@@ -5,7 +5,7 @@ include Devise::TestHelpers
 
   setup do
     dump_database
-    records_set = File.join("records","set_1")
+    records_set = File.join("records","base_set")
     collection_fixtures("users", records_set, "draft_measures")
     @user = User.by_email('bonnie@example.com').first
     @user_admin = User.by_email('user_admin@example.com').first

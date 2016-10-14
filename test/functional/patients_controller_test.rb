@@ -15,7 +15,7 @@ include Devise::TestHelpers
   end
 
   test "get all patients" do
-    records_set = File.join("records","set_1")
+    records_set = File.join("records","base_set")
     collection_fixtures(records_set)
     associate_user_with_measures(@user, Measure.all)
     associate_measures_with_patients([@measure, @measure_two, @measure_three], Record.all)
@@ -134,7 +134,7 @@ include Devise::TestHelpers
   end
 
   test "destroy" do
-    records_set = File.join("records","set_1")
+    records_set = File.join("records","base_set")
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     patient = Record.first
@@ -148,7 +148,7 @@ include Devise::TestHelpers
   end
 
   test "export patients" do
-    records_set = File.join("records","set_1")
+    records_set = File.join("records","base_set")
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     associate_measures_with_patients([@measure, @measure_two], Record.all)
@@ -176,7 +176,7 @@ include Devise::TestHelpers
   end
 
   test "export patients portfolio" do
-    records_set = File.join("records","set_1")
+    records_set = File.join("records","base_set")
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     associate_measures_with_patients([@measure, @measure_two], Record.all)
@@ -205,7 +205,7 @@ include Devise::TestHelpers
   end
 
   test "excel export patients" do
-    records_set = File.join("records","set_1")
+    records_set = File.join("records","base_set")
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     associate_measures_with_patients([@measure_two], Record.all)
