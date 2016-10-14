@@ -8,25 +8,24 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
     populate: { context: true, children: false }
 
   initialize: =>
-    @selectedPopulation = @measure.get('displayedPopulation').get('index')
-    @thePatient = @mostRecentUploadSummary.get('population_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
+    @patient = @mostRecentUploadSummary.get('population_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
 
     # @postuploadmeasureversion and @preuploadmeasureversion are parameters when viewing the comparsion from the the measure page
     # When they are not present it means that the comparison has been called from patient builder
     if @postuploadmeasureversion is undefined && @preuploadmeasureversion is undefined
       @fromPatientBuilder = true
       populationToShow = @measure.get('displayedPopulation')
-      if !@thePatient.results_exceeds_storage_post_upload
-        rationaleToShow = @thePatient.post_upload_results.rationale
+      if !@patient.results_exceeds_storage_post_upload
+        rationaleToShow = @patient.post_upload_results.rationale
     else
-      populationToShow = @preuploadmeasureversion.get('populations').at(@selectedPopulation)
-      if !@thePatient.results_exceeds_storage_pre_upload
-        rationaleToShow = @thePatient.pre_upload_results.rationale
+      populationToShow = @preuploadmeasureversion.get('populations').at(@measure.get('displayedPopulation').get('index'))
+      if !@patient.results_exceeds_storage_pre_upload
+        rationaleToShow = @patient.pre_upload_results.rationale
 
     if rationaleToShow isnt undefined
       @cachedBeforeResult = new Thorax.Models.CachedResult({
-        rationale: rationaleToShow #@thePatient.post_upload_results.rationale
-        finalSpecifics: @thePatient.post_upload_results.finalSpecifics}
+        rationale: rationaleToShow
+        finalSpecifics: @patient.post_upload_results.finalSpecifics}
         , {
           population: populationToShow
           patient: @model
@@ -43,10 +42,10 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
       @populationLogicViewAfter.setPopulation @measure.get('displayedPopulation')
       @populationLogicViewAfter.showRationale @model
       @populationPresentAfterUpload = true
-    else if @thePatient.post_upload_results? # is not undefined
+    else if @patient.post_upload_results? # is not undefined
       @cachedAfterResult = new Thorax.Models.CachedResult({
-        rationale: @thePatient.post_upload_results.rationale
-        finalSpecifics: @thePatient.post_upload_results.finalSpecifics}
+        rationale: @patient.post_upload_results.rationale
+        finalSpecifics: @patient.post_upload_results.finalSpecifics}
         , {
           population: @postuploadmeasureversion.get('displayedPopulation')
           patient: @model
