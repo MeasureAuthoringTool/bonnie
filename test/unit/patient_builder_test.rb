@@ -4,8 +4,9 @@ class PatientBuilderTest < ActiveSupport::TestCase
 
   setup do
     dump_database
-    users_set = File.join("users","base_set")
-    collection_fixtures("draft_measures",users_set)
+    users_set = File.join("users", "base_set")
+    measures_set = File.join("draft_measures", "base_set")
+    collection_fixtures(measures_set, users_set)
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_measures(@user,Measure.all)
     @measure_ids = ["E35791DF-5B25-41BB-B260-673337BC44A8"] # hqmf_set_id

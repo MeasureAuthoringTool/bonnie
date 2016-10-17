@@ -4,7 +4,7 @@ class ApplicationControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   setup do
     dump_database
-    users_set = File.join("users","base_set")
+    users_set = File.join("users", "base_set")
     collection_fixtures(users_set)
   end
 
