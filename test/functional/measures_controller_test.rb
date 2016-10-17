@@ -8,7 +8,8 @@ include Devise::TestHelpers
     @error_dir = File.join('log', 'load_errors')
     FileUtils.rm_r @error_dir if File.directory?(@error_dir)
     dump_database
-    collection_fixtures("draft_measures", "users")
+    users_set = File.join("users","base_set")
+    collection_fixtures("draft_measures",users_set)
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_measures(@user, Measure.all)
     @measure = Measure.where({"cms_id" => "CMS138v2"}).first
