@@ -20,6 +20,10 @@ class ActiveSupport::TestCase
         fixture_json = JSON.parse(File.read(json_fixture_file))
         convert_times(fixture_json)
         set_mongoid_ids(fixture_json)
+        # Mongoid names collections based off of the default_session argument.
+        # With nested folders,the collection name is “records/X” (for example).
+        # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
+        collection = collection.split(File::SEPARATOR)[0]
         Mongoid.default_session[collection].insert(fixture_json)
       end
     end

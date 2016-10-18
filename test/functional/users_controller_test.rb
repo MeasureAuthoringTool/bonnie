@@ -5,7 +5,10 @@ class UsersControllerTest  < ActionController::TestCase
 
   setup do
     dump_database
-    collection_fixtures("users", "records", "draft_measures")
+    records_set = File.join("records", "base_set")
+    users_set = File.join("users", "base_set")
+    measures_set = File.join("draft_measures", "base_set")
+    collection_fixtures(users_set, records_set, measures_set)
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_measures(@user, Measure.all)
     associate_user_with_patients(@user, Record.all)
