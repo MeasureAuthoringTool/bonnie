@@ -85,30 +85,31 @@ class Record
   #    History Tracking
   ##############################
 
-  track_history :on => [:source_data_criteria, :birthdate, :gender, :deathdate, :race, :ethnicity, :expected_values, :expired, :deathdate, :results_exceed_storage, :results_size], changes_method: :my_changes,
+  track_history :on => [:source_data_criteria, :birthdate, :gender, :deathdate, :race, :ethnicity, :expected_values, :expired, :deathdate, :results_exceed_storage, :results_size], changes_method: :source_data_criteria_changes,
                 :modifier_field => :modifier,
                 :version_field => :version,   # adds "field :version, :type => Integer" to track current version, default is :version
                 :track_create   =>  true,   # track document creation, default is true
                 :track_update   =>  true,   # track document updates, default is true
                 :track_destroy  =>  true    # track document destruction, default is true
 
-  def my_changes
-    sdc_changes
-  end
-
-  def sdc_changes
+  # This function goes deeper into the source data criteria to look for changes.
+  # Each the record is materialized on the the front end a new coded_entry_id is genereated.
+  # When the record is saved this new coded_entry_id is also saved.  For the sake of 
+  # tracking differences the coded_entry_id is not of interest.
+  def source_data_criteria_changes
     return changes if changes['source_data_criteria'].nil?
 
-    original_dc = changes['source_data_criteria'][0].index_by { |sdc| sdc['criteria_id'] }
-    modified_dc = changes['source_data_criteria'][1].index_by { |sdc| sdc['criteria_id'] }
+    original_data_criteria = changes['source_data_criteria'][0].index_by { |source_data_criterium| source_data_criterium['criteria_id'] }
+    modified_data_criteria = changes['source_data_criteria'][1].index_by { |source_data_criterium| source_data_criterium['criteria_id'] }
 
-    # We want to return two sets of data, one with criteria that have been deleted and criteria that have been
-    # changed, and another with criteria that have been added and criteria that have been changed
+    # We are going to overwrite the original 'original' and 'modified' arrays from the
+    # history_tracker with new versions.  The reason for this is to exclude changes
+    # that happened to coded_entry_id or MeasurePeriod.
     original = []
     modified = []
 
-    original_dc.each do |id, odc|
-      mdc = modified_dc[id]
+    original_data_criteria.each do |id, odc|
+      mdc = modified_data_criteria[id]
       # The coded_entry_id always changes on a save, so exclude it from comparisons
       if mdc && mdc.except('coded_entry_id') != odc.except('coded_entry_id')
         # Changed
@@ -119,8 +120,8 @@ class Record
       original << odc unless mdc
     end
 
-    modified_dc.each do |id, mdc|
-      odc = original_dc[id]
+    modified_data_criteria.each do |id, mdc|
+      odc = original_data_criteria[id]
       # Added
       modified << mdc unless odc
     end
@@ -138,21 +139,24 @@ class Record
   end # def
 
   protected
+
   # Centralized place for determining if a test case/patient passes or fails.
   # The number of populations and the expected vales for those populations is determined when the measure
   #   is loaded or updated.
   def calc_status
-    expected_values.each_index do |pop_idx|
-      # indexes are zero based
-      # TODO: fix the expected values on the patient based on what the measure has
-      break if (calc_results.empty? || (pop_idx == calc_results.length && calc_results.length != 0))
-      calc_results[pop_idx][:status] = (expected_values[pop_idx].to_a - calc_results[pop_idx].to_a).empty? ? 'pass' : 'fail'
+    expected_values.each_index do |population_set_index|
+      break if calc_results.empty? || (population_set_index == calc_results.length && calc_results.length != 0)
+      # When we check for pass/fail we are not interested in the exact values but whether or not
+      # the vales for the expected results and calculated results are the same.  This array substraction
+      # will tell us that.  It also ignores any "extra" fields that may have been added to the calculation
+      # results.
+      calc_results[population_set_index][:status] = (expected_values[population_set_index].to_a - calc_results[population_set_index].to_a).empty? ? 'pass' : 'fail'
     end
   end
 
   def size_check
     self.results_size = calc_results.to_json.size
-    if self.results_size > 12000000
+    if self.results_size > APP_CONFIG['record']['max_size_in_bytes']
       self.results_exceed_storage = true
       calc_results.each do |cr|
         cr.delete('rationale')
@@ -163,7 +167,7 @@ class Record
     else
       self.results_exceed_storage = false
       unset(:condensed_bc_of_size_results)
-    end 
+    end
   end
 
 end
