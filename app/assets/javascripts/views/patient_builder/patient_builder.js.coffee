@@ -190,14 +190,14 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       # Need to have silent: true on save so that the change event (which clears calc_results) doesn't fire 
       status = @originalModel.save patientJSON,
         silent: true
-        success: (model) =>
+        success: (current_patient) =>
           # We need to clear the cache so that page you are returned to will be forced to refresh its cache for calc_results
-          if @.parent._view.patients.get(model)
-            @.parent._view.patients.get(model).unset('calc_results')
-          @patients.add model # make sure that the patient exist in the global patient collection
-          @measure?.get('patients').add model # and the measure's patient collection
+          if @.parent._view.patients.get(current_patient)
+            @.parent._view.patients.get(current_patient).unset('calc_results')
+          @patients.add current_patient # make sure that the patient exist in the global patient collection
+          @measure?.get('patients').add current_patient # and the measure's patient collection
           if bonnie.isPortfolio
-            @measures.each (m) -> m.get('patients').add model
+            @measures.each (m) -> m.get('patients').add current_patient
           route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
           bonnie.navigate route, trigger: true
       unless status
@@ -271,13 +271,13 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       bottom: $logic.nextAll(':visible').height() || 0
 
   showCompare: ->
-    if @patientCompareView
-      @patientCompareView.remove()
+    # if @patientCompareView
+    #   @patientCompareView.remove()
 
     uploadSummaries = @measure.get('upload_summaries')
     $.when(uploadSummaries.fetchDeferred())
       .then( -> uploadSummaries.at(0).fetchDeferred() )
-      .then((latestUpsum) => 
+      .then(() => 
         @patientCompareView = new Thorax.Views.PatientBuilderCompare(model: @model, measure: @measure, patients: @patients, measures: @measures, mostRecentUploadSummary: uploadSummaries.at(0))
         @patientCompareView.appendTo('#patient-compare-content')
         @$('#patient-compare-dialog').modal('show')
