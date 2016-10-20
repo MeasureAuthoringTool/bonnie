@@ -389,24 +389,17 @@ class MeasuresController < ApplicationController
       # The same will hold true when the number of populations increases.
       ########################################
       patients.each do |patient|
-        # Get the number of population sets for this patient for this measure
-        patient_population_set_count = patient.expected_values.select { |value| value[:measure_id] == measure.hqmf_set_id }.count
-        # If the number of populations is the same do nothing
-        next if measure.populations.count == patient_population_set_count
-        exptd_vals = patient.expected_values.dup
-        # Remove populatons that exceed the number present in the meausre
-        exptd_vals = patient.expected_values.reject! { |ev| ev['population_index'] >= measure.populations.count && ev['measure_id'] == measure.hqmf_set_id } if measure.populations.count < patient_population_set_count
-        # Add in expected values when the number of populations increases
-        corrected_expected.each_index { |i| exptd_vals << corrected_expected[i] if i >= patient_population_set_count } if measure.populations.count > patient_population_set_count
-        # Now that the correct number of populations are present, ensure the members fo the populations line up
-        # First remove any extra members
-        # Then add in any missing members
-        exptd_vals.each_index do |evi|
-          exptd_vals[evi].keep_if { |k, v| corrected_expected[evi].key?(k) }
-          exptd_vals[evi].merge!(corrected_expected[evi]) { |key, ev, ce| ce }
+        #For each patient make a new copy of the current expected population sets and populations
+        new_expected_values = corrected_expected.dup
+        new_expected_values.each_with_index do |population_set, ps_index|
+          # Copy any existing values to the new expected values but only
+          # if it exists in the new expected values
+          population_set.each_key { |population| population_set[population] = patient.expected_values[ps_index][population] unless patient.expected_values[ps_index].nil? }
         end
-        patient.expected_values = exptd_vals
-        patient.save!
+        unless patient.expected_values == new_expected_values
+            patient.expected_values = new_expected_values
+            patient.save!
+        end
       end
     end # patients.count > 0
 
