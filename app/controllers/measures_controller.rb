@@ -6,7 +6,11 @@ class MeasuresController < ApplicationController
 
   def show
     skippable_fields = [:map_fns, :record_ids, :measure_attributes]
-    @measure = Measure.by_user(current_user).without(*skippable_fields).find(params[:id])
+    # Lookup the measure both in the regular and CQL sets
+    # TODO: Can we skip the elm if it's CQL?
+    @measure = Measure.by_user(current_user).without(*skippable_fields).where(id: params[:id]).first
+    @measure ||= CqlMeasure.by_user(current_user).without(*skippable_fields).where(id: params[:id]).first
+    raise Mongoid::Errors::DocumentNotFound unless @measure
     if stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
       @measure_json = MultiJson.encode(@measure.as_json(except: skippable_fields))
       respond_with @measure do |format|
@@ -216,10 +220,7 @@ class MeasuresController < ApplicationController
   # logic and QDM for the data model).
   # TODO: This will need to change when we know what the MAT will be exporting!
   def create_cql(measure_details, params)
-    require 'byebug'; debugger
-
-    measure = Measures::CqlLoader.load(params[:measure_file], current_user, measure_details)
-
+    measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
