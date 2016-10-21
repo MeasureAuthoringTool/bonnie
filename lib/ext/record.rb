@@ -97,7 +97,7 @@ class Record
   # When the record is saved this new coded_entry_id is also saved.  For the sake of 
   # tracking differences the coded_entry_id is not of interest.
   def source_data_criteria_changes
-    return changes if changes['source_data_criteria'].nil?
+    return changes if changes['source_data_criteria'].nil? || changes['source_data_criteria'][0].nil?
 
     original_data_criteria = changes['source_data_criteria'][0].index_by { |source_data_criterium| source_data_criterium['criteria_id'] }
     modified_data_criteria = changes['source_data_criteria'][1].index_by { |source_data_criterium| source_data_criterium['criteria_id'] }
