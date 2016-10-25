@@ -112,11 +112,9 @@
         <div class="row">
           {{#ifCond status "==" "ordered"}}
           <div class="form-group col-md-6">
-            <label for="administrations_value_{{@cid}}" class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Allowed Administrations<span class="sr-only"> value</span></label>
+            <label for="administrations_value_{{@cid}}" class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Number of Doses<span class="sr-only"> value</span></label>
             <div class="form-inline">
-              <div class="input-group">
-                <input type="text" name="administrations_value" id="adminstrations_value_{{@cid}}" class="form-control" placeholder="# of administrations">
-              </div>
+              <input type="number" min="0" name="administrations_value" id="adminstrations_value_{{@cid}}" class="form-control" placeholder="number of doses">
             </div>
           </div>
           {{else}}
@@ -146,7 +144,7 @@
             <label for="frequency_value_{{@cid}}" class="control-label"><i class="fa fa-spinner" aria-hidden="true"></i> Regimen<span class="sr-only"> value</span></label>
             <div class="form-inline">
               <div class="input-group">
-                <input type="text" name="frequency_value" id="frequency_value_{{@cid}}" class="form-control" placeholder="frequency">
+                <input type="number" min="0" name="frequency_value" id="frequency_value_{{@cid}}" class="form-control" placeholder="frequency">
                 <div class="input-group-addon">
                   <label for="frequency_unit_{{@cid}}" class="sr-only">frequency unit</label>
                   <select id="frequency_unit_{{@cid}}" name="frequency_unit" class="form-control medications-control">
