@@ -48,7 +48,11 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       isPrimaryView: @isPrimaryView
 
   initialize: ->
-    populationLogicView = new Thorax.Views.PopulationLogic(model: @population)
+    # TODO: Better test for cql logic here?
+    if @model.has('cql')
+      populationLogicView = new Thorax.Views.CqlLogic(model: @model)
+    else
+      populationLogicView = new Thorax.Views.PopulationLogic(model: @population)
     @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
 
     # display layout view when there are multiple populations; otherwise, just show logic view

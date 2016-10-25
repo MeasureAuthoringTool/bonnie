@@ -249,7 +249,13 @@ class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   setPopulation: (population) ->
     population.measure().set('displayedPopulation', population)
     @setModel(population)
-    @setView new Thorax.Views.PopulationLogic(model: population)
+
+    #TODO: Better test for cql logic here?
+    if population.measure().has('cql')
+      populationLogicView = new Thorax.Views.CqlLogic(model: population.measure())
+    else
+      populationLogicView = new Thorax.Views.PopulationLogic(model: population)
+    @setView populationLogicView
   showRationale: (patient) ->
     @getView().showRationale(@model.calculate(patient))
   context: ->

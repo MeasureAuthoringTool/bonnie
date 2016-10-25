@@ -60,8 +60,23 @@ class MeasuresController < ApplicationController
 
     # Is this a CQL measure, or a CQL MAT export?
     # TODO: This will need to change when we know what the MAT will be exporting!
-    if extension == '.cql' || (extension == '.zip' && Measures::CQLLoader.mat_cql_export?(params[:measure_file]))
-      return create_cql(measure_details, params)
+    if extension == '.cql' || (extension == '.zip' && Measures::CqlLoader.mat_cql_export?(params[:measure_file]))
+      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
+      current_user.measures << measure
+      current_user.save!
+      measure.save!
+
+      # rebuild the users patients if set to do so
+      if params[:rebuild_patients] == "true"
+        Record.by_user(current_user).each do |r|
+          Measures::PatientBuilder.rebuild_patient(r)
+          r.save!
+        end
+      end
+
+      redirect_to "#{root_path}##{params[:redirect_route]}"
+  #    create_cql(measure_details, params)
+      return
     end
 
     is_update = false
@@ -218,7 +233,6 @@ class MeasuresController < ApplicationController
 
   # Handles creating a measure that is HQMF + QDM + CQL (using CQL for the
   # logic and QDM for the data model).
-  # TODO: This will need to change when we know what the MAT will be exporting!
   def create_cql(measure_details, params)
     measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
     redirect_to "#{root_path}##{params[:redirect_route]}"
@@ -241,8 +255,16 @@ class MeasuresController < ApplicationController
   end
 
   def destroy
-    measure = Measure.by_user(current_user).find(params[:id])
-    Measure.by_user(current_user).find(params[:id]).destroy
+    hqmf_measure = Measure.by_user(current_user).where(id: params[:id]).first
+    cql_measure  = CqlMeasure.by_user(current_user).where(id: params[:id]).first
+
+    if hqmf_measure
+      measure = hqmf_measure
+      Measure.by_user(current_user).find(params[:id]).destroy
+    elsif cql_measure
+      measure = cql_measure
+      CqlMeasure.by_user(current_user).find(params[:id]).destroy
+    end
     render :json => measure
   end
 
