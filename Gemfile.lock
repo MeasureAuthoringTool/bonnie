@@ -11,8 +11,8 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 3a3d808e0f284e8e81fc8036dedaa81e1d1d3e1f
-  branch: bonnie_master_2016
+  revision: ec763b50bed0f9107b5687e40073af6ef147816a
+  branch: staging_experimental_cql
   specs:
     health-data-standards (3.6.1)
       activesupport (~> 4.1.1)
@@ -31,15 +31,15 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: d9c6044b3a12aa3e4d37f2f19de8c5a478a8802f
-  branch: master
+  revision: 50ab90e7219f3107f5ca66b923d9918e6b5761ce
+  branch: staging_experimental_cql
   specs:
     bonnie_bundler (1.0.0)
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: 9cafd76d42fb086223abd4f94cba41a387947605
-  branch: master
+  revision: c521d33470ce3725ce82eaf1a2555b0380eb4e79
+  branch: staging_experimental_cql
   specs:
     cql_qdm_patientapi (0.1.0)
 

@@ -8,6 +8,8 @@
     @measures = new Thorax.Collections.Measures()
 
     @calculator = new Calculator()
+    
+    @cql_calculator = new CQLCalculator()
 
     # FIXME deprecated, use measure.get('patients') to get patients for individual measure
     @patients = new Thorax.Collections.Patients()

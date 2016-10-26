@@ -13,7 +13,11 @@ class Thorax.Models.Result extends Thorax.Model
       bonnie.calculator.clearResult(@population, @patient) # Remove the result from the cache
       @destroy() # Destroy the result to remove it from any collections
 
-  isPopulated: -> @has('rationale')
+  isPopulated: ->
+    if @measure.has('cql')
+      return @has('IPP') #TODO HACK
+    else
+      @has('rationale') unless @measure.has('cql')
 
   differenceFromExpected: ->
     expected = @patient.getExpectedValue @population

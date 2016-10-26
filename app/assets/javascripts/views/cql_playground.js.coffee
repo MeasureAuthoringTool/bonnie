@@ -1,8 +1,3 @@
-class PatientSource
-  constructor: (@patients) -> @index = 0
-  currentPatient: -> new CQL_QDM.CQLPatient(@patients.at(@index)) if @patients.at(@index)
-  nextPatient: -> @index += 1
-
 class Thorax.Views.CQLPlaygroundView extends Thorax.Views.BonnieView
 
   template: JST['cql/cql_playground']
