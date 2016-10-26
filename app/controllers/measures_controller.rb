@@ -133,6 +133,7 @@ class MeasuresController < ApplicationController
         File.chmod(0644, File.join(errors_dir, filename))
         File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
         if e.is_a? Measures::ValueSetException
+          operator_error = true
           flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
         elsif e.is_a? Measures::HQMFException
           operator_error = true
@@ -144,6 +145,7 @@ class MeasuresController < ApplicationController
           flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Please re-package the measure in the MAT, then re-download the MAT Measure Export.  If the measure has QDM elements without a VSAC Value Set defined the measure will not load."}
         end
       else
+        operator_error = true
         flash[:error] = {title: "Error Loading Measure", body: "You must specify a Measure Authoring tool measure export to use."}
       end
 
