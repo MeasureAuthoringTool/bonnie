@@ -5,7 +5,13 @@ class MeasuresController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:show, :value_sets]
 
   respond_to :json, :js, :html
-
+  
+  ##
+  # GET /measures/:id 
+  # 
+  # Returns a measure in JSON format. The :id path param is used to retrieve the
+  # measure by database '_id'.
+  
   def show
     skippable_fields = [:map_fns, :record_ids, :measure_attributes]
     @measure = Measure.by_user(current_user).without(*skippable_fields).find(params[:id])
@@ -17,12 +23,19 @@ class MeasuresController < ApplicationController
     end
   end
   
+  ##
+  # GET /measures/historic_diff
+  #
+  # Uses the diffy gem to build a diff of the measure logic between two
+  # measures. Takes two query params 'new_id' and 'old_id'. The ID's can be
+  # either of current versions or archived versions of measures.
+  
   def historic_diff
     # get the two versions to diff
-    @new_measure = Measure.where({:_id => params[:new_id]}).first
+    @new_measure = Measure.by_user(current_user).where({:_id => params[:new_id]}).first
     @new_measure = ArchivedMeasure.where({:measure_db_id => params[:new_id]}).first.to_measure unless @new_measure
 
-    @old_measure = Measure.where({:_id => params[:old_id]}).first
+    @old_measure = Measure.by_user(current_user).where({:_id => params[:old_id]}).first
     @old_measure = ArchivedMeasure.where({:measure_db_id => params[:old_id]}).first.to_measure unless @old_measure
 
     results = {}
