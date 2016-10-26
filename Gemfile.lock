@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 041cfaa68a8bc8cda67bec0bc04e7fb5d35e86c5
+  revision: 7b11d9021be6c7f9eb7a87cbe77b87a385ef65aa
   branch: bonnie_master_2016
   specs:
     health-data-standards (3.6.1)
@@ -45,14 +45,14 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/hqmf2js.git
-  revision: 8722ce23ade6b32d56e8fde425895cf3a9c37df5
+  revision: 0c79fe34b54488de259dfecc33cb46294a4cd0f7
   branch: master
   specs:
     hqmf2js (1.3.0)
 
 GIT
   remote: https://github.com/projecttacoma/patientapi.git
-  revision: d187a78c24a67adeb2e6dcb642487d8e85c24d70
+  revision: f56ba28452ab4b2ef4f2f6dbc585cd4e7f64f045
   branch: master
   specs:
     hquery-patient-api (1.0.4)
@@ -162,7 +162,7 @@ GEM
     highline (1.7.8)
     hike (1.2.3)
     htmlentities (4.3.4)
-    http-cookie (1.0.2)
+    http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.7.0)
     jquery-rails (3.1.3)

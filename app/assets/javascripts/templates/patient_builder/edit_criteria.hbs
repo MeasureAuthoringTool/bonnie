@@ -110,6 +110,14 @@
 
       {{#ifCond definition "==" "medication"}}
         <div class="row">
+          {{#ifCond status "==" "ordered"}}
+          <div class="form-group col-md-6">
+            <label for="administrations_value_{{@cid}}" class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Number of Doses<span class="sr-only"> value</span></label>
+            <div class="form-inline">
+              <input type="number" min="0" name="administrations_value" id="adminstrations_value_{{@cid}}" class="form-control" placeholder="number of doses">
+            </div>
+          </div>
+          {{else}}
           <div class="form-group col-md-6">
             <label for="dose_value_{{@cid}}" class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Prescription<span class="sr-only"> value</span></label>
             <div class="form-inline">
@@ -131,11 +139,12 @@
               </div>
             </div>
           </div>
+          {{/ifCond}}
           <div class="form-group col-md-6">
             <label for="frequency_value_{{@cid}}" class="control-label"><i class="fa fa-spinner" aria-hidden="true"></i> Regimen<span class="sr-only"> value</span></label>
             <div class="form-inline">
               <div class="input-group">
-                <input type="text" name="frequency_value" id="frequency_value_{{@cid}}" class="form-control" placeholder="frequency">
+                <input type="number" min="0" name="frequency_value" id="frequency_value_{{@cid}}" class="form-control" placeholder="frequency">
                 <div class="input-group-addon">
                   <label for="frequency_unit_{{@cid}}" class="sr-only">frequency unit</label>
                   <select id="frequency_unit_{{@cid}}" name="frequency_unit" class="form-control medications-control">
@@ -148,6 +157,7 @@
             </div>
           </div>
         </div>
+        {{#ifCond status "!=" "ordered"}}
         <div class="form-group">
           <label class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Filled<input class="sr-only" disabled></label>
 
@@ -162,6 +172,7 @@
           {{view editFulfillmentHistoryView}}
 
         </div>
+        {{/ifCond}}
       {{/ifCond}}
 
       <div class="form-group">

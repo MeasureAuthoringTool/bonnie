@@ -74,6 +74,9 @@ module Measures
             if !source_criteria[:frequency_value].blank? && !source_criteria[:frequency_unit].blank?
               entry[:administrationTiming] = { "period" => { "value" => source_criteria[:frequency_value], "unit" => source_criteria[:frequency_unit] } }
             end
+            if !source_criteria[:administrations_value].blank?
+              entry[:allowedAdministrations] = source_criteria[:administrations_value]
+            end
             if !source_criteria[:fulfillments].blank?
               source_criteria[:fulfillments].each do |fulfillment|
                 fulfillments.push(FulfillmentHistory.new({:dispenseDate => fulfillment[:dispense_datetime], :quantityDispensed => {:value => fulfillment[:quantity_dispensed_value], :unit => fulfillment[:quantity_dispensed_unit]}}))

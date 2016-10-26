@@ -139,6 +139,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     'change .negation-select':                    'toggleNegationSelect'
     'change :input[name=end_date_is_undefined]':  'toggleEndDateDefinition'
     'blur :text':                                 'triggerMaterialize'
+    'blur :input[type=number]':                   'triggerMaterialize'
     'change select':                              'triggerMaterialize'
     # hide date-picker if it's still visible and focus is not on a .date-picker input (occurs with JAWS SR arrow-key navigation)
     'focus .form-control': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
