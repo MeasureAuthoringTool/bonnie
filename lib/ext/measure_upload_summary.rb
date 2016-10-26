@@ -1,12 +1,12 @@
 module UploadSummary
-  
+
   SLICER = HQMF::PopulationCriteria::ALL_POPULATION_CODES + ['rationale', 'finalSpecifics']
-  
+
   class MeasureSummary
 
     include Mongoid::Document
     include Mongoid::Timestamps
-    
+
     store_in collection: 'upload_summaries'
 
     field :hqmf_id, type: String
@@ -21,12 +21,12 @@ module UploadSummary
     belongs_to :user
     embeds_many :population_summaries, cascade_callbacks: true
     accepts_nested_attributes_for :population_summaries
-    
+
     index "user_id" => 1
     scope :by_user, ->(user) { where({'user_id'=>user.id}) }
     scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where({'user_id'=>user.id, 'hqmf_set_id'=>hqmf_set_id}) }
   end
-  
+
   class PopulationSummary
     include Mongoid::Document
     include Mongoid::Timestamps
@@ -35,17 +35,17 @@ module UploadSummary
     embedded_in :measure_summaries
 
     def before_measure_load_compare(patient, pop_idx, m_id)
-      # Handle when measure has more populations 
+      # Handle when measure has more populations
       pat_pop_idx = []
       patient.expected_values.each { |e| pat_pop_idx << e[:population_index] if e[:measure_id] == m_id }
       return if pop_idx > pat_pop_idx.max
 
-      trim_before = (patient.calc_results.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER) unless patient.results_exceed_storage
-      trim_expected = (patient.expected_values.find {|p| p[:measure_id] == m_id && p[:population_index] == pop_idx }).slice(*SLICER)
+      pre_upload_trimmed_calc_results = (patient.calc_results.find { |result| result[:measure_id] == m_id && result[:population_index] == pop_idx }).slice(*SLICER) unless patient.results_exceed_storage
+      pre_upload_trimmed_expected_results = (patient.expected_values.find { |value| value[:measure_id] == m_id && value[:population_index] == pop_idx }).slice(*SLICER)
 
       # TODO: Make sure this can handle continuous value measures.
       if !patient.results_exceed_storage
-        if (patient.calc_results.find{ |p| p[:measure_id] == m_id && p[:population_index] == pop_idx })['status'] == 'pass'
+        if (patient.calc_results.find{ |result| result[:measure_id] == m_id && result[:population_index] == pop_idx })['status'] == 'pass'
           status = 'pass'
           self.summary[:pass_before] += 1
         else
@@ -53,7 +53,7 @@ module UploadSummary
           self.summary[:fail_before] += 1
         end
       else
-        if (patient.condensed_bc_of_size_results.find{ |p| p[:measure_id] == m_id && p[:population_index] == pop_idx })['status'] == 'pass'
+        if (patient.condensed_bc_of_size_results.find{ |result| result[:measure_id] == m_id && result[:population_index] == pop_idx })['status'] == 'pass'
           status = 'pass'
           self.summary[:pass_before] += 1
         else
@@ -62,8 +62,8 @@ module UploadSummary
         end
       end
       self[:patients][patient.id.to_s] = {
-        expected: trim_expected,
-        pre_upload_results: trim_before,
+        expected: pre_upload_trimmed_expected_results,
+        pre_upload_results: pre_upload_trimmed_calc_results,
         pre_upload_status: status,
         results_exceeds_storage_pre_upload: patient.results_exceed_storage }
       self[:patients][patient.id.to_s].merge!(patient_version_at_upload: patient.version) unless !patient.version
@@ -73,56 +73,56 @@ module UploadSummary
   def self.collect_before_upload_state(measure, arch_measure)
     patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
 
-    mups = MeasureSummary.new
+    measure_upload_summary = MeasureSummary.new
     measure.populations.each_with_index do |m, index|
-      moo = PopulationSummary.new
+      population_summary = PopulationSummary.new
       patients.each do |patient|
-        moo.before_measure_load_compare(patient, index, measure.hqmf_set_id)
+        population_summary.before_measure_load_compare(patient, index, measure.hqmf_set_id)
       end
-      mups.population_summaries << moo
+      measure_upload_summary.population_summaries << population_summary
     end
-    mups.hqmf_id = measure.hqmf_id
-    mups.hqmf_set_id = measure.hqmf_set_id
-    mups.user_id = measure.user_id
+    measure_upload_summary.hqmf_id = measure.hqmf_id
+    measure_upload_summary.hqmf_set_id = measure.hqmf_set_id
+    measure_upload_summary.user_id = measure.user_id
     if arch_measure
-      mups.measure_db_id_before = arch_measure.measure_db_id
-      mups.measure_cms_id_before = arch_measure.measure_hash['cms_id']
-      mups.measure_hqmf_version_number_before = arch_measure.measure_hash['hqmf_version_number']
+      measure_upload_summary.measure_db_id_before = arch_measure.measure_db_id
+      measure_upload_summary.measure_cms_id_before = arch_measure.measure_hash['cms_id']
+      measure_upload_summary.measure_hqmf_version_number_before = arch_measure.measure_hash['hqmf_version_number']
     end
-    mups.measure_db_id_after = measure.id
-    mups.measure_cms_id_after = measure.cms_id
-    mups.measure_hqmf_version_number_after = measure.hqmf_version_number
-    mups.save!
-    mups.id
+    measure_upload_summary.measure_db_id_after = measure.id
+    measure_upload_summary.measure_cms_id_after = measure.cms_id
+    measure_upload_summary.measure_hqmf_version_number_after = measure.hqmf_version_number
+    measure_upload_summary.save!
+    measure_upload_summary.id
   end
 
   def self.collect_after_upload_state(measure, upload_summary_id)
-    the_befores = MeasureSummary.where(id: upload_summary_id).first
-    the_befores.population_summaries.each_index do |pop_idx|
-      b_mups = the_befores.population_summaries[pop_idx]
-      b_mups[:patients].keys.each do |patient|
-        ptt = Record.where(id: patient).first
-        trim_after = (ptt.calc_results.find { |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx }).slice(*SLICER) unless ptt.results_exceed_storage
-        if !ptt.results_exceed_storage
-          if (ptt.calc_results.find{ |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx })['status'] == 'pass'
+    patient_snapshots_pre_measure_upload = MeasureSummary.where(id: upload_summary_id).first
+    patient_snapshots_pre_measure_upload.population_summaries.each_index do |pop_idx|
+      patient_snapshot_population_sets = patient_snapshots_pre_measure_upload.population_summaries[pop_idx]
+      patient_snapshot_population_sets[:patients].keys.each do |patient|
+        patient = Record.where(id: patient).first
+        trim_after = (patient.calc_results.find { |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == pop_idx }).slice(*SLICER) unless patient.results_exceed_storage
+        if !patient.results_exceed_storage
+          if (patient.calc_results.find{ |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == pop_idx })['status'] == 'pass'
             status = 'pass'
-            b_mups.summary[:pass_after] += 1
+            patient_snapshot_population_sets.summary[:pass_after] += 1
           else
             status = 'fail'
-            b_mups.summary[:fail_after] += 1
+            patient_snapshot_population_sets.summary[:fail_after] += 1
           end
         else
-          if (ptt.condensed_bc_of_size_results.find{ |p| p[:measure_id] == measure.hqmf_set_id && p[:population_index] == pop_idx })['status'] == 'pass'
+          if (patient.condensed_bc_of_size_results.find{ |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == pop_idx })['status'] == 'pass'
             status = 'pass'
-            b_mups.summary[:pass_after] += 1
+            patient_snapshot_population_sets.summary[:pass_after] += 1
           else
             status = 'fail'
-            b_mups.summary[:fail_after] += 1
+            patient_snapshot_population_sets.summary[:fail_after] += 1
           end
-        end 
-        b_mups.patients[patient].merge!(post_upload_results: trim_after, post_upload_status: status, results_exceeds_storage_post_upload: ptt.results_exceed_storage, patient_version_after_upload: ptt.version)
+        end
+        patient_snapshot_population_sets.patients[patient].merge!(post_upload_results: trim_after, post_upload_status: status, results_exceeds_storage_post_upload: patient.results_exceed_storage, patient_version_after_upload: patient.version)
       end
-      b_mups.save!
+      patient_snapshot_population_sets.save!
     end
   end
 
