@@ -52,7 +52,7 @@
     #try #TODO Add this back in
 
     patientSource = new PatientSource([patient])
-    params = {"Measurement Period": {low: cql.DateTime.fromDate(moment(population.collection.parent.get('measure_period').low.value, 'YYYYMDDHHmm').toDate()), high: cql.DateTime.fromDate(moment(population.collection.parent.get('measure_period').high.value, 'YYYYMDDHHmm').toDate()) } }
+    params = {"Measurement Period": new cql.Interval(cql.DateTime.fromDate(moment(population.collection.parent.get('measure_period').low.value, 'YYYYMDDHHmm').toDate()), cql.DateTime.fromDate(moment(population.collection.parent.get('measure_period').high.value, 'YYYYMDDHHmm').toDate()) ) }
     debugger
     results = executeSimpleELM(population.collection.parent.get('elm'), patientSource, @valueSetsForCodeService(), params)
     # Loop over all populations code TODO
