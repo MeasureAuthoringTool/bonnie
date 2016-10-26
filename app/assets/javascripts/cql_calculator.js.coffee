@@ -53,7 +53,6 @@
 
     patientSource = new PatientSource([patient])
     params = {"Measurement Period": new cql.Interval(cql.DateTime.fromDate(moment(population.collection.parent.get('measure_period').low.value, 'YYYYMDDHHmm').toDate()), cql.DateTime.fromDate(moment(population.collection.parent.get('measure_period').high.value, 'YYYYMDDHHmm').toDate()) ) }
-    debugger
     results = executeSimpleELM(population.collection.parent.get('elm'), patientSource, @valueSetsForCodeService(), params)
     # Loop over all populations code TODO
     # Look for keys using populated codes

@@ -10,7 +10,10 @@ class Thorax.Models.Result extends Thorax.Model
 
     # When a patient changes, is materialized, or is destroyed, we need to respond appropriately
     @listenTo @patient, 'change materialize destroy', =>
-      bonnie.calculator.clearResult(@population, @patient) # Remove the result from the cache
+      if @measure.get('cql')
+        bonnie.cql_calculator.clearResult(@population, @patient) # Remove the result from the cache
+      else
+        bonnie.calculator.clearResult(@population, @patient) # Remove the result from the cache
       @destroy() # Destroy the result to remove it from any collections
 
   isPopulated: ->
