@@ -58,47 +58,48 @@ class MeasuresController < ApplicationController
         return
       end
     end
-
-    # Is this a CQL measure, or a CQL MAT export?
-    # TODO: This will need to change when we know what the MAT will be exporting!
-    if extension == '.cql' || (extension == '.zip' && Measures::CqlLoader.mat_cql_export?(params[:measure_file]))
-      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
-      current_user.measures << measure
-      current_user.save!
-      measure.save!
-
-      # rebuild the users patients if set to do so
-      if params[:rebuild_patients] == "true"
-        Record.by_user(current_user).each do |r|
-          Measures::PatientBuilder.rebuild_patient(r)
-          r.save!
-        end
-      end
-
-      redirect_to "#{root_path}##{params[:redirect_route]}"
-  #    create_cql(measure_details, params)
-      return
-    end
-
-    is_update = false
-    if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
-      is_update = true
-      existing = Measure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
-      measure_details['type'] = existing.type
-      measure_details['episode_of_care'] = existing.episode_of_care
-      if measure_details['episode_of_care']
-        episodes = params["eoc_#{existing.hqmf_set_id}"]
-        if episodes && episodes['episode_ids'] && !episodes['episode_ids'].empty?
-          measure_details['episode_ids'] = episodes['episode_ids']
-        else
-          measure_details['episode_ids'] = existing.episode_ids
-        end
-      end
-
-      measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
-    end
-
     begin
+      # Is this a CQL measure, or a CQL MAT export?
+      # TODO: This will need to change when we know what the MAT will be exporting!
+      if extension == '.cql' || (extension == '.zip' && Measures::CqlLoader.mat_cql_export?(params[:measure_file]))
+        #measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
+        measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password]) # overwrite_valuesets=true, cache=false, includeDraft=true
+        current_user.measures << measure
+        current_user.save!
+        measure.save!
+
+        # rebuild the users patients if set to do so
+        if params[:rebuild_patients] == "true"
+          Record.by_user(current_user).each do |r|
+            Measures::PatientBuilder.rebuild_patient(r)
+            r.save!
+          end
+        end
+
+        redirect_to "#{root_path}##{params[:redirect_route]}"
+    #    create_cql(measure_details, params)
+        return
+      end
+
+      is_update = false
+      if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
+        is_update = true
+        existing = Measure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
+        measure_details['type'] = existing.type
+        measure_details['episode_of_care'] = existing.episode_of_care
+        if measure_details['episode_of_care']
+          episodes = params["eoc_#{existing.hqmf_set_id}"]
+          if episodes && episodes['episode_ids'] && !episodes['episode_ids'].empty?
+            measure_details['episode_ids'] = episodes['episode_ids']
+          else
+            measure_details['episode_ids'] = existing.episode_ids
+          end
+        end
+
+        measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
+      end
+
+  #  begin
       if extension == '.xml'
         includeDraft = params[:include_draft] == 'true'
         effectiveDate = nil

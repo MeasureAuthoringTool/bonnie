@@ -23,7 +23,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       redirectRoute: currentRoute
 
   events:
-    rendered: -> 
+    rendered: ->
       @$("option[value=\"#{eoc}\"]").attr('selected','selected') for eoc in @model.get('episode_ids') if @model? && @model.get('episode_of_care') && @model.get('episode_ids')?
       @$el.on 'hidden.bs.modal', -> @remove() unless $('#pleaseWaitDialog').is(':visible')
       @$("input[type=radio]:checked").next().css("color","white")
@@ -48,20 +48,20 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
   enableLoadVsac: ->
     username = @$('#vsacUser')
     password = @$('#vsacPassword')
-    if (username.val().length > 0) 
+    if (username.val().length > 0)
       username.closest('.form-group').removeClass('has-error')
       hasUser = true
-    if (password.val().length > 0) 
+    if (password.val().length > 0)
       password.closest('.form-group').removeClass('has-error')
       hasPassword = true
-    @$('#loadButton').prop('disabled', !(hasUser && hasPassword)) 
+    @$('#loadButton').prop('disabled', !(hasUser && hasPassword))
 
   clearCachedVSACTicket: ->
     @$('#vsacSignIn').removeClass('hidden')
     @$('#vsacSignInDraft').removeClass('hidden')
     @$('#vsacCachedMsg').addClass('hidden')
     @$('#loadButton').prop('disabled', true)
-    $.post '/measures/vsac_auth_expire' 
+    $.post '/measures/vsac_auth_expire'
 
   toggleVSAC: ->
     $.ajax
@@ -71,7 +71,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
           $('#vsacSignIn').addClass('hidden')
           $('#vsacSignInDraft').removeClass('hidden')
           $('#vsacCachedMsg').removeClass('hidden')
-          $('#loadButton').prop('disabled', false) 
+          $('#loadButton').prop('disabled', false)
           # If the measure import window is open long enough for the VSAC
           # credentials to expire, we need to reshow the username and
           # password dialog.
@@ -81,15 +81,16 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
         else
           $('#vsacSignIn').removeClass('hidden')
           $('#vsacSignInDraft').removeClass('hidden')
-          $('#vsacCachedMsg').addClass('hidden')   
+          $('#vsacCachedMsg').addClass('hidden')
 
   enableLoad: ->
     if @$('input:file').val().match /xml$/i
       @toggleVSAC()
     else
-      @$('#vsacSignIn').addClass('hidden')
-      @$('#vsacSignInDraft').addClass('hidden')
-      @$('#loadButton').prop('disabled', !@$('input:file').val().length > 0)
+      @toggleVSAC()
+#      @$('#vsacSignIn').addClass('hidden')
+#      @$('#vsacSignInDraft').addClass('hidden')
+#      @$('#loadButton').prop('disabled', !@$('input:file').val().length > 0)
 
   toggleDraft: ->
     isDraft = @$('#value_sets_draft').is(':checked')
