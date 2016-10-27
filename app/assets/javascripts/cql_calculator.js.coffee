@@ -59,8 +59,8 @@
     # Grab the values from patientResult
     population_values = {}
     for popCode in Thorax.Models.Measure.allPopulationCodes # EX: IPP
-      if population.collection.parent.get('populations_map')[popCode]
-        cql_code = population.collection.parent.get('populations_map')[popCode] # EX: Initial Pop
+      if population.collection.parent.get('populations_cql_map')[popCode]
+        cql_code = population.collection.parent.get('populations_cql_map')[popCode] # EX: Initial Pop
         value = results['patientResults'][patient.id][cql_code]
         if typeof value is 'object' and value.length > 0
           population_values[popCode] = 1

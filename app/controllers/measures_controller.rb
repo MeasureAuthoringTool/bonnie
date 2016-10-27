@@ -24,6 +24,7 @@ class MeasuresController < ApplicationController
     # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
     if true
       value_set_oids = Measure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
+      value_set_oids += CqlMeasure.by_user(current_user).only(:value_set_oids).pluck(:value_set_oids).flatten.uniq
 
       # Not the cleanest code, but we get a many second performance improvement by going directly to Moped
       # (The two commented lines are functionally equivalent to the following three uncommented lines, if slower)
