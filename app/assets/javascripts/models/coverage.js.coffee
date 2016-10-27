@@ -6,15 +6,20 @@ class Thorax.Model.Coverage extends Thorax.Model
 
     @listenTo @differences, 'change add reset destroy remove', @update
     @update()
+
   update: ->
+    if @population.measure().get('cql')
+      dc_count = Object.keys(this.population.measure().get('data_criteria')).length
+      # TODO
+      @set coverage: ( 0 ).toFixed()
+    else
+      # Find all unique criteria that evaluated true in the rationale that are also in the measure
+      @rationaleCriteria = []
+      @differences.each (difference) => if difference.get('done')
+        result = difference.result
+        rationale = result.get('rationale')
+        @rationaleCriteria.push(criteria) for criteria, result of rationale when result
+      @rationaleCriteria = _(@rationaleCriteria).intersection(@measureCriteria)
 
-    # Find all unique criteria that evaluated true in the rationale that are also in the measure
-    @rationaleCriteria = []
-    @differences.each (difference) => if difference.get('done')
-      result = difference.result
-      rationale = result.get('rationale')
-      @rationaleCriteria.push(criteria) for criteria, result of rationale when result
-    @rationaleCriteria = _(@rationaleCriteria).intersection(@measureCriteria)
-
-    # Set coverage to the fraction of measure criteria that were true in the rationale
-    @set coverage: ( @rationaleCriteria.length * 100 / @measureCriteria.length ).toFixed()
+      # Set coverage to the fraction of measure criteria that were true in the rationale
+      @set coverage: ( @rationaleCriteria.length * 100 / @measureCriteria.length ).toFixed()
