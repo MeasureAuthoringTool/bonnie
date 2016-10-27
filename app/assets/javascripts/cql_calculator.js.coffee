@@ -70,6 +70,7 @@
           population_values[popCode] = 0
 
     result.set population_values
+    result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
     result.state = 'complete'
   #  catch error
   #    bonnie.showError({title: "Measure Calculation Error", summary: "There was an error calculating the measure #{result.measure.get('cms_id')}.", body: "One of the data elements associated with the measure is causing an issue.  Please review the elements associated with the measure to verify that they are all constructed properly.  Error message: #{error.message}."})
