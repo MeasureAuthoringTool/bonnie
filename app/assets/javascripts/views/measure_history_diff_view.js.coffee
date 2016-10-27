@@ -15,8 +15,8 @@ class Thorax.Views.MeasureHistoryDiffView extends Thorax.Views.BonnieView
     
     $.get('/measures/historic_diff?new_id='+newVersion+'&old_id='+oldVersion, (data) =>
       @diff = data
-      @diff.left.updateTime = moment(@diff.left.updateTime).format('M/D/YYYY h:mm a')
-      @diff.right.updateTime = moment(@diff.right.updateTime).format('M/D/YYYY h:mm a')
+      @diff.pre_upload.updateTime = moment(@diff.pre_upload.updateTime).format('M/D/YYYY h:mm a')
+      @diff.post_upload.updateTime = moment(@diff.post_upload.updateTime).format('M/D/YYYY h:mm a')
       @diffView = @diff.diff[@populationIndex]
       @render()
     )

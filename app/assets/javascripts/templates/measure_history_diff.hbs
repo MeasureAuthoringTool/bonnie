@@ -1,8 +1,8 @@
 <div class="measure-diff">
   {{#if diffView}}
     <div class="row">
-      <div class="col-md-6"><h3><strong>{{diff.left.cms_id}}</strong> @ {{diff.left.updateTime}}</h3><small>{{diff.left.hqmf_id}}</small></div>
-      <div class="col-md-6 text-right"><h3><strong>{{diff.right.cms_id}}</strong> @ {{diff.right.updateTime}}</h3><small>{{diff.right.hqmf_id}}</small></div>
+      <div class="col-md-6"><h3><strong>{{diff.pre_upload.cms_id}}</strong> @ {{diff.pre_upload.updateTime}}</h3><small>{{diff.pre_upload.hqmf_id}}</small></div>
+      <div class="col-md-6 text-right"><h3><strong>{{diff.post_upload.cms_id}}</strong> @ {{diff.post_upload.updateTime}}</h3><small>{{diff.post_upload.hqmf_id}}</small></div>
     </div>
     <div class="measure-viz rationale panel-group">
       
@@ -24,10 +24,10 @@
         <div id="collapseDiff{{@index}}" class="panel-collapse collapse in">
           <div class="panel-body"><div class="row">
             <div class="col-md-6">
-              {{{this.left}}}
+              {{{this.pre_upload}}}
             </div>
             <div class="col-md-6">
-              {{{this.right}}}
+              {{{this.post_upload}}}
             </div>
           </div></div>
         </div>

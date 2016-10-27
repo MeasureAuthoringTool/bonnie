@@ -40,34 +40,36 @@ class MeasuresController < ApplicationController
 
     results = {}
     results['diff'] = []
-    results['left'] = { 'cms_id' => @old_measure.cms_id, 'updateTime' => (@old_measure.updated_at.tv_sec * 1000), 'hqmf_id' => @old_measure.hqmf_id }
-    results['right'] = { 'cms_id' => @new_measure.cms_id, 'updateTime' => (@new_measure.updated_at.tv_sec * 1000), 'hqmf_id' => @new_measure.hqmf_id }
+    results['pre_upload'] = { 'cms_id' => @old_measure.cms_id, 'updateTime' => (@old_measure.updated_at.tv_sec * 1000), 'hqmf_id' => @old_measure.hqmf_id }
+    results['post_upload'] = { 'cms_id' => @new_measure.cms_id, 'updateTime' => (@new_measure.updated_at.tv_sec * 1000), 'hqmf_id' => @new_measure.hqmf_id }
 
     measure_logic_names = HQMF::Measure::LogicExtractor::POPULATION_MAP.clone
     measure_logic_names['VARIABLES'] = 'Variables'
 
-
-    @new_measure.populations.each_with_index do |new_population, pop_index|
-      old_population = @old_measure.populations[pop_index]
+    # Walk through the population sets for the measure
+    @new_measure.populations.each_with_index do |new_population_set, population_set_index|
+      old_population_set = @old_measure.populations[population_set_index]
       population_diff = []
 
-      measure_logic_names.each_pair do |logic_code, logic_title|
-        new_logic = @new_measure.measure_logic.select { |logic| logic['code'] == ((logic_code == 'VARIABLES') ? 'VARIABLES' : new_population[logic_code]) }.first
-        old_logic = @old_measure.measure_logic.select { |logic| logic['code'] == ((logic_code == 'VARIABLES') ? 'VARIABLES' : old_population[logic_code]) }.first
+      # For each population within the population set get the description
+      # For example if there are two population sets and both have a population 
+      # of 'IPP' you will have codes of IPP (for population set 0) and IPP_1
+      # (for population_set 1).  
+      measure_logic_names.each_pair do |population_code, population_title|
+        new_logic = @new_measure.measure_logic.select { |logic| logic['code'] == ((population_code == 'VARIABLES') ? 'VARIABLES' : new_population_set[population_code]) }.first
+        old_logic = @old_measure.measure_logic.select { |logic| logic['code'] == ((population_code == 'VARIABLES') ? 'VARIABLES' : old_population_set[population_code]) }.first
 
         # skip if both are non existent
         next if !new_logic && !old_logic
+        
+        # Remove the first line of the measure logic which is the the name of the population.
         old_logic_text = old_logic ? old_logic['lines'].slice(1, old_logic['lines'].length-1).join() : ""
         new_logic_text = new_logic ? new_logic['lines'].slice(1, new_logic['lines'].length-1).join() : ""
 
         logic_diff = Diffy::SplitDiff.new(old_logic_text, new_logic_text,
           format: :html, include_plus_and_minus_in_html: true, allow_empty_diff: false)
 
-        population_diff << {}
-        population_diff[-1]['code'] = logic_code
-        population_diff[-1]['title'] = logic_title
-        population_diff[-1]['left'] = logic_diff.left
-        population_diff[-1]['right'] = logic_diff.right
+        population_diff << {code: population_code, title: population_title, pre_upload: logic_diff.left, post_upload: logic_diff.right}
       end
 
       results['diff'] << population_diff
@@ -265,6 +267,7 @@ class MeasuresController < ApplicationController
     # if the measure needs finalize (measure.needs_finalize == true) hold the calc of the patients until after the finalize
 
     # trigger the measure upload summary for the user.
+    # TODO Enable for portfolio users
     if !measure.needs_finalize && !current_user.is_portfolio?
       check_patient_expected_values(measure)
       UploadSummary.calculate_updated_actuals(measure)
@@ -326,6 +329,7 @@ class MeasuresController < ApplicationController
       # Take a snapshot of the measure patients after using the updated measure
       # logic to do the calculation.
       # For the initial relase of the Measure Upload History the feature will be disabled for portfolio users
+      # TODO Enable for portfolio users
       unless current_user.is_portfolio?
         UploadSummary.calculate_updated_actuals(measure)
         upload_summary_id = UploadSummary::MeasureSummary.where(measure_db_id_after: measure.id).first.id
@@ -385,9 +389,9 @@ class MeasuresController < ApplicationController
     patients = Record.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id)
     if patients.count > 0
       corrected_expected = []
-      measure.populations.each_with_index do |pop, idx|
-        measure_current_pop_codes = {"measure_id" => measure.hqmf_set_id, "population_index" => idx}
-        pop.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).each do |my_code, _v|
+      measure.populations.each_with_index do |population_set, index|
+        measure_current_pop_codes = {"measure_id" => measure.hqmf_set_id, "population_index" => index}
+        population_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).each do |my_code, _v|
           # The populations are a key, value pair; slice returns this as an array.  We want the key.
           measure_current_pop_codes.store(my_code, 0)
         end
