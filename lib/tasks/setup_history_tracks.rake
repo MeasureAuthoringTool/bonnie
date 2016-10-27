@@ -11,7 +11,7 @@ namespace :upgrade_add_hx_tracks do
       puts "There are #{measures.count} measures to process."
       processed_measure_counter = 1
       measures.each do |measure|
-        puts "\nProcessing measure #{processed_measure_counter} of #{measures.count}.\t(cms_id: {#measure.cms_id} for user: #{measure.user_id})"
+        puts "\nProcessing measure #{processed_measure_counter} of #{measures.count}.\t(cms_id: #{measure.cms_id} for user: #{measure.user_id})"
         puts "This measure has #{measure.populations.count} population sets."
         measure.populations.each_with_index do |population, population_index|
           puts "\tProcessing population set #{(population_index + 1)} of #{measure.populations.count}.\n"
@@ -139,7 +139,7 @@ namespace :upgrade_add_hx_tracks do
       calculate_all do |measure, population_index, patient, result, error|
         if error
           errors_occurred = true
-          log_file.puts "\n\n  Error with user #{measure.user.email} measure #{measure.cms_id} population set #{population_index} patient '#{patient.first} #{patient.last}' (_id: ObjectId('#patient.id')):"
+          log_file.puts "\n\n  Error with user #{measure.user.email} measure #{measure.cms_id} population set #{population_index} patient '#{patient.first} #{patient.last}' (_id: ObjectId('#{patient.id}')):"
           log_file.puts "  #{error}\n\n"
         end
       end

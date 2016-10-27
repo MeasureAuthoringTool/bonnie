@@ -120,7 +120,7 @@ module UploadSummary
             patient_snapshot_population_sets.summary[:fail_after] += 1
           end
         end
-        patient_snapshot_population_sets.patients[patient].merge!(post_upload_results: trim_after, post_upload_status: status, results_exceeds_storage_post_upload: patient.results_exceed_storage, patient_version_after_upload: patient.version)
+        patient_snapshot_population_sets.patients[patient.id.to_s].merge!(post_upload_results: trim_after, post_upload_status: status, results_exceeds_storage_post_upload: patient.results_exceed_storage, patient_version_after_upload: patient.version)
       end
       patient_snapshot_population_sets.save!
     end
