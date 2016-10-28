@@ -107,5 +107,3 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     @$('.coverage-summary').toggle()
     @render()
     if @patientsListing then @$('.summary').hide() else @$('.summary').show()
-
-
