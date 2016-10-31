@@ -62,11 +62,18 @@ class MeasuresController < ApplicationController
       # Is this a CQL measure, or a CQL MAT export?
       # TODO: This will need to change when we know what the MAT will be exporting!
       if extension == '.cql' || (extension == '.zip' && Measures::CqlLoader.mat_cql_export?(params[:measure_file]))
-        #measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
         measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password]) # overwrite_valuesets=true, cache=false, includeDraft=true
-        current_user.measures << measure
-        current_user.save!
-        measure.save!
+
+        existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
+        if existing.count > 1
+          flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Try deleting that measure and re-uploading it."}
+          redirect_to "#{root_path}##{params[:redirect_route]}"
+          return
+        else
+          current_user.measures << measure
+          current_user.save!
+          measure.save!
+        end
 
         # rebuild the users patients if set to do so
         if params[:rebuild_patients] == "true"
