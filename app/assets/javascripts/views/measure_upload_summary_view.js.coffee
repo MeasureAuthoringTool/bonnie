@@ -7,7 +7,7 @@ class Thorax.Views.MeasureUploadSummary extends Thorax.Views.BonnieView
   context: ->
     populationInformation = [] # One element per population
     populationTitles = @measure.get('populations').map ((eachPopulation) -> eachPopulation.get('title'))
-    for eachPopulation, populationIndex in @model.get('population_summaries')
+    for eachPopulation, populationIndex in @model.get('population_set_summaries')
       patientsWhoChanged = [] # One hash per patient who changed
       totalChanged = 0
       totalPatients = @measure.get('patients').length

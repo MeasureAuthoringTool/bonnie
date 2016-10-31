@@ -14,7 +14,7 @@
       {{! Loop through each measure history summary}}
       {{#each upload_summaries.models}}
         {{! Get the specific population }}
-        {{#with (lookup attributes.population_summaries ../../populationIndex)}}
+        {{#with (lookup attributes.population_set_summaries ../../populationIndex)}}
           <tr class="active" data-upload-id="{{../attributes._id}}">
             <th class="history-upload-header" scope="row">
               v{{../attributes.measure_hqmf_version_number_after}} @ <small>{{dateFormat ../attributes.upload_dtm "M/D/YY h:mm a"}}</small>

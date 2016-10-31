@@ -1,6 +1,8 @@
 module UploadSummary
 
-  SLICER = HQMF::PopulationCriteria::ALL_POPULATION_CODES + ['rationale', 'finalSpecifics']
+  # This will be used to filter the calc_results object down to just population codes
+  # and rationale and finalSpecifics.
+  ATTRIBUTE_FILTER = HQMF::PopulationCriteria::ALL_POPULATION_CODES + ['rationale', 'finalSpecifics']
 
   class MeasureSummary
 
@@ -11,7 +13,7 @@ module UploadSummary
 
     field :hqmf_id, type: String
     field :hqmf_set_id, type: String
-    field :upload_dtm, type: Time, default: -> { Time.current }
+    field :uploaded_at, type: Time, default: -> { Time.current }
     field :measure_db_id_before, type: BSON::ObjectId # The mongoid id of the measure before it is archived
     field :measure_db_id_after, type: BSON::ObjectId # The mongoid id of the measure post_upload_results it is has been updated
     field :measure_cms_id_before, type: String
@@ -19,15 +21,15 @@ module UploadSummary
     field :measure_hqmf_version_number_before, type: String
     field :measure_hqmf_version_number_after, type: String
     belongs_to :user
-    embeds_many :population_summaries, cascade_callbacks: true
-    accepts_nested_attributes_for :population_summaries
+    embeds_many :population_set_summaries, cascade_callbacks: true
+    accepts_nested_attributes_for :population_set_summaries
 
     index "user_id" => 1
     scope :by_user, ->(user) { where({'user_id'=>user.id}) }
     scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where({'user_id'=>user.id, 'hqmf_set_id'=>hqmf_set_id}) }
   end
 
-  class PopulationSummary
+  class PopulationSetSummary
     include Mongoid::Document
     include Mongoid::Timestamps
     field :patients, type: Hash, default: {}
@@ -36,12 +38,12 @@ module UploadSummary
 
     def before_measure_load_compare(patient, pop_idx, m_id)
       # Handle when measure has more populations
-      pat_pop_idx = []
-      patient.expected_values.each { |e| pat_pop_idx << e[:population_index] if e[:measure_id] == m_id }
-      return if pop_idx > pat_pop_idx.max
+      patient_population_set_indexes = []
+      patient.expected_values.each { |e| patient_population_set_indexes << e[:population_index] if e[:measure_id] == m_id }
+      return if pop_idx > patient_population_set_indexes.max
 
-      pre_upload_trimmed_calc_results = (patient.calc_results.find { |result| result[:measure_id] == m_id && result[:population_index] == pop_idx }).slice(*SLICER) unless patient.results_exceed_storage
-      pre_upload_trimmed_expected_results = (patient.expected_values.find { |value| value[:measure_id] == m_id && value[:population_index] == pop_idx }).slice(*SLICER)
+      pre_upload_filtered_calc_results = (patient.calc_results.find { |result| result[:measure_id] == m_id && result[:population_index] == pop_idx }).slice(*ATTRIBUTE_FILTER) unless patient.results_exceed_storage
+      pre_upload_trimmed_expected_results = (patient.expected_values.find { |value| value[:measure_id] == m_id && value[:population_index] == pop_idx }).slice(*ATTRIBUTE_FILTER)
 
       # TODO: Make sure this can handle continuous value measures.
       if !patient.results_exceed_storage
@@ -63,7 +65,7 @@ module UploadSummary
       end
       self[:patients][patient.id.to_s] = {
         expected: pre_upload_trimmed_expected_results,
-        pre_upload_results: pre_upload_trimmed_calc_results,
+        pre_upload_results: pre_upload_filtered_calc_results,
         pre_upload_status: status,
         results_exceeds_storage_pre_upload: patient.results_exceed_storage }
       self[:patients][patient.id.to_s].merge!(patient_version_at_upload: patient.version) unless !patient.version
@@ -75,11 +77,11 @@ module UploadSummary
 
     measure_upload_summary = MeasureSummary.new
     measure.populations.each_with_index do |m, index|
-      population_summary = PopulationSummary.new
+      population_set_summary = PopulationSetSummary.new
       patients.each do |patient|
-        population_summary.before_measure_load_compare(patient, index, measure.hqmf_set_id)
+        population_set_summary.before_measure_load_compare(patient, index, measure.hqmf_set_id)
       end
-      measure_upload_summary.population_summaries << population_summary
+      measure_upload_summary.population_set_summaries << population_set_summary
     end
     measure_upload_summary.hqmf_id = measure.hqmf_id
     measure_upload_summary.hqmf_set_id = measure.hqmf_set_id
@@ -98,11 +100,11 @@ module UploadSummary
 
   def self.collect_after_upload_state(measure, upload_summary_id)
     patient_snapshots_pre_measure_upload = MeasureSummary.where(id: upload_summary_id).first
-    patient_snapshots_pre_measure_upload.population_summaries.each_index do |pop_idx|
-      patient_snapshot_population_sets = patient_snapshots_pre_measure_upload.population_summaries[pop_idx]
+    patient_snapshots_pre_measure_upload.population_set_summaries.each_index do |pop_idx|
+      patient_snapshot_population_sets = patient_snapshots_pre_measure_upload.population_set_summaries[pop_idx]
       patient_snapshot_population_sets[:patients].keys.each do |patient|
         patient = Record.where(id: patient).first
-        trim_after = (patient.calc_results.find { |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == pop_idx }).slice(*SLICER) unless patient.results_exceed_storage
+        post_upload_filtered_calc_results = (patient.calc_results.find { |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == pop_idx }).slice(*ATTRIBUTE_FILTER) unless patient.results_exceed_storage
         if !patient.results_exceed_storage
           if (patient.calc_results.find{ |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == pop_idx })['status'] == 'pass'
             status = 'pass'
@@ -120,7 +122,7 @@ module UploadSummary
             patient_snapshot_population_sets.summary[:fail_after] += 1
           end
         end
-        patient_snapshot_population_sets.patients[patient.id.to_s].merge!(post_upload_results: trim_after, post_upload_status: status, results_exceeds_storage_post_upload: patient.results_exceed_storage, patient_version_after_upload: patient.version)
+        patient_snapshot_population_sets.patients[patient.id.to_s].merge!(post_upload_results: post_upload_filtered_calc_results, post_upload_status: status, results_exceeds_storage_post_upload: patient.results_exceed_storage, patient_version_after_upload: patient.version)
       end
       patient_snapshot_population_sets.save!
     end
@@ -130,6 +132,8 @@ module UploadSummary
     calculator = BonnieBackendCalculator.new
     measure.populations.each_with_index do |population, population_index|
       # Set up calculator for this measure and population, making sure we regenerate the javascript
+      populations_to_process = population.keys.reject { |k| k == 'id' || k == 'title' }
+      populations_to_process.push('rationale', 'finalSpecifics')
       begin
         calculator.set_measure_and_population(measure, population_index, clear_db_cache: true, rationale: true)
       rescue => e
@@ -139,7 +143,7 @@ module UploadSummary
       patients.each do |patient|
         unless setup_exception
           begin
-            result = calculator.calculate(patient).slice(*SLICER)
+            result = calculator.calculate(patient).slice(*populations_to_process)
           rescue => e
             calculation_exception = "Measure calculation exception: #{e.message}"
           end

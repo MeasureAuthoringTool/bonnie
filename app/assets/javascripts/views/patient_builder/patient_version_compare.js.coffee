@@ -8,7 +8,7 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
     populate: { context: true, children: false }
 
   initialize: =>
-    @patient = @mostRecentUploadSummary.get('population_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
+    @patient = @mostRecentUploadSummary.get('population_set_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
 
     # @postuploadmeasureversion and @preuploadmeasureversion are parameters when viewing the comparsion from the the measure page
     # When they are not present it means that the comparison has been called from patient builder
