@@ -88,8 +88,8 @@ module UploadSummary
     measure_upload_summary.user_id = measure.user_id
     if arch_measure
       measure_upload_summary.measure_db_id_before = arch_measure.measure_db_id
-      measure_upload_summary.measure_cms_id_before = arch_measure.measure_hash['cms_id']
-      measure_upload_summary.measure_hqmf_version_number_before = arch_measure.measure_hash['hqmf_version_number']
+      measure_upload_summary.measure_cms_id_before = arch_measure.measure_content['cms_id']
+      measure_upload_summary.measure_hqmf_version_number_before = arch_measure.measure_content['hqmf_version_number']
     end
     measure_upload_summary.measure_db_id_after = measure.id
     measure_upload_summary.measure_cms_id_after = measure.cms_id

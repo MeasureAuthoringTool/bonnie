@@ -6,13 +6,18 @@ class ArchivedMeasure
   store_in collection: 'archived_measures'
   
   field :id, type: String
-  field :hqmf_id, type: String # should be using this one as primary id!!
+  # The HQMF_ID uniquely identifies a measure from the MAT
+  field :hqmf_id, type: String
   field :hqmf_set_id, type: String
+  # The measure_db_id is the unique identifier of a measure within Bonnie.
+  # It takes into account that multiple users can upload the same meausre
+  # and that the same user can upload the same version of a measure an
+  # unlimited number of times
   field :measure_db_id, type: BSON::ObjectId
   
   field :uploaded_at, type: Time
   
-  field :measure_hash, type: Hash
+  field :measure_content, type: Hash
   
   belongs_to :user
   
@@ -28,7 +33,7 @@ class ArchivedMeasure
     arch_measure.measure_db_id = measure.id
     arch_measure.hqmf_id = measure.hqmf_id
     arch_measure.hqmf_set_id = measure.hqmf_set_id
-    arch_measure.measure_hash = JSON.parse(measure.to_json)
+    arch_measure.measure_content = JSON.parse(measure.to_json)
     arch_measure.user = measure.user
     arch_measure.uploaded_at = measure.created_at
     
@@ -36,7 +41,7 @@ class ArchivedMeasure
   end
   
   def to_measure
-    measure = Measure.new(measure_hash)
+    measure = Measure.new(measure_content)
     return measure
   end
   
