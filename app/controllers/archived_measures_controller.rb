@@ -1,9 +1,12 @@
+# Methods for handling archived measures
 class ArchivedMeasuresController < ApplicationController
   
   skip_before_action :verify_authenticity_token, only: [:show, :value_sets]
   
   respond_to :json, :js, :html
   
+  # List the measure_db_id for all of versions of a measure using the
+  # hqmf_set_id as the measure identifier (so as to version agnostic)
   def index
     begin
       @measure = Measure.by_user(current_user).only(:hqmf_set_id).find(params[:measure_id])
@@ -17,7 +20,7 @@ class ArchivedMeasuresController < ApplicationController
     end
   end
   
-  
+  # Show the archived content of a measure at specific point in time
   def show
     skippable_fields = [:map_fns, :record_ids, :measure_attributes]
     @archived_measure = ArchivedMeasure.by_user(current_user).where(measure_db_id: params[:id]).first
