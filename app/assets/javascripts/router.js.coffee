@@ -110,11 +110,11 @@
       .then( -> uploadSummaries.findWhere({_id: uploadId}).fetchDeferred() )
       .then((upsum) ->
         upload_summary = upsum
-        archivedMeasures.findWhere(_id: upload_summary.get('measure_db_id_before')).fetchDeferred())
+        archivedMeasures.findWhere(_id: upload_summary.get('measure_db_id_pre_upload')).fetchDeferred())
       .then((before) ->
         beforeMeasure = before
-        if measure.id isnt upload_summary.get('measure_db_id_after')
-          archivedMeasures.findWhere(_id: upload_summary.get('measure_db_id_after')).fetchDeferred())
+        if measure.id isnt upload_summary.get('measure_db_id_post_upload')
+          archivedMeasures.findWhere(_id: upload_summary.get('measure_db_id_post_upload')).fetchDeferred())
       .then((afterMeasure) => 
         patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, preuploadmeasureversion: beforeMeasure, mostRecentUploadSummary: upload_summary, postuploadmeasureversion: afterMeasure)
         @mainView.setView patientBuilderView

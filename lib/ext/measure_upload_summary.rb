@@ -14,8 +14,8 @@ module UploadSummary
     field :hqmf_id, type: String
     field :hqmf_set_id, type: String
     field :uploaded_at, type: Time, default: -> { Time.current }
-    field :measure_db_id_before, type: BSON::ObjectId # The mongoid id of the measure before it is archived
-    field :measure_db_id_after, type: BSON::ObjectId # The mongoid id of the measure post_upload_results it is has been updated
+    field :measure_db_id_pre_upload, type: BSON::ObjectId # The mongoid id of the measure before it is archived
+    field :measure_db_id_post_upload, type: BSON::ObjectId # The mongoid id of the measure post_upload_results it is has been updated
     field :measure_cms_id_before, type: String
     field :measure_cms_id_after, type: String
     field :measure_hqmf_version_number_before, type: String
@@ -36,18 +36,18 @@ module UploadSummary
     field :summary, type: Hash, default: { pass_before: 0, pass_after: 0, fail_before: 0, fail_after: 0 }
     embedded_in :measure_summaries
 
-    def before_measure_load_compare(patient, pop_idx, m_id)
+    def before_measure_load_compare(patient, population_set_index, hqmf_set_id)
       # Handle when measure has more populations
       patient_population_set_indexes = []
-      patient.expected_values.each { |e| patient_population_set_indexes << e[:population_index] if e[:measure_id] == m_id }
-      return if pop_idx > patient_population_set_indexes.max
+      patient.expected_values.each { |expected_value| patient_population_set_indexes << expected_value[:population_index] if expected_value[:measure_id] == hqmf_set_id }
+      return if population_set_index > patient_population_set_indexes.max
 
-      pre_upload_filtered_calc_results = (patient.calc_results.find { |result| result[:measure_id] == m_id && result[:population_index] == pop_idx }).slice(*ATTRIBUTE_FILTER) unless patient.results_exceed_storage
-      pre_upload_trimmed_expected_results = (patient.expected_values.find { |value| value[:measure_id] == m_id && value[:population_index] == pop_idx }).slice(*ATTRIBUTE_FILTER)
+      pre_upload_filtered_calc_results = (patient.calc_results.find { |result| result[:measure_id] == hqmf_set_id && result[:population_index] == population_set_index }).slice(*ATTRIBUTE_FILTER) unless patient.results_exceed_storage
+      pre_upload_trimmed_expected_results = (patient.expected_values.find { |value| value[:measure_id] == hqmf_set_id && value[:population_index] == population_set_index }).slice(*ATTRIBUTE_FILTER)
 
       # TODO: Make sure this can handle continuous value measures.
       if !patient.results_exceed_storage
-        if (patient.calc_results.find{ |result| result[:measure_id] == m_id && result[:population_index] == pop_idx })['status'] == 'pass'
+        if (patient.calc_results.find{ |result| result[:measure_id] == hqmf_set_id && result[:population_index] == population_set_index })['status'] == 'pass'
           status = 'pass'
           self.summary[:pass_before] += 1
         else
@@ -55,7 +55,7 @@ module UploadSummary
           self.summary[:fail_before] += 1
         end
       else
-        if (patient.condensed_bc_of_size_results.find{ |result| result[:measure_id] == m_id && result[:population_index] == pop_idx })['status'] == 'pass'
+        if (patient.condensed_bc_of_size_results.find{ |result| result[:measure_id] == hqmf_set_id && result[:population_index] == population_set_index })['status'] == 'pass'
           status = 'pass'
           self.summary[:pass_before] += 1
         else
@@ -76,10 +76,10 @@ module UploadSummary
     patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
 
     measure_upload_summary = MeasureSummary.new
-    measure.populations.each_with_index do |m, index|
+    measure.populations.each_index do |populaton_set_index|
       population_set_summary = PopulationSetSummary.new
       patients.each do |patient|
-        population_set_summary.before_measure_load_compare(patient, index, measure.hqmf_set_id)
+        population_set_summary.before_measure_load_compare(patient, populaton_set_index, measure.hqmf_set_id)
       end
       measure_upload_summary.population_set_summaries << population_set_summary
     end
@@ -87,11 +87,11 @@ module UploadSummary
     measure_upload_summary.hqmf_set_id = measure.hqmf_set_id
     measure_upload_summary.user_id = measure.user_id
     if arch_measure
-      measure_upload_summary.measure_db_id_before = arch_measure.measure_db_id
+      measure_upload_summary.measure_db_id_pre_upload = arch_measure.measure_db_id
       measure_upload_summary.measure_cms_id_before = arch_measure.measure_content['cms_id']
       measure_upload_summary.measure_hqmf_version_number_before = arch_measure.measure_content['hqmf_version_number']
     end
-    measure_upload_summary.measure_db_id_after = measure.id
+    measure_upload_summary.measure_db_id_post_upload = measure.id
     measure_upload_summary.measure_cms_id_after = measure.cms_id
     measure_upload_summary.measure_hqmf_version_number_after = measure.hqmf_version_number
     measure_upload_summary.save!
@@ -100,13 +100,13 @@ module UploadSummary
 
   def self.collect_after_upload_state(measure, upload_summary_id)
     patient_snapshots_pre_measure_upload = MeasureSummary.where(id: upload_summary_id).first
-    patient_snapshots_pre_measure_upload.population_set_summaries.each_index do |pop_idx|
-      patient_snapshot_population_sets = patient_snapshots_pre_measure_upload.population_set_summaries[pop_idx]
+    patient_snapshots_pre_measure_upload.population_set_summaries.each_index do |population_set_index|
+      patient_snapshot_population_sets = patient_snapshots_pre_measure_upload.population_set_summaries[population_set_index]
       patient_snapshot_population_sets[:patients].keys.each do |patient|
         patient = Record.where(id: patient).first
-        post_upload_filtered_calc_results = (patient.calc_results.find { |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == pop_idx }).slice(*ATTRIBUTE_FILTER) unless patient.results_exceed_storage
+        post_upload_filtered_calc_results = (patient.calc_results.find { |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == population_set_index }).slice(*ATTRIBUTE_FILTER) unless patient.results_exceed_storage
         if !patient.results_exceed_storage
-          if (patient.calc_results.find{ |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == pop_idx })['status'] == 'pass'
+          if (patient.calc_results.find{ |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == population_set_index })['status'] == 'pass'
             status = 'pass'
             patient_snapshot_population_sets.summary[:pass_after] += 1
           else
@@ -114,7 +114,7 @@ module UploadSummary
             patient_snapshot_population_sets.summary[:fail_after] += 1
           end
         else
-          if (patient.condensed_bc_of_size_results.find{ |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == pop_idx })['status'] == 'pass'
+          if (patient.condensed_bc_of_size_results.find{ |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == population_set_index })['status'] == 'pass'
             status = 'pass'
             patient_snapshot_population_sets.summary[:pass_after] += 1
           else

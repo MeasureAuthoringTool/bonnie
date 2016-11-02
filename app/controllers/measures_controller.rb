@@ -332,7 +332,7 @@ class MeasuresController < ApplicationController
       # TODO Enable for portfolio users
       unless current_user.is_portfolio?
         UploadSummary.calculate_updated_actuals(measure)
-        upload_summary_id = UploadSummary::MeasureSummary.where(measure_db_id_after: measure.id).first.id
+        upload_summary_id = UploadSummary::MeasureSummary.where(measure_db_id_post_upload: measure.id).first.id
         UploadSummary.collect_after_upload_state(measure, upload_summary_id)
       end
 
