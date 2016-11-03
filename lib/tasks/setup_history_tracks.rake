@@ -3,6 +3,8 @@ namespace :upgrade_add_hx_tracks do
 
     desc "Calculate all patients against their measures, yielding the results or, if there's an error, the error"
     def calculate_all(options = {})
+      log_file = File.open("./log/calculate_all_log_#{Time.now.strftime("%Y%m%d_%H%M%S")}.txt", "w")
+      log_repeat_process = File.open("./log/calculate_all_repeats_log_#{Time.now.strftime("%Y%m%d_%H%M%S")}.txt", "w")
       calculator = BonnieBackendCalculator.new
       query = {}
       query[:user_id] = User.where(email: options[:user_email]).first.try(:id) if options[:user_email]
@@ -13,15 +15,19 @@ namespace :upgrade_add_hx_tracks do
       measures.each do |measure|
         puts "\nProcessing measure #{processed_measure_counter} of #{measures.count}.\t(cms_id: #{measure.cms_id} for user: #{measure.user_id})"
         puts "This measure has #{measure.populations.count} population sets."
-        measure.populations.each_with_index do |population, population_index|
+        measure.populations.each_with_index do |population_set, population_index|
           puts "\tProcessing population set #{(population_index + 1)} of #{measure.populations.count}.\n"
           # Set up calculator for this measure and population, making sure we regenerate the javascript
           begin
             calculator.set_measure_and_population(measure, population_index, clear_db_cache: true, rationale: true)
           rescue => e
             setup_exception = "Measure setup exception: #{e.message}"
+            log_file.puts "\n\n  Error setting up calculator for #{measure.user.email} measure #{measure.cms_id} population set #{population_index}:"
+            log_file.puts "  #{e}\n\n"
+            puts "\n\n  Error with user #{measure.user.email} measure #{measure.cms_id} population set #{population_index}"
+            next # Move onto the next population set
           end
-          populations_to_process = population.keys.reject { |k| k == 'id' || k == 'title' }
+          populations_to_process = population_set.keys.reject { |k| k == 'id' || k == 'title' }
           populations_to_process.push('rationale', 'finalSpecifics')
           patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
           puts "\t\tThere are #{patients.count} patients for this this measure." if population_index == 0
@@ -29,13 +35,19 @@ namespace :upgrade_add_hx_tracks do
           processed_patients_counter = 0
           processed_patients_array = []
           patients.each_with_index do |patient, index|
-            next if processed_patients_array.include?(patient)
+            # next if processed_patients_array.include?(patient)
+            if processed_patients_array.include?(patient)
+              log_repeat_process.puts "Processing #{patient.id} #{patient.first} #{patient.last} again for #{measure.cms_id} population_set #{population_index}"
+              next
+            end
             processed_patients_array << patient
             unless setup_exception
               begin
                 result = calculator.calculate(patient).slice(*populations_to_process)
               rescue => e
                 calculation_exception = "Measure calculation exception: #{e.message}"
+                log_file.puts "\n\n  Error calculating for user #{measure.user.email} measure #{measure.cms_id} population set #{population_index} patient '#{patient.first} #{patient.last}' (_id: ObjectId('#{patient.id}')):"
+                log_file.puts "  #{e}\n\n"
               end
             end
             next unless result
@@ -50,11 +62,15 @@ namespace :upgrade_add_hx_tracks do
             else
               print '=' unless processed_patients_counter > patients.count
             end
-            yield measure, population_index, patient, result, setup_exception || calculation_exception
           end
         end
         processed_measure_counter += 1
       end # mesuares
+      
+      log_file.close()
+      log_repeat_process.close()
+      
+      log_file.path
     end # calculate_all
 
     desc 'Clear any existing actual values'
@@ -134,19 +150,10 @@ namespace :upgrade_add_hx_tracks do
     task :calculate_all => :environment do
       STDOUT.sync = true
       start = Time.now
-      log_file = File.open("./log/calculate_all_log_#{start.strftime("%Y%m%d_%H%M%S")}.txt", "w")
-      errors_occurred = false
-      calculate_all do |measure, population_index, patient, result, error|
-        if error
-          errors_occurred = true
-          log_file.puts "\n\n  Error with user #{measure.user.email} measure #{measure.cms_id} population set #{population_index} patient '#{patient.first} #{patient.last}' (_id: ObjectId('#{patient.id}')):"
-          log_file.puts "  #{error}\n\n"
-        end
-      end
-      puts
+      log_file = calculate_all()
+      puts "\n\nThere are errors. Please view ./log/calculate_all_log_#{start.strftime("%Y%m%d_%H%M%S")}.txt the details.\n" unless File.zero?(log_file)
       finish = Time.now
       puts "It took #{finish - start} seconds to run this."
-      puts "There are errors. Please view ./log/calculate_all_log_#{start.strftime("%Y%m%d_%H%M%S")}.txt the details." if errors_occurred
     end
 
   end
