@@ -393,6 +393,7 @@ class MeasuresController < ApplicationController
         measure_current_pop_codes = {"measure_id" => measure.hqmf_set_id, "population_index" => index}
         population_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).each do |my_code, _v|
           # The populations are a key, value pair; slice returns this as an array.  We want the key.
+          # Putting in zero for the value as the default value.
           measure_current_pop_codes.store(my_code, 0)
         end
         corrected_expected << measure_current_pop_codes
@@ -411,7 +412,13 @@ class MeasuresController < ApplicationController
         new_expected_values.each_with_index do |population_set, ps_index|
           # Copy any existing values to the new expected values but only
           # if it exists in the new expected values
-          population_set.each_key { |population| population_set[population] = patient.expected_values[ps_index][population] unless patient.expected_values[ps_index].nil? }
+          population_set.each_key do |population| 
+            if patient.expected_values[ps_index][population].nil?
+              population_set[population] = corrected_expected[ps_index][population]
+            else
+              population_set[population] = patient.expected_values[ps_index][population]
+            end
+          end
         end
         unless patient.expected_values == new_expected_values
             patient.expected_values = new_expected_values
