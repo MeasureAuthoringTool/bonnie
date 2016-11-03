@@ -1,5 +1,16 @@
 module UploadSummary
 
+  # A measure upload refers to a record of what happened to a measure at a specific
+  #  moment in time.
+  # An upload has 3 parts.
+  # 1 - A copy of the existing measure content in Bonnie before anything happens.
+  #   This is called the archived measure.
+  # 2 - Pre upload state: what did the patients associated with this measure look like
+  #  prior to the upload (in terms of pass/fail).
+  # 3 - Post upload state: what the patients look like after the new measure content has
+  #  been uploaded into Bonnie.
+  # Parts 2 and 3 are stored in upload_summaries collection.
+
   # This will be used to filter the calc_results object down to just population codes
   # and rationale and finalSpecifics.
   ATTRIBUTE_FILTER = HQMF::PopulationCriteria::ALL_POPULATION_CODES + ['rationale', 'finalSpecifics']
