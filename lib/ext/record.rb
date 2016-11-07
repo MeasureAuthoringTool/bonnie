@@ -145,7 +145,7 @@ class Record
   #   is loaded or updated.
   def calc_status
     expected_values.each_index do |population_set_index|
-      break if calc_results.empty? || (population_set_index == calc_results.length && calc_results.length != 0)
+      break if calc_results.blank? || (population_set_index == calc_results.length && calc_results.length != 0)
       # When we check for pass/fail we are not interested in the exact values but whether or not
       # the vales for the expected results and calculated results are the same.  This array substraction
       # will tell us that.  It also ignores any "extra" fields that may have been added to the calculation
