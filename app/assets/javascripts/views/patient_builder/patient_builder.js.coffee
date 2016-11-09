@@ -271,9 +271,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       bottom: $logic.nextAll(':visible').height() || 0
 
   showCompare: ->
-    # if @patientCompareView
-    #   @patientCompareView.remove()
-
     uploadSummaries = @measure.get('upload_summaries')
     $.when(uploadSummaries.fetchDeferred())
       .then( -> uploadSummaries.at(0).fetchDeferred() )
@@ -281,6 +278,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         @patientCompareView = new Thorax.Views.PatientBuilderCompare(model: @model, measure: @measure, patients: @patients, measures: @measures, mostRecentUploadSummary: uploadSummaries.at(0))
         @patientCompareView.appendTo('#patient-compare-content')
         @$('#patient-compare-dialog').modal('show')
+        # When the modal is closed clear it out for the next time it is displayed
+        @$('#patient-compare-dialog').on 'hidden.bs.modal', (event) =>
+          @patientCompareView.remove()
         )
     
 

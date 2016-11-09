@@ -412,12 +412,9 @@ class MeasuresController < ApplicationController
         new_expected_values.each_with_index do |population_set, ps_index|
           # Copy any existing values to the new expected values but only
           # if it exists in the new expected values
+          next if ps_index >= patient.expected_values.size
           population_set.each_key do |population| 
-            if patient.expected_values[ps_index][population].nil?
-              population_set[population] = corrected_expected[ps_index][population]
-            else
-              population_set[population] = patient.expected_values[ps_index][population]
-            end
+            population_set.each_key { |population| population_set[population] = patient.expected_values[ps_index][population] unless patient.expected_values[ps_index].nil? }
           end
         end
         unless patient.expected_values == new_expected_values
