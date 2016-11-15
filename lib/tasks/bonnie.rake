@@ -142,7 +142,7 @@ namespace :bonnie do
       end
     end
 
-    desc 'Move a meaure from one user account to another'
+    desc 'Move a measure from one user account to another'
     task :move_measure => :environment do
       source_email = ENV['SOURCE_EMAIL']
       dest_email = ENV['DEST_EMAIL']
@@ -188,6 +188,39 @@ namespace :bonnie do
       puts "Done!"
     end
 
+    desc 'Copy measure patients from one user account to another'
+    task :copy_measure_patients => :environment do
+      source_email = ENV['SOURCE_EMAIL']
+      dest_email = ENV['DEST_EMAIL']
+      source_cms_id = ENV['SOURCE_CMS_ID']
+      dest_cms_id = ENV['DEST_CMS_ID']
+
+      puts "Copying patients from '#{source_cms_id}' in '#{source_email}' to '#{dest_cms_id}' in '#{dest_email}'..."
+
+      # Find source and destination user accounts
+      raise "#{source_email} not found" unless source = User.find_by(email: source_email)
+      raise "#{dest_email} not found" unless dest = User.find_by(email: dest_email)
+
+      # Find source and destination measures and associated records we're moving
+      raise "#{source_cms_id} not found" unless source_measure = source.measures.find_by(cms_id: source_cms_id)
+      raise "#{dest_cms_id} not found" unless dest_measure = dest.measures.find_by(cms_id: dest_cms_id)
+      records = []
+      source.records.where(measure_ids: source_measure.hqmf_set_id).each do |record|
+        records.push(record.dup)
+      end
+
+      # Update the user id and bundle for the existing records
+      puts "Copying patient records..."
+      records.each do |r|
+        puts "Copying:  #{r.first} #{r.last}"
+        r.user = dest
+        r.bundle = dest.bundle
+        r.measure_ids.map! { |x| x == source_measure.hqmf_set_id ? dest_measure.hqmf_set_id : x }
+        r.save
+      end
+
+      puts "Done!"
+    end
 
     desc 'Export spreadsheets for all measures loaded by a user'
     task :export_spreadsheets => :environment do
