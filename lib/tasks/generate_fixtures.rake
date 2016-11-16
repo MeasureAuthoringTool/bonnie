@@ -1,7 +1,8 @@
 namespace :HDS do
   namespace :test do
     
-    task :generateFixture, [:gen_test, :user_email, :cms_id, :patient_first_name, :patient_last_name, :test_set, :test_name] => [:environment] do |t, args|
+    
+    task :generate_fixtures, [:gen_test, :user_email, :cms_id, :patient_first_name, :patient_last_name, :test_set, :test_name] => [:environment] do |t, args|
       test_name = args[:test_name]
       if (test_name.nil?)
         tmp_email = args[:user_email].split("@")[0]
@@ -14,7 +15,7 @@ namespace :HDS do
       patient = Record.find_by(user: user, first: args[:patient_first_name], last: args[:patient_last_name])
       
       fixtures_directory = File.join("test", "fixtures")
-      output_directory = File.join(fixtures_directory, test_name)
+      output_directory = File.join(fixtures_directory, args[:test_set], test_name)
       Dir.mkdir(output_directory) unless Dir.exists? output_directory
 
       user_file = args[:gen_test] ? File.join(fixtures_directory, "users", args[:test_set], test_name, "user.json") : File.join(output_directory, "user.json")
