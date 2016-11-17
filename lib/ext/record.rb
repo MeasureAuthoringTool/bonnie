@@ -13,7 +13,7 @@ class Record
   field :calc_results, type: Array, default: []
   field :has_measure_history, type: Boolean, default: false # has the record gone through an update to the measure
   field :results_exceed_storage, type: Boolean, default: false # True when the size of calc_results > 12000000
-  field :condensed_bc_of_size_results, type: Array
+  field :condensed_calc_results, type: Array
   field :results_size, type: Integer
 
   belongs_to :user
@@ -93,8 +93,8 @@ class Record
                 :track_destroy  =>  true    # track document destruction, default is true
 
   # This function goes deeper into the source data criteria to look for changes.
-  # Each the record is materialized on the the front end a new coded_entry_id is genereated.
-  # When the record is saved this new coded_entry_id is also saved.  For the sake of 
+  # Each time the record is materialized on the the front end, a new coded_entry_id is genereated.
+  # When the record is saved, this new coded_entry_id is also saved.  For the sake of 
   # tracking differences the coded_entry_id is not of interest.
   def source_data_criteria_changes
     return changes if changes['source_data_criteria'].nil? || changes['source_data_criteria'][0].nil?
@@ -129,7 +129,7 @@ class Record
     # We don't need to track the MeasurePeriod changes
     modified.reject! { |dc| dc['id'] == 'MeasurePeriod' }
 
-    # Set the retrun value
+    # Set the return value
     # return source_data_criteria only if there are changes to it that we are interested in
     if !original.empty? || !modified.empty?
       changes.merge('source_data_criteria' => [original, modified])
@@ -144,8 +144,11 @@ class Record
   # The number of populations and the expected vales for those populations is determined when the measure
   #   is loaded or updated.
   def calc_status
+    return if calc_results.blank?
     expected_values.each_index do |population_set_index|
-      break if calc_results.blank? || (population_set_index == calc_results.length && calc_results.length != 0)
+      # stop if the number of populations in expected values exceeds the number of calc_results populations
+      break if population_set_index >= calc_results.length
+
       # When we check for pass/fail we are not interested in the exact values but whether or not
       # the vales for the expected results and calculated results are the same.  This array substraction
       # will tell us that.  It also ignores any "extra" fields that may have been added to the calculation
@@ -162,11 +165,11 @@ class Record
         cr.delete('rationale')
         cr.delete('finalSpecifics')
       end
-      self.condensed_bc_of_size_results = calc_results
+      self.condensed_calc_results = calc_results
       unset(:calc_results)
     else
       self.results_exceed_storage = false
-      unset(:condensed_bc_of_size_results)
+      unset(:condensed_calc_results)
     end
   end
 
