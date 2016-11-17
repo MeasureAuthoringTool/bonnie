@@ -1,160 +1,104 @@
-namespace :upgrade_add_hx_tracks do
-  namespace :patients do
+namespace :bonnie do
+  namespace :setup_history_tracks do
 
-    desc "Calculate all patients against their measures, yielding the results or, if there's an error, the error"
-    def calculate_all(options = {})
-      log_file = File.open("./log/calculate_all_log_#{Time.now.strftime("%Y%m%d_%H%M%S")}.txt", "w")
-      log_repeat_process = File.open("./log/calculate_all_repeats_log_#{Time.now.strftime("%Y%m%d_%H%M%S")}.txt", "w")
+    desc 'Calculate every patient in the database and stores their calculation results'
+    task :store_calculation_results => :environment do
+      STDOUT.sync = true
+      
       calculator = BonnieBackendCalculator.new
-      query = {}
-      query[:user_id] = User.where(email: options[:user_email]).first.try(:id) if options[:user_email]
-      query[:cms_id] = options[:cms_id] if options[:cms_id]
-      measures = Measure.where(query)
-      puts "There are #{measures.count} measures to process."
-      processed_measure_counter = 1
-      measures.each do |measure|
-        puts "\nProcessing measure #{processed_measure_counter} of #{measures.count}.\t(cms_id: #{measure.cms_id} for user: #{measure.user_id})"
-        puts "This measure has #{measure.populations.count} population sets."
+      puts "There are #{Measure.count} measures to process."
+      Measure.each_with_index do |measure, measure_index|
+        patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
         measure.populations.each_with_index do |population_set, population_index|
-          puts "\tProcessing population set #{(population_index + 1)} of #{measure.populations.count}.\n"
-          # Set up calculator for this measure and population, making sure we regenerate the javascript
           begin
             calculator.set_measure_and_population(measure, population_index, clear_db_cache: true, rationale: true)
           rescue => e
-            setup_exception = "Measure setup exception: #{e.message}"
-            log_file.puts "\n\n  Error setting up calculator for #{measure.user.email} measure #{measure.cms_id} population set #{population_index}:"
-            log_file.puts "  #{e}\n\n"
-            puts "\n\n  Error with user #{measure.user.email} measure #{measure.cms_id} population set #{population_index}"
+            puts "\nError setting up calculator for #{measure.user.email} measure #{measure.cms_id} population set #{population_index}:"
+            puts "Measure setup exception: #{e.message}."
             next # Move onto the next population set
           end
-          populations_to_process = population_set.keys.reject { |k| k == 'id' || k == 'title' }
-          populations_to_process.push('rationale', 'finalSpecifics')
-          patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
-          puts "\t\tThere are #{patients.count} patients for this this measure." if population_index == 0
-          print "\t\t"
-          processed_patients_counter = 0
+          
+          patient_fields_to_process = HQMF::PopulationCriteria::ALL_POPULATION_CODES | ['rationale', 'finalSpecifics']
+
           processed_patients_array = []
-          patients.each_with_index do |patient, index|
-            # next if processed_patients_array.include?(patient)
+          patients.each_with_index do |patient, patient_index|
             if processed_patients_array.include?(patient)
-              log_repeat_process.puts "Processing #{patient.id} #{patient.first} #{patient.last} again for #{measure.cms_id} population_set #{population_index}"
+              puts "\nPatient repeated for #{measure.user.email} measure #{measure.cms_id} population set #{population_index}."
+              puts "\tID: #{patient.id}\tName: #{patient.first} #{patient.last}"
               next
             end
             processed_patients_array << patient
-            unless setup_exception
-              begin
-                result = calculator.calculate(patient).slice(*populations_to_process)
-              rescue => e
-                calculation_exception = "Measure calculation exception: #{e.message}"
-                log_file.puts "\n\n  Error calculating for user #{measure.user.email} measure #{measure.cms_id} population set #{population_index} patient '#{patient.first} #{patient.last}' (_id: ObjectId('#{patient.id}')):"
-                log_file.puts "  #{e}\n\n"
-              end
+            
+            begin
+              result = calculator.calculate(patient).slice(*patient_fields_to_process)
+            rescue => e
+              puts "\nError calculating for user #{measure.user.email} measure #{measure.cms_id} population set #{population_index} patient '#{patient.first} #{patient.last}' (_id: ObjectId('#{patient.id}')):"
+              puts "Measure calculation exception: #{e.message}"
+              next # Move onto the next patient
             end
-            next unless result
+
             result['population_index'] = population_index
             result['measure_id'] = measure.hqmf_set_id
             patient.calc_results << result
             patient.save!
-            processed_patients_counter += 1
-            if processed_patients_counter % 10 == 0 || processed_patients_counter == patients.count
-              print processed_patients_counter.to_s
-              print "\n" if processed_patients_counter == patients.count
-            else
-              print '=' unless processed_patients_counter > patients.count
-            end
           end
         end
-        processed_measure_counter += 1
-      end # mesuares
-      
-      log_file.close()
-      log_repeat_process.close()
-      
-      log_file.path
+        print "."
+      end # measures
     end # calculate_all
 
     desc 'Clear any existing actual values'
-    task :clear_actuals => :environment do
+    task :clear_calculation_results => :environment do
       STDOUT.sync = true
-      # patients = Record
-      puts "There are #{Record.count} patients"
-      cleaned_patients = 0
+      puts "There are #{Record.count} patients to process"
       Record.each do |patient|
         patient.calc_results = []
         patient.save!
-        cleaned_patients += 1
-        if cleaned_patients % 10 == 0
-          print cleaned_patients.to_s
-          print "\n" if cleaned_patients % 100 == 0
-        else
-          print '='
-        end
+        print '.'
       end
+      puts
     end
 
     desc 'Align expected values on patients with the populations defined on the measure.'
-    task :sync_expected => :environment do
+    task :sync_expected_values => :environment do
       STDOUT.sync = true
       puts 'Align expected values on patients with the populations defined on the measure.'
-      processed_measure_counter = 0
+      puts "There are #{Measure.count} measures to process."
       Measure.each do |measure|
-        processed_measure_counter += 1
         patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
         next if patients.count == 0
-        corrected_expected = []
-        measure.populations.each_with_index do |pop, idx|
-          currentPopulations = {measure_id: measure.hqmf_set_id, population_index: idx}
-          pop.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).each do |my_code, _v|
-            # The populations are a key, value pair; slice returns this as an array.  Only the key.
-            # Setting the value to 0 because if this is a new population for the population set
-            # we have to assume that existing test patients won't meet the population.
-            currentPopulations[my_code] = 0
-          end
-          corrected_expected << currentPopulations
-        end
-
-        processed_patients_counter = 0
-
-        puts "\nWorking on #{measure.title} (_id: ObjectId('#{measure.id}'))"
-        puts "  There are #{patients.count} patients to work on."
+        
         patients.each do |patient|
-          #For each patient make a new copy of the current expected population sets and populations
-          new_expected_values = corrected_expected.dup
-          new_expected_values.each_with_index do |population_set, ps_index|
-            # Copy any existing values to the new expected values but only
-            # if it exists in the new expected values
-            population_set.each_key { |population| population_set[population] = patient.expected_values[ps_index][population] unless patient.expected_values[ps_index].nil? }
+          patient.expected_values.each do |expected_value_set|
+            # ignore if expected values related to other measure (could happen with portfolio users)
+            next if expected_value_set['measure_id'] != measure.hqmf_set_id
+            # ignore if there's a mismatch population count
+            next unless measure.populations[expected_value_set['population_index']]
+
+            # add population sets that didn't exist
+            population_set = measure.populations[expected_value_set['population_index']].slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES)
+            population_set.keys.each do |population|
+              unless expected_value_set.include? population
+                expected_value_set[population] = 0
+              end
+            end
+            
+            # delete population sets that no longer exist
+            expected_value_set_populations = expected_value_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
+            rejected_populations = []
+            expected_value_set_populations.each do |population|
+              unless population_set.include? population
+                rejected_populations << population
+              end
+            end
+            expected_value_set.except!(*rejected_populations)
           end
-          # Only need to more if there is a difference between the new_expected_values and existing patient.expected_values
-          unless patient.expected_values == new_expected_values
-            patient.expected_values = new_expected_values
-            patient.calc_results = []
-            patient.save!
-          end
-          processed_patients_counter += 1
-          if processed_patients_counter % 10 == 0 || processed_patients_counter == patients.count
-            print processed_patients_counter.to_s
-            print "\n" if processed_patients_counter == patients.count
-          else
-            print '=' unless processed_patients_counter > patients.count
-          end
+          patient.save!
         end # patients
-
-        puts "#{processed_measure_counter} measures of #{Measure.count} completed." if processed_measure_counter % 10 == 0
+        print "."
       end # measures
-      log_file.close
-      puts 'Done with task :sync_expected'
+      puts
     end # task
-
-    desc 'Calculate every patient in the database and display any errors (does not test for correct results)'
-    task :calculate_all => :environment do
-      STDOUT.sync = true
-      start = Time.now
-      log_file = calculate_all()
-      puts "\n\nThere are errors. Please view ./log/calculate_all_log_#{start.strftime("%Y%m%d_%H%M%S")}.txt the details.\n" unless File.zero?(log_file)
-      finish = Time.now
-      puts "It took #{finish - start} seconds to run this."
-    end
 
   end
 end
