@@ -45,9 +45,10 @@ namespace :bonnie do
         end
         print "."
       end # measures
+      puts
     end # calculate_all
 
-    desc 'Clear any existing actual values'
+    desc 'Clear the calculation results.'
     task :clear_calculation_results => :environment do
       STDOUT.sync = true
       puts "There are #{Record.count} patients to process"
@@ -63,39 +64,36 @@ namespace :bonnie do
     task :sync_expected_values => :environment do
       STDOUT.sync = true
       puts 'Align expected values on patients with the populations defined on the measure.'
-      puts "There are #{Measure.count} measures to process."
+      puts "There are #{Record.count} patients to process."
       Measure.each do |measure|
         patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
         next if patients.count == 0
         
+        measure_population_sets = measure.populations.map { |population_set| population_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES) }
+
         patients.each do |patient|
           patient.expected_values.each do |expected_value_set|
             # ignore if expected values related to other measure (could happen with portfolio users)
             next if expected_value_set['measure_id'] != measure.hqmf_set_id
             # ignore if there's a mismatch population count
-            next unless measure.populations[expected_value_set['population_index']]
+            next unless measure_population_sets[expected_value_set['population_index']]
 
-            # add population sets that didn't exist
-            population_set = measure.populations[expected_value_set['population_index']].slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES)
-            population_set.keys.each do |population|
-              unless expected_value_set.include? population
-                expected_value_set[population] = 0
-              end
+            expected_value_population_set = expected_value_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
+            measure_population_set = measure_population_sets[expected_value_set['population_index']].keys
+
+            # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
+            added_populations = measure_population_set - expected_value_population_set
+            added_populations.each do |population|
+              expected_value_set[population] = 0
             end
-            
-            # delete population sets that no longer exist
-            expected_value_set_populations = expected_value_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
-            rejected_populations = []
-            expected_value_set_populations.each do |population|
-              unless population_set.include? population
-                rejected_populations << population
-              end
-            end
-            expected_value_set.except!(*rejected_populations)
+
+            # delete population sets that no longer exist (populations in the expected values that don't exist in the measure)
+            removed_populations = expected_value_population_set - measure_population_set
+            expected_value_set.except!(*removed_populations)
           end
           patient.save!
+          print "."
         end # patients
-        print "."
       end # measures
       puts
     end # task
