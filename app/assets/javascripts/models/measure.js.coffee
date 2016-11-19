@@ -45,6 +45,7 @@ class Thorax.Models.Measure extends Thorax.Model
           criteria.set('description', criteria.get('description').replace('Communication:', 'Communication'))
         criteria.set('description', "#{criteria.get('description').split(':')[0]}: #{bonnie.valueSetsByOid[criteria.get('code_list_id')].display_name}")
     
+    # These are lazy loaded collections. They are empty and marked unfetched. Using loadCollection will populate from server.
     attrs.archived_measures = new Thorax.Collections.ArchivedMeasures null, {measure_id: attrs._id, _fetched: false}
     attrs.upload_summaries = new Thorax.Collections.UploadSummaries null, {measure_id: attrs._id, _fetched: false}
     attrs
@@ -123,6 +124,30 @@ class Thorax.Models.Measure extends Thorax.Model
 
     # return field values sorted by title
     _(fields).sortBy (field) -> field.title
+    
+  loadModelsForCompareAtUpload: (uploadId) ->
+    loadDeferred = $.Deferred()
+    models = { uploadSummaries: @get('upload_summaries'), archivedMeasures: @get('archived_measures') }
+    # First shallow load the upload_summaries and archived_measures collections.
+    $.when(models.uploadSummaries.loadCollection(), models.archivedMeasures.loadCollection())
+      # Load the upload summary we want to look at
+      .then( => @get('upload_summaries').findWhere({_id: uploadId}).loadModel() )
+      # Store upload summary for return. Load the before upload archived measure
+      .then((uploadSummary) =>
+        models.uploadSummary = uploadSummary
+        @get('archived_measures').findWhere(_id: models.uploadSummary.get('measure_db_id_pre_upload')).loadModel() )
+      # Store before measure for return. Load the after upload archived measure, unless it is current version
+      .then((beforeMeasure) =>
+        models.beforeMeasure = beforeMeasure
+        if @id isnt models.uploadSummary.get('measure_db_id_post_upload')
+          @get('archived_measures').findWhere(_id: models.uploadSummary.get('measure_db_id_post_upload')).loadModel()
+        else
+          return @ )
+      # Resolve the deferred now that we collected all of the requisite models.
+      .done((afterMeasure) =>
+        models.afterMeasure = afterMeasure
+        loadDeferred.resolve(models) )
+    return loadDeferred
 
 class Thorax.Collections.Measures extends Thorax.Collection
   url: '/measures'

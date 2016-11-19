@@ -1,3 +1,6 @@
+# This file needs the DeferredModel and DeferredCollection classes to be loaded first.
+#= require ./deferred_model.js.coffee
+
 ###*
 # Model representing an upload summary. This contains info about what changed during a measure upload. This is used in
 # the post upload summary dialog and the measure upload history page.

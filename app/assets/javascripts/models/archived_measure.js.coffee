@@ -1,3 +1,7 @@
+# This file needs the Measure model and DeferredCollection classes to be loaded first.
+#= require ./measure.js.coffee
+#= require ./deferred_model.js.coffee
+
 ###*
 # Model representing an archived measure. This is a previously upload version of a measure.
 ###
@@ -12,21 +16,21 @@ class Thorax.Models.ArchivedMeasure extends Thorax.Models.Measure
     @set 'patients', new Thorax.Collections.Patients [], _fetched: true
   
   ###*
-  # Deferred return version of the Backbone fetch function.
+  # Deferred return version of the Backbone fetch function. This fetches the entire model from the server.
   # @return {deferred} Deferred object that resolves when the model fetch is completed. Rejects on fail.
   ###
-  fetchDeferred: ->
-    fetchDeferred = $.Deferred()
+  loadModel: ->
+    loadDeferred = $.Deferred()
     if !@_fetched
       @fetch(
         success: (model) ->
           model._fetched = true
-          fetchDeferred.resolve(model)
-        error: (model) -> fetchDeferred.reject(model)
+          loadDeferred.resolve(model)
+        error: (model) -> loadDeferred.reject(model)
       )
     else
-      fetchDeferred.resolve(@)
-    return fetchDeferred
+      loadDeferred.resolve(@)
+    return loadDeferred
 
 
 ###*

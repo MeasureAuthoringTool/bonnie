@@ -272,9 +272,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   showCompare: ->
     uploadSummaries = @measure.get('upload_summaries')
-    $.when(uploadSummaries.fetchDeferred())
-      .then( -> uploadSummaries.at(0).fetchDeferred() )
-      .then(() => 
+    $.when(uploadSummaries.loadCollection())
+      .then( -> uploadSummaries.at(0).loadModel() )
+      .then( => 
         @patientCompareView = new Thorax.Views.PatientBuilderCompare(model: @model, measure: @measure, patients: @patients, measures: @measures, uploadSummary: uploadSummaries.at(0))
         @patientCompareView.appendTo('#patient-compare-content')
         @$('#patient-compare-dialog').modal('show')
