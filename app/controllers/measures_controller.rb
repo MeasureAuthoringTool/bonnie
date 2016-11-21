@@ -404,7 +404,6 @@ class MeasuresController < ApplicationController
   end
 
   def check_patient_expected_values(measure, measure_patients)
-    # patients = Record.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id)
     if measure_patients.count > 0
       corrected_expected = []
       measure.populations.each_with_index do |population_set, index|

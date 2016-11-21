@@ -153,10 +153,7 @@ module UploadSummary
       # Only work on the population sets that exist.  It is possible that in the new version of the meausre
       # there are few population sets than in the previous version.
       break if population_set_index >= measure.populations.count
-      # population_set[:patients].keys.each do |patient_id|
         measure_patients.each do |patient|
-        # TODO with the new patients objects that will be passed in this query won't be needed
-        # patient = Record.find(patient_id)
 
         status = 'fail'
         if !patient.results_exceed_storage
