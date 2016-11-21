@@ -1,7 +1,15 @@
 namespace :HDS do
   namespace :test do
     
-    
+    #Usage
+    # bundle exec rake HDS:test:generate_fixtures
+    # gen_test: if true, will distribute fixtures into appropriate test/fixtures directories
+    # user_email: email of user to be exported
+    # cms_id: id of mesaure to be exported
+    # patient_first_name, patient_last_name: identify patient to be exported
+    # test_set: what component is the test being generted for? will place created fixtures in subdirectories named after test_set
+    # test_name: the name of the directories that will contain test files.  If not set, will be generated from user, measure and record details.
+    desc "Exports a set of fixtures that can be loaded for testing purposes"
     task :generate_fixtures, [:gen_test, :user_email, :cms_id, :patient_first_name, :patient_last_name, :test_set, :test_name] => [:environment] do |t, args|
       test_name = args[:test_name]
       if (test_name.nil?)
