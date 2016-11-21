@@ -45,5 +45,4 @@ class ArchivedMeasure
     return measure
   end
   
-  
 end

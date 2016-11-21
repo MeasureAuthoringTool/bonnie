@@ -138,6 +138,7 @@ private
     # patient['measure_period_end'] = measure_period['end_date']
 
     patient.expected_values = params['expected_values']
+    # cached calculation results are not currently supported by portfolio users.
     patient.calc_results = params['calc_results'] unless current_user.is_portfolio?
 
     patient['origin_data'] ||= []
