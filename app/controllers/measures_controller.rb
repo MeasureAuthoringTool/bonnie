@@ -267,9 +267,10 @@ class MeasuresController < ApplicationController
 
     measure.generate_js
 
-    # Initialize an Upload Summary by taking a snapshot of the patients before the measure is updated.
-    # For the initial release of the Measure Upload History the feature will be disabled for portfolio users
-    upload_summary_id = UploadSummary.collect_before_upload_state(measure, arch_measure) unless current_user.is_portfolio?
+    #  Initialize an Upload Summary by taking a snapshot of the patients before the measure is updated.
+    # For the initial relase of the Measure Upload History the feature will be disabled for portfolio users
+    measure_patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
+    upload_summary_id = UploadSummary.collect_before_upload_state(measure, arch_measure, measure_patients) unless current_user.is_portfolio?
     measure.save!
 
     # run the calcs for the patients with the new version of the measure
@@ -278,9 +279,9 @@ class MeasuresController < ApplicationController
     # trigger the measure upload summary for the user.
     # TODO Eventually enable for portfolio users
     if !measure.needs_finalize && !current_user.is_portfolio?
-      check_patient_expected_values(measure)
-      UploadSummary.calculate_updated_actuals(measure)
-      UploadSummary.collect_after_upload_state(measure, upload_summary_id)
+      check_patient_expected_values(measure, measure_patients)
+      UploadSummary.calculate_updated_actuals(measure, measure_patients)
+      UploadSummary.collect_after_upload_state(measure, upload_summary_id, measure_patients)
       flash[:uploaded_summary_id] = upload_summary_id
       flash[:uploaded_hqmf_set_id] = measure.hqmf_set_id
     end
@@ -347,9 +348,10 @@ class MeasuresController < ApplicationController
       # For the initial relase of the Measure Upload History the feature will be disabled for portfolio users
       # TODO Enable for portfolio users
       unless current_user.is_portfolio?
-        UploadSummary.calculate_updated_actuals(measure)
+        measure_patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
+        UploadSummary.calculate_updated_actuals(measure, measure_patients)
         upload_summary_id = UploadSummary::MeasureSummary.where(measure_db_id_post_upload: measure.id).first.id
-        UploadSummary.collect_after_upload_state(measure, upload_summary_id)
+        UploadSummary.collect_after_upload_state(measure, upload_summary_id, measure_patients)
       end
 
       # Make UI show upload summary
@@ -401,9 +403,9 @@ class MeasuresController < ApplicationController
     end
   end
 
-  def check_patient_expected_values(measure)
-    patients = Record.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id)
-    if patients.count > 0
+  def check_patient_expected_values(measure, measure_patients)
+    # patients = Record.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id)
+    if measure_patients.count > 0
       corrected_expected = []
       measure.populations.each_with_index do |population_set, index|
         measure_current_pop_codes = {"measure_id" => measure.hqmf_set_id, "population_index" => index}
@@ -422,7 +424,7 @@ class MeasuresController < ApplicationController
       # populations 1 and 2 will be the same before and after the change.
       # The same will hold true when the number of populations increases.
       ########################################
-      patients.each do |patient|
+      measure_patients.each do |patient|
         #For each patient make a new copy of the current expected population sets and populations
         new_expected_values = corrected_expected.dup
         new_expected_values.each_with_index do |population_set, ps_index|
