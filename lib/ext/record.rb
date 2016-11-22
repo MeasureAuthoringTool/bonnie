@@ -127,6 +127,7 @@ class Record
     end
 
     # We don't need to track the MeasurePeriod changes
+    # Only need to remove from 'modified'. History tracking gem will ignore if not in 'modified'.
     modified.reject! { |dc| dc['id'] == 'MeasurePeriod' }
 
     # Set the return value
