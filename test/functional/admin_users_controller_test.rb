@@ -63,7 +63,7 @@ include Devise::Test::ControllerHelpers
     # Verify transmission of new user email
     mail = ActionMailer::Base.deliveries.last
     assert_equal @user_unapproved.email, mail.to.first
-    assert_equal "bonnie-feedback-list@lists.mitre.org", mail.from.first
+    assert_equal APP_CONFIG['bonnie_email'], mail.from.first
     assert_equal "Welcome to Bonnie", mail.subject
   end
 

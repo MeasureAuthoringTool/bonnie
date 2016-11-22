@@ -13,6 +13,7 @@ defaults: &defaults
   enable_client_error_email: true
   # oldest version of QDM that can be loaded
   support_qdm_version: 5.3
+  bonnie_email: bonnie@example.com
 
 development:
   <<: *defaults
