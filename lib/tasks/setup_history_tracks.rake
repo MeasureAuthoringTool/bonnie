@@ -84,9 +84,9 @@ namespace :bonnie do
               expected_values << {measure_id: measure.hqmf_set_id, population_index: index}
             end
           end
-          # delete old population sets
+          # delete old population sets by taking a subset of the original array
           if measure_population_count < patient_population_count
-            expected_values = expected_values[measure_population_count..-1]
+            expected_values = expected_values[0..measure_population_count-1]
           end
 
           expected_values.each do |expected_value_set|
