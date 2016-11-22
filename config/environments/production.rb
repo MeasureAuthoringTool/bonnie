@@ -81,7 +81,7 @@ Bonnie::Application.configure do
   config.middleware.use ExceptionNotification::Rack, email: {
     email_prefix: "[Bonnie] ",
     sender_address: %{"Bonnie (#{APP_CONFIG['hostname']})" <bonnie@#{APP_CONFIG['hostname']}>},
-    exception_recipients: %w{bonnie-feedback-list@lists.mitre.org},
+    exception_recipients: APP_CONFIG['bonnie_email'],
     sections: %w{request session user_info environment backtrace}
   }
 
