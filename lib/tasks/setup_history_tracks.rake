@@ -72,14 +72,29 @@ namespace :bonnie do
         measure_population_sets = measure.populations.map { |population_set| population_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES) }
 
         patients.each do |patient|
-          patient.expected_values.each do |expected_value_set|
-            # ignore if expected values related to other measure (could happen with portfolio users)
-            next if expected_value_set['measure_id'] != measure.hqmf_set_id
+          # get only the expected values related to this measure. Necessary to handle portfolio users.
+          expected_values = patient.expected_values.select { |expected_value_set| expected_value_set[:measure_id] == measure.hqmf_set_id }
+
+          # ensure there's the correct number of population sets
+          patient_population_count = expected_values.count
+          measure_population_count = measure_population_sets.count
+          # add new population sets. the rest of the data gets added below.
+          if patient_population_count < measure_population_count
+            (patient_population_count..measure_population_count-1).each do |index|
+              expected_values << {measure_id: measure.hqmf_set_id, population_index: index}
+            end
+          end
+          # delete old population sets
+          if measure_population_count < patient_population_count
+            expected_values = expected_values[measure_population_count..-1]
+          end
+
+          expected_values.each do |expected_value_set|
             # ignore if there's a mismatch population count
-            next unless measure_population_sets[expected_value_set['population_index']]
+            next unless measure_population_sets[expected_value_set[:population_index]]
 
             expected_value_population_set = expected_value_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
-            measure_population_set = measure_population_sets[expected_value_set['population_index']].keys
+            measure_population_set = measure_population_sets[expected_value_set[:population_index]].keys
 
             # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
             added_populations = measure_population_set - expected_value_population_set
@@ -87,10 +102,12 @@ namespace :bonnie do
               expected_value_set[population] = 0
             end
 
-            # delete population sets that no longer exist (populations in the expected values that don't exist in the measure)
+            # delete populations that no longer exist (populations in the expected values that don't exist in the measure)
             removed_populations = expected_value_population_set - measure_population_set
             expected_value_set.except!(*removed_populations)
           end
+
+          patient.expected_values = expected_values
           patient.save!
           print "."
         end # patients
