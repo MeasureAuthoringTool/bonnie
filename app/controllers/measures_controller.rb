@@ -60,13 +60,13 @@ class MeasuresController < ApplicationController
         # if the code is for VARIABLE, leave it. If it's IPP, etc., then access the actual code name from the
         # population set (e.g. IPP_1).
         code = (population_code == 'VARIABLES') ? 'VARIABLES' : new_population_set[population_code]
-        new_logic = @new_measure.measure_logic.select { |logic| logic['code'] == code }.first
-        old_logic = @old_measure.measure_logic.select { |logic| logic['code'] == code }.first
+        new_logic = @new_measure.measure_logic.find { |logic| logic['code'] == code }
+        old_logic = @old_measure.measure_logic.find { |logic| logic['code'] == code }
 
         # skip if both are non existent
         next if !new_logic && !old_logic
         
-        # Remove the first line of the measure logic which is the the name of the population.
+        # Remove the first line of the measure logic, which is the the name of the population.
         old_logic_text = old_logic ? old_logic['lines'][1..-1].join() : ""
         new_logic_text = new_logic ? new_logic['lines'][1..-1].join() : ""
 
@@ -267,8 +267,8 @@ class MeasuresController < ApplicationController
 
     measure.generate_js
 
-    #  Initialize an Upload Summary by taking a snapshot of the patients before the measure is updated.
-    # For the initial relase of the Measure Upload History the feature will be disabled for portfolio users
+    # Initialize an Upload Summary by taking a snapshot of the patients before the measure is updated.
+    # For the initial release of the Measure Upload History the feature will be disabled for portfolio users
     upload_summary_id = UploadSummary.collect_before_upload_state(measure, arch_measure) unless current_user.is_portfolio?
     measure.save!
 
@@ -276,7 +276,7 @@ class MeasuresController < ApplicationController
     # if the measure needs finalize (measure.needs_finalize == true) hold the calc of the patients until after the finalize
 
     # trigger the measure upload summary for the user.
-    # TODO Enable for portfolio users
+    # TODO Eventually enable for portfolio users
     if !measure.needs_finalize && !current_user.is_portfolio?
       check_patient_expected_values(measure)
       UploadSummary.calculate_updated_actuals(measure)
