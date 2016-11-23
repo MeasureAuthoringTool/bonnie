@@ -296,9 +296,9 @@ include Devise::TestHelpers
     r = Record.first
     assert_equal 2, r.history_tracks.count
     assert_equal true, r.results_exceed_storage
-    assert_equal 'pass', r.condensed_bc_of_size_results[0]['status']
-    assert_equal nil, r.condensed_bc_of_size_results[0]['rationale']
-    assert_equal nil, r.condensed_bc_of_size_results[0]['finalSpecifics']
+    assert_equal 'pass', r.condensed_calc_results[0]['status']
+    assert_equal nil, r.condensed_calc_results[0]['rationale']
+    assert_equal nil, r.condensed_calc_results[0]['finalSpecifics']
     assert_equal false, r.calc_results?
 
     @patient['calc_results'] = [{"measure_id"=>@measure.hqmf_set_id, 'population_index'=>0, 'IPP'=>1, 'DENOM'=>0, 'NUMER'=>0, "rationale"=>'X' * (1024), "finalSpecifics"=>'Z' * (1024)}]
@@ -309,7 +309,7 @@ include Devise::TestHelpers
 
     r = Record.first
     assert_equal 3, r.history_tracks.count
-    assert_equal false, r.condensed_bc_of_size_results?
+    assert_equal false, r.condensed_calc_results?
     assert_equal true, r.calc_results?
     assert_equal true, r.calc_results[0]['rationale'].length > 0
     assert_equal true, r.calc_results[0]['finalSpecifics'].length > 0

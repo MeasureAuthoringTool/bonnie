@@ -40,8 +40,6 @@ Bonnie::Application.routes.draw do
     resources :upload_summaries
   end
 
-
-
   resources :patients do
     collection do
       post 'materialize'

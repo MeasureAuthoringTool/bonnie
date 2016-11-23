@@ -66,7 +66,7 @@ module UploadSummary
           self.summary[:fail_before] += 1
         end
       else
-        if (patient.condensed_bc_of_size_results.find{ |result| result[:measure_id] == hqmf_set_id && result[:population_index] == population_set_index })['status'] == 'pass'
+        if (patient.condensed_calc_results.find{ |result| result[:measure_id] == hqmf_set_id && result[:population_index] == population_set_index })['status'] == 'pass'
           status = 'pass'
           self.summary[:pass_before] += 1
         else
@@ -125,7 +125,7 @@ module UploadSummary
             patient_snapshot_population_sets.summary[:fail_after] += 1
           end
         else
-          if (patient.condensed_bc_of_size_results.find{ |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == population_set_index })['status'] == 'pass'
+          if (patient.condensed_calc_results.find{ |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == population_set_index })['status'] == 'pass'
             status = 'pass'
             patient_snapshot_population_sets.summary[:pass_after] += 1
           else
