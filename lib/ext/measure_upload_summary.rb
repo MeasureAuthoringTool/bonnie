@@ -123,7 +123,7 @@ module UploadSummary
     measure_upload_summary.measure_db_id_post_upload = measure.id
     measure_upload_summary.measure_cms_id_after = measure.cms_id
     measure_upload_summary.measure_hqmf_version_number_after = measure.hqmf_version_number
-    measure_upload_summary.measure_population_set_count[:pre_upload] = arch_measure.measure_content['populations'].count
+    measure_upload_summary.measure_population_set_count[:pre_upload] = before_upload_population_sets.count
     measure_upload_summary.measure_population_set_count[:post_upload] = measure.populations.count
     measure_upload_summary.save!
     measure_upload_summary.id
@@ -144,7 +144,7 @@ module UploadSummary
         # Get the populations 
         (measure.populations[-i].keys.to_a - ['id', 'title']).each { |population| missing_expected_values[population] = 0 }
         # Add all of the patients with their expected values
-        measure_patients.each { |patient| new_population_set['patients'][patient.id] = {:expected => missing_expected_values} }
+        measure_patients.each { |patient| new_population_set['patients'][patient.id.to_s] = {:expected => missing_expected_values} }
         measure_upload_summary.population_set_summaries << new_population_set 
       end # downto
     end
