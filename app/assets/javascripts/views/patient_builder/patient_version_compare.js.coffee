@@ -25,7 +25,7 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
     if rationaleToShow isnt undefined
       @cachedBeforeResult = new Thorax.Models.CachedResult({
         rationale: rationaleToShow
-        finalSpecifics: @patient.post_upload_results.finalSpecifics}
+        finalSpecifics: @patient.pre_upload_results.finalSpecifics}
         , {
           population: populationToShow
           patient: @model
