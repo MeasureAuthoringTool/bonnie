@@ -405,41 +405,48 @@ class MeasuresController < ApplicationController
 
   def check_patient_expected_values(measure, measure_patients)
     if measure_patients.count > 0
-      corrected_expected = []
-      measure.populations.each_with_index do |population_set, index|
-        measure_current_pop_codes = {"measure_id" => measure.hqmf_set_id, "population_index" => index}
-        population_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).each do |my_code, _v|
-          # The populations are a key, value pair; slice returns this as an array.  We want the key.
-          # Putting in zero for the value as the default value.
-          measure_current_pop_codes.store(my_code, 0)
-        end
-        corrected_expected << measure_current_pop_codes
+      measure_population_sets = measure.populations.map { |population_set| population_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES) }
 
-      end
-      ########################################
-      # As of now the assumption is that when a measure changes the number of
-      # stratifications or population sets, the index for those stays the same.
-      # This means that if the number of populations goes from 3 to 2,
-      # populations 1 and 2 will be the same before and after the change.
-      # The same will hold true when the number of populations increases.
-      ########################################
-      measure_patients.each do |patient|
-        #For each patient make a new copy of the current expected population sets and populations
-        new_expected_values = corrected_expected.dup
-        new_expected_values.each_with_index do |population_set, ps_index|
-          # Copy any existing values to the new expected values but only
-          # if it exists in the new expected values
-          next if ps_index >= patient.expected_values.size
-          population_set.each_key do |population| 
-            population_set.each_key { |population| population_set[population] = patient.expected_values[ps_index][population] unless patient.expected_values[ps_index].nil? }
+        measure_patients.each do |patient|
+
+          # ensure there's the correct number of population sets
+          patient_population_count = patient.expected_values.count { |expected_value_set| expected_value_set[:measure_id] == measure.hqmf_set_id }
+          measure_population_count = measure_population_sets.count
+          # add new population sets. the rest of the data gets added below.
+          if patient_population_count < measure_population_count
+            (patient_population_count..measure_population_count-1).each do |index|
+              patient.expected_values << {measure_id: measure.hqmf_set_id, population_index: index}
+            end
           end
-        end
-        unless patient.expected_values == new_expected_values
-            patient.expected_values = new_expected_values
-            patient.save!
-        end
-      end
-    end # patients.count > 0
+          # delete population sets present on the patient but not in the measure
+          patient.expected_values.reject! do |expected_value_set| 
+            matches_measure = expected_value_set[:measure_id] ? expected_value_set[:measure_id] == measure.hqmf_set_id : false
+            is_extra_population = expected_value_set[:population_index] ? expected_value_set[:population_index] >= measure_population_count : false
+            matches_measure && is_extra_population
+          end
+
+          # ensure there's the correct number of populations for each population set
+          patient.expected_values.each do |expected_value_set|
+            # ignore if it's not related to the measure (can happen for portfolio users)
+            next unless expected_value_set[:measure_id] == measure.hqmf_set_id
+
+            expected_value_population_set = expected_value_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
+            measure_population_set = measure_population_sets[expected_value_set[:population_index]].keys
+
+            # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
+            added_populations = measure_population_set - expected_value_population_set
+            added_populations.each do |population|
+              expected_value_set[population] = 0
+            end
+
+            # delete populations that no longer exist (populations in the expected values that don't exist in the measure)
+            removed_populations = expected_value_population_set - measure_population_set
+            expected_value_set.except!(*removed_populations)
+          end
+          patient.save!
+          print "."
+        end # measure_patients
+    end # measure_patients.count > 0
 
   end
 
