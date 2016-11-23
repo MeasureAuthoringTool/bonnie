@@ -48,25 +48,27 @@ class MeasuresController < ApplicationController
     measure_logic_names = HQMF::Measure::LogicExtractor::POPULATION_MAP.clone
     measure_logic_names['VARIABLES'] = 'Variables'
 
-    # Walk through the population sets for the measure
+    # Walk through the population sets and populations for the measure and create a
+    # diffy for each populationm.
     @new_measure.populations.each_with_index do |new_population_set, population_set_index|
       old_population_set = @old_measure.populations[population_set_index]
       population_diff = []
 
-      # For each population within the population set get the description
-      # For example if there are two population sets and both have a population 
-      # of 'IPP' you will have codes of IPP (for population set 0) and IPP_1
-      # (for population_set 1).  
+      # For each population within the population set, get the population logic and
+      # perform the diffy
       measure_logic_names.each_pair do |population_code, population_title|
-        new_logic = @new_measure.measure_logic.select { |logic| logic['code'] == ((population_code == 'VARIABLES') ? 'VARIABLES' : new_population_set[population_code]) }.first
-        old_logic = @old_measure.measure_logic.select { |logic| logic['code'] == ((population_code == 'VARIABLES') ? 'VARIABLES' : old_population_set[population_code]) }.first
+        # if the code is for VARIABLE, leave it. If it's IPP, etc., then access the actual code name from the
+        # population set (e.g. IPP_1).
+        code = (population_code == 'VARIABLES') ? 'VARIABLES' : new_population_set[population_code]
+        new_logic = @new_measure.measure_logic.select { |logic| logic['code'] == code }.first
+        old_logic = @old_measure.measure_logic.select { |logic| logic['code'] == code }.first
 
         # skip if both are non existent
         next if !new_logic && !old_logic
         
         # Remove the first line of the measure logic which is the the name of the population.
-        old_logic_text = old_logic ? old_logic['lines'].slice(1, old_logic['lines'].length-1).join() : ""
-        new_logic_text = new_logic ? new_logic['lines'].slice(1, new_logic['lines'].length-1).join() : ""
+        old_logic_text = old_logic ? old_logic['lines'][1..-1].join() : ""
+        new_logic_text = new_logic ? new_logic['lines'][1..-1].join() : ""
 
         logic_diff = Diffy::SplitDiff.new(old_logic_text, new_logic_text,
           format: :html, include_plus_and_minus_in_html: true, allow_empty_diff: false)
@@ -182,11 +184,13 @@ class MeasuresController < ApplicationController
         return
       end
 
+      # if a measure is being updated, save out the pre-existing measure as an archived measure.
       if (existing && is_update)
         arch_measure = ArchivedMeasure.from_measure(existing)
         arch_measure.save
         existing.delete
       end
+
     rescue Exception => e
       if params[:measure_file]
         measure.delete if measure
