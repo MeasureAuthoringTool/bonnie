@@ -139,6 +139,7 @@ private
 
     patient.expected_values = params['expected_values']
     # cached calculation results are not currently supported by portfolio users.
+    # TODO: enable for portfolio users eventually
     patient.calc_results = params['calc_results'] unless current_user.is_portfolio?
 
     patient['origin_data'] ||= []

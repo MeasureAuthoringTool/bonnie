@@ -82,6 +82,9 @@ class MeasuresController < ApplicationController
     render :json => results
   end
 
+  ##
+  # GET /measures/value_sets
+  #
   def value_sets
     # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
     # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
@@ -294,8 +297,9 @@ class MeasuresController < ApplicationController
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
-
-
+  ##
+  # GET /measures/vsac_auth_valid
+  #
   def vsac_auth_valid
     # If VSAC TGT is still valid, return its expiration date/time
     tgt = session[:tgt]
@@ -306,6 +310,9 @@ class MeasuresController < ApplicationController
     end
   end
 
+  ##
+  # GET /measures/vsac_auth_expire
+  #
   def vsac_auth_expire
     # Force expire the VSAC session
     session[:tgt] = nil
@@ -320,6 +327,9 @@ class MeasuresController < ApplicationController
     render :json => measure
   end
 
+  ##
+  # GET /measures/finalize
+  #
   def finalize
     measure_finalize_data = params.values.select {|p| p['hqmf_id']}.uniq
     measure_finalize_data.each do |data|
