@@ -92,7 +92,6 @@ module UploadSummary
   end
 
   def self.collect_before_upload_state(measure, arch_measure, measure_patients)
-    # patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
 
     # We need to iterate over the population sets in the arch_measure (aka the old version) of the measure
     # because the new version of the measure may change the number of population sets.
@@ -131,7 +130,6 @@ module UploadSummary
 
   def self.collect_after_upload_state(measure, upload_summary_id, measure_patients)
     measure_upload_summary = MeasureSummary.where(id: upload_summary_id).first
-    # if measure_upload_summary.population_set_summaries.count < measure.populations.count
     if measure_upload_summary.measure_population_set_count[:pre_upload] < measure_upload_summary.measure_population_set_count[:post_upload]
       
       population_sets_to_add = measure.populations.count - measure_upload_summary.population_set_summaries.count
@@ -189,7 +187,6 @@ module UploadSummary
       rescue => e
         setup_exception = "Measure setup exception: #{e.message}"
       end
-      # patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
       measure_patients.each do |patient|
         unless setup_exception
           begin
