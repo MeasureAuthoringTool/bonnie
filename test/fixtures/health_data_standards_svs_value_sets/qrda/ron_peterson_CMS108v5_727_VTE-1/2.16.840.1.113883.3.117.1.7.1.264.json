@@ -1,0 +1,1041 @@
+{
+  "_id": "57ec4cdef081f342e2004051",
+  "bundle_id": "573373bef081f308d5000387",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "57ec4cdef081f342e2004052",
+      "black_list": false,
+      "code": "13943000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Failed attempted abortion complicated by embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004053",
+      "black_list": false,
+      "code": "19363005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Failed attempted abortion with blood-clot embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004054",
+      "black_list": false,
+      "code": "198876008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Failed medical abortion, complicated by embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004055",
+      "black_list": false,
+      "code": "200232006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Antenatal deep vein thrombosis - delivered (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004056",
+      "black_list": false,
+      "code": "200233001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Antenatal deep vein thrombosis with antenatal complication (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004057",
+      "black_list": false,
+      "code": "200237000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Postnatal deep vein thrombosis - delivered with postnatal complication (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004058",
+      "black_list": false,
+      "code": "200238005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Postnatal deep vein thrombosis with postnatal complication (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004059",
+      "black_list": false,
+      "code": "200284000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Obstetric pulmonary embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200405a",
+      "black_list": false,
+      "code": "200299000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Obstetric blood-clot pulmonary embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200405b",
+      "black_list": false,
+      "code": "200301007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Obstetric blood-clot pulmonary embolism - delivered (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200405c",
+      "black_list": false,
+      "code": "200302000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Obstetric blood-clot pulmonary embolism - delivered with postnatal complication (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200405d",
+      "black_list": false,
+      "code": "200303005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Obstetric blood-clot pulmonary embolism with antenatal complication (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200405e",
+      "black_list": false,
+      "code": "200304004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Obstetric blood-clot pulmonary embolism with postnatal complication (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200405f",
+      "black_list": false,
+      "code": "21604008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Illegal abortion with blood-clot embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004060",
+      "black_list": false,
+      "code": "267280004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Venous complication of pregnancy and/or the puerperium (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004061",
+      "black_list": false,
+      "code": "26743002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Illegal abortion complicated by embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004062",
+      "black_list": false,
+      "code": "280966008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Phlegmasia alba dolens - obstetric (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004063",
+      "black_list": false,
+      "code": "37787009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Legal abortion with blood-clot embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004064",
+      "black_list": false,
+      "code": "43306002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Miscarriage complicated by embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004065",
+      "black_list": false,
+      "code": "49956009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Antepartum deep phlebothrombosis (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004066",
+      "black_list": false,
+      "code": "51096002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Legal abortion with pulmonary embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004067",
+      "black_list": false,
+      "code": "55589000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Illegal abortion with pulmonary embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004068",
+      "black_list": false,
+      "code": "55976003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Miscarriage with blood-clot embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004069",
+      "black_list": false,
+      "code": "56272000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Postpartum deep phlebothrombosis (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200406a",
+      "black_list": false,
+      "code": "56462001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Failed attempted abortion with soap embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200406b",
+      "black_list": false,
+      "code": "57734001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Legal abortion complicated by embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200406c",
+      "black_list": false,
+      "code": "58123006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Failed attempted abortion with pulmonary embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200406d",
+      "black_list": false,
+      "code": "609497003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Venous complication in the puerperium (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200406e",
+      "black_list": false,
+      "code": "62583006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Puerperal phlegmasia alba dolens (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200406f",
+      "black_list": false,
+      "code": "634.60",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Spontaneous abortion, complicated by embolism, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004070",
+      "black_list": false,
+      "code": "634.61",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Spontaneous abortion, complicated by embolism, incomplete",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004071",
+      "black_list": false,
+      "code": "634.62",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Spontaneous abortion, complicated by embolism, complete",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004072",
+      "black_list": false,
+      "code": "635.60",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Legally induced abortion, complicated by embolism, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004073",
+      "black_list": false,
+      "code": "635.61",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Legally induced abortion, complicated by embolism, incomplete",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004074",
+      "black_list": false,
+      "code": "635.62",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Legally induced abortion, complicated by embolism, complete",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004075",
+      "black_list": false,
+      "code": "636.60",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Illegally induced abortion, complicated by embolism, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004076",
+      "black_list": false,
+      "code": "636.61",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Illegally induced abortion, complicated by embolism, incomplete",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004077",
+      "black_list": false,
+      "code": "636.62",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Illegally induced abortion, complicated by embolism, complete",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004078",
+      "black_list": false,
+      "code": "637.60",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Unspecified abortion, complicated by embolism, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004079",
+      "black_list": false,
+      "code": "637.61",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Unspecified abortion, complicated by embolism, incomplete",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200407a",
+      "black_list": false,
+      "code": "637.62",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Unspecified abortion, complicated by embolism, complete",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200407b",
+      "black_list": false,
+      "code": "63795001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Thrombosis of intracranial venous sinus of pregnancy AND/OR puerperium (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200407c",
+      "black_list": false,
+      "code": "638.6",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Failed attempted abortion complicated by embolism",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200407d",
+      "black_list": false,
+      "code": "639.6",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Embolism following abortion or ectopic and molar pregnancies",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200407e",
+      "black_list": false,
+      "code": "663008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Pulmonary embolism following molar AND/OR ectopic pregnancy (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200407f",
+      "black_list": false,
+      "code": "671.30",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Deep phlebothrombosis, antepartum, unspecified as to episode of care or not applicable",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004080",
+      "black_list": false,
+      "code": "671.31",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Deep phlebothrombosis, antepartum, delivered, with or without mention of antepartum condition",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004081",
+      "black_list": false,
+      "code": "671.33",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Deep phlebothrombosis, antepartum, antepartum condition or complication",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004082",
+      "black_list": false,
+      "code": "671.40",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Deep phlebothrombosis, postpartum, unspecified as to episode of care or not applicable",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004083",
+      "black_list": false,
+      "code": "671.42",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Deep phlebothrombosis, postpartum, delivered, with mention of postpartum complication",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004084",
+      "black_list": false,
+      "code": "671.44",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Deep phlebothrombosis, postpartum, postpartum condition or complication",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004085",
+      "black_list": false,
+      "code": "671.50",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Other phlebitis and thrombosis complicating pregnancy and the puerperium, unspecified as to episode of care or not applicable",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004086",
+      "black_list": false,
+      "code": "671.51",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Other phlebitis and thrombosis complicating pregnancy and the puerperium, delivered, with or without mention of antepartum condition",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004087",
+      "black_list": false,
+      "code": "671.52",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Other phlebitis and thrombosis complicating pregnancy and the puerperium, delivered, with mention of postpartum complication",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004088",
+      "black_list": false,
+      "code": "671.53",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Other phlebitis and thrombosis complicating pregnancy and the puerperium, antepartum condition or complication",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004089",
+      "black_list": false,
+      "code": "671.54",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Other phlebitis and thrombosis complicating pregnancy and the puerperium, postpartum condition or complication",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200408a",
+      "black_list": false,
+      "code": "671.90",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Unspecified venous complication of pregnancy and the puerperium, unspecified as to episode of care or not applicable",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200408b",
+      "black_list": false,
+      "code": "671.91",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Unspecified venous complication of pregnancy and the puerperium, delivered, with or without mention of antepartum condition",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200408c",
+      "black_list": false,
+      "code": "671.92",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Unspecified venous complication of pregnancy and the puerperium, delivered, with mention of postpartum complication",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200408d",
+      "black_list": false,
+      "code": "671.93",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Unspecified venous complication of pregnancy and the puerperium, antepartum condition or complication",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200408e",
+      "black_list": false,
+      "code": "671.94",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Unspecified venous complication of pregnancy and the puerperium, postpartum condition or complication",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200408f",
+      "black_list": false,
+      "code": "673.20",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Obstetrical blood-clot embolism, unspecified as to episode of care or not applicable",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004090",
+      "black_list": false,
+      "code": "673.21",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Obstetrical blood-clot embolism, delivered, with or without mention of antepartum condition",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004091",
+      "black_list": false,
+      "code": "673.22",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Obstetrical blood-clot embolism, delivered, with mention of postpartum complication",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004092",
+      "black_list": false,
+      "code": "673.23",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Obstetrical blood-clot embolism, antepartum condition or complication",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004093",
+      "black_list": false,
+      "code": "673.24",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Obstetrical blood-clot embolism, postpartum condition or complication",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004094",
+      "black_list": false,
+      "code": "72044001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Illegal abortion with soap embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004095",
+      "black_list": false,
+      "code": "82153002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Miscarriage with pulmonary embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004096",
+      "black_list": false,
+      "code": "84216001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Cerebral venous thrombosis of pregnancy AND/OR puerperium (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004097",
+      "black_list": false,
+      "code": "88980002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Legal abortion with soap embolism (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004098",
+      "black_list": false,
+      "code": "O03.2",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Embolism following incomplete spontaneous abortion",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e2004099",
+      "black_list": false,
+      "code": "O03.35",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Other venous complications following incomplete spontaneous abortion",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200409a",
+      "black_list": false,
+      "code": "O03.7",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Embolism following complete or unspecified spontaneous abortion",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200409b",
+      "black_list": false,
+      "code": "O04.7",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Embolism following (induced) termination of pregnancy",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200409c",
+      "black_list": false,
+      "code": "O07.2",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Embolism following failed attempted termination of pregnancy",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200409d",
+      "black_list": false,
+      "code": "O07.35",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Other venous complications following failed attempted termination of pregnancy",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200409e",
+      "black_list": false,
+      "code": "O08.2",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Embolism following ectopic and molar pregnancy",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e200409f",
+      "black_list": false,
+      "code": "O22.30",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Deep phlebothrombosis in pregnancy, unspecified trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040a0",
+      "black_list": false,
+      "code": "O22.31",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Deep phlebothrombosis in pregnancy, first trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040a1",
+      "black_list": false,
+      "code": "O22.32",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Deep phlebothrombosis in pregnancy, second trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040a2",
+      "black_list": false,
+      "code": "O22.33",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Deep phlebothrombosis in pregnancy, third trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040a3",
+      "black_list": false,
+      "code": "O22.50",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Cerebral venous thrombosis in pregnancy, unspecified trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040a4",
+      "black_list": false,
+      "code": "O22.51",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Cerebral venous thrombosis in pregnancy, first trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040a5",
+      "black_list": false,
+      "code": "O22.52",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Cerebral venous thrombosis in pregnancy, second trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040a6",
+      "black_list": false,
+      "code": "O22.53",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Cerebral venous thrombosis in pregnancy, third trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040a7",
+      "black_list": false,
+      "code": "O22.8X1",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Other venous complications in pregnancy, first trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040a8",
+      "black_list": false,
+      "code": "O22.8X2",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Other venous complications in pregnancy, second trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040a9",
+      "black_list": false,
+      "code": "O22.8X3",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Other venous complications in pregnancy, third trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040aa",
+      "black_list": false,
+      "code": "O22.8X9",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Other venous complications in pregnancy, unspecified trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040ab",
+      "black_list": false,
+      "code": "O22.90",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Venous complication in pregnancy, unspecified, unspecified trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040ac",
+      "black_list": false,
+      "code": "O22.91",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Venous complication in pregnancy, unspecified, first trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040ad",
+      "black_list": false,
+      "code": "O22.92",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Venous complication in pregnancy, unspecified, second trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040ae",
+      "black_list": false,
+      "code": "O22.93",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Venous complication in pregnancy, unspecified, third trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040af",
+      "black_list": false,
+      "code": "O87.0",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Superficial thrombophlebitis in the puerperium",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040b0",
+      "black_list": false,
+      "code": "O87.1",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Deep phlebothrombosis in the puerperium",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040b1",
+      "black_list": false,
+      "code": "O87.3",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Cerebral venous thrombosis in the puerperium",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040b2",
+      "black_list": false,
+      "code": "O87.9",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Venous complication in the puerperium, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040b3",
+      "black_list": false,
+      "code": "O88.211",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Thromboembolism in pregnancy, first trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040b4",
+      "black_list": false,
+      "code": "O88.212",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Thromboembolism in pregnancy, second trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040b5",
+      "black_list": false,
+      "code": "O88.213",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Thromboembolism in pregnancy, third trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040b6",
+      "black_list": false,
+      "code": "O88.219",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Thromboembolism in pregnancy, unspecified trimester",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040b7",
+      "black_list": false,
+      "code": "O88.22",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Thromboembolism in childbirth",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdef081f342e20040b8",
+      "black_list": false,
+      "code": "O88.23",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2017",
+      "display_name": "Thromboembolism in the puerperium",
+      "white_list": false
+    }
+  ],
+  "display_name": "Obstetrics VTE",
+  "oid": "2.16.840.1.113883.3.117.1.7.1.264",
+  "user_id": "573373bcf081f308d5000386",
+  "version": "20160817"
+}

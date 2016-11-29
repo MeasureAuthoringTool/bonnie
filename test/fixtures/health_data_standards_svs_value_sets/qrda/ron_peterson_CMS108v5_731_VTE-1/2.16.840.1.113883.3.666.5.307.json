@@ -1,0 +1,41 @@
+{
+  "_id": "57ed557df081f32ae6000823",
+  "bundle_id": "573373bef081f308d5000387",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "57ed557df081f32ae6000824",
+      "black_list": false,
+      "code": "183452005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-09",
+      "display_name": "Emergency hospital admission (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ed557df081f32ae6000825",
+      "black_list": false,
+      "code": "32485007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-09",
+      "display_name": "Hospital admission (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ed557df081f32ae6000826",
+      "black_list": false,
+      "code": "8715000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-09",
+      "display_name": "Hospital admission, elective (procedure)",
+      "white_list": false
+    }
+  ],
+  "display_name": "Encounter Inpatient",
+  "oid": "2.16.840.1.113883.3.666.5.307",
+  "user_id": "573373bcf081f308d5000386",
+  "version": "20160929"
+}

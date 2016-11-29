@@ -1,0 +1,31 @@
+{
+  "_id": "55a91bce69702d0e73c85500",
+  "bundle_id": "53502082192e73777e001226",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "55a91bce69702d0e73c95500",
+      "black_list": false,
+      "code": "99239",
+      "code_system": "2.16.840.1.113883.6.12",
+      "code_system_name": "CPT",
+      "code_system_version": null,
+      "display_name": "Hospital discharge day management; more than 30 minutes",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bce69702d0e73ca5500",
+      "black_list": false,
+      "code": "99238",
+      "code_system": "2.16.840.1.113883.6.12",
+      "code_system_name": "CPT",
+      "code_system_version": null,
+      "display_name": "Hospital discharge day management; 30 minutes or less",
+      "white_list": false
+    }
+  ],
+  "display_name": "Discharge Services - Hospital Inpatient",
+  "oid": "2.16.840.1.113883.3.464.1003.101.12.1007",
+  "user_id": "53502082192e73777e001225",
+  "version": "Draft"
+}

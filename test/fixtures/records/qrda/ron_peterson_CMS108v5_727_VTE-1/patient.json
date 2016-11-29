@@ -1,0 +1,764 @@
+{
+  "_id": "57ec53f2f081f342e2005511",
+  "birthdate": -1085241600,
+  "bundle_id": "573373bef081f308d5000387",
+  "created_at": "2016-09-28T23:36:18.734Z",
+  "deathdate": null,
+  "description": null,
+  "description_category": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "57ed3b72f081f32ad9000dbc",
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "SNOMED-CT": [
+          "8715000"
+        ]
+      },
+      "description": "Encounter, Performed: Encounter Inpatient",
+      "dischargeDisposition": null,
+      "dischargeTime": null,
+      "end_time": 1327738500,
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "reason": null,
+      "specifics": null,
+      "start_time": 1327388400,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 1
+    }
+  ],
+  "expired": null,
+  "first": "727",
+  "gender": "M",
+  "insurance_providers": [
+    {
+      "_id": "57ed3b72f081f32ad9000dc5",
+      "codes": {
+        "SOP": [
+          "349"
+        ]
+      },
+      "description": null,
+      "end_time": null,
+      "financial_responsibility_type": {
+        "code": "SELF",
+        "codeSystem": "HL7 Relationship Code"
+      },
+      "health_record_field": null,
+      "member_id": "1234567890",
+      "mood_code": "EVN",
+      "name": "Other",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": null,
+      "payer": {
+        "_id": "57ed3b72f081f32ad9000dc6",
+        "name": "Other"
+      },
+      "reason": null,
+      "relationship": null,
+      "specifics": null,
+      "start_time": 1199145600,
+      "status_code": null,
+      "time": null,
+      "type": "OT"
+    }
+  ],
+  "is_shared": false,
+  "languages": [
+
+  ],
+  "last": "VTE-1",
+  "marital_status": null,
+  "measure_ids": [
+    "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+    null
+  ],
+  "medical_equipment": [
+    {
+      "_id": "57ed3b72f081f32ad9000dbd",
+      "anatomicalStructure": null,
+      "anatomical_approach": null,
+      "codes": {
+        "SNOMED-CT": [
+          "442111003"
+        ]
+      },
+      "description": "Device, Order: Intermittent pneumatic compression devices (IPC)",
+      "end_time": 1327565700,
+      "health_record_field": null,
+      "manufacturer": null,
+      "mood_code": "EVN",
+      "negationInd": true,
+      "negationReason": {
+        "code_system": "SNOMED-CT",
+        "code": "183932001"
+      },
+      "oid": "2.16.840.1.113883.3.560.1.137",
+      "reaction": null,
+      "reason": null,
+      "removalTime": null,
+      "specifics": null,
+      "start_time": 1327564800,
+      "status_code": {
+        "HL7 ActStatus": [
+          "ordered"
+        ]
+      },
+      "time": null
+    },
+    {
+      "_id": "57ed3b72f081f32ad9000dbe",
+      "anatomicalStructure": null,
+      "anatomical_approach": null,
+      "codes": {
+        "SNOMED-CT": [
+          "442023007"
+        ]
+      },
+      "description": "Device, Order: Venous foot pumps (VFP)",
+      "end_time": 1327565700,
+      "health_record_field": null,
+      "manufacturer": null,
+      "mood_code": "EVN",
+      "negationInd": true,
+      "negationReason": {
+        "code_system": "SNOMED-CT",
+        "code": "183932001"
+      },
+      "oid": "2.16.840.1.113883.3.560.1.137",
+      "reaction": null,
+      "reason": null,
+      "removalTime": null,
+      "specifics": null,
+      "start_time": 1327564800,
+      "status_code": {
+        "HL7 ActStatus": [
+          "ordered"
+        ]
+      },
+      "time": null
+    },
+    {
+      "_id": "57ed3b72f081f32ad9000dbf",
+      "anatomicalStructure": null,
+      "anatomical_approach": null,
+      "codes": {
+        "SNOMED-CT": [
+          "401645009"
+        ]
+      },
+      "description": "Device, Order: Graduated compression stockings (GCS)",
+      "end_time": 1327565700,
+      "health_record_field": null,
+      "manufacturer": null,
+      "mood_code": "EVN",
+      "negationInd": true,
+      "negationReason": {
+        "code_system": "SNOMED-CT",
+        "code": "183932001"
+      },
+      "oid": "2.16.840.1.113883.3.560.1.137",
+      "reaction": null,
+      "reason": null,
+      "removalTime": null,
+      "specifics": null,
+      "start_time": 1327564800,
+      "status_code": {
+        "HL7 ActStatus": [
+          "ordered"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "medical_record_assigner": "Bonnie",
+  "medical_record_number": "12dd1f31e94c1dbc66d9ca5461262e56",
+  "medications": [
+    {
+      "_id": "57ed3b72f081f32ad9000dc0",
+      "active_datetime": null,
+      "administrationTiming": null,
+      "allowedAdministrations": null,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "321208"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Order: Injectable factor Xa inhibitor for VTE prophylaxis ingredient specific",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": 1327565700,
+      "freeTextSig": null,
+      "fulfillmentHistory": [
+
+      ],
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": true,
+      "negationReason": {
+        "code_system": "SNOMED-CT",
+        "code": "183932001"
+      },
+      "oid": "2.16.840.1.113883.3.560.1.78",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "route": null,
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1327564800,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "ordered"
+        ]
+      },
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    },
+    {
+      "_id": "57ed3b72f081f32ad9000dc1",
+      "active_datetime": null,
+      "administrationTiming": null,
+      "allowedAdministrations": null,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "67109"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Order: Low Molecular Weight Heparin for VTE prophylaxis ingredient specific",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": 1327565700,
+      "freeTextSig": null,
+      "fulfillmentHistory": [
+
+      ],
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": true,
+      "negationReason": {
+        "code_system": "SNOMED-CT",
+        "code": "183932001"
+      },
+      "oid": "2.16.840.1.113883.3.560.1.78",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "route": null,
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1327564800,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "ordered"
+        ]
+      },
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    },
+    {
+      "_id": "57ed3b72f081f32ad9000dc2",
+      "active_datetime": null,
+      "administrationTiming": null,
+      "allowedAdministrations": null,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "235473"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Order: Unfractionated Heparin for VTE prophylaxis ingredient specific",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": 1327565700,
+      "freeTextSig": null,
+      "fulfillmentHistory": [
+
+      ],
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": true,
+      "negationReason": {
+        "code_system": "SNOMED-CT",
+        "code": "183932001"
+      },
+      "oid": "2.16.840.1.113883.3.560.1.78",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "route": null,
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1327564800,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "ordered"
+        ]
+      },
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    },
+    {
+      "_id": "57ed3b72f081f32ad9000dc3",
+      "active_datetime": null,
+      "administrationTiming": null,
+      "allowedAdministrations": null,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "11289"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Order: Warfarin-only ingredient specific",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": 1327565700,
+      "freeTextSig": null,
+      "fulfillmentHistory": [
+
+      ],
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": true,
+      "negationReason": {
+        "code_system": "SNOMED-CT",
+        "code": "183932001"
+      },
+      "oid": "2.16.840.1.113883.3.560.1.78",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "route": null,
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1327564800,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "ordered"
+        ]
+      },
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    }
+  ],
+  "notes": "",
+  "origin_data": [
+    {
+      "patient_id": "57c0875bf081f313d6000092",
+      "measure_ids": [
+        "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622"
+      ],
+      "cms_id": "CMS108v5",
+      "user_id": "57bccae2f081f31164000366",
+      "user_email": "michelle.barton@ge.com"
+    }
+  ],
+  "procedures": [
+    {
+      "_id": "57ed3b72f081f32ad9000dc4",
+      "anatomical_approach": null,
+      "anatomical_target": null,
+      "codes": {
+        "ICD-10-PCS": [
+          "3E0F7DZ"
+        ],
+        "SNOMED-CT": [
+          "24277005"
+        ]
+      },
+      "description": "Procedure, Performed: General or Neuraxial Anesthesia",
+      "end_time": 1327479300,
+      "health_record_field": null,
+      "incisionTime": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.6",
+      "ordinality": null,
+      "performer_id": null,
+      "qdm_status": null,
+      "radiation_dose": null,
+      "radiation_duration": null,
+      "reaction": null,
+      "reason": null,
+      "source": null,
+      "specifics": null,
+      "start_time": 1327478400,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "Encounter Inpatient",
+      "description": "Encounter, Performed: Encounter Inpatient",
+      "code_list_id": "2.16.840.1.113883.3.666.5.307",
+      "type": "encounters",
+      "id": "OccurrenceAEncounterInpatient23",
+      "start_date": 1327388400000,
+      "end_date": 1327738500000,
+      "value": [
+
+      ],
+      "field_values": {
+      },
+      "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "cms_id": "CMS108v3",
+      "codes": {
+        "SNOMED-CT": [
+          "8715000"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "57ed3b72f081f32ad9000dbc",
+      "code_source": "DEFAULT",
+      "criteria_id": "14f518ae200tF",
+      "references": null
+    },
+    {
+      "negation": false,
+      "definition": "procedure",
+      "status": "performed",
+      "title": "General or Neuraxial Anesthesia",
+      "description": "Procedure, Performed: General or Neuraxial Anesthesia",
+      "code_list_id": "2.16.840.1.113883.3.666.5.1743",
+      "type": "procedures",
+      "id": "ProcedurePerformedGeneralOrNeuraxialAnesthesia",
+      "start_date": 1327478400000,
+      "end_date": 1327479300000,
+      "value": [
+
+      ],
+      "field_values": {
+      },
+      "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "cms_id": "CMS108v3",
+      "codes": {
+        "ICD-10-PCS": [
+          "3E0F7DZ"
+        ],
+        "SNOMED-CT": [
+          "24277005"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "57ed3b72f081f32ad9000dc4",
+      "code_source": "DEFAULT",
+      "criteria_id": "14f518ae2006S",
+      "references": null
+    },
+    {
+      "negation": true,
+      "definition": "device",
+      "status": "ordered",
+      "title": "Intermittent pneumatic compression devices (IPC)",
+      "description": "Device, Order: Intermittent pneumatic compression devices (IPC)",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.214",
+      "type": "devices",
+      "id": "DeviceOrderIntermittentPneumaticCompressionDevicesIpc",
+      "start_date": 1327564800000,
+      "end_date": 1327565700000,
+      "value": [
+
+      ],
+      "field_values": {
+      },
+      "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "cms_id": "CMS108v3",
+      "codes": {
+        "SNOMED-CT": [
+          "442111003"
+        ]
+      },
+      "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.473",
+      "coded_entry_id": "57ed3b72f081f32ad9000dbd",
+      "code_source": "DEFAULT",
+      "criteria_id": "14f518ae200NM",
+      "references": null
+    },
+    {
+      "negation": true,
+      "definition": "device",
+      "status": "ordered",
+      "title": "Venous foot pumps (VFP)",
+      "description": "Device, Order: Venous foot pumps (VFP)",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.230",
+      "type": "devices",
+      "id": "DeviceOrderVenousFootPumpsVfp",
+      "start_date": 1327564800000,
+      "end_date": 1327565700000,
+      "value": [
+
+      ],
+      "field_values": {
+      },
+      "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "cms_id": "CMS108v3",
+      "codes": {
+        "SNOMED-CT": [
+          "442023007"
+        ]
+      },
+      "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.473",
+      "coded_entry_id": "57ed3b72f081f32ad9000dbe",
+      "code_source": "DEFAULT",
+      "criteria_id": "14f518ae200i4",
+      "references": null
+    },
+    {
+      "negation": true,
+      "definition": "device",
+      "status": "ordered",
+      "title": "Graduated compression stockings (GCS)",
+      "description": "Device, Order: Graduated compression stockings (GCS)",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.256",
+      "type": "devices",
+      "id": "DeviceOrderGraduatedCompressionStockingsGcs",
+      "start_date": 1327564800000,
+      "end_date": 1327565700000,
+      "value": [
+
+      ],
+      "field_values": {
+      },
+      "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "cms_id": "CMS108v3",
+      "codes": {
+        "SNOMED-CT": [
+          "401645009"
+        ]
+      },
+      "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.473",
+      "coded_entry_id": "57ed3b72f081f32ad9000dbf",
+      "code_source": "DEFAULT",
+      "criteria_id": "14f518ae200z3",
+      "references": null
+    },
+    {
+      "negation": true,
+      "definition": "medication",
+      "status": "ordered",
+      "title": "Injectable factor Xa inhibitor for VTE prophylaxis ingredient specific",
+      "description": "Medication, Order: Injectable factor Xa inhibitor for VTE prophylaxis ingredient specific",
+      "code_list_id": "2.16.840.1.113762.1.4.1021.11",
+      "type": "medications",
+      "id": "MedicationOrderInjectableFactorXaInhibitorForVteProphylaxisIngredientSpecific",
+      "start_date": 1327564800000,
+      "end_date": 1327565700000,
+      "value": [
+
+      ],
+      "field_values": {
+      },
+      "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "cms_id": "CMS108v3",
+      "codes": {
+        "RxNorm": [
+          "321208"
+        ]
+      },
+      "fulfillments": null,
+      "dose_value": "",
+      "dose_unit": "mg",
+      "frequency_value": "",
+      "frequency_unit": "h",
+      "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.473",
+      "coded_entry_id": "57ed3b72f081f32ad9000dc0",
+      "code_source": "DEFAULT",
+      "criteria_id": "14f518ae200tY",
+      "references": null
+    },
+    {
+      "negation": true,
+      "definition": "medication",
+      "status": "ordered",
+      "title": "Low Molecular Weight Heparin for VTE prophylaxis ingredient specific",
+      "description": "Medication, Order: Low Molecular Weight Heparin for VTE prophylaxis ingredient specific",
+      "code_list_id": "2.16.840.1.113762.1.4.1021.12",
+      "type": "medications",
+      "id": "MedicationOrderLowMolecularWeightHeparinForVteProphylaxisIngredientSpecific",
+      "start_date": 1327564800000,
+      "end_date": 1327565700000,
+      "value": [
+
+      ],
+      "field_values": {
+      },
+      "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "cms_id": "CMS108v3",
+      "codes": {
+        "RxNorm": [
+          "67109"
+        ]
+      },
+      "fulfillments": null,
+      "dose_value": "",
+      "dose_unit": "mg",
+      "frequency_value": "",
+      "frequency_unit": "h",
+      "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.473",
+      "coded_entry_id": "57ed3b72f081f32ad9000dc1",
+      "code_source": "DEFAULT",
+      "criteria_id": "14f518ae201M7",
+      "references": null
+    },
+    {
+      "negation": true,
+      "definition": "medication",
+      "status": "ordered",
+      "title": "Unfractionated Heparin for VTE prophylaxis ingredient specific",
+      "description": "Medication, Order: Unfractionated Heparin for VTE prophylaxis ingredient specific",
+      "code_list_id": "2.16.840.1.113762.1.4.1021.13",
+      "type": "medications",
+      "id": "MedicationOrderUnfractionatedHeparinForVteProphylaxisIngredientSpecific",
+      "start_date": 1327564800000,
+      "end_date": 1327565700000,
+      "value": [
+
+      ],
+      "field_values": {
+      },
+      "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "cms_id": "CMS108v3",
+      "codes": {
+        "RxNorm": [
+          "235473"
+        ]
+      },
+      "fulfillments": null,
+      "dose_value": "",
+      "dose_unit": "mg",
+      "frequency_value": "",
+      "frequency_unit": "h",
+      "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.473",
+      "coded_entry_id": "57ed3b72f081f32ad9000dc2",
+      "code_source": "DEFAULT",
+      "criteria_id": "14f518ae201EO",
+      "references": null
+    },
+    {
+      "negation": true,
+      "definition": "medication",
+      "status": "ordered",
+      "title": "Warfarin-only ingredient specific",
+      "description": "Medication, Order: Warfarin-only ingredient specific",
+      "code_list_id": "2.16.840.1.113762.1.4.1021.10",
+      "type": "medications",
+      "id": "MedicationOrderWarfarinOnlyIngredientSpecific",
+      "start_date": 1327564800000,
+      "end_date": 1327565700000,
+      "value": [
+
+      ],
+      "field_values": {
+      },
+      "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "cms_id": "CMS108v3",
+      "codes": {
+        "RxNorm": [
+          "11289"
+        ]
+      },
+      "fulfillments": null,
+      "dose_value": "",
+      "dose_unit": "mg",
+      "frequency_value": "",
+      "frequency_unit": "h",
+      "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.473",
+      "coded_entry_id": "57ed3b72f081f32ad9000dc3",
+      "code_source": "DEFAULT",
+      "criteria_id": "14f518ae201fJ",
+      "references": null
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": null,
+  "title": null,
+  "type": null,
+  "updated_at": "2016-09-29T16:04:02.503Z",
+  "user_id": "573373bcf081f308d5000386"
+}

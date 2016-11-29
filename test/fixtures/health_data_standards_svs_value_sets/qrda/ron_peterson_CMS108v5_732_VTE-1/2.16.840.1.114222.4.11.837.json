@@ -1,0 +1,31 @@
+{
+  "_id": "57ed557ff081f32ae6000f73",
+  "bundle_id": "573373bef081f308d5000387",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "57ed557ff081f32ae6000f74",
+      "black_list": false,
+      "code": "2135-2",
+      "code_system": "2.16.840.1.113883.6.238",
+      "code_system_name": "CDC Race",
+      "code_system_version": "1.0",
+      "display_name": "Hispanic or Latino",
+      "white_list": false
+    },
+    {
+      "_id": "57ed557ff081f32ae6000f75",
+      "black_list": false,
+      "code": "2186-5",
+      "code_system": "2.16.840.1.113883.6.238",
+      "code_system_name": "CDC Race",
+      "code_system_version": "1.0",
+      "display_name": "Not Hispanic or Latino",
+      "white_list": false
+    }
+  ],
+  "display_name": "Ethnicity",
+  "oid": "2.16.840.1.114222.4.11.837",
+  "user_id": "573373bcf081f308d5000386",
+  "version": "20131030"
+}

@@ -1,0 +1,826 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns="urn:hl7-org:v3"
+ xmlns:voc="urn:hl7-org:v3/voc"
+ xmlns:sdtc="urn:hl7-org:sdtc">
+  <!-- QRDA Header -->
+  <realmCode code="US"/>
+  <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+  <!-- US Realm Header Template Id -->
+  <templateId root="2.16.840.1.113883.10.20.22.1.1" extension="2015-08-01"/>
+  <!-- QRDA templateId -->
+  <templateId root="2.16.840.1.113883.10.20.24.1.1" extension="2016-02-01"/>
+  <!-- QDM-based QRDA templateId -->
+  <templateId root="2.16.840.1.113883.10.20.24.1.2" extension="2016-02-01"/>
+  <!-- This is the globally unique identifier for this QRDA document -->
+  <id root="882d28a0-97b3-0134-3947-0088653900ec"/>
+  <!-- QRDA document type code -->
+  <code code="55182-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Quality Measure Report"/>
+  <title>QRDA Incidence Report</title>
+  <!-- This is the document creation time -->
+  <effectiveTime value="20161128161332"/>
+  <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+  <languageCode code="en"/>
+  <!-- reported patient -->
+    <recordTarget>
+    <patientRole>
+        <id extension="12dd1f31e94c1dbc66d9ca5461262e56" root="Bonnie"/>
+      <addr use="HP">
+          <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+          <city>Bedford</city>
+          <state>MA</state>
+          <postalCode>01730</postalCode>
+          <country>US</country>
+      </addr>
+      <telecom use="WP" value="tel:+1-781-271-3000"/>
+      <patient>
+        <name>
+          <given>727</given>
+          <family>VTE-1</family>
+        </name>
+        <administrativeGenderCode code="M" codeSystem="2.16.840.1.113883.5.1" codeSystemName="HL7 AdministrativeGender"/>
+        <birthTime value="19350812080000"/>
+          <raceCode code="1002-5" displayName="American Indian or Alaska Native" codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
+          <ethnicGroupCode code="2186-5" displayName="Not Hispanic or Latino" codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
+          <languageCommunication>
+            <templateId root="2.16.840.1.113883.3.88.11.83.2" assigningAuthorityName="HITSP/C83"/>
+            <templateId root="1.3.6.1.4.1.19376.1.5.3.1.2.1" assigningAuthorityName="IHE/PCC"/>
+            <languageCode code="eng"/>
+          </languageCommunication>
+      </patient>
+    </patientRole>
+  </recordTarget>
+
+  <!-- Example of an author who is a device -->
+    <author>
+      <time value="20161128161332"/>
+      <assignedAuthor>
+        <!-- id extension="Cypress" root="2.16.840.1.113883.19.5"/ -->
+        <!-- NPI -->
+        <id extension="FakeNPI" root="2.16.840.1.113883.4.6"/>
+        <addr>
+          <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+          <city>Bedford</city>
+          <state>MA</state>
+          <postalCode>01730</postalCode>
+          <country>US</country>
+        </addr>
+        <telecom use="WP" value="tel:(781)271-3000"/>
+        <assignedAuthoringDevice>
+          <manufacturerModelName>Cypress</manufacturerModelName >
+          <softwareName>Cypress</softwareName >
+        </assignedAuthoringDevice >
+      </assignedAuthor>
+    </author>
+    <custodian>
+      <assignedCustodian>
+        <representedCustodianOrganization>
+          <!-- HQR Only -->
+            <id root="2.16.840.1.113883.19.5"/>
+          <name>Cypress Test Deck</name>
+          <telecom use="WP" value="tel:(781)271-3000"/>
+          <addr>
+            <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+            <city>Bedford</city>
+            <state>MA</state>
+            <postalCode>01730</postalCode>
+            <country>US</country>
+          </addr>
+        </representedCustodianOrganization>
+      </assignedCustodian>
+    </custodian>
+    <!-- This needs to take reporting program into account EH/EP-->
+    <legalAuthenticator>
+      <time value="20161128161332"/>
+      <signatureCode code="S"/>
+      <assignedEntity>
+        <id root="bc01a5d1-3a34-4286-82cc-43eb04c972a7"/>
+        <addr>
+          <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+          <city>Bedford</city>
+          <state>MA</state>
+          <postalCode>01730</postalCode>
+          <country>US</country>
+        </addr>
+        <telecom use="WP" value="tel:(781)271-3000"/>
+        <assignedPerson>
+          <name>
+             <given>Henry</given>
+             <family>Seven</family>
+          </name>
+       </assignedPerson>
+        <representedOrganization>
+          <id root="2.16.840.1.113883.19.5"/>
+          <name>Cypress</name>
+        </representedOrganization>
+      </assignedEntity>
+    </legalAuthenticator>
+
+  <documentationOf typeCode="DOC">
+  <serviceEvent classCode="PCPR"> <!-- care provision -->
+    <!-- No provider data found in the patient record
+         putting in a fake provider -->
+    <effectiveTime>
+      <low value="20020716"/>
+      <high value="20161128161332"/>
+    </effectiveTime>
+    <!-- You can include multiple performers, each with an NPI, TIN, CCN. -->
+    <performer typeCode="PRF"> 
+      <time>
+        <low value="20020716"/>
+        <high value="20161128161332"/>
+      </time>
+      <assignedEntity>
+        <!-- This is the provider NPI -->
+        <id root="2.16.840.1.113883.4.6" extension="111111111" /> 
+        <representedOrganization>
+          <!-- This is the organization TIN -->
+          <id root="2.16.840.1.113883.4.2" extension="1234567" /> 
+          <!-- This is the organization CCN -->
+          <id root="2.16.840.1.113883.4.336" extension="54321" /> 
+        </representedOrganization>
+      </assignedEntity>
+    </performer>
+  </serviceEvent>
+</documentationOf>
+
+
+  <component>
+    <structuredBody>
+            <component>
+        <section>
+          <!-- 
+            *****************************************************************
+            Measure Section
+            *****************************************************************
+          -->
+          <!-- This is the templateId for Measure Section -->
+          <templateId root="2.16.840.1.113883.10.20.24.2.2"/>
+          <!-- This is the templateId for Measure Section QDM -->
+          <templateId root="2.16.840.1.113883.10.20.24.2.3"/>
+          <!-- This is the LOINC code for "Measure document". This stays the same for all measure section required by QRDA standard -->
+          <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Measure Section</title>
+          <text>
+            <table border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>eMeasure Title</th>
+                  <th>Version neutral identifier</th>
+                  <th>eMeasure Version Number</th>
+                  <th>Version specific identifier</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Venous Thromboembolism Prophylaxis</td>
+                  <td>38B0B5EC-0F63-466F-8FE3-2CD20DDD1622</td>
+                  <td>5</td>
+                  <td>40280381-51F0-825B-0152-22BE0C17187E</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </text>
+          <!-- 1..* Organizers, each containing a reference to an eMeasure -->
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- This is the templateId for Measure Reference -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- This is the templateId for eMeasure Reference QDM -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.97"/>
+              <id root="1.3.6.1.4.1.115" extension="57ec4beaf081f342e2003115"/>
+              <statusCode code="completed"/>
+              <!-- Containing isBranch external references -->
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: This is the version specific identifier for eMeasure: QualityMeasureDocument/id it is a GUID-->
+                  <id root="2.16.840.1.113883.4.738" extension="40280381-51F0-825B-0152-22BE0C17187E"/>
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Venous Thromboembolism Prophylaxis</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root="38B0B5EC-0F63-466F-8FE3-2CD20DDD1622"/>
+                  <!-- This is the sequential eMeasure Version number -->
+                  <versionNumber value="5"/>                  
+                </externalDocument>
+              </reference>
+            </organizer>
+            
+            <component>
+                <observation classCode="OBS" moodCode="EVN" negationInd="false">
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                  <value xsi:type="CD"
+                    code="IPOP"
+                    codeSystem="2.16.840.1.113883.5.4"
+                    codeSystemName="ActCode"
+                    displayName="Initial Population"/>
+                  <!-- Explicit reference to the eMeasure population (because some eMeasures have multiple Numerators, etc -->
+                  <reference typeCode="REFR">
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="E664C2A0-989E-4271-B060-283EA4888C41"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+                <observation classCode="OBS" moodCode="EVN" negationInd="false">
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                  <value xsi:type="CD"
+                    code="DENOM"
+                    codeSystem="2.16.840.1.113883.5.4"
+                    codeSystemName="ActCode"
+                    displayName="Denominator"/>
+                  <!-- Explicit reference to the eMeasure population (because some eMeasures have multiple Numerators, etc -->
+                  <reference typeCode="REFR">
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="688C1EED-B943-4931-9E8B-77C764F0BB11"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+                <observation classCode="OBS" moodCode="EVN" negationInd="false">
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                  <value xsi:type="CD"
+                    code="NUMER"
+                    codeSystem="2.16.840.1.113883.5.4"
+                    codeSystemName="ActCode"
+                    displayName="Numerator"/>
+                  <!-- Explicit reference to the eMeasure population (because some eMeasures have multiple Numerators, etc -->
+                  <reference typeCode="REFR">
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="84E0A5EB-994B-4F10-86D5-590E83E6FC46"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+                <observation classCode="OBS" moodCode="EVN" negationInd="true">
+                  <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                  <value xsi:type="CD"
+                    code="DENEX"
+                    codeSystem="2.16.840.1.113883.5.4"
+                    codeSystemName="ActCode"
+                    displayName="Denominator Exclusions"/>
+                  <!-- Explicit reference to the eMeasure population (because some eMeasures have multiple Numerators, etc -->
+                  <reference typeCode="REFR">
+                    <externalObservation classCode="OBS" moodCode="EVN">
+                      <id root="B876DA22-C530-4BC8-B2A1-885952FC453C"/>
+                    </externalObservation>
+                  </reference>
+                </observation>
+            </component>
+          </entry>
+        </section>
+      </component>
+
+            <component>
+        <section>
+          <!-- This is the templateId for Reporting Parameters section -->
+          <templateId root="2.16.840.1.113883.10.20.17.2.1" />
+          <code code="55187-9" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Reporting Parameters</title>
+          <text>
+            <list>
+              <item>Reporting period: January 1st, 2012 00:00 - December 31st, 2012 00:00</item>
+            </list>
+          </text>
+          <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN">
+              <!-- This is the templateId for Reporting Parameteres Act -->
+              <templateId root="2.16.840.1.113883.10.20.17.3.8" />
+              <id root="1.3.6.1.4.1.115" extension="DE82D51894E3FF2CA18602FADF3B61C0" />
+              <code code="252116004" codeSystem="2.16.840.1.113883.6.96" displayName="Observation Parameters"/>
+              <effectiveTime>
+                <low value="20120101000000"/>
+                <high value="20121231000000"/>
+              </effectiveTime>
+            </act>
+          </entry>
+        </section>
+      </component>
+            <component>
+        <section>
+          <!-- This is the templateId for Patient Data section -->
+          <templateId root="2.16.840.1.113883.10.20.17.2.4"/>
+          <!-- This is the templateId for Patient Data QDM section -->
+	  <templateId root="2.16.840.1.113883.10.20.24.2.1" extension="2016-02-01" />
+          <code code="55188-7" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Patient Data</title>
+          <text>
+
+          </text>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<entry>
+  <encounter classCode="ENC" moodCode="EVN">
+    <!--  Encounter activities template -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.49" extension="2015-08-01"/> 
+    <!-- Encounter performed template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.23" extension="2016-02-01"/>
+    <id root="1.3.6.1.4.1.115" extension="57ed3b72f081f32ad9000dbc"/>
+    <code code="8715000" codeSystem="2.16.840.1.113883.6.96" sdtc:valueSet="2.16.840.1.113883.3.666.5.307"><originalText>Encounter, Performed: Encounter Inpatient</originalText><translation code="8715000" codeSystem="2.16.840.1.113883.6.96"/>
+</code>
+    <text>Encounter, Performed: Encounter Inpatient</text>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <!-- We try to look for the admit/discharge times on the encounter if they are
+           there. If not, we fall back to the typical start/end date. -->
+      <low value='20120124070000'/>
+      <high value='20120128081500'/>
+    </effectiveTime>
+
+  </encounter>
+</entry>
+
+
+
+
+
+
+<entry>
+  <act classCode="ACT" moodCode="RQO" negationInd="true">
+    <templateId root="2.16.840.1.113883.10.20.24.3.130"/>
+    <id root="1.3.6.1.4.1.115" extension="57ed3b72f081f32ad9000dbd"/>
+    <code code="SPLY" codeSystem="2.16.840.1.113883.5.6" displayName="Supply" codeSystemName="ActClass"/>
+    
+    <entryRelationship typeCode="SUBJ">
+      <supply classCode="SPLY" moodCode="RQO">
+        <!-- Plan of Care Activity Supply -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.43" extension="2014-06-09"/>
+        <!-- Device, Order -->
+        <templateId root="2.16.840.1.113883.10.20.24.3.9" extension="2016-02-01"/>
+        <id root="1.3.6.1.4.1.115" extension="57ed3b72f081f32ad9000dbd"/>
+        <text>Device, Order: Intermittent pneumatic compression devices (IPC)</text>
+        <statusCode code="active"/>
+
+        <effectiveTime xsi:type="IVL_TS">
+          <low value='20120126080000'/>
+          <high value='20120126081500'/>
+        </effectiveTime>
+
+        <author>
+          <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
+          <time value='20120126080000'/>
+          <assignedAuthor>
+            <id nullFlavor="NA" root="883606a0-97b3-0134-3947-0088653900ec"/>
+          </assignedAuthor>
+        </author>
+
+        <participant typeCode="DEV">
+          <participantRole classCode="MANU">
+            <playingDevice classCode="DEV">
+              <code code="442111003" codeSystem="2.16.840.1.113883.6.96" sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.214"><originalText>Device, Order: Intermittent pneumatic compression devices (IPC)</originalText></code>
+            </playingDevice>
+          </participantRole>
+        </participant>
+        <entryRelationship typeCode="RSON">
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.24.3.88" extension="2014-12-01"/>
+    <id root="1.3.6.1.4.1.115" extension="47361453920D1785764DBEB6A66867A6" />
+    <code code="77301-0"
+          codeSystem="2.16.840.1.113883.6.1"
+          displayName="reason"
+          codeSystemName="LOINC"/>
+    <statusCode code="completed"/>
+      <effectiveTime>
+        <low value='20120126080000'/>
+      </effectiveTime>
+    <value xsi:type="CD"
+         code="183932001"
+         codeSystem="2.16.840.1.113883.6.96"
+         sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.473"
+         />
+  </observation>
+</entryRelationship>
+
+      </supply>
+    </entryRelationship>
+  </act>
+</entry>
+
+<entry>
+  <act classCode="ACT" moodCode="RQO" negationInd="true">
+    <templateId root="2.16.840.1.113883.10.20.24.3.130"/>
+    <id root="1.3.6.1.4.1.115" extension="57ed3b72f081f32ad9000dbe"/>
+    <code code="SPLY" codeSystem="2.16.840.1.113883.5.6" displayName="Supply" codeSystemName="ActClass"/>
+    
+    <entryRelationship typeCode="SUBJ">
+      <supply classCode="SPLY" moodCode="RQO">
+        <!-- Plan of Care Activity Supply -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.43" extension="2014-06-09"/>
+        <!-- Device, Order -->
+        <templateId root="2.16.840.1.113883.10.20.24.3.9" extension="2016-02-01"/>
+        <id root="1.3.6.1.4.1.115" extension="57ed3b72f081f32ad9000dbe"/>
+        <text>Device, Order: Venous foot pumps (VFP)</text>
+        <statusCode code="active"/>
+
+        <effectiveTime xsi:type="IVL_TS">
+          <low value='20120126080000'/>
+          <high value='20120126081500'/>
+        </effectiveTime>
+
+        <author>
+          <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
+          <time value='20120126080000'/>
+          <assignedAuthor>
+            <id nullFlavor="NA" root="88363580-97b3-0134-3947-0088653900ec"/>
+          </assignedAuthor>
+        </author>
+
+        <participant typeCode="DEV">
+          <participantRole classCode="MANU">
+            <playingDevice classCode="DEV">
+              <code code="442023007" codeSystem="2.16.840.1.113883.6.96" sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.230"><originalText>Device, Order: Venous foot pumps (VFP)</originalText></code>
+            </playingDevice>
+          </participantRole>
+        </participant>
+        <entryRelationship typeCode="RSON">
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.24.3.88" extension="2014-12-01"/>
+    <id root="1.3.6.1.4.1.115" extension="47361453920D1785764DBEB6A66867A6" />
+    <code code="77301-0"
+          codeSystem="2.16.840.1.113883.6.1"
+          displayName="reason"
+          codeSystemName="LOINC"/>
+    <statusCode code="completed"/>
+      <effectiveTime>
+        <low value='20120126080000'/>
+      </effectiveTime>
+    <value xsi:type="CD"
+         code="183932001"
+         codeSystem="2.16.840.1.113883.6.96"
+         sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.473"
+         />
+  </observation>
+</entryRelationship>
+
+      </supply>
+    </entryRelationship>
+  </act>
+</entry>
+
+<entry>
+  <act classCode="ACT" moodCode="RQO" negationInd="true">
+    <templateId root="2.16.840.1.113883.10.20.24.3.130"/>
+    <id root="1.3.6.1.4.1.115" extension="57ed3b72f081f32ad9000dbf"/>
+    <code code="SPLY" codeSystem="2.16.840.1.113883.5.6" displayName="Supply" codeSystemName="ActClass"/>
+    
+    <entryRelationship typeCode="SUBJ">
+      <supply classCode="SPLY" moodCode="RQO">
+        <!-- Plan of Care Activity Supply -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.43" extension="2014-06-09"/>
+        <!-- Device, Order -->
+        <templateId root="2.16.840.1.113883.10.20.24.3.9" extension="2016-02-01"/>
+        <id root="1.3.6.1.4.1.115" extension="57ed3b72f081f32ad9000dbf"/>
+        <text>Device, Order: Graduated compression stockings (GCS)</text>
+        <statusCode code="active"/>
+
+        <effectiveTime xsi:type="IVL_TS">
+          <low value='20120126080000'/>
+          <high value='20120126081500'/>
+        </effectiveTime>
+
+        <author>
+          <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
+          <time value='20120126080000'/>
+          <assignedAuthor>
+            <id nullFlavor="NA" root="88365b20-97b3-0134-3947-0088653900ec"/>
+          </assignedAuthor>
+        </author>
+
+        <participant typeCode="DEV">
+          <participantRole classCode="MANU">
+            <playingDevice classCode="DEV">
+              <code code="401645009" codeSystem="2.16.840.1.113883.6.96" sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.256"><originalText>Device, Order: Graduated compression stockings (GCS)</originalText></code>
+            </playingDevice>
+          </participantRole>
+        </participant>
+        <entryRelationship typeCode="RSON">
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.24.3.88" extension="2014-12-01"/>
+    <id root="1.3.6.1.4.1.115" extension="47361453920D1785764DBEB6A66867A6" />
+    <code code="77301-0"
+          codeSystem="2.16.840.1.113883.6.1"
+          displayName="reason"
+          codeSystemName="LOINC"/>
+    <statusCode code="completed"/>
+      <effectiveTime>
+        <low value='20120126080000'/>
+      </effectiveTime>
+    <value xsi:type="CD"
+         code="183932001"
+         codeSystem="2.16.840.1.113883.6.96"
+         sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.473"
+         />
+  </observation>
+</entryRelationship>
+
+      </supply>
+    </entryRelationship>
+  </act>
+</entry>
+
+
+
+
+
+<entry>
+  <!--Medication Order -->
+  <substanceAdministration classCode="SBADM" moodCode="RQO" negationInd="true">
+    <templateId root="2.16.840.1.113883.10.20.22.4.42" extension="2014-06-09"/>
+    <!-- Medication, Order template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.47" extension="2016-02-01"/>
+    <id root="1.3.6.1.4.1.115" extension="57ed3b72f081f32ad9000dc2"/>
+    <text>Medication, Order: Unfractionated Heparin for VTE prophylaxis ingredient specific</text>
+    <statusCode code="active"/>
+    <effectiveTime xsi:type="IVL_TS">
+      <low value='20120126080000'/>
+      <high value='20120126081500'/>
+    </effectiveTime>
+      <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
+        <period nullFlavor="NA"/>
+      </effectiveTime>
+     	<doseQuantity nullFlavor="NA"/>
+
+    <consumable>
+      <manufacturedProduct classCode="MANU">
+        <!-- Medication Information (consolidation) template -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/>
+        <id root="8836bf00-97b3-0134-3947-0088653900ec"/>
+        <manufacturedMaterial>
+          <code code="235473" codeSystem="2.16.840.1.113883.6.88" sdtc:valueSet="2.16.840.1.113762.1.4.1021.13"><originalText>Medication, Order: Unfractionated Heparin for VTE prophylaxis ingredient specific</originalText></code>
+        </manufacturedMaterial>
+      </manufacturedProduct>
+    </consumable>
+    <author>
+      <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
+      <time value='20120126080000'/>
+      <assignedAuthor>
+        <id root="8836c4b0-97b3-0134-3947-0088653900ec"/>
+      </assignedAuthor>
+    </author>
+    <entryRelationship typeCode="RSON">
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.24.3.88" extension="2014-12-01"/>
+    <id root="1.3.6.1.4.1.115" extension="47361453920D1785764DBEB6A66867A6" />
+    <code code="77301-0"
+          codeSystem="2.16.840.1.113883.6.1"
+          displayName="reason"
+          codeSystemName="LOINC"/>
+    <statusCode code="completed"/>
+      <effectiveTime>
+        <low value='20120126080000'/>
+      </effectiveTime>
+    <value xsi:type="CD"
+         code="183932001"
+         codeSystem="2.16.840.1.113883.6.96"
+         sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.473"
+         />
+  </observation>
+</entryRelationship>
+
+  </substanceAdministration>
+</entry>
+
+<entry>
+  <!--Medication Order -->
+  <substanceAdministration classCode="SBADM" moodCode="RQO" negationInd="true">
+    <templateId root="2.16.840.1.113883.10.20.22.4.42" extension="2014-06-09"/>
+    <!-- Medication, Order template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.47" extension="2016-02-01"/>
+    <id root="1.3.6.1.4.1.115" extension="57ed3b72f081f32ad9000dc1"/>
+    <text>Medication, Order: Low Molecular Weight Heparin for VTE prophylaxis ingredient specific</text>
+    <statusCode code="active"/>
+    <effectiveTime xsi:type="IVL_TS">
+      <low value='20120126080000'/>
+      <high value='20120126081500'/>
+    </effectiveTime>
+      <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
+        <period nullFlavor="NA"/>
+      </effectiveTime>
+     	<doseQuantity nullFlavor="NA"/>
+
+    <consumable>
+      <manufacturedProduct classCode="MANU">
+        <!-- Medication Information (consolidation) template -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/>
+        <id root="8836f2f0-97b3-0134-3947-0088653900ec"/>
+        <manufacturedMaterial>
+          <code code="67109" codeSystem="2.16.840.1.113883.6.88" sdtc:valueSet="2.16.840.1.113762.1.4.1021.12"><originalText>Medication, Order: Low Molecular Weight Heparin for VTE prophylaxis ingredient specific</originalText></code>
+        </manufacturedMaterial>
+      </manufacturedProduct>
+    </consumable>
+    <author>
+      <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
+      <time value='20120126080000'/>
+      <assignedAuthor>
+        <id root="8836f970-97b3-0134-3947-0088653900ec"/>
+      </assignedAuthor>
+    </author>
+    <entryRelationship typeCode="RSON">
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.24.3.88" extension="2014-12-01"/>
+    <id root="1.3.6.1.4.1.115" extension="47361453920D1785764DBEB6A66867A6" />
+    <code code="77301-0"
+          codeSystem="2.16.840.1.113883.6.1"
+          displayName="reason"
+          codeSystemName="LOINC"/>
+    <statusCode code="completed"/>
+      <effectiveTime>
+        <low value='20120126080000'/>
+      </effectiveTime>
+    <value xsi:type="CD"
+         code="183932001"
+         codeSystem="2.16.840.1.113883.6.96"
+         sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.473"
+         />
+  </observation>
+</entryRelationship>
+
+  </substanceAdministration>
+</entry>
+
+<entry>
+  <!--Medication Order -->
+  <substanceAdministration classCode="SBADM" moodCode="RQO" negationInd="true">
+    <templateId root="2.16.840.1.113883.10.20.22.4.42" extension="2014-06-09"/>
+    <!-- Medication, Order template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.47" extension="2016-02-01"/>
+    <id root="1.3.6.1.4.1.115" extension="57ed3b72f081f32ad9000dc0"/>
+    <text>Medication, Order: Injectable factor Xa inhibitor for VTE prophylaxis ingredient specific</text>
+    <statusCode code="active"/>
+    <effectiveTime xsi:type="IVL_TS">
+      <low value='20120126080000'/>
+      <high value='20120126081500'/>
+    </effectiveTime>
+      <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
+        <period nullFlavor="NA"/>
+      </effectiveTime>
+     	<doseQuantity nullFlavor="NA"/>
+
+    <consumable>
+      <manufacturedProduct classCode="MANU">
+        <!-- Medication Information (consolidation) template -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/>
+        <id root="88376010-97b3-0134-3947-0088653900ec"/>
+        <manufacturedMaterial>
+          <code code="321208" codeSystem="2.16.840.1.113883.6.88" sdtc:valueSet="2.16.840.1.113762.1.4.1021.11"><originalText>Medication, Order: Injectable factor Xa inhibitor for VTE prophylaxis ingredient specific</originalText></code>
+        </manufacturedMaterial>
+      </manufacturedProduct>
+    </consumable>
+    <author>
+      <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
+      <time value='20120126080000'/>
+      <assignedAuthor>
+        <id root="88376980-97b3-0134-3947-0088653900ec"/>
+      </assignedAuthor>
+    </author>
+    <entryRelationship typeCode="RSON">
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.24.3.88" extension="2014-12-01"/>
+    <id root="1.3.6.1.4.1.115" extension="47361453920D1785764DBEB6A66867A6" />
+    <code code="77301-0"
+          codeSystem="2.16.840.1.113883.6.1"
+          displayName="reason"
+          codeSystemName="LOINC"/>
+    <statusCode code="completed"/>
+      <effectiveTime>
+        <low value='20120126080000'/>
+      </effectiveTime>
+    <value xsi:type="CD"
+         code="183932001"
+         codeSystem="2.16.840.1.113883.6.96"
+         sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.473"
+         />
+  </observation>
+</entryRelationship>
+
+  </substanceAdministration>
+</entry>
+
+<entry>
+  <!--Medication Order -->
+  <substanceAdministration classCode="SBADM" moodCode="RQO" negationInd="true">
+    <templateId root="2.16.840.1.113883.10.20.22.4.42" extension="2014-06-09"/>
+    <!-- Medication, Order template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.47" extension="2016-02-01"/>
+    <id root="1.3.6.1.4.1.115" extension="57ed3b72f081f32ad9000dc3"/>
+    <text>Medication, Order: Warfarin-only ingredient specific</text>
+    <statusCode code="active"/>
+    <effectiveTime xsi:type="IVL_TS">
+      <low value='20120126080000'/>
+      <high value='20120126081500'/>
+    </effectiveTime>
+      <effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A">
+        <period nullFlavor="NA"/>
+      </effectiveTime>
+     	<doseQuantity nullFlavor="NA"/>
+
+    <consumable>
+      <manufacturedProduct classCode="MANU">
+        <!-- Medication Information (consolidation) template -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/>
+        <id root="8837a450-97b3-0134-3947-0088653900ec"/>
+        <manufacturedMaterial>
+          <code code="11289" codeSystem="2.16.840.1.113883.6.88" sdtc:valueSet="2.16.840.1.113762.1.4.1021.10"><originalText>Medication, Order: Warfarin-only ingredient specific</originalText></code>
+        </manufacturedMaterial>
+      </manufacturedProduct>
+    </consumable>
+    <author>
+      <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
+      <time value='20120126080000'/>
+      <assignedAuthor>
+        <id root="8837ab60-97b3-0134-3947-0088653900ec"/>
+      </assignedAuthor>
+    </author>
+    <entryRelationship typeCode="RSON">
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.24.3.88" extension="2014-12-01"/>
+    <id root="1.3.6.1.4.1.115" extension="47361453920D1785764DBEB6A66867A6" />
+    <code code="77301-0"
+          codeSystem="2.16.840.1.113883.6.1"
+          displayName="reason"
+          codeSystemName="LOINC"/>
+    <statusCode code="completed"/>
+      <effectiveTime>
+        <low value='20120126080000'/>
+      </effectiveTime>
+    <value xsi:type="CD"
+         code="183932001"
+         codeSystem="2.16.840.1.113883.6.96"
+         sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.473"
+         />
+  </observation>
+</entryRelationship>
+
+  </substanceAdministration>
+</entry>
+
+
+
+
+
+
+
+
+
+
+<entry>
+  <!-- Patient Characteristic Payer -->
+  <observation classCode="OBS" moodCode="EVN">
+    <templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+    <id root="1.3.6.1.4.1.115" extension="57ed3b72f081f32ad9000dc5"/>
+    <code code="48768-6" codeSystemName="LOINC" codeSystem="2.16.840.1.113883.6.1" displayName="Payment source"/> 
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <!-- Attribute: Start Datetime -->
+      <low value='20080101000000'/>
+    </effectiveTime>
+    <value code="349" codeSystem="2.16.840.1.113883.3.221.5" xsi:type="CD" sdtc:valueSet="2.16.840.1.114222.4.11.3591"><originalText></originalText></value>
+
+  </observation>            
+</entry>
+
+
+<entry>
+  <procedure classCode="PROC" moodCode="EVN" >
+    <!--  Procedure performed template -->
+    <templateId root="2.16.840.1.113883.10.20.24.3.64" extension="2016-02-01"/>
+    <!-- Procedure Activity Procedure-->
+    <templateId root="2.16.840.1.113883.10.20.22.4.14" extension="2014-06-09"/>
+    <id root="1.3.6.1.4.1.115" extension="57ed3b72f081f32ad9000dc4"/>
+    <code code="24277005" codeSystem="2.16.840.1.113883.6.96" sdtc:valueSet="2.16.840.1.113883.3.666.5.1743"><originalText>Procedure, Performed: General or Neuraxial Anesthesia</originalText><translation code="3E0F7DZ" codeSystem="2.16.840.1.113883.6.4"/>
+<translation code="24277005" codeSystem="2.16.840.1.113883.6.96"/>
+</code>
+    <text>Procedure, Performed: General or Neuraxial Anesthesia</text>
+    <statusCode code="completed"/>
+    <effectiveTime>
+      <low value='20120125080000'/>
+      <high value='20120125081500'/>
+    </effectiveTime>
+    
+    
+
+  </procedure>
+</entry>
+
+
+
+
+
+
+
+        </section>
+      </component>
+
+    </structuredBody>
+  </component>
+</ClinicalDocument>

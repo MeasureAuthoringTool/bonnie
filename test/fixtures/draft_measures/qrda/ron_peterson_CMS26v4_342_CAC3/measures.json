@@ -1,0 +1,4539 @@
+{
+  "_id": "57c06de4f081f37a7a000604",
+  "bundle_id": "573373bef081f308d5000387",
+  "category": null,
+  "cms_id": "CMS26v4",
+  "complexity": {
+    "populations": [
+      {
+        "name": "IPP",
+        "complexity": 4
+      },
+      {
+        "name": "DENOM",
+        "complexity": 2
+      },
+      {
+        "name": "NUMER",
+        "complexity": 2
+      }
+    ],
+    "variables": [
+      {
+        "name": "EncounterInpatient",
+        "complexity": 2
+      },
+      {
+        "name": "EncounterInpatient",
+        "complexity": 2
+      }
+    ]
+  },
+  "continuous_variable": false,
+  "created_at": "2016-08-26T16:27:16.876Z",
+  "custom_functions": null,
+  "data_criteria": {
+    "AsthmaManagementPlan_Communication_FromProvidertoPatient_8a4d92b2_3a00_2a25_013a_521888af0db7": {
+      "title": "Asthma Management Plan",
+      "description": "Communication: From Provider to Patient: Asthma Management Plan",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.131",
+      "type": "communications",
+      "definition": "communication_from_provider_to_patient",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "AsthmaManagementPlan_Communication_FromProvidertoPatient_8a4d92b2_3a00_2a25_013a_521888af0db7_source",
+      "variable": false,
+      "key": "AsthmaManagementPlan_Communication_FromProvidertoPatient_8a4d92b2_3a00_2a25_013a_521888af0db7"
+    },
+    "prefix_1c27d14a_a797_47ff_8ba8_6f0bcef61fcd_63f3d6b1_d1f0_469c_b086_382c81b5eb4a": {
+      "title": "Encounter Inpatient",
+      "description": "Encounter, Performed: Encounter Inpatient",
+      "code_list_id": "2.16.840.1.113883.3.666.5.307",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterInpatient_EncounterPerformed_63f3d6b1_d1f0_469c_b086_382c81b5eb4a_source",
+      "variable": false,
+      "field_values": {
+        "PRINCIPAL_DIAGNOSIS": {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.117.1.7.1.271",
+          "title": "Asthma Grouping Value Set",
+          "key": "PRINCIPAL_DIAGNOSIS",
+          "key_title": "Principal Diagnosis"
+        }
+      },
+      "key": "prefix_1c27d14a_a797_47ff_8ba8_6f0bcef61fcd_63f3d6b1_d1f0_469c_b086_382c81b5eb4a"
+    },
+    "prefix_72995526_8b5d_4887_bdee_7130a18a0d4a_63f3d6b1_d1f0_469c_b086_382c81b5eb4a": {
+      "title": "Encounter Inpatient",
+      "description": "Encounter, Performed: Encounter Inpatient",
+      "code_list_id": "2.16.840.1.113883.3.666.5.307",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterInpatient_EncounterPerformed_63f3d6b1_d1f0_469c_b086_382c81b5eb4a_source",
+      "variable": false,
+      "field_values": {
+        "DISCHARGE_STATUS": {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.117.1.7.1.82",
+          "title": "Discharge To Home Or Police Custody SNOMEDCT Value Set",
+          "key": "DISCHARGE_STATUS",
+          "key_title": "Discharge Status"
+        }
+      },
+      "key": "prefix_72995526_8b5d_4887_bdee_7130a18a0d4a_63f3d6b1_d1f0_469c_b086_382c81b5eb4a"
+    },
+    "prefix_2cb3d13d_b3b4_4f92_8ca4_ea1f61bfcb11_8a4d92b2_3a00_2a25_013a_521888af0db7": {
+      "title": "Asthma Management Plan",
+      "description": "Communication: From Provider to Patient: Asthma Management Plan",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.131",
+      "type": "communications",
+      "definition": "communication_from_provider_to_patient",
+      "hard_status": false,
+      "negation": true,
+      "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.93",
+      "source_data_criteria": "AsthmaManagementPlan_Communication_FromProvidertoPatient_8a4d92b2_3a00_2a25_013a_521888af0db7_source",
+      "variable": false,
+      "key": "prefix_2cb3d13d_b3b4_4f92_8ca4_ea1f61bfcb11_8a4d92b2_3a00_2a25_013a_521888af0db7"
+    },
+    "prefix_5cc83873_f5b8_4892_b112_8a6d3ecb588b_63f3d6b1_d1f0_469c_b086_382c81b5eb4a": {
+      "title": "Encounter Inpatient",
+      "description": "Encounter, Performed: Encounter Inpatient",
+      "code_list_id": "2.16.840.1.113883.3.666.5.307",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterInpatient_EncounterPerformed_63f3d6b1_d1f0_469c_b086_382c81b5eb4a_source",
+      "variable": false,
+      "field_values": {
+        "LENGTH_OF_STAY": {
+          "type": "IVL_PQ",
+          "high": {
+            "type": "PQ",
+            "unit": "d",
+            "value": "120",
+            "inclusive?": true,
+            "derived?": false
+          },
+          "key": "LENGTH_OF_STAY",
+          "key_title": "Length of Stay"
+        }
+      },
+      "key": "prefix_5cc83873_f5b8_4892_b112_8a6d3ecb588b_63f3d6b1_d1f0_469c_b086_382c81b5eb4a"
+    },
+    "Ethnicity_PatientCharacteristicEthnicity_8a4d92b2_37bf_6f1b_0137_ccd612b10d11": {
+      "title": "Ethnicity",
+      "description": "Patient Characteristic Ethnicity: Ethnicity",
+      "code_list_id": "2.16.840.1.114222.4.11.837",
+      "property": "ethnicity",
+      "type": "characteristic",
+      "definition": "patient_characteristic_ethnicity",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_8a4d92b2_37bf_6f1b_0137_ccd612b10d11_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "2135-2",
+          "2186-5"
+        ]
+      }
+    },
+    "ONCAdministrativeSex_PatientCharacteristicSex_8a4d92b2_37bf_6f1b_0137_ccd612b10d0f": {
+      "title": "ONC Administrative Sex",
+      "description": "Patient Characteristic Sex: ONC Administrative Sex",
+      "code_list_id": "2.16.840.1.113762.1.4.1",
+      "property": "gender",
+      "type": "characteristic",
+      "definition": "patient_characteristic_gender",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_8a4d92b2_37bf_6f1b_0137_ccd612b10d0f_source",
+      "variable": false,
+      "value": {
+        "type": "CD",
+        "system": "Administrative Sex",
+        "code": "F"
+      }
+    },
+    "Payer_PatientCharacteristicPayer_8a4d92b2_37bf_6f1b_0137_ccd612b10d12": {
+      "title": "Payer",
+      "description": "Patient Characteristic Payer: Payer",
+      "code_list_id": "2.16.840.1.114222.4.11.3591",
+      "property": "payer",
+      "type": "characteristic",
+      "definition": "patient_characteristic_payer",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Payer_PatientCharacteristicPayer_8a4d92b2_37bf_6f1b_0137_ccd612b10d12_source",
+      "variable": false,
+      "inline_code_list": {
+        "Source of Payment Typology": [
+          "1",
+          "11",
+          "111",
+          "112",
+          "113",
+          "119",
+          "12",
+          "121",
+          "122",
+          "123",
+          "129",
+          "19",
+          "2",
+          "21",
+          "211",
+          "212",
+          "213",
+          "219",
+          "22",
+          "23",
+          "24",
+          "25",
+          "29",
+          "3",
+          "31",
+          "311",
+          "3111",
+          "3112",
+          "3113",
+          "3114",
+          "3115",
+          "3116",
+          "3119",
+          "312",
+          "3121",
+          "3122",
+          "3123",
+          "313",
+          "32",
+          "321",
+          "3211",
+          "3212",
+          "32121",
+          "32122",
+          "32123",
+          "32124",
+          "32125",
+          "32126",
+          "322",
+          "3221",
+          "3222",
+          "3223",
+          "3229",
+          "33",
+          "331",
+          "332",
+          "333",
+          "334",
+          "34",
+          "341",
+          "342",
+          "343",
+          "349",
+          "35",
+          "36",
+          "361",
+          "362",
+          "369",
+          "37",
+          "371",
+          "3711",
+          "3712",
+          "3713",
+          "372",
+          "379",
+          "38",
+          "381",
+          "3811",
+          "3812",
+          "3813",
+          "3819",
+          "382",
+          "389",
+          "39",
+          "4",
+          "41",
+          "42",
+          "43",
+          "44",
+          "5",
+          "51",
+          "511",
+          "512",
+          "513",
+          "514",
+          "515",
+          "519",
+          "52",
+          "521",
+          "522",
+          "523",
+          "529",
+          "53",
+          "54",
+          "55",
+          "59",
+          "6",
+          "61",
+          "611",
+          "612",
+          "613",
+          "619",
+          "62",
+          "63",
+          "64",
+          "69",
+          "7",
+          "71",
+          "72",
+          "73",
+          "79",
+          "8",
+          "81",
+          "82",
+          "821",
+          "822",
+          "823",
+          "83",
+          "84",
+          "85",
+          "89",
+          "9",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "951",
+          "953",
+          "954",
+          "959",
+          "96",
+          "98",
+          "99",
+          "9999"
+        ]
+      }
+    },
+    "Race_PatientCharacteristicRace_8a4d92b2_37bf_6f1b_0137_ccd612b10d10": {
+      "title": "Race",
+      "description": "Patient Characteristic Race: Race",
+      "code_list_id": "2.16.840.1.114222.4.11.836",
+      "property": "race",
+      "type": "characteristic",
+      "definition": "patient_characteristic_race",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Race_PatientCharacteristicRace_8a4d92b2_37bf_6f1b_0137_ccd612b10d10_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "1002-5",
+          "2028-9",
+          "2054-5",
+          "2076-8",
+          "2106-3",
+          "2131-1"
+        ]
+      }
+    },
+    "EndsDuring_B5DBA141_AC80_498C_8B81_835B9659D7B1_63f3d6b1_d1f0_469c_b086_382c81b5eb4a": {
+      "title": "Encounter Inpatient",
+      "description": "Encounter, Performed: Encounter Inpatient",
+      "code_list_id": "2.16.840.1.113883.3.666.5.307",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterInpatient_EncounterPerformed_63f3d6b1_d1f0_469c_b086_382c81b5eb4a_source",
+      "variable": false,
+      "temporal_references": [
+        {
+          "type": "EDU",
+          "reference": "MeasurePeriod"
+        }
+      ],
+      "key": "EndsDuring_B5DBA141_AC80_498C_8B81_835B9659D7B1_63f3d6b1_d1f0_469c_b086_382c81b5eb4a"
+    },
+    "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_D20FA1A6_A8C8_4E05_B01D_B7F97CB481A8": {
+      "title": "EncounterInpatient",
+      "description": "EncounterInpatient",
+      "children_criteria": [
+        "GROUP_occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_D20FA1A6_A8C8_4E05_B01D_B7F97CB481A8"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_D20FA1A6_A8C8_4E05_B01D_B7F97CB481A8",
+      "variable": true,
+      "key": "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_D20FA1A6_A8C8_4E05_B01D_B7F97CB481A8"
+    },
+    "GROUP_occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_D20FA1A6_A8C8_4E05_B01D_B7F97CB481A8": {
+      "title": "EncounterInpatient",
+      "description": "EncounterInpatient",
+      "children_criteria": [
+        "prefix_5cc83873_f5b8_4892_b112_8a6d3ecb588b_63f3d6b1_d1f0_469c_b086_382c81b5eb4a",
+        "EndsDuring_B5DBA141_AC80_498C_8B81_835B9659D7B1_63f3d6b1_d1f0_469c_b086_382c81b5eb4a"
+      ],
+      "derivation_operator": "INTERSECT",
+      "type": "derived",
+      "definition": "satisfies_all",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "GROUP_occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_D20FA1A6_A8C8_4E05_B01D_B7F97CB481A8",
+      "variable": false,
+      "key": "GROUP_occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_D20FA1A6_A8C8_4E05_B01D_B7F97CB481A8"
+    },
+    "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0": {
+      "title": "EncounterInpatient",
+      "description": "EncounterInpatient",
+      "children_criteria": [
+        "GROUP_occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "OCCAOF_QDM_VAR_SATISFIESALL_5B19E3A5_1946_4F16_AE8E_7B691345785C_D20FA1A6_A8C8_4E05_B01D_B7F97CB481A8_SOURCE",
+      "source_data_criteria": "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0",
+      "variable": true,
+      "key": "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0"
+    },
+    "GROUP_occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0": {
+      "title": "EncounterInpatient",
+      "description": "EncounterInpatient",
+      "children_criteria": [
+        "prefix_5cc83873_f5b8_4892_b112_8a6d3ecb588b_63f3d6b1_d1f0_469c_b086_382c81b5eb4a",
+        "EndsDuring_B5DBA141_AC80_498C_8B81_835B9659D7B1_63f3d6b1_d1f0_469c_b086_382c81b5eb4a"
+      ],
+      "derivation_operator": "INTERSECT",
+      "type": "derived",
+      "definition": "satisfies_all",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "GROUP_occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0",
+      "variable": false,
+      "key": "GROUP_occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0"
+    },
+    "Agegrtr_thn_eql_2yearsat_60C2D771_2C7B_48AB_A25D_60654D5FE797_2FB6A337_D8C2_48AC_B4BF_02701CBC3729": {
+      "title": "Birth Date",
+      "description": "Patient Characteristic Birthdate: Birth Date",
+      "property": "birthtime",
+      "type": "characteristic",
+      "definition": "patient_characteristic_birthdate",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Agegrtr_thn_eql_2yearsat_60C2D771_2C7B_48AB_A25D_60654D5FE797_2FB6A337_D8C2_48AC_B4BF_02701CBC3729_source",
+      "variable": false,
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0",
+          "range": {
+            "type": "IVL_PQ",
+            "low": {
+              "type": "PQ",
+              "unit": "a",
+              "value": "2",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ],
+      "key": "Agegrtr_thn_eql_2yearsat_60C2D771_2C7B_48AB_A25D_60654D5FE797_2FB6A337_D8C2_48AC_B4BF_02701CBC3729"
+    },
+    "Ageless_thn_eql_17yearsat_193F9807_5FFF_4F3E_BD23_042DBA95CC28_35E9753D_3706_4624_8717_3EDDEA84E973": {
+      "title": "Birth Date",
+      "description": "Patient Characteristic Birthdate: Birth Date",
+      "property": "birthtime",
+      "type": "characteristic",
+      "definition": "patient_characteristic_birthdate",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Agegrtr_thn_eql_2yearsat_60C2D771_2C7B_48AB_A25D_60654D5FE797_2FB6A337_D8C2_48AC_B4BF_02701CBC3729_source",
+      "variable": false,
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0",
+          "range": {
+            "type": "IVL_PQ",
+            "high": {
+              "type": "PQ",
+              "unit": "a",
+              "value": "17",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ],
+      "key": "Ageless_thn_eql_17yearsat_193F9807_5FFF_4F3E_BD23_042DBA95CC28_35E9753D_3706_4624_8717_3EDDEA84E973"
+    },
+    "Intersection_769A31DC_BCDB_4AF3_8051_0707D81893CA_33F240E7_FE74_4D00_8E0F_884EA35EFF9F": {
+      "title": "Intersection_769A31DC-BCDB-4AF3-8051-0707D81893CA",
+      "description": "Intersection_769A31DC-BCDB-4AF3-8051-0707D81893CA",
+      "children_criteria": [
+        "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0",
+        "prefix_1c27d14a_a797_47ff_8ba8_6f0bcef61fcd_63f3d6b1_d1f0_469c_b086_382c81b5eb4a"
+      ],
+      "derivation_operator": "INTERSECT",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Intersection_769A31DC_BCDB_4AF3_8051_0707D81893CA_33F240E7_FE74_4D00_8E0F_884EA35EFF9F",
+      "variable": false,
+      "key": "Intersection_769A31DC_BCDB_4AF3_8051_0707D81893CA_33F240E7_FE74_4D00_8E0F_884EA35EFF9F"
+    },
+    "Intersection_A46960F1_942B_4652_BE55_E9261DA207C5_158260B8_5829_4BA1_9DEC_B2AF548FFA83": {
+      "title": "Intersection_A46960F1-942B-4652-BE55-E9261DA207C5",
+      "description": "Intersection_A46960F1-942B-4652-BE55-E9261DA207C5",
+      "children_criteria": [
+        "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0",
+        "prefix_72995526_8b5d_4887_bdee_7130a18a0d4a_63f3d6b1_d1f0_469c_b086_382c81b5eb4a"
+      ],
+      "derivation_operator": "INTERSECT",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Intersection_A46960F1_942B_4652_BE55_E9261DA207C5_158260B8_5829_4BA1_9DEC_B2AF548FFA83",
+      "variable": false,
+      "key": "Intersection_A46960F1_942B_4652_BE55_E9261DA207C5_158260B8_5829_4BA1_9DEC_B2AF548FFA83"
+    },
+    "StartsDuring_E4B1BE07_6217_44B5_9F7E_3A372B1B05A2_E83983BA_42B8_4B40_A202_D488604A190E": {
+      "title": "StartsDuring_E4B1BE07-6217-44B5-9F7E-3A372B1B05A2",
+      "description": "StartsDuring_E4B1BE07-6217-44B5-9F7E-3A372B1B05A2",
+      "children_criteria": [
+        "AsthmaManagementPlan_Communication_FromProvidertoPatient_8a4d92b2_3a00_2a25_013a_521888af0db7",
+        "prefix_2cb3d13d_b3b4_4f92_8ca4_ea1f61bfcb11_8a4d92b2_3a00_2a25_013a_521888af0db7"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "StartsDuring_E4B1BE07_6217_44B5_9F7E_3A372B1B05A2_E83983BA_42B8_4B40_A202_D488604A190E",
+      "variable": false,
+      "temporal_references": [
+        {
+          "type": "SDU",
+          "reference": "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0"
+        }
+      ],
+      "key": "StartsDuring_E4B1BE07_6217_44B5_9F7E_3A372B1B05A2_E83983BA_42B8_4B40_A202_D488604A190E"
+    }
+  },
+  "description": "An assessment that there is documentation in the medical record that a Home Management Plan of Care (HMPC) document was given to the pediatric asthma patient/caregiver",
+  "episode_ids": null,
+  "episode_of_care": false,
+  "force_sources": null,
+  "hqmf_id": "40280381-52FC-3A32-0153-1ED236390E20",
+  "hqmf_set_id": "E1CB05E0-97D5-40FC-B456-15C5DBF44309",
+  "hqmf_version_number": 4,
+  "id": "57c06de4f081f37a7a000604",
+  "measure_attributes": [
+    {
+      "code": "OTH",
+      "value": "26",
+      "name": "eMeasure Identifier (Measure Authoring Tool)",
+      "code_obj": {
+        "type": "CD",
+        "null_flavor": "OTH",
+        "original_text": "eMeasure Identifier (Measure Authoring Tool)"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "26",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "OTH",
+      "value": "Not Applicable",
+      "name": "NQF Number",
+      "code_obj": {
+        "type": "CD",
+        "null_flavor": "OTH",
+        "original_text": "NQF Number"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Not Applicable",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "COPY",
+      "value": "LOINC(R) is a registered trademark of the Regenstrief Institute.\r\n\r\nThis material contains SNOMED Clinical Terms (R) (SNOMED CT(C)) copyright 2004-2015 International Health Terminology Standards Development Organization. All rights reserved.",
+      "name": "Copyright",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "COPY",
+        "title": "Copyright"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "LOINC(R) is a registered trademark of the Regenstrief Institute.\r\n\r\nThis material contains SNOMED Clinical Terms (R) (SNOMED CT(C)) copyright 2004-2015 International Health Terminology Standards Development Organization. All rights reserved.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DISC",
+      "value": "These performance measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications. The measures and specifications are provided without warranty.",
+      "name": "Disclaimer",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DISC",
+        "title": "Disclaimer"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "These performance measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications. The measures and specifications are provided without warranty.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRSCORE",
+      "name": "Measure Scoring",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRSCORE",
+        "title": "Measure Scoring"
+      },
+      "value_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.1.11.20367",
+        "code": "PROPOR",
+        "title": "Proportion"
+      }
+    },
+    {
+      "code": "MSRTYPE",
+      "name": "Measure Type",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRTYPE",
+        "title": "Measure Type"
+      },
+      "value_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.1.11.20368",
+        "code": "PROCESS",
+        "title": "PROCESS"
+      }
+    },
+    {
+      "code": "ITMCNT",
+      "name": "Items to count",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "ITMCNT",
+        "title": "Items to count"
+      },
+      "value_obj": {
+        "type": "II",
+        "root": "63f3d6b1-d1f0-469c-b086-382c81b5eb4a",
+        "extension": "EncounterInpatient_EncounterPerformed"
+      }
+    },
+    {
+      "code": "STRAT",
+      "value": "None",
+      "name": "Stratification",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "STRAT",
+        "title": "Stratification"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRADJ",
+      "value": "None",
+      "name": "Risk Adjustment",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRADJ",
+        "title": "Risk Adjustment"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRAGG",
+      "value": "None",
+      "name": "Rate Aggregation",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRAGG",
+        "title": "Rate Aggregation"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "RAT",
+      "value": "Asthma is the most common chronic disease in children and a major cause of morbidity and health care costs nationally (Adams, et al, 2001). In 2005, 5.2% of children with asthma had at least one asthma attack in the previous year (3.8 million children). Nearly two of every three children who currently have asthma had at least one attack in the past 12 months. Chronic asthma in children can account for an annual loss of more than 14 million school days per year, according to the Asthma and Allergy Foundation (Asthma Facts and Figures).\r\n\r\nIt is clear from multiple sources of evidence including the National Heart Lung and Blood Institute (NHLBI) Guidelines that actual self-management of asthma by the patient or caregiver leads to more positive outcomes. Appropriate self-management is completely reliant upon patient education. Patient education is more effective when it aims at training self-management skills that will alter behavior (Norris, et al, 2001).\r\n\r\nNHLBI notes that review of asthma management by expert clinicians is necessary but not sufficient to improve outcomes. Active learning, participating and verbalization of understanding are all strategies that a healthcare organization must incorporate with parents or caregivers of asthmatic children in order for them to understand and make the appropriate changes that can impact the disease in the child in question. Education programs have been effective in improving lung function, feelings of self-esteem, and consequently decreased missed days of school in children and adolescents (Phipatanakul, 2004). Acute hospitalization follow up is imperative to a successful discharge from the hospital, providing the caretaker with the resource information needed to contact the follow up facility, medical office or clinic setting (Schatz, et al, 2009).\r\n\r\nEnvironmental control consists of removal of asthma triggers from the environment. Multiple studies support the positive correlation of household maintenance factors such as control of cockroach dust, and the number of acute asthma attacks in asthmatic children (McConnell, et al, 2005 and Eggleston, et al, 2005). Evidence from Carter et al, (2001) supported by the National Institute of Health (NIH) grant found specifically that reduction in triggers such as household conditions i.e. dust mites, cockroach, cats and presence of molds and fungus, resulted in a decrease in acute care visits and an overall positive outcome of children.\r\n\r\nRescue action education related to early recognition of symptoms and proper action to control incidence of asthma attacks is noted to have positive outcomes for asthmatic children (Ducharme and Bhogal, 2008).",
+      "name": "Rationale",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "RAT",
+        "title": "Rationale"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Asthma is the most common chronic disease in children and a major cause of morbidity and health care costs nationally (Adams, et al, 2001). In 2005, 5.2% of children with asthma had at least one asthma attack in the previous year (3.8 million children). Nearly two of every three children who currently have asthma had at least one attack in the past 12 months. Chronic asthma in children can account for an annual loss of more than 14 million school days per year, according to the Asthma and Allergy Foundation (Asthma Facts and Figures).\r\n\r\nIt is clear from multiple sources of evidence including the National Heart Lung and Blood Institute (NHLBI) Guidelines that actual self-management of asthma by the patient or caregiver leads to more positive outcomes. Appropriate self-management is completely reliant upon patient education. Patient education is more effective when it aims at training self-management skills that will alter behavior (Norris, et al, 2001).\r\n\r\nNHLBI notes that review of asthma management by expert clinicians is necessary but not sufficient to improve outcomes. Active learning, participating and verbalization of understanding are all strategies that a healthcare organization must incorporate with parents or caregivers of asthmatic children in order for them to understand and make the appropriate changes that can impact the disease in the child in question. Education programs have been effective in improving lung function, feelings of self-esteem, and consequently decreased missed days of school in children and adolescents (Phipatanakul, 2004). Acute hospitalization follow up is imperative to a successful discharge from the hospital, providing the caretaker with the resource information needed to contact the follow up facility, medical office or clinic setting (Schatz, et al, 2009).\r\n\r\nEnvironmental control consists of removal of asthma triggers from the environment. Multiple studies support the positive correlation of household maintenance factors such as control of cockroach dust, and the number of acute asthma attacks in asthmatic children (McConnell, et al, 2005 and Eggleston, et al, 2005). Evidence from Carter et al, (2001) supported by the National Institute of Health (NIH) grant found specifically that reduction in triggers such as household conditions i.e. dust mites, cockroach, cats and presence of molds and fungus, resulted in a decrease in acute care visits and an overall positive outcome of children.\r\n\r\nRescue action education related to early recognition of symptoms and proper action to control incidence of asthma attacks is noted to have positive outcomes for asthmatic children (Ducharme and Bhogal, 2008).",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "CRS",
+      "value": "Under-treatment and/or inappropriate treatment of asthma are recognized as major contributors to asthma morbidity and mortality. National guidelines for the diagnosis and management of asthma in children, recommend establishing a plan for maintaining control of asthma and for establishing plans for managing exacerbation.",
+      "name": "Clinical Recommendation Statement",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "CRS",
+        "title": "Clinical Recommendation Statement"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Under-treatment and/or inappropriate treatment of asthma are recognized as major contributors to asthma morbidity and mortality. National guidelines for the diagnosis and management of asthma in children, recommend establishing a plan for maintaining control of asthma and for establishing plans for managing exacerbation.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "IDUR",
+      "value": "Improvement noted as an increase in rate",
+      "name": "Improvement Notation",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "IDUR",
+        "title": "Improvement Notation"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Improvement noted as an increase in rate",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Adams RJ, Fuhlbrigge A, Finkelstein JA, Lozano P, Livingston JM, Weiss KB, and Weiss ST (2001). Use of Inhaled Anti-inflammatory Medication in Children with Asthma in Managed Care Settings. Archives of Pediatrics and Adolescent Medicine, 155, 501-507.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Adams RJ, Fuhlbrigge A, Finkelstein JA, Lozano P, Livingston JM, Weiss KB, and Weiss ST (2001). Use of Inhaled Anti-inflammatory Medication in Children with Asthma in Managed Care Settings. Archives of Pediatrics and Adolescent Medicine, 155, 501-507.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "American College of Chest Physicians (ACCP), 10th Annual ACCP Community Asthma and COPD Coalitions Symposium: A Physician's Perspective. Retrieved on February 17, 2015 from: http://69.36.35.38/accp/perspective/10th_Asthma",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "American College of Chest Physicians (ACCP), 10th Annual ACCP Community Asthma and COPD Coalitions Symposium: A Physician's Perspective. Retrieved on February 17, 2015 from: http://69.36.35.38/accp/perspective/10th_Asthma",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Asthma Facts and Figures. Retrieved on February 17, 2015 from http://www.aafa.org/display.cfm?id=9&sub=42#_ftn20.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Asthma Facts and Figures. Retrieved on February 17, 2015 from http://www.aafa.org/display.cfm?id=9&sub=42#_ftn20.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Ducharme FM, Bhogal SK. The role of written action plans in childhood asthma.  Curr Opin Allergy Clin Immunol. 2008 Apr;8(2):177-88.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Ducharme FM, Bhogal SK. The role of written action plans in childhood asthma.  Curr Opin Allergy Clin Immunol. 2008 Apr;8(2):177-88.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Eggleston, P.A., Butz, A., Rand, C., Curtin-Brosnan, J, Kanchanaraksa, S, Swartz, L, Breysse, P, Buckley, T., Diette, G., Merriman, B., Krishnan, J. (2005). Home Environmental Intervention in Inner-City Asthma: A Randomized Controlled Clinical Trial. Ann Allergy Asthma Immunology; 95 p518-524",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Eggleston, P.A., Butz, A., Rand, C., Curtin-Brosnan, J, Kanchanaraksa, S, Swartz, L, Breysse, P, Buckley, T., Diette, G., Merriman, B., Krishnan, J. (2005). Home Environmental Intervention in Inner-City Asthma: A Randomized Controlled Clinical Trial. Ann Allergy Asthma Immunology; 95 p518-524",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "McConnell, R., Milam, J., Richardson, J., Galvan, J., Jones, C., Thorne, P.S., and Berhane, K. (2005). Educational Intervention to Control Cockroach allergen Exposure in The homes of Hispanic Children in Los Angeles; Results of the La Casa Study. Clinical Exp Allergy; 35, p426-433",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "McConnell, R., Milam, J., Richardson, J., Galvan, J., Jones, C., Thorne, P.S., and Berhane, K. (2005). Educational Intervention to Control Cockroach allergen Exposure in The homes of Hispanic Children in Los Angeles; Results of the La Casa Study. Clinical Exp Allergy; 35, p426-433",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "National Asthma Education and Prevention Program, http://www.nhlbi.nih.gov/about/org/naepp.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "National Asthma Education and Prevention Program, http://www.nhlbi.nih.gov/about/org/naepp.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "National Heart Lung and Blood Institute (NHLBI). Guidelines for the Diagnosis and Management of Asthma (EPR-3). Retrieved on February 17, 2015 from:  http://www.nhlbi.nih.gov/health-pro/guidelines/current/asthma-guidelines.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "National Heart Lung and Blood Institute (NHLBI). Guidelines for the Diagnosis and Management of Asthma (EPR-3). Retrieved on February 17, 2015 from:  http://www.nhlbi.nih.gov/health-pro/guidelines/current/asthma-guidelines.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Phipatanakul, W. (2004). Effects of Educational Interventions for Self-Management of Asthma in Children and Adolsecents:Systematic Review and Meta-Analysis. Pediatrics; 114; 530.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Phipatanakul, W. (2004). Effects of Educational Interventions for Self-Management of Asthma in Children and Adolsecents:Systematic Review and Meta-Analysis. Pediatrics; 114; 530.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Schatz, M, Rachelefsky, G, Krishnan, J.A. (2009). Follow-up after Acute Asthma Episodes. What Improves Future Outcomes. Proc Am Thorac Soc; Vol 6 p 386-393.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Schatz, M, Rachelefsky, G, Krishnan, J.A. (2009). Follow-up after Acute Asthma Episodes. What Improves Future Outcomes. Proc Am Thorac Soc; Vol 6 p 386-393.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Zemek, R.L., Bhogal, S.K., Ducharme, F. M. (2008). Systematic Review of Randomized Controlled Trials Examining Written Action Plans in Children: What is the Plan? (Reprinted) Arch Pediatr Adolesc Med/ vol 162 No 2. Retrieved on February 17, 2015 from http://archpedi.jamanetwork.com/article.aspx?articleid=379087.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Zemek, R.L., Bhogal, S.K., Ducharme, F. M. (2008). Systematic Review of Randomized Controlled Trials Examining Written Action Plans in Children: What is the Plan? (Reprinted) Arch Pediatr Adolesc Med/ vol 162 No 2. Retrieved on February 17, 2015 from http://archpedi.jamanetwork.com/article.aspx?articleid=379087.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DEF",
+      "value": "None",
+      "name": "Definition",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DEF",
+        "title": "Definition"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "GUIDE",
+      "value": "The home management plan of care document should be a separate and patient-specific written instruction. The document must be present in the form of an explicit and separate document specific to the patient rather than components or segments of the plan spread across discharge instruction sheets, discharge orders, education sheets, or other instruction sheets.\r\n\r\nThe home management plan of care is represented in the eMeasure logic by a LOINC code for an asthma action plan document. This form, or equivalent, contains most of the components required for the home management plan of care, including information on:\r\n*\tMethods and timing of rescue actions: the home management plan of care addresses what to do if asthma symptoms worsen after discharge, including all of the following: 1) When to take action, i.e., assessment of severity (eg, peak flow meter reading, signs and symptoms to watch for); 2) What specific steps to take, i.e., initial treatment instructions (eg, inhaled relievers up to three treatments of 2-4 puffs by MDI at 20-minute intervals or single nebulizer treatment); 3) Contact information to be used, when an asthma attack occurs or is about to occur.\r\n*\tAppropriate use of long-term asthma medications (controllers), including the medication name, dose, frequency, and method of administration.\r\n*\tAppropriate use of rescue, quick-relief, or short acting medications of choice to quickly relieve asthma exacerbations (relievers), including the medication name, dose, frequency, and method of administration.\r\n*\tEnvironmental control and control of other triggers: information on avoidance or mitigation of environmental and other triggers.\r\n\r\nIn addition to the information outlined in the asthma action plan form (or equivalent document), the home management plan of care is required to include information regarding arrangements for referral or follow-up care with a healthcare provider, namely:\r\n*\tIf an appointment for referral or follow-up care with a healthcare provider has been made, the home management plan of care is required to include the provider/clinic/office name, as well as the date and time of the appointment.\r\n*\tIf an appointment for referral of follow-up care with a healthcare provider has NOT been made, the home management plan of care is required to include information for the patient/caregiver to be able to make arrangements for follow-up care, i.e., provider/clinic/office name, telephone number and time frame for appointment for follow-up care (eg, 7-10 days).\r\n\r\nThe home management plan of care can only be considered to comply with the criteria outlined in the measure logic if it meets the requirements outlined above and is appropriately filled-out with information specific to the patient.\r\n\r\nPatient refusal includes refusal by a caregiver. The caregiver is defined as the patient's family or any other person (eg, home health, VNA provider, prison official or other law enforcement personnel) who will be responsible for care of the patient after discharge.\r\n\r\nThe \"Discharge To Home Or Police Custody\" value set also intends to capture the following discharge disposition values:\r\n* Assisted Living Facilities\r\n* Court/Law Enforcement - includes detention facilities, jails, and prison\r\n* Home - includes board and care, foster or residential care, group or personal care homes, and homeless shelters\r\n* Home with Home Health Services\r\n* Outpatient Services including outpatient procedures at another hospital, Outpatient Chemical Dependency Programs and Partial Hospitalization.",
+      "name": "Guidance",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "GUIDE",
+        "title": "Guidance"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "The home management plan of care document should be a separate and patient-specific written instruction. The document must be present in the form of an explicit and separate document specific to the patient rather than components or segments of the plan spread across discharge instruction sheets, discharge orders, education sheets, or other instruction sheets.\r\n\r\nThe home management plan of care is represented in the eMeasure logic by a LOINC code for an asthma action plan document. This form, or equivalent, contains most of the components required for the home management plan of care, including information on:\r\n*\tMethods and timing of rescue actions: the home management plan of care addresses what to do if asthma symptoms worsen after discharge, including all of the following: 1) When to take action, i.e., assessment of severity (eg, peak flow meter reading, signs and symptoms to watch for); 2) What specific steps to take, i.e., initial treatment instructions (eg, inhaled relievers up to three treatments of 2-4 puffs by MDI at 20-minute intervals or single nebulizer treatment); 3) Contact information to be used, when an asthma attack occurs or is about to occur.\r\n*\tAppropriate use of long-term asthma medications (controllers), including the medication name, dose, frequency, and method of administration.\r\n*\tAppropriate use of rescue, quick-relief, or short acting medications of choice to quickly relieve asthma exacerbations (relievers), including the medication name, dose, frequency, and method of administration.\r\n*\tEnvironmental control and control of other triggers: information on avoidance or mitigation of environmental and other triggers.\r\n\r\nIn addition to the information outlined in the asthma action plan form (or equivalent document), the home management plan of care is required to include information regarding arrangements for referral or follow-up care with a healthcare provider, namely:\r\n*\tIf an appointment for referral or follow-up care with a healthcare provider has been made, the home management plan of care is required to include the provider/clinic/office name, as well as the date and time of the appointment.\r\n*\tIf an appointment for referral of follow-up care with a healthcare provider has NOT been made, the home management plan of care is required to include information for the patient/caregiver to be able to make arrangements for follow-up care, i.e., provider/clinic/office name, telephone number and time frame for appointment for follow-up care (eg, 7-10 days).\r\n\r\nThe home management plan of care can only be considered to comply with the criteria outlined in the measure logic if it meets the requirements outlined above and is appropriately filled-out with information specific to the patient.\r\n\r\nPatient refusal includes refusal by a caregiver. The caregiver is defined as the patient's family or any other person (eg, home health, VNA provider, prison official or other law enforcement personnel) who will be responsible for care of the patient after discharge.\r\n\r\nThe \"Discharge To Home Or Police Custody\" value set also intends to capture the following discharge disposition values:\r\n* Assisted Living Facilities\r\n* Court/Law Enforcement - includes detention facilities, jails, and prison\r\n* Home - includes board and care, foster or residential care, group or personal care homes, and homeless shelters\r\n* Home with Home Health Services\r\n* Outpatient Services including outpatient procedures at another hospital, Outpatient Chemical Dependency Programs and Partial Hospitalization.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "TRANF",
+      "value": "TBD",
+      "name": "Transmission Format",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "TRANF",
+        "title": "Transmission Format"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "TBD",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "IPOP",
+      "value": "Pediatric asthma inpatients with an age of 2 through 17 years, and length of stay less than or equal to 120 days",
+      "name": "Initial Population",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "IPOP",
+        "title": "Initial Population"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Pediatric asthma inpatients with an age of 2 through 17 years, and length of stay less than or equal to 120 days",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DENOM",
+      "value": "Patients discharged to home or police custody",
+      "name": "Denominator",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DENOM",
+        "title": "Denominator"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Patients discharged to home or police custody",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DENEX",
+      "value": "None",
+      "name": "Denominator Exclusions",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DENEX",
+        "title": "Denominator Exclusions"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "NUMER",
+      "value": "Pediatric asthma inpatients with documentation that they or their caregivers were given a written Home Management Plan of Care (HMPC) document that addresses all of the following: \r\n1. Arrangements for follow-up care \r\n2. Environmental control and control of other triggers\r\n3. Method and timing of rescue actions\r\n4. Use of controllers \r\n5. Use of relievers",
+      "name": "Numerator",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "NUMER",
+        "title": "Numerator"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Pediatric asthma inpatients with documentation that they or their caregivers were given a written Home Management Plan of Care (HMPC) document that addresses all of the following: \r\n1. Arrangements for follow-up care \r\n2. Environmental control and control of other triggers\r\n3. Method and timing of rescue actions\r\n4. Use of controllers \r\n5. Use of relievers",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "NUMEX",
+      "value": "Not Applicable",
+      "name": "Numerator Exclusions",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "NUMEX",
+        "title": "Numerator Exclusions"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Not Applicable",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DENEXCEP",
+      "value": "None",
+      "name": "Denominator Exceptions",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DENEXCEP",
+        "title": "Denominator Exceptions"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "SDE",
+      "value": "For every patient evaluated by this measure also identify payer, race, ethnicity and sex",
+      "name": "Supplemental Data Elements",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "SDE",
+        "title": "Supplemental Data Elements"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "For every patient evaluated by this measure also identify payer, race, ethnicity and sex",
+        "media_type": "text/plain"
+      }
+    }
+  ],
+  "measure_id": null,
+  "measure_logic": [
+    {
+      "code": "IPP",
+      "lines": [
+        "\nInitial Patient Population\n",
+        "\tAND: ",
+        "\n\t\tIntersection of:",
+        "\t\tOccurrence A: $EncounterInpatient\n",
+        "\t\tEncounter, Performed: Encounter Inpatient ( Principal Diagnosis: Asthma )\n",
+        "\tAND: ",
+        "Patient Characteristic Birthdate: Birth Date",
+        " >= 2 years starts before start of Occurrence A: $EncounterInpatient\n",
+        "\tAND: ",
+        "Patient Characteristic Birthdate: Birth Date",
+        " <= 17 years starts before start of Occurrence A: $EncounterInpatient\n"
+      ]
+    },
+    {
+      "code": "DENOM",
+      "lines": [
+        "\nDenominator\n",
+        "\tAND: ",
+        "\n\t\tIntersection of:",
+        "\t\tOccurrence A: $EncounterInpatient\n",
+        "\t\tEncounter, Performed: Encounter Inpatient ( Discharge Status: Discharge To Home Or Police Custody )\n"
+      ]
+    },
+    {
+      "code": "NUMER",
+      "lines": [
+        "\nNumerator\n",
+        "\tAND: ",
+        "\n\t\tUnion of:",
+        "\t\tCommunication: From Provider to Patient: Asthma Management Plan\n",
+        "\t\tCommunication: From Provider to Patient: Asthma Management Plan ( Not Done : Patient Refusal )\n",
+        "\t\t starts during Occurrence A: $EncounterInpatient\n"
+      ]
+    },
+    {
+      "code": "VARIABLES",
+      "lines": [
+        "\nVariables\n",
+        "\t$EncounterInpatient = \n",
+        "\t\tEncounter, Performed: Encounter Inpatient SATISFIES ALL\n",
+        "\t\t\t\t\t\t ( Length of Stay <= 120 days )\n",
+        "\t\t\t\t\t\t ends during \"Measurement Period\"\n",
+        "\t$EncounterInpatient = \n",
+        "\t\tEncounter, Performed: Encounter Inpatient SATISFIES ALL\n",
+        "\t\t\t\t\t\t ( Length of Stay <= 120 days )\n",
+        "\t\t\t\t\t\t ends during \"Measurement Period\"\n"
+      ]
+    }
+  ],
+  "measure_period": {
+    "type": "IVL_TS",
+    "low": {
+      "type": "TS",
+      "value": "201201010000",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "high": {
+      "type": "TS",
+      "value": "201212312359",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "width": {
+      "type": "PQ",
+      "unit": "a",
+      "value": "1",
+      "inclusive?": true,
+      "derived?": false
+    }
+  },
+  "needs_finalize": false,
+  "population_criteria": {
+    "IPP": {
+      "conjunction?": true,
+      "type": "IPP",
+      "title": "Initial Population",
+      "hqmf_id": "E0B37A8F-09E7-4AEE-8DBE-6F7A0FE17EA2",
+      "preconditions": [
+        {
+          "id": 4,
+          "preconditions": [
+            {
+              "id": 1,
+              "reference": "Intersection_769A31DC_BCDB_4AF3_8051_0707D81893CA_33F240E7_FE74_4D00_8E0F_884EA35EFF9F"
+            },
+            {
+              "id": 2,
+              "reference": "Agegrtr_thn_eql_2yearsat_60C2D771_2C7B_48AB_A25D_60654D5FE797_2FB6A337_D8C2_48AC_B4BF_02701CBC3729"
+            },
+            {
+              "id": 3,
+              "reference": "Ageless_thn_eql_17yearsat_193F9807_5FFF_4F3E_BD23_042DBA95CC28_35E9753D_3706_4624_8717_3EDDEA84E973"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "DENOM": {
+      "conjunction?": true,
+      "type": "DENOM",
+      "title": "Denominator",
+      "hqmf_id": "9DDF2A97-C94A-4355-B292-F80928F329BA",
+      "preconditions": [
+        {
+          "id": 6,
+          "preconditions": [
+            {
+              "id": 5,
+              "reference": "Intersection_A46960F1_942B_4652_BE55_E9261DA207C5_158260B8_5829_4BA1_9DEC_B2AF548FFA83"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "NUMER": {
+      "conjunction?": true,
+      "type": "NUMER",
+      "title": "Numerator",
+      "hqmf_id": "64AA561A-3BD4-4F0F-8136-670143BA1E1D",
+      "preconditions": [
+        {
+          "id": 8,
+          "preconditions": [
+            {
+              "id": 7,
+              "reference": "StartsDuring_E4B1BE07_6217_44B5_9F7E_3A372B1B05A2_E83983BA_42B8_4B40_A202_D488604A190E"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    }
+  },
+  "populations": [
+    {
+      "IPP": "IPP",
+      "DENOM": "DENOM",
+      "NUMER": "NUMER",
+      "id": "PopulationCriteria1",
+      "title": "Population Criteria Section"
+    }
+  ],
+  "preconditions": null,
+  "publish_date": null,
+  "published": null,
+  "source_data_criteria": {
+    "AsthmaManagementPlan_Communication_FromProvidertoPatient_8a4d92b2_3a00_2a25_013a_521888af0db7_source": {
+      "title": "Asthma Management Plan",
+      "description": "Communication: From Provider to Patient: Asthma Management Plan",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.131",
+      "type": "communications",
+      "definition": "communication_from_provider_to_patient",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "AsthmaManagementPlan_Communication_FromProvidertoPatient_8a4d92b2_3a00_2a25_013a_521888af0db7_source",
+      "variable": false
+    },
+    "EncounterInpatient_EncounterPerformed_63f3d6b1_d1f0_469c_b086_382c81b5eb4a_source": {
+      "title": "Encounter Inpatient",
+      "description": "Encounter, Performed: Encounter Inpatient",
+      "code_list_id": "2.16.840.1.113883.3.666.5.307",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "EncounterInpatient_EncounterPerformed_63f3d6b1_d1f0_469c_b086_382c81b5eb4a_source",
+      "variable": false
+    },
+    "Ethnicity_PatientCharacteristicEthnicity_8a4d92b2_37bf_6f1b_0137_ccd612b10d11_source": {
+      "title": "Ethnicity",
+      "description": "Patient Characteristic Ethnicity: Ethnicity",
+      "code_list_id": "2.16.840.1.114222.4.11.837",
+      "property": "ethnicity",
+      "type": "characteristic",
+      "definition": "patient_characteristic_ethnicity",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_8a4d92b2_37bf_6f1b_0137_ccd612b10d11_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "2135-2",
+          "2186-5"
+        ]
+      }
+    },
+    "ONCAdministrativeSex_PatientCharacteristicSex_8a4d92b2_37bf_6f1b_0137_ccd612b10d0f_source": {
+      "title": "ONC Administrative Sex",
+      "description": "Patient Characteristic Sex: ONC Administrative Sex",
+      "code_list_id": "2.16.840.1.113762.1.4.1",
+      "property": "gender",
+      "type": "characteristic",
+      "definition": "patient_characteristic_gender",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_8a4d92b2_37bf_6f1b_0137_ccd612b10d0f_source",
+      "variable": false,
+      "value": {
+        "type": "CD",
+        "system": "Administrative Sex",
+        "code": "F"
+      }
+    },
+    "Payer_PatientCharacteristicPayer_8a4d92b2_37bf_6f1b_0137_ccd612b10d12_source": {
+      "title": "Payer",
+      "description": "Patient Characteristic Payer: Payer",
+      "code_list_id": "2.16.840.1.114222.4.11.3591",
+      "property": "payer",
+      "type": "characteristic",
+      "definition": "patient_characteristic_payer",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Payer_PatientCharacteristicPayer_8a4d92b2_37bf_6f1b_0137_ccd612b10d12_source",
+      "variable": false,
+      "inline_code_list": {
+        "Source of Payment Typology": [
+          "1",
+          "11",
+          "111",
+          "112",
+          "113",
+          "119",
+          "12",
+          "121",
+          "122",
+          "123",
+          "129",
+          "19",
+          "2",
+          "21",
+          "211",
+          "212",
+          "213",
+          "219",
+          "22",
+          "23",
+          "24",
+          "25",
+          "29",
+          "3",
+          "31",
+          "311",
+          "3111",
+          "3112",
+          "3113",
+          "3114",
+          "3115",
+          "3116",
+          "3119",
+          "312",
+          "3121",
+          "3122",
+          "3123",
+          "313",
+          "32",
+          "321",
+          "3211",
+          "3212",
+          "32121",
+          "32122",
+          "32123",
+          "32124",
+          "32125",
+          "32126",
+          "322",
+          "3221",
+          "3222",
+          "3223",
+          "3229",
+          "33",
+          "331",
+          "332",
+          "333",
+          "334",
+          "34",
+          "341",
+          "342",
+          "343",
+          "349",
+          "35",
+          "36",
+          "361",
+          "362",
+          "369",
+          "37",
+          "371",
+          "3711",
+          "3712",
+          "3713",
+          "372",
+          "379",
+          "38",
+          "381",
+          "3811",
+          "3812",
+          "3813",
+          "3819",
+          "382",
+          "389",
+          "39",
+          "4",
+          "41",
+          "42",
+          "43",
+          "44",
+          "5",
+          "51",
+          "511",
+          "512",
+          "513",
+          "514",
+          "515",
+          "519",
+          "52",
+          "521",
+          "522",
+          "523",
+          "529",
+          "53",
+          "54",
+          "55",
+          "59",
+          "6",
+          "61",
+          "611",
+          "612",
+          "613",
+          "619",
+          "62",
+          "63",
+          "64",
+          "69",
+          "7",
+          "71",
+          "72",
+          "73",
+          "79",
+          "8",
+          "81",
+          "82",
+          "821",
+          "822",
+          "823",
+          "83",
+          "84",
+          "85",
+          "89",
+          "9",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "951",
+          "953",
+          "954",
+          "959",
+          "96",
+          "98",
+          "99",
+          "9999"
+        ]
+      }
+    },
+    "Race_PatientCharacteristicRace_8a4d92b2_37bf_6f1b_0137_ccd612b10d10_source": {
+      "title": "Race",
+      "description": "Patient Characteristic Race: Race",
+      "code_list_id": "2.16.840.1.114222.4.11.836",
+      "property": "race",
+      "type": "characteristic",
+      "definition": "patient_characteristic_race",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Race_PatientCharacteristicRace_8a4d92b2_37bf_6f1b_0137_ccd612b10d10_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "1002-5",
+          "2028-9",
+          "2054-5",
+          "2076-8",
+          "2106-3",
+          "2131-1"
+        ]
+      }
+    },
+    "Agegrtr_thn_eql_2yearsat_60C2D771_2C7B_48AB_A25D_60654D5FE797_2FB6A337_D8C2_48AC_B4BF_02701CBC3729_source": {
+      "title": "Birth Date",
+      "description": "Patient Characteristic Birthdate: Birth Date",
+      "property": "birthtime",
+      "type": "characteristic",
+      "definition": "patient_characteristic_birthdate",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Agegrtr_thn_eql_2yearsat_60C2D771_2C7B_48AB_A25D_60654D5FE797_2FB6A337_D8C2_48AC_B4BF_02701CBC3729_source",
+      "variable": false
+    },
+    "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_D20FA1A6_A8C8_4E05_B01D_B7F97CB481A8": {
+      "title": "EncounterInpatient",
+      "description": "EncounterInpatient",
+      "children_criteria": [
+        "GROUP_occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_D20FA1A6_A8C8_4E05_B01D_B7F97CB481A8"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_D20FA1A6_A8C8_4E05_B01D_B7F97CB481A8",
+      "variable": true
+    },
+    "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0": {
+      "title": "EncounterInpatient",
+      "description": "EncounterInpatient",
+      "children_criteria": [
+        "GROUP_occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "OCCAOF_QDM_VAR_SATISFIESALL_5B19E3A5_1946_4F16_AE8E_7B691345785C_D20FA1A6_A8C8_4E05_B01D_B7F97CB481A8_SOURCE",
+      "source_data_criteria": "occAof_qdm_var_SatisfiesAll_5B19E3A5_1946_4F16_AE8E_7B691345785C_9C0AE94D_C411_40E6_9826_6889F57F18D0",
+      "variable": true
+    }
+  },
+  "title": "Home Management Plan of Care (HMPC) Document Given to Patient/Caregiver",
+  "type": "eh",
+  "updated_at": "2016-08-26T16:27:16.956Z",
+  "user_id": "573373bcf081f308d5000386",
+  "value_set_oids": [
+    "2.16.840.1.113883.3.117.1.7.1.131",
+    "2.16.840.1.113883.3.666.5.307",
+    "2.16.840.1.113883.3.117.1.7.1.271",
+    "2.16.840.1.113883.3.117.1.7.1.82",
+    "2.16.840.1.113883.3.117.1.7.1.93",
+    "2.16.840.1.114222.4.11.837",
+    "2.16.840.1.113762.1.4.1",
+    "2.16.840.1.114222.4.11.3591",
+    "2.16.840.1.114222.4.11.836"
+  ],
+  "version": null,
+  "value_sets": [
+    {
+      "_id": "57c06de2f081f37a7a0004da",
+      "bundle_id": "573373bef081f308d5000387",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "57c06de2f081f37a7a0004db",
+          "black_list": false,
+          "code": "69981-9",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.54",
+          "display_name": "Asthma action plan",
+          "white_list": false
+        }
+      ],
+      "display_name": "Asthma Management Plan",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.131",
+      "user_id": "573373bcf081f308d5000386",
+      "version": "Draft"
+    },
+    {
+      "_id": "57c06de3f081f37a7a0004e0",
+      "bundle_id": "573373bef081f308d5000387",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "57c06de3f081f37a7a0004e1",
+          "black_list": false,
+          "code": "10674711000119105",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute severe exacerbation of asthma co-occurrent with allergic rhinitis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004e2",
+          "black_list": false,
+          "code": "10675431000119106",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Severe persistent allergic asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004e3",
+          "black_list": false,
+          "code": "10675471000119109",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute severe exacerbation of severe persistent allergic asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004e4",
+          "black_list": false,
+          "code": "10675551000119104",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute severe exacerbation of severe persistent asthma co-occurrent with allergic rhinitis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004e5",
+          "black_list": false,
+          "code": "10675871000119106",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Mild persistent allergic asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004e6",
+          "black_list": false,
+          "code": "10675911000119109",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute severe exacerbation of mild persistent allergic asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004e7",
+          "black_list": false,
+          "code": "10675991000119100",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute severe exacerbation of mild persistent allergic asthma co-occurrent with allergic rhinitis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004e8",
+          "black_list": false,
+          "code": "10676391000119108",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Moderate persistent allergic asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004e9",
+          "black_list": false,
+          "code": "10676431000119103",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute severe exacerbation of moderate persistent allergic asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004ea",
+          "black_list": false,
+          "code": "10676511000119109",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute severe exacerbation of moderate persistent asthma co-occurrent with allergic rhinitis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004eb",
+          "black_list": false,
+          "code": "10692721000119102",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Chronic obstructive asthma co-occurrent with acute exacerbation of asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004ec",
+          "black_list": false,
+          "code": "12428000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Intrinsic asthma without status asthmaticus (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004ed",
+          "black_list": false,
+          "code": "124991000119109",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Severe persistent asthma co-occurrent with allergic rhinitis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004ee",
+          "black_list": false,
+          "code": "125001000119103",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Moderate persistent asthma co-occurrent with allergic rhinitis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004ef",
+          "black_list": false,
+          "code": "125011000119100",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Mild persistent asthma co-occurrent with allergic rhinitis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004f0",
+          "black_list": false,
+          "code": "125021000119107",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Intermittent asthma co-occurrent with allergic rhinitis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004f1",
+          "black_list": false,
+          "code": "135171000119106",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute exacerbation of moderate persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004f2",
+          "black_list": false,
+          "code": "135181000119109",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute exacerbation of mild persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004f3",
+          "black_list": false,
+          "code": "1741000119102",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Intermittent asthma uncontrolled (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004f4",
+          "black_list": false,
+          "code": "1751000119100",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute exacerbation of chronic obstructive airways disease with asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004f5",
+          "black_list": false,
+          "code": "195949008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Chronic asthmatic bronchitis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004f6",
+          "black_list": false,
+          "code": "195967001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004f7",
+          "black_list": false,
+          "code": "195977004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Mixed asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004f8",
+          "black_list": false,
+          "code": "225057002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Brittle asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004f9",
+          "black_list": false,
+          "code": "233678006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Childhood asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004fa",
+          "black_list": false,
+          "code": "233679003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Late onset asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004fb",
+          "black_list": false,
+          "code": "233683003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Hay fever with asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004fc",
+          "black_list": false,
+          "code": "2360001000004109",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Steroid dependent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004fd",
+          "black_list": false,
+          "code": "266361008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Non-allergic asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004fe",
+          "black_list": false,
+          "code": "281239006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Exacerbation of asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a0004ff",
+          "black_list": false,
+          "code": "30352005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Allergic-infective asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000500",
+          "black_list": false,
+          "code": "304527002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000501",
+          "black_list": false,
+          "code": "31387002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Exercise-induced asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000502",
+          "black_list": false,
+          "code": "370218001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Mild asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000503",
+          "black_list": false,
+          "code": "370219009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Moderate asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000504",
+          "black_list": false,
+          "code": "370220003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Occasional asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000505",
+          "black_list": false,
+          "code": "370221004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Severe asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000506",
+          "black_list": false,
+          "code": "389145006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Allergic asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000507",
+          "black_list": false,
+          "code": "401000119107",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Asthma with irreversible airway obstruction (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000508",
+          "black_list": false,
+          "code": "405944004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Asthmatic bronchitis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000509",
+          "black_list": false,
+          "code": "409663006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Cough variant asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00050a",
+          "black_list": false,
+          "code": "423889005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Non-immunoglobulin E mediated allergic asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00050b",
+          "black_list": false,
+          "code": "424643009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Immunoglobulin E-mediated allergic asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00050c",
+          "black_list": false,
+          "code": "425969006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Exacerbation of intermittent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00050d",
+          "black_list": false,
+          "code": "426656000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Severe persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00050e",
+          "black_list": false,
+          "code": "426979002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Mild persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00050f",
+          "black_list": false,
+          "code": "427295004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Moderate persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000510",
+          "black_list": false,
+          "code": "427603009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Intermittent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000511",
+          "black_list": false,
+          "code": "427679007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Mild intermittent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000512",
+          "black_list": false,
+          "code": "442025000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute exacerbation of chronic asthmatic bronchitis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000513",
+          "black_list": false,
+          "code": "445427006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Seasonal asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000514",
+          "black_list": false,
+          "code": "493.00",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Extrinsic asthma, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000515",
+          "black_list": false,
+          "code": "493.01",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Extrinsic asthma with status asthmaticus",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000516",
+          "black_list": false,
+          "code": "493.02",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Extrinsic asthma with (acute) exacerbation",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000517",
+          "black_list": false,
+          "code": "493.10",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Intrinsic asthma, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000518",
+          "black_list": false,
+          "code": "493.11",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Intrinsic asthma with status asthmaticus",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000519",
+          "black_list": false,
+          "code": "493.12",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Intrinsic asthma with (acute) exacerbation",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00051a",
+          "black_list": false,
+          "code": "493.81",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Exercise induced bronchospasm",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00051b",
+          "black_list": false,
+          "code": "493.82",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Cough variant asthma",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00051c",
+          "black_list": false,
+          "code": "493.90",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Asthma, unspecified type, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00051d",
+          "black_list": false,
+          "code": "493.91",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Asthma, unspecified type, with status asthmaticus",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00051e",
+          "black_list": false,
+          "code": "493.92",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Asthma, unspecified type, with (acute) exacerbation",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00051f",
+          "black_list": false,
+          "code": "5281000124103",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000520",
+          "black_list": false,
+          "code": "55570000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Asthma without status asthmaticus (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000521",
+          "black_list": false,
+          "code": "63088003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Extrinsic asthma without status asthmaticus (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000522",
+          "black_list": false,
+          "code": "641000119106",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Intermittent asthma well controlled (finding)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000523",
+          "black_list": false,
+          "code": "707444001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Uncomplicated asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000524",
+          "black_list": false,
+          "code": "707445000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Exacerbation of mild persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000525",
+          "black_list": false,
+          "code": "707446004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Exacerbation of moderate persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000526",
+          "black_list": false,
+          "code": "707447008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Exacerbation of severe persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000527",
+          "black_list": false,
+          "code": "707511009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Uncomplicated mild persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000528",
+          "black_list": false,
+          "code": "707512002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Uncomplicated moderate persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000529",
+          "black_list": false,
+          "code": "707513007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Uncomplicated severe persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00052a",
+          "black_list": false,
+          "code": "707979007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute severe exacerbation of severe persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00052b",
+          "black_list": false,
+          "code": "707980005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute severe exacerbation of moderate persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00052c",
+          "black_list": false,
+          "code": "707981009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute severe exacerbation of mild persistent asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00052d",
+          "black_list": false,
+          "code": "708038006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute exacerbation of asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00052e",
+          "black_list": false,
+          "code": "708090002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute severe exacerbation of asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00052f",
+          "black_list": false,
+          "code": "708093000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute exacerbation of immunoglobulin E-mediated allergic asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000530",
+          "black_list": false,
+          "code": "708094006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute exacerbation of intrinsic asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000531",
+          "black_list": false,
+          "code": "708095007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute severe exacerbation of immunoglobin E-mediated allergic asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000532",
+          "black_list": false,
+          "code": "708096008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute severe exacerbation of intrinsic asthma (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000533",
+          "black_list": false,
+          "code": "901000119100",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Persistent asthma, well controlled (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000534",
+          "black_list": false,
+          "code": "99031000119107",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Acute exacerbation of asthma co-occurrent with allergic rhinitis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000535",
+          "black_list": false,
+          "code": "J45.20",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Mild intermittent asthma, uncomplicated",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000536",
+          "black_list": false,
+          "code": "J45.21",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Mild intermittent asthma with (acute) exacerbation",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000537",
+          "black_list": false,
+          "code": "J45.22",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Mild intermittent asthma with status asthmaticus",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000538",
+          "black_list": false,
+          "code": "J45.30",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Mild persistent asthma, uncomplicated",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000539",
+          "black_list": false,
+          "code": "J45.31",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Mild persistent asthma with (acute) exacerbation",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00053a",
+          "black_list": false,
+          "code": "J45.32",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Mild persistent asthma with status asthmaticus",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00053b",
+          "black_list": false,
+          "code": "J45.40",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Moderate persistent asthma, uncomplicated",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00053c",
+          "black_list": false,
+          "code": "J45.41",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Moderate persistent asthma with (acute) exacerbation",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00053d",
+          "black_list": false,
+          "code": "J45.42",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Moderate persistent asthma with status asthmaticus",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00053e",
+          "black_list": false,
+          "code": "J45.50",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Severe persistent asthma, uncomplicated",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00053f",
+          "black_list": false,
+          "code": "J45.51",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Severe persistent asthma with (acute) exacerbation",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000540",
+          "black_list": false,
+          "code": "J45.52",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Severe persistent asthma with status asthmaticus",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000541",
+          "black_list": false,
+          "code": "J45.901",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Unspecified asthma with (acute) exacerbation",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000542",
+          "black_list": false,
+          "code": "J45.902",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Unspecified asthma with status asthmaticus",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000543",
+          "black_list": false,
+          "code": "J45.909",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Unspecified asthma, uncomplicated",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000544",
+          "black_list": false,
+          "code": "J45.990",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Exercise induced bronchospasm",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000545",
+          "black_list": false,
+          "code": "J45.991",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Cough variant asthma",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000546",
+          "black_list": false,
+          "code": "J45.998",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2016",
+          "display_name": "Other asthma",
+          "white_list": false
+        }
+      ],
+      "display_name": "Asthma",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.271",
+      "user_id": "573373bcf081f308d5000386",
+      "version": "Draft"
+    },
+    {
+      "_id": "57c06de3f081f37a7a000547",
+      "bundle_id": "573373bef081f308d5000387",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "57c06de3f081f37a7a000548",
+          "black_list": false,
+          "code": "10161009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Patient discharge, to home, with assistance (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a000549",
+          "black_list": false,
+          "code": "306689006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Discharge to home (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00054a",
+          "black_list": false,
+          "code": "306690002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Discharge to relative's home (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00054b",
+          "black_list": false,
+          "code": "306691003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Discharge to residential home (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00054c",
+          "black_list": false,
+          "code": "306692005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Discharge to private residential home (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00054d",
+          "black_list": false,
+          "code": "306705005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Discharge to police custody (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00054e",
+          "black_list": false,
+          "code": "65537008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Patient discharge, to home, routine (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "57c06de3f081f37a7a00054f",
+          "black_list": false,
+          "code": "86400002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2015-09",
+          "display_name": "Patient discharge, to home, ambulatory (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Discharge To Home Or Police Custody",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.82",
+      "user_id": "573373bcf081f308d5000386",
+      "version": "Draft"
+    },
+    {
+      "_id": "57ec4ce0f081f342e200410b",
+      "bundle_id": "573373bef081f308d5000387",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "57ec4ce0f081f342e200410c",
+          "black_list": false,
+          "code": "105480006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Refusal of treatment by patient (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e200410d",
+          "black_list": false,
+          "code": "182890002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Patient requests alternative treatment (finding)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e200410e",
+          "black_list": false,
+          "code": "182895007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Drug declined by patient (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e200410f",
+          "black_list": false,
+          "code": "182896008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Drug declined by patient - dislikes taste (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e2004110",
+          "black_list": false,
+          "code": "182897004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Drug declined by patient - side effects (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e2004111",
+          "black_list": false,
+          "code": "182898009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Drug declined by patient - inconvenient (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e2004112",
+          "black_list": false,
+          "code": "182900006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Drug declined by patient - patient beliefs (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e2004113",
+          "black_list": false,
+          "code": "182901005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Drug declined by patient - alternative therapy (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e2004114",
+          "black_list": false,
+          "code": "182903008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Drug declined by patient - reason unknown (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e2004115",
+          "black_list": false,
+          "code": "183944003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Procedure refused (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e2004116",
+          "black_list": false,
+          "code": "183945002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Procedure refused for religious reason (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e2004117",
+          "black_list": false,
+          "code": "183947005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Refused procedure - after thought (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e2004118",
+          "black_list": false,
+          "code": "183948000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Refused procedure - parent's wish (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e2004119",
+          "black_list": false,
+          "code": "275936005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Patient noncompliance - general (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e200411a",
+          "black_list": false,
+          "code": "371138003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Refusal of treatment by parents (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e200411b",
+          "black_list": false,
+          "code": "385648002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Rejected by recipient (qualifier value)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e200411c",
+          "black_list": false,
+          "code": "406149000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Medication refused (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e200411d",
+          "black_list": false,
+          "code": "413312003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Patient non-compliant - refused service (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e200411e",
+          "black_list": false,
+          "code": "416432009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Procedure not wanted (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "57ec4ce0f081f342e200411f",
+          "black_list": false,
+          "code": "443390004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-03",
+          "display_name": "Refused (qualifier value)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Patient Refusal",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.93",
+      "user_id": "573373bcf081f308d5000386",
+      "version": "20160418"
+    },
+    {
+      "_id": "57ed557df081f32ae6000823",
+      "bundle_id": "573373bef081f308d5000387",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "57ed557df081f32ae6000824",
+          "black_list": false,
+          "code": "183452005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-09",
+          "display_name": "Emergency hospital admission (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557df081f32ae6000825",
+          "black_list": false,
+          "code": "32485007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-09",
+          "display_name": "Hospital admission (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557df081f32ae6000826",
+          "black_list": false,
+          "code": "8715000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2016-09",
+          "display_name": "Hospital admission, elective (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Encounter Inpatient",
+      "oid": "2.16.840.1.113883.3.666.5.307",
+      "user_id": "573373bcf081f308d5000386",
+      "version": "20160929"
+    },
+    {
+      "_id": "57ed557ff081f32ae6000f73",
+      "bundle_id": "573373bef081f308d5000387",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "57ed557ff081f32ae6000f74",
+          "black_list": false,
+          "code": "2135-2",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.0",
+          "display_name": "Hispanic or Latino",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f75",
+          "black_list": false,
+          "code": "2186-5",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.0",
+          "display_name": "Not Hispanic or Latino",
+          "white_list": false
+        }
+      ],
+      "display_name": "Ethnicity",
+      "oid": "2.16.840.1.114222.4.11.837",
+      "user_id": "573373bcf081f308d5000386",
+      "version": "20131030"
+    },
+    {
+      "_id": "57ed557ff081f32ae6000f76",
+      "bundle_id": "573373bef081f308d5000387",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "57ed557ff081f32ae6000f77",
+          "black_list": false,
+          "code": "F",
+          "code_system": "2.16.840.1.113883.5.1",
+          "code_system_name": "AdministrativeGender",
+          "code_system_version": "HL7V3.0_2015-07",
+          "display_name": "Female",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f78",
+          "black_list": false,
+          "code": "M",
+          "code_system": "2.16.840.1.113883.5.1",
+          "code_system_name": "AdministrativeGender",
+          "code_system_version": "HL7V3.0_2015-07",
+          "display_name": "Male",
+          "white_list": false
+        }
+      ],
+      "display_name": "ONC Administrative Sex",
+      "oid": "2.16.840.1.113762.1.4.1",
+      "user_id": "573373bcf081f308d5000386",
+      "version": "20160620"
+    },
+    {
+      "_id": "57ed557ff081f32ae6000f79",
+      "bundle_id": "573373bef081f308d5000387",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "57ed557ff081f32ae6000f7a",
+          "black_list": false,
+          "code": "1",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "MEDICARE",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f7b",
+          "black_list": false,
+          "code": "11",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicare (Managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f7c",
+          "black_list": false,
+          "code": "111",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicare HMO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f7d",
+          "black_list": false,
+          "code": "112",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicare PPO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f7e",
+          "black_list": false,
+          "code": "113",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicare POS",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f7f",
+          "black_list": false,
+          "code": "119",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicare Managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f80",
+          "black_list": false,
+          "code": "12",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicare (Non-managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f81",
+          "black_list": false,
+          "code": "121",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicare FFS",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f82",
+          "black_list": false,
+          "code": "122",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicare Drug Benefit",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f83",
+          "black_list": false,
+          "code": "123",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicare Medical Savings Account (MSA)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f84",
+          "black_list": false,
+          "code": "129",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicare Non-managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f85",
+          "black_list": false,
+          "code": "19",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicare Other",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f86",
+          "black_list": false,
+          "code": "2",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "MEDICAID",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f87",
+          "black_list": false,
+          "code": "21",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicaid (Managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f88",
+          "black_list": false,
+          "code": "211",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicaid HMO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f89",
+          "black_list": false,
+          "code": "212",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicaid PPO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f8a",
+          "black_list": false,
+          "code": "213",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicaid PCCM (Primary Care Case Management)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f8b",
+          "black_list": false,
+          "code": "219",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicaid Managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f8c",
+          "black_list": false,
+          "code": "22",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicaid (Non-managed Care Plan)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f8d",
+          "black_list": false,
+          "code": "23",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicaid/SCHIP",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f8e",
+          "black_list": false,
+          "code": "24",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicaid Applicant",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f8f",
+          "black_list": false,
+          "code": "25",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicaid - Out of State",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f90",
+          "black_list": false,
+          "code": "29",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicaid Other",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f91",
+          "black_list": false,
+          "code": "3",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f92",
+          "black_list": false,
+          "code": "31",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Department of Defense",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f93",
+          "black_list": false,
+          "code": "311",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "TRICARE (CHAMPUS)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f94",
+          "black_list": false,
+          "code": "3111",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "TRICARE Prime--HMO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f95",
+          "black_list": false,
+          "code": "3112",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "TRICARE Extra--PPO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f96",
+          "black_list": false,
+          "code": "3113",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "TRICARE Standard - Fee For Service",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f97",
+          "black_list": false,
+          "code": "3114",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "TRICARE For Life--Medicare Supplement",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f98",
+          "black_list": false,
+          "code": "3115",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "TRICARE Reserve Select",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f99",
+          "black_list": false,
+          "code": "3116",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Uniformed Services Family Health Plan (USFHP) -- HMO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f9a",
+          "black_list": false,
+          "code": "3119",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Department of Defense - (other)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f9b",
+          "black_list": false,
+          "code": "312",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Military Treatment Facility",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f9c",
+          "black_list": false,
+          "code": "3121",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Enrolled Prime--HMO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f9d",
+          "black_list": false,
+          "code": "3122",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Non-enrolled Space Available",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f9e",
+          "black_list": false,
+          "code": "3123",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "TRICARE For Life (TFL)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000f9f",
+          "black_list": false,
+          "code": "313",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Dental --Stand Alone",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fa0",
+          "black_list": false,
+          "code": "32",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Department of Veterans Affairs",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fa1",
+          "black_list": false,
+          "code": "321",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Veteran care--Care provided to Veterans",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fa2",
+          "black_list": false,
+          "code": "3211",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Direct Care--Care provided in VA facilities",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fa3",
+          "black_list": false,
+          "code": "3212",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Indirect Care--Care provided outside VA facilities",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fa4",
+          "black_list": false,
+          "code": "32121",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Fee Basis",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fa5",
+          "black_list": false,
+          "code": "32122",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Foreign Fee/Foreign Medical Program(FMP)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fa6",
+          "black_list": false,
+          "code": "32123",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Contract Nursing Home/Community Nursing Home",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fa7",
+          "black_list": false,
+          "code": "32124",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "State Veterans Home",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fa8",
+          "black_list": false,
+          "code": "32125",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Sharing Agreements",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fa9",
+          "black_list": false,
+          "code": "32126",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Other Federal Agency",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000faa",
+          "black_list": false,
+          "code": "322",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Non-veteran care",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fab",
+          "black_list": false,
+          "code": "3221",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Civilian Health and Medical Program for the VA (CHAMPVA)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fac",
+          "black_list": false,
+          "code": "3222",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Spina Bifida Health Care Program (SB)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fad",
+          "black_list": false,
+          "code": "3223",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Children of Women Vietnam Veterans (CWVV)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fae",
+          "black_list": false,
+          "code": "3229",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Other non-veteran care",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000faf",
+          "black_list": false,
+          "code": "33",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Indian Health Service or Tribe",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fb0",
+          "black_list": false,
+          "code": "331",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Indian Health Service -- Regular",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fb1",
+          "black_list": false,
+          "code": "332",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Indian Health Service -- Contract",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fb2",
+          "black_list": false,
+          "code": "333",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Indian Health Service - Managed Care",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fb3",
+          "black_list": false,
+          "code": "334",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Indian Tribe - Sponsored Coverage",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fb4",
+          "black_list": false,
+          "code": "34",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "HRSA Program",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fb5",
+          "black_list": false,
+          "code": "341",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Title V (MCH Block Grant)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fb6",
+          "black_list": false,
+          "code": "342",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Migrant Health Program",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fb7",
+          "black_list": false,
+          "code": "343",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Ryan White Act",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fb8",
+          "black_list": false,
+          "code": "349",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Other",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fb9",
+          "black_list": false,
+          "code": "35",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Black Lung",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fba",
+          "black_list": false,
+          "code": "36",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "State Government",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fbb",
+          "black_list": false,
+          "code": "361",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "State SCHIP program (codes for individual states)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fbc",
+          "black_list": false,
+          "code": "362",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Specific state programs (list/ local code)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fbd",
+          "black_list": false,
+          "code": "369",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "State, not otherwise specified (other state)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fbe",
+          "black_list": false,
+          "code": "37",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Local Government",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fbf",
+          "black_list": false,
+          "code": "371",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Local - Managed care",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fc0",
+          "black_list": false,
+          "code": "3711",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "HMO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fc1",
+          "black_list": false,
+          "code": "3712",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "PPO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fc2",
+          "black_list": false,
+          "code": "3713",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "POS",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fc3",
+          "black_list": false,
+          "code": "372",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "FFS/Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fc4",
+          "black_list": false,
+          "code": "379",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Local, not otherwise specified (other local, county)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fc5",
+          "black_list": false,
+          "code": "38",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Other Government (Federal, State, Local not specified)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fc6",
+          "black_list": false,
+          "code": "381",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Federal, State, Local not specified managed care",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fc7",
+          "black_list": false,
+          "code": "3811",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Federal, State, Local not specified - HMO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fc8",
+          "black_list": false,
+          "code": "3812",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Federal, State, Local not specified - PPO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fc9",
+          "black_list": false,
+          "code": "3813",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Federal, State, Local not specified - POS",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fca",
+          "black_list": false,
+          "code": "3819",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Federal, State, Local not specified - not specified managed care",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fcb",
+          "black_list": false,
+          "code": "382",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Federal, State, Local not specified - FFS",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fcc",
+          "black_list": false,
+          "code": "389",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Federal, State, Local not specified - Other",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fcd",
+          "black_list": false,
+          "code": "39",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Other Federal",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fce",
+          "black_list": false,
+          "code": "4",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "DEPARTMENTS OF CORRECTIONS",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fcf",
+          "black_list": false,
+          "code": "41",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Corrections Federal",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fd0",
+          "black_list": false,
+          "code": "42",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Corrections State",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fd1",
+          "black_list": false,
+          "code": "43",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Corrections Local",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fd2",
+          "black_list": false,
+          "code": "44",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Corrections Unknown Level",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fd3",
+          "black_list": false,
+          "code": "5",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "PRIVATE HEALTH INSURANCE",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fd4",
+          "black_list": false,
+          "code": "51",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Managed Care (Private)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fd5",
+          "black_list": false,
+          "code": "511",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Commercial Managed Care - HMO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fd6",
+          "black_list": false,
+          "code": "512",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Commercial Managed Care - PPO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fd7",
+          "black_list": false,
+          "code": "513",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Commercial Managed Care - POS",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fd8",
+          "black_list": false,
+          "code": "514",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Exclusive Provider Organization",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fd9",
+          "black_list": false,
+          "code": "515",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Gatekeeper PPO (GPPO)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fda",
+          "black_list": false,
+          "code": "519",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Managed Care, Other (non HMO)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fdb",
+          "black_list": false,
+          "code": "52",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Private Health Insurance - Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fdc",
+          "black_list": false,
+          "code": "521",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Commercial Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fdd",
+          "black_list": false,
+          "code": "522",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Self-insured (ERISA) Administrative Services Only (ASO) plan",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fde",
+          "black_list": false,
+          "code": "523",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Medicare supplemental policy (as second payer)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fdf",
+          "black_list": false,
+          "code": "529",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Private health insurance--other commercial Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fe0",
+          "black_list": false,
+          "code": "53",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Managed Care (private) or private health insurance (indemnity), not otherwise specified",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fe1",
+          "black_list": false,
+          "code": "54",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Organized Delivery System",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fe2",
+          "black_list": false,
+          "code": "55",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Small Employer Purchasing Group",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fe3",
+          "black_list": false,
+          "code": "59",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Other Private Insurance",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fe4",
+          "black_list": false,
+          "code": "6",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "BLUE CROSS/BLUE SHIELD",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fe5",
+          "black_list": false,
+          "code": "61",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "BC Managed Care",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fe6",
+          "black_list": false,
+          "code": "611",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "BC Managed Care -- HMO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fe7",
+          "black_list": false,
+          "code": "612",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "BC Managed Care -- PPO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fe8",
+          "black_list": false,
+          "code": "613",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "BC Managed Care -- POS",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fe9",
+          "black_list": false,
+          "code": "619",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "BC Managed Care -- Other",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fea",
+          "black_list": false,
+          "code": "62",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "BC Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000feb",
+          "black_list": false,
+          "code": "63",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "BC (Indemnity or Managed Care) - Out of State",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fec",
+          "black_list": false,
+          "code": "64",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "BC (Indemnity or Managed Care) - Unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fed",
+          "black_list": false,
+          "code": "69",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "BC (Indemnity or Managed Care) - Other",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fee",
+          "black_list": false,
+          "code": "7",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fef",
+          "black_list": false,
+          "code": "71",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "HMO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ff0",
+          "black_list": false,
+          "code": "72",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "PPO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ff1",
+          "black_list": false,
+          "code": "73",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "POS",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ff2",
+          "black_list": false,
+          "code": "79",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Other Managed Care",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ff3",
+          "black_list": false,
+          "code": "8",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "NO PAYMENT from an Organization/Agency/Program/Private Payer Listed",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ff4",
+          "black_list": false,
+          "code": "81",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Self-pay",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ff5",
+          "black_list": false,
+          "code": "82",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "No Charge",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ff6",
+          "black_list": false,
+          "code": "821",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Charity",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ff7",
+          "black_list": false,
+          "code": "822",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Professional Courtesy",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ff8",
+          "black_list": false,
+          "code": "823",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Research/Clinical Trial",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ff9",
+          "black_list": false,
+          "code": "83",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Refusal to Pay/Bad Debt",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ffa",
+          "black_list": false,
+          "code": "84",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Hill Burton Free Care",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ffb",
+          "black_list": false,
+          "code": "85",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Research/Donor",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ffc",
+          "black_list": false,
+          "code": "89",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "No Payment, Other",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ffd",
+          "black_list": false,
+          "code": "9",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "MISCELLANEOUS/OTHER",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000ffe",
+          "black_list": false,
+          "code": "91",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Foreign National",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6000fff",
+          "black_list": false,
+          "code": "92",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Other (Non-government)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6001000",
+          "black_list": false,
+          "code": "93",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Disability Insurance",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6001001",
+          "black_list": false,
+          "code": "94",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Long-term Care Insurance",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6001002",
+          "black_list": false,
+          "code": "95",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Worker's Compensation",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6001003",
+          "black_list": false,
+          "code": "951",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Worker's Comp HMO",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6001004",
+          "black_list": false,
+          "code": "953",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Worker's Comp Fee-for-Service",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6001005",
+          "black_list": false,
+          "code": "954",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Worker's Comp Other Managed Care",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6001006",
+          "black_list": false,
+          "code": "959",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Worker's Comp, Other unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6001007",
+          "black_list": false,
+          "code": "96",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Auto Insurance (includes no fault)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6001008",
+          "black_list": false,
+          "code": "98",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6001009",
+          "black_list": false,
+          "code": "99",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "No Typology Code available for payment source",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae600100a",
+          "black_list": false,
+          "code": "9999",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "6.0",
+          "display_name": "Unavailable / No Payer Specified / Blank",
+          "white_list": false
+        }
+      ],
+      "display_name": "Payer",
+      "oid": "2.16.840.1.114222.4.11.3591",
+      "user_id": "573373bcf081f308d5000386",
+      "version": "20160516"
+    },
+    {
+      "_id": "57ed557ff081f32ae600100b",
+      "bundle_id": "573373bef081f308d5000387",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "57ed557ff081f32ae600100c",
+          "black_list": false,
+          "code": "1002-5",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.0",
+          "display_name": "American Indian or Alaska Native",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae600100d",
+          "black_list": false,
+          "code": "2028-9",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.0",
+          "display_name": "Asian",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae600100e",
+          "black_list": false,
+          "code": "2054-5",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.0",
+          "display_name": "Black or African American",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae600100f",
+          "black_list": false,
+          "code": "2076-8",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.0",
+          "display_name": "Native Hawaiian or Other Pacific Islander",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6001010",
+          "black_list": false,
+          "code": "2106-3",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.0",
+          "display_name": "White",
+          "white_list": false
+        },
+        {
+          "_id": "57ed557ff081f32ae6001011",
+          "black_list": false,
+          "code": "2131-1",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.0",
+          "display_name": "Other Race",
+          "white_list": false
+        }
+      ],
+      "display_name": "Race",
+      "oid": "2.16.840.1.114222.4.11.836",
+      "user_id": "573373bcf081f308d5000386",
+      "version": "20131030"
+    }
+  ]
+}

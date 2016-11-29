@@ -1,0 +1,1521 @@
+{
+  "_id": "55a91bd269702d0e73545600",
+  "bundle_id": "53502082192e73777e001226",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "55a91bd269702d0e73555600",
+      "black_list": false,
+      "code": "1299859",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / Moexipril hydrochloride 15 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73565600",
+      "black_list": false,
+      "code": "197439",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Captopril 50 MG / Hydrochlorothiazide 25 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73575600",
+      "black_list": false,
+      "code": "197884",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Lisinopril 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73585600",
+      "black_list": false,
+      "code": "198188",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Ramipril 2.5 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73595600",
+      "black_list": false,
+      "code": "199816",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "trandolapril 1 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e735a5600",
+      "black_list": false,
+      "code": "199817",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "trandolapril 2 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e735b5600",
+      "black_list": false,
+      "code": "199850",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "valsartan 80 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e735c5600",
+      "black_list": false,
+      "code": "251857",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Ramipril 5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e735d5600",
+      "black_list": false,
+      "code": "261962",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Ramipril 10 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e735e5600",
+      "black_list": false,
+      "code": "308964",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Captopril 50 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e735f5600",
+      "black_list": false,
+      "code": "312748",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "quinapril 10 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73605600",
+      "black_list": false,
+      "code": "314077",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Lisinopril 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73615600",
+      "black_list": false,
+      "code": "349373",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Olmesartan medoxomil 5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73625600",
+      "black_list": false,
+      "code": "722126",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 10 MG / valsartan 160 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73635600",
+      "black_list": false,
+      "code": "722137",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 5 MG / valsartan 320 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73645600",
+      "black_list": false,
+      "code": "730866",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 10 MG / Olmesartan medoxomil 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73655600",
+      "black_list": false,
+      "code": "730869",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 5 MG / Olmesartan medoxomil 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73665600",
+      "black_list": false,
+      "code": "848151",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 10 MG / Hydrochlorothiazide 25 MG / valsartan 160 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73675600",
+      "black_list": false,
+      "code": "858804",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Enalapril Maleate 2.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73685600",
+      "black_list": false,
+      "code": "876514",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 10 MG / telmisartan 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73695600",
+      "black_list": false,
+      "code": "898342",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 10 MG / Benazepril hydrochloride 20 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e736a5600",
+      "black_list": false,
+      "code": "979468",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / Losartan Potassium 50 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e736b5600",
+      "black_list": false,
+      "code": "1011729",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "aliskiren 300 MG / valsartan 320 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e736c5600",
+      "black_list": false,
+      "code": "197885",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / Lisinopril 10 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e736d5600",
+      "black_list": false,
+      "code": "199353",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "trandolapril 1 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e736e5600",
+      "black_list": false,
+      "code": "310793",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / irbesartan 300 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e736f5600",
+      "black_list": false,
+      "code": "349201",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "valsartan 160 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73705600",
+      "black_list": false,
+      "code": "349405",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Olmesartan medoxomil 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73715600",
+      "black_list": false,
+      "code": "349483",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "valsartan 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73725600",
+      "black_list": false,
+      "code": "403854",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / Olmesartan medoxomil 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73735600",
+      "black_list": false,
+      "code": "848145",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 5 MG / Hydrochlorothiazide 25 MG / valsartan 160 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73745600",
+      "black_list": false,
+      "code": "876529",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 5 MG / telmisartan 80 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73755600",
+      "black_list": false,
+      "code": "898690",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Benazepril hydrochloride 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73765600",
+      "black_list": false,
+      "code": "898723",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Benazepril hydrochloride 5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73775600",
+      "black_list": false,
+      "code": "999967",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 5 MG / Hydrochlorothiazide 12.5 MG / Olmesartan medoxomil 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73785600",
+      "black_list": false,
+      "code": "1011718",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "aliskiren 150 MG / valsartan 160 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73795600",
+      "black_list": false,
+      "code": "1299890",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 25 MG / Moexipril hydrochloride 15 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e737a5600",
+      "black_list": false,
+      "code": "199351",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "trandolapril 2 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e737b5600",
+      "black_list": false,
+      "code": "310140",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "eprosartan 600 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e737c5600",
+      "black_list": false,
+      "code": "310792",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / irbesartan 150 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e737d5600",
+      "black_list": false,
+      "code": "310796",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / quinapril 10 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e737e5600",
+      "black_list": false,
+      "code": "310809",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 25 MG / quinapril 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e737f5600",
+      "black_list": false,
+      "code": "317173",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Captopril 25 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73805600",
+      "black_list": false,
+      "code": "349199",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "valsartan 80 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73815600",
+      "black_list": false,
+      "code": "349353",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 25 MG / valsartan 160 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73825600",
+      "black_list": false,
+      "code": "351292",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "eprosartan 600 MG / Hydrochlorothiazide 12.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73835600",
+      "black_list": false,
+      "code": "833237",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Diltiazem Hydrochloride 180 MG / Enalapril Maleate 5 MG Extended Release Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73845600",
+      "black_list": false,
+      "code": "854988",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Perindopril Erbumine 4 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73855600",
+      "black_list": false,
+      "code": "857169",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Fosinopril Sodium 10 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73865600",
+      "black_list": false,
+      "code": "858824",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Enalapril Maleate 5 MG / Hydrochlorothiazide 12.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73875600",
+      "black_list": false,
+      "code": "876519",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 10 MG / telmisartan 80 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73885600",
+      "black_list": false,
+      "code": "898346",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 10 MG / Benazepril hydrochloride 40 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73895600",
+      "black_list": false,
+      "code": "898719",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Benazepril hydrochloride 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e738a5600",
+      "black_list": false,
+      "code": "979464",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / Losartan Potassium 100 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e738b5600",
+      "black_list": false,
+      "code": "979492",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Losartan Potassium 50 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e738c5600",
+      "black_list": false,
+      "code": "999991",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 10 MG / Hydrochlorothiazide 25 MG / Olmesartan medoxomil 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e738d5600",
+      "black_list": false,
+      "code": "999996",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 5 MG / Hydrochlorothiazide 12.5 MG / Olmesartan medoxomil 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e738e5600",
+      "black_list": false,
+      "code": "1299871",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / Moexipril hydrochloride 7.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e738f5600",
+      "black_list": false,
+      "code": "153823",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "candesartan cilexetil 8 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73905600",
+      "black_list": false,
+      "code": "802749",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "candesartan cilexetil 32 MG / Hydrochlorothiazide 25 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73915600",
+      "black_list": false,
+      "code": "854984",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Perindopril Erbumine 2 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73925600",
+      "black_list": false,
+      "code": "898367",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Benazepril hydrochloride 20 MG / Hydrochlorothiazide 12.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73935600",
+      "black_list": false,
+      "code": "898378",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Benazepril hydrochloride 5 MG / Hydrochlorothiazide 6.25 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73945600",
+      "black_list": false,
+      "code": "1299897",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Moexipril hydrochloride 7.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73955600",
+      "black_list": false,
+      "code": "153822",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "candesartan cilexetil 4 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73965600",
+      "black_list": false,
+      "code": "197436",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Captopril 25 MG / Hydrochlorothiazide 15 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73975600",
+      "black_list": false,
+      "code": "197437",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Captopril 25 MG / Hydrochlorothiazide 25 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73985600",
+      "black_list": false,
+      "code": "197438",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Captopril 50 MG / Hydrochlorothiazide 15 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73995600",
+      "black_list": false,
+      "code": "205305",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "telmisartan 80 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e739a5600",
+      "black_list": false,
+      "code": "205326",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Lisinopril 30 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e739b5600",
+      "black_list": false,
+      "code": "251856",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Ramipril 2.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e739c5600",
+      "black_list": false,
+      "code": "308963",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Captopril 12.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e739d5600",
+      "black_list": false,
+      "code": "311353",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Lisinopril 2.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e739e5600",
+      "black_list": false,
+      "code": "312749",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "quinapril 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e739f5600",
+      "black_list": false,
+      "code": "349401",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Olmesartan medoxomil 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73a05600",
+      "black_list": false,
+      "code": "403853",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / Olmesartan medoxomil 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73a15600",
+      "black_list": false,
+      "code": "411434",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "trandolapril 4 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73a25600",
+      "black_list": false,
+      "code": "578325",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "candesartan cilexetil 16 MG / Hydrochlorothiazide 12.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73a35600",
+      "black_list": false,
+      "code": "578330",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "candesartan cilexetil 32 MG / Hydrochlorothiazide 12.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73a45600",
+      "black_list": false,
+      "code": "636042",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / valsartan 320 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73a55600",
+      "black_list": false,
+      "code": "722131",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 10 MG / valsartan 320 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73a65600",
+      "black_list": false,
+      "code": "848140",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 5 MG / Hydrochlorothiazide 12.5 MG / valsartan 160 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73a75600",
+      "black_list": false,
+      "code": "857166",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Fosinopril Sodium 10 MG / Hydrochlorothiazide 12.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73a85600",
+      "black_list": false,
+      "code": "857174",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Fosinopril Sodium 20 MG / Hydrochlorothiazide 12.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73a95600",
+      "black_list": false,
+      "code": "857183",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Fosinopril Sodium 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73aa5600",
+      "black_list": false,
+      "code": "858621",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Enalapril Maleate 5 MG / Felodipine 5 MG Extended Release Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73ab5600",
+      "black_list": false,
+      "code": "897781",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "24 HR trandolapril 1 MG / Verapamil hydrochloride 240 MG Extended Release Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73ac5600",
+      "black_list": false,
+      "code": "897844",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "24 HR trandolapril 2 MG / Verapamil hydrochloride 240 MG Extended Release Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73ad5600",
+      "black_list": false,
+      "code": "897853",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "24 HR trandolapril 4 MG / Verapamil hydrochloride 240 MG Extended Release Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73ae5600",
+      "black_list": false,
+      "code": "898362",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Benazepril hydrochloride 10 MG / Hydrochlorothiazide 12.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73af5600",
+      "black_list": false,
+      "code": "979485",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Losartan Potassium 25 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73b05600",
+      "black_list": false,
+      "code": "1299896",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Moexipril hydrochloride 15 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73b15600",
+      "black_list": false,
+      "code": "199622",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "trandolapril 0.5 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73b25600",
+      "black_list": false,
+      "code": "200095",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "irbesartan 150 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73b35600",
+      "black_list": false,
+      "code": "200285",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / valsartan 160 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73b45600",
+      "black_list": false,
+      "code": "205304",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "telmisartan 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73b55600",
+      "black_list": false,
+      "code": "247516",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Captopril 6.25 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73b65600",
+      "black_list": false,
+      "code": "310797",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / quinapril 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73b75600",
+      "black_list": false,
+      "code": "311354",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Lisinopril 5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73b85600",
+      "black_list": false,
+      "code": "351293",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "eprosartan 600 MG / Hydrochlorothiazide 25 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73b95600",
+      "black_list": false,
+      "code": "401968",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Ramipril 10 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73ba5600",
+      "black_list": false,
+      "code": "636045",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 25 MG / valsartan 320 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73bb5600",
+      "black_list": false,
+      "code": "722134",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 5 MG / valsartan 160 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73bc5600",
+      "black_list": false,
+      "code": "845488",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Ramipril 1.25 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73bd5600",
+      "black_list": false,
+      "code": "854925",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Perindopril Erbumine 8 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73be5600",
+      "black_list": false,
+      "code": "858618",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Enalapril Maleate 5 MG / Felodipine 2.5 MG Extended Release Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73bf5600",
+      "black_list": false,
+      "code": "898353",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 5 MG / Benazepril hydrochloride 10 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73c05600",
+      "black_list": false,
+      "code": "1000001",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 5 MG / Hydrochlorothiazide 25 MG / Olmesartan medoxomil 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73c15600",
+      "black_list": false,
+      "code": "197886",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / Lisinopril 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73c25600",
+      "black_list": false,
+      "code": "310139",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "eprosartan 400 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73c35600",
+      "black_list": false,
+      "code": "314203",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "quinapril 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73c45600",
+      "black_list": false,
+      "code": "403855",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 25 MG / Olmesartan medoxomil 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73c55600",
+      "black_list": false,
+      "code": "477130",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 25 MG / telmisartan 80 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73c65600",
+      "black_list": false,
+      "code": "485471",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 25 MG / irbesartan 300 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73c75600",
+      "black_list": false,
+      "code": "577776",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "candesartan cilexetil 16 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73c85600",
+      "black_list": false,
+      "code": "639537",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "candesartan cilexetil 32 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73c95600",
+      "black_list": false,
+      "code": "730872",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 5 MG / Olmesartan medoxomil 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73ca5600",
+      "black_list": false,
+      "code": "857187",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Fosinopril Sodium 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73cb5600",
+      "black_list": false,
+      "code": "858828",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Enalapril Maleate 10 MG / Hydrochlorothiazide 25 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73cc5600",
+      "black_list": false,
+      "code": "858921",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Enalapril Maleate 20 MG / Hydrochlorothiazide 12.5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73cd5600",
+      "black_list": false,
+      "code": "897783",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "24 HR trandolapril 2 MG / Verapamil hydrochloride 180 MG Extended Release Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73ce5600",
+      "black_list": false,
+      "code": "898350",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 2.5 MG / Benazepril hydrochloride 10 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73cf5600",
+      "black_list": false,
+      "code": "898356",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 5 MG / Benazepril hydrochloride 20 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73d05600",
+      "black_list": false,
+      "code": "898359",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 5 MG / Benazepril hydrochloride 40 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73d15600",
+      "black_list": false,
+      "code": "898372",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Benazepril hydrochloride 20 MG / Hydrochlorothiazide 25 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73d25600",
+      "black_list": false,
+      "code": "898687",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Benazepril hydrochloride 10 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73d35600",
+      "black_list": false,
+      "code": "197887",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 25 MG / Lisinopril 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73d45600",
+      "black_list": false,
+      "code": "198189",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Ramipril 5 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73d55600",
+      "black_list": false,
+      "code": "199352",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "trandolapril 4 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73d65600",
+      "black_list": false,
+      "code": "199919",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "valsartan 160 MG Oral Capsule",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73d75600",
+      "black_list": false,
+      "code": "200094",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "irbesartan 75 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73d85600",
+      "black_list": false,
+      "code": "200096",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "irbesartan 300 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73d95600",
+      "black_list": false,
+      "code": "200284",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / valsartan 80 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73da5600",
+      "black_list": false,
+      "code": "282755",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "telmisartan 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73db5600",
+      "black_list": false,
+      "code": "283316",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / telmisartan 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73dc5600",
+      "black_list": false,
+      "code": "283317",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 12.5 MG / telmisartan 80 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73dd5600",
+      "black_list": false,
+      "code": "308962",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Captopril 100 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73de5600",
+      "black_list": false,
+      "code": "312750",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "quinapril 5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73df5600",
+      "black_list": false,
+      "code": "314076",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Lisinopril 10 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73e05600",
+      "black_list": false,
+      "code": "349200",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "valsartan 320 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73e15600",
+      "black_list": false,
+      "code": "401965",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Ramipril 1.25 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73e25600",
+      "black_list": false,
+      "code": "730861",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 10 MG / Olmesartan medoxomil 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73e35600",
+      "black_list": false,
+      "code": "848131",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 10 MG / Hydrochlorothiazide 12.5 MG / valsartan 160 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73e45600",
+      "black_list": false,
+      "code": "848135",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 10 MG / Hydrochlorothiazide 25 MG / valsartan 320 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73e55600",
+      "black_list": false,
+      "code": "858810",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Enalapril Maleate 20 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73e65600",
+      "black_list": false,
+      "code": "858813",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Enalapril Maleate 5 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73e75600",
+      "black_list": false,
+      "code": "858817",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Enalapril Maleate 10 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73e85600",
+      "black_list": false,
+      "code": "876524",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 5 MG / telmisartan 40 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73e95600",
+      "black_list": false,
+      "code": "979471",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide 25 MG / Losartan Potassium 100 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73ea5600",
+      "black_list": false,
+      "code": "979480",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Losartan Potassium 100 MG Oral Tablet",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73eb5600",
+      "black_list": false,
+      "code": "999986",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine 10 MG / Hydrochlorothiazide 12.5 MG / Olmesartan medoxomil 40 MG Oral Tablet",
+      "white_list": false
+    }
+  ],
+  "display_name": "ACE Inhibitor or ARB",
+  "oid": "2.16.840.1.113883.3.526.3.1139",
+  "user_id": "53502082192e73777e001225",
+  "version": "Draft"
+}
