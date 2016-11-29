@@ -7,7 +7,7 @@ describe 'PatientDashboardPatient', ->
     @measure = bonnie.measures.findWhere(cms_id: 'CMS128v5')
     
     # getting a particular patient whose characteristics we know about.
-    # patient: Clawson Clawson
+    # patient: Harriot Clawson
     #  DOB: 4/05/1927
     #  Diagnosis: Major Depression 01/01/2012
     #  Medication, Dispensed: Antidepressant Medication 01/15/2012-01/15/2012
