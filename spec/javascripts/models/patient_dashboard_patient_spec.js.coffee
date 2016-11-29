@@ -7,7 +7,7 @@ describe 'PatientDashboardPatient', ->
     @measure = bonnie.measures.findWhere(cms_id: 'CMS128v5')
     
     # getting a particular patient whose characteristics we know about.
-    # patient: Hillary Clinton
+    # patient: Clawson Clawson
     #  DOB: 4/05/1927
     #  Diagnosis: Major Depression 01/01/2012
     #  Medication, Dispensed: Antidepressant Medication 01/15/2012-01/15/2012
@@ -15,7 +15,7 @@ describe 'PatientDashboardPatient', ->
     #  Encounter, Performed: Annual Wellness Visit 12/31/2012 - 12/31/2012
     collection = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
     @patient = collection.filter((patient) => 
-      @measure.get('hqmf_set_id') in patient.get('measure_ids') && patient.get('first') == "Hillary")[0]
+      @measure.get('hqmf_set_id') in patient.get('measure_ids') && patient.get('first') == "Harriot")[0]
     
     # getting the population sets relevant to the model (IPP, DENOM, etc.)
     codes = (population['code'] for population in @measure.get('measure_logic'))
@@ -49,8 +49,8 @@ describe 'PatientDashboardPatient', ->
     
   it 'intialized properly', ->
     expect(@patientDashboardPatient.id).toEqual('543b538f69702d691af00300')
-    expect(@patientDashboardPatient.first).toEqual('Hillary')
-    expect(@patientDashboardPatient.last).toEqual('Clinton')
+    expect(@patientDashboardPatient.first).toEqual('Harriot')
+    expect(@patientDashboardPatient.last).toEqual('Clawson')
     expect(@patientDashboardPatient.description).toEqual('Correct age. Encounter takes place during MP. Diagnosis of depression takes place within the allowed time frame (<=60 day(s) SBSO or SASO Occ A Medications). Occ A of medication dispensed is outside the allowed time frame (>90 days SASO MP). Medicati')
     expect(@patientDashboardPatient.birthdate).toEqual('04/05/1927 08:00 AM')
     expect(@patientDashboardPatient.deathdate).toEqual('')
