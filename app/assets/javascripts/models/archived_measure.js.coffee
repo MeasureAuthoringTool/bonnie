@@ -60,5 +60,5 @@ class Thorax.Collections.ArchivedMeasures extends Thorax.Collections.DeferredCol
   # @return {Thorax.Models.ArchivedMeasure[]} Array of lazy loaded archived measures.
   ###
   parse: (response, options) ->
-    return _(response).map (arch_measure) ->
-       new Thorax.Models.ArchivedMeasure {_id: arch_measure.measure_db_id}, _fetched: false
+    return _(response).map (archived_measure) ->
+       new Thorax.Models.ArchivedMeasure {_id: archived_measure.measure_db_id}, _fetched: false

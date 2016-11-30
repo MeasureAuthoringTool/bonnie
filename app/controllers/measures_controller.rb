@@ -189,8 +189,8 @@ class MeasuresController < ApplicationController
 
       # if a measure is being updated, save out the pre-existing measure as an archived measure.
       if (existing && is_update)
-        arch_measure = ArchivedMeasure.from_measure(existing)
-        arch_measure.save
+        archived_measure = ArchivedMeasure.from_measure(existing)
+        archived_measure.save
         existing.delete
       end
 
@@ -270,7 +270,7 @@ class MeasuresController < ApplicationController
     #  Initialize an Upload Summary by taking a snapshot of the patients before the measure is updated.
     # For the initial relase of the Measure Upload History the feature will be disabled for portfolio users
     measure_patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
-    upload_summary_id = UploadSummary.collect_before_upload_state(measure, arch_measure, measure_patients) unless current_user.is_portfolio?
+    upload_summary_id = UploadSummary.collect_before_upload_state(measure, archived_measure, measure_patients) unless current_user.is_portfolio?
     measure.save!
 
     # run the calcs for the patients with the new version of the measure

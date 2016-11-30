@@ -27,18 +27,11 @@ module UploadSummary
     field :uploaded_at, type: Time, default: -> { Time.current }
     field :measure_db_id_pre_upload, type: BSON::ObjectId # The mongoid id of the measure before it is archived
     field :measure_db_id_post_upload, type: BSON::ObjectId # The mongoid id of the measure post_upload_results it is has been updated
-<<<<<<< 453e25841f2221bee325a92722cb83e42a822c6f
-    field :cms_id_pre_upload, type: String
-    field :cms_id_post_upload, type: String
-    field :hqmf_version_number_pre_upload, type: String
-    field :hqmf_version_number_post_upload, type: String
-=======
-    field :measure_cms_id_before, type: String
-    field :measure_cms_id_after, type: String
-    field :measure_hqmf_version_number_before, type: String
-    field :measure_hqmf_version_number_after, type: String
+    field :measure_cms_id_pre_upload, type: String
+    field :measure_cms_id_post_upload, type: String
+    field :measure_hqmf_version_number_pre_upload, type: String
+    field :measure_hqmf_version_number_post_upload, type: String
     field :measure_population_set_count, type: Hash, default: {pre_upload: 0, post_upload: 0}
->>>>>>> Clean logic for passing patients and population sets
     belongs_to :user
     embeds_many :population_set_summaries, cascade_callbacks: true
     accepts_nested_attributes_for :population_set_summaries
@@ -91,14 +84,14 @@ module UploadSummary
     end
   end
 
-  def self.collect_before_upload_state(measure, arch_measure, measure_patients)
+  def self.collect_before_upload_state(measure, archived_measure, measure_patients)
 
-    # We need to iterate over the population sets in the arch_measure (aka the old version) of the measure
+    # We need to iterate over the population sets in the archived_measure (aka the old version) of the measure
     # because the new version of the measure may change the number of population sets.
-    # If arch_measure is nil then it means that we are dealing with the first upload of the measure after
-    # its initial load. In this state there is arch_measure yet.
-    if arch_measure
-      before_upload_population_sets = arch_measure.measure_content['populations']
+    # If archived_measure is nil then it means that we are dealing with the first upload of the measure after
+    # its initial load. In this state there is archived_measure yet.
+    if archived_measure
+      before_upload_population_sets = archived_measure.measure_content['populations']
     else
       before_upload_population_sets = measure.populations
     end
@@ -114,14 +107,14 @@ module UploadSummary
     measure_upload_summary.hqmf_id = measure.hqmf_id
     measure_upload_summary.hqmf_set_id = measure.hqmf_set_id
     measure_upload_summary.user_id = measure.user_id
-    if arch_measure
-      measure_upload_summary.measure_db_id_pre_upload = arch_measure.measure_db_id
-      measure_upload_summary.cms_id_pre_upload = arch_measure.measure_content['cms_id']
-      measure_upload_summary.hqmf_version_number_pre_upload = arch_measure.measure_content['hqmf_version_number']
+    if archived_measure
+      measure_upload_summary.measure_db_id_pre_upload = archived_measure.measure_db_id
+      measure_upload_summary.measure_cms_id_pre_upload = archived_measure.measure_content['cms_id']
+      measure_upload_summary.hqmf_version_number_pre_upload = archived_measure.measure_content['hqmf_version_number']
     end
     measure_upload_summary.measure_db_id_post_upload = measure.id
-    measure_upload_summary.measure_cms_id_after = measure.cms_id
-    measure_upload_summary.measure_hqmf_version_number_after = measure.hqmf_version_number
+    measure_upload_summary.measure_cms_id_post_upload = measure.cms_id
+    measure_upload_summary.measure_hqmf_version_number_post_upload = measure.hqmf_version_number
     measure_upload_summary.measure_population_set_count[:pre_upload] = before_upload_population_sets.count
     measure_upload_summary.measure_population_set_count[:post_upload] = measure.populations.count
     measure_upload_summary.save!
