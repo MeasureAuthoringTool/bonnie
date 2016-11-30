@@ -48,25 +48,27 @@ class MeasuresController < ApplicationController
     measure_logic_names = HQMF::Measure::LogicExtractor::POPULATION_MAP.clone
     measure_logic_names['VARIABLES'] = 'Variables'
 
-    # Walk through the population sets for the measure
+    # Walk through the population sets and populations for the measure and create a
+    # diffy for each populationm.
     @new_measure.populations.each_with_index do |new_population_set, population_set_index|
       old_population_set = @old_measure.populations[population_set_index]
       population_diff = []
 
-      # For each population within the population set get the description
-      # For example if there are two population sets and both have a population 
-      # of 'IPP' you will have codes of IPP (for population set 0) and IPP_1
-      # (for population_set 1).  
+      # For each population within the population set, get the population logic and
+      # perform the diffy
       measure_logic_names.each_pair do |population_code, population_title|
-        new_logic = @new_measure.measure_logic.select { |logic| logic['code'] == ((population_code == 'VARIABLES') ? 'VARIABLES' : new_population_set[population_code]) }.first
-        old_logic = @old_measure.measure_logic.select { |logic| logic['code'] == ((population_code == 'VARIABLES') ? 'VARIABLES' : old_population_set[population_code]) }.first
+        # if the code is for VARIABLE, leave it. If it's IPP, etc., then access the actual code name from the
+        # population set (e.g. IPP_1).
+        code = (population_code == 'VARIABLES') ? 'VARIABLES' : new_population_set[population_code]
+        new_logic = @new_measure.measure_logic.find { |logic| logic['code'] == code }
+        old_logic = @old_measure.measure_logic.find { |logic| logic['code'] == code }
 
         # skip if both are non existent
         next if !new_logic && !old_logic
         
-        # Remove the first line of the measure logic which is the the name of the population.
-        old_logic_text = old_logic ? old_logic['lines'].slice(1, old_logic['lines'].length-1).join() : ""
-        new_logic_text = new_logic ? new_logic['lines'].slice(1, new_logic['lines'].length-1).join() : ""
+        # Remove the first line of the measure logic, which is the the name of the population.
+        old_logic_text = old_logic ? old_logic['lines'][1..-1].join() : ""
+        new_logic_text = new_logic ? new_logic['lines'][1..-1].join() : ""
 
         logic_diff = Diffy::SplitDiff.new(old_logic_text, new_logic_text,
           format: :html, include_plus_and_minus_in_html: true, allow_empty_diff: false)
@@ -80,6 +82,9 @@ class MeasuresController < ApplicationController
     render :json => results
   end
 
+  ##
+  # GET /measures/value_sets
+  #
   def value_sets
     # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
     # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
@@ -182,11 +187,13 @@ class MeasuresController < ApplicationController
         return
       end
 
+      # if a measure is being updated, save out the pre-existing measure as an archived measure.
       if (existing && is_update)
         arch_measure = ArchivedMeasure.from_measure(existing)
         arch_measure.save
         existing.delete
       end
+
     rescue Exception => e
       if params[:measure_file]
         measure.delete if measure
@@ -260,8 +267,8 @@ class MeasuresController < ApplicationController
 
     measure.generate_js
 
-    #  Initialize an Upload Summary by taking a snapshot of the patients before the measure is updated.
-    # For the initial relase of the Measure Upload History the feature will be disabled for portfolio users
+    # Initialize an Upload Summary by taking a snapshot of the patients before the measure is updated.
+    # For the initial release of the Measure Upload History the feature will be disabled for portfolio users
     upload_summary_id = UploadSummary.collect_before_upload_state(measure, arch_measure) unless current_user.is_portfolio?
     measure.save!
 
@@ -269,7 +276,7 @@ class MeasuresController < ApplicationController
     # if the measure needs finalize (measure.needs_finalize == true) hold the calc of the patients until after the finalize
 
     # trigger the measure upload summary for the user.
-    # TODO Enable for portfolio users
+    # TODO Eventually enable for portfolio users
     if !measure.needs_finalize && !current_user.is_portfolio?
       check_patient_expected_values(measure)
       UploadSummary.calculate_updated_actuals(measure)
@@ -290,8 +297,9 @@ class MeasuresController < ApplicationController
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
-
-
+  ##
+  # GET /measures/vsac_auth_valid
+  #
   def vsac_auth_valid
     # If VSAC TGT is still valid, return its expiration date/time
     tgt = session[:tgt]
@@ -302,6 +310,9 @@ class MeasuresController < ApplicationController
     end
   end
 
+  ##
+  # GET /measures/vsac_auth_expire
+  #
   def vsac_auth_expire
     # Force expire the VSAC session
     session[:tgt] = nil
@@ -316,6 +327,9 @@ class MeasuresController < ApplicationController
     render :json => measure
   end
 
+  ##
+  # GET /measures/finalize
+  #
   def finalize
     measure_finalize_data = params.values.select {|p| p['hqmf_id']}.uniq
     measure_finalize_data.each do |data|
