@@ -132,7 +132,7 @@ module UploadSummary
     measure_upload_summary = MeasureSummary.where(id: upload_summary_id).first
     if measure_upload_summary.measure_population_set_count[:pre_upload] < measure_upload_summary.measure_population_set_count[:post_upload]
       
-      population_sets_to_add = measure.populations.count - measure_upload_summary.population_set_summaries.count
+      population_sets_to_add = measure_upload_summary.measure_population_set_count[:post_upload] - measure_upload_summary.measure_population_set_count[:pre_upload]
       # Add the missing population sets
       # Using downto so that the population sets can be added from where they are missing.
       # It needs to be done this way as the order of the population sets is their population_index.
