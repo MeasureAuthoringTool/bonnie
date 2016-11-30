@@ -29,7 +29,7 @@ module UploadSummary
     field :measure_db_id_post_upload, type: BSON::ObjectId # The mongoid id of the measure post_upload_results it is has been updated
     field :cms_id_pre_upload, type: String
     field :cms_id_post_upload, type: String
-    field :hqmf_version_number_pre_uplaod, type: String
+    field :hqmf_version_number_pre_upload, type: String
     field :hqmf_version_number_post_upload, type: String
     belongs_to :user
     embeds_many :population_set_summaries, cascade_callbacks: true
@@ -100,7 +100,7 @@ module UploadSummary
     if arch_measure
       measure_upload_summary.measure_db_id_pre_upload = arch_measure.measure_db_id
       measure_upload_summary.cms_id_pre_upload = arch_measure.measure_content['cms_id']
-      measure_upload_summary.hqmf_version_number_pre_uplaod = arch_measure.measure_content['hqmf_version_number']
+      measure_upload_summary.hqmf_version_number_pre_upload = arch_measure.measure_content['hqmf_version_number']
     end
     measure_upload_summary.measure_db_id_post_upload = measure.id
     measure_upload_summary.cms_id_post_upload = measure.cms_id
