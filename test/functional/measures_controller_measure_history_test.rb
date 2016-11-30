@@ -59,8 +59,8 @@ class MeasuresControllerTest < ActionController::TestCase
 
     upload_summary = UploadSummary::MeasureSummary.where(hqmf_id: '40280381-51F0-825B-0152-229B7B2F16F9').first
     assert_not_nil upload_summary
-    assert_equal 'CMS123v3', upload_summary.measure_cms_id_before
-    assert_equal 'CMS123v5', upload_summary.measure_cms_id_after
+    assert_equal 'CMS123v3', upload_summary.cms_id_pre_upload
+    assert_equal 'CMS123v5', upload_summary.cms_id_post_upload
     assert_equal 3, upload_summary.population_set_summaries[0][:summary][:pass_before]
     assert_equal 3, upload_summary.population_set_summaries[0][:summary][:pass_after]
     assert_equal true, upload_summary.population_set_summaries[0][:patients][p.id.to_s][:results_exceeds_storage_pre_upload]

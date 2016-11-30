@@ -27,10 +27,10 @@ module UploadSummary
     field :uploaded_at, type: Time, default: -> { Time.current }
     field :measure_db_id_pre_upload, type: BSON::ObjectId # The mongoid id of the measure before it is archived
     field :measure_db_id_post_upload, type: BSON::ObjectId # The mongoid id of the measure post_upload_results it is has been updated
-    field :measure_cms_id_pre_upload, type: String
-    field :measure_cms_id_post_upload, type: String
-    field :measure_hqmf_version_number_pre_upload, type: String
-    field :measure_hqmf_version_number_post_upload, type: String
+    field :cms_id_pre_upload, type: String
+    field :cms_id_post_upload, type: String
+    field :hqmf_version_number_pre_upload, type: String
+    field :hqmf_version_number_post_upload, type: String
     field :measure_population_set_count, type: Hash, default: {pre_upload: 0, post_upload: 0}
     belongs_to :user
     embeds_many :population_set_summaries, cascade_callbacks: true
@@ -109,12 +109,12 @@ module UploadSummary
     measure_upload_summary.user_id = measure.user_id
     if archived_measure
       measure_upload_summary.measure_db_id_pre_upload = archived_measure.measure_db_id
-      measure_upload_summary.measure_cms_id_pre_upload = archived_measure.measure_content['cms_id']
+      measure_upload_summary.cms_id_pre_upload = archived_measure.measure_content['cms_id']
       measure_upload_summary.hqmf_version_number_pre_upload = archived_measure.measure_content['hqmf_version_number']
     end
     measure_upload_summary.measure_db_id_post_upload = measure.id
-    measure_upload_summary.measure_cms_id_post_upload = measure.cms_id
-    measure_upload_summary.measure_hqmf_version_number_post_upload = measure.hqmf_version_number
+    measure_upload_summary.cms_id_post_upload = measure.cms_id
+    measure_upload_summary.hqmf_version_number_post_upload = measure.hqmf_version_number
     measure_upload_summary.measure_population_set_count[:pre_upload] = before_upload_population_sets.count
     measure_upload_summary.measure_population_set_count[:post_upload] = measure.populations.count
     measure_upload_summary.save!
