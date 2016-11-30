@@ -8,6 +8,14 @@ class RegistrationsControllerTest < ActionController::TestCase
   setup do
   end
   
+  #Test itterates through the test/fixtures/qrda directory
+  #Each subdirectory contains an xml containing the expected value to be tested against.
+  #The subdirectory name will correspond to subdirectories under
+  #test/fixtures/draft_measures/qrda
+  #test/fixtures/health_data_standards_svs_value_sets/qrda
+  #test/fixtures/records/qrda
+  #test/fixtures/users/qrda
+  #These subdirectories will share the name of the directory with the expected value, and contain the fixtures used to generate the test value.
   test "QRDA Export Test" do
     
     fixtures_base = File.join("test", "fixtures", "qrda")
@@ -27,10 +35,6 @@ class RegistrationsControllerTest < ActionController::TestCase
         patient = Record.first
         measure = Measure.first
 
-        associate_user_with_measures(user, [measure])
-        associate_user_with_patients(user, [patient])
-        associate_measure_with_patients(measure, [patient])
-
         HealthDataStandards::SVS::ValueSet.all.each do |vs|
           vs.bundle_id = BSON::ObjectId.from_string(user.bundle_id)
           vs.save
@@ -46,6 +50,8 @@ class RegistrationsControllerTest < ActionController::TestCase
         expected_file = Dir.glob(File.join("test", "fixtures", "qrda", test_dir, "*.xml"))[0]
         expected_xml = Nokogiri::XML(File.read(expected_file))
 
+
+        #These tags have nondeterministic values, causing the export comparison to fail when it shouldn't, and EquivalentXml's ignore_content feature does not ignore them properly.
         tags_to_remove = ["ClinicalDocument id", "ClinicalDocument effectiveTime", "ClinicalDocument time"]
         tags_to_remove.each do |code|
           gen_code = ret_xml.search(code).remove
