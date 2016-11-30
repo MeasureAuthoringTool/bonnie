@@ -53,3 +53,32 @@ Handlebars.registerHelper 'times', (n, opts) ->
     out = opts.inverse(this)
 
   return out
+Handlebars.registerHelper 'lookup', (obj, field) ->
+  obj && obj[field]
+
+Handlebars.registerHelper 'ifIn', (obj, arr, options) ->
+  if obj in arr
+    options.fn(this)
+  else
+    options.inverse(this)
+
+###
+Takes a shorthand population name and renders it such
+that screen readers will read out the complete name
+###
+Handlebars.registerHelper 'population', (population) ->
+  return '' unless population?
+  population_map =
+    'IPP': 'Initial Population'
+    'STRAT': 'Stratification'
+    'DENOM': 'Denominator'
+    'NUMER': 'Numerator'
+    'NUMEX': 'Numerator Exclusions'
+    'DENEXCEP': 'Denominator Exceptions'
+    'DENEX': 'Denominator Exclusions'
+    'MSRPOPL': 'Measure Population'
+    'OBSERV': 'Measure Observations'
+    'MSRPOPLEX': 'Measure Population Exclusions'
+
+  abbreviation = '<abbr title="' + population_map[population] + '">' + population + '</abbr>'
+  return new Handlebars.SafeString(abbreviation)

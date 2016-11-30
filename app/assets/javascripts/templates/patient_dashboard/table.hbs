@@ -1,0 +1,33 @@
+<table id="patientDashboardTable" class="table table-bordered" cellspacing="0" width="100%">
+
+  <caption class="sr-only">Patient listing for {{cms_id}}</caption>
+  <button class='btn btn-success' data-call-method="createNewPatient"><i aria-hidden="true" class="fa fa-fw fa-plus"></i> Create Patient</button> &nbsp;
+  {{#if showFixedColumns}}
+  <div class="btn-group" role="group">
+    {{#each nonEmptyPopulations}}
+      <button type="button" class="btn btn-default" data-call-method="scrollToPopulation"><span class="sr-only">Scroll to population</span>{{{this}}}</button>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  <br><br><div class="validation-alerts"><div class="alert alert-danger hidden"></div></div>
+
+  <thead>
+    <tr>
+      {{#each head1}}
+        <th scope="col" role="columnheader" style="width: {{{this.width}}}px;" colspan="{{{this.colspan}}}" id="{{{this.title}}}"><div>{{{this.title}}}</div></th>
+      {{/each}}
+    </tr>
+    <tr>
+      {{#each head2}}
+        {{#ifIn this ../populations}}
+          <th class="rotate" scope="col" role="columnheader"><div>{{population this}}</div></th>
+        {{else}}
+          <th scope="col" role="columnheader"><div class="tableScrollContainer"><div class="tableScroll">{{{this}}}</div></div></th>
+        {{/ifIn}}
+      {{/each}}
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>

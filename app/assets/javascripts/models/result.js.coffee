@@ -202,9 +202,16 @@ class Thorax.Models.Result extends Thorax.Model
 
   # adds specific rationale results to the toJSON output.
   toJSON: ->
-    _(super).extend({specificsRationale: @specificsRationale()}) 
+    _(super).extend({specificsRationale: @specificsRationale()})
 
+  calculationsComplete: (callback) ->
+    promises = @map(result) -> result.calculation
+    $.when(promises...).done -> callback(this)
 
 class Thorax.Collections.Results extends Thorax.Collection
   model: Thorax.Models.Result
   initialize: (models, options) -> @parent = options?.parent
+
+  calculationsComplete: (callback) ->
+    promises = @map (result) -> result.calculation
+    $.when(promises...).done -> callback(this)

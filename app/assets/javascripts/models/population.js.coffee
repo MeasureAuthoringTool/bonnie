@@ -14,6 +14,8 @@ class Thorax.Models.Population extends Thorax.Model
 
   calculationResults: -> new Thorax.Collections.Results @measure().get('patients').map (p) => @calculate(p)
 
+  calculateResult: (patient) -> new Thorax.Collections.Results @calculate(patient)
+
   differenceFromExpected: (patient) ->
     result = @calculate(patient)
     expected = patient.getExpectedValue(this)
