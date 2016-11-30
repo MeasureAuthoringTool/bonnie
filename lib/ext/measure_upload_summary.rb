@@ -133,7 +133,7 @@ module UploadSummary
         new_population_set = PopulationSetSummary.new
         missing_expected_values = {}
         # Get the populations 
-        (measure.populations[-i].keys.to_a - ['id', 'title']).each { |population| missing_expected_values[population] = 0 }
+        (measure.populations[-i].keys - ['id', 'title']).each { |population| missing_expected_values[population] = 0 }
         # Add all of the patients with their expected values
         measure_patients.each { |patient| new_population_set['patients'][patient.id.to_s] = {:expected => missing_expected_values} }
         measure_upload_summary.population_set_summaries << new_population_set 
