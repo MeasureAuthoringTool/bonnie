@@ -53,29 +53,19 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
         population: population
       }
     )
-    populationLogicView = new Thorax.Views.ComparePopulationLogic(isCompareView: true)
+    populationLogicView = new Thorax.Views.ComparePopulationLogic(isCompareView: true, suppressDataCriteriaHighlight: true)
     populationLogicView.setPopulation cachedResult.population
     populationLogicView.showRationale cachedResult
     populationLogicView
   
   # creates a patient logic view based off of the current patient state.
   _getLiveView: (measure) =>
-    populationLogicView = new Thorax.Views.BuilderPopulationLogic(isCompareView: true)
+    populationLogicView = new Thorax.Views.BuilderPopulationLogic(isCompareView: true, suppressDataCriteriaHighlight: true)
     populationLogicView.setPopulation measure.get('displayedPopulation')
     populationLogicView.showRationale @model
     populationLogicView
   
 # Modified Thorax.Views.BuilderPopulationLogic that accepts new Thorax.Models.cachedResult
-class Thorax.Views.ComparePopulationLogic extends Thorax.LayoutView
-  template: JST['patient_builder/population_logic']
-  # This view will take a arguement of isCompareView (boolean) that when true will disable the scrolling arrows.
-  setPopulation: (population) ->
-    population.measure().set('displayedPopulation', population)
-    @setModel(population)
-    @setView new Thorax.Views.PopulationLogic(model: population, suppressDataCriteriaHighlight: true)
+class Thorax.Views.ComparePopulationLogic extends Thorax.Views.BuilderPopulationLogic
   showRationale: (result) ->
     @getView().showRationale(result)
-  context: ->
-    _(super).extend
-      title: if @model.collection.parent.get('populations').length > 1 then (@model.get('title') || @model.get('sub_id')) else ''
-      cms_id: @model.collection.parent.get('cms_id')
