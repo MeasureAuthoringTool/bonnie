@@ -6,11 +6,11 @@
     {{else}}
       <h2>After Most Recent Upload</h2>
     {{/if}}
-    {{#if preUploadResultsSizeTooBig}}
+    {{#if populationLogicViewBefore}}
+      {{view populationLogicViewBefore}}
+    {{else}}
       <br><br>
       <h3>The results of the selected population of the measure are too large to be stored in the database.</h3>
-    {{else}}
-      {{view populationLogicViewBefore}}
     {{/if}}
   </div>
   
@@ -20,11 +20,11 @@
     {{else}}
       <h2>Current State</h2>
     {{/if}}
-    {{#if postUploadResultsSizeTooBig}}
+    {{#if populationLogicViewAfter}}
+      {{view populationLogicViewAfter}}
+    {{else}}
       <br><br>
       <h3>The results of the selected population of the measure are too large to be stored in the database.</h3>
-    {{else}}
-      {{view populationLogicViewAfter}}
     {{/if}}
   </div>
 </div>
