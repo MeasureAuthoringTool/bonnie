@@ -19,6 +19,11 @@ namespace :bonnie do
       puts "There are #{Measure.count} measures to process."
       Measure.each_with_index do |measure, measure_index|
         patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
+        # Move on if there are no patients associated with this measure for this user
+        if patients.count == 0
+          print '.'
+          next
+        end
         measure.populations.each_with_index do |population_set, population_index|
           begin
             calculator.set_measure_and_population(measure, population_index, clear_db_cache: true, rationale: true)
@@ -33,8 +38,8 @@ namespace :bonnie do
           processed_patients_array = []
           patients.each_with_index do |patient, patient_index|
             if processed_patients_array.include?(patient)
-              puts "\nPatient repeated for #{measure.user.email} measure #{measure.cms_id} population set #{population_index}."
-              puts "\tID: #{patient.id}\tName: #{patient.first} #{patient.last}"
+              # puts "\nPatient repeated for #{measure.user.email} measure #{measure.cms_id} population set #{population_index}."
+              # puts "\tID: #{patient.id}\tName: #{patient.first} #{patient.last}"
               next
             end
             processed_patients_array << patient
