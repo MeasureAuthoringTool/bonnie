@@ -1,10 +1,10 @@
 
 <div class="row">
   <div class="col-md-6">
-    {{#if fromPatientBuilder}}
-      <h2>After Most Recent Upload</h2>
-    {{else}}
+    {{#if compareSnapshots}}
       <h2>Before the Measure Upload</h2>
+    {{else}}
+      <h2>After Most Recent Upload</h2>
     {{/if}}
     {{#if preUploadResultsSizeTooBig}}
       <br><br>
@@ -15,10 +15,10 @@
   </div>
   
   <div class="col-md-6">
-    {{#if fromPatientBuilder}}
-      <h2>Current State</h2>
-    {{else}}
+    {{#if compareSnapshots}}
       <h2>After the Measure Upload</h2>
+    {{else}}
+      <h2>Current State</h2>
     {{/if}}
     {{#if populationPresentAfterUpload}}
       {{view populationLogicViewAfter}}

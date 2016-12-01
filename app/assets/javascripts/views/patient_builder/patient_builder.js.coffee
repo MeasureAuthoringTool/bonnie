@@ -275,7 +275,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     $.when(uploadSummaries.fetchDeferred())
       .then( -> uploadSummaries.at(0).fetchDeferred() )
       .then(() => 
-        @patientCompareView = new Thorax.Views.PatientBuilderCompare(model: @model, measure: @measure, patients: @patients, measures: @measures, mostRecentUploadSummary: uploadSummaries.at(0))
+        @patientCompareView = new Thorax.Views.PatientBuilderCompare(model: @model, measure: @measure, patients: @patients, measures: @measures, uploadSummary: uploadSummaries.at(0))
         @patientCompareView.appendTo('#patient-compare-content')
         @$('#patient-compare-dialog').modal('show')
         # When the modal is closed clear it out for the next time it is displayed
