@@ -124,7 +124,16 @@ class Thorax.Models.Measure extends Thorax.Model
 
     # return field values sorted by title
     _(fields).sortBy (field) -> field.title
-    
+  
+  ###*
+  # Deferred returning function that fetches all the measure related models needed for showing the patient compare view
+  # at a specific measure upload. The deferred resolves with an object containing the following.
+  #  - uploadSummary - The thorax model for the upload summary.
+  #  - beforeMeasure - The ArchivedMeasure model for the before upload side of the compare.
+  #  - afterMeasure - The Measure or ArchivedMeasure model for the after upload side of the compare. 
+  # @param {string} uploadId - The ID of the upload summary we are comparing at.
+  # @return {deferred} Deferred object that resolves when all models are loaded. Rejects on fail.
+  ###
   loadModelsForCompareAtUpload: (uploadId) ->
     loadDeferred = $.Deferred()
     models = { uploadSummaries: @get('upload_summaries'), archivedMeasures: @get('archived_measures') }
@@ -147,6 +156,8 @@ class Thorax.Models.Measure extends Thorax.Model
       .done((afterMeasure) =>
         models.afterMeasure = afterMeasure
         loadDeferred.resolve(models) )
+      # If loading fails on any of these steps the deferred must be rejected.
+      .fail( -> loadDeferred.reject())
     return loadDeferred
 
 class Thorax.Collections.Measures extends Thorax.Collection
