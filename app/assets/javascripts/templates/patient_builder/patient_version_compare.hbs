@@ -8,7 +8,7 @@
     {{/if}}
     {{#if preUploadResultsSizeTooBig}}
       <br><br>
-      <h3>The selected data are too large.</h3>
+      <h3>The results of the selected population of the measure are too large to be stored in the database.</h3>
     {{else}}
       {{view populationLogicViewBefore}}
     {{/if}}
@@ -20,11 +20,11 @@
     {{else}}
       <h2>Current State</h2>
     {{/if}}
-    {{#if populationPresentAfterUpload}}
-      {{view populationLogicViewAfter}}
-    {{else}}
+    {{#if postUploadResultsSizeTooBig}}
       <br><br>
       <h3>The results of the selected population of the measure are too large to be stored in the database.</h3>
+    {{else}}
+      {{view populationLogicViewAfter}}
     {{/if}}
   </div>
 </div>

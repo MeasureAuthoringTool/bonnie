@@ -10,26 +10,47 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
   initialize: =>
     @patientResultsSummary = @uploadSummary.get('population_set_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
 
-    # @postUploadMeasureVersion and @preUploadMeasureVersion are parameters used when comparing
-    # patient calculation snapshots.
-    # when comparing snapshots, 
+    # when comparing snapshots, the "before" is the "pre-upload".
+    # when comparing against the most recent patient data, the "before" is the "post-upload"
     if @preUploadMeasureVersion
       @compareSnapshots = true
-      populationToShow = @preUploadMeasureVersion.get('populations').at(@measure.get('displayedPopulation').get('index'))
+
+      # get the information for the "before" view
+      beforePopulationSet = @preUploadMeasureVersion.get('displayedPopulation')
       if !@patientResultsSummary.results_exceeds_storage_pre_upload
-        rationaleToShow = @patientResultsSummary.pre_upload_results.rationale
+        beforeRationale = @patientResultsSummary.pre_upload_results.rationale
+        beforeFinalSpecifics = @patientResultsSummary.pre_upload_results.finalSpecifics
+
+      # get the information for the "after" view
+      if @postUploadMeasureVersion
+        afterPopulationSet = @postUploadMeasureVersion.get('displayedPopulation')
+      else
+        # if the postUploadMeasureVersion doesn't exist, we are comparing against the most
+        # recently uploaded measure snapshot
+        afterPopulationSet = @measure.get('displayedPopulation')
+      if !@patientResultsSummary.results_exceeds_storage_post_upload
+        afterRationale = @patientResultsSummary.post_upload_results.rationale
+        afterFinalSpecifics = @patientResultsSummary.post_upload_results.finalSpecifics
+
     else
       @compareSnapshots = false
-      populationToShow = @measure.get('displayedPopulation')
-      if !@patientResultsSummary.results_exceeds_storage_post_upload
-        rationaleToShow = @patientResultsSummary.post_upload_results.rationale
 
-    if rationaleToShow isnt undefined
+      # get the information for the "before" view
+      beforePopulationSet = @measure.get('displayedPopulation')
+      if !@patientResultsSummary.results_exceeds_storage_post_upload
+        beforeRationale = @patientResultsSummary.post_upload_results.rationale
+        beforeFinalSpecifics = @patientResultsSummary.post_upload_results.finalSpecifics
+
+      # don't need extra information for "after" view
+
+    # setup views
+
+    if beforeRationale
       @cachedBeforeResult = new Thorax.Models.CachedResult({
-        rationale: rationaleToShow
-        finalSpecifics: @patientResultsSummary.pre_upload_results.finalSpecifics}
-        , {
-          population: populationToShow
+        rationale: beforeRationale
+        finalSpecifics: beforeFinalSpecifics
+      } , {
+          population: beforePopulationSet
           patient: @model
         }
       )
@@ -39,28 +60,26 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
     else
       @preUploadResultsSizeTooBig = true
 
-    if @postUploadMeasureVersion is undefined || @measure.id == @postUploadMeasureVersion.id
-      @populationLogicViewAfter = new Thorax.Views.BuilderPopulationLogic(isCompareView: true)
-      @populationLogicViewAfter.setPopulation @measure.get('displayedPopulation')
-      @populationLogicViewAfter.showRationale @model
-      @populationPresentAfterUpload = true
-    else if @patientResultsSummary.post_upload_results? # is not undefined
+    if afterRationale
       @cachedAfterResult = new Thorax.Models.CachedResult({
-        rationale: @patientResultsSummary.post_upload_results.rationale
-        finalSpecifics: @patientResultsSummary.post_upload_results.finalSpecifics}
+        rationale: afterRationale
+        finalSpecifics: afterFinalSpecifics}
         , {
-          population: @postUploadMeasureVersion.get('displayedPopulation')
+          population: afterPopulationSet
           patient: @model
         }
       )
       @populationLogicViewAfter = new Thorax.Views.ComparePopulationLogic
-      @populationLogicViewAfter.setPopulation @postUploadMeasureVersion.get('displayedPopulation')
+      @populationLogicViewAfter.setPopulation @cachedAfterResult.population
       @populationLogicViewAfter.showRationale @cachedAfterResult
-      @populationPresentAfterUpload = true
+    else if !@compareSnapshots
+      @populationLogicViewAfter = new Thorax.Views.BuilderPopulationLogic(isCompareView: true)
+      @populationLogicViewAfter.setPopulation @measure.get('displayedPopulation')
+      @populationLogicViewAfter.showRationale @model
     else
-      @populationPresentAfterUpload = false
+      @postUploadResultsSizeTooBig = true
 
-    @render()  
+    @render()
   
 # Modified Thorax.Views.BuilderPopulationLogic that accepts new Thorax.Models.cachedResult
 class Thorax.Views.ComparePopulationLogic extends Thorax.LayoutView
