@@ -8,19 +8,8 @@ class MeasuresControllerTest < ActionController::TestCase
     @error_dir = File.join('log', 'load_errors')
     FileUtils.rm_r @error_dir if File.directory?(@error_dir)
     dump_database
-    collection_fixtures('draft_measures', 'users')
+    collection_fixtures('users')
     @user = User.by_email('bonnie@example.com').first
-    associate_user_with_measures(@user, Measure.all)
-    @measure = Measure.where('cms_id' => 'CMS138v2').first
-    collection_fixtures('records')
-    @patients = Record # .where(measure_ids: 'C0D72444-7C26-4863-9B51-8080F8928A85')
-    associate_user_with_patients(@user, @patients)
-    Record.each do |patient|
-      if patient['user_id'].is_a?(String)
-        patient['user_id'] = BSON::ObjectId.from_string(patient['user_id'])
-        patient.save!
-      end
-    end
     sign_in @user
   end
 
@@ -31,6 +20,10 @@ class MeasuresControllerTest < ActionController::TestCase
       attr_reader :tempfile
     end
 
+    collection_fixtures('records')
+    @patients = Record
+    associate_user_with_patients(@user, @patients)
+
     # Assert measure is not yet loaded
     measure = Measure.where(hqmf_id: '40280381-4555-E1C1-0145-E20602FE49E').first
     assert_nil measure
@@ -40,9 +33,9 @@ class MeasuresControllerTest < ActionController::TestCase
     assert_response :redirect
     measure = Measure.where(hqmf_id: '40280381-4555-E1C1-0145-E20602FE49E8').first
     assert_equal 'C0D72444-7C26-4863-9B51-8080F8928A85', measure.hqmf_set_id
-
     # Find a patient and force the size of the calc_results over the 12MB limit
     p = Record.where(first: 'John, III', measure_ids: 'C0D72444-7C26-4863-9B51-8080F8928A85').first
+
     p.calc_results[0][:rationale] = 'X' * (1024 * 1024 * 12)
     p.save
 
@@ -72,6 +65,16 @@ class MeasuresControllerTest < ActionController::TestCase
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'CMS704_v1.1.zip'), 'application/zip')
     class << measure_file
       attr_reader :tempfile
+    end
+
+    collection_fixtures('records')
+    @patients = Record
+    associate_user_with_patients(@user, @patients)
+    Record.each do |patient|
+      if patient['user_id'].is_a?(String)
+        patient['user_id'] = BSON::ObjectId.from_string(patient['user_id'])
+        patient.save!
+      end
     end
 
     # Assert measure is not yet loaded
