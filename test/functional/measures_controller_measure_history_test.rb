@@ -1,8 +1,9 @@
 require 'test_helper'
-require 'vcr_setup.rb'
 
-class MeasuresControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+class MeasuresControllerMeasureHistoryTest < ActionController::TestCase
+include Devise::TestHelpers
+
+  tests MeasuresController
 
   setup do
     @error_dir = File.join('log', 'load_errors')
@@ -11,6 +12,16 @@ class MeasuresControllerTest < ActionController::TestCase
     collection_fixtures('users')
     @user = User.by_email('bonnie@example.com').first
     sign_in @user
+
+    collection_fixtures('records')
+    @patients = Record
+    associate_user_with_patients(@user, @patients)
+    Record.each do |patient|
+      if patient['user_id'].is_a?(String)
+        patient['user_id'] = BSON::ObjectId.from_string(patient['user_id'])
+        patient.save!
+      end
+    end
   end
 
   # This test is focusing on the actions around measure updates, particularly taking the snapshots of the patitents before and after
@@ -19,10 +30,6 @@ class MeasuresControllerTest < ActionController::TestCase
     class << measure_file
       attr_reader :tempfile
     end
-
-    collection_fixtures('records')
-    @patients = Record
-    associate_user_with_patients(@user, @patients)
 
     # Assert measure is not yet loaded
     measure = Measure.where(hqmf_id: '40280381-4555-E1C1-0145-E20602FE49E').first
@@ -65,16 +72,6 @@ class MeasuresControllerTest < ActionController::TestCase
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'CMS704_v1.1.zip'), 'application/zip')
     class << measure_file
       attr_reader :tempfile
-    end
-
-    collection_fixtures('records')
-    @patients = Record
-    associate_user_with_patients(@user, @patients)
-    Record.each do |patient|
-      if patient['user_id'].is_a?(String)
-        patient['user_id'] = BSON::ObjectId.from_string(patient['user_id'])
-        patient.save!
-      end
     end
 
     # Assert measure is not yet loaded
