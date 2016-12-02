@@ -34,17 +34,34 @@ class Thorax.Collections.DeferredCollection extends Thorax.Collection
   loadCollection: (isDeepLoad = false) ->
     loadDeferred = $.Deferred()
     
-    # Fetch the collection listing from the server.
-    @fetch(
-      success: (collection) ->
-        # if we are doing a deep load then load all the elements.
-        if isDeepLoad
-          $.when.apply(@, collection.map((model) -> model.loadModel()))
-            .done( -> loadDeferred.resolve(collection) )
-            .fail( -> loadDeferred.reject(collection) )
-        # if we are not doing a deep load we can resolve the deferred.
-        else
-          loadDeferred.resolve(collection)
-      error: (collection) -> loadDeferred.reject(collection)
-    )
+    if !@_fetched  # only fetch collection if it is not fetched
+      # Fetch the collection listing from the server.
+      @fetch(
+        success: (collection) ->
+          # if we are doing a deep load then load all the elements.
+          if isDeepLoad
+            collection._loadAllModels(loadDeferred)
+          # if we are not doing a deep load we can resolve the deferred.
+          else
+            loadDeferred.resolve(collection)
+        error: (collection) -> loadDeferred.reject(collection)
+      )
+      
+    else if isDeepLoad  # if the collection is fetched and this is a deep load, we still may need to load models.
+      @_loadAllModels(loadDeferred)
+        
+    else  # the collection is already fetched the returned deferred will be immediately resolved.
+      loadDeferred.resolve(@)
+      
     return loadDeferred
+  
+  ###*
+  # Private method for loading all models in this collection and resolving a given deferred when completed.
+  # @private
+  # @param {deferred} deferredToResolve - The deferred object to resolve when complete or reject on failure.
+  ###
+  _loadAllModels: (deferredToResolve) ->
+    collection = @  # hold on to 'this' since it will change when the deferred chain completes
+    $.when.apply(@, collection.map((model) -> model.loadModel()))
+      .done( -> deferredToResolve.resolve(collection) )
+      .fail( -> deferredToResolve.reject(collection) )
