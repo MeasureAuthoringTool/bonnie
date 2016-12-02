@@ -4,21 +4,21 @@
 class Thorax.Models.DeferredModel extends Thorax.Model
   
   ###*
-  # Deferred return version of the Backbone fetch function.
+  # Deferred return version of the Backbone fetch function. This fetches the entire model from the server.
   # @return {deferred} Deferred object that resolves when the model fetch is completed. Rejects on fail.
   ###
-  fetchDeferred: ->
-    fetchDeferred = $.Deferred()
+  loadModel: ->
+    loadDeferred = $.Deferred()
     if !@_fetched
       @fetch(
         success: (model) ->
           model._fetched = true
-          fetchDeferred.resolve(model)
-        error: (model) -> fetchDeferred.reject(model)
+          loadDeferred.resolve(model)
+        error: (model) -> loadDeferred.reject(model)
       )
     else
-      fetchDeferred.resolve(@)
-    return fetchDeferred
+      loadDeferred.resolve(@)
+    return loadDeferred
 
 
 ###*
@@ -28,32 +28,40 @@ class Thorax.Models.DeferredModel extends Thorax.Model
 class Thorax.Collections.DeferredCollection extends Thorax.Collection
   
   ###*
-  # Deferred return version of the Backbone fetch function. This does a shallow fetch. Collection members only have
-  # basic info and need to be fetched.
-  # @return {deferred} Deferred object that resolves when the collection fetch is completed. Rejects on fail.
+  # Load the collection from the server.
+  # @param {boolean} isDeepLoad - Optional. If true then a deep load will occur and all models will be fully loaded.
   ###
-  fetchDeferred: ->
-    fetchDeferred = $.Deferred()
-    if !@_fetched
+  loadCollection: (isDeepLoad = false) ->
+    loadDeferred = $.Deferred()
+    
+    if !@_fetched  # only fetch collection if it is not fetched
+      # Fetch the collection listing from the server.
       @fetch(
-        success: (collection) -> fetchDeferred.resolve(collection)
-        error: (collection) -> fetchDeferred.reject(collection)
+        success: (collection) ->
+          # if we are doing a deep load then load all the elements.
+          if isDeepLoad
+            collection._loadAllModels(loadDeferred)
+          # if we are not doing a deep load we can resolve the deferred.
+          else
+            loadDeferred.resolve(collection)
+        error: (collection) -> loadDeferred.reject(collection)
       )
-    else
-      fetchDeferred.resolve(@)
-    return fetchDeferred
+      
+    else if isDeepLoad  # if the collection is fetched and this is a deep load, we still may need to load models.
+      @_loadAllModels(loadDeferred)
+        
+    else  # the collection is already fetched the returned deferred will be immediately resolved.
+      loadDeferred.resolve(@)
+      
+    return loadDeferred
   
   ###*
-  # Deferred return 'deep' fetch. This does fetch of the collection then fetches all collection memebers. 
-  # @return {deferred} Deferred object. Resolves when the collection and model fetches are completed. Rejects on fail.
+  # Private method for loading all models in this collection and resolving a given deferred when completed.
+  # @private
+  # @param {deferred} deferredToResolve - The deferred object to resolve when complete or reject on failure.
   ###
-  fetchAll: ->
-    fetchAllDeferred = $.Deferred()
-    @fetchDeferred().then((collection) ->
-      $.when.apply(@, collection.map((model) -> model.fetchDeferred()))
-        .done( ->
-          fetchAllDeferred.resolve(collection))
-        .fail( ->
-          fetchAllDeferred.reject(collection))
-      )
-    return fetchAllDeferred
+  _loadAllModels: (deferredToResolve) ->
+    collection = @  # hold on to 'this' since it will change when the deferred chain completes
+    $.when.apply(@, collection.map((model) -> model.loadModel()))
+      .done( -> deferredToResolve.resolve(collection) )
+      .fail( -> deferredToResolve.reject(collection) )

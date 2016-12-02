@@ -98,12 +98,13 @@
 
   renderMeasureUploadHistory: (measureHqmfSetId) ->
     measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
-    measure.get('upload_summaries').fetchAll().done( (uploadSummaries) =>
-      @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
-      # @collection = new Thorax.Collections.Patients
-      @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: measure.get('patients'), upload_summaries: uploadSummaries
-      @breadcrumb.viewMeasureHistory(measure)
-    )
+    measure.get('upload_summaries').loadCollection(true)
+      .done( (uploadSummaries) =>
+        @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
+        # @collection = new Thorax.Collections.Patients
+        @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: measure.get('patients'), upload_summaries: uploadSummaries
+        @breadcrumb.viewMeasureHistory(measure)
+        )
 
 
   renderHistoricPatientCompare: (measureHqmfSetId, patientId, uploadId) ->
@@ -112,25 +113,10 @@
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
     document.title += " - #{measure.get('cms_id')}" if measure?
     # Deal with getting the archived measure and the calculation snapshot for the patient at measure upload
-    uploadSummaries = measure.get('upload_summaries')
-    archivedMeasures = measure.get('archived_measures')
-    upload_summary = null
-    beforeMeasure = null
-    afterMeasure = null
-    $.when(uploadSummaries.fetchDeferred(), archivedMeasures.fetchDeferred())
-      .then( -> uploadSummaries.findWhere({_id: uploadId}).fetchDeferred() )
-      .then((upsum) ->
-        upload_summary = upsum
-        archivedMeasures.findWhere(_id: upload_summary.get('measure_db_id_pre_upload')).fetchDeferred())
-      .then((before) ->
-        beforeMeasure = before
-        if measure.id isnt upload_summary.get('measure_db_id_post_upload')
-          archivedMeasures.findWhere(_id: upload_summary.get('measure_db_id_post_upload')).fetchDeferred())
-      .then((afterMeasure) => 
-        patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, preUploadMeasureVersion: beforeMeasure, uploadSummary: upload_summary, postUploadMeasureVersion: afterMeasure)
-        @mainView.setView patientBuilderView
-        @breadcrumb.viewComparePatient(measure, patient)
-        )
+    measure.loadModelsForCompareAtUpload(uploadId).done( (models) => 
+      patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, preUploadMeasureVersion: models.beforeMeasure, uploadSummary: models.uploadSummary, postUploadMeasureVersion: models.afterMeasure)
+      @mainView.setView patientBuilderView
+      @breadcrumb.viewComparePatient(measure, patient) )
 
   # Common setup method used by all routes
   navigationSetup: (title, selectedNav) ->
@@ -159,15 +145,13 @@
     errorDialogView.appendTo('#bonnie')
     errorDialogView.display();
 
-  showMeasureUploadSummary: (summaryId, hqmfSetId) ->
+  showMeasureUploadSummary: (uploadId, hqmfSetId) ->
     measure = @measures.findWhere(hqmf_set_id: hqmfSetId)
-    measure_summaries = measure.get('upload_summaries')
-    measure_summaries.fetchDeferred()
-      .then( ->
-        measure_summaries.findWhere({_id: summaryId}).fetchDeferred()
-        )
-      .then( (upload_summary) ->
-        measureUploadSummaryDialogView = new Thorax.Views.MeasureUploadSummaryDialog model: upload_summary, measure: measure
+    
+    # Shallow load the upload summaries and load the one we need to show.
+    measure.get('upload_summaries').loadCollection()
+      .then( (uploadSummaries) -> uploadSummaries.findWhere({_id: uploadId}).loadModel() )
+      .done( (uploadSummary) ->
+        measureUploadSummaryDialogView = new Thorax.Views.MeasureUploadSummaryDialog model: uploadSummary, measure: measure
         measureUploadSummaryDialogView.appendTo('#bonnie')
-        measureUploadSummaryDialogView.display()
-        )
+        measureUploadSummaryDialogView.display() )
