@@ -191,15 +191,18 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         silent: true
         success: (current_patient) =>
           # We need to clear the cache so that page you are returned to will be forced to refresh its cache for calc_results
-          if @.parent._view.patients.get(current_patient)
+          if @.parent?._view.patients.get(current_patient)
             @.parent._view.patients.get(current_patient).unset('calc_results')
           @patients.add current_patient # make sure that the patient exist in the global patient collection
           @measure?.get('patients').add current_patient # and the measure's patient collection
           if bonnie.isPortfolio
             @measures.each (m) -> m.get('patients').add current_patient
-          route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
+          if @inPatientDashboard # Check that is passed in from PatientDashboard, to Route back to patient dashboard.
+            route = if @measure then Backbone.history.getFragment() else "patients" # Go back to the current route, either "patient_dashboard" or "508_patient_dashboard"
+          else
+            route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
           bonnie.navigate route, trigger: true
-          callback.success(model) if callback?.success
+          callback.success(current_patient) if callback?.success
       unless status
         $(e.target).button('reset').prop('disabled', false)
         messages = []
