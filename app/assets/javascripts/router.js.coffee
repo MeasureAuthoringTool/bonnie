@@ -116,7 +116,7 @@
         if measure.id isnt upload_summary.get('measure_db_id_post_upload')
           archivedMeasures.findWhere(_id: upload_summary.get('measure_db_id_post_upload')).fetchDeferred())
       .then((afterMeasure) => 
-        patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, preuploadmeasureversion: beforeMeasure, mostRecentUploadSummary: upload_summary, postuploadmeasureversion: afterMeasure)
+        patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, preUploadMeasureVersion: beforeMeasure, uploadSummary: upload_summary, postUploadMeasureVersion: afterMeasure)
         @mainView.setView patientBuilderView
         @breadcrumb.viewComparePatient(measure, patient)
         )

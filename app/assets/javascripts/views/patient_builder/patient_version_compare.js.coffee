@@ -8,69 +8,64 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
     populate: { context: true, children: false }
 
   initialize: =>
-    @patient = @mostRecentUploadSummary.get('population_set_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
+    @patientResultsSummary = @uploadSummary.get('population_set_summaries')[@measure.get('displayedPopulation').get('index')].patients[@model.id]
 
-    # @postuploadmeasureversion and @preuploadmeasureversion are parameters when viewing the comparsion from the the measure page
-    # When they are not present it means that the comparison has been called from patient builder
-    if @postuploadmeasureversion is undefined && @preuploadmeasureversion is undefined
-      @fromPatientBuilder = true
-      populationToShow = @measure.get('displayedPopulation')
-      if !@patient.results_exceeds_storage_post_upload
-        rationaleToShow = @patient.post_upload_results.rationale
+    # if the @preUploadMeasureVersion parameter exists, it means we're comparing snapshots.
+    # comparing snapshots means we're comparing the patient pre-upload and post-upload.
+    # not comparing snapshots means we're comparing the patient right after the measure
+    # loaded with its current state.
+    @compareSnapshots = @preUploadMeasureVersion?
+    
+    # get the information for the before view
+    # if it's not set, it means the cached results are too big
+    @populationLogicViewBefore = null
+    if @compareSnapshots
+      unless @patientResultsSummary.results_exceeds_storage_pre_upload
+        @populationLogicViewBefore = @_getSnapshotView(@preUploadMeasureVersion.get('displayedPopulation'), @patientResultsSummary.pre_upload_results)
     else
-      populationToShow = @preuploadmeasureversion.get('populations').at(@measure.get('displayedPopulation').get('index'))
-      if !@patient.results_exceeds_storage_pre_upload
-        rationaleToShow = @patient.pre_upload_results.rationale
-
-    if rationaleToShow isnt undefined
-      @cachedBeforeResult = new Thorax.Models.CachedResult({
-        rationale: rationaleToShow
-        finalSpecifics: @patient.pre_upload_results.finalSpecifics}
-        , {
-          population: populationToShow
-          patient: @model
-        }
-      )
-      @populationLogicViewBefore = new Thorax.Views.ComparePopulationLogic(isCompareView: true)
-      @populationLogicViewBefore.setPopulation @cachedBeforeResult.population
-      @populationLogicViewBefore.showRationale @cachedBeforeResult
+      unless @patientResultsSummary.results_exceeds_storage_post_upload
+        @populationLogicViewBefore = @_getSnapshotView(@measure.get('displayedPopulation'), @patientResultsSummary.post_upload_results)
+    
+    # get the information for the after view
+    # if it's not set, it means the cached results are too big
+    @populationLogicViewAfter = null
+    if @compareSnapshots
+      unless @patientResultsSummary.results_exceeds_storage_post_upload
+        # if @postUploadMeasureVersion doesn't exist, then we're comparing the snapshot
+        # after the current version of the measure loaded.
+        if @postUploadMeasureVersion
+          population = @postUploadMeasureVersion.get('displayedPopulation')
+        else
+          population = @measure.get('displayedPopulation')
+        @populationLogicViewAfter = @_getSnapshotView(population, @patientResultsSummary.post_upload_results)
     else
-      @preUploadResultsSizeTooBig = true
+      @populationLogicViewAfter = @_getLiveView(@measure)
 
-    if @postuploadmeasureversion is undefined || @measure.id == @postuploadmeasureversion.id
-      @populationLogicViewAfter = new Thorax.Views.BuilderPopulationLogic(isCompareView: true)
-      @populationLogicViewAfter.setPopulation @measure.get('displayedPopulation')
-      @populationLogicViewAfter.showRationale @model
-      @populationPresentAfterUpload = true
-    else if @patient.post_upload_results? # is not undefined
-      @cachedAfterResult = new Thorax.Models.CachedResult({
-        rationale: @patient.post_upload_results.rationale
-        finalSpecifics: @patient.post_upload_results.finalSpecifics}
-        , {
-          population: @postuploadmeasureversion.get('displayedPopulation')
-          patient: @model
-        }
-      )
-      @populationLogicViewAfter = new Thorax.Views.ComparePopulationLogic
-      @populationLogicViewAfter.setPopulation @postuploadmeasureversion.get('displayedPopulation')
-      @populationLogicViewAfter.showRationale @cachedAfterResult
-      @populationPresentAfterUpload = true
-    else
-      @populationPresentAfterUpload = false
-
-    @render()  
+    @render()
   
-# Modified Thorax.Views.BuilderPopulationLogic that accepts new Thorax.Models.cachedResult
-class Thorax.Views.ComparePopulationLogic extends Thorax.LayoutView
-  template: JST['patient_builder/population_logic']
-  # This view will take a arguement of isCompareView (boolean) that when true will disable the scrolling arrows.
-  setPopulation: (population) ->
-    population.measure().set('displayedPopulation', population)
-    @setModel(population)
-    @setView new Thorax.Views.PopulationLogic(model: population, suppressDataCriteriaHighlight: true)
-  showRationale: (result) ->
-    @getView().showRationale(result)
-  context: ->
-    _(super).extend
-      title: if @model.collection.parent.get('populations').length > 1 then (@model.get('title') || @model.get('sub_id')) else ''
-      cms_id: @model.collection.parent.get('cms_id')
+  # creates a patient logic view based off of a patient snapshot rather than the current
+  # patient state.
+  _getSnapshotView: (population, summaryCachedResult) =>
+    cachedResult = new Thorax.Models.CachedResult({
+      rationale: summaryCachedResult.rationale
+      finalSpecifics: summaryCachedResult.finalSpecifics
+    } , {
+        population: population
+      }
+    )
+    populationLogicView = new Thorax.Views.ComparePopulationLogic(isCompareView: true, suppressDataCriteriaHighlight: true)
+    populationLogicView.setPopulation cachedResult.population
+    populationLogicView.showRationale cachedResult
+    populationLogicView
+  
+  # creates a patient logic view based off of the current patient state.
+  _getLiveView: (measure) =>
+    populationLogicView = new Thorax.Views.BuilderPopulationLogic(isCompareView: true, suppressDataCriteriaHighlight: true)
+    populationLogicView.setPopulation measure.get('displayedPopulation')
+    populationLogicView.showRationale @model
+    populationLogicView
+  
+# Modified Thorax.Views.BuilderPopulationLogic that accepts new Thorax.Models.CachedResult
+class Thorax.Views.ComparePopulationLogic extends Thorax.Views.BuilderPopulationLogic
+  showRationale: (cachedResult) ->
+    @getView().showRationale(cachedResult)

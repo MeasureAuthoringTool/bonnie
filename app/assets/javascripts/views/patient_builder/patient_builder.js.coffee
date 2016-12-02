@@ -275,7 +275,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     $.when(uploadSummaries.fetchDeferred())
       .then( -> uploadSummaries.at(0).fetchDeferred() )
       .then(() => 
-        @patientCompareView = new Thorax.Views.PatientBuilderCompare(model: @model, measure: @measure, patients: @patients, measures: @measures, mostRecentUploadSummary: uploadSummaries.at(0))
+        @patientCompareView = new Thorax.Views.PatientBuilderCompare(model: @model, measure: @measure, patients: @patients, measures: @measures, uploadSummary: uploadSummaries.at(0))
         @patientCompareView.appendTo('#patient-compare-content')
         @$('#patient-compare-dialog').modal('show')
         # When the modal is closed clear it out for the next time it is displayed
@@ -287,12 +287,21 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
   # This view will take a arguement of isCompareView (boolean) that when true will disable the scrolling arrows.
+  # This view also takes the argument 'suppressDataCriteriaHighlight' which determines if hovering over logic
+  # will try to highlight accompanying data criteria.
+
+  initialize: ()->
+    # ensure that @suppressDataCriteriaHighlight is false if it isn't passed in
+    @suppressDataCriteriaHighlight ?= false
+
   setPopulation: (population) ->
     population.measure().set('displayedPopulation', population)
     @setModel(population)
-    @setView new Thorax.Views.PopulationLogic(model: population)
+    @setView new Thorax.Views.PopulationLogic(model: population, suppressDataCriteriaHighlight: @suppressDataCriteriaHighlight)
+
   showRationale: (patient) ->
     @getView().showRationale(@model.calculate(patient))
+
   context: ->
     _(super).extend
       title: if @model.collection.parent.get('populations').length > 1 then (@model.get('title') || @model.get('sub_id')) else ''

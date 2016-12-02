@@ -1,5 +1,5 @@
 {{#if temporalReference.range}}
-  {{view "ValueLogic" value=temporalReference.range tag="span"}}
+  {{view "ValueLogic" value=temporalReference.range suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight tag="span"}}
 {{/if}}
 {{translate_timing temporalReference.type}}
 {{#ifCond temporalReference.reference '==' 'MeasurePeriod'}}
