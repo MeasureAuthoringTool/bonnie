@@ -143,7 +143,7 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    diffy (3.0.7)
+    diffy (3.1.0)
     docile (1.1.5)
     domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
@@ -341,7 +341,7 @@ DEPENDENCIES
   coffee-rails
   cql_qdm_patientapi!
   devise
-  diffy
+  diffy (~> 3.1.0)
   exception_notification
   foreman
   handlebars_assets (= 0.16)
