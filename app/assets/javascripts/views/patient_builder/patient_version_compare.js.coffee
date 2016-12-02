@@ -67,5 +67,5 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
   
 # Modified Thorax.Views.BuilderPopulationLogic that accepts new Thorax.Models.CachedResult
 class Thorax.Views.ComparePopulationLogic extends Thorax.Views.BuilderPopulationLogic
-  showRationale: (result) ->
-    @getView().showRationale(result)
+  showRationale: (cachedResult) ->
+    @getView().showRationale(cachedResult)
