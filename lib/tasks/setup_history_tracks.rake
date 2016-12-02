@@ -38,8 +38,8 @@ namespace :bonnie do
           processed_patients_array = []
           patients.each_with_index do |patient, patient_index|
             if processed_patients_array.include?(patient)
-              # puts "\nPatient repeated for #{measure.user.email} measure #{measure.cms_id} population set #{population_index}."
-              # puts "\tID: #{patient.id}\tName: #{patient.first} #{patient.last}"
+              # For some reason patients are added to the list again as the iteration goes along.
+              # This checks for that and skips those patients.
               next
             end
             processed_patients_array << patient
