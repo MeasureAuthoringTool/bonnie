@@ -44,7 +44,10 @@ class Thorax.Models.Measure extends Thorax.Model
         if criteria.get('type') == 'communications'
           criteria.set('description', criteria.get('description').replace('Communication:', 'Communication'))
         criteria.set('description', "#{criteria.get('description').split(':')[0]}: #{bonnie.valueSetsByOid[criteria.get('code_list_id')].display_name}")
-
+    
+    # These are lazy loaded collections. They are empty and marked unfetched. Using loadCollection will populate from server.
+    attrs.archived_measures = new Thorax.Collections.ArchivedMeasures null, {measure_id: attrs._id, _fetched: false}
+    attrs.upload_summaries = new Thorax.Collections.UploadSummaries null, {measure_id: attrs._id, _fetched: false}
     attrs
 
   isPopulated: -> @has('data_criteria')
@@ -121,6 +124,41 @@ class Thorax.Models.Measure extends Thorax.Model
 
     # return field values sorted by title
     _(fields).sortBy (field) -> field.title
+  
+  ###*
+  # Deferred returning function that fetches all the measure related models needed for showing the patient compare view
+  # at a specific measure upload. The deferred resolves with an object containing the following.
+  #  - uploadSummary - The thorax model for the upload summary.
+  #  - beforeMeasure - The ArchivedMeasure model for the before upload side of the compare.
+  #  - afterMeasure - The Measure or ArchivedMeasure model for the after upload side of the compare. 
+  # @param {string} uploadId - The ID of the upload summary we are comparing at.
+  # @return {deferred} Deferred object that resolves when all models are loaded. Rejects on fail.
+  ###
+  loadModelsForCompareAtUpload: (uploadId) ->
+    loadDeferred = $.Deferred()
+    models = { uploadSummaries: @get('upload_summaries'), archivedMeasures: @get('archived_measures') }
+    # First shallow load the upload_summaries and archived_measures collections.
+    $.when(models.uploadSummaries.loadCollection(), models.archivedMeasures.loadCollection())
+      # Load the upload summary we want to look at
+      .then( => @get('upload_summaries').findWhere({_id: uploadId}).loadModel() )
+      # Store upload summary for return. Load the before upload archived measure
+      .then((uploadSummary) =>
+        models.uploadSummary = uploadSummary
+        @get('archived_measures').findWhere(_id: models.uploadSummary.get('measure_db_id_pre_upload')).loadModel() )
+      # Store before measure for return. Load the after upload archived measure, unless it is current version
+      .then((beforeMeasure) =>
+        models.beforeMeasure = beforeMeasure
+        if @id isnt models.uploadSummary.get('measure_db_id_post_upload')
+          @get('archived_measures').findWhere(_id: models.uploadSummary.get('measure_db_id_post_upload')).loadModel()
+        else
+          return @ )
+      # Resolve the deferred now that we collected all of the requisite models.
+      .done((afterMeasure) =>
+        models.afterMeasure = afterMeasure
+        loadDeferred.resolve(models) )
+      # If loading fails on any of these steps the deferred must be rejected.
+      .fail( -> loadDeferred.reject())
+    return loadDeferred
 
 class Thorax.Collections.Measures extends Thorax.Collection
   url: '/measures'

@@ -208,3 +208,23 @@ class Thorax.Models.Result extends Thorax.Model
 class Thorax.Collections.Results extends Thorax.Collection
   model: Thorax.Models.Result
   initialize: (models, options) -> @parent = options?.parent
+
+# Treat/handle cached calculation results like "live" calculation results
+class Thorax.Models.CachedResult extends Thorax.Models.Result
+  # the rationale and final specifics should be passed in as attributes. A call to this initalizer
+  # would look similar to:
+  #
+  #     cachedResult = new Thorax.Models.CachedResult({
+  #       rationale: summaryCachedResult.rationale
+  #       finalSpecifics: summaryCachedResult.finalSpecifics
+  #     } , {
+  #         population: population
+  #       }
+  #     )
+  initialize: (attrs, options) ->
+    @population = options.population
+    @measure = @population.collection.parent
+    @patient = null # the result is never calculated so the patient is not needed.
+    @calculation = $.Deferred()
+    
+    @calculation.resolve()

@@ -5,5 +5,6 @@ Thorax.Models.Patient.templateOidMap = <%= HQMF_TEMPLATE_OID_MAP.to_json.html_sa
 Thorax.Models.Measure.logicFields = <%= HQMF::DataCriteria::FIELDS.to_json.html_safe %>
 
 Thorax.Models.Measure.allPopulationCodes = <%= HQMF::PopulationCriteria::ALL_POPULATION_CODES.to_json.html_safe%>
+Thorax.Models.ArchivedMeasure.allPopulationCodes = <%= HQMF::PopulationCriteria::ALL_POPULATION_CODES.to_json.html_safe%>
 
 Thorax.Models.PatientDataCriteria.codeSources = <%= Measures::PatientBuilder::CODE_SOURCE.to_json.html_safe %>

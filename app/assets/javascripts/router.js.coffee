@@ -17,16 +17,19 @@
     @on 'route', -> window.scrollTo(0, 0)
 
   routes:
-    '':                                                'renderMeasures'
-    'measures':                                        'renderMeasures'
-    'complexity':                                      'renderComplexity'
-    'complexity/:set_1/:set_2':                        'renderComplexity'
-    'measures/:hqmf_set_id':                           'renderMeasure'
-    'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
-    'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
-    'measures/:measure_hqmf_set_id/patient_bank':      'renderPatientBank'
-    'admin/users':                                     'renderUsers'
-    'value_sets/edit':                                 'renderValueSetsBuilder'
+    '':                                                 'renderMeasures'
+    'measures':                                         'renderMeasures'
+    'complexity':                                       'renderComplexity'
+    'complexity/:set_1/:set_2':                         'renderComplexity'
+    'measures/:hqmf_set_id':                            'renderMeasure'
+    'measures/:measure_hqmf_set_id/patients/:id/edit':  'renderPatientBuilder'
+    'measures/:measure_hqmf_set_id/patients/new':       'renderPatientBuilder'
+    'measures/:measure_hqmf_set_id/patient_bank':       'renderPatientBank'
+    'measures/:measure_hqmf_set_id/history':            'renderMeasureUploadHistory'
+    'measures/:measure_hqmf_set_id/patients/:id/compare/at_upload/:upload_id':  'renderHistoricPatientCompare'
+    'admin/users':                                      'renderUsers'
+    'value_sets/edit':                                  'renderValueSetsBuilder'
+
 
   renderMeasures: ->
     @measures.each (measure) -> measure.set('displayedPopulation', measure.get('populations').first())
@@ -82,6 +85,28 @@
     @mainView.setView new Thorax.Views.PatientBankView model: measure, patients: @patients, collection: @collection
     @breadcrumb.addBank(measure)
 
+  renderMeasureUploadHistory: (measureHqmfSetId) ->
+    measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
+    measure.get('upload_summaries').loadCollection(true)
+      .done( (uploadSummaries) =>
+        @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
+        # @collection = new Thorax.Collections.Patients
+        @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: measure.get('patients'), upload_summaries: uploadSummaries
+        @breadcrumb.viewMeasureHistory(measure)
+        )
+
+
+  renderHistoricPatientCompare: (measureHqmfSetId, patientId, uploadId) ->
+    @navigationSetup "Patient Builder", "patient-compare"
+    measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
+    patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
+    document.title += " - #{measure.get('cms_id')}" if measure?
+    # Deal with getting the archived measure and the calculation snapshot for the patient at measure upload
+    measure.loadModelsForCompareAtUpload(uploadId).done( (models) => 
+      patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, preUploadMeasureVersion: models.beforeMeasure, uploadSummary: models.uploadSummary, postUploadMeasureVersion: models.afterMeasure)
+      @mainView.setView patientBuilderView
+      @breadcrumb.viewComparePatient(measure, patient) )
+
   # Common setup method used by all routes
   navigationSetup: (title, selectedNav) ->
     @calculator.cancelCalculations()
@@ -108,3 +133,14 @@
     errorDialogView = new Thorax.Views.ErrorDialog error: error
     errorDialogView.appendTo('#bonnie')
     errorDialogView.display();
+
+  showMeasureUploadSummary: (uploadId, hqmfSetId) ->
+    measure = @measures.findWhere(hqmf_set_id: hqmfSetId)
+    
+    # Shallow load the upload summaries and load the one we need to show.
+    measure.get('upload_summaries').loadCollection()
+      .then( (uploadSummaries) -> uploadSummaries.findWhere({_id: uploadId}).loadModel() )
+      .done( (uploadSummary) ->
+        measureUploadSummaryDialogView = new Thorax.Views.MeasureUploadSummaryDialog model: uploadSummary, measure: measure
+        measureUploadSummaryDialogView.appendTo('#bonnie')
+        measureUploadSummaryDialogView.display() )

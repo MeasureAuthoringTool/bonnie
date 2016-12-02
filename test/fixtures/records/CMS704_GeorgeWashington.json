@@ -1,0 +1,179 @@
+{
+    "languages" : [],
+    "calc_results" : [ 
+        {
+            "IPP" : 1,
+            "DENOM" : 1,
+            "DENEX" : 0,
+            "NUMER" : 0,
+            "NUMEX" : 0,
+            "DENEXCEP" : 0,
+            "rationale" : {
+                "MeasurePeriod" : {
+                    "results" : [ 
+                        {
+                            "id" : "undefined",
+                            "json" : {
+                                "start_time" : 1325376000,
+                                "end_time" : 1356998340,
+                                "codes" : {}
+                            }
+                        }
+                    ]
+                },
+                "Ageless_thn_eql_17yearsat_CEA396C2_86FA_4A88_9DE4_93E46DBAEA22_E9200F17_8609_40FC_B500_130E7E515706" : {
+                    "results" : [ 
+                        {}
+                    ],
+                    "specifics" : [ 
+                        []
+                    ]
+                },
+                "precondition_2" : true,
+                "precondition_IPP" : true,
+                "IPP" : true,
+                "DENOM" : true,
+                "DENEX" : false,
+                "NUMER" : false,
+                "DENEXCEP" : false,
+                "VARIABLES" : false
+            },
+            "finalSpecifics" : {
+                "IPP" : [ 
+                    []
+                ],
+                "DENOM" : [ 
+                    []
+                ],
+                "DENEX" : [ 
+                    []
+                ],
+                "NUMER" : [ 
+                    []
+                ],
+                "DENEXCEP" : [ 
+                    []
+                ]
+            },
+            "measure_id" : "E37012AD-2B01-4738-8985-D5C0F4C3AE9F",
+            "population_index" : 0,
+            "status" : "pass"
+        }, 
+        {
+            "IPP" : 0,
+            "DENOM" : 0,
+            "DENEX" : 0,
+            "NUMER" : 0,
+            "NUMEX" : 0,
+            "DENEXCEP" : 0,
+            "rationale" : {
+                "MeasurePeriod" : {
+                    "results" : [ 
+                        {
+                            "id" : "undefined",
+                            "json" : {
+                                "start_time" : 1325376000,
+                                "end_time" : 1356998340,
+                                "codes" : {}
+                            }
+                        }
+                    ]
+                },
+                "Agegrtr_thn_eql_18yearsat_DBDD1252_A24F_4E9E_93FA_E4B4158E442E_A5EC4A18_C10E_4484_96BB_D8D28BBCCF09" : false,
+                "precondition_4" : false,
+                "precondition_IPP_1" : false,
+                "IPP" : false,
+                "VARIABLES" : false
+            },
+            "finalSpecifics" : {
+                "IPP" : [ 
+                    []
+                ]
+            },
+            "measure_id" : "E37012AD-2B01-4738-8985-D5C0F4C3AE9F",
+            "population_index" : 1,
+            "status" : "pass"
+        }
+    ],
+    "has_measure_history" : true,
+    "results_exceed_storage" : false,
+    "measure_ids" : [ 
+        "E37012AD-2B01-4738-8985-D5C0F4C3AE9F", 
+        null
+    ],
+    "first" : "George",
+    "last" : "Washington",
+    "gender" : "M",
+    "expired" : null,
+    "birthdate" : 1265097600,
+    "description" : null,
+    "description_category" : null,
+    "deathdate" : null,
+    "notes" : "",
+    "is_shared" : null,
+    "ethnicity" : {
+        "code" : "2186-5",
+        "name" : "Not Hispanic or Latino",
+        "codeSystem" : "CDC Race"
+    },
+    "race" : {
+        "code" : "1002-5",
+        "name" : "American Indian or Alaska Native",
+        "codeSystem" : "CDC Race"
+    },
+    "source_data_criteria" : [ 
+        {
+            "id" : "MeasurePeriod",
+            "start_date" : 0,
+            "end_date" : 0,
+            "references" : null
+        }
+    ],
+    "expected_values" : [ 
+        {
+            "measure_id" : "E37012AD-2B01-4738-8985-D5C0F4C3AE9F",
+            "population_index" : 0,
+            "IPP" : 1,
+            "DENOM" : 1,
+            "NUMER" : 0
+        }, 
+        {
+            "measure_id" : "E37012AD-2B01-4738-8985-D5C0F4C3AE9F",
+            "population_index" : 1,
+            "IPP" : 0,
+            "DENOM" : 0,
+            "NUMER" : 0
+        }
+    ],
+    "origin_data" : [],
+    "user_id" : "501fdba3044a111b98000001",
+    "bundle_id" : "5783ff7af081f313f900cec9",
+    "medical_record_number" : "942fb0348e5bc6bafaa106f1116492a7",
+    "medical_record_assigner" : "Bonnie",
+    "results_size" : 1135,
+    "version" : 251,
+    "insurance_providers" : [ 
+        {
+            "_id" : "583343459eebbc0d760000bd",
+            "codes" : {
+                "SOP" : [ 
+                    "349"
+                ]
+            },
+            "mood_code" : "EVN",
+            "_type" : "InsuranceProvider",
+            "type" : "OT",
+            "member_id" : "1234567890",
+            "name" : "Other",
+            "financial_responsibility_type" : {
+                "code" : "SELF",
+                "codeSystem" : "HL7 Relationship Code"
+            },
+            "start_time" : 1199163600,
+            "payer" : {
+                "_id" : "583343459eebbc0d760000be",
+                "name" : "Other"
+            }
+        }
+    ]
+}

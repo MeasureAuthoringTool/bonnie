@@ -1,9 +1,14 @@
 class Thorax.Views.PopulationsLogic extends Thorax.LayoutView
   template: JST['logic/layout']
+  # suppressDataCriteriaHighlight is a variable that will enable/disable the highlighting when viewing the
+  # the logic for a patient. It is necessary to have this for situations where the poplulation logic is 
+  # displayed and the data criteria are not present (in the window).
+  # The default/assumed value is false.  This results in the high being ENABLED.
+  # The population logic views in patient compare view are examples of when this would be be set to true.
   switchPopulation: (e) ->
     population = $(e.target).model()
     population.measure().set('displayedPopulation', population)
-    @setView new Thorax.Views.PopulationLogic(model: population)
+    @setView new Thorax.Views.PopulationLogic(model: population, suppressDataCriteriaHighlight: @suppressDataCriteriaHighlight)
     @trigger 'population:update', population
   showRationale: (result) -> @getView().showRationale(result)
   clearRationale: -> @getView().clearRationale()

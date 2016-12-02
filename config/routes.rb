@@ -25,6 +25,7 @@ Bonnie::Application.routes.draw do
       post 'finalize'
       get 'vsac_auth_valid'
       post 'vsac_auth_expire'
+      get 'historic_diff'
     end
     member do
       get 'debug', defaults: { format: :html }
@@ -35,6 +36,8 @@ Bonnie::Application.routes.draw do
         get 'calculate_code'
       end
     end
+    resources :archived_measures
+    resources :upload_summaries
   end
 
   resources :patients do
