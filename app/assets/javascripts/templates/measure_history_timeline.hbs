@@ -17,7 +17,7 @@
         {{#with (lookup attributes.population_set_summaries ../../populationIndex)}}
           <tr class="active" data-upload-id="{{../attributes._id}}">
             <th class="history-upload-header" scope="row">
-              v{{../attributes.hqmf_version_number_post_upload}} @ <small>{{dateFormat ../attributes.uploaded_at "M/D/YY h:mm a"}}</small>
+              v{{../attributes.hqmf_version_number_post_upload}} @ <small>{{moment ../attributes.uploaded_at "M/D/YY h:mm a"}}</small>
             </th>
             <th class="history-upload-header" scope="row"><small>After</small></th>
             {{! Loop through each patient in same order as header }}
