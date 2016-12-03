@@ -31,6 +31,7 @@ module UploadSummary
     field :cms_id_post_upload, type: String
     field :hqmf_version_number_pre_upload, type: String
     field :hqmf_version_number_post_upload, type: String
+    field :measure_population_set_count, type: Hash, default: {pre_upload: 0, post_upload: 0}
     belongs_to :user
     embeds_many :population_set_summaries, cascade_callbacks: true
     accepts_nested_attributes_for :population_set_summaries
@@ -83,13 +84,22 @@ module UploadSummary
     end
   end
 
-  def self.collect_before_upload_state(measure, arch_measure)
-    patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
+  def self.collect_before_upload_state(measure, archived_measure, measure_patients)
+
+    # We need to iterate over the population sets in the archived_measure (aka the old version) of the measure
+    # because the new version of the measure may change the number of population sets.
+    # If archived_measure is nil then it means that we are dealing with the first upload of the measure after
+    # its initial load. In this state there is archived_measure yet.
+    if archived_measure
+      before_upload_population_sets = archived_measure.measure_content['populations']
+    else
+      before_upload_population_sets = measure.populations
+    end
 
     measure_upload_summary = MeasureSummary.new
-    measure.populations.each_index do |populaton_set_index|
+    before_upload_population_sets.each_index do |populaton_set_index|
       population_set_summary = PopulationSetSummary.new
-      patients.each do |patient|
+      measure_patients.each do |patient|
         population_set_summary.before_measure_load_compare(patient, populaton_set_index, measure.hqmf_set_id)
       end
       measure_upload_summary.population_set_summaries << population_set_summary
@@ -97,49 +107,69 @@ module UploadSummary
     measure_upload_summary.hqmf_id = measure.hqmf_id
     measure_upload_summary.hqmf_set_id = measure.hqmf_set_id
     measure_upload_summary.user_id = measure.user_id
-    if arch_measure
-      measure_upload_summary.measure_db_id_pre_upload = arch_measure.measure_db_id
-      measure_upload_summary.cms_id_pre_upload = arch_measure.measure_content['cms_id']
-      measure_upload_summary.hqmf_version_number_pre_upload = arch_measure.measure_content['hqmf_version_number']
+    if archived_measure
+      measure_upload_summary.measure_db_id_pre_upload = archived_measure.measure_db_id
+      measure_upload_summary.cms_id_pre_upload = archived_measure.measure_content['cms_id']
+      measure_upload_summary.hqmf_version_number_pre_upload = archived_measure.measure_content['hqmf_version_number']
     end
     measure_upload_summary.measure_db_id_post_upload = measure.id
     measure_upload_summary.cms_id_post_upload = measure.cms_id
     measure_upload_summary.hqmf_version_number_post_upload = measure.hqmf_version_number
+    measure_upload_summary.measure_population_set_count[:pre_upload] = before_upload_population_sets.count
+    measure_upload_summary.measure_population_set_count[:post_upload] = measure.populations.count
     measure_upload_summary.save!
     measure_upload_summary.id
   end
 
-  def self.collect_after_upload_state(measure, upload_summary_id)
-    patient_snapshots_pre_measure_upload = MeasureSummary.where(id: upload_summary_id).first
-    patient_snapshots_pre_measure_upload.population_set_summaries.each_index do |population_set_index|
-      patient_snapshot_population_sets = patient_snapshots_pre_measure_upload.population_set_summaries[population_set_index]
-      patient_snapshot_population_sets[:patients].keys.each do |patient|
-        patient = Record.where(id: patient).first
-        post_upload_filtered_calc_results = (patient.calc_results.find { |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == population_set_index }).slice(*ATTRIBUTE_FILTER) unless patient.results_exceed_storage
-        if !patient.results_exceed_storage
-          if (patient.calc_results.find{ |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == population_set_index })['status'] == 'pass'
-            status = 'pass'
-            patient_snapshot_population_sets.summary[:pass_after] += 1
-          else
-            status = 'fail'
-            patient_snapshot_population_sets.summary[:fail_after] += 1
-          end
-        else
-          if (patient.condensed_calc_results.find{ |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == population_set_index })['status'] == 'pass'
-            status = 'pass'
-            patient_snapshot_population_sets.summary[:pass_after] += 1
-          else
-            status = 'fail'
-            patient_snapshot_population_sets.summary[:fail_after] += 1
-          end
-        end
-        patient_snapshot_population_sets.patients[patient.id.to_s].merge!(post_upload_results: post_upload_filtered_calc_results, post_upload_status: status, results_exceeds_storage_post_upload: patient.results_exceed_storage, patient_version_after_upload: patient.version)
-      end
-      patient_snapshot_population_sets.save!
+  def self.collect_after_upload_state(measure, upload_summary_id, measure_patients)
+    measure_upload_summary = MeasureSummary.where(id: upload_summary_id).first
+    if measure_upload_summary.measure_population_set_count[:pre_upload] < measure_upload_summary.measure_population_set_count[:post_upload]
+      
+      population_sets_to_add = measure_upload_summary.measure_population_set_count[:post_upload] - measure_upload_summary.measure_population_set_count[:pre_upload]
+      # Add the missing population sets
+      # Using downto so that the population sets can be added from where they are missing.
+      # It needs to be done this way as the order of the population sets is their population_index.
+      population_sets_to_add.downto(1) do |i|
+        new_population_set = PopulationSetSummary.new
+        missing_expected_values = {}
+        # Get the populations 
+        (measure.populations[-i].keys - ['id', 'title']).each { |population| missing_expected_values[population] = 0 }
+        # Add all of the patients with their expected values
+        measure_patients.each { |patient| new_population_set['patients'][patient.id.to_s] = {:expected => missing_expected_values} }
+        measure_upload_summary.population_set_summaries << new_population_set 
+      end # downto
     end
+
+    measure_upload_summary.population_set_summaries.each_with_index do |population_set, population_set_index|
+      # Only work on the population sets that exist.  It is possible that in the new version of the meausre
+      # there are few population sets than in the previous version.
+      break if population_set_index >= measure.populations.count
+        measure_patients.each do |patient|
+
+        status = 'fail'
+        if !patient.results_exceed_storage
+          post_upload_filtered_calc_results = (patient.calc_results.find { |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == population_set_index }).slice(*ATTRIBUTE_FILTER)
+          status = 'pass' if (patient.calc_results.find{ |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == population_set_index })['status'] == 'pass'
+        else
+          status = 'pass' if (patient.condensed_bc_of_size_results.find{ |result| result[:measure_id] == measure.hqmf_set_id && result[:population_index] == population_set_index })['status'] == 'pass'
+        end
+
+        if status == 'pass'
+          population_set.summary[:pass_after] += 1
+        else
+          population_set.summary[:fail_after] += 1
+        end
+
+        population_set.patients[patient.id.to_s].merge!(post_upload_results: post_upload_filtered_calc_results, 
+            post_upload_status: status,
+            results_exceeds_storage_post_upload: patient.results_exceed_storage,
+            patient_version_after_upload: patient.version)
+      end # patient_snapshot_population_sets[:patients].keys.each
+    end
+    measure_upload_summary.save!
   end
 
-  def self.calculate_updated_actuals(measure)
+  def self.calculate_updated_actuals(measure, measure_patients)
     calculator = BonnieBackendCalculator.new
     measure.populations.each_with_index do |population, population_index|
       # Set up calculator for this measure and population, making sure we regenerate the javascript
@@ -150,8 +180,7 @@ module UploadSummary
       rescue => e
         setup_exception = "Measure setup exception: #{e.message}"
       end
-      patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
-      patients.each do |patient|
+      measure_patients.each do |patient|
         unless setup_exception
           begin
             result = calculator.calculate(patient).slice(*populations_to_process)
