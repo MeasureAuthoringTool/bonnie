@@ -29,15 +29,15 @@ class ArchivedMeasure
   scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where({'user_id'=>user.id, 'hqmf_set_id'=>hqmf_set_id}) }
   
   def self.from_measure(measure)
-    arch_measure = ArchivedMeasure.new
-    arch_measure.measure_db_id = measure.id
-    arch_measure.hqmf_id = measure.hqmf_id
-    arch_measure.hqmf_set_id = measure.hqmf_set_id
-    arch_measure.measure_content = JSON.parse(measure.to_json)
-    arch_measure.user = measure.user
-    arch_measure.uploaded_at = measure.created_at
+    archived_measure = ArchivedMeasure.new
+    archived_measure.measure_db_id = measure.id
+    archived_measure.hqmf_id = measure.hqmf_id
+    archived_measure.hqmf_set_id = measure.hqmf_set_id
+    archived_measure.measure_content = JSON.parse(measure.to_json)
+    archived_measure.user = measure.user
+    archived_measure.uploaded_at = measure.created_at
     
-    return arch_measure
+    return archived_measure
   end
   
   def to_measure
