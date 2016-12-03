@@ -3,7 +3,7 @@ Handlebars.registerHelper 'log', (message) -> console.log(message)
 Handlebars.registerHelper 'debug', -> debugger
 
 # add a helper for formatting dates
-Handlebars.registerHelper 'moment', (date, format) -> moment.utc(date).format(format)
+Handlebars.registerHelper 'moment', (date, format) -> moment(date).format(format)
 
 # helper for displaying complexity score in graphical form
 Handlebars.registerHelper 'complexityIcon', (score) ->
@@ -71,8 +71,3 @@ that screen readers will read out the complete name
 Handlebars.registerHelper 'populationName', (population) =>
   return '' unless population?
   return new Handlebars.SafeString Thorax.Models.Measure.PopulationMap[population]
-
-# Helper to make use of moment date formatting
-# TODO: Replace this helper with the 'moment' helper defined above.
-Handlebars.registerHelper 'dateFormat', (date, fmt) ->
-  return moment(date).format(fmt)
