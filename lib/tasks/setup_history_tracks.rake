@@ -15,6 +15,15 @@ namespace :bonnie do
     task :store_calculation_results => :environment do
       STDOUT.sync = true
 
+      # clear out any pre-existing calculation result information
+      Record.each do |patient|
+        patient.calc_results = []
+        patient.condensed_calc_results = []
+        patient.has_measure_history = false
+        patient.results_exceed_storage = false
+        patient.results_size = 0
+      end
+
       calculator = BonnieBackendCalculator.new
       puts "There are #{Measure.count} measures to process."
       Measure.each_with_index do |measure, measure_index|
@@ -37,9 +46,9 @@ namespace :bonnie do
 
           processed_patients_array = []
           patients.each_with_index do |patient, patient_index|
+            # For some reason, patients show up multiple times during this iteration.
+            # This checks for that and skips those patients to reduce the number of calculations.
             if processed_patients_array.include?(patient)
-              # For some reason patients are added to the list again as the iteration goes along.
-              # This checks for that and skips those patients.
               next
             end
             processed_patients_array << patient
