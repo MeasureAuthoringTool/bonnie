@@ -1,0 +1,1990 @@
+{ "_id": "53ce63744d4d32e2cd4b0500",
+    "bundle_id": "53ce634a4d4d32e2cd010000",
+    "category": "Miscellaneous",
+    "cms_id": "CMS104v2",
+    "complexity": {
+        "DENEX": 13,
+        "DENEXCEP": 2,
+        "DENOM": 1,
+        "IPP": 5,
+        "NUMER": 1
+    },
+    "continuous_variable": false,
+    "custom_functions": null,
+    "data_criteria": {
+        "DiagnosisActiveHemorrhagicStroke_precondition_68": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.212",
+            "definition": "diagnosis",
+            "description": "Diagnosis, Active: Hemorrhagic Stroke",
+            "field_values": {
+                "ORDINAL": {
+                    "code_list_id": "2.16.840.1.113883.3.117.2.7.1.14",
+                    "title": "Principal Diagnosis",
+                    "type": "CD"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "DiagnosisActiveHemorrhagicStroke",
+            "status": "active",
+            "temporal_references": [
+                {
+                    "reference": "OccurrenceAInpatientEncounter1_precondition_73",
+                    "type": "SDU"
+                }
+            ],
+            "title": "Hemorrhagic Stroke",
+            "type": "conditions",
+            "variable": false
+        },
+        "DiagnosisActiveIschemicStroke_precondition_59": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.247",
+            "definition": "diagnosis",
+            "description": "Diagnosis, Active: Ischemic Stroke",
+            "field_values": {
+                "ORDINAL": {
+                    "code_list_id": "2.16.840.1.113883.3.117.2.7.1.14",
+                    "title": "Principal Diagnosis",
+                    "type": "CD"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "DiagnosisActiveIschemicStroke",
+            "status": "active",
+            "temporal_references": [
+                {
+                    "reference": "OccurrenceAInpatientEncounter1",
+                    "type": "SDU"
+                }
+            ],
+            "title": "Ischemic Stroke",
+            "type": "conditions",
+            "variable": false
+        },
+        "DiagnosisActiveIschemicStroke_precondition_70": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.247",
+            "definition": "diagnosis",
+            "description": "Diagnosis, Active: Ischemic Stroke",
+            "field_values": {
+                "ORDINAL": {
+                    "code_list_id": "2.16.840.1.113883.3.117.2.7.1.14",
+                    "title": "Principal Diagnosis",
+                    "type": "CD"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "DiagnosisActiveIschemicStroke",
+            "status": "active",
+            "temporal_references": [
+                {
+                    "reference": "OccurrenceAInpatientEncounter1_precondition_73",
+                    "type": "SDU"
+                }
+            ],
+            "title": "Ischemic Stroke",
+            "type": "conditions",
+            "variable": false
+        },
+        "EncounterPerformedEmergencyDepartmentVisit": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Emergency Department Visit",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "EncounterPerformedEmergencyDepartmentVisit",
+            "status": "performed",
+            "title": "Emergency Department Visit",
+            "type": "encounters",
+            "variable": false
+        },
+        "EncounterPerformedInpatientEncounter": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "EncounterPerformedInpatientEncounter",
+            "status": "performed",
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "InterventionOrderPalliativeCare_precondition_46": {
+            "code_list_id": "2.16.840.1.113883.3.526.2.1076",
+            "definition": "intervention",
+            "description": "Intervention, Order: Palliative Care",
+            "hard_status": true,
+            "negation": false,
+            "source_data_criteria": "InterventionOrderPalliativeCare",
+            "status": "ordered",
+            "temporal_references": [
+                {
+                    "reference": "OccurrenceAInpatientEncounter1_precondition_51",
+                    "type": "SDU"
+                }
+            ],
+            "title": "Palliative Care",
+            "type": "interventions",
+            "variable": false
+        },
+        "InterventionPerformedPalliativeCare_precondition_48": {
+            "code_list_id": "2.16.840.1.113883.3.526.2.1076",
+            "definition": "intervention",
+            "description": "Intervention, Performed: Palliative Care",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "InterventionPerformedPalliativeCare",
+            "status": "performed",
+            "temporal_references": [
+                {
+                    "reference": "OccurrenceAInpatientEncounter1_precondition_51",
+                    "type": "SDU"
+                }
+            ],
+            "title": "Palliative Care",
+            "type": "interventions",
+            "variable": false
+        },
+        "MedicationDischargeAntithromboticTherapy_precondition_56": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.201",
+            "definition": "medication",
+            "description": "Medication, Discharge: Antithrombotic Therapy",
+            "hard_status": true,
+            "negation": false,
+            "source_data_criteria": "MedicationDischargeAntithromboticTherapy",
+            "status": "discharge",
+            "temporal_references": [
+                {
+                    "reference": "OccurrenceAInpatientEncounter1",
+                    "type": "DURING"
+                }
+            ],
+            "title": "Antithrombotic Therapy",
+            "type": "medications",
+            "variable": false
+        },
+        "MedicationOrderAntithromboticTherapy_precondition_5": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.201",
+            "definition": "medication",
+            "description": "Medication, Order: Antithrombotic Therapy",
+            "hard_status": true,
+            "negation": true,
+            "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.473",
+            "source_data_criteria": "MedicationOrderAntithromboticTherapy",
+            "status": "ordered",
+            "temporal_references": [
+                {
+                    "reference": "OccurrenceAInpatientEncounter1_precondition_10",
+                    "type": "SDU"
+                }
+            ],
+            "title": "Antithrombotic Therapy",
+            "type": "medications",
+            "variable": false
+        },
+        "MedicationOrderAntithromboticTherapy_precondition_7": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.201",
+            "definition": "medication",
+            "description": "Medication, Order: Antithrombotic Therapy",
+            "hard_status": true,
+            "negation": true,
+            "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.93",
+            "source_data_criteria": "MedicationOrderAntithromboticTherapy",
+            "status": "ordered",
+            "temporal_references": [
+                {
+                    "reference": "OccurrenceAInpatientEncounter1_precondition_10",
+                    "type": "SDU"
+                }
+            ],
+            "title": "Antithrombotic Therapy",
+            "type": "medications",
+            "variable": false
+        },
+        "MedicationOrderNotDoneMedicalReason": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.473",
+            "definition": "medication",
+            "description": "Medication, Order not done: Medical Reason",
+            "hard_status": true,
+            "negation": true,
+            "source_data_criteria": "MedicationOrderNotDoneMedicalReason",
+            "status": "ordered",
+            "title": "Medical Reason",
+            "type": "medications",
+            "variable": false
+        },
+        "MedicationOrderNotDonePatientRefusal": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.93",
+            "definition": "medication",
+            "description": "Medication, Order not done: Patient Refusal",
+            "hard_status": true,
+            "negation": true,
+            "source_data_criteria": "MedicationOrderNotDonePatientRefusal",
+            "status": "ordered",
+            "title": "Patient Refusal",
+            "type": "medications",
+            "variable": false
+        },
+        "OccurrenceAEmergencyDepartmentVisit2_precondition_25": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Emergency Department Visit",
+            "field_values": {
+                "FACILITY_LOCATION_DEPARTURE_DATETIME": {
+                    "type": "ANYNonNull"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAEmergencyDepartmentVisit2",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_EMERGENCY_DEPARTMENT_VISIT",
+            "status": "performed",
+            "title": "Emergency Department Visit",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAEmergencyDepartmentVisit2_precondition_28": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Emergency Department Visit",
+            "field_values": {
+                "FACILITY_LOCATION_ARRIVAL_DATETIME": {
+                    "type": "ANYNonNull"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAEmergencyDepartmentVisit2",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_EMERGENCY_DEPARTMENT_VISIT",
+            "status": "performed",
+            "title": "Emergency Department Visit",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAEmergencyDepartmentVisit2_precondition_35": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Emergency Department Visit",
+            "field_values": {
+                "FACILITY_LOCATION_ARRIVAL_DATETIME": {
+                    "type": "ANYNonNull"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAEmergencyDepartmentVisit2",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_EMERGENCY_DEPARTMENT_VISIT",
+            "status": "performed",
+            "title": "Emergency Department Visit",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAInpatientEncounter1": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAInpatientEncounter1",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER",
+            "status": "performed",
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAInpatientEncounter1_precondition_10": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAInpatientEncounter1",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER",
+            "status": "performed",
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAInpatientEncounter1_precondition_13": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "field_values": {
+                "REASON": {
+                    "code_list_id": "2.16.840.1.113883.3.117.1.7.1.204",
+                    "title": "Carotid Intervention",
+                    "type": "CD"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAInpatientEncounter1",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER",
+            "status": "performed",
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAInpatientEncounter1_precondition_15": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "field_values": {
+                "DISCHARGE_STATUS": {
+                    "code_list_id": "2.16.840.1.113883.3.117.1.7.1.87",
+                    "title": "Discharge To Another Hospital",
+                    "type": "CD"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAInpatientEncounter1",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER",
+            "status": "performed",
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAInpatientEncounter1_precondition_17": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "field_values": {
+                "DISCHARGE_STATUS": {
+                    "code_list_id": "2.16.840.1.113883.3.117.1.7.1.308",
+                    "title": "Left Against Medical Advice",
+                    "type": "CD"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAInpatientEncounter1",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER",
+            "status": "performed",
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAInpatientEncounter1_precondition_19": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "field_values": {
+                "DISCHARGE_STATUS": {
+                    "code_list_id": "2.16.840.1.113883.3.117.1.7.1.209",
+                    "title": "Discharged to Home for Hospice Care",
+                    "type": "CD"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAInpatientEncounter1",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER",
+            "status": "performed",
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAInpatientEncounter1_precondition_21": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "field_values": {
+                "DISCHARGE_STATUS": {
+                    "code_list_id": "2.16.840.1.113883.3.117.1.7.1.309",
+                    "title": "Patient Expired",
+                    "type": "CD"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAInpatientEncounter1",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER",
+            "status": "performed",
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAInpatientEncounter1_precondition_23": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "field_values": {
+                "DISCHARGE_STATUS": {
+                    "code_list_id": "2.16.840.1.113883.3.117.1.7.1.207",
+                    "title": "Discharged to Health Care Facility for Hospice Care",
+                    "type": "CD"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAInpatientEncounter1",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER",
+            "status": "performed",
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAInpatientEncounter1_precondition_26": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "field_values": {
+                "ADMISSION_DATETIME": {
+                    "type": "ANYNonNull"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAInpatientEncounter1",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER",
+            "status": "performed",
+            "temporal_references": [
+                {
+                    "range": {
+                        "high": {
+                            "derived?": false,
+                            "inclusive?": true,
+                            "type": "PQ",
+                            "unit": "h",
+                            "value": "1"
+                        },
+                        "type": "IVL_PQ"
+                    },
+                    "reference": "OccurrenceAEmergencyDepartmentVisit2_precondition_25",
+                    "type": "SAE"
+                }
+            ],
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAInpatientEncounter1_precondition_51": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAInpatientEncounter1",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER",
+            "status": "performed",
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAInpatientEncounter1_precondition_64": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "field_values": {
+                "LENGTH_OF_STAY": {
+                    "high": {
+                        "derived?": false,
+                        "inclusive?": true,
+                        "type": "PQ",
+                        "unit": "d",
+                        "value": "120"
+                    },
+                    "type": "IVL_PQ"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAInpatientEncounter1",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER",
+            "status": "performed",
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAInpatientEncounter1_precondition_66": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "field_values": {
+                "DISCHARGE_DATETIME": {
+                    "type": "ANYNonNull"
+                }
+            },
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAInpatientEncounter1",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER",
+            "status": "performed",
+            "temporal_references": [
+                {
+                    "reference": "MeasurePeriod",
+                    "type": "DURING"
+                }
+            ],
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAInpatientEncounter1_precondition_73": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAInpatientEncounter1",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER",
+            "status": "performed",
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAPalliativeCare3_precondition_29": {
+            "code_list_id": "2.16.840.1.113883.3.526.2.1076",
+            "definition": "intervention",
+            "description": "Intervention, Ordered: Palliative Care",
+            "hard_status": true,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAPalliativeCare3",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "INTERVENTION_ORDERED_PALLIATIVE_CARE",
+            "status": "ordered",
+            "temporal_references": [
+                {
+                    "reference": "OccurrenceAEmergencyDepartmentVisit2_precondition_28",
+                    "type": "SAS"
+                }
+            ],
+            "title": "Palliative Care",
+            "type": "interventions",
+            "variable": false
+        },
+        "OccurrenceAPalliativeCare3_precondition_31": {
+            "code_list_id": "2.16.840.1.113883.3.526.2.1076",
+            "definition": "intervention",
+            "description": "Intervention, Ordered: Palliative Care",
+            "hard_status": true,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAPalliativeCare3",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "INTERVENTION_ORDERED_PALLIATIVE_CARE",
+            "status": "ordered",
+            "temporal_references": [
+                {
+                    "reference": "OccurrenceAInpatientEncounter1",
+                    "type": "SBE"
+                }
+            ],
+            "title": "Palliative Care",
+            "type": "interventions",
+            "variable": false
+        },
+        "OccurrenceAPalliativeCare4_precondition_36": {
+            "code_list_id": "2.16.840.1.113883.3.526.2.1076",
+            "definition": "intervention",
+            "description": "Intervention, Performed: Palliative Care",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAPalliativeCare4",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "INTERVENTION_PERFORMED_PALLIATIVE_CARE",
+            "status": "performed",
+            "temporal_references": [
+                {
+                    "reference": "OccurrenceAEmergencyDepartmentVisit2_precondition_35",
+                    "type": "SAS"
+                }
+            ],
+            "title": "Palliative Care",
+            "type": "interventions",
+            "variable": false
+        },
+        "OccurrenceAPalliativeCare4_precondition_38": {
+            "code_list_id": "2.16.840.1.113883.3.526.2.1076",
+            "definition": "intervention",
+            "description": "Intervention, Performed: Palliative Care",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAPalliativeCare4",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "INTERVENTION_PERFORMED_PALLIATIVE_CARE",
+            "status": "performed",
+            "temporal_references": [
+                {
+                    "reference": "OccurrenceAInpatientEncounter1",
+                    "type": "SBE"
+                }
+            ],
+            "title": "Palliative Care",
+            "type": "interventions",
+            "variable": false
+        },
+        "PatientCharacteristicBirthdateBirthDate_precondition_62": {
+            "code_list_id": "2.16.840.1.113883.3.560.100.4",
+            "definition": "patient_characteristic_birthdate",
+            "description": "Patient Characteristic Birthdate: birth date",
+            "hard_status": false,
+            "inline_code_list": {
+                "LOINC": [
+                    "21112-8"
+                ]
+            },
+            "negation": false,
+            "property": "birthtime",
+            "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+            "temporal_references": [
+                {
+                    "range": {
+                        "low": {
+                            "derived?": false,
+                            "inclusive?": true,
+                            "type": "PQ",
+                            "unit": "a",
+                            "value": "18"
+                        },
+                        "type": "IVL_PQ"
+                    },
+                    "reference": "OccurrenceAInpatientEncounter1",
+                    "type": "SBS"
+                }
+            ],
+            "title": "birth date",
+            "type": "characteristic",
+            "variable": false
+        },
+        "PatientCharacteristicEthnicityEthnicity": {
+            "code_list_id": "2.16.840.1.114222.4.11.837",
+            "definition": "patient_characteristic_ethnicity",
+            "description": "Patient Characteristic Ethnicity: Ethnicity",
+            "hard_status": false,
+            "inline_code_list": {
+                "CDC": [
+                    "2135-2",
+                    "2186-5"
+                ]
+            },
+            "negation": false,
+            "property": "ethnicity",
+            "source_data_criteria": "PatientCharacteristicEthnicityEthnicity",
+            "title": "Ethnicity",
+            "type": "characteristic",
+            "variable": false
+        },
+        "PatientCharacteristicPayerPayer": {
+            "code_list_id": "2.16.840.1.114222.4.11.3591",
+            "definition": "patient_characteristic_payer",
+            "description": "Patient Characteristic Payer: Payer",
+            "hard_status": false,
+            "inline_code_list": {
+                "Source of Payment Typology": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "11",
+                    "12",
+                    "19",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "29",
+                    "31",
+                    "32",
+                    "33",
+                    "34",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "39",
+                    "41",
+                    "42",
+                    "43",
+                    "44",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "59",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "69",
+                    "71",
+                    "72",
+                    "73",
+                    "79",
+                    "81",
+                    "82",
+                    "83",
+                    "84",
+                    "85",
+                    "89",
+                    "91",
+                    "92",
+                    "93",
+                    "94",
+                    "95",
+                    "96",
+                    "98",
+                    "99",
+                    "111",
+                    "112",
+                    "113",
+                    "119",
+                    "121",
+                    "122",
+                    "123",
+                    "129",
+                    "211",
+                    "212",
+                    "213",
+                    "219",
+                    "311",
+                    "312",
+                    "313",
+                    "321",
+                    "322",
+                    "331",
+                    "332",
+                    "333",
+                    "334",
+                    "341",
+                    "342",
+                    "343",
+                    "349",
+                    "361",
+                    "362",
+                    "369",
+                    "371",
+                    "372",
+                    "379",
+                    "381",
+                    "382",
+                    "389",
+                    "511",
+                    "512",
+                    "513",
+                    "514",
+                    "515",
+                    "519",
+                    "521",
+                    "522",
+                    "523",
+                    "529",
+                    "611",
+                    "612",
+                    "613",
+                    "619",
+                    "821",
+                    "822",
+                    "823",
+                    "951",
+                    "953",
+                    "954",
+                    "959",
+                    "3111",
+                    "3112",
+                    "3113",
+                    "3114",
+                    "3115",
+                    "3116",
+                    "3119",
+                    "3121",
+                    "3122",
+                    "3123",
+                    "3211",
+                    "3212",
+                    "3221",
+                    "3222",
+                    "3223",
+                    "3229",
+                    "3711",
+                    "3712",
+                    "3713",
+                    "3811",
+                    "3812",
+                    "3813",
+                    "3819",
+                    "9999",
+                    "32121",
+                    "32122",
+                    "32123",
+                    "32124",
+                    "32125",
+                    "32126"
+                ]
+            },
+            "negation": false,
+            "property": "payer",
+            "source_data_criteria": "PatientCharacteristicPayerPayer",
+            "title": "Payer",
+            "type": "characteristic",
+            "variable": false
+        },
+        "PatientCharacteristicRaceRace": {
+            "code_list_id": "2.16.840.1.114222.4.11.836",
+            "definition": "patient_characteristic_race",
+            "description": "Patient Characteristic Race: Race",
+            "hard_status": false,
+            "inline_code_list": {
+                "CDC": [
+                    "1002-5",
+                    "2028-9",
+                    "2054-5",
+                    "2076-8",
+                    "2106-3",
+                    "2131-1"
+                ]
+            },
+            "negation": false,
+            "property": "race",
+            "source_data_criteria": "PatientCharacteristicRaceRace",
+            "title": "Race",
+            "type": "characteristic",
+            "variable": false
+        },
+        "PatientCharacteristicSexOncAdministrativeSex": {
+            "code_list_id": "2.16.840.1.113762.1.4.1",
+            "definition": "patient_characteristic_gender",
+            "description": "Patient Characteristic Sex: ONC Administrative Sex",
+            "hard_status": false,
+            "negation": false,
+            "property": "gender",
+            "source_data_criteria": "PatientCharacteristicSexOncAdministrativeSex",
+            "title": "ONC Administrative Sex",
+            "type": "characteristic",
+            "value": {
+                "code": "F",
+                "system": "Administrative Sex",
+                "type": "CD"
+            },
+            "variable": false
+        }
+    },
+    "description": "Ischemic stroke patients prescribed antithrombotic therapy at hospital discharge",
+    "episode_ids": [
+        "OccurrenceAInpatientEncounter1"
+    ],
+    "episode_of_care": true,
+    "force_sources": null,
+    "hqmf_id": "40280381-3D27-TEST-013D-4DCA4B826AE4",
+    "hqmf_set_id": "42BF391F-38A3-TEST-9ECE-DCD47E9609D9",
+    "hqmf_version_number": 2,
+    "id": "53ce63744d4d32e2cd4b0500",
+    "map_fns": [
+        "\n        var patient_api = new hQuery.Patient(patient);\n\n        \n        // #########################\n        // ##### DATA ELEMENTS #####\n        // #########################\n\n        hqmfjs.nqf_id = '0435';\n        hqmfjs.hqmf_id = '40280381-3D27-5493-013D-4DCA4B826AE4';\n        hqmfjs.sub_id = null;\n        if (typeof(test_id) == 'undefined') hqmfjs.test_id = null;\n\n        OidDictionary = {'2.16.840.1.113762.1.4.1':{'Administrative Sex':['F','M','U']},'2.16.840.1.114222.4.11.836':{'CDC':['1002-5','2028-9','2054-5','2076-8','2106-3','2131-1']},'2.16.840.1.114222.4.11.837':{'CDC':['2135-2','2186-5']},'2.16.840.1.114222.4.11.3591':{'Source of Payment Typology':['1','2','3','4','5','6','7','8','9','11','12','19','21','22','23','24','25','29','31','32','33','34','35','36','37','38','39','41','42','43','44','51','52','53','54','55','59','61','62','63','64','69','71','72','73','79','81','82','83','84','85','89','91','92','93','94','95','96','98','99','111','112','113','119','121','122','123','129','211','212','213','219','311','312','313','321','322','331','332','333','334','341','342','343','349','361','362','369','371','372','379','381','382','389','511','512','513','514','515','519','521','522','523','529','611','612','613','619','821','822','823','951','953','954','959','3111','3112','3113','3114','3115','3116','3119','3121','3122','3123','3211','3212','3221','3222','3223','3229','3711','3712','3713','3811','3812','3813','3819','9999','32121','32122','32123','32124','32125','32126']},'2.16.840.1.113883.3.560.100.4':{'LOINC':['21112-8']},'2.16.840.1.113883.3.117.1.7.1.23':{'SNOMED-CT':['417005','2252009','2876009','4563007','8715000','10378005','15584006','18083007','19951005','25986004','32485007','48183000','50699000','52748007','63551005','70755000','73607007','74857009','78680009','81672003','112689000','183452005','183481006','266938001','305337004','305338009','305339001','305340004','305341000','308540004','405614004']},'2.16.840.1.113883.3.117.1.7.1.87':{'SNOMED-CT':['306699001','306701001']},'2.16.840.1.113883.3.117.1.7.1.93':{'SNOMED-CT':['105480006','182890002','182895007','182896008','182897004','182898009','182900006','182901005','182903008','183944003','183945002','183947005','183948000','275936005','371138003','385648002','406149000','413312003','416432009','443390004']},'2.16.840.1.113883.3.117.1.7.1.201':{'RxNorm':['103863','197374','198461','198462','198463','198464','198466','198467','198468','198470','198471','198473','198475','198477','198479','198480','199274','200322','204906','205251','212033','235945','243663','243670','243683','243685','243694','246460','247137','248754','252380','259081','308297','308351','308405','308409','308411','308414','308416','308417','309362','313406','313806','318272','349308','349516','349621','359458','403924','435521','545076','647869','692836','702316','747211','749196','763116','806446','825174','827318','829886','830698','848335','849710','849712','849718','849722','849726','849764','849770','849776','853499','854228','854235','854238','854241','854245','854248','854252','854255','854258','855288','855296','855302','855308','855312','855318','855324','855332','855338','855344','861356','861360','861363','861365','900528','904660','904662','904664','904666','904668','904670','978713','978717','978725','978733','978736','978738','978740','978744','978746','978755','978759','978761','978777','994430','994435','1037045','1037179','1043067','1092398','1110708','1114198','1192963','1232082','1232086','1245473','1250907','1291868','1293047','1294327','1364435','1364445']},'2.16.840.1.113883.3.117.1.7.1.204':{'ICD-9-CM':['00.61','00.62','00.63','00.64','00.65','38.02','38.12','38.22','38.30','38.31','38.32','38.42','39.28','88.41'],'ICD-10-CM':['031H09G','031H09J','031H0AG','031H0AJ','031H0JG','031H0JJ','031H0KG','031H0KJ','031H0ZG','031H0ZJ','031J09G','031J09K','031J0AG','031J0AK','031J0JG','031J0JK','031J0KG','031J0KK','031J0ZG','031J0ZK','031K09J','031K0AJ','031K0JJ','031K0KJ','031K0ZJ','031L09K','031L0AK','031L0JK','031L0KK','031L0ZK','031M09J','031M0AJ','031M0JJ','031M0KJ','031M0ZJ','031N09K','031N0AK','031N0JK','031N0KK','031N0ZK','035H0ZZ','035H3ZZ','035H4ZZ','035J0ZZ','035J3ZZ','035J4ZZ','035K0ZZ','035K3ZZ','035K4ZZ','035L0ZZ','035L3ZZ','035L4ZZ','035M0ZZ','035M3ZZ','035M4ZZ','035N0ZZ','035N3ZZ','035N4ZZ','037H04Z','037H0DZ','037H0ZZ','037H34Z','037H3DZ','037H3ZZ','037H44Z','037H4DZ','037H4ZZ','037J04Z','037J0DZ','037J0ZZ','037J34Z','037J3DZ','037J3ZZ','037J44Z','037J4DZ','037J4ZZ','037K04Z','037K0DZ','037K0ZZ','037K34Z','037K3DZ','037K3ZZ','037K44Z','037K4DZ','037K4ZZ','037L04Z','037L0DZ','037L0ZZ','037L34Z','037L3DZ','037L3ZZ','037L44Z','037L4DZ','037L4ZZ','037M04Z','037M0DZ','037M0ZZ','037M34Z','037M3DZ','037M3ZZ','037M44Z','037M4DZ','037M4ZZ','037N04Z','037N0DZ','037N0ZZ','037N34Z','037N3DZ','037N3ZZ','037N44Z','037N4DZ','037N4ZZ','039H00Z','039H0ZX','039H0ZZ','039H30Z','039H3ZX','039H3ZZ','039H40Z','039H4ZX','039H4ZZ','039J00Z','039J0ZX','039J0ZZ','039J30Z','039J3ZX','039J3ZZ','039J40Z','039J4ZX','039J4ZZ','039K00Z','039K0ZX','039K0ZZ','039K30Z','039K3ZX','039K3ZZ','039K40Z','039K4ZX','039K4ZZ','039L00Z','039L0ZX','039L0ZZ','039L30Z','039L3ZX','039L3ZZ','039L40Z','039L4ZX','039L4ZZ','039M00Z','039M0ZX','039M0ZZ','039M30Z','039M3ZX','039M3ZZ','039M40Z','039M4ZX','039M4ZZ','039N00Z','039N0ZX','039N0ZZ','039N30Z','039N3ZX','039N3ZZ','039N40Z','039N4ZX','039N4ZZ','03BH0ZX','03BH0ZZ','03BH3ZX','03BH3ZZ','03BH4ZX','03BH4ZZ','03BJ0ZX','03BJ0ZZ','03BJ3ZX','03BJ3ZZ','03BJ4ZX','03BJ4ZZ','03BK0ZX','03BK0ZZ','03BK3ZX','03BK3ZZ','03BK4ZX','03BK4ZZ','03BL0ZX','03BL0ZZ','03BL3ZX','03BL3ZZ','03BL4ZX','03BL4ZZ','03BM0ZX','03BM0ZZ','03BM3ZX','03BM3ZZ','03BM4ZX','03BM4ZZ','03BN0ZX','03BN0ZZ','03BN3ZX','03BN3ZZ','03BN4ZX','03BN4ZZ','03CH0ZZ','03CH3ZZ','03CH4ZZ','03CJ0ZZ','03CJ3ZZ','03CJ4ZZ','03CK0ZZ','03CK3ZZ','03CK4ZZ','03CL0ZZ','03CL3ZZ','03CL4ZZ','03CM0ZZ','03CM3ZZ','03CM4ZZ','03CN0ZZ','03CN3ZZ','03CN4ZZ','03HH03Z','03HH0DZ','03HH33Z','03HH3DZ','03HH43Z','03HH4DZ','03HJ03Z','03HJ0DZ','03HJ33Z','03HJ3DZ','03HJ43Z','03HJ4DZ','03HK03Z','03HK0DZ','03HK0MZ','03HK33Z','03HK3DZ','03HK3MZ','03HK43Z','03HK4DZ','03HK4MZ','03HL03Z','03HL0DZ','03HL0MZ','03HL33Z','03HL3DZ','03HL3MZ','03HL43Z','03HL4DZ','03HL4MZ','03HM03Z','03HM0DZ','03HM33Z','03HM3DZ','03HM43Z','03HM4DZ','03HN03Z','03HN0DZ','03HN33Z','03HN3DZ','03HN43Z','03HN4DZ','03LH0BZ','03LH0CZ','03LH0DZ','03LH0ZZ','03LH3BZ','03LH3CZ','03LH3DZ','03LH3ZZ','03LH4BZ','03LH4CZ','03LH4DZ','03LH4ZZ','03LJ0BZ','03LJ0CZ','03LJ0DZ','03LJ0ZZ','03LJ3BZ','03LJ3CZ','03LJ3DZ','03LJ3ZZ','03LJ4BZ','03LJ4CZ','03LJ4DZ','03LJ4ZZ','03LK0BZ','03LK0CZ','03LK0DZ','03LK0ZZ','03LK3BZ','03LK3CZ','03LK3DZ','03LK3ZZ','03LK4BZ','03LK4CZ','03LK4DZ','03LK4ZZ','03LL0BZ','03LL0CZ','03LL0DZ','03LL0ZZ','03LL3BZ','03LL3CZ','03LL3DZ','03LL3ZZ','03LL4BZ','03LL4CZ','03LL4DZ','03LL4ZZ','03LM0BZ','03LM0CZ','03LM0DZ','03LM0ZZ','03LM3BZ','03LM3CZ','03LM3DZ','03LM3ZZ','03LM4BZ','03LM4CZ','03LM4DZ','03LM4ZZ','03LN0BZ','03LN0CZ','03LN0DZ','03LN0ZZ','03LN3BZ','03LN3CZ','03LN3DZ','03LN3ZZ','03LN4BZ','03LN4CZ','03LN4DZ','03LN4ZZ','03NH0ZZ','03NH3ZZ','03NH4ZZ','03NJ0ZZ','03NJ3ZZ','03NJ4ZZ','03NK0ZZ','03NK3ZZ','03NK4ZZ','03NL0ZZ','03NL3ZZ','03NL4ZZ','03NM0ZZ','03NM3ZZ','03NM4ZZ','03NN0ZZ','03NN3ZZ','03NN4ZZ','03QH0ZZ','03QH3ZZ','03QH4ZZ','03QJ0ZZ','03QJ3ZZ','03QJ4ZZ','03QK0ZZ','03QK3ZZ','03QK4ZZ','03QL0ZZ','03QL3ZZ','03QL4ZZ','03QM0ZZ','03QM3ZZ','03QM4ZZ','03QN0ZZ','03QN3ZZ','03QN4ZZ','03RH07Z','03RH0JZ','03RH0KZ','03RH47Z','03RH4JZ','03RH4KZ','03RJ07Z','03RJ0JZ','03RJ0KZ','03RJ47Z','03RJ4JZ','03RJ4KZ','03RK07Z','03RK0JZ','03RK0KZ','03RK47Z','03RK4JZ','03RK4KZ','03RL07Z','03RL0JZ','03RL0KZ','03RL47Z','03RL4JZ','03RL4KZ','03RM07Z','03RM0JZ','03RM0KZ','03RM47Z','03RM4JZ','03RM4KZ','03RN07Z','03RN0JZ','03RN0KZ','03RN47Z','03RN4JZ','03RN4KZ','03SH0ZZ','03SH3ZZ','03SH4ZZ','03SJ0ZZ','03SJ3ZZ','03SJ4ZZ','03SK0ZZ','03SK3ZZ','03SK4ZZ','03SL0ZZ','03SL3ZZ','03SL4ZZ','03SM0ZZ','03SM3ZZ','03SM4ZZ','03SN0ZZ','03SN3ZZ','03SN4ZZ','03UH07Z','03UH0JZ','03UH0KZ','03UH37Z','03UH3JZ','03UH3KZ','03UH47Z','03UH4JZ','03UH4KZ','03UJ07Z','03UJ0JZ','03UJ0KZ','03UJ37Z','03UJ3JZ','03UJ3KZ','03UJ47Z','03UJ4JZ','03UJ4KZ','03UK07Z','03UK0JZ','03UK0KZ','03UK37Z','03UK3JZ','03UK3KZ','03UK47Z','03UK4JZ','03UK4KZ','03UL07Z','03UL0JZ','03UL0KZ','03UL37Z','03UL3JZ','03UL3KZ','03UL47Z','03UL4JZ','03UL4KZ','03UM07Z','03UM0JZ','03UM0KZ','03UM37Z','03UM3JZ','03UM3KZ','03UM47Z','03UM4JZ','03UM4KZ','03UN07Z','03UN0JZ','03UN0KZ','03UN37Z','03UN3JZ','03UN3KZ','03UN47Z','03UN4JZ','03UN4KZ','03VH0BZ','03VH0CZ','03VH0DZ','03VH0ZZ','03VH3BZ','03VH3CZ','03VH3DZ','03VH3ZZ','03VH4BZ','03VH4CZ','03VH4DZ','03VH4ZZ','03VJ0BZ','03VJ0CZ','03VJ0DZ','03VJ0ZZ','03VJ3BZ','03VJ3CZ','03VJ3DZ','03VJ3ZZ','03VJ4BZ','03VJ4CZ','03VJ4DZ','03VJ4ZZ','03VK0BZ','03VK0CZ','03VK0DZ','03VK0ZZ','03VK3BZ','03VK3CZ','03VK3DZ','03VK3ZZ','03VK4BZ','03VK4CZ','03VK4DZ','03VK4ZZ','03VL0BZ','03VL0CZ','03VL0DZ','03VL0ZZ','03VL3BZ','03VL3CZ','03VL3DZ','03VL3ZZ','03VL4BZ','03VL4CZ','03VL4DZ','03VL4ZZ','03VM0BZ','03VM0CZ','03VM0DZ','03VM0ZZ','03VM3BZ','03VM3CZ','03VM3DZ','03VM3ZZ','03VM4BZ','03VM4CZ','03VM4DZ','03VM4ZZ','03VN0BZ','03VN0CZ','03VN0DZ','03VN0ZZ','03VN3BZ','03VN3CZ','03VN3DZ','03VN3ZZ','03VN4BZ','03VN4CZ','03VN4DZ','03VN4ZZ','0G560ZZ','0G563ZZ','0G564ZZ','0G570ZZ','0G573ZZ','0G574ZZ','0G580ZZ','0G583ZZ','0G584ZZ','0G9600Z','0G960ZX','0G960ZZ','0G9630Z','0G963ZX','0G963ZZ','0G9640Z','0G964ZX','0G964ZZ','0G9700Z','0G970ZX','0G970ZZ','0G9730Z','0G973ZX','0G973ZZ','0G9740Z','0G974ZX','0G974ZZ','0G9800Z','0G980ZX','0G980ZZ','0G9830Z','0G983ZX','0G983ZZ','0G9840Z','0G984ZX','0G984ZZ','0GB60ZX','0GB60ZZ','0GB63ZX','0GB63ZZ','0GB64ZX','0GB64ZZ','0GB70ZX','0GB70ZZ','0GB73ZX','0GB73ZZ','0GB74ZX','0GB74ZZ','0GB80ZX','0GB80ZZ','0GB83ZX','0GB83ZZ','0GB84ZX','0GB84ZZ','0GC60ZZ','0GC63ZZ','0GC64ZZ','0GC70ZZ','0GC73ZZ','0GC74ZZ','0GC80ZZ','0GC83ZZ','0GC84ZZ','0GN60ZZ','0GN63ZZ','0GN64ZZ','0GN70ZZ','0GN73ZZ','0GN74ZZ','0GN80ZZ','0GN83ZZ','0GN84ZZ','0GQ60ZZ','0GQ63ZZ','0GQ64ZZ','0GQ70ZZ','0GQ73ZZ','0GQ74ZZ','0GQ80ZZ','0GQ83ZZ','0GQ84ZZ','0GT60ZZ','0GT64ZZ','0GT70ZZ','0GT74ZZ','0GT80ZZ','0GT84ZZ','B3060ZZ','B3061ZZ','B306YZZ','B3070ZZ','B3071ZZ','B307YZZ','B3080ZZ','B3081ZZ','B308YZZ','B3160ZZ','B3161ZZ','B316YZZ','B3170ZZ','B3171ZZ','B317YZZ','B3180ZZ','B3181ZZ','B318YZZ'],'SNOMED-CT':['9339002','15023006','18674003','22928005','25007007','31573003','34214004','39887009','43628009','46912008','51382002','53412000','55493009','59012002','59109003','66951008','74720005','75538004','79507006','80102005','80104006','87314005','90931006','112823003','175363002','175364008','175365009','175367001','175373000','175374006','175376008','175379001','175380003','175398004','209760000','233259003','233260008','233296007','233297003','233298008','233405004','241219006','276949008','276950008','276951007','287606009','302053004','303161001','405326004','405379009','405407008','405408003','405409006','405411002','405412009','405415006','417884003','418405008','418838006','419014003','420026003','420046008','420171008','425611003','427486009','428802000','429287007','431515004','431519005','431535003','431659001','432039002','432785007','433056003','433061001','433591001','433683001','433690006','433711000','433734009','434159001','434378006','434433007','438615003','440221006','440453000','440518005','449242004']},'2.16.840.1.113883.3.117.1.7.1.207':{'SNOMED-CT':['428371000124100']},'2.16.840.1.113883.3.117.1.7.1.209':{'SNOMED-CT':['428361000124107']},'2.16.840.1.113883.3.117.1.7.1.212':{'ICD-9-CM':['430','431'],'ICD-10-CM':['I60.00','I60.01','I60.02','I60.4','I60.6','I60.7','I60.8','I60.9','I60.10','I60.11','I60.12','I60.20','I60.21','I60.22','I60.30','I60.31','I60.32','I60.50','I60.51','I60.52','I61.0','I61.1','I61.2','I61.3','I61.4','I61.5','I61.6','I61.8','I61.9'],'SNOMED-CT':['7713009','20908003','23276006','28318001','28837001','42429001','49422009','52201006','73020009','75038005','95454007','195155004','195160000','195165005','195167002','195168007','195169004','230706003','230707007','230708002','230709005','230710000','230711001','230712008','270907008','274100004','276277008','276278003','276280009','276281008','276282001','276283006','276284000','276285004','276286003','276722003','425957003','449020009']},'2.16.840.1.113883.3.117.1.7.1.233':{'ICD-9-CM':['430','431']},'2.16.840.1.113883.3.117.1.7.1.234':{'ICD-10-CM':['I60.00','I60.01','I60.02','I60.4','I60.6','I60.7','I60.8','I60.9','I60.10','I60.11','I60.12','I60.20','I60.21','I60.22','I60.30','I60.31','I60.32','I60.50','I60.51','I60.52','I61.0','I61.1','I61.2','I61.3','I61.4','I61.5','I61.6','I61.8','I61.9']},'2.16.840.1.113883.3.117.1.7.1.235':{'SNOMED-CT':['7713009','20908003','23276006','28318001','28837001','42429001','49422009','52201006','73020009','75038005','95454007','195155004','195160000','195165005','195167002','195168007','195169004','230706003','230707007','230708002','230709005','230710000','230711001','230712008','270907008','274100004','276277008','276278003','276280009','276281008','276282001','276283006','276284000','276285004','276286003','276722003','425957003','449020009']},'2.16.840.1.113883.3.117.1.7.1.237':{'ICD-9-CM':['00.61','00.62','00.63','00.64','00.65','38.02','38.12','38.22','38.30','38.31','38.32','38.42','39.28','88.41']},'2.16.840.1.113883.3.117.1.7.1.238':{'ICD-10-CM':['031H09G','031H09J','031H0AG','031H0AJ','031H0JG','031H0JJ','031H0KG','031H0KJ','031H0ZG','031H0ZJ','031J09G','031J09K','031J0AG','031J0AK','031J0JG','031J0JK','031J0KG','031J0KK','031J0ZG','031J0ZK','031K09J','031K0AJ','031K0JJ','031K0KJ','031K0ZJ','031L09K','031L0AK','031L0JK','031L0KK','031L0ZK','031M09J','031M0AJ','031M0JJ','031M0KJ','031M0ZJ','031N09K','031N0AK','031N0JK','031N0KK','031N0ZK','035H0ZZ','035H3ZZ','035H4ZZ','035J0ZZ','035J3ZZ','035J4ZZ','035K0ZZ','035K3ZZ','035K4ZZ','035L0ZZ','035L3ZZ','035L4ZZ','035M0ZZ','035M3ZZ','035M4ZZ','035N0ZZ','035N3ZZ','035N4ZZ','037H04Z','037H0DZ','037H0ZZ','037H34Z','037H3DZ','037H3ZZ','037H44Z','037H4DZ','037H4ZZ','037J04Z','037J0DZ','037J0ZZ','037J34Z','037J3DZ','037J3ZZ','037J44Z','037J4DZ','037J4ZZ','037K04Z','037K0DZ','037K0ZZ','037K34Z','037K3DZ','037K3ZZ','037K44Z','037K4DZ','037K4ZZ','037L04Z','037L0DZ','037L0ZZ','037L34Z','037L3DZ','037L3ZZ','037L44Z','037L4DZ','037L4ZZ','037M04Z','037M0DZ','037M0ZZ','037M34Z','037M3DZ','037M3ZZ','037M44Z','037M4DZ','037M4ZZ','037N04Z','037N0DZ','037N0ZZ','037N34Z','037N3DZ','037N3ZZ','037N44Z','037N4DZ','037N4ZZ','039H00Z','039H0ZX','039H0ZZ','039H30Z','039H3ZX','039H3ZZ','039H40Z','039H4ZX','039H4ZZ','039J00Z','039J0ZX','039J0ZZ','039J30Z','039J3ZX','039J3ZZ','039J40Z','039J4ZX','039J4ZZ','039K00Z','039K0ZX','039K0ZZ','039K30Z','039K3ZX','039K3ZZ','039K40Z','039K4ZX','039K4ZZ','039L00Z','039L0ZX','039L0ZZ','039L30Z','039L3ZX','039L3ZZ','039L40Z','039L4ZX','039L4ZZ','039M00Z','039M0ZX','039M0ZZ','039M30Z','039M3ZX','039M3ZZ','039M40Z','039M4ZX','039M4ZZ','039N00Z','039N0ZX','039N0ZZ','039N30Z','039N3ZX','039N3ZZ','039N40Z','039N4ZX','039N4ZZ','03BH0ZX','03BH0ZZ','03BH3ZX','03BH3ZZ','03BH4ZX','03BH4ZZ','03BJ0ZX','03BJ0ZZ','03BJ3ZX','03BJ3ZZ','03BJ4ZX','03BJ4ZZ','03BK0ZX','03BK0ZZ','03BK3ZX','03BK3ZZ','03BK4ZX','03BK4ZZ','03BL0ZX','03BL0ZZ','03BL3ZX','03BL3ZZ','03BL4ZX','03BL4ZZ','03BM0ZX','03BM0ZZ','03BM3ZX','03BM3ZZ','03BM4ZX','03BM4ZZ','03BN0ZX','03BN0ZZ','03BN3ZX','03BN3ZZ','03BN4ZX','03BN4ZZ','03CH0ZZ','03CH3ZZ','03CH4ZZ','03CJ0ZZ','03CJ3ZZ','03CJ4ZZ','03CK0ZZ','03CK3ZZ','03CK4ZZ','03CL0ZZ','03CL3ZZ','03CL4ZZ','03CM0ZZ','03CM3ZZ','03CM4ZZ','03CN0ZZ','03CN3ZZ','03CN4ZZ','03HH03Z','03HH0DZ','03HH33Z','03HH3DZ','03HH43Z','03HH4DZ','03HJ03Z','03HJ0DZ','03HJ33Z','03HJ3DZ','03HJ43Z','03HJ4DZ','03HK03Z','03HK0DZ','03HK0MZ','03HK33Z','03HK3DZ','03HK3MZ','03HK43Z','03HK4DZ','03HK4MZ','03HL03Z','03HL0DZ','03HL0MZ','03HL33Z','03HL3DZ','03HL3MZ','03HL43Z','03HL4DZ','03HL4MZ','03HM03Z','03HM0DZ','03HM33Z','03HM3DZ','03HM43Z','03HM4DZ','03HN03Z','03HN0DZ','03HN33Z','03HN3DZ','03HN43Z','03HN4DZ','03LH0BZ','03LH0CZ','03LH0DZ','03LH0ZZ','03LH3BZ','03LH3CZ','03LH3DZ','03LH3ZZ','03LH4BZ','03LH4CZ','03LH4DZ','03LH4ZZ','03LJ0BZ','03LJ0CZ','03LJ0DZ','03LJ0ZZ','03LJ3BZ','03LJ3CZ','03LJ3DZ','03LJ3ZZ','03LJ4BZ','03LJ4CZ','03LJ4DZ','03LJ4ZZ','03LK0BZ','03LK0CZ','03LK0DZ','03LK0ZZ','03LK3BZ','03LK3CZ','03LK3DZ','03LK3ZZ','03LK4BZ','03LK4CZ','03LK4DZ','03LK4ZZ','03LL0BZ','03LL0CZ','03LL0DZ','03LL0ZZ','03LL3BZ','03LL3CZ','03LL3DZ','03LL3ZZ','03LL4BZ','03LL4CZ','03LL4DZ','03LL4ZZ','03LM0BZ','03LM0CZ','03LM0DZ','03LM0ZZ','03LM3BZ','03LM3CZ','03LM3DZ','03LM3ZZ','03LM4BZ','03LM4CZ','03LM4DZ','03LM4ZZ','03LN0BZ','03LN0CZ','03LN0DZ','03LN0ZZ','03LN3BZ','03LN3CZ','03LN3DZ','03LN3ZZ','03LN4BZ','03LN4CZ','03LN4DZ','03LN4ZZ','03NH0ZZ','03NH3ZZ','03NH4ZZ','03NJ0ZZ','03NJ3ZZ','03NJ4ZZ','03NK0ZZ','03NK3ZZ','03NK4ZZ','03NL0ZZ','03NL3ZZ','03NL4ZZ','03NM0ZZ','03NM3ZZ','03NM4ZZ','03NN0ZZ','03NN3ZZ','03NN4ZZ','03QH0ZZ','03QH3ZZ','03QH4ZZ','03QJ0ZZ','03QJ3ZZ','03QJ4ZZ','03QK0ZZ','03QK3ZZ','03QK4ZZ','03QL0ZZ','03QL3ZZ','03QL4ZZ','03QM0ZZ','03QM3ZZ','03QM4ZZ','03QN0ZZ','03QN3ZZ','03QN4ZZ','03RH07Z','03RH0JZ','03RH0KZ','03RH47Z','03RH4JZ','03RH4KZ','03RJ07Z','03RJ0JZ','03RJ0KZ','03RJ47Z','03RJ4JZ','03RJ4KZ','03RK07Z','03RK0JZ','03RK0KZ','03RK47Z','03RK4JZ','03RK4KZ','03RL07Z','03RL0JZ','03RL0KZ','03RL47Z','03RL4JZ','03RL4KZ','03RM07Z','03RM0JZ','03RM0KZ','03RM47Z','03RM4JZ','03RM4KZ','03RN07Z','03RN0JZ','03RN0KZ','03RN47Z','03RN4JZ','03RN4KZ','03SH0ZZ','03SH3ZZ','03SH4ZZ','03SJ0ZZ','03SJ3ZZ','03SJ4ZZ','03SK0ZZ','03SK3ZZ','03SK4ZZ','03SL0ZZ','03SL3ZZ','03SL4ZZ','03SM0ZZ','03SM3ZZ','03SM4ZZ','03SN0ZZ','03SN3ZZ','03SN4ZZ','03UH07Z','03UH0JZ','03UH0KZ','03UH37Z','03UH3JZ','03UH3KZ','03UH47Z','03UH4JZ','03UH4KZ','03UJ07Z','03UJ0JZ','03UJ0KZ','03UJ37Z','03UJ3JZ','03UJ3KZ','03UJ47Z','03UJ4JZ','03UJ4KZ','03UK07Z','03UK0JZ','03UK0KZ','03UK37Z','03UK3JZ','03UK3KZ','03UK47Z','03UK4JZ','03UK4KZ','03UL07Z','03UL0JZ','03UL0KZ','03UL37Z','03UL3JZ','03UL3KZ','03UL47Z','03UL4JZ','03UL4KZ','03UM07Z','03UM0JZ','03UM0KZ','03UM37Z','03UM3JZ','03UM3KZ','03UM47Z','03UM4JZ','03UM4KZ','03UN07Z','03UN0JZ','03UN0KZ','03UN37Z','03UN3JZ','03UN3KZ','03UN47Z','03UN4JZ','03UN4KZ','03VH0BZ','03VH0CZ','03VH0DZ','03VH0ZZ','03VH3BZ','03VH3CZ','03VH3DZ','03VH3ZZ','03VH4BZ','03VH4CZ','03VH4DZ','03VH4ZZ','03VJ0BZ','03VJ0CZ','03VJ0DZ','03VJ0ZZ','03VJ3BZ','03VJ3CZ','03VJ3DZ','03VJ3ZZ','03VJ4BZ','03VJ4CZ','03VJ4DZ','03VJ4ZZ','03VK0BZ','03VK0CZ','03VK0DZ','03VK0ZZ','03VK3BZ','03VK3CZ','03VK3DZ','03VK3ZZ','03VK4BZ','03VK4CZ','03VK4DZ','03VK4ZZ','03VL0BZ','03VL0CZ','03VL0DZ','03VL0ZZ','03VL3BZ','03VL3CZ','03VL3DZ','03VL3ZZ','03VL4BZ','03VL4CZ','03VL4DZ','03VL4ZZ','03VM0BZ','03VM0CZ','03VM0DZ','03VM0ZZ','03VM3BZ','03VM3CZ','03VM3DZ','03VM3ZZ','03VM4BZ','03VM4CZ','03VM4DZ','03VM4ZZ','03VN0BZ','03VN0CZ','03VN0DZ','03VN0ZZ','03VN3BZ','03VN3CZ','03VN3DZ','03VN3ZZ','03VN4BZ','03VN4CZ','03VN4DZ','03VN4ZZ','0G560ZZ','0G563ZZ','0G564ZZ','0G570ZZ','0G573ZZ','0G574ZZ','0G580ZZ','0G583ZZ','0G584ZZ','0G9600Z','0G960ZX','0G960ZZ','0G9630Z','0G963ZX','0G963ZZ','0G9640Z','0G964ZX','0G964ZZ','0G9700Z','0G970ZX','0G970ZZ','0G9730Z','0G973ZX','0G973ZZ','0G9740Z','0G974ZX','0G974ZZ','0G9800Z','0G980ZX','0G980ZZ','0G9830Z','0G983ZX','0G983ZZ','0G9840Z','0G984ZX','0G984ZZ','0GB60ZX','0GB60ZZ','0GB63ZX','0GB63ZZ','0GB64ZX','0GB64ZZ','0GB70ZX','0GB70ZZ','0GB73ZX','0GB73ZZ','0GB74ZX','0GB74ZZ','0GB80ZX','0GB80ZZ','0GB83ZX','0GB83ZZ','0GB84ZX','0GB84ZZ','0GC60ZZ','0GC63ZZ','0GC64ZZ','0GC70ZZ','0GC73ZZ','0GC74ZZ','0GC80ZZ','0GC83ZZ','0GC84ZZ','0GN60ZZ','0GN63ZZ','0GN64ZZ','0GN70ZZ','0GN73ZZ','0GN74ZZ','0GN80ZZ','0GN83ZZ','0GN84ZZ','0GQ60ZZ','0GQ63ZZ','0GQ64ZZ','0GQ70ZZ','0GQ73ZZ','0GQ74ZZ','0GQ80ZZ','0GQ83ZZ','0GQ84ZZ','0GT60ZZ','0GT64ZZ','0GT70ZZ','0GT74ZZ','0GT80ZZ','0GT84ZZ','B3060ZZ','B3061ZZ','B306YZZ','B3070ZZ','B3071ZZ','B307YZZ','B3080ZZ','B3081ZZ','B308YZZ','B3160ZZ','B3161ZZ','B316YZZ','B3170ZZ','B3171ZZ','B317YZZ','B3180ZZ','B3181ZZ','B318YZZ']},'2.16.840.1.113883.3.117.1.7.1.239':{'SNOMED-CT':['9339002','15023006','18674003','22928005','25007007','31573003','34214004','39887009','43628009','46912008','51382002','53412000','55493009','59012002','59109003','66951008','74720005','75538004','79507006','80102005','80104006','87314005','90931006','112823003','175363002','175364008','175365009','175367001','175373000','175374006','175376008','175379001','175380003','175398004','209760000','233259003','233260008','233296007','233297003','233298008','233405004','241219006','276949008','276950008','276951007','287606009','302053004','303161001','405326004','405379009','405407008','405408003','405409006','405411002','405412009','405415006','417884003','418405008','418838006','419014003','420026003','420046008','420171008','425611003','427486009','428802000','429287007','431515004','431519005','431535003','431659001','432039002','432785007','433056003','433061001','433591001','433683001','433690006','433711000','433734009','434159001','434378006','434433007','438615003','440221006','440453000','440518005','449242004']},'2.16.840.1.113883.3.117.1.7.1.247':{'ICD-9-CM':['433.01','433.10','433.11','433.21','433.31','433.81','433.91','434.00','434.01','434.11','434.91','436'],'ICD-10-CM':['I63.039','I63.019','I63.00','I63.09','I63.02','I63.6','I63.8','I63.011','I63.9','I63.012','I63.10','I63.12','I63.19','I63.20','I63.22','I63.031','I63.032','I63.29','I63.30','I63.39','I63.40','I63.49','I63.50','I63.59','I63.111','I63.112','I63.119','I63.131','I63.132','I63.139','I63.211','I63.212','I63.219','I63.231','I63.232','I63.239','I63.311','I63.312','I63.319','I63.321','I63.322','I63.329','I63.331','I63.332','I63.339','I63.341','I63.342','I63.349','I63.411','I63.412','I63.419','I63.421','I63.422','I63.429','I63.431','I63.432','I63.439','I63.441','I63.442','I63.449','I63.511','I63.512','I63.519','I63.521','I63.522','I63.529','I63.531','I63.532','I63.539','I63.541','I63.542','I63.549','I65.21','I65.22','I65.23','I65.29','I66.09','I66.01','I66.02','I66.03','I66.3','I66.11','I66.12','I66.13','I66.19','I66.21','I66.22','I66.23','I66.29','I67.89'],'SNOMED-CT':['64586002','71444005','111297002','116288000','195185009','195186005','195189003','195190007','195212005','195213000','195216008','195217004','195230003','230690007','230691006','230692004','230693009','230694003','230695002','230696001','230698000','230699008','230700009','233964008','288723005','300920004']},'2.16.840.1.113883.3.117.1.7.1.250':{'ICD-9-CM':['433.01','433.10','433.11','433.21','433.31','433.81','433.91','434.00','434.01','434.11','434.91','436']},'2.16.840.1.113883.3.117.1.7.1.251':{'ICD-10-CM':['I63.039','I63.019','I63.00','I63.09','I63.02','I63.6','I63.8','I63.011','I63.9','I63.012','I63.10','I63.12','I63.19','I63.20','I63.22','I63.031','I63.032','I63.29','I63.30','I63.39','I63.40','I63.49','I63.50','I63.59','I63.111','I63.112','I63.119','I63.131','I63.132','I63.139','I63.211','I63.212','I63.219','I63.231','I63.232','I63.239','I63.311','I63.312','I63.319','I63.321','I63.322','I63.329','I63.331','I63.332','I63.339','I63.341','I63.342','I63.349','I63.411','I63.412','I63.419','I63.421','I63.422','I63.429','I63.431','I63.432','I63.439','I63.441','I63.442','I63.449','I63.511','I63.512','I63.519','I63.521','I63.522','I63.529','I63.531','I63.532','I63.539','I63.541','I63.542','I63.549','I65.21','I65.22','I65.23','I65.29','I66.09','I66.01','I66.02','I66.03','I66.3','I66.11','I66.12','I66.13','I66.19','I66.21','I66.22','I66.23','I66.29','I67.89']},'2.16.840.1.113883.3.117.1.7.1.252':{'SNOMED-CT':['64586002','71444005','111297002','116288000','195185009','195186005','195189003','195190007','195212005','195213000','195216008','195217004','195230003','230690007','230691006','230692004','230693009','230694003','230695002','230696001','230698000','230699008','230700009','233964008','288723005','300920004']},'2.16.840.1.113883.3.117.1.7.1.292':{'SNOMED-CT':['4525004']},'2.16.840.1.113883.3.117.1.7.1.308':{'SNOMED-CT':['445060000']},'2.16.840.1.113883.3.117.1.7.1.309':{'SNOMED-CT':['371828006']},'2.16.840.1.113883.3.117.1.7.1.473':{'SNOMED-CT':['31438003','35688006','59037007','62014003','79899007','161590003','183932001','183964008','183966005','266721009','397745006','407563006','410529002','410534003','410536001','416098002','419511003','428024001','428119001']},'2.16.840.1.113883.3.117.2.7.1.14':{'SNOMED-CT':['63161005']},'2.16.840.1.113883.3.526.2.1076':{'SNOMED-CT':['103735009','385763009']}};\n        \n        // Measure variables\nvar MeasurePeriod = {\n  \"low\": new TS(\"201201010000\", null, true),\n  \"high\": new TS(\"201212312359\", null, true)\n}\nhqmfjs.MeasurePeriod = function(patient) {\n  return [new hQuery.CodedEntry(\n    {\n      \"start_time\": MeasurePeriod.low.asDate().getTime()/1000,\n      \"end_time\": MeasurePeriod.high.asDate().getTime()/1000,\n      \"codes\": {}\n    }\n  )];\n}\nif (typeof effective_date === 'number') {\n  MeasurePeriod.high.date = new Date(1000*effective_date);\n  // add one minute before pulling off the year.  This turns 12-31-2012 23:59 into 1-1-2013 00:00 => 1-1-2012 00:00\n  MeasurePeriod.low.date = new Date(1000*(effective_date+60));\n  MeasurePeriod.low.date.setFullYear(MeasurePeriod.low.date.getFullYear()-1);\n}\n\n// Data critera\nhqmfjs.OccurrenceAInpatientEncounter1 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\", \"specificOccurrence\": \"OccurrenceAInpatientEncounter1\"};\n  var events = patient.getEvents(eventCriteria);\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceAEmergencyDepartmentVisit2 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.292\", \"specificOccurrence\": \"OccurrenceAEmergencyDepartmentVisit2\"};\n  var events = patient.getEvents(eventCriteria);\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceAPalliativeCare3 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"ordered\"], \"valueSetId\": \"2.16.840.1.113883.3.526.2.1076\", \"specificOccurrence\": \"OccurrenceAPalliativeCare3\"};\n  var events = patient.getEvents(eventCriteria);\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceAPalliativeCare4 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.526.2.1076\", \"specificOccurrence\": \"OccurrenceAPalliativeCare4\"};\n  var events = patient.getEvents(eventCriteria);\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.EncounterPerformedInpatientEncounter = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.EncounterPerformedEmergencyDepartmentVisit = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.292\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.MedicationOrderNotDoneMedicalReason = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allMedications\", \"statuses\": [\"ordered\"], \"negated\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.473\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.MedicationOrderNotDonePatientRefusal = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allMedications\", \"statuses\": [\"ordered\"], \"negated\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.93\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.OccurrenceAInpatientEncounter1 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\", \"specificOccurrence\": \"OccurrenceAInpatientEncounter1\"};\n  var events = patient.getEvents(eventCriteria);\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.PatientCharacteristicSexOncAdministrativeSex = function(patient, initialSpecificContext) {\n  var value = patient.gender() || null;\n  matching = matchingValue(value, new CD(\"F\", \"Administrative Sex\"));\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.PatientCharacteristicRaceRace = function(patient, initialSpecificContext) {\n  var value = patient.race() || null;\n  matching = matchingValue(value, null);\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.PatientCharacteristicEthnicityEthnicity = function(patient, initialSpecificContext) {\n  var value = patient.ethnicity() || null;\n  matching = matchingValue(value, null);\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.PatientCharacteristicPayerPayer = function(patient, initialSpecificContext) {\n  var value = patient.payer() || null;\n  matching = matchingValue(value, null);\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.OccurrenceAInpatientEncounter1_precondition_10 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\", \"specificOccurrence\": \"OccurrenceAInpatientEncounter1\"};\n  var events = patient.getEvents(eventCriteria);\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.MedicationOrderAntithromboticTherapy_precondition_5 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allMedications\", \"statuses\": [\"ordered\"], \"negated\": true, \"negationValueSetId\": \"2.16.840.1.113883.3.117.1.7.1.473\", \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.201\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0) events = SDU(events, hqmfjs.OccurrenceAInpatientEncounter1_precondition_10(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.MedicationOrderAntithromboticTherapy_precondition_7 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allMedications\", \"statuses\": [\"ordered\"], \"negated\": true, \"negationValueSetId\": \"2.16.840.1.113883.3.117.1.7.1.93\", \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.201\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0) events = SDU(events, hqmfjs.OccurrenceAInpatientEncounter1_precondition_10(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.OccurrenceAInpatientEncounter1_precondition_13 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\", \"specificOccurrence\": \"OccurrenceAInpatientEncounter1\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"reason\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.204\")));\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceAInpatientEncounter1_precondition_15 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\", \"specificOccurrence\": \"OccurrenceAInpatientEncounter1\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"dischargeDisposition\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.87\")));\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceAInpatientEncounter1_precondition_17 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\", \"specificOccurrence\": \"OccurrenceAInpatientEncounter1\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"dischargeDisposition\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.308\")));\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceAInpatientEncounter1_precondition_19 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\", \"specificOccurrence\": \"OccurrenceAInpatientEncounter1\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"dischargeDisposition\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.209\")));\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceAInpatientEncounter1_precondition_21 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\", \"specificOccurrence\": \"OccurrenceAInpatientEncounter1\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"dischargeDisposition\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.309\")));\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceAInpatientEncounter1_precondition_23 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\", \"specificOccurrence\": \"OccurrenceAInpatientEncounter1\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"dischargeDisposition\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.207\")));\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceAEmergencyDepartmentVisit2_precondition_25 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.292\", \"specificOccurrence\": \"OccurrenceAEmergencyDepartmentVisit2\"};\n  var events = patient.getEvents(eventCriteria);\n  events = denormalizeEventsByLocation(events, \"facilityDeparture\", new ANYNonNull());\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceAInpatientEncounter1_precondition_26 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\", \"specificOccurrence\": \"OccurrenceAInpatientEncounter1\"};\n  var events = patient.getEvents(eventCriteria);\n  events = adjustBoundsForField(events, \"admitTime\", new ANYNonNull());\n  if (events.length > 0) events = SAE(events, hqmfjs.OccurrenceAEmergencyDepartmentVisit2_precondition_25(patient), new IVL_PQ(null, new PQ(1, \"h\", true)));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.OccurrenceAEmergencyDepartmentVisit2_precondition_28 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.292\", \"specificOccurrence\": \"OccurrenceAEmergencyDepartmentVisit2\"};\n  var events = patient.getEvents(eventCriteria);\n  events = denormalizeEventsByLocation(events, \"facilityArrival\", new ANYNonNull());\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceAPalliativeCare3_precondition_29 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"ordered\"], \"valueSetId\": \"2.16.840.1.113883.3.526.2.1076\", \"specificOccurrence\": \"OccurrenceAPalliativeCare3\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0) events = SAS(events, hqmfjs.OccurrenceAEmergencyDepartmentVisit2_precondition_28(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.OccurrenceAPalliativeCare3_precondition_31 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"ordered\"], \"valueSetId\": \"2.16.840.1.113883.3.526.2.1076\", \"specificOccurrence\": \"OccurrenceAPalliativeCare3\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0) events = SBE(events, hqmfjs.OccurrenceAInpatientEncounter1(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.OccurrenceAEmergencyDepartmentVisit2_precondition_35 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.292\", \"specificOccurrence\": \"OccurrenceAEmergencyDepartmentVisit2\"};\n  var events = patient.getEvents(eventCriteria);\n  events = denormalizeEventsByLocation(events, \"facilityArrival\", new ANYNonNull());\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceAPalliativeCare4_precondition_36 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.526.2.1076\", \"specificOccurrence\": \"OccurrenceAPalliativeCare4\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0) events = SAS(events, hqmfjs.OccurrenceAEmergencyDepartmentVisit2_precondition_35(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.OccurrenceAPalliativeCare4_precondition_38 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.526.2.1076\", \"specificOccurrence\": \"OccurrenceAPalliativeCare4\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0) events = SBE(events, hqmfjs.OccurrenceAInpatientEncounter1(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.OccurrenceAInpatientEncounter1_precondition_51 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\", \"specificOccurrence\": \"OccurrenceAInpatientEncounter1\"};\n  var events = patient.getEvents(eventCriteria);\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.InterventionOrderPalliativeCare_precondition_46 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"ordered\"], \"valueSetId\": \"2.16.840.1.113883.3.526.2.1076\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0) events = SDU(events, hqmfjs.OccurrenceAInpatientEncounter1_precondition_51(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.InterventionPerformedPalliativeCare_precondition_48 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.526.2.1076\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0) events = SDU(events, hqmfjs.OccurrenceAInpatientEncounter1_precondition_51(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.MedicationDischargeAntithromboticTherapy_precondition_56 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allMedications\", \"statuses\": [\"discharge\"], \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.201\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0) events = DURING(events, hqmfjs.OccurrenceAInpatientEncounter1(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.DiagnosisActiveIschemicStroke_precondition_59 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProblems\", \"statuses\": [\"active\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.247\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"ordinality\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.2.7.1.14\")));\n  if (events.length > 0) events = SDU(events, hqmfjs.OccurrenceAInpatientEncounter1(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.PatientCharacteristicBirthdateBirthDate_precondition_62 = function(patient, initialSpecificContext) {\n  var value = patient.birthtime() || null;\n  var events = [value];\n  events = SBS(events, hqmfjs.OccurrenceAInpatientEncounter1(patient), new IVL_PQ(new PQ(18, \"a\", true), null));\n  events.specificContext=hqmf.SpecificsManager.identity();\n  return events;\n}\n\nhqmfjs.OccurrenceAInpatientEncounter1_precondition_64 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\", \"specificOccurrence\": \"OccurrenceAInpatientEncounter1\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"lengthOfStay\", new IVL_PQ(null, new PQ(120, \"d\", true)));\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.OccurrenceAInpatientEncounter1_precondition_66 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\", \"specificOccurrence\": \"OccurrenceAInpatientEncounter1\"};\n  var events = patient.getEvents(eventCriteria);\n  events = adjustBoundsForField(events, \"dischargeTime\", new ANYNonNull());\n  if (events.length > 0) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.OccurrenceAInpatientEncounter1_precondition_73 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.23\", \"specificOccurrence\": \"OccurrenceAInpatientEncounter1\"};\n  var events = patient.getEvents(eventCriteria);\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.DiagnosisActiveHemorrhagicStroke_precondition_68 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProblems\", \"statuses\": [\"active\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.212\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"ordinality\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.2.7.1.14\")));\n  if (events.length > 0) events = SDU(events, hqmfjs.OccurrenceAInpatientEncounter1_precondition_73(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.DiagnosisActiveIschemicStroke_precondition_70 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProblems\", \"statuses\": [\"active\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.247\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"ordinality\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.2.7.1.14\")));\n  if (events.length > 0) events = SDU(events, hqmfjs.OccurrenceAInpatientEncounter1_precondition_73(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\n\n\n        // #########################\n        // ##### MEASURE LOGIC #####\n        // #########################\n        \n        hqmfjs.initializeSpecifics = function(patient_api, hqmfjs) { hqmf.SpecificsManager.initialize(patient_api,hqmfjs,{\"id\":\"OccurrenceAInpatientEncounter1\",\"type\":\"ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER\",\"function\":\"OccurrenceAInpatientEncounter1\"},{\"id\":\"OccurrenceAEmergencyDepartmentVisit2\",\"type\":\"ENCOUNTER_PERFORMED_EMERGENCY_DEPARTMENT_VISIT\",\"function\":\"OccurrenceAEmergencyDepartmentVisit2\"},{\"id\":\"OccurrenceAPalliativeCare3\",\"type\":\"INTERVENTION_ORDERED_PALLIATIVE_CARE\",\"function\":\"OccurrenceAPalliativeCare3\"},{\"id\":\"OccurrenceAPalliativeCare4\",\"type\":\"INTERVENTION_PERFORMED_PALLIATIVE_CARE\",\"function\":\"OccurrenceAPalliativeCare4\"}) }\n\n        // INITIAL PATIENT POPULATION\n        hqmfjs.IPP = function(patient, initialSpecificContext) {\n  population_criteria_fn = allTrue('IPP', patient, initialSpecificContext,\n    allTrue('75', patient, initialSpecificContext, hqmfjs.PatientCharacteristicBirthdateBirthDate_precondition_62, hqmfjs.OccurrenceAInpatientEncounter1_precondition_64, hqmfjs.OccurrenceAInpatientEncounter1_precondition_66,\n      atLeastOneTrue('72', patient, initialSpecificContext, hqmfjs.DiagnosisActiveHemorrhagicStroke_precondition_68, hqmfjs.DiagnosisActiveIschemicStroke_precondition_70\n      )\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        // STRATIFICATION\n        hqmfjs.STRAT=null;\n        // DENOMINATOR\n        hqmfjs.DENOM = function(patient, initialSpecificContext) {\n  population_criteria_fn = allTrue('DENOM', patient, initialSpecificContext,\n    allTrue('61', patient, initialSpecificContext, hqmfjs.DiagnosisActiveIschemicStroke_precondition_59\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        // NUMERATOR\n        hqmfjs.NUMER = function(patient, initialSpecificContext) {\n  population_criteria_fn = allTrue('NUMER', patient, initialSpecificContext,\n    allTrue('58', patient, initialSpecificContext, hqmfjs.MedicationDischargeAntithromboticTherapy_precondition_56\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        hqmfjs.DENEX = function(patient, initialSpecificContext) {\n  population_criteria_fn = atLeastOneTrue('DENEX', patient, initialSpecificContext,\n    allTrue('55', patient, initialSpecificContext,\n      atLeastOneTrue('53', patient, initialSpecificContext, hqmfjs.OccurrenceAInpatientEncounter1_precondition_13, hqmfjs.OccurrenceAInpatientEncounter1_precondition_15, hqmfjs.OccurrenceAInpatientEncounter1_precondition_17, hqmfjs.OccurrenceAInpatientEncounter1_precondition_19, hqmfjs.OccurrenceAInpatientEncounter1_precondition_21, hqmfjs.OccurrenceAInpatientEncounter1_precondition_23,\n        allTrue('44', patient, initialSpecificContext, hqmfjs.OccurrenceAInpatientEncounter1_precondition_26,\n          atLeastOneTrue('42', patient, initialSpecificContext,\n            allTrue('33', patient, initialSpecificContext, hqmfjs.OccurrenceAPalliativeCare3_precondition_29, hqmfjs.OccurrenceAPalliativeCare3_precondition_31\n            ),\n            allTrue('40', patient, initialSpecificContext, hqmfjs.OccurrenceAPalliativeCare4_precondition_36, hqmfjs.OccurrenceAPalliativeCare4_precondition_38\n            )\n          )\n        ),\n        atLeastOneTrue('50', patient, initialSpecificContext, hqmfjs.InterventionOrderPalliativeCare_precondition_46, hqmfjs.InterventionPerformedPalliativeCare_precondition_48\n        )\n      )\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        hqmfjs.DENEXCEP = function(patient, initialSpecificContext) {\n  population_criteria_fn = atLeastOneTrue('DENEXCEP', patient, initialSpecificContext,\n    allTrue('12', patient, initialSpecificContext,\n      atLeastOneTrue('9', patient, initialSpecificContext, hqmfjs.MedicationOrderAntithromboticTherapy_precondition_5, hqmfjs.MedicationOrderAntithromboticTherapy_precondition_7\n      )\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        // CV\n        hqmfjs.MSRPOPL = function(patient) { return new Boolean(false); }\n        hqmfjs.OBSERV = function(patient) { return new Boolean(false); }\n        \n        \n        var occurrenceId = [\"OccurrenceAInpatientEncounter1\"];\n\n        hqmfjs.initializeSpecifics(patient_api, hqmfjs)\n        \n        var population = function() {\n          return executeIfAvailable(hqmfjs.IPP, patient_api);\n        }\n        var stratification = null;\n        if (hqmfjs.STRAT) {\n          stratification = function() {\n            return hqmf.SpecificsManager.setIfNull(executeIfAvailable(hqmfjs.STRAT, patient_api));\n          }\n        }\n        var denominator = function() {\n          return executeIfAvailable(hqmfjs.DENOM, patient_api);\n        }\n        var numerator = function() {\n          return executeIfAvailable(hqmfjs.NUMER, patient_api);\n        }\n        var exclusion = function() {\n          return executeIfAvailable(hqmfjs.DENEX, patient_api);\n        }\n        var denexcep = function() {\n          return executeIfAvailable(hqmfjs.DENEXCEP, patient_api);\n        }\n        var msrpopl = function() {\n          return executeIfAvailable(hqmfjs.MSRPOPL, patient_api);\n        }\n        var observ = function(specific_context) {\n          \n          var observFunc = hqmfjs.OBSERV\n          if (typeof(observFunc)==='function')\n            return observFunc(patient_api, specific_context);\n          else\n            return [];\n        }\n        \n        var executeIfAvailable = function(optionalFunction, patient_api) {\n          if (typeof(optionalFunction)==='function') {\n            result = optionalFunction(patient_api);\n            \n            return result;\n          } else {\n            return false;\n          }\n        }\n\n        \n        if (typeof Logger != 'undefined') {\n          // clear out logger\n          Logger.logger = [];\n          Logger.rationale={};\n          if (typeof short_circuit == 'undefined') short_circuit = true;\n        \n          // turn on logging if it is enabled\n          if (enable_logging || enable_rationale) {\n            injectLogger(hqmfjs, enable_logging, enable_rationale, short_circuit);\n          } \n        }\n\n        try {\n          map(patient, population, denominator, numerator, exclusion, denexcep, msrpopl, observ, occurrenceId,false,stratification);\n        } catch(err) {\n          print(err.stack);\n          throw err;\n        }\n\n        "
+    ],
+    "measure_attributes": [
+        {
+            "code": "COPY",
+            "code_obj": {
+                "code": "COPY",
+                "system": "2.16.840.1.113883.5.4",
+                "title": "Copyright",
+                "type": "CD"
+            },
+            "name": "Copyright",
+            "value": "Measure specifications are in the Public Domain\r\n\r\nLOINC(R) is a registered trademark of the Regenstrief Institute.\r\n\r\nThis material contains SNOMED Clinical Terms (R) (SNOMED CT(c) ) copyright 2004-\u20132010 International Health Terminology Standards Development Organization. All rights reserved.",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "Measure specifications are in the Public Domain\r\n\r\nLOINC(R) is a registered trademark of the Regenstrief Institute.\r\n\r\nThis material contains SNOMED Clinical Terms (R) (SNOMED CT(c) ) copyright 2004-\u20132010 International Health Terminology Standards Development Organization. All rights reserved."
+            }
+        },
+        {
+            "code": "MSRSCORE",
+            "code_obj": {
+                "code": "MSRSCORE",
+                "system": "2.16.840.1.113883.5.4",
+                "title": "Measure Scoring",
+                "type": "CD"
+            },
+            "name": "Measure Scoring",
+            "value_obj": {
+                "code": "PROPOR",
+                "system": "2.16.840.1.113883.1.11.20367",
+                "title": "Proportion",
+                "type": "CD"
+            }
+        },
+        {
+            "code": "MSRTYPE",
+            "code_obj": {
+                "code": "MSRTYPE",
+                "system": "2.16.840.1.113883.5.4",
+                "title": "Measure Type",
+                "type": "CD"
+            },
+            "name": "Measure Type",
+            "value_obj": {
+                "code": "PROCESS",
+                "system": "2.16.840.1.113883.1.11.20368",
+                "title": "Process",
+                "type": "CD"
+            }
+        },
+        {
+            "code": "STRAT",
+            "code_obj": {
+                "code": "STRAT",
+                "system": "2.16.840.1.113883.5.4",
+                "title": "Stratification",
+                "type": "CD"
+            },
+            "name": "Stratification",
+            "value": "None",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "None"
+            }
+        },
+        {
+            "code": "MSRADJ",
+            "code_obj": {
+                "code": "MSRADJ",
+                "system": "2.16.840.1.113883.5.4",
+                "title": "Risk Adjustment",
+                "type": "CD"
+            },
+            "name": "Risk Adjustment",
+            "value": "None",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "None"
+            }
+        },
+        {
+            "code": "MSRAGG",
+            "code_obj": {
+                "code": "MSRAGG",
+                "system": "2.16.840.1.113883.5.4",
+                "title": "Rate Aggregation",
+                "type": "CD"
+            },
+            "name": "Rate Aggregation",
+            "value": "None",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "None"
+            }
+        },
+        {
+            "code": "RAT",
+            "code_obj": {
+                "code": "RAT",
+                "system": "2.16.840.1.113883.5.4",
+                "title": "Rationale",
+                "type": "CD"
+            },
+            "name": "Rationale",
+            "value": "The effectiveness of antithrombotic agents in reducing stroke mortality, stroke- related morbidity and recurrence rates has been studied in several large clinical trials. While the use of these agents for patients with acute ischemic stroke and transient ischemic attacks continues to be the subject of study, substantial evidence is available from completed studies. Data at this time suggest that antithrombotic therapy should be prescribed at discharge following acute ischemic stroke to reduce stroke mortality and morbidity as long as no contraindications exist. For patients with a stroke due to a cardioembolic source (e.g., atrial fibrillation, mechanical heart valve), warfarin is recommended unless contraindicated. Warfarin is not generally recommended for secondary stroke prevention in patients presumed to have a non-cardioembolic stroke.\r\nAnticoagulants at doses to prevent venous thromboembolism are insufficient antithrombotic therapy to prevent recurrent ischemic stroke or TIA.",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "The effectiveness of antithrombotic agents in reducing stroke mortality, stroke- related morbidity and recurrence rates has been studied in several large clinical trials. While the use of these agents for patients with acute ischemic stroke and transient ischemic attacks continues to be the subject of study, substantial evidence is available from completed studies. Data at this time suggest that antithrombotic therapy should be prescribed at discharge following acute ischemic stroke to reduce stroke mortality and morbidity as long as no contraindications exist. For patients with a stroke due to a cardioembolic source (e.g., atrial fibrillation, mechanical heart valve), warfarin is recommended unless contraindicated. Warfarin is not generally recommended for secondary stroke prevention in patients presumed to have a non-cardioembolic stroke.\r\nAnticoagulants at doses to prevent venous thromboembolism are insufficient antithrombotic therapy to prevent recurrent ischemic stroke or TIA."
+            }
+        },
+        {
+            "code": "CRS",
+            "code_obj": {
+                "code": "CRS",
+                "system": "2.16.840.1.113883.3.560",
+                "title": "Clinical Recommendation Statement",
+                "type": "CD"
+            },
+            "name": "Clinical Recommendation Statement",
+            "value": "Clinical trial results suggest that antithrombotic therapy should be prescribed at discharge following acute ischemic stroke to reduce stroke mortality and morbidity as long as no contraindications exist.",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "Clinical trial results suggest that antithrombotic therapy should be prescribed at discharge following acute ischemic stroke to reduce stroke mortality and morbidity as long as no contraindications exist."
+            }
+        },
+        {
+            "code": "IDUR",
+            "code_obj": {
+                "code": "IDUR",
+                "system": "2.16.840.1.113883.3.560",
+                "title": "Improvement Notation",
+                "type": "CD"
+            },
+            "name": "Improvement Notation",
+            "value": "An increase in rate",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "An increase in rate"
+            }
+        },
+        {
+            "code": "OTH",
+            "code_obj": {
+                "null_flavor": "OTH",
+                "original_text": "NQF ID Number",
+                "type": "CD"
+            },
+            "name": "NQF ID Number",
+            "value": "0435",
+            "value_obj": {
+                "extension": "0435",
+                "root": "2.16.840.1.113883.3.560.1",
+                "type": "II"
+            }
+        },
+        {
+            "code": "DISC",
+            "code_obj": {
+                "code": "DISC",
+                "original_text": "Disclaimer",
+                "system": "2.16.840.1.113883.5.4",
+                "title": "Disclaimer",
+                "type": "CD"
+            },
+            "name": "Disclaimer",
+            "value": "None",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "None"
+            }
+        },
+        {
+            "code": "OTH",
+            "code_obj": {
+                "null_flavor": "OTH",
+                "original_text": "eMeasure Identifier",
+                "type": "CD"
+            },
+            "name": "eMeasure Identifier",
+            "value": "104",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "104"
+            }
+        },
+        {
+            "code": "REF",
+            "code_obj": {
+                "code": "REF",
+                "system": "2.16.840.1.113883.5.4",
+                "title": "Reference",
+                "type": "CD"
+            },
+            "name": "Reference",
+            "value": "Sacco RL, Adams R, Albers G, Alberts MJ, Benavente O, Furie K, Goldstein LB, Gorelick P, Halperin J, Harbaugh R, Johnston SC, Katzan I, Kelly-Hayes M, Kenton EJ, Marks M, Schwamm LH, Tomsick T. Guidelines for Prevention of Stroke in Patients With Ischemic Stroke or Transient Ischemic Attack: A Statement for Healthcare Professionals From the American Heart Association/American Stroke Association Council on Stroke: Co-Sponsored by the Council on Cardiovascular Radiology and Intervention. Stroke. Vol. 37, 2006:577.",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "Sacco RL, Adams R, Albers G, Alberts MJ, Benavente O, Furie K, Goldstein LB, Gorelick P, Halperin J, Harbaugh R, Johnston SC, Katzan I, Kelly-Hayes M, Kenton EJ, Marks M, Schwamm LH, Tomsick T. Guidelines for Prevention of Stroke in Patients With Ischemic Stroke or Transient Ischemic Attack: A Statement for Healthcare Professionals From the American Heart Association/American Stroke Association Council on Stroke: Co-Sponsored by the Council on Cardiovascular Radiology and Intervention. Stroke. Vol. 37, 2006:577."
+            }
+        },
+        {
+            "code": "DEF",
+            "code_obj": {
+                "code": "DEF",
+                "system": "2.16.840.1.113883.3.560",
+                "title": "Definition",
+                "type": "CD"
+            },
+            "name": "Definition",
+            "value": "None",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "None"
+            }
+        },
+        {
+            "code": "GUIDE",
+            "code_obj": {
+                "code": "GUIDE",
+                "system": "2.16.840.1.113883.5.4",
+                "title": "Guidance",
+                "type": "CD"
+            },
+            "name": "Guidance",
+            "value": "The unit of measurement for this measure is an inpatient episode of care. Each distinct hospitalization should be reported, regardless of whether the same patient is admitted for inpatient care more than once during the measurement period. In addition, the eMeasure logic intends to represent events within or surrounding a single occurrence of an inpatient hospitalization.\r\n\r\nThe facility location arrival datetime and facility location departure datetime are coupled with the emergency department visit value set. They intend to represent arrival date/time at the emergency department and the discharge date/time from the emergency department, respectively.",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "The unit of measurement for this measure is an inpatient episode of care. Each distinct hospitalization should be reported, regardless of whether the same patient is admitted for inpatient care more than once during the measurement period. In addition, the eMeasure logic intends to represent events within or surrounding a single occurrence of an inpatient hospitalization.\r\n\r\nThe facility location arrival datetime and facility location departure datetime are coupled with the emergency department visit value set. They intend to represent arrival date/time at the emergency department and the discharge date/time from the emergency department, respectively."
+            }
+        },
+        {
+            "code": "OTH",
+            "code_obj": {
+                "null_flavor": "OTH",
+                "original_text": "Transmission Format",
+                "type": "CD"
+            },
+            "name": "Transmission Format",
+            "value": "None",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "None"
+            }
+        },
+        {
+            "code": "IPP",
+            "code_obj": {
+                "code": "IPP",
+                "original_text": "Initial Patient Population",
+                "system": "2.16.840.1.113883.5.1063",
+                "type": "CD"
+            },
+            "name": "Initial Patient Population",
+            "value": "Patients admitted to the hospital for inpatient acute care with a principal diagnosis code for ischemic or hemorrhagic stroke with hospital stays <= 120 days during the measurement period for patients age 18 and older at the time of hospital admission.",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "Patients admitted to the hospital for inpatient acute care with a principal diagnosis code for ischemic or hemorrhagic stroke with hospital stays <= 120 days during the measurement period for patients age 18 and older at the time of hospital admission."
+            }
+        },
+        {
+            "code": "DENOM",
+            "code_obj": {
+                "code": "DENOM",
+                "original_text": "Denominator",
+                "system": "2.16.840.1.113883.5.1063",
+                "type": "CD"
+            },
+            "name": "Denominator",
+            "value": "Ischemic stroke patients",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "Ischemic stroke patients"
+            }
+        },
+        {
+            "code": "OTH",
+            "code_obj": {
+                "null_flavor": "OTH",
+                "original_text": "Denominator Exclusions",
+                "type": "CD"
+            },
+            "name": "Denominator Exclusions",
+            "value": "Patients with comfort measures only documented\r\nPatients admitted for elective carotid intervention\r\nPatients discharged to another hospital\r\nPatients who left against medical advice\r\nPatients who expired\r\nPatients discharged to home for hospice care\r\nPatients discharged to a health care facility for hospice care",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "Patients with comfort measures only documented\r\nPatients admitted for elective carotid intervention\r\nPatients discharged to another hospital\r\nPatients who left against medical advice\r\nPatients who expired\r\nPatients discharged to home for hospice care\r\nPatients discharged to a health care facility for hospice care"
+            }
+        },
+        {
+            "code": "NUMER",
+            "code_obj": {
+                "code": "NUMER",
+                "original_text": "Numerator",
+                "system": "2.16.840.1.113883.5.1063",
+                "type": "CD"
+            },
+            "name": "Numerator",
+            "value": "Ischemic stroke patients prescribed antithrombotic therapy at hospital discharge.",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "Ischemic stroke patients prescribed antithrombotic therapy at hospital discharge."
+            }
+        },
+        {
+            "code": "OTH",
+            "code_obj": {
+                "null_flavor": "OTH",
+                "original_text": "Numerator Exclusions",
+                "type": "CD"
+            },
+            "name": "Numerator Exclusions",
+            "value": "Not Applicable",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "Not Applicable"
+            }
+        },
+        {
+            "code": "DENEXCEP",
+            "code_obj": {
+                "code": "DENEXCEP",
+                "original_text": "Denominator Exceptions",
+                "system": "2.16.840.1.113883.5.1063",
+                "type": "CD"
+            },
+            "name": "Denominator Exceptions",
+            "value": "Patients with a documented reason for not prescribing antithrombotic therapy at discharge",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "Patients with a documented reason for not prescribing antithrombotic therapy at discharge"
+            }
+        },
+        {
+            "code": "MSRPOPL",
+            "code_obj": {
+                "code": "MSRPOPL",
+                "original_text": "Measure Population",
+                "system": "2.16.840.1.113883.5.1063",
+                "type": "CD"
+            },
+            "name": "Measure Population",
+            "value": "Not Applicable",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "Not Applicable"
+            }
+        },
+        {
+            "code": "OTH",
+            "code_obj": {
+                "null_flavor": "OTH",
+                "original_text": "Measure Observations",
+                "type": "CD"
+            },
+            "name": "Measure Observations",
+            "value": "Not Applicable",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "Not Applicable"
+            }
+        },
+        {
+            "code": "OTH",
+            "code_obj": {
+                "null_flavor": "OTH",
+                "original_text": "Supplemental Data Elements",
+                "type": "CD"
+            },
+            "name": "Supplemental Data Elements",
+            "value": "For every patient evaluated by this measure also identify payer, race, ethnicity, and sex.",
+            "value_obj": {
+                "media_type": "text/plain",
+                "type": "ED",
+                "value": "For every patient evaluated by this measure also identify payer, race, ethnicity, and sex."
+            }
+        }
+    ],
+    "measure_id": "0435",
+    "measure_period": {
+        "high": {
+            "derived?": false,
+            "inclusive?": true,
+            "type": "TS",
+            "value": "201212312359"
+        },
+        "low": {
+            "derived?": false,
+            "inclusive?": true,
+            "type": "TS",
+            "value": "201201010000"
+        },
+        "type": "IVL_TS",
+        "width": {
+            "derived?": false,
+            "inclusive?": true,
+            "type": "PQ",
+            "unit": "a",
+            "value": "1"
+        }
+    },
+    "needs_finalize": false,
+    "population_criteria": {
+        "DENEX": {
+            "conjunction?": true,
+            "hqmf_id": "725DFAF3-18A8-TEST-BE34-2E1A9D32DB34",
+            "preconditions": [
+                {
+                    "conjunction_code": "allTrue",
+                    "id": 55,
+                    "preconditions": [
+                        {
+                            "conjunction_code": "atLeastOneTrue",
+                            "id": 53,
+                            "preconditions": [
+                                {
+                                    "id": 13,
+                                    "reference": "OccurrenceAInpatientEncounter1_precondition_13"
+                                },
+                                {
+                                    "id": 15,
+                                    "reference": "OccurrenceAInpatientEncounter1_precondition_15"
+                                },
+                                {
+                                    "id": 17,
+                                    "reference": "OccurrenceAInpatientEncounter1_precondition_17"
+                                },
+                                {
+                                    "id": 19,
+                                    "reference": "OccurrenceAInpatientEncounter1_precondition_19"
+                                },
+                                {
+                                    "id": 21,
+                                    "reference": "OccurrenceAInpatientEncounter1_precondition_21"
+                                },
+                                {
+                                    "id": 23,
+                                    "reference": "OccurrenceAInpatientEncounter1_precondition_23"
+                                },
+                                {
+                                    "conjunction_code": "allTrue",
+                                    "id": 44,
+                                    "preconditions": [
+                                        {
+                                            "id": 26,
+                                            "reference": "OccurrenceAInpatientEncounter1_precondition_26"
+                                        },
+                                        {
+                                            "conjunction_code": "atLeastOneTrue",
+                                            "id": 42,
+                                            "preconditions": [
+                                                {
+                                                    "conjunction_code": "allTrue",
+                                                    "id": 33,
+                                                    "preconditions": [
+                                                        {
+                                                            "id": 29,
+                                                            "reference": "OccurrenceAPalliativeCare3_precondition_29"
+                                                        },
+                                                        {
+                                                            "id": 31,
+                                                            "reference": "OccurrenceAPalliativeCare3_precondition_31"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "conjunction_code": "allTrue",
+                                                    "id": 40,
+                                                    "preconditions": [
+                                                        {
+                                                            "id": 36,
+                                                            "reference": "OccurrenceAPalliativeCare4_precondition_36"
+                                                        },
+                                                        {
+                                                            "id": 38,
+                                                            "reference": "OccurrenceAPalliativeCare4_precondition_38"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "conjunction_code": "atLeastOneTrue",
+                                    "id": 50,
+                                    "preconditions": [
+                                        {
+                                            "id": 46,
+                                            "reference": "InterventionOrderPalliativeCare_precondition_46"
+                                        },
+                                        {
+                                            "id": 48,
+                                            "reference": "InterventionPerformedPalliativeCare_precondition_48"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "title": "Denominator",
+            "type": "DENEX"
+        },
+        "DENEXCEP": {
+            "conjunction?": true,
+            "hqmf_id": "2BA67FAD-51BA-4DDD-8D65-823A69576248",
+            "preconditions": [
+                {
+                    "conjunction_code": "allTrue",
+                    "id": 12,
+                    "preconditions": [
+                        {
+                            "conjunction_code": "atLeastOneTrue",
+                            "id": 9,
+                            "preconditions": [
+                                {
+                                    "id": 5,
+                                    "reference": "MedicationOrderAntithromboticTherapy_precondition_5"
+                                },
+                                {
+                                    "id": 7,
+                                    "reference": "MedicationOrderAntithromboticTherapy_precondition_7"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "title": "Denominator Exception",
+            "type": "DENEXCEP"
+        },
+        "DENOM": {
+            "conjunction?": true,
+            "hqmf_id": "158FD105-574F-4F41-9F00-43467246785C",
+            "preconditions": [
+                {
+                    "conjunction_code": "allTrue",
+                    "id": 61,
+                    "preconditions": [
+                        {
+                            "id": 59,
+                            "reference": "DiagnosisActiveIschemicStroke_precondition_59"
+                        }
+                    ]
+                }
+            ],
+            "title": "Denominator",
+            "type": "DENOM"
+        },
+        "IPP": {
+            "conjunction?": true,
+            "hqmf_id": "F4D54B23-BF1A-4E82-8855-6EC1F67A4194",
+            "preconditions": [
+                {
+                    "conjunction_code": "allTrue",
+                    "id": 75,
+                    "preconditions": [
+                        {
+                            "id": 62,
+                            "reference": "PatientCharacteristicBirthdateBirthDate_precondition_62"
+                        },
+                        {
+                            "id": 64,
+                            "reference": "OccurrenceAInpatientEncounter1_precondition_64"
+                        },
+                        {
+                            "id": 66,
+                            "reference": "OccurrenceAInpatientEncounter1_precondition_66"
+                        },
+                        {
+                            "conjunction_code": "atLeastOneTrue",
+                            "id": 72,
+                            "preconditions": [
+                                {
+                                    "id": 68,
+                                    "reference": "DiagnosisActiveHemorrhagicStroke_precondition_68"
+                                },
+                                {
+                                    "id": 70,
+                                    "reference": "DiagnosisActiveIschemicStroke_precondition_70"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "title": "Initial Patient Population",
+            "type": "IPP"
+        },
+        "NUMER": {
+            "conjunction?": true,
+            "hqmf_id": "87237C88-DC17-41D8-AAB1-69A6190CF3F5",
+            "preconditions": [
+                {
+                    "conjunction_code": "allTrue",
+                    "id": 58,
+                    "preconditions": [
+                        {
+                            "id": 56,
+                            "reference": "MedicationDischargeAntithromboticTherapy_precondition_56"
+                        }
+                    ]
+                }
+            ],
+            "title": "Numerator",
+            "type": "NUMER"
+        }
+    },
+    "populations": [
+        {
+            "DENEX": "DENEX",
+            "DENEXCEP": "DENEXCEP",
+            "DENOM": "DENOM",
+            "IPP": "IPP",
+            "NUMER": "NUMER"
+        }
+    ],
+    "preconditions": null,
+    "publish_date": null,
+    "published": null,
+    "record_ids": [],
+    "source_data_criteria": {
+        "DiagnosisActiveHemorrhagicStroke": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.212",
+            "definition": "diagnosis",
+            "description": "Diagnosis, Active: Hemorrhagic Stroke",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "DiagnosisActiveHemorrhagicStroke",
+            "status": "active",
+            "title": "Hemorrhagic Stroke",
+            "type": "conditions",
+            "variable": false
+        },
+        "DiagnosisActiveIschemicStroke": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.247",
+            "definition": "diagnosis",
+            "description": "Diagnosis, Active: Ischemic Stroke",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "DiagnosisActiveIschemicStroke",
+            "status": "active",
+            "title": "Ischemic Stroke",
+            "type": "conditions",
+            "variable": false
+        },
+        "EncounterPerformedEmergencyDepartmentVisit": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Emergency Department Visit",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "EncounterPerformedEmergencyDepartmentVisit",
+            "status": "performed",
+            "title": "Emergency Department Visit",
+            "type": "encounters",
+            "variable": false
+        },
+        "EncounterPerformedInpatientEncounter": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "EncounterPerformedInpatientEncounter",
+            "status": "performed",
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "InterventionOrderPalliativeCare": {
+            "code_list_id": "2.16.840.1.113883.3.526.2.1076",
+            "definition": "intervention",
+            "description": "Intervention, Order: Palliative Care",
+            "hard_status": true,
+            "negation": false,
+            "source_data_criteria": "InterventionOrderPalliativeCare",
+            "status": "ordered",
+            "title": "Palliative Care",
+            "type": "interventions",
+            "variable": false
+        },
+        "InterventionPerformedPalliativeCare": {
+            "code_list_id": "2.16.840.1.113883.3.526.2.1076",
+            "definition": "intervention",
+            "description": "Intervention, Performed: Palliative Care",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "InterventionPerformedPalliativeCare",
+            "status": "performed",
+            "title": "Palliative Care",
+            "type": "interventions",
+            "variable": false
+        },
+        "MedicationDischargeAntithromboticTherapy": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.201",
+            "definition": "medication",
+            "description": "Medication, Discharge: Antithrombotic Therapy",
+            "hard_status": true,
+            "negation": false,
+            "source_data_criteria": "MedicationDischargeAntithromboticTherapy",
+            "status": "discharge",
+            "title": "Antithrombotic Therapy",
+            "type": "medications",
+            "variable": false
+        },
+        "MedicationOrderAntithromboticTherapy": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.201",
+            "definition": "medication",
+            "description": "Medication, Order: Antithrombotic Therapy",
+            "hard_status": true,
+            "negation": false,
+            "source_data_criteria": "MedicationOrderAntithromboticTherapy",
+            "status": "ordered",
+            "title": "Antithrombotic Therapy",
+            "type": "medications",
+            "variable": false
+        },
+        "MedicationOrderNotDoneMedicalReason": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.473",
+            "definition": "medication",
+            "description": "Medication, Order not done: Medical Reason",
+            "hard_status": true,
+            "negation": true,
+            "source_data_criteria": "MedicationOrderNotDoneMedicalReason",
+            "status": "ordered",
+            "title": "Medical Reason",
+            "type": "medications",
+            "variable": false
+        },
+        "MedicationOrderNotDonePatientRefusal": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.93",
+            "definition": "medication",
+            "description": "Medication, Order not done: Patient Refusal",
+            "hard_status": true,
+            "negation": true,
+            "source_data_criteria": "MedicationOrderNotDonePatientRefusal",
+            "status": "ordered",
+            "title": "Patient Refusal",
+            "type": "medications",
+            "variable": false
+        },
+        "OccurrenceAEmergencyDepartmentVisit2": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Emergency Department Visit",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAEmergencyDepartmentVisit2",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_EMERGENCY_DEPARTMENT_VISIT",
+            "status": "performed",
+            "title": "Emergency Department Visit",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAInpatientEncounter1": {
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.23",
+            "definition": "encounter",
+            "description": "Encounter, Performed: Inpatient Encounter",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAInpatientEncounter1",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "ENCOUNTER_PERFORMED_INPATIENT_ENCOUNTER",
+            "status": "performed",
+            "title": "Inpatient Encounter",
+            "type": "encounters",
+            "variable": false
+        },
+        "OccurrenceAPalliativeCare3": {
+            "code_list_id": "2.16.840.1.113883.3.526.2.1076",
+            "definition": "intervention",
+            "description": "Intervention, Ordered: Palliative Care",
+            "hard_status": true,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAPalliativeCare3",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "INTERVENTION_ORDERED_PALLIATIVE_CARE",
+            "status": "ordered",
+            "title": "Palliative Care",
+            "type": "interventions",
+            "variable": false
+        },
+        "OccurrenceAPalliativeCare4": {
+            "code_list_id": "2.16.840.1.113883.3.526.2.1076",
+            "definition": "intervention",
+            "description": "Intervention, Performed: Palliative Care",
+            "hard_status": false,
+            "negation": false,
+            "source_data_criteria": "OccurrenceAPalliativeCare4",
+            "specific_occurrence": "A",
+            "specific_occurrence_const": "INTERVENTION_PERFORMED_PALLIATIVE_CARE",
+            "status": "performed",
+            "title": "Palliative Care",
+            "type": "interventions",
+            "variable": false
+        },
+        "PatientCharacteristicBirthdateBirthDate": {
+            "code_list_id": "2.16.840.1.113883.3.560.100.4",
+            "definition": "patient_characteristic_birthdate",
+            "description": "Patient Characteristic Birthdate: birth date",
+            "hard_status": false,
+            "inline_code_list": {
+                "LOINC": [
+                    "21112-8"
+                ]
+            },
+            "negation": false,
+            "property": "birthtime",
+            "source_data_criteria": "PatientCharacteristicBirthdateBirthDate",
+            "title": "birth date",
+            "type": "characteristic",
+            "variable": false
+        },
+        "PatientCharacteristicEthnicityEthnicity": {
+            "code_list_id": "2.16.840.1.114222.4.11.837",
+            "definition": "patient_characteristic_ethnicity",
+            "description": "Patient Characteristic Ethnicity: Ethnicity",
+            "hard_status": false,
+            "inline_code_list": {
+                "CDC": [
+                    "2135-2",
+                    "2186-5"
+                ]
+            },
+            "negation": false,
+            "property": "ethnicity",
+            "source_data_criteria": "PatientCharacteristicEthnicityEthnicity",
+            "title": "Ethnicity",
+            "type": "characteristic",
+            "variable": false
+        },
+        "PatientCharacteristicPayerPayer": {
+            "code_list_id": "2.16.840.1.114222.4.11.3591",
+            "definition": "patient_characteristic_payer",
+            "description": "Patient Characteristic Payer: Payer",
+            "hard_status": false,
+            "inline_code_list": {
+                "Source of Payment Typology": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "11",
+                    "12",
+                    "19",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "29",
+                    "31",
+                    "32",
+                    "33",
+                    "34",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "39",
+                    "41",
+                    "42",
+                    "43",
+                    "44",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "59",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "69",
+                    "71",
+                    "72",
+                    "73",
+                    "79",
+                    "81",
+                    "82",
+                    "83",
+                    "84",
+                    "85",
+                    "89",
+                    "91",
+                    "92",
+                    "93",
+                    "94",
+                    "95",
+                    "96",
+                    "98",
+                    "99",
+                    "111",
+                    "112",
+                    "113",
+                    "119",
+                    "121",
+                    "122",
+                    "123",
+                    "129",
+                    "211",
+                    "212",
+                    "213",
+                    "219",
+                    "311",
+                    "312",
+                    "313",
+                    "321",
+                    "322",
+                    "331",
+                    "332",
+                    "333",
+                    "334",
+                    "341",
+                    "342",
+                    "343",
+                    "349",
+                    "361",
+                    "362",
+                    "369",
+                    "371",
+                    "372",
+                    "379",
+                    "381",
+                    "382",
+                    "389",
+                    "511",
+                    "512",
+                    "513",
+                    "514",
+                    "515",
+                    "519",
+                    "521",
+                    "522",
+                    "523",
+                    "529",
+                    "611",
+                    "612",
+                    "613",
+                    "619",
+                    "821",
+                    "822",
+                    "823",
+                    "951",
+                    "953",
+                    "954",
+                    "959",
+                    "3111",
+                    "3112",
+                    "3113",
+                    "3114",
+                    "3115",
+                    "3116",
+                    "3119",
+                    "3121",
+                    "3122",
+                    "3123",
+                    "3211",
+                    "3212",
+                    "3221",
+                    "3222",
+                    "3223",
+                    "3229",
+                    "3711",
+                    "3712",
+                    "3713",
+                    "3811",
+                    "3812",
+                    "3813",
+                    "3819",
+                    "9999",
+                    "32121",
+                    "32122",
+                    "32123",
+                    "32124",
+                    "32125",
+                    "32126"
+                ]
+            },
+            "negation": false,
+            "property": "payer",
+            "source_data_criteria": "PatientCharacteristicPayerPayer",
+            "title": "Payer",
+            "type": "characteristic",
+            "variable": false
+        },
+        "PatientCharacteristicRaceRace": {
+            "code_list_id": "2.16.840.1.114222.4.11.836",
+            "definition": "patient_characteristic_race",
+            "description": "Patient Characteristic Race: Race",
+            "hard_status": false,
+            "inline_code_list": {
+                "CDC": [
+                    "1002-5",
+                    "2028-9",
+                    "2054-5",
+                    "2076-8",
+                    "2106-3",
+                    "2131-1"
+                ]
+            },
+            "negation": false,
+            "property": "race",
+            "source_data_criteria": "PatientCharacteristicRaceRace",
+            "title": "Race",
+            "type": "characteristic",
+            "variable": false
+        },
+        "PatientCharacteristicSexOncAdministrativeSex": {
+            "code_list_id": "2.16.840.1.113762.1.4.1",
+            "definition": "patient_characteristic_gender",
+            "description": "Patient Characteristic Sex: ONC Administrative Sex",
+            "hard_status": false,
+            "negation": false,
+            "property": "gender",
+            "source_data_criteria": "PatientCharacteristicSexOncAdministrativeSex",
+            "title": "ONC Administrative Sex",
+            "type": "characteristic",
+            "value": {
+                "code": "F",
+                "system": "Administrative Sex",
+                "type": "CD"
+            },
+            "variable": false
+        }
+    },
+    "title": "Discharged on Antithrombotic Therapy",
+    "type": "eh",
+    "updated_at": "2014-07-22T13:13:27.700Z",
+    "user_id": "53ce634a4d4d32e2cd000000",
+    "value_set_oids": [
+        "2.16.840.1.113883.3.117.1.7.1.23",
+        "2.16.840.1.113883.3.117.1.7.1.87",
+        "2.16.840.1.113883.3.117.1.7.1.93",
+        "2.16.840.1.113883.3.117.1.7.1.201",
+        "2.16.840.1.113883.3.117.1.7.1.204",
+        "2.16.840.1.113883.3.117.1.7.1.207",
+        "2.16.840.1.113883.3.117.1.7.1.209",
+        "2.16.840.1.113883.3.117.1.7.1.212",
+        "2.16.840.1.113883.3.117.1.7.1.233",
+        "2.16.840.1.113883.3.117.1.7.1.234",
+        "2.16.840.1.113883.3.117.1.7.1.235",
+        "2.16.840.1.113883.3.117.1.7.1.237",
+        "2.16.840.1.113883.3.117.1.7.1.238",
+        "2.16.840.1.113883.3.117.1.7.1.239",
+        "2.16.840.1.113883.3.117.1.7.1.247",
+        "2.16.840.1.113883.3.117.1.7.1.250",
+        "2.16.840.1.113883.3.117.1.7.1.251",
+        "2.16.840.1.113883.3.117.1.7.1.252",
+        "2.16.840.1.113883.3.117.1.7.1.292",
+        "2.16.840.1.113883.3.117.1.7.1.308",
+        "2.16.840.1.113883.3.117.1.7.1.309",
+        "2.16.840.1.113883.3.117.1.7.1.473",
+        "2.16.840.1.113883.3.117.2.7.1.14",
+        "2.16.840.1.113883.3.526.2.1076",
+        "2.16.840.1.113883.3.560.100.4",
+        "2.16.840.1.113762.1.4.1",
+        "2.16.840.1.114222.4.11.836",
+        "2.16.840.1.114222.4.11.837",
+        "2.16.840.1.114222.4.11.3591"
+    ],
+    "version": null
+}
