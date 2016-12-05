@@ -1,7 +1,5 @@
 class MeasuresController < ApplicationController
 
-  include UploadSummary
-
   skip_before_action :verify_authenticity_token, only: [:show, :value_sets]
 
   respond_to :json, :js, :html
@@ -187,10 +185,11 @@ class MeasuresController < ApplicationController
         return
       end
 
+      @archived_measure = nil
       # if a measure is being updated, save out the pre-existing measure as an archived measure.
       if (existing && is_update)
-        archived_measure = ArchivedMeasure.from_measure(existing)
-        archived_measure.save
+        @archived_measure = ArchivedMeasure.from_measure(existing)
+        @archived_measure.save
         existing.delete
       end
 
@@ -268,23 +267,14 @@ class MeasuresController < ApplicationController
     Measures::ADEHelper.update_if_ade(measure)
 
     measure.generate_js
-
-    #  Initialize an Upload Summary by taking a snapshot of the patients before the measure is updated.
-    # For the initial relase of the Measure Upload History the feature will be disabled for portfolio users
-    measure_patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
-    upload_summary_id = UploadSummary.collect_before_upload_state(measure, archived_measure, measure_patients) unless current_user.is_portfolio?
     measure.save!
 
-    # run the calcs for the patients with the new version of the measure
-    # if the measure needs finalize (measure.needs_finalize == true) hold the calc of the patients until after the finalize
-
-    # trigger the measure upload summary for the user.
+    # create the measure upload summary only if the measure doesn't need finalization. If it
+    # does, this will get run in the finalize step.
     # TODO Eventually enable for portfolio users
     if !measure.needs_finalize && !current_user.is_portfolio?
-      check_patient_expected_values(measure, measure_patients)
-      UploadSummary.calculate_updated_actuals(measure, measure_patients)
-      UploadSummary.collect_after_upload_state(measure, upload_summary_id, measure_patients)
-      flash[:uploaded_summary_id] = upload_summary_id
+      measure_summary = UploadSummary::MeasureSummary.create_measure_upload_summary(measure, @archived_measure)
+      flash[:uploaded_summary_id] = measure_summary.id
       flash[:uploaded_hqmf_set_id] = measure.hqmf_set_id
     end
 
@@ -344,20 +334,13 @@ class MeasuresController < ApplicationController
       measure.generate_js(clear_db_cache: true)
       measure.save!
 
-
-      # Take a snapshot of the measure patients after using the updated measure
-      # logic to do the calculation.
-      # For the initial relase of the Measure Upload History the feature will be disabled for portfolio users
       # TODO Enable for portfolio users
       unless current_user.is_portfolio?
-        measure_patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
-        UploadSummary.calculate_updated_actuals(measure, measure_patients)
-        upload_summary_id = UploadSummary::MeasureSummary.where(measure_db_id_post_upload: measure.id).first.id
-        UploadSummary.collect_after_upload_state(measure, upload_summary_id, measure_patients)
+        measure_summary = UploadSummary::MeasureSummary.create_measure_upload_summary(measure, @archived_measure)
       end
 
       # Make UI show upload summary
-      flash[:uploaded_summary_id] = upload_summary_id
+      flash[:uploaded_summary_id] = measure_summary.id
 
     end
     redirect_to root_path
@@ -417,51 +400,5 @@ class MeasuresController < ApplicationController
     end
   end
 
-  def check_patient_expected_values(measure, measure_patients)
-    if measure_patients.count > 0
-      measure_population_sets = measure.populations.map { |population_set| population_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES) }
-
-        measure_patients.each do |patient|
-
-          # ensure there's the correct number of population sets
-          patient_population_count = patient.expected_values.count { |expected_value_set| expected_value_set[:measure_id] == measure.hqmf_set_id }
-          measure_population_count = measure_population_sets.count
-          # add new population sets. the rest of the data gets added below.
-          if patient_population_count < measure_population_count
-            (patient_population_count..measure_population_count-1).each do |index|
-              patient.expected_values << {measure_id: measure.hqmf_set_id, population_index: index}
-            end
-          end
-          # delete population sets present on the patient but not in the measure
-          patient.expected_values.reject! do |expected_value_set| 
-            matches_measure = expected_value_set[:measure_id] ? expected_value_set[:measure_id] == measure.hqmf_set_id : false
-            is_extra_population = expected_value_set[:population_index] ? expected_value_set[:population_index] >= measure_population_count : false
-            matches_measure && is_extra_population
-          end
-
-          # ensure there's the correct number of populations for each population set
-          patient.expected_values.each do |expected_value_set|
-            # ignore if it's not related to the measure (can happen for portfolio users)
-            next unless expected_value_set[:measure_id] == measure.hqmf_set_id
-
-            expected_value_population_set = expected_value_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
-            measure_population_set = measure_population_sets[expected_value_set[:population_index]].keys
-
-            # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
-            added_populations = measure_population_set - expected_value_population_set
-            added_populations.each do |population|
-              expected_value_set[population] = 0
-            end
-
-            # delete populations that no longer exist (populations in the expected values that don't exist in the measure)
-            removed_populations = expected_value_population_set - measure_population_set
-            expected_value_set.except!(*removed_populations)
-          end
-          patient.save!
-          print "."
-        end # measure_patients
-    end # measure_patients.count > 0
-
-  end
 
 end
