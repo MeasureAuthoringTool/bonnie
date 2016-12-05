@@ -3,8 +3,8 @@
     <table class="table measure-history-table">
       <thead>
       <tr>
-        <th class="history-upload-title" scope="col">Measure Uploads</th>
-        <th class="history-upload-title" scope="col"><span class="sr-only">Before or After</span></th>
+        <th class="history-upload-title" scope="col">Upload Time</th>
+        <th class="history-upload-title" scope="col">Version</th>
         {{#each patientIndex}}
           <th class="history-patient-header" data-patient-id="{{id}}" scope="col"><div><span><i class="fa fa-user" aria-hidden="true"></i> <a class="history-patient-header-name" title="{{name}}" href="#measures/{{../../hqmf_set_id}}/patients/{{id}}/edit">{{name}}</a></span></div></th>
         {{/each}}
@@ -15,11 +15,17 @@
       {{#each upload_summaries.models}}
         {{! Get the specific population }}
         {{#with (lookup attributes.population_set_summaries ../../populationIndex)}}
-          <tr class="active" data-upload-id="{{../attributes._id}}">
-            <th class="history-upload-header" scope="row">
-              v{{../attributes.hqmf_version_number_post_upload}} @ <small>{{moment ../attributes.uploaded_at "M/D/YY h:mm a"}}</small>
+          <tr data-upload-id="{{../attributes._id}}">
+            <th rowspan="2" scope="row">
+              <p>
+                <i aria-hidden="true" class="fa fa-fw fa-clock-o"></i>
+                <time datetime="{{../attributes.uploaded_at}}">{{moment ../attributes.uploaded_at "M/D/YY h:mm a"}}</time>
+              </p>
+              {{#button "showDiffClicked" data-upload-id=../attributes._id class="btn btn-xs btn-default"}}View Changes{{/button}}
             </th>
-            <th class="history-upload-header" scope="row"><small>After</small></th>
+            <th class="history-upload-header" scope="row">
+              v{{../attributes.hqmf_version_number_post_upload}}
+            </th>
             {{! Loop through each patient in same order as header }}
             {{#each ../../../patientIndex}}
               {{#if (lookup ../patients id)}}
@@ -40,10 +46,10 @@
           {{#if ../attributes.measure_db_id_pre_upload}}
             <tr data-upload-id="{{../upload_id}}">
               <th class="history-upload-header" scope="row">
-                {{#button "showDiffClicked" data-upload-id=../../attributes._id class="btn btn-xs btn-default"}}VIEW CHANGES{{/button}}
-
+                <i aria-hidden="true" class="fa fa-fw fa-long-arrow-up"></i>
+                <span class="sr-only">from</span>
+                 v{{../../attributes.hqmf_version_number_pre_upload}}
               </th>
-              <th scope="row"><small>Before</small></th>
               {{! Loop through each patient in same order as header }}
               {{#each ../../../../patientIndex}}
                 {{#if (lookup ../patients id)}}
