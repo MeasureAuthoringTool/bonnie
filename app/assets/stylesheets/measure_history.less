@@ -17,9 +17,31 @@
   font-size: 18px;
 }
 
-table.measure-history-table {
+.measure-history-table {
   width: auto;
   margin-top: 55px;
+
+  thead > tr > th {
+    border-top: none;
+    height: 55px;
+    white-space: nowrap;
+  }
+
+  tbody {
+    > tr:nth-child(2n-1) > td,
+    > tr:nth-child(2n-1) > th {
+      border-top-width: 4px;
+    }
+    
+    > tr > th.history-upload-header {
+      position: relative;
+
+      i {
+        position: absolute;
+        top: -.7em;
+      }
+    }
+  }
 }
 
 .history-circle i.history-pass-icon {
@@ -38,21 +60,6 @@ table.measure-history-table {
 .history-fail {
   background-color: rgba(166, 59, 18, 0.5);
   border-color: #730800;
-}
-
-td.history-patient-cell {
-  /*
-  width: 30px;
-  height: 30px;
-  padding: 3px;
-  */
-}
-
-.measure-history-table > thead > tr > th,
-.measure-history-table > thead > tr > tr {
-  border-top: none;
-  height: 55px;
-  white-space: nowrap;
 }
 
 th.history-patient-header div {
