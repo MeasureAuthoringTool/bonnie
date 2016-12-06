@@ -34,7 +34,7 @@ include Devise::TestHelpers
     archived_measure = ArchivedMeasure.first
     associate_archived_measures_with_measure([archived_measure],measure_with_archive)
     associate_user_with_measures(@user,[measure_with_archive,archived_measure])
-    get :show, {measure_id: measure_with_archive.id, id: archived_measure.id, format: :json}
+    get :show, {measure_id: measure_with_archive.id, id: archived_measure.measure_db_id, format: :json}
     assert_response :success
   end
   
