@@ -7,11 +7,13 @@ include Devise::TestHelpers
     @error_dir = File.join('log','load_errors')
     FileUtils.rm_r @error_dir if File.directory?(@error_dir)
     dump_database
-    draft_measures = File.join("draft_measures","archived_set")
-    collection_fixtures(draft_measures, "users")
+    draft_measures = File.join("draft_measures","base_set")
+    archived_measures = File.join("archived_measures","base_set")
+    users = File.join("users","base_set")
+    collection_fixtures(draft_measures, users, archived_measures)
     @user = User.by_email('bonnie@example.com').first
-    @measure = Measure.where({"cms_id" => "CMS104v2"}).first
-    associate_user_with_measures(@user,@measure)
+    @measure = Measure.where({"cms_id" => "CMS128v2"}).first
+    associate_user_with_measures(@user,[@measure])
     sign_in @user
   end
   
@@ -26,11 +28,14 @@ include Devise::TestHelpers
     assert_response :not_found
   end
   
-
-  #test "show archived measure" do
-  #  archived_measure = ArchivedMeasure.from_measure(@measure)
-  #  get :show, {id: @measure.id, format: :json}
-  #  assert_response :success
-  #end
+  
+  test "show archived measure" do
+    measure_with_archive = Measure.where({"cms_id" => "CMS104v2"}).first
+    archived_measure = ArchivedMeasure.first
+    associate_archived_measures_with_measure([archived_measure],measure_with_archive)
+    associate_user_with_measures(@user,[measure_with_archive,archived_measure])
+    get :show, {measure_id: measure_with_archive.id, id: archived_measure.id, format: :json}
+    assert_response :success
+  end
   
 end
