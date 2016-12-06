@@ -118,7 +118,7 @@ namespace :bonnie do
             next unless expected_value_set[:measure_id] == measure.hqmf_set_id
 
             expected_value_population_set = expected_value_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
-            measure_population_set = measure_population_sets[expected_value_set[:population_index]].keys
+            measure_population_set = measure_population_sets[expected_value_set[:population_index]].slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
 
             # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
             added_populations = measure_population_set - expected_value_population_set
