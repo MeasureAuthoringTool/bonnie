@@ -3,6 +3,7 @@ describe 'ArchivedMeasure', ->
   beforeEach ->
     # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
+    # TODO: Add measure fixture that better aligns with archived_measure fixture
     @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
     archive = new Thorax.Models.ArchivedMeasure getJSONFixture('archived_measures.json')[0]
     @measure.get('archived_measures').add archive
