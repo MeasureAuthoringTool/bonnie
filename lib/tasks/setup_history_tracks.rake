@@ -15,15 +15,6 @@ namespace :bonnie do
     task :store_calculation_results => :environment do
       STDOUT.sync = true
 
-      # clear out any pre-existing calculation result information
-      Record.each do |patient|
-        patient.calc_results = []
-        patient.condensed_calc_results = []
-        patient.has_measure_history = false
-        patient.results_exceed_storage = false
-        patient.results_size = 0
-      end
-
       calculator = BonnieBackendCalculator.new
       puts "There are #{Measure.count} measures to process."
       Measure.each_with_index do |measure, measure_index|
@@ -78,6 +69,10 @@ namespace :bonnie do
       puts "There are #{Record.count} patients to process"
       Record.each do |patient|
         patient.calc_results = []
+        patient.condensed_calc_results = []
+        patient.has_measure_history = false
+        patient.results_exceed_storage = false
+        patient.results_size = 0
         patient.save!
         print '.'
       end
