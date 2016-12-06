@@ -10,6 +10,10 @@ namespace :bonnie do
     #   e.g. bundle exec rake bonnie:setup_history_tracks:sync_expected_values | tee sync_expected_values.log
     # 3. Run store_calculation_results
     #   e.g. bundle exec rake bonnie:setup_history_tracks:store_calculation_results | tee store_calculation_results.log
+    #
+    # If you are running store_calculation_results multiple times, you need to run.
+    # clear_calculation_results before each subsequent run of store_calculation_results:
+    #   bundle exec rake bonnie:setup_history_tracks:clear_calculation_results
 
     desc 'Calculate every patient in the database and stores their calculation results'
     task :store_calculation_results => :environment do
