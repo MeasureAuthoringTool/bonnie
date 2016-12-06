@@ -61,6 +61,12 @@ class ActiveSupport::TestCase
       m.save
     end
   end
+  
+  def associate_archived_measures_with_measure(archived_measures, measure)
+    archived_measures.each do |am|
+      am.measure_db_id = measure._id
+    end
+  end
 
   def associate_user_with_patients(user,patients)
     patients.each do |p|
