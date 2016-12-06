@@ -16,12 +16,17 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
     # loaded with its current state.
     @compareSnapshots = @preUploadMeasureVersion?
     
+    # the active measure captures the displayed population index. This is not captured on the
+    # snapshots.
+    displayedPopulationIndex = @measure.get('displayedPopulation').get('index')
+
     # get the information for the before view
     # if it's not set, it means the cached results are too big
     @populationLogicViewBefore = null
     if @compareSnapshots
       unless @patientResultsSummary.results_exceeds_storage_pre_upload
-        @populationLogicViewBefore = @_getSnapshotView(@preUploadMeasureVersion.get('displayedPopulation'), @patientResultsSummary.pre_upload_results)
+        population = @preUploadMeasureVersion.get('populations').at(displayedPopulationIndex)
+        @populationLogicViewBefore = @_getSnapshotView(population, @patientResultsSummary.pre_upload_results)
     else
       unless @patientResultsSummary.results_exceeds_storage_post_upload
         @populationLogicViewBefore = @_getSnapshotView(@measure.get('displayedPopulation'), @patientResultsSummary.post_upload_results)
@@ -34,7 +39,7 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
         # if @postUploadMeasureVersion doesn't exist, then we're comparing the snapshot
         # after the current version of the measure loaded.
         if @postUploadMeasureVersion
-          population = @postUploadMeasureVersion.get('displayedPopulation')
+          population = @postUploadMeasureVersion.get('populations').at(displayedPopulationIndex)
         else
           population = @measure.get('displayedPopulation')
         @populationLogicViewAfter = @_getSnapshotView(population, @patientResultsSummary.post_upload_results)
