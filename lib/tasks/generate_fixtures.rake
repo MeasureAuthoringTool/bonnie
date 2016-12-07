@@ -29,7 +29,7 @@ namespace :HDS do
       
       fixtures_directory = File.join("test", "fixtures")
       output_directory = File.join(fixtures_directory, args[:test_set], test_name)
-      Dir.mkdir(output_directory) unless Dir.exists? output_directory
+      FileUtils.mkdir_p(output_directory) unless Dir.exists? output_directory
 
       user_file = args[:gen_test] ? File.join(fixtures_directory, "users", args[:test_set], test_name, "user.json") : File.join(output_directory, "user.json")
       patient_file = args[:gen_test] ? File.join(fixtures_directory, "records", args[:test_set], test_name, "patient.json") : File.join(output_directory, "patient.json")
@@ -38,10 +38,10 @@ namespace :HDS do
 
 
       if args[:gen_test]
-        Dir.mkdir(File.dirname(user_file)) unless Dir.exists? File.dirname(user_file)
-        Dir.mkdir(File.dirname(patient_file)) unless Dir.exists? File.dirname(patient_file)
-        Dir.mkdir(File.dirname(measure_file)) unless Dir.exists? File.dirname(measure_file)
-        Dir.mkdir(value_sets_dir) unless Dir.exists? value_sets_dir
+        FileUtils.mkdir_p(File.dirname(user_file)) unless Dir.exists? File.dirname(user_file)
+        FileUtils.mkdir_p(File.dirname(patient_file)) unless Dir.exists? File.dirname(patient_file)
+        FileUtils.mkdir_p(File.dirname(measure_file)) unless Dir.exists? File.dirname(measure_file)
+        FileUtils.mkdir_p(value_sets_dir) unless Dir.exists? value_sets_dir
       end
 
       File.new(user_file, "w+")
