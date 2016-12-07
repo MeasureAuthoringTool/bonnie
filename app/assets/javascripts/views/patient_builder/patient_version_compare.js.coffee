@@ -45,8 +45,6 @@ class Thorax.Views.PatientBuilderCompare extends Thorax.Views.BonnieView
         @populationLogicViewAfter = @_getSnapshotView(population, @patientResultsSummary.post_upload_results)
     else
       @populationLogicViewAfter = @_getLiveView(@measure)
-
-    @render()
   
   # creates a patient logic view based off of a patient snapshot rather than the current
   # patient state.
