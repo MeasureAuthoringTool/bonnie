@@ -10,6 +10,10 @@ namespace :bonnie do
     #   e.g. bundle exec rake bonnie:setup_history_tracks:sync_expected_values | tee sync_expected_values.log
     # 3. Run store_calculation_results
     #   e.g. bundle exec rake bonnie:setup_history_tracks:store_calculation_results | tee store_calculation_results.log
+    #
+    # If you are running store_calculation_results multiple times, you need to run.
+    # clear_calculation_results before each subsequent run of store_calculation_results:
+    #   bundle exec rake bonnie:setup_history_tracks:clear_calculation_results
 
     desc 'Calculate every patient in the database and stores their calculation results'
     task :store_calculation_results => :environment do
@@ -19,6 +23,11 @@ namespace :bonnie do
       puts "There are #{Measure.count} measures to process."
       Measure.each_with_index do |measure, measure_index|
         patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
+        # Move on if there are no patients associated with this measure for this user
+        if patients.count == 0
+          print '.'
+          next
+        end
         measure.populations.each_with_index do |population_set, population_index|
           begin
             calculator.set_measure_and_population(measure, population_index, clear_db_cache: true, rationale: true)
@@ -32,9 +41,9 @@ namespace :bonnie do
 
           processed_patients_array = []
           patients.each_with_index do |patient, patient_index|
+            # For some reason, patients show up multiple times during this iteration.
+            # This checks for that and skips those patients to reduce the number of calculations.
             if processed_patients_array.include?(patient)
-              puts "\nPatient repeated for #{measure.user.email} measure #{measure.cms_id} population set #{population_index}."
-              puts "\tID: #{patient.id}\tName: #{patient.first} #{patient.last}"
               next
             end
             processed_patients_array << patient
@@ -64,6 +73,10 @@ namespace :bonnie do
       puts "There are #{Record.count} patients to process"
       Record.each do |patient|
         patient.calc_results = []
+        patient.condensed_calc_results = []
+        patient.has_measure_history = false
+        patient.results_exceed_storage = false
+        patient.results_size = 0
         patient.save!
         print '.'
       end
@@ -105,7 +118,7 @@ namespace :bonnie do
             next unless expected_value_set[:measure_id] == measure.hqmf_set_id
 
             expected_value_population_set = expected_value_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
-            measure_population_set = measure_population_sets[expected_value_set[:population_index]].keys
+            measure_population_set = measure_population_sets[expected_value_set[:population_index]].slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
 
             # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
             added_populations = measure_population_set - expected_value_population_set
