@@ -6,10 +6,6 @@ describe 'MeasureHistoryView', ->
     @measure = new Thorax.Models.Measure getJSONFixture('measure_history_version_display/measure.json'), parse: true
     @upload_summaries= new Thorax.Collections.UploadSummaries([], {measure_id: @measure.id, _fetched: true})
     @upload_summaries.add(new Thorax.Models.UploadSummary curVal) for curVal in getJSONFixture('measure_history_version_display/upload_summary.json')
-    @upload_summaries._loadCount = 0
-    @upload_summaries._request = undefined
-    @upload_summaries.fetchQueue = undefined
-    @upload_summaries._aborted = false
     @patients = new Thorax.Collections.Patients()
     @patients.add(new Thorax.Models.Patient curVal) for curVal in getJSONFixture('measure_history_version_display/patients.json')
     @measure.attributes.upload_summaries = @upload_summaries
