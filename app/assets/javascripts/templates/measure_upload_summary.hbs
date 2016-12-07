@@ -6,6 +6,10 @@
     {{#ifCond totalChanged "!=" 0}} {{! We have patients who were affected by the upload}}
       <p>
         <table class="table table-striped table-condensed">
+          <caption class="sr-only">
+            {{#ifCond ../../../numberOfPopulations ">=" 1}}{{populationTitle}}{{/ifCond}}
+            Patient Calculation Change Summary
+          </caption>
           <thead>
             <tr>
               {{#ifCond ../../../numberOfPopulations "==" 1}}
@@ -26,6 +30,10 @@
           <tbody>
         </table>
         <table class="table table-condensed table-striped table-hover">
+          <caption class="sr-only">
+            {{#ifCond ../../../numberOfPopulations ">=" 1}}{{populationTitle}}{{/ifCond}}
+            Patient Calculation Change Details
+          </caption>
           <thead>
             <tr>
               <th>Test Patient Name</th>
