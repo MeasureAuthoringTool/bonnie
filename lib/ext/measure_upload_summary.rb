@@ -131,11 +131,11 @@ module UploadSummary
 
         # calc_results could be nil if the population set counts don't align
         if calc_results
+          expected_results = patient.expected_values.find { |value| value[:measure_id] == current_measure.hqmf_set_id && value[:population_index] == population_set_index }
           if upload_timing == :pre_upload
-            expected_results = patient.expected_values.find { |value| value[:measure_id] == current_measure.hqmf_set_id && value[:population_index] == population_set_index }
             store_pre_upload_patient_information(patient, expected_results, calc_results)
           elsif upload_timing == :post_upload
-            store_post_upload_patient_information(patient, calc_results)
+            store_post_upload_patient_information(patient, expected_results, calc_results)
           end
         end
       end
@@ -165,7 +165,7 @@ module UploadSummary
       self.patients[patient.id.to_s].merge!(patient_summary)
     end
 
-    def store_post_upload_patient_information(patient, calc_results)
+    def store_post_upload_patient_information(patient, expected_results, calc_results)
       status = calc_results[:status]
       if status == 'pass'
         self.summary[:pass_after] += 1
@@ -183,6 +183,13 @@ module UploadSummary
 
       self.patients[patient.id.to_s] ||= {}
       self.patients[patient.id.to_s].merge!(patient_summary)
+
+      # if there's no expected result for the population set, that means the population set didn't previously
+      # exist. This adds a zeroed set of expectations to the population set (it's zeroed because the
+      # 'update_expected_value_structure' on the patient sets a new set of expected values to zeroes).
+      unless self.patients[patient.id.to_s][:expected]
+        self.patients[patient.id.to_s][:expected] = expected_results.slice(*ATTRIBUTE_FILTER)
+      end
     end
   end
 end
