@@ -13,4 +13,5 @@ describe 'MeasureHistoryView', ->
   it 'Ensure that version is displayed properly', ->
     @measure_history_view = new Thorax.Views.MeasureHistoryView model: @measure, patients: @patients, upload_summaries: @uploadSummaries
     @measure_history_view.render()
-    expect(@measure_history_view.$('.measure-history-table')).toContainText "v5.4.000"
+    expect(@measure_history_view.$('tr[data-upload-id="584187bae76e94d175000227"]')).toContainText "v5.4.000"
+    expect(@measure_history_view.$('tr[data-upload-id="5841877ee76e94d175000100"]')).toContainText "v5.3.000"
