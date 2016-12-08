@@ -1,0 +1,51 @@
+{
+  "_id": "58236d3bf081f357fb00023a",
+  "bundle_id": "57eebbb8f081f32b020000e8",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "58236d3bf081f357fb00023b",
+      "black_list": false,
+      "code": "183932001",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-09",
+      "display_name": "Procedure contraindicated (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "58236d3bf081f357fb00023c",
+      "black_list": false,
+      "code": "397745006",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-09",
+      "display_name": "Medical contraindication (finding)",
+      "white_list": false
+    },
+    {
+      "_id": "58236d3bf081f357fb00023d",
+      "black_list": false,
+      "code": "407563006",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-09",
+      "display_name": "Treatment not tolerated (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "58236d3bf081f357fb00023e",
+      "black_list": false,
+      "code": "428119001",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-09",
+      "display_name": "Procedure not indicated (situation)",
+      "white_list": false
+    }
+  ],
+  "display_name": "Medical Or Other Reason Not Done",
+  "oid": "2.16.840.1.113883.3.600.1.1502",
+  "user_id": "57eebbb6f081f32b020000e7",
+  "version": "2016-09"
+}

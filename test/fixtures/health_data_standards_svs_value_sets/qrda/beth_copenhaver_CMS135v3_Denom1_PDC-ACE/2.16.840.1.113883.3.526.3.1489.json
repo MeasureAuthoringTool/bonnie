@@ -1,0 +1,871 @@
+{
+  "_id": "55a91bd169702d0e73fd5500",
+  "bundle_id": "53502082192e73777e001226",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "55a91bd169702d0e73fe5500",
+      "black_list": false,
+      "code": "900937",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "aliskiren / valsartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73ff5500",
+      "black_list": false,
+      "code": "215458",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Atacand",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73005600",
+      "black_list": false,
+      "code": "218088",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Lotensin",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73015600",
+      "black_list": false,
+      "code": "220670",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Uniretic",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73025600",
+      "black_list": false,
+      "code": "236066",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Moexipril hydrochloride",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73035600",
+      "black_list": false,
+      "code": "261454",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Avalide",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73045600",
+      "black_list": false,
+      "code": "83515",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "eprosartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73055600",
+      "black_list": false,
+      "code": "151293",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Accuretic",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73065600",
+      "black_list": false,
+      "code": "151482",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Capoten",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73075600",
+      "black_list": false,
+      "code": "151558",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Cozaar",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73085600",
+      "black_list": false,
+      "code": "214618",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide / Lisinopril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73095600",
+      "black_list": false,
+      "code": "227278",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Fosinopril Sodium",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e730a5600",
+      "black_list": false,
+      "code": "235758",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Benazepril hydrochloride",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e730b5600",
+      "black_list": false,
+      "code": "261415",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Fosinopril / Hydrochlorothiazide",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e730c5600",
+      "black_list": false,
+      "code": "262418",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Altace",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e730d5600",
+      "black_list": false,
+      "code": "284636",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide / telmisartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e730e5600",
+      "black_list": false,
+      "code": "321064",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "olmesartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e730f5600",
+      "black_list": false,
+      "code": "729455",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine / valsartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73105600",
+      "black_list": false,
+      "code": "901212",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine / telmisartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73115600",
+      "black_list": false,
+      "code": "1008801",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine / Hydrochlorothiazide / olmesartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73125600",
+      "black_list": false,
+      "code": "214287",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "benazepril / Hydrochlorothiazide",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73135600",
+      "black_list": false,
+      "code": "214536",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Enalapril / Hydrochlorothiazide",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73145600",
+      "black_list": false,
+      "code": "218090",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Lotrel",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73155600",
+      "black_list": false,
+      "code": "218353",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Micardis",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73165600",
+      "black_list": false,
+      "code": "219412",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Prinzide",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73175600",
+      "black_list": false,
+      "code": "235759",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Quinapril hydrochloride",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73185600",
+      "black_list": false,
+      "code": "261438",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Aceon",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73195600",
+      "black_list": false,
+      "code": "29046",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Lisinopril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e731a5600",
+      "black_list": false,
+      "code": "83818",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "irbesartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e731b5600",
+      "black_list": false,
+      "code": "85783",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Zestoretic",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e731c5600",
+      "black_list": false,
+      "code": "196472",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Zestril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e731d5600",
+      "black_list": false,
+      "code": "203160",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Losartan Potassium",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e731e5600",
+      "black_list": false,
+      "code": "203644",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Prinivil",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e731f5600",
+      "black_list": false,
+      "code": "214507",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Diltiazem / Enalapril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73205600",
+      "black_list": false,
+      "code": "214617",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide / irbesartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73215600",
+      "black_list": false,
+      "code": "284628",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "candesartan / Hydrochlorothiazide",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73225600",
+      "black_list": false,
+      "code": "352375",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "eprosartan / Hydrochlorothiazide",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73235600",
+      "black_list": false,
+      "code": "54552",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Perindopril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73245600",
+      "black_list": false,
+      "code": "153668",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Avapro",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73255600",
+      "black_list": false,
+      "code": "20173",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Capozide",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73265600",
+      "black_list": false,
+      "code": "214354",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "candesartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73275600",
+      "black_list": false,
+      "code": "216652",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Diovan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73285600",
+      "black_list": false,
+      "code": "217681",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hyzaar",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73295600",
+      "black_list": false,
+      "code": "218006",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Lexxel",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e732a5600",
+      "black_list": false,
+      "code": "225030",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Monopril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e732b5600",
+      "black_list": false,
+      "code": "30131",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "moexipril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e732c5600",
+      "black_list": false,
+      "code": "35208",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "quinapril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e732d5600",
+      "black_list": false,
+      "code": "35296",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Ramipril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e732e5600",
+      "black_list": false,
+      "code": "72210",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Accupril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e732f5600",
+      "black_list": false,
+      "code": "72260",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Perindopril Erbumine",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73305600",
+      "black_list": false,
+      "code": "73494",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "telmisartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73315600",
+      "black_list": false,
+      "code": "817496",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide / olmesartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73325600",
+      "black_list": false,
+      "code": "852897",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine / Hydrochlorothiazide / valsartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73335600",
+      "black_list": false,
+      "code": "1009015",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine / olmesartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73345600",
+      "black_list": false,
+      "code": "1998",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Captopril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73355600",
+      "black_list": false,
+      "code": "214357",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Captopril / Hydrochlorothiazide",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73365600",
+      "black_list": false,
+      "code": "214622",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide / moexipril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73375600",
+      "black_list": false,
+      "code": "216653",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Diovan HCT",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73385600",
+      "black_list": false,
+      "code": "218089",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Lotensin HCT",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73395600",
+      "black_list": false,
+      "code": "218245",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Mavik",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e733a5600",
+      "black_list": false,
+      "code": "224921",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Vasotec",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e733b5600",
+      "black_list": false,
+      "code": "236878",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Eprosartan mesylate",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e733c5600",
+      "black_list": false,
+      "code": "284780",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Micardis-HCT",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e733d5600",
+      "black_list": false,
+      "code": "3827",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Enalapril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e733e5600",
+      "black_list": false,
+      "code": "38454",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "trandolapril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e733f5600",
+      "black_list": false,
+      "code": "50166",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Fosinopril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73405600",
+      "black_list": false,
+      "code": "52175",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Losartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73415600",
+      "black_list": false,
+      "code": "153752",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Tarka",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73425600",
+      "black_list": false,
+      "code": "175128",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Vaseretic",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73435600",
+      "black_list": false,
+      "code": "18867",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "benazepril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73445600",
+      "black_list": false,
+      "code": "214223",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Amlodipine / benazepril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73455600",
+      "black_list": false,
+      "code": "214535",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Enalapril / Felodipine",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73465600",
+      "black_list": false,
+      "code": "214619",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide / Losartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73475600",
+      "black_list": false,
+      "code": "214626",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide / valsartan",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73485600",
+      "black_list": false,
+      "code": "214866",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "trandolapril / Verapamil",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73495600",
+      "black_list": false,
+      "code": "261417",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Hydrochlorothiazide / quinapril",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e734a5600",
+      "black_list": false,
+      "code": "262242",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Teveten",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e734b5600",
+      "black_list": false,
+      "code": "284662",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Atacand HCT",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e734c5600",
+      "black_list": false,
+      "code": "327503",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Benicar",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e734d5600",
+      "black_list": false,
+      "code": "404880",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Benicar HCT",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e734e5600",
+      "black_list": false,
+      "code": "118463",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Olmesartan medoxomil",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e734f5600",
+      "black_list": false,
+      "code": "135481",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "candesartan cilexetil",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73505600",
+      "black_list": false,
+      "code": "203123",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Enalapril Maleate",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73515600",
+      "black_list": false,
+      "code": "220675",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Univasc",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73525600",
+      "black_list": false,
+      "code": "353022",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "Teveten HCT",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd169702d0e73535600",
+      "black_list": false,
+      "code": "69749",
+      "code_system": "2.16.840.1.113883.6.88",
+      "code_system_name": "RxNorm",
+      "code_system_version": null,
+      "display_name": "valsartan",
+      "white_list": false
+    }
+  ],
+  "display_name": "ACE Inhibitor or ARB Ingredient",
+  "oid": "2.16.840.1.113883.3.526.3.1489",
+  "user_id": "53502082192e73777e001225",
+  "version": "Draft"
+}

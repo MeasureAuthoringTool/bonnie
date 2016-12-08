@@ -1,0 +1,176 @@
+{
+  "_id": "57c07b76f081f37a7a000646",
+  "birthdate": 946713600,
+  "bundle_id": "573373bef081f308d5000387",
+  "created_at": "2016-08-26T17:25:10.357Z",
+  "deathdate": null,
+  "description": null,
+  "description_category": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "57c0a777f081f313d6000366",
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "SNOMED-CT": [
+          "183452005"
+        ]
+      },
+      "description": "Encounter, Performed: Encounter Inpatient",
+      "dischargeDisposition": {
+        "code_system": "SNOMED-CT",
+        "code": "10161009",
+        "title": "Discharge To Home Or Police Custody"
+      },
+      "dischargeTime": null,
+      "end_time": 1345968900,
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "principalDiagnosis": {
+        "_id": "57c0a777f081f313d6000367",
+        "code": "10674711000119105",
+        "code_system": "SNOMED-CT",
+        "title": "Asthma"
+      },
+      "reason": null,
+      "specifics": null,
+      "start_time": 1345968000,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "E1CB05E0-97D5-40FC-B456-15C5DBF44309",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "NUMER": 0
+    }
+  ],
+  "expired": null,
+  "first": "342",
+  "gender": "M",
+  "insurance_providers": [
+    {
+      "_id": "57c0a777f081f313d6000368",
+      "codes": {
+        "SOP": [
+          "349"
+        ]
+      },
+      "description": null,
+      "end_time": null,
+      "financial_responsibility_type": {
+        "code": "SELF",
+        "codeSystem": "HL7 Relationship Code"
+      },
+      "health_record_field": null,
+      "member_id": "1234567890",
+      "mood_code": "EVN",
+      "name": "Other",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": null,
+      "payer": {
+        "_id": "57c0a777f081f313d6000369",
+        "name": "Other"
+      },
+      "reason": null,
+      "relationship": null,
+      "specifics": null,
+      "start_time": 1199145600,
+      "status_code": null,
+      "time": null,
+      "type": "OT"
+    }
+  ],
+  "is_shared": null,
+  "languages": [
+
+  ],
+  "last": "CAC3",
+  "marital_status": null,
+  "measure_ids": [
+    "E1CB05E0-97D5-40FC-B456-15C5DBF44309",
+    null
+  ],
+  "medical_record_assigner": "Bonnie",
+  "medical_record_number": "8f67c31f10619e796a29b701c844f941",
+  "notes": "",
+  "origin_data": [
+
+  ],
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "Encounter Inpatient",
+      "description": "Encounter, Performed: Encounter Inpatient",
+      "code_list_id": "2.16.840.1.113883.3.666.5.307",
+      "type": "encounters",
+      "id": "EncounterInpatient_EncounterPerformed_63f3d6b1_d1f0_469c_b086_382c81b5eb4a_source",
+      "start_date": 1345968000000,
+      "end_date": 1345968900000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+        "PRINCIPAL_DIAGNOSIS": {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.117.1.7.1.271",
+          "title": "Asthma"
+        },
+        "DISCHARGE_STATUS": {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.117.1.7.1.82",
+          "title": "Discharge To Home Or Police Custody"
+        }
+      },
+      "hqmf_set_id": "E1CB05E0-97D5-40FC-B456-15C5DBF44309",
+      "cms_id": "CMS26v4",
+      "criteria_id": "156c7dd4a44vo",
+      "codes": {
+        "SNOMED-CT": [
+          "183452005"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "57c0a777f081f313d6000366",
+      "code_source": "DEFAULT"
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": null,
+  "title": null,
+  "type": null,
+  "updated_at": "2016-08-26T20:32:55.346Z",
+  "user_id": "573373bcf081f308d5000386"
+}

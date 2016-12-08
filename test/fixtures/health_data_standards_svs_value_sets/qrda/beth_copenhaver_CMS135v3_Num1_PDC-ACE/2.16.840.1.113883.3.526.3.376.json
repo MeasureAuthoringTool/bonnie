@@ -1,0 +1,921 @@
+{
+  "_id": "55a91bd269702d0e73ec5600",
+  "bundle_id": "53502082192e73777e001226",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "55a91bd269702d0e73ed5600",
+      "black_list": false,
+      "code": "I13.0",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Hypertensive heart and chronic kidney disease with heart failure and stage 1 through stage 4 chronic kidney disease, or unspecified chronic kidney disease",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73ee5600",
+      "black_list": false,
+      "code": "I50.31",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Acute diastolic (congestive) heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73ef5600",
+      "black_list": false,
+      "code": "195112003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Compensated cardiac failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73f05600",
+      "black_list": false,
+      "code": "418304008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Diastolic heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73f15600",
+      "black_list": false,
+      "code": "46113002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Hypertensive heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73f25600",
+      "black_list": false,
+      "code": "66989003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Chronic right-sided congestive heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73f35600",
+      "black_list": false,
+      "code": "428.1",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Left heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73f45600",
+      "black_list": false,
+      "code": "428.20",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Systolic heart failure, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73f55600",
+      "black_list": false,
+      "code": "428.40",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Combined systolic and diastolic heart failure, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73f65600",
+      "black_list": false,
+      "code": "I11.0",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Hypertensive heart disease with heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73f75600",
+      "black_list": false,
+      "code": "111283005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Chronic left-sided heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73f85600",
+      "black_list": false,
+      "code": "277639002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Sepsis-associated right ventricular failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73f95600",
+      "black_list": false,
+      "code": "359617009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Acute right-sided heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73fa5600",
+      "black_list": false,
+      "code": "426012001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Right heart failure due to pulmonary hypertension (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73fb5600",
+      "black_list": false,
+      "code": "428.23",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Acute on chronic systolic heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73fc5600",
+      "black_list": false,
+      "code": "428.30",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Diastolic heart failure, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73fd5600",
+      "black_list": false,
+      "code": "428.32",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Chronic diastolic heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73fe5600",
+      "black_list": false,
+      "code": "428.9",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Heart failure, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73ff5600",
+      "black_list": false,
+      "code": "I50.20",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Unspecified systolic (congestive) heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73005700",
+      "black_list": false,
+      "code": "I50.22",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Chronic systolic (congestive) heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73015700",
+      "black_list": false,
+      "code": "I50.43",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Acute on chronic combined systolic (congestive) and diastolic (congestive) heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73025700",
+      "black_list": false,
+      "code": "314206003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Refractory heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73035700",
+      "black_list": false,
+      "code": "367363000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Right ventricular failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73045700",
+      "black_list": false,
+      "code": "410431009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Cardiorespiratory failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73055700",
+      "black_list": false,
+      "code": "44313006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Right heart failure secondary to left heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73065700",
+      "black_list": false,
+      "code": "80479009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Acute right-sided congestive heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73075700",
+      "black_list": false,
+      "code": "402.11",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Benign hypertensive heart disease with heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73085700",
+      "black_list": false,
+      "code": "404.11",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Hypertensive heart and chronic kidney disease, benign, with heart failure and with chronic kidney disease stage I through stage IV, or unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73095700",
+      "black_list": false,
+      "code": "404.93",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Hypertensive heart and chronic kidney disease, unspecified, with heart failure and chronic kidney disease stage V or end stage renal disease",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e730a5700",
+      "black_list": false,
+      "code": "I50.21",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Acute systolic (congestive) heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e730b5700",
+      "black_list": false,
+      "code": "I50.30",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Unspecified diastolic (congestive) heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e730c5700",
+      "black_list": false,
+      "code": "I50.41",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Acute combined systolic (congestive) and diastolic (congestive) heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e730d5700",
+      "black_list": false,
+      "code": "I50.42",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Chronic combined systolic (congestive) and diastolic (congestive) heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e730e5700",
+      "black_list": false,
+      "code": "92506005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Biventricular congestive heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e730f5700",
+      "black_list": false,
+      "code": "206586007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Congenital cardiac failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73105700",
+      "black_list": false,
+      "code": "364006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Acute left-sided heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73115700",
+      "black_list": false,
+      "code": "42343007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Congestive heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73125700",
+      "black_list": false,
+      "code": "426263006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Congestive heart failure due to left ventricular systolic dysfunction (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73135700",
+      "black_list": false,
+      "code": "426611007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Congestive heart failure due to valvular disease (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73145700",
+      "black_list": false,
+      "code": "5375005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Chronic left-sided congestive heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73155700",
+      "black_list": false,
+      "code": "60856006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Cardiac insufficiency following cardiac surgery (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73165700",
+      "black_list": false,
+      "code": "74960003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Acute left-sided congestive heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73175700",
+      "black_list": false,
+      "code": "404.01",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Hypertensive heart and chronic kidney disease, malignant, with heart failure and with chronic kidney disease stage I through stage IV, or unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73185700",
+      "black_list": false,
+      "code": "428.21",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Acute systolic heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73195700",
+      "black_list": false,
+      "code": "428.33",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Acute on chronic diastolic heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e731a5700",
+      "black_list": false,
+      "code": "I13.2",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Hypertensive heart and chronic kidney disease with heart failure and with stage 5 chronic kidney disease, or end stage renal disease",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e731b5700",
+      "black_list": false,
+      "code": "84114007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e731c5700",
+      "black_list": false,
+      "code": "128404006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Right heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e731d5700",
+      "black_list": false,
+      "code": "194779001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Hypertensive heart and renal disease with (congestive) heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e731e5700",
+      "black_list": false,
+      "code": "25544003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Low output heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e731f5700",
+      "black_list": false,
+      "code": "417996009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Systolic heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73205700",
+      "black_list": false,
+      "code": "82523003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Congestive rheumatic heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73215700",
+      "black_list": false,
+      "code": "402.01",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Malignant hypertensive heart disease with heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73225700",
+      "black_list": false,
+      "code": "428.0",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Congestive heart failure, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73235700",
+      "black_list": false,
+      "code": "428.22",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Chronic systolic heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73245700",
+      "black_list": false,
+      "code": "I50.33",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Acute on chronic diastolic (congestive) heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73255700",
+      "black_list": false,
+      "code": "I50.40",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Unspecified combined systolic (congestive) and diastolic (congestive) heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73265700",
+      "black_list": false,
+      "code": "83105008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Malignant hypertensive heart disease with congestive heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73275700",
+      "black_list": false,
+      "code": "90727007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Pleural effusion due to congestive heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73285700",
+      "black_list": false,
+      "code": "10091002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "High output heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73295700",
+      "black_list": false,
+      "code": "10335000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Chronic right-sided heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e732a5700",
+      "black_list": false,
+      "code": "195111005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Decompensated cardiac failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e732b5700",
+      "black_list": false,
+      "code": "195114002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Acute left ventricular failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e732c5700",
+      "black_list": false,
+      "code": "43736008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Rheumatic left ventricular failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e732d5700",
+      "black_list": false,
+      "code": "441481004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Chronic systolic heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e732e5700",
+      "black_list": false,
+      "code": "56675007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Acute heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e732f5700",
+      "black_list": false,
+      "code": "402.91",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Unspecified hypertensive heart disease with heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73305700",
+      "black_list": false,
+      "code": "404.03",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Hypertensive heart and chronic kidney disease, malignant, with heart failure and with chronic kidney disease stage V or end stage renal disease",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73315700",
+      "black_list": false,
+      "code": "404.13",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Hypertensive heart and chronic kidney disease, benign, with heart failure and chronic kidney disease stage V or end stage renal disease",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73325700",
+      "black_list": false,
+      "code": "428.31",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Acute diastolic heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73335700",
+      "black_list": false,
+      "code": "I50.23",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Acute on chronic systolic (congestive) heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73345700",
+      "black_list": false,
+      "code": "85232009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Left heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73355700",
+      "black_list": false,
+      "code": "88805009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Chronic congestive heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73365700",
+      "black_list": false,
+      "code": "10633002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Acute congestive heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73375700",
+      "black_list": false,
+      "code": "194767001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Benign hypertensive heart disease with congestive cardiac failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73385700",
+      "black_list": false,
+      "code": "194781004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Hypertensive heart and renal disease with both (congestive) heart failure and renal failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73395700",
+      "black_list": false,
+      "code": "233924009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Heart failure as a complication of care (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e733a5700",
+      "black_list": false,
+      "code": "424404003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Decompensated chronic heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e733b5700",
+      "black_list": false,
+      "code": "5053004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Cardiac insufficiency due to prosthesis (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e733c5700",
+      "black_list": false,
+      "code": "5148006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Hypertensive heart disease with congestive heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e733d5700",
+      "black_list": false,
+      "code": "I50.1",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Left ventricular failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e733e5700",
+      "black_list": false,
+      "code": "I50.32",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Chronic diastolic (congestive) heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e733f5700",
+      "black_list": false,
+      "code": "I50.9",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": null,
+      "display_name": "Heart failure, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73405700",
+      "black_list": false,
+      "code": "359620001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Acute right heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73415700",
+      "black_list": false,
+      "code": "441530006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Chronic diastolic heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73425700",
+      "black_list": false,
+      "code": "48447003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Chronic heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73435700",
+      "black_list": false,
+      "code": "77737007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Benign hypertensive heart disease with congestive heart failure (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73445700",
+      "black_list": false,
+      "code": "404.91",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Hypertensive heart and chronic kidney disease, unspecified, with heart failure and with chronic kidney disease stage I through stage IV, or unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73455700",
+      "black_list": false,
+      "code": "428.41",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Acute combined systolic and diastolic heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73465700",
+      "black_list": false,
+      "code": "428.42",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Chronic combined systolic and diastolic heart failure",
+      "white_list": false
+    },
+    {
+      "_id": "55a91bd269702d0e73475700",
+      "black_list": false,
+      "code": "428.43",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": null,
+      "display_name": "Acute on chronic combined systolic and diastolic heart failure",
+      "white_list": false
+    }
+  ],
+  "display_name": "Heart Failure",
+  "oid": "2.16.840.1.113883.3.526.3.376",
+  "user_id": "53502082192e73777e001225",
+  "version": "Draft"
+}

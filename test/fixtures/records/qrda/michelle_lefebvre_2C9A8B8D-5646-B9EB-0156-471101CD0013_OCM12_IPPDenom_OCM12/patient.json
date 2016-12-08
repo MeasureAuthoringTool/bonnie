@@ -1,0 +1,169 @@
+{
+  "_id": "58236e27f081f357fb0003b1",
+  "birthdate": 334569600,
+  "bundle_id": "57eebbb8f081f32b020000e8",
+  "created_at": "2016-11-09T18:42:47.731Z",
+  "deathdate": null,
+  "description": null,
+  "description_category": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "58236e27f081f357fb0003b2",
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99385"
+        ],
+        "HCPCS": [
+          "G0101"
+        ],
+        "SNOMED-CT": [
+          "8411005"
+        ]
+      },
+      "description": "Encounter, Performed: Medications Encounter Code Set",
+      "dischargeDisposition": null,
+      "dischargeTime": null,
+      "end_time": 1352448900,
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "reason": null,
+      "specifics": null,
+      "start_time": 1352448000,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "21BA8B3A-710E-4B93-BE67-2A50B7E8D492",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    }
+  ],
+  "expired": null,
+  "first": "OCM12_IPPDenom",
+  "gender": "M",
+  "insurance_providers": [
+    {
+      "_id": "58236e27f081f357fb0003b3",
+      "codes": {
+        "SOP": [
+          "349"
+        ]
+      },
+      "description": null,
+      "end_time": null,
+      "financial_responsibility_type": {
+        "code": "SELF",
+        "codeSystem": "HL7 Relationship Code"
+      },
+      "health_record_field": null,
+      "member_id": "1234567890",
+      "mood_code": "EVN",
+      "name": "Other",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": null,
+      "payer": {
+        "_id": "58236e27f081f357fb0003b4",
+        "name": "Other"
+      },
+      "reason": null,
+      "relationship": null,
+      "specifics": null,
+      "start_time": 1199145600,
+      "status_code": null,
+      "time": null,
+      "type": "OT"
+    }
+  ],
+  "is_shared": null,
+  "languages": [
+
+  ],
+  "last": "OCM12",
+  "marital_status": null,
+  "measure_ids": [
+    "21BA8B3A-710E-4B93-BE67-2A50B7E8D492",
+    null
+  ],
+  "medical_record_assigner": "Bonnie",
+  "medical_record_number": "c6d6b77d9ee7534e6ee69f5f56f06c69",
+  "notes": "OCM12 meets IPP denom",
+  "origin_data": [
+
+  ],
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "Medications Encounter Code Set",
+      "description": "Encounter, Performed: Medications Encounter Code Set",
+      "code_list_id": "2.16.840.1.113883.3.600.1.1834",
+      "type": "encounters",
+      "id": "OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_3832e85e_e13d_41df_acc8_cc283fa1280d_source",
+      "start_date": 1352448000000,
+      "end_date": 1352448900000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "21BA8B3A-710E-4B93-BE67-2A50B7E8D492",
+      "cms_id": "CMSv0",
+      "criteria_id": "1584a660f00k7",
+      "codes": {
+        "CPT": [
+          "99385"
+        ],
+        "HCPCS": [
+          "G0101"
+        ],
+        "SNOMED-CT": [
+          "8411005"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "58236e27f081f357fb0003b2",
+      "code_source": "DEFAULT"
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": null,
+  "title": null,
+  "type": null,
+  "updated_at": "2016-11-09T18:42:47.731Z",
+  "user_id": "57eebbb6f081f32b020000e7"
+}

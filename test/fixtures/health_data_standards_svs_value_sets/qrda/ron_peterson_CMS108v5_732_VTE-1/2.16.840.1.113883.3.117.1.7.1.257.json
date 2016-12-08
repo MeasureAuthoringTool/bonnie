@@ -1,0 +1,1881 @@
+{
+  "_id": "57ec4ce3f081f342e2004f94",
+  "bundle_id": "573373bef081f308d5000387",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "57ec4ce3f081f342e2004f95",
+      "black_list": false,
+      "code": "0U500ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Destruction of Right Ovary, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004f96",
+      "black_list": false,
+      "code": "0U510ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Destruction of Left Ovary, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004f97",
+      "black_list": false,
+      "code": "0U520ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Destruction of Bilateral Ovaries, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004f98",
+      "black_list": false,
+      "code": "0U540ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Destruction of Uterine Supporting Structure, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004f99",
+      "black_list": false,
+      "code": "0U550ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Destruction of Right Fallopian Tube, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004f9a",
+      "black_list": false,
+      "code": "0U557ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Destruction of Right Fallopian Tube, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004f9b",
+      "black_list": false,
+      "code": "0U558ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Destruction of Right Fallopian Tube, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004f9c",
+      "black_list": false,
+      "code": "0U560ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Destruction of Left Fallopian Tube, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004f9d",
+      "black_list": false,
+      "code": "0U567ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Destruction of Left Fallopian Tube, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004f9e",
+      "black_list": false,
+      "code": "0U568ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Destruction of Left Fallopian Tube, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004f9f",
+      "black_list": false,
+      "code": "0U570ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Destruction of Bilateral Fallopian Tubes, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fa0",
+      "black_list": false,
+      "code": "0U577ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Destruction of Bilateral Fallopian Tubes, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fa1",
+      "black_list": false,
+      "code": "0U578ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Destruction of Bilateral Fallopian Tubes, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fa2",
+      "black_list": false,
+      "code": "0U800ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Division of Right Ovary, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fa3",
+      "black_list": false,
+      "code": "0U810ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Division of Left Ovary, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fa4",
+      "black_list": false,
+      "code": "0U820ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Division of Bilateral Ovaries, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fa5",
+      "black_list": false,
+      "code": "0U840ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Division of Uterine Supporting Structure, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fa6",
+      "black_list": false,
+      "code": "0UB00ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Right Ovary, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fa7",
+      "black_list": false,
+      "code": "0UB07ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Right Ovary, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fa8",
+      "black_list": false,
+      "code": "0UB08ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Right Ovary, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fa9",
+      "black_list": false,
+      "code": "0UB10ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Left Ovary, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004faa",
+      "black_list": false,
+      "code": "0UB17ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Left Ovary, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fab",
+      "black_list": false,
+      "code": "0UB18ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Left Ovary, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fac",
+      "black_list": false,
+      "code": "0UB20ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Bilateral Ovaries, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fad",
+      "black_list": false,
+      "code": "0UB27ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Bilateral Ovaries, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fae",
+      "black_list": false,
+      "code": "0UB28ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Bilateral Ovaries, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004faf",
+      "black_list": false,
+      "code": "0UB40ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Uterine Supporting Structure, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fb0",
+      "black_list": false,
+      "code": "0UB47ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Uterine Supporting Structure, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fb1",
+      "black_list": false,
+      "code": "0UB48ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Uterine Supporting Structure, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fb2",
+      "black_list": false,
+      "code": "0UB50ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Right Fallopian Tube, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fb3",
+      "black_list": false,
+      "code": "0UB57ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Right Fallopian Tube, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fb4",
+      "black_list": false,
+      "code": "0UB58ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Right Fallopian Tube, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fb5",
+      "black_list": false,
+      "code": "0UB60ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Left Fallopian Tube, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fb6",
+      "black_list": false,
+      "code": "0UB67ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Left Fallopian Tube, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fb7",
+      "black_list": false,
+      "code": "0UB68ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Left Fallopian Tube, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fb8",
+      "black_list": false,
+      "code": "0UB70ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Bilateral Fallopian Tubes, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fb9",
+      "black_list": false,
+      "code": "0UB77ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Bilateral Fallopian Tubes, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fba",
+      "black_list": false,
+      "code": "0UB78ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Excision of Bilateral Fallopian Tubes, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fbb",
+      "black_list": false,
+      "code": "0UT00ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Right Ovary, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fbc",
+      "black_list": false,
+      "code": "0UT07ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Right Ovary, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fbd",
+      "black_list": false,
+      "code": "0UT08ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Right Ovary, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fbe",
+      "black_list": false,
+      "code": "0UT10ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Left Ovary, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fbf",
+      "black_list": false,
+      "code": "0UT17ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Left Ovary, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fc0",
+      "black_list": false,
+      "code": "0UT18ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Left Ovary, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fc1",
+      "black_list": false,
+      "code": "0UT20ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Bilateral Ovaries, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fc2",
+      "black_list": false,
+      "code": "0UT27ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Bilateral Ovaries, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fc3",
+      "black_list": false,
+      "code": "0UT28ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Bilateral Ovaries, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fc4",
+      "black_list": false,
+      "code": "0UT40ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Uterine Supporting Structure, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fc5",
+      "black_list": false,
+      "code": "0UT47ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Uterine Supporting Structure, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fc6",
+      "black_list": false,
+      "code": "0UT48ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Uterine Supporting Structure, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fc7",
+      "black_list": false,
+      "code": "0UT50ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Right Fallopian Tube, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fc8",
+      "black_list": false,
+      "code": "0UT57ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Right Fallopian Tube, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fc9",
+      "black_list": false,
+      "code": "0UT58ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Right Fallopian Tube, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fca",
+      "black_list": false,
+      "code": "0UT60ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Left Fallopian Tube, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fcb",
+      "black_list": false,
+      "code": "0UT67ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Left Fallopian Tube, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fcc",
+      "black_list": false,
+      "code": "0UT68ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Left Fallopian Tube, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fcd",
+      "black_list": false,
+      "code": "0UT70ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Bilateral Fallopian Tubes, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fce",
+      "black_list": false,
+      "code": "0UT77ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Bilateral Fallopian Tubes, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fcf",
+      "black_list": false,
+      "code": "0UT78ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Bilateral Fallopian Tubes, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fd0",
+      "black_list": false,
+      "code": "0UT90ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Uterus, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fd1",
+      "black_list": false,
+      "code": "0UT97ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Uterus, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fd2",
+      "black_list": false,
+      "code": "0UT98ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Uterus, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fd3",
+      "black_list": false,
+      "code": "0UTC0ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Cervix, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fd4",
+      "black_list": false,
+      "code": "0UTC7ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Cervix, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fd5",
+      "black_list": false,
+      "code": "0UTC8ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Cervix, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fd6",
+      "black_list": false,
+      "code": "10T20ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Products of Conception, Ectopic, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fd7",
+      "black_list": false,
+      "code": "10T27ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Products of Conception, Ectopic, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fd8",
+      "black_list": false,
+      "code": "10T28ZZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Resection of Products of Conception, Ectopic, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fd9",
+      "black_list": false,
+      "code": "112917009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Supracervical hysterectomy with unilateral removal of tube and ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fda",
+      "black_list": false,
+      "code": "112918004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Vaginal hysterectomy with colpo-urethrocystopexy, Marshall-Marchetti-Krantz type (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fdb",
+      "black_list": false,
+      "code": "116028008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Salpingo-oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fdc",
+      "black_list": false,
+      "code": "116141005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Abdominal hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fdd",
+      "black_list": false,
+      "code": "116142003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Radical hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fde",
+      "black_list": false,
+      "code": "116143008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Total abdominal hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fdf",
+      "black_list": false,
+      "code": "116144002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Total abdominal hysterectomy with bilateral salpingo-oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fe0",
+      "black_list": false,
+      "code": "116167000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Excision of lesion of ovary in fragments (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fe1",
+      "black_list": false,
+      "code": "116173004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Wedge resection of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fe2",
+      "black_list": false,
+      "code": "118865002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Procedure on round ligament (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fe3",
+      "black_list": false,
+      "code": "120053002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Fallopian tube excision (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fe4",
+      "black_list": false,
+      "code": "120064004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Ovary destructive procedure (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fe5",
+      "black_list": false,
+      "code": "13254001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Abdominal hysterectomy with colpo-urethrocystopexy, Marshall-Marchetti-Krantz type (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fe6",
+      "black_list": false,
+      "code": "14353000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Salpingectomy of remaining fallopian tube (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fe7",
+      "black_list": false,
+      "code": "15306005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Electrocoagulation of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fe8",
+      "black_list": false,
+      "code": "1689004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Local excision of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fe9",
+      "black_list": false,
+      "code": "176909001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Salpingo-oophorectomy of remaining solitary fallopian tube and ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fea",
+      "black_list": false,
+      "code": "176914002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Right salpingo-oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004feb",
+      "black_list": false,
+      "code": "176915001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Left salpingo-oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fec",
+      "black_list": false,
+      "code": "176916000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Right salpingectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fed",
+      "black_list": false,
+      "code": "176917009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Left salpingectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fee",
+      "black_list": false,
+      "code": "177018009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Open destruction of lesion of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fef",
+      "black_list": false,
+      "code": "177019001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Open cauterization of lesion of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ff0",
+      "black_list": false,
+      "code": "177046006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Endoscopic extirpation of lesion of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ff1",
+      "black_list": false,
+      "code": "177055009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Excision of lesion of broad ligament of uterus (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ff2",
+      "black_list": false,
+      "code": "177056005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Destruction of lesion of broad ligament of uterus (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ff3",
+      "black_list": false,
+      "code": "214173000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Excision of lesion of uterine ligament (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ff4",
+      "black_list": false,
+      "code": "223306006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Electrocoagulation of broad ligament (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ff5",
+      "black_list": false,
+      "code": "22699007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Partial salpingo-oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ff6",
+      "black_list": false,
+      "code": "23575009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Local destruction of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ff7",
+      "black_list": false,
+      "code": "236889009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Laparoscopic supracervical hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ff8",
+      "black_list": false,
+      "code": "236890000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Classic SEMM laparoscopic hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ff9",
+      "black_list": false,
+      "code": "236932009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Multicauterization of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ffa",
+      "black_list": false,
+      "code": "236935006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Evacuation of broad ligament hematoma (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ffb",
+      "black_list": false,
+      "code": "236987005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Emergency cesarean hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ffc",
+      "black_list": false,
+      "code": "236988000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Elective cesarean hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ffd",
+      "black_list": false,
+      "code": "25344002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Fimbriectomy of fallopian tube (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004ffe",
+      "black_list": false,
+      "code": "25811000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Bilateral complete salpingectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2004fff",
+      "black_list": false,
+      "code": "265056007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Vaginal hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005000",
+      "black_list": false,
+      "code": "27185000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Vaginal hysterectomy with partial colpectomy and repair of enterocele (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005001",
+      "black_list": false,
+      "code": "276189003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Excision of broad ligament (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005002",
+      "black_list": false,
+      "code": "27950001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Total hysterectomy with unilateral removal of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005003",
+      "black_list": false,
+      "code": "287931008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Fallopian tube cornual resection (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005004",
+      "black_list": false,
+      "code": "287935004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Bilateral partial fallopian removal (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005005",
+      "black_list": false,
+      "code": "287945002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Bilateral fallopian tube resection (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005006",
+      "black_list": false,
+      "code": "29529008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Supracervical hysterectomy with removal of both tubes and ovaries (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005007",
+      "black_list": false,
+      "code": "29672006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Partial oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005008",
+      "black_list": false,
+      "code": "29827000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Bilateral salpingectomy with oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005009",
+      "black_list": false,
+      "code": "300897007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Total salpingectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200500a",
+      "black_list": false,
+      "code": "30160001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Vaginal hysterectomy with total colpectomy and repair of enterocele (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200500b",
+      "black_list": false,
+      "code": "30172007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Electrocoagulation of round ligament of uterus (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200500c",
+      "black_list": false,
+      "code": "302190000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Abdominal hysterectomy and right salpingo-oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200500d",
+      "black_list": false,
+      "code": "302191001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Abdominal hysterectomy and left salpingo-oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200500e",
+      "black_list": false,
+      "code": "302376006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Right oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200500f",
+      "black_list": false,
+      "code": "302377002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Left oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005010",
+      "black_list": false,
+      "code": "307263006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Oophorectomy of remaining solitary ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005011",
+      "black_list": false,
+      "code": "307264000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Salpingectomy of remaining solitary Fallopian tube (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005012",
+      "black_list": false,
+      "code": "307771009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Radical abdominal hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005013",
+      "black_list": false,
+      "code": "309879006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Abdominal hysterocolpectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005014",
+      "black_list": false,
+      "code": "309880009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Vaginal hysterocolpectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005015",
+      "black_list": false,
+      "code": "315059002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Laparoscopic salpingectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005016",
+      "black_list": false,
+      "code": "315060007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Open salpingectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005017",
+      "black_list": false,
+      "code": "31545000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Total hysterectomy with unilateral removal of tube (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005018",
+      "black_list": false,
+      "code": "33015000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Laparoscopy with fulguration of fallopian tube (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005019",
+      "black_list": false,
+      "code": "35887003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Excision of lesion of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200501a",
+      "black_list": false,
+      "code": "35955002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Radical vaginal hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200501b",
+      "black_list": false,
+      "code": "359971002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Ward-Mayo operation for vaginal hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200501c",
+      "black_list": false,
+      "code": "359974005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Tuffier operation for vaginal hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200501d",
+      "black_list": false,
+      "code": "359977003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Mayo operation for vaginal hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200501e",
+      "black_list": false,
+      "code": "359980002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Vaginal panhysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200501f",
+      "black_list": false,
+      "code": "359983000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Heaney operation for vaginal hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005020",
+      "black_list": false,
+      "code": "361222003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Wertheim-Meigs abdominal hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005021",
+      "black_list": false,
+      "code": "361223008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Wertheim operation (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005022",
+      "black_list": false,
+      "code": "387739000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Enucleation of ovarian cyst (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005023",
+      "black_list": false,
+      "code": "387740003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Removal of ovarian cyst (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005024",
+      "black_list": false,
+      "code": "387741004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Excision of cyst of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005025",
+      "black_list": false,
+      "code": "4010009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Oophorectomy of remaining ovary with tube (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005026",
+      "black_list": false,
+      "code": "41058005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Salpingectomy for tubal ectopic pregnancy by abdominal approach (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005027",
+      "black_list": false,
+      "code": "41059002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Cesarean hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005028",
+      "black_list": false,
+      "code": "413144006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Abdominal hysterectomy with conservation of ovaries (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005029",
+      "black_list": false,
+      "code": "413145007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Vaginal hysterectomy with conservation of ovaries (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200502a",
+      "black_list": false,
+      "code": "41393008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Excision of cyst of fallopian tube (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200502b",
+      "black_list": false,
+      "code": "414575003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Laparoscopic total abdominal hysterectomy and bilateral salpingo-oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200502c",
+      "black_list": false,
+      "code": "42349006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Excision of cyst of broad ligament (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200502d",
+      "black_list": false,
+      "code": "431316002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Laparoscopic subtotal hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200502e",
+      "black_list": false,
+      "code": "43791001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Vaginal hysterectomy with total colpectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200502f",
+      "black_list": false,
+      "code": "441820006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Laparoscopy assisted vaginal hysterectomy with bilateral salpingo-oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005030",
+      "black_list": false,
+      "code": "4443002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Decortication of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005031",
+      "black_list": false,
+      "code": "445912000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Excision of fallopian tube and surgical removal of ectopic pregnancy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005032",
+      "black_list": false,
+      "code": "44619000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Bilateral wedge resection of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005033",
+      "black_list": false,
+      "code": "446446002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Total abdominal hysterectomy and removal of vaginal cuff (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005034",
+      "black_list": false,
+      "code": "446526009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Debulking of neoplasm of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005035",
+      "black_list": false,
+      "code": "447771005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Abdominal hysterectomy and excision of periuterine tissue (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005036",
+      "black_list": false,
+      "code": "44793005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Excision of lesion of fallopian tube (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005037",
+      "black_list": false,
+      "code": "448539002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Vaginal hysterectomy and excision of periuterine tissue (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005038",
+      "black_list": false,
+      "code": "47045001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Excision of lesion of round ligament (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005039",
+      "black_list": false,
+      "code": "49493009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Bilateral resection of cornua of fallopian tubes (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200503a",
+      "black_list": false,
+      "code": "53139002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Oophorectomy of remaining ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200503b",
+      "black_list": false,
+      "code": "54080001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Cauterization of broad ligament of uterus (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200503c",
+      "black_list": false,
+      "code": "54490004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Vaginal hysterectomy with repair of enterocele (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200503d",
+      "black_list": false,
+      "code": "59750000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Total hysterectomy with unilateral removal of tube and ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200503e",
+      "black_list": false,
+      "code": "60158005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Bilateral bisection of ovary (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200503f",
+      "black_list": false,
+      "code": "62692004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Partial salpingectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005040",
+      "black_list": false,
+      "code": "63516002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Vaginal hysterectomy with colpo-urethrocystopexy, Pereyra type (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005041",
+      "black_list": false,
+      "code": "63596003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Laparoscopic treatment of ectopic pregnancy with salpingectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005042",
+      "black_list": false,
+      "code": "66169000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Excision of hydrocele of round ligament (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005043",
+      "black_list": false,
+      "code": "71225000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Excision of uterine ligament (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005044",
+      "black_list": false,
+      "code": "75835007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Laparoscopic-assisted vaginal hysterectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005045",
+      "black_list": false,
+      "code": "76876009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Bilateral oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005046",
+      "black_list": false,
+      "code": "77902002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Vaginal hysterectomy with partial colpectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005047",
+      "black_list": false,
+      "code": "82269004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Cauterization of fallopian tube (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005048",
+      "black_list": false,
+      "code": "83152002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Oophorectomy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e2005049",
+      "black_list": false,
+      "code": "83416007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Cauterization of round ligament of uterus (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200504a",
+      "black_list": false,
+      "code": "84093003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Electrocoagulation of fallopian tube (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200504b",
+      "black_list": false,
+      "code": "8550006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Partial bilateral salpingectomy for sterilization (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200504c",
+      "black_list": false,
+      "code": "85855000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Partial bilateral salpingectomy for sterilization by endoscopy (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200504d",
+      "black_list": false,
+      "code": "86477000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Total hysterectomy with removal of both tubes and ovaries (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200504e",
+      "black_list": false,
+      "code": "87102007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Excision of round ligament (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce3f081f342e200504f",
+      "black_list": false,
+      "code": "89325008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Cauterization of ovary (procedure)",
+      "white_list": false
+    }
+  ],
+  "display_name": "Gynecological Surgery",
+  "oid": "2.16.840.1.113883.3.117.1.7.1.257",
+  "user_id": "573373bcf081f308d5000386",
+  "version": "20160817"
+}

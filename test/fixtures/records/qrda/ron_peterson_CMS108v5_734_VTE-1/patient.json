@@ -1,0 +1,324 @@
+{
+  "_id": "57ec53f2f081f354aa00007e",
+  "birthdate": -1085241600,
+  "bundle_id": "573373bef081f308d5000387",
+  "conditions": [
+    {
+      "_id": "5817b7eaf081f3180c000303",
+      "anatomical_location": null,
+      "anatomical_target": null,
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "1001000119102"
+        ],
+        "ICD-9-CM": [
+          "415.11"
+        ],
+        "ICD-10-CM": [
+          "I26.02"
+        ]
+      },
+      "description": "Diagnosis: Venous Thromboembolism",
+      "end_time": 1327565700,
+      "health_record_field": null,
+      "laterality": null,
+      "mood_code": "EVN",
+      "name": null,
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.10.20.28.3.110",
+      "ordinality": null,
+      "priority": null,
+      "reason": null,
+      "severity": null,
+      "specifics": null,
+      "start_time": 1327478400,
+      "status_code": {
+        "HL7 ActStatus": [
+          null
+        ]
+      },
+      "time": null,
+      "time_of_death": null,
+      "type": null
+    }
+  ],
+  "created_at": "2016-09-28T23:36:18.929Z",
+  "deathdate": null,
+  "description": null,
+  "description_category": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "5817b7eaf081f3180c000304",
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "SNOMED-CT": [
+          "8715000"
+        ]
+      },
+      "description": "Encounter, Performed: Encounter Inpatient",
+      "dischargeDisposition": null,
+      "dischargeTime": null,
+      "end_time": 1327738500,
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "reason": null,
+      "specifics": null,
+      "start_time": 1327561200,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 1
+    }
+  ],
+  "expired": null,
+  "first": "734",
+  "gender": "M",
+  "insurance_providers": [
+    {
+      "_id": "5817b7eaf081f3180c000306",
+      "codes": {
+        "SOP": [
+          "349"
+        ]
+      },
+      "description": null,
+      "end_time": null,
+      "financial_responsibility_type": {
+        "code": "SELF",
+        "codeSystem": "HL7 Relationship Code"
+      },
+      "health_record_field": null,
+      "member_id": "1234567890",
+      "mood_code": "EVN",
+      "name": "Other",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": null,
+      "payer": {
+        "_id": "5817b7eaf081f3180c000307",
+        "name": "Other"
+      },
+      "reason": null,
+      "relationship": null,
+      "specifics": null,
+      "start_time": 1199145600,
+      "status_code": null,
+      "time": null,
+      "type": "OT"
+    }
+  ],
+  "is_shared": false,
+  "languages": [
+
+  ],
+  "last": "VTE-1",
+  "marital_status": null,
+  "measure_ids": [
+    "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+    null
+  ],
+  "medical_record_assigner": "Bonnie",
+  "medical_record_number": "56aacd11787156b1412bf6500619b4f9",
+  "medications": [
+    {
+      "_id": "5817b7eaf081f3180c000305",
+      "active_datetime": null,
+      "administrationTiming": null,
+      "allowedAdministrations": null,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "1364445"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Administered: Oral Factor Xa Inhibitor for VTE Prophylaxis",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": 1327565700,
+      "freeTextSig": null,
+      "fulfillmentHistory": [
+
+      ],
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.14",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "route": null,
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1327564800,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "administered"
+        ]
+      },
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    }
+  ],
+  "notes": "",
+  "origin_data": [
+    {
+      "patient_id": "57c0875bf081f37a7a005de9",
+      "measure_ids": [
+        "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622"
+      ],
+      "cms_id": "CMS108v5",
+      "user_id": "57bccae2f081f31164000366",
+      "user_email": "michelle.barton@ge.com"
+    }
+  ],
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "diagnosis",
+      "title": "Venous Thromboembolism",
+      "description": "Diagnosis: Venous Thromboembolism",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.279",
+      "type": "conditions",
+      "id": "VenousThromboembolism_Diagnosis_aa5f0e2a_d86e_4e34_9593_669a00f22e1b_source",
+      "start_date": 1327478400000,
+      "end_date": 1327565700000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "cms_id": "CMS108v5",
+      "criteria_id": "1581ca5bc99jd",
+      "codes": {
+        "SNOMED-CT": [
+          "1001000119102"
+        ],
+        "ICD-9-CM": [
+          "415.11"
+        ],
+        "ICD-10-CM": [
+          "I26.02"
+        ]
+      },
+      "coded_entry_id": "5817b7eaf081f3180c000303",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "Encounter Inpatient",
+      "description": "Encounter, Performed: Encounter Inpatient",
+      "code_list_id": "2.16.840.1.113883.3.666.5.307",
+      "type": "encounters",
+      "id": "OccurrenceAEncounterInpatient23",
+      "start_date": 1327561200000,
+      "end_date": 1327738500000,
+      "value": [
+
+      ],
+      "field_values": {
+      },
+      "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "cms_id": "CMS108v3",
+      "codes": {
+        "SNOMED-CT": [
+          "8715000"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "5817b7eaf081f3180c000304",
+      "code_source": "DEFAULT",
+      "criteria_id": "14f518ae208oZ",
+      "references": null
+    },
+    {
+      "negation": false,
+      "definition": "medication",
+      "status": "administered",
+      "title": "Oral Factor Xa Inhibitor for VTE Prophylaxis",
+      "description": "Medication, Administered: Oral Factor Xa Inhibitor for VTE Prophylaxis",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.134",
+      "type": "medications",
+      "id": "MedicationAdministeredOralFactorXaInhibitorForVteProphylaxis",
+      "start_date": 1327564800000,
+      "end_date": 1327565700000,
+      "value": [
+
+      ],
+      "field_values": {
+      },
+      "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "cms_id": "CMS108v3",
+      "codes": {
+        "RxNorm": [
+          "1364445"
+        ]
+      },
+      "fulfillments": null,
+      "dose_value": "",
+      "dose_unit": "mg",
+      "frequency_value": "",
+      "frequency_unit": "h",
+      "negation_code_list_id": "",
+      "coded_entry_id": "5817b7eaf081f3180c000305",
+      "code_source": "DEFAULT",
+      "criteria_id": "14f518ae208nd",
+      "references": null
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": null,
+  "title": null,
+  "type": null,
+  "updated_at": "2016-10-31T21:30:18.118Z",
+  "user_id": "573373bcf081f308d5000386"
+}

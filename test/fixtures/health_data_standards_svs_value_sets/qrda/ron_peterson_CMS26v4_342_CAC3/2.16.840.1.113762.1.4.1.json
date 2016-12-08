@@ -1,0 +1,31 @@
+{
+  "_id": "57ed557ff081f32ae6000f76",
+  "bundle_id": "573373bef081f308d5000387",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "57ed557ff081f32ae6000f77",
+      "black_list": false,
+      "code": "F",
+      "code_system": "2.16.840.1.113883.5.1",
+      "code_system_name": "AdministrativeGender",
+      "code_system_version": "HL7V3.0_2015-07",
+      "display_name": "Female",
+      "white_list": false
+    },
+    {
+      "_id": "57ed557ff081f32ae6000f78",
+      "black_list": false,
+      "code": "M",
+      "code_system": "2.16.840.1.113883.5.1",
+      "code_system_name": "AdministrativeGender",
+      "code_system_version": "HL7V3.0_2015-07",
+      "display_name": "Male",
+      "white_list": false
+    }
+  ],
+  "display_name": "ONC Administrative Sex",
+  "oid": "2.16.840.1.113762.1.4.1",
+  "user_id": "573373bcf081f308d5000386",
+  "version": "20160620"
+}

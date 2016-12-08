@@ -1,0 +1,571 @@
+{
+  "_id": "57ec4ce6f081f342e20053ad",
+  "bundle_id": "573373bef081f308d5000387",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "57ec4ce6f081f342e20053ae",
+      "black_list": false,
+      "code": "112943005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Epidural injection of anesthetic substance, diagnostic, caudal, continuous (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053af",
+      "black_list": false,
+      "code": "112987001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Inhalation anesthesia, machine system, closed, rebreathing of primary agent (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053b0",
+      "black_list": false,
+      "code": "180878007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Inhalation anesthetic using muscle relaxant (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053b1",
+      "black_list": false,
+      "code": "180885006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Local anesthetic lumbar epidural block (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053b2",
+      "black_list": false,
+      "code": "180886007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Local anesthetic sacral epidural block (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053b3",
+      "black_list": false,
+      "code": "18946005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Epidural anesthesia (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053b4",
+      "black_list": false,
+      "code": "231249005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Local anesthetic intrathecal block (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053b5",
+      "black_list": false,
+      "code": "231251009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Local anesthetic cervical intrathecal block (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053b6",
+      "black_list": false,
+      "code": "231252002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Local anesthetic thoracic intrathecal block (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053b7",
+      "black_list": false,
+      "code": "231253007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Local anesthetic lumbar intrathecal block (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053b8",
+      "black_list": false,
+      "code": "231255000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Spinal subdural local anesthetic block (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053b9",
+      "black_list": false,
+      "code": "231256004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Cervical subdural block (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053ba",
+      "black_list": false,
+      "code": "231257008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Thoracic subdural block (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053bb",
+      "black_list": false,
+      "code": "231258003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Lumbar subdural block (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053bc",
+      "black_list": false,
+      "code": "231261002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Combined spinal/epidural local anesthetic block (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053bd",
+      "black_list": false,
+      "code": "231262009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Combined spinal/epidural technique with needles at separate spaces (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053be",
+      "black_list": false,
+      "code": "231263004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Combined spinal/epidural technique - spinal needle through Tuohy needle (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053bf",
+      "black_list": false,
+      "code": "241696005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Total intravenous anesthesia (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053c0",
+      "black_list": false,
+      "code": "241717009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Inhalational analgesia (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053c1",
+      "black_list": false,
+      "code": "24277005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Inhalation anesthesia, machine system, closed, circulation of primary agent (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053c2",
+      "black_list": false,
+      "code": "266802007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Endotracheal anesthesia (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053c3",
+      "black_list": false,
+      "code": "27653002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Inhalation anesthesia, machine system, semi-closed, rebreathing of primary agent (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053c4",
+      "black_list": false,
+      "code": "288185006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Inhalation general anesthesia (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053c5",
+      "black_list": false,
+      "code": "30050007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Inhalation anesthesia, machine system, semi-closed, no rebreathing of primary agent (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053c6",
+      "black_list": false,
+      "code": "302335002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Local anesthetic thoracic epidural block (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053c7",
+      "black_list": false,
+      "code": "302336001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Local anesthetic cervical epidural block (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053c8",
+      "black_list": false,
+      "code": "303356007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Local anesthetic nerve block around spinal cord meninges (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053c9",
+      "black_list": false,
+      "code": "303358008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Neurolytic nerve block around spinal cord meninges (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053ca",
+      "black_list": false,
+      "code": "35597003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Epidural injection of anesthetic substance, diagnostic, lumbar, continuous (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053cb",
+      "black_list": false,
+      "code": "398044000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Low dose epidural (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053cc",
+      "black_list": false,
+      "code": "3E030FZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Introduction of Intracirculatory Anesthetic into Peripheral Vein, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053cd",
+      "black_list": false,
+      "code": "3E033FZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Introduction of Intracirculatory Anesthetic into Peripheral Vein, Percutaneous Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053ce",
+      "black_list": false,
+      "code": "3E040FZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Introduction of Intracirculatory Anesthetic into Central Vein, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053cf",
+      "black_list": false,
+      "code": "3E043FZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Introduction of Intracirculatory Anesthetic into Central Vein, Percutaneous Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053d0",
+      "black_list": false,
+      "code": "3E050FZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Introduction of Intracirculatory Anesthetic into Peripheral Artery, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053d1",
+      "black_list": false,
+      "code": "3E053FZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Introduction of Intracirculatory Anesthetic into Peripheral Artery, Percutaneous Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053d2",
+      "black_list": false,
+      "code": "3E060FZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Introduction of Intracirculatory Anesthetic into Central Artery, Open Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053d3",
+      "black_list": false,
+      "code": "3E063FZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Introduction of Intracirculatory Anesthetic into Central Artery, Percutaneous Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053d4",
+      "black_list": false,
+      "code": "3E0F7DZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Introduction of Inhalation Anesthetic into Respiratory Tract, Via Natural or Artificial Opening",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053d5",
+      "black_list": false,
+      "code": "3E0F8DZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Introduction of Inhalation Anesthetic into Respiratory Tract, Via Natural or Artificial Opening Endoscopic",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053d6",
+      "black_list": false,
+      "code": "3E0R3CZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Introduction of Regional Anesthetic into Spinal Canal, Percutaneous Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053d7",
+      "black_list": false,
+      "code": "3E0S3CZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Introduction of Regional Anesthetic into Epidural Space, Percutaneous Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053d8",
+      "black_list": false,
+      "code": "3E0T3CZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Introduction of Regional Anesthetic into Peripheral Nerves and Plexi, Percutaneous Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053d9",
+      "black_list": false,
+      "code": "3E0X3CZ",
+      "code_system": "2.16.840.1.113883.6.4",
+      "code_system_name": "ICD-10-PCS",
+      "code_system_version": "2017",
+      "display_name": "Introduction of Regional Anesthetic into Cranial Nerves, Percutaneous Approach",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053da",
+      "black_list": false,
+      "code": "405650006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Neuraxial nerve block (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053db",
+      "black_list": false,
+      "code": "426309005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Epidural injection of anesthetic substance, therapeutic, continuous, cervical (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053dc",
+      "black_list": false,
+      "code": "427060008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Epidural injection of anesthetic substance, therapeutic, thoracic, continuous (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053dd",
+      "black_list": false,
+      "code": "44812007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Inhalation anesthesia, machine system, closed, no rebreathing of primary agent (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053de",
+      "black_list": false,
+      "code": "448585004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Target controlled total intravenous anesthesia (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053df",
+      "black_list": false,
+      "code": "449126000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Administration of inhalation anesthetic using endotracheal tube (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053e0",
+      "black_list": false,
+      "code": "50697003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "General anesthesia (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053e1",
+      "black_list": false,
+      "code": "58611004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Epidural injection of anesthetic substance, therapeutic, lumbar, continuous (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053e2",
+      "black_list": false,
+      "code": "64287005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Inhalation anesthesia, machine system, semi-closed, circulation of primary agent and gases (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053e3",
+      "black_list": false,
+      "code": "67716003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Epidural injection of anesthetic substance, therapeutic, caudal, continuous (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053e4",
+      "black_list": false,
+      "code": "74527005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Injection of anesthetic substance, therapeutic, subdural, differential (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4ce6f081f342e20053e5",
+      "black_list": false,
+      "code": "82776005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Injection of anesthetic substance, therapeutic, subdural, continuous (procedure)",
+      "white_list": false
+    }
+  ],
+  "display_name": "General or Neuraxial Anesthesia",
+  "oid": "2.16.840.1.113883.3.666.5.1743",
+  "user_id": "573373bcf081f308d5000386",
+  "version": "20160817"
+}

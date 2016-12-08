@@ -1,0 +1,41 @@
+{
+  "_id": "57ec4cdff081f342e20040db",
+  "bundle_id": "573373bef081f308d5000387",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "57ec4cdff081f342e20040dc",
+      "black_list": false,
+      "code": "418114005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Intravenous central route (qualifier value)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040dd",
+      "black_list": false,
+      "code": "419993007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Intravenous peripheral route (qualifier value)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040de",
+      "black_list": false,
+      "code": "47625008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Intravenous route (qualifier value)",
+      "white_list": false
+    }
+  ],
+  "display_name": "Intravenous route",
+  "oid": "2.16.840.1.113883.3.117.1.7.1.222",
+  "user_id": "573373bcf081f308d5000386",
+  "version": "20160418"
+}

@@ -1,0 +1,91 @@
+{
+  "_id": "57c06de3f081f37a7a000547",
+  "bundle_id": "573373bef081f308d5000387",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "57c06de3f081f37a7a000548",
+      "black_list": false,
+      "code": "10161009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Patient discharge, to home, with assistance (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57c06de3f081f37a7a000549",
+      "black_list": false,
+      "code": "306689006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Discharge to home (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57c06de3f081f37a7a00054a",
+      "black_list": false,
+      "code": "306690002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Discharge to relative's home (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57c06de3f081f37a7a00054b",
+      "black_list": false,
+      "code": "306691003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Discharge to residential home (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57c06de3f081f37a7a00054c",
+      "black_list": false,
+      "code": "306692005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Discharge to private residential home (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57c06de3f081f37a7a00054d",
+      "black_list": false,
+      "code": "306705005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Discharge to police custody (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57c06de3f081f37a7a00054e",
+      "black_list": false,
+      "code": "65537008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Patient discharge, to home, routine (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "57c06de3f081f37a7a00054f",
+      "black_list": false,
+      "code": "86400002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Patient discharge, to home, ambulatory (procedure)",
+      "white_list": false
+    }
+  ],
+  "display_name": "Discharge To Home Or Police Custody",
+  "oid": "2.16.840.1.113883.3.117.1.7.1.82",
+  "user_id": "573373bcf081f308d5000386",
+  "version": "Draft"
+}

@@ -1,0 +1,275 @@
+{
+  "_id": "55a91d5169702d38e6611400",
+  "birthdate": 804672000,
+  "bundle_id": "53502082192e73777e001226",
+  "created_at": "2015-07-17T15:20:49.692Z",
+  "deathdate": null,
+  "description": null,
+  "description_category": null,
+  "effective_time": null,
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "430FFC53-4122-4421-88CC-2EDD8117BB3C",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    }
+  ],
+  "expired": false,
+  "first": "Num1",
+  "gender": "F",
+  "is_shared": null,
+  "languages": [
+
+  ],
+  "last": "PDC-ACE",
+  "marital_status": null,
+  "measure_ids": [
+    "430FFC53-4122-4421-88CC-2EDD8117BB3C",
+    null
+  ],
+  "medical_record_assigner": "Bonnie",
+  "medical_record_number": "228b5a0556a8b8ff0708d3a4dd9a1bb2",
+  "medications": [
+    {
+      "_id": "564f21a0f081f3688b000a2e",
+      "active_datetime": null,
+      "administrationTiming": {
+        "period": {
+          "value": "1",
+          "unit": "d"
+        }
+      },
+      "allowedAdministrations": null,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "314077"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Order: ACE Inhibitor or ARB",
+      "dose": {
+        "value": "20",
+        "unit": "mg"
+      },
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": 1417335300,
+      "freeTextSig": null,
+      "fulfillmentHistory": [
+        {
+          "_id": "564f21a0f081f3688b000a2f",
+          "dispenseDate": 1406880900,
+          "fillNumber": null,
+          "fillStatus": null,
+          "prescriptionNumber": null,
+          "provider_id": null,
+          "quantityDispensed": {
+            "value": "20",
+            "unit": "mg"
+          }
+        }
+      ],
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.17",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "route": null,
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1406880000,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "ordered"
+        ]
+      },
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    },
+    {
+      "_id": "564f21a0f081f3688b000a30",
+      "active_datetime": null,
+      "administrationTiming": null,
+      "allowedAdministrations": null,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "308964"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Order: ACE Inhibitor or ARB",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": 1422605700,
+      "freeTextSig": null,
+      "fulfillmentHistory": [
+        {
+          "_id": "564f21a0f081f3688b000a31",
+          "dispenseDate": 1420100100,
+          "fillNumber": null,
+          "fillStatus": null,
+          "prescriptionNumber": null,
+          "provider_id": null,
+          "quantityDispensed": {
+            "value": "20",
+            "unit": "mg"
+          }
+        }
+      ],
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.17",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "route": null,
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1420099200,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "ordered"
+        ]
+      },
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    }
+  ],
+  "notes": "",
+  "origin_data": [
+
+  ],
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "medication",
+      "status": "ordered",
+      "title": "ACE Inhibitor or ARB",
+      "description": "Medication, Order: ACE Inhibitor or ARB",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1139",
+      "type": "medications",
+      "id": "MedicationOrderAceInhibitorOrArb",
+      "start_date": 1406880000000,
+      "end_date": 1417335300000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "430FFC53-4122-4421-88CC-2EDD8117BB3C",
+      "cms_id": "CMS135v3",
+      "criteria_id": "14e9c98935bKS",
+      "codes": {
+        "RxNorm": [
+          "314077"
+        ]
+      },
+      "fulfillments": [
+        {
+          "dispense_date": "08/01/2014",
+          "dispense_time": "8:15 AM",
+          "quantity_dispensed_value": "20",
+          "quantity_dispensed_unit": "mg",
+          "dispense_datetime": "1406880900"
+        }
+      ],
+      "dose_value": "20",
+      "dose_unit": "mg",
+      "frequency_value": "1",
+      "frequency_unit": "d",
+      "negation_code_list_id": "",
+      "coded_entry_id": "564f21a0f081f3688b000a2e",
+      "code_source": "USER_DEFINED"
+    },
+    {
+      "negation": false,
+      "definition": "medication",
+      "status": "ordered",
+      "title": "ACE Inhibitor or ARB",
+      "description": "Medication, Order: ACE Inhibitor or ARB",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1139",
+      "type": "medications",
+      "id": "MedicationOrderAceInhibitorOrArb",
+      "start_date": 1420099200000,
+      "end_date": 1422605700000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "430FFC53-4122-4421-88CC-2EDD8117BB3C",
+      "cms_id": "CMS135v3",
+      "criteria_id": "14e9c9ae8bdCQ",
+      "codes": {
+        "RxNorm": [
+          "308964"
+        ]
+      },
+      "fulfillments": [
+        {
+          "dispense_date": "01/01/2015",
+          "dispense_time": "8:15 AM",
+          "quantity_dispensed_value": "20",
+          "quantity_dispensed_unit": "mg",
+          "dispense_datetime": "1420100100"
+        }
+      ],
+      "dose_value": "",
+      "dose_unit": "mg",
+      "frequency_value": "",
+      "frequency_unit": "h",
+      "negation_code_list_id": "",
+      "coded_entry_id": "564f21a0f081f3688b000a30",
+      "code_source": "USER_DEFINED"
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": null,
+  "title": null,
+  "type": null,
+  "updated_at": "2015-11-20T13:35:28.791Z",
+  "user_id": "53502082192e73777e001225"
+}

@@ -1,0 +1,31 @@
+{
+  "_id": "55a91be269702d0e734c6100",
+  "bundle_id": "53502082192e73777e001226",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "55a91be269702d0e734d6100",
+      "black_list": false,
+      "code": "134397009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Angiotensin converting enzyme inhibitor declined (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "55a91be269702d0e734e6100",
+      "black_list": false,
+      "code": "401084003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": null,
+      "display_name": "Angiotensin II receptor antagonist declined (situation)",
+      "white_list": false
+    }
+  ],
+  "display_name": "Patient Reason for ACE Inhibitor or ARB Decline",
+  "oid": "2.16.840.1.113883.3.526.3.1140",
+  "user_id": "53502082192e73777e001225",
+  "version": "Draft"
+}

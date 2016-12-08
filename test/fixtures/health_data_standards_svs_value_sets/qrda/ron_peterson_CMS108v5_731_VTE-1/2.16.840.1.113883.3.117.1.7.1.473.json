@@ -1,0 +1,191 @@
+{
+  "_id": "57ec4cdff081f342e20040e4",
+  "bundle_id": "573373bef081f308d5000387",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "57ec4cdff081f342e20040e5",
+      "black_list": false,
+      "code": "183932001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Procedure contraindicated (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040e6",
+      "black_list": false,
+      "code": "183964008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Treatment not indicated (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040e7",
+      "black_list": false,
+      "code": "183966005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Drug treatment not indicated (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040e8",
+      "black_list": false,
+      "code": "266721009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Absent response to treatment (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040e9",
+      "black_list": false,
+      "code": "31438003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Drug resistance (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040ea",
+      "black_list": false,
+      "code": "35688006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Complication of medical care (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040eb",
+      "black_list": false,
+      "code": "397745006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Medical contraindication (finding)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040ec",
+      "black_list": false,
+      "code": "407563006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Treatment not tolerated (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040ed",
+      "black_list": false,
+      "code": "410529002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Not needed (qualifier value)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040ee",
+      "black_list": false,
+      "code": "410534003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Not indicated (qualifier value)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040ef",
+      "black_list": false,
+      "code": "410536001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Contraindicated (qualifier value)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040f0",
+      "black_list": false,
+      "code": "416098002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Drug allergy (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040f1",
+      "black_list": false,
+      "code": "419511003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Propensity to adverse reactions to drug (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040f2",
+      "black_list": false,
+      "code": "428024001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Clinical trial participant (person)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040f3",
+      "black_list": false,
+      "code": "428119001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Procedure not indicated (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040f4",
+      "black_list": false,
+      "code": "59037007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Drug intolerance (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040f5",
+      "black_list": false,
+      "code": "62014003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Adverse reaction caused by drug (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "57ec4cdff081f342e20040f6",
+      "black_list": false,
+      "code": "79899007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2016-03",
+      "display_name": "Drug interaction (finding)",
+      "white_list": false
+    }
+  ],
+  "display_name": "Medical Reason",
+  "oid": "2.16.840.1.113883.3.117.1.7.1.473",
+  "user_id": "573373bcf081f308d5000386",
+  "version": "20160418"
+}
