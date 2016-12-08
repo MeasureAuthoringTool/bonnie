@@ -72,9 +72,12 @@ module UploadSummary
       end
 
       # rework the expected value structure for the newly uploaded measure.
+      # clear out any existing calc_results so that all of the calc_results will be based on the new version of the measure
       patients.each do |patient|
         patient.update_expected_value_structure!(current_measure)
+        patient.clear_existing_calc_results!(current_measure)
       end
+
       # recalculate the patient information for the newly uploaded measure
       calculator = BonnieBackendCalculator.new
       current_measure.populations.each_with_index do |population, population_set_index|

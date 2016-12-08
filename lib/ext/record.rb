@@ -204,15 +204,21 @@ class Record
     if self.calc_results.nil?
       self.calc_results = [result]
     else
-      new_calc_results = self.calc_results.dup
-      # Clear any prior results for this measure to ensure a clean update, i.e. a change in the number of populations.
-      new_calc_results.reject! { |av| av['measure_id'] == measure.hqmf_set_id && (av['population_index'] == population_set_index || av['population_index'] >= measure.populations.count) }
-      new_calc_results << result
-      self.calc_results = new_calc_results
+      self.calc_results << result
     end
 
     self.has_measure_history = true
     save!
+  end
+
+  # clears out the existing calculated results on the patient record for the provided measure
+  def clear_existing_calc_results!(measure)
+    self.calc_results.reject! { |result| result['measure_id'] == measure.hqmf_set_id } if self.calc_results
+    self.condensed_calc_results.reject! { |result| result['measure_id'] == measure.hqmf_set_id } if self.condensed_calc_results
+    self.has_measure_history = false
+    self.results_exceed_storage = false
+    self.results_size = 0
+    self.save!
   end
 
   protected
