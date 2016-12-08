@@ -3,23 +3,13 @@
 {{#ifCond populationInformation.[0].totalPatients "!=" 0}} {{! Don't display anything if there are no patients}}
 <h5> Total Number of Test Patients: {{../populationInformation.[0].totalPatients}} </h5>
   {{#each populationInformation}}
-    {{#ifCond totalChanged "==" 0}}
+    {{#ifCond totalChanged "!=" 0}} {{! We have patients who were affected by the upload}}
       <p>
         <table class="table table-striped table-condensed">
-          <thead>
-            <tr>
-              {{#ifCond ../../../numberOfPopulations "==" 1}}
-                <th width="1300px" class="centered"> <h2>Upload Summary</h2>No Patients were affected by the updated measure! </th>
-              {{else}}
-                <th width="1300px" class="centered"> <h2>{{populationTitle}}</h2>No Patients were affected by the updated measure! </th>
-              {{/ifCond}}
-            </tr>
-          </thead>
-        </table>
-      </p>
-    {{else}} {{! We have patients who were affected by the upload}}
-      <p>
-        <table class="table table-striped table-condensed">
+          <caption class="sr-only">
+            {{#ifCond ../../../numberOfPopulations ">=" 1}}{{populationTitle}}{{/ifCond}}
+            Patient Calculation Change Summary
+          </caption>
           <thead>
             <tr>
               {{#ifCond ../../../numberOfPopulations "==" 1}}
@@ -40,6 +30,10 @@
           <tbody>
         </table>
         <table class="table table-condensed table-striped table-hover">
+          <caption class="sr-only">
+            {{#ifCond ../../../numberOfPopulations ">=" 1}}{{populationTitle}}{{/ifCond}}
+            Patient Calculation Change Details
+          </caption>
           <thead>
             <tr>
               <th>Test Patient Name</th>
