@@ -215,7 +215,6 @@ class Record
   def clear_existing_calc_results!(measure)
     self.calc_results.reject! { |result| result['measure_id'] == measure.hqmf_set_id } if self.calc_results
     self.condensed_calc_results.reject! { |result| result['measure_id'] == measure.hqmf_set_id } if self.condensed_calc_results
-    self.has_measure_history = false
     self.results_exceed_storage = false
     self.results_size = 0
     self.save!
