@@ -185,11 +185,11 @@ class MeasuresController < ApplicationController
         return
       end
 
-      @archived_measure = nil
+      archived_measure = nil
       # if a measure is being updated, save out the pre-existing measure as an archived measure.
       if (existing && is_update)
-        @archived_measure = ArchivedMeasure.from_measure(existing)
-        @archived_measure.save
+        archived_measure = ArchivedMeasure.from_measure(existing)
+        archived_measure.save
         existing.delete
       end
 
@@ -273,7 +273,7 @@ class MeasuresController < ApplicationController
     # does, this will get run in the finalize step.
     # TODO Eventually enable for portfolio users
     if !measure.needs_finalize && !current_user.is_portfolio?
-      measure_summary = UploadSummary::MeasureSummary.create_measure_upload_summary(measure, @archived_measure)
+      measure_summary = UploadSummary::MeasureSummary.create_measure_upload_summary(measure, archived_measure)
       flash[:uploaded_summary_id] = measure_summary.id
       flash[:uploaded_hqmf_set_id] = measure.hqmf_set_id
     end
@@ -336,7 +336,9 @@ class MeasuresController < ApplicationController
 
       # TODO Enable for portfolio users
       unless current_user.is_portfolio?
-        measure_summary = UploadSummary::MeasureSummary.create_measure_upload_summary(measure, @archived_measure)
+        # get the latest archived measure (the measure that the current upload is replacing)
+        archived_measure = ArchivedMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).desc(:uploaded_at).first
+        measure_summary = UploadSummary::MeasureSummary.create_measure_upload_summary(measure, archived_measure)
       end
 
       # Make UI show upload summary
