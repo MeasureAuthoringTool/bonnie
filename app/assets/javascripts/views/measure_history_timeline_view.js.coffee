@@ -41,6 +41,7 @@ class Thorax.Views.MeasureHistoryTimelineView extends Thorax.Views.BonnieView
   # changes the displayed timeline data to align with the selected population tab
   updatePopulation: (population) ->
     @populationIndex = population.index()
+    @measureDiffView.updatePopulation(population)
     @render()
 
   # displays the diff view between two measures for a particular upload that occurred.

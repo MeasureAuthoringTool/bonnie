@@ -8,14 +8,12 @@ class Thorax.Views.MeasureHistoryView extends Thorax.Views.BonnieView
   initialize: ->
     @patientData = null
     @measureData = null
-    @measureDiffView = new Thorax.Views.MeasureHistoryDiffView(model: @model)
     @measureTimelineView = new Thorax.Views.MeasureHistoryTimelineView(model: @model, upload_summaries: @upload_summaries, patients: @patients)
 
   switchPopulation: (e) ->
     population = $(e.target).model()
     population.measure().set('displayedPopulation', population)
     @trigger 'population:update', population
-    @measureDiffView.updatePopulation(population)
     @measureTimelineView.updatePopulation(population)
 
   # makes it so the tabs know what the populations are. This is used in the corresponding template.
