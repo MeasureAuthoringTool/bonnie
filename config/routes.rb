@@ -37,8 +37,11 @@ Bonnie::Application.routes.draw do
         get 'calculate_code'
       end
     end
-    resources :archived_measures
-    resources :upload_summaries
+    
+    # The following two routes are to the measure history member collections. These go to ArchivedMeasuresController and
+    # UploadSummariesController. They are routed as sub URLs to each measure. They only have index and show methods.
+    resources :archived_measures, only: [:index, :show]
+    resources :upload_summaries, only: [:index, :show]
   end
 
   resources :patients do
