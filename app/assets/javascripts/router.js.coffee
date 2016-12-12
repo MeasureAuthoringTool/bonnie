@@ -32,6 +32,13 @@
     'admin/users':                                      'renderUsers'
     'value_sets/edit':                                  'renderValueSetsBuilder'
 
+  # TODO: most of these functions have nil checks on the measure but then continue
+  # to perform logic on the measure without doing any further nil checks. If a nil
+  # check is necessary, there should be a nice way to error out of the function
+  # completely.
+  # these functions should all be reworked to error out appropriately if a measure
+  # is nil.
+
   renderMeasures: ->
     @measures.each (measure) -> measure.set('displayedPopulation', measure.get('populations').first())
     @navigationSetup "Dashboard", "dashboard"
@@ -105,7 +112,6 @@
         @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: measure.get('patients'), upload_summaries: uploadSummaries
         @breadcrumb.viewMeasureHistory(measure)
         )
-
 
   renderHistoricPatientCompare: (measureHqmfSetId, patientId, uploadId) ->
     @navigationSetup "Patient Builder", "patient-compare"
