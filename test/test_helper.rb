@@ -89,5 +89,9 @@ class ActiveSupport::TestCase
       p.save
     end
   end
+  
+  def associate_upload_summary_with_user(summary,user)
+    summary.user_id = user.id
+  end
 
 end
