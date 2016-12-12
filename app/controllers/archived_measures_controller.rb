@@ -14,7 +14,8 @@ class ArchivedMeasuresController < ApplicationController
   
   def index
     begin
-      # Fetch only hqmf_set_id of the measure so we can use it to grab the archived measures for that hqmf_set_id.
+      # Fetch only hqmf_set_id and _id fields of the measure so we can use it to grab the archived measures for that 
+      # hqmf_set_id.
       @measure = Measure.by_user(current_user).only(:hqmf_set_id, :_id).find(params[:measure_id])
       
       # Fetch only the measure_db_id and _id fields of the archived measures.
