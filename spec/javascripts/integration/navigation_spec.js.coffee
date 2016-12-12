@@ -4,7 +4,7 @@ describe 'Navigation', ->
     # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
     @measures = bonnie.measures
-    @patients = new Thorax.Collections.Patients getJSONFixture('patients.json')
+    @patients = new Thorax.Collections.Patients getJSONFixture('records/base_set/patients.json')
 
   describe 'navigating the measures list view', ->
 
