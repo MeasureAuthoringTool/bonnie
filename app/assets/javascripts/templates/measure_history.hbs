@@ -7,7 +7,6 @@
     <h2 class="full-title">{{title}}</h2>
     <p>{{description}}</p>
   </div>
-  <!-- TODO: Ensure that the stratification tabs toggle a render for the data -->
   {{#ifCond populations.length ">" 1}}
     {{#collection populations tag='ul' class='nav nav-tabs' item-context=populationContext}}
       <li{{#if isActive}} class="active"{{/if}}>

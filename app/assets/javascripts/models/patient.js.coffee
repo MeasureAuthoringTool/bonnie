@@ -3,6 +3,14 @@ class Thorax.Models.Patient extends Thorax.Model
   urlRoot: '/patients'
   
   initialize: ->
+    # unsets calc results on change so that a new calculation can be made based on
+    # the changes.
+    # unsets calc results on materialize which happens when you clone the patient. the
+    # calculation on the cloned patients needs to be recalculated.
+    # made 'silent' so this doesn't trigger another change event.
+    # This is done on the cloned patient in the patient builder and doesn't affect 
+    # the underlying patient in the database unless the edits are saved, and then
+    # the database cached results will be updated with the new results.
     @on 'change materialize', => @unset 'calc_results', silent: true
 
   parse: (attrs) ->
