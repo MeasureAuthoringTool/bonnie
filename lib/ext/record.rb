@@ -139,6 +139,87 @@ class Record
     end
   end # def
 
+  # Updates the population set structure of the expected values to match the population set structure
+  # on the measure.
+  # If the measure has more population sets than the patient, the new population set is added to the
+  # patient with zero values for each population.
+  # If the measure has less population sets than the patient, extra population sets on the patient are
+  # removed.
+  # if a population set has additional populations in a measure, those populations are added to the
+  # patient's population set with a value of zero.
+  # if a population set has fewer populations in a measure, any additional populations in the patient's
+  # population set are removed.
+  def update_expected_value_structure!(measure)
+    # ensure there's the correct number of population sets
+    patient_population_count = self.expected_values.count { |expected_value_set| expected_value_set[:measure_id] == measure.hqmf_set_id }
+    measure_population_count = measure.populations.count
+    # add new population sets. the rest of the data gets added below.
+    if patient_population_count < measure_population_count
+      (patient_population_count..measure_population_count-1).each do |index|
+        self.expected_values << {measure_id: measure.hqmf_set_id, population_index: index}
+      end
+    end
+    # delete population sets present on the patient but not in the measure
+    self.expected_values.reject! do |expected_value_set|
+      matches_measure = expected_value_set[:measure_id] ? expected_value_set[:measure_id] == measure.hqmf_set_id : false
+      is_extra_population = expected_value_set[:population_index] ? expected_value_set[:population_index] >= measure_population_count : false
+      matches_measure && is_extra_population
+    end
+
+    # ensure there's the correct number of populations for each population set
+    self.expected_values.each do |expected_value_set|
+      # ignore if it's not related to the measure (can happen for portfolio users)
+      next unless expected_value_set[:measure_id] == measure.hqmf_set_id
+
+      expected_value_population_set = expected_value_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
+      measure_population_set = measure.populations[expected_value_set[:population_index]].slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
+
+      # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
+      added_populations = measure_population_set - expected_value_population_set
+      added_populations.each do |population|
+        expected_value_set[population] = 0
+      end
+
+      # delete populations that no longer exist (populations in the expected values that don't exist in the measure)
+      removed_populations = expected_value_population_set - measure_population_set
+      expected_value_set.except!(*removed_populations)
+    end
+    self.save!
+  end
+
+  # recalculates the patient and stores the information for the given measure and
+  # population within the patient model.
+  def update_calc_results!(measure, population_set_index, calculator=nil)
+    unless calculator
+      calculator = BonnieBackendCalculator.new
+    end
+    calculator.set_measure_and_population(measure, population_set_index, clear_db_cache: true, rationale: true)
+
+    populations_to_process = HQMF::PopulationCriteria::ALL_POPULATION_CODES + ['rationale', 'finalSpecifics']
+
+    result = calculator.calculate(self).slice(*populations_to_process)
+
+    result[:measure_id] = measure.hqmf_set_id
+    result[:population_index] = population_set_index
+    if self.calc_results.nil?
+      self.calc_results = [result]
+    else
+      self.calc_results << result
+    end
+
+    self.has_measure_history = true
+    save!
+  end
+
+  # clears out the existing calculated results on the patient record for the provided measure
+  def clear_existing_calc_results!(measure)
+    self.calc_results.reject! { |result| result['measure_id'] == measure.hqmf_set_id } if self.calc_results
+    self.condensed_calc_results.reject! { |result| result['measure_id'] == measure.hqmf_set_id } if self.condensed_calc_results
+    self.results_exceed_storage = false
+    self.results_size = 0
+    self.save!
+  end
+
   protected
 
   # Centralized place for determining if a test case/patient passes or fails.
@@ -146,15 +227,19 @@ class Record
   #   is loaded or updated.
   def calc_status
     return if calc_results.blank?
-    expected_values.each_index do |population_set_index|
-      # stop if the number of populations in expected values exceeds the number of calc_results populations
-      break if population_set_index >= calc_results.length
+    expected_values.each do |expected_value|
+      population_set_index = expected_value[:population_index]
+      calc_result = calc_results.find { |result| result[:measure_id] == expected_value[:measure_id] && result[:population_index] == population_set_index }
 
-      # When we check for pass/fail we are not interested in the exact values but whether or not
-      # the vales for the expected results and calculated results are the same.  This array substraction
-      # will tell us that.  It also ignores any "extra" fields that may have been added to the calculation
-      # results.
-      calc_results[population_set_index][:status] = (expected_values[population_set_index].to_a - calc_results[population_set_index].to_a).empty? ? 'pass' : 'fail'
+      # stop if the expected value result can't be found in the calculated values
+      break unless calc_result
+
+      filtered_expected_values = expected_value.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES)
+      filtered_calc_results = calc_result.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES)
+
+      status = (filtered_expected_values.to_a - filtered_calc_results.to_a).empty?
+
+      calc_result[:status] = status ? 'pass' : 'fail'
     end
   end
 
