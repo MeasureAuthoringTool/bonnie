@@ -8,7 +8,7 @@ include Devise::TestHelpers
     FileUtils.rm_r @error_dir if File.directory?(@error_dir)
     dump_database
     draft_measures = File.join("draft_measures","base_set")
-    archived_measures = File.join("archived_measures","base_set")
+    archived_measures = File.join("archived_measures","measure_history_set")
     users = File.join("users","base_set")
     collection_fixtures(draft_measures, users, archived_measures)
     @user = User.by_email('bonnie@example.com').first
@@ -26,6 +26,12 @@ include Devise::TestHelpers
     assert_equal [], JSON.parse(response.body)
   end
 
+  #test "index of measure with archived measures" do
+  #  get :index, { measure_id: @measure_with_archive.id, format: :json }
+#    assert_response :success
+  #  assert_equal [], JSON.parse(response.body)
+  #end
+  
   test "index on non-existent measure" do
     get :index, { measure_id: "1234567890abcdef01234567", format: :json }
     assert_response :not_found
