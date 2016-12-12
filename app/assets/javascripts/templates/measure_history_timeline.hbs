@@ -22,7 +22,7 @@
                 <i aria-hidden="true" class="fa fa-fw fa-clock-o"></i>
                 <time datetime="{{../attributes.uploaded_at}}">{{moment ../attributes.uploaded_at "M/D/YY h:mm a"}}</time>
               </p>
-              {{#button "showDiffClicked" data-upload-id=../attributes._id class="btn btn-xs btn-default"}}View Changes{{/button}}
+              {{#button "showDiff" data-upload-id=../attributes._id class="btn btn-xs btn-default"}}View Changes{{/button}}
             </th>
             <th id="version-after-{{../attributes._id}}" headers="upload-version upload-{{../attributes._id}}" class="history-upload-header" scope="row">
               v{{../attributes.hqmf_version_number_post_upload}}
