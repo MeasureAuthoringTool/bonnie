@@ -5,7 +5,8 @@ describe 'PatientBuilderView', ->
     jasmine.getJSONFixtures().clearCache()
     @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[0], parse: true
     @measure = bonnie.measures.findWhere(cms_id: 'CMS146v2')
-    @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
+    @patients = new Thorax.Collections.Patients()
+    @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
     @firstCriteria = @patientBuilder.model.get('source_data_criteria').first()
     # Normally the first criteria can't have a value (wrong type); for testing we allow it
     @firstCriteria.canHaveResult = -> true
@@ -40,7 +41,7 @@ describe 'PatientBuilderView', ->
       expect(@patientBuilder.model.get('birthdate')).toEqual moment.utc('01/02/1993 1:15 PM', 'L LT').format('X')
       expect(@patientBuilder.model.get('race')).toEqual '2131-1'
       expect(@patientBuilder.model.get('ethnicity')).toEqual '2135-2'
-    
+
     # TODO: This spec does not function as expected because of the new async calculation that happens before a save.
     # TODO: This spec needs to be fixed to handle this weird async stuff.
     xit "tries to save the patient correctly", ->
