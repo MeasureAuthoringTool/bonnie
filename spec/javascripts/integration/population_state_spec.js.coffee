@@ -6,61 +6,65 @@ describe "Population state between routes", ->
     @measureToTest = bonnie.measures.get('40280381-3D61-56A7-013E-65C9C3043E54')
     @measureToTest.get('patients').add @patient
 
-    it "starts with the first population", ->
-      @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
-      @measureView = @measureView.showMeasure()
-      @measureView.appendTo 'body'
+  afterEach ->
+    # clean up all changes to the measure, as this is in a global store (not a copy)
+    @measureToTest.get('patients').reset()
 
-      populationNavs = @measureView.$('[data-toggle="tab"]')
-      # ensure 2 populations exists
-      expect(populationNavs.length).toBe(2)
-      active = @measureView.$('.nav.nav-tabs > li.active > a')[0]
-      # ensure that the first is currently selected
-      expect(active).toBe(populationNavs[0])
-      expect(active.text).toBe(@measureToTest.get('displayedPopulation').get('title'))
-      expect(@measureToTest.get('displayedPopulation').cid).toBe(@measureToTest.get('populations').first().cid)
+  it "starts with the first population", ->
+    @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
+    @measureView = @measureView.showMeasure()
+    @measureView.appendTo 'body'
 
-      @measureView.remove()
+    populationNavs = @measureView.$('[data-toggle="tab"]')
+    # ensure 2 populations exists
+    expect(populationNavs.length).toBe(2)
+    active = @measureView.$('.nav.nav-tabs > li.active > a')[0]
+    # ensure that the first is currently selected
+    expect(active).toBe(populationNavs[0])
+    expect(active.text).toBe(@measureToTest.get('displayedPopulation').get('title'))
+    expect(@measureToTest.get('displayedPopulation').cid).toBe(@measureToTest.get('populations').first().cid)
 
-    it "changes the displayedPopulation state when selected", ->
-      @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
-      @measureView = @measureView.showMeasure()
-      @measureView.appendTo 'body'
-      # simulate click on the measure view to select different population
-      @measureView.$('[data-toggle="tab"]').last().click()
+    @measureView.remove()
 
-      populationNavs = @measureView.$('[data-toggle="tab"]')
-      active = @measureView.$('.nav.nav-tabs > li.active > a')[0]
-      # ensure that the second is currently selected
-      expect(active).toBe(populationNavs[1])
-      expect(active.text).toBe(@measureToTest.get('displayedPopulation').get('title'))
-      expect(@measureToTest.get('displayedPopulation').cid).toBe(@measureToTest.get('populations').at(1).cid)
+  it "changes the displayedPopulation state when selected", ->
+    @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
+    @measureView = @measureView.showMeasure()
+    @measureView.appendTo 'body'
+    # simulate click on the measure view to select different population
+    @measureView.$('[data-toggle="tab"]').last().click()
 
-      @measureView.remove()
+    populationNavs = @measureView.$('[data-toggle="tab"]')
+    active = @measureView.$('.nav.nav-tabs > li.active > a')[0]
+    # ensure that the second is currently selected
+    expect(active).toBe(populationNavs[1])
+    expect(active.text).toBe(@measureToTest.get('displayedPopulation').get('title'))
+    expect(@measureToTest.get('displayedPopulation').cid).toBe(@measureToTest.get('populations').at(1).cid)
 
-    it "carries over changes between views", ->
-      @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
-      @measureView = @measureView.showMeasure()
-      @measureView.appendTo 'body'
-      # simulate click on the measure view to select different population
-      @measureView.$('[data-toggle="tab"]').last().click()
-      @measureView.remove()
+    @measureView.remove()
 
-      # Switch to patient builder view after removing the other view
-      @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measureToTest)
-      @patientBuilder.render()
-      @patientBuilder.appendTo 'body'
+  it "carries over changes between views", ->
+    @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
+    @measureView = @measureView.showMeasure()
+    @measureView.appendTo 'body'
+    # simulate click on the measure view to select different population
+    @measureView.$('[data-toggle="tab"]').last().click()
+    @measureView.remove()
 
-      populationNavs = @patientBuilder.$('[data-toggle="tab"]')
-      active = @patientBuilder.$('.nav.nav-tabs > li.active > a')[0]
-      # ensure that the second is currently selected
-      expect(active).toBe(populationNavs[1])
-      expect(active.text.trim()).toBe(@measureToTest.get('displayedPopulation').get('title'))
-      expect(@measureToTest.get('displayedPopulation').cid).toBe(@measureToTest.get('populations').at(1).cid)
+    # Switch to patient builder view after removing the other view
+    @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measureToTest)
+    @patientBuilder.render()
+    @patientBuilder.appendTo 'body'
 
-      @patientBuilder.remove()
+    populationNavs = @patientBuilder.$('[data-toggle="tab"]')
+    active = @patientBuilder.$('.nav.nav-tabs > li.active > a')[0]
+    # ensure that the second is currently selected
+    expect(active).toBe(populationNavs[1])
+    expect(active.text.trim()).toBe(@measureToTest.get('displayedPopulation').get('title'))
+    expect(@measureToTest.get('displayedPopulation').cid).toBe(@measureToTest.get('populations').at(1).cid)
 
-  it "resets when user goes to measures route", ->
+    @patientBuilder.remove()
+
+  xit "resets when user goes to measures route", ->
     @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'

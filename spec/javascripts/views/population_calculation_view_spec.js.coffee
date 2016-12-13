@@ -1,5 +1,4 @@
 describe 'PopulationCalculationView', ->
-
   beforeEach ->
     # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
@@ -9,6 +8,10 @@ describe 'PopulationCalculationView', ->
     @population = @measure.get('populations').first()
     @populationCalculationView = new Thorax.Views.PopulationCalculation(model: @population)
     @populationCalculationView.render()
+
+  afterEach ->
+    # clean up all changes to the measure, as this is in a global store (not a copy)
+    @measure.get('patients').reset()
 
   it 'renders correctly', ->
     expect(@populationCalculationView.$el).toContainText @patients.first().get('last')
