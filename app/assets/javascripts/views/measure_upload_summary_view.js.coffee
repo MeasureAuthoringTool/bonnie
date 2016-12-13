@@ -4,6 +4,12 @@ class Thorax.Views.MeasureUploadSummary extends Thorax.Views.BonnieView
   events:
     'click .patient-link': -> @trigger "patient:selected" # Event for if the link on the modal is clicked
 
+    rendered: ->
+      # Set first tab as active
+      @$("[role='presentation']").first().addClass("active")
+      @$("[data-toggle='tab']").first().addClass("active")
+      @$("[role='tabpanel']").first().addClass("active")
+
   context: ->
     populationInformation = [] # One element per population
     populationTitles = @measure.get('populations').map ((eachPopulation) -> eachPopulation.get('title'))
@@ -28,4 +34,8 @@ class Thorax.Views.MeasureUploadSummary extends Thorax.Views.BonnieView
         patientsWhoChanged: patientsWhoChanged
         populationTitle: populationTitles[populationIndex]
         }
-    _(super).extend(populationInformation: populationInformation, numberOfPopulations: @measure.get('populations').size(), hqmfSetId: @measure.get('hqmf_set_id'))
+
+    changedPatientIDs = _.flatten(populationInformation.map (populationInfo) ->
+      return populationInfo.patientsWhoChanged.map((p) -> return p.patientID))
+
+    _(super).extend(populationInformation: populationInformation, numberOfPopulations: @measure.get('populations').size(), hqmfSetId: @measure.get('hqmf_set_id'), totalPatientsNumber: @measure.get('patients').length, changedPatientsNumber: _.uniq(changedPatientIDs).length)
