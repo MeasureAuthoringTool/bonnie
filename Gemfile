@@ -15,7 +15,7 @@ gem "non-stupid-digest-assets"
 
 gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'master'
 # TODO: incorporate the HDS change into the bonnie_master_2016 branch
-gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'measure_history'
+gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'hqmf_version_number_tweak'
 gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
 gem 'hqmf2js', :git => 'https://github.com/projecttacoma/hqmf2js.git', :branch => 'master'
 # TODO: incorporate the bonnie_bundler change into the master branch
