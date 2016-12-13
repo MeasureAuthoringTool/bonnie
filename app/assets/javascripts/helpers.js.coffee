@@ -71,3 +71,10 @@ that screen readers will read out the complete name
 Handlebars.registerHelper 'populationName', (population) =>
   return '' unless population?
   return new Handlebars.SafeString Thorax.Models.Measure.PopulationMap[population]
+
+###
+Takes a phrase string and returns a slugified version
+###
+Handlebars.registerHelper 'slugify', (str) ->
+  slug = str.replace(/[^\w\s]+/gi, '').replace(/ +/gi, '-')
+  return slug.toLowerCase()
