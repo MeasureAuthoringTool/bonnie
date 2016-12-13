@@ -45,13 +45,11 @@
             {{#each patientsWhoChanged}}
               <tr>
                 {{#ifCond post_upload_status "==" "pass"}}
-                  <td> <i class="pass fa fa-fw fa-check"></i> <i class="fa fa-fw fa-user"> </i>
-                  <a class="patient-link" href="/#measures/{{../../../../hqmfSetId}}/patients/{{patientID}}/edit">{{name}}</a></td>
+                  <td> <i class="pass fa fa-fw fa-check"></i> <i class="fa fa-fw fa-user"> </i>{{name}}</td>
                   <td class="fail">Failing</td>
                   <td class="pass">Passing</td>
                 {{else}}
-                  <td> <i class="fail fa fa-fw fa-times"></i> <i class="fa fa-fw fa-user"> </i>
-                  <a class="patient-link" href="/#measures/{{../../../../hqmfSetId}}/patients/{{patientID}}/edit">{{name}}</a></td>
+                  <td> <i class="fail fa fa-fw fa-times"></i> <i class="fa fa-fw fa-user"> </i>{{name}}</td>
                   <td class="pass">Passing</td>
                   <td class="fail">Failing</td>
                 {{/ifCond}}
