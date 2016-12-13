@@ -11,8 +11,8 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: ad4b153ce8d3e715a4361e02e0f86667c8405561
-  branch: measure_history
+  revision: 1020d64610199088e45df3560786c51b09b4a666
+  branch: hqmf_version_number_tweak
   specs:
     health-data-standards (3.6.1)
       activesupport (~> 4.1.1)
@@ -31,7 +31,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: d25df9cf7fd5e904bc32344da30d983d2acf1741
+  revision: be659f70484f92a32db4708b24b271accf31af61
   branch: hqmf_version_number_tweak
   specs:
     bonnie_bundler (1.0.0)
