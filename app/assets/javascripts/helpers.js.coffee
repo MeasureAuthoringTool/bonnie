@@ -71,3 +71,10 @@ that screen readers will read out the complete name
 Handlebars.registerHelper 'populationName', (population) =>
   return '' unless population?
   return new Handlebars.SafeString Thorax.Models.Measure.PopulationMap[population]
+
+###
+Takes a string and returns a slugified version by replacing any spaces with dashes and making all characters lowercase. This is useful for transforming phrases into strings formatted appropriately for HTML markup. e.g. "Population 2" to "population-2"
+###
+Handlebars.registerHelper 'slugify', (str) ->
+  slug = str.replace(/[^\w\s]+/gi, '').replace(/ +/gi, '-')
+  return slug.toLowerCase()
