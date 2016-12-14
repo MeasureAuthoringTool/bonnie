@@ -1,5 +1,4 @@
 describe 'MeasureView', ->
-
   beforeEach ->
     @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
 
@@ -14,8 +13,9 @@ describe 'MeasureView', ->
     @vs2.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
     # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
-    @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[0], parse: true
-    @measure.get('patients').add @patient
+    @patients = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
+    @measure.set('patients', @patients)
+    @patient = @patients.at(0)
     @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @measure, patients: @measure.get('patients'))
     @measureView = @measureLayoutView.showMeasure()
     @measureView.appendTo 'body'
@@ -25,6 +25,8 @@ describe 'MeasureView', ->
     @vs1.get('concepts').splice(-11, 11)
     @vs2.get('concepts').splice(-11, 11)
     @measureView.remove()
+    # clean up all changes to the measure, as this is in a global store (not a copy)
+    @measure.get('patients').reset()
 
   it 'renders measure details', ->
     expect(@measureView.$el).toContainText @measure.get('title')
@@ -39,7 +41,6 @@ describe 'MeasureView', ->
     expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).toHaveClass('collapsed')
     @measureView.$('[data-toggle="tab"]').not('.value_sets').last().click()
     expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).not.toHaveClass('collapsed')
-
 
   it 'renders value sets and codes', ->
     expect(@measureView.$('.value_sets')).toExist()
@@ -78,5 +79,14 @@ describe 'MeasureView', ->
 
   # makes sure the calculation percentage hasn't changed.
   # should be 33% for CMS156v2 with given test patients as of 1/4/2016
-  it 'computes coverage', ->
-    expect(@measureView.$('.dial')).toHaveAttr('value', '33')
+  describe 'Computing Coverage', ->
+    beforeEach (done) ->
+      result = @measure.get('populations').at(0).calculate(@patient)
+      waitsForAndRuns( -> result.isPopulated()
+        ,
+        ->
+          done()
+      )
+
+    it 'computes coverage', ->
+      expect(@measureView.$('.dial')[1]).toHaveAttr('value', '33')
