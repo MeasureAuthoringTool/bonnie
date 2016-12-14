@@ -33,8 +33,8 @@
               {{#each ../../../patientIndex}}
                 {{#if (lookup ../patients id)}}
                   {{#with (lookup ../../patients id)}}
-                    <td headers="version-after-{{../../../../attributes._id}} upload-{{../../../../attributes._id}} patient-{{../../id}}">
-                      <a class="history-circle {{#ifCond post_upload_status '==' 'pass'}}text-success bg-success{{else}}text-danger bg-danger{{/ifCond}}" href="#measures/{{../../../../../hqmf_set_id}}/patients/{{../../id}}/compare/at_upload/{{../../../../attributes._id}}" data-upload-id="{{../../../../attributes._id}}" data-patient-id="{{../../id}}">
+                    <td headers="version-after-{{../../../../../attributes._id}} upload-{{../../../../../attributes._id}} patient-{{../../id}}">
+                      <a class="history-circle {{#ifCond post_upload_status '==' 'pass'}}text-success bg-success{{else}}text-danger bg-danger{{/ifCond}}" href="#measures/{{../../../../../../hqmf_set_id}}/patients/{{../../id}}/compare/at_upload/{{../../../../../attributes._id}}" data-upload-id="{{../../../../../attributes._id}}" data-patient-id="{{../../id}}">
                         <span class="sr-only">Patient {{post_upload_status}} after measure upload</span>
                         <i class="fa {{#ifCond post_upload_status '==' 'pass'}}fa-check{{else}}fa-times{{/ifCond}}" aria-hidden="true"></i>
                       </a>
