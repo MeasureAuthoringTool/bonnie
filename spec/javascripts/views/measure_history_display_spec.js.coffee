@@ -11,7 +11,6 @@ describe 'MeasureHistoryView', ->
     @measure.attributes.upload_summaries = @uploadSummaries
     @measure_history_view = new Thorax.Views.MeasureHistoryView model: @measure, patients: @patients, upload_summaries: @uploadSummaries
     @measure_history_view.on "rendered", ->
-      debugger
       done()
     @measure_history_view.render()
     
