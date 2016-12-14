@@ -32,7 +32,7 @@
     > tr:nth-child(2n-1) > th {
       border-top-width: 4px;
     }
-    
+
     > tr > th.history-upload-header {
       position: relative;
 
@@ -42,24 +42,6 @@
       }
     }
   }
-}
-
-.history-circle i.history-pass-icon {
-  color: #004119;
-}
-
-.history-pass {
-  background-color: rgba(32, 116, 76, 0.5);
-  border-color: #004119;
-}
-
-.history-circle i.history-fail-icon {
-  color: #730800;
-}
-
-.history-fail {
-  background-color: rgba(166, 59, 18, 0.5);
-  border-color: #730800;
 }
 
 th.history-patient-header div {
@@ -88,13 +70,23 @@ body .modal-huge {
 }
 
 .measureUploadSummaryDialog {
-  h5 {
-    margin-bottom: 2px;
+  th { background-color: @gray-lighter; }
+  td.status { font-size: 1.25em; }
+
+  .table-summary {
+    margin: 0 auto 25px;
+
+    th, td {
+      border: 1px @gray-light solid;
+      padding: 5px 20px;
+    }
+    td {
+      border-top-width: 4px;
+      > div { padding-top: 5px; } // measure percentage view
+    }
   }
-  .modal-body {
-    padding-top: 7px;
-  }
-  .vertically-centered {
-    padding-top: 0px;
+
+  .nav-tabs ~ .tab-content {
+    padding-top: 2em; // if tabs are present, add the padding
   }
 }
