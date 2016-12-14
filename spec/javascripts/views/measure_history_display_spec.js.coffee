@@ -1,6 +1,6 @@
 describe 'MeasureHistoryView', ->
   
-  beforeEach ->
+  beforeEach (done) ->
     jasmine.getJSONFixtures().clearCache()
     @mainView = new Thorax.LayoutView(el: '#bonnie')
     @measure = new Thorax.Models.Measure getJSONFixture('measure_data/measure_history_set/version_display/measures.json'), parse: true
@@ -9,9 +9,10 @@ describe 'MeasureHistoryView', ->
     @patients = new Thorax.Collections.Patients()
     @patients.add(new Thorax.Models.Patient patientFixture) for patientFixture in getJSONFixture('records/measure_history_set/patients.json')
     @measure.attributes.upload_summaries = @uploadSummaries
-    
-  it 'Ensure that version is displayed properly', ->
     @measure_history_view = new Thorax.Views.MeasureHistoryView model: @measure, patients: @patients, upload_summaries: @uploadSummaries
     @measure_history_view.render()
+    done()
+    
+  it 'Ensure that version is displayed properly', ->
     expect(@measure_history_view.$('tr[data-upload-id="584187bae76e94d175000227"]')).toContainText "v5.4.000"
     expect(@measure_history_view.$('tr[data-upload-id="5841877ee76e94d175000100"]')).toContainText "v5.3.000"
