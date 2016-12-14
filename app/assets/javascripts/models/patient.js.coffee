@@ -114,9 +114,6 @@ class Thorax.Models.Patient extends Thorax.Model
       defaults = {}
       defaults[section] = [] for section in Thorax.Models.Patient.sections
       @set _(data).chain().pick(_(defaults).keys()).defaults(defaults).value(), silent: true
-      # maybe this error only occurs in unit tests?
-      if @get('source_data_criteria').models.length > data['source_data_criteria'].length
-        debugger
       for criterium, i in @get('source_data_criteria').models
         criterium.set 'coded_entry_id', data['source_data_criteria'][i]['coded_entry_id'], silent: true
         # if we already have codes, then we know we're up to date; no change is necessary
