@@ -1,0 +1,651 @@
+{
+  "_id": "58514364e76e941a3d000341",
+  "bundle_id": "58332803e76e9440ef000005",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "58514364e76e941a3d000342",
+      "black_list": false,
+      "code": "13601005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Paranoid personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000343",
+      "black_list": false,
+      "code": "1376001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Obsessive compulsive personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000344",
+      "black_list": false,
+      "code": "16805009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Cluster A personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000345",
+      "black_list": false,
+      "code": "191753006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Hypomanic personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000346",
+      "black_list": false,
+      "code": "191765005",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Emotionally unstable personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000347",
+      "black_list": false,
+      "code": "191766006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Psychoinfantile personality (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000348",
+      "black_list": false,
+      "code": "191772006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Eccentric personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000349",
+      "black_list": false,
+      "code": "191773001",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Immature personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00034a",
+      "black_list": false,
+      "code": "191774007",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Masochistic personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00034b",
+      "black_list": false,
+      "code": "20010003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Borderline personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00034c",
+      "black_list": false,
+      "code": "231525006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Manipulative personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00034d",
+      "black_list": false,
+      "code": "231527003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Explosive personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00034e",
+      "black_list": false,
+      "code": "26665006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Antisocial personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00034f",
+      "black_list": false,
+      "code": "268633003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Introverted personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000350",
+      "black_list": false,
+      "code": "268634009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Psychoneurotic personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000351",
+      "black_list": false,
+      "code": "301.0",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Paranoid personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000352",
+      "black_list": false,
+      "code": "301.10",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Affective personality disorder, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000353",
+      "black_list": false,
+      "code": "301.11",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Chronic hypomanic personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000354",
+      "black_list": false,
+      "code": "301.12",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Chronic depressive personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000355",
+      "black_list": false,
+      "code": "301.13",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Cyclothymic disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000356",
+      "black_list": false,
+      "code": "301.20",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Schizoid personality disorder, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000357",
+      "black_list": false,
+      "code": "301.21",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Introverted personality",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000358",
+      "black_list": false,
+      "code": "301.22",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Schizotypal personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000359",
+      "black_list": false,
+      "code": "301.3",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Explosive personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00035a",
+      "black_list": false,
+      "code": "301.4",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Obsessive-compulsive personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00035b",
+      "black_list": false,
+      "code": "301.50",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Histrionic personality disorder, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00035c",
+      "black_list": false,
+      "code": "301.51",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Chronic factitious illness with physical symptoms",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00035d",
+      "black_list": false,
+      "code": "301.59",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Other histrionic personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00035e",
+      "black_list": false,
+      "code": "301.6",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Dependent personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00035f",
+      "black_list": false,
+      "code": "301.7",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Antisocial personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000360",
+      "black_list": false,
+      "code": "301.81",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Narcissistic personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000361",
+      "black_list": false,
+      "code": "301.82",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Avoidant personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000362",
+      "black_list": false,
+      "code": "301.83",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Borderline personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000363",
+      "black_list": false,
+      "code": "301.84",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Passive-aggressive personality",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000364",
+      "black_list": false,
+      "code": "301.89",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Other personality disorders",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000365",
+      "black_list": false,
+      "code": "301.9",
+      "code_system": "2.16.840.1.113883.6.103",
+      "code_system_name": "ICD-9-CM",
+      "code_system_version": "2013",
+      "display_name": "Unspecified personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000366",
+      "black_list": false,
+      "code": "31027006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Schizotypal personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000367",
+      "black_list": false,
+      "code": "33449004",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000368",
+      "black_list": false,
+      "code": "37746008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Avoidant personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000369",
+      "black_list": false,
+      "code": "4306003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Cluster B personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00036a",
+      "black_list": false,
+      "code": "442245003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Chronic hypomanic personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00036b",
+      "black_list": false,
+      "code": "44966003",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Passive aggressive personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00036c",
+      "black_list": false,
+      "code": "52954000",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Schizoid personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00036d",
+      "black_list": false,
+      "code": "55341008",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Histrionic personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00036e",
+      "black_list": false,
+      "code": "80711002",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Narcissistic personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00036f",
+      "black_list": false,
+      "code": "83890006",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Cluster C personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000370",
+      "black_list": false,
+      "code": "84466009",
+      "code_system": "2.16.840.1.113883.6.96",
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Dependent personality disorder (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000371",
+      "black_list": false,
+      "code": "F21",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Schizotypal disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000372",
+      "black_list": false,
+      "code": "F34.0",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cyclothymic disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000373",
+      "black_list": false,
+      "code": "F60.0",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Paranoid personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000374",
+      "black_list": false,
+      "code": "F60.1",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Schizoid personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000375",
+      "black_list": false,
+      "code": "F60.2",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Antisocial personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000376",
+      "black_list": false,
+      "code": "F60.3",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Borderline personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000377",
+      "black_list": false,
+      "code": "F60.4",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Histrionic personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000378",
+      "black_list": false,
+      "code": "F60.5",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Obsessive-compulsive personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000379",
+      "black_list": false,
+      "code": "F60.6",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Avoidant personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00037a",
+      "black_list": false,
+      "code": "F60.7",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Dependent personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00037b",
+      "black_list": false,
+      "code": "F60.81",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Narcissistic personality disorder",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00037c",
+      "black_list": false,
+      "code": "F60.89",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Other specific personality disorders",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00037d",
+      "black_list": false,
+      "code": "F60.9",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Personality disorder, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00037e",
+      "black_list": false,
+      "code": "F68.10",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Factitious disorder, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d00037f",
+      "black_list": false,
+      "code": "F68.11",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Factitious disorder with predominantly psychological signs and symptoms",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000380",
+      "black_list": false,
+      "code": "F68.12",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Factitious disorder with predominantly physical signs and symptoms",
+      "white_list": false
+    },
+    {
+      "_id": "58514364e76e941a3d000381",
+      "black_list": false,
+      "code": "F68.13",
+      "code_system": "2.16.840.1.113883.6.90",
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Factitious disorder with combined psychological and physical signs and symptoms",
+      "white_list": false
+    }
+  ],
+  "display_name": "Personality Disorder",
+  "oid": "2.16.840.1.113883.3.67.1.101.1.246",
+  "user_id": "58332803e76e9440ef000004",
+  "version": "Draft"
+}
