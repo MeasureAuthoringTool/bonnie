@@ -10,8 +10,10 @@ describe 'MeasureHistoryView', ->
     @patients.add(new Thorax.Models.Patient patientFixture) for patientFixture in getJSONFixture('records/measure_history_set/patients.json')
     @measure.attributes.upload_summaries = @uploadSummaries
     @measure_history_view = new Thorax.Views.MeasureHistoryView model: @measure, patients: @patients, upload_summaries: @uploadSummaries
+    @measure_history_view.on "rendered", ->
+      debugger
+      done()
     @measure_history_view.render()
-    done()
     
   it 'Ensure that version is displayed properly', ->
     expect(@measure_history_view.$('tr[data-upload-id="584187bae76e94d175000227"]')).toContainText "v5.4.000"
