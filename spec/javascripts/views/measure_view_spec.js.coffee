@@ -82,7 +82,6 @@ describe 'MeasureView', ->
   describe 'Computing Coverage', ->
     beforeEach (done) ->
       result = @measure.get('populations').at(0).calculate(@patient)
-      result.callingTest = this
       waitsForAndRuns( -> result.isPopulated()
         ,
         ->
