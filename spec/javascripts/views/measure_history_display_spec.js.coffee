@@ -15,6 +15,7 @@ describe 'MeasureHistoryView', ->
     @measure_history_view.render()
     
   it 'Ensure that version is displayed properly', ->
+    debugger
     expect(@uploadSummaries.length).toEqual 2
-    expect(@measure_history_view.$('tr[data-upload-id="584187bae76e94d175000227"]')).toContainText "v5.4.000"
-    expect(@measure_history_view.$('tr[data-upload-id="5841877ee76e94d175000100"]')).toContainText "v5.3.000"
+    expect(@measure_history_view.$('tr[data-upload-id="584187bae76e94d175000227"]')[0]).toContainText "v5.4.000"
+    expect(@measure_history_view.$('tr[data-upload-id="584187bae76e94d175000227"]')[1]).toContainText "v5.3.000"
