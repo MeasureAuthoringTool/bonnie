@@ -64,6 +64,8 @@ describe "Population state between routes", ->
 
     @patientBuilder.remove()
 
+# temporarily disabled until we figure how to reset the URL
+# see https://jira.mitre.org/browse/BONNIE-318
   xit "resets when user goes to measures route", ->
     @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
     @measureView = @measureView.showMeasure()
