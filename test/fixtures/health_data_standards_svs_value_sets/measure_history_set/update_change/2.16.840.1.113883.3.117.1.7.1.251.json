@@ -1,0 +1,911 @@
+{
+  "_id": "5852fa6ce76e94e528002026",
+  "bundle_id": "58418762e76e94d175000001",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "5852fa6ce76e94e528001fb1",
+      "black_list": false,
+      "code": "I63.019",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of unspecified vertebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fb2",
+      "black_list": false,
+      "code": "I63.039",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of unspecified carotid artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fb3",
+      "black_list": false,
+      "code": "I63.00",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of unspecified precerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fb4",
+      "black_list": false,
+      "code": "I63.09",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of other precerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fb5",
+      "black_list": false,
+      "code": "I63.02",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of basilar artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fb6",
+      "black_list": false,
+      "code": "I63.6",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to cerebral venous thrombosis, nonpyogenic",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fb7",
+      "black_list": false,
+      "code": "I63.8",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Other cerebral infarction",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fb8",
+      "black_list": false,
+      "code": "I63.011",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of right vertebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fb9",
+      "black_list": false,
+      "code": "I63.9",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction, unspecified",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fba",
+      "black_list": false,
+      "code": "I63.012",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of left vertebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fbb",
+      "black_list": false,
+      "code": "I63.10",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of unspecified precerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fbc",
+      "black_list": false,
+      "code": "I63.12",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of basilar artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fbd",
+      "black_list": false,
+      "code": "I63.19",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of other precerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fbe",
+      "black_list": false,
+      "code": "I63.20",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified precerebral arteries",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fbf",
+      "black_list": false,
+      "code": "I63.22",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of basilar arteries",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fc0",
+      "black_list": false,
+      "code": "I63.031",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of right carotid artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fc1",
+      "black_list": false,
+      "code": "I63.032",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of left carotid artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fc2",
+      "black_list": false,
+      "code": "I63.29",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of other precerebral arteries",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fc3",
+      "black_list": false,
+      "code": "I63.30",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of unspecified cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fc4",
+      "black_list": false,
+      "code": "I63.39",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of other cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fc5",
+      "black_list": false,
+      "code": "I63.40",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of unspecified cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fc6",
+      "black_list": false,
+      "code": "I63.49",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of other cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fc7",
+      "black_list": false,
+      "code": "I63.50",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fc8",
+      "black_list": false,
+      "code": "I63.59",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of other cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fc9",
+      "black_list": false,
+      "code": "I63.111",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of right vertebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fca",
+      "black_list": false,
+      "code": "I63.112",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of left vertebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fcb",
+      "black_list": false,
+      "code": "I63.119",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of unspecified vertebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fcc",
+      "black_list": false,
+      "code": "I63.131",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of right carotid artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fcd",
+      "black_list": false,
+      "code": "I63.132",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of left carotid artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fce",
+      "black_list": false,
+      "code": "I63.139",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of unspecified carotid artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fcf",
+      "black_list": false,
+      "code": "I63.211",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of right vertebral arteries",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fd0",
+      "black_list": false,
+      "code": "I63.212",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of left vertebral arteries",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fd1",
+      "black_list": false,
+      "code": "I63.219",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified vertebral arteries",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fd2",
+      "black_list": false,
+      "code": "I63.231",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of right carotid arteries",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fd3",
+      "black_list": false,
+      "code": "I63.232",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of left carotid arteries",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fd4",
+      "black_list": false,
+      "code": "I63.239",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified carotid arteries",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fd5",
+      "black_list": false,
+      "code": "I63.311",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of right middle cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fd6",
+      "black_list": false,
+      "code": "I63.312",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of left middle cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fd7",
+      "black_list": false,
+      "code": "I63.319",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of unspecified middle cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fd8",
+      "black_list": false,
+      "code": "I63.321",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of right anterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fd9",
+      "black_list": false,
+      "code": "I63.322",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of left anterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fda",
+      "black_list": false,
+      "code": "I63.329",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of unspecified anterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fdb",
+      "black_list": false,
+      "code": "I63.331",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of right posterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fdc",
+      "black_list": false,
+      "code": "I63.332",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of left posterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fdd",
+      "black_list": false,
+      "code": "I63.339",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of unspecified posterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fde",
+      "black_list": false,
+      "code": "I63.341",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of right cerebellar artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fdf",
+      "black_list": false,
+      "code": "I63.342",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of left cerebellar artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fe0",
+      "black_list": false,
+      "code": "I63.349",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to thrombosis of unspecified cerebellar artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fe1",
+      "black_list": false,
+      "code": "I63.411",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of right middle cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fe2",
+      "black_list": false,
+      "code": "I63.412",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of left middle cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fe3",
+      "black_list": false,
+      "code": "I63.419",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of unspecified middle cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fe4",
+      "black_list": false,
+      "code": "I63.421",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of right anterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fe5",
+      "black_list": false,
+      "code": "I63.422",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of left anterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fe6",
+      "black_list": false,
+      "code": "I63.429",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of unspecified anterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fe7",
+      "black_list": false,
+      "code": "I63.431",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of right posterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fe8",
+      "black_list": false,
+      "code": "I63.432",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of left posterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fe9",
+      "black_list": false,
+      "code": "I63.439",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of unspecified posterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fea",
+      "black_list": false,
+      "code": "I63.441",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of right cerebellar artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001feb",
+      "black_list": false,
+      "code": "I63.442",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of left cerebellar artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fec",
+      "black_list": false,
+      "code": "I63.449",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to embolism of unspecified cerebellar artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fed",
+      "black_list": false,
+      "code": "I63.511",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of right middle cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fee",
+      "black_list": false,
+      "code": "I63.512",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of left middle cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fef",
+      "black_list": false,
+      "code": "I63.519",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified middle cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ff0",
+      "black_list": false,
+      "code": "I63.521",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of right anterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ff1",
+      "black_list": false,
+      "code": "I63.522",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of left anterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ff2",
+      "black_list": false,
+      "code": "I63.529",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified anterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ff3",
+      "black_list": false,
+      "code": "I63.531",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of right posterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ff4",
+      "black_list": false,
+      "code": "I63.532",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of left posterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ff5",
+      "black_list": false,
+      "code": "I63.539",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified posterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ff6",
+      "black_list": false,
+      "code": "I63.541",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of right cerebellar artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ff7",
+      "black_list": false,
+      "code": "I63.542",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of left cerebellar artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ff8",
+      "black_list": false,
+      "code": "I63.549",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Cerebral infarction due to unspecified occlusion or stenosis of unspecified cerebellar artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ff9",
+      "black_list": false,
+      "code": "I65.21",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of right carotid artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ffa",
+      "black_list": false,
+      "code": "I65.22",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of left carotid artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ffb",
+      "black_list": false,
+      "code": "I65.23",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of bilateral carotid arteries",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ffc",
+      "black_list": false,
+      "code": "I65.29",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of unspecified carotid artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ffd",
+      "black_list": false,
+      "code": "I66.09",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of unspecified middle cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001ffe",
+      "black_list": false,
+      "code": "I66.01",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of right middle cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528001fff",
+      "black_list": false,
+      "code": "I66.02",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of left middle cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528002000",
+      "black_list": false,
+      "code": "I66.03",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of bilateral middle cerebral arteries",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528002001",
+      "black_list": false,
+      "code": "I66.3",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of cerebellar arteries",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528002002",
+      "black_list": false,
+      "code": "I66.11",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of right anterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528002003",
+      "black_list": false,
+      "code": "I66.12",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of left anterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528002004",
+      "black_list": false,
+      "code": "I66.13",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of bilateral anterior cerebral arteries",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528002005",
+      "black_list": false,
+      "code": "I66.19",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of unspecified anterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528002006",
+      "black_list": false,
+      "code": "I66.21",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of right posterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528002007",
+      "black_list": false,
+      "code": "I66.22",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of left posterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528002008",
+      "black_list": false,
+      "code": "I66.23",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of bilateral posterior cerebral arteries",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e528002009",
+      "black_list": false,
+      "code": "I66.29",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Occlusion and stenosis of unspecified posterior cerebral artery",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6ce76e94e52800200a",
+      "black_list": false,
+      "code": "I67.89",
+      "code_system": null,
+      "code_system_name": "ICD-10-CM",
+      "code_system_version": "2016",
+      "display_name": "Other cerebrovascular disease",
+      "white_list": false
+    }
+  ],
+  "display_name": "Ischemic Stroke Icd10 Cm",
+  "oid": "2.16.840.1.113883.3.117.1.7.1.251",
+  "user_id": "58418762e76e94d175000000",
+  "version": "2016"
+}
