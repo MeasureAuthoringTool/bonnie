@@ -1,0 +1,1709 @@
+{
+  "_id": "584187b9e76e94d175000224",
+  "bundle_id": "58418762e76e94d175000001",
+  "category": null,
+  "cms_id": "CMS62v5",
+  "complexity": {
+    "populations": [
+      {
+        "name": "IPP",
+        "complexity": 2
+      },
+      {
+        "name": "DENOM",
+        "complexity": 1
+      },
+      {
+        "name": "NUMER",
+        "complexity": 1
+      }
+    ],
+    "variables": [
+      {
+        "name": "HIVvisit",
+        "complexity": 7
+      }
+    ]
+  },
+  "continuous_variable": false,
+  "created_at": "2016-12-02T14:39:53.944Z",
+  "custom_functions": null,
+  "data_criteria": {
+    "Face_to_FaceInteraction_EncounterPerformed_07fd64ef_a2dc_4ded_ad99_f186bc721e60": {
+      "title": "Face-to-Face Interaction",
+      "description": "Encounter, Performed: Face-to-Face Interaction",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Face_to_FaceInteraction_EncounterPerformed_07fd64ef_a2dc_4ded_ad99_f186bc721e60_source",
+      "variable": false,
+      "key": "Face_to_FaceInteraction_EncounterPerformed_07fd64ef_a2dc_4ded_ad99_f186bc721e60",
+      "references": null,
+      "field_values": null
+    },
+    "OfficeVisit_EncounterPerformed_83cc4fae_99ad_4f0f_8f20_f7b10191c4c3": {
+      "title": "Office Visit",
+      "description": "Encounter, Performed: Office Visit",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "OfficeVisit_EncounterPerformed_83cc4fae_99ad_4f0f_8f20_f7b10191c4c3_source",
+      "variable": false,
+      "key": "OfficeVisit_EncounterPerformed_83cc4fae_99ad_4f0f_8f20_f7b10191c4c3",
+      "references": null,
+      "field_values": null
+    },
+    "OutpatientConsultation_EncounterPerformed_ed1807c1_ce84_4d6f_b355_594bdce0f525": {
+      "title": "Outpatient Consultation",
+      "description": "Encounter, Performed: Outpatient Consultation",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1008",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "OutpatientConsultation_EncounterPerformed_ed1807c1_ce84_4d6f_b355_594bdce0f525_source",
+      "variable": false,
+      "key": "OutpatientConsultation_EncounterPerformed_ed1807c1_ce84_4d6f_b355_594bdce0f525",
+      "references": null,
+      "field_values": null
+    },
+    "PreventiveCare_EstablishedOfficeVisit0to17_EncounterPerformed_5c89453d_4495_4ab8_a969_7c8d958976b1": {
+      "title": "Preventive Care - Established Office Visit, 0 to 17",
+      "description": "Encounter, Performed: Preventive Care - Established Office Visit, 0 to 17",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1024",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PreventiveCare_EstablishedOfficeVisit0to17_EncounterPerformed_5c89453d_4495_4ab8_a969_7c8d958976b1_source",
+      "variable": false,
+      "key": "PreventiveCare_EstablishedOfficeVisit0to17_EncounterPerformed_5c89453d_4495_4ab8_a969_7c8d958976b1",
+      "references": null,
+      "field_values": null
+    },
+    "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_b6541fba_ac69_4fc0_a5b4_59fa60a16198": {
+      "title": "Preventive Care Services - Established Office Visit, 18 and Up",
+      "description": "Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1025",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_b6541fba_ac69_4fc0_a5b4_59fa60a16198_source",
+      "variable": false,
+      "key": "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_b6541fba_ac69_4fc0_a5b4_59fa60a16198",
+      "references": null,
+      "field_values": null
+    },
+    "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_582e9238_7793_43ea_9157_58447bf0e927": {
+      "title": "Preventive Care Services-Initial Office Visit, 18 and Up",
+      "description": "Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1023",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_582e9238_7793_43ea_9157_58447bf0e927_source",
+      "variable": false,
+      "key": "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_582e9238_7793_43ea_9157_58447bf0e927",
+      "references": null,
+      "field_values": null
+    },
+    "PreventiveCare_InitialOfficeVisit0to17_EncounterPerformed_de693d1f_2e6b_4047_98c5_1c476104560f": {
+      "title": "Preventive Care- Initial Office Visit, 0 to 17",
+      "description": "Encounter, Performed: Preventive Care- Initial Office Visit, 0 to 17",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1022",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PreventiveCare_InitialOfficeVisit0to17_EncounterPerformed_de693d1f_2e6b_4047_98c5_1c476104560f_source",
+      "variable": false,
+      "key": "PreventiveCare_InitialOfficeVisit0to17_EncounterPerformed_de693d1f_2e6b_4047_98c5_1c476104560f",
+      "references": null,
+      "field_values": null
+    },
+    "Ethnicity_PatientCharacteristicEthnicity_40280381_3e93_d1af_013f_3f5c54c40357": {
+      "title": "Ethnicity",
+      "description": "Patient Characteristic Ethnicity: Ethnicity",
+      "code_list_id": "2.16.840.1.114222.4.11.837",
+      "property": "ethnicity",
+      "type": "characteristic",
+      "definition": "patient_characteristic_ethnicity",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_40280381_3e93_d1af_013f_3f5c54c40357_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "2135-2",
+          "2186-5"
+        ]
+      },
+      "key": "Ethnicity_PatientCharacteristicEthnicity_40280381_3e93_d1af_013f_3f5c54c40357"
+    },
+    "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3e93_d1af_013f_3f5c54c40355": {
+      "title": "ONC Administrative Sex",
+      "description": "Patient Characteristic Sex: ONC Administrative Sex",
+      "code_list_id": "2.16.840.1.113762.1.4.1",
+      "property": "gender",
+      "type": "characteristic",
+      "definition": "patient_characteristic_gender",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3e93_d1af_013f_3f5c54c40355_source",
+      "variable": false,
+      "value": {
+        "type": "CD",
+        "system": "Administrative Sex",
+        "code": "F"
+      },
+      "key": "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3e93_d1af_013f_3f5c54c40355"
+    },
+    "Payer_PatientCharacteristicPayer_40280381_3e93_d1af_013f_3f5c54c40358": {
+      "title": "Payer",
+      "description": "Patient Characteristic Payer: Payer",
+      "code_list_id": "2.16.840.1.114222.4.11.3591",
+      "property": "payer",
+      "type": "characteristic",
+      "definition": "patient_characteristic_payer",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Payer_PatientCharacteristicPayer_40280381_3e93_d1af_013f_3f5c54c40358_source",
+      "variable": false,
+      "inline_code_list": {
+        "Source of Payment Typology": [
+          "1",
+          "11",
+          "111",
+          "112",
+          "113",
+          "119",
+          "12",
+          "121",
+          "122",
+          "123",
+          "129",
+          "19",
+          "2",
+          "21",
+          "211",
+          "212",
+          "213",
+          "219",
+          "22",
+          "23",
+          "24",
+          "25",
+          "29",
+          "3",
+          "31",
+          "311",
+          "3111",
+          "3112",
+          "3113",
+          "3114",
+          "3115",
+          "3116",
+          "3119",
+          "312",
+          "3121",
+          "3122",
+          "3123",
+          "313",
+          "32",
+          "321",
+          "3211",
+          "3212",
+          "32121",
+          "32122",
+          "32123",
+          "32124",
+          "32125",
+          "32126",
+          "322",
+          "3221",
+          "3222",
+          "3223",
+          "3229",
+          "33",
+          "331",
+          "332",
+          "333",
+          "334",
+          "34",
+          "341",
+          "342",
+          "343",
+          "349",
+          "35",
+          "36",
+          "361",
+          "362",
+          "369",
+          "37",
+          "371",
+          "3711",
+          "3712",
+          "3713",
+          "372",
+          "379",
+          "38",
+          "381",
+          "3811",
+          "3812",
+          "3813",
+          "3819",
+          "382",
+          "389",
+          "39",
+          "4",
+          "41",
+          "42",
+          "43",
+          "44",
+          "5",
+          "51",
+          "511",
+          "512",
+          "513",
+          "514",
+          "515",
+          "519",
+          "52",
+          "521",
+          "522",
+          "523",
+          "529",
+          "53",
+          "54",
+          "55",
+          "59",
+          "6",
+          "61",
+          "611",
+          "612",
+          "613",
+          "619",
+          "62",
+          "63",
+          "64",
+          "69",
+          "7",
+          "71",
+          "72",
+          "73",
+          "79",
+          "8",
+          "81",
+          "82",
+          "821",
+          "822",
+          "823",
+          "83",
+          "84",
+          "85",
+          "89",
+          "9",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "951",
+          "953",
+          "954",
+          "959",
+          "96",
+          "98",
+          "99",
+          "9999"
+        ]
+      },
+      "key": "Payer_PatientCharacteristicPayer_40280381_3e93_d1af_013f_3f5c54c40358"
+    },
+    "Race_PatientCharacteristicRace_40280381_3e93_d1af_013f_3f5c54c40356": {
+      "title": "Race",
+      "description": "Patient Characteristic Race: Race",
+      "code_list_id": "2.16.840.1.114222.4.11.836",
+      "property": "race",
+      "type": "characteristic",
+      "definition": "patient_characteristic_race",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Race_PatientCharacteristicRace_40280381_3e93_d1af_013f_3f5c54c40356_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "1002-5",
+          "2028-9",
+          "2054-5",
+          "2076-8",
+          "2106-3",
+          "2131-1"
+        ]
+      },
+      "key": "Race_PatientCharacteristicRace_40280381_3e93_d1af_013f_3f5c54c40356"
+    },
+    "qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05": {
+      "title": "HIVvisit",
+      "description": "HIVvisit",
+      "children_criteria": [
+        "GROUP_qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05",
+      "variable": true,
+      "key": "qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05",
+      "references": null,
+      "field_values": null
+    },
+    "GROUP_qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05": {
+      "title": "HIVvisit",
+      "description": "HIVvisit",
+      "children_criteria": [
+        "OfficeVisit_EncounterPerformed_83cc4fae_99ad_4f0f_8f20_f7b10191c4c3",
+        "Face_to_FaceInteraction_EncounterPerformed_07fd64ef_a2dc_4ded_ad99_f186bc721e60",
+        "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_b6541fba_ac69_4fc0_a5b4_59fa60a16198",
+        "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_582e9238_7793_43ea_9157_58447bf0e927",
+        "PreventiveCare_EstablishedOfficeVisit0to17_EncounterPerformed_5c89453d_4495_4ab8_a969_7c8d958976b1",
+        "PreventiveCare_InitialOfficeVisit0to17_EncounterPerformed_de693d1f_2e6b_4047_98c5_1c476104560f",
+        "OutpatientConsultation_EncounterPerformed_ed1807c1_ce84_4d6f_b355_594bdce0f525"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "GROUP_qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05",
+      "variable": false,
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ],
+      "key": "GROUP_qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05",
+      "references": null,
+      "field_values": null
+    },
+    "grtr_thn_eql_90daysStartsAfterEndOf_4FCE628B_CF23_4176_A023_D256AC2655FC_543CF269_A00E_4C8F_9224_777F3EB20C6E": {
+      "title": "HIVvisit",
+      "description": "HIVvisit",
+      "children_criteria": [
+        "GROUP_qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05",
+      "variable": true,
+      "temporal_references": [
+        {
+          "type": "SAE",
+          "reference": "qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05",
+          "range": {
+            "type": "IVL_PQ",
+            "low": {
+              "type": "PQ",
+              "unit": "d",
+              "value": "90",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ],
+      "key": "grtr_thn_eql_90daysStartsAfterEndOf_4FCE628B_CF23_4176_A023_D256AC2655FC_543CF269_A00E_4C8F_9224_777F3EB20C6E",
+      "references": null,
+      "field_values": null
+    },
+    "StartsBeforeEndOf_2AF1EA50_2CE3_4FCE_85A4_76AF224E2CAA_4DD40E31_58F1_4C4C_A684_06E7B222BF43": {
+      "title": "HIV 1",
+      "description": "Diagnosis: HIV 1",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.120.12.1004",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "StartsBeforeEndOf_2AF1EA50_2CE3_4FCE_85A4_76AF224E2CAA_4DD40E31_58F1_4C4C_A684_06E7B222BF43_source",
+      "variable": false,
+      "temporal_references": [
+        {
+          "type": "SBE",
+          "reference": "MeasurePeriod"
+        }
+      ],
+      "key": "StartsBeforeEndOf_2AF1EA50_2CE3_4FCE_85A4_76AF224E2CAA_4DD40E31_58F1_4C4C_A684_06E7B222BF43",
+      "references": null,
+      "field_values": null
+    }
+  },
+  "description": "Percentage of patients, regardless of age, with a diagnosis of HIV/AIDS with at least two medical visits during the measurement year with a minimum of 90 days between each visit",
+  "episode_ids": null,
+  "episode_of_care": false,
+  "force_sources": null,
+  "hqmf_id": "40280381-52FC-3A32-0153-1F32B1690EDE",
+  "hqmf_set_id": "F70B2984-AF4A-4072-AE0D-CEC677A7FF8F",
+  "hqmf_version_number": "5.4.000",
+  "id": "584187b9e76e94d175000224",
+  "measure_id": null,
+  "measure_logic": [
+    {
+      "code": "IPP",
+      "lines": [
+        "\nInitial Patient Population\n",
+        "\tAND: ",
+        "$HIVvisit\n",
+        "\tAND: ",
+        "Diagnosis: HIV 1",
+        " starts before end of \"Measurement Period\"\n"
+      ]
+    },
+    {
+      "code": "DENOM",
+      "lines": [
+        "\nDenominator\n",
+        "\tNone\n"
+      ]
+    },
+    {
+      "code": "NUMER",
+      "lines": [
+        "\nNumerator\n",
+        "\tAND: ",
+        "$HIVvisit",
+        " >= 90 days starts after end of $HIVvisit\n"
+      ]
+    },
+    {
+      "code": "VARIABLES",
+      "lines": [
+        "\nVariables\n",
+        "\t$HIVvisit = \n",
+        "\t\t\n\t\t\t\tUnion of:",
+        "\t\t\t\t\t\t\t\tEncounter, Performed: Office Visit\n",
+        "\t\t\t\t\t\t\t\tEncounter, Performed: Face-to-Face Interaction\n",
+        "\t\t\t\t\t\t\t\tEncounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up\n",
+        "\t\t\t\t\t\t\t\tEncounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up\n",
+        "\t\t\t\t\t\t\t\tEncounter, Performed: Preventive Care - Established Office Visit, 0 to 17\n",
+        "\t\t\t\t\t\t\t\tEncounter, Performed: Preventive Care- Initial Office Visit, 0 to 17\n",
+        "\t\t\t\t\t\t\t\tEncounter, Performed: Outpatient Consultation\n",
+        "\t\t\t\t\t\t during \"Measurement Period\"\n"
+      ]
+    }
+  ],
+  "measure_period": {
+    "type": "IVL_TS",
+    "low": {
+      "type": "TS",
+      "value": "201201010000",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "high": {
+      "type": "TS",
+      "value": "201212312359",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "width": {
+      "type": "PQ",
+      "unit": "a",
+      "value": "1",
+      "inclusive?": true,
+      "derived?": false
+    }
+  },
+  "needs_finalize": false,
+  "population_criteria": {
+    "IPP": {
+      "conjunction?": true,
+      "type": "IPP",
+      "title": "Initial Population",
+      "hqmf_id": "C0356BFA-9EF0-4C9B-AAD3-9E9474217B7A",
+      "preconditions": [
+        {
+          "id": 3,
+          "preconditions": [
+            {
+              "id": 1,
+              "reference": "qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05"
+            },
+            {
+              "id": 2,
+              "reference": "StartsBeforeEndOf_2AF1EA50_2CE3_4FCE_85A4_76AF224E2CAA_4DD40E31_58F1_4C4C_A684_06E7B222BF43"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "DENOM": {
+      "conjunction?": true,
+      "type": "DENOM",
+      "title": "Denominator",
+      "hqmf_id": "8BC327E0-F6D9-44B4-9521-6A073E2279D5"
+    },
+    "NUMER": {
+      "conjunction?": true,
+      "type": "NUMER",
+      "title": "Numerator",
+      "hqmf_id": "89CC1E81-0DFC-459B-9057-28DEE16A60E5",
+      "preconditions": [
+        {
+          "id": 5,
+          "preconditions": [
+            {
+              "id": 4,
+              "reference": "grtr_thn_eql_90daysStartsAfterEndOf_4FCE628B_CF23_4176_A023_D256AC2655FC_543CF269_A00E_4C8F_9224_777F3EB20C6E"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    }
+  },
+  "populations": [
+    {
+      "IPP": {
+        "code": "IPP",
+        "conjunction?": true,
+        "type": "IPP",
+        "title": "Initial Population",
+        "hqmf_id": "C0356BFA-9EF0-4C9B-AAD3-9E9474217B7A",
+        "preconditions": [
+          {
+            "id": 3,
+            "preconditions": [
+              {
+                "id": 1,
+                "reference": "qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05"
+              },
+              {
+                "id": 2,
+                "reference": "StartsBeforeEndOf_2AF1EA50_2CE3_4FCE_85A4_76AF224E2CAA_4DD40E31_58F1_4C4C_A684_06E7B222BF43"
+              }
+            ],
+            "conjunction_code": "allTrue"
+          }
+        ]
+      },
+      "DENOM": {
+        "code": "DENOM",
+        "conjunction?": true,
+        "type": "DENOM",
+        "title": "Denominator",
+        "hqmf_id": "8BC327E0-F6D9-44B4-9521-6A073E2279D5"
+      },
+      "NUMER": {
+        "code": "NUMER",
+        "conjunction?": true,
+        "type": "NUMER",
+        "title": "Numerator",
+        "hqmf_id": "89CC1E81-0DFC-459B-9057-28DEE16A60E5",
+        "preconditions": [
+          {
+            "id": 5,
+            "preconditions": [
+              {
+                "id": 4,
+                "reference": "grtr_thn_eql_90daysStartsAfterEndOf_4FCE628B_CF23_4176_A023_D256AC2655FC_543CF269_A00E_4C8F_9224_777F3EB20C6E"
+              }
+            ],
+            "conjunction_code": "allTrue"
+          }
+        ]
+      },
+      "title": "Population Criteria Section",
+      "sub_id": "a",
+      "index": 0
+    }
+  ],
+  "preconditions": null,
+  "publish_date": null,
+  "published": null,
+  "source_data_criteria": [
+    {
+      "title": "Face-to-Face Interaction",
+      "description": "Encounter, Performed: Face-to-Face Interaction",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Face_to_FaceInteraction_EncounterPerformed_07fd64ef_a2dc_4ded_ad99_f186bc721e60_source",
+      "variable": false
+    },
+    {
+      "title": "Office Visit",
+      "description": "Encounter, Performed: Office Visit",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "OfficeVisit_EncounterPerformed_83cc4fae_99ad_4f0f_8f20_f7b10191c4c3_source",
+      "variable": false
+    },
+    {
+      "title": "Outpatient Consultation",
+      "description": "Encounter, Performed: Outpatient Consultation",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1008",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "OutpatientConsultation_EncounterPerformed_ed1807c1_ce84_4d6f_b355_594bdce0f525_source",
+      "variable": false
+    },
+    {
+      "title": "Preventive Care - Established Office Visit, 0 to 17",
+      "description": "Encounter, Performed: Preventive Care - Established Office Visit, 0 to 17",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1024",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PreventiveCare_EstablishedOfficeVisit0to17_EncounterPerformed_5c89453d_4495_4ab8_a969_7c8d958976b1_source",
+      "variable": false
+    },
+    {
+      "title": "Preventive Care Services - Established Office Visit, 18 and Up",
+      "description": "Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1025",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_b6541fba_ac69_4fc0_a5b4_59fa60a16198_source",
+      "variable": false
+    },
+    {
+      "title": "Preventive Care Services-Initial Office Visit, 18 and Up",
+      "description": "Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1023",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_582e9238_7793_43ea_9157_58447bf0e927_source",
+      "variable": false
+    },
+    {
+      "title": "Preventive Care- Initial Office Visit, 0 to 17",
+      "description": "Encounter, Performed: Preventive Care- Initial Office Visit, 0 to 17",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1022",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "PreventiveCare_InitialOfficeVisit0to17_EncounterPerformed_de693d1f_2e6b_4047_98c5_1c476104560f_source",
+      "variable": false
+    },
+    {
+      "title": "Ethnicity",
+      "description": "Patient Characteristic Ethnicity: Ethnicity",
+      "code_list_id": "2.16.840.1.114222.4.11.837",
+      "property": "ethnicity",
+      "type": "characteristic",
+      "definition": "patient_characteristic_ethnicity",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_40280381_3e93_d1af_013f_3f5c54c40357_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "2135-2",
+          "2186-5"
+        ]
+      }
+    },
+    {
+      "title": "ONC Administrative Sex",
+      "description": "Patient Characteristic Sex: ONC Administrative Sex",
+      "code_list_id": "2.16.840.1.113762.1.4.1",
+      "property": "gender",
+      "type": "characteristic",
+      "definition": "patient_characteristic_gender",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3e93_d1af_013f_3f5c54c40355_source",
+      "variable": false,
+      "value": {
+        "type": "CD",
+        "system": "Administrative Sex",
+        "code": "F"
+      }
+    },
+    {
+      "title": "Payer",
+      "description": "Patient Characteristic Payer: Payer",
+      "code_list_id": "2.16.840.1.114222.4.11.3591",
+      "property": "payer",
+      "type": "characteristic",
+      "definition": "patient_characteristic_payer",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Payer_PatientCharacteristicPayer_40280381_3e93_d1af_013f_3f5c54c40358_source",
+      "variable": false,
+      "inline_code_list": {
+        "Source of Payment Typology": [
+          "1",
+          "11",
+          "111",
+          "112",
+          "113",
+          "119",
+          "12",
+          "121",
+          "122",
+          "123",
+          "129",
+          "19",
+          "2",
+          "21",
+          "211",
+          "212",
+          "213",
+          "219",
+          "22",
+          "23",
+          "24",
+          "25",
+          "29",
+          "3",
+          "31",
+          "311",
+          "3111",
+          "3112",
+          "3113",
+          "3114",
+          "3115",
+          "3116",
+          "3119",
+          "312",
+          "3121",
+          "3122",
+          "3123",
+          "313",
+          "32",
+          "321",
+          "3211",
+          "3212",
+          "32121",
+          "32122",
+          "32123",
+          "32124",
+          "32125",
+          "32126",
+          "322",
+          "3221",
+          "3222",
+          "3223",
+          "3229",
+          "33",
+          "331",
+          "332",
+          "333",
+          "334",
+          "34",
+          "341",
+          "342",
+          "343",
+          "349",
+          "35",
+          "36",
+          "361",
+          "362",
+          "369",
+          "37",
+          "371",
+          "3711",
+          "3712",
+          "3713",
+          "372",
+          "379",
+          "38",
+          "381",
+          "3811",
+          "3812",
+          "3813",
+          "3819",
+          "382",
+          "389",
+          "39",
+          "4",
+          "41",
+          "42",
+          "43",
+          "44",
+          "5",
+          "51",
+          "511",
+          "512",
+          "513",
+          "514",
+          "515",
+          "519",
+          "52",
+          "521",
+          "522",
+          "523",
+          "529",
+          "53",
+          "54",
+          "55",
+          "59",
+          "6",
+          "61",
+          "611",
+          "612",
+          "613",
+          "619",
+          "62",
+          "63",
+          "64",
+          "69",
+          "7",
+          "71",
+          "72",
+          "73",
+          "79",
+          "8",
+          "81",
+          "82",
+          "821",
+          "822",
+          "823",
+          "83",
+          "84",
+          "85",
+          "89",
+          "9",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "951",
+          "953",
+          "954",
+          "959",
+          "96",
+          "98",
+          "99",
+          "9999"
+        ]
+      }
+    },
+    {
+      "title": "Race",
+      "description": "Patient Characteristic Race: Race",
+      "code_list_id": "2.16.840.1.114222.4.11.836",
+      "property": "race",
+      "type": "characteristic",
+      "definition": "patient_characteristic_race",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Race_PatientCharacteristicRace_40280381_3e93_d1af_013f_3f5c54c40356_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "1002-5",
+          "2028-9",
+          "2054-5",
+          "2076-8",
+          "2106-3",
+          "2131-1"
+        ]
+      }
+    },
+    {
+      "title": "HIV 1",
+      "description": "Diagnosis: HIV 1",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.120.12.1004",
+      "type": "conditions",
+      "definition": "diagnosis",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "StartsBeforeEndOf_2AF1EA50_2CE3_4FCE_85A4_76AF224E2CAA_4DD40E31_58F1_4C4C_A684_06E7B222BF43_source",
+      "variable": false
+    },
+    {
+      "title": "HIVvisit",
+      "description": "HIVvisit",
+      "children_criteria": [
+        "GROUP_qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05"
+      ],
+      "derivation_operator": "UNION",
+      "type": "derived",
+      "definition": "derived",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05",
+      "variable": true
+    }
+  ],
+  "title": "HIV/AIDS: Medical Visit",
+  "type": "ep",
+  "updated_at": "2016-12-02T14:39:54.028Z",
+  "user_id": "58418762e76e94d175000000",
+  "value_set_oids": [
+    "2.16.840.1.113883.3.464.1003.101.12.1048",
+    "2.16.840.1.113883.3.464.1003.101.12.1001",
+    "2.16.840.1.113883.3.464.1003.101.12.1008",
+    "2.16.840.1.113883.3.464.1003.101.12.1024",
+    "2.16.840.1.113883.3.464.1003.101.12.1025",
+    "2.16.840.1.113883.3.464.1003.101.12.1023",
+    "2.16.840.1.113883.3.464.1003.101.12.1022",
+    "2.16.840.1.114222.4.11.837",
+    "2.16.840.1.113762.1.4.1",
+    "2.16.840.1.114222.4.11.3591",
+    "2.16.840.1.114222.4.11.836",
+    "2.16.840.1.113883.3.464.1003.120.12.1004"
+  ],
+  "version": null,
+  "displayedPopulation": {
+    "IPP": {
+      "code": "IPP",
+      "conjunction?": true,
+      "type": "IPP",
+      "title": "Initial Population",
+      "hqmf_id": "C0356BFA-9EF0-4C9B-AAD3-9E9474217B7A",
+      "preconditions": [
+        {
+          "id": 3,
+          "preconditions": [
+            {
+              "id": 1,
+              "reference": "qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05"
+            },
+            {
+              "id": 2,
+              "reference": "StartsBeforeEndOf_2AF1EA50_2CE3_4FCE_85A4_76AF224E2CAA_4DD40E31_58F1_4C4C_A684_06E7B222BF43"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "DENOM": {
+      "code": "DENOM",
+      "conjunction?": true,
+      "type": "DENOM",
+      "title": "Denominator",
+      "hqmf_id": "8BC327E0-F6D9-44B4-9521-6A073E2279D5"
+    },
+    "NUMER": {
+      "code": "NUMER",
+      "conjunction?": true,
+      "type": "NUMER",
+      "title": "Numerator",
+      "hqmf_id": "89CC1E81-0DFC-459B-9057-28DEE16A60E5",
+      "preconditions": [
+        {
+          "id": 5,
+          "preconditions": [
+            {
+              "id": 4,
+              "reference": "grtr_thn_eql_90daysStartsAfterEndOf_4FCE628B_CF23_4176_A023_D256AC2655FC_543CF269_A00E_4C8F_9224_777F3EB20C6E"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "title": "Population Criteria Section",
+    "sub_id": "a",
+    "index": 0
+  },
+  "archived_measures": [],
+  "upload_summaries": [
+    {
+      "_id": "584187bae76e94d175000227",
+      "created_at": "2016-12-02T14:39:54.037Z",
+      "cms_id_post_upload": "CMS62v5",
+      "cms_id_pre_upload": "CMS62v5",
+      "hqmf_id": "40280381-52FC-3A32-0153-1F32B1690EDE",
+      "hqmf_set_id": "F70B2984-AF4A-4072-AE0D-CEC677A7FF8F",
+      "hqmf_version_number_post_upload": "5.4.000",
+      "hqmf_version_number_pre_upload": "5.4.000",
+      "measure_db_id_post_upload": "584187b9e76e94d175000224",
+      "measure_db_id_pre_upload": "5841877ee76e94d1750000fe",
+      "population_set_summaries": [
+        {
+          "_id": "584187bae76e94d175000226",
+          "created_at": "2016-12-02T14:39:54.037Z",
+          "patients": {
+            "584187aae76e94d175000122": {
+              "expected": {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0
+              },
+              "pre_upload_results": {
+                "IPP": 0,
+                "DENOM": 0,
+                "DENEX": 0,
+                "NUMER": 0,
+                "NUMEX": 0,
+                "DENEXCEP": 0,
+                "rationale": {
+                  "OfficeVisit_EncounterPerformed_83cc4fae_99ad_4f0f_8f20_f7b10191c4c3": false,
+                  "Face_to_FaceInteraction_EncounterPerformed_07fd64ef_a2dc_4ded_ad99_f186bc721e60": {
+                    "results": [
+                      {
+                        "id": "584187a8e76e94d17500011f",
+                        "json": {
+                          "_id": "584187a8e76e94d17500011f",
+                          "admitTime": null,
+                          "admitType": null,
+                          "codes": {
+                            "SNOMED-CT": [
+                              "12843005"
+                            ]
+                          },
+                          "description": "Encounter, Performed: Face-to-Face Interaction",
+                          "dischargeDisposition": null,
+                          "dischargeTime": null,
+                          "end_time": null,
+                          "health_record_field": null,
+                          "mood_code": "EVN",
+                          "negationInd": null,
+                          "negationReason": null,
+                          "oid": "2.16.840.1.113883.3.560.1.79",
+                          "performer_id": null,
+                          "reason": null,
+                          "specifics": null,
+                          "start_time": 1354435200,
+                          "status_code": {
+                            "HL7 ActStatus": [
+                              "performed"
+                            ]
+                          },
+                          "time": null
+                        }
+                      }
+                    ],
+                    "specifics": [
+                      []
+                    ]
+                  },
+                  "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_b6541fba_ac69_4fc0_a5b4_59fa60a16198": false,
+                  "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_582e9238_7793_43ea_9157_58447bf0e927": false,
+                  "PreventiveCare_EstablishedOfficeVisit0to17_EncounterPerformed_5c89453d_4495_4ab8_a969_7c8d958976b1": false,
+                  "PreventiveCare_InitialOfficeVisit0to17_EncounterPerformed_de693d1f_2e6b_4047_98c5_1c476104560f": false,
+                  "OutpatientConsultation_EncounterPerformed_ed1807c1_ce84_4d6f_b355_594bdce0f525": false,
+                  "MeasurePeriod": {
+                    "results": [
+                      {
+                        "id": "undefined",
+                        "json": {
+                          "start_time": 1325376000,
+                          "end_time": 1356998340,
+                          "codes": {}
+                        }
+                      }
+                    ]
+                  },
+                  "GROUP_qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05": false,
+                  "qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05": false,
+                  "StartsBeforeEndOf_2AF1EA50_2CE3_4FCE_85A4_76AF224E2CAA_4DD40E31_58F1_4C4C_A684_06E7B222BF43": {
+                    "results": [
+                      {
+                        "id": "584187a8e76e94d17500011e",
+                        "json": {
+                          "_id": "584187a8e76e94d17500011e",
+                          "anatomical_location": null,
+                          "anatomical_target": null,
+                          "causeOfDeath": null,
+                          "codes": {
+                            "ICD-9-CM": [
+                              "042"
+                            ],
+                            "SNOMED-CT": [
+                              "111880001"
+                            ],
+                            "ICD-10-CM": [
+                              "B20"
+                            ]
+                          },
+                          "description": "Diagnosis: HIV 1",
+                          "end_time": null,
+                          "health_record_field": null,
+                          "laterality": null,
+                          "mood_code": "EVN",
+                          "name": null,
+                          "negationInd": null,
+                          "negationReason": null,
+                          "oid": "2.16.840.1.113883.10.20.28.3.110",
+                          "ordinality": null,
+                          "priority": null,
+                          "reason": null,
+                          "severity": null,
+                          "specifics": null,
+                          "start_time": 1354435200,
+                          "status_code": {
+                            "HL7 ActStatus": null
+                          },
+                          "time": null,
+                          "time_of_death": null,
+                          "type": null
+                        }
+                      }
+                    ],
+                    "specifics": [
+                      []
+                    ]
+                  },
+                  "precondition_3": false,
+                  "precondition_IPP": false,
+                  "IPP": false,
+                  "VARIABLES": false
+                },
+                "finalSpecifics": {
+                  "IPP": null
+                }
+              },
+              "pre_upload_status": "pass",
+              "results_exceeds_storage_pre_upload": false,
+              "patient_version_at_upload": 1,
+              "post_upload_results": {
+                "IPP": 0,
+                "DENOM": 0,
+                "NUMER": 0,
+                "rationale": {
+                  "OfficeVisit_EncounterPerformed_83cc4fae_99ad_4f0f_8f20_f7b10191c4c3": false,
+                  "Face_to_FaceInteraction_EncounterPerformed_07fd64ef_a2dc_4ded_ad99_f186bc721e60": {
+                    "results": [
+                      {
+                        "id": "584187aae76e94d175000125",
+                        "json": {
+                          "_id": "584187aae76e94d175000125",
+                          "admitTime": null,
+                          "admitType": null,
+                          "codes": {
+                            "SNOMED-CT": [
+                              "12843005"
+                            ]
+                          },
+                          "description": "Encounter, Performed: Face-to-Face Interaction",
+                          "dischargeDisposition": null,
+                          "dischargeTime": null,
+                          "end_time": null,
+                          "health_record_field": null,
+                          "mood_code": "EVN",
+                          "negationInd": null,
+                          "negationReason": null,
+                          "oid": "2.16.840.1.113883.3.560.1.79",
+                          "performer_id": null,
+                          "reason": null,
+                          "specifics": null,
+                          "start_time": 1354435200,
+                          "status_code": {
+                            "HL7 ActStatus": [
+                              "performed"
+                            ]
+                          },
+                          "time": null
+                        }
+                      }
+                    ],
+                    "specifics": [
+                      []
+                    ]
+                  },
+                  "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_b6541fba_ac69_4fc0_a5b4_59fa60a16198": false,
+                  "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_582e9238_7793_43ea_9157_58447bf0e927": false,
+                  "PreventiveCare_EstablishedOfficeVisit0to17_EncounterPerformed_5c89453d_4495_4ab8_a969_7c8d958976b1": false,
+                  "PreventiveCare_InitialOfficeVisit0to17_EncounterPerformed_de693d1f_2e6b_4047_98c5_1c476104560f": false,
+                  "OutpatientConsultation_EncounterPerformed_ed1807c1_ce84_4d6f_b355_594bdce0f525": false,
+                  "MeasurePeriod": {
+                    "results": [
+                      {
+                        "id": "undefined",
+                        "json": {
+                          "start_time": 1325376000,
+                          "end_time": 1356998340,
+                          "codes": {}
+                        }
+                      }
+                    ]
+                  },
+                  "GROUP_qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05": false,
+                  "qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05": false,
+                  "StartsBeforeEndOf_2AF1EA50_2CE3_4FCE_85A4_76AF224E2CAA_4DD40E31_58F1_4C4C_A684_06E7B222BF43": {
+                    "results": [
+                      {
+                        "id": "584187aae76e94d175000124",
+                        "json": {
+                          "_id": "584187aae76e94d175000124",
+                          "anatomical_location": null,
+                          "anatomical_target": null,
+                          "causeOfDeath": null,
+                          "codes": {
+                            "ICD-9-CM": [
+                              "042"
+                            ],
+                            "SNOMED-CT": [
+                              "111880001"
+                            ],
+                            "ICD-10-CM": [
+                              "B20"
+                            ]
+                          },
+                          "description": "Diagnosis: HIV 1",
+                          "end_time": null,
+                          "health_record_field": null,
+                          "laterality": null,
+                          "mood_code": "EVN",
+                          "name": null,
+                          "negationInd": null,
+                          "negationReason": null,
+                          "oid": "2.16.840.1.113883.10.20.28.3.110",
+                          "ordinality": null,
+                          "priority": null,
+                          "reason": null,
+                          "severity": null,
+                          "specifics": null,
+                          "start_time": 1354435200,
+                          "status_code": {
+                            "HL7 ActStatus": [
+                              null
+                            ]
+                          },
+                          "time": null,
+                          "time_of_death": null,
+                          "type": null
+                        }
+                      }
+                    ],
+                    "specifics": [
+                      []
+                    ]
+                  },
+                  "precondition_3": false,
+                  "precondition_IPP": false,
+                  "IPP": false,
+                  "VARIABLES": false
+                },
+                "finalSpecifics": {
+                  "IPP": []
+                }
+              },
+              "post_upload_status": "pass",
+              "results_exceeds_storage_post_upload": false,
+              "patient_version_after_upload": 2
+            }
+          },
+          "summary": {
+            "pass_before": 1,
+            "pass_after": 1,
+            "fail_before": 0,
+            "fail_after": 0
+          },
+          "updated_at": "2016-12-02T14:39:54.691Z"
+        }
+      ],
+      "updated_at": "2016-12-02T14:39:54.037Z",
+      "uploaded_at": "2016-12-02T14:39:54.033Z",
+      "user_id": "58418762e76e94d175000000"
+    },
+    {
+      "_id": "5841877ee76e94d175000100",
+      "created_at": "2016-12-02T14:38:54.926Z",
+      "cms_id_post_upload": "CMS62v5",
+      "cms_id_pre_upload": null,
+      "hqmf_id": "40280381-52FC-3A32-0153-1F32B1690EDE",
+      "hqmf_set_id": "F70B2984-AF4A-4072-AE0D-CEC677A7FF8F",
+      "hqmf_version_number_post_upload": "5.4.000",
+      "hqmf_version_number_pre_upload": null,
+      "measure_db_id_post_upload": "5841877ee76e94d1750000fe",
+      "measure_db_id_pre_upload": null,
+      "population_set_summaries": [
+        {
+          "_id": "5841877ee76e94d1750000ff",
+          "created_at": "2016-12-02T14:38:54.926Z",
+          "patients": {},
+          "summary": {
+            "pass_before": 0,
+            "pass_after": 0,
+            "fail_before": 0,
+            "fail_after": 0
+          },
+          "updated_at": "2016-12-02T14:38:54.926Z"
+        }
+      ],
+      "updated_at": "2016-12-02T14:38:54.926Z",
+      "uploaded_at": "2016-12-02T14:38:54.924Z",
+      "user_id": "58418762e76e94d175000000"
+    }
+  ],
+  "patients": [
+    {
+      "_id": "584187aae76e94d175000122",
+      "birthdate": 1473753600,
+      "bundle_id": "58418762e76e94d175000001",
+      "calc_results": [
+        {
+          "IPP": 0,
+          "DENOM": 0,
+          "NUMER": 0,
+          "rationale": {
+            "OfficeVisit_EncounterPerformed_83cc4fae_99ad_4f0f_8f20_f7b10191c4c3": false,
+            "Face_to_FaceInteraction_EncounterPerformed_07fd64ef_a2dc_4ded_ad99_f186bc721e60": {
+              "results": [
+                {
+                  "id": "584187aae76e94d175000125",
+                  "json": {
+                    "_id": "584187aae76e94d175000125",
+                    "admitTime": null,
+                    "admitType": null,
+                    "codes": {
+                      "SNOMED-CT": [
+                        "12843005"
+                      ]
+                    },
+                    "description": "Encounter, Performed: Face-to-Face Interaction",
+                    "dischargeDisposition": null,
+                    "dischargeTime": null,
+                    "end_time": null,
+                    "health_record_field": null,
+                    "mood_code": "EVN",
+                    "negationInd": null,
+                    "negationReason": null,
+                    "oid": "2.16.840.1.113883.3.560.1.79",
+                    "performer_id": null,
+                    "reason": null,
+                    "specifics": null,
+                    "start_time": 1354435200,
+                    "status_code": {
+                      "HL7 ActStatus": [
+                        "performed"
+                      ]
+                    },
+                    "time": null
+                  }
+                }
+              ],
+              "specifics": [
+                []
+              ]
+            },
+            "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_b6541fba_ac69_4fc0_a5b4_59fa60a16198": false,
+            "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_582e9238_7793_43ea_9157_58447bf0e927": false,
+            "PreventiveCare_EstablishedOfficeVisit0to17_EncounterPerformed_5c89453d_4495_4ab8_a969_7c8d958976b1": false,
+            "PreventiveCare_InitialOfficeVisit0to17_EncounterPerformed_de693d1f_2e6b_4047_98c5_1c476104560f": false,
+            "OutpatientConsultation_EncounterPerformed_ed1807c1_ce84_4d6f_b355_594bdce0f525": false,
+            "MeasurePeriod": {
+              "results": [
+                {
+                  "id": "undefined",
+                  "json": {
+                    "start_time": 1325376000,
+                    "end_time": 1356998340,
+                    "codes": {}
+                  }
+                }
+              ]
+            },
+            "GROUP_qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05": false,
+            "qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05": false,
+            "StartsBeforeEndOf_2AF1EA50_2CE3_4FCE_85A4_76AF224E2CAA_4DD40E31_58F1_4C4C_A684_06E7B222BF43": {
+              "results": [
+                {
+                  "id": "584187aae76e94d175000124",
+                  "json": {
+                    "_id": "584187aae76e94d175000124",
+                    "anatomical_location": null,
+                    "anatomical_target": null,
+                    "causeOfDeath": null,
+                    "codes": {
+                      "ICD-9-CM": [
+                        "042"
+                      ],
+                      "SNOMED-CT": [
+                        "111880001"
+                      ],
+                      "ICD-10-CM": [
+                        "B20"
+                      ]
+                    },
+                    "description": "Diagnosis: HIV 1",
+                    "end_time": null,
+                    "health_record_field": null,
+                    "laterality": null,
+                    "mood_code": "EVN",
+                    "name": null,
+                    "negationInd": null,
+                    "negationReason": null,
+                    "oid": "2.16.840.1.113883.10.20.28.3.110",
+                    "ordinality": null,
+                    "priority": null,
+                    "reason": null,
+                    "severity": null,
+                    "specifics": null,
+                    "start_time": 1354435200,
+                    "status_code": {
+                      "HL7 ActStatus": [
+                        null
+                      ]
+                    },
+                    "time": null,
+                    "time_of_death": null,
+                    "type": null
+                  }
+                }
+              ],
+              "specifics": [
+                []
+              ]
+            },
+            "precondition_3": false,
+            "precondition_IPP": false,
+            "IPP": false,
+            "VARIABLES": false
+          },
+          "finalSpecifics": {
+            "IPP": []
+          },
+          "measure_id": "F70B2984-AF4A-4072-AE0D-CEC677A7FF8F",
+          "population_index": 0,
+          "status": "pass"
+        }
+      ],
+      "condensed_calc_results": null,
+      "conditions": [
+        {
+          "_id": "584187aae76e94d175000124",
+          "anatomical_location": null,
+          "anatomical_target": null,
+          "causeOfDeath": null,
+          "codes": {
+            "ICD-9-CM": [
+              "042"
+            ],
+            "SNOMED-CT": [
+              "111880001"
+            ],
+            "ICD-10-CM": [
+              "B20"
+            ]
+          },
+          "description": "Diagnosis: HIV 1",
+          "end_time": null,
+          "health_record_field": null,
+          "laterality": null,
+          "mood_code": "EVN",
+          "name": null,
+          "negationInd": null,
+          "negationReason": null,
+          "oid": "2.16.840.1.113883.10.20.28.3.110",
+          "ordinality": null,
+          "priority": null,
+          "reason": null,
+          "severity": null,
+          "specifics": null,
+          "start_time": 1354435200,
+          "status_code": {
+            "HL7 ActStatus": [
+              null
+            ]
+          },
+          "time": null,
+          "time_of_death": null,
+          "type": null
+        }
+      ],
+      "created_at": "2016-12-02T14:39:38.976Z",
+      "deathdate": null,
+      "description": null,
+      "description_category": null,
+      "effective_time": null,
+      "encounters": [
+        {
+          "_id": "584187aae76e94d175000125",
+          "admitTime": null,
+          "admitType": null,
+          "codes": {
+            "SNOMED-CT": [
+              "12843005"
+            ]
+          },
+          "description": "Encounter, Performed: Face-to-Face Interaction",
+          "dischargeDisposition": null,
+          "dischargeTime": null,
+          "end_time": null,
+          "health_record_field": null,
+          "mood_code": "EVN",
+          "negationInd": null,
+          "negationReason": null,
+          "oid": "2.16.840.1.113883.3.560.1.79",
+          "performer_id": null,
+          "reason": null,
+          "specifics": null,
+          "start_time": 1354435200,
+          "status_code": {
+            "HL7 ActStatus": [
+              "performed"
+            ]
+          },
+          "time": null
+        }
+      ],
+      "ethnicity": "2186-5",
+      "expected_values": [
+        {
+          "measure_id": "F70B2984-AF4A-4072-AE0D-CEC677A7FF8F",
+          "population_index": 0,
+          "IPP": 0,
+          "DENOM": 0,
+          "NUMER": 0
+        }
+      ],
+      "expired": null,
+      "first": "fake",
+      "gender": "M",
+      "has_measure_history": true,
+      "insurance_providers": [
+        {
+          "_id": "584187aae76e94d175000126",
+          "codes": {
+            "SOP": [
+              "349"
+            ]
+          },
+          "description": null,
+          "end_time": null,
+          "financial_responsibility_type": {
+            "code": "SELF",
+            "codeSystem": "HL7 Relationship Code"
+          },
+          "health_record_field": null,
+          "member_id": "1234567890",
+          "mood_code": "EVN",
+          "name": "Other",
+          "negationInd": null,
+          "negationReason": null,
+          "oid": null,
+          "payer": {
+            "_id": "584187aae76e94d175000127",
+            "name": "Other"
+          },
+          "reason": null,
+          "relationship": null,
+          "specifics": null,
+          "start_time": 1199163600,
+          "status_code": null,
+          "time": null,
+          "type": "OT"
+        }
+      ],
+      "is_shared": null,
+      "languages": [],
+      "last": "fake",
+      "marital_status": null,
+      "measure_ids": [
+        "F70B2984-AF4A-4072-AE0D-CEC677A7FF8F",
+        null
+      ],
+      "medical_record_assigner": "Bonnie",
+      "medical_record_number": "b46df6950e261452590e75668c00be5b",
+      "modifier_id": null,
+      "notes": "fake",
+      "origin_data": [],
+      "race": "1002-5",
+      "religious_affiliation": null,
+      "results_exceed_storage": false,
+      "results_size": 2543,
+      "source_data_criteria": [
+        {
+          "negation": false,
+          "definition": "diagnosis",
+          "title": "HIV 1",
+          "description": "Diagnosis: HIV 1",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.120.12.1004",
+          "type": "conditions",
+          "id": "StartsBeforeEndOf_2AF1EA50_2CE3_4FCE_85A4_76AF224E2CAA_4DD40E31_58F1_4C4C_A684_06E7B222BF43_source",
+          "start_date": 1354435200000,
+          "value": [],
+          "references": [],
+          "field_values": {},
+          "hqmf_set_id": "F70B2984-AF4A-4072-AE0D-CEC677A7FF8F",
+          "cms_id": "CMS62v5",
+          "criteria_id": "158bff9a0a0C5",
+          "codes": {
+            "ICD-9-CM": [
+              "042"
+            ],
+            "SNOMED-CT": [
+              "111880001"
+            ],
+            "ICD-10-CM": [
+              "B20"
+            ]
+          },
+          "coded_entry_id": "584187aae76e94d175000124",
+          "code_source": "DEFAULT"
+        },
+        {
+          "negation": false,
+          "definition": "encounter",
+          "status": "performed",
+          "title": "Face-to-Face Interaction",
+          "description": "Encounter, Performed: Face-to-Face Interaction",
+          "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
+          "type": "encounters",
+          "id": "Face_to_FaceInteraction_EncounterPerformed_07fd64ef_a2dc_4ded_ad99_f186bc721e60_source",
+          "start_date": 1354435200000,
+          "value": [],
+          "references": [],
+          "field_values": {},
+          "hqmf_set_id": "F70B2984-AF4A-4072-AE0D-CEC677A7FF8F",
+          "cms_id": "CMS62v5",
+          "criteria_id": "158bff9bfe0hf",
+          "codes": {
+            "SNOMED-CT": [
+              "12843005"
+            ]
+          },
+          "negation_code_list_id": "",
+          "coded_entry_id": "584187aae76e94d175000125",
+          "code_source": "DEFAULT"
+        }
+      ],
+      "test_id": null,
+      "title": null,
+      "type": null,
+      "updated_at": "2016-12-02T14:39:54.684Z",
+      "user_id": "58418762e76e94d175000000",
+      "version": 2,
+      "payer": "OT"
+    }
+  ]
+}

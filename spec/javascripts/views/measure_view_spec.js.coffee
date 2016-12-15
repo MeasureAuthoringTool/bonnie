@@ -13,7 +13,7 @@ describe 'MeasureView', ->
     @vs2.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
     # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
-    @patients = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
+    @patients = new Thorax.Collections.Patients getJSONFixture('records/base_set/patients.json'), parse: true
     @measure.set('patients', @patients)
     @patient = @patients.at(0)
     @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @measure, patients: @measure.get('patients'))

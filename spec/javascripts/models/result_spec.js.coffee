@@ -4,7 +4,7 @@ describe 'Result', ->
     # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
     @measure = bonnie.measures.get('40280381-3D61-56A7-013E-5D1EF9B76A48')
-    collection = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
+    collection = new Thorax.Collections.Patients getJSONFixture('records/base_set/patients.json'), parse: true
     @patient = collection.findWhere(first: 'GP_Peds', last: 'A')
 
   it 'correctly handles fixing specific occurrence results', ->
