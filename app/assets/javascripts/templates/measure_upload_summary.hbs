@@ -7,7 +7,7 @@
           {{#each populationInformation}}
             {{#ifCond totalChanged "!=" 0}}
               <li role="presentation">
-                <a href="#changed-{{slugify populationTitle}}" aria-controls="changed-{{slugify populationTitle}}" role="tab" data-toggle="tab">
+                <a href="#changed-{{slugify populationTitle 'population'}}" aria-controls="changed-{{slugify populationTitle 'population'}}" role="tab" data-toggle="tab">
                   {{populationTitle}}
                 </a>
               </li>
@@ -19,7 +19,7 @@
       <div class="tab-content">
       {{#each populationInformation}} {{! Iterate through the populations}}
         {{#ifCond totalChanged "!=" 0}} {{! We have patients who were affected by the upload}}
-          <div id="changed-{{slugify populationTitle}}" role="tabpanel" class="tab-pane">
+          <div id="changed-{{slugify populationTitle 'population'}}" role="tabpanel" class="tab-pane">
             <table class="table-summary">
               <caption class="sr-only">
                 {{#ifCond ../../../numberOfPopulations ">=" 1}}{{populationTitle}}{{/ifCond}}
