@@ -1,0 +1,321 @@
+[
+  {
+    "_id": "584187bae76e94d175000227",
+    "created_at": "2016-12-02T14:39:54.037Z",
+    "cms_id_post_upload": "CMS62v5",
+    "cms_id_pre_upload": "CMS62v5",
+    "hqmf_id": "40280381-52FC-3A32-0153-1F32B1690EDE",
+    "hqmf_set_id": "F70B2984-AF4A-4072-AE0D-CEC677A7FF8F",
+    "hqmf_version_number_post_upload": "5.4.000",
+    "hqmf_version_number_pre_upload": "5.3.000",
+    "measure_db_id_post_upload": "584187b9e76e94d175000224",
+    "measure_db_id_pre_upload": "5841877ee76e94d1750000fe",
+    "population_set_summaries": [
+      {
+        "_id": "584187bae76e94d175000226",
+        "created_at": "2016-12-02T14:39:54.037Z",
+        "patients": {
+          "584187aae76e94d175000122": {
+            "expected": {
+              "IPP": 0,
+              "DENOM": 0,
+              "NUMER": 0
+            },
+            "pre_upload_results": {
+              "IPP": 0,
+              "DENOM": 0,
+              "DENEX": 0,
+              "NUMER": 0,
+              "NUMEX": 0,
+              "DENEXCEP": 0,
+              "rationale": {
+                "OfficeVisit_EncounterPerformed_83cc4fae_99ad_4f0f_8f20_f7b10191c4c3": false,
+                "Face_to_FaceInteraction_EncounterPerformed_07fd64ef_a2dc_4ded_ad99_f186bc721e60": {
+                  "results": [
+                    {
+                      "id": "584187a8e76e94d17500011f",
+                      "json": {
+                        "_id": "584187a8e76e94d17500011f",
+                        "admitTime": null,
+                        "admitType": null,
+                        "codes": {
+                          "SNOMED-CT": [
+                            "12843005"
+                          ]
+                        },
+                        "description": "Encounter, Performed: Face-to-Face Interaction",
+                        "dischargeDisposition": null,
+                        "dischargeTime": null,
+                        "end_time": null,
+                        "health_record_field": null,
+                        "mood_code": "EVN",
+                        "negationInd": null,
+                        "negationReason": null,
+                        "oid": "2.16.840.1.113883.3.560.1.79",
+                        "performer_id": null,
+                        "reason": null,
+                        "specifics": null,
+                        "start_time": 1354435200,
+                        "status_code": {
+                          "HL7 ActStatus": [
+                            "performed"
+                          ]
+                        },
+                        "time": null
+                      }
+                    }
+                  ],
+                  "specifics": [
+                    []
+                  ]
+                },
+                "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_b6541fba_ac69_4fc0_a5b4_59fa60a16198": false,
+                "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_582e9238_7793_43ea_9157_58447bf0e927": false,
+                "PreventiveCare_EstablishedOfficeVisit0to17_EncounterPerformed_5c89453d_4495_4ab8_a969_7c8d958976b1": false,
+                "PreventiveCare_InitialOfficeVisit0to17_EncounterPerformed_de693d1f_2e6b_4047_98c5_1c476104560f": false,
+                "OutpatientConsultation_EncounterPerformed_ed1807c1_ce84_4d6f_b355_594bdce0f525": false,
+                "MeasurePeriod": {
+                  "results": [
+                    {
+                      "id": "undefined",
+                      "json": {
+                        "start_time": 1325376000,
+                        "end_time": 1356998340,
+                        "codes": {}
+                      }
+                    }
+                  ]
+                },
+                "GROUP_qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05": false,
+                "qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05": false,
+                "StartsBeforeEndOf_2AF1EA50_2CE3_4FCE_85A4_76AF224E2CAA_4DD40E31_58F1_4C4C_A684_06E7B222BF43": {
+                  "results": [
+                    {
+                      "id": "584187a8e76e94d17500011e",
+                      "json": {
+                        "_id": "584187a8e76e94d17500011e",
+                        "anatomical_location": null,
+                        "anatomical_target": null,
+                        "causeOfDeath": null,
+                        "codes": {
+                          "ICD-9-CM": [
+                            "042"
+                          ],
+                          "SNOMED-CT": [
+                            "111880001"
+                          ],
+                          "ICD-10-CM": [
+                            "B20"
+                          ]
+                        },
+                        "description": "Diagnosis: HIV 1",
+                        "end_time": null,
+                        "health_record_field": null,
+                        "laterality": null,
+                        "mood_code": "EVN",
+                        "name": null,
+                        "negationInd": null,
+                        "negationReason": null,
+                        "oid": "2.16.840.1.113883.10.20.28.3.110",
+                        "ordinality": null,
+                        "priority": null,
+                        "reason": null,
+                        "severity": null,
+                        "specifics": null,
+                        "start_time": 1354435200,
+                        "status_code": {
+                          "HL7 ActStatus": null
+                        },
+                        "time": null,
+                        "time_of_death": null,
+                        "type": null
+                      }
+                    }
+                  ],
+                  "specifics": [
+                    []
+                  ]
+                },
+                "precondition_3": false,
+                "precondition_IPP": false,
+                "IPP": false,
+                "VARIABLES": false
+              },
+              "finalSpecifics": {
+                "IPP": null
+              }
+            },
+            "pre_upload_status": "pass",
+            "results_exceeds_storage_pre_upload": false,
+            "patient_version_at_upload": 1,
+            "post_upload_results": {
+              "IPP": 0,
+              "DENOM": 0,
+              "NUMER": 0,
+              "rationale": {
+                "OfficeVisit_EncounterPerformed_83cc4fae_99ad_4f0f_8f20_f7b10191c4c3": false,
+                "Face_to_FaceInteraction_EncounterPerformed_07fd64ef_a2dc_4ded_ad99_f186bc721e60": {
+                  "results": [
+                    {
+                      "id": "584187aae76e94d175000125",
+                      "json": {
+                        "_id": "584187aae76e94d175000125",
+                        "admitTime": null,
+                        "admitType": null,
+                        "codes": {
+                          "SNOMED-CT": [
+                            "12843005"
+                          ]
+                        },
+                        "description": "Encounter, Performed: Face-to-Face Interaction",
+                        "dischargeDisposition": null,
+                        "dischargeTime": null,
+                        "end_time": null,
+                        "health_record_field": null,
+                        "mood_code": "EVN",
+                        "negationInd": null,
+                        "negationReason": null,
+                        "oid": "2.16.840.1.113883.3.560.1.79",
+                        "performer_id": null,
+                        "reason": null,
+                        "specifics": null,
+                        "start_time": 1354435200,
+                        "status_code": {
+                          "HL7 ActStatus": [
+                            "performed"
+                          ]
+                        },
+                        "time": null
+                      }
+                    }
+                  ],
+                  "specifics": [
+                    []
+                  ]
+                },
+                "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_b6541fba_ac69_4fc0_a5b4_59fa60a16198": false,
+                "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_582e9238_7793_43ea_9157_58447bf0e927": false,
+                "PreventiveCare_EstablishedOfficeVisit0to17_EncounterPerformed_5c89453d_4495_4ab8_a969_7c8d958976b1": false,
+                "PreventiveCare_InitialOfficeVisit0to17_EncounterPerformed_de693d1f_2e6b_4047_98c5_1c476104560f": false,
+                "OutpatientConsultation_EncounterPerformed_ed1807c1_ce84_4d6f_b355_594bdce0f525": false,
+                "MeasurePeriod": {
+                  "results": [
+                    {
+                      "id": "undefined",
+                      "json": {
+                        "start_time": 1325376000,
+                        "end_time": 1356998340,
+                        "codes": {}
+                      }
+                    }
+                  ]
+                },
+                "GROUP_qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05": false,
+                "qdm_var_During_55C913AF_DA07_4240_8E14_F96D4BC8BFB9_0BD19AEA_0C11_40B2_AA04_C2F1A1522A05": false,
+                "StartsBeforeEndOf_2AF1EA50_2CE3_4FCE_85A4_76AF224E2CAA_4DD40E31_58F1_4C4C_A684_06E7B222BF43": {
+                  "results": [
+                    {
+                      "id": "584187aae76e94d175000124",
+                      "json": {
+                        "_id": "584187aae76e94d175000124",
+                        "anatomical_location": null,
+                        "anatomical_target": null,
+                        "causeOfDeath": null,
+                        "codes": {
+                          "ICD-9-CM": [
+                            "042"
+                          ],
+                          "SNOMED-CT": [
+                            "111880001"
+                          ],
+                          "ICD-10-CM": [
+                            "B20"
+                          ]
+                        },
+                        "description": "Diagnosis: HIV 1",
+                        "end_time": null,
+                        "health_record_field": null,
+                        "laterality": null,
+                        "mood_code": "EVN",
+                        "name": null,
+                        "negationInd": null,
+                        "negationReason": null,
+                        "oid": "2.16.840.1.113883.10.20.28.3.110",
+                        "ordinality": null,
+                        "priority": null,
+                        "reason": null,
+                        "severity": null,
+                        "specifics": null,
+                        "start_time": 1354435200,
+                        "status_code": {
+                          "HL7 ActStatus": [
+                            null
+                          ]
+                        },
+                        "time": null,
+                        "time_of_death": null,
+                        "type": null
+                      }
+                    }
+                  ],
+                  "specifics": [
+                    []
+                  ]
+                },
+                "precondition_3": false,
+                "precondition_IPP": false,
+                "IPP": false,
+                "VARIABLES": false
+              },
+              "finalSpecifics": {
+                "IPP": []
+              }
+            },
+            "post_upload_status": "pass",
+            "results_exceeds_storage_post_upload": false,
+            "patient_version_after_upload": 2
+          }
+        },
+        "summary": {
+          "pass_before": 1,
+          "pass_after": 1,
+          "fail_before": 0,
+          "fail_after": 0
+        },
+        "updated_at": "2016-12-02T14:39:54.691Z"
+      }
+    ],
+    "updated_at": "2016-12-02T14:39:54.037Z",
+    "uploaded_at": "2016-12-02T14:39:54.033Z",
+    "user_id": "58418762e76e94d175000000"
+  },
+  {
+    "_id": "5841877ee76e94d175000100",
+    "created_at": "2016-12-02T14:38:54.926Z",
+    "cms_id_post_upload": "CMS62v5",
+    "cms_id_pre_upload": null,
+    "hqmf_id": "40280381-52FC-3A32-0153-1F32B1690EDE",
+    "hqmf_set_id": "F70B2984-AF4A-4072-AE0D-CEC677A7FF8F",
+    "hqmf_version_number_post_upload": "5.3.000",
+    "hqmf_version_number_pre_upload": null,
+    "measure_db_id_post_upload": "5841877ee76e94d1750000fe",
+    "measure_db_id_pre_upload": null,
+    "population_set_summaries": [
+      {
+        "_id": "5841877ee76e94d1750000ff",
+        "created_at": "2016-12-02T14:38:54.926Z",
+        "patients": {},
+        "summary": {
+          "pass_before": 0,
+          "pass_after": 0,
+          "fail_before": 0,
+          "fail_after": 0
+        },
+        "updated_at": "2016-12-02T14:38:54.926Z"
+      }
+    ],
+    "updated_at": "2016-12-02T14:38:54.926Z",
+    "uploaded_at": "2016-12-02T14:38:54.924Z",
+    "user_id": "58418762e76e94d175000000"
+  }
+]
