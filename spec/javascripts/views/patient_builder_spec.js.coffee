@@ -17,7 +17,10 @@ describe 'PatientBuilderView', ->
 
   it 'renders the builder correctly', ->
     expect(@$el.find(":input[name='first']")).toHaveValue @patient.get('first')
-
+    
+  it 'does not display compare patient results button when there is no history', ->
+    expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()
+    
   describe "setting basic attributes and saving", ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
@@ -325,3 +328,16 @@ describe 'PatientBuilderView', ->
       expect(@patientBuilder.model.get('deathdate')).toEqual null
 
     afterEach -> @patientBuilder.remove()
+
+describe 'PatientBuilderViewHistory', ->
+  
+  beforeEach -> 
+    history_patient = new Thorax.Models.Patient getJSONFixture('records/measure_history_set/CMS104v2PatientWithHistory.json'), parse: true
+    cms104v2 = new Thorax.Models.Measure getJSONFixture('measure_data/measure_history_set/patient_history_set/CMS104v2.json'), parse: true
+    patients = new Thorax.Collections.Patients()
+    patients.add(history_patient)
+    @patientBuilder = new Thorax.Views.PatientBuilder(model: history_patient, measure: cms104v2, patients: patients)
+    @patientBuilder.render()
+
+  it 'does display compare patient results button when patient has history', ->
+    expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).toExist()
