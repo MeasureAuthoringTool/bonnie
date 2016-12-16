@@ -6,7 +6,7 @@ class Thorax.Models.Result extends Thorax.Model
 
     # Provide a deferred that allows usage of a result to be deferred until it's populated
     @calculation = $.Deferred()
-    if @isPopulated() then @calculation.resolve() else @once 'change:rationale', -> @calculation.resolve()
+    if @isPopulated() then @calculation.resolve(@) else @once 'change:rationale', -> @calculation.resolve(@)
 
     # When a patient changes, is materialized, or is destroyed, we need to respond appropriately
     @listenTo @patient, 'change materialize destroy', =>
@@ -233,4 +233,4 @@ class Thorax.Models.CachedResult extends Thorax.Models.Result
     @patient = null # the result is never calculated so the patient is not needed.
     @calculation = $.Deferred()
     
-    @calculation.resolve()
+    @calculation.resolve(@)

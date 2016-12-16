@@ -94,12 +94,14 @@ class Thorax.Models.Patient extends Thorax.Model
     fullDate = new Date(date * 1000)
     (fullDate.getMonth() + 1) + '/' + fullDate.getDay() + '/' + fullDate.getYear()
 
-  materialize: ->
+  materialize: (callback) ->
 
     # Keep track of patient state and don't materialize if unchanged; we can't rely on Backbone's
     # "changed" functionality because that doesn't capture new sub-models
     patientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections)
-    return if @previousPatientJSON == patientJSON
+    if @previousPatientJSON == patientJSON
+      callback() if callback?
+      return
     @previousPatientJSON = patientJSON
     
     $.ajax
@@ -121,6 +123,7 @@ class Thorax.Models.Patient extends Thorax.Model
           criterium.get('codes').reset data['source_data_criteria'][i]['codes'], parse: true
       @previousPatientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections) # Capture post-materialize changes too
       @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
+      callback() if callback?
       $('#ariaalerts').html "This patient has been updated" #tell SR something changed
     .fail ->
       bonnie.showError({title: "Patient Data Error", summary: 'There was an error handling the data associated with this patient.', body: 'One of the data elements associated with the patient is causing an issue.  Please review the elements associated with the patient to verify that they are all constructed properly.'})
@@ -202,6 +205,49 @@ class Thorax.Models.Patient extends Thorax.Model
       #   errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must be before patient date of death"]
 
     return errors if errors.length > 0
+
+  _filterResult: (result) ->
+    filteredResult = {}
+    for populationName in Thorax.Models.Measure.allPopulationCodes
+      filteredResult[populationName] = result.get(populationName) if result.get(populationName)?
+    filteredResult['rationale'] = result.get('rationale') if result.get('rationale')?
+    filteredResult['finalSpecifics'] = result.get('finalSpecifics') if result.get('finalSpecifics')?
+
+    filteredResult['measure_id'] = result.measure.get('hqmf_set_id')
+    filteredResult['population_index'] = result.population.get('index')
+    return filteredResult
+    
+  calculateAndSave: (attributes, options) ->
+    # make the changes
+    @set(attributes, if options?.silent then { silent: true } else null)
+    
+    # make sure that materialize happens
+    @materialize( =>
+      measuresToCalculate = []
+      
+      # fetch all measures that this patient belongs to if they exist
+      for hqmfSetId in @get('measure_ids')
+        if hqmfSetId != null
+          measure = bonnie.measures.findWhere(hqmf_set_id: hqmfSetId)
+          measuresToCalculate.push(measure) if measure
+      
+      # start all calculations and collect all the deferreds
+      allCalculations = []
+      for measure in measuresToCalculate
+        allCalculations.push(measure.get('populations').map((populationSet) => populationSet.calculate(@).calculation)...)
+      
+      # wait for all calculation deferreds to complete
+      $.when.apply(@, allCalculations)
+        .done((results...) =>
+          # Pull out only the result parts we need to save and replace them on the patient
+          @set({ calc_results: _.map(results, @_filterResult) }, { silent: true })
+          @save(null, options)
+          )
+        .fail( ->
+          # TODO: deal with failure situation
+          debugger
+          )
+      )
 
 class Thorax.Collections.Patients extends Thorax.Collection
   url: '/patients'

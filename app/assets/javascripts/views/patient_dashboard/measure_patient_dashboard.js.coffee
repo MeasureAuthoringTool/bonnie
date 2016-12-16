@@ -549,7 +549,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     $('#ariaalerts').html "Saving edits on this patient."
 
     # Update row on recalculation
-    status = patient.save editedData,
+    status = patient.calculateAndSave editedData,
       success: (model) =>
         result = @populationSet.calculateResult patient
         result.calculationComplete =>
