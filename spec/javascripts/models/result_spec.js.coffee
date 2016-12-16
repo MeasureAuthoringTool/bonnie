@@ -1,6 +1,7 @@
 describe 'Result', ->
 
   beforeEach ->
+    loadState("base_set")
     # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
     @measure = bonnie.measures.get('40280381-3D61-56A7-013E-5D1EF9B76A48')

@@ -1,6 +1,8 @@
 describe 'Navigation', ->
 
   beforeEach ->
+    loadState("base_set")
+
     # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
     @measures = bonnie.measures

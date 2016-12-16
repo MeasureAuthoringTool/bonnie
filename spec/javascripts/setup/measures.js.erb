@@ -13,14 +13,10 @@ window.bonnieRouterMeasureCache = new BonnieRouterMeasureCache();
 
 <%# Load the JSON for our fixture measures and generate the calculation JavaScript %>
 <% Dir.glob (File.join(File.dirname(__FILE__), "../fixtures/json/measure_data/**/measures.json")) do |measure_file| %>
-  <% key = measure_file.split("measure_data/")[1] %>
-  <% key = File.dirname(key) %>
-  currentState = window.bonnieRouterMeasureCache.state['<%= key %>']
-  currentState['valueSetsByOid'] = <%= value_sets_json.html_safe %>;
-  currentState['measures'] = new Thorax.Collections.Measures()
+  
+  bonnie.valueSetsByOid = <%= value_sets_json.html_safe %>;
   <% measures_json = File.read(measure_file) %>
-  currentState['measures'].add(<%= measures_json.html_safe %>, { parse: true });
-  currentState['calculator'] = new Calculator()
+  bonnie.measures.add(<%= measures_json.html_safe %>, { parse: true });
 
   <% measures = JSON.parse measures_json %>
   <% measures.each do |measure_data| %>
@@ -34,10 +30,19 @@ window.bonnieRouterMeasureCache = new BonnieRouterMeasureCache();
         <%= BonnieMeasureJavascript.generate_for_population(measure, population_index, cache_result_in_db: false).html_safe %>
         <%# Fake out the calculator to pre-set the deferred that it usually uses to tell when calculators are loaded %>
         (function() {
-          var population = currentState['measures'].get('<%= measure._id %>').get('populations').at(<%= population_index %>);
-          var cacheKey = currentState['calculator'].calculationKey(population);
-          currentState['calculator'].calculatorLoaded[cacheKey] = $.when(); // A 'when' without arguments is automatically resolved
+          var population = bonnie.measures.get('<%= measure._id %>').get('populations').at(<%= population_index %>);
+          var cacheKey = bonnie.calculator.calculationKey(population);
+          
+          bonnie.calculator.calculatorLoaded[cacheKey] = $.when(); // A 'when' without arguments is automatically resolved
         })();
     <% end %>
   <% end %>
+  <% key = measure_file.split("measure_data/")[1] %>
+  <% key = File.dirname(key) %>
+//  window.bonnieRouterMeasureCache.state['<%= key %>'] = {}
+  saveState('<%= key %>')
+//  bonnie.measures = new Thorax.Collections.Measures();
+//  bonnie.calculator = new Calculator();
+//  bonnie.valueSetsByOid = {};
+    window.bonnie = new BonnieRouter();
 <% end %>

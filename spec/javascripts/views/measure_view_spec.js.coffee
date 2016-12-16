@@ -1,5 +1,6 @@
 describe 'MeasureView', ->
   beforeEach ->
+    loadState("base_set")
     @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
 
     # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
@@ -59,7 +60,7 @@ describe 'MeasureView', ->
     expect(@measureView.$('#supplemental_criteria')).toBeVisible()
     expect(@measureView.$('#supplemental_criteria').find('[data-toggle="collapse"].value_sets')).toExist()
     expect(@measureView.$('#supplemental_criteria').find('.row.collapse')).toExist()
-
+    
     expect(@measureView.$('#overlapping_value_sets')).toBeVisible()
     expect(@measureView.$('#overlapping_value_sets').find('[data-toggle="collapse"].value_sets')).toExist()
     expect(@measureView.$('#overlapping_value_sets').find('.row.collapse')).toExist()

@@ -93,7 +93,6 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
             return overlapsCode && overlapsCodeSystem
 
           if hasOverlap then matchedCodes.push(code1)
-
         if matchedCodes.length > 0
           @overlappingValueSets.add
             cid: valueSet1.cid + "_" + valueSet2.cid

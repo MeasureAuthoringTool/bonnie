@@ -1,5 +1,7 @@
 describe "Population state between routes", ->
   beforeEach ->
+    loadState("base_set")
+
     # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
     @patient = new Thorax.Models.Patient getJSONFixture('records/base_set/patients.json')[3], parse: true
