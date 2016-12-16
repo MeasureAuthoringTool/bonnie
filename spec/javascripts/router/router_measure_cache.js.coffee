@@ -2,4 +2,4 @@
 # these measures are cloned, which is added to the router, used in a test, and then deleted
 @BonnieRouterMeasureCache = class BonnieRouterMeasureCache
   constructor: () ->
-    @foo = 3
+    @state = {}
