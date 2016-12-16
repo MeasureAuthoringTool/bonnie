@@ -4,17 +4,19 @@
 <%# We want Jasmine to be independent of content in any particular MongoDB instance %>
 <% Mongoid.configure { |config| config.sessions = { default: { database: 'jasmine', hosts: ['localhost:27017'] } } } %>
 
-<%# Load the JSON for our fixture measures %>
-<% measures_fixture_file = File.join File.dirname(__FILE__), '../fixtures/json/measure_data/base_set/measures.json' %>
-<% measures_json = File.read(measures_fixture_file) %>
-
 <%# Set up the value sets %>
 <% value_sets_fixture_file = File.join File.dirname(__FILE__), '../fixtures/json/measure_data/base_set/value_sets.json' %>
 <% value_sets_json = File.read(value_sets_fixture_file) %>
 bonnie.valueSetsByOid = <%= value_sets_json.html_safe %>;
 
+<%# Load the JSON for our fixture measures %>
+<% measures_fixture_file = File.join File.dirname(__FILE__), '../fixtures/json/measure_data/base_set/measures.json' %>
+<% measures_json = File.read(measures_fixture_file) %>
+
 <%# Set up the measures in the bonnie router %>
 bonnie.measures.add(<%= measures_json.html_safe %>, { parse: true });
+
+window.bonnieRouterMeasureCache = new BonnieRouterMeasureCache();
 
 <%# Load the calculation JavaScript %>
 <% measures = JSON.parse measures_json %>
