@@ -1,6 +1,7 @@
 describe 'MeasureCollection', ->
 
   beforeEach ->
+    loadState("base_set")
     @measures = bonnie.measures
 
   it 'has the correct number of measures defined (when defining a measure object for each population)', ->
