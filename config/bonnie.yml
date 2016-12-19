@@ -10,6 +10,8 @@ defaults: &defaults
     api_url: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets
     profiles_url: https://vsac.nlm.nih.gov/vsac/profiles
     profile: MU2 Update 2016-04-01
+  # Place holder email address for error alerts. This email is not valid.
+  # This email should be configured in a '<root>/config/email.yml' file.
   bonnie_email: bonnie@example.com
 
 development:
