@@ -13,7 +13,7 @@
 //= require application
 
 // test-only JS module
-//= require ./router/router_measure_cache.js.coffee
+//= require router/router_cache.js.coffee
 
 // Setup prepares measures to be used by specs
 //= require_tree ./setup

@@ -9,11 +9,12 @@
 <% value_sets_fixture_file = File.join File.dirname(__FILE__), '../fixtures/json/measure_data/base_set/value_sets.json' %>
 <% value_sets_json = File.read(value_sets_fixture_file) %>
 
-window.bonnieRouterMeasureCache = new BonnieRouterMeasureCache();
+window.bonnieRouterCache = new BonnieRouterCache();
 
 <%# Load the JSON for our fixture measures and generate the calculation JavaScript %>
-<% Dir.glob (File.join(File.dirname(__FILE__), "../fixtures/json/measure_data/**/measures.json")) do |measure_file| %>
-  
+<% Dir.glob (File.join(File.dirname(__FILE__), '../fixtures/json/measure_data/**/measures.json')) do |measure_file| %>
+  window.bonnie = new BonnieRouter();
+
   bonnie.valueSetsByOid = <%= value_sets_json.html_safe %>;
   <% measures_json = File.read(measure_file) %>
   bonnie.measures.add(<%= measures_json.html_safe %>, { parse: true });
@@ -24,7 +25,7 @@ window.bonnieRouterMeasureCache = new BonnieRouterMeasureCache();
     <% measure = Measure.new(measure_data) %>
     <% measure._id = measure_data['_id'] %>
     <%# Manually set value sets to prime cache so as to not require mongod %>
-    <% measure.instance_variable_set("@value_sets", measure_data['value_sets'].map {|vs| HealthDataStandards::SVS::ValueSet.new(vs)}) %>
+    <% measure.instance_variable_set('@value_sets', measure_data['value_sets'].map {|vs| HealthDataStandards::SVS::ValueSet.new(vs)}) %>
     <% measure.populations.length.times do |population_index| %>
         <%# Load the calculation code into the calculator %>
         <%= BonnieMeasureJavascript.generate_for_population(measure, population_index, cache_result_in_db: false).html_safe %>
@@ -37,12 +38,11 @@ window.bonnieRouterMeasureCache = new BonnieRouterMeasureCache();
         })();
     <% end %>
   <% end %>
-  <% key = measure_file.split("measure_data/")[1] %>
+  <% key = measure_file.split('measure_data/')[1] %>
   <% key = File.dirname(key) %>
-//  window.bonnieRouterMeasureCache.state['<%= key %>'] = {}
-  saveState('<%= key %>')
+//  window.bonnieRouterCache.state['<%= key %>'] = {}
+  window.bonnieRouterCache.save('<%= key %>');
 //  bonnie.measures = new Thorax.Collections.Measures();
 //  bonnie.calculator = new Calculator();
 //  bonnie.valueSetsByOid = {};
-    window.bonnie = new BonnieRouter();
 <% end %>

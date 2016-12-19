@@ -1,8 +1,7 @@
 describe 'Measure', ->
 
   beforeEach ->
-    loadState("base_set")
-
+    window.bonnieRouterCache.load("base_set")
     @measure = bonnie.measures.get('40280381-3D61-56A7-013E-5D1EF9B76A48')
 
   it 'has basic attributes available', ->
@@ -16,8 +15,6 @@ describe 'Measure', ->
     expect(@measure.get("source_data_criteria").get('parent') == @measure)
 
   it 'can calulate results for a patient', ->
-    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
-    jasmine.getJSONFixtures().clearCache()
     collection = new Thorax.Collections.Patients getJSONFixture('records/base_set/patients.json')
     patient = collection.findWhere(first: 'GP_Peds', last: 'A')
     results = @measure.get('populations').at(0).calculate(patient)
