@@ -204,9 +204,6 @@ include Devise::TestHelpers
   test 'Archived Measures added upon reuploading' do
     # Load initial measure
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v1.1.zip'), 'application/zip')
-    class << measure_file
-      attr_reader :tempfile
-    end
     post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional'
     measure = Measure.where(hqmf_set_id: 'E37012AD-2B01-4738-8985-D5C0F4C3AE9F', user_id: @user.id).first
     # Assert measure has no history upon initial upload
@@ -214,18 +211,12 @@ include Devise::TestHelpers
     
     # Load new version of measure
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v2.2.zip'), 'application/zip')
-    class << measure_file
-      attr_reader :tempfile
-    end
     post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional', hqmf_set_id: 'E37012AD-2B01-4738-8985-D5C0F4C3AE9F'
     measure = Measure.where(hqmf_id: '40280382-5859-6598-0158-92BE72260A7E', user_id: @user.id).first
     # Assert there is one ArchivedMeasure loaded
     assert_equal 1, ArchivedMeasure.where({hqmf_set_id: measure.hqmf_set_id}).count
 
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v3.1.zip'), 'application/zip')
-    class << measure_file
-      attr_reader :tempfile
-    end
     post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional', hqmf_set_id: 'E37012AD-2B01-4738-8985-D5C0F4C3AE9F'
     measure = Measure.where(hqmf_id: '40280382-5859-6598-0158-932E80DC0AD5', user_id: @user.id).first
     # Assert there are two ArchivedMeasures loaded
@@ -233,14 +224,10 @@ include Devise::TestHelpers
 
     # Reupload the intital measure version
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v1.1.zip'), 'application/zip')
-    class << measure_file
-      attr_reader :tempfile
-    end
     post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional', hqmf_set_id: 'E37012AD-2B01-4738-8985-D5C0F4C3AE9F'
     measure = Measure.where(cms_id: 'CMS704v1', user_id: @user.id).first
     # Assert there are three ArchivedMeasure loaded
     assert_equal 3, ArchivedMeasure.where({hqmf_set_id: measure.hqmf_set_id}).count
-    
   end 
   
 end
