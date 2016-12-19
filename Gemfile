@@ -63,6 +63,7 @@ group :test, :development do
   gem 'capistrano-rails'
   gem 'rvm1-capistrano3', require: false
   gem 'phantomjs'
+  gem 'selenium-webdriver'
 end
 
 group :production do
