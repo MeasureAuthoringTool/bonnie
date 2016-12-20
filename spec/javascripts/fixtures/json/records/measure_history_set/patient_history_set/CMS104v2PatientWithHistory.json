@@ -1,0 +1,148 @@
+{
+  "_id": "584ef51d18411173c900000f",
+  "birthdate": 328867200,
+  "bundle_id": "5346d238908563511c000001",
+  "calc_results": [
+    {
+      "IPP": 0,
+      "DENOM": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0,
+      "DENEX": 0,
+      "rationale": {
+        "OccurrenceANonElectiveInpatientEncounter4_precondition_71": false,
+        "DiagnosisActiveHemorrhagicStroke_precondition_66": false,
+        "DiagnosisActiveIschemicStroke_precondition_68": false,
+        "precondition_70": false,
+        "OccurrenceANonElectiveInpatientEncounter4": false,
+        "PatientCharacteristicBirthdateBirthDate_precondition_60": false,
+        "OccurrenceANonElectiveInpatientEncounter4_precondition_62": false,
+        "MeasurePeriod": {
+          "results": [
+            {
+              "id": "undefined",
+              "json": {
+                "start_time": 1325376000,
+                "end_time": 1356998340,
+                "codes": {
+                }
+              }
+            }
+          ]
+        },
+        "OccurrenceANonElectiveInpatientEncounter4_precondition_64": false,
+        "precondition_73": false,
+        "precondition_IPP": false,
+        "IPP": false,
+        "VARIABLES": false
+      },
+      "finalSpecifics": {
+        "IPP": [
+
+        ]
+      },
+      "measure_id": "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+      "population_index": 0,
+      "status": "pass"
+    }
+  ],
+  "condensed_calc_results": null,
+  "created_at": "2016-12-12T19:06:05.754Z",
+  "deathdate": null,
+  "description": null,
+  "description_category": null,
+  "effective_time": null,
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    }
+  ],
+  "expired": null,
+  "first": "john",
+  "gender": "M",
+  "has_measure_history": true,
+  "insurance_providers": [
+    {
+      "_id": "584ef51d18411173c9000011",
+      "codes": {
+        "SOP": [
+          "349"
+        ]
+      },
+      "description": null,
+      "end_time": null,
+      "financial_responsibility_type": {
+        "code": "SELF",
+        "codeSystem": "HL7 Relationship Code"
+      },
+      "health_record_field": null,
+      "member_id": "1234567890",
+      "mood_code": "EVN",
+      "name": "Other",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": null,
+      "payer": {
+        "_id": "584ef51d18411173c9000012",
+        "name": "Other"
+      },
+      "reason": null,
+      "relationship": null,
+      "specifics": null,
+      "start_time": 1199163600,
+      "status_code": null,
+      "time": null,
+      "type": "OT"
+    }
+  ],
+  "is_shared": null,
+  "languages": [
+
+  ],
+  "last": "smith",
+  "marital_status": null,
+  "measure_ids": [
+    "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+    null
+  ],
+  "medical_record_assigner": "Bonnie",
+  "medical_record_number": "e765117222b184d6fde216e7ca1a86f0",
+  "modifier_id": null,
+  "notes": "",
+  "origin_data": [
+
+  ],
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "results_exceed_storage": false,
+  "results_size": 826,
+  "source_data_criteria": [
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": null,
+  "title": null,
+  "type": null,
+  "updated_at": "2016-12-12T19:07:08.919Z",
+  "user_id": "501fdba3044a111b98000001",
+  "version": 2
+}
