@@ -228,11 +228,15 @@ class Record
   def calc_status
     return if calc_results.blank?
     expected_values.each do |expected_value|
+      # in the production database, there are cases of dirty data where there might be an expected value = {}.
+      # checking for measure_id and population_id to just be safe.
+      next if expected_value.empty? || !expected_value[:measure_id] || !expected_value[:population_index]
+
       population_set_index = expected_value[:population_index]
       calc_result = calc_results.find { |result| result[:measure_id] == expected_value[:measure_id] && result[:population_index] == population_set_index }
 
-      # stop if the expected value result can't be found in the calculated values
-      break unless calc_result
+      # continue if the expected value result can't be found in the calculated values
+      next unless calc_result
 
       filtered_expected_values = expected_value.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES)
       filtered_calc_results = calc_result.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES)
