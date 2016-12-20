@@ -230,6 +230,8 @@ class Record
     expected_values.each do |expected_value|
       # in the production database, there are cases of dirty data where there might be an expected value = {}.
       # checking for measure_id and population_id to just be safe.
+      # TODO: (LDY 12/20/16) We should consider cleaning up the expected_value data so that this check is not
+      # necessary
       next if expected_value.empty? || !expected_value[:measure_id] || !expected_value[:population_index]
 
       population_set_index = expected_value[:population_index]
