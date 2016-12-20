@@ -332,7 +332,7 @@ describe 'PatientBuilderView', ->
 describe 'PatientBuilderViewHistory', ->
   
   beforeEach -> 
-    history_patient = new Thorax.Models.Patient getJSONFixture('records/measure_history_set/CMS104v2PatientWithHistory.json'), parse: true
+    history_patient = new Thorax.Models.Patient getJSONFixture('records/measure_history_set/patient_history_set/CMS104v2PatientWithHistory.json'), parse: true
     cms104v2 = new Thorax.Models.Measure getJSONFixture('measure_data/measure_history_set/patient_history_set/CMS104v2.json'), parse: true
     patients = new Thorax.Collections.Patients()
     patients.add(history_patient)
