@@ -26,79 +26,7 @@ include Devise::TestHelpers
       end
     end
   end
-
-  test 'Archived Measures added upon reuploading' do
-    # Load initial measure
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v1.1.zip'), 'application/zip')
-    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional'
-    measure = Measure.where(hqmf_set_id: 'E37012AD-2B01-4738-8985-D5C0F4C3AE9F', user_id: @user.id).first
-    # Assert measure has no history upon initial upload
-    assert_equal 0, ArchivedMeasure.where({hqmf_set_id: measure.hqmf_set_id}).count
-    
-    # Load new version of measure
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v2.2.zip'), 'application/zip')
-    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional', hqmf_set_id: 'E37012AD-2B01-4738-8985-D5C0F4C3AE9F'
-    measure = Measure.where(hqmf_id: '40280382-5859-6598-0158-92BE72260A7E', user_id: @user.id).first
-    # Assert there is one ArchivedMeasure loaded
-    assert_equal 1, ArchivedMeasure.where({hqmf_set_id: measure.hqmf_set_id}).count
-
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v3.1.zip'), 'application/zip')
-    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional', hqmf_set_id: 'E37012AD-2B01-4738-8985-D5C0F4C3AE9F'
-    measure = Measure.where(hqmf_id: '40280382-5859-6598-0158-932E80DC0AD5', user_id: @user.id).first
-    # Assert there are two ArchivedMeasures loaded
-    assert_equal 2, ArchivedMeasure.where({hqmf_set_id: measure.hqmf_set_id}).count
-
-    # Reupload the intital measure version
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v1.1.zip'), 'application/zip')
-    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional', hqmf_set_id: 'E37012AD-2B01-4738-8985-D5C0F4C3AE9F'
-    measure = Measure.where(cms_id: 'CMS704v1', user_id: @user.id).first
-    # Assert there are three ArchivedMeasure loaded
-    assert_equal 3, ArchivedMeasure.where({hqmf_set_id: measure.hqmf_set_id}).count
-  end 
-
-  # This test is focusing on the actions around measure updates, particularly taking the snapshots of the patitents before and after
-  test 'update measure version' do
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS123v3.zip'), 'application/zip')
-    class << measure_file
-      attr_reader :tempfile
-    end
-
-    # Assert measure is not yet loaded
-    measure = Measure.where(hqmf_id: '40280381-4555-E1C1-0145-E20602FE49E').first
-    assert_nil measure
-
-    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional'
-
-    assert_response :redirect
-    measure = Measure.where(hqmf_id: '40280381-4555-E1C1-0145-E20602FE49E8').first
-    assert_equal 'C0D72444-7C26-4863-9B51-8080F8928A85', measure.hqmf_set_id
-    # Find a patient and force the size of the calc_results over the 12MB limit
-    p = Record.where(first: 'John, III', measure_ids: 'C0D72444-7C26-4863-9B51-8080F8928A85').first
-
-    p.calc_results[0][:rationale] = 'X' * (1024 * 1024 * 12)
-    p.save
-
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS123v5.zip'), 'application/zip')
-    class << measure_file
-      attr_reader :tempfile
-    end
-
-    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional', hqmf_set_id: 'C0D72444-7C26-4863-9B51-8080F8928A85'
-
-    measure = Measure.where(cms_id: 'CMS123v5').first
-    assert_equal 'C0D72444-7C26-4863-9B51-8080F8928A85', measure.hqmf_set_id
-    assert_equal '40280381-51F0-825B-0152-229B7B2F16F9', measure.hqmf_id
-
-    upload_summary = UploadSummary::MeasureSummary.where(hqmf_id: '40280381-51F0-825B-0152-229B7B2F16F9').first
-    assert_not_nil upload_summary
-    assert_equal 'CMS123v3', upload_summary.cms_id_pre_upload
-    assert_equal 'CMS123v5', upload_summary.cms_id_post_upload
-    assert_equal 3, upload_summary.population_set_summaries[0][:summary][:pass_before]
-    assert_equal 3, upload_summary.population_set_summaries[0][:summary][:pass_after]
-    assert_equal true, upload_summary.population_set_summaries[0][:patients][p.id.to_s][:results_exceeds_storage_pre_upload]
-    assert_equal false, upload_summary.population_set_summaries[0][:patients][p.id.to_s][:results_exceeds_storage_post_upload]
-  end
-
+  
   test 'walk through measure population_set change scenarios' do
     # Load version 1 of the measure. Starts with two population sets
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v1.1.zip'), 'application/zip')
@@ -229,5 +157,77 @@ include Devise::TestHelpers
       assert_equal [], ((population_set.keys - test_patient.expected_values[set_index].keys) - %w(id title))
     end
   end # test
+
+  test 'Archived Measures added upon reuploading' do
+    # Load initial measure
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v1.1.zip'), 'application/zip')
+    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional'
+    measure = Measure.where(hqmf_set_id: 'E37012AD-2B01-4738-8985-D5C0F4C3AE9F', user_id: @user.id).first
+    # Assert measure has no history upon initial upload
+    assert_equal 0, ArchivedMeasure.where({hqmf_set_id: measure.hqmf_set_id}).count
+    
+    # Load new version of measure
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v2.2.zip'), 'application/zip')
+    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional', hqmf_set_id: 'E37012AD-2B01-4738-8985-D5C0F4C3AE9F'
+    measure = Measure.where(hqmf_id: '40280382-5859-6598-0158-92BE72260A7E', user_id: @user.id).first
+    # Assert there is one ArchivedMeasure loaded
+    assert_equal 1, ArchivedMeasure.where({hqmf_set_id: measure.hqmf_set_id}).count
+
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v3.1.zip'), 'application/zip')
+    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional', hqmf_set_id: 'E37012AD-2B01-4738-8985-D5C0F4C3AE9F'
+    measure = Measure.where(hqmf_id: '40280382-5859-6598-0158-932E80DC0AD5', user_id: @user.id).first
+    # Assert there are two ArchivedMeasures loaded
+    assert_equal 2, ArchivedMeasure.where({hqmf_set_id: measure.hqmf_set_id}).count
+
+    # Reupload the intital measure version
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v1.1.zip'), 'application/zip')
+    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional', hqmf_set_id: 'E37012AD-2B01-4738-8985-D5C0F4C3AE9F'
+    measure = Measure.where(cms_id: 'CMS704v1', user_id: @user.id).first
+    # Assert there are three ArchivedMeasure loaded
+    assert_equal 3, ArchivedMeasure.where({hqmf_set_id: measure.hqmf_set_id}).count
+  end 
+
+  # This test is focusing on the actions around measure updates, particularly taking the snapshots of the patitents before and after
+  test 'update measure version' do
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS123v3.zip'), 'application/zip')
+    class << measure_file
+      attr_reader :tempfile
+    end
+
+    # Assert measure is not yet loaded
+    measure = Measure.where(hqmf_id: '40280381-4555-E1C1-0145-E20602FE49E').first
+    assert_nil measure
+
+    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional'
+
+    assert_response :redirect
+    measure = Measure.where(hqmf_id: '40280381-4555-E1C1-0145-E20602FE49E8').first
+    assert_equal 'C0D72444-7C26-4863-9B51-8080F8928A85', measure.hqmf_set_id
+    # Find a patient and force the size of the calc_results over the 12MB limit
+    p = Record.where(first: 'John, III', measure_ids: 'C0D72444-7C26-4863-9B51-8080F8928A85').first
+
+    p.calc_results[0][:rationale] = 'X' * (1024 * 1024 * 12)
+    p.save
+
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS123v5.zip'), 'application/zip')
+    class << measure_file
+      attr_reader :tempfile
+    end
+
+    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional', hqmf_set_id: 'C0D72444-7C26-4863-9B51-8080F8928A85'
+
+    measure = Measure.where(cms_id: 'CMS123v5').first
+    assert_equal 'C0D72444-7C26-4863-9B51-8080F8928A85', measure.hqmf_set_id
+    assert_equal '40280381-51F0-825B-0152-229B7B2F16F9', measure.hqmf_id
+
+    upload_summary = UploadSummary::MeasureSummary.where(hqmf_id: '40280381-51F0-825B-0152-229B7B2F16F9').first
+    assert_not_nil upload_summary
+    assert_equal 'CMS123v3', upload_summary.cms_id_pre_upload
+    assert_equal 'CMS123v5', upload_summary.cms_id_post_upload
+    assert_equal 3, upload_summary.population_set_summaries[0][:summary][:pass_before]
+    assert_equal 3, upload_summary.population_set_summaries[0][:summary][:pass_after]
+    assert_equal true, upload_summary.population_set_summaries[0][:patients][p.id.to_s][:results_exceeds_storage_pre_upload]
+    assert_equal false, upload_summary.population_set_summaries[0][:patients][p.id.to_s][:results_exceeds_storage_post_upload]
+  end
   
 end
