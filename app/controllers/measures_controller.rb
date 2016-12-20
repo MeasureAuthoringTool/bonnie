@@ -339,6 +339,8 @@ class MeasuresController < ApplicationController
         # get the latest archived measure (the measure that the current upload is replacing)
         archived_measure = ArchivedMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).desc(:uploaded_at).first
         measure_summary = UploadSummary::MeasureSummary.create_measure_upload_summary(measure, archived_measure)
+        flash[:uploaded_summary_id] = measure_summary.id
+        flash[:uploaded_hqmf_set_id] = measure.hqmf_set_id
       end
 
       # Make UI show upload summary
