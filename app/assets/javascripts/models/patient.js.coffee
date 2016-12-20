@@ -206,6 +206,13 @@ class Thorax.Models.Patient extends Thorax.Model
 
     return errors if errors.length > 0
 
+  ###*
+  # Pulls out only the needed parts of a result from the calculation engine to create the structure needed
+  # to save the calc_results for the specific population set.
+  # @private
+  # @param {Thorax.Models.Result} result - The result from the calculation engine.
+  # @retun {object} The result objet that will be saved.
+  ###
   _filterResult: (result) ->
     filteredResult = {}
     for populationName in Thorax.Models.Measure.allPopulationCodes
@@ -216,7 +223,15 @@ class Thorax.Models.Patient extends Thorax.Model
     filteredResult['measure_id'] = result.measure.get('hqmf_set_id')
     filteredResult['population_index'] = result.population.get('index')
     return filteredResult
-    
+  
+  ###*
+  # Makes changes to the patient, materializes, calculates results for this patient for each
+  # measure they belong to, then saves using the backbone save function.
+  # @param {object} attributes - The attributes to be changed.
+  # @param {object} options - The options. These are passed to backbone's save function. `silent`
+  #   option is obeyed for setting attribute changes. `success` option is useful to know when the
+  #   save has been completed.
+  ###
   calculateAndSave: (attributes, options) ->
     # make the changes
     @set(attributes, if options?.silent then { silent: true } else null)
