@@ -12,6 +12,9 @@
 // may get better load performance if you require the specific files that are being used in the spec that tests them.
 //= require application
 
+// test-only JS module
+//= require router/router_cache.js.coffee
+
 // Setup prepares measures to be used by specs
 //= require_tree ./setup
 
