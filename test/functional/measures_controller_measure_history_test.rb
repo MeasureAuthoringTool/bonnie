@@ -15,7 +15,7 @@ include Devise::TestHelpers
     sign_in @user
 
     # collection_fixtures('records')
-    records_set = File.join("records","measure_history")
+    records_set = File.join("records","measure_history_set")
     collection_fixtures(records_set)
     @patients = Record
     associate_user_with_patients(@user, @patients)
@@ -26,10 +26,10 @@ include Devise::TestHelpers
       end
     end
   end
-  
+
   test 'walk through measure population_set change scenarios' do
     # Load version 1 of the measure. Starts with two population sets
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v1.1.zip'), 'application/zip')
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history_set', 'CMS704_v1.1.zip'), 'application/zip')
     class << measure_file
       attr_reader :tempfile
     end
@@ -46,7 +46,7 @@ include Devise::TestHelpers
     assert_equal 2, measure.populations.count # Does the measure now have 2 population sets
 
     # Go from two population sets to three
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v2.2.zip'), 'application/zip')
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history_set', 'CMS704_v2.2.zip'), 'application/zip')
     class << measure_file
       attr_reader :tempfile
     end
@@ -85,7 +85,7 @@ include Devise::TestHelpers
     assert_not_nil upload_summary.population_set_summaries[2]['patients'][test_patient.id.to_s]['post_upload_results']
 
     # Go from three population sets to one
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v3.1.zip'), 'application/zip')
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history_set', 'CMS704_v3.1.zip'), 'application/zip')
     class << measure_file
       attr_reader :tempfile
     end
@@ -117,7 +117,7 @@ include Devise::TestHelpers
     assert_nil upload_summary.population_set_summaries[2]['patients'][test_patient.id.to_s]['post_upload_results']
 
     # Go back to the original state of two population sets
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v1.1.zip'), 'application/zip')
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history_set', 'CMS704_v1.1.zip'), 'application/zip')
     class << measure_file
       attr_reader :tempfile
     end
@@ -135,7 +135,7 @@ include Devise::TestHelpers
     # Now load a version of the measure where the number of population sets stays constant
     # but the populations within those sets change
 
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history', 'CMS704_v2.3.zip'), 'application/zip')
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history_set', 'CMS704_v2.3.zip'), 'application/zip')
     class << measure_file
       attr_reader :tempfile
     end

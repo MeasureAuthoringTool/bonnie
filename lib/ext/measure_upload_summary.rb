@@ -78,10 +78,12 @@ module UploadSummary
         patient.update_expected_value_structure!(current_measure)
       end
 
-      # recalculate the patient information for the newly uploaded measure
+      # recalculate the patient information for the newly uploaded measure and
+      # note that the patient has measure history
       calculator = BonnieBackendCalculator.new
       current_measure.populations.each_with_index do |population, population_set_index|
         patients.each do |patient|
+          patient.has_measure_history = true # update_calc_results does the patient save to persist this change
           patient.update_calc_results!(current_measure, population_set_index, calculator)
         end
       end
