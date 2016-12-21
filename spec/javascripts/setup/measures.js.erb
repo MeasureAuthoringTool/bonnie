@@ -5,16 +5,15 @@
 <% Mongoid.configure { |config| config.sessions = { default: { database: 'jasmine', hosts: ['localhost:27017'] } } } %>
 
 <%# Set up the value sets %>
-<%# TODO: this value_sets_json is duplicated per state, but should be loaded separately?  %>
+<%# TODO: this value_sets_json is duplicated per state into bonnie.valueSetsByOid, but should be loaded separately?  %>
+<% value_sets_fixture_file = File.join File.dirname(__FILE__), '../fixtures/json/measure_data/base_set/value_sets.json' %>
+<% value_sets_json = File.read(value_sets_fixture_file) %>
 
 window.bonnieRouterCache = new BonnieRouterCache();
 
 <%# Load the JSON for our fixture measures and generate the calculation JavaScript %>
 <% Dir.glob (File.join(File.dirname(__FILE__), '../fixtures/json/measure_data/**/measures.json')) do |measure_file| %>
   window.bonnie = new BonnieRouter();
-  <% value_sets_fixture_file = File.join File.dirname(measure_file), "value_sets.json" %>
-  <% value_sets_json = File.read(value_sets_fixture_file) %>
-  
   bonnie.valueSetsByOid = <%= value_sets_json.html_safe %>;
   <% measures_json = File.read(measure_file) %>
   bonnie.measures.add(<%= measures_json.html_safe %>, { parse: true });
@@ -39,9 +38,5 @@ window.bonnieRouterCache = new BonnieRouterCache();
   <% end %>
   <% key = measure_file.split('measure_data/')[1] %>
   <% key = File.dirname(key) %>
-//  window.bonnieRouterCache.state['<%= key %>'] = {}
   window.bonnieRouterCache.save('<%= key %>');
-//  bonnie.measures = new Thorax.Collections.Measures();
-//  bonnie.calculator = new Calculator();
-//  bonnie.valueSetsByOid = {};
 <% end %>
