@@ -10,5 +10,3 @@ describe 'MeasureDebugView', ->
     expect(view.$el).toContainText("#{measure.get('populations').first().get('title')}")
     expect(view.$el).toContainText("#{patient.get('last')}, #{patient.get('first')}")
     view.remove()
-    # clean up all changes to the measure, as this is in a global store (not a copy)
-    measure.get('patients').reset()

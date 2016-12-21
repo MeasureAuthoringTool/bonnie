@@ -8,9 +8,5 @@ describe 'PopulationCalculationView', ->
     @populationCalculationView = new Thorax.Views.PopulationCalculation(model: @population)
     @populationCalculationView.render()
 
-  afterEach ->
-    # clean up all changes to the measure, as this is in a global store (not a copy)
-    @measure.get('patients').reset()
-
   it 'renders correctly', ->
     expect(@populationCalculationView.$el).toContainText @patients.first().get('last')
