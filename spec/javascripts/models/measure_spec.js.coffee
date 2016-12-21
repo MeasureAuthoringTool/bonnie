@@ -1,7 +1,7 @@
 describe 'Measure', ->
 
   beforeEach ->
-    window.bonnieRouterCache.load("base_set")
+    window.bonnieRouterCache.load('base_set')
     @measure = bonnie.measures.get('40280381-3D61-56A7-013E-5D1EF9B76A48')
 
   it 'has basic attributes available', ->

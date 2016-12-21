@@ -1,7 +1,7 @@
 describe 'PatientBuilderView', ->
 
   beforeEach ->
-    window.bonnieRouterCache.load("base_set")
+    window.bonnieRouterCache.load('base_set')
     @patient = new Thorax.Models.Patient getJSONFixture('records/base_set/patients.json')[0], parse: true
     @measure = bonnie.measures.findWhere(cms_id: 'CMS146v2')
     @patients = new Thorax.Collections.Patients()

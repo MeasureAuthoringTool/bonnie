@@ -1,7 +1,7 @@
 describe 'Navigation', ->
 
   beforeEach ->
-    window.bonnieRouterCache.load("base_set")
+    window.bonnieRouterCache.load('base_set')
     @measures = bonnie.measures
     @patients = new Thorax.Collections.Patients getJSONFixture('records/base_set/patients.json')
 

@@ -7,10 +7,10 @@ describe 'BonnieRouterCache', ->
     expect( -> window.bonnieRouterCache.load('non-existant')).toThrow()
 
   it 'does not throw if state exists', ->
-    expect( -> window.bonnieRouterCache.load('default')).not.toThrow()
+    expect( -> window.bonnieRouterCache.load('empty_set')).not.toThrow()
 
   it 'load clears JSON Fixtures', ->
     myfixture = getJSONFixture('records/base_set/patients.json')
     expect($.isEmptyObject(jasmine.getJSONFixtures().fixturesCache_)).toBe(false)
-    window.bonnieRouterCache.load('default')
+    window.bonnieRouterCache.load('empty_set')
     expect($.isEmptyObject(jasmine.getJSONFixtures().fixturesCache_)).toBe(true)

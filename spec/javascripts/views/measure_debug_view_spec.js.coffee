@@ -1,7 +1,7 @@
 describe 'MeasureDebugView', ->
 
   it 'renders', ->
-    window.bonnieRouterCache.load("base_set")
+    window.bonnieRouterCache.load('base_set')
     measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
     patient = new Thorax.Models.Patient getJSONFixture('records/base_set/patients.json')[3], parse: true
     measure.get('patients').add patient

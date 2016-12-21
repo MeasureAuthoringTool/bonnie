@@ -1,6 +1,6 @@
 describe 'PopulationCalculationView', ->
   beforeEach ->
-    window.bonnieRouterCache.load("base_set")
+    window.bonnieRouterCache.load('base_set')
     @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
     @patients = new Thorax.Collections.Patients getJSONFixture('records/base_set/patients.json'), parse: true
     @measure.set('patients', @patients)

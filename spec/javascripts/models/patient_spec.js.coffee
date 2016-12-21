@@ -1,7 +1,7 @@
 describe 'Patient', ->
 
   beforeEach ->
-    window.bonnieRouterCache.load("base_set")
+    window.bonnieRouterCache.load('base_set')
     collection = new Thorax.Collections.Patients getJSONFixture('records/base_set/patients.json'), parse: true
     @patient = collection.findWhere(first: 'GP_Peds', last: 'A')
 
