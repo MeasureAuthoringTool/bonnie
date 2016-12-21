@@ -203,5 +203,3 @@ class Thorax.Collections.Measures extends Thorax.Collection
       pops.parent = measure
       measure.set('displayedPopulation', pops.at('0'))
     cloneMeasures
-    
-    

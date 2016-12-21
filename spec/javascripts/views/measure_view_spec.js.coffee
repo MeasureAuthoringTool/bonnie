@@ -26,7 +26,7 @@ describe 'MeasureView', ->
     expect(@measureLayoutView.$el).toContainText @measure.get('cms_id')
     expect(@measureView.$el).toContainText @measure.get('description')
 
-  xit 'renders measure populations', ->
+  it 'renders measure populations', ->
     expect(@measureView.$('[data-toggle="tab"]')).toExist()
     expect(@measureView.$('.rationale-target')).toBeVisible()
     expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).not.toHaveClass('collapsed')
