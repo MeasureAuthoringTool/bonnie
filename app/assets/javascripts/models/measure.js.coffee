@@ -198,11 +198,10 @@ class Thorax.Collections.Measures extends Thorax.Collection
   deepClone: ->
     cloneMeasures = new Thorax.Collections.Measures (@.toJSON())
     cloneMeasures.each (measure) ->
-      clonePopulations = new Thorax.Collections.Population
-      clonePopulations.parent = measure
-      measure.get('populations').each (p) -> clonePopulations.add(p.toJSON())
-      measure.set('populations', clonePopulations)
-      measure.set('displayedPopulation', clonePopulations.at('0'))
+      #Ensure that the population points to the correct measure
+      pops = measure.get('populations')
+      pops.parent = measure
+      measure.set('displayedPopulation', pops.at('0'))
     cloneMeasures
     
     
