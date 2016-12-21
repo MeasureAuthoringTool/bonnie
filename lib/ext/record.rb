@@ -206,8 +206,6 @@ class Record
     else
       self.calc_results << result
     end
-
-    self.has_measure_history = true
     save!
   end
 
