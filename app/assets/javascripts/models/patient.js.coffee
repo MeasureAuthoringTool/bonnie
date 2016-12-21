@@ -236,6 +236,13 @@ class Thorax.Models.Patient extends Thorax.Model
     # make the changes
     @set(attributes, if options?.silent then { silent: true } else null)
     
+    # validate the changes made
+    @validationError = @validate()
+    
+    # return false if there are any validation errors
+    if @validationError?.length > 0
+      return false
+    
     # make sure that materialize happens
     @materialize( =>
       measuresToCalculate = []
