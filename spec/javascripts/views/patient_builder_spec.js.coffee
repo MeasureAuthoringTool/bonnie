@@ -330,13 +330,24 @@ describe 'PatientBuilderView', ->
 
 describe 'PatientBuilderViewHistory', ->
   
-  beforeEach -> 
-    history_patient = new Thorax.Models.Patient getJSONFixture('records/measure_history_set/patient_history_set/CMS104v2PatientWithHistory.json'), parse: true
-    cms104v2 = new Thorax.Models.Measure getJSONFixture('measure_data/measure_history_set/patient_history_set/CMS104v2.json'), parse: true
-    patients = new Thorax.Collections.Patients()
-    patients.add(history_patient)
-    @patientBuilder = new Thorax.Views.PatientBuilder(model: history_patient, measure: cms104v2, patients: patients)
+  beforeEach ->
+    results = window.measureHistorySpecLoader.loadWithHistory('single_population_set', 'CMS68v6')
+
+    @measure = results.measure
+    @patients = results.patients
+    @uploadSummaries = results.uploadSummaries
+
+    @patientBuilder = new Thorax.Views.PatientBuilder(model: @patients.at(0), measure: @measure, patients: @patients)
     @patientBuilder.render()
+    @patientBuilder.appendTo 'body'
 
   it 'does display compare patient results button when patient has history', ->
     expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).toExist()
+
+  it 'opens the correct version of the patient diff view', ->
+    @patientBuilder.$('button[data-call-method=showCompare]:first').click()
+    divs = @patientBuilder.$('div[class=patient-compare]').children().children()
+    expect(divs[0]).toContainText "After Most Recent Upload"
+    expect(divs[1]).toContainText "Current State"
+
+  afterEach -> @patientBuilder.remove()

@@ -9,6 +9,8 @@
 <% value_sets_fixture_file = File.join File.dirname(__FILE__), '../fixtures/json/measure_data/base_set/value_sets.json' %>
 <% value_sets_json = File.read(value_sets_fixture_file) %>
 
+window.measureHistorySpecLoader = new MeasureHistorySpecLoader();
+
 window.bonnieRouterCache = new BonnieRouterCache();
 <% #saving the current BonnieRouter, which doesn't contain any measures %>
 window.bonnieRouterCache.save('empty_set')
