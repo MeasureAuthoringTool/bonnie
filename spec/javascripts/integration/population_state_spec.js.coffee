@@ -1,8 +1,7 @@
 describe "Population state between routes", ->
   beforeEach ->
-    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
-    jasmine.getJSONFixtures().clearCache()
-    @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[3], parse: true
+    window.bonnieRouterCache.load('base_set')
+    @patient = new Thorax.Models.Patient getJSONFixture('records/base_set/patients.json')[3], parse: true
     @measureToTest = bonnie.measures.get('40280381-3D61-56A7-013E-65C9C3043E54')
     @measureToTest.get('patients').add @patient
 

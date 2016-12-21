@@ -187,3 +187,12 @@ class Thorax.Collections.Measures extends Thorax.Collection
     measureToOids = {} # measure hqmf_set_id : valueSet oid
     @each (m) => measureToOids[m.get('hqmf_set_id')] = m.valueSets().pluck('oid')
     measureToOids
+    
+  deepClone: ->
+    cloneMeasures = new Thorax.Collections.Measures (@.toJSON())
+    cloneMeasures.each (measure) ->
+      #Ensure that the population points to the correct measure
+      pops = measure.get('populations')
+      pops.parent = measure
+      measure.set('displayedPopulation', pops.at('0'))
+    cloneMeasures

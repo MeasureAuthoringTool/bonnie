@@ -2,11 +2,11 @@ describe 'PatientBuilderView', ->
 
   describe 'QDM', ->
     beforeEach ->
-      # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
-      jasmine.getJSONFixtures().clearCache()
-      @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[0], parse: true
+      window.bonnieRouterCache.load('base_set')
+      @patient = new Thorax.Models.Patient getJSONFixture('records/base_set/patients.json')[0], parse: true
       @measure = bonnie.measures.findWhere(cms_id: 'CMS146v2')
-      @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
+      @patients = new Thorax.Collections.Patients()
+      @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
       @firstCriteria = @patientBuilder.model.get('source_data_criteria').first()
       # Normally the first criteria can't have a value (wrong type); for testing we allow it
       @firstCriteria.canHaveResult = -> true
@@ -15,35 +15,38 @@ describe 'PatientBuilderView', ->
       spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
       @$el = @patientBuilder.$el
 
-    it 'renders the builder correctly', ->
-      expect(@$el.find(":input[name='first']")).toHaveValue @patient.get('first')
+  it 'renders the builder correctly', ->
+    expect(@$el.find(":input[name='first']")).toHaveValue @patient.get('first')
+    
+  it 'does not display compare patient results button when there is no history', ->
+    expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()
+    
+  describe "setting basic attributes and saving", ->
+    beforeEach ->
+      @patientBuilder.appendTo 'body'
+      @patientBuilder.$(':input[name=last]').val("LAST NAME")
+      @patientBuilder.$(':input[name=first]').val("FIRST NAME")
+      @patientBuilder.$('select[name=payer]').val('MA')
+      @patientBuilder.$('select[name=gender]').val('F')
+      @patientBuilder.$(':input[name=birthdate]').val('01/02/1993')
+      @patientBuilder.$(':input[name=birthtime]').val('1:15 PM')
+      @patientBuilder.$('select[name=race]').val('2131-1')
+      @patientBuilder.$('select[name=ethnicity]').val('2135-2')
+      @patientBuilder.$("button[data-call-method=save]").click()
 
-    describe "setting basic attributes and saving", ->
-      beforeEach ->
-        @patientBuilder.appendTo 'body'
-        @patientBuilder.$(':input[name=last]').val("LAST NAME")
-        @patientBuilder.$(':input[name=first]').val("FIRST NAME")
-        @patientBuilder.$('select[name=payer]').val('MA')
-        @patientBuilder.$('select[name=gender]').val('F')
-        @patientBuilder.$(':input[name=birthdate]').val('01/02/1993')
-        @patientBuilder.$(':input[name=birthtime]').val('1:15 PM')
-        @patientBuilder.$('select[name=race]').val('2131-1')
-        @patientBuilder.$('select[name=ethnicity]').val('2135-2')
-        @patientBuilder.$("button[data-call-method=save]").click()
+    it "serializes the attributes correctly", ->
+      expect(@patientBuilder.model.get('last')).toEqual 'LAST NAME'
+      expect(@patientBuilder.model.get('first')).toEqual 'FIRST NAME'
+      expect(@patientBuilder.model.get('payer')).toEqual 'MA'
+      expect(@patientBuilder.model.get('gender')).toEqual 'F'
+      expect(@patientBuilder.model.get('birthdate')).toEqual moment.utc('01/02/1993 1:15 PM', 'L LT').format('X')
+      expect(@patientBuilder.model.get('race')).toEqual '2131-1'
+      expect(@patientBuilder.model.get('ethnicity')).toEqual '2135-2'
 
-      it "serializes the attributes correctly", ->
-        expect(@patientBuilder.model.get('last')).toEqual 'LAST NAME'
-        expect(@patientBuilder.model.get('first')).toEqual 'FIRST NAME'
-        expect(@patientBuilder.model.get('payer')).toEqual 'MA'
-        expect(@patientBuilder.model.get('gender')).toEqual 'F'
-        expect(@patientBuilder.model.get('birthdate')).toEqual moment.utc('01/02/1993 1:15 PM', 'L LT').format('X')
-        expect(@patientBuilder.model.get('race')).toEqual '2131-1'
-        expect(@patientBuilder.model.get('ethnicity')).toEqual '2135-2'
+    it "tries to save the patient correctly", ->
+      expect(@patientBuilder.originalModel.save).toHaveBeenCalled()
 
-      it "tries to save the patient correctly", ->
-        expect(@patientBuilder.originalModel.save).toHaveBeenCalled()
-
-      afterEach -> @patientBuilder.remove()
+    afterEach -> @patientBuilder.remove()
 
 
     describe "changing and blurring basic fields", ->
@@ -390,4 +393,3 @@ describe 'PatientBuilderView', ->
       # These are from direct reference codes
       expect(codesInDropdown['Birthdate']).toBeDefined()
       expect(codesInDropdown['Dead']).toBeDefined()
-
