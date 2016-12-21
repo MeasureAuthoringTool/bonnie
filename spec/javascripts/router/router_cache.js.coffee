@@ -12,6 +12,7 @@
     jasmine.getJSONFixtures().clearCache()
     # deep copy
     window.bonnie = $.extend(true, {}, @state[key])
+    window.bonnie.measures = @state[key].measures.deepClone()
 
   save: (key) ->
     @state[key] = window.bonnie

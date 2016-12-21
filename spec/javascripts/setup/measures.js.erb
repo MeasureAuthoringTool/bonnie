@@ -6,19 +6,18 @@
 
 <%# Set up the value sets %>
 <%# TODO: this value_sets_json is duplicated per state, but should be loaded separately?  %>
-<% value_sets_fixture_file = File.join File.dirname(__FILE__), '../fixtures/json/measure_data/base_set/value_sets.json' %>
-<% value_sets_json = File.read(value_sets_fixture_file) %>
 
 window.bonnieRouterCache = new BonnieRouterCache();
 
 <%# Load the JSON for our fixture measures and generate the calculation JavaScript %>
 <% Dir.glob (File.join(File.dirname(__FILE__), '../fixtures/json/measure_data/**/measures.json')) do |measure_file| %>
   window.bonnie = new BonnieRouter();
-
+  <% value_sets_fixture_file = File.join File.dirname(measure_file), "value_sets.json" %>
+  <% value_sets_json = File.read(value_sets_fixture_file) %>
+  
   bonnie.valueSetsByOid = <%= value_sets_json.html_safe %>;
   <% measures_json = File.read(measure_file) %>
   bonnie.measures.add(<%= measures_json.html_safe %>, { parse: true });
-
   <% measures = JSON.parse measures_json %>
   <% measures.each do |measure_data| %>
     <%# Initialize measure object from data in JSON, setting _id by hand because it's attr protected %>
