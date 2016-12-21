@@ -1,7 +1,7 @@
 describe 'MeasureView', ->
   beforeEach ->
+    window.bonnieRouterCache.load('base_set')
     @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
-
     # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
     # We add the overlapping codes after 10 non-overlapping codes to provide regression for a bug
     @vs1 = @measure.valueSets().findWhere(display_name: 'Annual Wellness Visit')
@@ -11,8 +11,6 @@ describe 'MeasureView', ->
       @vs2.get('concepts').push { code: "XYZ#{n}", display_name: "XYZ", code_system_name: "XYZ" }
     @vs1.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
     @vs2.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
-    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
-    jasmine.getJSONFixtures().clearCache()
     @patients = new Thorax.Collections.Patients getJSONFixture('records/base_set/patients.json'), parse: true
     @measure.set('patients', @patients)
     @patient = @patients.at(0)
@@ -21,12 +19,7 @@ describe 'MeasureView', ->
     @measureView.appendTo 'body'
 
   afterEach ->
-    # Remove the 11 extra codes that were added for value set overlap testing
-    @vs1.get('concepts').splice(-11, 11)
-    @vs2.get('concepts').splice(-11, 11)
     @measureView.remove()
-    # clean up all changes to the measure, as this is in a global store (not a copy)
-    @measure.get('patients').reset()
 
   it 'renders measure details', ->
     expect(@measureView.$el).toContainText @measure.get('title')
@@ -59,7 +52,7 @@ describe 'MeasureView', ->
     expect(@measureView.$('#supplemental_criteria')).toBeVisible()
     expect(@measureView.$('#supplemental_criteria').find('[data-toggle="collapse"].value_sets')).toExist()
     expect(@measureView.$('#supplemental_criteria').find('.row.collapse')).toExist()
-
+    
     expect(@measureView.$('#overlapping_value_sets')).toBeVisible()
     expect(@measureView.$('#overlapping_value_sets').find('[data-toggle="collapse"].value_sets')).toExist()
     expect(@measureView.$('#overlapping_value_sets').find('.row.collapse')).toExist()
