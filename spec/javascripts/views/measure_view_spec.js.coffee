@@ -2,7 +2,6 @@ describe 'MeasureView', ->
   beforeEach ->
     window.bonnieRouterCache.load("base_set")
     @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
-
     # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
     # We add the overlapping codes after 10 non-overlapping codes to provide regression for a bug
     @vs1 = @measure.valueSets().findWhere(display_name: 'Annual Wellness Visit')
@@ -20,12 +19,7 @@ describe 'MeasureView', ->
     @measureView.appendTo 'body'
 
   afterEach ->
-    # Remove the 11 extra codes that were added for value set overlap testing
-    @vs1.get('concepts').splice(-11, 11)
-    @vs2.get('concepts').splice(-11, 11)
     @measureView.remove()
-    # clean up all changes to the measure, as this is in a global store (not a copy)
-    @measure.get('patients').reset()
 
   it 'renders measure details', ->
     expect(@measureView.$el).toContainText @measure.get('title')
