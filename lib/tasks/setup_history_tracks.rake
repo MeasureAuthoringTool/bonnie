@@ -22,13 +22,19 @@ namespace :bonnie do
       calculator = BonnieBackendCalculator.new
       puts "There are #{Measure.count} measures to process."
       Measure.no_timeout.each_with_index do |measure, measure_index|
+        if measure_index % 100 == 0
+          puts measure_index
+        else
+          print "."
+        end
+
         patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
         # Move on if there are no patients associated with this measure for this user
         if patients.count == 0
-          print '.'
           next
         end
         measure.populations.each_with_index do |population_set, population_index|
+          calculator.set_measure_and_population(measure, population_index, clear_db_cache: true, rationale: true)
           processed_patients_array = []
           patients.no_timeout.each_with_index do |patient, patient_index|
 
@@ -48,7 +54,6 @@ namespace :bonnie do
             end
           end
         end
-        print "."
       end # measures
       puts
     end # calculate_all
@@ -57,14 +62,18 @@ namespace :bonnie do
     task :clear_calculation_results => :environment do
       STDOUT.sync = true
       puts "There are #{Record.count} patients to process"
-      Record.no_timeout.each do |patient|
+      Record.no_timeout.each_with_index do |patient, patient_index|
         patient.calc_results = []
         patient.condensed_calc_results = []
         patient.has_measure_history = false
         patient.results_exceed_storage = false
         patient.results_size = 0
         patient.save!
-        print '.'
+        if patient_index % 100 == 0
+          puts patient_index
+        else
+          print "."
+        end
       end
       puts
     end
@@ -73,14 +82,19 @@ namespace :bonnie do
     task :sync_expected_values => :environment do
       STDOUT.sync = true
       puts 'Align expected values on patients with the populations defined on the measure.'
-      puts "There are #{Record.count} patients to process."
-      Measure.no_timeout.each do |measure|
+      puts "There are #{Measure.count} measures to process."
+      Measure.no_timeout.each_with_index do |measure, measure_index|
+        if measure_index % 100 == 0
+          puts measure_index
+        else
+          print "."
+        end
+
         patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
         next if patients.count == 0
 
         patients.no_timeout.each do |patient|
           patient.update_expected_value_structure!(measure)
-          print "."
         end # patients
       end # measures
       puts
