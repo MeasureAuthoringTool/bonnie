@@ -21,7 +21,7 @@ namespace :bonnie do
 
       calculator = BonnieBackendCalculator.new
       puts "There are #{Measure.count} measures to process."
-      Measure.each_with_index do |measure, measure_index|
+      Measure.no_timeout.each_with_index do |measure, measure_index|
         patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
         # Move on if there are no patients associated with this measure for this user
         if patients.count == 0
@@ -30,7 +30,7 @@ namespace :bonnie do
         end
         measure.populations.each_with_index do |population_set, population_index|
           processed_patients_array = []
-          patients.each_with_index do |patient, patient_index|
+          patients.no_timeout.each_with_index do |patient, patient_index|
 
             # For some reason, patients show up multiple times during this iteration.
             # This checks for that and skips those patients to reduce the number of calculations.
@@ -42,7 +42,7 @@ namespace :bonnie do
             begin
               patient.update_calc_results!(measure, population_index, calculator)
             rescue => e
-              puts "\nError for #{measure.user.email} measure #{measure.cms_id} population set #{population_index} patient '#{patient.first} #{patient.last}' (_id: ObjectId('#{patient.id}')):"
+              puts "\nError for #{measure.user.email if measure.user?} measure #{measure.cms_id} population set #{population_index} patient '#{patient.first} #{patient.last}' (_id: ObjectId('#{patient.id}')):"
               puts "Measure setup exception or calculation exception: #{e.message}."
               next # Move onto the next patient
             end
@@ -57,7 +57,7 @@ namespace :bonnie do
     task :clear_calculation_results => :environment do
       STDOUT.sync = true
       puts "There are #{Record.count} patients to process"
-      Record.each do |patient|
+      Record.no_timeout.each do |patient|
         patient.calc_results = []
         patient.condensed_calc_results = []
         patient.has_measure_history = false
@@ -74,11 +74,11 @@ namespace :bonnie do
       STDOUT.sync = true
       puts 'Align expected values on patients with the populations defined on the measure.'
       puts "There are #{Record.count} patients to process."
-      Measure.each do |measure|
+      Measure.no_timeout.each do |measure|
         patients = Record.where(user_id: measure.user_id, measure_ids: measure.hqmf_set_id)
         next if patients.count == 0
 
-        patients.each do |patient|
+        patients.no_timeout.each do |patient|
           patient.update_expected_value_structure!(measure)
           print "."
         end # patients
