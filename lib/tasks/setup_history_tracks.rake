@@ -41,7 +41,7 @@ namespace :bonnie do
 
             begin
               patient.update_calc_results!(measure, population_index, calculator)
-            rescue
+            rescue => e
               puts "\nError for #{measure.user.email} measure #{measure.cms_id} population set #{population_index} patient '#{patient.first} #{patient.last}' (_id: ObjectId('#{patient.id}')):"
               puts "Measure setup exception or calculation exception: #{e.message}."
               next # Move onto the next patient
