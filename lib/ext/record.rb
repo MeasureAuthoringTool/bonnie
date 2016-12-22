@@ -23,6 +23,7 @@ class Record
 
   before_save :calc_status
   before_save :size_check
+  after_destroy :remove_history_tracks
 
   # User email or measure CMS ID can be prepopulated (to solve 1+N performance issue) or just retrieved
   attr_writer :user_email
@@ -90,7 +91,7 @@ class Record
                 :version_field => :version,   # adds "field :version, :type => Integer" to track current version, default is :version
                 :track_create   =>  true,   # track document creation, default is true
                 :track_update   =>  true,   # track document updates, default is true
-                :track_destroy  =>  true    # track document destruction, default is true
+                :track_destroy  =>  false    # track document destruction, default is true
 
   # This function goes deeper into the source data criteria to look for changes.
   # Each time the record is materialized on the the front end, a new coded_entry_id is genereated.
@@ -261,6 +262,12 @@ class Record
       self.results_exceed_storage = false
       unset(:condensed_calc_results)
     end
+  end
+
+  # When a patient is deleted we no longer need the change history for that patient.
+  # To prevent orphan records and converse space we will remove any change history for deleted patients
+  def remove_history_tracks
+    self.history_tracks.delete_all
   end
 
 end

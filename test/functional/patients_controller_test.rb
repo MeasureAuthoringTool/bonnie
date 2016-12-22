@@ -318,6 +318,11 @@ include Devise::TestHelpers
     assert_equal true, r.calc_results[0]['finalSpecifics'].length > 0
     assert_equal false, r.results_exceed_storage
 
+    # Now test that history_tracks are cleaned up when the patient is 
+    delete :destroy, {id: r.id}
+    assert_response :success
+    assert_equal 0, r.history_tracks.count
+
   end
 
   test "materialize" do
