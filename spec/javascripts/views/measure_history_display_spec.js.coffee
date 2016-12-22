@@ -3,13 +3,8 @@ describe 'MeasureHistoryView', ->
     jasmine.getJSONFixtures().clearCache()
     window.measureHistorySpecLoader.loadWithHistory('single_population_set', 'CMS68v6', suite)
     suite.mainView = new Thorax.LayoutView(el: '#bonnie')
-    #suite.measure = new Thorax.Models.Measure getJSONFixture('measure_data/measure_history_set/version_display/measures_frontend.json'), parse: true
-    #suite.uploadSummaries = new Thorax.Collections.UploadSummaries([], {measure_id: suite.measure.id, _fetched: true})
-    #suite.patients = new Thorax.Collections.Patients()
-    #suite.patients.add(new Thorax.Models.Patient patientFixture) for patientFixture in getJSONFixture('records/measure_history_set/patients.json')
 
   renderView = (suite, done) ->
-    suite.measure.attributes.upload_summaries = suite.uploadSummaries
     suite.measure_history_view = new Thorax.Views.MeasureHistoryView
       model: suite.measure, patients: suite.patients, upload_summaries: suite.uploadSummaries
     suite.measure_history_view.on "rendered", ->
