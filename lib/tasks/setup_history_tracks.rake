@@ -34,7 +34,13 @@ namespace :bonnie do
           next
         end
         measure.populations.each_with_index do |population_set, population_index|
-          calculator.set_measure_and_population(measure, population_index, clear_db_cache: true, rationale: true)
+          begin
+            calculator.set_measure_and_population(measure, population_index, clear_db_cache: true, rationale: true)
+          rescue => e
+            puts "\nError for #{measure.user.email if measure.user?} measure #{measure.cms_id} population set #{population_index}:"
+            puts "Calculator setup exception: #{e.message}."
+            next
+          end
           processed_patients_array = []
           patients.no_timeout.each_with_index do |patient, patient_index|
 
@@ -49,7 +55,7 @@ namespace :bonnie do
               patient.update_calc_results!(measure, population_index, calculator)
             rescue => e
               puts "\nError for #{measure.user.email if measure.user?} measure #{measure.cms_id} population set #{population_index} patient '#{patient.first} #{patient.last}' (_id: ObjectId('#{patient.id}')):"
-              puts "Measure setup exception or calculation exception: #{e.message}."
+              puts "Calculation exception: #{e.message}."
               next # Move onto the next patient
             end
           end
