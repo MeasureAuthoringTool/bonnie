@@ -82,6 +82,7 @@ module UploadSummary
       # note that the patient has measure history
       calculator = BonnieBackendCalculator.new
       current_measure.populations.each_with_index do |population, population_set_index|
+        calculator.set_measure_and_population(current_measure, population_set_index, clear_db_cache: true, rationale: true)
         patients.each do |patient|
           patient.has_measure_history = true # update_calc_results does the patient save to persist this change
           patient.update_calc_results!(current_measure, population_set_index, calculator)
