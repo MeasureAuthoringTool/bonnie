@@ -85,7 +85,16 @@ module UploadSummary
         calculator.set_measure_and_population(current_measure, population_set_index, clear_db_cache: true, rationale: true)
         patients.each do |patient|
           patient.has_measure_history = true # update_calc_results does the patient save to persist this change
-          patient.update_calc_results!(current_measure, population_set_index, calculator)
+          begin
+            patient.update_calc_results!(current_measure, population_set_index, calculator)
+          rescue => e
+            logger.error "\n\nThere has been an error calculating the patient in measure_upload_summary:get_population_set_summaries"
+            logger.error "Error for #{current_measure.user.email} measure #{current_measure.cms_id} population set #{population_set_index} patient '#{patient.first} #{patient.last}' (_id: ObjectId('#{patient.id}'))"
+            logger.error e.message
+            logger.error e.backtrace.inspect
+            logger.error "\n\n"
+            raise e # want to re-raise the error so any internal handling continues
+          end
         end
       end
 
