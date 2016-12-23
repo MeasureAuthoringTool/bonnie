@@ -550,6 +550,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
     # Update row on recalculation
     status = patient.calculateAndSave editedData,
+      silent: true
       success: (model) =>
         result = @populationSet.calculateResult patient
         result.calculationComplete =>
