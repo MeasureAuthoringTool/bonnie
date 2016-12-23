@@ -11,7 +11,7 @@ describe 'PatientBuilderView', ->
     @firstCriteria.canHaveResult = -> true
     @patientBuilder.render()
     spyOn(@patientBuilder.model, 'materialize')
-    spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
+    spyOn(@patientBuilder.originalModel, 'calculateAndSave').and.returnValue(true)
     @$el = @patientBuilder.$el
 
   it 'renders the builder correctly', ->

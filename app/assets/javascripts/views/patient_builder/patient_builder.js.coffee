@@ -183,38 +183,36 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @serializeWithChildren()
     @model.sortCriteriaBy 'start_date', 'end_date'
 
-    @calculateAllResults((calc_results) =>
-      patientJSON = @model.toJSON()
-      patientJSON.calc_results = calc_results
-      # Need to have silent: true on save so that the change event (which clears calc_results) doesn't fire 
-      status = @originalModel.save patientJSON,
-        silent: true
-        success: (current_patient) =>
-          # We need to clear the cache so that page you are returned to will be forced to refresh its cache for calc_results
-          if @.parent?._view.patients.get(current_patient)
-            @.parent._view.patients.get(current_patient).unset('calc_results')
-          @patients.add current_patient # make sure that the patient exist in the global patient collection
-          @measure?.get('patients').add current_patient # and the measure's patient collection
-          if bonnie.isPortfolio
-            @measures.each (m) -> m.get('patients').add current_patient
-          if @inPatientDashboard # Check that is passed in from PatientDashboard, to Route back to patient dashboard.
-            route = if @measure then Backbone.history.getFragment() else "patients" # Go back to the current route, either "patient_dashboard" or "508_patient_dashboard"
-          else
-            route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
-          bonnie.navigate route, trigger: true
-          callback.success(current_patient) if callback?.success
-      unless status
-        $(e.target).button('reset').prop('disabled', false)
-        messages = []
-        for [cid, field, message] in @originalModel.validationError
-          # Location holds the cid of the model with the error, either toplevel or a data criteria, from whcih we get the view
-          if cid == @originalModel.cid
-            @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
-          else
-            @$("[data-model-cid=#{cid}]").view().highlightError(e, field)
-          messages.push message
-        @$('.alert').text(_(messages).uniq().join('; ')).removeClass('hidden')
-      )
+    patientJSON = @model.toJSON()
+    # Need to have silent: true on save so that the change event (which clears calc_results) doesn't fire 
+    status = @originalModel.calculateAndSave patientJSON,
+      silent: true
+      success: (current_patient) =>
+        # We need to clear the cache so that page you are returned to will be forced to refresh its cache for calc_results
+        if @.parent?._view.patients.get(current_patient)
+          @.parent._view.patients.get(current_patient).unset('calc_results')
+        @patients.add current_patient # make sure that the patient exist in the global patient collection
+        @measure?.get('patients').add current_patient # and the measure's patient collection
+        if bonnie.isPortfolio
+          @measures.each (m) -> m.get('patients').add current_patient
+        if @inPatientDashboard # Check that is passed in from PatientDashboard, to Route back to patient dashboard.
+          route = if @measure then Backbone.history.getFragment() else "patients" # Go back to the current route, either "patient_dashboard" or "508_patient_dashboard"
+        else
+          route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
+        bonnie.navigate route, trigger: true
+        callback.success(current_patient) if callback?.success
+    unless status
+      $(e.target).button('reset').prop('disabled', false)
+      messages = []
+      for [cid, field, message] in @originalModel.validationError
+        # Location holds the cid of the model with the error, either toplevel or a data criteria, from whcih we get the view
+        if cid == @originalModel.cid
+          @$(":input[name=#{field}]").closest('.form-group').addClass('has-error')
+        else
+          @$("[data-model-cid=#{cid}]").view().highlightError(e, field)
+        messages.push message
+      @$('.alert').text(_(messages).uniq().join('; ')).removeClass('hidden')
+      
 
   cancel: (e) ->
     # Go back to wherever the user came from, if possible
