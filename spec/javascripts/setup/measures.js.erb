@@ -15,6 +15,9 @@ window.bonnieRouterCache.save('empty_set')
 
 <%# Load the JSON for our fixture measures and generate the calculation JavaScript %>
 <% Dir.glob (File.join(File.dirname(__FILE__), '../fixtures/json/measure_data/**/measures.json')) do |measure_file| %>
+  <% value_sets_fixture_file = File.join File.dirname(measure_file), 'value_sets.json' %>
+  <% value_sets_json = File.read(value_sets_fixture_file) %>
+
   window.bonnie = new BonnieRouter();
   bonnie.valueSetsByOid = <%= value_sets_json.html_safe %>;
   <% measures_json = File.read(measure_file) %>
