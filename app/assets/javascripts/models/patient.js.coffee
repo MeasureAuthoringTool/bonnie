@@ -260,15 +260,10 @@ class Thorax.Models.Patient extends Thorax.Model
       
       # wait for all calculation deferreds to complete
       $.when.apply(@, allCalculations)
-        .done((results...) =>
+        .done( (results...) =>
           # Pull out only the result parts we need to save and replace them on the patient
           @set({ calc_results: _.map(results, @_filterResult) }, { silent: true })
-          @save(null, options)
-          )
-        .fail( ->
-          # TODO: deal with failure situation
-          debugger
-          )
+          @save(null, options) )
       )
 
 class Thorax.Collections.Patients extends Thorax.Collection
