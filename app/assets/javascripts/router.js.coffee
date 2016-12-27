@@ -105,6 +105,10 @@
 
   renderMeasureUploadHistory: (measureHqmfSetId) ->
     measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
+    # show loading view because this data is loaded async. Show breadcrumb now so people know where they are heading.
+    @mainView.setView new Thorax.Views.LoadingView
+    @breadcrumb.viewMeasureHistory(measure)
+    
     measure.get('upload_summaries').loadCollection(true)
       .done( (uploadSummaries) =>
         @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
@@ -118,6 +122,10 @@
     measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
     document.title += " - #{measure.get('cms_id')}" if measure?
+    # show loading view because this data is loaded async. Show breadcrumb now so people know where they are heading.
+    @mainView.setView new Thorax.Views.LoadingView
+    @breadcrumb.viewComparePatient(measure, patient) 
+    
     # Deal with getting the archived measure and the calculation snapshot for the patient at measure upload
     measure.loadModelsForCompareAtUpload(uploadId).done( (models) => 
       patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, preUploadMeasureVersion: models.beforeMeasure, uploadSummary: models.uploadSummary, postUploadMeasureVersion: models.afterMeasure)
