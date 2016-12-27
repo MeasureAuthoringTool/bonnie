@@ -130,7 +130,7 @@ module UploadSummary
     field :summary, type: Hash, default: { pass_before: 0, pass_after: 0, fail_before: 0, fail_after: 0 }
     embedded_in :measure_summaries
 
-    ATTRIBUTE_FILTER = HQMF::PopulationCriteria::ALL_POPULATION_CODES + ['rationale', 'finalSpecifics']
+    ATTRIBUTE_FILTER = HQMF::PopulationCriteria::ALL_POPULATION_CODES + ['rationale', 'finalSpecifics', 'values']
 
     # stores the calculation summary information for a collection of patients in the population summary
     # object. The 'upload_timing' argument determines if the pre-upload calculation information is being

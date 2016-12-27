@@ -193,7 +193,7 @@ class Record
   # NOTE: this method assumes that the calculator has already been setup with the
   # measure and population index.
   def update_calc_results!(measure, population_set_index, calculator)
-    populations_to_process = HQMF::PopulationCriteria::ALL_POPULATION_CODES + ['rationale', 'finalSpecifics']
+    populations_to_process = HQMF::PopulationCriteria::ALL_POPULATION_CODES + ['rationale', 'finalSpecifics', 'values']
 
     result = calculator.calculate(self).slice(*populations_to_process)
 
@@ -238,6 +238,10 @@ class Record
 
       filtered_expected_values = expected_value.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES)
       filtered_calc_results = calc_result.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES)
+
+      # for some reason, OBSERV results are stored in `values` on the calculation object. Converting
+      # to `OBSERV` for comparison.
+      filtered_calc_results['OBSERV'] = calc_result['values'] if calc_result['values']
 
       status = (filtered_expected_values.to_a - filtered_calc_results.to_a).empty?
 

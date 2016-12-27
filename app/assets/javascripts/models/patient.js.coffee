@@ -219,6 +219,8 @@ class Thorax.Models.Patient extends Thorax.Model
       filteredResult[populationName] = result.get(populationName) if result.get(populationName)?
     filteredResult['rationale'] = result.get('rationale') if result.get('rationale')?
     filteredResult['finalSpecifics'] = result.get('finalSpecifics') if result.get('finalSpecifics')?
+    # this is for continuous variable measures. OBSERV actuals are stored in 'values'.
+    filteredResult['values'] = result.get('values') if result.get('values')?
 
     filteredResult['measure_id'] = result.measure.get('hqmf_set_id')
     filteredResult['population_index'] = result.population.get('index')
