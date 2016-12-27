@@ -178,7 +178,11 @@ class Record
       # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
       added_populations = measure_population_set - expected_value_population_set
       added_populations.each do |population|
-        expected_value_set[population] = 0
+        if population == 'OBSERV'
+          expected_value_set[population] = []
+        else
+          expected_value_set[population] = 0
+        end
       end
 
       # delete populations that no longer exist (populations in the expected values that don't exist in the measure)
