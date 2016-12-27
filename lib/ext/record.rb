@@ -197,6 +197,8 @@ class Record
   # NOTE: this method assumes that the calculator has already been setup with the
   # measure and population index.
   def update_calc_results!(measure, population_set_index, calculator)
+    # 'rationale' and 'finaleSpecifics' used for logic coloring. 'values' is the stored result for 'OBSERV'
+    # on continuous variable measures.
     populations_to_process = HQMF::PopulationCriteria::ALL_POPULATION_CODES + ['rationale', 'finalSpecifics', 'values']
 
     result = calculator.calculate(self).slice(*populations_to_process)
