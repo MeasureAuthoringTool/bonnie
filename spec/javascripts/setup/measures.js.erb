@@ -13,6 +13,8 @@ window.bonnieRouterCache = new BonnieRouterCache();
 <% #saving the current BonnieRouter, which doesn't contain any measures %>
 window.bonnieRouterCache.save('empty_set')
 
+window.measureHistorySpecLoader = new MeasureHistorySpecLoader();
+
 <%# Load the JSON for our fixture measures and generate the calculation JavaScript %>
 <% Dir.glob (File.join(File.dirname(__FILE__), '../fixtures/json/measure_data/**/measures.json')) do |measure_file| %>
   <% value_sets_fixture_file = File.join File.dirname(measure_file), 'value_sets.json' %>
