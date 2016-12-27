@@ -40,8 +40,16 @@ class MeasuresController < ApplicationController
 
     results = {}
     results['diff'] = []
-    results['pre_upload'] = { 'cms_id' => @old_measure.cms_id, 'updateTime' => (@old_measure.updated_at.tv_sec * 1000), 'hqmf_id' => @old_measure.hqmf_id }
-    results['post_upload'] = { 'cms_id' => @new_measure.cms_id, 'updateTime' => (@new_measure.updated_at.tv_sec * 1000), 'hqmf_id' => @new_measure.hqmf_id }
+    results['pre_upload'] = { 
+      'cms_id' => @old_measure.cms_id,
+      'updateTime' => (@old_measure.updated_at.tv_sec * 1000),
+      'hqmf_id' => @old_measure.hqmf_id,
+      'hqmf_version_number' => @old_measure.hqmf_version_number }
+    results['post_upload'] = { 
+      'cms_id' => @new_measure.cms_id,
+      'updateTime' => (@new_measure.updated_at.tv_sec * 1000),
+      'hqmf_id' => @new_measure.hqmf_id,
+      'hqmf_version_number' => @new_measure.hqmf_version_number }
 
     measure_logic_names = HQMF::Measure::LogicExtractor::POPULATION_MAP.clone
     measure_logic_names['VARIABLES'] = 'Variables'
