@@ -11,7 +11,6 @@ describe 'MeasureHistoryView', ->
       done()
     suite.measure_history_view.render()
 
-
   describe 'without summaries', ->
     beforeEach (done) ->
       initializeSuite(@)
@@ -24,7 +23,6 @@ describe 'MeasureHistoryView', ->
 
     it 'to indicate lack of history', ->
       expect(@measure_history_view.$el.html()).toContain 'No history found.'
-
 
   describe 'with summaries', ->
     beforeEach (done) ->
