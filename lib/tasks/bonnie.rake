@@ -200,6 +200,68 @@ namespace :bonnie do
       end
     end
 
+    desc %{Export Bonnie patients to a JSON file.
+
+           You must identify the user by EMAIL, include a CMS_ID, and
+           an output filename FILENAME}
+    task :export_patients => :environment do
+      # Grab user account
+      user_email = ENV['EMAIL']
+      raise "#{user_email} not found" unless user = User.find_by(email: user_email)
+
+      # Grab user measure to pull patients from
+      user_measure = ENV['CMS_ID']
+      raise "#{user_email} not found" unless measure = Measure.find_by(user_id: user._id, cms_id: user_measure)
+
+      # Grab the patients
+      patients = Record.where(user_id: user._id, :measure_ids => measure.hqmf_set_id)
+        .or(Record.where(user_id: user._id, :measure_ids => measure.hqmf_id))
+        .or(Record.where(user_id: user._id, measure_id: measure.hqmf_id))
+
+      # Write patient objects to file in JSON format
+      puts "Exporting patients..."
+      raise "FILENAME not specified" unless output_file = ENV['FILENAME']
+      File.open(File.join(Rails.root, output_file), "w") do |f|
+        patients.each do |patient|
+          f.write(patient.to_json)
+          f.write("\r\n")
+        end
+      end
+
+      puts "Done!"
+    end
+
+    desc %{Import Bonnie patients from a JSON file.
+
+           You must identify the user by EMAIL, include a CMS_ID, and
+           an output filename FILENAME}
+    task :import_patients => :environment do
+      # Grab user account
+      user_email = ENV['EMAIL']
+      raise "#{user_email} not found" unless user = User.find_by(email: user_email)
+
+      # Grab user measure to add patients to
+      user_measure = ENV['CMS_ID']
+      raise "#{user_email} not found" unless measure = Measure.find_by(user_id: user._id, cms_id: user_measure)
+
+      # Import patient objects from JSON file and save
+      puts "Importing patients..."
+      raise "FILENAME not specified" unless input_file = ENV['FILENAME']
+      File.foreach(File.join(Rails.root, input_file)) do |p|
+        next if p.blank?
+        patient = Record.new.from_json p.strip
+        unless patient['measure_id'].nil?
+          patient.measure_id = measure.hqmf_id
+        end
+        unless patient['measure_ids'].nil? || patient['measure_ids'].empty?
+          patient.measure_ids << measure.hqmf_set_id
+        end
+        patient.save!
+      end
+
+      puts "Done!"
+    end
+
   end
 
   namespace :db do
