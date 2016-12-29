@@ -59,7 +59,20 @@ namespace :HDS do
         File.new(value_sets_file, "w+")
         File.write(value_sets_file, JSON.pretty_generate(JSON.parse(vs.to_json)))
       end
-
+    end
+    
+    desc "Generates oid to valueset dictonary from directory"
+    task :generate_oid_to_valuesets => [:environment] do 
+      fileset_dir = File.join("test", "fixtures", "health_data_standards_svs_value_sets", ENV['fileset_dir'])
+      output_dir = File.join("spec", "javascripts", "fixtures", "json", "measure_data", ENV['output_dir'])
+      dict = {}
+      Dir.glob(File.join(fileset_dir, "*.json")).each do |file|
+        vs = JSON.parse(File.read(file))
+        dict[vs['oid']] = vs
+      end
+      output = File.join(output_dir, "value_sets.json")
+      File.new(output, "w+")
+      File.write(output, JSON.pretty_generate(dict))
     end
     
   end
