@@ -102,7 +102,7 @@ module UploadSummary
 
       # store patient calculation information based on the newly uploaded measure
       (0..post_upload_population_set_count-1).each do |population_set_index|
-        if population_set_index >= self.population_set_summaries.count
+        if population_set_index >= self.population_set_summaries.length
           population_set_summary = PopulationSetSummary.new
           self.population_set_summaries << population_set_summary
         else
@@ -126,14 +126,16 @@ module UploadSummary
       upload_summary_size = self.to_json.size
       if upload_summary_size > APP_CONFIG['record']['max_size_in_bytes']
         self.population_set_summaries.each do |population_set_summary|
-          population_set_summary[:patients].each do |patient|
-            patient[1][:pre_upload_results].delete('rationale')
-            patient[1][:pre_upload_results].delete('finalSpecifics')
-            patient[1][:results_exceeds_storage_pre_upload] = true
-            if patient[1].has_key? :post_upload_results
-              patient[1][:post_upload_results].delete('rationale')
-              patient[1][:post_upload_results].delete('finalSpecifics')
-              patient[1][:results_exceeds_storage_post_upload] = true
+          population_set_summary[:patients].each do |patient_id, patient|
+            if patient.has_key? :pre_upload_results
+              patient[:pre_upload_results].delete('rationale')
+              patient[:pre_upload_results].delete('finalSpecifics')
+              patient[:results_exceeds_storage_pre_upload] = true
+            end
+            if patient.has_key? :post_upload_results
+              patient[:post_upload_results].delete('rationale')
+              patient[:post_upload_results].delete('finalSpecifics')
+              patient[:results_exceeds_storage_post_upload] = true
             end
           end # each patient
         end # each population set summary
@@ -179,8 +181,6 @@ module UploadSummary
           end
         end
       end
-
-      save!
     end
 
     protected
