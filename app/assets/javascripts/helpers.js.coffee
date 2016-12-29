@@ -82,3 +82,9 @@ Handlebars.registerHelper 'slugify', (str, defaultStr='') ->
     return slug.toLowerCase()
   else
     return ''
+
+###
+Subtracts an amount from a value.
+###
+Handlebars.registerHelper 'subtract', (value, amount) ->
+  return value - amount

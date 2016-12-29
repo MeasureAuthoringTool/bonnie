@@ -70,6 +70,17 @@
               {{/each}}
             </tr>
           {{/with}}
+        {{else}}{{! if there is a upload summary in middle of the collection that has no before upload id. then show that it was deleted at some point before this upload}}
+          {{#ifCond @index "<" (subtract ../../upload_summaries.models.length 1)}}
+            <tr data-upload-id="{{attributes._id}}">
+              <th colspan="2" scope="row">Measure Deleted</th>
+              <td colspan="{{../../../patientIndex.length}}"></td>
+            </tr>
+            <tr data-upload-id="{{attributes._id}}">
+              <th colspan="2" scope="row"></th>
+              <td colspan="{{../../../patientIndex.length}}"></td>
+            </tr>
+          {{/ifCond}}
         {{/if}}
       {{/each}}
     </table>
