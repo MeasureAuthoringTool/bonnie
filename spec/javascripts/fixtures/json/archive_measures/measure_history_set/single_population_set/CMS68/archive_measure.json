@@ -1,0 +1,1430 @@
+{
+  "_id": "5864f8b6e76e94aee9000df9",
+  "patients": [],
+  "bundle_id": "5863fac3e76e94aee9000001",
+  "category": "Miscellaneous",
+  "cms_id": "CMS68v6",
+  "complexity": {
+    "populations": [
+      {
+        "name": "IPP",
+        "complexity": 2
+      },
+      {
+        "name": "DENOM",
+        "complexity": 1
+      },
+      {
+        "name": "NUMER",
+        "complexity": 1
+      },
+      {
+        "name": "DENEXCEP",
+        "complexity": 1
+      }
+    ],
+    "variables": []
+  },
+  "continuous_variable": false,
+  "created_at": "2016-12-29T11:51:18.386Z",
+  "custom_functions": null,
+  "data_criteria": {
+    "OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5": {
+      "title": "Medications Encounter Code Set",
+      "description": "Encounter, Performed: Medications Encounter Code Set",
+      "code_list_id": "2.16.840.1.113883.3.600.1.1834",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "OCCURRENCEA_MEDICATIONSENCOUNTERCODESET_ENCOUNTERPERFORMED_C491F31A_EE53_40AD_9E3C_D4DFF68EDE0E_SOURCE",
+      "source_data_criteria": "OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5_source",
+      "variable": false,
+      "key": "OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5",
+      "references": null,
+      "field_values": null
+    },
+    "Ethnicity_PatientCharacteristicEthnicity_40280381_3e93_d1af_013e_a36090dc2cf8": {
+      "title": "Ethnicity",
+      "description": "Patient Characteristic Ethnicity: Ethnicity",
+      "code_list_id": "2.16.840.1.114222.4.11.837",
+      "property": "ethnicity",
+      "type": "characteristic",
+      "definition": "patient_characteristic_ethnicity",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_40280381_3e93_d1af_013e_a36090dc2cf8_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "2135-2",
+          "2186-5"
+        ]
+      },
+      "key": "Ethnicity_PatientCharacteristicEthnicity_40280381_3e93_d1af_013e_a36090dc2cf8"
+    },
+    "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3e93_d1af_013e_a36090dc2cf6": {
+      "title": "ONC Administrative Sex",
+      "description": "Patient Characteristic Sex: Onc Administrative Sex",
+      "code_list_id": "2.16.840.1.113762.1.4.1",
+      "property": "gender",
+      "type": "characteristic",
+      "definition": "patient_characteristic_gender",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3e93_d1af_013e_a36090dc2cf6_source",
+      "variable": false,
+      "value": {
+        "type": "CD",
+        "system": "Administrative Sex",
+        "code": "F"
+      },
+      "key": "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3e93_d1af_013e_a36090dc2cf6"
+    },
+    "Payer_PatientCharacteristicPayer_40280381_3e93_d1af_013e_a36090dc2cf9": {
+      "title": "Payer",
+      "description": "Patient Characteristic Payer: Payer",
+      "code_list_id": "2.16.840.1.114222.4.11.3591",
+      "property": "payer",
+      "type": "characteristic",
+      "definition": "patient_characteristic_payer",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Payer_PatientCharacteristicPayer_40280381_3e93_d1af_013e_a36090dc2cf9_source",
+      "variable": false,
+      "inline_code_list": {
+        "SOP": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "11",
+          "12",
+          "19",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25",
+          "29",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "37",
+          "38",
+          "39",
+          "41",
+          "42",
+          "43",
+          "44",
+          "51",
+          "52",
+          "53",
+          "54",
+          "55",
+          "59",
+          "61",
+          "62",
+          "63",
+          "64",
+          "69",
+          "71",
+          "72",
+          "73",
+          "79",
+          "81",
+          "82",
+          "83",
+          "84",
+          "85",
+          "89",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "96",
+          "98",
+          "99",
+          "111",
+          "112",
+          "113",
+          "119",
+          "121",
+          "122",
+          "123",
+          "129",
+          "211",
+          "212",
+          "213",
+          "219",
+          "311",
+          "312",
+          "313",
+          "321",
+          "322",
+          "331",
+          "332",
+          "333",
+          "334",
+          "341",
+          "342",
+          "343",
+          "349",
+          "361",
+          "362",
+          "369",
+          "371",
+          "372",
+          "379",
+          "381",
+          "382",
+          "389",
+          "511",
+          "512",
+          "513",
+          "514",
+          "515",
+          "519",
+          "521",
+          "522",
+          "523",
+          "529",
+          "611",
+          "612",
+          "613",
+          "619",
+          "821",
+          "822",
+          "823",
+          "951",
+          "953",
+          "954",
+          "959",
+          "3111",
+          "3112",
+          "3113",
+          "3114",
+          "3115",
+          "3116",
+          "3119",
+          "3121",
+          "3122",
+          "3123",
+          "3211",
+          "3212",
+          "3221",
+          "3222",
+          "3223",
+          "3229",
+          "3711",
+          "3712",
+          "3713",
+          "3811",
+          "3812",
+          "3813",
+          "3819",
+          "9999",
+          "32121",
+          "32122",
+          "32123",
+          "32124",
+          "32125",
+          "32126"
+        ]
+      },
+      "key": "Payer_PatientCharacteristicPayer_40280381_3e93_d1af_013e_a36090dc2cf9"
+    },
+    "Race_PatientCharacteristicRace_40280381_3e93_d1af_013e_a36090dc2cf7": {
+      "title": "Race",
+      "description": "Patient Characteristic Race: Race",
+      "code_list_id": "2.16.840.1.114222.4.11.836",
+      "property": "race",
+      "type": "characteristic",
+      "definition": "patient_characteristic_race",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Race_PatientCharacteristicRace_40280381_3e93_d1af_013e_a36090dc2cf7_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "1002-5",
+          "2028-9",
+          "2054-5",
+          "2076-8",
+          "2106-3",
+          "2131-1"
+        ]
+      },
+      "key": "Race_PatientCharacteristicRace_40280381_3e93_d1af_013e_a36090dc2cf7"
+    },
+    "Agegrtr_thn_eql_18yearsat_B2C1946E_AB76_4FD5_84BF_1ACFCCC09DE5_3B7C833D_4FA6_4BA0_92D3_1BFA40E904F4": {
+      "title": "Birth Date",
+      "description": "Patient Characteristic Birthdate: Birth Date",
+      "property": "birthtime",
+      "type": "characteristic",
+      "definition": "patient_characteristic_birthdate",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Agegrtr_thn_eql_18yearsat_B2C1946E_AB76_4FD5_84BF_1ACFCCC09DE5_3B7C833D_4FA6_4BA0_92D3_1BFA40E904F4_source",
+      "variable": false,
+      "temporal_references": [
+        {
+          "type": "SBS",
+          "reference": "MeasurePeriod",
+          "range": {
+            "type": "IVL_PQ",
+            "low": {
+              "type": "PQ",
+              "unit": "a",
+              "value": "18",
+              "inclusive?": true,
+              "derived?": false
+            }
+          }
+        }
+      ],
+      "key": "Agegrtr_thn_eql_18yearsat_B2C1946E_AB76_4FD5_84BF_1ACFCCC09DE5_3B7C833D_4FA6_4BA0_92D3_1BFA40E904F4",
+      "references": null,
+      "field_values": null
+    },
+    "During_BE9E063D_47D2_4E0F_85E4_7D8E76918978_F1DCDBE6_5253_44C1_8D55_4528AF0A172C": {
+      "title": "Current Medications Documented SNMD",
+      "description": "Procedure, Performed: Current Medications Documented Snmd",
+      "code_list_id": "2.16.840.1.113883.3.600.1.462",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": true,
+      "negation_code_list_id": "2.16.840.1.113883.3.600.1.1502",
+      "source_data_criteria": "During_BE9E063D_47D2_4E0F_85E4_7D8E76918978_F1DCDBE6_5253_44C1_8D55_4528AF0A172C_source",
+      "variable": false,
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5"
+        }
+      ],
+      "key": "During_BE9E063D_47D2_4E0F_85E4_7D8E76918978_F1DCDBE6_5253_44C1_8D55_4528AF0A172C",
+      "references": null,
+      "field_values": null
+    },
+    "During_553DFB3F_32AA_4C0B_BA61_EF03612874A0_1E256CEB_0554_4BEB_AF89_380E393FA1E1": {
+      "title": "Current Medications Documented SNMD",
+      "description": "Procedure, Performed: Current Medications Documented Snmd",
+      "code_list_id": "2.16.840.1.113883.3.600.1.462",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "During_BE9E063D_47D2_4E0F_85E4_7D8E76918978_F1DCDBE6_5253_44C1_8D55_4528AF0A172C_source",
+      "variable": false,
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5"
+        }
+      ],
+      "key": "During_553DFB3F_32AA_4C0B_BA61_EF03612874A0_1E256CEB_0554_4BEB_AF89_380E393FA1E1",
+      "references": null,
+      "field_values": null
+    },
+    "During_901B0BF0_0A5C_4116_8668_0B2707C6296C_21DBB804_6963_4FC3_92C8_F878B11027AC": {
+      "title": "Medications Encounter Code Set",
+      "description": "Encounter, Performed: Medications Encounter Code Set",
+      "code_list_id": "2.16.840.1.113883.3.600.1.1834",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "OCCURRENCEA_MEDICATIONSENCOUNTERCODESET_ENCOUNTERPERFORMED_C491F31A_EE53_40AD_9E3C_D4DFF68EDE0E_SOURCE",
+      "source_data_criteria": "OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5_source",
+      "variable": false,
+      "temporal_references": [
+        {
+          "type": "DURING",
+          "reference": "MeasurePeriod"
+        }
+      ],
+      "key": "During_901B0BF0_0A5C_4116_8668_0B2707C6296C_21DBB804_6963_4FC3_92C8_F878B11027AC",
+      "references": null,
+      "field_values": null
+    }
+  },
+  "description": "Percentage of visits for patients aged 18 years and older for which the eligible professional attests to documenting a list of current medications using all immediate resources available on the date of the encounter.  This list must include ALL known prescriptions, over-the-counters, herbals, and vitamin/mineral/dietary (nutritional) supplements AND must contain the medications' name, dosage, frequency and route of administration.",
+  "episode_ids": null,
+  "episode_of_care": false,
+  "force_sources": null,
+  "hqmf_id": "40280381-51F0-825B-0152-227DFBAC15AA",
+  "hqmf_set_id": "9A032D9C-3D9B-11E1-8634-00237D5BF174",
+  "hqmf_version_number": "6.0.000",
+  "id": "5864f8b6e76e94aee9000df9",
+  "map_fns": [
+    "\\n        var patient_api = new hQuery.Patient(patient);\\n\\n        \\n        // #########################\\n        // ##### DATA ELEMENTS #####\\n        // #########################\\n\\n        hqmfjs.nqf_id = '40280381-51F0-825B-0152-227DFBAC15AA';\\n        hqmfjs.hqmf_id = '40280381-51F0-825B-0152-227DFBAC15AA';\\n        hqmfjs.sub_id = null;\\n        if (typeof(test_id) == 'undefined') hqmfjs.test_id = null;\\n\\n        OidDictionary = {'2.16.840.1.113883.3.600.1.462':{'SNOMED-CT':['428191000124101']},'2.16.840.1.113883.3.600.1.1502':{'SNOMED-CT':['183932001','397745006','407563006','428119001']},'2.16.840.1.113883.3.600.1.1608':{'HCPCS':['G0101','G0108','G0270','G0402','G0438','G0439']},'2.16.840.1.113762.1.4.1':{'AdministrativeGender':['F','M']},'2.16.840.1.114222.4.11.836':{'CDC Race':['1002-5','2028-9','2054-5','2076-8','2106-3','2131-1']},'2.16.840.1.114222.4.11.837':{'CDC Race':['2135-2','2186-5']},'2.16.840.1.113883.3.464.1003.101.11.1115':{'CPT':['99385','99386','99387']},'2.16.840.1.113883.3.464.1003.101.11.1125':{'CPT':['99395','99396','99397']},'2.16.840.1.113883.3.600.1.1609':{'CPT':['90791','90792','90832','90834','90837','90839','92002','92004','92012','92014','92507','92508','92526','92537','92538','92540','92541','92542','92544','92545','92547','92548','92550','92557','92567','92568','92570','92585','92588','92626','96116','96150','96151','96152','97001','97002','97003','97004','97532','97802','97803','97804','98960','98961','98962','99201','99202','99203','99204','99205','99212','99213','99214','99215','99324','99325','99326','99327','99328','99334','99335','99336','99337','99341','99342','99343','99344','99345','99347','99348','99349','99350','99495','99496']},'2.16.840.1.113883.3.600.1.1834':{'CPT':['99385','99386','99387','99395','99396','99397','90791','90792','90832','90834','90837','90839','92002','92004','92012','92014','92507','92508','92526','92537','92538','92540','92541','92542','92544','92545','92547','92548','92550','92557','92567','92568','92570','92585','92588','92626','96116','96150','96151','96152','97001','97002','97003','97004','97532','97802','97803','97804','98960','98961','98962','99201','99202','99203','99204','99205','99212','99213','99214','99215','99324','99325','99326','99327','99328','99334','99335','99336','99337','99341','99342','99343','99344','99345','99347','99348','99349','99350','99495','99496'],'HCPCS':['G0101','G0108','G0270','G0402','G0438','G0439'],'SNOMED-CT':['8411005','10197000','13607009','14736009','18091003','18512000','30346009','32537008','34651001','35025007','36228007','37894004','46662001','48423005','50357006','53555003','54290001','63547008','66902005','78318003','83607001','86013001','90526000','91573000','108220007','108221006','108224003','108311000','165171009','185349003','185463005','185465003','209099002','210098006','225967005','252592009','252624005','270427003','270430005','273643004','274803000','277404009','284015009','308335008','370803007','385973000','386372009','390906007','405096004','406547006','408983003','410155007','410157004','410158009','410160006','410170008','439708006','439952009','440524004']},'2.16.840.1.113883.3.600.1.1917':{'SNOMED-CT':['8411005','10197000','13607009','14736009','18091003','18512000','30346009','32537008','34651001','35025007','36228007','37894004','46662001','48423005','50357006','53555003','54290001','63547008','66902005','78318003','83607001','86013001','90526000','91573000','108220007','108221006','108224003','108311000','165171009','185349003','185463005','185465003','209099002','210098006','225967005','252592009','252624005','270427003','270430005','273643004','274803000','277404009','284015009','308335008','370803007','385973000','386372009','390906007','405096004','406547006','408983003','410155007','410157004','410158009','410160006','410170008','439708006','439952009','440524004']},'2.16.840.1.114222.4.11.3591':{'SOP':['1','2','3','4','5','6','7','8','9','11','12','19','21','22','23','24','25','29','31','32','33','34','35','36','37','38','39','41','42','43','44','51','52','53','54','55','59','61','62','63','64','69','71','72','73','79','81','82','83','84','85','89','91','92','93','94','95','96','98','99','111','112','113','119','121','122','123','129','211','212','213','219','311','312','313','321','322','331','332','333','334','341','342','343','349','361','362','369','371','372','379','381','382','389','511','512','513','514','515','519','521','522','523','529','611','612','613','619','821','822','823','951','953','954','959','3111','3112','3113','3114','3115','3116','3119','3121','3122','3123','3211','3212','3221','3222','3223','3229','3711','3712','3713','3811','3812','3813','3819','9999','32121','32122','32123','32124','32125','32126']}};\\n\\n        // Measure variables\\nvar MeasurePeriod = {\\n  \\"low\\": new TS(\\"201201010000\\", true),\\n  \\"high\\": new TS(\\"201212312359\\", true)\\n}\\nhqmfjs.MeasurePeriod = function(patient) {\\n  return [new hQuery.CodedEntry(\\n    {\\n      \\"start_time\\": MeasurePeriod.low.asDate().getTime()/1000,\\n      \\"end_time\\": MeasurePeriod.high.asDate().getTime()/1000,\\n      \\"codes\\": {}\\n    }\\n  )];\\n}\\nif (typeof effective_date === 'number') {\\n  MeasurePeriod.high.date = new Date(1000*effective_date);\\n  // add one minute before pulling off the year.  This turns 12-31-2012 23:59 into 1-1-2013 00:00 => 1-1-2012 00:00\\n  MeasurePeriod.low.date = new Date(1000*(effective_date+60));\\n  MeasurePeriod.low.date.setFullYear(MeasurePeriod.low.date.getFullYear()-1);\\n}\\n\\n// Data critera\\nhqmfjs.OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5_source = function(patient, initialSpecificContext) {\\n  var eventCriteria = {\\"type\\": \\"encounters\\", \\"statuses\\": [\\"performed\\"], \\"includeEventsWithoutStatus\\": true, \\"valueSetId\\": \\"2.16.840.1.113883.3.600.1.1834\\", \\"specificOccurrence\\": \\"OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5_source\\"};\\n  var events = patient.getEvents(eventCriteria);\\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\\n  return events;\\n}\\n\\nhqmfjs.OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5 = function(patient, initialSpecificContext) {\\n  var eventCriteria = {\\"type\\": \\"encounters\\", \\"statuses\\": [\\"performed\\"], \\"includeEventsWithoutStatus\\": true, \\"valueSetId\\": \\"2.16.840.1.113883.3.600.1.1834\\", \\"specificOccurrence\\": \\"OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5_source\\"};\\n  var events = patient.getEvents(eventCriteria);\\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\\n  return events;\\n}\\n\\nhqmfjs.Ethnicity_PatientCharacteristicEthnicity_40280381_3e93_d1af_013e_a36090dc2cf8 = function(patient, initialSpecificContext) {\\n  var value = patient.ethnicity() || null;\\n  matching = matchingValue(value, null);\\n  matching.specificContext=hqmf.SpecificsManager.identity();\\n  return matching;\\n}\\n\\nhqmfjs.ONCAdministrativeSex_PatientCharacteristicSex_40280381_3e93_d1af_013e_a36090dc2cf6 = function(patient, initialSpecificContext) {\\n  var value = patient.gender() || null;\\n  matching = matchingValue(value, new CD(\\"F\\", \\"Administrative Sex\\"));\\n  matching.specificContext=hqmf.SpecificsManager.identity();\\n  return matching;\\n}\\n\\nhqmfjs.Payer_PatientCharacteristicPayer_40280381_3e93_d1af_013e_a36090dc2cf9 = function(patient, initialSpecificContext) {\\n  var value = patient.payer() || null;\\n  if (value === null) {\\n    matching = new Boolean(false);\\n  } else {\\n    matching = new Boolean(value.includedIn({\\"SOP\\":[\\"1\\",\\"2\\",\\"3\\",\\"4\\",\\"5\\",\\"6\\",\\"7\\",\\"8\\",\\"9\\",\\"11\\",\\"12\\",\\"19\\",\\"21\\",\\"22\\",\\"23\\",\\"24\\",\\"25\\",\\"29\\",\\"31\\",\\"32\\",\\"33\\",\\"34\\",\\"35\\",\\"36\\",\\"37\\",\\"38\\",\\"39\\",\\"41\\",\\"42\\",\\"43\\",\\"44\\",\\"51\\",\\"52\\",\\"53\\",\\"54\\",\\"55\\",\\"59\\",\\"61\\",\\"62\\",\\"63\\",\\"64\\",\\"69\\",\\"71\\",\\"72\\",\\"73\\",\\"79\\",\\"81\\",\\"82\\",\\"83\\",\\"84\\",\\"85\\",\\"89\\",\\"91\\",\\"92\\",\\"93\\",\\"94\\",\\"95\\",\\"96\\",\\"98\\",\\"99\\",\\"111\\",\\"112\\",\\"113\\",\\"119\\",\\"121\\",\\"122\\",\\"123\\",\\"129\\",\\"211\\",\\"212\\",\\"213\\",\\"219\\",\\"311\\",\\"312\\",\\"313\\",\\"321\\",\\"322\\",\\"331\\",\\"332\\",\\"333\\",\\"334\\",\\"341\\",\\"342\\",\\"343\\",\\"349\\",\\"361\\",\\"362\\",\\"369\\",\\"371\\",\\"372\\",\\"379\\",\\"381\\",\\"382\\",\\"389\\",\\"511\\",\\"512\\",\\"513\\",\\"514\\",\\"515\\",\\"519\\",\\"521\\",\\"522\\",\\"523\\",\\"529\\",\\"611\\",\\"612\\",\\"613\\",\\"619\\",\\"821\\",\\"822\\",\\"823\\",\\"951\\",\\"953\\",\\"954\\",\\"959\\",\\"3111\\",\\"3112\\",\\"3113\\",\\"3114\\",\\"3115\\",\\"3116\\",\\"3119\\",\\"3121\\",\\"3122\\",\\"3123\\",\\"3211\\",\\"3212\\",\\"3221\\",\\"3222\\",\\"3223\\",\\"3229\\",\\"3711\\",\\"3712\\",\\"3713\\",\\"3811\\",\\"3812\\",\\"3813\\",\\"3819\\",\\"9999\\",\\"32121\\",\\"32122\\",\\"32123\\",\\"32124\\",\\"32125\\",\\"32126\\"]}));\\n  }\\n  matching.specificContext=hqmf.SpecificsManager.identity();\\n  return matching;\\n}\\n\\nhqmfjs.Race_PatientCharacteristicRace_40280381_3e93_d1af_013e_a36090dc2cf7 = function(patient, initialSpecificContext) {\\n  var value = patient.race() || null;\\n  if (value === null) {\\n    matching = new Boolean(false);\\n  } else {\\n    matching = new Boolean(value.includedIn({\\"CDC Race\\":[\\"1002-5\\",\\"2028-9\\",\\"2054-5\\",\\"2076-8\\",\\"2106-3\\",\\"2131-1\\"]}));\\n  }\\n  matching.specificContext=hqmf.SpecificsManager.identity();\\n  return matching;\\n}\\n\\nhqmfjs.Agegrtr_thn_eql_18yearsat_B2C1946E_AB76_4FD5_84BF_1ACFCCC09DE5_3B7C833D_4FA6_4BA0_92D3_1BFA40E904F4 = function(patient, initialSpecificContext) {\\n  var value = patient.birthtime() || null;\\n  var events = value ? [value] : [];\\n  events = SBS(events, hqmfjs.MeasurePeriod(patient), new IVL_PQ(new PQ(18, \\"a\\", true), null));\\n  events.specificContext=events.specificContext||hqmf.SpecificsManager.identity();\\n  return events;\\n}\\n\\nhqmfjs.During_BE9E063D_47D2_4E0F_85E4_7D8E76918978_F1DCDBE6_5253_44C1_8D55_4528AF0A172C = function(patient, initialSpecificContext) {\\n  var eventCriteria = {\\"type\\": \\"allProcedures\\", \\"statuses\\": [\\"performed\\"], \\"includeEventsWithoutStatus\\": true, \\"negated\\": true, \\"negationValueSetId\\": \\"2.16.840.1.113883.3.600.1.1502\\", \\"valueSetId\\": \\"2.16.840.1.113883.3.600.1.462\\"};\\n  var events = patient.getEvents(eventCriteria);\\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5(patient));\\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\\n  return events;\\n}\\n\\nhqmfjs.During_553DFB3F_32AA_4C0B_BA61_EF03612874A0_1E256CEB_0554_4BEB_AF89_380E393FA1E1 = function(patient, initialSpecificContext) {\\n  var eventCriteria = {\\"type\\": \\"allProcedures\\", \\"statuses\\": [\\"performed\\"], \\"includeEventsWithoutStatus\\": true, \\"valueSetId\\": \\"2.16.840.1.113883.3.600.1.462\\"};\\n  var events = patient.getEvents(eventCriteria);\\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5(patient));\\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\\n  return events;\\n}\\n\\nhqmfjs.During_901B0BF0_0A5C_4116_8668_0B2707C6296C_21DBB804_6963_4FC3_92C8_F878B11027AC = function(patient, initialSpecificContext) {\\n  var eventCriteria = {\\"type\\": \\"encounters\\", \\"statuses\\": [\\"performed\\"], \\"includeEventsWithoutStatus\\": true, \\"valueSetId\\": \\"2.16.840.1.113883.3.600.1.1834\\", \\"specificOccurrence\\": \\"OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5_source\\"};\\n  var events = patient.getEvents(eventCriteria);\\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.MeasurePeriod(patient));\\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\\n  return events;\\n}\\n\\n\\n\\n        // #########################\\n        // ##### MEASURE LOGIC #####\\n        // #########################\\n\\n        hqmfjs.initializeSpecifics = function(patient_api, hqmfjs) { hqmf.SpecificsManager.initialize(patient_api,hqmfjs,{\\"id\\":\\"OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5_source\\",\\"type\\":\\"OCCURRENCEA_MEDICATIONSENCOUNTERCODESET_ENCOUNTERPERFORMED_C491F31A_EE53_40AD_9E3C_D4DFF68EDE0E_SOURCE\\",\\"function\\":\\"OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5_source\\"}) }\\n\\n        // INITIAL PATIENT POPULATION\\n        hqmfjs.IPP = function(patient, initialSpecificContext) {\\n  population_criteria_fn = allTrue('IPP', patient, initialSpecificContext,\\n    allTrue('3', patient, initialSpecificContext, hqmfjs.Agegrtr_thn_eql_18yearsat_B2C1946E_AB76_4FD5_84BF_1ACFCCC09DE5_3B7C833D_4FA6_4BA0_92D3_1BFA40E904F4, hqmfjs.During_901B0BF0_0A5C_4116_8668_0B2707C6296C_21DBB804_6963_4FC3_92C8_F878B11027AC\\n    )\\n  );\\n  if (typeof(population_criteria_fn) == 'function') {\\n  \\treturn population_criteria_fn();\\n  } else {\\n  \\treturn population_criteria_fn;\\n  }\\n};\\n\\n\\n        // STRATIFICATION\\n        hqmfjs.STRAT=null;\\n        // DENOMINATOR\\n        hqmfjs.DENOM = function(patient) { return new Boolean(true); }\\n        // NUMERATOR\\n        hqmfjs.NUMER = function(patient, initialSpecificContext) {\\n  population_criteria_fn = allTrue('NUMER', patient, initialSpecificContext,\\n    allTrue('5', patient, initialSpecificContext, hqmfjs.During_553DFB3F_32AA_4C0B_BA61_EF03612874A0_1E256CEB_0554_4BEB_AF89_380E393FA1E1\\n    )\\n  );\\n  if (typeof(population_criteria_fn) == 'function') {\\n  \\treturn population_criteria_fn();\\n  } else {\\n  \\treturn population_criteria_fn;\\n  }\\n};\\n\\n\\n        hqmfjs.NUMEX = function(patient) { return new Boolean(false); }\\n        hqmfjs.DENEX = function(patient) { return new Boolean(false); }\\n        hqmfjs.DENEXCEP = function(patient, initialSpecificContext) {\\n  population_criteria_fn = atLeastOneTrue('DENEXCEP', patient, initialSpecificContext,\\n    atLeastOneTrue('7', patient, initialSpecificContext, hqmfjs.During_BE9E063D_47D2_4E0F_85E4_7D8E76918978_F1DCDBE6_5253_44C1_8D55_4528AF0A172C\\n    )\\n  );\\n  if (typeof(population_criteria_fn) == 'function') {\\n  \\treturn population_criteria_fn();\\n  } else {\\n  \\treturn population_criteria_fn;\\n  }\\n};\\n\\n\\n        // CV\\n        hqmfjs.MSRPOPL = function(patient) { return new Boolean(true); }\\n        hqmfjs.MSRPOPLEX = function(patient) { return new Boolean(false); }\\n        hqmfjs.OBSERV = function(patient) { return new Boolean(false); }\\n        // VARIABLES\\n        hqmfjs.VARIABLES = function(patient, initialSpecificContext) {\\nreturn false;\\n}\\n        \\n\\n        var occurrenceId = null;\\n\\n        hqmfjs.initializeSpecifics(patient_api, hqmfjs)\\n\\n        var population = function() {\\n          return executeIfAvailable(hqmfjs.IPP, patient_api);\\n        }\\n        var stratification = null;\\n        if (hqmfjs.STRAT) {\\n          stratification = function() {\\n            return hqmf.SpecificsManager.setIfNull(executeIfAvailable(hqmfjs.STRAT, patient_api));\\n          }\\n        }\\n        var denominator = function() {\\n          return executeIfAvailable(hqmfjs.DENOM, patient_api);\\n        }\\n        var numerator = function() {\\n          return executeIfAvailable(hqmfjs.NUMER, patient_api);\\n        }\\n        var exclusion = function() {\\n          return executeIfAvailable(hqmfjs.DENEX, patient_api);\\n        }\\n        var denexcep = function() {\\n          return executeIfAvailable(hqmfjs.DENEXCEP, patient_api);\\n        }\\n        var numex = function() {\\n          return executeIfAvailable(hqmfjs.NUMEX, patient_api);\\n        }\\n        var msrpopl = function() {\\n          return executeIfAvailable(hqmfjs.MSRPOPL, patient_api);\\n        }\\n        var msrpoplex = function() {\\n          return executeIfAvailable(hqmfjs.MSRPOPLEX, patient_api);\\n        }\\n        var observ = function(specific_context) {\\n          \\n          var observFunc = hqmfjs.OBSERV\\n          if (typeof(observFunc)==='function')\\n            return observFunc(patient_api, specific_context);\\n          else\\n            return [];\\n        }\\n\\n        var variables = function() {\\n          if (Logger.enable_rationale) {\\n            return executeIfAvailable(hqmfjs.VARIABLES, patient_api);\\n          }\\n        }\\n\\n        var executeIfAvailable = function(optionalFunction, patient_api) {\\n          if (typeof(optionalFunction)==='function') {\\n            result = optionalFunction(patient_api);\\n            \\n            return result;\\n          } else {\\n            return false;\\n          }\\n        }\\n\\n        \\n        if (typeof Logger != 'undefined') {\\n          // clear out logger\\n          Logger.logger = [];\\n          Logger.rationale={};\\n          if (typeof short_circuit == 'undefined') short_circuit = true;\\n\\n          // turn on logging if it is enabled\\n          if (enable_logging || enable_rationale) {\\n            injectLogger(hqmfjs, enable_logging, enable_rationale, short_circuit);\\n          } else {\\n            Logger.enable_rationale = false;\\n            Logger.short_circuit = short_circuit;\\n          }\\n        }\\n\\n        try {\\n          map(patient, population, denominator, numerator, exclusion, denexcep, msrpopl, msrpoplex, observ, occurrenceId,false,stratification, variables, numex);\\n        } catch(err) {\\n          print(err.stack);\\n          throw err;\\n        }\\n\\n        "
+  ],
+  "measure_attributes": [
+    {
+      "code": "OTH",
+      "value": "68",
+      "name": "eMeasure Identifier (Measure Authoring Tool)",
+      "code_obj": {
+        "type": "CD",
+        "null_flavor": "OTH",
+        "original_text": "eMeasure Identifier (Measure Authoring Tool)"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "68",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "OTH",
+      "value": "0419",
+      "name": "NQF Number",
+      "code_obj": {
+        "type": "CD",
+        "null_flavor": "OTH",
+        "original_text": "NQF Number"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "0419",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "COPY",
+      "value": "Limited proprietary coding is contained in the measure specifications for convenience. Users of the proprietary code sets should obtain all necessary licenses from the owners of these code sets. Quality Insights of Pennsylvania disclaims all liability for use or accuracy of any Current Procedural Terminology (CPT [R]) or other coding contained in the specifications.\\n\\nCPT (R) contained in the Measure specifications is copyright 2007- 2016 American Medical Association. \\n\\nLOINC (R) copyright 2004-2015 [2.54] Regenstrief Institute, Inc. This material contains SNOMED Clinical Terms (R) (SNOMED CT [R]) copyright 2004-2015 [2015-09] International Health Terminology Standards Development Organization. All Rights Reserved.\\n\\nDue to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM].",
+      "name": "Copyright",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "COPY",
+        "title": "Copyright"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Limited proprietary coding is contained in the measure specifications for convenience. Users of the proprietary code sets should obtain all necessary licenses from the owners of these code sets. Quality Insights of Pennsylvania disclaims all liability for use or accuracy of any Current Procedural Terminology (CPT [R]) or other coding contained in the specifications.\\n\\nCPT (R) contained in the Measure specifications is copyright 2007- 2016 American Medical Association. \\n\\nLOINC (R) copyright 2004-2015 [2.54] Regenstrief Institute, Inc. This material contains SNOMED Clinical Terms (R) (SNOMED CT [R]) copyright 2004-2015 [2015-09] International Health Terminology Standards Development Organization. All Rights Reserved.\\n\\nDue to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM].",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DISC",
+      "value": "These performance measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.\\n\\nTHE MEASURES AND SPECIFICATIONS ARE PROVIDED \\"AS IS\\" WITHOUT WARRANTY OF ANY KIND.",
+      "name": "Disclaimer",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DISC",
+        "title": "Disclaimer"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "These performance measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications.\\n\\nTHE MEASURES AND SPECIFICATIONS ARE PROVIDED \\"AS IS\\" WITHOUT WARRANTY OF ANY KIND.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRSCORE",
+      "name": "Measure Scoring",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRSCORE",
+        "title": "Measure Scoring"
+      },
+      "value_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.1.11.20367",
+        "code": "PROPOR",
+        "title": "Proportion"
+      }
+    },
+    {
+      "code": "MSRTYPE",
+      "name": "Measure Type",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRTYPE",
+        "title": "Measure Type"
+      },
+      "value_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.1.11.20368",
+        "code": "PROCESS",
+        "title": "PROCESS"
+      }
+    },
+    {
+      "code": "STRAT",
+      "value": "None",
+      "name": "Stratification",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "STRAT",
+        "title": "Stratification"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRADJ",
+      "value": "None",
+      "name": "Risk Adjustment",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRADJ",
+        "title": "Risk Adjustment"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "MSRAGG",
+      "value": "None",
+      "name": "Rate Aggregation",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "MSRAGG",
+        "title": "Rate Aggregation"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "RAT",
+      "value": "Maintaining an accurate and complete medication list has proven to be a challenging documentation endeavor for various health care provider settings. While most of outpatient encounters (2/3) result in providers prescribing at least one medication, hospitals have been the focus of medication safety efforts (Stock et al., 2009). Nassaralla et al. (2007) caution that this is at odds with the current trend, where patients with chronic illnesses are increasingly being treated in the outpatient setting and require careful monitoring of multiple medications. Additionally Nassaralla etal. (2007) reveal that it is in fact in outpatient settings where more fatal adverse drug events (ADE) occur when these are compared to those occurring in hospitals (1 of 131 outpatient deaths compared to 1 in 854 inpatient deaths). In the outpatient setting, adverse drug events (ADEs) occur 25% of the time and over one-third of these are considered preventable (Tache et al., 2011). Particularly vulnerable are patients over 65 years, with evidence suggesting that the rate of ADEs per 10,000 person per year increases with age; 25-44 years old at 1.3; 45-64 at 2.2, and 65 + at 3.8 (Sarkar et al., 2011). Another vulnerable group are chronically ill individuals. These population groups are more likely to experience ADEs and subsequent hospitalization. \\n\\nA multiplicity of providers and inadequate care coordination among them has been identified as barriers to collecting complete and reliable medication records. Documentation of current medications in the medical record facilitates the process of medication review and reconciliation by the provider, which are necessary for reducing ADEs and promoting medication safety. The need for provider to provider coordination regarding medication records, and the existing gap in implementation, is highlighted in the American Medical Association's (AMA) Physician's Role in Medication Reconciliation (2007), which states that \\"critical patient information, including medical and medication histories, current medications the patient is receiving and taking, and sources of medications, is essential to the delivery of safe medical care. However, interruptions in the continuity of care and information gaps in patient health records are common and significantly affect patient outcomes\\" (p.7). This is because clinical decisions based on information that is incomplete and/or inaccurate are likely to lead to medication error and ADEs. Weeks et al. (2010) noted similar barriers and identified the utilization of health information technology as an opportunity for facilitating the creation of universal medication lists.",
+      "name": "Rationale",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "RAT",
+        "title": "Rationale"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Maintaining an accurate and complete medication list has proven to be a challenging documentation endeavor for various health care provider settings. While most of outpatient encounters (2/3) result in providers prescribing at least one medication, hospitals have been the focus of medication safety efforts (Stock et al., 2009). Nassaralla et al. (2007) caution that this is at odds with the current trend, where patients with chronic illnesses are increasingly being treated in the outpatient setting and require careful monitoring of multiple medications. Additionally Nassaralla etal. (2007) reveal that it is in fact in outpatient settings where more fatal adverse drug events (ADE) occur when these are compared to those occurring in hospitals (1 of 131 outpatient deaths compared to 1 in 854 inpatient deaths). In the outpatient setting, adverse drug events (ADEs) occur 25% of the time and over one-third of these are considered preventable (Tache et al., 2011). Particularly vulnerable are patients over 65 years, with evidence suggesting that the rate of ADEs per 10,000 person per year increases with age; 25-44 years old at 1.3; 45-64 at 2.2, and 65 + at 3.8 (Sarkar et al., 2011). Another vulnerable group are chronically ill individuals. These population groups are more likely to experience ADEs and subsequent hospitalization. \\n\\nA multiplicity of providers and inadequate care coordination among them has been identified as barriers to collecting complete and reliable medication records. Documentation of current medications in the medical record facilitates the process of medication review and reconciliation by the provider, which are necessary for reducing ADEs and promoting medication safety. The need for provider to provider coordination regarding medication records, and the existing gap in implementation, is highlighted in the American Medical Association's (AMA) Physician's Role in Medication Reconciliation (2007), which states that \\"critical patient information, including medical and medication histories, current medications the patient is receiving and taking, and sources of medications, is essential to the delivery of safe medical care. However, interruptions in the continuity of care and information gaps in patient health records are common and significantly affect patient outcomes\\" (p.7). This is because clinical decisions based on information that is incomplete and/or inaccurate are likely to lead to medication error and ADEs. Weeks et al. (2010) noted similar barriers and identified the utilization of health information technology as an opportunity for facilitating the creation of universal medication lists.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "CRS",
+      "value": "The Joint Commission's 2015 Ambulatory Care National Patient Safety Goals guide providers to maintain and communicate accurate patient medication information. Specifically, the section \\"Use Medicines Safely NPSG.03.06.01\\" states the following: \\"Maintain and communicate accurate patient medication information. The types of information that clinicians use to reconcile medications include (among others) medication name, dose, frequency, route, and purpose. Organizations should identify the information that needs to be collected to reconcile current and newly ordered medications and to safely prescribe medications in the future.\\" (Joint Commission, 2015, retrieved at: http://www.jointcommission.org/assets/1/6/2015_NPSG_AHC1.PDF).\\n\\nThe National Quality Forum's 2010 update of the Safe Practices for Better Healthcare, states healthcare organizations must develop, reconcile, and communicate an accurate patient medication list throughout the continuum of care (p. 40).",
+      "name": "Clinical Recommendation Statement",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "CRS",
+        "title": "Clinical Recommendation Statement"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "The Joint Commission's 2015 Ambulatory Care National Patient Safety Goals guide providers to maintain and communicate accurate patient medication information. Specifically, the section \\"Use Medicines Safely NPSG.03.06.01\\" states the following: \\"Maintain and communicate accurate patient medication information. The types of information that clinicians use to reconcile medications include (among others) medication name, dose, frequency, route, and purpose. Organizations should identify the information that needs to be collected to reconcile current and newly ordered medications and to safely prescribe medications in the future.\\" (Joint Commission, 2015, retrieved at: http://www.jointcommission.org/assets/1/6/2015_NPSG_AHC1.PDF).\\n\\nThe National Quality Forum's 2010 update of the Safe Practices for Better Healthcare, states healthcare organizations must develop, reconcile, and communicate an accurate patient medication list throughout the continuum of care (p. 40).",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "IDUR",
+      "value": "Higher score indicates better quality",
+      "name": "Improvement Notation",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "IDUR",
+        "title": "Improvement Notation"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Higher score indicates better quality",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "American Medical Association (2007).  The physician's role in medication reconciliation:  Issues, strategies and safety principles.  Retrieved from https://bcpsqc.ca/documents/2012/09/AMA-The-physician%e2%80%99s-role-in-Medication-Reconciliation.pdf",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "American Medical Association (2007).  The physician's role in medication reconciliation:  Issues, strategies and safety principles.  Retrieved from https://bcpsqc.ca/documents/2012/09/AMA-The-physician%e2%80%99s-role-in-Medication-Reconciliation.pdf",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Stock, R., Scott, J., & Gurtel, S. (2009).  Using an Electronic Prescribing System to Ensure Accurate Medication Lists in a Large Multidisciplinary Medical Group.  The Joint Commission Journal on Quality and Patient Safety; 35(5), 271-277.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Stock, R., Scott, J., & Gurtel, S. (2009).  Using an Electronic Prescribing System to Ensure Accurate Medication Lists in a Large Multidisciplinary Medical Group.  The Joint Commission Journal on Quality and Patient Safety; 35(5), 271-277.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Nassaralla, C.L., Naessens, J.M., Chaudhry, R., et al. (2007).  Implementation of a medication reconciliation process in an ambulatory internal medicine clinic.  Quality and Safety in Health Care 2007; (16), 90-94.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Nassaralla, C.L., Naessens, J.M., Chaudhry, R., et al. (2007).  Implementation of a medication reconciliation process in an ambulatory internal medicine clinic.  Quality and Safety in Health Care 2007; (16), 90-94.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Sarkar, U., Lopez, A., Maselli, J.H., Gonzalez, R. (2011). Adverse Drug Events in U.S. Adult Ambulatory Medical Care. Health Services Reserach, 46(5), 1517-1533.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Sarkar, U., Lopez, A., Maselli, J.H., Gonzalez, R. (2011). Adverse Drug Events in U.S. Adult Ambulatory Medical Care. Health Services Reserach, 46(5), 1517-1533.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Weeks, D.L., Corbette, C.F., Stream, G. (2010).   Beliefs of Ambulatory Care Physicians about Accuracy of Patient Medication Records and Technology-Enhanced Solutions to Improve Accuracy.  Journal for Healthcare Quality; 32(5), 12-21.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Weeks, D.L., Corbette, C.F., Stream, G. (2010).   Beliefs of Ambulatory Care Physicians about Accuracy of Patient Medication Records and Technology-Enhanced Solutions to Improve Accuracy.  Journal for Healthcare Quality; 32(5), 12-21.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "The Joint Commission (2015).  Ambulatory Care National Patient Safety Goals.   Retrieved from  http://www.jointcommission.org/assets/1/6/2015_NPSG_AHC1.PDF",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "The Joint Commission (2015).  Ambulatory Care National Patient Safety Goals.   Retrieved from  http://www.jointcommission.org/assets/1/6/2015_NPSG_AHC1.PDF",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "National Quality Forum (2010).  Safe Practices for Better Healthcare - 2010 Update.  Retrieved from http://www.qualityforum.org/Projects/Safe_Practices_2010.aspx",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "National Quality Forum (2010).  Safe Practices for Better Healthcare - 2010 Update.  Retrieved from http://www.qualityforum.org/Projects/Safe_Practices_2010.aspx",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Tache, S.V., Sonnichsen, A., & Ashcroft, D.M. (2011).  Prevalence of Adverse Drug Events in Ambulatory Care: A Systematic Review. The Annals of Pharmacotherapy, 45(7-8), 977-989. doi: 10.1345/aph.1P627.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Tache, S.V., Sonnichsen, A., & Ashcroft, D.M. (2011).  Prevalence of Adverse Drug Events in Ambulatory Care: A Systematic Review. The Annals of Pharmacotherapy, 45(7-8), 977-989. doi: 10.1345/aph.1P627.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DEF",
+      "value": "Current Medications:\\nMedications the patient is presently taking including all prescriptions, over-the-counters, herbals and vitamin/mineral/dietary (nutritional) supplements with each medication's name, dosage, frequency and administered route.\\n\\nRoute:\\nDocumentation of the way the medication enters the body (some examples include but are not limited to:  oral, sublingual, subcutaneous injections, and/or topical).",
+      "name": "Definition",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DEF",
+        "title": "Definition"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Current Medications:\\nMedications the patient is presently taking including all prescriptions, over-the-counters, herbals and vitamin/mineral/dietary (nutritional) supplements with each medication's name, dosage, frequency and administered route.\\n\\nRoute:\\nDocumentation of the way the medication enters the body (some examples include but are not limited to:  oral, sublingual, subcutaneous injections, and/or topical).",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "GUIDE",
+      "value": "This measure is to be reported for every encounter during the measurement period.\\n\\nEligible professionals reporting this measure may document medication information received from the patient, authorized representative(s), caregiver(s) or other available healthcare resources. \\n\\nThis list must include all prescriptions, over-the-counter (OTC) products, herbals, vitamins, minerals, dietary (nutritional) supplements AND must contain the medications' name, dosage, frequency and route of administration.\\n\\nThis measure should also be reported if the eligible professional documented the patient is not currently taking any medications.\\n\\nBy reporting the action described in this measure, the provider attests to having documented a list of current medications utilizing all immediate resources available at the time of the encounter.",
+      "name": "Guidance",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "GUIDE",
+        "title": "Guidance"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "This measure is to be reported for every encounter during the measurement period.\\n\\nEligible professionals reporting this measure may document medication information received from the patient, authorized representative(s), caregiver(s) or other available healthcare resources. \\n\\nThis list must include all prescriptions, over-the-counter (OTC) products, herbals, vitamins, minerals, dietary (nutritional) supplements AND must contain the medications' name, dosage, frequency and route of administration.\\n\\nThis measure should also be reported if the eligible professional documented the patient is not currently taking any medications.\\n\\nBy reporting the action described in this measure, the provider attests to having documented a list of current medications utilizing all immediate resources available at the time of the encounter.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "TRANF",
+      "value": "TBD",
+      "name": "Transmission Format",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "TRANF",
+        "title": "Transmission Format"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "TBD",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "IPOP",
+      "value": "All visits occurring during the 12 month reporting period for patients aged 18 years and older before the start of the measurement period",
+      "name": "Initial Population",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "IPOP",
+        "title": "Initial Population"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "All visits occurring during the 12 month reporting period for patients aged 18 years and older before the start of the measurement period",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DENOM",
+      "value": "Equals Initial Population",
+      "name": "Denominator",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DENOM",
+        "title": "Denominator"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Equals Initial Population",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DENEX",
+      "value": "None",
+      "name": "Denominator Exclusions",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DENEX",
+        "title": "Denominator Exclusions"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "None",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "NUMER",
+      "value": "Eligible professional attests to documenting, updating or reviewing the patient's current medications using all immediate resources available on the date of the encounter. This list must include ALL known prescriptions, over-the-counters, herbals and vitamin/mineral/dietary (nutritional) supplements AND must contain the medications' name, dosages, frequency and route of administration",
+      "name": "Numerator",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "NUMER",
+        "title": "Numerator"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Eligible professional attests to documenting, updating or reviewing the patient's current medications using all immediate resources available on the date of the encounter. This list must include ALL known prescriptions, over-the-counters, herbals and vitamin/mineral/dietary (nutritional) supplements AND must contain the medications' name, dosages, frequency and route of administration",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "NUMEX",
+      "value": "Not Applicable",
+      "name": "Numerator Exclusions",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "NUMEX",
+        "title": "Numerator Exclusions"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Not Applicable",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "DENEXCEP",
+      "value": "Medical Reason:\\nPatient is in an urgent or emergent medical situation where time is of the essence and to delay treatment would jeopardize the patient's health status",
+      "name": "Denominator Exceptions",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "DENEXCEP",
+        "title": "Denominator Exceptions"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Medical Reason:\\nPatient is in an urgent or emergent medical situation where time is of the essence and to delay treatment would jeopardize the patient's health status",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "SDE",
+      "value": "For every patient evaluated by this measure also identify payer, race, ethnicity and sex",
+      "name": "Supplemental Data Elements",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "SDE",
+        "title": "Supplemental Data Elements"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "For every patient evaluated by this measure also identify payer, race, ethnicity and sex",
+        "media_type": "text/plain"
+      }
+    }
+  ],
+  "measure_id": "40280381-51F0-825B-0152-227DFBAC15AA",
+  "measure_logic": [
+    {
+      "code": "IPP",
+      "lines": [
+        "\\nInitial Patient Population\\n",
+        "\\tAND: ",
+        "Patient Characteristic Birthdate: Birth Date",
+        " >= 18 years starts before start of \\"Measurement Period\\"\\n",
+        "\\tAND: ",
+        "Occurrence A: Encounter, Performed: Medications Encounter Code Set",
+        " during \\"Measurement Period\\"\\n"
+      ]
+    },
+    {
+      "code": "DENOM",
+      "lines": [
+        "\\nDenominator\\n",
+        "\\tNone\\n"
+      ]
+    },
+    {
+      "code": "NUMER",
+      "lines": [
+        "\\nNumerator\\n",
+        "\\tAND: ",
+        "Procedure, Performed: Current Medications Documented SNMD",
+        " during Occurrence A: Encounter, Performed: Medications Encounter Code Set\\n"
+      ]
+    },
+    {
+      "code": "DENEXCEP",
+      "lines": [
+        "\\nDenominator Exceptions\\n",
+        "\\tOR: ",
+        "Procedure, Performed: Current Medications Documented SNMD ( Not Done : Medical Or Other Reason Not Done )",
+        " during Occurrence A: Encounter, Performed: Medications Encounter Code Set\\n"
+      ]
+    }
+  ],
+  "measure_period": {
+    "type": "IVL_TS",
+    "low": {
+      "type": "TS",
+      "value": "201201010000",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "high": {
+      "type": "TS",
+      "value": "201212312359",
+      "inclusive?": true,
+      "derived?": false
+    },
+    "width": {
+      "type": "PQ",
+      "unit": "a",
+      "value": "1",
+      "inclusive?": true,
+      "derived?": false
+    }
+  },
+  "needs_finalize": false,
+  "population_criteria": {
+    "IPP": {
+      "conjunction?": true,
+      "type": "IPP",
+      "title": "Initial Population",
+      "hqmf_id": "69EA522E-773D-48DA-B598-71BE435EA1F3",
+      "preconditions": [
+        {
+          "id": 3,
+          "preconditions": [
+            {
+              "id": 1,
+              "reference": "Agegrtr_thn_eql_18yearsat_B2C1946E_AB76_4FD5_84BF_1ACFCCC09DE5_3B7C833D_4FA6_4BA0_92D3_1BFA40E904F4"
+            },
+            {
+              "id": 2,
+              "reference": "During_901B0BF0_0A5C_4116_8668_0B2707C6296C_21DBB804_6963_4FC3_92C8_F878B11027AC"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "DENOM": {
+      "conjunction?": true,
+      "type": "DENOM",
+      "title": "Denominator",
+      "hqmf_id": "50BE7CDD-9579-47FE-AF9D-72B433C5C78B"
+    },
+    "NUMER": {
+      "conjunction?": true,
+      "type": "NUMER",
+      "title": "Numerator",
+      "hqmf_id": "75EF8DCF-C7D2-4237-B840-5D178290DD9A",
+      "preconditions": [
+        {
+          "id": 5,
+          "preconditions": [
+            {
+              "id": 4,
+              "reference": "During_553DFB3F_32AA_4C0B_BA61_EF03612874A0_1E256CEB_0554_4BEB_AF89_380E393FA1E1"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "DENEXCEP": {
+      "conjunction?": true,
+      "type": "DENEXCEP",
+      "title": "Denominator Exceptions",
+      "hqmf_id": "32EF9291-A810-452F-8C36-8A434E4FE043",
+      "preconditions": [
+        {
+          "id": 7,
+          "preconditions": [
+            {
+              "id": 6,
+              "reference": "During_BE9E063D_47D2_4E0F_85E4_7D8E76918978_F1DCDBE6_5253_44C1_8D55_4528AF0A172C"
+            }
+          ],
+          "conjunction_code": "atLeastOneTrue"
+        }
+      ]
+    }
+  },
+  "populations": [
+    {
+      "IPP": {
+        "code": "IPP",
+        "conjunction?": true,
+        "type": "IPP",
+        "title": "Initial Population",
+        "hqmf_id": "69EA522E-773D-48DA-B598-71BE435EA1F3",
+        "preconditions": [
+          {
+            "id": 3,
+            "preconditions": [
+              {
+                "id": 1,
+                "reference": "Agegrtr_thn_eql_18yearsat_B2C1946E_AB76_4FD5_84BF_1ACFCCC09DE5_3B7C833D_4FA6_4BA0_92D3_1BFA40E904F4"
+              },
+              {
+                "id": 2,
+                "reference": "During_901B0BF0_0A5C_4116_8668_0B2707C6296C_21DBB804_6963_4FC3_92C8_F878B11027AC"
+              }
+            ],
+            "conjunction_code": "allTrue"
+          }
+        ]
+      },
+      "DENOM": {
+        "code": "DENOM",
+        "conjunction?": true,
+        "type": "DENOM",
+        "title": "Denominator",
+        "hqmf_id": "50BE7CDD-9579-47FE-AF9D-72B433C5C78B"
+      },
+      "NUMER": {
+        "code": "NUMER",
+        "conjunction?": true,
+        "type": "NUMER",
+        "title": "Numerator",
+        "hqmf_id": "75EF8DCF-C7D2-4237-B840-5D178290DD9A",
+        "preconditions": [
+          {
+            "id": 5,
+            "preconditions": [
+              {
+                "id": 4,
+                "reference": "During_553DFB3F_32AA_4C0B_BA61_EF03612874A0_1E256CEB_0554_4BEB_AF89_380E393FA1E1"
+              }
+            ],
+            "conjunction_code": "allTrue"
+          }
+        ]
+      },
+      "DENEXCEP": {
+        "code": "DENEXCEP",
+        "conjunction?": true,
+        "type": "DENEXCEP",
+        "title": "Denominator Exceptions",
+        "hqmf_id": "32EF9291-A810-452F-8C36-8A434E4FE043",
+        "preconditions": [
+          {
+            "id": 7,
+            "preconditions": [
+              {
+                "id": 6,
+                "reference": "During_BE9E063D_47D2_4E0F_85E4_7D8E76918978_F1DCDBE6_5253_44C1_8D55_4528AF0A172C"
+              }
+            ],
+            "conjunction_code": "atLeastOneTrue"
+          }
+        ]
+      },
+      "title": "Population Criteria Section",
+      "sub_id": "a",
+      "index": 0
+    }
+  ],
+  "preconditions": null,
+  "publish_date": null,
+  "published": null,
+  "record_ids": [],
+  "source_data_criteria": [
+    {
+      "title": "Medications Encounter Code Set",
+      "description": "Encounter, Performed: Medications Encounter Code Set",
+      "code_list_id": "2.16.840.1.113883.3.600.1.1834",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_c491f31a_ee53_40ad_9e3c_d4dff68ede0e_source",
+      "variable": false
+    },
+    {
+      "title": "Medications Encounter Code Set",
+      "description": "Encounter, Performed: Medications Encounter Code Set",
+      "code_list_id": "2.16.840.1.113883.3.600.1.1834",
+      "type": "encounters",
+      "definition": "encounter",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "specific_occurrence": "A",
+      "specific_occurrence_const": "OCCURRENCEA_MEDICATIONSENCOUNTERCODESET_ENCOUNTERPERFORMED_C491F31A_EE53_40AD_9E3C_D4DFF68EDE0E_SOURCE",
+      "source_data_criteria": "OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5_source",
+      "variable": false
+    },
+    {
+      "title": "Ethnicity",
+      "description": "Patient Characteristic Ethnicity: Ethnicity",
+      "code_list_id": "2.16.840.1.114222.4.11.837",
+      "property": "ethnicity",
+      "type": "characteristic",
+      "definition": "patient_characteristic_ethnicity",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_40280381_3e93_d1af_013e_a36090dc2cf8_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "2135-2",
+          "2186-5"
+        ]
+      }
+    },
+    {
+      "title": "ONC Administrative Sex",
+      "description": "Patient Characteristic Sex: Onc Administrative Sex",
+      "code_list_id": "2.16.840.1.113762.1.4.1",
+      "property": "gender",
+      "type": "characteristic",
+      "definition": "patient_characteristic_gender",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3e93_d1af_013e_a36090dc2cf6_source",
+      "variable": false,
+      "value": {
+        "type": "CD",
+        "system": "Administrative Sex",
+        "code": "F"
+      }
+    },
+    {
+      "title": "Payer",
+      "description": "Patient Characteristic Payer: Payer",
+      "code_list_id": "2.16.840.1.114222.4.11.3591",
+      "property": "payer",
+      "type": "characteristic",
+      "definition": "patient_characteristic_payer",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Payer_PatientCharacteristicPayer_40280381_3e93_d1af_013e_a36090dc2cf9_source",
+      "variable": false,
+      "inline_code_list": {
+        "SOP": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "11",
+          "12",
+          "19",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25",
+          "29",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "37",
+          "38",
+          "39",
+          "41",
+          "42",
+          "43",
+          "44",
+          "51",
+          "52",
+          "53",
+          "54",
+          "55",
+          "59",
+          "61",
+          "62",
+          "63",
+          "64",
+          "69",
+          "71",
+          "72",
+          "73",
+          "79",
+          "81",
+          "82",
+          "83",
+          "84",
+          "85",
+          "89",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "96",
+          "98",
+          "99",
+          "111",
+          "112",
+          "113",
+          "119",
+          "121",
+          "122",
+          "123",
+          "129",
+          "211",
+          "212",
+          "213",
+          "219",
+          "311",
+          "312",
+          "313",
+          "321",
+          "322",
+          "331",
+          "332",
+          "333",
+          "334",
+          "341",
+          "342",
+          "343",
+          "349",
+          "361",
+          "362",
+          "369",
+          "371",
+          "372",
+          "379",
+          "381",
+          "382",
+          "389",
+          "511",
+          "512",
+          "513",
+          "514",
+          "515",
+          "519",
+          "521",
+          "522",
+          "523",
+          "529",
+          "611",
+          "612",
+          "613",
+          "619",
+          "821",
+          "822",
+          "823",
+          "951",
+          "953",
+          "954",
+          "959",
+          "3111",
+          "3112",
+          "3113",
+          "3114",
+          "3115",
+          "3116",
+          "3119",
+          "3121",
+          "3122",
+          "3123",
+          "3211",
+          "3212",
+          "3221",
+          "3222",
+          "3223",
+          "3229",
+          "3711",
+          "3712",
+          "3713",
+          "3811",
+          "3812",
+          "3813",
+          "3819",
+          "9999",
+          "32121",
+          "32122",
+          "32123",
+          "32124",
+          "32125",
+          "32126"
+        ]
+      }
+    },
+    {
+      "title": "Race",
+      "description": "Patient Characteristic Race: Race",
+      "code_list_id": "2.16.840.1.114222.4.11.836",
+      "property": "race",
+      "type": "characteristic",
+      "definition": "patient_characteristic_race",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Race_PatientCharacteristicRace_40280381_3e93_d1af_013e_a36090dc2cf7_source",
+      "variable": false,
+      "inline_code_list": {
+        "CDC Race": [
+          "1002-5",
+          "2028-9",
+          "2054-5",
+          "2076-8",
+          "2106-3",
+          "2131-1"
+        ]
+      }
+    },
+    {
+      "title": "Birth Date",
+      "description": "Patient Characteristic Birthdate: Birth Date",
+      "property": "birthtime",
+      "type": "characteristic",
+      "definition": "patient_characteristic_birthdate",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "Agegrtr_thn_eql_18yearsat_B2C1946E_AB76_4FD5_84BF_1ACFCCC09DE5_3B7C833D_4FA6_4BA0_92D3_1BFA40E904F4_source",
+      "variable": false
+    },
+    {
+      "title": "Current Medications Documented SNMD",
+      "description": "Procedure, Performed: Current Medications Documented Snmd",
+      "code_list_id": "2.16.840.1.113883.3.600.1.462",
+      "type": "procedures",
+      "definition": "procedure",
+      "status": "performed",
+      "hard_status": false,
+      "negation": false,
+      "source_data_criteria": "During_BE9E063D_47D2_4E0F_85E4_7D8E76918978_F1DCDBE6_5253_44C1_8D55_4528AF0A172C_source",
+      "variable": false
+    }
+  ],
+  "title": "Documentation of Current Medications in the Medical Record",
+  "type": "ep",
+  "updated_at": "2016-12-29T11:51:18.478Z",
+  "user_id": "5863fac3e76e94aee9000000",
+  "value_set_oids": [
+    "2.16.840.1.113883.3.464.1003.101.11.1115",
+    "2.16.840.1.113883.3.464.1003.101.11.1125",
+    "2.16.840.1.113883.3.600.1.462",
+    "2.16.840.1.113883.3.600.1.1502",
+    "2.16.840.1.113883.3.600.1.1608",
+    "2.16.840.1.113883.3.600.1.1609",
+    "2.16.840.1.113883.3.600.1.1834",
+    "2.16.840.1.113883.3.600.1.1917",
+    "2.16.840.1.113762.1.4.1",
+    "2.16.840.1.114222.4.11.836",
+    "2.16.840.1.114222.4.11.837",
+    "2.16.840.1.114222.4.11.3591"
+  ],
+  "version": null,
+  "displayedPopulation": {
+    "IPP": {
+      "code": "IPP",
+      "conjunction?": true,
+      "type": "IPP",
+      "title": "Initial Population",
+      "hqmf_id": "69EA522E-773D-48DA-B598-71BE435EA1F3",
+      "preconditions": [
+        {
+          "id": 3,
+          "preconditions": [
+            {
+              "id": 1,
+              "reference": "Agegrtr_thn_eql_18yearsat_B2C1946E_AB76_4FD5_84BF_1ACFCCC09DE5_3B7C833D_4FA6_4BA0_92D3_1BFA40E904F4"
+            },
+            {
+              "id": 2,
+              "reference": "During_901B0BF0_0A5C_4116_8668_0B2707C6296C_21DBB804_6963_4FC3_92C8_F878B11027AC"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "DENOM": {
+      "code": "DENOM",
+      "conjunction?": true,
+      "type": "DENOM",
+      "title": "Denominator",
+      "hqmf_id": "50BE7CDD-9579-47FE-AF9D-72B433C5C78B"
+    },
+    "NUMER": {
+      "code": "NUMER",
+      "conjunction?": true,
+      "type": "NUMER",
+      "title": "Numerator",
+      "hqmf_id": "75EF8DCF-C7D2-4237-B840-5D178290DD9A",
+      "preconditions": [
+        {
+          "id": 5,
+          "preconditions": [
+            {
+              "id": 4,
+              "reference": "During_553DFB3F_32AA_4C0B_BA61_EF03612874A0_1E256CEB_0554_4BEB_AF89_380E393FA1E1"
+            }
+          ],
+          "conjunction_code": "allTrue"
+        }
+      ]
+    },
+    "DENEXCEP": {
+      "code": "DENEXCEP",
+      "conjunction?": true,
+      "type": "DENEXCEP",
+      "title": "Denominator Exceptions",
+      "hqmf_id": "32EF9291-A810-452F-8C36-8A434E4FE043",
+      "preconditions": [
+        {
+          "id": 7,
+          "preconditions": [
+            {
+              "id": 6,
+              "reference": "During_BE9E063D_47D2_4E0F_85E4_7D8E76918978_F1DCDBE6_5253_44C1_8D55_4528AF0A172C"
+            }
+          ],
+          "conjunction_code": "atLeastOneTrue"
+        }
+      ]
+    },
+    "title": "Population Criteria Section",
+    "sub_id": "a",
+    "index": 0
+  },
+  "archived_measures": [],
+  "upload_summaries": []
+}

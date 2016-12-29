@@ -1,0 +1,631 @@
+{
+  "_id": "5863faf8e76e94aee90000a1",
+  "bundle_id": "5863fac3e76e94aee9000001",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "5863faf8e76e94aee9000063",
+      "black_list": false,
+      "code": "8411005",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Interactive individual medical psychotherapy (regime/therapy)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000064",
+      "black_list": false,
+      "code": "10197000",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Psychiatric interview and evaluation (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000065",
+      "black_list": false,
+      "code": "13607009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Manual examination of breast (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000066",
+      "black_list": false,
+      "code": "14736009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "History and physical examination with evaluation and management of patient (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000067",
+      "black_list": false,
+      "code": "18091003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Electronystagmography with vertical electrodes (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000068",
+      "black_list": false,
+      "code": "18512000",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Individual psychotherapy (regime/therapy)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000069",
+      "black_list": false,
+      "code": "30346009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Evaluation and management of established outpatient in office or other outpatient facility (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900006a",
+      "black_list": false,
+      "code": "32537008",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Psychiatric diagnostic interview, examination, history, mental status and disposition (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900006b",
+      "black_list": false,
+      "code": "34651001",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Optokinetic nystagmus test, bidirectional, with recording (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900006c",
+      "black_list": false,
+      "code": "35025007",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Manual pelvic examination (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900006d",
+      "black_list": false,
+      "code": "36228007",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Ophthalmic examination and evaluation (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900006e",
+      "black_list": false,
+      "code": "37894004",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Evaluation and management of new outpatient in office or other outpatient facility (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900006f",
+      "black_list": false,
+      "code": "46662001",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Examination of breast (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000070",
+      "black_list": false,
+      "code": "48423005",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Acoustic reflex testing (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000071",
+      "black_list": false,
+      "code": "50357006",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Evaluation and management of patient at home (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000072",
+      "black_list": false,
+      "code": "53555003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Basic comprehensive audiometry testing (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000073",
+      "black_list": false,
+      "code": "54290001",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Positional nystagmus test with recording (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000074",
+      "black_list": false,
+      "code": "63547008",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Caloric vestibular test with recording (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000075",
+      "black_list": false,
+      "code": "66902005",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Ophthalmic examination and evaluation, follow-up (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000076",
+      "black_list": false,
+      "code": "78318003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "History and physical examination, annual for health maintenance (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000077",
+      "black_list": false,
+      "code": "83607001",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Gynecologic examination (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000078",
+      "black_list": false,
+      "code": "86013001",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Periodic reevaluation and management of healthy individual (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000079",
+      "black_list": false,
+      "code": "90526000",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Initial evaluation and management of healthy individual (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900007a",
+      "black_list": false,
+      "code": "91573000",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Tympanometry testing (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900007b",
+      "black_list": false,
+      "code": "108220007",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Evaluation AND/OR management - new patient (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900007c",
+      "black_list": false,
+      "code": "108221006",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Evaluation AND/OR management - established patient (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900007d",
+      "black_list": false,
+      "code": "108224003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Preventive patient evaluation (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900007e",
+      "black_list": false,
+      "code": "108311000",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Psychiatric procedure, interview AND/OR consultation (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900007f",
+      "black_list": false,
+      "code": "165171009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Initial psychiatric evaluation (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000080",
+      "black_list": false,
+      "code": "185349003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Encounter for \"check-up\" (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000081",
+      "black_list": false,
+      "code": "185463005",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Visit out of hours (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000082",
+      "black_list": false,
+      "code": "185465003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Weekend visit (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000083",
+      "black_list": false,
+      "code": "209099002",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "History and physical examination with management of domiciliary or rest home patient (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000084",
+      "black_list": false,
+      "code": "210098006",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Domiciliary or rest home patient evaluation and management (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000085",
+      "black_list": false,
+      "code": "225967005",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Self-care patient education (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000086",
+      "black_list": false,
+      "code": "252592009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Speech audiometry (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000087",
+      "black_list": false,
+      "code": "252624005",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Evoked oto-acoustic emission measurement (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000088",
+      "black_list": false,
+      "code": "270427003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Patient-initiated encounter (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000089",
+      "black_list": false,
+      "code": "270430005",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Provider-initiated encounter (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900008a",
+      "black_list": false,
+      "code": "273643004",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Neurobehavioral cognitive status examination (assessment scale)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900008b",
+      "black_list": false,
+      "code": "274803000",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Examination of tympanic membrane (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900008c",
+      "black_list": false,
+      "code": "277404009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "High frequency tympanometry (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900008d",
+      "black_list": false,
+      "code": "278465006",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Spontaneous nystagmus (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900008e",
+      "black_list": false,
+      "code": "284015009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Auditory evoked potentials monitoring (regime/therapy)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900008f",
+      "black_list": false,
+      "code": "308335008",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Patient encounter procedure (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000090",
+      "black_list": false,
+      "code": "370803007",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Evaluation of psychosocial impact on plan of care (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000091",
+      "black_list": false,
+      "code": "385973000",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Dialysis care management (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000092",
+      "black_list": false,
+      "code": "386372009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Nutrition management (regime/therapy)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000093",
+      "black_list": false,
+      "code": "390906007",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Follow-up encounter (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000094",
+      "black_list": false,
+      "code": "397745006",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Medical contraindication (finding)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000095",
+      "black_list": false,
+      "code": "405096004",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Diabetes self-management behavior (observable entity)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000096",
+      "black_list": false,
+      "code": "406547006",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Urgent follow-up (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000097",
+      "black_list": false,
+      "code": "408983003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Renal care management (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000098",
+      "black_list": false,
+      "code": "410155007",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Occupational therapy assessment (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee9000099",
+      "black_list": false,
+      "code": "410157004",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Occupational therapy management (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900009a",
+      "black_list": false,
+      "code": "410158009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Physical therapy assessment (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900009b",
+      "black_list": false,
+      "code": "410160006",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Physical therapy management (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900009c",
+      "black_list": false,
+      "code": "410170008",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Nutrition care assessment (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900009d",
+      "black_list": false,
+      "code": "428119001",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Procedure not indicated (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900009e",
+      "black_list": false,
+      "code": "439708006",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Home visit (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee900009f",
+      "black_list": false,
+      "code": "439952009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Evaluation of auditory rehabilitation (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5863faf8e76e94aee90000a0",
+      "black_list": false,
+      "code": "440524004",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Oscillating tracking test with recording (procedure)",
+      "white_list": false
+    }
+  ],
+  "display_name": "Medication Snomed Encounter Codes",
+  "oid": "2.16.840.1.113883.3.600.1.1917",
+  "user_id": "5863fac3e76e94aee9000000",
+  "version": "2013-09"
+}

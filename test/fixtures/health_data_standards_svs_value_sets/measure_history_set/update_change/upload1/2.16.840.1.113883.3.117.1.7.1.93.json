@@ -1,0 +1,211 @@
+{
+  "_id": "5864f8a8e76e94aee9000a8d",
+  "bundle_id": "5863fac3e76e94aee9000001",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "5864f8a8e76e94aee9000a8e",
+      "black_list": false,
+      "code": "105480006",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Refusal of treatment by patient (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a8f",
+      "black_list": false,
+      "code": "182890002",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Patient requests alternative treatment (finding)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a90",
+      "black_list": false,
+      "code": "182895007",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Drug declined by patient (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a91",
+      "black_list": false,
+      "code": "182896008",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Drug declined by patient - dislikes taste (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a92",
+      "black_list": false,
+      "code": "182897004",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Drug declined by patient - side effects (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a93",
+      "black_list": false,
+      "code": "182898009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Drug declined by patient - inconvenient (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a94",
+      "black_list": false,
+      "code": "182900006",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Drug declined by patient - patient beliefs (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a95",
+      "black_list": false,
+      "code": "182901005",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Drug declined by patient - alternative therapy (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a96",
+      "black_list": false,
+      "code": "182903008",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Drug declined by patient - reason unknown (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a97",
+      "black_list": false,
+      "code": "183944003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Procedure refused (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a98",
+      "black_list": false,
+      "code": "183945002",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Procedure refused for religious reason (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a99",
+      "black_list": false,
+      "code": "183947005",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Refused procedure - after thought (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a9a",
+      "black_list": false,
+      "code": "183948000",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Refused procedure - parent's wish (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a9b",
+      "black_list": false,
+      "code": "275936005",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Patient noncompliance - general (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a9c",
+      "black_list": false,
+      "code": "371138003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Refusal of treatment by parents (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a9d",
+      "black_list": false,
+      "code": "385648002",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Rejected by recipient (qualifier value)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a9e",
+      "black_list": false,
+      "code": "406149000",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Medication refused (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000a9f",
+      "black_list": false,
+      "code": "413312003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Patient non-compliant - refused service (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000aa0",
+      "black_list": false,
+      "code": "416432009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Procedure not wanted (situation)",
+      "white_list": false
+    },
+    {
+      "_id": "5864f8a8e76e94aee9000aa1",
+      "black_list": false,
+      "code": "443390004",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Refused (qualifier value)",
+      "white_list": false
+    }
+  ],
+  "display_name": "Patient Refusal",
+  "oid": "2.16.840.1.113883.3.117.1.7.1.93",
+  "user_id": "5863fac3e76e94aee9000000",
+  "version": "2015-09"
+}

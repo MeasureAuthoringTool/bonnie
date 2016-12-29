@@ -1,0 +1,610 @@
+[
+  {
+    "_id": "586412e3e76e94aee9000823",
+    "birthdate": 565603200,
+    "bundle_id": "5863fac3e76e94aee9000001",
+    "calc_results": [
+      {
+        "IPP": 0,
+        "DENOM": 0,
+        "DENEX": 0,
+        "NUMER": 0,
+        "NUMEX": 0,
+        "DENEXCEP": 0,
+        "rationale": {
+          "prefix_464c2c3b_d2a3_4cdf_898f_c562a20a21ca_40280381_3d61_56a7_013d_7f1466b6554b": {
+            "results": [
+              {
+                "id": "586412e3e76e94aee9000825",
+                "json": {
+                  "_id": "586412e3e76e94aee9000825",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non Elective Inpatient Encounter",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1356689700,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1356681600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "MeasurePeriod": {
+            "results": [
+              {
+                "id": "undefined",
+                "json": {
+                  "start_time": 1325376000,
+                  "end_time": 1356998340,
+                  "codes": {}
+                }
+              }
+            ]
+          },
+          "EndsDuring_ABA025F9_2C61_45CF_9630_B1080C1178F3_40280381_3d61_56a7_013d_7f1466b6554b": {
+            "results": [
+              {
+                "id": "586412e3e76e94aee9000825",
+                "json": {
+                  "_id": "586412e3e76e94aee9000825",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non Elective Inpatient Encounter",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1356689700,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1356681600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "GROUP_occAof_qdm_var_SatisfiesAll_3BF8235D_2D62_41A7_8F43_E65F1A032F43_E3DE1AAA_C974_45D5_B2EB_4386960A7D31": {
+            "results": [
+              {
+                "id": "586412e3e76e94aee9000825",
+                "json": {
+                  "_id": "586412e3e76e94aee9000825",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non Elective Inpatient Encounter",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1356689700,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1356681600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "occAof_qdm_var_SatisfiesAll_3BF8235D_2D62_41A7_8F43_E65F1A032F43_E3DE1AAA_C974_45D5_B2EB_4386960A7D31": {
+            "results": [
+              {
+                "id": "586412e3e76e94aee9000825",
+                "json": {
+                  "_id": "586412e3e76e94aee9000825",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non Elective Inpatient Encounter",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1356689700,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1356681600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "586412e3e76e94aee9000825"
+              ]
+            ]
+          },
+          "prefix_423a534d_6120_4d39_a2b0_a691aaa6288c_40280381_3d61_56a7_013d_7f1466b6554b": false,
+          "Intersection_FA6D63CB_A5BE_404A_ADE5_9DED0BC12747_11E30979_3F80_45C8_BC8A_26C8A66FDC09": false,
+          "c9e8f682_9866_40ba_8283_37cf00e22f9b_40280381_3d61_56a7_013d_7f1466b6554b": false,
+          "Intersection_D25E3B64_0235_40BE_9D56_8D5B78E814CC_70D03163_F7A2_4A98_91B3_7C8F78DE0B53": false,
+          "precondition_4": false,
+          "Agegrtr_thn_eql_18yearsat_2A166C64_46AD_4AB7_ACCC_6D282276649D_96768611_9D0A_4609_B0F8_5865FF785EB9": {
+            "results": [
+              {}
+            ],
+            "specifics": [
+              [
+                "586412e3e76e94aee9000825"
+              ]
+            ]
+          },
+          "precondition_5": false,
+          "precondition_IPP": false,
+          "IPP": false,
+          "GROUP_occAof_qdm_var_SatisfiesAll_3BF8235D_2D62_41A7_8F43_E65F1A032F43_F40376F3_CF11_4988_B68A_8684FDF5E580": {
+            "results": [
+              {
+                "id": "586412e3e76e94aee9000825",
+                "json": {
+                  "_id": "586412e3e76e94aee9000825",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non Elective Inpatient Encounter",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1356689700,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1356681600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "occAof_qdm_var_SatisfiesAll_3BF8235D_2D62_41A7_8F43_E65F1A032F43_F40376F3_CF11_4988_B68A_8684FDF5E580": {
+            "results": [
+              {
+                "id": "586412e3e76e94aee9000825",
+                "json": {
+                  "_id": "586412e3e76e94aee9000825",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "32485007"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Non Elective Inpatient Encounter",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1356689700,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1356681600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*"
+              ]
+            ]
+          },
+          "ComfortMeasures_InterventionOrder_5d155dc6_ca9c_471c_89b6_979128f685d9": false,
+          "ComfortMeasures_InterventionPerformed_59f1730e_0898_4660_a67e_47d423133853": false,
+          "GROUP_qdm_var_Union_A8373102_C974_4A18_AF8E_2A3E660F4A94_04FC8CF3_ACB6_4BCD_B439_4F4803F650C6": false,
+          "qdm_var_Union_A8373102_C974_4A18_AF8E_2A3E660F4A94_04FC8CF3_ACB6_4BCD_B439_4F4803F650C6": false,
+          "VARIABLES": false
+        },
+        "finalSpecifics": {
+          "IPP": []
+        },
+        "measure_id": "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+        "population_index": 0,
+        "status": "fail"
+      }
+    ],
+    "condensed_calc_results": null,
+    "conditions": [
+      {
+        "_id": "586412e3e76e94aee9000826",
+        "anatomical_location": null,
+        "anatomical_target": null,
+        "causeOfDeath": null,
+        "codes": {
+          "ICD-9-CM": [
+            "430"
+          ],
+          "ICD-10-CM": [
+            "I60.00"
+          ],
+          "SNOMED-CT": [
+            "7713009"
+          ]
+        },
+        "description": "Diagnosis, Active: Hemorrhagic Stroke",
+        "end_time": 1356686100,
+        "health_record_field": null,
+        "laterality": null,
+        "mood_code": "EVN",
+        "name": null,
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.2",
+        "ordinality": {
+          "code_system": "SNOMED-CT",
+          "code": "63161005",
+          "title": "Principal"
+        },
+        "priority": null,
+        "reason": null,
+        "severity": null,
+        "specifics": null,
+        "start_time": 1356685200,
+        "status_code": {
+          "SNOMED-CT": [
+            "55561003"
+          ],
+          "HL7 ActStatus": [
+            "active"
+          ]
+        },
+        "time": null,
+        "time_of_death": null,
+        "type": null
+      }
+    ],
+    "created_at": "2016-12-28T19:30:43.683Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "586412e3e76e94aee9000825",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "32485007"
+          ]
+        },
+        "description": "Encounter, Performed: Non Elective Inpatient Encounter",
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1356689700,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1356681600,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": "2186-5",
+    "expected_values": [
+      {
+        "measure_id": "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 0,
+        "DENEX": 0,
+        "NUMER": 0,
+        "DENEXCEP": 0
+      }
+    ],
+    "expired": null,
+    "first": "Fake",
+    "gender": "M",
+    "has_measure_history": true,
+    "insurance_providers": [
+      {
+        "_id": "586412e3e76e94aee9000828",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "586412e3e76e94aee9000829",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [],
+    "last": "Patient",
+    "marital_status": null,
+    "measure_ids": [
+      "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "77bd5df420b2ac45fd6212c4bd956982",
+    "medications": [
+      {
+        "_id": "586412e3e76e94aee9000827",
+        "active_datetime": null,
+        "administrationTiming": null,
+        "allowedAdministrations": null,
+        "anatomical_approach": null,
+        "codes": {
+          "RxNorm": [
+            "198466"
+          ]
+        },
+        "cumulativeMedicationDuration": null,
+        "deliveryMethod": null,
+        "description": "Medication, Discharge: Antithrombotic Therapy",
+        "dose": null,
+        "doseIndicator": null,
+        "doseRestriction": null,
+        "end_time": 1356686100,
+        "freeTextSig": null,
+        "fulfillmentHistory": [],
+        "fulfillmentInstructions": null,
+        "health_record_field": null,
+        "indication": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.199",
+        "patientInstructions": null,
+        "productForm": null,
+        "reaction": null,
+        "reason": null,
+        "route": null,
+        "signed_datetime": null,
+        "specifics": null,
+        "start_time": 1356685200,
+        "statusOfMedication": null,
+        "status_code": {
+          "HL7 ActStatus": [
+            "discharge"
+          ]
+        },
+        "time": null,
+        "typeOfMedication": null,
+        "vehicle": null
+      }
+    ],
+    "modifier_id": null,
+    "notes": "Fake Patient",
+    "origin_data": [],
+    "race": "1002-5",
+    "religious_affiliation": null,
+    "results_exceed_storage": false,
+    "results_size": 5377,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Non-Elective Inpatient Encounter",
+        "description": "Encounter, Performed: Non Elective Inpatient Encounter",
+        "code_list_id": "2.16.840.1.113883.3.117.1.7.1.424",
+        "type": "encounters",
+        "id": "EncounterPerformedNonElectiveInpatientEncounter",
+        "start_date": 1356681600000,
+        "end_date": 1356689700000,
+        "value": [],
+        "references": [],
+        "field_values": {},
+        "hqmf_set_id": "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+        "cms_id": "CMS104v3",
+        "criteria_id": "15946e5844fAA",
+        "codes": {
+          "SNOMED-CT": [
+            "32485007"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "586412e3e76e94aee9000825",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "diagnosis",
+        "status": "active",
+        "title": "Hemorrhagic Stroke",
+        "description": "Diagnosis, Active: Hemorrhagic Stroke",
+        "code_list_id": "2.16.840.1.113883.3.117.1.7.1.212",
+        "type": "conditions",
+        "id": "DiagnosisActiveHemorrhagicStroke",
+        "start_date": 1356685200000,
+        "end_date": 1356686100000,
+        "value": [],
+        "references": [],
+        "field_values": {
+          "ORDINAL": {
+            "type": "CD",
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.14",
+            "title": "Principal"
+          }
+        },
+        "hqmf_set_id": "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+        "cms_id": "CMS104v3",
+        "criteria_id": "15946e5d342EG",
+        "codes": {
+          "ICD-9-CM": [
+            "430"
+          ],
+          "ICD-10-CM": [
+            "I60.00"
+          ],
+          "SNOMED-CT": [
+            "7713009"
+          ]
+        },
+        "coded_entry_id": "586412e3e76e94aee9000826",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "medication",
+        "status": "discharge",
+        "title": "Antithrombotic Therapy",
+        "description": "Medication, Discharge: Antithrombotic Therapy",
+        "code_list_id": "2.16.840.1.113883.3.117.1.7.1.201",
+        "type": "medications",
+        "id": "MedicationDischargeAntithromboticTherapy",
+        "start_date": 1356685200000,
+        "end_date": 1356686100000,
+        "value": [],
+        "references": [],
+        "field_values": {},
+        "hqmf_set_id": "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+        "cms_id": "CMS104v3",
+        "criteria_id": "15946e9385fo3",
+        "codes": {
+          "RxNorm": [
+            "198466"
+          ]
+        },
+        "fulfillments": [],
+        "dose_value": "",
+        "dose_unit": "capsule(s)",
+        "frequency_value": "",
+        "frequency_unit": "min",
+        "negation_code_list_id": "",
+        "coded_entry_id": "586412e3e76e94aee9000827",
+        "code_source": "DEFAULT"
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2016-12-29T11:51:05.823Z",
+    "user_id": "5863fac3e76e94aee9000000",
+    "version": 3,
+    "payer": "OT"
+  }
+]
