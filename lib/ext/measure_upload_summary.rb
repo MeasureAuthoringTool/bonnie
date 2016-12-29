@@ -24,6 +24,8 @@ module UploadSummary
     embeds_many :population_set_summaries, cascade_callbacks: true
     accepts_nested_attributes_for :population_set_summaries
 
+    before_save :size_check
+
     index "user_id" => 1
     scope :by_user, ->(user) { where({'user_id'=>user.id}) }
     scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where({'user_id'=>user.id, 'hqmf_set_id'=>hqmf_set_id}) }
@@ -117,6 +119,27 @@ module UploadSummary
       measure_upload_summary.save!
       measure_upload_summary
     end
+
+    protected
+
+    def size_check
+      upload_summary_size = self.to_json.size
+      if upload_summary_size > APP_CONFIG['record']['max_size_in_bytes']
+        self.population_set_summaries.each do |population_set_summary|
+          population_set_summary[:patients].each do |patient|
+            patient[1][:pre_upload_results].delete('rationale')
+            patient[1][:pre_upload_results].delete('finalSpecifics')
+            patient[1][:results_exceeds_storage_pre_upload] = true
+            if patient[1].has_key? :post_upload_results
+              patient[1][:post_upload_results].delete('rationale')
+              patient[1][:post_upload_results].delete('finalSpecifics')
+              patient[1][:results_exceeds_storage_post_upload] = true
+            end
+          end # each patient
+        end # each population set summary
+      end
+    end
+
   end
 
   # the population set summary information contains the number of patients that passed or failed
@@ -208,5 +231,6 @@ module UploadSummary
         self.patients[patient.id.to_s][:expected] = expected_results.slice(*ATTRIBUTE_FILTER)
       end
     end
+
   end
 end
