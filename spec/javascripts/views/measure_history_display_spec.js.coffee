@@ -1,10 +1,7 @@
 describe 'MeasureHistoryView', ->
-  initializeSuite = (suite) ->
-    jasmine.getJSONFixtures().clearCache()
-    window.measureHistorySpecLoader.loadWithHistory('single_population_set', 'CMS68v6', suite)
-    suite.mainView = new Thorax.LayoutView(el: '#bonnie')
 
   renderView = (suite, done) ->
+    suite.mainView = new Thorax.LayoutView(el: '#bonnie')
     suite.measure_history_view = new Thorax.Views.MeasureHistoryView
       model: suite.measure, patients: suite.patients, upload_summaries: suite.uploadSummaries
     suite.measure_history_view.on "rendered", ->
@@ -13,24 +10,23 @@ describe 'MeasureHistoryView', ->
 
   describe 'without summaries', ->
     beforeEach (done) ->
-      initializeSuite(@)
-      @uploadSummaries = new Thorax.Collections.UploadSummaries([], {measure_id: @measure.id, _fetched: true})
-      # upload_summaries is empty, this measure history view will not have any history
+      window.measureHistorySpecLoader.loadWithoutHistory('single_population_set', 'CMS68v6', @)
       renderView(@, done)
-
-    it 'has length zero', ->
-      expect(@uploadSummaries.length).toEqual 0
+      
+    # there is an upload summary from the initial uplaod
+    it 'has length one', ->
+      expect(@uploadSummaries.length).toEqual 1
 
     it 'to indicate lack of history', ->
       expect(@measure_history_view.$el.html()).toContain 'No history found.'
 
   describe 'with summaries', ->
     beforeEach (done) ->
-      initializeSuite(@)
+      window.measureHistorySpecLoader.loadWithHistory('single_population_set', 'CMS68v6', @)
       # upload_summaries non-empty, this measure history view will have history
       renderView(@, done)
 
-    it 'has length two', ->
+    it 'has length three', ->
       expect(@uploadSummaries.length).toEqual 3
 
     it 'to *not* indicate lack of history', ->
