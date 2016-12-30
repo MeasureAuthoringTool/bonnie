@@ -230,4 +230,26 @@ include Devise::TestHelpers
     assert_equal false, upload_summary.population_set_summaries[0][:patients][p.id.to_s][:results_exceeds_storage_post_upload]
   end
   
+  test 'measure archived on delete' do
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history_set', 'CMS123v3.zip'), 'application/zip')
+    class << measure_file
+      attr_reader :tempfile
+    end
+
+    # create measure to delete
+    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'proportional'
+    assert_response :redirect
+
+    # grab the database id of the new measure
+    measure = Measure.by_user(@user).where(hqmf_set_id: 'C0D72444-7C26-4863-9B51-8080F8928A85').first;
+    assert_not_nil measure
+    measure_db_id = measure._id
+
+    # delete measure
+    delete :destroy, id: measure_db_id.to_s
+    assert_response :success
+
+    # ensure an archived measure was created for the measure
+    assert_equal 1, ArchivedMeasure.by_user(@user).where(measure_db_id: measure_db_id).count
+  end
 end
