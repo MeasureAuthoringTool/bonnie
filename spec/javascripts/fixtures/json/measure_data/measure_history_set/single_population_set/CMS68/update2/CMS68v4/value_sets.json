@@ -1,0 +1,4693 @@
+{
+  "2.16.840.1.113762.1.4.1": {
+    "_id": "5865004ae76e94aee9001390",
+    "bundle_id": "5863fac3e76e94aee9000001",
+    "categories": null,
+    "concepts": [
+      {
+        "_id": "5865004ae76e94aee9001391",
+        "black_list": false,
+        "code": "F",
+        "code_system": null,
+        "code_system_name": "AdministrativeSex",
+        "code_system_version": "HL7V2.5",
+        "display_name": "Female",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001392",
+        "black_list": false,
+        "code": "M",
+        "code_system": null,
+        "code_system_name": "AdministrativeSex",
+        "code_system_version": "HL7V2.5",
+        "display_name": "Male",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001393",
+        "black_list": false,
+        "code": "U",
+        "code_system": null,
+        "code_system_name": "AdministrativeSex",
+        "code_system_version": "HL7V2.5",
+        "display_name": "Unknown",
+        "white_list": false
+      }
+    ],
+    "display_name": "Onc Administrative Sex",
+    "oid": "2.16.840.1.113762.1.4.1",
+    "user_id": "5863fac3e76e94aee9000000",
+    "version": "HL7V2.5"
+  },
+  "2.16.840.1.113883.3.560.100.4": {
+    "_id": "58650049e76e94aee90012f0",
+    "bundle_id": "5863fac3e76e94aee9000001",
+    "categories": null,
+    "concepts": [
+      {
+        "_id": "58650049e76e94aee90012f1",
+        "black_list": false,
+        "code": "21112-8",
+        "code_system": null,
+        "code_system_name": "LOINC",
+        "code_system_version": "2.46",
+        "display_name": "Birth date",
+        "white_list": false
+      }
+    ],
+    "display_name": "Birth Date",
+    "oid": "2.16.840.1.113883.3.560.100.4",
+    "user_id": "5863fac3e76e94aee9000000",
+    "version": "2.46"
+  },
+  "2.16.840.1.113883.3.600.1.1502": {
+    "_id": "58650049e76e94aee90012f4",
+    "bundle_id": "5863fac3e76e94aee9000001",
+    "categories": null,
+    "concepts": [
+      {
+        "_id": "58650049e76e94aee90012f5",
+        "black_list": false,
+        "code": "183932001",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Procedure contraindicated (situation)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee90012f6",
+        "black_list": false,
+        "code": "397745006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Medical contraindication (finding)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee90012f7",
+        "black_list": false,
+        "code": "407563006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Treatment not tolerated (situation)",
+        "white_list": false
+      }
+    ],
+    "display_name": "Medical Or Other Reason Not Done",
+    "oid": "2.16.840.1.113883.3.600.1.1502",
+    "user_id": "5863fac3e76e94aee9000000",
+    "version": "2013-09"
+  },
+  "2.16.840.1.113883.3.600.1.1608": {
+    "_id": "58650049e76e94aee90012f8",
+    "bundle_id": "5863fac3e76e94aee9000001",
+    "categories": null,
+    "concepts": [
+      {
+        "_id": "58650049e76e94aee90012f9",
+        "black_list": false,
+        "code": "G0101",
+        "code_system": null,
+        "code_system_name": "HCPCS",
+        "code_system_version": "2014",
+        "display_name": "Cervical or vaginal cancer screening; pelvic and clinical breast examination",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee90012fa",
+        "black_list": false,
+        "code": "G0108",
+        "code_system": null,
+        "code_system_name": "HCPCS",
+        "code_system_version": "2014",
+        "display_name": "Diabetes outpatient self-management training services, individual, per 30 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee90012fb",
+        "black_list": false,
+        "code": "G0270",
+        "code_system": null,
+        "code_system_name": "HCPCS",
+        "code_system_version": "2014",
+        "display_name": "Medical nutrition therapy; reassessment and subsequent intervention(s) following second referral in same year for change in diagnosis, medical condition or treatment regimen (including additional hours needed for renal disease), individual, face to face with the patient, each 15 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee90012fc",
+        "black_list": false,
+        "code": "G0402",
+        "code_system": null,
+        "code_system_name": "HCPCS",
+        "code_system_version": "2014",
+        "display_name": "Initial preventive physical examination; face-to-face visit, services limited to new beneficiary during the first 12 months of medicare enrollment",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee90012fd",
+        "black_list": false,
+        "code": "G0438",
+        "code_system": null,
+        "code_system_name": "HCPCS",
+        "code_system_version": "2014",
+        "display_name": "Annual wellness visit; includes a personalized prevention plan of service (pps), initial visit",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee90012fe",
+        "black_list": false,
+        "code": "G0439",
+        "code_system": null,
+        "code_system_name": "HCPCS",
+        "code_system_version": "2014",
+        "display_name": "Annual wellness visit, includes a personalized prevention plan of service (pps), subsequent visit",
+        "white_list": false
+      }
+    ],
+    "display_name": "Encounters Meds Hcpcs",
+    "oid": "2.16.840.1.113883.3.600.1.1608",
+    "user_id": "5863fac3e76e94aee9000000",
+    "version": "2014"
+  },
+  "2.16.840.1.113883.3.600.1.1609": {
+    "_id": "58650049e76e94aee90012ff",
+    "bundle_id": "5863fac3e76e94aee9000001",
+    "categories": null,
+    "concepts": [
+      {
+        "_id": "58650049e76e94aee9001300",
+        "black_list": false,
+        "code": "90791",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Psychiatric diagnostic evaluation",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001301",
+        "black_list": false,
+        "code": "90792",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Psychiatric diagnostic evaluation with medical services",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001302",
+        "black_list": false,
+        "code": "90832",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Psychotherapy, 30 minutes with patient and/or family member",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001303",
+        "black_list": false,
+        "code": "90834",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Psychotherapy, 45 minutes with patient and/or family member",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001304",
+        "black_list": false,
+        "code": "90837",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Psychotherapy, 60 minutes with patient and/or family member",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001305",
+        "black_list": false,
+        "code": "90839",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Psychotherapy for crisis; first 60 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001306",
+        "black_list": false,
+        "code": "90957",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "End-stage renal disease (ESRD) related services monthly, for patients 12-19 years of age to include monitoring for the adequacy of nutrition, assessment of growth and development, and counseling of parents; with 4 or more face-to-face visits by a physician or other qualified health care professional per month",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001307",
+        "black_list": false,
+        "code": "90958",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "End-stage renal disease (ESRD) related services monthly, for patients 12-19 years of age to include monitoring for the adequacy of nutrition, assessment of growth and development, and counseling of parents; with 2-3 face-to-face visits by a physician or other qualified health care professional per month",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001308",
+        "black_list": false,
+        "code": "90959",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "End-stage renal disease (ESRD) related services monthly, for patients 12-19 years of age to include monitoring for the adequacy of nutrition, assessment of growth and development, and counseling of parents; with 1 face-to-face visit by a physician or other qualified health care professional per month",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001309",
+        "black_list": false,
+        "code": "90960",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "End-stage renal disease (ESRD) related services monthly, for patients 20 years of age and older; with 4 or more face-to-face visits by a physician or other qualified health care professional per month",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900130a",
+        "black_list": false,
+        "code": "90962",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "End-stage renal disease (ESRD) related services monthly, for patients 20 years of age and older; with 1 face-to-face visit by a physician or other qualified health care professional per month",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900130b",
+        "black_list": false,
+        "code": "90965",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "End-stage renal disease (ESRD) related services for home dialysis per full month, for patients 12-19 years of age to include monitoring for the adequacy of nutrition, assessment of growth and development, and counseling of parents",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900130c",
+        "black_list": false,
+        "code": "90966",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "End-stage renal disease (ESRD) related services for home dialysis per full month, for patients 20 years of age and older",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900130d",
+        "black_list": false,
+        "code": "92002",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Ophthalmological services: medical examination and evaluation with initiation of diagnostic and treatment program; intermediate, new patient",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900130e",
+        "black_list": false,
+        "code": "92004",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Ophthalmological services: medical examination and evaluation with initiation of diagnostic and treatment program; comprehensive, new patient, 1 or more visits",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900130f",
+        "black_list": false,
+        "code": "92012",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001310",
+        "black_list": false,
+        "code": "92014",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; comprehensive, established patient, 1 or more visits",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001311",
+        "black_list": false,
+        "code": "92507",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Treatment of speech, language, voice, communication, and/or auditory processing disorder; individual",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001312",
+        "black_list": false,
+        "code": "92508",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Treatment of speech, language, voice, communication, and/or auditory processing disorder; group, 2 or more individuals",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001313",
+        "black_list": false,
+        "code": "92526",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Treatment of swallowing dysfunction and/or oral function for feeding",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001314",
+        "black_list": false,
+        "code": "92541",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Spontaneous nystagmus test, including gaze and fixation nystagmus, with recording",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001315",
+        "black_list": false,
+        "code": "92542",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Positional nystagmus test, minimum of 4 positions, with recording",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001316",
+        "black_list": false,
+        "code": "92543",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Caloric vestibular test, each irrigation (binaural, bithermal stimulation constitutes 4 tests), with recording",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001317",
+        "black_list": false,
+        "code": "92544",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Optokinetic nystagmus test, bidirectional, foveal or peripheral stimulation, with recording",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001318",
+        "black_list": false,
+        "code": "92545",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Oscillating tracking test, with recording",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001319",
+        "black_list": false,
+        "code": "92547",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Use of vertical electrodes (List separately in addition to code for primary procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900131a",
+        "black_list": false,
+        "code": "92548",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Computerized dynamic posturography",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900131b",
+        "black_list": false,
+        "code": "92557",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Comprehensive audiometry threshold evaluation and speech recognition (92553 and 92556 combined)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900131c",
+        "black_list": false,
+        "code": "92567",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Tympanometry (impedance testing)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900131d",
+        "black_list": false,
+        "code": "92568",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Acoustic reflex testing, threshold",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900131e",
+        "black_list": false,
+        "code": "92570",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Acoustic immittance testing, includes tympanometry (impedance testing), acoustic reflex threshold testing, and acoustic reflex decay testing",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900131f",
+        "black_list": false,
+        "code": "92585",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Auditory evoked potentials for evoked response audiometry and/or testing of the central nervous system; comprehensive",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001320",
+        "black_list": false,
+        "code": "92588",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Distortion product evoked otoacoustic emissions; comprehensive diagnostic evaluation (quantitative analysis of outer hair cell function by cochlear mapping, minimum of 12 frequencies), with interpretation and report",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001321",
+        "black_list": false,
+        "code": "92626",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Evaluation of auditory rehabilitation status; first hour",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001322",
+        "black_list": false,
+        "code": "96116",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Neurobehavioral status exam (clinical assessment of thinking, reasoning and judgment, eg, acquired knowledge, attention, language, memory, planning and problem solving, and visual spatial abilities), per hour of the psychologist's or physician's time, both face-to-face time with the patient and time interpreting test results and preparing the report",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001323",
+        "black_list": false,
+        "code": "96150",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Health and behavior assessment (eg, health-focused clinical interview, behavioral observations, psychophysiological monitoring, health-oriented questionnaires), each 15 minutes face-to-face with the patient; initial assessment",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001324",
+        "black_list": false,
+        "code": "96151",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Health and behavior assessment (eg, health-focused clinical interview, behavioral observations, psychophysiological monitoring, health-oriented questionnaires), each 15 minutes face-to-face with the patient; re-assessment",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001325",
+        "black_list": false,
+        "code": "96152",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Health and behavior intervention, each 15 minutes, face-to-face; individual",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001326",
+        "black_list": false,
+        "code": "97001",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Physical therapy evaluation",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001327",
+        "black_list": false,
+        "code": "97002",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Physical therapy re-evaluation",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001328",
+        "black_list": false,
+        "code": "97003",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Occupational therapy evaluation",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001329",
+        "black_list": false,
+        "code": "97004",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Occupational therapy re-evaluation",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900132a",
+        "black_list": false,
+        "code": "97110",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Therapeutic procedure, 1 or more areas, each 15 minutes; therapeutic exercises to develop strength and endurance, range of motion and flexibility",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900132b",
+        "black_list": false,
+        "code": "97140",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Manual therapy techniques (eg, mobilization/ manipulation, manual lymphatic drainage, manual traction), 1 or more regions, each 15 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900132c",
+        "black_list": false,
+        "code": "97532",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Development of cognitive skills to improve attention, memory, problem solving (includes compensatory training), direct (one-on-one) patient contact, each 15 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900132d",
+        "black_list": false,
+        "code": "97802",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Medical nutrition therapy; initial assessment and intervention, individual, face-to-face with the patient, each 15 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900132e",
+        "black_list": false,
+        "code": "97803",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Medical nutrition therapy; re-assessment and intervention, individual, face-to-face with the patient, each 15 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900132f",
+        "black_list": false,
+        "code": "97804",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Medical nutrition therapy; group (2 or more individual(s)), each 30 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001330",
+        "black_list": false,
+        "code": "98960",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Education and training for patient self-management by a qualified, nonphysician health care professional using a standardized curriculum, face-to-face with the patient (could include caregiver/family) each 30 minutes; individual patient",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001331",
+        "black_list": false,
+        "code": "98961",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Education and training for patient self-management by a qualified, nonphysician health care professional using a standardized curriculum, face-to-face with the patient (could include caregiver/family) each 30 minutes; 2-4 patients",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001332",
+        "black_list": false,
+        "code": "98962",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Education and training for patient self-management by a qualified, nonphysician health care professional using a standardized curriculum, face-to-face with the patient (could include caregiver/family) each 30 minutes; 5-8 patients",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001333",
+        "black_list": false,
+        "code": "99201",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001334",
+        "black_list": false,
+        "code": "99202",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 20 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001335",
+        "black_list": false,
+        "code": "99203",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A detailed history; A detailed examination; Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 30 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001336",
+        "black_list": false,
+        "code": "99204",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 45 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001337",
+        "black_list": false,
+        "code": "99205",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 60 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001338",
+        "black_list": false,
+        "code": "99212",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001339",
+        "black_list": false,
+        "code": "99213",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 15 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900133a",
+        "black_list": false,
+        "code": "99214",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A detailed history; A detailed examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 25 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900133b",
+        "black_list": false,
+        "code": "99215",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 40 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900133c",
+        "black_list": false,
+        "code": "99324",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Typically, 20 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900133d",
+        "black_list": false,
+        "code": "99325",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; and Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 30 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900133e",
+        "black_list": false,
+        "code": "99326",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A detailed history; A detailed examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 45 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900133f",
+        "black_list": false,
+        "code": "99327",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of high severity. Typically, 60 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001340",
+        "black_list": false,
+        "code": "99328",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the patient is unstable or has developed a significant new problem requiring immediate physician attention. Typically, 75 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001341",
+        "black_list": false,
+        "code": "99334",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused interval history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self-limited or minor. Typically, 15 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001342",
+        "black_list": false,
+        "code": "99335",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused interval history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 25 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001343",
+        "black_list": false,
+        "code": "99336",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A detailed interval history; A detailed examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 40 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001344",
+        "black_list": false,
+        "code": "99337",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A comprehensive interval history; A comprehensive examination; Medical decision making of moderate to high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. The patient may be unstable or may have developed a significant new problem requiring immediate physician attention. Typically, 60 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001345",
+        "black_list": false,
+        "code": "99341",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Typically, 20 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001346",
+        "black_list": false,
+        "code": "99342",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of a new patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; and Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 30 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001347",
+        "black_list": false,
+        "code": "99343",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of a new patient, which requires these 3 key components: A detailed history; A detailed examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 45 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001348",
+        "black_list": false,
+        "code": "99344",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of high severity. Typically, 60 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001349",
+        "black_list": false,
+        "code": "99345",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the patient is unstable or has developed a significant new problem requiring immediate physician attention. Typically, 75 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900134a",
+        "black_list": false,
+        "code": "99347",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused interval history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 15 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900134b",
+        "black_list": false,
+        "code": "99348",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused interval history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 25 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900134c",
+        "black_list": false,
+        "code": "99349",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A detailed interval history; A detailed examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are moderate to high severity. Typically, 40 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900134d",
+        "black_list": false,
+        "code": "99350",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A comprehensive interval history; A comprehensive examination; Medical decision making of moderate to high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. The patient may be unstable or may have developed a significant new problem requiring immediate physician attention. Typically, 60 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900134e",
+        "black_list": false,
+        "code": "99495",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Transitional Care Management Services with the following required elements: Communication (direct contact, telephone, electronic) with the patient and/or caregiver within 2 business days of discharge Medical decision making of at least moderate complexity during the service period Face-to-face visit, within 14 calendar days of discharge",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900134f",
+        "black_list": false,
+        "code": "99496",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Transitional Care Management Services with the following required elements: Communication (direct contact, telephone, electronic) with the patient and/or caregiver within 2 business days of discharge Medical decision making of high complexity during the service period Face-to-face visit, within 7 calendar days of discharge",
+        "white_list": false
+      }
+    ],
+    "display_name": "Encounter Medications Cpt",
+    "oid": "2.16.840.1.113883.3.600.1.1609",
+    "user_id": "5863fac3e76e94aee9000000",
+    "version": "2014"
+  },
+  "2.16.840.1.113883.3.600.1.1834": {
+    "_id": "58650049e76e94aee9001350",
+    "bundle_id": "5863fac3e76e94aee9000001",
+    "categories": null,
+    "concepts": [
+      {
+        "_id": "58650049e76e94aee90012f9",
+        "black_list": false,
+        "code": "G0101",
+        "code_system": null,
+        "code_system_name": "HCPCS",
+        "code_system_version": "2014",
+        "display_name": "Cervical or vaginal cancer screening; pelvic and clinical breast examination",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee90012fa",
+        "black_list": false,
+        "code": "G0108",
+        "code_system": null,
+        "code_system_name": "HCPCS",
+        "code_system_version": "2014",
+        "display_name": "Diabetes outpatient self-management training services, individual, per 30 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee90012fb",
+        "black_list": false,
+        "code": "G0270",
+        "code_system": null,
+        "code_system_name": "HCPCS",
+        "code_system_version": "2014",
+        "display_name": "Medical nutrition therapy; reassessment and subsequent intervention(s) following second referral in same year for change in diagnosis, medical condition or treatment regimen (including additional hours needed for renal disease), individual, face to face with the patient, each 15 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee90012fc",
+        "black_list": false,
+        "code": "G0402",
+        "code_system": null,
+        "code_system_name": "HCPCS",
+        "code_system_version": "2014",
+        "display_name": "Initial preventive physical examination; face-to-face visit, services limited to new beneficiary during the first 12 months of medicare enrollment",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee90012fd",
+        "black_list": false,
+        "code": "G0438",
+        "code_system": null,
+        "code_system_name": "HCPCS",
+        "code_system_version": "2014",
+        "display_name": "Annual wellness visit; includes a personalized prevention plan of service (pps), initial visit",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee90012fe",
+        "black_list": false,
+        "code": "G0439",
+        "code_system": null,
+        "code_system_name": "HCPCS",
+        "code_system_version": "2014",
+        "display_name": "Annual wellness visit, includes a personalized prevention plan of service (pps), subsequent visit",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001300",
+        "black_list": false,
+        "code": "90791",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Psychiatric diagnostic evaluation",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001301",
+        "black_list": false,
+        "code": "90792",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Psychiatric diagnostic evaluation with medical services",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001302",
+        "black_list": false,
+        "code": "90832",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Psychotherapy, 30 minutes with patient and/or family member",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001303",
+        "black_list": false,
+        "code": "90834",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Psychotherapy, 45 minutes with patient and/or family member",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001304",
+        "black_list": false,
+        "code": "90837",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Psychotherapy, 60 minutes with patient and/or family member",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001305",
+        "black_list": false,
+        "code": "90839",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Psychotherapy for crisis; first 60 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001306",
+        "black_list": false,
+        "code": "90957",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "End-stage renal disease (ESRD) related services monthly, for patients 12-19 years of age to include monitoring for the adequacy of nutrition, assessment of growth and development, and counseling of parents; with 4 or more face-to-face visits by a physician or other qualified health care professional per month",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001307",
+        "black_list": false,
+        "code": "90958",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "End-stage renal disease (ESRD) related services monthly, for patients 12-19 years of age to include monitoring for the adequacy of nutrition, assessment of growth and development, and counseling of parents; with 2-3 face-to-face visits by a physician or other qualified health care professional per month",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001308",
+        "black_list": false,
+        "code": "90959",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "End-stage renal disease (ESRD) related services monthly, for patients 12-19 years of age to include monitoring for the adequacy of nutrition, assessment of growth and development, and counseling of parents; with 1 face-to-face visit by a physician or other qualified health care professional per month",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001309",
+        "black_list": false,
+        "code": "90960",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "End-stage renal disease (ESRD) related services monthly, for patients 20 years of age and older; with 4 or more face-to-face visits by a physician or other qualified health care professional per month",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900130a",
+        "black_list": false,
+        "code": "90962",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "End-stage renal disease (ESRD) related services monthly, for patients 20 years of age and older; with 1 face-to-face visit by a physician or other qualified health care professional per month",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900130b",
+        "black_list": false,
+        "code": "90965",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "End-stage renal disease (ESRD) related services for home dialysis per full month, for patients 12-19 years of age to include monitoring for the adequacy of nutrition, assessment of growth and development, and counseling of parents",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900130c",
+        "black_list": false,
+        "code": "90966",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "End-stage renal disease (ESRD) related services for home dialysis per full month, for patients 20 years of age and older",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900130d",
+        "black_list": false,
+        "code": "92002",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Ophthalmological services: medical examination and evaluation with initiation of diagnostic and treatment program; intermediate, new patient",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900130e",
+        "black_list": false,
+        "code": "92004",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Ophthalmological services: medical examination and evaluation with initiation of diagnostic and treatment program; comprehensive, new patient, 1 or more visits",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900130f",
+        "black_list": false,
+        "code": "92012",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; intermediate, established patient",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001310",
+        "black_list": false,
+        "code": "92014",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Ophthalmological services: medical examination and evaluation, with initiation or continuation of diagnostic and treatment program; comprehensive, established patient, 1 or more visits",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001311",
+        "black_list": false,
+        "code": "92507",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Treatment of speech, language, voice, communication, and/or auditory processing disorder; individual",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001312",
+        "black_list": false,
+        "code": "92508",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Treatment of speech, language, voice, communication, and/or auditory processing disorder; group, 2 or more individuals",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001313",
+        "black_list": false,
+        "code": "92526",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Treatment of swallowing dysfunction and/or oral function for feeding",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001314",
+        "black_list": false,
+        "code": "92541",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Spontaneous nystagmus test, including gaze and fixation nystagmus, with recording",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001315",
+        "black_list": false,
+        "code": "92542",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Positional nystagmus test, minimum of 4 positions, with recording",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001316",
+        "black_list": false,
+        "code": "92543",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Caloric vestibular test, each irrigation (binaural, bithermal stimulation constitutes 4 tests), with recording",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001317",
+        "black_list": false,
+        "code": "92544",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Optokinetic nystagmus test, bidirectional, foveal or peripheral stimulation, with recording",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001318",
+        "black_list": false,
+        "code": "92545",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Oscillating tracking test, with recording",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001319",
+        "black_list": false,
+        "code": "92547",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Use of vertical electrodes (List separately in addition to code for primary procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900131a",
+        "black_list": false,
+        "code": "92548",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Computerized dynamic posturography",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900131b",
+        "black_list": false,
+        "code": "92557",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Comprehensive audiometry threshold evaluation and speech recognition (92553 and 92556 combined)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900131c",
+        "black_list": false,
+        "code": "92567",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Tympanometry (impedance testing)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900131d",
+        "black_list": false,
+        "code": "92568",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Acoustic reflex testing, threshold",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900131e",
+        "black_list": false,
+        "code": "92570",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Acoustic immittance testing, includes tympanometry (impedance testing), acoustic reflex threshold testing, and acoustic reflex decay testing",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900131f",
+        "black_list": false,
+        "code": "92585",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Auditory evoked potentials for evoked response audiometry and/or testing of the central nervous system; comprehensive",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001320",
+        "black_list": false,
+        "code": "92588",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Distortion product evoked otoacoustic emissions; comprehensive diagnostic evaluation (quantitative analysis of outer hair cell function by cochlear mapping, minimum of 12 frequencies), with interpretation and report",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001321",
+        "black_list": false,
+        "code": "92626",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Evaluation of auditory rehabilitation status; first hour",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001322",
+        "black_list": false,
+        "code": "96116",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Neurobehavioral status exam (clinical assessment of thinking, reasoning and judgment, eg, acquired knowledge, attention, language, memory, planning and problem solving, and visual spatial abilities), per hour of the psychologist's or physician's time, both face-to-face time with the patient and time interpreting test results and preparing the report",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001323",
+        "black_list": false,
+        "code": "96150",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Health and behavior assessment (eg, health-focused clinical interview, behavioral observations, psychophysiological monitoring, health-oriented questionnaires), each 15 minutes face-to-face with the patient; initial assessment",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001324",
+        "black_list": false,
+        "code": "96151",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Health and behavior assessment (eg, health-focused clinical interview, behavioral observations, psychophysiological monitoring, health-oriented questionnaires), each 15 minutes face-to-face with the patient; re-assessment",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001325",
+        "black_list": false,
+        "code": "96152",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Health and behavior intervention, each 15 minutes, face-to-face; individual",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001326",
+        "black_list": false,
+        "code": "97001",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Physical therapy evaluation",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001327",
+        "black_list": false,
+        "code": "97002",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Physical therapy re-evaluation",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001328",
+        "black_list": false,
+        "code": "97003",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Occupational therapy evaluation",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001329",
+        "black_list": false,
+        "code": "97004",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Occupational therapy re-evaluation",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900132a",
+        "black_list": false,
+        "code": "97110",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Therapeutic procedure, 1 or more areas, each 15 minutes; therapeutic exercises to develop strength and endurance, range of motion and flexibility",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900132b",
+        "black_list": false,
+        "code": "97140",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Manual therapy techniques (eg, mobilization/ manipulation, manual lymphatic drainage, manual traction), 1 or more regions, each 15 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900132c",
+        "black_list": false,
+        "code": "97532",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Development of cognitive skills to improve attention, memory, problem solving (includes compensatory training), direct (one-on-one) patient contact, each 15 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900132d",
+        "black_list": false,
+        "code": "97802",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Medical nutrition therapy; initial assessment and intervention, individual, face-to-face with the patient, each 15 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900132e",
+        "black_list": false,
+        "code": "97803",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Medical nutrition therapy; re-assessment and intervention, individual, face-to-face with the patient, each 15 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900132f",
+        "black_list": false,
+        "code": "97804",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Medical nutrition therapy; group (2 or more individual(s)), each 30 minutes",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001330",
+        "black_list": false,
+        "code": "98960",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Education and training for patient self-management by a qualified, nonphysician health care professional using a standardized curriculum, face-to-face with the patient (could include caregiver/family) each 30 minutes; individual patient",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001331",
+        "black_list": false,
+        "code": "98961",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Education and training for patient self-management by a qualified, nonphysician health care professional using a standardized curriculum, face-to-face with the patient (could include caregiver/family) each 30 minutes; 2-4 patients",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001332",
+        "black_list": false,
+        "code": "98962",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Education and training for patient self-management by a qualified, nonphysician health care professional using a standardized curriculum, face-to-face with the patient (could include caregiver/family) each 30 minutes; 5-8 patients",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001333",
+        "black_list": false,
+        "code": "99201",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001334",
+        "black_list": false,
+        "code": "99202",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 20 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001335",
+        "black_list": false,
+        "code": "99203",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A detailed history; A detailed examination; Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 30 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001336",
+        "black_list": false,
+        "code": "99204",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 45 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001337",
+        "black_list": false,
+        "code": "99205",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 60 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001338",
+        "black_list": false,
+        "code": "99212",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001339",
+        "black_list": false,
+        "code": "99213",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 15 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900133a",
+        "black_list": false,
+        "code": "99214",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A detailed history; A detailed examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 25 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900133b",
+        "black_list": false,
+        "code": "99215",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 40 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900133c",
+        "black_list": false,
+        "code": "99324",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Typically, 20 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900133d",
+        "black_list": false,
+        "code": "99325",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; and Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 30 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900133e",
+        "black_list": false,
+        "code": "99326",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A detailed history; A detailed examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 45 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900133f",
+        "black_list": false,
+        "code": "99327",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of high severity. Typically, 60 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001340",
+        "black_list": false,
+        "code": "99328",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the patient is unstable or has developed a significant new problem requiring immediate physician attention. Typically, 75 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001341",
+        "black_list": false,
+        "code": "99334",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused interval history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self-limited or minor. Typically, 15 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001342",
+        "black_list": false,
+        "code": "99335",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused interval history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 25 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001343",
+        "black_list": false,
+        "code": "99336",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A detailed interval history; A detailed examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 40 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001344",
+        "black_list": false,
+        "code": "99337",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A comprehensive interval history; A comprehensive examination; Medical decision making of moderate to high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. The patient may be unstable or may have developed a significant new problem requiring immediate physician attention. Typically, 60 minutes are spent with the patient and/or family or caregiver.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001345",
+        "black_list": false,
+        "code": "99341",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Typically, 20 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001346",
+        "black_list": false,
+        "code": "99342",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of a new patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; and Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 30 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001347",
+        "black_list": false,
+        "code": "99343",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of a new patient, which requires these 3 key components: A detailed history; A detailed examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 45 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001348",
+        "black_list": false,
+        "code": "99344",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of high severity. Typically, 60 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001349",
+        "black_list": false,
+        "code": "99345",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the patient is unstable or has developed a significant new problem requiring immediate physician attention. Typically, 75 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900134a",
+        "black_list": false,
+        "code": "99347",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused interval history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 15 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900134b",
+        "black_list": false,
+        "code": "99348",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused interval history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 25 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900134c",
+        "black_list": false,
+        "code": "99349",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A detailed interval history; A detailed examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are moderate to high severity. Typically, 40 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900134d",
+        "black_list": false,
+        "code": "99350",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A comprehensive interval history; A comprehensive examination; Medical decision making of moderate to high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. The patient may be unstable or may have developed a significant new problem requiring immediate physician attention. Typically, 60 minutes are spent face-to-face with the patient and/or family.",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900134e",
+        "black_list": false,
+        "code": "99495",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Transitional Care Management Services with the following required elements: Communication (direct contact, telephone, electronic) with the patient and/or caregiver within 2 business days of discharge Medical decision making of at least moderate complexity during the service period Face-to-face visit, within 14 calendar days of discharge",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900134f",
+        "black_list": false,
+        "code": "99496",
+        "code_system": null,
+        "code_system_name": "CPT",
+        "code_system_version": "2014",
+        "display_name": "Transitional Care Management Services with the following required elements: Communication (direct contact, telephone, electronic) with the patient and/or caregiver within 2 business days of discharge Medical decision making of high complexity during the service period Face-to-face visit, within 7 calendar days of discharge",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001351",
+        "black_list": false,
+        "code": "8411005",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Interactive individual medical psychotherapy (regime/therapy)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001352",
+        "black_list": false,
+        "code": "10197000",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Psychiatric interview and evaluation (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001353",
+        "black_list": false,
+        "code": "13607009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Manual examination of breast (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001354",
+        "black_list": false,
+        "code": "14736009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "History and physical examination with evaluation and management of patient (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001355",
+        "black_list": false,
+        "code": "18091003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Electronystagmography with vertical electrodes (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001356",
+        "black_list": false,
+        "code": "18512000",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Individual psychotherapy (regime/therapy)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001357",
+        "black_list": false,
+        "code": "30346009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evaluation and management of established outpatient in office or other outpatient facility (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001358",
+        "black_list": false,
+        "code": "32537008",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Psychiatric diagnostic interview, examination, history, mental status and disposition (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001359",
+        "black_list": false,
+        "code": "34651001",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Optokinetic nystagmus test, bidirectional, with recording (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900135a",
+        "black_list": false,
+        "code": "35025007",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Manual pelvic examination (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900135b",
+        "black_list": false,
+        "code": "36228007",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Ophthalmic examination and evaluation (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900135c",
+        "black_list": false,
+        "code": "37894004",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evaluation and management of new outpatient in office or other outpatient facility (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900135d",
+        "black_list": false,
+        "code": "46662001",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Examination of breast (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900135e",
+        "black_list": false,
+        "code": "48423005",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Acoustic reflex testing (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900135f",
+        "black_list": false,
+        "code": "50357006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evaluation and management of patient at home (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001360",
+        "black_list": false,
+        "code": "53555003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Basic comprehensive audiometry testing (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001361",
+        "black_list": false,
+        "code": "54290001",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Positional nystagmus test with recording (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001362",
+        "black_list": false,
+        "code": "63547008",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Caloric vestibular test with recording (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001363",
+        "black_list": false,
+        "code": "66902005",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Ophthalmic examination and evaluation, follow-up (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001364",
+        "black_list": false,
+        "code": "78318003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "History and physical examination, annual for health maintenance (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001365",
+        "black_list": false,
+        "code": "83607001",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Gynecologic examination (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001366",
+        "black_list": false,
+        "code": "86013001",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Periodic reevaluation and management of healthy individual (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001367",
+        "black_list": false,
+        "code": "90526000",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Initial evaluation and management of healthy individual (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001368",
+        "black_list": false,
+        "code": "91573000",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Tympanometry testing (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001369",
+        "black_list": false,
+        "code": "108220007",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evaluation AND/OR management - new patient (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900136a",
+        "black_list": false,
+        "code": "108221006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evaluation AND/OR management - established patient (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900136b",
+        "black_list": false,
+        "code": "108224003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Preventive patient evaluation (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900136c",
+        "black_list": false,
+        "code": "108311000",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Psychiatric procedure, interview AND/OR consultation (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900136d",
+        "black_list": false,
+        "code": "165171009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Initial psychiatric evaluation (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900136e",
+        "black_list": false,
+        "code": "185349003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Encounter for \"check-up\" (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900136f",
+        "black_list": false,
+        "code": "185463005",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Visit out of hours (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001370",
+        "black_list": false,
+        "code": "185465003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Weekend visit (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001371",
+        "black_list": false,
+        "code": "209099002",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "History and physical examination with management of domiciliary or rest home patient (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001372",
+        "black_list": false,
+        "code": "210098006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Domiciliary or rest home patient evaluation and management (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001373",
+        "black_list": false,
+        "code": "225967005",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Self-care patient education (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001374",
+        "black_list": false,
+        "code": "252592009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Speech audiometry (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001375",
+        "black_list": false,
+        "code": "252624005",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evoked oto-acoustic emission measurement (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001376",
+        "black_list": false,
+        "code": "270427003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Patient-initiated encounter (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001377",
+        "black_list": false,
+        "code": "270430005",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Provider-initiated encounter (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001378",
+        "black_list": false,
+        "code": "273643004",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Neurobehavioral cognitive status examination (assessment scale)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001379",
+        "black_list": false,
+        "code": "274803000",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Examination of tympanic membrane (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900137a",
+        "black_list": false,
+        "code": "277404009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "High frequency tympanometry (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900137b",
+        "black_list": false,
+        "code": "278465006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Spontaneous nystagmus (disorder)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900137c",
+        "black_list": false,
+        "code": "284015009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Auditory evoked potentials monitoring (regime/therapy)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900137d",
+        "black_list": false,
+        "code": "308335008",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Patient encounter procedure (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900137e",
+        "black_list": false,
+        "code": "370803007",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evaluation of psychosocial impact on plan of care (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900137f",
+        "black_list": false,
+        "code": "385973000",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Dialysis care management (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001380",
+        "black_list": false,
+        "code": "386372009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Nutrition management (regime/therapy)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001381",
+        "black_list": false,
+        "code": "390906007",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Follow-up encounter (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001382",
+        "black_list": false,
+        "code": "397745006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Medical contraindication (finding)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001383",
+        "black_list": false,
+        "code": "405096004",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Diabetes self-management behavior (observable entity)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001384",
+        "black_list": false,
+        "code": "406547006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Urgent follow-up (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001385",
+        "black_list": false,
+        "code": "408983003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Renal care management (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001386",
+        "black_list": false,
+        "code": "410155007",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Occupational therapy assessment (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001387",
+        "black_list": false,
+        "code": "410157004",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Occupational therapy management (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001388",
+        "black_list": false,
+        "code": "410158009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Physical therapy assessment (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001389",
+        "black_list": false,
+        "code": "410160006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Physical therapy management (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900138a",
+        "black_list": false,
+        "code": "410170008",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Nutrition care assessment (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900138b",
+        "black_list": false,
+        "code": "428119001",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Procedure not indicated (situation)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900138c",
+        "black_list": false,
+        "code": "439708006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Home visit (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900138d",
+        "black_list": false,
+        "code": "439952009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evaluation of auditory rehabilitation (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900138e",
+        "black_list": false,
+        "code": "440524004",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Oscillating tracking test with recording (procedure)",
+        "white_list": false
+      }
+    ],
+    "display_name": "Medications Encounter Code Set",
+    "oid": "2.16.840.1.113883.3.600.1.1834",
+    "user_id": "5863fac3e76e94aee9000000",
+    "version": "2013-09"
+  },
+  "2.16.840.1.113883.3.600.1.1917": {
+    "_id": "5865004ae76e94aee900138f",
+    "bundle_id": "5863fac3e76e94aee9000001",
+    "categories": null,
+    "concepts": [
+      {
+        "_id": "58650049e76e94aee9001351",
+        "black_list": false,
+        "code": "8411005",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Interactive individual medical psychotherapy (regime/therapy)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001352",
+        "black_list": false,
+        "code": "10197000",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Psychiatric interview and evaluation (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001353",
+        "black_list": false,
+        "code": "13607009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Manual examination of breast (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001354",
+        "black_list": false,
+        "code": "14736009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "History and physical examination with evaluation and management of patient (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001355",
+        "black_list": false,
+        "code": "18091003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Electronystagmography with vertical electrodes (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001356",
+        "black_list": false,
+        "code": "18512000",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Individual psychotherapy (regime/therapy)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001357",
+        "black_list": false,
+        "code": "30346009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evaluation and management of established outpatient in office or other outpatient facility (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001358",
+        "black_list": false,
+        "code": "32537008",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Psychiatric diagnostic interview, examination, history, mental status and disposition (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001359",
+        "black_list": false,
+        "code": "34651001",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Optokinetic nystagmus test, bidirectional, with recording (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900135a",
+        "black_list": false,
+        "code": "35025007",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Manual pelvic examination (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900135b",
+        "black_list": false,
+        "code": "36228007",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Ophthalmic examination and evaluation (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900135c",
+        "black_list": false,
+        "code": "37894004",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evaluation and management of new outpatient in office or other outpatient facility (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900135d",
+        "black_list": false,
+        "code": "46662001",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Examination of breast (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900135e",
+        "black_list": false,
+        "code": "48423005",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Acoustic reflex testing (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900135f",
+        "black_list": false,
+        "code": "50357006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evaluation and management of patient at home (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001360",
+        "black_list": false,
+        "code": "53555003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Basic comprehensive audiometry testing (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001361",
+        "black_list": false,
+        "code": "54290001",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Positional nystagmus test with recording (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001362",
+        "black_list": false,
+        "code": "63547008",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Caloric vestibular test with recording (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001363",
+        "black_list": false,
+        "code": "66902005",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Ophthalmic examination and evaluation, follow-up (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001364",
+        "black_list": false,
+        "code": "78318003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "History and physical examination, annual for health maintenance (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001365",
+        "black_list": false,
+        "code": "83607001",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Gynecologic examination (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001366",
+        "black_list": false,
+        "code": "86013001",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Periodic reevaluation and management of healthy individual (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001367",
+        "black_list": false,
+        "code": "90526000",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Initial evaluation and management of healthy individual (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001368",
+        "black_list": false,
+        "code": "91573000",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Tympanometry testing (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001369",
+        "black_list": false,
+        "code": "108220007",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evaluation AND/OR management - new patient (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900136a",
+        "black_list": false,
+        "code": "108221006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evaluation AND/OR management - established patient (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900136b",
+        "black_list": false,
+        "code": "108224003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Preventive patient evaluation (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900136c",
+        "black_list": false,
+        "code": "108311000",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Psychiatric procedure, interview AND/OR consultation (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900136d",
+        "black_list": false,
+        "code": "165171009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Initial psychiatric evaluation (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900136e",
+        "black_list": false,
+        "code": "185349003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Encounter for \"check-up\" (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900136f",
+        "black_list": false,
+        "code": "185463005",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Visit out of hours (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001370",
+        "black_list": false,
+        "code": "185465003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Weekend visit (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001371",
+        "black_list": false,
+        "code": "209099002",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "History and physical examination with management of domiciliary or rest home patient (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001372",
+        "black_list": false,
+        "code": "210098006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Domiciliary or rest home patient evaluation and management (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001373",
+        "black_list": false,
+        "code": "225967005",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Self-care patient education (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001374",
+        "black_list": false,
+        "code": "252592009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Speech audiometry (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001375",
+        "black_list": false,
+        "code": "252624005",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evoked oto-acoustic emission measurement (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001376",
+        "black_list": false,
+        "code": "270427003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Patient-initiated encounter (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001377",
+        "black_list": false,
+        "code": "270430005",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Provider-initiated encounter (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001378",
+        "black_list": false,
+        "code": "273643004",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Neurobehavioral cognitive status examination (assessment scale)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001379",
+        "black_list": false,
+        "code": "274803000",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Examination of tympanic membrane (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900137a",
+        "black_list": false,
+        "code": "277404009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "High frequency tympanometry (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900137b",
+        "black_list": false,
+        "code": "278465006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Spontaneous nystagmus (disorder)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900137c",
+        "black_list": false,
+        "code": "284015009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Auditory evoked potentials monitoring (regime/therapy)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900137d",
+        "black_list": false,
+        "code": "308335008",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Patient encounter procedure (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900137e",
+        "black_list": false,
+        "code": "370803007",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evaluation of psychosocial impact on plan of care (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900137f",
+        "black_list": false,
+        "code": "385973000",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Dialysis care management (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001380",
+        "black_list": false,
+        "code": "386372009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Nutrition management (regime/therapy)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001381",
+        "black_list": false,
+        "code": "390906007",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Follow-up encounter (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001382",
+        "black_list": false,
+        "code": "397745006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Medical contraindication (finding)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001383",
+        "black_list": false,
+        "code": "405096004",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Diabetes self-management behavior (observable entity)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001384",
+        "black_list": false,
+        "code": "406547006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Urgent follow-up (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001385",
+        "black_list": false,
+        "code": "408983003",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Renal care management (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001386",
+        "black_list": false,
+        "code": "410155007",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Occupational therapy assessment (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001387",
+        "black_list": false,
+        "code": "410157004",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Occupational therapy management (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001388",
+        "black_list": false,
+        "code": "410158009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Physical therapy assessment (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee9001389",
+        "black_list": false,
+        "code": "410160006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Physical therapy management (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900138a",
+        "black_list": false,
+        "code": "410170008",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Nutrition care assessment (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900138b",
+        "black_list": false,
+        "code": "428119001",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Procedure not indicated (situation)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900138c",
+        "black_list": false,
+        "code": "439708006",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Home visit (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900138d",
+        "black_list": false,
+        "code": "439952009",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Evaluation of auditory rehabilitation (procedure)",
+        "white_list": false
+      },
+      {
+        "_id": "58650049e76e94aee900138e",
+        "black_list": false,
+        "code": "440524004",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Oscillating tracking test with recording (procedure)",
+        "white_list": false
+      }
+    ],
+    "display_name": "Medication Snomed Encounter Codes",
+    "oid": "2.16.840.1.113883.3.600.1.1917",
+    "user_id": "5863fac3e76e94aee9000000",
+    "version": "2013-09"
+  },
+  "2.16.840.1.113883.3.600.1.462": {
+    "_id": "58650049e76e94aee90012f2",
+    "bundle_id": "5863fac3e76e94aee9000001",
+    "categories": null,
+    "concepts": [
+      {
+        "_id": "58650049e76e94aee90012f3",
+        "black_list": false,
+        "code": "428191000124101",
+        "code_system": null,
+        "code_system_name": "SNOMED-CT",
+        "code_system_version": "2013-09",
+        "display_name": "Documentation of current medications (procedure)",
+        "white_list": false
+      }
+    ],
+    "display_name": "Current Medications Documented Snmd",
+    "oid": "2.16.840.1.113883.3.600.1.462",
+    "user_id": "5863fac3e76e94aee9000000",
+    "version": "2013-09"
+  },
+  "2.16.840.1.114222.4.11.3591": {
+    "_id": "5865004ae76e94aee900139e",
+    "bundle_id": "5863fac3e76e94aee9000001",
+    "categories": null,
+    "concepts": [
+      {
+        "_id": "5865004ae76e94aee900139f",
+        "black_list": false,
+        "code": "1",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "MEDICARE",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013a0",
+        "black_list": false,
+        "code": "2",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "MEDICAID",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013a1",
+        "black_list": false,
+        "code": "3",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013a2",
+        "black_list": false,
+        "code": "4",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "DEPARTMENTS OF CORRECTIONS",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013a3",
+        "black_list": false,
+        "code": "5",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "PRIVATE HEALTH INSURANCE",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013a4",
+        "black_list": false,
+        "code": "6",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "BLUE CROSS/BLUE SHIELD",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013a5",
+        "black_list": false,
+        "code": "7",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013a6",
+        "black_list": false,
+        "code": "8",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "NO PAYMENT from an Organization/Agency/Program/Private Payer Listed",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013a7",
+        "black_list": false,
+        "code": "9",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "MISCELLANEOUS/OTHER",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013a8",
+        "black_list": false,
+        "code": "11",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicare (Managed Care)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013a9",
+        "black_list": false,
+        "code": "12",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicare (Non-managed Care)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013aa",
+        "black_list": false,
+        "code": "19",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicare Other",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013ab",
+        "black_list": false,
+        "code": "21",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicaid (Managed Care)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013ac",
+        "black_list": false,
+        "code": "22",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicaid (Non-managed Care Plan)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013ad",
+        "black_list": false,
+        "code": "23",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicaid/SCHIP",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013ae",
+        "black_list": false,
+        "code": "24",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicaid Applicant",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013af",
+        "black_list": false,
+        "code": "25",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicaid - Out of State",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013b0",
+        "black_list": false,
+        "code": "29",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicaid Other",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013b1",
+        "black_list": false,
+        "code": "31",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Department of Defense",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013b2",
+        "black_list": false,
+        "code": "32",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Department of Veterans Affairs",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013b3",
+        "black_list": false,
+        "code": "33",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Indian Health Service or Tribe",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013b4",
+        "black_list": false,
+        "code": "34",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "HRSA Program",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013b5",
+        "black_list": false,
+        "code": "35",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Black Lung",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013b6",
+        "black_list": false,
+        "code": "36",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "State Government",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013b7",
+        "black_list": false,
+        "code": "37",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Local Government",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013b8",
+        "black_list": false,
+        "code": "38",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Other Government (Federal, State, Local not specified)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013b9",
+        "black_list": false,
+        "code": "39",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Other Federal",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013ba",
+        "black_list": false,
+        "code": "41",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Corrections Federal",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013bb",
+        "black_list": false,
+        "code": "42",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Corrections State",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013bc",
+        "black_list": false,
+        "code": "43",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Corrections Local",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013bd",
+        "black_list": false,
+        "code": "44",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Corrections Unknown Level",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013be",
+        "black_list": false,
+        "code": "51",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Managed Care (Private)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013bf",
+        "black_list": false,
+        "code": "52",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Private Health Insurance - Indemnity",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013c0",
+        "black_list": false,
+        "code": "53",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Managed Care (private) or private health insurance (indemnity), not otherwise specified",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013c1",
+        "black_list": false,
+        "code": "54",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Organized Delivery System",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013c2",
+        "black_list": false,
+        "code": "55",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Small Employer Purchasing Group",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013c3",
+        "black_list": false,
+        "code": "59",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Other Private Insurance",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013c4",
+        "black_list": false,
+        "code": "61",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "BC Managed Care",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013c5",
+        "black_list": false,
+        "code": "62",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "BC Indemnity",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013c6",
+        "black_list": false,
+        "code": "63",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "BC (Indemnity or Managed Care) - Out of State",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013c7",
+        "black_list": false,
+        "code": "64",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "BC (Indemnity or Managed Care) - Unspecified",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013c8",
+        "black_list": false,
+        "code": "69",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "BC (Indemnity or Managed Care) - Other",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013c9",
+        "black_list": false,
+        "code": "71",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "HMO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013ca",
+        "black_list": false,
+        "code": "72",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "PPO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013cb",
+        "black_list": false,
+        "code": "73",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "POS",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013cc",
+        "black_list": false,
+        "code": "79",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Other Managed Care, Unknown if public or private",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013cd",
+        "black_list": false,
+        "code": "81",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Self-pay",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013ce",
+        "black_list": false,
+        "code": "82",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "No Charge",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013cf",
+        "black_list": false,
+        "code": "83",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Refusal to Pay/Bad Debt",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013d0",
+        "black_list": false,
+        "code": "84",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Hill Burton Free Care",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013d1",
+        "black_list": false,
+        "code": "85",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Research/Donor",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013d2",
+        "black_list": false,
+        "code": "89",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "No Payment, Other",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013d3",
+        "black_list": false,
+        "code": "91",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Foreign National",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013d4",
+        "black_list": false,
+        "code": "92",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Other (Non-government)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013d5",
+        "black_list": false,
+        "code": "93",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Disability Insurance",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013d6",
+        "black_list": false,
+        "code": "94",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Long-term Care Insurance",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013d7",
+        "black_list": false,
+        "code": "95",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Worker's Compensation",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013d8",
+        "black_list": false,
+        "code": "96",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Auto Insurance (no fault)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013d9",
+        "black_list": false,
+        "code": "98",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Other specified (includes Hospice - Unspecified plan)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013da",
+        "black_list": false,
+        "code": "99",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "No Typology Code available for payment source",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013db",
+        "black_list": false,
+        "code": "111",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicare HMO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013dc",
+        "black_list": false,
+        "code": "112",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicare PPO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013dd",
+        "black_list": false,
+        "code": "113",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicare POS",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013de",
+        "black_list": false,
+        "code": "119",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicare Managed Care Other",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013df",
+        "black_list": false,
+        "code": "121",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicare FFS",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013e0",
+        "black_list": false,
+        "code": "122",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicare Drug Benefit",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013e1",
+        "black_list": false,
+        "code": "123",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicare Medical Savings Account (MSA)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013e2",
+        "black_list": false,
+        "code": "129",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicare Non-managed Care Other",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013e3",
+        "black_list": false,
+        "code": "211",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicaid HMO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013e4",
+        "black_list": false,
+        "code": "212",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicaid PPO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013e5",
+        "black_list": false,
+        "code": "213",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicaid PCCM (Primary Care Case Management)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013e6",
+        "black_list": false,
+        "code": "219",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicaid Managed Care Other",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013e7",
+        "black_list": false,
+        "code": "311",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "TRICARE (CHAMPUS)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013e8",
+        "black_list": false,
+        "code": "312",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Military Treatment Facility",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013e9",
+        "black_list": false,
+        "code": "313",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Dental --Stand Alone",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013ea",
+        "black_list": false,
+        "code": "321",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Veteran care--Care provided to Veterans",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013eb",
+        "black_list": false,
+        "code": "322",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Non-veteran care",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013ec",
+        "black_list": false,
+        "code": "331",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Indian Health Service - Regular",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013ed",
+        "black_list": false,
+        "code": "332",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Indian Health Service - Contract",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013ee",
+        "black_list": false,
+        "code": "333",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Indian Health Service - Managed Care",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013ef",
+        "black_list": false,
+        "code": "334",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Indian Tribe - Sponsored Coverage",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013f0",
+        "black_list": false,
+        "code": "341",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Title V (MCH Block Grant)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013f1",
+        "black_list": false,
+        "code": "342",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Migrant Health Program",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013f2",
+        "black_list": false,
+        "code": "343",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Ryan White Act",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013f3",
+        "black_list": false,
+        "code": "349",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Other",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013f4",
+        "black_list": false,
+        "code": "361",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "State SCHIP program (codes for individual states)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013f5",
+        "black_list": false,
+        "code": "362",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Specific state programs (list/ local code)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013f6",
+        "black_list": false,
+        "code": "369",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "State, not otherwise specified (other state)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013f7",
+        "black_list": false,
+        "code": "371",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Local - Managed care",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013f8",
+        "black_list": false,
+        "code": "372",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "FFS/Indemnity",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013f9",
+        "black_list": false,
+        "code": "379",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Local, not otherwise specified (other local, county)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013fa",
+        "black_list": false,
+        "code": "381",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Federal, State, Local not specified managed care",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013fb",
+        "black_list": false,
+        "code": "382",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Federal, State, Local not specified - FFS",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013fc",
+        "black_list": false,
+        "code": "389",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Federal, State, Local not specified - Other",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013fd",
+        "black_list": false,
+        "code": "511",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Commercial Managed Care - HMO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013fe",
+        "black_list": false,
+        "code": "512",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Commercial Managed Care - PPO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee90013ff",
+        "black_list": false,
+        "code": "513",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Commercial Managed Care - POS",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001400",
+        "black_list": false,
+        "code": "514",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Exclusive Provider Organization",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001401",
+        "black_list": false,
+        "code": "515",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Gatekeeper PPO (GPPO)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001402",
+        "black_list": false,
+        "code": "519",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Managed Care, Other (non HMO)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001403",
+        "black_list": false,
+        "code": "521",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Commercial Indemnity",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001404",
+        "black_list": false,
+        "code": "522",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Self-insured (ERISA) Administrative Services Only (ASO) plan",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001405",
+        "black_list": false,
+        "code": "523",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Medicare supplemental policy (as second payer)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001406",
+        "black_list": false,
+        "code": "529",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Private health insurance-other commercial Indemnity",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001407",
+        "black_list": false,
+        "code": "611",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "BC Managed Care - HMO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001408",
+        "black_list": false,
+        "code": "612",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "BC Managed Care - PPO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001409",
+        "black_list": false,
+        "code": "613",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "BC Managed Care - POS",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900140a",
+        "black_list": false,
+        "code": "619",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "BC Managed Care - Other",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900140b",
+        "black_list": false,
+        "code": "821",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Charity",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900140c",
+        "black_list": false,
+        "code": "822",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Professional Courtesy",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900140d",
+        "black_list": false,
+        "code": "823",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Research/Clinical Trial",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900140e",
+        "black_list": false,
+        "code": "951",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Worker's Comp HMO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900140f",
+        "black_list": false,
+        "code": "953",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Worker's Comp Fee-for-Service",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001410",
+        "black_list": false,
+        "code": "954",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Worker's Comp Other Managed Care",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001411",
+        "black_list": false,
+        "code": "959",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Worker's Comp, Other unspecified",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001412",
+        "black_list": false,
+        "code": "3111",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "TRICARE Prime-HMO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001413",
+        "black_list": false,
+        "code": "3112",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "TRICARE Extra-PPO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001414",
+        "black_list": false,
+        "code": "3113",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "TRICARE Standard - Fee For Service",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001415",
+        "black_list": false,
+        "code": "3114",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "TRICARE For Life--Medicare Supplement",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001416",
+        "black_list": false,
+        "code": "3115",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "TRICARE Reserve Select",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001417",
+        "black_list": false,
+        "code": "3116",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Uniformed Services Family Health Plan (USFHP) -- HMO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001418",
+        "black_list": false,
+        "code": "3119",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Department of Defense - (other)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001419",
+        "black_list": false,
+        "code": "3121",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Enrolled Prime-HMO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900141a",
+        "black_list": false,
+        "code": "3122",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Non-enrolled Space Available",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900141b",
+        "black_list": false,
+        "code": "3123",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "TRICARE For Life (TFL)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900141c",
+        "black_list": false,
+        "code": "3211",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Direct Care--Care provided in VA facilities",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900141d",
+        "black_list": false,
+        "code": "3212",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Indirect Care--Care provided outside VA facilities",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900141e",
+        "black_list": false,
+        "code": "3221",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Civilian Health and Medical Program for the VA (CHAMPVA)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900141f",
+        "black_list": false,
+        "code": "3222",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Spina Bifida Health Care Program (SB)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001420",
+        "black_list": false,
+        "code": "3223",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Children of Women Vietnam Veterans (CWVV)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001421",
+        "black_list": false,
+        "code": "3229",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Other non-veteran care",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001422",
+        "black_list": false,
+        "code": "3711",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "HMO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001423",
+        "black_list": false,
+        "code": "3712",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "PPO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001424",
+        "black_list": false,
+        "code": "3713",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "POS",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001425",
+        "black_list": false,
+        "code": "3811",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Federal, State, Local not specified - HMO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001426",
+        "black_list": false,
+        "code": "3812",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Federal, State, Local not specified - PPO",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001427",
+        "black_list": false,
+        "code": "3813",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Federal, State, Local not specified - POS",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001428",
+        "black_list": false,
+        "code": "3819",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Federal, State, Local not specified - not specified managed care",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001429",
+        "black_list": false,
+        "code": "9999",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Unavailable / Unknown",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900142a",
+        "black_list": false,
+        "code": "32121",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Fee Basis",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900142b",
+        "black_list": false,
+        "code": "32122",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Foreign Fee/Foreign Medical Program(FMP)",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900142c",
+        "black_list": false,
+        "code": "32123",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Contract Nursing Home/Community Nursing Home",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900142d",
+        "black_list": false,
+        "code": "32124",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "State Veterans Home",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900142e",
+        "black_list": false,
+        "code": "32125",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Sharing Agreements",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900142f",
+        "black_list": false,
+        "code": "32126",
+        "code_system": null,
+        "code_system_name": "SOP",
+        "code_system_version": "5.0",
+        "display_name": "Other Federal Agency",
+        "white_list": false
+      }
+    ],
+    "display_name": "Payer",
+    "oid": "2.16.840.1.114222.4.11.3591",
+    "user_id": "5863fac3e76e94aee9000000",
+    "version": "5.0"
+  },
+  "2.16.840.1.114222.4.11.836": {
+    "_id": "5865004ae76e94aee9001394",
+    "bundle_id": "5863fac3e76e94aee9000001",
+    "categories": null,
+    "concepts": [
+      {
+        "_id": "5865004ae76e94aee9001395",
+        "black_list": false,
+        "code": "1002-5",
+        "code_system": null,
+        "code_system_name": "CDC Race",
+        "code_system_version": "1.0",
+        "display_name": "American Indian or Alaska Native",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001396",
+        "black_list": false,
+        "code": "2028-9",
+        "code_system": null,
+        "code_system_name": "CDC Race",
+        "code_system_version": "1.0",
+        "display_name": "Asian",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001397",
+        "black_list": false,
+        "code": "2054-5",
+        "code_system": null,
+        "code_system_name": "CDC Race",
+        "code_system_version": "1.0",
+        "display_name": "Black or African American",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001398",
+        "black_list": false,
+        "code": "2076-8",
+        "code_system": null,
+        "code_system_name": "CDC Race",
+        "code_system_version": "1.0",
+        "display_name": "Native Hawaiian or Other Pacific Islander",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee9001399",
+        "black_list": false,
+        "code": "2106-3",
+        "code_system": null,
+        "code_system_name": "CDC Race",
+        "code_system_version": "1.0",
+        "display_name": "White",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900139a",
+        "black_list": false,
+        "code": "2131-1",
+        "code_system": null,
+        "code_system_name": "CDC Race",
+        "code_system_version": "1.0",
+        "display_name": "Other Race",
+        "white_list": false
+      }
+    ],
+    "display_name": "Race",
+    "oid": "2.16.840.1.114222.4.11.836",
+    "user_id": "5863fac3e76e94aee9000000",
+    "version": "1.0"
+  },
+  "2.16.840.1.114222.4.11.837": {
+    "_id": "5865004ae76e94aee900139b",
+    "bundle_id": "5863fac3e76e94aee9000001",
+    "categories": null,
+    "concepts": [
+      {
+        "_id": "5865004ae76e94aee900139c",
+        "black_list": false,
+        "code": "2135-2",
+        "code_system": null,
+        "code_system_name": "CDC Race",
+        "code_system_version": "1.0",
+        "display_name": "Hispanic or Latino",
+        "white_list": false
+      },
+      {
+        "_id": "5865004ae76e94aee900139d",
+        "black_list": false,
+        "code": "2186-5",
+        "code_system": null,
+        "code_system_name": "CDC Race",
+        "code_system_version": "1.0",
+        "display_name": "Not Hispanic or Latino",
+        "white_list": false
+      }
+    ],
+    "display_name": "Ethnicity",
+    "oid": "2.16.840.1.114222.4.11.837",
+    "user_id": "5863fac3e76e94aee9000000",
+    "version": "1.0"
+  }
+}

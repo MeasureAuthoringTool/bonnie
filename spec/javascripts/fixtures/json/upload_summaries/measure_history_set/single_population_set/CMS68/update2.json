@@ -1,0 +1,920 @@
+{
+  "_id": "5865004ae76e94aee9001433",
+  "created_at": "2016-12-29T12:23:38.297Z",
+  "cms_id_post_upload": "CMS68v4",
+  "cms_id_pre_upload": "CMS68v6",
+  "hqmf_id": "40280381-4555-E1C1-0145-DC7DC26A44BF",
+  "hqmf_set_id": "9A032D9C-3D9B-11E1-8634-00237D5BF174",
+  "hqmf_version_number_post_upload": "4",
+  "hqmf_version_number_pre_upload": "6.0.000",
+  "measure_db_id_post_upload": "5865004ae76e94aee9001430",
+  "measure_db_id_pre_upload": "5864f8b6e76e94aee9000df9",
+  "measure_population_set_count": {
+    "pre_upload": 1,
+    "post_upload": 1
+  },
+  "population_set_summaries": [
+    {
+      "_id": "5865004ae76e94aee9001432",
+      "created_at": "2016-12-29T12:23:38.297Z",
+      "patients": {
+        "5863fbdee76e94aee90003c9": {
+          "expected": {
+            "IPP": 1,
+            "DENOM": 1,
+            "NUMER": 1,
+            "DENEXCEP": 0
+          },
+          "pre_upload_results": {
+            "IPP": 1,
+            "DENOM": 1,
+            "DENEX": 0,
+            "NUMER": 1,
+            "NUMEX": 0,
+            "DENEXCEP": 0,
+            "rationale": {
+              "MeasurePeriod": {
+                "results": [
+                  {
+                    "id": "undefined",
+                    "json": {
+                      "start_time": 1325376000,
+                      "end_time": 1356998340,
+                      "codes": {}
+                    }
+                  }
+                ]
+              },
+              "Agegrtr_thn_eql_18yearsat_B2C1946E_AB76_4FD5_84BF_1ACFCCC09DE5_3B7C833D_4FA6_4BA0_92D3_1BFA40E904F4": {
+                "results": [
+                  {}
+                ],
+                "specifics": [
+                  [
+                    "*"
+                  ]
+                ]
+              },
+              "During_901B0BF0_0A5C_4116_8668_0B2707C6296C_21DBB804_6963_4FC3_92C8_F878B11027AC": {
+                "results": [
+                  {
+                    "id": "5863fbf5e76e94aee90003d9",
+                    "json": {
+                      "_id": "5863fbf5e76e94aee90003d9",
+                      "admitTime": null,
+                      "admitType": null,
+                      "codes": {
+                        "HCPCS": [
+                          "G0101"
+                        ],
+                        "CPT": [
+                          "90791"
+                        ],
+                        "SNOMED-CT": [
+                          "8411005"
+                        ]
+                      },
+                      "description": "Encounter, Performed: Medications Encounter Code Set",
+                      "dischargeDisposition": null,
+                      "dischargeTime": null,
+                      "end_time": 1356682500,
+                      "health_record_field": null,
+                      "mood_code": "EVN",
+                      "negationInd": null,
+                      "negationReason": null,
+                      "oid": "2.16.840.1.113883.3.560.1.79",
+                      "performer_id": null,
+                      "reason": null,
+                      "specifics": null,
+                      "start_time": 1356681600,
+                      "status_code": {
+                        "HL7 ActStatus": [
+                          "performed"
+                        ]
+                      },
+                      "time": null
+                    }
+                  }
+                ],
+                "specifics": [
+                  [
+                    "5863fbf5e76e94aee90003d9"
+                  ]
+                ]
+              },
+              "precondition_3": true,
+              "precondition_IPP": true,
+              "IPP": true,
+              "DENOM": true,
+              "DENEX": false,
+              "OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5": {
+                "results": [
+                  {
+                    "id": "5863fbf5e76e94aee90003d9",
+                    "json": {
+                      "_id": "5863fbf5e76e94aee90003d9",
+                      "admitTime": null,
+                      "admitType": null,
+                      "codes": {
+                        "HCPCS": [
+                          "G0101"
+                        ],
+                        "CPT": [
+                          "90791"
+                        ],
+                        "SNOMED-CT": [
+                          "8411005"
+                        ]
+                      },
+                      "description": "Encounter, Performed: Medications Encounter Code Set",
+                      "dischargeDisposition": null,
+                      "dischargeTime": null,
+                      "end_time": 1356682500,
+                      "health_record_field": null,
+                      "mood_code": "EVN",
+                      "negationInd": null,
+                      "negationReason": null,
+                      "oid": "2.16.840.1.113883.3.560.1.79",
+                      "performer_id": null,
+                      "reason": null,
+                      "specifics": null,
+                      "start_time": 1356681600,
+                      "status_code": {
+                        "HL7 ActStatus": [
+                          "performed"
+                        ]
+                      },
+                      "time": null
+                    }
+                  }
+                ],
+                "specifics": [
+                  [
+                    "5863fbf5e76e94aee90003d9"
+                  ]
+                ]
+              },
+              "During_553DFB3F_32AA_4C0B_BA61_EF03612874A0_1E256CEB_0554_4BEB_AF89_380E393FA1E1": {
+                "results": [
+                  {
+                    "id": "5863fbf5e76e94aee90003da",
+                    "json": {
+                      "_id": "5863fbf5e76e94aee90003da",
+                      "anatomical_approach": null,
+                      "anatomical_target": null,
+                      "codes": {
+                        "SNOMED-CT": [
+                          "428191000124101"
+                        ]
+                      },
+                      "description": "Procedure, Performed: Current Medications Documented Snmd",
+                      "end_time": 1356682500,
+                      "health_record_field": null,
+                      "incisionTime": null,
+                      "method": null,
+                      "mood_code": "EVN",
+                      "negationInd": null,
+                      "negationReason": null,
+                      "oid": "2.16.840.1.113883.3.560.1.6",
+                      "ordinality": null,
+                      "performer_id": null,
+                      "qdm_status": null,
+                      "radiation_dose": null,
+                      "radiation_duration": null,
+                      "reaction": null,
+                      "reason": null,
+                      "source": null,
+                      "specifics": null,
+                      "start_time": 1356681600,
+                      "status_code": {
+                        "HL7 ActStatus": [
+                          "performed"
+                        ]
+                      },
+                      "time": null
+                    }
+                  }
+                ],
+                "specifics": [
+                  [
+                    "5863fbf5e76e94aee90003d9"
+                  ]
+                ]
+              },
+              "precondition_5": true,
+              "precondition_NUMER": true,
+              "NUMER": true,
+              "NUMEX": false,
+              "During_BE9E063D_47D2_4E0F_85E4_7D8E76918978_F1DCDBE6_5253_44C1_8D55_4528AF0A172C": false,
+              "precondition_7": false,
+              "precondition_DENEXCEP": false,
+              "DENEXCEP": false,
+              "VARIABLES": false
+            },
+            "finalSpecifics": {
+              "IPP": [
+                [
+                  "5863fbf5e76e94aee90003d9"
+                ]
+              ],
+              "DENOM": [
+                [
+                  "5863fbf5e76e94aee90003d9"
+                ]
+              ],
+              "DENEX": [
+                [
+                  "5863fbf5e76e94aee90003d9"
+                ]
+              ],
+              "NUMER": [
+                [
+                  "5863fbf5e76e94aee90003d9"
+                ]
+              ],
+              "NUMEX": [
+                [
+                  "5863fbf5e76e94aee90003d9"
+                ]
+              ],
+              "DENEXCEP": []
+            }
+          },
+          "pre_upload_status": "pass",
+          "results_exceeds_storage_pre_upload": false,
+          "post_upload_results": {
+            "IPP": 1,
+            "DENOM": 1,
+            "DENEX": 0,
+            "NUMER": 1,
+            "NUMEX": 0,
+            "DENEXCEP": 0,
+            "rationale": {
+              "MeasurePeriod": {
+                "results": [
+                  {
+                    "id": "undefined",
+                    "json": {
+                      "start_time": 1325376000,
+                      "end_time": 1356998340,
+                      "codes": {}
+                    }
+                  }
+                ]
+              },
+              "PatientCharacteristicBirthdateBirthDate_precondition_2": {
+                "results": [
+                  {}
+                ],
+                "specifics": [
+                  [
+                    "*"
+                  ]
+                ]
+              },
+              "OccurrenceAMedicationsEncounterCodeSet1_precondition_4": {
+                "results": [
+                  {
+                    "id": "5863fbf5e76e94aee90003d9",
+                    "json": {
+                      "_id": "5863fbf5e76e94aee90003d9",
+                      "admitTime": null,
+                      "admitType": null,
+                      "codes": {
+                        "HCPCS": [
+                          "G0101"
+                        ],
+                        "CPT": [
+                          "90791"
+                        ],
+                        "SNOMED-CT": [
+                          "8411005"
+                        ]
+                      },
+                      "description": "Encounter, Performed: Medications Encounter Code Set",
+                      "dischargeDisposition": null,
+                      "dischargeTime": null,
+                      "end_time": 1356682500,
+                      "health_record_field": null,
+                      "mood_code": "EVN",
+                      "negationInd": null,
+                      "negationReason": null,
+                      "oid": "2.16.840.1.113883.3.560.1.79",
+                      "performer_id": null,
+                      "reason": null,
+                      "specifics": null,
+                      "start_time": 1356681600,
+                      "status_code": {
+                        "HL7 ActStatus": [
+                          "performed"
+                        ]
+                      },
+                      "time": null
+                    }
+                  }
+                ],
+                "specifics": [
+                  [
+                    "5863fbf5e76e94aee90003d9"
+                  ]
+                ]
+              },
+              "precondition_6": true,
+              "precondition_IPP": true,
+              "IPP": true,
+              "DENOM": true,
+              "DENEX": false,
+              "OccurrenceAMedicationsEncounterCodeSet1": {
+                "results": [
+                  {
+                    "id": "5863fbf5e76e94aee90003d9",
+                    "json": {
+                      "_id": "5863fbf5e76e94aee90003d9",
+                      "admitTime": null,
+                      "admitType": null,
+                      "codes": {
+                        "HCPCS": [
+                          "G0101"
+                        ],
+                        "CPT": [
+                          "90791"
+                        ],
+                        "SNOMED-CT": [
+                          "8411005"
+                        ]
+                      },
+                      "description": "Encounter, Performed: Medications Encounter Code Set",
+                      "dischargeDisposition": null,
+                      "dischargeTime": null,
+                      "end_time": 1356682500,
+                      "health_record_field": null,
+                      "mood_code": "EVN",
+                      "negationInd": null,
+                      "negationReason": null,
+                      "oid": "2.16.840.1.113883.3.560.1.79",
+                      "performer_id": null,
+                      "reason": null,
+                      "specifics": null,
+                      "start_time": 1356681600,
+                      "status_code": {
+                        "HL7 ActStatus": [
+                          "performed"
+                        ]
+                      },
+                      "time": null
+                    }
+                  }
+                ],
+                "specifics": [
+                  [
+                    "5863fbf5e76e94aee90003d9"
+                  ]
+                ]
+              },
+              "ProcedurePerformedCurrentMedicationsDocumentedSnmd_precondition_10": {
+                "results": [
+                  {
+                    "id": "5863fbf5e76e94aee90003da",
+                    "json": {
+                      "_id": "5863fbf5e76e94aee90003da",
+                      "anatomical_approach": null,
+                      "anatomical_target": null,
+                      "codes": {
+                        "SNOMED-CT": [
+                          "428191000124101"
+                        ]
+                      },
+                      "description": "Procedure, Performed: Current Medications Documented Snmd",
+                      "end_time": 1356682500,
+                      "health_record_field": null,
+                      "incisionTime": null,
+                      "method": null,
+                      "mood_code": "EVN",
+                      "negationInd": null,
+                      "negationReason": null,
+                      "oid": "2.16.840.1.113883.3.560.1.6",
+                      "ordinality": null,
+                      "performer_id": null,
+                      "qdm_status": null,
+                      "radiation_dose": null,
+                      "radiation_duration": null,
+                      "reaction": null,
+                      "reason": null,
+                      "source": null,
+                      "specifics": null,
+                      "start_time": 1356681600,
+                      "status_code": {
+                        "HL7 ActStatus": [
+                          "performed"
+                        ]
+                      },
+                      "time": null
+                    }
+                  }
+                ],
+                "specifics": [
+                  [
+                    "5863fbf5e76e94aee90003d9"
+                  ]
+                ]
+              },
+              "precondition_12": true,
+              "precondition_NUMER": true,
+              "NUMER": true,
+              "NUMEX": false,
+              "ProcedurePerformedCurrentMedicationsDocumentedSnmd_precondition_7": false,
+              "precondition_9": false,
+              "precondition_DENEXCEP": false,
+              "DENEXCEP": false,
+              "VARIABLES": false
+            },
+            "finalSpecifics": {
+              "IPP": [
+                [
+                  "5863fbf5e76e94aee90003d9"
+                ]
+              ],
+              "DENOM": [
+                [
+                  "5863fbf5e76e94aee90003d9"
+                ]
+              ],
+              "DENEX": [
+                [
+                  "5863fbf5e76e94aee90003d9"
+                ]
+              ],
+              "NUMER": [
+                [
+                  "5863fbf5e76e94aee90003d9"
+                ]
+              ],
+              "NUMEX": [
+                [
+                  "5863fbf5e76e94aee90003d9"
+                ]
+              ],
+              "DENEXCEP": []
+            }
+          },
+          "post_upload_status": "pass",
+          "results_exceeds_storage_post_upload": false,
+          "patient_version_after_upload": 6
+        },
+        "5864f947e76e94aee9000e31": {
+          "expected": {
+            "IPP": 1,
+            "DENOM": 1,
+            "NUMER": 1,
+            "DENEXCEP": 0
+          },
+          "pre_upload_results": {
+            "IPP": 1,
+            "DENOM": 1,
+            "DENEX": 0,
+            "NUMER": 1,
+            "NUMEX": 0,
+            "DENEXCEP": 0,
+            "rationale": {
+              "MeasurePeriod": {
+                "results": [
+                  {
+                    "id": "undefined",
+                    "json": {
+                      "start_time": 1325376000,
+                      "end_time": 1356998340,
+                      "codes": {}
+                    }
+                  }
+                ]
+              },
+              "Agegrtr_thn_eql_18yearsat_B2C1946E_AB76_4FD5_84BF_1ACFCCC09DE5_3B7C833D_4FA6_4BA0_92D3_1BFA40E904F4": {
+                "results": [
+                  {}
+                ],
+                "specifics": [
+                  [
+                    "*"
+                  ]
+                ]
+              },
+              "During_901B0BF0_0A5C_4116_8668_0B2707C6296C_21DBB804_6963_4FC3_92C8_F878B11027AC": {
+                "results": [
+                  {
+                    "id": "5864f947e76e94aee9000e2d",
+                    "json": {
+                      "_id": "5864f947e76e94aee9000e2d",
+                      "admitTime": null,
+                      "admitType": null,
+                      "codes": {
+                        "CPT": [
+                          "99385"
+                        ],
+                        "HCPCS": [
+                          "G0101"
+                        ],
+                        "SNOMED-CT": [
+                          "8411005"
+                        ]
+                      },
+                      "description": "Encounter, Performed: Medications Encounter Code Set",
+                      "dischargeDisposition": null,
+                      "dischargeTime": null,
+                      "end_time": 1356768900,
+                      "health_record_field": null,
+                      "mood_code": "EVN",
+                      "negationInd": null,
+                      "negationReason": null,
+                      "oid": "2.16.840.1.113883.3.560.1.79",
+                      "performer_id": null,
+                      "reason": null,
+                      "specifics": null,
+                      "start_time": 1356768000,
+                      "status_code": {
+                        "HL7 ActStatus": [
+                          "performed"
+                        ]
+                      },
+                      "time": null
+                    }
+                  }
+                ],
+                "specifics": [
+                  [
+                    "5864f947e76e94aee9000e2d"
+                  ]
+                ]
+              },
+              "precondition_3": true,
+              "precondition_IPP": true,
+              "IPP": true,
+              "DENOM": true,
+              "DENEX": false,
+              "OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5": {
+                "results": [
+                  {
+                    "id": "5864f947e76e94aee9000e2d",
+                    "json": {
+                      "_id": "5864f947e76e94aee9000e2d",
+                      "admitTime": null,
+                      "admitType": null,
+                      "codes": {
+                        "CPT": [
+                          "99385"
+                        ],
+                        "HCPCS": [
+                          "G0101"
+                        ],
+                        "SNOMED-CT": [
+                          "8411005"
+                        ]
+                      },
+                      "description": "Encounter, Performed: Medications Encounter Code Set",
+                      "dischargeDisposition": null,
+                      "dischargeTime": null,
+                      "end_time": 1356768900,
+                      "health_record_field": null,
+                      "mood_code": "EVN",
+                      "negationInd": null,
+                      "negationReason": null,
+                      "oid": "2.16.840.1.113883.3.560.1.79",
+                      "performer_id": null,
+                      "reason": null,
+                      "specifics": null,
+                      "start_time": 1356768000,
+                      "status_code": {
+                        "HL7 ActStatus": [
+                          "performed"
+                        ]
+                      },
+                      "time": null
+                    }
+                  }
+                ],
+                "specifics": [
+                  [
+                    "5864f947e76e94aee9000e2d"
+                  ]
+                ]
+              },
+              "During_553DFB3F_32AA_4C0B_BA61_EF03612874A0_1E256CEB_0554_4BEB_AF89_380E393FA1E1": {
+                "results": [
+                  {
+                    "id": "5864f947e76e94aee9000e30",
+                    "json": {
+                      "_id": "5864f947e76e94aee9000e30",
+                      "anatomical_approach": null,
+                      "anatomical_target": null,
+                      "codes": {
+                        "SNOMED-CT": [
+                          "428191000124101"
+                        ]
+                      },
+                      "description": "Procedure, Performed: Current Medications Documented Snmd",
+                      "end_time": 1356768900,
+                      "health_record_field": null,
+                      "incisionTime": null,
+                      "method": null,
+                      "mood_code": "EVN",
+                      "negationInd": null,
+                      "negationReason": null,
+                      "oid": "2.16.840.1.113883.3.560.1.6",
+                      "ordinality": null,
+                      "performer_id": null,
+                      "qdm_status": null,
+                      "radiation_dose": null,
+                      "radiation_duration": null,
+                      "reaction": null,
+                      "reason": null,
+                      "source": null,
+                      "specifics": null,
+                      "start_time": 1356768000,
+                      "status_code": {
+                        "HL7 ActStatus": [
+                          "performed"
+                        ]
+                      },
+                      "time": null
+                    }
+                  }
+                ],
+                "specifics": [
+                  [
+                    "5864f947e76e94aee9000e2d"
+                  ]
+                ]
+              },
+              "precondition_5": true,
+              "precondition_NUMER": true,
+              "NUMER": true,
+              "NUMEX": false,
+              "During_BE9E063D_47D2_4E0F_85E4_7D8E76918978_F1DCDBE6_5253_44C1_8D55_4528AF0A172C": false,
+              "precondition_7": false,
+              "precondition_DENEXCEP": false,
+              "DENEXCEP": false,
+              "VARIABLES": false
+            },
+            "finalSpecifics": {
+              "IPP": [
+                [
+                  "5864f947e76e94aee9000e2d"
+                ]
+              ],
+              "DENOM": [
+                [
+                  "5864f947e76e94aee9000e2d"
+                ]
+              ],
+              "DENEX": [
+                [
+                  "5864f947e76e94aee9000e2d"
+                ]
+              ],
+              "NUMER": [
+                [
+                  "5864f947e76e94aee9000e2d"
+                ]
+              ],
+              "NUMEX": [
+                [
+                  "5864f947e76e94aee9000e2d"
+                ]
+              ],
+              "DENEXCEP": null
+            }
+          },
+          "pre_upload_status": "pass",
+          "results_exceeds_storage_pre_upload": false,
+          "post_upload_results": {
+            "IPP": 1,
+            "DENOM": 1,
+            "DENEX": 0,
+            "NUMER": 1,
+            "NUMEX": 0,
+            "DENEXCEP": 0,
+            "rationale": {
+              "MeasurePeriod": {
+                "results": [
+                  {
+                    "id": "undefined",
+                    "json": {
+                      "start_time": 1325376000,
+                      "end_time": 1356998340,
+                      "codes": {}
+                    }
+                  }
+                ]
+              },
+              "PatientCharacteristicBirthdateBirthDate_precondition_2": {
+                "results": [
+                  {}
+                ],
+                "specifics": [
+                  [
+                    "*"
+                  ]
+                ]
+              },
+              "OccurrenceAMedicationsEncounterCodeSet1_precondition_4": {
+                "results": [
+                  {
+                    "id": "5864f947e76e94aee9000e33",
+                    "json": {
+                      "_id": "5864f947e76e94aee9000e33",
+                      "admitTime": null,
+                      "admitType": null,
+                      "codes": {
+                        "CPT": [
+                          "99385"
+                        ],
+                        "HCPCS": [
+                          "G0101"
+                        ],
+                        "SNOMED-CT": [
+                          "8411005"
+                        ]
+                      },
+                      "description": "Encounter, Performed: Medications Encounter Code Set",
+                      "dischargeDisposition": null,
+                      "dischargeTime": null,
+                      "end_time": 1356768900,
+                      "health_record_field": null,
+                      "mood_code": "EVN",
+                      "negationInd": null,
+                      "negationReason": null,
+                      "oid": "2.16.840.1.113883.3.560.1.79",
+                      "performer_id": null,
+                      "reason": null,
+                      "specifics": null,
+                      "start_time": 1356768000,
+                      "status_code": {
+                        "HL7 ActStatus": [
+                          "performed"
+                        ]
+                      },
+                      "time": null
+                    }
+                  }
+                ],
+                "specifics": [
+                  [
+                    "5864f947e76e94aee9000e33"
+                  ]
+                ]
+              },
+              "precondition_6": true,
+              "precondition_IPP": true,
+              "IPP": true,
+              "DENOM": true,
+              "DENEX": false,
+              "OccurrenceAMedicationsEncounterCodeSet1": {
+                "results": [
+                  {
+                    "id": "5864f947e76e94aee9000e33",
+                    "json": {
+                      "_id": "5864f947e76e94aee9000e33",
+                      "admitTime": null,
+                      "admitType": null,
+                      "codes": {
+                        "CPT": [
+                          "99385"
+                        ],
+                        "HCPCS": [
+                          "G0101"
+                        ],
+                        "SNOMED-CT": [
+                          "8411005"
+                        ]
+                      },
+                      "description": "Encounter, Performed: Medications Encounter Code Set",
+                      "dischargeDisposition": null,
+                      "dischargeTime": null,
+                      "end_time": 1356768900,
+                      "health_record_field": null,
+                      "mood_code": "EVN",
+                      "negationInd": null,
+                      "negationReason": null,
+                      "oid": "2.16.840.1.113883.3.560.1.79",
+                      "performer_id": null,
+                      "reason": null,
+                      "specifics": null,
+                      "start_time": 1356768000,
+                      "status_code": {
+                        "HL7 ActStatus": [
+                          "performed"
+                        ]
+                      },
+                      "time": null
+                    }
+                  }
+                ],
+                "specifics": [
+                  [
+                    "5864f947e76e94aee9000e33"
+                  ]
+                ]
+              },
+              "ProcedurePerformedCurrentMedicationsDocumentedSnmd_precondition_10": {
+                "results": [
+                  {
+                    "id": "5864f947e76e94aee9000e34",
+                    "json": {
+                      "_id": "5864f947e76e94aee9000e34",
+                      "anatomical_approach": null,
+                      "anatomical_target": null,
+                      "codes": {
+                        "SNOMED-CT": [
+                          "428191000124101"
+                        ]
+                      },
+                      "description": "Procedure, Performed: Current Medications Documented Snmd",
+                      "end_time": 1356768900,
+                      "health_record_field": null,
+                      "incisionTime": null,
+                      "method": null,
+                      "mood_code": "EVN",
+                      "negationInd": null,
+                      "negationReason": null,
+                      "oid": "2.16.840.1.113883.3.560.1.6",
+                      "ordinality": null,
+                      "performer_id": null,
+                      "qdm_status": null,
+                      "radiation_dose": null,
+                      "radiation_duration": null,
+                      "reaction": null,
+                      "reason": null,
+                      "source": null,
+                      "specifics": null,
+                      "start_time": 1356768000,
+                      "status_code": {
+                        "HL7 ActStatus": [
+                          "performed"
+                        ]
+                      },
+                      "time": null
+                    }
+                  }
+                ],
+                "specifics": [
+                  [
+                    "5864f947e76e94aee9000e33"
+                  ]
+                ]
+              },
+              "precondition_12": true,
+              "precondition_NUMER": true,
+              "NUMER": true,
+              "NUMEX": false,
+              "ProcedurePerformedCurrentMedicationsDocumentedSnmd_precondition_7": false,
+              "precondition_9": false,
+              "precondition_DENEXCEP": false,
+              "DENEXCEP": false,
+              "VARIABLES": false
+            },
+            "finalSpecifics": {
+              "IPP": [
+                [
+                  "5864f947e76e94aee9000e33"
+                ]
+              ],
+              "DENOM": [
+                [
+                  "5864f947e76e94aee9000e33"
+                ]
+              ],
+              "DENEX": [
+                [
+                  "5864f947e76e94aee9000e33"
+                ]
+              ],
+              "NUMER": [
+                [
+                  "5864f947e76e94aee9000e33"
+                ]
+              ],
+              "NUMEX": [
+                [
+                  "5864f947e76e94aee9000e33"
+                ]
+              ],
+              "DENEXCEP": []
+            }
+          },
+          "post_upload_status": "pass",
+          "results_exceeds_storage_post_upload": false,
+          "patient_version_after_upload": 3
+        }
+      },
+      "summary": {
+        "pass_before": 2,
+        "pass_after": 2,
+        "fail_before": 0,
+        "fail_after": 0
+      },
+      "updated_at": "2016-12-29T12:23:38.986Z"
+    }
+  ],
+  "updated_at": "2016-12-29T12:23:38.297Z",
+  "uploaded_at": "2016-12-29T12:23:38.292Z",
+  "user_id": "5863fac3e76e94aee9000000"
+}

@@ -7,37 +7,14 @@
   # the upload summaries, and the measure.
   # Populates `measure`, `patients`, and `uploadSummaries` on `testSuite`.
   # NOTE: this does not yet manage archived measures.
-  # @param {String} measureHistoryTestSet - The name of the test set for the measure. E.g., 'single_population_set'
+  # @param {String} testSet - The name of the test set for the measure. E.g., 'measure_history_set/single_population_set/CMS68'
+  # @param {String} loadState - The snapshot state being loaded. E.g. 'initalLoad', 'update1', 'update2'
   # @param {String} cmsId - the CMS ID for the measure. E.g., 'CMS68v6'
   # @param {Object} testSuite - the jasmine test suite calling this function
   ###
-  loadWithHistory: (measureHistoryTestSet, cmsId, testSuite) ->
-    path = @_getPath(measureHistoryTestSet, cmsId)
+  load: (testSet, loadState, cmsId, testSuite) ->
+    path = testSet + '/' + loadState + '/' + cmsId
 
-    @loadWithoutHistory(measureHistoryTestSet, cmsId, testSuite)
-    patients = testSuite.patients
-    uploadSummaries = testSuite.uploadSummaries
-
-    patients.each (patient) ->
-      patient.set('has_measure_history', true)
-
-    update1 = @_getUploadSummary(path, 'update1')
-    update2 = @_getUploadSummary(path, 'update2')
-    # add in reverse order so latest upload is first
-    uploadSummaries.add(update1, {at: 0})
-    uploadSummaries.add(update2, {at: 0})
-
-  ###*
-  # Loads the measure without historical context. This included the patients,
-  # the measure, and an uploadSummarie with just the initial upload.
-  # Populates `measure`, `patients`, and `uploadSummaries` on `testSuite`.
-  # NOTE: this does not yet manage archived measures.
-  # @param {String} measureHistoryTestSet - The name of the test set for the measure. E.g., 'single_population_set'
-  # @param {String} cmsId - the CMS ID for the measure. E.g., 'CMS68v6'
-  # @param {Object} testSuite - the jasmine test suite calling this function
-  ###
-  loadWithoutHistory: (measureHistoryTestSet, cmsId, testSuite) ->
-    path = @_getPath(measureHistoryTestSet, cmsId)
     try
       window.bonnieRouterCache.load(path)
     catch
@@ -62,17 +39,20 @@
         * json/records/' + path + '/patients.json\n')
 
     uploadSummaries= new Thorax.Collections.UploadSummaries([], {measure_id: measure.id, _fetched: true})
-    initialLoad = @_getUploadSummary(path, 'initialLoad')
-    uploadSummaries.add(initialLoad)
+
+    # add in reverse order so latest upload is first
+    if loadState == 'update2'
+      uploadSummaries.add(@_getUploadSummary(testSet, 'update2'))
+    if loadState == 'update2' || loadState == 'update1'
+      uploadSummaries.add(@_getUploadSummary(testSet, 'update1'))
+    if loadState == 'update2' || loadState == 'update1' || loadState == 'initialLoad'
+      uploadSummaries.add(@_getUploadSummary(testSet, 'initialLoad'))
 
     measure.set('upload_summaries', uploadSummaries)
 
     testSuite.measure = measure
     testSuite.patients = patients
     testSuite.uploadSummaries = uploadSummaries
-
-  _getPath: (measureHistoryTestSet, cmsId) ->
-    'measure_history_set/' + measureHistoryTestSet + '/' + cmsId
 
   # loadVersion should be one of the following:
   #  - 'initialLoad'
