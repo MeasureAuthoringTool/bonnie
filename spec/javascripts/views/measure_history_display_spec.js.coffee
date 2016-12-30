@@ -10,7 +10,7 @@ describe 'MeasureHistoryView', ->
 
   describe 'without summaries', ->
     beforeEach (done) ->
-      window.measureHistorySpecLoader.loadWithoutHistory('measure_history_set/single_population_set/CMS68', 'upload1', 'CMS68v6', @)
+      window.measureHistorySpecLoader.load('measure_history_set/single_population_set/CMS68', 'initialLoad', 'CMS68v4', @)
       renderView(@, done)
       
     # there is an upload summary from the initial uplaod
@@ -22,7 +22,7 @@ describe 'MeasureHistoryView', ->
 
   describe 'with summaries', ->
     beforeEach (done) ->
-      window.measureHistorySpecLoader.loadWithHistory('measure_history_set/single_population_set/CMS68', 'upload1', 'CMS68v6', @)
+      window.measureHistorySpecLoader.load('measure_history_set/single_population_set/CMS68', 'update2', 'CMS68v4', @)
       # upload_summaries non-empty, this measure history view will have history
       renderView(@, done)
 

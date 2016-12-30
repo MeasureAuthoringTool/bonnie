@@ -331,7 +331,7 @@ describe 'PatientBuilderView', ->
 describe 'PatientBuilderViewHistory', ->
   
   beforeEach ->
-    window.measureHistorySpecLoader.loadWithHistory('measure_history_set/single_population_set/CMS68', 'upload1', 'CMS68v6', @)
+    window.measureHistorySpecLoader.load('measure_history_set/single_population_set/CMS68', 'update2', 'CMS68v4', @)
 
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patients.at(0), measure: @measure, patients: @patients)
     @patientBuilder.render()
