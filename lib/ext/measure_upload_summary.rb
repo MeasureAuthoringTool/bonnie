@@ -68,7 +68,7 @@ module UploadSummary
         population_set_summary = PopulationSetSummary.new
         self.population_set_summaries << population_set_summary
 
-        # collect pre upload information if there is an archived_measure
+        # collect pre upload information if a previous version of the measure existed (there is an archived_measure)
         if archived_measure
           population_set_summary.store_patient_information(current_measure, patients, population_set_index, :pre_upload)
         end
@@ -130,7 +130,7 @@ module UploadSummary
     include Mongoid::Timestamps
 
     field :patients, type: Hash, default: {}
-    field :summary, type: Hash, default: { pass_after: 0, fail_after: 0 }
+    field :summary, type: Hash, default: { pass_after: 0, fail_after: 0 } # only pre-populate with 'after' state because can have no 'before' state
     embedded_in :measure_summaries
 
     # 'rationale' and 'finaleSpecifics' used for logic coloring. 'values' is the stored result for 'OBSERV'
@@ -141,7 +141,7 @@ module UploadSummary
     # object. The 'upload_timing' argument determines if the pre-upload calculation information is being
     # stored (used :pre_upload) or if the post-upload information is being stored (use :post_upload).
     def store_patient_information(current_measure, patients, population_set_index, upload_timing)
-      # prefil before summary fields to zero because we actually need them if a pre_upload storage is happening
+      # prefil before summary fields to zero because we need them present if a pre_upload storage is happening
       if upload_timing == :pre_upload
         self.summary[:pass_before] = 0
         self.summary[:fail_before] = 0
