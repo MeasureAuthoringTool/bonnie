@@ -1,4 +1,4 @@
-{{#if totalPatientsNumber}} {{! Don't display anything if there are no patients}}
+{{#ifCond totalPatientsNumber "&&" measure_db_id_pre_upload}} {{! Don't display anything if there are no patients or no pervious version}}
   {{#if changedPatientsNumber}} {{! Display changes in patient calculations}}
     <div class="alert alert-warning">Patient calculations have changed for {{changedPatientsNumber}} of {{totalPatientsNumber}} patients.</div>
     <div>
@@ -77,4 +77,4 @@
   {{else}} {{! No existing patients have been changed}}
     <div class="alert alert-info">Patient calculations are unchanged.</div>
   {{/if}}
-{{/if}}
+{{/ifCond}}

@@ -70,6 +70,19 @@
               {{/each}}
             </tr>
           {{/with}}
+        {{else}}
+          {{! if no pre-upload state exists, then it was the measure's first upload or the measure was previously deleted }}
+          {{! if the measure was previously deleted (not the first upload), then show that it was deleted }}
+          {{#ifCond @index "<" (subtract ../../upload_summaries.models.length 1)}}
+            <tr data-upload-id="{{attributes._id}}">
+              <th colspan="2" scope="row">Measure Deleted</th>
+              <td colspan="{{../../../patientIndex.length}}"></td>
+            </tr>
+            <tr data-upload-id="{{attributes._id}}">
+              <th colspan="2" scope="row"></th>
+              <td colspan="{{../../../patientIndex.length}}"></td>
+            </tr>
+          {{/ifCond}}
         {{/if}}
       {{/each}}
     </table>
