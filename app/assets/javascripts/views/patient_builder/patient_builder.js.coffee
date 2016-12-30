@@ -275,7 +275,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     uploadSummaries = @measure.get('upload_summaries')
     $.when(uploadSummaries.loadCollection())
       .then( -> uploadSummaries.at(0).loadModel() )
-      .then( => 
+      .done( => 
         @patientCompareView = new Thorax.Views.PatientBuilderCompare(model: @model, measure: @measure, patients: @patients, measures: @measures, uploadSummary: uploadSummaries.at(0))
         @patientCompareView.appendTo('#patient-compare-content')
         @$('#patient-compare-dialog').modal('show')
@@ -283,6 +283,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
         @$('#patient-compare-dialog').on 'hidden.bs.modal', (event) =>
           @patientCompareView.remove()
         )
+      .fail( -> bonnie.showError title: "Patient Compare Load Failed", summary: "Historic data failed to load due to a server error." )
     
 
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
