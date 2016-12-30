@@ -25,6 +25,9 @@ module UploadSummary
     accepts_nested_attributes_for :population_set_summaries
 
     index "user_id" => 1
+    # Index for descending sort of upload summary creation time. Makes it so mongo doesn't have to sort on query.
+    index "created_at" => -1
+
     scope :by_user, ->(user) { where({'user_id'=>user.id}) }
     scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where({'user_id'=>user.id, 'hqmf_set_id'=>hqmf_set_id}) }
 
