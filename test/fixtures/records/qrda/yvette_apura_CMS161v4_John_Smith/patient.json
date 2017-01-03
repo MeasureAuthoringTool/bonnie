@@ -1,0 +1,318 @@
+{
+  "_id": "5578963e69702d5b99480100",
+  "birthdate": 194774400,
+  "bundle_id": "5481d75969702d4e2b1e0d00",
+  "conditions": [
+    {
+      "_id": "562ef5c6f081f34d8b008564",
+      "anatomical_location": null,
+      "anatomical_target": null,
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-10-CM": [
+          "F32.9"
+        ],
+        "SNOMED-CT": [
+          "20250007"
+        ],
+        "ICD-9-CM": [
+          "296.32"
+        ]
+      },
+      "description": "Diagnosis, Active: Major Depressive Disorder-Active",
+      "end_time": 1339316100,
+      "health_record_field": null,
+      "laterality": null,
+      "mood_code": "EVN",
+      "name": null,
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.2",
+      "ordinality": null,
+      "priority": null,
+      "reason": null,
+      "severity": null,
+      "specifics": null,
+      "start_time": 1339315500,
+      "status_code": {
+        "SNOMED-CT": [
+          "55561003"
+        ],
+        "HL7 ActStatus": [
+          "active"
+        ]
+      },
+      "time": null,
+      "time_of_death": null,
+      "type": null
+    }
+  ],
+  "created_at": "2015-06-10T19:55:42.520Z",
+  "deathdate": null,
+  "description": null,
+  "description_category": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "562ef5c6f081f34d8b008565",
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "SNOMED-CT": [
+          "390906007"
+        ]
+      },
+      "description": "Encounter, Performed: Face-to-Face Interaction",
+      "dischargeDisposition": null,
+      "dischargeTime": null,
+      "end_time": 1339316100,
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "reason": null,
+      "specifics": null,
+      "start_time": 1339315200,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    },
+    {
+      "_id": "562ef5c6f081f34d8b008566",
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99203"
+        ]
+      },
+      "description": "Encounter, Performed: Office Visit",
+      "dischargeDisposition": null,
+      "dischargeTime": null,
+      "end_time": 1339316100,
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "reason": null,
+      "specifics": null,
+      "start_time": 1339315200,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    },
+    {
+      "_id": "562ef5c6f081f34d8b008567",
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "SNOMED-CT": [
+          "390906007"
+        ]
+      },
+      "description": "Encounter, Performed: Face-to-Face Interaction",
+      "dischargeDisposition": null,
+      "dischargeTime": null,
+      "end_time": 1341908100,
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "reason": null,
+      "specifics": null,
+      "start_time": 1341907200,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "60176FBF-BFDC-4892-9C9E-604F206553C8",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "NUMER": 0
+    }
+  ],
+  "expired": null,
+  "first": "John",
+  "gender": "M",
+  "is_shared": null,
+  "languages": [
+
+  ],
+  "last": "Smith",
+  "marital_status": null,
+  "measure_ids": [
+    "60176FBF-BFDC-4892-9C9E-604F206553C8",
+    null
+  ],
+  "medical_record_assigner": null,
+  "medical_record_number": "0d30a58dd16dff0f2461d84630e19df2",
+  "notes": "",
+  "origin_data": [
+
+  ],
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "Face-to-Face Interaction Grouping Value Set",
+      "description": "Encounter, Performed: Face-to-Face Interaction",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
+      "type": "encounters",
+      "id": "Face_to_FaceInteraction_EncounterPerformed",
+      "start_date": 1339315200000,
+      "end_date": 1339316100000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "60176FBF-BFDC-4892-9C9E-604F206553C8",
+      "cms_id": "CMS161v4",
+      "criteria_id": "14ddf00e494Hy",
+      "codes": {
+        "SNOMED-CT": [
+          "390906007"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "55e9e912f081f33511003a30",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "Office Visit Grouping Value Set",
+      "description": "Encounter, Performed: Office Visit",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "type": "encounters",
+      "id": "OfficeVisit_EncounterPerformed",
+      "start_date": 1339315200000,
+      "end_date": 1339316100000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "60176FBF-BFDC-4892-9C9E-604F206553C8",
+      "cms_id": "CMS161v4",
+      "criteria_id": "14ddf033d8ehm",
+      "codes": {
+        "CPT": [
+          "99203"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "55e9e912f081f33511003a31",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": false,
+      "definition": "diagnosis",
+      "status": "active",
+      "title": "Major Depressive Disorder-Active Grouping Value Set",
+      "description": "Diagnosis, Active: Major Depressive Disorder-Active",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1491",
+      "type": "conditions",
+      "id": "MajorDepressiveDisorder_Active_DiagnosisActive",
+      "start_date": 1339315500000,
+      "end_date": 1339316100000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "60176FBF-BFDC-4892-9C9E-604F206553C8",
+      "cms_id": "CMS161v4",
+      "criteria_id": "14ddf01b9cbZm",
+      "codes": {
+        "ICD-10-CM": [
+          "F32.9"
+        ],
+        "SNOMED-CT": [
+          "20250007"
+        ],
+        "ICD-9-CM": [
+          "296.32"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "55e9e912f081f33511003a2f",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "Face-to-Face Interaction Grouping Value Set",
+      "description": "Encounter, Performed: Face-to-Face Interaction",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
+      "type": "encounters",
+      "id": "Face_to_FaceInteraction_EncounterPerformed",
+      "start_date": 1341907200000,
+      "end_date": 1341908100000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "60176FBF-BFDC-4892-9C9E-604F206553C8",
+      "cms_id": "CMS161v4",
+      "criteria_id": "14ddf012edc4W",
+      "codes": {
+        "SNOMED-CT": [
+          "390906007"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "55e9e912f081f33511003a32",
+      "code_source": "DEFAULT"
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": null,
+  "title": null,
+  "type": null,
+  "updated_at": "2015-09-04T18:55:14.331Z",
+  "user_id": "5481d75869702d4e2b1d0d00"
+}

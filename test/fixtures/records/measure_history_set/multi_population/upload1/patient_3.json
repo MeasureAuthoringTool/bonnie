@@ -1,0 +1,1051 @@
+{
+  "_id": "58640412e76e94aee900054b",
+  "birthdate": 567072000,
+  "bundle_id": "5863fac3e76e94aee9000001",
+  "calc_results": [
+    {
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "NUMEX": 0,
+      "DENEXCEP": 0,
+      "rationale": {
+        "MeasurePeriod": {
+          "results": [
+            {
+              "id": "undefined",
+              "json": {
+                "start_time": 1325376000,
+                "end_time": 1356998340,
+                "codes": {
+                }
+              }
+            }
+          ]
+        },
+        "Agegrtr_thn_eql_18yearsat_89AB85B0_82A7_4AA7_9E31_469B1140EBA0_17A33C5C_E795_43BE_9C0B_8AF86F49E29F": {
+          "results": [
+            {
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "less_thn_4monthsEndsBeforeEndOf_5C8688D0_E12A_4C08_B346_F1157A219DA4_40280381_3d61_56a7_013e_8a363827334f": false,
+        "MajorDepressionIncludingRemission_Diagnosis_aa4805f4_54e9_4e60_9bbf_b316aeaa95ba": {
+          "results": [
+            {
+              "id": "58640412e76e94aee900054d",
+              "json": {
+                "_id": "58640412e76e94aee900054d",
+                "anatomical_location": null,
+                "anatomical_target": null,
+                "causeOfDeath": null,
+                "codes": {
+                  "SNOMED-CT": [
+                    "832007"
+                  ],
+                  "ICD-9-CM": [
+                    "296.20"
+                  ],
+                  "ICD-10-CM": [
+                    "F32.0"
+                  ]
+                },
+                "description": "Diagnosis, Active: Major Depression Including Remission",
+                "end_time": 1330416900,
+                "health_record_field": null,
+                "laterality": null,
+                "mood_code": "EVN",
+                "name": null,
+                "negationInd": null,
+                "negationReason": null,
+                "oid": "2.16.840.1.113883.3.560.1.2",
+                "ordinality": null,
+                "priority": null,
+                "reason": null,
+                "severity": null,
+                "specifics": null,
+                "start_time": 1330416000,
+                "status_code": {
+                  "SNOMED-CT": [
+                    "55561003"
+                  ],
+                  "HL7 ActStatus": [
+                    "active"
+                  ]
+                },
+                "time": null,
+                "time_of_death": null,
+                "type": null
+              }
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "Overlaps_0FBFB2C7_048F_4C48_BE54_72D1E6A95782_40280381_3d61_56a7_013e_8a363827334f": {
+          "results": [
+            {
+              "id": "58640412e76e94aee900054e",
+              "json": {
+                "_id": "58640412e76e94aee900054e",
+                "admitTime": null,
+                "admitType": null,
+                "codes": {
+                  "CPT": [
+                    "99201"
+                  ]
+                },
+                "description": "Encounter, Performed: Office Visit",
+                "dischargeDisposition": null,
+                "dischargeTime": null,
+                "end_time": 1330416900,
+                "health_record_field": null,
+                "mood_code": "EVN",
+                "negationInd": null,
+                "negationReason": null,
+                "oid": "2.16.840.1.113883.3.560.1.79",
+                "performer_id": null,
+                "reason": null,
+                "specifics": null,
+                "start_time": 1330416000,
+                "status_code": {
+                  "HL7 ActStatus": [
+                    "performed"
+                  ]
+                },
+                "time": null
+              }
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "Dysthymia_Diagnosis_6193b77b_e502_40cd_8ff4_a51a269f141a": false,
+        "Overlaps_9806E3F5_8D87_4950_87DA_E18BAB6DAC01_40280381_3d61_56a7_013e_8a363827334f": false,
+        "SatisfiesAny_98C27C8F_D33D_4683_8D78_C859B3E99360_50EA0CAF_4480_438A_B7F7_0BB9A6AE2596": {
+          "results": [
+            {
+              "id": "58640412e76e94aee900054e",
+              "json": {
+                "_id": "58640412e76e94aee900054e",
+                "admitTime": null,
+                "admitType": null,
+                "codes": {
+                  "CPT": [
+                    "99201"
+                  ]
+                },
+                "description": "Encounter, Performed: Office Visit",
+                "dischargeDisposition": null,
+                "dischargeTime": null,
+                "end_time": 1330416900,
+                "health_record_field": null,
+                "mood_code": "EVN",
+                "negationInd": null,
+                "negationReason": null,
+                "oid": "2.16.840.1.113883.3.560.1.79",
+                "performer_id": null,
+                "reason": null,
+                "specifics": null,
+                "start_time": 1330416000,
+                "status_code": {
+                  "HL7 ActStatus": [
+                    "performed"
+                  ]
+                },
+                "time": null
+              }
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "SatisfiesAll_A6F20147_343B_4D9E_B86E_80714075DA21_C472F0AD_CAF5_4A5B_BE36_4F1990E0B499": false,
+        "less_thn_4monthsEndsBeforeEndOf_704EF76A_13E2_4AC1_B269_940C5742FFB1_bec03ff0_88da_49ee_a2fd_21037ee0a3a3": false,
+        "prefix_3db3e189_2b84_484f_8402_175cd5e1275a_bec03ff0_88da_49ee_a2fd_21037ee0a3a3": false,
+        "prefix_429c72a7_cf24_4111_9054_90905de49543_bec03ff0_88da_49ee_a2fd_21037ee0a3a3": false,
+        "SatisfiesAny_4FD811AF_B026_41A9_AF62_FCC4ED3C3396_9E0FFD30_B135_4C1A_BC1A_2C7C40308701": false,
+        "SatisfiesAll_46CAE3C8_0A38_417D_822D_D1F45046C3C6_12733BC6_DBCD_4ABD_81D9_BA4775D473AF": false,
+        "less_thn_4monthsEndsBeforeEndOf_C0848EF6_589B_47E1_A245_F7DAC1ABBC92_91f84aee_e473_4f7d_9dd3_7d0259441055": false,
+        "Overlaps_A35A8F56_9A56_4CBB_99BD_ADEBDAE82697_91f84aee_e473_4f7d_9dd3_7d0259441055": false,
+        "Overlaps_22740654_9620_449A_8942_D39FF74CE2D0_91f84aee_e473_4f7d_9dd3_7d0259441055": false,
+        "SatisfiesAny_09FB7055_188C_4010_A77A_7164519FC812_D1CA5C2E_34A9_413B_A7EA_A37D94459989": false,
+        "SatisfiesAll_861E45C4_0E69_482A_9F1E_B0C4AB0ADC23_19A69255_9329_4733_B15D_2361101E9DB4": false,
+        "Union_CB4E2136_29A1_437B_BBA1_8577F08EED6F_6F286505_F0D4_4E3F_B8BB_350D9A353988": false,
+        "precondition_3": false,
+        "precondition_IPP": false,
+        "IPP": false,
+        "VARIABLES": false
+      },
+      "finalSpecifics": {
+        "IPP": [
+
+        ]
+      },
+      "measure_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+      "population_index": 0,
+      "status": "pass"
+    },
+    {
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "NUMEX": 0,
+      "DENEXCEP": 0,
+      "rationale": {
+        "MeasurePeriod": {
+          "results": [
+            {
+              "id": "undefined",
+              "json": {
+                "start_time": 1325376000,
+                "end_time": 1356998340,
+                "codes": {
+                }
+              }
+            }
+          ]
+        },
+        "Agegrtr_thn_eql_18yearsat_89AB85B0_82A7_4AA7_9E31_469B1140EBA0_17A33C5C_E795_43BE_9C0B_8AF86F49E29F": {
+          "results": [
+            {
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "grtr_thn_eql_4monthsEndsAfterStartOf_90038311_D7D1_41E9_8486_8DA7C398D827_40280381_3d61_56a7_013e_8a363827334f": false,
+        "less_thn_8monthsEndsAfterStartOf_C77BC16B_7A6F_4641_86B3_A91958964825_40280381_3d61_56a7_013e_8a363827334f": {
+          "results": [
+            {
+              "id": "58640412e76e94aee900054e",
+              "json": {
+                "_id": "58640412e76e94aee900054e",
+                "admitTime": null,
+                "admitType": null,
+                "codes": {
+                  "CPT": [
+                    "99201"
+                  ]
+                },
+                "description": "Encounter, Performed: Office Visit",
+                "dischargeDisposition": null,
+                "dischargeTime": null,
+                "end_time": 1330416900,
+                "health_record_field": null,
+                "mood_code": "EVN",
+                "negationInd": null,
+                "negationReason": null,
+                "oid": "2.16.840.1.113883.3.560.1.79",
+                "performer_id": null,
+                "reason": null,
+                "specifics": null,
+                "start_time": 1330416000,
+                "status_code": {
+                  "HL7 ActStatus": [
+                    "performed"
+                  ]
+                },
+                "time": null
+              }
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "MajorDepressionIncludingRemission_Diagnosis_aa4805f4_54e9_4e60_9bbf_b316aeaa95ba": {
+          "results": [
+            {
+              "id": "58640412e76e94aee900054d",
+              "json": {
+                "_id": "58640412e76e94aee900054d",
+                "anatomical_location": null,
+                "anatomical_target": null,
+                "causeOfDeath": null,
+                "codes": {
+                  "SNOMED-CT": [
+                    "832007"
+                  ],
+                  "ICD-9-CM": [
+                    "296.20"
+                  ],
+                  "ICD-10-CM": [
+                    "F32.0"
+                  ]
+                },
+                "description": "Diagnosis, Active: Major Depression Including Remission",
+                "end_time": 1330416900,
+                "health_record_field": null,
+                "laterality": null,
+                "mood_code": "EVN",
+                "name": null,
+                "negationInd": null,
+                "negationReason": null,
+                "oid": "2.16.840.1.113883.3.560.1.2",
+                "ordinality": null,
+                "priority": null,
+                "reason": null,
+                "severity": null,
+                "specifics": null,
+                "start_time": 1330416000,
+                "status_code": {
+                  "SNOMED-CT": [
+                    "55561003"
+                  ],
+                  "HL7 ActStatus": [
+                    "active"
+                  ]
+                },
+                "time": null,
+                "time_of_death": null,
+                "type": null
+              }
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "Overlaps_AC871CF2_2F9D_4874_A317_F29ABFE88CA6_40280381_3d61_56a7_013e_8a363827334f": {
+          "results": [
+            {
+              "id": "58640412e76e94aee900054e",
+              "json": {
+                "_id": "58640412e76e94aee900054e",
+                "admitTime": null,
+                "admitType": null,
+                "codes": {
+                  "CPT": [
+                    "99201"
+                  ]
+                },
+                "description": "Encounter, Performed: Office Visit",
+                "dischargeDisposition": null,
+                "dischargeTime": null,
+                "end_time": 1330416900,
+                "health_record_field": null,
+                "mood_code": "EVN",
+                "negationInd": null,
+                "negationReason": null,
+                "oid": "2.16.840.1.113883.3.560.1.79",
+                "performer_id": null,
+                "reason": null,
+                "specifics": null,
+                "start_time": 1330416000,
+                "status_code": {
+                  "HL7 ActStatus": [
+                    "performed"
+                  ]
+                },
+                "time": null
+              }
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "Dysthymia_Diagnosis_6193b77b_e502_40cd_8ff4_a51a269f141a": false,
+        "Overlaps_62BAFE2E_4181_4711_A2F8_6752C0A9B148_40280381_3d61_56a7_013e_8a363827334f": false,
+        "SatisfiesAny_B1150D24_CF78_458C_8C87_0E8C5C3D7ED6_818CE12E_221F_48BB_B3F9_C59336DA3BA4": {
+          "results": [
+            {
+              "id": "58640412e76e94aee900054e",
+              "json": {
+                "_id": "58640412e76e94aee900054e",
+                "admitTime": null,
+                "admitType": null,
+                "codes": {
+                  "CPT": [
+                    "99201"
+                  ]
+                },
+                "description": "Encounter, Performed: Office Visit",
+                "dischargeDisposition": null,
+                "dischargeTime": null,
+                "end_time": 1330416900,
+                "health_record_field": null,
+                "mood_code": "EVN",
+                "negationInd": null,
+                "negationReason": null,
+                "oid": "2.16.840.1.113883.3.560.1.79",
+                "performer_id": null,
+                "reason": null,
+                "specifics": null,
+                "start_time": 1330416000,
+                "status_code": {
+                  "HL7 ActStatus": [
+                    "performed"
+                  ]
+                },
+                "time": null
+              }
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "SatisfiesAll_FFB85D4C_12AC_4B41_89A3_B031744F8CF9_E46D6AD3_1719_44A8_A56A_889DDFB968C1": false,
+        "grtr_thn_eql_4monthsEndsAfterStartOf_7E8F10E0_FA9C_4BC5_A2F6_E4BD6267A540_bec03ff0_88da_49ee_a2fd_21037ee0a3a3": false,
+        "less_thn_8monthsEndsAfterStartOf_B5B38ABA_BFEB_4796_A171_CAB0B9059FB9_bec03ff0_88da_49ee_a2fd_21037ee0a3a3": false,
+        "c04af1af_7fda_499f_b2e7_1c00d76b82c4_bec03ff0_88da_49ee_a2fd_21037ee0a3a3": false,
+        "prefix_74bbf2f4_7765_4399_b857_019ea0a14b93_bec03ff0_88da_49ee_a2fd_21037ee0a3a3": false,
+        "SatisfiesAny_63E866F9_5996_491B_869B_F4B10044275C_0FAC97E6_F099_44A3_B979_A88226BE6F90": false,
+        "SatisfiesAll_21E569C6_1228_4D4F_9F5B_A0F5559A9D65_18554174_97E2_4C2F_A650_3CE1652B4F8A": false,
+        "grtr_thn_eql_4monthsEndsAfterStartOf_90EF3E76_F213_464D_B297_6705EFC48BCA_91f84aee_e473_4f7d_9dd3_7d0259441055": false,
+        "less_thn_8monthsEndsAfterStartOf_E7860549_32BC_49F8_977D_542EEB828B7D_91f84aee_e473_4f7d_9dd3_7d0259441055": false,
+        "Overlaps_208E21B6_BCE0_4115_894D_2EF9DADDFB5B_91f84aee_e473_4f7d_9dd3_7d0259441055": false,
+        "Overlaps_F5F4BAA0_99CA_4472_A40E_E2DA8D4A3242_91f84aee_e473_4f7d_9dd3_7d0259441055": false,
+        "SatisfiesAny_37701F16_B674_4324_8DC8_4E8C16C34A24_4A1F6EE5_B3DA_43AB_9148_3DE008B7FE9C": false,
+        "SatisfiesAll_773F5A49_32AA_4D5C_94C6_7B06E139EFF2_9DFAB900_6B91_477E_A66F_398EA32520F7": false,
+        "Union_DEC3E8D4_E506_477E_8989_1075D3DE1E54_0306369B_6536_48DC_8543_71CA6AD58429": false,
+        "precondition_11": false,
+        "precondition_IPP_1": false,
+        "IPP": false,
+        "VARIABLES": false
+      },
+      "finalSpecifics": {
+        "IPP": [
+
+        ]
+      },
+      "measure_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+      "population_index": 1,
+      "status": "pass"
+    },
+    {
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 0,
+      "NUMEX": 0,
+      "DENEXCEP": 0,
+      "rationale": {
+        "MeasurePeriod": {
+          "results": [
+            {
+              "id": "undefined",
+              "json": {
+                "start_time": 1325376000,
+                "end_time": 1356998340,
+                "codes": {
+                }
+              }
+            }
+          ]
+        },
+        "Agegrtr_thn_eql_18yearsat_89AB85B0_82A7_4AA7_9E31_469B1140EBA0_17A33C5C_E795_43BE_9C0B_8AF86F49E29F": {
+          "results": [
+            {
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "less_thn_4monthsEndsAfterStartOf_EE85AD5D_1642_497A_A285_298C4682D075_40280381_3d61_56a7_013e_8a363827334f": {
+          "results": [
+            {
+              "id": "58640412e76e94aee900054e",
+              "json": {
+                "_id": "58640412e76e94aee900054e",
+                "admitTime": null,
+                "admitType": null,
+                "codes": {
+                  "CPT": [
+                    "99201"
+                  ]
+                },
+                "description": "Encounter, Performed: Office Visit",
+                "dischargeDisposition": null,
+                "dischargeTime": null,
+                "end_time": 1330416900,
+                "health_record_field": null,
+                "mood_code": "EVN",
+                "negationInd": null,
+                "negationReason": null,
+                "oid": "2.16.840.1.113883.3.560.1.79",
+                "performer_id": null,
+                "reason": null,
+                "specifics": null,
+                "start_time": 1330416000,
+                "status_code": {
+                  "HL7 ActStatus": [
+                    "performed"
+                  ]
+                },
+                "time": null
+              }
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "MajorDepressionIncludingRemission_Diagnosis_aa4805f4_54e9_4e60_9bbf_b316aeaa95ba": {
+          "results": [
+            {
+              "id": "58640412e76e94aee900054d",
+              "json": {
+                "_id": "58640412e76e94aee900054d",
+                "anatomical_location": null,
+                "anatomical_target": null,
+                "causeOfDeath": null,
+                "codes": {
+                  "SNOMED-CT": [
+                    "832007"
+                  ],
+                  "ICD-9-CM": [
+                    "296.20"
+                  ],
+                  "ICD-10-CM": [
+                    "F32.0"
+                  ]
+                },
+                "description": "Diagnosis, Active: Major Depression Including Remission",
+                "end_time": 1330416900,
+                "health_record_field": null,
+                "laterality": null,
+                "mood_code": "EVN",
+                "name": null,
+                "negationInd": null,
+                "negationReason": null,
+                "oid": "2.16.840.1.113883.3.560.1.2",
+                "ordinality": null,
+                "priority": null,
+                "reason": null,
+                "severity": null,
+                "specifics": null,
+                "start_time": 1330416000,
+                "status_code": {
+                  "SNOMED-CT": [
+                    "55561003"
+                  ],
+                  "HL7 ActStatus": [
+                    "active"
+                  ]
+                },
+                "time": null,
+                "time_of_death": null,
+                "type": null
+              }
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "Overlaps_FEFD402F_832F_4021_AE90_DA48AAD8640F_40280381_3d61_56a7_013e_8a363827334f": {
+          "results": [
+            {
+              "id": "58640412e76e94aee900054e",
+              "json": {
+                "_id": "58640412e76e94aee900054e",
+                "admitTime": null,
+                "admitType": null,
+                "codes": {
+                  "CPT": [
+                    "99201"
+                  ]
+                },
+                "description": "Encounter, Performed: Office Visit",
+                "dischargeDisposition": null,
+                "dischargeTime": null,
+                "end_time": 1330416900,
+                "health_record_field": null,
+                "mood_code": "EVN",
+                "negationInd": null,
+                "negationReason": null,
+                "oid": "2.16.840.1.113883.3.560.1.79",
+                "performer_id": null,
+                "reason": null,
+                "specifics": null,
+                "start_time": 1330416000,
+                "status_code": {
+                  "HL7 ActStatus": [
+                    "performed"
+                  ]
+                },
+                "time": null
+              }
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "Dysthymia_Diagnosis_6193b77b_e502_40cd_8ff4_a51a269f141a": false,
+        "Overlaps_8AB9D38F_B9FF_4A17_A060_AE6FF5437300_40280381_3d61_56a7_013e_8a363827334f": false,
+        "SatisfiesAny_8FCF6CD7_05D4_4998_90F3_A0EC04E591A6_DD92A5B4_479C_4EF8_BC09_4DF3A93FF9D7": {
+          "results": [
+            {
+              "id": "58640412e76e94aee900054e",
+              "json": {
+                "_id": "58640412e76e94aee900054e",
+                "admitTime": null,
+                "admitType": null,
+                "codes": {
+                  "CPT": [
+                    "99201"
+                  ]
+                },
+                "description": "Encounter, Performed: Office Visit",
+                "dischargeDisposition": null,
+                "dischargeTime": null,
+                "end_time": 1330416900,
+                "health_record_field": null,
+                "mood_code": "EVN",
+                "negationInd": null,
+                "negationReason": null,
+                "oid": "2.16.840.1.113883.3.560.1.79",
+                "performer_id": null,
+                "reason": null,
+                "specifics": null,
+                "start_time": 1330416000,
+                "status_code": {
+                  "HL7 ActStatus": [
+                    "performed"
+                  ]
+                },
+                "time": null
+              }
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "SatisfiesAll_BA0C34C5_805F_4589_957D_67B4318CEE66_ACA211E1_808C_4658_94CA_3B6F98705B71": {
+          "results": [
+            {
+              "id": "58640412e76e94aee900054e",
+              "json": {
+                "_id": "58640412e76e94aee900054e",
+                "admitTime": null,
+                "admitType": null,
+                "codes": {
+                  "CPT": [
+                    "99201"
+                  ]
+                },
+                "description": "Encounter, Performed: Office Visit",
+                "dischargeDisposition": null,
+                "dischargeTime": null,
+                "end_time": 1330416900,
+                "health_record_field": null,
+                "mood_code": "EVN",
+                "negationInd": null,
+                "negationReason": null,
+                "oid": "2.16.840.1.113883.3.560.1.79",
+                "performer_id": null,
+                "reason": null,
+                "specifics": null,
+                "start_time": 1330416000,
+                "status_code": {
+                  "HL7 ActStatus": [
+                    "performed"
+                  ]
+                },
+                "time": null
+              }
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "less_thn_4monthsEndsAfterStartOf_4F9764B9_6DDD_4E97_BC6A_67DB46D8C73E_bec03ff0_88da_49ee_a2fd_21037ee0a3a3": false,
+        "prefix_2caf86bb_cf93_4eb8_b60e_c54f390a207d_bec03ff0_88da_49ee_a2fd_21037ee0a3a3": false,
+        "prefix_29a7229e_4be7_4f9c_b63b_9cbdd1d4593c_bec03ff0_88da_49ee_a2fd_21037ee0a3a3": false,
+        "SatisfiesAny_4065CEAC_1F12_4085_8109_B59AA560338E_83D0A1AC_E41A_4A92_A06B_9436F26364C5": false,
+        "SatisfiesAll_7E4B8DF6_E280_4F64_AF92_BF0A8D430AB3_CEE13D6A_5265_4694_9DF7_0A0FE78B4102": false,
+        "less_thn_4monthsEndsAfterStartOf_3680B425_2151_4636_AC8D_827AEE1D503C_91f84aee_e473_4f7d_9dd3_7d0259441055": false,
+        "Overlaps_EEDFBB9B_B6E5_4509_90EC_6898ADA154D3_91f84aee_e473_4f7d_9dd3_7d0259441055": false,
+        "Overlaps_E418E915_8A8B_468C_B92F_EEBF1A9FCBF1_91f84aee_e473_4f7d_9dd3_7d0259441055": false,
+        "SatisfiesAny_FC8541DC_4A05_4811_8AEA_5808645DA723_478B58B4_A0B3_4BD2_BE83_C1C6232F1F70": false,
+        "SatisfiesAll_3B68D8DE_4F71_4F96_ACF7_328ABE3D890B_76F115BA_FF2D_44E8_A153_55EE3C2092CC": false,
+        "Union_EC195FEA_1FE2_4887_8820_6A2B5597C039_A93A5752_75D7_4B93_A06E_25AD3E52A934": {
+          "results": [
+            {
+              "id": "58640412e76e94aee900054e",
+              "json": {
+                "_id": "58640412e76e94aee900054e",
+                "admitTime": null,
+                "admitType": null,
+                "codes": {
+                  "CPT": [
+                    "99201"
+                  ]
+                },
+                "description": "Encounter, Performed: Office Visit",
+                "dischargeDisposition": null,
+                "dischargeTime": null,
+                "end_time": 1330416900,
+                "health_record_field": null,
+                "mood_code": "EVN",
+                "negationInd": null,
+                "negationReason": null,
+                "oid": "2.16.840.1.113883.3.560.1.79",
+                "performer_id": null,
+                "reason": null,
+                "specifics": null,
+                "start_time": 1330416000,
+                "status_code": {
+                  "HL7 ActStatus": [
+                    "performed"
+                  ]
+                },
+                "time": null
+              }
+            }
+          ],
+          "specifics": [
+            [
+
+            ]
+          ]
+        },
+        "precondition_19": true,
+        "precondition_IPP_2": true,
+        "IPP": true,
+        "DENOM": true,
+        "PalliativeCare_InterventionOrder_40280381_3d61_56a7_013e_8a3638283368": false,
+        "CareServicesinLong_TermResidentialFacility_EncounterPerformed_40280381_3e93_d1af_013e_a8c4e64a4ad3": false,
+        "less_thn_eql_1yearsStartsBeforeEndOf_EEC528B6_0CC4_4E1B_B661_F3740E90CAF4_9E10D621_5AB6_4A39_9478_2E861FA725F9": false,
+        "Expired_PatientCharacteristicExpired_3ee516a0_70f8_4882_af32_0f695da6a38d": false,
+        "BipolarDisorder_Diagnosis_89a1244b_f388_4261_949a_70b82971f63d": false,
+        "PersonalityDisorder_Diagnosis_02fbde96_d881_44a0_b315_59e4c3eeb158": false,
+        "StartsBeforeEndOf_6232E7BC_388B_4FF5_AADA_74194AF3BFF4_C72972A1_448A_4B2D_A60A_81335F051B05": false,
+        "precondition_24": false,
+        "precondition_DENEX_2": false,
+        "DENEX": false,
+        "less_thn_4monthsEndsAfterStartOf_2AA871AB_FB13_4418_8FFD_791040A65095_C797DCE1_4BF9_46E8_B46F_D7489B23D4EB": false,
+        "precondition_21": false,
+        "precondition_NUMER_2": false,
+        "NUMER": false,
+        "DENEXCEP": false,
+        "VARIABLES": false
+      },
+      "finalSpecifics": {
+        "IPP": [
+          [
+
+          ]
+        ],
+        "DENOM": [
+          [
+
+          ]
+        ],
+        "DENEX": [
+
+        ],
+        "NUMER": [
+
+        ],
+        "DENEXCEP": [
+          [
+
+          ]
+        ]
+      },
+      "measure_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+      "population_index": 2,
+      "status": "pass"
+    }
+  ],
+  "condensed_calc_results": null,
+  "conditions": [
+    {
+      "_id": "58640412e76e94aee900054d",
+      "anatomical_location": null,
+      "anatomical_target": null,
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "832007"
+        ],
+        "ICD-9-CM": [
+          "296.20"
+        ],
+        "ICD-10-CM": [
+          "F32.0"
+        ]
+      },
+      "description": "Diagnosis, Active: Major Depression Including Remission",
+      "end_time": 1330416900,
+      "health_record_field": null,
+      "laterality": null,
+      "mood_code": "EVN",
+      "name": null,
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.2",
+      "ordinality": null,
+      "priority": null,
+      "reason": null,
+      "severity": null,
+      "specifics": null,
+      "start_time": 1330416000,
+      "status_code": {
+        "SNOMED-CT": [
+          "55561003"
+        ],
+        "HL7 ActStatus": [
+          "active"
+        ]
+      },
+      "time": null,
+      "time_of_death": null,
+      "type": null
+    }
+  ],
+  "created_at": "2016-12-28T18:27:30.855Z",
+  "deathdate": null,
+  "description": null,
+  "description_category": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "58640412e76e94aee900054e",
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "CPT": [
+          "99201"
+        ]
+      },
+      "description": "Encounter, Performed: Office Visit",
+      "dischargeDisposition": null,
+      "dischargeTime": null,
+      "end_time": 1330416900,
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "reason": null,
+      "specifics": null,
+      "start_time": 1330416000,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    },
+    {
+      "measure_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+      "population_index": 1,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0
+    },
+    {
+      "measure_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+      "population_index": 2,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 0
+    }
+  ],
+  "expired": null,
+  "first": "ThirdFake",
+  "gender": "M",
+  "has_measure_history": true,
+  "insurance_providers": [
+    {
+      "_id": "58640412e76e94aee900054f",
+      "codes": {
+        "SOP": [
+          "349"
+        ]
+      },
+      "description": null,
+      "end_time": null,
+      "financial_responsibility_type": {
+        "code": "SELF",
+        "codeSystem": "HL7 Relationship Code"
+      },
+      "health_record_field": null,
+      "member_id": "1234567890",
+      "mood_code": "EVN",
+      "name": "Other",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": null,
+      "payer": {
+        "_id": "58640412e76e94aee9000550",
+        "name": "Other"
+      },
+      "reason": null,
+      "relationship": null,
+      "specifics": null,
+      "start_time": 1199163600,
+      "status_code": null,
+      "time": null,
+      "type": "OT"
+    }
+  ],
+  "is_shared": null,
+  "languages": [
+
+  ],
+  "last": "Patient",
+  "marital_status": null,
+  "measure_ids": [
+    "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+    null
+  ],
+  "medical_record_assigner": "Bonnie",
+  "medical_record_number": "a89e2aeca2447cce1f6285d5ffe5e0dd",
+  "modifier_id": null,
+  "notes": "Third fake patient",
+  "origin_data": [
+
+  ],
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "results_exceed_storage": false,
+  "results_size": 15513,
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "diagnosis",
+      "status": "active",
+      "title": "Major Depression Including Remission",
+      "description": "Diagnosis, Active: Major Depression Including Remission",
+      "code_list_id": "2.16.840.113883.3.67.1.101.3.2444",
+      "type": "conditions",
+      "id": "DiagnosisActiveMajorDepressionIncludingRemission",
+      "start_date": 1330416000000,
+      "end_date": 1330416900000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+      "cms_id": "CMS160v3",
+      "criteria_id": "15946ae68b8c0",
+      "codes": {
+        "SNOMED-CT": [
+          "832007"
+        ],
+        "ICD-9-CM": [
+          "296.20"
+        ],
+        "ICD-10-CM": [
+          "F32.0"
+        ]
+      },
+      "coded_entry_id": "58640412e76e94aee900054d",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "Office Visit",
+      "description": "Encounter, Performed: Office Visit",
+      "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "type": "encounters",
+      "id": "EncounterPerformedOfficeVisit",
+      "start_date": 1330416000000,
+      "end_date": 1330416900000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+      "cms_id": "CMS160v3",
+      "criteria_id": "15946ae991aWz",
+      "codes": {
+        "CPT": [
+          "99201"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "58640412e76e94aee900054e",
+      "code_source": "DEFAULT"
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": null,
+  "title": null,
+  "type": null,
+  "updated_at": "2016-12-29T11:50:38.670Z",
+  "user_id": "5863fac3e76e94aee9000000",
+  "version": 5
+}

@@ -1,0 +1,271 @@
+{
+  "_id": "5865003de76e94aee900122a",
+  "bundle_id": "5863fac3e76e94aee9000001",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "5865003de76e94aee900120e",
+      "black_list": false,
+      "code": "64586002",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Carotid artery stenosis (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee900120f",
+      "black_list": false,
+      "code": "71444005",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Cerebral arterial thrombosis (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001210",
+      "black_list": false,
+      "code": "111297002",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Nonparalytic stroke (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001211",
+      "black_list": false,
+      "code": "116288000",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Paralytic stroke (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001212",
+      "black_list": false,
+      "code": "195185009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Cerebral infarct due to thrombosis of precerebral arteries (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001213",
+      "black_list": false,
+      "code": "195186005",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Cerebral infarction due to embolism of precerebral arteries (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001214",
+      "black_list": false,
+      "code": "195189003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Cerebral infarction due to thrombosis of cerebral arteries (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001215",
+      "black_list": false,
+      "code": "195190007",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Cerebral infarction due to embolism of cerebral arteries (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001216",
+      "black_list": false,
+      "code": "195212005",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Brainstem stroke syndrome (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001217",
+      "black_list": false,
+      "code": "195213000",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Cerebellar stroke syndrome (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001218",
+      "black_list": false,
+      "code": "195216008",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Left sided cerebral hemisphere cerebrovascular accident (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001219",
+      "black_list": false,
+      "code": "195217004",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Right sided cerebral hemisphere cerebrovascular accident (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee900121a",
+      "black_list": false,
+      "code": "195230003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Cerebral infarction due to cerebral venous thrombosis, non-pyogenic (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee900121b",
+      "black_list": false,
+      "code": "230690007",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Cerebrovascular accident (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee900121c",
+      "black_list": false,
+      "code": "230691006",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Cerebrovascular accident due to cerebral artery occlusion (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee900121d",
+      "black_list": false,
+      "code": "230692004",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Infarction - precerebral (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee900121e",
+      "black_list": false,
+      "code": "230693009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Anterior cerebral circulation infarction (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee900121f",
+      "black_list": false,
+      "code": "230694003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Total anterior cerebral circulation infarction (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001220",
+      "black_list": false,
+      "code": "230695002",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Partial anterior cerebral circulation infarction (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001221",
+      "black_list": false,
+      "code": "230696001",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Posterior cerebral circulation infarction (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001222",
+      "black_list": false,
+      "code": "230698000",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Lacunar infarction (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001223",
+      "black_list": false,
+      "code": "230699008",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Pure motor lacunar infarction (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001224",
+      "black_list": false,
+      "code": "230700009",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Pure sensory lacunar infarction (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001225",
+      "black_list": false,
+      "code": "233964008",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Internal carotid artery stenosis (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001226",
+      "black_list": false,
+      "code": "288723005",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Acute ill-defined cerebrovascular disease (disorder)",
+      "white_list": false
+    },
+    {
+      "_id": "5865003de76e94aee9001227",
+      "black_list": false,
+      "code": "300920004",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2013-09",
+      "display_name": "Carotid atherosclerosis (disorder)",
+      "white_list": false
+    }
+  ],
+  "display_name": "Ischemic Stroke",
+  "oid": "2.16.840.1.113883.3.117.1.7.1.252",
+  "user_id": "5863fac3e76e94aee9000000",
+  "version": "2013-09"
+}
