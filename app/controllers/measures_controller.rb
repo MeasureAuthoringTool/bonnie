@@ -322,8 +322,11 @@ class MeasuresController < ApplicationController
 
   def destroy
     measure = Measure.by_user(current_user).find(params[:id])
+
+    archived_measure = ArchivedMeasure.from_measure(measure)
+    archived_measure.save
+
     Measure.by_user(current_user).find(params[:id]).destroy
-    #TODO: Determine what to do with archived measures.
 
     render :json => measure
   end
