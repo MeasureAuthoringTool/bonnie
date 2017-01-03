@@ -37,3 +37,19 @@ describe 'MeasureHistoryView', ->
       expect(@measure_history_view.$('tr[data-upload-id="5865004ae76e94aee9001433"]')[1]).toContainText "v6.0.000"
       expect(@measure_history_view.$('tr[data-upload-id="5864f8b6e76e94aee9000dfc"]')[0]).toContainText "v6.0.000"
       expect(@measure_history_view.$('tr[data-upload-id="5864f8b6e76e94aee9000dfc"]')[1]).toContainText "v4"
+
+    it 'does *not* show new patients', ->
+      expect(@measure_history_view.$('th[class="history-patient-header"]').length).toEqual 2
+
+      # create and add new patients to this measure history view
+      @new_patient = new Thorax.Models.Patient getJSONFixture('records/base_set/patients.json')[0], parse: true
+      @new_clone = @measure_history_view.patients.at(0).deepClone({omit_id: true})
+
+      @measure_history_view.patients.add [@new_patient, @new_clone]
+      @measure_history_view.measureTimelineView.render()
+
+      expect(@measure_history_view.patients.length).toEqual 4
+      expect(@measure_history_view.measureTimelineView.patients.length).toEqual 4
+
+      expect(@measure_history_view.$('th[class="history-patient-header"]').length).not.toEqual 4
+      expect(@measure_history_view.$('th[class="history-patient-header"]').length).toEqual 2
