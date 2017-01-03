@@ -24,6 +24,8 @@ module UploadSummary
     embeds_many :population_set_summaries, cascade_callbacks: true
     accepts_nested_attributes_for :population_set_summaries
 
+    before_save :size_check
+
     index "user_id" => 1
     # Index for descending sort of upload summary creation time. Makes it so mongo doesn't have to sort on query.
     index "created_at" => -1
@@ -106,7 +108,7 @@ module UploadSummary
 
       # store patient calculation information based on the newly uploaded measure
       (0..post_upload_population_set_count-1).each do |population_set_index|
-        if population_set_index >= self.population_set_summaries.count
+        if population_set_index >= self.population_set_summaries.length
           population_set_summary = PopulationSetSummary.new
           self.population_set_summaries << population_set_summary
         else
@@ -123,6 +125,29 @@ module UploadSummary
       measure_upload_summary.save!
       measure_upload_summary
     end
+
+    protected
+
+    def size_check
+      upload_summary_size = self.to_json.size
+      if upload_summary_size > APP_CONFIG['record']['max_size_in_bytes']
+        self.population_set_summaries.each do |population_set_summary|
+          population_set_summary[:patients].each do |patient_id, patient|
+            if patient.has_key? :pre_upload_results
+              patient[:pre_upload_results].delete('rationale')
+              patient[:pre_upload_results].delete('finalSpecifics')
+              patient[:results_exceeds_storage_pre_upload] = true
+            end
+            if patient.has_key? :post_upload_results
+              patient[:post_upload_results].delete('rationale')
+              patient[:post_upload_results].delete('finalSpecifics')
+              patient[:results_exceeds_storage_post_upload] = true
+            end
+          end # each patient
+        end # each population set summary
+      end
+    end
+
   end
 
   # the population set summary information contains the number of patients that passed or failed
@@ -168,8 +193,6 @@ module UploadSummary
           end
         end
       end
-
-      save!
     end
 
     protected
@@ -220,5 +243,6 @@ module UploadSummary
         self.patients[patient.id.to_s][:expected] = expected_results.slice(*ATTRIBUTE_FILTER)
       end
     end
+
   end
 end
