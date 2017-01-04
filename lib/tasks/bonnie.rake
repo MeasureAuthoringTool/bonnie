@@ -278,7 +278,7 @@ namespace :bonnie do
 
       # Check if MEASURE_TYPE is a CQL Measure
       if ENV['MEASURE_TYPE'] == 'CQL'
-        raise "#{user_email} not found" unless measure = CQLMeasure.find_by(user_id: user._id, cms_id: user_measure)
+        raise "#{user_email} not found" unless measure = CqlMeasure.find_by(user_id: user._id, cms_id: user_measure)
       else
         raise "#{user_email} not found" unless measure = Measure.find_by(user_id: user._id, cms_id: user_measure)
       end
@@ -289,12 +289,13 @@ namespace :bonnie do
       File.foreach(File.join(Rails.root, input_file)) do |p|
         next if p.blank?
         patient = Record.new.from_json p.strip
-        unless patient['measure_id'].nil?
-          patient.measure_id = measure.hqmf_id
-        end
-        unless patient['measure_ids'].nil? || patient['measure_ids'].empty?
-          patient.measure_ids << measure.hqmf_set_id
-        end
+
+        patient['user_id'] = user._id
+
+        patient['measure_ids'] = []
+        patient['measure_ids'].unshift(measure.hqmf_set_id)
+        patient['measure_ids'] << nil
+
         # Modifiying hqmf_set_id and cms_id for source data criteria
         unless patient['source_data_criteria'].nil? || patient['source_data_criteria'].empty?
           patient['source_data_criteria'].each do |source_criteria|
@@ -309,7 +310,16 @@ namespace :bonnie do
           end
         end
 
-        patient.save!
+        all_codes = HQMF::PopulationCriteria::ALL_POPULATION_CODES
+        all_codes.each do |code|
+          if !patient.expected_values[0][code].nil? && measure.populations[0][code].nil?
+            patient.expected_values.each do |expected_value|
+              expected_value.delete(code)
+            end
+          end
+        end
+
+        patient.dup.save!
       end
 
       puts "Done!"
