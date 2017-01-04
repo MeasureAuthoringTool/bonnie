@@ -1,7 +1,7 @@
 describe 'EmptyPatientDashboardView', ->
 
   beforeEach ->
-    jasmine.getJSONFixtures().clearCache()
+    window.bonnieRouterCache.load('base_set')
     @measure = bonnie.measures.findWhere(cms_id: 'CMS128v5')
     @measureLayout = new Thorax.Views.MeasureLayout(measure: @measure)
     # PatientDashboardView is set as view in showDashboard

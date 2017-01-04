@@ -38,6 +38,7 @@ describe "Population state between routes", ->
     @measureView.remove()
 
   it "carries over changes between views", ->
+    debugger
     @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
     @measureView = @measureView.showMeasure()
     @measureView.appendTo 'body'

@@ -3,7 +3,7 @@ describe 'PatientDashboardPatient', ->
   # TODO: need to get a patient and a measure that will contain specific occurrences so can look at 'SPECIFICALLY FALSE'
   
   beforeEach (done) ->
-    jasmine.getJSONFixtures().clearCache()
+    window.bonnieRouterCache.load('base_set')
     @measure = bonnie.measures.findWhere(cms_id: 'CMS128v5')
     
     # getting a particular patient whose characteristics we know about.
@@ -13,7 +13,7 @@ describe 'PatientDashboardPatient', ->
     #  Medication, Dispensed: Antidepressant Medication 01/15/2012-01/15/2012
     #  Medication, Active: Antidepressant Medication 05/08/2012 - 05/08/2012
     #  Encounter, Performed: Annual Wellness Visit 12/31/2012 - 12/31/2012
-    collection = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
+    collection = new Thorax.Collections.Patients getJSONFixture('records/base_set/patients.json'), parse: true
     @patient = collection.filter((patient) => 
       @measure.get('hqmf_set_id') in patient.get('measure_ids') && patient.get('first') == "Harriot")[0]
     
