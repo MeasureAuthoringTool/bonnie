@@ -1,6 +1,17 @@
 class Thorax.Models.Patient extends Thorax.Model
   idAttribute: '_id'
   urlRoot: '/patients'
+  
+  initialize: ->
+    # unsets calc results on change so that a new calculation can be made based on
+    # the changes.
+    # unsets calc results on materialize which happens when you clone the patient. the
+    # calculation on the cloned patients needs to be recalculated.
+    # made 'silent' so this doesn't trigger another change event.
+    # This is done on the cloned patient in the patient builder and doesn't affect 
+    # the underlying patient in the database unless the edits are saved, and then
+    # the database cached results will be updated with the new results.
+    @on 'change materialize', => @unset 'calc_results', silent: true
 
   parse: (attrs) ->
     dataCriteria = _(attrs.source_data_criteria).reject (c) -> c.id is 'MeasurePeriod'
@@ -19,9 +30,17 @@ class Thorax.Models.Patient extends Thorax.Model
     attrs
 
   # Create a deep clone of the patient, optionally omitting the id field
+  # When cloning to create a new patient clear the measure history flag
   deepClone: (options = {}) ->
     # Clone by fully serializing and de-derializing; we need to stringify to have recursive JSONification happen
     data = if options.omit_id then _(@toJSON()).omit('_id') else @toJSON() # Don't use @omit in case toJSON is overwritten
+
+    # If createPatient = true, then a new patient is being created from the deep clone rather than
+    # a clone used to facilitate editing as is done in the patient builder view.
+    # Since we are making a new patient, this patient will not have any prior measure upload history
+    if options.createPatient
+      data.has_measure_history = false
+
     if options.dedupName
        data['first'] = bonnie.patients.dedupName(data)
 
@@ -75,12 +94,14 @@ class Thorax.Models.Patient extends Thorax.Model
     fullDate = new Date(date * 1000)
     (fullDate.getMonth() + 1) + '/' + fullDate.getDay() + '/' + fullDate.getYear()
 
-  materialize: ->
+  materialize: (callback) ->
 
     # Keep track of patient state and don't materialize if unchanged; we can't rely on Backbone's
     # "changed" functionality because that doesn't capture new sub-models
     patientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections)
-    return if @previousPatientJSON == patientJSON
+    if @previousPatientJSON == patientJSON
+      callback() if callback?
+      return
     @previousPatientJSON = patientJSON
     
     $.ajax
@@ -102,6 +123,7 @@ class Thorax.Models.Patient extends Thorax.Model
           criterium.get('codes').reset data['source_data_criteria'][i]['codes'], parse: true
       @previousPatientJSON = JSON.stringify @omit(Thorax.Models.Patient.sections) # Capture post-materialize changes too
       @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
+      callback() if callback?
       $('#ariaalerts').html "This patient has been updated" #tell SR something changed
     .fail ->
       bonnie.showError({title: "Patient Data Error", summary: 'There was an error handling the data associated with this patient.', body: 'One of the data elements associated with the patient is causing an issue.  Please review the elements associated with the patient to verify that they are all constructed properly.'})
@@ -126,7 +148,12 @@ class Thorax.Models.Patient extends Thorax.Model
     measure.get('populations').each (population) =>
       expectedValues.add @getExpectedValue(population)
     expectedValues
-
+    
+  # Expose the stored value for the last time that actual results where calculated for the patient. 
+  getCalculatedResultsValues: (population) ->
+    measure = population.collection.parent
+    _(this.get('calc_results')).find (result) -> result.measure_id == measure.get('hqmf_set_id') && result.population_index == population.index()
+    
   # Sort criteria by any number of attributes, first given highest priority
   sortCriteriaBy: (attributes...) ->
     originalComparator = @get('source_data_criteria').comparator
@@ -178,6 +205,68 @@ class Thorax.Models.Patient extends Thorax.Model
       #   errors.push [sdc.cid, 'end_date', "#{sdc.get('title')} stop date must be before patient date of death"]
 
     return errors if errors.length > 0
+
+  ###*
+  # Pulls out only the needed parts of a result from the calculation engine to create the structure needed
+  # to save the calc_results for the specific population set.
+  # @private
+  # @param {Thorax.Models.Result} result - The result from the calculation engine.
+  # @retun {object} The result objet that will be saved.
+  ###
+  _filterResult: (result) ->
+    filteredResult = {}
+    for populationName in Thorax.Models.Measure.allPopulationCodes
+      filteredResult[populationName] = result.get(populationName) if result.get(populationName)?
+    filteredResult['rationale'] = result.get('rationale') if result.get('rationale')?
+    filteredResult['finalSpecifics'] = result.get('finalSpecifics') if result.get('finalSpecifics')?
+    # this is for continuous variable measures. OBSERV actuals are stored in 'values'.
+    filteredResult['values'] = result.get('values') if result.get('values')?
+
+    filteredResult['measure_id'] = result.measure.get('hqmf_set_id')
+    filteredResult['population_index'] = result.population.get('index')
+    return filteredResult
+  
+  ###*
+  # Makes changes to the patient, materializes, calculates results for this patient for each
+  # measure they belong to, then saves using the backbone save function.
+  # @param {object} attributes - The attributes to be changed.
+  # @param {object} options - The options. These are passed to backbone's save function. `silent`
+  #   option is obeyed for setting attribute changes. `success` option is useful to know when the
+  #   save has been completed.
+  ###
+  calculateAndSave: (attributes, options) ->
+    # make the changes
+    @set(attributes, if options?.silent then { silent: true } else null)
+    
+    # validate the changes made
+    @validationError = @validate()
+    
+    # return false if there are any validation errors
+    if @validationError?.length > 0
+      return false
+    
+    # make sure that materialize happens
+    @materialize( =>
+      measuresToCalculate = []
+      
+      # fetch all measures that this patient belongs to if they exist
+      for hqmfSetId in @get('measure_ids')
+        if hqmfSetId != null
+          measure = bonnie.measures.findWhere(hqmf_set_id: hqmfSetId)
+          measuresToCalculate.push(measure) if measure
+      
+      # start all calculations and collect all the deferreds
+      allCalculations = []
+      for measure in measuresToCalculate
+        allCalculations.push(measure.get('populations').map((populationSet) => populationSet.calculate(@).calculation)...)
+      
+      # wait for all calculation deferreds to complete
+      $.when.apply(@, allCalculations)
+        .done( (results...) =>
+          # Pull out only the result parts we need to save and replace them on the patient
+          @set({ calc_results: _.map(results, @_filterResult) }, { silent: true })
+          @save(null, options) )
+      )
 
 class Thorax.Collections.Patients extends Thorax.Collection
   url: '/patients'

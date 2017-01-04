@@ -3,7 +3,12 @@ class MeasuresController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:show, :value_sets]
 
   respond_to :json, :js, :html
-
+  
+  ##
+  # GET /measures/:id 
+  # 
+  # Returns a measure in JSON format. The :id path param is used to retrieve the
+  # measure by database '_id'.
   def show
     skippable_fields = [:map_fns, :record_ids, :measure_attributes]
     @measure = Measure.by_user(current_user).without(*skippable_fields).find(params[:id])
@@ -14,7 +19,78 @@ class MeasuresController < ApplicationController
       end
     end
   end
+  
+  ##
+  # GET /measures/historic_diff
+  #
+  # Uses the diffy gem to build a diff of the measure logic between two
+  # measures. Takes two query params 'new_id' and 'old_id'. The ID's can be
+  # either of current versions or archived versions of measures.
+  def historic_diff
+    # get the two versions to diff
+    @new_measure = Measure.by_user(current_user).where({:_id => params[:new_id]}).first
+    unless @new_measure
+      @new_measure = ArchivedMeasure.where({:measure_db_id => params[:new_id]}).first.to_measure
+    end
 
+    @old_measure = Measure.by_user(current_user).where({:_id => params[:old_id]}).first
+    unless @old_measure
+      @old_measure = ArchivedMeasure.where({:measure_db_id => params[:old_id]}).first.to_measure
+    end
+
+    results = {}
+    results['diff'] = []
+    results['pre_upload'] = { 
+      'cms_id' => @old_measure.cms_id,
+      'updateTime' => (@old_measure.updated_at.tv_sec * 1000),
+      'hqmf_id' => @old_measure.hqmf_id,
+      'hqmf_version_number' => @old_measure.hqmf_version_number }
+    results['post_upload'] = { 
+      'cms_id' => @new_measure.cms_id,
+      'updateTime' => (@new_measure.updated_at.tv_sec * 1000),
+      'hqmf_id' => @new_measure.hqmf_id,
+      'hqmf_version_number' => @new_measure.hqmf_version_number }
+
+    measure_logic_names = HQMF::Measure::LogicExtractor::POPULATION_MAP.clone
+    measure_logic_names['VARIABLES'] = 'Variables'
+
+    # Walk through the population sets and populations for the measure and create a
+    # diffy for each populationm.
+    @new_measure.populations.each_with_index do |new_population_set, population_set_index|
+      old_population_set = @old_measure.populations[population_set_index]
+      population_diff = []
+
+      # For each population within the population set, get the population logic and
+      # perform the diffy
+      measure_logic_names.each_pair do |population_code, population_title|
+        # if the code is for VARIABLE, leave it. If it's IPP, etc., then access the actual code name from the
+        # population set (e.g. IPP_1).
+        code = (population_code == 'VARIABLES') ? 'VARIABLES' : new_population_set[population_code]
+        new_logic = @new_measure.measure_logic.find { |logic| logic['code'] == code }
+        old_logic = @old_measure.measure_logic.find { |logic| logic['code'] == code }
+
+        # skip if both are non existent
+        next if !new_logic && !old_logic
+        
+        # Remove the first line of the measure logic, which is the the name of the population.
+        old_logic_text = old_logic ? old_logic['lines'][1..-1].join() : ""
+        new_logic_text = new_logic ? new_logic['lines'][1..-1].join() : ""
+
+        logic_diff = Diffy::SplitDiff.new(old_logic_text, new_logic_text,
+          format: :html, include_plus_and_minus_in_html: true, allow_empty_diff: false)
+
+        population_diff << {code: population_code, title: population_title, pre_upload: logic_diff.left, post_upload: logic_diff.right}
+      end
+
+      results['diff'] << population_diff
+    end
+
+    render :json => results
+  end
+
+  ##
+  # GET /measures/value_sets
+  #
   def value_sets
     # Caching of value sets is (temporarily?) disabled to correctly handle cases where users use multiple accounts
     # if stale? last_modified: Measure.by_user(current_user).max(:updated_at).try(:utc)
@@ -68,7 +144,7 @@ class MeasuresController < ApplicationController
           measure_details['episode_ids'] = existing.episode_ids
         end
       end
- 
+
       measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
     end
 
@@ -117,7 +193,13 @@ class MeasuresController < ApplicationController
         return
       end
 
-      existing.delete if (existing && is_update)
+      archived_measure = nil
+      # if a measure is being updated, save out the pre-existing measure as an archived measure.
+      if (existing && is_update)
+        archived_measure = ArchivedMeasure.from_measure(existing)
+        archived_measure.save
+        existing.delete
+      end
 
     rescue Exception => e
       if params[:measure_file]
@@ -171,7 +253,7 @@ class MeasuresController < ApplicationController
         keys = measure.data_criteria.values.map {|d| d['source_data_criteria'] if d['specific_occurrence']}.compact.uniq
         measure.needs_finalize = (measure.episode_ids & keys).length != measure.episode_ids.length
         if measure.needs_finalize
-          measure.episode_ids = [] 
+          measure.episode_ids = []
           params[:redirect_route] = ''
         end
       end
@@ -179,7 +261,7 @@ class MeasuresController < ApplicationController
       measure.needs_finalize = (measure_details['episode_of_care'] || measure.populations.size > 1)
       if measure.populations.size > 1
         strat_index = 1
-        measure.populations.each do |population| 
+        measure.populations.each do |population|
           if (population[HQMF::PopulationCriteria::STRAT])
             population['title'] = "Stratification #{strat_index}"
             strat_index += 1
@@ -193,12 +275,21 @@ class MeasuresController < ApplicationController
     Measures::ADEHelper.update_if_ade(measure)
 
     measure.generate_js
-
     measure.save!
+
+    # create the measure upload summary only if the measure doesn't need finalization. If it
+    # does, this will get run in the finalize step.
+    # TODO Eventually enable for portfolio users
+    if !measure.needs_finalize && !current_user.is_portfolio?
+      measure_summary = UploadSummary::MeasureSummary.create_measure_upload_summary(measure, archived_measure)
+      flash[:uploaded_summary_id] = measure_summary.id
+      flash[:uploaded_hqmf_set_id] = measure.hqmf_set_id
+    end
+
 
     # rebuild the users patients if set to do so
     if params[:rebuild_patients] == "true"
-      Record.by_user(current_user).each do |r| 
+      Record.by_user(current_user).each do |r|
         Measures::PatientBuilder.rebuild_patient(r)
         r.save!
       end
@@ -207,6 +298,9 @@ class MeasuresController < ApplicationController
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
+  ##
+  # GET /measures/vsac_auth_valid
+  #
   def vsac_auth_valid
     # If VSAC TGT is still valid, return its expiration date/time
     tgt = session[:tgt]
@@ -216,7 +310,10 @@ class MeasuresController < ApplicationController
       render :json => {valid: true, expires: tgt[:expires]}
     end
   end
-  
+
+  ##
+  # GET /measures/vsac_auth_expire
+  #
   def vsac_auth_expire
     # Force expire the VSAC session
     session[:tgt] = nil
@@ -225,10 +322,18 @@ class MeasuresController < ApplicationController
 
   def destroy
     measure = Measure.by_user(current_user).find(params[:id])
+
+    archived_measure = ArchivedMeasure.from_measure(measure)
+    archived_measure.save
+
     Measure.by_user(current_user).find(params[:id]).destroy
+
     render :json => measure
   end
 
+  ##
+  # GET /measures/finalize
+  #
   def finalize
     measure_finalize_data = params.values.select {|p| p['hqmf_id']}.uniq
     measure_finalize_data.each do |data|
@@ -239,6 +344,17 @@ class MeasuresController < ApplicationController
       end
       measure.generate_js(clear_db_cache: true)
       measure.save!
+
+      # TODO Enable for portfolio users
+      unless current_user.is_portfolio?
+        # get the latest archived measure (the measure that the current upload is replacing)
+        archived_measure = ArchivedMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).desc(:uploaded_at).first
+        measure_summary = UploadSummary::MeasureSummary.create_measure_upload_summary(measure, archived_measure)
+        # Make UI show upload summary
+        flash[:uploaded_summary_id] = measure_summary.id
+        flash[:uploaded_hqmf_set_id] = measure.hqmf_set_id
+      end
+
     end
     redirect_to root_path
   end
@@ -266,27 +382,27 @@ class MeasuresController < ApplicationController
       render json: e.response, :status => 400
     end
   end
-  
+
   private
 
   def get_ticket_granting_ticket
     # Retreive a (possibly) existing ticket granting ticket
     tgt = session[:tgt]
-    
+
     # If the ticket granting ticket doesn't exist (or has expired), get a new one
     if tgt.nil? || tgt.empty? || tgt[:expires] < Time.now
       # Retrieve a new ticket granting ticket
       begin
         ticket = String.new(HealthDataStandards::Util::VSApi.get_tgt_using_credentials(
-          params[:vsac_username], 
-          params[:vsac_password], 
+          params[:vsac_username],
+          params[:vsac_password],
           APP_CONFIG['nlm']['ticket_url']
         ))
       rescue Exception
         # Given username and password are invalid, ticket cannot be created
         return nil
       end
-      # Create a new ticket granting ticket session variable that expires 
+      # Create a new ticket granting ticket session variable that expires
       # 7.5hrs from now
       if !ticket.nil? && !ticket.empty?
         session[:tgt] = {ticket: ticket, expires: Time.now + 27000}
@@ -296,5 +412,6 @@ class MeasuresController < ApplicationController
       tgt[:ticket]
     end
   end
+
 
 end

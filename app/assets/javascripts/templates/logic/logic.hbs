@@ -1,8 +1,8 @@
 <div class="measure-viz rationale panel-group">
   {{#each submeasurePopulations}}
-    {{view "PopulationCriteriaLogic" population=this measure=../measure}}
+    {{view "PopulationCriteriaLogic" population=this measure=../measure suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}
   {{/each}}
-  {{view "VariablesLogic" measure=measure}}
+  {{view "VariablesLogic" measure=measure suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}
 </div>
 <div class="d3-measure-viz">
 </div>

@@ -3,7 +3,7 @@ Handlebars.registerHelper 'log', (message) -> console.log(message)
 Handlebars.registerHelper 'debug', -> debugger
 
 # add a helper for formatting dates
-Handlebars.registerHelper 'moment', (date, format) -> moment.utc(date).format(format)
+Handlebars.registerHelper 'moment', (date, format) -> moment(date).format(format)
 
 # helper for displaying complexity score in graphical form
 Handlebars.registerHelper 'complexityIcon', (score) ->
@@ -19,6 +19,7 @@ Handlebars.registerHelper 'complexityIcon', (score) ->
 # elements to display, not trustable for security purposes
 Handlebars.registerHelper 'ifAdmin', (options) ->
   if bonnie.isAdmin then options.fn(this) else options.inverse(this)
+
 Handlebars.registerHelper 'ifPortfolio', (options) ->
   if bonnie.isPortfolio then options.fn(this) else options.inverse(this)
 
@@ -53,6 +54,7 @@ Handlebars.registerHelper 'times', (n, opts) ->
     out = opts.inverse(this)
 
   return out
+
 Handlebars.registerHelper 'lookup', (obj, field) ->
   obj && obj[field]
 
@@ -69,3 +71,20 @@ that screen readers will read out the complete name
 Handlebars.registerHelper 'populationName', (population) =>
   return '' unless population?
   return new Handlebars.SafeString Thorax.Models.Measure.PopulationMap[population]
+
+###
+Takes a string and returns a slugified version by replacing any spaces with dashes and making all characters lowercase. This is useful for transforming phrases into strings formatted appropriately for HTML markup. e.g. "Population 2" to "population-2"
+###
+Handlebars.registerHelper 'slugify', (str, defaultStr='') ->
+  str = str || defaultStr # sets str to the default value if str doesn't exist
+  if str
+    slug = str.replace(/[^\w\s]+/gi, '').replace(/ +/gi, '-')
+    return slug.toLowerCase()
+  else
+    return ''
+
+###
+Subtracts an amount from a value.
+###
+Handlebars.registerHelper 'subtract', (value, amount) ->
+  return value - amount

@@ -37,3 +37,22 @@ class Thorax.Views.Breadcrumb extends Thorax.Views.BonnieView
       period: bonnie.measurePeriod
       bankView: true
       measure: measure.toJSON()
+
+  viewMeasureHistory: (measure) ->
+    @model.clear silent: true
+    @model.set
+      period: bonnie.measurePeriod
+      testCaseHistoryView: true
+      measure: measure.toJSON()
+
+  viewComparePatient: (measure, patient) ->
+    patient_name = if patient.get('first') then "#{patient.get('last')} #{patient.get('first')}" else "Create new patient"
+    patient_id = patient.get('_id')
+    @model.clear silent: true
+    @model.set
+      period: bonnie.measurePeriod
+      patientName: patient_name
+      patientId: patient_id
+      measure: measure.toJSON()
+      comparePatient: true
+      fromHistoryTimeline: true

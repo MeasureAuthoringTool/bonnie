@@ -143,7 +143,7 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
     if not @toggledPatient then @bankLogicView.showSelectCoverage(@rationaleCriteria) # returns a custom coverage view
 
   clonePatientIntoMeasure: (patient) ->
-    clonedPatient = patient.deepClone(omit_id: true, dedupName: true)
+    clonedPatient = patient.deepClone(omit_id: true, dedupName: true, createPatient: true)
     # store origin patient's data into clone
     origin_data =
       patient_id: patient.get('_id')

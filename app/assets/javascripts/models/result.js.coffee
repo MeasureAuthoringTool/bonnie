@@ -6,7 +6,7 @@ class Thorax.Models.Result extends Thorax.Model
 
     # Provide a deferred that allows usage of a result to be deferred until it's populated
     @calculation = $.Deferred()
-    if @isPopulated() then @calculation.resolve() else @once 'change:rationale', -> @calculation.resolve()
+    if @isPopulated() then @calculation.resolve(@) else @once 'change:rationale', -> @calculation.resolve(@)
 
     # When a patient changes, is materialized, or is destroyed, we need to respond appropriately
     @listenTo @patient, 'change materialize destroy', =>
@@ -214,3 +214,23 @@ class Thorax.Collections.Results extends Thorax.Collection
   calculationsComplete: (callback) ->
     promises = @map (result) -> result.calculation
     $.when(promises...).done -> callback(this)
+
+# Treat/handle cached calculation results like "live" calculation results
+class Thorax.Models.CachedResult extends Thorax.Models.Result
+  # the rationale and final specifics should be passed in as attributes. A call to this initalizer
+  # would look similar to:
+  #
+  #     cachedResult = new Thorax.Models.CachedResult({
+  #       rationale: summaryCachedResult.rationale
+  #       finalSpecifics: summaryCachedResult.finalSpecifics
+  #     } , {
+  #         population: population
+  #       }
+  #     )
+  initialize: (attrs, options) ->
+    @population = options.population
+    @measure = @population.collection.parent
+    @patient = null # the result is never calculated so the patient is not needed.
+    @calculation = $.Deferred()
+    
+    @calculation.resolve(@)

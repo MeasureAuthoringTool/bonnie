@@ -35,6 +35,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('.criteria-data').removeClass("#{Thorax.Views.EditCriteriaView.highlight.valid} #{Thorax.Views.EditCriteriaView.highlight.partial}")
       @$('.highlight-indicator').removeAttr('tabindex').empty()
     @valueSetCodeCheckerView = new Thorax.Views.ValueSetCodeChecker(patient: @model, measure: @measure)
+    @materialize()
 
   dataCriteriaCategories: ->
     categories = {}
@@ -156,24 +157,50 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     @populationLogicView.setPopulation population
     bonnie.navigate "measures/#{@measure.get('hqmf_set_id')}/patients/#{@model.id}/edit"
 
+  calculateAllResults: (callback) =>
+    results = []
+    @measure.get('populations').forEach (population) =>
+      calculationResult = population.calculate(@model)
+      calculationResult.calculation.done () =>
+        filteredResult = {}
+        for populationName in Thorax.Models.Measure.allPopulationCodes
+          filteredResult[populationName] = calculationResult.get(populationName) if calculationResult.get(populationName)?
+        filteredResult['rationale'] = calculationResult.get('rationale') if calculationResult.get('rationale')?
+        filteredResult['finalSpecifics'] = calculationResult.get('finalSpecifics') if calculationResult.get('finalSpecifics')?
+
+        filteredResult['measure_id'] = @measure.get('hqmf_set_id')
+        filteredResult['population_index'] = population.get('index')
+
+        results.push(filteredResult)
+
+        if results.length == @measure.get('populations').length
+          callback(results)
+
   save: (e, callback) ->
     e.preventDefault()
     @$('.has-error').removeClass('has-error')
     $(e.target).button('saving').prop('disabled', true)
     @serializeWithChildren()
     @model.sortCriteriaBy 'start_date', 'end_date'
-    status = @originalModel.save @model.toJSON(),
-      success: (model) =>
-        @patients.add model # make sure that the patient exist in the global patient collection
-        @measure?.get('patients').add model # and the measure's patient collection
+
+    patientJSON = @model.toJSON()
+    # Need to have silent: true on save so that the change event (which clears calc_results) doesn't fire 
+    status = @originalModel.calculateAndSave patientJSON,
+      silent: true
+      success: (current_patient) =>
+        # We need to clear the cache so that page you are returned to will be forced to refresh its cache for calc_results
+        if @.parent?._view.patients.get(current_patient)
+          @.parent._view.patients.get(current_patient).unset('calc_results')
+        @patients.add current_patient # make sure that the patient exist in the global patient collection
+        @measure?.get('patients').add current_patient # and the measure's patient collection
         if bonnie.isPortfolio
-          @measures.each (m) -> m.get('patients').add model
+          @measures.each (m) -> m.get('patients').add current_patient
         if @inPatientDashboard # Check that is passed in from PatientDashboard, to Route back to patient dashboard.
           route = if @measure then Backbone.history.getFragment() else "patients" # Go back to the current route, either "patient_dashboard" or "508_patient_dashboard"
         else
           route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
         bonnie.navigate route, trigger: true
-        callback.success(model) if callback?.success
+        callback.success(current_patient) if callback?.success
     unless status
       $(e.target).button('reset').prop('disabled', false)
       messages = []
@@ -185,6 +212,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
           @$("[data-model-cid=#{cid}]").view().highlightError(e, field)
         messages.push message
       @$('.alert').text(_(messages).uniq().join('; ')).removeClass('hidden')
+      
 
   cancel: (e) ->
     # Go back to wherever the user came from, if possible
@@ -243,15 +271,39 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       top: shiftDown
       bottom: $logic.nextAll(':visible').height() || 0
 
+  showCompare: ->
+    uploadSummaries = @measure.get('upload_summaries')
+    $.when(uploadSummaries.loadCollection())
+      .then( -> uploadSummaries.at(0).loadModel() )
+      .done( => 
+        @patientCompareView = new Thorax.Views.PatientBuilderCompare(model: @model, measure: @measure, patients: @patients, measures: @measures, uploadSummary: uploadSummaries.at(0))
+        @patientCompareView.appendTo('#patient-compare-content')
+        @$('#patient-compare-dialog').modal('show')
+        # When the modal is closed clear it out for the next time it is displayed
+        @$('#patient-compare-dialog').on 'hidden.bs.modal', (event) =>
+          @patientCompareView.remove()
+        )
+      .fail( -> bonnie.showError title: "Patient Compare Load Failed", summary: "Historic data failed to load due to a server error." )
+    
 
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
+  # This view will take a arguement of isCompareView (boolean) that when true will disable the scrolling arrows.
+  # This view also takes the argument 'suppressDataCriteriaHighlight' which determines if hovering over logic
+  # will try to highlight accompanying data criteria.
+
+  initialize: ()->
+    # ensure that @suppressDataCriteriaHighlight is false if it isn't passed in
+    @suppressDataCriteriaHighlight ?= false
+
   setPopulation: (population) ->
     population.measure().set('displayedPopulation', population)
     @setModel(population)
-    @setView new Thorax.Views.PopulationLogic(model: population)
+    @setView new Thorax.Views.PopulationLogic(model: population, suppressDataCriteriaHighlight: @suppressDataCriteriaHighlight)
+
   showRationale: (patient) ->
     @getView().showRationale(@model.calculate(patient))
+
   context: ->
     _(super).extend
       title: if @model.collection.parent.get('populations').length > 1 then (@model.get('title') || @model.get('sub_id')) else ''

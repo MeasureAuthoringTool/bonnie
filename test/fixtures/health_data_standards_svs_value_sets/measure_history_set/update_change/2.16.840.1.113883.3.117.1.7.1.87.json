@@ -1,0 +1,41 @@
+{
+  "_id": "5852fa6be76e94e528001eb6",
+  "bundle_id": "58418762e76e94d175000001",
+  "categories": null,
+  "concepts": [
+    {
+      "_id": "5852fa6be76e94e528001eb7",
+      "black_list": false,
+      "code": "434781000124105",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Discharge to acute care hospital (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6be76e94e528001eb8",
+      "black_list": false,
+      "code": "306701001",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Discharge to community hospital (procedure)",
+      "white_list": false
+    },
+    {
+      "_id": "5852fa6be76e94e528001eb9",
+      "black_list": false,
+      "code": "306703003",
+      "code_system": null,
+      "code_system_name": "SNOMED-CT",
+      "code_system_version": "2015-09",
+      "display_name": "Discharge to tertiary referral hospital (procedure)",
+      "white_list": false
+    }
+  ],
+  "display_name": "Discharge To Acute Care Facility",
+  "oid": "2.16.840.1.113883.3.117.1.7.1.87",
+  "user_id": "58418762e76e94d175000000",
+  "version": "2015-09"
+}

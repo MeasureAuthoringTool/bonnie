@@ -17,18 +17,27 @@
     @on 'route', -> window.scrollTo(0, 0)
 
   routes:
-    '':                                                'renderMeasures'
-    'measures':                                        'renderMeasures'
-    'complexity':                                      'renderComplexity'
-    'complexity/:set_1/:set_2':                        'renderComplexity'
-    'measures/:hqmf_set_id':                           'renderMeasure'
-    'measures/:hqmf_set_id/patient_dashboard':         'renderPatientDashboard'
-    'measures/:hqmf_set_id/508_patient_dashboard':     'renderPatientDashboard'
-    'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
-    'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
-    'measures/:measure_hqmf_set_id/patient_bank':      'renderPatientBank'
-    'admin/users':                                     'renderUsers'
-    'value_sets/edit':                                 'renderValueSetsBuilder'
+    '':                                                 'renderMeasures'
+    'measures':                                         'renderMeasures'
+    'complexity':                                       'renderComplexity'
+    'complexity/:set_1/:set_2':                         'renderComplexity'
+    'measures/:hqmf_set_id':                            'renderMeasure'
+    'measures/:hqmf_set_id/patient_dashboard':          'renderPatientDashboard'
+    'measures/:hqmf_set_id/508_patient_dashboard':      'renderPatientDashboard'
+    'measures/:measure_hqmf_set_id/patients/:id/edit':  'renderPatientBuilder'
+    'measures/:measure_hqmf_set_id/patients/new':       'renderPatientBuilder'
+    'measures/:measure_hqmf_set_id/patient_bank':       'renderPatientBank'
+    'measures/:measure_hqmf_set_id/history':            'renderMeasureUploadHistory'
+    'measures/:measure_hqmf_set_id/patients/:id/compare/at_upload/:upload_id':  'renderHistoricPatientCompare'
+    'admin/users':                                      'renderUsers'
+    'value_sets/edit':                                  'renderValueSetsBuilder'
+
+  # TODO: most of these functions have nil checks on the measure but then continue
+  # to perform logic on the measure without doing any further nil checks. If a nil
+  # check is necessary, there should be a nice way to error out of the function
+  # completely.
+  # these functions should all be reworked to error out appropriately if a measure
+  # is nil.
 
   renderMeasures: ->
     @measures.each (measure) -> measure.set('displayedPopulation', measure.get('populations').first())
@@ -94,6 +103,37 @@
     @mainView.setView new Thorax.Views.PatientBankView model: measure, patients: @patients, collection: @collection
     @breadcrumb.addBank(measure)
 
+  renderMeasureUploadHistory: (measureHqmfSetId) ->
+    measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
+    # show loading view because this data is loaded async. Show breadcrumb now so people know where they are heading.
+    @mainView.setView new Thorax.Views.LoadingView
+    @breadcrumb.viewMeasureHistory(measure)
+    
+    measure.get('upload_summaries').loadCollection(true)
+      .done( (uploadSummaries) =>
+        @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
+        # @collection = new Thorax.Collections.Patients
+        @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: measure.get('patients'), upload_summaries: uploadSummaries
+        @breadcrumb.viewMeasureHistory(measure) )
+      .fail( => @showError title: "Measure History Load Failed", summary: "Historic data failed to load due to a server error." )
+
+  renderHistoricPatientCompare: (measureHqmfSetId, patientId, uploadId) ->
+    @navigationSetup "Patient Builder", "patient-compare"
+    measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
+    patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
+    document.title += " - #{measure.get('cms_id')}" if measure?
+    # show loading view because this data is loaded async. Show breadcrumb now so people know where they are heading.
+    @mainView.setView new Thorax.Views.LoadingView
+    @breadcrumb.viewComparePatient(measure, patient) 
+    
+    # Deal with getting the archived measure and the calculation snapshot for the patient at measure upload
+    measure.loadModelsForCompareAtUpload(uploadId)
+      .done( (models) => 
+        patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, preUploadMeasureVersion: models.beforeMeasure, uploadSummary: models.uploadSummary, postUploadMeasureVersion: models.afterMeasure)
+        @mainView.setView patientBuilderView
+        @breadcrumb.viewComparePatient(measure, patient) )
+      .fail( => @showError title: "Historic Patient Compare Load Failed", summary: "Historic data failed to load due to a server error." )
+
   # Common setup method used by all routes
   navigationSetup: (title, selectedNav) ->
     @calculator.cancelCalculations()
@@ -120,3 +160,14 @@
     errorDialogView = new Thorax.Views.ErrorDialog error: error
     errorDialogView.appendTo('#bonnie')
     errorDialogView.display();
+
+  showMeasureUploadSummary: (uploadId, hqmfSetId) ->
+    measure = @measures.findWhere(hqmf_set_id: hqmfSetId)
+    
+    # Shallow load the upload summaries and load the one we need to show.
+    measure.get('upload_summaries').loadCollection()
+      .then( (uploadSummaries) -> uploadSummaries.findWhere({_id: uploadId}).loadModel() )
+      .done( (uploadSummary) ->
+        measureUploadSummaryDialogView = new Thorax.Views.MeasureUploadSummaryDialog model: uploadSummary, measure: measure
+        measureUploadSummaryDialogView.appendTo('#bonnie')
+        measureUploadSummaryDialogView.display() )

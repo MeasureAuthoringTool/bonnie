@@ -1,13 +1,13 @@
 {{#unless expandVariable}}
-  <span class="{{#if ../isSetOp}}{{#unless ../../dataCriteria.variable}}set-op-group{{/unless}}{{/if}} {{dataCriteria.key}} rationale-target highlight-target">
+  <span class="{{#if ../isSetOp}}{{#unless ../../dataCriteria.variable}}set-op-group{{/unless}}{{/if}} {{dataCriteria.key}} rationale-target {{#unless suppressDataCriteriaHighlight}}highlight-target{{/unless}}">
 {{/unless}}
 
 {{#each dataCriteria.subset_operators}}
-  {{view "SubsetOperatorLogic" subsetOperator=this tag="span"}}
+  {{view "SubsetOperatorLogic" subsetOperator=this tag="span" suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}
 {{/each}}
 {{#if hasChildren}}
   {{#if isSatisfies}}
-    {{view "SatisfiesLogic" reference=dataCriteria.key measure=../measure tag="span"}}
+    {{view "SatisfiesLogic" reference=dataCriteria.key measure=../measure tag="span" suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}
   {{else}}
     {{#if dataCriteria.children_criteria}}
       {{#if isSetOp}}
@@ -21,14 +21,14 @@
             {{#unless ../isSetOp}}
               <span class="conjunction {{../../dataCriteria.key}} rationale-target">{{translate_logic_operator ../../dataCriteria.derivation_operator}} : <span class="sr-only sr-highlight-status"></span></span>
             {{/unless}}
-            {{view "DataCriteriaLogic" reference=this measure=../measure tag="span"}}
+            {{view "DataCriteriaLogic" reference=this measure=../measure tag="span" suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}
           </li>
         {{/each}}
         {{#if dataCriteria.temporal_references}}
           {{#each dataCriteria.temporal_references}}
             <li>
               <span class="{{../dataCriteria.key}} rationale-target">
-                {{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}
+                {{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span" suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}
               </span>
             </li>
           {{/each}}
@@ -53,7 +53,7 @@
     {{/if}}
     {{#if dataCriteria.field_values}}
       ({{#each dataCriteria.field_values}}
-        {{key_title}}{{#ifCond type '!=' 'ANYNonNull'}}{{view "ValueLogic" value=this measure=../../measure tag="span"}} {{/ifCond}}
+        {{key_title}}{{#ifCond type '!=' 'ANYNonNull'}}{{view "ValueLogic" value=this measure=../../measure tag="span" suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}} {{/ifCond}}
       {{/each}})
     {{/if}}
     {{#if dataCriteria.references}}
@@ -70,12 +70,12 @@
     {{#ifCond dataCriteria.temporal_references.length '>' 1}}
       <ul class="multi-statement">
       {{#each dataCriteria.temporal_references}}
-        <li>{{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}</li>
+        <li>{{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span" suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}</li>
       {{/each}}
       </ul>
     {{else}}
       {{#each dataCriteria.temporal_references}}
-        {{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span"}}
+        {{view "TemporalReferenceLogic" temporalReference=this measure=../measure tag="span" suppressDataCriteriaHighlight=../suppressDataCriteriaHighlight}}
       {{/each}}
     {{/ifCond}}
   {{/if}}

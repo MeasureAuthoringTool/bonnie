@@ -1,0 +1,80 @@
+{{#ifCond totalPatientsNumber "&&" measure_db_id_pre_upload}} {{! Don't display anything if there are no patients or no pervious version}}
+  {{#if changedPatientsNumber}} {{! Display changes in patient calculations}}
+    <div class="alert alert-warning">Patient calculations have changed for {{changedPatientsNumber}} of {{totalPatientsNumber}} patients.</div>
+    <div>
+      {{#ifCond numberOfPopulations ">" 1}}
+        <ul class="nav nav-tabs" role="tablist">
+          {{#each populationInformation}}
+            {{#ifCond totalChanged "!=" 0}}
+              <li role="presentation">
+                <a href="#changed-{{slugify populationTitle 'population'}}" aria-controls="changed-{{slugify populationTitle 'population'}}" role="tab" data-toggle="tab">
+                  {{populationTitle}}
+                </a>
+              </li>
+            {{/ifCond}}
+          {{/each}}
+        </ul>
+      {{/ifCond}}
+
+      <div class="tab-content">
+      {{#each populationInformation}} {{! Iterate through the populations}}
+        {{#ifCond totalChanged "!=" 0}} {{! We have patients who were affected by the upload}}
+          <div id="changed-{{slugify populationTitle 'population'}}" role="tabpanel" class="tab-pane">
+            <table class="table-summary">
+              <caption class="sr-only">
+                {{#ifCond ../../../numberOfPopulations ">=" 1}}{{populationTitle}}{{/ifCond}}
+                Patient Calculation Change Summary
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col" class="text-center">Previous Version</th>
+                  <th scope="col" class="text-center">Current Version</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center">{{view "MeasurePercentageView" done=percentageDialBeforeMeasureUpload.done percent=percentageDialBeforeMeasureUpload.percent status=percentageDialBeforeMeasureUpload.status}}</td>
+                  <td class="text-center">{{view "MeasurePercentageView" done=percentageDialAfterMeasureUpload.done percent=percentageDialAfterMeasureUpload.percent status=percentageDialAfterMeasureUpload.status}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="table table-condensed">
+              <caption class="sr-only">
+                {{#ifCond ../../../numberOfPopulations ">=" 1}}{{populationTitle}}{{/ifCond}}
+                Changed Patients
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Changed Patients</th>
+                  <th scope="col" class="text-center">Previous Version</th>
+                  <th scope="col" class="text-center">Current Version</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each patientsWhoChanged}}
+                  <tr>
+                    {{#ifCond post_upload_status "==" "pass"}}
+                      <td> <i class="pass fa fa-fw fa-check"></i> <i class="fa fa-fw fa-user"></i>
+                      {{name}}</td>
+                      <td class="status status-fail text-center">Fail</td>
+                      <td class="status status-pass text-center">Pass</td>
+                    {{else}}
+                      <td> <i class="fail fa fa-fw fa-times"></i> <i class="fa fa-fw fa-user"></i>
+                      {{name}}</td>
+                      <td class="status status-pass text-center">Pass</td>
+                      <td class="status status-fail text-center">Fail</td>
+                    {{/ifCond}}
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        {{/ifCond}}
+      {{/each}}
+      </div>
+    </div>
+  {{else}} {{! No existing patients have been changed}}
+    <div class="alert alert-info">Patient calculations are unchanged.</div>
+  {{/if}}
+{{/ifCond}}

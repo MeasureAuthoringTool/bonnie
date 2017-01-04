@@ -1,0 +1,114 @@
+<div>
+  {{#if hasHistory}}
+    <table class="table measure-history-table">
+      <caption class="sr-only">{{cms_id}} Measure History Timeline</caption>
+      <thead>
+      <tr>
+        <th id="upload-time" class="history-upload-title" scope="col">Upload Time</th>
+        <th id="upload-version" class="history-upload-title" scope="col">Version</th>
+        {{#each patientIndex}}
+          <th id="patient-{{id}}" class="history-patient-header" data-patient-id="{{id}}" scope="col"><div><span><i class="fa fa-user" aria-hidden="true"></i> <a class="history-patient-header-name" title="patient {{name}}" aria-label="patient {{name}}" href="#measures/{{../../hqmf_set_id}}/patients/{{id}}/edit">{{name}}</a></span></div></th>
+        {{/each}}
+      </tr>
+      </thead>
+      <tbody>
+      {{! Loop through each measure history summary}}
+      {{#each upload_summaries.models}}
+        {{! Only show summary information if a pre-upload state exists }}
+        {{#if attributes.measure_db_id_pre_upload}}
+          {{! Get the specific population }}
+          {{#with (lookup attributes.population_set_summaries ../../populationIndex)}}
+            <tr data-upload-id="{{../attributes._id}}">
+              <th id="upload-{{../attributes._id}}" headers="upload-time" rowspan="2" scope="row">
+                <p>
+                  <i aria-hidden="true" class="fa fa-fw fa-clock-o"></i>
+                  <time datetime="{{../attributes.uploaded_at}}">{{moment ../attributes.uploaded_at "M/D/YY h:mm a"}}</time>
+                </p>
+                {{#button "showDiff" data-upload-id=../attributes._id class="btn btn-xs btn-default"}}View Changes{{/button}}
+              </th>
+              <th id="version-after-{{../attributes._id}}" headers="upload-version upload-{{../attributes._id}}" class="history-upload-header" scope="row">
+                v{{../attributes.hqmf_version_number_post_upload}}
+              </th>
+              {{! Loop through each patient in same order as header }}
+              {{#each ../../../patientIndex}}
+                {{#if (lookup ../patients id)}}
+                  {{#with (lookup ../../patients id)}}
+                    <td headers="version-after-{{../../../../../attributes._id}} upload-{{../../../../../attributes._id}} patient-{{../../id}}">
+                      <a class="history-circle {{#ifCond post_upload_status '==' 'pass'}}text-success bg-success{{else}}text-danger bg-danger{{/ifCond}}" href="#measures/{{../../../../../../hqmf_set_id}}/patients/{{../../id}}/compare/at_upload/{{../../../../../attributes._id}}" data-upload-id="{{../../../../../attributes._id}}" data-patient-id="{{../../id}}">
+                        <span class="sr-only">Patient {{post_upload_status}} after measure upload</span>
+                        <i class="fa {{#ifCond post_upload_status '==' 'pass'}}fa-check{{else}}fa-times{{/ifCond}}" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                  {{/with}}
+                {{else}}{{! Empty cell since patient didnt exist at this time }}
+                  <td></td>
+                {{/if}}
+              {{/each}}
+            </tr>
+
+            <tr data-upload-id="{{../../attributes._id}}">
+              <th headers="upload-version upload-{{../../attributes._id}}" id="version-before-{{../../attributes._id}}" class="history-upload-header" scope="row">
+                <i aria-hidden="true" class="fa fa-fw fa-long-arrow-up"></i>
+                 v{{../../attributes.hqmf_version_number_pre_upload}}
+                 <span class="sr-only">before v{{../../attributes.hqmf_version_number_post_upload}} upload
+                 </span>
+              </th>
+              {{! Loop through each patient in same order as header }}
+              {{#each ../../../../patientIndex}}
+                {{#if (lookup ../patients id)}}
+                  {{#with (lookup ../../patients id)}}
+                    <td headers="version-before-{{../../../../../attributes._id}} upload-{{../../../../../attributes._id}} patient-{{../../id}}">
+                      <a class="history-circle {{#ifCond pre_upload_status '==' 'pass'}}text-success bg-success{{else}}text-danger bg-danger{{/ifCond}}" href="#measures/{{../../../../../../hqmf_set_id}}/patients/{{../../id}}/compare/at_upload/{{../../../../../attributes._id}}" data-upload-id="{{../../../../../attributes._id}}" data-patient-id="{{../../id}}">
+                        <span class="sr-only">Patient {{pre_upload_status}} before measure upload</span>
+                        <i class="fa {{#ifCond pre_upload_status '==' 'pass'}}fa-check{{else}}fa-times{{/ifCond}}" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                  {{/with}}
+                {{else}}
+                  <td></td>
+                {{/if}}
+              {{/each}}
+            </tr>
+          {{/with}}
+        {{else}}
+          {{! if no pre-upload state exists, then it was the measure's first upload or the measure was previously deleted }}
+          {{! if the measure was previously deleted (not the first upload), then show that it was deleted }}
+          {{#ifCond @index "<" (subtract ../../upload_summaries.models.length 1)}}
+            <tr data-upload-id="{{attributes._id}}">
+              <th colspan="2" scope="row">Measure Deleted</th>
+              <td colspan="{{../../../patientIndex.length}}"></td>
+            </tr>
+            <tr data-upload-id="{{attributes._id}}">
+              <th colspan="2" scope="row"></th>
+              <td colspan="{{../../../patientIndex.length}}"></td>
+            </tr>
+          {{/ifCond}}
+        {{/if}}
+      {{/each}}
+    </table>
+  {{else}}
+    <p>
+      <div class="alert alert-warning">
+        <strong>No history found.</strong> History is only available after two or more versions of a measure have been uploaded.
+      </div>
+    </p>
+  {{/if}}
+</div>
+
+<div class="modal fade diff-view-dialog" id="measure-diff-view-dialog" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-huge" role="dialog" aria-labelledby="diff-view-title">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h1 id="diff-view-title">Measure Logic Changes</h1>
+      </div>
+      <div class="modal-body">
+        {{view measureDiffView}}
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

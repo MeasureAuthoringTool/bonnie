@@ -1,0 +1,32 @@
+
+<div class="row">
+  <div class="col-sm-6">
+    {{#if compareSnapshots}}
+      <h2>Before the Measure Upload</h2>
+    {{else}}
+      <h2>After Most Recent Upload</h2>
+    {{/if}}
+    {{#if populationLogicViewBefore}}
+      {{view populationLogicViewBefore}}
+    {{else}}
+      <br><br>
+      <h3>No patient calculation data</h3>
+      <p>The patient calculation data was too large to store in the database.</p>
+    {{/if}}
+  </div>
+  
+  <div class="col-sm-6">
+    {{#if compareSnapshots}}
+      <h2>After the Measure Upload</h2>
+    {{else}}
+      <h2>Current State</h2>
+    {{/if}}
+    {{#if populationLogicViewAfter}}
+      {{view populationLogicViewAfter}}
+    {{else}}
+      <br><br>
+      <h3>No patient calculation data</h3>
+      <p>The patient calculation data was too large to store in the database.</p>
+    {{/if}}
+  </div>
+</div>

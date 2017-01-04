@@ -1,9 +1,8 @@
 describe 'Patient', ->
 
   beforeEach ->
-    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
-    jasmine.getJSONFixtures().clearCache()
-    collection = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
+    window.bonnieRouterCache.load('base_set')
+    collection = new Thorax.Collections.Patients getJSONFixture('records/base_set/patients.json'), parse: true
     @patient = collection.findWhere(first: 'GP_Peds', last: 'A')
 
   it 'has basic attributes available', ->
@@ -69,3 +68,27 @@ describe 'Patient', ->
       errors = @errorsForPatientWithout('deathdate', expired: true)
       expect(errors.length).toEqual 1
       expect(errors[0][2]).toEqual 'Deceased patient must have date of death'
+      
+  describe 'calculateAndSave', ->
+  
+    # Set up fake/spy functions for materialize and backbone save
+    beforeEach ->
+      spyOn(@patient, 'materialize').and
+        .callFake((callback) -> 
+          callback() if callback?)
+          
+      spyOn(@patient, 'save').and
+        .callFake((attrs, options) ->
+          options.success() if options.success?)
+      
+    it 'materializes before saving', (done) ->
+      @patient.calculateAndSave {},
+        success: =>
+          expect(@patient.materialize).toHaveBeenCalled()
+          done()
+    
+    it 'has calc_results for the measure after save', (done) ->
+      @patient.calculateAndSave {},
+        success: =>
+          expect(@patient.get('calc_results')).toBeDefined()
+          done()

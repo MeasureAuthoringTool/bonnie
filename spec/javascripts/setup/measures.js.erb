@@ -4,34 +4,46 @@
 <%# We want Jasmine to be independent of content in any particular MongoDB instance %>
 <% Mongoid.configure { |config| config.sessions = { default: { database: 'jasmine', hosts: ['localhost:27017'] } } } %>
 
-<%# Load the JSON for our fixture measures %>
-<% measures_fixture_file = File.join File.dirname(__FILE__), '../fixtures/json/measures.json' %>
-<% measures_json = File.read(measures_fixture_file) %>
-
 <%# Set up the value sets %>
-<% value_sets_fixture_file = File.join File.dirname(__FILE__), '../fixtures/json/value_sets.json' %>
+<%# TODO: this value_sets_json is duplicated per state into bonnie.valueSetsByOid, but should be loaded separately?  %>
+<% value_sets_fixture_file = File.join File.dirname(__FILE__), '../fixtures/json/measure_data/base_set/value_sets.json' %>
 <% value_sets_json = File.read(value_sets_fixture_file) %>
-bonnie.valueSetsByOid = <%= value_sets_json.html_safe %>;
 
-<%# Set up the measures in the bonnie router %>
-bonnie.measures.add(<%= measures_json.html_safe %>, { parse: true });
+window.bonnieRouterCache = new BonnieRouterCache();
+<% #saving the current BonnieRouter, which doesn't contain any measures %>
+window.bonnieRouterCache.save('empty_set')
 
-<%# Load the calculation JavaScript %>
-<% measures = JSON.parse measures_json %>
-<% measures.each do |measure_data| %>
-  <%# Initialize measure object from data in JSON, setting _id by hand because it's attr protected %>
-  <% measure = Measure.new(measure_data) %>
-  <% measure._id = measure_data['_id'] %>
-  <%# Manually set value sets to prime cache so as to not require mongod %>
-  <% measure.instance_variable_set("@value_sets", measure_data['value_sets'].map {|vs| HealthDataStandards::SVS::ValueSet.new(vs)}) %>
-  <% measure.populations.length.times do |population_index| %>
-    <%# Load the calculation code into the calculator %>
-    <%= BonnieMeasureJavascript.generate_for_population(measure, population_index, cache_result_in_db: false).html_safe %>
-    <%# Fake out the calculator to pre-set the deferred that it usually uses to tell when calculators are loaded %>
-    (function() {
-      var population = bonnie.measures.get('<%= measure._id %>').get('populations').at(<%= population_index %>);
-      var cacheKey = bonnie.calculator.calculationKey(population);
-      bonnie.calculator.calculatorLoaded[cacheKey] = $.when(); // A 'when' without arguments is automatically resolved
-    })();
+window.measureHistorySpecLoader = new MeasureHistorySpecLoader();
+
+<%# Load the JSON for our fixture measures and generate the calculation JavaScript %>
+<% Dir.glob (File.join(File.dirname(__FILE__), '../fixtures/json/measure_data/**/measures.json')) do |measure_file| %>
+  <% value_sets_fixture_file = File.join File.dirname(measure_file), 'value_sets.json' %>
+  <% value_sets_json = File.read(value_sets_fixture_file) %>
+
+  window.bonnie = new BonnieRouter();
+  bonnie.valueSetsByOid = <%= value_sets_json.html_safe %>;
+  <% measures_json = File.read(measure_file) %>
+  bonnie.measures.add(<%= measures_json.html_safe %>, { parse: true });
+  <% measures = JSON.parse measures_json %>
+  <% measures.each do |measure_data| %>
+    <%# Initialize measure object from data in JSON, setting _id by hand because it's attr protected %>
+    <% measure = Measure.new(measure_data) %>
+    <% measure._id = measure_data['_id'] %>
+    <%# Manually set value sets to prime cache so as to not require mongod %>
+    <% measure.instance_variable_set('@value_sets', measure_data['value_sets'].map {|vs| HealthDataStandards::SVS::ValueSet.new(vs)}) %>
+    <% measure.populations.length.times do |population_index| %>
+        <%# Load the calculation code into the calculator %>
+        <%= BonnieMeasureJavascript.generate_for_population(measure, population_index, cache_result_in_db: false).html_safe %>
+        <%# Fake out the calculator to pre-set the deferred that it usually uses to tell when calculators are loaded %>
+        (function() {
+          var population = bonnie.measures.get('<%= measure._id %>').get('populations').at(<%= population_index %>);
+          var cacheKey = bonnie.calculator.calculationKey(population);
+          
+          bonnie.calculator.calculatorLoaded[cacheKey] = $.when(); // A 'when' without arguments is automatically resolved
+        })();
+    <% end %>
   <% end %>
+  <% key = measure_file.split('measure_data/')[1] %>
+  <% key = File.dirname(key) %>
+  window.bonnieRouterCache.save('<%= key %>');
 <% end %>

@@ -1,8 +1,7 @@
 describe 'MeasureView', ->
-
   beforeEach ->
+    window.bonnieRouterCache.load('base_set')
     @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
-
     # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
     # We add the overlapping codes after 10 non-overlapping codes to provide regression for a bug
     @vs1 = @measure.valueSets().findWhere(display_name: 'Annual Wellness Visit')
@@ -12,18 +11,14 @@ describe 'MeasureView', ->
       @vs2.get('concepts').push { code: "XYZ#{n}", display_name: "XYZ", code_system_name: "XYZ" }
     @vs1.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
     @vs2.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
-    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
-    jasmine.getJSONFixtures().clearCache()
-    @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[0], parse: true
-    @measure.get('patients').add @patient
+    @patients = new Thorax.Collections.Patients getJSONFixture('records/base_set/patients.json'), parse: true
+    @measure.set('patients', @patients)
+    @patient = @patients.at(0)
     @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @measure, patients: @measure.get('patients'))
     @measureView = @measureLayoutView.showMeasure()
     @measureView.appendTo 'body'
 
   afterEach ->
-    # Remove the 11 extra codes that were added for value set overlap testing
-    @vs1.get('concepts').splice(-11, 11)
-    @vs2.get('concepts').splice(-11, 11)
     @measureView.remove()
 
   it 'renders measure details', ->
@@ -39,7 +34,6 @@ describe 'MeasureView', ->
     expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).toHaveClass('collapsed')
     @measureView.$('[data-toggle="tab"]').not('.value_sets').last().click()
     expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).not.toHaveClass('collapsed')
-
 
   it 'renders value sets and codes', ->
     expect(@measureView.$('.value_sets')).toExist()
@@ -58,7 +52,7 @@ describe 'MeasureView', ->
     expect(@measureView.$('#supplemental_criteria')).toBeVisible()
     expect(@measureView.$('#supplemental_criteria').find('[data-toggle="collapse"].value_sets')).toExist()
     expect(@measureView.$('#supplemental_criteria').find('.row.collapse')).toExist()
-
+    
     expect(@measureView.$('#overlapping_value_sets')).toBeVisible()
     expect(@measureView.$('#overlapping_value_sets').find('[data-toggle="collapse"].value_sets')).toExist()
     expect(@measureView.$('#overlapping_value_sets').find('.row.collapse')).toExist()
@@ -78,5 +72,19 @@ describe 'MeasureView', ->
 
   # makes sure the calculation percentage hasn't changed.
   # should be 33% for CMS156v2 with given test patients as of 1/4/2016
-  it 'computes coverage', ->
-    expect(@measureView.$('.dial')).toHaveAttr('value', '33')
+  describe 'Computing Coverage', ->
+    beforeEach (done) ->
+      result = @measure.get('populations').at(0).calculate(@patient)
+      waitsForAndRuns( -> result.isPopulated()
+        ,
+        ->
+          done()
+      )
+
+    # this is currently failing because several patients were added to the base_set
+    # patients json for patient_dashboard tests. The current value showing up is '89',
+    # which is probably correct but not yet validated
+    # TODO: refactor patient_dashboard tests to use the new infrastructure, which should
+    # return the base_set patients file back to how it was.
+    it 'computes coverage', ->
+      expect(@measureView.$('.dial')[1]).toHaveAttr('value', '33')

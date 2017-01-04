@@ -9,13 +9,19 @@
     <div class="patient-data-col">
       {{view "MeasureFractionView" model=differences.summary tag="span"}}
       <a href="#measures/{{measure_id}}/patients/new" class="btn {{#unless patients.length}}btn-primary{{else}}btn-default{{/unless}} pull-right">
-        <i class="fa fa-user" aria-hidden="true"></i>
-        <i class="fa fa-plus" aria-hidden="true"></i>
+        <i class="fa fa-fw fa-user" aria-hidden="true"></i>
+        <i class="fa fa-fw fa-plus" aria-hidden="true"></i>
         <span class="sr-only">add new patient</span>
       </a>
     </div>
   </div>
   {{view coverageView}}
+  <br>
+  {{#unless dontShowMeasureHistory}}
+    <div class="text-center">
+      <a href="#measures/{{measure_id}}/history"><i class="fa fa-fw fa-history" aria-hidden="true"></i> MEASURE UPLOAD HISTORY</a>
+    </div>
+  {{/unless}}
   <br>
   {{#collection differences tag="div" class="panel panel-default" item-context=differenceContext}}
     <div class="panel-heading">

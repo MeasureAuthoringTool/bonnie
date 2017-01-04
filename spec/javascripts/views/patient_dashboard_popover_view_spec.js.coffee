@@ -1,7 +1,7 @@
 describe 'PatientDashboardPopoverView', ->
   
   beforeEach (done) ->
-    jasmine.getJSONFixtures().clearCache()
+    window.bonnieRouterCache.load('patient_dashboard_set')
     @measure = bonnie.measures.findWhere(cms_id: 'CMS128v5')
         
     # getting the population sets relevant to the model (IPP, DENOM, etc.)

@@ -1,0 +1,18 @@
+
+<div class="measure-history-main">
+  <div class="measure-title">
+    <h1 class="short-title"><i class="fa fa-fw fa-history" aria-hidden="true"></i> Measure Upload History - {{cms_id}}</h1>
+  </div>
+  <div class="measure-dsp">
+    <h2 class="full-title">{{title}}</h2>
+    <p>{{description}}</p>
+  </div>
+  {{#ifCond populations.length ">" 1}}
+    {{#collection populations tag='ul' class='nav nav-tabs' item-context=populationContext}}
+      <li{{#if isActive}} class="active"{{/if}}>
+      {{#button "switchPopulation" href="" tag="a" data-toggle="tab"}}{{populationTitle}}{{/button}}
+      </li>
+    {{/collection}}
+  {{/ifCond}}
+  {{view measureTimelineView}}
+</div>
