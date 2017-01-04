@@ -275,7 +275,13 @@ namespace :bonnie do
 
       # Grab user measure to add patients to
       user_measure = ENV['CMS_ID']
-      raise "#{user_email} not found" unless measure = Measure.find_by(user_id: user._id, cms_id: user_measure)
+
+      # Check if MEASURE_TYPE is a CQL Measure
+      if ENV['MEASURE_TYPE'] == 'CQL'
+        raise "#{user_email} not found" unless measure = CQLMeasure.find_by(user_id: user._id, cms_id: user_measure)
+      else
+        raise "#{user_email} not found" unless measure = Measure.find_by(user_id: user._id, cms_id: user_measure)
+      end
 
       # Import patient objects from JSON file and save
       puts "Importing patients..."
@@ -289,6 +295,20 @@ namespace :bonnie do
         unless patient['measure_ids'].nil? || patient['measure_ids'].empty?
           patient.measure_ids << measure.hqmf_set_id
         end
+        # Modifiying hqmf_set_id and cms_id for source data criteria
+        unless patient['source_data_criteria'].nil? || patient['source_data_criteria'].empty?
+          patient['source_data_criteria'].each do |source_criteria|
+            source_criteria['hqmf_set_id'] = measure.hqmf_set_id
+            source_criteria['cms_id'] = measure.cms_id
+          end
+        end
+        # Modifying measure_id for expected values
+        unless patient['expected_values'].nil? || patient['expected_values'].empty?
+          patient['expected_values'].each do |expected_value|
+            expected_value['measure_id'] = measure.hqmf_set_id
+          end
+        end
+
         patient.save!
       end
 
