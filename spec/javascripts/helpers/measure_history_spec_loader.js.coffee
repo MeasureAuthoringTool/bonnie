@@ -32,7 +32,7 @@
 
     patients = new Thorax.Collections.Patients()
     try
-      patients.add(new Thorax.Models.Patient patientFixture) for patientFixture in getJSONFixture('records/' + path + '/patients.json')
+      patients.add(new Thorax.Models.Patient patientFixture, parse: true) for patientFixture in getJSONFixture('records/' + path + '/patients.json')
     catch
       throw('Error retrieving patients. Check to ensure that you have the following
         file in your fixtures directory:\n
