@@ -31,13 +31,7 @@
     'measures/:measure_hqmf_set_id/patients/:id/compare/at_upload/:upload_id':  'renderHistoricPatientCompare'
     'admin/users':                                      'renderUsers'
     'value_sets/edit':                                  'renderValueSetsBuilder'
-
-  # TODO: most of these functions have nil checks on the measure but then continue
-  # to perform logic on the measure without doing any further nil checks. If a nil
-  # check is necessary, there should be a nice way to error out of the function
-  # completely.
-  # these functions should all be reworked to error out appropriately if a measure
-  # is nil.
+    '*path':                                            'showPageNotFound'
 
   renderMeasures: ->
     @measures.each (measure) -> measure.set('displayedPopulation', measure.get('populations').first())
@@ -52,11 +46,14 @@
   renderPatientDashboard: (hqmfSetId)->
     @navigationSetup "Patient Dashboard", "patient-dashboard"
     measure = @measures.findWhere({hqmf_set_id: hqmfSetId})
-    document.title += " - #{measure.get('cms_id')}" if measure?
-    measureLayoutView = new Thorax.Views.MeasureLayout(measure: measure, patients: @patients)
-    @mainView.setView(measureLayoutView)
-    measureLayoutView.showDashboard !/508_patient_dashboard/.test(Backbone.history.getFragment()) # Checks to see if 508_patient_dashboard is not in the url
-    @breadcrumb.addMeasure(measure)
+    if measure?
+      document.title += " - #{measure.get('cms_id')}" if measure?
+      measureLayoutView = new Thorax.Views.MeasureLayout(measure: measure, patients: @patients)
+      @mainView.setView(measureLayoutView)
+      measureLayoutView.showDashboard !/508_patient_dashboard/.test(Backbone.history.getFragment()) # Checks to see if 508_patient_dashboard is not in the url
+      @breadcrumb.addMeasure(measure)
+    else
+      @showPageNotFound()
 
   renderComplexity: (measureSet1, measureSet2) ->
     @navigationSetup "Complexity Dashboard", "complexity"
@@ -67,13 +64,16 @@
     @mainView.setView(complexityView)
 
   renderMeasure: (hqmfSetId) ->
-    @navigationSetup "Measure View", "dashboard"
     measure = @measures.findWhere({hqmf_set_id: hqmfSetId})
-    document.title += " - #{measure.get('cms_id')}" if measure?
-    measureLayoutView = new Thorax.Views.MeasureLayout(measure: measure, patients: @patients)
-    @mainView.setView(measureLayoutView)
-    measureLayoutView.showMeasure()
-    @breadcrumb.addMeasure(measure)
+    if measure?
+      @navigationSetup "Measure View", "dashboard"
+      document.title += " - #{measure.get('cms_id')}" if measure?
+      measureLayoutView = new Thorax.Views.MeasureLayout(measure: measure, patients: @patients)
+      @mainView.setView(measureLayoutView)
+      measureLayoutView.showMeasure()
+      @breadcrumb.addMeasure(measure)
+    else
+      @showPageNotFound()
 
   renderUsers: ->
     @navigationSetup "Admin", "admin"
@@ -82,13 +82,16 @@
     @mainView.setView(usersView)
 
   renderPatientBuilder: (measureHqmfSetId, patientId) ->
-    @navigationSetup "Patient Builder", "patient-builder"
     measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
-    document.title += " - #{measure.get('cms_id')}" if measure?
-    patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, inPatientDashboard: false)
-    @mainView.setView patientBuilderView
-    @breadcrumb.addPatient(measure, patient)
+    if measure? and patient?
+      @navigationSetup "Patient Builder", "patient-builder"
+      document.title += " - #{measure.get('cms_id')}" if measure?
+      patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, inPatientDashboard: false)
+      @mainView.setView patientBuilderView
+      @breadcrumb.addPatient(measure, patient)
+    else
+      @showPageNotFound()
 
   renderValueSetsBuilder: ->
     @navigationSetup "Value Sets Builder", "value-sets-builder"
@@ -98,41 +101,49 @@
 
   renderPatientBank: (measureHqmfSetId) ->
     measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
-    @navigationSetup "Patient Bank - #{measure.get('cms_id')}", 'patient-bank'
-    @collection = new Thorax.Collections.Patients
-    @mainView.setView new Thorax.Views.PatientBankView model: measure, patients: @patients, collection: @collection
-    @breadcrumb.addBank(measure)
+    if measure?
+      @navigationSetup "Patient Bank - #{measure.get('cms_id')}", 'patient-bank'
+      @collection = new Thorax.Collections.Patients
+      @mainView.setView new Thorax.Views.PatientBankView model: measure, patients: @patients, collection: @collection
+      @breadcrumb.addBank(measure)
+    else
+      @showPageNotFound()
 
   renderMeasureUploadHistory: (measureHqmfSetId) ->
     measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
-    # show loading view because this data is loaded async. Show breadcrumb now so people know where they are heading.
-    @mainView.setView new Thorax.Views.LoadingView
-    @breadcrumb.viewMeasureHistory(measure)
-    
-    measure.get('upload_summaries').loadCollection(true)
-      .done( (uploadSummaries) =>
-        @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
-        # @collection = new Thorax.Collections.Patients
-        @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: measure.get('patients'), upload_summaries: uploadSummaries
-        @breadcrumb.viewMeasureHistory(measure) )
-      .fail( => @showError title: "Measure History Load Failed", summary: "Historic data failed to load due to a server error." )
+    if measure? 
+      @mainView.setView new Thorax.Views.LoadingView
+      # show loading view because this data is loaded async. Show breadcrumb now so people know where they are heading.
+      @breadcrumb.viewMeasureHistory(measure)
+      measure.get('upload_summaries').loadCollection(true)
+        .done( (uploadSummaries) =>
+          @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
+          # @collection = new Thorax.Collections.Patients
+          @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: measure.get('patients'), upload_summaries: uploadSummaries
+          @breadcrumb.viewMeasureHistory(measure) )
+          .fail( => @showError title: "Measure History Load Failed", summary: "Historic data failed to load due to a server error." )
+    else
+      @showPageNotFound()
 
   renderHistoricPatientCompare: (measureHqmfSetId, patientId, uploadId) ->
     @navigationSetup "Patient Builder", "patient-compare"
     measure = @measures.findWhere({hqmf_set_id: measureHqmfSetId}) if measureHqmfSetId
     patient = if patientId? then @patients.get(patientId) else new Thorax.Models.Patient {measure_ids: [measure?.get('hqmf_set_id')]}, parse: true
-    document.title += " - #{measure.get('cms_id')}" if measure?
-    # show loading view because this data is loaded async. Show breadcrumb now so people know where they are heading.
-    @mainView.setView new Thorax.Views.LoadingView
-    @breadcrumb.viewComparePatient(measure, patient) 
-    
-    # Deal with getting the archived measure and the calculation snapshot for the patient at measure upload
-    measure.loadModelsForCompareAtUpload(uploadId)
-      .done( (models) => 
-        patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, preUploadMeasureVersion: models.beforeMeasure, uploadSummary: models.uploadSummary, postUploadMeasureVersion: models.afterMeasure)
-        @mainView.setView patientBuilderView
-        @breadcrumb.viewComparePatient(measure, patient) )
-      .fail( => @showError title: "Historic Patient Compare Load Failed", summary: "Historic data failed to load due to a server error." )
+    if measure? and patient?
+      document.title += " - #{measure.get('cms_id')}" if measure?
+      # show loading view because this data is loaded async. Show breadcrumb now so people know where they are heading.
+      @mainView.setView new Thorax.Views.LoadingView
+      @breadcrumb.viewComparePatient(measure, patient) 
+      
+      # Deal with getting the archived measure and the calculation snapshot for the patient at measure upload
+      measure.loadModelsForCompareAtUpload(uploadId)
+        .done( (models) => 
+          patientBuilderView = new Thorax.Views.PatientBuilderCompare(model: patient, measure: measure, patients: @patients, measures: @measures, preUploadMeasureVersion: models.beforeMeasure, uploadSummary: models.uploadSummary, postUploadMeasureVersion: models.afterMeasure)
+          @mainView.setView patientBuilderView
+          @breadcrumb.viewComparePatient(measure, patient) )
+        .fail( => @showError title: "Historic Patient Compare Load Failed", summary: "Historic data failed to load due to a server error." )
+    else
+      @showPageNotFound()
 
   # Common setup method used by all routes
   navigationSetup: (title, selectedNav) ->
@@ -171,3 +182,7 @@
         measureUploadSummaryDialogView = new Thorax.Views.MeasureUploadSummaryDialog model: uploadSummary, measure: measure
         measureUploadSummaryDialogView.appendTo('#bonnie')
         measureUploadSummaryDialogView.display() )
+        
+  showPageNotFound: ->
+    @mainView.setView new Thorax.Views.ErrorView
+    @breadcrumb.clear()
