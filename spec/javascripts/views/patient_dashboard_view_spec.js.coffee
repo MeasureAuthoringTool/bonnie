@@ -24,6 +24,12 @@ describe 'EmptyPatientDashboardView', ->
     num_populations = @measure.get('populations').length
     expect(@measureLayout.populations.length).toEqual num_populations
 
+  it 'should not show patient dashboard for non existant measure', ->
+    spyOn(bonnie,'showPageNotFound')
+    bonnie.renderPatientDashboard('non_existant_hqmf_set_id')
+    waitsForAndRuns( false, 
+      expect(bonnie.showPageNotFound).toHaveBeenCalled(),
+      )
 
 
 ###
