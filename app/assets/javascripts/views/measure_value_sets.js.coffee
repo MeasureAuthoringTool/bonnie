@@ -3,8 +3,9 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
 
   initialize: ->
     @summaryValueSets = [] # array of {generic value set descriptor, oid, and code}
-    @dataCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # all criteria that aren't supplemental criteria
+    @dataCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # all criteria that aren't supplemental or attributes criteria
     @supplementalCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # ethnicity/gender/payer/race criteria
+    @attributesCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # attributes criteria
     @overlappingValueSets = new Thorax.Collections.ValueSetsCollection([]) # all value sets that overlap
     @overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]
 
@@ -13,7 +14,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       mode: 'client'
       state: { pageSize: 10, firstPage: 1, currentPage: 1 }
 
-    @getValueSets() # populates @dataCriteria and @supplementalCriteria
+    @getValueSets() # populates @dataCriteria, @supplementalCriteria, and @attributesCriteria
     @findOverlappingValueSets() # populates @overlappingValueSets
 
   context: ->
@@ -22,49 +23,73 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       criteriaSets: [
         { name: "Data Criteria", id: "data_criteria", criteria: @dataCriteria },
         { name: "Supplemental Data Elements", id: "supplemental_criteria", criteria: @supplementalCriteria }
+        { name: "Attribute Value Sets", id: "attribute_criteria", criteria: @attributesCriteria }
       ]
+
+  ###
+  Factory method for value sets
+  side effect: @fakeIndex incremented for each added criteria
+  ###
+  _createValueSet: (objectProp, name) ->
+    oid = objectProp.code_list_id
+    objectProp.cid ?= "fake#{@fakeIndex++}"
+    cid = objectProp.cid
+
+    if bonnie.valueSetsByOid[oid]?
+      version = bonnie.valueSetsByOid[oid].version
+      # if it's a date (rather than "Draft"), format the version
+      version = moment(version, "YYYYMMDD").format("MM/DD/YYYY") if moment(version, "YYYYMMDD").isValid()
+      codeConcepts = bonnie.valueSetsByOid[oid].concepts ? []
+      for code in codeConcepts
+        code.hasLongDisplayName = code.display_name.length > 160
+    else
+      version = ''
+      codeConcepts = []
+
+    codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @pagination_options)
+    valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
+
+    # only add value set info summaryValueSets if it isn't there already
+    # includes the common name for the value set, the oid, and the codes.
+    if _.where(@summaryValueSets, { oid: oid }).length == 0
+      nameParts = valueSet.name.split(':')
+      name = if nameParts.length > 1 then nameParts[1] else nameParts[0]
+      @summaryValueSets.push({ oid: oid, cid: cid, name: name, codes: valueSet.codes })
+
+    valueSet
 
   getValueSets: ->
     supplementalCriteria = []
     dataCriteria = []
+    attributesCriteria = []
 
-    @model.get('source_data_criteria').each (sdc) =>
-      if sdc.get('code_list_id')
-        name = sdc.get('description')
-        oid = sdc.get('code_list_id')
-        cid = sdc.cid
-
-        if bonnie.valueSetsByOid[oid]?
-          version = bonnie.valueSetsByOid[oid].version
-          # if it's a date (rather than "Draft"), format the version
-          version = moment(version, "YYYYMMDD").format("MM/DD/YYYY") if moment(version, "YYYYMMDD").isValid()
-          codeConcepts = bonnie.valueSetsByOid[oid].concepts ? []
-          for code in codeConcepts
-            code.hasLongDisplayName = code.display_name.length > 160
-        else
-          version = ''
-          codeConcepts = []
-
-        codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @pagination_options)
-        valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
+    @fakeIndex = 0 # when model is not a Thorax collection, have to generate unique cid based on this index
+    _.each @model.get('data_criteria'), (sdc) =>
+      if sdc.code_list_id?
+        valueSet = @._createValueSet(sdc, sdc.description)
 
         # the property values that indicate a supplemental criteria. this list is derived from
         # the human readable html for measures.
-        if sdc.get('property') in ["ethnicity", "gender", "payer", "race"]
+        if sdc.property? and sdc.property in ["ethnicity", "gender", "payer", "race"]
           supplementalCriteria.push(valueSet)
         else
           dataCriteria.push(valueSet)
 
-        # only add value set info summaryValueSets if it isn't there already
-        # includes the common name for the value set, the oid, and the codes.
-        if _.where(@summaryValueSets, { oid: oid }).length == 0
-          nameParts = valueSet.name.split(':')
-          name = if nameParts.length > 1 then nameParts[1] else nameParts[0]
-          @summaryValueSets.push({ oid: oid, cid: cid, name: name, codes: codes })
+          # if not supplemental criteria, may contain attributes in "value" property
+          # we show attributes that have type="CD", a non-empty title, and non-empty code_list_id
+          if sdc.value?.type? and sdc.value.type is "CD" and sdc.value.title? and sdc.value.code_list_id?
+            attributesCriteria.push(@._createValueSet(sdc.value, sdc.value.title))
+
+          # attributes are also stored in "field_values" property, under a key, e.g. "PRINCIPAL_DIAGNOSIS"
+          if sdc.field_values?
+            for key, value of sdc.field_values
+              if value.type? and value.type is "CD" and value.title? and value.code_list_id?
+                attributesCriteria.push(@._createValueSet(value, value.title))
 
     # now that we have all the value sets, filter them
     @supplementalCriteria.add(@filterValueSets(supplementalCriteria))
     @dataCriteria.add(@filterValueSets(dataCriteria))
+    @attributesCriteria.add(@filterValueSets(attributesCriteria))
 
   filterValueSets: (valueSets) ->
     # returns unique (by name and oid) value sets
