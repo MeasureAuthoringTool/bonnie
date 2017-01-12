@@ -28,7 +28,7 @@ describe 'PatientBankView', ->
   it 'should not open patient bank for non existant measure', ->
     spyOn(bonnie,'showPageNotFound')
     patient = @patients.first()
-    bonnie.renderHistoricPatientCompare('non_existant_hqmf_set_id',patient.id,'non_existant_upload_id')
+    bonnie.renderHistoricPatientCompare('non_existant_hqmf_set_id', patient.id, 'non_existant_upload_id')
     waitsForAndRuns( false, 
       expect(bonnie.showPageNotFound).toHaveBeenCalled(),
       )

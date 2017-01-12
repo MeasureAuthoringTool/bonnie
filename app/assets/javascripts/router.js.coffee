@@ -31,6 +31,7 @@
     'measures/:measure_hqmf_set_id/patients/:id/compare/at_upload/:upload_id':  'renderHistoricPatientCompare'
     'admin/users':                                      'renderUsers'
     'value_sets/edit':                                  'renderValueSetsBuilder'
+    # This will catch any unmatched hashes and route them to showPageNotFound
     '*path':                                            'showPageNotFound'
 
   renderMeasures: ->
@@ -112,16 +113,15 @@
   renderMeasureUploadHistory: (measureHqmfSetId) ->
     measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
     if measure? 
-      @mainView.setView new Thorax.Views.LoadingView
       # show loading view because this data is loaded async. Show breadcrumb now so people know where they are heading.
+      @mainView.setView new Thorax.Views.LoadingView
       @breadcrumb.viewMeasureHistory(measure)
       measure.get('upload_summaries').loadCollection(true)
-        .done( (uploadSummaries) =>
-          @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
-          # @collection = new Thorax.Collections.Patients
-          @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: measure.get('patients'), upload_summaries: uploadSummaries
-          @breadcrumb.viewMeasureHistory(measure) )
-          .fail( => @showError title: "Measure History Load Failed", summary: "Historic data failed to load due to a server error." )
+      .done( (uploadSummaries) =>
+        @navigationSetup "Measure Upload History - #{measure.get('cms_id')}", 'test-case-history'
+        @mainView.setView new Thorax.Views.MeasureHistoryView model: measure, patients: measure.get('patients'), upload_summaries: uploadSummaries
+        @breadcrumb.viewMeasureHistory(measure) )
+      .fail( => @showError title: "Measure History Load Failed", summary: "Historic data failed to load due to a server error." )
     else
       @showPageNotFound()
 
