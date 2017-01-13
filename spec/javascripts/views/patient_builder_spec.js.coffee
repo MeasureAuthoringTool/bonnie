@@ -15,6 +15,13 @@ describe 'PatientBuilderView', ->
       spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
       @$el = @patientBuilder.$el
 
+    it 'should not open patient builder for non existent measure', ->
+      spyOn(bonnie,'showPageNotFound')
+      bonnie.renderPatientBuilder('non_existant_hqmf_set_id', @patient.id)
+      waitsForAndRuns( false, 
+        expect(bonnie.showPageNotFound).toHaveBeenCalled(),
+        )
+
     it 'renders the builder correctly', ->
       expect(@$el.find(":input[name='first']")).toHaveValue @patient.get('first')
 
@@ -390,4 +397,3 @@ describe 'PatientBuilderView', ->
       # These are from direct reference codes
       expect(codesInDropdown['Birthdate']).toBeDefined()
       expect(codesInDropdown['Dead']).toBeDefined()
-
