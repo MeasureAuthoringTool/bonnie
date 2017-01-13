@@ -28,12 +28,17 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
 
   ###
   Factory method for value sets
+  - criteriaValue: object property containing a code_list_id and cid
+  - displayName: name displayed for this value set oid (aka code_list_id)
+
   side effect: @fakeIndex incremented for each added criteria
+               fakeIndex is used to create fake cid values for non-throax models
+               cid is used by the expand/collapse javascript code
   ###
-  _createValueSet: (objectProp, name) ->
-    oid = objectProp.code_list_id
-    objectProp.cid ?= "fake#{@fakeIndex++}"
-    cid = objectProp.cid
+  _createValueSet: (criteriaValue, displayName) ->
+    oid = criteriaValue.code_list_id
+    criteriaValue.cid ?= "fake#{@fakeIndex++}"
+    cid = criteriaValue.cid
 
     if bonnie.valueSetsByOid[oid]?
       version = bonnie.valueSetsByOid[oid].version
@@ -47,14 +52,14 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       codeConcepts = []
 
     codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @pagination_options)
-    valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
+    valueSet = { name: displayName, oid: oid, version: version, codes: codes, cid: cid }
 
     # only add value set info summaryValueSets if it isn't there already
     # includes the common name for the value set, the oid, and the codes.
     if _.where(@summaryValueSets, { oid: oid }).length == 0
       nameParts = valueSet.name.split(':')
-      name = if nameParts.length > 1 then nameParts[1] else nameParts[0]
-      @summaryValueSets.push({ oid: oid, cid: cid, name: name, codes: valueSet.codes })
+      summaryName = if nameParts.length > 1 then nameParts[1] else nameParts[0]
+      @summaryValueSets.push({ oid: oid, cid: cid, name: summaryName, codes: valueSet.codes })
 
     valueSet
 
@@ -64,25 +69,25 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     attributesCriteria = []
 
     @fakeIndex = 0 # when model is not a Thorax collection, have to generate unique cid based on this index
-    _.each @model.get('data_criteria'), (sdc) =>
-      if sdc.code_list_id?
-        valueSet = @._createValueSet(sdc, sdc.description)
+    _.each @model.get('data_criteria'), (criteria) =>
+      if criteria.code_list_id?
+        valueSet = @._createValueSet(criteria, criteria.description)
 
         # the property values that indicate a supplemental criteria. this list is derived from
         # the human readable html for measures.
-        if sdc.property? and sdc.property in ["ethnicity", "gender", "payer", "race"]
+        if criteria.property? and criteria.property in ["ethnicity", "gender", "payer", "race"]
           supplementalCriteria.push(valueSet)
         else
           dataCriteria.push(valueSet)
 
           # if not supplemental criteria, may contain attributes in "value" property
           # we show attributes that have type="CD", a non-empty title, and non-empty code_list_id
-          if sdc.value?.type? and sdc.value.type is "CD" and sdc.value.title? and sdc.value.code_list_id?
-            attributesCriteria.push(@._createValueSet(sdc.value, sdc.value.title))
+          if criteria.value?.type? and criteria.value.type is "CD" and criteria.value.title? and criteria.value.code_list_id?
+            attributesCriteria.push(@._createValueSet(criteria.value, criteria.value.title))
 
           # attributes are also stored in "field_values" property, under a key, e.g. "PRINCIPAL_DIAGNOSIS"
-          if sdc.field_values?
-            for key, value of sdc.field_values
+          if criteria.field_values?
+            for key, value of criteria.field_values
               if value.type? and value.type is "CD" and value.title? and value.code_list_id?
                 attributesCriteria.push(@._createValueSet(value, value.title))
 
