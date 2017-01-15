@@ -1,24 +1,26 @@
 <div class="value_sets">
   {{#each criteriaSets}}
-  <div id="{{id}}">
-    <h2>{{name}}</h2>
-      {{#collection criteria}}
-      <a data-toggle="collapse" href="#codes_{{cid}}" class="collapsed value_sets">
-        <div class="row">
-          <div class="col-sm-5"><strong>{{name}}</strong></div>
-          <div class="col-sm-5">{{oid}}</div>
-          <div class="col-sm-2">{{version}}</div>
-        </div>
-      </a>
-      <div id="codes_{{cid}}" class="row collapse">
-        {{#ifCond codes.length ">" 0}}
-          {{view "ValueSetCodesPageableList" collection=codes}}
-        {{else}}
-          No codes related to this value set were found in Bonnie.
-        {{/ifCond}}
+    {{#ifCond criteria.length ">" 0}}
+      <div id="{{id}}">
+        <h2>{{name}}</h2>
+          {{#collection criteria}}
+          <a data-toggle="collapse" href="#codes_{{cid}}" class="collapsed value_sets">
+            <div class="row">
+              <div class="col-sm-5"><strong>{{name}}</strong></div>
+              <div class="col-sm-5">{{oid}}</div>
+              <div class="col-sm-2">{{version}}</div>
+            </div>
+          </a>
+          <div id="codes_{{cid}}" class="row collapse">
+            {{#ifCond codes.length ">" 0}}
+              {{view "ValueSetCodesPageableList" collection=codes}}
+            {{else}}
+              No codes related to this value set were found in Bonnie.
+            {{/ifCond}}
+          </div>
+          {{/collection}}
       </div>
-      {{/collection}}
-  </div>
+    {{/ifCond}}
   {{/each}}
 
   {{#ifCond overlappingValueSets.length ">" 0}}

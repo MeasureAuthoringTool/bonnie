@@ -5,7 +5,7 @@ namespace :bonnie do
   namespace :patients do
 
     # HQMF OIDs were not being stored on patient record entries for data types that only appear in the HQMF R2
-    # support; git commit c988d25be480171a8dac5bef02386e5f49f57acb addressed thsi issue for new entries; this
+    # support; git commit c988d25be480171a8dac5bef02386e5f49f57acb addressed this issue for new entries; this
     # rake task goes back and fixes up existing entries; it was run on May 24, 2016
 
     desc "Update missing HQMF OIDS in patient record entries"

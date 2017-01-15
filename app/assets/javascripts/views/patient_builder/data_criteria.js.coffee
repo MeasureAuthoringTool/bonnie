@@ -451,7 +451,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @showAddCodes = false
     @render()
 
- class Thorax.Views.EditCriteriaReferenceView extends Thorax.Views.EditCriteriaValueView
+class Thorax.Views.EditCriteriaReferenceView extends Thorax.Views.EditCriteriaValueView
   className: -> "#{if @fieldValue then 'field-' else ''}value-formset"
 
   template: JST['patient_builder/edit_reference']
