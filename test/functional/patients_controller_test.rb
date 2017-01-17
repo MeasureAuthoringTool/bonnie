@@ -56,7 +56,8 @@ include Devise::TestHelpers
     assert_equal 'EncounterPerformedPsychVisitDiagnosticEvaluation', r.source_data_criteria[0]["id"]
     assert_equal 1, r.encounters.length
     assert_equal "pass", r.calc_results[0]['status'], "Checking that calc_status worked."
-    assert_equal "false", r.has_measure_history
+    assert_equal false, r.has_measure_history
+    assert_equal nil, UploadSummary::PopulationSetSummary.first
     json = JSON.parse(response.body)
 
     assert_equal 'Betty', json['first']
