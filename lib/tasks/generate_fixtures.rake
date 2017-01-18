@@ -1,6 +1,17 @@
 namespace :HDS do
   namespace :test do
 
+    def get_measure(user, cms_hqmf, measure_id)
+      if (cms_hqmf.downcase  == 'cms')  
+        measure = user.measures.find_by(cms_id: measure_id)
+      elsif (cms_hqmf == 'hqmf')
+        measure = user.measures.find_by(hqmf_id: measure_id)
+      else
+        throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf') 
+      end
+      measure
+    end
+
     def create_fixture_file(file_path, fixture_json)
       FileUtils.mkdir_p(File.dirname(file_path)) unless Dir.exists? File.dirname(file_path)
       File.new(file_path, "w+")
@@ -8,25 +19,17 @@ namespace :HDS do
     end
 
     ###
-    # frontend_backend: Should fixtures be generated for frontend or backend.
-    #   values: frontend, backend
     # cms_hqmf: Use cms or hqmf id.
     #   values: cms, hqmf
     # path: Fixture path.
+    # test_name: Name of the test the fixture is for.
     # user_email: email of user to export
     # measure_id: id of measuer to export
-    # patients: which patients should be exported.
-    #   values: each element should have three fields, firstname, lastname, displayname
-    #   ex: [[first1, last1, patient1], [first2, last2, patient2]]
+    # bundle exec rake HDS:test:generate_fixtures[cms,test/CMSFakevFake,initialLoad,fake@fake,CMSFakevFake]
     ###
     task :generate_frontend_fixture, [:cms_hqmf, :path, :test_name, :user_email, :measure_id] => [:environment] do |t, args|
       user = User.find_by email: args[:user_email]
-      if (args[:cms_hqmf].downcase  == 'cms')  
-        measure = user.measures.find_by(cms_id: args[:measure_id])
-      elsif (args[:cms_hqmf] == 'hqmf')
-        measure = user.measures.find_by(hqmf_id: args[:measure_id])
-      else
-      end
+      measure = get_measure(user, args[:cms_hqmf], args[:measure_id])
       
       cms_dir = File.join(args[:test_name], args[:measure_id])
       
@@ -63,16 +66,16 @@ namespace :HDS do
     end
 
     #Usage
-    # bundle exec rake HDS:test:generate_fixtures
+    # cms_hqmf: Use cms or hqmf id.
+    #   values: cms, hqmf
+    # path: Fixture path.
+    # user_email: email of user to export
+    # measure_id: id of measuer to export
+    # bundle exec rake HDS:test:generate_fixtures[cms,test/CMSFakevFake,fake@fake,CMSFakevFake]
     desc "Exports a set of fixtures that can be loaded for testing purposes"
     task :generate_fixtures, [:cms_hqmf, :path, :user_email, :measure_id] => [:environment] do |t, args|
       user = User.find_by email: args[:user_email]
-      if (args[:cms_hqmf].downcase  == 'cms')  
-        measure = user.measures.find_by(cms_id: args[:measure_id])
-      elsif (args[:cms_hqmf] == 'hqmf')
-        measure = user.measures.find_by(hqmf_id: args[:measure_id])
-      else
-      end
+      measure = get_measure(user, args[:cms_hqmf], args[:measure_id])
       
       measure_summaries = UploadSummary::MeasureSummary.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
       archived_measures = ArchivedMeasure.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
