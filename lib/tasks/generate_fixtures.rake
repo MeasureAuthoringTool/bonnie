@@ -19,12 +19,12 @@ namespace :HDS do
     end
 
     ###
-    # cms_hqmf: Use cms or hqmf id.
+    # cms_hqmf: indicates if a CMS id or an HQMF id is used.
     #   values: cms, hqmf
-    # path: Fixture path.
+    # path: Path to fixture files, derived from the data-type directories (EX: measure_data/${path}).
     # user_email: email of user to export
     # measure_id: id of measuer to export
-    # bundle exec rake HDS:test:generate_fixtures[cms,test/CMSFakevFake,initialLoad,fake@fake,CMSFakevFake]
+    # bundle exec rake HDS:test:generate_frontend_fixtures[cms,test/CMSFakevFake,initialLoad,fake@fake,CMSFakevFake]
     ###
     task :generate_frontend_fixtures, [:cms_hqmf, :path, :user_email, :measure_id] => [:environment] do |t, args|
       user = User.find_by email: args[:user_email]
@@ -39,15 +39,16 @@ namespace :HDS do
       measure_file = File.join(fixtures_path, 'measure_data', args[:path], 'measures.json')
       create_fixture_file(measure_file, JSON.pretty_generate(JSON.parse([measure].to_json)))
 
-      records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
-      record_file = File.join(fixtures_path, 'records', args[:path], "patients.json")
-      create_fixture_file(record_file, JSON.pretty_generate(JSON.parse(records.to_json)))
-      
       oid_to_vs_map = {}
       
       value_sets = measure.value_sets.each do |vs|
         oid_to_vs_map[vs.oid] = vs
       end
+
+      records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+      record_file = File.join(fixtures_path, 'records', args[:path], "patients.json")
+      create_fixture_file(record_file, JSON.pretty_generate(JSON.parse(records.to_json)))
+      
       value_sets_file = File.join(fixtures_path, 'measure_data', args[:path], 'value_sets.json')
       create_fixture_file(value_sets_file, JSON.pretty_generate(JSON.parse(oid_to_vs_map.to_json)))
     
@@ -62,15 +63,16 @@ namespace :HDS do
       create_fixture_file(archived_measures_file, JSON.pretty_generate(JSON.parse(archived_measures.to_json)))
     end
 
-    #Usage
-    # cms_hqmf: Use cms or hqmf id.
+    ###
+    # cms_hqmf: indicates if a CMS id or an HQMF id is used.
     #   values: cms, hqmf
-    # path: Fixture path.
+    # path: Path to fixture files, derived from the data-type directories (EX: measure_data/${path}).
     # user_email: email of user to export
     # measure_id: id of measuer to export
-    # bundle exec rake HDS:test:generate_fixtures[cms,test/CMSFakevFake,fake@fake,CMSFakevFake]
+    # bundle exec rake HDS:test:generate_backend_fixtures[cms,test/CMSFakevFake,initialLoad,fake@fake,CMSFakevFake]
+    ###
     desc "Exports a set of fixtures that can be loaded for testing purposes"
-    task :generate_fixtures, [:cms_hqmf, :path, :user_email, :measure_id] => [:environment] do |t, args|
+    task :generate_backend_fixtures, [:cms_hqmf, :path, :user_email, :measure_id] => [:environment] do |t, args|
       user = User.find_by email: args[:user_email]
       measure = get_measure(user, args[:cms_hqmf], args[:measure_id])
       
