@@ -26,6 +26,7 @@
     </div>
 
     <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag 'cql4browsers' %>
     <% if current_user.crosswalk_enabled %>
       <script>
         <%= HQMF2JS::Generator::JS.crosswalk_functions.html_safe %>

@@ -12,7 +12,8 @@ Bonnie::Application.configure do
   config.serve_static_assets = false
 
   # Compress JavaScripts and CSS
-  config.assets.js_compressor = :uglifier
+  require 'ext/selective_assets_compressor'
+  config.assets.js_compressor = SelectiveAssetsCompressor.new
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
@@ -48,7 +49,7 @@ Bonnie::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w(font-awesome/fonts/fontawesome-webfont.*)
+  config.assets.precompile += %w(cql4browsers.js font-awesome/fonts/fontawesome-webfont.*)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

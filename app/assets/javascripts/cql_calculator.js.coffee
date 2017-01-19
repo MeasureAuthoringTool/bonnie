@@ -53,13 +53,13 @@
       patientSource = new PatientSource([patient])
 
       # Grab start and end of Measurement Period
-      start = cql.DateTime.fromDate(moment(population.collection.parent.get('measure_period').low.value, 'YYYYMDDHHmm').toDate())
-      end = cql.DateTime.fromDate(moment(population.collection.parent.get('measure_period').high.value, 'YYYYMDDHHmm').toDate())
-      start.timezoneOffset = 0 # Ensure UTC time
-      end.timezoneOffset = 0
+      start = moment.utc(population.collection.parent.get('measure_period').low.value, 'YYYYMDDHHmm').toDate()
+      end = moment.utc(population.collection.parent.get('measure_period').high.value, 'YYYYMDDHHmm').toDate()
+      start_cql = cql.DateTime.fromDate(start, 0) # No timezone offset for start
+      end_cql = cql.DateTime.fromDate(end, 0) # No timezone offset for stop
 
       # Construct CQL params
-      params = {"Measurement Period": new cql.Interval(start, end)}
+      params = {"Measurement Period": new cql.Interval(start_cql, end_cql)}
 
       # Grab ELM JSON from measure
       elm = population.collection.parent.get('elm')
