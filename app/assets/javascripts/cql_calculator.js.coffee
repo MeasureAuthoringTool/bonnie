@@ -51,9 +51,23 @@
 
     try
       patientSource = new PatientSource([patient])
-      params = {"Measurement Period": new cql.Interval(cql.DateTime.fromDate(moment(population.collection.parent.get('measure_period').low.value, 'YYYYMDDHHmm').toDate()), cql.DateTime.fromDate(moment(population.collection.parent.get('measure_period').high.value, 'YYYYMDDHHmm').toDate()) ) }
-      results = executeSimpleELM(population.collection.parent.get('elm'), patientSource, @valueSetsForCodeService(), params)
 
+      # Grab start and end of Measurement Period
+      start = cql.DateTime.fromDate(moment(population.collection.parent.get('measure_period').low.value, 'YYYYMDDHHmm').toDate())
+      end = cql.DateTime.fromDate(moment(population.collection.parent.get('measure_period').high.value, 'YYYYMDDHHmm').toDate())
+      start.timezoneOffset = 0 # Ensure UTC time
+      end.timezoneOffset = 0
+
+      # Construct CQL params
+      params = {"Measurement Period": new cql.Interval(start, end)}
+
+      # Grab ELM JSON from measure
+      elm = population.collection.parent.get('elm')
+
+      # Calculate results for each CQL statement
+      results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), params)
+
+      # Parse CQL statement results into population values
       population_values = @createPopulationValues population, results, patient
 
       result.set population_values
