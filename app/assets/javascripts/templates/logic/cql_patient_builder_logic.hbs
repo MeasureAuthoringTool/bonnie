@@ -1,5 +1,19 @@
 <div class="measure-viz rationale panel-group">
+
+  </br><p>
+    {{#each results}}
+      <label for="{{key}}_actual_check" class="checkbox-inline">{{@key}}</label>
+      {{#if this}}
+        <i class="fa fa-check-square-o default" aria-hidden="true" id="{{key}}_actual_check" name="{{key}}_actual_check"></i>
+      {{else}}
+        <i class="fa fa-square-o default" aria-hidden="true" id="{{key}}_actual_check" name="{{key}}_actual_check"></i>
+      {{/if}}
+    {{/each}}
+  </p>
+  </br>
+
   {{#each cqlLines}}
     {{this}}<br/>
   {{/each}}
+
 </div>
