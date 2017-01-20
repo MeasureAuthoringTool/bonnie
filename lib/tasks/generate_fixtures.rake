@@ -1,5 +1,5 @@
-namespace :HDS do
-  namespace :test do
+namespace :bonnie do
+  namespace :fixtures do
 
     def get_measure(user, cms_hqmf, measure_id)
       if (cms_hqmf.downcase  == 'cms')  
@@ -10,6 +10,51 @@ namespace :HDS do
         throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf') 
       end
       measure
+    end
+
+    def convert_times(json)
+      if json.kind_of?(Hash)
+        json.each_pair do |k,v|
+          if k.ends_with?("_at")
+            json[k] = Time.parse(v)
+          end
+        end
+      end
+    end
+
+    def set_mongoid_ids(json)
+      if json.kind_of?( Hash)
+        json.each_pair do |k,v|
+          if v && v.kind_of?( Hash )
+            if v["$oid"]
+              json[k] = BSON::ObjectId.from_string(v["$oid"])
+            else
+              set_mongoid_ids(v)
+            end
+          elsif k == '_id' || k == 'bundle_id' || k == 'user_id'
+            puts "Converting #{k} : value #{v}"
+            json[k] = BSON::ObjectId.from_string(v)   
+            puts "Converted: #{k} to #{json[k]}"   
+          end
+        end
+      end
+    end
+    
+    def collection_fixtures(*collection_names)
+      collection_names.each do |collection|
+        collection_name = collection.split(File::SEPARATOR)[0]
+        Mongoid.default_session[collection_name].drop
+        Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
+          fixture_json = JSON.parse(File.read(json_fixture_file))
+          convert_times(fixture_json)
+          set_mongoid_ids(fixture_json)
+          # Mongoid names collections based off of the default_session argument.
+          # With nested folders,the collection name is “records/X” (for example).
+          # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
+          puts "Inserting into collection #{collection}"
+          Mongoid.default_session[collection_name].insert(fixture_json)
+        end
+      end
     end
 
     def create_fixture_file(file_path, fixture_json)
@@ -117,6 +162,17 @@ namespace :HDS do
       output = File.join(output_dir, "value_sets.json")
       File.new(output, "w+")
       File.write(output, JSON.pretty_generate(dict))
+    end
+    
+    desc "Loads set of fixtures into a running instance of BONNIE"
+    task :load_backend_fixtures, [:path] => [:environment] do |t, args|
+      archived_measures_collection = File.join 'archived_measures', args[:path]
+      measure_collection = File.join 'draft_measures', args[:path]
+      value_sets_collection = File.join 'health_data_standards_svs_value_sets', args[:path]
+      records_collection = File.join 'records', args[:path]
+      upload_summaries_collection = File.join 'upload_summaries', args[:path]
+      users_collection = File.join 'users', args[:path]
+      collection_fixtures(archived_measures_collection, measure_collection, value_sets_collection, records_collection, upload_summaries_collection, users_collection)
     end
     
   end
