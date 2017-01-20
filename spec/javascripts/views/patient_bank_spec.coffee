@@ -29,9 +29,7 @@ describe 'PatientBankView', ->
     spyOn(bonnie,'showPageNotFound')
     patient = @patients.first()
     bonnie.renderHistoricPatientCompare('non_existant_hqmf_set_id', patient.id, 'non_existant_upload_id')
-    waitsForAndRuns( false, 
-      expect(bonnie.showPageNotFound).toHaveBeenCalled(),
-      )
+    expect(bonnie.showPageNotFound).toHaveBeenCalled()
 
   it 'shows list of shared patients', ->
     shared_patients = @patients.where({ is_shared: true })
