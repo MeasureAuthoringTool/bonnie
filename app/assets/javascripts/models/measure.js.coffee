@@ -80,14 +80,14 @@ class Thorax.Models.Measure extends Thorax.Model
     typeInclusions =
       adverse_events: ['facility', 'severity', 'type'] # TODO: (LDY 9/29/2016) we care about "facility location". this appears to be the same as "facility"
       allergies_intolerances: ['severity', 'type']
-      assessments: ['method']
+      assessments: ['method','component']
       care_experiences: []
       care_goals: ['related_to', 'target_outcome']
       characteristics: []
       communications: []
       conditions: ['anatomical_structure', 'anatomical_location', 'ordinality', 'severity', 'laterality']
       devices: ['removal_time', 'anatomical_structure']
-      diagnostic_studies: ['facility', 'method', 'qdm_status', 'result_date_time']
+      diagnostic_studies: ['facility', 'method', 'qdm_status', 'result_date_time', 'component']
       encounters: ['admission_source', 'admit_time', 'discharge_time', 'discharge_disposition', 'facility',
         'facility_arrival', 'facility_departure', 'transfer_to', 'transfer_to_time', 
         'transfer_from', 'transfer_from_time', 'principal_diagnosis', 'diagnosis']
@@ -95,7 +95,7 @@ class Thorax.Models.Measure extends Thorax.Model
       functional_statuses: []
       immunizations: ['route', 'dose', 'reaction', 'supply']
       interventions: ['anatomical_structure']
-      laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status', 'result_date_time']
+      laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status', 'result_date_time', 'component']
       medications: ['route', 'dose', 'reaction', 'supply']
       patient_care_experiences: []
       physical_exams: ['anatomical_structure']
