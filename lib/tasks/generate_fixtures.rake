@@ -4,7 +4,7 @@ namespace :bonnie do
     def get_measure(user, cms_hqmf, measure_id)
       if (cms_hqmf.downcase  == 'cms')  
         measure = user.measures.find_by(cms_id: measure_id)
-      elsif (cms_hqmf == 'hqmf')
+      elsif (cms_hqmf.downcase == 'hqmf')
         measure = user.measures.find_by(hqmf_id: measure_id)
       else
         throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf') 
