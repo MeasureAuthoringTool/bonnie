@@ -55,8 +55,11 @@ include Devise::TestHelpers
     assert_equal 2, r.source_data_criteria.length
     assert_equal 'EncounterPerformedPsychVisitDiagnosticEvaluation', r.source_data_criteria[0]["id"]
     assert_equal 1, r.encounters.length
-    assert_equal "pass", r.calc_results[0]['status'], "Checking that calc_status worked."
+    assert_equal [{"measure_id"=>"E35791DF-5B25-41BB-B260-673337BC44A8", "population_index"=>"0", "IPP"=>"1", "DENOM"=>"0", "NUMER"=>"0", "status"=>"pass"}], r.calc_results, "Checking that calc_status worked."
     assert_equal false, r.has_measure_history
+    assert_equal false, r.results_exceed_storage
+    assert_equal nil, r.condensed_calc_results
+    assert_equal 128, r.results_size
     assert_equal nil, UploadSummary::PopulationSetSummary.first
     json = JSON.parse(response.body)
 
