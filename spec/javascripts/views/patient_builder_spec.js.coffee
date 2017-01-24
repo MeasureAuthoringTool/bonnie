@@ -17,9 +17,7 @@ describe 'PatientBuilderView', ->
   it 'should not open patient builder for non existent measure', ->
     spyOn(bonnie,'showPageNotFound')
     bonnie.renderPatientBuilder('non_existant_hqmf_set_id', @patient.id)
-    waitsForAndRuns( false, 
-      expect(bonnie.showPageNotFound).toHaveBeenCalled(),
-      )
+    expect(bonnie.showPageNotFound).toHaveBeenCalled()
 
   it 'renders the builder correctly', ->
     expect(@$el.find(":input[name='first']")).toHaveValue @patient.get('first')
@@ -356,8 +354,6 @@ describe 'PatientBuilderViewHistory', ->
   it 'should not open historic compare for non existant measure', ->
     spyOn(bonnie,'showPageNotFound')
     bonnie.renderPatientBank('non_existant_hqmf_set_id')
-    waitsForAndRuns( false, 
-      expect(bonnie.showPageNotFound).toHaveBeenCalled(),
-    )
+    expect(bonnie.showPageNotFound).toHaveBeenCalled()
 
   afterEach -> @patientBuilder.remove()

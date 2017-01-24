@@ -41,6 +41,4 @@ describe 'MeasureHistoryView', ->
     it 'should not find history for non existant measure', ->
       spyOn(bonnie,'showPageNotFound')
       bonnie.renderMeasureUploadHistory('non_existant_hqmf_set_id')
-      waitsForAndRuns( false, 
-        expect(bonnie.showPageNotFound).toHaveBeenCalled(),
-        )
+      expect(bonnie.showPageNotFound).toHaveBeenCalled()
