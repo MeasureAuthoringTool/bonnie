@@ -3,7 +3,9 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
 
   initialize: ->
     @summaryValueSets = [] # array of {generic value set descriptor, oid, and code}
-    @dataCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # all criteria that aren't supplemental or attributes criteria
+    @dataCriteria = new Thorax.Collections.ValueSetsCollection([])  # all criteria that aren't supplemental or attributes criteria
+    # need sort to show negation rationale after non-negated
+    @dataCriteria.comparator = (vs) -> vs.get('name').toLowerCase()
     @supplementalCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # ethnicity/gender/payer/race criteria
     @attributesCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # attributes criteria
     @overlappingValueSets = new Thorax.Collections.ValueSetsCollection([]) # all value sets that overlap
@@ -28,17 +30,17 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
 
   ###
   Factory method for value sets
-  - criteriaValue: object property containing a code_list_id and cid
+  - cidParentObject: object property containing cid
+  - oid: code list id
   - displayName: name displayed for this value set oid (aka code_list_id)
 
   side effect: @fakeIndex incremented for each added criteria
                fakeIndex is used to create fake cid values for non-throax models
                cid is used by the expand/collapse javascript code
   ###
-  _createValueSet: (criteriaValue, displayName) ->
-    oid = criteriaValue.code_list_id
-    criteriaValue.cid ?= "fake#{@fakeIndex++}"
-    cid = criteriaValue.cid
+  _createValueSet: (cidParentObject, oid, displayName) ->
+    cidParentObject.cid ?= "fake#{@fakeIndex++}"
+    cid = cidParentObject.cid
 
     if bonnie.valueSetsByOid[oid]?
       version = bonnie.valueSetsByOid[oid].version
@@ -71,7 +73,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     @fakeIndex = 0 # when model is not a Thorax collection, have to generate unique cid based on this index
     _.each @model.get('data_criteria'), (criteria) =>
       if criteria.code_list_id?
-        valueSet = @._createValueSet(criteria, criteria.description)
+        valueSet = @._createValueSet(criteria, criteria.code_list_id, criteria.description)
 
         # the property values that indicate a supplemental criteria. this list is derived from
         # the human readable html for measures.
@@ -82,14 +84,23 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
 
           # if not supplemental criteria, may contain attributes in "value" property
           # we show attributes that have type="CD", a non-empty title, and non-empty code_list_id
-          if criteria.value?.type? and criteria.value.type is "CD" and criteria.value.title? and criteria.value.code_list_id?
-            attributesCriteria.push(@._createValueSet(criteria.value, criteria.value.title))
+          if criteria.value?.type? and criteria.value.type is "CD" and criteria.value.code_list_id?
+            displayed_item_name = @model.valueSets().findWhere({oid: criteria.value.code_list_id})?.get('display_name') ? criteria.value.title
+            attributesCriteria.push(@._createValueSet(criteria.value, criteria.value.code_list_id, displayed_item_name)) if displayed_item_name
 
           # attributes are also stored in "field_values" property, under a key, e.g. "PRINCIPAL_DIAGNOSIS"
           if criteria.field_values?
             for key, value of criteria.field_values
-              if value.type? and value.type is "CD" and value.title? and value.code_list_id?
-                attributesCriteria.push(@._createValueSet(value, value.title))
+              if value.type? and value.type is "CD" and value.code_list_id?
+                displayed_item_name = @model.valueSets().findWhere({oid: value.code_list_id})?.get('display_name') ? value.title
+                attributesCriteria.push(@._createValueSet(value, value.code_list_id, displayed_item_name)) if displayed_item_name
+
+          # might contain negation rationale
+          if criteria.negation_code_list_id? and criteria.negation
+            displayed_item_name = criteria.description + " (Negation Rationale)"
+            # added another property to hold the negation criteria cid because criteria already has cid
+            criteria.negationCidHolder = cid: undefined
+            dataCriteria.push(@._createValueSet(criteria.negationCidHolder, criteria.negation_code_list_id, displayed_item_name))
 
     # now that we have all the value sets, filter them
     @supplementalCriteria.add(@filterValueSets(supplementalCriteria))
