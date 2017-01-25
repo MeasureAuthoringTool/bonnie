@@ -56,9 +56,13 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       populationLogicView = new Thorax.Views.PopulationLogic(model: @population)
     @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
 
-    # If cql measure don't show multiple populations
     if @model.has('cql')
-      @logicView = populationLogicView
+      if @populations.length > 1 # CQL Measure with multiple populations
+        @logicView = new Thorax.Views.CqlPopulationsLogic model: @model, collection: @populations
+        @logicView.setView populationLogicView
+      else
+        # CQL measure with one population
+        @logicView = populationLogicView
     else
       # display layout view when there are multiple populations; otherwise, just show logic view
       if @populations.length > 1

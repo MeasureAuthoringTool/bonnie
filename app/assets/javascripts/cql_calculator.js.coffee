@@ -24,7 +24,8 @@
   # but may return a blank result object that later gets filled in through a deferred calculation, so views
   # that display results must be able to handle a state of "not yet calculated"
   calculate: (population, patient) ->
-
+    #console.log(population.get('index') + ' ' + patient.get('first'))
+    
     # We store both the calculation result and the calcuation code based on keys derived from the arguments
     cacheKey = @cacheKey(population, patient)
     calcKey = @calculationKey(population)
@@ -70,9 +71,10 @@
       # Parse CQL statement results into population values
       population_values = @createPopulationValues population, results, patient
 
-      result.set population_values
-      result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
-      result.state = 'complete'
+      if population_values?
+        result.set population_values
+        result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
+        result.state = 'complete'
     catch error
       bonnie.showError({title: "Measure Calculation Error", summary: "There was an error calculating the measure #{result.measure.get('cms_id')}.", body: "One of the data elements associated with the measure is causing an issue.  Please review the elements associated with the measure to verify that they are all constructed properly.  Error message: #{error.message}."})
 
@@ -80,20 +82,31 @@
 
   createPopulationValues: (population, results, patient) ->
     population_values = {}
-    # Loop over all populations code, to create a hash of useful values (EX: IPP => 0, DENOM => 1)
-    # Uses a maping of Bonnie population key names and the population key names provided by the measure.
-    # EX: DENEX: "Denom Excl", DENOM: "Denom", IPP: "Initial Pop", NUMER: "Num"
-    for popCode in Thorax.Models.Measure.allPopulationCodes # EX: IPP
-      if population.collection.parent.get('populations_cql_map')[popCode]
-        cql_code = population.collection.parent.get('populations_cql_map')[popCode] # EX: cql_code = Initial Pop
-        value = results['patientResults'][patient.id][cql_code] # EX: "EncounterPerformed"" Object
-        if typeof value is 'object' and value.length > 0
-          population_values[popCode] = 1
-        else if typeof value is 'boolean' and value
-          population_values[popCode] = 1
-        else
-          population_values[popCode] = 0
-    return @handlePopulationValues population_values
+    cql_map = population.collection.parent.get('populations_cql_map')
+    # Loop over each population's expected
+    for expected in patient.get('expected_values').models
+      # Loop over all population codes ("IPP", "DENOM", etc.)
+      for popCode in Thorax.Models.Measure.allPopulationCodes # EX: IPP
+        if cql_map[popCode]
+          cql_code = cql_map[popCode].replace(/[0-9]/g, '') # Ignore population indicies
+          # Try to see if the measure has definitions for more than one population
+          pop_num = expected.get('population_index') + 1
+          pop_name = cql_code + ' ' + pop_num
+          unless results['patientResults'][patient.id][pop_name]?
+            # Population did not have an index (ex: "Denominator Exclusions")
+            pop_name = cql_code
+          # Grab CQL result value and adjust for Bonnie
+          value = results['patientResults'][patient.id][pop_name]
+          if typeof value is 'object' and value.length > 0
+            population_values[popCode] = 1
+          else if typeof value is 'boolean' and value
+            population_values[popCode] = 1
+          else
+            population_values[popCode] = 0
+      # We've hit the population we are supposed to be calculating; return
+      if expected.get('population_index') == population.get('index')
+        return @handlePopulationValues population_values
+    return null
 
   # Takes in the initial values from result object and checks to see if some values should not be calculated.
   handlePopulationValues: (population_values) ->
