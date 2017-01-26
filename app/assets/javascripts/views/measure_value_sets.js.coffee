@@ -98,7 +98,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
           # might contain negation rationale
           if criteria.negation_code_list_id? and criteria.negation
             displayed_item_name = @model.valueSets().findWhere({oid: criteria.negation_code_list_id})?.get('display_name') ? criteria.description
-            displayed_item_name = displayed_item_name + " (Negation Rationale)"
+            displayed_item_name = valueSet.name + " (Not Done: " + displayed_item_name + ")"
             # added another property to hold the negation criteria cid because criteria already has cid
             criteria.negationCidHolder = cid: undefined
             dataCriteria.push(@._createValueSet(criteria.negationCidHolder, criteria.negation_code_list_id, displayed_item_name))
