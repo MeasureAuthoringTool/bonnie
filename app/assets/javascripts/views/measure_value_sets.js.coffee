@@ -85,19 +85,28 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
           # if not supplemental criteria, may contain attributes in "value" property
           # we show attributes that have type="CD", a non-empty title, and non-empty code_list_id
           if criteria.value?.type? and criteria.value.type is "CD" and criteria.value.code_list_id?
-            displayed_item_name = @model.valueSets().findWhere({oid: criteria.value.code_list_id})?.get('display_name') ? criteria.value.title
+            displayed_item_name = @model.valueSets().findWhere({oid: criteria.value.code_list_id})?.get('display_name')
+            displayed_item_name ?= criteria.value.title
             attributesCriteria.push(@._createValueSet(criteria.value, criteria.value.code_list_id, displayed_item_name)) if displayed_item_name
 
           # attributes are also stored in "field_values" property, under a key, e.g. "PRINCIPAL_DIAGNOSIS"
           if criteria.field_values?
             for key, value of criteria.field_values
               if value.type? and value.type is "CD" and value.code_list_id?
-                displayed_item_name = @model.valueSets().findWhere({oid: value.code_list_id})?.get('display_name') ? value.title
+                valueSetDisplayName = @model.valueSets().findWhere({oid: value.code_list_id})?.get('display_name')
+                if value.key_title?
+                  displayed_item_name = value.key_title
+                  displayed_item_name += ': ' + valueSetDisplayName if valueSetDisplayName?
+                else if valueSetDisplayName?
+                  displayed_item_name = valueSetDisplayName
+                else
+                  displayed_item_name = value.title
                 attributesCriteria.push(@._createValueSet(value, value.code_list_id, displayed_item_name)) if displayed_item_name
 
           # might contain negation rationale
           if criteria.negation_code_list_id? and criteria.negation
-            displayed_item_name = @model.valueSets().findWhere({oid: criteria.negation_code_list_id})?.get('display_name') ? criteria.description
+            displayed_item_name = @model.valueSets().findWhere({oid: criteria.negation_code_list_id})?.get('display_name')
+            displayed_item_name ?= criteria.description
             displayed_item_name = valueSet.name + " (Not Done: " + displayed_item_name + ")"
             # added another property to hold the negation criteria cid because criteria already has cid
             criteria.negationCidHolder = cid: undefined
