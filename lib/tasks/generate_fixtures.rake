@@ -142,17 +142,17 @@ namespace :bonnie do
       fixtures_path = File.join('test', 'fixtures')
       #Exports the user
       user = User.find_by email: args[:user_email]
-      user_file = File.join(fixture_path, 'users', args[:path], 'user.json')
-      create_fixture_file(user_file, JSON.pretty_generate(JSON.parse(user.to_json)))
-
+      bonnie_user_id = '501fdba3044a111b98000001'
       #Exports the measure
       measure = get_measure(user, args[:cms_hqmf], args[:measure_id])
+      measure.user_id = bonnie_user_id
       measure_name = measure.cms_id + ".json"
       measure_file = File.join(fixtures_path, 'draft_measures', args[:path], measure_name)
       create_fixture_file(measure_file, JSON.pretty_generate(JSON.parse(measure.to_json)))
 
       #Exports the patients on the selected measure
       records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).each do |rec|
+        rec.user_id = bonnie_user_id
         rec_name = rec.first + "_" + rec.last + ".json"
         record_file = File.join(fixtures_path, 'records', args[:path], rec_name)
         create_fixture_file(record_file, JSON.pretty_generate(JSON.parse(rec.to_json)))
@@ -160,21 +160,33 @@ namespace :bonnie do
       
       #Exports the measure's value_sets
       value_sets_file = File.join(fixtures_path, 'health_data_standards_svs_value_sets', args[:path], 'value_sets.json')
-      create_fixture_file(value_sets_file, JSON.pretty_generate(JSON.parse(measure.value_sets.to_json)))
+      value_sets = measure.value_sets
+      vs_export = []
+      value_sets.each do |vs|
+        vs.user_id = bonnie_user_id
+        vs_export.push(vs)
+      end
+      create_fixture_file(value_sets_file, JSON.pretty_generate(JSON.parse(vs_export.to_json)))
 
       #Exports the upload_summaries associated with the measure
       measure_summaries = UploadSummary::MeasureSummary.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).desc(:created_at)
+      ms_export = []
+      measure_summaries.each do |ms|
+        ms.user_id = bonnie_user_id
+        ms_export.push(ms)
+      end
       upload_summaries_file = File.join(fixtures_path, 'upload_summaries', args[:path], "upload_summaries.json")
-      create_fixture_file(upload_summaries_file, JSON.pretty_generate(JSON.parse(measure_summaries.to_json)))
+      create_fixture_file(upload_summaries_file, JSON.pretty_generate(JSON.parse(ms_export.to_json)))
 
       #Exports the archived_measures associated with the measure
       archived_measures = ArchivedMeasure.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
-      archived_measures_file = File.join(fixtures_path, 'archived_measures', args[:path], "archived_measures.json")
-      arc_measures = []
-      archived_measures.each do |am|
-        arc_measures.push(am)
+      am_export = []
+      archived_measures.each do |am| 
+        am.user_id = bonnie_user_id 
+        am_export.push(am)
       end
-      create_fixture_file(archived_measures_file, JSON.pretty_generate(JSON.parse(archived_measures.to_json)))
+      archived_measures_file = File.join(fixtures_path, 'archived_measures', args[:path], "archived_measures.json")
+      create_fixture_file(archived_measures_file, JSON.pretty_generate(JSON.parse(am_export.to_json)))
     end
     
     ###
@@ -198,6 +210,9 @@ namespace :bonnie do
     
     ###
     # Loads a set of back end fixtures into the active database.
+    # IMPORTANT: using this method will wipe the existing database.  
+    # It is strongly recomended that you alter the config/mongoid.yml file so that the development:sessions:default:database points
+    # to a new database (running bonnie will create a new database if the database config is pointed at one that does not exist)
     # 
     # path: the path to the files that comes after the fixture type directory
     desc "Loads set of fixtures into a running instance of BONNIE"
@@ -207,7 +222,7 @@ namespace :bonnie do
       value_sets_collection = File.join 'health_data_standards_svs_value_sets', args[:path]
       records_collection = File.join 'records', args[:path]
       upload_summaries_collection = File.join 'upload_summaries', args[:path]
-      users_collection = File.join 'users', args[:path]
+      users_collection = File.join 'users', 'base_set'
       collection_fixtures(archived_measures_collection, measure_collection, value_sets_collection, records_collection, upload_summaries_collection, users_collection)
     end
     
