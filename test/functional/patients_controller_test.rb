@@ -60,7 +60,6 @@ include Devise::TestHelpers
     assert_equal false, r.results_exceed_storage
     assert_equal nil, r.condensed_calc_results
     assert_equal 128, r.results_size
-    assert_equal nil, UploadSummary::PopulationSetSummary.first
     json = JSON.parse(response.body)
 
     assert_equal 'Betty', json['first']
