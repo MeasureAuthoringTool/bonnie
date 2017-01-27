@@ -130,6 +130,7 @@ namespace :bonnie do
 
     ###
     # Generates a set of back end fixtures representing a specific database state.
+    # Generated fixtures will be associated with
     #
     # cms_hqmf: indicates if a CMS id or an HQMF id is used.
     #   values: cms, hqmf
@@ -222,7 +223,7 @@ namespace :bonnie do
       value_sets_collection = File.join 'health_data_standards_svs_value_sets', args[:path]
       records_collection = File.join 'records', args[:path]
       upload_summaries_collection = File.join 'upload_summaries', args[:path]
-      users_collection = File.join 'users', 'base_set'
+      users_collection = File.join 'users', 'export_user'
       collection_fixtures(archived_measures_collection, measure_collection, value_sets_collection, records_collection, upload_summaries_collection, users_collection)
     end
     
