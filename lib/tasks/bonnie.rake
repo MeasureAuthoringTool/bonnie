@@ -142,6 +142,73 @@ namespace :bonnie do
       end
     end
 
+    desc %{Import Value Sets from a JSON file.
+
+           You must identify the user by EMAIL, include a CMS_ID, and
+           an output filename FILENAME}
+    task :import_value_sets => :environment do
+      # Grab user account
+      user_email = ENV['EMAIL']
+      raise "#{user_email} not found" unless user = User.find_by(email: user_email)
+
+      # Grab user measure to add patients to
+      user_measure = ENV['CMS_ID']
+
+      # Check if MEASURE_TYPE is a CQL Measure
+      if ENV['MEASURE_TYPE'] == 'CQL'
+        raise "#{user_email} not found" unless measure = CqlMeasure.find_by(user_id: user._id, cms_id: user_measure)
+      else
+        raise "#{user_email} not found" unless measure = Measure.find_by(user_id: user._id, cms_id: user_measure)
+      end
+
+     puts measure.value_set_oids.count
+      # Import value set objects from JSON file and save
+      puts "Importing value sets..."
+      raise "FILENAME not specified" unless input_file = ENV['FILENAME']
+      File.foreach(File.join(Rails.root, input_file)) do |vs|
+        next if vs.blank?
+
+        value_set = HealthDataStandards::SVS::ValueSet.new.from_json vs.strip
+        measure.value_set_oids << value_set.oid
+        measure.save
+
+        value_set.user = user
+        value_set.bundle = user.bundle
+        value_set.dup.save!
+      end
+
+      puts "Done!"
+    end
+
+    desc %{Export Value Sets to a JSON file.
+
+           You must identify the user by EMAIL, include a CMS_ID, and
+           an output filename FILENAME}
+    task :export_value_sets => :environment do
+      # Grab user account
+      user_email = ENV['EMAIL']
+      raise "#{user_email} not found" unless user = User.find_by(email: user_email)
+
+      # Grab user measure to pull patients from
+      user_measure = ENV['CMS_ID']
+      raise "#{user_email} not found" unless measure = Measure.find_by(user_id: user._id, cms_id: user_measure)
+
+      # Find the value sets we'll be *copying* (not moving!)
+      value_sets = measure.value_sets.map(&:clone) # Clone ensures we save a copy and don't overwrite original
+
+      # Write the value set copies,
+      puts "Exporting value sets..."
+      raise "FILENAME not specified" unless output_file = ENV['FILENAME']
+      File.open(File.join(Rails.root, output_file), "w") do |f|
+        value_sets.each do |value_set|
+          f.write(value_set.to_json)
+          f.write("\r\n")
+        end
+      end
+
+      puts "Done!"
+    end
+
     desc 'Move a measure from one user account to another'
     task :move_measure => :environment do
       source_email = ENV['SOURCE_EMAIL']
