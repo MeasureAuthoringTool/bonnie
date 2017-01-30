@@ -35,6 +35,12 @@ class Thorax.Models.Patient extends Thorax.Model
     # Clone by fully serializing and de-derializing; we need to stringify to have recursive JSONification happen
     data = if options.omit_id then _(@toJSON()).omit('_id') else @toJSON() # Don't use @omit in case toJSON is overwritten
 
+    # Removes all of the information relating to calc results
+    data.calc_results = null
+    data.condensed_calc_results = null
+    data.results_exceed_storage = false
+    data.results_size = 0
+
     # If createPatient = true, then a new patient is being created from the deep clone rather than
     # a clone used to facilitate editing as is done in the patient builder view.
     # Since we are making a new patient, this patient will not have any prior measure upload history
