@@ -404,6 +404,12 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       @toggleAddCodesButton()
       @validateForAddition()
     'change select': ->
+      # @serialize.key is the selected item set to the model.key so the view can change accordingly
+      if(@serialize().key == 'COMPONENTS')
+        @model.set type: 'CMP'
+      else
+        # Default drop down to 'coded'
+        @model.set type: 'CD'
       @toggleAddCodesButton()
       @validateForAddition()
       @advanceFocusToInput()
