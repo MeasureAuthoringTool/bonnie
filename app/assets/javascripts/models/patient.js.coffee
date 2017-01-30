@@ -241,38 +241,48 @@ class Thorax.Models.Patient extends Thorax.Model
   #   save has been completed.
   ###
   calculateAndSave: (attributes, options) ->
+    promise = $.Deferred()
+
     # make the changes
     @set(attributes, if options?.silent then { silent: true } else null)
-    
+
     # validate the changes made
     @validationError = @validate()
-    
+
     # return false if there are any validation errors
     if @validationError?.length > 0
+      promise.resolve(@)
       return false
-    
+
     # make sure that materialize happens
     @materialize( =>
       measuresToCalculate = []
-      
+
       # fetch all measures that this patient belongs to if they exist
       for hqmfSetId in @get('measure_ids')
         if hqmfSetId != null
           measure = bonnie.measures.findWhere(hqmf_set_id: hqmfSetId)
           measuresToCalculate.push(measure) if measure
-      
+
       # start all calculations and collect all the deferreds
       allCalculations = []
       for measure in measuresToCalculate
         allCalculations.push(measure.get('populations').map((populationSet) => populationSet.calculate(@).calculation)...)
-      
+
       # wait for all calculation deferreds to complete
       $.when.apply(@, allCalculations)
         .done( (results...) =>
           # Pull out only the result parts we need to save and replace them on the patient
           @set({ calc_results: _.map(results, @_filterResult) }, { silent: true })
-          @save(null, options) )
+
+          # only resolve the method promise once the save has been completely processed
+          savePromise = @save(null, options)
+          $.when(savePromise).then =>
+            promise.resolve(@)
+        )
       )
+
+    promise
 
 class Thorax.Collections.Patients extends Thorax.Collection
   url: '/patients'
