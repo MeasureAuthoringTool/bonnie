@@ -87,7 +87,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
           if criteria.value?.type? and criteria.value.type is "CD" and criteria.value.code_list_id?
             displayed_item_name = @model.valueSets().findWhere({oid: criteria.value.code_list_id})?.get('display_name')
             displayed_item_name ?= criteria.value.title
-            attributesCriteria.push(@._createValueSet(criteria.value, criteria.value.code_list_id, displayed_item_name)) if displayed_item_name
+            attributesCriteria.push(@._createValueSet(criteria.value, criteria.value.code_list_id, 'Result: ' + displayed_item_name)) if displayed_item_name
 
           # attributes are also stored in "field_values" property, under a key, e.g. "PRINCIPAL_DIAGNOSIS"
           if criteria.field_values?
