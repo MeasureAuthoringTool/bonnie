@@ -70,16 +70,21 @@ describe 'Patient with measure history', ->
       .callFake((attrs, options) ->
         options.success() if options.success?)
 
-  it 'materializes before saving', (done) ->
-    @patient.calculateAndSave {},
-    success: =>
-      expect(@patient.materialize).toHaveBeenCalled()
-      done()
-
-  it 'has calc_results for the measure after save', (done) ->
+  it 'materializes, saves, and creates calc_results after success callback called', (done) ->
     delete @patient['calc_results']
     @patient.calculateAndSave {},
     success: =>
+      expect(@patient.materialize).toHaveBeenCalled()
+      expect(@patient.save).toHaveBeenCalled()
+      expect(@patient.get('calc_results')).toBeDefined()
+      done()
+
+  it 'materializes, saves, and creates calc_results after promise completes', (done) ->
+    delete @patient['calc_results']
+    promise = @patient.calculateAndSave {}, {}
+    $.when(promise).then =>
+      expect(@patient.materialize).toHaveBeenCalled()
+      expect(@patient.save).toHaveBeenCalled()
       expect(@patient.get('calc_results')).toBeDefined()
       done()
 
