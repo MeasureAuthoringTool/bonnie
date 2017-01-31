@@ -92,3 +92,21 @@ describe 'Patient', ->
         success: =>
           expect(@patient.get('calc_results')).toBeDefined()
           done()
+
+describe 'Patient saving to backend', ->
+  # commented out for now because back end doesn't have this in the database, resulting in this error:
+  # Mongoid::Errors::DocumentNotFound (
+  # Problem:
+  #   Document(s) not found for class Record with id(s) 5863fbdee76e94aee90003c9.
+  # Summary:
+  # When calling Record.find with an id or array of ids, each parameter must match a document in the database or this error will be raised. The search was for the id(s): 5863fbdee76e94aee90003c9 ... (1 total) and the following ids were not found: 5863fbdee76e94aee90003c9.
+  beforeEach (done) ->
+    window.measureHistorySpecLoader.load('measure_history_set/single_population_set/CMS68', 'initialLoad', 'CMS68v4', @)
+    @patient = @patients.at(0)
+    done()
+
+  xit 'calculateAndSave has calc_results for the measure after save', (done) ->
+      @patient.calculateAndSave {},
+        success: =>
+          expect(@patient.get('calc_results')).toBeDefined()
+          done()
