@@ -239,6 +239,8 @@ class Thorax.Models.Patient extends Thorax.Model
   # @param {object} options - The options. These are passed to backbone's save function. `silent`
   #   option is obeyed for setting attribute changes. `success` option is useful to know when the
   #   save has been completed.
+  # @return {Deferred} a promise object that completes when the calculation and save are completely
+  #   processed.
   ###
   calculateAndSave: (attributes, options) ->
     promise = $.Deferred()
