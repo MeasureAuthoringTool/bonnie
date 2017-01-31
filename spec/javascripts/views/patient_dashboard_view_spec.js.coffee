@@ -27,10 +27,7 @@ describe 'EmptyPatientDashboardView', ->
   it 'should not show patient dashboard for non existant measure', ->
     spyOn(bonnie,'showPageNotFound')
     bonnie.renderPatientDashboard('non_existant_hqmf_set_id')
-    waitsForAndRuns( false, 
-      expect(bonnie.showPageNotFound).toHaveBeenCalled(),
-      )
-
+    expect(bonnie.showPageNotFound).toHaveBeenCalled()
 
 ###
  The following tests should be converted to use webdriver if possible 
