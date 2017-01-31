@@ -45,17 +45,17 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
 
   showDelete: (e) ->
     result = @$(e.target).model().result
-    deleteButton = @$(".delete-#{result.patient.id}")
+    deleteButton = @$(".delete-#{result.get('patient_id')}")
     deleteIcon = @$(e.currentTarget)
     # if we clicked on the icon, grab the icon button instead
     deleteIcon.toggleClass('btn-danger btn-danger-inverse')
     deleteButton.toggle()
-    shareButton = @$(".share-#{result.patient.id}")
+    shareButton = @$(".share-#{result.get('patient_id')}")
     shareButton.toggle() # get share button out the way
 
   deletePatient: (e) ->
     result = $(e.target).model().result
-    patient = @measure.get('patients').get result.patient.id
+    patient = @measure.get('patients').get result.get('patient_id')
     patient.destroy()
     result.destroy()
     @trigger 'rationale:clear'
@@ -63,14 +63,14 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
 
   clonePatient: (e) ->
     result = $(e.target).model().result
-    patient = @measure.get('patients').get result.patient.id
+    patient = @measure.get('patients').get result.get('patient_id')
     bonnie.navigateToPatientBuilder patient.deepClone(omit_id: true, dedupName: true, createPatient: true), @measure
 
   togglePatient: (e) ->
     $btn = $(e.currentTarget)
 
     result = $btn.model().result
-    patient = @measure.get('patients').get result.patient.id
+    patient = @measure.get('patients').get result.get('patient_id')
 
     # toggle the patient's 'is_shared' attribute
     if patient.get('is_shared')
