@@ -70,23 +70,48 @@ describe 'Patient with measure history', ->
       .callFake((attrs, options) ->
         options.success() if options.success?)
 
-  it 'materializes, saves, and creates calc_results after success callback called', (done) ->
+  it 'materializes, saves, and creates calc_results after success callback called for calculateAndSave', (done) ->
     delete @patient['calc_results']
-    @patient.calculateAndSave {},
-    success: =>
-      expect(@patient.materialize).toHaveBeenCalled()
-      expect(@patient.save).toHaveBeenCalled()
-      expect(@patient.get('calc_results')).toBeDefined()
+    promise = @patient.calculateAndSave {},
+      success: =>
+        expect(@patient.materialize).toHaveBeenCalled()
+        expect(@patient.save).toHaveBeenCalled()
+        expect(@patient.get('calc_results')).toBeDefined()
+        done()
+    $.when(promise).fail =>
+      fail('calculateAndSave failed when it should not have.')
       done()
 
-  it 'materializes, saves, and creates calc_results after promise completes', (done) ->
+  it 'materializes, saves, and creates calc_results after promise completes for calculateAndSave', (done) ->
     delete @patient['calc_results']
     promise = @patient.calculateAndSave {}, {}
-    $.when(promise).then =>
-      expect(@patient.materialize).toHaveBeenCalled()
-      expect(@patient.save).toHaveBeenCalled()
-      expect(@patient.get('calc_results')).toBeDefined()
-      done()
+    $.when(promise)
+      .done( =>
+        expect(@patient.materialize).toHaveBeenCalled()
+        expect(@patient.save).toHaveBeenCalled()
+        expect(@patient.get('calc_results')).toBeDefined()
+        done()
+      )
+      .fail( =>
+        fail('calculateAndSave failed when it should not have.')
+        done()
+      )
+
+  it 'correctly fails when there is a validation error for calculateAndSave', (done) ->
+    delete @patient['calc_results']
+    @patient.set('first', '') # should cause a validation failure
+    promise = @patient.calculateAndSave {}, {}
+    $.when(promise)
+      .done( =>
+        fail('calculateAndSave succeeded when it should not have.')
+        done()
+      )
+      .fail( =>
+        expect(@patient.materialize).not.toHaveBeenCalled()
+        expect(@patient.save).not.toHaveBeenCalled()
+        expect(@patient.get('calc_results')).not.toBeDefined()
+        done()
+      )
 
   # moved cloning code to the scope with measure history because how calc_results
   # is managed during the clone is important.

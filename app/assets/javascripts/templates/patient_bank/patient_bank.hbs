@@ -1,4 +1,5 @@
 <div class="patient-bank">
+  <div class="validation-alerts"><div class="alert alert-danger hidden"></div></div>
 
   <div class="bank-measure">
     <h2>{{title}}</h2>
@@ -14,7 +15,7 @@
       <h1 class="pull-left"><i class="fa fa-fw fa-group" aria-hidden="true"></i> Test Patients <span class="patient-count"></span></h1>
       <div class="pull-right">
         {{view selectedPatientsView}}
-        {{#button "cloneBankPatients" class="btn btn-primary bank-actions" data-cloning-text="Cloning..." data-cloned-text="Cloned successfully" disabled="true"}}Clone into {{cms_id}}<span class="sr-only"> patients selected from patient bank</span>{{/button}}
+        {{#button "cloneBankPatients" class="btn btn-primary bank-actions" data-cloning-text="Cloning..." data-cloned-text="Cloned successfully" data-clonefailed-text="Clone failed... try again" disabled="true"}}Clone into {{cms_id}}<span class="sr-only"> patients selected from patient bank</span>{{/button}}
         {{#button "exportBankPatients" class="btn btn-default bank-actions" data-exporting-text="Exporting..." data-exported-text="Exported successfully" disabled="true"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA<span class="sr-only"> patients selected from patient bank</span>{{/button}}
       </div>
     </div>

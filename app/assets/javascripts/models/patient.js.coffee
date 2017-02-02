@@ -243,7 +243,7 @@ class Thorax.Models.Patient extends Thorax.Model
   #   processed.
   ###
   calculateAndSave: (attributes, options) ->
-    promise = $.Deferred()
+    deferred = $.Deferred()
 
     # make the changes
     @set(attributes, if options?.silent then { silent: true } else null)
@@ -253,8 +253,8 @@ class Thorax.Models.Patient extends Thorax.Model
 
     # return false if there are any validation errors
     if @validationError?.length > 0
-      promise.resolve(@)
-      return false
+      deferred.reject(@)
+      return deferred.promise()
 
     # make sure that materialize happens
     @materialize( =>
@@ -280,11 +280,11 @@ class Thorax.Models.Patient extends Thorax.Model
           # only resolve the method promise once the save has been completely processed
           savePromise = @save(null, options)
           $.when(savePromise).then =>
-            promise.resolve(@)
+            deferred.resolve(@)
         )
       )
 
-    promise
+    deferred.promise()
 
 class Thorax.Collections.Patients extends Thorax.Collection
   url: '/patients'

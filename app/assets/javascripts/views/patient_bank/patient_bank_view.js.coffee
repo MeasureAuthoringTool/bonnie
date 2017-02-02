@@ -176,10 +176,15 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
   cloneBankPatients: (e) ->
     @$(e.target).button('cloning')
     promises = @selectedPatients.map (patient) => @clonePatientIntoMeasure(patient)
-    $.when(promises...).then =>
-      # All the selected patients have been saved
-      @$(e.target).button('cloned')
-      bonnie.navigate "measures/#{@model.get('hqmf_set_id')}", trigger: true # return to measure
+    $.when(promises...)
+      .done( =>
+        # All the selected patients have been saved
+        @$(e.target).button('cloned')
+        bonnie.navigate "measures/#{@model.get('hqmf_set_id')}", trigger: true # return to measure
+      ).fail( =>
+        @$(e.target).button('clonefailed')
+        @$('.alert').text('There were errors cloning the selected patients.').removeClass('hidden')
+      )
 
   exportBankPatients: ->
     @exportPatientsView.exporting()
