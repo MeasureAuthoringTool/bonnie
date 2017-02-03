@@ -35,6 +35,12 @@ class Thorax.Models.Patient extends Thorax.Model
     # Clone by fully serializing and de-derializing; we need to stringify to have recursive JSONification happen
     data = if options.omit_id then _(@toJSON()).omit('_id') else @toJSON() # Don't use @omit in case toJSON is overwritten
 
+    # Removes all of the information relating to calc results
+    data.calc_results = null
+    data.condensed_calc_results = null
+    data.results_exceed_storage = false
+    data.results_size = 0
+
     # If createPatient = true, then a new patient is being created from the deep clone rather than
     # a clone used to facilitate editing as is done in the patient builder view.
     # Since we are making a new patient, this patient will not have any prior measure upload history
@@ -233,40 +239,57 @@ class Thorax.Models.Patient extends Thorax.Model
   # @param {object} options - The options. These are passed to backbone's save function. `silent`
   #   option is obeyed for setting attribute changes. `success` option is useful to know when the
   #   save has been completed.
+  # @return {Deferred} a promise object that completes when the calculation and save are completely
+  #   processed.
   ###
   calculateAndSave: (attributes, options) ->
+    deferred = $.Deferred()
+
     # make the changes
     @set(attributes, if options?.silent then { silent: true } else null)
-    
+
     # validate the changes made
     @validationError = @validate()
-    
+
     # return false if there are any validation errors
     if @validationError?.length > 0
-      return false
-    
+      deferred.reject(@)
+      return deferred.promise()
+
     # make sure that materialize happens
     @materialize( =>
       measuresToCalculate = []
-      
+
       # fetch all measures that this patient belongs to if they exist
       for hqmfSetId in @get('measure_ids')
         if hqmfSetId != null
           measure = bonnie.measures.findWhere(hqmf_set_id: hqmfSetId)
           measuresToCalculate.push(measure) if measure
-      
+
       # start all calculations and collect all the deferreds
       allCalculations = []
       for measure in measuresToCalculate
         allCalculations.push(measure.get('populations').map((populationSet) => populationSet.calculate(@).calculation)...)
-      
+
       # wait for all calculation deferreds to complete
       $.when.apply(@, allCalculations)
         .done( (results...) =>
           # Pull out only the result parts we need to save and replace them on the patient
           @set({ calc_results: _.map(results, @_filterResult) }, { silent: true })
-          @save(null, options) )
+
+          # only resolve the method promise once the save has been completely processed
+          savePromise = @save(null, options)
+          $.when(savePromise)
+            .done( =>
+              deferred.resolve(@)
+            )
+            .fail( =>
+              deferred.reject(@)
+            )
+        )
       )
+
+    deferred.promise()
 
 class Thorax.Collections.Patients extends Thorax.Collection
   url: '/patients'

@@ -8,20 +8,6 @@ describe 'Patient', ->
   it 'has basic attributes available', ->
     expect(@patient.get('gender')).toEqual 'F'
 
-  it 'correctly performs deep cloning', ->
-    clone = @patient.deepClone()
-    expect(clone.cid).not.toEqual @patient.cid
-    expect(clone.keys()).toEqual @patient.keys()
-    expect(clone.get('source_data_criteria').cid).not.toEqual @patient.get('source_data_criteria').cid
-    expect(clone.get('source_data_criteria').pluck('id')).toEqual @patient.get('source_data_criteria').pluck('id')
-    cloneWithoutId = @patient.deepClone(omit_id: true)
-    expect(cloneWithoutId.cid).not.toEqual @patient.cid
-    expect(_(@patient.keys()).difference(cloneWithoutId.keys())).toEqual ['_id']
-
-  it 'correctly deduplicates the name when deep cloning and dedupName is an option', ->
-    clone = @patient.deepClone({dedupName: true})
-    expect(clone.get("first")).toEqual @patient.get("first") + " (1)"
-
   it 'correctly sorts criteria by multiple attributes', ->
     # Patient has for existing criteria; first get their current order
     startOrder = @patient.get('source_data_criteria').map (dc) -> dc.cid
@@ -69,26 +55,82 @@ describe 'Patient', ->
       expect(errors.length).toEqual 1
       expect(errors[0][2]).toEqual 'Deceased patient must have date of death'
       
-  describe 'calculateAndSave', ->
-  
-    # Set up fake/spy functions for materialize and backbone save
-    beforeEach ->
-      spyOn(@patient, 'materialize').and
-        .callFake((callback) -> 
-          callback() if callback?)
-          
-      spyOn(@patient, 'save').and
-        .callFake((attrs, options) ->
-          options.success() if options.success?)
-      
-    it 'materializes before saving', (done) ->
-      @patient.calculateAndSave {},
-        success: =>
-          expect(@patient.materialize).toHaveBeenCalled()
-          done()
-    
-    it 'has calc_results for the measure after save', (done) ->
-      @patient.calculateAndSave {},
-        success: =>
-          expect(@patient.get('calc_results')).toBeDefined()
-          done()
+describe 'Patient with measure history', ->
+
+  # Set up fake/spy functions for materialize and backbone save
+  beforeEach ->
+    window.measureHistorySpecLoader.load('measure_history_set/single_population_set/CMS68', 'update2', 'CMS68v4', @)
+    @patient = @patients.at(0)
+
+    spyOn(@patient, 'materialize').and
+      .callFake((callback) ->
+        callback() if callback?)
+
+    spyOn(@patient, 'save').and
+      .callFake((attrs, options) ->
+        options.success() if options.success?)
+
+  it 'materializes, saves, and creates calc_results after success callback called for calculateAndSave', (done) ->
+    delete @patient['calc_results']
+    promise = @patient.calculateAndSave {},
+      success: =>
+        expect(@patient.materialize).toHaveBeenCalled()
+        expect(@patient.save).toHaveBeenCalled()
+        expect(@patient.get('calc_results')).toBeDefined()
+        done()
+    $.when(promise).fail =>
+      fail('calculateAndSave failed when it should not have.')
+      done()
+
+  it 'materializes, saves, and creates calc_results after promise completes for calculateAndSave', (done) ->
+    delete @patient['calc_results']
+    promise = @patient.calculateAndSave {}, {}
+    $.when(promise)
+      .done( =>
+        expect(@patient.materialize).toHaveBeenCalled()
+        expect(@patient.save).toHaveBeenCalled()
+        expect(@patient.get('calc_results')).toBeDefined()
+        done()
+      )
+      .fail( =>
+        fail('calculateAndSave failed when it should not have.')
+        done()
+      )
+
+  it 'correctly fails when there is a validation error for calculateAndSave', (done) ->
+    delete @patient['calc_results']
+    @patient.set('first', '') # should cause a validation failure
+    promise = @patient.calculateAndSave {}, {}
+    $.when(promise)
+      .done( =>
+        fail('calculateAndSave succeeded when it should not have.')
+        done()
+      )
+      .fail( =>
+        expect(@patient.materialize).not.toHaveBeenCalled()
+        expect(@patient.save).not.toHaveBeenCalled()
+        expect(@patient.get('calc_results')).not.toBeDefined()
+        done()
+      )
+
+  # moved cloning code to the scope with measure history because how calc_results
+  # is managed during the clone is important.
+  it 'correctly performs deep cloning', ->
+    clone = @patient.deepClone()
+    expect(clone.cid).not.toEqual @patient.cid
+    expect(clone.keys()).toEqual @patient.keys()
+    expect(clone.get('source_data_criteria').cid).not.toEqual @patient.get('source_data_criteria').cid
+    expect(clone.get('source_data_criteria').pluck('id')).toEqual @patient.get('source_data_criteria').pluck('id')
+    cloneWithoutId = @patient.deepClone(omit_id: true)
+    expect(cloneWithoutId.cid).not.toEqual @patient.cid
+    expect(_(@patient.keys()).difference(cloneWithoutId.keys())).toEqual ['_id']
+
+    # ensure that calc_results values are appropriately cleared out
+    expect(clone.get('calc_results')).toEqual null
+    expect(clone.get('condensed_calc_results')).toEqual null
+    expect(clone.get('results_size')).toEqual 0
+    expect(clone.get('results_exceed_storage')).toEqual false
+
+  it 'correctly deduplicates the name when deep cloning and dedupName is an option', ->
+    clone = @patient.deepClone({dedupName: true})
+    expect(clone.get("first")).toEqual @patient.get("first") + " (1)"

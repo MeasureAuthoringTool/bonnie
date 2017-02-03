@@ -549,7 +549,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
     $('#ariaalerts').html "Saving edits on this patient."
 
     # Update row on recalculation
-    status = patient.calculateAndSave editedData,
+    promise = patient.calculateAndSave editedData,
       silent: true
       success: (model) =>
         result = @populationSet.calculateResult patient
@@ -565,7 +565,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
           @deselectRow(rowIndex)
           @updateDisplay(rowIndex)
           @$('.alert').text('').addClass('hidden')
-    unless status
+    $.when(promise).fail =>
       messages = []
       for [cid, field, message] in patient.validationError
         messages.push message

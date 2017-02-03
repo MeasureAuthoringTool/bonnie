@@ -185,7 +185,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
     patientJSON = @model.toJSON()
     # Need to have silent: true on save so that the change event (which clears calc_results) doesn't fire 
-    status = @originalModel.calculateAndSave patientJSON,
+    promise = @originalModel.calculateAndSave patientJSON,
       silent: true
       success: (current_patient) =>
         # We need to clear the cache so that page you are returned to will be forced to refresh its cache for calc_results
@@ -201,7 +201,7 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
           route = if @measure then "measures/#{@measure.get('hqmf_set_id')}" else "patients"
         bonnie.navigate route, trigger: true
         callback.success(current_patient) if callback?.success
-    unless status
+    $.when(promise).fail =>
       $(e.target).button('reset').prop('disabled', false)
       messages = []
       for [cid, field, message] in @originalModel.validationError
