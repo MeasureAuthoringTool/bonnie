@@ -358,8 +358,11 @@
   "force_sources": null,
   "hqmf_id": "40280381-52FC-3A32-0153-3D64AF97147B",
   "hqmf_set_id": "9A032D9C-3D9B-11E1-8634-00237D5BF174",
-  "hqmf_version_number": 6,
+  "hqmf_version_number": "6",
   "id": "584ec48de76e941a3d0001fd",
+  "map_fns": [
+
+  ],
   "measure_attributes": [
     {
       "code": "OTH",
@@ -997,6 +1000,9 @@
   "preconditions": null,
   "publish_date": null,
   "published": null,
+  "record_ids": [
+
+  ],
   "source_data_criteria": {
     "OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_59588fd6_ca67_4fdc_8f83_0abd63f3a61a_source": {
       "title": "Medications Encounter Code Set",
@@ -1279,7 +1285,6 @@
     "2.16.840.1.113883.3.600.1.462",
     "2.16.840.1.113883.3.600.1.1502"
   ],
-  "version": null,
   "value_sets": [
     {
       "_id": "584ec48ae76e941a3d0000c5",
@@ -4408,5 +4413,6 @@
       "user_id": "501fdba3044a111b98000001",
       "version": "Draft"
     }
-  ]
+  ],
+  "version": null
 }

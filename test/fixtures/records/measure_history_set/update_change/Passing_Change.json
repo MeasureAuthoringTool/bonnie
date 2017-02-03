@@ -1,5 +1,5 @@
 {
-  "_id": { "$oid": "5852fa58e76e94e528001e9d" },
+  "_id": "5852fa58e76e94e528001e9d",
   "birthdate": 633945600,
   "bundle_id": "58418762e76e94d175000001",
   "calc_results": [
@@ -469,6 +469,7 @@
       "status": "pass"
     }
   ],
+  "condensed_calc_results": null,
   "created_at": "2016-12-15T20:17:28.599Z",
   "deathdate": null,
   "description": null,
@@ -577,6 +578,7 @@
   ],
   "medical_record_assigner": "Bonnie",
   "medical_record_number": "73f9faec0ed0cb37f481c056415b4afc",
+  "modifier_id": null,
   "notes": "Patient should have their passing status change when a new version is uploaded.",
   "origin_data": [
 
