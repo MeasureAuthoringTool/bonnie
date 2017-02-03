@@ -279,8 +279,13 @@ class Thorax.Models.Patient extends Thorax.Model
 
           # only resolve the method promise once the save has been completely processed
           savePromise = @save(null, options)
-          $.when(savePromise).then =>
-            deferred.resolve(@)
+          $.when(savePromise)
+            .done( =>
+              deferred.resolve(@)
+            )
+            .fail( =>
+              deferred.reject(@)
+            )
         )
       )
 
