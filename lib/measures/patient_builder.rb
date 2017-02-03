@@ -211,7 +211,6 @@ module Measures
     def self.derive_field_values(entry, values, value_sets)
       return if values.nil?
       values.each do |name, value|
-
         converted_time = Time.at(value['value']/1000).utc.strftime('%Y%m%d%H%M%S') if (value['type'] == 'TS')
         field = HQMF::DataCriteria.convert_value(value)
         field.value = converted_time if converted_time
@@ -230,6 +229,8 @@ module Measures
             field_value = Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
           end
           field_value["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id, value_sets)["display_name"] if field_value
+        elsif field.type == "CMP"
+          field_value = Measures::PatientBuilder.select_code(field.code.code_list_id, value_sets)
         else
           field_value = field.format
         end
