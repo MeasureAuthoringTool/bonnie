@@ -40,35 +40,23 @@
 
     uploadSummaries= new Thorax.Collections.UploadSummaries([], {measure_id: measure.id, _fetched: true})
 
-    # add in reverse order so latest upload is first
-    if loadState == 'update2'
-      uploadSummaries.add(@_getUploadSummary(testSet, 'update2'))
-    if loadState == 'update2' || loadState == 'update1'
-      uploadSummaries.add(@_getUploadSummary(testSet, 'update1'))
-    if loadState == 'update2' || loadState == 'update1' || loadState == 'initialLoad'
-      uploadSummaries.add(@_getUploadSummary(testSet, 'initialLoad'))
+    try
+      uploadSummaries.add(@_getUploadSummary uploadSummaryFixture) for uploadSummaryFixture in getJSONFixture('upload_summaries/' + path + '/upload_summaries.json')
+    catch 
+      throw('Error retrieving uploadSummaries. Check to ensure that you have the following
+        file in your fixtures directory:\n
+        * json/upload_summaries/' + path + '/upload_summaries.json\n')
+
+      
 
     measure.set('upload_summaries', uploadSummaries)
 
     testSuite.measure = measure
     testSuite.patients = patients
     testSuite.uploadSummaries = uploadSummaries
-
-  # loadVersion should be one of the following:
-  #  - 'initialLoad'
-  #  - 'update1'
-  #  - 'update2'
-  _getUploadSummary: (path, loadVersion) ->
-    try
-      jsonFixture = getJSONFixture('upload_summaries/' + path + '/' + loadVersion + '.json')
-    catch
-      throw('Error retriving upload summary \'' + loadVersion + '\'. Check to ensure that you have the following
-        file in your fixtures directory:\n
-        * json/upload_summaries/' + path + '/initialLoad.json\n
-        * json/upload_summaries/' + path + '/update1.json\n
-        * json/upload_summaries/' + path + '/update2.json\n')
-
-    uploadSummary = new Thorax.Models.UploadSummary jsonFixture, parse: true
+    
+  _getUploadSummary: (uploadSummaryJson) ->
+    uploadSummary = new Thorax.Models.UploadSummary uploadSummaryJson, parse: true
     uploadSummary._fetched = true
-
+    
     uploadSummary

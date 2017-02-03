@@ -1,66 +1,133 @@
-namespace :HDS do
-  namespace :test do
-    
-    #Usage
-    # bundle exec rake HDS:test:generate_fixtures
-    # use_hqmf: used when cms_id is CMSv0, allows you to use the hqmf_id to identify the measure to be exported.
-    # gen_test: if true, will distribute fixtures into appropriate test/fixtures directories
-    # user_email: email of user to be exported
-    # cms_id: id of mesaure to be exported
-    # patient_first_name, patient_last_name: identify patient to be exported
-    # test_set: what component is the test being generted for? will place created fixtures in subdirectories named after test_set
-    # test_name: the name of the directories that will contain test files.  If not set, will be generated from user, measure and record details.
-    desc "Exports a set of fixtures that can be loaded for testing purposes"
-    task :generate_fixtures, [:gen_test, :use_hqmf, :user_email, :cms_id, :patient_first_name, :patient_last_name, :test_set, :test_name] => [:environment] do |t, args|
-      test_name = args[:test_name]
-      if (test_name.nil?)
-        tmp_email = args[:user_email].split("@")[0]
-        test_name = "#{tmp_email}_#{args[:cms_id]}_#{args[:patient_first_name]}_#{args[:patient_last_name]}"
-        test_name["\."] = "_"
-      end
-      
+namespace :bonnie do
+  namespace :fixtures do
+
+    ###
+    # Generates a set of front end fixtures representing a specific database state.
+    #
+    # cms_hqmf: indicates if a CMS id or an HQMF id is used.
+    #   values: cms, hqmf
+    # path: Path to fixture files, derived from the data-type directories (EX: measure_data/${path}).
+    # user_email: email of user to export.  Measure and patients exported will be taken from this user account.
+    # measure_id: id of measuer to export, taken from account of given user.
+    #
+    # e.g., bundle exec rake bonnie:fixtures:generate_frontend_fixtures[cms,test/fake,bonnie@test.org,CMS68v5]
+    task :generate_frontend_fixtures, [:cms_hqmf, :path, :user_email, :measure_id] => [:environment] do |t, args|
+      fixtures_path = File.join('spec', 'javascripts', 'fixtures', 'json')
+
       user = User.find_by email: args[:user_email]
-      if (args[:use_hqmf] == true)
-        measure = user.measures.find_by(hqmf_id: args[:cms_id])
-      else
-        measure = user.measures.find_by(cms_id: args[:cms_id])
+
+      #Exporting the fixtures for the measure. these go in a measure_data parent directory. the measure file is called measures.json. The accompanying value sets file is called value_sets.json
+      measure = get_measure(user, args[:cms_hqmf], args[:measure_id])
+      measure_file = File.join(fixtures_path, 'measure_data', args[:path], 'measures.json')
+      create_fixture_file(measure_file, JSON.pretty_generate(JSON.parse([measure].to_json)))
+      puts 'exported measure to ' + measure_file
+
+      oid_to_vs_map = {}
+      value_sets = measure.value_sets.each do |vs|
+        oid_to_vs_map[vs.oid] = vs
       end
-      patient = Record.find_by(user: user, first: args[:patient_first_name], last: args[:patient_last_name])
       
-      fixtures_directory = File.join("test", "fixtures")
-      output_directory = File.join(fixtures_directory, args[:test_set], test_name)
-      FileUtils.mkdir_p(output_directory) unless Dir.exists? output_directory
+      value_sets_file = File.join(fixtures_path, 'measure_data', args[:path], 'value_sets.json')
+      create_fixture_file(value_sets_file, JSON.pretty_generate(JSON.parse(oid_to_vs_map.to_json)))
+      puts 'exported value sets to ' + value_sets_file
 
-      user_file = args[:gen_test] ? File.join(fixtures_directory, "users", args[:test_set], test_name, "user.json") : File.join(output_directory, "user.json")
-      patient_file = args[:gen_test] ? File.join(fixtures_directory, "records", args[:test_set], test_name, "patient.json") : File.join(output_directory, "patient.json")
-      measure_file = args[:gen_test] ? File.join(fixtures_directory, "draft_measures", args[:test_set], test_name, "measures.json") : File.join(output_directory, "measure.json")
-      value_sets_dir = args[:gen_test] ? File.join(fixtures_directory, "health_data_standards_svs_value_sets", args[:test_set], test_name) : File.join(output_directory, "value_sets")
+      #Exports patient data
+      records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+      record_file = File.join(fixtures_path, 'records', args[:path], "patients.json")
+      create_fixture_file(record_file, JSON.pretty_generate(JSON.parse(records.to_json)))
+      puts 'exported patient records to ' + record_file
+    
+      #Exports the upload_summary data
+      measure_summaries = UploadSummary::MeasureSummary.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).desc(:created_at)
+      upload_summaries_file = File.join(fixtures_path, 'upload_summaries', args[:path], "upload_summaries.json")
+      create_fixture_file(upload_summaries_file, JSON.pretty_generate(JSON.parse(measure_summaries.to_json)))
+      puts 'exported upload summaries to ' + upload_summaries_file
 
-
-      if args[:gen_test]
-        FileUtils.mkdir_p(File.dirname(user_file)) unless Dir.exists? File.dirname(user_file)
-        FileUtils.mkdir_p(File.dirname(patient_file)) unless Dir.exists? File.dirname(patient_file)
-        FileUtils.mkdir_p(File.dirname(measure_file)) unless Dir.exists? File.dirname(measure_file)
-        FileUtils.mkdir_p(value_sets_dir) unless Dir.exists? value_sets_dir
+      #Exports the archived_measure data
+      archived_measures = ArchivedMeasure.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+      archived_measures_file = File.join(fixtures_path, 'archived_measures', args[:path], "archived_measures.json")
+      arc_measures = []
+      archived_measures.each do |am|
+        arc_measures.push(am)
       end
+      create_fixture_file(archived_measures_file, JSON.pretty_generate(JSON.parse(archived_measures.to_json)))
+      puts 'exported archived measures to ' + archived_measures_file
+    end
 
-      File.new(user_file, "w+")
-      File.write(user_file, JSON.pretty_generate(JSON.parse(user.to_json)))
-      File.new(patient_file, "w+")
-      File.write(patient_file, JSON.pretty_generate(JSON.parse(patient.to_json)))
-      File.new(measure_file, "w+")
-      File.write(measure_file, JSON.pretty_generate(JSON.parse(measure.to_json(except: [:map_fns, :record_ids], methods: [:value_sets]))))
+    ###
+    # Generates a set of back end fixtures representing a specific database state.
+    # Generated fixtures will be associated with
+    #
+    # cms_hqmf: indicates if a CMS id or an HQMF id is used.
+    #   values: cms, hqmf
+    # path: Path to fixture files, derived from the data-type directories (EX: measure_data/${path}).
+    # user_email: email of user to export.  Measure and patients exported will be taken from this user account.
+    # measure_id: id of measuer to export, taken from account of given user.
+    #
+    # e.g., bundle exec rake bonnie:fixtures:generate_backend_fixtures[cms,test/fake,bonnie@test.org,CMS68v5]
+    desc "Exports a set of fixtures that can be loaded for testing purposes"
+    task :generate_backend_fixtures, [:cms_hqmf, :path, :user_email, :measure_id] => [:environment] do |t, args|
+      fixtures_path = File.join('test', 'fixtures')
+      #Exports the user
+      user = User.find_by email: args[:user_email]
+      bonnie_user_id = '501fdba3044a111b98000001'
 
+      #Exports the measure
+      measure = get_measure(user, args[:cms_hqmf], args[:measure_id])
+      measure.user_id = bonnie_user_id
+      measure_name = measure.cms_id + ".json"
+      measure_file = File.join(fixtures_path, 'draft_measures', args[:path], measure_name)
+      create_fixture_file(measure_file, JSON.pretty_generate(JSON.parse(measure.to_json)))
+      puts 'exported measure to ' + measure_file
+      
+      #Exports the measure's value_sets
+      value_sets_file = File.join(fixtures_path, 'health_data_standards_svs_value_sets', args[:path], 'value_sets.json')
       value_sets = measure.value_sets
-
+      vs_export = []
       value_sets.each do |vs|
-        vs_file_name = vs.oid + ".json"
-        value_sets_file = File.join(value_sets_dir, vs_file_name)
-        File.new(value_sets_file, "w+")
-        File.write(value_sets_file, JSON.pretty_generate(JSON.parse(vs.to_json)))
+        vs.user_id = bonnie_user_id
+        vs_export.push(vs)
       end
+      create_fixture_file(value_sets_file, JSON.pretty_generate(JSON.parse(vs_export.to_json)))
+      puts 'exported value sets to ' + value_sets_file
+
+      #Exports the patients on the selected measure
+      records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).each do |rec|
+        rec.user_id = bonnie_user_id
+        rec_name = rec.first + "_" + rec.last + ".json"
+        record_file = File.join(fixtures_path, 'records', args[:path], rec_name)
+        create_fixture_file(record_file, JSON.pretty_generate(JSON.parse(rec.to_json)))
+        puts 'exported patient records to ' + record_file
+      end
+
+      #Exports the upload_summaries associated with the measure
+      measure_summaries = UploadSummary::MeasureSummary.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).desc(:created_at)
+      ms_export = []
+      measure_summaries.each do |ms|
+        ms.user_id = bonnie_user_id
+        ms_export.push(ms)
+      end
+      upload_summaries_file = File.join(fixtures_path, 'upload_summaries', args[:path], "upload_summaries.json")
+      create_fixture_file(upload_summaries_file, JSON.pretty_generate(JSON.parse(ms_export.to_json)))
+      puts 'exported upload summaries to ' + upload_summaries_file
+
+      #Exports the archived_measures associated with the measure
+      archived_measures = ArchivedMeasure.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+      am_export = []
+      archived_measures.each do |am| 
+        am.user_id = bonnie_user_id 
+        am_export.push(am)
+      end
+      archived_measures_file = File.join(fixtures_path, 'archived_measures', args[:path], "archived_measures.json")
+      create_fixture_file(archived_measures_file, JSON.pretty_generate(JSON.parse(am_export.to_json)))
+      puts 'exported archived measures to ' + archived_measures_file
     end
     
+    ###
+    # Takes a set of valueset json files, creates a dictionary of oid to valueset
+    #
+    # fileset_dir: directory containing input filesd.
+    # output_dir: directory where output will be stored.
     desc "Generates oid to valueset dictonary from directory"
     task :generate_oid_to_valuesets => [:environment] do 
       fileset_dir = File.join("test", "fixtures", "health_data_standards_svs_value_sets", ENV['fileset_dir'])
@@ -73,6 +140,106 @@ namespace :HDS do
       output = File.join(output_dir, "value_sets.json")
       File.new(output, "w+")
       File.write(output, JSON.pretty_generate(dict))
+    end
+    
+    ###
+    # Loads a set of back end fixtures into the active database.
+    # IMPORTANT: using this method will wipe the existing database.  
+    # It is strongly recomended that you alter the config/mongoid.yml file so that the development:sessions:default:database points
+    # to a new database (running bonnie will create a new database if the database config is pointed at one that does not exist)
+    # 
+    # path: the path to the files that comes after the fixture type directory
+    #
+    # e.g., bundle exec rake bonnie:fixtures:load_backend_fixtures[test/fake]
+    desc "Loads set of fixtures into a running instance of BONNIE"
+    task :load_backend_fixtures, [:path] => [:environment] do |t, args|
+      archived_measures_collection = File.join 'archived_measures', args[:path]
+      measure_collection = File.join 'draft_measures', args[:path]
+      value_sets_collection = File.join 'health_data_standards_svs_value_sets', args[:path]
+      records_collection = File.join 'records', args[:path]
+      upload_summaries_collection = File.join 'upload_summaries', args[:path]
+      users_collection = File.join 'users', 'export_user'
+      collection_fixtures(archived_measures_collection, measure_collection, value_sets_collection, records_collection, upload_summaries_collection, users_collection)
+    end
+
+    def get_measure(user, cms_hqmf, measure_id)
+      if (cms_hqmf.downcase  == 'cms')
+        measure = user.measures.find_by(cms_id: measure_id)
+      elsif (cms_hqmf.downcase == 'hqmf')
+        measure = user.measures.find_by(hqmf_id: measure_id)
+      else
+        throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf')
+      end
+      measure
+    end
+
+    def convert_times(json)
+      if json.kind_of?(Hash)
+        json.each_pair do |k,v|
+          if k.ends_with?("_at")
+            json[k] = Time.parse(v)
+          end
+        end
+      end
+    end
+
+    ###
+    # Parses json object for id fields and converts them to bson objects
+    #
+    # Code is derived from set_mongoid_ids function defined in test/test_helper.rb
+    # This version includes checks to convert specific fields into BSON objects for usability purposes.
+    #
+    # json: The json object to parse
+    def set_mongoid_ids(json)
+      if json.kind_of?( Hash)
+        json.each_pair do |k,v|
+          if v && v.kind_of?( Hash )
+            if v["$oid"]
+              json[k] = BSON::ObjectId.from_string(v["$oid"])
+            else
+              set_mongoid_ids(v)
+            end
+          elsif k == '_id' || k == 'bundle_id' || k == 'user_id'
+            json[k] = BSON::ObjectId.from_string(v)
+          end
+        end
+      end
+    end
+
+    ##
+    # Loads fixtures into the active database.
+    # Code is derived from collection_fixtures function found in test/test_helper.rb
+    # Code has been altered to address issues arising from inserting data into an active database with existing data.
+    #
+    # collection_names: array of paths leading to the relevant collections.
+    def collection_fixtures(*collection_names)
+      collection_names.each do |collection|
+        collection_name = collection.split(File::SEPARATOR)[0]
+        Mongoid.default_session[collection_name].drop
+        Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
+          fixture_json = JSON.parse(File.read(json_fixture_file))
+          if fixture_json.length > 0
+            convert_times(fixture_json)
+            set_mongoid_ids(fixture_json)
+            # Mongoid names collections based off of the default_session argument.
+            # With nested folders,the collection name is “records/X” (for example).
+            # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
+            puts "Inserting into collection #{collection}"
+            Mongoid.default_session[collection_name].insert(fixture_json)
+          end
+        end
+      end
+    end
+
+    ###
+    # Creates and writes a fixture file.
+    #
+    # file_path: path of file to be written
+    # fixture_json: json to be written
+    def create_fixture_file(file_path, fixture_json)
+      FileUtils.mkdir_p(File.dirname(file_path)) unless Dir.exists? File.dirname(file_path)
+      File.new(file_path, "w+")
+      File.write(file_path, fixture_json)
     end
     
   end
