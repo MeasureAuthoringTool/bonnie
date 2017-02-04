@@ -158,6 +158,7 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
       'origin_data': origin_data
     # We return the results of the save, which is a promise object; that way we can take an action after a bunch of saves are done
     return clonedPatient.calculateAndSave {},
+      silent: true
       success: (patient) =>
         @patients.add patient # make sure that the patient exist in the global patient collection
         @model.get('patients').add patient # and that measure's patient collection
