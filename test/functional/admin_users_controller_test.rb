@@ -17,7 +17,7 @@ include Devise::TestHelpers
     associate_user_with_measures(@user, Measure.all)
     associate_user_with_patients(@user, Record.all)
 
-    @user.measures.first.value_set_oids.uniq.each do |oid|
+    @user.measures.find('53ce63744d4d32e2cd4b0500').value_set_oids.uniq.each do |oid|
       vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
       vs.concepts << HealthDataStandards::SVS::Concept.new(code_set: 'foo', code:'bar')
       vs.user = @user
