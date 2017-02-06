@@ -128,7 +128,7 @@ include Devise::TestHelpers
       assert_equal 4, zip_file.glob(File.join('patients', '**', '*.json')).count
       assert_equal 3, zip_file.glob(File.join('sources', '**', '*.json')).count
       assert_equal 3, zip_file.glob(File.join('sources', '**', '*.metadata')).count
-      assert_equal 27, zip_file.glob(File.join('value_sets', '**', '*.json')).count
+      assert_equal 29, zip_file.glob(File.join('value_sets', '**', '*.json')).count
     end
     File.delete(zip_path)
   end

@@ -12,14 +12,12 @@ class UsersControllerTest  < ActionController::TestCase
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_measures(@user, Measure.all)
     associate_user_with_patients(@user, Record.all)
-
     @user.measures.first.value_set_oids.uniq.each do |oid|
       vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
       vs.concepts << HealthDataStandards::SVS::Concept.new(code_set: 'foo', code:'bar')
       vs.user = @user
       vs.save!
     end
-
   end
 
   test "bundle download" do
@@ -37,7 +35,7 @@ class UsersControllerTest  < ActionController::TestCase
       assert_equal 4, zip_file.glob(File.join('patients', '**', '*.json')).count
       assert_equal 3, zip_file.glob(File.join('sources', '**', '*.json')).count
       assert_equal 3, zip_file.glob(File.join('sources', '**', '*.metadata')).count
-      assert_equal 27, zip_file.glob(File.join('value_sets', '**', '*.json')).count
+      assert_equal 29, zip_file.glob(File.join('value_sets', '**', '*.json')).count
     end
     File.delete(zip_path)
   end
