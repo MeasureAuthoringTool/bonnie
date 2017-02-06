@@ -16,9 +16,6 @@ class ActiveSupport::TestCase
   ###
   # Parses json object for id fields and converts them to bson objects
   #
-  # Code is derived from set_mongoid_ids function defined in test/test_helper.rb
-  # This version includes checks to convert specific fields into BSON objects for usability purposes.
-  #
   # json: The json object to parse
   def set_mongoid_ids(json)
     if json.kind_of?( Hash)
@@ -38,14 +35,11 @@ class ActiveSupport::TestCase
 
   ##
   # Loads fixtures into the active database.
-  # Code is derived from collection_fixtures function found in test/test_helper.rb
-  # Code has been altered to address issues arising from inserting data into an active database with existing data.
   #
   # collection_names: array of paths leading to the relevant collections.
   def collection_fixtures(*collection_names)
     collection_names.each do |collection|
       collection_name = collection.split(File::SEPARATOR)[0]
-#      Mongoid.default_session[collection_name].drop
       Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
         fixture_json = JSON.parse(File.read(json_fixture_file))
         if fixture_json.length > 0
