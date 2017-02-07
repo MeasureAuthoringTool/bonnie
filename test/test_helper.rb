@@ -45,9 +45,8 @@ class ActiveSupport::TestCase
         if fixture_json.length > 0
           convert_times(fixture_json)
           set_mongoid_ids(fixture_json)
-          # Mongoid names collections based off of the default_session argument.
-          # With nested folders,the collection name is “records/X” (for example).
-          # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
+          # The first directory layer after test/fixtures is used to determine what type of fixtures they are.
+          # The directory name is used as the name of the collection being inserted into.
           Mongoid.default_session[collection_name].insert(fixture_json)
         end
       end
