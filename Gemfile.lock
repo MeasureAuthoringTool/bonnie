@@ -11,8 +11,8 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: ec763b50bed0f9107b5687e40073af6ef147816a
-  branch: staging_experimental_cql
+  revision: 1198237a119919359dad1bd712fb83ca9bb32b34
+  branch: cql4bonnie
   specs:
     health-data-standards (3.6.1)
       activesupport (~> 4.1.1)
@@ -143,7 +143,7 @@ GEM
       warden (~> 1.2.3)
     diffy (3.0.7)
     docile (1.1.5)
-    domain_name (0.5.20161021)
+    domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     eventmachine (1.0.7)

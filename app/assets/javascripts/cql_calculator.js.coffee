@@ -69,10 +69,10 @@
       results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), params)
 
       # Parse CQL statement results into population values
-      population_values = @createPopulationValues population, results, patient
+      population_results = @createPopulationValues population, results, patient
 
-      if population_values?
-        result.set population_values
+      if population_results?
+        result.set population_results
         result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
         result.state = 'complete'
     catch error
@@ -81,56 +81,55 @@
     return result
 
   createPopulationValues: (population, results, patient) ->
-    population_values = {}
+    population_results = {}
+    # Grab the mapping between populations and CQL statements
     cql_map = population.collection.parent.get('populations_cql_map')
-    # Loop over each population's expected
-    for expected in patient.get('expected_values').models
-      # Loop over all population codes ("IPP", "DENOM", etc.)
-      for popCode in Thorax.Models.Measure.allPopulationCodes # EX: IPP
-        if cql_map[popCode]
-          cql_code = cql_map[popCode].replace(/[0-9]/g, '') # Ignore population indicies
-          # Try to see if the measure has definitions for more than one population
-          pop_num = expected.get('population_index') + 1
-          pop_name = cql_code + ' ' + pop_num
-          unless results['patientResults'][patient.id][pop_name]?
-            # Population did not have an index (ex: "Denominator Exclusions")
-            pop_name = cql_code
+    # Grab the correct expected for this population
+    index = population.get('index')
+    expected = patient.get('expected_values').models[index]
+    # Loop over all population codes ("IPP", "DENOM", etc.)
+    for popCode in Thorax.Models.Measure.allPopulationCodes
+      if cql_map[popCode]
+        if _.isString(cql_map[popCode])
+          defined_pops = [cql_map[popCode]]
+        else
+          defined_pops = cql_map[popCode]
+        target_map_index = if defined_pops.length > 1 then index else 0
+        cql_population = defined_pops[target_map_index]
+        # Is there a patient result for this population?
+        if results['patientResults'][patient.id][cql_population]?
           # Grab CQL result value and adjust for Bonnie
-          value = results['patientResults'][patient.id][pop_name]
+          value = results['patientResults'][patient.id][cql_population]
           if typeof value is 'object' and value.length > 0
-            population_values[popCode] = 1
+            population_results[popCode] = 1
           else if typeof value is 'boolean' and value
-            population_values[popCode] = 1
+            population_results[popCode] = 1
           else
-            population_values[popCode] = 0
-      # We've hit the population we are supposed to be calculating; return
-      if expected.get('population_index') == population.get('index')
-        return @handlePopulationValues population_values
-    return null
+            population_results[popCode] = 0
+    @handlePopulationValues population_results
 
   # Takes in the initial values from result object and checks to see if some values should not be calculated.
-  handlePopulationValues: (population_values) ->
+  handlePopulationValues: (population_results) ->
     # TODO: Handle CV measures
     # Setting values of populations if the correct populations are not set.
-    if @isValueZero('STRAT', population_values) # Set all values to 0
-      for key, value of population_values
-        population_values[key] = 0
-    else if @isValueZero('IPP', population_values)
-      for key, value of population_values
+    if @isValueZero('STRAT', population_results) # Set all values to 0
+      for key, value of population_results
+        population_results[key] = 0
+    else if @isValueZero('IPP', population_results)
+      for key, value of population_results
         if key != 'STRAT'
-          population_values[key] = 0
-    else if @isValueZero('DENOM', population_values) or @isValueZero('MSRPOPL', population_values)
-      if 'DENEX' of population_values
-        population_values['DENEX'] = 0
-      if 'DENEXCEP' of population_values
-        population_values['DENEXCEP'] = 0
-      if 'NUMER' of population_values
-        population_values['NUMER'] = 0
-    else if @isValueZero('NUMER', population_values)
-      if 'NUMEX' of population_values
-        population_values['NUMEX'] = 0
-
-    return population_values
+          population_results[key] = 0
+    else if @isValueZero('DENOM', population_results) or @isValueZero('MSRPOPL', population_results)
+      if 'DENEX' of population_results
+        population_results['DENEX'] = 0
+      if 'DENEXCEP' of population_results
+        population_results['DENEXCEP'] = 0
+      if 'NUMER' of population_results
+        population_results['NUMER'] = 0
+    else if @isValueZero('NUMER', population_results)
+      if 'NUMEX' of population_results
+        population_results['NUMEX'] = 0
+    return population_results
 
   isValueZero: (value, population_set) ->
     if value of population_set and population_set[value] == 0
