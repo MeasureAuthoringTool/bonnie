@@ -40,7 +40,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
     if @get('type') == "medications" then @set('fulfillments', new Thorax.Collection()) unless @has 'fulfillments'
-    if !@isPeriod() then @set('end_date', null)
+    if !@isPeriod() then @set('end_date', undefined)
 
   parse: (attrs) ->
     attrs.criteria_id ||= Thorax.Models.MeasureDataCriteria.generateCriteriaId()
