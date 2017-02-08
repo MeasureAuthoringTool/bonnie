@@ -13,18 +13,42 @@ class ActiveSupport::TestCase
     end
   end
 
+  ###
+  # Parses json object for id fields and converts them to bson objects
+  #
+  # json: The json object to parse
+  def set_mongoid_ids(json)
+    if json.kind_of?( Hash)
+      json.each_pair do |k,v|
+        if v && v.kind_of?( Hash )
+          if v["$oid"]
+            json[k] = BSON::ObjectId.from_string(v["$oid"])
+          else
+            set_mongoid_ids(v)
+          end
+        elsif k == '_id' || k == 'bundle_id' || k == 'user_id'
+          json[k] = BSON::ObjectId.from_string(v)
+        end
+      end
+    end
+  end
+
+  ##
+  # Loads fixtures into the active database.
+  #
+  # collection_names: array of paths leading to the relevant collections.
   def collection_fixtures(*collection_names)
     collection_names.each do |collection|
-      Mongoid.default_session[collection].drop
+      collection_name = collection.split(File::SEPARATOR)[0]
       Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
         fixture_json = JSON.parse(File.read(json_fixture_file))
-        convert_times(fixture_json)
-        set_mongoid_ids(fixture_json)
-        # Mongoid names collections based off of the default_session argument.
-        # With nested folders,the collection name is “records/X” (for example).
-        # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
-        collection = collection.split(File::SEPARATOR)[0]
-        Mongoid.default_session[collection].insert(fixture_json)
+        if fixture_json.length > 0
+          convert_times(fixture_json)
+          set_mongoid_ids(fixture_json)
+          # The first directory layer after test/fixtures is used to determine what type of fixtures they are.
+          # The directory name is used as the name of the collection being inserted into.
+          Mongoid.default_session[collection_name].insert(fixture_json)
+        end
       end
     end
   end
@@ -36,20 +60,6 @@ class ActiveSupport::TestCase
       json.each_pair do |k,v|
         if k.ends_with?("_at")
           json[k] = Time.parse(v)
-        end
-      end
-    end
-  end
-
-  def set_mongoid_ids(json)
-    if json.kind_of?( Hash)
-      json.each_pair do |k,v|
-        if v && v.kind_of?( Hash )
-          if v["$oid"]
-            json[k] = BSON::ObjectId.from_string(v["$oid"])
-          else
-            set_mongoid_ids(v)
-          end
         end
       end
     end

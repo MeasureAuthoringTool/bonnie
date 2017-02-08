@@ -35,12 +35,12 @@ class PopulationsControllerTest  < ActionController::TestCase
   test "update population" do
     sign_in @user
     # This particular test measure has multiple populations, and therefore can have their titles changed
-    measure = Measure.by_user(@user).find("40280381-3D61-56A7-013E-7AF612436402")
+    measure = Measure.by_user(@user).find("53ce63744d4d32e2cd4b0502")
     assert_equal("85 days",measure.populations.at("Populations1".to_i)['title'])
     # Change title of Population1 from "85 days" to "New Title Text"
-    post :update, {measure_id: "40280381-3D61-56A7-013E-7AF612436402",
+    post :update, {measure_id: "53ce63744d4d32e2cd4b0502",
       id: "Populations1", title: "New Title Text"}
-    measure = Measure.by_user(@user).find("40280381-3D61-56A7-013E-7AF612436402")
+    measure = Measure.by_user(@user).find("53ce63744d4d32e2cd4b0502")
     assert_equal("New Title Text",measure.populations.at("Populations1".to_i)['title'])
   end
 

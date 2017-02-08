@@ -118,7 +118,7 @@ include Devise::TestHelpers
     get :show, {id: @measure.id, format: :json}
     assert_response :success
     measure = JSON.parse(response.body)
-    assert_equal @measure.id, measure['id']
+    assert_equal @measure.id, BSON::ObjectId.from_string(measure['id'])
     assert_equal @measure.title, measure['title']
     assert_equal @measure.hqmf_id, measure['hqmf_id']
     assert_equal @measure.hqmf_set_id, measure['hqmf_set_id']
