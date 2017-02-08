@@ -16,9 +16,19 @@ class PatientTest < ActionController::TestCase  #ActiveSupport::TestCase
     @user = User.by_email('bonnie@example.com').first
     sign_in @user
 
-    load_measures
-    load_patients
-    load_golden_results
+    # load_measures
+    # load_patients
+    # load_golden_results
+    
+  end
+
+  def load_test_suite_files (path)
+    measure_collection = File.join 'draft_measures', path
+    value_sets_collection = File.join 'health_data_standards_svs_value_sets', path
+    records_collection = File.join 'records', path
+    collection_fixtures(measure_collection, value_sets_collection, records_collection)
+    associate_user_with_measures(@user, Measure.all)
+    associate_user_with_patients(@user, Record.all)
   end
 
   def load_measures
@@ -286,6 +296,7 @@ class PatientTest < ActionController::TestCase  #ActiveSupport::TestCase
   end
 
   test 'CMS68v6' do
+    load_test_suite_files('measure_history_set/base_example')
     measure = Measure.where({"cms_id" => "CMS68v6"}).first
     calculation_results(measure)
     expected_values_values_retained(measure)
@@ -295,6 +306,7 @@ class PatientTest < ActionController::TestCase  #ActiveSupport::TestCase
   end
 
   test 'CMS160v3' do
+    load_test_suite_files('measure_history_set/multi_population')
     measure = Measure.where({"cms_id" => "CMS160v3"}).first
     calculation_results(measure)
     expected_values_values_retained(measure)
@@ -304,6 +316,7 @@ class PatientTest < ActionController::TestCase  #ActiveSupport::TestCase
   end
 
   test 'CMS104v3' do
+    load_test_suite_files('measure_history_set/update_change')
     measure = Measure.where({"cms_id" => "CMS104v3"}).first
     calculation_results(measure)
     expected_values_values_retained(measure)
@@ -313,6 +326,7 @@ class PatientTest < ActionController::TestCase  #ActiveSupport::TestCase
   end
 
   test 'CMS32v4' do
+    load_test_suite_files('measure_history_set/continuous_variable')
     measure = Measure.where({"cms_id" => "CMS32v4"}).first
     # TODO: Complete method `calculation_results` to handle continuous_variable measures
     # calculation_results(measure)
