@@ -40,16 +40,14 @@
         {{/button}}
       </div>
 
-      {{#if isPeriod}}
-      <div class="row">
+      <div class="row{{#unless isPeriod}} hide{{/unless}}" id="periodLabel">
         <div class="col-md-12">
-          <label class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> {{periodLabel}}</label>
+          <label class="control-label"> {{periodLabel}}</label>
         </div>
       </div>
-      {{/if}}
       <div class="row">
-        <div class="form-group col-md-6">
-          <label for="start_date_{{@cid}}" class="control-label">{{#unless isPeriod}}<i class="fa fa-clock-o" aria-hidden="true"></i>{{/unless}} {{startLabel}}<span class="sr-only"> date month/day/year</span></label></label>
+        <div class="form-group col-md-6" id="startControl">
+          <label for="start_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> <span id='startLabel'>{{startLabel}}</span><span class="sr-only"> date month/day/year</span></label></label>
           <div class="datetime-control">
             <div>
               <input type="text" name="start_date" id="start_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
@@ -62,9 +60,8 @@
           </div>
         </div>
         
-        {{#if isPeriod}}
-        <div class="form-group col-md-6">
-          <label for="end_date_{{@cid}}" class="control-label"> {{stopLabel}}<span class="sr-only"> date month/day/year</span></label>
+        <div class="form-group col-md-6{{#unless isPeriod}} hide{{/unless}}" id="stopControl">
+          <label for="end_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> <span id='stopLabel'>{{stopLabel}}</span><span class="sr-only"> date month/day/year</span></label>
           <div class="datetime-control">
             <div>
               <input type="text" name="end_date" id="end_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true"{{#if end_date_is_undefined}} disabled{{/if}}>
@@ -82,7 +79,6 @@
             </label>
           </div>
         </div>
-        {{/if}}
       </div>
 
       <div class="form-group">
