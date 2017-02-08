@@ -115,10 +115,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       faIcon: @model.faIcon()
       definition_title: definition_title
       canHaveNegation: @model.canHaveNegation()
-      startLabel: @model.startLabel()
-      stopLabel: @model.stopLabel()
-      periodLabel: @model.periodLabel()
-      isPeriod: @model.isPeriod()
+      startLabel: @startLabel(@model.get('negation'))
+      stopLabel: @stopLabel()
+      periodLabel: @periodLabel()
+      isPeriod: @model.isPeriodType() && !@model.get('negation') # if something is negated, it didn't happen so is not a period
 
   # When we serialize the form, we want to convert formatted dates back to times
   events:
@@ -188,6 +188,20 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   toggleNegationSelect: (e) ->
     @$('.negation-code-list').prop('selectedIndex',0).toggleClass('hide')
+
+    if $(e.target).is(':checked')
+      @$('#periodLabel').addClass('hide')
+      @$('#stopControl').addClass('hide')
+    else
+      @$('#periodLabel').removeClass('hide')
+      @$('#stopControl').removeClass('hide')
+    @$('#startLabel').text(@startLabel($(e.target).is(':checked')))
+
+    # make it so end date is always undefined if negation is toggled
+    $end_date_is_undefined = @$('[name="end_date_is_undefined"]')
+    $end_date_is_undefined.prop('checked', true)
+    @toggleEndDateDefinition({target: $end_date_is_undefined})
+
     @triggerMaterialize()
 
   removeCriteria: (e) ->
@@ -208,6 +222,31 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     e.preventDefault()
     type = @$(e.target).model().get('type')
     $(".#{type}-elements").focus()
+
+
+  startLabel: (negated) ->
+    if @model.isPeriodType() && !negated
+      if @model.isIssue()
+        'Onset'
+      else
+        'Start'
+    else
+      # authored used for instances or negations
+      'Authored'
+
+  stopLabel: ->
+    if @model.isPeriodType()
+      if @model.isIssue()
+        'Abatement'
+      else
+        'Stop'
+
+  periodLabel: ->
+    if @model.isPeriodType()
+      if @model.isIssue()
+        'Prevalence Period'
+      else
+        'Relevant Period'
 
 class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
   template: JST['patient_builder/edit_codes']
