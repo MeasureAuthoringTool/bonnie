@@ -1,11 +1,11 @@
 describe 'MeasureHistoryView', ->
 
-  renderView = (suite, done) ->
+  renderView = (suite, callback) ->
     suite.mainView = new Thorax.LayoutView(el: '#bonnie')
     suite.measure_history_view = new Thorax.Views.MeasureHistoryView
       model: suite.measure, patients: suite.patients, upload_summaries: suite.uploadSummaries
     suite.measure_history_view.on "rendered", ->
-      done()
+      callback()
     suite.measure_history_view.render()
 
   describe 'without summaries', ->
@@ -46,7 +46,7 @@ describe 'MeasureHistoryView', ->
     it 'does show current patients', ->
       expect(@measure_history_view.patients.length).toEqual 2
       expect(@measure_history_view.$('th[class="history-patient-header"]').length).toEqual 2
-    
+
       @uploadSummaries.each (us) =>
         summary_id = us.get('_id')
         for population_set_summary in us.get('population_set_summaries')
@@ -64,18 +64,32 @@ describe 'MeasureHistoryView', ->
             expect($(afterCell).find("i.fa")[0].className).toMatch (if summary.post_upload_status is "pass" then "fa-check" else "fa-times")
             expect($(beforeCell).find("i.fa")[0].className).toMatch (if summary.pre_upload_status is "pass" then "fa-check" else "fa-times")
 
-    it 'does *not* show new patients', ->
+    it 'does *not* show new patients', (done) ->
       expect(@measure_history_view.$('th[class="history-patient-header"]').length).toEqual 2
 
-      # create and add new patients to this measure history view
+      # Confirm that there are only 2 patients in the most resent uploadSummaries (assumes that uploadSummaries are sorted in desc order based on date)
+      expect(Object.keys(this.uploadSummaries.at(0).get('population_set_summaries')[0].patients).length).toEqual 2
+
+      # Create and add new patients to this measure history view
       @new_patient = new Thorax.Models.Patient getJSONFixture('records/base_set/patients.json')[0], parse: true
       @new_clone = @measure_history_view.patients.at(0).deepClone({omit_id: true})
 
-      @measure_history_view.patients.add [@new_patient, @new_clone]
-      @measure_history_view.measureTimelineView.render()
+      @patients.add [@new_patient, @new_clone]
+      expect(@patients.length).toEqual 4
 
-      expect(@measure_history_view.patients.length).toEqual 4
-      expect(@measure_history_view.measureTimelineView.patients.length).toEqual 4
+      # Add all the patients as patients on the measure
+      @measure.get('patients').add [@new_patient, @new_clone]
+      expect(@measure.get('patients').length).toEqual 4
 
-      expect(@measure_history_view.$('th[class="history-patient-header"]').length).not.toEqual 4
-      expect(@measure_history_view.$('th[class="history-patient-header"]').length).toEqual 2
+      # create new measure history view with the measure
+      renderView @, =>
+
+        expect(@measure_history_view.patients.length).toEqual 4
+        expect(@measure_history_view.measureTimelineView.patients.length).toEqual 4
+
+        expect(@measure_history_view.$('th[class="history-patient-header"]').length).toEqual 2
+
+        # Confirm that the number of uploadSummaries hasn't changed
+        expect(Object.keys(this.uploadSummaries.at(0).get('population_set_summaries')[0].patients).length).toEqual 2
+
+        done()
