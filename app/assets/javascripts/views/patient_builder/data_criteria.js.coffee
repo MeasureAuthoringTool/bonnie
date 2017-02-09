@@ -57,6 +57,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
         fieldValue: false
         values: @model.get('value')
         criteriaType: @model.get('type')
+        # TODO: (LDY 10/6/2016) should this be rewritten so criteriaType works with what @model.getCriteriaType returns?
+        # this would move us towards having more directed field drop downs for each criteria type
+        fullCriteriaType: @model.getCriteriaType() # includes the full type information. e.g., instead of 'encounters' it's 'encounter_performed'
     @editFieldValueView = new Thorax.Views.EditCriteriaValueView
       model: new Thorax.Model
       measure: @model.measure()
@@ -112,9 +115,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       faIcon: @model.faIcon()
       definition_title: definition_title
       canHaveNegation: @model.canHaveNegation()
-      hasStopTime: @model.hasStopTime()
       startLabel: @model.startLabel()
       stopLabel: @model.stopLabel()
+      periodLabel: @model.periodLabel()
+      isPeriod: @model.isPeriod()
 
   # When we serialize the form, we want to convert formatted dates back to times
   events:
@@ -322,11 +326,15 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @fieldValueCodesCollection = new Thorax.Collections.Codes {}, parse: true
     @showAddCodesButton = false
     @showAddCodes = false
+    @fields = Thorax.Models.Measure.logicFieldsFor(@criteriaType)
+    @showDateTimeSelection = @fieldValue || @fullCriteriaType in ['assessment_performed']
+    # TODO: for QDM 5.0, assessment performed should also have a percentage selection.
+    # We need to see what this would look like to determine best implementation path.
+    # Until then, PQ (Scalar) can be used with "%" as the unit
 
   context: ->
     _(super).extend
       codes: @measure?.valueSets().map((vs) -> vs.toJSON()) or []
-      fields: Thorax.Models.Measure.logicFieldsFor(@criteriaType)
       hideEditValueView: @criteriaType == 'risk_category_assessments' && @values.models.length > 0
 
   # When we serialize the form, we want to put the description for any CD codes into the submission
@@ -340,6 +348,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
       attr.title = title if title
       attr.codes = @fieldValueCodesCollection.toJSON() unless jQuery.isEmptyObject(@fieldValueCodesCollection.toJSON())
+      # gets the pretty printed title (e.g., "Result Date/Time" instead of "RESULT_DATETIME")
+      attr.field_title = (field for field in @fields when field.key == attr.key)[0]?.title
     rendered: ->
       @codeSelectionViewForFieldValues = new Thorax.Views.CodeSelectionView codes: @fieldValueCodesCollection
       @$("select[name=type]").selectBoxIt('native': true)
@@ -419,7 +429,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     # If it's a date/time field, automatically chose the date type and pre-enter a date
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
     if attributes.key in ['ADMISSION_DATETIME', 'DISCHARGE_DATETIME', 'FACILITY_LOCATION_ARRIVAL_DATETIME',
-                          'FACILITY_LOCATION_DEPARTURE_DATETIME', 'INCISION_DATETIME', 'REMOVAL_DATETIME', 'TRANSFER_TO_DATETIME', 'TRANSFER_FROM_DATETIME']
+                          'FACILITY_LOCATION_DEPARTURE_DATETIME', 'INCISION_DATETIME', 'REMOVAL_DATETIME',
+                          'TRANSFER_TO_DATETIME', 'TRANSFER_FROM_DATETIME', 'RESULT_DATETIME']
       @$('select[name=type]').val('TS').change()
       criteria = @parent.model
       switch attributes.key

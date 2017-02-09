@@ -40,7 +40,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
     if @get('type') == "medications" then @set('fulfillments', new Thorax.Collection()) unless @has 'fulfillments'
-    if !@hasStopTime() then @set('end_date', null)
+    if !@isPeriod() then @set('end_date', undefined)
 
   parse: (attrs) ->
     attrs.criteria_id ||= Thorax.Models.MeasureDataCriteria.generateCriteriaId()
@@ -49,6 +49,11 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     fieldValues = new Thorax.Collection()
     references = new Thorax.Collection()
     for key, value of attrs.field_values
+      # add a human readable attribute for the field name
+      fields = Thorax.Models.Measure.logicFieldsFor(attrs.type)
+      field_title = (field for field in fields when field.key == key)[0]?.title
+      value = _(value).extend(field_title: field_title)
+
       fieldValues.add _(value).extend(key: key)
     if attrs.references?
       references.add value for value in attrs.references
@@ -111,6 +116,8 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     #We must support criteria types with "Negation Rational" for QDM 4.2 changes.
     criteriaType = @get('definition')
 
+    # TODO: (LDY 10/6/2016) should @getCriteriaType() be used here as well?
+
     #First check to see if criteriaType definition matches any of these (no need to worry about status with these)
     return true if criteriaType in ['communication_from_patient_to_provider', 'communication_from_provider_to_patient',
                                     'communication_from_provider_to_provider', 'risk_category_assessment', 'transfer_from', 'transfer_to']
@@ -132,25 +139,56 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
 
     return negationList[criteriaType] and @get('status') in negationList[criteriaType]
 
-  hasStopTime: ->
-    criteriaType = @get('definition')
-    return !(criteriaType in ['family_history'])
+  # determines if a data criteria has a time period associated with it: it potentially has both
+  # a start and end date.
+  isPeriod: ->
+    criteriaType = @getCriteriaType()
+    # in QDM 5.0, these are all things that are considered 'authored' - they are instances and do not have a time interval.
+    criteriaType in ['adverse_event', 'care_goal', 'device_applied', 'diagnostic_study_performed',
+                     'encounter_active', 'encounter_performed', 'intervention_performed', 'laboratory_test_performed',
+                     'medication_active', 'medication_administered', 'physical_exam_performed', 'procedure_performed',
+                     'substance_administered', 'allergy_intolerance', 'diagnosis', 'symptom']
+
+  # determines if a data criteria describes an issue or problem with a person
+  # allergy/intolerance, diagnosis, and symptom fall into this
+  isIssue: ->
+    criteriaType = @getCriteriaType()
+    criteriaType in ['allergy_intolerance', 'diagnosis', 'symptom']
 
   startLabel: ->
-    if @get('definition') in ['diagnosis', 'symptom'] && !@get('status')?
-      'Onset'  # If in whitelist and status is empty
-    else if @get('definition') in ['family_history']
-      'Recorded'
+    if @isPeriod()
+      if @isIssue()
+        'Onset'
+      else
+        'Start'
     else
-      'Start'
+      'Authored'
 
   stopLabel: ->
-    # Return the correct end label
-    if @get('definition') in ['diagnosis', 'symptom'] && !@get('status')?
-      'Abatement'
-    else
-      'Stop'
+    if @isPeriod()
+      if @isIssue()
+        'Abatement'
+      else
+        'Stop'
 
+  periodLabel: ->
+    if @isPeriod()
+      if @isIssue()
+        'Prevalence Period'
+      else
+        'Relevant Period'
+
+  # returns the criteria type including the status or subtype
+  # e.g., for "Encounter, Performed", returns "encounter_performed"
+  # TODO: (LDY 10/6/2016) this is a helper function. does it belong somewhere else? should it be used in
+  # other places?
+  getCriteriaType: ->
+    criteriaType = @get('definition')
+    if @get('status')?
+      criteriaType = "#{criteriaType}_#{@get('status')}"
+    else if @get('sub_category')?
+      criteriaType = "#{criteriaType}_#{@get('sub_category')}"
+    criteriaType
 
 class Thorax.Collections.PatientDataCriteria extends Thorax.Collection
   model: Thorax.Models.PatientDataCriteria

@@ -78,6 +78,8 @@ class Thorax.Models.Measure extends Thorax.Model
     # criteria. The name should correspond with what is the `coded_entry_method` in the `FIELDS`
     # hash in health-data-standards:lib/health-model/data_criteria.rb.
     typeInclusions =
+      adverse_events: ['facility', 'severity', 'type'] # TODO: (LDY 9/29/2016) we care about "facility location". this appears to be the same as "facility"
+      allergies_intolerances: ['severity', 'type']
       assessments: ['method']
       care_experiences: []
       care_goals: ['related_to', 'target_outcome']
@@ -85,16 +87,16 @@ class Thorax.Models.Measure extends Thorax.Model
       communications: []
       conditions: ['anatomical_structure', 'anatomical_location', 'ordinality', 'severity', 'laterality']
       devices: ['removal_time', 'anatomical_structure']
-      diagnostic_studies: ['facility', 'method', 'qdm_status']
-      encounters: ['admit_time', 'discharge_time', 'discharge_disposition', 'facility',
-        'facility_arrival', 'facility_departure', 'transfer_to', 'transfer_to_time',
+      diagnostic_studies: ['facility', 'method', 'qdm_status', 'result_date_time']
+      encounters: ['admission_source', 'admit_time', 'discharge_time', 'discharge_disposition', 'facility',
+        'facility_arrival', 'facility_departure', 'transfer_to', 'transfer_to_time', 
         'transfer_from', 'transfer_from_time', 'principal_diagnosis', 'diagnosis']
-      family_history: ['relationship_to_patient', 'onset_age']
+      family_history: ['relationship_to_patient']
       functional_statuses: []
-      immunizations: ['route', 'dose', 'reaction']
+      immunizations: ['route', 'dose', 'reaction', 'supply']
       interventions: ['anatomical_structure']
-      laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status']
-      medications: ['route', 'dose', 'reaction']
+      laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status', 'result_date_time']
+      medications: ['route', 'dose', 'reaction', 'supply']
       patient_care_experiences: []
       physical_exams: ['anatomical_structure']
       preferences: []
@@ -102,7 +104,7 @@ class Thorax.Models.Measure extends Thorax.Model
       provider_care_experiences: []
       provider_characteristics: []
       risk_category_assessments: ['severity']
-      substances: ['cumulative_medication_duration', 'dose', 'route', 'frequency', 'reaction']
+      substances: ['dose', 'route', 'frequency', 'reaction', 'supply']
       symptoms: ['ordinality', 'severity']
       system_characteristics: []
       transfers: []
