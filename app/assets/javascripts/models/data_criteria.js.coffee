@@ -40,7 +40,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
     if @get('type') == "medications" then @set('fulfillments', new Thorax.Collection()) unless @has 'fulfillments'
-    if !@isPeriod() then @set('end_date', undefined)
+    if !@isPeriodType() then @set('end_date', undefined)
 
   parse: (attrs) ->
     attrs.criteria_id ||= Thorax.Models.MeasureDataCriteria.generateCriteriaId()
@@ -141,7 +141,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
 
   # determines if a data criteria has a time period associated with it: it potentially has both
   # a start and end date.
-  isPeriod: ->
+  isPeriodType: ->
     criteriaType = @getCriteriaType()
     # in QDM 5.0, these are all things that are considered 'authored' - they are instances and do not have a time interval.
     criteriaType in ['adverse_event', 'care_goal', 'device_applied', 'diagnostic_study_performed',
@@ -154,29 +154,6 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   isIssue: ->
     criteriaType = @getCriteriaType()
     criteriaType in ['allergy_intolerance', 'diagnosis', 'symptom']
-
-  startLabel: ->
-    if @isPeriod()
-      if @isIssue()
-        'Onset'
-      else
-        'Start'
-    else
-      'Authored'
-
-  stopLabel: ->
-    if @isPeriod()
-      if @isIssue()
-        'Abatement'
-      else
-        'Stop'
-
-  periodLabel: ->
-    if @isPeriod()
-      if @isIssue()
-        'Prevalence Period'
-      else
-        'Relevant Period'
 
   # returns the criteria type including the status or subtype
   # e.g., for "Encounter, Performed", returns "encounter_performed"
