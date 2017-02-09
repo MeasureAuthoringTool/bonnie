@@ -144,14 +144,10 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
   isPeriod: ->
     criteriaType = @getCriteriaType()
     # in QDM 5.0, these are all things that are considered 'authored' - they are instances and do not have a time interval.
-    criteriaType not in ['assessment_performed', 'assessment_recommended', 'communication_from_patient_to_provider',
-                         'communication_from_provider_to_patient', 'communication_from_provider_to_provider',
-                         'device_ordered', 'device_recommended', 'diagnostic_study_ordered', 'encounter_ordered',
-                         'encounter_recommended', 'family_history', 'immunization_administered', 'immunization_ordered',
-                         'intervention_ordered', 'intervention_recommended', 'laboratory_test_ordered', 'laboratory_test_recommended',
-                         'medication_discharge', 'medication_dispensed', 'medication_ordered', 'physical_exam_ordered',
-                         'physical_exam_recommended', 'procedure_ordered', 'procedure_recommended', 'substance_ordered',
-                         'substance_recommended']
+    criteriaType in ['adverse_event', 'care_goal', 'device_applied', 'diagnostic_study_performed',
+                     'encounter_active', 'encounter_performed', 'intervention_performed', 'laboratory_test_performed',
+                     'medication_active', 'medication_administered', 'physical_exam_performed', 'procedure_performed',
+                     'substance_administered', 'allergy_intolerance', 'diagnosis', 'symptom']
 
   # determines if a data criteria describes an issue or problem with a person
   # allergy/intolerance, diagnosis, and symptom fall into this
