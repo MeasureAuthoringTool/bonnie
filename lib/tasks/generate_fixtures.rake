@@ -146,7 +146,7 @@ namespace :bonnie do
     
     ###
     # Loads a set of back end fixtures into the active database.
-    # NOTE: This task will fail elements in the database with the same ids already exist.
+    # NOTE: This task will fail if documents in the database with the same ids already exist.
     # It is strongly recomended that you alter the config/mongoid.yml file so that the development:sessions:default:database points
     # to a new database (running bonnie will create a new database if the database config is pointed at one that does not exist)
     # path: the path to the files that comes after the fixture type directory
@@ -196,6 +196,7 @@ namespace :bonnie do
     end
     
     ###
+    # TODO: duplicate functions, long term goal is to export them to test_helper
     # Parses json object for id fields and converts them to bson objects
     #
     # json: The json object to parse
@@ -216,6 +217,7 @@ namespace :bonnie do
     end
 
     ##
+    # TODO: duplicate functions, long term goal is to export them to test_helper
     # Loads fixtures into the active database.
     #
     # collection_names: array of paths leading to the relevant collections.
