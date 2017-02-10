@@ -1,3 +1,6 @@
+# NOTE: Tasks use array arguments to execute.
+# In order for z-shell to execute, noglob is required.
+# e.g., noglob bundle exec rake bonnie:fixtures:load_backend_fixtures[test/fake]
 namespace :bonnie do
   namespace :fixtures do
     ###
@@ -143,10 +146,9 @@ namespace :bonnie do
     
     ###
     # Loads a set of back end fixtures into the active database.
-    # IMPORTANT: using this method will wipe the existing database.  
+    # NOTE: This task will fail elements in the database with the same ids already exist.
     # It is strongly recomended that you alter the config/mongoid.yml file so that the development:sessions:default:database points
     # to a new database (running bonnie will create a new database if the database config is pointed at one that does not exist)
-    # 
     # path: the path to the files that comes after the fixture type directory
     #
     # e.g., bundle exec rake bonnie:fixtures:load_backend_fixtures[test/fake]
