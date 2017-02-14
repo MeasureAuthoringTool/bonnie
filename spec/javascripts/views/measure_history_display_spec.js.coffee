@@ -73,7 +73,10 @@ describe 'MeasureHistoryView', ->
       # Create and add new patients to this measure history view
       @new_patient = new Thorax.Models.Patient getJSONFixture('records/base_set/patients.json')[0], parse: true
       @new_clone = @measure_history_view.patients.at(0).deepClone({omit_id: true})
-
+      
+      # Make sure that the patients are associated to the current measusre
+      @new_patient.set('measure_ids', [@measure.get('hqmf_set_id'), null])
+      @new_clone.set('measure_ids', [@measure.get('hqmf_set_id'), null])
       @patients.add [@new_patient, @new_clone]
       expect(@patients.length).toEqual 4
 
