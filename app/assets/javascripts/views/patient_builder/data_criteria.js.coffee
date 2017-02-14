@@ -189,18 +189,17 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
   toggleNegationSelect: (e) ->
     @$('.negation-code-list').prop('selectedIndex',0).toggleClass('hide')
 
-    if $(e.target).is(':checked')
-      @$('#periodLabel').addClass('hide')
-      @$('#stopControl').addClass('hide')
-    else
-      @$('#periodLabel').removeClass('hide')
-      @$('#stopControl').removeClass('hide')
-    @$('#startLabel').text(@startLabel($(e.target).is(':checked')))
+    # the following code changes the timing display if a period data type
+    # is negated. If it is negated, author date time should be used. If it's
+    # not, then the start/stop date time should be used.
+    if @model.isPeriodType()
+      @$('#periodLabel, #stopControl').toggleClass('hide', $(e.target).is(':checked'))
+      @$('#startLabel').text(@startLabel($(e.target).is(':checked')))
 
-    # make it so end date is always undefined if negation is toggled
-    $end_date_is_undefined = @$('[name="end_date_is_undefined"]')
-    $end_date_is_undefined.prop('checked', true)
-    @toggleEndDateDefinition({target: $end_date_is_undefined})
+      # make it so end date is always undefined if negation is toggled
+      $end_date_is_undefined = @$('[name="end_date_is_undefined"]')
+      $end_date_is_undefined.prop('checked', true)
+      @toggleEndDateDefinition({target: $end_date_is_undefined})
 
     @triggerMaterialize()
 
@@ -225,6 +224,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
 
   startLabel: (negated) ->
+    # if the data criteria is a period type and has not been negated, then the
+    # period time labels should be used. Otherwise, "authored" should be used.
     if @model.isPeriodType() && !negated
       if @model.isIssue()
         'Onset'
