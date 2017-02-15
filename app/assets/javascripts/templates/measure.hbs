@@ -23,11 +23,15 @@
         <div class="measure-dsp-title">
           Episode(s) of Care:
         </div>
-          {{#each episodesOfCare tag="ul"}}
-            {{#with attributes}}
-              <li>{{description}}</li>
-            {{/with}}
-          {{/each}}
+          {{#if cql}}
+              This is a CQL measure
+          {{else}}
+            {{#each episodesOfCare tag="ul"}}
+              {{#with attributes}}
+                <li>{{description}}</li>
+              {{/with}}
+            {{/each}}
+          {{/if}}
         <p></p>
       {{/if}}
 

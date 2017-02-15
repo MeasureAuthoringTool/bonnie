@@ -3,12 +3,8 @@
 </br><b><center>CQL Calculation Results:</center></b>
   <p>
     {{#each results}}
-      <label for="{{key}}_actual_check" class="checkbox-inline">{{@key}}</label>
-      {{#if this}}
-        <i class="fa fa-check-square-o default" aria-hidden="true" id="{{key}}_actual_check" name="{{key}}_actual_check"></i>
-      {{else}}
-        <i class="fa fa-square-o default" aria-hidden="true" id="{{key}}_actual_check" name="{{key}}_actual_check"></i>
-      {{/if}}
+      <label for="{{@key}}_val">{{@key}}</label>
+      <span class="default" aria-hidden="true" id="{{@key}}_val" name="{{@key}}_val">{{this}}</span>,
     {{/each}}
   </p>
   </br>
