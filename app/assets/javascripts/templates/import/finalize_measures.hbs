@@ -17,22 +17,24 @@
             <h4>{{title}}</h4>
             <input type="hidden" name="{{@cid}}[hqmf_id]" value="{{hqmf_id}}">
             {{#if episode_of_care}}
-              <div class="alert alert-info">Please select which episode of care to use for this measure.</div>
-              <div class="form-group">
-                <label for="episodeSelect_{{@cid}}" class="col-lg-3 control-label">Episode(s) of Care:</label>
-                <div class="col-lg-9">
-                  <select multiple="true" class="form-control" id="episodeSelect_{{@cid}}" name="{{@cid}}[episode_ids][]">
-                    {{#each source_data_criteria.models}}
-                      {{#with attributes}}
-                        {{#if specific_occurrence}}
-                          <option value="{{source_data_criteria}}" id="{{@cid}}">{{description}}</option>
-                        {{/if}}
-                      {{/with}}
-                    {{/each}}
-                  </select>
-                  <span class="">Ctrl+click to select multiple</span>
+              {{#unless cql}}
+                <div class="alert alert-info">Please select which episode of care to use for this measure.</div>
+                <div class="form-group">
+                  <label for="episodeSelect_{{@cid}}" class="col-lg-3 control-label">Episode(s) of Care:</label>
+                  <div class="col-lg-9">
+                    <select multiple="true" class="form-control" id="episodeSelect_{{@cid}}" name="{{@cid}}[episode_ids][]">
+                      {{#each source_data_criteria.models}}
+                        {{#with attributes}}
+                          {{#if specific_occurrence}}
+                            <option value="{{source_data_criteria}}" id="{{@cid}}">{{description}}</option>
+                          {{/if}}
+                        {{/with}}
+                      {{/each}}
+                    </select>
+                    <span class="">Ctrl+click to select multiple</span>
+                  </div>
                 </div>
-              </div>
+              {{/unless}}
             {{/if}}
             {{#ifCond populations.models.length '>' 1}}
               <div class="alert alert-info">Please update the titles for the populations or stratifications.</div>

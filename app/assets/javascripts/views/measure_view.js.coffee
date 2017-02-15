@@ -93,7 +93,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @measures = @model.collection
 
   episodesOfCare: ->
-    return null if @model.get('is_cql')
+    return null if @model.get('cql')
     @model.get('source_data_criteria').filter((sdc) => sdc.get('source_data_criteria') in @model.get('episode_ids'))
 
   updateMeasure: (e) ->

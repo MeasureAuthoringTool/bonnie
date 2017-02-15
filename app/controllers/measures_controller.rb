@@ -267,11 +267,14 @@ class MeasuresController < ApplicationController
     measure_finalize_data = params.values.select {|p| p['hqmf_id']}.uniq
     measure_finalize_data.each do |data|
       measure = Measure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
-      measure.update_attributes({needs_finalize: false, episode_ids: data['episode_ids']})
+      is_cql = measure == nil
+      measure = CqlMeasure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first if is_cql
+      measure['needs_finalize'] = false
+      measure['episode_ids'] = data['episode_ids'] if !is_cql
       measure.populations.each_with_index do |population, population_index|
         population['title'] = data['titles']["#{population_index}"] if (data['titles'])
       end
-      measure.generate_js(clear_db_cache: true)
+      measure.generate_js(clear_db_cache: true) if !is_cql
       measure.save!
     end
     redirect_to root_path
