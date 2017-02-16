@@ -209,7 +209,7 @@ class MeasuresController < ApplicationController
 
     end
 
-    if !is_cql
+    unless is_cql
       Measures::ADEHelper.update_if_ade(measure)
 
       measure.generate_js
