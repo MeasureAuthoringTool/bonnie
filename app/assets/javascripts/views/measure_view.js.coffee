@@ -50,13 +50,9 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       isNotCQL: !@model.has('cql') # Hide certain features in handlebars if the measure is cql.
 
   initialize: ->
+    @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
     if @model.has('cql')
       populationLogicView = new Thorax.Views.CqlLogic(model: @model)
-    else
-      populationLogicView = new Thorax.Views.PopulationLogic(model: @population)
-    @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
-
-    if @model.has('cql')
       if @populations.length > 1 # CQL Measure with multiple populations
         @logicView = new Thorax.Views.CqlPopulationsLogic model: @model, collection: @populations
         @logicView.setView populationLogicView
@@ -64,6 +60,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         # CQL measure with one population
         @logicView = populationLogicView
     else
+      populationLogicView = new Thorax.Views.PopulationLogic(model: @population)
       # display layout view when there are multiple populations; otherwise, just show logic view
       if @populations.length > 1
         @logicView = new Thorax.Views.PopulationsLogic collection: @populations
@@ -93,6 +90,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @measures = @model.collection
 
   episodesOfCare: ->
+    return null unless @model.has('episode_ids')
     @model.get('source_data_criteria').filter((sdc) => sdc.get('source_data_criteria') in @model.get('episode_ids'))
 
   updateMeasure: (e) ->

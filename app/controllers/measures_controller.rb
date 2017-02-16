@@ -61,98 +61,82 @@ class MeasuresController < ApplicationController
     begin
       # Is this a CQL measure, or a CQL MAT export?
       # TODO: This will need to change when we know what the MAT will be exporting!
+      is_cql = false
       if extension == '.cql' || (extension == '.zip' && Measures::CqlLoader.mat_cql_export?(params[:measure_file]))
+        is_cql = true
         measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password]) # overwrite_valuesets=true, cache=false, includeDraft=true
 
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
-        if existing.count > 0
+        if existing.count > 1
           flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Try deleting that measure and re-uploading it."}
           redirect_to "#{root_path}##{params[:redirect_route]}"
           return
+        end
+      else
+        is_update = false
+        if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
+          is_update = true
+          existing = Measure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
+          measure_details['type'] = existing.type
+          measure_details['episode_of_care'] = existing.episode_of_care
+          if measure_details['episode_of_care']
+            episodes = params["eoc_#{existing.hqmf_set_id}"]
+            if episodes && episodes['episode_ids'] && !episodes['episode_ids'].empty?
+              measure_details['episode_ids'] = episodes['episode_ids']
+            else
+              measure_details['episode_ids'] = existing.episode_ids
+            end
+          end
+
+          measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
+        end
+
+        if extension == '.xml'
+          includeDraft = params[:include_draft] == 'true'
+          effectiveDate = nil
+          unless includeDraft
+            effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
+          end
+          measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # overwrite_valuesets=true, cache=false, includeDraft=true
         else
-          current_user.measures << measure
-          current_user.save!
-          measure.save!
+          measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
         end
 
-        # rebuild the users patients if set to do so
-        if params[:rebuild_patients] == "true"
-          Record.by_user(current_user).each do |r|
-            Measures::PatientBuilder.rebuild_patient(r)
-            r.save!
+        if (!is_update)
+          existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
+          if existing.count > 1
+            measure.delete
+            flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
+            redirect_to "#{root_path}##{params[:redirect_route]}"
+            return
+          end
+        else
+          if existing.hqmf_set_id != measure.hqmf_set_id
+            measure.delete
+            flash[:error] = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
+            redirect_to "#{root_path}##{params[:redirect_route]}"
+            return
           end
         end
 
-        redirect_to "#{root_path}##{params[:redirect_route]}"
-    #    create_cql(measure_details, params)
-        return
-      end
-
-      is_update = false
-      if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
-        is_update = true
-        existing = Measure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
-        measure_details['type'] = existing.type
-        measure_details['episode_of_care'] = existing.episode_of_care
-        if measure_details['episode_of_care']
-          episodes = params["eoc_#{existing.hqmf_set_id}"]
-          if episodes && episodes['episode_ids'] && !episodes['episode_ids'].empty?
-            measure_details['episode_ids'] = episodes['episode_ids']
-          else
-            measure_details['episode_ids'] = existing.episode_ids
-          end
-        end
-
-        measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
-      end
-
-  #  begin
-      if extension == '.xml'
-        includeDraft = params[:include_draft] == 'true'
-        effectiveDate = nil
-        unless includeDraft
-          effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
-        end
-        measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # overwrite_valuesets=true, cache=false, includeDraft=true
-      else
-        measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
-      end
-
-      if (!is_update)
-        existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
-        if existing.count > 1
+        if measure_details['episode_of_care'] && measure.data_criteria.values.select {|d| d['specific_occurrence']}.empty?
           measure.delete
-          flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
+          flash[:error] = {title: "Error Loading Measure", summary: "An episode of care measure requires at least one specific occurrence for the episode of care.", body: "You have loaded the measure as an episode of care measure.  Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."}
           redirect_to "#{root_path}##{params[:redirect_route]}"
           return
         end
-      else
-        if existing.hqmf_set_id != measure.hqmf_set_id
+
+        # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
+        missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
+        if missing_value_sets.length > 0
           measure.delete
-          flash[:error] = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
+          flash[:error] = {title: "Measure is missing value sets", summary: "The measure you have tried to load is missing value sets.", body: "The measure you are trying to load is missing value sets.  Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"}
           redirect_to "#{root_path}##{params[:redirect_route]}"
           return
         end
+
+        existing.delete if (existing && is_update)
       end
-
-      if measure_details['episode_of_care'] && measure.data_criteria.values.select {|d| d['specific_occurrence']}.empty?
-        measure.delete
-        flash[:error] = {title: "Error Loading Measure", summary: "An episode of care measure requires at least one specific occurrence for the episode of care.", body: "You have loaded the measure as an episode of care measure.  Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."}
-        redirect_to "#{root_path}##{params[:redirect_route]}"
-        return
-      end
-
-      # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
-      missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
-      if missing_value_sets.length > 0
-        measure.delete
-        flash[:error] = {title: "Measure is missing value sets", summary: "The measure you have tried to load is missing value sets.", body: "The measure you are trying to load is missing value sets.  Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"}
-        redirect_to "#{root_path}##{params[:redirect_route]}"
-        return
-      end
-
-      existing.delete if (existing && is_update)
-
     rescue Exception => e
       if params[:measure_file]
         measure.delete if measure
@@ -195,6 +179,8 @@ class MeasuresController < ApplicationController
     current_user.measures << measure
     current_user.save!
 
+    # TODO: See story https://jira.mitre.org/browse/BONNIE-476
+    # this below logic needs to be updated not to check the episode ids for CQL-based measures
     if (is_update)
       measure.episode_ids = measure_details['episode_ids']
       measure.populations.each_with_index do |population, population_index|
@@ -210,7 +196,7 @@ class MeasuresController < ApplicationController
         end
       end
     else
-      measure.needs_finalize = (measure_details['episode_of_care'] || measure.populations.size > 1)
+      measure.needs_finalize = (!is_cql && measure_details['episode_of_care']) || measure.populations.size > 1
       if measure.populations.size > 1
         strat_index = 1
         measure.populations.each do |population|
@@ -223,9 +209,11 @@ class MeasuresController < ApplicationController
 
     end
 
-    Measures::ADEHelper.update_if_ade(measure)
+    unless is_cql
+      Measures::ADEHelper.update_if_ade(measure)
 
-    measure.generate_js
+      measure.generate_js
+    end
 
     measure.save!
 
@@ -280,12 +268,22 @@ class MeasuresController < ApplicationController
   def finalize
     measure_finalize_data = params.values.select {|p| p['hqmf_id']}.uniq
     measure_finalize_data.each do |data|
+      # try to access non cql-based measure
       measure = Measure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
-      measure.update_attributes({needs_finalize: false, episode_ids: data['episode_ids']})
+      # if measure wasn't found, it must be a cql-based measure
+      is_cql = measure == nil
+      if is_cql
+        measure = CqlMeasure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
+      end
+      measure['needs_finalize'] = false
       measure.populations.each_with_index do |population, population_index|
         population['title'] = data['titles']["#{population_index}"] if (data['titles'])
       end
-      measure.generate_js(clear_db_cache: true)
+      # CQL-based measures don't have episode_ids field
+      unless is_cql
+        measure['episode_ids'] = data['episode_ids']
+        measure.generate_js(clear_db_cache: true)
+      end
       measure.save!
     end
     redirect_to root_path

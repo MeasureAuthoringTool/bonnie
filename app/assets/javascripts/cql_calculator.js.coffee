@@ -101,7 +101,7 @@
           # Grab CQL result value and adjust for Bonnie
           value = results['patientResults'][patient.id][cql_population]
           if typeof value is 'object' and value.length > 0
-            population_results[popCode] = 1
+            population_results[popCode] = value.length
           else if typeof value is 'boolean' and value
             population_results[popCode] = 1
           else
