@@ -20,18 +20,18 @@
     <div class="measure-dsp">
       <h2 class="full-title">{{title}}</h2>
       {{#if episode_of_care}}
+        {{#if isNotCQL}}
         <div class="measure-dsp-title">
           Episode(s) of Care:
         </div>
-          {{#if cql}}
-              This is a CQL measure
-          {{else}}
-            {{#each episodesOfCare tag="ul"}}
-              {{#with attributes}}
-                <li>{{description}}</li>
-              {{/with}}
-            {{/each}}
-          {{/if}}
+          {{#each episodesOfCare tag="ul"}}
+            {{#with attributes}}
+              <li>{{description}}</li>
+            {{/with}}
+          {{/each}}
+        {{else}}
+            Episode of Care Based Measure
+        {{/if}}
         <p></p>
       {{/if}}
 

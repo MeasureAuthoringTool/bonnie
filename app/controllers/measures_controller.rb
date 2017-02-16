@@ -179,6 +179,8 @@ class MeasuresController < ApplicationController
     current_user.measures << measure
     current_user.save!
 
+    # TODO: See story https://jira.mitre.org/browse/BONNIE-476
+    # this below logic needs to be updated not to check the episode ids for CQL-based measures
     if (is_update)
       measure.episode_ids = measure_details['episode_ids']
       measure.populations.each_with_index do |population, population_index|
@@ -266,15 +268,22 @@ class MeasuresController < ApplicationController
   def finalize
     measure_finalize_data = params.values.select {|p| p['hqmf_id']}.uniq
     measure_finalize_data.each do |data|
+      # try to access non cql-based measure
       measure = Measure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
+      # if measure wasn't found, it must be a cql-based measure
       is_cql = measure == nil
-      measure = CqlMeasure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first if is_cql
+      if is_cql
+        measure = CqlMeasure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
+      end
       measure['needs_finalize'] = false
-      measure['episode_ids'] = data['episode_ids'] if !is_cql
       measure.populations.each_with_index do |population, population_index|
         population['title'] = data['titles']["#{population_index}"] if (data['titles'])
       end
-      measure.generate_js(clear_db_cache: true) if !is_cql
+      # CQL-based measures don't have episode_ids field
+      if !is_cql
+        measure['episode_ids'] = data['episode_ids']
+        measure.generate_js(clear_db_cache: true)
+      end
       measure.save!
     end
     redirect_to root_path
