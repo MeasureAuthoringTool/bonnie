@@ -280,7 +280,7 @@ class MeasuresController < ApplicationController
         population['title'] = data['titles']["#{population_index}"] if (data['titles'])
       end
       # CQL-based measures don't have episode_ids field
-      if !is_cql
+      unless is_cql
         measure['episode_ids'] = data['episode_ids']
         measure.generate_js(clear_db_cache: true)
       end
