@@ -101,18 +101,23 @@ describe 'PatientBuilderView', ->
   describe "editing basic attributes of a criteria", ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
-      @patientBuilder.$('button[data-call-method=toggleDetails]:first').click()
-      @patientBuilder.$(':input[name=start_date]:first').val('01/1/2012')
-      @patientBuilder.$(':input[name=start_time]:first').val('3:33')
-      @patientBuilder.$(':input[name=end_date_is_undefined]:first').click()
+      # need to be specific with the query to select one of the data criteria with a period.
+      # this is due to QDM 5.0 changes which make several data criteria only have an author time.
+      # Medication, Active is a period type.
+      $dataCriteria = @patientBuilder.$('div.patient-criteria:contains(Medication: Active):first')
+      $dataCriteria.find('button[data-call-method=toggleDetails]:first').click()
+      $dataCriteria.find(':input[name=start_date]:first').val('01/1/2012')
+      $dataCriteria.find(':input[name=start_time]:first').val('3:33')
+      $dataCriteria.find(':input[name=end_date_is_undefined]:first').click()
       # verify DOM as well
-      expect(@patientBuilder.$(':input[name=end_date]:first')).toBeDisabled()
-      expect(@patientBuilder.$(':input[name=end_time]:first')).toBeDisabled()
+      expect($dataCriteria.find(':input[name=end_date]:first')).toBeDisabled()
+      expect($dataCriteria.find(':input[name=end_time]:first')).toBeDisabled()
       @patientBuilder.$("button[data-call-method=save]").click()
 
     it "serializes the attributes correctly", ->
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('start_date')).toEqual moment.utc('01/1/2012 3:33', 'L LT').format('X') * 1000
-      expect(@patientBuilder.model.get('source_data_criteria').first().get('end_date')).toBeUndefined()
+      dataCriteria = @patientBuilder.model.get('source_data_criteria').where({definition:'medication', status:'active'})[0]
+      expect(dataCriteria.get('start_date')).toEqual moment.utc('01/1/2012 3:33', 'L LT').format('X') * 1000
+      expect(dataCriteria.get('end_date')).toBeUndefined()
 
     afterEach -> @patientBuilder.remove()
 
