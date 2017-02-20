@@ -20,20 +20,21 @@ include Devise::TestHelpers
     measure = Measure.where(hqmf_set_id: '9A032D9C-3D9B-11E1-8634-00237D5BF174', user_id: @user.id).first
     assert_nil measure
     # Assert that there is nothing in the archive for this measure
-    archive = ArchivedMeasure.where(hqmf_set_id: '9A032D9C-3D9B-11E1-8634-00237D5BF174', user_id: @user.id)
-    assert_equal 0, archive.count
+    assert_equal 0, ArchivedMeasure.by_user_and_hqmf_set_id(@user, '9A032D9C-3D9B-11E1-8634-00237D5BF174').count
 
     # Load the measure
     post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'episode'
-    post :finalize, {"t551"=>{"hqmf_id"=>"40280381-4555-E1C1-0145-DC7DC26A44BF", "episode_ids"=>["OccurrenceAMedicationsEncounterCodeSet1"]}}
+    assert_response :redirect
     measure = Measure.where(cms_id: 'CMS68v4', user_id: @user.id).first
     assert_not_nil measure
+    assert_equal true, measure.needs_finalize
+    post :finalize, {"t551"=>{"hqmf_id"=>"40280381-4555-E1C1-0145-DC7DC26A44BF", "episode_ids"=>["OccurrenceAMedicationsEncounterCodeSet1"]}}
+    assert_response :redirect
     assert_equal '40280381-4555-E1C1-0145-DC7DC26A44BF', measure[:hqmf_id]
     assert_equal '9A032D9C-3D9B-11E1-8634-00237D5BF174', measure[:hqmf_set_id]
     
     # Assert that there is still nothing in the archive for this measure
-    archive = ArchivedMeasure.where(hqmf_set_id: '9A032D9C-3D9B-11E1-8634-00237D5BF174', user_id: @user.id)
-    assert_equal 0, archive.count
+    assert_equal 0, ArchivedMeasure.by_user_and_hqmf_set_id(@user, '9A032D9C-3D9B-11E1-8634-00237D5BF174').count
 
     # Get the ObjectId of the current version of the measure
     measure_first_load_db_id = measure.id
@@ -48,10 +49,10 @@ include Devise::TestHelpers
     assert_equal '9A032D9C-3D9B-11E1-8634-00237D5BF174', measure[:hqmf_set_id], "Loaded measure does not have the correct hqmf_set_id"
 
     # Assert that there is now an entry in the archive for this measure
-    archive = ArchivedMeasure.where(hqmf_set_id: '9A032D9C-3D9B-11E1-8634-00237D5BF174', user_id: @user.id)
-    assert_equal 1, archive.count
-    assert_equal measure_first_load_db_id, archive[0][:measure_db_id]
-    assert_equal 'CMS68v4', archive[0][:measure_content][:cms_id]
+    measure_from_archive = ArchivedMeasure.where(hqmf_set_id: '9A032D9C-3D9B-11E1-8634-00237D5BF174', user_id: @user.id)
+    assert_equal 1, measure_from_archive.count
+    assert_equal measure_first_load_db_id, measure_from_archive[0][:measure_db_id]
+    assert_equal 'CMS68v4', measure_from_archive[0][:measure_content][:cms_id]
 
   end # measure archiving
 
@@ -63,14 +64,16 @@ include Devise::TestHelpers
     assert_nil measure
     
     # Assert that there is nothing in the upload summary for this measure
-    upload_summary = UploadSummary::MeasureSummary.where(hqmf_set_id: '9A032D9C-3D9B-11E1-8634-00237D5BF174', user_id: @user.id)
-    assert_equal 0, upload_summary.count
+    assert_equal 0, UploadSummary::MeasureSummary.by_user_and_hqmf_set_id(@user, '9A032D9C-3D9B-11E1-8634-00237D5BF174').count
 
     # Load the measure
     post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'episode'
-    post :finalize, {"t551"=>{"hqmf_id"=>"40280381-4555-E1C1-0145-DC7DC26A44BF", "episode_ids"=>["OccurrenceAMedicationsEncounterCodeSet1"]}}
+    assert_response :redirect
     measure = Measure.where(cms_id: 'CMS68v4', user_id: @user.id).first
     assert_not_nil measure
+    assert_equal true, measure.needs_finalize
+    post :finalize, {"t551"=>{"hqmf_id"=>"40280381-4555-E1C1-0145-DC7DC26A44BF", "episode_ids"=>["OccurrenceAMedicationsEncounterCodeSet1"]}}
+    assert_response :redirect
     assert_equal '40280381-4555-E1C1-0145-DC7DC26A44BF', measure[:hqmf_id], "Loaded measure does not have the correct hqmf_id"
     assert_equal '9A032D9C-3D9B-11E1-8634-00237D5BF174', measure[:hqmf_set_id], "Loaded measure does not have the correct hqmf_set_id"
     
@@ -79,11 +82,11 @@ include Devise::TestHelpers
     upload_summary = UploadSummary::MeasureSummary.where(hqmf_set_id: '9A032D9C-3D9B-11E1-8634-00237D5BF174', user_id: @user.id)
     assert_equal 1, upload_summary.count, "Failed upload_summary count"
     assert_nil upload_summary.first.measure_db_id_pre_upload
-    assert_equal upload_summary.first.measure_db_id_post_upload, measure.id
+    assert_equal measure.id, upload_summary.first.measure_db_id_post_upload
     assert_nil upload_summary.first.cms_id_pre_upload
-    assert_equal upload_summary.first.cms_id_post_upload, measure.cms_id
+    assert_equal measure.cms_id, upload_summary.first.cms_id_post_upload
     assert_nil upload_summary.first.hqmf_version_number_pre_upload
-    assert_equal upload_summary.first.hqmf_version_number_post_upload, measure.hqmf_version_number
+    assert_equal measure.hqmf_version_number, upload_summary.first.hqmf_version_number_post_upload
     assert_equal 1, upload_summary.first.population_set_summaries.count 
     assert_equal 0, upload_summary.first.measure_population_set_count[:pre_upload]
     assert_equal 1, upload_summary.first.measure_population_set_count[:post_upload]
@@ -141,12 +144,12 @@ include Devise::TestHelpers
     upload_summary = UploadSummary::MeasureSummary.where(hqmf_set_id: '9A032D9C-3D9B-11E1-8634-00237D5BF174', hqmf_id: '40280381-51F0-825B-0152-227DFBAC15AA', user_id: @user.id).first
     
     # Test the primary fields
-    assert_equal upload_summary.measure_db_id_pre_upload, measure_first_load_db_id
-    assert_equal upload_summary.measure_db_id_post_upload, measure.id
-    assert_equal upload_summary.cms_id_pre_upload, measure_first_load_cms_id
-    assert_equal upload_summary.cms_id_post_upload, measure.cms_id
-    assert_equal upload_summary.hqmf_version_number_pre_upload, measure_first_load_hqmf_version_number_pre_upload
-    assert_equal upload_summary.hqmf_version_number_post_upload, measure.hqmf_version_number
+    assert_equal measure_first_load_db_id, upload_summary.measure_db_id_pre_upload
+    assert_equal measure.id, upload_summary.measure_db_id_post_upload
+    assert_equal measure_first_load_cms_id, upload_summary.cms_id_pre_upload
+    assert_equal measure.cms_id, upload_summary.cms_id_post_upload
+    assert_equal measure_first_load_hqmf_version_number_pre_upload, upload_summary.hqmf_version_number_pre_upload
+    assert_equal measure.hqmf_version_number, upload_summary.hqmf_version_number_post_upload
     assert_equal 1, upload_summary.population_set_summaries.count
     assert_equal 1, upload_summary.measure_population_set_count[:pre_upload]
     assert_equal 1, upload_summary.measure_population_set_count[:post_upload]
