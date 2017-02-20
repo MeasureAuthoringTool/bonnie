@@ -42,9 +42,12 @@ include Devise::TestHelpers
     # Go the next version
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history_set', 'base_example', 'CMS68v6.zip'), 'application/zip')
     post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'episode', hqmf_set_id: '9A032D9C-3D9B-11E1-8634-00237D5BF174'
-    post :finalize, {"t551"=>{"hqmf_id"=>"40280381-51F0-825B-0152-227DFBAC15AA", "episode_ids"=>["OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5_source"], "titles"=>{"0"=>"Population Criteria Section"}}}
+    assert_response :redirect
     measure = Measure.where(hqmf_id: '40280381-51F0-825B-0152-227DFBAC15AA', user_id: @user.id).first
     assert_not_nil measure
+    assert_equal true, measure.needs_finalize
+    post :finalize, {"t551"=>{"hqmf_id"=>"40280381-51F0-825B-0152-227DFBAC15AA", "episode_ids"=>["OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5_source"], "titles"=>{"0"=>"Population Criteria Section"}}}
+    assert_response :redirect
     assert_equal '40280381-51F0-825B-0152-227DFBAC15AA', measure[:hqmf_id], "Loaded measure does not have the correct hqmf_id"
     assert_equal '9A032D9C-3D9B-11E1-8634-00237D5BF174', measure[:hqmf_set_id], "Loaded measure does not have the correct hqmf_set_id"
 
