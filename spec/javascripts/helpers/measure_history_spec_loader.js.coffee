@@ -50,6 +50,7 @@
       
 
     measure.set('upload_summaries', uploadSummaries)
+    measure.set('patients', patients)
 
     testSuite.measure = measure
     testSuite.patients = patients
