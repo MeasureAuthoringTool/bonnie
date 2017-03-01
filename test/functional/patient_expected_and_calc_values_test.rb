@@ -15,10 +15,6 @@ class PatientTest < ActionController::TestCase  #ActiveSupport::TestCase
     collection_fixtures(users_set)
     @user = User.by_email('bonnie@example.com').first
     sign_in @user
-
-    # load_measures
-    # load_patients
-    # load_golden_results
     
   end
 
@@ -30,54 +26,6 @@ class PatientTest < ActionController::TestCase  #ActiveSupport::TestCase
     associate_user_with_measures(@user, Measure.all)
     associate_user_with_patients(@user, Record.all)
     load_golden_results
-  end
-
-  def load_measures
-    # TODO: When measure fixtures are available switchh to loading them
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history_set', 'base_example', 'CMS68v6.zip'), 'application/zip')
-    
-    # Load the measure
-    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'episode'
-    post :finalize, {"t551"=>{"hqmf_id"=>"40280381-51F0-825B-0152-227DFBAC15AA", "episode_ids"=>["OccurrenceA_MedicationsEncounterCodeSet_EncounterPerformed_40280381_3e93_d1af_013e_a36090dc2cf5_source"], "titles"=>{"0"=>"Population Criteria Section"}}}
-
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history_set', 'multi_population', 'CMS160v3.zip'), 'application/zip')
-    
-    # Load the measure
-    post :create, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient'
-
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history_set', 'update_change', 'CMS104v3.zip'), 'application/zip')
-    
-    # Load the measure
-    post :create, measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'
-    post :finalize, {"t551"=>{"hqmf_id"=>"40280381-446B-B8C2-0144-9E6E127929E3", "episode_ids"=>["OccurrenceANonElectiveInpatientEncounter2"]}}
-
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_history_set', 'continuous_variable', 'EH_CMS32v4.zip'), 'application/zip')
-    
-    # Load the measure
-    post :create, measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'
-    post :finalize, {"t551"=>{"hqmf_id"=>"40280381-43DB-D64C-0144-6A8B0A3B30C6", "episode_ids"=>["OccurrenceAEmergencyDepartmentVisit1"], "titles"=>{"0"=>"Population 1 k", "1"=>"Stratification 1 k", "2"=>"Stratification 2 k", "3"=>"Stratification 3 k", "4"=>"foo"}}}
-  end
-
-  # When adding patients ensure that there is a making entry in the load_golden_results method
-  def load_patients
-    # Patients for CMS68v6
-    records_set = File.join('records', "measure_history_set", "base_example")
-    collection_fixtures(records_set)
-
-    # Patients for CMS160v3
-    records_set = File.join('records', "measure_history_set", "multi_population")
-    collection_fixtures(records_set)
-
-    # Patients for CMS104v3
-    records_set = File.join('records', "measure_history_set", "update_change")
-    collection_fixtures(records_set)
-
-    # Patients for CMS32v4
-    records_set = File.join('records', "measure_history_set", "continuous_variable")
-    collection_fixtures(records_set)
-
-    associate_user_with_measures(@user, Measure.all)
-    associate_user_with_patients(@user, Record.all)
   end
 
   def load_golden_results
@@ -107,9 +55,7 @@ class PatientTest < ActionController::TestCase  #ActiveSupport::TestCase
     
     # Golden results for CMS104v5
     @golden_results.store(BSON::ObjectId('5852fa58e76e94e528001e9d'), [ {'IPP'=> 1, 'DENOM'=> 1, 'DENEX'=> 0, 'NUMER'=> 0, 'NUMEX'=> 0, 'DENEXCEP'=> 0, 'status'=> 'pass'} ] )
-    
-    # TODO
-    # Add the golden results for the continuous variable measure
+
   end
 
   # This test looks for the proper calculation of the results for each measure.  It is looks to make sure that all of the expected fields related to
@@ -308,7 +254,6 @@ class PatientTest < ActionController::TestCase  #ActiveSupport::TestCase
 
   test 'CMS160v5' do
     load_test_suite_files('measure_history_set/multi_population')
-
     measure = Measure.where({"cms_id" => "CMS160v5"}).first
     calculation_results(measure)
     expected_values_values_retained(measure)
@@ -326,16 +271,5 @@ class PatientTest < ActionController::TestCase  #ActiveSupport::TestCase
     expected_values_missing_populations_added_back(measure)
     expected_values_reduce_number_population_sets(measure)
   end
-
-  # test 'CMS32v4' do
-  #   load_test_suite_files('measure_history_set/continuous_variable')
-  #   measure = Measure.where({"cms_id" => "CMS32v4"}).first
-  #   # TODO: Complete method `calculation_results` to handle continuous_variable measures
-  #   # calculation_results(measure)
-  #   expected_values_values_retained(measure)
-  #   expected_values_properly_populated_when_empty(measure)
-  #   expected_values_missing_populations_added_back(measure)
-  #   expected_values_reduce_number_population_sets(measure)
-  # end
 
 end # class
