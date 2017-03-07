@@ -387,8 +387,8 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       td = $('td:nth-child(' + actualIndex + ')', nodes[0])
       patient = row.patient
       expected = row.expected
-      patient_results = @getPatientResultsById(patient.id)
-      if expected[population] != patient_results[population]
+      actual = row.actual
+      if expected[population] != actual[population]
         td.addClass('warn')
       else
         td.removeClass('warn')

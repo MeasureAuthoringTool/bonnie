@@ -66,7 +66,10 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     expectedResults = {}
     expected_model = @patient.get('expected_values').findWhere(measure_id: @measure.get('hqmf_set_id'), population_index: @populationSet.get('index'))
     for population in @populations
-      expectedResults[population] = expected_model.get(population)
+      if population == 'OBSERV'
+        expectedResults[population] = expected_model.get(population)?.toString()
+      else
+        expectedResults[population] = expected_model.get(population)
     expectedResults
 
   ###
@@ -78,8 +81,6 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
       if population == 'OBSERV'
         if 'values' of @patientResult && population of @patientResult['rationale']
           actualResults[population] = @patientResult['values'].toString()
-        else
-          actualResults[population] = 0
       else
         actualResults[population] = @patientResult[population]
     actualResults
