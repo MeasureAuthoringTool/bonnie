@@ -4,7 +4,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
 
   initialize: ->
     # Grab all populations related to this measure
-    codes = (population['code'] for population in @measure.get('measure_logic'))
+    codes = @measure.get('populations').at(@populationSet.get('index')).keys()
     @populations = _.intersection(Thorax.Models.Measure.allPopulationCodes, codes)
 
     # Column widths
