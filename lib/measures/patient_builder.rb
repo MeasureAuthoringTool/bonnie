@@ -21,7 +21,6 @@ module Measures
     }
 
     def self.rebuild_patient(patient)
-
       patient.medical_record_number ||= Digest::MD5.hexdigest("#{patient.first} #{patient.last} #{Time.now}")
       patient.medical_record_assigner ||= "Bonnie"
       vs_oids = patient.source_data_criteria.collect{|dc| get_vs_oids(dc)}.flatten.uniq
@@ -89,7 +88,6 @@ module Measures
           if section_name == "communications"
             entry[:direction] = source_criteria["definition"] # "communication_from_provider_to_patient"
           end
-
           # Add the updated section to this patient.
           sections[section_name] ||= []
           sections[section_name].push(entry)
@@ -129,9 +127,19 @@ module Measures
 
     def self.get_vs_oids(source_data_criteria)
       oids = [source_data_criteria['code_list_id'], source_data_criteria['negation_code_list_id']]
-      oids.concat source_data_criteria['field_values'].values.collect {|field| field['code_list_id']} if source_data_criteria['field_values']
+      if source_data_criteria['field_values']
+        recursive_field_value_oid_concat(source_data_criteria['field_values'], oids)
+      end
       oids.concat source_data_criteria['value'].collect {|value| value['code_list_id']} if source_data_criteria['value']
       oids.compact.uniq
+    end
+    
+    def self.recursive_field_value_oid_concat(fields,oids)
+      if fields
+        oids.concat fields.select{|key,value| value["type"] != "COL"}.values.collect {|value| value['code_list_id']}
+        fields.select{|key,value| value["type"] == "COL"}.values.each {|collection| collection["values"].each{ |value| recursive_field_value_oid_concat({'VALUE'=>value}, oids)}}
+      end
+      oids
     end
 
     def self.derive_time_range(value)
@@ -139,7 +147,6 @@ module Measures
       high = {'value' => Time.at(value['end_date'].to_i / 1000).utc.strftime('%Y%m%d%H%M%S'), 'type'=>'TS' } unless value['end_date'].blank?
       HQMF::Range.from_json({'low' => low,'high' => high})
     end
-
 
 
     # Determine the appropriate coded entry type from this data criteria and create one to match.
@@ -202,8 +209,83 @@ module Measures
       end
     end
 
+    def self.recursive_field_value_derivation(value, value_sets)
+      return if value.nil?
+      if value['type'] == 'TS'
+        converted_time = Time.at(value['value']/1000).utc.strftime('%Y%m%d%H%M%S')
+      end
+      field = HQMF::DataCriteria.convert_value(value)
+      field.value = converted_time if converted_time
+      field_value = {}
+
+      # Format the field to be stored in a Record.
+      if field.type == "CD"
+        if value["codes"]
+          # Multiple codes were specified
+          field_value["codes"] = value["codes"]
+        elsif value["code"] && !value["code"].empty?
+          # A single code was specified
+          field_value = value["code"]
+        else
+          # No codes specified, default to first possible code
+          field_value = Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
+        end
+        field_value["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id, value_sets)["display_name"] if field_value
+      elsif field.type == "CMP"
+        field_value["code"] = Measures::PatientBuilder.select_code(field.code.code_list_id, value_sets)
+        field_value["result"] = field.result.format
+        # will have to add code here if range exists
+      elsif field.type == "COL"
+        # recur through entry
+        # recursive function should be this function that returns the derived entry
+        # entry will push each derived field value to field_value
+        field_value = []
+        field_value.push value["values"].each{ |value| self.recursive_field_value_derivation(value, value_sets)}
+      else
+        field_value = field.format
+      end
+
+      field_accessor = nil
+      # Facilities are a special case where we store a whole object on the entry in Record. Create or augment the existing facility with this piece of data.
+      if name.include? "FACILITY"
+        facility = entry.facility
+        facility ||= Facility.new
+        facility_map = {"FACILITY_LOCATION" => :code, "FACILITY_LOCATION_ARRIVAL_DATETIME" => :start_time, "FACILITY_LOCATION_DEPARTURE_DATETIME" => :end_time}
+
+        facility.name = field.title if field.type == "CD"
+        facility_accessor = facility_map[name]
+        facility.send("#{facility_accessor}=", field_value)
+
+        field_accessor = :facility
+        field_value = facility
+      end
+
+      if name.include? "TRANSFER"
+        if name.starts_with? "TRANSFER_FROM"
+          transfer = entry.transfer_from
+          field_accessor = :transfer_from
+          default_time = entry.start_time
+        else
+          transfer = entry.transfer_to
+          field_accessor = :transfer_to
+          default_time = entry.end_time
+        end
+        transfer ||= Transfer.new
+
+        if field.type == "CD"
+          transfer = Transfer.new(transfer.attributes.merge(field_value))
+        else
+          transfer.time = field_value
+        end
+        transfer.time ||= default_time
+
+        field_value = transfer
+      end
+      
+      field_value
+    end
+
     # Add this data criteria's field related data to a coded entry.
-    #
     # @param [Entry] entry The coded entry that this data criteria is modifying.
     # @param [Array] values An array of values to create entries for
     # @param [Hash] value_sets The value sets that this data criteria references.
@@ -211,67 +293,8 @@ module Measures
     def self.derive_field_values(entry, values, value_sets)
       return if values.nil?
       values.each do |name, value|
-        converted_time = Time.at(value['value']/1000).utc.strftime('%Y%m%d%H%M%S') if (value['type'] == 'TS')
-        field = HQMF::DataCriteria.convert_value(value)
-        field.value = converted_time if converted_time
-
-        # Format the field to be stored in a Record.
-        if field.type == "CD"
-          if value["codes"]
-            # Multiple codes were specified
-            field_value = {}
-            field_value["codes"] = value["codes"]
-          elsif value["code"] && !value["code"].empty?
-            # A single code was specified
-            field_value = value["code"]
-          else
-            # No codes specified, default to first possible code
-            field_value = Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
-          end
-          field_value["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id, value_sets)["display_name"] if field_value
-        elsif field.type == "CMP"
-          field_value = Measures::PatientBuilder.select_code(field.code.code_list_id, value_sets)
-        else
-          field_value = field.format
-        end
-
-        field_accessor = nil
-        # Facilities are a special case where we store a whole object on the entry in Record. Create or augment the existing facility with this piece of data.
-        if name.include? "FACILITY"
-          facility = entry.facility
-          facility ||= Facility.new
-          facility_map = {"FACILITY_LOCATION" => :code, "FACILITY_LOCATION_ARRIVAL_DATETIME" => :start_time, "FACILITY_LOCATION_DEPARTURE_DATETIME" => :end_time}
-
-          facility.name = field.title if field.type == "CD"
-          facility_accessor = facility_map[name]
-          facility.send("#{facility_accessor}=", field_value)
-
-          field_accessor = :facility
-          field_value = facility
-        end
-
-        if name.include? "TRANSFER"
-          if name.starts_with? "TRANSFER_FROM"
-            transfer = entry.transfer_from
-            field_accessor = :transfer_from
-            default_time = entry.start_time
-          else
-            transfer = entry.transfer_to
-            field_accessor = :transfer_to
-            default_time = entry.end_time
-          end
-          transfer ||= Transfer.new
-
-          if field.type == "CD"
-            transfer = Transfer.new(transfer.attributes.merge(field_value))
-          else
-            transfer.time = field_value
-          end
-          transfer.time ||= default_time
-
-          field_value = transfer
-        end
-
+        field_value = recursive_field_value_derivation(value, value_sets)
+        # Add field to entry, catagorized by the QDM human readable name->coded_entry_method defined in health-data-standards/lib/hqmf-model/data_criteria.rb
         begin
           field_accessor ||= HQMF::DataCriteria::FIELDS[name][:coded_entry_method]
           entry.send("#{field_accessor}=", field_value)
@@ -284,6 +307,7 @@ module Measures
           end
         end
       end
+
     end
 
 
