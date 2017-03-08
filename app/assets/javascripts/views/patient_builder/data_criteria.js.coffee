@@ -192,6 +192,14 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   removeValue: (e) ->
     e.preventDefault()
+    # If the value being removed is part of a collection, the data will include the index of said value within the collection
+    if $(e.target).data('col-item-index')?
+      clone = $(e.target).model().clone()
+      clone.get('values').splice($(e.target).data('col-item-index'), 1)
+      # If there are no more items left in collection then it should be removed from patient model
+      if clone.get('values').length > 0
+        $(e.target).model().collection.add clone
+      
     $(e.target).model().destroy()
     @triggerMaterialize()
     @editValueView?.render() # Re-render edit view, if used
@@ -355,7 +363,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       @validateForAddition()
     'change select': ->
       # @serialize.key is the selected item set to the model.key so the view can change accordingly
-      if(@serialize().key == 'COMPONENTS')
+      if(@serialize().key == 'COMPONENT')
         @model.set type: 'CMP'
       else
         # Default drop down to 'coded'
@@ -443,7 +451,18 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   addValue: (e) ->
     e.preventDefault()
     @serialize()
-    @values.add @model.clone()
+    # This will process CMP, a collection type attribute
+    # If extending for use with other collection based attributes, add OR logic here
+    if @model.get('type') == "CMP"
+       col = @values.findWhere(key: @model.get('key')).clone()
+       @values.remove @values.findWhere(key: @model.get('key'))
+       col = {'key': @model.get('key'), 'type': "COL",'values': []} unless col
+       # Push the JSON object representation instead of the backbone model
+       # The values when sent and saved are JSON objects, not backbone models
+       col.get('values').push @model.clone().toJSON()
+       @values.add col
+    else
+      @values.add @model.clone()
     # Reset model to default values
     @model.clear()
     @model.set type: 'CD'
@@ -465,7 +484,6 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   addValue: (e) ->
     e.preventDefault()
     @serialize()
-
     ref = @find_reference(@model.get("reference_id"))
     @model.set description: ref?.get("description")
     start_date = ref?.get("start_date")
@@ -474,7 +492,6 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       @model.set start_date: moment.utc(start_date).format('L')
     if end_date
       @model.set end_date: moment.utc(end_date).format('L')
-
     @values.add @model.clone()
     # Reset model to default values
     @model.clear()
