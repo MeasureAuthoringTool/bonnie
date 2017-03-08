@@ -72,10 +72,9 @@ class MeasuresController < ApplicationController
           effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
         end
       end
-      # Is this a CQL measure, or a CQL MAT export?
-      # TODO: This will need to change when we know what the MAT will be exporting!
+      # If file extension is a zip and a CQL MAT export
       is_cql = false
-      if extension == '.cql' || (extension == '.zip' && Measures::CqlLoader.mat_cql_export?(params[:measure_file]))
+      if extension == '.zip' && Measures::CqlLoader.mat_cql_export?(params[:measure_file])
         is_cql = true
 
         measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
@@ -237,13 +236,6 @@ class MeasuresController < ApplicationController
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
-  # Handles creating a measure that is HQMF + QDM + CQL (using CQL for the
-  # logic and QDM for the data model).
-  def create_cql(measure_details, params)
-    measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
-    redirect_to "#{root_path}##{params[:redirect_route]}"
-  end
-
   def vsac_auth_valid
     # If VSAC TGT is still valid, return its expiration date/time
     tgt = session[:tgt]
@@ -261,13 +253,14 @@ class MeasuresController < ApplicationController
   end
 
   def destroy
-    hqmf_measure = Measure.by_user(current_user).where(id: params[:id]).first
+    qdm_measure = Measure.by_user(current_user).where(id: params[:id]).first
     cql_measure  = CqlMeasure.by_user(current_user).where(id: params[:id]).first
 
-    if hqmf_measure
-      measure = hqmf_measure
+    if qdm_measure
+      measure = qdm_measure
       Measure.by_user(current_user).find(params[:id]).destroy
-    elsif cql_measure
+    end
+    if cql_measure
       measure = cql_measure
       CqlMeasure.by_user(current_user).find(params[:id]).destroy
     end

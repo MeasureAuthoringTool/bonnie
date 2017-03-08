@@ -3,7 +3,7 @@
   var measure = bonnie.measures.get('<%= measure.id %>');
   var population = measure.get('populations').at(<%= population_index %>);
 
-  bonnie.calculator.setCalculator(population, function(patient) {
+  bonnie.qdm_calculator.setCalculator(population, function(patient) {
 
     <%# Set up some variables and functions used in the generated measure calculation %>
     var enable_logging = false;

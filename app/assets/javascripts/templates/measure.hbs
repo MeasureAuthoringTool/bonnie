@@ -4,12 +4,12 @@
       <h1 class="short-title"><i class="fa fa-fw fa-tasks" aria-hidden="true"></i> Measure details</h1>
       <span class="settings-container">
         <div class="measure-settings">
-          {{#if isNotCQL}}
+          {{#unless cql}}
             {{#button "toggleVisualization" class="btn btn-default btn-measure-viz btn-viz-chords"}}<i class="fa fa-sitemap" aria-hidden="true"></i> Chords View{{/button}}
             {{#button "toggleVisualization" class="btn btn-default btn-measure-viz btn-viz-text"}}<i class="fa fa-list" aria-hidden="true"></i> Text View{{/button}}
             {{#button "showCQL" class="btn btn-default"}}Learn CQL{{/button}}
             {{#button "updateMeasure" class="btn btn-default update-measure"}}<i class="fa fa-upload" aria-hidden="true"></i> Update{{/button}}
-          {{/if}}
+          {{/unless}}
 
           {{#button "deleteMeasure" class="btn btn-danger delete-measure hide"}}<i class="fa fa-times" aria-hidden="true"></i> Delete{{/button}}
           {{#button "showDelete" class="btn btn-danger-inverse delete-icon"}}<i class="fa fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Show Delete</span>{{/button}}
@@ -20,7 +20,7 @@
     <div class="measure-dsp">
       <h2 class="full-title">{{title}}</h2>
       {{#if episode_of_care}}
-        {{#if isNotCQL}}
+        {{#unless cql}}
         <div class="measure-dsp-title">
           Episode(s) of Care:
         </div>
@@ -31,7 +31,7 @@
           {{/each}}
         {{else}}
             Episode of Care Based Measure
-        {{/if}}
+        {{/unless}}
         <p></p>
       {{/if}}
 
@@ -53,7 +53,7 @@
   <div class="right-sidebar">
     <div class="patients-title">
       <h1><i class="fa fa-user fa-fw" aria-hidden="true"></i> Test Patients</h1>
-      {{#if isNotCQL}}
+      {{#unless cql}}
         <span class="settings-container">
           <div class="patients-settings">
             {{#button "exportQrdaPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA <span class="sr-only">Patient Export</span>{{/button}}
@@ -62,7 +62,7 @@
           </div>
           {{#button "patientsSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Patient Options</span>{{/button}}
         </span>
-      {{/if}}
+      {{/unless}}
     </div>
     {{view populationCalculation}}
   </div>

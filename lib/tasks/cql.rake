@@ -2,6 +2,10 @@
 namespace :bonnie do
   namespace :cql do
 
+    desc %{Outputs user accounts that have cql measures and which measures are cql in their accounts.
+      Example test@test.com  
+                CMS_ID: xxx   TITLE: Measure Title
+    $ rake bonnie:cql:cql_measure_stats}
     task :cql_measure_stats => :environment do
 
       # Collect user info from CQL measures
