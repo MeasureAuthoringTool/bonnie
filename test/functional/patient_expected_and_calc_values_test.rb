@@ -58,6 +58,10 @@ class PatientTest < ActionController::TestCase  #ActiveSupport::TestCase
 
   end
 
+  # The following methods define reusable tests.  The idea behind this approach
+  # is to have a set of common tests that can be applied to any number of measures
+  # without having to write new tests for each new measure.
+
   # This test looks for the proper calculation of the results for each measure.  It is looks to make sure that all of the expected fields related to
   # the calculated results are present in the entry in the record collection.
   def calculation_results (measure) 
