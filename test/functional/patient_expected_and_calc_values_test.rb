@@ -8,8 +8,6 @@ class PatientTest < ActionController::TestCase  #ActiveSupport::TestCase
   # The MeasuresController is only needed for the loading of the measure zip files and the plan is to move to fixtures.
 
   setup do
-    @error_dir = File.join('log', 'load_errors')
-    FileUtils.rm_r @error_dir if File.directory?(@error_dir)
     dump_database
     users_set = File.join('users', 'base_set')
     collection_fixtures(users_set)

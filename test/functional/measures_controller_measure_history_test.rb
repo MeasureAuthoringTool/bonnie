@@ -414,7 +414,7 @@ include Devise::TestHelpers
       assert_not_nil pre_load_patient
       assert_not_nil post_load_patient
 
-      assert_equal 8, patient.keys.count
+      assert_equal 0, (patient.keys - ["expected", "pre_upload_results", "pre_upload_status", "results_exceeds_storage_pre_upload", "post_upload_results", "post_upload_status", "results_exceeds_storage_post_upload", "patient_version_after_upload"]).length
       assert_not_nil patient[:expected]
       assert_equal 0, (patient[:expected].to_a - pre_load_patient[:expected_values][0].to_a).count
 
