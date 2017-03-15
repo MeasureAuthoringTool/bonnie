@@ -1,12 +1,8 @@
 require 'test_helper'
 
-class PatientTest < ActionController::TestCase  #ActiveSupport::TestCase
+class PatientTest < ActionController::TestCase
   include Devise::TestHelpers
   
-  tests MeasuresController
-  # TODO: Consider converting this to a test of Record instead of the MeasuresController.
-  # The MeasuresController is only needed for the loading of the measure zip files and the plan is to move to fixtures.
-
   setup do
     dump_database
     users_set = File.join('users', 'base_set')
