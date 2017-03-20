@@ -233,14 +233,17 @@ module Measures
         field_value["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id, value_sets)["display_name"] if field_value
       elsif field.type == "CMP"
         field_value["code"] = Measures::PatientBuilder.select_code(field.code.code_list_id, value_sets)
-        field_value["result"] = field.result.format
+        field_value["result"] =  {"scalar"=>value["value"], "units"=>value["unit"]}
         # will have to add code here if range exists
       elsif field.type == "COL"
         # recur through entry
         # recursive function should be this function that returns the derived entry
         # entry will push each derived field value to field_value
-        field_value = []
-        field_value.push value["values"].each{ |value| self.recursive_field_value_derivation(value, value_sets)}
+        values = []
+        value["values"].each do |val| 
+          values.push self.recursive_field_value_derivation(val, value_sets)
+        end
+        field_value = {"type"=> "COL", "values" => values}
       else
         field_value = field.format
       end

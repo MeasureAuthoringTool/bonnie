@@ -505,12 +505,16 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     # This will process CMP, a collection type attribute
     # If extending for use with other collection based attributes, add OR logic here
     if @model.get('type') == "CMP"
-       col = @values.findWhere(key: @model.get('key')).clone()
+       if @values.findWhere(key: @model.get('key'))
+         col = @values.findWhere(key: @model.get('key')).clone()
        @values.remove @values.findWhere(key: @model.get('key'))
-       col = {'key': @model.get('key'), 'type': "COL",'values': []} unless col
+       if !col
+         col = {'key': @model.get('key'), 'type': "COL",'values': []}
+         col['values'].push @model.clone().toJSON()
        # Push the JSON object representation instead of the backbone model
        # The values when sent and saved are JSON objects, not backbone models
-       col.get('values').push @model.clone().toJSON()
+       else
+         col.get('values').push @model.clone().toJSON()
        @values.add col
     else
       @values.add @model.clone()
