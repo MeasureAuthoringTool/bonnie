@@ -38,8 +38,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: 8b1b0267fe286e5d44cea55e3eba0691b93390ad
-  branch: cql4bonnie
+  revision: 7154ae19d181a140d47e13504ed5db697c5c46f6
+  branch: CQL_QDM_5.01_Updates
   specs:
     cql_qdm_patientapi (0.1.0)
 
@@ -361,4 +361,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.13.6
+   1.13.7
