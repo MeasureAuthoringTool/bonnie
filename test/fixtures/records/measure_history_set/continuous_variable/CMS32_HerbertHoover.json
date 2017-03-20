@@ -1,0 +1,1701 @@
+{
+    "_id" : { "$oid": "5877ca559eebbcc378004210" },
+    "languages" : [],
+    "calc_results" : [ 
+        {
+            "IPP" : 2,
+            "MSRPOPL" : 2,
+            "MSRPOPLEX" : 0,
+            "rationale" : {
+                "MeasurePeriod" : {
+                    "results" : [ 
+                        {
+                            "id" : "undefined",
+                            "json" : {
+                                "start_time" : 1325376000,
+                                "end_time" : 1356998340,
+                                "codes" : {}
+                            }
+                        }
+                    ]
+                },
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_2" : {
+                    "results" : [ 
+                        {
+                            "id" : "5877cea79eebbcc3780042dd",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042dd",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326356100,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042db",
+                                    "code" : null,
+                                    "end_time" : 1326356340,
+                                    "name" : null,
+                                    "start_time" : 1326355200
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326355200,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }, 
+                        {
+                            "id" : "5877cea79eebbcc3780042de",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042de",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326960900,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042dc",
+                                    "code" : null,
+                                    "end_time" : 1326960360,
+                                    "name" : null,
+                                    "start_time" : 1326960000
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326960000,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }
+                    ],
+                    "specifics" : [ 
+                        [ 
+                            "5877cea79eebbcc3780042dd"
+                        ], 
+                        [ 
+                            "5877cea79eebbcc3780042de"
+                        ]
+                    ]
+                },
+                "precondition_4" : true,
+                "precondition_IPP" : true,
+                "IPP" : true,
+                "EncounterPerformedEncounterInpatient" : false,
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_5" : false,
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_7" : false,
+                "precondition_9" : true,
+                "precondition_MSRPOPL" : true,
+                "MSRPOPL" : true,
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_10" : {
+                    "results" : [ 
+                        {
+                            "id" : "5877cea79eebbcc3780042dd",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042dd",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326356100,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042db",
+                                    "code" : null,
+                                    "end_time" : 1326356340,
+                                    "name" : null,
+                                    "start_time" : 1326355200
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326355200,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }, 
+                        {
+                            "id" : "5877cea79eebbcc3780042de",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042de",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326960900,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042dc",
+                                    "code" : null,
+                                    "end_time" : 1326960360,
+                                    "name" : null,
+                                    "start_time" : 1326960000
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326960000,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }
+                    ],
+                    "specifics" : [ 
+                        [ 
+                            "5877cea79eebbcc3780042dd"
+                        ], 
+                        [ 
+                            "5877cea79eebbcc3780042de"
+                        ]
+                    ]
+                },
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_12" : {
+                    "results" : [ 
+                        {
+                            "id" : "5877cea79eebbcc3780042dd",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042dd",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326356100,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042db",
+                                    "code" : null,
+                                    "end_time" : 1326356340,
+                                    "name" : null,
+                                    "start_time" : 1326355200
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326355200,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }, 
+                        {
+                            "id" : "5877cea79eebbcc3780042de",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042de",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326960900,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042dc",
+                                    "code" : null,
+                                    "end_time" : 1326960360,
+                                    "name" : null,
+                                    "start_time" : 1326960000
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326960000,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }
+                    ],
+                    "specifics" : [ 
+                        [ 
+                            "5877cea79eebbcc3780042dd"
+                        ], 
+                        [ 
+                            "5877cea79eebbcc3780042de"
+                        ]
+                    ]
+                },
+                "GROUP_TIMEDIFF_36" : {
+                    "results" : [ 
+                        {}, 
+                        {}
+                    ]
+                },
+                "OBSERV" : {
+                    "results" : [ 
+                        {}, 
+                        {}
+                    ]
+                },
+                "MSRPOPLEX" : false,
+                "VARIABLES" : false
+            },
+            "finalSpecifics" : {
+                "IPP" : [ 
+                    [ 
+                        "5877cea79eebbcc3780042dd"
+                    ], 
+                    [ 
+                        "5877cea79eebbcc3780042de"
+                    ]
+                ],
+                "MSRPOPL" : [ 
+                    [ 
+                        "5877cea79eebbcc3780042dd"
+                    ], 
+                    [ 
+                        "5877cea79eebbcc3780042de"
+                    ]
+                ],
+                "MSRPOPLEX" : [ 
+                    [ 
+                        "5877cea79eebbcc3780042dd"
+                    ], 
+                    [ 
+                        "5877cea79eebbcc3780042de"
+                    ]
+                ]
+            },
+            "values" : [ 
+                19, 
+                6
+            ],
+            "measure_id" : "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+            "population_index" : 0,
+            "status" : "fail"
+        }, 
+        {
+            "STRAT" : 2,
+            "IPP" : 2,
+            "MSRPOPL" : 2,
+            "MSRPOPLEX" : 0,
+            "rationale" : {
+                "MeasurePeriod" : {
+                    "results" : [ 
+                        {
+                            "id" : "undefined",
+                            "json" : {
+                                "start_time" : 1325376000,
+                                "end_time" : 1356998340,
+                                "codes" : {}
+                            }
+                        }
+                    ]
+                },
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_19" : {
+                    "results" : [ 
+                        {
+                            "id" : "5877cea79eebbcc3780042dd",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042dd",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326356100,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042db",
+                                    "code" : null,
+                                    "end_time" : 1326356340,
+                                    "name" : null,
+                                    "start_time" : 1326355200
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326355200,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }, 
+                        {
+                            "id" : "5877cea79eebbcc3780042de",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042de",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326960900,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042dc",
+                                    "code" : null,
+                                    "end_time" : 1326960360,
+                                    "name" : null,
+                                    "start_time" : 1326960000
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326960000,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }
+                    ],
+                    "specifics" : [ 
+                        [ 
+                            "5877cea79eebbcc3780042dd"
+                        ], 
+                        [ 
+                            "5877cea79eebbcc3780042de"
+                        ]
+                    ]
+                },
+                "precondition_21" : true,
+                "precondition_STRAT" : true,
+                "STRAT" : true,
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_2" : {
+                    "results" : [ 
+                        {
+                            "id" : "5877cea79eebbcc3780042dd",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042dd",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326356100,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042db",
+                                    "code" : null,
+                                    "end_time" : 1326356340,
+                                    "name" : null,
+                                    "start_time" : 1326355200
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326355200,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }, 
+                        {
+                            "id" : "5877cea79eebbcc3780042de",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042de",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326960900,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042dc",
+                                    "code" : null,
+                                    "end_time" : 1326960360,
+                                    "name" : null,
+                                    "start_time" : 1326960000
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326960000,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }
+                    ],
+                    "specifics" : [ 
+                        [ 
+                            "5877cea79eebbcc3780042dd"
+                        ], 
+                        [ 
+                            "5877cea79eebbcc3780042de"
+                        ]
+                    ]
+                },
+                "precondition_4" : true,
+                "precondition_IPP" : true,
+                "IPP" : true,
+                "EncounterPerformedEncounterInpatient" : false,
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_5" : false,
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_7" : false,
+                "precondition_9" : true,
+                "precondition_MSRPOPL" : true,
+                "MSRPOPL" : true,
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_10" : {
+                    "results" : [ 
+                        {
+                            "id" : "5877cea79eebbcc3780042dd",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042dd",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326356100,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042db",
+                                    "code" : null,
+                                    "end_time" : 1326356340,
+                                    "name" : null,
+                                    "start_time" : 1326355200
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326355200,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }, 
+                        {
+                            "id" : "5877cea79eebbcc3780042de",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042de",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326960900,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042dc",
+                                    "code" : null,
+                                    "end_time" : 1326960360,
+                                    "name" : null,
+                                    "start_time" : 1326960000
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326960000,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }
+                    ],
+                    "specifics" : [ 
+                        [ 
+                            "5877cea79eebbcc3780042dd"
+                        ], 
+                        [ 
+                            "5877cea79eebbcc3780042de"
+                        ]
+                    ]
+                },
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_12" : {
+                    "results" : [ 
+                        {
+                            "id" : "5877cea79eebbcc3780042dd",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042dd",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326356100,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042db",
+                                    "code" : null,
+                                    "end_time" : 1326356340,
+                                    "name" : null,
+                                    "start_time" : 1326355200
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326355200,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }, 
+                        {
+                            "id" : "5877cea79eebbcc3780042de",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042de",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326960900,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042dc",
+                                    "code" : null,
+                                    "end_time" : 1326960360,
+                                    "name" : null,
+                                    "start_time" : 1326960000
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326960000,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }
+                    ],
+                    "specifics" : [ 
+                        [ 
+                            "5877cea79eebbcc3780042dd"
+                        ], 
+                        [ 
+                            "5877cea79eebbcc3780042de"
+                        ]
+                    ]
+                },
+                "GROUP_TIMEDIFF_36" : {
+                    "results" : [ 
+                        {}, 
+                        {}
+                    ]
+                },
+                "OBSERV" : {
+                    "results" : [ 
+                        {}, 
+                        {}
+                    ]
+                },
+                "MSRPOPLEX" : false,
+                "VARIABLES" : false
+            },
+            "finalSpecifics" : {
+                "STRAT" : [ 
+                    [ 
+                        "5877cea79eebbcc3780042dd"
+                    ], 
+                    [ 
+                        "5877cea79eebbcc3780042de"
+                    ]
+                ],
+                "IPP" : [ 
+                    [ 
+                        "5877cea79eebbcc3780042dd"
+                    ], 
+                    [ 
+                        "5877cea79eebbcc3780042de"
+                    ]
+                ],
+                "MSRPOPL" : [ 
+                    [ 
+                        "5877cea79eebbcc3780042dd"
+                    ], 
+                    [ 
+                        "5877cea79eebbcc3780042de"
+                    ]
+                ],
+                "MSRPOPLEX" : [ 
+                    [ 
+                        "5877cea79eebbcc3780042dd"
+                    ], 
+                    [ 
+                        "5877cea79eebbcc3780042de"
+                    ]
+                ]
+            },
+            "values" : [ 
+                19, 
+                6
+            ],
+            "measure_id" : "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+            "population_index" : 1,
+            "status" : "fail"
+        }, 
+        {
+            "STRAT" : 0,
+            "IPP" : 0,
+            "MSRPOPL" : 0,
+            "MSRPOPLEX" : 0,
+            "rationale" : {
+                "OccurrenceAEmergencyDepartmentVisit1" : {
+                    "results" : [ 
+                        {
+                            "id" : "5877cea79eebbcc3780042dd",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042dd",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326356100,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042db",
+                                    "code" : null,
+                                    "end_time" : 1326356340,
+                                    "name" : null,
+                                    "start_time" : 1326355200
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326355200,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }, 
+                        {
+                            "id" : "5877cea79eebbcc3780042de",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042de",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326960900,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042dc",
+                                    "code" : null,
+                                    "end_time" : 1326960360,
+                                    "name" : null,
+                                    "start_time" : 1326960000
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326960000,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }
+                    ],
+                    "specifics" : [ 
+                        [ 
+                            "5877cea79eebbcc3780042dd"
+                        ], 
+                        [ 
+                            "5877cea79eebbcc3780042de"
+                        ]
+                    ]
+                },
+                "DiagnosisActivePsychiatricMentalHealthPatient_precondition_22" : false,
+                "precondition_24" : false,
+                "precondition_STRAT_1" : false,
+                "STRAT" : false,
+                "VARIABLES" : false
+            },
+            "finalSpecifics" : {
+                "STRAT" : []
+            },
+            "values" : [],
+            "measure_id" : "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+            "population_index" : 2,
+            "status" : "pass"
+        }, 
+        {
+            "STRAT" : 0,
+            "IPP" : 0,
+            "MSRPOPL" : 0,
+            "MSRPOPLEX" : 0,
+            "rationale" : {
+                "OccurrenceAEmergencyDepartmentVisit1" : {
+                    "results" : [ 
+                        {
+                            "id" : "5877cea79eebbcc3780042dd",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042dd",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326356100,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042db",
+                                    "code" : null,
+                                    "end_time" : 1326356340,
+                                    "name" : null,
+                                    "start_time" : 1326355200
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326355200,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }, 
+                        {
+                            "id" : "5877cea79eebbcc3780042de",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042de",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326960900,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042dc",
+                                    "code" : null,
+                                    "end_time" : 1326960360,
+                                    "name" : null,
+                                    "start_time" : 1326960000
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326960000,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }
+                    ],
+                    "specifics" : [ 
+                        [ 
+                            "5877cea79eebbcc3780042dd"
+                        ], 
+                        [ 
+                            "5877cea79eebbcc3780042de"
+                        ]
+                    ]
+                },
+                "TransferToHospitalMeasuresAcuteCareHospital_precondition_25" : false,
+                "precondition_27" : false,
+                "precondition_STRAT_2" : false,
+                "STRAT" : false,
+                "VARIABLES" : false
+            },
+            "finalSpecifics" : {
+                "STRAT" : []
+            },
+            "values" : [],
+            "measure_id" : "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+            "population_index" : 3,
+            "status" : "pass"
+        }, 
+        {
+            "STRAT" : 2,
+            "IPP" : 2,
+            "MSRPOPL" : 2,
+            "MSRPOPLEX" : 0,
+            "rationale" : {
+                "OccurrenceAEmergencyDepartmentVisit1" : {
+                    "results" : [ 
+                        {
+                            "id" : "5877cea79eebbcc3780042dd",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042dd",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326356100,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042db",
+                                    "code" : null,
+                                    "end_time" : 1326356340,
+                                    "name" : null,
+                                    "start_time" : 1326355200
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326355200,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }, 
+                        {
+                            "id" : "5877cea79eebbcc3780042de",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042de",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326960900,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042dc",
+                                    "code" : null,
+                                    "end_time" : 1326960360,
+                                    "name" : null,
+                                    "start_time" : 1326960000
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326960000,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }
+                    ],
+                    "specifics" : [ 
+                        [ 
+                            "5877cea79eebbcc3780042dd"
+                        ], 
+                        [ 
+                            "5877cea79eebbcc3780042de"
+                        ]
+                    ]
+                },
+                "DiagnosisActivePsychiatricMentalHealthPatient_precondition_28" : false,
+                "TransferToHospitalMeasuresAcuteCareHospital_precondition_30" : false,
+                "precondition_32" : false,
+                "precondition_34" : true,
+                "precondition_STRAT_3" : true,
+                "STRAT" : true,
+                "MeasurePeriod" : {
+                    "results" : [ 
+                        {
+                            "id" : "undefined",
+                            "json" : {
+                                "start_time" : 1325376000,
+                                "end_time" : 1356998340,
+                                "codes" : {}
+                            }
+                        }
+                    ]
+                },
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_2" : {
+                    "results" : [ 
+                        {
+                            "id" : "5877cea79eebbcc3780042dd",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042dd",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326356100,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042db",
+                                    "code" : null,
+                                    "end_time" : 1326356340,
+                                    "name" : null,
+                                    "start_time" : 1326355200
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326355200,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }, 
+                        {
+                            "id" : "5877cea79eebbcc3780042de",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042de",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326960900,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042dc",
+                                    "code" : null,
+                                    "end_time" : 1326960360,
+                                    "name" : null,
+                                    "start_time" : 1326960000
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326960000,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }
+                    ],
+                    "specifics" : [ 
+                        [ 
+                            "5877cea79eebbcc3780042dd"
+                        ], 
+                        [ 
+                            "5877cea79eebbcc3780042de"
+                        ]
+                    ]
+                },
+                "precondition_4" : true,
+                "precondition_IPP" : true,
+                "IPP" : true,
+                "EncounterPerformedEncounterInpatient" : false,
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_5" : false,
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_7" : false,
+                "precondition_9" : true,
+                "precondition_MSRPOPL" : true,
+                "MSRPOPL" : true,
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_10" : {
+                    "results" : [ 
+                        {
+                            "id" : "5877cea79eebbcc3780042dd",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042dd",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326356100,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042db",
+                                    "code" : null,
+                                    "end_time" : 1326356340,
+                                    "name" : null,
+                                    "start_time" : 1326355200
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326355200,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }, 
+                        {
+                            "id" : "5877cea79eebbcc3780042de",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042de",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326960900,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042dc",
+                                    "code" : null,
+                                    "end_time" : 1326960360,
+                                    "name" : null,
+                                    "start_time" : 1326960000
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326960000,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }
+                    ],
+                    "specifics" : [ 
+                        [ 
+                            "5877cea79eebbcc3780042dd"
+                        ], 
+                        [ 
+                            "5877cea79eebbcc3780042de"
+                        ]
+                    ]
+                },
+                "OccurrenceAEmergencyDepartmentVisit1_precondition_12" : {
+                    "results" : [ 
+                        {
+                            "id" : "5877cea79eebbcc3780042dd",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042dd",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326356100,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042db",
+                                    "code" : null,
+                                    "end_time" : 1326356340,
+                                    "name" : null,
+                                    "start_time" : 1326355200
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326355200,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }, 
+                        {
+                            "id" : "5877cea79eebbcc3780042de",
+                            "json" : {
+                                "_id" : "5877cea79eebbcc3780042de",
+                                "admitTime" : null,
+                                "admitType" : null,
+                                "codes" : {
+                                    "SNOMED-CT" : [ 
+                                        "4525004"
+                                    ]
+                                },
+                                "description" : "Encounter, Performed: Emergency Department Visit",
+                                "dischargeDisposition" : null,
+                                "dischargeTime" : null,
+                                "end_time" : 1326960900,
+                                "facility" : {
+                                    "_id" : "5877cea79eebbcc3780042dc",
+                                    "code" : null,
+                                    "end_time" : 1326960360,
+                                    "name" : null,
+                                    "start_time" : 1326960000
+                                },
+                                "health_record_field" : null,
+                                "mood_code" : "EVN",
+                                "negationInd" : null,
+                                "negationReason" : null,
+                                "oid" : "2.16.840.1.113883.3.560.1.79",
+                                "performer_id" : null,
+                                "reason" : null,
+                                "specifics" : null,
+                                "start_time" : 1326960000,
+                                "status_code" : {
+                                    "HL7 ActStatus" : [ 
+                                        "performed"
+                                    ]
+                                },
+                                "time" : null
+                            }
+                        }
+                    ],
+                    "specifics" : [ 
+                        [ 
+                            "5877cea79eebbcc3780042dd"
+                        ], 
+                        [ 
+                            "5877cea79eebbcc3780042de"
+                        ]
+                    ]
+                },
+                "GROUP_TIMEDIFF_36" : {
+                    "results" : [ 
+                        {}, 
+                        {}
+                    ]
+                },
+                "OBSERV" : {
+                    "results" : [ 
+                        {}, 
+                        {}
+                    ]
+                },
+                "MSRPOPLEX" : false,
+                "VARIABLES" : false
+            },
+            "finalSpecifics" : {
+                "STRAT" : [ 
+                    [ 
+                        "*"
+                    ]
+                ],
+                "IPP" : [ 
+                    [ 
+                        "5877cea79eebbcc3780042dd"
+                    ], 
+                    [ 
+                        "5877cea79eebbcc3780042de"
+                    ]
+                ],
+                "MSRPOPL" : [ 
+                    [ 
+                        "5877cea79eebbcc3780042dd"
+                    ], 
+                    [ 
+                        "5877cea79eebbcc3780042de"
+                    ]
+                ],
+                "MSRPOPLEX" : [ 
+                    [ 
+                        "5877cea79eebbcc3780042dd"
+                    ], 
+                    [ 
+                        "5877cea79eebbcc3780042de"
+                    ]
+                ]
+            },
+            "values" : [ 
+                19, 
+                6
+            ],
+            "measure_id" : "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+            "population_index" : 4,
+            "status" : "fail"
+        }
+    ],
+    "has_measure_history" : true,
+    "results_exceed_storage" : false,
+    "measure_ids" : [ 
+        "3FD13096-2C8F-40B5-9297-B714E8DE9133", 
+        null
+    ],
+    "first" : "Herbert",
+    "last" : "Hoover",
+    "gender" : "M",
+    "expired" : null,
+    "birthdate" : -3010320000,
+    "description" : null,
+    "description_category" : null,
+    "deathdate" : null,
+    "notes" : "",
+    "is_shared" : null,
+    "ethnicity" : {
+        "code" : "2186-5",
+        "name" : "Not Hispanic or Latino",
+        "codeSystem" : "CDC Race"
+    },
+    "race" : {
+        "code" : "1002-5",
+        "name" : "American Indian or Alaska Native",
+        "codeSystem" : "CDC Race"
+    },
+    "source_data_criteria" : [ 
+        {
+            "negation" : false,
+            "definition" : "encounter",
+            "status" : "performed",
+            "title" : "Emergency Department Visit",
+            "description" : "Encounter, Performed: Emergency Department Visit",
+            "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.292",
+            "type" : "encounters",
+            "id" : "EncounterPerformedEmergencyDepartmentVisit",
+            "start_date" : 1326355200000,
+            "end_date" : 1326356100000,
+            "value" : [],
+            "references" : null,
+            "field_values" : {
+                "FACILITY_LOCATION_ARRIVAL_DATETIME" : {
+                    "type" : "TS",
+                    "value" : 1326355200000
+                },
+                "FACILITY_LOCATION_DEPARTURE_DATETIME" : {
+                    "type" : "TS",
+                    "value" : 1326356340000
+                }
+            },
+            "hqmf_set_id" : "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+            "cms_id" : "CMS32v4",
+            "criteria_id" : "15993e8deeaL6",
+            "codes" : {
+                "SNOMED-CT" : [ 
+                    "4525004"
+                ]
+            },
+            "negation_code_list_id" : "",
+            "coded_entry_id" : "5877cea79eebbcc3780042dd",
+            "code_source" : "DEFAULT"
+        }, 
+        {
+            "negation" : false,
+            "definition" : "encounter",
+            "status" : "performed",
+            "title" : "Emergency Department Visit",
+            "description" : "Encounter, Performed: Emergency Department Visit",
+            "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.292",
+            "type" : "encounters",
+            "id" : "EncounterPerformedEmergencyDepartmentVisit",
+            "start_date" : 1326960000000,
+            "end_date" : 1326960900000,
+            "value" : [],
+            "references" : null,
+            "field_values" : {
+                "FACILITY_LOCATION_ARRIVAL_DATETIME" : {
+                    "type" : "TS",
+                    "value" : 1326960000000
+                },
+                "FACILITY_LOCATION_DEPARTURE_DATETIME" : {
+                    "type" : "TS",
+                    "value" : 1326960360000
+                }
+            },
+            "hqmf_set_id" : "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+            "cms_id" : "CMS32v4",
+            "criteria_id" : "15993ebfad16r",
+            "codes" : {
+                "SNOMED-CT" : [ 
+                    "4525004"
+                ]
+            },
+            "negation_code_list_id" : "",
+            "coded_entry_id" : "5877cea79eebbcc3780042de",
+            "code_source" : "DEFAULT"
+        }, 
+        {
+            "id" : "MeasurePeriod",
+            "start_date" : 0,
+            "end_date" : 0,
+            "references" : null
+        }
+    ],
+    "expected_values" : [ 
+        {
+            "measure_id" : "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+            "population_index" : 0,
+            "IPP" : 2,
+            "MSRPOPL" : 2,
+            "OBSERV_UNIT" : " mins",
+            "OBSERV" : [ 
+                19, 
+                3
+            ]
+        }, 
+        {
+            "measure_id" : "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+            "population_index" : 1,
+            "STRAT" : 0,
+            "IPP" : 0,
+            "MSRPOPL" : 0,
+            "OBSERV_UNIT" : " mins",
+            "OBSERV" : []
+        }, 
+        {
+            "measure_id" : "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+            "population_index" : 2,
+            "STRAT" : 0,
+            "IPP" : 0,
+            "MSRPOPL" : 0,
+            "OBSERV_UNIT" : " mins",
+            "OBSERV" : []
+        }, 
+        {
+            "measure_id" : "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+            "population_index" : 3,
+            "STRAT" : 0,
+            "IPP" : 0,
+            "MSRPOPL" : 0,
+            "OBSERV_UNIT" : " mins",
+            "OBSERV" : []
+        }, 
+        {
+            "measure_id" : "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+            "population_index" : 4,
+            "STRAT" : 0,
+            "IPP" : 0,
+            "MSRPOPL" : 0,
+            "OBSERV" : [],
+            "OBSERV_UNIT": " mins"
+        }
+    ],
+    "origin_data" : [],
+    "user_id" : { "$oid" : "5841fd149eebbc53ea000000" },
+    "bundle_id" : { "$oid" : "5841fd149eebbc53ea000001" },
+    "medical_record_number" : "f2af040e508cb5454c74b6209773bcc5",
+    "medical_record_assigner" : "Bonnie",
+    "results_size" : 22484,
+    "updated_at" : "2017-01-18T15:05:39.387Z",
+    "created_at" : "2017-01-12T18:26:29.681Z",
+    "version" : 18,
+    "encounters" : [ 
+        {
+            "_id" : "5877cea79eebbcc3780042dd",
+            "codes" : {
+                "SNOMED-CT" : [ 
+                    "4525004"
+                ]
+            },
+            "mood_code" : "EVN",
+            "_type" : "Encounter",
+            "description" : "Encounter, Performed: Emergency Department Visit",
+            "start_time" : 1326355200,
+            "end_time" : 1326356100,
+            "status_code" : {
+                "HL7 ActStatus" : [ 
+                    "performed"
+                ]
+            },
+            "oid" : "2.16.840.1.113883.3.560.1.79",
+            "facility" : {
+                "_id" : "5877cea79eebbcc3780042db",
+                "start_time" : 1326355200,
+                "end_time" : 1326356340
+            }
+        }, 
+        {
+            "_id" : "5877cea79eebbcc3780042de",
+            "codes" : {
+                "SNOMED-CT" : [ 
+                    "4525004"
+                ]
+            },
+            "mood_code" : "EVN",
+            "_type" : "Encounter",
+            "description" : "Encounter, Performed: Emergency Department Visit",
+            "start_time" : 1326960000,
+            "end_time" : 1326960900,
+            "status_code" : {
+                "HL7 ActStatus" : [ 
+                    "performed"
+                ]
+            },
+            "oid" : "2.16.840.1.113883.3.560.1.79",
+            "facility" : {
+                "_id" : "5877cea79eebbcc3780042dc",
+                "start_time" : 1326960000,
+                "end_time" : 1326960360
+            }
+        }
+    ],
+    "insurance_providers" : [ 
+        {
+            "_id" : "5877cea79eebbcc3780042df",
+            "codes" : {
+                "SOP" : [ 
+                    "349"
+                ]
+            },
+            "mood_code" : "EVN",
+            "_type" : "InsuranceProvider",
+            "type" : "OT",
+            "member_id" : "1234567890",
+            "name" : "Other",
+            "financial_responsibility_type" : {
+                "code" : "SELF",
+                "codeSystem" : "HL7 Relationship Code"
+            },
+            "start_time" : 1199163600,
+            "payer" : {
+                "_id" : "5877cea79eebbcc3780042e0",
+                "name" : "Other"
+            }
+        }
+    ]
+}
