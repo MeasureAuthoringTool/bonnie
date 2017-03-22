@@ -240,14 +240,14 @@ module Measures
         # recursive function should be this function that returns the derived entry
         # entry will push each derived field value to field_value
         values = []
-        value["values"].each do |name, val| 
+        value["values"].each do |val| 
+          # TODO name will have to be reset to name of embeded value if there are ever recursive collections or collections of mixed types
           values.push self.recursive_field_value_derivation(val, value_sets, name, entry)
         end
         field_value = {"type"=> "COL", "values" => values}
       else
         field_value = field.format
       end
-
       field_accessor = nil
       # Facilities are a special case where we store a whole object on the entry in Record. Create or augment the existing facility with this piece of data.
       if name.include? "FACILITY"
