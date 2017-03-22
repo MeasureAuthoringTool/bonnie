@@ -209,7 +209,7 @@ module Measures
       end
     end
 
-    def self.recursive_field_value_derivation(value, value_sets)
+    def self.recursive_field_value_derivation(value, value_sets, name, entry)
       return if value.nil?
       if value['type'] == 'TS'
         converted_time = Time.at(value['value']/1000).utc.strftime('%Y%m%d%H%M%S')
@@ -240,8 +240,8 @@ module Measures
         # recursive function should be this function that returns the derived entry
         # entry will push each derived field value to field_value
         values = []
-        value["values"].each do |val| 
-          values.push self.recursive_field_value_derivation(val, value_sets)
+        value["values"].each do |name, val| 
+          values.push self.recursive_field_value_derivation(val, value_sets, name, entry)
         end
         field_value = {"type"=> "COL", "values" => values}
       else
@@ -296,7 +296,7 @@ module Measures
     def self.derive_field_values(entry, values, value_sets)
       return if values.nil?
       values.each do |name, value|
-        field_value = recursive_field_value_derivation(value, value_sets)
+        field_value = recursive_field_value_derivation(value, value_sets, name, entry)
         # Add field to entry, catagorized by the QDM human readable name->coded_entry_method defined in health-data-standards/lib/hqmf-model/data_criteria.rb
         begin
           field_accessor ||= HQMF::DataCriteria::FIELDS[name][:coded_entry_method]
@@ -310,7 +310,6 @@ module Measures
           end
         end
       end
-
     end
 
 
