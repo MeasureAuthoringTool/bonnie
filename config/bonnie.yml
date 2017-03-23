@@ -9,7 +9,7 @@ defaults: &defaults
     ticket_url: https://vsac.nlm.nih.gov/vsac/ws/Ticket
     api_url: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets
     profiles_url: https://vsac.nlm.nih.gov/vsac/profiles
-    profile: MU2 Update 2016-04-01
+    profile: MU2 Update 2017-01-06
   record:
     # This value should not exceed 16000000 as that is the current size limit of a document in MongoDB.
     max_size_in_bytes: 12000000
