@@ -30,6 +30,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def client_error
+    # Grab better description of the given message and return as json
+    error_message = ErrorHelper.describe_error(params, Exception.new(params), request)
+    respond_to do |format|
+      format.json { render json: error_message }
+    end
+  end
+
   protected
     def log_additional_data
       request.env["exception_notifier.exception_data"] = {

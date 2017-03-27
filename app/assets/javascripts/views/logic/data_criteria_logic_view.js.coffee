@@ -14,31 +14,33 @@ class Thorax.Views.DataCriteriaLogic extends Thorax.Views.BonnieView
     # TODO: Find a better way than logic in the template to disable highlighting when called from code other than patient builder.
 
   initialize: ->
-    @dataCriteria = @measure.get('data_criteria')[@reference]
-    # handle reference to source data criteria (this is used for displaying variables)
-    unless @dataCriteria
-      @dataCriteria = @measure.get('source_data_criteria').findWhere({'source_data_criteria': @reference}).attributes
-      @dataCriteria.key = @reference
+    # Capture logic view building errors that may arise and handle them using Costanza
+    Costanza.run 'data-criteria-logic-view-creation', {reference: @reference, cms_id: @measure.get('cms_id')}, () =>
+      @dataCriteria = @measure.get('data_criteria')[@reference]
+      # handle reference to source data criteria (this is used for displaying variables)
+      unless @dataCriteria
+        @dataCriteria = @measure.get('source_data_criteria').findWhere({'source_data_criteria': @reference}).attributes
+        @dataCriteria.key = @reference
 
-    # we need to do this because the view helper doesn't seem to be available in an #each.
-    if @dataCriteria.field_values
-      for key, field of @dataCriteria.field_values
-        # timing fields can have a null value
-        unless field?
-          field = {}
-          @dataCriteria.field_values[key] = field
-        field['key'] = key
-        field['key_title'] = @translate_field(key)
+      # we need to do this because the view helper doesn't seem to be available in an #each.
+      if @dataCriteria.field_values
+        for key, field of @dataCriteria.field_values
+          # timing fields can have a null value
+          unless field?
+            field = {}
+            @dataCriteria.field_values[key] = field
+          field['key'] = key
+          field['key_title'] = @translate_field(key)
 
-    if @dataCriteria.references
-      for key, field of @dataCriteria.references
-        field['key'] = @translate_reference_type(key)
-        field["key_title"] = @translate_reference_to_title(field.referenced_criteria)
-    @dataCriteria.references = null if @dataCriteria && _.isEmpty(@dataCriteria.references)
-    @dataCriteria.field_values = null if @dataCriteria && _.isEmpty(@dataCriteria.field_values)
-    @isSatisfies = @dataCriteria.definition in @satisfiesDefinitions
-    @isDerived = @dataCriteria.type == 'derived'
-    @hasChildren = @isDerived && (!@dataCriteria.variable || @expandVariable)
+      if @dataCriteria.references
+        for key, field of @dataCriteria.references
+          field['key'] = @translate_reference_type(key)
+          field["key_title"] = @translate_reference_to_title(field.referenced_criteria)
+      @dataCriteria.references = null if @dataCriteria && _.isEmpty(@dataCriteria.references)
+      @dataCriteria.field_values = null if @dataCriteria && _.isEmpty(@dataCriteria.field_values)
+      @isSatisfies = @dataCriteria.definition in @satisfiesDefinitions
+      @isDerived = @dataCriteria.type == 'derived'
+      @hasChildren = @isDerived && (!@dataCriteria.variable || @expandVariable)
 
   isSetOp: => @dataCriteria.derivation_operator in _(@set_operator_map).keys()
 
