@@ -187,9 +187,7 @@
 
         {{#collection field_values class="existing-values" item-context=valueWithDateContext}}
           {{#ifCond type '==' "COL"}}
-            {{log values}}
             {{#each values}}
-              {{log key}}
               <span>
                 {{key}}:
                 {{#if start_date}}
