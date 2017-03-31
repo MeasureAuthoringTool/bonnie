@@ -94,6 +94,13 @@
           defined_pops = [cql_map[popCode]]
         else
           defined_pops = cql_map[popCode]
+        # We have to special case the stratification because the stratification results
+        # array doesn't include the population criteria
+        if popCode == 'STRAT'
+          if index == 0
+            # Ignore the STRAT popCode for "Population Criteria Section"
+            continue
+          index--
         target_map_index = if defined_pops.length > 1 then index else 0
         cql_population = defined_pops[target_map_index]
         # Is there a patient result for this population?
