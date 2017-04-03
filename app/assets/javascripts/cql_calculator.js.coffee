@@ -94,12 +94,13 @@
           defined_pops = [cql_map[popCode]]
         else
           defined_pops = cql_map[popCode]
-        # We have to special case the stratification because the stratification results
-        # array doesn't include the population criteria
+        # We have to special-case the stratification population code ("STRAT")
         if popCode == 'STRAT'
+          # Ignore the STRAT popCode for "Population Criteria Section"
           if index == 0
-            # Ignore the STRAT popCode for "Population Criteria Section"
+            # do not add "STRAT" to population_results
             continue
+          # stratification results array starts with 1st stratification 0-indexed
           index--
         target_map_index = if defined_pops.length > 1 then index else 0
         cql_population = defined_pops[target_map_index]
