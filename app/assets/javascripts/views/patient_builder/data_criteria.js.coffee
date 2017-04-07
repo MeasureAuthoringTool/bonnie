@@ -213,7 +213,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     if $(e.target).data('col-item-index')?
       clone = $(e.target).model().clone()
       clone.get('values').splice($(e.target).data('col-item-index'), 1)
-      # If there are no more items left in collection then it should be removed from patient model
+      # This prevents us from having an empty collection in our model when the last item in the collection is deleted
       if clone.get('values').length > 0
         $(e.target).model().collection.add clone
       
