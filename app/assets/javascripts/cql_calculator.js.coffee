@@ -20,6 +20,25 @@
   cancelCalculations: ->
     result.state = 'cancelled' for key, result of @resultsCache when result.state == 'pending'
 
+  # Returns a JSON function to add to the ELM before ELM JSON is used to calculate results
+  generateELMJSONFunction: (functionName, parameter) ->
+    elmFunction = {
+        "name": "BonnieFunction",
+        "context": "Patient",
+        "accessLevel": "Public",
+        "expression": {
+          "name": functionName,
+          "type": "FunctionRef",
+          "operand": [
+            {
+              "name": parameter,
+              "type": "ExpressionRef"
+            }
+          ]
+        }
+      }
+    elmFunction
+
   # Generate a calculation result for a population / patient pair; this always returns a result immediately,
   # but may return a blank result object that later gets filled in through a deferred calculation, so views
   # that display results must be able to handle a state of "not yet calculated"
@@ -62,8 +81,10 @@
       # Construct CQL params
       params = {"Measurement Period": new cql.Interval(start_cql, end_cql)}
 
-      # Grab ELM JSON from measure
-      elm = population.collection.parent.get('elm')
+      # Grab ELM JSON from measure, use clone so that the function added from observations does not get added over and over again
+      elm = _.clone(population.collection.parent.get('elm'))
+      observations = population.collection.parent.get('observations')
+      elm["library"]["statements"]["def"].push @generateELMJSONFunction(obs.function_name, obs.parameter) for obs in observations
 
       # Calculate results for each CQL statement
       results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), params)
