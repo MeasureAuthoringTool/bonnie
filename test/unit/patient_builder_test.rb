@@ -41,8 +41,6 @@ class PatientBuilderTest < ActiveSupport::TestCase
                                                                             HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"SNO2"})]}),
                    "2.16.840.1.113883.3.666.5.1084"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.666.5.1084" , "concepts"=>[
                                                                             HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA1"})]}),
-                   "2.16.840.1.113883.3.117.1.7.1.215"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.117.1.7.1.215" , "concepts"=>[
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "LOINC", "code" =>"CHACHA1"})]})
                   } # todo need to fake some of these out
 
     @coded_source_data_critria = {
@@ -94,11 +92,11 @@ class PatientBuilderTest < ActiveSupport::TestCase
         "COMPONENT"=>
           {"type"=>"COL",
            "values"=>
-            [{"type"=>"CMP", "key"=>"COMPONENT", "code_list_id"=>"2.16.840.1.113883.3.117.1.7.1.212", "field_title"=>"Component", "value"=>"5", "unit"=>"mg", "title"=>"Hemorrhagic Stroke"},
-             {"type"=>"CMP", "key"=>"COMPONENT", "code_list_id"=>"2.16.840.1.113883.3.117.1.7.1.212", "field_title"=>"Component", "value"=>"33", "unit"=>"cc", "title"=>"Hemorrhagic Stroke"}],
+            [{"type"=>"CMP", "key"=>"COMPONENT", "code_list_id"=>"2.16.840.1.113883.3.464.1003.102.12.1011", "field_title"=>"Component", "value"=>"5", "unit"=>"mg", "title"=>"Hemorrhagic Stroke"},
+             {"type"=>"CMP", "key"=>"COMPONENT", "code_list_id"=>"2.16.840.1.113883.3.464.1003.102.12.1011", "field_title"=>"Component", "value"=>"33", "unit"=>"cc", "title"=>"Hemorrhagic Stroke"}],
            "field_title"=>"Component"}
         },
-        "code_list_id" => "2.16.840.1.113883.3.117.1.7.1.215"
+        "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
       }     
               
     @source_with_range_value = {
@@ -190,7 +188,14 @@ class PatientBuilderTest < ActiveSupport::TestCase
     assert_equal VitalSign, entry.class, "should have created and Laboratory object"
     Measures::PatientBuilder.derive_field_values(entry, @un_coded_with_component['field_values'], @valuesets)
     assert !entry.components.nil?, "components collection should have been created"
-    assert_equal 2, entry.components.values.length
+    assert_equal 2, entry.components['values'].length
+    # A component has a code and a result
+    code = entry.components['values'][1]['code']
+    result = entry.components['values'][1]['result']
+    assert_equal "LOINC", code['code_system']
+    assert_equal "LOINC_1", code['code']
+    assert_equal "33", result['scalar']
+    assert_equal "cc", result['units']
   end
 
   test "derive time range"  do 
