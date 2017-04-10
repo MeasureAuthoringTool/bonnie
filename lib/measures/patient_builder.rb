@@ -234,9 +234,9 @@ module Measures
       elsif field.type == "CMP"
         field_value["code"] = Measures::PatientBuilder.select_code(field.code.code_list_id, value_sets)
         field_value["result"] =  {"scalar"=>value["value"], "units"=>value["unit"]}
-        # will have to add code here if range exists
+        # TODO: will have to add code here if range exists
       elsif field.type == "COL"
-        # recur through entry
+        # recurse through entry
         # recursive function should be this function that returns the derived entry
         # entry will push each derived field value to field_value
         values = []
@@ -248,6 +248,7 @@ module Measures
       else
         field_value = field.format
       end
+
       field_accessor = nil
       # Facilities are a special case where we store a whole object on the entry in Record. Create or augment the existing facility with this piece of data.
       if name.include? "FACILITY"
