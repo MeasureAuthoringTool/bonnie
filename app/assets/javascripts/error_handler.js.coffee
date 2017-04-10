@@ -2,7 +2,7 @@
 Costanza.init (info, rawError) ->
   $.ajax
     url: 'application/client_error'
-    method: 'GET'
+    method: 'POST'
     dataType: 'json'
     data: info
     success: (message) ->

@@ -19,7 +19,7 @@ Bonnie::Application.routes.draw do
 
   # The following route is for the reporting of front end (javascript) errors
   # to the backend.
-  get '/application/client_error' => 'application#client_error'
+  post '/application/client_error' => 'application#client_error'
 
   root to: 'home#index'
 
