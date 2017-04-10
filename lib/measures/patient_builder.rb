@@ -134,10 +134,18 @@ module Measures
       oids.compact.uniq
     end
     
+    # This function recursively searches through a collection of field values and returns the oids associated with the
+    # field values it contains. It operates recursivley in case there is ever a collection of field values that contains a collection
     def self.recursive_field_value_oid_concat(fields,oids)
       if fields
+        # Collect oids out of collection for each value in collection that is not a collection itself
         oids.concat fields.select{|key,value| value["type"] != "COL"}.values.collect {|value| value['code_list_id']}
-        fields.select{|key,value| value["type"] == "COL"}.values.each {|collection| collection["values"].each{ |value| recursive_field_value_oid_concat({'VALUE'=>value}, oids)}}
+        # Recurse through potential inner collections adding their oids along the way
+        fields.select{|key,value| value["type"] == "COL"}.values.each {
+          |collection| collection["values"].each{ 
+            |value| recursive_field_value_oid_concat({'VALUE'=>value}, oids)
+          }
+        }
       end
       oids
     end
