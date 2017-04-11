@@ -186,6 +186,7 @@
         <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Field Value<input class="sr-only" disabled></label>
 
         {{#collection field_values class="existing-values" item-context=valueWithDateContext}}
+          {{!Type COL indicates a collection, meaning we need to display each field value within the collection}}
           {{#ifCond type '==' "COL"}}
             {{#each values}}
               <span>
