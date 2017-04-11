@@ -9,6 +9,7 @@ namespace :bonnie do
       effective_date = Date.parse(ENV['DATE']).strftime('%Y%m%d') if ENV['DATE']
       include_draft = !!ENV['DRAFT']
       config = APP_CONFIG["nlm"]
+      config["profile"] = ENV['PROFILE'] if ENV['PROFILE']
       
       # We are using V2 API:
       api = HealthDataStandards::Util::VSApiV2.new(config["ticket_url"], config["api_url"], ENV['USERNAME'], ENV['PASSWORD'])
