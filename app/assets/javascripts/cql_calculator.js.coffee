@@ -22,22 +22,16 @@
 
   # Returns a JSON function to add to the ELM before ELM JSON is used to calculate results
   generateELMJSONFunction: (functionName, parameter) ->
-    elmFunction = {
-        "name": "BonnieFunction",
-        "context": "Patient",
-        "accessLevel": "Public",
-        "expression": {
-          "name": functionName,
-          "type": "FunctionRef",
-          "operand": [
-            {
-              "name": parameter,
-              "type": "ExpressionRef"
-            }
-          ]
-        }
-      }
-    elmFunction
+    elmFunction = 
+        name: 'BonnieFunction' + functionName,
+        context: 'Patient',
+        accessLevel: 'Public',
+        expression: =
+          name: functionName,
+          type: 'FunctionRef',
+          operand: =
+              name: parameter,
+              type: 'ExpressionRef'
 
   # Generate a calculation result for a population / patient pair; this always returns a result immediately,
   # but may return a blank result object that later gets filled in through a deferred calculation, so views
