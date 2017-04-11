@@ -26,10 +26,10 @@
         name: 'BonnieFunction' + functionName,
         context: 'Patient',
         accessLevel: 'Public',
-        expression: =
+        expression:
           name: functionName,
           type: 'FunctionRef',
-          operand: =
+          operand:
               name: parameter,
               type: 'ExpressionRef'
 
