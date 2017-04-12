@@ -209,11 +209,13 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   removeValue: (e) ->
     e.preventDefault()
-    # If the value being removed is part of a collection, the data will include the index of said value within the collection
+    # If the value being removed is part of a collection type, the data will include the index of said value within the collection
+    # col-item-index is the index of the item that we want to remove within the collection
     if $(e.target).data('col-item-index')?
+      # Clone the model and remove from the clone and then add the cloned model to the collection so that the UI change even it triggered
       clone = $(e.target).model().clone()
       clone.get('values').splice($(e.target).data('col-item-index'), 1)
-      # This prevents us from having an empty collection in our model when the last item in the collection is deleted
+      # Add the collection if the collection still contains values
       if clone.get('values').length > 0
         $(e.target).model().collection.add clone
       
@@ -508,14 +510,16 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
        compare_collection = @values.findWhere(key: @model.get('key'))
        if compare_collection
          col = compare_collection
+         # We remove the collection and then re add it to trigger the UI to update
          @values.remove compare_collection
+       debugger
        if !col
-         col = {'key': @model.get('key'), 'type': "COL",'values': []}
-         col['values'].push @model.clone().toJSON()
-       # Push the JSON object representation instead of the backbone model
-       # The values when sent and saved are JSON objects, not backbone models
-       else
-         col.get('values').push @model.toJSON()
+         # Create a thorax model collection
+         col = new Thorax.Model()
+         col.set('key', @model.get('key'))
+         col.set('type', 'COL')
+         col.set('values', [])
+       col.get('values').push @model.toJSON()
        @values.add col
     else
       @values.add @model.clone()
