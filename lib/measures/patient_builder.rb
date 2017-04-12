@@ -136,7 +136,11 @@ module Measures
     
     # This function recursively searches through a collection of field values and returns the oids associated with the
     # field values it contains. It operates recursivley in case there is ever a collection of field values that contains a collection
-    def self.recursive_field_value_oid_concat(fields,oids)
+    #
+    # @param [fields] The field values that we are going to gather the code_list_ids from
+    # @param [oids] The array of oids that we will be adding to
+    # @return A list of oids found within the field values
+    def self.recursive_field_value_oid_concat(fields, oids)
       if fields
         # Collect oids out of collection for each value in collection that is not a collection itself
         oids.concat fields.select{|key,value| value["type"] != "COL"}.values.collect {|value| value['code_list_id']}
@@ -216,7 +220,9 @@ module Measures
         entry.negation_reason = codes
       end
     end
-
+    
+    # This is the recursive helper function to the self.derive_field_values function it is recursive to support
+    # field values that may contain other field values
     def self.recursive_field_value_derivation(value, value_sets, name, entry)
       return if value.nil?
       if value['type'] == 'TS'
