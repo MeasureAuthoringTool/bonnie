@@ -19,22 +19,54 @@ class UserTest < ActiveSupport::TestCase
 
   test "grant and revoke admin" do
     assert_equal false, @user.is_admin?
+    assert_equal false, @user.is_approved?
     @user.grant_admin
     @user.reload
     assert_equal true, @user.is_admin?
+    assert_equal true, @user.is_approved?
     @user.revoke_admin
     @user.reload
     assert_equal false, @user.is_admin?
+    assert_equal true, @user.is_approved?
   end
 
   test "grant and revoke portfolio" do
     assert_equal false, @user.is_portfolio?
+    assert_equal false, @user.is_approved?
     @user.grant_portfolio
     @user.reload
     assert_equal true, @user.is_portfolio?
+    assert_equal true, @user.is_approved?
     @user.revoke_portfolio
     @user.reload
     assert_equal false, @user.is_portfolio?
+    assert_equal true, @user.is_approved?
+  end
+
+  test "grant and revoke dashboard" do
+    assert_equal false, @user.is_dashboard?
+    assert_equal false, @user.is_approved?
+    @user.grant_dashboard
+    @user.reload
+    assert_equal true, @user.is_dashboard?
+    assert_equal true, @user.is_approved?
+    @user.revoke_dashboard
+    @user.reload
+    assert_equal false, @user.is_dashboard?
+    assert_equal true, @user.is_approved?
+  end
+
+  test "grant and revoke dashboard_set" do
+    assert_equal false, @user.is_dashboard_set?
+    assert_equal false, @user.is_approved?
+    @user.grant_dashboard_set
+    @user.reload
+    assert_equal true, @user.is_dashboard_set?
+    assert_equal true, @user.is_approved?
+    @user.revoke_dashboard_set
+    @user.reload
+    assert_equal false, @user.is_dashboard_set?
+    assert_equal true, @user.is_approved?
   end
 
   test "test bad password fails" do
