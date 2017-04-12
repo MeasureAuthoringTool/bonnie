@@ -40,7 +40,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
                                                                             HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"SNO1"}),
                                                                             HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"SNO2"})]}),
                    "2.16.840.1.113883.3.666.5.1084"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.666.5.1084" , "concepts"=>[
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA1"})]}),
+                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA1"})]})
                   } # todo need to fake some of these out
 
     @coded_source_data_critria = {
