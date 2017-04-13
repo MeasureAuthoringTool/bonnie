@@ -63,16 +63,17 @@
     # Grab the correct expected for this population
     index = population.get('index')
     expected = patient.get('expected_values').findWhere(measure_id: population.collection.parent.get('hqmf_set_id'), population_index: index)
-     # Loop over all population codes ("IPP", "DENOM", etc.)
+    # Loop over all population codes ("IPP", "DENOM", etc.)
     for popCode in Thorax.Models.Measure.allPopulationCodes
       if cql_map[popCode]
         # This code is supporting measures that were uploaded 
         # before the parser returned multiple populations in an array.
+        # TODO: Remove this check when we move over to production.
         if _.isString(cql_map[popCode])
           defined_pops = [cql_map[popCode]]
         else
           defined_pops = cql_map[popCode]
-        index = if defined_pops.length > 1 then index else 0
+        index = 0 unless defined_pops.length > 1
         cql_population = defined_pops[index]
         # Is there a patient result for this population?
         if results['patientResults'][patient.id][cql_population]?
