@@ -23,7 +23,7 @@
   # Returns a JSON function to add to the ELM before ELM JSON is used to calculate results
   generateELMJSONFunction: (functionName, parameter) ->
     elmFunction = 
-        name: 'BonnieFunction' + functionName,
+        name: 'BonnieFunction_' + functionName,
         context: 'Patient',
         accessLevel: 'Public',
         expression:
