@@ -59,12 +59,18 @@ class MeasuresController < ApplicationController
       end
     end
     begin
+      includeDraft = params[:include_draft] == 'true'
+      effectiveDate = nil
+      unless includeDraft
+        effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
+      end
       # Is this a CQL measure, or a CQL MAT export?
       # TODO: This will need to change when we know what the MAT will be exporting!
       is_cql = false
       if extension == '.cql' || (extension == '.zip' && Measures::CqlLoader.mat_cql_export?(params[:measure_file]))
         is_cql = true
-        measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password]) # overwrite_valuesets=true, cache=false, includeDraft=true
+
+        measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
 
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
         if existing.count > 1
@@ -92,11 +98,6 @@ class MeasuresController < ApplicationController
         end
 
         if extension == '.xml'
-          includeDraft = params[:include_draft] == 'true'
-          effectiveDate = nil
-          unless includeDraft
-            effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
-          end
           measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # overwrite_valuesets=true, cache=false, includeDraft=true
         else
           measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
