@@ -59,12 +59,26 @@ class MeasuresController < ApplicationController
       end
     end
     begin
+      # Default to valid set of values for vsac request.
+      effectiveDate = nil
+      includeDraft = true
+      # All measure uploads require vsac credentials, except certain test cases.
+      # Added a check for vsac_username before checking for include draft and vsac_date.
+      if params[:vsac_username]
+        # If the measure is published (includesDraft = false)
+        # EffectiveDate is specified to determine a value set version.
+        includeDraft = params[:include_draft] == 'true'
+        unless includeDraft
+          effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
+        end
+      end
       # Is this a CQL measure, or a CQL MAT export?
       # TODO: This will need to change when we know what the MAT will be exporting!
       is_cql = false
       if extension == '.cql' || (extension == '.zip' && Measures::CqlLoader.mat_cql_export?(params[:measure_file]))
         is_cql = true
-        measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password]) # overwrite_valuesets=true, cache=false, includeDraft=true
+
+        measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
 
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
         if existing.count > 1
@@ -92,11 +106,6 @@ class MeasuresController < ApplicationController
         end
 
         if extension == '.xml'
-          includeDraft = params[:include_draft] == 'true'
-          effectiveDate = nil
-          unless includeDraft
-            effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
-          end
           measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_user, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # overwrite_valuesets=true, cache=false, includeDraft=true
         else
           measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details)
