@@ -212,7 +212,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     # If the value being removed is part of a collection type, the data will include the index of said value within the collection
     # col-item-index is the index of the item that we want to remove within the collection
     if $(e.target).data('col-item-index')?
-      # Clone the model and remove from the clone and then add the cloned model to the collection so that the UI change even it triggered
+      # Clone the model and remove from the clone and then add the cloned model to the collection so that the UI change event is triggered
       clone = $(e.target).model().clone()
       clone.get('values').splice($(e.target).data('col-item-index'), 1)
       # Add the collection if the collection still contains values
@@ -512,7 +512,6 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
          col = compare_collection
          # We remove the collection and then re add it to trigger the UI to update
          @values.remove compare_collection
-       debugger
        if !col
          # Create a thorax model collection
          col = new Thorax.Model()
