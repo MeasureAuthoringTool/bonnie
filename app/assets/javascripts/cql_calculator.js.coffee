@@ -94,6 +94,24 @@
           defined_pops = [cql_map[popCode]]
         else
           defined_pops = cql_map[popCode]
+        # Special-case the stratification population code to not include a STRAT in the
+        # population_results for the overall "Population Criteria Section" and then to
+        # read the 0-indexed population_results (e.g. Stratification1 is the 0th item
+        # in the cql_population array)
+        if popCode == 'STRAT'
+          # do not add 'STRAT' popCode to population_results for "Population Criteria Section"
+          # this value of index is for the overall population results, not a specific
+          # stratification, therefore this item 'STRAT' shouldn't be included
+          continue if index == 0
+          # Bonnie's indexing of stratifications is considered to be a separate population,
+          # so index 1 corresponds to Stratification 1, however the stratification results
+          # array starts with the name of the CQL 1st stratification 0-indexed, thus we need
+          # to set cql_population from the previous index
+          #
+          # Note, stratifications are collected from the HQMF measure file, in the component
+          # named 'populationCriteriaSection', for each 'stratifierCriteria' see code in
+          # function HQMF2CQL::Document::extract_populations_cql_map
+          index--
         target_map_index = if defined_pops.length > 1 then index else 0
         cql_population = defined_pops[target_map_index]
         # Is there a patient result for this population?
