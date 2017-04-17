@@ -9,7 +9,7 @@ defaults: &defaults
     ticket_url: https://vsac.nlm.nih.gov/vsac/ws/Ticket
     api_url: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets
     profiles_url: https://vsac.nlm.nih.gov/vsac/profiles
-    profile: MU2 Update 2016-04-01
+    profile: Latest eCQM
 
 development:
   <<: *defaults
