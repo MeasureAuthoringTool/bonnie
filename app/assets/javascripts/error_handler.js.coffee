@@ -7,5 +7,5 @@ Costanza.init (info, rawError) ->
     data: info
     success: (message) ->
       bonnie.showError(message) if message
-    error: () ->
-      console.error(info) if info
+    error: (info) ->
+      bonnie.showError({'body': info.status + ': ' + info.statusText}) if info
