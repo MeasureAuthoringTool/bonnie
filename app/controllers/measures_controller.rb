@@ -59,10 +59,18 @@ class MeasuresController < ApplicationController
       end
     end
     begin
-      includeDraft = params[:include_draft] == 'true'
+      # Default to valid set of values for vsac request.
       effectiveDate = nil
-      unless includeDraft
-        effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
+      includeDraft = true
+      # All measure uploads require vsac credentials, except certain test cases.
+      # Added a check for vsac_username before checking for include draft and vsac_date.
+      if params[:vsac_username]
+        # If the measure is published (includesDraft = false)
+        # EffectiveDate is specified to determine a value set version.
+        includeDraft = params[:include_draft] == 'true'
+        unless includeDraft
+          effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
+        end
       end
       # Is this a CQL measure, or a CQL MAT export?
       # TODO: This will need to change when we know what the MAT will be exporting!
