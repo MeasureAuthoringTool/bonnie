@@ -78,7 +78,12 @@
       # Grab ELM JSON from measure, use clone so that the function added from observations does not get added over and over again
       elm = _.clone(population.collection.parent.get('elm'))
       observations = population.collection.parent.get('observations')
-      elm["library"]["statements"]["def"].push @generateELMJSONFunction(obs.function_name, obs.parameter) for obs in observations if observations
+      if observations
+         for obs in observations
+           generatedELMJSON =  @generateELMJSONFunction(obs.function_name, obs.parameter)
+           # Check to see if the gneratedELMJSON function is already in the definitions
+           if (elm["library"]["statements"]["def"].filter (def) -> def.name == generatedELMJSON.name).length == 0
+             elm["library"]["statements"]["def"].push generatedELMJSON
 
       # Calculate results for each CQL statement
       results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), params)
