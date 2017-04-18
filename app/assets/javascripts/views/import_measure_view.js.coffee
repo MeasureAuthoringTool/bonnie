@@ -84,13 +84,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
           $('#vsacCachedMsg').addClass('hidden')
 
   enableLoad: ->
-    if @$('input:file').val().match /xml$/i
-      @toggleVSAC()
-    else
-      @toggleVSAC()
-#      @$('#vsacSignIn').addClass('hidden')
-#      @$('#vsacSignInDraft').addClass('hidden')
-#      @$('#loadButton').prop('disabled', !@$('input:file').val().length > 0)
+    @toggleVSAC()
 
   toggleDraft: ->
     isDraft = @$('#value_sets_draft').is(':checked')

@@ -21,8 +21,8 @@
     measure.set('patients', patients);
     // Overwrite pieces as necessary to load calculation code in a way that's debuggable, ie no deferred loading or calculation
     bonnie.measures.add(measure);
-    bonnie.calculator.setCalculator = function(population, calcFunction) {
-      // When we call setCalculate below, this will just overwrite the calculate method for the population 
+    bonnie.qdm_calculator.setCalculator = function(population, calcFunction) {
+      // When we call setCalculate below, this will just overwrite the calculate method for the population
       population.calculate = function(patient) {
         result = calcFunction(patient.toJSON());
         result = new Thorax.Models.Result(result, { population: population, patient: patient });

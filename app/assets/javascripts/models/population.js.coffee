@@ -11,10 +11,7 @@ class Thorax.Models.Population extends Thorax.Model
   populationCriteria: -> (criteria for criteria in Thorax.Models.Measure.allPopulationCodes when @has(criteria))
 
   calculate: (patient) ->
-    if @measure().has('cql')
-      bonnie.cql_calculator.calculate(this, patient)
-    else
-      bonnie.calculator.calculate(this, patient)
+    bonnie.calculator_selector.calculate this, patient
 
   # Calculates results for all measure patients
   calculationResults: -> new Thorax.Collections.Results @measure().get('patients').map (p) => @calculate(p)

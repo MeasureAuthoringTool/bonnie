@@ -5,10 +5,10 @@
       </h1>
 
       <span class="actions-container">
-        {{#if isNotCQL}}
+        {{#unless cql}}
           {{#link "measures/{{hqmf_set_id}}" id="measure-details-button" expand-tokens=true class="btn btn-default btn-primary"}}<span class="sr-only">Measure Details</span>Measure Details{{/link}}
           {{#link "measures/{{hqmf_set_id}}/patient_dashboard" id="patient-dashboard-button" expand-tokens=true class="btn btn-default"}}<span class="sr-only">Patient Dashboard</span>Patient Dashboard{{/link}}
-        {{/if}}
+        {{/unless}}
       </span>
     </div>
   </div>

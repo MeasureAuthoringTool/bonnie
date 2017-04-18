@@ -10,13 +10,7 @@ class Thorax.Views.CqlPatientBuilderLogic extends Thorax.Views.BonnieView
 
   context: -> _(super).extend cqlLines: @model.get('cql').split("\n")
 
-  showCoverage: ->
-
-  clearCoverage: ->
-
   showRationale: (result) ->
     for pop in @population_names
       @results[pop] = result.get(pop)
     @render()
-
-  clearRationale: ->

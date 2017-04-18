@@ -9,7 +9,7 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
     _(super).extend
       cms_id: @measure.get 'cms_id'
       hqmf_set_id: @measure.get 'hqmf_set_id'
-      isNotCQL: !@measure.has('cql') # Hide certain features in handlebars if the measure is cql.
+      cql: @measure.has('cql') # Hide certain features in handlebars if the measure is cql.
 
   # Navigates to the Patient Dashboard
   showDashboard: (showFixedColumns) ->
@@ -47,26 +47,24 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
   context: ->
     _(super).extend
       isPrimaryView: @isPrimaryView
-      isNotCQL: !@model.has('cql') # Hide certain features in handlebars if the measure is cql.
 
   initialize: ->
     @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
+    # Determine which population logic view use
     if @model.has('cql')
-      populationLogicView = new Thorax.Views.CqlLogic(model: @model)
-      if @populations.length > 1 # CQL Measure with multiple populations
-        @logicView = new Thorax.Views.CqlPopulationsLogic model: @model, collection: @populations
-        @logicView.setView populationLogicView
-      else
-        # CQL measure with one population
-        @logicView = populationLogicView
+      populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @model)
     else
       populationLogicView = new Thorax.Views.PopulationLogic(model: @population)
-      # display layout view when there are multiple populations; otherwise, just show logic view
-      if @populations.length > 1
-        @logicView = new Thorax.Views.PopulationsLogic collection: @populations
-        @logicView.setView populationLogicView
+  
+    # Determine which populations logic view to use
+    if @populations.length > 1
+      if @model.has('cql') # CQL measure with multiple populations
+        @logicView = new Thorax.Views.CqlPopulationsLogic model: @model, collection: @populations
       else
-        @logicView = populationLogicView
+        @logicView = new Thorax.Views.PopulationsLogic collection: @populations
+      @logicView.setView populationLogicView
+    else
+      @logicView = populationLogicView
 
     @complexityView = new Thorax.Views.MeasureComplexity model: @model
     @complexityView.listenTo @logicView, 'population:update', (population) -> @updatePopulation(population)

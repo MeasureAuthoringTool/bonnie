@@ -1,3 +1,6 @@
+# TODO: When the CQL execution engine gets broken out into its own repository 
+# and we are able to directly include the Coffeescript we may not need this because 
+# rails should be able to uglify the execution engine for us.
 require 'uglifier'
 
 class SelectiveAssetsCompressor < Uglifier

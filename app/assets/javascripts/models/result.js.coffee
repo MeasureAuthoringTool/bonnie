@@ -10,17 +10,16 @@ class Thorax.Models.Result extends Thorax.Model
 
     # When a patient changes, is materialized, or is destroyed, we need to respond appropriately
     @listenTo @patient, 'change materialize destroy', =>
-      if @measure.get('cql')
-        bonnie.cql_calculator.clearResult(@population, @patient) # Remove the result from the cache
-      else
-        bonnie.calculator.clearResult(@population, @patient) # Remove the result from the cache
+      bonnie.calculator_selector.clearResult @population, @patient
       @destroy() # Destroy the result to remove it from any collections
 
+  # Checks to see if a result has been populated
   isPopulated: ->
+    # CQL Measures, we want to check to see if attributes of a result have been populated.
     if @measure.has('cql')
-      return @has('IPP') #TODO HACK
+      return !(_.isEmpty(@attributes)) # Return true if attributes is populated on result object.
     else
-      @has('rationale') unless @measure.has('cql')
+      @has('rationale')
 
   differenceFromExpected: ->
     expected = @patient.getExpectedValue @population

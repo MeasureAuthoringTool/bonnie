@@ -7,9 +7,9 @@
     # files (see app/views/measures/show.js.erb)
     @measures = new Thorax.Collections.Measures()
 
-    @calculator = new Calculator()
-    
+    @calculator_selector = new CalculatorSelector()
     @cql_calculator = new CQLCalculator()
+    @qdm_calculator = new QDMCalculator()
 
     # FIXME deprecated, use measure.get('patients') to get patients for individual measure
     @patients = new Thorax.Collections.Patients()
@@ -98,7 +98,7 @@
 
   # Common setup method used by all routes
   navigationSetup: (title, selectedNav) ->
-    @calculator.cancelCalculations()
+    @calculator_selector.cancelCalculations()
     @breadcrumb.clear()
     document.title = "Bonnie v#{bonnie.applicationVersion}: #{title}"
     if selectedNav?

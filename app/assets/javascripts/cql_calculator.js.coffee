@@ -1,31 +1,9 @@
-@CQLCalculator = class CQLCalculator
-
-  constructor: ->
-    @calculator = {}
-    @calculatorLoaded = {}
-    @resultsCache = {}
-
-  # Key for storing calculators on a population
-  calculationKey: (population) -> "#{population.measure().id}/#{population.get('index')}"
-
-  # Key for storing results for a patient / population calculation; we use the CID for the patient portion
-  # of the key so that clones can have different calculation results
-  cacheKey: (population, patient) -> "#{@calculationKey(population)}/#{patient.cid}"
-
-  # Utility function for setting the calculator function for a population, used in the calculator loading JS
-  setCalculator: (population, calcFunction) -> @calculator[@calculationKey(population)] = calcFunction
-
-  # Cancel all pending calculations; this just marks the result as 'cancelled', the actual stopping of the calculation is
-  # handled in the deferred calculation code
-  cancelCalculations: ->
-    result.state = 'cancelled' for key, result of @resultsCache when result.state == 'pending'
+@CQLCalculator = class CQLCalculator extends Calculator
 
   # Generate a calculation result for a population / patient pair; this always returns a result immediately,
   # but may return a blank result object that later gets filled in through a deferred calculation, so views
   # that display results must be able to handle a state of "not yet calculated"
   calculate: (population, patient) ->
-    #console.log(population.get('index') + ' ' + patient.get('first'))
-    
     # We store both the calculation result and the calcuation code based on keys derived from the arguments
     cacheKey = @cacheKey(population, patient)
     calcKey = @calculationKey(population)
@@ -46,16 +24,13 @@
     # Since we're going to start a calculation for this one, set the state to 'pending'
     result.state = 'pending'
 
-
-    #TODO Find a better way to check if patient should be calculated
-    return result if !patient.has('birthdate')
-
     try
+      # Necessary structure for the CQL (ELM) Execution Engine. Uses CQL_QDM Patient API to map Bonnie patients to correct format.
       patientSource = new PatientSource([patient])
 
       # Grab start and end of Measurement Period
-      start = moment.utc(population.collection.parent.get('measure_period').low.value, 'YYYYMDDHHmm').toDate()
-      end = moment.utc(population.collection.parent.get('measure_period').high.value, 'YYYYMDDHHmm').toDate()
+      start = @getConvertedTime population.collection.parent.get('measure_period').low.value
+      end = @getConvertedTime population.collection.parent.get('measure_period').high.value
       start_cql = cql.DateTime.fromDate(start, 0) # No timezone offset for start
       end_cql = cql.DateTime.fromDate(end, 0) # No timezone offset for stop
 
@@ -76,6 +51,7 @@
         result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
         result.state = 'complete'
     catch error
+      result.state = 'cancelled'
       bonnie.showError({title: "Measure Calculation Error", summary: "There was an error calculating the measure #{result.measure.get('cms_id')}.", body: "One of the data elements associated with the measure is causing an issue.  Please review the elements associated with the measure to verify that they are all constructed properly.  Error message: #{error.message}."})
 
     return result
@@ -86,21 +62,24 @@
     cql_map = population.collection.parent.get('populations_cql_map')
     # Grab the correct expected for this population
     index = population.get('index')
-    expected = patient.get('expected_values').models[index]
+    expected = patient.get('expected_values').findWhere(measure_id: population.collection.parent.get('hqmf_set_id'), population_index: index)
     # Loop over all population codes ("IPP", "DENOM", etc.)
     for popCode in Thorax.Models.Measure.allPopulationCodes
       if cql_map[popCode]
+        # This code is supporting measures that were uploaded 
+        # before the parser returned multiple populations in an array.
+        # TODO: Remove this check when we move over to production.
         if _.isString(cql_map[popCode])
           defined_pops = [cql_map[popCode]]
         else
           defined_pops = cql_map[popCode]
-        target_map_index = if defined_pops.length > 1 then index else 0
-        cql_population = defined_pops[target_map_index]
+        index = 0 unless defined_pops.length > 1
+        cql_population = defined_pops[index]
         # Is there a patient result for this population?
         if results['patientResults'][patient.id][cql_population]?
           # Grab CQL result value and adjust for Bonnie
           value = results['patientResults'][patient.id][cql_population]
-          if typeof value is 'object' and value.length > 0
+          if Array.isArray(value) and value.length > 0
             population_results[popCode] = value.length
           else if typeof value is 'boolean' and value
             population_results[popCode] = 1
@@ -136,16 +115,17 @@
       return true
     return false
 
-  clearResult: (population, patient) ->
-    delete @resultsCache[@cacheKey(population, patient)]
-
   # Format ValueSets for use by CQL4Browsers
   valueSetsForCodeService: ->
-    valueSetsForCodeService = {}
+    valueSets = {}
     for oid, vs of bonnie.valueSetsByOid
       continue unless vs.concepts
-      valueSetsForCodeService[oid] ||= {}
-      valueSetsForCodeService[oid][vs.version] ||= []
+      valueSets[oid] ||= {}
+      valueSets[oid][vs.version] ||= []
       for concept in vs.concepts
-        valueSetsForCodeService[oid][vs.version].push code: concept.code, system: concept.code_system_name, version: vs.version
-    valueSetsForCodeService
+        valueSets[oid][vs.version].push code: concept.code, system: concept.code_system_name, version: vs.version
+    valueSets
+
+  # Converts the given time to the correct format using momentJS
+  getConvertedTime: (timeValue) ->
+    moment.utc(timeValue, 'YYYYMDDHHmm').toDate()

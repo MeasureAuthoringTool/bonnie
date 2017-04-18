@@ -142,73 +142,6 @@ namespace :bonnie do
       end
     end
 
-    desc %{Import Value Sets from a JSON file.
-
-           You must identify the user by EMAIL, include a CMS_ID, and
-           an output filename FILENAME}
-    task :import_value_sets => :environment do
-      # Grab user account
-      user_email = ENV['EMAIL']
-      raise "#{user_email} not found" unless user = User.find_by(email: user_email)
-
-      # Grab user measure to add patients to
-      user_measure = ENV['CMS_ID']
-
-      # Check if MEASURE_TYPE is a CQL Measure
-      if ENV['MEASURE_TYPE'] == 'CQL'
-        raise "#{user_email} not found" unless measure = CqlMeasure.find_by(user_id: user._id, cms_id: user_measure)
-      else
-        raise "#{user_email} not found" unless measure = Measure.find_by(user_id: user._id, cms_id: user_measure)
-      end
-
-     puts measure.value_set_oids.count
-      # Import value set objects from JSON file and save
-      puts "Importing value sets..."
-      raise "FILENAME not specified" unless input_file = ENV['FILENAME']
-      File.foreach(File.join(Rails.root, input_file)) do |vs|
-        next if vs.blank?
-
-        value_set = HealthDataStandards::SVS::ValueSet.new.from_json vs.strip
-        measure.value_set_oids << value_set.oid
-        measure.save
-
-        value_set.user = user
-        value_set.bundle = user.bundle
-        value_set.dup.save!
-      end
-
-      puts "Done!"
-    end
-
-    desc %{Export Value Sets to a JSON file.
-
-           You must identify the user by EMAIL, include a CMS_ID, and
-           an output filename FILENAME}
-    task :export_value_sets => :environment do
-      # Grab user account
-      user_email = ENV['EMAIL']
-      raise "#{user_email} not found" unless user = User.find_by(email: user_email)
-
-      # Grab user measure to pull patients from
-      user_measure = ENV['CMS_ID']
-      raise "#{user_email} not found" unless measure = Measure.find_by(user_id: user._id, cms_id: user_measure)
-
-      # Find the value sets we'll be *copying* (not moving!)
-      value_sets = measure.value_sets.map(&:clone) # Clone ensures we save a copy and don't overwrite original
-
-      # Write the value set copies,
-      puts "Exporting value sets..."
-      raise "FILENAME not specified" unless output_file = ENV['FILENAME']
-      File.open(File.join(Rails.root, output_file), "w") do |f|
-        value_sets.each do |value_set|
-          f.write(value_set.to_json)
-          f.write("\r\n")
-        end
-      end
-
-      puts "Done!"
-    end
-
     desc 'Move a measure from one user account to another'
     task :move_measure => :environment do
       source_email = ENV['SOURCE_EMAIL']
@@ -255,7 +188,14 @@ namespace :bonnie do
       puts "Done!"
     end
 
-    desc 'Copy measure patients from one user account to another'
+    desc %{Copy measure patients from one user account to another
+    
+    You must identify the source user by SOURCE_EMAIL, 
+    the destination user account by DEST_EMAIL, 
+    the source measure by SOURCE_CMS_ID,
+    and the destination measure by DEST_CMS_ID
+
+    $ rake bonnie:users:copy_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_CMS_ID=100 DEST_CMS_ID=101}
     task :copy_measure_patients => :environment do
       source_email = ENV['SOURCE_EMAIL']
       dest_email = ENV['DEST_EMAIL']
@@ -265,12 +205,12 @@ namespace :bonnie do
       puts "Copying patients from '#{source_cms_id}' in '#{source_email}' to '#{dest_cms_id}' in '#{dest_email}'..."
 
       # Find source and destination user accounts
-      raise "#{source_email} not found" unless source = User.find_by(email: source_email)
-      raise "#{dest_email} not found" unless dest = User.find_by(email: dest_email)
+      raise "#{source_email} source email not found" unless source = User.find_by(email: source_email)
+      raise "#{dest_email} destination email not found" unless dest = User.find_by(email: dest_email)
 
       # Find source and destination measures and associated records we're moving
-      raise "#{source_cms_id} not found" unless source_measure = source.measures.find_by(cms_id: source_cms_id)
-      raise "#{dest_cms_id} not found" unless dest_measure = dest.measures.find_by(cms_id: dest_cms_id)
+      raise "#{source_cms_id} source cms_id not found" unless source_measure = source.measures.find_by(cms_id: source_cms_id)
+      raise "#{dest_cms_id} destination cms_id not found" unless dest_measure = dest.measures.find_by(cms_id: dest_cms_id)
       records = []
       source.records.where(measure_ids: source_measure.hqmf_set_id).each do |record|
         records.push(record.dup)
@@ -302,16 +242,17 @@ namespace :bonnie do
 
     desc %{Export Bonnie patients to a JSON file.
 
-           You must identify the user by EMAIL, include a CMS_ID, and
-           an output filename FILENAME}
+    You must identify the user by EMAIL, include a HQMF_SET_ID, and
+    an output filename using FILENAME
+    
+    $ rake bonnie:users:export_patients EMAIL=xxx HQMF_SET_ID=1948-138412-1414 FILENAME=CMS100_pations.json}
     task :export_patients => :environment do
       # Grab user account
       user_email = ENV['EMAIL']
       raise "#{user_email} not found" unless user = User.find_by(email: user_email)
 
       # Grab user measure to pull patients from
-      user_measure = ENV['CMS_ID']
-      raise "#{user_email} not found" unless measure = Measure.find_by(user_id: user._id, cms_id: user_measure)
+      raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = Measure.find_by(user_id: user._id, hqmf_set_id: ENV['HQMF_SET_ID'])
 
       # Grab the patients
       patients = Record.where(user_id: user._id, :measure_ids => measure.hqmf_set_id)
@@ -332,22 +273,25 @@ namespace :bonnie do
     end
 
     desc %{Import Bonnie patients from a JSON file.
+    The JSON file must be the one that is generated using the export_patients rake task.
 
-           You must identify the user by EMAIL, include a CMS_ID, and
-           an output filename FILENAME}
+    You must identify the user by EMAIL, include a HQMF_SET_ID,
+    the name of the file to be imported using FILENAME, and the type of measure using MEASURE_TYPE
+    
+    $ rake bonnie:users:import_patients EMAIL=xxx HQMF_SET_ID=1924-55295295-23425 FILENAME=CMS100_patients.json MEASURE_TYPE=CQL}
     task :import_patients => :environment do
       # Grab user account
       user_email = ENV['EMAIL']
       raise "#{user_email} not found" unless user = User.find_by(email: user_email)
 
       # Grab user measure to add patients to
-      user_measure = ENV['CMS_ID']
+      user_measure = ENV['HQMF_SET_ID']
 
       # Check if MEASURE_TYPE is a CQL Measure
       if ENV['MEASURE_TYPE'] == 'CQL'
-        raise "#{user_email} not found" unless measure = CqlMeasure.find_by(user_id: user._id, cms_id: user_measure)
+        raise "#{user_measure} not found" unless measure = CqlMeasure.find_by(user_id: user._id, hqmf_set_id: user_measure)
       else
-        raise "#{user_email} not found" unless measure = Measure.find_by(user_id: user._id, cms_id: user_measure)
+        raise "#{user_measure} not found" unless measure = Measure.find_by(user_id: user._id, hqmf_set_id: user_measure)
       end
 
       # Import patient objects from JSON file and save
@@ -360,18 +304,18 @@ namespace :bonnie do
         patient['user_id'] = user._id
 
         patient['measure_ids'] = []
-        patient['measure_ids'].unshift(measure.hqmf_set_id)
-        patient['measure_ids'] << nil
+        patient['measure_ids'] << measure.hqmf_set_id
+        patient['measure_ids'] << nil # Need to add a null value at the end of the array.
 
         # Modifiying hqmf_set_id and cms_id for source data criteria
-        unless patient['source_data_criteria'].nil? || patient['source_data_criteria'].empty?
+        unless patient['source_data_criteria'].nil?
           patient['source_data_criteria'].each do |source_criteria|
             source_criteria['hqmf_set_id'] = measure.hqmf_set_id
             source_criteria['cms_id'] = measure.cms_id
           end
         end
         # Modifying measure_id for expected values
-        unless patient['expected_values'].nil? || patient['expected_values'].empty?
+        unless patient['expected_values'].nil?
           patient['expected_values'].each do |expected_value|
             expected_value['measure_id'] = measure.hqmf_set_id
           end

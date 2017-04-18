@@ -15,7 +15,7 @@ class Thorax.Views.CqlPopulationsLogic extends Thorax.LayoutView
 
   switchToGivenPopulation: (pop) ->
     pop.measure().set('displayedPopulation', pop)
-    @cqlLogicView = new Thorax.Views.CqlLogic(model: @model, population: pop)
+    @cqlLogicView = new Thorax.Views.CqlPopulationLogic(model: @model, population: pop)
     @setView @cqlLogicView
     @trigger 'population:update', pop
     @cqlLogicView.startAceCqlView(@model)
@@ -36,7 +36,7 @@ class Thorax.Views.CqlPopulationsLogic extends Thorax.LayoutView
       populationTitle: population.get('title') || population.get('sub_id')
 
 
-class Thorax.Views.CqlLogic extends Thorax.Views.BonnieView
+class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
 
   template: JST['logic/cql_logic']
 

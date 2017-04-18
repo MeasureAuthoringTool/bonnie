@@ -50,7 +50,9 @@
 #= require_tree ./models
 #= require_tree ./views
 #= require calculator
+#= require qdm_calculator
 #= require cql_calculator
+#= require calculator_selector
 #= require router
 #= require measure_libraries
 #= require_self

@@ -30,8 +30,8 @@ bonnie.measures.add(<%= measures_json.html_safe %>, { parse: true });
     <%# Fake out the calculator to pre-set the deferred that it usually uses to tell when calculators are loaded %>
     (function() {
       var population = bonnie.measures.get('<%= measure._id %>').get('populations').at(<%= population_index %>);
-      var cacheKey = bonnie.calculator.calculationKey(population);
-      bonnie.calculator.calculatorLoaded[cacheKey] = $.when(); // A 'when' without arguments is automatically resolved
+      var cacheKey = bonnie.qdm_calculator.calculationKey(population);
+      bonnie.qdm_calculator.calculatorLoaded[cacheKey] = $.when(); // A 'when' without arguments is automatically resolved
     })();
   <% end %>
 <% end %>
