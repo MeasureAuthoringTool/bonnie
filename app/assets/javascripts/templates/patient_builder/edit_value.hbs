@@ -12,20 +12,25 @@
 </p>
 {{/if}}
 
-<div class="row">
-  <div class="col-md-3">
-    <label class="sr-only" for="type_{{@cid}}">Value type dropdown</label>
-    <select id="type_{{@cid}}" name="type" class="selectBoxIt-native">
-      <option value="PQ" data-icon="fa fa-pencil-square-o">Scalar</option>
-      <option value="CD" data-icon="fa fa-list">Coded</option>
-      {{#if showDateTimeSelection}}
-        <option value="TS" data-icon="fa fa-calendar">Time</option>
-      {{/if}}
-    </select>
+{{#ifCond type '==' 'CMP'}}
+  <div class="row">
+    <div class="col-md-2">
+      <label for="code" class="control-label">Code</label>
+    </div>    
+    <div class="col-md-10">
+      <select name="code_list_id" id="code_list_id_{{@cid}}" class="form-control">
+        <option value="">--</option>
+        {{#each codes tag="select" name="code_list_id"}}
+          <option value="{{oid}}">{{display_name}}</option>
+        {{/each}}
+      </select>
+    </div>    
   </div>
-
-  {{#ifCond type '==' 'PQ'}}
-    <div class="col-md-6">
+  <div class="row">
+    <div class="col-md-2">
+      <label for="value" class="control-label">Value</label>
+    </div> 
+    <div class="col-md-7">
       <label for="value_{{@cid}}" class="sr-only">input</label>
       <input type="text" name="value" id="value_{{@cid}}" class="form-control" placeholder="input">
     </div>
@@ -33,38 +38,69 @@
       <label for="unit_{{@cid}}" class="sr-only">units</label>
       <input type="text" name="unit" id="unit_{{@cid}}" class="form-control" placeholder="units">
     </div>
-  {{/ifCond}}
-
-  {{#ifCond type '==' 'CD'}}
-    <div class="col-md-8">
-      <label for="code_list_id_{{@cid}}" class="sr-only">field value</label>
-      <select name="code_list_id" id="code_list_id_{{@cid}}" class="form-control">
-        <option value="">--</option>
-        {{#each codes tag="select" name="code_list_id"}}
-          <option value="{{oid}}">{{display_name}}</option>
-        {{/each}}
+    <div class="col-md-1">
+      {{#button "addValue" class="btn btn-primary pull-right" disabled="disabled"}}
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        <span class="sr-only">add value</span>
+      {{/button}}
+    </div>
+  </div>
+{{else}}
+  <div class="row">
+    
+    <div class="col-md-3">
+      <label class="sr-only" for="type_{{@cid}}">Value type dropdown</label>
+      <select id="type_{{@cid}}" name="type" class="selectBoxIt-native">
+          <option value="PQ" data-icon="fa fa-pencil-square-o">Scalar</option>
+          <option value="CD" data-icon="fa fa-list">Coded</option>
+          {{#if fieldValue}}
+            <option value="TS" data-icon="fa fa-calendar">Time</option>
+          {{/if}}
       </select>
     </div>
-  {{/ifCond}}
 
-  {{#ifCond type '==' 'TS'}}
-    <div class="col-md-5">
-      <label for="start_date_{{@cid}}" class="sr-only">{{#if fieldValue}}field {{/if}}value date</label>
-      <input type="text" name="start_date" id="start_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-autoclose="true">
-    </div>
-    <div class="col-md-3">
-      <label for="start_time_{{@cid}}" class="sr-only">{{#if fieldValue}}field {{/if}}value time</label>
-      <input type="text" name="start_time" id="start_time_{{@cid}}" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
-    </div>
-  {{/ifCond}}
+    {{#ifCond type '==' 'PQ'}}
+      <div class="col-md-6">
+        <label for="value_{{@cid}}" class="sr-only">input</label>
+        <input type="text" name="value" id="value_{{@cid}}" class="form-control" placeholder="input">
+      </div>
+      <div class="col-md-2">
+        <label for="unit_{{@cid}}" class="sr-only">units</label>
+        <input type="text" name="unit" id="unit_{{@cid}}" class="form-control" placeholder="units">
+      </div>
+    {{/ifCond}}
 
-  <div class="col-md-1">
-    {{#button "addValue" class="btn btn-primary pull-right" disabled="disabled"}}
-      <i class="fa fa-plus" aria-hidden="true"></i>
-      <span class="sr-only">add {{#if fieldValue}}field {{/if}}value</span>
-    {{/button}}
+    {{#ifCond type '==' 'CD'}}
+      <div class="col-md-8">
+        <label for="code_list_id_{{@cid}}" class="sr-only">field value</label>
+        <select name="code_list_id" id="code_list_id_{{@cid}}" class="form-control">
+          <option value="">--</option>
+          {{#each codes tag="select" name="code_list_id"}}
+            <option value="{{oid}}">{{display_name}}</option>
+          {{/each}}
+        </select>
+      </div>
+    {{/ifCond}}
+
+    {{#ifCond type '==' 'TS'}}
+      <div class="col-md-5">
+        <label for="start_date_{{@cid}}" class="sr-only">{{#if fieldValue}}field {{/if}}value date</label>
+        <input type="text" name="start_date" id="start_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-autoclose="true">
+      </div>
+      <div class="col-md-3">
+        <label for="start_time_{{@cid}}" class="sr-only">{{#if fieldValue}}field {{/if}}value time</label>
+        <input type="text" name="start_time" id="start_time_{{@cid}}" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
+      </div>
+    {{/ifCond}}
+
+    <div class="col-md-1">
+      {{#button "addValue" class="btn btn-primary pull-right" disabled="disabled"}}
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        <span class="sr-only">add {{#if fieldValue}}field {{/if}}value</span>
+      {{/button}}
+    </div>
   </div>
-</div>
+{{/ifCond}}
 
 {{#if showAddCodesButton}}
   <br><a href="#" id="addCodes" class="btn btn-default btn-sm">Add Codes</a>

@@ -22,7 +22,6 @@ gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-meas
 gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'QDM_5-0'
 
 # gem 'hquery-patient-api', '1.0.4'
-
 # gem 'health-data-standards', :path => '../health-data-standards'
 # gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
 # gem 'hqmf2js', path: '../hqmf2js'

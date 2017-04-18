@@ -12,6 +12,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
     @measure_ids = ["E35791DF-5B25-41BB-B260-673337BC44A8"] # hqmf_set_id
     @data_criteria = HQMF::DataCriteria.get_settings_for_definition('diagnosis','active')
     @data_criteria_encounter = HQMF::DataCriteria.get_settings_for_definition('encounter','performed')
+    @data_criteria_labtest = HQMF::DataCriteria.get_settings_for_definition('laboratory_test', 'performed')
     @valuesets = {"2.16.840.1.113883.3.526.3.1492"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.526.3.1492", "concepts"=>[
                                                                             HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"99201"}),
                                                                             HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"99202"}),
@@ -80,7 +81,24 @@ class PatientBuilderTest < ActiveSupport::TestCase
             "LENGTH_OF_STAY"=>{"type"=>"PQ","value"=>"1","unit"=>"d"}
           },
           "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
-          }    
+          }
+          
+    @un_coded_with_component = {
+      "negation" => "false",
+      "id" => "LDL_c_LaboratoryTestPerformed",
+      "start_date" => 1332316800000,
+      "end_date" => 1332317700000,
+      "field_values" => {
+        "COMPONENT"=>
+          {"type"=>"COL",
+           "values"=>
+            [{"type"=>"CMP", "key"=>"COMPONENT", "code_list_id"=>"2.16.840.1.113883.3.464.1003.102.12.1011", "field_title"=>"Component", "value"=>"5", "unit"=>"mg", "title"=>"Hemorrhagic Stroke"},
+             {"type"=>"CMP", "key"=>"COMPONENT", "code_list_id"=>"2.16.840.1.113883.3.464.1003.102.12.1011", "field_title"=>"Component", "value"=>"33", "unit"=>"cc", "title"=>"Hemorrhagic Stroke"}],
+           "field_title"=>"Component"}
+        },
+        "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
+      }     
+              
     @source_with_range_value = {
           "id"=> "DiagnosisActiveLimitedLifeExpectancy",
           "start_date"=> 1333206000000,
@@ -113,8 +131,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
         }
 
   end
-
-
+  
   test "derive entry" do
     entry = Measures::PatientBuilder.derive_entry(@data_criteria,@un_coded_source_data_critria, @valuesets)
     assert entry, "Should have created an entry with un coded data"
@@ -161,6 +178,24 @@ class PatientBuilderTest < ActiveSupport::TestCase
     assert !entry.facility.code.nil?, "facility should have a code"
     assert !entry.facility.start_time.nil?, "facility should have a start time"
     assert !entry.facility.end_time.nil?, "facility should have an end time"
+  end
+  
+  test "derive entry with components" do
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria_labtest, @un_coded_with_component, @valuesets)
+    assert entry, "Should have created an entry with un coded data"
+    # LaboratoryTestPerformed is a VitalSign because its patient_api_function defined in HDS/data_criteria.json
+    # maps to the patient_api_extention hQuery.Patient::laboratoryTests = -> this.results().concat(this.vitalSigns())
+    assert_equal VitalSign, entry.class, "should have created and Laboratory object"
+    Measures::PatientBuilder.derive_field_values(entry, @un_coded_with_component['field_values'], @valuesets)
+    assert !entry.components.nil?, "components collection should have been created"
+    assert_equal 2, entry.components['values'].length
+    # A component has a code and a result
+    code = entry.components['values'][1]['code']
+    result = entry.components['values'][1]['result']
+    assert_equal "LOINC", code['code_system']
+    assert_equal "LOINC_1", code['code']
+    assert_equal "33", result['scalar']
+    assert_equal "cc", result['units']
   end
 
   test "derive time range"  do 

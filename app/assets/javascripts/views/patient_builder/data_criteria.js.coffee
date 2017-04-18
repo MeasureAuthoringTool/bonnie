@@ -209,6 +209,16 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
 
   removeValue: (e) ->
     e.preventDefault()
+    # If the value being removed is part of a collection type, the data will include the index of said value within the collection
+    # col-item-index is the index of the item that we want to remove within the collection
+    if $(e.target).data('col-item-index')?
+      # Clone the model and remove from the clone and then add the cloned model to the collection so that the UI change event is triggered
+      clone = $(e.target).model().clone()
+      clone.get('values').splice($(e.target).data('col-item-index'), 1)
+      # Add the collection if the collection still contains values
+      if clone.get('values').length > 0
+        $(e.target).model().collection.add clone
+      
     $(e.target).model().destroy()
     @triggerMaterialize()
     @editValueView?.render() # Re-render edit view, if used
@@ -404,6 +414,12 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       @toggleAddCodesButton()
       @validateForAddition()
     'change select': ->
+      # @serialize.key is the selected item set to the model.key so the view can change accordingly
+      if(@serialize().key == 'COMPONENT')
+        @model.set type: 'CMP'
+      else
+        # Default drop down to 'coded'
+        @model.set type: 'CD'
       @toggleAddCodesButton()
       @validateForAddition()
       @advanceFocusToInput()
@@ -488,7 +504,24 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   addValue: (e) ->
     e.preventDefault()
     @serialize()
-    @values.add @model.clone()
+    # This will process CMP, a collection type attribute
+    # If extending for use with other collection based attributes, add OR logic here
+    if @model.get('type') == "CMP"
+       compare_collection = @values.findWhere(key: @model.get('key'))
+       if compare_collection
+         col = compare_collection
+         # We remove the collection and then re add it to trigger the UI to update
+         @values.remove compare_collection
+       if !col
+         # Create a thorax model collection
+         col = new Thorax.Model()
+         col.set('key', @model.get('key'))
+         col.set('type', 'COL')
+         col.set('values', [])
+       col.get('values').push @model.toJSON()
+       @values.add col
+    else
+      @values.add @model.clone()
     # Reset model to default values
     @model.clear()
     @model.set type: 'CD'
@@ -510,7 +543,6 @@ class Thorax.Views.EditCriteriaReferenceView extends Thorax.Views.EditCriteriaVa
   addValue: (e) ->
     e.preventDefault()
     @serialize()
-
     ref = @find_reference(@model.get("reference_id"))
     @model.set description: ref?.get("description")
     start_date = ref?.get("start_date")
@@ -519,7 +551,6 @@ class Thorax.Views.EditCriteriaReferenceView extends Thorax.Views.EditCriteriaVa
       @model.set start_date: moment.utc(start_date).format('L')
     if end_date
       @model.set end_date: moment.utc(end_date).format('L')
-
     @values.add @model.clone()
     # Reset model to default values
     @model.clear()

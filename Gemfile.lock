@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 57d30da0cfe708a14a19e49a38aec67ee7267f5b
+  revision: 16f9e27907adff2553c93a1882ae9251b80de5da
   branch: cql4bonnie
   specs:
     health-data-standards (3.6.1)
@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: 8b1b0267fe286e5d44cea55e3eba0691b93390ad
+  revision: 737ba45c996997763b512e21e0862b98b4910037
   branch: cql4bonnie
   specs:
     cql_qdm_patientapi (0.1.0)
@@ -302,7 +302,7 @@ GEM
       json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.3)
+    unf_ext (0.0.7.4)
     uuid (2.3.8)
       macaddr (~> 1.0)
     vcr (3.0.3)
@@ -361,4 +361,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.13.6
+   1.13.7
