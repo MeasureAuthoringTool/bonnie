@@ -67,7 +67,7 @@ class MeasuresController < ApplicationController
         measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password]) # overwrite_valuesets=true, cache=false, includeDraft=true
 
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
-        if existing.count > 1
+        if existing.count > 0
           flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Try deleting that measure and re-uploading it."}
           redirect_to "#{root_path}##{params[:redirect_route]}"
           return
