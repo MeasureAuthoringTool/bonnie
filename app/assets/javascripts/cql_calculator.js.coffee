@@ -29,10 +29,9 @@
         expression:
           name: functionName,
           type: 'FunctionRef',
-          operand:
-              name: parameter,
-              type: 'ExpressionRef'
-
+          operand: [
+            {name: parameter, type: 'ExpressionRef'}
+          ]
   # Generate a calculation result for a population / patient pair; this always returns a result immediately,
   # but may return a blank result object that later gets filled in through a deferred calculation, so views
   # that display results must be able to handle a state of "not yet calculated"
