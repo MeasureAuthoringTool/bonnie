@@ -40,10 +40,9 @@
           result.state = 'unstarted'
           return
         result.state = 'complete'
-        try
+        # Capture calculation errors that may arise and handle them using Costanza
+        Costanza.run 'qdm-measure-calculation', {cms_id: result.measure.get('cms_id')}, () =>
           result.set @calculator[calcKey](patient.toJSON())
-        catch error
-          bonnie.showError({title: "Measure Calculation Error", summary: "There was an error calculating the measure #{result.measure.get('cms_id')}.", body: "One of the data elements associated with the measure is causing an issue.  Please review the elements associated with the measure to verify that they are all constructed properly.  Error message: #{error.message}."})
 
       setTimeout deferredCalculation, 0
 
