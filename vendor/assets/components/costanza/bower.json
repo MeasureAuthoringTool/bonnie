@@ -1,0 +1,22 @@
+{
+  "name": "costanza",
+  "version": "2.1.0",
+  "main": "js/costanza.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "/components",
+    "bower_components",
+    "Jakefile",
+    "package.json",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "backbone": "~1.0.0",
+    "handlebars": "1.x.x",
+    "underscore": "~1.5.2",
+    "expect": "~0.3.1",
+    "jquery": "~1.10.0"
+  }
+}

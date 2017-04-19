@@ -13,6 +13,7 @@ defaults: &defaults
   record:
     # This value should not exceed 16000000 as that is the current size limit of a document in MongoDB.
     max_size_in_bytes: 12000000
+  enable_client_error_email: true
 
 development:
   <<: *defaults

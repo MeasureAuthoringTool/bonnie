@@ -17,6 +17,10 @@ Bonnie::Application.routes.draw do
   get '404', :to => 'application#page_not_found'
   get '500', :to => 'application#server_error'
 
+  # The following route is for the reporting of front end (javascript) errors
+  # to the backend.
+  post '/application/client_error' => 'application#client_error'
+
   root to: 'home#index'
 
   resources :measures, defaults: { format: :json } do
