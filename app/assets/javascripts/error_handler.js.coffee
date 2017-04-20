@@ -1,8 +1,17 @@
 # Initialize Costanza front-end error handling/tracking
 Costanza.init (info, rawError) ->
+  # Still print out the raw error for developers.
+  console.error rawError
+  
+  # First check:
   # Ignore mirrored Costanza error messages (we have already handled these).
   # This check stops doubled error message popups from appearing.
-  unless /Costanza/i.test rawError.toString()
+  #
+  # Second check:
+  # Ignore logic highlighting errors. TODO: The highlighting bug should be
+  # fixed, and when that happens, the second check should be removed.
+  unless /Costanza/i.test(rawError.toString()) || /highlight-target/i.test(info.section)
+    info.url = window.location.href
     $.ajax
       url: 'application/client_error'
       method: 'POST'
