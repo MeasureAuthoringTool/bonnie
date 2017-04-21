@@ -57,6 +57,7 @@ group :test, :development, :ci do
   gem 'minitest'
   gem 'webmock'
   gem 'vcr'
+  gem 'bundler-audit'
 end
 
 group :test, :development do
