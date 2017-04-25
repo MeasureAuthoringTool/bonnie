@@ -27,13 +27,13 @@ namespace :bonnie do
       Rake::Task["bundle:import"].invoke(args.file,'true','true',measure_type,'false')
 
       puts "dropping unneeded collections: measures, bundles, patient_cache, query_cache..."
-      Mongoid.default_session['bundles'].drop()
-      Mongoid.default_session['measures'].drop()
-      Mongoid.default_session['query_cache'].drop()
-      Mongoid.default_session['patient_cache'].drop()
+      Mongoid.default_client['bundles'].drop()
+      Mongoid.default_client['measures'].drop()
+      Mongoid.default_client['query_cache'].drop()
+      Mongoid.default_client['patient_cache'].drop()
 
       puts "clearing out system.js"
-      Mongoid.default_session['system.js'].find({}).remove_all
+      Mongoid.default_client['system.js'].delete_many({})
 
       username = email.split('@')[0]
       password = "#{username}1234"
