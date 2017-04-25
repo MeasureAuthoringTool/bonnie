@@ -101,8 +101,7 @@ class MeasuresController < ApplicationController
       # (The two commented lines are functionally equivalent to the following three uncommented lines, if slower)
       # value_sets_by_oid = HealthDataStandards::SVS::ValueSet.in(oid: value_set_oids).index_by(&:oid)
       # @value_sets_by_oid_json = MultiJson.encode(value_sets_by_oid.as_json(except: [:_id, :code_system, :code_system_version]))
-      value_sets = Mongoid::Sessions.default[HealthDataStandards::SVS::ValueSet.collection_name].find(oid: { '$in' => value_set_oids }, user_id: current_user.id)
-      value_sets = value_sets.select('concepts.code_system' => 0, 'concepts.code_system_version' => 0)
+      value_sets = Mongoid::Clients.default[HealthDataStandards::SVS::ValueSet.collection_name].find({oid: { '$in' => value_set_oids }, user_id: current_user.id}, {'concepts.code_system' => 0, 'concepts.code_system_version' => 0})
       @value_sets_by_oid_json = MultiJson.encode value_sets.index_by { |vs| vs['oid'] }
 
       respond_with @value_sets_by_oid_json do |format|
@@ -314,7 +313,7 @@ class MeasuresController < ApplicationController
   def vsac_auth_expire
     # Force expire the VSAC session
     session[:tgt] = nil
-    render :nothing => true
+    render :json => {}
   end
 
   def destroy

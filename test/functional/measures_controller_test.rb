@@ -2,7 +2,7 @@ require 'test_helper'
 require 'vcr_setup.rb'
 
 class MeasuresControllerTest  < ActionController::TestCase
-include Devise::TestHelpers
+include Devise::Test::ControllerHelpers
 
   setup do
     @error_dir = File.join('log', 'load_errors')
@@ -99,10 +99,10 @@ include Devise::TestHelpers
   test "force expire vsac session" do
     # The ticket field was taken from the vcr_cassettes/valid_vsac_response file
     session[:tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now + 27000}
-    get :vsac_auth_expire
+    post :vsac_auth_expire
 
     assert_response :ok
-    assert_equal " ", response.body
+    assert_equal "{}", response.body
 
     assert_nil session[:tgt]
     
