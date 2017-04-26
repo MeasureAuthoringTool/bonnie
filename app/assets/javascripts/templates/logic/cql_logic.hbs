@@ -7,7 +7,9 @@
 </p>
 {{/if}}
 <div class="cql-logic measure-viz rationale panel-group">
-  {{#each statementViews}}
-    {{view .}}
+  {{#each logic}}
+    <div>
+      {{view this}}
+    </div>
   {{/each}}
 </div>
