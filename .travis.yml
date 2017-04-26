@@ -10,5 +10,5 @@ script: export DISPLAY=:99.0 && bundle exec rake teaspoon && bundle exec rake
 notifications:
   email:
     recipients:
-      - healthcare-ci@googlegroups.com
+      - bonnie-dev-ops@mitre.org
     on_failure: change
