@@ -32,7 +32,11 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
+<<<<<<< 96c46fb769a90e1eb8f5e3dd1b49ff880b3ce7d3
   revision: 590e3a86f7b900c8135626bed939f1bb7bfc82bd
+=======
+  revision: a0f617672469e0eb6b2b047e5ff7876556ba6ab4
+>>>>>>> Updated travis to use ruby 2.3.4 and updated bonnie_bundler reference
   branch: gems_update
   specs:
     bonnie_bundler (1.0.0)
