@@ -88,6 +88,7 @@
       population_results = @createPopulationValues population, results, patient
 
       if population_results?
+        result.set {'statement_results': results.patientResults[patient['id']]}
         result.set population_results
         result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
         result.state = 'complete'
