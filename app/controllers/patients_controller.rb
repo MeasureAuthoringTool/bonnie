@@ -11,7 +11,7 @@ class PatientsController < ApplicationController
     # record for cms_id and user_email; prepopulate these values using lookup tables, with lookups
     # for email by user_id and cms_id by user_id and measure_id
     user_ids = records.map(&:user_id).uniq
-    users = User.only(:_id, :email).find(user_ids)
+    users = User.only(:_id, :email).where(:_id.in => user_ids)
     email_lookup = users.each_with_object({}) { |u, h| h[u.id] = u.email }
     measure_ids = records.map { |r| r.measure_ids.first }.uniq
     measures = Measure.only(:_id, :hqmf_set_id, :user_id, :cms_id).where(:hqmf_set_id.in => measure_ids, :user_id.in => user_ids)
