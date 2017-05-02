@@ -7,8 +7,9 @@ before_install:
 services: mongodb
 bundler_args: --without test development
 script:
-  - export DISPLAY=:99.0 && bundle exec rake teaspoon
   - bundle exec bundle-audit check --update
+  - bundle exec brakeman -z
+  - export DISPLAY=:99.0 && bundle exec rake teaspoon
   - bundle exec rake
 notifications:
   email:
