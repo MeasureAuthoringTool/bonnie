@@ -103,6 +103,10 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
 
     if @builderView.previewElementInformation # only perform the calculations if the patient is previewing the information
+      if @model.has('codes')
+        codeInformation = @model.get('codes').models.map (code) =>
+          code.get('codeset') + ": " + code.get('code')
+
       if @model.has('fulfillments') # LOGIC FOR FULFILLMENTS
         fullfillmentInformation = @model.get('fulfillments').map (ful) =>
           ful.get('quantity_dispensed_value') + " " + ful.get('quantity_dispensed_unit')  + " " + ful.get('dispense_date')  + " " + ful.get('dispense_time')
@@ -153,6 +157,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       startLabel: @model.startLabel()
       stopLabel: @model.stopLabel()
       previewElementInformation: @builderView.previewElementInformation
+      codeInformation: codeInformation
       fullfillmentInformation: fullfillmentInformation
       fieldValueInformation: fieldValueInformation
       referencesInformation: referencesInformation

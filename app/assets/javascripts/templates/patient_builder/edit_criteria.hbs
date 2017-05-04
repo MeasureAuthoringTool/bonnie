@@ -44,7 +44,13 @@
       {{#if previewElementInformation}} {{! If the user wishes to preview the information }}
         <div class="row">
           <div class="col-md-12">
-
+            {{#if codeInformation}}
+              <hr class= "hr-with-thin-margins">
+              <label {{#unless isNegated}}class="control-label"{{/unless}}><i class="fa fa-fw fa-code" aria-hidden="true"></i>Codes</label>
+              {{#each codeInformation}}
+                <div> <i class="fa fa-fw fa-minus" aria-hidden="true"></i> {{this}} </div>
+              {{/each}}
+            {{/if}}
             {{#if fullfillmentInformation}}
               <hr class= "hr-with-thin-margins">
               <label {{#unless isNegated}}class="control-label"{{/unless}}><i class="fa fa-fw fa-medkit" aria-hidden="true"></i>Filled</label>
