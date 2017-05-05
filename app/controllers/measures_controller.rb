@@ -206,13 +206,20 @@ class MeasuresController < ApplicationController
         errors_dir = Rails.root.join('log', 'load_errors')
         FileUtils.mkdir_p(errors_dir)
         clean_email = File.basename(current_user.email) # Prevent path traversal
-        filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}#{extension}"
+        filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.xmlorzip"
 
         operator_error = false # certain types of errors are operator errors and do not need to be emailed out.
+        File.open(File.join(errors_dir, filename), 'w') do |errored_measure_file|
+          uploaded_file = params[:measure_file].tempfile.open()
+          errored_measure_file.write(uploaded_file.read());
+          uploaded_file.close()
+        end
 
-        FileUtils.cp(params[:measure_file].tempfile, File.join(errors_dir, filename))
         File.chmod(0644, File.join(errors_dir, filename))
-        File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
+        File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') do |f|
+          f.write("Original Filename was #{params[:measure_file].original_filename}\n")
+          f.write(e.to_s + "\n" + e.backtrace.join("\n"))
+        end
         if e.is_a? Measures::ValueSetException
           operator_error = true
           flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
@@ -356,7 +363,7 @@ class MeasuresController < ApplicationController
   end
 
   def debug
-    @measure = Measure.by_user(current_user).without(:map_fns, :record_ids).find(params[:id])
+    @measure = Measure.by_user(current_user).without(:map_fns, :record_ids).find(BSON::ObjectId.from_string(params[:id]))
     @patients = Record.by_user(current_user).asc(:last, :first)
     render layout: 'debug'
   end
