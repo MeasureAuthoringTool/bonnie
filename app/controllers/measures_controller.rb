@@ -363,7 +363,7 @@ class MeasuresController < ApplicationController
   end
 
   def debug
-    @measure = Measure.by_user(current_user).without(:map_fns, :record_ids).find(BSON::ObjectId.from_string(params[:id]))
+    @measure = Measure.by_user(current_user).without(:map_fns, :record_ids).find(BSON::ObjectId.from_string(ActionController::Base.helpers.escape_once(params[:id])))
     @patients = Record.by_user(current_user).asc(:last, :first)
     render layout: 'debug'
   end
