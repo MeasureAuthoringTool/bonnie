@@ -48,9 +48,12 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   # Expects model to be a Measure model object of a CQL measure.
   ###
   initialize: ->
+    @isOutdatedUpload = false
     @statementViews = []
     _.each @model.get('elm').library.statements.def, (statement) =>
       if (statement.annotation)
+        if (statement.annotation[0].s.value[0] == "define ")
+          @isOutdatedUpload = true  # if the annotation only has "define" then this measure upload may be out of date.
         @statementViews.push new Thorax.Views.CqlStatement(statement: statement, highlightPatientDataEnabled: @highlightPatientDataEnabled)
 
   ###*
