@@ -4,7 +4,6 @@ class Thorax.Views.CqlPopulationsLogic extends Thorax.LayoutView
 
   events:
     "ready": ->
-      @cqlLogicView.startAceCqlView(@model)
 
   initialize: ->
     @switchToGivenPopulation(@model.get('populations').models[0])
@@ -18,7 +17,6 @@ class Thorax.Views.CqlPopulationsLogic extends Thorax.LayoutView
     @cqlLogicView = new Thorax.Views.CqlPopulationLogic(model: @model, population: pop)
     @setView @cqlLogicView
     @trigger 'population:update', pop
-    @cqlLogicView.startAceCqlView(@model)
 
   showRationale: (result) -> @getView().showRationale(result)
 
@@ -42,9 +40,12 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
 
   events:
     "ready": ->
-      @startAceCqlView(@model)
 
   initialize: ->
+    @statementViews = []
+    _.each @model.get('elm').library.statements.def, (statement) =>
+      if (statement.annotation)
+        @statementViews.push new Thorax.Views.CqlStatement(statement: statement)
 
   context: -> _(super).extend cqlLines: @model.get('cql').split("\n")
 
@@ -53,23 +54,37 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   clearCoverage: ->
 
   showRationale: (result) ->
+    for statementView in @statementViews
+      statementView.showRationale result.get('statement_results')[statementView.name]
 
   clearRationale: ->
+    for statementView in @statementViews
+      statementView.clearRationale()
 
-  startAceCqlView: (model) ->
-    if $('#editor').length
-      @editor = ace.edit("editor")
-      @editor.setTheme("ace/theme/chrome")
-      @editor.session.setMode("ace/mode/cql")
-      @editor.setReadOnly(true)
-      @editor.setShowPrintMargin(false)
-      @editor.setOptions(maxLines: Infinity)
-      @editor.renderer.setShowGutter(false)
-      options =
-        readOnly: true
-        highlightActiveLine: false
-        highlightGutterLine: false
-        wrap: true
-      @editor.setOptions options
-      @editor.renderer.$cursorLayer.element.style.opacity = 0
-      @editor.setValue(model.get('cql'), -1)
+class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
+  template: JST['logic/cql_statement']
+
+  initialize: ->
+    @text = @statement.annotation[0].s.value[0]
+    @name = @statement.name
+
+  showRationale: (result) ->
+    if result == true  # Specifically a boolean true
+      @_setResult true
+    else if result == false  # Specifically a boolean false
+      @_setResult false
+    else if Array.isArray(result)  # Check if result is an array
+      @_setResult result.length > 0  # Result is true if the array is not empty
+    else
+      @clearRationale()  # Clear the rationale if we can't make sense of the result
+
+  _setResult: (evalResult) ->
+    if evalResult == true
+      @$('code').attr('class', 'eval-true')
+    else
+      @$('code').attr('class', 'eval-false')
+  
+  _
+
+  clearRationale: ->
+    @$('code').attr('class', '')

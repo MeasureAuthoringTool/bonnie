@@ -1,3 +1,5 @@
-<div class="measure-viz rationale panel-group">
-  <div class="cql-editor" id="editor"></div>
+<div class="cql-logic measure-viz rationale panel-group">
+  {{#each statementViews}}
+    {{view .}}
+  {{/each}}
 </div>
