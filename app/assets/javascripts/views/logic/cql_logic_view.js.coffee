@@ -83,8 +83,6 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
       @$('code').attr('class', 'eval-true')
     else
       @$('code').attr('class', 'eval-false')
-  
-  _
 
   clearRationale: ->
     @$('code').attr('class', '')
