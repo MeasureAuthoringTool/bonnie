@@ -268,25 +268,6 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
       @$('#loadingSpinner').addClass('hidden')
     , 0)
 
-  openAllDataCriteria: (e) ->
-    originalVerticalLocation = $(window).scrollTop()
-    originalHorizontalLocation = $(window).scrollLeft()
-    @$('#loadingSpinner').removeClass('hidden')
-    setTimeout( =>
-      @trigger "openAllDataCriteria", e # Opening all the data criteria scrolls down ~half the page
-      @$('#loadingSpinner').addClass('hidden')
-      window.scrollTo(originalHorizontalLocation, originalVerticalLocation)
-      # Opening shifts focus off "Open All" button,
-      # shift it back for 508 compliance, and easy keyboard navigation
-      @$('#openAll').focus()
-    , 0)
-
-  closeAllDataCriteria: ->
-    @$('#loadingSpinner').removeClass('hidden')
-    setTimeout( =>
-      @trigger "closeAllDataCriteria"
-      @$('#loadingSpinner').addClass('hidden')
-    , 0)
 
 class Thorax.Views.BuilderPopulationLogic extends Thorax.LayoutView
   template: JST['patient_builder/population_logic']
