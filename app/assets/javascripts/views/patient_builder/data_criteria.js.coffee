@@ -79,6 +79,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView
       model: new Thorax.Model
       criteria: @model
+    @elementDurationView = new Thorax.Views.EventDurationView
+      model: @model
 
     @listenTo @builderView, "togglePreviewInformationinDataCriteria", => @render()
     # (Re)rendering the view causes each specific data criteria to close
@@ -547,3 +549,14 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   context: ->
     _(super).extend
       references: Thorax.Models.Measure.referencesFor(@criteriaType)
+
+class Thorax.Views.EventDurationView extends Thorax.Views.BuilderChildView
+  template: JST['patient_builder/event_duration']
+
+  initialize: ->
+    # We shouldn't need to listen for the change event, but Thorax doesn't seem to be updating the view given the change event
+    @model.on 'change', => @render()
+
+  context: ->
+    _(super).extend
+      elementDuration: Bonnie.util.getDurationBetween(moment(@model.get('start_date')), moment(@model.get('end_date'))) if @model.has('end_date')
