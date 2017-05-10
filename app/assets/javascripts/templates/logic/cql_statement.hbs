@@ -1,1 +1,4 @@
-<pre class="cql-statement"><code>{{text}}</code></pre>
+{{#if cqlPopulation}}
+  <div class="cql-population-name">{{cqlPopulation}}</div>
+{{/if}}
+<pre class="cql-statement{{#if cqlPopulation}} cql-statement-population{{/if}}"><code>{{text}}</code></pre>

@@ -40,6 +40,9 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
 
   template: JST['logic/cql_logic']
 
+  # List of statements added by the MAT that are not useful to the user.
+  @SKIP_STATEMENTS = ["SDE Ethnicity", "SDE Payer", "SDE Race", "SDE Sex"]
+
   events:
     "ready": ->
 
@@ -51,10 +54,22 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
     @isOutdatedUpload = false
     @statementViews = []
     _.each @model.get('elm').library.statements.def, (statement) =>
-      if (statement.annotation)
+      if statement.annotation
         if (statement.annotation[0].s.value[0] == "define ")
           @isOutdatedUpload = true  # if the annotation only has "define" then this measure upload may be out of date.
-        @statementViews.push new Thorax.Views.CqlStatement(statement: statement, highlightPatientDataEnabled: @highlightPatientDataEnabled)
+
+        # skip if this is a statement the user doesn't need to see
+        return if Thorax.Views.CqlPopulationLogic.SKIP_STATEMENTS.includes(statement.name)
+
+        popNames = []
+        # if a population (population set) was provided for this view it should mark the statment if it is a population defining statement  
+        if @population
+          for pop, popStatements of @model.get('populations_cql_map')
+            popNames.push(pop) if statement.name == popStatements[@population.get('index')]  # note that there may be multiple populations that it defines
+          if popNames.length > 0
+            popName = popNames.join(', ')
+
+        @statementViews.push new Thorax.Views.CqlStatement(statement: statement, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName)
 
   ###*
   # Shows the coverage information.
