@@ -78,7 +78,6 @@ class MeasuresController < ApplicationController
         is_cql = true
 
         measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
-
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
         # Check if there is already a CQL measure with the given hqmf_set_id, this is intentionally different than checking if qdm based is already uploaded (>0 vs >1)
         # TODO: Duplication checks should be more smoothly managed before CQL is fully incorperated
@@ -156,7 +155,6 @@ class MeasuresController < ApplicationController
         filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}#{extension}"
 
         operator_error = false # certain types of errors are operator errors and do not need to be emailed out.
-
         FileUtils.cp(params[:measure_file].tempfile, File.join(errors_dir, filename))
         File.chmod(0644, File.join(errors_dir, filename))
         File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
@@ -169,6 +167,9 @@ class MeasuresController < ApplicationController
         elsif e.is_a? Measures::VSACException
           operator_error = true
           flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
+        elsif e.is_a? Measures::MeasureLoadingException
+          operator_error = true
+          flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: e.message}
         else
           flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Please re-package the measure in the MAT, then re-download the MAT Measure Export.  If the measure has QDM elements without a VSAC Value Set defined the measure will not load."}
         end
