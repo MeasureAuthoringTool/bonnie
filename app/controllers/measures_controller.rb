@@ -169,9 +169,9 @@ class MeasuresController < ApplicationController
           flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
         elsif e.is_a? Measures::MeasureLoadingException
           operator_error = true
-          flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: e.message}
+          flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded there may be an error in the CQL logic."}
         else
-          flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Please re-package the measure in the MAT, then re-download the MAT Measure Export.  If the measure has QDM elements without a VSAC Value Set defined the measure will not load."}
+          flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Bonnie has encountered an error while trying to load the measure."}
         end
       else
         operator_error = true
