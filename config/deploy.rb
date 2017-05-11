@@ -6,7 +6,6 @@ set :repo_url, 'https://github.com/projecttacoma/bonnie.git'
 set :deploy_to, '/var/www/rails_apps/bonnie'
 
 set :linked_dirs, fetch(:linked_dirs).concat(%w{log tmp/pids tmp/sockets vendor/bundle public/system db/backups})
-set :rvm1_ruby_version, '2.3.4'
 
 namespace :deploy do
 
