@@ -67,7 +67,7 @@ group :test, :development do
   gem 'thin'
   gem 'capistrano', '~> 3.2.1'
   gem 'capistrano-rails'
-  gem 'rvm1-capistrano3', require: false
+  gem 'rvm1-capistrano3', '~> 1.2.2', require: false
   gem 'phantomjs'
 #  gem 'selenium-webdriver'
 end
