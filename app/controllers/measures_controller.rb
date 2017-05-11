@@ -169,7 +169,7 @@ class MeasuresController < ApplicationController
           flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
         elsif e.is_a? Measures::MeasureLoadingException
           operator_error = true
-          flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded. There may be an error in the CQL logic."}
+          flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body:"There may be an error in the CQL logic."}
         else
           flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Bonnie has encountered an error while trying to load the measure."}
         end
