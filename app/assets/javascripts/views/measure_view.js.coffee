@@ -112,7 +112,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         successCallback: => @exportPatientsView.qrdaSuccess()
         failCallback: => @exportPatientsView.fail()
         httpMethod: "POST"
-        data: {authenticity_token: $("meta[name='csrf-token']").attr('content'), results: differences }
+        data: {authenticity_token: $("meta[name='csrf-token']").attr('content'), results: differences, isCQL: @model.has('cql')}
 
   exportExcelPatients: (e) ->
     @exportPatientsView.exporting()
