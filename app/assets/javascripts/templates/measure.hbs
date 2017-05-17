@@ -53,16 +53,16 @@
   <div class="right-sidebar">
     <div class="patients-title">
       <h1><i class="fa fa-user fa-fw" aria-hidden="true"></i> Test Patients</h1>
-      {{#unless cql}}
-        <span class="settings-container">
-          <div class="patients-settings">
-            {{#button "exportQrdaPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA <span class="sr-only">Patient Export</span>{{/button}}
+      <span class="settings-container">
+        <div class="patients-settings">
+          {{#button "exportQrdaPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA <span class="sr-only">Patient Export</span>{{/button}}
+          {{#unless cql}}
             {{#button "exportExcelPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> Excel <span class="sr-only">Patient Export</span>{{/button}}
             {{#link "measures/{{hqmf_set_id}}/patient_bank" expand-tokens=true class="btn btn-primary import-patients"}}<i class="fa fa-group" aria-hidden="true"></i> <i class="fa fa-plus" aria-hidden="true"></i><span class="sr-only">Import patients from patient bank</span>{{/link}}
-          </div>
-          {{#button "patientsSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Patient Options</span>{{/button}}
-        </span>
-      {{/unless}}
+          {{/unless}}
+        </div>
+        {{#button "patientsSettings" tag="a" class="btn-settings" href=""}}<i class="fa fa-cog" aria-hidden="true"></i> <span class="sr-only">Patient Options</span>{{/button}}
+      </span>
     </div>
     {{view populationCalculation}}
   </div>

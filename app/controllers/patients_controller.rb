@@ -57,7 +57,11 @@ class PatientsController < ApplicationController
       unless current_user.portfolio?
         records = records.where({:measure_ids.in => [params[:hqmf_set_id]]})
       end
-      measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]})
+      if params[:isCQL]
+        measure = CqlMeasure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]})
+      else
+        measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]})
+      end
     end
 
     qrda_errors = {}
@@ -86,14 +90,23 @@ class PatientsController < ApplicationController
       end
       # add the summary content if there are results
       if (params[:results] && !params[:patients])
-        measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
+        if params[:isCQL] == 'true'
+          measure = CqlMeasure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
+        else
+          measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
+        end
         zip.put_next_entry("#{measure.cms_id}_patients_results.html")
         zip.puts measure_patients_summary(records, params[:results].values, qrda_errors, html_errors, measure)
       end
     end
     cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
     stringio.rewind
-    filename = if params[:hqmf_set_id] then "#{Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first.cms_id}_patient_export.zip" else "bonnie_patient_export.zip" end
+    if params[:isCQL] == 'true'
+      measure = CqlMeasure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
+    else
+      measure = Measure.by_user(current_user).where({:hqmf_set_id => params[:hqmf_set_id]}).first
+    end
+    filename = if params[:hqmf_set_id] then "#{measure.cms_id}_patient_export.zip" else "bonnie_patient_export.zip" end
     send_data stringio.sysread, :type => 'application/zip', :disposition => 'attachment', :filename => filename
   end
 
