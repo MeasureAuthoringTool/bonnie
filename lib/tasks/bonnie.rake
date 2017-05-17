@@ -209,16 +209,16 @@ namespace :bonnie do
 
       host = ENV['HOST'] || 'bonnie-dev.mitre.org'
       source_db = ENV['DB'] || 'bonnie-production-gold'
-      dest_db = Mongoid.default_session.options[:database]
+      dest_db = Mongoid.default_client.options[:database]
       puts "Resetting #{dest_db} from #{host}:#{source_db}"
-      Mongoid.default_session.with(database: dest_db) { |db| db.drop }
-      Mongoid.default_session.with(database: 'admin') { |db| db.command copydb: 1, fromhost: host, fromdb: source_db, todb: dest_db }
+      Mongoid.default_client.with(database: dest_db) { |db| db.drop }
+      Mongoid.default_client.with(database: 'admin') { |db| db.command copydb: 1, fromhost: host, fromdb: source_db, todb: dest_db }
       puts "Dropping unneeded collections: measures, bundles, patient_cache, query_cache..."
 
-      Mongoid.default_session['bundles'].drop()
-      Mongoid.default_session['measures'].drop()
-      Mongoid.default_session['query_cache'].drop()
-      Mongoid.default_session['patient_cache'].drop()
+      Mongoid.default_client['bundles'].drop()
+      Mongoid.default_client['measures'].drop()
+      Mongoid.default_client['query_cache'].drop()
+      Mongoid.default_client['patient_cache'].drop()
       Rake::Task['bonnie:users:ensure_users_have_bundles'].invoke
       Rake::Task['bonnie:patients:update_measure_ids'].invoke
       Rake::Task['bonnie:users:associate_user_with_measures'].invoke
@@ -258,9 +258,9 @@ namespace :bonnie do
       else
         dump_archive = File.join('db','bonnie_reset.tar.gz')
         dump_extract = File.join('tmp','bonnie_reset')
-        target_db = Mongoid.default_session.options[:database]
+        target_db = Mongoid.default_client.options[:database]
         puts "Resetting #{target_db} from #{dump_archive}"
-        Mongoid.default_session.with(database: target_db) { |db| db.drop }
+        Mongoid.default_client.with(database: target_db) { |db| db.drop }
         system "tar xf #{dump_archive} -C tmp"
         system "mongorestore -d #{target_db} #{dump_extract}"
         FileUtils.rm_r dump_extract
@@ -291,7 +291,7 @@ namespace :bonnie do
 
     desc 'Dumps the local database matching the supplied RAILS_ENV'
     task :dump => :environment do
-      db = Mongoid.default_session.options[:database]
+      db = Mongoid.default_client.options[:database]
       datestamp = Time.now.strftime(DUMP_TIME_FORMAT)
       path = Rails.root.join 'db', 'backups'
       file = "#{db}-#{datestamp}"
