@@ -56,7 +56,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
     # display layout view when there are multiple populations; otherwise, just show logic view
     if @populations.length > 1
-      @logicView = new Thorax.Views.PopulationsLogic collection: @populations
+      @logicView = new Thorax.Views.PopulationsLogic collection: @populations, suppressDataCriteriaHighlight: @suppressDataCriteriaHighlight
       @logicView.setView populationLogicView
     else
       @logicView = populationLogicView
