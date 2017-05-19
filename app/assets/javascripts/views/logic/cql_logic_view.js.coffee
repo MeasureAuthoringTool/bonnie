@@ -69,7 +69,11 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
         # if a population (population set) was provided for this view it should mark the statment if it is a population defining statement  
         if @population
           for pop, popStatements of @model.get('populations_cql_map')
-            popNames.push(pop) if statement.name == popStatements[@population.get('index')]  # note that there may be multiple populations that it defines
+            index = @population.get('index')
+            # The STRAT populations array does not contain the population data criteria object, which causes
+            # an off by one mismatch between the populations cql map and the popStatements[STRAT] array
+            index -= 1 if pop == "STRAT"
+            popNames.push(pop) if statement.name == popStatements[index]  # note that there may be multiple populations that it defines
           if popNames.length > 0
             popName = popNames.join(', ')
 

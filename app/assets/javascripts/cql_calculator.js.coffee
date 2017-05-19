@@ -116,6 +116,9 @@
         else
           defined_pops = cql_map[popCode]
         index = 0 unless defined_pops.length > 1
+        # The STRAT populations array does not contain the population data criteria object, which causes
+        # an off by one mismatch between the populations cql map and the defined_pops[STRAT] array
+        index -=1 if popCode == "STRAT"
         cql_population = defined_pops[index]
         # Is there a patient result for this population?
         if results['patientResults'][patient.id][cql_population]?
