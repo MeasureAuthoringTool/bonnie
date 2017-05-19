@@ -23,6 +23,7 @@
     </div>
   {{/unless}}
   <br>
+  {{view patientsValueSetCodeChecker}}
   {{#collection differences tag="div" class="panel panel-default" item-context=differenceContext}}
     <div class="panel-heading">
       <div class="panel-title">
@@ -34,11 +35,15 @@
                 <input type="checkbox" class="select-patient">
               </label>
             {{else}}
-              {{#if done}}
-                {{#if match}}
-                  <i class="fa fa-check" aria-hidden="true"></i><span class="sr-only">{{patient.last}} {{patient.first}}, patient passing</span>
-                {{else}}
-                  <i class="fa fa-times" aria-hidden="true"></i><span class="sr-only">{{patient.last}} {{patient.first}}, patient failing</span>
+              {{#if has_elements_with_missing_codes}}
+                <i class="fa fa-exclamation" aria-hidden="true"></i><span class="sr-only">{{patient.last}} {{patient.first}}, patient has warning</span>
+              {{else}}
+                {{#if done}}
+                  {{#if match}}
+                    <i class="fa fa-check" aria-hidden="true"></i><span class="sr-only">{{patient.last}} {{patient.first}}, patient passing</span>
+                  {{else}}
+                    <i class="fa fa-times" aria-hidden="true"></i><span class="sr-only">{{patient.last}} {{patient.first}}, patient failing</span>
+                  {{/if}}
                 {{/if}}
               {{/if}}
             {{/if}}

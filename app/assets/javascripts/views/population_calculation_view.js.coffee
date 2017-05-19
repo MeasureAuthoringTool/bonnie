@@ -3,6 +3,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
 
   initialize: ->
     @coverageView = new Thorax.Views.MeasureCoverageView(model: @model.coverage())
+    @patientsValueSetCodeChecker = new Thorax.Views.PatientsValueSetCodeChecker(model: @model.measure())
     @listenTo @coverageView, 'logicView:showCoverage', ->
       @trigger 'logicView:showCoverage'
       @$('.expand-result-icon').removeClass('fa-angle-down').addClass('fa-angle-right')
@@ -24,10 +25,20 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     'click .select-patient': -> @trigger 'select-patients:change'
 
   differenceContext: (difference) ->
+    hasMissingCodes = @checkCodes(difference.result.patient).length > 0
     _(difference.toJSON()).extend
       patient: difference.result.patient.toJSON()
       measure_id: @measure.get('hqmf_set_id')
       episode_of_care: @measure.get('episode_of_care')
+      has_elements_with_missing_codes: hasMissingCodes
+      status: if hasMissingCodes == true then 'warn' else (difference.toJSON().status)
+
+  checkCodes: (patient) ->
+    missingCodes = []
+    patient.get('source_data_criteria').each (dc) =>
+      if (dc.get('codes').all (code) => !@measure.hasCode(code.get('code'), code.get('codeset')))
+        missingCodes.push dc.get('description')
+    return missingCodes
 
   updatePopulation: (population) ->
     selectedResult = @$('.toggle-result').filter(':visible').model().result
@@ -107,5 +118,3 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     @$('.coverage-summary').toggle()
     @render()
     if @patientsListing then @$('.summary').hide() else @$('.summary').show()
-
-
