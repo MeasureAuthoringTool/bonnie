@@ -94,8 +94,14 @@
         result.state = 'complete'
     catch error
       result.state = 'cancelled'
-      bonnie.showError({title: "Measure Calculation Error", summary: "There was an error calculating the measure #{result.measure.get('cms_id')}.", body: "One of the data elements associated with the measure is causing an issue.  Please review the elements associated with the measure to verify that they are all constructed properly.  Error message: #{error.message}."})
-
+      # Since the line above is needed to handle the error cleanup we are using Costanza.emit to push this error
+      Costanza.emit({
+        section: 'cql-measure-calculation',
+        cms_id: result.measure.get('cms_id'),
+        stack: error.stack,
+        msg: error.message,
+        type: 'javascript'
+        }, error)
     return result
 
   createPopulationValues: (population, results, patient) ->
