@@ -71,6 +71,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           attr[pc] = if attr[pc] then 1 else 0 # Convert from check-box true/false to 0/1
     'change input': 'selectPopulations'
     'change input[name="MSRPOPL"]': 'updateObserv'
+    'change input[name="MSRPOPLEX"]': 'updateObserv'
     'rendered': -> 'setObservs'
 
   context: ->
@@ -97,6 +98,8 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
   updateObserv: ->
     if @isMultipleObserv and @model.has('MSRPOPL') and @model.get('MSRPOPL')?
       values = @model.get('MSRPOPL')
+      if @model.has('MSRPOPLEX') and @model.get('MSRPOPLEX')?
+        values = values - @model.get('MSRPOPLEX')
       if @model.get('OBSERV')
         current = @model.get('OBSERV').length
         if values > current
@@ -160,6 +163,9 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
         when 'NUMEX'
           @setPopulation('NUMER', value) unless @isNumbers and @attrs['NUMER'] >= value
           @handleSelect('NUMER', value, increment)
+        when 'MSRPOPLEX'
+          @setPopulation('MSRPOPL', value) unless @isNumbers and @attrs['MSRPOPL'] >= value
+          @handleSelect('MSRPOPL', value, increment)
     else
       switch population
         when 'STRAT'
@@ -173,6 +179,7 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           @setPopulation('DENEX', value) unless @isNumbers and @attrs['DENEX'] < value
           @setPopulation('DENEXCEP', value) unless @isNumbers and @attrs['DENEXCEP'] < value
           @setPopulation('NUMER', value) unless @isNumbers and @attrs['NUMER'] < value
+          @setPopulation('MSRPOPLEX', value) unless @isNumbers and @attrs['MSRPOPLEX'] < value
           @handleSelect('NUMER', value, increment)
         when 'NUMER'
           @setPopulation('NUMEX', value) unless @isNumbers and @attrs['NUMEX'] < value
