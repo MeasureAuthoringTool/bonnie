@@ -83,6 +83,6 @@ Bonnie::Application.configure do
     sender_address: %{"Bonnie (#{APP_CONFIG['hostname']})" <bonnie@#{APP_CONFIG['hostname']}>},
     exception_recipients: %w{bonnie-feedback-list@lists.mitre.org},
     sections: %w{request session user_info environment backtrace}
-  }
+  }, error_grouping: true
 
 end
