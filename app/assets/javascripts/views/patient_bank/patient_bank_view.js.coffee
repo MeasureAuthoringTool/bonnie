@@ -52,9 +52,9 @@ class Thorax.Views.PatientBankView extends Thorax.Views.BonnieView
 
     populations = @model.get('populations')
     @currentPopulation = @model.get('displayedPopulation')
-    populationLogicView = new Thorax.Views.PopulationLogic(model: @currentPopulation)
+    populationLogicView = new Thorax.Views.PopulationLogic(model: @currentPopulation, suppressDataCriteriaHighlight: true)
     if populations.length > 1
-      @bankLogicView = new Thorax.Views.PopulationsLogic collection: populations
+      @bankLogicView = new Thorax.Views.PopulationsLogic collection: populations, suppressDataCriteriaHighlight: true
       @bankLogicView.setView populationLogicView
     else
       @bankLogicView = populationLogicView
