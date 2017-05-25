@@ -173,7 +173,13 @@ account to ssh to itself using that key
 Create some shared resources local to the deployment system
 
   shared/config/initializers/secret_token.rb (with unique local key created with 'rake secret')
-  shared/config/hostname (if host doesn't know it's own public name)
+  shared/config/server.yml (to define the hostname and SMTP settings)
+  
+    hostname: "bonnieserver.example.com"
+    smtp_hostname: "smtp.example.com"
+    smtp_port: 465
+    smtp_username: "bonnie@example.com"
+    smtp_password: "smtppass"
 
 Restart apache
 
