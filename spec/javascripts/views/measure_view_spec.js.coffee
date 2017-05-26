@@ -76,7 +76,7 @@ describe 'MeasureView', ->
 
     it 'warns of patient history using codes not in measure', ->
       expect(@measureView.$('.missing-codes-warning')).toExist()
-      expect(@measureView.$('.patient-status.status-warn').length).toBe(4)
+      expect(@measureView.$('.patient-status.status-bad').length).toBe(4)
 
     # makes sure the calculation percentage hasn't changed.
     # should be 33% for CMS156v2 with given test patients as of 1/4/2016
@@ -115,4 +115,4 @@ describe 'MeasureView', ->
 
     it 'does not warn of patient history using codes not in measure', ->
       expect(@measureView.$('.missing-codes-warning')).not.toExist()
-      expect(@measureView.$('.patient-status.status-warn')).not.toExist()
+      expect(@measureView.$('.patient-status.status-bad')).not.toExist()

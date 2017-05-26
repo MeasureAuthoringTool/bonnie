@@ -89,8 +89,8 @@ JST['pd_actual_expected'] = Handlebars.compile '<div>
 Renders pass/fail text.
 ###
 JST['pd_result_text'] = Handlebars.compile '<div
-  class="patient-status status status-{{#if passes}}pass{{else}}fail{{/if}}">
-    {{#if passes}}pass{{else}}fail{{/if}}
+  class="patient-status status status-{{status}}">
+    {{status}}
   </div>'
 
 ###

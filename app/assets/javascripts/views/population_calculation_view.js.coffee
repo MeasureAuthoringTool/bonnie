@@ -3,7 +3,6 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
 
   initialize: ->
     @coverageView = new Thorax.Views.MeasureCoverageView(model: @model.coverage())
-    @patientsValueSetCodeChecker = new Thorax.Views.PatientsValueSetCodeChecker(model: @model.measure())
     @listenTo @coverageView, 'logicView:showCoverage', ->
       @trigger 'logicView:showCoverage'
       @$('.expand-result-icon').removeClass('fa-angle-down').addClass('fa-angle-right')
@@ -31,7 +30,7 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
       measure_id: @measure.get('hqmf_set_id')
       episode_of_care: @measure.get('episode_of_care')
       has_elements_with_missing_codes: hasMissingCodes
-      status: if hasMissingCodes == true then 'warn' else (difference.toJSON().status)
+      status: if hasMissingCodes == true then 'bad' else (difference.toJSON().status)
 
   checkCodes: (patient) ->
     missingCodes = []
