@@ -74,6 +74,10 @@ describe 'MeasureView', ->
       expect(@measureView.$('.toggle-result')).toBeVisible()
       expect(@measureView.$('.btn-show-coverage')).toBeVisible()
 
+    it 'warns of patient history using codes not in measure', ->
+      expect(@measureView.$('.missing-codes-warning')).toExist()
+      expect(@measureView.$('.patient-status.status-warn').length).toBe(4)
+
     # makes sure the calculation percentage hasn't changed.
     # should be 33% for CMS156v2 with given test patients as of 1/4/2016
     describe '...', ->
@@ -108,3 +112,7 @@ describe 'MeasureView', ->
       expect(@measureView.$('#attribute_criteria')).toBeVisible()
       expect(@measureView.$('#attribute_criteria').find('[data-toggle="collapse"].value_sets')).toExist()
       expect(@measureView.$('#attribute_criteria').find('.row.collapse')).toExist()
+
+    it 'does not warn of patient history using codes not in measure', ->
+      expect(@measureView.$('.missing-codes-warning')).not.toExist()
+      expect(@measureView.$('.patient-status.status-warn')).not.toExist()
