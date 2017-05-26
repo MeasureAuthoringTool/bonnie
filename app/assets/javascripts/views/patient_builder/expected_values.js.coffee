@@ -183,6 +183,10 @@ class Thorax.Views.ExpectedValueView extends Thorax.Views.BuilderChildView
           @handleSelect('NUMER', value, increment)
         when 'NUMER'
           @setPopulation('NUMEX', value) unless @isNumbers and @attrs['NUMEX'] < value
+        when 'MSRPOPLEX'
+          # updateObserv was not finding the correct values for MSRPOPLEX.
+          # Need to call a serialize to confirm the changes are stored.
+          @serialize()
   setPopulation: (population, value) ->
     if @model.has(population) and @model.get(population)?
       if @isCheckboxes or not @isNumbers and @isMultipleObserv
