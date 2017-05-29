@@ -64,6 +64,15 @@ GIT
   specs:
     simplexml_parser (1.0.0)
 
+GIT
+  remote: https://github.com/smartinez87/exception_notification.git
+  revision: 85a1ae90be438e5a465316e7a02813de9198a29b
+  branch: master
+  specs:
+    exception_notification (4.2.1)
+      actionmailer (>= 4.0, < 6)
+      activesupport (>= 4.0, < 6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -150,9 +159,6 @@ GEM
     easy_diff (1.0.0)
     erubis (2.7.0)
     eventmachine (1.0.7)
-    exception_notification (4.1.1)
-      actionmailer (>= 3.0.4)
-      activesupport (>= 3.0.4)
     execjs (2.5.2)
     ffi (1.9.14)
     foreman (0.78.0)
@@ -342,7 +348,7 @@ DEPENDENCIES
   cql_qdm_patientapi!
   devise
   diffy (~> 3.1.0)
-  exception_notification
+  exception_notification!
   foreman
   handlebars_assets (= 0.16)
   health-data-standards!
@@ -381,4 +387,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.13.6
+   1.14.6
