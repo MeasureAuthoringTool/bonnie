@@ -11,7 +11,7 @@ module HQMF
     #
     # @return A Value formatted for storing a HealthDataStandards Record.
     def format
-      if type == "PQ"
+      if type == "PQ" || type == "CMP"
         { "scalar" => value, "units" => unit }
       elsif type == "TS"
         to_seconds

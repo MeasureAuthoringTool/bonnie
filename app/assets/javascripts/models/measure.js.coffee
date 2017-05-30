@@ -81,14 +81,14 @@ class Thorax.Models.Measure extends Thorax.Model
     # criteria. The name should correspond with what is the `coded_entry_method` in the `FIELDS`
     # hash in health-data-standards:lib/health-model/data_criteria.rb.
     typeInclusions =
-      assessments: ['method']
+      assessments: ['method','components']
       care_experiences: []
       care_goals: ['related_to', 'target_outcome']
       characteristics: []
       communications: []
       conditions: ['anatomical_structure', 'anatomical_location', 'ordinality', 'severity', 'laterality']
       devices: ['removal_time', 'anatomical_structure']
-      diagnostic_studies: ['facility', 'method', 'qdm_status']
+      diagnostic_studies: ['facility', 'method', 'qdm_status', 'components']
       encounters: ['admit_time', 'discharge_time', 'discharge_disposition', 'facility',
         'facility_arrival', 'facility_departure', 'transfer_to', 'transfer_to_time', 
         'transfer_from', 'transfer_from_time', 'principal_diagnosis', 'diagnosis']
@@ -96,7 +96,7 @@ class Thorax.Models.Measure extends Thorax.Model
       functional_statuses: []
       immunizations: ['route', 'dose', 'reaction']
       interventions: ['anatomical_structure']
-      laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status']
+      laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status','components']
       medications: ['route', 'dose', 'reaction']
       patient_care_experiences: []
       physical_exams: ['anatomical_structure']

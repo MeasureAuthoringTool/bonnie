@@ -179,21 +179,44 @@
         <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Field Value<input class="sr-only" disabled></label>
 
         {{#collection field_values class="existing-values" item-context=valueWithDateContext}}
-          <span>
-            {{key}}:
-            {{#if start_date}}
-              {{start_date}} {{start_time}}
-            {{else}}
-              {{value}} {{unit}}
-              {{title}}
-            {{/if}}
-            {{#if codes}} - Codes:
-              {{#each codes}}
-                {{@key}}: {{this}}
-              {{/each}}
-            {{/if}}
-            {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
-          </span>
+          {{log type}}
+          {{#ifCond type '==' "COL"}}
+            {{log values}}
+            {{#each values}}
+              {{log key}}
+              <span>
+                {{key}}:
+                {{#if start_date}}
+                  {{start_date}} {{start_time}}
+                {{else}}
+                  {{value}} {{unit}}
+                  {{title}}
+                {{/if}}
+                {{#if codes}} - Codes:
+                  {{#each codes}}
+                    {{@key}}: {{this}}
+                  {{/each}}
+                {{/if}}          
+                {{#button "removeValue" class="btn btn-link close delete" data-col-item-index=@index}}&times; <span class="sr-only">Delete</span>{{/button}}
+              </span>
+            {{/each}}
+          {{else}}
+            <span>
+              {{key}}:
+              {{#if start_date}}
+                {{start_date}} {{start_time}}
+              {{else}}
+                {{value}} {{unit}}
+                {{title}}
+              {{/if}}
+              {{#if codes}} - Codes:
+                {{#each codes}}
+                  {{@key}}: {{this}}
+                {{/each}}
+              {{/if}}
+              {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
+            </span>
+          {{/ifCond}}
         {{/collection}}
 
         {{view editFieldValueView}}
