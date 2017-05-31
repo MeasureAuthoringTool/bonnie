@@ -70,16 +70,13 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
         if @population
           for pop, popStatements of @model.get('populations_cql_map')
             index = @population.get('index')
-            # The STRAT populations array does not contain the population data criteria object, which causes
-            # an off by one mismatch between the populations cql map and the popStatements[STRAT] array
-            popNames.push(pop) if statement.name == popStatements[@population.get('index')]  # note that there may be multiple populations that it defines
-            index = @population.get('index')
             # If displaying a stratification, we need to set the index to the associated populationCriteria
             # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
             index = @population.get('population_index') if @population.get('stratification')?
             # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
             index = @population.get('stratification_index') if pop == "STRAT" && @population.get('stratification')?
-            popNames.push(pop) if statement.name == popStatements[index]  # note that there may be multiple populations that it defines
+            # There may be multiple populations that it defines. Only push population name if @population has a pop ie: not all populations will have STRAT
+            popNames.push(pop) if statement.name == popStatements[index] && @population.get(pop)?
           if popNames.length > 0
             popName = popNames.join(', ')
 

@@ -121,8 +121,9 @@
         # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
         index = population.get('stratification_index') if popCode == "STRAT" && population.get('stratification')?
         cql_population = defined_pops[index]
-        # Is there a patient result for this population?
-        if results['patientResults'][patient.id][cql_population]?
+        # Is there a patient result for this population? and does this populationCriteria contain the population
+        # We need to check if the populationCriteria contains the population so that a STRAT is not set to zero if there is not a STRAT in the populationCriteria
+        if results['patientResults'][patient.id][cql_population]? && population.get(popCode)?
           # Grab CQL result value and adjust for Bonnie
           value = results['patientResults'][patient.id][cql_population]
           if Array.isArray(value) and value.length > 0
