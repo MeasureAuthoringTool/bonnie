@@ -1,16 +1,20 @@
 <div class="row coverage-summary">
-  {{#ifCond coverage '==' undefined}}<h5>Computing Total coverage...</h5>{{/ifCond}}
-  {{#ifCond coverage '!=' undefined}}
-    <div class="coverage">
-      <label><span class="sr-only">{{coverage}}% logic covered</span>
-        <input type="text" value="{{coverage}}" class="dial" data-readOnly="true" data-width="60" data-height="60" data-thickness=".2" data-fgColor="#0075C4" data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
-      </label>
-    </div>
-    <div class="coverage-label">
-      <span class="status status-coverage">% COVERAGE</span>
-    </div>
-    <div class="coverage-data">
-      {{#button "identifyCoverage" class="btn btn-default btn-show-coverage"}}<i class="fa fa-bar-chart-o" aria-hidden="true"></i> Show coverage{{/button}}
-    </div>
-  {{/ifCond}}
+  {{#if cql}}
+      <span class="status status-coverage" style="padding-left: 50px">COVERAGE temporarily disabled</span>
+  {{else}}
+      {{#ifCond coverage '==' undefined}}<h5>Computing Total coverage...</h5>{{/ifCond}}
+      {{#ifCond coverage '!=' undefined}}
+        <div class="coverage">
+          <label><span class="sr-only">{{coverage}}% logic covered</span>
+            <input type="text" value="{{coverage}}" class="dial" data-readOnly="true" data-width="60" data-height="60" data-thickness=".2" data-fgColor="#0075C4" data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
+          </label>
+        </div>
+        <div class="coverage-label">
+          <span class="status status-coverage">% COVERAGE</span>
+        </div>
+        <div class="coverage-data">
+          {{#button "identifyCoverage" class="btn btn-default btn-show-coverage"}}<i class="fa fa-bar-chart-o" aria-hidden="true"></i> Show coverage{{/button}}
+        </div>
+      {{/ifCond}}
+  {{/if}}
 </div>
