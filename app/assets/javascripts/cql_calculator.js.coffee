@@ -41,7 +41,6 @@
     # We store both the calculation result and the calcuation code based on keys derived from the arguments
     cacheKey = @cacheKey(population, patient)
     calcKey = @calculationKey(population)
-
     # We only ever generate a single result for a population / patient pair; if we've ever generated a
     # result for this pair, we use that result and return it, starting its calculation if needed
     result = @resultsCache[cacheKey] ?= new Thorax.Models.Result({}, population: population, patient: patient)
@@ -116,9 +115,11 @@
         else
           defined_pops = cql_map[popCode]
         index = 0 unless defined_pops.length > 1
-        # The STRAT populations array does not contain the population data criteria object, which causes
-        # an off by one mismatch between the populations cql map and the defined_pops[STRAT] array
-        index -=1 if popCode == "STRAT"
+        # If a stratified population, we need to set the index to the populationCriteria
+        # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
+        index = population.get('population_index') if population.get('stratification')?
+        # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
+        index = population.get('stratification_index') if popCode == "STRAT" && population.get('stratification')?
         cql_population = defined_pops[index]
         # Is there a patient result for this population?
         if results['patientResults'][patient.id][cql_population]?
@@ -136,7 +137,7 @@
   handlePopulationValues: (population_results) ->
     # TODO: Handle CV measures
     # Setting values of populations if the correct populations are not set.
-    if @isValueZero('STRAT', population_results) # Set all values to 0
+    if population_results["STRAT"]? && @isValueZero('STRAT', population_results) # Set all values to 0
       for key, value of population_results
         population_results[key] = 0
     else if @isValueZero('IPP', population_results)
