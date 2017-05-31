@@ -37,7 +37,11 @@
         </span>
       </div>
       <div class="btn-wrapper">
-        {{#button "updateMeasure" class="btn btn-primary" disabled="true"}}<i class="fa fa-refresh fa-fw" aria-hidden="true"></i><span class="sr-only">{{cms_id}}, </span> Update <span class="sr-only">existing measure</span>{{/button}}
+        {{#if cql}}
+          {{#button "updateMeasure" class="btn btn-primary" disabled="true"}}<i class="fa fa-refresh fa-fw" aria-hidden="true"></i><span class="sr-only">{{cms_id}}, </span> Update <span class="sr-only">existing measure</span>{{/button}}
+        {{else}}
+          {{#button "updateMeasure" class="btn btn-primary"}}<i class="fa fa-refresh fa-fw" aria-hidden="true"></i><span class="sr-only">{{cms_id}}, </span> Update <span class="sr-only">existing measure</span>{{/button}}
+        {{/if}}
       </div>
     </div>
     <div class="expected-col">
