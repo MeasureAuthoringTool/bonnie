@@ -36,6 +36,7 @@ class Thorax.Views.MeasureRowView extends Thorax.Views.BonnieView
     @multiplePopulations = @model.get('populations').length > 1
     unless @multiplePopulations
       @differences = @model.get('displayedPopulation').differencesFromExpected()
+    @cql = @model.get('cql')?
 
   updateMeasure: (e) ->
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)
