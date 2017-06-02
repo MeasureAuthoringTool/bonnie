@@ -41,7 +41,6 @@
     # We store both the calculation result and the calcuation code based on keys derived from the arguments
     cacheKey = @cacheKey(population, patient)
     calcKey = @calculationKey(population)
-
     # We only ever generate a single result for a population / patient pair; if we've ever generated a
     # result for this pair, we use that result and return it, starting its calculation if needed
     result = @resultsCache[cacheKey] ?= new Thorax.Models.Result({}, population: population, patient: patient)
@@ -122,9 +121,15 @@
         else
           defined_pops = cql_map[popCode]
         index = 0 unless defined_pops.length > 1
+        # If a stratified population, we need to set the index to the populationCriteria
+        # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
+        index = population.get('population_index') if population.get('stratification')?
+        # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
+        index = population.get('stratification_index') if popCode == "STRAT" && population.get('stratification')?
         cql_population = defined_pops[index]
-        # Is there a patient result for this population?
-        if results['patientResults'][patient.id][cql_population]?
+        # Is there a patient result for this population? and does this populationCriteria contain the population
+        # We need to check if the populationCriteria contains the population so that a STRAT is not set to zero if there is not a STRAT in the populationCriteria
+        if results['patientResults'][patient.id][cql_population]? && population.get(popCode)?
           # Grab CQL result value and adjust for Bonnie
           value = results['patientResults'][patient.id][cql_population]
           if Array.isArray(value) and value.length > 0
@@ -139,7 +144,7 @@
   handlePopulationValues: (population_results) ->
     # TODO: Handle CV measures
     # Setting values of populations if the correct populations are not set.
-    if @isValueZero('STRAT', population_results) # Set all values to 0
+    if population_results["STRAT"]? && @isValueZero('STRAT', population_results) # Set all values to 0
       for key, value of population_results
         population_results[key] = 0
     else if @isValueZero('IPP', population_results)
