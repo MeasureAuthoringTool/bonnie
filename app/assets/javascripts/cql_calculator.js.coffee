@@ -159,7 +159,7 @@
       if 'NUMER' of population_results
         population_results['NUMER'] = 0
     # Can not be in the numerator if excluded or excepted from the denominator
-    else if !@isValueZero('DENEX', population_results) or !@isValueZero('DENEXCEP', population_results)
+    else if (population_results["DENEX"]? && !@isValueZero('DENEX', population_results)) or (population_results["DENEXCEP"]? && !@isValueZero('DENEXCEP', population_results))
       if 'NUMER' of population_results
         population_results['NUMER'] = 0
       if 'NUMEX' of population_results
@@ -168,7 +168,7 @@
       if 'NUMEX' of population_results
         population_results['NUMEX'] = 0
     # Can not be in the numerator if explicitly excluded
-    else if !@isValueZero('NUMEX', population_results)
+    else if population_results["NUMEX"]? && !@isValueZero('NUMEX', population_results)
       if 'NUMER' of population_results
         population_results['NUMER'] = 0
     return population_results
