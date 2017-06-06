@@ -75,7 +75,7 @@ describe 'MeasureView', ->
       expect(@measureView.$('.btn-show-coverage')).toBeVisible()
 
     it 'warns of patient history using codes not in measure', ->
-      expect(@measureView.$('.missing-codes-warning')).toExist()
+      expect(@measureLayoutView.$('.missing-codes-warning')).toExist()
       expect(@measureView.$('.patient-status.status-bad').length).toBe(4)
 
     # makes sure the calculation percentage hasn't changed.
