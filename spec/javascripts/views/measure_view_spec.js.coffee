@@ -116,3 +116,40 @@ describe 'MeasureView', ->
     it 'does not warn of patient history using codes not in measure', ->
       expect(@measureView.$('.missing-codes-warning')).not.toExist()
       expect(@measureView.$('.patient-status.status-bad')).not.toExist()
+
+  describe 'with bad code tests set', ->
+    beforeEach ->
+      window.bonnieRouterCache.load('bad_code_checker_set')
+      @measure = bonnie.measures.findWhere(cms_id: 'CMS123v6')
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/bad_code_checker_set/patients.json'), parse: true
+      @measure.set('patients', @patients)
+      @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @measure, patients: @measure.get('patients'))
+      @measureView = @measureLayoutView.showMeasure()
+      @measureView.appendTo 'body'
+
+    afterEach ->
+      @measureView.remove()
+
+    it 'warns of patient history using codes not in measure', ->
+      expect(@measureLayoutView.$('.missing-codes-warning')).toExist()
+      expect(@measureView.$('.patient-status.status-bad').length).toBe(2)
+
+    it 'displays BAD for patient passing with a bad code', ->
+      patientTitle = @measureView.$('.toggle-result-5936ccdc5cc975216200037e').prev()
+      expect(patientTitle).toExist()
+      expect(patientTitle.find('.patient-status.status-bad')).toExist()
+
+    it 'displays BAD for patient failing with a bad code', ->
+      patientTitle = @measureView.$('.toggle-result-5936cd345cc97521620003f6').prev()
+      expect(patientTitle).toExist()
+      expect(patientTitle.find('.patient-status.status-bad')).toExist()
+
+    it 'displays PASS for patient passing with good codes', ->
+      patientTitle = @measureView.$('.toggle-result-5936cc865cc975216200031c').prev()
+      expect(patientTitle).toExist()
+      expect(patientTitle.find('.patient-status.status-pass')).toExist()
+
+    it 'displays FAIL for patient failing with good codes', ->
+      patientTitle = @measureView.$('.toggle-result-5936ccab5cc975216200034e').prev()
+      expect(patientTitle).toExist()
+      expect(patientTitle.find('.patient-status.status-fail')).toExist()
