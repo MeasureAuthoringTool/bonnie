@@ -1,20 +1,10 @@
-describe 'PatientDashboardPatient', ->
-  
-  # TODO: need to get a patient and a measure that will contain specific occurrences so can look at 'SPECIFICALLY FALSE'
+describe 'PatientDashboardPatient Bad Code Set', ->
   
   beforeEach (done) ->
     window.bonnieRouterCache.load('bad_code_checker_set')
     @measure = bonnie.measures.findWhere(cms_id: 'CMS123v6')
     
-    # getting a particular patient whose characteristics we know about.
-    # patient: Harriot Clawson
-    #  DOB: 4/05/1927
-    #  Diagnosis: Major Depression 01/01/2012
-    #  Medication, Dispensed: Antidepressant Medication 01/15/2012-01/15/2012
-    #  Medication, Active: Antidepressant Medication 05/08/2012 - 05/08/2012
-    #  Encounter, Performed: Annual Wellness Visit 12/31/2012 - 12/31/2012
     @collection = new Thorax.Collections.Patients getJSONFixture('records/bad_code_checker_set/patients.json'), parse: true
-
     
     # getting the population sets relevant to the model (IPP, DENOM, etc.)
     codes = (population['code'] for population in @measure.get('measure_logic'))

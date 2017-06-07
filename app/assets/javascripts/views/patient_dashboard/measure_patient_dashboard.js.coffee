@@ -257,7 +257,6 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   Inserts pass status into row.
   ###
   insertPassStatus: (data, type, row, meta) =>
-    #debugger
     if row
       JST['pd_result_text']({ status: data.toLowerCase() })
     else
