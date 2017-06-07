@@ -32,11 +32,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-<<<<<<< 96c46fb769a90e1eb8f5e3dd1b49ff880b3ce7d3
-  revision: 590e3a86f7b900c8135626bed939f1bb7bfc82bd
-=======
   revision: a0f617672469e0eb6b2b047e5ff7876556ba6ab4
->>>>>>> Updated travis to use ruby 2.3.4 and updated bonnie_bundler reference
   branch: gems_update
   specs:
     bonnie_bundler (1.0.0)
@@ -70,15 +66,6 @@ GIT
     simplexml_parser (1.0.0)
 
 GIT
-  remote: https://github.com/smartinez87/exception_notification.git
-  revision: 85a1ae90be438e5a465316e7a02813de9198a29b
-  branch: master
-  specs:
-    exception_notification (4.2.1)
-      actionmailer (>= 4.0, < 6)
-      activesupport (>= 4.0, < 6)
-
-GIT
   remote: https://github.com/randym/axlsx
   revision: c8ac844572b25fda358cc01d2104720c4c42f450
   branch: master
@@ -88,6 +75,15 @@ GIT
       mimemagic (~> 0.3)
       nokogiri (>= 1.6.6)
       rubyzip (>= 1.2.1)
+
+GIT
+  remote: https://github.com/smartinez87/exception_notification.git
+  revision: 85a1ae90be438e5a465316e7a02813de9198a29b
+  branch: master
+  specs:
+    exception_notification (4.2.1)
+      actionmailer (>= 4.0, < 6)
+      activesupport (>= 4.0, < 6)
 
 GEM
   remote: https://rubygems.org/
