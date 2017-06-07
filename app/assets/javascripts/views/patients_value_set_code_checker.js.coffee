@@ -17,9 +17,9 @@ class Thorax.Views.PatientsValueSetCodeChecker extends Thorax.Views.BonnieView
     missingCodes = []
         
     @patients.each((patient) =>
-      patient.get('source_data_criteria').each (dc) =>
-        if (dc.get('codes').all (code) => !@model.hasCode(code.get('code'), code.get('codeset')))
-          missingCodes.push dc.get('description') if missingCodes.indexOf(dc.get('description')) < 0 )
+      patient.get('source_data_criteria').each (sourceDataCriteria) =>
+        if (sourceDataCriteria.get('codes').all (code) => !@model.hasCode(code.get('code'), code.get('codeset')))
+          missingCodes.push sourceDataCriteria.get('description') if missingCodes.indexOf(sourceDataCriteria.get('description')) < 0 )
     
     hasElementsWithMissingCodes: missingCodes.length > 0
     elementsWithMissingCodes: missingCodes

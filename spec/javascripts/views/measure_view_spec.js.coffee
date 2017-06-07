@@ -74,6 +74,7 @@ describe 'MeasureView', ->
       expect(@measureView.$('.toggle-result')).toBeVisible()
       expect(@measureView.$('.btn-show-coverage')).toBeVisible()
 
+    # The fixtures used here are all using bad codes, check if the warning box shows up.
     it 'warns of patient history using codes not in measure', ->
       expect(@measureLayoutView.$('.missing-codes-warning')).toExist()
       expect(@measureView.$('.patient-status.status-bad').length).toBe(4)
