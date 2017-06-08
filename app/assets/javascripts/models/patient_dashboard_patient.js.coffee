@@ -79,8 +79,12 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     actualResults = {}
     for population in @populations
       if population == 'OBSERV'
-        if 'values' of @patientResult && population of @patientResult['rationale']
+        # Check if values exists in patientResult; if it is an array or a string, confirm its not empty.
+        if @patientResult['values']?.length > 0 && population of @patientResult['rationale']
           actualResults[population] = @patientResult['values'].toString()
+        else
+          # Manually set to undefined to match with what is being returned by getExpectedResults()
+          actualResults[population] = undefined
       else
         actualResults[population] = @patientResult[population]
     actualResults
