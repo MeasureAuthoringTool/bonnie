@@ -69,7 +69,7 @@ group :test, :development do
 end
 
 group :production do
-  gem 'exception_notification'
+  gem 'exception_notification', :git => 'https://github.com/smartinez87/exception_notification.git', :branch => 'master'
   gem 'newrelic_rpm'
 end
 
