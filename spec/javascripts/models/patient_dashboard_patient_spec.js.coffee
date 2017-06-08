@@ -57,7 +57,7 @@ describe 'PatientDashboardPatient', ->
     expect(@patientDashboardPatient.gender).toEqual('F')
     expect(@patientDashboardPatient.expected).toEqual({IPP: 1, DENOM: 1, DENEX: 0, NUMER: 1})
     expect(@patientDashboardPatient.actual).toEqual({IPP: 1, DENOM: 1, DENEX: 0, NUMER: 1})
-    expect(@patientDashboardPatient.passes).toEqual('PASS')
+    expect(@patientDashboardPatient.passes).toEqual('BAD') # All patients in this fixture set have bad codes.
     expect(@patientDashboardPatient.actions).toEqual('')
     
     expect(@patientDashboardPatient.expectedIPP).toEqual(1)
@@ -92,7 +92,7 @@ describe 'PatientDashboardPatient', ->
     expect(@patientDashboardPatient.actualDENOM).toEqual(1)
     expect(@patientDashboardPatient.actualDENEX).toEqual(0)
     expect(@patientDashboardPatient.actualNUMER).toEqual(1)
-    expect(@patientDashboardPatient.passes).toEqual('PASS')
+    expect(@patientDashboardPatient.passes).toEqual('BAD') # All patients in this fixture set have bad codes.
     
     @patientDashboardPatient.updatePasses()
     
@@ -107,7 +107,7 @@ describe 'PatientDashboardPatient', ->
     expect(@patientDashboardPatient.actualDENOM).toEqual(1)
     expect(@patientDashboardPatient.actualDENEX).toEqual(0)
     expect(@patientDashboardPatient.actualNUMER).toEqual(1)
-    expect(@patientDashboardPatient.passes).toEqual('FAIL')
+    expect(@patientDashboardPatient.passes).toEqual('BAD') # All patients in this fixture set have bad codes.
     
     # reset expected result
     expectedResultSet.set('NUMER', 1)
