@@ -4,6 +4,7 @@ class Thorax.Views.MeasureLayout extends Thorax.LayoutView
 
   initialize: ->
     @populations = @measure.get 'populations'
+    @patientsValueSetCodeChecker = new Thorax.Views.PatientsValueSetCodeChecker(model: @measure)
 
   context: ->
     _(super).extend
