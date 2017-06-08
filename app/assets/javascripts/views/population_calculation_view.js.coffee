@@ -9,8 +9,8 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     @listenTo @coverageView, 'logicView:clearCoverage', -> @trigger 'logicView:clearCoverage'
     @measure = @model.measure()
     @differences = @model.differencesFromExpected()
-    # We want to display the results sorted by 1) failures first, then 2) last name, then 3) first name
-    @differences.comparator = (d) -> [!d.get('done'), d.get('match'), d.result.patient.get('last'), d.result.patient.get('first')]
+    # We want to display the results sorted by 1) bad code warnings first, 2) failures first, then 3) last name, then 4) first name
+    @differences.comparator = (d) => [!(@checkCodes(d.result.patient).length > 0), !d.get('done'), d.get('match'), d.result.patient.get('last'), d.result.patient.get('first')]
     @differences.sort()
     # Make sure the sort order updates as results come in
     @differences.on 'change', @differences.sort, @differences
@@ -24,10 +24,20 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     'click .select-patient': -> @trigger 'select-patients:change'
 
   differenceContext: (difference) ->
+    hasMissingCodes = @checkCodes(difference.result.patient).length > 0
     _(difference.toJSON()).extend
       patient: difference.result.patient.toJSON()
       measure_id: @measure.get('hqmf_set_id')
       episode_of_care: @measure.get('episode_of_care')
+      has_elements_with_missing_codes: hasMissingCodes
+      status: if hasMissingCodes == true then 'bad' else (difference.toJSON().status)
+
+  checkCodes: (patient) ->
+    missingCodes = []
+    patient.get('source_data_criteria').each (dc) =>
+      if (dc.get('codes').all (code) => !@measure.hasCode(code.get('code'), code.get('codeset')))
+        missingCodes.push dc.get('description')
+    return missingCodes
 
   updatePopulation: (population) ->
     selectedResult = @$('.toggle-result').filter(':visible').model().result
@@ -107,5 +117,3 @@ class Thorax.Views.PopulationCalculation extends Thorax.Views.BonnieView
     @$('.coverage-summary').toggle()
     @render()
     if @patientsListing then @$('.summary').hide() else @$('.summary').show()
-
-

@@ -169,6 +169,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
       @updateAllActualWarnings()
     # Update fixed columns
     @updateFixedColumns()
+    @.parent?.patientsValueSetCodeChecker?.render()
 
   ###
   @returns {Array} an array of "instructions" for each column in a row that
@@ -257,7 +258,7 @@ class Thorax.Views.MeasurePopulationPatientDashboard extends Thorax.Views.Bonnie
   ###
   insertPassStatus: (data, type, row, meta) =>
     if row
-      JST['pd_result_text']({ passes: data == "PASS" })
+      JST['pd_result_text']({ status: data.toLowerCase() })
     else
       ''
 

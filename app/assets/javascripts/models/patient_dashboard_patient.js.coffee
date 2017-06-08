@@ -114,7 +114,17 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
   @returns {String} describes if the patient is passing
   ###
   patientStatus: ->
+    if (@_checkCodes().length > 0)
+      return "BAD"
+
     for population in @populations
       if @expected[population] != @actual[population]
         return "FAIL"
     return "PASS"
+
+  _checkCodes: ->
+    missingCodes = []
+    @patient.get('source_data_criteria').each (dc) =>
+      if (dc.get('codes').all (code) => !@measure.hasCode(code.get('code'), code.get('codeset')))
+        missingCodes.push dc.get('description')
+    return missingCodes
