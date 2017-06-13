@@ -206,6 +206,9 @@ class MeasuresController < ApplicationController
         errors_dir = Rails.root.join('log', 'load_errors')
         FileUtils.mkdir_p(errors_dir)
         clean_email = File.basename(current_user.email) # Prevent path traversal
+        
+        # Create the filename for the copied measure upload. We do not use the original extension to avoid malicious user
+        # input being used in file system operations.
         filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.xmlorzip"
 
         operator_error = false # certain types of errors are operator errors and do not need to be emailed out.
