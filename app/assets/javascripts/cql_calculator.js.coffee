@@ -171,6 +171,9 @@
     else if population_results["NUMEX"]? && !@isValueZero('NUMEX', population_results)
       if 'NUMER' of population_results
         population_results['NUMER'] = 0
+    else if !@isValueZero('NUMER', population_results)
+      if 'DENEXCEP' of population_results
+        population_results["DENEXCEP"] = 0
     return population_results
 
   isValueZero: (value, population_set) ->
