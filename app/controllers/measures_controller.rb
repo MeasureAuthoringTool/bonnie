@@ -243,7 +243,7 @@ class MeasuresController < ApplicationController
       # email the error
       if !operator_error && defined? ExceptionNotifier::Notifier
         params[:error_file] = filename
-        ExceptionNotifier::Notifier.exception_notification(env, e).deliver
+        ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now
       end
 
       redirect_to "#{root_path}##{params[:redirect_route]}"
