@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/quality-measure-engine.git
-  revision: 284bd90f8fc00e650630c0d6567f05f8a63347ad
+  revision: 2fd3fc4d2a9e7ce58b7a856ae8ef74e0d08c172d
   branch: bump_mongoid
   specs:
     quality-measure-engine (3.1.2)
@@ -32,7 +32,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 30a5afe31d8275cca2fad91cfe212e95ffc9d2dd
+  revision: 693dfea3b0fb0fa820b6bc2efe1d8e80619bda8b
   branch: gems_update
   specs:
     bonnie_bundler (1.0.0)
@@ -157,8 +157,8 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     daemons (1.2.3)
-    delayed_job (4.1.2)
-      activesupport (>= 3.0, < 5.1)
+    delayed_job (4.1.3)
+      activesupport (>= 3.0, < 5.2)
     delayed_job_mongoid (2.2.0)
       delayed_job (>= 3.0, < 5)
       mongoid (>= 3.0, < 6)
@@ -225,7 +225,7 @@ GEM
       mongo (~> 2.1)
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
-    mongoid-compatibility (0.4.0)
+    mongoid-compatibility (0.4.1)
       activesupport
       mongoid (>= 2.0)
     mongoid-history (0.6.0)
