@@ -2,7 +2,7 @@ require 'test_helper'
 require 'vcr_setup.rb'
 
 class MeasuresControllerTest  < ActionController::TestCase
-include Devise::TestHelpers
+include Devise::Test::ControllerHelpers
 
   setup do
     @error_dir = File.join('log', 'load_errors')
@@ -99,10 +99,10 @@ include Devise::TestHelpers
   test "force expire vsac session" do
     # The ticket field was taken from the vcr_cassettes/valid_vsac_response file
     session[:tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now + 27000}
-    get :vsac_auth_expire
+    post :vsac_auth_expire
 
     assert_response :ok
-    assert_equal " ", response.body
+    assert_equal "{}", response.body
 
     assert_nil session[:tgt]
     
@@ -355,6 +355,7 @@ include Devise::TestHelpers
     flash.clear
 
     assert_equal 2, Dir.glob(File.join(@error_dir,'**')).count
+    assert_equal true, FileUtils.identical?(File.join(@error_dir, (Dir.entries(@error_dir).select { |f| f.end_with?('.xmlorzip') })[0]), File.join('test', 'fixtures', 'measure_exports', 'measure_no_vs.zip'))
   end
 
   test "load EoC with no Specifics" do
@@ -404,6 +405,7 @@ include Devise::TestHelpers
     flash.clear
 
     assert_equal 2, Dir.glob(File.join(@error_dir, '**')).count
+    assert_equal true, FileUtils.identical?(File.join(@error_dir, (Dir.entries(@error_dir).select { |f| f.end_with?('.xmlorzip') })[0]), File.join('test', 'fixtures', 'measure_exports', 'measure_bad_hqmf.zip'))
   end
 
   test "load with no zip" do
