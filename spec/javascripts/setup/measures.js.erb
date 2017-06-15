@@ -2,7 +2,7 @@
 <%# We need to specify UTF-8 in first line above because the measures have UTF-8 characters %>
 
 <%# We want Jasmine to be independent of content in any particular MongoDB instance %>
-<% Mongoid.configure { |config| config.sessions = { default: { database: 'jasmine', hosts: ['localhost:27017'] } } } %>
+<% Mongoid.configure { |config| config.clients[:default] = { database: 'jasmine', hosts: ['localhost:27017'] } } %>
 
 <%# Set up the value sets %>
 <%# TODO: this value_sets_json is duplicated per state into bonnie.valueSetsByOid, but should be loaded separately?  %>

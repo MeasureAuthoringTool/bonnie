@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ArchivedMeasuresControllerTest  < ActionController::TestCase
-include Devise::TestHelpers
+include Devise::Test::ControllerHelpers
 
   setup do
     @error_dir = File.join('log','load_errors')

@@ -22,7 +22,7 @@ module Measures
 
     def self.rebuild_patient(patient)
 
-      patient.medical_record_number ||= Digest::MD5.hexdigest("#{patient.first} #{patient.last} #{Time.now}")
+      patient.medical_record_number ||= Digest::SHA2.hexdigest("#{patient.first} #{patient.last} #{Time.now}")
       patient.medical_record_assigner ||= "Bonnie"
       vs_oids = patient.source_data_criteria.collect{|dc| get_vs_oids(dc)}.flatten.uniq
 

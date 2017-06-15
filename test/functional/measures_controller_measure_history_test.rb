@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MeasuresControllerMeasureHistoryTest < ActionController::TestCase
-include Devise::TestHelpers
+include Devise::Test::ControllerHelpers
 
   tests MeasuresController
 
