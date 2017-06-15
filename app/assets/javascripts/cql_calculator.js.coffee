@@ -143,7 +143,15 @@
   # Takes in the initial values from result object and checks to see if some values should not be calculated.
   handlePopulationValues: (population_results) ->
     # TODO: Handle CV measures
-    # Setting values of populations if the correct populations are not set.
+    # Setting values of populations if the correct populations are not set based on the following logic guidelines
+    # Initial Population (IPP): The set of patients or episodes of care to be evaluated by the measure.
+    # Denominator (DENOM): A subset of the IPP.
+    # Denominator Exclusions (DENEX): A subset of the Denominator that should not be considered for inclusion in the Numerator.
+    # Denominator Exceptions (DEXCEP): A subset of the Denominator. Only those members of the Denominator that are considered 
+    # for Numerator membership and are not included are considered for membership in the Denominator Exceptions.
+    # Numerator (NUMER): A subset of the Denominator. The Numerator criteria are the processes or outcomes expected for each patient,
+    # procedure, or other unit of measurement defined in the Denominator.
+    # Numerator Exclusions (NUMEX): A subset of the Numerator that should not be considered for calculation.
     if population_results["STRAT"]? && @isValueZero('STRAT', population_results) # Set all values to 0
       for key, value of population_results
         population_results[key] = 0
@@ -171,6 +179,9 @@
     else if population_results["NUMEX"]? && !@isValueZero('NUMEX', population_results)
       if 'NUMER' of population_results
         population_results['NUMER'] = 0
+    else if !@isValueZero('NUMER', population_results)
+      if 'DENEXCEP' of population_results
+        population_results["DENEXCEP"] = 0
     return population_results
 
   isValueZero: (value, population_set) ->
