@@ -131,8 +131,12 @@ class Thorax.Models.Patient extends Thorax.Model
       @trigger 'materialize' # We use a new event rather than relying on 'change' because we don't want to automatically re-render everything
       callback() if callback?
       $('#ariaalerts').html "This patient has been updated" #tell SR something changed
-    .fail ->
-      bonnie.showError({title: "Patient Data Error", summary: 'There was an error handling the data associated with this patient.', body: 'One of the data elements associated with the patient is causing an issue.  Please review the elements associated with the patient to verify that they are all constructed properly.'})
+    .fail (xhr, status, error) ->
+      # if status is 422 that means that the user's session has expired
+      if xhr.status == 422
+        bonnie.showError({title: "Bonnie Session Expired", summary: 'Your user session has expired.', body: 'It looks like your Bonnie user session has expired. Please <a href="/">reload</a> the page to log back in.'})
+      else
+        bonnie.showError({title: "Patient Data Error", summary: 'There was an error handling the data associated with this patient.', body: 'One of the data elements associated with the patient is causing an issue.  Please review the elements associated with the patient to verify that they are all constructed properly.'})
 
   getExpectedValue: (population) ->
     measure = population.collection.parent
