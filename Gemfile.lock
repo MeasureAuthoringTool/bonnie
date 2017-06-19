@@ -31,14 +31,14 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 307505b09520c3ab4adb2e3d537878057dd3ab29
+  revision: c10e97426d58e591613efc39c0146c2d1894dbb7
   branch: cql4bonnie
   specs:
     bonnie_bundler (1.0.0)
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: 680601517c5007bc1be6ef6e99d542da774aee48
+  revision: 498fb7f779acb29d025d324b1c09aadb7f9c0e6b
   branch: cql4bonnie
   specs:
     cql_qdm_patientapi (0.1.0)
@@ -367,4 +367,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.14.6
+   1.15.1
