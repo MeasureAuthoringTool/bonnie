@@ -21,10 +21,11 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
   # Show the results of this statement's calculation by highlighing appropiately. 
   # @param {boolean|Object[]} result - The result for this statement. May be a boolean or an array of entries.
   ###
-  showRationale: (result) ->
+  showRationale: (result, highlightResult) ->
     @latestResult = result
-
-    if result == true  # Specifically a boolean true
+    if highlightResult == false
+      @clearRationale()  # If the result shouldn't be highlighted
+    else if result == true  # Specifically a boolean true
       @_setResult true
     else if result == false  # Specifically a boolean false
       @_setResult false

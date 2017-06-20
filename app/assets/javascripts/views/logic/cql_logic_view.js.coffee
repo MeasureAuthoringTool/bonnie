@@ -100,8 +100,58 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   ###
   showRationale: (result) ->
     @latestResult = result
+    showResultsMap = @_makePopulationResultShownMap result
     for statementView in @statementViews
-      statementView.showRationale result.get('statement_results')[statementView.name]
+      # check to see if highlighting should be supressed because "not calculated"
+      popName = statementView.cqlPopulation?.split(', ')[0]
+      showHighlighting = if showResultsMap[popName]? then showResultsMap[popName] else true
+      
+      statementView.showRationale(result.get('statement_results')[statementView.name], showHighlighting)
+
+  _makePopulationResultShownMap: (result) ->
+    # initialize to true for every population
+    resultShown = {}
+    _.each(_.without(result.keys(), 'statement_results', 'patient_id'), (population) -> resultShown[population] = true)
+    
+    # If STRAT is 0 then everything else is not calculated
+    if result.get('STRAT')? && result.get('STRAT') == 0
+      resultShown.IPP = false if resultShown.IPP?
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENOM = false if resultShown.DENOM?
+      resultShown.DENEX = false if resultShown.DENEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+    
+    # If IPP is 0 then everything else is not calculated
+    if result.get('IPP') == 0
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENOM = false if resultShown.DENOM?
+      resultShown.DENEX = false if resultShown.DENEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    # If DENOM is 0 then DENEX, DENEXCEP, NUMER and NUMEX are not calculated
+    if result.get('DENOM')? && result.get('DENOM') == 0
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENEX = false if resultShown.DENEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    # If DENEX is 1 then NUMER, NUMEX and DENEXCEP not calculated
+    if result.get('DENEX')? && result.get('DENEX') >= 1
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    # If NUMER is 0 then NUMEX is not calculated
+    if result.get('NUMER')? && result.get('NUMER') == 0
+      resultShown.NUMEX = false if resultShown.NUMEX?
+
+    # If NUMER is 1 then DENEXCEP is not calculated
+    if result.get('NUMER')? && result.get('NUMER') >= 1
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    return resultShown
 
   ###*
   # Clears the rationale hightlighting on all CqlStatement views.
