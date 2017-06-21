@@ -138,9 +138,8 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     overlapCodes = {}
     #Map whose key is a pair of ValueSet CIDs (vs1.cid + "_" + vs2.cid), and whose value is the pair of valuesets involved.
     overlapValueSets = {}
-    #Outer loop itterates over valueSets, inner loop itterates over contained codes.
-    #For each code, check codeToVs to see if that code has been seen before.
-    #If it hasn't populate it with an empty array.
+    #Outer loop iterates over valueSets, inner loop itterates over contained codes.
+    #For each code, check codeToVs to see if that code has been seen before; If it hasn't, populate it with an empty array.
     #It its value isn't undefined, that means that that code has been seen before, which means that there is an overlap.
     #Compare the new code against each of the previously seen instances.  A key based on the cids of the involved valuesets is calculated.
     #The code is then added to the relevant entry in overlapCodes.
