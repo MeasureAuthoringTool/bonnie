@@ -190,7 +190,7 @@
           {{#ifCond type '==' "COL"}}
             {{#each values}}
               <span>
-                {{key}}:
+                {{field_title}}:
                 {{#if start_date}}
                   {{start_date}} {{start_time}}
                 {{else}}
@@ -207,7 +207,7 @@
             {{/each}}
           {{else}}
             <span>
-              {{key}}:
+              {{field_title}}:
               {{#if start_date}}
                 {{start_date}} {{start_time}}
               {{else}}
