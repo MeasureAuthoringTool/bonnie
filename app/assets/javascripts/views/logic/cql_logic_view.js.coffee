@@ -108,11 +108,18 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
       
       statementView.showRationale(result.get('statement_results')[statementView.name], showHighlighting)
 
+  ###*
+  # Make a map of population to boolean of if the result of the define statement result should be shown or not. This is
+  # what determines if we don't highlight the statements that are "not calculated".
+  # TODO: This is stop gap solution, should be moved to the calculator.
+  # @private
+  # @param {Result} result = The result object from the calculator.
+  ###
   _makePopulationResultShownMap: (result) ->
     # initialize to true for every population
     resultShown = {}
     _.each(_.without(result.keys(), 'statement_results', 'patient_id'), (population) -> resultShown[population] = true)
-    
+
     # If STRAT is 0 then everything else is not calculated
     if result.get('STRAT')? && result.get('STRAT') == 0
       resultShown.IPP = false if resultShown.IPP?
@@ -121,7 +128,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
       resultShown.DENOM = false if resultShown.DENOM?
       resultShown.DENEX = false if resultShown.DENEX?
       resultShown.DENEXCEP = false if resultShown.DENEXCEP?
-    
+
     # If IPP is 0 then everything else is not calculated
     if result.get('IPP') == 0
       resultShown.NUMER = false if resultShown.NUMER?

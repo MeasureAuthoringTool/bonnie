@@ -19,20 +19,28 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
 
   ###*
   # Show the results of this statement's calculation by highlighing appropiately. 
-  # @param {boolean|Object[]} result - The result for this statement. May be a boolean or an array of entries.
+  # @param {boolean|Object[]|Object|cql.Interval} result - The result for this statement. May be a boolean or an array of entries.
+  # @param {boolean} highlightResult - If the result should actually be highlighted or not
   ###
   showRationale: (result, highlightResult) ->
     @latestResult = result
-    if highlightResult == false
-      @clearRationale()  # If the result shouldn't be highlighted
+
+    if highlightResult == false  # If the result shouldn't be highlighted
+      @$('code').attr('class', '')
     else if result == true  # Specifically a boolean true
       @_setResult true
     else if result == false  # Specifically a boolean false
       @_setResult false
     else if Array.isArray(result)  # Check if result is an array
       @_setResult result.length > 0  # Result is true if the array is not empty
+      if result.length == 1 && result[0] == null # But if the array has one element that is null. Then we should make it red.
+        @_setResult false
+    else if result instanceof cql.Interval  # make it green if and Interval is returned
+      @_setResult true
+    else if result == null  # Specifically no result
+      @_setResult false
     else
-      @clearRationale()  # Clear the rationale if we can't make sense of the result
+      @$('code').attr('class', '')  # Clear the highlighting if we can't make sense of the result
 
   ###*
   # Modifies the class attribute of the code element to highlight the result.
@@ -49,7 +57,8 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
   # Clear the result for this statement.
   ###
   clearRationale: ->
-    @latestResult = null
+    # Clear out the latestResult. Using undefined because it is different than null which is a valid result.
+    @latestResult = undefined
     @$('code').attr('class', '')
 
   ###*
@@ -61,7 +70,7 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
     if @highlightPatientDataEnabled == true && Array.isArray(@latestResult) && @latestResult.length > 0
       dataCriteriaIDs = []
       for resultEntry in @latestResult
-        if resultEntry.entry  # if the result is an entry then grab the id so it can be highlighted
+        if resultEntry?.entry  # if the result is an entry then grab the id so it can be highlighted
           dataCriteriaIDs.push(resultEntry.entry._id)
       @parent?.highlightPatientData(dataCriteriaIDs)  # report the id of the data criteria to be highlighted to the CqlPopulationLogic view.
 
