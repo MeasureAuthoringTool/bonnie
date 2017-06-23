@@ -81,8 +81,9 @@
              elm["library"]["statements"]["def"].push generatedELMJSON
 
       # Calculate results for each CQL statement
-      results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), params)
-
+      #results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), params)
+      debugger
+      results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), null, null, params)
       # Parse CQL statement results into population values
       population_results = @createPopulationValues population, results, patient
 
