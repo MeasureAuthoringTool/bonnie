@@ -81,11 +81,10 @@
              elm["library"]["statements"]["def"].push generatedELMJSON
 
       # Calculate results for each CQL statement
-      #results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), params)
       results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), null, null, params)
+      result.set {'line_id_results': results.localIdPatientResultsMap}
       # Parse CQL statement results into population values
       population_results = @createPopulationValues population, results, patient
-
       if population_results?
         result.set {'statement_results': results.patientResults[patient['id']]}
         result.set population_results

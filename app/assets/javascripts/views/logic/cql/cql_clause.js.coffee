@@ -9,6 +9,45 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
   
   initialize: ->
     if (@element.children)
-      @children = []
+      @childClauses = []
       for child in @element.children
-        @children.push(new Thorax.Views.CqlClauseView(element: child))
+        @childClauses.push(new Thorax.Views.CqlClauseView(element: child))
+        
+  showRationale: (results) ->
+    if @childClauses?
+      for clause in @childClauses
+        clause.showRationale(results)
+        
+    if @element.ref_id?
+      result = results[Object.keys(results)[0]][@element.ref_id]
+      @latestResult = result
+      
+      if result == true  # Specifically a boolean true
+        @_setResult true
+      else if result == false  # Specifically a boolean false
+        @_setResult false
+      else if Array.isArray(result)  # Check if result is an array
+        valid = false
+        for entry in result
+          valid = valid || entry?
+        @_setResult valid # Result is true if the array is not empty
+      else
+        @clearRationale()  # Clear the rationale if we can't make sense of the result
+        
+  ###*
+  # Clear the result for this statement.
+  ###
+  clearRationale: ->
+    @latestResult = null
+    @$('code').attr('class', '')
+    
+  ###*
+  # Modifies the class attribute of the code element to highlight the result.
+  # @private
+  # @param {boolean} evalResult - The result that should be shown.
+  ###
+  _setResult: (evalResult) ->
+    if evalResult == true
+      @$el.attr('class', 'eval-true')
+    else
+      @$el.attr('class', 'eval-false')
