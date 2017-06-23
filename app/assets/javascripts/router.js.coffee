@@ -167,7 +167,7 @@
     return if $('.errorDialog').size() > @maxErrorCount
     if $('.errorDialog').size() == @maxErrorCount
       error.title = "Multiple Errors: #{error.title}"
-      error.summary = "This page has generated multiple errors... addtitional errors will be suppressed. #{error.summary}"
+      error.summary = "This page has generated multiple errors... additional errors will be suppressed. #{error.summary}"
     errorDialogView = new Thorax.Views.ErrorDialog error: error
     errorDialogView.appendTo('#bonnie')
     errorDialogView.display();
