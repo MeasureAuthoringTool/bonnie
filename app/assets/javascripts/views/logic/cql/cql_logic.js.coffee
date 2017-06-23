@@ -9,7 +9,7 @@ class Thorax.Views.CqlLogic extends Thorax.Views.BonnieView
     @logic = []
     elmJson = measure.model.get('elm_annotations')
     for element in elmJson['statements']
-      @logic.push(new Thorax.Views.CqlClauseView(element)) 
+      @logic.push(new Thorax.Views.CqlClauseView(element: element)) 
     
   showCoverage: ->
 

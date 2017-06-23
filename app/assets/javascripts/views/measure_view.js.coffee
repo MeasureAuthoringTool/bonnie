@@ -52,7 +52,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
     # Determine which population logic view use
     if @model.has('cql')
-      populationLogicView = new Thorax.Views.CqlLogic(model: @model, population: @population)
+      populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @model, population: @population)
     else
       populationLogicView = new Thorax.Views.PopulationLogic(model: @population)
   

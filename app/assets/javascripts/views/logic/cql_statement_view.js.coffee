@@ -14,8 +14,8 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
   # data functionality.
   ###
   initialize: ->
-    @text = @statement.annotation[0].s.value[0]
-    @name = @statement.name
+    @name = @statement.define_name
+    @rootClauseView = new Thorax.Views.CqlClauseView(element: @statement)
 
   ###*
   # Show the results of this statement's calculation by highlighing appropiately. 
