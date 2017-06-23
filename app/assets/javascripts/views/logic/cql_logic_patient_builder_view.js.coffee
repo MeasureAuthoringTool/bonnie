@@ -7,7 +7,7 @@ class Thorax.Views.CqlPatientBuilderLogic extends Thorax.Views.BonnieView
     @results = {}
     for pop in @population_names
       @results[pop] = 0
-    @cqlLogicView = new Thorax.Views.CqlPopulationLogic(model: @model, highlightPatientDataEnabled: true, population: @population)
+    @cqlLogicView = new Thorax.Views.CqlLogic(model: @model, highlightPatientDataEnabled: true, population: @population)
 
   showRationale: (result) ->
     for pop in @population_names
