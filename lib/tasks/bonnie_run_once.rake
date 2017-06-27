@@ -43,8 +43,11 @@ namespace :bonnie do
     # Medication orders previously contained fulfillment histories. This actually
     # doesn't make sense as an order is a future concept and a fulfillment history
     # is what happened. This also does not align with the QDM specification.
-    #  This became an issue when trying to do QRDA exports because the 
+    # This became an issue when trying to do QRDA exports because the 
     # medication order QDM model did not support fulfillment history information.
+    # The UI for medication orders was changed to align with QDM, but previously
+    # entered medication orders still have fulfillment history which is no longer
+    # editable in the UI and affects calculations.
     #
     # The script below removes the fulfillment history information. This will likely
     # make patients fail. We will need to send out an email when we make this change.
