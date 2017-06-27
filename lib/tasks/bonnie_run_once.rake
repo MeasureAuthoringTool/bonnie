@@ -62,7 +62,7 @@ namespace :bonnie do
         # remove information from the medication list directly on the patient
         for medication in r.medications
           if medication[:description].match(/^Medication, Order/) && medication[:fulfillmentHistory].count > 0
-            puts "\tresetting medication " + medication.description
+            puts "\tResetting medication " + medication.description
             medication.fulfillmentHistory = []
             medication.dose = nil
             medication.administrationTiming = nil
@@ -72,7 +72,7 @@ namespace :bonnie do
         # remove information from the source data criteria patient history
         for sdc in r.source_data_criteria
           if sdc[:description] && sdc[:description].match(/^Medication, Order/) && sdc[:fulfillments] && sdc[:fulfillments].count > 0
-            puts "\tresetting source data criteria " + sdc[:description]
+            puts "\tResetting source data criteria " + sdc[:description]
             sdc[:fulfillments] = []
             sdc[:dose_value] = ""
             sdc[:dose_unit] = ""
