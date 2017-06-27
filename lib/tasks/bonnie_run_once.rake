@@ -40,5 +40,55 @@ namespace :bonnie do
       end
     end
 
+    # Medication orders previously contained fulfillment histories. This actually
+    # doesn't make sense as an order is a future concept and a fulfillment history
+    # is what happened. This also does not align with the QDM specification.
+    #  This became an issue when trying to do QRDA exports because the 
+    # medication order QDM model did not support fulfillment history information.
+    #
+    # The script below removes the fulfillment history information. This will likely
+    # make patients fail. We will need to send out an email when we make this change.
+    desc 'Converts Medication Order fulfillment histories to allowed administrations'
+    task :convert_fulfillment_history => :environment do
+      Record.where({"medications.description" => /^Medication, Order/, "medications.fulfillmentHistory" => {'$ne' => []}}).each do |r|
+        puts "\nRECORD " + r._id
+        
+        user = User.find(r.user_id)
+        measure = Measure.where(:hqmf_set_id => r.measure_ids[0], :user_id => r.user_id).first
+        puts user.email
+        puts measure[:cms_id]
+        puts r.first + ' ' + r.last
+        
+        # remove information from the medication list directly on the patient
+        for medication in r.medications
+          if medication[:description].match(/^Medication, Order/) && medication[:fulfillmentHistory].count > 0
+            puts "\tresetting medication " + medication.description
+            medication.fulfillmentHistory = []
+            medication.dose = nil
+            medication.administrationTiming = nil
+          end
+        end
+        
+        # remove information from the source data criteria patient history
+        for sdc in r.source_data_criteria
+          if sdc[:description] && sdc[:description].match(/^Medication, Order/) && sdc[:fulfillments] && sdc[:fulfillments].count > 0
+            puts "\tresetting source data criteria " + sdc[:description]
+            sdc[:fulfillments] = []
+            sdc[:dose_value] = ""
+            sdc[:dose_unit] = ""
+            sdc[:frequency_value] = ""
+            sdc[:frequency_unit] = ""
+          end
+        end
+        
+        # get rid of the cached calc results
+        r.calc_results = []
+        
+        r.save
+        
+      end
+
+    end
+
   end
 end
