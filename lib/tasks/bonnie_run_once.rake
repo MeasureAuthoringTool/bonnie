@@ -53,6 +53,8 @@ namespace :bonnie do
     # make patients fail. We will need to send out an email when we make this change.
     desc 'Converts Medication Order fulfillment histories to allowed administrations'
     task :convert_fulfillment_history => :environment do
+      # find records that include a medication order and that medication order
+      # contains at least one fulfillment history.
       Record.where({"medications.description" => /^Medication, Order/, "medications.fulfillmentHistory" => {'$ne' => []}}).each do |r|
         puts "\nRECORD " + r._id
         
