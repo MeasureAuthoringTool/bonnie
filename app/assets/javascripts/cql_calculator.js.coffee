@@ -83,9 +83,11 @@
           main_library_index = index
 
       observations = population.collection.parent.get('observations')
+      observation_defs = []
       if observations
          for obs in observations
-           generatedELMJSON =  @generateELMJSONFunction(obs.function_name, obs.parameter)
+           generatedELMJSON = @generateELMJSONFunction(obs.function_name, obs.parameter)
+           observation_defs.push('BonnieFunction_' + obs.function_name)
            # Check to see if the gneratedELMJSON function is already in the definitions
            # Added a check to support old ELM representation and new Array representation.
            if Array.isArray(elm) && (elm[main_library_index]['library']['statements']['def'].filter (def) -> def.name == generatedELMJSON.name).length == 0
@@ -97,7 +99,7 @@
       results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), population.collection.parent.get('main_cql_library'), main_library_version, params)
 
       # Parse CQL statement results into population values
-      population_results = @createPopulationValues population, results, patient
+      population_results = @createPopulationValues population, results, patient, observation_defs
 
       if population_results?
         result.set {'statement_results': results.patientResults[patient['id']]}
@@ -116,7 +118,7 @@
         }, error)
     return result
 
-  createPopulationValues: (population, results, patient) ->
+  createPopulationValues: (population, results, patient, observation_defs) ->
     population_results = {}
     # Grab the mapping between populations and CQL statements
     cql_map = population.collection.parent.get('populations_cql_map')
@@ -151,6 +153,14 @@
             population_results[popCode] = 1
           else
             population_results[popCode] = 0
+      else if popCode == 'OBSERV' && observation_defs?.length > 0
+        # Handle observations using the names of the define statements that
+        # were added to the ELM to call the observation functions.
+        for ob_def in observation_defs
+          population_results['values'] = [] unless population_results['values']
+          obs_result = results['patientResults']?[patient.id]?[ob_def]
+          if obs_result && obs_result.length > 0
+            population_results['values'].push(obs_result[0].value)
     @handlePopulationValues population_results
 
   # Takes in the initial values from result object and checks to see if some values should not be calculated.
