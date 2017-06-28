@@ -43,6 +43,7 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
     # Clear out the latestResult. Using undefined because it is different than null which is a valid result.
     @latestResult = undefined
     @$('code').attr('class', '')
+    @rootClauseView.clearRationale()
 
   ###*
   # Event handler for the mouseover event. This will report to the CqlPopulationLogic view with the ids of the patient

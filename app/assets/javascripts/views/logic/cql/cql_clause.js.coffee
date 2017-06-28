@@ -13,12 +13,14 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
       for child in @element.children
         @childClauses.push(new Thorax.Views.CqlClauseView(element: child))
         
-  showRationale: (results) ->
+  showRationale: (results, highlightResult) ->
     if @childClauses?
       for clause in @childClauses
-        clause.showRationale(results)
-        
-    if @element.ref_id?
+        clause.showRationale(results, highlightResult)
+
+    if highlightResult == false  # If the result shouldn't be highlighted
+      @clearRationale()
+    else if @element.ref_id?
       result = results[Object.keys(results)[0]][@element.ref_id]
       @latestResult = result
       
@@ -39,7 +41,10 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
   ###
   clearRationale: ->
     @latestResult = null
-    @$('code').attr('class', '')
+    @$el.attr('class', '')
+    if @childClauses?
+      for clause in @childClauses
+        clause.clearRationale()
     
   ###*
   # Modifies the class attribute of the code element to highlight the result.
@@ -48,6 +53,6 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
   ###
   _setResult: (evalResult) ->
     if evalResult == true
-      @$el.attr('class', 'eval-true')
+      @$el.attr('class', 'clause-true')
     else
-      @$el.attr('class', 'eval-false')
+      @$el.attr('class', 'clause-false')
