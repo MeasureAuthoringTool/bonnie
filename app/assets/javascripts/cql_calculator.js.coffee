@@ -87,6 +87,10 @@
       if observations
          for obs in observations
            generatedELMJSON = @generateELMJSONFunction(obs.function_name, obs.parameter)
+           # Save the name of the generated define statement, so we can check
+           # its result later in the CQL calculation process. These added
+           # define statements are called 'BonnieFunction_' followed by the
+           # name of the function - see the 'generateELMJSONFunction' function.
            observation_defs.push('BonnieFunction_' + obs.function_name)
            # Check to see if the gneratedELMJSON function is already in the definitions
            # Added a check to support old ELM representation and new Array representation.
