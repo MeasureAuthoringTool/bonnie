@@ -53,6 +53,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   initialize: ->
     @isOutdatedUpload = false
     @statementViews = []
+<<<<<<< HEAD
     _.each @model.get('elm_annotations')?.statements, (statement) =>
 
 
@@ -74,6 +75,71 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
         if popNames.length > 0
           popName = popNames.join(', ')
         @statementViews.push new Thorax.Views.CqlStatement(statement: statement, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName)
+=======
+    
+    # TODO: This should be changed when we move to production.
+    # We need this if statement to support the old version of cql measure that didn't have ELM in an array.
+    if Array.isArray @model.get('elm')
+      _.each @model.get('elm'), (elm) =>
+        _.each elm.library.statements?.def, (statement) =>
+          if statement.annotation
+
+            # Check to see if this measure was uploaded with an older version of the translation service that had clause level
+            # annotations enabled. This checks if the first annotation is just the define keyword and its delimiting space.
+            # TODO: Update this check as needed. Remove these checks when CQL has settled for production.
+            if (statement.annotation[0]?.s.value[0] == "define ")
+              @isOutdatedUpload = true  # if the annotation only has "define" then this measure upload may be out of date.
+
+            # skip if this is a statement the user doesn't need to see
+            return if Thorax.Views.CqlPopulationLogic.SKIP_STATEMENTS.includes(statement.name)
+
+            popNames = []
+            # if a population (population set) was provided for this view it should mark the statment if it is a population defining statement  
+            if @population
+              for pop, popStatements of @model.get('populations_cql_map')
+                index = @population.get('index')
+                # If displaying a stratification, we need to set the index to the associated populationCriteria
+                # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
+                index = @population.get('population_index') if @population.get('stratification')?
+                # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
+                index = @population.get('stratification_index') if pop == "STRAT" && @population.get('stratification')?
+                # There may be multiple populations that it defines. Only push population name if @population has a pop ie: not all populations will have STRAT
+                popNames.push(pop) if statement.name == popStatements[index] && @population.get(pop)?
+              if popNames.length > 0
+                popName = popNames.join(', ')
+
+            @statementViews.push new Thorax.Views.CqlStatement(statement: statement, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName)
+    else
+      _.each @model.get('elm')?.library.statements?.def, (statement) =>
+        if statement.annotation
+
+          # Check to see if this measure was uploaded with an older version of the translation service that had clause level
+          # annotations enabled. This checks if the first annotation is just the define keyword and its delimiting space.
+          # TODO: Update this check as needed. Remove these checks when CQL has settled for production.
+          if (statement.annotation[0]?.s.value[0] == "define ")
+            @isOutdatedUpload = true  # if the annotation only has "define" then this measure upload may be out of date.
+
+          # skip if this is a statement the user doesn't need to see
+          return if Thorax.Views.CqlPopulationLogic.SKIP_STATEMENTS.includes(statement.name)
+
+          popNames = []
+          # if a population (population set) was provided for this view it should mark the statment if it is a population defining statement  
+          if @population
+            for pop, popStatements of @model.get('populations_cql_map')
+              index = @population.get('index')
+              # If displaying a stratification, we need to set the index to the associated populationCriteria
+              # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
+              index = @population.get('population_index') if @population.get('stratification')?
+              # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
+              index = @population.get('stratification_index') if pop == "STRAT" && @population.get('stratification')?
+              # There may be multiple populations that it defines. Only push population name if @population has a pop ie: not all populations will have STRAT
+              popNames.push(pop) if statement.name == popStatements[index] && @population.get(pop)?
+            if popNames.length > 0
+              popName = popNames.join(', ')
+
+          @statementViews.push new Thorax.Views.CqlStatement(statement: statement, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName)
+
+>>>>>>> cql4bonnie
 
   ###*
   # Shows the coverage information.
