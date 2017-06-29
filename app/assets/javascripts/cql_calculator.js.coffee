@@ -105,6 +105,7 @@
         result.set {'statement_relevance': @_buildStatementRelevanceMap(result.get('population_relevance'), population.collection.parent, population) }
         result.set @_buildStatementAndClauseResults(population.collection.parent, results.patientResults[patient['id']], results.localIdPatientResultsMap[patient['id']], result.get('statement_relevance'))
         result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
+        result.set {'localIdPatientResultsMap': results.localIdPatientResultsMap}
         result.state = 'complete'
     catch error
       result.state = 'cancelled'
