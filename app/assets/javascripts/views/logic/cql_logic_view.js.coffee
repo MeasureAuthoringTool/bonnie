@@ -53,7 +53,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   initialize: ->
     @isOutdatedUpload = false
     @statementViews = []
-<<<<<<< HEAD
+
     _.each @model.get('elm_annotations')?.statements, (statement) =>
 
 
@@ -75,7 +75,6 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
         if popNames.length > 0
           popName = popNames.join(', ')
         @statementViews.push new Thorax.Views.CqlStatement(statement: statement, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName)
-=======
     
     # TODO: This should be changed when we move to production.
     # We need this if statement to support the old version of cql measure that didn't have ELM in an array.
