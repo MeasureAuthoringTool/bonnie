@@ -102,6 +102,7 @@
       if population_results?
         result.set {'statement_results': results.patientResults[patient['id']]}
         result.set population_results
+        result.set {'population_relevance': @_makePopulationRelevanceMap(population_results) }
         result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
         result.state = 'complete'
     catch error
@@ -196,6 +197,58 @@
       if 'DENEXCEP' of population_results
         population_results["DENEXCEP"] = 0
     return population_results
+
+  ###*
+  # Make a map of population to boolean of if the result of the define statement result should be shown or not. This is
+  # what determines if we don't highlight the statements that are "not calculated".
+  # @private
+  # @param {Result} result - The population result object.
+  ###
+  _makePopulationRelevanceMap: (result) ->
+    # initialize to true for every population
+    resultShown = {}
+    _.each(Object.keys(result), (population) -> resultShown[population] = true)
+
+    # If STRAT is 0 then everything else is not calculated
+    if result.STRAT? && result.STRAT == 0
+      resultShown.IPP = false if resultShown.IPP?
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENOM = false if resultShown.DENOM?
+      resultShown.DENEX = false if resultShown.DENEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    # If IPP is 0 then everything else is not calculated
+    if result.IPP == 0
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENOM = false if resultShown.DENOM?
+      resultShown.DENEX = false if resultShown.DENEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    # If DENOM is 0 then DENEX, DENEXCEP, NUMER and NUMEX are not calculated
+    if result.DENOM? && result.DENOM == 0
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENEX = false if resultShown.DENEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    # If DENEX is 1 then NUMER, NUMEX and DENEXCEP not calculated
+    if result.DENEX? && result.DENEX >= 1
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    # If NUMER is 0 then NUMEX is not calculated
+    if result.NUMER? && result.NUMER == 0
+      resultShown.NUMEX = false if resultShown.NUMEX?
+
+    # If NUMER is 1 then DENEXCEP is not calculated
+    if result.NUMER? && result.NUMER >= 1
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    return resultShown
+
 
   isValueZero: (value, population_set) ->
     if value of population_set and population_set[value] == 0
