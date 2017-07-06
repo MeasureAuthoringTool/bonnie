@@ -102,7 +102,8 @@
       if population_results?
         result.set {'statement_results': results.patientResults[patient['id']]}
         result.set population_results
-        result.set {'population_relevance': @_makePopulationRelevanceMap(population_results) }
+        result.set {'population_relevance': @_buildPopulationRelevanceMap(population_results) }
+        result.set {'statement_relevance': @_buildStatementRelevanceMap(result.get('population_relevance'), population.collection.parent, population) }
         result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
         result.state = 'complete'
     catch error
@@ -199,12 +200,12 @@
     return population_results
 
   ###*
-  # Make a map of population to boolean of if the result of the define statement result should be shown or not. This is
+  # Build a map of population to boolean of if the result of the define statement result should be shown or not. This is
   # what determines if we don't highlight the statements that are "not calculated".
   # @private
   # @param {Result} result - The population result object.
   ###
-  _makePopulationRelevanceMap: (result) ->
+  _buildPopulationRelevanceMap: (result) ->
     # initialize to true for every population
     resultShown = {}
     _.each(Object.keys(result), (population) -> resultShown[population] = true)
@@ -249,6 +250,51 @@
 
     return resultShown
 
+  ###*
+  # Builds a map of relevance for the statements in this calculation.
+  # @private
+  # @param {object} populationRelevance - The map of population relevance used as the starting point.
+  # @param {Measure} measure - The measure.
+  ###
+  _buildStatementRelevanceMap: (populationRelevance, measure, populationSet) ->
+    # build map defaulting to false using cql_statement_dependencies structure
+    statementRelevance = {}
+    for lib, statements of measure.get('cql_statement_dependencies')
+      statementRelevance[lib] = {}
+      for statementName of statements
+        statementRelevance[lib][statementName] = false
+
+    for population, relevance of populationRelevance
+      if relevance
+        index = populationSet.get('index')
+        # If displaying a stratification, we need to set the index to the associated populationCriteria
+        # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
+        index = populationSet.get('population_index') if populationSet.get('stratification')?
+        # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
+        index = populationSet.get('stratification_index') if population == "STRAT" && populationSet.get('stratification')?
+
+        relevantStatement = measure.get('populations_cql_map')[population][index]
+        @_markStatementRelevant(measure.get('cql_statement_dependencies'), statementRelevance, measure.get('main_cql_library'), relevantStatement)
+
+    return statementRelevance
+
+  ###*
+  # Mark a statement as relevant if it hasn't already been marked relevant. Mark all dependent statement
+  # as relevant.
+  # @private
+  # @param {object} cql_statement_dependencies - Dependency map for the measure.
+  # @param {object} statementRelevance - The relevance map to fill.
+  # @param {string} libraryName - The library name.
+  # @param {string} statementName - The statement name.
+  ###
+  _markStatementRelevant: (cql_statement_dependencies, statementRelevance, libraryName, statementName) ->
+    if statementRelevance[libraryName][statementName] == false
+      statementRelevance[libraryName][statementName] = true
+      for dependentStatement in cql_statement_dependencies[libraryName][statementName]
+        @_markStatementRelevant(cql_statement_dependencies, statementRelevance, dependentStatement.library_name, dependentStatement.statement_name)
+
+  _buildStatementResults: (measure, results, statementRelevance) ->
+    {}
 
   isValueZero: (value, population_set) ->
     if value of population_set and population_set[value] == 0
