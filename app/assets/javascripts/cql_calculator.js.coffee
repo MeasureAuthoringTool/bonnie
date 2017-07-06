@@ -128,14 +128,19 @@
         # were added to the ELM to call the observation functions.
         for ob_def in observation_defs
           population_results['values'] = [] unless population_results['values']
-          obs_result = results['patientResults']?[patient.id]?[ob_def]
-          if obs_result && obs_result.length > 0
-            # Observations only have one result, based on how the HQMF is
-            # structured (note the single 'value' section in the
-            # measureObservationDefinition clause). Add the single result value
-            # to the values array on the results of this calculation (allowing
-            # for more than one possible observation).
-            population_results['values'].push(obs_result[0].value)
+          # Observations only have one result, based on how the HQMF is
+          # structured (note the single 'value' section in the
+          # measureObservationDefinition clause).
+          obs_result = results['patientResults']?[patient.id]?[ob_def]?[0]
+          if obs_result
+            # Add the single result value to the values array on the results of
+            # this calculation (allowing for more than one possible observation).
+            if obs_result.hasOwnProperty('value')
+              # If result is a cql.Quantity type, add its value
+              population_results['values'].push(obs_result.value)
+            else if Object(obs_result) != obs_result
+              # In all other cases, only add primitives (numbers, booleans)
+              population_results['values'].push(obs_result)
     @handlePopulationValues population_results
 
   # Takes in the initial values from result object and checks to see if some values should not be calculated.
