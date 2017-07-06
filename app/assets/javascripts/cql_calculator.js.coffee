@@ -100,10 +100,10 @@
       population_results = @createPopulationValues population, results, patient
 
       if population_results?
-        result.set {'statement_results': results.patientResults[patient['id']]}
         result.set population_results
         result.set {'population_relevance': @_buildPopulationRelevanceMap(population_results) }
         result.set {'statement_relevance': @_buildStatementRelevanceMap(result.get('population_relevance'), population.collection.parent, population) }
+        result.set @_buildStatementAndClauseResults(population.collection.parent, results.patientResults[patient['id']], results.localIdPatientResultsMap[patient['id']], result.get('statement_relevance'))
         result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
         result.state = 'complete'
     catch error
@@ -204,6 +204,7 @@
   # what determines if we don't highlight the statements that are "not calculated".
   # @private
   # @param {Result} result - The population result object.
+  # @return {object} Map that tells if a population calculation was considered/relevant.
   ###
   _buildPopulationRelevanceMap: (result) ->
     # initialize to true for every population
@@ -255,6 +256,8 @@
   # @private
   # @param {object} populationRelevance - The map of population relevance used as the starting point.
   # @param {Measure} measure - The measure.
+  # @param {population} populationSet - The population set being calculated.
+  # @return {object} The statement_relevance map that tells if each statement was relevant for calculation.
   ###
   _buildStatementRelevanceMap: (populationRelevance, measure, populationSet) ->
     # build map defaulting to false using cql_statement_dependencies structure
@@ -293,8 +296,95 @@
       for dependentStatement in cql_statement_dependencies[libraryName][statementName]
         @_markStatementRelevant(cql_statement_dependencies, statementRelevance, dependentStatement.library_name, dependentStatement.statement_name)
 
-  _buildStatementResults: (measure, results, statementRelevance) ->
-    {}
+  ###*
+  # Builds the result structures for the statements and the clauses.
+  # @private
+  # @param {Measure} measure - The measure.
+  # @param {object} rawStatementResults - The raw statement results from the calculation engine.
+  # @param {object} rawClauseResults - The raw clause results from the calculation engine.
+  # @param {object} statementRelevance - The statement relevance map.
+  # @return {object} Object with statement_results and clause_results built.
+  ###
+  _buildStatementAndClauseResults: (measure, rawStatementResults, rawClauseResults, statementRelevance) ->
+    statementResults = {}
+    clauseResults = {}
+    for lib, statements of measure.get('cql_statement_dependencies')
+      statementResults[lib] = {}
+      clauseResults[lib] = {}
+      for statementName of statements
+        statementResults[lib][statementName] = { raw: rawStatementResults[statementName], final: 'NA'}
+        if statementRelevance[lib][statementName] == false
+          statementResults[lib][statementName].final = 'UNHIT'
+        else
+          statementResults[lib][statementName].final = if @_doesResultPass(rawStatementResults[statementName]) then 'TRUE' else 'FALSE'
+
+        # create clause results for all localIds in this statement
+        localIds = @_findAllLocalIdsInStatementByName(measure, lib, statementName)
+        for localId in localIds
+          clauseResults[lib][localId] = { raw: rawClauseResults[localId], final: 'NA' }
+          if statementRelevance[lib][statementName] == false
+            clauseResults[lib][localId].final = 'UNHIT'
+          else
+            clauseResults[lib][localId].final = if @_doesResultPass(rawClauseResults[localId]) then 'TRUE' else 'FALSE'
+
+    return { statement_results: statementResults, clause_results: clauseResults }
+
+  ###*
+  # Finds all localIds in a statement by it's library and statement name.
+  # @private
+  # @param {Measure} measure - The measure.
+  # @param {string} libraryName - The name of the library the statement belongs to.
+  # @param {string} statementName - The statement name to search for.
+  # @return {Array[Integer]} List of local ids in the statement.
+  ###
+  _findAllLocalIdsInStatementByName: (measure, libraryName, statementName) ->
+    library = measure.get('elm').find((lib) -> lib.library.identifier.id == libraryName)
+    statement = library.library.statements.def.find((statement) -> statement.name == statementName)
+
+    return @_findAllLocalIdsInStatement(statement)
+
+  ###*
+  # Finds all localIds in the statement structure recursively.
+  # @private
+  # @param {Object} statement - The statement structure or child parts of it.
+  # @return {Array[Integer]} List of local ids in the statement.
+  ###
+  _findAllLocalIdsInStatement: (statement) ->
+    localIds = []
+    # looking at the key and value of everything on this object or array
+    for k, v of statement
+      # if the value is an array or object, recurse
+      if (Array.isArray(v) || typeof v is 'object')
+        localIds = localIds.concat(@_findAllLocalIdsInStatement(v))
+      # else if they key is localId push the value
+      else if k == 'localId'
+          localIds.push v
+    return localIds
+
+  ###*
+  # Determines if a result (for a statement or clause) is a pass or fail.
+  # @private
+  # @param result - The result from the calculation engine.
+  # @return {boolean} true or false
+  ###
+  _doesResultPass: (result) ->
+    if result is true  # Specifically a boolean true
+      return true
+    else if result is false  # Specifically a boolean false
+      return false
+    else if Array.isArray(result)  # Check if result is an array
+      if result.length == 0  # Result is true if the array is not empty
+        return false
+      else if result.length == 1 && result[0] == null # But if the array has one element that is null. Then we should make it red.
+        return false
+      else
+        return true
+    else if result instanceof cql.Interval  # make it green if and Interval is returned
+      return true
+    else if result is null || result is undefined # Specifically no result
+      return false
+    else
+      return true
 
   isValueZero: (value, population_set) ->
     if value of population_set and population_set[value] == 0

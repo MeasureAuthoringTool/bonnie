@@ -85,7 +85,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
               if popNames.length > 0
                 popName = popNames.join(', ')
 
-            @statementViews.push new Thorax.Views.CqlStatement(statement: statement, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName)
+            @statementViews.push new Thorax.Views.CqlStatement(statement: statement, libraryName: elm.library.identifier.id, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName)
     else
       _.each @model.get('elm')?.library.statements?.def, (statement) =>
         if statement.annotation
@@ -137,11 +137,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
     @latestResult = result
     showResultsMap = result.get('population_relevance')
     for statementView in @statementViews
-      # check to see if highlighting should be supressed because "not calculated"
-      popName = statementView.cqlPopulation?.split(', ')[0]
-      showHighlighting = if showResultsMap[popName]? then showResultsMap[popName] else true
-      
-      statementView.showRationale(result.get('statement_results')[statementView.name], showHighlighting)
+      statementView.showRationale(result.get('statement_results')[statementView.libraryName][statementView.name])
 
   ###*
   # Clears the rationale hightlighting on all CqlStatement views.
