@@ -295,7 +295,7 @@ module Measures
         transfer ||= Transfer.new
 
         if field.type == "CD"
-          transfer = Transfer.new(transfer.attributes.merge(field_value))
+          transfer = Transfer.new(transfer.attributes.merge(field_value)) unless field_value.nil?
         else
           transfer.time = field_value
         end
