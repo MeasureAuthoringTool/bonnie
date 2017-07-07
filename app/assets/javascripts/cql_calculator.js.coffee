@@ -103,7 +103,7 @@
         result.set population_results
         result.set {'population_relevance': @_buildPopulationRelevanceMap(population_results) }
         result.set {'statement_relevance': @_buildStatementRelevanceMap(result.get('population_relevance'), population.collection.parent, population) }
-        result.set @_buildStatementAndClauseResults(population.collection.parent, results.patientResults[patient['id']], results.localIdPatientResultsMap[patient['id']], result.get('statement_relevance'))
+        result.set @_buildStatementAndClauseResults(population.collection.parent, results.localIdPatientResultsMap[patient['id']], result.get('statement_relevance'))
         result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
         result.set {'localIdPatientResultsMap': results.localIdPatientResultsMap}
         result.state = 'complete'
@@ -306,27 +306,28 @@
   # @param {object} statementRelevance - The statement relevance map.
   # @return {object} Object with statement_results and clause_results built.
   ###
-  _buildStatementAndClauseResults: (measure, rawStatementResults, rawClauseResults, statementRelevance) ->
+  _buildStatementAndClauseResults: (measure, rawClauseResults, statementRelevance) ->
     statementResults = {}
     clauseResults = {}
     for lib, statements of measure.get('cql_statement_dependencies')
       statementResults[lib] = {}
       clauseResults[lib] = {}
       for statementName of statements
-        statementResults[lib][statementName] = { raw: rawStatementResults[statementName], final: 'NA'}
+        rawStatementResult = @_findResultForStatementClause(measure, lib, statementName, rawClauseResults)
+        statementResults[lib][statementName] = { raw: rawStatementResult, final: 'NA'}
         if statementRelevance[lib][statementName] == false
           statementResults[lib][statementName].final = 'UNHIT'
         else
-          statementResults[lib][statementName].final = if @_doesResultPass(rawStatementResults[statementName]) then 'TRUE' else 'FALSE'
+          statementResults[lib][statementName].final = if @_doesResultPass(rawStatementResult) then 'TRUE' else 'FALSE'
 
         # create clause results for all localIds in this statement
         localIds = @_findAllLocalIdsInStatementByName(measure, lib, statementName)
         for localId in localIds
-          clauseResults[lib][localId] = { raw: rawClauseResults[localId], final: 'NA' }
+          clauseResults[lib][localId] = { raw: rawClauseResults[lib]?[localId], final: 'NA' }
           if statementRelevance[lib][statementName] == false
             clauseResults[lib][localId].final = 'UNHIT'
           else
-            clauseResults[lib][localId].final = if @_doesResultPass(rawClauseResults[localId]) then 'TRUE' else 'FALSE'
+            clauseResults[lib][localId].final = if @_doesResultPass(rawClauseResults[lib]?[localId]) then 'TRUE' else 'FALSE'
 
     return { statement_results: statementResults, clause_results: clauseResults }
 
@@ -361,6 +362,19 @@
       else if k == 'localId'
           localIds.push v
     return localIds
+
+  ###*
+  # Finds the clause localId for a statement and gets the result for that clause.
+  # @private
+  # @param {Measure} measure - The measure.
+  # @param {string} libraryName - The library name.
+  # @param {string} statementName - The statement name.
+  # @param {object} rawClauseResults - The raw clause results from the engine.
+  ###
+  _findResultForStatementClause: (measure, libraryName, statementName, rawClauseResults) ->
+    library = measure.get('elm').find((lib) -> lib.library.identifier.id == libraryName)
+    statement = library.library.statements.def.find((statement) -> statement.name == statementName)
+    return rawClauseResults[libraryName]?[statement.localId]
 
   ###*
   # Determines if a result (for a statement or clause) is a pass or fail.
