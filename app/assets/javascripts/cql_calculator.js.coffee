@@ -320,7 +320,7 @@
         statementResults[lib][statementName] = { raw: rawStatementResult}
         if CQLCalculator.SKIP_STATEMENTS.includes(statementName)
           statementResults[lib][statementName].final = 'NA'
-        else if statementRelevance[lib][statementName] == false
+        else if statementRelevance[lib][statementName] == false || !rawClauseResults[lib]?
           statementResults[lib][statementName].final = 'UNHIT'
         else
           statementResults[lib][statementName].final = if @_doesResultPass(rawStatementResult) then 'TRUE' else 'FALSE'
@@ -331,7 +331,7 @@
           clauseResults[lib][localId] = { raw: rawClauseResults[lib]?[localId], statementName: statementName }
           if CQLCalculator.SKIP_STATEMENTS.includes(statementName)
             clauseResults[lib][localId].final = 'NA'
-          else if statementRelevance[lib][statementName] == false
+          else if statementRelevance[lib][statementName] == false || !rawClauseResults[lib]?
             clauseResults[lib][localId].final = 'UNHIT'
           else
             clauseResults[lib][localId].final = if @_doesResultPass(rawClauseResults[lib]?[localId]) then 'TRUE' else 'FALSE'
