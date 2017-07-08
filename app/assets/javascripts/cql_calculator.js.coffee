@@ -367,6 +367,8 @@
         localIds = localIds.concat(@_findAllLocalIdsInStatement(v))
       # else if they key is localId push the value
       else if k == 'localId'
+        # Alias clauses do not have results, so they are irrelevant for highlighting and coverage
+        if !statement.alias?
           localIds.push v
     return localIds
 
