@@ -260,7 +260,8 @@ module Measures
         values = []
         value["values"].each do |val| 
           # TODO name will have to be reset to name of embeded value if there are ever recursive collections or collections of mixed types
-          values.push self.recursive_field_value_derivation(val, value_sets, name, entry)
+          field_val, field_acc = self.recursive_field_value_derivation(val, value_sets, name, entry)
+          values.push field_val
         end
         field_value = {"type"=> "COL", "values" => values}
       else
