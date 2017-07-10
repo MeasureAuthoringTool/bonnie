@@ -22,8 +22,8 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
   # Show the results of this statement's calculation by highlighing appropiately. 
   # @param {boolean|Object[]|Object|cql.Interval} result - The result for this statement. May be a boolean or an array of entries.
   ###
-  showRationale: (results, highlightResult) ->
-    @rootClauseView.showRationale(results, highlightResult)
+  showRationale: (results) ->
+    @rootClauseView.showRationale(results)
 
   ###*
   # Modifies the class attribute of the code element to highlight the result.

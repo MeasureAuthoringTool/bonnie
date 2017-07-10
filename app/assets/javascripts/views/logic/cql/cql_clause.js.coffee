@@ -18,15 +18,13 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
       for clause in @childClauses
         clause.showRationale(results)
 
-    if highlightResult == false  # If the result shouldn't be highlighted
-      @clearRationale()
-    else if @element.ref_id?
+    if @element.ref_id?
       result = results[@element.ref_id]
       @latestResult = result
       
-      if result.final == 'TRUE'
+      if result?.final == 'TRUE'
         @_setResult true
-      else if result.final == 'FALSE'
+      else if result?.final == 'FALSE'
         @_setResult false
       else
         @$el.attr('class', '')  # Clear the rationale if we can't make sense of the result
