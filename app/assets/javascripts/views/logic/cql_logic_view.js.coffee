@@ -63,6 +63,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
           # skip if this is a statement the user doesn't need to see
           if !Thorax.Views.CqlPopulationLogic.SKIP_STATEMENTS.includes(statement.define_name) && statement.define_name?
             popNames = []
+            popName = null
             # if a population (population set) was provided for this view it should mark the statment if it is a population defining statement  
             if @population
               for pop, popStatements of @model.get('populations_cql_map')
