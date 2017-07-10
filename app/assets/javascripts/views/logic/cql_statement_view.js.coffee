@@ -4,9 +4,10 @@
 class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
   template: JST['logic/cql_statement']
 
-  events:
-    'mouseover code': 'highlightEntry'
-    'mouseout code': 'clearHighlightEntry'
+  #events:
+    # TODO: figureout if hightlighting makes sense at this level
+    #'mouseover code': 'highlightEntry'
+    #'mouseout code': 'clearHighlightEntry'
 
   ###*
   # Initializes the CqlStatement view. Expects statement to be the JSON ELM statement that should be shown.
@@ -20,7 +21,6 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
   ###*
   # Show the results of this statement's calculation by highlighing appropiately. 
   # @param {boolean|Object[]|Object|cql.Interval} result - The result for this statement. May be a boolean or an array of entries.
-  # @param {boolean} highlightResult - If the result should actually be highlighted or not
   ###
   showRationale: (results, highlightResult) ->
     @rootClauseView.showRationale(results, highlightResult)
@@ -50,13 +50,14 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
   # data elements that should be highlighted.
   ###
   highlightEntry: ->
+    # TODO: figure out if highlighting makes sense at this level.
     # only highlight entries if highlighting is enabled and there are results in the form of an array.
-    if @highlightPatientDataEnabled == true && Array.isArray(@latestResult) && @latestResult.length > 0
-      dataCriteriaIDs = []
-      for resultEntry in @latestResult
-        if resultEntry?.entry  # if the result is an entry then grab the id so it can be highlighted
-          dataCriteriaIDs.push(resultEntry.entry._id)
-      @parent?.highlightPatientData(dataCriteriaIDs)  # report the id of the data criteria to be highlighted to the CqlPopulationLogic view.
+    #if @highlightPatientDataEnabled == true && Array.isArray(@latestResult.raw) && @latestResult.raw.length > 0
+    #  dataCriteriaIDs = []
+    #  for resultEntry in @latestResult.raw
+    #    if resultEntry?.entry  # if the result is an entry then grab the id so it can be highlighted
+    #      dataCriteriaIDs.push(resultEntry.entry._id)
+    #  @parent?.highlightPatientData(dataCriteriaIDs)  # report the id of the data criteria to be highlighted to the CqlPopulationLogic view.
 
   ###*
   # Event handler for the mouseout event. This will report to the CqlPopulationLogic view that highlighting should be cleared.
