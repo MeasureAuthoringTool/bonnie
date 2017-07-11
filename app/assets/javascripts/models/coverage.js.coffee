@@ -18,6 +18,7 @@ class Thorax.Model.Coverage extends Thorax.Model
         @set coverage: 0
       else
         allClauses = {}
+        @rationaleCriteria = {}
         totalClauses = 0
         passedClauses = 0
         # Initialize all_clauses list to all false and count number of clauses
@@ -30,6 +31,11 @@ class Thorax.Model.Coverage extends Thorax.Model
                   totalClauses += 1
                   allClauses[key] = false
                 allClauses[key] = allClauses[key] || @determineCovered(clauseResult)
+                # Build rationaleCriteria structure for coverage highlighting
+                if allClauses[key]
+                  if !@rationaleCriteria[libraryName]?
+                    @rationaleCriteria[libraryName] = []
+                  @rationaleCriteria[libraryName].push(localId)
                 
         # Count total number of clauses that evalueated to true
         for localId of allClauses
