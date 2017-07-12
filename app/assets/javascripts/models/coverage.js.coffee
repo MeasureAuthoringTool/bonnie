@@ -35,7 +35,7 @@ class Thorax.Model.Coverage extends Thorax.Model
                 if allClauses[key]
                   if !@rationaleCriteria[libraryName]?
                     @rationaleCriteria[libraryName] = []
-                  @rationaleCriteria[libraryName].push(localId)
+                  @rationaleCriteria[libraryName][localId] = clauseResult
                 
         # Count total number of clauses that evalueated to true
         for localId of allClauses
