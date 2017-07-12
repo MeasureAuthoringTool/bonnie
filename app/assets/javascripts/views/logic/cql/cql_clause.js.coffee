@@ -34,7 +34,7 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
       for clause in @childClauses
         clause.showRationale(results)
 
-    if @element.ref_id?
+    if @element.ref_id? && results?
       result = results[@element.ref_id]
       @latestResult = result
       
