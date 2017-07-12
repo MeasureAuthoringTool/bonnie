@@ -271,19 +271,18 @@
     for lib, statements of measure.get('cql_statement_dependencies')
       statementRelevance[lib] = {}
       for statementName of statements
-        statementRelevance[lib][statementName] = false
+        statementRelevance[lib][statementName] = "NA"
 
     for population, relevance of populationRelevance
-      if relevance
-        index = populationSet.get('index')
-        # If displaying a stratification, we need to set the index to the associated populationCriteria
-        # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
-        index = populationSet.get('population_index') if populationSet.get('stratification')?
-        # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
-        index = populationSet.get('stratification_index') if population == "STRAT" && populationSet.get('stratification')?
+      index = populationSet.get('index')
+      # If displaying a stratification, we need to set the index to the associated populationCriteria
+      # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
+      index = populationSet.get('population_index') if populationSet.get('stratification')?
+      # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
+      index = populationSet.get('stratification_index') if population == "STRAT" && populationSet.get('stratification')?
 
-        relevantStatement = measure.get('populations_cql_map')[population][index]
-        @_markStatementRelevant(measure.get('cql_statement_dependencies'), statementRelevance, measure.get('main_cql_library'), relevantStatement)
+      relevantStatement = measure.get('populations_cql_map')[population][index]
+      @_markStatementRelevant(measure.get('cql_statement_dependencies'), statementRelevance, measure.get('main_cql_library'), relevantStatement, relevance)
 
     return statementRelevance
 
@@ -296,11 +295,11 @@
   # @param {string} libraryName - The library name.
   # @param {string} statementName - The statement name.
   ###
-  _markStatementRelevant: (cql_statement_dependencies, statementRelevance, libraryName, statementName) ->
-    if statementRelevance[libraryName][statementName] == false
-      statementRelevance[libraryName][statementName] = true
+  _markStatementRelevant: (cql_statement_dependencies, statementRelevance, libraryName, statementName, relevant) ->
+    if statementRelevance[libraryName][statementName] == 'NA' || statementRelevance[libraryName][statementName] == 'FALSE'
+      statementRelevance[libraryName][statementName] = if relevant then 'TRUE' else 'FALSE'
       for dependentStatement in cql_statement_dependencies[libraryName][statementName]
-        @_markStatementRelevant(cql_statement_dependencies, statementRelevance, dependentStatement.library_name, dependentStatement.statement_name)
+        @_markStatementRelevant(cql_statement_dependencies, statementRelevance, dependentStatement.library_name, dependentStatement.statement_name, relevant)
 
   ###*
   # Builds the result structures for the statements and the clauses.
@@ -320,25 +319,50 @@
       for statementName of statements
         rawStatementResult = @_findResultForStatementClause(measure, lib, statementName, rawClauseResults)
         statementResults[lib][statementName] = { raw: rawStatementResult}
-        if CQLCalculator.SKIP_STATEMENTS.includes(statementName)
+        if CQLCalculator.SKIP_STATEMENTS.includes(statementName) || statementRelevance[lib][statementName] == 'NA'
           statementResults[lib][statementName].final = 'NA'
-        else if statementRelevance[lib][statementName] == false || !rawClauseResults[lib]?
+        else if statementRelevance[lib][statementName] == 'FALSE' || !rawClauseResults[lib]?
           statementResults[lib][statementName].final = 'UNHIT'
         else
           statementResults[lib][statementName].final = if @_doesResultPass(rawStatementResult) then 'TRUE' else 'FALSE'
-
         # create clause results for all localIds in this statement
         localIds = @_findAllLocalIdsInStatementByName(measure, lib, statementName)
-        for localId in localIds
+        for localId, clause of localIds
           clauseResults[lib][localId] = { raw: rawClauseResults[lib]?[localId], statementName: statementName }
-          if CQLCalculator.SKIP_STATEMENTS.includes(statementName) || unsupported_statements.includes(statementName)
-            clauseResults[lib][localId].final = 'NA'
-          else if statementRelevance[lib][statementName] == false || !rawClauseResults[lib]?
-            clauseResults[lib][localId].final = 'UNHIT'
-          else
-            clauseResults[lib][localId].final = if @_doesResultPass(rawClauseResults[lib]?[localId]) then 'TRUE' else 'FALSE'
-
+          clauseResults[lib][localId].final = @_setFinalResults(
+            statementRelevance: statementRelevance,
+            statementName: statementName,
+            rawClauseResults: rawClauseResults,
+            lib: lib,
+            localId: localId,
+            clause: clause)   
+        
     return { statement_results: statementResults, clause_results: clauseResults }
+
+
+  ###*
+  # Determines the final result (for coloring and coverage) of clauses
+  # @private
+  # @param {object} rawClauseResults - The raw clause results from the calculation engine.
+  # @param {object} statementRelevance - The statement relevance map.
+  # @param {object} statementName - The name of the statement the clause is in
+  # @param {object} lib - The name of the libarary the clause is in
+  # @param {object} lib - The name of the libarary the clause is in
+  ###
+  _setFinalResults: (params) ->
+    finalResult = 'FALSE'
+    # Alias clauses do not have results, so they are irrelevant for highlighting and coverage
+    if params.clause.alias?
+      finalResult = 'NA'
+    if CQLCalculator.SKIP_STATEMENTS.includes(params.statementName) || unsupported_statements.includes(params.statementName) || params.statementRelevance[params.lib][params.statementName] == 'NA'
+      finalResult = 'NA'
+    else if params.statementRelevance[params.lib][params.statementName] == 'FALSE' || !params.rawClauseResults[params.lib]?
+      finalResult = 'UNHIT'
+    else if @_doesResultPass(params.rawClauseResults[params.lib]?[params.localId]) 
+      finalResult = 'TRUE'
+    return finalResult
+
+
 
   ###*
   # Finds all localIds in a statement by it's library and statement name.
@@ -351,7 +375,6 @@
   _findAllLocalIdsInStatementByName: (measure, libraryName, statementName) ->
     library = measure.get('elm').find((lib) -> lib.library.identifier.id == libraryName)
     statement = library.library.statements.def.find((statement) -> statement.name == statementName)
-
     return @_findAllLocalIdsInStatement(statement)
 
   ###*
@@ -360,18 +383,17 @@
   # @param {Object} statement - The statement structure or child parts of it.
   # @return {Array[Integer]} List of local ids in the statement.
   ###
-  _findAllLocalIdsInStatement: (statement) ->
-    localIds = []
+  _findAllLocalIdsInStatement: (statement,localIds) ->
+    if !localIds?
+      localIds = {}
     # looking at the key and value of everything on this object or array
     for k, v of statement
       # if the value is an array or object, recurse
       if (Array.isArray(v) || typeof v is 'object')
-        localIds = localIds.concat(@_findAllLocalIdsInStatement(v))
+        @_findAllLocalIdsInStatement(v,localIds)
       # else if they key is localId push the value
       else if k == 'localId'
-        # Alias clauses do not have results, so they are irrelevant for highlighting and coverage
-        if !statement.alias?
-          localIds.push v
+        localIds[v] = statement
         # We do not yet support coverage/coloring of Function statements
         # Keep track of all of the functiondef statement names so we can mark them as 'NA' in the statementResults
         if statement.type? && statement.type == "FunctionDef"
