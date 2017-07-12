@@ -12,7 +12,20 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
       @childClauses = []
       for child in @element.children
         @childClauses.push(new Thorax.Views.CqlClauseView(element: child))
+
+  ###*
+  # Highlights the clause views in the rationaleCriteria, indicating coverage
+  # @param {hash} rationaleCriteria - LocalId->Result that will be covered
+  ###
+  showCoverage: (rationaleCriteria) ->
+    if @childClauses?
+      for clause in @childClauses
+        clause.showCoverage(rationaleCriteria)
         
+    if @element.ref_id?
+      if rationaleCriteria[@element.ref_id]?
+        @$el.attr('class', 'clause-covered')
+      
   showRationale: (results) ->
     if @childClauses?
       for clause in @childClauses

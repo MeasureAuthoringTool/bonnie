@@ -37,6 +37,13 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
       @$('code').attr('class', 'eval-false')
 
   ###*
+  # Calls the coverage highlighting function for the CQL clauses in the statement
+  # @param {hash} rationaleCriteria - LocalId->Result that will be covered
+  ###
+  showCoverage: (rationaleCriteria) ->
+    @rootClauseView.showCoverage(rationaleCriteria)
+
+  ###*
   # Clear the result for this statement.
   ###
   clearRationale: ->
