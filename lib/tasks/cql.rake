@@ -12,28 +12,34 @@ namespace :bonnie do
       orphans = 0
       CqlMeasure.all.each do |measure|
         begin
+          # Grab the user, we need this to output the name of the user who owns
+          # this measure. Also comes in handy when detecting measures uploaded
+          # by accounts that have since been deleted.
           user = User.find_by('_id': measure[:user_id])
-          if measure[:cql].instance_of?(Array) # Newer version of the CqlMeasure model
-            # NOTE: The following three lines are adapted from the functionality
-            # of the 'load_mat_cql_exports' method in the cql_loader.rb in bonnie_bundler
-            elms, elm_annotations = Measures::CqlLoader.translate_cql_to_elm(measure[:cql])
-            cql_definition_dependency_structure = Measures::CqlLoader.populate_cql_definition_dependency_structure(measure[:main_cql_library], elms, measure[:populations_cql_map])
-            cql_definition_dependency_structure = Measures::CqlLoader.populate_used_library_dependencies(cql_definition_dependency_structure, measure[:main_cql_library], elms)
-            measure.update(elm: elms, cql_statement_dependencies: cql_definition_dependency_structure)
-            measure.save!
-            update_passes += 1
-            puts '[Success] Measure ' + measure[:cms_id] + ': "' + measure[:title] + '" with id ' + measure[:id] + ' in account ' + user[:email] + ' successfully updated ELM!'
-          elsif measure[:cql].instance_of?(String) # Older version of the CqlMeasure model
-            response = RestClient.post('http://localhost:8080/cql/translator',
-                                       measure[:cql],
-                                       content_type: 'application/cql',
-                                       accept: 'application/elm+json')
-            # Since the model changed from the original version, save elm as an array
-            measure.update(elm: [JSON.parse(response.body)]) if response.code == 200
-            measure.save!
-            update_passes += 1
-            puts '[Success] Measure ' + measure[:cms_id] + ': "' + measure[:title] + '" with id ' + measure[:id] + ' in account ' + user[:email] + ' successfully updated ELM!'
+          # Grab the measure cql
+          if measure[:cql].instance_of?(Array) # New type of measure
+            cql = measure[:cql]
+          elsif measure[:cql].instance_of?(String) # Old type of measure
+            cql = [measure[:cql]]
           end
+          # Generate elm from the measure cql
+          elms, elm_annotations = Measures::CqlLoader.translate_cql_to_elm(cql)
+          elms = [elms] unless elms.instance_of?(Array)
+          # Grab the name of the main cql library
+          if measure[:main_cql_library].present?
+            # Old measure! Grab the main_cql_library name from the ELM
+            main_cql_library = measure[:main_cql_library]
+          else
+            main_cql_library = elms.first['library']['identifier']['id']
+          end
+          # Build the definition dependency structure for this measure
+          cql_definition_dependency_structure = Measures::CqlLoader.populate_cql_definition_dependency_structure(main_cql_library, elms, measure[:populations_cql_map])
+          cql_definition_dependency_structure = Measures::CqlLoader.populate_used_library_dependencies(cql_definition_dependency_structure, main_cql_library, elms)
+          # Update the measure
+          measure.update(elm: elms, cql_statement_dependencies: cql_definition_dependency_structure, main_cql_library: main_cql_library)
+          measure.save!
+          update_passes += 1
+          puts '[Success] Measure ' + measure[:cms_id] + ': "' + measure[:title] + '" with id ' + measure[:id] + ' in account ' + user[:email] + ' successfully updated ELM!'
         rescue RestClient::BadRequest => e
           update_fails += 1
           puts '[Error] Measure ' + measure[:cms_id] + ': "' + measure[:title] + '" with id ' + measure[:id] + ' in account ' + user[:email] + ' failed to update ELM!'
