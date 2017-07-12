@@ -23,7 +23,7 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
         clause.showCoverage(rationaleCriteria)
         
     if @element.ref_id?
-      if rationaleCriteria[@element.ref_id]?
+      if rationaleCriteria? && rationaleCriteria[@element.ref_id]?
         @$el.attr('class', 'clause-covered')
       else
         @$el.attr('class', 'clause-uncovered')
