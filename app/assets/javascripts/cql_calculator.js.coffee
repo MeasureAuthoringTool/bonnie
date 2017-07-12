@@ -354,7 +354,7 @@
     # Alias clauses do not have results, so they are irrelevant for highlighting and coverage
     if params.clause.alias?
       finalResult = 'NA'
-    if CQLCalculator.SKIP_STATEMENTS.includes(params.statementName) || unsupported_statements.includes(params.statementName) || params.statementRelevance[params.lib][params.statementName] == 'NA'
+    else if CQLCalculator.SKIP_STATEMENTS.includes(params.statementName) || unsupported_statements.includes(params.statementName) || params.statementRelevance[params.lib][params.statementName] == 'NA'
       finalResult = 'NA'
     else if params.statementRelevance[params.lib][params.statementName] == 'FALSE' || !params.rawClauseResults[params.lib]?
       finalResult = 'UNHIT'
