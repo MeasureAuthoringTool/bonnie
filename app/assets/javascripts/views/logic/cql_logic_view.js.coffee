@@ -89,8 +89,10 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   showCoverage: ->
     @clearRationale()
     rationaleCriteria = @population.coverage().rationaleCriteria
-    for statementView in @statementViews
-      statementView.showCoverage(rationaleCriteria[statementView.libraryName])
+    # If there are no patients, there will be no rationaleCriteria and therefore no coverage
+    if rationaleCriteria?
+      for statementView in @statementViews
+        statementView.showCoverage(rationaleCriteria[statementView.libraryName])
 
   ###*
   # Clears the coverage information from the view.
