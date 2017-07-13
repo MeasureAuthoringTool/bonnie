@@ -15,7 +15,7 @@ namespace :bonnie do
           # Grab the user, we need this to output the name of the user who owns
           # this measure. Also comes in handy when detecting measures uploaded
           # by accounts that have since been deleted.
-          user = User.find_by('_id': measure[:user_id])
+          user = User.find_by(_id: measure[:user_id])
           # Grab the measure cql
           if measure[:cql].instance_of?(Array) # New type of measure
             cql = measure[:cql]
