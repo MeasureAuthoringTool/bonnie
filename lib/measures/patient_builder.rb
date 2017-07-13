@@ -260,7 +260,8 @@ module Measures
         values = []
         value["values"].each do |val| 
           # TODO name will have to be reset to name of embeded value if there are ever recursive collections or collections of mixed types
-          values.push self.recursive_field_value_derivation(val, value_sets, name, entry)
+          field_val, field_acc = self.recursive_field_value_derivation(val, value_sets, name, entry)
+          values.push field_val
         end
         field_value = {"type"=> "COL", "values" => values}
       else
@@ -295,7 +296,7 @@ module Measures
         transfer ||= Transfer.new
 
         if field.type == "CD"
-          transfer = Transfer.new(transfer.attributes.merge(field_value))
+          transfer = Transfer.new(transfer.attributes.merge(field_value)) unless field_value.nil?
         else
           transfer.time = field_value
         end
@@ -304,7 +305,7 @@ module Measures
         field_value = transfer
       end
       
-      field_value
+      [field_value, field_accessor]
     end
 
     # Add this data criteria's field related data to a coded entry.
@@ -315,7 +316,7 @@ module Measures
     def self.derive_field_values(entry, values, value_sets)
       return if values.nil?
       values.each do |name, value|
-        field_value = recursive_field_value_derivation(value, value_sets, name, entry)
+        field_value, field_accessor = recursive_field_value_derivation(value, value_sets, name, entry)
         # Add field to entry, catagorized by the QDM human readable name->coded_entry_method defined in health-data-standards/lib/hqmf-model/data_criteria.rb
         begin
           field_accessor ||= HQMF::DataCriteria::FIELDS[name][:coded_entry_method]
