@@ -80,6 +80,8 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     icons =
       characteristic:            'fa-user'
       communications:            'fa-files-o'
+      allergies_intolerances:    'fa-exclamation-triangle'
+      adverse_events:            'fa-exclamation'
       conditions:                'fa-stethoscope'
       devices:                   'fa-medkit'
       diagnostic_studies:        'fa-stethoscope'
@@ -123,7 +125,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
                                     'communication_from_provider_to_provider', 'risk_category_assessment', 'transfer_from', 'transfer_to']
 
     #If Criteria Definition exists in object
-    negationList = 
+    negationList =
       assessment:       ['performed', 'recommended']
       device:           ['applied', 'ordered', 'recommended']
       diagnostic_study: ['performed', 'ordered', 'recommended']
