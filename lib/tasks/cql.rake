@@ -33,10 +33,10 @@ namespace :bonnie do
             main_cql_library = elms.first['library']['identifier']['id']
           end
           # Build the definition dependency structure for this measure
-          cql_definition_dependency_structure = Measures::CqlLoader.populate_cql_definition_dependency_structure(main_cql_library, elms, measure[:populations_cql_map])
+          cql_definition_dependency_structure = Measures::CqlLoader.populate_cql_definition_dependency_structure(main_cql_library, elms)
           cql_definition_dependency_structure = Measures::CqlLoader.populate_used_library_dependencies(cql_definition_dependency_structure, main_cql_library, elms)
           # Update the measure
-          measure.update(elm: elms, cql_statement_dependencies: cql_definition_dependency_structure, main_cql_library: main_cql_library)
+          measure.update(elm: elms, elm_annotations: elm_annotations, cql_statement_dependencies: cql_definition_dependency_structure, main_cql_library: main_cql_library)
           measure.save!
           update_passes += 1
           puts '[Success] Measure ' + measure[:cms_id] + ': "' + measure[:title] + '" with id ' + measure[:id] + ' in account ' + user[:email] + ' successfully updated ELM!'
