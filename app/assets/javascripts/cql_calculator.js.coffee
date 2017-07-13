@@ -72,16 +72,29 @@
 
       # Grab ELM JSON from measure, use clone so that the function added from observations does not get added over and over again
       elm = _.clone(population.collection.parent.get('elm'))
+
+      # Find the main library (the library that is the "measure") and
+      # grab the version to pass into the execution engine
+      main_library_version = ''
+      main_library_index = 0
+      for elm_library, index in elm
+        if elm_library['library']['identifier']['id'] == population.collection.parent.get('main_cql_library')
+          main_library_version = elm_library['library']['identifier']['version']
+          main_library_index = index
+
       observations = population.collection.parent.get('observations')
       if observations
          for obs in observations
            generatedELMJSON =  @generateELMJSONFunction(obs.function_name, obs.parameter)
            # Check to see if the gneratedELMJSON function is already in the definitions
-           if (elm["library"]["statements"]["def"].filter (def) -> def.name == generatedELMJSON.name).length == 0
+           # Added a check to support old ELM representation and new Array representation.
+           if Array.isArray(elm) && (elm[main_library_index]['library']['statements']['def'].filter (def) -> def.name == generatedELMJSON.name).length == 0
+             elm[main_library_index]["library"]["statements"]["def"].push generatedELMJSON
+           else if !Array.isArray(elm) && (elm["library"]["statements"]["def"].filter (def) -> def.name == generatedELMJSON.name).length == 0
              elm["library"]["statements"]["def"].push generatedELMJSON
 
       # Calculate results for each CQL statement
-      results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), params)
+      results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), population.collection.parent.get('main_cql_library'), main_library_version, params)
 
       # Parse CQL statement results into population values
       population_results = @createPopulationValues population, results, patient
