@@ -75,6 +75,12 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
                 index = @population.get('stratification_index') if pop == "STRAT" && @population.get('stratification')?
                 # There may be multiple populations that it defines. Only push population name if @population has a pop ie: not all populations will have STRAT
                 popNames.push(pop) if statement.define_name == popStatements[index] && @population.get(pop)?
+
+              # Mark if it is in an OBSERV if there are any and we are looking at the main_cql_library
+              if @model.get('observations')? && libraryName == @model.get('main_cql_library')
+                for observ, observIndex in @model.get('observations')
+                  popNames.push("OBSERV_#{observIndex+1}") if statement.define_name == observ.function_name
+
               if popNames.length > 0
                 popName = popNames.join(', ')
             @statementViews.push new Thorax.Views.CqlStatement(statement: statement, libraryName: libraryName, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName)

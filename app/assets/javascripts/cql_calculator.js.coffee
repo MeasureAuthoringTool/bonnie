@@ -214,6 +214,9 @@
       resultShown.DENOM = false if resultShown.DENOM?
       resultShown.DENEX = false if resultShown.DENEX?
       resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+      resultShown.MSRPOPL = false if resultShown.MSRPOPL?
+      resultShown.MSRPOPLEX = false if resultShown.MSRPOPLEX?
+      resultShown.values = false if resultShown.values?
 
     # If IPP is 0 then everything else is not calculated
     if result.IPP == 0
@@ -222,6 +225,10 @@
       resultShown.DENOM = false if resultShown.DENOM?
       resultShown.DENEX = false if resultShown.DENEX?
       resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+      resultShown.MSRPOPL = false if resultShown.MSRPOPL?
+      resultShown.MSRPOPLEX = false if resultShown.MSRPOPLEX?
+      # values is the OBSERVs
+      resultShown.values = false if resultShown.values?
 
     # If DENOM is 0 then DENEX, DENEXCEP, NUMER and NUMEX are not calculated
     if result.DENOM? && result.DENOM == 0
@@ -244,6 +251,15 @@
     if result.NUMER? && result.NUMER >= 1
       resultShown.DENEXCEP = false if resultShown.DENEXCEP?
 
+    # If MSRPOPLEX is 1 then MSRPOPL and OBSERVs are not calculated
+    if result.MSRPOPLEX? && result.MSRPOPLEX == 1
+      resultShown.MSRPOPL = false if resultShown.MSRPOPL?
+      resultShown.values = false if resultShown.values?
+
+    # If MSRPOPL is 0 then OBSERVs are not calculated
+    if result.MSRPOPL? && result.MSRPOPL == 0
+      resultShown.values = false if resultShown.values?
+
     return resultShown
 
   ###*
@@ -263,15 +279,20 @@
         statementRelevance[lib][statementName] = "NA"
 
     for population, relevance of populationRelevance
-      index = populationSet.get('index')
-      # If displaying a stratification, we need to set the index to the associated populationCriteria
-      # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
-      index = populationSet.get('population_index') if populationSet.get('stratification')?
-      # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
-      index = populationSet.get('stratification_index') if population == "STRAT" && populationSet.get('stratification')?
+      # If the population is values, that means we need to mark relevance for the OBSERVs
+      if (population == 'values')
+        for observation in measure.get('observations')
+          @_markStatementRelevant(measure.get('cql_statement_dependencies'), statementRelevance, measure.get('main_cql_library'), observation.function_name, relevance)
+      else
+        index = populationSet.get('index')
+        # If displaying a stratification, we need to set the index to the associated populationCriteria
+        # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
+        index = populationSet.get('population_index') if populationSet.get('stratification')?
+        # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
+        index = populationSet.get('stratification_index') if population == "STRAT" && populationSet.get('stratification')?
 
-      relevantStatement = measure.get('populations_cql_map')[population][index]
-      @_markStatementRelevant(measure.get('cql_statement_dependencies'), statementRelevance, measure.get('main_cql_library'), relevantStatement, relevance)
+        relevantStatement = measure.get('populations_cql_map')[population][index]
+        @_markStatementRelevant(measure.get('cql_statement_dependencies'), statementRelevance, measure.get('main_cql_library'), relevantStatement, relevance)
 
     return statementRelevance
 
