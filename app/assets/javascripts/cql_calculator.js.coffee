@@ -4,6 +4,9 @@
   @SKIP_STATEMENTS = ["SDE Ethnicity", "SDE Payer", "SDE Race", "SDE Sex"]
   # List of statements that we don't support coverage/coloring of yet
   unsupported_statements = []
+  
+  # THIS IS NOT FOREVER
+  @aliass = []
 
   # Generate a calculation result for a population / patient pair; this always returns a result immediately,
   # but may return a blank result object that later gets filled in through a deferred calculation, so views
@@ -52,7 +55,7 @@
         if elm_library['library']['identifier']['id'] == population.collection.parent.get('main_cql_library')
           main_library_version = elm_library['library']['identifier']['version']
           main_library_index = index
-
+          
       observations = population.collection.parent.get('observations')
       observation_defs = []
       if observations
@@ -323,6 +326,7 @@
   _buildStatementAndClauseResults: (measure, rawClauseResults, statementRelevance) ->
     statementResults = {}
     clauseResults = {}
+    @aliass = []
     for lib, statements of measure.get('cql_statement_dependencies')
       statementResults[lib] = {}
       clauseResults[lib] = {}
@@ -346,6 +350,10 @@
             lib: lib,
             localId: localId,
             clause: clause)   
+      
+      for alias in @aliass
+        if clauseResults[alias.lib]? && clauseResults[alias.lib][alias.expressionLocalId]?
+          clauseResults[alias.lib][alias.aliasLocalId] = clauseResults[alias.lib][alias.expressionLocalId]
         
     return { statement_results: statementResults, clause_results: clauseResults }
 
@@ -357,12 +365,15 @@
   # @param {object} statementRelevance - The statement relevance map.
   # @param {object} statementName - The name of the statement the clause is in
   # @param {object} lib - The name of the libarary the clause is in
-  # @param {object} lib - The name of the libarary the clause is in
+  # @param {object} localId - The localId of the current clause
+  # @param {object} clause - The clause we are getting the final result of
   ###
   _setFinalResults: (params) ->
     finalResult = 'FALSE'
     # Alias clauses do not have results, so they are irrelevant for highlighting and coverage
     if params.clause.alias?
+      if params.clause.expression? && params.clause.expression.localId?
+        @aliass.push({lib: params.lib, aliasLocalId: params.localId, expressionLocalId: params.clause.expression.localId})
       finalResult = 'NA'
     else if CQLCalculator.SKIP_STATEMENTS.includes(params.statementName) || unsupported_statements.includes(params.statementName) || params.statementRelevance[params.lib][params.statementName] == 'NA'
       finalResult = 'NA'
@@ -385,7 +396,7 @@
   _findAllLocalIdsInStatementByName: (measure, libraryName, statementName) ->
     library = measure.get('elm').find((lib) -> lib.library.identifier.id == libraryName)
     statement = library.library.statements.def.find((statement) -> statement.name == statementName)
-    return @_findAllLocalIdsInStatement(statement)
+    return @_findAllLocalIdsInStatement(statement,libraryName)
 
   ###*
   # Finds all localIds in the statement structure recursively.
@@ -393,14 +404,16 @@
   # @param {Object} statement - The statement structure or child parts of it.
   # @return {Array[Integer]} List of local ids in the statement.
   ###
-  _findAllLocalIdsInStatement: (statement,localIds) ->
+  _findAllLocalIdsInStatement: (statement, libraryName, localIds, aliasMap) ->
     if !localIds?
       localIds = {}
+    if !aliasMap?
+      aliasMap = {}
     # looking at the key and value of everything on this object or array
     for k, v of statement
       # if the value is an array or object, recurse
       if (Array.isArray(v) || typeof v is 'object')
-        @_findAllLocalIdsInStatement(v,localIds)
+        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap)
       # else if they key is localId push the value
       else if k == 'localId'
         localIds[v] = statement
@@ -409,6 +422,18 @@
         if statement.type? && statement.type == "FunctionDef"
           if statement.name?
             unsupported_statements.push(statement.name)
+      else if k == 'alias'
+        if statement.expression? && statement.expression.localId?
+          # Keep track of the localId of the expression that the alias references
+          aliasMap[v] = statement.expression.localId
+          alId = (parseInt(statement.expression.localId) + 1).toString()
+          @aliass.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
+      else if k == 'scope'
+        # The scope entry references an alias but does not have an ELM local ID. Hoever it DOES have an elm_annotations localId
+        # The elm_annotation localId of the alias variable is one less than the result that the
+        alId = (parseInt(statement.localId) - 1).toString()
+        @aliass.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
+
     return localIds
 
   ###*
