@@ -2,10 +2,6 @@
 
   # List of statements added by the MAT that are not useful to the user.
   @SKIP_STATEMENTS = ["SDE Ethnicity", "SDE Payer", "SDE Race", "SDE Sex"]
-  # List of statements that we don't support coverage/coloring of yet
-  unsupported_statements = []
-  
-  emptyResultClauses = []
 
   # Generate a calculation result for a population / patient pair; this always returns a result immediately,
   # but may return a blank result object that later gets filled in through a deferred calculation, so views
@@ -344,7 +340,7 @@
         for localId, clause of localIds
           clauseResult =
             # if this clause is an alias or a usage of alias it will get the raw result from the sourceLocalId.
-            raw: rawClauseResults[lib]?[if clause.isAlias? then clause.sourceLocalId else localId],
+            raw: rawClauseResults[lib]?[if clause.sourceLocalId? then clause.sourceLocalId else localId],
             statementName: statementName
 
           clauseResult.final = @_setFinalResults(
@@ -378,7 +374,7 @@
   ###
   _setFinalResults: (params) ->
     finalResult = 'FALSE'
-    if CQLCalculator.SKIP_STATEMENTS.includes(params.statementName) || unsupported_statements.includes(params.statementName)
+    if CQLCalculator.SKIP_STATEMENTS.includes(params.statementName) || params.clause.isUnsupported?
       finalResult = 'NA'
     else if params.statementRelevance[params.lib][params.statementName] == 'NA'
       finalResult = 'NA'
