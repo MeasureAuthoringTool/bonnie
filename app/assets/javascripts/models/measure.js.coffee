@@ -3,6 +3,7 @@ class Thorax.Models.Measure extends Thorax.Model
   initialize: ->
     # Becasue we bootstrap patients we mark them as _fetched, so isEmpty() will be sensible
     @set 'patients', new Thorax.Collections.Patients [], _fetched: true
+    @_localIdCache = {}
   parse: (attrs) ->
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
     populations = new Thorax.Collections.Population [], parent: this
@@ -124,6 +125,89 @@ class Thorax.Models.Measure extends Thorax.Model
 
     # return field values sorted by title
     _(fields).sortBy (field) -> field.title
+
+  findAllLocalIdsInStatementByName: (libraryName, statementName) ->
+    if @has('cql')
+      if @_localIdCache[libraryName]?[statementName]?
+        return @_localIdCache[libraryName][statementName]
+      else
+        @_localIdCache[libraryName] = {} unless @_localIdCache[libraryName]?
+        @_localIdCache[libraryName][statementName] = @_findAllLocalIdsInStatementByName(libraryName, statementName)
+        return @_localIdCache[libraryName][statementName]
+    
+    
+  ###*
+  # Finds all localIds in a statement by it's library and statement name.
+  # @private
+  # @param {string} libraryName - The name of the library the statement belongs to.
+  # @param {string} statementName - The statement name to search for.
+  # @return {Array[Object]} List of local ids in the statement.
+  ###
+  _findAllLocalIdsInStatementByName: (libraryName, statementName) ->
+    # create place for aliases and their usages to be placed to be filled in later. Aliases and their usages (aka scope)
+    # and returns do not have localIds in the elm but do in elm_annotations at a consistent calculable offset.
+    # BE WEARY of this calaculable offset.
+    emptyResultClauses = []
+    library = @get('elm').find((lib) -> lib.library.identifier.id == libraryName)
+    statement = library.library.statements.def.find((statement) -> statement.name == statementName)
+
+    localIds = @_findAllLocalIdsInStatement(statement, libraryName, {}, {}, emptyResultClauses)
+
+    for alias in emptyResultClauses
+      if localIds[alias.expressionLocalId]?
+        localIds[alias.aliasLocalId] =
+          localId: alias.aliasLocalId.toString(),
+          isAlias: true,
+          sourceLocalId: alias.expressionLocalId
+      
+    return localIds
+
+  ###*
+  # Finds all localIds in the statement structure recursively.
+  # @private
+  # @param {Object} statement - The statement structure or child parts of it.
+  # @return {Array[Integer]} List of local ids in the statement.
+  ###
+  _findAllLocalIdsInStatement: (statement, libraryName, localIds, aliasMap, emptyResultClauses) ->
+    if !localIds?
+      localIds = {}
+    if !aliasMap?
+      aliasMap = {}
+    
+    # looking at the key and value of everything on this object or array
+    for k, v of statement  
+      if k == 'return'
+        # Keep track of the localId of the expression that the return references
+        aliasMap[v] = statement.return.expression.localId
+        alId = parseInt(statement.return.localId)
+        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]}) 
+        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses) 
+      else if k == 'alias'
+        if statement.expression? && statement.expression.localId?
+          # Keep track of the localId of the expression that the alias references
+          aliasMap[v] = statement.expression.localId
+          # Determine the localId in the elm_annotation for this alias.
+          alId = parseInt(statement.expression.localId) + 1
+          emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
+      else if k == 'scope'
+        # The scope entry references an alias but does not have an ELM local ID. Hoever it DOES have an elm_annotations localId
+        # The elm_annotation localId of the alias variable is the localId of it's parent (one less than) 
+        # because the result of the scope clause should be equal to the clause that the scope is referencing
+        alId = parseInt(statement.localId) - 1
+        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
+      # else if they key is localId push the value
+      else if k == 'localId'
+        localIds[v] = statement
+        # We do not yet support coverage/coloring of Function statements
+        # Keep track of all of the functiondef statement names so we can mark them as 'NA' in the statementResults
+        if statement.type? && statement.type == "FunctionDef"
+          if statement.name?
+            unsupported_statements.push(statement.name)
+      # if the value is an array or object, recurse
+      else if (Array.isArray(v) || typeof v is 'object')
+        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses)
+      
+    return localIds
 
 class Thorax.Collections.Measures extends Thorax.Collection
   url: '/measures'
