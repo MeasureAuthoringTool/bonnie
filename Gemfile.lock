@@ -31,15 +31,15 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 81d48cf09c5758434ffa1a9c9780ebf2333060ac
-  branch: cql4bonnie
+  revision: 29cc44e9590dd20eb2b6701c36f021bc1203635d
+  branch: statement_dep_and_clause_elm_merged
   specs:
     bonnie_bundler (1.0.0)
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: 8b6e6b2b3f3b8efc2cabce0dd182fc4341eec6d2
-  branch: cql4bonnie
+  revision: 74d90fd3ed1817b136d1eabe5e3e88734aa12fd6
+  branch: cql4bonnie_706_707
   specs:
     cql_qdm_patientapi (0.1.0)
 
