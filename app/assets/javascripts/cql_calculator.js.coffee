@@ -416,18 +416,8 @@
         # Keep track of the localId of the expression that the return references
         aliasMap[v] = statement.return.expression.localId
         alId = (parseInt(statement.return.localId)).toString()
-        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})  
-      # if the value is an array or object, recurse
-      if (Array.isArray(v) || typeof v is 'object')
-        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap)
-      # else if they key is localId push the value
-      else if k == 'localId'
-        localIds[v] = statement
-        # We do not yet support coverage/coloring of Function statements
-        # Keep track of all of the functiondef statement names so we can mark them as 'NA' in the statementResults
-        if statement.type? && statement.type == "FunctionDef"
-          if statement.name?
-            unsupported_statements.push(statement.name)
+        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]}) 
+        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap) 
       else if k == 'alias'
         if statement.expression? && statement.expression.localId?
           # Keep track of the localId of the expression that the alias references
@@ -440,9 +430,18 @@
         # because the result of the scope clause should be equal to the clause that the scope is referencing
         alId = (parseInt(statement.localId) - 1).toString()
         emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
+      # else if they key is localId push the value
+      else if k == 'localId'
+        localIds[v] = statement
+        # We do not yet support coverage/coloring of Function statements
+        # Keep track of all of the functiondef statement names so we can mark them as 'NA' in the statementResults
+        if statement.type? && statement.type == "FunctionDef"
+          if statement.name?
+            unsupported_statements.push(statement.name)
+      # if the value is an array or object, recurse
+      else if (Array.isArray(v) || typeof v is 'object')
+        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap)
       
-
-
     return localIds
 
   ###*
