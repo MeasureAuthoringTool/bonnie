@@ -200,13 +200,15 @@ class Thorax.Models.Measure extends Thorax.Model
         alId = parseInt(statement.localId) - 1
         emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
       else if k == 'asTypeSpecifier'
+        # Map the localId of the asTypeSpecifier (Code, Quantity...) to the result of the result it is referencing
+        # For example, in the CQL code 'Variable.result as Code' the typeSpecifier does not produce a result, therefore
+        # we will set its result to whatever the result value is for 'Variable.result'
         alId = statement.asTypeSpecifier.localId
         typeClauseId = parseInt(statement.asTypeSpecifier.localId) - 1
         emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: typeClauseId})
       # else if they key is localId push the value
       else if k == 'localId'
         localIds[v] = { localId: v }
-
       # if the value is an array or object, recurse
       else if (Array.isArray(v) || typeof v is 'object')
         @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses)

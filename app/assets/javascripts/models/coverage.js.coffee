@@ -55,7 +55,6 @@ class Thorax.Model.Coverage extends Thorax.Model
       # Set coverage to the fraction of measure criteria that were true in the rationale
       @set coverage: ( @rationaleCriteria.length * 100 / @measureCriteria.length ).toFixed()
 
-
   determineCovered: (clause) ->
     if clause["final"] == "TRUE"
       return true

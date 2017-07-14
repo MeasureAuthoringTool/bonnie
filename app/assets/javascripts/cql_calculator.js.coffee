@@ -269,7 +269,7 @@
   # @return {object} The statement_relevance map that tells if each statement was relevant for calculation.
   ###
   _buildStatementRelevanceMap: (populationRelevance, measure, populationSet) ->
-    # build map defaulting to false using cql_statement_dependencies structure
+    # build map defaulting to not applicable (NA) using cql_statement_dependencies structure
     statementRelevance = {}
     for lib, statements of measure.get('cql_statement_dependencies')
       statementRelevance[lib] = {}
@@ -353,11 +353,7 @@
             rawResult: clauseResult.raw)
 
           clauseResults[lib][localId] = clauseResult
-      
-      #for alias in emptyResultClauses
-      #  if clauseResults[alias.lib]? && clauseResults[alias.lib][alias.expressionLocalId]?
-      #    clauseResults[alias.lib][alias.aliasLocalId] = clauseResults[alias.lib][alias.expressionLocalId]
-        
+  
     return { statement_results: statementResults, clause_results: clauseResults }
 
 
