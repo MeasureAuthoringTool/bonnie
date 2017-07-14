@@ -127,7 +127,9 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
         startDate += " #{attr.start_time}" if attr.start_time
         attr.start_date = moment.utc(startDate, 'L LT').format('X') * 1000
       delete attr.start_time
-      if attr.end_date_is_undefined
+      # If the user indicates that there is no end date, or if this is a criteria with a single "Authored"
+      # time (ie negated, or not a period type) then the end date should always be undefined
+      if attr.end_date_is_undefined || @model.get('negation') || !@model.isPeriodType()
         attr.end_date = undefined
       else if endDate = attr.end_date
         endDate += " #{attr.end_time}" if attr.end_time
