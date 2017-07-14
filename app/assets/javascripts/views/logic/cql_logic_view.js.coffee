@@ -83,7 +83,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
 
               if popNames.length > 0
                 popName = popNames.join(', ')
-            @statementViews.push new Thorax.Views.CqlStatement(statement: statement, libraryName: libraryName, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName)
+            @statementViews.push new Thorax.Views.CqlStatement(statement: statement, libraryName: libraryName, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName, logicView: @)
 
     # Since we dont have elm_annotations we should mark this as an outdated upload. Do not create any statement views.
     else
