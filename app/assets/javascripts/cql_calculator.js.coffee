@@ -5,8 +5,7 @@
   # List of statements that we don't support coverage/coloring of yet
   unsupported_statements = []
   
-  # THIS IS NOT FOREVER
-  @aliass = []
+  emptyResultClauses = []
 
   # Generate a calculation result for a population / patient pair; this always returns a result immediately,
   # but may return a blank result object that later gets filled in through a deferred calculation, so views
@@ -326,7 +325,7 @@
   _buildStatementAndClauseResults: (measure, rawClauseResults, statementRelevance) ->
     statementResults = {}
     clauseResults = {}
-    @aliass = []
+    emptyResultClauses = []
     for lib, statements of measure.get('cql_statement_dependencies')
       statementResults[lib] = {}
       clauseResults[lib] = {}
@@ -351,7 +350,7 @@
             localId: localId,
             clause: clause)   
       
-      for alias in @aliass
+      for alias in emptyResultClauses
         if clauseResults[alias.lib]? && clauseResults[alias.lib][alias.expressionLocalId]?
           clauseResults[alias.lib][alias.aliasLocalId] = clauseResults[alias.lib][alias.expressionLocalId]
         
@@ -373,9 +372,11 @@
     # Alias clauses do not have results, so they are irrelevant for highlighting and coverage
     if params.clause.alias?
       if params.clause.expression? && params.clause.expression.localId?
-        @aliass.push({lib: params.lib, aliasLocalId: params.localId, expressionLocalId: params.clause.expression.localId})
+        emptyResultClauses.push({lib: params.lib, aliasLocalId: params.localId, expressionLocalId: params.clause.expression.localId})
       finalResult = 'NA'
-    else if CQLCalculator.SKIP_STATEMENTS.includes(params.statementName) || unsupported_statements.includes(params.statementName) || params.statementRelevance[params.lib][params.statementName] == 'NA'
+    else if CQLCalculator.SKIP_STATEMENTS.includes(params.statementName) || unsupported_statements.includes(params.statementName)
+      finalResult = 'NA'
+    else if params.statementRelevance[params.lib][params.statementName] == 'NA'
       finalResult = 'NA'
     else if params.statementRelevance[params.lib][params.statementName] == 'FALSE' || !params.rawClauseResults[params.lib]?
       finalResult = 'UNHIT'
@@ -410,7 +411,12 @@
     if !aliasMap?
       aliasMap = {}
     # looking at the key and value of everything on this object or array
-    for k, v of statement
+    for k, v of statement  
+      if k == 'return'
+        # Keep track of the localId of the expression that the return references
+        aliasMap[v] = statement.return.expression.localId
+        alId = (parseInt(statement.return.localId)).toString()
+        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})  
       # if the value is an array or object, recurse
       if (Array.isArray(v) || typeof v is 'object')
         @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap)
@@ -427,12 +433,15 @@
           # Keep track of the localId of the expression that the alias references
           aliasMap[v] = statement.expression.localId
           alId = (parseInt(statement.expression.localId) + 1).toString()
-          @aliass.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
+          emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
       else if k == 'scope'
         # The scope entry references an alias but does not have an ELM local ID. Hoever it DOES have an elm_annotations localId
-        # The elm_annotation localId of the alias variable is one less than the result that the
+        # The elm_annotation localId of the alias variable is the localId of it's parent (one less than) 
+        # because the result of the scope clause should be equal to the clause that the scope is referencing
         alId = (parseInt(statement.localId) - 1).toString()
-        @aliass.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
+        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
+      
+
 
     return localIds
 
