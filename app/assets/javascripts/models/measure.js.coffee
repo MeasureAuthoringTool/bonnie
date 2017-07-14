@@ -199,6 +199,10 @@ class Thorax.Models.Measure extends Thorax.Model
         # because the result of the scope clause should be equal to the clause that the scope is referencing
         alId = parseInt(statement.localId) - 1
         emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
+      else if k == 'asTypeSpecifier'
+        alId = statement.asTypeSpecifier.localId
+        typeClauseId = parseInt(statement.asTypeSpecifier.localId) - 1
+        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: typeClauseId})
       # else if they key is localId push the value
       else if k == 'localId'
         localIds[v] = { localId: v }
