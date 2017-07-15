@@ -53,12 +53,18 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   initialize: ->
     # WE KNOW ITS OUT OF DATE, this view will be buggy because of new translation jar.
     @isOutdatedUpload = true
+    @hasCqlErrors = false
+    @cqlErrorMessage = ""
     @statementViews = []
     
     # TODO: This should be changed when we move to production.
     # We need this if statement to support the old version of cql measure that didn't have ELM in an array.
     if Array.isArray @model.get('elm')
       _.each @model.get('elm'), (elm, elm_index) =>
+        _.each elm.library.annotation, (annotation) =>
+          if (annotation.errorSeverity == "error")
+            @hasCqlErrors = true
+            @cqlErrorMessage += "Error Line: " + annotation.startLine + ", Message: " + annotation.message + "\n"
         _.each elm.library.statements?.def, (statement) =>
           if statement.annotation
 
