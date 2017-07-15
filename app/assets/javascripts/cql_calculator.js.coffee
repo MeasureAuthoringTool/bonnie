@@ -50,7 +50,7 @@
         if elm_library['library']['identifier']['id'] == population.collection.parent.get('main_cql_library')
           main_library_version = elm_library['library']['identifier']['version']
           main_library_index = index
-          
+
       observations = population.collection.parent.get('observations')
       observation_defs = []
       if observations
@@ -70,7 +70,7 @@
 
       # Calculate results for each CQL statement
       results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), population.collection.parent.get('main_cql_library'), main_library_version, params)
-      
+
       # Parse CQL statement results into population values
       population_results = @createPopulationValues population, results, patient, observation_defs
 
