@@ -1,5 +1,8 @@
 @CQLCalculator = class CQLCalculator extends Calculator
 
+  # List of statements added by the MAT that are not useful to the user.
+  @SKIP_STATEMENTS = ["SDE Ethnicity", "SDE Payer", "SDE Race", "SDE Sex"]
+
   # Generate a calculation result for a population / patient pair; this always returns a result immediately,
   # but may return a blank result object that later gets filled in through a deferred calculation, so views
   # that display results must be able to handle a state of "not yet calculated"
@@ -72,8 +75,10 @@
       population_results = @createPopulationValues population, results, patient, observation_defs
 
       if population_results?
-        result.set {'statement_results': results.patientResults[patient['id']]}
         result.set population_results
+        result.set {'population_relevance': @_buildPopulationRelevanceMap(population_results) }
+        result.set {'statement_relevance': @_buildStatementRelevanceMap(result.get('population_relevance'), population.collection.parent, population) }
+        result.set @_buildStatementAndClauseResults(population.collection.parent, results.localIdPatientResultsMap[patient['id']], result.get('statement_relevance'))
         result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
         result.state = 'complete'
     catch error
@@ -114,7 +119,7 @@
         cql_population = defined_pops[index]
         # Is there a patient result for this population? and does this populationCriteria contain the population
         # We need to check if the populationCriteria contains the population so that a STRAT is not set to zero if there is not a STRAT in the populationCriteria
-        if results['patientResults'][patient.id][cql_population]? && population.get(popCode)?
+        if population.get(popCode)?
           # Grab CQL result value and adjust for Bonnie
           value = results['patientResults'][patient.id][cql_population]
           if Array.isArray(value) and value.length > 0
@@ -186,6 +191,233 @@
       if 'DENEXCEP' of population_results
         population_results["DENEXCEP"] = 0
     return population_results
+
+  ###*
+  # Build a map of population to boolean of if the result of the define statement result should be shown or not. This is
+  # what determines if we don't highlight the statements that are "not calculated".
+  # @private
+  # @param {Result} result - The population result object.
+  # @return {object} Map that tells if a population calculation was considered/relevant.
+  ###
+  _buildPopulationRelevanceMap: (result) ->
+    # initialize to true for every population
+    resultShown = {}
+    _.each(Object.keys(result), (population) -> resultShown[population] = true)
+
+    # If STRAT is 0 then everything else is not calculated
+    if result.STRAT? && result.STRAT == 0
+      resultShown.IPP = false if resultShown.IPP?
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENOM = false if resultShown.DENOM?
+      resultShown.DENEX = false if resultShown.DENEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+      resultShown.MSRPOPL = false if resultShown.MSRPOPL?
+      resultShown.MSRPOPLEX = false if resultShown.MSRPOPLEX?
+      resultShown.values = false if resultShown.values?
+
+    # If IPP is 0 then everything else is not calculated
+    if result.IPP == 0
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENOM = false if resultShown.DENOM?
+      resultShown.DENEX = false if resultShown.DENEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+      resultShown.MSRPOPL = false if resultShown.MSRPOPL?
+      resultShown.MSRPOPLEX = false if resultShown.MSRPOPLEX?
+      # values is the OBSERVs
+      resultShown.values = false if resultShown.values?
+
+    # If DENOM is 0 then DENEX, DENEXCEP, NUMER and NUMEX are not calculated
+    if result.DENOM? && result.DENOM == 0
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENEX = false if resultShown.DENEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    # If DENEX is 1 then NUMER, NUMEX and DENEXCEP not calculated
+    if result.DENEX? && result.DENEX >= 1
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    # If NUMER is 0 then NUMEX is not calculated
+    if result.NUMER? && result.NUMER == 0
+      resultShown.NUMEX = false if resultShown.NUMEX?
+
+    # If NUMER is 1 then DENEXCEP is not calculated
+    if result.NUMER? && result.NUMER >= 1
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    # If MSRPOPLEX is 1 then MSRPOPL and OBSERVs are not calculated
+    if result.MSRPOPLEX? && result.MSRPOPLEX == 1
+      resultShown.MSRPOPL = false if resultShown.MSRPOPL?
+      resultShown.values = false if resultShown.values?
+
+    # If MSRPOPL is 0 then OBSERVs are not calculated
+    if result.MSRPOPL? && result.MSRPOPL == 0
+      resultShown.values = false if resultShown.values?
+
+    return resultShown
+
+  ###*
+  # Builds a map of relevance for the statements in this calculation.
+  # @private
+  # @param {object} populationRelevance - The map of population relevance used as the starting point.
+  # @param {Measure} measure - The measure.
+  # @param {population} populationSet - The population set being calculated.
+  # @return {object} The statement_relevance map that tells if each statement was relevant for calculation.
+  ###
+  _buildStatementRelevanceMap: (populationRelevance, measure, populationSet) ->
+    # build map defaulting to not applicable (NA) using cql_statement_dependencies structure
+    statementRelevance = {}
+    for lib, statements of measure.get('cql_statement_dependencies')
+      statementRelevance[lib] = {}
+      for statementName of statements
+        statementRelevance[lib][statementName] = "NA"
+
+    for population, relevance of populationRelevance
+      # If the population is values, that means we need to mark relevance for the OBSERVs
+      if (population == 'values')
+        for observation in measure.get('observations')
+          @_markStatementRelevant(measure.get('cql_statement_dependencies'), statementRelevance, measure.get('main_cql_library'), observation.function_name, relevance)
+      else
+        index = populationSet.get('index')
+        # If displaying a stratification, we need to set the index to the associated populationCriteria
+        # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
+        index = populationSet.get('population_index') if populationSet.get('stratification')?
+        # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
+        index = populationSet.get('stratification_index') if population == "STRAT" && populationSet.get('stratification')?
+
+        relevantStatement = measure.get('populations_cql_map')[population][index]
+        @_markStatementRelevant(measure.get('cql_statement_dependencies'), statementRelevance, measure.get('main_cql_library'), relevantStatement, relevance)
+
+    return statementRelevance
+
+  ###*
+  # Mark a statement as relevant if it hasn't already been marked relevant. Mark all dependent statement
+  # as relevant.
+  # @private
+  # @param {object} cql_statement_dependencies - Dependency map for the measure.
+  # @param {object} statementRelevance - The relevance map to fill.
+  # @param {string} libraryName - The library name.
+  # @param {string} statementName - The statement name.
+  ###
+  _markStatementRelevant: (cql_statement_dependencies, statementRelevance, libraryName, statementName, relevant) ->
+    if statementRelevance[libraryName][statementName] == 'NA' || statementRelevance[libraryName][statementName] == 'FALSE'
+      statementRelevance[libraryName][statementName] = if relevant then 'TRUE' else 'FALSE'
+      for dependentStatement in cql_statement_dependencies[libraryName][statementName]
+        @_markStatementRelevant(cql_statement_dependencies, statementRelevance, dependentStatement.library_name, dependentStatement.statement_name, relevant)
+
+  ###*
+  # Builds the result structures for the statements and the clauses.
+  # @private
+  # @param {Measure} measure - The measure.
+  # @param {object} rawStatementResults - The raw statement results from the calculation engine.
+  # @param {object} rawClauseResults - The raw clause results from the calculation engine.
+  # @param {object} statementRelevance - The statement relevance map.
+  # @return {object} Object with statement_results and clause_results built.
+  ###
+  _buildStatementAndClauseResults: (measure, rawClauseResults, statementRelevance) ->
+    statementResults = {}
+    clauseResults = {}
+    emptyResultClauses = []
+    for lib, statements of measure.get('cql_statement_dependencies')
+      statementResults[lib] = {}
+      clauseResults[lib] = {}
+      for statementName of statements
+        rawStatementResult = @_findResultForStatementClause(measure, lib, statementName, rawClauseResults)
+        statementResults[lib][statementName] = { raw: rawStatementResult}
+        if CQLCalculator.SKIP_STATEMENTS.includes(statementName) || statementRelevance[lib][statementName] == 'NA'
+          statementResults[lib][statementName].final = 'NA'
+        else if statementRelevance[lib][statementName] == 'FALSE' || !rawClauseResults[lib]?
+          statementResults[lib][statementName].final = 'UNHIT'
+        else
+          statementResults[lib][statementName].final = if @_doesResultPass(rawStatementResult) then 'TRUE' else 'FALSE'
+
+        # create clause results for all localIds in this statement
+        localIds = measure.findAllLocalIdsInStatementByName(lib, statementName)
+        for localId, clause of localIds
+          clauseResult =
+            # if this clause is an alias or a usage of alias it will get the raw result from the sourceLocalId.
+            raw: rawClauseResults[lib]?[if clause.sourceLocalId? then clause.sourceLocalId else localId],
+            statementName: statementName
+
+          clauseResult.final = @_setFinalResults(
+            statementRelevance: statementRelevance,
+            statementName: statementName,
+            rawClauseResults: rawClauseResults
+            lib: lib,
+            localId: localId,
+            clause: clause,
+            rawResult: clauseResult.raw)
+
+          clauseResults[lib][localId] = clauseResult
+  
+    return { statement_results: statementResults, clause_results: clauseResults }
+
+
+  ###*
+  # Determines the final result (for coloring and coverage) of clauses
+  # @private
+  # @param {object} rawClauseResults - The raw clause results from the calculation engine.
+  # @param {object} statementRelevance - The statement relevance map.
+  # @param {object} statementName - The name of the statement the clause is in
+  # @param {object} lib - The name of the libarary the clause is in
+  # @param {object} localId - The localId of the current clause
+  # @param {object} clause - The clause we are getting the final result of
+  # @param {Array|Object|Interval|??} rawResult - The raw result from the calculation engine.
+  ###
+  _setFinalResults: (params) ->
+    finalResult = 'FALSE'
+    if CQLCalculator.SKIP_STATEMENTS.includes(params.statementName) || params.clause.isUnsupported?
+      finalResult = 'NA'
+    else if params.statementRelevance[params.lib][params.statementName] == 'NA'
+      finalResult = 'NA'
+    else if params.statementRelevance[params.lib][params.statementName] == 'FALSE' || !params.rawClauseResults[params.lib]?
+      finalResult = 'UNHIT'
+    else if @_doesResultPass(params.rawResult) 
+      finalResult = 'TRUE'
+    return finalResult
+
+
+  ###*
+  # Finds the clause localId for a statement and gets the result for that clause.
+  # @private
+  # @param {Measure} measure - The measure.
+  # @param {string} libraryName - The library name.
+  # @param {string} statementName - The statement name.
+  # @param {object} rawClauseResults - The raw clause results from the engine.
+  ###
+  _findResultForStatementClause: (measure, libraryName, statementName, rawClauseResults) ->
+    library = measure.get('elm').find((lib) -> lib.library.identifier.id == libraryName)
+    statement = library.library.statements.def.find((statement) -> statement.name == statementName)
+    return rawClauseResults[libraryName]?[statement.localId]
+
+  ###*
+  # Determines if a result (for a statement or clause) is a pass or fail.
+  # @private
+  # @param result - The result from the calculation engine.
+  # @return {boolean} true or false
+  ###
+  _doesResultPass: (result) ->
+    if result is true  # Specifically a boolean true
+      return true
+    else if result is false  # Specifically a boolean false
+      return false
+    else if Array.isArray(result)  # Check if result is an array
+      if result.length == 0  # Result is true if the array is not empty
+        return false
+      else if result.length == 1 && result[0] == null # But if the array has one element that is null. Then we should make it red.
+        return false
+      else
+        return true
+    else if result instanceof cql.Interval  # make it green if and Interval is returned
+      return true
+    else if result is null || result is undefined # Specifically no result
+      return false
+    else
+      return true
 
   isValueZero: (value, population_set) ->
     if value of population_set and population_set[value] == 0
