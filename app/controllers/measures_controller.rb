@@ -163,10 +163,10 @@ class MeasuresController < ApplicationController
           flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
         elsif e.is_a? Measures::HQMFException
           operator_error = true
-          flash[:error] = {title: "Error Loading Measure", summary: "Error loading XML file.", body: "There was an error loading the XML file you selected.  Please verify that the file you are uploading is an HQMF XML or SimpleXML file."}
+          flash[:error] = {title: "Error Loading Measure", summary: "Error loading XML file.", body: "There was an error loading the XML file you selected.  Please verify that the file you are uploading is an HQMF XML or SimpleXML file.  Message: #{e.message}"}
         elsif e.is_a? Measures::CqlToElmException
           operator_error = true
-          flash[:error] = {title: "Error Translating CQL to ELM", summary: "There was an error loading the CQL.", body: "Please verify that the CQL being uploaded is properly formatted and try re-exporting the measure from the MAT. \"#{e.message}\""}
+          flash[:error] = {title: "Error Translating CQL to ELM", summary: "There was an error loading the CQL.", body: "Please verify that the CQL being uploaded is properly formatted and try re-exporting the measure from the MAT."}
         elsif e.is_a? Measures::VSACException
           operator_error = true
           flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
