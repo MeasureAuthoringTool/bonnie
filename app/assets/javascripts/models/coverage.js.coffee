@@ -21,12 +21,12 @@ class Thorax.Model.Coverage extends Thorax.Model
         @rationaleCriteria = {}
         totalClauses = 0
         passedClauses = 0
-        # Initialize all_clauses list to all false and count number of clauses
         for patientResults in @clauseResults
           for libraryName, library of patientResults 
             for localId, clauseResult of library
               if !@ignoreClause(clauseResult)
                 key = libraryName.concat('_',localId)
+                # Initialize allClauses list to all false and count number of clauses
                 if !allClauses[key]?
                   totalClauses += 1
                   allClauses[key] = false
@@ -41,7 +41,7 @@ class Thorax.Model.Coverage extends Thorax.Model
         for localId of allClauses
           if allClauses[localId]
             passedClauses += 1
-        # Set coverage to the ratio of evaluated clauses to total clauses   
+        # Set coverage to the percentage of evaluated clauses to total clauses   
         @set coverage: ( passedClauses * 100 / totalClauses ).toFixed()
     else
       # Find all unique criteria that evaluated true in the rationale that are also in the measure
@@ -56,7 +56,7 @@ class Thorax.Model.Coverage extends Thorax.Model
       @set coverage: ( @rationaleCriteria.length * 100 / @measureCriteria.length ).toFixed()
 
   determineCovered: (clause) ->
-    if clause["final"] == "TRUE"
+    if clause.final == "TRUE"
       return true
     else
       return false
