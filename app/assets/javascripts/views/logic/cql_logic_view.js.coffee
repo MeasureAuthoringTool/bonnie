@@ -113,7 +113,9 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   showRationale: (result) ->
     @latestResult = result
     for statementView in @statementViews
-      statementView.showRationale(result.get('clause_results')[statementView.libraryName])
+      # Do not attempt to show pass/fail for a clause that does not exist possibly due to a calculation error
+      if result.get('clause_results')? && result.get('clause_results')[statementView.libraryName]?
+        statementView.showRationale(result.get('clause_results')[statementView.libraryName])
 
   ###*
   # Clears the rationale hightlighting on all CqlStatement views.
