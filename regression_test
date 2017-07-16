@@ -1,12 +1,10 @@
 #!/usr/bin/env ruby
-
 require "rubygems"
 require "thor"
-require "capybara/dsl"
 
 STAGE_HOST = "http://bonniealpha.ahrqdev.org"
 PROD_HOST = "http://bonniealpha.ahrqstg.org"
-
+#
 ACCOUNTS = %w(epecqmama epecqmtelligen hmdmlantana epecqmncqa hmdmtjc)
 class Regression < Thor
   puts "REGRESSION TEST:"
@@ -16,13 +14,17 @@ class Regression < Thor
 
   desc "prod", "Compare source host to bonnie alpha production server"
   def prod(source="http://localhost:3000")
+    require "capybara/dsl"
+    require "selenium/webdriver"
+    require 'colorize'
+    BonnieScraper.send(:include, Capybara::DSL)
     uid = ENV["BONNIE_USER"] || ask("Bonnie User ID: ")
     pass = ENV["BONNIE_PASSWORD"] || ask("Bonnie User Password: ", :echo => false)
     puts "\nExecuting..."
 
     ACCOUNTS.each do |a|
       email = "#{a}@gmail.com"
-      puts "Testing #{email}"
+      puts "Testing #{email}".colorize(:cyan)
       local = BonnieScraper.new(source, uid, pass, email)
       local.scrape!
       prod = BonnieScraper.new(PROD_HOST, uid, pass, email)
@@ -33,13 +35,14 @@ class Regression < Thor
 
   desc "setup", "Install needed dependencies (assumes ruby+firefox installed)"
   def setup
-    system "gem install capybara"
-    system "gem install selenium-webdriver"
+    system 'gem install capybara'
+    system 'gem install colorize'
+    system 'gem install selenium-webdriver -v "3.4.4"'
+    system 'brew install chromedriver'
   end
 end
 
 class BonnieScraper
-  include Capybara::DSL
 
   attr_reader :session, :host, :account, :errors, :coverage
 
@@ -50,6 +53,13 @@ class BonnieScraper
     @account = account
     @errors = []
     @coverage = {}
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(
+	app,
+	browser: :chrome,
+	desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(marionette: true)
+      )
+    end
     Capybara.default_driver = :selenium
     Capybara.run_server = false
     Capybara.default_max_wait_time = 10
@@ -77,11 +87,11 @@ class BonnieScraper
   end
 
   def dashboard
-sleep 1
+    # sleep 1
     if first("div.modal-dialog")
       click_button("Close")
     end
-	sleep(1)
+    # sleep(1)
     find("li.nav-admin a").click
   end
 
@@ -91,11 +101,11 @@ sleep 1
 
   def handle_errors
     sleep(1)
-    errorDialog = first('div#errorDialog')
+    errorDialog = all('div#errorDialog').last
     if errorDialog
       h = errorDialog.find("div.modal-body h4")
       errors << h.text
-      all("div#errorDialog button").each { |b| b.click }
+      errorDialog.find("div#errorDialog button").click()
       handle_errors
     end
 
@@ -116,14 +126,14 @@ sleep 1
   def compare!(prod)
     new_errors = prod.errors - errors
     unless new_errors.empty?
-      puts "REGRESSION: Additional errors found on production #{new_errors.join}"
+      puts "REGRESSION: Additional errors found on production #{new_errors.join}".colorize(:red)
     end
     coverage.each_pair do |m, v|
       v2 = prod.coverage[m]
       if v.to_i > v2.to_i
-	puts "REGRESSION: #{m} PROD DECREASE IN COVERAGE #{v} > #{v2} (!!!)"
+	puts "REGRESSION: #{m} PROD DECREASE IN COVERAGE #{v} > #{v2}".colorize(:red)
       elsif v2.to_i > v.to_i
-	puts "IMPROVEMENT: #{m} PROD INCREASE IN COVERAGE #{v2} > #{v} :)"
+	puts "IMPROVEMENT: #{m} PROD INCREASE IN COVERAGE #{v2} > #{v}".colorize(:green)
       else
 	puts "#{m} PROD EQUAL TO LOCAL (#{v2} == #{v})"
       end
@@ -131,5 +141,6 @@ sleep 1
   end
 
 end
+
 
 Regression.start(ARGV)
