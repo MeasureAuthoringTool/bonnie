@@ -207,12 +207,14 @@ class Thorax.Models.Measure extends Thorax.Model
         typeClauseId = parseInt(statement.asTypeSpecifier.localId) - 1
         emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: typeClauseId})
       else if k == 'sort'
+        # Sort is a special case that we need to recurse into separately and set the results to the result of the statement the sort clause is in
         @_findAllLocalIdsInSort(v, libraryName, localIds, aliasMap, emptyResultClauses, parentNode)
       # If 'First' and 'Last' expressions, the result of source of the clause should be set to the expression
       else if k=='type' && (v =='First' || v == 'Last')
         if statement.source && statement.source.localId?
           alId = statement.source.localId
-        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: statement.localId}) 
+          emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: statement.localId}) 
+        # Continue to recurse into the 'First' or 'Last' expression
         @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses, statement) 
       # else if they key is localId push the value
       else if k == 'localId'
