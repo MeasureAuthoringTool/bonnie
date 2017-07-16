@@ -1,0 +1,129 @@
+#!/usr/bin/env ruby
+
+require "rubygems"
+require "thor"
+require "capybara/dsl"
+
+STAGE_HOST = "https://bonniealpha.ahrqdev.org"
+PROD_HOST = "https://bonniealpha.ahrqstg.org"
+
+ACCOUNTS = %w(epecqmama epecqmtelligen hmdmlantana epecqmncqa hmdmtjc)
+class Regression < Thor
+  desc "prod", "Compare source host to bonnie alpha production server"
+  def prod(source="http://localhost:3000")
+    uid = ENV["BONNIE_USER"] || ask("Bonnie User ID: ")
+    pass = ENV["BONNIE_PASSWORD"] || ask("Bonnie User Password: ", :echo => false)
+    puts "\nExecuting..."
+
+    ACCOUNTS.each do |a|
+      email = "#{a}@gmail.com"
+      puts "Testing #{email}"
+      local = BonnieScraper.new(source, uid, pass, email)
+      local.scrape!
+      prod = BonnieScraper.new(PROD_HOST, uid, pass, email)
+      prod.scrape!
+      local.compare!(prod)
+    end
+  end
+
+  desc "setup", "Install needed dependencies (assumes ruby+firefox installed)"
+  def setup
+    system "gem install capybara"
+    system "gem install selenium-webdriver"
+  end
+end
+
+class BonnieScraper
+  include Capybara::DSL
+
+  attr_reader :session, :host, :account, :errors, :coverage
+
+  def initialize(host, uid, pass, account)
+    @host = host
+    @uid = uid
+    @pass = pass
+    @account = account
+    @errors = []
+    @coverage = {}
+    Capybara.default_driver = :selenium
+    Capybara.run_server = false
+    Capybara.default_max_wait_time = 10
+  end
+
+  def scrape!
+    login
+    dashboard
+    admin
+    measures
+    return
+  end
+
+  def new_session
+    @session = Capybara::Session.new(:selenium)
+  end
+
+  def login
+    new_session
+    visit host
+    click_link("login")
+    fill_in 'user_email', with: @uid
+    fill_in 'user_password', with: @pass
+    click_button "Login"
+  end
+
+  def dashboard
+sleep 1
+    if first("div.modal-dialog")
+      click_button("Close")
+    end
+	sleep(1)
+    find("li.nav-admin a").click
+  end
+
+  def admin
+    find(:xpath, "//tr[td[text()='#{account}']]").find("button.btn-danger").click
+  end
+
+  def handle_errors
+    sleep(1)
+    errorDialog = first('div#errorDialog')
+    if errorDialog
+      h = errorDialog.find("div.modal-body h4")
+      errors << h.text
+      all("div#errorDialog button").each { |b| b.click }
+      handle_errors
+    end
+
+  end
+
+  def measures
+    handle_errors
+
+    all("div.dashboard-data div.measure").each do |m|
+      key = m.find("span.nqf-listing").text
+      value_node = m.first("span.patient-listing")
+      value = value_node ? value_node.text : nil
+      coverage[key] = value
+    end
+    click_link("Logout")
+  end
+
+  def compare!(prod)
+    new_errors = prod.errors - errors
+    unless new_errors.empty?
+      byebug
+      puts "REGRESSION: Additional errors found on production #{new_errors.join}"
+    end
+    coverage.each_pair do |m, v|
+      v2 = prod.coverage[m]
+      if v2.to_i > v.to_i
+	puts "REGRESSION: #{m} PROD DECREASE IN COVERAGE #{v2} > #{v} (!!!)"
+      else
+	puts "#{m} PROD EQUAL/LESS THAN LOCAL (#{v2} <= #{v})"
+      end
+    end
+  end
+
+end
+
+Regression.start(ARGV)
