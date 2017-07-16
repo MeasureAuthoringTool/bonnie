@@ -153,7 +153,7 @@ class Thorax.Models.Measure extends Thorax.Model
     statement = library.library.statements.def.find((statement) -> statement.name == statementName)
 
     # recurse through the statement elm for find all localIds
-    localIds = @_findAllLocalIdsInStatement(statement, libraryName, {}, {}, emptyResultClauses)
+    localIds = @_findAllLocalIdsInStatement(statement, libraryName, {}, {}, emptyResultClauses, null)
 
     # Create/change the clause for all aliases and their usages
     for alias in emptyResultClauses
@@ -177,7 +177,7 @@ class Thorax.Models.Measure extends Thorax.Model
   # @param {Object} statement - The statement structure or child parts of it.
   # @return {Array[Integer]} List of local ids in the statement.
   ###
-  _findAllLocalIdsInStatement: (statement, libraryName, localIds, aliasMap, emptyResultClauses) ->
+  _findAllLocalIdsInStatement: (statement, libraryName, localIds, aliasMap, emptyResultClauses, parentNode) ->
     # looking at the key and value of everything on this object or array
     for k, v of statement
       if k == 'return'
@@ -185,7 +185,7 @@ class Thorax.Models.Measure extends Thorax.Model
         aliasMap[v] = statement.return.expression.localId
         alId = statement.return.localId
         emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]}) 
-        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses) 
+        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses, statement) 
       else if k == 'alias'
         if statement.expression? && statement.expression.localId?
           # Keep track of the localId of the expression that the alias references
@@ -206,14 +206,31 @@ class Thorax.Models.Measure extends Thorax.Model
         alId = statement.asTypeSpecifier.localId
         typeClauseId = parseInt(statement.asTypeSpecifier.localId) - 1
         emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: typeClauseId})
+      else if k == 'sort'
+        @_findAllLocalIdsInSort(v, libraryName, localIds, aliasMap, emptyResultClauses, parentNode)
+      # If 'First' and 'Last' expressions, the result of source of the clause should be set to the expression
+      else if k=='type' && (v =='First' || v == 'Last')
+        if statement.source && statement.source.localId?
+          alId = statement.source.localId
+        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: statement.localId}) 
+        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses, statement) 
       # else if they key is localId push the value
       else if k == 'localId'
         localIds[v] = { localId: v }
       # if the value is an array or object, recurse
       else if (Array.isArray(v) || typeof v is 'object')
-        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses)
+        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses, statement)
       
     return localIds
+
+  # Finds all localIds in the sort structure recursively and sets the expressionLocalId to the parent statement
+  _findAllLocalIdsInSort: (statement, libraryName, localIds, aliasMap, emptyResultClauses, rootStatement) ->
+    alId = statement.localId
+    emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: rootStatement.localId})
+    for k, v of statement 
+      if (Array.isArray(v) || typeof v is 'object')
+        @_findAllLocalIdsInSort(v, libraryName, localIds, aliasMap, emptyResultClauses, rootStatement)
+
 
 class Thorax.Collections.Measures extends Thorax.Collection
   url: '/measures'
