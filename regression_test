@@ -41,6 +41,7 @@ class Regression < Thor
     system 'gem install colorize'
     system 'gem install selenium-webdriver -v "3.4.4"'
     system 'brew install chromedriver'
+    Capybara.ignore_hidden_elements = false
   end
 
   no_commands do
