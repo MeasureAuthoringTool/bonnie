@@ -4,33 +4,35 @@ require "thor"
 
 STAGE_HOST = "http://bonniealpha.ahrqdev.org"
 PROD_HOST = "http://bonniealpha.ahrqstg.org"
-#
-ACCOUNTS = %w(epecqmama epecqmtelligen hmdmlantana epecqmncqa hmdmtjc)
+#epecqmama epecqmtelligen hmdmlantana epecqmncqa hmdmtjc
+ACCOUNTS = %w(epecqmama)
 class Regression < Thor
   puts "REGRESSION TEST:"
-  puts "do $ brew install geckodriver"
-  puts "Use Outernet for now."
   puts "Ensure your bonnie accounts all have the same password."
 
   desc "prod", "Compare source host to bonnie alpha production server"
-  def prod(source="http://localhost:3000")
-    require "capybara/dsl"
-    require "selenium/webdriver"
-    require 'colorize'
-    BonnieScraper.send(:include, Capybara::DSL)
-    uid = ENV["BONNIE_USER"] || ask("Bonnie User ID: ")
-    pass = ENV["BONNIE_PASSWORD"] || ask("Bonnie User Password: ", :echo => false)
-    puts "\nExecuting..."
+  def prod
+    init
+    localResult = regress("http://localhost:3000")
+    prodResult = regress(PROD_HOST)
+    compare(localResult, prodResult)
+  end
 
-    ACCOUNTS.each do |a|
-      email = "#{a}@gmail.com"
-      puts "Testing #{email}".colorize(:cyan)
-      local = BonnieScraper.new(source, uid, pass, email)
-      local.scrape!
-      prod = BonnieScraper.new(PROD_HOST, uid, pass, email)
-      prod.scrape!
-      local.compare!(prod)
+  desc "local", "Compare two local servers, pausing in between to restart"
+  def local
+    init
+    localResult = regress("http://localhost:3000")
+    puts "Finished with old branch."
+    puts "Press 'r' when NEW branch is running."
+    while user_input = STDIN.gets.chomp
+      case user_input
+      when "r"
+        break
+      end
     end
+
+    localResult2 = regress("http://localhost:3000")
+    compare(localResult, localResult2)
   end
 
   desc "setup", "Install needed dependencies (assumes ruby+firefox installed)"
@@ -39,6 +41,39 @@ class Regression < Thor
     system 'gem install colorize'
     system 'gem install selenium-webdriver -v "3.4.4"'
     system 'brew install chromedriver'
+  end
+
+  no_commands do
+
+    def init
+      require "capybara/dsl"
+      require "selenium/webdriver"
+      require 'colorize'
+      BonnieScraper.send(:include, Capybara::DSL)
+      @uid = ENV["BONNIE_USER"] || ask("Bonnie User ID: ")
+      @pass = ENV["BONNIE_PASSWORD"] || ask("Bonnie User Password: ", :echo => false)
+    end
+
+    def regress(host)
+
+      puts "\nExecuting Regression on #{host}"
+      results = {}
+      ACCOUNTS.each do |a|
+        email = "#{a}@gmail.com"
+        puts "Testing #{email}".colorize(:cyan)
+        local = BonnieScraper.new(host, @uid, @pass, email)
+        local.scrape!
+        results[a] = local
+      end
+      results
+    end
+
+    def compare(localResult, prodResult)
+      localResult.each_pair do |acc, r|
+        puts acc.colorize(:cyan)
+        r.compare!(prodResult[acc])
+      end
+    end
   end
 end
 
@@ -106,6 +141,7 @@ class BonnieScraper
       h = errorDialog.find("div.modal-body h4")
       errors << h.text
       errorDialog.find("div#errorDialog button").click()
+      sleep(1)
       handle_errors
     end
 
@@ -131,11 +167,11 @@ class BonnieScraper
     coverage.each_pair do |m, v|
       v2 = prod.coverage[m]
       if v.to_i > v2.to_i
-	puts "REGRESSION: #{m} PROD DECREASE IN COVERAGE #{v} > #{v2}".colorize(:red)
+         puts "-: #{m} LOCAL HAS INCREASE IN COVERAGE (#{v.to_i} > #{v2.to_i})".colorize(:green)
       elsif v2.to_i > v.to_i
-	puts "IMPROVEMENT: #{m} PROD INCREASE IN COVERAGE #{v2} > #{v}".colorize(:green)
+         puts "+: #{m} LOCAL HAS DECREASE IN COVERAGE (#{v2.to_i} > #{v.to_i})".colorize(:red)
       else
-	puts "#{m} PROD EQUAL TO LOCAL (#{v2} == #{v})"
+        puts "=: #{m} RESULTS EQUAL (#{v2} == #{v})"
       end
     end
   end
