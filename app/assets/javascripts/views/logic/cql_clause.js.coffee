@@ -85,6 +85,7 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
               dataCriteriaIDs.push(resultEntry.entry._id)
           # report the id of the data criteria to be highlighted to the CqlPopulationLogic view.
           @logicView?.highlightPatientData(dataCriteriaIDs)
+        # Highlight single clause if there was a single result
         else if @latestResult.raw?.entry?._id
           @logicView?.highlightPatientData([@latestResult.raw.entry._id])
 
