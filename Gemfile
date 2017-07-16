@@ -84,3 +84,6 @@ gem 'foreman'
 
 gem 'handlebars_assets', '0.16'
 gem 'jquery-rails'
+
+# Browser Detection
+gem 'browser'
