@@ -4,11 +4,16 @@ require "rubygems"
 require "thor"
 require "capybara/dsl"
 
-STAGE_HOST = "https://bonniealpha.ahrqdev.org"
-PROD_HOST = "https://bonniealpha.ahrqstg.org"
+STAGE_HOST = "http://bonniealpha.ahrqdev.org"
+PROD_HOST = "http://bonniealpha.ahrqstg.org"
 
 ACCOUNTS = %w(epecqmama epecqmtelligen hmdmlantana epecqmncqa hmdmtjc)
 class Regression < Thor
+  puts "REGRESSION TEST:"
+  puts "do $ brew install geckodriver"
+  puts "Use Outernet for now."
+  puts "Ensure your bonnie accounts all have the same password."
+
   desc "prod", "Compare source host to bonnie alpha production server"
   def prod(source="http://localhost:3000")
     uid = ENV["BONNIE_USER"] || ask("Bonnie User ID: ")
@@ -111,15 +116,16 @@ sleep 1
   def compare!(prod)
     new_errors = prod.errors - errors
     unless new_errors.empty?
-      byebug
       puts "REGRESSION: Additional errors found on production #{new_errors.join}"
     end
     coverage.each_pair do |m, v|
       v2 = prod.coverage[m]
-      if v2.to_i > v.to_i
-	puts "REGRESSION: #{m} PROD DECREASE IN COVERAGE #{v2} > #{v} (!!!)"
+      if v.to_i > v2.to_i
+	puts "REGRESSION: #{m} PROD DECREASE IN COVERAGE #{v} > #{v2} (!!!)"
+      elsif v2.to_i > v.to_i
+	puts "IMPROVEMENT: #{m} PROD INCREASE IN COVERAGE #{v2} > #{v} :)"
       else
-	puts "#{m} PROD EQUAL/LESS THAN LOCAL (#{v2} <= #{v})"
+	puts "#{m} PROD EQUAL TO LOCAL (#{v2} == #{v})"
       end
     end
   end
