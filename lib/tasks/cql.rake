@@ -37,12 +37,12 @@ namespace :bonnie do
           measure.save!
           update_passes += 1
           puts '[Success] Measure ' + measure[:cms_id] + ': "' + measure[:title] + '" with id ' + measure[:id] + ' in account ' + user[:email] + ' successfully updated ELM!'
-        rescue RestClient::BadRequest => e
-          update_fails += 1
-          puts '[Error] Measure ' + measure[:cms_id] + ': "' + measure[:title] + '" with id ' + measure[:id] + ' in account ' + user[:email] + ' failed to update ELM!'
         rescue Mongoid::Errors::DocumentNotFound => e
           orphans += 1
           puts '[Error] Measure ' + measure[:cms_id] + ': "' + measure[:title] + '" with id ' + measure[:id] + ' belongs to a user that doesn\'t exist!'
+        rescue Exception => e
+          update_fails += 1
+          puts '[Error] Measure ' + measure[:cms_id] + ': "' + measure[:title] + '" with id ' + measure[:id] + ' in account ' + user[:email] + ' failed to update ELM!'
         end
       end
       puts "#{update_passes} measures successfully updated."
