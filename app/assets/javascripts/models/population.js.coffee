@@ -41,6 +41,14 @@ class Thorax.Models.Population extends Thorax.Model
     @populationDataCriteriaKeys = _.uniq(criteriaKeys)
     @populationDataCriteriaKeys
 
+  getPopIndexFromPopName: (popName) ->
+    # If displaying a stratification, we need to set the index to the associated populationCriteria
+    # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
+    if this.get('stratification')?
+      # If retrieving the STRAT specifically, set the index to the correct STRAT in the cql_map
+      return if popName == "STRAT" then this.get('stratification_index') else this.get('population_index')
+    else
+      return this.get('index')
 
   getDataCriteriaKeys: (child, specificsOnly=true) ->
     occurrences = []

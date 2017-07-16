@@ -98,8 +98,8 @@
     # Grab the mapping between populations and CQL statements
     cql_map = population.collection.parent.get('populations_cql_map')
     # Grab the correct expected for this population
-    index = population.get('index')
-    expected = patient.get('expected_values').findWhere(measure_id: population.collection.parent.get('hqmf_set_id'), population_index: index)
+    popIndex = population.get('index')
+    expected = patient.get('expected_values').findWhere(measure_id: population.collection.parent.get('hqmf_set_id'), population_index: popIndex)
     # Loop over all population codes ("IPP", "DENOM", etc.)
     for popCode in Thorax.Models.Measure.allPopulationCodes
       if cql_map[popCode]
@@ -110,13 +110,9 @@
           defined_pops = [cql_map[popCode]]
         else
           defined_pops = cql_map[popCode]
-        index = 0 unless defined_pops.length > 1
-        # If a stratified population, we need to set the index to the populationCriteria
-        # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
-        index = population.get('population_index') if population.get('stratification')?
-        # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
-        index = population.get('stratification_index') if popCode == "STRAT" && population.get('stratification')?
-        cql_population = defined_pops[index]
+
+        popIndex = population.getPopIndexFromPopName(popCode)
+        cql_population = defined_pops[popIndex]
         # Is there a patient result for this population? and does this populationCriteria contain the population
         # We need to check if the populationCriteria contains the population so that a STRAT is not set to zero if there is not a STRAT in the populationCriteria
         if population.get(popCode)?
@@ -282,14 +278,8 @@
         for observation in measure.get('observations')
           @_markStatementRelevant(measure.get('cql_statement_dependencies'), statementRelevance, measure.get('main_cql_library'), observation.function_name, relevance)
       else
-        index = populationSet.get('index')
-        # If displaying a stratification, we need to set the index to the associated populationCriteria
-        # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
-        index = populationSet.get('population_index') if populationSet.get('stratification')?
-        # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
-        index = populationSet.get('stratification_index') if population == "STRAT" && populationSet.get('stratification')?
-
-        relevantStatement = measure.get('populations_cql_map')[population][index]
+        populationIndex = populationSet.getPopIndexFromPopName(population)
+        relevantStatement = measure.get('populations_cql_map')[population][populationIndex]
         @_markStatementRelevant(measure.get('cql_statement_dependencies'), statementRelevance, measure.get('main_cql_library'), relevantStatement, relevance)
 
     return statementRelevance
