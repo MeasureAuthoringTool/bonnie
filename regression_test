@@ -4,8 +4,8 @@ require "thor"
 
 STAGE_HOST = "http://bonniealpha.ahrqdev.org"
 PROD_HOST = "http://bonniealpha.ahrqstg.org"
-#epecqmama epecqmtelligen hmdmlantana epecqmncqa hmdmtjc
-ACCOUNTS = %w(epecqmama)
+
+ACCOUNTS = %w(epecqmama epecqmtelligen hmdmlantana epecqmncqa hmdmtjc)
 class Regression < Thor
   puts "REGRESSION TEST:"
   puts "Ensure your bonnie accounts all have the same password."
