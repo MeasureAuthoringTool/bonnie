@@ -109,6 +109,7 @@ GEM
       nokogiri (>= 1.4.1)
       rubyzip (= 0.9.9)
     bcrypt (3.1.10)
+    browser (2.4.0)
     bson (3.2.6)
     builder (3.2.2)
     byebug (5.0.0)
@@ -325,6 +326,7 @@ PLATFORMS
 DEPENDENCIES
   axlsx
   bonnie_bundler!
+  browser
   capistrano-rails
   coffee-rails
   cql_qdm_patientapi!
