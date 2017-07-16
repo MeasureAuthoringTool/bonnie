@@ -66,10 +66,10 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
             popName = null
             # if a population (population set) was provided for this view it should mark the statment if it is a population defining statement  
             if @population
-              for popName, popStatements of @model.get('populations_cql_map')
-                index = @population.getPopIndexFromPopName(popName)
+              for pop, popStatements of @model.get('populations_cql_map')
+                index = @population.getPopIndexFromPopName(pop)
                 # There may be multiple populations that it defines. Only push population name if @population has a pop ie: not all populations will have STRAT
-                popNames.push(popName) if statement.define_name == popStatements[index] && @population.get(popName)?
+                popNames.push(pop) if statement.define_name == popStatements[index] && @population.get(pop)?
 
               # Mark if it is in an OBSERV if there are any and we are looking at the main_cql_library
               if @model.get('observations')? && libraryName == @model.get('main_cql_library')
