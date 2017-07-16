@@ -40,9 +40,6 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
 
   template: JST['logic/cql_logic']
 
-  # List of statements added by the MAT that are not useful to the user.
-  @SKIP_STATEMENTS = ["SDE Ethnicity", "SDE Payer", "SDE Race", "SDE Sex"]
-
   events:
     "ready": ->
 
@@ -61,7 +58,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
       for libraryName, annotationLibrary of @model.get('elm_annotations')
         for statement in annotationLibrary.statements
           # skip if this is a statement the user doesn't need to see
-          if !Thorax.Views.CqlPopulationLogic.SKIP_STATEMENTS.includes(statement.define_name) && statement.define_name?
+          if !Thorax.Models.Measure.cqlSkipStatements.includes(statement.define_name) && statement.define_name?
             popNames = []
             popName = null
             # if a population (population set) was provided for this view it should mark the statment if it is a population defining statement  

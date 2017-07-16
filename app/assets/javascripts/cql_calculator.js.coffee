@@ -4,9 +4,6 @@
 ###
 @CQLCalculator = class CQLCalculator extends Calculator
 
-  # List of statements added by the MAT that are not useful to the user.
-  @SKIP_STATEMENTS = ["SDE Ethnicity", "SDE Payer", "SDE Race", "SDE Sex"]
-
   ###*
   # Generate a calculation result for a population / patient pair; this always returns a result immediately,
   # but may return a blank result object if there was a problem. Currently we do not do CQL calculations in
@@ -452,7 +449,7 @@
       for statementName of statements
         rawStatementResult = @_findResultForStatementClause(measure, lib, statementName, rawClauseResults)
         statementResults[lib][statementName] = { raw: rawStatementResult}
-        if CQLCalculator.SKIP_STATEMENTS.includes(statementName) || statementRelevance[lib][statementName] == 'NA'
+        if Thorax.Models.Measure.cqlSkipStatements.includes(statementName) || statementRelevance[lib][statementName] == 'NA'
           statementResults[lib][statementName].final = 'NA'
         else if statementRelevance[lib][statementName] == 'FALSE' || !rawClauseResults[lib]?
           statementResults[lib][statementName].final = 'UNHIT'
@@ -497,7 +494,7 @@
   ###
   _setFinalResults: (params) ->
     finalResult = 'FALSE'
-    if CQLCalculator.SKIP_STATEMENTS.includes(params.statementName) || params.clause.isUnsupported?
+    if Thorax.Models.Measure.cqlSkipStatements.includes(params.statementName) || params.clause.isUnsupported?
       finalResult = 'NA'
     else if params.statementRelevance[params.lib][params.statementName] == 'NA'
       finalResult = 'NA'
