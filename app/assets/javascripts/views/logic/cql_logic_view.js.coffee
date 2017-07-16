@@ -51,21 +51,16 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   # Expects model to be a Measure model object of a CQL measure.
   ###
   initialize: ->
-    @isOutdatedUpload = false
+    # WE KNOW ITS OUT OF DATE, this view will be buggy because of new translation jar.
+    @isOutdatedUpload = true
     @statementViews = []
     
     # TODO: This should be changed when we move to production.
     # We need this if statement to support the old version of cql measure that didn't have ELM in an array.
     if Array.isArray @model.get('elm')
-      _.each @model.get('elm'), (elm) =>
+      _.each @model.get('elm'), (elm, elm_index) =>
         _.each elm.library.statements?.def, (statement) =>
           if statement.annotation
-
-            # Check to see if this measure was uploaded with an older version of the translation service that had clause level
-            # annotations enabled. This checks if the first annotation is just the define keyword and its delimiting space.
-            # TODO: Update this check as needed. Remove these checks when CQL has settled for production.
-            if (statement.annotation[0]?.s.value[0] == "define ")
-              @isOutdatedUpload = true  # if the annotation only has "define" then this measure upload may be out of date.
 
             # skip if this is a statement the user doesn't need to see
             return if Thorax.Views.CqlPopulationLogic.SKIP_STATEMENTS.includes(statement.name)
@@ -85,16 +80,10 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
               if popNames.length > 0
                 popName = popNames.join(', ')
 
-            @statementViews.push new Thorax.Views.CqlStatement(statement: statement, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName)
+            @statementViews.push new Thorax.Views.CqlStatement(statement: statement, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName, libraryCqlText: @model.get('cql')[elm_index])
     else
       _.each @model.get('elm')?.library.statements?.def, (statement) =>
         if statement.annotation
-
-          # Check to see if this measure was uploaded with an older version of the translation service that had clause level
-          # annotations enabled. This checks if the first annotation is just the define keyword and its delimiting space.
-          # TODO: Update this check as needed. Remove these checks when CQL has settled for production.
-          if (statement.annotation[0]?.s.value[0] == "define ")
-            @isOutdatedUpload = true  # if the annotation only has "define" then this measure upload may be out of date.
 
           # skip if this is a statement the user doesn't need to see
           return if Thorax.Views.CqlPopulationLogic.SKIP_STATEMENTS.includes(statement.name)
@@ -114,7 +103,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
             if popNames.length > 0
               popName = popNames.join(', ')
 
-          @statementViews.push new Thorax.Views.CqlStatement(statement: statement, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName)
+          @statementViews.push new Thorax.Views.CqlStatement(statement: statement, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName, libraryCqlText: @model.get('cql'))
 
 
   ###*
