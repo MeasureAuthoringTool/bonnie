@@ -39,13 +39,16 @@ namespace :bonnie do
           measure.update(cql: cql, elm: elms, elm_annotations: elm_annotations, cql_statement_dependencies: cql_definition_dependency_structure, main_cql_library: main_cql_library)
           measure.save!
           update_passes += 1
-          puts '[Success] Measure ' + measure[:cms_id] + ': "' + measure[:title] + '" with id ' + measure[:id] + ' in account ' + user[:email] + ' successfully updated ELM!'
-        rescue RestClient::BadRequest => e
-          update_fails += 1
-          puts '[Error] Measure ' + measure[:cms_id] + ': "' + measure[:title] + '" with id ' + measure[:id] + ' in account ' + user[:email] + ' failed to update ELM!'
+          print "\e[#{32}m#{"[Success]"}\e[0m"
+          puts ' Measure ' + "\e[1m#{measure[:cms_id]}\e[22m" + ': "' + measure[:title] + '" with id ' + "\e[1m#{measure[:id]}\e[22m" + ' in account ' + "\e[1m#{user[:email]}\e[22m" + ' successfully updated ELM!'
         rescue Mongoid::Errors::DocumentNotFound => e
           orphans += 1
-          puts '[Error] Measure ' + measure[:cms_id] + ': "' + measure[:title] + '" with id ' + measure[:id] + ' belongs to a user that doesn\'t exist!'
+          print "\e[#{31}m#{"[Error]"}\e[0m"
+          puts ' Measure ' + "\e[1m#{measure[:cms_id]}\e[22m" + ': "' + measure[:title] + '" with id ' + "\e[1m#{measure[:id]}\e[22m" + ' belongs to a user that doesn\'t exist!'
+        rescue Exception => e
+          update_fails += 1
+          print "\e[#{31}m#{"[Error]"}\e[0m"
+          puts ' Measure ' + "\e[1m#{measure[:cms_id]}\e[22m" + ': "' + measure[:title] + '" with id ' + "\e[1m#{measure[:id]}\e[22m" + ' in account ' + "\e[1m#{user[:email]}\e[22m" + ' failed to update ELM!'
         end
       end
       puts "#{update_passes} measures successfully updated."
