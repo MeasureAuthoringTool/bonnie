@@ -538,6 +538,9 @@
         return true
     else if result instanceof cql.Interval  # make it green if and Interval is returned
       return true
+    # Return false if an empty cql.Code is the result
+    else if result instanceof cql.Code && !result.code?
+      return false
     else if result is null || result is undefined # Specifically no result
       return false
     else
