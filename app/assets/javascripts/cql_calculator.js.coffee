@@ -1,11 +1,19 @@
+###*
+# The CQL calculator. This calls the CQL4Browsers engine then prepares the results for consumption by the rest of
+# Bonnie.
+###
 @CQLCalculator = class CQLCalculator extends Calculator
 
   # List of statements added by the MAT that are not useful to the user.
   @SKIP_STATEMENTS = ["SDE Ethnicity", "SDE Payer", "SDE Race", "SDE Sex"]
 
+  ###*
   # Generate a calculation result for a population / patient pair; this always returns a result immediately,
-  # but may return a blank result object that later gets filled in through a deferred calculation, so views
-  # that display results must be able to handle a state of "not yet calculated"
+  # but may return a blank result object if there was a problem. Currently we do not do CQL calculations in
+  # deferred manner like we did for QDM calcuations.
+  # @param {Population} population - The population set to calculate on.
+  # @param {Patient} patient - The patient to run calculations on.
+  ###
   calculate: (population, patient) ->
     # We store both the calculation result and the calcuation code based on keys derived from the arguments
     cacheKey = @cacheKey(population, patient)
@@ -93,6 +101,16 @@
         }, error)
     return result
 
+  ###*
+  # Create population values (aka results) for all populations in the population set using the results from the
+  # calculator.
+  # @param {Population} population - The population set we are getting the values for.
+  # @param {object} results - The raw results object from the calculation engine.
+  # @param {Patient} patient - The patient we are getting results for.
+  # @param {Array} observation_defs - List of observation defines we add to the elm for calculation OBSERVs.
+  # @returns {object} The population results. Map of "POPNAME" to Integer result. Except for OBSERVs,
+  #   their key is 'value' and value is an array of results.
+  ###
   createPopulationValues: (population, results, patient, observation_defs) ->
     population_results = {}
     # Grab the mapping between populations and CQL statements
@@ -144,9 +162,14 @@
               population_results['values'].push(obs_result)
     @handlePopulationValues population_results
 
-  # Takes in the initial values from result object and checks to see if some values should not be calculated.
+  ###*
+  # Takes in the initial values from result object and checks to see if some values should not be calculated. These
+  # values that should not be calculated are zeroed out.
+  # @param {object} population_results - The population results. Map of "POPNAME" to Integer result. Except for OBSERVs,
+  #   their key is 'value' and value is an array of results.
+  # @returns {object} Population results in the same structure as passed in, but the appropiate values are zeroed out.
+  ###
   handlePopulationValues: (population_results) ->
-    # TODO: Handle CV measures
     # Setting values of populations if the correct populations are not set based on the following logic guidelines
     # Initial Population (IPP): The set of patients or episodes of care to be evaluated by the measure.
     # Denominator (DENOM): A subset of the IPP.
@@ -189,11 +212,29 @@
     return population_results
 
   ###*
-  # Build a map of population to boolean of if the result of the define statement result should be shown or not. This is
-  # what determines if we don't highlight the statements that are "not calculated".
+  # Builds the `population_relevance` map. This map gets added to the Result attributes that the calculator returns.
+  #
+  # The population_relevance map indicates which populations the patient was actually considered for inclusion in. It
+  # is a simple map of "POPNAME" to true or false. true if the population was relevant/considered, false if
+  # NOT relevant/considered. This is used later to determine which define statements are relevant in the calculation.
+  #
+  # For example: If they aren't in the IPP then they are not going to be considered for any other population and all other
+  # populations will be marked NOT relevant.
+  #
+  # Below is an example result of this function (the 'population_relevance' map). DENEXCEP is not relevant because in
+  # the population_results the NUMER was greater than zero:
+  # {
+  #   "IPP": true,
+  #   "DENOM": true,
+  #   "NUMER": true,
+  #   "DENEXCEP": false
+  # }
+  #
+  # This function is extremely verbose because this is an important and confusing calculation to make. The verbosity
+  # was kept to make it more maintainable.
   # @private
-  # @param {Result} result - The population result object.
-  # @return {object} Map that tells if a population calculation was considered/relevant.
+  # @param {Result} result - The `population_results` object.
+  # @returns {object} Map that tells if a population calculation was considered/relevant.
   ###
   _buildPopulationRelevanceMap: (result) ->
     # initialize to true for every population
@@ -257,12 +298,52 @@
     return resultShown
 
   ###*
-  # Builds a map of relevance for the statements in this calculation.
+  # Builds the `statement_relevance` map. This map gets added to the Result attributes that the calculator returns.
+  #
+  # The statement_relevance map indicates which define statements were actually relevant to a population inclusion
+  # consideration. This makes use of the 'population_relevance' map. This is actually a two level map. The top level is
+  # a map of the CQL libraries, keyed by library name. The second level is a map for statement relevance in that library,
+  # which maps each statement to its relevance status. The values in this map differ from the `population_relevance`
+  # because we also need to track statements that are not used for any population calculation. Therefore the values are
+  # a string that is one of the following: 'NA', 'TRUE', 'FALSE'. Here is what they mean:
+  #
+  # 'NA' - Not applicable. This statement is not relevant to any population calculation in this population_set. Common
+  #   for unused library statements or statements only used for other population sets.
+  #
+  # 'FALSE' - This statement is not relevant to any of this patient's population inclusion calculations.
+  #
+  # 'TRUE' - This statement is relevant for one or more of the population inclusion calculations.
+  #
+  # Here is an example structure this function returns. (the `statement_relevance` map)
+  # {
+  #   "Test158": {
+  #     "Patient": "NA",
+  #     "SDE Ethnicity": "NA",
+  #     "SDE Payer": "NA",
+  #     "SDE Race": "NA",
+  #     "SDE Sex": "NA",
+  #     "Most Recent Delivery": "TRUE",
+  #     "Most Recent Delivery Overlaps Diagnosis": "TRUE",
+  #     "Initial Population": "TRUE",
+  #     "Numerator": "TRUE",
+  #     "Denominator Exceptions": "FALSE"
+  #   },
+  #   "TestLibrary": {
+  #     "Numer Helper": "TRUE",
+  #     "Denom Excp Helper": "FALSE",
+  #     "Unused statement": "NA"
+  #   }
+  # }
+  #
+  # This function relies heavily on the cql_statement_dependencies map on the Measure to recursively determine which
+  # statements are used in the relevant population statements. It also uses the 'population_relevance' map to determine
+  # the relevance of the population defining statement and its dependent statements.
   # @private
-  # @param {object} populationRelevance - The map of population relevance used as the starting point.
+  # @param {object} populationRelevance - The `population_relevance` map, used at the starting point.
   # @param {Measure} measure - The measure.
   # @param {population} populationSet - The population set being calculated.
-  # @return {object} The statement_relevance map that tells if each statement was relevant for calculation.
+  # @returns {object} The `statement_relevance` map that maps each statement to its relevance status for a calculation.
+  #   This structure is put in the Result object's attributes.
   ###
   _buildStatementRelevanceMap: (populationRelevance, measure, populationSet) ->
     # build map defaulting to not applicable (NA) using cql_statement_dependencies structure
@@ -285,28 +366,81 @@
     return statementRelevance
 
   ###*
-  # Mark a statement as relevant if it hasn't already been marked relevant. Mark all dependent statement
-  # as relevant.
+  # Recursive helper function for the _buildStatementRelevanceMap function. This marks a statement as relevant (or not
+  # relevant but applicable) in the `statement_relevance` map. It recurses and marks dependent statements also relevant
+  # unless they have already been marked as 'TRUE' for their relevance statue. This function will never be called on
+  # statements that are 'NA'.
   # @private
-  # @param {object} cql_statement_dependencies - Dependency map for the measure.
-  # @param {object} statementRelevance - The relevance map to fill.
-  # @param {string} libraryName - The library name.
-  # @param {string} statementName - The statement name.
+  # @param {object} cql_statement_dependencies - Dependency map from the measure object. The thing we recurse over 
+  #   even though it is flat, it represents a tree.
+  # @param {object} statementRelevance - The `statement_relevance` map to mark.
+  # @param {string} libraryName - The library name of the statement we are marking.
+  # @param {string} statementName - The name of the statement we are marking.
+  # @param {boolean} relevant - true if the statement should be marked 'TRUE', false if it should be marked 'FALSE'.
   ###
   _markStatementRelevant: (cql_statement_dependencies, statementRelevance, libraryName, statementName, relevant) ->
+    # only mark the statement if it is currently 'NA' or 'FALSE'. Otherwise it already has been marked 'TRUE'
     if statementRelevance[libraryName][statementName] == 'NA' || statementRelevance[libraryName][statementName] == 'FALSE'
       statementRelevance[libraryName][statementName] = if relevant then 'TRUE' else 'FALSE'
       for dependentStatement in cql_statement_dependencies[libraryName][statementName]
         @_markStatementRelevant(cql_statement_dependencies, statementRelevance, dependentStatement.library_name, dependentStatement.statement_name, relevant)
 
   ###*
-  # Builds the result structures for the statements and the clauses.
+  # Builds the result structures for the statements and the clauses. These are named `statement_results` and
+  # `clause_results` respectively when added Result object's attributes.
+  #
+  # The `statement_results` structure indicates the result for each statement taking into account the statement
+  # relevance in determining the result. This is a two level map just like `statement_relevance`. The first level key is
+  # the library name and the second key level is the statement name. The value is an object that has two properties,
+  # 'raw' and 'final'. 'raw' is the raw result from the execution engine for that statement. 'final' is the final result
+  # that takes into account the relevance in this calculation. The value of 'final' will be one of the following
+  # strings: 'NA', 'UNHIT', 'TRUE', 'FALSE'. Here's what they mean:
+  #
+  # 'NA' - Not applicable. This statement is not relevant to any population calculation in this population_set. Common
+  #   for unused library statements or statements only used for other population sets.
+  #   !!!IMPORTANT NOTE!!! All define function statements are marked 'NA' since we don't have a strategy for
+  #        highlighting or coverage when it comes to functions.
+  #
+  # 'UNHIT' - This statement wasn't hit. This is most likely because the statement was not relevant to population
+  #     calculation for this patient. i.e. 'FALSE' in the the `statement_relevance` map.
+  #
+  # 'TRUE' - This statement is relevant and has a truthy result.
+  #
+  # 'FALSE' - This statement is relevant and has a falsey result.
+  #
+  # Here is an example of the `statement_results` structure: (raw results have been turned into "???" for this example)
+  # {
+  #   "Test158": {
+  #     "Patient": { "raw": "???", "final": "NA" },
+  #     "SDE Ethnicity": { "raw": "???", "final": "NA" },
+  #     "SDE Payer": { "raw": "???", "final": "NA" },
+  #     "SDE Race": { "raw": "???", "final": "NA" },
+  #     "SDE Sex": { "raw": "???", "final": "NA" },
+  #     "Most Recent Delivery": { "raw": "???", "final": "TRUE" },
+  #     "Most Recent Delivery Overlaps Diagnosis": { "raw": "???", "final": "TRUE" },
+  #     "Initial Population": { "raw": "???", "final": "TRUE" },
+  #     "Numerator": { "raw": "???", "final": "TRUE" },
+  #     "Denominator Exceptions": { "raw": "???", "final": "UNHIT" }
+  #   },
+  #  "TestLibrary": {
+  #     "Numer Helper": { "raw": "???", "final": "TRUE" },
+  #     "Denom Excp Helper": { "raw": "???", "final": "UNHIT" },
+  #     "Unused statement": { "raw": "???", "final": "NA" }
+  #   }
+  # }
+  #
+  #
+  # The `clause_results` structure is the same as the `statement_results` but it indicates the result for each clause.
+  # The second level key is the localId for the clause. The result object is the same with the same  'raw' and 'final'
+  # properties but it also includes the name of the statement it resides in as 'statementName'.
+  #
+  # This function relies very heavily on the `statement_relevance` map to determine the final results. This function
+  # returns the two structures together in an object ready to be added directly to the Result attributes.
   # @private
   # @param {Measure} measure - The measure.
-  # @param {object} rawStatementResults - The raw statement results from the calculation engine.
   # @param {object} rawClauseResults - The raw clause results from the calculation engine.
-  # @param {object} statementRelevance - The statement relevance map.
-  # @return {object} Object with statement_results and clause_results built.
+  # @param {object} statementRelevance - The `statement_relevance` map. Used to determine if they were hit or not.
+  # @returns {object} Object with the statement_results and clause_results structures, keyed as such.
   ###
   _buildStatementAndClauseResults: (measure, rawClauseResults, statementRelevance) ->
     statementResults = {}
@@ -348,7 +482,9 @@
 
 
   ###*
-  # Determines the final result (for coloring and coverage) of clauses
+  # Determines the final result (for coloring and coverage) for a clause. The result fills the 'final' property for the
+  # clause result. Look at the comments for _buildStatementAndClauseResults to get a description of what each of the
+  # string results of this function are.
   # @private
   # @param {object} rawClauseResults - The raw clause results from the calculation engine.
   # @param {object} statementRelevance - The statement relevance map.
@@ -357,6 +493,7 @@
   # @param {object} localId - The localId of the current clause
   # @param {object} clause - The clause we are getting the final result of
   # @param {Array|Object|Interval|??} rawResult - The raw result from the calculation engine.
+  # @returns {string} The final result for the clause.
   ###
   _setFinalResults: (params) ->
     finalResult = 'FALSE'
@@ -370,14 +507,14 @@
       finalResult = 'TRUE'
     return finalResult
 
-
   ###*
-  # Finds the clause localId for a statement and gets the result for that clause.
+  # Finds the clause localId for a statement and gets the raw result for it from the raw clause results.
   # @private
   # @param {Measure} measure - The measure.
   # @param {string} libraryName - The library name.
   # @param {string} statementName - The statement name.
   # @param {object} rawClauseResults - The raw clause results from the engine.
+  # @returns {(Array|object|Interval|??)} The raw result from the calculation engine for the given statement.
   ###
   _findResultForStatementClause: (measure, libraryName, statementName, rawClauseResults) ->
     library = measure.get('elm').find((lib) -> lib.library.identifier.id == libraryName)
@@ -385,10 +522,10 @@
     return rawClauseResults[libraryName]?[statement.localId]
 
   ###*
-  # Determines if a result (for a statement or clause) is a pass or fail.
+  # Determines if a result (for a statement or clause) from the execution engine is a pass or fail.
   # @private
-  # @param result - The result from the calculation engine.
-  # @return {boolean} true or false
+  # @param {(Array|object|boolean|???)} result - The result from the calculation engine.
+  # @returns {boolean} true or false
   ###
   _doesResultPass: (result) ->
     if result is true  # Specifically a boolean true
