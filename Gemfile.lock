@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 642877ea2bd64b42590a74ddc7842b4f0bba420d
+  revision: 1524103ae256278b85dd4367078ca62224161b7e
   branch: cql4bonnie
   specs:
     health-data-standards (3.6.1)
@@ -31,14 +31,14 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: c67ace0fab18f511371f3cb70b4ebadf0b9bf055
+  revision: 56f618f0ff46e2540557f2c5aa4d97003b834fba
   branch: cql4bonnie
   specs:
     bonnie_bundler (1.0.0)
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: 00882dce8a6d4d1ad838e090ee3afc9ca169676c
+  revision: 8a287b3db41b67b2568cf521f7ee8000b5c2a805
   branch: cql4bonnie
   specs:
     cql_qdm_patientapi (0.1.0)
@@ -109,6 +109,7 @@ GEM
       nokogiri (>= 1.4.1)
       rubyzip (= 0.9.9)
     bcrypt (3.1.10)
+    browser (2.4.0)
     bson (3.2.6)
     builder (3.2.2)
     byebug (5.0.0)
@@ -325,6 +326,7 @@ PLATFORMS
 DEPENDENCIES
   axlsx
   bonnie_bundler!
+  browser
   capistrano-rails
   coffee-rails
   cql_qdm_patientapi!
