@@ -40,14 +40,15 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
     categories = {}
     @measure?.get('source_data_criteria').each (criteria) ->
       type = criteria.get('type').replace(/_/g, ' ')
-      # Filter out negations and specific occurrences
+      # Filter out negations, certain patient characteristics, and specific occurrences
+      # Note: we previously filtered out patient_characteristic_payer, but that was needed on the elements list
+      # because a payer can have a start and stop date in QDM 5
       filter_criteria = criteria.get('negation') or
       ( criteria.get('definition') is 'patient_characteristic_birthdate' ) or
       ( criteria.get('definition') is 'patient_characteristic_gender' ) or
       ( criteria.get('definition') is 'patient_characteristic_expired' ) or
       ( criteria.get('definition') is 'patient_characteristic_race' ) or
       ( criteria.get('definition') is 'patient_characteristic_ethnicity' ) or
-      ( criteria.get('definition') is 'patient_characteristic_payer' ) or
       ( criteria.has('specific_occurrence') )
       unless filter_criteria
         categories[type] ||= new Thorax.Collection
