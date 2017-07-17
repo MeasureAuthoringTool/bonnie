@@ -49,7 +49,15 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   ###
   initialize: ->
     @isOutdatedUpload = false
+    @hasCqlErrors = false
     @statementViews = []
+    
+    # Look through all elm library structures, and check for CQL errors noted by the translation service.
+    if Array.isArray @model.get('elm')
+      _.each @model.get('elm'), (elm, elm_index) =>
+        _.each elm.library.annotation, (annotation) =>
+          if (annotation.errorSeverity == "error")
+            @hasCqlErrors = true
 
     # Check to see if this measure was uploaded with an older version of the loader code that did not get the 
     # clause level annotations.

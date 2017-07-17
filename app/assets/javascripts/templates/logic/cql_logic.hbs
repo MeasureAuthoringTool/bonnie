@@ -1,4 +1,11 @@
 {{! TODO: Remove this outdated message once CQL settles for production. Currently needed because the volatile annotation structure. }}
+{{#if hasCqlErrors}}
+<p>
+  <div class="alert alert-danger">
+    <Strong>CQL Error!</strong> This measure appears to have errors in its CQL.  Please re-export the measure from the MAT.
+  </div>
+</p>
+{{/if}}
 {{#if isOutdatedUpload}}
 <p>
   <div class="alert alert-warning">
@@ -6,6 +13,7 @@
   </div>
 </p>
 {{/if}}
+
 <div class="cql-logic measure-viz rationale panel-group">
   {{#each statementViews}}
     <div>
