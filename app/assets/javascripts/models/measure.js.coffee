@@ -126,112 +126,23 @@ class Thorax.Models.Measure extends Thorax.Model
     # return field values sorted by title
     _(fields).sortBy (field) -> field.title
 
+  ###*
+  # For CQL measures only. Finds all the localIds in a given statement
+  # @public
+  # @param {string} libraryName - The library of the statement we want to get the localIds for.
+  # @param {string} statementName - The statement name.
+  ###
   findAllLocalIdsInStatementByName: (libraryName, statementName) ->
+    # Only do stuff if this is a CQL measure.
     if @has('cql')
+      # if we have this one already in the cache then return the cached result.
       if @_localIdCache[libraryName]?[statementName]?
         return @_localIdCache[libraryName][statementName]
+      # if it's not in the cache, build the localId map, put it in the cache and return it.
       else
         @_localIdCache[libraryName] = {} unless @_localIdCache[libraryName]?
-        @_localIdCache[libraryName][statementName] = @_findAllLocalIdsInStatementByName(libraryName, statementName)
+        @_localIdCache[libraryName][statementName] = CQLMeasureHelpers.findAllLocalIdsInStatementByName(@, libraryName, statementName)
         return @_localIdCache[libraryName][statementName]
-
-  ###*
-  # Finds all localIds in a statement by it's library and statement name.
-  # @private
-  # @param {string} libraryName - The name of the library the statement belongs to.
-  # @param {string} statementName - The statement name to search for.
-  # @return {Hash} List of local ids in the statement.
-  ###
-  _findAllLocalIdsInStatementByName: (libraryName, statementName) ->
-    # create place for aliases and their usages to be placed to be filled in later. Aliases and their usages (aka scope)
-    # and returns do not have localIds in the elm but do in elm_annotations at a consistent calculable offset.
-    # BE WEARY of this calaculable offset.
-    emptyResultClauses = []
-
-    # find the library and statement in the elm.
-    library = @get('elm').find((lib) -> lib.library.identifier.id == libraryName)
-    statement = library.library.statements.def.find((statement) -> statement.name == statementName)
-
-    # recurse through the statement elm for find all localIds
-    localIds = @_findAllLocalIdsInStatement(statement, libraryName, {}, {}, emptyResultClauses, null)
-
-    # Create/change the clause for all aliases and their usages
-    for alias in emptyResultClauses
-      # Only do it if we have a clause for where the result should be fetched from
-      if localIds[alias.expressionLocalId]?
-        localIds[alias.aliasLocalId] =
-          localId: alias.aliasLocalId,
-          sourceLocalId: alias.expressionLocalId
-
-    # We do not yet support coverage/coloring of Function statements
-    # Mark all the clauses as unsupported so we can mark them 'NA' in the clause_results
-    if statement.type == "FunctionDef"
-      for localId, clause of localIds
-        clause.isUnsupported = true
-
-    return localIds
-
-  ###*
-  # Finds all localIds in the statement structure recursively.
-  # @private
-  # @param {Object} statement - The statement structure or child parts of it.
-  # @return {Array[Integer]} List of local ids in the statement.
-  ###
-  _findAllLocalIdsInStatement: (statement, libraryName, localIds, aliasMap, emptyResultClauses, parentNode) ->
-    # looking at the key and value of everything on this object or array
-    for k, v of statement
-      if k == 'return'
-        # Keep track of the localId of the expression that the return references
-        aliasMap[v] = statement.return.expression.localId
-        alId = statement.return.localId
-        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]}) 
-        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses, statement) 
-      else if k == 'alias'
-        if statement.expression? && statement.expression.localId?
-          # Keep track of the localId of the expression that the alias references
-          aliasMap[v] = statement.expression.localId
-          # Determine the localId in the elm_annotation for this alias.
-          alId = parseInt(statement.expression.localId) + 1
-          emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
-      else if k == 'scope'
-        # The scope entry references an alias but does not have an ELM local ID. Hoever it DOES have an elm_annotations localId
-        # The elm_annotation localId of the alias variable is the localId of it's parent (one less than) 
-        # because the result of the scope clause should be equal to the clause that the scope is referencing
-        alId = parseInt(statement.localId) - 1
-        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
-      else if k == 'asTypeSpecifier'
-        # Map the localId of the asTypeSpecifier (Code, Quantity...) to the result of the result it is referencing
-        # For example, in the CQL code 'Variable.result as Code' the typeSpecifier does not produce a result, therefore
-        # we will set its result to whatever the result value is for 'Variable.result'
-        alId = statement.asTypeSpecifier.localId
-        typeClauseId = parseInt(statement.asTypeSpecifier.localId) - 1
-        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: typeClauseId})
-      else if k == 'sort'
-        # Sort is a special case that we need to recurse into separately and set the results to the result of the statement the sort clause is in
-        @_findAllLocalIdsInSort(v, libraryName, localIds, aliasMap, emptyResultClauses, parentNode)
-      # If 'First' and 'Last' expressions, the result of source of the clause should be set to the expression
-      else if k=='type' && (v =='First' || v == 'Last')
-        if statement.source && statement.source.localId?
-          alId = statement.source.localId
-          emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: statement.localId}) 
-        # Continue to recurse into the 'First' or 'Last' expression
-        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses, statement) 
-      # else if they key is localId push the value
-      else if k == 'localId'
-        localIds[v] = { localId: v }
-      # if the value is an array or object, recurse
-      else if (Array.isArray(v) || typeof v is 'object')
-        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses, statement)
-      
-    return localIds
-
-  # Finds all localIds in the sort structure recursively and sets the expressionLocalId to the parent statement
-  _findAllLocalIdsInSort: (statement, libraryName, localIds, aliasMap, emptyResultClauses, rootStatement) ->
-    alId = statement.localId
-    emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: rootStatement.localId})
-    for k, v of statement 
-      if (Array.isArray(v) || typeof v is 'object')
-        @_findAllLocalIdsInSort(v, libraryName, localIds, aliasMap, emptyResultClauses, rootStatement)
 
 
 class Thorax.Collections.Measures extends Thorax.Collection
