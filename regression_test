@@ -168,9 +168,9 @@ class BonnieScraper
     coverage.each_pair do |m, v|
       v2 = prod.coverage[m]
       if v.to_i > v2.to_i
-         puts "-: #{m} LOCAL HAS INCREASE IN COVERAGE (#{v.to_i} > #{v2.to_i})".colorize(:green)
+         puts "+: #{m} LOCAL HAS INCREASE IN COVERAGE (#{v.to_i} > #{v2.to_i})".colorize(:green)
       elsif v2.to_i > v.to_i
-         puts "+: #{m} LOCAL HAS DECREASE IN COVERAGE (#{v2.to_i} > #{v.to_i})".colorize(:red)
+         puts "-: #{m} LOCAL HAS DECREASE IN COVERAGE (#{v.to_i} < #{v2.to_i})".colorize(:red)
       else
         puts "=: #{m} RESULTS EQUAL (#{v2} == #{v})"
       end
