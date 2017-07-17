@@ -14,17 +14,8 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
   # data functionality.
   ###
   initialize: ->
+    @text = @statement.annotation[0].s.value[0]
     @name = @statement.name
-    @text = @_findTextInCQL()
-  
-  # REMOVE THIS IN CLAUSE MERGE. This gets the statement by doing a regex in the cql measure LOL
-  _findTextInCQL: (name) ->
-    statements = @libraryCqlText.split(/\n\s*\n/)
-    defineRegex = new RegExp("define (|function )\\\"#{@name}\\\"")
-    text = _.find(statements, (statementText) -> defineRegex.test(statementText))
-    if !text?
-      text = "define #{@name}: WARNING! CQL code for this statement was not found."
-    return text
 
   ###*
   # Show the results of this statement's calculation by highlighing appropiately. 
