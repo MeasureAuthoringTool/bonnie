@@ -149,7 +149,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     criteriaType in ['adverse_event', 'care_goal', 'device_applied', 'diagnostic_study_performed',
                      'encounter_active', 'encounter_performed', 'intervention_performed', 'laboratory_test_performed',
                      'medication_active', 'medication_administered', 'physical_exam_performed', 'procedure_performed',
-                     'substance_administered', 'allergy_intolerance', 'diagnosis', 'symptom']
+                     'substance_administered', 'allergy_intolerance', 'diagnosis', 'symptom', 'patient_characteristic_payer']
 
   # determines if a data criteria describes an issue or problem with a person
   # allergy/intolerance, diagnosis, and symptom fall into this
