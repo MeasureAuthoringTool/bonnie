@@ -3,11 +3,13 @@ require "rubygems"
 require "thor"
 
 STAGE_HOST = "http://bonniealpha.ahrqdev.org"
-PROD_HOST = "http://bonniealpha.ahrqstg.org"
+# PROD_HOST = "http://bonniealpha.ahrqstg.org"
+PROD_HOST = "http://bonniealpha.ahrqdev.org"
 
 ACCOUNTS = %w(epecqmama epecqmtelligen hmdmlantana epecqmncqa hmdmtjc)
 class Regression < Thor
   puts "REGRESSION TEST:"
+  puts "For Local: Run Old branch first, then New branch"
   puts "Ensure your bonnie accounts all have the same password."
 
   desc "prod", "Compare source host to bonnie alpha production server"
@@ -15,8 +17,9 @@ class Regression < Thor
     init
     localResult = regress("http://localhost:3000")
     prodResult = regress(PROD_HOST)
-    compare(localResult, prodResult)
+    compare(localResult, prodResult, false)
   end
+
 
   desc "local", "Compare two local servers, pausing in between to restart"
   def local
@@ -32,7 +35,7 @@ class Regression < Thor
     end
 
     localResult2 = regress("http://localhost:3000")
-    compare(localResult, localResult2)
+    compare(localResult, localResult2, true)
   end
 
   desc "setup", "Install needed dependencies (assumes ruby+firefox installed)"
@@ -69,10 +72,10 @@ class Regression < Thor
       results
     end
 
-    def compare(localResult, prodResult)
+    def compare(localResult, prodResult, isLocal)
       localResult.each_pair do |acc, r|
         puts acc.colorize(:cyan)
-        r.compare!(prodResult[acc])
+        r.compare!(prodResult[acc], isLocal)
       end
     end
   end
@@ -160,20 +163,32 @@ class BonnieScraper
     click_link("Logout")
   end
 
-  def compare!(prod)
+  def compare!(prod, isLocal)
     new_errors = prod.errors - errors
     unless new_errors.empty?
-      puts "REGRESSION: Additional errors found on production #{new_errors.join}".colorize(:red)
+      puts "REGRESSION: Additional errors found on production #{new_errors.join()}".colorize(:red)
     end
     coverage.each_pair do |m, v|
       v2 = prod.coverage[m]
-      if v.to_i > v2.to_i
-         puts "+: #{m} LOCAL HAS INCREASE IN COVERAGE (#{v.to_i} > #{v2.to_i})".colorize(:green)
-      elsif v2.to_i > v.to_i
-         puts "-: #{m} LOCAL HAS DECREASE IN COVERAGE (#{v.to_i} < #{v2.to_i})".colorize(:red)
+
+      if isLocal
+        if v.to_i > v2.to_i
+           puts "-: #{m} SECOND BRANCH HAS MORE PASSES (#{v} > #{v2})".colorize(:green)
+        elsif v2.to_i > v.to_i
+           puts "+: #{m} SECOND BRANCH HAS MORE FAILS (#{v} < #{v2})".colorize(:red)
+        else
+          puts "=: #{m} RESULTS ARE EQUAL (#{v2} == #{v})"
+        end
       else
-        puts "=: #{m} RESULTS EQUAL (#{v2} == #{v})"
+        if v.to_i > v2.to_i
+           puts "+: #{m} LOCAL vs PROD (#{v} > #{v2})".colorize(:green)
+        elsif v2.to_i > v.to_i
+           puts "-: #{m} LOCAL vs PROD (#{v} < #{v2})".colorize(:red)
+        else
+          puts "=: #{m} RESULTS ARE EQUAL (#{v2} == #{v})"
+        end
       end
+
     end
   end
 
