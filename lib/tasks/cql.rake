@@ -3,7 +3,7 @@ namespace :bonnie do
   namespace :cql do
 
     desc %{Recreates the JSON elm stored on CQL measures using an instance of
-          a locally running CQLTranslationService JAR.
+      a locally running CQLTranslationService JAR.
 
     $ rake bonnie:cql:rebuild_elm}
     task :rebuild_elm => :environment do
@@ -23,16 +23,20 @@ namespace :bonnie do
             cql = [measure[:cql]]
           end
           # Generate elm from the measure cql
-          elms = Measures::CqlLoader.translate_cql_to_elm(cql)
+          elms, elm_annotations = Measures::CqlLoader.translate_cql_to_elm(cql)
           elms = [elms] unless elms.instance_of?(Array)
           # Grab the name of the main cql library
           if measure[:main_cql_library].present?
+            # Old measure! Grab the main_cql_library name from the ELM
             main_cql_library = measure[:main_cql_library]
-          else # Old measure! Grab the main_cql_library name from the ELM
+          else
             main_cql_library = elms.first['library']['identifier']['id']
           end
+          # Build the definition dependency structure for this measure
+          cql_definition_dependency_structure = Measures::CqlLoader.populate_cql_definition_dependency_structure(main_cql_library, elms)
+          cql_definition_dependency_structure = Measures::CqlLoader.populate_used_library_dependencies(cql_definition_dependency_structure, main_cql_library, elms)
           # Update the measure
-          measure.update(cql: cql, elm: elms, main_cql_library: main_cql_library)
+          measure.update(cql: cql, elm: elms, elm_annotations: elm_annotations, cql_statement_dependencies: cql_definition_dependency_structure, main_cql_library: main_cql_library)
           measure.save!
           update_passes += 1
           print "\e[#{32}m#{"[Success]"}\e[0m"

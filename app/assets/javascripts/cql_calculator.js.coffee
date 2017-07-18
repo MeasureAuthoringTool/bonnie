@@ -1,8 +1,16 @@
+###*
+# The CQL calculator. This calls the CQL4Browsers engine then prepares the results for consumption by the rest of
+# Bonnie.
+###
 @CQLCalculator = class CQLCalculator extends Calculator
 
+  ###*
   # Generate a calculation result for a population / patient pair; this always returns a result immediately,
-  # but may return a blank result object that later gets filled in through a deferred calculation, so views
-  # that display results must be able to handle a state of "not yet calculated"
+  # but may return a blank result object if there was a problem. Currently we do not do CQL calculations in
+  # deferred manner like we did for QDM calcuations.
+  # @param {Population} population - The population set to calculate on.
+  # @param {Patient} patient - The patient to run calculations on.
+  ###
   calculate: (population, patient) ->
     # We store both the calculation result and the calcuation code based on keys derived from the arguments
     cacheKey = @cacheKey(population, patient)
@@ -72,8 +80,13 @@
       population_results = @createPopulationValues population, results, patient, observation_defs
 
       if population_results?
-        result.set {'statement_results': results.patientResults[patient['id']]}
         result.set population_results
+        result.set {'population_relevance': @_buildPopulationRelevanceMap(population_results) }
+
+        # Add 'statement_relevance', 'statement_results' and 'clause_results' generated in the CQLResultsHelpers class.
+        result.set {'statement_relevance': CQLResultsHelpers.buildStatementRelevanceMap(result.get('population_relevance'), population.collection.parent, population) }
+        result.set CQLResultsHelpers.buildStatementAndClauseResults(population.collection.parent, results.localIdPatientResultsMap[patient['id']], result.get('statement_relevance'))
+
         result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
         result.state = 'complete'
     catch error
@@ -88,13 +101,23 @@
         }, error)
     return result
 
+  ###*
+  # Create population values (aka results) for all populations in the population set using the results from the
+  # calculator.
+  # @param {Population} population - The population set we are getting the values for.
+  # @param {object} results - The raw results object from the calculation engine.
+  # @param {Patient} patient - The patient we are getting results for.
+  # @param {Array} observation_defs - List of observation defines we add to the elm for calculation OBSERVs.
+  # @returns {object} The population results. Map of "POPNAME" to Integer result. Except for OBSERVs,
+  #   their key is 'value' and value is an array of results.
+  ###
   createPopulationValues: (population, results, patient, observation_defs) ->
     population_results = {}
     # Grab the mapping between populations and CQL statements
     cql_map = population.collection.parent.get('populations_cql_map')
     # Grab the correct expected for this population
-    index = population.get('index')
-    expected = patient.get('expected_values').findWhere(measure_id: population.collection.parent.get('hqmf_set_id'), population_index: index)
+    popIndex = population.get('index')
+    expected = patient.get('expected_values').findWhere(measure_id: population.collection.parent.get('hqmf_set_id'), population_index: popIndex)
     # Loop over all population codes ("IPP", "DENOM", etc.)
     for popCode in Thorax.Models.Measure.allPopulationCodes
       if cql_map[popCode]
@@ -105,16 +128,12 @@
           defined_pops = [cql_map[popCode]]
         else
           defined_pops = cql_map[popCode]
-        index = 0 unless defined_pops.length > 1
-        # If a stratified population, we need to set the index to the populationCriteria
-        # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
-        index = population.get('population_index') if population.get('stratification')?
-        # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
-        index = population.get('stratification_index') if popCode == "STRAT" && population.get('stratification')?
-        cql_population = defined_pops[index]
+
+        popIndex = population.getPopIndexFromPopName(popCode)
+        cql_population = defined_pops[popIndex]
         # Is there a patient result for this population? and does this populationCriteria contain the population
         # We need to check if the populationCriteria contains the population so that a STRAT is not set to zero if there is not a STRAT in the populationCriteria
-        if results['patientResults'][patient.id][cql_population]? && population.get(popCode)?
+        if population.get(popCode)?
           # Grab CQL result value and adjust for Bonnie
           value = results['patientResults'][patient.id][cql_population]
           if Array.isArray(value) and value.length > 0
@@ -143,9 +162,14 @@
               population_results['values'].push(obs_result)
     @handlePopulationValues population_results
 
-  # Takes in the initial values from result object and checks to see if some values should not be calculated.
+  ###*
+  # Takes in the initial values from result object and checks to see if some values should not be calculated. These
+  # values that should not be calculated are zeroed out.
+  # @param {object} population_results - The population results. Map of "POPNAME" to Integer result. Except for OBSERVs,
+  #   their key is 'value' and value is an array of results.
+  # @returns {object} Population results in the same structure as passed in, but the appropiate values are zeroed out.
+  ###
   handlePopulationValues: (population_results) ->
-    # TODO: Handle CV measures
     # Setting values of populations if the correct populations are not set based on the following logic guidelines
     # Initial Population (IPP): The set of patients or episodes of care to be evaluated by the measure.
     # Denominator (DENOM): A subset of the IPP.
@@ -186,6 +210,92 @@
       if 'DENEXCEP' of population_results
         population_results["DENEXCEP"] = 0
     return population_results
+
+  ###*
+  # Builds the `population_relevance` map. This map gets added to the Result attributes that the calculator returns.
+  #
+  # The population_relevance map indicates which populations the patient was actually considered for inclusion in. It
+  # is a simple map of "POPNAME" to true or false. true if the population was relevant/considered, false if
+  # NOT relevant/considered. This is used later to determine which define statements are relevant in the calculation.
+  #
+  # For example: If they aren't in the IPP then they are not going to be considered for any other population and all other
+  # populations will be marked NOT relevant.
+  #
+  # Below is an example result of this function (the 'population_relevance' map). DENEXCEP is not relevant because in
+  # the population_results the NUMER was greater than zero:
+  # {
+  #   "IPP": true,
+  #   "DENOM": true,
+  #   "NUMER": true,
+  #   "DENEXCEP": false
+  # }
+  #
+  # This function is extremely verbose because this is an important and confusing calculation to make. The verbosity
+  # was kept to make it more maintainable.
+  # @private
+  # @param {Result} result - The `population_results` object.
+  # @returns {object} Map that tells if a population calculation was considered/relevant.
+  ###
+  _buildPopulationRelevanceMap: (result) ->
+    # initialize to true for every population
+    resultShown = {}
+    _.each(Object.keys(result), (population) -> resultShown[population] = true)
+
+    # If STRAT is 0 then everything else is not calculated
+    if result.STRAT? && result.STRAT == 0
+      resultShown.IPP = false if resultShown.IPP?
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENOM = false if resultShown.DENOM?
+      resultShown.DENEX = false if resultShown.DENEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+      resultShown.MSRPOPL = false if resultShown.MSRPOPL?
+      resultShown.MSRPOPLEX = false if resultShown.MSRPOPLEX?
+      resultShown.values = false if resultShown.values?
+
+    # If IPP is 0 then everything else is not calculated
+    if result.IPP == 0
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENOM = false if resultShown.DENOM?
+      resultShown.DENEX = false if resultShown.DENEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+      resultShown.MSRPOPL = false if resultShown.MSRPOPL?
+      resultShown.MSRPOPLEX = false if resultShown.MSRPOPLEX?
+      # values is the OBSERVs
+      resultShown.values = false if resultShown.values?
+
+    # If DENOM is 0 then DENEX, DENEXCEP, NUMER and NUMEX are not calculated
+    if result.DENOM? && result.DENOM == 0
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENEX = false if resultShown.DENEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    # If DENEX is 1 then NUMER, NUMEX and DENEXCEP not calculated
+    if result.DENEX? && result.DENEX >= 1
+      resultShown.NUMER = false if resultShown.NUMER?
+      resultShown.NUMEX = false if resultShown.NUMEX?
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    # If NUMER is 0 then NUMEX is not calculated
+    if result.NUMER? && result.NUMER == 0
+      resultShown.NUMEX = false if resultShown.NUMEX?
+
+    # If NUMER is 1 then DENEXCEP is not calculated
+    if result.NUMER? && result.NUMER >= 1
+      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
+
+    # If MSRPOPLEX is 1 then MSRPOPL and OBSERVs are not calculated
+    if result.MSRPOPLEX? && result.MSRPOPLEX == 1
+      resultShown.MSRPOPL = false if resultShown.MSRPOPL?
+      resultShown.values = false if resultShown.values?
+
+    # If MSRPOPL is 0 then OBSERVs are not calculated
+    if result.MSRPOPL? && result.MSRPOPL == 0
+      resultShown.values = false if resultShown.values?
+
+    return resultShown
 
   isValueZero: (value, population_set) ->
     if value of population_set and population_set[value] == 0

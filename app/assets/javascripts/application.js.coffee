@@ -52,6 +52,7 @@
 #= require helpers
 #= require_tree ./templates
 #= require_tree ./models
+#= require_tree ./helpers
 #= require_tree ./views
 #= require calculator
 #= require qdm_calculator

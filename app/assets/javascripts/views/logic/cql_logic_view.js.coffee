@@ -40,9 +40,6 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
 
   template: JST['logic/cql_logic']
 
-  # List of statements added by the MAT that are not useful to the user.
-  @SKIP_STATEMENTS = ["SDE Ethnicity", "SDE Payer", "SDE Race", "SDE Sex"]
-
   events:
     "ready": ->
 
@@ -51,70 +48,57 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   # Expects model to be a Measure model object of a CQL measure.
   ###
   initialize: ->
-    # WE KNOW ITS OUT OF DATE, this view will be buggy because of new translation jar.
-    @isOutdatedUpload = true
+    @isOutdatedUpload = false
     @hasCqlErrors = false
     @statementViews = []
     
-    # TODO: This should be changed when we move to production.
-    # We need this if statement to support the old version of cql measure that didn't have ELM in an array.
+    # Look through all elm library structures, and check for CQL errors noted by the translation service.
     if Array.isArray @model.get('elm')
       _.each @model.get('elm'), (elm, elm_index) =>
         _.each elm.library.annotation, (annotation) =>
           if (annotation.errorSeverity == "error")
             @hasCqlErrors = true
-        _.each elm.library.statements?.def, (statement) =>
-          if statement.annotation
 
-            # skip if this is a statement the user doesn't need to see
-            return if Thorax.Views.CqlPopulationLogic.SKIP_STATEMENTS.includes(statement.name)
-
+    # Check to see if this measure was uploaded with an older version of the loader code that did not get the 
+    # clause level annotations.
+    # TODO: Update this check as needed. Remove these checks when CQL has settled for production.
+    if @model.get('elm_annotations')?
+      for libraryName, annotationLibrary of @model.get('elm_annotations')
+        for statement in annotationLibrary.statements
+          # skip if this is a statement the user doesn't need to see
+          if !Thorax.Models.Measure.cqlSkipStatements.includes(statement.define_name) && statement.define_name?
             popNames = []
+            popName = null
             # if a population (population set) was provided for this view it should mark the statment if it is a population defining statement  
             if @population
               for pop, popStatements of @model.get('populations_cql_map')
-                index = @population.get('index')
-                # If displaying a stratification, we need to set the index to the associated populationCriteria
-                # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
-                index = @population.get('population_index') if @population.get('stratification')?
-                # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
-                index = @population.get('stratification_index') if pop == "STRAT" && @population.get('stratification')?
+                index = @population.getPopIndexFromPopName(pop)
                 # There may be multiple populations that it defines. Only push population name if @population has a pop ie: not all populations will have STRAT
-                popNames.push(pop) if statement.name == popStatements[index] && @population.get(pop)?
+                popNames.push(pop) if statement.define_name == popStatements[index] && @population.get(pop)?
+
+              # Mark if it is in an OBSERV if there are any and we are looking at the main_cql_library
+              if @model.get('observations')? && libraryName == @model.get('main_cql_library')
+                for observ, observIndex in @model.get('observations')
+                  popNames.push("OBSERV_#{observIndex+1}") if statement.define_name == observ.function_name
+
               if popNames.length > 0
                 popName = popNames.join(', ')
+            @statementViews.push new Thorax.Views.CqlStatement(statement: statement, libraryName: libraryName, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName, logicView: @)
 
-            @statementViews.push new Thorax.Views.CqlStatement(statement: statement, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName, libraryCqlText: @model.get('cql')[elm_index])
+    # Since we dont have elm_annotations we should mark this as an outdated upload. Do not create any statement views.
     else
-      _.each @model.get('elm')?.library.statements?.def, (statement) =>
-        if statement.annotation
-
-          # skip if this is a statement the user doesn't need to see
-          return if Thorax.Views.CqlPopulationLogic.SKIP_STATEMENTS.includes(statement.name)
-
-          popNames = []
-          # if a population (population set) was provided for this view it should mark the statment if it is a population defining statement  
-          if @population
-            for pop, popStatements of @model.get('populations_cql_map')
-              index = @population.get('index')
-              # If displaying a stratification, we need to set the index to the associated populationCriteria
-              # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
-              index = @population.get('population_index') if @population.get('stratification')?
-              # If retrieving the STRAT, set the index to the correct STRAT in the cql_map
-              index = @population.get('stratification_index') if pop == "STRAT" && @population.get('stratification')?
-              # There may be multiple populations that it defines. Only push population name if @population has a pop ie: not all populations will have STRAT
-              popNames.push(pop) if statement.name == popStatements[index] && @population.get(pop)?
-            if popNames.length > 0
-              popName = popNames.join(', ')
-
-          @statementViews.push new Thorax.Views.CqlStatement(statement: statement, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulation: popName, libraryCqlText: @model.get('cql'))
-
+      @isOutdatedUpload = true
 
   ###*
   # Shows the coverage information.
   ###
   showCoverage: ->
     @clearRationale()
+    rationaleCriteria = @population.coverage().rationaleCriteria
+    # If there are no patients, there will be no rationaleCriteria and therefore no coverage
+    if rationaleCriteria?
+      for statementView in @statementViews
+        statementView.showCoverage(rationaleCriteria[statementView.libraryName])
 
   ###*
   # Clears the coverage information from the view.
@@ -128,65 +112,10 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   ###
   showRationale: (result) ->
     @latestResult = result
-    showResultsMap = @_makePopulationResultShownMap result
     for statementView in @statementViews
-      # check to see if highlighting should be supressed because "not calculated"
-      popName = statementView.cqlPopulation?.split(', ')[0]
-      showHighlighting = if showResultsMap[popName]? then showResultsMap[popName] else true
-      
-      statementView.showRationale(result.get('statement_results')[statementView.name], showHighlighting)
-
-  ###*
-  # Make a map of population to boolean of if the result of the define statement result should be shown or not. This is
-  # what determines if we don't highlight the statements that are "not calculated".
-  # TODO: This is stop gap solution, should be moved to the calculator.
-  # @private
-  # @param {Result} result = The result object from the calculator.
-  ###
-  _makePopulationResultShownMap: (result) ->
-    # initialize to true for every population
-    resultShown = {}
-    _.each(_.without(result.keys(), 'statement_results', 'patient_id'), (population) -> resultShown[population] = true)
-
-    # If STRAT is 0 then everything else is not calculated
-    if result.get('STRAT')? && result.get('STRAT') == 0
-      resultShown.IPP = false if resultShown.IPP?
-      resultShown.NUMER = false if resultShown.NUMER?
-      resultShown.NUMEX = false if resultShown.NUMEX?
-      resultShown.DENOM = false if resultShown.DENOM?
-      resultShown.DENEX = false if resultShown.DENEX?
-      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
-
-    # If IPP is 0 then everything else is not calculated
-    if result.get('IPP') == 0
-      resultShown.NUMER = false if resultShown.NUMER?
-      resultShown.NUMEX = false if resultShown.NUMEX?
-      resultShown.DENOM = false if resultShown.DENOM?
-      resultShown.DENEX = false if resultShown.DENEX?
-      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
-
-    # If DENOM is 0 then DENEX, DENEXCEP, NUMER and NUMEX are not calculated
-    if result.get('DENOM')? && result.get('DENOM') == 0
-      resultShown.NUMER = false if resultShown.NUMER?
-      resultShown.NUMEX = false if resultShown.NUMEX?
-      resultShown.DENEX = false if resultShown.DENEX?
-      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
-
-    # If DENEX is 1 then NUMER, NUMEX and DENEXCEP not calculated
-    if result.get('DENEX')? && result.get('DENEX') >= 1
-      resultShown.NUMER = false if resultShown.NUMER?
-      resultShown.NUMEX = false if resultShown.NUMEX?
-      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
-
-    # If NUMER is 0 then NUMEX is not calculated
-    if result.get('NUMER')? && result.get('NUMER') == 0
-      resultShown.NUMEX = false if resultShown.NUMEX?
-
-    # If NUMER is 1 then DENEXCEP is not calculated
-    if result.get('NUMER')? && result.get('NUMER') >= 1
-      resultShown.DENEXCEP = false if resultShown.DENEXCEP?
-
-    return resultShown
+      # Do not attempt to show pass/fail for a clause that does not exist possibly due to a calculation error
+      if result.get('clause_results')? && result.get('clause_results')[statementView.libraryName]?
+        statementView.showRationale(result.get('clause_results')[statementView.libraryName])
 
   ###*
   # Clears the rationale hightlighting on all CqlStatement views.
