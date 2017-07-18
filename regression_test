@@ -3,8 +3,7 @@ require "rubygems"
 require "thor"
 
 STAGE_HOST = "http://bonniealpha.ahrqdev.org"
-# PROD_HOST = "http://bonniealpha.ahrqstg.org"
-PROD_HOST = "http://bonniealpha.ahrqdev.org"
+PROD_HOST = "http://bonniealpha.ahrqstg.org"
 
 ACCOUNTS = %w(epecqmama epecqmtelligen hmdmlantana epecqmncqa hmdmtjc)
 class Regression < Thor
@@ -14,12 +13,13 @@ class Regression < Thor
 
   desc "prod", "Compare source host to bonnie alpha production server"
   def prod
-    init
-    localResult = regress("http://localhost:3000")
-    prodResult = regress(PROD_HOST)
-    compare(localResult, prodResult, false)
+    compare_hosts("http://localhost:3000", PROD_HOST)
   end
 
+  desc "stage", "Compare sourc ehost with bonnie alpha staging server"
+  def stage
+    compare_hosts("http://localhost:3000", STAGE_HOST)
+  end
 
   desc "local", "Compare two local servers, pausing in between to restart"
   def local
@@ -48,6 +48,13 @@ class Regression < Thor
   end
 
   no_commands do
+
+    def compare_hosts(local, remote)
+      init
+      localResult = regress(local)
+      prodResult = regress(remote)
+      compare(localResult, prodResult, false)
+    end
 
     def init
       require "capybara/dsl"
