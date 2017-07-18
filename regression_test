@@ -16,7 +16,7 @@ class Regression < Thor
     compare_hosts("http://localhost:3000", PROD_HOST)
   end
 
-  desc "stage", "Compare sourc ehost with bonnie alpha staging server"
+  desc "stage", "Compare source host with bonnie alpha staging server"
   def stage
     compare_hosts("http://localhost:3000", STAGE_HOST)
   end
