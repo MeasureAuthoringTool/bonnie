@@ -159,7 +159,7 @@ class CQLResultsHelpers
       for statementName of statements
         rawStatementResult = @_findResultForStatementClause(measure, lib, statementName, rawClauseResults)
         statementResults[lib][statementName] = { raw: rawStatementResult}
-        if Thorax.Models.Measure.cqlSkipStatements.includes(statementName) || statementRelevance[lib][statementName] == 'NA'
+        if _.indexOf(Thorax.Models.Measure.cqlSkipStatements, statementName) >= 0 || statementRelevance[lib][statementName] == 'NA'
           statementResults[lib][statementName].final = 'NA'
         else if statementRelevance[lib][statementName] == 'FALSE' || !rawClauseResults[lib]?
           statementResults[lib][statementName].final = 'UNHIT'
@@ -204,7 +204,7 @@ class CQLResultsHelpers
   ###
   @_setFinalResults: (params) ->
     finalResult = 'FALSE'
-    if Thorax.Models.Measure.cqlSkipStatements.includes(params.statementName) || params.clause.isUnsupported?
+    if _.indexOf(Thorax.Models.Measure.cqlSkipStatements, params.statementName) >= 0 || params.clause.isUnsupported?
       finalResult = 'NA'
     else if params.statementRelevance[params.lib][params.statementName] == 'NA'
       finalResult = 'NA'
