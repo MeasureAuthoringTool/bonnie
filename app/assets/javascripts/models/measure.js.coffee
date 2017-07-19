@@ -3,6 +3,7 @@ class Thorax.Models.Measure extends Thorax.Model
   initialize: ->
     # Becasue we bootstrap patients we mark them as _fetched, so isEmpty() will be sensible
     @set 'patients', new Thorax.Collections.Patients [], _fetched: true
+    @_localIdCache = {}
   parse: (attrs) ->
     alphabet = 'abcdefghijklmnopqrstuvwxyz' # for population sub-ids
     populations = new Thorax.Collections.Population [], parent: this
@@ -124,6 +125,25 @@ class Thorax.Models.Measure extends Thorax.Model
 
     # return field values sorted by title
     _(fields).sortBy (field) -> field.title
+
+  ###*
+  # For CQL measures only. Finds all the localIds in a given statement
+  # @public
+  # @param {string} libraryName - The library of the statement we want to get the localIds for.
+  # @param {string} statementName - The statement name.
+  ###
+  findAllLocalIdsInStatementByName: (libraryName, statementName) ->
+    # Only do stuff if this is a CQL measure.
+    if @has('cql')
+      # if we have this one already in the cache then return the cached result.
+      if @_localIdCache[libraryName]?[statementName]?
+        return @_localIdCache[libraryName][statementName]
+      # if it's not in the cache, build the localId map, put it in the cache and return it.
+      else
+        @_localIdCache[libraryName] = {} unless @_localIdCache[libraryName]?
+        @_localIdCache[libraryName][statementName] = CQLMeasureHelpers.findAllLocalIdsInStatementByName(@, libraryName, statementName)
+        return @_localIdCache[libraryName][statementName]
+
 
 class Thorax.Collections.Measures extends Thorax.Collection
   url: '/measures'
