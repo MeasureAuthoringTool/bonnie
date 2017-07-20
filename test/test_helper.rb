@@ -8,9 +8,7 @@ WebMock.enable!
 class ActiveSupport::TestCase
 
   def dump_database
-    Mongoid.default_session.collections.each do |c|
-      c.drop()
-    end
+    Mongoid.default_session.drop()
   end
 
   def collection_fixtures(*collection_names)
