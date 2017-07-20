@@ -2,10 +2,20 @@ class Thorax.Views.CqlPopulationsLogic extends Thorax.LayoutView
 
   template: JST['logic/cql_layout']
 
+  ###*
+  # This is a button click event handler. The button being clicked is the population tab in the cql_layout.hbs.
+  # This function figures out which population was clicked then updates the view accordingly.
+  # @param {Event} e - JS click event.
+  ###
   switchPopulation: (e) ->
     population = $(e.target).model()
     @switchToGivenPopulation(population)
 
+  ###*
+  # Switches the view to the given population (aka. population set). This creates a new CqlPopulationLogic logic view for the population
+  # and updates the displayedPopulation on the measure.
+  # @param {Population} pop - The population model to switch to.
+  ###
   switchToGivenPopulation: (pop) ->
     pop.measure().set('displayedPopulation', pop)
     @cqlLogicView = new Thorax.Views.CqlPopulationLogic(model: @model, population: pop)
