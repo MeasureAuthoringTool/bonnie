@@ -151,15 +151,14 @@
           # structured (note the single 'value' section in the
           # measureObservationDefinition clause).
           obs_result = results['patientResults']?[patient.id]?[ob_def]?[0]
-          if obs_result
-            # Add the single result value to the values array on the results of
-            # this calculation (allowing for more than one possible observation).
-            if obs_result.hasOwnProperty('value')
-              # If result is a cql.Quantity type, add its value
-              population_results['values'].push(obs_result.value)
-            else if Object(obs_result) != obs_result
-              # In all other cases, only add primitives (numbers, booleans)
-              population_results['values'].push(obs_result)
+          # Add the single result value to the values array on the results of
+          # this calculation (allowing for more than one possible observation).
+          if obs_result?.hasOwnProperty('value')
+            # If result is a cql.Quantity type, add its value
+            population_results['values'].push(obs_result.value)
+          else
+            # In all other cases, add result to values
+            population_results['values'].push(obs_result)
     @handlePopulationValues population_results
 
   ###*
