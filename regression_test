@@ -180,9 +180,9 @@ class BonnieScraper
 
       if isLocal
         if v.to_i > v2.to_i
-           puts "-: #{m} SECOND BRANCH HAS MORE PASSES (#{v} > #{v2})".colorize(:green)
+           puts "-: #{m} FIRST BRANCH HAS MORE PASSES (#{v} > #{v2})".colorize(:red)
         elsif v2.to_i > v.to_i
-           puts "+: #{m} SECOND BRANCH HAS MORE FAILS (#{v} < #{v2})".colorize(:red)
+           puts "+: #{m} SECOND BRANCH HAS MORE PASSES (#{v} < #{v2})".colorize(:green)
         else
           puts "=: #{m} RESULTS ARE EQUAL (#{v2} == #{v})"
         end
