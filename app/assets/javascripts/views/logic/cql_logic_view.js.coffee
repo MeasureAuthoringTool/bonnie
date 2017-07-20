@@ -2,12 +2,6 @@ class Thorax.Views.CqlPopulationsLogic extends Thorax.LayoutView
 
   template: JST['logic/cql_layout']
 
-  events:
-    "ready": ->
-
-  initialize: ->
-    @switchToGivenPopulation(@model.get('populations').models[0])
-
   switchPopulation: (e) ->
     population = $(e.target).model()
     @switchToGivenPopulation(population)
