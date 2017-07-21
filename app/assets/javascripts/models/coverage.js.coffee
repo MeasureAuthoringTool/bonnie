@@ -42,7 +42,7 @@ class Thorax.Model.Coverage extends Thorax.Model
           if allClauses[localId]
             passedClauses += 1
         # Set coverage to the percentage of evaluated clauses to total clauses   
-        @set coverage: ( passedClauses * 100 / totalClauses ).toFixed()
+        @set coverage: Math.floor( passedClauses * 100 / totalClauses )
     else
       # Find all unique criteria that evaluated true in the rationale that are also in the measure
       @rationaleCriteria = []
@@ -53,7 +53,7 @@ class Thorax.Model.Coverage extends Thorax.Model
       @rationaleCriteria = _(@rationaleCriteria).intersection(@measureCriteria)
 
       # Set coverage to the fraction of measure criteria that were true in the rationale
-      @set coverage: ( @rationaleCriteria.length * 100 / @measureCriteria.length ).toFixed()
+      @set coverage: Math.floor( @rationaleCriteria.length * 100 / @measureCriteria.length )
 
   determineCovered: (clause) ->
     if clause.final == "TRUE"
