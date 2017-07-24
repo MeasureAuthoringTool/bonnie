@@ -280,16 +280,23 @@ class MeasuresController < ApplicationController
       if is_cql
         measure = CqlMeasure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
       end
-      measure['needs_finalize'] = false
-      measure.populations.each_with_index do |population, population_index|
-        population['title'] = data['titles']["#{population_index}"] if (data['titles'])
+      begin
+        measure.populations.each_with_index do |population, population_index|
+          population['title'] = data['titles']["#{population_index}"] if (data['titles'])
+        end
+        # CQL-based measures don't have episode_ids field
+        unless is_cql
+          measure['episode_ids'] = data['episode_ids']
+          measure.generate_js(clear_db_cache: true)
+        end
+      rescue Exception => e
+        operator_error = true
+        flash[:error] = {title: "Error Loading Measure", summary: "Error Finalizing Measure", body: "An unexpected error occurred while finalizing this measure.  Please delete the measure, re-package and re-export the measure from the MAT, and re-upload the measure."}
+      ensure
+        # These 2 steps need to be run even if there was an error, otherwise there will be an infinite loop with the finalize dialog
+        measure['needs_finalize'] = false
+        measure.save!
       end
-      # CQL-based measures don't have episode_ids field
-      unless is_cql
-        measure['episode_ids'] = data['episode_ids']
-        measure.generate_js(clear_db_cache: true)
-      end
-      measure.save!
     end
     redirect_to root_path
   end
