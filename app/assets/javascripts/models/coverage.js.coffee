@@ -3,16 +3,16 @@ class Thorax.Model.Coverage extends Thorax.Model
     @population = options.population
     @differences = @population.differencesFromExpected()
     @measureCriteria = @population.dataCriteriaKeys()
-    @clauseResults = []
-    for difference in @differences.models
-      clauseResult = difference.result.get('clause_results')
-      @clauseResults.push(clauseResult)
-      
+
     @listenTo @differences, 'change add reset destroy remove', @update
     @update()
 
   update: ->
     if @population.measure().get('cql')
+
+      # get the latest set of clause_results
+      @clauseResults = @differences.map (difference) -> difference.result.get('clause_results')
+
       # Coverage is 0 if there are no patients
       if @clauseResults.length == 0
         @set coverage: 0
