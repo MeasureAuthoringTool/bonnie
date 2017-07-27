@@ -66,6 +66,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       fieldValue: true
       values: @model.get('field_values')
       criteriaType: @model.get('type')
+      fullCriteriaType: @model.getCriteriaType() # includes the full type information. e.g., instead of 'encounters' it's 'encounter_performed'
     @editReferenceView = new Thorax.Views.EditCriteriaReferenceView
       model: new Thorax.Model
       measure: @model.measure()
@@ -508,8 +509,16 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @serialize()
     # This will process CMP, a collection type attribute
     # If extending for use with other collection based attributes, add OR logic here
-    if @model.get('type') == "CMP"
-       compare_collection = @values.findWhere(key: @model.get('key'))
+    # model_key = @model.get('key')
+    if @model.get('type') == "CMP"                                                           ||
+    #   model_key  == 'DIAGNOSIS'                                                              ||
+    #   (model_key == 'FACILITY_LOCATION' && @model.fullCriteriaType == 'encounter_performed') ||
+    #   model_key  == 'FACILITY_LOCATION_ARRIVAL_DATETIME'                                     || # Location Period
+    #   model_key  == 'FACILITY_LOCATION_DEPARTURE_DATETIME'                                   || # Location Period
+    #   model_key  == 'RELATED_TO'
+
+    # TODO(Luke): Do we need to bundle facility location into a single collection, each with an arrival/departure?
+      compare_collection = @values.findWhere(key: @model.get('key'))
        if compare_collection
          col = compare_collection
          # We remove the collection and then re add it to trigger the UI to update
