@@ -54,6 +54,8 @@ group :test, :development, :ci do
   gem 'minitest'
   gem 'webmock'
   gem 'vcr'
+  gem 'thor'
+  gem 'capybara'
 end
 
 group :test, :development do

@@ -1,0 +1,205 @@
+#!/usr/bin/env ruby
+require "rubygems"
+require "thor"
+
+STAGE_HOST = "http://bonniealpha.ahrqdev.org"
+PROD_HOST = "http://bonniealpha.ahrqstg.org"
+
+ACCOUNTS = %w(epecqmama epecqmtelligen hmdmlantana epecqmncqa hmdmtjc)
+class Regression < Thor
+  puts "REGRESSION TEST:"
+  puts "For Local: Run Old branch first, then New branch"
+  puts "Ensure your bonnie accounts all have the same password."
+
+  desc "prod", "Compare source host to bonnie alpha production server"
+  def prod
+    compare_hosts("http://localhost:3000", PROD_HOST)
+  end
+
+  desc "stage", "Compare source host with bonnie alpha staging server"
+  def stage
+    compare_hosts("http://localhost:3000", STAGE_HOST)
+  end
+
+  desc "local", "Compare two local servers, pausing in between to restart"
+  def local
+    init
+    localResult = regress("http://localhost:3000")
+    puts "Finished with old branch."
+    puts "Press 'r' when NEW branch is running."
+    while user_input = STDIN.gets.chomp
+      case user_input
+      when "r"
+        break
+      end
+    end
+
+    localResult2 = regress("http://localhost:3000")
+    compare(localResult, localResult2, true)
+  end
+
+  desc "setup", "Install needed dependencies (assumes ruby+firefox installed)"
+  def setup
+    system 'gem install capybara'
+    system 'gem install colorize'
+    system 'gem install selenium-webdriver -v "3.4.4"'
+    system 'brew install chromedriver'
+    Capybara.ignore_hidden_elements = false
+  end
+
+  no_commands do
+
+    def compare_hosts(local, remote)
+      init
+      localResult = regress(local)
+      prodResult = regress(remote)
+      compare(localResult, prodResult, false)
+    end
+
+    def init
+      require "capybara/dsl"
+      require "selenium/webdriver"
+      require 'colorize'
+      BonnieScraper.send(:include, Capybara::DSL)
+      @uid = ENV["BONNIE_USER"] || ask("Bonnie User ID: ")
+      @pass = ENV["BONNIE_PASSWORD"] || ask("Bonnie User Password: ", :echo => false)
+    end
+
+    def regress(host)
+
+      puts "\nExecuting Regression on #{host}"
+      results = {}
+      ACCOUNTS.each do |a|
+        email = "#{a}@gmail.com"
+        puts "Testing #{email}".colorize(:cyan)
+        local = BonnieScraper.new(host, @uid, @pass, email)
+        local.scrape!
+        results[a] = local
+      end
+      results
+    end
+
+    def compare(localResult, prodResult, isLocal)
+      localResult.each_pair do |acc, r|
+        puts acc.colorize(:cyan)
+        r.compare!(prodResult[acc], isLocal)
+      end
+    end
+  end
+end
+
+class BonnieScraper
+
+  attr_reader :session, :host, :account, :errors, :coverage
+
+  def initialize(host, uid, pass, account)
+    @host = host
+    @uid = uid
+    @pass = pass
+    @account = account
+    @errors = []
+    @coverage = {}
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(
+	app,
+	browser: :chrome,
+	desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(marionette: true)
+      )
+    end
+    Capybara.default_driver = :selenium
+    Capybara.run_server = false
+    Capybara.default_max_wait_time = 10
+  end
+
+  def scrape!
+    login
+    dashboard
+    admin
+    measures
+    return
+  end
+
+  def new_session
+    @session = Capybara::Session.new(:selenium)
+  end
+
+  def login
+    new_session
+    visit host
+    click_link("login")
+    fill_in 'user_email', with: @uid
+    fill_in 'user_password', with: @pass
+    click_button "Login"
+  end
+
+  def dashboard
+    # sleep 1
+    if first("div.modal-dialog")
+      click_button("Close")
+    end
+    # sleep(1)
+    find("li.nav-admin a").click
+  end
+
+  def admin
+    find(:xpath, "//tr[td[text()='#{account}']]").find("button.btn-danger").click
+  end
+
+  def handle_errors
+    sleep(1)
+    errorDialog = all('div#errorDialog').last
+    if errorDialog
+      h = errorDialog.find("div.modal-body h4")
+      errors << h.text
+      errorDialog.find("div#errorDialog button").click()
+      sleep(1)
+      handle_errors
+    end
+
+  end
+
+  def measures
+    handle_errors
+
+    all("div.dashboard-data div.measure").each do |m|
+      key = m.find("span.nqf-listing").text
+      value_node = m.first("span.patient-listing")
+      value = value_node ? value_node.text : nil
+      coverage[key] = value
+    end
+    click_link("Logout")
+  end
+
+  def compare!(prod, isLocal)
+    new_errors = prod.errors - errors
+    unless new_errors.empty?
+      puts "REGRESSION: Additional errors found on production #{new_errors.join()}".colorize(:red)
+    end
+    coverage.each_pair do |m, v|
+      v2 = prod.coverage[m]
+
+      if isLocal
+        if v.to_i > v2.to_i
+           puts "-: #{m} FIRST BRANCH HAS MORE PASSES (#{v} > #{v2})".colorize(:red)
+        elsif v2.to_i > v.to_i
+           puts "+: #{m} SECOND BRANCH HAS MORE PASSES (#{v} < #{v2})".colorize(:green)
+        else
+          puts "=: #{m} RESULTS ARE EQUAL (#{v2} == #{v})"
+        end
+      else
+        if v.to_i > v2.to_i
+           puts "+: #{m} LOCAL vs PROD (#{v} > #{v2})".colorize(:green)
+        elsif v2.to_i > v.to_i
+           puts "-: #{m} LOCAL vs PROD (#{v} < #{v2})".colorize(:red)
+        else
+          puts "=: #{m} RESULTS ARE EQUAL (#{v2} == #{v})"
+        end
+      end
+
+    end
+  end
+
+end
+
+
+Regression.start(ARGV)
