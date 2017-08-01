@@ -4,6 +4,12 @@ class ApplicationController < ActionController::Base
   before_filter :log_additional_data
   layout :layout_by_resource
 
+  after_action :allow_no_iframe
+
+  def allow_no_iframe
+    response.headers['X-Frame-Options'] = 'DENY'
+  end
+
   def layout_by_resource
     if devise_controller?
       "devise"
