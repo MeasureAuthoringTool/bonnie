@@ -509,28 +509,25 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @serialize()
     # This will process CMP, a collection type attribute
     # If extending for use with other collection based attributes, add OR logic here
-    # model_key = @model.get('key')
-    if @model.get('type') == "CMP"                                                           ||
-    #   model_key  == 'DIAGNOSIS'                                                              ||
-    #   (model_key == 'FACILITY_LOCATION' && @model.fullCriteriaType == 'encounter_performed') ||
-    #   model_key  == 'FACILITY_LOCATION_ARRIVAL_DATETIME'                                     || # Location Period
-    #   model_key  == 'FACILITY_LOCATION_DEPARTURE_DATETIME'                                   || # Location Period
-    #   model_key  == 'RELATED_TO'
+    model_key = @model.get('key')
+    if (@model.get('type') == "CMP" ||
+        model_key  == 'DIAGNOSIS'   ||
+        model_key  == 'RELATED_TO')
+        # TODO: Add OR logic for Facilities when implemening the cardinality for them
 
-    # TODO(Luke): Do we need to bundle facility location into a single collection, each with an arrival/departure?
       compare_collection = @values.findWhere(key: @model.get('key'))
-       if compare_collection
-         col = compare_collection
-         # We remove the collection and then re add it to trigger the UI to update
-         @values.remove compare_collection
-       if !col
-         # Create a thorax model collection
-         col = new Thorax.Model()
-         col.set('key', @model.get('key'))
-         col.set('type', 'COL')
-         col.set('values', [])
-       col.get('values').push @model.toJSON()
-       @values.add col
+      if compare_collection
+        col = compare_collection
+        # We remove the collection and then re add it to trigger the UI to update
+        @values.remove compare_collection
+      if !col
+        # Create a thorax model collection
+        col = new Thorax.Model()
+        col.set('key', @model.get('key'))
+        col.set('type', 'COL')
+        col.set('values', [])
+      col.get('values').push @model.toJSON()
+      @values.add col
     else
       @values.add @model.clone()
     # Reset model to default values
