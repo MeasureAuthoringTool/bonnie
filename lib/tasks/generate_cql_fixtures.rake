@@ -13,15 +13,16 @@ namespace :bonnie do
     # measure_id: id of measuer to export, taken from account of given user.
     #
     # e.g., bundle exec rake bonnie:fixtures:generate_frontend_fixtures[cms,test/fake,bonnie@test.org,CMS68v5]
-    task :generate_frontend_cql_fixtures, [:cms_hqmf, :path, :user_email, :measure_id] => [:environment] do |t, args|
+    task :generate_frontend_cql_fixtures, [:cms_hqmf, :path, :user_email, :measure_id, :patient_first_name, :patient_last_name] => [:environment] do |t, args|
       fixtures_path = File.join('spec', 'javascripts', 'fixtures', 'json')
 
       user = User.find_by email: args[:user_email]
 
       #Exporting the fixtures for the measure. these go in a measure_data parent directory. the measure file is called measures.json. The accompanying value sets file is called value_sets.json
       measure = get_cql_measure(user, args[:cms_hqmf], args[:measure_id])
-      measure_file = File.join(fixtures_path, 'measure_data', args[:path], 'measures.json')
-      create_fixture_file(measure_file, JSON.pretty_generate(JSON.parse([measure].to_json)))
+      measure_name = measure.cms_id + ".json"
+      measure_file = File.join(fixtures_path, 'measure_data', args[:path], measure_name)
+      create_fixture_file(measure_file, JSON.pretty_generate(JSON.parse(measure.to_json)))
       puts 'exported measure to ' + measure_file
 
       oid_to_vs_map = {}
@@ -35,6 +36,15 @@ namespace :bonnie do
 
       #Exports patient data
       records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+      if (!args[:patient_first_name].nil? && !args[:patient_last_name].nil?)
+        filtered_records = []
+        records.each do |record|
+          if (record.first == args[:patient_first_name] && record.last == args[:patient_last_name])
+            filtered_records << record
+          end
+        end
+        records = filtered_records
+      end
       record_file = File.join(fixtures_path, 'records', args[:path], "patients.json")
       create_fixture_file(record_file, JSON.pretty_generate(JSON.parse(records.to_json)))
       puts 'exported patient records to ' + record_file
