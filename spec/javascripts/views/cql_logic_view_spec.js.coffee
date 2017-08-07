@@ -3,7 +3,11 @@ describe 'CqlLogicView', ->
   beforeEach -> 
     jasmine.getJSONFixtures().clearCache()
     @cqlMeasures = new Thorax.Models.Measure getJSONFixture('measure_data/cqltest/CMS720v0.json'), parse: true
+    @universalValueSetsByOid = bonnie.valueSetsByOid
     bonnie.valueSetsByOid = getJSONFixture('/measure_data/cqltest/value_sets.json')
+
+  afterEach ->
+    bonnie.valueSetsByOid = @universalValueSetsByOid
     
   it 'proof of concept', ->
     
