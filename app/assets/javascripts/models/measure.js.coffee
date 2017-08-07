@@ -81,7 +81,7 @@ class Thorax.Models.Measure extends Thorax.Model
     typeInclusions =
       adverse_events: ['facility', 'severity', 'type'] # TODO: (LDY 9/29/2016) we care about "facility location". this appears to be the same as "facility"
       allergies_intolerances: ['severity', 'type']
-      assessments: ['method','components']
+      assessments: ['method', 'components']
       care_experiences: []
       care_goals: ['related_to', 'target_outcome']
       characteristics: []
@@ -99,9 +99,9 @@ class Thorax.Models.Measure extends Thorax.Model
       laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status', 'result_date_time', 'components']
       medications: ['route', 'dose', 'reaction', 'supply']
       patient_care_experiences: []
-      physical_exams: ['anatomical_structure']
+      physical_exams: ['anatomical_structure', 'components']
       preferences: []
-      procedures: ['incision_time', 'anatomical_structure', 'ordinality', 'qdm_status']
+      procedures: ['incision_time', 'anatomical_structure', 'ordinality', 'qdm_status', 'components']
       provider_care_experiences: []
       provider_characteristics: []
       risk_category_assessments: ['severity']
