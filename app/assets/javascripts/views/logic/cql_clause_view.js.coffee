@@ -46,7 +46,21 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
         @_setResult false
       else
         @$el.attr('class', '')  # Clear the rationale if we can't make sense of the result
-        
+
+    # if this is a let keyword then we should make it green if the localId it belongs in was hit
+    else if @element.text == 'let '
+      # navigate up to the parent view with a ref_id. Stop if element doesn't exist because we hit the statement.
+      clauseView = @
+      while clauseView.element? && !clauseView.element.ref_id?
+        clauseView = clauseView.parent
+
+      # if we found the parent clause view with a ref_id
+      if clauseView.element?
+        result = results[clauseView.element.ref_id].final
+        # make this clause green if it was 'FALSE' or 'TRUE'. 'UNHIT' and 'NA' shouldn't color.
+        if result == 'FALSE' || result == 'TRUE'
+          @_setResult true
+
   ###*
   # Clear the result for this statement.
   ###
