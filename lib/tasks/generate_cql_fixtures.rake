@@ -10,9 +10,11 @@ namespace :bonnie do
     #   values: cms, hqmf
     # path: Path to fixture files, derived from the data-type directories (EX: measure_data/${path}).
     # user_email: email of user to export.  Measure and patients exported will be taken from this user account.
-    # measure_id: id of measuer to export, taken from account of given user.
+    # measure_id: id of measure to export, taken from account of given user.
+    # patient_first_name: if a specific patient is desired, include a first_name and last_name.  If all patients are desired, set to nil
+    # patient_last_name: if a specific patient is desired, include a first_name and last_name.  If all patients are desired, set to nil
     #
-    # e.g., bundle exec rake bonnie:fixtures:generate_frontend_fixtures[cms,test/fake,bonnie@test.org,CMS68v5]
+    # e.g., bundle exec rake bonnie:fixtures:generate_frontend_fixtures[cms,test/fake,bonnie@test.org,CMS68v5,nil,nil]
     task :generate_frontend_cql_fixtures, [:cms_hqmf, :path, :user_email, :measure_id, :patient_first_name, :patient_last_name] => [:environment] do |t, args|
       fixtures_path = File.join('spec', 'javascripts', 'fixtures', 'json')
 
@@ -48,24 +50,6 @@ namespace :bonnie do
       record_file = File.join(fixtures_path, 'records', args[:path], "patients.json")
       create_fixture_file(record_file, JSON.pretty_generate(JSON.parse(records.to_json)))
       puts 'exported patient records to ' + record_file
-
-#Commented out for when measure history is fully implemented for CQL
-    
-      #Exports the upload_summary data
-#      measure_summaries = UploadSummary::MeasureSummary.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).desc(:created_at)
-#      upload_summaries_file = File.join(fixtures_path, 'upload_summaries', args[:path], "upload_summaries.json")
-#      create_fixture_file(upload_summaries_file, JSON.pretty_generate(JSON.parse(measure_summaries.to_json)))
-#      puts 'exported upload summaries to ' + upload_summaries_file
-
-      #Exports the archived_measure data
-#      archived_measures = ArchivedMeasure.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
-#      archived_measures_file = File.join(fixtures_path, 'archived_measures', args[:path], "archived_measures.json")
-#      arc_measures = []
-#      archived_measures.each do |am|
-#        arc_measures.push(am)
-#      end
-#      create_fixture_file(archived_measures_file, JSON.pretty_generate(JSON.parse(archived_measures.to_json)))
-#      puts 'exported archived measures to ' + archived_measures_file
     end
 
     ###
@@ -76,7 +60,7 @@ namespace :bonnie do
     #   values: cms, hqmf
     # path: Path to fixture files, derived from the data-type directories (EX: measure_data/${path}).
     # user_email: email of user to export.  Measure and patients exported will be taken from this user account.
-    # measure_id: id of measuer to export, taken from account of given user.
+    # measure_id: id of measure to export, taken from account of given user.
     #
     # e.g., bundle exec rake bonnie:fixtures:generate_backend_fixtures[cms,test/fake,bonnie@test.org,CMS68v5]
     desc "Exports a set of fixtures that can be loaded for testing purposes"
@@ -84,6 +68,8 @@ namespace :bonnie do
       fixtures_path = File.join('test', 'fixtures')
       #Exports the user
       user = User.find_by email: args[:user_email]
+      #In order to avoid storing details of real users, a test-specific user fixture exists.
+      #This is used to assign the measure to that user.
       bonnie_user_id = '501fdba3044a111b98000001'
 
       #Exports the measure
@@ -113,28 +99,6 @@ namespace :bonnie do
         create_fixture_file(record_file, JSON.pretty_generate(JSON.parse(rec.to_json)))
         puts 'exported patient records to ' + record_file
       end
-
-      #Exports the upload_summaries associated with the measure
-#      measure_summaries = UploadSummary::MeasureSummary.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).desc(:created_at)
-#      ms_export = []
-#      measure_summaries.each do |ms|
-#        ms.user_id = bonnie_user_id
-#        ms_export.push(ms)
-#      end
-#      upload_summaries_file = File.join(fixtures_path, 'upload_summaries', args[:path], "upload_summaries.json")
-#      create_fixture_file(upload_summaries_file, JSON.pretty_generate(JSON.parse(ms_export.to_json)))
-#      puts 'exported upload summaries to ' + upload_summaries_file
-
-      #Exports the archived_measures associated with the measure
-#      archived_measures = ArchivedMeasure.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
-#      am_export = []
-#      archived_measures.each do |am| 
-#        am.user_id = bonnie_user_id 
-#        am_export.push(am)
-#      end
-#      archived_measures_file = File.join(fixtures_path, 'archived_measures', args[:path], "archived_measures.json")
-#      create_fixture_file(archived_measures_file, JSON.pretty_generate(JSON.parse(am_export.to_json)))
-#      puts 'exported archived measures to ' + archived_measures_file
     end
     
     ###

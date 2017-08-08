@@ -3,13 +3,16 @@ describe 'CqlLogicView', ->
   beforeEach -> 
     jasmine.getJSONFixtures().clearCache()
     @cqlMeasures = new Thorax.Models.Measure getJSONFixture('measure_data/cqltest/CMS720v0.json'), parse: true
+    #Failing to store and reset the global valueSetsByOid breaks the tests.
+    #When integrated with the master branch context switching, this will need to be changed out.
     @universalValueSetsByOid = bonnie.valueSetsByOid
-    bonnie.valueSetsByOid = getJSONFixture('/measure_data/cqltest/value_sets.json')
 
   afterEach ->
     bonnie.valueSetsByOid = @universalValueSetsByOid
     
   it 'proof of concept', ->
+    bonnie.valueSetsByOid = getJSONFixture('/measure_data/cqltest/value_sets.json')
+
     
     population = @cqlMeasures.get('populations').first()
     populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasures, highlightPatientDataEnabled: true, population: @population)
@@ -18,6 +21,8 @@ describe 'CqlLogicView', ->
     testPatients = new Thorax.Collections.Patients getJSONFixture('records/cqltest/patients.json'), parse: true
     
     results = population.calculate(testPatients.first())
+
+    results.get('clause_results')['MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients']
 
     compareResults = JSON.stringify(_.map(results.get('clause_results')['MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients'],
       (clauseResult) -> _.omit(clauseResult, 'raw')))
