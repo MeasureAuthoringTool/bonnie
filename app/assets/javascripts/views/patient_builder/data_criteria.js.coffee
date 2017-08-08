@@ -66,6 +66,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       fieldValue: true
       values: @model.get('field_values')
       criteriaType: @model.get('type')
+      fullCriteriaType: @model.getCriteriaType() # includes the full type information. e.g., instead of 'encounters' it's 'encounter_performed'
     @editReferenceView = new Thorax.Views.EditCriteriaReferenceView
       model: new Thorax.Model
       measure: @model.measure()
@@ -508,20 +509,25 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @serialize()
     # This will process CMP, a collection type attribute
     # If extending for use with other collection based attributes, add OR logic here
-    if @model.get('type') == "CMP"
-       compare_collection = @values.findWhere(key: @model.get('key'))
-       if compare_collection
-         col = compare_collection
-         # We remove the collection and then re add it to trigger the UI to update
-         @values.remove compare_collection
-       if !col
-         # Create a thorax model collection
-         col = new Thorax.Model()
-         col.set('key', @model.get('key'))
-         col.set('type', 'COL')
-         col.set('values', [])
-       col.get('values').push @model.toJSON()
-       @values.add col
+    model_key = @model.get('key')
+    if (@model.get('type') == "CMP" ||
+        model_key  == 'DIAGNOSIS'   ||
+        model_key  == 'RELATED_TO')
+        # TODO: Add OR logic for Facilities when implemening the cardinality for them
+
+      compare_collection = @values.findWhere(key: @model.get('key'))
+      if compare_collection
+        col = compare_collection
+        # We remove the collection and then re add it to trigger the UI to update
+        @values.remove compare_collection
+      if !col
+        # Create a thorax model collection
+        col = new Thorax.Model()
+        col.set('key', @model.get('key'))
+        col.set('type', 'COL')
+        col.set('values', [])
+      col.get('values').push @model.toJSON()
+      @values.add col
     else
       @values.add @model.clone()
     # Reset model to default values
