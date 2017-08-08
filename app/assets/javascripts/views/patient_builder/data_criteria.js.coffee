@@ -396,8 +396,19 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       if startDate = attr.start_date
         startDate += " #{attr.start_time}" if attr.start_time
         attr.value = moment.utc(startDate, 'L LT').format('X') * 1000
+
+      if attr.key == 'FACILITY_LOCATION'
+        # Facility Locations care about start and end dates/times
+        attr.locationPeriodLow = startDate 
+        if endDate = attr.end_date 
+            endDate += " #{attr.end_time}" if attr.end_time
+            attr.locationPeriodHigh = endDate
+            
+      # value is used, so we don't need start date/time anymore
       delete attr.start_date
       delete attr.start_time
+
+        
       title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
       attr.title = title if title
       attr.codes = @fieldValueCodesCollection.toJSON() unless jQuery.isEmptyObject(@fieldValueCodesCollection.toJSON())
@@ -420,6 +431,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       # @serialize.key is the selected item set to the model.key so the view can change accordingly
       if(@serialize().key == 'COMPONENT')
         @model.set type: 'CMP'
+      else if @serialize().key =="FACILITY_LOCATION"
+        @model.set type: 'FAC'
       else
         # Default drop down to 'coded'
         @model.set type: 'CD'
@@ -481,6 +494,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     isDisabled = (attributes.type == 'PQ' && !attributes.value) ||
                  (attributes.type == 'CD' && !attributes.code_list_id) ||
                  (attributes.type == 'TS' && !attributes.value) ||
+                 (attributes.key == 'COMPONENT' && !attributes.code_list_id && !attributes.value) ||
+                 (attributes.key == 'FACILITY_LOCATION' && !attributes.code_list_id) ||
                  (@fieldValue && !attributes.key)
     @$('button[data-call-method=addValue]').prop 'disabled', isDisabled
 
@@ -511,9 +526,10 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     # If extending for use with other collection based attributes, add OR logic here
     model_key = @model.get('key')
     if (@model.get('type') == "CMP" ||
+        @model.get('type') == "FAC" ||
+        model_key == 'FACILITY_LOCATION' ||
         model_key  == 'DIAGNOSIS'   ||
         model_key  == 'RELATED_TO')
-        # TODO: Add OR logic for Facilities when implemening the cardinality for them
 
       compare_collection = @values.findWhere(key: @model.get('key'))
       if compare_collection
