@@ -141,6 +141,9 @@ namespace :bonnie do
     end
 
     def get_cql_measure(user, cms_hqmf, measure_id)
+      if (cms_hqmf.downcase  != 'cms' && cms_hqmf.downcase != 'hqmf')
+        throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf')
+      end
       CqlMeasure.by_user(user).each do |measure|
         if (cms_hqmf.downcase  == 'cms' && measure.cms_id == measure_id)
           return measure
@@ -148,7 +151,7 @@ namespace :bonnie do
           return measure
         end
       end
-      throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf')
+      throw('Argument: "' + measure_id + '" does not match any measure id associated with user: "'+user.email+'"')
     end
 
     def convert_times(json)
