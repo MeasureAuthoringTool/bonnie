@@ -19,8 +19,14 @@ class CQLMeasureHelpers
     emptyResultClauses = []
 
     # find the library and statement in the elm.
-    library = measure.get('elm').find((lib) -> lib.library.identifier.id == libraryName)
-    statement = library.library.statements.def.find((statement) -> statement.name == statementName)
+    library = null
+    statement = null
+    for lib in measure.get('elm')
+      if lib.library.identifier.id == libraryName
+        library = lib
+    for curStatement in library.library.statements.def
+      if curStatement.name == statementName
+        statement = curStatement
 
     # recurse through the statement elm for find all localIds
     localIds = @_findAllLocalIdsInStatement(statement, libraryName, {}, {}, emptyResultClauses, null)
