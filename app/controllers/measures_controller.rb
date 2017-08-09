@@ -79,9 +79,9 @@ class MeasuresController < ApplicationController
 
         measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
+        qdm_existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
         # Check if there is already a CQL measure with the given hqmf_set_id, this is intentionally different than checking if qdm based is already uploaded (>0 vs >1)
-        # TODO: Duplication checks should be more smoothly managed before CQL is fully incorperated
-        if existing.count > 0
+        if existing.count > 0 || qdm_existing.count > 0
           flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Try deleting that measure and re-uploading it."}
           redirect_to "#{root_path}##{params[:redirect_route]}"
           return
@@ -113,7 +113,8 @@ class MeasuresController < ApplicationController
 
         if (!is_update)
           existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
-          if existing.count > 1
+          cql_existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
+          if existing.count > 1 || cql_existing.count > 0
             measure.delete
             flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
             redirect_to "#{root_path}##{params[:redirect_route]}"
@@ -280,16 +281,23 @@ class MeasuresController < ApplicationController
       if is_cql
         measure = CqlMeasure.by_user(current_user).where(hqmf_id: data['hqmf_id']).first
       end
-      measure['needs_finalize'] = false
-      measure.populations.each_with_index do |population, population_index|
-        population['title'] = data['titles']["#{population_index}"] if (data['titles'])
+      begin
+        measure.populations.each_with_index do |population, population_index|
+          population['title'] = data['titles']["#{population_index}"] if (data['titles'])
+        end
+        # CQL-based measures don't have episode_ids field
+        unless is_cql
+          measure['episode_ids'] = data['episode_ids']
+          measure.generate_js(clear_db_cache: true)
+        end
+      rescue Exception => e
+        operator_error = true
+        flash[:error] = {title: "Error Loading Measure", summary: "Error Finalizing Measure", body: "An unexpected error occurred while finalizing this measure.  Please delete the measure, re-package and re-export the measure from the MAT, and re-upload the measure."}
+      ensure
+        # These 2 steps need to be run even if there was an error, otherwise there will be an infinite loop with the finalize dialog
+        measure['needs_finalize'] = false
+        measure.save!
       end
-      # CQL-based measures don't have episode_ids field
-      unless is_cql
-        measure['episode_ids'] = data['episode_ids']
-        measure.generate_js(clear_db_cache: true)
-      end
-      measure.save!
     end
     redirect_to root_path
   end
