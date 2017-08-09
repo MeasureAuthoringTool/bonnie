@@ -130,12 +130,10 @@ namespace :bonnie do
     # e.g., bundle exec rake bonnie:fixtures:load_backend_fixtures[test/fake]
     desc "Loads set of fixtures into a running instance of BONNIE"
     task :load_backend_fixtures, [:path] => [:environment] do |t, args|
-#      archived_measures_collection = File.join 'archived_measures', args[:path]
       measure_collection = File.join 'draft_measures', args[:path]
       cql_measure_collection = File.join 'cql_measures', args[:path]
       value_sets_collection = File.join 'health_data_standards_svs_value_sets', args[:path]
       records_collection = File.join 'records', args[:path]
-#      upload_summaries_collection = File.join 'upload_summaries', args[:path]
       users_collection = File.join 'users', 'export_user'
       collection_fixtures(measure_collection, cql_measure_collection, value_sets_collection, records_collection, users_collection)
     end
