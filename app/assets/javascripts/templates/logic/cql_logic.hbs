@@ -15,9 +15,63 @@
 {{/if}}
 
 <div class="cql-logic measure-viz rationale panel-group">
-  {{#each statementViews}}
+  {{#each populationStatementViews}}
     <div>
       {{view this}}
     </div>
   {{/each}}
+
+  {{#if defineStatementViews}}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title panel-population panel-defines">
+          <a data-toggle="collapse" href="#collapse{{cid}}-defines">
+            <div>
+              <span class="population-label defines"><b>Define Statements: </b><span class="sr-only sr-highlight-status"></span></span>
+              <div class="pull-right">
+                <i class="fa fa-lg fa-angle-down toggle-icon" aria-hidden="true"></i>
+                <span class="sr-only">toggle define statements</span>
+              </div>
+            </div>
+          </a>
+        </h4>
+      </div>
+      <div id="collapse{{cid}}-defines" class="panel-collapse collapse in">
+        <div class="panel-body">
+          {{#each defineStatementViews}}
+            <div>
+              {{view this}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
+
+  {{#if functionStatementViews}}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title panel-population panel-functions">
+          <a data-toggle="collapse" href="#collapse{{cid}}-functions">
+            <div>
+              <span class="population-label functions"><b>Functions: </b><span class="sr-only sr-highlight-status"></span></span>
+              <div class="pull-right">
+                <i class="fa fa-lg fa-angle-down toggle-icon" aria-hidden="true"></i>
+                <span class="sr-only">toggle functions</span>
+              </div>
+            </div>
+          </a>
+        </h4>
+      </div>
+      <div id="collapse{{cid}}-functions" class="panel-collapse collapse in">
+        <div class="panel-body">
+          {{#each functionStatementViews}}
+            <div>
+              {{view this}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
 </div>
