@@ -70,7 +70,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
       for libraryName, annotationLibrary of @model.get('elm_annotations')
         for statement in annotationLibrary.statements
           # skip if this is a statement the user doesn't need to see
-          if !Thorax.Models.Measure.cqlSkipStatements.includes(statement.define_name) && statement.define_name?
+          if _.indexOf(Thorax.Models.Measure.cqlSkipStatements, statement.define_name) < 0 && statement.define_name?
             popNames = []
             popName = null
             # if a population (population set) was provided for this view it should mark the statment if it is a population defining statement  

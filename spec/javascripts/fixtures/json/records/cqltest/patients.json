@@ -1,0 +1,247 @@
+[
+  {
+    "_id": "596f931be76e946928000018",
+    "birthdate": 805017600,
+    "bundle_id": null,
+    "created_at": "2017-07-19T17:12:59.581Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "5970953ce76e947d8e000000",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "description": "Encounter, Performed: Emergency Department Visit",
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1342685700,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1342684800,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      },
+      {
+        "_id": "5970953ce76e947d8e000001",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "183452005"
+          ]
+        },
+        "description": "Encounter, Performed: Encounter Inpatient",
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1342685700,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "principalDiagnosis": {
+          "_id": "5970953ce76e947d8e000002",
+          "code": "10278007",
+          "code_system": "SNOMED-CT",
+          "title": "Psychiatric/Mental Health Patient"
+        },
+        "reason": null,
+        "specifics": null,
+        "start_time": 1342684800,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "28AC347D-2F91-4A0C-9395-2602134BAA89",
+        "population_index": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins"
+      },
+      {
+        "measure_id": "28AC347D-2F91-4A0C-9395-2602134BAA89",
+        "population_index": 1,
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins"
+      },
+      {
+        "measure_id": "28AC347D-2F91-4A0C-9395-2602134BAA89",
+        "population_index": 2,
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "OBSERV_UNIT": " mins"
+      }
+    ],
+    "expired": null,
+    "first": "a",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5970953ce76e947d8e000003",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5970953ce76e947d8e000004",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "a",
+    "marital_status": null,
+    "measure_ids": [
+      "28AC347D-2F91-4A0C-9395-2602134BAA89",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "a6414b53adfc6b354bec773d560e0797",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Emergency Department Visit",
+        "description": "Encounter, Performed: Emergency Department Visit",
+        "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
+        "type": "encounters",
+        "id": "EmergencyDepartmentVisit_EncounterPerformed_c27e7317_d350_4a31_96eb_ef8cef18bee0_source",
+        "start_date": 1342684800000,
+        "end_date": 1342685700000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "28AC347D-2F91-4A0C-9395-2602134BAA89",
+        "cms_id": "CMS720v0",
+        "criteria_id": "15d5bd65a1epo",
+        "codes": {
+          "SNOMED-CT": [
+            "4525004"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5970953ce76e947d8e000000",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Encounter Inpatient",
+        "description": "Encounter, Performed: Encounter Inpatient",
+        "code_list_id": "2.16.840.1.113883.3.666.5.307",
+        "type": "encounters",
+        "id": "EncounterInpatient_EncounterPerformed_9fb12cac_607b_4927_b4b1_09ace6b3249d_source",
+        "start_date": 1342684800000,
+        "end_date": 1342685700000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+          "PRINCIPAL_DIAGNOSIS": {
+            "type": "CD",
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.299",
+            "field_title": "Principal Diagnosis",
+            "title": "Psychiatric/Mental Health Patient"
+          }
+        },
+        "hqmf_set_id": "28AC347D-2F91-4A0C-9395-2602134BAA89",
+        "cms_id": "CMS720v0",
+        "criteria_id": "15d5bd661e4BN",
+        "codes": {
+          "SNOMED-CT": [
+            "183452005"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5970953ce76e947d8e000001",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2017-07-20T11:34:20.834Z",
+    "user_id": "58a1f9a1e76e945568000000"
+  }
+]
