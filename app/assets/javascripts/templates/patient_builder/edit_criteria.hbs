@@ -192,7 +192,13 @@
               <span>
                 {{field_title}}:
                 {{#if start_date}}
-                  {{start_date}} {{start_time}}
+                  {{#if end_date}}
+                    {{start_date}} {{start_time}} - {{end_date}} {{end_time}},
+                    {{title}}
+                  {{else}}
+                    {{start_date}} {{start_time}} - Undefined, 
+                    {{title}}
+                  {{/if}}
                 {{else}}
                   {{value}} {{unit}}
                   {{title}}

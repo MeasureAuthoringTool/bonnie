@@ -258,7 +258,6 @@ module Measures
         field_value["display"] = field.title
         field_value["locationPeriodLow"] = value['locationPeriodLow']
         field_value["locationPeriodHigh"] = value['locationPeriodHigh']
-        field_accessor = :facility
       elsif field.type == "COL"
         # recurse through entry
         # recursive function should be this function that returns the derived entry

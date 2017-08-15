@@ -92,6 +92,14 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     _(model.toJSON()).extend
       start_date: moment.utc(model.get('value')).format('L') if model.get('type') == 'TS'
       start_time: moment.utc(model.get('value')).format('LT') if model.get('type') == 'TS'
+      if model.get('type') == 'COL'
+        for item in model.attributes.values
+          # Add OR logic for any collections that need to display dates here
+          if item.type == 'FAC'
+            start_date: moment.utc(item.value).format('L')    
+            start_time: moment.utc(item.value).format('LT')   
+            end_date: moment.utc(item.end_value).format('L') 
+            end_time: moment.utc(item.end_value).format('LT')
 
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
@@ -403,12 +411,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
         if endDate = attr.end_date 
             endDate += " #{attr.end_time}" if attr.end_time
             attr.locationPeriodHigh = endDate
+            attr.end_value = moment.utc(endDate, 'L LT').format('X') * 1000
             
-      # value is used, so we don't need start date/time anymore
-      delete attr.start_date
-      delete attr.start_time
-
-        
       title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
       attr.title = title if title
       attr.codes = @fieldValueCodesCollection.toJSON() unless jQuery.isEmptyObject(@fieldValueCodesCollection.toJSON())
