@@ -47,13 +47,13 @@ class MeasuresController < ApplicationController
     }
 
     extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
-    if extension && !['.zip', '.xml'].include?(extension)
-        flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure or HQMF XML measure file. Please re-export your measure from the MAT and select the 'eMeasure Package' option, or select the correct HQMF XML file."}
+    if extension && !['.zip'].include?(extension)
+        flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure Please re-export your measure from the MAT and select the 'eMeasure Package' option, or select the correct HQMF XML file."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
     elsif extension == '.zip'
       if !Measures::MATLoader.mat_export?(params[:measure_file])
-        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file. If the zip file contains HQMF XML, please unzip the file and upload the HQMF XML file instead of the zip file. Otherwise, please re-export your measure from the MAT and select the 'eMeasure Package' option"}
+        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
@@ -76,7 +76,6 @@ class MeasuresController < ApplicationController
       if extension == '.zip' && Measures::CqlLoader.mat_cql_export?(params[:measure_file])
         measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
-        qdm_existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
         if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
           is_update = true
           measure_details['type'] = existing.type
@@ -88,9 +87,8 @@ class MeasuresController < ApplicationController
         end
         
         if (!is_update)
-          existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
           cql_existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
-          if existing.count > 1 || cql_existing.count > 0
+          if cql_existing.count > 0
             measure.delete
             flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
             redirect_to "#{root_path}##{params[:redirect_route]}"
@@ -122,6 +120,7 @@ class MeasuresController < ApplicationController
         end
         existing.delete if (existing && is_update)
       end
+
     rescue Exception => e
       if params[:measure_file]
         measure.delete if measure
@@ -137,9 +136,6 @@ class MeasuresController < ApplicationController
         if e.is_a? Measures::ValueSetException
           operator_error = true
           flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
-        elsif e.is_a? Measures::HQMFException
-          operator_error = true
-          flash[:error] = {title: "Error Loading Measure", summary: "Error loading XML file.", body: "There was an error loading the XML file you selected.  Please verify that the file you are uploading is an HQMF XML or SimpleXML file.  Message: #{e.message}"}
         elsif e.is_a? Measures::VSACException
           operator_error = true
           flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
@@ -166,8 +162,6 @@ class MeasuresController < ApplicationController
     current_user.measures << measure
     current_user.save!
 
-    # TODO: See story https://jira.mitre.org/browse/BONNIE-476
-    # this below logic needs to be updated not to check the episode ids for CQL-based measures
     if (is_update)
       measure.populations.each_with_index do |population, population_index|
         population['title'] = measure_details['population_titles'][population_index] if (measure_details['population_titles'])
