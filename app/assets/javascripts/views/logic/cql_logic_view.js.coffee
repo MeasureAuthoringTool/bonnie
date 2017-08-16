@@ -48,6 +48,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
     # Click events for the collapsable logic sections for the definitions and functions. These toggle the icon in the
     # section headers.
     'click .panel-defines' : -> @$('.panel-defines .toggle-icon').toggleClass('fa-angle-right fa-angle-down')
+    'click .panel-unused-defines' : -> @$('.panel-unused-defines .toggle-icon').toggleClass('fa-angle-right fa-angle-down')
     'click .panel-functions' : -> @$('.panel-functions .toggle-icon').toggleClass('fa-angle-right fa-angle-down')
     "ready": ->
 
@@ -63,6 +64,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
     @populationStatementViews = []
     @defineStatementViews = []
     @functionStatementViews = []
+    @unusedStatementViews = []
     
     # Look through all elm library structures, and check for CQL errors noted by the translation service.
     if Array.isArray @model.get('elm')
@@ -70,6 +72,10 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
         _.each elm.library.annotation, (annotation) =>
           if (annotation.errorSeverity == "error")
             @hasCqlErrors = true
+
+    # build a statement_relevance map for this population set, disregarding results
+    if @population
+      @statementRelevance = CQLMeasureHelpers.getStatementRelevanceForPopulationSet(@model, @population)
 
     # Check to see if this measure was uploaded with an older version of the loader code that did not get the 
     # clause level annotations.
@@ -102,8 +108,10 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
               @populationStatementViews.push statementView   # if it is a population defining statement.
             else if CQLMeasureHelpers.isStatementFunction(@model, libraryName, statement.define_name)
               @functionStatementViews.push statementView   # if it is a function
+            else if !@population? || @statementRelevance[libraryName][statement.define_name] == 'TRUE'
+              @defineStatementViews.push statementView   # if it is a plain old supporting define
             else
-              @defineStatementViews.push statementView   # otherwise is a plain old supporting define
+              @unusedStatementViews.push statementView   # otherwise is is a statement that isn't relevant
 
       # Sort the population statements
       @populationStatementViews.sort(@_statementComparator)
