@@ -48,7 +48,7 @@ class MeasuresController < ApplicationController
 
     extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
     if extension && !['.zip'].include?(extension)
-        flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure Please re-export your measure from the MAT and select the 'eMeasure Package' option, or select the correct HQMF XML file."}
+        flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure Please re-export your measure from the MAT and select the 'eMeasure Package'."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
     elsif extension == '.zip'

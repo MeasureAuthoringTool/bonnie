@@ -163,7 +163,7 @@ include Devise::TestHelpers
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_equal "Error Loading Measure", flash[:error][:title]
     assert_equal "Incorrect Upload Format.", flash[:error][:summary]
-    assert_equal "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure or HQMF XML measure file. Please re-export your measure from the MAT and select the 'eMeasure Package' option, or select the correct HQMF XML file.", flash[:error][:body]
+    assert_equal "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure Please re-export your measure from the MAT and select the 'eMeasure Package'.", flash[:error][:body]
     assert_response :redirect
   end
 
@@ -175,7 +175,7 @@ include Devise::TestHelpers
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_equal "Error Uploading Measure", flash[:error][:title]
     assert_equal "The uploaded zip file is not a Measure Authoring Tool export.", flash[:error][:summary]
-    assert_equal "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file. If the zip file contains HQMF XML, please unzip the file and upload the HQMF XML file instead of the zip file. Otherwise, please re-export your measure from the MAT and select the 'eMeasure Package' option", flash[:error][:body]
+    assert_equal "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file please re-export your measure from the MAT and select the 'eMeasure Package' option", flash[:error][:body]
     assert_response :redirect
   end
 
