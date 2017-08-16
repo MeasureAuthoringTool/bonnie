@@ -45,6 +45,8 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   template: JST['logic/cql_logic']
 
   events:
+    # Click events for the collapsable logic sections for the definitions and functions. These toggle the icon in the
+    # section headers.
     'click .panel-defines' : -> @$('.panel-defines .toggle-icon').toggleClass('fa-angle-right fa-angle-down')
     'click .panel-functions' : -> @$('.panel-functions .toggle-icon').toggleClass('fa-angle-right fa-angle-down')
     "ready": ->
@@ -112,6 +114,9 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   ###*
   # Compares two statement views to sort them by the population they define. IPP, DENOM, NUMER, etc..
   # @private
+  # @param {Thorax.Views.CqlStatement} a - The left side of the comparison.
+  # @param {Thorax.Views.CqlStatement} b - The right side of the comparison.
+  # @return {Integer} Less than 0 if 'a' should come first. 0 if they can be in either order. Greater than 0 if 'b' should come first.
   ###
   _statementComparator: (a, b) ->
     aIndex = Object.keys(Thorax.Models.Measure.PopulationMap).indexOf(if a.cqlPopulations[0].match(/OBSERV/) then 'OBSERV' else a.cqlPopulations[0])

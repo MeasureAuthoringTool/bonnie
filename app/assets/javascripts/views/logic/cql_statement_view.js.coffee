@@ -5,6 +5,8 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
   template: JST['logic/cql_statement']
 
   events:
+    # Click events for the collapsable logic sections if this is a population defining statement. This toggles the
+    # icon in the section header.
     'click .panel-population' : -> @$('.panel-population .toggle-icon').toggleClass('fa-angle-right fa-angle-down')
 
   ###*
@@ -32,7 +34,6 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
   # Show the results of this statement's calculation by highlighing appropiately. 
   # @param {Object[]} clauseResults - The clause results for this library.
   # @param {Object} statementResult - The statement result for this statement.
-  #
   ###
   showRationale: (clauseResults, statementResult) ->
     @clearRationale()
@@ -40,7 +41,7 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
     @latestResult = statementResult
 
     # if this statement defines populations, highlight the panel headers.
-    # TODO: Figureout how to appropiately highlight OBSERV.
+    # TODO: Figure out how to appropiately highlight OBSERV.
     if @cqlPopulationNames? && !@cqlPopulations[0].match(/OBSERV/)
       if statementResult.final == 'TRUE'
         @$('.panel-heading').addClass('eval-panel-true')
