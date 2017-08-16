@@ -36,7 +36,7 @@ include Devise::TestHelpers
     end
   end
 
-  test "upload xml with invalid format" do
+  test "attempt to upload QDM measure" do
     VCR.use_cassette("valid_vsac_response") do
       measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
       assert_nil measure
@@ -46,12 +46,12 @@ include Devise::TestHelpers
 
       assert_response :redirect
       assert_equal "Error Loading Measure", flash[:error][:title]
-      assert_equal "Error loading XML file.", flash[:error][:summary]
-      assert flash[:error][:body].starts_with?("There was an error loading the XML file you selected.  Please verify that the file you are uploading is an HQMF XML or SimpleXML file.")
+      assert_equal "Incorrect Upload Format.", flash[:error][:summary]
+      assert flash[:error][:body].starts_with?("The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure Please re-export your measure from the MAT and select the 'eMeasure Package'.")
     end
   end
 
-  test "upload xml with invalid VSAC creds" do
+  test "upload MAT with invalid VSAC creds" do
 
     # This cassette represents an exchange with the VSAC authentication server that
     # results in an unauthorized response. This cassette is used in measures_controller_test.rb
@@ -61,7 +61,7 @@ include Devise::TestHelpers
       measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
       assert_nil measure
 
-      measure_file = fixture_file_upload(File.join('testplan', 'DischargedOnAntithrombotic_eMeasure.xml'), 'application/xml')
+      measure_file = fixture_file_upload(File.join('testplan', 'CMS720_MedianEdArrival.zip'), 'application/xml')
       # Post is sent with fake VSAC creds
       post :create, {vsac_date: '06/28/2016', includes_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: 'invaliduser', vsac_password: 'invalidpassword'}
 
