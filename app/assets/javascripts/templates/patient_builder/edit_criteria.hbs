@@ -200,8 +200,13 @@
                     {{title}}
                   {{/if}}
                 {{else}}
-                  {{value}} {{unit}}
-                  {{title}}
+                  {{#if end_date}}
+                    Undefined - {{end_date}} {{end_time}},
+                    {{title}}
+                  {{else}}
+                    {{value}} {{unit}}
+                    {{title}}
+                  {{/if}}
                 {{/if}}
                 {{#if codes}} - Codes:
                   {{#each codes}}

@@ -256,8 +256,8 @@ module Measures
       elsif field.type == "FAC"
         field_value["code"] = Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
         field_value["display"] = field.title
-        field_value["locationPeriodLow"] = value['locationPeriodLow']
-        field_value["locationPeriodHigh"] = value['locationPeriodHigh']
+        field_value["locationPeriodLow"] = value["locationPeriodLow"]
+        field_value["locationPeriodHigh"] = value["locationPeriodHigh"]
       elsif field.type == "COL"
         # recurse through entry
         # recursive function should be this function that returns the derived entry

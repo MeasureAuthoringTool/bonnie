@@ -536,7 +536,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
         model_key  == 'DIAGNOSIS'   ||
         model_key  == 'RELATED_TO')
 
-      compare_collection = @values.findWhere(key: @model.get('key'))
+      compare_collection = @values.findWhere(key: model_key)
       if compare_collection
         col = compare_collection
         # We remove the collection and then re add it to trigger the UI to update
@@ -544,7 +544,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       if !col
         # Create a thorax model collection
         col = new Thorax.Model()
-        col.set('key', @model.get('key'))
+        col.set('key', model_key)
         col.set('type', 'COL')
         col.set('values', [])
       col.get('values').push @model.toJSON()
