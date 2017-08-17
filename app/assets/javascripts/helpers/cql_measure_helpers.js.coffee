@@ -4,6 +4,27 @@
 ###
 class CQLMeasureHelpers
 
+  @buildDefineToFullStatement: (measure) ->
+    ret = {}
+    for lib of measure.get("elm_annotations")
+      lib_statements = {}
+      for statement in measure.get("elm_annotations")[lib].statements
+        lib_statements[statement.define_name] = @_parseAnnotationTree(statement.children)
+      ret[lib] = lib_statements
+    return ret
+
+  @_parseAnnotationTree: (children) ->
+    ret = ""
+    if children.text != undefined
+      return children.text
+    else if children.children != undefined
+      for child in children.children
+        ret = ret + @_parseAnnotationTree(child)
+    else
+      for child in children
+        ret = ret + @_parseAnnotationTree(child)
+    return ret
+
   ###*
   # Finds all localIds in a statement by it's library and statement name.
   # @public
