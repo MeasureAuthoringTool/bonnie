@@ -111,7 +111,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
             else if !@population? || @statementRelevance[libraryName][statement.define_name] == 'TRUE'
               @defineStatementViews.push statementView   # if it is a plain old supporting define
             else
-              @unusedStatementViews.push statementView   # otherwise is is a statement that isn't relevant
+              @unusedStatementViews.push statementView   # otherwise it is a statement that isn't relevant
 
       # Sort the population statements
       @populationStatementViews.sort(@_statementComparator)
