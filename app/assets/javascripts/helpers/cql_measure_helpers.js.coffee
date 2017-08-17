@@ -132,3 +132,27 @@ class CQLMeasureHelpers
     for k, v of statement 
       if (Array.isArray(v) || typeof v is 'object')
         @_findAllLocalIdsInSort(v, libraryName, localIds, aliasMap, emptyResultClauses, rootStatement)
+
+  ###*
+  # Figure out if a statement is a function given the measure, library name and statement name.
+  # @public
+  # @param {Measure} measure - The measure to find localIds in.
+  # @param {string} libraryName - The name of the library the statement belongs to.
+  # @param {string} statementName - The statement name to search for.
+  # @return {boolean} If the statement is a function or not.
+  ###
+  @isStatementFunction: (measure, libraryName, statementName) ->
+    # find the library and statement in the elm.
+    library = null
+    statement = null
+    for lib in measure.get('elm')
+      if lib.library.identifier.id == libraryName
+        library = lib
+    for curStatement in library.library.statements.def
+      if curStatement.name == statementName
+        statement = curStatement
+
+    if library? && statement?
+      return statement.type == "FunctionDef"
+    else
+      return false
