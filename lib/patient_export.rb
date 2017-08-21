@@ -32,8 +32,8 @@ class PatientExport
                                          :bg_color => "FFFFFFF")
         text_center = styles.add_style(:b => true,
                                        :sz => 14,
-                                       :border => { :style => :thin, :color =>"000066" },
-                                       :alignment => { :horizontal => :center, :vertical => :center })
+                                       :bg_color => "FFFFFFF",
+                                       :alignment => { :horizontal => :center, :vertical => :center})
         header = styles.add_style(:b => true,
                                   :sz => 14,
                                   :alignment => { :wrap_text => true },
@@ -51,7 +51,6 @@ class PatientExport
                                                   :color =>"DDDDDD",
                                                   :edges => [:bottom] },
                                      :fg_color => "FF0000")
-                                     
         pop_index = 0
         calc_results.each do |pop_key, patients|
           
@@ -59,12 +58,7 @@ class PatientExport
 
           worksheet_title = population_details[pop_key]["title"]
           workbook.add_worksheet(name: worksheet_title) do |sheet|
-
-            toplevel_headings = Array.new(DISPLAYED_ATTRIBUTES.length + population_criteria.length*2)
-            toplevel_headings[DISPLAYED_ATTRIBUTES.length] = "Expected"
-            toplevel_headings[DISPLAYED_ATTRIBUTES.length + population_criteria.length] = "Actual"
-
-            sheet.add_row(toplevel_headings, style: text_center, height: 30)
+            
 
             statement_to_column = {}
             header_row = DISPLAYED_ATTRIBUTES + population_criteria*2
@@ -80,7 +74,28 @@ class PatientExport
               end
             end
 
-            sheet.add_row(header_row, style: text_center, height: 30)
+            toplevel_headings = Array.new(header_row.length, nil)
+            toplevel_headings[DISPLAYED_ATTRIBUTES.length] = "Expected"
+            toplevel_headings[DISPLAYED_ATTRIBUTES.length + population_criteria.length] = "Actual"
+            sheet.merge_cells "#{excel_column(DISPLAYED_ATTRIBUTES.length+1)}1:#{excel_column(DISPLAYED_ATTRIBUTES.length + population_criteria.length)}1"
+            sheet.merge_cells "#{excel_column(DISPLAYED_ATTRIBUTES.length+population_criteria.length+1)}1:#{excel_column(DISPLAYED_ATTRIBUTES.length + population_criteria.length*2)}1"
+            sheet.add_row(toplevel_headings, style: text_center, height: 30)
+
+            
+            header_column_styles = Array.new(header_row.length+1, header_dc)
+
+            header_column_styles[0..DISPLAYED_ATTRIBUTES.length-1] = Array.new(DISPLAYED_ATTRIBUTES.length, header)
+
+            header_column_styles[DISPLAYED_ATTRIBUTES.length..DISPLAYED_ATTRIBUTES.length+population_criteria.length*2] = Array.new(population_criteria.length*2, rotated_style) # Rotated style for population columns            
+
+            sheet.add_row(header_row, style: header_column_styles)
+
+            column_widths = Array.new(header_row.length+1, 25)
+            #Wider columns for patient details
+            column_widths[0..DISPLAYED_ATTRIBUTES.length-1] = Array.new(DISPLAYED_ATTRIBUTES.length, 16)
+            #Narrow columns for population results
+            column_widths[DISPLAYED_ATTRIBUTES.length..DISPLAYED_ATTRIBUTES.length+population_criteria.length*2] = Array.new(population_criteria.length*2, 6)
+            sheet.column_widths *column_widths
             
             patients.each do |patient_key, patient|
               patient_data = []

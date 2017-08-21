@@ -16,7 +16,7 @@ class CQLMeasureHelpers
   @_parseAnnotationTree: (children) ->
     ret = ""
     if children.text != undefined
-      return children.text
+      return _.unescape(children.text).replace("&#13", "").replace(";", "")
     else if children.children != undefined
       for child in children.children
         ret = ret + @_parseAnnotationTree(child)
