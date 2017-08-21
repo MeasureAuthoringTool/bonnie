@@ -119,7 +119,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     patient_details = {}
     population_details = {}
     statement_details = CQLMeasureHelpers.buildDefineToFullStatement(@model)
-    measure_details = @model
     file_name = @model.get('cms_id')
     
     for pop in @model.get('populations').models
@@ -160,7 +159,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         calc_results: JSON.stringify(calc_results)
         patient_details: JSON.stringify(patient_details)
         population_details: JSON.stringify(population_details)
-        measure_details: JSON.stringify(measure_details)
         statement_details: JSON.stringify(statement_details)
         file_name: file_name
       }

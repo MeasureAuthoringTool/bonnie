@@ -13,9 +13,10 @@ class PatientExport
   end
 
   # calc_results is a map of population/stratifications -> patients -> definitions -> results
-  def self.export_excel_cql_file(calc_results, patient_details, population_details, measure_details, statement_details)
+  def self.export_excel_cql_file(calc_results, patient_details, population_details, statement_details)
     Axlsx::Package.new do |package|
       package.workbook do |workbook|
+        # Define styles
         fg_color = "000033"
         header_border = { :style => :thick, :color => "000066", :edges => [:bottom] }
         styles = workbook.styles
@@ -52,6 +53,9 @@ class PatientExport
                                                   :edges => [:bottom] },
                                      :fg_color => "FF0000")
         pop_index = 0
+        
+        #calc_results is organized popKey->patientKey->results
+        #popKey and patientKey can be used to lookup population and patient details in their respective maps
         calc_results.each do |pop_key, patients|
           
           population_criteria = HQMF::PopulationCriteria::ALL_POPULATION_CODES & population_details[pop_key]["criteria"]
