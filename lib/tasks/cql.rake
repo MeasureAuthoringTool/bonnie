@@ -35,6 +35,10 @@ namespace :bonnie do
           # Build the definition dependency structure for this measure
           cql_definition_dependency_structure = Measures::CqlLoader.populate_cql_definition_dependency_structure(main_cql_library, elms)
           cql_definition_dependency_structure = Measures::CqlLoader.populate_used_library_dependencies(cql_definition_dependency_structure, main_cql_library, elms)
+
+          Measures::CqlLoader.replace_codesystem_oids_with_names(elms)
+          Measures::CqlLoader.modify_value_set_versions(elms)
+
           # Update the measure
           measure.update(cql: cql, elm: elms, elm_annotations: elm_annotations, cql_statement_dependencies: cql_definition_dependency_structure, main_cql_library: main_cql_library)
           measure.save!
