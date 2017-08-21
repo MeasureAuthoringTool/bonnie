@@ -92,6 +92,14 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     _(model.toJSON()).extend
       start_date: moment.utc(model.get('value')).format('L') if model.get('type') == 'TS'
       start_time: moment.utc(model.get('value')).format('LT') if model.get('type') == 'TS'
+      if model.get('type') == 'COL'
+        for item in model.attributes.values
+          # Add OR logic for any collections that need to display dates here
+          if item.type == 'FAC'
+            start_date: moment.utc(item.value).format('L')    
+            start_time: moment.utc(item.value).format('LT')   
+            end_date: moment.utc(item.end_value).format('L') 
+            end_time: moment.utc(item.end_value).format('LT')
 
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
@@ -396,8 +404,16 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       if startDate = attr.start_date
         startDate += " #{attr.start_time}" if attr.start_time
         attr.value = moment.utc(startDate, 'L LT').format('X') * 1000
-      delete attr.start_date
-      delete attr.start_time
+
+      if attr.key == 'FACILITY_LOCATION'
+        # Facility Locations care about start and end dates/times
+        if startDate = attr.start_date
+          attr.locationPeriodLow = startDate 
+        if endDate = attr.end_date 
+            endDate += " #{attr.end_time}" if attr.end_time
+            attr.locationPeriodHigh = endDate
+            attr.end_value = moment.utc(endDate, 'L LT').format('X') * 1000
+            
       title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
       attr.title = title if title
       attr.codes = @fieldValueCodesCollection.toJSON() unless jQuery.isEmptyObject(@fieldValueCodesCollection.toJSON())
@@ -420,6 +436,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       # @serialize.key is the selected item set to the model.key so the view can change accordingly
       if(@serialize().key == 'COMPONENT')
         @model.set type: 'CMP'
+      else if @serialize().key =="FACILITY_LOCATION"
+        @model.set type: 'FAC'
       else
         # Default drop down to 'coded'
         @model.set type: 'CD'
@@ -481,6 +499,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     isDisabled = (attributes.type == 'PQ' && !attributes.value) ||
                  (attributes.type == 'CD' && !attributes.code_list_id) ||
                  (attributes.type == 'TS' && !attributes.value) ||
+                 (attributes.key == 'COMPONENT' && !attributes.code_list_id && !attributes.value) ||
+                 (attributes.key == 'FACILITY_LOCATION' && !attributes.code_list_id) ||
                  (@fieldValue && !attributes.key)
     @$('button[data-call-method=addValue]').prop 'disabled', isDisabled
 
@@ -511,11 +531,13 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     # If extending for use with other collection based attributes, add OR logic here
     model_key = @model.get('key')
     if (@model.get('type') == "CMP" ||
+        @model.get('type') == "FAC" ||
+        model_key == 'FACILITY_LOCATION' ||
         model_key  == 'DIAGNOSIS'   ||
         model_key  == 'RELATED_TO')
-        # TODO: Add OR logic for Facilities when implemening the cardinality for them
 
-      compare_collection = @values.findWhere(key: @model.get('key'))
+      compare_collection = @values.findWhere(key: model_key)
+
       if compare_collection
         col = compare_collection
         # We remove the collection and then re add it to trigger the UI to update
@@ -523,7 +545,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       if !col
         # Create a thorax model collection
         col = new Thorax.Model()
-        col.set('key', @model.get('key'))
+        col.set('key', model_key)
         col.set('type', 'COL')
         col.set('values', [])
       col.get('values').push @model.toJSON()

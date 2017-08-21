@@ -69,19 +69,20 @@ class PatientBuilderTest < ActiveSupport::TestCase
           }    
 
     @un_coded_with_facility = {
-          "id"=> "EncounterPerformedInpatient",
-          "start_date"=> 1333206000000,
-          "end_date"=> 1333206000000,
-          "negation"=>"false",
-          "field_values"=>{"FACILITY_LOCATION"=>{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.666.5.1084","title"=>"Non-icu"},
-            "FACILITY_LOCATION_ARRIVAL_DATETIME"=>{"type"=>"TS","value"=>1333206000000},
-            "FACILITY_LOCATION_DEPARTURE_DATETIME"=>{"type"=>"TS","value"=>1333206000000},
-            "START_DATETIME"=>{"type"=>"TS","value"=>1333206000000},
-            "STOP_DATETIME"=>{"type"=>"TS","value"=>1333206000000},
-            "LENGTH_OF_STAY"=>{"type"=>"PQ","value"=>"1","unit"=>"d"}
-          },
-          "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
-          }
+      "id"=> "EncounterPerformedInpatient",
+      "start_date"=> 1333206000000,
+      "end_date"=> 1333206000000,
+      "negation"=>"false",
+      "field_values"=>{
+        "FACILITY_LOCATION"=>
+          {"type"=>"COL",
+            "values"=>
+              [{"type"=>"FAC", "key"=>"FACILITY_LOCATION", "code_list_id"=>"2.16.840.1.113883.3.666.5.1084", "field_title"=>"Facility Location", "locationPeriodLow"=>"08/30/2017 1:00 AM", "locationPeriodHigh"=>"08/31/2017 1:00 AM", "title"=>"Annual Wellness Visit"},
+                {"type"=>"FAC", "key"=>"FACILITY_LOCATION", "code_list_id"=>"2.16.840.1.113883.3.666.5.1084", "field_title"=>"Facility Location", "locationPeriodLow"=>"08/30/2017 2:00 AM", "locationPeriodHigh"=>"08/31/2017 3:00 AM", "title"=>"Annual Wellness Visit"}],
+              "field_title"=>"Facility Location"}
+        },
+        "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
+      }
           
     @un_coded_with_component = {
       "negation" => "false",
@@ -174,10 +175,21 @@ class PatientBuilderTest < ActiveSupport::TestCase
     assert entry, "Should have created an entry with un coded data"
     assert_equal Encounter, entry.class, "should have created and Encounter object"
     Measures::PatientBuilder.derive_field_values(entry, @un_coded_with_facility['field_values'],@valuesets)
-    assert !entry.facility.nil?, "facility should have been created"
-    assert !entry.facility.code.nil?, "facility should have a code"
-    assert !entry.facility.start_time.nil?, "facility should have a start time"
-    assert !entry.facility.end_time.nil?, "facility should have an end time"
+    assert !entry.facility.nil?, "facility collection should have been created"
+    assert_equal 2, entry.facility['values'].length
+    # A facility has a Facility Location code, locationPeriodLow, locationPeriodHigh
+    facility = entry.facility['values'][1]
+    facility_location = entry.facility['values'][1]['code']
+    locationPeriodLow = facility['locationPeriodLow']
+    locationPeriodHigh = facility['locationPeriodHigh']
+    # A facility location has a code and code system
+    facility_location_code = facility_location['code']
+    facility_location_code_system = facility_location['code_system']
+    assert !facility_location.nil?, "facility should have a facility_location"
+    assert !locationPeriodLow.nil?, "facility should have a locationPeriodLow"
+    assert !locationPeriodHigh.nil?, "facility should have a locationPeriodHigh"
+    assert !facility_location_code.nil?, "facility_location should have a code"
+    assert !facility_location_code_system.nil?, "facility_location should have a code_system"
   end
   
   test "derive entry with components" do

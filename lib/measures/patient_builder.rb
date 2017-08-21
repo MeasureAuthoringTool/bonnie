@@ -253,6 +253,11 @@ module Measures
         field_value["code"] = Measures::PatientBuilder.select_code(field.code.code_list_id, value_sets)
         field_value["result"] =  {"scalar"=>value["value"], "units"=>value["unit"]}
         # TODO: will have to add code here if range exists
+      elsif field.type == "FAC"
+        field_value["code"] = Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
+        field_value["display"] = field.title
+        field_value["locationPeriodLow"] = value["locationPeriodLow"]
+        field_value["locationPeriodHigh"] = value["locationPeriodHigh"]
       elsif field.type == "COL"
         # recurse through entry
         # recursive function should be this function that returns the derived entry
@@ -269,19 +274,6 @@ module Measures
       end
 
       field_accessor = nil
-      # Facilities are a special case where we store a whole object on the entry in Record. Create or augment the existing facility with this piece of data.
-      if name.include? "FACILITY"
-        facility = entry.facility
-        facility ||= Facility.new
-        facility_map = {"FACILITY_LOCATION" => :code, "FACILITY_LOCATION_ARRIVAL_DATETIME" => :start_time, "FACILITY_LOCATION_DEPARTURE_DATETIME" => :end_time}
-
-        facility.name = field.title if field.type == "CD"
-        facility_accessor = facility_map[name]
-        facility.send("#{facility_accessor}=", field_value)
-
-        field_accessor = :facility
-        field_value = facility
-      end
 
       if name.include? "TRANSFER"
         if name.starts_with? "TRANSFER_FROM"
