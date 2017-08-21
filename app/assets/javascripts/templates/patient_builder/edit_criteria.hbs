@@ -204,8 +204,8 @@
                     Undefined - {{end_date}} {{end_time}},
                     {{title}}
                   {{else}}
-                    {{value}} {{unit}}
-                    {{title}}
+                    {{!-- This needs to go on one line to prevent unwanted space characters --}}
+                    {{title}}{{#if value}}, {{value}}{{/if}}{{#if unit}}, {{unit}}{{/if}}{{#if referenceRangeLow_value}}, Reference Range - Low: {{referenceRangeLow_value}}{{referenceRangeHigh_unit}}{{/if}}{{#if referenceRangeHigh_value}}, Reference Range - High: {{referenceRangeHigh_value}}{{referenceRangeHigh_unit}}{{/if}}
                   {{/if}}
                 {{/if}}
                 {{#if codes}} - Codes:
