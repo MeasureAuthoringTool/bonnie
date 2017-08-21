@@ -145,7 +145,7 @@ namespace :bonnie do
       CqlMeasure.by_user(user).each do |measure|
         if (cms_hqmf.downcase  == 'cms' && measure.cms_id == measure_id)
           return measure
-        elsif (cms_hqmf.downcase == 'hqmf' && measure.hqmf_id == measure_id)
+        elsif (cms_hqmf.downcase == 'hqmf' && measure.hqmf_set_id == measure_id)
           return measure
         end
       end
