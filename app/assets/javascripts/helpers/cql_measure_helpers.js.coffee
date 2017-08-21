@@ -19,8 +19,14 @@ class CQLMeasureHelpers
     emptyResultClauses = []
 
     # find the library and statement in the elm.
-    library = measure.get('elm').find((lib) -> lib.library.identifier.id == libraryName)
-    statement = library.library.statements.def.find((statement) -> statement.name == statementName)
+    library = null
+    statement = null
+    for lib in measure.get('elm')
+      if lib.library.identifier.id == libraryName
+        library = lib
+    for curStatement in library.library.statements.def
+      if curStatement.name == statementName
+        statement = curStatement
 
     # recurse through the statement elm for find all localIds
     localIds = @_findAllLocalIdsInStatement(statement, libraryName, {}, {}, emptyResultClauses, null)
@@ -85,6 +91,14 @@ class CQLMeasureHelpers
       else if k == 'sort'
         # Sort is a special case that we need to recurse into separately and set the results to the result of the statement the sort clause is in
         @_findAllLocalIdsInSort(v, libraryName, localIds, aliasMap, emptyResultClauses, parentNode)
+      else if k == 'let'
+        # let is a special case where it is an array, one for each defined alias. These aliases work slightly different
+        # and execution engine does return results for them on use. The Initial naming of them needs to be properly pointed
+        # to what they are set to.
+        for aLet in v
+          # Add the localId for the definition of this let to it's source.
+          localIds[aLet.localId] = { localId: aLet.localId, sourceLocalId: aLet.expression.localId }
+          @_findAllLocalIdsInStatement(aLet.expression, libraryName, localIds, aliasMap, emptyResultClauses, statement)
       # If 'First' and 'Last' expressions, the result of source of the clause should be set to the expression
       else if k=='type' && (v =='First' || v == 'Last')
         if statement.source && statement.source.localId?

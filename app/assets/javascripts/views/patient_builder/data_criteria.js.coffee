@@ -537,6 +537,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
         model_key  == 'RELATED_TO')
 
       compare_collection = @values.findWhere(key: model_key)
+
       if compare_collection
         col = compare_collection
         # We remove the collection and then re add it to trigger the UI to update
