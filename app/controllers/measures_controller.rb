@@ -41,11 +41,17 @@ class MeasuresController < ApplicationController
   end
 
   def create
+    if !params[:measure_file]
+      flash[:error] = {title: "Error Loading Measure", body: "You must specify a Measure Authoring tool measure export to use."}
+      redirect_to "#{root_path}##{params[:redirect_route]}"
+      return
+    end
+    
     measure_details = {
      'type'=>params[:measure_type],
      'episode_of_care'=>params[:calculation_type] == 'episode'
     }
-
+    
     extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
     if extension && !['.zip'].include?(extension)
         flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure Please re-export your measure from the MAT and select the 'eMeasure Package'."}
@@ -54,6 +60,10 @@ class MeasuresController < ApplicationController
     elsif extension == '.zip'
       if !Measures::MATLoader.mat_export?(params[:measure_file])
         flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
+        redirect_to "#{root_path}##{params[:redirect_route]}"
+        return
+      elsif !Measures::CqlLoader.mat_cql_export?(params[:measure_file])
+        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export of a CQL Measure.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
@@ -76,6 +86,7 @@ class MeasuresController < ApplicationController
       if extension == '.zip' && Measures::CqlLoader.mat_cql_export?(params[:measure_file])
         measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
+        is_update = false
         if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
           is_update = true
           measure_details['type'] = existing.type
@@ -85,7 +96,6 @@ class MeasuresController < ApplicationController
           end
           measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
         end
-        
         if (!is_update)
           cql_existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
           if cql_existing.count > 0
@@ -120,34 +130,28 @@ class MeasuresController < ApplicationController
         end
         existing.delete if (existing && is_update)
       end
-
     rescue Exception => e
-      if params[:measure_file]
-        measure.delete if measure
-        errors_dir = Rails.root.join('log', 'load_errors')
-        FileUtils.mkdir_p(errors_dir)
-        clean_email = File.basename(current_user.email) # Prevent path traversal
-        filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}#{extension}"
+      measure.delete if measure
+      errors_dir = Rails.root.join('log', 'load_errors')
+      FileUtils.mkdir_p(errors_dir)
+      clean_email = File.basename(current_user.email) # Prevent path traversal
+      filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}#{extension}"
 
-        operator_error = false # certain types of errors are operator errors and do not need to be emailed out.
-        FileUtils.cp(params[:measure_file].tempfile, File.join(errors_dir, filename))
-        File.chmod(0644, File.join(errors_dir, filename))
-        File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
-        if e.is_a? Measures::ValueSetException
-          operator_error = true
-          flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
-        elsif e.is_a? Measures::VSACException
-          operator_error = true
-          flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
-        elsif e.is_a? Measures::MeasureLoadingException
-          operator_error = true
-          flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body:"There may be an error in the CQL logic."}
-        else
-          flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Bonnie has encountered an error while trying to load the measure."}
-        end
-      else
+      operator_error = false # certain types of errors are operator errors and do not need to be emailed out.
+      FileUtils.cp(params[:measure_file].tempfile, File.join(errors_dir, filename))
+      File.chmod(0644, File.join(errors_dir, filename))
+      File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
+      if e.is_a? Measures::ValueSetException
         operator_error = true
-        flash[:error] = {title: "Error Loading Measure", body: "You must specify a Measure Authoring tool measure export to use."}
+        flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
+      elsif e.is_a? Measures::VSACException
+        operator_error = true
+        flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
+      elsif e.is_a? Measures::MeasureLoadingException
+        operator_error = true
+        flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body:"There may be an error in the CQL logic."}
+      else
+        flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Bonnie has encountered an error while trying to load the measure."}
       end
 
       # email the error
@@ -159,6 +163,7 @@ class MeasuresController < ApplicationController
       redirect_to "#{root_path}##{params[:redirect_route]}"
       return
     end
+    
     current_user.measures << measure
     current_user.save!
 
@@ -183,7 +188,6 @@ class MeasuresController < ApplicationController
       end
 
     end
-
     measure.save!
 
     # rebuild the users patients if set to do so
