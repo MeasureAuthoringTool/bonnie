@@ -2,7 +2,6 @@ describe "MeasureDataCriteria", ->
   beforeEach ->
     # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
     jasmine.getJSONFixtures().clearCache()
-#    @cqlMeasures = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS136/CMS741v0.json'), parse: true
 
   # changed from Authored to Relevant Period for QDM 5.3
   it "specifies 'Medication, Dispensed' to have a relevant period", ->
