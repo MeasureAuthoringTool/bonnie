@@ -66,7 +66,7 @@ include Devise::TestHelpers
       post :create, {vsac_date: '08/22/2017', includes_draft: false, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: 'invaliduser', vsac_password: 'invalidpassword'}
 
       assert_response :redirect
-      #assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
+      assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
       assert_equal "VSAC value sets could not be loaded.", flash[:error][:summary]
       assert flash[:error][:body].starts_with?("Please verify that you are using the correct VSAC username and password.")
 
@@ -255,7 +255,7 @@ include Devise::TestHelpers
     end
 
     # Upload a modified version of the initial file with a mismatching hqmf_set_id
-    VCR.use_cassette("valid_vsac_response_hqmf_setid_mismatch") do
+    VCR.use_cassette("valid_vsac_response") do
       update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts_HQMF_SetId_Mismatch.zip'), 'application/xml')
       class << update_measure_file
         attr_reader :tempfile2
