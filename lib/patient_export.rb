@@ -61,11 +61,14 @@ class PatientExport
           population_criteria = HQMF::PopulationCriteria::ALL_POPULATION_CODES & population_details[pop_key]["criteria"]
 
           worksheet_title = population_details[pop_key]["title"]
+          if worksheet_title.blank? || worksheet_title.length > 31
+            worksheet_title = "Population #{pop_index+1}"
+          end
           workbook.add_worksheet(name: worksheet_title) do |sheet|
             
 
             statement_to_column = {}
-            header_row = DISPLAYED_ATTRIBUTES + population_criteria * 2
+            header_row = population_criteria * 2 + DISPLAYED_ATTRIBUTES
             
             cur_column = 0
             population_details[pop_key]["statement_relevance"].each do |lib_key, statements|
@@ -79,26 +82,31 @@ class PatientExport
             end
 
             toplevel_headings = Array.new(header_row.length, nil)
-            toplevel_headings[DISPLAYED_ATTRIBUTES.length] = "Expected"
-            toplevel_headings[DISPLAYED_ATTRIBUTES.length + population_criteria.length] = "Actual"
-            sheet.merge_cells "#{excel_column(DISPLAYED_ATTRIBUTES.length+1)}1:#{excel_column(DISPLAYED_ATTRIBUTES.length + population_criteria.length)}1"
-            sheet.merge_cells "#{excel_column(DISPLAYED_ATTRIBUTES.length+population_criteria.length+1)}1:#{excel_column(DISPLAYED_ATTRIBUTES.length + population_criteria.length * 2)}1"
+            toplevel_headings[0] = "Expected"
+            toplevel_headings[population_criteria.length] = "Actual"
+            sheet.merge_cells "A1:#{excel_column(population_criteria.length)}1"
+            sheet.merge_cells "#{excel_column(population_criteria.length+1)}1:#{excel_column(population_criteria.length * 2)}1"
             sheet.add_row(toplevel_headings, style: text_center, height: 30)
 
             
             header_column_styles = Array.new(header_row.length+1, header_dc)
 
-            header_column_styles[0..DISPLAYED_ATTRIBUTES.length-1] = Array.new(DISPLAYED_ATTRIBUTES.length, header)
+            pop_cols_index_start = 0
+            pop_cols_index_end = population_criteria.length * 2
+            patient_cols_index_start = population_criteria.length * 2
+            patient_cols_index_end = population_criteria.length * 2 + DISPLAYED_ATTRIBUTES.length - 1
 
-            header_column_styles[DISPLAYED_ATTRIBUTES.length..DISPLAYED_ATTRIBUTES.length+population_criteria.length * 2] = Array.new(population_criteria.length * 2, rotated_style) # Rotated style for population columns            
+            header_column_styles[pop_cols_index_start..pop_cols_index_end] = Array.new(population_criteria.length * 2, rotated_style) # Rotated style for population columns            
+            header_column_styles[patient_cols_index_start..patient_cols_index_end] = Array.new(DISPLAYED_ATTRIBUTES.length, header)
 
             sheet.add_row(header_row, style: header_column_styles)
 
             column_widths = Array.new(header_row.length+1, 25)
-            #Wider columns for patient details
-            column_widths[0..DISPLAYED_ATTRIBUTES.length-1] = Array.new(DISPLAYED_ATTRIBUTES.length, 16)
             #Narrow columns for population results
-            column_widths[DISPLAYED_ATTRIBUTES.length..DISPLAYED_ATTRIBUTES.length+population_criteria.length * 2] = Array.new(population_criteria.length * 2, 6)
+            column_widths[pop_cols_index_start..pop_cols_index_end] = Array.new(population_criteria.length * 2, 6)
+            #Wider columns for patient details
+            column_widths[patient_cols_index_start..patient_cols_index_end] = Array.new(DISPLAYED_ATTRIBUTES.length, 16)
+
             sheet.column_widths *column_widths
             
             patients.each do |patient_key, patient|
@@ -125,7 +133,7 @@ class PatientExport
                   end
                 end
               end
-              patient_row = patient_data + expected + actual + statement_results
+              patient_row = expected + actual + patient_data + statement_results
               sheet.add_row(patient_row, height: 24)
             end
           end

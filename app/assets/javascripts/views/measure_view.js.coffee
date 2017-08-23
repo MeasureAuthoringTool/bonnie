@@ -125,7 +125,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     # Loop iterates over the populations and gets the calculations for each population.
     # From this it builds a map of pop_key->patient_key->results
     for pop in @model.get('populations').models
-      for patient in @patients.models
+      for patient in @model.get('patients').models
         if calc_results[pop.cid] == undefined
           calc_results[pop.cid] = {}
         result = pop.calculate(patient)
