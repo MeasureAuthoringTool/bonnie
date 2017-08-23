@@ -88,6 +88,7 @@ class MeasuresController < ApplicationController
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
         is_update = false
         if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
+          existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
           is_update = true
           measure_details['type'] = existing.type
           measure_details['episode_of_care'] = existing.episode_of_care
@@ -115,7 +116,7 @@ class MeasuresController < ApplicationController
 
         if measure_details['episode_of_care'] && measure.data_criteria.values.select {|d| d['specific_occurrence']}.empty?
           measure.delete
-          flash[:error] = {title: "Error Loading Measure", summary: "An episode of care measure requires at least one specific occurrence for the episode of care.", body: "You have loaded the measure as an episode of care measure.  Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."}
+          flash[:error] = {title: "Error Loading Measure1", summary: "An episode of care measure requires at least one specific occurrence for the episode of care.", body: "You have loaded the measure as an episode of care measure.  Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."}
           redirect_to "#{root_path}##{params[:redirect_route]}"
           return
         end
