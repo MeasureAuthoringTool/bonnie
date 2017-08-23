@@ -51,13 +51,15 @@ describe 'CqlLogicView', ->
     expect(populationLogicView.populationStatementViews[3].name).toEqual('Measure Population Exclusion')
     expect(populationLogicView.populationStatementViews[3].cqlPopulations).toEqual(['MSRPOPLEX'])
 
-    expect(populationLogicView.defineStatementViews.length).toBe(3)
+    expect(populationLogicView.defineStatementViews.length).toBe(1)
     expect(populationLogicView.defineStatementViews[0].name).toEqual('Inpatient Encounter')
-    expect(populationLogicView.defineStatementViews[1].name).toEqual('Startification1')
-    expect(populationLogicView.defineStatementViews[2].name).toEqual('Stratification2')
 
     expect(populationLogicView.functionStatementViews.length).toBe(1)
     expect(populationLogicView.functionStatementViews[0].name).toEqual('RelatedEDVisit')
+
+    expect(populationLogicView.unusedStatementViews.length).toBe(2)
+    expect(populationLogicView.unusedStatementViews[0].name).toEqual('Startification1')
+    expect(populationLogicView.unusedStatementViews[1].name).toEqual('Stratification2')
 
   it 'sorts logic properly with stratification', ->
     bonnie.valueSetsByOid = getJSONFixture('/measure_data/cqltest/value_sets.json')
@@ -80,9 +82,11 @@ describe 'CqlLogicView', ->
     expect(populationLogicView.populationStatementViews[4].name).toEqual('Measure Population Exclusion')
     expect(populationLogicView.populationStatementViews[4].cqlPopulations).toEqual(['MSRPOPLEX'])
 
-    expect(populationLogicView.defineStatementViews.length).toBe(2)
+    expect(populationLogicView.defineStatementViews.length).toBe(1)
     expect(populationLogicView.defineStatementViews[0].name).toEqual('Inpatient Encounter')
-    expect(populationLogicView.defineStatementViews[1].name).toEqual('Stratification2')
 
     expect(populationLogicView.functionStatementViews.length).toBe(1)
     expect(populationLogicView.functionStatementViews[0].name).toEqual('RelatedEDVisit')
+
+    expect(populationLogicView.unusedStatementViews.length).toBe(1)
+    expect(populationLogicView.unusedStatementViews[0].name).toEqual('Stratification2')

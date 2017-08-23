@@ -74,4 +74,31 @@
       </div>
     </div>
   {{/if}}
+
+  {{#if unusedStatementViews}}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title panel-population panel-unused-defines">
+          <a data-toggle="collapse" href="#collapse{{cid}}-unused-defines">
+            <div>
+              <span class="population-label unused-defines"><b>Unused Definitions: </b><span class="sr-only sr-highlight-status"></span></span>
+              <div class="pull-right">
+                <i class="fa fa-lg fa-angle-right toggle-icon" aria-hidden="true"></i>
+                <span class="sr-only">toggle unused define statements</span>
+              </div>
+            </div>
+          </a>
+        </h4>
+      </div>
+      <div id="collapse{{cid}}-unused-defines" class="panel-collapse collapse">
+        <div class="panel-body">
+          {{#each unusedStatementViews}}
+            <div>
+              {{view this}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
 </div>
