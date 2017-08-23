@@ -65,7 +65,7 @@ class PatientExport
             
 
             statement_to_column = {}
-            header_row = DISPLAYED_ATTRIBUTES + population_criteria*2
+            header_row = DISPLAYED_ATTRIBUTES + population_criteria * 2
             
             cur_column = 0
             population_details[pop_key]["statement_relevance"].each do |lib_key, statements|
@@ -82,7 +82,7 @@ class PatientExport
             toplevel_headings[DISPLAYED_ATTRIBUTES.length] = "Expected"
             toplevel_headings[DISPLAYED_ATTRIBUTES.length + population_criteria.length] = "Actual"
             sheet.merge_cells "#{excel_column(DISPLAYED_ATTRIBUTES.length+1)}1:#{excel_column(DISPLAYED_ATTRIBUTES.length + population_criteria.length)}1"
-            sheet.merge_cells "#{excel_column(DISPLAYED_ATTRIBUTES.length+population_criteria.length+1)}1:#{excel_column(DISPLAYED_ATTRIBUTES.length + population_criteria.length*2)}1"
+            sheet.merge_cells "#{excel_column(DISPLAYED_ATTRIBUTES.length+population_criteria.length+1)}1:#{excel_column(DISPLAYED_ATTRIBUTES.length + population_criteria.length * 2)}1"
             sheet.add_row(toplevel_headings, style: text_center, height: 30)
 
             
@@ -90,7 +90,7 @@ class PatientExport
 
             header_column_styles[0..DISPLAYED_ATTRIBUTES.length-1] = Array.new(DISPLAYED_ATTRIBUTES.length, header)
 
-            header_column_styles[DISPLAYED_ATTRIBUTES.length..DISPLAYED_ATTRIBUTES.length+population_criteria.length*2] = Array.new(population_criteria.length*2, rotated_style) # Rotated style for population columns            
+            header_column_styles[DISPLAYED_ATTRIBUTES.length..DISPLAYED_ATTRIBUTES.length+population_criteria.length * 2] = Array.new(population_criteria.length * 2, rotated_style) # Rotated style for population columns            
 
             sheet.add_row(header_row, style: header_column_styles)
 
@@ -98,7 +98,7 @@ class PatientExport
             #Wider columns for patient details
             column_widths[0..DISPLAYED_ATTRIBUTES.length-1] = Array.new(DISPLAYED_ATTRIBUTES.length, 16)
             #Narrow columns for population results
-            column_widths[DISPLAYED_ATTRIBUTES.length..DISPLAYED_ATTRIBUTES.length+population_criteria.length*2] = Array.new(population_criteria.length*2, 6)
+            column_widths[DISPLAYED_ATTRIBUTES.length..DISPLAYED_ATTRIBUTES.length+population_criteria.length * 2] = Array.new(population_criteria.length * 2, 6)
             sheet.column_widths *column_widths
             
             patients.each do |patient_key, patient|

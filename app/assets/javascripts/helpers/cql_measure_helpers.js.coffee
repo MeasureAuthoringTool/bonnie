@@ -4,6 +4,12 @@
 ###
 class CQLMeasureHelpers
 
+  ###*
+  # Builds a map of define statement name to the statement's text from a measure.
+  # @public
+  # @param {Measure} measure - The measure to build the map from.
+  # @return {Hash} Map of statement definitions to full statement
+  ###
   @buildDefineToFullStatement: (measure) ->
     ret = {}
     for lib of measure.get("elm_annotations")
@@ -13,6 +19,12 @@ class CQLMeasureHelpers
       ret[lib] = lib_statements
     return ret
 
+
+  ###*
+  # Recursive function that parses an annotation tree to extract text statements.
+  # @param {Node} children - the node to be traversed.
+  # @return {String} the text of the node or its children.
+  ###
   @_parseAnnotationTree: (children) ->
     ret = ""
     if children.text != undefined

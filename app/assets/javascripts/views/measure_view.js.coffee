@@ -115,12 +115,15 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         data: {authenticity_token: $("meta[name='csrf-token']").attr('content'), results: differences, isCQL: @model.has('cql')}
 
   exportExcelPatients: (e) ->
+    @exportPatientsView.exporting()
+    
     calc_results = {}
     patient_details = {}
     population_details = {}
     statement_details = CQLMeasureHelpers.buildDefineToFullStatement(@model)
     file_name = @model.get('cms_id')
-    
+    # Loop iterates over the populations and gets the calculations for each population.
+    # From this it builds a map of pop_key->patient_key->results
     for pop in @model.get('populations').models
       for patient in @patients.models
         if calc_results[pop.cid] == undefined
@@ -130,6 +133,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         for pop_crit of result.get('population_relevance')
           result_criteria[pop_crit] = result.get(pop_crit)
         calc_results[pop.cid][patient.cid] = {statement_results: @removeRaw(result.get("statement_results")), criteria: result_criteria}
+        # Populates the patient details
         if (patient_details[patient.cid] == undefined)
           patient_details[patient.cid] = {
             first: patient.get("first")
@@ -142,6 +146,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
             race: patient.get("race")
             gender: patient.get("gender")
           }
+        # Populates the population details
         if (population_details[pop.cid] == undefined)
           population_details[pop.cid] = {title: pop.get("title"), statement_relevance: result.get("statement_relevance")}
           criteria = []
@@ -162,7 +167,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         statement_details: JSON.stringify(statement_details)
         file_name: file_name
       }
-
+  # Iterates through the results to remove extraneous fields.
   removeRaw: (results) ->
     ret = {}
     for libKey of results
