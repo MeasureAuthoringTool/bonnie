@@ -54,6 +54,13 @@ class PatientExport
                                      :fg_color => "FF0000")
         pop_index = 0
         
+        if calc_results.length == 0
+          error_row = ["Measure has no patients, please re-export with patients"]
+          workbook.add_worksheet(name: "Error") do |sheet|
+            sheet.add_row(error_row)
+          end
+        end
+        
         #calc_results is organized popKey->patientKey->results
         #popKey and patientKey can be used to lookup population and patient details in their respective maps
         calc_results.each do |pop_key, patients|
@@ -108,7 +115,7 @@ class PatientExport
             column_widths[patient_cols_index_start..patient_cols_index_end] = Array.new(DISPLAYED_ATTRIBUTES.length, 16)
 
             sheet.column_widths *column_widths
-            
+
             patients.each do |patient_key, patient|
               patient_data = []
               DISPLAYED_ATTRIBUTES.each do |field|
@@ -133,8 +140,16 @@ class PatientExport
                   end
                 end
               end
+              
               patient_row = expected + actual + patient_data + statement_results
-              sheet.add_row(patient_row, height: 24)
+              row_style = []
+              if expected != actual
+                row_style = Array.new(patient_row.length + 1, needs_fix)
+              else
+                row_style = Array.new(patient_row.length + 1, default)
+              end
+
+              sheet.add_row(patient_row, style: row_style)
             end
           end
         end
