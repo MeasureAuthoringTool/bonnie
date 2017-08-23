@@ -85,6 +85,7 @@ describe 'PatientBuilderView', ->
     it "acquires the dates of the drop target when dropping on an existing criteria", ->
       startDate = @patientBuilder.model.get('source_data_criteria').first().get('start_date')
       endDate = @patientBuilder.model.get('source_data_criteria').first().get('end_date')
+      # droppable 5 used because droppable 1 didn't have a start and end date
       @addEncounter 5, '.criteria-data.droppable:first'
       expect(@patientBuilder.model.get('source_data_criteria').last().get('start_date')).toEqual startDate
       expect(@patientBuilder.model.get('source_data_criteria').last().get('end_date')).toEqual endDate
