@@ -387,7 +387,9 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   context: ->
     _(super).extend
       codes: @measure?.valueSets().map((vs) -> vs.toJSON()) or []
-      hideEditValueView: @criteriaType == 'risk_category_assessments' && @values.models.length > 0
+      # Certain data criteria allow for only a single Result per criteria
+      onlySingleResultAllowed = @criteriaType in ['risk_category_assessments', 'physical_exams', 'procedures', 'interventions', 'laboratory_tests', 'diagnostic_studies'] && @values.models.length > 0
+      hideEditValueView: onlySingleResultAllowed
 
   # When we serialize the form, we want to put the description for any CD codes into the submission
   events:
