@@ -114,13 +114,6 @@ class MeasuresController < ApplicationController
           end
         end
 
-        if measure_details['episode_of_care'] && measure.data_criteria.values.select {|d| d['specific_occurrence']}.empty?
-          measure.delete
-          flash[:error] = {title: "Error Loading Measure1", summary: "An episode of care measure requires at least one specific occurrence for the episode of care.", body: "You have loaded the measure as an episode of care measure.  Episode of care measures require at lease one data element that is a specific occurrence.  Please add a specific occurrence data element to the measure logic."}
-          redirect_to "#{root_path}##{params[:redirect_route]}"
-          return
-        end
-
         # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
         missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
         if missing_value_sets.length > 0
@@ -142,10 +135,7 @@ class MeasuresController < ApplicationController
       FileUtils.cp(params[:measure_file].tempfile, File.join(errors_dir, filename))
       File.chmod(0644, File.join(errors_dir, filename))
       File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
-      if e.is_a? Measures::ValueSetException
-        operator_error = true
-        flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
-      elsif e.is_a? Measures::VSACException
+      if e.is_a? Measures::VSACException
         operator_error = true
         flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
       elsif e.is_a? Measures::MeasureLoadingException
