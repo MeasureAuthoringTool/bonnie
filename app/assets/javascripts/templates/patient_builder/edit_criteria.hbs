@@ -205,7 +205,7 @@
                     {{title}}
                   {{else}}
                     {{!-- This needs to go on one line to prevent unwanted space characters --}}
-                    {{title}}{{#if value}}, {{value}}{{/if}}{{#if unit}} {{unit}}{{/if}}{{#if referenceRangeLow_value}}, Reference Range - Low: {{referenceRangeLow_value}} {{referenceRangeLow_unit}}{{/if}}{{#if referenceRangeHigh_value}}, Reference Range - High: {{referenceRangeHigh_value}} {{referenceRangeHigh_unit}}{{/if}}
+                    {{title}}{{#if value}}, {{value}}{{/if}}{{#if unit}} {{unit}}{{/if}}{{#if referenceRangeLow_value}}, Reference Range - Low: {{referenceRangeLow_value}}{{#if referenceRangeLow_unit}} {{referenceRangeLow_unit}}{{/if}}{{/if}}{{#if referenceRangeHigh_value}}, Reference Range - High: {{referenceRangeHigh_value}}{{#if referenceRangeHigh_unit}} {{referenceRangeHigh_unit}}{{/if}}{{/if}}
                   {{/if}}
                 {{/if}}
                 {{#if codes}} - Codes:
