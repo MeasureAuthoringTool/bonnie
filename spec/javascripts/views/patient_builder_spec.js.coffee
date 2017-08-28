@@ -327,8 +327,10 @@ describe 'PatientBuilderView', ->
 
       afterEach -> @patientBuilder.remove()
 
+
   describe 'CQL', ->
     beforeEach ->
+
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS347/CMS735v0.json'), parse: true
 
