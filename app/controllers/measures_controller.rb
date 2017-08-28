@@ -53,21 +53,27 @@ class MeasuresController < ApplicationController
     }
     
     extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
-    if extension && !['.zip'].include?(extension)
-        flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure Please re-export your measure from the MAT and select the 'eMeasure Package'."}
+    if !extension || extension != '.zip'
+        flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure. Please re-export your measure from the MAT and select the 'eMeasure Package'."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
-    elsif extension == '.zip'
-      if !Measures::MATLoader.mat_export?(params[:measure_file])
-        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
+    else
+      if Measures::HQMFLoader.mat_hqmf_export?(params[:measure_file])
+        #TODO: Redirect to bonnie server
+        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is an HQMF based measure, please use https://bonnie.healthit.gov/ for HQMF based measures.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       elsif !Measures::CqlLoader.mat_cql_export?(params[:measure_file])
-        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export of a CQL Measure.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
+        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a valid Measure Authoring Tool export of a CQL Measure.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
+        redirect_to "#{root_path}##{params[:redirect_route]}"
+        return
+      elsif !Measures::MATLoader.mat_export?(params[:measure_file])
+        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
     end
+    #If we get to this point, then the measure that is being uploaded is a MAT export of CQL
     begin
       # Default to valid set of values for vsac request.
       effectiveDate = nil
@@ -83,47 +89,45 @@ class MeasuresController < ApplicationController
         end
       end
 
-      if extension == '.zip' && Measures::CqlLoader.mat_cql_export?(params[:measure_file])
-        measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
-        existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
-        is_update = false
-        if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
-          existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
-          is_update = true
-          measure_details['type'] = existing.type
-          measure_details['episode_of_care'] = existing.episode_of_care
-          if measure_details['episode_of_care']
-            episodes = params["eoc_#{existing.hqmf_set_id}"]
-          end
-          measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
+      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
+      existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
+      is_update = false
+      if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
+        existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
+        is_update = true
+        measure_details['type'] = existing.type
+        measure_details['episode_of_care'] = existing.episode_of_care
+        if measure_details['episode_of_care']
+          episodes = params["eoc_#{existing.hqmf_set_id}"]
         end
-        if (!is_update)
-          cql_existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
-          if cql_existing.count > 0
-            measure.delete
-            flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
-            redirect_to "#{root_path}##{params[:redirect_route]}"
-            return
-          end
-        else
-          if existing.hqmf_set_id != measure.hqmf_set_id
-            measure.delete
-            flash[:error] = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
-            redirect_to "#{root_path}##{params[:redirect_route]}"
-            return
-          end
-        end
-
-        # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
-        missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
-        if missing_value_sets.length > 0
+        measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
+      end
+      if (!is_update)
+        cql_existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
+        if cql_existing.count > 0
           measure.delete
-          flash[:error] = {title: "Measure is missing value sets", summary: "The measure you have tried to load is missing value sets.", body: "The measure you are trying to load is missing value sets.  Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"}
+          flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
           redirect_to "#{root_path}##{params[:redirect_route]}"
           return
         end
-        existing.delete if (existing && is_update)
+      else
+        if existing.hqmf_set_id != measure.hqmf_set_id
+          measure.delete
+          flash[:error] = {title: "Error Updating Measure", summary: "The update file does not match the measure.", body: "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
+          redirect_to "#{root_path}##{params[:redirect_route]}"
+          return
+        end
       end
+
+      # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
+      missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
+      if missing_value_sets.length > 0
+        measure.delete
+        flash[:error] = {title: "Measure is missing value sets", summary: "The measure you have tried to load is missing value sets.", body: "The measure you are trying to load is missing value sets.  Try re-packaging and re-exporting the measure from the Measure Authoring Tool.  The following value sets are missing: [#{missing_value_sets.join(', ')}]"}
+        redirect_to "#{root_path}##{params[:redirect_route]}"
+        return
+      end
+      existing.delete if (existing && is_update)
     rescue Exception => e
       measure.delete if measure
       errors_dir = Rails.root.join('log', 'load_errors')
@@ -140,7 +144,7 @@ class MeasuresController < ApplicationController
         flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
       elsif e.is_a? Measures::MeasureLoadingException
         operator_error = true
-        flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body:"There may be an error in the CQL logic."}
+        flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded", body:"There may be an error in the CQL logic."}
       else
         flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded.", body: "Bonnie has encountered an error while trying to load the measure."}
       end
