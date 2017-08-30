@@ -585,10 +585,9 @@ class Thorax.Views.EditCriteriaReferenceView extends Thorax.Views.EditCriteriaVa
     # Reset model to default values
     @model.clear()
 
-    # clear() removes fields (which we want), but then populate() doesn't clear the select; clear it
-    @$('select[name=key]').val('')
-    # Let the selectBoxIt() select box know that its value may have changed
-    @$('select[name=type]').change()
+    # Set the drop downs back to empty.
+    @$('select[name=reference_type]').val('')
+    @$('select[name=reference_id]').val('')
     @triggerMaterialize()
     @$(':focusable:visible:first').focus()
 
