@@ -103,6 +103,7 @@
             <option value="PQ" data-icon="fa fa-pencil-square-o">Scalar</option>
             <option value="CD" data-icon="fa fa-list">Coded</option>
             <option value="TS" data-icon="fa fa-calendar">Time</option>
+            <option value="RT" data-icon="fa fa-pencil-square-o">Ratio</option>
         </select>
       </div>
 
@@ -140,6 +141,17 @@
         </div>
       {{/ifCond}}
 
+      {{#ifCond type '==' 'RT'}}
+        <div class="col-md-4">
+          <label for="numerator_{{@cid}}" class="sr-only">numerator</label>
+          <input type="number" name="numerator" id="numerator_{{@cid}}" class="form-control" placeholder="Numerator">
+        </div>
+        <div class="col-md-4">
+          <label for="denominator_{{@cid}}" class="sr-only">denominator</label>
+          <input type="number" name="denominator" id="denominator{{@cid}}" class="form-control" placeholder="Denominator">
+        </div>
+      {{/ifCond}}
+      
       <div class="col-md-1">
         {{#button "addValue" class="btn btn-primary pull-right" disabled="disabled"}}
           <i class="fa fa-plus" aria-hidden="true"></i>
