@@ -160,9 +160,15 @@
                 {{#if root}}
                   {{root}} {{extension}}
                 {{else}}
-                  {{value}} {{unit}}
-                  {{title}}
-                 {{/if}}
+                  {{#if numerator}}
+                    {{numerator}}/{{denominator}}
+                    {{title}}
+                  {{/if}}
+                  {{else}}
+                    {{value}} {{unit}}
+                    {{title}}
+                  {{/if}}
+                {{/if}}
               {{/if}}
               {{#if codes}} - Codes:
                 {{#each codes}}
