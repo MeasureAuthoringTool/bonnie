@@ -102,12 +102,10 @@ namespace :bonnie do
                   db_value_sets = HealthDataStandards::SVS::ValueSet.where(user_id: user.id, oid: value_set['id'])
 
                   db_value_sets.each do |db_value_set|
-                    if value_set['version']
-                      if db_value_set.version == "N/A"
-                        puts "Setting " + db_value_set.version.to_s + " to " + value_set['version'].to_s
-                        db_value_set.version = value_set['version']
-                        db_value_set.save()
-                      end
+                    if value_set['version'] && db_value_set.version == "N/A"
+                      puts "Setting " + db_value_set.version.to_s + " to " + value_set['version'].to_s
+                      db_value_set.version = value_set['version']
+                      db_value_set.save()
                     end
                   end
                 end
