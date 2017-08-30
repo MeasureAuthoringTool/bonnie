@@ -84,5 +84,41 @@ namespace :bonnie do
       
     end
     
+    task :update_value_set_versions => :environment do
+      User.all.each do |user|
+        puts "Updating value sets for user " + user.email
+        begin
+          measures = CqlMeasure.where(user_id: user.id)
+
+          measures.each do |measure|
+            elms = measure.elm
+
+            Measures::CqlLoader.modify_value_set_versions(elms)
+
+            elms.each do |elm|
+
+              if elm['library'] && elm['library']['valueSets'] && elm['library']['valueSets']['def']
+                elm['library']['valueSets']['def'].each do |value_set|
+                  db_value_sets = HealthDataStandards::SVS::ValueSet.where(user_id: user.id, oid: value_set['id'])
+
+                  db_value_sets.each do |db_value_set|
+                    if value_set['version'] && db_value_set.version == "N/A"
+                      puts "Setting " + db_value_set.version.to_s + " to " + value_set['version'].to_s
+                      db_value_set.version = value_set['version']
+                      db_value_set.save()
+                    end
+                  end
+                end
+              end
+            end
+          end
+        rescue Mongoid::Errors::DocumentNotFound => e
+          puts "\nNo CQL measures found for the user below"
+          puts user.email
+          puts user.id
+        end
+      end
+    end
+
   end
 end
