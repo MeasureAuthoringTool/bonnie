@@ -223,11 +223,18 @@
                 {{start_date}} {{start_time}}
               {{else}}
                 {{#if numerator}}
-                  {{numerator}}/{{denominator}}
-                  {{title}}
+                  {{#if denominator}}
+                    {{numerator}}/{{denominator}}
+                    {{title}}
+                  {{/if}}
                 {{else}}
-                  {{value}} {{unit}}
-                  {{title}}
+                  {{#if unit}}
+                    {{value}} {{unit}}
+                    {{title}}
+                  {{else}}
+                    {{value}}
+                    {{title}}
+                  {{/if}}
                 {{/if}}
               {{/if}}
               {{#if codes}} - Codes:
