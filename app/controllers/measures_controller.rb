@@ -58,7 +58,7 @@ class MeasuresController < ApplicationController
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
     else
-      if Measures::HQMFLoader.mat_hqmf_export?(params[:measure_file])
+      if Measures::QDMLoader.mat_hqmf_export?(params[:measure_file])
         #TODO: Redirect to bonnie server
         flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is an HQMF based measure, please use https://bonnie.healthit.gov/ for HQMF based measures.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
         redirect_to "#{root_path}##{params[:redirect_route]}"
