@@ -17,25 +17,6 @@ include Devise::TestHelpers
     sign_in @user
   end
 
-  test "upload xml with valid VSAC creds" do
-    # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
-    # when the cassette needs to be generated for the first time.
-    VCR.use_cassette("valid_vsac_response") do
-      measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
-      assert_nil measure
-
-      # Use VSAC creds from VCR, see vcr_setup.rb
-      measure_file = fixture_file_upload(File.join('testplan', 'DischargedOnAntithrombotic_eMeasure.xml'), 'application/xml')
-
-      # If you need to re-record the cassette for whatever reason, change the vsac_date to the current date
-      post :create, {vsac_date: '06/28/2016', include_draft: false, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
-
-      assert_response :redirect
-      measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
-      assert_equal "40280381-3D27-5493-013D-4DCA4B826AE4", measure['hqmf_id']
-    end
-  end
-
   test "upload xml with invalid format" do
     VCR.use_cassette("valid_vsac_response") do
       measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
