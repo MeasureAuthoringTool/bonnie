@@ -12,23 +12,11 @@ class PatientExport
     result
   end
 
-  # Records cannot be less than 1
-  def self.export_excel_file(measure, records, results)
-
-    criteria_keys_by_population = measure.criteria_keys_by_population
-
-    # COMMENTED OUT -- until we decide whether or not we want duplicate data.
-    # Remove duplicates by population type
-    #criteria_keys_by_population.each do | population_type, values | 
-    #  values.uniq!
-    #end
-
-    criteria_key_header_lookup = self.create_criteria_key_header_lookup(measure, criteria_keys_by_population)
-
+  # calc_results is a map of population/stratifications -> patients -> definitions -> results
+  def self.export_excel_cql_file(calc_results, patient_details, population_details, statement_details)
     Axlsx::Package.new do |package|
       package.workbook do |workbook|
-
-        # Styles
+        # Define styles
         fg_color = "000033"
         header_border = { :style => :thick, :color => "000066", :edges => [:bottom] }
         styles = workbook.styles
@@ -45,8 +33,8 @@ class PatientExport
                                          :bg_color => "FFFFFFF")
         text_center = styles.add_style(:b => true,
                                        :sz => 14,
-                                       :border => { :style => :thin, :color =>"000066" },
-                                       :alignment => { :horizontal => :center, :vertical => :center })
+                                       :bg_color => "FFFFFFF",
+                                       :alignment => { :horizontal => :center, :vertical => :center})
         header = styles.add_style(:b => true,
                                   :sz => 14,
                                   :alignment => { :wrap_text => true },
@@ -64,172 +52,126 @@ class PatientExport
                                                   :color =>"DDDDDD",
                                                   :edges => [:bottom] },
                                      :fg_color => "FF0000")
-
-        # Adding a new sheet per population
-        measure.populations.each_with_index do |population, population_index|
-          population_criteria = HQMF::PopulationCriteria::ALL_POPULATION_CODES & population.keys
-          # Find the data criteria keys that are associated with this particular population
-          population_criteria_keys = []
-          population_criteria.each do |pc|
-            population_criteria_keys.concat(criteria_keys_by_population[population[pc]])
+        pop_index = 0
+        
+        if calc_results.length == 0
+          error_row = ["Measure has no patients, please re-export with patients"]
+          workbook.add_worksheet(name: "Error") do |sheet|
+            sheet.add_row(error_row)
           end
-
-          # Sheet name cannot be longer than 31 characters long. Replace with generic name if too long or not present.
-          worksheet_title = if population['title'].blank? || "#{population['title']} Patients".length > 31
-                              "Population #{population_index+1}"
-                            else
-                              "#{population['title']} Patients"
-                            end
-
-          workbook.add_worksheet(name: worksheet_title) do |sheet|
-            # Generate a list of all the headers we want, translating criteria keys to their human readable form
-            headers = population_criteria*2 + DISPLAYED_ATTRIBUTES + population_criteria_keys.map { |ck| criteria_key_header_lookup[ck] }
-
-            # Add top row with the "Expected Value" and "Actual Value" labels
-            toplevel_headings = Array.new(headers.length, nil)
-            toplevel_headings[0] = 'Expected'
-            toplevel_headings[population_criteria.length] = 'Actual'
-
-            heading_positions = {}
-            previous_length = population_criteria.length*2 + DISPLAYED_ATTRIBUTES.length
+        end
+        
+        #calc_results is organized popKey->patientKey->results
+        #popKey and patientKey can be used to lookup population and patient details in their respective maps
+        calc_results.each do |pop_key, patients|
           
-            population_criteria.each do |pc|
-              if criteria_keys_by_population[population[pc]].length > 0
-                toplevel_headings[previous_length] = pc
-                heading_positions[pc] = previous_length + 1
-                previous_length += criteria_keys_by_population[population[pc]].length
-              end
-            end
+          population_criteria = HQMF::PopulationCriteria::ALL_POPULATION_CODES & population_details[pop_key]["criteria"]
 
-            # Adds first header column
-            sheet.add_row(toplevel_headings, style: text_center, height: 30)
-            sheet.merge_cells "A1:#{excel_column(population_criteria.length)}1"
-            sheet.merge_cells "#{excel_column(population_criteria.length+1)}1:#{excel_column(population_criteria.length*2)}1"
-      
-            population_criteria.each do |pc|
-              if criteria_keys_by_population[population[pc]].length > 0
-                start_position = heading_positions[pc]
-                start_column = excel_column(start_position)
-                end_column = excel_column(start_position + criteria_keys_by_population[population[pc]].length - 1)
-                sheet.merge_cells "#{start_column}1:#{end_column}1"
-              end
-            end
+          worksheet_title = population_details[pop_key]["title"]
+          if worksheet_title.blank? || worksheet_title.length > 31
+            worksheet_title = "Population #{pop_index + 1}"
+          else
+            worksheet_title = "#{pop_index + 1} - #{worksheet_title}"
+          end
+          workbook.add_worksheet(name: worksheet_title) do |sheet|
+            
 
-            # Adds second header column
-            header_column_styles = Array.new(headers.length+2, header_dc)
-            header_column_styles[0..population_criteria.length*2] = Array.new(population_criteria.length*2, rotated_style) # Rotated style for population columns
-            header_column_styles[population_criteria.length*2..(population_criteria.length*2+DISPLAYED_ATTRIBUTES.length)] = Array.new(DISPLAYED_ATTRIBUTES.length, header) # Style with larger text for attributes
-            sheet.add_row(headers, style: header_column_styles)
-
-            # Writes one row per record
-            generate_rows(sheet, records, measure, population_index, population_criteria, population_criteria_keys, results, criteria_keys_by_population)
-
-            # Specifies column widths
-            column_widths = Array.new(headers.length+2, 25)
-            column_widths[0..population_criteria.length*2] = Array.new(population_criteria.length*2, 6) # Narrower width for the population columns
-            column_widths[population_criteria.length*2..(population_criteria.length*2+DISPLAYED_ATTRIBUTES.length)] = Array.new(DISPLAYED_ATTRIBUTES.length, 16) # Width for attributes
-            sheet.column_widths *column_widths
-
-            # If not meeting expectations, make row red. else use default style
-            records.length.times do |i|
-
-              row = i + 3 # account for the two header rows
-
-              # See if any of the expectations don't match
-              mismatch = false
-              population_criteria.length.times do |j|
-                if sheet["#{excel_column(j+1)}#{row}"].value != sheet["#{excel_column(population_criteria.length+j+1)}#{row}"].value
-                  mismatch = true
+            statement_to_column = {}
+            header_row = population_criteria * 2 + DISPLAYED_ATTRIBUTES
+            
+            cur_column = 0
+            population_details[pop_key]["statement_relevance"].each do |lib_key, statements|
+              statements.each do |statement, relevance|
+                if (relevance != "NA")
+                  header_row.push(statement_details[lib_key][statement])
+                  statement_to_column[statement] = cur_column
+                  cur_column = cur_column + 1
                 end
               end
+            end
 
-              if mismatch
-                sheet["A#{row}:#{excel_column(headers.length)}#{row}"].each { |c| c.style = needs_fix }
-              else
-                sheet["A#{row}:#{excel_column(headers.length)}#{row}"].each { |c| c.style = default }
+            toplevel_headings = Array.new(header_row.length, nil)
+            toplevel_headings[0] = "Expected"
+            toplevel_headings[population_criteria.length] = "Actual"
+            sheet.merge_cells "A1:#{excel_column(population_criteria.length)}1"
+            sheet.merge_cells "#{excel_column(population_criteria.length+1)}1:#{excel_column(population_criteria.length * 2)}1"
+            sheet.add_row(toplevel_headings, style: text_center, height: 30)
+
+            
+            header_column_styles = Array.new(header_row.length+1, header_dc)
+
+            pop_cols_index_start = 0
+            pop_cols_index_end = population_criteria.length * 2
+            patient_cols_index_start = population_criteria.length * 2
+            patient_cols_index_end = population_criteria.length * 2 + DISPLAYED_ATTRIBUTES.length - 1
+
+            header_column_styles[pop_cols_index_start..pop_cols_index_end] = Array.new(population_criteria.length * 2, rotated_style) # Rotated style for population columns            
+            header_column_styles[patient_cols_index_start..patient_cols_index_end] = Array.new(DISPLAYED_ATTRIBUTES.length, header)
+
+            sheet.add_row(header_row, style: header_column_styles)
+
+            column_widths = Array.new(header_row.length+1, 25)
+            #Narrow columns for population results
+            column_widths[pop_cols_index_start..pop_cols_index_end] = Array.new(population_criteria.length * 2, 6)
+            #Wider columns for patient details
+            column_widths[patient_cols_index_start..patient_cols_index_end] = Array.new(DISPLAYED_ATTRIBUTES.length, 16)
+
+            sheet.column_widths *column_widths
+
+            patients.each do |patient_key, patient|
+              patient_data = []
+              DISPLAYED_ATTRIBUTES.each do |field|
+                patient_data.push(add_formatted_patient_field(patient_details[patient_key], field))
               end
+              expected = []
+              actual = []
+              population_criteria.each do |criteria|
+                expected.push(patient_details[patient_key]["expected_values"][pop_index][criteria])
+                actual.push(calc_results[pop_key][patient_key]["criteria"][criteria])
+              end
+
+              statement_results = Array.new(statement_to_column.length, nil)
+              patient["statement_results"].each do |lib, statements|
+                statements.each do |statement, result|
+                  if (!statement_to_column[statement].nil?)
+                    if (result.eql? "UNHIT")
+                      statement_results[statement_to_column[statement]] = "Not Calculated"
+                    else
+                      statement_results[statement_to_column[statement]] = result
+                    end
+                  end
+                end
+              end
+              
+              patient_row = expected + actual + patient_data + statement_results
+              row_style = []
+              if expected != actual
+                row_style = Array.new(patient_row.length + 1, needs_fix)
+              else
+                row_style = Array.new(patient_row.length + 1, default)
+              end
+
+              sheet.add_row(patient_row, style: row_style)
             end
           end
+          pop_index = pop_index + 1
         end
       end
-       package
     end
   end
 
-  # Given a measure and the criteria keys, return a lookup hash for the human readable name
-  def self.create_criteria_key_header_lookup(measure, criteria_keys_by_population)
-    logic_extractor = HQMF::Measure::LogicExtractor.new()
-    logic_extractor.population_logic(measure)
-    criteria_key_header_lookup = {}
-    criteria_keys_by_population.each do |population_code, criteria_keys|
-      criteria_keys.each do |ck|
-        criteria_key_header_lookup[ck] = logic_extractor.data_criteria_logic(ck).map(&:strip).join(' ')
-      end
-    end
-    criteria_key_header_lookup
-  end
-
-  def self.generate_rows(sheet, records, measure, population_index, population_categories, population_criteria_keys, results, criteria_keys_by_population)
-    # Populates the patient data
-    records.each do |patient|
-      # Removes \" from beignning and end of the patient_id string 
-      exported_results = MeasureExportedResults.new(patient.id.to_json.tr('\"',''), population_index, results)
-      patient_row = []
-
-      # populates the array with expected values for each population
-      population_categories.each do |population_category|
-        # Filter out the expected values that match the measure hqmf_set_id. Return the first object in the array.
-        expected_values = patient[:expected_values].select{ |expected_values| expected_values[:measure_id] == measure.hqmf_set_id && 
-                                                                              expected_values[:population_index] == population_index }.try(:first)
-        # populate array with expected values
-        if expected_values && expected_values[population_category]  
-          patient_row.push(expected_values[population_category])
-        else
-          patient_row.push(0)
-        end
-      end
-
-      # populates the array with actual values for each population
-      population_categories.each do |population_category|
-        value = exported_results.value_for_population_type(population_category)
-        if value == nil
-          patient_row.push('X')
-        else
-          patient_row.push(value)
-        end
-      end
-
-      DISPLAYED_ATTRIBUTES.each do |value|
-        if value == 'ethnicity'
-          patient_row.push(patient[value]['name'])
-        elsif value == 'race'
-          patient_row.push(patient[value]['name'])
-        elsif value == 'birthdate' || value == 'deathdate'
-          time = Time.at(patient[value]).strftime("%m/%d/%Y") unless patient[value].nil?
-          patient_row.push(time)
-        elsif value == 'expired' && patient[value] == nil
-          patient_row.push(false)
-        else
-          patient_row.push(patient[value])
-        end
-      end
-
-      # Generate a list of population types in order of the population_criteria_keys
-      population_list = []
-      criteria_keys_by_population.each do |key, list|
-        list.each do |value| 
-          population_list.push(key)
-        end
-      end
-
-      # Populate the values of each row, in the order that the headers were generated.
-      population_criteria_keys.each_with_index do |key, index|
-        value = exported_results.get_criteria_value(key, population_list[index]) 
-        patient_row.push(value)
-      end
-
-      sheet.add_row patient_row, height: 24
-
+  def self.add_formatted_patient_field(patient, value)
+    if value == 'ethnicity'
+      return patient[value]['name']
+    elsif value == 'race'
+      return patient[value]['name']
+    elsif value == 'birthdate' || value == 'deathdate'
+      time = Time.at(patient[value]).strftime("%m/%d/%Y") unless patient[value].nil?
+      return time
+    elsif value == 'expired' && patient[value] == nil
+      return false
+    else
+      return patient[value]
     end
   end
 end

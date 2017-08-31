@@ -116,17 +116,65 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   exportExcelPatients: (e) ->
     @exportPatientsView.exporting()
+    
+    calc_results = {}
+    patient_details = {}
+    population_details = {}
+    statement_details = CQLMeasureHelpers.buildDefineToFullStatement(@model)
+    file_name = @model.get('cms_id')
+    # Loop iterates over the populations and gets the calculations for each population.
+    # From this it builds a map of pop_key->patient_key->results
+    for pop in @model.get('populations').models
+      for patient in @model.get('patients').models
+        if calc_results[pop.cid] == undefined
+          calc_results[pop.cid] = {}
+        result = pop.calculate(patient)
+        result_criteria = {}
+        for pop_crit of result.get('population_relevance')
+          result_criteria[pop_crit] = result.get(pop_crit)
+        calc_results[pop.cid][patient.cid] = {statement_results: @removeRaw(result.get("statement_results")), criteria: result_criteria}
+        # Populates the patient details
+        if (patient_details[patient.cid] == undefined)
+          patient_details[patient.cid] = {
+            first: patient.get("first")
+            last: patient.get("last")
+            expected_values: patient.get("expected_values")
+            birthdate: patient.get("birthdate")
+            expired: patient.get("expired")
+            deathdate: patient.get("deathdate")
+            ethnicity: patient.get("ethnicity")
+            race: patient.get("race")
+            gender: patient.get("gender")
+          }
+        # Populates the population details
+        if (population_details[pop.cid] == undefined)
+          population_details[pop.cid] = {title: pop.get("title"), statement_relevance: result.get("statement_relevance")}
+          criteria = []
+          for popAttrs of pop.attributes
+            if (popAttrs != "title" && popAttrs != "sub_id" && popAttrs != "title")
+              criteria.push(popAttrs)
+          population_details[pop.cid]["criteria"] = criteria
 
-    @model.get('populations').whenDifferencesComputed =>
-      differences = []
-      @model.get('populations').each (population) ->
-        differences.push(_(population.calculationResults().toJSON()).extend(population.coverage().toJSON()))
-
-      $.fileDownload "patients/excel_export?hqmf_set_id=#{@model.get('hqmf_set_id')}",
-        successCallback: => @exportPatientsView.excelSuccess()
-        failCallback: => @exportPatientsView.fail()
-        httpMethod: "POST"
-        data: {authenticity_token: $("meta[name='csrf-token']").attr('content'), results: differences }
+    $.fileDownload "patients/excel_export",
+      successCallback: => @exportPatientsView.excelSuccess(),
+      failCallback: => @exportPatientsView.fail(),
+      httpMethod: "POST",
+      data: {
+        authenticity_token: $("meta[name='csrf-token']").attr('content')
+        calc_results: JSON.stringify(calc_results)
+        patient_details: JSON.stringify(patient_details)
+        population_details: JSON.stringify(population_details)
+        statement_details: JSON.stringify(statement_details)
+        file_name: file_name
+      }
+  # Iterates through the results to remove extraneous fields.
+  removeRaw: (results) ->
+    ret = {}
+    for libKey of results
+      ret[libKey] = {}
+      for statementKey of results[libKey]
+        ret[libKey][statementKey] = results[libKey][statementKey].final
+    return ret
 
   deleteMeasure: (e) ->
     @model = $(e.target).model()
