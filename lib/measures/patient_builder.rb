@@ -267,6 +267,12 @@ module Measures
       elsif field.type == "ID"
         field_value["value"] = value["root"]
         field_value["namingSystem"] = value["extension"]
+      elsif field.type == "RT"
+        if field.numerator? && field.denominator?
+          field_value = {"numerator"=>field.numerator, "denominator"=>field.denominator}
+        else
+          field_value = nil
+        end
       else
         field_value = field.format
       end
