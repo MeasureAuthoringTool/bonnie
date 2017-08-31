@@ -45,7 +45,6 @@ class MeasuresController < ApplicationController
      'type'=>params[:measure_type],
      'episode_of_care'=>params[:calculation_type] == 'episode'
     }
-
     extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
     if extension && !['.zip', '.xml'].include?(extension)
         flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure or HQMF XML measure file. Please re-export your measure from the MAT and select the 'eMeasure Package' option, or select the correct HQMF XML file."}
@@ -60,7 +59,6 @@ class MeasuresController < ApplicationController
     end
     begin
       # Default to valid set of values for vsac request.
-      effectiveDate = nil
       includeDraft = true
       # All measure uploads require vsac credentials, except certain test cases.
       # Added a check for vsac_username before checking for include draft and vsac_date.
@@ -68,16 +66,13 @@ class MeasuresController < ApplicationController
         # If the measure is published (includesDraft = false)
         # EffectiveDate is specified to determine a value set version.
         includeDraft = params[:include_draft] == 'true'
-        unless includeDraft
-          effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
-        end
       end
       # If file extension is a zip and a CQL MAT export
       is_cql = false
       if extension == '.zip' && Measures::CqlLoader.mat_cql_export?(params[:measure_file])
         is_cql = true
 
-        measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
+        measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], true, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
         qdm_existing = Measure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
         # Check if there is already a CQL measure with the given hqmf_set_id, this is intentionally different than checking if qdm based is already uploaded (>0 vs >1)
