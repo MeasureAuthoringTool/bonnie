@@ -222,12 +222,11 @@
               {{#if start_date}}
                 {{start_date}} {{start_time}}
               {{else}}
-                {{#if value}}
-                  {{value}} {{unit}}
-                  {{title}}
-                {{/if}}
                 {{#if numerator}}
                   {{numerator}}/{{denominator}}
+                  {{title}}
+                {{else}}
+                  {{value}} {{unit}}
                   {{title}}
                 {{/if}}
               {{/if}}
