@@ -191,6 +191,15 @@ describe 'PatientBuilderView', ->
       expect(@firstCriteria.get('value').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1061'
       expect(@firstCriteria.get('value').first().get('title')).toEqual 'Ambulatory/ED Visit'
 
+    it "only allows for a single result", ->
+      expect(@firstCriteria.get('value').length).toEqual 0
+      # Want the option to select a Result value to be visible
+      expect(@patientBuilder.$('.edit_value_view.hide')).not.toExist()
+      @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1061'
+      expect(@firstCriteria.get('value').length).toEqual 1
+      # Once a Result value has been added don't want to be able to add more
+      expect(@patientBuilder.$('.edit_value_view.hide')).toExist()
+    
     it "materializes the patient", ->
       expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
       @addScalarValue 1, 'mg'

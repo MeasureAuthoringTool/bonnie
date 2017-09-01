@@ -396,7 +396,9 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   context: ->
     _(super).extend
       codes: @measure?.valueSets().map((vs) -> vs.toJSON()) or []
-      hideEditValueView: @criteriaType == 'risk_category_assessments' && @values.models.length > 0
+      # QDM say that per instance of a data criteria there can be only 1 Result
+      # The function Thorax.Models.PatientDataCriteria.canHaveResult determines which criteria those are
+      hideEditValueView: @values.models.length > 0
 
   # When we serialize the form, we want to put the description for any CD codes into the submission
   events:
