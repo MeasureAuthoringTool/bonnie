@@ -72,6 +72,25 @@ include Devise::TestHelpers
 
     end
   end
+  
+  test "upload MAT 5.4 with valid VSAC creds" do
+    # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
+    # when the cassette needs to be generated for the first time.
+    VCR.use_cassette("mat_5_4_valid_vsac_response") do
+      measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
+      assert_nil measure
+
+      # Use VSAC creds from VCR, see vcr_setup.rb
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'Test134_v5_4_Artifacts.zip'), 'application/xml')
+
+      # If you need to re-record the cassette for whatever reason, change the vsac_date to the current date
+      post :create, {vsac_date: '08/31/2017', include_draft: false, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+
+      assert_response :redirect
+      measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
+      assert_equal "40280582-5C27-8179-015C-308B1F99003B", measure['hqmf_id']
+    end
+  end
 
   test "vsac auth valid" do
 
