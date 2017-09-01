@@ -11,8 +11,8 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: eca68194ba13710b09725b22fb1069aa57581eef
-  branch: cql4bonnie
+  revision: bfbdc11d47f0aa3321730c2e70ccb8f73dcb4178
+  branch: cql4bonnie-QDM5_3
   specs:
     health-data-standards (3.6.1)
       activesupport (~> 4.1.1)
@@ -31,15 +31,15 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 9d47df405a26f5cec5d00d841ff24ec5682c24fb
-  branch: cql4bonnie
+  revision: d43d5c143eeeaae2eec95572cffd5d71a714c346
+  branch: cql4bonnie-QDM5_3
   specs:
     bonnie_bundler (1.0.0)
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: 43ec77b3fb271d571796f21ad54bc46abbf698cb
-  branch: cql4bonnie
+  revision: 65c752bc8130fcc3f18afc943bb1cc27ef5692e9
+  branch: cql4bonnie-QDM5_3
   specs:
     cql_qdm_patientapi (0.1.0)
       coffee-rails (>= 4.1.0)
