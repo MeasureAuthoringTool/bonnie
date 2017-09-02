@@ -17,26 +17,7 @@ include Devise::TestHelpers
     sign_in @user
   end
 
-  test "upload CQL with valid VSAC creds" do
-    # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
-    # when the cassette needs to be generated for the first time.
-    VCR.use_cassette("valid_vsac_response") do
-      measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
-      assert_nil measure
-
-      # Use VSAC creds from VCR, see vcr_setup.rb
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
-
-      # If you need to re-record the cassette for whatever reason, change the vsac_date to the current date
-      post :create, {vsac_date: '08/22/2017', include_draft: false, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
-
-      assert_response :redirect
-      measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
-      assert_equal "40280582-5859-673B-0158-DAEF8B750647", measure['hqmf_id']
-    end
-  end
-
-  test "attempt to upload QDM measure" do
+  test "upload xml with invalid format" do
     VCR.use_cassette("valid_vsac_response") do
       measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
       assert_nil measure
