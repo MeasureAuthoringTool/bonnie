@@ -193,6 +193,11 @@ class MeasuresController < ApplicationController
       end
     end
 
+    # ensure expected values on patient match those in the measure's populations
+    Record.where(user_id: current_measure.user_id, measure_ids: measure.hqmf_set_id).each do |patient|
+      patient.update_expected_value_structure!(measure)
+    end
+
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
