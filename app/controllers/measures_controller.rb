@@ -40,7 +40,7 @@ class MeasuresController < ApplicationController
         end
         value_set_map[vs['oid']][vs['version']] = vs
       end
-      @value_sets_by_oid_json = MultiJson.encode vs
+      @value_sets_by_oid_json = MultiJson.encode value_set_map
 
       respond_with @value_sets_by_oid_json do |format|
         format.json { render json: @value_sets_by_oid_json }

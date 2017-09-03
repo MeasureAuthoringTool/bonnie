@@ -46,11 +46,11 @@ class Thorax.Models.Measure extends Thorax.Model
     attrs.source_data_criteria = new Thorax.Collections.MeasureDataCriteria _(attrs.source_data_criteria).values(), parent: this
     attrs.source_data_criteria.each (criteria) ->
       # Apply value set display name if one exists for this criteria
-      if !criteria.get('variable') && oid_display_name_map[data_criteria.code_list_id]?
+      if !criteria.get('variable') && oid_display_name_map[criteria.get('code_list_id')]?
         # For communication criteria we want to include the direction, which is separated from the type with a colon
         if criteria.get('type') == 'communications'
           criteria.set('description', criteria.get('description').replace('Communication:', 'Communication'))
-        criteria.set('description', "#{criteria.get('description').split(':')[0]}: #{oid_display_name_map[data_criteria.code_list_id]}")
+        criteria.set('description', "#{criteria.get('description').split(':')[0]}: #{oid_display_name_map[criteria.get('code_list_id')]}")
 
     attrs
 
@@ -60,7 +60,11 @@ class Thorax.Models.Measure extends Thorax.Model
 
   valueSets: ->
     unless @cachedValueSets
-      matchingSets = (bonnie.valueSetsByOid[oid] for oid in @get('value_set_oids'))
+      matchingSets = []
+      # TODO need to make sure this works ok for single value sets
+      for oid, vs_version of @get('value_set_oid_version_map')
+        if @get('value_set_oids')[oid]
+          matchingSets.push(@get('value_set_oids')[oid][vs_version])
       @cachedValueSets = new Thorax.Collection(matchingSets, comparator: (vs) ->
         console.log('WARNING: missing value set') if !vs.get('display_name') && console?
         vs.get('display_name')?.toLowerCase())
