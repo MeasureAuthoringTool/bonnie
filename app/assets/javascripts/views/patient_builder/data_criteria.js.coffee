@@ -499,7 +499,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     isDisabled = (attributes.type == 'PQ' && !attributes.value) ||
                  (attributes.type == 'CD' && !attributes.code_list_id) ||
                  (attributes.type == 'TS' && !attributes.value) ||
-                 (attributes.key == 'COMPONENT' && !attributes.code_list_id && !attributes.value) ||
+                 (attributes.key == 'COMPONENT' && (!attributes.code_list_id || !attributes.value)) ||
                  (attributes.key == 'FACILITY_LOCATION' && !attributes.code_list_id) ||
                  (@fieldValue && !attributes.key)
     @$('button[data-call-method=addValue]').prop 'disabled', isDisabled

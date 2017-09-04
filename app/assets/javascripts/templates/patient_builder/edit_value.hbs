@@ -26,6 +26,34 @@
       </select>
     </div>    
   </div>
+  {{#ifCond this.fullCriteriaType '==' 'laboratory_test_performed'}}
+  <div class="row">
+    <div class="col-md-6">
+      <label for="referenceRangeLow" class="control-label">Reference Range - Low</label>
+    </div> 
+    <div class="col-md-3">
+      <label for="referenceRangeLow_value_{{@cid}}" class="sr-only">input</label>
+      <input type="text" name="referenceRangeLow_value" id="referenceRangeLow_value_{{@cid}}" class="form-control" placeholder="input">
+    </div>
+    <div class="col-md-2">
+      <label for="referenceRangeLow_unit_{{@cid}}" class="sr-only">units</label>
+      <input type="text" name="referenceRangeLow_unit" id="referenceRangeLow_unit_{{@cid}}" class="form-control" placeholder="units">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label for="referenceRangeHigh" class="control-label">Reference Range - High</label>
+    </div> 
+    <div class="col-md-3">
+      <label for="referenceRangeHigh_value_{{@cid}}" class="sr-only">input</label>
+      <input type="text" name="referenceRangeHigh_value" id="referenceRangeHigh_value_{{@cid}}" class="form-control" placeholder="input">
+    </div>
+    <div class="col-md-2">
+      <label for="referenceRangeHigh_unit_{{@cid}}" class="sr-only">units</label>
+      <input type="text" name="referenceRangeHigh_unit" id="referenceRangeHigh_unit_{{@cid}}" class="form-control" placeholder="units">
+    </div>
+  </div>
+  {{/ifCond}}
   <div class="row">
     <div class="col-md-2">
       <label for="value" class="control-label">Value</label>
