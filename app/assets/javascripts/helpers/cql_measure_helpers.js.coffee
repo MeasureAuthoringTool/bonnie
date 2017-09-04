@@ -5,6 +5,39 @@
 class CQLMeasureHelpers
 
   ###*
+  # Builds a map of define statement name to the statement's text from a measure.
+  # @public
+  # @param {Measure} measure - The measure to build the map from.
+  # @return {Hash} Map of statement definitions to full statement
+  ###
+  @buildDefineToFullStatement: (measure) ->
+    ret = {}
+    for lib of measure.get("elm_annotations")
+      lib_statements = {}
+      for statement in measure.get("elm_annotations")[lib].statements
+        lib_statements[statement.define_name] = @_parseAnnotationTree(statement.children)
+      ret[lib] = lib_statements
+    return ret
+
+
+  ###*
+  # Recursive function that parses an annotation tree to extract text statements.
+  # @param {Node} children - the node to be traversed.
+  # @return {String} the text of the node or its children.
+  ###
+  @_parseAnnotationTree: (children) ->
+    ret = ""
+    if children.text != undefined
+      return _.unescape(children.text).replace("&#13", "").replace(";", "")
+    else if children.children != undefined
+      for child in children.children
+        ret = ret + @_parseAnnotationTree(child)
+    else
+      for child in children
+        ret = ret + @_parseAnnotationTree(child)
+    return ret
+
+  ###*
   # Finds all localIds in a statement by it's library and statement name.
   # @public
   # @param {Measure} measure - The measure to find localIds in.
@@ -132,3 +165,49 @@ class CQLMeasureHelpers
     for k, v of statement 
       if (Array.isArray(v) || typeof v is 'object')
         @_findAllLocalIdsInSort(v, libraryName, localIds, aliasMap, emptyResultClauses, rootStatement)
+
+  ###*
+  # Builds a statement_relevance map assuming that every single population in the population set is relevant.
+  # This is used by the logic view to determine which statements are unused to bin them properly. This is effectively
+  # creating a statement_relevance map that doesn't regard results at all, to be used when you don't have a result.
+  # @public
+  # @param {Measure} measure - The measure.
+  # @param {Population} populationSet - The populationSet we wish to get statement relevance for.
+  # @return {object} Statement relevance map for the population set.
+  ###
+  @getStatementRelevanceForPopulationSet: (measure, populationSet) ->
+    # create a population relevance map where every population is true.
+    populationRelevance = {}
+    for popCode in Thorax.Models.Measure.allPopulationCodes
+      if populationSet.has(popCode)
+        if popCode == 'OBSERV'
+          populationRelevance['values'] = true
+        else
+          populationRelevance[popCode] = true
+
+    # builds and returns this statement relevance map.
+    return CQLResultsHelpers.buildStatementRelevanceMap(populationRelevance, measure, populationSet)
+
+  ###*
+  # Figure out if a statement is a function given the measure, library name and statement name.
+  # @public
+  # @param {Measure} measure - The measure to find localIds in.
+  # @param {string} libraryName - The name of the library the statement belongs to.
+  # @param {string} statementName - The statement name to search for.
+  # @return {boolean} If the statement is a function or not.
+  ###
+  @isStatementFunction: (measure, libraryName, statementName) ->
+    # find the library and statement in the elm.
+    library = null
+    statement = null
+    for lib in measure.get('elm')
+      if lib.library.identifier.id == libraryName
+        library = lib
+    for curStatement in library.library.statements.def
+      if curStatement.name == statementName
+        statement = curStatement
+
+    if library? && statement?
+      return statement.type == "FunctionDef"
+    else
+      return false

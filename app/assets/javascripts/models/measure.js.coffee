@@ -66,7 +66,7 @@ class Thorax.Models.Measure extends Thorax.Model
         c.code == code && c.code_system_name == code_system
 
   @referencesFor: (criteriaType) ->
-    [{key: "fulfills", title: "Fulfills"}]
+    [{key: "Related To", title: "Related To"}]
 
   @logicFieldsFor: (criteriaType) ->
 
@@ -83,7 +83,7 @@ class Thorax.Models.Measure extends Thorax.Model
       allergies_intolerances: ['severity', 'type']
       assessments: ['method', 'components']
       care_experiences: []
-      care_goals: ['related_to', 'target_outcome']
+      care_goals: ['target_outcome']
       characteristics: []
       communications: []
       conditions: ['anatomical_structure', 'anatomical_location', 'ordinality', 'severity', 'laterality']

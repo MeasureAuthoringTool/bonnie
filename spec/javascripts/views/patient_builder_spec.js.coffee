@@ -86,7 +86,7 @@ describe 'PatientBuilderView', ->
       it "acquires the dates of the drop target when dropping on an existing criteria", ->
         startDate = @patientBuilder.model.get('source_data_criteria').first().get('start_date')
         endDate = @patientBuilder.model.get('source_data_criteria').first().get('end_date')
-        # droppable 5 used because droppable 1 didn't have a start and end date 
+        # droppable 5 used because droppable 1 didn't have a start and end date
         @addEncounter 5, '.criteria-data.droppable:first'
         expect(@patientBuilder.model.get('source_data_criteria').last().get('start_date')).toEqual startDate
         expect(@patientBuilder.model.get('source_data_criteria').last().get('end_date')).toEqual endDate
@@ -192,6 +192,15 @@ describe 'PatientBuilderView', ->
         expect(@firstCriteria.get('value').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1061'
         expect(@firstCriteria.get('value').first().get('title')).toEqual 'Ambulatory/ED Visit'
 
+      it "only allows for a single result", ->
+        expect(@firstCriteria.get('value').length).toEqual 0
+        # Want the option to select a Result value to be visible
+        expect(@patientBuilder.$('.edit_value_view.hide')).not.toExist()
+        @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1061'
+        expect(@firstCriteria.get('value').length).toEqual 1
+        # Once a Result value has been added don't want to be able to add more
+        expect(@patientBuilder.$('.edit_value_view.hide')).toExist()
+      
       it "materializes the patient", ->
         expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
         @addScalarValue 1, 'mg'
@@ -326,7 +335,6 @@ describe 'PatientBuilderView', ->
         expect(@patientBuilder.model.get('deathdate')).toEqual null
 
       afterEach -> @patientBuilder.remove()
-
 
   describe 'CQL', ->
     beforeEach ->
