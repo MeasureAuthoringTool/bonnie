@@ -19,7 +19,7 @@ class Thorax.Models.Measure extends Thorax.Model
       populations.add new Thorax.Models.Population(population)
     attrs.populations = populations
     attrs.displayedPopulation = populations.first()
-    
+
     # ignoring versions for diplay names
     oid_display_name_map = {}
     for oid, versions of bonnie.valueSetsByOid
@@ -61,7 +61,6 @@ class Thorax.Models.Measure extends Thorax.Model
   valueSets: ->
     unless @cachedValueSets
       matchingSets = []
-      # TODO need to make sure this works ok for single value sets
       for oid_version in @get('value_set_oid_version_objects')
         if @get('value_set_oids')[oid_version.oid]
           matchingSets.push(@get('value_set_oids')[oid_version.oid][oid_version.version])
