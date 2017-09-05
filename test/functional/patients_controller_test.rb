@@ -207,17 +207,16 @@ include Devise::TestHelpers
   end
 
   test "excel export patients" do
-    records_set = File.join("records","base_set")
-    collection_fixtures(records_set)
-    associate_user_with_patients(@user, Record.all)
-    associate_measures_with_patients([@measure_two], Record.all)
-    get :excel_export, hqmf_set_id: @measure.hqmf_set_id
+    calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'calc_results.json'))
+    patient_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'patient_details.json'))
+    population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details.json'))
+    statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'statement_details.json'))
+    get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test"
     assert_response :success
-    # TODO Get measures to pass the opposite of these tests. (Assert_equal)
-    assert_not_equal 'application/xlsx', response.header['Content-Type']
+    assert_equal 'application/xlsx', response.header['Content-Type']
     # assert_not_equal "attachment; filename=\"#{measure.cms_id}.xlsx\"", response.header['Content-Disposition']
-    assert_not_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
-    assert_not_equal 'binary', response.header['Content-Transfer-Encoding']
+    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
   end
 
 
