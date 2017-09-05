@@ -62,8 +62,8 @@ class Thorax.Models.Measure extends Thorax.Model
     unless @cachedValueSets
       matchingSets = []
       for oid_version in @get('value_set_oid_version_objects')
-        if @get('value_set_oids')[oid_version.oid]
-          matchingSets.push(@get('value_set_oids')[oid_version.oid][oid_version.version])
+        if bonnie.valueSetsByOid[oid_version.oid]
+          matchingSets.push(bonnie.valueSetsByOid[oid_version.oid][oid_version.version])
       @cachedValueSets = new Thorax.Collection(matchingSets, comparator: (vs) ->
         console.log('WARNING: missing value set') if !vs.get('display_name') && console?
         vs.get('display_name')?.toLowerCase())
