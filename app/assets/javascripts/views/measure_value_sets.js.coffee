@@ -34,7 +34,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
         oid = sdc.get('code_list_id')
         cid = sdc.cid
 
-        oid_version = @model.get('value_set_oid_version_objects').find (oid_version) -> oid_version.oid == oid
+        oid_version = _.find(@model.get('value_set_oid_version_objects'), (oid_version) -> oid_version.oid == oid)
         if oid_version? && bonnie.valueSetsByOid[oid]?
           version = oid_version.version
           codeConcepts = bonnie.valueSetsByOid[oid][version].concepts ? []
