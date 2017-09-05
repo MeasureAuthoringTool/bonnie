@@ -409,7 +409,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
 
       if attr.key == 'FACILITY_LOCATION'
         # Facility Locations care about start and end dates/times
-        if startDate = attr.start_date
+        if startDate
           attr.locationPeriodLow = startDate 
         if endDate = attr.end_date 
             endDate += " #{attr.end_time}" if attr.end_time
