@@ -269,6 +269,12 @@ module Measures
           values.push field_val
         end
         field_value = {"type"=> "COL", "values" => values}
+      elsif field.type == "RT"
+        if field.numerator? && field.denominator?
+          field_value = {"numerator"=>field.numerator, "denominator"=>field.denominator}
+        else
+          field_value = nil
+        end
       else
         field_value = field.format
       end

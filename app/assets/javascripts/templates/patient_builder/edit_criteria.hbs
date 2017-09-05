@@ -222,8 +222,20 @@
               {{#if start_date}}
                 {{start_date}} {{start_time}}
               {{else}}
-                {{value}} {{unit}}
-                {{title}}
+                {{#if numerator}}
+                  {{#if denominator}}
+                    {{numerator}}/{{denominator}}
+                    {{title}}
+                  {{/if}}
+                {{else}}
+                  {{#if unit}}
+                    {{value}} {{unit}}
+                    {{title}}
+                  {{else}}
+                    {{value}}
+                    {{title}}
+                  {{/if}}
+                {{/if}}
               {{/if}}
               {{#if codes}} - Codes:
                 {{#each codes}}
