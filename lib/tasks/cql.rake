@@ -29,7 +29,7 @@ namespace :bonnie do
           else
             main_cql_library = elms.first['library']['identifier']['id']
           end
-          
+
           cql_artifacts = Measures::CqlLoader.process_cql(cql, main_cql_library, user)
           elms = cql_artifacts[:elms].instance_of?(Array) ? cql_artifacts[:elms] : [cql_artifacts[:elms]]
 
@@ -48,8 +48,6 @@ namespace :bonnie do
           update_fails += 1
           print "\e[#{31}m#{"[Error]"}\e[0m"
           puts ' Measure ' + "\e[1m#{measure[:cms_id]}\e[22m" + ': "' + measure[:title] + '" with id ' + "\e[1m#{measure[:id]}\e[22m" + ' in account ' + "\e[1m#{user[:email]}\e[22m" + ' failed to update ELM!'
-          puts e
-          puts e.backtrace
         end
       end
       puts "#{update_passes} measures successfully updated."
