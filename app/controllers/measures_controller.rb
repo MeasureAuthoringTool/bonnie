@@ -76,7 +76,6 @@ class MeasuresController < ApplicationController
     #If we get to this point, then the measure that is being uploaded is a MAT export of CQL
     begin
       # Default to valid set of values for vsac request.
-      effectiveDate = nil
       includeDraft = true
       # All measure uploads require vsac credentials, except certain test cases.
       # Added a check for vsac_username before checking for include draft and vsac_date.
@@ -84,12 +83,9 @@ class MeasuresController < ApplicationController
         # If the measure is published (includesDraft = false)
         # EffectiveDate is specified to determine a value set version.
         includeDraft = params[:include_draft] == 'true'
-        unless includeDraft
-          effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
-        end
       end
 
-      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], true, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
+      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], true, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
       existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
       is_update = false
       if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
