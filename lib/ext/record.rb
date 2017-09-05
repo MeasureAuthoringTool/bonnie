@@ -69,5 +69,57 @@ class Record
     end
     qrda_expected_values
   end
+  
+  # Updates the population set structure of the expected values to match the population set structure
+  # on the measure.
+  # If the measure has more population sets than the patient, the new population set is added to the
+  # patient with zero values for each population.
+  # If the measure has less population sets than the patient, extra population sets on the patient are
+  # removed.
+  # if a population set has additional populations in a measure, those populations are added to the
+  # patient's population set with a value of zero.
+  # if a population set has fewer populations in a measure, any additional populations in the patient's
+  # population set are removed.
+  def update_expected_value_structure!(measure)
+    # ensure there's the correct number of population sets
+    patient_population_count = self.expected_values.count { |expected_value_set| expected_value_set[:measure_id] == measure.hqmf_set_id }
+    measure_population_count = measure.populations.count
+    # add new population sets. the rest of the data gets added below.
+    if patient_population_count < measure_population_count
+      (patient_population_count..measure_population_count-1).each do |index|
+        self.expected_values << {measure_id: measure.hqmf_set_id, population_index: index}
+      end
+    end
+    # delete population sets present on the patient but not in the measure
+    self.expected_values.reject! do |expected_value_set|
+      matches_measure = expected_value_set[:measure_id] ? expected_value_set[:measure_id] == measure.hqmf_set_id : false
+      is_extra_population = expected_value_set[:population_index] ? expected_value_set[:population_index] >= measure_population_count : false
+      matches_measure && is_extra_population
+    end
+
+    # ensure there's the correct number of populations for each population set
+    self.expected_values.each do |expected_value_set|
+      # ignore if it's not related to the measure (can happen for portfolio users)
+      next unless expected_value_set[:measure_id] == measure.hqmf_set_id
+
+      expected_value_population_set = expected_value_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
+      measure_population_set = measure.populations[expected_value_set[:population_index]].slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
+
+      # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
+      added_populations = measure_population_set - expected_value_population_set
+      added_populations.each do |population|
+        if population == 'OBSERV'
+          expected_value_set[population] = []
+        else
+          expected_value_set[population] = 0
+        end
+      end
+
+      # delete populations that no longer exist (populations in the expected values that don't exist in the measure)
+      removed_populations = expected_value_population_set - measure_population_set
+      expected_value_set.except!(*removed_populations)
+    end
+    self.save!
+  end
 
 end
