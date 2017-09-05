@@ -31,9 +31,27 @@ include Devise::TestHelpers
       post :create, {vsac_date: '09/05/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
       
       assert_response :redirect
-      pp flash
       measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
       assert_equal "40280582-5859-673B-0158-DAEF8B750647", measure['hqmf_id']
+    end
+  end
+  
+  test "upload CQL using profile and valid VSAC creds" do
+    # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
+    # when the cassette needs to be generated for the first time.
+    VCR.use_cassette("profile_query") do
+      measure = CqlMeasure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
+      assert_nil measure
+  
+      # Use VSAC creds from VCR, see vcr_setup.rb
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'DocofMeds_v5_1_Artifacts.zip'), 'application/xml')
+  
+      # If you need to re-record the cassette for whatever reason, change the vsac_date to the current date
+      post :create, {vsac_date: '09/05/2017', include_draft: false, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+      
+      assert_response :redirect
+      measure = CqlMeasure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
+      assert_equal "40280582-5859-673B-0158-E42103C30732", measure['hqmf_id']
     end
   end
   
@@ -253,8 +271,6 @@ include Devise::TestHelpers
       # Now measure successfully uploaded, try to upload again
       post :create, {vsac_date: '08/22/2017', include_draft: true, measure_file: update_measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
 
-      pp flash
-
       assert_equal "Error Loading Measure", flash[:error][:title]
       assert_equal "A version of this measure is already loaded.", flash[:error][:summary]
       assert_equal "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it.", flash[:error][:body]
@@ -285,7 +301,6 @@ include Devise::TestHelpers
       # The hqmf_set_id of the initial file is sent along with the create request
       post :create, {vsac_date: '08/22/2017', include_draft: true, hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7", measure_file: update_measure_file, vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     end
-    pp flash
     # Verify that the controller detects the mismatching hqmf_set_id and rejects
     assert_equal "Error Updating Measure", flash[:error][:title]
     assert_equal "The update file does not match the measure.", flash[:error][:summary]
