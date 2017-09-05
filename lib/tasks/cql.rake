@@ -31,10 +31,9 @@ namespace :bonnie do
           end
 
           cql_artifacts = Measures::CqlLoader.process_cql(cql, main_cql_library, user)
-          elms = cql_artifacts[:elms].instance_of?(Array) ? cql_artifacts[:elms] : [cql_artifacts[:elms]]
 
           # Update the measure
-          measure.update(cql: cql, elm: elms, elm_annotations: cql_artifacts[:elm_annotations], cql_statement_dependencies: cql_artifacts[:cql_definition_dependency_structure],
+          measure.update(cql: cql, elm: cql_artifacts[:elms], elm_annotations: cql_artifacts[:elm_annotations], cql_statement_dependencies: cql_artifacts[:cql_definition_dependency_structure],
                          main_cql_library: main_cql_library, value_set_oids: cql_artifacts[:all_value_set_oids], value_set_oid_version_objects: cql_artifacts[:value_set_oid_version_objects])
           measure.save!
           update_passes += 1
