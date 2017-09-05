@@ -34,8 +34,9 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
         oid = sdc.get('code_list_id')
         cid = sdc.cid
 
-        if bonnie.valueSetsByOid[oid]? && @model.get('value_set_oid_version_map')[oid]?
-          version = @model.get('value_set_oid_version_map')[oid]
+        oid_version = @model.get('value_set_oid_version_objects').find (oid_version) -> oid_version.oid == oid
+        if oid_version? && bonnie.valueSetsByOid[oid]?
+          version = oid_version.version
           # if it's a date (rather than "Draft"), format the version
           #version = moment(version, "YYYYMMDD").format("MM/DD/YYYY") if moment(version, "YYYYMMDD").isValid()
           codeConcepts = bonnie.valueSetsByOid[oid][version].concepts ? []
