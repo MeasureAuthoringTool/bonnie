@@ -22,9 +22,6 @@ namespace :bonnie do
           elsif measure[:cql].instance_of?(String) # Old type of measure
             cql = [measure[:cql]]
           end
-          # Generate elm from the measure cql
-          elms, elm_annotations = Measures::CqlLoader.translate_cql_to_elm(cql)
-          elms = [elms] unless elms.instance_of?(Array)
           # Grab the name of the main cql library
           if measure[:main_cql_library].present?
             # Old measure! Grab the main_cql_library name from the ELM
@@ -32,15 +29,12 @@ namespace :bonnie do
           else
             main_cql_library = elms.first['library']['identifier']['id']
           end
-          # Build the definition dependency structure for this measure
-          cql_definition_dependency_structure = Measures::CqlLoader.populate_cql_definition_dependency_structure(main_cql_library, elms)
-          cql_definition_dependency_structure = Measures::CqlLoader.populate_used_library_dependencies(cql_definition_dependency_structure, main_cql_library, elms)
 
-          Measures::CqlLoader.replace_codesystem_oids_with_names(elms)
-          Measures::CqlLoader.modify_value_set_versions(elms)
+          cql_artifacts = Measures::CqlLoader.process_cql(cql, main_cql_library, user)
 
           # Update the measure
-          measure.update(cql: cql, elm: elms, elm_annotations: elm_annotations, cql_statement_dependencies: cql_definition_dependency_structure, main_cql_library: main_cql_library)
+          measure.update(cql: cql, elm: cql_artifacts[:elms], elm_annotations: cql_artifacts[:elm_annotations], cql_statement_dependencies: cql_artifacts[:cql_definition_dependency_structure],
+                         main_cql_library: main_cql_library, value_set_oids: cql_artifacts[:all_value_set_oids], value_set_oid_version_objects: cql_artifacts[:value_set_oid_version_objects])
           measure.save!
           update_passes += 1
           print "\e[#{32}m#{"[Success]"}\e[0m"
