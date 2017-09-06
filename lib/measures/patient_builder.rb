@@ -250,9 +250,12 @@ module Measures
         end
         field_value["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id, value_sets)["display_name"] if field_value
       elsif field.type == "CMP"
-        field_value["code"] = Measures::PatientBuilder.select_code(field.code.code_list_id, value_sets)
+        field_value["code"] = Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
         field_value["result"] =  {"scalar"=>value["value"], "units"=>value["unit"]}
-        # TODO: will have to add code here if range exists
+        if value["referenceRangeLow_value"]
+          field_value["referenceRangeLow"] = {"scalar"=>value["referenceRangeLow_value"], "units"=>value["referenceRangeLow_unit"]}
+          field_value["referenceRangeHigh"] = {"scalar"=>value["referenceRangeHigh_value"], "units"=>value["referenceRangeHigh_unit"]}
+        end
       elsif field.type == "FAC"
         field_value["code"] = Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
         field_value["display"] = field.title
