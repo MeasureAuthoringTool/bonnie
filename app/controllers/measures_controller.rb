@@ -93,7 +93,7 @@ class MeasuresController < ApplicationController
         includeDraft = params[:include_draft] == 'true'
       end
 
-      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], false, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
+      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], false, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=false cache=false
       existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
       is_update = false
       if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
