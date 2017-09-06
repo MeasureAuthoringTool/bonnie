@@ -32,7 +32,15 @@ class MeasuresController < ApplicationController
       # @value_sets_by_oid_json = MultiJson.encode(value_sets_by_oid.as_json(except: [:_id, :code_system, :code_system_version]))
       value_sets = Mongoid::Sessions.default[HealthDataStandards::SVS::ValueSet.collection_name].find(oid: { '$in' => value_set_oids }, user_id: current_user.id)
       value_sets = value_sets.select('concepts.code_system' => 0, 'concepts.code_system_version' => 0)
-      @value_sets_by_oid_json = MultiJson.encode value_sets.index_by { |vs| vs['oid'] }
+      
+      value_set_map = {}
+      value_sets.each do |vs|
+        if !value_set_map.key?(vs['oid'])
+          value_set_map[vs['oid']] = {}
+        end
+        value_set_map[vs['oid']][vs['version']] = vs
+      end
+      @value_sets_by_oid_json = MultiJson.encode value_set_map
 
       respond_with @value_sets_by_oid_json do |format|
         format.json { render json: @value_sets_by_oid_json }
@@ -85,7 +93,7 @@ class MeasuresController < ApplicationController
         includeDraft = params[:include_draft] == 'true'
       end
 
-      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], true, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
+      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], false, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=true, cache=false
       existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
       is_update = false
       if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
@@ -187,6 +195,11 @@ class MeasuresController < ApplicationController
         Measures::PatientBuilder.rebuild_patient(r)
         r.save!
       end
+    end
+
+    # ensure expected values on patient match those in the measure's populations
+    Record.where(user_id: current_user.id, measure_ids: measure.hqmf_set_id).each do |patient|
+      patient.update_expected_value_structure!(measure)
     end
 
     redirect_to "#{root_path}##{params[:redirect_route]}"
