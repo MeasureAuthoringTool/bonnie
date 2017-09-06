@@ -20,14 +20,20 @@ class Thorax.Models.Measure extends Thorax.Model
     attrs.populations = populations
     attrs.displayedPopulation = populations.first()
 
+    # ignoring versions for diplay names
+    oid_display_name_map = {}
+    for oid, versions of bonnie.valueSetsByOid
+      for version, vs of versions
+        oid_display_name_map[oid] = vs.display_name if vs.display_name
+
     for key, data_criteria of attrs.data_criteria
       data_criteria.key = key
       # Apply value set display name if one exists for this criteria
-      if !data_criteria.variable && bonnie.valueSetsByOid?[data_criteria.code_list_id]?.display_name?
+      if !data_criteria.variable && oid_display_name_map[data_criteria.code_list_id]?
         # For communication criteria we want to include the direction, which is separated from the type with a colon
         if data_criteria.type == 'communications'
           data_criteria.description = data_criteria.description.replace('Communication:', 'Communication')
-        data_criteria.description = "#{data_criteria.description.split(':')[0]}: #{bonnie.valueSetsByOid[data_criteria.code_list_id].display_name}"
+        data_criteria.description = "#{data_criteria.description.split(':')[0]}: #{oid_display_name_map[data_criteria.code_list_id]}"
       if data_criteria.field_values
         data_criteria.references = {}
         for k,field of data_criteria.field_values
@@ -40,11 +46,11 @@ class Thorax.Models.Measure extends Thorax.Model
     attrs.source_data_criteria = new Thorax.Collections.MeasureDataCriteria _(attrs.source_data_criteria).values(), parent: this
     attrs.source_data_criteria.each (criteria) ->
       # Apply value set display name if one exists for this criteria
-      if !criteria.get('variable') && bonnie.valueSetsByOid?[criteria.get('code_list_id')]?.display_name?
+      if !criteria.get('variable') && oid_display_name_map[criteria.get('code_list_id')]?
         # For communication criteria we want to include the direction, which is separated from the type with a colon
         if criteria.get('type') == 'communications'
           criteria.set('description', criteria.get('description').replace('Communication:', 'Communication'))
-        criteria.set('description', "#{criteria.get('description').split(':')[0]}: #{bonnie.valueSetsByOid[criteria.get('code_list_id')].display_name}")
+        criteria.set('description', "#{criteria.get('description').split(':')[0]}: #{oid_display_name_map[criteria.get('code_list_id')]}")
 
     attrs
 
@@ -54,7 +60,10 @@ class Thorax.Models.Measure extends Thorax.Model
 
   valueSets: ->
     unless @cachedValueSets
-      matchingSets = (bonnie.valueSetsByOid[oid] for oid in @get('value_set_oids'))
+      matchingSets = []
+      for oid_version in @get('value_set_oid_version_objects')
+        if bonnie.valueSetsByOid[oid_version.oid]
+          matchingSets.push(bonnie.valueSetsByOid[oid_version.oid][oid_version.version])
       @cachedValueSets = new Thorax.Collection(matchingSets, comparator: (vs) ->
         console.log('WARNING: missing value set') if !vs.get('display_name') && console?
         vs.get('display_name')?.toLowerCase())

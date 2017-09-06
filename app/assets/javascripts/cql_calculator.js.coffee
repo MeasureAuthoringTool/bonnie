@@ -304,12 +304,13 @@
   # Format ValueSets for use by CQL4Browsers
   valueSetsForCodeService: ->
     valueSets = {}
-    for oid, vs of bonnie.valueSetsByOid
-      continue unless vs.concepts
-      valueSets[oid] ||= {}
-      valueSets[oid][vs.version] ||= []
-      for concept in vs.concepts
-        valueSets[oid][vs.version].push code: concept.code, system: concept.code_system_name, version: vs.version
+    for oid, versions of bonnie.valueSetsByOid
+      for version, vs of versions
+        continue unless vs.concepts
+        valueSets[oid] ||= {}
+        valueSets[oid][version] ||= []
+        for concept in vs.concepts
+          valueSets[oid][version].push code: concept.code, system: concept.code_system_name, version: version
     valueSets
 
   # Converts the given time to the correct format using momentJS
