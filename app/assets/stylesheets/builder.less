@@ -169,7 +169,7 @@
   }
   .heading-primary {
     .time-bar();
-    background-color: @blue-lighter;
+    background-color: @blue-darker;
     color: white;
     padding-left: @grid-gutter-width;
     margin-right: -@grid-gutter-width;
@@ -185,7 +185,7 @@
       text-transform: uppercase;
       &[class*="-elements"] {
         .transition(all .35s ease);
-        background-color: @blue-lighter;
+        background-color: @blue-darker;
         &.closed {
           padding: 4px (@grid-gutter-width / 2);
           overflow: hidden;
@@ -209,7 +209,8 @@
           .pull-right;
         }
         &:hover {
-          background-color: @blue-darker;
+          background-color: white;
+          color: @blue-darker;
           text-decoration: none;
         }
       }
@@ -224,7 +225,7 @@
       }
 
       .criteriatype {
-        color: @blue-lighter;
+        color: @blue-darker;
       }
 
     }
@@ -328,7 +329,7 @@
 
             &> span {
               background-color: @gray-lighter;
-              color: @gray-darker;
+              color: #49494949;
               display: inline-block;
               padding: 10px;
               margin-bottom: 5px;
