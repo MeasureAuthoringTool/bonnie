@@ -114,5 +114,100 @@ namespace :bonnie do
       end
     end
 
+    def update_facility(patient, datatype)
+      if datatype['facility'] && !datatype['facility']['type']
+        print "\e[#{32}m#{"[Facility]"}\e[0m"
+        puts "#{patient.first} #{patient.last}"
+
+        # Need to build new facility and assign it in order to actually save it in DB
+        new_datatype_facility = {}
+
+        # Assign type to be 'COL' for collection
+        new_datatype_facility['type'] = 'COL'
+        new_datatype_facility['values'] = [{}]
+
+        # Convert single facility into collection containing 1 facility
+        start_time = datatype['facility']['start_time']
+        end_time = datatype['facility']['end_time']
+
+        # Convert times from 1505203200 format to  09/12/2017 8:00 AM format
+        if start_time
+          converted_start_time = Time.at(start_time).getutc().strftime("%m/%d/%y %I:%M %p")
+        else
+          converted_start_time = nil
+        end
+
+        if end_time
+          converted_end_time = Time.at(end_time).getutc().strftime("%m/%d/%y %I:%M %p")
+        else
+          converted_end_time = nil
+        end
+
+        # start/end time -> locationPeriodLow/High
+        new_datatype_facility['values'][0]['locationPeriodLow'] = converted_start_time
+        new_datatype_facility['values'][0]['locationPeriodHigh'] = converted_end_time
+
+        # name -> display
+        new_datatype_facility['values'][0]['display'] = datatype['facility']['name']
+
+        # code
+        if datatype['facility']['code']
+          code_system = datatype['facility']['code']['code_system']
+          code = datatype['facility']['code']['code']
+        else
+          code_system = nil
+          code = nil
+        end
+        
+        new_datatype_facility['values'][0]['code'] = {'code_system'=>code_system, 'code'=>code}
+        datatype['facility'] = new_datatype_facility 
+      end
+    end
+
+    task :update_facilities_and_diagnoses => :environment do
+      # Update old facilities and diagnoses to be collections with single elements
+      Record.all.each do |patient|
+        if patient.encounters
+          patient.encounters.each do |encounter, index|
+            if encounter['facility'] && !encounter['facility']['type']
+              update_facility(patient, encounter)
+            end
+
+            # Diagnosis is only for encounter
+            if encounter['diagnosis'] && !encounter['diagnosis']['type']
+              print "\e[#{32}m#{"[Encounter Diagnosis]"}\e[0m"
+              puts "#{patient.first} #{patient.last}"
+              new_encounter_diagnosis = {}
+              new_encounter_diagnosis
+              new_encounter_diagnosis['type'] = 'COL'
+              new_encounter_diagnosis['values'] = [{}]
+              new_encounter_diagnosis['values'][0]['title'] = encounter['diagnosis']['title']
+              new_encounter_diagnosis['values'][0]['code'] = encounter['diagnosis']['code']
+              new_encounter_diagnosis['values'][0]['code_system'] = encounter['diagnosis']['code_system']
+
+              encounter['diagnosis'] = new_encounter_diagnosis
+            end
+          end
+        end
+
+        if patient.adverse_events
+          patient.adverse_events.each do |adverse_event|
+            if adverse_event['facility'] && !adverse_event['facility']['type']
+              update_facility(adverse_event)
+            end
+          end
+        end
+
+        if patient.procedures
+          patient.procedures.each do |procedure|
+            if procedure['facility'] && !procedure['facility']['type']
+              update_facility(procedure)
+            end
+          end
+        end
+        patient.save!
+      end
+    end 
+
   end
 end
