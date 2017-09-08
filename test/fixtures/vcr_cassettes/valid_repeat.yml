@@ -5,7 +5,7 @@ http_interactions:
     uri: http://localhost:8080/cql/translator
     body:
       encoding: ASCII-8BIT
-      string: "--738159\r\nContent-Disposition: form-data; name=\"file[]\"\r\n\r\nlibrary
+      string: "--990705\r\nContent-Disposition: form-data; name=\"file[]\"\r\n\r\nlibrary
         InitiationandEngagementofAlcoholandOtherDrugDependenceTreatment version '0.0.001'\n\nusing
         QDM version '5.0'\n\nvalueset \"Psych Visit - Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1496'
         \n\nvalueset \"Alcohol and Drug Dependence\": 'urn:oid:2.16.840.1.113883.3.464.1003.106.12.1001'
@@ -74,7 +74,7 @@ http_interactions:
         \"Psych Visit - Psychotherapy\"]\n\ndefine \"Drug Dependence Treatment Or
         Psych Visit\": \"Drug Dependence Treatment Or Psych Encounters\" Encounter
         \r\n     with \"First Alcohol Drug Dependence Dx\" Diagnosis \r\n     such
-        that Diagnosis.prevalencePeriod starts 14 days or less after start of Encounter.relevantPeriod\n\r\n--738159--\r\n"
+        that Diagnosis.prevalencePeriod starts 14 days or less after start of Encounter.relevantPeriod\n\r\n--990705--\r\n"
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -83,7 +83,7 @@ http_interactions:
       Content-Length:
       - '5344'
       Content-Type:
-      - multipart/form-data; boundary=738159
+      - multipart/form-data; boundary=990705
       User-Agent:
       - Ruby
   response:
@@ -94,14 +94,14 @@ http_interactions:
       Mime-Version:
       - '1.0'
       Content-Type:
-      - multipart/form-data;boundary=Boundary_283_1352111268_1504883931669
+      - multipart/form-data;boundary=Boundary_311_90859671_1504899431471
       Date:
-      - Fri, 08 Sep 2017 15:18:51 GMT
+      - Fri, 08 Sep 2017 19:37:11 GMT
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: "--Boundary_283_1352111268_1504883931669\r\nContent-Type: application/elm+json\r\nContent-Disposition:
+      string: "--Boundary_311_90859671_1504899431471\r\nContent-Type: application/elm+json\r\nContent-Disposition:
         form-data; name=\"file[]\"\r\n\r\n{\n   \"library\" : {\n      \"annotation\"
         : [ {\n         \"startLine\" : 39,\n         \"startChar\" : 25,\n         \"endLine\"
         : 39,\n         \"endChar\" : 73,\n         \"message\" : \"Retrieve has a
@@ -1323,15 +1323,15 @@ http_interactions:
         : \"193\",\n                     \"valueType\" : \"{urn:hl7-org:elm-types:r1}Integer\",\n
         \                    \"value\" : \"2\",\n                     \"type\" : \"Literal\"\n
         \                 } ]\n               } ]\n            }\n         } ]\n      }\n
-        \  }\n}\r\n--Boundary_283_1352111268_1504883931669--\r\n"
+        \  }\n}\r\n--Boundary_311_90859671_1504899431471--\r\n"
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:18:51 GMT
+  recorded_at: Fri, 08 Sep 2017 19:37:11 GMT
 - request:
     method: post
     uri: http://localhost:8080/cql/translator
     body:
       encoding: ASCII-8BIT
-      string: "--45278\r\nContent-Disposition: form-data; name=\"file[]\"\r\n\r\nlibrary
+      string: "--81405\r\nContent-Disposition: form-data; name=\"file[]\"\r\n\r\nlibrary
         InitiationandEngagementofAlcoholandOtherDrugDependenceTreatment version '0.0.001'\n\nusing
         QDM version '5.0'\n\nvalueset \"Psych Visit - Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1496'
         \n\nvalueset \"Alcohol and Drug Dependence\": 'urn:oid:2.16.840.1.113883.3.464.1003.106.12.1001'
@@ -1400,7 +1400,7 @@ http_interactions:
         \"Psych Visit - Psychotherapy\"]\n\ndefine \"Drug Dependence Treatment Or
         Psych Visit\": \"Drug Dependence Treatment Or Psych Encounters\" Encounter
         \r\n     with \"First Alcohol Drug Dependence Dx\" Diagnosis \r\n     such
-        that Diagnosis.prevalencePeriod starts 14 days or less after start of Encounter.relevantPeriod\n\r\n--45278--\r\n"
+        that Diagnosis.prevalencePeriod starts 14 days or less after start of Encounter.relevantPeriod\n\r\n--81405--\r\n"
     headers:
       Accept:
       - multipart/form-data
@@ -1411,7 +1411,7 @@ http_interactions:
       Content-Length:
       - '5342'
       Content-Type:
-      - multipart/form-data; boundary=45278
+      - multipart/form-data; boundary=81405
       User-Agent:
       - Ruby
   response:
@@ -1422,14 +1422,14 @@ http_interactions:
       Mime-Version:
       - '1.0'
       Content-Type:
-      - multipart/form-data;boundary=Boundary_284_1083872358_1504883931819
+      - multipart/form-data;boundary=Boundary_312_920520729_1504899431639
       Date:
-      - Fri, 08 Sep 2017 15:18:51 GMT
+      - Fri, 08 Sep 2017 19:37:11 GMT
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: "--Boundary_284_1083872358_1504883931819\r\nContent-Type: application/elm+xml\r\nContent-Disposition:
+      string: "--Boundary_312_920520729_1504899431639\r\nContent-Type: application/elm+xml\r\nContent-Disposition:
         form-data; name=\"file[]\"\r\n\r\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<library
         xmlns=\"urn:hl7-org:elm:r1\" xmlns:t=\"urn:hl7-org:elm-types:r1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
         xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:fhir=\"http://hl7.org/fhir\"
@@ -2145,7 +2145,7 @@ http_interactions:
         name=\"Drug Dependence Treatment Encounters A Month After Diagnosis\" xsi:type=\"ExpressionRef\"/>\n
         \              </operand>\n               <operand localId=\"193\" valueType=\"t:Integer\"
         value=\"2\" xsi:type=\"Literal\"/>\n            </operand>\n         </expression>\n
-        \     </def>\n   </statements>\n</library>\n\r\n--Boundary_284_1083872358_1504883931819--\r\n"
+        \     </def>\n   </statements>\n</library>\n\r\n--Boundary_312_920520729_1504899431639--\r\n"
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:18:51 GMT
+  recorded_at: Fri, 08 Sep 2017 19:37:11 GMT
 recorded_with: VCR 3.0.3

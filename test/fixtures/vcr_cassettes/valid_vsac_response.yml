@@ -39,10 +39,10 @@ http_interactions:
       Content-Length:
       - '64'
       Date:
-      - Fri, 08 Sep 2017 15:16:26 GMT
+      - Fri, 08 Sep 2017 19:35:10 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!XNkKJEw7as4xv6fLMWjf8K3rTDmEEuogD4wlNbmhbkBDdvND9oORX36wCykseV6rcLpGc339nIORtxQ=;
-        expires=Fri, 08-Sep-2017 17:16:26 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!hx2ODwtOPKCdoc/LMWjf8K3rTDmEEp5eQYxjQewC02aIKS384C4dxYnZtPciJPdTwhCbkUzmLoxPzmE=;
+        expires=Fri, 08-Sep-2017 21:35:10 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -51,15 +51,15 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: TGT-65895-gtQ3AKIviYsQtbMyqXlXjc4wAAlyNg7KA6KcDiE7DJmX2c9Tgg-cas
+      string: TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:28 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:10 GMT
 - request:
     method: post
     uri: http://localhost:8080/cql/translator
     body:
       encoding: ASCII-8BIT
-      string: "--679786\r\nContent-Disposition: form-data; name=\"file[]\"\r\n\r\nlibrary
+      string: "--408354\r\nContent-Disposition: form-data; name=\"file[]\"\r\n\r\nlibrary
         InitiationandEngagementofAlcoholandOtherDrugDependenceTreatment version '0.0.001'\n\nusing
         QDM version '5.0'\n\nvalueset \"Psych Visit - Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1496'
         \n\nvalueset \"Alcohol and Drug Dependence\": 'urn:oid:2.16.840.1.113883.3.464.1003.106.12.1001'
@@ -128,7 +128,7 @@ http_interactions:
         \"Psych Visit - Psychotherapy\"]\n\ndefine \"Drug Dependence Treatment Or
         Psych Visit\": \"Drug Dependence Treatment Or Psych Encounters\" Encounter
         \r\n     with \"First Alcohol Drug Dependence Dx\" Diagnosis \r\n     such
-        that Diagnosis.prevalencePeriod starts 14 days or less after start of Encounter.relevantPeriod\n\r\n--679786--\r\n"
+        that Diagnosis.prevalencePeriod starts 14 days or less after start of Encounter.relevantPeriod\n\r\n--408354--\r\n"
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -137,7 +137,7 @@ http_interactions:
       Content-Length:
       - '5344'
       Content-Type:
-      - multipart/form-data; boundary=679786
+      - multipart/form-data; boundary=408354
       User-Agent:
       - Ruby
   response:
@@ -148,14 +148,14 @@ http_interactions:
       Mime-Version:
       - '1.0'
       Content-Type:
-      - multipart/form-data;boundary=Boundary_277_1823049988_1504883789178
+      - multipart/form-data;boundary=Boundary_305_140304650_1504899310658
       Date:
-      - Fri, 08 Sep 2017 15:16:29 GMT
+      - Fri, 08 Sep 2017 19:35:10 GMT
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: "--Boundary_277_1823049988_1504883789178\r\nContent-Type: application/elm+json\r\nContent-Disposition:
+      string: "--Boundary_305_140304650_1504899310658\r\nContent-Type: application/elm+json\r\nContent-Disposition:
         form-data; name=\"file[]\"\r\n\r\n{\n   \"library\" : {\n      \"annotation\"
         : [ {\n         \"startLine\" : 39,\n         \"startChar\" : 25,\n         \"endLine\"
         : 39,\n         \"endChar\" : 73,\n         \"message\" : \"Retrieve has a
@@ -1377,15 +1377,15 @@ http_interactions:
         : \"193\",\n                     \"valueType\" : \"{urn:hl7-org:elm-types:r1}Integer\",\n
         \                    \"value\" : \"2\",\n                     \"type\" : \"Literal\"\n
         \                 } ]\n               } ]\n            }\n         } ]\n      }\n
-        \  }\n}\r\n--Boundary_277_1823049988_1504883789178--\r\n"
+        \  }\n}\r\n--Boundary_305_140304650_1504899310658--\r\n"
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:29 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:10 GMT
 - request:
     method: post
     uri: http://localhost:8080/cql/translator
     body:
       encoding: ASCII-8BIT
-      string: "--605127\r\nContent-Disposition: form-data; name=\"file[]\"\r\n\r\nlibrary
+      string: "--169492\r\nContent-Disposition: form-data; name=\"file[]\"\r\n\r\nlibrary
         InitiationandEngagementofAlcoholandOtherDrugDependenceTreatment version '0.0.001'\n\nusing
         QDM version '5.0'\n\nvalueset \"Psych Visit - Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1496'
         \n\nvalueset \"Alcohol and Drug Dependence\": 'urn:oid:2.16.840.1.113883.3.464.1003.106.12.1001'
@@ -1454,7 +1454,7 @@ http_interactions:
         \"Psych Visit - Psychotherapy\"]\n\ndefine \"Drug Dependence Treatment Or
         Psych Visit\": \"Drug Dependence Treatment Or Psych Encounters\" Encounter
         \r\n     with \"First Alcohol Drug Dependence Dx\" Diagnosis \r\n     such
-        that Diagnosis.prevalencePeriod starts 14 days or less after start of Encounter.relevantPeriod\n\r\n--605127--\r\n"
+        that Diagnosis.prevalencePeriod starts 14 days or less after start of Encounter.relevantPeriod\n\r\n--169492--\r\n"
     headers:
       Accept:
       - multipart/form-data
@@ -1465,7 +1465,7 @@ http_interactions:
       Content-Length:
       - '5344'
       Content-Type:
-      - multipart/form-data; boundary=605127
+      - multipart/form-data; boundary=169492
       User-Agent:
       - Ruby
   response:
@@ -1476,14 +1476,14 @@ http_interactions:
       Mime-Version:
       - '1.0'
       Content-Type:
-      - multipart/form-data;boundary=Boundary_278_62551584_1504883789319
+      - multipart/form-data;boundary=Boundary_306_1415168244_1504899310915
       Date:
-      - Fri, 08 Sep 2017 15:16:29 GMT
+      - Fri, 08 Sep 2017 19:35:10 GMT
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: "--Boundary_278_62551584_1504883789319\r\nContent-Type: application/elm+xml\r\nContent-Disposition:
+      string: "--Boundary_306_1415168244_1504899310915\r\nContent-Type: application/elm+xml\r\nContent-Disposition:
         form-data; name=\"file[]\"\r\n\r\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<library
         xmlns=\"urn:hl7-org:elm:r1\" xmlns:t=\"urn:hl7-org:elm-types:r1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
         xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:fhir=\"http://hl7.org/fhir\"
@@ -2199,66 +2199,12 @@ http_interactions:
         name=\"Drug Dependence Treatment Encounters A Month After Diagnosis\" xsi:type=\"ExpressionRef\"/>\n
         \              </operand>\n               <operand localId=\"193\" valueType=\"t:Integer\"
         value=\"2\" xsi:type=\"Literal\"/>\n            </operand>\n         </expression>\n
-        \     </def>\n   </statements>\n</library>\n\r\n--Boundary_278_62551584_1504883789319--\r\n"
+        \     </def>\n   </statements>\n</library>\n\r\n--Boundary_306_1415168244_1504899310915--\r\n"
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:29 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:10 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
-    body:
-      encoding: UTF-8
-      string: username=<VSAC_USERNAME>&password=<VSAC_PASSWORD>
-    headers:
-      Accept:
-      - "*/*; q=0.5, application/xml"
-      Accept-Encoding:
-      - gzip, deflate
-      Content-Length:
-      - '38'
-      Content-Type:
-      - application/x-www-form-urlencoded
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - '0'
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
-      Content-Type:
-      - text/plain;charset=utf-8
-      Content-Length:
-      - '64'
-      Date:
-      - Fri, 08 Sep 2017 15:16:27 GMT
-      Set-Cookie:
-      - BIGipServervsacweb_p=!WdQmmn9x/yBIbr/LMWjf8K3rTDmEEoR4/bWqrR+zvDrF/bCLRd93OXVEzA49iPGWxUsrsYh5KkfevR0=;
-        expires=Fri, 08-Sep-2017 17:16:27 GMT; path=/; Httponly; Secure
-      X-Vip-Info:
-      - 130.14.16.40:443
-      X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
-    http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:29 GMT
-- request:
-    method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -2295,10 +2241,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:27 GMT
+      - Fri, 08 Sep 2017 19:35:11 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!qFMZLwLub3H/aCnLMWjf8K3rTDmEEuIsgY2/Wbo8QIhJS2nIrlA/uEDrnUdLIRtU4hsQHTmV/q/Vdjc=;
-        expires=Fri, 08-Sep-2017 17:16:28 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!c35xEUZp0LfegZfLMWjf8K3rTDmEEpIj7Po3ypYtN90J1UvONLroos/J8YCfgd5Suzi48SFIeqvk/24=;
+        expires=Fri, 08-Sep-2017 21:35:11 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -2307,12 +2253,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-364969-WBXcbhdqdBLcp1qch59B-cas
+      string: ST-384808-V2NLNZi7bKpcLT6vanVP-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:29 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:11 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.526.3.1496&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-364969-WBXcbhdqdBLcp1qch59B-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.526.3.1496&profile=Latest%20eCQM&ticket=ST-384808-V2NLNZi7bKpcLT6vanVP-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -2341,19 +2287,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!JGZ7tS0jjAE8gmnLMWjf8K3rTDmEEmJOCzvFBoze7tOpNPfmjg2nTXS1tURjMER9kzyJAVVgznEe0BI=;
-        expires=Fri, 08-Sep-2017 17:16:28 GMT; path=/; Httponly; Secure
-      - JSESSIONID=F490040621794EBCB0A61216BE58C8D1;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!8BCmNs93AstcvBnLMWjf8K3rTDmEEgqGk4kgQ1IuaaOTMnPz+Y1pQhcWvwkDjCTn445IklYREtIW+io=;
+        expires=Fri, 08-Sep-2017 21:35:11 GMT; path=/; Httponly; Secure
+      - JSESSIONID=8EF2A33D20A35BF4B2FF5780B2EDF66F;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '1470'
       Date:
-      - Fri, 08 Sep 2017 15:16:27 GMT
+      - Fri, 08 Sep 2017 19:35:11 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -2373,14 +2319,14 @@ http_interactions:
                 <ns0:Type>Grouping</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:30 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:11 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -2417,10 +2363,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:27 GMT
+      - Fri, 08 Sep 2017 19:35:11 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!YJu3J57thGlZa4TLMWjf8K3rTDmEEnWVoKQOR+BxzX7kq1zJfdenO2aWG4F+aR1BgRfiq3Klv2fL5AE=;
-        expires=Fri, 08-Sep-2017 17:16:28 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!dlh6KTvev8rXgBDLMWjf8K3rTDmEEiwKEilpwdy9mqoTCxOXJl3iRsGpXvypwL5n76MrH4yFAdFB4j4=;
+        expires=Fri, 08-Sep-2017 21:35:11 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -2429,12 +2375,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-364972-rPNzcv3crbscMB7VVQLf-cas
+      string: ST-384810-EuJQ7qPKSslwQplYMjFg-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:30 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:11 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.106.12.1001&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-364972-rPNzcv3crbscMB7VVQLf-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.106.12.1001&profile=Latest%20eCQM&ticket=ST-384810-EuJQ7qPKSslwQplYMjFg-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -2463,19 +2409,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!9kzT0Uj4V08B9DzLMWjf8K3rTDmEEn7YGevFpctTkHKM+naZF04LU5BOG4kGPMK3npcry+lOOLWfWuE=;
-        expires=Fri, 08-Sep-2017 17:16:29 GMT; path=/; Httponly; Secure
-      - JSESSIONID=AA6886720B420DF6909D2C6DBCAF68A6;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!KBRoPM0tGJdqQKXLMWjf8K3rTDmEEoytxp7pd1Lqsb1vBQfLLFSmZCnBA+PbF1M8r0eGLKCAadhD8iI=;
+        expires=Fri, 08-Sep-2017 21:35:13 GMT; path=/; Httponly; Secure
+      - JSESSIONID=DD71477E5528C37B268C6FD5000AAC0F;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '105614'
       Date:
-      - Fri, 08 Sep 2017 15:16:28 GMT
+      - Fri, 08 Sep 2017 19:35:12 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -3015,14 +2961,14 @@ http_interactions:
                 <ns0:Type>Grouping</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:31 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:13 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -3059,10 +3005,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:30 GMT
+      - Fri, 08 Sep 2017 19:35:13 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!HVhiYCXohK/vGgjLMWjf8K3rTDmEEtcfjclL2x0VnJ184EAs7kQD0KOHjg1PDdM+qkRsLzHnVRbRL50=;
-        expires=Fri, 08-Sep-2017 17:16:30 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!+Ggm3BvtBCKWU5HLMWjf8K3rTDmEElusxwFye9ERUBqIBNH0Hh4Rqs59NPle79RLzEVI+zf7Pgiz5Jg=;
+        expires=Fri, 08-Sep-2017 21:35:13 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -3071,12 +3017,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-364979-CqJgcJ1lHRl3vIc17qpM-cas
+      string: ST-384816-G9zc60ZsSAr0MMUQ7aXu-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:32 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:13 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1048&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-364979-CqJgcJ1lHRl3vIc17qpM-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1048&profile=Latest%20eCQM&ticket=ST-384816-G9zc60ZsSAr0MMUQ7aXu-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -3105,15 +3051,15 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!LQ83jZPvV/shADHLMWjf8K3rTDmEEkQJUWhF7wE8+agQIUNhyna8f4A7okPkbPTz1WlqQsu3yn+Jbvo=;
-        expires=Fri, 08-Sep-2017 17:16:30 GMT; path=/; Httponly; Secure
-      - JSESSIONID=114131BC5ABCDF0FB4A6520B9199909E;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!uYdoPAlquSDjBuLLMWjf8K3rTDmEEp9IsxYQKxv5z8ZQ8+p4olL5rR9WtSbqMb3XG7qxxiSvJDKs8ws=;
+        expires=Fri, 08-Sep-2017 21:35:13 GMT; path=/; Httponly; Secure
+      - JSESSIONID=2DB0A3B0754EE14F62DE79BF64D9643F;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '4194'
       Date:
-      - Fri, 08 Sep 2017 15:16:30 GMT
+      - Fri, 08 Sep 2017 19:35:13 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -3149,14 +3095,14 @@ http_interactions:
                 <ns0:Type>Grouping</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:32 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:13 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -3193,24 +3139,24 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:30 GMT
+      - Fri, 08 Sep 2017 19:35:14 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!zxzfrhRzn04j7SzLMWjf8K3rTDmEEm/5sO7XOCnynLuH/w7hNkKca7MRU9yAS7YdoQV/bSnXr1+tgQI=;
-        expires=Fri, 08-Sep-2017 17:16:30 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!SiDzJL8L0K+OnmPLMWjf8K3rTDmEEsh22VkAYTImDg4eYP/nmoaMaqdA5MK3TM4x3neTbWZy2QGo/3M=;
+        expires=Fri, 08-Sep-2017 21:35:14 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-364980-rAsHCkpGg29luZTtLpyb-cas
+      string: ST-384818-bKBEKsZbQmClNCExNi0y-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:32 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:13 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.836&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-364980-rAsHCkpGg29luZTtLpyb-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.836&profile=Latest%20eCQM&ticket=ST-384818-bKBEKsZbQmClNCExNi0y-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -3239,15 +3185,15 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!wBDcP128LHT7C2fLMWjf8K3rTDmEEh79fLyteVaszzTvnZY6JvZUK4LK9IzwgdJcceNDsd7sMREPA08=;
-        expires=Fri, 08-Sep-2017 17:16:30 GMT; path=/; Httponly; Secure
-      - JSESSIONID=6A4F44211A692350FA6A2F927D12E753;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!5OOYaw7fCvCcScDLMWjf8K3rTDmEEu/l2qj24roLVCL7nOkGQPfycYhLWi3w86u8DXRyi4s7ob0yjvk=;
+        expires=Fri, 08-Sep-2017 21:35:14 GMT; path=/; Httponly; Secure
+      - JSESSIONID=EC4058837060E4A47F90CD8708E3AE72;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '1765'
       Date:
-      - Fri, 08 Sep 2017 15:16:30 GMT
+      - Fri, 08 Sep 2017 19:35:14 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -3273,14 +3219,14 @@ http_interactions:
                 <ns0:Type>Extensional</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2012-10-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:32 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:14 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -3317,10 +3263,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:30 GMT
+      - Fri, 08 Sep 2017 19:35:14 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!CiJwH/J0Xq/Q/jXLMWjf8K3rTDmEEkHB0Ba1srkJdzv8B1OXoIqqUKWvyBGmv/NyNTi2bWr4wvbG4Yk=;
-        expires=Fri, 08-Sep-2017 17:16:30 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!wohJAknC/ocxRzHLMWjf8K3rTDmEEikyOTZT82Ksh4j5KOeZnIjBfIJjn/scKAzMSWq3aezPJ/7oEo0=;
+        expires=Fri, 08-Sep-2017 21:35:14 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -3329,12 +3275,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-364983-yAb5Ydz65cosketomIrs-cas
+      string: ST-384821-MXgfMcdAxZEKFqDxJyi2-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:32 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:14 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113762.1.4.1&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-364983-yAb5Ydz65cosketomIrs-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113762.1.4.1&profile=Latest%20eCQM&ticket=ST-384821-MXgfMcdAxZEKFqDxJyi2-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -3363,19 +3309,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!cYMDJXu3Jqh+lO7LMWjf8K3rTDmEEn9iynPa3kAZYR+QfXRM56VfvZdP/smBIEeqbcJL/wpiPsAXAmc=;
-        expires=Fri, 08-Sep-2017 17:16:31 GMT; path=/; Httponly; Secure
-      - JSESSIONID=A01D06B60FD5F68B5ED4D6D814E9DEC9;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!8XyXEbYQoZYitpbLMWjf8K3rTDmEErUXjhGC5XZBFGiepWgzcbT7BJUKUhaAKzpVKlL6It1DQ9bXz68=;
+        expires=Fri, 08-Sep-2017 21:35:15 GMT; path=/; Httponly; Secure
+      - JSESSIONID=CA950277525BB7BF835D81A54D371F12;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '1356'
       Date:
-      - Fri, 08 Sep 2017 15:16:30 GMT
+      - Fri, 08 Sep 2017 19:35:15 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -3393,14 +3339,14 @@ http_interactions:
                 <ns0:Type>Extensional</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2015-03-31</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:32 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:15 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -3437,24 +3383,24 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:31 GMT
+      - Fri, 08 Sep 2017 19:35:14 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!7pUDIHNSd89yMpPLMWjf8K3rTDmEEjvY2Bn+aT82FzuIVUPMzia/5iP9TTbVYwzAFIBVoAX0ae4xS0M=;
-        expires=Fri, 08-Sep-2017 17:16:31 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!GVOcieiz0CGSPgjLMWjf8K3rTDmEEpt/a7wRZU2E7bsu2bhk0DMMfrkZg5SgOegnf+UKMk/BJI5J5UA=;
+        expires=Fri, 08-Sep-2017 21:35:15 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.114 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-364984-gRmcKhUckvqEkVHj5a1z-cas
+      string: ST-384822-337p1C1XHZRMRqAfDPEv-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:33 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:15 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1001&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-364984-gRmcKhUckvqEkVHj5a1z-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1001&profile=Latest%20eCQM&ticket=ST-384822-337p1C1XHZRMRqAfDPEv-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -3483,15 +3429,15 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!y06MM7BfD7hAmV/LMWjf8K3rTDmEEsro1Tg8btECYGY7AciO6Tc4x9DTRpNcLq4nshvSVhFGaOVgFNo=;
-        expires=Fri, 08-Sep-2017 17:16:31 GMT; path=/; Httponly; Secure
-      - JSESSIONID=7E05EAA8EF0C90EDDFFCF3BE696C9359;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!IcVTcjSzbSRvwdvLMWjf8K3rTDmEElRRr95FE6PB/IujnORnrtN7DcRwKxMr/sSSAfFkPvE9/MmZv0Q=;
+        expires=Fri, 08-Sep-2017 21:35:15 GMT; path=/; Httponly; Secure
+      - JSESSIONID=EB1A60503991DCAF9F3E7AF35B593A13;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '7862'
       Date:
-      - Fri, 08 Sep 2017 15:16:31 GMT
+      - Fri, 08 Sep 2017 19:35:14 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -3521,14 +3467,14 @@ http_interactions:
                 <ns0:Type>Grouping</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:33 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:15 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -3565,10 +3511,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:31 GMT
+      - Fri, 08 Sep 2017 19:35:14 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!0QhvvsRtoNIqKaHLMWjf8K3rTDmEEocKNv1zdCMaxK8s4MpkwM9TdVdNuiutPwUCkSRpC9nbF3kM674=;
-        expires=Fri, 08-Sep-2017 17:16:31 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!gMthIX9gKpSPXgXLMWjf8K3rTDmEEq0nCGifsH9hbXGmIzUMpkk19XSODliZ8tZJe4KzLkgScltXbY8=;
+        expires=Fri, 08-Sep-2017 21:35:15 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -3577,12 +3523,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-364985-gP9CGRP3y7dqdfPd1SMu-cas
+      string: ST-384824-i9okhxfYYqsz4fNPSM5b-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:33 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:15 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1004&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-364985-gP9CGRP3y7dqdfPd1SMu-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1004&profile=Latest%20eCQM&ticket=ST-384824-i9okhxfYYqsz4fNPSM5b-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -3611,15 +3557,15 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!78SmzSZVcTuxhkrLMWjf8K3rTDmEEgbCdplD2TQ4K9NlcNz92DOXrArtg2uuAze8HQ0GgJCCEWkyKLM=;
-        expires=Fri, 08-Sep-2017 17:16:31 GMT; path=/; Httponly; Secure
-      - JSESSIONID=6823479C711463EAE297BE26F76AA856;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!IdDw6C0vgRGfyabLMWjf8K3rTDmEEqEHH1d/ZeAtvtdO5vvqHjw2q7rtnDpviDPjQmz9YMkowUonFow=;
+        expires=Fri, 08-Sep-2017 21:35:15 GMT; path=/; Httponly; Secure
+      - JSESSIONID=B4AC06675275AF82AE992D88A8409B33;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '3186'
       Date:
-      - Fri, 08 Sep 2017 15:16:31 GMT
+      - Fri, 08 Sep 2017 19:35:15 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -3643,14 +3589,14 @@ http_interactions:
                 <ns0:Type>Grouping</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:33 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:15 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -3687,10 +3633,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:31 GMT
+      - Fri, 08 Sep 2017 19:35:15 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!w3fEUuxaQ2N+L2XLMWjf8K3rTDmEEveTRnjap+qb0Rfd2GwG3hqqQ/W9HeClx5AEd5ejTgCpNATcS9k=;
-        expires=Fri, 08-Sep-2017 17:16:31 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!tl2UbpguDEkBcMHLMWjf8K3rTDmEEjsusqRbmYk/5fjmLWuWytqx68Mfmq+/Mq8joFnCLcW7xTbXqzU=;
+        expires=Fri, 08-Sep-2017 21:35:16 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -3699,12 +3645,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-364988-RAXWDSELWwFer45eaG67-cas
+      string: ST-384825-SOsGaKy26CgsDpcylgXL-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:33 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:15 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.837&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-364988-RAXWDSELWwFer45eaG67-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.837&profile=Latest%20eCQM&ticket=ST-384825-SOsGaKy26CgsDpcylgXL-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -3733,15 +3679,15 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!L+6ILe1Ydhe+t5nLMWjf8K3rTDmEEkvyMDOVpD4OrZF4wouRhFa5jp2mty9VzaRrja8lD4K3pG0+3ug=;
-        expires=Fri, 08-Sep-2017 17:16:32 GMT; path=/; Httponly; Secure
-      - JSESSIONID=44DD3424BF3804DD769EAC824A6888A4;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!H0X1JgvEzSQDkjnLMWjf8K3rTDmEEjUtxOeTTI6Rq6K8CJubxmM6IZTsFQekzGGP7RU7zM0BNHfSqhQ=;
+        expires=Fri, 08-Sep-2017 21:35:16 GMT; path=/; Httponly; Secure
+      - JSESSIONID=7578C42FB1E59A30874B2FAA169922BC;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '1128'
       Date:
-      - Fri, 08 Sep 2017 15:16:31 GMT
+      - Fri, 08 Sep 2017 19:35:15 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -3763,14 +3709,14 @@ http_interactions:
                 <ns0:Type>Extensional</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2012-10-25</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:34 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:16 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -3807,24 +3753,24 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:31 GMT
+      - Fri, 08 Sep 2017 19:35:16 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!uZp91jTIYMzja23LMWjf8K3rTDmEElWAUy2N5s2LZhd/yL8kH1kiwy2p7+r4tL+0rkrK8DG6L5wxY/I=;
-        expires=Fri, 08-Sep-2017 17:16:32 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!3eqLgAKpZw2TPQTLMWjf8K3rTDmEEpsXwZdvbDruoRmu1aQlBtJ2dayjhvaN6CBxR3fuyzKYVoM8aIU=;
+        expires=Fri, 08-Sep-2017 21:35:16 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-364990-3UGKwAdbRgki71cfYxi2-cas
+      string: ST-384827-L7XOEDQuJbhgOvGivysO-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:34 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:16 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.106.12.1005&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-364990-3UGKwAdbRgki71cfYxi2-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.106.12.1005&profile=Latest%20eCQM&ticket=ST-384827-L7XOEDQuJbhgOvGivysO-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -3853,15 +3799,15 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!I/0jniDICuB6FfbLMWjf8K3rTDmEEs15cCAPgMJXH0H7H4homO0n0uad6DgX54qcbqWqgDj2rmQsmYo=;
-        expires=Fri, 08-Sep-2017 17:16:32 GMT; path=/; Httponly; Secure
-      - JSESSIONID=F6ECE6EF0F11A9E21D73F972189FED28;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!B63516ZDWQzpUC/LMWjf8K3rTDmEEtJjBNYdhvcwccggZ4xR8af5KQZ72N4xPUNduRAB3SQwY0t6Xb8=;
+        expires=Fri, 08-Sep-2017 21:35:16 GMT; path=/; Httponly; Secure
+      - JSESSIONID=80698F16280763FF265337D11CE936FD;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '8755'
       Date:
-      - Fri, 08 Sep 2017 15:16:32 GMT
+      - Fri, 08 Sep 2017 19:35:15 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -3922,14 +3868,14 @@ http_interactions:
                 <ns0:Type>Grouping</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:34 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:16 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -3966,10 +3912,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:32 GMT
+      - Fri, 08 Sep 2017 19:35:15 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!WTAmYnK7/bDnfujLMWjf8K3rTDmEEjbqMoNzJotDBb+Fu9Fi+RojIXw7f5k51NJ6GUhoq08pFQoZ/gs=;
-        expires=Fri, 08-Sep-2017 17:16:32 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!jTiNQw83pZM9qFHLMWjf8K3rTDmEEi5KU2R1D3z7j5VNaLZ1MAUk6gVEkHoudn8jsHXb5yYXx21IYcM=;
+        expires=Fri, 08-Sep-2017 21:35:16 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -3978,12 +3924,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-364992-NlrbbJwKC3TciGWoRB3r-cas
+      string: ST-384829-sm5cfHV5OwUnz70NHpSu-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:34 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:16 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.3591&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-364992-NlrbbJwKC3TciGWoRB3r-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.3591&profile=Latest%20eCQM&ticket=ST-384829-sm5cfHV5OwUnz70NHpSu-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -4012,15 +3958,15 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!P9e5BCI/0sFpZ1/LMWjf8K3rTDmEEtuw+QO7JPRSaRIQU3dI83lWPWHLmRs7vVAfNffD/W2A3iv0QLg=;
-        expires=Fri, 08-Sep-2017 17:16:33 GMT; path=/; Httponly; Secure
-      - JSESSIONID=01A2F40D978A49F5EE7726EAFEEA5E83;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!zwmgEdSKrTS9mjTLMWjf8K3rTDmEEhqXQsS184N5QL3weeAFqZXSrVk88paVCZj4VlxZmc6yp1LV2eg=;
+        expires=Fri, 08-Sep-2017 21:35:17 GMT; path=/; Httponly; Secure
+      - JSESSIONID=5A99C3FA0F800C9D33B8EF6FD84E606F;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '26511'
       Date:
-      - Fri, 08 Sep 2017 15:16:32 GMT
+      - Fri, 08 Sep 2017 19:35:17 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -4195,14 +4141,14 @@ http_interactions:
                 <ns0:Type>Extensional</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2016-11-08</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:34 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:17 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -4239,10 +4185,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:32 GMT
+      - Fri, 08 Sep 2017 19:35:17 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!IuN0x1d8FNLj1aHLMWjf8K3rTDmEEjmH6sO/AiqPjm8/wjKxkcl7vldRQMTtwhgmsnCvWozOv0lhH0I=;
-        expires=Fri, 08-Sep-2017 17:16:33 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!eL+H9SYSoZ7RhS/LMWjf8K3rTDmEEhJ4xyKtdmEbog4tkCIGjimdRPF4kR6//39P1xoh9QMhgt/0cJc=;
+        expires=Fri, 08-Sep-2017 21:35:17 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -4251,12 +4197,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-364994-nPvPfyRNbQydhVM0XtIZ-cas
+      string: ST-384831-HNCwcQxDIufR4h5fWnuq-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:35 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:17 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1059&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-364994-nPvPfyRNbQydhVM0XtIZ-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1059&profile=Latest%20eCQM&ticket=ST-384831-HNCwcQxDIufR4h5fWnuq-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -4285,15 +4231,15 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!ZNOVu3xE1rnictfLMWjf8K3rTDmEEvEtFqzTUuO8V6PH22oajA2FjZ5BqKwSrCN2ehpBCmx7OgZX7mE=;
-        expires=Fri, 08-Sep-2017 17:16:33 GMT; path=/; Httponly; Secure
-      - JSESSIONID=DA77350D30642EDD58F05E5C0F93E5F9;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!VzduWbQPDTgD4HTLMWjf8K3rTDmEEhvsZKo+UccCV3xrIQKlyefCcCAQnYKM/0/ABphAFbUEOHMfYas=;
+        expires=Fri, 08-Sep-2017 21:35:17 GMT; path=/; Httponly; Secure
+      - JSESSIONID=D6339575D668B9D224E0AC2018F620FF;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '3314'
       Date:
-      - Fri, 08 Sep 2017 15:16:32 GMT
+      - Fri, 08 Sep 2017 19:35:17 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -4326,14 +4272,14 @@ http_interactions:
                 <ns0:Type>Grouping</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:35 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:17 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -4370,24 +4316,24 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:33 GMT
+      - Fri, 08 Sep 2017 19:35:17 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!e+ypU+xqxYXgkRTLMWjf8K3rTDmEEpdV6mWHxH+Bxa5Z7AT4FyclSpJLnaWLkJbrzIYw/aW1fd1mxlE=;
-        expires=Fri, 08-Sep-2017 17:16:33 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!AGowBxHWEgQE1/DLMWjf8K3rTDmEEqfygXr2hghVELJrDM9E7WKhQ1A+2LeD1xBB9HM9FC0anf9z0fM=;
+        expires=Fri, 08-Sep-2017 21:35:17 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.114 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-364998-H3kxxnknYKZ7RIbEKZWc-cas
+      string: ST-384832-KJndZwfqnHmx0wwcWtPK-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:35 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:17 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1007&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-364998-H3kxxnknYKZ7RIbEKZWc-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1007&profile=Latest%20eCQM&ticket=ST-384832-KJndZwfqnHmx0wwcWtPK-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -4416,19 +4362,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!vhV2O2iUaS38L3vLMWjf8K3rTDmEEi1WEuj+xp7RFqYEWmpA79kXiqneEO7WdUyNk9Tgn9pUB2mM36E=;
-        expires=Fri, 08-Sep-2017 17:16:33 GMT; path=/; Httponly; Secure
-      - JSESSIONID=DD846B51199BF061C199D18C7EFFB5EC;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!pG2Zj8/wZIrD+srLMWjf8K3rTDmEEnRCmf+/Vf6zx3JxYTk6u8uI8Z9USo+R4VsnTTtGSOMPt+Z1q0U=;
+        expires=Fri, 08-Sep-2017 21:35:17 GMT; path=/; Httponly; Secure
+      - JSESSIONID=9C47693296F23EE34208EBBD133C0A56;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '1396'
       Date:
-      - Fri, 08 Sep 2017 15:16:33 GMT
+      - Fri, 08 Sep 2017 19:35:17 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -4447,14 +4393,14 @@ http_interactions:
                 <ns0:Type>Grouping</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:35 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:17 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -4491,10 +4437,10 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:33 GMT
+      - Fri, 08 Sep 2017 19:35:17 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!Myi5+8YYDnq/GsfLMWjf8K3rTDmEEpwROhY9SpJ6JVLExucU8ktJ5BPa1BgNgdtlVeB/pAVISLa2mpw=;
-        expires=Fri, 08-Sep-2017 17:16:34 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!vQkdQMNdkEiqJRbLMWjf8K3rTDmEEiGWxs+xldvOEyJhdLlUChKpihmJelNcNclF26u9bEFS6mixm94=;
+        expires=Fri, 08-Sep-2017 21:35:18 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -4503,12 +4449,12 @@ http_interactions:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-364999-w3y5eyDdVe0oeKjpZjdq-cas
+      string: ST-384833-TYSFaZ5MXC1NUHqpDNgX-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:35 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:17 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1002&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-364999-w3y5eyDdVe0oeKjpZjdq-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1002&profile=Latest%20eCQM&ticket=ST-384833-TYSFaZ5MXC1NUHqpDNgX-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -4537,15 +4483,15 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!xQbfk8jhcqoh5TnLMWjf8K3rTDmEEt6KXXf81l38SS/VYWiX1Q2Qh+NRMlNPoAVpfDqROZAMLEoMb2c=;
-        expires=Fri, 08-Sep-2017 17:16:34 GMT; path=/; Httponly; Secure
-      - JSESSIONID=B2B7E5F69A4B8E90BCA7184C269858F5;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!+t05Jmst3XzUm67LMWjf8K3rTDmEEtw/3HBKcNQOiQWi5SJJ4Jmyp4WQMjTTnxxQZK5FN9fPAYvQJac=;
+        expires=Fri, 08-Sep-2017 21:35:18 GMT; path=/; Httponly; Secure
+      - JSESSIONID=E23BD3156B0E91D88CE339C674FE4C5E;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '3298'
       Date:
-      - Fri, 08 Sep 2017 15:16:33 GMT
+      - Fri, 08 Sep 2017 19:35:18 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -4569,14 +4515,14 @@ http_interactions:
                 <ns0:Type>Grouping</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:36 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:18 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -4613,24 +4559,24 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:33 GMT
+      - Fri, 08 Sep 2017 19:35:17 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!vFQWsTpKmMlJDuXLMWjf8K3rTDmEEqzD4zFshKG28E20BJuJ11/r6J8h0QzmpKqGNqv33zey59T6YXM=;
-        expires=Fri, 08-Sep-2017 17:16:34 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!y46evqy3WgkZwV7LMWjf8K3rTDmEEkGHNRkC4f9rbY+YynCamd4Jle23dQilFqqRTOKUe/dEUD0bkfg=;
+        expires=Fri, 08-Sep-2017 21:35:18 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-365004-RD7YN0M6Yewc6cSFFD7P-cas
+      string: ST-384835-nRCmPD1Rb45PdcRwcr3b-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:36 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:18 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1006&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-365004-RD7YN0M6Yewc6cSFFD7P-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1006&profile=Latest%20eCQM&ticket=ST-384835-nRCmPD1Rb45PdcRwcr3b-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -4659,15 +4605,15 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!bIpY1rOaYgLrBP3LMWjf8K3rTDmEEr3yu+erI7PkwHKxKxUROJ0Ngh5f9+CKFUIAq6sRrLs8AzTTlHk=;
-        expires=Fri, 08-Sep-2017 17:16:34 GMT; path=/; Httponly; Secure
-      - JSESSIONID=FE81FFD9DCE72DFFB2905ECF0BE0F516;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!hpCdAXnDQiMK+ujLMWjf8K3rTDmEEhjqeG17SrBMGsGLgT0s7zxX4HZRq0wYTbXWysILdQdRkXZ8zJw=;
+        expires=Fri, 08-Sep-2017 21:35:18 GMT; path=/; Httponly; Secure
+      - JSESSIONID=9FD31FF4CF8C25D91423CA4934A82C33;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '3509'
       Date:
-      - Fri, 08 Sep 2017 15:16:34 GMT
+      - Fri, 08 Sep 2017 19:35:18 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
@@ -4691,14 +4637,14 @@ http_interactions:
                 <ns0:Type>Grouping</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:36 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:18 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-65898-BDeI4QKuenVGfXVUpe5VRlAjFbqCFDnF4gQFfXxGbV6kvod9p9-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-72301-RQncKVWNR7rmsQsoBP9MGtXNEivkG7hnspIP519etfCwIqb9st-cas
     body:
       encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
@@ -4735,24 +4681,24 @@ http_interactions:
       Content-Length:
       - '34'
       Date:
-      - Fri, 08 Sep 2017 15:16:35 GMT
+      - Fri, 08 Sep 2017 19:35:18 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!yQLznaGFmzYFeHnLMWjf8K3rTDmEEmKrxnCMZHXKqyIhQfVEcNJt1e3MLHHm4ufv2d8jpDlocUctysE=;
-        expires=Fri, 08-Sep-2017 17:16:35 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!4095SHICqQjjR3bLMWjf8K3rTDmEEtof3RvKlURRezoc2uIk4hMxF1/tmsT88FKKDb2oOh9OOLMJ4B8=;
+        expires=Fri, 08-Sep-2017 21:35:18 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.114 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-365005-4cd5GdRY701b45bNf6Ju-cas
+      string: ST-384836-XjHdMK6mKVvBQDUHj6XA-cas
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:36 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:18 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1010&includeDraft=yes&profile=Latest%20eCQM&ticket=ST-365005-4cd5GdRY701b45bNf6Ju-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1010&profile=Latest%20eCQM&ticket=ST-384836-XjHdMK6mKVvBQDUHj6XA-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -4781,19 +4727,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!c+MKnYZ9iEsbqS3LMWjf8K3rTDmEEvYC/hYy2wMRieABzXBD52XI7vrGRQ/NLwZhIpailm9hemPjIF4=;
-        expires=Fri, 08-Sep-2017 17:16:35 GMT; path=/; Httponly; Secure
-      - JSESSIONID=220F273232AA6D8BECBE020BFED6537F;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!wumYhLKvY0JpHmbLMWjf8K3rTDmEEoFt9tyI03ktXwfjIFlIJHtRDkgXbyjtnapIcg7j4yIBAA0OGgc=;
+        expires=Fri, 08-Sep-2017 21:35:18 GMT; path=/; Httponly; Secure
+      - JSESSIONID=E41B16AE9253C1462CB4B20454CC2152;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '4529'
       Date:
-      - Fri, 08 Sep 2017 15:16:34 GMT
+      - Fri, 08 Sep 2017 19:35:18 GMT
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -4815,9 +4761,9 @@ http_interactions:
                 <ns0:Type>Grouping</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2017-09-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 15:16:37 GMT
+  recorded_at: Fri, 08 Sep 2017 19:35:18 GMT
 recorded_with: VCR 3.0.3
