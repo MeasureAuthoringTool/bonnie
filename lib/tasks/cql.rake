@@ -165,10 +165,10 @@ namespace :bonnie do
     end
 
     task :update_facilities_and_diagnoses => :environment do
-      # Update old facilities and diagnoses to be collections with single elements
+      # For any relevant datatypes, update old facilities and diagnoses to be collections with single elements
       Record.all.each do |patient|
         if patient.encounters
-          patient.encounters.each do |encounter, index|
+          patient.encounters.each do |encounter|
             if encounter['facility'] && !encounter['facility']['type']
               update_facility(patient, encounter)
             end
@@ -178,7 +178,6 @@ namespace :bonnie do
               print "\e[#{32}m#{"[Encounter Diagnosis]"}\e[0m"
               puts "#{patient.first} #{patient.last}"
               new_encounter_diagnosis = {}
-              new_encounter_diagnosis
               new_encounter_diagnosis['type'] = 'COL'
               new_encounter_diagnosis['values'] = [{}]
               new_encounter_diagnosis['values'][0]['title'] = encounter['diagnosis']['title']
