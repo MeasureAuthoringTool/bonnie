@@ -167,6 +167,48 @@ namespace :bonnie do
     task :update_facilities_and_diagnoses => :environment do
       # For any relevant datatypes, update old facilities and diagnoses to be collections with single elements
       Record.all.each do |patient|
+        if patient.source_data_criteria
+          patient.source_data_criteria.each_with_index do |source_data_criterium, index|
+            new_source_data_criterium_field_values = {}
+            if source_data_criterium['field_values']
+              source_data_criterium['field_values'].each do |field_value_key, field_value_value|
+                # update any 'DIAGNOSIS' field values that aren't collections
+                if field_value_key == 'DIAGNOSIS' && !(source_data_criterium['field_values']['DIAGNOSIS']['type'] == 'COL')
+                  new_diagnosis = {}
+                  new_diagnosis['type'] = 'COL'
+                  new_diagnosis['values'] = [{}]
+                  new_diagnosis['values'][0]['type'] = source_data_criterium['field_values']['DIAGNOSIS']['type']
+                  new_diagnosis['values'][0]['key'] = source_data_criterium['field_values']['DIAGNOSIS']['key']
+                  new_diagnosis['values'][0]['code_list_id'] = source_data_criterium['field_values']['DIAGNOSIS']['code_list_id']
+                  new_diagnosis['values'][0]['field_title'] = source_data_criterium['field_values']['DIAGNOSIS']['field_title']
+                  new_diagnosis['values'][0]['title'] = source_data_criterium['field_values']['DIAGNOSIS']['title']
+                  new_source_data_criterium_field_values['DIAGNOSIS'] = new_diagnosis 
+
+                # update any 'FACILITY_LOCATION' field values that aren't collections
+                elsif field_value_key == 'FACILITY_LOCATION' && !(source_data_criterium['field_values']['FACILITY_LOCATION']['type'] == 'COL')
+                  new_facility_location = {}
+                  new_facility_location['type'] = 'COL'
+                  new_facility_location['values'] = [{}]
+                  new_facility_location['values'][0]['type'] = source_data_criterium['field_values']['FACILITY_LOCATION']['type']
+                  new_facility_location['values'][0]['key'] = source_data_criterium['field_values']['FACILITY_LOCATION']['key']
+                  new_facility_location['values'][0]['code_list_id'] = source_data_criterium['field_values']['FACILITY_LOCATION']['code_list_id']
+                  new_facility_location['values'][0]['field_title'] = source_data_criterium['field_values']['FACILITY_LOCATION']['field_title']
+                  new_facility_location['values'][0]['start_date'] = source_data_criterium['field_values']['FACILITY_LOCATION']['start_date']
+                  new_facility_location['values'][0]['start_time'] = source_data_criterium['field_values']['FACILITY_LOCATION']['start_time']
+                  new_facility_location['values'][0]['end_date'] = source_data_criterium['field_values']['FACILITY_LOCATION']['end_date']
+                  new_facility_location['values'][0]['end_time'] = source_data_criterium['field_values']['FACILITY_LOCATION']['end_time']
+                  new_facility_location['values'][0]['title'] = source_data_criterium['field_values']['FACILITY_LOCATION']['title']
+                  new_source_data_criterium_field_values['FACILITY_LOCATION'] = new_facility_location 
+                else
+                  # add unaltered field value to new structure
+                  new_source_data_criterium_field_values[field_value_key] = field_value_value
+                end
+              end
+              source_data_criterium['field_values'] = new_source_data_criterium_field_values
+            end
+          end
+        end
+
         if patient.encounters
           patient.encounters.each do |encounter|
             if encounter['facility'] && !encounter['facility']['type']
@@ -183,7 +225,6 @@ namespace :bonnie do
               new_encounter_diagnosis['values'][0]['title'] = encounter['diagnosis']['title']
               new_encounter_diagnosis['values'][0]['code'] = encounter['diagnosis']['code']
               new_encounter_diagnosis['values'][0]['code_system'] = encounter['diagnosis']['code_system']
-
               encounter['diagnosis'] = new_encounter_diagnosis
             end
           end
