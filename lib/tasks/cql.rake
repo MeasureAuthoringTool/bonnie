@@ -168,7 +168,7 @@ namespace :bonnie do
       # For any relevant datatypes, update old facilities and diagnoses to be collections with single elements
       Record.all.each do |patient|
         if patient.source_data_criteria
-          patient.source_data_criteria.each_with_index do |source_data_criterium, index|
+          patient.source_data_criteria.each do |source_data_criterium|
             new_source_data_criterium_field_values = {}
             if source_data_criterium['field_values']
               source_data_criterium['field_values'].each do |field_value_key, field_value_value|
@@ -193,14 +193,33 @@ namespace :bonnie do
                   new_facility_location['values'][0]['key'] = source_data_criterium['field_values']['FACILITY_LOCATION']['key']
                   new_facility_location['values'][0]['code_list_id'] = source_data_criterium['field_values']['FACILITY_LOCATION']['code_list_id']
                   new_facility_location['values'][0]['field_title'] = source_data_criterium['field_values']['FACILITY_LOCATION']['field_title']
-                  new_facility_location['values'][0]['start_date'] = source_data_criterium['field_values']['FACILITY_LOCATION']['start_date']
-                  new_facility_location['values'][0]['start_time'] = source_data_criterium['field_values']['FACILITY_LOCATION']['start_time']
-                  new_facility_location['values'][0]['end_date'] = source_data_criterium['field_values']['FACILITY_LOCATION']['end_date']
-                  new_facility_location['values'][0]['end_time'] = source_data_criterium['field_values']['FACILITY_LOCATION']['end_time']
                   new_facility_location['values'][0]['title'] = source_data_criterium['field_values']['FACILITY_LOCATION']['title']
+
+                  # Convert times
+                  converted_start_date = nil
+                  converted_start_time = nil
+                  if source_data_criterium['field_values']['FACILITY_LOCATION_ARRIVAL_DATETIME'] 
+                    old_start_time = source_data_criterium['field_values']['FACILITY_LOCATION_ARRIVAL_DATETIME']['value']
+                    converted_start_date = Time.at(old_start_time).getutc().strftime('%m/%d/%y')
+                    converted_start_time = Time.at(old_start_time).getutc().strftime('%I:%M %p')
+                  end
+                  new_facility_location['values'][0]['start_date'] = converted_start_date
+                  new_facility_location['values'][0]['start_time'] = converted_start_time
+
+                  converted_end_date = nil
+                  converted_end_time = nil
+                  if source_data_criterium['field_values']['FACILITY_LOCATION_DEPARTURE_DATETIME'] 
+                    old_end_time = source_data_criterium['field_values']['FACILITY_LOCATION_DEPARTURE_DATETIME']['value']
+                    converted_end_date = Time.at(old_end_time).getutc().strftime('%m/%d/%y')
+                    converted_end_time = Time.at(old_end_time).getutc().strftime('%I:%M %p')
+                  end
+                  new_facility_location['values'][0]['end_date'] = converted_end_date
+                  new_facility_location['values'][0]['end_time'] = converted_end_time
+
+                  # Reassign
                   new_source_data_criterium_field_values['FACILITY_LOCATION'] = new_facility_location 
-                else
-                  # add unaltered field value to new structure
+                elsif !(field_value_key == 'FACILITY_LOCATION_ARRIVAL_DATETIME' || field_value_key == 'FACILITY_LOCATION_DEPARTURE_DATETIME')
+                  # add unaltered field value to new structure, unless it's a time we already used above
                   new_source_data_criterium_field_values[field_value_key] = field_value_value
                 end
               end
