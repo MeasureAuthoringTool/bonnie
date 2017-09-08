@@ -193,7 +193,7 @@ namespace :bonnie do
         if patient.adverse_events
           patient.adverse_events.each do |adverse_event|
             if adverse_event['facility'] && !adverse_event['facility']['type']
-              update_facility(adverse_event)
+              update_facility(patient, adverse_event)
             end
           end
         end
@@ -201,7 +201,7 @@ namespace :bonnie do
         if patient.procedures
           patient.procedures.each do |procedure|
             if procedure['facility'] && !procedure['facility']['type']
-              update_facility(procedure)
+              update_facility(patient, procedure)
             end
           end
         end
