@@ -384,6 +384,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
 
   initialize: ->
     @model.set('type', 'CD')
+    @model.set('type_cmp', 'CD')
     @fieldValueCodesCollection = new Thorax.Collections.Codes {}, parse: true
     @showAddCodesButton = false
     @showAddCodes = false
@@ -424,8 +425,14 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     rendered: ->
       @codeSelectionViewForFieldValues = new Thorax.Views.CodeSelectionView codes: @fieldValueCodesCollection
       @$("select[name=type]").selectBoxIt('native': true)
+      @$("select[name=type_cmp]").selectBoxIt('native': true)
       @$('.date-picker').datepicker().on 'changeDate', _.bind(@validateForAddition, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@validateForAddition, this)
+    'change select[name=type_cmp]': (e) ->
+      @model.set type_cmp: $(e.target).val()
+      @toggleAddCodesButton()
+      @validateForAddition()
+      @advanceFocusToInput()
     'change select[name=type]': (e) ->
       @model.set type: $(e.target).val()
       @toggleAddCodesButton()
@@ -438,6 +445,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       # @serialize.key is the selected item set to the model.key so the view can change accordingly
       if(@serialize().key == 'COMPONENT')
         @model.set type: 'CMP'
+        @model.set type_cmp: 'CD'
       else if @serialize().key =="FACILITY_LOCATION"
         @model.set type: 'FAC'
       else
@@ -494,14 +502,22 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
         @$('select[name="code_list_id"]').focus()
       when 'TS'
         @$('input[name="start_date"]').focus()
+      when 'CMP'
+        switch @model.get('type_cmp')
+          when 'PQ'
+            @$('input[name="value"]').focus()
+          when 'CD'
+            @$('select[name="code_list_id"]').focus()
+          when 'TS'
+            @$('input[name="start_date"]').focus()
     @$('.btn').focus() # advances the focus to the add Button
 
   validateForAddition: ->
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
-    isDisabled = (attributes.type == 'PQ' && !attributes.value) ||
-                 (attributes.type == 'CD' && !attributes.code_list_id) ||
-                 (attributes.type == 'TS' && !attributes.value) ||
-                 (attributes.key == 'COMPONENT' && (!attributes.code_list_id || !attributes.value)) ||
+    isDisabled = ((attributes.type == 'PQ' || attributes.type_cmp == 'PQ') && !attributes.value) ||
+                 ((attributes.type == 'CD' || attributes.type_cmp == 'CD') && !attributes.code_list_id) ||
+                 ((attributes.type == 'TS' || attributes.type_cmp == 'TS') && !attributes.value) ||
+                 (attributes.key == 'COMPONENT' && (!attributes.code_list_id_cmp)) ||
                  (attributes.key == 'FACILITY_LOCATION' && !attributes.code_list_id) ||
                  (@fieldValue && !attributes.key)
     @$('button[data-call-method=addValue]').prop 'disabled', isDisabled
@@ -539,6 +555,12 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
         model_key  == 'RELATED_TO')
 
       compare_collection = @values.findWhere(key: model_key)
+
+      # component code was put into another field to reuse the Thorax View
+      if (@model.get('type') == "CMP")
+        tmp = @model.get('code_list_id_cmp')
+        @model.set code_list_id_cmp: @model.get('code_list_id')
+        @model.set code_list_id: tmp
 
       if compare_collection
         col = compare_collection

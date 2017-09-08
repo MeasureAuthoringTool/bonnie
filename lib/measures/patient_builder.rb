@@ -251,7 +251,18 @@ module Measures
         field_value["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id, value_sets)["display_name"] if field_value
       elsif field.type == "CMP"
         field_value["code"] = Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
-        field_value["result"] =  {"scalar"=>value["value"], "units"=>value["unit"]}
+        cmp_type = value["type_cmp"]
+        field_value["result"] = {}
+        if cmp_type == "TS"
+          field_value["result"]["units"] = "UnixTime"
+          field_value["result"]["scalar"] = value['value'] #Time.at(value['value']/1000).utc.strftime('%Y%m%d%H%M%S')
+        elsif cmp_type == "CD"
+          field_value["result"]["code"] = Measures::PatientBuilder.select_code(field.code_list_id_cmp, value_sets)
+          field_value["result"]["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id_cmp, value_sets)["display_name"]
+        else
+          field_value["result"] = {"scalar"=>value["value"], "units"=>value["unit"]}
+        end
+
         if value["referenceRangeLow_value"]
           field_value["referenceRangeLow"] = {"scalar"=>value["referenceRangeLow_value"], "units"=>value["referenceRangeLow_unit"]}
           field_value["referenceRangeHigh"] = {"scalar"=>value["referenceRangeHigh_value"], "units"=>value["referenceRangeHigh_unit"]}
@@ -272,8 +283,7 @@ module Measures
           values.push field_val
         end
         field_value = {"type"=> "COL", "values" => values}
-      else
-        field_value = field.format
+      else field_value = field.format
       end
 
       field_accessor = nil
