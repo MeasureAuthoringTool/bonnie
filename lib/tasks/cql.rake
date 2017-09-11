@@ -217,6 +217,12 @@ namespace :bonnie do
                   new_facility_location['values'][0]['code_list_id'] = source_data_criterium['field_values']['FACILITY_LOCATION']['code_list_id']
                   new_facility_location['values'][0]['field_title'] = source_data_criterium['field_values']['FACILITY_LOCATION']['field_title']
                   new_facility_location['values'][0]['title'] = source_data_criterium['field_values']['FACILITY_LOCATION']['title']
+                  if source_data_criterium['field_values']['FACILITY_LOCATION']['value']
+                    new_facility_location['values'][0]['value'] = source_data_criterium['field_values']['FACILITY_LOCATION']['value']
+                  end
+                  if source_data_criterium['field_values']['FACILITY_LOCATION']['end_value']
+                    new_facility_location['values'][0]['end_value'] = source_data_criterium['field_values']['FACILITY_LOCATION']['end_value']
+                  end
 
                   # Convert times
                   converted_start_date = nil
