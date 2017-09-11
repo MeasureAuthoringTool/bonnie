@@ -115,7 +115,7 @@ namespace :bonnie do
     end
 
     def update_facility(patient, datatype)
-      if datatype['facility'] && !datatype['facility']['type']
+      if datatype.facility && !datatype.facility['type']
         print "\e[#{32}m#{"[Facility]"}\e[0m"
         puts "#{patient.first} #{patient.last}"
 
@@ -127,8 +127,8 @@ namespace :bonnie do
         new_datatype_facility['values'] = [{}]
 
         # Convert single facility into collection containing 1 facility
-        start_time = datatype['facility']['start_time']
-        end_time = datatype['facility']['end_time']
+        start_time = datatype.facility['start_time']
+        end_time = datatype.facility['end_time']
 
         # Convert times from 1505203200 format to  09/12/2017 8:00 AM format
         if start_time
@@ -148,19 +148,17 @@ namespace :bonnie do
         new_datatype_facility['values'][0]['locationPeriodHigh'] = converted_end_time
 
         # name -> display
-        new_datatype_facility['values'][0]['display'] = datatype['facility']['name']
+        new_datatype_facility['values'][0]['display'] = datatype.facility['name']
 
         # code
-        if datatype['facility']['code']
-          code_system = datatype['facility']['code']['code_system']
-          code = datatype['facility']['code']['code']
+        if datatype.facility['code']
+          code_system = datatype.facility['code']['code_system']
+          code = datatype.facility['code']['code']
+          new_datatype_facility['values'][0]['code'] = {'code_system'=>code_system, 'code'=>code}
+          datatype.facility = new_datatype_facility
         else
-          code_system = nil
-          code = nil
+          datatype.remove_attribute(:facility)
         end
-        
-        new_datatype_facility['values'][0]['code'] = {'code_system'=>code_system, 'code'=>code}
-        datatype['facility'] = new_datatype_facility 
       end
     end
 
@@ -221,6 +219,9 @@ namespace :bonnie do
                 elsif !(field_value_key == 'FACILITY_LOCATION_ARRIVAL_DATETIME' || field_value_key == 'FACILITY_LOCATION_DEPARTURE_DATETIME')
                   # add unaltered field value to new structure, unless it's a time we already used above
                   new_source_data_criterium_field_values[field_value_key] = field_value_value
+                else
+                  # There was an arrival/depature time without a code, remove them
+                  new_source_data_criterium_field_values.delete(field_value_key)
                 end
               end
               source_data_criterium['field_values'] = new_source_data_criterium_field_values
@@ -230,28 +231,28 @@ namespace :bonnie do
 
         if patient.encounters
           patient.encounters.each do |encounter|
-            if encounter['facility'] && !encounter['facility']['type']
+            if encounter.facility && !encounter.facility['type']
               update_facility(patient, encounter)
             end
 
             # Diagnosis is only for encounter
-            if encounter['diagnosis'] && !encounter['diagnosis']['type']
+            if encounter.diagnosis && !encounter.diagnosis['type']
               print "\e[#{32}m#{"[Encounter Diagnosis]"}\e[0m"
               puts "#{patient.first} #{patient.last}"
               new_encounter_diagnosis = {}
               new_encounter_diagnosis['type'] = 'COL'
               new_encounter_diagnosis['values'] = [{}]
-              new_encounter_diagnosis['values'][0]['title'] = encounter['diagnosis']['title']
-              new_encounter_diagnosis['values'][0]['code'] = encounter['diagnosis']['code']
-              new_encounter_diagnosis['values'][0]['code_system'] = encounter['diagnosis']['code_system']
-              encounter['diagnosis'] = new_encounter_diagnosis
+              new_encounter_diagnosis['values'][0]['title'] = encounter.diagnosis['title']
+              new_encounter_diagnosis['values'][0]['code'] = encounter.diagnosis['code']
+              new_encounter_diagnosis['values'][0]['code_system'] = encounter.diagnosis['code_system']
+              encounter.diagnosis = new_encounter_diagnosis
             end
           end
         end
 
         if patient.adverse_events
           patient.adverse_events.each do |adverse_event|
-            if adverse_event['facility'] && !adverse_event['facility']['type']
+            if adverse_event.facility && !adverse_event.facility['type']
               update_facility(patient, adverse_event)
             end
           end
@@ -259,7 +260,7 @@ namespace :bonnie do
 
         if patient.procedures
           patient.procedures.each do |procedure|
-            if procedure['facility'] && !procedure['facility']['type']
+            if procedure.facility && !procedure.facility['type']
               update_facility(patient, procedure)
             end
           end
