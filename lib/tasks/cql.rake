@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#  -*- coding: utf-8 -*-
 namespace :bonnie do
   namespace :cql do
 
@@ -114,10 +114,19 @@ namespace :bonnie do
       end
     end
 
+    def print_helper(title, patient)
+      if title == 'Removing'
+        printf "%-22s", "\e[#{31}m#{"[#{title}] "}\e[0m"
+      else
+        printf "%-22s", "\e[#{32}m#{"[#{title}] "}\e[0m"
+      end
+      printf "%-80s", "\e[#{36}m#{"#{patient.first} #{patient.last}"}\e[0m"
+      puts "#{patient.measure_ids[0]}"
+    end
+
     def update_facility(patient, datatype)
       if datatype.facility && !datatype.facility['type']
-        print "\e[#{32}m#{"[Facility]"}\e[0m"
-        puts "#{patient.first} #{patient.last}"
+        print_helper("Facility", patient)
 
         # Need to build new facility and assign it in order to actually save it in DB
         new_datatype_facility = {}
@@ -157,12 +166,19 @@ namespace :bonnie do
           new_datatype_facility['values'][0]['code'] = {'code_system'=>code_system, 'code'=>code}
           datatype.facility = new_datatype_facility
         else
+          print_helper("Removing", patient)
           datatype.remove_attribute(:facility)
         end
       end
     end
 
+
+
     task :update_facilities_and_diagnoses => :environment do
+      printf "%-22s", "\e[#{32}m#{"[TITLE] "}\e[0m"
+      printf "| %-80s", "\e[#{36}m#{"FIRST LAST"}\e[0m"
+      puts "| MEASURE ID"
+      puts "-"*120
       # For any relevant datatypes, update old facilities and diagnoses to be collections with single elements
       Record.all.each do |patient|
         if patient.source_data_criteria
@@ -237,8 +253,7 @@ namespace :bonnie do
 
             # Diagnosis is only for encounter
             if encounter.diagnosis && !encounter.diagnosis['type']
-              print "\e[#{32}m#{"[Encounter Diagnosis]"}\e[0m"
-              puts "#{patient.first} #{patient.last}"
+              print_helper("Diagnosis", patient)
               new_encounter_diagnosis = {}
               new_encounter_diagnosis['type'] = 'COL'
               new_encounter_diagnosis['values'] = [{}]
