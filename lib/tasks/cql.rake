@@ -202,6 +202,9 @@ namespace :bonnie do
                   new_diagnosis['values'] = [{}]
                   new_diagnosis['values'][0]['type'] = 'CD'
                   new_diagnosis['values'][0]['key'] = 'DIAGNOSIS'
+                  if source_data_criterium['field_values']['DIAGNOSIS']['field_title']
+                    new_diagnosis['values'][0]['field_title'] = source_data_criterium['field_values']['DIAGNOSIS']['field_title']
+                  end
                   new_diagnosis['values'][0]['code_list_id'] = source_data_criterium['field_values']['DIAGNOSIS']['code_list_id']
                   new_diagnosis['values'][0]['field_title'] = source_data_criterium['field_values']['DIAGNOSIS']['field_title']
                   new_diagnosis['values'][0]['title'] = source_data_criterium['field_values']['DIAGNOSIS']['title']
