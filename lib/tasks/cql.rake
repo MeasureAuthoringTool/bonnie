@@ -121,7 +121,13 @@ namespace :bonnie do
         printf "%-22s", "\e[#{32}m#{"[#{title}] "}\e[0m"
       end
       printf "%-80s", "\e[#{36}m#{"#{patient.first} #{patient.last}"}\e[0m"
-      puts "#{patient.measure_ids[0]}"
+      begin
+        account = User.find(patient.user_id).email
+        printf "%-35s %s", "#{account}", " #{patient.measure_ids[0]}\n"
+      rescue Exception => ex
+        puts "ORPHANED"
+      end
+
     end
 
     def update_facility(patient, datatype)
@@ -177,8 +183,9 @@ namespace :bonnie do
     task :update_facilities_and_diagnoses => :environment do
       printf "%-22s", "\e[#{32}m#{"[TITLE] "}\e[0m"
       printf "| %-80s", "\e[#{36}m#{"FIRST LAST"}\e[0m"
+      printf"| %-35s", "ACCOUNT"
       puts "| MEASURE ID"
-      puts "-"*120
+      puts "-"*157
       # For any relevant datatypes, update old facilities and diagnoses to be collections with single elements
       Record.all.each do |patient|
         if patient.source_data_criteria
