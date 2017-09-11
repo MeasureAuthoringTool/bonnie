@@ -13,21 +13,23 @@
 {{/if}}
 
 {{#ifCond type '==' 'CMP'}}
-  <div class="row">
-    <div class="col-md-2">
-      <label for="code" class="control-label">Code</label>
-    </div>    
-    <div class="col-md-10">
-      {{!-- '_cmp' suffix used so EditCriteriaValueView treats code_list_id below as the code
-            selector, and the component's extra code is this code_list_id_cmp --}}
-      <select name="code_list_id_cmp" id="code_list_id_{{@cid}}" class="form-control">
-        <option value="">--</option>
-        {{#each codes tag="select" name="code_list_id_cmp"}}
-          <option value="{{oid}}">{{display_name}}</option>
-        {{/each}}
-      </select>
-    </div>    
-  </div>
+  <p>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="code" class="control-label">Code</label>
+      </div>
+      <div class="col-md-8">
+        {{!-- '_cmp' suffix used so EditCriteriaValueView treats code_list_id below as the code
+              selector, and the component's extra code is this code_list_id_cmp --}}
+        <select name="code_list_id_cmp" id="code_list_id_{{@cid}}" class="form-control">
+          <option value="">--</option>
+          {{#each codes tag="select" name="code_list_id_cmp"}}
+            <option value="{{oid}}">{{display_name}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+  </p>
   {{#ifCond this.fullCriteriaType '==' 'laboratory_test_performed'}}
     <div class="row">
       <div class="col-md-6">
@@ -44,21 +46,23 @@
       <div class="col-md-1">
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <label for="referenceRangeHigh" class="control-label">Reference Range - High</label>
-      </div> 
-      <div class="col-md-3">
-        <label for="referenceRangeHigh_value_{{@cid}}" class="sr-only">input</label>
-        <input type="text" name="referenceRangeHigh_value" id="referenceRangeHigh_value_{{@cid}}" class="form-control" placeholder="input">
+    <p>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="referenceRangeHigh" class="control-label">Reference Range - High</label>
+        </div>
+        <div class="col-md-3">
+          <label for="referenceRangeHigh_value_{{@cid}}" class="sr-only">input</label>
+          <input type="text" name="referenceRangeHigh_value" id="referenceRangeHigh_value_{{@cid}}" class="form-control" placeholder="input">
+        </div>
+        <div class="col-md-2">
+          <label for="referenceRangeHigh_unit_{{@cid}}" class="sr-only">units</label>
+          <input type="text" name="referenceRangeHigh_unit" id="referenceRangeHigh_unit_{{@cid}}" class="form-control" placeholder="units">
+        </div>
+        <div class="col-md-1">
+        </div>
       </div>
-      <div class="col-md-2">
-        <label for="referenceRangeHigh_unit_{{@cid}}" class="sr-only">units</label>
-        <input type="text" name="referenceRangeHigh_unit" id="referenceRangeHigh_unit_{{@cid}}" class="form-control" placeholder="units">
-      </div>
-      <div class="col-md-1">
-      </div>
-    </div>
+    </p>
   {{/ifCond}}
   <div class="row">
       <div class="col-md-3">
