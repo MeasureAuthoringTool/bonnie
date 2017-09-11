@@ -217,12 +217,6 @@ namespace :bonnie do
                   new_facility_location['values'][0]['code_list_id'] = source_data_criterium['field_values']['FACILITY_LOCATION']['code_list_id']
                   new_facility_location['values'][0]['field_title'] = source_data_criterium['field_values']['FACILITY_LOCATION']['field_title']
                   new_facility_location['values'][0]['title'] = source_data_criterium['field_values']['FACILITY_LOCATION']['title']
-                  if source_data_criterium['field_values']['FACILITY_LOCATION']['value']
-                    new_facility_location['values'][0]['value'] = source_data_criterium['field_values']['FACILITY_LOCATION']['value']
-                  end
-                  if source_data_criterium['field_values']['FACILITY_LOCATION']['end_value']
-                    new_facility_location['values'][0]['end_value'] = source_data_criterium['field_values']['FACILITY_LOCATION']['end_value']
-                  end
 
                   # Convert times
                   converted_start_date = nil
@@ -231,6 +225,9 @@ namespace :bonnie do
                     old_start_time = source_data_criterium['field_values']['FACILITY_LOCATION_ARRIVAL_DATETIME']['value']
                     converted_start_date = Time.at(old_start_time / 1000).getutc().strftime('%m/%d/%Y')
                     converted_start_time = Time.at(old_start_time / 1000).getutc().strftime('%l:%M %p')
+                    if source_data_criterium['field_values']['FACILITY_LOCATION_ARRIVAL_DATETIME']['value']
+                      new_facility_location['values'][0]['value'] = source_data_criterium['field_values']['FACILITY_LOCATION_ARRIVAL_DATETIME']['value']
+                    end
                   end
                   new_facility_location['values'][0]['start_date'] = converted_start_date
                   new_facility_location['values'][0]['start_time'] = converted_start_time
@@ -241,6 +238,9 @@ namespace :bonnie do
                     old_end_time = source_data_criterium['field_values']['FACILITY_LOCATION_DEPARTURE_DATETIME']['value']
                     converted_end_date = Time.at(old_end_time / 1000).getutc().strftime('%m/%d/%Y')
                     converted_end_time = Time.at(old_end_time / 1000).getutc().strftime('%l:%M %p')
+                    if source_data_criterium['field_values']['FACILITY_LOCATION_DEPARTURE_DATETIME']['end_value']
+                      new_facility_location['values'][0]['end_value'] = source_data_criterium['field_values']['FACILITY_LOCATION_DEPARTURE_DATETIME']['value']
+                    end
                   end
                   new_facility_location['values'][0]['end_date'] = converted_end_date
                   new_facility_location['values'][0]['end_time'] = converted_end_time
