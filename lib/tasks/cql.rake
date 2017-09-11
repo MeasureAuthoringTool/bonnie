@@ -245,8 +245,8 @@ namespace :bonnie do
                     new_locationPeriodLow = converted_start_date.to_s
                     new_locationPeriodLow += " #{converted_start_time.to_s}" if converted_start_time
                   end
-                  if converted_start_date
-                    new_locationPeriodHigh = converted_end_time.to_s
+                  if converted_end_date
+                    new_locationPeriodHigh = converted_end_date.to_s
                     new_locationPeriodHigh += " #{converted_end_time.to_s}" if converted_end_time
                   end
                   new_facility_location['values'][0]['locationPeriodLow'] = new_locationPeriodLow if new_locationPeriodLow 
