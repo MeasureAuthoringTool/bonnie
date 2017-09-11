@@ -115,7 +115,7 @@ namespace :bonnie do
     end
 
     def print_helper(title, patient)
-      if title == 'Removing'
+      if title == '-Facility' || title == '-Arrival' || title == '-Departure'
         printf "%-22s", "\e[#{31}m#{"[#{title}] "}\e[0m"
       else
         printf "%-22s", "\e[#{32}m#{"[#{title}] "}\e[0m"
@@ -132,8 +132,6 @@ namespace :bonnie do
 
     def update_facility(patient, datatype)
       if datatype.facility && !datatype.facility['type']
-        print_helper("Facility", patient)
-
         # Need to build new facility and assign it in order to actually save it in DB
         new_datatype_facility = {}
 
@@ -170,9 +168,10 @@ namespace :bonnie do
           code_system = datatype.facility['code']['code_system']
           code = datatype.facility['code']['code']
           new_datatype_facility['values'][0]['code'] = {'code_system'=>code_system, 'code'=>code}
+          print_helper("Facility", patient)
           datatype.facility = new_datatype_facility
         else
-          print_helper("Removing", patient)
+          print_helper("-Facility", patient)
           datatype.remove_attribute(:facility)
         end
       end
@@ -244,6 +243,11 @@ namespace :bonnie do
                   new_source_data_criterium_field_values[field_value_key] = field_value_value
                 else
                   # There was an arrival/depature time without a code, remove them
+                  if field_value_key == 'FACILITY_LOCATION_ARRIVAL_DATETIME'
+                    print_helper("-Arrival", patient)
+                  else
+                    print_helper("-Departure", patient)
+                  end
                   new_source_data_criterium_field_values.delete(field_value_key)
                 end
               end
