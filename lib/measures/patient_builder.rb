@@ -257,7 +257,7 @@ module Measures
         field_value["result"] = {}
         if cmp_type == "TS"
           field_value["result"]["units"] = "UnixTime"
-          field_value["result"]["scalar"] = value['value'] #Time.at(value['value']/1000).utc.strftime('%Y%m%d%H%M%S')
+          field_value["result"]["scalar"] = value['value']
         elsif cmp_type == "CD"
           field_value["result"]["code"] = Measures::PatientBuilder.select_code(field.code_list_id_cmp, value_sets)
           field_value["result"]["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id_cmp, value_sets)["display_name"]

@@ -568,6 +568,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       compare_collection = @values.findWhere(key: model_key)
 
       # component code was put into another field to reuse the Thorax View
+      # Therefore we have to swap code_list_id_cmp with code_list_id when saving
       if (@model.get('type') == "CMP")
         tmp = @model.get('code_list_id_cmp')
         @model.set code_list_id_cmp: @model.get('code_list_id')
