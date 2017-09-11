@@ -268,12 +268,13 @@ namespace :bonnie do
                   new_source_data_criterium_field_values[field_value_key] = field_value_value
                 else
                   # There was an arrival/depature time without a code, remove them
-                  if field_value_key == 'FACILITY_LOCATION_ARRIVAL_DATETIME'
+                  if field_value_key == 'FACILITY_LOCATION_ARRIVAL_DATETIME' && !source_data_criterium['field_values']['FACILITY_LOCATION']
                     print_helper("-Arrival", patient)
-                  else
+                    new_source_data_criterium_field_values.delete(field_value_key)
+                  elsif field_value_key == 'FACILITY_LOCATION_DEPARTURE_DATETIME' && !source_data_criterium['field_values']['FACILITY_LOCATION']
                     print_helper("-Departure", patient)
+                    new_source_data_criterium_field_values.delete(field_value_key)
                   end
-                  new_source_data_criterium_field_values.delete(field_value_key)
                 end
               end
               source_data_criterium['field_values'] = new_source_data_criterium_field_values
