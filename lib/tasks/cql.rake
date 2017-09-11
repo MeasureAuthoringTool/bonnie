@@ -145,13 +145,13 @@ namespace :bonnie do
 
         # Convert times from 1505203200 format to  09/12/2017 8:00 AM format
         if start_time
-          converted_start_time = Time.at(start_time).getutc().strftime("%m/%d/%y %I:%M %p")
+          converted_start_time = Time.at(start_time).getutc().strftime("%m/%d/%Y %l:%M %p")
         else
           converted_start_time = nil
         end
 
         if end_time
-          converted_end_time = Time.at(end_time).getutc().strftime("%m/%d/%y %I:%M %p")
+          converted_end_time = Time.at(end_time).getutc().strftime("%m/%d/%Y %l:%M %p")
         else
           converted_end_time = nil
         end
@@ -196,7 +196,9 @@ namespace :bonnie do
                 if field_value_key == 'DIAGNOSIS' && !(source_data_criterium['field_values']['DIAGNOSIS']['type'] == 'COL')
                   new_diagnosis = {}
                   new_diagnosis['type'] = 'COL'
-                  new_diagnosis['field_title'] = source_data_criterium['field_values']['DIAGNOSIS']['field_title']
+                  if source_data_criterium['field_values']['DIAGNOSIS']['field_title']
+                    new_diagnosis['field_title'] = source_data_criterium['field_values']['DIAGNOSIS']['field_title']
+                  end
                   new_diagnosis['values'] = [{}]
                   new_diagnosis['values'][0]['type'] = 'CD'
                   new_diagnosis['values'][0]['key'] = 'DIAGNOSIS'
