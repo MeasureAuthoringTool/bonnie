@@ -223,8 +223,8 @@ namespace :bonnie do
                   converted_start_time = nil
                   if source_data_criterium['field_values']['FACILITY_LOCATION_ARRIVAL_DATETIME'] 
                     old_start_time = source_data_criterium['field_values']['FACILITY_LOCATION_ARRIVAL_DATETIME']['value']
-                    converted_start_date = Time.at(old_start_time).getutc().strftime('%m/%d/%Y')
-                    converted_start_time = Time.at(old_start_time).getutc().strftime('%l:%M %p')
+                    converted_start_date = Time.at(old_start_time / 1000).getutc().strftime('%m/%d/%Y')
+                    converted_start_time = Time.at(old_start_time / 1000).getutc().strftime('%l:%M %p')
                   end
                   new_facility_location['values'][0]['start_date'] = converted_start_date
                   new_facility_location['values'][0]['start_time'] = converted_start_time
@@ -233,21 +233,21 @@ namespace :bonnie do
                   converted_end_time = nil
                   if source_data_criterium['field_values']['FACILITY_LOCATION_DEPARTURE_DATETIME'] 
                     old_end_time = source_data_criterium['field_values']['FACILITY_LOCATION_DEPARTURE_DATETIME']['value']
-                    converted_end_date = Time.at(old_end_time).getutc().strftime('%m/%d/%Y')
-                    converted_end_time = Time.at(old_end_time).getutc().strftime('%l:%M %p')
+                    converted_end_date = Time.at(old_end_time / 1000).getutc().strftime('%m/%d/%Y')
+                    converted_end_time = Time.at(old_end_time / 1000).getutc().strftime('%l:%M %p')
                   end
                   new_facility_location['values'][0]['end_date'] = converted_end_date
                   new_facility_location['values'][0]['end_time'] = converted_end_time
 
                   new_locationPeriodLow = nil
                   new_locationPeriodHigh = nil
-                  if converted_start_time
-                    new_locationPeriodLow = converted_start_time.to_s
-                    new_locationPeriodLow += converted_start_date.to_s if converted_start_date
+                  if converted_start_date
+                    new_locationPeriodLow = converted_start_date.to_s
+                    new_locationPeriodLow += " #{converted_start_time.to_s}" if converted_start_time
                   end
-                  if converted_start_time
+                  if converted_start_date
                     new_locationPeriodHigh = converted_end_time.to_s
-                    new_locationPeriodHigh += converted_end_date.to_s if converted_end_date
+                    new_locationPeriodHigh += " #{converted_end_time.to_s}" if converted_end_time
                   end
                   new_facility_location['values'][0]['locationPeriodLow'] = new_locationPeriodLow if new_locationPeriodLow 
                   new_facility_location['values'][0]['locationPeriodHigh'] = new_locationPeriodHigh if new_locationPeriodHigh 
