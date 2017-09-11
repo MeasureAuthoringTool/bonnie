@@ -177,8 +177,8 @@ namespace :bonnie do
                   new_diagnosis = {}
                   new_diagnosis['type'] = 'COL'
                   new_diagnosis['values'] = [{}]
-                  new_diagnosis['values'][0]['type'] = source_data_criterium['field_values']['DIAGNOSIS']['type']
-                  new_diagnosis['values'][0]['key'] = source_data_criterium['field_values']['DIAGNOSIS']['key']
+                  new_diagnosis['values'][0]['type'] = 'CD'
+                  new_diagnosis['values'][0]['key'] = 'DIAGNOSIS'
                   new_diagnosis['values'][0]['code_list_id'] = source_data_criterium['field_values']['DIAGNOSIS']['code_list_id']
                   new_diagnosis['values'][0]['field_title'] = source_data_criterium['field_values']['DIAGNOSIS']['field_title']
                   new_diagnosis['values'][0]['title'] = source_data_criterium['field_values']['DIAGNOSIS']['title']
@@ -189,8 +189,8 @@ namespace :bonnie do
                   new_facility_location = {}
                   new_facility_location['type'] = 'COL'
                   new_facility_location['values'] = [{}]
-                  new_facility_location['values'][0]['type'] = source_data_criterium['field_values']['FACILITY_LOCATION']['type']
-                  new_facility_location['values'][0]['key'] = source_data_criterium['field_values']['FACILITY_LOCATION']['key']
+                  new_facility_location['values'][0]['type'] = 'FAC'
+                  new_facility_location['values'][0]['key'] = 'FACILITY_LOCATION'
                   new_facility_location['values'][0]['code_list_id'] = source_data_criterium['field_values']['FACILITY_LOCATION']['code_list_id']
                   new_facility_location['values'][0]['field_title'] = source_data_criterium['field_values']['FACILITY_LOCATION']['field_title']
                   new_facility_location['values'][0]['title'] = source_data_criterium['field_values']['FACILITY_LOCATION']['title']
