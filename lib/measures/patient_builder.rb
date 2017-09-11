@@ -144,6 +144,8 @@ module Measures
       if fields
         # Collect oids out of collection for each value in collection that is not a collection itself
         oids.concat fields.select{|key,value| value["type"] != "COL"}.values.collect {|value| value['code_list_id']}
+        # Also add oids for components
+        oids.concat fields.select{|key,value| value["type"] != "COL"}.values.collect {|value| value['code_list_id_cmp']}
         # Recurse through potential inner collections adding their oids along the way
         fields.select{|key,value| value["type"] == "COL"}.values.each {
           |collection| collection["values"].each{ 
@@ -283,7 +285,8 @@ module Measures
           values.push field_val
         end
         field_value = {"type"=> "COL", "values" => values}
-      else field_value = field.format
+      else
+        field_value = field.format
       end
 
       field_accessor = nil

@@ -47,7 +47,7 @@
       </div>
       <div class="row">
         <div class="form-group col-md-6" id="startControl">
-          <label for="start_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> <span id='startLabel'>{{startLabel}}</span><span class="sr-only"> date month/day/year</span></label></label>
+          <label for="start_date_{{@cid}}" class="control-label"><i class="fa fa-clock-o" aria-hidden="true"></i> <span id='startLabel'>{{startLabel}}</span><span class="sr-only"> date month/day/year</span></label>
           <div class="datetime-control">
             <div>
               <input type="text" name="start_date" id="start_date_{{@cid}}" class="date-picker form-control" placeholder="mm/dd/yyyy" data-date-format="mm/dd/yyyy" data-date-keyboard-navigation="false" data-date-autoclose="true">
@@ -191,23 +191,25 @@
             {{#each values}}
               <span>
                 {{field_title}}:
-                {{#if start_date}}
-                  {{#if end_date}}
-                    {{start_date}} {{start_time}} - {{end_date}} {{end_time}},
-                    {{title}}
-                  {{else}}
-                    {{start_date}} {{start_time}} - Undefined, 
-                    {{title}}
-                  {{/if}}
+                {{#ifCond type '==' "CMP"}}
+                  {{!-- This needs to go on one line to prevent unwanted space characters --}}
+                  {{title}}{{#if title_cmp}}, {{title_cmp}} {{/if}}{{#if start_date}}, {{start_date}} {{start_time}}{{else}}{{#if value}}, {{value}}{{/if}}{{#if unit}} {{unit}}{{/if}}{{/if}}                  {{#if referenceRangeLow_value}}, Reference Range - Low: {{referenceRangeLow_value}}{{#if referenceRangeLow_unit}} {{referenceRangeLow_unit}}{{/if}}{{/if}}{{#if referenceRangeHigh_value}}, Reference Range - High: {{referenceRangeHigh_value}}{{#if referenceRangeHigh_unit}} {{referenceRangeHigh_unit}}{{/if}}{{/if}}
                 {{else}}
-                  {{#if end_date}}
-                    Undefined - {{end_date}} {{end_time}},
-                    {{title}}
+                  {{#if start_date}}
+                    {{#if end_date}}
+                      {{start_date}} {{start_time}} - {{end_date}} {{end_time}},
+                      {{title}}
+                    {{else}}
+                      {{start_date}} {{start_time}} - Undefined,
+                      {{title}}
+                    {{/if}}
                   {{else}}
-                    {{!-- This needs to go on one line to prevent unwanted space characters --}}
-                    {{title}}{{#if value}}, {{value}}{{/if}}{{#if unit}} {{unit}}{{/if}}{{#if referenceRangeLow_value}}, Reference Range - Low: {{referenceRangeLow_value}}{{#if referenceRangeLow_unit}} {{referenceRangeLow_unit}}{{/if}}{{/if}}{{#if referenceRangeHigh_value}}, Reference Range - High: {{referenceRangeHigh_value}}{{#if referenceRangeHigh_unit}} {{referenceRangeHigh_unit}}{{/if}}{{/if}}
-                  {{/if}}
-                {{/if}}
+                    {{#if end_date}}
+                        Undefined - {{end_date}} {{end_time}},
+                      {{title}}
+                    {{/if}}
+                    {{title}}{{/if}}{{#if value}}, {{value}}{{/if}}{{#if unit}} {{unit}}{{/if}}
+                {{/ifCond}}
                 {{#if codes}} - Codes:
                   {{#each codes}}
                     {{@key}}: {{this}}

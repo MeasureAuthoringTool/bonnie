@@ -417,8 +417,13 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
             attr.locationPeriodHigh = endDate
             attr.end_value = moment.utc(endDate, 'L LT').format('X') * 1000
             
-      title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
-      attr.title = title if title
+      if attr.key == 'COMPONENT'
+        title_cmp = @measure?.valueSets().findWhere(oid: attr.code_list_id_cmp)?.get('display_name')
+        attr.title = title_cmp if title_cmp
+        attr.title_cmp = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
+      else
+        title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
+        attr.title = title if title
       attr.codes = @fieldValueCodesCollection.toJSON() unless jQuery.isEmptyObject(@fieldValueCodesCollection.toJSON())
       # gets the pretty printed title (e.g., "Result Date/Time" instead of "RESULT_DATETIME")
       attr.field_title = (field for field in @fields when field.key == attr.key)[0]?.title
@@ -443,10 +448,16 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       @validateForAddition()
     'change select': ->
       # @serialize.key is the selected item set to the model.key so the view can change accordingly
-      if(@serialize().key == 'COMPONENT')
+      key = @serialize().key
+      if key != 'COMPONENT'
+        # clear extra values from component
+        @model.unset 'type_cmp'
+        @model.unset 'title_cmp'
+        @model.unset 'code_list_id_cmp'
+      if key == 'COMPONENT'
         @model.set type: 'CMP'
         @model.set type_cmp: 'CD'
-      else if @serialize().key =="FACILITY_LOCATION"
+      else if key == 'FACILITY_LOCATION'
         @model.set type: 'FAC'
       else
         # Default drop down to 'coded'
@@ -523,6 +534,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @$('button[data-call-method=addValue]').prop 'disabled', isDisabled
 
   changeFieldValueKey: (e) ->
+    console.log("foo")
     # If it's a date/time field, automatically chose the date type and pre-enter a date
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
     if attributes.key in ['ADMISSION_DATETIME', 'DISCHARGE_DATETIME', 'FACILITY_LOCATION_ARRIVAL_DATETIME',
