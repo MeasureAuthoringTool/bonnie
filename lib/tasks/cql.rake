@@ -196,6 +196,7 @@ namespace :bonnie do
                 if field_value_key == 'DIAGNOSIS' && !(source_data_criterium['field_values']['DIAGNOSIS']['type'] == 'COL')
                   new_diagnosis = {}
                   new_diagnosis['type'] = 'COL'
+                  new_diagnosis['field_title'] = source_data_criterium['field_values']['DIAGNOSIS']['field_title']
                   new_diagnosis['values'] = [{}]
                   new_diagnosis['values'][0]['type'] = 'CD'
                   new_diagnosis['values'][0]['key'] = 'DIAGNOSIS'
