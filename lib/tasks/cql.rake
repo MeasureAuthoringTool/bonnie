@@ -238,7 +238,7 @@ namespace :bonnie do
                     old_end_time = source_data_criterium['field_values']['FACILITY_LOCATION_DEPARTURE_DATETIME']['value']
                     converted_end_date = Time.at(old_end_time / 1000).getutc().strftime('%m/%d/%Y')
                     converted_end_time = Time.at(old_end_time / 1000).getutc().strftime('%l:%M %p')
-                    if source_data_criterium['field_values']['FACILITY_LOCATION_DEPARTURE_DATETIME']['end_value']
+                    if source_data_criterium['field_values']['FACILITY_LOCATION_DEPARTURE_DATETIME']['value']
                       new_facility_location['values'][0]['end_value'] = source_data_criterium['field_values']['FACILITY_LOCATION_DEPARTURE_DATETIME']['value']
                     end
                   end
