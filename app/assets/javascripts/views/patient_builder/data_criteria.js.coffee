@@ -534,7 +534,6 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @$('button[data-call-method=addValue]').prop 'disabled', isDisabled
 
   changeFieldValueKey: (e) ->
-    console.log("foo")
     # If it's a date/time field, automatically chose the date type and pre-enter a date
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
     if attributes.key in ['ADMISSION_DATETIME', 'DISCHARGE_DATETIME', 'FACILITY_LOCATION_ARRIVAL_DATETIME',
