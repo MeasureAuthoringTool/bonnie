@@ -357,8 +357,7 @@ describe 'PatientBuilderView', ->
       expect(editFieldValueView.$('label[for=referenceRangeLow]')[0].innerHTML).toEqual('Reference Range - Low')
       expect(editFieldValueView.$('label[for=referenceRangeHigh]')).toExist()
       expect(editFieldValueView.$('label[for=referenceRangeHigh]')[0].innerHTML).toEqual('Reference Range - High')
-      expect(editFieldValueView.$('label[for=value]')).toExist()
-      expect(editFieldValueView.$('label[for=value]')[0].innerHTML).toEqual('Value')
+      expect(editFieldValueView.$('select[name=code_list_id]')).toExist()
 
       editFieldValueView.$('select[name=key]').val('REASON').change()
       expect(editFieldValueView.$('label[for=code]').length).toEqual(0)
