@@ -144,7 +144,7 @@ class Record
     end
 
 
-    # TODO: make this part of the code yield changes.
+    # TODO: make this part of the method yield changes.
     # ensure there's the correct number of populations for each population set
     self.expected_values.each do |expected_value_set|
       # ignore if it's not related to the measure (can happen for portfolio users)
