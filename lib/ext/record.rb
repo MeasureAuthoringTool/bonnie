@@ -112,7 +112,19 @@ class Record
       end
 
       # remove if it is part of this measure and has any of the three checked issues
-      matches_measure && (is_extra_population || is_garbage_data || is_duplicate_population)
+      if matches_measure && (is_extra_population || is_garbage_data || is_duplicate_population)
+        if is_extra_population
+          removal_reason = "extra population"
+        elsif is_garbage_data
+          removal_reason = "garbage data"
+        elsif is_duplicate_population
+          removal_reason = "dup population"
+        end
+        yield removal_reason, expected_value_set if block_given?
+        true
+      else
+        false
+      end
     end
 
     # ensure there's the correct number of populations for each population set
