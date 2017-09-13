@@ -40,22 +40,22 @@ namespace :bonnie do
       end
     end
 
-    desc "Garbage collect expected_values structures"
+    desc "Garbage collect/fix expected_values structures"
     task :expected_values_garbage_collect => :environment do
       # build structures for holding counts of changes
-      patient_values_removed_count = 0
+      patient_values_changed_count = 0
       total_patients_count = 0
       user_counts = []
-      puts "Garbage collecting expected_values structures"
+      puts "Garbage collecting/fixing expected_values structures"
       puts ""
 
       # loop through users
       User.asc(:email).all.each do |user|
-        user_count = {email: user.email, total_patients_count: 0, patient_values_removed_count: 0, measure_counts: []}
+        user_count = {email: user.email, total_patients_count: 0, patient_values_changed_count: 0, measure_counts: []}
 
         # loop through measures
         CqlMeasure.by_user(user).each do |measure|
-          measure_count = {cms_id: measure.cms_id, title: measure.title, total_patients_count: 0, patient_values_removed_count: 0}
+          measure_count = {cms_id: measure.cms_id, title: measure.title, total_patients_count: 0, patient_values_changed_count: 0}
 
           # loop through each patient in the measure
           Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id).each do |patient|
@@ -64,19 +64,19 @@ namespace :bonnie do
             total_patients_count += 1
 
             # do the updating of the structure
-            items_removed = false
-            patient.update_expected_value_structure!(measure) do |removal_reason, expected_value_set|
-              puts "#{user.email} - #{measure.cms_id} - #{measure.title} - #{patient.first} #{patient.last} - REMOVED BECAUSE: #{removal_reason}"
+            items_changed = false
+            patient.update_expected_value_structure!(measure) do |change_type, change_reason, expected_value_set|
+              puts "#{user.email} - #{measure.cms_id} - #{measure.title} - #{patient.first} #{patient.last} - #{change_type} because #{change_reason}"
               Pry::ColorPrinter.pp(expected_value_set)
-              items_removed = true
+              items_changed = true
             end
 
-            # if anything was removed print the final structure
-            if items_removed
-              measure_count[:patient_values_removed_count] += 1
-              user_count[:patient_values_removed_count] += 1
-              patient_values_removed_count += 1
-              puts "#{user.email} - #{measure.cms_id} - #{patient.first} #{patient.last} - FINAL STRUCTURE:"
+            # if anything was removed print the final structure 
+            if items_changed
+              measure_count[:patient_values_changed_count] += 1
+              user_count[:patient_values_changed_count] += 1
+              patient_values_changed_count += 1
+              puts "#{user.email} - #{measure.cms_id} - #{measure.title} - #{patient.first} #{patient.last} - FINAL STRUCTURE:"
               Pry::ColorPrinter.pp(patient.expected_values)
               puts ""
             end
@@ -91,19 +91,19 @@ namespace :bonnie do
       puts "--- Complete! ---"
       puts ""
 
-      if patient_values_removed_count > 0
-        puts "\e[31mexpected_values removed on #{patient_values_removed_count} of #{total_patients_count} patients\e[0m"
+      if patient_values_changed_count > 0
+        puts "\e[31mexpected_values changed on #{patient_values_changed_count} of #{total_patients_count} patients\e[0m"
         user_counts.each do |user_count|
-          if user_count[:patient_values_removed_count] > 0
-            puts "#{user_count[:email]} - #{user_count[:patient_values_removed_count]}/#{user_count[:total_patients_count]}"
+          if user_count[:patient_values_changed_count] > 0
+            puts "#{user_count[:email]} - #{user_count[:patient_values_changed_count]}/#{user_count[:total_patients_count]}"
             user_count[:measure_counts].each do |measure_count|
-              print "\e[31m" if measure_count[:patient_values_removed_count] > 0
-              puts "  #{measure_count[:patient_values_removed_count]}/#{measure_count[:total_patients_count]} on #{measure_count[:cms_id]} - #{measure_count[:title]}\e[0m"
+              print "\e[31m" if measure_count[:patient_values_changed_count] > 0
+              puts "  #{measure_count[:patient_values_changed_count]}/#{measure_count[:total_patients_count]} on #{measure_count[:cms_id]} - #{measure_count[:title]}\e[0m"
             end
           end
         end
       else
-        puts "\e[32mNo expected_values removed\e[0m"
+        puts "\e[32mNo expected_values changed\e[0m"
       end
     end
   end

@@ -80,14 +80,25 @@ class Record
   # patient's population set with a value of zero.
   # if a population set has fewer populations in a measure, any additional populations in the patient's
   # population set are removed.
+  #
+  # If this method is given a block it will yield when changes are made to the expected_values structure. The things it
+  # yields are as follows:
+  #    change_type - A symbol describing the change made. e.x. :population_set_removal
+  #    change_reason - A symbol describing reason the change was made. e.x. :dup_population
+  #    expected_value_set - The set removed, added, or changed.
   def update_expected_value_structure!(measure)
     # ensure there's the correct number of population sets
+    # TODO: FIX THIS: this will overcount if there is garbage data or duplicate population sets and make the code below
+    #       fail to do it's job properly. This would be valid to do after the removal of garbage_data was the first thing done.
     patient_population_count = self.expected_values.count { |expected_value_set| expected_value_set[:measure_id] == measure.hqmf_set_id }
     measure_population_count = measure.populations.count
     # add new population sets. the rest of the data gets added below.
     if patient_population_count < measure_population_count
       (patient_population_count..measure_population_count-1).each do |index|
-        self.expected_values << {measure_id: measure.hqmf_set_id, population_index: index}
+        new_expected_values = {measure_id: measure.hqmf_set_id, population_index: index}
+        # yield info about this addition
+        yield :population_set_addition, :missing_population, new_expected_values if block_given?
+        self.expected_values << new_expected_values
       end
     end
 
@@ -113,20 +124,27 @@ class Record
 
       # remove if it is part of this measure and has any of the three checked issues
       if matches_measure && (is_extra_population || is_garbage_data || is_duplicate_population)
-        if is_extra_population
-          removal_reason = "extra population"
-        elsif is_garbage_data
-          removal_reason = "garbage data"
-        elsif is_duplicate_population
-          removal_reason = "dup population"
+        # if a block is given prepare some data and yield info about the removal
+        if block_given?
+          if is_extra_population
+            change_reason = :extra_population
+          elsif is_garbage_data
+            change_reason = :garbage_data
+          elsif is_duplicate_population
+            change_reason = :dup_population
+          end
+          # Yield this change being made, with change_type symbol, change_reason symbol and the structure
+          yield :population_set_removal, change_reason, expected_value_set
         end
-        yield removal_reason, expected_value_set if block_given?
+
         true
       else
         false
       end
     end
 
+
+    # TODO: make this part of the code yield changes.
     # ensure there's the correct number of populations for each population set
     self.expected_values.each do |expected_value_set|
       # ignore if it's not related to the measure (can happen for portfolio users)
