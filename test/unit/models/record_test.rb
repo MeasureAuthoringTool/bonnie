@@ -68,6 +68,27 @@ class RecordTest < ActiveSupport::TestCase
     assert_equal expected_value_sets, patient.expected_values
   end
 
+  test "Extra Population Set Multiple Measure Expecteds" do
+    patient = Record.where(last: 'Expecteds', first: 'Extra Population Set Multiple Measure').first
+    changes = collect_expected_changes(patient, @measure)
+    assert_equal 1, changes.count
+
+    # check extra population set removal
+    assert_equal :population_set_removal, changes[0][:change_type]
+    assert_equal :extra_population, changes[0][:change_reason]
+    expected_value_set = { "measure_id" => @measure_set_id, "population_index" => 1,
+      "IPP" => 1, "DENOM" => 1, "DENEX" => 1, "NUMER" => 0, "DENEXCEP" => 0}
+    assert_equal expected_value_set, changes[0][:expected_value_set]
+
+    # check final expecteds structure
+    expected_value_sets = [{ "measure_id" => @measure_set_id, "population_index" => 0,
+      "IPP" => 1, "DENOM" => 1, "DENEX" => 1, "NUMER" => 0, "DENEXCEP" => 0},
+      { "measure_id" => "4DF3479F-82F4-183B-9254-F2492BA43523", "population_index" => 0,
+        "IPP" => 1, "DENOM" => 1, "DENEX" => 1, "NUMER" => 0, "DENEXCEP" => 0}]
+    assert_equal 2, patient.expected_values.count
+    assert_equal expected_value_sets, patient.expected_values
+  end
+
   test "Garbage and Duplicate Expecteds" do
     patient = Record.where(last: 'Expecteds', first: 'Garbage and Duplicate').first
     changes = collect_expected_changes(patient, @measure)
