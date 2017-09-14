@@ -67,7 +67,7 @@ namespace :bonnie do
             items_changed = false
             patient.update_expected_value_structure!(measure) do |change_type, change_reason, expected_value_set|
               puts "#{user.email} - #{measure.cms_id} - #{measure.title} - #{patient.first} #{patient.last} - #{change_type} because #{change_reason}"
-              Pry::ColorPrinter.pp(expected_value_set)
+              pp(expected_value_set)
               items_changed = true
             end
 
@@ -77,7 +77,7 @@ namespace :bonnie do
               user_count[:patient_values_changed_count] += 1
               patient_values_changed_count += 1
               puts "#{user.email} - #{measure.cms_id} - #{measure.title} - #{patient.first} #{patient.last} - FINAL STRUCTURE:"
-              Pry::ColorPrinter.pp(patient.expected_values)
+              pp(patient.expected_values)
               puts ""
             end
           end
