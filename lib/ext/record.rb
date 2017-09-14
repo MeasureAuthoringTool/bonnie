@@ -87,20 +87,7 @@ class Record
   #    change_reason - A symbol describing reason the change was made. e.x. :dup_population
   #    expected_value_set - The set removed, added, or changed.
   def update_expected_value_structure!(measure)
-    # ensure there's the correct number of population sets
-    # TODO: FIX THIS: this will overcount if there is garbage data or duplicate population sets and make the code below
-    #       fail to do it's job properly. This would be valid to do after the removal of garbage_data was the first thing done.
-    patient_population_count = self.expected_values.count { |expected_value_set| expected_value_set[:measure_id] == measure.hqmf_set_id }
     measure_population_count = measure.populations.count
-    # add new population sets. the rest of the data gets added below.
-    if patient_population_count < measure_population_count
-      (patient_population_count..measure_population_count-1).each do |index|
-        new_expected_values = {measure_id: measure.hqmf_set_id, population_index: index}
-        # yield info about this addition
-        yield :population_set_addition, :missing_population, new_expected_values if block_given?
-        self.expected_values << new_expected_values
-      end
-    end
 
     # keep track of the population indexes we have seen so we can reject duplicates
     population_indexes_found = []
@@ -133,8 +120,8 @@ class Record
           elsif is_duplicate_population
             change_reason = :dup_population
           end
-          # Yield this change being made, with change_type symbol, change_reason symbol and the structure
-          yield :population_set_removal, change_reason, expected_value_set
+          # Yield this change being made, with change_type symbol, change_reason symbol and the structure being removed
+          yield :population_set_removal, change_reason, expected_value_set.deep_dup
         end
 
         true
@@ -143,29 +130,56 @@ class Record
       end
     end
 
+    # add missing population sets
+    patient_population_count = self.expected_values.count { |expected_value_set| expected_value_set[:measure_id] == measure.hqmf_set_id }
+    # add new population sets. the rest of the data gets added below.
+    if patient_population_count < measure_population_count
+      (patient_population_count..measure_population_count-1).each do |index|
+        new_expected_values = {"measure_id" => measure.hqmf_set_id, "population_index" => index}
+        # yield info about this addition
+        yield :population_set_addition, :missing_population, new_expected_values.deep_dup if block_given?
+        self.expected_values << new_expected_values
+      end
+    end
 
-    # TODO: make this part of the method yield changes.
     # ensure there's the correct number of populations for each population set
     self.expected_values.each do |expected_value_set|
       # ignore if it's not related to the measure (can happen for portfolio users)
-      next unless expected_value_set[:measure_id] == measure.hqmf_set_id
+      next unless expected_value_set["measure_id"] == measure.hqmf_set_id
 
       expected_value_population_set = expected_value_set.slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
-      measure_population_set = measure.populations[expected_value_set[:population_index]].slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
+      measure_population_set = measure.populations[expected_value_set["population_index"]].slice(*HQMF::PopulationCriteria::ALL_POPULATION_CODES).keys
 
       # add population sets that didn't exist (populations in the measure that don't exist in the expected values)
       added_populations = measure_population_set - expected_value_population_set
-      added_populations.each do |population|
-        if population == 'OBSERV'
-          expected_value_set[population] = []
-        else
-          expected_value_set[population] = 0
+      # create the structure to yield about these changes
+      added_changes = {"measure_id" => measure.hqmf_set_id, "population_index" => expected_value_set["population_index"]}
+      if added_populations.count > 0
+        added_populations.each do |population|
+          if population == 'OBSERV'
+            expected_value_set[population] = []
+            added_changes[population] = []
+          else
+            expected_value_set[population] = 0
+            added_changes[population] = 0
+          end
         end
+        # yield the info about things that are added.
+        yield :population_addition, :missing_population, added_changes if block_given? 
       end
 
       # delete populations that no longer exist (populations in the expected values that don't exist in the measure)
       removed_populations = expected_value_population_set - measure_population_set
-      expected_value_set.except!(*removed_populations)
+      if removed_populations.count > 0 && block_given?
+        # create the structure to yield about these changes
+        removed_changes = {"measure_id" => measure.hqmf_set_id, "population_index" => expected_value_set[:population_index]}
+        removed_populations.each { |population| removed_changes[population] = expected_value_set[population] }
+
+        expected_value_set.except!(*removed_populations)
+        # yield the info about things removed
+        yield :population_removal, :extra_population, removed_changes if block_given?
+      end
+
     end
     self.save!
   end
