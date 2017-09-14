@@ -110,7 +110,25 @@ class RecordTest < ActiveSupport::TestCase
     assert_equal 1, patient.expected_values.count
     assert_equal expected_value_sets, patient.expected_values
   end
-  
+
+  test "Garbage Empty Expecteds" do
+    patient = Record.where(last: 'Expecteds', first: 'Garbage Empty').first
+    changes = collect_expected_changes(patient, @measure)
+    assert_equal 1, changes.count
+
+    # check garbage data removal of a blank set
+    assert_equal :population_set_removal, changes[0][:change_type]
+    assert_equal :garbage_data, changes[0][:change_reason]
+    expected_value_set = { }
+    assert_equal expected_value_set, changes[0][:expected_value_set]
+
+    # check final expecteds structure
+    expected_value_sets = [{ "measure_id" => @measure_set_id, "population_index" => 0,
+      "IPP" => 1, "DENOM" => 1, "DENEX" => 0, "NUMER" => 1, "DENEXCEP" => 0}]
+    assert_equal 1, patient.expected_values.count
+    assert_equal expected_value_sets, patient.expected_values
+  end
+
   test "Missing Population Set Expecteds" do
     patient = Record.where(last: 'Expecteds', first: 'Missing Population Set').first
     changes = collect_expected_changes(patient, @measure)

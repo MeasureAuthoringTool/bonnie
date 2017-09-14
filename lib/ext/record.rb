@@ -93,19 +93,25 @@ class Record
     population_indexes_found = []
     # delete population sets present on the patient but not in the measure. also get rid of garbage and duplicate data.
     self.expected_values.reject! do |expected_value_set|
-      matches_measure = expected_value_set[:measure_id] ? expected_value_set[:measure_id] == measure.hqmf_set_id : false
-      # check if population_index is non-existent, i.e. this is a set of garbage data
-      is_garbage_data = !expected_value_set.has_key?('population_index')
-      is_extra_population = expected_value_set[:population_index] ? expected_value_set[:population_index] >= measure_population_count : false
+      # if there is no measure_id then just clean this up
+      if !expected_value_set.has_key?('measure_id')
+        matches_measure = true
+        is_garbage_data = true
+      else # if there is a measure_id, do the rest of the checks
+        matches_measure = expected_value_set[:measure_id] ? expected_value_set[:measure_id] == measure.hqmf_set_id : false
+        # check if population_index or is non-existent, i.e. this is a set of garbage data
+        is_garbage_data = !expected_value_set.has_key?('population_index')
+        is_extra_population = expected_value_set[:population_index] ? expected_value_set[:population_index] >= measure_population_count : false
 
-      is_duplicate_population = false
-      # if it isn't garbage data or an extra population, check if it's a duplicate and/or add it to the list of seen populations
-      if !is_garbage_data && !is_extra_population
-        if population_indexes_found.include? expected_value_set[:population_index]
-          is_duplicate_population = true
-        else
-          # add this population_index to the list of ones we have already seen
-          population_indexes_found << expected_value_set[:population_index]
+        is_duplicate_population = false
+        # if it isn't garbage data or an extra population, check if it's a duplicate and/or add it to the list of seen populations
+        if !is_garbage_data && !is_extra_population
+          if population_indexes_found.include? expected_value_set[:population_index]
+            is_duplicate_population = true
+          else
+            # add this population_index to the list of ones we have already seen
+            population_indexes_found << expected_value_set[:population_index]
+          end
         end
       end
 
