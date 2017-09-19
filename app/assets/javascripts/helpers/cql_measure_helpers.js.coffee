@@ -61,9 +61,11 @@ class CQLMeasureHelpers
       if curStatement.name == statementName
         statement = curStatement
 
+    aliasMap = {}
+    debugger if statementName == "Consecutive Heart Rates Less Than 50"
     # recurse through the statement elm for find all localIds
-    localIds = @_findAllLocalIdsInStatement(statement, libraryName, {}, {}, emptyResultClauses, null)
-
+    localIds = @_findAllLocalIdsInStatement(statement, libraryName, {}, aliasMap, emptyResultClauses, null)
+    debugger if statementName == "Consecutive Heart Rates Less Than 50"
     # Create/change the clause for all aliases and their usages
     for alias in emptyResultClauses
       # Only do it if we have a clause for where the result should be fetched from
@@ -77,7 +79,7 @@ class CQLMeasureHelpers
     if statement.type == "FunctionDef"
       for localId, clause of localIds
         clause.isUnsupported = true
-
+    debugger if statementName == "Consecutive Heart Rates Less Than 50"
     return localIds
 
   ###*
@@ -96,10 +98,14 @@ class CQLMeasureHelpers
     # looking at the key and value of everything on this object or array
     for k, v of statement
       if k == 'return'
-        # Keep track of the localId of the expression that the return references
-        aliasMap[v] = statement.return.expression.localId
-        alId = statement.return.localId
-        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]}) 
+        # Keep track of the localId of the expression that the return references. 'from's without a 'return' dont have
+        # localId's. So it doesn't make sense to mark them.
+        if statement.return.expression.localId?
+          aliasMap[v] = statement.return.expression.localId 
+          alId = statement.return.localId
+          debugger if aliasMap[v] == "398"
+          emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]}) if alId
+
         @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses, statement) 
       else if k == 'alias'
         if statement.expression? && statement.expression.localId?
@@ -119,8 +125,10 @@ class CQLMeasureHelpers
         # For example, in the CQL code 'Variable.result as Code' the typeSpecifier does not produce a result, therefore
         # we will set its result to whatever the result value is for 'Variable.result'
         alId = statement.asTypeSpecifier.localId
-        typeClauseId = parseInt(statement.asTypeSpecifier.localId) - 1
-        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: typeClauseId})
+        if alId?
+          typeClauseId = parseInt(statement.asTypeSpecifier.localId) - 1
+          debugger if typeClauseId == "398"
+          emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: typeClauseId})
       else if k == 'sort'
         # Sort is a special case that we need to recurse into separately and set the results to the result of the statement the sort clause is in
         @_findAllLocalIdsInSort(v, libraryName, localIds, aliasMap, emptyResultClauses, parentNode)
