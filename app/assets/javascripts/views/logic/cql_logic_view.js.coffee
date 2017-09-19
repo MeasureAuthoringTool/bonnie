@@ -59,6 +59,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   initialize: ->
     @isOutdatedUpload = false
     @hasCqlErrors = false
+    @hasOutdatedQDM = false
 
     @allStatementViews = []
     @populationStatementViews = []
@@ -67,8 +68,20 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
     @unusedStatementViews = []
     
     # Look through all elm library structures, and check for CQL errors noted by the translation service.
+    # Also finds if using old versions of QDM
     if Array.isArray @model.get('elm')
       _.each @model.get('elm'), (elm, elm_index) =>
+        _.each elm.library.usings.def, (id) =>
+          if (id.localIdentifier == "QDM")
+            versionParts = id.version.split('.')
+            if (versionParts.length <2)
+              @hasOutdatedQDM = true
+            else
+              # explicitly checking for versions of QDM prior to 5.3
+              major = parseInt(versionParts[0], 10)
+              minor = parseInt(versionParts[1], 10)
+              if (major < 5 || (major == 5 && minor < 3))
+                @hasOutdatedQDM = true
         _.each elm.library.annotation, (annotation) =>
           if (annotation.errorSeverity == "error")
             @hasCqlErrors = true
