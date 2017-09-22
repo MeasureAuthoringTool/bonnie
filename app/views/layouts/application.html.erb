@@ -43,6 +43,7 @@
       bonnie.currentUserId = '<%= current_user.id %>';
       bonnie.measurePeriod = <%= Time.zone.at(APP_CONFIG['measure_period_start']).year %>;
       bonnie.applicationVersion = '<%=Bonnie::Version.current()%>';
+      bonnie.support_qdm_version = '<%= APP_CONFIG['support_qdm_version'] %>';
       <% @patients.each do |patient| %>
         (function() {
           var patient = new Thorax.Models.Patient(<%= json_escape(MultiJson.encode(patient.as_json(except: :results))).html_safe %>, { parse: true });

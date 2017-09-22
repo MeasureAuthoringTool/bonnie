@@ -73,15 +73,8 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
       _.each @model.get('elm'), (elm) =>
         _.each elm.library.usings.def, (id) =>
           if id?.localIdentifier == "QDM"
-            versionParts = id.version.split '.'
-            if versionParts.length <2
+            if !CompareVersion.equalToOrNewer id.version, bonnie.support_qdm_version
               @hasOutdatedQDM = true
-            else
-              # explicitly checking for versions of QDM prior to 5.3
-              major = parseInt versionParts[0], 10
-              minor = parseInt versionParts[1], 10
-              if major < 5 || (major == 5 && minor < 3)
-                @hasOutdatedQDM = true
         _.each elm.library.annotation, (annotation) =>
           if annotation.errorSeverity == "error"
             @hasCqlErrors = true
