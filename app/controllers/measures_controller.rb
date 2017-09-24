@@ -93,11 +93,10 @@ class MeasuresController < ApplicationController
         includeDraft = params[:include_draft] == 'true'
       end
 
-      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], false, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=false cache=false
-      existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
+      existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
+
       is_update = false
       if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
-        existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
         is_update = true
         measure_details['type'] = existing.type
         measure_details['episode_of_care'] = existing.episode_of_care
@@ -106,9 +105,11 @@ class MeasuresController < ApplicationController
         end
         measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
       end
+
+      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], false, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=false cache=false
+
       if (!is_update)
-        cql_existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
-        if cql_existing.count > 0
+        if !existing.nil?
           measure.delete
           flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
           redirect_to "#{root_path}##{params[:redirect_route]}"
