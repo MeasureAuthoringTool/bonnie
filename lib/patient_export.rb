@@ -67,12 +67,13 @@ class PatientExport
           
           population_criteria = HQMF::PopulationCriteria::ALL_POPULATION_CODES & population_details[pop_key]["criteria"]
 
-          worksheet_title = population_details[pop_key]["title"]
-          if worksheet_title.blank? || worksheet_title.length > 31
-            worksheet_title = "Population #{pop_index + 1}"
-          else
-            worksheet_title = "#{pop_index + 1} - #{worksheet_title}"
-          end
+          # Set worksheet titles based on population title length. If population title is more than 31 characters, use "Population [index]"
+          worksheet_title = if population_details[pop_key]['title'].blank? || "#{pop_index + 1} - #{population_details[pop_key]['title']}".length > 31
+                              "Population #{pop_index + 1}"
+                            else
+                              "#{pop_index + 1} - #{worksheet_title}"
+                            end
+
           workbook.add_worksheet(name: worksheet_title) do |sheet|
             
 
