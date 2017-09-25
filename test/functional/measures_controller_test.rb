@@ -186,7 +186,6 @@ include Devise::TestHelpers
 
     measure = nil
     VCR.use_cassette("valid_vsac_response") do
-      # Assert measure is not yet loaded
       post :create, {vsac_date: '08/22/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     end
 
@@ -429,7 +428,6 @@ include Devise::TestHelpers
 
     measure = nil
     VCR.use_cassette("valid_vsac_response") do
-      # Assert measure is not yet loaded
       post :create, {vsac_date: '08/22/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     end
 
