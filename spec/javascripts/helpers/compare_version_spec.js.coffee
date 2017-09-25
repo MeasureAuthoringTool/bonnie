@@ -10,3 +10,4 @@ describe 'CompareVersion', ->
     expect(CompareVersion.equalToOrNewer('1.0.0', '1.0.0')).toBe true
     expect(CompareVersion.equalToOrNewer('1.0.1', '1.0.0')).toBe true
     expect(CompareVersion.equalToOrNewer('1.0.0', '1.0.1')).toBe false
+    expect(CompareVersion.equalToOrNewer('5.3.1', '5.3')).toBe true
