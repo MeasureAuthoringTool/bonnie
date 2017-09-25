@@ -37,15 +37,7 @@ class Thorax.Collections.Differences extends Thorax.Collection
              else
                'fail'
     # For 508 compliance, each percentage label/input pair has to have a unique ID
-    generatePercentageId = ->
-      chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-      today = new Date()
-      result = today.valueOf().toString 16
-      result += chars.substr Math.floor(Math.random() * chars.length), 1
-      result += chars.substr Math.floor(Math.random() * chars.length), 1
-      result
-
-    percentage_id = 'percentage-' + generatePercentageId()
+    percentage_id = 'percentage-' + Thorax.Models.MeasureDataCriteria.generateCriteriaId()
 
     @summary.set total: @length, matching: successful.length, percentage_id: percentage_id, percent: percent, done: done, status: status
     @trigger 'complete' if done
