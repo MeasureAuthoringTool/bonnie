@@ -71,7 +71,7 @@ class PatientExport
           worksheet_title = if population_details[pop_key]['title'].blank? || "#{pop_index + 1} - #{population_details[pop_key]['title']}".length > 31
                               "Population #{pop_index + 1}"
                             else
-                              "#{pop_index + 1} - #{worksheet_title}"
+                              "#{pop_index + 1} - #{population_details[pop_key]['title']}"
                             end
 
           workbook.add_worksheet(name: worksheet_title) do |sheet|
