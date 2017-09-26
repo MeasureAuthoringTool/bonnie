@@ -61,13 +61,14 @@ class CQLMeasureHelpers
       if curStatement.name == statementName
         statement = curStatement
 
+    aliasMap = {}
     # recurse through the statement elm for find all localIds
-    localIds = @_findAllLocalIdsInStatement(statement, libraryName, {}, {}, emptyResultClauses, null)
-
+    localIds = @_findAllLocalIdsInStatement(statement, libraryName, {}, aliasMap, emptyResultClauses, null)
     # Create/change the clause for all aliases and their usages
     for alias in emptyResultClauses
       # Only do it if we have a clause for where the result should be fetched from
-      if localIds[alias.expressionLocalId]?
+      # and have a localId for the clause that the result should map to
+      if localIds[alias.expressionLocalId]? && alias.aliasLocalId?
         localIds[alias.aliasLocalId] =
           localId: alias.aliasLocalId,
           sourceLocalId: alias.expressionLocalId
@@ -77,7 +78,6 @@ class CQLMeasureHelpers
     if statement.type == "FunctionDef"
       for localId, clause of localIds
         clause.isUnsupported = true
-
     return localIds
 
   ###*
@@ -87,7 +87,7 @@ class CQLMeasureHelpers
   # @param {String} libraryName - The name of the library we are looking at.
   # @param {Object} localIds - The hash of localIds we are filling.
   # @param {Object} aliasMap - The map of aliases.
-  # @param {Array} emptyResultClauses - List of clauses that will have empty results from the engine. Each object on 
+  # @param {Array} emptyResultClauses - List of clauses that will have empty results from the engine. Each object on
   #    this has info on where to find the actual result.
   # @param {Object} parentNode - The parent node, used for some special situations.
   # @return {Array[Integer]} List of local ids in the statement. This is same array, localIds, that is passed in.
@@ -96,11 +96,14 @@ class CQLMeasureHelpers
     # looking at the key and value of everything on this object or array
     for k, v of statement
       if k == 'return'
-        # Keep track of the localId of the expression that the return references
-        aliasMap[v] = statement.return.expression.localId
-        alId = statement.return.localId
-        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]}) 
-        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses, statement) 
+        # Keep track of the localId of the expression that the return references. 'from's without a 'return' dont have
+        # localId's. So it doesn't make sense to mark them.
+        if statement.return.expression.localId?
+          aliasMap[v] = statement.return.expression.localId
+          alId = statement.return.localId
+          emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]}) if alId
+
+        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses, statement)
       else if k == 'alias'
         if statement.expression? && statement.expression.localId?
           # Keep track of the localId of the expression that the alias references
@@ -110,7 +113,7 @@ class CQLMeasureHelpers
           emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
       else if k == 'scope'
         # The scope entry references an alias but does not have an ELM local ID. Hoever it DOES have an elm_annotations localId
-        # The elm_annotation localId of the alias variable is the localId of it's parent (one less than) 
+        # The elm_annotation localId of the alias variable is the localId of it's parent (one less than)
         # because the result of the scope clause should be equal to the clause that the scope is referencing
         alId = parseInt(statement.localId) - 1
         emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: aliasMap[v]})
@@ -119,8 +122,9 @@ class CQLMeasureHelpers
         # For example, in the CQL code 'Variable.result as Code' the typeSpecifier does not produce a result, therefore
         # we will set its result to whatever the result value is for 'Variable.result'
         alId = statement.asTypeSpecifier.localId
-        typeClauseId = parseInt(statement.asTypeSpecifier.localId) - 1
-        emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: typeClauseId})
+        if alId?
+          typeClauseId = parseInt(statement.asTypeSpecifier.localId) - 1
+          emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: typeClauseId})
       else if k == 'sort'
         # Sort is a special case that we need to recurse into separately and set the results to the result of the statement the sort clause is in
         @_findAllLocalIdsInSort(v, libraryName, localIds, aliasMap, emptyResultClauses, parentNode)
@@ -136,16 +140,16 @@ class CQLMeasureHelpers
       else if k=='type' && (v =='First' || v == 'Last')
         if statement.source && statement.source.localId?
           alId = statement.source.localId
-          emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: statement.localId}) 
+          emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: statement.localId})
         # Continue to recurse into the 'First' or 'Last' expression
-        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses, statement) 
+        @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses, statement)
       # else if they key is localId push the value
       else if k == 'localId'
         localIds[v] = { localId: v }
       # if the value is an array or object, recurse
       else if (Array.isArray(v) || typeof v is 'object')
         @_findAllLocalIdsInStatement(v, libraryName, localIds, aliasMap, emptyResultClauses, statement)
-      
+
     return localIds
 
   ###*
@@ -155,14 +159,14 @@ class CQLMeasureHelpers
   # @param {String} libraryName - The name of the library we are looking at.
   # @param {Object} localIds - The hash of localIds we are filling.
   # @param {Object} aliasMap - The map of aliases.
-  # @param {Array} emptyResultClauses - List of clauses that will have empty results from the engine. Each object on 
+  # @param {Array} emptyResultClauses - List of clauses that will have empty results from the engine. Each object on
   #    this has info on where to find the actual result.
   # @param {Object} rootStatement - The rootStatement.
   ###
   @_findAllLocalIdsInSort: (statement, libraryName, localIds, aliasMap, emptyResultClauses, rootStatement) ->
     alId = statement.localId
     emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: rootStatement.localId})
-    for k, v of statement 
+    for k, v of statement
       if (Array.isArray(v) || typeof v is 'object')
         @_findAllLocalIdsInSort(v, libraryName, localIds, aliasMap, emptyResultClauses, rootStatement)
 
