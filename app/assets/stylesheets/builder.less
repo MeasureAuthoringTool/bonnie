@@ -79,6 +79,7 @@
     }
     .deceased-checkbox {
       height: 24px;
+      padding-left: 20px;
       label {
         text-transform: none;
       }
@@ -171,7 +172,7 @@
   }
   .heading-primary {
     .time-bar();
-    background-color: @blue-lighter;
+    background-color: @blue-darker;
     color: white;
     padding-left: @grid-gutter-width;
     margin-right: -@grid-gutter-width;
@@ -179,7 +180,7 @@
 
   .panel {
     .panel-title {
-      background-color: @blue-lighter;
+      background-color: @blue-darker;
       color: white;
       display: block;
       font-size: @font-size-base;
@@ -187,7 +188,7 @@
       text-transform: uppercase;
       &[class*="-elements"] {
         .transition(all .35s ease);
-        background-color: @blue-lighter;
+        background-color: @blue-darker;
         &.closed {
           padding: 4px (@grid-gutter-width / 2);
           overflow: hidden;
@@ -211,7 +212,8 @@
           .pull-right;
         }
         &:hover {
-          background-color: @blue-darker;
+          background-color: @blue-darkest;
+          color: @white;
           text-decoration: none;
         }
       }
@@ -226,7 +228,7 @@
       }
 
       .criteriatype {
-        color: @blue-lighter;
+        color: @blue-darker;
       }
 
     }
@@ -330,7 +332,7 @@
 
             &> span {
               background-color: @gray-lighter;
-              color: @gray-darker;
+              color: @gray-darkest;
               display: inline-block;
               padding: 10px;
               margin-bottom: 5px;

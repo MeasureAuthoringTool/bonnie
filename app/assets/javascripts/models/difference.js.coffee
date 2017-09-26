@@ -36,7 +36,10 @@ class Thorax.Collections.Differences extends Thorax.Collection
                'pass'
              else
                'fail'
-    @summary.set total: @length, matching: successful.length, percent: percent, done: done, status: status
+    # For 508 compliance, each percentage label/input pair has to have a unique ID
+    percentage_id = 'percentage-' + Thorax.Models.MeasureDataCriteria.generateCriteriaId()
+
+    @summary.set total: @length, matching: successful.length, percentage_id: percentage_id, percent: percent, done: done, status: status
     @trigger 'complete' if done
   toJSON: ->
     {differences: super, summary: @summary.toJSON()}
