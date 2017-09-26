@@ -209,8 +209,9 @@ include Devise::TestHelpers
   test "excel export patients" do
     calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'calc_results.json'))
     patient_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'patient_details.json'))
-    population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details.json'))
+    population_details= File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_10_char.json'))
     statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'statement_details.json'))
+
     get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test"
     assert_response :success
     assert_equal 'application/xlsx', response.header['Content-Type']
@@ -220,4 +221,59 @@ include Devise::TestHelpers
   end
 
 
+  test "excel export patients with population title with 29 characters" do
+    calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'calc_results.json'))
+    patient_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'patient_details.json'))
+    population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_29_char.json'))
+    statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'statement_details.json'))
+
+    get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test"
+    assert_response :success
+    assert_equal 'application/xlsx', response.header['Content-Type']
+    # assert_not_equal "attachment; filename=\"#{measure.cms_id}.xlsx\"", response.header['Content-Disposition']
+    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
+  end
+
+  test "excel export patients with population title with 30 characters" do
+    calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'calc_results.json'))
+    patient_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'patient_details.json'))
+    population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_30_char.json'))
+    statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'statement_details.json'))
+
+    get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test"
+    assert_response :success
+    assert_equal 'application/xlsx', response.header['Content-Type']
+    # assert_not_equal "attachment; filename=\"#{measure.cms_id}.xlsx\"", response.header['Content-Disposition']
+    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
+  end
+
+  test "excel export patients with population title with 31 characters" do
+    calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'calc_results.json'))
+    patient_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'patient_details.json'))
+    population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_31_char.json'))
+    statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'statement_details.json'))
+
+    get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test"
+    assert_response :success
+    assert_equal 'application/xlsx', response.header['Content-Type']
+    # assert_not_equal "attachment; filename=\"#{measure.cms_id}.xlsx\"", response.header['Content-Disposition']
+    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
+  end
+
+  test "excel export patients with population title with 32 characters" do
+    calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'calc_results.json'))
+    patient_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'patient_details.json'))
+    population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_32_char.json'))
+    statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'statement_details.json'))
+
+    get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test"
+    assert_response :success
+    assert_equal 'application/xlsx', response.header['Content-Type']
+    # assert_not_equal "attachment; filename=\"#{measure.cms_id}.xlsx\"", response.header['Content-Disposition']
+    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
+  end
 end
