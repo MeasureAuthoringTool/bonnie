@@ -67,6 +67,7 @@ class CQLMeasureHelpers
     # Create/change the clause for all aliases and their usages
     for alias in emptyResultClauses
       # Only do it if we have a clause for where the result should be fetched from
+      # and have a localId for the clause that the result should map to
       if localIds[alias.expressionLocalId]? && alias.aliasLocalId?
         localIds[alias.aliasLocalId] =
           localId: alias.aliasLocalId,
