@@ -39,27 +39,27 @@ http_interactions:
       Content-Length:
       - '0'
       Date:
-      - Tue, 22 Aug 2017 16:05:34 GMT
+      - Tue, 05 Sep 2017 16:50:00 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!CUJ9d3X5bEqujE7LMWjf8K3rTDmEEk02qXngIthIhKU8Umka6EXtfLpAmDC0yDIPFTm/GZX9qZKfLZQ=;
-        expires=Tue, 22-Aug-2017 18:05:34 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!tlZKvVJMksSMbkXLMWjf8K3rTDmEEi/0zif8WkH2V8SA5D4b4hy5a1yObdoHSAKK3cHQS3DL6P4r0WQ=;
+        expires=Tue, 05-Sep-2017 18:50:00 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.114 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Tue, 22 Aug 2017 16:05:34 GMT
+  recorded_at: Tue, 05 Sep 2017 16:51:09 GMT
 - request:
     method: post
     uri: http://localhost:8080/cql/translator
     body:
       encoding: ASCII-8BIT
-      string: "--647091\r\nContent-Disposition: form-data; name=\"file[]\"\r\n\r\nlibrary
+      string: "--775984\r\nContent-Disposition: form-data; name=\"file[]\"\r\n\r\nlibrary
         InitiationandEngagementofAlcoholandOtherDrugDependenceTreatment version '0.0.001'\n\nusing
         QDM version '5.0'\n\nvalueset \"Psych Visit - Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1496'
         \n\nvalueset \"Alcohol and Drug Dependence\": 'urn:oid:2.16.840.1.113883.3.464.1003.106.12.1001'
@@ -128,7 +128,7 @@ http_interactions:
         \"Psych Visit - Psychotherapy\"]\n\ndefine \"Drug Dependence Treatment Or
         Psych Visit\": \"Drug Dependence Treatment Or Psych Encounters\" Encounter
         \r\n     with \"First Alcohol Drug Dependence Dx\" Diagnosis \r\n     such
-        that Diagnosis.prevalencePeriod starts 14 days or less after start of Encounter.relevantPeriod\n\r\n--647091--\r\n"
+        that Diagnosis.prevalencePeriod starts 14 days or less after start of Encounter.relevantPeriod\n\r\n--775984--\r\n"
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -137,7 +137,7 @@ http_interactions:
       Content-Length:
       - '5344'
       Content-Type:
-      - multipart/form-data; boundary=647091
+      - multipart/form-data; boundary=775984
       User-Agent:
       - Ruby
   response:
@@ -148,14 +148,14 @@ http_interactions:
       Mime-Version:
       - '1.0'
       Content-Type:
-      - multipart/form-data;boundary=Boundary_15_334526780_1503417935499
+      - multipart/form-data;boundary=Boundary_17_597627603_1504630269547
       Date:
-      - Tue, 22 Aug 2017 16:05:35 GMT
+      - Tue, 05 Sep 2017 16:51:09 GMT
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: "--Boundary_15_334526780_1503417935499\r\nContent-Type: application/elm+json\r\nContent-Disposition:
+      string: "--Boundary_17_597627603_1504630269547\r\nContent-Type: application/elm+json\r\nContent-Disposition:
         form-data; name=\"file[]\"\r\n\r\n{\n   \"library\" : {\n      \"annotation\"
         : [ {\n         \"startLine\" : 39,\n         \"startChar\" : 25,\n         \"endLine\"
         : 39,\n         \"endChar\" : 73,\n         \"message\" : \"Retrieve has a
@@ -1377,15 +1377,15 @@ http_interactions:
         : \"193\",\n                     \"valueType\" : \"{urn:hl7-org:elm-types:r1}Integer\",\n
         \                    \"value\" : \"2\",\n                     \"type\" : \"Literal\"\n
         \                 } ]\n               } ]\n            }\n         } ]\n      }\n
-        \  }\n}\r\n--Boundary_15_334526780_1503417935499--\r\n"
+        \  }\n}\r\n--Boundary_17_597627603_1504630269547--\r\n"
     http_version: 
-  recorded_at: Tue, 22 Aug 2017 16:05:35 GMT
+  recorded_at: Tue, 05 Sep 2017 16:51:09 GMT
 - request:
     method: post
     uri: http://localhost:8080/cql/translator
     body:
       encoding: ASCII-8BIT
-      string: "--755947\r\nContent-Disposition: form-data; name=\"file[]\"\r\n\r\nlibrary
+      string: "--470869\r\nContent-Disposition: form-data; name=\"file[]\"\r\n\r\nlibrary
         InitiationandEngagementofAlcoholandOtherDrugDependenceTreatment version '0.0.001'\n\nusing
         QDM version '5.0'\n\nvalueset \"Psych Visit - Psychotherapy\": 'urn:oid:2.16.840.1.113883.3.526.3.1496'
         \n\nvalueset \"Alcohol and Drug Dependence\": 'urn:oid:2.16.840.1.113883.3.464.1003.106.12.1001'
@@ -1454,7 +1454,7 @@ http_interactions:
         \"Psych Visit - Psychotherapy\"]\n\ndefine \"Drug Dependence Treatment Or
         Psych Visit\": \"Drug Dependence Treatment Or Psych Encounters\" Encounter
         \r\n     with \"First Alcohol Drug Dependence Dx\" Diagnosis \r\n     such
-        that Diagnosis.prevalencePeriod starts 14 days or less after start of Encounter.relevantPeriod\n\r\n--755947--\r\n"
+        that Diagnosis.prevalencePeriod starts 14 days or less after start of Encounter.relevantPeriod\n\r\n--470869--\r\n"
     headers:
       Accept:
       - multipart/form-data
@@ -1465,7 +1465,7 @@ http_interactions:
       Content-Length:
       - '5344'
       Content-Type:
-      - multipart/form-data; boundary=755947
+      - multipart/form-data; boundary=470869
       User-Agent:
       - Ruby
   response:
@@ -1476,14 +1476,14 @@ http_interactions:
       Mime-Version:
       - '1.0'
       Content-Type:
-      - multipart/form-data;boundary=Boundary_16_1662876654_1503417936081
+      - multipart/form-data;boundary=Boundary_18_323874723_1504630269767
       Date:
-      - Tue, 22 Aug 2017 16:05:35 GMT
+      - Tue, 05 Sep 2017 16:51:09 GMT
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
-      string: "--Boundary_16_1662876654_1503417936081\r\nContent-Type: application/elm+xml\r\nContent-Disposition:
+      string: "--Boundary_18_323874723_1504630269767\r\nContent-Type: application/elm+xml\r\nContent-Disposition:
         form-data; name=\"file[]\"\r\n\r\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<library
         xmlns=\"urn:hl7-org:elm:r1\" xmlns:t=\"urn:hl7-org:elm-types:r1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
         xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:fhir=\"http://hl7.org/fhir\"
@@ -2199,9 +2199,9 @@ http_interactions:
         name=\"Drug Dependence Treatment Encounters A Month After Diagnosis\" xsi:type=\"ExpressionRef\"/>\n
         \              </operand>\n               <operand localId=\"193\" valueType=\"t:Integer\"
         value=\"2\" xsi:type=\"Literal\"/>\n            </operand>\n         </expression>\n
-        \     </def>\n   </statements>\n</library>\n\r\n--Boundary_16_1662876654_1503417936081--\r\n"
+        \     </def>\n   </statements>\n</library>\n\r\n--Boundary_18_323874723_1504630269767--\r\n"
     http_version: 
-  recorded_at: Tue, 22 Aug 2017 16:05:36 GMT
+  recorded_at: Tue, 05 Sep 2017 16:51:09 GMT
 - request:
     method: post
     uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
@@ -2241,19 +2241,19 @@ http_interactions:
       Content-Length:
       - '0'
       Date:
-      - Tue, 22 Aug 2017 16:05:36 GMT
+      - Tue, 05 Sep 2017 16:50:01 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!EGKu5XK1BU72tGXLMWjf8K3rTDmEEoTRf9mwR4BjVMy2gUQ7glrjYpnzIrdjKdO9Sqo8DFbEymHOjgo=;
-        expires=Tue, 22-Aug-2017 18:05:36 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!pFWjnEne+JLlDC7LMWjf8K3rTDmEEp5h9EPcz7Ji11F3HZpLsLFyjdwWzPbOJ5AHIh568k8XELKyAog=;
+        expires=Tue, 05-Sep-2017 18:50:01 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.112 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Tue, 22 Aug 2017 16:05:36 GMT
+  recorded_at: Tue, 05 Sep 2017 16:51:10 GMT
 recorded_with: VCR 3.0.3

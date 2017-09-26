@@ -22,3 +22,11 @@
   oids = Measure.in(measure_id: ['0002', '0022']).pluck(:value_set_oids).flatten.uniq
   json = HealthDataStandards::SVS::ValueSet.in(oid: oids).index_by(&:oid).to_json
   File.write('value_sets.json', JSON.pretty_generate(JSON.parse(json)))
+
+
+# CQL-based measures
+CMS136 created with:
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS136,epecqmncqa@gmail.com,CMS741v0,"BehaviorHealth<=30DaysAftrADHDMed","NUMERPop2Pass"]
+
+CMS146 created with:
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS146,epecqmncqa@gmail.com,CMS146v5,"PharynStrepATest<=3dB4Enc","NUMERPass"]

@@ -75,7 +75,7 @@ class Thorax.Models.Measure extends Thorax.Model
         c.code == code && c.code_system_name == code_system
 
   @referencesFor: (criteriaType) ->
-    [{key: "fulfills", title: "Fulfills"}]
+    [{key: "Related To", title: "Related To"}]
 
   @logicFieldsFor: (criteriaType) ->
 
@@ -90,16 +90,16 @@ class Thorax.Models.Measure extends Thorax.Model
     typeInclusions =
       adverse_events: ['facility', 'severity', 'type'] # TODO: (LDY 9/29/2016) we care about "facility location". this appears to be the same as "facility"
       allergies_intolerances: ['severity', 'type']
-      assessments: ['method','components']
+      assessments: ['method', 'components']
       care_experiences: []
-      care_goals: ['related_to', 'target_outcome']
+      care_goals: ['target_outcome']
       characteristics: []
       communications: []
       conditions: ['anatomical_structure', 'anatomical_location', 'ordinality', 'severity', 'laterality']
       devices: ['removal_time', 'anatomical_structure']
       diagnostic_studies: ['facility', 'method', 'qdm_status', 'result_date_time', 'components']
       encounters: ['admission_source', 'admit_time', 'discharge_time', 'discharge_disposition', 'facility',
-        'facility_arrival', 'facility_departure', 'transfer_to', 'transfer_to_time', 
+        'transfer_to', 'transfer_to_time', 
         'transfer_from', 'transfer_from_time', 'principal_diagnosis', 'diagnosis']
       family_history: ['relationship_to_patient']
       functional_statuses: []
@@ -108,9 +108,9 @@ class Thorax.Models.Measure extends Thorax.Model
       laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status', 'result_date_time', 'components']
       medications: ['route', 'dose', 'reaction', 'supply']
       patient_care_experiences: []
-      physical_exams: ['anatomical_structure']
+      physical_exams: ['anatomical_structure', 'components']
       preferences: []
-      procedures: ['incision_time', 'anatomical_structure', 'ordinality', 'qdm_status']
+      procedures: ['incision_time', 'anatomical_structure', 'ordinality', 'qdm_status', 'components']
       provider_care_experiences: []
       provider_characteristics: []
       risk_category_assessments: ['severity']

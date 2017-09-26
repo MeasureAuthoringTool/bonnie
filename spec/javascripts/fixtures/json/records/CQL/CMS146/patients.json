@@ -1,0 +1,2326 @@
+[
+  {
+    "_id": "59401be6942c6d64b10000ad",
+    "birthdate": 1027756800,
+    "bundle_id": "582c7c0e6c5d1c1cf10006d2",
+    "calc_results": [
+      {
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 0,
+        "NUMER": 1,
+        "NUMEX": 0,
+        "DENEXCEP": 0,
+        "rationale": {
+          "MeasurePeriod": {
+            "results": [
+              {
+                "id": "undefined",
+                "json": {
+                  "start_time": 1325376000,
+                  "end_time": 1356998340,
+                  "codes": {
+                  }
+                }
+              }
+            ]
+          },
+          "Agegrtr_thn_eql_3yearsat_0DD41FE0_0656_4EEB_9E87_7881415A5E14_0825C51D_905D_44B7_9A03_213A5920F103": {
+            "results": [
+              {
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "Ageless_thn_18yearsat_51A3DC29_9BD7_4BFB_9721_B64FFBB6BA94_5CF10E97_37D3_4BA3_96CB_05C692716808": {
+            "results": [
+              {
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "During_851D01E7_F11A_4FC7_B65B_B649286C02C2_40280381_3d61_56a7_013e_5d1ef9ce6a60": {
+            "results": [
+              {
+                "id": "59308971b848464c150004ba",
+                "json": {
+                  "_id": "59308971b848464c150004ba",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "CPT": [
+                      "99397"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Ambulatory/ED Visit",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "59308971b848464c150004ba",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "AntibioticMedicationsforPharyngitis_MedicationOrder_40280381_3d61_56a7_013e_5d1ef9ce6a5b": {
+            "results": [
+              {
+                "id": "59308971b848464c150004bd",
+                "json": {
+                  "_id": "59308971b848464c150004bd",
+                  "active_datetime": null,
+                  "administrationTiming": null,
+                  "allowedAdministrations": null,
+                  "anatomical_approach": null,
+                  "codes": {
+                    "RxNorm": [
+                      "997665",
+                      "197596"
+                    ]
+                  },
+                  "cumulativeMedicationDuration": null,
+                  "deliveryMethod": null,
+                  "description": "Medication, Order: Antibiotic Medications for Pharyngitis",
+                  "dose": null,
+                  "doseIndicator": null,
+                  "doseRestriction": null,
+                  "end_time": 1355475600,
+                  "freeTextSig": null,
+                  "fulfillmentHistory": null,
+                  "fulfillmentInstructions": null,
+                  "health_record_field": null,
+                  "indication": null,
+                  "method": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.17",
+                  "patientInstructions": null,
+                  "productForm": null,
+                  "reaction": null,
+                  "reason": null,
+                  "route": null,
+                  "signed_datetime": null,
+                  "specifics": null,
+                  "start_time": 1355475600,
+                  "statusOfMedication": null,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "ordered"
+                    ]
+                  },
+                  "time": null,
+                  "typeOfMedication": null,
+                  "vehicle": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "less_thn_eql_3daysStartsBeforeOrConcurrentWithStartOf_314BEAFF_5ECA_4F32_A5AD_2A3E517FD8F2_40280381_3d61_56a7_013e_5d1ef9ce6a60": {
+            "results": [
+              {
+                "id": "59308971b848464c150004ba",
+                "json": {
+                  "_id": "59308971b848464c150004ba",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "CPT": [
+                      "99397"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Ambulatory/ED Visit",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "59308971b848464c150004ba",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "AcutePharyngitis_Diagnosis_178608ed_404c_4278_be24_3ad6b726d0f3": {
+            "results": [
+              {
+                "id": "59308971b848464c150004b9",
+                "json": {
+                  "_id": "59308971b848464c150004b9",
+                  "anatomical_location": null,
+                  "anatomical_target": null,
+                  "causeOfDeath": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "1532007"
+                    ],
+                    "ICD-9-CM": [
+                      "034.0"
+                    ],
+                    "ICD-10-CM": [
+                      "J02.0"
+                    ]
+                  },
+                  "description": "Diagnosis: Acute Pharyngitis",
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "laterality": null,
+                  "mood_code": "EVN",
+                  "name": null,
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.10.20.28.3.110",
+                  "ordinality": null,
+                  "priority": null,
+                  "reason": null,
+                  "severity": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": null
+                  },
+                  "time": null,
+                  "time_of_death": null,
+                  "type": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "AcuteTonsillitis_Diagnosis_b191199e_67ae_4fd7_90bd_d6d81ec08f28": false,
+          "GROUP_occAof_qdm_var_Union_E11C5497_AD27_4BB5_A32A_FBF5EB5936FA_91813C05_FA95_4B64_8285_FEE4935A975D": {
+            "results": [
+              {
+                "id": "59308971b848464c150004b9",
+                "json": {
+                  "_id": "59308971b848464c150004b9",
+                  "anatomical_location": null,
+                  "anatomical_target": null,
+                  "causeOfDeath": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "1532007"
+                    ],
+                    "ICD-9-CM": [
+                      "034.0"
+                    ],
+                    "ICD-10-CM": [
+                      "J02.0"
+                    ]
+                  },
+                  "description": "Diagnosis: Acute Pharyngitis",
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "laterality": null,
+                  "mood_code": "EVN",
+                  "name": null,
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.10.20.28.3.110",
+                  "ordinality": null,
+                  "priority": null,
+                  "reason": null,
+                  "severity": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": null
+                  },
+                  "time": null,
+                  "time_of_death": null,
+                  "type": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "occAof_qdm_var_Union_E11C5497_AD27_4BB5_A32A_FBF5EB5936FA_91813C05_FA95_4B64_8285_FEE4935A975D": {
+            "results": [
+              {
+                "id": "59308971b848464c150004b9",
+                "json": {
+                  "_id": "59308971b848464c150004b9",
+                  "anatomical_location": null,
+                  "anatomical_target": null,
+                  "causeOfDeath": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "1532007"
+                    ],
+                    "ICD-9-CM": [
+                      "034.0"
+                    ],
+                    "ICD-10-CM": [
+                      "J02.0"
+                    ]
+                  },
+                  "description": "Diagnosis: Acute Pharyngitis",
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "laterality": null,
+                  "mood_code": "EVN",
+                  "name": null,
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.10.20.28.3.110",
+                  "ordinality": null,
+                  "priority": null,
+                  "reason": null,
+                  "severity": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": null
+                  },
+                  "time": null,
+                  "time_of_death": null,
+                  "type": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "59308971b848464c150004b9"
+              ]
+            ]
+          },
+          "Overlaps_CAC4D072_0D10_42C1_8825_474928C30557_40280381_3d61_56a7_013e_5d1ef9ce6a60": {
+            "results": [
+              {
+                "id": "59308971b848464c150004ba",
+                "json": {
+                  "_id": "59308971b848464c150004ba",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "CPT": [
+                      "99397"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Ambulatory/ED Visit",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "59308971b848464c150004ba",
+                "*",
+                "59308971b848464c150004b9"
+              ]
+            ]
+          },
+          "SatisfiesAll_CC63BBCA_CB17_424A_BB09_14FCEFE4F811_06C4CF4F_919B_46E6_81A2_A2714B9E9899": {
+            "results": [
+              {
+                "id": "59308971b848464c150004ba",
+                "json": {
+                  "_id": "59308971b848464c150004ba",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "CPT": [
+                      "99397"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Ambulatory/ED Visit",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "59308971b848464c150004ba",
+                "*",
+                "59308971b848464c150004b9"
+              ]
+            ]
+          },
+          "precondition_4": true,
+          "precondition_IPP": true,
+          "IPP": true,
+          "DENOM": true,
+          "less_thn_eql_30daysStartsBeforeStartOf_31B9BA86_8910_4981_965D_3E3333E0612C_E65B1240_368F_42B7_86A6_91E082CC8E3A": false,
+          "grtr_thn_eql_1daysStartsBeforeStartOf_BB62BD58_FB28_4F41_A9A9_74F410372B71_71B424D0_AC8B_4629_A63B_886090AB8E7F": false,
+          "precondition_12": false,
+          "grtr_thn_30daysEndsBeforeStartOf_CC41D4DA_1C26_4C77_AF75_4AF31D6B0FEF_F0EFBFF3_CEEE_44A5_8210_ED74AE5F6B0A": false,
+          "precondition_15": true,
+          "precondition_16": true,
+          "grtr_thn_30daysStartsBeforeStartOf_5827F18D_3279_4507_9FE6_89B4D3957FDA_F8A52528_C616_4072_AE71_4B12C79DEFEE": false,
+          "precondition_17": false,
+          "EndsDuring_04F3DE99_EEB5_491E_BFCA_390AFA6935F9_60E3F5EE_6C19_4C45_B2DD_BBE41CEA6B8C": false,
+          "EndsDuring_1D48E306_4993_400F_88C2_0FC0496C05D4_F82BB1ED_2BF5_4A3A_BD6E_2FB5C2DD03CC": false,
+          "Hospicecareambulatory_InterventionOrder_d9e0eabc_67f2_4508_9114_70d606f47010": false,
+          "Hospicecareambulatory_InterventionPerformed_efeccfd7_578f_4e7b_9387_ccb5a5d6e6e7": false,
+          "Overlaps_71D3DEA3_B42F_4F3F_838D_B45989D0C018_AD560323_B1BB_4B1F_A618_DB1D8908C576": false,
+          "precondition_18": false,
+          "precondition_DENEX": false,
+          "DENEX": false,
+          "OccurrenceA_Ambulatory_EDVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d1ef9ce6a60": {
+            "results": [
+              {
+                "id": "59308971b848464c150004ba",
+                "json": {
+                  "_id": "59308971b848464c150004ba",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "CPT": [
+                      "99397"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Ambulatory/ED Visit",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "59308971b848464c150004ba",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "less_thn_eql_3daysStartsBeforeEndOf_1A3CA3D6_9BE4_4602_8E62_D1F604D17696_40280381_3d61_56a7_013e_5d1ef9cd6a4d": {
+            "results": [
+              {
+                "id": "59308971b848464c150004be",
+                "json": {
+                  "_id": "59308971b848464c150004be",
+                  "codes": {
+                    "LOINC": [
+                      "6558-1"
+                    ]
+                  },
+                  "description": "Laboratory Test, Performed: Group A Streptococcus Test",
+                  "end_time": 1355162400,
+                  "health_record_field": null,
+                  "interpretation": null,
+                  "method": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.5",
+                  "qdm_status": null,
+                  "reaction": null,
+                  "reason": null,
+                  "referenceRange": null,
+                  "referenceRangeHigh": null,
+                  "referenceRangeLow": null,
+                  "specifics": null,
+                  "start_time": 1355162400,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null,
+                  "values": [
+                    {
+                      "_id": "59308971b848464c150004bf",
+                      "scalar": "positive",
+                      "units": ""
+                    }
+                  ]
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "59308971b848464c150004ba",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "less_thn_eql_3daysStartsAfterEndOf_7D3D0CAE_E260_45EA_815E_AC9FEDC8B331_40280381_3d61_56a7_013e_5d1ef9cd6a4d": false,
+          "Union_320AE034_5CC8_43DF_AFF4_EB27669B6875_59B51D37_EE90_4D37_BD1F_A864E8361D16": {
+            "results": [
+              {
+                "id": "59308971b848464c150004be",
+                "json": {
+                  "_id": "59308971b848464c150004be",
+                  "codes": {
+                    "LOINC": [
+                      "6558-1"
+                    ]
+                  },
+                  "description": "Laboratory Test, Performed: Group A Streptococcus Test",
+                  "end_time": 1355162400,
+                  "health_record_field": null,
+                  "interpretation": null,
+                  "method": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.5",
+                  "qdm_status": null,
+                  "reaction": null,
+                  "reason": null,
+                  "referenceRange": null,
+                  "referenceRangeHigh": null,
+                  "referenceRangeLow": null,
+                  "specifics": null,
+                  "start_time": 1355162400,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null,
+                  "values": [
+                    {
+                      "_id": "59308971b848464c150004bf",
+                      "scalar": "positive",
+                      "units": ""
+                    }
+                  ]
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "59308971b848464c150004ba",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "precondition_6": true,
+          "precondition_NUMER": true,
+          "NUMER": true,
+          "NUMEX": false,
+          "DENEXCEP": false,
+          "GROUP_occAof_qdm_var_Union_E11C5497_AD27_4BB5_A32A_FBF5EB5936FA_BD0FEE56_0DF4_4704_BFB0_941C7184CCE6": {
+            "results": [
+              {
+                "id": "59308971b848464c150004b9",
+                "json": {
+                  "_id": "59308971b848464c150004b9",
+                  "anatomical_location": null,
+                  "anatomical_target": null,
+                  "causeOfDeath": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "1532007"
+                    ],
+                    "ICD-9-CM": [
+                      "034.0"
+                    ],
+                    "ICD-10-CM": [
+                      "J02.0"
+                    ]
+                  },
+                  "description": "Diagnosis: Acute Pharyngitis",
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "laterality": null,
+                  "mood_code": "EVN",
+                  "name": null,
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.10.20.28.3.110",
+                  "ordinality": null,
+                  "priority": null,
+                  "reason": null,
+                  "severity": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": null
+                  },
+                  "time": null,
+                  "time_of_death": null,
+                  "type": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "occAof_qdm_var_Union_E11C5497_AD27_4BB5_A32A_FBF5EB5936FA_BD0FEE56_0DF4_4704_BFB0_941C7184CCE6": {
+            "results": [
+              {
+                "id": "59308971b848464c150004b9",
+                "json": {
+                  "_id": "59308971b848464c150004b9",
+                  "anatomical_location": null,
+                  "anatomical_target": null,
+                  "causeOfDeath": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "1532007"
+                    ],
+                    "ICD-9-CM": [
+                      "034.0"
+                    ],
+                    "ICD-10-CM": [
+                      "J02.0"
+                    ]
+                  },
+                  "description": "Diagnosis: Acute Pharyngitis",
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "laterality": null,
+                  "mood_code": "EVN",
+                  "name": null,
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.10.20.28.3.110",
+                  "ordinality": null,
+                  "priority": null,
+                  "reason": null,
+                  "severity": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": null
+                  },
+                  "time": null,
+                  "time_of_death": null,
+                  "type": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "VARIABLES": false
+        },
+        "finalSpecifics": {
+          "IPP": [
+            [
+              "59308971b848464c150004ba",
+              "*",
+              "59308971b848464c150004b9"
+            ]
+          ],
+          "DENOM": [
+            [
+              "59308971b848464c150004ba",
+              "*",
+              "59308971b848464c150004b9"
+            ]
+          ],
+          "DENEX": null,
+          "NUMER": [
+            [
+              "59308971b848464c150004ba",
+              "*",
+              "59308971b848464c150004b9"
+            ]
+          ],
+          "NUMEX": [
+            [
+              "59308971b848464c150004ba",
+              "*",
+              "59308971b848464c150004b9"
+            ]
+          ],
+          "DENEXCEP": [
+            [
+              "59308971b848464c150004ba",
+              "*",
+              "59308971b848464c150004b9"
+            ]
+          ]
+        },
+        "measure_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+        "population_index": 0,
+        "status": "pass"
+      }
+    ],
+    "conditions": [
+      {
+        "_id": "59932fce942c6d3372005651",
+        "anatomical_location": null,
+        "anatomical_target": null,
+        "causeOfDeath": null,
+        "codes": {
+          "SNOMED-CT": [
+            "1532007"
+          ],
+          "ICD-9-CM": [
+            "034.0"
+          ],
+          "ICD-10-CM": [
+            "J02.0"
+          ]
+        },
+        "description": "Diagnosis: Acute Pharyngitis",
+        "end_time": 1355313600,
+        "health_record_field": null,
+        "laterality": null,
+        "mood_code": "EVN",
+        "name": null,
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.10.20.28.3.110",
+        "ordinality": null,
+        "priority": null,
+        "reason": null,
+        "severity": null,
+        "specifics": null,
+        "start_time": 1355313600,
+        "status_code": {
+          "HL7 ActStatus": [
+            null
+          ]
+        },
+        "time": null,
+        "time_of_death": null,
+        "type": null
+      }
+    ],
+    "created_at": "2014-10-10T16:27:14.284Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "59932fce942c6d3372005652",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "CPT": [
+            "99397"
+          ]
+        },
+        "description": "Encounter, Performed: Ambulatory/ED Visit",
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1355313600,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1355313600,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 0,
+        "NUMER": 1
+      }
+    ],
+    "expired": false,
+    "first": "PharynStrepATest<=3dB4Enc",
+    "gender": "M",
+    "has_measure_history": true,
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "NUMERPass",
+    "marital_status": null,
+    "measure_ids": [
+      "BEB1C33C-2549-4E7F-9567-05ED38448464",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "d9a7913f02ee7e6a6aac9874c0424e44",
+    "medications": [
+      {
+        "_id": "59932fce942c6d3372005653",
+        "active_datetime": null,
+        "administrationTiming": null,
+        "allowedAdministrations": null,
+        "anatomical_approach": null,
+        "codes": {
+          "RxNorm": [
+            "997665",
+            "197596"
+          ]
+        },
+        "cumulativeMedicationDuration": null,
+        "deliveryMethod": null,
+        "description": "Medication, Order: Antibiotic Medications for Pharyngitis",
+        "dose": null,
+        "doseIndicator": null,
+        "doseRestriction": null,
+        "end_time": null,
+        "freeTextSig": null,
+        "fulfillmentHistory": [
+
+        ],
+        "fulfillmentInstructions": null,
+        "health_record_field": null,
+        "indication": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.17",
+        "patientInstructions": null,
+        "productForm": null,
+        "reaction": null,
+        "reason": null,
+        "route": null,
+        "signed_datetime": null,
+        "specifics": null,
+        "start_time": 1355475600,
+        "statusOfMedication": null,
+        "status_code": {
+          "HL7 ActStatus": [
+            "ordered"
+          ]
+        },
+        "supply": null,
+        "time": null,
+        "typeOfMedication": null,
+        "vehicle": null
+      }
+    ],
+    "notes": "Correct age. Diagnosis takes place during the visit and medication is ordered within 3 days after visit. Group A streptococcus test is done < 3 days before the visit and result is present",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "2131-1",
+      "name": "Other",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "results_exceed_storage": false,
+    "results_size": 12438,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "laboratory_test",
+        "status": "performed",
+        "title": "Group A Streptococcus Test",
+        "description": "Laboratory Test, Performed: Group A Streptococcus Test",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.198.12.1012",
+        "type": "laboratory_tests",
+        "id": "LaboratoryTestPerformedGroupAStreptococcusTest",
+        "start_date": 1355162400000,
+        "end_date": 1355162400000,
+        "value": [
+          {
+            "type": "CD",
+            "code_list_id": "2.16.840.1.113883.3.464.1003.198.12.1012",
+            "title": "Group A Streptococcus Test"
+          }
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+        "cms_id": "CMS146v5",
+        "criteria_id": "14d33f4cee2v2",
+        "codes": {
+          "LOINC": [
+            "6558-1"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "59932fce942c6d3372005654",
+        "code_source": "USER_DEFINED"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Ambulatory/ED Visit",
+        "description": "Encounter, Performed: Ambulatory/ED Visit",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+        "type": "encounters",
+        "id": "OccurrenceAAmbulatoryEdVisit3",
+        "start_date": 1355313600000,
+        "end_date": 1355313600000,
+        "value": [
+
+        ],
+        "field_values": {
+        },
+        "hqmf_set_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+        "cms_id": "CMS146v5",
+        "codes": {
+          "CPT": [
+            "99397"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "59932fce942c6d3372005652",
+        "code_source": "USER_DEFINED",
+        "criteria_id": "14d33d7bc46Rl",
+        "references": null
+      },
+      {
+        "negation": false,
+        "definition": "diagnosis",
+        "title": "Acute Pharyngitis",
+        "description": "Diagnosis: Acute Pharyngitis",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1011",
+        "type": "conditions",
+        "id": "OccurrenceA_AcutePharyngitis_Diagnosis_da7380fb_0abc_4d9b_b580_da075d5ef2cf",
+        "start_date": 1355313600000,
+        "end_date": 1355313600000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+        "cms_id": "CMS146v5",
+        "criteria_id": "1530f86d76csU",
+        "codes": {
+          "SNOMED-CT": [
+            "1532007"
+          ],
+          "ICD-9-CM": [
+            "034.0"
+          ],
+          "ICD-10-CM": [
+            "J02.0"
+          ]
+        },
+        "coded_entry_id": "59932fce942c6d3372005651",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "medication",
+        "status": "ordered",
+        "title": "Antibiotic Medications for Pharyngitis",
+        "description": "Medication, Order: Antibiotic Medications for Pharyngitis",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1001",
+        "type": "medications",
+        "id": "MedicationOrderAntibioticMedicationsForPharyngitis",
+        "start_date": 1355475600000,
+        "value": [
+
+        ],
+        "field_values": {
+        },
+        "hqmf_set_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+        "cms_id": "CMS146v5",
+        "codes": {
+          "RxNorm": [
+            "997665",
+            "197596"
+          ]
+        },
+        "fulfillments": null,
+        "dose_value": "",
+        "dose_unit": "mg",
+        "frequency_value": "",
+        "frequency_unit": "h",
+        "negation_code_list_id": "",
+        "coded_entry_id": "59932fce942c6d3372005653",
+        "code_source": "USER_DEFINED",
+        "criteria_id": "14d33d7bc46FY",
+        "references": null,
+        "administrations_value": ""
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2017-08-15T17:30:54.538Z",
+    "user_id": "582c7c0e6c5d1c1cf10006d1",
+    "version": 7,
+    "vital_signs": [
+      {
+        "_id": "59932fce942c6d3372005654",
+        "codes": {
+          "LOINC": [
+            "6558-1"
+          ]
+        },
+        "components": null,
+        "description": "Laboratory Test, Performed: Group A Streptococcus Test",
+        "end_time": 1355162400,
+        "health_record_field": null,
+        "interpretation": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.5",
+        "qdm_status": null,
+        "reaction": null,
+        "reason": null,
+        "referenceRange": null,
+        "referenceRangeHigh": null,
+        "referenceRangeLow": null,
+        "result_date_time": null,
+        "specifics": null,
+        "start_time": 1355162400,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null,
+        "values": [
+          {
+            "_id": "59932fce942c6d3372005655",
+            "codes": {
+              "LOINC": [
+                "11268-0"
+              ]
+            },
+            "description": "Group A Streptococcus Test"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "59401be7942c6d64b100017f",
+    "birthdate": 1017216000,
+    "bundle_id": "582c7c0e6c5d1c1cf10006d2",
+    "calc_results": [
+      {
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 0,
+        "NUMER": 1,
+        "NUMEX": 0,
+        "DENEXCEP": 0,
+        "rationale": {
+          "MeasurePeriod": {
+            "results": [
+              {
+                "id": "undefined",
+                "json": {
+                  "start_time": 1325376000,
+                  "end_time": 1356998340,
+                  "codes": {
+                  }
+                }
+              }
+            ]
+          },
+          "Agegrtr_thn_eql_3yearsat_0DD41FE0_0656_4EEB_9E87_7881415A5E14_0825C51D_905D_44B7_9A03_213A5920F103": {
+            "results": [
+              {
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "Ageless_thn_18yearsat_51A3DC29_9BD7_4BFB_9721_B64FFBB6BA94_5CF10E97_37D3_4BA3_96CB_05C692716808": {
+            "results": [
+              {
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "During_851D01E7_F11A_4FC7_B65B_B649286C02C2_40280381_3d61_56a7_013e_5d1ef9ce6a60": {
+            "results": [
+              {
+                "id": "59308957b848464c15000499",
+                "json": {
+                  "_id": "59308957b848464c15000499",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "CPT": [
+                      "99397"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Ambulatory/ED Visit",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "59308957b848464c15000499",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "AntibioticMedicationsforPharyngitis_MedicationOrder_40280381_3d61_56a7_013e_5d1ef9ce6a5b": {
+            "results": [
+              {
+                "id": "59308957b848464c1500049d",
+                "json": {
+                  "_id": "59308957b848464c1500049d",
+                  "active_datetime": null,
+                  "administrationTiming": null,
+                  "allowedAdministrations": null,
+                  "anatomical_approach": null,
+                  "codes": {
+                    "RxNorm": [
+                      "997665",
+                      "197596"
+                    ]
+                  },
+                  "cumulativeMedicationDuration": null,
+                  "deliveryMethod": null,
+                  "description": "Medication, Order: Antibiotic Medications for Pharyngitis",
+                  "dose": null,
+                  "doseIndicator": null,
+                  "doseRestriction": null,
+                  "end_time": 1355475600,
+                  "freeTextSig": null,
+                  "fulfillmentHistory": null,
+                  "fulfillmentInstructions": null,
+                  "health_record_field": null,
+                  "indication": null,
+                  "method": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.17",
+                  "patientInstructions": null,
+                  "productForm": null,
+                  "reaction": null,
+                  "reason": null,
+                  "route": null,
+                  "signed_datetime": null,
+                  "specifics": null,
+                  "start_time": 1355475600,
+                  "statusOfMedication": null,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "ordered"
+                    ]
+                  },
+                  "time": null,
+                  "typeOfMedication": null,
+                  "vehicle": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "less_thn_eql_3daysStartsBeforeOrConcurrentWithStartOf_314BEAFF_5ECA_4F32_A5AD_2A3E517FD8F2_40280381_3d61_56a7_013e_5d1ef9ce6a60": {
+            "results": [
+              {
+                "id": "59308957b848464c15000499",
+                "json": {
+                  "_id": "59308957b848464c15000499",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "CPT": [
+                      "99397"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Ambulatory/ED Visit",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "59308957b848464c15000499",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "AcutePharyngitis_Diagnosis_178608ed_404c_4278_be24_3ad6b726d0f3": {
+            "results": [
+              {
+                "id": "59308957b848464c15000498",
+                "json": {
+                  "_id": "59308957b848464c15000498",
+                  "anatomical_location": null,
+                  "anatomical_target": null,
+                  "causeOfDeath": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "1532007"
+                    ],
+                    "ICD-9-CM": [
+                      "034.0"
+                    ],
+                    "ICD-10-CM": [
+                      "J02.0"
+                    ]
+                  },
+                  "description": "Diagnosis: Acute Pharyngitis",
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "laterality": null,
+                  "mood_code": "EVN",
+                  "name": null,
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.10.20.28.3.110",
+                  "ordinality": null,
+                  "priority": null,
+                  "reason": null,
+                  "severity": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": null
+                  },
+                  "time": null,
+                  "time_of_death": null,
+                  "type": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "AcuteTonsillitis_Diagnosis_b191199e_67ae_4fd7_90bd_d6d81ec08f28": false,
+          "GROUP_occAof_qdm_var_Union_E11C5497_AD27_4BB5_A32A_FBF5EB5936FA_91813C05_FA95_4B64_8285_FEE4935A975D": {
+            "results": [
+              {
+                "id": "59308957b848464c15000498",
+                "json": {
+                  "_id": "59308957b848464c15000498",
+                  "anatomical_location": null,
+                  "anatomical_target": null,
+                  "causeOfDeath": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "1532007"
+                    ],
+                    "ICD-9-CM": [
+                      "034.0"
+                    ],
+                    "ICD-10-CM": [
+                      "J02.0"
+                    ]
+                  },
+                  "description": "Diagnosis: Acute Pharyngitis",
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "laterality": null,
+                  "mood_code": "EVN",
+                  "name": null,
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.10.20.28.3.110",
+                  "ordinality": null,
+                  "priority": null,
+                  "reason": null,
+                  "severity": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": null
+                  },
+                  "time": null,
+                  "time_of_death": null,
+                  "type": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "occAof_qdm_var_Union_E11C5497_AD27_4BB5_A32A_FBF5EB5936FA_91813C05_FA95_4B64_8285_FEE4935A975D": {
+            "results": [
+              {
+                "id": "59308957b848464c15000498",
+                "json": {
+                  "_id": "59308957b848464c15000498",
+                  "anatomical_location": null,
+                  "anatomical_target": null,
+                  "causeOfDeath": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "1532007"
+                    ],
+                    "ICD-9-CM": [
+                      "034.0"
+                    ],
+                    "ICD-10-CM": [
+                      "J02.0"
+                    ]
+                  },
+                  "description": "Diagnosis: Acute Pharyngitis",
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "laterality": null,
+                  "mood_code": "EVN",
+                  "name": null,
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.10.20.28.3.110",
+                  "ordinality": null,
+                  "priority": null,
+                  "reason": null,
+                  "severity": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": null
+                  },
+                  "time": null,
+                  "time_of_death": null,
+                  "type": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "59308957b848464c15000498"
+              ]
+            ]
+          },
+          "Overlaps_CAC4D072_0D10_42C1_8825_474928C30557_40280381_3d61_56a7_013e_5d1ef9ce6a60": {
+            "results": [
+              {
+                "id": "59308957b848464c15000499",
+                "json": {
+                  "_id": "59308957b848464c15000499",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "CPT": [
+                      "99397"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Ambulatory/ED Visit",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "59308957b848464c15000499",
+                "*",
+                "59308957b848464c15000498"
+              ]
+            ]
+          },
+          "SatisfiesAll_CC63BBCA_CB17_424A_BB09_14FCEFE4F811_06C4CF4F_919B_46E6_81A2_A2714B9E9899": {
+            "results": [
+              {
+                "id": "59308957b848464c15000499",
+                "json": {
+                  "_id": "59308957b848464c15000499",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "CPT": [
+                      "99397"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Ambulatory/ED Visit",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "59308957b848464c15000499",
+                "*",
+                "59308957b848464c15000498"
+              ]
+            ]
+          },
+          "precondition_4": true,
+          "precondition_IPP": true,
+          "IPP": true,
+          "DENOM": true,
+          "less_thn_eql_30daysStartsBeforeStartOf_31B9BA86_8910_4981_965D_3E3333E0612C_E65B1240_368F_42B7_86A6_91E082CC8E3A": false,
+          "grtr_thn_eql_1daysStartsBeforeStartOf_BB62BD58_FB28_4F41_A9A9_74F410372B71_71B424D0_AC8B_4629_A63B_886090AB8E7F": false,
+          "precondition_12": false,
+          "grtr_thn_30daysEndsBeforeStartOf_CC41D4DA_1C26_4C77_AF75_4AF31D6B0FEF_F0EFBFF3_CEEE_44A5_8210_ED74AE5F6B0A": false,
+          "precondition_15": true,
+          "precondition_16": true,
+          "grtr_thn_30daysStartsBeforeStartOf_5827F18D_3279_4507_9FE6_89B4D3957FDA_F8A52528_C616_4072_AE71_4B12C79DEFEE": false,
+          "precondition_17": false,
+          "EndsDuring_04F3DE99_EEB5_491E_BFCA_390AFA6935F9_60E3F5EE_6C19_4C45_B2DD_BBE41CEA6B8C": false,
+          "EndsDuring_1D48E306_4993_400F_88C2_0FC0496C05D4_F82BB1ED_2BF5_4A3A_BD6E_2FB5C2DD03CC": false,
+          "Hospicecareambulatory_InterventionOrder_d9e0eabc_67f2_4508_9114_70d606f47010": false,
+          "Hospicecareambulatory_InterventionPerformed_efeccfd7_578f_4e7b_9387_ccb5a5d6e6e7": false,
+          "Overlaps_71D3DEA3_B42F_4F3F_838D_B45989D0C018_AD560323_B1BB_4B1F_A618_DB1D8908C576": false,
+          "precondition_18": false,
+          "precondition_DENEX": false,
+          "DENEX": false,
+          "OccurrenceA_Ambulatory_EDVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d1ef9ce6a60": {
+            "results": [
+              {
+                "id": "59308957b848464c15000499",
+                "json": {
+                  "_id": "59308957b848464c15000499",
+                  "admitTime": null,
+                  "admitType": null,
+                  "codes": {
+                    "CPT": [
+                      "99397"
+                    ]
+                  },
+                  "description": "Encounter, Performed: Ambulatory/ED Visit",
+                  "dischargeDisposition": null,
+                  "dischargeTime": null,
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.79",
+                  "performer_id": null,
+                  "reason": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "59308957b848464c15000499",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "less_thn_eql_3daysStartsBeforeEndOf_1A3CA3D6_9BE4_4602_8E62_D1F604D17696_40280381_3d61_56a7_013e_5d1ef9cd6a4d": {
+            "results": [
+              {
+                "id": "59308957b848464c1500049e",
+                "json": {
+                  "_id": "59308957b848464c1500049e",
+                  "codes": {
+                    "LOINC": [
+                      "6558-1"
+                    ]
+                  },
+                  "description": "Laboratory Test, Performed: Group A Streptococcus Test",
+                  "end_time": 1355162400,
+                  "health_record_field": null,
+                  "interpretation": null,
+                  "method": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.5",
+                  "qdm_status": null,
+                  "reaction": null,
+                  "reason": null,
+                  "referenceRange": null,
+                  "referenceRangeHigh": null,
+                  "referenceRangeLow": null,
+                  "specifics": null,
+                  "start_time": 1355162400,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null,
+                  "values": [
+                    {
+                      "_id": "59308957b848464c1500049f",
+                      "scalar": "positive",
+                      "units": ""
+                    }
+                  ]
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "59308957b848464c15000499",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "less_thn_eql_3daysStartsAfterEndOf_7D3D0CAE_E260_45EA_815E_AC9FEDC8B331_40280381_3d61_56a7_013e_5d1ef9cd6a4d": false,
+          "Union_320AE034_5CC8_43DF_AFF4_EB27669B6875_59B51D37_EE90_4D37_BD1F_A864E8361D16": {
+            "results": [
+              {
+                "id": "59308957b848464c1500049e",
+                "json": {
+                  "_id": "59308957b848464c1500049e",
+                  "codes": {
+                    "LOINC": [
+                      "6558-1"
+                    ]
+                  },
+                  "description": "Laboratory Test, Performed: Group A Streptococcus Test",
+                  "end_time": 1355162400,
+                  "health_record_field": null,
+                  "interpretation": null,
+                  "method": null,
+                  "mood_code": "EVN",
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.3.560.1.5",
+                  "qdm_status": null,
+                  "reaction": null,
+                  "reason": null,
+                  "referenceRange": null,
+                  "referenceRangeHigh": null,
+                  "referenceRangeLow": null,
+                  "specifics": null,
+                  "start_time": 1355162400,
+                  "status_code": {
+                    "HL7 ActStatus": [
+                      "performed"
+                    ]
+                  },
+                  "time": null,
+                  "values": [
+                    {
+                      "_id": "59308957b848464c1500049f",
+                      "scalar": "positive",
+                      "units": ""
+                    }
+                  ]
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "59308957b848464c15000499",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "precondition_6": true,
+          "precondition_NUMER": true,
+          "NUMER": true,
+          "NUMEX": false,
+          "DENEXCEP": false,
+          "GROUP_occAof_qdm_var_Union_E11C5497_AD27_4BB5_A32A_FBF5EB5936FA_BD0FEE56_0DF4_4704_BFB0_941C7184CCE6": {
+            "results": [
+              {
+                "id": "59308957b848464c15000498",
+                "json": {
+                  "_id": "59308957b848464c15000498",
+                  "anatomical_location": null,
+                  "anatomical_target": null,
+                  "causeOfDeath": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "1532007"
+                    ],
+                    "ICD-9-CM": [
+                      "034.0"
+                    ],
+                    "ICD-10-CM": [
+                      "J02.0"
+                    ]
+                  },
+                  "description": "Diagnosis: Acute Pharyngitis",
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "laterality": null,
+                  "mood_code": "EVN",
+                  "name": null,
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.10.20.28.3.110",
+                  "ordinality": null,
+                  "priority": null,
+                  "reason": null,
+                  "severity": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": null
+                  },
+                  "time": null,
+                  "time_of_death": null,
+                  "type": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "occAof_qdm_var_Union_E11C5497_AD27_4BB5_A32A_FBF5EB5936FA_BD0FEE56_0DF4_4704_BFB0_941C7184CCE6": {
+            "results": [
+              {
+                "id": "59308957b848464c15000498",
+                "json": {
+                  "_id": "59308957b848464c15000498",
+                  "anatomical_location": null,
+                  "anatomical_target": null,
+                  "causeOfDeath": null,
+                  "codes": {
+                    "SNOMED-CT": [
+                      "1532007"
+                    ],
+                    "ICD-9-CM": [
+                      "034.0"
+                    ],
+                    "ICD-10-CM": [
+                      "J02.0"
+                    ]
+                  },
+                  "description": "Diagnosis: Acute Pharyngitis",
+                  "end_time": 1355313600,
+                  "health_record_field": null,
+                  "laterality": null,
+                  "mood_code": "EVN",
+                  "name": null,
+                  "negationInd": null,
+                  "negationReason": null,
+                  "oid": "2.16.840.1.113883.10.20.28.3.110",
+                  "ordinality": null,
+                  "priority": null,
+                  "reason": null,
+                  "severity": null,
+                  "specifics": null,
+                  "start_time": 1355313600,
+                  "status_code": {
+                    "HL7 ActStatus": null
+                  },
+                  "time": null,
+                  "time_of_death": null,
+                  "type": null
+                }
+              }
+            ],
+            "specifics": [
+              [
+                "*",
+                "*",
+                "*"
+              ]
+            ]
+          },
+          "VARIABLES": false
+        },
+        "finalSpecifics": {
+          "IPP": [
+            [
+              "59308957b848464c15000499",
+              "*",
+              "59308957b848464c15000498"
+            ]
+          ],
+          "DENOM": [
+            [
+              "59308957b848464c15000499",
+              "*",
+              "59308957b848464c15000498"
+            ]
+          ],
+          "DENEX": null,
+          "NUMER": [
+            [
+              "59308957b848464c15000499",
+              "*",
+              "59308957b848464c15000498"
+            ]
+          ],
+          "NUMEX": [
+            [
+              "59308957b848464c15000499",
+              "*",
+              "59308957b848464c15000498"
+            ]
+          ],
+          "DENEXCEP": [
+            [
+              "59308957b848464c15000499",
+              "*",
+              "59308957b848464c15000498"
+            ]
+          ]
+        },
+        "measure_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+        "population_index": 0,
+        "status": "pass"
+      }
+    ],
+    "conditions": [
+      {
+        "_id": "59932fce942c6d3372005695",
+        "anatomical_location": null,
+        "anatomical_target": null,
+        "causeOfDeath": null,
+        "codes": {
+          "SNOMED-CT": [
+            "1532007"
+          ],
+          "ICD-9-CM": [
+            "034.0"
+          ],
+          "ICD-10-CM": [
+            "J02.0"
+          ]
+        },
+        "description": "Diagnosis: Acute Pharyngitis",
+        "end_time": 1355313600,
+        "health_record_field": null,
+        "laterality": null,
+        "mood_code": "EVN",
+        "name": null,
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.10.20.28.3.110",
+        "ordinality": null,
+        "priority": null,
+        "reason": null,
+        "severity": null,
+        "specifics": null,
+        "start_time": 1355313600,
+        "status_code": {
+          "HL7 ActStatus": [
+            null
+          ]
+        },
+        "time": null,
+        "time_of_death": null,
+        "type": null
+      }
+    ],
+    "created_at": "2017-03-13T13:41:11.913Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "59932fce942c6d3372005696",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "CPT": [
+            "99397"
+          ]
+        },
+        "description": "Encounter, Performed: Ambulatory/ED Visit",
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1355313600,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1355313600,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      },
+      {
+        "_id": "59932fce942c6d3372005697",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "8715000"
+          ]
+        },
+        "description": "Encounter, Performed: Encounter Inpatient",
+        "dischargeDisposition": {
+          "code_system": "SNOMED-CT",
+          "code": "428371000124100",
+          "title": "Discharged to Health Care Facility for Hospice Care"
+        },
+        "dischargeTime": null,
+        "end_time": 1358064900,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1355385600,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 0,
+        "NUMER": 1
+      }
+    ],
+    "expired": false,
+    "first": "PharynStrepATest<=3dB4Enc",
+    "gender": "M",
+    "has_measure_history": true,
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "NUMERPass",
+    "marital_status": null,
+    "measure_ids": [
+      "BEB1C33C-2549-4E7F-9567-05ED38448464",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "9417ebb20c0f6a885309220b0073b38c",
+    "medications": [
+      {
+        "_id": "59932fce942c6d3372005698",
+        "active_datetime": null,
+        "administrationTiming": null,
+        "allowedAdministrations": null,
+        "anatomical_approach": null,
+        "codes": {
+          "RxNorm": [
+            "997665",
+            "197596"
+          ]
+        },
+        "cumulativeMedicationDuration": null,
+        "deliveryMethod": null,
+        "description": "Medication, Order: Antibiotic Medications for Pharyngitis",
+        "dose": null,
+        "doseIndicator": null,
+        "doseRestriction": null,
+        "end_time": null,
+        "freeTextSig": null,
+        "fulfillmentHistory": [
+
+        ],
+        "fulfillmentInstructions": null,
+        "health_record_field": null,
+        "indication": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.17",
+        "patientInstructions": null,
+        "productForm": null,
+        "reaction": null,
+        "reason": null,
+        "route": null,
+        "signed_datetime": null,
+        "specifics": null,
+        "start_time": 1355475600,
+        "statusOfMedication": null,
+        "status_code": {
+          "HL7 ActStatus": [
+            "ordered"
+          ]
+        },
+        "supply": null,
+        "time": null,
+        "typeOfMedication": null,
+        "vehicle": null
+      }
+    ],
+    "notes": "Meets IPP, Denominator, and Numerator.  Does not meet Denominator Exclusion (testing Encounter IP, Discharge to Facility for Hospice - encounter starts during MP but end after MP).",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "2131-1",
+      "name": "Other",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "results_exceed_storage": false,
+    "results_size": 12438,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "laboratory_test",
+        "status": "performed",
+        "title": "Group A Streptococcus Test",
+        "description": "Laboratory Test, Performed: Group A Streptococcus Test",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.198.12.1012",
+        "type": "laboratory_tests",
+        "id": "LaboratoryTestPerformedGroupAStreptococcusTest",
+        "start_date": 1355162400000,
+        "end_date": 1355162400000,
+        "value": [
+          {
+            "type": "CD",
+            "code_list_id": "2.16.840.1.113883.3.464.1003.198.12.1012",
+            "title": "Group A Streptococcus Test"
+          }
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+        "cms_id": "CMS146v5",
+        "criteria_id": "14d33f4cee2v2",
+        "codes": {
+          "LOINC": [
+            "6558-1"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "59932fce942c6d3372005699",
+        "code_source": "USER_DEFINED"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Ambulatory/ED Visit",
+        "description": "Encounter, Performed: Ambulatory/ED Visit",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1061",
+        "type": "encounters",
+        "id": "OccurrenceAAmbulatoryEdVisit3",
+        "start_date": 1355313600000,
+        "end_date": 1355313600000,
+        "value": [
+
+        ],
+        "field_values": {
+        },
+        "hqmf_set_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+        "cms_id": "CMS146v5",
+        "codes": {
+          "CPT": [
+            "99397"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "59932fce942c6d3372005696",
+        "code_source": "USER_DEFINED",
+        "criteria_id": "14d33d7bc46Rl",
+        "references": null
+      },
+      {
+        "negation": false,
+        "definition": "diagnosis",
+        "title": "Acute Pharyngitis",
+        "description": "Diagnosis: Acute Pharyngitis",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.102.12.1011",
+        "type": "conditions",
+        "id": "OccurrenceA_AcutePharyngitis_Diagnosis_da7380fb_0abc_4d9b_b580_da075d5ef2cf",
+        "start_date": 1355313600000,
+        "end_date": 1355313600000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+        "cms_id": "CMS146v5",
+        "criteria_id": "1530f86d76csU",
+        "codes": {
+          "SNOMED-CT": [
+            "1532007"
+          ],
+          "ICD-9-CM": [
+            "034.0"
+          ],
+          "ICD-10-CM": [
+            "J02.0"
+          ]
+        },
+        "coded_entry_id": "59932fce942c6d3372005695",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Encounter Inpatient",
+        "description": "Encounter, Performed: Encounter Inpatient",
+        "code_list_id": "2.16.840.1.113883.3.666.5.307",
+        "type": "encounters",
+        "id": "EndsDuring_1D48E306_4993_400F_88C2_0FC0496C05D4_F82BB1ED_2BF5_4A3A_BD6E_2FB5C2DD03CC_source",
+        "start_date": 1355385600000,
+        "end_date": 1358064900000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+          "DISCHARGE_STATUS": {
+            "type": "CD",
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.207",
+            "title": "Discharged To Health Care Facility For Hospice Care",
+            "field_title": "Discharge Disposition"
+          }
+        },
+        "hqmf_set_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+        "cms_id": "CMS146v5",
+        "criteria_id": "15ac7e47c51VY",
+        "codes": {
+          "SNOMED-CT": [
+            "8715000"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "59932fce942c6d3372005697",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "medication",
+        "status": "ordered",
+        "title": "Antibiotic Medications for Pharyngitis",
+        "description": "Medication, Order: Antibiotic Medications for Pharyngitis",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1001",
+        "type": "medications",
+        "id": "MedicationOrderAntibioticMedicationsForPharyngitis",
+        "start_date": 1355475600000,
+        "value": [
+
+        ],
+        "field_values": {
+        },
+        "hqmf_set_id": "BEB1C33C-2549-4E7F-9567-05ED38448464",
+        "cms_id": "CMS146v5",
+        "codes": {
+          "RxNorm": [
+            "997665",
+            "197596"
+          ]
+        },
+        "fulfillments": null,
+        "dose_value": "",
+        "dose_unit": "mg",
+        "frequency_value": "",
+        "frequency_unit": "h",
+        "negation_code_list_id": "",
+        "coded_entry_id": "59932fce942c6d3372005698",
+        "code_source": "USER_DEFINED",
+        "criteria_id": "14d33d7bc46FY",
+        "references": null,
+        "administrations_value": ""
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2017-08-15T17:30:54.968Z",
+    "user_id": "582c7c0e6c5d1c1cf10006d1",
+    "version": 4,
+    "vital_signs": [
+      {
+        "_id": "59932fce942c6d3372005699",
+        "codes": {
+          "LOINC": [
+            "6558-1"
+          ]
+        },
+        "components": null,
+        "description": "Laboratory Test, Performed: Group A Streptococcus Test",
+        "end_time": 1355162400,
+        "health_record_field": null,
+        "interpretation": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.5",
+        "qdm_status": null,
+        "reaction": null,
+        "reason": null,
+        "referenceRange": null,
+        "referenceRangeHigh": null,
+        "referenceRangeLow": null,
+        "result_date_time": null,
+        "specifics": null,
+        "start_time": 1355162400,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null,
+        "values": [
+          {
+            "_id": "59932fce942c6d337200569a",
+            "codes": {
+              "LOINC": [
+                "11268-0"
+              ]
+            },
+            "description": "Group A Streptococcus Test"
+          }
+        ]
+      }
+    ]
+  }
+]

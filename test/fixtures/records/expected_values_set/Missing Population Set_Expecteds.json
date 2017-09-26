@@ -1,0 +1,90 @@
+{
+  "_id": "59ba80525cc9750fd8000028",
+  "birthdate": 1044432000,
+  "bundle_id": "59af1c135cc975610c000001",
+  "created_at": "2017-09-14T13:12:50.928Z",
+  "deathdate": null,
+  "description": null,
+  "description_category": null,
+  "effective_time": null,
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+
+  ],
+  "expired": null,
+  "first": "Missing Population Set",
+  "gender": "M",
+  "insurance_providers": [
+    {
+      "_id": "59ba80525cc9750fd8000029",
+      "codes": {
+        "SOP": [
+          "349"
+        ]
+      },
+      "description": null,
+      "end_time": null,
+      "financial_responsibility_type": {
+        "code": "SELF",
+        "codeSystem": "HL7 Relationship Code"
+      },
+      "health_record_field": null,
+      "member_id": "1234567890",
+      "mood_code": "EVN",
+      "name": "Other",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": null,
+      "payer": {
+        "_id": "59ba80525cc9750fd800002a",
+        "name": "Other"
+      },
+      "reason": null,
+      "relationship": null,
+      "specifics": null,
+      "start_time": 1199163600,
+      "status_code": null,
+      "time": null,
+      "type": "OT"
+    }
+  ],
+  "is_shared": null,
+  "languages": [
+
+  ],
+  "last": "Expecteds",
+  "marital_status": null,
+  "measure_ids": [
+    "93F3479F-75D8-4731-9A3F-B7749D8BCD37",
+    null
+  ],
+  "medical_record_assigner": "Bonnie",
+  "medical_record_number": "5ad05d6a2429968fc9231f16520555fc",
+  "notes": "",
+  "origin_data": [
+
+  ],
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "source_data_criteria": [
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": null,
+  "title": null,
+  "type": null,
+  "updated_at": "2017-09-14T13:12:50.928Z",
+  "user_id": "501fdba3044a111b98000001"
+}

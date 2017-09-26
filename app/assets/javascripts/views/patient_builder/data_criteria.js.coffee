@@ -66,6 +66,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       fieldValue: true
       values: @model.get('field_values')
       criteriaType: @model.get('type')
+      fullCriteriaType: @model.getCriteriaType() # includes the full type information. e.g., instead of 'encounters' it's 'encounter_performed'
     @editReferenceView = new Thorax.Views.EditCriteriaReferenceView
       model: new Thorax.Model
       measure: @model.measure()
@@ -91,6 +92,14 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     _(model.toJSON()).extend
       start_date: moment.utc(model.get('value')).format('L') if model.get('type') == 'TS'
       start_time: moment.utc(model.get('value')).format('LT') if model.get('type') == 'TS'
+      if model.get('type') == 'COL'
+        for item in model.attributes.values
+          # Add OR logic for any collections that need to display dates here
+          if item.type == 'FAC'
+            start_date: moment.utc(item.value).format('L')    
+            start_time: moment.utc(item.value).format('LT')   
+            end_date: moment.utc(item.end_value).format('L') 
+            end_time: moment.utc(item.end_value).format('LT')
 
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
@@ -375,6 +384,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
 
   initialize: ->
     @model.set('type', 'CD')
+    @model.set('type_cmp', 'CD')
     @fieldValueCodesCollection = new Thorax.Collections.Codes {}, parse: true
     @showAddCodesButton = false
     @showAddCodes = false
@@ -397,18 +407,37 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       if startDate = attr.start_date
         startDate += " #{attr.start_time}" if attr.start_time
         attr.value = moment.utc(startDate, 'L LT').format('X') * 1000
-      delete attr.start_date
-      delete attr.start_time
-      title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
-      attr.title = title if title
+
+      if attr.key == 'FACILITY_LOCATION'
+        # Facility Locations care about start and end dates/times
+        if startDate
+          attr.locationPeriodLow = startDate 
+        if endDate = attr.end_date 
+            endDate += " #{attr.end_time}" if attr.end_time
+            attr.locationPeriodHigh = endDate
+            attr.end_value = moment.utc(endDate, 'L LT').format('X') * 1000
+            
+      if attr.key == 'COMPONENT'
+        title_cmp = @measure?.valueSets().findWhere(oid: attr.code_list_id_cmp)?.get('display_name')
+        attr.title = title_cmp if title_cmp
+        attr.title_cmp = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
+      else
+        title = @measure?.valueSets().findWhere(oid: attr.code_list_id)?.get('display_name')
+        attr.title = title if title
       attr.codes = @fieldValueCodesCollection.toJSON() unless jQuery.isEmptyObject(@fieldValueCodesCollection.toJSON())
       # gets the pretty printed title (e.g., "Result Date/Time" instead of "RESULT_DATETIME")
       attr.field_title = (field for field in @fields when field.key == attr.key)[0]?.title
     rendered: ->
       @codeSelectionViewForFieldValues = new Thorax.Views.CodeSelectionView codes: @fieldValueCodesCollection
       @$("select[name=type]").selectBoxIt('native': true)
+      @$("select[name=type_cmp]").selectBoxIt('native': true)
       @$('.date-picker').datepicker().on 'changeDate', _.bind(@validateForAddition, this)
       @$('.time-picker').timepicker(template: false).on 'changeTime.timepicker', _.bind(@validateForAddition, this)
+    'change select[name=type_cmp]': (e) ->
+      @model.set type_cmp: $(e.target).val()
+      @toggleAddCodesButton()
+      @validateForAddition()
+      @advanceFocusToInput()
     'change select[name=type]': (e) ->
       @model.set type: $(e.target).val()
       @toggleAddCodesButton()
@@ -419,8 +448,17 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
       @validateForAddition()
     'change select': ->
       # @serialize.key is the selected item set to the model.key so the view can change accordingly
-      if(@serialize().key == 'COMPONENT')
+      key = @serialize().key
+      if key != 'COMPONENT'
+        # clear extra values from component
+        @model.unset 'type_cmp'
+        @model.unset 'title_cmp'
+        @model.unset 'code_list_id_cmp'
+      if key == 'COMPONENT'
         @model.set type: 'CMP'
+        @model.set type_cmp: 'CD'
+      else if key == 'FACILITY_LOCATION'
+        @model.set type: 'FAC'
       else
         # Default drop down to 'coded'
         @model.set type: 'CD'
@@ -475,13 +513,23 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
         @$('select[name="code_list_id"]').focus()
       when 'TS'
         @$('input[name="start_date"]').focus()
+      when 'CMP'
+        switch @model.get('type_cmp')
+          when 'PQ'
+            @$('input[name="value"]').focus()
+          when 'CD'
+            @$('select[name="code_list_id"]').focus()
+          when 'TS'
+            @$('input[name="start_date"]').focus()
     @$('.btn').focus() # advances the focus to the add Button
 
   validateForAddition: ->
     attributes = @serialize(set: false) # Gets copy of attributes from form without setting model
-    isDisabled = (attributes.type == 'PQ' && !attributes.value) ||
-                 (attributes.type == 'CD' && !attributes.code_list_id) ||
-                 (attributes.type == 'TS' && !attributes.value) ||
+    isDisabled = ((attributes.type == 'PQ' || attributes.type_cmp == 'PQ') && !attributes.value) ||
+                 ((attributes.type == 'CD' || attributes.type_cmp == 'CD') && !attributes.code_list_id) ||
+                 ((attributes.type == 'TS' || attributes.type_cmp == 'TS') && !attributes.value) ||
+                 (attributes.key == 'COMPONENT' && (!attributes.code_list_id_cmp)) ||
+                 (attributes.key == 'FACILITY_LOCATION' && !attributes.code_list_id) ||
                  (@fieldValue && !attributes.key)
     @$('button[data-call-method=addValue]').prop 'disabled', isDisabled
 
@@ -510,20 +558,34 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     @serialize()
     # This will process CMP, a collection type attribute
     # If extending for use with other collection based attributes, add OR logic here
-    if @model.get('type') == "CMP"
-       compare_collection = @values.findWhere(key: @model.get('key'))
-       if compare_collection
-         col = compare_collection
-         # We remove the collection and then re add it to trigger the UI to update
-         @values.remove compare_collection
-       if !col
-         # Create a thorax model collection
-         col = new Thorax.Model()
-         col.set('key', @model.get('key'))
-         col.set('type', 'COL')
-         col.set('values', [])
-       col.get('values').push @model.toJSON()
-       @values.add col
+    model_key = @model.get('key')
+    if (@model.get('type') == "CMP" ||
+        @model.get('type') == "FAC" ||
+        model_key == 'FACILITY_LOCATION' ||
+        model_key  == 'DIAGNOSIS'   ||
+        model_key  == 'RELATED_TO')
+
+      compare_collection = @values.findWhere(key: model_key)
+
+      # component code was put into another field to reuse the Thorax View
+      # Therefore we have to swap code_list_id_cmp with code_list_id when saving
+      if (@model.get('type') == "CMP")
+        tmp = @model.get('code_list_id_cmp')
+        @model.set code_list_id_cmp: @model.get('code_list_id')
+        @model.set code_list_id: tmp
+
+      if compare_collection
+        col = compare_collection
+        # We remove the collection and then re add it to trigger the UI to update
+        @values.remove compare_collection
+      if !col
+        # Create a thorax model collection
+        col = new Thorax.Model()
+        col.set('key', model_key)
+        col.set('type', 'COL')
+        col.set('values', [])
+      col.get('values').push @model.toJSON()
+      @values.add col
     else
       @values.add @model.clone()
     # Reset model to default values
@@ -559,10 +621,9 @@ class Thorax.Views.EditCriteriaReferenceView extends Thorax.Views.EditCriteriaVa
     # Reset model to default values
     @model.clear()
 
-    # clear() removes fields (which we want), but then populate() doesn't clear the select; clear it
-    @$('select[name=key]').val('')
-    # Let the selectBoxIt() select box know that its value may have changed
-    @$('select[name=type]').change()
+    # Set the drop downs back to empty.
+    @$('select[name=reference_type]').val('')
+    @$('select[name=reference_id]').val('')
     @triggerMaterialize()
     @$(':focusable:visible:first').focus()
 

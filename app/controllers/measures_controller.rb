@@ -84,7 +84,6 @@ class MeasuresController < ApplicationController
     #If we get to this point, then the measure that is being uploaded is a MAT export of CQL
     begin
       # Default to valid set of values for vsac request.
-      effectiveDate = nil
       includeDraft = true
       # All measure uploads require vsac credentials, except certain test cases.
       # Added a check for vsac_username before checking for include draft and vsac_date.
@@ -92,13 +91,8 @@ class MeasuresController < ApplicationController
         # If the measure is published (includesDraft = false)
         # EffectiveDate is specified to determine a value set version.
         includeDraft = params[:include_draft] == 'true'
-        unless includeDraft
-          effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
-        end
       end
 
-      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], false, false, effectiveDate, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=false, cache=false
-      existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
       is_update = false
       if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: params[:hqmf_set_id]).first
@@ -110,9 +104,12 @@ class MeasuresController < ApplicationController
         end
         measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
       end
+
+      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], false, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=false cache=false
+
       if (!is_update)
-        cql_existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id)
-        if cql_existing.count > 0
+        existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
+        if !existing.nil?
           measure.delete
           flash[:error] = {title: "Error Loading Measure", summary: "A version of this measure is already loaded.", body: "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it."}
           redirect_to "#{root_path}##{params[:redirect_route]}"

@@ -144,6 +144,8 @@ module Measures
       if fields
         # Collect oids out of collection for each value in collection that is not a collection itself
         oids.concat fields.select{|key,value| value["type"] != "COL"}.values.collect {|value| value['code_list_id']}
+        # Also add oids for components
+        oids.concat fields.select{|key,value| value["type"] != "COL"}.values.collect {|value| value['code_list_id_cmp']}
         # Recurse through potential inner collections adding their oids along the way
         fields.select{|key,value| value["type"] == "COL"}.values.each {
           |collection| collection["values"].each{ 
@@ -250,9 +252,28 @@ module Measures
         end
         field_value["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id, value_sets)["display_name"] if field_value
       elsif field.type == "CMP"
-        field_value["code"] = Measures::PatientBuilder.select_code(field.code.code_list_id, value_sets)
-        field_value["result"] =  {"scalar"=>value["value"], "units"=>value["unit"]}
-        # TODO: will have to add code here if range exists
+        field_value["code"] = Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
+        cmp_type = value["type_cmp"]
+        field_value["result"] = {}
+        if cmp_type == "TS"
+          field_value["result"]["units"] = "UnixTime"
+          field_value["result"]["scalar"] = value['value']
+        elsif cmp_type == "CD"
+          field_value["result"]["code"] = Measures::PatientBuilder.select_code(field.code_list_id_cmp, value_sets)
+          field_value["result"]["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id_cmp, value_sets)["display_name"]
+        else
+          field_value["result"] = {"scalar"=>value["value"], "units"=>value["unit"]}
+        end
+
+        if value["referenceRangeLow_value"]
+          field_value["referenceRangeLow"] = {"scalar"=>value["referenceRangeLow_value"], "units"=>value["referenceRangeLow_unit"]}
+          field_value["referenceRangeHigh"] = {"scalar"=>value["referenceRangeHigh_value"], "units"=>value["referenceRangeHigh_unit"]}
+        end
+      elsif field.type == "FAC"
+        field_value["code"] = Measures::PatientBuilder.select_code(field.code_list_id, value_sets)
+        field_value["display"] = field.title
+        field_value["locationPeriodLow"] = value["locationPeriodLow"]
+        field_value["locationPeriodHigh"] = value["locationPeriodHigh"]
       elsif field.type == "COL"
         # recurse through entry
         # recursive function should be this function that returns the derived entry
@@ -269,19 +290,6 @@ module Measures
       end
 
       field_accessor = nil
-      # Facilities are a special case where we store a whole object on the entry in Record. Create or augment the existing facility with this piece of data.
-      if name.include? "FACILITY"
-        facility = entry.facility
-        facility ||= Facility.new
-        facility_map = {"FACILITY_LOCATION" => :code, "FACILITY_LOCATION_ARRIVAL_DATETIME" => :start_time, "FACILITY_LOCATION_DEPARTURE_DATETIME" => :end_time}
-
-        facility.name = field.title if field.type == "CD"
-        facility_accessor = facility_map[name]
-        facility.send("#{facility_accessor}=", field_value)
-
-        field_accessor = :facility
-        field_value = facility
-      end
 
       if name.include? "TRANSFER"
         if name.starts_with? "TRANSFER_FROM"

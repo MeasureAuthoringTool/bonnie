@@ -27,8 +27,6 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       @$("option[value=\"#{eoc}\"]").attr('selected','selected') for eoc in @model.get('episode_ids') if @model? && @model.get('episode_of_care') && @model.get('episode_ids')?
       @$el.on 'hidden.bs.modal', -> @remove() unless $('#pleaseWaitDialog').is(':visible')
       @$("input[type=radio]:checked").next().css("color","white")
-      @$('.date-picker').datepicker('orientation': 'bottom left').datepicker('setDate', moment().format('L'))
-      @$('.effective-date').hide()
     'ready': 'setup'
     'change input:file':  'enableLoad'
     'keyup input:text': 'enableLoadVsac'
@@ -41,7 +39,6 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
           @$(element).next().css("color","white")
         else
           @$(element).next().css("color","")
-    'focus input': (e) -> if not @$(e.target).hasClass('date-picker') and $('.datepicker').is(':visible') then @$('.date-picker').datepicker('hide')
     'change input[name="include_draft"]': 'toggleDraft'
     'click #clearVSACCreds': 'clearCachedVSACTicket'
 
@@ -88,7 +85,6 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
 
   toggleDraft: ->
     isDraft = @$('#value_sets_draft').is(':checked')
-    if isDraft then @$('.effective-date').hide() else @$('.effective-date').show()
 
   setup: ->
     @importDialog = @$("#importMeasureDialog")
