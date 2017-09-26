@@ -20,8 +20,10 @@
             <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0">
           </div>
         {{else}}
-          <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
-          <input type="checkbox" id="{{key}}_{{@cid}}" name="{{key}}">
+          <div class="form-group">
+            <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
+            <input type="checkbox" id="{{key}}_{{@cid}}" name="{{key}}">
+          </div>
         {{/if}}
       {{/ifCond}}
     {{/each}}
