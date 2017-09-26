@@ -88,8 +88,8 @@
       <div class="col-sm-6">
 
         <div class="form-group">
-          <label for="{{#if expired}}deathdate{{else}}expired{{/if}}" class="control-label">{{#if expired}}Date of Death{{else}}Living Status{{/if}}</label>
           {{#if expired}}
+            <label for="deathdate" class="control-label">Date of Death</label>
             {{#button "removeDeathDate" class="btn btn-link remove-death-date"}}
               <i class="fa fa-times-circle" aria-hidden="true"></i>
               <span class="sr-only">remove date of death</span>
@@ -104,8 +104,11 @@
               </div>
             </div>
           {{else}}
+            <span class="control-label">Living Status</span>
             <div class="checkbox deceased-checkbox">
+              <label for="expired">
                 <input type="checkbox" id="expired" name="expired"> Deceased
+              </label>
             </div>
           {{/if}}
         </div>

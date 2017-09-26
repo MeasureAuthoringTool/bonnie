@@ -363,3 +363,10 @@ describe 'PatientBuilderView', ->
       expect(editFieldValueView.$('label[for=code]').length).toEqual(0)
       expect(editFieldValueView.$('label[for=referenceRangeLow]').length).toEqual(0)
       expect(editFieldValueView.$('label[for=referenceRangeHigh]').length).toEqual(0)
+
+    it "has one and only one deceased label", ->
+      patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS347/patients.json'), parse: true
+      patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: @cqlMeasure)
+      patientBuilder.appendTo 'body'
+      expect(patientBuilder.$('label[for=expired]').length).toEqual(1) 
+      
