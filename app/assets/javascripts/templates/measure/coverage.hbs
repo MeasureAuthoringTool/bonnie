@@ -2,8 +2,8 @@
     {{#ifCond coverage '==' undefined}}<h5>Computing Total coverage...</h5>{{/ifCond}}
     {{#ifCond coverage '!=' undefined}}
       <div class="coverage">
-        <label><span class="sr-only">{{coverage}}% logic covered</span>
-          <input type="text" value="{{coverage}}" class="dial" data-readOnly="true" data-width="60" data-height="60" data-thickness=".2" data-fgColor="#0075C4" data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
+        <label for="coverage"><span class="sr-only">{{coverage}}% logic covered</span>
+          <input type="text" id="coverage" value="{{coverage}}" class="dial" data-readOnly="true" data-width="60" data-height="60" data-thickness=".2" data-fgColor="#0075C4" data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
         </label>
       </div>
       <div class="coverage-label">

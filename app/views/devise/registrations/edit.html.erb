@@ -81,7 +81,7 @@
   <div class="form-group row" style="margin-top: 30px">
     <div class="col-md-6">
       <div class="input-group input-group-lg required">
-        <label for="user_current_password" class="sr-only">current password (required: </label>
+        <label for="user_current_password" class="sr-only">current password (required) </label>
         <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
         <%= f.password_field :current_password, class: "form-control", placeholder: "current password*", required: true, 'aria-required': true %>
       </div>
@@ -116,9 +116,9 @@
         <div class="modal-body">
           <p>To delete your account, please supply your password and click the delete button. This action cannot be undone.</p>
           <div class="input-group input-group-lg required" id="passwordInput">
-            <label for="user_current_password" class="sr-only">current password</label>
+            <label for="user_current_password_delete" class="sr-only">current password</label>
             <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
-            <input class="form-control" name="user[current_password]" placeholder="current password" type="password">
+            <input id="user_current_password_delete" class="form-control" name="user[current_password]" placeholder="current password" type="password">
           </div>
         </div>
         <div class="modal-footer">
