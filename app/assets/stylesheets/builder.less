@@ -127,9 +127,12 @@
     .tab-content {
       padding: @grid-gutter-width/2;
       padding-bottom: @grid-gutter-width * 1.5;
-      h2, h3 {
+      h2, h3, legend {
         &:extend(h2);
         margin-top: 0;
+      }
+      legend {
+        border-bottom: none;
       }
       .form-inline {
         .checkbox-inline:first-child {
