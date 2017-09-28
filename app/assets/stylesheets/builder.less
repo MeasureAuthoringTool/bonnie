@@ -1,3 +1,22 @@
+.h1-style() {
+  margin-top: 0;
+  //color: black;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.7;
+  margin: 0.67em 0;
+}
+
+.h2-style {
+  margin-top: 6px;
+  color: #555555;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
 .patient-builder {
   @time-bar-width: 8px;
   .time-bar(@color: @gray-lighter) {
@@ -62,6 +81,7 @@
       }
       & .heading-muted {
         margin-right: -@grid-gutter-width;
+        .h1-style;
       }
     }
   }
@@ -164,6 +184,7 @@
   .heading-muted {
     background-color: @gray-lighter;
     padding-left: 8px;
+    .h1-style;
   }
   .submeasure {
     text-transform: lowercase;
@@ -179,6 +200,7 @@
     color: white;
     padding-left: @grid-gutter-width;
     margin-right: -@grid-gutter-width;
+    .h1-style;
   }
 
   .panel {
@@ -294,7 +316,7 @@
             left: -(@grid-gutter-width / 4) - 1; // width/2 (-1 to account for border)
             .rotate(45deg);
           }
-
+          
           .clearfix;
           border: 1px solid @gray;
           margin-left: (@grid-gutter-width / 2);
