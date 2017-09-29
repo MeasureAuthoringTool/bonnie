@@ -23,6 +23,11 @@ class UsersControllerTest  < ActionController::TestCase
   end
 
   test "bundle download" do
+    # we need to show it currently is DISABLED:
+    assert_raises(ActionController::RoutingError) do
+      get '/users/bundle'
+    end
+=begin
     sign_in @user
     get :bundle
     assert_response :success
@@ -40,6 +45,7 @@ class UsersControllerTest  < ActionController::TestCase
       assert_equal 27, zip_file.glob(File.join('value_sets', '**', '*.json')).count
     end
     File.delete(zip_path)
+=end
   end
 
 end
