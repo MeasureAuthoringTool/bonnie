@@ -101,8 +101,7 @@ class MeasuresController < ApplicationController
       # (The two commented lines are functionally equivalent to the following three uncommented lines, if slower)
       # value_sets_by_oid = HealthDataStandards::SVS::ValueSet.in(oid: value_set_oids).index_by(&:oid)
       # @value_sets_by_oid_json = MultiJson.encode(value_sets_by_oid.as_json(except: [:_id, :code_system, :code_system_version]))
-      value_sets = Mongoid::Sessions.default[HealthDataStandards::SVS::ValueSet.collection_name].find(oid: { '$in' => value_set_oids }, user_id: current_user.id)
-      value_sets = value_sets.select('concepts.code_system' => 0, 'concepts.code_system_version' => 0)
+      value_sets = Mongoid::Clients.default[HealthDataStandards::SVS::ValueSet.collection_name].find({oid: { '$in' => value_set_oids }, user_id: current_user.id}, {'concepts.code_system' => 0, 'concepts.code_system_version' => 0})
       @value_sets_by_oid_json = MultiJson.encode value_sets.index_by { |vs| vs['oid'] }
 
       respond_with @value_sets_by_oid_json do |format|
@@ -207,13 +206,23 @@ class MeasuresController < ApplicationController
         errors_dir = Rails.root.join('log', 'load_errors')
         FileUtils.mkdir_p(errors_dir)
         clean_email = File.basename(current_user.email) # Prevent path traversal
-        filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}#{extension}"
+        
+        # Create the filename for the copied measure upload. We do not use the original extension to avoid malicious user
+        # input being used in file system operations.
+        filename = "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.xmlorzip"
 
         operator_error = false # certain types of errors are operator errors and do not need to be emailed out.
+        File.open(File.join(errors_dir, filename), 'w') do |errored_measure_file|
+          uploaded_file = params[:measure_file].tempfile.open()
+          errored_measure_file.write(uploaded_file.read());
+          uploaded_file.close()
+        end
 
-        FileUtils.cp(params[:measure_file].tempfile, File.join(errors_dir, filename))
         File.chmod(0644, File.join(errors_dir, filename))
-        File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') {|f| f.write(e.to_s + "\n" + e.backtrace.join("\n")) }
+        File.open(File.join(errors_dir, "#{clean_email}_#{Time.now.strftime('%Y-%m-%dT%H%M%S')}.error"), 'w') do |f|
+          f.write("Original Filename was #{params[:measure_file].original_filename}\n")
+          f.write(e.to_s + "\n" + e.backtrace.join("\n"))
+        end
         if e.is_a? Measures::ValueSetException
           operator_error = true
           flash[:error] = {title: "Error Loading Measure", summary: "The measure value sets could not be found.", body: "Please re-package the measure in the MAT and make sure &quot;VSAC Value Sets&quot; are included in the package, then re-export the MAT Measure bundle."}
@@ -234,7 +243,7 @@ class MeasuresController < ApplicationController
       # email the error
       if !operator_error && defined? ExceptionNotifier::Notifier
         params[:error_file] = filename
-        ExceptionNotifier::Notifier.exception_notification(env, e).deliver
+        ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now
       end
 
       redirect_to "#{root_path}##{params[:redirect_route]}"
@@ -314,7 +323,7 @@ class MeasuresController < ApplicationController
   def vsac_auth_expire
     # Force expire the VSAC session
     session[:tgt] = nil
-    render :nothing => true
+    render :json => {}
   end
 
   def destroy
@@ -357,7 +366,7 @@ class MeasuresController < ApplicationController
   end
 
   def debug
-    @measure = Measure.by_user(current_user).without(:map_fns, :record_ids).find(params[:id])
+    @measure = Measure.by_user(current_user).without(:map_fns, :record_ids).find(BSON::ObjectId.from_string(ActionController::Base.helpers.escape_once(params[:id])))
     @patients = Record.by_user(current_user).asc(:last, :first)
     render layout: 'debug'
   end

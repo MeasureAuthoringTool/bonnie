@@ -1,12 +1,16 @@
 language: ruby
 rvm:
-  - "2.0.0"
+  - "2.3.4"
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 services: mongodb
 bundler_args: --without test development
-script: export DISPLAY=:99.0 && bundle exec rake teaspoon && bundle exec rake
+script:
+  - bundle exec bundle-audit check --update
+  - bundle exec brakeman -qAzw1
+  - export DISPLAY=:99.0 && bundle exec rake teaspoon
+  - bundle exec rake
 notifications:
   email:
     recipients:

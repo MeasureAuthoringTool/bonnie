@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PatientTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
   
   setup do
     dump_database

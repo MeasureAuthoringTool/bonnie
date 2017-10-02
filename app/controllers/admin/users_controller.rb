@@ -27,7 +27,7 @@ class Admin::UsersController < ApplicationController
   def email_all
     User.asc(:email).each do |user|
       email = Admin::UsersMailer.users_email(user, params[:subject], params[:body])
-      email.deliver
+      email.deliver_now
       sleep 2 # address issues with mail throttling
     end
     render json: {}
@@ -39,7 +39,7 @@ class Admin::UsersController < ApplicationController
     User.asc(:email).where(:last_sign_in_at.gt => Date.today - 6.months).each do |user|
       if user.measure_count > 0
         email = Admin::UsersMailer.users_email(user, params[:subject], params[:body])
-        email.deliver
+        email.deliver_now
         sleep 2 # address issues with mail throttling
       end
     end
@@ -58,7 +58,7 @@ class Admin::UsersController < ApplicationController
     user = User.find(params[:id])
     user.approved = true
     user.save
-    UserMailer.account_activation_email(user).deliver
+    UserMailer.account_activation_email(user).deliver_now
     render json: user
   end
 

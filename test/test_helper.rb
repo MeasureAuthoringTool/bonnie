@@ -8,7 +8,7 @@ WebMock.enable!
 class ActiveSupport::TestCase
 
   def dump_database
-    Mongoid.default_session.collections.each do |c|
+    Mongoid.default_client.collections.each do |c|
       c.drop()
     end
   end
@@ -47,7 +47,7 @@ class ActiveSupport::TestCase
           set_mongoid_ids(fixture_json)
           # The first directory layer after test/fixtures is used to determine what type of fixtures they are.
           # The directory name is used as the name of the collection being inserted into.
-          Mongoid.default_session[collection_name].insert(fixture_json)
+          Mongoid.default_client[collection_name].insert_one(fixture_json)
         end
       end
     end

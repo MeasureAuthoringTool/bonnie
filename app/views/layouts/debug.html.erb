@@ -6,6 +6,7 @@
   <%= stylesheet_link_tag :application %>
   <%= javascript_include_tag :application %>
   <%= csrf_meta_tag %>
+  <%= render 'layouts/framebreaker' %>
 </head>
 
 <body>
@@ -15,9 +16,9 @@
   </div>
 
   <script>
-    var measure = new Thorax.Models.Measure(<%= json_escape(MultiJson.encode(@measure.as_json(except: [:map_fns, :record_ids], methods: [:value_sets]))).html_safe %>, { parse: true });
+    var measure = new Thorax.Models.Measure(<%= raw json_escape(MultiJson.encode(@measure.as_json(except: [:map_fns, :record_ids], methods: [:value_sets]))).html_safe %>, { parse: true });
     // Put all the patients on the measure, even if they don't belong, we'll sort them out later
-    var patients = new Thorax.Collections.Patients(<%= json_escape(MultiJson.encode(@patients.as_json(except: :results))).html_safe %>, { parse: true });
+    var patients = new Thorax.Collections.Patients(<%= raw json_escape(MultiJson.encode(@patients.as_json(except: :results))).html_safe %>, { parse: true });
     measure.set('patients', patients);
     // Overwrite pieces as necessary to load calculation code in a way that's debuggable, ie no deferred loading or calculation
     bonnie.measures.add(measure);

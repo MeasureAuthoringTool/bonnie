@@ -132,23 +132,53 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     # determines if one or more codes in a value set are in another value set.
     summaryValueSets = @filterValueSets(@summaryValueSets)
 
-    for valueSet1 in summaryValueSets
-      for valueSet2 in _(summaryValueSets).without(valueSet1)
-        matchedCodes = []
-
-        # Because codes are pageable, we need to reference the fullCollection to compare all codes
-        valueSet1.codes.fullCollection.each (code1) =>
-          hasOverlap = valueSet2.codes.fullCollection.some (code2) ->
-            overlapsCode = code2.get('code') == code1.get('code')
-            overlapsCodeSystem = code2.get('code_system_name') == code1.get('code_system_name')
-            return overlapsCode && overlapsCodeSystem
-
-          if hasOverlap then matchedCodes.push(code1)
-        if matchedCodes.length > 0
-          @overlappingValueSets.add
-            cid: valueSet1.cid + "_" + valueSet2.cid
-            codes: new Backbone.PageableCollection(@sortAndFilterCodes(matchedCodes), @pagination_options)
-            oid1: valueSet1.oid
-            name1: valueSet1.name
-            oid2: valueSet2.oid
-            name2: valueSet2.name
+    #Map of codes to the ValueSets they are found in.
+    codeToVs = {}
+    #Map whose key is a pair of ValueSet CIDs (vs1.cid + "_" + vs2.cid), and whose value is a list of codes shared between them.
+    overlapCodes = {}
+    #Map whose key is a pair of ValueSet CIDs (vs1.cid + "_" + vs2.cid), and whose value is the pair of valuesets involved.
+    overlapValueSets = {}
+    #Outer loop iterates over valueSets, inner loop itterates over contained codes.
+    #For each code, check codeToVs to see if that code has been seen before; If it hasn't, populate it with an empty array.
+    #It its value isn't undefined, that means that that code has been seen before, which means that there is an overlap.
+    #Compare the new code against each of the previously seen instances.  A key based on the cids of the involved valuesets is calculated.
+    #The code is then added to the relevant entry in overlapCodes.
+    #If this is the first time this key is encountered, create a new entry in overlapValueSets to contain the metadata associated with that key.
+    #Finally, independent of whether any overlaps were detected, push the code and valueset to codeToVs.
+    for curValueSet in summaryValueSets
+      curValueSet.codes.fullCollection.each (curCode) =>
+        workingCode = curCode.get('code') + ":::" + curCode.get('code_system_name')
+        vsAndCode = {valueSet: curValueSet, code: curCode}
+        #If the code's entry is undefined, then it has never been seen before.
+        #If it isn't undefined, the code has been seen at least once, so there is an overlap.
+        if codeToVs[workingCode] == undefined
+          codeToVs[workingCode] = []
+        else
+          for overlap in codeToVs[workingCode]
+            overlapKey = overlap['valueSet'].cid + "_" + curValueSet.cid
+            if overlapCodes[overlapKey] == undefined
+              overlapCodes[overlapKey] = []
+            if overlapValueSets[overlapKey] == undefined
+              overlapValueSets[overlapKey] = [overlap['valueSet'], curValueSet]
+            overlapCodes[overlapKey].push(curCode)
+        codeToVs[workingCode].push(vsAndCode)
+    
+    #Users have specfically requested that overlaps should be indicated in both directions.
+    for overlapKey in Object.keys(overlapValueSets)
+      valueSet1 = overlapValueSets[overlapKey][0]
+      valueSet2 = overlapValueSets[overlapKey][1]
+      matchedCodes = overlapCodes[overlapKey]
+      @overlappingValueSets.add
+        cid: overlapKey
+        codes: new Backbone.PageableCollection(@sortAndFilterCodes(matchedCodes), @pagination_options)
+        oid1: valueSet1.oid
+        name1: valueSet1.name
+        oid2: valueSet2.oid
+        name2: valueSet2.name
+      @overlappingValueSets.add
+        cid: valueSet2.cid + "_" + valueSet1.cid
+        codes: new Backbone.PageableCollection(@sortAndFilterCodes(matchedCodes), @pagination_options)
+        oid1: valueSet2.oid
+        name1: valueSet2.name
+        oid2: valueSet1.oid
+        name2: valueSet1.name

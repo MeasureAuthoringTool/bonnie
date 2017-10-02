@@ -79,8 +79,12 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
     actualResults = {}
     for population in @populations
       if population == 'OBSERV'
-        if 'values' of @patientResult && population of @patientResult['rationale']
+        # Check if values exists in patientResult; if it is an array or a string, confirm its not empty.
+        if @patientResult['values']?.length > 0 && population of @patientResult['rationale']
           actualResults[population] = @patientResult['values'].toString()
+        else
+          # Manually set to undefined to match with what is being returned by getExpectedResults()
+          actualResults[population] = undefined
       else
         actualResults[population] = @patientResult[population]
     actualResults
@@ -110,7 +114,17 @@ class Thorax.Models.PatientDashboardPatient extends Thorax.Model
   @returns {String} describes if the patient is passing
   ###
   patientStatus: ->
+    if (@_checkCodes().length > 0)
+      return "BAD"
+
     for population in @populations
       if @expected[population] != @actual[population]
         return "FAIL"
     return "PASS"
+
+  _checkCodes: ->
+    missingCodes = []
+    @patient.get('source_data_criteria').each (dc) =>
+      if (dc.get('codes').all (code) => !@measure.hasCode(code.get('code'), code.get('codeset')))
+        missingCodes.push dc.get('description')
+    return missingCodes
