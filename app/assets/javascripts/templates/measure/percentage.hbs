@@ -1,6 +1,6 @@
 {{#if done}}
-  <label><span class="sr-only">{{#if cms_id}}{{cms_id}}, {{/if}}{{#if population}}population {{population}}, {{/if}}{{percent}}% patients meet expected</span>
-  <input type="text" value="{{percent}}"  class="dial" data-readOnly="true" data-width="60" data-height="60" data-thickness=".2" data-fgColor={{#ifCond status '==' 'pass'}}"#009a65"{{else}}{{#ifCond status '==' 'fail'}}"#a52700"{{else}}"#f6f6f6"{{/ifCond}}{{/ifCond}} data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
+  <label for="{{percentage_id}}"><span class="sr-only">{{#if cms_id}}{{cms_id}}, {{/if}}{{#if population}}population {{population}}, {{/if}}{{percent}}% patients meet expected</span>
+  <input type="text" id="{{percentage_id}}" value="{{percent}}"  class="dial" data-readOnly="true" data-width="60" data-height="60" data-thickness=".2" data-fgColor={{#ifCond status '==' 'pass'}}"#009a65"{{else}}{{#ifCond status '==' 'fail'}}"#a52700"{{else}}"#f6f6f6"{{/ifCond}}{{/ifCond}} data-inputColor="#444" data-font="Helvetica Neue, Roboto, Helvetica, Arial, sans-serif">
   </label>
 {{else}}
   {{! FIXME: Add a spinner here }}
