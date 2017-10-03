@@ -17,6 +17,7 @@ If JIRA tests were used to supplement or replace automated tests:
 
 
 **Reviewer 1:**
+
 Name:
 - [ ] Code is maintainable and reusable, reuses existing code and infrastructure where appropriate, and accomplishes the task’s purpose
 - [ ] The tests appropriately test the new code, including edge cases
@@ -28,6 +29,7 @@ If JIRA tests were used to supplement or replace automated tests:
 
 
 **Reviewer 2:**
+
 Name:
 - [ ] Code is maintainable and reusable, reuses existing code and infrastructure where appropriate, and accomplishes the task’s purpose
 - [ ] The tests appropriately test the new code, including edge cases
