@@ -1,6 +1,6 @@
 .h1-style() {
   margin-top: 0;
-  //color: black;
+  color: black;
   font-size: 1.5em;
   text-transform: uppercase;
   font-weight: 700;
@@ -15,6 +15,11 @@
   text-transform: uppercase;
   font-weight: 700;
   line-height: 1.2;
+  display: block;
+  -webkit-margin-before: 0.83em;
+  -webkit-margin-after: 0.83em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
 }
 
 .patient-builder {
@@ -196,11 +201,11 @@
   }
   .heading-primary {
     .time-bar();
+    .h1-style;
     background-color: @blue-darker;
     color: white;
     padding-left: @grid-gutter-width;
     margin-right: -@grid-gutter-width;
-    .h1-style;
   }
 
   .panel {

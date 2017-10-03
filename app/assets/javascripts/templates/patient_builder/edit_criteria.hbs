@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-6  criteria-{{model.cid}}">
           <div class="pull-left">
-            <span class="h2-style">Date</span>
+            <div class="h2-style">Date</div>
             <div>{{start_date}}{{#if end_date}} &ndash; {{end_date}}{{/if}}</div>
           </div>
           {{#button "toggleDetails" class="close"}}
@@ -33,7 +33,7 @@
           <span class="highlight-indicator sr-only"></span>
 
           {{!-- <p><strong>{{definition_title}}:</strong> {{description}}</p> --}}
-          <p><span class="h2-style">{{definition_title}}:</span> {{description}}</p>
+          <p><div class="h2-style">{{definition_title}}:</div> {{description}}</p>
         </div>
         {{#button "toggleDetails" class="close"}}
           <i class="fa fa-lg fa-angle-down" aria-hidden="true"></i>
