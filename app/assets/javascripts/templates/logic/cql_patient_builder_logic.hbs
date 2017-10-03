@@ -3,7 +3,7 @@
 </br><b><center>CQL Calculation Results:</center></b>
   <p>
     {{#each results}}
-      <label for="{{@key}}_val">{{@key}}</label>
+      <span class="control-label">{{@key}}</span>
       <span class="default" aria-hidden="true" id="{{@key}}_val" name="{{@key}}_val">{{this}}</span>,
     {{/each}}
   </p>
