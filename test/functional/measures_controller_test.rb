@@ -16,45 +16,45 @@ include Devise::TestHelpers
     @measure = Measure.where({"cms_id" => "CMS138v2"}).first
     sign_in @user
   end
-  
+
   test "upload CQL with valid VSAC creds" do
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette("valid_vsac_response") do
       measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
       assert_nil measure
-  
+
       # Use VSAC creds from VCR, see vcr_setup.rb
       measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
-  
+
       # If you need to re-record the cassette for whatever reason, change the vsac_date to the current date
       post :create, {vsac_date: '09/05/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
-      
+
       assert_response :redirect
       measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
       assert_equal "40280582-5859-673B-0158-DAEF8B750647", measure['hqmf_id']
     end
   end
-  
+
   test "upload CQL using profile and valid VSAC creds" do
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette("profile_query") do
       measure = CqlMeasure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
       assert_nil measure
-  
+
       # Use VSAC creds from VCR, see vcr_setup.rb
       measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'DocofMeds_v5_1_Artifacts.zip'), 'application/xml')
-  
+
       # If you need to re-record the cassette for whatever reason, change the vsac_date to the current date
       post :create, {vsac_date: '09/05/2017', include_draft: false, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
-      
+
       assert_response :redirect
       measure = CqlMeasure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
       assert_equal "40280582-5859-673B-0158-E42103C30732", measure['hqmf_id']
     end
   end
-  
+
   test "attempt to upload QDM measure" do
     VCR.use_cassette("valid_vsac_response") do
       measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
@@ -62,96 +62,96 @@ include Devise::TestHelpers
       # Use VSAC creds from VCR, see vcr_setup.rb
       measure_file = fixture_file_upload(File.join('testplan', 'DischargedOnAntithrombotic_eMeasure_Errored.xml'), 'application/xml')
       post :create, {vsac_date: '06/28/2016', includes_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
-  
+
       assert_response :redirect
       assert_equal "Error Loading Measure", flash[:error][:title]
       assert_equal "Incorrect Upload Format.", flash[:error][:summary]
       assert_equal "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure. Please re-export your measure from the MAT and select the 'eMeasure Package'.", flash[:error][:body]
     end
   end
-  
+
   test "upload MAT with invalid VSAC creds" do
-  
+
     # This cassette represents an exchange with the VSAC authentication server that
     # results in an unauthorized response. This cassette is used in measures_controller_test.rb
     VCR.use_cassette("invalid_vsac_response") do
-  
+
       # Ensure measure is not loaded to begin with
       measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
       assert_nil measure
-  
+
       measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
       # Post is sent with fake VSAC creds
       post :create, {vsac_date: '08/22/2017', includes_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: 'invaliduser', vsac_password: 'invalidpassword'}
-  
+
       assert_response :redirect
       assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
       assert_equal "VSAC value sets could not be loaded.", flash[:error][:summary]
       assert flash[:error][:body].starts_with?("Please verify that you are using the correct VSAC username and password.")
-  
+
     end
   end
-  
+
   test "upload MAT 5.4 with valid VSAC creds" do
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette("mat_5_4_valid_vsac_response") do
       measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
       assert_nil measure
-  
+
       # Use VSAC creds from VCR, see vcr_setup.rb
       measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'Test134_v5_4_Artifacts.zip'), 'application/xml')
-  
+
       # If you need to re-record the cassette for whatever reason, change the vsac_date to the current date
       post :create, {vsac_date: '08/31/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
-  
+
       assert_response :redirect
       measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
       assert_equal "40280582-5C27-8179-015C-308B1F99003B", measure['hqmf_id']
     end
   end
-  
+
   test "vsac auth valid" do
-  
+
     # The ticket field was taken from the vcr_cassettes/valid_vsac_response file
     session[:tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now + 27000}
     get :vsac_auth_valid
-  
+
     assert_response :ok
     assert_equal true, JSON.parse(response.body)['valid']
   end
-  
-  
-  
+
+
+
   test "vsac auth invalid" do
-  
+
     # Time is past expired
     # The ticket field was taken from the vcr_cassettes/valid_vsac_response file
     session[:tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now - 27000}
     get :vsac_auth_valid
-  
+
     assert_response :ok
     assert_equal false, JSON.parse(response.body)['valid']
   end
-  
+
   test "force expire vsac session" do
     # The ticket field was taken from the vcr_cassettes/valid_vsac_response file
     session[:tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now + 27000}
     get :vsac_auth_expire
-  
+
     assert_response :ok
     assert_equal " ", response.body
-  
+
     assert_nil session[:tgt]
-    
+
     # Assert that vsac_auth_valid returns that vsac session is invalid
     get :vsac_auth_valid
-  
+
     assert_response :ok
     assert_equal false, JSON.parse(response.body)['valid']
-  
+
   end
-  
+
   test "measure show" do
     get :show, {id: @measure.id, format: :json}
     assert_response :success
@@ -165,7 +165,7 @@ include Devise::TestHelpers
     assert_nil measure['record_ids']
     assert_nil measure['measure_attributes']
   end
-  
+
   test "measure destroy" do
     m2 = @measure.dup
     m2.hqmf_id = 'xxx123'
@@ -208,7 +208,7 @@ include Devise::TestHelpers
     assert_equal "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure. Please re-export your measure from the MAT and select the 'eMeasure Package'.", flash[:error][:body]
     assert_response :redirect
   end
-  
+
   test "upload invalid MAT zip" do
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_bad_MAT_export.zip'), 'application/zip')
     class << measure_file
@@ -217,11 +217,11 @@ include Devise::TestHelpers
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_equal "Error Uploading Measure", flash[:error][:title]
     assert_equal "The uploaded zip file is not a valid Measure Authoring Tool export of a CQL Measure.", flash[:error][:summary]
-    assert_equal "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option", flash[:error][:body]
+    assert_equal "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option. Please use https://bonnie.healthit.gov/ for HQMF based measures.", flash[:error][:body]
     assert_response :redirect
   end
-  
-  
+
+
   test "measure clear cached javascript" do
     tmp_fns = @measure.map_fns
     @measure.map_fns = ['foo']
@@ -234,9 +234,9 @@ include Devise::TestHelpers
     @measure.reload
     assert_operator Measure.all.first.map_fns[0].length, :>, 100
   end
-  
+
   test "load QDM xml" do
-    
+
     # fails to load QDM measure
     measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_bad_hqmf.zip'), 'application/zip')
     class << measure_file
@@ -244,30 +244,30 @@ include Devise::TestHelpers
     end
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :redirect
-  
+
     measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
-  
+
     assert_nil measure
     assert_includes flash[:error].keys, :title
     assert_includes flash[:error].keys, :summary
     assert_includes flash[:error].keys, :body
-    assert_equal 'The uploaded zip file is an HQMF based measure, please use https://bonnie.healthit.gov/ for HQMF based measures.', flash[:error][:summary]
+    assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool export of a CQL Measure.', flash[:error][:summary]
     flash.clear
     measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
     assert_nil measure
     assert_equal 0, Dir.glob(File.join(@error_dir, '**')).count
   end
-  
+
   test "load with no zip" do
     post :create, {measure_file: nil, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :redirect
-  
+
     assert_includes flash[:error].keys, :title
     assert_includes flash[:error].keys, :body
     assert_equal 'You must specify a Measure Authoring tool measure export to use.', flash[:error][:body]
     flash.clear
   end
-  
+
   test "upload measure already loaded" do
     measure = nil
     # Use the valid vsac response recording each time attempting to upload measure
@@ -277,7 +277,7 @@ include Devise::TestHelpers
       class << measure_file
         attr_reader :tempfile
       end
-  
+
       # Assert measure is not yet loaded
       measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
       assert_nil measure
@@ -295,14 +295,14 @@ include Devise::TestHelpers
       assert_equal "A version of this measure is already loaded.", flash[:error][:summary]
       assert_equal "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it.", flash[:error][:body]
       assert_response :redirect
-  
+
       # Verify measure has not been deleted or modified
       measure_after = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
       assert_equal measure, measure_after
     end
-  
+
   end
-  
+
   test "update with hqmf set id mismatch" do
     # Upload the initial file
     VCR.use_cassette("valid_vsac_response") do
@@ -326,7 +326,7 @@ include Devise::TestHelpers
     assert_equal "The update file does not match the measure.", flash[:error][:summary]
     assert_equal "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure.", flash[:error][:body]
     assert_response :redirect
-  
+
     # Verify that the initial file remained unchanged
     measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
     assert_equal "762B1B52-40BF-4596-B34F-4963188E7FF7", measure.hqmf_set_id
