@@ -21,3 +21,6 @@ describe 'MeasuresView', ->
 
   it 'does not show a download bundle button', ->
     expect(@measuresView.$el).not.toContainText 'bundle export'
+
+  it 'does not have a ExportBundleView instance', ->
+    expect(@measuresView.exportBundleView).toBeUndefined()
