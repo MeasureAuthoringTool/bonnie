@@ -1,7 +1,8 @@
 <div class="row">
   <div class="main">
     <div class="measure-title">
-      <h1 class="short-title"><i class="fa fa-fw fa-tasks" aria-hidden="true"></i> Measure details</h1>
+      {{!-- This really just needs to be bold --}}
+      <span class="short-title"><i class="fa fa-fw fa-tasks" aria-hidden="true"></i> Measure details</span>
       <span class="settings-container">
         <div class="measure-settings">
           {{#unless cql}}
@@ -50,7 +51,7 @@
 
   <div class="right-sidebar">
     <div class="patients-title">
-      <h1><i class="fa fa-user fa-fw" aria-hidden="true"></i> Test Patients</h1>
+      <h2 class="h1-style"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Test Patients</h2>
       <span class="settings-container">
         <div class="patients-settings">
           {{#button "exportQrdaPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA <span class="sr-only">Patient Export</span>{{/button}}

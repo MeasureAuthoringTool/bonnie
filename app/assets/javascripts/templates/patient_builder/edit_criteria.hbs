@@ -6,12 +6,12 @@
     <div class="criteria-details">
       <div class="row">
         <div class="col-md-6">
-          <h2>{{definition_title}}</h2>
+          <h3 class="h2-style">{{definition_title}}</h3>
           <div>{{description}}</div>
         </div>
         <div class="col-md-6  criteria-{{model.cid}}">
           <div class="pull-left">
-            <h2>Date</h2>
+            <div class="h2-style">Date</div>
             <div>{{start_date}}{{#if end_date}} &ndash; {{end_date}}{{/if}}</div>
           </div>
           {{#button "toggleDetails" class="close"}}

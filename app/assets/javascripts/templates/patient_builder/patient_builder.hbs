@@ -142,7 +142,7 @@
 <div class="row">
   <div class="col-left measure-data-container">
     <div class="panel-group" id="criteriaElements">
-      <h1 class="heading-muted">Elements</h1>
+      <h2 class="heading-muted">Elements</h2>
       <div class="scrolling">
       {{#each dataCriteriaCategories}}
         {{view "SelectCriteriaView" title=type collection=criteria}}
@@ -151,7 +151,7 @@
     </div>
   </div>
   <div class="col-center criteria-container droppable">
-    <h1 class="heading-primary">Patient History</h1>
+    <h2 class="heading-primary">Patient History</h2>
     {{view editCriteriaCollectionView}}
   </div>
   {{#button "cancel" class="sr-only"}}CANCEL{{/button}}
