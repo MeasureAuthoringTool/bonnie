@@ -33,6 +33,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
         name = sdc.get('description')
         oid = sdc.get('code_list_id')
         cid = sdc.cid
+        debugger
 
         oid_version = _.find(@model.get('value_set_oid_version_objects'), (oid_version) -> oid_version.oid == oid)
         if oid_version? && bonnie.valueSetsByOid[oid]?
@@ -112,7 +113,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
               overlapValueSets[overlapKey] = [overlap['valueSet'], curValueSet]
             overlapCodes[overlapKey].push(curCode)
         codeToVs[workingCode].push(vsAndCode)
-    
+
     #Users have specfically requested that overlaps should be indicated in both directions.
     for overlapKey in Object.keys(overlapValueSets)
       valueSet1 = overlapValueSets[overlapKey][0]
