@@ -12,3 +12,6 @@ describe 'PopulationCalculationView', ->
 
   it 'renders correctly', ->
     expect(@populationCalculationView.$el).toContainText @patients.first().get('last')
+
+  it 'does not have a "Share" button', ->
+    expect(@populationCalculationView.$('span[class=btn-label]').length).toEqual(0)
