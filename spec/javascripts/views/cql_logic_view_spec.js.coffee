@@ -32,7 +32,7 @@ describe 'CqlLogicView', ->
 
     populationLogicView.showRationale(results)
 
-  it 'sorts logic properly', ->
+  it 'sorts logic properly for observation measure', ->
     bonnie.valueSetsByOid = getJSONFixture('/measure_data/cqltest/value_sets.json')
 
     population = @cqlMeasure.get('populations').first()
@@ -46,10 +46,10 @@ describe 'CqlLogicView', ->
     expect(populationLogicView.populationStatementViews[0].cqlPopulations).toEqual(['IPP'])
     expect(populationLogicView.populationStatementViews[1].name).toEqual('Measure Population')
     expect(populationLogicView.populationStatementViews[1].cqlPopulations).toEqual(['MSRPOPL'])
-    expect(populationLogicView.populationStatementViews[2].name).toEqual('MeasureObservation')
-    expect(populationLogicView.populationStatementViews[2].cqlPopulations).toEqual(['OBSERV_1'])
-    expect(populationLogicView.populationStatementViews[3].name).toEqual('Measure Population Exclusion')
-    expect(populationLogicView.populationStatementViews[3].cqlPopulations).toEqual(['MSRPOPLEX'])
+    expect(populationLogicView.populationStatementViews[2].name).toEqual('Measure Population Exclusion')
+    expect(populationLogicView.populationStatementViews[2].cqlPopulations).toEqual(['MSRPOPLEX'])
+    expect(populationLogicView.populationStatementViews[3].name).toEqual('MeasureObservation')
+    expect(populationLogicView.populationStatementViews[3].cqlPopulations).toEqual(['OBSERV_1'])
 
     expect(populationLogicView.defineStatementViews.length).toBe(1)
     expect(populationLogicView.defineStatementViews[0].name).toEqual('Inpatient Encounter')
@@ -61,7 +61,7 @@ describe 'CqlLogicView', ->
     expect(populationLogicView.unusedStatementViews[0].name).toEqual('Startification1')
     expect(populationLogicView.unusedStatementViews[1].name).toEqual('Stratification2')
 
-  it 'sorts logic properly with stratification', ->
+  it 'sorts logic properly for observation measure with stratification', ->
     bonnie.valueSetsByOid = getJSONFixture('/measure_data/cqltest/value_sets.json')
 
     population = @cqlMeasure.get('populations').at(1)
@@ -77,10 +77,10 @@ describe 'CqlLogicView', ->
     expect(populationLogicView.populationStatementViews[1].cqlPopulations).toEqual(['IPP'])
     expect(populationLogicView.populationStatementViews[2].name).toEqual('Measure Population')
     expect(populationLogicView.populationStatementViews[2].cqlPopulations).toEqual(['MSRPOPL'])
-    expect(populationLogicView.populationStatementViews[3].name).toEqual('MeasureObservation')
-    expect(populationLogicView.populationStatementViews[3].cqlPopulations).toEqual(['OBSERV_1'])
-    expect(populationLogicView.populationStatementViews[4].name).toEqual('Measure Population Exclusion')
-    expect(populationLogicView.populationStatementViews[4].cqlPopulations).toEqual(['MSRPOPLEX'])
+    expect(populationLogicView.populationStatementViews[3].name).toEqual('Measure Population Exclusion')
+    expect(populationLogicView.populationStatementViews[3].cqlPopulations).toEqual(['MSRPOPLEX'])
+    expect(populationLogicView.populationStatementViews[4].name).toEqual('MeasureObservation')
+    expect(populationLogicView.populationStatementViews[4].cqlPopulations).toEqual(['OBSERV_1'])
 
     expect(populationLogicView.defineStatementViews.length).toBe(1)
     expect(populationLogicView.defineStatementViews[0].name).toEqual('Inpatient Encounter')
@@ -90,3 +90,24 @@ describe 'CqlLogicView', ->
 
     expect(populationLogicView.unusedStatementViews.length).toBe(1)
     expect(populationLogicView.unusedStatementViews[0].name).toEqual('Stratification2')
+
+  it 'sorts logic properly for proportion measure', ->
+    measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS347/CMS735v0.json'), parse: true
+    bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS347/value_sets.json')
+
+    population = measure.get('populations').at(0)
+    populationLogicView = new Thorax.Views.CqlPopulationLogic(model: measure, highlightPatientDataEnabled: true, population: population)
+    populationLogicView.render()
+
+    expect(populationLogicView.allStatementViews.length).toBe(38)
+    expect(populationLogicView.populationStatementViews.length).toBe(5)
+    expect(populationLogicView.populationStatementViews[0].name).toEqual('Initial Population')
+    expect(populationLogicView.populationStatementViews[0].cqlPopulations).toEqual(['IPP'])
+    expect(populationLogicView.populationStatementViews[1].name).toEqual('Denominator 1')
+    expect(populationLogicView.populationStatementViews[1].cqlPopulations).toEqual(['DENOM'])
+    expect(populationLogicView.populationStatementViews[2].name).toEqual('Denex')
+    expect(populationLogicView.populationStatementViews[2].cqlPopulations).toEqual(['DENEX'])
+    expect(populationLogicView.populationStatementViews[3].name).toEqual('Numerator')
+    expect(populationLogicView.populationStatementViews[3].cqlPopulations).toEqual(['NUMER'])
+    expect(populationLogicView.populationStatementViews[4].name).toEqual('Denexcep')
+    expect(populationLogicView.populationStatementViews[4].cqlPopulations).toEqual(['DENEXCEP'])
