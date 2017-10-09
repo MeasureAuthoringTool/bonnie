@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: d40ec0f4710d8a847cd554a33e91c35b12f48c8d
-  branch: cql4bonnie_on_mongoid5
+  revision: 16ea79082475fbae173be45682baf6d0cadd77cc
+  branch: cql4bonnie_on_mongoid5_adam
   specs:
     health-data-standards (3.6.1)
       activesupport (~> 4.2.0)
@@ -12,7 +12,7 @@ GIT
       memoist (~> 0.9.1)
       mongoid (~> 5.0.0)
       mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.7.1)
+      nokogiri (~> 1.8.1)
       protected_attributes (~> 1.0.5)
       rest-client (~> 1.8.0)
       rubyzip (~> 1.2.1)
@@ -32,8 +32,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 5668f0883c4665022742e552af29597b4a4bc1e8
-  branch: cql4bonnie_gems_update
+  revision: bf4429ddd580700f64d71198399fd1099ddfb4c3
+  branch: cql4bonnie_gems_update_adam
   specs:
     bonnie_bundler (1.0.0)
 
@@ -218,7 +218,7 @@ GEM
     method_source (0.8.2)
     mime-types (2.99.3)
     mimemagic (0.3.2)
-    mini_portile2 (2.1.0)
+    mini_portile2 (2.3.0)
     minitest (5.10.2)
     mongo (2.4.2)
       bson (>= 4.2.1, < 5.0.0)
@@ -238,8 +238,8 @@ GEM
     net-ssh (2.9.2)
     netrc (0.11.0)
     newrelic_rpm (3.14.3.313)
-    nokogiri (1.7.2)
-      mini_portile2 (~> 2.1.0)
+    nokogiri (1.8.1)
+      mini_portile2 (~> 2.3.0)
     non-stupid-digest-assets (1.0.4)
     oj (2.12.11)
     origin (2.3.1)
