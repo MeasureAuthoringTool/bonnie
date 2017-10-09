@@ -5,6 +5,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     @summaryValueSets = [] # array of {generic value set descriptor, oid, and code}
     @dataCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # all criteria that aren't supplemental criteria
     @supplementalCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # ethnicity/gender/payer/race criteria
+    @libraryValueSets = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # non-main library loaded criteria
     @overlappingValueSets = new Thorax.Collections.ValueSetsCollection([]) # all value sets that overlap
     @overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]
 
@@ -17,16 +18,53 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     @findOverlappingValueSets() # populates @overlappingValueSets
 
   context: ->
+    criteriaSetArray = []
+
+    if @dataCriteria.length > 0
+      criteriaSetArray.push({ name: "Data Criteria", id: "data_criteria", criteria: @dataCriteria })
+
+    if @libraryValueSets.length > 0
+      criteriaSetArray.push({ name: "Value Sets from Libraries", id: "library_value_sets", criteria: @libraryValueSets })
+
+    if @supplementalCriteria.length > 0
+      criteriaSetArray.push({ name: "Supplemental Data Elements", id: "supplemental_criteria", criteria: @supplementalCriteria })
+
     _(super).extend
       overlappingValueSets: @overlappingValueSets
-      criteriaSets: [
-        { name: "Data Criteria", id: "data_criteria", criteria: @dataCriteria },
-        { name: "Supplemental Data Elements", id: "supplemental_criteria", criteria: @supplementalCriteria }
-      ]
+      criteriaSets: criteriaSetArray
+
+  getVersionAndCodes: (oid) ->
+    oid_version = _.find(@model.get('value_set_oid_version_objects'), (oid_version) -> oid_version.oid == oid)
+    if oid_version? && bonnie.valueSetsByOid[oid]?
+      version = oid_version.version
+      if bonnie.valueSetsByOid[oid][version]?
+        codeConcepts = bonnie.valueSetsByOid[oid][version].concepts ? []
+        for code in codeConcepts
+          code.hasLongDisplayName = code.display_name.length > 160
+      else
+        version = ''
+        codeConcepts = []
+    else
+      version = ''
+      codeConcepts = []
+
+    codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @pagination_options)
+    if version.match(/^Draft/)
+      version = "Draft"
+    [version, codes]
+
+  setSummaryValueSets: (valueSet, oid, cid, name, codes) ->
+    # only add value set info summaryValueSets if it isn't there already
+    # includes the common name for the value set, the oid, and the codes.
+    if _.where(@summaryValueSets, { oid: oid }).length == 0
+      nameParts = valueSet.name.split(':')
+      name = if nameParts.length > 1 then nameParts[1] else nameParts[0]
+      @summaryValueSets.push({ oid: oid, cid: cid, name: name, codes: codes })
 
   getValueSets: ->
     supplementalCriteria = []
     dataCriteria = []
+    libraryValueSets = []
 
     @model.get('source_data_criteria').each (sdc) =>
       if sdc.get('code_list_id')
@@ -34,19 +72,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
         oid = sdc.get('code_list_id')
         cid = sdc.cid
 
-        oid_version = _.find(@model.get('value_set_oid_version_objects'), (oid_version) -> oid_version.oid == oid)
-        if oid_version? && bonnie.valueSetsByOid[oid]?
-          version = oid_version.version
-          codeConcepts = bonnie.valueSetsByOid[oid][version].concepts ? []
-          for code in codeConcepts
-            code.hasLongDisplayName = code.display_name.length > 160
-        else
-          version = ''
-          codeConcepts = []
-
-        codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @pagination_options)
-        if version.match(/^Draft/)
-          version = "Draft"
+        [version, codes] = @getVersionAndCodes(oid)
         valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
 
         # the property values that indicate a supplemental criteria. this list is derived from
@@ -56,16 +82,26 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
         else
           dataCriteria.push(valueSet)
 
-        # only add value set info summaryValueSets if it isn't there already
-        # includes the common name for the value set, the oid, and the codes.
-        if _.where(@summaryValueSets, { oid: oid }).length == 0
-          nameParts = valueSet.name.split(':')
-          name = if nameParts.length > 1 then nameParts[1] else nameParts[0]
-          @summaryValueSets.push({ oid: oid, cid: cid, name: name, codes: codes })
+        @setSummaryValueSets(valueSet, oid, cid, name, codes)
+
+    if @model.get('elm')
+      @model.get('elm').forEach (library) =>
+        library.library.valueSets.def.forEach (value_set) =>
+          name = library.library.identifier.id + ": " + value_set.name
+          oid = value_set.id
+          cid = _.uniqueId('c')
+
+          [version, codes] = @getVersionAndCodes(oid)
+          valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
+
+          if library.library.identifier.id != @model.get('main_cql_library') && name not in ["Ethnicity", "ONC Administrative Sex", "Payer", "Race"]
+            libraryValueSets.push(valueSet)
+            @setSummaryValueSets(valueSet, oid, cid, name, codes)
 
     # now that we have all the value sets, filter them
     @supplementalCriteria.add(@filterValueSets(supplementalCriteria))
     @dataCriteria.add(@filterValueSets(dataCriteria))
+    @libraryValueSets.add(@filterValueSets(libraryValueSets))
 
   filterValueSets: (valueSets) ->
     # returns unique (by name and oid) value sets
