@@ -2,7 +2,7 @@
 class PatientExport
 
   # List of attributes we want to print to excel
-  DISPLAYED_ATTRIBUTES = ['notes', 'first', 'last', 'birthdate', 'expired', 'deathdate', 'ethnicity', 'race', 'gender']
+  DISPLAYED_ATTRIBUTES = ['notes', 'last', 'first', 'birthdate', 'expired', 'deathdate', 'ethnicity', 'race', 'gender']
 
   # Given a number, calculate the textual column name in excel (ie 1 -> A, 27 -> AA)
   def self.excel_column(number)
