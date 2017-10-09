@@ -55,6 +55,8 @@ describe 'MeasureView', ->
         return $(@).children('tr').length > 10
       expect(longTables).not.toExist()
 
+      expect(@measureView.$('#library_value_sets').length).toEqual(0)
+
       expect(@measureView.$('#supplemental_criteria')).toExist()
       expect(@measureView.$('#supplemental_criteria')).toBeVisible()
       expect(@measureView.$('#supplemental_criteria').find('[data-toggle="collapse"].value_sets')).toExist()
