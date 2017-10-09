@@ -442,7 +442,7 @@ include Devise::Test::ControllerHelpers
     flash.clear
 
     assert_equal 2, Dir.glob(File.join(@error_dir, '**')).count
-    assert_equal true, FileUtils.identical?(File.join(@error_dir, (Dir.entries(@error_dir).select { |f| f.end_with?('.zip') })[0]), File.join('test', 'fixtures', 'cql_measure_exports', 'IETCQL_v5_0_bad_hqmf_Artifacts.zip'))
+    assert_equal true, FileUtils.identical?(File.join(@error_dir, (Dir.entries(@error_dir).select { |f| f.end_with?('.xmlorzip') })[0]), File.join('test', 'fixtures', 'cql_measure_exports', 'IETCQL_v5_0_bad_hqmf_Artifacts.zip'))
   end
 
   test "update a patient based measure" do

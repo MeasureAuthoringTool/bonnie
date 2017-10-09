@@ -24,7 +24,7 @@ class PopulationsControllerTest  < ActionController::TestCase
 
   test "get population javascript" do
     sign_in @user
-    measure = Measure.by_user(@user).all.first
+    measure = @user.measures.last
     measure.map_fns = []
     measure.save!
     get :calculate_code, {measure_id: measure.id, id: 0, format: :js}
