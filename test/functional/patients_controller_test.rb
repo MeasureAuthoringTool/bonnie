@@ -210,21 +210,57 @@ include Devise::TestHelpers
     calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'calc_results.json'))
     patient_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'patient_details.json'))
 
-    pop_details = []
-    pop_details.push File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_10_char.json'))
-    pop_details.push File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_29_char.json'))
-    pop_details.push File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_30_char.json'))
-    pop_details.push File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_31_char.json'))
-    pop_details.push File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_32_char.json'))
+    pop_details = [
+      {
+        fixture: File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_10_char.json')),
+        pop: "1 - Population"
+      },
+      {
+        fixture: File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_29_char.json')),
+        pop: "Population 1"
+      },
+      {
+        fixture: File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_30_char.json')),
+        pop: "Population 1"
+      },
+      {
+        fixture: File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_31_char.json')),
+        pop: "Population 1"
+      },
+      {
+        fixture: File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_32_char.json')),
+        pop: "Population 1"
+      }
+    ]
 
     statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'statement_details.json'))
 
     # Tests using different lengths of population titles.
     pop_details.each do |population_details|
-      get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test"
+      get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details[:fixture], statement_details: statement_details, file_name: "test"
       assert_response :success
       assert_equal 'application/xlsx', response.header['Content-Type']
       assert_equal 'binary', response.header['Content-Transfer-Encoding']
+      temp = Tempfile.new(["test", ".xlsx"])
+      temp.write(response.body)
+      temp.rewind()
+      doc = Roo::Spreadsheet.open(temp.path)
+      sheet1 = doc.sheet(population_details[:pop])
+      row2 = sheet1.row(2)
+      assert_equal "IPP", row2[0]
+      assert_equal "DENOM", row2[1]
+      assert_equal "notes", row2[8]
+      assert_equal "last", row2[9]
+      assert_equal "first", row2[10]
+
+      row3 = sheet1.row(3)
+      assert_equal 0.0, row3[0]
+      assert_equal "testNotes", row3[8]
+      assert_equal "IPPFail", row3[9]
+      assert_equal "PtAge<18", row3[10]
+      
+      temp.close()
+      temp.unlink()
     end
   end
 end
