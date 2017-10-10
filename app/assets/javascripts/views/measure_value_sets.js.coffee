@@ -5,7 +5,8 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     @summaryValueSets = [] # array of {generic value set descriptor, oid, and code}
     @dataCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # all criteria that aren't supplemental criteria
     @supplementalCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # ethnicity/gender/payer/race criteria
-    @libraryValueSets = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # non-main library loaded criteria
+    @libraryValueSets = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')
+    @mainLibraryValueSets = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')
     @overlappingValueSets = new Thorax.Collections.ValueSetsCollection([]) # all value sets that overlap
     @overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]
 
@@ -21,13 +22,17 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     criteriaSetArray = []
 
     if @dataCriteria.length > 0
-      criteriaSetArray.push({ name: "Data Criteria", id: "data_criteria", criteria: @dataCriteria })
+      criteriaSetArray.push({ name: "Data Criteria (Main Library)", id: "data_criteria", criteria: @dataCriteria })
+
+    if @mainLibraryValueSets.length > 0
+      criteriaSetArray.push({ name: "Additional Value Sets (Main Library)", id: "main_library_value_sets", criteria: @mainLibraryValueSets })
 
     if @libraryValueSets.length > 0
-      criteriaSetArray.push({ name: "Value Sets from Libraries", id: "library_value_sets", criteria: @libraryValueSets })
+      criteriaSetArray.push({ name: "Additional Value Sets (Included Libraries)", id: "library_value_sets", criteria: @libraryValueSets })
 
     if @supplementalCriteria.length > 0
       criteriaSetArray.push({ name: "Supplemental Data Elements", id: "supplemental_criteria", criteria: @supplementalCriteria })
+
 
     _(super).extend
       overlappingValueSets: @overlappingValueSets
@@ -64,7 +69,10 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
   getValueSets: ->
     supplementalCriteria = []
     dataCriteria = []
+    dataCriteriaOids = []
+    supplementalCriteriaOids = []
     libraryValueSets = []
+    mainLibraryValueSets = []
 
     @model.get('source_data_criteria').each (sdc) =>
       if sdc.get('code_list_id')
@@ -79,8 +87,10 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
         # the human readable html for measures.
         if sdc.get('property') in ["ethnicity", "gender", "payer", "race"]
           supplementalCriteria.push(valueSet)
+          supplementalCriteriaOids.push(oid)
         else
           dataCriteria.push(valueSet)
+          dataCriteriaOids.push(oid)
 
         @setSummaryValueSets(valueSet, oid, cid, name, codes)
 
@@ -94,13 +104,18 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
           [version, codes] = @getVersionAndCodes(oid)
           valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
 
-          if library.library.identifier.id != @model.get('main_cql_library') && name not in ["Ethnicity", "ONC Administrative Sex", "Payer", "Race"]
-            libraryValueSets.push(valueSet)
-            @setSummaryValueSets(valueSet, oid, cid, name, codes)
+          if oid not in dataCriteriaOids and oid not in supplementalCriteriaOids
+            if library.library.identifier.id == @model.get('main_cql_library')
+              mainLibraryValueSets.push(valueSet)
+            else
+              libraryValueSets.push(valueSet)
+
+          @setSummaryValueSets(valueSet, oid, cid, name, codes)
 
     # now that we have all the value sets, filter them
     @supplementalCriteria.add(@filterValueSets(supplementalCriteria))
     @dataCriteria.add(@filterValueSets(dataCriteria))
+    @mainLibraryValueSets.add(@filterValueSets(mainLibraryValueSets))
     @libraryValueSets.add(@filterValueSets(libraryValueSets))
 
   filterValueSets: (valueSets) ->

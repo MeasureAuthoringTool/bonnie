@@ -56,6 +56,7 @@ describe 'MeasureView', ->
       expect(longTables).not.toExist()
 
       expect(@measureView.$('#library_value_sets').length).toEqual(0)
+      expect(@measureView.$('#main_library_value_sets').length).toEqual(0)
 
       expect(@measureView.$('#supplemental_criteria')).toExist()
       expect(@measureView.$('#supplemental_criteria')).toBeVisible()
@@ -97,7 +98,11 @@ describe 'MeasureView', ->
     it 'renders library value sets', ->
       expect(@cqlMeasureValueSetsView.dataCriteria.length).toEqual(11)
       expect(@cqlMeasureValueSetsView.supplementalCriteria.length).toEqual(4)
-      expect(@cqlMeasureValueSetsView.libraryValueSets.length).toEqual(12)
+      expect(@cqlMeasureValueSetsView.libraryValueSets.length).toEqual(8)
+      expect(@cqlMeasureValueSetsView.mainLibraryValueSets.length).toEqual(2)
       expect(@cqlMeasureValueSetsView.$('#library_value_sets')).toExist()
       expect(@cqlMeasureValueSetsView.$('#library_value_sets')).toBeVisible()
-      expect(@cqlMeasureValueSetsView.$('#library_value_sets')).toContainText 'TJC_Overall: Comfort Measures'
+      expect(@cqlMeasureValueSetsView.$('#library_value_sets')).toContainText 'TJC_Overall: Discharge To Acute Care Facility'
+      expect(@cqlMeasureValueSetsView.$('#main_library_value_sets')).toExist()
+      expect(@cqlMeasureValueSetsView.$('#main_library_value_sets')).toBeVisible()
+      expect(@cqlMeasureValueSetsView.$('#main_library_value_sets')).toContainText 'StrokeEducation: Patient Refusal'
