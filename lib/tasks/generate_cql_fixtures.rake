@@ -76,7 +76,7 @@ namespace :bonnie do
       measure = get_cql_measure(user, args[:cms_hqmf], args[:measure_id])
       measure.user_id = bonnie_user_id
       measure_name = measure.cms_id + ".json"
-      measure_file = File.join(fixtures_path, 'draft_measures', args[:path], measure_name)
+      measure_file = File.join(fixtures_path, 'cql_measures', args[:path], measure_name)
       create_fixture_file(measure_file, JSON.pretty_generate(JSON.parse(measure.to_json)))
       puts 'exported measure to ' + measure_file
       

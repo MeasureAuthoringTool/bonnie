@@ -1,3 +1,27 @@
+.h1-style() {
+  margin-top: 0;
+  color: black;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.7;
+  margin: 0.67em 0;
+}
+
+.h2-style {
+  margin-top: 6px;
+  color: #555555;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.2;
+  display: block;
+  -webkit-margin-before: 0.83em;
+  -webkit-margin-after: 0.83em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+}
+
 .patient-builder {
   @time-bar-width: 8px;
   .time-bar(@color: @gray-lighter) {
@@ -7,7 +31,10 @@
   label {
     text-transform: uppercase;
   }
-
+  .control-label {
+    &:extend(label);
+    text-transform: uppercase;
+  }
   .measure-ribbon {
     .pull-right;
     max-width: 100%;
@@ -59,6 +86,7 @@
       }
       & .heading-muted {
         margin-right: -@grid-gutter-width;
+        .h1-style;
       }
     }
   }
@@ -79,6 +107,7 @@
     }
     .deceased-checkbox {
       height: 24px;
+      padding-left: 20px;
       label {
         text-transform: none;
       }
@@ -126,9 +155,12 @@
     .tab-content {
       padding: @grid-gutter-width/2;
       padding-bottom: @grid-gutter-width * 1.5;
-      h2, h3 {
+      h2, h3, legend {
         &:extend(h2);
         margin-top: 0;
+      }
+      legend {
+        border-bottom: none;
       }
       .form-inline {
         .checkbox-inline:first-child {
@@ -157,6 +189,7 @@
   .heading-muted {
     background-color: @gray-lighter;
     padding-left: 8px;
+    .h1-style;
   }
   .submeasure {
     text-transform: lowercase;
@@ -168,7 +201,8 @@
   }
   .heading-primary {
     .time-bar();
-    background-color: @blue-lighter;
+    .h1-style;
+    background-color: @blue-darker;
     color: white;
     padding-left: @grid-gutter-width;
     margin-right: -@grid-gutter-width;
@@ -176,7 +210,7 @@
 
   .panel {
     .panel-title {
-      background-color: @blue-lighter;
+      background-color: @blue-darker;
       color: white;
       display: block;
       font-size: @font-size-base;
@@ -184,7 +218,7 @@
       text-transform: uppercase;
       &[class*="-elements"] {
         .transition(all .35s ease);
-        background-color: @blue-lighter;
+        background-color: @blue-darker;
         &.closed {
           padding: 4px (@grid-gutter-width / 2);
           overflow: hidden;
@@ -208,7 +242,8 @@
           .pull-right;
         }
         &:hover {
-          background-color: @blue-darker;
+          background-color: @blue-darkest;
+          color: @white;
           text-decoration: none;
         }
       }
@@ -223,7 +258,7 @@
       }
 
       .criteriatype {
-        color: @blue-lighter;
+        color: @blue-darker;
       }
 
     }
@@ -327,7 +362,7 @@
 
             &> span {
               background-color: @gray-lighter;
-              color: @gray-darker;
+              color: @gray-darkest;
               display: inline-block;
               padding: 10px;
               margin-bottom: 5px;

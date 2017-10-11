@@ -1,27 +1,31 @@
-<h3>Expected Value</h3>
 <div class="form-inline tab-pane">
-  {{#each currentCriteria}}
-    {{#ifCond key "==" "OBSERV"}}
-      <div class="form-group">
-        <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
-        <div class="btn-group">
-          {{#button "setPerc" class="btn btn-xs btn-observ-unit-perc"}} % {{/button}}
-          {{#button "setMins" class="btn btn-xs btn-observ-unit-mins"}} mins {{/button}}
-        </div>
-        {{#each ../../OBSERV}}
-          <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}">
-        {{/each}}
-      </div>
-    {{else}}
-      {{#if isEoC}}
+  <fieldset>
+    <legend>Expected Value</legend>
+    {{#each currentCriteria}}
+      {{#ifCond key "==" "OBSERV"}}
         <div class="form-group">
-          <label for="{{key}}_{{@cid}}">{{displayName}}</label>
-          <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0">
+          <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
+          <div class="btn-group">
+            {{#button "setPerc" class="btn btn-xs btn-observ-unit-perc"}} % {{/button}}
+            {{#button "setMins" class="btn btn-xs btn-observ-unit-mins"}} mins {{/button}}
+          </div>
+          {{#each ../../OBSERV}}
+            <input type="number" id="{{../key}}_{{@index}}" name="{{../key}}" min="0" value="{{this}}">
+          {{/each}}
         </div>
       {{else}}
-        <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
-        <input type="checkbox" id="{{key}}_{{@cid}}" name="{{key}}">
-      {{/if}}
-    {{/ifCond}}
-  {{/each}}
+        {{#if isEoC}}
+          <div class="form-group">
+            <label for="{{key}}_{{@cid}}">{{displayName}}</label>
+            <input type="number" id="{{key}}_{{@cid}}" name="{{key}}" min="0">
+          </div>
+        {{else}}
+          <div class="form-group">
+            <label for="{{key}}_{{@cid}}" class="checkbox-inline">{{displayName}}</label>
+            <input type="checkbox" id="{{key}}_{{@cid}}" name="{{key}}">
+          </div>
+        {{/if}}
+      {{/ifCond}}
+    {{/each}}
+  </fieldset>
 </div>
