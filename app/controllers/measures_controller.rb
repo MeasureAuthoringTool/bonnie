@@ -67,16 +67,15 @@ class MeasuresController < ApplicationController
         return
     else
       if Measures::QDMLoader.mat_hqmf_export?(params[:measure_file])
-        #TODO: Redirect to bonnie server
-        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is an HQMF based measure, please use https://bonnie.healthit.gov/ for HQMF based measures.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
+        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is an HQMF-QDM based measure.", body: "Please use <a href=\"https://bonnie.healthit.gov/\">Bonnie-Prior</a> for HQMF-QDM based measures."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       elsif !Measures::CqlLoader.mat_cql_export?(params[:measure_file])
-        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a valid Measure Authoring Tool export of a CQL Measure.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
+        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a valid Measure Authoring Tool export of a CQL Measure.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file. Please re-export your measure from the MAT and select the 'eMeasure Package' option."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       elsif !Measures::MATLoader.mat_export?(params[:measure_file])
-        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
+        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file. Please re-export your measure from the MAT and select the 'eMeasure Package' option."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
