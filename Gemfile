@@ -44,8 +44,6 @@ gem 'multi_json'
 # needed for parsing value sets (we need to use roo rather than rubyxl because the value sets are in xls rather than xlsx)
 gem 'roo'
 
-# needed for excel export test
-gem 'google_drive'
 
 gem 'oj' # Faster JSON
 
