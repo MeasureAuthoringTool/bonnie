@@ -3,8 +3,7 @@ class PatientExport
 
   # List of attributes we want to print to excel
   DISPLAYED_ATTRIBUTES = ['notes', 'last', 'first', 'birthdate', 'expired', 'deathdate', 'ethnicity', 'race', 'gender']
-  RACE_NAME_MAP={'1002-5' => 'American Indian or Alaska Native','2028-9' => 'Asian','2054-5' => 'Black or African American','2076-8' => 'Native Hawaiian or Other Pacific Islander','2106-3' => 'White','2131-1' => 'Other'}
-  ETHNICITY_NAME_MAP={'2186-5'=>'Not Hispanic or Latino', '2135-2'=>'Hispanic Or Latino'}
+
 
   # Given a number, calculate the textual column name in excel (ie 1 -> A, 27 -> AA)
   def self.excel_column(number)
@@ -165,9 +164,9 @@ class PatientExport
 
   def self.add_formatted_patient_field(patient, value)
     if value == 'ethnicity'
-      return ETHNICITY_NAME_MAP[patient[value]]
+      return Record::ETHNICITY_NAME_MAP[patient[value]]
     elsif value == 'race'
-      return RACE_NAME_MAP[patient[value]]
+      return Record::RACE_NAME_MAP[patient[value]]
     elsif value == 'birthdate' || value == 'deathdate'
       time = Time.at(patient[value]).strftime("%m/%d/%Y") unless patient[value].nil?
       return time
