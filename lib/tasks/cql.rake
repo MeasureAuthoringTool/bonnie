@@ -55,7 +55,7 @@ namespace :bonnie do
     end
 
     desc %{Outputs user accounts that have cql measures and which measures are cql in their accounts.
-      Example test@test.com  
+      Example test@test.com
                 CMS_ID: xxx   TITLE: Measure Title
     $ rake bonnie:cql:cql_measure_stats}
     task :cql_measure_stats => :environment do
@@ -75,9 +75,9 @@ namespace :bonnie do
           puts "  CMS_ID: #{m[:cms_id]}  TITLE: #{m[:title]}"
         end
       end
-      
+
     end
-    
+
     task :update_value_set_versions => :environment do
       User.all.each do |user|
         puts "Updating value sets for user " + user.email
@@ -112,6 +112,35 @@ namespace :bonnie do
           puts user.id
         end
       end
+    end
+
+    desc %{Iterate over value sets, if the oid is not in the dotted format, it should be
+      marked as a direct reference code
+    $ rake bonnie:cql:update_value_set_direct_reference_field }
+    task :update_value_set_direct_reference_field => :environment do
+      successful = 0
+      total = 0
+      CqlMeasure.all.each do |measure|
+        begin
+          total += 1
+          value_sets = measure.value_set_oid_version_objects
+          value_sets.each do |vs|
+            if vs["oid"].include? "."
+              vs["direct_reference"] = false
+            else
+              vs["direct_reference"] = true
+            end
+          end
+          measure.save
+          successful += 1
+        rescue Exception => ex
+          errorString = ex.to_s + " in measure " + measure.title + " " + measure._id.to_s
+          puts errorString
+        end
+      end
+
+      successString = "Successfully updated " + successful.to_s + "/" + total.to_s
+      puts successString
     end
 
     def print_helper(title, patient)
@@ -208,7 +237,7 @@ namespace :bonnie do
                   new_diagnosis['values'][0]['code_list_id'] = source_data_criterium['field_values']['DIAGNOSIS']['code_list_id']
                   new_diagnosis['values'][0]['field_title'] = source_data_criterium['field_values']['DIAGNOSIS']['field_title']
                   new_diagnosis['values'][0]['title'] = source_data_criterium['field_values']['DIAGNOSIS']['title']
-                  new_source_data_criterium_field_values['DIAGNOSIS'] = new_diagnosis 
+                  new_source_data_criterium_field_values['DIAGNOSIS'] = new_diagnosis
 
                 # update any 'FACILITY_LOCATION' field values that aren't collections
                 elsif field_value_key == 'FACILITY_LOCATION' && !(source_data_criterium['field_values']['FACILITY_LOCATION']['type'] == 'COL')
@@ -224,7 +253,7 @@ namespace :bonnie do
                   # Convert times
                   converted_start_date = nil
                   converted_start_time = nil
-                  if source_data_criterium['field_values']['FACILITY_LOCATION_ARRIVAL_DATETIME'] 
+                  if source_data_criterium['field_values']['FACILITY_LOCATION_ARRIVAL_DATETIME']
                     old_start_time = source_data_criterium['field_values']['FACILITY_LOCATION_ARRIVAL_DATETIME']['value']
                     converted_start_date = Time.at(old_start_time / 1000).getutc().strftime('%m/%d/%Y')
                     converted_start_time = Time.at(old_start_time / 1000).getutc().strftime('%l:%M %p')
@@ -237,7 +266,7 @@ namespace :bonnie do
 
                   converted_end_date = nil
                   converted_end_time = nil
-                  if source_data_criterium['field_values']['FACILITY_LOCATION_DEPARTURE_DATETIME'] 
+                  if source_data_criterium['field_values']['FACILITY_LOCATION_DEPARTURE_DATETIME']
                     old_end_time = source_data_criterium['field_values']['FACILITY_LOCATION_DEPARTURE_DATETIME']['value']
                     converted_end_date = Time.at(old_end_time / 1000).getutc().strftime('%m/%d/%Y')
                     converted_end_time = Time.at(old_end_time / 1000).getutc().strftime('%l:%M %p')
@@ -258,11 +287,11 @@ namespace :bonnie do
                     new_locationPeriodHigh = converted_end_date.to_s
                     new_locationPeriodHigh += " #{converted_end_time.to_s}" if converted_end_time
                   end
-                  new_facility_location['values'][0]['locationPeriodLow'] = new_locationPeriodLow if new_locationPeriodLow 
-                  new_facility_location['values'][0]['locationPeriodHigh'] = new_locationPeriodHigh if new_locationPeriodHigh 
+                  new_facility_location['values'][0]['locationPeriodLow'] = new_locationPeriodLow if new_locationPeriodLow
+                  new_facility_location['values'][0]['locationPeriodHigh'] = new_locationPeriodHigh if new_locationPeriodHigh
 
                   # Reassign
-                  new_source_data_criterium_field_values['FACILITY_LOCATION'] = new_facility_location 
+                  new_source_data_criterium_field_values['FACILITY_LOCATION'] = new_facility_location
                 elsif !(field_value_key == 'FACILITY_LOCATION_ARRIVAL_DATETIME' || field_value_key == 'FACILITY_LOCATION_DEPARTURE_DATETIME')
                   # add unaltered field value to new structure, unless it's a time we already used above
                   new_source_data_criterium_field_values[field_value_key] = field_value_value
@@ -319,7 +348,7 @@ namespace :bonnie do
         end
         patient.save!
       end
-    end 
+    end
 
   end
 end
