@@ -157,7 +157,7 @@ Teaspoon.configure do |config|
   # Specify that you always want a coverage configuration to be used. Otherwise, specify that you want coverage
   # on the CLI.
   # Set this to "true" or the name of your coverage config.
-  #config.use_coverage = true
+  config.use_coverage = true
 
   # You can have multiple coverage configs by passing a name to config.coverage.
   # e.g. config.coverage :ci do |coverage|
@@ -178,10 +178,10 @@ Teaspoon.configure do |config|
 
     # Various thresholds requirements can be defined, and those thresholds will be checked at the end of a run. If any
     # aren't met the run will fail with a message. Thresholds can be defined as a percentage (0-100), or nil.
-    #coverage.statements = nil
-    #coverage.functions = nil
-    #coverage.branches = nil
-    #coverage.lines = nil
+    coverage.statements = 56
+    coverage.functions = 46.6
+    coverage.branches = 37.6
+    coverage.lines = 53.6
   end
   
 end
