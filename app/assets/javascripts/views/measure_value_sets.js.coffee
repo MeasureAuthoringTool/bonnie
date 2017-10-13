@@ -33,12 +33,11 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
         name = sdc.get('description')
         oid = sdc.get('code_list_id')
         cid = sdc.cid
-        debugger
-
         oid_version = _.find(@model.get('value_set_oid_version_objects'), (oid_version) -> oid_version.oid == oid)
         if oid_version? && bonnie.valueSetsByOid[oid]?
           version = oid_version.version
           codeConcepts = bonnie.valueSetsByOid[oid][version].concepts ? []
+          direct_reference = oid_version.direct_reference
           for code in codeConcepts
             code.hasLongDisplayName = code.display_name.length > 160
         else
@@ -46,9 +45,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
           codeConcepts = []
 
         codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @pagination_options)
-        if version.match(/^Draft/)
-          version = "Draft"
-        valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
+        valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid, direct_reference: direct_reference }
 
         # the property values that indicate a supplemental criteria. this list is derived from
         # the human readable html for measures.
