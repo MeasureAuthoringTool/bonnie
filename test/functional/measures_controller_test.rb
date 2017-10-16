@@ -16,6 +16,30 @@ include Devise::TestHelpers
     @measure = Measure.where({"cms_id" => "CMS138v2"}).first
     sign_in @user
   end
+  test "upload CQL with direct reference code" do
+    # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
+    # when the cassette needs to be generated for the first time.
+    VCR.use_cassette("valid_vsac_response_ED1_v5_3") do
+      measure = CqlMeasure.where({hqmf_set_id: "28AC347D-2F91-4A0C-9395-2602134BAA89"}).first
+      assert_nil measure
+
+      # Use VSAC creds from VCR, see vcr_setup.rb
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'ED1_v5_3_Export.zip'), 'application/xml')
+
+      # If you need to re-record the cassette for whatever reason, change the vsac_date to the current date
+      post :create, {vsac_date: '10/16/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+
+      assert_response :redirect
+      measure = CqlMeasure.where({hqmf_set_id: "28AC347D-2F91-4A0C-9395-2602134BAA89"}).first
+      assert_equal "40280582-5801-9EE4-0158-2A28FC7E02A9", measure['hqmf_id']
+      value_set_objects = measure.value_set_oid_version_objects
+      for value_set in value_set_objects
+        # Value sets with valid oids (dot separated numbers) are not direct_reference
+        # Value sets with a guid that we generate (dash separated) are direct_reference
+        assert_equal (!value_set["oid"].include? "."), value_set["direct_reference"]
+      end
+    end
+  end
 
   test "upload CQL with valid VSAC creds" do
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
