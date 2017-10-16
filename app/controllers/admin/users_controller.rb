@@ -85,16 +85,6 @@ class Admin::UsersController < ApplicationController
     send_data JSON.pretty_generate(JSON.parse(user.measures.to_json)), :type => 'application/json', :disposition => 'attachment', :filename => "measures_#{user.email}.json"
   end
 
-  def bundle
-    user = User.find(params[:id])
-    exporter = Measures::Exporter::BundleExporter.new(user, version: '1.0', hqmfjs_libraries_version: APP_CONFIG['hqmfjs_libraries_version'], effective_date: ( Time.at(APP_CONFIG['measure_period_start']).utc + 1.year - 1.minute ).to_i)
-    zip_data = exporter.export_zip
-
-    cookies[:fileDownload] = "true" # We need to set this cookie for jquery.fileDownload
-
-    send_data zip_data, :type => 'application/zip', :disposition => 'attachment', :filename => "bundle_#{user.email}_export.zip"
-  end
-
   def log_in_as
     user = User.find(params[:id])
     sign_in user

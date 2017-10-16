@@ -41,20 +41,10 @@ class Thorax.Views.User extends Thorax.Views.BonnieView
     serialize: (attr) ->
       attr.admin ?= false
       attr.portfolio ?= false
-    rendered: ->
-      @exportBundleView = new Thorax.Views.ExportBundleView() # Modal dialogs for exporting
-      @exportBundleView.appendTo(@$el)
 
   approve: -> @model.approve()
 
   disable: -> @model.disable()
-
-  bundle: ->
-    @exportBundleView.exporting()
-    $.fileDownload "#{@model.url()}/bundle",
-      successCallback: => @exportBundleView.success()
-      failCallback: => @exportBundleView.fail()
-
 
   edit: ->
     @$el.html(@renderTemplate(@editTemplate))

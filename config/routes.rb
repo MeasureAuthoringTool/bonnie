@@ -3,8 +3,6 @@ Bonnie::Application.routes.draw do
 
   devise_scope :user do
     get "/needs_approval" => "registrations#needs_approval"
-    # disabled export bundle since this currently doesn't work with CQL-based measures.
-    # get "/users/bundle" => "users#bundle"
   end
 
   authenticated do
@@ -62,7 +60,6 @@ Bonnie::Application.routes.draw do
         post 'disable'
         get 'patients'
         get 'measures'
-        get 'bundle'
         post 'log_in_as'
       end
     end

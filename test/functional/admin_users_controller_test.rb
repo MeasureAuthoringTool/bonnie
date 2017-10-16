@@ -126,22 +126,10 @@ include Devise::TestHelpers
 
   test "bundle download" do
     sign_in @user_admin
-    get :bundle, {id: @user.id}
-    assert_response :success
-    assert_equal 'application/zip', response.header['Content-Type']
-    assert_equal "attachment; filename=\"bundle_#{@user.email}_export.zip\"", response.header['Content-Disposition']
-    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
-    assert_equal 'binary', response.header['Content-Transfer-Encoding']
-    # Verify bundle download contains correct amount of files
-    zip_path = File.join('tmp', 'test.zip')
-    File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
-    Zip::ZipFile.open(zip_path) do |zip_file|
-      assert_equal 7, zip_file.glob(File.join('patients', '**', '*.json')).count
-      assert_equal 3, zip_file.glob(File.join('sources', '**', '*.json')).count
-      assert_equal 3, zip_file.glob(File.join('sources', '**', '*.metadata')).count
-      assert_equal 27, zip_file.glob(File.join('value_sets', '**', '*.json')).count
+    # we need to show downloading bundles is currently is removed
+    assert_raises(ActionController::RoutingError) do
+      get :bundle, {id: @user.id}
     end
-    File.delete(zip_path)
   end
 
   test "sign in as" do
