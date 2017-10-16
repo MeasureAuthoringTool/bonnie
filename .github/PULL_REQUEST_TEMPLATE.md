@@ -17,7 +17,9 @@ If JIRA tests were used to supplement or replace automated tests:
 
 
 **Reviewer 1:**
-- [ ] Code is maintainable, reuses existing code and infrastructure where appropriate, and accomplishes the task’s purpose
+
+Name:
+- [ ] Code is maintainable and reusable, reuses existing code and infrastructure where appropriate, and accomplishes the task’s purpose
 - [ ] The tests appropriately test the new code, including edge cases
 - [ ] You have tried to break the code
 
@@ -27,7 +29,9 @@ If JIRA tests were used to supplement or replace automated tests:
 
 
 **Reviewer 2:**
-- [ ] Code is maintainable, reuses existing code and infrastructure where appropriate, and accomplishes the task’s purpose
+
+Name:
+- [ ] Code is maintainable and reusable, reuses existing code and infrastructure where appropriate, and accomplishes the task’s purpose
 - [ ] The tests appropriately test the new code, including edge cases
 - [ ] You have tried to break the code
 
