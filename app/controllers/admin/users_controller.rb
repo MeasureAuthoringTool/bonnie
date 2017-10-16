@@ -12,7 +12,7 @@ class Admin::UsersController < ApplicationController
     users = User.asc(:email).all.to_a # Need to convert to array so counts stick
     map = "function() { emit(this.user_id, 1); }"
     reduce = "function(user_id, counts) { return Array.sum(counts); }"
-    measure_counts = Measure.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
+    measure_counts = CqlMeasure.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
     patient_counts = Record.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
     users.each do |u|
       u.measure_count = measure_counts[u.id] || 0

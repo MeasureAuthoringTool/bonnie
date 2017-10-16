@@ -1,0 +1,320 @@
+{
+  "_id": "59b6b2275cc975edb3000041",
+  "adverse_events": [
+    {
+      "_id": "59b6b2285cc975edb3000044",
+      "codes": {
+        "RxNorm": [
+          "301542"
+        ]
+      },
+      "description": "Adverse Event: Statin Allergen",
+      "end_time": 1347351300,
+      "facility": {
+        "_id": "59b7e3495cc9750aa5000001",
+        "code": null,
+        "end_time": null,
+        "name": null,
+        "start_time": null,
+        "type": "COL",
+        "values": [
+          {
+            "locationPeriodLow": null,
+            "locationPeriodHigh": null,
+            "display": "ICU Locations",
+            "code": {
+              "code_system": "SNOMED-CT",
+              "code": "309904001"
+            }
+          }
+        ]
+      },
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.10.20.28.3.120",
+      "reason": null,
+      "severity": null,
+      "specifics": null,
+      "start_time": 1347350400,
+      "status_code": {
+        "HL7 ActStatus": [
+          null
+        ]
+      },
+      "time": null,
+      "type": null
+    }
+  ],
+  "birthdate": 174211200,
+  "bundle_id": "59af1c135cc975610c000001",
+  "created_at": "2017-09-11T15:56:23.999Z",
+  "deathdate": null,
+  "description": null,
+  "description_category": null,
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": "59b6b2285cc975edb3000043",
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "SNOMED-CT": [
+          "183452005"
+        ]
+      },
+      "description": "Encounter, Performed: Encounter Inpatient",
+      "diagnosis": {
+        "_id": "59b7e3495cc9750aa5000002",
+        "type": "COL",
+        "values": [
+          {
+            "title": "Essential Hypertension",
+            "code": "I10",
+            "code_system": "ICD-10-CM"
+          }
+        ]
+      },
+      "dischargeDisposition": null,
+      "dischargeTime": null,
+      "end_time": 1347351300,
+      "facility": {
+        "_id": "59b7e3495cc9750aa5000003",
+        "code": null,
+        "end_time": null,
+        "name": null,
+        "start_time": null,
+        "type": "COL",
+        "values": [
+          {
+            "locationPeriodLow": "09/11/2012  2:00 AM",
+            "locationPeriodHigh": "09/11/2012  8:00 AM",
+            "display": "ICU Locations",
+            "code": {
+              "code_system": "SNOMED-CT",
+              "code": "309904001"
+            }
+          }
+        ]
+      },
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "reason": null,
+      "specifics": null,
+      "start_time": 1347328800,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "5375D6A9-203B-4FFF-B851-AFA9B68D2AC2",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "5375D6A9-203B-4FFF-B851-AFA9B68D2AC2",
+      "population_index": 1,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    }
+  ],
+  "expired": null,
+  "first": "With Fac",
+  "gender": "M",
+  "insurance_providers": [
+    {
+      "_id": "59b6b2285cc975edb3000047",
+      "codes": {
+        "SOP": [
+          "349"
+        ]
+      },
+      "description": null,
+      "end_time": null,
+      "financial_responsibility_type": {
+        "code": "SELF",
+        "codeSystem": "HL7 Relationship Code"
+      },
+      "health_record_field": null,
+      "member_id": "1234567890",
+      "mood_code": "EVN",
+      "name": "Other",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": null,
+      "payer": {
+        "_id": "59b6b2285cc975edb3000048",
+        "name": "Other"
+      },
+      "reason": null,
+      "relationship": null,
+      "specifics": null,
+      "start_time": 1199163600,
+      "status_code": null,
+      "time": null,
+      "type": "OT"
+    }
+  ],
+  "is_shared": null,
+  "languages": [
+
+  ],
+  "last": "OLD",
+  "marital_status": null,
+  "measure_ids": [
+    "5375D6A9-203B-4FFF-B851-AFA9B68D2AC2",
+    null
+  ],
+  "medical_record_assigner": "Bonnie",
+  "medical_record_number": "9d7058e4fb79c0b674c57d4b9a4b6b4c",
+  "notes": "",
+  "origin_data": [
+
+  ],
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "EncounterInpatient",
+      "description": "Encounter, Performed: Encounter Inpatient",
+      "code_list_id": "2.16.840.1.113883.3.666.5.307",
+      "type": "encounters",
+      "id": "EncounterInpatient_EncounterPerformed_0772b287_f3c9_443d_89b5_fd4940b30e18_source",
+      "start_date": 1347328800000,
+      "end_date": 1347351300000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+        "FACILITY_LOCATION": {
+          "type": "COL",
+          "values": [
+            {
+              "type": "FAC",
+              "key": "FACILITY_LOCATION",
+              "code_list_id": "2.16.840.1.113883.3.666.5.2486",
+              "field_title": "Facility Location",
+              "title": "ICU Locations",
+              "value": 1347328800000,
+              "start_date": "09/11/2012",
+              "start_time": " 2:00 AM",
+              "end_value": 1347350400000,
+              "end_date": "09/11/2012",
+              "end_time": " 8:00 AM",
+              "locationPeriodLow": "09/11/2012  2:00 AM",
+              "locationPeriodHigh": "09/11/2012  8:00 AM"
+            }
+          ]
+        },
+        "DIAGNOSIS": {
+          "type": "COL",
+          "field_title": "Diagnosis",
+          "values": [
+            {
+              "type": "CD",
+              "key": "DIAGNOSIS",
+              "field_title": "Diagnosis",
+              "code_list_id": "2.16.840.1.113883.3.464.1003.104.11.1031",
+              "title": "Essential Hypertension"
+            }
+          ]
+        }
+      },
+      "hqmf_set_id": "5375D6A9-203B-4FFF-B851-AFA9B68D2AC2",
+      "cms_id": "CMS347v1",
+      "criteria_id": "15e71941a59Nq",
+      "codes": {
+        "SNOMED-CT": [
+          "183452005"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "59b6b2285cc975edb3000043",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": false,
+      "definition": "adverse_event",
+      "title": "StatinAllergen",
+      "description": "Adverse Event: Statin Allergen",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.423",
+      "type": "adverse_events",
+      "id": "StatinAllergen_AdverseEvent_a621b0ee_374e_4a6b_badd_ab7df77e1a15_source",
+      "start_date": 1347350400000,
+      "end_date": 1347351300000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+        "FACILITY_LOCATION": {
+          "type": "COL",
+          "values": [
+            {
+              "type": "FAC",
+              "key": "FACILITY_LOCATION",
+              "code_list_id": "2.16.840.1.113883.3.666.5.2486",
+              "field_title": "Facility Location",
+              "title": "ICU Locations",
+              "start_date": null,
+              "start_time": null,
+              "end_date": null,
+              "end_time": null
+            }
+          ]
+        }
+      },
+      "hqmf_set_id": "5375D6A9-203B-4FFF-B851-AFA9B68D2AC2",
+      "cms_id": "CMS347v1",
+      "criteria_id": "15e719e8629Uq",
+      "codes": {
+        "RxNorm": [
+          "301542"
+        ]
+      },
+      "coded_entry_id": "59b6b2285cc975edb3000044",
+      "code_source": "DEFAULT"
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": null,
+  "title": null,
+  "type": null,
+  "updated_at": "2017-09-11T21:01:17.981Z",
+  "user_id": "501fdba3044a111b98000001"
+}
