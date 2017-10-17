@@ -217,7 +217,7 @@ include Devise::Test::ControllerHelpers
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_equal "Error Uploading Measure", flash[:error][:title]
     assert_equal "The uploaded zip file is not a valid Measure Authoring Tool export of a CQL Measure.", flash[:error][:summary]
-    assert_equal "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option", flash[:error][:body]
+    assert_equal "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option. Please use https://bonnie.healthit.gov/ for HQMF based measures.", flash[:error][:body]
     assert_response :redirect
   end
 
@@ -251,7 +251,7 @@ include Devise::Test::ControllerHelpers
     assert_includes flash[:error].keys, :title
     assert_includes flash[:error].keys, :summary
     assert_includes flash[:error].keys, :body
-    assert_equal 'The uploaded zip file is an HQMF based measure, please use https://bonnie.healthit.gov/ for HQMF based measures.', flash[:error][:summary]
+    assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool export of a CQL Measure.', flash[:error][:summary]
     flash.clear
     measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
     assert_nil measure

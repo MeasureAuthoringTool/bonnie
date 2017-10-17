@@ -65,16 +65,11 @@ class MeasuresController < ApplicationController
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
     else
-      if Measures::QDMLoader.mat_hqmf_export?(params[:measure_file])
-        #TODO: Redirect to bonnie server
-        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is an HQMF based measure, please use https://bonnie.healthit.gov/ for HQMF based measures.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
+      if !Measures::CqlLoader.mat_cql_export?(params[:measure_file])
+        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a valid Measure Authoring Tool export of a CQL Measure.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option. Please use https://bonnie.healthit.gov/ for HQMF based measures."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       elsif !Measures::CqlLoader.mat_cql_export?(params[:measure_file])
-        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a valid Measure Authoring Tool export of a CQL Measure.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
-        redirect_to "#{root_path}##{params[:redirect_route]}"
-        return
-      elsif !Measures::MATLoader.mat_export?(params[:measure_file])
         flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
@@ -104,7 +99,7 @@ class MeasuresController < ApplicationController
         measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
       end
 
-      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], false, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=false cache=false
+      measure = Measures::CqlLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], false, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=false cache=false
 
       if (!is_update)
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
