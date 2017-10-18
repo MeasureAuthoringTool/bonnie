@@ -32,7 +32,7 @@ class MeasuresController < ApplicationController
       # @value_sets_by_oid_json = MultiJson.encode(value_sets_by_oid.as_json(except: [:_id, :code_system, :code_system_version]))
       value_sets = Mongoid::Sessions.default[HealthDataStandards::SVS::ValueSet.collection_name].find(oid: { '$in' => value_set_oids }, user_id: current_user.id)
       value_sets = value_sets.select('concepts.code_system' => 0, 'concepts.code_system_version' => 0)
-      
+
       value_set_map = {}
       value_sets.each do |vs|
         if !value_set_map.key?(vs['oid'])
@@ -54,27 +54,23 @@ class MeasuresController < ApplicationController
       redirect_to "#{root_path}##{params[:redirect_route]}"
       return
     end
-    
+
     measure_details = {
      'type'=>params[:measure_type],
      'episode_of_care'=>params[:calculation_type] == 'episode'
     }
-    
+
     extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
     if !extension || extension != '.zip'
         flash[:error] = {title: "Error Loading Measure", summary: "Incorrect Upload Format.", body: "The file you have uploaded does not appear to be a Measure Authoring Tool zip export of a measure. Please re-export your measure from the MAT and select the 'eMeasure Package'."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
     else
-      if Measures::QDMLoader.mat_hqmf_export?(params[:measure_file])
-        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is an HQMF-QDM based measure.", body: "Please use <a href=\"https://bonnie.healthit.gov/\">Bonnie-Prior</a> for HQMF-QDM based measures."}
-        redirect_to "#{root_path}##{params[:redirect_route]}"
-        return
-      elsif !Measures::CqlLoader.mat_cql_export?(params[:measure_file])
+      if !Measures::CqlLoader.mat_cql_export?(params[:measure_file])
         flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a valid Measure Authoring Tool export of a CQL Measure.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file. Please re-export your measure from the MAT and select the 'eMeasure Package' option."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
-      elsif !Measures::MATLoader.mat_export?(params[:measure_file])
+      elsif !Measures::CqlLoader.mat_cql_export?(params[:measure_file])
         flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file. Please re-export your measure from the MAT and select the 'eMeasure Package' option."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
@@ -104,7 +100,7 @@ class MeasuresController < ApplicationController
         measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
       end
 
-      measure = Measures::MATLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], false, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=false cache=false
+      measure = Measures::CqlLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], false, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=false cache=false
 
       if (!is_update)
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
@@ -162,7 +158,7 @@ class MeasuresController < ApplicationController
       redirect_to "#{root_path}##{params[:redirect_route]}"
       return
     end
-    
+
     current_user.measures << measure
     current_user.save!
 
