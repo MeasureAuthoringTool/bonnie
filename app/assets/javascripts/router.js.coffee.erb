@@ -18,6 +18,10 @@
 
     @on 'route', -> window.scrollTo(0, 0)
 
+    @measurePeriod = <%= Time.zone.at(APP_CONFIG['measure_period_start']).year %>;
+    @applicationVersion = '<%=Bonnie::Version.current()%>';
+    @support_qdm_version = '<%= APP_CONFIG['support_qdm_version'] %>';
+
   routes:
     '':                                                'renderMeasures'
     'measures':                                        'renderMeasures'
