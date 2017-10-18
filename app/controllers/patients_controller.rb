@@ -164,8 +164,8 @@ private
   def qrda_patient_export(patient, measure)
     start_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 1, 1)
     end_time = Time.new(Time.zone.at(APP_CONFIG['measure_period_start']).year, 12, 31)
-    qrda_exporter = HealthDataStandards::Export::Cat1.new 'r3_1'
-    qrda_exporter.export(patient, measure, start_time, end_time, nil, 'r3_1')
+    qrda_exporter = HealthDataStandards::Export::Cat1.new 'r4'
+    qrda_exporter.export(patient, measure, start_time, end_time, nil, 'r4')
   end
 
   def html_patient_export(patient, measure)
