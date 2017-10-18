@@ -1,9 +1,6 @@
 class PatientsController < ApplicationController
   before_filter :authenticate_user!
 
-  RACE_NAME_MAP={'1002-5' => 'American Indian or Alaska Native','2028-9' => 'Asian','2054-5' => 'Black or African American','2076-8' => 'Native Hawaiian or Other Pacific Islander','2106-3' => 'White','2131-1' => 'Other'}
-  ETHNICITY_NAME_MAP={'2186-5'=>'Not Hispanic or Latino', '2135-2'=>'Hispanic Or Latino'}
-
   # Index method used for patient bank, returning all shared patient records
   def index
     records = Record.where(is_shared: true).to_a
@@ -128,8 +125,8 @@ private
 
     ['first', 'last', 'gender', 'expired', 'birthdate', 'description', 'description_category', 'deathdate', 'notes', 'is_shared'].each {|param| patient[param] = params[param]}
 
-    patient['ethnicity'] = {'code' => params['ethnicity'], 'name'=>ETHNICITY_NAME_MAP[params['ethnicity']], 'codeSystem' => 'CDC Race'}
-    patient['race'] = {'code' => params['race'], 'name'=>RACE_NAME_MAP[params['race']], 'codeSystem' => 'CDC Race'}
+    patient['ethnicity'] = {'code' => params['ethnicity'], 'name'=>Record::ETHNICITY_NAME_MAP[params['ethnicity']], 'codeSystem' => 'CDC Race'}
+    patient['race'] = {'code' => params['race'], 'name'=>Record::RACE_NAME_MAP[params['race']], 'codeSystem' => 'CDC Race'}
 
     measure_period = {'id' => 'MeasurePeriod', 'start_date' => params['measure_period_start'].to_i, 'end_date' => params['measure_period_end'].to_i}
 

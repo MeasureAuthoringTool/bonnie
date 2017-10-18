@@ -4,8 +4,8 @@ require 'fileutils'
 
 namespace :bonnie do
   namespace :load do
-  
-  
+
+
     desc 'Load MAT export zip file'
     task :mat_export, [:file, :email] do |t, args|
       raise "The file to measure definition must be specified" unless args.file
@@ -13,9 +13,9 @@ namespace :bonnie do
 
       user = User.by_email(args.email).first
       raise "The user #{args.email} could not be found." unless user
-      
+
       file = File.new args.file
-      data = Measures::MATLoader.load(file, user, {})
+      data = Measures::CqlLoader.load(file, user, {})
     end
 
     desc 'Load a directory of MAT export zip files'
@@ -29,12 +29,12 @@ namespace :bonnie do
       Dir.glob(File.join(args.dir,'*.zip')).each do |zip_path|
         begin
           file = File.new zip_path
-          data = Measures::MATLoader.load(file, user, {})
+          data = Measures::CqlLoader.load(file, user, {})
         rescue Exception => e
           puts "Loading Measure #{zip_path} failed: #{e.message}] \n"
         end
       end
-      
+
     end
   end
 end
