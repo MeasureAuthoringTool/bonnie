@@ -134,13 +134,11 @@ namespace :bonnie do
           measure.save
           successful += 1
         rescue Exception => ex
-          errorString = ex.to_s + " in measure " + measure.title + " " + measure._id.to_s
-          puts errorString
+          puts ex.to_s + " in measure " + measure.title + " " + measure._id.to_s
         end
       end
 
-      successString = "Successfully updated " + successful.to_s + "/" + total.to_s
-      puts successString
+      puts "Successfully updated " + successful.to_s + "/" + total.to_s
     end
 
     def print_helper(title, patient)
