@@ -3,7 +3,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
 
   initialize: ->
     @summaryValueSets = [] # array of {generic value set descriptor, oid, and code}
-    @dataCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # all criteria that aren't supplemental criteria
+    @dataCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')
     @supplementalCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # ethnicity/gender/payer/race criteria
     @libraryValueSets = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')
     @mainLibraryValueSets = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')
@@ -14,8 +14,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     @pagination_options =
       mode: 'client'
       state: { pageSize: 10, firstPage: 1, currentPage: 1 }
-
-    @getValueSets() # populates @dataCriteria and @supplementalCriteria
+    @getValueSets() # populates @dataCriteria, @supplementalCriteria, @libraryValueSets, and @mainLibraryValueSets
     @findOverlappingValueSets() # populates @overlappingValueSets
 
   context: ->

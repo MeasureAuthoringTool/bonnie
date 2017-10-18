@@ -87,12 +87,17 @@ describe 'MeasureView', ->
 
   describe 'CQL', ->
     beforeEach ->
+      jasmine.getJSONFixtures().clearCache()
+      @universalValueSetsByOid = bonnie.valueSetsByOid
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS107/value_sets.json')
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
       @cqlPatients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
+
       @cqlMeasureValueSetsView = new Thorax.Views.MeasureValueSets(model: @cqlMeasure, measure: @cqlMeasure, patients: @cqlPatients)
       @cqlMeasureValueSetsView.appendTo 'body'
 
     afterEach ->
+      bonnie.valueSetsByOid = @universalValueSetsByOid
       @cqlMeasureValueSetsView.remove()
 
     it 'renders library value sets', ->
@@ -100,9 +105,14 @@ describe 'MeasureView', ->
       expect(@cqlMeasureValueSetsView.supplementalCriteria.length).toEqual(4)
       expect(@cqlMeasureValueSetsView.libraryValueSets.length).toEqual(8)
       expect(@cqlMeasureValueSetsView.mainLibraryValueSets.length).toEqual(2)
+      expect(@cqlMeasureValueSetsView.overlappingValueSets.length).toEqual(2)
       expect(@cqlMeasureValueSetsView.$('#library_value_sets')).toExist()
       expect(@cqlMeasureValueSetsView.$('#library_value_sets')).toBeVisible()
       expect(@cqlMeasureValueSetsView.$('#library_value_sets')).toContainText 'TJC_Overall: Discharge To Acute Care Facility'
       expect(@cqlMeasureValueSetsView.$('#main_library_value_sets')).toExist()
       expect(@cqlMeasureValueSetsView.$('#main_library_value_sets')).toBeVisible()
       expect(@cqlMeasureValueSetsView.$('#main_library_value_sets')).toContainText 'StrokeEducation: Patient Refusal'
+      expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toExist()
+      expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toBeVisible()
+      expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toContainText 'Non-Elective Inpatient Encounter'
+
