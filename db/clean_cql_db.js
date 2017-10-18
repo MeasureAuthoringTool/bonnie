@@ -5,7 +5,7 @@
 // e.g.
 // $mongo
 // > use bonnie_alpha
-// > load("/Users/edeyoung/Documents/projects/bonnie/git/bonnie/db/convert_hqmf_version_number_to_string.js")
+// > load("/Users/edeyoung/Documents/projects/bonnie/git/bonnie/db/clean_cql_db.js")
 
 // entirely remove collections that are no longer used
 db.draft_measures.drop();
