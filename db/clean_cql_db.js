@@ -47,8 +47,8 @@ print("## DELETING ORPHANED BUNDLES");
 removed_result = db.getCollection('bundles').remove({"_id": {$nin: bundle_ids}})
 print("\t" + removed_result.nRemoved.toString() + " removed");
 
-print("## DELETING FIELDS 'too_big', 'has_measure_history', 'calc_results', 'description', 'description_category' FROM RECORDS");
-db.getCollection('records').update( {}, {$unset: {too_big:"", has_measure_history:"", calc_results:"", description:"", description_category:""}}, {multi:true});
+print("## DELETING FIELDS 'too_big', 'has_measure_history', 'calc_results' FROM RECORDS");
+db.getCollection('records').update( {}, {$unset: {too_big:"", has_measure_history:"", calc_results:""}}, {multi:true});
 
 print("## CHANGE RECORD FIELD 'is_shared' TO FALSE");
 db.getCollection('records').update( {}, {$set: {is_shared:false}}, {multi:true});
