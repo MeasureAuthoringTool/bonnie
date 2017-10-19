@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 2bebdae9b64b65cbb886218726e9137458ec8669
+  revision: 02e9eaecaba5c1265d0dd3219febaf68a73491cb
   branch: cql4bonnie_on_mongoid5_adam
   specs:
     health-data-standards (3.6.1)
@@ -32,8 +32,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 7b918458c0c2e6fb2ffadabae0ad4cf40a8d16e5
-  branch: cql4bonnie
+  revision: 9807b50a1e99725e8d2e6bf7fd24a2be6848f7fb
+  branch: cql4bonnie_gems_update_adam
   specs:
     bonnie_bundler (1.0.0)
 
@@ -127,11 +127,11 @@ GEM
     addressable (2.4.0)
     arel (6.0.4)
     bcrypt (3.1.11)
-    brakeman (3.6.2)
+    brakeman (4.0.1)
     browser (2.5.0)
     bson (4.2.1)
     builder (3.2.3)
-    bundler-audit (0.5.0)
+    bundler-audit (0.6.0)
       bundler (~> 1.2)
       thor (~> 0.18)
     byebug (5.0.0)
@@ -206,7 +206,7 @@ GEM
       less (~> 2.6.0)
       sprockets (> 2, < 4)
       tilt
-    libv8 (3.16.14.11)
+    libv8 (3.16.14.19)
     log4r (1.1.10)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
