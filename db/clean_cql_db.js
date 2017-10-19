@@ -28,6 +28,7 @@ delete_users_information(query_hash);
 
 // user ids of all remaining users
 user_ids = db.getCollection('users').distinct("_id", {}, {_id: 1});
+bundle_ids = db.getCollection('users').distinct("bundle_id", {}, {bundle_id: 1});
 
 // remove orphans
 print("## DELETING ORPHANED PATIENTS");
@@ -40,6 +41,10 @@ print("\t" + removed_result.nRemoved.toString() + " removed");
 
 print("## DELETING ORPHANED VALUE SETS");
 removed_result = db.getCollection('health_data_standards_svs_value_sets').remove({"user_id": {$nin: user_ids}})
+print("\t" + removed_result.nRemoved.toString() + " removed");
+
+print("## DELETING ORPHANED BUNDLES");
+removed_result = db.getCollection('bundles').remove({"_id": {$nin: bundle_ids}})
 print("\t" + removed_result.nRemoved.toString() + " removed");
 
 print("## DELETING FIELDS 'too_big', 'has_measure_history', 'calc_results', 'description', 'description_category' FROM RECORDS");
