@@ -9,6 +9,7 @@ Pull requests into Bonnie require the following. Submitter and reviewer should :
 - [ ] Tests are included and test edge cases
 - [ ] Tests have been run locally and pass (remember to update Gemfile when applicable)
 - [ ] Code coverage has not gone down and all code touched or added is covered. 
+     * See [front-end testing instructions](https://github.com/projecttacoma/bonnie/wiki/Testing#frontend-testing) for getting coverage for front-end tests
      * In rare situations, this may not be possible or applicable to a PR. In those situations:
          1. Note why this could not be done or is not applicable here: 
          2. Add TODOs in the code noting that it requires a test
