@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class Admin::UsersControllerTest  < ActionController::TestCase
-include Devise::TestHelpers
+include Devise::Test::ControllerHelpers
 
   setup do
     dump_database
@@ -19,7 +19,7 @@ include Devise::TestHelpers
     associate_user_with_measures(@user, Measure.all)
     associate_user_with_patients(@user, Record.all)
 
-    @user.measures.first.value_set_oids.uniq.each do |oid|
+    @user.measures.last.value_set_oids.uniq.each do |oid|
       vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
       vs.concepts << HealthDataStandards::SVS::Concept.new(code_set: 'foo', code:'bar')
       vs.user = @user
