@@ -145,6 +145,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
             ethnicity: patient.get("ethnicity")
             race: patient.get("race")
             gender: patient.get("gender")
+            notes: patient.get("notes")
           }
         # Populates the population details
         if (population_details[pop.cid] == undefined)

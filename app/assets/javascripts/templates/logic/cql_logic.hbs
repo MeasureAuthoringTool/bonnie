@@ -13,6 +13,14 @@
   </div>
 </p>
 {{/if}}
+{{#if hasOutdatedQDM}}
+    <p>
+    <div class="alert alert-warning">
+        <strong>Outdated Measure!</strong> This measure was written using an outdated version of QDM. Please re-package and re-export the measure from the MAT.
+    </div>
+    </p>
+{{/if}}
+
 
 <div class="cql-logic measure-viz rationale panel-group">
   {{#each populationStatementViews}}

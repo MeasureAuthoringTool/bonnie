@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PopulationsControllerTest  < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   setup do
     dump_database
@@ -23,7 +23,8 @@ class PopulationsControllerTest  < ActionController::TestCase
   end
 
   test "get population javascript" do
-    measure = Measure.all.first
+    sign_in @user
+    measure = @user.measures.last
     measure.map_fns = []
     measure.save!
     get :calculate_code, {measure_id: measure.id, id: 0, format: :js}

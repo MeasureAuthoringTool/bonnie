@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class Admin::UsersControllerTest  < ActionController::TestCase
-include Devise::TestHelpers
+include Devise::Test::ControllerHelpers
 
   setup do
     dump_database
@@ -19,7 +19,7 @@ include Devise::TestHelpers
     associate_user_with_measures(@user, Measure.all)
     associate_user_with_patients(@user, Record.all)
 
-    @user.measures.first.value_set_oids.uniq.each do |oid|
+    @user.measures.last.value_set_oids.uniq.each do |oid|
       vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
       vs.concepts << HealthDataStandards::SVS::Concept.new(code_set: 'foo', code:'bar')
       vs.user = @user
@@ -122,26 +122,6 @@ include Devise::TestHelpers
     get :measures, {id: @user.id}
     assert_response :success
     assert_equal 3, JSON.parse(response.body).length
-  end
-
-  test "bundle download" do
-    sign_in @user_admin
-    get :bundle, {id: @user.id}
-    assert_response :success
-    assert_equal 'application/zip', response.header['Content-Type']
-    assert_equal "attachment; filename=\"bundle_#{@user.email}_export.zip\"", response.header['Content-Disposition']
-    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
-    assert_equal 'binary', response.header['Content-Transfer-Encoding']
-    # Verify bundle download contains correct amount of files
-    zip_path = File.join('tmp', 'test.zip')
-    File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
-    Zip::ZipFile.open(zip_path) do |zip_file|
-      assert_equal 7, zip_file.glob(File.join('patients', '**', '*.json')).count
-      assert_equal 3, zip_file.glob(File.join('sources', '**', '*.json')).count
-      assert_equal 3, zip_file.glob(File.join('sources', '**', '*.metadata')).count
-      assert_equal 27, zip_file.glob(File.join('value_sets', '**', '*.json')).count
-    end
-    File.delete(zip_path)
   end
 
   test "sign in as" do
