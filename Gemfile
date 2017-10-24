@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '>= 4.0.0'
+gem 'rails', '~> 4.2.7'
 
 # There's an issue with capistrano-rails related to the asset pipeline, which needs older sprockets
 # https://github.com/capistrano/rails/issues/111
@@ -18,7 +18,7 @@ gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_pati
 gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
 gem 'hqmf2js', :git => 'https://github.com/projecttacoma/hqmf2js.git', :branch => 'master'
 gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'cql4bonnie_use_mat_artifacts'
-gem 'quality-measure-engine', :git => 'https://github.com/pophealth/quality-measure-engine.git', :branch => 'master'
+gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality-measure-engine.git', :branch => 'bump_mongoid'
 gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'QDM_5-0'
 
 # gem 'hquery-patient-api', '1.0.4'
@@ -31,9 +31,10 @@ gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.g
 # gem 'simplexml_parser', :path => '../simplexml_parser'
 
 # needed for HDS
-gem 'rubyzip', '< 1.0.0'
+gem 'rubyzip', '>= 1.2.1'
+gem 'zip-zip'
 
-gem 'axlsx'
+gem 'axlsx', git: 'https://github.com/randym/axlsx', branch: 'master'
 gem 'mongoid'
 gem 'protected_attributes'
 gem 'devise'
@@ -55,6 +56,8 @@ group :test, :development, :ci do
   gem 'minitest'
   gem 'webmock'
   gem 'vcr'
+  gem 'bundler-audit'
+  gem 'brakeman'
 end
 
 group :test, :development do
@@ -78,7 +81,7 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier', '~> 2.7.2'
 end
 
 gem 'foreman'
