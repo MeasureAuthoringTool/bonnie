@@ -66,11 +66,10 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
           valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
 
           terminology.push(valueSet)
-
           @setSummaryValueSets(valueSet, oid, cid, name, codes)
 
-    # now that we have all the value sets, filter them
-    @terminology.add(@filterValueSets(terminology))
+    terminology = @filterValueSets(terminology)
+    @terminology.add(terminology)
 
   filterValueSets: (valueSets) ->
     # returns unique (by name and oid) value sets

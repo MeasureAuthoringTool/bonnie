@@ -41,37 +41,6 @@ describe 'MeasureView', ->
       @measureView.$('[data-toggle="tab"]').not('.value_sets').last().click()
       expect(@measureView.$('[data-toggle="collapse"]').not('.value_sets')).not.toHaveClass('collapsed')
 
-
-    it 'renders value sets and codes', ->
-      expect(@measureView.$('.value_sets')).toExist()
-      expect(@measureView.$('.value_sets')).toBeVisible()
-
-      expect(@measureView.$('#data_criteria')).toExist()
-      expect(@measureView.$('#data_criteria')).toBeVisible()
-      expect(@measureView.$('#data_criteria').find('[data-toggle="collapse"].value_sets')).toExist()
-      expect(@measureView.$('#data_criteria').find('.row.collapse')).toExist()
-      # should only show 10 code results at a time
-      longTables = @measureView.$('#data_criteria').find('tbody').filter ->
-        return $(@).children('tr').length > 10
-      expect(longTables).not.toExist()
-
-      expect(@measureView.$('#library_value_sets').length).toEqual(0)
-      expect(@measureView.$('#main_library_value_sets').length).toEqual(0)
-
-      expect(@measureView.$('#supplemental_criteria')).toExist()
-      expect(@measureView.$('#supplemental_criteria')).toBeVisible()
-      expect(@measureView.$('#supplemental_criteria').find('[data-toggle="collapse"].value_sets')).toExist()
-      expect(@measureView.$('#supplemental_criteria').find('.row.collapse')).toExist()
-
-      expect(@measureView.$('#overlapping_value_sets')).toBeVisible()
-      expect(@measureView.$('#overlapping_value_sets').find('[data-toggle="collapse"].value_sets')).toExist()
-      expect(@measureView.$('#overlapping_value_sets').find('.row.collapse')).toExist()
-      expect(@measureView.$('#overlapping_value_sets')).toContainText 'OVERLAP'
-
-      expect(@measureView.$('[data-toggle="collapse"].value_sets')).toHaveClass('collapsed')
-      @measureView.$('[data-toggle="collapse"].value_sets').click()
-      expect(@measureView.$('[data-toggle="collapse"].value_sets')).not.toHaveClass('collapsed')
-
     it 'renders patient results', ->
       expect(@measureView.$('.patient')).toExist()
       expect(@measureView.$('.toggle-result')).not.toBeVisible()
@@ -100,19 +69,39 @@ describe 'MeasureView', ->
       bonnie.valueSetsByOid = @universalValueSetsByOid
       @cqlMeasureValueSetsView.remove()
 
-    it 'renders library value sets', ->
-      expect(@cqlMeasureValueSetsView.dataCriteria.length).toEqual(11)
-      expect(@cqlMeasureValueSetsView.supplementalCriteria.length).toEqual(4)
-      expect(@cqlMeasureValueSetsView.libraryValueSets.length).toEqual(8)
-      expect(@cqlMeasureValueSetsView.mainLibraryValueSets.length).toEqual(2)
-      expect(@cqlMeasureValueSetsView.overlappingValueSets.length).toEqual(2)
-      expect(@cqlMeasureValueSetsView.$('#library_value_sets')).toExist()
-      expect(@cqlMeasureValueSetsView.$('#library_value_sets')).toBeVisible()
-      expect(@cqlMeasureValueSetsView.$('#library_value_sets')).toContainText 'TJC_Overall: Discharge To Acute Care Facility'
-      expect(@cqlMeasureValueSetsView.$('#main_library_value_sets')).toExist()
-      expect(@cqlMeasureValueSetsView.$('#main_library_value_sets')).toBeVisible()
-      expect(@cqlMeasureValueSetsView.$('#main_library_value_sets')).toContainText 'StrokeEducation: Patient Refusal'
-      expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toExist()
-      expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toBeVisible()
-      expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toContainText 'Non-Elective Inpatient Encounter'
+    describe 'value sets view', ->
+      it 'exists', ->
+        expect(@cqlMeasureValueSetsView.$('.value_sets')).toExist()
+        expect(@cqlMeasureValueSetsView.$('.value_sets')).toBeVisible()
 
+      it 'has the right number of value sets', ->
+        expect(@cqlMeasureValueSetsView.terminology.length).toEqual(23)
+        expect(@cqlMeasureValueSetsView.overlappingValueSets.length).toEqual(2)
+
+      it 'renders terminology section', ->
+        expect(@cqlMeasureValueSetsView.$('#terminology')).toExist()
+        expect(@cqlMeasureValueSetsView.$('#terminology')).toBeVisible()
+        expect(@cqlMeasureValueSetsView.$('#terminology')).toContainText 'Discharge To Acute Care Facility'
+
+      it 'renders overlapping value sets section', ->
+        expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toExist()
+        expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toBeVisible()
+        expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets').find('[data-toggle="collapse"].value_sets')).toExist()
+        expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets').find('.row.collapse')).toExist()
+        expect(@cqlMeasureValueSetsView.$('#overlapping_value_sets')).toContainText 'Non-Elective Inpatient Encounter'
+
+      it 'has terminology section', ->
+        expect(@cqlMeasureValueSetsView.$('#terminology')).toExist()
+        expect(@cqlMeasureValueSetsView.$('#terminology')).toBeVisible()
+        expect(@cqlMeasureValueSetsView.$('#terminology').find('[data-toggle="collapse"].value_sets')).toExist()
+        expect(@cqlMeasureValueSetsView.$('#terminology').find('.row.collapse')).toExist()
+
+      it 'shows only 10 codes at a time', ->
+        longTables = @cqlMeasureValueSetsView.$('#terminology').find('tbody').filter ->
+          return $(@).children('tr').length > 10
+        expect(longTables).not.toExist()
+
+      it 'uncollapses when clicked', ->
+        expect(@cqlMeasureValueSetsView.$('[data-toggle="collapse"].value_sets')).toHaveClass('collapsed')
+        @cqlMeasureValueSetsView.$('[data-toggle="collapse"].value_sets').click()
+        expect(@cqlMeasureValueSetsView.$('[data-toggle="collapse"].value_sets')).not.toHaveClass('collapsed')
