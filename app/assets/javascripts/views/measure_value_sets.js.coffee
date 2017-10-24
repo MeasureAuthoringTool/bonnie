@@ -3,10 +3,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
 
   initialize: ->
     @summaryValueSets = [] # array of {generic value set descriptor, oid, and code}
-    @dataCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')
-    @supplementalCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # ethnicity/gender/payer/race criteria
-    @libraryValueSets = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')
-    @mainLibraryValueSets = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')
+    @terminology = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex') # all value set names, OID, and versions
     @overlappingValueSets = new Thorax.Collections.ValueSetsCollection([]) # all value sets that overlap
     @overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]
 
@@ -14,24 +11,14 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     @pagination_options =
       mode: 'client'
       state: { pageSize: 10, firstPage: 1, currentPage: 1 }
-    @getValueSets() # populates @dataCriteria, @supplementalCriteria, @libraryValueSets, and @mainLibraryValueSets
+    @getValueSets() # populates @terminology
     @findOverlappingValueSets() # populates @overlappingValueSets
 
   context: ->
     criteriaSetArray = []
 
-    if @dataCriteria.length > 0
-      criteriaSetArray.push({ name: "Data Criteria (Main Library)", id: "data_criteria", criteria: @dataCriteria })
-
-    if @mainLibraryValueSets.length > 0
-      criteriaSetArray.push({ name: "Additional Value Sets (Main Library)", id: "main_library_value_sets", criteria: @mainLibraryValueSets })
-
-    if @libraryValueSets.length > 0
-      criteriaSetArray.push({ name: "Additional Value Sets (Included Libraries)", id: "library_value_sets", criteria: @libraryValueSets })
-
-    if @supplementalCriteria.length > 0
-      criteriaSetArray.push({ name: "Supplemental Data Elements", id: "supplemental_criteria", criteria: @supplementalCriteria })
-
+    if @terminology.length > 0
+      criteriaSetArray.push({ name: "Terminology", id: "terminology", criteria: @terminology })
 
     _(super).extend
       overlappingValueSets: @overlappingValueSets
@@ -66,32 +53,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       @summaryValueSets.push({ oid: oid, cid: cid, name: name, codes: codes })
 
   getValueSets: ->
-    supplementalCriteria = []
-    dataCriteria = []
-    dataCriteriaOids = []
-    supplementalCriteriaOids = []
-    libraryValueSets = []
-    mainLibraryValueSets = []
-
-    @model.get('source_data_criteria').each (sdc) =>
-      if sdc.get('code_list_id')
-        name = sdc.get('description')
-        oid = sdc.get('code_list_id')
-        cid = sdc.cid
-
-        [version, codes] = @getVersionAndCodes(oid)
-        valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
-
-        # the property values that indicate a supplemental criteria. this list is derived from
-        # the human readable html for measures.
-        if sdc.get('property') in ["ethnicity", "gender", "payer", "race"]
-          supplementalCriteria.push(valueSet)
-          supplementalCriteriaOids.push(oid)
-        else
-          dataCriteria.push(valueSet)
-          dataCriteriaOids.push(oid)
-
-        @setSummaryValueSets(valueSet, oid, cid, name, codes)
+    terminology = []
 
     if @model.get('elm')
       @model.get('elm').forEach (library) =>
@@ -103,19 +65,12 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
           [version, codes] = @getVersionAndCodes(oid)
           valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
 
-          if oid not in dataCriteriaOids and oid not in supplementalCriteriaOids
-            if library.library.identifier.id == @model.get('main_cql_library')
-              mainLibraryValueSets.push(valueSet)
-            else
-              libraryValueSets.push(valueSet)
+          terminology.push(valueSet)
 
           @setSummaryValueSets(valueSet, oid, cid, name, codes)
 
     # now that we have all the value sets, filter them
-    @supplementalCriteria.add(@filterValueSets(supplementalCriteria))
-    @dataCriteria.add(@filterValueSets(dataCriteria))
-    @mainLibraryValueSets.add(@filterValueSets(mainLibraryValueSets))
-    @libraryValueSets.add(@filterValueSets(libraryValueSets))
+    @terminology.add(@filterValueSets(terminology))
 
   filterValueSets: (valueSets) ->
     # returns unique (by name and oid) value sets
