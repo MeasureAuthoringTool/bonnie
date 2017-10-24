@@ -178,7 +178,47 @@ class CQLMeasureHelpers
         @_findAllLocalIdsInSort(v, libraryName, localIds, aliasMap, emptyResultClauses, rootStatement)
 
   ###*
-  # Find the localId of the function call in the JSON elm annotation.
+  # Find the localId of the function call in the JSON elm annotation. This recursively searches the annotation structure
+  # for the clause of the function ref. When that is found it knows where to look inside of that for where the library
+  # reference may be.
+  #
+  # Consider the following example of looking for function ref with id "55" and library "global".
+  # CQL for this is "global.CalendarAgeInYearsAt(...)". The following annotation snippet covers the call of the
+  # function.
+  #
+  # {
+  #  "r": "55",
+  #  "s": [
+  #    {
+  #      "r": "49",
+  #      "s": [
+  #        {
+  #          "value": [
+  #            "global"
+  #          ]
+  #        }
+  #      ]
+  #    },
+  #    {
+  #      "value": [
+  #        "."
+  #      ]
+  #    },
+  #    {
+  #      "r": "55",
+  #      "s": [
+  #        {
+  #          "value": [
+  #            "\"CalendarAgeInYearsAt\"",
+  #            "("
+  #          ]
+  #        },
+  #
+  # This method will recurse through the structure until it stops on this snippet that has "r": "55". Then it will check
+  # if the value of the first child is simply an array with a single string equaling "global". If that is indeed the
+  # case then it will return the "r" value of that first child, which is the clause localId for the library part of the
+  # function reference. If that is not the case, it will keep recursing and may eventually return null.
+  #
   # @private
   # @param {Object|Array} annotation - The annotation structure or child in the annotation structure.
   # @param {String} functionRefLocalId - The localId of the library function ref we should look for.
@@ -197,6 +237,7 @@ class CQLMeasureHelpers
       # if we found the function ref
       if annotation.r? && annotation.r == functionRefLocalId
         # check if the first child has the first leaf node with the library name
+        # refer to the method comment for why this is done.
         if annotation.s[0].s?[0].value[0] == libraryName
           # return that ID now.
           return annotation.s[0].r

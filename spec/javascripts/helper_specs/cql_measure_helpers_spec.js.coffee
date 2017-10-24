@@ -20,5 +20,6 @@ describe 'CQLMeasureHelpers', ->
     statementName = 'Encounter with Principal Diagnosis and Age'
     localIds = CQLMeasureHelpers.findAllLocalIdsInStatementByName(cqlMeasure, libraryName, statementName)
 
+    # The fixure loaded for this test it is known that the library reference is 49 and the functionRef itself is 55.
     expect(localIds[49]).not.toBeUndefined()
     expect(localIds[49]).toEqual({localId: '49', sourceLocalId: '55'})
