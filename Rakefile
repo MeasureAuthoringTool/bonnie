@@ -25,6 +25,7 @@ Rake::TestTask.new(:test_unit) do |t|
   t.libs << "test"
   t.test_files = FileList['test/**/*_test.rb']
   t.verbose = true
+  t.ruby_opts = ['-W1']
 end
 
 task :test => [:test_unit] do
@@ -36,4 +37,3 @@ Rake::Task["bundle:activate"].clear_comments
 Rake::Task["bundle:import"].clear_comments
 Rake::Task["bundle:list"].clear_comments
 Rake::Task["bundle:merge"].clear_comments
-
