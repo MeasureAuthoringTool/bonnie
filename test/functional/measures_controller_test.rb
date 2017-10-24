@@ -216,12 +216,8 @@ include Devise::Test::ControllerHelpers
     end
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_equal "Error Uploading Measure", flash[:error][:title]
-    assert_equal "The uploaded zip file is not a valid Measure Authoring Tool export of a CQL Measure.", flash[:error][:summary]
-<<<<<<< HEAD
-    assert_equal "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file. Please re-export your measure from the MAT and select the 'eMeasure Package' option.", flash[:error][:body]
-=======
-    assert_equal "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option. Please use https://bonnie.healthit.gov/ for HQMF based measures.", flash[:error][:body]
->>>>>>> cql4bonnie
+    assert_equal "The uploaded zip file is not a valid Measure Authoring Tool export of a CQL Based Measure.", flash[:error][:summary]
+    assert_equal "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file. Please re-export your measure from the MAT and select the 'eMeasure Package' option. Please use https://bonnie-prior.healthit.gov/ for QDM-Logic Based measures.", flash[:error][:body]
     assert_response :redirect
   end
 

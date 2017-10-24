@@ -66,11 +66,7 @@ class MeasuresController < ApplicationController
         return
     else
       if !Measures::CqlLoader.mat_cql_export?(params[:measure_file])
-        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a valid Measure Authoring Tool export of a CQL Based Measure.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file please re-export your measure from the MAT and select the 'eMeasure Package' option. Please use https://bonnie.healthit.gov/ for QDM-Logic Based measures."}
-        redirect_to "#{root_path}##{params[:redirect_route]}"
-        return
-      elsif !Measures::CqlLoader.mat_cql_export?(params[:measure_file])
-        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a Measure Authoring Tool export.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool zip file please re-export your measure from the MAT and select the 'eMeasure Package' option"}
+        flash[:error] = {title: "Error Uploading Measure", summary: "The uploaded zip file is not a valid Measure Authoring Tool export of a CQL Based Measure.", body: "You have uploaded a zip file that does not appear to be a Measure Authoring Tool CQL zip file. Please re-export your measure from the MAT and select the 'eMeasure Package' option. Please use https://bonnie-prior.healthit.gov/ for QDM-Logic Based measures."}
         redirect_to "#{root_path}##{params[:redirect_route]}"
         return
       end
