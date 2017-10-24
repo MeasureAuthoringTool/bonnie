@@ -58,7 +58,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     if @model.get('elm')
       @model.get('elm').forEach (library) =>
         library.library.valueSets.def.forEach (value_set) =>
-          name = library.library.identifier.id + ": " + value_set.name
+          name = value_set.name
           oid = value_set.id
           cid = _.uniqueId('c')
 
