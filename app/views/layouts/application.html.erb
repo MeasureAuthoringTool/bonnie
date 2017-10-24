@@ -41,8 +41,6 @@
       bonnie.isDashboard = <%= current_user.is_dashboard? %>;
       bonnie.isAdmin = <%= current_user.is_admin? %>;
       bonnie.currentUserId = '<%= current_user.id %>';
-      bonnie.measurePeriod = <%= Time.zone.at(APP_CONFIG['measure_period_start']).year %>;
-      bonnie.applicationVersion = '<%=Bonnie::Version.current()%>';
       <% @patients.each do |patient| %>
         (function() {
           var patient = new Thorax.Models.Patient(<%= json_escape(MultiJson.encode(patient.as_json(except: :results))).html_safe %>, { parse: true });

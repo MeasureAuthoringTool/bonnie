@@ -12,7 +12,7 @@ class Admin::UsersController < ApplicationController
     users = User.asc(:email).all.to_a # Need to convert to array so counts stick
     map = "function() { emit(this.user_id, 1); }"
     reduce = "function(user_id, counts) { return Array.sum(counts); }"
-    measure_counts = Measure.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
+    measure_counts = CqlMeasure.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
     patient_counts = Record.map_reduce(map, reduce).out(inline: true).each_with_object({}) { |r, h| h[r[:_id]] = r[:value].to_i }
     users.each do |u|
       u.measure_count = measure_counts[u.id] || 0
@@ -27,7 +27,7 @@ class Admin::UsersController < ApplicationController
   def email_all
     User.asc(:email).each do |user|
       email = Admin::UsersMailer.users_email(user, params[:subject], params[:body])
-      email.deliver
+      email.deliver_now
       sleep 2 # address issues with mail throttling
     end
     render json: {}
@@ -39,7 +39,7 @@ class Admin::UsersController < ApplicationController
     User.asc(:email).where(:last_sign_in_at.gt => Date.today - 6.months).each do |user|
       if user.measure_count > 0
         email = Admin::UsersMailer.users_email(user, params[:subject], params[:body])
-        email.deliver
+        email.deliver_now
         sleep 2 # address issues with mail throttling
       end
     end
@@ -58,7 +58,7 @@ class Admin::UsersController < ApplicationController
     user = User.find(params[:id])
     user.approved = true
     user.save
-    UserMailer.account_activation_email(user).deliver
+    UserMailer.account_activation_email(user).deliver_now
     render json: user
   end
 

@@ -5,7 +5,7 @@
 set :stage, :production
 
 # Tell RVM to use the current ruby when running capistrano
-set :rvm1_ruby_version, ENV['GEM_HOME'].gsub(/.*\//, '')
+set :rvm1_ruby_version, '2.3.5'
 
 # Set the branch to the currently checked out branch
 set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -14,7 +14,7 @@ set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 set :keep_releases, 3
 
 # Hostname and secret token get specified in config files local to the server
-set :linked_files, (fetch(:linked_files) || []).concat(%w{config/server.yml config/newrelic.yml config/initializers/secret_token.rb})
+set :linked_files, (fetch(:linked_files) || []).concat(%w{config/server.yml config/newrelic.yml config/secrets.yml})
 
 # Repository gets cloned to /apps/dev/tacoma/ruby/repository/bonnie, bonnie gets deployed to /apps/dev/tacoma/ruby/bonnie
 set :deploy_to, File.join(File.dirname(File.dirname(Dir.pwd)), 'bonnie')

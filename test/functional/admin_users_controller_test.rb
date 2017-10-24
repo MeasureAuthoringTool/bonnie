@@ -1,23 +1,25 @@
 require 'test_helper'
 
 class Admin::UsersControllerTest  < ActionController::TestCase
-include Devise::TestHelpers
+include Devise::Test::ControllerHelpers
 
   setup do
     dump_database
-    records_set = File.join("records", "base_set")
+    records_set = File.join("records", "CMS347v1")
     users_set = File.join("users", "base_set")
     measures_set = File.join("draft_measures", "base_set")
-    collection_fixtures(users_set, records_set, measures_set)
+    cql_measures_set = File.join("cql_measures", "CMS347v1")
+    collection_fixtures(users_set, records_set, measures_set, cql_measures_set)
     @user = User.by_email('bonnie@example.com').first
     @user_admin = User.by_email('user_admin@example.com').first
     @user_plain = User.by_email('user_plain@example.com').first
     @user_unapproved = User.by_email('user_unapproved@example.com').first
 
+    associate_user_with_measures(@user, CqlMeasure.all)
     associate_user_with_measures(@user, Measure.all)
     associate_user_with_patients(@user, Record.all)
 
-    @user.measures.first.value_set_oids.uniq.each do |oid|
+    @user.measures.last.value_set_oids.uniq.each do |oid|
       vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
       vs.concepts << HealthDataStandards::SVS::Concept.new(code_set: 'foo', code:'bar')
       vs.user = @user
@@ -39,7 +41,16 @@ include Devise::TestHelpers
     sign_in @user_admin
     get :index, {format: :json}
     assert_response :success
-    assert_equal 4, JSON.parse(response.body).count
+    index_json = JSON.parse(response.body)
+    assert_equal 4, index_json.count
+    assert_equal 1, index_json[0]['measure_count']
+    assert_equal 7, index_json[0]['patient_count']
+    assert_equal 0, index_json[1]['measure_count']
+    assert_equal 0, index_json[1]['patient_count']
+    assert_equal 0, index_json[2]['measure_count']
+    assert_equal 0, index_json[2]['patient_count']
+    assert_equal 0, index_json[3]['measure_count']
+    assert_equal 0, index_json[3]['patient_count']
   end
 
   test "approve user" do
@@ -103,7 +114,7 @@ include Devise::TestHelpers
     sign_in @user_admin
     get :patients, {id: @user.id}
     assert_response :success
-    assert_equal 4, JSON.parse(response.body).length
+    assert_equal 7, JSON.parse(response.body).length
   end
 
   test "measures download" do
@@ -111,26 +122,6 @@ include Devise::TestHelpers
     get :measures, {id: @user.id}
     assert_response :success
     assert_equal 3, JSON.parse(response.body).length
-  end
-
-  test "bundle download" do
-    sign_in @user_admin
-    get :bundle, {id: @user.id}
-    assert_response :success
-    assert_equal 'application/zip', response.header['Content-Type']
-    assert_equal "attachment; filename=\"bundle_#{@user.email}_export.zip\"", response.header['Content-Disposition']
-    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
-    assert_equal 'binary', response.header['Content-Transfer-Encoding']
-    # Verify bundle download contains correct amount of files
-    zip_path = File.join('tmp', 'test.zip')
-    File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
-    Zip::ZipFile.open(zip_path) do |zip_file|
-      assert_equal 4, zip_file.glob(File.join('patients', '**', '*.json')).count
-      assert_equal 3, zip_file.glob(File.join('sources', '**', '*.json')).count
-      assert_equal 3, zip_file.glob(File.join('sources', '**', '*.metadata')).count
-      assert_equal 27, zip_file.glob(File.join('value_sets', '**', '*.json')).count
-    end
-    File.delete(zip_path)
   end
 
   test "sign in as" do
