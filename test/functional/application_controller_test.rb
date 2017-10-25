@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ApplicationControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
   setup do
     dump_database
     users_set = File.join("users", "base_set")

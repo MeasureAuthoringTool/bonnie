@@ -28,7 +28,7 @@ class User
   # Send admins an email after a user account is created
   after_create :send_user_signup_email
   def send_user_signup_email
-    UserMailer.user_signup_email(self).deliver
+    UserMailer.user_signup_email(self).deliver_now
   end
 
   # Setup accessible (or protected) attributes for your model

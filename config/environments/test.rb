@@ -8,7 +8,7 @@ Bonnie::Application.configure do
   config.cache_classes = true
   config.eager_load = false
   # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_assets = true
+  config.serve_static_files = true
   config.static_cache_control = "public, max-age=3600"
 
   # Log error messages when you accidentally call methods on nil
@@ -30,6 +30,10 @@ Bonnie::Application.configure do
   config.action_mailer.delivery_method = :test
 
   Rails.application.routes.default_url_options[:host] = 'localhost'
+
+  Rails.application.configure do
+    config.active_support.test_order = :sorted
+  end
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PatientsControllerTest  < ActionController::TestCase
-include Devise::TestHelpers
+include Devise::Test::ControllerHelpers
 
   setup do
     dump_database
@@ -203,28 +203,105 @@ include Devise::TestHelpers
       end
     end
     File.delete(zip_path)
-
   end
 
-  test "excel export patients" do
+  test "excel export sheet names" do
     calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'calc_results.json'))
     patient_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'patient_details.json'))
 
-    pop_details = []
-    pop_details.push File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_10_char.json'))
-    pop_details.push File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_29_char.json'))
-    pop_details.push File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_30_char.json'))
-    pop_details.push File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_31_char.json'))
-    pop_details.push File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_32_char.json'))
+    pop_details = [
+      {
+        fixture: File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_10_char.json')),
+        pop: "1 - Population"
+      },
+      {
+        fixture: File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_29_char.json')),
+        pop: "Population 1"
+      },
+      {
+        fixture: File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_30_char.json')),
+        pop: "Population 1"
+      },
+      {
+        fixture: File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_31_char.json')),
+        pop: "Population 1"
+      },
+      {
+        fixture: File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'population_details_title_32_char.json')),
+        pop: "Population 1"
+      }
+    ]
 
     statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'statement_details.json'))
 
     # Tests using different lengths of population titles.
     pop_details.each do |population_details|
-      get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test"
+      get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details[:fixture], statement_details: statement_details, file_name: "test"
       assert_response :success
       assert_equal 'application/xlsx', response.header['Content-Type']
       assert_equal 'binary', response.header['Content-Transfer-Encoding']
+      temp = Tempfile.new(["test", ".xlsx"])
+      temp.write(response.body)
+      temp.rewind()
+      doc = Roo::Spreadsheet.open(temp.path)
+      sheet1 = doc.sheet(population_details[:pop])
+      
+      assert !sheet1.nil?
+      
+      temp.close()
+      temp.unlink()
     end
   end
+  
+  test "Excel export fields check" do
+    calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'excel_fields_check', 'calc_results.json'))
+    patient_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'excel_fields_check', 'patient_details.json'))
+    population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'excel_fields_check', 'population_details.json'))
+    statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'excel_fields_check', 'statement_details.json'))
+
+    get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test"
+    assert_response :success
+    assert_equal 'application/xlsx', response.header['Content-Type']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
+    temp = Tempfile.new(["test", ".xlsx"])
+    temp.write(response.body)
+    temp.rewind()
+    doc = Roo::Spreadsheet.open(temp.path)
+    sheet1 = doc.sheet("1 - Population Criteria Section")
+
+    row2 = sheet1.row(2)
+    assert_equal "IPP", row2[0]
+    assert_equal "DENOM", row2[1]
+    assert_equal "notes", row2[8]
+    assert_equal "last", row2[9]
+    assert_equal "first", row2[10]
+
+    row3 = sheet1.row(3)
+    assert_equal 0.0, row3[0]
+    assert_equal "test2", row3[8]
+    assert_equal "last_a", row3[9]
+    assert_equal "first_a", row3[10]
+    assert_equal "02/02/2011", row3[11]
+    assert_equal "TRUE", row3[12]
+    assert_equal "10/05/2017", row3[13]
+    assert_equal "Not Hispanic or Latino", row3[14]
+    assert_equal "Asian", row3[15]
+    assert_equal "M", row3[16]
+      
+    row4 = sheet1.row(4)
+    assert_equal 0.0, row4[0]
+    assert_equal "test1", row4[8]
+    assert_equal "last_b", row4[9]
+    assert_equal "first_b", row4[10]
+    assert_equal "03/04/1971", row4[11]
+    assert_equal "FALSE", row4[12]
+    assert_nil row4[13]
+    assert_equal "Not Hispanic or Latino", row4[14]
+    assert_equal "American Indian or Alaska Native", row4[15]
+    assert_equal "M", row4[16]
+    
+    temp.close()
+    temp.unlink()
+  end
+  
 end
