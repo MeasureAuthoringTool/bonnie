@@ -45,6 +45,8 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
           codeConcepts = []
 
         codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @pagination_options)
+        if version.match(/^Draft/)
+          version = "Draft"
         valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid, direct_reference: direct_reference }
 
         # the property values that indicate a supplemental criteria. this list is derived from
