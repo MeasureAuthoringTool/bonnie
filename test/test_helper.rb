@@ -8,21 +8,25 @@ WebMock.enable!
 class ActiveSupport::TestCase
 
   def dump_database
-    Mongoid.default_session.drop()
+    Mongoid.default_client.collections.each do |c|
+      c.drop()
+    end
   end
 
   def collection_fixtures(*collection_names)
     collection_names.each do |collection|
-      Mongoid.default_session[collection].drop
+      Mongoid.default_client[collection].drop
       Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
         fixture_json = JSON.parse(File.read(json_fixture_file))
-        convert_times(fixture_json)
-        set_mongoid_ids(fixture_json)
-        # Mongoid names collections based off of the default_session argument.
-        # With nested folders,the collection name is “records/X” (for example).
-        # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
-        collection = collection.split(File::SEPARATOR)[0]
-        Mongoid.default_session[collection].insert(fixture_json)
+        if fixture_json.length > 0
+          convert_times(fixture_json)
+          set_mongoid_ids(fixture_json)
+          # Mongoid names collections based off of the default_client argument.
+          # With nested folders,the collection name is “records/X” (for example).
+          # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
+          collection = collection.split(File::SEPARATOR)[0]
+          Mongoid.default_client[collection].insert_one(fixture_json)
+        end
       end
     end
   end
