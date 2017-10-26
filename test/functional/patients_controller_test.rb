@@ -304,4 +304,36 @@ include Devise::Test::ControllerHelpers
     temp.unlink()
   end
   
+  test "Excel export cv measures" do
+    calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'calc_results.json'))
+    patient_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'patient_details.json'))
+    population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'population_details.json'))
+    statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'statement_details.json'))
+
+    get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test"
+    assert_response :success
+    assert_equal 'application/xlsx', response.header['Content-Type']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
+    temp = Tempfile.new(["test", ".xlsx"])
+    temp.write(response.body)
+    temp.rewind()
+    doc = Roo::Spreadsheet.open(temp.path)
+    sheet1 = doc.sheet("1 - Population Criteria Section")
+
+    row2 = sheet1.row(2)
+    assert_equal "OBSERV", row2[2]
+    assert_equal "OBSERV", row2[6]
+
+    row3 = sheet1.row(3)
+    assert_equal "[115]", row3[2]
+    assert_equal "[115]", row3[6]
+    
+    row19 = sheet1.row(19)
+    assert_equal "[0]", row19[2]
+    assert_equal "[45]", row19[6]
+    
+    temp.close()
+    temp.unlink()
+  end
+  
 end
