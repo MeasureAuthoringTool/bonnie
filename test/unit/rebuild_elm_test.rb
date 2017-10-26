@@ -68,7 +68,7 @@ class RebuildElmTest < ActiveSupport::TestCase
     package.delete
     measure.save
 
-    # Confirm measure model saved corectly.       
+    # Confirm measure model saved corectly.
     assert_nil measure.elm_annotations
     assert_nil measure.package
 
@@ -81,11 +81,11 @@ class RebuildElmTest < ActiveSupport::TestCase
     # Confirm that measure title did not update.
     assert_equal measure.title, 'No mat package'
 
-    # Confirm there is still now associated MAT package.
+    # Confirm there is still no associated MAT package.
     assert_nil measure.package
 
     # Confirm that the ELM annotations were updated.
-    assert_not_equal nil, measure.elm_annotations 
+    assert_not_equal nil, measure.elm_annotations
     measure.delete
   end
 
