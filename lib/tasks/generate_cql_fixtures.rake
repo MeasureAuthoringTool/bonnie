@@ -77,9 +77,23 @@ namespace :bonnie do
       measure.user_id = bonnie_user_id
       measure_name = measure.cms_id + ".json"
       measure_file = File.join(fixtures_path, 'cql_measures', args[:path], measure_name)
-      create_fixture_file(measure_file, JSON.pretty_generate(JSON.parse(measure.to_json)))
+      # fix the measure's id so it will be imported as a BSON::ObjectId.
+      measure_hash = JSON.parse(measure.to_json)
+      measure_hash['_id'] = { '$oid' => measure_hash['_id'] }
+      create_fixture_file(measure_file, JSON.pretty_generate(measure_hash))
       puts 'exported measure to ' + measure_file
       
+      #Exports the measure package
+      if measure.package
+        measure_package_file = File.join(fixtures_path, 'cql_measure_packages', args[:path], measure_name)
+        # fix the measure_id and _id so they get imported as BSON::ObjectIds
+        measure_package_hash = JSON.parse(measure.package.to_json)
+        measure_package_hash['_id'] = { '$oid' => measure_package_hash['_id'] }
+        measure_package_hash['measure_id'] = { '$oid' => measure_package_hash['measure_id'] }
+        create_fixture_file(measure_package_file, measure_package_hash.to_json)
+        puts 'exported measure package to ' + measure_package_file
+      end
+
       #Exports the measure's value_sets
       value_sets_file = File.join(fixtures_path, 'health_data_standards_svs_value_sets', args[:path], 'value_sets.json')
       value_sets = measure.value_sets
