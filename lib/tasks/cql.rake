@@ -333,5 +333,79 @@ namespace :bonnie do
       end
     end 
 
+    desc %{Adds the JSON elm to a MAT package. Saves as a new file with '_with_JSON' appened to the file name.
+
+    $ rake bonnie:cql:add_json_to_package[path/to/package.zip]}
+    task :add_json_to_package, [:input_package_path] => [:environment] do |t, args|
+      input_package_path = Pathname.new(args[:input_package_path])
+      temp_path = Pathname.new(File.join('tmp', 'package_temp'))
+      FileUtils.rm_rf(temp_path) if temp_path.exist?
+      temp_path.mkdir
+      puts "Adding JSON ELM to #{args[:input_package_path]}"
+
+      base_zip_directory = nil
+      # extract human_readable and determine base directory name if there is one
+      Zip::ZipFile.open(input_package_path) do |zip_file|
+        human_readable_path = zip_file.glob(File.join('**','**.html')).select { |x| !x.name.starts_with?('__MACOSX') }.first
+        zip_file.extract(human_readable_path, File.join(temp_path, File.basename(human_readable_path.name)))
+
+        # look at the human_readable to see if it has a directory it resides in
+        if File.dirname(human_readable_path.name) != "."
+          base_zip_directory = File.dirname(human_readable_path.name)
+        end
+      end
+
+      # extract all other files
+      files = Measures::CqlLoader.get_files_from_zip(File.new(input_package_path), temp_path)
+      raise Exception.new("Package already has ELM JSON!") if files[:ELM_JSON].length > 0
+
+      # translate_cql_to_elm
+      elm_jsons, elm_xmls = CqlElm::CqlToElmHelper.translate_cql_to_elm(files[:CQL])
+
+      # save json files
+      json_filenames = []
+      elm_jsons.each_with_index do |elm_json, index|
+        elm_json_hash = JSON.parse(elm_json)
+        elm_library_version = "#{elm_json_hash['library']['identifier']['id']}-#{elm_json_hash['library']['identifier']['version']}"
+        json_filenames << "#{elm_library_version}.json"
+        json_path = File.join('tmp', 'package_temp', "#{elm_library_version}.json")
+        puts "creating #{json_path}"
+        File.write(json_path, elm_json)
+      end
+
+      # edit xml
+      puts "Adding JSON ELM entries to HQMF"
+      doc = Nokogiri::XML.parse(File.read(files[:HQMF_XML_PATH]))
+      # find cql each expressionDocument
+      doc.xpath("//xmlns:relatedDocument/xmlns:expressionDocument/xmlns:text").each do |cql_node|
+        # guess at the library name and attempt to find a json file we created for it
+        cql_filename = cql_node.at_xpath('xmlns:reference').attribute('value').value
+        cql_libname = cql_filename.split('-')[0]
+        json_filename = json_filenames.select { |filename| filename.start_with?(cql_libname)}
+        raise Exception.new("Could not find json elm file for #{cql_libname}") unless json_filename.length > 0
+
+        # clone the xml translation and modify it to reference the elm_json
+        new_translation = cql_node.at_xpath('xmlns:translation').clone()
+        new_translation.attribute('mediaType').value = "application/elm+json"
+        new_translation.at_xpath('xmlns:reference').attribute('value').value = json_filename[0]
+        cql_node.add_child(new_translation)
+      end
+      File.write(files[:HQMF_XML_PATH], doc.to_xml)
+
+      # create new zip
+      output_package_path = Pathname.new(File.join(input_package_path.dirname, input_package_path.basename('.zip').to_s + "_with_json.zip"))
+      puts "Creating new zip file at #{output_package_path}"
+      Zip::ZipFile.open(output_package_path, Zip::File::CREATE) do |new_package_zip|
+        temp_path.children.each do |path|
+          if base_zip_directory != nil
+            target_path = File.join(base_zip_directory, path.basename)
+          else
+            target_path = path.basename
+          end
+          puts "  + #{target_path}"
+          new_package_zip.add(target_path, path)
+        end
+      end
+    end
   end
 end
