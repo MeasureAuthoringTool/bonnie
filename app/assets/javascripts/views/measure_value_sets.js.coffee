@@ -44,7 +44,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       version = "Draft"
     [version, codes]
 
-  setSummaryValueSets: (valueSet, oid, cid, name, codes) ->
+  addSummaryValueSet: (valueSet, oid, cid, name, codes) ->
     # only add value set info summaryValueSets if it isn't there already
     # includes the common name for the value set, the oid, and the codes.
     if _.where(@summaryValueSets, { oid: oid }).length == 0
@@ -66,7 +66,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
           valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
 
           terminology.push(valueSet)
-          @setSummaryValueSets(valueSet, oid, cid, name, codes)
+          @addSummaryValueSet(valueSet, oid, cid, name, codes)
 
     terminology = @filterValueSets(terminology)
     @terminology.add(terminology)
@@ -116,7 +116,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
               overlapValueSets[overlapKey] = [overlap['valueSet'], curValueSet]
             overlapCodes[overlapKey].push(curCode)
         codeToVs[workingCode].push(vsAndCode)
-    
+
     #Users have specfically requested that overlaps should be indicated in both directions.
     for overlapKey in Object.keys(overlapValueSets)
       valueSet1 = overlapValueSets[overlapKey][0]
