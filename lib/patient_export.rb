@@ -130,7 +130,13 @@ class PatientExport
               population_criteria.each do |criteria|
                 expected.push(patient_details[patient_key]["expected_values"][pop_index][criteria])
                 if (criteria == "OBSERV")
-                  actual.push(calc_results[pop_key][patient_key]['criteria']['values'])
+                  observ_expected = patient_details[patient_key]["expected_values"][pop_index][criteria]
+                  observ_actual = calc_results[pop_key][patient_key]['criteria']['values']
+                  if (observ_expected.nil? && observ_actual == [])
+                    actual.push(nil)
+                  else
+                    actual.push(observ_actual)
+                  end
                 else
                   actual.push(calc_results[pop_key][patient_key]["criteria"][criteria])
                 end
