@@ -362,14 +362,49 @@ namespace :bonnie do
       # translate_cql_to_elm
       elm_jsons, elm_xmls = CqlElm::CqlToElmHelper.translate_cql_to_elm(files[:CQL])
 
+      # older packages don't have annotations or clause level annotations, if they dont have them wipe out the existing
+      # XML ELM and use the ones from the translation server
+      # start by assuming they are annotations, then set this to false
+      annotations_exist = true
+      files[:ELM_XML].each do |elm_xml|
+        if elm_xml.index("<a:s r=") == nil
+          annotations_exist = false
+        end
+      end
+
+      # if we found that annotations are missing then we have to use the xml from the translation service
+      xml_filenames = []
+      if !annotations_exist
+        puts "This appears to be an older package that needs annotations. Replacing XML ELM with translation service response."
+
+        # remove the old xml files
+        old_elm_xml_filepaths = Dir.glob(File.join(temp_path, "*.xml")).select { |x| x != files[:HQMF_XML_PATH] }
+        old_elm_xml_filepaths.each do |file|
+          puts "deleting #{file}"
+          File.unlink(file)
+        end
+
+        # save the versions from the service
+        elm_xmls.each do |elm_xml|
+          elm_doc = Nokogiri::XML.parse(elm_xml)
+          library_identifier = elm_doc.at_xpath("//xmlns:library/xmlns:identifier")
+          library_name = library_identifier.attribute('id').value
+          library_version = library_identifier.attribute('version').value
+          xml_path = "#{library_name}-#{library_version}.xml"
+          xml_filenames << xml_path
+          puts "creating #{xml_path}"
+          File.write(File.join('tmp', 'package_temp', xml_path), elm_xml)
+        end
+      end
+
       # save json files
       json_filenames = []
-      elm_jsons.each_with_index do |elm_json, index|
+      elm_jsons.each do |elm_json|
         elm_json_hash = JSON.parse(elm_json)
         elm_library_version = "#{elm_json_hash['library']['identifier']['id']}-#{elm_json_hash['library']['identifier']['version']}"
         json_filenames << "#{elm_library_version}.json"
         json_path = File.join('tmp', 'package_temp', "#{elm_library_version}.json")
-        puts "creating #{json_path}"
+        puts "creating #{elm_library_version}.json"
         File.write(json_path, elm_json)
       end
 
@@ -380,9 +415,16 @@ namespace :bonnie do
       doc.xpath("//xmlns:relatedDocument/xmlns:expressionDocument/xmlns:text").each do |cql_node|
         # guess at the library name and attempt to find a json file we created for it
         cql_filename = cql_node.at_xpath('xmlns:reference').attribute('value').value
-        cql_libname = cql_filename.split('-')[0]
+        cql_libname = cql_filename.split(/[-,_]/)[0]
         json_filename = json_filenames.select { |filename| filename.start_with?(cql_libname)}
-        raise Exception.new("Could not find json elm file for #{cql_libname}") unless json_filename.length > 0
+        raise Exception.new("Could not find JSON ELM file for #{cql_libname}") unless json_filename.length > 0
+
+        # update reference to ELM XML files we replaced if that was needed
+        if !annotations_exist
+          xml_filename = xml_filenames.select { |filename| filename.start_with?(cql_libname)}
+          raise Exception.new("Could not find XML ELM file for #{cql_libname}") unless xml_filename.length > 0
+          cql_node.at_xpath('xmlns:translation/xmlns:reference').attribute('value').value = xml_filename[0]
+        end
 
         # clone the xml translation and modify it to reference the elm_json
         new_translation = cql_node.at_xpath('xmlns:translation').clone()
