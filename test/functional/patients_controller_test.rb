@@ -336,7 +336,6 @@ include Devise::Test::ControllerHelpers
     
     #Ensure that observ [nil] equals observ [nil] properly
     s1_r4 = sheet1.row(4)
-    puts s1_r4
     assert_equal "[nil]", s1_r4[2]
     assert_equal "[nil]", s1_r4[6]
     
