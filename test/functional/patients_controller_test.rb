@@ -329,11 +329,6 @@ include Devise::Test::ControllerHelpers
     assert_equal "[115]", row3[2]
     assert_equal "[115]", row3[6]
     
-    #Ensure that observe does not equal itself as it should
-    row19 = sheet1.row(19)
-    assert_equal "[0]", row19[2]
-    assert_equal "[45]", row19[6]
-    
     #Ensure that observ [nil] equals observ [nil] properly
     s1_r4 = sheet1.row(4)
     assert_equal "[nil]", s1_r4[2]
