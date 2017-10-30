@@ -310,20 +310,18 @@ include Devise::Test::ControllerHelpers
       measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
       assert_not_nil measure
     end
-    VCR.use_cassette("valid_repeat") do
-      update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
-      # Now measure successfully uploaded, try to upload again
-      post :create, {vsac_date: '08/22/2017', include_draft: true, measure_file: update_measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
+    # Now measure successfully uploaded, try to upload again
+    post :create, {vsac_date: '08/22/2017', include_draft: true, measure_file: update_measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
 
-      assert_equal "Error Loading Measure", flash[:error][:title]
-      assert_equal "A version of this measure is already loaded.", flash[:error][:summary]
-      assert_equal "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it.", flash[:error][:body]
-      assert_response :redirect
+    assert_equal "Error Loading Measure", flash[:error][:title]
+    assert_equal "A version of this measure is already loaded.", flash[:error][:summary]
+    assert_equal "You have a version of this measure loaded already.  Either update that measure with the update button, or delete that measure and re-upload it.", flash[:error][:body]
+    assert_response :redirect
 
-      # Verify measure has not been deleted or modified
-      measure_after = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
-      assert_equal measure, measure_after
-    end
+    # Verify measure has not been deleted or modified
+    measure_after = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    assert_equal measure, measure_after
 
   end
 
@@ -337,14 +335,12 @@ include Devise::Test::ControllerHelpers
       post :create, {vsac_date: '08/22/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     end
     # Upload a modified version of the initial file with a mismatching hqmf_set_id
-    VCR.use_cassette("hqmf_set_id_mismatch") do
-      update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts_HQMF_SetId_Mismatch.zip'), 'application/xml')
-      class << update_measure_file
-        attr_reader :tempfile2
-      end
-      # The hqmf_set_id of the initial file is sent along with the create request
-      post :create, {vsac_date: '08/22/2017', include_draft: true, hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7", measure_file: update_measure_file, vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+    update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts_HQMF_SetId_Mismatch.zip'), 'application/xml')
+    class << update_measure_file
+      attr_reader :tempfile2
     end
+    # The hqmf_set_id of the initial file is sent along with the create request
+    post :create, {vsac_date: '08/22/2017', include_draft: true, hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7", measure_file: update_measure_file, vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     # Verify that the controller detects the mismatching hqmf_set_id and rejects
     assert_equal "Error Updating Measure", flash[:error][:title]
     assert_equal "The update file does not match the measure.", flash[:error][:summary]
