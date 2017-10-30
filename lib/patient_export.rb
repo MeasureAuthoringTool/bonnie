@@ -129,14 +129,24 @@ class PatientExport
               actual = []
               population_criteria.each do |criteria|
                 expected.push(patient_details[patient_key]["expected_values"][pop_index][criteria])
-                actual.push(calc_results[pop_key][patient_key]["criteria"][criteria])
+                if criteria == "OBSERV"
+                  observ_expected = patient_details[patient_key]["expected_values"][pop_index][criteria]
+                  observ_actual = calc_results[pop_key][patient_key]['criteria']['values']
+                  if observ_expected.nil? && observ_actual == []
+                    actual.push(nil)
+                  else
+                    actual.push(observ_actual)
+                  end
+                else
+                  actual.push(calc_results[pop_key][patient_key]["criteria"][criteria])
+                end
               end
 
               statement_results = Array.new(statement_to_column.length, nil)
               patient["statement_results"].each do |lib, statements|
                 statements.each do |statement, result|
-                  if (!statement_to_column[statement].nil?)
-                    if (result.eql? "UNHIT")
+                  if !statement_to_column[statement].nil?
+                    if result.eql? "UNHIT"
                       statement_results[statement_to_column[statement]] = "Not Calculated"
                     else
                       statement_results[statement_to_column[statement]] = result
