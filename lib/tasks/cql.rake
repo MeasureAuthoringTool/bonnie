@@ -16,22 +16,34 @@ namespace :bonnie do
           # this measure. Also comes in handy when detecting measures uploaded
           # by accounts that have since been deleted.
           user = User.find_by(_id: measure[:user_id])
-          # Grab the measure cql
-          if measure[:cql].instance_of?(Array) # New type of measure
-            cql = measure[:cql]
-          elsif measure[:cql].instance_of?(String) # Old type of measure
-            cql = [measure[:cql]]
-          end
+          cql = nil
+          cql_artifacts = nil
           # Grab the name of the main cql library
-          if measure[:main_cql_library].present?
-            # Old measure! Grab the main_cql_library name from the ELM
-            main_cql_library = measure[:main_cql_library]
+          main_cql_library = measure[:main_cql_library]
+
+          # If measure has been uploaded more recently (we should have a copy of the MAT Package) we will use the actual MAT artifacts
+          if !measure.package.nil?
+            # Create a temporary directory
+            Dir.mktmpdir do |dir|
+              # Write the package to a temp directory
+              File.open(File.join(dir, measure.measure_id + '.zip'), 'wb') do |zip_file|
+                # Write the package binary to a zip file.
+                zip_file.write(measure.package.file.data)
+                files = Measures::CqlLoader.get_files_from_zip(zip_file, dir)
+                cql_artifacts = Measures::CqlLoader.process_cql(files, main_cql_library, user)
+                cql = files[:CQL]
+              end
+            end
+          # If the measure does not have a MAT package stored, continue as we have in the past using the cql to elm service
           else
-            main_cql_library = elms.first['library']['identifier']['id']
+            # Grab the measure cql
+            cql = measure[:cql]
+             # Use the CQL-TO-ELM Translation Service to regenerate elm for older measures.
+            elm_json, elm_xml = CqlElm::CqlToElmHelper.translate_cql_to_elm(cql)
+            elms = {:ELM_JSON => elm_json,
+                    :ELM_XML => elm_xml}
+            cql_artifacts = Measures::CqlLoader.process_cql(elms, main_cql_library, user)
           end
-
-          cql_artifacts = Measures::CqlLoader.process_cql(cql, main_cql_library, user)
-
           # Update the measure
           measure.update(cql: cql, elm: cql_artifacts[:elms], elm_annotations: cql_artifacts[:elm_annotations], cql_statement_dependencies: cql_artifacts[:cql_definition_dependency_structure],
                          main_cql_library: main_cql_library, value_set_oids: cql_artifacts[:all_value_set_oids], value_set_oid_version_objects: cql_artifacts[:value_set_oid_version_objects])
