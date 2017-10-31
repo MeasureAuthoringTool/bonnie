@@ -295,7 +295,7 @@ include Devise::Test::ControllerHelpers
     assert_equal "first_b", row4[10]
     assert_equal "03/04/1971", row4[11]
     assert_equal "FALSE", row4[12]
-    assert_equal nil, row4[13]
+    assert_nil row4[13]
     assert_equal "Not Hispanic or Latino", row4[14]
     assert_equal "American Indian or Alaska Native", row4[15]
     assert_equal "M", row4[16]
