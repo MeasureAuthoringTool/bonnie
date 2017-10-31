@@ -28,6 +28,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     oid_version = _.find(@model.get('value_set_oid_version_objects'), (oid_version) -> oid_version.oid == oid)
     if oid_version? && bonnie.valueSetsByOid[oid]?
       version = oid_version.version
+      direct_reference = oid_version.direct_reference || false
       if bonnie.valueSetsByOid[oid][version]?
         codeConcepts = bonnie.valueSetsByOid[oid][version].concepts ? []
         for code in codeConcepts
@@ -36,13 +37,15 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
         version = ''
         codeConcepts = []
     else
+      # The GUID we generate for direct reference codes does not have periods in it
+      direct_reference = oid.test(".")
       version = ''
       codeConcepts = []
 
     codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @pagination_options)
     if version.match(/^Draft/)
       version = "Draft"
-    [version, codes]
+    [version, codes, direct_reference]
 
   addSummaryValueSet: (valueSet, oid, cid, name, codes) ->
     # only add value set info summaryValueSets if it isn't there already
@@ -61,9 +64,8 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
           name = value_set.name
           oid = value_set.id
           cid = _.uniqueId('c')
-
-          [version, codes] = @getVersionAndCodes(oid)
-          valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
+          [version, codes, direct_reference] = @getVersionAndCodes(oid)
+          valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid, direct_reference: direct_reference}
 
           terminology.push(valueSet)
           @addSummaryValueSet(valueSet, oid, cid, name, codes)

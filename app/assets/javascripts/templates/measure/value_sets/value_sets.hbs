@@ -6,8 +6,14 @@
       <a data-toggle="collapse" href="#codes_{{cid}}" class="collapsed value_sets">
         <div class="row">
           <div class="col-sm-5"><strong>{{name}}</strong></div>
-          <div class="col-sm-5">{{oid}}</div>
-          <div class="col-sm-2">{{version}}</div>
+          {{#ifCond direct_reference "==" false}}
+            <div class="col-sm-5">{{oid}}</div>
+            <div class="col-sm-2">{{version}}</div>
+          {{/ifCond}}
+          {{#ifCond direct_reference "==" true}}
+            <div class="col-sm-5">Direct Reference Code</div>
+            <div class="col-sm-2">N/A</div>
+          {{/ifCond}}
         </div>
       </a>
       <div id="codes_{{cid}}" class="row collapse">
