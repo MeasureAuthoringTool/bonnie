@@ -335,7 +335,10 @@ namespace :bonnie do
 
     desc %{Adds the JSON elm to a MAT package. Saves as a new file with '_with_JSON' appened to the file name.
 
-    $ rake bonnie:cql:add_json_to_package[path/to/package.zip]}
+    $ rake bonnie:cql:add_json_to_package[path/to/package.zip]
+
+    If you are using a zsh terminal, you need to use 'noglob':
+    $ noglob bonnie:cql:add_json_to_package[path/to/package.zip]}
     task :add_json_to_package, [:input_package_path] => [:environment] do |t, args|
       input_package_path = Pathname.new(args[:input_package_path])
       temp_path = Pathname.new(File.join('tmp', 'package_temp'))
