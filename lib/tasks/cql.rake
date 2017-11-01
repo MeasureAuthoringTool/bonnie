@@ -334,13 +334,15 @@ namespace :bonnie do
     end 
 
     desc %{Adds the JSON elm to a MAT package. Saves as a new file with '_with_JSON' appened to the file name.
+      add 'true' as a second parameter to force replacment of the XML ELM.
 
-    $ rake bonnie:cql:add_json_to_package[path/to/package.zip]
+    $ bundle exec rake bonnie:cql:add_json_to_package[path/to/package.zip,true]
 
     If you are using a zsh terminal, you need to use 'noglob':
-    $ noglob bonnie:cql:add_json_to_package[path/to/package.zip]}
-    task :add_json_to_package, [:input_package_path] => [:environment] do |t, args|
+    $ noglob bundle exec rake bonnie:cql:add_json_to_package[path/to/package.zip]}
+    task :add_json_to_package, [:input_package_path, :force_xml_replace] => [:environment] do |t, args|
       input_package_path = Pathname.new(args[:input_package_path])
+      force_xml_replace = args.fetch(:force_xml_replace, false) == 'true'
       temp_path = Pathname.new(File.join('tmp', 'package_temp'))
       FileUtils.rm_rf(temp_path) if temp_path.exist?
       temp_path.mkdir
@@ -367,18 +369,26 @@ namespace :bonnie do
 
       # older packages don't have annotations or clause level annotations, if they dont have them wipe out the existing
       # XML ELM and use the ones from the translation server
-      # start by assuming they are annotations, then set this to false
+      # start by assuming there are annotations, then set this to false
       annotations_exist = true
-      files[:ELM_XML].each do |elm_xml|
-        if elm_xml.index("<a:s r=") == nil
-          annotations_exist = false
+      # only do the check if we are not requested to replace the XML.
+      if !force_xml_replace
+        files[:ELM_XML].each do |elm_xml|
+          if elm_xml.index("<a:s r=") == nil
+            annotations_exist = false
+          end
         end
       end
 
-      # if we found that annotations are missing then we have to use the xml from the translation service
+      # if we found that annotations are missing then we have to use the xml from the translation service. Also do so
+      # if specifically requested to.
       xml_filenames = []
-      if !annotations_exist
-        puts "This appears to be an older package that needs annotations. Replacing XML ELM with translation service response."
+      if !annotations_exist || force_xml_replace
+        if force_xml_replace
+          puts "Force XML replace requested. Replacing XML ELM with translation service response."
+        else
+          puts "This appears to be an older package that needs annotations. Replacing XML ELM with translation service response."
+        end
 
         # remove the old xml files
         old_elm_xml_filepaths = Dir.glob(File.join(temp_path, "*.xml")).select { |x| x != files[:HQMF_XML_PATH] }
