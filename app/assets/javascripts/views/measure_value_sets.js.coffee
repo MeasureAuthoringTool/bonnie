@@ -31,19 +31,19 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       version = ''
     else
       oid_version = _.find(@model.get('value_set_oid_version_objects'), (oid_version) -> oid_version.oid == oid)
-
-    if oid_version? && bonnie.valueSetsByOid[oid]?
-      if not isDirectReference
+      if oid_version?
         version = oid_version.version
+      else
+        version = ''
+
+    if bonnie.valueSetsByOid[oid]?
       if bonnie.valueSetsByOid[oid][version]?
         codeConcepts = bonnie.valueSetsByOid[oid][version].concepts ? []
         for code in codeConcepts
           code.hasLongDisplayName = code.display_name.length > 160
       else
-        version = ''
         codeConcepts = []
     else
-      version = ''
       codeConcepts = []
 
     codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @pagination_options)
@@ -65,6 +65,11 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     if @model.get('elm')
       @model.get('elm').forEach (library) =>
         # Direct Reference Codes
+        drc_guids_and_names = {}
+        for guid, value of bonnie.valueSetsByOid
+          if /-/.test(guid)
+            drc_guids_and_names[guid] = value['']['display_name'] # all drc have version of ''
+
         if library.library.codes
           library.library.codes.def.forEach (code) =>
             name = code.name
@@ -72,16 +77,14 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
             oid = 'Direct Reference Code'
             cid = _.uniqueId('c')
             # Get the guid by looping over bonnie.valueSetByOid
-            for oid, value of bonnie.valueSetsByOid
-              if /-/.test(oid)
-                if value['']['display_name'] == name
-                  guid = value[''].oid
-                  [version, codes] = @getVersionAndCodes(guid)
+            for guid, display_name of drc_guids_and_names
+              if display_name == name
+                [version, codes] = @getVersionAndCodes(guid)
 
-                  valueSet = { name: display, oid: 'Direct Reference Code', version: 'N/A', codes: codes, cid: cid }
+                valueSet = { name: display, oid: 'Direct Reference Code', version: 'N/A', codes: codes, cid: cid }
 
-                  terminology.push(valueSet)
-                  @addSummaryValueSet(valueSet, guid, cid, name, codes)
+                terminology.push(valueSet)
+                @addSummaryValueSet(valueSet, guid, cid, name, codes)
 
         if library.library.valueSets
           library.library.valueSets.def.forEach (value_set) =>
