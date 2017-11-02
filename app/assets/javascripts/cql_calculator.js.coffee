@@ -201,10 +201,6 @@
     else if @isValueZero('NUMER', population_results)
       if 'NUMEX' of population_results
         population_results['NUMEX'] = 0
-    # Can not be in the numerator if explicitly excluded
-    else if population_results["NUMEX"]? && !@isValueZero('NUMEX', population_results)
-      if 'NUMER' of population_results
-        population_results['NUMER'] = 0
     else if !@isValueZero('NUMER', population_results)
       if 'DENEXCEP' of population_results
         population_results["DENEXCEP"] = 0
