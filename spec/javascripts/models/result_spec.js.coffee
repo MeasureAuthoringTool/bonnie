@@ -25,3 +25,25 @@ describe 'Result', ->
     expect(result1.calculation.state()).toEqual 'resolved'
     result2 = new Thorax.Models.Result({ rationale: 'RATIONALE' }, population: @measure.get('populations').first(), patient: @patient)
     expect(result2.calculation.state()).toEqual 'resolved'
+
+  it 'NUMER population not modified by inclusion in NUMEX', ->
+    initial_results = {IPP: 1, DENOM: 1, DENEX: 0, NUMER: 1, NUMEX: 1}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual initial_results
+    
+  it 'NUMEX membership removed when not a member of NUMER', ->
+    initial_results = {IPP: 1, DENOM: 1, DENEX: 0, NUMER: 0, NUMEX: 1}
+    expected_results = {IPP: 1, DENOM: 1, DENEX: 0, NUMER: 0, NUMEX: 0}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
+
+  it 'DENOM population not modified by inclusion in DENEX', ->
+    initial_results = {IPP: 1, DENOM: 1, DENEX: 1, NUMER: 0, NUMEX: 0}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual initial_results
+    
+  it 'DENEX membership removed when not a member of DENOM', ->
+    initial_results = {IPP: 1, DENOM: 0, DENEX: 1, NUMER: 0, NUMEX: 0}
+    expected_results = {IPP: 1, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 0}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
