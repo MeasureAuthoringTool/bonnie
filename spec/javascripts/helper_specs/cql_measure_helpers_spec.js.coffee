@@ -44,3 +44,11 @@ describe 'CQLMeasureHelpers', ->
     it 'returns null if it does not find the proper libraryName for the functionRef', ->
       ret = CQLMeasureHelpers._findLocalIdForLibraryFunctionRef(@annotationSnippet, '55', 'notGlobal')
       expect(ret).toBeNull()
+
+    it 'returns null if annotation is empty', ->
+      ret = CQLMeasureHelpers._findLocalIdForLibraryFunctionRef({}, '55', 'notGlobal')
+      expect(ret).toBeNull()
+
+    it 'returns null if there is no value associated with annotation', ->
+      ret = CQLMeasureHelpers._findLocalIdForLibraryFunctionRef(@annotationSnippet, '68', 'notGlobal')
+      expect(ret).toBeNull()
