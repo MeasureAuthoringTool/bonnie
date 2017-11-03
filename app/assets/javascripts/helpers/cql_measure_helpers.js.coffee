@@ -238,7 +238,7 @@ class CQLMeasureHelpers
       if annotation.r? && annotation.r == functionRefLocalId
         # check if the first child has the first leaf node with the library name
         # refer to the method comment for why this is done.
-        if annotation.s[0].s?[0].value[0] == libraryName
+        if annotation.s[0].s?[0].value?[0] == libraryName
           # return that ID now.
           return annotation.s[0].r
 
