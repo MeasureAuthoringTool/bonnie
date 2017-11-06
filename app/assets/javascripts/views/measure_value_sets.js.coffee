@@ -25,18 +25,25 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       criteriaSets: criteriaSetArray
 
   getVersionAndCodes: (oid) ->
-    oid_version = _.find(@model.get('value_set_oid_version_objects'), (oid_version) -> oid_version.oid == oid)
-    if oid_version? && bonnie.valueSetsByOid[oid]?
-      version = oid_version.version
+    isDirectReference = /-/.test(oid)
+    if isDirectReference
+      oid_version = ''
+      version = ''
+    else
+      oid_version = _.find(@model.get('value_set_oid_version_objects'), (oid_version) -> oid_version.oid == oid)
+      if oid_version?
+        version = oid_version.version
+      else
+        version = ''
+
+    if bonnie.valueSetsByOid[oid]?
       if bonnie.valueSetsByOid[oid][version]?
         codeConcepts = bonnie.valueSetsByOid[oid][version].concepts ? []
         for code in codeConcepts
           code.hasLongDisplayName = code.display_name.length > 160
       else
-        version = ''
         codeConcepts = []
     else
-      version = ''
       codeConcepts = []
 
     codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @pagination_options)
@@ -57,16 +64,39 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
 
     if @model.get('elm')
       @model.get('elm').forEach (library) =>
-        library.library.valueSets.def.forEach (value_set) =>
-          name = value_set.name
-          oid = value_set.id
-          cid = _.uniqueId('c')
+        # Direct Reference Codes
+        drc_guids_and_names = {}
+        for guid, value of bonnie.valueSetsByOid
+          if /-/.test(guid)
+            drc_guids_and_names[guid] = value['']['display_name'] # all drc have version of ''
 
-          [version, codes] = @getVersionAndCodes(oid)
-          valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
+        if library.library.codes
+          library.library.codes.def.forEach (code) =>
+            name = code.name
+            display = code.display
+            oid = 'Direct Reference Code'
+            cid = _.uniqueId('c')
+            # Get the guid by looping over bonnie.valueSetByOid
+            for guid, display_name of drc_guids_and_names
+              if display_name == name
+                [version, codes] = @getVersionAndCodes(guid)
 
-          terminology.push(valueSet)
-          @addSummaryValueSet(valueSet, oid, cid, name, codes)
+                valueSet = { name: display, oid: 'Direct Reference Code', version: 'N/A', codes: codes, cid: cid }
+
+                terminology.push(valueSet)
+                @addSummaryValueSet(valueSet, guid, cid, name, codes)
+
+        if library.library.valueSets
+          library.library.valueSets.def.forEach (value_set) =>
+            name = value_set.name
+            oid = value_set.id
+            cid = _.uniqueId('c')
+
+            [version, codes] = @getVersionAndCodes(oid)
+            valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
+
+            terminology.push(valueSet)
+            @addSummaryValueSet(valueSet, oid, cid, name, codes)
 
     terminology = @filterValueSets(terminology)
     @terminology.add(terminology)
