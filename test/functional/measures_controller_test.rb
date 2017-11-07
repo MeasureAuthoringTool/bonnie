@@ -166,6 +166,27 @@ include Devise::Test::ControllerHelpers
     assert_nil measure['measure_attributes']
   end
 
+  test "measure show with period or special chars in key" do
+    VCR.use_cassette("valid_vsac_response_Test169") do
+      measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'CMS169_v5_4_Artifacts_with_special_chars.zip'), 'application/xml')
+      assert_not_nil measure_file
+      class << measure_file
+        attr_reader :tempfile
+      end
+
+      post :create, {vsac_date: '11/07/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+      assert_response :redirect
+      measure = CqlMeasure.where({hqmf_id: "40280582-5801-9EE4-0158-5420363B0639"}).first
+      assert_not_nil measure
+
+      # Test that ., ^, ^p, ^c behave properly
+      get :show, {id: measure.id.to_str, format: :json}
+      assert_response :success
+      measure_res = JSON.parse(response.body)
+      assert_equal measure.cql_statement_dependencies['Qualifying.Encounters^^p^c'], measure_res['cql_statement_dependencies']['Qualifying.Encounters^^p^c']
+    end
+  end
+
   test "measure destroy" do
     m2 = @measure.dup
     m2.hqmf_id = 'xxx123'

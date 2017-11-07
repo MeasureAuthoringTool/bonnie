@@ -12,7 +12,10 @@ class MeasuresController < ApplicationController
     @measure ||= CqlMeasure.by_user(current_user).without(*skippable_fields).where(id: params[:id]).first
     raise Mongoid::Errors::DocumentNotFound unless @measure
     if stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
-      @measure_json = MultiJson.encode(@measure.as_json(except: skippable_fields))
+      raw_json = @measure.as_json(except: skippable_fields)
+      # fix up statement names in cql_statement_dependencies to use original periods
+      Measures::MongoHashKeyWrapper::unwrapKeys raw_json['cql_statement_dependencies'] if raw_json.has_key?('cql_statement_dependencies')
+      @measure_json = MultiJson.encode(raw_json)
       respond_with @measure do |format|
         format.json { render json: @measure_json }
       end
