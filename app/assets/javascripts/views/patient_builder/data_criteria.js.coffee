@@ -399,6 +399,8 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     unique_codes = []
     # remove duplicate direct reference code value sets
     direct_reference_codes = []
+    # TODO: the logic below needs a unit test
+    # JIRA Task for conversion: https://jira.mitre.org/browse/BONNIE-1180
     codes_list.forEach (code) ->
       if code.oid
         if /-/.test(code.oid) # direct reference code
