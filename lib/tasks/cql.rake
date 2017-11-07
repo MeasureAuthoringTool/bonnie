@@ -333,16 +333,17 @@ namespace :bonnie do
       end
     end 
 
-    desc %{Adds the JSON elm to a MAT package. Saves as a new file with '_with_JSON' appened to the file name.
-      add 'true' as a second parameter to force replacment of the XML ELM.
+    desc %{Adds the JSON ELM to a MAT package and replaces the XML ELM. Saves as a new file with '_with_JSON' appened to
+      the file name. Add 'true' as a second parameter to keep the XML ELM already in the package if possible. It will
+      still be replaced if no clause level annotations are found.
 
     $ bundle exec rake bonnie:cql:add_json_to_package[path/to/package.zip,true]
 
     If you are using a zsh terminal, you need to use 'noglob':
     $ noglob bundle exec rake bonnie:cql:add_json_to_package[path/to/package.zip]}
-    task :add_json_to_package, [:input_package_path, :force_xml_replace] => [:environment] do |t, args|
+    task :add_json_to_package, [:input_package_path, :keep_elm_xml] => [:environment] do |t, args|
       input_package_path = Pathname.new(args[:input_package_path])
-      force_xml_replace = args.fetch(:force_xml_replace, false) == 'true'
+      keep_elm_xml = args.fetch(:keep_elm_xml, false) == 'true'
       temp_path = Pathname.new(File.join('tmp', 'package_temp'))
       FileUtils.rm_rf(temp_path) if temp_path.exist?
       temp_path.mkdir
@@ -371,8 +372,8 @@ namespace :bonnie do
       # XML ELM and use the ones from the translation server
       # start by assuming there are annotations, then set this to false
       annotations_exist = true
-      # only do the check if we are not requested to replace the XML.
-      if !force_xml_replace
+      # only do the check if we are attempting to keep ELM XML
+      if keep_elm_xml
         files[:ELM_XML].each do |elm_xml|
           if elm_xml.index("<a:s r=") == nil
             annotations_exist = false
@@ -383,11 +384,11 @@ namespace :bonnie do
       # if we found that annotations are missing then we have to use the xml from the translation service. Also do so
       # if specifically requested to.
       xml_filenames = []
-      if !annotations_exist || force_xml_replace
-        if force_xml_replace
-          puts "Force XML replace requested. Replacing XML ELM with translation service response."
+      if !annotations_exist || !keep_elm_xml
+        if keep_elm_xml
+          puts "This appears to be an older package that needs clause annotations. Replacing XML ELM with translation service response."
         else
-          puts "This appears to be an older package that needs annotations. Replacing XML ELM with translation service response."
+          puts "Replacing XML ELM with translation service response."
         end
 
         # remove the old xml files
@@ -413,7 +414,7 @@ namespace :bonnie do
       # save json files
       json_filenames = []
       elm_jsons.each do |elm_json|
-        elm_json_hash = JSON.parse(elm_json)
+        elm_json_hash = JSON.parse(elm_json, max_nesting: 1000)
         elm_library_version = "#{elm_json_hash['library']['identifier']['id']}-#{elm_json_hash['library']['identifier']['version']}"
         json_filenames << "#{elm_library_version}.json"
         json_path = File.join('tmp', 'package_temp', "#{elm_library_version}.json")
