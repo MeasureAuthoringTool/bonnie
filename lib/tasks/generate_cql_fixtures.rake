@@ -24,7 +24,7 @@ namespace :bonnie do
       measure = get_cql_measure(user, args[:cms_hqmf], args[:measure_id])
       measure_name = measure.cms_id + ".json"
       measure_file = File.join(fixtures_path, 'measure_data', args[:path], measure_name)
-      create_fixture_file(measure_file, JSON.pretty_generate(JSON.parse(measure.to_json)))
+      create_fixture_file(measure_file, JSON.pretty_generate(JSON.parse(measure.to_json, max_nesting: 1000)))
       puts 'exported measure to ' + measure_file
 
       oid_to_vs_map = {}
@@ -78,7 +78,7 @@ namespace :bonnie do
       measure_name = measure.cms_id + ".json"
       measure_file = File.join(fixtures_path, 'cql_measures', args[:path], measure_name)
       # fix the measure's id so it will be imported as a BSON::ObjectId.
-      measure_hash = JSON.parse(measure.to_json)
+      measure_hash = JSON.parse(measure.to_json, max_nesting: 1000)
       measure_hash['_id'] = { '$oid' => measure_hash['_id'] }
       create_fixture_file(measure_file, JSON.pretty_generate(measure_hash))
       puts 'exported measure to ' + measure_file
