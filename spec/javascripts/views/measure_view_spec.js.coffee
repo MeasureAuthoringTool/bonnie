@@ -76,7 +76,7 @@ describe 'MeasureView', ->
 
       it 'has the right number of value sets', ->
         expect(@cqlMeasureValueSetsView.terminology.length).toEqual(25)
-        expect(@cqlMeasureValueSetsView.overlappingValueSets.length).toEqual(6)
+        expect(@cqlMeasureValueSetsView.overlappingValueSets.length).toEqual(2)
 
       it 'renders direct reference codes', ->
         expect(@cqlMeasureValueSetsView.$('#terminology')).toContainText 'Direct Reference Code'

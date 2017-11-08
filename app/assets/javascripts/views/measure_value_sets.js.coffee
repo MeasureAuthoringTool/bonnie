@@ -84,7 +84,6 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
                 valueSet = { name: display, oid: 'Direct Reference Code', version: 'N/A', codes: codes, cid: cid }
 
                 terminology.push(valueSet)
-                @addSummaryValueSet(valueSet, guid, cid, name, codes)
 
         if library.library.valueSets
           library.library.valueSets.def.forEach (value_set) =>
