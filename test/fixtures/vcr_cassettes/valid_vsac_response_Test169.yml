@@ -1,0 +1,2258 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
+    body:
+      encoding: UTF-8
+      string: username=<VSAC_USERNAME>&password=<VSAC_PASSWORD>
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '43'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '65'
+      Date:
+      - Tue, 07 Nov 2017 15:36:07 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!fF/T36SheVCjc03LMWjf8K3rTDmEEkcgP5Uy/VAt5GfsvzUgSByzCQwzjuSAu0ZegUOdDHFb6T3nMGU=;
+        expires=Tue, 07-Nov-2017 17:36:07 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: TGT-261980-W5leSOipjcvEmt1c7WpWxtzbHlCq4zPuZr5thaS47ds7RS6Mic-cas
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:06 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-261980-W5leSOipjcvEmt1c7WpWxtzbHlCq4zPuZr5thaS47ds7RS6Mic-cas
+    body:
+      encoding: UTF-8
+      string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 07 Nov 2017 15:36:08 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!nNICDUbgLX4FEKDLMWjf8K3rTDmEEnEpuB8zEB4XjpwQhW63rTr20oeL10p9i4u6qDLpZojeYnriCOs=;
+        expires=Tue, 07-Nov-2017 17:36:08 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.114 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-867305-1s3mQuHLyVPKvUYbzh1v-cas
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:07 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113762.1.4.1&profile=Latest%20eCQM&ticket=ST-867305-1s3mQuHLyVPKvUYbzh1v-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - BIGipServervsacweb_p=!Q0GNTtlwGvMd52DLMWjf8K3rTDmEEqnPn3ALtvALwZp4/I9fdjFYk+QzRU/FbHU7lvdE3b5M8TJoKPs=;
+        expires=Tue, 07-Nov-2017 17:36:08 GMT; path=/; Httponly; Secure
+      - JSESSIONID=657268193948961DA15873E4F00DDBCC;path=/vsac;HttpOnly;Secure
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '1356'
+      Date:
+      - Tue, 07 Nov 2017 15:36:08 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113762.1.4.1" displayName="ONC Administrative Sex" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="F" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2016-07" displayName="Female"/>
+                    <ns0:Concept code="M" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2016-07" displayName="Male"/>
+                </ns0:ConceptList>
+                <ns0:Source>Office of the National Coordinator for Health Information Technology</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Gender identity restricted to only Male and Female used in administrative situations requiring a restriction to these two categories.),(Data Element Scope: Gender),(Inclusion Criteria: Male and Female only.),(Exclusion Criteria: Any gender identity that is not male or female.)</ns0:Purpose>
+                <ns0:Type>Extensional</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2015-03-31</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:08 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-261980-W5leSOipjcvEmt1c7WpWxtzbHlCq4zPuZr5thaS47ds7RS6Mic-cas
+    body:
+      encoding: UTF-8
+      string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 07 Nov 2017 15:36:08 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!R3aTJl3GXZgU6wzLMWjf8K3rTDmEEpPFxPaTuwJZDkQCQR7o16ld26L59/fUlk9edW8JofSraClPnYc=;
+        expires=Tue, 07-Nov-2017 17:36:09 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-867306-x7ui9rwDrEyaryibAdib-cas
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:08 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.836&profile=Latest%20eCQM&ticket=ST-867306-x7ui9rwDrEyaryibAdib-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - BIGipServervsacweb_p=!6KchPtxbfWiPUd3LMWjf8K3rTDmEEu0in5DQWqpWZWaf5W0Ve88fgmhpeGK92mAsOg0hkDQxzJJGAvw=;
+        expires=Tue, 07-Nov-2017 17:36:09 GMT; path=/; Httponly; Secure
+      - JSESSIONID=2610F52CCDDE5FFD39A38616308F39DF;path=/vsac;HttpOnly;Secure
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '1765'
+      Date:
+      - Tue, 07 Nov 2017 15:36:08 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.114222.4.11.836" displayName="Race" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="1002-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.1" displayName="American Indian or Alaska Native"/>
+                    <ns0:Concept code="2028-9" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.1" displayName="Asian"/>
+                    <ns0:Concept code="2054-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.1" displayName="Black or African American"/>
+                    <ns0:Concept code="2076-8" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.1" displayName="Native Hawaiian or Other Pacific Islander"/>
+                    <ns0:Concept code="2106-3" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.1" displayName="White"/>
+                    <ns0:Concept code="2131-1" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.1" displayName="Other Race"/>
+                </ns0:ConceptList>
+                <ns0:Source>Centers for Disease Control National Center for Health Statistics</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: ),(Data Element Scope: ),(Inclusion Criteria: ),(Exclusion Criteria: )</ns0:Purpose>
+                <ns0:Type>Extensional</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2012-10-25</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:08 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-261980-W5leSOipjcvEmt1c7WpWxtzbHlCq4zPuZr5thaS47ds7RS6Mic-cas
+    body:
+      encoding: UTF-8
+      string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 07 Nov 2017 15:36:09 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!8LxoSJcJ1emxeo/LMWjf8K3rTDmEEjvTJqg4FdaunHmPFN4LPFI4DMVK70hO1amoFM/BG6+EU2kKymI=;
+        expires=Tue, 07-Nov-2017 17:36:09 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.114 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-867307-ExKvs06avNnbPhMBzr34-cas
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:09 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.837&profile=Latest%20eCQM&ticket=ST-867307-ExKvs06avNnbPhMBzr34-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - BIGipServervsacweb_p=!zAgl8R4GZlPl5ufLMWjf8K3rTDmEEuhzJD/mQNY4ci0+n/rcIwplkDboVid1XxnYoKJcAg8joBFwMLk=;
+        expires=Tue, 07-Nov-2017 17:36:10 GMT; path=/; Httponly; Secure
+      - JSESSIONID=28B4EBAE0388FA4F8793372890BBCFD4;path=/vsac;HttpOnly;Secure
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '1128'
+      Date:
+      - Tue, 07 Nov 2017 15:36:09 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.114 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.114222.4.11.837" displayName="Ethnicity" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="2135-2" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.1" displayName="Hispanic or Latino"/>
+                    <ns0:Concept code="2186-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDCREC" codeSystemVersion="1.1" displayName="Not Hispanic or Latino"/>
+                </ns0:ConceptList>
+                <ns0:Source>Centers for Disease Control National Center for Health Statistics</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: ),(Data Element Scope: ),(Inclusion Criteria: ),(Exclusion Criteria: )</ns0:Purpose>
+                <ns0:Type>Extensional</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2012-10-25</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:09 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-261980-W5leSOipjcvEmt1c7WpWxtzbHlCq4zPuZr5thaS47ds7RS6Mic-cas
+    body:
+      encoding: UTF-8
+      string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 07 Nov 2017 15:36:10 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!clIVrfWr//ePzHjLMWjf8K3rTDmEEk+Dip6wGCE8hwfeVS2Nq6tzks/uCvB6Z200WnonbbGdunOuwqc=;
+        expires=Tue, 07-Nov-2017 17:36:10 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-867308-Wcm7GBKcfeXz3endf3eF-cas
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:09 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.3591&profile=Latest%20eCQM&ticket=ST-867308-Wcm7GBKcfeXz3endf3eF-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - BIGipServervsacweb_p=!1dP/DjLkOrd1mkLLMWjf8K3rTDmEEr829E8WvzzP6qgj/W9k4qdmvNU3TY/ujh+TQDoTc6JpHZTTG88=;
+        expires=Tue, 07-Nov-2017 17:36:10 GMT; path=/; Httponly; Secure
+      - JSESSIONID=55FBBF42EFF4359BC9E1860CBFC2001A;path=/vsac;HttpOnly;Secure
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '26511'
+      Date:
+      - Tue, 07 Nov 2017 15:36:09 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.114 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.114222.4.11.3591" displayName="Payer" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="1" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="MEDICARE"/>
+                    <ns0:Concept code="11" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare (Managed Care)"/>
+                    <ns0:Concept code="111" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare HMO"/>
+                    <ns0:Concept code="112" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare PPO"/>
+                    <ns0:Concept code="113" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare POS"/>
+                    <ns0:Concept code="119" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Managed Care Other"/>
+                    <ns0:Concept code="12" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare (Non-managed Care)"/>
+                    <ns0:Concept code="121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare FFS"/>
+                    <ns0:Concept code="122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Drug Benefit"/>
+                    <ns0:Concept code="123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Medical Savings Account (MSA)"/>
+                    <ns0:Concept code="129" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Non-managed Care Other"/>
+                    <ns0:Concept code="13" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Hospice"/>
+                    <ns0:Concept code="14" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Dual Eligibility Medicare/Medicaid Organization"/>
+                    <ns0:Concept code="19" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Other"/>
+                    <ns0:Concept code="191" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Pharmacy Benefit Manager"/>
+                    <ns0:Concept code="2" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="MEDICAID"/>
+                    <ns0:Concept code="21" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid (Managed Care)"/>
+                    <ns0:Concept code="211" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid HMO"/>
+                    <ns0:Concept code="212" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid PPO"/>
+                    <ns0:Concept code="213" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid PCCM (Primary Care Case Management)"/>
+                    <ns0:Concept code="219" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid Managed Care Other"/>
+                    <ns0:Concept code="22" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid (Non-managed Care Plan)"/>
+                    <ns0:Concept code="23" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid/SCHIP"/>
+                    <ns0:Concept code="24" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid Applicant"/>
+                    <ns0:Concept code="25" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid - Out of State"/>
+                    <ns0:Concept code="26" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid -- Long Term Care"/>
+                    <ns0:Concept code="29" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid Other"/>
+                    <ns0:Concept code="291" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid Pharmacy Benefit Manager"/>
+                    <ns0:Concept code="3" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)"/>
+                    <ns0:Concept code="31" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Department of Defense"/>
+                    <ns0:Concept code="311" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE (CHAMPUS)"/>
+                    <ns0:Concept code="3111" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE Prime--HMO"/>
+                    <ns0:Concept code="3112" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE Extra--PPO"/>
+                    <ns0:Concept code="3113" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE Standard - Fee For Service"/>
+                    <ns0:Concept code="3114" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE For Life--Medicare Supplement"/>
+                    <ns0:Concept code="3115" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE Reserve Select"/>
+                    <ns0:Concept code="3116" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Uniformed Services Family Health Plan (USFHP) -- HMO"/>
+                    <ns0:Concept code="3119" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Department of Defense - (other)"/>
+                    <ns0:Concept code="312" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Military Treatment Facility"/>
+                    <ns0:Concept code="3121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Enrolled Prime--HMO"/>
+                    <ns0:Concept code="3122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Non-enrolled Space Available"/>
+                    <ns0:Concept code="3123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE For Life (TFL)"/>
+                    <ns0:Concept code="313" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Dental --Stand Alone"/>
+                    <ns0:Concept code="32" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Department of Veterans Affairs"/>
+                    <ns0:Concept code="321" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Veteran care--Care provided to Veterans"/>
+                    <ns0:Concept code="3211" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Direct Care--Care provided in VA facilities"/>
+                    <ns0:Concept code="3212" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indirect Care--Care provided outside VA facilities"/>
+                    <ns0:Concept code="32121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Fee Basis"/>
+                    <ns0:Concept code="32122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Foreign Fee/Foreign Medical Program(FMP)"/>
+                    <ns0:Concept code="32123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Contract Nursing Home/Community Nursing Home"/>
+                    <ns0:Concept code="32124" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="State Veterans Home"/>
+                    <ns0:Concept code="32125" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Sharing Agreements"/>
+                    <ns0:Concept code="32126" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Federal Agency"/>
+                    <ns0:Concept code="322" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Non-veteran care"/>
+                    <ns0:Concept code="3221" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Civilian Health and Medical Program for the VA (CHAMPVA)"/>
+                    <ns0:Concept code="3222" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Spina Bifida Health Care Program (SB)"/>
+                    <ns0:Concept code="3223" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Children of Women Vietnam Veterans (CWVV)"/>
+                    <ns0:Concept code="3229" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other non-veteran care"/>
+                    <ns0:Concept code="33" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Health Service or Tribe"/>
+                    <ns0:Concept code="331" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Health Service -- Regular"/>
+                    <ns0:Concept code="332" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Health Service -- Contract"/>
+                    <ns0:Concept code="333" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Health Service - Managed Care"/>
+                    <ns0:Concept code="334" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Tribe - Sponsored Coverage"/>
+                    <ns0:Concept code="34" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="HRSA Program"/>
+                    <ns0:Concept code="341" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Title V (MCH Block Grant)"/>
+                    <ns0:Concept code="342" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Migrant Health Program"/>
+                    <ns0:Concept code="343" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Ryan White Act"/>
+                    <ns0:Concept code="349" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other"/>
+                    <ns0:Concept code="35" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Black Lung"/>
+                    <ns0:Concept code="36" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="State Government"/>
+                    <ns0:Concept code="361" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="State SCHIP program (codes for individual states)"/>
+                    <ns0:Concept code="362" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Specific state programs (list/ local code)"/>
+                    <ns0:Concept code="369" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="State, not otherwise specified (other state)"/>
+                    <ns0:Concept code="37" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Local Government"/>
+                    <ns0:Concept code="371" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Local - Managed care"/>
+                    <ns0:Concept code="3711" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="HMO"/>
+                    <ns0:Concept code="3712" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="PPO"/>
+                    <ns0:Concept code="3713" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="POS"/>
+                    <ns0:Concept code="372" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="FFS/Indemnity"/>
+                    <ns0:Concept code="379" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Local, not otherwise specified (other local, county)"/>
+                    <ns0:Concept code="38" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Government (Federal, State, Local not specified)"/>
+                    <ns0:Concept code="381" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified managed care"/>
+                    <ns0:Concept code="3811" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - HMO"/>
+                    <ns0:Concept code="3812" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - PPO"/>
+                    <ns0:Concept code="3813" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - POS"/>
+                    <ns0:Concept code="3819" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - not specified managed care"/>
+                    <ns0:Concept code="382" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - FFS"/>
+                    <ns0:Concept code="389" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - Other"/>
+                    <ns0:Concept code="39" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Federal"/>
+                    <ns0:Concept code="4" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="DEPARTMENTS OF CORRECTIONS"/>
+                    <ns0:Concept code="41" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Corrections Federal"/>
+                    <ns0:Concept code="42" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Corrections State"/>
+                    <ns0:Concept code="43" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Corrections Local"/>
+                    <ns0:Concept code="44" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Corrections Unknown Level"/>
+                    <ns0:Concept code="5" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="PRIVATE HEALTH INSURANCE"/>
+                    <ns0:Concept code="51" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Managed Care (Private)"/>
+                    <ns0:Concept code="511" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Managed Care - HMO"/>
+                    <ns0:Concept code="512" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Managed Care - PPO"/>
+                    <ns0:Concept code="513" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Managed Care - POS"/>
+                    <ns0:Concept code="514" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Exclusive Provider Organization"/>
+                    <ns0:Concept code="515" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Gatekeeper PPO (GPPO)"/>
+                    <ns0:Concept code="516" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Managed Care - Pharmacy Benefit Manager"/>
+                    <ns0:Concept code="519" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Managed Care, Other (non HMO)"/>
+                    <ns0:Concept code="52" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Private Health Insurance - Indemnity"/>
+                    <ns0:Concept code="521" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Indemnity"/>
+                    <ns0:Concept code="522" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Self-insured (ERISA) Administrative Services Only (ASO) plan"/>
+                    <ns0:Concept code="523" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare supplemental policy (as second payer)"/>
+                    <ns0:Concept code="529" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Private health insurance--other commercial Indemnity"/>
+                    <ns0:Concept code="53" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Managed Care (private) or private health insurance (indemnity), not otherwise specified"/>
+                    <ns0:Concept code="54" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Organized Delivery System"/>
+                    <ns0:Concept code="55" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Small Employer Purchasing Group"/>
+                    <ns0:Concept code="56" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Specialized Stand Alone Plan"/>
+                    <ns0:Concept code="561" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Dental"/>
+                    <ns0:Concept code="562" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Vision"/>
+                    <ns0:Concept code="59" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Private Insurance"/>
+                    <ns0:Concept code="6" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BLUE CROSS/BLUE SHIELD"/>
+                    <ns0:Concept code="61" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care"/>
+                    <ns0:Concept code="611" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care -- HMO"/>
+                    <ns0:Concept code="612" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care -- PPO"/>
+                    <ns0:Concept code="613" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care -- POS"/>
+                    <ns0:Concept code="619" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care -- Other"/>
+                    <ns0:Concept code="62" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Indemnity"/>
+                    <ns0:Concept code="63" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC (Indemnity or Managed Care) - Out of State"/>
+                    <ns0:Concept code="64" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC (Indemnity or Managed Care) - Unspecified"/>
+                    <ns0:Concept code="69" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC (Indemnity or Managed Care) - Other"/>
+                    <ns0:Concept code="7" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)"/>
+                    <ns0:Concept code="71" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="HMO"/>
+                    <ns0:Concept code="72" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="PPO"/>
+                    <ns0:Concept code="73" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="POS"/>
+                    <ns0:Concept code="79" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Managed Care"/>
+                    <ns0:Concept code="8" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="NO PAYMENT from an Organization/Agency/Program/Private Payer Listed"/>
+                    <ns0:Concept code="81" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Self-pay"/>
+                    <ns0:Concept code="82" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="No Charge"/>
+                    <ns0:Concept code="821" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Charity"/>
+                    <ns0:Concept code="822" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Professional Courtesy"/>
+                    <ns0:Concept code="823" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Research/Clinical Trial"/>
+                    <ns0:Concept code="83" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Refusal to Pay/Bad Debt"/>
+                    <ns0:Concept code="84" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Hill Burton Free Care"/>
+                    <ns0:Concept code="85" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Research/Donor"/>
+                    <ns0:Concept code="89" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="No Payment, Other"/>
+                    <ns0:Concept code="9" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="MISCELLANEOUS/OTHER"/>
+                    <ns0:Concept code="91" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Foreign National"/>
+                    <ns0:Concept code="92" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other (Non-government)"/>
+                    <ns0:Concept code="93" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Disability Insurance"/>
+                    <ns0:Concept code="94" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Long-term Care Insurance"/>
+                    <ns0:Concept code="95" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Compensation"/>
+                    <ns0:Concept code="951" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Comp HMO"/>
+                    <ns0:Concept code="953" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Comp Fee-for-Service"/>
+                    <ns0:Concept code="954" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Comp Other Managed Care"/>
+                    <ns0:Concept code="959" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Comp, Other unspecified"/>
+                    <ns0:Concept code="96" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Auto Insurance (includes no fault)"/>
+                    <ns0:Concept code="97" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Legal Liability / Liability Insurance"/>
+                    <ns0:Concept code="98" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)"/>
+                    <ns0:Concept code="99" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="No Typology Code available for payment source"/>
+                    <ns0:Concept code="9999" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Unavailable / No Payer Specified / Blank"/>
+                </ns0:ConceptList>
+                <ns0:Source>HL7 Terminology</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Categories of types of health care payor entities as defined by the US Public Health Data Consortium SOP code system),(Data Element Scope: @code in CCDA r2.1 template Planned Coverage [act: identifier urn:oid:2.16.840.1.113883.10.20.22.4.129 (open)] DYNAMIC),(Inclusion Criteria: All codes in the code system),(Exclusion Criteria: none)</ns0:Purpose>
+                <ns0:Type>Extensional</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2016-11-08</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:10 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-261980-W5leSOipjcvEmt1c7WpWxtzbHlCq4zPuZr5thaS47ds7RS6Mic-cas
+    body:
+      encoding: UTF-8
+      string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 07 Nov 2017 15:36:10 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!aoqDZd939qEFM2rLMWjf8K3rTDmEEl7sCaJtMbK1DAFVE8nO655PUnjqMprUHoelg9PKllyDKaMicQ8=;
+        expires=Tue, 07-Nov-2017 17:36:10 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.114 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-867309-YlstJjKKLEs7a0iUDpBU-cas
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:10 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.972&profile=Latest%20eCQM&ticket=ST-867309-YlstJjKKLEs7a0iUDpBU-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - BIGipServervsacweb_p=!YiZGFYgJ8zCvuWPLMWjf8K3rTDmEEjOvyNzLqgXdXAQl3XNk1SB8d85Jfn6ipgbIpcH6LS+A1hTFZF8=;
+        expires=Tue, 07-Nov-2017 17:36:11 GMT; path=/; Httponly; Secure
+      - JSESSIONID=34CBEDC754BDFBA5CA19F329EAE0E8AB;path=/vsac;HttpOnly;Secure
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '36260'
+      Date:
+      - Tue, 07 Nov 2017 15:36:11 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.972" displayName="BH Antidepressant Medication" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="1000048" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Doxepin Hydrochloride 10 MG Oral Capsule"/>
+                    <ns0:Concept code="1000054" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Doxepin Hydrochloride 10 MG/ML Oral Solution"/>
+                    <ns0:Concept code="1000058" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Doxepin Hydrochloride 100 MG Oral Capsule"/>
+                    <ns0:Concept code="1000064" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Doxepin Hydrochloride 150 MG Oral Capsule"/>
+                    <ns0:Concept code="1000070" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Doxepin Hydrochloride 25 MG Oral Capsule"/>
+                    <ns0:Concept code="1000076" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Doxepin Hydrochloride 50 MG Oral Capsule"/>
+                    <ns0:Concept code="1000091" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Doxepin Hydrochloride 50 MG/ML Topical Cream"/>
+                    <ns0:Concept code="1000097" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Doxepin Hydrochloride 75 MG Oral Capsule"/>
+                    <ns0:Concept code="104837" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Isocarboxazid 10 MG Oral Tablet"/>
+                    <ns0:Concept code="1098649" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Nefazodone hydrochloride 100 MG Oral Tablet"/>
+                    <ns0:Concept code="1098666" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Nefazodone hydrochloride 150 MG Oral Tablet"/>
+                    <ns0:Concept code="1098670" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Nefazodone hydrochloride 200 MG Oral Tablet"/>
+                    <ns0:Concept code="1098674" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Nefazodone hydrochloride 250 MG Oral Tablet"/>
+                    <ns0:Concept code="1098678" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Nefazodone hydrochloride 50 MG Oral Tablet"/>
+                    <ns0:Concept code="1099288" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Desipramine Hydrochloride 10 MG Oral Tablet"/>
+                    <ns0:Concept code="1099292" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Desipramine Hydrochloride 100 MG Oral Tablet"/>
+                    <ns0:Concept code="1099296" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Desipramine Hydrochloride 150 MG Oral Tablet"/>
+                    <ns0:Concept code="1099300" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Desipramine Hydrochloride 25 MG Oral Tablet"/>
+                    <ns0:Concept code="1099304" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Desipramine Hydrochloride 50 MG Oral Tablet"/>
+                    <ns0:Concept code="1099316" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Desipramine Hydrochloride 75 MG Oral Tablet"/>
+                    <ns0:Concept code="1190110" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluoxetine 60 MG Oral Tablet"/>
+                    <ns0:Concept code="1232585" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Bupropion Hydrochloride 450 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="1298857" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Maprotiline Hydrochloride 25 MG Oral Tablet"/>
+                    <ns0:Concept code="1298861" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Maprotiline Hydrochloride 50 MG Oral Tablet"/>
+                    <ns0:Concept code="1298870" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Maprotiline Hydrochloride 75 MG Oral Tablet"/>
+                    <ns0:Concept code="1738483" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Paroxetine Hydrochloride 10 MG Oral Tablet"/>
+                    <ns0:Concept code="1738495" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Paroxetine Hydrochloride 20 MG Oral Tablet"/>
+                    <ns0:Concept code="1738503" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Paroxetine Hydrochloride 30 MG Oral Tablet"/>
+                    <ns0:Concept code="1738511" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Paroxetine Hydrochloride 40 MG Oral Tablet"/>
+                    <ns0:Concept code="1738515" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Paroxetine mesylate 10 MG Oral Tablet"/>
+                    <ns0:Concept code="1738519" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Paroxetine mesylate 20 MG Oral Tablet"/>
+                    <ns0:Concept code="1738523" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Paroxetine mesylate 30 MG Oral Tablet"/>
+                    <ns0:Concept code="1738527" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Paroxetine mesylate 40 MG Oral Tablet"/>
+                    <ns0:Concept code="197363" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amoxapine 100 MG Oral Tablet"/>
+                    <ns0:Concept code="197364" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amoxapine 150 MG Oral Tablet"/>
+                    <ns0:Concept code="197365" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amoxapine 25 MG Oral Tablet"/>
+                    <ns0:Concept code="197366" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amoxapine 50 MG Oral Tablet"/>
+                    <ns0:Concept code="197889" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Lithium Carbonate 300 MG Oral Capsule"/>
+                    <ns0:Concept code="197890" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Lithium Carbonate 300 MG Oral Tablet"/>
+                    <ns0:Concept code="197891" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Lithium Carbonate 300 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="197892" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Lithium Carbonate 450 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="197893" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Lithium Carbonate 600 MG Oral Capsule"/>
+                    <ns0:Concept code="198045" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Nortriptyline 10 MG Oral Capsule"/>
+                    <ns0:Concept code="198046" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Nortriptyline 50 MG Oral Capsule"/>
+                    <ns0:Concept code="198047" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Nortriptyline 75 MG Oral Capsule"/>
+                    <ns0:Concept code="199283" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Nortriptyline 10 MG Oral Tablet"/>
+                    <ns0:Concept code="199324" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Lithium Carbonate 250 MG Oral Tablet"/>
+                    <ns0:Concept code="199461" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Dothiepin 25 MG Oral Capsule"/>
+                    <ns0:Concept code="199462" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Dothiepin 75 MG Oral Tablet"/>
+                    <ns0:Concept code="199484" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Mianserin 10 MG Oral Tablet"/>
+                    <ns0:Concept code="199485" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Mianserin 20 MG Oral Tablet"/>
+                    <ns0:Concept code="199487" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Moclobemide 150 MG Oral Tablet"/>
+                    <ns0:Concept code="199488" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Moclobemide 300 MG Oral Tablet"/>
+                    <ns0:Concept code="199761" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Lithium Carbonate 400 MG Oral Tablet"/>
+                    <ns0:Concept code="199820" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Trimipramine 25 MG Oral Tablet"/>
+                    <ns0:Concept code="200371" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Citalopram 20 MG Oral Tablet"/>
+                    <ns0:Concept code="245373" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Trimipramine 50 MG Oral Tablet"/>
+                    <ns0:Concept code="246588" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Moclobemide 100 MG Oral Tablet"/>
+                    <ns0:Concept code="248642" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluoxetine 20 MG Oral Tablet"/>
+                    <ns0:Concept code="251200" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Sertraline 200 MG Oral Tablet"/>
+                    <ns0:Concept code="283406" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Mirtazapine 15 MG Disintegrating Oral Tablet"/>
+                    <ns0:Concept code="283407" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Mirtazapine 30 MG Disintegrating Oral Tablet"/>
+                    <ns0:Concept code="283485" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Mirtazapine 45 MG Disintegrating Oral Tablet"/>
+                    <ns0:Concept code="283672" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Citalopram 10 MG Oral Tablet"/>
+                    <ns0:Concept code="309313" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Citalopram 2 MG/ML Oral Solution"/>
+                    <ns0:Concept code="309314" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Citalopram 40 MG Oral Tablet"/>
+                    <ns0:Concept code="310384" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluoxetine 10 MG Oral Capsule"/>
+                    <ns0:Concept code="310385" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluoxetine 20 MG Oral Capsule"/>
+                    <ns0:Concept code="310386" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluoxetine 4 MG/ML Oral Solution"/>
+                    <ns0:Concept code="311355" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Lithium Carbonate 150 MG Oral Capsule"/>
+                    <ns0:Concept code="311725" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Mirtazapine 15 MG Oral Tablet"/>
+                    <ns0:Concept code="311726" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Mirtazapine 45 MG Oral Tablet"/>
+                    <ns0:Concept code="312036" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Nortriptyline 2 MG/ML Oral Solution"/>
+                    <ns0:Concept code="312242" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Paroxetine Hydrochloride 2 MG/ML Oral Suspension"/>
+                    <ns0:Concept code="312347" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Phenelzine 15 MG Oral Tablet"/>
+                    <ns0:Concept code="312938" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Sertraline 100 MG Oral Tablet"/>
+                    <ns0:Concept code="312940" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Sertraline 25 MG Oral Tablet"/>
+                    <ns0:Concept code="312941" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Sertraline 50 MG Oral Tablet"/>
+                    <ns0:Concept code="313447" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Tranylcypromine 10 MG Oral Tablet"/>
+                    <ns0:Concept code="313496" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Trimipramine 100 MG Oral Capsule"/>
+                    <ns0:Concept code="313497" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Trimipramine 100 MG Oral Tablet"/>
+                    <ns0:Concept code="313498" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Trimipramine 25 MG Oral Capsule"/>
+                    <ns0:Concept code="313499" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Trimipramine 50 MG Oral Capsule"/>
+                    <ns0:Concept code="313580" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="venlafaxine 100 MG Oral Tablet"/>
+                    <ns0:Concept code="313581" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR venlafaxine 150 MG Extended Release Oral Capsule"/>
+                    <ns0:Concept code="313582" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="venlafaxine 25 MG Oral Tablet"/>
+                    <ns0:Concept code="313583" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR venlafaxine 37.5 MG Extended Release Oral Capsule"/>
+                    <ns0:Concept code="313584" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="venlafaxine 37.5 MG Oral Tablet"/>
+                    <ns0:Concept code="313585" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR venlafaxine 75 MG Extended Release Oral Capsule"/>
+                    <ns0:Concept code="313586" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="venlafaxine 75 MG Oral Tablet"/>
+                    <ns0:Concept code="313989" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluoxetine 40 MG Oral Capsule"/>
+                    <ns0:Concept code="313990" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluoxetine 10 MG Oral Tablet"/>
+                    <ns0:Concept code="313995" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluoxetine 90 MG Delayed Release Oral Capsule"/>
+                    <ns0:Concept code="314111" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Mirtazapine 30 MG Oral Tablet"/>
+                    <ns0:Concept code="314277" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="venlafaxine 50 MG Oral Tablet"/>
+                    <ns0:Concept code="317136" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Nortriptyline 25 MG Oral Capsule"/>
+                    <ns0:Concept code="349332" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Escitalopram 10 MG Oral Tablet"/>
+                    <ns0:Concept code="351249" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Escitalopram 5 MG Oral Tablet"/>
+                    <ns0:Concept code="351250" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Escitalopram 20 MG Oral Tablet"/>
+                    <ns0:Concept code="351285" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Escitalopram 1 MG/ML Oral Solution"/>
+                    <ns0:Concept code="403969" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluoxetine 25 MG / olanzapine 6 MG Oral Capsule"/>
+                    <ns0:Concept code="403970" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluoxetine 25 MG / olanzapine 12 MG Oral Capsule"/>
+                    <ns0:Concept code="403971" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluoxetine 50 MG / olanzapine 12 MG Oral Capsule"/>
+                    <ns0:Concept code="403972" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluoxetine 50 MG / olanzapine 6 MG Oral Capsule"/>
+                    <ns0:Concept code="476809" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Mirtazapine 7.5 MG Oral Tablet"/>
+                    <ns0:Concept code="596926" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="duloxetine 20 MG Delayed Release Oral Capsule"/>
+                    <ns0:Concept code="596930" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="duloxetine 30 MG Delayed Release Oral Capsule"/>
+                    <ns0:Concept code="596934" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="duloxetine 60 MG Delayed Release Oral Capsule"/>
+                    <ns0:Concept code="608328" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="rasagiline 1 MG Oral Tablet"/>
+                    <ns0:Concept code="636664" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="rasagiline 0.5 MG Oral Tablet"/>
+                    <ns0:Concept code="721787" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluoxetine 25 MG / olanzapine 3 MG Oral Capsule"/>
+                    <ns0:Concept code="730440" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Citalopram 10 MG Oral Capsule"/>
+                    <ns0:Concept code="730441" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Citalopram 20 MG Oral Capsule"/>
+                    <ns0:Concept code="730442" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Citalopram 40 MG Oral Capsule"/>
+                    <ns0:Concept code="746073" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Lithium Aspartate 5 MG Oral Capsule"/>
+                    <ns0:Concept code="749153" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Lithium Aspartate 20 MG Oral Capsule"/>
+                    <ns0:Concept code="756059" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="lithium citrate 60 MG/ML Oral Solution"/>
+                    <ns0:Concept code="790264" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Desvenlafaxine 100 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="790288" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Desvenlafaxine 50 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="794947" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Sertraline 150 MG Oral Tablet"/>
+                    <ns0:Concept code="808744" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR venlafaxine 150 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="808748" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR venlafaxine 225 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="808751" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR venlafaxine 37.5 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="808753" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR venlafaxine 75 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="833135" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Milnacipran hydrochloride 100 MG Oral Tablet"/>
+                    <ns0:Concept code="833141" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Milnacipran hydrochloride 12.5 MG Oral Tablet"/>
+                    <ns0:Concept code="833144" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Milnacipran hydrochloride 50 MG Oral Tablet"/>
+                    <ns0:Concept code="833147" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Milnacipran hydrochloride 25 MG Oral Tablet"/>
+                    <ns0:Concept code="835564" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Imipramine Hydrochloride 25 MG Oral Tablet"/>
+                    <ns0:Concept code="835568" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Imipramine Hydrochloride 50 MG Oral Tablet"/>
+                    <ns0:Concept code="835572" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Imipramine pamoate 75 MG Oral Capsule"/>
+                    <ns0:Concept code="835577" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Imipramine pamoate 150 MG Oral Capsule"/>
+                    <ns0:Concept code="835589" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Imipramine pamoate 125 MG Oral Capsule"/>
+                    <ns0:Concept code="835591" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Imipramine pamoate 100 MG Oral Capsule"/>
+                    <ns0:Concept code="835593" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Imipramine Hydrochloride 10 MG Oral Tablet"/>
+                    <ns0:Concept code="846386" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="lithium orotate 5 MG Oral Capsule"/>
+                    <ns0:Concept code="856364" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Trazodone Hydrochloride 150 MG Oral Tablet"/>
+                    <ns0:Concept code="856369" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Trazodone Hydrochloride 300 MG Oral Tablet"/>
+                    <ns0:Concept code="856373" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Trazodone Hydrochloride 100 MG Oral Tablet"/>
+                    <ns0:Concept code="856377" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Trazodone Hydrochloride 50 MG Oral Tablet"/>
+                    <ns0:Concept code="856706" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amitriptyline Hydrochloride 10 MG / Perphenazine 2 MG Oral Tablet"/>
+                    <ns0:Concept code="856720" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amitriptyline Hydrochloride 10 MG / Perphenazine 4 MG Oral Tablet"/>
+                    <ns0:Concept code="856762" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amitriptyline Hydrochloride 100 MG Oral Tablet"/>
+                    <ns0:Concept code="856769" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amitriptyline Hydrochloride 12.5 MG / Chlordiazepoxide 5 MG Oral Tablet"/>
+                    <ns0:Concept code="856773" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amitriptyline Hydrochloride 150 MG Oral Tablet"/>
+                    <ns0:Concept code="856783" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amitriptyline Hydrochloride 10 MG Oral Tablet"/>
+                    <ns0:Concept code="856792" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amitriptyline Hydrochloride 25 MG / Chlordiazepoxide 10 MG Oral Tablet"/>
+                    <ns0:Concept code="856797" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amitriptyline Hydrochloride 25 MG / Perphenazine 2 MG Oral Tablet"/>
+                    <ns0:Concept code="856825" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amitriptyline Hydrochloride 25 MG / Perphenazine 4 MG Oral Tablet"/>
+                    <ns0:Concept code="856834" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amitriptyline Hydrochloride 25 MG Oral Tablet"/>
+                    <ns0:Concept code="856840" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amitriptyline Hydrochloride 50 MG / Perphenazine 4 MG Oral Tablet"/>
+                    <ns0:Concept code="856845" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amitriptyline Hydrochloride 50 MG Oral Tablet"/>
+                    <ns0:Concept code="856853" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Amitriptyline Hydrochloride 75 MG Oral Tablet"/>
+                    <ns0:Concept code="857291" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clomipramine Hydrochloride 10 MG Oral Tablet"/>
+                    <ns0:Concept code="857296" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clomipramine Hydrochloride 25 MG Oral Tablet"/>
+                    <ns0:Concept code="857297" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clomipramine Hydrochloride 25 MG Oral Capsule"/>
+                    <ns0:Concept code="857301" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clomipramine Hydrochloride 50 MG Oral Capsule"/>
+                    <ns0:Concept code="857305" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clomipramine Hydrochloride 75 MG Oral Capsule"/>
+                    <ns0:Concept code="857315" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clomipramine Hydrochloride 50 MG Oral Tablet"/>
+                    <ns0:Concept code="859186" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="selegiline hydrochloride 5 MG Oral Capsule"/>
+                    <ns0:Concept code="859190" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="selegiline hydrochloride 1.25 MG Disintegrating Oral Tablet"/>
+                    <ns0:Concept code="859193" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="selegiline hydrochloride 5 MG Oral Tablet"/>
+                    <ns0:Concept code="861064" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Sertraline 20 MG/ML Oral Solution"/>
+                    <ns0:Concept code="865206" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Selegiline 0.25 MG/HR Transdermal System"/>
+                    <ns0:Concept code="865210" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Selegiline 0.375 MG/HR Transdermal System"/>
+                    <ns0:Concept code="865214" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Selegiline 0.5 MG/HR Transdermal System"/>
+                    <ns0:Concept code="898697" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Trazodone Hydrochloride 150 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="898704" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Trazodone Hydrochloride 300 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="903873" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Fluvoxamine Maleate 100 MG Extended Release Oral Capsule"/>
+                    <ns0:Concept code="903879" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Fluvoxamine Maleate 150 MG Extended Release Oral Capsule"/>
+                    <ns0:Concept code="903884" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluvoxamine Maleate 100 MG Oral Tablet"/>
+                    <ns0:Concept code="903887" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluvoxamine Maleate 25 MG Oral Tablet"/>
+                    <ns0:Concept code="903891" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Fluvoxamine Maleate 50 MG Oral Tablet"/>
+                    <ns0:Concept code="905168" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Protriptyline Hydrochloride 10 MG Oral Tablet"/>
+                    <ns0:Concept code="905172" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Protriptyline Hydrochloride 5 MG Oral Tablet"/>
+                    <ns0:Concept code="966787" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Doxepin 3 MG Oral Tablet"/>
+                    <ns0:Concept code="966793" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Doxepin 6 MG Oral Tablet"/>
+                    <ns0:Concept code="993503" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="12 HR Bupropion Hydrochloride 100 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="993518" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="12 HR Bupropion Hydrochloride 150 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="993536" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="12 HR Bupropion Hydrochloride 200 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="993541" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Bupropion Hydrochloride 150 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="993550" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Bupropion hydrobromide 174 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="993557" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Bupropion Hydrochloride 300 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="993567" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Bupropion hydrobromide 348 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="993681" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="24 HR Bupropion hydrobromide 522 MG Extended Release Oral Tablet"/>
+                    <ns0:Concept code="993687" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Bupropion Hydrochloride 100 MG Oral Tablet"/>
+                    <ns0:Concept code="993691" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Bupropion Hydrochloride 75 MG Oral Tablet"/>
+                </ns0:ConceptList>
+                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1772:BH Antidepressant Medication - Monoamine Oxidase Inhibitor Antidepressants RxNorm),(2.16.840.1.113883.3.1257.1.1773:BH Antidepressant Medication - Phenylpiperazine Antidepressants RxNorm),(2.16.840.1.113883.3.1257.1.1774:BH Antidepressant Medication - SSNRI Antidepressants RxNorm),(2.16.840.1.113883.3.1257.1.1775:BH Antidepressant Medication - SSRI Antidepressants RxNorm),(2.16.840.1.113883.3.1257.1.1776:BH Antidepressant Medication - Tetracyclic Antidepressants RxNorm),(2.16.840.1.113883.3.1257.1.1788:BH Antidepressant Medication - Tricyclic Antidepressants RxNorm),(2.16.840.1.113883.3.1257.1.1811:BH Antidepressant Medication - Miscellaneous RxNorm)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2017-08-25</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:10 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-261980-W5leSOipjcvEmt1c7WpWxtzbHlCq4zPuZr5thaS47ds7RS6Mic-cas
+    body:
+      encoding: UTF-8
+      string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 07 Nov 2017 15:36:10 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!vMoeqaSgNh/NgiDLMWjf8K3rTDmEEqF7LKZy4hVI23y69m9yWeUFF7GaVY9t1sGtsDMJVjbemVZ5GYs=;
+        expires=Tue, 07-Nov-2017 17:36:11 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.114 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-867311-tMnIvy91rxImndEWEXR1-cas
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:11 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1604&profile=Latest%20eCQM&ticket=ST-867311-tMnIvy91rxImndEWEXR1-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - BIGipServervsacweb_p=!O6P5w+hBJWJcJCrLMWjf8K3rTDmEEvYvH49cmL+S6f3D2nxW/Yj4VS2Ajr1ZoT95hVKUwRRpEAnXEe0=;
+        expires=Tue, 07-Nov-2017 17:36:12 GMT; path=/; Httponly; Secure
+      - JSESSIONID=97248D36247B896B68B8D9514A749828;path=/vsac;HttpOnly;Secure
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '3760'
+      Date:
+      - Tue, 07 Nov 2017 15:36:11 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.1604" displayName="BH Assessment for Alcohol or Other Drugs" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="105355005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Volatile drug screen (procedure)"/>
+                    <ns0:Concept code="117251007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Substance Abuse and Mental Health Services Administration drug assay screening method (procedure)"/>
+                    <ns0:Concept code="171208001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Alcohol consumption screening (procedure)"/>
+                    <ns0:Concept code="252170002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Volatile substance screening (procedure)"/>
+                    <ns0:Concept code="273347006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Cage questionnaire (assessment scale)"/>
+                    <ns0:Concept code="408942001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Drug abuse prevention assessment (procedure)"/>
+                    <ns0:Concept code="408946003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Alcohol abuse prevention assessment (procedure)"/>
+                    <ns0:Concept code="428211000124100" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Assessment of substance use (procedure)"/>
+                    <ns0:Concept code="99408" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Alcohol and/or substance (other than tobacco) abuse structured screening (eg, AUDIT, DAST), and brief intervention (SBI) services; 15 to 30 minutes"/>
+                    <ns0:Concept code="99409" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Alcohol and/or substance (other than tobacco) abuse structured screening (eg, AUDIT, DAST), and brief intervention (SBI) services; greater than 30 minutes"/>
+                    <ns0:Concept code="H0001" codeSystem="2.16.840.1.113883.6.285" codeSystemName="HCPCS" codeSystemVersion="2017" displayName="Alcohol and/or drug assessment"/>
+                    <ns0:Concept code="H0049" codeSystem="2.16.840.1.113883.6.285" codeSystemName="HCPCS" codeSystemVersion="2017" displayName="Alcohol and/or drug screening"/>
+                </ns0:ConceptList>
+                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1723:BH Assessment for alcohol or other drugs - SNOMED),(2.16.840.1.113883.3.1257.1.1819:BH Assessment for alcohol or other drugs SNOMED),(2.16.840.1.113883.3.1257.1.1820:BH Assessment for alcohol or other drugs HCPCS),(2.16.840.1.113883.3.1257.1.1821:BH Assessment for alcohol or other drugs CPT)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:11 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-261980-W5leSOipjcvEmt1c7WpWxtzbHlCq4zPuZr5thaS47ds7RS6Mic-cas
+    body:
+      encoding: UTF-8
+      string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 07 Nov 2017 15:36:11 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!g8pVEH7i9unSNq/LMWjf8K3rTDmEEov69BtgO6rHbLoq8ZNXROubEwH9ioAcV9MrxcX7CmmfOBWn3n0=;
+        expires=Tue, 07-Nov-2017 17:36:12 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-867312-79ObVBAlnmrKMdBAMYJf-cas
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:11 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1504&profile=Latest%20eCQM&ticket=ST-867312-79ObVBAlnmrKMdBAMYJf-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - BIGipServervsacweb_p=!ZLGCaMgK2tgduFfLMWjf8K3rTDmEEpgDbZa5ubkCt4mB7kvqfiO4Ku/2CQgvM5pTjGpUn5lEMUueXAc=;
+        expires=Tue, 07-Nov-2017 17:36:12 GMT; path=/; Httponly; Secure
+      - JSESSIONID=76B76CDEFD56D49A6B333EDEE2CBC059;path=/vsac;HttpOnly;Secure
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '29828'
+      Date:
+      - Tue, 07 Nov 2017 15:36:12 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.114 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.1504" displayName="BH Condition Involving Bipolar Disorder" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="10875004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe mixed bipolar I disorder with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="10981006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe mixed bipolar I disorder with psychotic features (disorder)"/>
+                    <ns0:Concept code="1196001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Chronic bipolar II disorder, most recent episode major depressive (disorder)"/>
+                    <ns0:Concept code="13313007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mild bipolar disorder (disorder)"/>
+                    <ns0:Concept code="13581000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar I disorder, single manic episode with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="13746004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar disorder (disorder)"/>
+                    <ns0:Concept code="14495005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar I disorder, single manic episode without psychotic features (disorder)"/>
+                    <ns0:Concept code="1499003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder, single manic episode with postpartum onset (disorder)"/>
+                    <ns0:Concept code="162004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe manic bipolar I disorder without psychotic features (disorder)"/>
+                    <ns0:Concept code="16295005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar II disorder, most recent episode major depressive (disorder)"/>
+                    <ns0:Concept code="16506000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mixed bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="17782008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder, most recent episode manic with catatonic features (disorder)"/>
+                    <ns0:Concept code="191583000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Single manic episode, mild (disorder)"/>
+                    <ns0:Concept code="191584006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Single manic episode, moderate (disorder)"/>
+                    <ns0:Concept code="191586008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Single manic episode, severe, with psychosis (disorder)"/>
+                    <ns0:Concept code="191590005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent manic episodes (disorder)"/>
+                    <ns0:Concept code="191592002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent manic episodes, mild (disorder)"/>
+                    <ns0:Concept code="191593007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent manic episodes, moderate (disorder)"/>
+                    <ns0:Concept code="191595000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent manic episodes, severe, with psychosis (disorder)"/>
+                    <ns0:Concept code="191618007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar affective disorder, current episode manic (disorder)"/>
+                    <ns0:Concept code="191620005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar affective disorder, currently manic, mild (disorder)"/>
+                    <ns0:Concept code="191621009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar affective disorder, currently manic, moderate (disorder)"/>
+                    <ns0:Concept code="191623007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar affective disorder, currently manic, severe, with psychosis (disorder)"/>
+                    <ns0:Concept code="191627008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar affective disorder, current episode depression (disorder)"/>
+                    <ns0:Concept code="191629006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar affective disorder, currently depressed, mild (disorder)"/>
+                    <ns0:Concept code="191630001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar affective disorder, currently depressed, moderate (disorder)"/>
+                    <ns0:Concept code="191632009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar affective disorder, currently depressed, severe, with psychosis (disorder)"/>
+                    <ns0:Concept code="191636007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mixed bipolar affective disorder (disorder)"/>
+                    <ns0:Concept code="191638008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mixed bipolar affective disorder, mild (disorder)"/>
+                    <ns0:Concept code="191639000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mixed bipolar affective disorder, moderate (disorder)"/>
+                    <ns0:Concept code="191641004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mixed bipolar affective disorder, severe, with psychosis (disorder)"/>
+                    <ns0:Concept code="191658009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Atypical manic disorder (disorder)"/>
+                    <ns0:Concept code="192362008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar affective disorder, current episode mixed (disorder)"/>
+                    <ns0:Concept code="19300006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar II disorder, most recent episode major depressive with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="20960007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar II disorder, most recent episode major depressive with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="21900002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder, most recent episode depressed with catatonic features (disorder)"/>
+                    <ns0:Concept code="22407005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar II disorder, most recent episode major depressive with catatonic features (disorder)"/>
+                    <ns0:Concept code="231444002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Organic bipolar disorder (disorder)"/>
+                    <ns0:Concept code="231494001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mania (disorder)"/>
+                    <ns0:Concept code="231495000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Manic stupor (disorder)"/>
+                    <ns0:Concept code="231496004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Hypomania (disorder)"/>
+                    <ns0:Concept code="26203008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe depressed bipolar I disorder with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="26530004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar disorder with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="268619003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Manic disorder, single episode (disorder)"/>
+                    <ns0:Concept code="28663008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe manic bipolar I disorder with psychotic features (disorder)"/>
+                    <ns0:Concept code="28884001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Moderate bipolar I disorder, single manic episode (disorder)"/>
+                    <ns0:Concept code="29929003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder, most recent episode depressed with atypical features (disorder)"/>
+                    <ns0:Concept code="30520009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar II disorder, most recent episode major depressive with psychotic features (disorder)"/>
+                    <ns0:Concept code="30687003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar II disorder, most recent episode major depressive with postpartum onset (disorder)"/>
+                    <ns0:Concept code="31446002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder, most recent episode hypomanic (disorder)"/>
+                    <ns0:Concept code="33380008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe manic bipolar I disorder with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="34315001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar II disorder, most recent episode major depressive with melancholic features (disorder)"/>
+                    <ns0:Concept code="35481005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mixed bipolar I disorder in remission (disorder)"/>
+                    <ns0:Concept code="35722002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar II disorder, most recent episode major depressive, in remission (disorder)"/>
+                    <ns0:Concept code="35846004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Moderate bipolar II disorder, most recent episode major depressive (disorder)"/>
+                    <ns0:Concept code="36583000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mixed bipolar I disorder in partial remission (disorder)"/>
+                    <ns0:Concept code="371596008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="371599001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="371600003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar disorder (disorder)"/>
+                    <ns0:Concept code="371604007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar II disorder (disorder)"/>
+                    <ns0:Concept code="40926005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Moderate mixed bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="41552001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mild bipolar I disorder, single manic episode (disorder)"/>
+                    <ns0:Concept code="41832009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar I disorder, single manic episode with psychotic features (disorder)"/>
+                    <ns0:Concept code="41932008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Amok (disorder)"/>
+                    <ns0:Concept code="43568002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar II disorder, most recent episode major depressive with atypical features (disorder)"/>
+                    <ns0:Concept code="43769008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mild mixed bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="4441000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar disorder with psychotic features (disorder)"/>
+                    <ns0:Concept code="45479006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Manic bipolar I disorder in remission (disorder)"/>
+                    <ns0:Concept code="46229002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe mixed bipolar I disorder without psychotic features (disorder)"/>
+                    <ns0:Concept code="48937005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar II disorder, most recent episode hypomanic (disorder)"/>
+                    <ns0:Concept code="49468007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Depressed bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="49512000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Depressed bipolar I disorder in partial remission (disorder)"/>
+                    <ns0:Concept code="51637008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Chronic bipolar I disorder, most recent episode depressed (disorder)"/>
+                    <ns0:Concept code="53049002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar disorder without psychotic features (disorder)"/>
+                    <ns0:Concept code="53607008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Depressed bipolar I disorder in remission (disorder)"/>
+                    <ns0:Concept code="54761006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe depressed bipolar I disorder with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="55516002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder, most recent episode manic with postpartum onset (disorder)"/>
+                    <ns0:Concept code="5703000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar disorder in partial remission (disorder)"/>
+                    <ns0:Concept code="59617007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe depressed bipolar I disorder with psychotic features (disorder)"/>
+                    <ns0:Concept code="61403008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe depressed bipolar I disorder without psychotic features (disorder)"/>
+                    <ns0:Concept code="63249007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Manic bipolar I disorder in partial remission (disorder)"/>
+                    <ns0:Concept code="64731001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe mixed bipolar I disorder with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="65042007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder, most recent episode mixed with postpartum onset (disorder)"/>
+                    <ns0:Concept code="66631006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Moderate depressed bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="67002003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar II disorder, most recent episode major depressive, in partial remission (disorder)"/>
+                    <ns0:Concept code="68569003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Manic bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="70546001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar disorder with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="71294008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mild bipolar II disorder, most recent episode major depressive (disorder)"/>
+                    <ns0:Concept code="71984005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mild manic bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="73471000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder, most recent episode mixed with catatonic features (disorder)"/>
+                    <ns0:Concept code="74686005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mild depressed bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="75360000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder, single manic episode, in remission (disorder)"/>
+                    <ns0:Concept code="75752004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder, most recent episode depressed with melancholic features (disorder)"/>
+                    <ns0:Concept code="76105009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Cyclothymia (disorder)"/>
+                    <ns0:Concept code="78269000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder, single manic episode, in partial remission (disorder)"/>
+                    <ns0:Concept code="78640000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe manic bipolar I disorder with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="79584002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Moderate bipolar disorder (disorder)"/>
+                    <ns0:Concept code="81319007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar II disorder, most recent episode major depressive without psychotic features (disorder)"/>
+                    <ns0:Concept code="82998009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Moderate manic bipolar I disorder (disorder)"/>
+                    <ns0:Concept code="83225003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar II disorder (disorder)"/>
+                    <ns0:Concept code="85248005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar disorder in remission (disorder)"/>
+                    <ns0:Concept code="86058007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe bipolar I disorder, single manic episode with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="87203005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder, most recent episode depressed with postpartum onset (disorder)"/>
+                    <ns0:Concept code="87950005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder, single manic episode with catatonic features (disorder)"/>
+                    <ns0:Concept code="9340000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bipolar I disorder, single manic episode (disorder)"/>
+                    <ns0:Concept code="F30.10" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Manic episode without psychotic symptoms, unspecified"/>
+                    <ns0:Concept code="F30.11" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Manic episode without psychotic symptoms, mild"/>
+                    <ns0:Concept code="F30.12" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Manic episode without psychotic symptoms, moderate"/>
+                    <ns0:Concept code="F30.13" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Manic episode, severe, without psychotic symptoms"/>
+                    <ns0:Concept code="F30.2" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Manic episode, severe with psychotic symptoms"/>
+                    <ns0:Concept code="F30.3" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Manic episode in partial remission"/>
+                    <ns0:Concept code="F30.8" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Other manic episodes"/>
+                    <ns0:Concept code="F30.9" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Manic episode, unspecified"/>
+                    <ns0:Concept code="F31.0" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode hypomanic"/>
+                    <ns0:Concept code="F31.10" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode manic without psychotic features, unspecified"/>
+                    <ns0:Concept code="F31.11" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode manic without psychotic features, mild"/>
+                    <ns0:Concept code="F31.12" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode manic without psychotic features, moderate"/>
+                    <ns0:Concept code="F31.13" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode manic without psychotic features, severe"/>
+                    <ns0:Concept code="F31.2" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode manic severe with psychotic features"/>
+                    <ns0:Concept code="F31.30" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode depressed, mild or moderate severity, unspecified"/>
+                    <ns0:Concept code="F31.31" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode depressed, mild"/>
+                    <ns0:Concept code="F31.32" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode depressed, moderate"/>
+                    <ns0:Concept code="F31.4" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode depressed, severe, without psychotic features"/>
+                    <ns0:Concept code="F31.5" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode depressed, severe, with psychotic features"/>
+                    <ns0:Concept code="F31.60" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode mixed, unspecified"/>
+                    <ns0:Concept code="F31.61" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode mixed, mild"/>
+                    <ns0:Concept code="F31.62" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode mixed, moderate"/>
+                    <ns0:Concept code="F31.63" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode mixed, severe, without psychotic features"/>
+                    <ns0:Concept code="F31.64" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, current episode mixed, severe, with psychotic features"/>
+                    <ns0:Concept code="F31.70" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, currently in remission, most recent episode unspecified"/>
+                    <ns0:Concept code="F31.71" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, in partial remission, most recent episode hypomanic"/>
+                    <ns0:Concept code="F31.73" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, in partial remission, most recent episode manic"/>
+                    <ns0:Concept code="F31.75" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, in partial remission, most recent episode depressed"/>
+                    <ns0:Concept code="F31.77" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, in partial remission, most recent episode mixed"/>
+                    <ns0:Concept code="F31.81" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar II disorder"/>
+                    <ns0:Concept code="F31.89" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Other bipolar disorder"/>
+                    <ns0:Concept code="F31.9" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Bipolar disorder, unspecified"/>
+                    <ns0:Concept code="F34.0" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Cyclothymic disorder"/>
+                    <ns0:Concept code="F34.89" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Other specified persistent mood disorders"/>
+                </ns0:ConceptList>
+                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1804:BH Condition involving bipolar disorder SNOMED),(2.16.840.1.113883.3.1257.1.1805:BH Condition involving bipolar disorder ICD-10-CM)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:11 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-261980-W5leSOipjcvEmt1c7WpWxtzbHlCq4zPuZr5thaS47ds7RS6Mic-cas
+    body:
+      encoding: UTF-8
+      string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 07 Nov 2017 15:36:12 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!ikM1SZCvrq4egrTLMWjf8K3rTDmEEgHP8Dwms5z8U9f1waJi0gr9rirajOPTLkGX/jYs37qLHpYs8uM=;
+        expires=Tue, 07-Nov-2017 17:36:12 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-867313-vOMjH3hFNsCJMh4eBW6D-cas
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:12 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1505&profile=Latest%20eCQM&ticket=ST-867313-vOMjH3hFNsCJMh4eBW6D-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - BIGipServervsacweb_p=!rHhQB90ollSXHQLLMWjf8K3rTDmEEkp/nyV5pb6wqGvmsCjjIKj1u0se/LkZV9ROn4rKewrhqL3pYIc=;
+        expires=Tue, 07-Nov-2017 17:36:13 GMT; path=/; Httponly; Secure
+      - JSESSIONID=0B5D4BBFD2503EAB7A023549FD302B8B;path=/vsac;HttpOnly;Secure
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '13937'
+      Date:
+      - Tue, 07 Nov 2017 15:36:12 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.1505" displayName="BH Condition Involving Unipolar Depression" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="14183003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Chronic major depressive disorder, single episode (disorder)"/>
+                    <ns0:Concept code="15193003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe recurrent major depression with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="15639000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Moderate major depression, single episode (disorder)"/>
+                    <ns0:Concept code="18818009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Moderate recurrent major depression (disorder)"/>
+                    <ns0:Concept code="191610000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent major depressive episodes, mild (disorder)"/>
+                    <ns0:Concept code="191611001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent major depressive episodes, moderate (disorder)"/>
+                    <ns0:Concept code="191613003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent major depressive episodes, severe, with psychosis (disorder)"/>
+                    <ns0:Concept code="19527009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Single episode of major depression in full remission (disorder)"/>
+                    <ns0:Concept code="20250007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe major depression, single episode, with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="25922000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Major depressive disorder, single episode with postpartum onset (disorder)"/>
+                    <ns0:Concept code="2618002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Chronic recurrent major depressive disorder (disorder)"/>
+                    <ns0:Concept code="268621008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent major depressive episodes (disorder)"/>
+                    <ns0:Concept code="28475009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe recurrent major depression with psychotic features (disorder)"/>
+                    <ns0:Concept code="30605009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Major depression in partial remission (disorder)"/>
+                    <ns0:Concept code="319768000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent major depressive disorder with melancholic features (disorder)"/>
+                    <ns0:Concept code="320751009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Major depression, melancholic type (disorder)"/>
+                    <ns0:Concept code="33078009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe recurrent major depression with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="33135002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent major depression in partial remission (disorder)"/>
+                    <ns0:Concept code="33736005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe major depression with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="35489007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Depressive disorder (disorder)"/>
+                    <ns0:Concept code="36474008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe recurrent major depression without psychotic features (disorder)"/>
+                    <ns0:Concept code="36923009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Major depression, single episode (disorder)"/>
+                    <ns0:Concept code="370143000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Major depressive disorder (disorder)"/>
+                    <ns0:Concept code="38694004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent major depressive disorder with atypical features (disorder)"/>
+                    <ns0:Concept code="39809009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent major depressive disorder with catatonic features (disorder)"/>
+                    <ns0:Concept code="40379007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mild recurrent major depression (disorder)"/>
+                    <ns0:Concept code="42810003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Major depression in remission (disorder)"/>
+                    <ns0:Concept code="42925002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Major depressive disorder, single episode with atypical features (disorder)"/>
+                    <ns0:Concept code="430852001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe major depression, single episode, with psychotic features (disorder)"/>
+                    <ns0:Concept code="46244001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent major depression in full remission (disorder)"/>
+                    <ns0:Concept code="60099002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe major depression with psychotic features, mood-incongruent (disorder)"/>
+                    <ns0:Concept code="63412003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Major depression in full remission (disorder)"/>
+                    <ns0:Concept code="63778009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Major depressive disorder, single episode with melancholic features (disorder)"/>
+                    <ns0:Concept code="66344007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent major depression (disorder)"/>
+                    <ns0:Concept code="68019004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent major depression in remission (disorder)"/>
+                    <ns0:Concept code="69392006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Major depressive disorder, single episode with catatonic features (disorder)"/>
+                    <ns0:Concept code="70747007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Major depression single episode, in partial remission (disorder)"/>
+                    <ns0:Concept code="71336009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Recurrent major depressive disorder with postpartum onset (disorder)"/>
+                    <ns0:Concept code="73867007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe major depression with psychotic features (disorder)"/>
+                    <ns0:Concept code="75084000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe major depression without psychotic features (disorder)"/>
+                    <ns0:Concept code="76441001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe major depression, single episode, without psychotic features (disorder)"/>
+                    <ns0:Concept code="77911002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Severe major depression, single episode, with psychotic features, mood-congruent (disorder)"/>
+                    <ns0:Concept code="78667006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Dysthymia (disorder)"/>
+                    <ns0:Concept code="79298009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mild major depression, single episode (disorder)"/>
+                    <ns0:Concept code="832007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Moderate major depression (disorder)"/>
+                    <ns0:Concept code="87512008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Mild major depression (disorder)"/>
+                    <ns0:Concept code="F32.0" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Major depressive disorder, single episode, mild"/>
+                    <ns0:Concept code="F32.1" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Major depressive disorder, single episode, moderate"/>
+                    <ns0:Concept code="F32.2" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Major depressive disorder, single episode, severe without psychotic features"/>
+                    <ns0:Concept code="F32.3" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Major depressive disorder, single episode, severe with psychotic features"/>
+                    <ns0:Concept code="F32.4" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Major depressive disorder, single episode, in partial remission"/>
+                    <ns0:Concept code="F32.81" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Premenstrual dysphoric disorder"/>
+                    <ns0:Concept code="F32.89" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Other specified depressive episodes"/>
+                    <ns0:Concept code="F32.9" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Major depressive disorder, single episode, unspecified"/>
+                    <ns0:Concept code="F33.0" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Major depressive disorder, recurrent, mild"/>
+                    <ns0:Concept code="F33.1" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Major depressive disorder, recurrent, moderate"/>
+                    <ns0:Concept code="F33.2" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Major depressive disorder, recurrent severe without psychotic features"/>
+                    <ns0:Concept code="F33.3" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Major depressive disorder, recurrent, severe with psychotic symptoms"/>
+                    <ns0:Concept code="F33.40" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Major depressive disorder, recurrent, in remission, unspecified"/>
+                    <ns0:Concept code="F33.41" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Major depressive disorder, recurrent, in partial remission"/>
+                    <ns0:Concept code="F33.8" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Other recurrent depressive disorders"/>
+                    <ns0:Concept code="F33.9" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Major depressive disorder, recurrent, unspecified"/>
+                    <ns0:Concept code="F34.1" codeSystem="2.16.840.1.113883.6.90" codeSystemName="ICD10CM" codeSystemVersion="2018" displayName="Dysthymic disorder"/>
+                </ns0:ConceptList>
+                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1802:BH Condition involving unipolar depression ICD-10-CM),(2.16.840.1.113883.3.1257.1.1803:BH Condition involving unipolar depression SNOMED)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:12 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-261980-W5leSOipjcvEmt1c7WpWxtzbHlCq4zPuZr5thaS47ds7RS6Mic-cas
+    body:
+      encoding: UTF-8
+      string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 07 Nov 2017 15:36:12 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!IMbkQ1sGxgO4GHLLMWjf8K3rTDmEErmMcQOmNp/enCb6mAXcSJEqj6pcTdMuM2EUN4aaSdgnxBprDMw=;
+        expires=Tue, 07-Nov-2017 17:36:13 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-867314-PEcr2bjHXh0GLXudaHai-cas
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:12 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1616&profile=Latest%20eCQM&ticket=ST-867314-PEcr2bjHXh0GLXudaHai-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - BIGipServervsacweb_p=!pSFx98akrrjDVx/LMWjf8K3rTDmEEke63trPoHH7KK/FkL6AXGe++iyd3hOwoJrgpSTJQcdGi8AlW74=;
+        expires=Tue, 07-Nov-2017 17:36:13 GMT; path=/; Httponly; Secure
+      - JSESSIONID=042AF210E0992AFB92C5CEE71CEA2F71;path=/vsac;HttpOnly;Secure
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '1195'
+      Date:
+      - Tue, 07 Nov 2017 15:36:12 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.1616" displayName="BH Counseling for Depression" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="428201000124103" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Counseling for depression (procedure)"/>
+                </ns0:ConceptList>
+                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1742:BH Counseling for depression SNOMED)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:13 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-261980-W5leSOipjcvEmt1c7WpWxtzbHlCq4zPuZr5thaS47ds7RS6Mic-cas
+    body:
+      encoding: UTF-8
+      string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 07 Nov 2017 15:36:13 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!lA3ke/uk6jaJuK7LMWjf8K3rTDmEEuVrl+H6hprgOCsuzy5Gs0Ly7UMZuwsO+ATJpnSWd0HjKJf92o8=;
+        expires=Tue, 07-Nov-2017 17:36:13 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-867315-iRRmFPxfaITcqmhfs2XZ-cas
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:13 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.1533&profile=Latest%20eCQM&ticket=ST-867315-iRRmFPxfaITcqmhfs2XZ-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - BIGipServervsacweb_p=!98lSNrwHdIa24dvLMWjf8K3rTDmEEtsxSJU8wcvm3a+0I32edSh/qjxn3DnyXxm5Z9P/KIZcvIiW3uM=;
+        expires=Tue, 07-Nov-2017 17:36:14 GMT; path=/; Httponly; Secure
+      - JSESSIONID=F9B2F848CFBFE67F406871127D5C70FC;path=/vsac;HttpOnly;Secure
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '3708'
+      Date:
+      - Tue, 07 Nov 2017 15:36:13 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.1533" displayName="BH Electroconvulsive Therapy" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="11075005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Subconvulsive electroshock therapy (procedure)"/>
+                    <ns0:Concept code="231079005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Multiple electroconvulsive therapy (procedure)"/>
+                    <ns0:Concept code="231080008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Multiple monitored electroconvulsive therapy (procedure)"/>
+                    <ns0:Concept code="23835007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Electroconvulsive therapy (procedure)"/>
+                    <ns0:Concept code="284468008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Bilateral electroconvulsive therapy (procedure)"/>
+                    <ns0:Concept code="313019002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="First treatment in a course of electroconvulsive therapy (procedure)"/>
+                    <ns0:Concept code="313020008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Subsequent treatment in a course of electroconvulsive therapy (procedure)"/>
+                    <ns0:Concept code="90870" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Electroconvulsive therapy (includes necessary monitoring)"/>
+                    <ns0:Concept code="GZB0ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Electroconvulsive Therapy, Unilateral-Single Seizure"/>
+                    <ns0:Concept code="GZB1ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Electroconvulsive Therapy, Unilateral-Multiple Seizure"/>
+                    <ns0:Concept code="GZB2ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Electroconvulsive Therapy, Bilateral-Single Seizure"/>
+                    <ns0:Concept code="GZB3ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Electroconvulsive Therapy, Bilateral-Multiple Seizure"/>
+                    <ns0:Concept code="GZB4ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Other Electroconvulsive Therapy"/>
+                </ns0:ConceptList>
+                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1797:BH Electroconvulsive therapy CPT),(2.16.840.1.113883.3.1257.1.1798:BH Electroconvulsive therapy ICD-10-PCS),(2.16.840.1.113883.3.1257.1.1799:BH Electroconvulsive therapy SNOMED)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:13 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-261980-W5leSOipjcvEmt1c7WpWxtzbHlCq4zPuZr5thaS47ds7RS6Mic-cas
+    body:
+      encoding: UTF-8
+      string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 07 Nov 2017 15:36:13 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!bklU9aemAHEQaBfLMWjf8K3rTDmEEvuqjw3Cye6zGnBCNlYJQWMOE0SJW7JqdLi8tb3ljNS93CTmDPA=;
+        expires=Tue, 07-Nov-2017 17:36:14 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-867316-cr3DIdIPMt4dmMfQPBYo-cas
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:13 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.950&profile=Latest%20eCQM&ticket=ST-867316-cr3DIdIPMt4dmMfQPBYo-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - BIGipServervsacweb_p=!xjjdoiSdD62cv4TLMWjf8K3rTDmEEuAfusg6GORKvuZOYpqQUXiuTX7eqTaofi6ANE3ZHnib5d8kPfM=;
+        expires=Tue, 07-Nov-2017 17:36:14 GMT; path=/; Httponly; Secure
+      - JSESSIONID=D7B1B80553B61DF33757FEA01FDC76FB;path=/vsac;HttpOnly;Secure
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '6466'
+      Date:
+      - Tue, 07 Nov 2017 15:36:13 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.950" displayName="BH Mood Stabilizer Medication" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="1006801" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clozapine 150 MG Disintegrating Oral Tablet"/>
+                    <ns0:Concept code="151226" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="topiramate 50 MG Oral Tablet"/>
+                    <ns0:Concept code="197535" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clozapine 100 MG Oral Tablet"/>
+                    <ns0:Concept code="197536" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clozapine 25 MG Oral Tablet"/>
+                    <ns0:Concept code="198075" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Perphenazine 16 MG Oral Tablet"/>
+                    <ns0:Concept code="198076" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Perphenazine 2 MG Oral Tablet"/>
+                    <ns0:Concept code="198077" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Perphenazine 4 MG Oral Tablet"/>
+                    <ns0:Concept code="198078" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Perphenazine 8 MG Oral Tablet"/>
+                    <ns0:Concept code="199888" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="topiramate 25 MG Oral Tablet"/>
+                    <ns0:Concept code="199889" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="topiramate 100 MG Oral Tablet"/>
+                    <ns0:Concept code="199890" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="topiramate 200 MG Oral Tablet"/>
+                    <ns0:Concept code="205315" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="topiramate 25 MG Oral Capsule"/>
+                    <ns0:Concept code="205316" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="topiramate 15 MG Oral Capsule"/>
+                    <ns0:Concept code="283536" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="oxcarbazepine 60 MG/ML Oral Suspension"/>
+                    <ns0:Concept code="309374" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clozapine 200 MG Oral Tablet"/>
+                    <ns0:Concept code="312136" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="oxcarbazepine 150 MG Oral Tablet"/>
+                    <ns0:Concept code="312137" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="oxcarbazepine 300 MG Oral Tablet"/>
+                    <ns0:Concept code="312138" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="oxcarbazepine 600 MG Oral Tablet"/>
+                    <ns0:Concept code="429212" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clozapine 50 MG Oral Tablet"/>
+                    <ns0:Concept code="476177" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clozapine 100 MG Disintegrating Oral Tablet"/>
+                    <ns0:Concept code="476179" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clozapine 25 MG Disintegrating Oral Tablet"/>
+                    <ns0:Concept code="721773" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clozapine 12.5 MG Disintegrating Oral Tablet"/>
+                    <ns0:Concept code="848722" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="iloperidone 1 MG Oral Tablet"/>
+                    <ns0:Concept code="848728" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="iloperidone 10 MG Oral Tablet"/>
+                    <ns0:Concept code="848732" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="iloperidone 12 MG Oral Tablet"/>
+                    <ns0:Concept code="848736" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="iloperidone 2 MG Oral Tablet"/>
+                    <ns0:Concept code="848740" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="iloperidone 4 MG Oral Tablet"/>
+                    <ns0:Concept code="848744" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="iloperidone 6 MG Oral Tablet"/>
+                    <ns0:Concept code="848748" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="iloperidone 8 MG Oral Tablet"/>
+                    <ns0:Concept code="859824" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="fluphenazine decanoate 25 MG/ML Injectable Solution"/>
+                    <ns0:Concept code="996921" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RXNORM" codeSystemVersion="2017-06" displayName="Clozapine 200 MG Disintegrating Oral Tablet"/>
+                </ns0:ConceptList>
+                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1810:BH Mood Stabilizer Medication RxNorm)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2017-08-25</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:14 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-261980-W5leSOipjcvEmt1c7WpWxtzbHlCq4zPuZr5thaS47ds7RS6Mic-cas
+    body:
+      encoding: UTF-8
+      string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 07 Nov 2017 15:36:15 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!lZSwhm1q0rKs2WbLMWjf8K3rTDmEEjvnRuFid2t+IjIBHxaoyEhRMCy97zneygH4CDh1pPUwb+e9sUY=;
+        expires=Tue, 07-Nov-2017 17:36:15 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-867317-g6tQnlUu5NTTwEsy7faF-cas
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:14 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1.49&profile=Latest%20eCQM&ticket=ST-867317-g6tQnlUu5NTTwEsy7faF-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - BIGipServervsacweb_p=!XOHih2XgyytswJvLMWjf8K3rTDmEEjkyRPyAQTM2oKO55U5R1xIuKCHQfoXGjXBmdhNSVta/oljMzwY=;
+        expires=Tue, 07-Nov-2017 17:36:15 GMT; path=/; Httponly; Secure
+      - JSESSIONID=AB04C6445816186EF17FED1C4C935113;path=/vsac;HttpOnly;Secure
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '13492'
+      Date:
+      - Tue, 07 Nov 2017 15:36:15 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.464.1.49" displayName="BH Outpatient encounter" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="17436001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Medical consultation with outpatient (procedure)"/>
+                    <ns0:Concept code="183654001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Follow-up in outpatient clinic (finding)"/>
+                    <ns0:Concept code="185211000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Seen in hospital outpatient department (finding)"/>
+                    <ns0:Concept code="185387006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="New patient consultation (procedure)"/>
+                    <ns0:Concept code="185389009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Follow-up visit (procedure)"/>
+                    <ns0:Concept code="30346009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Evaluation and management of established outpatient in office or other outpatient facility (procedure)"/>
+                    <ns0:Concept code="371883000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Outpatient procedure (procedure)"/>
+                    <ns0:Concept code="37894004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Evaluation and management of new outpatient in office or other outpatient facility (procedure)"/>
+                    <ns0:Concept code="390906007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Follow-up encounter (procedure)"/>
+                    <ns0:Concept code="40274000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="General outpatient clinic admission (procedure)"/>
+                    <ns0:Concept code="86013001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Periodic reevaluation and management of healthy individual (procedure)"/>
+                    <ns0:Concept code="90526000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Initial evaluation and management of healthy individual (procedure)"/>
+                    <ns0:Concept code="99201" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family."/>
+                    <ns0:Concept code="99202" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 20 minutes are spent face-to-face with the patient and/or family."/>
+                    <ns0:Concept code="99203" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A detailed history; A detailed examination; Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 30 minutes are spent face-to-face with the patient and/or family."/>
+                    <ns0:Concept code="99204" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 45 minutes are spent face-to-face with the patient and/or family."/>
+                    <ns0:Concept code="99205" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 60 minutes are spent face-to-face with the patient and/or family."/>
+                    <ns0:Concept code="99212" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family."/>
+                    <ns0:Concept code="99213" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 15 minutes are spent face-to-face with the patient and/or family."/>
+                    <ns0:Concept code="99214" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A detailed history; A detailed examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 25 minutes are spent face-to-face with the patient and/or family."/>
+                    <ns0:Concept code="99215" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Office or other outpatient visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A comprehensive history; A comprehensive examination; Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 40 minutes are spent face-to-face with the patient and/or family."/>
+                    <ns0:Concept code="99241" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Office consultation for a new or established patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 15 minutes are spent face-to-face with the patient and/or family."/>
+                    <ns0:Concept code="99242" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Office consultation for a new or established patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Typically, 30 minutes are spent face-to-face with the patient and/or family."/>
+                    <ns0:Concept code="99243" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Office consultation for a new or established patient, which requires these 3 key components: A detailed history; A detailed examination; and Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 40 minutes are spent face-to-face with the patient and/or family."/>
+                    <ns0:Concept code="99244" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Office consultation for a new or established patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 60 minutes are spent face-to-face with the patient and/or family."/>
+                    <ns0:Concept code="99245" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Office consultation for a new or established patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 80 minutes are spent face-to-face with the patient and/or family."/>
+                </ns0:ConceptList>
+                <ns0:Source>National Committee for Quality Assurance</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: ),(Data Element Scope: ),(Inclusion Criteria: ),(Exclusion Criteria: )</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1824:BH Medical or psychiatric consultation SNOMED),(2.16.840.1.113883.3.464.1003.101.11.1005:Office Visit),(2.16.840.1.113883.3.464.1003.101.11.1040:Outpatient Consultation)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:14 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-261980-W5leSOipjcvEmt1c7WpWxtzbHlCq4zPuZr5thaS47ds7RS6Mic-cas
+    body:
+      encoding: UTF-8
+      string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '34'
+      Date:
+      - Tue, 07 Nov 2017 15:36:15 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!lGeH7lsbjw2MAhnLMWjf8K3rTDmEEgUv/eMMBuoCQQSOtIlKk7GACFf0kzjny9p1nMT4WGw+cxjH5b4=;
+        expires=Tue, 07-Nov-2017 17:36:15 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-867319-bQnhbSeFNKqgUvjTduDO-cas
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:15 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.1257.1.973&profile=Latest%20eCQM&ticket=ST-867319-bQnhbSeFNKqgUvjTduDO-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - BIGipServervsacweb_p=!LXF/Uw3oLdbx6V/LMWjf8K3rTDmEEulgUEIPq3GUByXDFiD8i9F4kY8wzYouOLbGWLF7qntglhTwZU8=;
+        expires=Tue, 07-Nov-2017 17:36:16 GMT; path=/; Httponly; Secure
+      - JSESSIONID=CF72B73417B6E937A045A02F13441C86;path=/vsac;HttpOnly;Secure
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '4996'
+      Date:
+      - Tue, 07 Nov 2017 15:36:16 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.114 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.1257.1.973" displayName="BH Outpatient Psychotherapy" version="N/A">
+                <ns0:ConceptList>
+                    <ns0:Concept code="108313002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Family psychotherapy procedure (regime/therapy)"/>
+                    <ns0:Concept code="183382003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Psychotherapy - behavioral (regime/therapy)"/>
+                    <ns0:Concept code="183383008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Psychotherapy - cognitive (regime/therapy)"/>
+                    <ns0:Concept code="75516001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Psychotherapy (regime/therapy)"/>
+                    <ns0:Concept code="76168009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" codeSystemVersion="2017-03" displayName="Group psychotherapy (regime/therapy)"/>
+                    <ns0:Concept code="90791" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Psychiatric diagnostic evaluation"/>
+                    <ns0:Concept code="90792" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Psychiatric diagnostic evaluation with medical services"/>
+                    <ns0:Concept code="90832" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Psychotherapy, 30 minutes with patient"/>
+                    <ns0:Concept code="90834" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Psychotherapy, 45 minutes with patient"/>
+                    <ns0:Concept code="90837" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT" codeSystemVersion="2017" displayName="Psychotherapy, 60 minutes with patient"/>
+                    <ns0:Concept code="GZ50ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Individual Psychotherapy, Interactive"/>
+                    <ns0:Concept code="GZ51ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Individual Psychotherapy, Behavioral"/>
+                    <ns0:Concept code="GZ52ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Individual Psychotherapy, Cognitive"/>
+                    <ns0:Concept code="GZ53ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Individual Psychotherapy, Interpersonal"/>
+                    <ns0:Concept code="GZ54ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Individual Psychotherapy, Psychoanalysis"/>
+                    <ns0:Concept code="GZ55ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Individual Psychotherapy, Psychodynamic"/>
+                    <ns0:Concept code="GZ56ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Individual Psychotherapy, Supportive"/>
+                    <ns0:Concept code="GZ58ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Individual Psychotherapy, Cognitive-Behavioral"/>
+                    <ns0:Concept code="GZ59ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Individual Psychotherapy, Psychophysiological"/>
+                    <ns0:Concept code="GZ72ZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Family Psychotherapy"/>
+                    <ns0:Concept code="GZHZZZZ" codeSystem="2.16.840.1.113883.6.4" codeSystemName="ICD10PCS" codeSystemVersion="2018" displayName="Group Psychotherapy"/>
+                </ns0:ConceptList>
+                <ns0:Source>Center for Quality Assessment and Improvement in Mental Health</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Under development),(Data Element Scope: Under development),(Inclusion Criteria: Under development),(Exclusion Criteria: Under development)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.1257.1.1779:BH Outpatient psychotherapy SNOMED),(2.16.840.1.113883.3.1257.1.1807:BH Outpatient psychotherapy ICD-10-PCS),(2.16.840.1.113883.3.526.2.1923:Psych Visit - Diagnostic Evaluation),(2.16.840.1.113883.3.526.2.1927:Psych Visit - Psychotherapy)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2017-05-04</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Tue, 07 Nov 2017 15:36:15 GMT
+recorded_with: VCR 3.0.3
