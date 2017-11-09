@@ -3,8 +3,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
 
   initialize: ->
     @summaryValueSets = [] # array of {generic value set descriptor, oid, and code}
-    @dataCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # all criteria that aren't supplemental criteria
-    @supplementalCriteria = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex')  # ethnicity/gender/payer/race criteria
+    @terminology = new Thorax.Collections.ValueSetsCollection([], sorting: 'complex') # all value set names, OID, and versions
     @overlappingValueSets = new Thorax.Collections.ValueSetsCollection([]) # all value sets that overlap
     @overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]
 
@@ -12,60 +11,94 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
     @pagination_options =
       mode: 'client'
       state: { pageSize: 10, firstPage: 1, currentPage: 1 }
-
-    @getValueSets() # populates @dataCriteria and @supplementalCriteria
+    @getValueSets() # populates @terminology
     @findOverlappingValueSets() # populates @overlappingValueSets
 
   context: ->
+    criteriaSetArray = []
+
+    if @terminology.length > 0
+      criteriaSetArray.push({ name: "Terminology", id: "terminology", criteria: @terminology })
+
     _(super).extend
       overlappingValueSets: @overlappingValueSets
-      criteriaSets: [
-        { name: "Data Criteria", id: "data_criteria", criteria: @dataCriteria },
-        { name: "Supplemental Data Elements", id: "supplemental_criteria", criteria: @supplementalCriteria }
-      ]
+      criteriaSets: criteriaSetArray
+
+  getVersionAndCodes: (oid) ->
+    isDirectReference = /-/.test(oid)
+    if isDirectReference
+      oid_version = ''
+      version = ''
+    else
+      oid_version = _.find(@model.get('value_set_oid_version_objects'), (oid_version) -> oid_version.oid == oid)
+      if oid_version?
+        version = oid_version.version
+      else
+        version = ''
+
+    if bonnie.valueSetsByOid[oid]?
+      if bonnie.valueSetsByOid[oid][version]?
+        codeConcepts = bonnie.valueSetsByOid[oid][version].concepts ? []
+        for code in codeConcepts
+          code.hasLongDisplayName = code.display_name.length > 160
+      else
+        codeConcepts = []
+    else
+      codeConcepts = []
+
+    codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @pagination_options)
+    if version.match(/^Draft/)
+      version = "Draft"
+    [version, codes]
+
+  addSummaryValueSet: (valueSet, oid, cid, name, codes) ->
+    # only add value set info summaryValueSets if it isn't there already
+    # includes the common name for the value set, the oid, and the codes.
+    if _.where(@summaryValueSets, { oid: oid }).length == 0
+      nameParts = valueSet.name.split(':')
+      name = if nameParts.length > 1 then nameParts[1] else nameParts[0]
+      @summaryValueSets.push({ oid: oid, cid: cid, name: name, codes: codes })
 
   getValueSets: ->
-    supplementalCriteria = []
-    dataCriteria = []
+    terminology = []
 
-    @model.get('source_data_criteria').each (sdc) =>
-      if sdc.get('code_list_id')
-        name = sdc.get('description')
-        oid = sdc.get('code_list_id')
-        cid = sdc.cid
+    if @model.get('elm')
+      @model.get('elm').forEach (library) =>
+        # Direct Reference Codes
+        drc_guids_and_names = {}
+        for guid, value of bonnie.valueSetsByOid
+          if /-/.test(guid)
+            drc_guids_and_names[guid] = value['']['display_name'] # all drc have version of ''
 
-        oid_version = _.find(@model.get('value_set_oid_version_objects'), (oid_version) -> oid_version.oid == oid)
-        if oid_version? && bonnie.valueSetsByOid[oid]?
-          version = oid_version.version
-          codeConcepts = bonnie.valueSetsByOid[oid][version].concepts ? []
-          for code in codeConcepts
-            code.hasLongDisplayName = code.display_name.length > 160
-        else
-          version = ''
-          codeConcepts = []
+        if library.library.codes
+          library.library.codes.def.forEach (code) =>
+            name = code.name
+            display = code.display
+            oid = 'Direct Reference Code'
+            cid = _.uniqueId('c')
+            # Get the guid by looping over bonnie.valueSetByOid
+            for guid, display_name of drc_guids_and_names
+              if display_name == name
+                [version, codes] = @getVersionAndCodes(guid)
 
-        codes = new Backbone.PageableCollection(@sortAndFilterCodes(codeConcepts), @pagination_options)
-        if version.match(/^Draft/)
-          version = "Draft"
-        valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
+                valueSet = { name: display, oid: 'Direct Reference Code', version: 'N/A', codes: codes, cid: cid }
 
-        # the property values that indicate a supplemental criteria. this list is derived from
-        # the human readable html for measures.
-        if sdc.get('property') in ["ethnicity", "gender", "payer", "race"]
-          supplementalCriteria.push(valueSet)
-        else
-          dataCriteria.push(valueSet)
+                terminology.push(valueSet)
 
-        # only add value set info summaryValueSets if it isn't there already
-        # includes the common name for the value set, the oid, and the codes.
-        if _.where(@summaryValueSets, { oid: oid }).length == 0
-          nameParts = valueSet.name.split(':')
-          name = if nameParts.length > 1 then nameParts[1] else nameParts[0]
-          @summaryValueSets.push({ oid: oid, cid: cid, name: name, codes: codes })
+        if library.library.valueSets
+          library.library.valueSets.def.forEach (value_set) =>
+            name = value_set.name
+            oid = value_set.id
+            cid = _.uniqueId('c')
 
-    # now that we have all the value sets, filter them
-    @supplementalCriteria.add(@filterValueSets(supplementalCriteria))
-    @dataCriteria.add(@filterValueSets(dataCriteria))
+            [version, codes] = @getVersionAndCodes(oid)
+            valueSet = { name: name, oid: oid, version: version, codes: codes, cid: cid }
+
+            terminology.push(valueSet)
+            @addSummaryValueSet(valueSet, oid, cid, name, codes)
+
+    terminology = @filterValueSets(terminology)
+    @terminology.add(terminology)
 
   filterValueSets: (valueSets) ->
     # returns unique (by name and oid) value sets
@@ -112,7 +145,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
               overlapValueSets[overlapKey] = [overlap['valueSet'], curValueSet]
             overlapCodes[overlapKey].push(curCode)
         codeToVs[workingCode].push(vsAndCode)
-    
+
     #Users have specfically requested that overlaps should be indicated in both directions.
     for overlapKey in Object.keys(overlapValueSets)
       valueSet1 = overlapValueSets[overlapKey][0]

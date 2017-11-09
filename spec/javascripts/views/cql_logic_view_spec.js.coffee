@@ -126,3 +126,18 @@ describe 'CqlLogicView', ->
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: cqlMeasure)
       populationLogicView.render()
       expect(populationLogicView.$el.html()).not.toContain 'This measure was written using an outdated version of QDM. Please re-package and re-export the measure from the MAT.'
+
+  describe 'CQL Error warning message', ->
+    it 'shows for measure with CQL errors', ->
+      jasmine.getJSONFixtures().clearCache()
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS347/CMS735v0.json'), parse: true
+      populationLogicView = new Thorax.Views.CqlPopulationLogic(model: cqlMeasure)
+      populationLogicView.render()
+      expect(populationLogicView.$el.html()).toContain 'This measure appears to have errors in its CQL.  Please re-package and re-export the measure from the MAT.'
+
+    it 'does not show for error-free CQL measure', ->
+      jasmine.getJSONFixtures().clearCache()
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/cqltest/CMS720v0.json'), parse: true
+      populationLogicView = new Thorax.Views.CqlPopulationLogic(model: cqlMeasure)
+      populationLogicView.render()
+      expect(populationLogicView.$el.html()).not.toContain 'This measure appears to have errors in its CQL.  Please re-package and re-export the measure from the MAT.'

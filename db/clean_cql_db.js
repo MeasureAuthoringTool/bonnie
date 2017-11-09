@@ -33,27 +33,25 @@ bundle_ids = db.getCollection('users').distinct("bundle_id", {}, {bundle_id: 1})
 // remove orphans
 print("## DELETING ORPHANED PATIENTS");
 removed_result = db.getCollection('records').remove({"user_id": {$nin: user_ids}})
-print("\t" + removed_result.nRemoved.toString() + " removed");
+print_if_defined(removed_result);
 
 print("## DELETING ORPHANED MEASURES");
 removed_result = db.getCollection('cql_measures').remove({"user_id": {$nin: user_ids}})
-print("\t" + removed_result.nRemoved.toString() + " removed");
+print_if_defined(removed_result);
 
 print("## DELETING ORPHANED VALUE SETS");
 removed_result = db.getCollection('health_data_standards_svs_value_sets').remove({"user_id": {$nin: user_ids}})
-print("\t" + removed_result.nRemoved.toString() + " removed");
+print_if_defined(removed_result);
 
 print("## DELETING ORPHANED BUNDLES");
 removed_result = db.getCollection('bundles').remove({"_id": {$nin: bundle_ids}})
-print("\t" + removed_result.nRemoved.toString() + " removed");
+print_if_defined(removed_result);
 
 print("## DELETING FIELDS 'too_big', 'has_measure_history', 'calc_results' FROM RECORDS");
 db.getCollection('records').update( {}, {$unset: {too_big:"", has_measure_history:"", calc_results:""}}, {multi:true});
 
 print("## CHANGE RECORD FIELD 'is_shared' TO FALSE");
 db.getCollection('records').update( {}, {$set: {is_shared:false}}, {multi:true});
-
-
 
 // delete the users and all data associated with the users
 function delete_users_information(query) {
@@ -63,21 +61,27 @@ function delete_users_information(query) {
 
   print("* DELETING PATIENTS")
   removed_result = db.getCollection('records').remove({"user_id": {$in: user_ids}})
-  print("\t" + removed_result.nRemoved.toString() + " removed");
-  
+  print_if_defined(removed_result);
+
   print("* DELETING MEASURES")
   removed_result = db.getCollection('cql_measures').remove({"user_id": {$in: user_ids}})
-  print("\t" + removed_result.nRemoved.toString() + " removed");
-  
+  print_if_defined(removed_result);
+
   print("* DELETING VALUESETS")
   removed_result = db.getCollection('health_data_standards_svs_value_sets').remove({"user_id": {$in: user_ids}})
-  print("\t" + removed_result.nRemoved.toString() + " removed");
-  
+  print_if_defined(removed_result);
+
   print("* DELETING BUNDLES")
   removed_result = db.getCollection('bundles').remove({"_id": {$in: bundle_ids}})
-  print("\t" + removed_result.nRemoved.toString() + " removed");
-  
+  print_if_defined(removed_result);
+
   print("* DELETING USERS")
   removed_result = db.getCollection('users').remove({"_id": {$in: user_ids}})
-  print("\t" + removed_result.nRemoved.toString() + " removed");
+  print_if_defined(removed_result);
 };
+
+function print_if_defined(removed_result) {
+  if (typeof(removed_result) !== "undefined") {
+    print("\t" + removed_result.nRemoved.toString() + " removed");
+  }
+}

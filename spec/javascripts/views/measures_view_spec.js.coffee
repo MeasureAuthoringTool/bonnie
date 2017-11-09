@@ -18,3 +18,9 @@ describe 'MeasuresView', ->
   it 'renders measures with populations on dashboard', ->
     expect(@measuresView.$el).toContainText @measure.get('populations').first().get('title')
     expect(@measuresView.$el).toContainText @measure.get('populations').last().get('title')
+
+  it 'does not show a download bundle button', ->
+    expect(@measuresView.$el).not.toContainText 'bundle export'
+
+  it 'does not have a ExportBundleView instance', ->
+    expect(@measuresView.exportBundleView).toBeUndefined()

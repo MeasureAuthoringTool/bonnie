@@ -32,14 +32,14 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 09ebcfe90493e7acdd748c8b6d4105f239b32876
+  revision: f49d8e1b9959b3bc05a3c37e3ad6f9bc2f41bb36
   branch: cql4bonnie
   specs:
     bonnie_bundler (1.0.0)
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: 32a96f73fb797bf2aa122c03d4138bfe71554381
+  revision: e11701446c0ef6c8f927ea358d4e51634a9751fd
   branch: cql4bonnie
   specs:
     cql_qdm_patientapi (0.1.0)
@@ -55,8 +55,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/patientapi.git
-  revision: 5ea68b4e87d8d88385084efcb9d25ecc210fec0b
-  branch: QDM_5-0
+  revision: f56ba28452ab4b2ef4f2f6dbc585cd4e7f64f045
+  branch: master
   specs:
     hquery-patient-api (1.0.4)
 

@@ -295,10 +295,50 @@ include Devise::Test::ControllerHelpers
     assert_equal "first_b", row4[10]
     assert_equal "03/04/1971", row4[11]
     assert_equal "FALSE", row4[12]
-    assert_equal nil, row4[13]
+    assert_nil row4[13]
     assert_equal "Not Hispanic or Latino", row4[14]
     assert_equal "American Indian or Alaska Native", row4[15]
     assert_equal "M", row4[16]
+    
+    temp.close()
+    temp.unlink()
+  end
+  
+  test "Excel export cv measures" do
+    calc_results = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'calc_results.json'))
+    patient_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'patient_details.json'))
+    population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'population_details.json'))
+    statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'statement_details.json'))
+
+    get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test"
+    assert_response :success
+    assert_equal 'application/xlsx', response.header['Content-Type']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
+    temp = Tempfile.new(["test", ".xlsx"])
+    temp.write(response.body)
+    temp.rewind()
+    doc = Roo::Spreadsheet.open(temp.path)
+    sheet1 = doc.sheet("1 - Population Criteria Section")
+
+    row2 = sheet1.row(2)
+    assert_equal "OBSERV", row2[2]
+    assert_equal "OBSERV", row2[6]
+
+    #Ensure that observe equal each other as they should
+    row3 = sheet1.row(3)
+    assert_equal "[115]", row3[2]
+    assert_equal "[115]", row3[6]
+    
+    #Ensure that observ [nil] equals observ [nil] properly
+    s1_r4 = sheet1.row(4)
+    assert_equal "[nil]", s1_r4[2]
+    assert_equal "[nil]", s1_r4[6]
+    
+    #Ensure that patients whose expected observ is nil evaluate correctly when value is []
+    sheet3 = doc.sheet("3 - Stratification 2")
+    s3_r4 = sheet3.row(4)
+    assert_equal nil, s3_r4[3]
+    assert_equal nil, s3_r4[8]
     
     temp.close()
     temp.unlink()
