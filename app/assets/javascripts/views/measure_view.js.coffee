@@ -58,7 +58,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
   
     # Determine which populations logic view to use
     if @populations.length > 1
-      if @model.has('cql') # CQL measure with multiple populations
+      if @model.has('cql') # CQL Based measure with multiple populations
         @logicView = new Thorax.Views.CqlPopulationsLogic model: @model, collection: @populations
       else
         @logicView = new Thorax.Views.PopulationsLogic collection: @populations

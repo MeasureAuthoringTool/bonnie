@@ -54,7 +54,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
 
   ###*
   # Initializes the view. Creates the CqlStatement views.
-  # Expects model to be a Measure model object of a CQL measure.
+  # Expects model to be a Measure model object of a CQL Based measure.
   ###
   initialize: ->
     @isOutdatedUpload = false

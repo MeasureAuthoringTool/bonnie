@@ -287,7 +287,7 @@ namespace :bonnie do
       # Grab user measure to add patients to
       user_measure = ENV['HQMF_SET_ID']
 
-      # Check if MEASURE_TYPE is a CQL Measure
+      # Check if MEASURE_TYPE is a CQL Based Measure
       if ENV['MEASURE_TYPE'] == 'CQL'
         raise "#{user_measure} not found" unless measure = CqlMeasure.find_by(user_id: user._id, hqmf_set_id: user_measure)
       else

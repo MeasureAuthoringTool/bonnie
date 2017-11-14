@@ -11,7 +11,7 @@ class PopulationsController < ApplicationController
   end
 
   def update
-    # Added CQL Measure support for editing Population titles.
+    # Added CQL Based Measure support for editing Population titles.
     # If Measure doesn't exist in Measures move on to CqlMeasures.
     if !Measure.by_user(current_user).where(id: params[:measure_id]).blank?
       measure = Measure.by_user(current_user).find(params[:measure_id])
