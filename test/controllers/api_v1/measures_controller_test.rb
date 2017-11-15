@@ -18,7 +18,9 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     @error_dir = File.join('log','load_errors')
     FileUtils.rm_r @error_dir if File.directory?(@error_dir)
     dump_database
-    collection_fixtures("draft_measures", "records", "users")
+    users_set = File.join("users", "base_set")
+    measures_set = File.join("draft_measures", "base_set")
+    collection_fixtures(measures_set, users_set)
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_measures(@user,Measure.all)
     associate_user_with_patients(@user,Record.all)
@@ -114,7 +116,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   end
   
   test "should return bad_request when measure_file is not a .zip or .xml" do
-    measure_file = fixture_file_upload(File.join('test','fixtures','draft_measures','CMS104v2.json'),'application/json')
+    measure_file = fixture_file_upload(File.join('test','fixtures','draft_measures', 'base_set', 'CMS104v2.json'),'application/json')
     @request.env["CONTENT_TYPE"] = "multipart/form-data"
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}, {"Content-Type" => 'multipart/form-data'}
     assert_response :bad_request
