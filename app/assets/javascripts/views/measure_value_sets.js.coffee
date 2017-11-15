@@ -25,7 +25,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
       criteriaSets: criteriaSetArray
 
   getVersionAndCodes: (oid) ->
-    isDirectReference = /-/.test(oid)
+    isDirectReference = ValueSetHelpers.isDirectReferenceCode(oid)
     if isDirectReference
       oid_version = ''
       version = ''
@@ -67,7 +67,7 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
         # Direct Reference Codes
         drc_guids_and_names = {}
         for guid, value of bonnie.valueSetsByOid
-          if /-/.test(guid)
+          if ValueSetHelpers.isDirectReferenceCode(guid)
             drc_guids_and_names[guid] = value['']['display_name'] # all drc have version of ''
 
         if library.library.codes
