@@ -21,6 +21,7 @@ class ActiveSupport::TestCase
         if fixture_json.length > 0
           convert_times(fixture_json)
           set_mongoid_ids(fixture_json)
+          fix_binary_data(fixture_json)
           # Mongoid names collections based off of the default_client argument.
           # With nested folders,the collection name is “records/X” (for example).
           # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
@@ -51,6 +52,20 @@ class ActiveSupport::TestCase
             json[k] = BSON::ObjectId.from_string(v["$oid"])
           else
             set_mongoid_ids(v)
+          end
+        end
+      end
+    end
+  end
+
+  def fix_binary_data(json)
+    if json.kind_of?(Hash)
+      json.each_pair do |k,v|
+        if v.kind_of?(Hash)
+          if v.has_key?('$binary')
+            json[k] = BSON::Binary.new(Base64.decode64(v['$binary']), v['$type'].to_sym)
+          else
+            fix_binary_data(v)
           end
         end
       end

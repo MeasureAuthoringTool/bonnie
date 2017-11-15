@@ -144,9 +144,9 @@ class CQLMeasureHelpers
           emptyResultClauses.push({lib: libraryName, aliasLocalId: alId, expressionLocalId: statement.localId})
         # Continue to recurse into the 'First' or 'Last' expression
         @_findAllLocalIdsInStatement(v, libraryName, annotation, localIds, aliasMap, emptyResultClauses, statement)
-      # If this is a FunctionRef and it references a library, find the clause for the library reference and add it.
-      else if k == 'type' && v =='FunctionRef' && statement.libraryName?
-        libraryClauseLocalId = @_findLocalIdForLibraryFunctionRef(annotation, statement.localId, statement.libraryName)
+      # If this is a FunctionRef or ExpressionRef and it references a library, find the clause for the library reference and add it.
+      else if k == 'type' && (v =='FunctionRef' || v == 'ExpressionRef') && statement.libraryName?
+        libraryClauseLocalId = @_findLocalIdForLibraryRef(annotation, statement.localId, statement.libraryName)
         if libraryClauseLocalId != null # only add the clause if the localId for it is found
           # the sourceLocalId is the FunctionRef itself to match how library statement references work.
           localIds[libraryClauseLocalId] = { localId: libraryClauseLocalId, sourceLocalId: statement.localId }
@@ -178,8 +178,8 @@ class CQLMeasureHelpers
         @_findAllLocalIdsInSort(v, libraryName, localIds, aliasMap, emptyResultClauses, rootStatement)
 
   ###*
-  # Find the localId of the function call in the JSON elm annotation. This recursively searches the annotation structure
-  # for the clause of the function ref. When that is found it knows where to look inside of that for where the library
+  # Find the localId of the library reference in the JSON elm annotation. This recursively searches the annotation structure
+  # for the clause of the library ref. When that is found it knows where to look inside of that for where the library
   # reference may be.
   #
   # Consider the following example of looking for function ref with id "55" and library "global".
@@ -221,36 +221,41 @@ class CQLMeasureHelpers
   #
   # @private
   # @param {Object|Array} annotation - The annotation structure or child in the annotation structure.
-  # @param {String} functionRefLocalId - The localId of the library function ref we should look for.
+  # @param {String} refLocalId - The localId of the library ref we should look for.
   # @param {String} libraryName - The library reference name, used to find the clause.
   # @return {String} The localId of the clause for the library reference or null if not found.
   ###
-  @_findLocalIdForLibraryFunctionRef: (annotation, functionRefLocalId, libraryName) ->
+  @_findLocalIdForLibraryRef: (annotation, refLocalId, libraryName) ->
     # if this is an object it should have an "r" for localId and "s" for children or leaf nodes
     if Array.isArray(annotation)
       for child in annotation
         # in the case of a list of children only return if there is a non null result
-        ret = @_findLocalIdForLibraryFunctionRef(child, functionRefLocalId, libraryName)
+        ret = @_findLocalIdForLibraryRef(child, refLocalId, libraryName)
         if ret != null
           return ret
     else if typeof annotation is 'object'
       # if we found the function ref
-      if annotation.r? && annotation.r == functionRefLocalId
+      if annotation.r? && annotation.r == refLocalId
         # check if the first child has the first leaf node with the library name
         # refer to the method comment for why this is done.
         if annotation.s[0].s?[0].value?[0] == libraryName
-          # return that ID now.
-          return annotation.s[0].r
+          # return the localId if there is one
+          if annotation.s[0].r?
+            return annotation.s[0].r
+          else
+            # otherwise return null because the library ref is in the same clause as extpression ref.
+            # this is common with expressionRefs for some reason.
+            return null
 
       # if we made it here, we should travserse down the child nodes
       if Array.isArray(annotation.s)
         for child in annotation.s
           # in the case of a list of children only return if there is a non null result
-          ret = @_findLocalIdForLibraryFunctionRef(child, functionRefLocalId, libraryName)
+          ret = @_findLocalIdForLibraryRef(child, refLocalId, libraryName)
           if ret != null
             return ret
       else if typeof annotation.s is 'object'
-        return @_findLocalIdForLibraryFunctionRef(annotation.s, functionRefLocalId, libraryName)
+        return @_findLocalIdForLibraryRef(annotation.s, refLocalId, libraryName)
 
     # if nothing above caused this to return, then we are at a leaf node and should return null
     return null

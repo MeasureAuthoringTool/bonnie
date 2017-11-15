@@ -142,7 +142,7 @@ class Thorax.Models.Measure extends Thorax.Model
   # @param {string} statementName - The statement name.
   ###
   findAllLocalIdsInStatementByName: (libraryName, statementName) ->
-    # Only do stuff if this is a CQL measure.
+    # Only do stuff if this is a CQL Based measure.
     if @has('cql')
       # if we have this one already in the cache then return the cached result.
       if @_localIdCache[libraryName]?[statementName]?

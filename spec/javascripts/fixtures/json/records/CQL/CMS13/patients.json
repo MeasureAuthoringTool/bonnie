@@ -1,0 +1,174 @@
+[
+  {
+    "_id": "5a0359d15cc97599cd0e55b5",
+    "birthdate": 677404800,
+    "bundle_id": "59e902355cc97506a2000001",
+    "created_at": "2017-11-08T19:24:01.247Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "5a0359d15cc97599cd0e55b6",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "183452005"
+          ]
+        },
+        "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1352362500,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "principalDiagnosis": {
+          "_id": "5a0359d15cc97599cd0e55b7",
+          "code": "111297002",
+          "code_system": "SNOMED-CT",
+          "title": "Ischemic Stroke"
+        },
+        "reason": null,
+        "specifics": null,
+        "start_time": 1352361600,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "155445E1-6CEE-4F81-98E4-669957369D57",
+        "population_index": 0,
+        "IPP": 0,
+        "DENOM": 0,
+        "DENEX": 0,
+        "NUMER": 0,
+        "DENEXCEP": 0
+      }
+    ],
+    "expired": null,
+    "first": "dsfsdfsd",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5a0359d15cc97599cd0e55b8",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5a0359d15cc97599cd0e55b9",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "dsfsfsd",
+    "marital_status": null,
+    "measure_ids": [
+      "155445E1-6CEE-4F81-98E4-669957369D57",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "bdc0f208c1e5b081b804a68d4907695ccdfd8af71b9dd5e80fb6cc4e7f4d090b",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Non-ElectiveInpatientEncounter",
+        "description": "Encounter, Performed: Non-Elective Inpatient Encounter",
+        "code_list_id": "2.16.840.1.113883.3.117.1.7.1.424",
+        "type": "encounters",
+        "id": "Non_ElectiveInpatientEncounter_EncounterPerformed_61e3c371_09df_4283_9098_cd37f778bdbb_source",
+        "start_date": 1352361600000,
+        "end_date": 1352362500000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+          "PRINCIPAL_DIAGNOSIS": {
+            "type": "CD",
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.247",
+            "field_title": "Principal Diagnosis",
+            "title": "Ischemic Stroke"
+          }
+        },
+        "hqmf_set_id": "155445E1-6CEE-4F81-98E4-669957369D57",
+        "cms_id": "CMS13v2",
+        "criteria_id": "15f9d137c6aj3",
+        "codes": {
+          "SNOMED-CT": [
+            "183452005"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5a0359d15cc97599cd0e55b6",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2017-11-08T19:24:01.247Z",
+    "user_id": "59e902355cc97506a2000000"
+  }
+]
