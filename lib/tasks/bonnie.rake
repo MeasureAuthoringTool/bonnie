@@ -188,47 +188,6 @@ namespace :bonnie do
       puts "Done!"
     end
 
-    desc %{Copy measure patients from one user account to another
-    
-    You must identify the source user by SOURCE_EMAIL, 
-    the destination user account by DEST_EMAIL, 
-    the source measure by SOURCE_CMS_ID,
-    and the destination measure by DEST_CMS_ID
-
-    $ rake bonnie:users:copy_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_CMS_ID=100 DEST_CMS_ID=101}
-    task :copy_measure_patients => :environment do
-      source_email = ENV['SOURCE_EMAIL']
-      dest_email = ENV['DEST_EMAIL']
-      source_cms_id = ENV['SOURCE_CMS_ID']
-      dest_cms_id = ENV['DEST_CMS_ID']
-
-      puts "Copying patients from '#{source_cms_id}' in '#{source_email}' to '#{dest_cms_id}' in '#{dest_email}'..."
-
-      # Find source and destination user accounts
-      raise "#{source_email} source email not found" unless source = User.find_by(email: source_email)
-      raise "#{dest_email} destination email not found" unless dest = User.find_by(email: dest_email)
-
-      # Find source and destination measures and associated records we're moving
-      raise "#{source_cms_id} source cms_id not found" unless source_measure = source.measures.find_by(cms_id: source_cms_id)
-      raise "#{dest_cms_id} destination cms_id not found" unless dest_measure = dest.measures.find_by(cms_id: dest_cms_id)
-      records = []
-      source.records.where(measure_ids: source_measure.hqmf_set_id).each do |record|
-        records.push(record.dup)
-      end
-
-      # Update the user id and bundle for the existing records
-      puts "Copying patient records..."
-      records.each do |r|
-        puts "Copying:  #{r.first} #{r.last}"
-        r.user = dest
-        r.bundle = dest.bundle
-        r.measure_ids.map! { |x| x == source_measure.hqmf_set_id ? dest_measure.hqmf_set_id : x }
-        r.save
-      end
-
-      puts "Done!"
-    end
-
     desc 'Export spreadsheets for all measures loaded by a user'
     task :export_spreadsheets => :environment do
       user_email = ENV['USER_EMAIL']
@@ -518,6 +477,161 @@ namespace :bonnie do
 
   namespace :patients do
 
+    desc %{Copy measure patients from one user account to another
+
+    You must identify the source user by SOURCE_EMAIL,
+    the destination user account by DEST_EMAIL,
+    the source measure by SOURCE_HQMF_SET_ID,
+    and the destination measure by DEST_HQMF_SET_ID
+
+    $ rake bonnie:users:copy_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_HQMF_SET_ID=100 DEST_HQMF_SET_ID=101}
+    task :copy_measure_patients => :environment do
+      source_email = ENV['SOURCE_EMAIL']
+      dest_email = ENV['DEST_EMAIL']
+      source_hqmf_set_id = ENV['SOURCE_HQMF_SET_ID']
+      dest_hqmf_set_id = ENV['DEST_HQMF_SET_ID']
+
+      begin
+        source = User.find_by(email: source_email)
+      rescue
+        print_error "#{source_email} not found"
+        return
+      end
+
+      begin
+        dest = User.find_by(email: dest_email)
+      rescue
+        print_error "#{dest_email} not found"
+        return
+      end
+
+      begin
+        source_measure = source.measures.find_by(hqmf_set_id: source_hqmf_set_id)
+      rescue
+        print_error "measure with HQFM set id #{source_hqmf_set_id} not found for account #{source}"
+        return
+      end
+
+      begin
+        dest_measure = dest.measures.find_by(hqmf_set_id: dest_hqmf_set_id)
+      rescue
+        print_error "measure with HQFM set id #{dest_hqmf_set_id} not found for account #{dest}"
+        return
+      end
+
+      puts "Copying patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
+
+      move_patients(source, dest, source_measure, dest_measure, true)
+
+      print_success "Successfully copied patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
+    end
+
+    desc %{Move measure patients from one user account to another
+
+    You must identify the source user by SOURCE_EMAIL,
+    the destination user account by DEST_EMAIL,
+    the source measure by SOURCE_HQMF_SET_ID,
+    and the destination measure by DEST_HQMF_SET_ID
+
+    $ rake bonnie:users:move_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_HQMF_SET_ID=100 DEST_HQMF_SET_ID=101}
+    task :move_measure_patients => :environment do
+      source_email = ENV['SOURCE_EMAIL']
+      dest_email = ENV['DEST_EMAIL']
+      source_hqmf_set_id = ENV['SOURCE_HQMF_SET_ID']
+      dest_hqmf_set_id = ENV['DEST_HQMF_SET_ID']
+
+      begin
+        source = User.find_by(email: source_email)
+      rescue
+        print_error "#{source_email} not found"
+        return
+      end
+
+      begin
+        dest = User.find_by(email: dest_email)
+      rescue
+        print_error "#{dest_email} not found"
+        return
+      end
+
+      begin
+        source_measure = source.measures.find_by(hqmf_set_id: source_hqmf_set_id)
+      rescue
+        print_error "measure with HQFM set id #{source_hqmf_set_id} not found for account #{source}"
+        return
+      end
+
+      begin
+        dest_measure = dest.measures.find_by(hqmf_set_id: dest_hqmf_set_id)
+      rescue
+        print_error "measure with HQFM set id #{dest_hqmf_set_id} not found for account #{dest}"
+        return
+      end
+
+      puts "Copying patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
+
+      move_patients(source, dest, source_measure, dest_measure)
+
+      print_success "Successfully moved patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
+    end
+
+    desc %{Move measure patients from measure to another measure within the same account,
+      specified by a CSV file.
+
+      The CSV file is expected to have a header row. If a header row is not provided, then
+      the first row will get skipped when processing.
+
+      column 0: original measure title
+      column 1: new measure title
+      column 2: original measure CMS id
+      column 3: new measure CMS id
+      column 4: account email
+
+      You must identify the CSV file by CSV_PATH
+      $ rake bonnie:patients:move_measure_patients CSV_PATH=/Users/edeyoung/Documents/projects/bonnie/EH_transfer.csv}
+
+    task :move_patients_csv => :environment do
+      csv_path = ENV['CSV_PATH']
+
+      is_first = true
+      CSV.foreach(csv_path) do |row|
+        if is_first
+          is_first = false
+          next
+        end
+
+        email = row[4].downcase
+
+        begin
+          user = User.find_by(email: email)
+        rescue
+          print_error "#{email} not found"
+          return
+        end
+
+        orig_measure = nil
+        orig_measure_title = row[0]
+        orig_measure_id = row[2]
+
+        new_measure = nil
+        new_measure_title = row[1]
+        new_measure_id = row[3]
+
+        orig_measure = find_measure(user, orig_measure_title, orig_measure_id)
+        new_measure = find_measure(user, new_measure_title, new_measure_id)
+
+        if orig_measure && new_measure
+          move_patients(user, user, orig_measure, new_measure)
+          print_success "moved records in #{email} from #{orig_measure_id}:#{orig_measure_title} to #{new_measure_title}:#{orig_measure_title}"
+        else
+          print_error "unable to move records in #{email} from #{orig_measure_id}:#{orig_measure_title} to #{new_measure_title}:#{orig_measure_title}"
+        end
+
+        puts ""
+
+      end
+    end
+
     desc "Share a random set of patients to the patient bank"
     task :share_with_bank=> :environment do
       Record.where(is_shared: true).update_all(is_shared: false) # reset everyone to not shared.
@@ -664,6 +778,70 @@ namespace :bonnie do
         print '.' if index % 500 == 0
       end
       puts
+    end
+
+    # Helper functions
+
+    def move_patients(src_user, dest_user, src_measure, dest_measure, copy=false)
+      records = []
+      src_user.records.where(measure_ids: src_measure.hqmf_set_id).each do |r|
+        if copy
+          records.push(r.dup)
+        else
+          records.push(r)
+        end
+      end
+
+      records.each do |r|
+        r.user = dest_user
+        r.bundle = dest_user.bundle
+        r.measure_ids.map! { |x| x == src_measure.hqmf_set_id ? dest_measure.hqmf_set_id : x }
+        r.expected_values.each do |expected_value|
+          if expected_value['measure_id'] == src_measure.hqmf_set_id
+            expected_value['measure_id'] = dest_measure.hqmf_set_id
+          end
+        end
+        r.save
+      end
+    end
+
+    def print_error(error_string)
+      print "\e[#{31}m#{"[Error]"}\e[0m\t\t"
+      puts error_string
+    end
+
+    def print_success(success_string)
+      print "\e[#{32}m#{"[Success]"}\e[0m\t"
+      puts success_string
+    end
+
+    def find_measure(user, measure_title, measure_id)
+      measure = nil
+
+      # try to find the measure just based off of the CMS id to avoid chance of typos
+      # in the title
+      measures = CqlMeasure.where(user_id: user._id, cms_id: measure_id)
+      if measures.count == 0
+        print_error "#{user.email}: #{measure_id}:#{measure_title} not found"
+      elsif measures.count == 1
+        measure = measures.first
+      else
+        # if there are duplicate CMS ids (CMSv0, for example), use the title as well
+        measures = CqlMeasure.where(user_id: user._id, title: measure_title, cms_id: measure_id)
+        if measures.count == 0
+          print_error "#{user.email}: #{measure_id}:#{measure_title} not found"
+        elsif measures.count == 1
+          measure = measures.first
+        else
+          print_error "#{user.email}: #{measure_id}:#{measure_title} not unique"
+        end
+      end
+
+      if measure
+        print_success "#{user.email}: #{measure_id}:#{measure_title} found"
+      end
+
+      return measure
     end
 
   end
