@@ -2,7 +2,7 @@
 class Thorax.Views.BuilderChildView extends Thorax.Views.BonnieView
   events:
     ready: -> @patientBuilder().registerChild this
-
+    
   patientBuilder: ->
     parent = @parent
     until parent instanceof Thorax.Views.PatientBuilder
@@ -96,21 +96,21 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
         for item in model.attributes.values
           # Add OR logic for any collections that need to display dates here
           if item.type == 'FAC'
-            start_date: moment.utc(item.value).format('L')
-            start_time: moment.utc(item.value).format('LT')
-            end_date: moment.utc(item.end_value).format('L')
+            start_date: moment.utc(item.value).format('L')    
+            start_time: moment.utc(item.value).format('LT')   
+            end_date: moment.utc(item.end_value).format('L') 
             end_time: moment.utc(item.end_value).format('LT')
 
 
   # When we create the form and populate it, we want to convert times to moment-formatted dates
   context: ->
     cmsIdParts = @model.get("cms_id").match(/CMS(\d+)(V\d+)/i)
-
+    
     desc = @model.get('description').split(/, (.*:.*)/)?[1] or @model.get('description')
     definition_title = @model.get('definition').replace(/_/g, ' ').replace(/(^|\s)([a-z])/g, (m,p1,p2) -> return p1+p2.toUpperCase())
     if desc.split(": ")[0] is definition_title
       desc = desc.substring(desc.indexOf(':')+2)
-
+    
     _(super).extend
       start_date: moment.utc(@model.get('start_date')).format('L') if @model.get('start_date')
       start_time: moment.utc(@model.get('start_date')).format('LT') if @model.get('start_date')
@@ -229,7 +229,7 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
       # Add the collection if the collection still contains values
       if clone.get('values').length > 0
         $(e.target).model().collection.add clone
-
+      
     $(e.target).model().destroy()
     @triggerMaterialize()
     @editValueView?.render() # Re-render edit view, if used
@@ -429,7 +429,7 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
             endDate += " #{attr.end_time}" if attr.end_time
             attr.locationPeriodHigh = endDate
             attr.end_value = moment.utc(endDate, 'L LT').format('X') * 1000
-
+            
       if attr.key == 'COMPONENT'
         title_cmp = @measure?.valueSets().findWhere(oid: attr.code_list_id_cmp)?.get('display_name')
         attr.title = title_cmp if title_cmp
