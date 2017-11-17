@@ -341,10 +341,13 @@ describe 'PatientBuilderView', ->
 
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS347/CMS735v0.json'), parse: true
+      # preserve atomicity
       @universalValueSetsByOid = bonnie.valueSetsByOid
+      @bonnie_measures_old = bonnie.measures
 
     afterEach ->
       bonnie.valueSetsByOid = @universalValueSetsByOid
+      bonnie.measures = @bonnie_measures_old
 
     it "laboratory test performed should have custom view for components", ->
       patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS347/patients.json'), parse: true
@@ -371,7 +374,6 @@ describe 'PatientBuilderView', ->
     it "EditCriteriaValueView does not have duplicated codes in dropdown", ->
       bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS107/value_sets.json')
       cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
-      bonnie_measures_old = bonnie.measures # preserve atomicity
       bonnie.measures.add(cqlMeasure, { parse: true });
       patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
       patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
@@ -389,4 +391,3 @@ describe 'PatientBuilderView', ->
       expect(codesInDropdown['Birthdate']).toBeDefined()
       expect(codesInDropdown['Dead']).toBeDefined()
 
-      bonnie.measures = bonnie_measures_old
