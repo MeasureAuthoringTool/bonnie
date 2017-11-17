@@ -1,6 +1,8 @@
 require 'simplecov'
 SimpleCov.start do
   add_filter "test/"
+  add_filter "lib/tasks/bonnie_run_once.rake"
+  add_filter "lib/tasks/generate_cql_fixtures.rake"
   add_group "Controllers", "app/controllers"
   add_group "Helpers", "app/helpers"
   add_group "Models", "app/models"

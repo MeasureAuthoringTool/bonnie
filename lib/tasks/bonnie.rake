@@ -105,43 +105,6 @@ namespace :bonnie do
       puts "#{ENV['EMAIL']} is no longer a dashboard_set user."
     end
 
-    desc 'Associate the currently loaded measures with the first User; use EMAIL=<user email> to select another user'
-    task :associate_user_with_measures => :environment do
-      user_email = ENV['EMAIL'] || User.first.email
-      user = User.where(email: user_email).first
-      puts "Associating measures with #{user.email}"
-      Measure.all.update_all(user_id: user.id, bundle_id: user.bundle_id)
-    end
-
-    desc 'Associate the currently loaded measures with the first User; use EMAIL=<user email> to select another user'
-    task :associate_user_with_valuesets => :environment do
-      user_email = ENV['EMAIL'] || User.first.email
-      user = User.where(email: user_email).first
-      puts "Associating Valuesets with #{user.email}"
-      HealthDataStandards::SVS::ValueSet.all.update_all(user_id: user.id, bundle_id: user.bundle_id)
-    end
-
-    desc 'Associate the currently loaded patients with the first User; use EMAIL=<user email> to select another user'
-    task :associate_user_with_patients => :environment do
-      user_email = ENV['EMAIL'] || User.first.email
-      user = User.where(email: user_email).first
-      puts "Associating patients with #{user.email}"
-      Record.all.update_all(user_id: user.id, bundle_id: user.bundle_id)
-    end
-
-
-    desc 'Make sure all of the users in the system have a bundle'
-    task :ensure_users_have_bundles => :environment do
-      User.all.each do |u|
-        unless u.bundle
-            b = HealthDataStandards::CQM::Bundle.new(title: "Bundle for user #{u.id.to_s}", version: "1")
-            b.save
-            u.bundle = b
-            u.save
-        end
-      end
-    end
-
     desc 'Move a measure from one user account to another'
     task :move_measure => :environment do
       source_email = ENV['SOURCE_EMAIL']
@@ -188,15 +151,45 @@ namespace :bonnie do
       puts "Done!"
     end
 
-    desc 'Export spreadsheets for all measures loaded by a user'
-    task :export_spreadsheets => :environment do
-      user_email = ENV['USER_EMAIL']
-      raise "#{user_email} not found" unless user = User.find_by(email: user_email)
-      Measure.where(user_id: user.id).each do |measure|
-        records = Record.by_user(user).where({:measure_ids.in => [measure.hqmf_set_id]})
-        next unless records.size > 0
-        File.open("#{measure.cms_id}.xlsx", "w") { |f| f.write(PatientExport.export_excel_file(measure, records).to_stream.read) }
+    desc %{Copy measure patients from one user account to another
+    
+    You must identify the source user by SOURCE_EMAIL, 
+    the destination user account by DEST_EMAIL, 
+    the source measure by SOURCE_CMS_ID,
+    and the destination measure by DEST_CMS_ID
+
+    $ rake bonnie:users:copy_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_CMS_ID=100 DEST_CMS_ID=101}
+    task :copy_measure_patients => :environment do
+      source_email = ENV['SOURCE_EMAIL']
+      dest_email = ENV['DEST_EMAIL']
+      source_cms_id = ENV['SOURCE_CMS_ID']
+      dest_cms_id = ENV['DEST_CMS_ID']
+
+      puts "Copying patients from '#{source_cms_id}' in '#{source_email}' to '#{dest_cms_id}' in '#{dest_email}'..."
+
+      # Find source and destination user accounts
+      raise "#{source_email} source email not found" unless source = User.find_by(email: source_email)
+      raise "#{dest_email} destination email not found" unless dest = User.find_by(email: dest_email)
+
+      # Find source and destination measures and associated records we're moving
+      raise "#{source_cms_id} source cms_id not found" unless source_measure = source.measures.find_by(cms_id: source_cms_id)
+      raise "#{dest_cms_id} destination cms_id not found" unless dest_measure = dest.measures.find_by(cms_id: dest_cms_id)
+      records = []
+      source.records.where(measure_ids: source_measure.hqmf_set_id).each do |record|
+        records.push(record.dup)
       end
+
+      # Update the user id and bundle for the existing records
+      puts "Copying patient records..."
+      records.each do |r|
+        puts "Copying:  #{r.first} #{r.last}"
+        r.user = dest
+        r.bundle = dest.bundle
+        r.measure_ids.map! { |x| x == source_measure.hqmf_set_id ? dest_measure.hqmf_set_id : x }
+        r.save
+      end
+
+      puts "Done!"
     end
 
     desc %{Export Bonnie patients to a JSON file.
@@ -299,53 +292,6 @@ namespace :bonnie do
 
   namespace :db do
 
-    desc 'Reset DB; by default pulls from bonnie-dev.mitre.org:bonnie-production-gold; use HOST=<host> DB=<db> for another; DEMO=true prunes measures'
-    task :reset_legacy => :environment do
-
-      host = ENV['HOST'] || 'bonnie-dev.mitre.org'
-      source_db = ENV['DB'] || 'bonnie-production-gold'
-      dest_db = Mongoid.default_client.options[:database]
-      puts "Resetting #{dest_db} from #{host}:#{source_db}"
-      Mongoid.default_client.with(database: dest_db) { |db| db.drop }
-      Mongoid.default_client.with(database: 'admin') { |db| db.command copydb: 1, fromhost: host, fromdb: source_db, todb: dest_db }
-      puts "Dropping unneeded collections: measures, bundles, patient_cache, query_cache..."
-
-      Mongoid.default_client['bundles'].drop()
-      Mongoid.default_client['measures'].drop()
-      Mongoid.default_client['query_cache'].drop()
-      Mongoid.default_client['patient_cache'].drop()
-      Rake::Task['bonnie:users:ensure_users_have_bundles'].invoke
-      Rake::Task['bonnie:patients:update_measure_ids'].invoke
-      Rake::Task['bonnie:users:associate_user_with_measures'].invoke
-      Rake::Task['bonnie:users:associate_user_with_patients'].invoke
-      Rake::Task['bonnie:users:associate_user_with_valuesets'].invoke
-      Rake::Task["bonnie:patients:update_source_data_criteria"].invoke
-      if ENV['DEMO'] == 'true'
-        puts "Deleting non-demo measures and patients"
-        demo_measure_ids = Measure.in(measure_id: ['0105', '0069']).pluck('hqmf_set_id') # Note: measure_id is nqf, id is hqmf_set_id!
-        Measure.nin(hqmf_set_id: demo_measure_ids).delete
-        Record.nin(measure_ids: demo_measure_ids).delete
-      end
-      Rake::Task['bonnie:patients:reset_expected_values'].invoke
-      if ENV['DEMO'] == 'true'
-        puts "Updating expected values for demo"
-        measure_id = Measure.where(measure_id: '0105').first.hqmf_set_id
-        patient = Record.where(first: 'BH_Adult', last: 'C').first
-        patient.expected_values << {measure_id: measure_id, population_index: 0, IPP: 1, DENOM: 1, NUMER: 0, DENEX: 0}
-        patient.expected_values << {measure_id: measure_id, population_index: 1, IPP: 1, DENOM: 1, NUMER: 0, DENEX: 0}
-        patient.save!
-        patient = Record.where(first: 'BH_Adult', last: 'D').first
-        patient.expected_values << {measure_id: measure_id, population_index: 0, IPP: 1, DENOM: 1, NUMER: 1, DENEX: 0}
-        patient.expected_values << {measure_id: measure_id, population_index: 1, IPP: 1, DENOM: 1, NUMER: 0, DENEX: 0}
-        patient.save!
-      end
-      Rake::Task['bonnie:measures:pregenerate_js'].invoke
-      User.each do |u|
-        u.approved = true
-        u.save
-      end
-    end
-
     desc 'Reset DB; by default pulls from a local dump under the db directory; use HOST=<host> DB=<db> for another; DEMO=true prunes measures'
     task :reset => :environment do
       if ENV['HOST'] || ENV['DB']
@@ -371,7 +317,7 @@ namespace :bonnie do
 
     desc 'Re-save all measures, ensuring that all post processing steps (like calculating complexity) are performed again'
     task :resave_measures => :environment do
-      Measure.each do |m|
+      CqlMeasure.each do |m|
         puts "Re-saving \"#{m.title}\" [#{ m.user ? m.user.email : 'deleted user' }]"
         begin
           m.save
@@ -424,55 +370,6 @@ namespace :bonnie do
       end
     end
 
-  end
-
-  namespace :test do
-    desc 'Deletes all measures except for failing Cypress measures and CV measures; Use after running a bonnie:load:mitre_bundle rake task.'
-    task :prune_db => :environment do
-      puts "Reducing imported measures"
-      # some_measure_ids = Measure.in(measure_id: ['0710', '0389', 'ADE_TTR', '0497', '0495', '0496']).pluck('hqmf_set_id')
-      some_measure_ids = Measure.in(cms_id: ['CMS179v2', 'CMS159v2', 'CMS129v3', 'CMS111v2', 'CMS55v2', 'CMS32v3']).pluck('hqmf_set_id')
-      Measure.nin(hqmf_set_id: some_measure_ids).delete
-    end
-  end
-
-  namespace :test do
-    desc 'Delete all non-CV measures after importing from bonnie-production-eh'
-    task :clean_up => :environment do
-      puts "Reducing imported measures"
-      some_measure_ids = Measure.in(cms_id: ['CMS111v2', 'CMS55v2', 'CMS32v3']).pluck('hqmf_set_id')
-      Measure.nin(hqmf_set_id: some_measure_ids).delete
-    end
-  end
-
-  namespace :measures do
-    desc 'Pre-generate measure JavaScript and cache in the DB'
-    task :pregenerate_js => :environment do
-      user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
-      measures = user ? Measure.by_user(user) : Measure.all
-      puts "Pre-generating measure JavaScript for #{ user ? user.email : 'all users'}"
-      measures.each do |measure|
-        puts "\tGenerating JavaScript [ #{ measure.user ? measure.user.email : 'deleted user' } ] '#{measure.title}'"
-        measure.generate_js
-      end
-    end
-
-    desc 'Clear generated measure cache for a user'
-    task :clear_js => :environment do
-      user = User.find_by email: ENV["EMAIL"] if ENV["EMAIL"]
-      measures = user ? Measure.by_user(user) : Measure.all
-      puts "Clearing measure JavaScript for #{ user ? user.email : 'all users'}"
-      measures.each do |measure|
-        puts "\tClearing JavaScript [ #{ measure.user ? measure.user.email : 'deleted user' } ] '#{measure.title}'"
-        measure.clear_cached_js
-      end
-    end
-
-    desc 'Reset measure JavaScript -- clears existing cache and regenerates JavaScript and cache in the DB'
-    task :reset_js => :environment do
-      Rake::Task['bonnie:measures:clear_js'].invoke
-      Rake::Task['bonnie:measures:pregenerate_js'].invoke
-    end
   end
 
   namespace :patients do
@@ -690,52 +587,6 @@ namespace :bonnie do
         end
       end
       puts "Materialized #{count} of #{records.count} patients"
-    end
-
-    desc "Updated source_data_criteria to include title and description from measure(s)"
-    task :update_source_data_criteria=> :environment do
-      puts "Updating patient source_data_criteria to include title and description"
-      Record.each do |patient|
-        measures = Measure.in(hqmf_set_id:  patient.measure_ids).to_a
-        puts "\tUpdating source data criteria for record #{patient.first} #{patient.last}"
-        patient.source_data_criteria.each do |patient_data_criteria|
-          measures.each do |measure|
-            measure_data_criteria = measure.source_data_criteria[patient_data_criteria['id']]
-            if  measure_data_criteria && measure_data_criteria['code_list_id'] == patient_data_criteria['oid']
-              patient_data_criteria['hqmf_set_id'] = measure['hqmf_set_id']
-              patient_data_criteria['cms_id'] = measure['cms_id']
-              patient_data_criteria['code_list_id'] = patient_data_criteria['oid']
-              patient_data_criteria['title'] = measure_data_criteria['title']
-              patient_data_criteria['description'] = measure_data_criteria['description']
-              patient_data_criteria['negation'] = patient_data_criteria['negation'] == "true"
-              patient_data_criteria['type'] = measure_data_criteria['type']
-              patient_data_criteria['end_date']=nil if patient_data_criteria['end_date'] == 32503698000000
-
-              # FIXME Not sure why field_values has no keys now, did the Cypress patient set change?
-              unless patient_data_criteria['field_values'].blank?
-                patient_data_criteria['field_values'].keys.each do |key|
-                  field_value = patient_data_criteria['field_values'][key]
-                  if (field_value['type'] == 'TS')
-                    field_value['value'] = Time.strptime(field_value['value'],"%m/%d/%Y %H:%M").to_i*1000 rescue field_value['value']
-                  end
-                end
-              end if patient_data_criteria['field_values']
-            end
-          end
-        end
-        patient.save
-      end
-
-    end
-
-    desc 'Update measure ids from NQF to HQMF.'
-    task :update_measure_ids => :environment do
-      puts "Updating patient measure_ids from NQF to HQMF"
-      Record.each do |patient|
-        patient.measure_ids.map! { |id| Measure.or({ measure_id: id }, { hqmf_id: id }, { hqmf_set_id: id }).first.try(:hqmf_set_id) }.compact!
-        patient.save
-        puts "\tUpdated patient #{patient.first} #{patient.last}."
-      end
     end
 
     desc 'Reset expected_values hash.'
