@@ -484,46 +484,58 @@ namespace :bonnie do
     the source measure by SOURCE_HQMF_SET_ID,
     and the destination measure by DEST_HQMF_SET_ID
 
-    $ rake bonnie:users:copy_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_HQMF_SET_ID=100 DEST_HQMF_SET_ID=101}
+    $ rake bonnie:patients:copy_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_HQMF_SET_ID=100 DEST_HQMF_SET_ID=101}
     task :copy_measure_patients => :environment do
       source_email = ENV['SOURCE_EMAIL']
       dest_email = ENV['DEST_EMAIL']
       source_hqmf_set_id = ENV['SOURCE_HQMF_SET_ID']
       dest_hqmf_set_id = ENV['DEST_HQMF_SET_ID']
 
-      begin
-        source = User.find_by(email: source_email)
-      rescue
-        print_error "#{source_email} not found"
-        return
+      is_error = false
+
+      unless is_error
+        begin
+          source = User.find_by(email: source_email)
+        rescue
+          print_error "#{source_email} not found"
+          is_error = true
+        end
       end
 
-      begin
-        dest = User.find_by(email: dest_email)
-      rescue
-        print_error "#{dest_email} not found"
-        return
+      unless is_error
+        begin
+          dest = User.find_by(email: dest_email)
+        rescue
+          print_error "#{dest_email} not found"
+          is_error = true
+        end
       end
 
-      begin
-        source_measure = source.measures.find_by(hqmf_set_id: source_hqmf_set_id)
-      rescue
-        print_error "measure with HQFM set id #{source_hqmf_set_id} not found for account #{source}"
-        return
+      unless is_error
+        begin
+          source_measure = CqlMeasure.find_by(user_id: source.id, hqmf_set_id: source_hqmf_set_id)
+        rescue
+          print_error "measure with HQFM set id #{source_hqmf_set_id} not found for account #{source_email}"
+          is_error = true
+        end
       end
 
-      begin
-        dest_measure = dest.measures.find_by(hqmf_set_id: dest_hqmf_set_id)
-      rescue
-        print_error "measure with HQFM set id #{dest_hqmf_set_id} not found for account #{dest}"
-        return
+      unless is_error
+        begin
+          dest_measure = CqlMeasure.find_by(user_id: dest.id, hqmf_set_id: dest_hqmf_set_id)
+        rescue
+          print_error "measure with HQFM set id #{dest_hqmf_set_id} not found for account #{dest_email}"
+          is_error = true
+        end
       end
 
-      puts "Copying patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
+      unless is_error
+        puts "Copying patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
 
-      move_patients(source, dest, source_measure, dest_measure, true)
+        move_patients(source, dest, source_measure, dest_measure, true)
 
-      print_success "Successfully copied patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
+        print_success "Successfully copied patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
+      end
     end
 
     desc %{Move measure patients from one user account to another
@@ -533,46 +545,58 @@ namespace :bonnie do
     the source measure by SOURCE_HQMF_SET_ID,
     and the destination measure by DEST_HQMF_SET_ID
 
-    $ rake bonnie:users:move_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_HQMF_SET_ID=100 DEST_HQMF_SET_ID=101}
+    $ rake bonnie:patients:move_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_HQMF_SET_ID=100 DEST_HQMF_SET_ID=101}
     task :move_measure_patients => :environment do
       source_email = ENV['SOURCE_EMAIL']
       dest_email = ENV['DEST_EMAIL']
       source_hqmf_set_id = ENV['SOURCE_HQMF_SET_ID']
       dest_hqmf_set_id = ENV['DEST_HQMF_SET_ID']
 
-      begin
-        source = User.find_by(email: source_email)
-      rescue
-        print_error "#{source_email} not found"
-        return
+      is_error = false
+
+      unless is_error
+        begin
+          source = User.find_by(email: source_email)
+        rescue
+          print_error "#{source_email} not found"
+          is_error = true
+        end
       end
 
-      begin
-        dest = User.find_by(email: dest_email)
-      rescue
-        print_error "#{dest_email} not found"
-        return
+      unless is_error
+        begin
+          dest = User.find_by(email: dest_email)
+        rescue
+          print_error "#{dest_email} not found"
+          is_error = true
+        end
       end
 
-      begin
-        source_measure = source.measures.find_by(hqmf_set_id: source_hqmf_set_id)
-      rescue
-        print_error "measure with HQFM set id #{source_hqmf_set_id} not found for account #{source}"
-        return
+      unless is_error
+        begin
+          source_measure = CqlMeasure.find_by(user_id: source.id, hqmf_set_id: source_hqmf_set_id)
+        rescue
+          print_error "measure with HQFM set id #{source_hqmf_set_id} not found for account #{source_email}"
+          is_error = true
+        end
       end
 
-      begin
-        dest_measure = dest.measures.find_by(hqmf_set_id: dest_hqmf_set_id)
-      rescue
-        print_error "measure with HQFM set id #{dest_hqmf_set_id} not found for account #{dest}"
-        return
+      unless is_error
+        begin
+          dest_measure = CqlMeasure.find_by(user_id: dest.id, hqmf_set_id: dest_hqmf_set_id)
+        rescue
+          print_error "measure with HQFM set id #{dest_hqmf_set_id} not found for account #{dest_email}"
+          is_error = true
+        end
       end
 
-      puts "Copying patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
+      unless is_error
+        puts "Moving patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
 
-      move_patients(source, dest, source_measure, dest_measure)
+        move_patients(source, dest, source_measure, dest_measure)
 
-      print_success "Successfully moved patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
+        print_success "Successfully moved patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
+      end
     end
 
     desc %{Move measure patients from measure to another measure within the same account,
@@ -782,6 +806,11 @@ namespace :bonnie do
 
     # Helper functions
 
+    # Moves patients from src_user and src_measure to dest_user and dest_measure.
+    # if copy=false, moves the existing patients. if copy=true, creates copies
+    # of the patients to move.
+    # If you are moving patients to different measures in the same account, just
+    # pass in the same user information for both src_user and dest_user.
     def move_patients(src_user, dest_user, src_measure, dest_measure, copy=false)
       records = []
       src_user.records.where(measure_ids: src_measure.hqmf_set_id).each do |r|
@@ -805,16 +834,15 @@ namespace :bonnie do
       end
     end
 
-    def print_error(error_string)
-      print "\e[#{31}m#{"[Error]"}\e[0m\t\t"
-      puts error_string
-    end
-
-    def print_success(success_string)
-      print "\e[#{32}m#{"[Success]"}\e[0m\t"
-      puts success_string
-    end
-
+    # Finds a measuer based off of the user information, measure title, and
+    # measure id.
+    # First searches based off of the user and measure id. However, the id is
+    # not always unique. If there are multiple measures returned with the id,
+    # it then uses the measure title to refine the list.
+    #
+    # It does this two pronged approach to searching because the measure information
+    # is provided by users, and there may be small differences in the measure title
+    # (small typo, capitalization, etc.).
     def find_measure(user, measure_title, measure_id)
       measure = nil
 
@@ -842,6 +870,18 @@ namespace :bonnie do
       end
 
       return measure
+    end
+
+    # Prints a message with a red "[Error]" string ahead of it.
+    def print_error(error_string)
+      print "\e[#{31}m#{"[Error]"}\e[0m\t\t"
+      puts error_string
+    end
+
+    # Prints a message with a green "[Success]" string ahead of it.
+    def print_success(success_string)
+      print "\e[#{32}m#{"[Success]"}\e[0m\t"
+      puts success_string
     end
 
   end
