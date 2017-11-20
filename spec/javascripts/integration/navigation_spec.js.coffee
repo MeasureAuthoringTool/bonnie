@@ -23,13 +23,3 @@ describe 'Navigation', ->
 
     it 'should link to the update measure view', ->
       expect($('button[data-call-method="updateMeasure"]', @measuresView.el).length).toEqual(@measures.length)
-
-  describe 'navigating each measure view', ->
-
-    it 'should link to measures list and update measure for a measure', ->
-      p = @patients
-      @measureView = new Thorax.Views.MeasureLayout(measure: @measures.first(), patients: p)
-      @measureView = @measureView.showMeasure()
-      expect(@measureView.$('a[href="#measures"]')).toExist
-      expect(@measureView.$('#updateMeasureTrigger')).toExist
-      @measureView.remove()
