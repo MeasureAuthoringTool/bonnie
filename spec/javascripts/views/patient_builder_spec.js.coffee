@@ -341,6 +341,13 @@ describe 'PatientBuilderView', ->
 
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS347/CMS735v0.json'), parse: true
+      # preserve atomicity
+      @universalValueSetsByOid = bonnie.valueSetsByOid
+      @bonnie_measures_old = bonnie.measures
+
+    afterEach ->
+      bonnie.valueSetsByOid = @universalValueSetsByOid
+      bonnie.measures = @bonnie_measures_old
 
     it "laboratory test performed should have custom view for components", ->
       patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS347/patients.json'), parse: true
@@ -363,3 +370,24 @@ describe 'PatientBuilderView', ->
       expect(editFieldValueView.$('label[for=code]').length).toEqual(0)
       expect(editFieldValueView.$('label[for=referenceRangeLow]').length).toEqual(0)
       expect(editFieldValueView.$('label[for=referenceRangeHigh]').length).toEqual(0)
+
+    it "EditCriteriaValueView does not have duplicated codes in dropdown", ->
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS107/value_sets.json')
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
+      bonnie.measures.add(cqlMeasure, { parse: true });
+      patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
+      patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
+      laboratoryTest = patientBuilder.model.get('source_data_criteria').first()
+      editCriteriaView = new Thorax.Views.EditCriteriaView(model: laboratoryTest, measure: cqlMeasure)
+      editFieldValueView = editCriteriaView.editFieldValueView
+      codesInDropdown = {}
+
+      # Each code should appear only once
+      for code in editFieldValueView.context().codes
+        expect(codesInDropdown[code.display_name]).toBeUndefined()
+        codesInDropdown[code.display_name] = 'exists'
+
+      # These are from direct reference codes
+      expect(codesInDropdown['Birthdate']).toBeDefined()
+      expect(codesInDropdown['Dead']).toBeDefined()
+
