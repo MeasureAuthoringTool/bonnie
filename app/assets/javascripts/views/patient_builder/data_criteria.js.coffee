@@ -395,8 +395,21 @@ class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
     # Until then, PQ (Scalar) can be used with "%" as the unit
 
   context: ->
+    codes_list = @measure?.valueSets().map((vs) -> vs.toJSON()) or []
+    unique_codes = []
+    # remove duplicate direct reference code value sets
+    direct_reference_codes = []
+    codes_list.forEach (code) ->
+      if code.oid
+        if ValueSetHelpers.isDirectReferenceCode(code.oid) # direct reference code
+          unless code.display_name in direct_reference_codes
+            direct_reference_codes.push(code.display_name)
+            unique_codes.push(code)
+        else
+          unique_codes.push(code)
+
     _(super).extend
-      codes: @measure?.valueSets().map((vs) -> vs.toJSON()) or []
+      codes: unique_codes
       # QDM say that per instance of a data criteria there can be only 1 Result
       # The function Thorax.Models.PatientDataCriteria.canHaveResult determines which criteria those are
       hideEditValueView: @values.models.length > 0
