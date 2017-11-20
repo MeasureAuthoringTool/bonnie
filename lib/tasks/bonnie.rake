@@ -530,11 +530,11 @@ namespace :bonnie do
       end
 
       unless is_error
-        puts "Copying patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
+        puts "Copying patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'"
 
         move_patients(source, dest, source_measure, dest_measure, true)
 
-        print_success "Successfully copied patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
+        print_success "Successfully copied patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'"
       end
     end
 
@@ -591,11 +591,11 @@ namespace :bonnie do
       end
 
       unless is_error
-        puts "Moving patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
+        puts "Moving patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'"
 
         move_patients(source, dest, source_measure, dest_measure)
 
-        print_success "Successfully moved patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'..."
+        print_success "Successfully moved patients from '#{source_hqmf_set_id}' in '#{source_email}' to '#{dest_hqmf_set_id}' in '#{dest_email}'"
       end
     end
 
@@ -624,34 +624,40 @@ namespace :bonnie do
           next
         end
 
-        email = row[4].downcase
+        is_error = false
 
-        begin
-          user = User.find_by(email: email)
-        rescue
-          print_error "#{email} not found"
-          return
+        unless is_error
+          email = row[4].downcase
+
+          begin
+            user = User.find_by(email: email)
+          rescue
+            print_error "#{email} not found"
+            is_error = true
+          end
         end
 
-        orig_measure = nil
-        orig_measure_title = row[0]
-        orig_measure_id = row[2]
+        unless is_error
+          orig_measure = nil
+          orig_measure_title = row[0]
+          orig_measure_id = row[2]
 
-        new_measure = nil
-        new_measure_title = row[1]
-        new_measure_id = row[3]
+          new_measure = nil
+          new_measure_title = row[1]
+          new_measure_id = row[3]
 
-        orig_measure = find_measure(user, orig_measure_title, orig_measure_id)
-        new_measure = find_measure(user, new_measure_title, new_measure_id)
+          orig_measure = find_measure(user, orig_measure_title, orig_measure_id)
+          new_measure = find_measure(user, new_measure_title, new_measure_id)
 
-        if orig_measure && new_measure
-          move_patients(user, user, orig_measure, new_measure)
-          print_success "moved records in #{email} from #{orig_measure_id}:#{orig_measure_title} to #{new_measure_title}:#{orig_measure_title}"
-        else
-          print_error "unable to move records in #{email} from #{orig_measure_id}:#{orig_measure_title} to #{new_measure_title}:#{orig_measure_title}"
+          if orig_measure && new_measure
+            move_patients(user, user, orig_measure, new_measure)
+            print_success "moved records in #{email} from #{orig_measure_id}:#{orig_measure_title} to #{new_measure_id}:#{new_measure_title}"
+          else
+            print_error "unable to move records in #{email} from #{orig_measure_id}:#{orig_measure_title} to #{new_measure_id}:#{new_measure_title}"
+          end
+
+          puts ""
         end
-
-        puts ""
 
       end
     end
