@@ -59,17 +59,17 @@ GEM
     arel (6.0.4)
     bcrypt (3.1.11)
     bonnie_bundler (2.0.0)
-      diffy
+      diffy (~> 3.0)
       health-data-standards (~> 4.0)
       hqmf2js (~> 1.4)
       hquery-patient-api (~> 1.1)
       mongoid (~> 5.0)
       quality-measure-engine (~> 3.2)
       rails (~> 4.2)
-      roo
-      rubyzip (~> 1.2.1)
+      roo (~> 1.13)
+      rubyzip (~> 1.2, >= 1.2.1)
       simplexml_parser (~> 1.0)
-      zip-zip
+      zip-zip (~> 0.3)
     brakeman (4.0.1)
     browser (2.5.0)
     bson (4.2.1)
@@ -349,7 +349,6 @@ DEPENDENCIES
   coffee-rails
   cql_qdm_patientapi (~> 1.0)
   devise
-  diffy
   exception_notification!
   foreman
   handlebars_assets (= 0.16)
