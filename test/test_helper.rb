@@ -5,6 +5,13 @@ require 'rails/test_help'
 require './lib/ext/record'
 WebMock.enable!
 
+# load_tasks needs to be called exactly one time, so it's in the header area
+# of this file. Additionally, because tests get run twice for some reason, we
+# need to put an extra check around it to ensure the tasks aren't already loaded.
+if Rake::Task.tasks.count == 0
+  Bonnie::Application.load_tasks
+end
+
 class ActiveSupport::TestCase
 
   def dump_database
@@ -16,18 +23,22 @@ class ActiveSupport::TestCase
   def collection_fixtures(*collection_names)
     collection_names.each do |collection|
       Mongoid.default_client[collection].drop
-      Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
-        fixture_json = JSON.parse(File.read(json_fixture_file))
-        if fixture_json.length > 0
-          convert_times(fixture_json)
-          set_mongoid_ids(fixture_json)
-          fix_binary_data(fixture_json)
-          # Mongoid names collections based off of the default_client argument.
-          # With nested folders,the collection name is “records/X” (for example).
-          # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
-          collection = collection.split(File::SEPARATOR)[0]
-          Mongoid.default_client[collection].insert_one(fixture_json)
-        end
+      add_collection(collection)
+    end
+  end
+
+  def add_collection(collection)
+    Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
+      fixture_json = JSON.parse(File.read(json_fixture_file))
+      if fixture_json.length > 0
+        convert_times(fixture_json)
+        set_mongoid_ids(fixture_json)
+        fix_binary_data(fixture_json)
+        # Mongoid names collections based off of the default_client argument.
+        # With nested folders,the collection name is “records/X” (for example).
+        # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
+        collection = collection.split(File::SEPARATOR)[0]
+        Mongoid.default_client[collection].insert_one(fixture_json)
       end
     end
   end
