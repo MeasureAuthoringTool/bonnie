@@ -106,5 +106,82 @@ namespace :bonnie do
         puts "\e[32mNo expected_values changed\e[0m"
       end
     end
+
+    def old_unit_to_ucum_unit(unit)
+      case unit
+        when 'capsule(s)'
+          '{Capsule}'
+        when 'dose(s)'
+          '{Dose}'
+        when 'gram(s)'
+          'g'
+        when 'ml(s)'
+          'mL'
+        when 'tablet(s)'
+          '{tbl}'
+        when 'mcg(s)'
+          'ug'
+        when 'unit(s)'
+          '{unit}'
+        else
+          unit
+      end
+    end
+
+    desc %{Fix up dose_unit and quantity_dispensed_unit to be ucum compliant
+      $ bundle exec rake bonnie:patients:fix_non_ucum_dose_and_quantity_dispensed}
+    task :fix_non_ucum_dose_and_quantity_dispensed => :environment do
+      Record.all.each do |patient|
+        if patient.source_data_criteria
+          patient.source_data_criteria.each do |sdc|
+            if sdc['dose_unit']
+              sdc['dose_unit'] = old_unit_to_ucum_unit(sdc['dose_unit'])
+            end
+            if sdc['fulfillments']
+              sdc['fulfillments'].each do |fulfillment|
+                if fulfillment['quantity_dispensed_unit']
+                  fulfillment['quantity_dispensed_unit'] = old_unit_to_ucum_unit(fulfillment['quantity_dispensed_unit'])
+                end
+              end
+            end
+          end
+          patient.save!
+        end
+      end
+    end
+
+    desc %{Count each of the existing dosage units
+      $ bundle exec rake bonnie:patients:tabulate_dosage_units}
+    task :tabulate_dosage_units => :environment do
+      unique_units = Hash.new
+      Record.all.each do |patient|
+        if patient.source_data_criteria
+          patient.source_data_criteria.each do |sdc|
+            if sdc['dose_unit']
+              keyname = sdc['dose_unit']
+              if unique_units.key?(keyname)
+                unique_units[keyname] = unique_units[keyname] + 1
+              else
+                unique_units[keyname] = 1
+              end
+            end
+            if sdc['fulfillments']
+              sdc['fulfillments'].each do |fulfillment|
+                if fulfillment['quantity_dispensed_unit']
+                  keyname = fulfillment['quantity_dispensed_unit']
+                  if unique_units.key?(keyname)
+                    unique_units[keyname] = unique_units[keyname] + 1
+                  else
+                    unique_units[keyname] = 1
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+      puts unique_units.inspect
+    end
+
   end
 end
