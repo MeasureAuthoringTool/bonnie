@@ -113,79 +113,69 @@ describe 'MeasureView', ->
         expect(@cqlMeasureValueSetsView.$('[data-toggle="collapse"].value_sets')).not.toHaveClass('collapsed')
 
       describe 'overlapping value sets', ->
-        it 'behaves properly with 3 overlaps', ->
-          cqlOverlapMeasureValueSetsView = new Thorax.Views.MeasureValueSets(model: @cqlMeasure, measure: @cqlMeasure, patients: @cqlPatients)
-          # reset initial overlapping value sets collection
-          cqlOverlapMeasureValueSetsView.overlappingValueSets = new Thorax.Collections.ValueSetsCollection([])
-          cqlOverlapMeasureValueSetsView.overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]
 
-          # grab the codes of length 1 from a summary value set then reset summary value sets
-          cqlOverlapMeasureValueSetsView.summaryValueSets = [ cqlOverlapMeasureValueSetsView.summaryValueSets[22] ]
-          codes = cqlOverlapMeasureValueSetsView.summaryValueSets[0].codes # "Hemorrhagic Stroke"
-          cqlOverlapMeasureValueSetsView.summaryValueSets = []
+        beforeEach ->
+          @cqlOverlapMeasureValueSetsView = new Thorax.Views.MeasureValueSets(model: @cqlMeasure, measure: @cqlMeasure, patients: @cqlPatients)
+          # reset initial overlapping value sets collection
+          @cqlOverlapMeasureValueSetsView.overlappingValueSets = new Thorax.Collections.ValueSetsCollection([])
+          @cqlOverlapMeasureValueSetsView.overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]
+          @addValueSet = (name, oid, cid, codes) ->
+            valueSet = { name: name, oid: oid, codes: codes, cid: cid}
+            @cqlOverlapMeasureValueSetsView.addSummaryValueSet(valueSet, oid, cid, name, codes)
+
+          @getCodesAndResetSummaryValueSets = (index) ->
+            @cqlOverlapMeasureValueSetsView.summaryValueSets = [ @cqlOverlapMeasureValueSetsView.summaryValueSets[index] ]
+            codes = @cqlOverlapMeasureValueSetsView.summaryValueSets[0].codes
+            @cqlOverlapMeasureValueSetsView.summaryValueSets = []
+            codes
+
+        it 'behaves properly with 3 overlaps with single code', ->
+          # grab codes of length 1 from a summary value set then reset summary value sets
+          codes = @getCodesAndResetSummaryValueSets(22) # Discharged to Home for Hospice Care
 
           # add 3 valuesets with an overlapping code to summary valuesets
-          name = 'dup1'
-          oid = '1.2.3.4.5'
-          cid = 'c12345'
-          valueSet = { name: name, oid: oid, codes: codes, cid: cid}
-          cqlOverlapMeasureValueSetsView.addSummaryValueSet(valueSet, oid, cid, name, codes)
-          name = 'dup2'
-          oid = '5.4.3.2.1'
-          cid = 'c54321'
-          valueSet = { name: name, oid: oid, codes: codes, cid: cid}
-          cqlOverlapMeasureValueSetsView.addSummaryValueSet(valueSet, oid, cid, name, codes)
-          name = 'dup3'
-          oid = '3.2.1.5.4'
-          cid = 'c32154'
-          valueSet = { name: name, oid: oid, codes: codes, cid: cid}
-          cqlOverlapMeasureValueSetsView.addSummaryValueSet(valueSet, oid, cid, name, codes)
+          @addValueSet('dup1', '1.2.3.4.5', 'c12345', codes)
+          @addValueSet('dup2', '5.4.3.2.1', 'c54321', codes)
+          @addValueSet('dup3', '3.2.1.5.4', 'c32154', codes)
 
           # repopulate overlapping value sets
-          cqlOverlapMeasureValueSetsView.findOverlappingValueSets()
+          @cqlOverlapMeasureValueSetsView.findOverlappingValueSets()
 
           # The matches are 1-2, 1-3, 2-3, 2-1, 3-1, 3-2 which is (2 * (n choose 2))
-          expect(cqlOverlapMeasureValueSetsView.overlappingValueSets.length).toEqual(6)
-          for child in cqlOverlapMeasureValueSetsView.overlappingValueSets.models
+          expect(@cqlOverlapMeasureValueSetsView.overlappingValueSets.length).toEqual(6)
+          for child in @cqlOverlapMeasureValueSetsView.overlappingValueSets.models
             expect(child.attributes.codes.length).toEqual(1)
 
-        it 'behaves properly with 4 overlaps', ->
-          cqlOverlapMeasureValueSetsView = new Thorax.Views.MeasureValueSets(model: @cqlMeasure, measure: @cqlMeasure, patients: @cqlPatients)
-          # reset initial overlapping value sets collection
-          cqlOverlapMeasureValueSetsView.overlappingValueSets = new Thorax.Collections.ValueSetsCollection([])
-          cqlOverlapMeasureValueSetsView.overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]
+        it 'behaves properly with 3 overlaps with multiple codes', ->
+          # grab codes of length 10 from a summary value set then reset summary value sets
+          codes = @getCodesAndResetSummaryValueSets(16) # Ischemic Stroke
 
-          # grab the codes of length 1 from a summary value set then reset summary value sets
-          cqlOverlapMeasureValueSetsView.summaryValueSets = [ cqlOverlapMeasureValueSetsView.summaryValueSets[22] ]
-          codes = cqlOverlapMeasureValueSetsView.summaryValueSets[0].codes # "Hemorrhagic Stroke"
-          cqlOverlapMeasureValueSetsView.summaryValueSets = []
-
-          # add 4 valuesets with an overlapping code to summary valuesets
-          name = 'dup1'
-          oid = '1.2.3.4.5'
-          cid = 'c12345'
-          valueSet = { name: name, oid: oid, codes: codes, cid: cid}
-          cqlOverlapMeasureValueSetsView.addSummaryValueSet(valueSet, oid, cid, name, codes)
-          name = 'dup2'
-          oid = '5.4.3.2.1'
-          cid = 'c54321'
-          valueSet = { name: name, oid: oid, codes: codes, cid: cid}
-          cqlOverlapMeasureValueSetsView.addSummaryValueSet(valueSet, oid, cid, name, codes)
-          name = 'dup3'
-          oid = '3.2.1.5.4'
-          cid = 'c32154'
-          valueSet = { name: name, oid: oid, codes: codes, cid: cid}
-          cqlOverlapMeasureValueSetsView.addSummaryValueSet(valueSet, oid, cid, name, codes)
-          name = 'dup4'
-          oid = '2.1.5.4.3'
-          cid = 'c21543'
-          valueSet = { name: name, oid: oid, codes: codes, cid: cid}
-          cqlOverlapMeasureValueSetsView.addSummaryValueSet(valueSet, oid, cid, name, codes)
+          # add 3 valuesets with an overlapping code to summary valuesets
+          @addValueSet('dup1', '1.2.3.4.5', 'c12345', codes)
+          @addValueSet('dup2', '5.4.3.2.1', 'c54321', codes)
+          @addValueSet('dup3', '3.2.1.5.4', 'c32154', codes)
 
           # repopulate overlapping value sets
-          cqlOverlapMeasureValueSetsView.findOverlappingValueSets()
+          @cqlOverlapMeasureValueSetsView.findOverlappingValueSets()
+
+          # The matches are 1-2, 1-3, 2-3, 2-1, 3-1, 3-2 which is (2 * (n choose 2))
+          expect(@cqlOverlapMeasureValueSetsView.overlappingValueSets.length).toEqual(6)
+          for child in @cqlOverlapMeasureValueSetsView.overlappingValueSets.models
+            expect(child.attributes.codes.length).toEqual(10)
+
+        it 'behaves properly with 4 overlaps with single code', ->
+          # grab codes of length 1 from a summary value set then reset summary value sets
+          codes = @getCodesAndResetSummaryValueSets(22) # Discharged to Home for Hospice Care
+
+          @addValueSet('dup1', '1.2.3.4.5', 'c12345', codes)
+          @addValueSet('dup2', '5.4.3.2.1', 'c54321', codes)
+          @addValueSet('dup3', '3.2.1.5.4', 'c32154', codes)
+          @addValueSet('dup4', '2.1.5.4.3', 'c21543:', codes)
+
+          # repopulate overlapping value sets
+          @cqlOverlapMeasureValueSetsView.findOverlappingValueSets()
 
           # (2 * (4 choose 2)) = 12
-          expect(cqlOverlapMeasureValueSetsView.overlappingValueSets.length).toEqual(12)
-          for child in cqlOverlapMeasureValueSetsView.overlappingValueSets.models
+          expect(@cqlOverlapMeasureValueSetsView.overlappingValueSets.length).toEqual(12)
+          for child in @cqlOverlapMeasureValueSetsView.overlappingValueSets.models
             expect(child.attributes.codes.length).toEqual(1)
