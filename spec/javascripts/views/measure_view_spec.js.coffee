@@ -31,9 +31,7 @@ describe 'MeasureView', ->
     it 'should not open measure view for non existent measure', ->
       spyOn(bonnie,'showPageNotFound')
       bonnie.renderMeasure('non_existant_hqmf_set_id')
-      waitsForAndRuns( false, 
-        expect(bonnie.showPageNotFound).toHaveBeenCalled(),
-        )
+      expect(bonnie.showPageNotFound).toHaveBeenCalled()
 
     it 'renders measure details', ->
       expect(@measureView.$el).toContainText @measure.get('title')
