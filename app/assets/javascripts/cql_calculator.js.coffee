@@ -150,15 +150,17 @@
           # Observations only have one result, based on how the HQMF is
           # structured (note the single 'value' section in the
           # measureObservationDefinition clause).
-          obs_result = results['patientResults']?[patient.id]?[ob_def]?[0]
+          obs_results = results['patientResults']?[patient.id]?[ob_def]
+
+          for obs_result in obs_results
           # Add the single result value to the values array on the results of
           # this calculation (allowing for more than one possible observation).
-          if obs_result?.hasOwnProperty('value')
-            # If result is a cql.Quantity type, add its value
-            population_results['values'].push(obs_result.value)
-          else
-            # In all other cases, add result to values
-            population_results['values'].push(obs_result)
+            if obs_result?.hasOwnProperty('value')
+              # If result is a cql.Quantity type, add its value
+              population_results['values'].push(obs_result.value)
+            else
+              # In all other cases, add result
+              population_results['values'].push(obs_result)
     @handlePopulationValues population_results
 
   ###*
