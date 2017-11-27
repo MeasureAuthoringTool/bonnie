@@ -133,6 +133,7 @@ namespace :bonnie do
     task :fix_non_ucum_dose_and_quantity_dispensed => :environment do
       Record.all.each do |patient|
         if patient.source_data_criteria
+          print '.'
           patient.source_data_criteria.each do |sdc|
             if sdc['dose_unit']
               sdc['dose_unit'] = old_unit_to_ucum_unit(sdc['dose_unit'])
@@ -145,9 +146,18 @@ namespace :bonnie do
               end
             end
           end
-          patient.save!
+          begin
+            Measures::PatientBuilder.rebuild_patient(patient)
+            patient.save!
+          rescue Exception => e
+            puts
+            puts "Error in rebuild_patient: #{e}"
+            puts "Patient dump:"
+            puts patient.inspect
+          end
         end
       end
+      puts " Done!"
     end
 
     desc %{Count each of the existing dosage units
