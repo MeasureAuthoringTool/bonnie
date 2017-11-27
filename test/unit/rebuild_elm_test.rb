@@ -4,7 +4,6 @@ require 'vcr_setup.rb'
 class RebuildElmTest < ActiveSupport::TestCase    
   setup do
     @cql_mat_export = File.new File.join('test', 'fixtures', 'cql_measure_exports', 'Test134_v5_4_Artifacts.zip')
-    Bonnie::Application.load_tasks
   end
 
   test "rebuild elm with stored MAT package" do
