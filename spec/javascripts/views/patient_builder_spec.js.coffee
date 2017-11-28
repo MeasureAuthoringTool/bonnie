@@ -17,8 +17,14 @@ describe 'PatientBuilderView', ->
 
     it 'should not open patient builder for non existent measure', ->
       spyOn(bonnie,'showPageNotFound')
+      bonnie.showPageNotFound.calls.reset()
       bonnie.renderPatientBuilder('non_existant_hqmf_set_id', @patient.id)
       expect(bonnie.showPageNotFound).toHaveBeenCalled()
+
+    it 'should set the main view when calling showPageNotFound', ->
+      spyOn(bonnie.mainView,'setView')
+      bonnie.renderPatientBuilder('non_existant_hqmf_set_id', @patient.id)
+      expect(bonnie.mainView.setView).toHaveBeenCalled()
 
     it 'renders the builder correctly', ->
       expect(@$el.find(":input[name='first']")).toHaveValue @patient.get('first')
