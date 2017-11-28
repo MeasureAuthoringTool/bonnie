@@ -10,8 +10,10 @@ include Devise::Test::ControllerHelpers
     dump_database
     users_set = File.join("users", "base_set")
     measures_set = File.join("draft_measures", "base_set")
-    collection_fixtures(measures_set, users_set)
+    records_set = File.join("records","base_set")
+    collection_fixtures(measures_set, users_set, records_set)
     @user = User.by_email('bonnie@example.com').first
+    associate_user_with_patients(@user, Record.all)
     associate_user_with_measures(@user, Measure.all)
     @measure = Measure.where({"cms_id" => "CMS138v2"}).first
     sign_in @user
@@ -382,6 +384,11 @@ include Devise::Test::ControllerHelpers
     end
 
     measure = nil
+    # associate a patient with the measure about to be created so the patient will be rebuilt
+    p = Record.by_user(@user).first
+    p.measure_ids = ["762B1B52-40BF-4596-B34F-4963188E7FF7"]
+    p.save
+
     VCR.use_cassette("initial_response") do
       post :create, {vsac_date: '09/24/2017', include_draft: false, measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     end
