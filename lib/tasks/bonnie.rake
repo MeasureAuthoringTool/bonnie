@@ -118,8 +118,10 @@ namespace :bonnie do
       raise "#{dest_email} not found" unless dest = User.find_by(email: dest_email)
 
       # Find the measure and associated records we're moving
-      raise "#{cms_id} not found" unless measure = source.measures.find_by(cms_id: cms_id)
+      raise "#{cms_id} not found" unless measure = find_measure(source_email, "", cms_id)
       records = source.records.where(measure_ids: measure.hqmf_set_id)
+
+      move_patients(source, dest, measure, measure)
 
       # Find the value sets we'll be *copying* (not moving!)
       value_sets = measure.value_sets.map(&:clone) # Clone ensures we save a copy and don't overwrite original
@@ -131,15 +133,6 @@ namespace :bonnie do
         vs.user = dest
         vs.bundle = dest.bundle
         vs.save
-      end
-
-      # Update the user id and bundle for the existing records
-      puts "Moving patient records..."
-      records.each do |r|
-        puts "  #{r.first} #{r.last}"
-        r.user = dest
-        r.bundle = dest.bundle
-        r.save
       end
 
       # Same for the measure
