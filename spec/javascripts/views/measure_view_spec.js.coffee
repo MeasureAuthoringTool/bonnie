@@ -111,3 +111,71 @@ describe 'MeasureView', ->
         expect(@cqlMeasureValueSetsView.$('[data-toggle="collapse"].value_sets')).toHaveClass('collapsed')
         @cqlMeasureValueSetsView.$('[data-toggle="collapse"].value_sets').click()
         expect(@cqlMeasureValueSetsView.$('[data-toggle="collapse"].value_sets')).not.toHaveClass('collapsed')
+
+      describe 'overlapping value sets', ->
+
+        beforeEach ->
+          @cqlOverlapMeasureValueSetsView = new Thorax.Views.MeasureValueSets(model: @cqlMeasure, measure: @cqlMeasure, patients: @cqlPatients)
+          # reset initial overlapping value sets collection
+          @cqlOverlapMeasureValueSetsView.overlappingValueSets = new Thorax.Collections.ValueSetsCollection([])
+          @cqlOverlapMeasureValueSetsView.overlappingValueSets.comparator = (vs) -> [vs.get('name1'), vs.get('oid1')]
+          @addValueSet = (name, oid, cid, codes) ->
+            valueSet = { name: name, oid: oid, codes: codes, cid: cid}
+            @cqlOverlapMeasureValueSetsView.addSummaryValueSet(valueSet, oid, cid, name, codes)
+
+          @getCodesAndResetSummaryValueSets = (index) ->
+            @cqlOverlapMeasureValueSetsView.summaryValueSets = [ @cqlOverlapMeasureValueSetsView.summaryValueSets[index] ]
+            codes = @cqlOverlapMeasureValueSetsView.summaryValueSets[0].codes
+            @cqlOverlapMeasureValueSetsView.summaryValueSets = []
+            codes
+
+        it 'behaves properly with 3 overlaps with single code', ->
+          # grab codes of length 1 from a summary value set then reset summary value sets
+          codes = @getCodesAndResetSummaryValueSets(22) # Discharged to Home for Hospice Care
+
+          # add 3 valuesets with an overlapping code to summary valuesets
+          @addValueSet('dup1', '1.2.3.4.5', 'c12345', codes)
+          @addValueSet('dup2', '5.4.3.2.1', 'c54321', codes)
+          @addValueSet('dup3', '3.2.1.5.4', 'c32154', codes)
+
+          # repopulate overlapping value sets
+          @cqlOverlapMeasureValueSetsView.findOverlappingValueSets()
+
+          # The matches are 1-2, 1-3, 2-3, 2-1, 3-1, 3-2 which is (2 * (n choose 2))
+          expect(@cqlOverlapMeasureValueSetsView.overlappingValueSets.length).toEqual(6)
+          for child in @cqlOverlapMeasureValueSetsView.overlappingValueSets.models
+            expect(child.attributes.codes.length).toEqual(1)
+
+        it 'behaves properly with 3 overlaps with multiple codes', ->
+          # grab codes of length 10 from a summary value set then reset summary value sets
+          codes = @getCodesAndResetSummaryValueSets(16) # Ischemic Stroke
+
+          # add 3 valuesets with an overlapping code to summary valuesets
+          @addValueSet('dup1', '1.2.3.4.5', 'c12345', codes)
+          @addValueSet('dup2', '5.4.3.2.1', 'c54321', codes)
+          @addValueSet('dup3', '3.2.1.5.4', 'c32154', codes)
+
+          # repopulate overlapping value sets
+          @cqlOverlapMeasureValueSetsView.findOverlappingValueSets()
+
+          # The matches are 1-2, 1-3, 2-3, 2-1, 3-1, 3-2 which is (2 * (n choose 2))
+          expect(@cqlOverlapMeasureValueSetsView.overlappingValueSets.length).toEqual(6)
+          for child in @cqlOverlapMeasureValueSetsView.overlappingValueSets.models
+            expect(child.attributes.codes.length).toEqual(10)
+
+        it 'behaves properly with 4 overlaps with single code', ->
+          # grab codes of length 1 from a summary value set then reset summary value sets
+          codes = @getCodesAndResetSummaryValueSets(22) # Discharged to Home for Hospice Care
+
+          @addValueSet('dup1', '1.2.3.4.5', 'c12345', codes)
+          @addValueSet('dup2', '5.4.3.2.1', 'c54321', codes)
+          @addValueSet('dup3', '3.2.1.5.4', 'c32154', codes)
+          @addValueSet('dup4', '2.1.5.4.3', 'c21543:', codes)
+
+          # repopulate overlapping value sets
+          @cqlOverlapMeasureValueSetsView.findOverlappingValueSets()
+
+          # (2 * (4 choose 2)) = 12
+          expect(@cqlOverlapMeasureValueSetsView.overlappingValueSets.length).toEqual(12)
+          for child in @cqlOverlapMeasureValueSetsView.overlappingValueSets.models
+            expect(child.attributes.codes.length).toEqual(1)
