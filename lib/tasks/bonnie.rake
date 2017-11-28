@@ -142,47 +142,6 @@ namespace :bonnie do
       print_success "Moved measure"
     end
 
-    desc %{Copy measure patients from one user account to another
-    
-    You must identify the source user by SOURCE_EMAIL, 
-    the destination user account by DEST_EMAIL, 
-    the source measure by SOURCE_CMS_ID,
-    and the destination measure by DEST_CMS_ID
-
-    $ rake bonnie:users:copy_measure_patients SOURCE_EMAIL=xxx DEST_EMAIL=yyy SOURCE_CMS_ID=100 DEST_CMS_ID=101}
-    task :copy_measure_patients => :environment do
-      source_email = ENV['SOURCE_EMAIL']
-      dest_email = ENV['DEST_EMAIL']
-      source_cms_id = ENV['SOURCE_CMS_ID']
-      dest_cms_id = ENV['DEST_CMS_ID']
-
-      puts "Copying patients from '#{source_cms_id}' in '#{source_email}' to '#{dest_cms_id}' in '#{dest_email}'..."
-
-      # Find source and destination user accounts
-      raise "#{source_email} source email not found" unless source = User.find_by(email: source_email)
-      raise "#{dest_email} destination email not found" unless dest = User.find_by(email: dest_email)
-
-      # Find source and destination measures and associated records we're moving
-      raise "#{source_cms_id} source cms_id not found" unless source_measure = source.measures.find_by(cms_id: source_cms_id)
-      raise "#{dest_cms_id} destination cms_id not found" unless dest_measure = dest.measures.find_by(cms_id: dest_cms_id)
-      records = []
-      source.records.where(measure_ids: source_measure.hqmf_set_id).each do |record|
-        records.push(record.dup)
-      end
-
-      # Update the user id and bundle for the existing records
-      puts "Copying patient records..."
-      records.each do |r|
-        puts "Copying:  #{r.first} #{r.last}"
-        r.user = dest
-        r.bundle = dest.bundle
-        r.measure_ids.map! { |x| x == source_measure.hqmf_set_id ? dest_measure.hqmf_set_id : x }
-        r.save
-      end
-
-      puts "Done!"
-    end
-
     desc %{Export Bonnie patients to a JSON file.
 
     You must identify the user by EMAIL, include a HQMF_SET_ID, and
@@ -548,19 +507,6 @@ namespace :bonnie do
         end
 
       end
-    end
-
-    desc "Share a random set of patients to the patient bank"
-    task :share_with_bank=> :environment do
-      Record.where(is_shared: true).update_all(is_shared: false) # reset everyone to not shared.
-      # share specified number of patients if possible, else share 25% of all existing patients
-      to_share = ((ENV["NUMBER"].to_i > 0) && (ENV["NUMBER"].to_i <= Record.count)) ? ENV["NUMBER"].to_i : (Record.count*0.25).round
-      patients = Record.all.sample(to_share)
-      patients.each do |patient|
-        patient['is_shared'] = true
-        patient.save
-      end
-      puts "Shared patients to the patient bank."
     end
 
     desc "Materialize all patients"
