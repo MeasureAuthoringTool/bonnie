@@ -283,13 +283,13 @@
     if result.NUMER? && result.NUMER >= 1
       resultShown.DENEXCEP = false if resultShown.DENEXCEP?
 
-    # If MSRPOPLEX is 1 then MSRPOPL and OBSERVs are not calculated
-    if result.MSRPOPLEX? && result.MSRPOPLEX == 1
-      resultShown.MSRPOPL = false if resultShown.MSRPOPL?
-      resultShown.values = false if resultShown.values?
-
-    # If MSRPOPL is 0 then OBSERVs are not calculated
+    # If MSRPOPL is 0 then OBSERVs and MSRPOPLEX are not calculateed
     if result.MSRPOPL? && result.MSRPOPL == 0
+      resultShown.values = false if resultShown.values?
+      resultShown.MSRPOPLEX = false if resultShown.MSRPOPLEX
+
+    # If MSRPOPLEX is equal to MSRPOPL then OBSERVs are not calculated
+    if result.MSRPOPLEX? && result.MSRPOPLEX == result.MSRPOPL
       resultShown.values = false if resultShown.values?
 
     return resultShown
