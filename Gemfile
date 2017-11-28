@@ -13,22 +13,29 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'cql4bonnie'
-gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'cql4bonnie'
-gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
-gem 'hqmf2js', :git => 'https://github.com/projecttacoma/hqmf2js.git', :branch => 'master'
-gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'cql4bonnie'
-gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality-measure-engine.git', :branch => 'bump_mongoid'
-gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'master'
+gem 'health-data-standards', '~> 4.0'
+gem 'cql_qdm_patientapi', '~> 1.0'
+gem 'simplexml_parser', '~> 1.0'
+gem 'hqmf2js', '~> 1.4'
+gem 'bonnie_bundler', '~> 2.0'
+gem 'quality-measure-engine', '~> 3.2'
+gem 'hquery-patient-api', '~> 1.1'
 
-# gem 'hquery-patient-api', '1.0.4'
+# gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'cql4bonnie'
+# gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'cql4bonnie'
+# gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
+# gem 'hqmf2js', :git => 'https://github.com/projecttacoma/hqmf2js.git', :branch => 'master'
+# gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'cql4bonnie'
+# gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality-measure-engine.git', :branch => 'master'
+# gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'master'
+
 # gem 'health-data-standards', :path => '../health-data-standards'
 # gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
+# gem 'simplexml_parser', :path => '../simplexml_parser'
 # gem 'hqmf2js', path: '../hqmf2js'
 # gem 'bonnie_bundler', :path => '../bonnie_bundler'
 # gem 'quality-measure-engine', :path => '../quality-measure-engine'
 # gem 'hquery-patient-api', :path => '../patientapi'
-# gem 'simplexml_parser', :path => '../simplexml_parser'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.2.1'
@@ -39,7 +46,6 @@ gem 'mongoid'
 gem 'protected_attributes'
 gem 'devise'
 gem 'systemu'
-gem 'diffy'
 gem 'multi_json'
 
 # needed for parsing value sets (we need to use roo rather than rubyxl because the value sets are in xls rather than xlsx)
