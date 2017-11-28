@@ -34,3 +34,4 @@ describe 'cqlCalculator', ->
       expect(oldRefactoredValueSets).toEqual(bonnie.valueSetsByOidCached)
       expect(oldRefactoredValueSets).toEqual(newRefactoredValueSets)
       expect(bonnie.valueSetsByOidCached['2.16.840.1.113762.1.4.1']['N/A'].length).toEqual(2)
+      bonnie.valueSetsByOidCached = undefined
