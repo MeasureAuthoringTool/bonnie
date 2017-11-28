@@ -119,7 +119,6 @@ namespace :bonnie do
 
       # Find the measure and associated records we're moving
       raise "#{cms_id} not found" unless measure = find_measure(source, "", cms_id)
-      records = source.records.where(measure_ids: measure.hqmf_set_id)
       move_patients(source, dest, measure, measure)
       print_success("Moved patients")
 
