@@ -2,12 +2,12 @@ require 'test_helper'
 
 class BonnieUsersTest < ActiveSupport::TestCase    
   setup do
+    dump_database
+    @user = User.new(email: 'test@test.com', first: 'first', last: 'last', password: 'Test1234!')
+    @user.save!
   end
 
   test "grant admin rake task" do
-    dump_database
-    @user = User.new(email: 'test@test.com', first: 'first' , last: 'last', password: 'Test1234!') 
-    @user.save!
     assert_equal 1, User.count
 
     ENV['EMAIL'] = @user.email
@@ -16,9 +16,6 @@ class BonnieUsersTest < ActiveSupport::TestCase
   end
 
   test "revoke admin rake task" do
-    dump_database
-    @user = User.new(email: 'test@test.com', first: 'first', last: 'last', password: 'Test1234!')
-    @user.save!
     assert_equal 1, User.count
 
     ENV['EMAIL'] = @user.email
@@ -30,9 +27,6 @@ class BonnieUsersTest < ActiveSupport::TestCase
   end
 
   test "grant portfolio rake task" do
-    dump_database
-    @user = User.new(email: 'test@test.com', first: 'first', last: 'last', password: 'Test1234!')
-    @user.save!
     assert_equal 1, User.count
 
     ENV['EMAIL'] = @user.email
@@ -41,9 +35,6 @@ class BonnieUsersTest < ActiveSupport::TestCase
   end
 
   test "revoke portfolio rake task" do
-    dump_database
-    @user = User.new(email: 'test@test.com', first: 'first', last: 'last', password: 'Test1234!')
-    @user.save!
     assert_equal 1, User.count
 
     ENV['EMAIL'] = @user.email
@@ -55,9 +46,6 @@ class BonnieUsersTest < ActiveSupport::TestCase
   end
 
   test "grant dashboard rake task" do
-    dump_database
-    @user = User.new(email: 'test@test.com', first: 'first', last: 'last', password: 'Test1234!')
-    @user.save!
     assert_equal 1, User.count
     
     ENV['EMAIL'] = @user.email
@@ -66,9 +54,6 @@ class BonnieUsersTest < ActiveSupport::TestCase
   end
 
   test "revoke dashboard rake task" do
-    dump_database
-    @user = User.new(email: 'test@test.com', first: 'first', last: 'last', password: 'Test1234!')
-    @user.save!
     assert_equal 1, User.count
     
     ENV['EMAIL'] = @user.email
@@ -80,9 +65,6 @@ class BonnieUsersTest < ActiveSupport::TestCase
   end
 
   test "grant dashboard set rake task" do
-    dump_database
-    @user = User.new(email: 'test@test.com', first: 'first', last: 'last', password: 'Test1234!')
-    @user.save!
     assert_equal 1, User.count
     
     ENV['EMAIL'] = @user.email
@@ -91,9 +73,6 @@ class BonnieUsersTest < ActiveSupport::TestCase
   end
 
   test "revoke dashboard set rake task" do
-    dump_database
-    @user = User.new(email: 'test@test.com', first: 'first', last: 'last', password: 'Test1234!')
-    @user.save!
     assert_equal 1, User.count
     
     ENV['EMAIL'] = @user.email
