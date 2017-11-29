@@ -3,10 +3,8 @@ namespace :bonnie do
 
     desc %{Grant an existing bonnie user administrator privileges.
 
-    You must identify the user by USER_ID or EMAIL:
+    You must identify the user by EMAIL:
 
-    $ rake bonnie:users:grant_admin USER_ID=###
-    or
     $ rake bonnie:users:grant_admin EMAIL=xxx}
     task :grant_admin => :environment do
       user = User.find_by email: ENV['EMAIL']
@@ -16,10 +14,8 @@ namespace :bonnie do
 
     desc %{Remove the administrator role from an existing bonnie user.
 
-    You must identify the user by USER_ID or EMAIL:
+    You must identify the user by EMAIL:
 
-    $ rake bonnie:users:revoke_admin USER_ID=###
-    or
     $ rake bonnie:users:revoke_admin EMAIL=xxx}
     task :revoke_admin => :environment do
       user = User.find_by email: ENV["EMAIL"]
@@ -29,10 +25,8 @@ namespace :bonnie do
 
     desc %{Grant an existing bonnie user portfolio privileges.
 
-    You must identify the user by USER_ID or EMAIL:
+    You must identify the user by EMAIL:
 
-    $ rake bonnie:users:grant_portfolio USER_ID=###
-    or
     $ rake bonnie:users:grant_portfolio EMAIL=xxx}
     task :grant_portfolio => :environment do
       user = User.find_by email: ENV['EMAIL']
@@ -42,10 +36,8 @@ namespace :bonnie do
 
     desc %{Remove the portfolio role from an existing bonnie user.
 
-    You must identify the user by USER_ID or EMAIL:
+    You must identify the user by EMAIL:
 
-    $ rake bonnie:users:revoke_portfolio USER_ID=###
-    or
     $ rake bonnie:users:revoke_portfolio EMAIL=xxx}
     task :revoke_portfolio => :environment do
       user = User.find_by email: ENV["EMAIL"]
@@ -55,10 +47,8 @@ namespace :bonnie do
 
     desc %{Grant an existing bonnie user dashboard privileges.
 
-    You must identify the user by USER_ID or EMAIL:
+    You must identify the user by EMAIL:
 
-    $ rake bonnie:users:grant_dashboard USER_ID=###
-    or
     $ rake bonnie:users:grant_dashboard EMAIL=xxx}
     task :grant_dashboard => :environment do
       user = User.find_by email: ENV['EMAIL']
@@ -68,10 +58,8 @@ namespace :bonnie do
 
     desc %{Remove the dashboard role from an existing bonnie user.
 
-    You must identify the user by USER_ID or EMAIL:
+    You must identify the user by EMAIL:
 
-    $ rake bonnie:users:revoke_dashboard USER_ID=###
-    or
     $ rake bonnie:users:revoke_dashboard EMAIL=xxx}
     task :revoke_dashboard => :environment do
       user = User.find_by email: ENV["EMAIL"]
@@ -81,10 +69,8 @@ namespace :bonnie do
 
     desc %{Grant an existing bonnie user dashboard_set privileges.
 
-    You must identify the user by USER_ID or EMAIL:
+    You must identify the user by EMAIL:
 
-    $ rake bonnie:users:grant_dashboard_set USER_ID=###
-    or
     $ rake bonnie:users:grant_dashboard_set EMAIL=xxx}
     task :grant_dashboard_set => :environment do
       user = User.find_by email: ENV['EMAIL']
@@ -94,10 +80,8 @@ namespace :bonnie do
 
     desc %{Remove the dashboard_set role from an existing bonnie user.
 
-    You must identify the user by USER_ID or EMAIL:
+    You must identify the user by EMAIL:
 
-    $ rake bonnie:users:revoke_dashboard_set USER_ID=###
-    or
     $ rake bonnie:users:revoke_dashboard_set EMAIL=xxx}
     task :revoke_dashboard_set => :environment do
       user = User.find_by email: ENV["EMAIL"]
