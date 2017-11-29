@@ -114,11 +114,12 @@ namespace :bonnie do
       puts "Moving '#{cms_id}' from '#{source_email}' to '#{dest_email}'..."
 
       # Find source and destination user accounts
-      raise "#{source_email} not found" unless source = User.find_by(email: source_email)
-      raise "#{dest_email} not found" unless dest = User.find_by(email: dest_email)
+      raise "#{source_email} not found" unless source = User.find_by(email: source_email) rescue nil
+
+      raise "#{dest_email} not found" unless dest = User.find_by(email: dest_email) rescue nil
 
       # Find the measure and associated records we're moving
-      raise "#{cms_id} not found" unless measure = find_measure(source, "", cms_id)
+      raise "#{cms_id} not found" unless measure = find_measure(source, "", cms_id) rescue nil
       move_patients(source, dest, measure, measure)
       print_success("Moved patients")
 
@@ -127,11 +128,7 @@ namespace :bonnie do
 
       # Write the value set copies, updating the user id and bundle
       raise "No destination user bundle" unless dest.bundle
-      value_sets.each do |vs|
-        vs.user = dest
-        vs.bundle = dest.bundle
-        vs.save
-      end
+      copy_value_sets(dest, value_sets)
       print_success("Copied value sets")
 
       # Same for the measure
