@@ -600,6 +600,23 @@ namespace :bonnie do
 
     # Helper functions
 
+    # Copies value sets to a new user. Only copies the value set if that value set
+    # with that version does not already exist for the user.
+    def copy_value_sets(dest_user, value_sets)
+      user_value_sets = HealthDataStandards::SVS::ValueSet.where({user_id: dest_user.id})
+      value_sets.each do |vs|
+        set = user_value_sets.where({oid: vs.oid, version: vs.version})
+
+        # if value set doesn't exist, copy it and add it
+        if set.count == 0
+          vs = vs.dup
+          vs.user = dest_user
+          vs.bundle = dest_user.bundle
+          vs.save
+        end
+      end
+    end
+
     # Moves patients from src_user and src_measure to dest_user and dest_measure.
     # if copy=false, moves the existing patients. if copy=true, creates copies
     # of the patients to move.
