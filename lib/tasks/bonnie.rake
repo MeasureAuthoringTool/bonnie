@@ -223,29 +223,6 @@ namespace :bonnie do
 
   namespace :db do
 
-    desc 'Reset DB; by default pulls from a local dump under the db directory; use HOST=<host> DB=<db> for another; DEMO=true prunes measures'
-    task :reset => :environment do
-      if ENV['HOST'] || ENV['DB']
-        Rake::Task['bonnie:db:reset_legacy'].invoke
-      else
-        dump_archive = File.join('db','bonnie_reset.tar.gz')
-        dump_extract = File.join('tmp','bonnie_reset')
-        target_db = Mongoid.default_client.options[:database]
-        puts "Resetting #{target_db} from #{dump_archive}"
-        Mongoid.default_client.with(database: target_db) { |db| db.drop }
-        system "tar xf #{dump_archive} -C tmp"
-        system "mongorestore -d #{target_db} #{dump_extract}"
-        FileUtils.rm_r dump_extract
-        if ENV['DEMO'] == 'true'
-          puts "Deleting non-demo measures and patients"
-          demo_measure_ids = Measure.in(measure_id: ['0105', '0069']).pluck('hqmf_set_id') # Note: measure_id is nqf, id is hqmf_set_id!
-          Measure.nin(hqmf_set_id: demo_measure_ids).delete
-          Record.nin(measure_ids: demo_measure_ids).delete
-        end
-        Rake::Task['bonnie:db:resave_measures'].invoke # Updates the complexity data to most recent format
-      end
-    end
-
     desc 'Re-save all measures, ensuring that all post processing steps (like calculating complexity) are performed again'
     task :resave_measures => :environment do
       CqlMeasure.each do |m|
