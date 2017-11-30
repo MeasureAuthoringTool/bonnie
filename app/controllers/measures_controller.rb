@@ -196,12 +196,10 @@ class MeasuresController < ApplicationController
     end
     measure.save!
 
-    # rebuild the users patients if set to do so
-    if params[:rebuild_patients] == "true"
-      Record.by_user(current_user).each do |r|
-        Measures::PatientBuilder.rebuild_patient(r)
-        r.save!
-      end
+    # rebuild the user's patients for the given measure
+    Record.by_user_and_hqmf_set_id(current_user, measure.hqmf_set_id).each do |r|
+      Measures::PatientBuilder.rebuild_patient(r)
+      r.save!
     end
 
     # ensure expected values on patient match those in the measure's populations
