@@ -310,4 +310,43 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
   end
 
+  test "successful export of patients" do
+    measures_set = File.join("draft_measures", "base_set")
+    add_collection(measures_set)
+    hqmf_set_id =  '42BF391F-38A3-TEST-9ECE-DCD47E9609D9'
+
+    associate_user_with_measures(@source_user, Measure.where(hqmf_set_id: hqmf_set_id))
+    associate_measures_with_patients(Measure.where(hqmf_set_id: hqmf_set_id), Record.all)
+
+    ENV['EMAIL'] = @source_user.email
+    ENV['HQMF_SET_ID'] = hqmf_set_id
+    ENV['FILENAME'] = 'cms104v2_export_patients_test.json'
+    Rake::Task['bonnie:patients:export_patients'].execute
+
+    assert File.exist? File.expand_path'cms104v2_export_patients_test.json'
+
+    # Open up the file and assert the file contains 7 lines, one for each patient.
+    f = File.open('cms104v2_export_patients_test.json', "r")
+    assert_equal 7, f.readlines.size
+    File.delete('cms104v2_export_patients_test.json') if File.exist?('cms104v2_export_patients_test.json')
+  end
+
+  test "successful import of patients"  do
+    dump_database
+    users_set = File.join("users", "base_set")
+    measures_set = File.join("cql_measures", "CMS347v1")
+    add_collection(measures_set)
+    collection_fixtures(users_set)
+
+    hqmf_set_id =  '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2'
+    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: hqmf_set_id))
+
+    ENV['EMAIL'] = @source_user.email
+    ENV['HQMF_SET_ID'] = hqmf_set_id
+    ENV['FILENAME'] = File.join('test','fixtures','patient_export','cms104v2_export_patients_test.json')
+    ENV['MEASURE_TYPE'] = 'CQL'
+    Rake::Task['bonnie:patients:import_patients'].execute
+    # Confirm that there are 7 patients now associated with this measure.
+    assert_equal 7, Record.where(measure_ids: hqmf_set_id).count
+  end
 end

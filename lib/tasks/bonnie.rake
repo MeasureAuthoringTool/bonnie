@@ -123,102 +123,6 @@ namespace :bonnie do
       print_success "Moved measure"
     end
 
-    desc %{Export Bonnie patients to a JSON file.
-
-    You must identify the user by EMAIL, include a HQMF_SET_ID, and
-    an output filename using FILENAME
-    
-    $ rake bonnie:users:export_patients EMAIL=xxx HQMF_SET_ID=1948-138412-1414 FILENAME=CMS100_pations.json}
-    task :export_patients => :environment do
-      # Grab user account
-      user_email = ENV['EMAIL']
-      raise "#{user_email} not found" unless user = User.find_by(email: user_email)
-
-      # Grab user measure to pull patients from
-      raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = Measure.find_by(user_id: user._id, hqmf_set_id: ENV['HQMF_SET_ID'])
-
-      # Grab the patients
-      patients = Record.where(user_id: user._id, :measure_ids => measure.hqmf_set_id)
-        .or(Record.where(user_id: user._id, :measure_ids => measure.hqmf_id))
-        .or(Record.where(user_id: user._id, measure_id: measure.hqmf_id))
-
-      # Write patient objects to file in JSON format
-      puts "Exporting patients..."
-      raise "FILENAME not specified" unless output_file = ENV['FILENAME']
-      File.open(File.join(Rails.root, output_file), "w") do |f|
-        patients.each do |patient|
-          f.write(patient.to_json)
-          f.write("\r\n")
-        end
-      end
-
-      puts "Done!"
-    end
-
-    desc %{Import Bonnie patients from a JSON file.
-    The JSON file must be the one that is generated using the export_patients rake task.
-
-    You must identify the user by EMAIL, include a HQMF_SET_ID,
-    the name of the file to be imported using FILENAME, and the type of measure using MEASURE_TYPE
-    
-    $ rake bonnie:users:import_patients EMAIL=xxx HQMF_SET_ID=1924-55295295-23425 FILENAME=CMS100_patients.json MEASURE_TYPE=CQL}
-    task :import_patients => :environment do
-      # Grab user account
-      user_email = ENV['EMAIL']
-      raise "#{user_email} not found" unless user = User.find_by(email: user_email)
-
-      # Grab user measure to add patients to
-      user_measure = ENV['HQMF_SET_ID']
-
-      # Check if MEASURE_TYPE is a CQL Based Measure
-      if ENV['MEASURE_TYPE'] == 'CQL'
-        raise "#{user_measure} not found" unless measure = CqlMeasure.find_by(user_id: user._id, hqmf_set_id: user_measure)
-      else
-        raise "#{user_measure} not found" unless measure = Measure.find_by(user_id: user._id, hqmf_set_id: user_measure)
-      end
-
-      # Import patient objects from JSON file and save
-      puts "Importing patients..."
-      raise "FILENAME not specified" unless input_file = ENV['FILENAME']
-      File.foreach(File.join(Rails.root, input_file)) do |p|
-        next if p.blank?
-        patient = Record.new.from_json p.strip
-
-        patient['user_id'] = user._id
-
-        patient['measure_ids'] = []
-        patient['measure_ids'] << measure.hqmf_set_id
-        patient['measure_ids'] << nil # Need to add a null value at the end of the array.
-
-        # Modifiying hqmf_set_id and cms_id for source data criteria
-        unless patient['source_data_criteria'].nil?
-          patient['source_data_criteria'].each do |source_criteria|
-            source_criteria['hqmf_set_id'] = measure.hqmf_set_id
-            source_criteria['cms_id'] = measure.cms_id
-          end
-        end
-        # Modifying measure_id for expected values
-        unless patient['expected_values'].nil?
-          patient['expected_values'].each do |expected_value|
-            expected_value['measure_id'] = measure.hqmf_set_id
-          end
-        end
-
-        all_codes = HQMF::PopulationCriteria::ALL_POPULATION_CODES
-        all_codes.each do |code|
-          if !patient.expected_values[0][code].nil? && measure.populations[0][code].nil?
-            patient.expected_values.each do |expected_value|
-              expected_value.delete(code)
-            end
-          end
-        end
-
-        patient.dup.save!
-      end
-
-      puts "Done!"
-    end
-
   end
 
   namespace :db do
@@ -281,6 +185,102 @@ namespace :bonnie do
   end
 
   namespace :patients do
+
+    desc %{Export Bonnie patients to a JSON file.
+
+    You must identify the user by EMAIL, include a HQMF_SET_ID, and
+    an output filename using FILENAME
+
+    $ rake bonnie:patients:export_patients EMAIL=xxx HQMF_SET_ID=1948-138412-1414 FILENAME=CMS100_pations.json}
+    task :export_patients => :environment do
+      # Grab user account
+      user_email = ENV['EMAIL']
+      raise "#{user_email} not found" unless user = User.find_by(email: user_email)
+
+      # Grab user measure to pull patients from
+      raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = Measure.find_by(user_id: user._id, hqmf_set_id: ENV['HQMF_SET_ID'])
+
+      # Grab the patients
+      patients = Record.where(user_id: user._id, :measure_ids => measure.hqmf_set_id)
+        .or(Record.where(user_id: user._id, :measure_ids => measure.hqmf_id))
+        .or(Record.where(user_id: user._id, measure_id: measure.hqmf_id))
+
+      # Write patient objects to file in JSON format
+      puts "Exporting patients..."
+      raise "FILENAME not specified" unless output_file = ENV['FILENAME']
+      File.open(File.join(Rails.root, output_file), "w") do |f|
+        patients.each do |patient|
+          f.write(patient.to_json)
+          f.write("\r\n")
+        end
+      end
+
+      puts "Done!"
+    end
+
+    desc %{Import Bonnie patients from a JSON file.
+    The JSON file must be the one that is generated using the export_patients rake task.
+
+    You must identify the user by EMAIL, include a HQMF_SET_ID,
+    the name of the file to be imported using FILENAME, and the type of measure using MEASURE_TYPE
+
+    $ rake bonnie:patients:import_patients EMAIL=xxx HQMF_SET_ID=1924-55295295-23425 FILENAME=CMS100_patients.json MEASURE_TYPE=CQL}
+    task :import_patients => :environment do
+      # Grab user account
+      user_email = ENV['EMAIL']
+      raise "#{user_email} not found" unless user = User.find_by(email: user_email)
+
+      # Grab user measure to add patients to
+      user_measure = ENV['HQMF_SET_ID']
+
+      # Check if MEASURE_TYPE is a CQL Based Measure
+      if ENV['MEASURE_TYPE'] == 'CQL'
+        raise "#{user_measure} not found" unless measure = CqlMeasure.find_by(user_id: user._id, hqmf_set_id: user_measure)
+      else
+        raise "#{user_measure} not found" unless measure = Measure.find_by(user_id: user._id, hqmf_set_id: user_measure)
+      end
+
+      # Import patient objects from JSON file and save
+      puts "Importing patients..."
+      raise "FILENAME not specified" unless input_file = ENV['FILENAME']
+      File.foreach(File.join(Rails.root, input_file)) do |p|
+        next if p.blank?
+        patient = Record.new.from_json p.strip
+
+        patient['user_id'] = user._id
+
+        patient['measure_ids'] = []
+        patient['measure_ids'] << measure.hqmf_set_id
+        patient['measure_ids'] << nil # Need to add a null value at the end of the array.
+
+        # Modifiying hqmf_set_id and cms_id for source data criteria
+        unless patient['source_data_criteria'].nil?
+          patient['source_data_criteria'].each do |source_criteria|
+            source_criteria['hqmf_set_id'] = measure.hqmf_set_id
+            source_criteria['cms_id'] = measure.cms_id
+          end
+        end
+        # Modifying measure_id for expected values
+        unless patient['expected_values'].nil?
+          patient['expected_values'].each do |expected_value|
+            expected_value['measure_id'] = measure.hqmf_set_id
+          end
+        end
+
+        all_codes = HQMF::PopulationCriteria::ALL_POPULATION_CODES
+        all_codes.each do |code|
+          if !patient.expected_values[0][code].nil? && measure.populations[0][code].nil?
+            patient.expected_values.each do |expected_value|
+              expected_value.delete(code)
+            end
+          end
+        end
+
+        patient.dup.save!
+      end
+
+      puts "Done!"
+    end
 
     desc %{Copy measure patients from one user account to another
 
@@ -555,103 +555,100 @@ namespace :bonnie do
       end
       puts
     end
+  end
 
-    # Helper functions
+  # Finds a measuer based off of the user information, measure title, and
+  # measure id.
+  # First searches based off of the user and measure id. However, the id is
+  # not always unique. If there are multiple measures returned with the id,
+  # it then uses the measure title to refine the list.
+  #
+  # It does this two pronged approach to searching because the measure information
+  # is provided by users, and there may be small differences in the measure title
+  # (small typo, capitalization, etc.).
+  def find_measure(user, measure_title, measure_id)
+    measure = nil
 
-    # Copies value sets to a new user. Only copies the value set if that value set
-    # with that version does not already exist for the user.
-    def copy_value_sets(dest_user, value_sets)
-      user_value_sets = HealthDataStandards::SVS::ValueSet.where({user_id: dest_user.id})
-      value_sets.each do |vs|
-        set = user_value_sets.where({oid: vs.oid, version: vs.version})
-
-        # if value set doesn't exist, copy it and add it
-        if set.count == 0
-          vs = vs.dup
-          vs.user = dest_user
-          vs.bundle = dest_user.bundle
-          vs.save
-        end
-      end
-    end
-
-    # Moves patients from src_user and src_measure to dest_user and dest_measure.
-    # if copy=false, moves the existing patients. if copy=true, creates copies
-    # of the patients to move.
-    # If you are moving patients to different measures in the same account, just
-    # pass in the same user information for both src_user and dest_user.
-    def move_patients(src_user, dest_user, src_measure, dest_measure, copy=false)
-      records = []
-      src_user.records.where(measure_ids: src_measure.hqmf_set_id).each do |r|
-        if copy
-          records.push(r.dup)
-        else
-          records.push(r)
-        end
-      end
-
-      records.each do |r|
-        r.user = dest_user
-        r.bundle = dest_user.bundle
-        r.measure_ids.map! { |x| x == src_measure.hqmf_set_id ? dest_measure.hqmf_set_id : x }
-        r.expected_values.each do |expected_value|
-          if expected_value['measure_id'] == src_measure.hqmf_set_id
-            expected_value['measure_id'] = dest_measure.hqmf_set_id
-          end
-        end
-        r.save
-      end
-    end
-
-    # Finds a measuer based off of the user information, measure title, and
-    # measure id.
-    # First searches based off of the user and measure id. However, the id is
-    # not always unique. If there are multiple measures returned with the id,
-    # it then uses the measure title to refine the list.
-    #
-    # It does this two pronged approach to searching because the measure information
-    # is provided by users, and there may be small differences in the measure title
-    # (small typo, capitalization, etc.).
-    def find_measure(user, measure_title, measure_id)
-      measure = nil
-
-      # try to find the measure just based off of the CMS id to avoid chance of typos
-      # in the title
-      measures = CqlMeasure.where(user_id: user._id, cms_id: measure_id)
+    # try to find the measure just based off of the CMS id to avoid chance of typos
+    # in the title
+    measures = CqlMeasure.where(user_id: user._id, cms_id: measure_id)
+    if measures.count == 0
+      print_error "#{user.email}: #{measure_id}:#{measure_title} not found"
+    elsif measures.count == 1
+      measure = measures.first
+    else
+      # if there are duplicate CMS ids (CMSv0, for example), use the title as well
+      measures = CqlMeasure.where(user_id: user._id, title: measure_title, cms_id: measure_id)
       if measures.count == 0
         print_error "#{user.email}: #{measure_id}:#{measure_title} not found"
       elsif measures.count == 1
         measure = measures.first
       else
-        # if there are duplicate CMS ids (CMSv0, for example), use the title as well
-        measures = CqlMeasure.where(user_id: user._id, title: measure_title, cms_id: measure_id)
-        if measures.count == 0
-          print_error "#{user.email}: #{measure_id}:#{measure_title} not found"
-        elsif measures.count == 1
-          measure = measures.first
-        else
-          print_error "#{user.email}: #{measure_id}:#{measure_title} not unique"
+        print_error "#{user.email}: #{measure_id}:#{measure_title} not unique"
+      end
+    end
+
+    if measure
+      print_success "#{user.email}: #{measure_id}:#{measure_title} found"
+    end
+
+    return measure
+  end
+
+  # Prints a message with a red "[Error]" string ahead of it.
+  def print_error(error_string)
+    print "\e[#{31}m#{"[Error]"}\e[0m\t\t"
+    puts error_string
+  end
+
+  # Prints a message with a green "[Success]" string ahead of it.
+  def print_success(success_string)
+    print "\e[#{32}m#{"[Success]"}\e[0m\t"
+    puts success_string
+  end
+
+  # Copies value sets to a new user. Only copies the value set if that value set
+  # with that version does not already exist for the user.
+  def copy_value_sets(dest_user, value_sets)
+    user_value_sets = HealthDataStandards::SVS::ValueSet.where({user_id: dest_user.id})
+    value_sets.each do |vs|
+      set = user_value_sets.where({oid: vs.oid, version: vs.version})
+
+      # if value set doesn't exist, copy it and add it
+      if set.count == 0
+        vs = vs.dup
+        vs.user = dest_user
+        vs.bundle = dest_user.bundle
+        vs.save
+      end
+    end
+  end
+
+  # Moves patients from src_user and src_measure to dest_user and dest_measure.
+  # if copy=false, moves the existing patients. if copy=true, creates copies
+  # of the patients to move.
+  # If you are moving patients to different measures in the same account, just
+  # pass in the same user information for both src_user and dest_user.
+  def move_patients(src_user, dest_user, src_measure, dest_measure, copy=false)
+    records = []
+    src_user.records.where(measure_ids: src_measure.hqmf_set_id).each do |r|
+      if copy
+        records.push(r.dup)
+      else
+        records.push(r)
+      end
+    end
+
+    records.each do |r|
+      r.user = dest_user
+      r.bundle = dest_user.bundle
+      r.measure_ids.map! { |x| x == src_measure.hqmf_set_id ? dest_measure.hqmf_set_id : x }
+      r.expected_values.each do |expected_value|
+        if expected_value['measure_id'] == src_measure.hqmf_set_id
+          expected_value['measure_id'] = dest_measure.hqmf_set_id
         end
       end
-
-      if measure
-        print_success "#{user.email}: #{measure_id}:#{measure_title} found"
-      end
-
-      return measure
+      r.save
     end
-
-    # Prints a message with a red "[Error]" string ahead of it.
-    def print_error(error_string)
-      print "\e[#{31}m#{"[Error]"}\e[0m\t\t"
-      puts error_string
-    end
-
-    # Prints a message with a green "[Success]" string ahead of it.
-    def print_success(success_string)
-      print "\e[#{32}m#{"[Success]"}\e[0m\t"
-      puts success_string
-    end
-
   end
 end
