@@ -47,3 +47,24 @@ describe 'Result', ->
     expected_results = {IPP: 1, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 0}
     processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
     expect(processed_results).toEqual expected_results
+
+describe 'CV Result', ->
+  
+  beforeEach ->
+    @cql_calculator = new CQLCalculator()
+    @universalValueSetsByOid = bonnie.valueSetsByOid
+    bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS32/value_sets.json')
+
+    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
+    jasmine.getJSONFixtures().clearCache()
+    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS32/CMS721v0.json'), parse: true
+    @population = @measure.get('populations')[0]
+    @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS32/patients.json'), parse: true
+
+  afterEach ->
+    bonnie.valueSetsByOid = @universalValueSetsByOid
+
+  it 'can handle multiple episodes observed', ->
+    patient = @patients.findWhere(last: '2 ED ', first: 'Visits')
+    @population.calculate(patient)
+    expect(patient).toExist()
