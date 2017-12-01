@@ -47,16 +47,16 @@ describe 'Result', ->
     expected_results = {IPP: 1, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 0}
     processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
     expect(processed_results).toEqual expected_results
-    
+
 describe 'Continuous Variable Calculations', ->
-  
+
   beforeEach ->
     @universalValueSetsByOid = bonnie.valueSetsByOid
     jasmine.getJSONFixtures().clearCache()
 
     bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS32/value_sets.json')
     @cql_calculator = new CQLCalculator()
-    
+
     @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS32/CMS721v0.json'), parse: true
     @population = @measure.get('populations').at(0)
     @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS32/patients.json'), parse: true
