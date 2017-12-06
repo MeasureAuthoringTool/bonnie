@@ -194,8 +194,8 @@
         population_results['DENEXCEP'] = 0
       if 'NUMER' of population_results
         population_results['NUMER'] = 0
-    # Can not be in the numerator if excluded from the denominator
-    else if (population_results["DENEX"]? && !@isValueZero('DENEX', population_results))
+    # Can not be in the numerator if the same or more are excluded from the denominator
+    else if (population_results["DENEX"]? && !@isValueZero('DENEX', population_results) && (population_results["DENEX"] >= population_results["DENOM"]))
       if 'NUMER' of population_results
         population_results['NUMER'] = 0
       if 'NUMEX' of population_results
@@ -269,8 +269,8 @@
       resultShown.DENEX = false if resultShown.DENEX?
       resultShown.DENEXCEP = false if resultShown.DENEXCEP?
 
-    # If DENEX is 1 then NUMER, NUMEX and DENEXCEP not calculated
-    if result.DENEX? && result.DENEX >= 1
+    # If DENEX is greater than or equal to DENOM then NUMER, NUMEX and DENEXCEP not calculated
+    if result.DENEX? && result.DENEX >= result.DENOM
       resultShown.NUMER = false if resultShown.NUMER?
       resultShown.NUMEX = false if resultShown.NUMEX?
       resultShown.DENEXCEP = false if resultShown.DENEXCEP?
@@ -289,7 +289,7 @@
       resultShown.MSRPOPLEX = false if resultShown.MSRPOPLEX
 
     # If MSRPOPLEX is equal to MSRPOPL then OBSERVs are not calculated
-    if result.MSRPOPLEX? && result.MSRPOPLEX == result.MSRPOPL
+    if result.MSRPOPLEX? && result.MSRPOPLEX >= result.MSRPOPL
       resultShown.values = false if resultShown.values?
 
     return resultShown
