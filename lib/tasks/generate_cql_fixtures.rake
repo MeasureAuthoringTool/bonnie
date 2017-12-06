@@ -29,7 +29,7 @@ namespace :bonnie do
 
       oid_to_vs_map = {}
       value_sets = measure.value_sets.each do |vs|
-        oid_to_vs_map[vs.oid] = vs
+        oid_to_vs_map[vs.oid] = { vs.version => vs }
       end
       
       value_sets_file = File.join(fixtures_path, 'measure_data', args[:path], 'value_sets.json')

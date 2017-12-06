@@ -15,39 +15,46 @@ describe 'PatientBuilderView', ->
       spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
       @$el = @patientBuilder.$el
 
-  it 'renders the builder correctly', ->
-    expect(@$el.find(":input[name='first']")).toHaveValue @patient.get('first')
-    
-  it 'does not display compare patient results button when there is no history', ->
-    expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()
-    
-  describe "setting basic attributes and saving", ->
-    beforeEach ->
-      @patientBuilder.appendTo 'body'
-      @patientBuilder.$(':input[name=last]').val("LAST NAME")
-      @patientBuilder.$(':input[name=first]').val("FIRST NAME")
-      @patientBuilder.$('select[name=payer]').val('MA')
-      @patientBuilder.$('select[name=gender]').val('F')
-      @patientBuilder.$(':input[name=birthdate]').val('01/02/1993')
-      @patientBuilder.$(':input[name=birthtime]').val('1:15 PM')
-      @patientBuilder.$('select[name=race]').val('2131-1')
-      @patientBuilder.$('select[name=ethnicity]').val('2135-2')
-      @patientBuilder.$("button[data-call-method=save]").click()
+    it 'should not open patient builder for non existent measure', ->
+      spyOn(bonnie,'showPageNotFound')
+      bonnie.showPageNotFound.calls.reset()
+      bonnie.renderPatientBuilder('non_existant_hqmf_set_id', @patient.id)
+      expect(bonnie.showPageNotFound).toHaveBeenCalled()
 
-    it "serializes the attributes correctly", ->
-      expect(@patientBuilder.model.get('last')).toEqual 'LAST NAME'
-      expect(@patientBuilder.model.get('first')).toEqual 'FIRST NAME'
-      expect(@patientBuilder.model.get('payer')).toEqual 'MA'
-      expect(@patientBuilder.model.get('gender')).toEqual 'F'
-      expect(@patientBuilder.model.get('birthdate')).toEqual moment.utc('01/02/1993 1:15 PM', 'L LT').format('X')
-      expect(@patientBuilder.model.get('race')).toEqual '2131-1'
-      expect(@patientBuilder.model.get('ethnicity')).toEqual '2135-2'
+    it 'should set the main view when calling showPageNotFound', ->
+      spyOn(bonnie.mainView,'setView')
+      bonnie.renderPatientBuilder('non_existant_hqmf_set_id', @patient.id)
+      expect(bonnie.mainView.setView).toHaveBeenCalled()
 
-    it "tries to save the patient correctly", ->
-      expect(@patientBuilder.originalModel.save).toHaveBeenCalled()
+    it 'renders the builder correctly', ->
+      expect(@$el.find(":input[name='first']")).toHaveValue @patient.get('first')
 
-    afterEach -> @patientBuilder.remove()
+    describe "setting basic attributes and saving", ->
+      beforeEach ->
+        @patientBuilder.appendTo 'body'
+        @patientBuilder.$(':input[name=last]').val("LAST NAME")
+        @patientBuilder.$(':input[name=first]').val("FIRST NAME")
+        @patientBuilder.$('select[name=payer]').val('MA')
+        @patientBuilder.$('select[name=gender]').val('F')
+        @patientBuilder.$(':input[name=birthdate]').val('01/02/1993')
+        @patientBuilder.$(':input[name=birthtime]').val('1:15 PM')
+        @patientBuilder.$('select[name=race]').val('2131-1')
+        @patientBuilder.$('select[name=ethnicity]').val('2135-2')
+        @patientBuilder.$("button[data-call-method=save]").click()
 
+      it "serializes the attributes correctly", ->
+        expect(@patientBuilder.model.get('last')).toEqual 'LAST NAME'
+        expect(@patientBuilder.model.get('first')).toEqual 'FIRST NAME'
+        expect(@patientBuilder.model.get('payer')).toEqual 'MA'
+        expect(@patientBuilder.model.get('gender')).toEqual 'F'
+        expect(@patientBuilder.model.get('birthdate')).toEqual moment.utc('01/02/1993 1:15 PM', 'L LT').format('X')
+        expect(@patientBuilder.model.get('race')).toEqual '2131-1'
+        expect(@patientBuilder.model.get('ethnicity')).toEqual '2135-2'
+
+      it "tries to save the patient correctly", ->
+        expect(@patientBuilder.originalModel.save).toHaveBeenCalled()
+
+      afterEach -> @patientBuilder.remove()
 
     describe "changing and blurring basic fields", ->
       beforeEach ->
