@@ -309,12 +309,29 @@ namespace :bonnie do
       end
       path = Rails.root.join 'db', 'backups', '*.tgz'
       files = Dir.glob(path).select { |f| file_time(f) } # Only interested in files where we can determine time
-      # File from older than past month, keep most recent weekly
-      files.select { |f| file_time(f) < 1.month.ago }.group_by { |f| file_time(f).strftime('%Y week %V') }.each do |week, ff|
+      # File from older than a year, remove it
+      files.select { |f| file_time(f) < 1.year.ago }.each do |f|
+        puts "Deleting #{f}"
+        system "rm #{f}"
+        files.delete f
+      end
+      # File from older than three months, keep most recent in each month
+      files.select { |f| file_time(f) < 3.month.ago }.group_by { |f| file_time(f).strftime('%Y month %m') }.each do |week, ff|
+        sorted = ff.sort_by { |f| file_time(f) }
+        puts "Keeping #{sorted.pop}"
+        sorted.each do |f|
+          puts "Deleting #{f}"
+          system "rm #{f}"
+          files.delete f
+        end
+      end
+      # Files from older than past month but newer than three months, keep most recent weekly
+      files.select { |f| file_time(f) < 1.month.ago && file_time(f) >= 3.month.ago }.group_by { |f| file_time(f).strftime('%Y week %V') }.each do |week, ff|
         sorted = ff.sort_by { |f| file_time(f) }
         sorted[0..-2].each do |f|
           puts "Deleting #{f}"
           system "rm #{f}"
+          files.delete f
         end
         puts "Keeping #{sorted.last}"
       end
@@ -324,6 +341,7 @@ namespace :bonnie do
         sorted[0..-2].each do |f|
           puts "Deleting #{f}"
           system "rm #{f}"
+          files.delete f
         end
         puts "Keeping #{sorted.last}"
       end
