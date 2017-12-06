@@ -165,25 +165,3 @@ class Thorax.Views.MeasureValueSets extends Thorax.Views.BonnieView
         name1: valueSet2.name
         oid2: valueSet1.oid
         name2: valueSet1.name
-# =======
-#     for valueSet1 in summaryValueSets
-#       for valueSet2 in _(summaryValueSets).without(valueSet1)
-#         matchedCodes = []
-# 
-#         # Because codes are pageable, we need to reference the fullCollection to compare all codes
-#         valueSet1.codes.fullCollection.each (code1) =>
-#           hasOverlap = valueSet2.codes.fullCollection.some (code2) ->
-#             overlapsCode = code2.get('code') == code1.get('code')
-#             overlapsCodeSystem = code2.get('code_system_name') == code1.get('code_system_name')
-#             return overlapsCode && overlapsCodeSystem
-# 
-#           if hasOverlap then matchedCodes.push(code1)
-#         if matchedCodes.length > 0
-#           @overlappingValueSets.add
-#             cid: valueSet1.cid + "_" + valueSet2.cid
-#             codes: new Backbone.PageableCollection(@sortAndFilterCodes(matchedCodes), @pagination_options)
-#             oid1: valueSet1.oid
-#             name1: valueSet1.name
-#             oid2: valueSet2.oid
-#             name2: valueSet2.name
-# >>>>>>> b0b4a202... Front End Testing: Allow bonnie state loading (#634)

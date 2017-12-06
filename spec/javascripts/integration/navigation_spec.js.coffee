@@ -1,10 +1,6 @@
 describe 'Navigation', ->
 
   beforeEach ->
-    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
-    #jasmine.getJSONFixtures().clearCache()
-    #@measures = bonnie.measures
-    #@patients = new Thorax.Collections.Patients getJSONFixture('patients.json')
     window.bonnieRouterCache.load('base_set')
     @measures = bonnie.measures
     @patients = new Thorax.Collections.Patients getJSONFixture('records/QDM/base_set/patients.json')
