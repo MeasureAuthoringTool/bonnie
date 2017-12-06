@@ -33,7 +33,6 @@ describe 'Navigation', ->
       @measureView.remove()
 
     it 'should link to the update measure view', ->
-      debugger
       expect($('button[data-call-method="updateMeasure"]', @measureView.el).length).toEqual(1)
 
     it 'should link to the show delete view', ->
