@@ -24,7 +24,7 @@ class Thorax.Models.Measure extends Thorax.Model
     oid_display_name_map = {}
     for oid, versions of bonnie.valueSetsByOid
       for version, vs of versions
-        oid_display_name_map[oid] = vs.display_name if vs.display_name
+        oid_display_name_map[oid] = vs.display_name if vs?.display_name
 
     for key, data_criteria of attrs.data_criteria
       data_criteria.key = key

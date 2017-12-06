@@ -2,7 +2,7 @@ describe 'ComplexityDashboardView', ->
 
   beforeEach ->
     window.bonnieRouterCache.load('base_set')
-    @collection = new Thorax.Collection getJSONFixture('measure_data/base_set/measure_sets.json'), parse: true
+    @collection = new Thorax.Collection getJSONFixture('measure_data/QDM/base_set/measure_sets.json'), parse: true
     @complexityView = new Thorax.Views.Dashboard collection: @collection
     @complexityView.render()
     @complexityView.appendTo 'body'
@@ -28,7 +28,7 @@ describe 'ComplexityVizView', ->
     measureSet1 = "54cad5fc69702d74b4000000"
     measureSet2 = "54cad74a69702d755a000000"
     @complexityView = new Thorax.Views.Dashboard
-    @measurePairs = new Thorax.Collections.MeasurePairs(getJSONFixture('measure_data/base_set/measure_diff.json'), measureSet1: measureSet1, measureSet2: measureSet2)
+    @measurePairs = new Thorax.Collections.MeasurePairs(getJSONFixture('measure_data/QDM/base_set/measure_diff.json'), measureSet1: measureSet1, measureSet2: measureSet2)
     @vizView = new Thorax.Views.ComplexityViz(collection: @measurePairs)
     @complexityView.vizView = @vizView
     @complexityView.appendTo 'body'

@@ -1,9 +1,13 @@
 describe 'Navigation', ->
 
   beforeEach ->
+    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
+    #jasmine.getJSONFixtures().clearCache()
+    #@measures = bonnie.measures
+    #@patients = new Thorax.Collections.Patients getJSONFixture('patients.json')
     window.bonnieRouterCache.load('base_set')
     @measures = bonnie.measures
-    @patients = new Thorax.Collections.Patients getJSONFixture('patients.json')
+    @patients = new Thorax.Collections.Patients getJSONFixture('records/QDM/base_set/patients.json')
 
   describe 'navigating the measures list view', ->
 
@@ -33,6 +37,7 @@ describe 'Navigation', ->
       @measureView.remove()
 
     it 'should link to the update measure view', ->
+      debugger
       expect($('button[data-call-method="updateMeasure"]', @measureView.el).length).toEqual(1)
 
     it 'should link to the show delete view', ->

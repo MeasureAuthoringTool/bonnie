@@ -2,7 +2,7 @@ describe 'PatientBankView', ->
 
   beforeEach ->
     window.bonnieRouterCache.load("base_set")
-    @patients = new Thorax.Collections.Patients getJSONFixture('records/base_set/patients.json'), parse: true
+    @patients = new Thorax.Collections.Patients getJSONFixture('records/QDM/base_set/patients.json'), parse: true
     @measure = bonnie.measures.first()
     @patientBankView = new Thorax.Views.PatientBankView model: @measure, patients: @patients
 

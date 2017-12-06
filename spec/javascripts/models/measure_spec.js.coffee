@@ -15,7 +15,7 @@ describe 'Measure', ->
     expect(@measure.get("source_data_criteria").get('parent') == @measure)
 
   it 'can calulate results for a patient', ->
-    collection = new Thorax.Collections.Patients getJSONFixture('records/base_set/patients.json')
+    collection = new Thorax.Collections.Patients getJSONFixture('records/QDM/base_set/patients.json')
     patient = collection.findWhere(first: 'GP_Peds', last: 'A')
     results = @measure.get('populations').at(0).calculate(patient)
     waitsForAndRuns( -> results.isPopulated()

@@ -1,33 +1,63 @@
 describe 'PatientBuilderView', ->
 
-  describe 'QDM', ->
+  #describe 'QDM', ->
+  beforeEach ->
+    window.bonnieRouterCache.load('base_set')
+    @patient = new Thorax.Models.Patient getJSONFixture('records/QDM/base_set/patients.json')[0], parse: true
+    @measure = bonnie.measures.findWhere(cms_id: 'CMS146v2')
+    @patients = new Thorax.Collections.Patients()
+    @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
+    @firstCriteria = @patientBuilder.model.get('source_data_criteria').first()
+    # Normally the first criteria can't have a value (wrong type); for testing we allow it
+    @firstCriteria.canHaveResult = -> true
+    @patientBuilder.render()
+    spyOn(@patientBuilder.model, 'materialize')
+    spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
+    @$el = @patientBuilder.$el
+
+  it 'should not open patient builder for non existent measure', ->
+    spyOn(bonnie,'showPageNotFound')
+    bonnie.showPageNotFound.calls.reset()
+    bonnie.renderPatientBuilder('non_existant_hqmf_set_id', @patient.id)
+    expect(bonnie.showPageNotFound).toHaveBeenCalled()
+
+  it 'should set the main view when calling showPageNotFound', ->
+    spyOn(bonnie.mainView,'setView')
+    bonnie.renderPatientBuilder('non_existant_hqmf_set_id', @patient.id)
+    expect(bonnie.mainView.setView).toHaveBeenCalled()
+
+  it 'renders the builder correctly', ->
+    expect(@$el.find(":input[name='first']")).toHaveValue @patient.get('first')
+    
+  it 'does not display compare patient results button when there is no history', ->
+    expect(@patientBuilder.$('button[data-call-method=showCompare]:first')).not.toExist()
+  
+  describe "setting basic attributes and saving", ->
     beforeEach ->
-      window.bonnieRouterCache.load('base_set')
-      @patient = new Thorax.Models.Patient getJSONFixture('records/base_set/patients.json')[0], parse: true
-      @measure = bonnie.measures.findWhere(cms_id: 'CMS146v2')
-      @patients = new Thorax.Collections.Patients()
-      @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
-      @firstCriteria = @patientBuilder.model.get('source_data_criteria').first()
-      # Normally the first criteria can't have a value (wrong type); for testing we allow it
-      @firstCriteria.canHaveResult = -> true
-      @patientBuilder.render()
-      spyOn(@patientBuilder.model, 'materialize')
-      spyOn(@patientBuilder.originalModel, 'save').and.returnValue(true)
-      @$el = @patientBuilder.$el
+      @patientBuilder.appendTo 'body'
+      @patientBuilder.$(':input[name=last]').val("LAST NAME")
+      @patientBuilder.$(':input[name=first]').val("FIRST NAME")
+      @patientBuilder.$('select[name=payer]').val('MA')
+      @patientBuilder.$('select[name=gender]').val('F')
+      @patientBuilder.$(':input[name=birthdate]').val('01/02/1993')
+      @patientBuilder.$(':input[name=birthtime]').val('1:15 PM')
+      @patientBuilder.$('select[name=race]').val('2131-1')
+      @patientBuilder.$('select[name=ethnicity]').val('2135-2')
+      @patientBuilder.$("button[data-call-method=save]").click()
 
-    it 'should not open patient builder for non existent measure', ->
-      spyOn(bonnie,'showPageNotFound')
-      bonnie.showPageNotFound.calls.reset()
-      bonnie.renderPatientBuilder('non_existant_hqmf_set_id', @patient.id)
-      expect(bonnie.showPageNotFound).toHaveBeenCalled()
+    it "serializes the attributes correctly", ->
+      expect(@patientBuilder.model.get('last')).toEqual 'LAST NAME'
+      expect(@patientBuilder.model.get('first')).toEqual 'FIRST NAME'
+      expect(@patientBuilder.model.get('payer')).toEqual 'MA'
+      expect(@patientBuilder.model.get('gender')).toEqual 'F'
+      expect(@patientBuilder.model.get('birthdate')).toEqual moment.utc('01/02/1993 1:15 PM', 'L LT').format('X')
+      expect(@patientBuilder.model.get('race')).toEqual '2131-1'
+      expect(@patientBuilder.model.get('ethnicity')).toEqual '2135-2'
 
-    it 'should set the main view when calling showPageNotFound', ->
-      spyOn(bonnie.mainView,'setView')
-      bonnie.renderPatientBuilder('non_existant_hqmf_set_id', @patient.id)
-      expect(bonnie.mainView.setView).toHaveBeenCalled()
+    it "tries to save the patient correctly", ->
+      expect(@patientBuilder.originalModel.save).toHaveBeenCalled()
 
-    it 'renders the builder correctly', ->
-      expect(@$el.find(":input[name='first']")).toHaveValue @patient.get('first')
+    afterEach -> @patientBuilder.remove()
 
     describe "setting basic attributes and saving", ->
       beforeEach ->
@@ -56,177 +86,178 @@ describe 'PatientBuilderView', ->
 
       afterEach -> @patientBuilder.remove()
 
-    describe "changing and blurring basic fields", ->
-      beforeEach ->
-        @patientBuilder.$('select[name=gender]').val('F').change()
-        @patientBuilder.$(':input[name=birthdate]').blur()
+  describe "changing and blurring basic fields", ->
+    beforeEach ->
+      @patientBuilder.$('select[name=gender]').val('F').change()
+      @patientBuilder.$(':input[name=birthdate]').blur()
 
-      it "materializes the patient", ->
-        expect(@patientBuilder.model.materialize).toHaveBeenCalled()
-        expect(@patientBuilder.model.materialize.calls.count()).toEqual 2
-
-
-    describe "adding encounters to patient", ->
-      beforeEach ->
-        @patientBuilder.appendTo 'body'
-        # simulate dragging an encounter onto the patient
-        @addEncounter = (position, targetSelector) ->
-          $('.panel-title').click() # Expand the criteria to make draggables visible
-          criteria = @$el.find(".draggable:eq(#{position})").draggable()
-          target = @$el.find(targetSelector)
-          targetView = target.view()
-          # We used to simulate a drag, but that had issues with different viewport sizes, so instead we just
-          # directly call the appropriate drop event handler
-          if targetView.dropCriteria
-            target.view().dropCriteria({ target: target }, { draggable: criteria })
-          else
-            target.view().drop({ target: target }, { draggable: criteria })
-
-      it "adds data criteria to model when dragged", ->
-        initialSourceDataCriteriaCount = @patientBuilder.model.get('source_data_criteria').length
-        @addEncounter 1, '.criteria-container.droppable'
-        expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 1
-
-      it "can add multiples of the same criterion", ->
-        initialSourceDataCriteriaCount = @patientBuilder.model.get('source_data_criteria').length
-        @addEncounter 1, '.criteria-container.droppable'
-        @addEncounter 1, '.criteria-container.droppable' # add the same one again
-        expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 2
-
-      it "acquires the dates of the drop target when dropping on an existing criteria", ->
-        startDate = @patientBuilder.model.get('source_data_criteria').first().get('start_date')
-        endDate = @patientBuilder.model.get('source_data_criteria').first().get('end_date')
-        # droppable 5 used because droppable 1 didn't have a start and end date
-        @addEncounter 5, '.criteria-data.droppable:first'
-        expect(@patientBuilder.model.get('source_data_criteria').last().get('start_date')).toEqual startDate
-        expect(@patientBuilder.model.get('source_data_criteria').last().get('end_date')).toEqual endDate
-
-      it "materializes the patient", ->
-        expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
-        @addEncounter 1, '.criteria-container.droppable'
-        expect(@patientBuilder.model.materialize).toHaveBeenCalled()
-
-      afterEach -> @patientBuilder.remove()
+    it "materializes the patient", ->
+      expect(@patientBuilder.model.materialize).toHaveBeenCalled()
+      expect(@patientBuilder.model.materialize.calls.count()).toEqual 2
 
 
-    describe "editing basic attributes of a criteria", ->
-      beforeEach ->
-        @patientBuilder.appendTo 'body'
-        # need to be specific with the query to select one of the data criteria with a period.
-        # this is due to QDM 5.0 changes which make several data criteria only have an author time.
-        # Medication, Active is a period type.
-        $dataCriteria = @patientBuilder.$('div.patient-criteria:contains(Medication: Active):first')
-        $dataCriteria.find('button[data-call-method=toggleDetails]:first').click()
-        $dataCriteria.find(':input[name=start_date]:first').val('01/1/2012')
-        $dataCriteria.find(':input[name=start_time]:first').val('3:33')
-        $dataCriteria.find(':input[name=end_date_is_undefined]:first').click()
-        # verify DOM as well
-        expect($dataCriteria.find(':input[name=end_date]:first')).toBeDisabled()
-        expect($dataCriteria.find(':input[name=end_time]:first')).toBeDisabled()
-        @patientBuilder.$("button[data-call-method=save]").click()
+  describe "adding encounters to patient", ->
+    beforeEach ->
+      @patientBuilder.appendTo 'body'
+      # simulate dragging an encounter onto the patient
+      @addEncounter = (position, targetSelector) ->
+        $('.panel-title').click() # Expand the criteria to make draggables visible
+        criteria = @$el.find(".draggable:eq(#{position})").draggable()
+        target = @$el.find(targetSelector)
+        targetView = target.view()
+        # We used to simulate a drag, but that had issues with different viewport sizes, so instead we just
+        # directly call the appropriate drop event handler
+        if targetView.dropCriteria
+          target.view().dropCriteria({ target: target }, { draggable: criteria })
+        else
+          target.view().drop({ target: target }, { draggable: criteria })
 
-      it "serializes the attributes correctly", ->
-        dataCriteria = @patientBuilder.model.get('source_data_criteria').where({definition:'medication', status:'active'})[0]
-        expect(dataCriteria.get('start_date')).toEqual moment.utc('01/1/2012 3:33', 'L LT').format('X') * 1000
-        expect(dataCriteria.get('end_date')).toBeUndefined()
+    it "adds data criteria to model when dragged", ->
+      initialSourceDataCriteriaCount = @patientBuilder.model.get('source_data_criteria').length
+      @addEncounter 1, '.criteria-container.droppable'
+      expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 1
 
-      afterEach -> @patientBuilder.remove()
+    it "can add multiples of the same criterion", ->
+      initialSourceDataCriteriaCount = @patientBuilder.model.get('source_data_criteria').length
+      @addEncounter 1, '.criteria-container.droppable'
+      @addEncounter 1, '.criteria-container.droppable' # add the same one again
+      expect(@patientBuilder.model.get('source_data_criteria').length).toEqual initialSourceDataCriteriaCount + 2
+
+    it "acquires the dates of the drop target when dropping on an existing criteria", ->
+      startDate = @patientBuilder.model.get('source_data_criteria').first().get('start_date')
+      endDate = @patientBuilder.model.get('source_data_criteria').first().get('end_date')
+      # droppable 5 used because droppable 1 didn't have a start and end date
+      @addEncounter 5, '.criteria-data.droppable:first'
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('start_date')).toEqual startDate
+      expect(@patientBuilder.model.get('source_data_criteria').last().get('end_date')).toEqual endDate
+
+    it "materializes the patient", ->
+      expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
+      @addEncounter 1, '.criteria-container.droppable'
+      expect(@patientBuilder.model.materialize).toHaveBeenCalled()
+
+    afterEach -> @patientBuilder.remove()
 
 
-    describe "setting a criteria as not performed", ->
-      beforeEach ->
-        @patientBuilder.appendTo 'body'
-        @patientBuilder.$('.criteria-data').children().toggleClass('hide')
-        @patientBuilder.$('input[name=negation]:first').click()
-        @patientBuilder.$('select[name=negation_code_list_id]:first').val('2.16.840.1.113883.3.464.1003.101.12.1061')
-        @patientBuilder.$("button[data-call-method=save]").click()
+  describe "editing basic attributes of a criteria", ->
+    beforeEach ->
+      @patientBuilder.appendTo 'body'
+      # need to be specific with the query to select one of the data criteria with a period.
+      # this is due to QDM 5.0 changes which make several data criteria only have an author time.
+      # Medication, Active is a period type.
+      $dataCriteria = @patientBuilder.$('div.patient-criteria:contains(Medication: Active):first')
+      $dataCriteria.find('button[data-call-method=toggleDetails]:first').click()
+      $dataCriteria.find(':input[name=start_date]:first').val('01/1/2012')
+      $dataCriteria.find(':input[name=start_time]:first').val('3:33')
+      $dataCriteria.find(':input[name=end_date_is_undefined]:first').click()
+      # verify DOM as well
+      expect($dataCriteria.find(':input[name=end_date]:first')).toBeDisabled()
+      expect($dataCriteria.find(':input[name=end_time]:first')).toBeDisabled()
+      @patientBuilder.$("button[data-call-method=save]").click()
 
-      it "serializes correctly", ->
-        expect(@patientBuilder.model.get('source_data_criteria').first().get('negation')).toBe true
-        expect(@patientBuilder.model.get('source_data_criteria').first().get('negation_code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1061'
+    it "serializes the attributes correctly", ->
+      dataCriteria = @patientBuilder.model.get('source_data_criteria').where({definition:'medication', status:'active'})[0]
+      expect(dataCriteria.get('start_date')).toEqual moment.utc('01/1/2012 3:33', 'L LT').format('X') * 1000
+      expect(dataCriteria.get('end_date')).toBeUndefined()
 
-      afterEach -> @patientBuilder.remove()
+    afterEach -> @patientBuilder.remove()
 
 
-    describe "blurring basic fields of a criteria", ->
-      beforeEach ->
-        @patientBuilder.appendTo 'body'
-        @patientBuilder.$(':text[name=start_date]:first').blur()
+  describe "setting a criteria as not performed", ->
+    beforeEach ->
+      @patientBuilder.appendTo 'body'
+      @patientBuilder.$('.criteria-data').children().toggleClass('hide')
+      @patientBuilder.$('input[name=negation]:first').click()
+      @patientBuilder.$('select[name=negation_code_list_id]:first').val('2.16.840.1.113883.3.464.1003.101.12.1061')
+      @patientBuilder.$("button[data-call-method=save]").click()
 
-      it "materializes the patient", ->
-        expect(@patientBuilder.model.materialize).toHaveBeenCalled()
-        expect(@patientBuilder.model.materialize.calls.count()).toEqual 1
+    it "serializes correctly", ->
+      debugger
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('negation')).toBe true
+      expect(@patientBuilder.model.get('source_data_criteria').first().get('negation_code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1061'
 
-      afterEach -> @patientBuilder.remove()
+    afterEach -> @patientBuilder.remove()
 
-    describe "adding codes to an encounter", ->
-      beforeEach ->
-        @patientBuilder.appendTo 'body'
-        @addCode = (codeSet, code, submit = true) ->
-          @patientBuilder.$('.codeset-control:first').val(codeSet).change()
-          $codelist = @patientBuilder.$('.codelist-control:first')
-          expect($codelist.children("[value=#{code}]")).toExist()
-          $codelist.val(code).change()
 
-      # FIXME Our test JSON doesn't yet support value sets very well... write these tests when we have a source of value sets independent of the measures
-      it "adds a code", ->
+  describe "blurring basic fields of a criteria", ->
+    beforeEach ->
+      @patientBuilder.appendTo 'body'
+      @patientBuilder.$(':text[name=start_date]:first').blur()
 
-      afterEach -> @patientBuilder.remove()
+    it "materializes the patient", ->
+      expect(@patientBuilder.model.materialize).toHaveBeenCalled()
+      expect(@patientBuilder.model.materialize.calls.count()).toEqual 1
 
-    describe "adding values to an encounter", ->
-      beforeEach ->
-        @patientBuilder.appendTo 'body'
-        @addScalarValue = (input, units, submit=true) ->
-          @patientBuilder.$('select[name=type]:first').val('PQ').change()
-          @patientBuilder.$('input[name=value]:first').val(input).keyup()
-          @patientBuilder.$('input[name=unit]:first').val(units)
-          @patientBuilder.$('.value-formset .btn-primary:first').click() if submit
-        @addCodedValue = (codeListId, submit=true) ->
-          @patientBuilder.$('select[name=type]:first').val('CD').change()
-          @patientBuilder.$('select[name=code_list_id]').val(codeListId).change()
-          @patientBuilder.$('.value-formset .btn-primary:first').click() if submit
+    afterEach -> @patientBuilder.remove()
 
-      it "adds a scalar value", ->
-        expect(@firstCriteria.get('value').length).toEqual 0
-        @addScalarValue 1, 'mg'
-        expect(@firstCriteria.get('value').length).toEqual 1
-        expect(@firstCriteria.get('value').first().get('type')).toEqual 'PQ'
-        expect(@firstCriteria.get('value').first().get('value')).toEqual '1'
-        expect(@firstCriteria.get('value').first().get('unit')).toEqual 'mg'
+  describe "adding codes to an encounter", ->
+    beforeEach ->
+      @patientBuilder.appendTo 'body'
+      @addCode = (codeSet, code, submit = true) ->
+        @patientBuilder.$('.codeset-control:first').val(codeSet).change()
+        $codelist = @patientBuilder.$('.codelist-control:first')
+        expect($codelist.children("[value=#{code}]")).toExist()
+        $codelist.val(code).change()
 
-      it "adds a coded value", ->
-        expect(@firstCriteria.get('value').length).toEqual 0
-        @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1061'
-        expect(@firstCriteria.get('value').length).toEqual 1
-        expect(@firstCriteria.get('value').first().get('type')).toEqual 'CD'
-        expect(@firstCriteria.get('value').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1061'
-        expect(@firstCriteria.get('value').first().get('title')).toEqual 'Ambulatory/ED Visit'
+    # FIXME Our test JSON doesn't yet support value sets very well... write these tests when we have a source of value sets independent of the measures
+    it "adds a code", ->
 
-      it "only allows for a single result", ->
-        expect(@firstCriteria.get('value').length).toEqual 0
-        # Want the option to select a Result value to be visible
-        expect(@patientBuilder.$('.edit_value_view.hide')).not.toExist()
-        @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1061'
-        expect(@firstCriteria.get('value').length).toEqual 1
-        # Once a Result value has been added don't want to be able to add more
-        expect(@patientBuilder.$('.edit_value_view.hide')).toExist()
-      
-      it "materializes the patient", ->
-        expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
-        @addScalarValue 1, 'mg'
-        expect(@patientBuilder.model.materialize).toHaveBeenCalled()
-        expect(@patientBuilder.model.materialize.calls.count()).toEqual 1
-        @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1061'
-        expect(@patientBuilder.model.materialize.calls.count()).toEqual 2
+    afterEach -> @patientBuilder.remove()
 
-      it "disables input until form is filled out", ->
-        expect(@patientBuilder.$('.value-formset .btn-primary:first')).toBeDisabled()
-        @addScalarValue 1, 'mg', false
-        expect(@patientBuilder.$('.value-formset .btn-primary:first')).not.toBeDisabled()
-        @addScalarValue '', '', false
-        expect(@patientBuilder.$('.value-formset .btn-primary:first')).toBeDisabled()
+  describe "adding values to an encounter", ->
+    beforeEach ->
+      @patientBuilder.appendTo 'body'
+      @addScalarValue = (input, units, submit=true) ->
+        @patientBuilder.$('select[name=type]:first').val('PQ').change()
+        @patientBuilder.$('input[name=value]:first').val(input).keyup()
+        @patientBuilder.$('input[name=unit]:first').val(units)
+        @patientBuilder.$('.value-formset .btn-primary:first').click() if submit
+      @addCodedValue = (codeListId, submit=true) ->
+        @patientBuilder.$('select[name=type]:first').val('CD').change()
+        @patientBuilder.$('select[name=code_list_id]').val(codeListId).change()
+        @patientBuilder.$('.value-formset .btn-primary:first').click() if submit
 
-      afterEach -> @patientBuilder.remove()
+    it "adds a scalar value", ->
+      expect(@firstCriteria.get('value').length).toEqual 0
+      @addScalarValue 1, 'mg'
+      expect(@firstCriteria.get('value').length).toEqual 1
+      expect(@firstCriteria.get('value').first().get('type')).toEqual 'PQ'
+      expect(@firstCriteria.get('value').first().get('value')).toEqual '1'
+      expect(@firstCriteria.get('value').first().get('unit')).toEqual 'mg'
+
+    it "adds a coded value", ->
+      expect(@firstCriteria.get('value').length).toEqual 0
+      @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1061'
+      expect(@firstCriteria.get('value').length).toEqual 1
+      expect(@firstCriteria.get('value').first().get('type')).toEqual 'CD'
+      expect(@firstCriteria.get('value').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1061'
+      expect(@firstCriteria.get('value').first().get('title')).toEqual 'Ambulatory/ED Visit'
+
+    it "only allows for a single result", ->
+      expect(@firstCriteria.get('value').length).toEqual 0
+      # Want the option to select a Result value to be visible
+      expect(@patientBuilder.$('.edit_value_view.hide')).not.toExist()
+      @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1061'
+      expect(@firstCriteria.get('value').length).toEqual 1
+      # Once a Result value has been added don't want to be able to add more
+      expect(@patientBuilder.$('.edit_value_view.hide')).toExist()
+    
+    it "materializes the patient", ->
+      expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
+      @addScalarValue 1, 'mg'
+      expect(@patientBuilder.model.materialize).toHaveBeenCalled()
+      expect(@patientBuilder.model.materialize.calls.count()).toEqual 1
+      @addCodedValue '2.16.840.1.113883.3.464.1003.101.12.1061'
+      expect(@patientBuilder.model.materialize.calls.count()).toEqual 2
+
+    it "disables input until form is filled out", ->
+      expect(@patientBuilder.$('.value-formset .btn-primary:first')).toBeDisabled()
+      @addScalarValue 1, 'mg', false
+      expect(@patientBuilder.$('.value-formset .btn-primary:first')).not.toBeDisabled()
+      @addScalarValue '', '', false
+      expect(@patientBuilder.$('.value-formset .btn-primary:first')).toBeDisabled()
+
+    afterEach -> @patientBuilder.remove()
 
 
     describe "adding field values to an encounter", ->
@@ -348,17 +379,16 @@ describe 'PatientBuilderView', ->
 
   describe 'CQL', ->
     beforeEach ->
-
       jasmine.getJSONFixtures().clearCache()
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS347/CMS735v0.json'), parse: true
       # preserve atomicity
       @universalValueSetsByOid = bonnie.valueSetsByOid
       @bonnie_measures_old = bonnie.measures
-
+  
     afterEach ->
       bonnie.valueSetsByOid = @universalValueSetsByOid
       bonnie.measures = @bonnie_measures_old
-
+  
     it "laboratory test performed should have custom view for components", ->
       patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS347/patients.json'), parse: true
       patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: @cqlMeasure)
@@ -375,12 +405,12 @@ describe 'PatientBuilderView', ->
       expect(editFieldValueView.$('label[for=referenceRangeHigh]')).toExist()
       expect(editFieldValueView.$('label[for=referenceRangeHigh]')[0].innerHTML).toEqual('Reference Range - High')
       expect(editFieldValueView.$('select[name=code_list_id]')).toExist()
-
+  
       editFieldValueView.$('select[name=key]').val('REASON').change()
       expect(editFieldValueView.$('label[for=code]').length).toEqual(0)
       expect(editFieldValueView.$('label[for=referenceRangeLow]').length).toEqual(0)
       expect(editFieldValueView.$('label[for=referenceRangeHigh]').length).toEqual(0)
-
+  
     it "EditCriteriaValueView does not have duplicated codes in dropdown", ->
       bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS107/value_sets.json')
       cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
@@ -391,12 +421,12 @@ describe 'PatientBuilderView', ->
       editCriteriaView = new Thorax.Views.EditCriteriaView(model: laboratoryTest, measure: cqlMeasure)
       editFieldValueView = editCriteriaView.editFieldValueView
       codesInDropdown = {}
-
+  
       # Each code should appear only once
       for code in editFieldValueView.context().codes
         expect(codesInDropdown[code.display_name]).toBeUndefined()
         codesInDropdown[code.display_name] = 'exists'
-
+  
       # These are from direct reference codes
       expect(codesInDropdown['Birthdate']).toBeDefined()
       expect(codesInDropdown['Dead']).toBeDefined()
