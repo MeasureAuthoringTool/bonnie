@@ -2,8 +2,9 @@ describe 'MeasureView', ->
 
   describe 'QDM', ->
     beforeEach ->
+    beforeEach ->
+      window.bonnieRouterCache.load('base_set')
       @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
-
       # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
       # We add the overlapping codes after 10 non-overlapping codes to provide regression for a bug
       @vs1 = @measure.valueSets().findWhere(display_name: 'Annual Wellness Visit')
@@ -13,10 +14,9 @@ describe 'MeasureView', ->
         @vs2.get('concepts').push { code: "XYZ#{n}", display_name: "XYZ", code_system_name: "XYZ" }
       @vs1.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
       @vs2.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
-      # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
-      jasmine.getJSONFixtures().clearCache()
-      @patient = new Thorax.Models.Patient getJSONFixture('records/QDM/base_set/patients.json')[0], parse: true
-      @measure.get('patients').add @patient
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/QDM/base_set/patients.json'), parse: true
+      @measure.set('patients', @patients)
+      @patient = @patients.at(0)
       @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @measure, patients: @measure.get('patients'))
       @measureView = @measureLayoutView.showMeasure()
       @measureView.appendTo 'body'
