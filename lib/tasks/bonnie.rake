@@ -103,7 +103,10 @@ namespace :bonnie do
       raise "#{dest_email} not found" unless dest = User.find_by(email: dest_email) rescue nil
 
       # Find the measure and associated records we're moving
-      raise "#{cms_id} not found" unless measure = find_measure(source, "", cms_id) rescue nil
+      raise "#{cms_id} not found" unless measure = find_measure(source, "", cms_id)
+      if find_measure(dest, "", cms_id, false)
+        raise "#{cms_id} already exists in destination account #{dest_email}. Cannot complete move."
+      end
       move_patients(source, dest, measure, measure)
       print_success("Moved patients")
 
@@ -566,30 +569,34 @@ namespace :bonnie do
   # It does this two pronged approach to searching because the measure information
   # is provided by users, and there may be small differences in the measure title
   # (small typo, capitalization, etc.).
-  def find_measure(user, measure_title, measure_id)
+  def find_measure(user, measure_title, measure_id, expect_to_find=true)
     measure = nil
 
     # try to find the measure just based off of the CMS id to avoid chance of typos
     # in the title
     measures = CqlMeasure.where(user_id: user._id, cms_id: measure_id)
     if measures.count == 0
-      print_error "#{user.email}: #{measure_id}:#{measure_title} not found"
+      print_error "#{user.email}: #{measure_id}:#{measure_title} not found" if expect_to_find
     elsif measures.count == 1
       measure = measures.first
     else
       # if there are duplicate CMS ids (CMSv0, for example), use the title as well
       measures = CqlMeasure.where(user_id: user._id, title: measure_title, cms_id: measure_id)
       if measures.count == 0
-        print_error "#{user.email}: #{measure_id}:#{measure_title} not found"
+        print_error "#{user.email}: #{measure_id}:#{measure_title} not found" if expect_to_find
       elsif measures.count == 1
         measure = measures.first
       else
-        print_error "#{user.email}: #{measure_id}:#{measure_title} not unique"
+        print_error "#{user.email}: #{measure_id}:#{measure_title} not unique" if expect_to_find
       end
     end
 
     if measure
-      print_success "#{user.email}: #{measure_id}:#{measure_title} found"
+      if expect_to_find
+        print_success "#{user.email}: #{measure_id}:#{measure_title} found"
+      else
+        print_error "#{user.email}: #{measure_id}:#{measure_title} found"
+      end
     end
 
     return measure
