@@ -105,18 +105,6 @@
               </div>
             {{/if}}
           </div>
-          <div class="form-group">
-            <p class="col-sm-{{titleSize}} control-label">Rebuild patients</p>
-            <div class="col-sm-3">
-              <div class="switch-toggle switch-custom">
-                <input id="rebuildNo" type="radio" name="rebuild_patients" value="false" checked="true"> 
-                <label for="rebuildNo" onclick=""><span class="sr-only">Rebuild patients</span> No</label>
-                <input id="rebuildYes" type="radio" name="rebuild_patients" value="true">
-                <label for="rebuildYes" onclick=""><span class="sr-only">Rebuild patients</span> Yes</label>
-                <a class="btn btn-primary"></a>
-              </div>
-            </div>
-          </div>
           {{#if isUpdate}}
             {{#if episode_of_care}}
               <input type="hidden" name="{{@cid}}[hqmf_id]" value="{{hqmf_id}}">

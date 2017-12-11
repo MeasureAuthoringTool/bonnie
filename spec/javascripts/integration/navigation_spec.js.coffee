@@ -26,10 +26,18 @@ describe 'Navigation', ->
 
   describe 'navigating each measure view', ->
 
-    it 'should link to measures list and update measure for a measure', ->
-      p = @patients
-      @measureView = new Thorax.Views.MeasureLayout(measure: @measures.first(), patients: p)
+    beforeEach ->
+      @measureView = new Thorax.Views.MeasureLayout(measure: @measures.first(), patients: @patients)
       @measureView = @measureView.showMeasure()
-      expect(@measureView.$('a[href="#measures"]')).toExist
-      expect(@measureView.$('#updateMeasureTrigger')).toExist
+
+    afterEach ->
       @measureView.remove()
+
+    it 'should link to the update measure view', ->
+      expect($('button[data-call-method="updateMeasure"]', @measureView.el).length).toEqual(1)
+
+    it 'should link to the show delete view', ->
+      expect($('button[data-call-method="showDelete"]', @measureView.el).length).toEqual(1)
+
+    it 'should link to the delete measure view', ->
+      expect($('button[data-call-method="deleteMeasure"]', @measureView.el).length).toEqual(1)
