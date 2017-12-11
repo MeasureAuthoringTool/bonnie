@@ -2,7 +2,6 @@ describe 'MeasureView', ->
 
   describe 'QDM', ->
     beforeEach ->
-    beforeEach ->
       window.bonnieRouterCache.load('base_set')
       @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
       # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
