@@ -2,6 +2,7 @@ Pull requests into Bonnie require the following. Submitter and reviewer should :
 
 **Submitter:**
 - [ ] This pull request describes why these changes were made.
+- [ ] This PR is into the correct branch.
 - [ ] JIRA ticket for this PR:
 - [ ] JIRA ticket links to this PR
 - [ ] Code diff has been done and been reviewed (it **does not** contain: additional white space, not applicable code changes, debug statements, etc.)
