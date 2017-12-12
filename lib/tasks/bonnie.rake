@@ -184,6 +184,63 @@ namespace :bonnie do
         puts "Keeping #{sorted.last}"
       end
     end
+    
+    desc 'Downloads a measure package for a particular measure'
+    task :download_measure_package => :environment do
+      email = ENV['EMAIL']
+      cms_id = ENV['CMS_ID']
+      hqmf_set_id = ENV['HQMF_SET_ID']
+      
+      is_error = false
+      
+      unless is_error
+        begin
+          user = User.find_by(email: email)
+        rescue
+          print_error "#{email} not found"
+          is_error = true
+        end
+      end
+      
+      unless is_error
+        if hqmf_set_id
+          begin
+            measure = CqlMeasure.find_by(user_id: user.id, hqmf_set_id: hqmf_set_id)
+            print_success "#{user.email}: measure with HQMF set id #{hqmf_set_id} found"
+          rescue
+            print_error "measure with HQFM set id #{hqmf_set_id} not found for account #{email}"
+            is_error = true
+          end
+        elsif cms_id
+          measure = find_measure(user, "", cms_id)
+          if !measure
+            print_error "measure with CMS id #{cms_id} not found for account #{email}"
+            is_error = true
+          end
+        else
+          print_error "Expected CMS_ID or HQMF_SET_ID environment variables"
+          is_error = true
+        end
+      end
+      
+      unless is_error
+        if measure
+          if measure.package
+            filename = "#{measure.cms_id}_#{email}_#{measure.package.created_at.to_date.to_s}.zip"
+            file = open(filename, 'wb')
+            file.write(measure.package.file.data)
+            file.close
+          else
+            print_error 'No package found for this measure.'
+            is_error = true
+          end
+        else
+          print_error 'No measure found for this id.'
+          is_error = true
+        end
+      end
+      
+    end
 
   end
 
