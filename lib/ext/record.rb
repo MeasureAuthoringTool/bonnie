@@ -14,7 +14,7 @@ class Record
   belongs_to :user
   belongs_to :bundle, class_name: "HealthDataStandards::CQM::Bundle"
   scope :by_user, ->(user) { where({'user_id'=>user.id}) }
-  scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where ({'user_id'=>user.id, 'measure_ids'=>{'$in'=>[hqmf_set_id]} }) }
+  scope :by_user_and_hqmf_set_id, ->(user, hqmf_set_id) { where({'user_id'=>user.id, 'measure_ids'=>{'$in'=>[hqmf_set_id]} }) }
 
   # User email or measure CMS ID can be prepopulated (to solve 1+N performance issue) or just retrieved
   attr_writer :user_email

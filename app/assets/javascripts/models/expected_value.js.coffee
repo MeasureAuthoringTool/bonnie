@@ -17,6 +17,8 @@ class Thorax.Models.ExpectedValue extends Thorax.Model
         @set 'OBSERV', (undefined for val in result.get('values'))
     else
       if result.get('values')?.length
+        @set 'OBSERV', _(@get('OBSERV')).sortBy( (v) -> v)
+        result.set 'values', _(result.get('values')).sortBy( (v) -> v)
         if @get('OBSERV').length - result.get('values').length < 0
           @get('OBSERV').push(undefined) for n in [(@get('OBSERV').length + 1)..result.get('values').length]
 

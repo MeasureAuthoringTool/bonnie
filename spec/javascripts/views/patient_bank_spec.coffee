@@ -68,6 +68,12 @@ describe 'PatientBankView', ->
     expect(@patientBankView.toggledPatient).toBeTruthy()
     expect(@patientBankView.bankLogicView.showRationale).toHaveBeenCalled()
 
+  it 'should not open patient bank for non existent measure', ->
+    spyOn(bonnie,'showPageNotFound')
+    bonnie.showPageNotFound.calls.reset()
+    bonnie.renderPatientBank('non_existant_hqmf_set_id')
+    expect(bonnie.showPageNotFound).toHaveBeenCalled()
+
   describe 'lets user filter the patient list', ->
 
     beforeEach ->
