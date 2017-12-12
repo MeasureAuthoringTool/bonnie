@@ -55,6 +55,9 @@ module Measures
 
           source_criteria['coded_entry_id'] = entry.id
 
+          # fix up code keys to not use periods <<WRAP 2>>
+          # this is matched with an UNWRAP in application.html.erb
+          Measures::MongoHashKeyWrapper::wrapKeys entry['codes']
           source_criteria['codes'] = entry['codes']
           if source_criteria['code_source'] != CODE_SOURCE[:USER_DEFINED]
             source_criteria['code_source'] = if Measures::PatientBuilder.white_list_black_list?(source_criteria['code_list_id'], value_sets)
@@ -94,8 +97,9 @@ module Measures
         end
       end
 
-
       # if the patient is persisted, mongoid will send the updates at this point.
+      # unfortunately, this doesn't invoke mongo hooks so we can't wrap in record.rb
+      # (hence the previous loop)
       Record::Sections.each do |section|
         patient.send(section).clear.concat(sections[section.to_s] || [])
       end

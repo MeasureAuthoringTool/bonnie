@@ -13,7 +13,8 @@ class MeasuresController < ApplicationController
     raise Mongoid::Errors::DocumentNotFound unless @measure
     if stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
       raw_json = @measure.as_json(except: skippable_fields)
-      # fix up statement names in cql_statement_dependencies to use original periods
+      # fix up statement names in cql_statement_dependencies to use original periods <<UNWRAP 1>>
+      # this is matched with a WRAP in process_cql in the bonnie_bundler project
       Measures::MongoHashKeyWrapper::unwrapKeys raw_json['cql_statement_dependencies'] if raw_json.has_key?('cql_statement_dependencies')
       @measure_json = MultiJson.encode(raw_json)
       respond_with @measure do |format|
