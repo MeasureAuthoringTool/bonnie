@@ -1,9 +1,8 @@
 describe 'Patient', ->
 
   beforeEach ->
-    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
-    jasmine.getJSONFixtures().clearCache()
-    collection = new Thorax.Collections.Patients getJSONFixture('patients.json'), parse: true
+    window.bonnieRouterCache.load('base_set')
+    collection = new Thorax.Collections.Patients getJSONFixture('records/QDM/base_set/patients.json'), parse: true
     @patient = collection.findWhere(first: 'GP_Peds', last: 'A')
 
   it 'has basic attributes available', ->

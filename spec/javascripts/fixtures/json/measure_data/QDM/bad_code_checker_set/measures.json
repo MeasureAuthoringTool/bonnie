@@ -1,0 +1,1920 @@
+[
+  {
+    "_id": "5936cb135cc97521620002df",
+    "bundle_id": "5936ca545cc9752153000001",
+    "category": null,
+    "cms_id": "CMS123v6",
+    "complexity": {
+      "populations": [
+        {
+          "name": "IPP",
+          "complexity": 9
+        },
+        {
+          "name": "DENOM",
+          "complexity": 1
+        },
+        {
+          "name": "NUMER",
+          "complexity": 3
+        },
+        {
+          "name": "DENEX",
+          "complexity": 9
+        }
+      ],
+      "variables": [
+
+      ]
+    },
+    "continuous_variable": false,
+    "created_at": "2017-06-06T15:32:35.796Z",
+    "custom_functions": null,
+    "data_criteria": {
+      "AnnualWellnessVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6901": {
+        "title": "Annual Wellness Visit",
+        "description": "Encounter, Performed: Annual Wellness Visit",
+        "code_list_id": "2.16.840.1.113883.3.526.3.1240",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "AnnualWellnessVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6901_source",
+        "variable": false,
+        "key": "AnnualWellnessVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6901"
+      },
+      "Face_to_FaceInteraction_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6903": {
+        "title": "Face-to-Face Interaction",
+        "description": "Encounter, Performed: Face-to-Face Interaction",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Face_to_FaceInteraction_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6903_source",
+        "variable": false,
+        "key": "Face_to_FaceInteraction_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6903"
+      },
+      "HomeHealthcareServices_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6902": {
+        "title": "Home Healthcare Services",
+        "description": "Encounter, Performed: Home Healthcare Services",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1016",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "HomeHealthcareServices_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6902_source",
+        "variable": false,
+        "key": "HomeHealthcareServices_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6902"
+      },
+      "LeftUnilateralAmputationAboveorBelowKnee_Diagnosis_571e830b_7a41_476c_9565_b3465f836557": {
+        "title": "Left Unilateral Amputation Above or Below Knee",
+        "description": "Diagnosis: Left Unilateral Amputation Above or Below Knee",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.113.12.1058",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "LeftUnilateralAmputationAboveorBelowKnee_Diagnosis_571e830b_7a41_476c_9565_b3465f836557_source",
+        "variable": false,
+        "key": "LeftUnilateralAmputationAboveorBelowKnee_Diagnosis_571e830b_7a41_476c_9565_b3465f836557"
+      },
+      "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68fe": {
+        "title": "Office Visit",
+        "description": "Encounter, Performed: Office Visit",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68fe_source",
+        "variable": false,
+        "key": "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68fe"
+      },
+      "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68ff": {
+        "title": "Preventive Care Services - Established Office Visit, 18 and Up",
+        "description": "Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1025",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68ff_source",
+        "variable": false,
+        "key": "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68ff"
+      },
+      "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6900": {
+        "title": "Preventive Care Services-Initial Office Visit, 18 and Up",
+        "description": "Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1023",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6900_source",
+        "variable": false,
+        "key": "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6900"
+      },
+      "RightUnilateralAmputationAboveorBelowKnee_Diagnosis_cfd78ab8_c240_49f6_a518_c725811e76de": {
+        "title": "Right Unilateral Amputation Above or Below Knee",
+        "description": "Diagnosis: Right Unilateral Amputation Above or Below Knee",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.113.12.1057",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "RightUnilateralAmputationAboveorBelowKnee_Diagnosis_cfd78ab8_c240_49f6_a518_c725811e76de_source",
+        "variable": false,
+        "key": "RightUnilateralAmputationAboveorBelowKnee_Diagnosis_cfd78ab8_c240_49f6_a518_c725811e76de"
+      },
+      "Hospicecareambulatory_InterventionOrder_46aa8c84_ee14_43a6_9bdf_83013bafe367": {
+        "title": "Hospice care ambulatory",
+        "description": "Intervention, Order: Hospice care ambulatory",
+        "code_list_id": "2.16.840.1.113762.1.4.1108.15",
+        "type": "interventions",
+        "definition": "intervention",
+        "status": "ordered",
+        "hard_status": true,
+        "negation": false,
+        "source_data_criteria": "Hospicecareambulatory_InterventionOrder_46aa8c84_ee14_43a6_9bdf_83013bafe367_source",
+        "variable": false,
+        "key": "Hospicecareambulatory_InterventionOrder_46aa8c84_ee14_43a6_9bdf_83013bafe367"
+      },
+      "Hospicecareambulatory_InterventionPerformed_6ad0a37f_63e5_453a_b3a8_9eda55bd9f7b": {
+        "title": "Hospice care ambulatory",
+        "description": "Intervention, Performed: Hospice care ambulatory",
+        "code_list_id": "2.16.840.1.113762.1.4.1108.15",
+        "type": "interventions",
+        "definition": "intervention",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Hospicecareambulatory_InterventionPerformed_6ad0a37f_63e5_453a_b3a8_9eda55bd9f7b_source",
+        "variable": false,
+        "key": "Hospicecareambulatory_InterventionPerformed_6ad0a37f_63e5_453a_b3a8_9eda55bd9f7b"
+      },
+      "f7cda3c4_0892_46bf_b32b_1dff25038ab7_9a655be4_4072_4d34_9e13_fccc6a603231": {
+        "title": "Unilateral Amputation Below or Above Knee, Unspecified Laterality",
+        "description": "Diagnosis: Unilateral Amputation Below or Above Knee, Unspecified Laterality",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.113.12.1059",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "f7cda3c4_0892_46bf_b32b_1dff25038ab7_9a655be4_4072_4d34_9e13_fccc6a603231_source",
+        "variable": false,
+        "field_values": {
+          "ANATOMICAL_LOCATION_SITE": {
+            "type": "CD",
+            "code_list_id": "2.16.840.1.113883.3.464.1003.122.12.1036",
+            "title": "Left Grouping Value Set",
+            "key": "ANATOMICAL_LOCATION_SITE",
+            "key_title": "Anatomical Location Site"
+          }
+        },
+        "key": "f7cda3c4_0892_46bf_b32b_1dff25038ab7_9a655be4_4072_4d34_9e13_fccc6a603231"
+      },
+      "prefix_15861624_60f0_4800_ac2b_cc816c550d3d_9a655be4_4072_4d34_9e13_fccc6a603231": {
+        "title": "Unilateral Amputation Below or Above Knee, Unspecified Laterality",
+        "description": "Diagnosis: Unilateral Amputation Below or Above Knee, Unspecified Laterality",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.113.12.1059",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "f7cda3c4_0892_46bf_b32b_1dff25038ab7_9a655be4_4072_4d34_9e13_fccc6a603231_source",
+        "variable": false,
+        "field_values": {
+          "ANATOMICAL_LOCATION_SITE": {
+            "type": "CD",
+            "code_list_id": "2.16.840.1.113883.3.464.1003.122.12.1035",
+            "title": "Right Grouping Value Set",
+            "key": "ANATOMICAL_LOCATION_SITE",
+            "key_title": "Anatomical Location Site"
+          }
+        },
+        "key": "prefix_15861624_60f0_4800_ac2b_cc816c550d3d_9a655be4_4072_4d34_9e13_fccc6a603231"
+      },
+      "Ethnicity_PatientCharacteristicEthnicity_40280381_3d61_56a7_013e_5d11abfb68f2": {
+        "title": "Ethnicity",
+        "description": "Patient Characteristic Ethnicity: Ethnicity",
+        "code_list_id": "2.16.840.1.114222.4.11.837",
+        "property": "ethnicity",
+        "type": "characteristic",
+        "definition": "patient_characteristic_ethnicity",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_40280381_3d61_56a7_013e_5d11abfb68f2_source",
+        "variable": false,
+        "inline_code_list": {
+          "CDC Race": [
+            "2135-2",
+            "2186-5"
+          ]
+        }
+      },
+      "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3d61_56a7_013e_5d11abfb68f0": {
+        "title": "ONC Administrative Sex",
+        "description": "Patient Characteristic Sex: ONC Administrative Sex",
+        "code_list_id": "2.16.840.1.113762.1.4.1",
+        "property": "gender",
+        "type": "characteristic",
+        "definition": "patient_characteristic_gender",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3d61_56a7_013e_5d11abfb68f0_source",
+        "variable": false,
+        "value": {
+          "type": "CD",
+          "system": "Administrative Sex",
+          "code": "F"
+        }
+      },
+      "Payer_PatientCharacteristicPayer_40280381_3d61_56a7_013e_5d11abfb68f3": {
+        "title": "Payer",
+        "description": "Patient Characteristic Payer: Payer",
+        "code_list_id": "2.16.840.1.114222.4.11.3591",
+        "property": "payer",
+        "type": "characteristic",
+        "definition": "patient_characteristic_payer",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Payer_PatientCharacteristicPayer_40280381_3d61_56a7_013e_5d11abfb68f3_source",
+        "variable": false,
+        "inline_code_list": {
+          "Source of Payment Typology": [
+            "1",
+            "11",
+            "111",
+            "112",
+            "113",
+            "119",
+            "12",
+            "121",
+            "122",
+            "123",
+            "129",
+            "13",
+            "14",
+            "19",
+            "191",
+            "2",
+            "21",
+            "211",
+            "212",
+            "213",
+            "219",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "29",
+            "291",
+            "3",
+            "31",
+            "311",
+            "3111",
+            "3112",
+            "3113",
+            "3114",
+            "3115",
+            "3116",
+            "3119",
+            "312",
+            "3121",
+            "3122",
+            "3123",
+            "313",
+            "32",
+            "321",
+            "3211",
+            "3212",
+            "32121",
+            "32122",
+            "32123",
+            "32124",
+            "32125",
+            "32126",
+            "322",
+            "3221",
+            "3222",
+            "3223",
+            "3229",
+            "33",
+            "331",
+            "332",
+            "333",
+            "334",
+            "34",
+            "341",
+            "342",
+            "343",
+            "349",
+            "35",
+            "36",
+            "361",
+            "362",
+            "369",
+            "37",
+            "371",
+            "3711",
+            "3712",
+            "3713",
+            "372",
+            "379",
+            "38",
+            "381",
+            "3811",
+            "3812",
+            "3813",
+            "3819",
+            "382",
+            "389",
+            "39",
+            "4",
+            "41",
+            "42",
+            "43",
+            "44",
+            "5",
+            "51",
+            "511",
+            "512",
+            "513",
+            "514",
+            "515",
+            "516",
+            "519",
+            "52",
+            "521",
+            "522",
+            "523",
+            "529",
+            "53",
+            "54",
+            "55",
+            "56",
+            "561",
+            "562",
+            "59",
+            "6",
+            "61",
+            "611",
+            "612",
+            "613",
+            "619",
+            "62",
+            "63",
+            "64",
+            "69",
+            "7",
+            "71",
+            "72",
+            "73",
+            "79",
+            "8",
+            "81",
+            "82",
+            "821",
+            "822",
+            "823",
+            "83",
+            "84",
+            "85",
+            "89",
+            "9",
+            "91",
+            "92",
+            "93",
+            "94",
+            "95",
+            "951",
+            "953",
+            "954",
+            "959",
+            "96",
+            "97",
+            "98",
+            "99",
+            "9999"
+          ]
+        }
+      },
+      "Race_PatientCharacteristicRace_40280381_3d61_56a7_013e_5d11abfb68f1": {
+        "title": "Race",
+        "description": "Patient Characteristic Race: Race",
+        "code_list_id": "2.16.840.1.114222.4.11.836",
+        "property": "race",
+        "type": "characteristic",
+        "definition": "patient_characteristic_race",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Race_PatientCharacteristicRace_40280381_3d61_56a7_013e_5d11abfb68f1_source",
+        "variable": false,
+        "inline_code_list": {
+          "CDC Race": [
+            "1002-5",
+            "2028-9",
+            "2054-5",
+            "2076-8",
+            "2106-3",
+            "2131-1"
+          ]
+        }
+      },
+      "Agegrtr_thn_eql_18yearsat_DCE214AB_1A67_426D_8E0E_52E20E0E8796_63E41FCC_F9AA_4AB1_934B_342F0B883425": {
+        "title": "Birth Date",
+        "description": "Patient Characteristic Birthdate: Birth Date",
+        "property": "birthtime",
+        "type": "characteristic",
+        "definition": "patient_characteristic_birthdate",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Agegrtr_thn_eql_18yearsat_DCE214AB_1A67_426D_8E0E_52E20E0E8796_63E41FCC_F9AA_4AB1_934B_342F0B883425_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "SBS",
+            "reference": "MeasurePeriod",
+            "range": {
+              "type": "IVL_PQ",
+              "low": {
+                "type": "PQ",
+                "unit": "a",
+                "value": "18",
+                "inclusive?": true,
+                "derived?": false
+              }
+            }
+          }
+        ],
+        "key": "Agegrtr_thn_eql_18yearsat_DCE214AB_1A67_426D_8E0E_52E20E0E8796_63E41FCC_F9AA_4AB1_934B_342F0B883425"
+      },
+      "Ageless_thn_75yearsat_75B94E3F_1E88_4CE1_9176_0A1052F44227_CFE1DBC8_43BD_47BB_A10F_D249EBBCD19E": {
+        "title": "Birth Date",
+        "description": "Patient Characteristic Birthdate: Birth Date",
+        "property": "birthtime",
+        "type": "characteristic",
+        "definition": "patient_characteristic_birthdate",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Agegrtr_thn_eql_18yearsat_DCE214AB_1A67_426D_8E0E_52E20E0E8796_63E41FCC_F9AA_4AB1_934B_342F0B883425_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "SBS",
+            "reference": "MeasurePeriod",
+            "range": {
+              "type": "IVL_PQ",
+              "high": {
+                "type": "PQ",
+                "unit": "a",
+                "value": "75",
+                "inclusive?": false,
+                "derived?": false
+              }
+            }
+          }
+        ],
+        "key": "Ageless_thn_75yearsat_75B94E3F_1E88_4CE1_9176_0A1052F44227_CFE1DBC8_43BD_47BB_A10F_D249EBBCD19E"
+      },
+      "During_6EAEC33A_C27D_4E01_B66D_B232F446EA40_18A1D75A_7D6D_4D57_B6DF_C9EF838745DA": {
+        "title": "During_6EAEC33A-C27D-4E01-B66D-B232F446EA40",
+        "description": "During_6EAEC33A-C27D-4E01-B66D-B232F446EA40",
+        "children_criteria": [
+          "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68fe",
+          "Face_to_FaceInteraction_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6903",
+          "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68ff",
+          "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6900",
+          "HomeHealthcareServices_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6902",
+          "AnnualWellnessVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6901"
+        ],
+        "derivation_operator": "UNION",
+        "type": "derived",
+        "definition": "derived",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "During_6EAEC33A_C27D_4E01_B66D_B232F446EA40_18A1D75A_7D6D_4D57_B6DF_C9EF838745DA",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ],
+        "key": "During_6EAEC33A_C27D_4E01_B66D_B232F446EA40_18A1D75A_7D6D_4D57_B6DF_C9EF838745DA"
+      },
+      "During_69C0A306_69DC_4373_8F8E_AD52F7961C35_C8E150B3_B07C_479F_8887_8A3B2B7F8EE4": {
+        "title": "Pulse Exam of Foot",
+        "description": "Physical Exam, Performed: Pulse Exam of Foot",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.103.12.1015",
+        "type": "physical_exams",
+        "definition": "physical_exam",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "During_69C0A306_69DC_4373_8F8E_AD52F7961C35_C8E150B3_B07C_479F_8887_8A3B2B7F8EE4_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ],
+        "key": "During_69C0A306_69DC_4373_8F8E_AD52F7961C35_C8E150B3_B07C_479F_8887_8A3B2B7F8EE4"
+      },
+      "During_62233461_FD15_412A_9BCC_ECF956CB62B6_E1024B64_48BC_40CB_AF74_407886A47875": {
+        "title": "Sensory Exam of Foot",
+        "description": "Physical Exam, Performed: Sensory Exam of Foot",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.103.12.1014",
+        "type": "physical_exams",
+        "definition": "physical_exam",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "During_62233461_FD15_412A_9BCC_ECF956CB62B6_E1024B64_48BC_40CB_AF74_407886A47875_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ],
+        "key": "During_62233461_FD15_412A_9BCC_ECF956CB62B6_E1024B64_48BC_40CB_AF74_407886A47875"
+      },
+      "During_85CB05E9_D81F_4906_B1E7_D15F53AF5B09_0CC97519_3B09_4E62_AFA6_92D64D1BE2AA": {
+        "title": "Visual Exam of Foot",
+        "description": "Physical Exam, Performed: Visual Exam of Foot",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.103.12.1013",
+        "type": "physical_exams",
+        "definition": "physical_exam",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "During_85CB05E9_D81F_4906_B1E7_D15F53AF5B09_0CC97519_3B09_4E62_AFA6_92D64D1BE2AA_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "DURING",
+            "reference": "MeasurePeriod"
+          }
+        ],
+        "key": "During_85CB05E9_D81F_4906_B1E7_D15F53AF5B09_0CC97519_3B09_4E62_AFA6_92D64D1BE2AA"
+      },
+      "Overlaps_E328BE62_B280_4E72_925C_AC18F16EE151_AF8D3EE2_AEFC_443F_8AA8_8EB1CB72F234": {
+        "title": "Diabetes",
+        "description": "Diagnosis: Diabetes",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.103.12.1001",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Overlaps_E328BE62_B280_4E72_925C_AC18F16EE151_AF8D3EE2_AEFC_443F_8AA8_8EB1CB72F234_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "OVERLAP",
+            "reference": "MeasurePeriod"
+          }
+        ],
+        "key": "Overlaps_E328BE62_B280_4E72_925C_AC18F16EE151_AF8D3EE2_AEFC_443F_8AA8_8EB1CB72F234"
+      },
+      "EndsDuring_4F22D35D_A96B_4B1D_BC42_112AF13E1557_C90BB13D_EB6A_4BFF_9C8B_EFFE3086B2CB": {
+        "title": "Encounter Inpatient",
+        "description": "Encounter, Performed: Encounter Inpatient",
+        "code_list_id": "2.16.840.1.113883.3.666.5.307",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EndsDuring_4F22D35D_A96B_4B1D_BC42_112AF13E1557_C90BB13D_EB6A_4BFF_9C8B_EFFE3086B2CB_source",
+        "variable": false,
+        "field_values": {
+          "DISCHARGE_STATUS": {
+            "type": "CD",
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.207",
+            "title": "Discharged to Health Care Facility for Hospice Care SNOMEDCT Value Set",
+            "key": "DISCHARGE_STATUS",
+            "key_title": "Discharge Status"
+          }
+        },
+        "temporal_references": [
+          {
+            "type": "EDU",
+            "reference": "MeasurePeriod"
+          }
+        ],
+        "key": "EndsDuring_4F22D35D_A96B_4B1D_BC42_112AF13E1557_C90BB13D_EB6A_4BFF_9C8B_EFFE3086B2CB"
+      },
+      "EndsDuring_65D36436_A4AB_4168_BB7A_81FF34B7534E_B454223A_F4D0_4ADD_8445_45E392A4538E": {
+        "title": "Encounter Inpatient",
+        "description": "Encounter, Performed: Encounter Inpatient",
+        "code_list_id": "2.16.840.1.113883.3.666.5.307",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EndsDuring_4F22D35D_A96B_4B1D_BC42_112AF13E1557_C90BB13D_EB6A_4BFF_9C8B_EFFE3086B2CB_source",
+        "variable": false,
+        "field_values": {
+          "DISCHARGE_STATUS": {
+            "type": "CD",
+            "code_list_id": "2.16.840.1.113883.3.117.1.7.1.209",
+            "title": "Discharged to Home for Hospice Care SNOMEDCT Value Set",
+            "key": "DISCHARGE_STATUS",
+            "key_title": "Discharge Status"
+          }
+        },
+        "temporal_references": [
+          {
+            "type": "EDU",
+            "reference": "MeasurePeriod"
+          }
+        ],
+        "key": "EndsDuring_65D36436_A4AB_4168_BB7A_81FF34B7534E_B454223A_F4D0_4ADD_8445_45E392A4538E"
+      },
+      "StartsBeforeOrConcurrentWithEndOf_B3161D12_E3DA_4602_8310_9A4709A6B916_2AA829B8_C7BD_495B_8892_3AE3FD29A3AA": {
+        "title": "Bilateral amputation of leg below or above knee",
+        "description": "Diagnosis: Bilateral amputation of leg below or above knee",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.113.12.1056",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "StartsBeforeOrConcurrentWithEndOf_B3161D12_E3DA_4602_8310_9A4709A6B916_2AA829B8_C7BD_495B_8892_3AE3FD29A3AA_source",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "SBCWE",
+            "reference": "MeasurePeriod"
+          }
+        ],
+        "key": "StartsBeforeOrConcurrentWithEndOf_B3161D12_E3DA_4602_8310_9A4709A6B916_2AA829B8_C7BD_495B_8892_3AE3FD29A3AA"
+      },
+      "StartsBeforeOrConcurrentWithEndOf_A7845CBE_6D03_4AA1_A5F5_09465E34E897_541831B5_8AE5_4B23_B4F1_59C4426BE723": {
+        "title": "StartsBeforeOrConcurrentWithEndOf_A7845CBE-6D03-4AA1-A5F5-09465E34E897",
+        "description": "StartsBeforeOrConcurrentWithEndOf_A7845CBE-6D03-4AA1-A5F5-09465E34E897",
+        "children_criteria": [
+          "LeftUnilateralAmputationAboveorBelowKnee_Diagnosis_571e830b_7a41_476c_9565_b3465f836557",
+          "f7cda3c4_0892_46bf_b32b_1dff25038ab7_9a655be4_4072_4d34_9e13_fccc6a603231"
+        ],
+        "derivation_operator": "UNION",
+        "type": "derived",
+        "definition": "derived",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "StartsBeforeOrConcurrentWithEndOf_A7845CBE_6D03_4AA1_A5F5_09465E34E897_541831B5_8AE5_4B23_B4F1_59C4426BE723",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "SBCWE",
+            "reference": "MeasurePeriod"
+          }
+        ],
+        "key": "StartsBeforeOrConcurrentWithEndOf_A7845CBE_6D03_4AA1_A5F5_09465E34E897_541831B5_8AE5_4B23_B4F1_59C4426BE723"
+      },
+      "StartsBeforeOrConcurrentWithEndOf_217743A2_611E_4367_814F_D0D2F4522A37_781BD9BB_9E3F_4FB5_B57C_CF06869BEA5F": {
+        "title": "StartsBeforeOrConcurrentWithEndOf_217743A2-611E-4367-814F-D0D2F4522A37",
+        "description": "StartsBeforeOrConcurrentWithEndOf_217743A2-611E-4367-814F-D0D2F4522A37",
+        "children_criteria": [
+          "RightUnilateralAmputationAboveorBelowKnee_Diagnosis_cfd78ab8_c240_49f6_a518_c725811e76de",
+          "prefix_15861624_60f0_4800_ac2b_cc816c550d3d_9a655be4_4072_4d34_9e13_fccc6a603231"
+        ],
+        "derivation_operator": "UNION",
+        "type": "derived",
+        "definition": "derived",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "StartsBeforeOrConcurrentWithEndOf_217743A2_611E_4367_814F_D0D2F4522A37_781BD9BB_9E3F_4FB5_B57C_CF06869BEA5F",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "SBCWE",
+            "reference": "MeasurePeriod"
+          }
+        ],
+        "key": "StartsBeforeOrConcurrentWithEndOf_217743A2_611E_4367_814F_D0D2F4522A37_781BD9BB_9E3F_4FB5_B57C_CF06869BEA5F"
+      },
+      "Overlaps_8B9995E6_EDE6_495D_97A7_B3ABE3FDFD0B_020BAFBF_8BAC_4620_AA21_30C7A510B1ED": {
+        "title": "Overlaps_8B9995E6-EDE6-495D-97A7-B3ABE3FDFD0B",
+        "description": "Overlaps_8B9995E6-EDE6-495D-97A7-B3ABE3FDFD0B",
+        "children_criteria": [
+          "Hospicecareambulatory_InterventionOrder_46aa8c84_ee14_43a6_9bdf_83013bafe367",
+          "Hospicecareambulatory_InterventionPerformed_6ad0a37f_63e5_453a_b3a8_9eda55bd9f7b"
+        ],
+        "derivation_operator": "UNION",
+        "type": "derived",
+        "definition": "derived",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Overlaps_8B9995E6_EDE6_495D_97A7_B3ABE3FDFD0B_020BAFBF_8BAC_4620_AA21_30C7A510B1ED",
+        "variable": false,
+        "temporal_references": [
+          {
+            "type": "OVERLAP",
+            "reference": "MeasurePeriod"
+          }
+        ],
+        "key": "Overlaps_8B9995E6_EDE6_495D_97A7_B3ABE3FDFD0B_020BAFBF_8BAC_4620_AA21_30C7A510B1ED"
+      }
+    },
+    "description": "The percentage of patients 18-75 years of age with diabetes (type 1 and type 2) who received a foot exam (visual inspection and sensory exam with mono filament and a pulse exam) during the measurement year",
+    "episode_ids": null,
+    "episode_of_care": false,
+    "force_sources": null,
+    "hqmf_id": "40280382-5ABD-FA46-015B-49851C1237F2",
+    "hqmf_set_id": "C0D72444-7C26-4863-9B51-8080F8928A85",
+    "hqmf_version_number": "6.2.000",
+    "id": "5936cb135cc97521620002df",
+    "map_fns": [
+      "\n        var patient_api = new hQuery.Patient(patient);\n\n        \n        // #########################\n        // ##### DATA ELEMENTS #####\n        // #########################\n\n        hqmfjs.nqf_id = '';\n        hqmfjs.hqmf_id = '40280382-5ABD-FA46-015B-49851C1237F2';\n        hqmfjs.sub_id = null;\n        if (typeof(test_id) == 'undefined') hqmfjs.test_id = null;\n\n        OidDictionary = {'2.16.840.1.113762.1.4.1':{'AdministrativeGender':['F','M']},'2.16.840.1.113762.1.4.1108.15':{'SNOMED-CT':['385763009','385765002']},'2.16.840.1.113883.3.117.1.7.1.207':{'SNOMED-CT':['428371000124100']},'2.16.840.1.113883.3.117.1.7.1.209':{'SNOMED-CT':['428361000124107']},'2.16.840.1.113883.3.464.1003.101.12.1001':{'CPT':['99201','99202','99203','99204','99205','99212','99213','99214','99215']},'2.16.840.1.113883.3.464.1003.101.12.1016':{'CPT':['99341','99342','99343','99344','99345','99347','99348','99349','99350']},'2.16.840.1.113883.3.464.1003.101.12.1023':{'CPT':['99385','99386','99387']},'2.16.840.1.113883.3.464.1003.101.12.1025':{'CPT':['99395','99396','99397']},'2.16.840.1.113883.3.464.1003.101.12.1048':{'SNOMED-CT':['12843005','18170008','185349003','185463005','185465003','19681004','207195004','270427003','270430005','308335008','390906007','406547006','439708006','87790002','90526000']},'2.16.840.1.113883.3.464.1003.103.12.1001':{'SNOMED-CT':['105401000119101','106281000119103','10754881000119104','111552007','1481000119100','190330002','190331003','190368000','190369008','190372001','190389009','190390000','190406000','190407009','190410002','190411003','190412005','199223000','199225007','199226008','199227004','199228009','199229001','199230006','199231005','23045005','237599002','237600004','237618001','237627000','28032008','31321000119102','313435000','313436004','314771006','314772004','314893005','314894004','314902007','314903002','314904008','359642000','426705001','427089005','42954008','44054006','445260006','46635009','4783006','51002006','57886004','59079001','5969009','609563008','609564002','609566000','609567009','609568004','609569007','709147009','716362006','71791000119104','75524006','75682002','76751001','81531005','91352004','9859006'],'ICD-9-CM':['250.00','250.01','250.02','250.03','250.10','250.11','250.12','250.13','250.20','250.21','250.22','250.23','250.30','250.31','250.32','250.33','250.40','250.41','250.42','250.43','250.50','250.51','250.52','250.53','250.60','250.61','250.62','250.63','250.70','250.71','250.72','250.73','250.80','250.81','250.82','250.83','250.90','250.91','250.92','250.93','357.2','362.01','362.02','362.03','362.04','362.05','362.06','362.07','366.41','648.00','648.01','648.02','648.03','648.04'],'ICD-10-CM':['E10.10','E10.11','E10.21','E10.22','E10.29','E10.311','E10.319','E10.321','E10.3211','E10.3212','E10.3213','E10.3219','E10.329','E10.3291','E10.3292','E10.3293','E10.3299','E10.331','E10.3311','E10.3312','E10.3313','E10.3319','E10.339','E10.3391','E10.3392','E10.3393','E10.3399','E10.341','E10.3411','E10.3412','E10.3413','E10.3419','E10.349','E10.3491','E10.3492','E10.3493','E10.3499','E10.351','E10.3511','E10.3512','E10.3513','E10.3519','E10.3521','E10.3522','E10.3523','E10.3529','E10.3531','E10.3532','E10.3533','E10.3539','E10.3541','E10.3542','E10.3543','E10.3549','E10.3551','E10.3552','E10.3553','E10.3559','E10.359','E10.3591','E10.3592','E10.3593','E10.3599','E10.36','E10.37X1','E10.37X2','E10.37X3','E10.37X9','E10.39','E10.40','E10.41','E10.42','E10.43','E10.44','E10.49','E10.51','E10.52','E10.59','E10.610','E10.618','E10.620','E10.621','E10.622','E10.628','E10.630','E10.638','E10.641','E10.649','E10.65','E10.69','E10.8','E10.9','E11.00','E11.01','E11.21','E11.22','E11.29','E11.311','E11.319','E11.321','E11.3211','E11.3212','E11.3213','E11.3219','E11.329','E11.3291','E11.3292','E11.3293','E11.3299','E11.331','E11.3311','E11.3312','E11.3313','E11.3319','E11.339','E11.3391','E11.3392','E11.3393','E11.3399','E11.341','E11.3411','E11.3412','E11.3413','E11.3419','E11.349','E11.3491','E11.3492','E11.3493','E11.3499','E11.351','E11.3511','E11.3512','E11.3513','E11.3519','E11.3521','E11.3522','E11.3523','E11.3529','E11.3531','E11.3532','E11.3533','E11.3539','E11.3541','E11.3542','E11.3543','E11.3549','E11.3551','E11.3552','E11.3553','E11.3559','E11.359','E11.3591','E11.3592','E11.3593','E11.3599','E11.36','E11.37X1','E11.37X2','E11.37X3','E11.37X9','E11.39','E11.40','E11.41','E11.42','E11.43','E11.44','E11.49','E11.51','E11.52','E11.59','E11.610','E11.618','E11.620','E11.621','E11.622','E11.628','E11.630','E11.638','E11.641','E11.649','E11.65','E11.69','E11.8','E11.9','E13.00','E13.01','E13.10','E13.11','E13.21','E13.22','E13.29','E13.311','E13.319','E13.321','E13.3211','E13.3212','E13.3213','E13.3219','E13.329','E13.3291','E13.3292','E13.3293','E13.3299','E13.331','E13.3311','E13.3312','E13.3313','E13.3319','E13.339','E13.3391','E13.3392','E13.3393','E13.3399','E13.341','E13.3411','E13.3412','E13.3413','E13.3419','E13.349','E13.3491','E13.3492','E13.3493','E13.3499','E13.351','E13.3511','E13.3512','E13.3513','E13.3519','E13.3521','E13.3522','E13.3523','E13.3529','E13.3531','E13.3532','E13.3533','E13.3539','E13.3541','E13.3542','E13.3543','E13.3549','E13.3551','E13.3552','E13.3553','E13.3559','E13.359','E13.3591','E13.3592','E13.3593','E13.3599','E13.36','E13.37X1','E13.37X2','E13.37X3','E13.37X9','E13.39','E13.40','E13.41','E13.42','E13.43','E13.44','E13.49','E13.51','E13.52','E13.59','E13.610','E13.618','E13.620','E13.621','E13.622','E13.628','E13.630','E13.638','E13.641','E13.649','E13.65','E13.69','E13.8','E13.9','O24.011','O24.012','O24.013','O24.019','O24.02','O24.03','O24.111','O24.112','O24.113','O24.119','O24.12','O24.13','O24.311','O24.312','O24.313','O24.319','O24.32','O24.33','O24.811','O24.812','O24.813','O24.819','O24.82','O24.83']},'2.16.840.1.113883.3.464.1003.103.12.1013':{'SNOMED-CT':['401191002']},'2.16.840.1.113883.3.464.1003.103.12.1014':{'SNOMED-CT':['134388005']},'2.16.840.1.113883.3.464.1003.103.12.1015':{'SNOMED-CT':['91161007']},'2.16.840.1.113883.3.464.1003.113.12.1056':{'ICD-9-CM':['897.6','897.7'],'ICD-10-CM':['Q72.03','Q72.23']},'2.16.840.1.113883.3.464.1003.113.12.1057':{'SNOMED-CT':['308095002','308097005'],'ICD-10-CM':['Q72.21','S78.011A','S78.011D','S78.111A','S78.111D','S88.011A','S88.011D','S88.111A','S88.111D','S88.111S','S88.911S','Z89.511','Z89.521','Z89.611','Z89.621']},'2.16.840.1.113883.3.464.1003.113.12.1058':{'SNOMED-CT':['308096001','308098000'],'ICD-10-CM':['Q72.22','S78.012A','S78.012D','S78.112A','S78.112D','S88.012A','S88.012D','S88.112A','S88.112D','S88.112S','S88.912S','Z89.512','Z89.522','Z89.612','Z89.622']},'2.16.840.1.113883.3.464.1003.113.12.1059':{'SNOMED-CT':['110470001','11228000','12663001','265735000','265736004','298049006','298050006','38162008','397163000','397164006','397166008','397167004','397168009','397169001','443025009','6661001','76017008','79733001','83574003','87562003','88312006'],'ICD-9-CM':['897.0','897.1','897.2','897.3','V49.75','V49.76','V49.77'],'ICD-10-CM':['Q72.20']},'2.16.840.1.113883.3.464.1003.122.12.1035':{'SNOMED-CT':['24028007','419465000']},'2.16.840.1.113883.3.464.1003.122.12.1036':{'SNOMED-CT':['419161000','7771000']},'2.16.840.1.113883.3.526.3.1240':{'HCPCS':['G0438','G0439']},'2.16.840.1.113883.3.666.5.307':{'SNOMED-CT':['183452005','32485007','8715000']},'2.16.840.1.114222.4.11.3591':{'Source of Payment Typology':['1','11','111','112','113','119','12','121','122','123','129','13','14','19','191','2','21','211','212','213','219','22','23','24','25','26','29','291','3','31','311','3111','3112','3113','3114','3115','3116','3119','312','3121','3122','3123','313','32','321','3211','3212','32121','32122','32123','32124','32125','32126','322','3221','3222','3223','3229','33','331','332','333','334','34','341','342','343','349','35','36','361','362','369','37','371','3711','3712','3713','372','379','38','381','3811','3812','3813','3819','382','389','39','4','41','42','43','44','5','51','511','512','513','514','515','516','519','52','521','522','523','529','53','54','55','56','561','562','59','6','61','611','612','613','619','62','63','64','69','7','71','72','73','79','8','81','82','821','822','823','83','84','85','89','9','91','92','93','94','95','951','953','954','959','96','97','98','99','9999']},'2.16.840.1.114222.4.11.836':{'CDC Race':['1002-5','2028-9','2054-5','2076-8','2106-3','2131-1']},'2.16.840.1.114222.4.11.837':{'CDC Race':['2135-2','2186-5']}};\n\n        // Measure variables\nvar MeasurePeriod = {\n  \"low\": new TS(\"201201010000\", true),\n  \"high\": new TS(\"201212312359\", true)\n}\nhqmfjs.MeasurePeriod = function(patient) {\n  return [new hQuery.CodedEntry(\n    {\n      \"start_time\": MeasurePeriod.low.asDate().getTime()/1000,\n      \"end_time\": MeasurePeriod.high.asDate().getTime()/1000,\n      \"codes\": {}\n    }\n  )];\n}\nif (typeof effective_date === 'number') {\n  MeasurePeriod.high.date = new Date(1000*effective_date);\n  // add one minute before pulling off the year.  This turns 12-31-2012 23:59 into 1-1-2013 00:00 => 1-1-2012 00:00\n  MeasurePeriod.low.date = new Date(1000*(effective_date+60));\n  MeasurePeriod.low.date.setFullYear(MeasurePeriod.low.date.getFullYear()-1);\n}\n\n// Data critera\nhqmfjs.AnnualWellnessVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6901 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.526.3.1240\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.Face_to_FaceInteraction_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6903 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.464.1003.101.12.1048\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.HomeHealthcareServices_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6902 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.464.1003.101.12.1016\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.LeftUnilateralAmputationAboveorBelowKnee_Diagnosis_571e830b_7a41_476c_9565_b3465f836557 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProblems\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.464.1003.113.12.1058\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68fe = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.464.1003.101.12.1001\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68ff = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.464.1003.101.12.1025\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6900 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.464.1003.101.12.1023\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.RightUnilateralAmputationAboveorBelowKnee_Diagnosis_cfd78ab8_c240_49f6_a518_c725811e76de = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProblems\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.464.1003.113.12.1057\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.Hospicecareambulatory_InterventionOrder_46aa8c84_ee14_43a6_9bdf_83013bafe367 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"ordered\"], \"includeEventsWithoutStatus\": false, \"valueSetId\": \"2.16.840.1.113762.1.4.1108.15\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.Hospicecareambulatory_InterventionPerformed_6ad0a37f_63e5_453a_b3a8_9eda55bd9f7b = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113762.1.4.1108.15\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.f7cda3c4_0892_46bf_b32b_1dff25038ab7_9a655be4_4072_4d34_9e13_fccc6a603231 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProblems\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.464.1003.113.12.1059\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"anatomicalLocation\", new CodeList(getCodes(\"2.16.840.1.113883.3.464.1003.122.12.1036\")));\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.prefix_15861624_60f0_4800_ac2b_cc816c550d3d_9a655be4_4072_4d34_9e13_fccc6a603231 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProblems\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.464.1003.113.12.1059\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"anatomicalLocation\", new CodeList(getCodes(\"2.16.840.1.113883.3.464.1003.122.12.1035\")));\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.Ethnicity_PatientCharacteristicEthnicity_40280381_3d61_56a7_013e_5d11abfb68f2 = function(patient, initialSpecificContext) {\n  var value = patient.ethnicity() || null;\n  matching = matchingValue(value, null);\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.ONCAdministrativeSex_PatientCharacteristicSex_40280381_3d61_56a7_013e_5d11abfb68f0 = function(patient, initialSpecificContext) {\n  var value = patient.gender() || null;\n  matching = matchingValue(value, new CD(\"F\", \"Administrative Sex\"));\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.Payer_PatientCharacteristicPayer_40280381_3d61_56a7_013e_5d11abfb68f3 = function(patient, initialSpecificContext) {\n  var value = patient.payer() || null;\n  if (value === null) {\n    matching = new Boolean(false);\n  } else {\n    matching = new Boolean(value.includedIn({\"Source of Payment Typology\":[\"1\",\"11\",\"111\",\"112\",\"113\",\"119\",\"12\",\"121\",\"122\",\"123\",\"129\",\"13\",\"14\",\"19\",\"191\",\"2\",\"21\",\"211\",\"212\",\"213\",\"219\",\"22\",\"23\",\"24\",\"25\",\"26\",\"29\",\"291\",\"3\",\"31\",\"311\",\"3111\",\"3112\",\"3113\",\"3114\",\"3115\",\"3116\",\"3119\",\"312\",\"3121\",\"3122\",\"3123\",\"313\",\"32\",\"321\",\"3211\",\"3212\",\"32121\",\"32122\",\"32123\",\"32124\",\"32125\",\"32126\",\"322\",\"3221\",\"3222\",\"3223\",\"3229\",\"33\",\"331\",\"332\",\"333\",\"334\",\"34\",\"341\",\"342\",\"343\",\"349\",\"35\",\"36\",\"361\",\"362\",\"369\",\"37\",\"371\",\"3711\",\"3712\",\"3713\",\"372\",\"379\",\"38\",\"381\",\"3811\",\"3812\",\"3813\",\"3819\",\"382\",\"389\",\"39\",\"4\",\"41\",\"42\",\"43\",\"44\",\"5\",\"51\",\"511\",\"512\",\"513\",\"514\",\"515\",\"516\",\"519\",\"52\",\"521\",\"522\",\"523\",\"529\",\"53\",\"54\",\"55\",\"56\",\"561\",\"562\",\"59\",\"6\",\"61\",\"611\",\"612\",\"613\",\"619\",\"62\",\"63\",\"64\",\"69\",\"7\",\"71\",\"72\",\"73\",\"79\",\"8\",\"81\",\"82\",\"821\",\"822\",\"823\",\"83\",\"84\",\"85\",\"89\",\"9\",\"91\",\"92\",\"93\",\"94\",\"95\",\"951\",\"953\",\"954\",\"959\",\"96\",\"97\",\"98\",\"99\",\"9999\"]}));\n  }\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.Race_PatientCharacteristicRace_40280381_3d61_56a7_013e_5d11abfb68f1 = function(patient, initialSpecificContext) {\n  var value = patient.race() || null;\n  if (value === null) {\n    matching = new Boolean(false);\n  } else {\n    matching = new Boolean(value.includedIn({\"CDC Race\":[\"1002-5\",\"2028-9\",\"2054-5\",\"2076-8\",\"2106-3\",\"2131-1\"]}));\n  }\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.Agegrtr_thn_eql_18yearsat_DCE214AB_1A67_426D_8E0E_52E20E0E8796_63E41FCC_F9AA_4AB1_934B_342F0B883425 = function(patient, initialSpecificContext) {\n  var value = patient.birthtime() || null;\n  var events = value ? [value] : [];\n  events = SBS(events, hqmfjs.MeasurePeriod(patient), new IVL_PQ(new PQ(18, \"a\", true), null));\n  events.specificContext=events.specificContext||hqmf.SpecificsManager.identity();\n  return events;\n}\n\nhqmfjs.Ageless_thn_75yearsat_75B94E3F_1E88_4CE1_9176_0A1052F44227_CFE1DBC8_43BD_47BB_A10F_D249EBBCD19E = function(patient, initialSpecificContext) {\n  var value = patient.birthtime() || null;\n  var events = value ? [value] : [];\n  events = SBS(events, hqmfjs.MeasurePeriod(patient), new IVL_PQ(null, new PQ(75, \"a\", false)));\n  events.specificContext=events.specificContext||hqmf.SpecificsManager.identity();\n  return events;\n}\n\nhqmfjs.During_6EAEC33A_C27D_4E01_B66D_B232F446EA40_18A1D75A_7D6D_4D57_B6DF_C9EF838745DA = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68fe(patient, initialSpecificContext),\n    hqmfjs.Face_to_FaceInteraction_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6903(patient, initialSpecificContext),\n    hqmfjs.PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68ff(patient, initialSpecificContext),\n    hqmfjs.PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6900(patient, initialSpecificContext),\n    hqmfjs.HomeHealthcareServices_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6902(patient, initialSpecificContext),\n    hqmfjs.AnnualWellnessVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6901(patient, initialSpecificContext)\n  );\n\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.During_69C0A306_69DC_4373_8F8E_AD52F7961C35_C8E150B3_B07C_479F_8887_8A3B2B7F8EE4 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedureResults\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.464.1003.103.12.1015\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.During_62233461_FD15_412A_9BCC_ECF956CB62B6_E1024B64_48BC_40CB_AF74_407886A47875 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedureResults\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.464.1003.103.12.1014\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.During_85CB05E9_D81F_4906_B1E7_D15F53AF5B09_0CC97519_3B09_4E62_AFA6_92D64D1BE2AA = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"procedureResults\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.464.1003.103.12.1013\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = DURING(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.Overlaps_E328BE62_B280_4E72_925C_AC18F16EE151_AF8D3EE2_AEFC_443F_8AA8_8EB1CB72F234 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProblems\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.464.1003.103.12.1001\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = OVERLAP(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EndsDuring_4F22D35D_A96B_4B1D_BC42_112AF13E1557_C90BB13D_EB6A_4BFF_9C8B_EFFE3086B2CB = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.666.5.307\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"dischargeDisposition\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.207\")));\n  if (events.length > 0 || !Logger.short_circuit) events = EDU(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.EndsDuring_65D36436_A4AB_4168_BB7A_81FF34B7534E_B454223A_F4D0_4ADD_8445_45E392A4538E = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.666.5.307\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"dischargeDisposition\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.209\")));\n  if (events.length > 0 || !Logger.short_circuit) events = EDU(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.StartsBeforeOrConcurrentWithEndOf_B3161D12_E3DA_4602_8310_9A4709A6B916_2AA829B8_C7BD_495B_8892_3AE3FD29A3AA = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProblems\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.464.1003.113.12.1056\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = SBCWE(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.StartsBeforeOrConcurrentWithEndOf_A7845CBE_6D03_4AA1_A5F5_09465E34E897_541831B5_8AE5_4B23_B4F1_59C4426BE723 = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.LeftUnilateralAmputationAboveorBelowKnee_Diagnosis_571e830b_7a41_476c_9565_b3465f836557(patient, initialSpecificContext),\n    hqmfjs.f7cda3c4_0892_46bf_b32b_1dff25038ab7_9a655be4_4072_4d34_9e13_fccc6a603231(patient, initialSpecificContext)\n  );\n\n  if (events.length > 0 || !Logger.short_circuit) events = SBCWE(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.StartsBeforeOrConcurrentWithEndOf_217743A2_611E_4367_814F_D0D2F4522A37_781BD9BB_9E3F_4FB5_B57C_CF06869BEA5F = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.RightUnilateralAmputationAboveorBelowKnee_Diagnosis_cfd78ab8_c240_49f6_a518_c725811e76de(patient, initialSpecificContext),\n    hqmfjs.prefix_15861624_60f0_4800_ac2b_cc816c550d3d_9a655be4_4072_4d34_9e13_fccc6a603231(patient, initialSpecificContext)\n  );\n\n  if (events.length > 0 || !Logger.short_circuit) events = SBCWE(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.Overlaps_8B9995E6_EDE6_495D_97A7_B3ABE3FDFD0B_020BAFBF_8BAC_4620_AA21_30C7A510B1ED = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.Hospicecareambulatory_InterventionOrder_46aa8c84_ee14_43a6_9bdf_83013bafe367(patient, initialSpecificContext),\n    hqmfjs.Hospicecareambulatory_InterventionPerformed_6ad0a37f_63e5_453a_b3a8_9eda55bd9f7b(patient, initialSpecificContext)\n  );\n\n  if (events.length > 0 || !Logger.short_circuit) events = OVERLAP(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\n\n\n        // #########################\n        // ##### MEASURE LOGIC #####\n        // #########################\n\n        hqmfjs.initializeSpecifics = function(patient_api, hqmfjs) { hqmf.SpecificsManager.initialize(patient_api,hqmfjs) }\n\n        // INITIAL PATIENT POPULATION\n        hqmfjs.IPP = function(patient, initialSpecificContext) {\n  population_criteria_fn = allTrue('IPP', patient, initialSpecificContext,\n    allTrue('5', patient, initialSpecificContext, hqmfjs.Overlaps_E328BE62_B280_4E72_925C_AC18F16EE151_AF8D3EE2_AEFC_443F_8AA8_8EB1CB72F234, hqmfjs.Agegrtr_thn_eql_18yearsat_DCE214AB_1A67_426D_8E0E_52E20E0E8796_63E41FCC_F9AA_4AB1_934B_342F0B883425, hqmfjs.Ageless_thn_75yearsat_75B94E3F_1E88_4CE1_9176_0A1052F44227_CFE1DBC8_43BD_47BB_A10F_D249EBBCD19E, hqmfjs.During_6EAEC33A_C27D_4E01_B66D_B232F446EA40_18A1D75A_7D6D_4D57_B6DF_C9EF838745DA\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        // STRATIFICATION\n        hqmfjs.STRAT=null;\n        // DENOMINATOR\n        hqmfjs.DENOM = function(patient) { return new Boolean(true); }\n        // NUMERATOR\n        hqmfjs.NUMER = function(patient, initialSpecificContext) {\n  population_criteria_fn = allTrue('NUMER', patient, initialSpecificContext,\n    allTrue('9', patient, initialSpecificContext, hqmfjs.During_85CB05E9_D81F_4906_B1E7_D15F53AF5B09_0CC97519_3B09_4E62_AFA6_92D64D1BE2AA, hqmfjs.During_62233461_FD15_412A_9BCC_ECF956CB62B6_E1024B64_48BC_40CB_AF74_407886A47875, hqmfjs.During_69C0A306_69DC_4373_8F8E_AD52F7961C35_C8E150B3_B07C_479F_8887_8A3B2B7F8EE4\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        hqmfjs.NUMEX = function(patient) { return new Boolean(false); }\n        hqmfjs.DENEX = function(patient, initialSpecificContext) {\n  population_criteria_fn = atLeastOneTrue('DENEX', patient, initialSpecificContext,\n    atLeastOneTrue('17', patient, initialSpecificContext, hqmfjs.EndsDuring_65D36436_A4AB_4168_BB7A_81FF34B7534E_B454223A_F4D0_4ADD_8445_45E392A4538E, hqmfjs.EndsDuring_4F22D35D_A96B_4B1D_BC42_112AF13E1557_C90BB13D_EB6A_4BFF_9C8B_EFFE3086B2CB, hqmfjs.Overlaps_8B9995E6_EDE6_495D_97A7_B3ABE3FDFD0B_020BAFBF_8BAC_4620_AA21_30C7A510B1ED, hqmfjs.StartsBeforeOrConcurrentWithEndOf_B3161D12_E3DA_4602_8310_9A4709A6B916_2AA829B8_C7BD_495B_8892_3AE3FD29A3AA,\n      allTrue('16', patient, initialSpecificContext, hqmfjs.StartsBeforeOrConcurrentWithEndOf_217743A2_611E_4367_814F_D0D2F4522A37_781BD9BB_9E3F_4FB5_B57C_CF06869BEA5F, hqmfjs.StartsBeforeOrConcurrentWithEndOf_A7845CBE_6D03_4AA1_A5F5_09465E34E897_541831B5_8AE5_4B23_B4F1_59C4426BE723\n      )\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        hqmfjs.DENEXCEP = function(patient) { return new Boolean(false); }\n        // CV\n        hqmfjs.MSRPOPL = function(patient) { return new Boolean(true); }\n        hqmfjs.MSRPOPLEX = function(patient) { return new Boolean(false); }\n        hqmfjs.OBSERV = function(patient) { return new Boolean(false); }\n        // VARIABLES\n        hqmfjs.VARIABLES = function(patient, initialSpecificContext) {\nreturn false;\n}\n        \n\n        var occurrenceId = null;\n\n        hqmfjs.initializeSpecifics(patient_api, hqmfjs)\n\n        var population = function() {\n          return executeIfAvailable(hqmfjs.IPP, patient_api);\n        }\n        var stratification = null;\n        if (hqmfjs.STRAT) {\n          stratification = function() {\n            return hqmf.SpecificsManager.setIfNull(executeIfAvailable(hqmfjs.STRAT, patient_api));\n          }\n        }\n        var denominator = function() {\n          return executeIfAvailable(hqmfjs.DENOM, patient_api);\n        }\n        var numerator = function() {\n          return executeIfAvailable(hqmfjs.NUMER, patient_api);\n        }\n        var exclusion = function() {\n          return executeIfAvailable(hqmfjs.DENEX, patient_api);\n        }\n        var denexcep = function() {\n          return executeIfAvailable(hqmfjs.DENEXCEP, patient_api);\n        }\n        var numex = function() {\n          return executeIfAvailable(hqmfjs.NUMEX, patient_api);\n        }\n        var msrpopl = function() {\n          return executeIfAvailable(hqmfjs.MSRPOPL, patient_api);\n        }\n        var msrpoplex = function() {\n          return executeIfAvailable(hqmfjs.MSRPOPLEX, patient_api);\n        }\n        var observ = function(specific_context) {\n          \n          var observFunc = hqmfjs.OBSERV\n          if (typeof(observFunc)==='function')\n            return observFunc(patient_api, specific_context);\n          else\n            return [];\n        }\n\n        var variables = function() {\n          if (Logger.enable_rationale) {\n            return executeIfAvailable(hqmfjs.VARIABLES, patient_api);\n          }\n        }\n\n        var executeIfAvailable = function(optionalFunction, patient_api) {\n          if (typeof(optionalFunction)==='function') {\n            result = optionalFunction(patient_api);\n            \n            return result;\n          } else {\n            return false;\n          }\n        }\n\n        \n        if (typeof Logger != 'undefined') {\n          // clear out logger\n          Logger.logger = [];\n          Logger.rationale={};\n          if (typeof short_circuit == 'undefined') short_circuit = true;\n\n          // turn on logging if it is enabled\n          if (enable_logging || enable_rationale) {\n            injectLogger(hqmfjs, enable_logging, enable_rationale, short_circuit);\n          } else {\n            Logger.enable_rationale = false;\n            Logger.short_circuit = short_circuit;\n          }\n        }\n\n        try {\n          map(patient, population, denominator, numerator, exclusion, denexcep, msrpopl, msrpoplex, observ, occurrenceId,false,stratification, variables, numex);\n        } catch(err) {\n          print(err.stack);\n          throw err;\n        }\n\n        "
+    ],
+    "measure_attributes": [
+      {
+        "code": "OTH",
+        "value": "123",
+        "name": "eMeasure Identifier (Measure Authoring Tool)",
+        "code_obj": {
+          "type": "CD",
+          "null_flavor": "OTH",
+          "original_text": "eMeasure Identifier (Measure Authoring Tool)"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "123",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "OTH",
+        "value": "0056",
+        "name": "NQF Number",
+        "code_obj": {
+          "type": "CD",
+          "null_flavor": "OTH",
+          "original_text": "NQF Number"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "0056",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "COPY",
+        "value": "This Physician Performance Measure (Measure) and related data specifications were developed by the National Committee for Quality Assurance (NCQA). The Measure is copyrighted but can be reproduced and distributed, without modification, for noncommercial purposes (eg, use by healthcare providers in connection with their practices) without obtaining approval from NCQA. Commercial use is defined as the sale, licensing, or distribution of the Measure for commercial gain, or incorporation of the Measure into a product or service that is sold, licensed or distributed for commercial gain. All commercial uses must be approved by NCQA and are subject to a license at the discretion of NCQA. NCQA is not responsible for any use of the Measure. NCQA makes no representations, warranties, or endorsement about the quality of any organization or physician that uses or reports performance measures and NCQA has no liability to anyone who relies on such measures or specifications. (C) 2012-2017 National Committee for Quality Assurance. All Rights Reserved. \n\nLimited proprietary coding is contained in the Measure specifications for user convenience. Users of proprietary code sets should obtain all necessary licenses from the owners of the code sets. NCQA disclaims all liability for use or accuracy of any CPT or other codes contained in the specifications.\n\nCPT(R) contained in the Measure specifications is copyright 2004-2016 American Medical Association. LOINC(R) copyright 2004-2016 Regenstrief Institute, Inc. This material contains SNOMED Clinical Terms(R) (SNOMED CT[R]) copyright 2004-2016 International Health Terminology Standards Development Organisation. ICD-10 copyright 2016 World Health Organization. All Rights Reserved.\n\nThe American Hospital Association holds a copyright to the National Uniform Billing Committee (NUBC) codes contained in the measure specifications. The NUBC codes in the specifications are included with the permission of the AHA. The NUBC codes contained in the specifications may be used by health plans and other health care delivery organizations for the purpose of calculating and reporting Measure results or using Measure results for their internal quality improvement purposes. All other uses of the NUBC codes require a license from the AHA. Anyone desiring to use the NUBC codes in a commercial product to generate Measure results, or for any other commercial use, must obtain a commercial use license directly from the AHA. To inquire about licensing, contact ub04@healthforum.com.",
+        "name": "Copyright",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "COPY",
+          "title": "Copyright"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "This Physician Performance Measure (Measure) and related data specifications were developed by the National Committee for Quality Assurance (NCQA). The Measure is copyrighted but can be reproduced and distributed, without modification, for noncommercial purposes (eg, use by healthcare providers in connection with their practices) without obtaining approval from NCQA. Commercial use is defined as the sale, licensing, or distribution of the Measure for commercial gain, or incorporation of the Measure into a product or service that is sold, licensed or distributed for commercial gain. All commercial uses must be approved by NCQA and are subject to a license at the discretion of NCQA. NCQA is not responsible for any use of the Measure. NCQA makes no representations, warranties, or endorsement about the quality of any organization or physician that uses or reports performance measures and NCQA has no liability to anyone who relies on such measures or specifications. (C) 2012-2017 National Committee for Quality Assurance. All Rights Reserved. \n\nLimited proprietary coding is contained in the Measure specifications for user convenience. Users of proprietary code sets should obtain all necessary licenses from the owners of the code sets. NCQA disclaims all liability for use or accuracy of any CPT or other codes contained in the specifications.\n\nCPT(R) contained in the Measure specifications is copyright 2004-2016 American Medical Association. LOINC(R) copyright 2004-2016 Regenstrief Institute, Inc. This material contains SNOMED Clinical Terms(R) (SNOMED CT[R]) copyright 2004-2016 International Health Terminology Standards Development Organisation. ICD-10 copyright 2016 World Health Organization. All Rights Reserved.\n\nThe American Hospital Association holds a copyright to the National Uniform Billing Committee (NUBC) codes contained in the measure specifications. The NUBC codes in the specifications are included with the permission of the AHA. The NUBC codes contained in the specifications may be used by health plans and other health care delivery organizations for the purpose of calculating and reporting Measure results or using Measure results for their internal quality improvement purposes. All other uses of the NUBC codes require a license from the AHA. Anyone desiring to use the NUBC codes in a commercial product to generate Measure results, or for any other commercial use, must obtain a commercial use license directly from the AHA. To inquire about licensing, contact ub04@healthforum.com.",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "DISC",
+        "value": "The performance Measure is not a clinical guideline and does not establish a standard of medical care, and has not been tested for all potential applications. THE MEASURE AND SPECIFICATIONS ARE PROVIDED \"AS IS\" WITHOUT WARRANTY OF ANY KIND.\n \nDue to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM].",
+        "name": "Disclaimer",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "DISC",
+          "title": "Disclaimer"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "The performance Measure is not a clinical guideline and does not establish a standard of medical care, and has not been tested for all potential applications. THE MEASURE AND SPECIFICATIONS ARE PROVIDED \"AS IS\" WITHOUT WARRANTY OF ANY KIND.\n \nDue to technical limitations, registered trademarks are indicated by (R) or [R] and unregistered trademarks are indicated by (TM) or [TM].",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "MSRSCORE",
+        "name": "Measure Scoring",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "MSRSCORE",
+          "title": "Measure Scoring"
+        },
+        "value_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.1.11.20367",
+          "code": "PROPOR",
+          "title": "Proportion"
+        }
+      },
+      {
+        "code": "MSRTYPE",
+        "name": "Measure Type",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "MSRTYPE",
+          "title": "Measure Type"
+        },
+        "value_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.1.11.20368",
+          "code": "PROCESS",
+          "title": "PROCESS"
+        }
+      },
+      {
+        "code": "STRAT",
+        "value": "None",
+        "name": "Stratification",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "STRAT",
+          "title": "Stratification"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "None",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "MSRADJ",
+        "value": "None",
+        "name": "Risk Adjustment",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "MSRADJ",
+          "title": "Risk Adjustment"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "None",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "MSRAGG",
+        "value": "None",
+        "name": "Rate Aggregation",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "MSRAGG",
+          "title": "Rate Aggregation"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "None",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "RAT",
+        "value": "As the seventh leading cause of death in the U.S., diabetes kills approximately 75,000 people a year (CDC FastStats 2015). Diabetes is a group of diseases marked by high blood glucose levels, resulting from the body's inability to produce or use insulin (CDC Statistics 2014, ADA Basics 2013). People with diabetes are at increased risk of serious health complications including vision loss, heart disease, stroke, kidney failure, amputation of toes, feet or legs, and premature death. (CDC Fact Sheet 2014). \n\nIn 2012, diabetes cost the U.S. an estimated $245 billion: $176 billion in direct medical costs and $69 billion in reduced productivity. This is a 41 percent increase from the estimated $174 billion spent on diabetes in 2007 (ADA Economic 2013).  \n\nComplications due to improper or poor quality of foot care in diabetics can include amputations of the toe, foot, lower and upper leg. Between 1993 and 2009, the CDC monitored the rates of nontraumatic amputations in the diabetic population. Overall, the rates peaked in 1996 with toe amputations at 3.7 per 1,000 diabetic population. Amputations for the foot, lower leg, and upper leg were 1.5, 2.3, and 1.1 per 1,000 diabetic population, respectively, in 1996. Since the late nineties, lower extremity amputation rates in the diabetic population have declined, witnessed by the following rates in 2009: for toe amputations (1.8 per 1,000 diabetic population), followed by lower leg (0.9), foot (0.5) and upper leg (0.4) amputations (CDC, 2012).",
+        "name": "Rationale",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "RAT",
+          "title": "Rationale"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "As the seventh leading cause of death in the U.S., diabetes kills approximately 75,000 people a year (CDC FastStats 2015). Diabetes is a group of diseases marked by high blood glucose levels, resulting from the body's inability to produce or use insulin (CDC Statistics 2014, ADA Basics 2013). People with diabetes are at increased risk of serious health complications including vision loss, heart disease, stroke, kidney failure, amputation of toes, feet or legs, and premature death. (CDC Fact Sheet 2014). \n\nIn 2012, diabetes cost the U.S. an estimated $245 billion: $176 billion in direct medical costs and $69 billion in reduced productivity. This is a 41 percent increase from the estimated $174 billion spent on diabetes in 2007 (ADA Economic 2013).  \n\nComplications due to improper or poor quality of foot care in diabetics can include amputations of the toe, foot, lower and upper leg. Between 1993 and 2009, the CDC monitored the rates of nontraumatic amputations in the diabetic population. Overall, the rates peaked in 1996 with toe amputations at 3.7 per 1,000 diabetic population. Amputations for the foot, lower leg, and upper leg were 1.5, 2.3, and 1.1 per 1,000 diabetic population, respectively, in 1996. Since the late nineties, lower extremity amputation rates in the diabetic population have declined, witnessed by the following rates in 2009: for toe amputations (1.8 per 1,000 diabetic population), followed by lower leg (0.9), foot (0.5) and upper leg (0.4) amputations (CDC, 2012).",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "CRS",
+        "value": "American Diabetes Association (2017) Guidelines/ Recommendations: Perform annual comprehensive foot examination to identify risk factors predictive of ulcers and amputations. The foot examination should include inspection, assessment of foot/leg pulses, and testing for loss of protective sensation (10-g monofilament plus testing any one of: vibration using 128-Hz tuning fork, pinprick sensation, temperature, ankle reflexes, or vibration perception threshold). (Level of evidence: B)",
+        "name": "Clinical Recommendation Statement",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "CRS",
+          "title": "Clinical Recommendation Statement"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "American Diabetes Association (2017) Guidelines/ Recommendations: Perform annual comprehensive foot examination to identify risk factors predictive of ulcers and amputations. The foot examination should include inspection, assessment of foot/leg pulses, and testing for loss of protective sensation (10-g monofilament plus testing any one of: vibration using 128-Hz tuning fork, pinprick sensation, temperature, ankle reflexes, or vibration perception threshold). (Level of evidence: B)",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "IDUR",
+        "value": "Higher score indicates better quality",
+        "name": "Improvement Notation",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "IDUR",
+          "title": "Improvement Notation"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "Higher score indicates better quality",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "REF",
+        "value": "American Diabetes Association. Microvascular complications and foot care. Sec. 10. In Standards of Medical Care in Diabetes-2017. Diabetes Care 2017;40(Suppl. 1):S88-S98",
+        "name": "Reference",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "REF",
+          "title": "Reference"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "American Diabetes Association. Microvascular complications and foot care. Sec. 10. In Standards of Medical Care in Diabetes-2017. Diabetes Care 2017;40(Suppl. 1):S88-S98",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "REF",
+        "value": "American Diabetes Association (ADA). 2013. Diabetes Statistics. Retrieved from http://www.diabetes.org/diabetes-basics/diabetes-statistics/.",
+        "name": "Reference",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "REF",
+          "title": "Reference"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "American Diabetes Association (ADA). 2013. Diabetes Statistics. Retrieved from http://www.diabetes.org/diabetes-basics/diabetes-statistics/.",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "REF",
+        "value": "Centers for Disease Control and Prevention (CDC). 2012. CDC's Diabetes Program-Data and Trends-Diabetes Surveillance System-Nontraumatic Lower Extremity Amputation with Diabetes by Level of Amputation. Retrieved from http://www.cdc.gov/diabetes/statistics/lealevel/fig8.htm.",
+        "name": "Reference",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "REF",
+          "title": "Reference"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "Centers for Disease Control and Prevention (CDC). 2012. CDC's Diabetes Program-Data and Trends-Diabetes Surveillance System-Nontraumatic Lower Extremity Amputation with Diabetes by Level of Amputation. Retrieved from http://www.cdc.gov/diabetes/statistics/lealevel/fig8.htm.",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "REF",
+        "value": "Centers for Disease Control and Prevention (CDC). 2014. National Diabetes Statistics Report. http://www.cdc.gov/diabetes/pdfs/data/2014-report-estimates-of-diabetes-and-its-burden-in-the-united-states.pdf",
+        "name": "Reference",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "REF",
+          "title": "Reference"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "Centers for Disease Control and Prevention (CDC). 2014. National Diabetes Statistics Report. http://www.cdc.gov/diabetes/pdfs/data/2014-report-estimates-of-diabetes-and-its-burden-in-the-united-states.pdf",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "REF",
+        "value": "Centers for Disease Control and Prevention (CDC). 2015. FastStats: Deaths and Mortality. www.cdc.gov/nchs/fastats/deaths.htm.",
+        "name": "Reference",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "REF",
+          "title": "Reference"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "Centers for Disease Control and Prevention (CDC). 2015. FastStats: Deaths and Mortality. www.cdc.gov/nchs/fastats/deaths.htm.",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "REF",
+        "value": "Centers for Disease Control and Prevention. 2014. CDC Features. Diabetes Latest. www.cdc.gov/features/diabetesfactsheet/.",
+        "name": "Reference",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "REF",
+          "title": "Reference"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "Centers for Disease Control and Prevention. 2014. CDC Features. Diabetes Latest. www.cdc.gov/features/diabetesfactsheet/.",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "REF",
+        "value": "American Diabetes Association. 2013. Diabetes Basics. www.diabetes.org/diabetes-basics/?loc=GlobalNavDB",
+        "name": "Reference",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "REF",
+          "title": "Reference"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "American Diabetes Association. 2013. Diabetes Basics. www.diabetes.org/diabetes-basics/?loc=GlobalNavDB",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "REF",
+        "value": "American Diabetes Association (ADA). April 2013. Economic Costs of Diabetes in the U.S. in 2012. Diabetes Care. Vol. 36 no. 4\n1033-46. http://care.diabetesjournals.org/content/36/4/1033.full",
+        "name": "Reference",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "REF",
+          "title": "Reference"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "American Diabetes Association (ADA). April 2013. Economic Costs of Diabetes in the U.S. in 2012. Diabetes Care. Vol. 36 no. 4\n1033-46. http://care.diabetesjournals.org/content/36/4/1033.full",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "DEF",
+        "value": "Foot exam: visual inspection with a sensory exam and a pulse exam.",
+        "name": "Definition",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "DEF",
+          "title": "Definition"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "Foot exam: visual inspection with a sensory exam and a pulse exam.",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "GUIDE",
+        "value": "Only patients with a diagnosis of Type 1 or Type 2 diabetes should be included in the denominator of this measure; patients with a diagnosis of secondary diabetes due to another condition should not be included.",
+        "name": "Guidance",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "GUIDE",
+          "title": "Guidance"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "Only patients with a diagnosis of Type 1 or Type 2 diabetes should be included in the denominator of this measure; patients with a diagnosis of secondary diabetes due to another condition should not be included.",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "TRANF",
+        "value": "TBD",
+        "name": "Transmission Format",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "TRANF",
+          "title": "Transmission Format"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "TBD",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "IPOP",
+        "value": "Patients 18-75 years of age with diabetes with a visit during the measurement period",
+        "name": "Initial Population",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "IPOP",
+          "title": "Initial Population"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "Patients 18-75 years of age with diabetes with a visit during the measurement period",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "DENOM",
+        "value": "Equals Initial Population",
+        "name": "Denominator",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "DENOM",
+          "title": "Denominator"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "Equals Initial Population",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "DENEX",
+        "value": "Patients who have had either a bilateral amputation above or below the knee, or both a left and right amputation above or below the knee before or during the measurement period. \n\nExclude patients who were in hospice care during the measurement year.",
+        "name": "Denominator Exclusions",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "DENEX",
+          "title": "Denominator Exclusions"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "Patients who have had either a bilateral amputation above or below the knee, or both a left and right amputation above or below the knee before or during the measurement period. \n\nExclude patients who were in hospice care during the measurement year.",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "NUMER",
+        "value": "Patients who received visual, pulse and sensory foot examinations during the measurement period",
+        "name": "Numerator",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "NUMER",
+          "title": "Numerator"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "Patients who received visual, pulse and sensory foot examinations during the measurement period",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "NUMEX",
+        "value": "Not Applicable",
+        "name": "Numerator Exclusions",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "NUMEX",
+          "title": "Numerator Exclusions"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "Not Applicable",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "DENEXCEP",
+        "value": "None",
+        "name": "Denominator Exceptions",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "DENEXCEP",
+          "title": "Denominator Exceptions"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "None",
+          "media_type": "text/plain"
+        }
+      },
+      {
+        "code": "SDE",
+        "value": "For every patient evaluated by this measure also identify payer, race, ethnicity and sex",
+        "name": "Supplemental Data Elements",
+        "code_obj": {
+          "type": "CD",
+          "system": "2.16.840.1.113883.5.4",
+          "code": "SDE",
+          "title": "Supplemental Data Elements"
+        },
+        "value_obj": {
+          "type": "ED",
+          "value": "For every patient evaluated by this measure also identify payer, race, ethnicity and sex",
+          "media_type": "text/plain"
+        }
+      }
+    ],
+    "measure_id": null,
+    "measure_logic": [
+      {
+        "code": "IPP",
+        "lines": [
+          "\nInitial Patient Population\n",
+          "\tAND: ",
+          "Diagnosis: Diabetes",
+          " overlaps \"Measurement Period\"\n",
+          "\tAND: ",
+          "Patient Characteristic Birthdate: Birth Date",
+          " >= 18 years starts before start of \"Measurement Period\"\n",
+          "\tAND: ",
+          "Patient Characteristic Birthdate: Birth Date",
+          " < 75 years starts before start of \"Measurement Period\"\n",
+          "\tAND: ",
+          "\n\t\tUnion of:",
+          "\t\tEncounter, Performed: Office Visit\n",
+          "\t\tEncounter, Performed: Face-to-Face Interaction\n",
+          "\t\tEncounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up\n",
+          "\t\tEncounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up\n",
+          "\t\tEncounter, Performed: Home Healthcare Services\n",
+          "\t\tEncounter, Performed: Annual Wellness Visit\n",
+          "\t\t during \"Measurement Period\"\n"
+        ]
+      },
+      {
+        "code": "DENOM",
+        "lines": [
+          "\nDenominator\n",
+          "\tNone\n"
+        ]
+      },
+      {
+        "code": "NUMER",
+        "lines": [
+          "\nNumerator\n",
+          "\tAND: ",
+          "Physical Exam, Performed: Visual Exam of Foot",
+          " during \"Measurement Period\"\n",
+          "\tAND: ",
+          "Physical Exam, Performed: Sensory Exam of Foot",
+          " during \"Measurement Period\"\n",
+          "\tAND: ",
+          "Physical Exam, Performed: Pulse Exam of Foot",
+          " during \"Measurement Period\"\n"
+        ]
+      },
+      {
+        "code": "DENEX",
+        "lines": [
+          "\nDenominator Exclusions\n",
+          "\tOR: ",
+          "Encounter, Performed: Encounter Inpatient ( Discharge Status: Discharged to Home for Hospice Care )",
+          " ends during \"Measurement Period\"\n",
+          "\tOR: ",
+          "Encounter, Performed: Encounter Inpatient ( Discharge Status: Discharged to Health Care Facility for Hospice Care )",
+          " ends during \"Measurement Period\"\n",
+          "\tOR: ",
+          "\n\t\tUnion of:",
+          "\t\tIntervention, Order: Hospice care ambulatory\n",
+          "\t\tIntervention, Performed: Hospice care ambulatory\n",
+          "\t\t overlaps \"Measurement Period\"\n",
+          "\tOR: ",
+          "Diagnosis: Bilateral amputation of leg below or above knee",
+          " starts before or concurrent with end of \"Measurement Period\"\n",
+          "\tOR:\n",
+          "\t\tAND: ",
+          "\n\t\tUnion of:",
+          "\t\tDiagnosis: Right Unilateral Amputation Above or Below Knee\n",
+          "\t\tDiagnosis: Unilateral Amputation Below or Above Knee, Unspecified Laterality ( Anatomical Location Site: Right )\n",
+          "\t\t starts before or concurrent with end of \"Measurement Period\"\n",
+          "\t\tAND: ",
+          "\n\t\tUnion of:",
+          "\t\tDiagnosis: Left Unilateral Amputation Above or Below Knee\n",
+          "\t\tDiagnosis: Unilateral Amputation Below or Above Knee, Unspecified Laterality ( Anatomical Location Site: Left )\n",
+          "\t\t starts before or concurrent with end of \"Measurement Period\"\n"
+        ]
+      }
+    ],
+    "measure_period": {
+      "type": "IVL_TS",
+      "low": {
+        "type": "TS",
+        "value": "201201010000",
+        "inclusive?": true,
+        "derived?": false
+      },
+      "high": {
+        "type": "TS",
+        "value": "201212312359",
+        "inclusive?": true,
+        "derived?": false
+      },
+      "width": {
+        "type": "PQ",
+        "unit": "a",
+        "value": "1",
+        "inclusive?": true,
+        "derived?": false
+      }
+    },
+    "needs_finalize": false,
+    "population_criteria": {
+      "IPP": {
+        "conjunction?": true,
+        "type": "IPP",
+        "title": "Initial Population",
+        "hqmf_id": "2FEADCB4-6B5B-4568-A4F6-D46AE7362D5A",
+        "preconditions": [
+          {
+            "id": 5,
+            "preconditions": [
+              {
+                "id": 1,
+                "reference": "Overlaps_E328BE62_B280_4E72_925C_AC18F16EE151_AF8D3EE2_AEFC_443F_8AA8_8EB1CB72F234"
+              },
+              {
+                "id": 2,
+                "reference": "Agegrtr_thn_eql_18yearsat_DCE214AB_1A67_426D_8E0E_52E20E0E8796_63E41FCC_F9AA_4AB1_934B_342F0B883425"
+              },
+              {
+                "id": 3,
+                "reference": "Ageless_thn_75yearsat_75B94E3F_1E88_4CE1_9176_0A1052F44227_CFE1DBC8_43BD_47BB_A10F_D249EBBCD19E"
+              },
+              {
+                "id": 4,
+                "reference": "During_6EAEC33A_C27D_4E01_B66D_B232F446EA40_18A1D75A_7D6D_4D57_B6DF_C9EF838745DA"
+              }
+            ],
+            "conjunction_code": "allTrue"
+          }
+        ]
+      },
+      "DENOM": {
+        "conjunction?": true,
+        "type": "DENOM",
+        "title": "Denominator",
+        "hqmf_id": "C33501A9-F9A1-4DF5-B71D-4B16F6ECA73B"
+      },
+      "NUMER": {
+        "conjunction?": true,
+        "type": "NUMER",
+        "title": "Numerator",
+        "hqmf_id": "9A243C9D-54BC-4846-9781-C4BC3328E3B3",
+        "preconditions": [
+          {
+            "id": 9,
+            "preconditions": [
+              {
+                "id": 6,
+                "reference": "During_85CB05E9_D81F_4906_B1E7_D15F53AF5B09_0CC97519_3B09_4E62_AFA6_92D64D1BE2AA"
+              },
+              {
+                "id": 7,
+                "reference": "During_62233461_FD15_412A_9BCC_ECF956CB62B6_E1024B64_48BC_40CB_AF74_407886A47875"
+              },
+              {
+                "id": 8,
+                "reference": "During_69C0A306_69DC_4373_8F8E_AD52F7961C35_C8E150B3_B07C_479F_8887_8A3B2B7F8EE4"
+              }
+            ],
+            "conjunction_code": "allTrue"
+          }
+        ]
+      },
+      "DENEX": {
+        "conjunction?": true,
+        "type": "DENEX",
+        "title": "Denominator Exclusions",
+        "hqmf_id": "1CBE992C-D1D0-4086-BD3E-70FE2C1BF0A9",
+        "preconditions": [
+          {
+            "id": 17,
+            "preconditions": [
+              {
+                "id": 10,
+                "reference": "EndsDuring_65D36436_A4AB_4168_BB7A_81FF34B7534E_B454223A_F4D0_4ADD_8445_45E392A4538E"
+              },
+              {
+                "id": 11,
+                "reference": "EndsDuring_4F22D35D_A96B_4B1D_BC42_112AF13E1557_C90BB13D_EB6A_4BFF_9C8B_EFFE3086B2CB"
+              },
+              {
+                "id": 12,
+                "reference": "Overlaps_8B9995E6_EDE6_495D_97A7_B3ABE3FDFD0B_020BAFBF_8BAC_4620_AA21_30C7A510B1ED"
+              },
+              {
+                "id": 13,
+                "reference": "StartsBeforeOrConcurrentWithEndOf_B3161D12_E3DA_4602_8310_9A4709A6B916_2AA829B8_C7BD_495B_8892_3AE3FD29A3AA"
+              },
+              {
+                "id": 16,
+                "preconditions": [
+                  {
+                    "id": 14,
+                    "reference": "StartsBeforeOrConcurrentWithEndOf_217743A2_611E_4367_814F_D0D2F4522A37_781BD9BB_9E3F_4FB5_B57C_CF06869BEA5F"
+                  },
+                  {
+                    "id": 15,
+                    "reference": "StartsBeforeOrConcurrentWithEndOf_A7845CBE_6D03_4AA1_A5F5_09465E34E897_541831B5_8AE5_4B23_B4F1_59C4426BE723"
+                  }
+                ],
+                "conjunction_code": "allTrue"
+              }
+            ],
+            "conjunction_code": "atLeastOneTrue"
+          }
+        ]
+      }
+    },
+    "populations": [
+      {
+        "IPP": "IPP",
+        "DENOM": "DENOM",
+        "NUMER": "NUMER",
+        "DENEX": "DENEX",
+        "id": "PopulationCriteria1",
+        "title": "Population Criteria Section"
+      }
+    ],
+    "preconditions": null,
+    "publish_date": null,
+    "published": null,
+    "record_ids": [
+
+    ],
+    "source_data_criteria": {
+      "AnnualWellnessVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6901_source": {
+        "title": "Annual Wellness Visit",
+        "description": "Encounter, Performed: Annual Wellness Visit",
+        "code_list_id": "2.16.840.1.113883.3.526.3.1240",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "AnnualWellnessVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6901_source",
+        "variable": false
+      },
+      "Face_to_FaceInteraction_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6903_source": {
+        "title": "Face-to-Face Interaction",
+        "description": "Encounter, Performed: Face-to-Face Interaction",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1048",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Face_to_FaceInteraction_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6903_source",
+        "variable": false
+      },
+      "HomeHealthcareServices_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6902_source": {
+        "title": "Home Healthcare Services",
+        "description": "Encounter, Performed: Home Healthcare Services",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1016",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "HomeHealthcareServices_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfc6902_source",
+        "variable": false
+      },
+      "LeftUnilateralAmputationAboveorBelowKnee_Diagnosis_571e830b_7a41_476c_9565_b3465f836557_source": {
+        "title": "Left Unilateral Amputation Above or Below Knee",
+        "description": "Diagnosis: Left Unilateral Amputation Above or Below Knee",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.113.12.1058",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "LeftUnilateralAmputationAboveorBelowKnee_Diagnosis_571e830b_7a41_476c_9565_b3465f836557_source",
+        "variable": false
+      },
+      "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68fe_source": {
+        "title": "Office Visit",
+        "description": "Encounter, Performed: Office Visit",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68fe_source",
+        "variable": false
+      },
+      "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68ff_source": {
+        "title": "Preventive Care Services - Established Office Visit, 18 and Up",
+        "description": "Encounter, Performed: Preventive Care Services - Established Office Visit, 18 and Up",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1025",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "PreventiveCareServices_EstablishedOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb68ff_source",
+        "variable": false
+      },
+      "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6900_source": {
+        "title": "Preventive Care Services-Initial Office Visit, 18 and Up",
+        "description": "Encounter, Performed: Preventive Care Services-Initial Office Visit, 18 and Up",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1023",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "PreventiveCareServices_InitialOfficeVisit18andUp_EncounterPerformed_40280381_3d61_56a7_013e_5d11abfb6900_source",
+        "variable": false
+      },
+      "RightUnilateralAmputationAboveorBelowKnee_Diagnosis_cfd78ab8_c240_49f6_a518_c725811e76de_source": {
+        "title": "Right Unilateral Amputation Above or Below Knee",
+        "description": "Diagnosis: Right Unilateral Amputation Above or Below Knee",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.113.12.1057",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "RightUnilateralAmputationAboveorBelowKnee_Diagnosis_cfd78ab8_c240_49f6_a518_c725811e76de_source",
+        "variable": false
+      },
+      "Hospicecareambulatory_InterventionOrder_46aa8c84_ee14_43a6_9bdf_83013bafe367_source": {
+        "title": "Hospice care ambulatory",
+        "description": "Intervention, Order: Hospice care ambulatory",
+        "code_list_id": "2.16.840.1.113762.1.4.1108.15",
+        "type": "interventions",
+        "definition": "intervention",
+        "status": "ordered",
+        "hard_status": true,
+        "negation": false,
+        "source_data_criteria": "Hospicecareambulatory_InterventionOrder_46aa8c84_ee14_43a6_9bdf_83013bafe367_source",
+        "variable": false
+      },
+      "Hospicecareambulatory_InterventionPerformed_6ad0a37f_63e5_453a_b3a8_9eda55bd9f7b_source": {
+        "title": "Hospice care ambulatory",
+        "description": "Intervention, Performed: Hospice care ambulatory",
+        "code_list_id": "2.16.840.1.113762.1.4.1108.15",
+        "type": "interventions",
+        "definition": "intervention",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Hospicecareambulatory_InterventionPerformed_6ad0a37f_63e5_453a_b3a8_9eda55bd9f7b_source",
+        "variable": false
+      },
+      "f7cda3c4_0892_46bf_b32b_1dff25038ab7_9a655be4_4072_4d34_9e13_fccc6a603231_source": {
+        "title": "Unilateral Amputation Below or Above Knee, Unspecified Laterality",
+        "description": "Diagnosis: Unilateral Amputation Below or Above Knee, Unspecified Laterality",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.113.12.1059",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "f7cda3c4_0892_46bf_b32b_1dff25038ab7_9a655be4_4072_4d34_9e13_fccc6a603231_source",
+        "variable": false
+      },
+      "Ethnicity_PatientCharacteristicEthnicity_40280381_3d61_56a7_013e_5d11abfb68f2_source": {
+        "title": "Ethnicity",
+        "description": "Patient Characteristic Ethnicity: Ethnicity",
+        "code_list_id": "2.16.840.1.114222.4.11.837",
+        "property": "ethnicity",
+        "type": "characteristic",
+        "definition": "patient_characteristic_ethnicity",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_40280381_3d61_56a7_013e_5d11abfb68f2_source",
+        "variable": false,
+        "inline_code_list": {
+          "CDC Race": [
+            "2135-2",
+            "2186-5"
+          ]
+        }
+      },
+      "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3d61_56a7_013e_5d11abfb68f0_source": {
+        "title": "ONC Administrative Sex",
+        "description": "Patient Characteristic Sex: ONC Administrative Sex",
+        "code_list_id": "2.16.840.1.113762.1.4.1",
+        "property": "gender",
+        "type": "characteristic",
+        "definition": "patient_characteristic_gender",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3d61_56a7_013e_5d11abfb68f0_source",
+        "variable": false,
+        "value": {
+          "type": "CD",
+          "system": "Administrative Sex",
+          "code": "F"
+        }
+      },
+      "Payer_PatientCharacteristicPayer_40280381_3d61_56a7_013e_5d11abfb68f3_source": {
+        "title": "Payer",
+        "description": "Patient Characteristic Payer: Payer",
+        "code_list_id": "2.16.840.1.114222.4.11.3591",
+        "property": "payer",
+        "type": "characteristic",
+        "definition": "patient_characteristic_payer",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Payer_PatientCharacteristicPayer_40280381_3d61_56a7_013e_5d11abfb68f3_source",
+        "variable": false,
+        "inline_code_list": {
+          "Source of Payment Typology": [
+            "1",
+            "11",
+            "111",
+            "112",
+            "113",
+            "119",
+            "12",
+            "121",
+            "122",
+            "123",
+            "129",
+            "13",
+            "14",
+            "19",
+            "191",
+            "2",
+            "21",
+            "211",
+            "212",
+            "213",
+            "219",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "29",
+            "291",
+            "3",
+            "31",
+            "311",
+            "3111",
+            "3112",
+            "3113",
+            "3114",
+            "3115",
+            "3116",
+            "3119",
+            "312",
+            "3121",
+            "3122",
+            "3123",
+            "313",
+            "32",
+            "321",
+            "3211",
+            "3212",
+            "32121",
+            "32122",
+            "32123",
+            "32124",
+            "32125",
+            "32126",
+            "322",
+            "3221",
+            "3222",
+            "3223",
+            "3229",
+            "33",
+            "331",
+            "332",
+            "333",
+            "334",
+            "34",
+            "341",
+            "342",
+            "343",
+            "349",
+            "35",
+            "36",
+            "361",
+            "362",
+            "369",
+            "37",
+            "371",
+            "3711",
+            "3712",
+            "3713",
+            "372",
+            "379",
+            "38",
+            "381",
+            "3811",
+            "3812",
+            "3813",
+            "3819",
+            "382",
+            "389",
+            "39",
+            "4",
+            "41",
+            "42",
+            "43",
+            "44",
+            "5",
+            "51",
+            "511",
+            "512",
+            "513",
+            "514",
+            "515",
+            "516",
+            "519",
+            "52",
+            "521",
+            "522",
+            "523",
+            "529",
+            "53",
+            "54",
+            "55",
+            "56",
+            "561",
+            "562",
+            "59",
+            "6",
+            "61",
+            "611",
+            "612",
+            "613",
+            "619",
+            "62",
+            "63",
+            "64",
+            "69",
+            "7",
+            "71",
+            "72",
+            "73",
+            "79",
+            "8",
+            "81",
+            "82",
+            "821",
+            "822",
+            "823",
+            "83",
+            "84",
+            "85",
+            "89",
+            "9",
+            "91",
+            "92",
+            "93",
+            "94",
+            "95",
+            "951",
+            "953",
+            "954",
+            "959",
+            "96",
+            "97",
+            "98",
+            "99",
+            "9999"
+          ]
+        }
+      },
+      "Race_PatientCharacteristicRace_40280381_3d61_56a7_013e_5d11abfb68f1_source": {
+        "title": "Race",
+        "description": "Patient Characteristic Race: Race",
+        "code_list_id": "2.16.840.1.114222.4.11.836",
+        "property": "race",
+        "type": "characteristic",
+        "definition": "patient_characteristic_race",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Race_PatientCharacteristicRace_40280381_3d61_56a7_013e_5d11abfb68f1_source",
+        "variable": false,
+        "inline_code_list": {
+          "CDC Race": [
+            "1002-5",
+            "2028-9",
+            "2054-5",
+            "2076-8",
+            "2106-3",
+            "2131-1"
+          ]
+        }
+      },
+      "Agegrtr_thn_eql_18yearsat_DCE214AB_1A67_426D_8E0E_52E20E0E8796_63E41FCC_F9AA_4AB1_934B_342F0B883425_source": {
+        "title": "Birth Date",
+        "description": "Patient Characteristic Birthdate: Birth Date",
+        "property": "birthtime",
+        "type": "characteristic",
+        "definition": "patient_characteristic_birthdate",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Agegrtr_thn_eql_18yearsat_DCE214AB_1A67_426D_8E0E_52E20E0E8796_63E41FCC_F9AA_4AB1_934B_342F0B883425_source",
+        "variable": false
+      },
+      "During_69C0A306_69DC_4373_8F8E_AD52F7961C35_C8E150B3_B07C_479F_8887_8A3B2B7F8EE4_source": {
+        "title": "Pulse Exam of Foot",
+        "description": "Physical Exam, Performed: Pulse Exam of Foot",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.103.12.1015",
+        "type": "physical_exams",
+        "definition": "physical_exam",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "During_69C0A306_69DC_4373_8F8E_AD52F7961C35_C8E150B3_B07C_479F_8887_8A3B2B7F8EE4_source",
+        "variable": false
+      },
+      "During_62233461_FD15_412A_9BCC_ECF956CB62B6_E1024B64_48BC_40CB_AF74_407886A47875_source": {
+        "title": "Sensory Exam of Foot",
+        "description": "Physical Exam, Performed: Sensory Exam of Foot",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.103.12.1014",
+        "type": "physical_exams",
+        "definition": "physical_exam",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "During_62233461_FD15_412A_9BCC_ECF956CB62B6_E1024B64_48BC_40CB_AF74_407886A47875_source",
+        "variable": false
+      },
+      "During_85CB05E9_D81F_4906_B1E7_D15F53AF5B09_0CC97519_3B09_4E62_AFA6_92D64D1BE2AA_source": {
+        "title": "Visual Exam of Foot",
+        "description": "Physical Exam, Performed: Visual Exam of Foot",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.103.12.1013",
+        "type": "physical_exams",
+        "definition": "physical_exam",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "During_85CB05E9_D81F_4906_B1E7_D15F53AF5B09_0CC97519_3B09_4E62_AFA6_92D64D1BE2AA_source",
+        "variable": false
+      },
+      "Overlaps_E328BE62_B280_4E72_925C_AC18F16EE151_AF8D3EE2_AEFC_443F_8AA8_8EB1CB72F234_source": {
+        "title": "Diabetes",
+        "description": "Diagnosis: Diabetes",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.103.12.1001",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "Overlaps_E328BE62_B280_4E72_925C_AC18F16EE151_AF8D3EE2_AEFC_443F_8AA8_8EB1CB72F234_source",
+        "variable": false
+      },
+      "EndsDuring_4F22D35D_A96B_4B1D_BC42_112AF13E1557_C90BB13D_EB6A_4BFF_9C8B_EFFE3086B2CB_source": {
+        "title": "Encounter Inpatient",
+        "description": "Encounter, Performed: Encounter Inpatient",
+        "code_list_id": "2.16.840.1.113883.3.666.5.307",
+        "type": "encounters",
+        "definition": "encounter",
+        "status": "performed",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "EndsDuring_4F22D35D_A96B_4B1D_BC42_112AF13E1557_C90BB13D_EB6A_4BFF_9C8B_EFFE3086B2CB_source",
+        "variable": false
+      },
+      "StartsBeforeOrConcurrentWithEndOf_B3161D12_E3DA_4602_8310_9A4709A6B916_2AA829B8_C7BD_495B_8892_3AE3FD29A3AA_source": {
+        "title": "Bilateral amputation of leg below or above knee",
+        "description": "Diagnosis: Bilateral amputation of leg below or above knee",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.113.12.1056",
+        "type": "conditions",
+        "definition": "diagnosis",
+        "hard_status": false,
+        "negation": false,
+        "source_data_criteria": "StartsBeforeOrConcurrentWithEndOf_B3161D12_E3DA_4602_8310_9A4709A6B916_2AA829B8_C7BD_495B_8892_3AE3FD29A3AA_source",
+        "variable": false
+      }
+    },
+    "title": "Diabetes: Foot Exam",
+    "type": "ep",
+    "updated_at": "2017-06-06T15:32:35.927Z",
+    "user_id": "5936ca545cc9752153000000",
+    "value_set_oids": [
+      "2.16.840.1.113883.3.526.3.1240",
+      "2.16.840.1.113883.3.464.1003.101.12.1048",
+      "2.16.840.1.113883.3.464.1003.101.12.1016",
+      "2.16.840.1.113883.3.464.1003.113.12.1058",
+      "2.16.840.1.113883.3.464.1003.101.12.1001",
+      "2.16.840.1.113883.3.464.1003.101.12.1025",
+      "2.16.840.1.113883.3.464.1003.101.12.1023",
+      "2.16.840.1.113883.3.464.1003.113.12.1057",
+      "2.16.840.1.113762.1.4.1108.15",
+      "2.16.840.1.113883.3.464.1003.113.12.1059",
+      "2.16.840.1.113883.3.464.1003.122.12.1036",
+      "2.16.840.1.113883.3.464.1003.122.12.1035",
+      "2.16.840.1.114222.4.11.837",
+      "2.16.840.1.113762.1.4.1",
+      "2.16.840.1.114222.4.11.3591",
+      "2.16.840.1.114222.4.11.836",
+      "2.16.840.1.113883.3.464.1003.103.12.1015",
+      "2.16.840.1.113883.3.464.1003.103.12.1014",
+      "2.16.840.1.113883.3.464.1003.103.12.1013",
+      "2.16.840.1.113883.3.464.1003.103.12.1001",
+      "2.16.840.1.113883.3.666.5.307",
+      "2.16.840.1.113883.3.117.1.7.1.207",
+      "2.16.840.1.113883.3.117.1.7.1.209",
+      "2.16.840.1.113883.3.464.1003.113.12.1056"
+    ],
+    "version": null
+  }
+]

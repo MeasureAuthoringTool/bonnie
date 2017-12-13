@@ -24,7 +24,7 @@ class Thorax.Models.Measure extends Thorax.Model
     oid_display_name_map = {}
     for oid, versions of bonnie.valueSetsByOid
       for version, vs of versions
-        oid_display_name_map[oid] = vs.display_name if vs.display_name
+        oid_display_name_map[oid] = vs.display_name if vs?.display_name
 
     for key, data_criteria of attrs.data_criteria
       data_criteria.key = key
@@ -187,3 +187,12 @@ class Thorax.Collections.Measures extends Thorax.Collection
     measureToOids = {} # measure hqmf_set_id : valueSet oid
     @each (m) => measureToOids[m.get('hqmf_set_id')] = m.valueSets().pluck('oid')
     measureToOids
+    
+  deepClone: ->
+    cloneMeasures = new Thorax.Collections.Measures (@.toJSON())
+    cloneMeasures.each (measure) ->
+      #Ensure that the population points to the correct measure
+      pops = measure.get('populations')
+      pops.parent = measure
+      measure.set('displayedPopulation', pops.at('0'))
+    cloneMeasures

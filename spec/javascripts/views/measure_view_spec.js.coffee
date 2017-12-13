@@ -2,8 +2,8 @@ describe 'MeasureView', ->
 
   describe 'QDM', ->
     beforeEach ->
+      window.bonnieRouterCache.load('base_set')
       @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
-
       # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
       # We add the overlapping codes after 10 non-overlapping codes to provide regression for a bug
       @vs1 = @measure.valueSets().findWhere(display_name: 'Annual Wellness Visit')
@@ -13,10 +13,9 @@ describe 'MeasureView', ->
         @vs2.get('concepts').push { code: "XYZ#{n}", display_name: "XYZ", code_system_name: "XYZ" }
       @vs1.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
       @vs2.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
-      # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
-      jasmine.getJSONFixtures().clearCache()
-      @patient = new Thorax.Models.Patient getJSONFixture('patients.json')[0], parse: true
-      @measure.get('patients').add @patient
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/QDM/base_set/patients.json'), parse: true
+      @measure.set('patients', @patients)
+      @patient = @patients.at(0)
       @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @measure, patients: @measure.get('patients'))
       @measureView = @measureLayoutView.showMeasure()
       @measureView.appendTo 'body'
@@ -57,10 +56,16 @@ describe 'MeasureView', ->
 
     # makes sure the calculation percentage hasn't changed.
     # should be 33% for CMS156v2 with given test patients as of 1/4/2016
-    # This test fails for some unknown situations. It should be replaced with an
-    # equivalent CQL test.
-    xit 'computes coverage', ->
-      expect(@measureView.$('.dial')).toHaveAttr('value', '33')
+    describe '...', ->
+      beforeEach (done) ->
+        result = @measure.get('populations').at(0).calculate(@patient)
+        waitsForAndRuns( -> result.isPopulated()
+          ,
+          ->
+            done()
+        )
+      it 'computes coverage', ->
+        expect(@measureView.$('.dial')[1]).toHaveAttr('value', '33')
 
   describe 'CQL', ->
     beforeEach ->
