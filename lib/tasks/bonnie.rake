@@ -224,18 +224,14 @@ namespace :bonnie do
       end
       
       unless is_error
-        if measure
-          if measure.package
-            filename = "#{measure.cms_id}_#{email}_#{measure.package.created_at.to_date.to_s}.zip"
-            file = open(filename, 'wb')
-            file.write(measure.package.file.data)
-            file.close
-          else
-            print_error 'No package found for this measure.'
-            is_error = true
-          end
+        if measure.package
+          filename = "#{measure.cms_id}_#{email}_#{measure.package.created_at.to_date.to_s}.zip"
+          file = open(filename, 'wb')
+          file.write(measure.package.file.data)
+          file.close
+          print_success "Successfully wrote #{measure.cms_id}_#{email}_#{measure.package.created_at.to_date.to_s}.zip"
         else
-          print_error 'No measure found for this id.'
+          print_error 'No package found for this measure.'
           is_error = true
         end
       end
