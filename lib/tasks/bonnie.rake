@@ -316,7 +316,7 @@ namespace :bonnie do
         files.delete f
       end
       # File from older than three months, keep most recent in each month
-      files.select { |f| file_time(f) < 3.month.ago }.group_by { |f| file_time(f).strftime('%Y month %m') }.each do |week, ff|
+      files.select { |f| file_time(f) < 3.month.ago }.group_by { |f| file_time(f).strftime('%Y month %m') }.each do |month, ff|
         sorted = ff.sort_by { |f| file_time(f) }
         puts "Keeping #{sorted.pop}"
         sorted.each do |f|
