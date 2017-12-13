@@ -36,6 +36,12 @@ describe 'Result', ->
     processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
     expect(processed_results).toEqual expected_results
 
+  it 'NUMEX membership removed when not a member of DENOM', ->
+    initial_results = {IPP: 1, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 1}
+    expected_results = {IPP: 1, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 0}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
+
   it 'DENOM population not modified by inclusion in DENEX', ->
     initial_results = {IPP: 1, DENOM: 1, DENEX: 1, NUMER: 0, NUMEX: 0}
     processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
