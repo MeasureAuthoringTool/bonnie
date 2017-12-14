@@ -495,7 +495,7 @@ namespace :bonnie do
         record.source_data_criteria.each do |sdc|
           if sdc['hqmf_set_id'] && sdc['hqmf_set_id'] != hqmf_set_id
             sdc['hqmf_set_id'] = hqmf_set_id
-            changed = true
+            has_changed = true
           end
         end
         begin
