@@ -4,6 +4,38 @@
 namespace :bonnie do
   namespace :patients do
 
+    desc %{Ensures that all patients' hqmf_set_ids match their source_data_criteria's hqmf_set_ids
+
+    $ rake bonnie:patients:fix_source_data_criteria_hqmf_set_ids}
+    task :fix_source_data_criteria_hqmf_set_ids => :environment do
+      Record.all.each do |record|
+        email = User.find_by(_id: record[:user_id]).email
+        first = record.first
+        last = record.last
+        has_changed = false
+
+        hqmf_set_id = record.measure_ids[0]
+        if !hqmf_set_id
+          print_error("#{last}, #{first} does not have an HQMF Set ID.")
+        end
+
+        record.source_data_criteria.each do |sdc|
+          if sdc['hqmf_set_id'] && sdc['hqmf_set_id'] != hqmf_set_id
+            sdc['hqmf_set_id'] = hqmf_set_id
+            has_changed = true
+          end
+        end
+        begin
+          record.save!
+          if has_changed
+            print_success("Fixing mismatch on User: #{email}, first: #{first}, last: #{last}")
+          end
+        rescue Mongo::Error::OperationFailure => e
+          print_error("#{e}: #{email}, first: #{first}, last: #{last}")
+        end
+      end
+    end
+
     # HQMF OIDs were not being stored on patient record entries for data types that only appear in the HQMF R2
     # support; git commit c988d25be480171a8dac5bef02386e5f49f57acb addressed thsi issue for new entries; this
     # rake task goes back and fixes up existing entries; it was run on May 24, 2016
