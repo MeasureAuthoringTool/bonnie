@@ -349,4 +349,62 @@ class BonniePatientsTest < ActiveSupport::TestCase
     # Confirm that there are 7 patients now associated with this measure.
     assert_equal 7, Record.where(measure_ids: hqmf_set_id).count
   end
+
+  test "materialize all of patients" do
+    ENV['EMAIL'] = @source_user.email
+    assert_output("Materializing OLD No Diagnosis or Fac\n" +
+    "Materializing OLD No Fac\n" +
+    "Materializing OLD With Fac No Code\n" +
+    "Materializing OLD With Fac No End\n" +
+    "Materializing OLD With Fac No Start\n" +
+    "Materializing OLD  With Fac No Time\n" +
+    "Materializing OLD With Fac\n" +
+    "Materialized 7 of 7 patients\n") { Rake::Task['bonnie:patients:materialize_all'].execute }
+  end
+
+  test "materialize all of patients for user with no patients" do
+    ENV['EMAIL'] = @dest_user.email
+    assert_output("Materialized 0 of 0 patients\n") { Rake::Task['bonnie:patients:materialize_all'].execute }
+  end
+
+  test "date shift forward for all associated patients' source data criteria by one year" do
+    ENV['EMAIL'] = @source_user.email
+    ENV['YEARS'] = '1'
+    ENV['DIR'] = 'forward'
+    p = Record.where(user_id:@source_user.id).first
+    before_birth_date = p.birthdate
+    before_dc_start_date = p.source_data_criteria[0]['start_date']
+    before_dc_end_date = p.source_data_criteria[0]['end_date']
+    Rake::Task['bonnie:patients:date_shift'].execute
+    p = Record.where(user_id:@source_user.id).first
+
+    # Aseert the before date + a year, equals the new birthdate of the patient and the new start and end dates of the data criteria.
+    after_birth_date = (Time.at( before_birth_date ).utc.advance( :years => 1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i
+    after_dc_start_date = ( Time.at( before_dc_start_date / 1000 ).utc.advance( :years => 1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i * 1000
+    after_dc_end_date = ( Time.at( before_dc_end_date / 1000 ).utc.advance( :years => 1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i * 1000
+    assert_equal after_birth_date, p.birthdate
+    assert_equal after_dc_start_date, p.source_data_criteria[0]['start_date']
+    assert_equal after_dc_end_date, p.source_data_criteria[0]['end_date']
+  end
+
+  test "date shift backward for all associated patients' source data criteria by one year" do
+    ENV['EMAIL'] = @source_user.email
+    ENV['YEARS'] = '1'
+    ENV['DIR'] = 'backward'
+    p = Record.where(user_id:@source_user.id).first
+    before_birth_date = p.birthdate
+    before_dc_start_date = p.source_data_criteria[0]['start_date']
+    before_dc_end_date = p.source_data_criteria[0]['end_date']
+    Rake::Task['bonnie:patients:date_shift'].execute
+    p = Record.where(user_id:@source_user.id).first
+
+    # Aseert the before date - a year, equals the new birthdate of the patient and the new start and end dates of the data criteria.
+    after_birth_date = (Time.at( before_birth_date ).utc.advance( :years => -1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i
+    after_dc_start_date = ( Time.at( before_dc_start_date / 1000 ).utc.advance( :years => -1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i * 1000
+    after_dc_end_date = ( Time.at( before_dc_end_date / 1000 ).utc.advance( :years => -1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i * 1000
+    assert_equal after_birth_date, p.birthdate
+    assert_equal after_dc_start_date, p.source_data_criteria[0]['start_date']
+    assert_equal after_dc_end_date, p.source_data_criteria[0]['end_date']
+  end
+
 end

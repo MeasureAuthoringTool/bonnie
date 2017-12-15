@@ -43,4 +43,10 @@ class BonnieDbTest < ActiveSupport::TestCase
                  ) { Rake::Task['bonnie:db:resave_measures'].execute }
   end
 
+  test "successfully dump database" do
+    path = Rails.root.join 'db', 'backups'
+    original_number = Dir.entries(path).size
+    Rake::Task['bonnie:db:dump'].execute
+    assert_equal original_number + 1, Dir.entries(path).size
+  end
 end
