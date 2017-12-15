@@ -96,6 +96,10 @@ describe 'Continuous Variable Calculations', ->
     expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
 
+    # check the results for the episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [15] }
+    expect(result.get('episode_results')['5a15993d5cc9752039b64b8f']).toEqual(expectedEpisodeResults)
+
   it 'can handle multiple episodes observed', ->
     patient = @patients.findWhere(last: '2 ED ', first: 'Visits')
     result = @population.calculate(patient)
@@ -104,20 +108,40 @@ describe 'Continuous Variable Calculations', ->
     expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
 
+    # check the results for the episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [25] }
+    expect(result.get('episode_results')['5a20544b5cc97509451ab202']).toEqual(expectedEpisodeResults)
+    # check the results for the second episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [15] }
+    expect(result.get('episode_results')['5a20544b5cc97509451ab203']).toEqual(expectedEpisodeResults)
+
   it 'can handle multiple episodes observed with one excluded', ->
     patient = @patients.findWhere(last: '2 ED ', first: 'Visits 1 Excl')
     result = @population.calculate(patient)
-    # TODO: after confusion with how exclusions are to be handled, update this. for now exclusions will still be observed
-    expect(result.get('values')).toEqual([25, 15])
+    expect(result.get('values')).toEqual([25])
     expect(result.get('population_relevance')['values']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
 
+    # check the results for the episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [25] }
+    expect(result.get('episode_results')['5a2056095cc97509451ab210']).toEqual(expectedEpisodeResults)
+    # check the results for the second episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
+    expect(result.get('episode_results')['5a2056095cc97509451ab211']).toEqual(expectedEpisodeResults)
+
+
   it 'can handle multiple episodes observed with both excluded', ->
     patient = @patients.findWhere(last: '2 ED ', first: 'Visits 2 Excl')
     result = @population.calculate(patient)
-    # TODO: after confusion with how exclusions are to be handled, update this. for now exclusions will still be observed
-    expect(result.get('values')).toEqual([25, 15])
+    expect(result.get('values')).toEqual([])
     expect(result.get('population_relevance')['values']).toBe(false)
     expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
     expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
+
+    # check the results for the episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
+    expect(result.get('episode_results')['5a2055955cc97509451ab20b']).toEqual(expectedEpisodeResults)
+    # check the results for the second episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
+    expect(result.get('episode_results')['5a2055955cc97509451ab20d']).toEqual(expectedEpisodeResults)
