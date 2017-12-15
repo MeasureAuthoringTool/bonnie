@@ -75,7 +75,7 @@
 
       # Calculate results for each CQL statement
       results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), population.collection.parent.get('main_cql_library'), main_library_version, params)
-
+      debugger
       # Parse CQL statement results into population values
       [population_results, episode_results] = @createPopulationValues population, results, patient, observation_defs
 
@@ -228,17 +228,18 @@
           # structured (note the single 'value' section in the
           # measureObservationDefinition clause).
           obs_results = results['patientResults']?[patient.id]?[ob_def]
-
+          debugger
           for obs_result in obs_results
           # Add the single result value to the values array on the results of
           # this calculation (allowing for more than one possible observation).
             if obs_result?.hasOwnProperty('value')
               # If result is a cql.Quantity type, add its value
-              population_results['values'].push(obs_result.value)
+              population_results['values'].push(obs_result.observation.value)
             else
               # In all other cases, add result
-              population_results['values'].push(obs_result)
+              population_results['values'].push(obs_result.observation)
     return population_results
+
 
   ###*
   # Create population values (aka results) for all episodes using the results from the calculator. This is
@@ -445,14 +446,29 @@
         return:
           distinct: false,
           expression:
-            name: functionName,
-            type: 'FunctionRef',
-            operand: [
+            type: 'Tuple',
+            element: [
               {
-                type: 'As',
-                operand: {
+                name: "episode",
+                value: {
                   name: 'MP',
                   type: 'AliasRef'
+                }
+              },
+              {
+                name: "observation",
+                value: {
+                  name: functionName,
+                  type: 'FunctionRef',
+                  operand: [
+                    {
+                      type: 'As',
+                      operand: {
+                        name: 'MP',
+                        type: 'AliasRef'
+                      }
+                    }
+                  ]
                 }
               }
             ]
