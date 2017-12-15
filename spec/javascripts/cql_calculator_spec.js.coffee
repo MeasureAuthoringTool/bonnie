@@ -35,3 +35,46 @@ describe 'cqlCalculator', ->
       expect(oldRefactoredValueSets).toEqual(newRefactoredValueSets)
       expect(bonnie.valueSetsByOidCached['2.16.840.1.113762.1.4.1']['N/A'].length).toEqual(2)
       bonnie.valueSetsByOidCached = undefined
+
+  describe '_buildPopulationRelevanceMap', ->
+    it 'marks NUMER, NUMEX, DENEXCEP not calculated if DENEX count matches DENOM', ->
+      population_results = { IPP: 2, DENOM: 2, DENEX: 2, DENEXCEP: 0, NUMER: 0, NUMEX: 0 }
+      expected_relevance_map = { IPP: true, DENOM: true, DENEX: true, DENEXCEP: false, NUMER: false, NUMEX: false }
+      relevance_map = @cql_calculator._buildPopulationRelevanceMap(population_results)
+      expect(relevance_map).toEqual expected_relevance_map
+
+    it 'marks NUMER, NUMEX, DENEXCEP not calculated if DENEX count exceeds DENOM', ->
+      population_results = { IPP: 3, DENOM: 2, DENEX: 3, DENEXCEP: 0, NUMER: 0, NUMEX: 0 }
+      expected_relevance_map = { IPP: true, DENOM: true, DENEX: true, DENEXCEP: false, NUMER: false, NUMEX: false }
+      relevance_map = @cql_calculator._buildPopulationRelevanceMap(population_results)
+      expect(relevance_map).toEqual expected_relevance_map
+
+    it 'marks NUMER, NUMEX calculated if DENEX count does not exceed DENOM', ->
+      population_results = { IPP: 3, DENOM: 3, DENEX: 1, DENEXCEP: 0, NUMER: 2, NUMEX: 0 }
+      expected_relevance_map = { IPP: true, DENOM: true, DENEX: true, DENEXCEP: false, NUMER: true, NUMEX: true }
+      relevance_map = @cql_calculator._buildPopulationRelevanceMap(population_results)
+      expect(relevance_map).toEqual expected_relevance_map
+
+    it 'marks OBSERV calculated if MSRPOPLEX is less than MSRPOPL', ->
+      population_results = {IPP: 3, MSRPOPL: 2, MSRPOPLEX: 1, values: [12]}
+      expected_relevance_map = { IPP: true, MSRPOPL: true, MSRPOPLEX: true, values: true }
+      relevance_map = @cql_calculator._buildPopulationRelevanceMap(population_results)
+      expect(relevance_map).toEqual expected_relevance_map
+
+    it 'marks OBSERV not calculated if MSRPOPLEX is same as MSRPOPL', ->
+      population_results = {IPP: 3, MSRPOPL: 2, MSRPOPLEX: 2, values: [12]}
+      expected_relevance_map = { IPP: true, MSRPOPL: true, MSRPOPLEX: true, values: false }
+      relevance_map = @cql_calculator._buildPopulationRelevanceMap(population_results)
+      expect(relevance_map).toEqual expected_relevance_map
+
+    it 'marks OBSERV not calculated if MSRPOPLEX is greater than MSRPOPL', ->
+      population_results = {IPP: 3, MSRPOPL: 2, MSRPOPLEX: 3, values: [12]}
+      expected_relevance_map = { IPP: true, MSRPOPL: true, MSRPOPLEX: true, values: false }
+      relevance_map = @cql_calculator._buildPopulationRelevanceMap(population_results)
+      expect(relevance_map).toEqual expected_relevance_map
+
+    it 'marks MSRPOPLEX not calculated if MSRPOPL is zero', ->
+      population_results = {IPP: 3, MSRPOPL: 0, MSRPOPLEX: 0, values: []}
+      expected_relevance_map = { IPP: true, MSRPOPL: true, MSRPOPLEX: false, values: false }
+      relevance_map = @cql_calculator._buildPopulationRelevanceMap(population_results)
+      expect(relevance_map).toEqual expected_relevance_map
