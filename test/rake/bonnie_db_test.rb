@@ -45,6 +45,9 @@ class BonnieDbTest < ActiveSupport::TestCase
 
   test "successfully dump database" do
     path = Rails.root.join 'db', 'backups'
+    if !Dir.exist?(path)
+      Dir.mkdir(path)
+    end
     original_number = Dir.entries(path).size
     Rake::Task['bonnie:db:dump'].execute
     assert_equal original_number + 1, Dir.entries(path).size
