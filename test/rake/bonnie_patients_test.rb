@@ -352,19 +352,12 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
   test "materialize all of patients" do
     ENV['EMAIL'] = @source_user.email
-    assert_output("Materializing OLD No Diagnosis or Fac\n" +
-    "Materializing OLD No Fac\n" +
-    "Materializing OLD With Fac No Code\n" +
-    "Materializing OLD With Fac No End\n" +
-    "Materializing OLD With Fac No Start\n" +
-    "Materializing OLD  With Fac No Time\n" +
-    "Materializing OLD With Fac\n" +
-    "Materialized 7 of 7 patients\n") { Rake::Task['bonnie:patients:materialize_all'].execute }
+    assert_output(/Materialized 7 of 7/) { Rake::Task['bonnie:patients:materialize_all'].execute }
   end
 
   test "materialize all of patients for user with no patients" do
     ENV['EMAIL'] = @dest_user.email
-    assert_output("Materialized 0 of 0 patients\n") { Rake::Task['bonnie:patients:materialize_all'].execute }
+    assert_output(/Materialized 0 of 0/) { Rake::Task['bonnie:patients:materialize_all'].execute }
   end
 
   test "date shift forward for all associated patients' source data criteria by one year" do
