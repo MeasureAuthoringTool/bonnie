@@ -31,11 +31,11 @@ namespace :bonnie do
       value_sets = measure.value_sets.each do |vs|
         oid_to_vs_map[vs.oid] = { vs.version => vs }
       end
-
+      
       value_sets_file = File.join(fixtures_path, 'measure_data', args[:path], 'value_sets.json')
       create_fixture_file(value_sets_file, JSON.pretty_generate(JSON.parse(oid_to_vs_map.to_json)))
       puts 'exported value sets to ' + value_sets_file
-
+      
       #Exports patient data
       records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
       if (!args[:patient_first_name].nil? && !args[:patient_last_name].nil?)
@@ -51,7 +51,7 @@ namespace :bonnie do
       create_fixture_file(record_file, JSON.pretty_generate(JSON.parse(records.to_json)))
       puts 'exported patient records to ' + record_file
     end
-
+    
     ###
     # Generates a set of back end fixtures representing a specific database state.
     # Generated fixtures will be associated with
@@ -133,7 +133,7 @@ namespace :bonnie do
       File.new(output, "w+")
       File.write(output, JSON.pretty_generate(dict))
     end
-      
+    
     ###
     # Loads a set of back end fixtures into the active database.
     # NOTE: This task will fail if documents in the database with the same ids already exist.
@@ -151,7 +151,7 @@ namespace :bonnie do
       users_collection = File.join 'users', 'export_user'
       collection_fixtures(measure_collection, cql_measure_collection, value_sets_collection, records_collection, users_collection)
     end
-  
+
     def get_cql_measure(user, cms_hqmf, measure_id)
       if (cms_hqmf.downcase  != 'cms' && cms_hqmf.downcase != 'hqmf')
         throw('Argument: "' + cms_hqmf + '" does not match expected: cms or hqmf')
@@ -165,7 +165,7 @@ namespace :bonnie do
       end
       throw('Argument: "' + cms_hqmf + ': ' + measure_id +'" does not match any measure id associated with user: "'+user.email+'"')
     end
-  
+
     def convert_times(json)
       if json.kind_of?(Hash)
         json.each_pair do |k,v|
@@ -175,7 +175,7 @@ namespace :bonnie do
         end
       end
     end
-  
+
     ###
     # Creates and writes a fixture file.
     #
@@ -186,7 +186,7 @@ namespace :bonnie do
       File.new(file_path, "w+")
       File.write(file_path, fixture_json)
     end
-      
+    
     ###
     # TODO: duplicate functions, long term goal is to export them to test_helper
     # Parses json object for id fields and converts them to bson objects
@@ -207,7 +207,7 @@ namespace :bonnie do
         end
       end
     end
-  
+
     ##
     # TODO: duplicate functions, long term goal is to export them to test_helper
     # Loads fixtures into the active database.
@@ -364,4 +364,3 @@ namespace :bonnie do
     end
   end
 end
-  
