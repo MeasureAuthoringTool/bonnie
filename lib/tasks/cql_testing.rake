@@ -35,7 +35,7 @@ namespace :bonnie do
       value_sets_file = File.join(fixtures_path, 'measure_data', args[:path], 'value_sets.json')
       create_fixture_file(value_sets_file, JSON.pretty_generate(JSON.parse(oid_to_vs_map.to_json)))
       puts 'exported value sets to ' + value_sets_file
-      
+
       #Exports patient data
       records = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
       if (!args[:patient_first_name].nil? && !args[:patient_last_name].nil?)
@@ -51,7 +51,7 @@ namespace :bonnie do
       create_fixture_file(record_file, JSON.pretty_generate(JSON.parse(records.to_json)))
       puts 'exported patient records to ' + record_file
     end
-    
+
     ###
     # Generates a set of back end fixtures representing a specific database state.
     # Generated fixtures will be associated with
@@ -82,7 +82,7 @@ namespace :bonnie do
       measure_hash['_id'] = { '$oid' => measure_hash['_id'] }
       create_fixture_file(measure_file, JSON.pretty_generate(measure_hash))
       puts 'exported measure to ' + measure_file
-
+      
       #Exports the measure package
       if measure.package
         measure_package_file = File.join(fixtures_path, 'cql_measure_packages', args[:path], measure_name)
