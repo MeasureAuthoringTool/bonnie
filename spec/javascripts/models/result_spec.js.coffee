@@ -130,7 +130,6 @@ describe 'Continuous Variable Calculations', ->
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
     expect(result.get('episode_results')['5a2056095cc97509451ab211']).toEqual(expectedEpisodeResults)
 
-
   it 'can handle multiple episodes observed with both excluded', ->
     patient = @patients.findWhere(last: '2 ED ', first: 'Visits 2 Excl')
     result = @population.calculate(patient)
