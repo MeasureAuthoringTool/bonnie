@@ -75,7 +75,7 @@
 
       # Calculate results for each CQL statement
       results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), population.collection.parent.get('main_cql_library'), main_library_version, params)
-      debugger
+
       # Parse CQL statement results into population values
       [population_results, episode_results] = @createPopulationValues population, results, patient, observation_defs
 
@@ -125,7 +125,12 @@
       # count up all population results for a patient level count
       for _, episode_result of episode_results
         for popCode, popResult of episode_result
-          if population_results[popCode]?
+          if popCode == 'values'
+            if !population_results.values?
+              population_results.values = []
+            for value in popResult
+              population_results.values.push(value)
+          else if population_results[popCode]?
             population_results[popCode] += popResult
           else
             population_results[popCode] = popResult
@@ -164,12 +169,17 @@
         population_results['NUMER'] = 0
       if 'NUMEX' of population_results
         population_results['NUMEX'] = 0
+      if 'values' of population_results
+        population_results['values'] = []
     # Can not be in the numerator if the same or more are excluded from the denominator
     else if (population_results["DENEX"]? && !@isValueZero('DENEX', population_results) && (population_results["DENEX"] >= population_results["DENOM"]))
       if 'NUMER' of population_results
         population_results['NUMER'] = 0
       if 'NUMEX' of population_results
         population_results['NUMEX'] = 0
+    else if (population_results["MSRPOPLEX"]? && !@isValueZero('MSRPOPLEX', population_results))
+      if 'values' of population_results
+        population_results['values'] = []
     else if @isValueZero('NUMER', population_results)
       if 'NUMEX' of population_results
         population_results['NUMEX'] = 0
@@ -228,7 +238,7 @@
           # structured (note the single 'value' section in the
           # measureObservationDefinition clause).
           obs_results = results['patientResults']?[patient.id]?[ob_def]
-          debugger
+
           for obs_result in obs_results
           # Add the single result value to the values array on the results of
           # this calculation (allowing for more than one possible observation).
@@ -285,7 +295,7 @@
                 else
                   newEpisode = { }
                   for pop in popCodesInPopulation
-                    newEpisode[pop] = 0
+                    newEpisode[pop] = 0 unless pop == 'OBSERV'
                   newEpisode[popCode] = 1
                   episode_results[value.id().value] = newEpisode
 
@@ -293,22 +303,35 @@
         # Handle observations using the names of the define statements that
         # were added to the ELM to call the observation functions.
         for ob_def in observation_defs
-          population_results['values'] = [] unless population_results['values']
           # Observations only have one result, based on how the HQMF is
           # structured (note the single 'value' section in the
           # measureObservationDefinition clause).
           obs_results = results['patientResults']?[patient.id]?[ob_def]
 
           for obs_result in obs_results
-          # Add the single result value to the values array on the results of
-          # this calculation (allowing for more than one possible observation).
+            result_value = null
+            episodeId = obs_result.episode.id().value
+            # Add the single result value to the values array on the results of
+            # this calculation (allowing for more than one possible observation).
             if obs_result?.hasOwnProperty('value')
               # If result is a cql.Quantity type, add its value
-              population_results['values'].push(obs_result.value)
+              result_value = obs_result.observation.value
             else
               # In all other cases, add result
-              population_results['values'].push(obs_result)
+              result_value = obs_result.observation
 
+            # if the episode_result object already exist create or add to to the values structure
+            if episode_results[episodeId]?
+              if episode_results[episodeId].values?
+                episode_results[episodeId].values.push(result_value)
+              else
+                episode_results[episodeId].values = [result_value]
+            # else create a new episode_result structure
+            else
+              newEpisode = { }
+              for pop in popCodesInPopulation
+                newEpisode[pop] = 0 unless pop == 'OBSERV'
+              newEpisode.values = [result_value]
     # Correct any inconsistencies. ex. In DENEX but also in NUMER using same function used for patients.
     for episodeId, episode_result of episode_results
       episode_results[episodeId] = @handlePopulationValues(episode_result)
