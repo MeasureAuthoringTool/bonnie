@@ -17,7 +17,6 @@ class RakeTest < ActiveSupport::TestCase
 
     @source_email = 'bonnie@example.com'
     @dest_email = 'user_admin@example.com'
-
     @source_hqmf_set_id = '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2'
     @dest2_hqmf_set_id = '93F3479F-75D8-4731-9A3F-B7749D8BCD37'
     @dest_hqmf_set_id = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
