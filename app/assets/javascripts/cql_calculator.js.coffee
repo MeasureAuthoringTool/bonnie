@@ -122,18 +122,23 @@
     else # episode of care based measure
       # collect results per episode
       episode_results = @createEpisodePopulationValues(population, results, patient, observation_defs)
+
+      # initialize population counts
+      for popCode in Thorax.Models.Measure.allPopulationCodes
+        if population.get(popCode)?
+          if popCode == 'OBSERV'
+            population_results.values = []
+          else
+            population_results[popCode] = 0
+
       # count up all population results for a patient level count
       for _, episode_result of episode_results
         for popCode, popResult of episode_result
           if popCode == 'values'
-            if !population_results.values?
-              population_results.values = []
             for value in popResult
               population_results.values.push(value)
-          else if population_results[popCode]?
-            population_results[popCode] += popResult
           else
-            population_results[popCode] = popResult
+            population_results[popCode] += popResult
     return [population_results, episode_results]
 
   ###*
