@@ -4,36 +4,89 @@
 namespace :bonnie do
   namespace :patients do
 
-    desc %{Ensures that all patients' hqmf_set_ids match their source_data_criteria's hqmf_set_ids
+    desc %{Update source_data_criteria to match fields from measure
 
-    $ rake bonnie:patients:fix_source_data_criteria_hqmf_set_ids}
-    task :fix_source_data_criteria_hqmf_set_ids => :environment do
-      Record.all.each do |record|
-        email = User.find_by(_id: record[:user_id]).email
-        first = record.first
-        last = record.last
+    $ rake bonnie:patients:update_source_data_criteria}
+    task :update_source_data_criteria=> :environment do
+      puts "Updating patient source_data_criteria to match measure"
+      successes = 0
+      cms_ids_updated = 0
+      hqmf_set_ids_updated = 0
+      types_updated = 0
+      titles_updated = 0
+      descriptions_updated = 0
+      errors = 0
+      warnings = 0
+
+      Record.all.each do |patient|
+        email = User.find_by(_id: patient[:user_id]).email
+        first = patient.first
+        last = patient.last
         has_changed = false
-
-        hqmf_set_id = record.measure_ids[0]
-        if !hqmf_set_id
-          print_error("#{last}, #{first} does not have an HQMF Set ID.")
+        hqmf_set_id = patient.measure_ids[0]
+        begin
+          measure = CqlMeasure.find_by(hqmf_set_id:  patient.measure_ids[0])
+        rescue Mongoid::Errors::DocumentNotFound => e
+          print_warning("#{first} #{last} #{email} Unable to find measure")
+          warnings += 1
         end
 
-        record.source_data_criteria.each do |sdc|
-          if sdc['hqmf_set_id'] && sdc['hqmf_set_id'] != hqmf_set_id
-            sdc['hqmf_set_id'] = hqmf_set_id
+        patient.source_data_criteria.each do |patient_data_criteria|
+          if !measure.nil?
+            # If measure hasn't been deleted, update all fields
+            if patient_data_criteria['cms_id'] && patient_data_criteria['cms_id'] != measure['cms_id']
+              patient_data_criteria['cms_id'] = measure['cms_id']
+              cms_ids_updated += 1
+              has_changed = true
+            end
+
+            measure_data_criteria = measure.source_data_criteria[patient_data_criteria['id']]
+            if  measure_data_criteria
+              if patient_data_criteria['title'] && patient_data_criteria['title'] != measure_data_criteria['title']
+                patient_data_criteria['title'] = measure_data_criteria['title']
+                titles_updated += 1
+                has_changed = true
+              end
+              if patient_data_criteria['description'] && patient_data_criteria['description'] != measure_data_criteria['description']
+                patient_data_criteria['description'] = measure_data_criteria['description']
+                descriptions_updated += 1
+                has_changed = true
+              end
+              if patient_data_criteria['type'] && patient_data_criteria['type'] != measure_data_criteria['type']
+                patient_data_criteria['type'] = measure_data_criteria['type']
+                types_updated += 1
+                has_changed = true
+              end
+            end
+          end
+
+          if patient_data_criteria['hqmf_set_id'] && patient_data_criteria['hqmf_set_id'] != hqmf_set_id
+            patient_data_criteria['hqmf_set_id'] = hqmf_set_id
+            hqmf_set_ids_updated += 1
             has_changed = true
           end
         end
+
         begin
-          record.save!
+          patient.save!
           if has_changed
+            successes += 1
             print_success("Fixing mismatch on User: #{email}, first: #{first}, last: #{last}")
           end
         rescue Mongo::Error::OperationFailure => e
+          errors += 1
           print_error("#{e}: #{email}, first: #{first}, last: #{last}")
         end
       end
+      puts "Results".center(80, '-')
+      puts "Patients successfully updated: #{successes}"
+      puts "Errors: #{errors}"
+      puts "Missing Measures: #{warnings}"
+      puts "Cms_ids Updated: #{cms_ids_updated}"
+      puts "Hqmf_set_ids Updated: #{hqmf_set_ids_updated}"
+      puts "Types Updated: #{types_updated}"
+      puts "Titles Updated: #{titles_updated}"
+      puts "Descriptions Updated: #{descriptions_updated}"
     end
 
     # HQMF OIDs were not being stored on patient record entries for data types that only appear in the HQMF R2
