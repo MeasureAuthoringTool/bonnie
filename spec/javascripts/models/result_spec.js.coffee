@@ -36,6 +36,12 @@ describe 'Result', ->
     processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
     expect(processed_results).toEqual expected_results
 
+  it 'NUMEX membership removed when not a member of DENOM', ->
+    initial_results = {IPP: 1, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 1}
+    expected_results = {IPP: 1, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 0}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
+
   it 'DENOM population not modified by inclusion in DENEX', ->
     initial_results = {IPP: 1, DENOM: 1, DENEX: 1, NUMER: 0, NUMEX: 0}
     processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
@@ -44,6 +50,24 @@ describe 'Result', ->
   it 'DENEX membership removed when not a member of DENOM', ->
     initial_results = {IPP: 1, DENOM: 0, DENEX: 1, NUMER: 0, NUMEX: 0}
     expected_results = {IPP: 1, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 0}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
+
+  it 'NUMER and NUMEX membership removed there are same counts in DENEX as DENOM', ->
+    initial_results = {IPP: 2, DENOM: 2, DENEX: 2, NUMER: 2, NUMEX: 1}
+    expected_results = {IPP: 2, DENOM: 2, DENEX: 2, NUMER: 0, NUMEX: 0}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
+
+  it 'NUMER and NUMEX membership removed there are more counts in DENEX than DENOM', ->
+    initial_results = {IPP: 3, DENOM: 2, DENEX: 3, NUMER: 2, NUMEX: 1}
+    expected_results = {IPP: 3, DENOM: 2, DENEX: 3, NUMER: 0, NUMEX: 0}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
+
+  it 'NUMER and NUMEX membership kept if there are less counts in DENEX as DENOM', ->
+    initial_results = {IPP: 2, DENOM: 2, DENEX: 1, NUMER: 1, NUMEX: 0}
+    expected_results = {IPP: 2, DENOM: 2, DENEX: 1, NUMER: 1, NUMEX: 0}
     processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
     expect(processed_results).toEqual expected_results
 
