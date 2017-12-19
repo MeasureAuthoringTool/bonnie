@@ -9,23 +9,36 @@ namespace :bonnie do
     $ rake bonnie:patients:update_source_data_criteria}
     task :update_source_data_criteria=> :environment do
       puts "Updating patient source_data_criteria to match measure"
+      p_cms_ids_updated, cms_ids_updated = 0, 0
+      p_hqmf_set_ids_updated, hqmf_set_ids_updated = 0, 0
+      p_types_updated, types_updated = 0, 0
+      p_titles_updated, titles_updated = 0, 0
+      p_descriptions_updated, descriptions_updated = 0, 0
       successes = 0
-      cms_ids_updated = 0
-      hqmf_set_ids_updated = 0
-      types_updated = 0
-      titles_updated = 0
-      descriptions_updated = 0
       errors = 0
       warnings = 0
 
       Record.all.each do |patient|
-        email = User.find_by(_id: patient[:user_id]).email
+        p_cms_ids_updated = 0
+        p_hqmf_set_ids_updated = 0
+        p_types_updated = 0
+        p_titles_updated = 0
+        p_descriptions_updated = 0
+
         first = patient.first
         last = patient.last
+
+        begin
+          email = User.find_by(_id: patient[:user_id]).email
+        rescue Mongoid::Errors::DocumentNotFound => e
+          print_error("#{first} #{last} #{patient[:user_id]} Unable to find user")
+          p_errors += 1
+        end
+
         has_changed = false
         hqmf_set_id = patient.measure_ids[0]
         begin
-          measure = CqlMeasure.find_by(hqmf_set_id:  patient.measure_ids[0])
+          measure = CqlMeasure.find_by(hqmf_set_id:  patient.measure_ids[0], user_id: patient[:user_id])
         rescue Mongoid::Errors::DocumentNotFound => e
           print_warning("#{first} #{last} #{email} Unable to find measure")
           warnings += 1
@@ -36,7 +49,7 @@ namespace :bonnie do
             # If measure hasn't been deleted, update all fields
             if patient_data_criteria['cms_id'] && patient_data_criteria['cms_id'] != measure['cms_id']
               patient_data_criteria['cms_id'] = measure['cms_id']
-              cms_ids_updated += 1
+              p_cms_ids_updated += 1
               has_changed = true
             end
 
@@ -44,17 +57,17 @@ namespace :bonnie do
             if  measure_data_criteria
               if patient_data_criteria['title'] && patient_data_criteria['title'] != measure_data_criteria['title']
                 patient_data_criteria['title'] = measure_data_criteria['title']
-                titles_updated += 1
+                p_titles_updated += 1
                 has_changed = true
               end
               if patient_data_criteria['description'] && patient_data_criteria['description'] != measure_data_criteria['description']
                 patient_data_criteria['description'] = measure_data_criteria['description']
-                descriptions_updated += 1
+                p_descriptions_updated += 1
                 has_changed = true
               end
               if patient_data_criteria['type'] && patient_data_criteria['type'] != measure_data_criteria['type']
                 patient_data_criteria['type'] = measure_data_criteria['type']
-                types_updated += 1
+                p_types_updated += 1
                 has_changed = true
               end
             end
@@ -62,7 +75,7 @@ namespace :bonnie do
 
           if patient_data_criteria['hqmf_set_id'] && patient_data_criteria['hqmf_set_id'] != hqmf_set_id
             patient_data_criteria['hqmf_set_id'] = hqmf_set_id
-            hqmf_set_ids_updated += 1
+            p_hqmf_set_ids_updated += 1
             has_changed = true
           end
         end
@@ -70,6 +83,11 @@ namespace :bonnie do
         begin
           patient.save!
           if has_changed
+            cms_ids_updated += p_cms_ids_updated
+            hqmf_set_ids_updated += p_hqmf_set_ids_updated
+            types_updated += p_types_updated
+            titles_updated += p_titles_updated
+            descriptions_updated += p_descriptions_updated
             successes += 1
             print_success("Fixing mismatch on User: #{email}, first: #{first}, last: #{last}")
           end

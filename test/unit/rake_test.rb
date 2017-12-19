@@ -180,10 +180,10 @@ class RakeTest < ActiveSupport::TestCase
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
     dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
-    dest_measure = CqlMeasure.find_by(hqmf_set_id:@dest_hqmf_set_id)
 
     # Make fake sdc items in measure as if measure has relevant sdc
     source_patients.each do |record|
+      dest_measure = CqlMeasure.find_by(hqmf_set_id:@dest_hqmf_set_id, user_id: record[:user_id])
       record.source_data_criteria.each do |sdc|
         fake_sdc = {cms_id: 'Testv1', title: 'FakeTitle', description: 'FakeDescription', type: 'FakeType'}
         dest_measure.source_data_criteria[sdc['id']] = fake_sdc
