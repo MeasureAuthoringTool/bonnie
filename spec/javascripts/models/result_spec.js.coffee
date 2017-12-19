@@ -70,18 +70,8 @@ describe 'Result', ->
     processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
     expect(processed_results).toEqual expected_results
 
-    initial_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, DENOM: 0}
-    expected_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, DENOM: 0}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual expected_results
-
     initial_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0}
     expected_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0}
-    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
-    expect(processed_results).toEqual expected_results
-
-    initial_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, DENOM: 0}
-    expected_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, DENOM: 0}
     processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
     expect(processed_results).toEqual expected_results
 
