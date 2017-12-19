@@ -44,13 +44,6 @@
       bonnie.currentUserId = '<%= current_user.id %>';
       <% @patients.each do |patient| %>
         (function() {
-          <%  # fix up code keys to use original periods <<UNWRAP 2>> %>
-          <%  # this is matched with a WRAP in rebuild_patient %>
-          <%  patient['source_data_criteria'].each do |data_criteria| %>
-          <%    if data_criteria['codes'] %>
-          <%      Measures::MongoHashKeyWrapper::unwrapKeys data_criteria['codes'] %>
-          <%    end %>
-          <%  end %>
           var patient = new Thorax.Models.Patient(<%= json_escape(MultiJson.encode(patient.as_json(except: :results))).html_safe %>, { parse: true });
           bonnie.measures.each(function(measure) {
             if (bonnie.isPortfolio) {
