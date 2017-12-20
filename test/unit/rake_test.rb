@@ -172,6 +172,58 @@ class RakeTest < ActiveSupport::TestCase
     assert_equal(7, dest_patients.count)
   end
 
+  test "copy_measure_patients updates source data criteria" do
+    ENV['SOURCE_EMAIL'] = @source_email
+    ENV['DEST_EMAIL'] = @dest_email
+    ENV['SOURCE_HQMF_SET_ID'] = @source_hqmf_set_id
+    ENV['DEST_HQMF_SET_ID'] = @dest_hqmf_set_id
+
+    source_patients = Record.where(measure_ids:@source_hqmf_set_id)
+    dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
+    dest_measures = CqlMeasure.where(hqmf_set_id:@dest_hqmf_set_id)
+    assert_equal dest_measures.length, 1
+    dest_measure = dest_measures.first
+
+    # Make fake sdc items in measure as if measure has relevant sdc
+    source_patients.each do |record|
+      record.source_data_criteria.each do |sdc|
+        fake_sdc = {cms_id: 'Testv1', title: 'FakeTitle', description: 'FakeDescription', type: 'FakeType'}
+        dest_measure.source_data_criteria[sdc['id']] = fake_sdc
+      end
+      dest_measure.save
+    end
+
+    assert_output(
+                  "Copying patients from '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2' in 'bonnie@example.com' to 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C' in 'user_admin@example.com'\n" +
+                  "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully copied patients from '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2' in 'bonnie@example.com' to 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C' in 'user_admin@example.com'\n"
+                 ) { Rake::Task['bonnie:patients:copy_measure_patients'].execute }
+
+    dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
+    dest_patients.each do |record|
+      record.source_data_criteria.each do |sdc|
+        if sdc['hqmf_set_id']
+          assert_equal(sdc['hqmf_set_id'], @dest_hqmf_set_id)
+        end
+
+        measure_sdc = dest_measure.source_data_criteria[sdc['id']]
+        if measure_sdc
+          if sdc['cms_id']
+            assert_equal(sdc['cms_id'], measure_sdc['cms_id'])
+          end
+          if sdc['title']
+            assert_equal(sdc['title'], measure_sdc['title'])
+          end
+          if sdc['description']
+            assert_equal(sdc['description'], measure_sdc['description'])
+          end
+          if sdc['type']
+            assert_equal(sdc['type'], measure_sdc['type'])
+          end
+        end
+      end
+    end
+  end
+
   test "move_patients_csv moves patients" do
     ENV['CSV_PATH'] = File.join(Rails.root, 'test', 'fixtures', 'csv', 'good_transfers.csv')
 

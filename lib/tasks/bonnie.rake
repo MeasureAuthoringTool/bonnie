@@ -692,42 +692,6 @@ namespace :bonnie do
       puts "Materialized #{count} of #{records.count} patients"
     end
 
-    desc "Updated source_data_criteria to include title and description from measure(s)"
-    task :update_source_data_criteria=> :environment do
-      puts "Updating patient source_data_criteria to include title and description"
-      Record.each do |patient|
-        measures = Measure.in(hqmf_set_id:  patient.measure_ids).to_a
-        puts "\tUpdating source data criteria for record #{patient.first} #{patient.last}"
-        patient.source_data_criteria.each do |patient_data_criteria|
-          measures.each do |measure|
-            measure_data_criteria = measure.source_data_criteria[patient_data_criteria['id']]
-            if  measure_data_criteria && measure_data_criteria['code_list_id'] == patient_data_criteria['oid']
-              patient_data_criteria['hqmf_set_id'] = measure['hqmf_set_id']
-              patient_data_criteria['cms_id'] = measure['cms_id']
-              patient_data_criteria['code_list_id'] = patient_data_criteria['oid']
-              patient_data_criteria['title'] = measure_data_criteria['title']
-              patient_data_criteria['description'] = measure_data_criteria['description']
-              patient_data_criteria['negation'] = patient_data_criteria['negation'] == "true"
-              patient_data_criteria['type'] = measure_data_criteria['type']
-              patient_data_criteria['end_date']=nil if patient_data_criteria['end_date'] == 32503698000000
-
-              # FIXME Not sure why field_values has no keys now, did the Cypress patient set change?
-              unless patient_data_criteria['field_values'].blank?
-                patient_data_criteria['field_values'].keys.each do |key|
-                  field_value = patient_data_criteria['field_values'][key]
-                  if (field_value['type'] == 'TS')
-                    field_value['value'] = Time.strptime(field_value['value'],"%m/%d/%Y %H:%M").to_i*1000 rescue field_value['value']
-                  end
-                end
-              end if patient_data_criteria['field_values']
-            end
-          end
-        end
-        patient.save
-      end
-
-    end
-
     desc 'Update measure ids from NQF to HQMF.'
     task :update_measure_ids => :environment do
       puts "Updating patient measure_ids from NQF to HQMF"
@@ -836,6 +800,27 @@ namespace :bonnie do
             expected_value['measure_id'] = dest_measure.hqmf_set_id
           end
         end
+        r.source_data_criteria.each do |sdc|
+          if sdc['hqmf_set_id'] && sdc['hqmf_set_id'] != dest_measure.hqmf_set_id
+            sdc['hqmf_set_id'] = dest_measure.hqmf_set_id
+          end
+
+          measure_sdc = dest_measure.source_data_criteria[sdc['id']]
+          if measure_sdc
+            if sdc['cms_id'] && sdc['cms_id'] != measure_sdc['cms_id']
+              sdc['cms_id'] = measure_sdc['cms_id']
+            end
+            if sdc['title'] && sdc['title'] != measure_sdc['title']
+              sdc['title'] = measure_sdc['title']
+            end
+            if sdc['description'] && sdc['description'] != measure_sdc['description']
+              sdc['description'] = measure_sdc['description']
+            end
+            if sdc['type'] && sdc['type'] != measure_sdc['type']
+              sdc['type'] = measure_sdc['type']
+            end
+          end
+        end
         r.save
       end
     end
@@ -888,6 +873,12 @@ namespace :bonnie do
     def print_success(success_string)
       print "\e[#{32}m#{"[Success]"}\e[0m\t"
       puts success_string
+    end
+
+    # Prints a message with a warning "[Warning]" string ahead of it.
+    def print_warning(warning_string)
+      print "\e[#{33}m#{"[Warning]"}\e[0m\t"
+      puts warning_string
     end
 
   end
