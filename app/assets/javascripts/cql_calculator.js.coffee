@@ -182,9 +182,9 @@
         population_results['NUMER'] = 0
       if 'NUMEX' of population_results
         population_results['NUMEX'] = 0
-    else if (population_results["MSRPOPLEX"]? && !@isValueZero('MSRPOPLEX', population_results))
-      if 'values' of population_results
-        population_results['values'] = []
+    #else if (population_results["MSRPOPLEX"]? && !@isValueZero('MSRPOPLEX', population_results))
+    #  if 'values' of population_results
+    #    population_results['values'] = []
     else if @isValueZero('NUMER', population_results)
       if 'NUMEX' of population_results
         population_results['NUMEX'] = 0
