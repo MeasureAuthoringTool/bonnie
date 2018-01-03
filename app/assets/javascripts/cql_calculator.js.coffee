@@ -182,6 +182,7 @@
         population_results['NUMER'] = 0
       if 'NUMEX' of population_results
         population_results['NUMEX'] = 0
+    # TODO: Temporarily disable the removal of OBSERVs when a member of MSRPOPLEX as to not change actual result values uncomment for 2.1 release
     #else if (population_results["MSRPOPLEX"]? && !@isValueZero('MSRPOPLEX', population_results))
     #  if 'values' of population_results
     #    population_results['values'] = []
