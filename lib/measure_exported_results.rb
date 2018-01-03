@@ -13,7 +13,12 @@ class MeasureExportedResults
 
   def value_for_population_type(population_type)
     if population_type == 'OBSERV'
-      if @patient.key?('values') && @patient[:rationale].key?('OBSERV')
+      # TODO the check for the 'OBSERV' key was removed in order for patients that were in a broken state
+      # to match between the excel export and Bonnie to address BONNIE-1230.
+      # If those patients can be fixed in the future, that check should be re-integrated.
+
+      # if @patient.key?('values') && @patient[:rationale].key?('OBSERV') && @patient[:values] != ''
+      if @patient.key?('values') && @patient[:values] != ''
         # Convert the array of strings to an array of integers. 
         return @patient[:values].map { |x| x.to_i }.to_s
       else
