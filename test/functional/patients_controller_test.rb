@@ -438,6 +438,9 @@ include Devise::Test::ControllerHelpers
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     associate_measures_with_patients([@measure_two], Record.all)
+    # TODO: Fix this test
+    # This test exports 0 patients because the line above associates @measure_two and the line
+    # below uses @measure.  Making the same results in an error because results is nil.
     get :excel_export, hqmf_set_id: @measure.hqmf_set_id
     assert_response :success
     # TODO Get measures to pass the opposite of these tests. (Assert_equal)

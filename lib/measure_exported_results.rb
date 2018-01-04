@@ -16,6 +16,7 @@ class MeasureExportedResults
       # TODO the check for the 'OBSERV' key was removed in order for patients that were in a broken state
       # to match between the excel export and Bonnie to address BONNIE-1230.
       # If those patients can be fixed in the future, that check should be re-integrated.
+      # TODO: This change needs a unit test (JIRA test used).
 
       # if @patient.key?('values') && @patient[:rationale].key?('OBSERV') && @patient[:values] != ''
       if @patient.key?('values') && @patient[:values] != ''
