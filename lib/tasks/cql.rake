@@ -20,6 +20,10 @@ namespace :bonnie do
           cql_artifacts = nil
           # Grab the name of the main cql library
           main_cql_library = measure[:main_cql_library]
+          # Grab the existing data_criteria and source_data_criteria hashes. Must be a deep copy, due to how Mongo copies Hash and Array field types.
+          data_criteria_object = {}
+          data_criteria_object['data_criteria'] = measure[:data_criteria].deep_dup
+          data_criteria_object['source_data_criteria'] = measure[:source_data_criteria].deep_dup
 
           # If measure has been uploaded more recently (we should have a copy of the MAT Package) we will use the actual MAT artifacts
           if !measure.package.nil?
@@ -31,6 +35,7 @@ namespace :bonnie do
                 zip_file.write(measure.package.file.data)
                 files = Measures::CqlLoader.get_files_from_zip(zip_file, dir)
                 cql_artifacts = Measures::CqlLoader.process_cql(files, main_cql_library, user)
+                data_criteria_object['source_data_criteria'], data_criteria_object['data_criteria'] = Measures::CqlLoader.set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
                 cql = files[:CQL]
               end
             end
@@ -38,14 +43,15 @@ namespace :bonnie do
           else
             # Grab the measure cql
             cql = measure[:cql]
-             # Use the CQL-TO-ELM Translation Service to regenerate elm for older measures.
+            # Use the CQL-TO-ELM Translation Service to regenerate elm for older measures.
             elm_json, elm_xml = CqlElm::CqlToElmHelper.translate_cql_to_elm(cql)
             elms = {:ELM_JSON => elm_json,
                     :ELM_XML => elm_xml}
             cql_artifacts = Measures::CqlLoader.process_cql(elms, main_cql_library, user)
+            data_criteria_object['source_data_criteria'], data_criteria_object['data_criteria'] = Measures::CqlLoader.set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
           end
           # Update the measure
-          measure.update(cql: cql, elm: cql_artifacts[:elms], elm_annotations: cql_artifacts[:elm_annotations], cql_statement_dependencies: cql_artifacts[:cql_definition_dependency_structure],
+          measure.update(data_criteria: data_criteria_object['data_criteria'], source_data_criteria: data_criteria_object['source_data_criteria'], cql: cql, elm: cql_artifacts[:elms], elm_annotations: cql_artifacts[:elm_annotations], cql_statement_dependencies: cql_artifacts[:cql_definition_dependency_structure],
                          main_cql_library: main_cql_library, value_set_oids: cql_artifacts[:all_value_set_oids], value_set_oid_version_objects: cql_artifacts[:value_set_oid_version_objects])
           measure.save!
           update_passes += 1
