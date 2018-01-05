@@ -74,9 +74,10 @@ class BonniePatientsTest < ActiveSupport::TestCase
       # confirm {oid:"C", version:"1"} is added
       {oid:"C", version:""}, # confirm this isn't replicated
       {oid:"D", version:""}, # confirm this isn't replicated
-      {oid:"E", version:"1"} # confirm this isn't replicated
+      {oid:"E", version:"1"}, # confirm this isn't replicated
       # confirm {oid:"F", version:""} is added
       # confirm {oid:"G", version:"1"} is added
+      {oid:"H", version:""} # confirm pre-existing, non-overlapping values don't disappear
     ]
 
     value_sets_hash_dest.each do |vs_obj|
@@ -93,7 +94,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     value_sets_src = HealthDataStandards::SVS::ValueSet.where(user_id: @source_user)
     value_sets_dest = HealthDataStandards::SVS::ValueSet.where(user_id: @dest_user)
 
-    assert_equal(17, HealthDataStandards::SVS::ValueSet.count)
+    assert_equal(18, HealthDataStandards::SVS::ValueSet.count)
 
     assert_equal(11, value_sets_src.count)
     value_sets_src.each do |vs|
@@ -101,7 +102,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
       assert_equal(@source_user.bundle, vs.bundle)
     end
 
-    assert_equal(6, value_sets_dest.count)
+    assert_equal(7, value_sets_dest.count)
     value_sets_dest.each do |vs|
       assert_equal(@dest_user, vs.user)
       assert_equal(@dest_user.bundle, vs.bundle)
@@ -122,7 +123,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     end
 
     # confirm nothing unchanged
-    assert_equal(11, value_sets_dest.count)
+    assert_equal(12, value_sets_dest.count)
     value_sets_dest.each do |vs|
       assert_equal(@dest_user, vs.user)
       assert_equal(@dest_user.bundle, vs.bundle)

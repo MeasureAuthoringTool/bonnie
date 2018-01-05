@@ -371,7 +371,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     Rake::Task['bonnie:patients:date_shift'].execute
     p = Record.where(user_id:@source_user.id).first
 
-    # Aseert the before date + a year, equals the new birthdate of the patient and the new start and end dates of the data criteria.
+    # Assert the before date + a year, equals the new birthdate of the patient and the new start and end dates of the data criteria.
     after_birth_date = (Time.at( before_birth_date ).utc.advance( :years => 1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i
     after_dc_start_date = ( Time.at( before_dc_start_date / 1000 ).utc.advance( :years => 1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i * 1000
     after_dc_end_date = ( Time.at( before_dc_end_date / 1000 ).utc.advance( :years => 1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i * 1000
@@ -391,7 +391,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     Rake::Task['bonnie:patients:date_shift'].execute
     p = Record.where(user_id:@source_user.id).first
 
-    # Aseert the before date - a year, equals the new birthdate of the patient and the new start and end dates of the data criteria.
+    # Assert the before date - a year, equals the new birthdate of the patient and the new start and end dates of the data criteria.
     after_birth_date = (Time.at( before_birth_date ).utc.advance( :years => -1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i
     after_dc_start_date = ( Time.at( before_dc_start_date / 1000 ).utc.advance( :years => -1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i * 1000
     after_dc_end_date = ( Time.at( before_dc_end_date / 1000 ).utc.advance( :years => -1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i * 1000
