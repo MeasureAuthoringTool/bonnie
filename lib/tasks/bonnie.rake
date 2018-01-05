@@ -613,6 +613,12 @@ namespace :bonnie do
     print "\e[#{32}m#{"[Success]"}\e[0m\t"
     puts success_string
   end
+  
+  # Prints a message with a warning "[Warning]" string ahead of it.
+  def print_warning(warning_string)
+    print "\e[#{33}m#{"[Warning]"}\e[0m\t"
+    puts warning_string
+  end
 
   # Copies value sets to a new user. Only copies the value set if that value set
   # with that version does not already exist for the user.
@@ -653,6 +659,11 @@ namespace :bonnie do
       r.expected_values.each do |expected_value|
         if expected_value['measure_id'] == src_measure.hqmf_set_id
           expected_value['measure_id'] = dest_measure.hqmf_set_id
+        end
+      end
+      r.source_data_criteria.each do |sdc|
+        if sdc['hqmf_set_id'] && sdc['hqmf_set_id'] != dest_measure.hqmf_set_id
+          sdc['hqmf_set_id'] = dest_measure.hqmf_set_id
         end
       end
       r.save
