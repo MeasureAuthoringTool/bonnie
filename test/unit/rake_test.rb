@@ -204,6 +204,10 @@ class RakeTest < ActiveSupport::TestCase
         if sdc['hqmf_set_id']
           assert_equal(sdc['hqmf_set_id'], @dest_hqmf_set_id)
         end
+
+        if sdc['cms_id']
+          assert_equal(sdc['cms_id'], dest_measure.cms_id)
+        end
       end
     end
   end

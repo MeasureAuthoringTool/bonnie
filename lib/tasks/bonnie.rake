@@ -804,6 +804,10 @@ namespace :bonnie do
           if sdc['hqmf_set_id'] && sdc['hqmf_set_id'] != dest_measure.hqmf_set_id
             sdc['hqmf_set_id'] = dest_measure.hqmf_set_id
           end
+
+          if sdc['cms_id'] && sdc['cms_id'] != dest_measure.cms_id
+            sdc['cms_id'] = dest_measure.cms_id
+          end
         end
         r.save
       end
