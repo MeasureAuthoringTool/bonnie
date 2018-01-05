@@ -204,22 +204,6 @@ class RakeTest < ActiveSupport::TestCase
         if sdc['hqmf_set_id']
           assert_equal(sdc['hqmf_set_id'], @dest_hqmf_set_id)
         end
-
-        measure_sdc = dest_measure.source_data_criteria[sdc['id']]
-        if measure_sdc
-          if sdc['cms_id']
-            assert_equal(sdc['cms_id'], measure_sdc['cms_id'])
-          end
-          if sdc['title']
-            assert_equal(sdc['title'], measure_sdc['title'])
-          end
-          if sdc['description']
-            assert_equal(sdc['description'], measure_sdc['description'])
-          end
-          if sdc['type']
-            assert_equal(sdc['type'], measure_sdc['type'])
-          end
-        end
       end
     end
   end

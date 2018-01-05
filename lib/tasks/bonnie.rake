@@ -804,22 +804,6 @@ namespace :bonnie do
           if sdc['hqmf_set_id'] && sdc['hqmf_set_id'] != dest_measure.hqmf_set_id
             sdc['hqmf_set_id'] = dest_measure.hqmf_set_id
           end
-
-          measure_sdc = dest_measure.source_data_criteria[sdc['id']]
-          if measure_sdc
-            if sdc['cms_id'] && sdc['cms_id'] != measure_sdc['cms_id']
-              sdc['cms_id'] = measure_sdc['cms_id']
-            end
-            if sdc['title'] && sdc['title'] != measure_sdc['title']
-              sdc['title'] = measure_sdc['title']
-            end
-            if sdc['description'] && sdc['description'] != measure_sdc['description']
-              sdc['description'] = measure_sdc['description']
-            end
-            if sdc['type'] && sdc['type'] != measure_sdc['type']
-              sdc['type'] = measure_sdc['type']
-            end
-          end
         end
         r.save
       end
