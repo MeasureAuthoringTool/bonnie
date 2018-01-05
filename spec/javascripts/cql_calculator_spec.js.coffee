@@ -98,6 +98,22 @@ describe 'cqlCalculator', ->
       relevance_map = @cql_calculator._buildPopulationRelevanceMap(population_results)
       expect(relevance_map).toEqual expected_relevance_map
 
+      initial_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 1}
+      expected_results = {IPP: true, MSRPOPL: true, MSRPOPLEX: false}
+      relevance_map = bonnie.cql_calculator._buildPopulationRelevanceMap(initial_results)
+      expect(relevance_map).toEqual expected_results
+
+    it 'marks MSRPOPLEX calculated if MSRPOPL is 1', ->
+      initial_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1}
+      expected_results = {IPP: true, MSRPOPL: true, MSRPOPLEX: true}
+      relevance_map = bonnie.cql_calculator._buildPopulationRelevanceMap(initial_results)
+      expect(relevance_map).toEqual expected_results
+
+      initial_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0}
+      expected_results = {IPP: true, MSRPOPL: true, MSRPOPLEX: true}
+      population_relevance_map = bonnie.cql_calculator._buildPopulationRelevanceMap(initial_results)
+      expect(relevance_map).toEqual expected_results
+
   describe '_populationRelevanceForAllEpisodes', ->
     it 'correctly builds population_relevance for multiple episodes in all populations', ->
       episode_results = {
