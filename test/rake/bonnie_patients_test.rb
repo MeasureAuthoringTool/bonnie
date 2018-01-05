@@ -383,7 +383,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     ENV['MEASURE_TYPE'] = 'CQL'
     Rake::Task['bonnie:patients:import_patients'].execute
     # Confirm that there are 7 patients now associated with this measure.
-    assert_equal 7, Record.where(measure_ids: hqmf_set_id).count
+    assert_equal 7, Record.where(measure_ids: hqmf_set_id, user_id: @source_user._id).count
   end
 
   test "materialize all of patients" do
