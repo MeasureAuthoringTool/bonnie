@@ -53,6 +53,28 @@ describe 'Result', ->
     processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
     expect(processed_results).toEqual expected_results
 
+  it 'MSRPOPLEX should be 0 if MSRPOPL not satisfied', ->
+    initial_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 1}
+    expected_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 0}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
+
+    initial_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 0}
+    expected_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 0}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
+
+  it 'MSRPOPLEX should be unchanged if MSRPOPL satisfied', ->
+    initial_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1}
+    expected_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
+
+    initial_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0}
+    expected_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
+
   it 'NUMER and NUMEX membership removed there are same counts in DENEX as DENOM', ->
     initial_results = {IPP: 2, DENOM: 2, DENEX: 2, NUMER: 2, NUMEX: 1}
     expected_results = {IPP: 2, DENOM: 2, DENEX: 2, NUMER: 0, NUMEX: 0}

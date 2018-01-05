@@ -183,6 +183,8 @@
         population_results['NUMER'] = 0
       if 'NUMEX' of population_results
         population_results['NUMEX'] = 0
+      if 'MSRPOPLEX' of population_results
+        population_results['MSRPOPLEX'] = 0
       if 'values' of population_results
         population_results['values'] = []
     # Can not be in the numerator if the same or more are excluded from the denominator
