@@ -15,10 +15,10 @@ class MeasureExportedResults
     if population_type == 'OBSERV'
       # TODO the check for the 'OBSERV' key was removed in order for patients that were in a broken state
       # to match between the excel export and Bonnie to address BONNIE-1230.
-      # If those patients can be fixed in the future, that check should be re-integrated.
+      # If those patients can be fixed in the future, that check should be re-integrated by using the line below instead:
+      # if @patient.key?('values') && @patient[:rationale].key?('OBSERV') && @patient[:values] != ''
       # TODO: This change needs a unit test (JIRA test used).
 
-      # if @patient.key?('values') && @patient[:rationale].key?('OBSERV') && @patient[:values] != ''
       if @patient.key?('values') && @patient[:values] != ''
         # Convert the array of strings to an array of integers. 
         return @patient[:values].map { |x| x.to_i }.to_s
