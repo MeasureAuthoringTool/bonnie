@@ -4,6 +4,57 @@
 namespace :bonnie do
   namespace :patients do
 
+    desc %{Update source_data_criteria to match fields from measure
+
+    $ rake bonnie:patients:update_source_data_criteria}
+    task :update_source_data_criteria=> :environment do
+      puts "Updating patient source_data_criteria to match measure"
+      p_hqmf_set_ids_updated, hqmf_set_ids_updated = 0, 0
+      successes = 0
+      errors = 0
+
+      Record.all.each do |patient|
+        p_hqmf_set_ids_updated = 0
+
+        first = patient.first
+        last = patient.last
+
+        begin
+          email = User.find_by(_id: patient[:user_id]).email
+        rescue Mongoid::Errors::DocumentNotFound => e
+          print_error("#{first} #{last} #{patient[:user_id]} Unable to find user")
+          p_errors += 1
+        end
+
+        has_changed = false
+        hqmf_set_id = patient.measure_ids[0]
+
+        patient.source_data_criteria.each do |patient_data_criteria|
+          if patient_data_criteria['hqmf_set_id'] && patient_data_criteria['hqmf_set_id'] != hqmf_set_id
+            patient_data_criteria['hqmf_set_id'] = hqmf_set_id
+            p_hqmf_set_ids_updated += 1
+            has_changed = true
+          end
+        end
+
+        begin
+          patient.save!
+          if has_changed
+            hqmf_set_ids_updated += p_hqmf_set_ids_updated
+            successes += 1
+            print_success("Fixing mismatch on User: #{email}, first: #{first}, last: #{last}")
+          end
+        rescue Mongo::Error::OperationFailure => e
+          errors += 1
+          print_error("#{e}: #{email}, first: #{first}, last: #{last}")
+        end
+      end
+      puts "Results".center(80, '-')
+      puts "Patients successfully updated: #{successes}"
+      puts "Errors: #{errors}"
+      puts "Hqmf_set_ids Updated: #{hqmf_set_ids_updated}"
+    end
+
     # HQMF OIDs were not being stored on patient record entries for data types that only appear in the HQMF R2
     # support; git commit c988d25be480171a8dac5bef02386e5f49f57acb addressed thsi issue for new entries; this
     # rake task goes back and fixes up existing entries; it was run on May 24, 2016
