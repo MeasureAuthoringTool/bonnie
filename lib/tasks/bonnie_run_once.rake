@@ -10,7 +10,9 @@ namespace :bonnie do
     task :update_source_data_criteria=> :environment do
       puts "Updating patient source_data_criteria to match measure"
       p_hqmf_set_ids_updated, hqmf_set_ids_updated = 0, 0
+      p_code_list_ids_updated, code_list_ids_updated = 0, 0
       successes = 0
+      warnings = 0
       errors = 0
 
       Record.all.each do |patient|
@@ -29,11 +31,58 @@ namespace :bonnie do
         has_changed = false
         hqmf_set_id = patient.measure_ids[0]
 
+        begin
+          measure = CqlMeasure.find_by(hqmf_set_id: patient.measure_ids[0], user_id: patient[:user_id])
+        rescue Mongoid::Errors::DocumentNotFound => e
+          print_warning("#{first} #{last} #{email} Unable to find measure")
+          warnings += 1
+        end
+
         patient.source_data_criteria.each do |patient_data_criteria|
           if patient_data_criteria['hqmf_set_id'] && patient_data_criteria['hqmf_set_id'] != hqmf_set_id
             patient_data_criteria['hqmf_set_id'] = hqmf_set_id
             p_hqmf_set_ids_updated += 1
             has_changed = true
+          end
+
+          if patient_data_criteria['code_list_id']
+            if patient_data_criteria['code_list_id'].include?('-')
+              # Extract the correct guid from the measure
+              potential_matches = 0
+              if !measure.nil?
+                patient_criteria_updated = false
+                can_use_definition = false
+                measure.source_data_criteria.each do |id, measure_criteria|
+                  if id == patient_data_criteria['id']
+                    patient_data_criteria['code_list_id'] = measure_criteria['code_list_id']
+                    has_changed = true
+                    p_code_list_ids_updated += 1
+                    patient_criteria_updated = true
+                  elsif measure_criteria['title'] == patient_data_criteria['title']
+                    patient_data_criteria['code_list_id'] = measure_criteria['code_list_id']
+                    print_warning("#{first} #{last} #{email} Using title to match code_list_id for #{patient_data_criteria['title']}")
+                    warnings += 1
+                    has_changed = true
+                    p_code_list_ids_updated += 1
+                    patient_criteria_updated = true
+                  elsif measure_criteria['definition'] == patient_data_criteria['definition']
+                    # Only use this if it is the only measure_criteria with this definition.
+                    # TODO: Only implement if we have to; currently no patients are hitting this case.
+                    can_use_definition = true
+                  end
+                end
+
+                if !patient_criteria_updated
+                  if can_use_definition
+                    print_warning("#{first} #{last} #{email} Able to use DEFINITION to match code_list_id for #{patient_data_criteria['title']}")
+                  else
+                    # print an error if we have looked at all measure_criteria but still haven't found a match.
+                    print_error("#{first} #{last} #{email} Unable to find code list id for #{patient_data_criteria['title']}")
+                    errors += 1
+                  end
+                end
+              end
+            end
           end
         end
 
@@ -41,6 +90,7 @@ namespace :bonnie do
           patient.save!
           if has_changed
             hqmf_set_ids_updated += p_hqmf_set_ids_updated
+            code_list_ids_updated += p_code_list_ids_updated
             successes += 1
             print_success("Fixing mismatch on User: #{email}, first: #{first}, last: #{last}")
           end
@@ -52,7 +102,9 @@ namespace :bonnie do
       puts "Results".center(80, '-')
       puts "Patients successfully updated: #{successes}"
       puts "Errors: #{errors}"
+      puts "Warnings: #{warnings}"
       puts "Hqmf_set_ids Updated: #{hqmf_set_ids_updated}"
+      puts "Code_list_ids Updated: #{code_list_ids_updated}"
     end
 
     # HQMF OIDs were not being stored on patient record entries for data types that only appear in the HQMF R2
