@@ -48,7 +48,6 @@ namespace :bonnie do
           if patient_data_criteria['code_list_id']
             if patient_data_criteria['code_list_id'].include?('-')
               # Extract the correct guid from the measure
-              potential_matches = 0
               if !measure.nil?
                 patient_criteria_updated = false
                 can_use_definition = false
