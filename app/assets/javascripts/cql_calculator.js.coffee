@@ -209,8 +209,9 @@
     # Grab the mapping between populations and CQL statements
     cql_map = population.collection.parent.get('populations_cql_map')
     # Grab the correct expected for this population
-    popIndex = population.get('index')
-    expected = patient.get('expected_values').findWhere(measure_id: population.collection.parent.get('hqmf_set_id'), population_index: popIndex)
+    populationIndex = population.get('index')
+    measureId = population.collection.parent.get('hqmf_set_id')
+    expected = patient.get('expected_values').findWhere(measure_id: measureId, population_index: populationIndex)
     # Loop over all population codes ("IPP", "DENOM", etc.)
     for popCode in Thorax.Models.Measure.allPopulationCodes
       if cql_map[popCode]
@@ -271,8 +272,6 @@
     episode_results = {}
     # Grab the mapping between populations and CQL statements
     cql_map = population.collection.parent.get('populations_cql_map')
-    popIndex = population.get('index')
-
     # Loop over all population codes ("IPP", "DENOM", etc.) to deterine ones included in this population.
     popCodesInPopulation = []
     for popCode in Thorax.Models.Measure.allPopulationCodes
@@ -304,7 +303,8 @@
                     newEpisode[pop] = 0 unless pop == 'OBSERV'
                   newEpisode[popCode] = 1
                   episode_results[value.id().value] = newEpisode
-
+          else
+            console.log('WARNING: CQL Results not an array') if console?
       else if popCode == 'OBSERV' && observation_defs?.length > 0
         # Handle observations using the names of the define statements that
         # were added to the ELM to call the observation functions.
@@ -338,6 +338,9 @@
               for pop in popCodesInPopulation
                 newEpisode[pop] = 0 unless pop == 'OBSERV'
               newEpisode.values = [result_value]
+              episode_results[episodeId] = newEpisode
+      else if popCode == 'OBSERV' && observation_defs?.length <= 0
+        console.log('WARNING: No function definition injected for OBSERV') if console?
     # Correct any inconsistencies. ex. In DENEX but also in NUMER using same function used for patients.
     for episodeId, episode_result of episode_results
       episode_results[episodeId] = @handlePopulationValues(episode_result)
