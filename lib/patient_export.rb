@@ -182,7 +182,7 @@ class PatientExport
         expected_values = patient[:expected_values].select{ |expected_values| expected_values[:measure_id] == measure.hqmf_set_id && 
                                                                               expected_values[:population_index] == population_index }.try(:first)
         # populate array with expected values
-        if expected_values && expected_values[population_category]  
+        if expected_values && expected_values[population_category] && expected_values[population_category] != []
           patient_row.push(expected_values[population_category])
         else
           patient_row.push(0)
