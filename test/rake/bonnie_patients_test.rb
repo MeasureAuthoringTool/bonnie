@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'vcr_setup.rb'
 
-class RakeTest < ActiveSupport::TestCase
+class BonniePatientsTest < ActiveSupport::TestCase
   setup do
     dump_database
 
@@ -344,6 +344,96 @@ class RakeTest < ActiveSupport::TestCase
     assert_equal(7, dest_patients.count)
     assert_equal(7, user_patients.count)
 
+  end
+
+  test "successful export of patients" do
+    measures_set = File.join("draft_measures", "base_set")
+    add_collection(measures_set)
+    hqmf_set_id =  '42BF391F-38A3-TEST-9ECE-DCD47E9609D9'
+
+    associate_user_with_measures(@source_user, Measure.where(hqmf_set_id: hqmf_set_id))
+    associate_measures_with_patients(Measure.where(hqmf_set_id: hqmf_set_id), Record.all)
+
+    ENV['EMAIL'] = @source_user.email
+    ENV['HQMF_SET_ID'] = hqmf_set_id
+    ENV['FILENAME'] = 'cms104v2_export_patients_test.json'
+    Rake::Task['bonnie:patients:export_patients'].execute
+
+    assert File.exist? File.expand_path'cms104v2_export_patients_test.json'
+
+    # Open up the file and assert the file contains 7 lines, one for each patient.
+    f = File.open('cms104v2_export_patients_test.json', "r")
+    assert_equal 7, f.readlines.size
+    File.delete('cms104v2_export_patients_test.json') if File.exist?('cms104v2_export_patients_test.json')
+  end
+
+  test "successful import of patients"  do
+    dump_database
+    users_set = File.join("users", "base_set")
+    measures_set = File.join("cql_measures", "CMS347v1")
+    add_collection(measures_set)
+    collection_fixtures(users_set)
+
+    hqmf_set_id =  '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2'
+    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: hqmf_set_id))
+
+    ENV['EMAIL'] = @source_user.email
+    ENV['HQMF_SET_ID'] = hqmf_set_id
+    ENV['FILENAME'] = File.join('test','fixtures','patient_export','cms104v2_export_patients_test.json')
+    ENV['MEASURE_TYPE'] = 'CQL'
+    Rake::Task['bonnie:patients:import_patients'].execute
+    # Confirm that there are 7 patients now associated with this measure.
+    assert_equal 7, Record.where(measure_ids: hqmf_set_id, user_id: @source_user._id).count
+  end
+
+  test "materialize all of patients" do
+    ENV['EMAIL'] = @source_user.email
+    assert_output(/Materialized 7 of 7/) { Rake::Task['bonnie:patients:materialize_all'].execute }
+  end
+
+  test "materialize all of patients for user with no patients" do
+    ENV['EMAIL'] = @dest_user.email
+    assert_output(/Materialized 0 of 0/) { Rake::Task['bonnie:patients:materialize_all'].execute }
+  end
+
+  test "date shift forward for all associated patients' source data criteria by one year" do
+    ENV['EMAIL'] = @source_user.email
+    ENV['YEARS'] = '1'
+    ENV['DIR'] = 'forward'
+    p = Record.where(user_id:@source_user.id).first
+    before_birth_date = p.birthdate
+    before_dc_start_date = p.source_data_criteria[0]['start_date']
+    before_dc_end_date = p.source_data_criteria[0]['end_date']
+    Rake::Task['bonnie:patients:date_shift'].execute
+    p = Record.where(user_id:@source_user.id).first
+
+    # Assert the before date + a year, equals the new birthdate of the patient and the new start and end dates of the data criteria.
+    after_birth_date = (Time.at( before_birth_date ).utc.advance( :years => 1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i
+    after_dc_start_date = ( Time.at( before_dc_start_date / 1000 ).utc.advance( :years => 1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i * 1000
+    after_dc_end_date = ( Time.at( before_dc_end_date / 1000 ).utc.advance( :years => 1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i * 1000
+    assert_equal after_birth_date, p.birthdate
+    assert_equal after_dc_start_date, p.source_data_criteria[0]['start_date']
+    assert_equal after_dc_end_date, p.source_data_criteria[0]['end_date']
+  end
+
+  test "date shift backward for all associated patients' source data criteria by one year" do
+    ENV['EMAIL'] = @source_user.email
+    ENV['YEARS'] = '1'
+    ENV['DIR'] = 'backward'
+    p = Record.where(user_id:@source_user.id).first
+    before_birth_date = p.birthdate
+    before_dc_start_date = p.source_data_criteria[0]['start_date']
+    before_dc_end_date = p.source_data_criteria[0]['end_date']
+    Rake::Task['bonnie:patients:date_shift'].execute
+    p = Record.where(user_id:@source_user.id).first
+
+    # Assert the before date - a year, equals the new birthdate of the patient and the new start and end dates of the data criteria.
+    after_birth_date = (Time.at( before_birth_date ).utc.advance( :years => -1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i
+    after_dc_start_date = ( Time.at( before_dc_start_date / 1000 ).utc.advance( :years => -1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i * 1000
+    after_dc_end_date = ( Time.at( before_dc_end_date / 1000 ).utc.advance( :years => -1, :months => 0, :weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0 ) ).to_i * 1000
+    assert_equal after_birth_date, p.birthdate
+    assert_equal after_dc_start_date, p.source_data_criteria[0]['start_date']
+    assert_equal after_dc_end_date, p.source_data_criteria[0]['end_date']
   end
 
 end
