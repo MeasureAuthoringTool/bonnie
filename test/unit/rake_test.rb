@@ -179,7 +179,6 @@ class RakeTest < ActiveSupport::TestCase
     ENV['DEST_HQMF_SET_ID'] = @dest_hqmf_set_id
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
-    dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
     dest_measures = CqlMeasure.where(hqmf_set_id:@dest_hqmf_set_id)
     assert_equal dest_measures.length, 1
     dest_measure = dest_measures.first
@@ -201,9 +200,7 @@ class RakeTest < ActiveSupport::TestCase
     dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
     dest_patients.each do |record|
       record.source_data_criteria.each do |sdc|
-        if sdc['hqmf_set_id']
-          assert_equal(sdc['hqmf_set_id'], @dest_hqmf_set_id)
-        end
+        assert_equal(sdc['hqmf_set_id'], @dest_hqmf_set_id) if sdc['hqmf_set_id']
       end
     end
   end

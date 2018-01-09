@@ -4,12 +4,12 @@
 namespace :bonnie do
   namespace :patients do
 
-    desc %{Update source_data_criteria to match fields from measure
-
-    $ rake bonnie:patients:update_source_data_criteria}
+    desc %(Update source_data_criteria to match fields from measure
+    $ rake bonnie:patients:update_source_data_criteria)
     task :update_source_data_criteria=> :environment do
       puts "Updating patient source_data_criteria to match measure"
-      p_hqmf_set_ids_updated, hqmf_set_ids_updated = 0, 0
+      p_hqmf_set_ids_updated = 0
+      hqmf_set_ids_updated = 0
       successes = 0
       errors = 0
 
@@ -21,9 +21,8 @@ namespace :bonnie do
 
         begin
           email = User.find_by(_id: patient[:user_id]).email
-        rescue Mongoid::Errors::DocumentNotFound => e
+        rescue Mongoid::Errors::DocumentNotFound
           print_error("#{first} #{last} #{patient[:user_id]} Unable to find user")
-          p_errors += 1
         end
 
         has_changed = false
