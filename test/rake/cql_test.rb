@@ -1,18 +1,17 @@
 require 'test_helper'
 require 'vcr_setup.rb'
 
-class RebuildElmTest < ActiveSupport::TestCase    
+class CqlTest < ActiveSupport::TestCase    
   setup do
+    dump_database
+    @user = User.new(email: "test@test.com", first: "first" , last: 'last',password: 'Test1234!')
+    @user.save!
+    assert_equal 1, User.count
     @cql_mat_export = File.new File.join('test', 'fixtures', 'cql_measure_exports', 'Test134_v5_4_Artifacts.zip')
   end
 
   test "rebuild elm with stored MAT package" do
     VCR.use_cassette("mat_5_4_valid_vsac_response") do
-      dump_database
-      @user = User.new(email: "test@test.com", first: "first" , last: 'last',password: 'Test1234!') 
-      @user.save!
-      assert_equal 1, User.count
-
       measure_details = { 'episode_of_care'=> false }
       Measures::CqlLoader.load(@cql_mat_export, @user, measure_details, ENV['VSAC_USERNAME'], ENV['VSAC_PASSWORD']).save
       assert_equal 1, CqlMeasure.count
@@ -44,11 +43,6 @@ class RebuildElmTest < ActiveSupport::TestCase
   end
 
   test "rebuild elm using translation service" do
-    dump_database
-    @user = User.new(email: "test@test.com", first: "first" , last: 'last',password: 'Test1234!') 
-    @user.save!
-    assert_equal 1, User.count
-
     VCR.use_cassette("mat_5_4_valid_vsac_response") do
        measure_details = { 'episode_of_care'=> false }
        Measures::CqlLoader.load(@cql_mat_export, @user, measure_details, ENV['VSAC_USERNAME'], ENV['VSAC_PASSWORD']).save
@@ -86,6 +80,38 @@ class RebuildElmTest < ActiveSupport::TestCase
     # Confirm that the ELM annotations were updated.
     assert_not_equal nil, measure.elm_annotations
     measure.delete
+  end
+
+  test "cql measure stats" do
+    users_set = File.join("users", "base_set")
+    cql_measures_set_1 = File.join("cql_measures", "CMS347v1")
+    cql_measures_set_2 = File.join("cql_measures", "CMS160v6")
+    cql_measures_set_3 = File.join("cql_measures", "CMS72v5")
+    collection_fixtures(users_set)
+    add_collection(cql_measures_set_1)
+    add_collection(cql_measures_set_2)
+    add_collection(cql_measures_set_3)
+
+    @hqmf_set_id_1 = '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2'
+    @hqmf_set_id_2 = '93F3479F-75D8-4731-9A3F-B7749D8BCD37'
+    @hqmf_set_id_3 = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
+
+    @second_user = User.by_email('bonnie@example.com').first
+    associate_user_with_measures(@user, CqlMeasure.where(hqmf_set_id: @hqmf_set_id_1))
+    associate_user_with_measures(@user, CqlMeasure.where(hqmf_set_id: @hqmf_set_id_2))
+    associate_user_with_measures(@second_user, CqlMeasure.where(hqmf_set_id: @hqmf_set_id_3))
+
+    measure_1 = CqlMeasure.where(hqmf_set_id: @hqmf_set_id_1).first
+    measure_2 = CqlMeasure.where(hqmf_set_id: @hqmf_set_id_2).first
+    measure_3 = CqlMeasure.where(hqmf_set_id: @hqmf_set_id_3).first
+
+    assert_output(
+      "User: #{@user.email}\n" +
+      "  CMS_ID: #{measure_1.cms_id}  TITLE: #{measure_1.title}\n" +
+      "  CMS_ID: #{measure_2.cms_id}  TITLE: #{measure_2.title}\n" +
+      "User: #{@second_user.email}\n" +
+      "  CMS_ID: #{measure_3.cms_id}  TITLE: #{measure_3.title}\n"
+     ) { Rake::Task['bonnie:cql:cql_measure_stats'].execute }
   end
 
 end
