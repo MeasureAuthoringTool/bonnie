@@ -22,4 +22,4 @@ class SimpleCov::Formatter::QualityFormatter
 end
 
 SimpleCov.formatter = SimpleCov::Formatter::QualityFormatter
-SimpleCov.minimum_coverage(55.5)
+SimpleCov.minimum_coverage(87.3)
