@@ -28,10 +28,12 @@ class RebuildElmTest < ActiveSupport::TestCase
       # Run rake task on all cql measures
       Rake::Task['bonnie:cql:rebuild_elm'].execute
       measure = CqlMeasure.where({hqmf_set_id: "E1CB05E0-97D5-40FC-B456-15C5DBF44309"}).first
-      # Confirm that the data criteria's code_list_id has a different GUID than before the rebuild_elm.
-      assert_not_equal dc_code_list_id, measure.data_criteria['prefix_69981_9_Communication_FromProviderToPatient_C5F6108B_658C_4114_A1B5_F65D8FEE155F']['code_list_id']
 
-      # Confirm that the new code_list_id matches an item in the value_set_oids list
+      # Confirm that the data criteria's code_list_id has the same GUID as it did before the rebuild_elm
+      # (since the DRC did not change in the cql between before and after the rebuild elm)
+      assert_equal dc_code_list_id, measure.data_criteria['prefix_69981_9_Communication_FromProviderToPatient_C5F6108B_658C_4114_A1B5_F65D8FEE155F']['code_list_id']
+
+      # Confirm that the code_list_id matches an item in the value_set_oids list
       assert measure.value_set_oids.include? measure.data_criteria['prefix_69981_9_Communication_FromProviderToPatient_C5F6108B_658C_4114_A1B5_F65D8FEE155F']['code_list_id']
 
       measure.delete
