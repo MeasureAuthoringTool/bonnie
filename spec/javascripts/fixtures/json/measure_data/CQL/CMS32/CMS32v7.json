@@ -1,8 +1,8 @@
 {
-  "_id": "5a1ed6175cc9756dfb9a7712",
-  "bundle_id": "59e902355cc97506a2000001",
+  "_id": "5a57f07b942c6d230492c674",
+  "bundle_id": "5a57e977942c6d1e61d32f14",
   "category": "Miscellaneous",
-  "cms_id": "CMS721v0",
+  "cms_id": "CMS32v7",
   "complexity": {
     "variables": [
       {
@@ -38,15 +38,15 @@
         "complexity": 1
       },
       {
-        "name": "Stratum2",
+        "name": "Stratification 1",
         "complexity": 1
       },
       {
-        "name": "Stratum1",
+        "name": "Stratification 2",
         "complexity": 1
       },
       {
-        "name": "Stratum3",
+        "name": "Stratification 3",
         "complexity": 2
       },
       {
@@ -61,10 +61,10 @@
   },
   "continuous_variable": true,
   "cql": [
-    "library Test32 version '0.0.024'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"SNOMEDCT:2016-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2016-09'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Psychiatric/Mental Health Patient\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.299'\r\nvalueset \"Discharge To Acute Care Facility\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.87'\r\n\r\ncode \"Emergency department patient visit (procedure)\": '4525004' from \"SNOMEDCT:2016-09\" display 'Emergency department patient visit (procedure)'\r\ncode \"Patient deceased during stay (discharge status = dead) (finding)\": '371828006' from \"SNOMEDCT:2016-09\" display 'Patient deceased during stay (discharge status = dead) (finding)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Initial Population\":\r\n\t\"ED Visit\"\r\n\r\ndefine \"Measure Population\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Stratum2\":\r\n\t\"ED Visit\" ED\r\n\t\twhere ED.dischargeDisposition in \"Discharge To Acute Care Facility\"\r\n\r\ndefine \"ED Visit\":\r\n\t[\"Encounter, Performed\": \"Emergency department patient visit (procedure)\"] ED\r\n\t\twhere ED.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Stratum1\":\r\n\t\"ED Visit\" ED\r\n\t\twhere ED.principalDiagnosis in \"Psychiatric/Mental Health Patient\"\r\n\r\ndefine \"Stratum3\":\r\n\t\"ED Visit\" ED\r\n\t\twhere not ( ED.principalDiagnosis in \"Psychiatric/Mental Health Patient\" )\r\n\t\t\tand not ( ED.dischargeDisposition in \"Discharge To Acute Care Facility\" )\r\n\r\ndefine \"Measure Population Exclusions\":\r\n\t( \"ED Visit\" ED\r\n\t\t\twhere ED.dischargeDisposition ~ \"Patient deceased during stay (discharge status = dead) (finding)\"\r\n\t)\r\n\t\tunion ( \"ED Visit\" ED\r\n\t\t\t\twith [\"Encounter, Performed\": \"Encounter Inpatient\"] E\r\n\t\t\t\t\tsuch that ED.relevantPeriod ends 1 hour or less before or on start of E.relevantPeriod\r\n\t\t)\r\n\r\ndefine function \"Measure Observation\"(Encounter \"Encounter, Performed\"):\r\n\tduration in minutes of Encounter.relevantPeriod\r\n"
+    "library MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients version '7.2.002'\r\n\r\nusing QDM version '5.3'\r\n\r\ncodesystem \"SNOMEDCT:2013-09\": 'urn:oid:2.16.840.1.113883.6.96' version 'urn:hl7:version:2013-09'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Discharge To Acute Care Facility\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.87'\r\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307'\r\nvalueset \"Psychiatric/Mental Health Patient\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.299'\r\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292'\r\n\r\ncode \"Patient deceased during stay (discharge status = dead) (finding)\": '371828006' from \"SNOMEDCT:2013-09\" display 'Patient deceased during stay (discharge status = dead) (finding)'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Initial Population\":\r\n\t\"ED Visit\"\r\n\r\ndefine \"Measure Population\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Stratification 1\":\r\n\t\"ED Visit\" EDVisit\r\n\t\twhere EDVisit.principalDiagnosis in \"Psychiatric/Mental Health Patient\"\r\n\r\ndefine \"Stratification 2\":\r\n\t\"ED Visit\" EDVisit\r\n\t\twhere EDVisit.dischargeDisposition in \"Discharge To Acute Care Facility\"\r\n\r\ndefine \"Stratification 3\":\r\n\t\"ED Visit\" EDVisit\r\n\t\twhere not ( EDVisit.principalDiagnosis in \"Psychiatric/Mental Health Patient\" )\r\n\t\t\tand not ( EDVisit.dischargeDisposition in \"Discharge To Acute Care Facility\" )\r\n\r\ndefine \"Measure Population Exclusions\":\r\n\t( \"ED Visit\" EDVisit\r\n\t\t\twhere EDVisit.dischargeDisposition ~ \"Patient deceased during stay (discharge status = dead) (finding)\"\r\n\t)\r\n\t\tunion ( \"ED Visit\" EDVisit\r\n\t\t\t\twith [\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter\r\n\t\t\t\t\tsuch that EDVisit.relevantPeriod ends 1 hour or less before or on start of Encounter.relevantPeriod\r\n\t\t)\r\n\r\ndefine \"ED Visit\":\r\n\t[\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\r\n\t\twhere EDVisit.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine function \"Measure Observation\"(Encounter \"Encounter, Performed\"):\r\n\tduration in minutes of Encounter.relevantPeriod\r\n"
   ],
   "cql_statement_dependencies": {
-    "Test32": {
+    "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
       "Patient": [
 
       ],
@@ -85,41 +85,41 @@
       ],
       "Initial Population": [
         {
-          "library_name": "Test32",
+          "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
           "statement_name": "ED Visit"
         }
       ],
       "Measure Population": [
         {
-          "library_name": "Test32",
+          "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
           "statement_name": "Initial Population"
         }
       ],
-      "Stratum2": [
+      "Stratification 1": [
         {
-          "library_name": "Test32",
+          "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
           "statement_name": "ED Visit"
         }
       ],
-      "Stratum1": [
+      "Stratification 2": [
         {
-          "library_name": "Test32",
+          "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
           "statement_name": "ED Visit"
         }
       ],
-      "Stratum3": [
+      "Stratification 3": [
         {
-          "library_name": "Test32",
+          "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
           "statement_name": "ED Visit"
         }
       ],
       "Measure Population Exclusions": [
         {
-          "library_name": "Test32",
+          "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
           "statement_name": "ED Visit"
         },
         {
-          "library_name": "Test32",
+          "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
           "statement_name": "ED Visit"
         }
       ],
@@ -128,9 +128,9 @@
       ]
     }
   },
-  "created_at": "2017-11-29T15:45:27.805Z",
+  "created_at": "2018-01-11T23:17:15.611Z",
   "data_criteria": {
-    "EncounterInpatient_EncounterPerformed_2f538115_c620_4165_b4d6_3bc2288b93c1": {
+    "EncounterInpatient_EncounterPerformed_2f356da9_9e4f_442a_9232_4a10ae95334c": {
       "title": "EncounterInpatient",
       "description": "Encounter, Performed: EncounterInpatient",
       "code_list_id": "2.16.840.1.113883.3.666.5.307",
@@ -139,10 +139,10 @@
       "status": "performed",
       "hard_status": false,
       "negation": false,
-      "source_data_criteria": "EncounterInpatient_EncounterPerformed_2f538115_c620_4165_b4d6_3bc2288b93c1_source",
+      "source_data_criteria": "EncounterInpatient_EncounterPerformed_2f356da9_9e4f_442a_9232_4a10ae95334c_source",
       "variable": false
     },
-    "Payer_PatientCharacteristicPayer_9df88728_a759_43bd_87ee_56d638d4935d": {
+    "Payer_PatientCharacteristicPayer_03d54d24_1c12_4344_af14_d287a16e0c5d": {
       "title": "Payer",
       "description": "Patient Characteristic Payer: Payer",
       "code_list_id": "2.16.840.1.114222.4.11.3591",
@@ -151,7 +151,7 @@
       "definition": "patient_characteristic_payer",
       "hard_status": false,
       "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_9df88728_a759_43bd_87ee_56d638d4935d_source",
+      "source_data_criteria": "Payer_PatientCharacteristicPayer_03d54d24_1c12_4344_af14_d287a16e0c5d_source",
       "variable": false,
       "inline_code_list": {
         "Source of Payment Typology": [
@@ -313,7 +313,7 @@
         ]
       }
     },
-    "Ethnicity_PatientCharacteristicEthnicity_9b8770c6_cfa4_47a1_95c6_e690016eaced": {
+    "Ethnicity_PatientCharacteristicEthnicity_948d7525_d40a_4e02_a4d3_5c2a569da60e": {
       "title": "Ethnicity",
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "code_list_id": "2.16.840.1.114222.4.11.837",
@@ -322,7 +322,7 @@
       "definition": "patient_characteristic_ethnicity",
       "hard_status": false,
       "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_9b8770c6_cfa4_47a1_95c6_e690016eaced_source",
+      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_948d7525_d40a_4e02_a4d3_5c2a569da60e_source",
       "variable": false,
       "inline_code_list": {
         "CDC Race": [
@@ -331,7 +331,7 @@
         ]
       }
     },
-    "ONCAdministrativeSex_PatientCharacteristicSex_a974229f_412f_40ee_bddf_b6b8026c8bc1": {
+    "ONCAdministrativeSex_PatientCharacteristicSex_4dc873e6_aec1_4ca7_9e88_e06b3d8bd6c3": {
       "title": "ONCAdministrativeSex",
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "code_list_id": "2.16.840.1.113762.1.4.1",
@@ -340,7 +340,7 @@
       "definition": "patient_characteristic_gender",
       "hard_status": false,
       "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_a974229f_412f_40ee_bddf_b6b8026c8bc1_source",
+      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_4dc873e6_aec1_4ca7_9e88_e06b3d8bd6c3_source",
       "variable": false,
       "value": {
         "type": "CD",
@@ -348,7 +348,7 @@
         "code": "F"
       }
     },
-    "Race_PatientCharacteristicRace_9bd104f8_ef1e_4d04_bf7f_5cd036fa878d": {
+    "Race_PatientCharacteristicRace_09f1f235_32d7_4f6d_b0a2_a57842c95342": {
       "title": "Race",
       "description": "Patient Characteristic Race: Race",
       "code_list_id": "2.16.840.1.114222.4.11.836",
@@ -357,7 +357,7 @@
       "definition": "patient_characteristic_race",
       "hard_status": false,
       "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_9bd104f8_ef1e_4d04_bf7f_5cd036fa878d_source",
+      "source_data_criteria": "Race_PatientCharacteristicRace_09f1f235_32d7_4f6d_b0a2_a57842c95342_source",
       "variable": false,
       "inline_code_list": {
         "CDC Race": [
@@ -370,22 +370,17 @@
         ]
       }
     },
-    "prefix_4525004_EncounterPerformed_BFFD407D_112C_43D4_9989_188DC8899286": {
-      "title": "Encounter, Performed: Encounter, Performed",
-      "description": "Encounter, Performed: Encounter, Performed",
+    "EmergencyDepartmentVisit_EncounterPerformed_e9dfea5a_0011_42cc_b048_3a8748c1c4b0": {
+      "title": "EmergencyDepartmentVisit",
+      "description": "Encounter, Performed: EmergencyDepartmentVisit",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
       "type": "encounters",
       "definition": "encounter",
       "status": "performed",
       "hard_status": false,
       "negation": false,
-      "source_data_criteria": "prefix_4525004_EncounterPerformed_BFFD407D_112C_43D4_9989_188DC8899286_source",
-      "variable": false,
-      "inline_code_list": {
-        "SNOMED-CT": [
-          "4525004"
-        ]
-      },
-      "code_list_id": "64950740-daef-4c27-a33c-71417f949d40"
+      "source_data_criteria": "EmergencyDepartmentVisit_EncounterPerformed_e9dfea5a_0011_42cc_b048_3a8748c1c4b0_source",
+      "variable": false
     }
   },
   "description": "Median elapsed time from emergency department arrival to emergency room departure for patients discharged from the emergency department",
@@ -393,8 +388,8 @@
     {
       "library": {
         "identifier": {
-          "id": "Test32",
-          "version": "0.0.024"
+          "id": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
+          "version": "7.2.002"
         },
         "schemaIdentifier": {
           "id": "urn:hl7-org:elm",
@@ -408,6 +403,7 @@
             },
             {
               "localId": "1",
+              "locator": "3:1-3:23",
               "localIdentifier": "QDM",
               "uri": "urn:healthit-gov:qdm:v5_3",
               "version": "5.3"
@@ -417,14 +413,17 @@
         "parameters": {
           "def": [
             {
-              "localId": "16",
+              "localId": "15",
+              "locator": "18:1-18:49",
               "name": "Measurement Period",
               "accessLevel": "Public",
               "parameterTypeSpecifier": {
-                "localId": "15",
+                "localId": "14",
+                "locator": "18:32-18:49",
                 "type": "IntervalTypeSpecifier",
                 "pointType": {
-                  "localId": "14",
+                  "localId": "13",
+                  "locator": "18:41-18:48",
                   "name": "{urn:hl7-org:elm-types:r1}DateTime",
                   "type": "NamedTypeSpecifier"
                 }
@@ -436,9 +435,10 @@
           "def": [
             {
               "localId": "2",
-              "name": "SNOMEDCT:2016-09",
+              "locator": "5:1-5:97",
+              "name": "SNOMEDCT:2013-09",
               "id": "SNOMED-CT",
-              "version": "urn:hl7:version:2016-09",
+              "version": "urn:hl7:version:2013-09",
               "accessLevel": "Public"
             }
           ]
@@ -447,44 +447,58 @@
           "def": [
             {
               "localId": "3",
+              "locator": "7:1-7:68",
               "name": "ONC Administrative Sex",
               "id": "2.16.840.1.113762.1.4.1",
               "accessLevel": "Public"
             },
             {
               "localId": "4",
+              "locator": "8:1-8:53",
               "name": "Race",
               "id": "2.16.840.1.114222.4.11.836",
               "accessLevel": "Public"
             },
             {
               "localId": "5",
+              "locator": "9:1-9:58",
               "name": "Ethnicity",
               "id": "2.16.840.1.114222.4.11.837",
               "accessLevel": "Public"
             },
             {
               "localId": "6",
+              "locator": "10:1-10:55",
               "name": "Payer",
               "id": "2.16.840.1.114222.4.11.3591",
               "accessLevel": "Public"
             },
             {
               "localId": "7",
+              "locator": "11:1-11:87",
+              "name": "Discharge To Acute Care Facility",
+              "id": "2.16.840.1.113883.3.117.1.7.1.87",
+              "accessLevel": "Public"
+            },
+            {
+              "localId": "8",
+              "locator": "12:1-12:71",
               "name": "Encounter Inpatient",
               "id": "2.16.840.1.113883.3.666.5.307",
               "accessLevel": "Public"
             },
             {
-              "localId": "8",
+              "localId": "9",
+              "locator": "13:1-13:89",
               "name": "Psychiatric/Mental Health Patient",
               "id": "2.16.840.1.113883.3.117.1.7.1.299",
               "accessLevel": "Public"
             },
             {
-              "localId": "9",
-              "name": "Discharge To Acute Care Facility",
-              "id": "2.16.840.1.113883.3.117.1.7.1.87",
+              "localId": "10",
+              "locator": "14:1-14:82",
+              "name": "Emergency Department Visit",
+              "id": "2.16.840.1.113883.3.117.1.7.1.292",
               "accessLevel": "Public"
             }
           ]
@@ -492,25 +506,16 @@
         "codes": {
           "def": [
             {
-              "localId": "11",
-              "name": "Emergency department patient visit (procedure)",
-              "id": "4525004",
-              "display": "Emergency department patient visit (procedure)",
-              "accessLevel": "Public",
-              "codeSystem": {
-                "localId": "10",
-                "name": "SNOMEDCT:2016-09"
-              }
-            },
-            {
-              "localId": "13",
+              "localId": "12",
+              "locator": "16:1-16:183",
               "name": "Patient deceased during stay (discharge status = dead) (finding)",
               "id": "371828006",
               "display": "Patient deceased during stay (discharge status = dead) (finding)",
               "accessLevel": "Public",
               "codeSystem": {
-                "localId": "12",
-                "name": "SNOMEDCT:2016-09"
+                "localId": "11",
+                "locator": "16:91-16:108",
+                "name": "SNOMEDCT:2013-09"
               }
             }
           ]
@@ -518,11 +523,13 @@
         "statements": {
           "def": [
             {
+              "locator": "20:1-20:15",
               "name": "Patient",
               "context": "Patient",
               "expression": {
                 "type": "SingletonFrom",
                 "operand": {
+                  "locator": "20:1-20:15",
                   "dataType": "{urn:healthit-gov:qdm:v5_3}Patient",
                   "templateId": "Patient",
                   "type": "Retrieve"
@@ -530,7 +537,8 @@
               }
             },
             {
-              "localId": "18",
+              "localId": "17",
+              "locator": "22:1-23:50",
               "name": "SDE Ethnicity",
               "context": "Patient",
               "accessLevel": "Public",
@@ -538,17 +546,17 @@
                 {
                   "type": "Annotation",
                   "s": {
-                    "r": "18",
+                    "r": "17",
                     "s": [
                       {
                         "value": [
                           "define ",
                           "\"SDE Ethnicity\"",
-                          ":\r\n\t"
+                          ":\n\t"
                         ]
                       },
                       {
-                        "r": "17",
+                        "r": "16",
                         "s": [
                           {
                             "value": [
@@ -578,7 +586,8 @@
                 }
               ],
               "expression": {
-                "localId": "17",
+                "localId": "16",
+                "locator": "23:2-23:50",
                 "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicEthnicity",
                 "codeProperty": "code",
                 "type": "Retrieve",
@@ -589,7 +598,8 @@
               }
             },
             {
-              "localId": "20",
+              "localId": "19",
+              "locator": "25:1-26:42",
               "name": "SDE Payer",
               "context": "Patient",
               "accessLevel": "Public",
@@ -597,17 +607,17 @@
                 {
                   "type": "Annotation",
                   "s": {
-                    "r": "20",
+                    "r": "19",
                     "s": [
                       {
                         "value": [
                           "define ",
                           "\"SDE Payer\"",
-                          ":\r\n\t"
+                          ":\n\t"
                         ]
                       },
                       {
-                        "r": "19",
+                        "r": "18",
                         "s": [
                           {
                             "value": [
@@ -637,7 +647,8 @@
                 }
               ],
               "expression": {
-                "localId": "19",
+                "localId": "18",
+                "locator": "26:2-26:42",
                 "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicPayer",
                 "codeProperty": "code",
                 "type": "Retrieve",
@@ -648,7 +659,8 @@
               }
             },
             {
-              "localId": "22",
+              "localId": "21",
+              "locator": "28:1-29:40",
               "name": "SDE Race",
               "context": "Patient",
               "accessLevel": "Public",
@@ -656,17 +668,17 @@
                 {
                   "type": "Annotation",
                   "s": {
-                    "r": "22",
+                    "r": "21",
                     "s": [
                       {
                         "value": [
                           "define ",
                           "\"SDE Race\"",
-                          ":\r\n\t"
+                          ":\n\t"
                         ]
                       },
                       {
-                        "r": "21",
+                        "r": "20",
                         "s": [
                           {
                             "value": [
@@ -696,7 +708,8 @@
                 }
               ],
               "expression": {
-                "localId": "21",
+                "localId": "20",
+                "locator": "29:2-29:40",
                 "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicRace",
                 "codeProperty": "code",
                 "type": "Retrieve",
@@ -707,7 +720,8 @@
               }
             },
             {
-              "localId": "24",
+              "localId": "23",
+              "locator": "31:1-32:57",
               "name": "SDE Sex",
               "context": "Patient",
               "accessLevel": "Public",
@@ -715,17 +729,17 @@
                 {
                   "type": "Annotation",
                   "s": {
-                    "r": "24",
+                    "r": "23",
                     "s": [
                       {
                         "value": [
                           "define ",
                           "\"SDE Sex\"",
-                          ":\r\n\t"
+                          ":\n\t"
                         ]
                       },
                       {
-                        "r": "23",
+                        "r": "22",
                         "s": [
                           {
                             "value": [
@@ -755,7 +769,8 @@
                 }
               ],
               "expression": {
-                "localId": "23",
+                "localId": "22",
+                "locator": "32:2-32:57",
                 "dataType": "{urn:healthit-gov:qdm:v5_3}PatientCharacteristicSex",
                 "codeProperty": "code",
                 "type": "Retrieve",
@@ -766,7 +781,8 @@
               }
             },
             {
-              "localId": "32",
+              "localId": "31",
+              "locator": "62:1-64:58",
               "name": "ED Visit",
               "context": "Patient",
               "accessLevel": "Public",
@@ -774,28 +790,28 @@
                 {
                   "type": "Annotation",
                   "s": {
-                    "r": "32",
+                    "r": "31",
                     "s": [
                       {
                         "value": [
                           "define ",
                           "\"ED Visit\"",
-                          ":\r\n\t"
+                          ":\n\t"
                         ]
                       },
                       {
-                        "r": "31",
+                        "r": "30",
                         "s": [
                           {
                             "s": [
                               {
-                                "r": "26",
+                                "r": "25",
                                 "s": [
                                   {
-                                    "r": "25",
+                                    "r": "24",
                                     "s": [
                                       {
-                                        "r": "25",
+                                        "r": "24",
                                         "s": [
                                           {
                                             "value": [
@@ -808,7 +824,7 @@
                                             "s": [
                                               {
                                                 "value": [
-                                                  "\"Emergency department patient visit (procedure)\""
+                                                  "\"Emergency Department Visit\""
                                                 ]
                                               }
                                             ]
@@ -825,7 +841,7 @@
                                   {
                                     "value": [
                                       " ",
-                                      "ED"
+                                      "EDVisit"
                                     ]
                                   }
                                 ]
@@ -834,11 +850,11 @@
                           },
                           {
                             "value": [
-                              "\r\n\t\t"
+                              "\n\t\t"
                             ]
                           },
                           {
-                            "r": "30",
+                            "r": "29",
                             "s": [
                               {
                                 "value": [
@@ -846,17 +862,17 @@
                                 ]
                               },
                               {
-                                "r": "30",
+                                "r": "29",
                                 "s": [
                                   {
-                                    "r": "28",
+                                    "r": "27",
                                     "s": [
                                       {
-                                        "r": "27",
+                                        "r": "26",
                                         "s": [
                                           {
                                             "value": [
-                                              "ED"
+                                              "EDVisit"
                                             ]
                                           }
                                         ]
@@ -867,7 +883,7 @@
                                         ]
                                       },
                                       {
-                                        "r": "28",
+                                        "r": "27",
                                         "s": [
                                           {
                                             "value": [
@@ -886,7 +902,7 @@
                                     ]
                                   },
                                   {
-                                    "r": "29",
+                                    "r": "28",
                                     "s": [
                                       {
                                         "value": [
@@ -906,24 +922,24 @@
                 }
               ],
               "expression": {
-                "localId": "31",
+                "localId": "30",
+                "locator": "63:2-64:58",
                 "type": "Query",
                 "source": [
                   {
-                    "localId": "26",
-                    "alias": "ED",
+                    "localId": "25",
+                    "locator": "63:2-63:63",
+                    "alias": "EDVisit",
                     "expression": {
-                      "localId": "25",
+                      "localId": "24",
+                      "locator": "63:2-63:55",
                       "dataType": "{urn:healthit-gov:qdm:v5_3}PositiveEncounterPerformed",
                       "templateId": "PositiveEncounterPerformed",
                       "codeProperty": "code",
                       "type": "Retrieve",
                       "codes": {
-                        "type": "ToList",
-                        "operand": {
-                          "name": "Emergency department patient visit (procedure)",
-                          "type": "CodeRef"
-                        }
+                        "name": "Emergency Department Visit",
+                        "type": "ValueSetRef"
                       }
                     }
                   }
@@ -932,17 +948,20 @@
 
                 ],
                 "where": {
-                  "localId": "30",
+                  "localId": "29",
+                  "locator": "64:3-64:58",
                   "type": "IncludedIn",
                   "operand": [
                     {
-                      "localId": "28",
+                      "localId": "27",
+                      "locator": "64:9-64:30",
                       "path": "relevantPeriod",
-                      "scope": "ED",
+                      "scope": "EDVisit",
                       "type": "Property"
                     },
                     {
-                      "localId": "29",
+                      "localId": "28",
+                      "locator": "64:39-64:58",
                       "name": "Measurement Period",
                       "type": "ParameterRef"
                     }
@@ -951,7 +970,8 @@
               }
             },
             {
-              "localId": "34",
+              "localId": "33",
+              "locator": "34:1-35:11",
               "name": "Initial Population",
               "context": "Patient",
               "accessLevel": "Public",
@@ -959,17 +979,17 @@
                 {
                   "type": "Annotation",
                   "s": {
-                    "r": "34",
+                    "r": "33",
                     "s": [
                       {
                         "value": [
                           "define ",
                           "\"Initial Population\"",
-                          ":\r\n\t"
+                          ":\n\t"
                         ]
                       },
                       {
-                        "r": "33",
+                        "r": "32",
                         "s": [
                           {
                             "value": [
@@ -983,13 +1003,15 @@
                 }
               ],
               "expression": {
-                "localId": "33",
+                "localId": "32",
+                "locator": "35:2-35:11",
                 "name": "ED Visit",
                 "type": "ExpressionRef"
               }
             },
             {
-              "localId": "36",
+              "localId": "35",
+              "locator": "37:1-38:21",
               "name": "Measure Population",
               "context": "Patient",
               "accessLevel": "Public",
@@ -997,17 +1019,17 @@
                 {
                   "type": "Annotation",
                   "s": {
-                    "r": "36",
+                    "r": "35",
                     "s": [
                       {
                         "value": [
                           "define ",
                           "\"Measure Population\"",
-                          ":\r\n\t"
+                          ":\n\t"
                         ]
                       },
                       {
-                        "r": "35",
+                        "r": "34",
                         "s": [
                           {
                             "value": [
@@ -1021,39 +1043,41 @@
                 }
               ],
               "expression": {
-                "localId": "35",
+                "localId": "34",
+                "locator": "38:2-38:21",
                 "name": "Initial Population",
                 "type": "ExpressionRef"
               }
             },
             {
-              "localId": "44",
-              "name": "Stratum2",
+              "localId": "43",
+              "locator": "40:1-42:73",
+              "name": "Stratification 1",
               "context": "Patient",
               "accessLevel": "Public",
               "annotation": [
                 {
                   "type": "Annotation",
                   "s": {
-                    "r": "44",
+                    "r": "43",
                     "s": [
                       {
                         "value": [
                           "define ",
-                          "\"Stratum2\"",
-                          ":\r\n\t"
+                          "\"Stratification 1\"",
+                          ":\n\t"
                         ]
                       },
                       {
-                        "r": "43",
+                        "r": "42",
                         "s": [
                           {
                             "s": [
                               {
-                                "r": "38",
+                                "r": "37",
                                 "s": [
                                   {
-                                    "r": "37",
+                                    "r": "36",
                                     "s": [
                                       {
                                         "s": [
@@ -1069,7 +1093,7 @@
                                   {
                                     "value": [
                                       " ",
-                                      "ED"
+                                      "EDVisit"
                                     ]
                                   }
                                 ]
@@ -1078,11 +1102,11 @@
                           },
                           {
                             "value": [
-                              "\r\n\t\t"
+                              "\n\t\t"
                             ]
                           },
                           {
-                            "r": "42",
+                            "r": "41",
                             "s": [
                               {
                                 "value": [
@@ -1090,182 +1114,28 @@
                                 ]
                               },
                               {
-                                "r": "42",
+                                "r": "41",
                                 "s": [
                                   {
-                                    "r": "40",
+                                    "r": "39",
                                     "s": [
+                                      {
+                                        "r": "38",
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "EDVisit"
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "value": [
+                                          "."
+                                        ]
+                                      },
                                       {
                                         "r": "39",
-                                        "s": [
-                                          {
-                                            "value": [
-                                              "ED"
-                                            ]
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "value": [
-                                          "."
-                                        ]
-                                      },
-                                      {
-                                        "r": "40",
-                                        "s": [
-                                          {
-                                            "value": [
-                                              "dischargeDisposition"
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "value": [
-                                      " in "
-                                    ]
-                                  },
-                                  {
-                                    "r": "41",
-                                    "s": [
-                                      {
-                                        "value": [
-                                          "\"Discharge To Acute Care Facility\""
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                }
-              ],
-              "expression": {
-                "localId": "43",
-                "type": "Query",
-                "source": [
-                  {
-                    "localId": "38",
-                    "alias": "ED",
-                    "expression": {
-                      "localId": "37",
-                      "name": "ED Visit",
-                      "type": "ExpressionRef"
-                    }
-                  }
-                ],
-                "relationship": [
-
-                ],
-                "where": {
-                  "localId": "42",
-                  "type": "InValueSet",
-                  "code": {
-                    "localId": "40",
-                    "path": "dischargeDisposition",
-                    "scope": "ED",
-                    "type": "Property"
-                  },
-                  "valueset": {
-                    "localId": "41",
-                    "name": "Discharge To Acute Care Facility"
-                  }
-                }
-              }
-            },
-            {
-              "localId": "52",
-              "name": "Stratum1",
-              "context": "Patient",
-              "accessLevel": "Public",
-              "annotation": [
-                {
-                  "type": "Annotation",
-                  "s": {
-                    "r": "52",
-                    "s": [
-                      {
-                        "value": [
-                          "define ",
-                          "\"Stratum1\"",
-                          ":\r\n\t"
-                        ]
-                      },
-                      {
-                        "r": "51",
-                        "s": [
-                          {
-                            "s": [
-                              {
-                                "r": "46",
-                                "s": [
-                                  {
-                                    "r": "45",
-                                    "s": [
-                                      {
-                                        "s": [
-                                          {
-                                            "value": [
-                                              "\"ED Visit\""
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "value": [
-                                      " ",
-                                      "ED"
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "value": [
-                              "\r\n\t\t"
-                            ]
-                          },
-                          {
-                            "r": "50",
-                            "s": [
-                              {
-                                "value": [
-                                  "where "
-                                ]
-                              },
-                              {
-                                "r": "50",
-                                "s": [
-                                  {
-                                    "r": "48",
-                                    "s": [
-                                      {
-                                        "r": "47",
-                                        "s": [
-                                          {
-                                            "value": [
-                                              "ED"
-                                            ]
-                                          }
-                                        ]
-                                      },
-                                      {
-                                        "value": [
-                                          "."
-                                        ]
-                                      },
-                                      {
-                                        "r": "48",
                                         "s": [
                                           {
                                             "value": [
@@ -1282,7 +1152,7 @@
                                     ]
                                   },
                                   {
-                                    "r": "49",
+                                    "r": "40",
                                     "s": [
                                       {
                                         "value": [
@@ -1302,14 +1172,17 @@
                 }
               ],
               "expression": {
-                "localId": "51",
+                "localId": "42",
+                "locator": "41:2-42:73",
                 "type": "Query",
                 "source": [
                   {
-                    "localId": "46",
-                    "alias": "ED",
+                    "localId": "37",
+                    "locator": "41:2-41:19",
+                    "alias": "EDVisit",
                     "expression": {
-                      "localId": "45",
+                      "localId": "36",
+                      "locator": "41:2-41:11",
                       "name": "ED Visit",
                       "type": "ExpressionRef"
                     }
@@ -1319,49 +1192,53 @@
 
                 ],
                 "where": {
-                  "localId": "50",
+                  "localId": "41",
+                  "locator": "42:3-42:73",
                   "type": "InValueSet",
                   "code": {
-                    "localId": "48",
+                    "localId": "39",
+                    "locator": "42:9-42:34",
                     "path": "principalDiagnosis",
-                    "scope": "ED",
+                    "scope": "EDVisit",
                     "type": "Property"
                   },
                   "valueset": {
-                    "localId": "49",
+                    "localId": "40",
+                    "locator": "42:39-42:73",
                     "name": "Psychiatric/Mental Health Patient"
                   }
                 }
               }
             },
             {
-              "localId": "67",
-              "name": "Stratum3",
+              "localId": "51",
+              "locator": "44:1-46:74",
+              "name": "Stratification 2",
               "context": "Patient",
               "accessLevel": "Public",
               "annotation": [
                 {
                   "type": "Annotation",
                   "s": {
-                    "r": "67",
+                    "r": "51",
                     "s": [
                       {
                         "value": [
                           "define ",
-                          "\"Stratum3\"",
-                          ":\r\n\t"
+                          "\"Stratification 2\"",
+                          ":\n\t"
                         ]
                       },
                       {
-                        "r": "66",
+                        "r": "50",
                         "s": [
                           {
                             "s": [
                               {
-                                "r": "54",
+                                "r": "45",
                                 "s": [
                                   {
-                                    "r": "53",
+                                    "r": "44",
                                     "s": [
                                       {
                                         "s": [
@@ -1377,7 +1254,7 @@
                                   {
                                     "value": [
                                       " ",
-                                      "ED"
+                                      "EDVisit"
                                     ]
                                   }
                                 ]
@@ -1386,11 +1263,11 @@
                           },
                           {
                             "value": [
-                              "\r\n\t\t"
+                              "\n\t\t"
                             ]
                           },
                           {
-                            "r": "65",
+                            "r": "49",
                             "s": [
                               {
                                 "value": [
@@ -1398,10 +1275,171 @@
                                 ]
                               },
                               {
-                                "r": "65",
+                                "r": "49",
                                 "s": [
                                   {
-                                    "r": "59",
+                                    "r": "47",
+                                    "s": [
+                                      {
+                                        "r": "46",
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "EDVisit"
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "value": [
+                                          "."
+                                        ]
+                                      },
+                                      {
+                                        "r": "47",
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "dischargeDisposition"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "value": [
+                                      " in "
+                                    ]
+                                  },
+                                  {
+                                    "r": "48",
+                                    "s": [
+                                      {
+                                        "value": [
+                                          "\"Discharge To Acute Care Facility\""
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "expression": {
+                "localId": "50",
+                "locator": "45:2-46:74",
+                "type": "Query",
+                "source": [
+                  {
+                    "localId": "45",
+                    "locator": "45:2-45:19",
+                    "alias": "EDVisit",
+                    "expression": {
+                      "localId": "44",
+                      "locator": "45:2-45:11",
+                      "name": "ED Visit",
+                      "type": "ExpressionRef"
+                    }
+                  }
+                ],
+                "relationship": [
+
+                ],
+                "where": {
+                  "localId": "49",
+                  "locator": "46:3-46:74",
+                  "type": "InValueSet",
+                  "code": {
+                    "localId": "47",
+                    "locator": "46:9-46:36",
+                    "path": "dischargeDisposition",
+                    "scope": "EDVisit",
+                    "type": "Property"
+                  },
+                  "valueset": {
+                    "localId": "48",
+                    "locator": "46:41-46:74",
+                    "name": "Discharge To Acute Care Facility"
+                  }
+                }
+              }
+            },
+            {
+              "localId": "66",
+              "locator": "48:1-51:81",
+              "name": "Stratification 3",
+              "context": "Patient",
+              "accessLevel": "Public",
+              "annotation": [
+                {
+                  "type": "Annotation",
+                  "s": {
+                    "r": "66",
+                    "s": [
+                      {
+                        "value": [
+                          "define ",
+                          "\"Stratification 3\"",
+                          ":\n\t"
+                        ]
+                      },
+                      {
+                        "r": "65",
+                        "s": [
+                          {
+                            "s": [
+                              {
+                                "r": "53",
+                                "s": [
+                                  {
+                                    "r": "52",
+                                    "s": [
+                                      {
+                                        "s": [
+                                          {
+                                            "value": [
+                                              "\"ED Visit\""
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "value": [
+                                      " ",
+                                      "EDVisit"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "value": [
+                              "\n\t\t"
+                            ]
+                          },
+                          {
+                            "r": "64",
+                            "s": [
+                              {
+                                "value": [
+                                  "where "
+                                ]
+                              },
+                              {
+                                "r": "64",
+                                "s": [
+                                  {
+                                    "r": "58",
                                     "s": [
                                       {
                                         "value": [
@@ -1409,7 +1447,7 @@
                                         ]
                                       },
                                       {
-                                        "r": "58",
+                                        "r": "57",
                                         "s": [
                                           {
                                             "value": [
@@ -1417,17 +1455,17 @@
                                             ]
                                           },
                                           {
-                                            "r": "58",
+                                            "r": "57",
                                             "s": [
                                               {
-                                                "r": "56",
+                                                "r": "55",
                                                 "s": [
                                                   {
-                                                    "r": "55",
+                                                    "r": "54",
                                                     "s": [
                                                       {
                                                         "value": [
-                                                          "ED"
+                                                          "EDVisit"
                                                         ]
                                                       }
                                                     ]
@@ -1438,7 +1476,7 @@
                                                     ]
                                                   },
                                                   {
-                                                    "r": "56",
+                                                    "r": "55",
                                                     "s": [
                                                       {
                                                         "value": [
@@ -1455,7 +1493,7 @@
                                                 ]
                                               },
                                               {
-                                                "r": "57",
+                                                "r": "56",
                                                 "s": [
                                                   {
                                                     "value": [
@@ -1477,11 +1515,11 @@
                                   },
                                   {
                                     "value": [
-                                      "\r\n\t\t\tand "
+                                      "\n\t\t\tand "
                                     ]
                                   },
                                   {
-                                    "r": "64",
+                                    "r": "63",
                                     "s": [
                                       {
                                         "value": [
@@ -1489,7 +1527,7 @@
                                         ]
                                       },
                                       {
-                                        "r": "63",
+                                        "r": "62",
                                         "s": [
                                           {
                                             "value": [
@@ -1497,17 +1535,17 @@
                                             ]
                                           },
                                           {
-                                            "r": "63",
+                                            "r": "62",
                                             "s": [
                                               {
-                                                "r": "61",
+                                                "r": "60",
                                                 "s": [
                                                   {
-                                                    "r": "60",
+                                                    "r": "59",
                                                     "s": [
                                                       {
                                                         "value": [
-                                                          "ED"
+                                                          "EDVisit"
                                                         ]
                                                       }
                                                     ]
@@ -1518,7 +1556,7 @@
                                                     ]
                                                   },
                                                   {
-                                                    "r": "61",
+                                                    "r": "60",
                                                     "s": [
                                                       {
                                                         "value": [
@@ -1535,7 +1573,7 @@
                                                 ]
                                               },
                                               {
-                                                "r": "62",
+                                                "r": "61",
                                                 "s": [
                                                   {
                                                     "value": [
@@ -1566,14 +1604,17 @@
                 }
               ],
               "expression": {
-                "localId": "66",
+                "localId": "65",
+                "locator": "49:2-51:81",
                 "type": "Query",
                 "source": [
                   {
-                    "localId": "54",
-                    "alias": "ED",
+                    "localId": "53",
+                    "locator": "49:2-49:19",
+                    "alias": "EDVisit",
                     "expression": {
-                      "localId": "53",
+                      "localId": "52",
+                      "locator": "49:2-49:11",
                       "name": "ED Visit",
                       "type": "ExpressionRef"
                     }
@@ -1583,41 +1624,50 @@
 
                 ],
                 "where": {
-                  "localId": "65",
+                  "localId": "64",
+                  "locator": "50:3-51:81",
                   "type": "And",
                   "operand": [
                     {
-                      "localId": "59",
+                      "localId": "58",
+                      "locator": "50:9-50:81",
                       "type": "Not",
                       "operand": {
-                        "localId": "58",
+                        "localId": "57",
+                        "locator": "50:13-50:81",
                         "type": "InValueSet",
                         "code": {
-                          "localId": "56",
+                          "localId": "55",
+                          "locator": "50:15-50:40",
                           "path": "principalDiagnosis",
-                          "scope": "ED",
+                          "scope": "EDVisit",
                           "type": "Property"
                         },
                         "valueset": {
-                          "localId": "57",
+                          "localId": "56",
+                          "locator": "50:45-50:79",
                           "name": "Psychiatric/Mental Health Patient"
                         }
                       }
                     },
                     {
-                      "localId": "64",
+                      "localId": "63",
+                      "locator": "51:8-51:81",
                       "type": "Not",
                       "operand": {
-                        "localId": "63",
+                        "localId": "62",
+                        "locator": "51:12-51:81",
                         "type": "InValueSet",
                         "code": {
-                          "localId": "61",
+                          "localId": "60",
+                          "locator": "51:14-51:41",
                           "path": "dischargeDisposition",
-                          "scope": "ED",
+                          "scope": "EDVisit",
                           "type": "Property"
                         },
                         "valueset": {
-                          "localId": "62",
+                          "localId": "61",
+                          "locator": "51:46-51:79",
                           "name": "Discharge To Acute Care Facility"
                         }
                       }
@@ -1627,7 +1677,8 @@
               }
             },
             {
-              "localId": "89",
+              "localId": "88",
+              "locator": "53:1-60:3",
               "name": "Measure Population Exclusions",
               "context": "Patient",
               "accessLevel": "Public",
@@ -1635,20 +1686,20 @@
                 {
                   "type": "Annotation",
                   "s": {
-                    "r": "89",
+                    "r": "88",
                     "s": [
                       {
                         "value": [
                           "define ",
                           "\"Measure Population Exclusions\"",
-                          ":\r\n\t"
+                          ":\n\t"
                         ]
                       },
                       {
-                        "r": "88",
+                        "r": "87",
                         "s": [
                           {
-                            "r": "74",
+                            "r": "73",
                             "s": [
                               {
                                 "value": [
@@ -1656,15 +1707,15 @@
                                 ]
                               },
                               {
-                                "r": "74",
+                                "r": "73",
                                 "s": [
                                   {
                                     "s": [
                                       {
-                                        "r": "69",
+                                        "r": "68",
                                         "s": [
                                           {
-                                            "r": "68",
+                                            "r": "67",
                                             "s": [
                                               {
                                                 "s": [
@@ -1680,7 +1731,7 @@
                                           {
                                             "value": [
                                               " ",
-                                              "ED"
+                                              "EDVisit"
                                             ]
                                           }
                                         ]
@@ -1689,11 +1740,11 @@
                                   },
                                   {
                                     "value": [
-                                      "\r\n\t\t\t"
+                                      "\n\t\t\t"
                                     ]
                                   },
                                   {
-                                    "r": "73",
+                                    "r": "72",
                                     "s": [
                                       {
                                         "value": [
@@ -1701,17 +1752,17 @@
                                         ]
                                       },
                                       {
-                                        "r": "73",
+                                        "r": "72",
                                         "s": [
                                           {
-                                            "r": "71",
+                                            "r": "70",
                                             "s": [
                                               {
-                                                "r": "70",
+                                                "r": "69",
                                                 "s": [
                                                   {
                                                     "value": [
-                                                      "ED"
+                                                      "EDVisit"
                                                     ]
                                                   }
                                                 ]
@@ -1722,7 +1773,7 @@
                                                 ]
                                               },
                                               {
-                                                "r": "71",
+                                                "r": "70",
                                                 "s": [
                                                   {
                                                     "value": [
@@ -1741,7 +1792,7 @@
                                             ]
                                           },
                                           {
-                                            "r": "72",
+                                            "r": "71",
                                             "s": [
                                               {
                                                 "value": [
@@ -1758,18 +1809,18 @@
                               },
                               {
                                 "value": [
-                                  "\r\n\t)"
+                                  "\n\t)"
                                 ]
                               }
                             ]
                           },
                           {
                             "value": [
-                              "\r\n\t\tunion "
+                              "\n\t\tunion "
                             ]
                           },
                           {
-                            "r": "87",
+                            "r": "86",
                             "s": [
                               {
                                 "value": [
@@ -1777,15 +1828,15 @@
                                 ]
                               },
                               {
-                                "r": "87",
+                                "r": "86",
                                 "s": [
                                   {
                                     "s": [
                                       {
-                                        "r": "76",
+                                        "r": "75",
                                         "s": [
                                           {
-                                            "r": "75",
+                                            "r": "74",
                                             "s": [
                                               {
                                                 "s": [
@@ -1801,7 +1852,7 @@
                                           {
                                             "value": [
                                               " ",
-                                              "ED"
+                                              "EDVisit"
                                             ]
                                           }
                                         ]
@@ -1810,11 +1861,11 @@
                                   },
                                   {
                                     "value": [
-                                      "\r\n\t\t\t\t"
+                                      "\n\t\t\t\t"
                                     ]
                                   },
                                   {
-                                    "r": "86",
+                                    "r": "85",
                                     "s": [
                                       {
                                         "value": [
@@ -1822,13 +1873,13 @@
                                         ]
                                       },
                                       {
-                                        "r": "78",
+                                        "r": "77",
                                         "s": [
                                           {
-                                            "r": "77",
+                                            "r": "76",
                                             "s": [
                                               {
-                                                "r": "77",
+                                                "r": "76",
                                                 "s": [
                                                   {
                                                     "value": [
@@ -1858,28 +1909,28 @@
                                           {
                                             "value": [
                                               " ",
-                                              "E"
+                                              "Encounter"
                                             ]
                                           }
                                         ]
                                       },
                                       {
                                         "value": [
-                                          "\r\n\t\t\t\t\tsuch that "
+                                          "\n\t\t\t\t\tsuch that "
                                         ]
                                       },
                                       {
-                                        "r": "85",
+                                        "r": "84",
                                         "s": [
                                           {
-                                            "r": "80",
+                                            "r": "79",
                                             "s": [
                                               {
-                                                "r": "79",
+                                                "r": "78",
                                                 "s": [
                                                   {
                                                     "value": [
-                                                      "ED"
+                                                      "EDVisit"
                                                     ]
                                                   }
                                                 ]
@@ -1890,7 +1941,7 @@
                                                 ]
                                               },
                                               {
-                                                "r": "80",
+                                                "r": "79",
                                                 "s": [
                                                   {
                                                     "value": [
@@ -1907,7 +1958,7 @@
                                             ]
                                           },
                                           {
-                                            "r": "85",
+                                            "r": "84",
                                             "s": [
                                               {
                                                 "value": [
@@ -1915,7 +1966,7 @@
                                                 ]
                                               },
                                               {
-                                                "r": "84",
+                                                "r": "83",
                                                 "s": [
                                                   {
                                                     "value": [
@@ -1938,7 +1989,7 @@
                                             ]
                                           },
                                           {
-                                            "r": "83",
+                                            "r": "82",
                                             "s": [
                                               {
                                                 "value": [
@@ -1946,14 +1997,14 @@
                                                 ]
                                               },
                                               {
-                                                "r": "82",
+                                                "r": "81",
                                                 "s": [
                                                   {
-                                                    "r": "81",
+                                                    "r": "80",
                                                     "s": [
                                                       {
                                                         "value": [
-                                                          "E"
+                                                          "Encounter"
                                                         ]
                                                       }
                                                     ]
@@ -1964,7 +2015,7 @@
                                                     ]
                                                   },
                                                   {
-                                                    "r": "82",
+                                                    "r": "81",
                                                     "s": [
                                                       {
                                                         "value": [
@@ -1985,7 +2036,7 @@
                               },
                               {
                                 "value": [
-                                  "\r\n\t\t)"
+                                  "\n\t\t)"
                                 ]
                               }
                             ]
@@ -1997,18 +2048,22 @@
                 }
               ],
               "expression": {
-                "localId": "88",
+                "localId": "87",
+                "locator": "54:2-60:3",
                 "type": "Union",
                 "operand": [
                   {
-                    "localId": "74",
+                    "localId": "73",
+                    "locator": "54:2-56:2",
                     "type": "Query",
                     "source": [
                       {
-                        "localId": "69",
-                        "alias": "ED",
+                        "localId": "68",
+                        "locator": "54:4-54:21",
+                        "alias": "EDVisit",
                         "expression": {
-                          "localId": "68",
+                          "localId": "67",
+                          "locator": "54:4-54:13",
                           "name": "ED Visit",
                           "type": "ExpressionRef"
                         }
@@ -2018,17 +2073,20 @@
 
                     ],
                     "where": {
-                      "localId": "73",
+                      "localId": "72",
+                      "locator": "55:4-55:106",
                       "type": "Equivalent",
                       "operand": [
                         {
-                          "localId": "71",
+                          "localId": "70",
+                          "locator": "55:10-55:37",
                           "path": "dischargeDisposition",
-                          "scope": "ED",
+                          "scope": "EDVisit",
                           "type": "Property"
                         },
                         {
-                          "localId": "72",
+                          "localId": "71",
+                          "locator": "55:41-55:106",
                           "name": "Patient deceased during stay (discharge status = dead) (finding)",
                           "type": "CodeRef"
                         }
@@ -2036,14 +2094,17 @@
                     }
                   },
                   {
-                    "localId": "87",
+                    "localId": "86",
+                    "locator": "57:9-60:3",
                     "type": "Query",
                     "source": [
                       {
-                        "localId": "76",
-                        "alias": "ED",
+                        "localId": "75",
+                        "locator": "57:11-57:28",
+                        "alias": "EDVisit",
                         "expression": {
-                          "localId": "75",
+                          "localId": "74",
+                          "locator": "57:11-57:20",
                           "name": "ED Visit",
                           "type": "ExpressionRef"
                         }
@@ -2051,11 +2112,13 @@
                     ],
                     "relationship": [
                       {
-                        "localId": "86",
-                        "alias": "E",
+                        "localId": "85",
+                        "locator": "58:5-59:104",
+                        "alias": "Encounter",
                         "type": "With",
                         "expression": {
-                          "localId": "77",
+                          "localId": "76",
+                          "locator": "58:10-58:56",
                           "dataType": "{urn:healthit-gov:qdm:v5_3}PositiveEncounterPerformed",
                           "templateId": "PositiveEncounterPerformed",
                           "codeProperty": "code",
@@ -2066,37 +2129,45 @@
                           }
                         },
                         "suchThat": {
-                          "localId": "85",
+                          "localId": "84",
+                          "locator": "59:16-59:104",
                           "type": "In",
                           "operand": [
                             {
+                              "locator": "59:39-59:42",
                               "type": "End",
                               "operand": {
-                                "localId": "80",
+                                "localId": "79",
+                                "locator": "59:16-59:37",
                                 "path": "relevantPeriod",
-                                "scope": "ED",
+                                "scope": "EDVisit",
                                 "type": "Property"
                               }
                             },
                             {
+                              "locator": "59:44-59:57",
                               "lowClosed": true,
                               "highClosed": true,
                               "type": "Interval",
                               "low": {
+                                "locator": "59:72-59:104",
                                 "type": "Subtract",
                                 "operand": [
                                   {
-                                    "localId": "83",
+                                    "localId": "82",
+                                    "locator": "59:72-59:104",
                                     "type": "Start",
                                     "operand": {
-                                      "localId": "82",
+                                      "localId": "81",
+                                      "locator": "59:81-59:104",
                                       "path": "relevantPeriod",
-                                      "scope": "E",
+                                      "scope": "Encounter",
                                       "type": "Property"
                                     }
                                   },
                                   {
-                                    "localId": "84",
+                                    "localId": "83",
+                                    "locator": "59:44-59:49",
                                     "value": 1,
                                     "unit": "hour",
                                     "type": "Quantity"
@@ -2104,12 +2175,14 @@
                                 ]
                               },
                               "high": {
-                                "localId": "83",
+                                "localId": "82",
+                                "locator": "59:72-59:104",
                                 "type": "Start",
                                 "operand": {
-                                  "localId": "82",
+                                  "localId": "81",
+                                  "locator": "59:81-59:104",
                                   "path": "relevantPeriod",
-                                  "scope": "E",
+                                  "scope": "Encounter",
                                   "type": "Property"
                                 }
                               }
@@ -2123,7 +2196,8 @@
               }
             },
             {
-              "localId": "94",
+              "localId": "93",
+              "locator": "66:1-67:48",
               "name": "Measure Observation",
               "context": "Patient",
               "accessLevel": "Public",
@@ -2132,7 +2206,7 @@
                 {
                   "type": "Annotation",
                   "s": {
-                    "r": "94",
+                    "r": "93",
                     "s": [
                       {
                         "value": [
@@ -2144,7 +2218,7 @@
                         ]
                       },
                       {
-                        "r": "90",
+                        "r": "89",
                         "s": [
                           {
                             "value": [
@@ -2155,14 +2229,14 @@
                       },
                       {
                         "value": [
-                          "):\r\n\t"
+                          " ):\n\t"
                         ]
                       },
                       {
-                        "r": "93",
+                        "r": "92",
                         "s": [
                           {
-                            "r": "93",
+                            "r": "92",
                             "s": [
                               {
                                 "value": [
@@ -2170,10 +2244,10 @@
                                 ]
                               },
                               {
-                                "r": "92",
+                                "r": "91",
                                 "s": [
                                   {
-                                    "r": "91",
+                                    "r": "90",
                                     "s": [
                                       {
                                         "value": [
@@ -2188,7 +2262,7 @@
                                     ]
                                   },
                                   {
-                                    "r": "92",
+                                    "r": "91",
                                     "s": [
                                       {
                                         "value": [
@@ -2208,18 +2282,21 @@
                 }
               ],
               "expression": {
-                "localId": "93",
+                "localId": "92",
+                "locator": "67:2-67:48",
                 "precision": "Minute",
                 "type": "DurationBetween",
                 "operand": [
                   {
                     "type": "Start",
                     "operand": {
-                      "localId": "92",
+                      "localId": "91",
+                      "locator": "67:25-67:48",
                       "path": "relevantPeriod",
                       "type": "Property",
                       "source": {
-                        "localId": "91",
+                        "localId": "90",
+                        "locator": "67:25-67:33",
                         "name": "Encounter",
                         "type": "OperandRef"
                       }
@@ -2228,11 +2305,13 @@
                   {
                     "type": "End",
                     "operand": {
-                      "localId": "92",
+                      "localId": "91",
+                      "locator": "67:25-67:48",
                       "path": "relevantPeriod",
                       "type": "Property",
                       "source": {
-                        "localId": "91",
+                        "localId": "90",
+                        "locator": "67:25-67:33",
                         "name": "Encounter",
                         "type": "OperandRef"
                       }
@@ -2244,7 +2323,8 @@
                 {
                   "name": "Encounter",
                   "operandTypeSpecifier": {
-                    "localId": "90",
+                    "localId": "89",
+                    "locator": "66:49-66:70",
                     "name": "{urn:healthit-gov:qdm:v5_3}PositiveEncounterPerformed",
                     "type": "NamedTypeSpecifier"
                   }
@@ -2257,7 +2337,7 @@
     }
   ],
   "elm_annotations": {
-    "Test32": {
+    "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
       "statements": [
         {
           "children": [
@@ -2266,7 +2346,7 @@
                 {
                   "children": [
                     {
-                      "text": "define \"SDE Ethnicity\":&#13;\n  "
+                      "text": "define \"SDE Ethnicity\":\n  "
                     }
                   ]
                 },
@@ -2299,10 +2379,10 @@
                     }
                   ],
                   "node_type": "Retrieve",
-                  "ref_id": "17"
+                  "ref_id": "16"
                 }
               ],
-              "ref_id": "18"
+              "ref_id": "17"
             }
           ],
           "define_name": "SDE Ethnicity"
@@ -2314,7 +2394,7 @@
                 {
                   "children": [
                     {
-                      "text": "define \"SDE Payer\":&#13;\n  "
+                      "text": "define \"SDE Payer\":\n  "
                     }
                   ]
                 },
@@ -2347,10 +2427,10 @@
                     }
                   ],
                   "node_type": "Retrieve",
-                  "ref_id": "19"
+                  "ref_id": "18"
                 }
               ],
-              "ref_id": "20"
+              "ref_id": "19"
             }
           ],
           "define_name": "SDE Payer"
@@ -2362,7 +2442,7 @@
                 {
                   "children": [
                     {
-                      "text": "define \"SDE Race\":&#13;\n  "
+                      "text": "define \"SDE Race\":\n  "
                     }
                   ]
                 },
@@ -2395,10 +2475,10 @@
                     }
                   ],
                   "node_type": "Retrieve",
-                  "ref_id": "21"
+                  "ref_id": "20"
                 }
               ],
-              "ref_id": "22"
+              "ref_id": "21"
             }
           ],
           "define_name": "SDE Race"
@@ -2410,7 +2490,7 @@
                 {
                   "children": [
                     {
-                      "text": "define \"SDE Sex\":&#13;\n  "
+                      "text": "define \"SDE Sex\":\n  "
                     }
                   ]
                 },
@@ -2443,10 +2523,10 @@
                     }
                   ],
                   "node_type": "Retrieve",
-                  "ref_id": "23"
+                  "ref_id": "22"
                 }
               ],
-              "ref_id": "24"
+              "ref_id": "23"
             }
           ],
           "define_name": "SDE Sex"
@@ -2458,7 +2538,7 @@
                 {
                   "children": [
                     {
-                      "text": "define \"ED Visit\":&#13;\n  "
+                      "text": "define \"ED Visit\":\n  "
                     }
                   ]
                 },
@@ -2484,7 +2564,7 @@
                                         {
                                           "children": [
                                             {
-                                              "text": "\"Emergency department patient visit (procedure)\""
+                                              "text": "\"Emergency Department Visit\""
                                             }
                                           ]
                                         }
@@ -2499,28 +2579,28 @@
                                     }
                                   ],
                                   "node_type": "Retrieve",
-                                  "ref_id": "25"
+                                  "ref_id": "24"
                                 }
                               ],
                               "node_type": "Retrieve",
-                              "ref_id": "25"
+                              "ref_id": "24"
                             },
                             {
                               "children": [
                                 {
-                                  "text": " ED"
+                                  "text": " EDVisit"
                                 }
                               ]
                             }
                           ],
-                          "ref_id": "26"
+                          "ref_id": "25"
                         }
                       ]
                     },
                     {
                       "children": [
                         {
-                          "text": "&#13;\n    "
+                          "text": "\n    "
                         }
                       ]
                     },
@@ -2542,12 +2622,12 @@
                                     {
                                       "children": [
                                         {
-                                          "text": "ED"
+                                          "text": "EDVisit"
                                         }
                                       ]
                                     }
                                   ],
-                                  "ref_id": "27"
+                                  "ref_id": "26"
                                 },
                                 {
                                   "children": [
@@ -2567,11 +2647,11 @@
                                     }
                                   ],
                                   "node_type": "Property",
-                                  "ref_id": "28"
+                                  "ref_id": "27"
                                 }
                               ],
                               "node_type": "Property",
-                              "ref_id": "28"
+                              "ref_id": "27"
                             },
                             {
                               "children": [
@@ -2591,20 +2671,20 @@
                                 }
                               ],
                               "node_type": "ParameterRef",
-                              "ref_id": "29"
+                              "ref_id": "28"
                             }
                           ],
-                          "ref_id": "30"
+                          "ref_id": "29"
                         }
                       ],
-                      "ref_id": "30"
+                      "ref_id": "29"
                     }
                   ],
                   "node_type": "Query",
-                  "ref_id": "31"
+                  "ref_id": "30"
                 }
               ],
-              "ref_id": "32"
+              "ref_id": "31"
             }
           ],
           "define_name": "ED Visit"
@@ -2616,7 +2696,7 @@
                 {
                   "children": [
                     {
-                      "text": "define \"Initial Population\":&#13;\n  "
+                      "text": "define \"Initial Population\":\n  "
                     }
                   ]
                 },
@@ -2631,10 +2711,10 @@
                     }
                   ],
                   "node_type": "ExpressionRef",
-                  "ref_id": "33"
+                  "ref_id": "32"
                 }
               ],
-              "ref_id": "34"
+              "ref_id": "33"
             }
           ],
           "define_name": "Initial Population"
@@ -2646,7 +2726,7 @@
                 {
                   "children": [
                     {
-                      "text": "define \"Measure Population\":&#13;\n  "
+                      "text": "define \"Measure Population\":\n  "
                     }
                   ]
                 },
@@ -2661,10 +2741,10 @@
                     }
                   ],
                   "node_type": "ExpressionRef",
-                  "ref_id": "35"
+                  "ref_id": "34"
                 }
               ],
-              "ref_id": "36"
+              "ref_id": "35"
             }
           ],
           "define_name": "Measure Population"
@@ -2676,7 +2756,7 @@
                 {
                   "children": [
                     {
-                      "text": "define \"Stratum2\":&#13;\n  "
+                      "text": "define \"Stratification 1\":\n  "
                     }
                   ]
                 },
@@ -2701,24 +2781,24 @@
                                 }
                               ],
                               "node_type": "ExpressionRef",
-                              "ref_id": "37"
+                              "ref_id": "36"
                             },
                             {
                               "children": [
                                 {
-                                  "text": " ED"
+                                  "text": " EDVisit"
                                 }
                               ]
                             }
                           ],
-                          "ref_id": "38"
+                          "ref_id": "37"
                         }
                       ]
                     },
                     {
                       "children": [
                         {
-                          "text": "&#13;\n    "
+                          "text": "\n    "
                         }
                       ]
                     },
@@ -2740,147 +2820,12 @@
                                     {
                                       "children": [
                                         {
-                                          "text": "ED"
+                                          "text": "EDVisit"
                                         }
                                       ]
                                     }
                                   ],
-                                  "ref_id": "39"
-                                },
-                                {
-                                  "children": [
-                                    {
-                                      "text": "."
-                                    }
-                                  ]
-                                },
-                                {
-                                  "children": [
-                                    {
-                                      "children": [
-                                        {
-                                          "text": "dischargeDisposition"
-                                        }
-                                      ]
-                                    }
-                                  ],
-                                  "ref_id": "40"
-                                }
-                              ],
-                              "ref_id": "40"
-                            },
-                            {
-                              "children": [
-                                {
-                                  "text": " in "
-                                }
-                              ]
-                            },
-                            {
-                              "children": [
-                                {
-                                  "children": [
-                                    {
-                                      "text": "\"Discharge To Acute Care Facility\""
-                                    }
-                                  ]
-                                }
-                              ],
-                              "ref_id": "41"
-                            }
-                          ],
-                          "ref_id": "42"
-                        }
-                      ],
-                      "ref_id": "42"
-                    }
-                  ],
-                  "node_type": "Query",
-                  "ref_id": "43"
-                }
-              ],
-              "ref_id": "44"
-            }
-          ],
-          "define_name": "Stratum2"
-        },
-        {
-          "children": [
-            {
-              "children": [
-                {
-                  "children": [
-                    {
-                      "text": "define \"Stratum1\":&#13;\n  "
-                    }
-                  ]
-                },
-                {
-                  "children": [
-                    {
-                      "children": [
-                        {
-                          "children": [
-                            {
-                              "children": [
-                                {
-                                  "children": [
-                                    {
-                                      "children": [
-                                        {
-                                          "text": "\"ED Visit\""
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ],
-                              "node_type": "ExpressionRef",
-                              "ref_id": "45"
-                            },
-                            {
-                              "children": [
-                                {
-                                  "text": " ED"
-                                }
-                              ]
-                            }
-                          ],
-                          "ref_id": "46"
-                        }
-                      ]
-                    },
-                    {
-                      "children": [
-                        {
-                          "text": "&#13;\n    "
-                        }
-                      ]
-                    },
-                    {
-                      "children": [
-                        {
-                          "children": [
-                            {
-                              "text": "where "
-                            }
-                          ]
-                        },
-                        {
-                          "children": [
-                            {
-                              "children": [
-                                {
-                                  "children": [
-                                    {
-                                      "children": [
-                                        {
-                                          "text": "ED"
-                                        }
-                                      ]
-                                    }
-                                  ],
-                                  "ref_id": "47"
+                                  "ref_id": "38"
                                 },
                                 {
                                   "children": [
@@ -2899,10 +2844,10 @@
                                       ]
                                     }
                                   ],
-                                  "ref_id": "48"
+                                  "ref_id": "39"
                                 }
                               ],
-                              "ref_id": "48"
+                              "ref_id": "39"
                             },
                             {
                               "children": [
@@ -2921,23 +2866,23 @@
                                   ]
                                 }
                               ],
-                              "ref_id": "49"
+                              "ref_id": "40"
                             }
                           ],
-                          "ref_id": "50"
+                          "ref_id": "41"
                         }
                       ],
-                      "ref_id": "50"
+                      "ref_id": "41"
                     }
                   ],
                   "node_type": "Query",
-                  "ref_id": "51"
+                  "ref_id": "42"
                 }
               ],
-              "ref_id": "52"
+              "ref_id": "43"
             }
           ],
-          "define_name": "Stratum1"
+          "define_name": "Stratification 1"
         },
         {
           "children": [
@@ -2946,7 +2891,7 @@
                 {
                   "children": [
                     {
-                      "text": "define \"Stratum3\":&#13;\n  "
+                      "text": "define \"Stratification 2\":\n  "
                     }
                   ]
                 },
@@ -2971,24 +2916,159 @@
                                 }
                               ],
                               "node_type": "ExpressionRef",
-                              "ref_id": "53"
+                              "ref_id": "44"
                             },
                             {
                               "children": [
                                 {
-                                  "text": " ED"
+                                  "text": " EDVisit"
                                 }
                               ]
                             }
                           ],
-                          "ref_id": "54"
+                          "ref_id": "45"
                         }
                       ]
                     },
                     {
                       "children": [
                         {
-                          "text": "&#13;\n    "
+                          "text": "\n    "
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "text": "where "
+                            }
+                          ]
+                        },
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "EDVisit"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "ref_id": "46"
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "text": "."
+                                    }
+                                  ]
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "dischargeDisposition"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "ref_id": "47"
+                                }
+                              ],
+                              "ref_id": "47"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "text": " in "
+                                }
+                              ]
+                            },
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "text": "\"Discharge To Acute Care Facility\""
+                                    }
+                                  ]
+                                }
+                              ],
+                              "ref_id": "48"
+                            }
+                          ],
+                          "ref_id": "49"
+                        }
+                      ],
+                      "ref_id": "49"
+                    }
+                  ],
+                  "node_type": "Query",
+                  "ref_id": "50"
+                }
+              ],
+              "ref_id": "51"
+            }
+          ],
+          "define_name": "Stratification 2"
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "define \"Stratification 3\":\n  "
+                    }
+                  ]
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "text": "\"ED Visit\""
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "node_type": "ExpressionRef",
+                              "ref_id": "52"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "text": " EDVisit"
+                                }
+                              ]
+                            }
+                          ],
+                          "ref_id": "53"
+                        }
+                      ]
+                    },
+                    {
+                      "children": [
+                        {
+                          "text": "\n    "
                         }
                       ]
                     },
@@ -3030,12 +3110,12 @@
                                                 {
                                                   "children": [
                                                     {
-                                                      "text": "ED"
+                                                      "text": "EDVisit"
                                                     }
                                                   ]
                                                 }
                                               ],
-                                              "ref_id": "55"
+                                              "ref_id": "54"
                                             },
                                             {
                                               "children": [
@@ -3054,10 +3134,10 @@
                                                   ]
                                                 }
                                               ],
-                                              "ref_id": "56"
+                                              "ref_id": "55"
                                             }
                                           ],
-                                          "ref_id": "56"
+                                          "ref_id": "55"
                                         },
                                         {
                                           "children": [
@@ -3076,11 +3156,11 @@
                                               ]
                                             }
                                           ],
-                                          "ref_id": "57"
+                                          "ref_id": "56"
                                         }
                                       ],
                                       "node_type": "InValueSet",
-                                      "ref_id": "58"
+                                      "ref_id": "57"
                                     },
                                     {
                                       "children": [
@@ -3091,16 +3171,16 @@
                                     }
                                   ],
                                   "node_type": "InValueSet",
-                                  "ref_id": "58"
+                                  "ref_id": "57"
                                 }
                               ],
                               "node_type": "Not",
-                              "ref_id": "59"
+                              "ref_id": "58"
                             },
                             {
                               "children": [
                                 {
-                                  "text": "&#13;\n      and "
+                                  "text": "\n      and "
                                 }
                               ]
                             },
@@ -3131,12 +3211,12 @@
                                                 {
                                                   "children": [
                                                     {
-                                                      "text": "ED"
+                                                      "text": "EDVisit"
                                                     }
                                                   ]
                                                 }
                                               ],
-                                              "ref_id": "60"
+                                              "ref_id": "59"
                                             },
                                             {
                                               "children": [
@@ -3155,10 +3235,10 @@
                                                   ]
                                                 }
                                               ],
-                                              "ref_id": "61"
+                                              "ref_id": "60"
                                             }
                                           ],
-                                          "ref_id": "61"
+                                          "ref_id": "60"
                                         },
                                         {
                                           "children": [
@@ -3177,11 +3257,11 @@
                                               ]
                                             }
                                           ],
-                                          "ref_id": "62"
+                                          "ref_id": "61"
                                         }
                                       ],
                                       "node_type": "InValueSet",
-                                      "ref_id": "63"
+                                      "ref_id": "62"
                                     },
                                     {
                                       "children": [
@@ -3192,27 +3272,27 @@
                                     }
                                   ],
                                   "node_type": "InValueSet",
-                                  "ref_id": "63"
+                                  "ref_id": "62"
                                 }
                               ],
                               "node_type": "Not",
-                              "ref_id": "64"
+                              "ref_id": "63"
                             }
                           ],
-                          "ref_id": "65"
+                          "ref_id": "64"
                         }
                       ],
-                      "ref_id": "65"
+                      "ref_id": "64"
                     }
                   ],
                   "node_type": "Query",
-                  "ref_id": "66"
+                  "ref_id": "65"
                 }
               ],
-              "ref_id": "67"
+              "ref_id": "66"
             }
           ],
-          "define_name": "Stratum3"
+          "define_name": "Stratification 3"
         },
         {
           "children": [
@@ -3221,7 +3301,7 @@
                 {
                   "children": [
                     {
-                      "text": "define \"Measure Population Exclusions\":&#13;\n  "
+                      "text": "define \"Measure Population Exclusions\":\n  "
                     }
                   ]
                 },
@@ -3257,24 +3337,24 @@
                                         }
                                       ],
                                       "node_type": "ExpressionRef",
-                                      "ref_id": "68"
+                                      "ref_id": "67"
                                     },
                                     {
                                       "children": [
                                         {
-                                          "text": " ED"
+                                          "text": " EDVisit"
                                         }
                                       ]
                                     }
                                   ],
-                                  "ref_id": "69"
+                                  "ref_id": "68"
                                 }
                               ]
                             },
                             {
                               "children": [
                                 {
-                                  "text": "&#13;\n      "
+                                  "text": "\n      "
                                 }
                               ]
                             },
@@ -3296,12 +3376,12 @@
                                             {
                                               "children": [
                                                 {
-                                                  "text": "ED"
+                                                  "text": "EDVisit"
                                                 }
                                               ]
                                             }
                                           ],
-                                          "ref_id": "70"
+                                          "ref_id": "69"
                                         },
                                         {
                                           "children": [
@@ -3321,11 +3401,11 @@
                                             }
                                           ],
                                           "node_type": "Property",
-                                          "ref_id": "71"
+                                          "ref_id": "70"
                                         }
                                       ],
                                       "node_type": "Property",
-                                      "ref_id": "71"
+                                      "ref_id": "70"
                                     },
                                     {
                                       "children": [
@@ -3345,33 +3425,33 @@
                                         }
                                       ],
                                       "node_type": "CodeRef",
-                                      "ref_id": "72"
+                                      "ref_id": "71"
                                     }
                                   ],
-                                  "ref_id": "73"
+                                  "ref_id": "72"
                                 }
                               ],
-                              "ref_id": "73"
+                              "ref_id": "72"
                             }
                           ],
                           "node_type": "Query",
-                          "ref_id": "74"
+                          "ref_id": "73"
                         },
                         {
                           "children": [
                             {
-                              "text": "&#13;\n  )"
+                              "text": "\n  )"
                             }
                           ]
                         }
                       ],
                       "node_type": "Query",
-                      "ref_id": "74"
+                      "ref_id": "73"
                     },
                     {
                       "children": [
                         {
-                          "text": "&#13;\n    union "
+                          "text": "\n    union "
                         }
                       ]
                     },
@@ -3405,24 +3485,24 @@
                                         }
                                       ],
                                       "node_type": "ExpressionRef",
-                                      "ref_id": "75"
+                                      "ref_id": "74"
                                     },
                                     {
                                       "children": [
                                         {
-                                          "text": " ED"
+                                          "text": " EDVisit"
                                         }
                                       ]
                                     }
                                   ],
-                                  "ref_id": "76"
+                                  "ref_id": "75"
                                 }
                               ]
                             },
                             {
                               "children": [
                                 {
-                                  "text": "&#13;\n        "
+                                  "text": "\n        "
                                 }
                               ]
                             },
@@ -3468,26 +3548,26 @@
                                             }
                                           ],
                                           "node_type": "Retrieve",
-                                          "ref_id": "77"
+                                          "ref_id": "76"
                                         }
                                       ],
                                       "node_type": "Retrieve",
-                                      "ref_id": "77"
+                                      "ref_id": "76"
                                     },
                                     {
                                       "children": [
                                         {
-                                          "text": " E"
+                                          "text": " Encounter"
                                         }
                                       ]
                                     }
                                   ],
-                                  "ref_id": "78"
+                                  "ref_id": "77"
                                 },
                                 {
                                   "children": [
                                     {
-                                      "text": "&#13;\n          such that "
+                                      "text": "\n          such that "
                                     }
                                   ]
                                 },
@@ -3500,12 +3580,12 @@
                                             {
                                               "children": [
                                                 {
-                                                  "text": "ED"
+                                                  "text": "EDVisit"
                                                 }
                                               ]
                                             }
                                           ],
-                                          "ref_id": "79"
+                                          "ref_id": "78"
                                         },
                                         {
                                           "children": [
@@ -3525,11 +3605,11 @@
                                             }
                                           ],
                                           "node_type": "Property",
-                                          "ref_id": "80"
+                                          "ref_id": "79"
                                         }
                                       ],
                                       "node_type": "Property",
-                                      "ref_id": "80"
+                                      "ref_id": "79"
                                     },
                                     {
                                       "children": [
@@ -3558,7 +3638,7 @@
                                             }
                                           ],
                                           "node_type": "Quantity",
-                                          "ref_id": "84"
+                                          "ref_id": "83"
                                         },
                                         {
                                           "children": [
@@ -3569,7 +3649,7 @@
                                         }
                                       ],
                                       "node_type": "In",
-                                      "ref_id": "85"
+                                      "ref_id": "84"
                                     },
                                     {
                                       "children": [
@@ -3594,12 +3674,12 @@
                                                 {
                                                   "children": [
                                                     {
-                                                      "text": "E"
+                                                      "text": "Encounter"
                                                     }
                                                   ]
                                                 }
                                               ],
-                                              "ref_id": "81"
+                                              "ref_id": "80"
                                             },
                                             {
                                               "children": [
@@ -3619,44 +3699,44 @@
                                                 }
                                               ],
                                               "node_type": "Property",
-                                              "ref_id": "82"
+                                              "ref_id": "81"
                                             }
                                           ],
                                           "node_type": "Property",
-                                          "ref_id": "82"
+                                          "ref_id": "81"
                                         }
                                       ],
                                       "node_type": "Start",
-                                      "ref_id": "83"
+                                      "ref_id": "82"
                                     }
                                   ],
                                   "node_type": "In",
-                                  "ref_id": "85"
+                                  "ref_id": "84"
                                 }
                               ],
-                              "ref_id": "86"
+                              "ref_id": "85"
                             }
                           ],
                           "node_type": "Query",
-                          "ref_id": "87"
+                          "ref_id": "86"
                         },
                         {
                           "children": [
                             {
-                              "text": "&#13;\n    )"
+                              "text": "\n    )"
                             }
                           ]
                         }
                       ],
                       "node_type": "Query",
-                      "ref_id": "87"
+                      "ref_id": "86"
                     }
                   ],
                   "node_type": "Union",
-                  "ref_id": "88"
+                  "ref_id": "87"
                 }
               ],
-              "ref_id": "89"
+              "ref_id": "88"
             }
           ],
           "define_name": "Measure Population Exclusions"
@@ -3682,12 +3762,12 @@
                       ]
                     }
                   ],
-                  "ref_id": "90"
+                  "ref_id": "89"
                 },
                 {
                   "children": [
                     {
-                      "text": "):&#13;\n  "
+                      "text": " ):\n  "
                     }
                   ]
                 },
@@ -3714,7 +3794,7 @@
                                   ]
                                 }
                               ],
-                              "ref_id": "91"
+                              "ref_id": "90"
                             },
                             {
                               "children": [
@@ -3734,44 +3814,44 @@
                                 }
                               ],
                               "node_type": "Property",
-                              "ref_id": "92"
+                              "ref_id": "91"
                             }
                           ],
                           "node_type": "Property",
-                          "ref_id": "92"
+                          "ref_id": "91"
                         }
                       ],
                       "node_type": "DurationBetween",
-                      "ref_id": "93"
+                      "ref_id": "92"
                     }
                   ],
                   "node_type": "DurationBetween",
-                  "ref_id": "93"
+                  "ref_id": "92"
                 }
               ],
-              "ref_id": "94"
+              "ref_id": "93"
             }
           ],
           "define_name": "Measure Observation"
         }
       ],
       "identifier": {
-        "id": "Test32",
-        "version": "0.0.024"
+        "id": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
+        "version": "7.2.002"
       }
     }
   },
   "episode_ids": null,
   "episode_of_care": true,
-  "hqmf_id": "40280582-5859-673B-0158-886A54CE01DD",
-  "hqmf_set_id": "D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB",
+  "hqmf_id": "40280382-5FA6-FE85-015F-BB40A1CD0B95",
+  "hqmf_set_id": "3FD13096-2C8F-40B5-9297-B714E8DE9133",
   "hqmf_version_number": 0,
-  "id": "5a1ed6175cc9756dfb9a7712",
-  "main_cql_library": "Test32",
+  "id": "5a57f07b942c6d230492c674",
+  "main_cql_library": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
   "measure_attributes": [
     {
       "code": "OTH",
-      "value": "721",
+      "value": "32",
       "name": "eCQM Identifier (Measure Authoring Tool)",
       "code_obj": {
         "type": "CD",
@@ -3780,13 +3860,13 @@
       },
       "value_obj": {
         "type": "ED",
-        "value": "721",
+        "value": "32",
         "media_type": "text/plain"
       }
     },
     {
       "code": "OTH",
-      "value": "",
+      "value": "0496",
       "name": "NQF Number",
       "code_obj": {
         "type": "CD",
@@ -3795,13 +3875,13 @@
       },
       "value_obj": {
         "type": "ED",
-        "value": "",
+        "value": "0496",
         "media_type": "text/plain"
       }
     },
     {
       "code": "COPY",
-      "value": "Measure specifications are in the Public Domain\n\nLOINC(R) is a registered trademark of the Regenstrief Institute.\n\nThis material contains SNOMED Clinical Terms(R) (SNOMED CT(C)) copyright 2004-2015 International Health Terminology Standards Development Organization. All rights reserved.",
+      "value": "Measure specifications are in the Public Domain.\n\nLogical Observation Identifiers Names and Codes (LOINC) (R) is a registered trademark of the Regenstrief Institute.\n\nThis material contains Systematized Nomenclature of Medicine -- Clinical Terms (SNOMED CT (R)) copyright 2004-2016 International Health Terminology Standards Development Organization. All rights reserved.",
       "name": "Copyright",
       "code_obj": {
         "type": "CD",
@@ -3811,7 +3891,7 @@
       },
       "value_obj": {
         "type": "ED",
-        "value": "Measure specifications are in the Public Domain\n\nLOINC(R) is a registered trademark of the Regenstrief Institute.\n\nThis material contains SNOMED Clinical Terms(R) (SNOMED CT(C)) copyright 2004-2015 International Health Terminology Standards Development Organization. All rights reserved.",
+        "value": "Measure specifications are in the Public Domain.\n\nLogical Observation Identifiers Names and Codes (LOINC) (R) is a registered trademark of the Regenstrief Institute.\n\nThis material contains Systematized Nomenclature of Medicine -- Clinical Terms (SNOMED CT (R)) copyright 2004-2016 International Health Terminology Standards Development Organization. All rights reserved.",
         "media_type": "text/plain"
       }
     },
@@ -3865,7 +3945,7 @@
     },
     {
       "code": "STRAT",
-      "value": "Report total score and the following strata: \nStratum 1 - all patients with principal diagnosis consistent with mental disorders;\nStratum 2 - all patients transferred to another acute care hospital; and \nStratum 3 - all patients who do not have a principal diagnosis consistent with mental disorders and who are not transferred.",
+      "value": "Report total score and the following strata: \nStratification 1 - all patients with principal diagnosis consistent with mental disorders;\nStratification 2 - all patients transferred to another acute care hospital; and \nStratification 3 - all patients who do not have a principal diagnosis consistent with mental disorders and who are not transferred.",
       "name": "Stratification",
       "code_obj": {
         "type": "CD",
@@ -3875,7 +3955,7 @@
       },
       "value_obj": {
         "type": "ED",
-        "value": "Report total score and the following strata: \nStratum 1 - all patients with principal diagnosis consistent with mental disorders;\nStratum 2 - all patients transferred to another acute care hospital; and \nStratum 3 - all patients who do not have a principal diagnosis consistent with mental disorders and who are not transferred.",
+        "value": "Report total score and the following strata: \nStratification 1 - all patients with principal diagnosis consistent with mental disorders;\nStratification 2 - all patients transferred to another acute care hospital; and \nStratification 3 - all patients who do not have a principal diagnosis consistent with mental disorders and who are not transferred.",
         "media_type": "text/plain"
       }
     },
@@ -3961,22 +4041,6 @@
     },
     {
       "code": "REF",
-      "value": "Diercks DB, et al. Prolonged emergency department stays of non-ST-segment-elevation myocardial infarction patients are associated with worse adherence to the American College of Cardiology/American Heart Association guidelines for management and increased adverse events. Ann Emerg Med.2007;50:489-96.",
-      "name": "Reference",
-      "code_obj": {
-        "type": "CD",
-        "system": "2.16.840.1.113883.5.4",
-        "code": "REF",
-        "title": "Reference"
-      },
-      "value_obj": {
-        "type": "ED",
-        "value": "Diercks DB, et al. Prolonged emergency department stays of non-ST-segment-elevation myocardial infarction patients are associated with worse adherence to the American College of Cardiology/American Heart Association guidelines for management and increased adverse events. Ann Emerg Med.2007;50:489-96.",
-        "media_type": "text/plain"
-      }
-    },
-    {
-      "code": "REF",
       "value": "Derlet RW, Richards JR. Emergency department overcrowding in Florida, New York, and Texas. South Med J. 2002;95:846-9.",
       "name": "Reference",
       "code_obj": {
@@ -4004,6 +4068,182 @@
       "value_obj": {
         "type": "ED",
         "value": "Derlet RW, Richards JR. Overcrowding in the nation's emergency departments: complex causes and disturbing effects. Ann Emerg Med. 2000; 35:63-8.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Diercks DB, et al. Prolonged emergency department stays of non-ST-segment-elevation myocardial infarction patients are associated with worse adherence to the American College of Cardiology/American Heart Association guidelines for management and increased adverse events. Ann Emerg Med.2007;50:489-96.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Diercks DB, et al. Prolonged emergency department stays of non-ST-segment-elevation myocardial infarction patients are associated with worse adherence to the American College of Cardiology/American Heart Association guidelines for management and increased adverse events. Ann Emerg Med.2007;50:489-96.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Fatovich DM, Hirsch RL. Entry overload, emergency department overcrowding, and ambulance bypass. Emerg Med J. 2003; 20:406-9.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Fatovich DM, Hirsch RL. Entry overload, emergency department overcrowding, and ambulance bypass. Emerg Med J. 2003; 20:406-9.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Hwang U, Richardson LD, Sonuyi TO, Morrison RS. The effect of emergency department crowding on the management of pain in older adults with hip fracture. J Am Geriatr Soc. 2006; 54:270-5.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Hwang U, Richardson LD, Sonuyi TO, Morrison RS. The effect of emergency department crowding on the management of pain in older adults with hip fracture. J Am Geriatr Soc. 2006; 54:270-5.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Institute of Medicine of the National Academies. Future of emergency care: Hospital-based emergency care at the breaking point. The National Academies Press 2006.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Institute of Medicine of the National Academies. Future of emergency care: Hospital-based emergency care at the breaking point. The National Academies Press 2006.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Kyriacou DN, Ricketts V, Dyne PL, McCollough MD, Talan DA. A 5-year time study analysis of emergency department patient care efficiency. Ann Emerg Med. 1999;34:326-35",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Kyriacou DN, Ricketts V, Dyne PL, McCollough MD, Talan DA. A 5-year time study analysis of emergency department patient care efficiency. Ann Emerg Med. 1999;34:326-35",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Pines JM, et al. ED crowding is associated with variable perceptions of care compromise. Acad Emerg Med. 2007;14:1176-81.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Pines JM, et al. ED crowding is associated with variable perceptions of care compromise. Acad Emerg Med. 2007;14:1176-81.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Pines JM, et al. Emergency department crowding is associated with poor care for patients with severe pain. Ann Emerg Med. 2008;51:6-7.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Pines JM, et al. Emergency department crowding is associated with poor care for patients with severe pain. Ann Emerg Med. 2008;51:6-7.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Schull MJ, et al. Emergency department crowding and thrombolysis delays in acute myocardial infarction. Ann Emerg Med. 2004;44:577-85.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Schull MJ, et al. Emergency department crowding and thrombolysis delays in acute myocardial infarction. Ann Emerg Med. 2004;44:577-85.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Siegel B, et al. Enhancing work flow to reduce crowding. Jt Comm J Qual Patient Saf. 2007;33(11 Suppl):57-67.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Siegel B, et al. Enhancing work flow to reduce crowding. Jt Comm J Qual Patient Saf. 2007;33(11 Suppl):57-67.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Trzeciak S, Rivers EP. Emergency department overcrowding in the United States: an emerging threat to patient safety and public health. Emerg Med J. 2003;20:402-5.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Trzeciak S, Rivers EP. Emergency department overcrowding in the United States: an emerging threat to patient safety and public health. Emerg Med J. 2003;20:402-5.",
+        "media_type": "text/plain"
+      }
+    },
+    {
+      "code": "REF",
+      "value": "Wilper AP, Woolhandler S, Lasser KE, McCormick D, Cutrona SL, Bor DH, Himmelstein DU. Waits to see an emergency department physician: U.S. trends and predictors, 1997-2004. Health Aff (Millwood). 2008;27:w84-95.",
+      "name": "Reference",
+      "code_obj": {
+        "type": "CD",
+        "system": "2.16.840.1.113883.5.4",
+        "code": "REF",
+        "title": "Reference"
+      },
+      "value_obj": {
+        "type": "ED",
+        "value": "Wilper AP, Woolhandler S, Lasser KE, McCormick D, Cutrona SL, Bor DH, Himmelstein DU. Waits to see an emergency department physician: U.S. trends and predictors, 1997-2004. Health Aff (Millwood). 2008;27:w84-95.",
         "media_type": "text/plain"
       }
     },
@@ -4135,7 +4375,7 @@
       }
     }
   ],
-  "measure_id": "40280582-5859-673B-0158-886A54CE01DD",
+  "measure_id": "40280382-5FA6-FE85-015F-BB40A1CD0B95",
   "measure_period": {
     "type": "IVL_TS",
     "low": {
@@ -4169,19 +4409,19 @@
     "OBSERV": {
       "conjunction?": false,
       "type": "OBSERV",
-      "hqmf_id": "50383AA2-9B4E-4D66-9C32-465C0B23F197"
+      "hqmf_id": "FFB1B6BE-B96F-4B29-A920-0E4966D209A3"
     },
     "IPP": {
       "conjunction?": true,
       "type": "IPP",
-      "hqmf_id": "9EE1819D-960B-444A-B476-10F3ABD8DA5A",
+      "hqmf_id": "036B7EEE-DEB5-40E2-B802-BC6CDF2B8A43",
       "preconditions": [
         {
           "id": 2,
           "preconditions": [
             {
               "id": 1,
-              "reference": "Test32__Initial_Population__7B4372F8_707A_41A2_ABAA_655B6251B48C"
+              "reference": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients__Initial_Population__8A3E2D90_2D26_431C_99E4_2670D8EBF16F"
             }
           ],
           "conjunction_code": "allTrue"
@@ -4191,14 +4431,14 @@
     "MSRPOPL": {
       "conjunction?": true,
       "type": "MSRPOPL",
-      "hqmf_id": "C596B5BC-1CE0-4CF9-B078-C39A67CA3C58",
+      "hqmf_id": "4A80FF43-6FC1-4975-806B-4FD40C7C4B95",
       "preconditions": [
         {
           "id": 4,
           "preconditions": [
             {
               "id": 3,
-              "reference": "Test32__Measure_Population__7B4372F8_707A_41A2_ABAA_655B6251B48C"
+              "reference": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients__Measure_Population__8A3E2D90_2D26_431C_99E4_2670D8EBF16F"
             }
           ],
           "conjunction_code": "allTrue"
@@ -4208,14 +4448,14 @@
     "MSRPOPLEX": {
       "conjunction?": true,
       "type": "MSRPOPLEX",
-      "hqmf_id": "E15A2F63-7087-44CE-A28F-BBE4B193072A",
+      "hqmf_id": "34607208-5E04-4BC6-94E4-F3168609640E",
       "preconditions": [
         {
           "id": 6,
           "preconditions": [
             {
               "id": 5,
-              "reference": "Test32__Measure_Population_Exclusions__7B4372F8_707A_41A2_ABAA_655B6251B48C"
+              "reference": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients__Measure_Population_Exclusions__8A3E2D90_2D26_431C_99E4_2670D8EBF16F"
             }
           ],
           "conjunction_code": "atLeastOneTrue"
@@ -4225,14 +4465,14 @@
     "STRAT": {
       "conjunction?": true,
       "type": "STRAT",
-      "hqmf_id": "C1D4554C-483E-4E87-B718-D51FFD6E1552",
+      "hqmf_id": "041A37F6-86D3-471F-86DD-12FB668092BD",
       "preconditions": [
         {
           "id": 10,
           "preconditions": [
             {
               "id": 9,
-              "reference": "Test32__Stratum1__7B4372F8_707A_41A2_ABAA_655B6251B48C"
+              "reference": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients__Stratification_1__8A3E2D90_2D26_431C_99E4_2670D8EBF16F"
             }
           ],
           "conjunction_code": "allTrue"
@@ -4242,14 +4482,14 @@
     "STRAT_1": {
       "conjunction?": true,
       "type": "STRAT",
-      "hqmf_id": "434AA60E-30A1-4662-919F-D1D62E788CD3",
+      "hqmf_id": "7846CD9A-9B68-4C2C-9CFB-0E52777D9EEA",
       "preconditions": [
         {
           "id": 14,
           "preconditions": [
             {
               "id": 13,
-              "reference": "Test32__Stratum2__7B4372F8_707A_41A2_ABAA_655B6251B48C"
+              "reference": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients__Stratification_2__8A3E2D90_2D26_431C_99E4_2670D8EBF16F"
             }
           ],
           "conjunction_code": "allTrue"
@@ -4259,14 +4499,14 @@
     "STRAT_2": {
       "conjunction?": true,
       "type": "STRAT",
-      "hqmf_id": "C4E5FAB2-BF23-4E52-AEF8-62CE47C42A1A",
+      "hqmf_id": "566164F8-47E0-4ADB-A3A6-383067490DA8",
       "preconditions": [
         {
           "id": 18,
           "preconditions": [
             {
               "id": 17,
-              "reference": "Test32__Stratum3__7B4372F8_707A_41A2_ABAA_655B6251B48C"
+              "reference": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients__Stratification_3__8A3E2D90_2D26_431C_99E4_2670D8EBF16F"
             }
           ],
           "conjunction_code": "allTrue"
@@ -4290,7 +4530,7 @@
       "id": "PopulationCriteria1 - Stratification 1",
       "title": "Stratification 1",
       "OBSERV": "OBSERV",
-      "stratification": "C1D4554C-483E-4E87-B718-D51FFD6E1552",
+      "stratification": "041A37F6-86D3-471F-86DD-12FB668092BD",
       "STRAT": "STRAT",
       "population_index": 0,
       "stratification_index": 0
@@ -4302,7 +4542,7 @@
       "id": "PopulationCriteria1 - Stratification 2",
       "title": "Stratification 2",
       "OBSERV": "OBSERV",
-      "stratification": "434AA60E-30A1-4662-919F-D1D62E788CD3",
+      "stratification": "7846CD9A-9B68-4C2C-9CFB-0E52777D9EEA",
       "STRAT": "STRAT_1",
       "population_index": 0,
       "stratification_index": 1
@@ -4314,7 +4554,7 @@
       "id": "PopulationCriteria1 - Stratification 3",
       "title": "Stratification 3",
       "OBSERV": "OBSERV",
-      "stratification": "C4E5FAB2-BF23-4E52-AEF8-62CE47C42A1A",
+      "stratification": "566164F8-47E0-4ADB-A3A6-383067490DA8",
       "STRAT": "STRAT_2",
       "population_index": 0,
       "stratification_index": 2
@@ -4331,9 +4571,9 @@
       "Measure Population Exclusions"
     ],
     "STRAT": [
-      "Stratum1",
-      "Stratum2",
-      "Stratum3"
+      "Stratification 1",
+      "Stratification 2",
+      "Stratification 3"
     ]
   },
   "publish_date": null,
@@ -4342,7 +4582,7 @@
 
   ],
   "source_data_criteria": {
-    "EncounterInpatient_EncounterPerformed_2f538115_c620_4165_b4d6_3bc2288b93c1_source": {
+    "EncounterInpatient_EncounterPerformed_2f356da9_9e4f_442a_9232_4a10ae95334c_source": {
       "title": "EncounterInpatient",
       "description": "Encounter, Performed: EncounterInpatient",
       "code_list_id": "2.16.840.1.113883.3.666.5.307",
@@ -4351,10 +4591,10 @@
       "status": "performed",
       "hard_status": false,
       "negation": false,
-      "source_data_criteria": "EncounterInpatient_EncounterPerformed_2f538115_c620_4165_b4d6_3bc2288b93c1_source",
+      "source_data_criteria": "EncounterInpatient_EncounterPerformed_2f356da9_9e4f_442a_9232_4a10ae95334c_source",
       "variable": false
     },
-    "Payer_PatientCharacteristicPayer_9df88728_a759_43bd_87ee_56d638d4935d_source": {
+    "Payer_PatientCharacteristicPayer_03d54d24_1c12_4344_af14_d287a16e0c5d_source": {
       "title": "Payer",
       "description": "Patient Characteristic Payer: Payer",
       "code_list_id": "2.16.840.1.114222.4.11.3591",
@@ -4363,7 +4603,7 @@
       "definition": "patient_characteristic_payer",
       "hard_status": false,
       "negation": false,
-      "source_data_criteria": "Payer_PatientCharacteristicPayer_9df88728_a759_43bd_87ee_56d638d4935d_source",
+      "source_data_criteria": "Payer_PatientCharacteristicPayer_03d54d24_1c12_4344_af14_d287a16e0c5d_source",
       "variable": false,
       "inline_code_list": {
         "Source of Payment Typology": [
@@ -4525,7 +4765,7 @@
         ]
       }
     },
-    "Ethnicity_PatientCharacteristicEthnicity_9b8770c6_cfa4_47a1_95c6_e690016eaced_source": {
+    "Ethnicity_PatientCharacteristicEthnicity_948d7525_d40a_4e02_a4d3_5c2a569da60e_source": {
       "title": "Ethnicity",
       "description": "Patient Characteristic Ethnicity: Ethnicity",
       "code_list_id": "2.16.840.1.114222.4.11.837",
@@ -4534,7 +4774,7 @@
       "definition": "patient_characteristic_ethnicity",
       "hard_status": false,
       "negation": false,
-      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_9b8770c6_cfa4_47a1_95c6_e690016eaced_source",
+      "source_data_criteria": "Ethnicity_PatientCharacteristicEthnicity_948d7525_d40a_4e02_a4d3_5c2a569da60e_source",
       "variable": false,
       "inline_code_list": {
         "CDC Race": [
@@ -4543,7 +4783,7 @@
         ]
       }
     },
-    "ONCAdministrativeSex_PatientCharacteristicSex_a974229f_412f_40ee_bddf_b6b8026c8bc1_source": {
+    "ONCAdministrativeSex_PatientCharacteristicSex_4dc873e6_aec1_4ca7_9e88_e06b3d8bd6c3_source": {
       "title": "ONCAdministrativeSex",
       "description": "Patient Characteristic Sex: ONCAdministrativeSex",
       "code_list_id": "2.16.840.1.113762.1.4.1",
@@ -4552,7 +4792,7 @@
       "definition": "patient_characteristic_gender",
       "hard_status": false,
       "negation": false,
-      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_a974229f_412f_40ee_bddf_b6b8026c8bc1_source",
+      "source_data_criteria": "ONCAdministrativeSex_PatientCharacteristicSex_4dc873e6_aec1_4ca7_9e88_e06b3d8bd6c3_source",
       "variable": false,
       "value": {
         "type": "CD",
@@ -4560,7 +4800,7 @@
         "code": "F"
       }
     },
-    "Race_PatientCharacteristicRace_9bd104f8_ef1e_4d04_bf7f_5cd036fa878d_source": {
+    "Race_PatientCharacteristicRace_09f1f235_32d7_4f6d_b0a2_a57842c95342_source": {
       "title": "Race",
       "description": "Patient Characteristic Race: Race",
       "code_list_id": "2.16.840.1.114222.4.11.836",
@@ -4569,7 +4809,7 @@
       "definition": "patient_characteristic_race",
       "hard_status": false,
       "negation": false,
-      "source_data_criteria": "Race_PatientCharacteristicRace_9bd104f8_ef1e_4d04_bf7f_5cd036fa878d_source",
+      "source_data_criteria": "Race_PatientCharacteristicRace_09f1f235_32d7_4f6d_b0a2_a57842c95342_source",
       "variable": false,
       "inline_code_list": {
         "CDC Race": [
@@ -4582,63 +4822,58 @@
         ]
       }
     },
-    "prefix_4525004_EncounterPerformed_BFFD407D_112C_43D4_9989_188DC8899286_source": {
-      "title": "Encounter, Performed: Encounter, Performed",
-      "description": "Encounter, Performed: Encounter, Performed",
+    "EmergencyDepartmentVisit_EncounterPerformed_e9dfea5a_0011_42cc_b048_3a8748c1c4b0_source": {
+      "title": "EmergencyDepartmentVisit",
+      "description": "Encounter, Performed: EmergencyDepartmentVisit",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
       "type": "encounters",
       "definition": "encounter",
       "status": "performed",
       "hard_status": false,
       "negation": false,
-      "source_data_criteria": "prefix_4525004_EncounterPerformed_BFFD407D_112C_43D4_9989_188DC8899286_source",
-      "variable": false,
-      "inline_code_list": {
-        "SNOMED-CT": [
-          "4525004"
-        ]
-      },
-      "code_list_id": "64950740-daef-4c27-a33c-71417f949d40"
+      "source_data_criteria": "EmergencyDepartmentVisit_EncounterPerformed_e9dfea5a_0011_42cc_b048_3a8748c1c4b0_source",
+      "variable": false
     }
   },
-  "title": "Test32",
+  "title": "Median Time from ED Arrival to ED Departure for Discharged ED Patients",
   "type": "eh",
-  "updated_at": "2017-11-29T15:45:27.825Z",
-  "user_id": "59e902355cc97506a2000000",
+  "updated_at": "2018-01-11T23:17:20.134Z",
+  "user_id": "5a57e975942c6d1e61d32f13",
   "value_set_oid_version_objects": [
     {
       "oid": "2.16.840.1.113762.1.4.1",
-      "version": "Draft-D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB"
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     },
     {
       "oid": "2.16.840.1.114222.4.11.836",
-      "version": "Draft-D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB"
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     },
     {
       "oid": "2.16.840.1.114222.4.11.837",
-      "version": "Draft-D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB"
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     },
     {
       "oid": "2.16.840.1.114222.4.11.3591",
-      "version": "Draft-D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB"
-    },
-    {
-      "oid": "2.16.840.1.113883.3.666.5.307",
-      "version": "Draft-D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB"
-    },
-    {
-      "oid": "2.16.840.1.113883.3.117.1.7.1.299",
-      "version": "Draft-D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB"
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     },
     {
       "oid": "2.16.840.1.113883.3.117.1.7.1.87",
-      "version": "Draft-D9F8166E-AEE5-4A01-A9B5-68FE66EC79EB"
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     },
     {
-      "oid": "64950740-daef-4c27-a33c-71417f949d40",
-      "version": ""
+      "oid": "2.16.840.1.113883.3.666.5.307",
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     },
     {
-      "oid": "6271f688-3c68-4a95-ad3b-4d2ac6fad7a0",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.299",
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
+    },
+    {
+      "oid": "2.16.840.1.113883.3.117.1.7.1.292",
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
+    },
+    {
+      "oid": "30e1af73-5672-4e74-ab09-dab8b4aac67f",
       "version": ""
     }
   ],
@@ -4647,11 +4882,11 @@
     "2.16.840.1.114222.4.11.836",
     "2.16.840.1.114222.4.11.837",
     "2.16.840.1.114222.4.11.3591",
+    "2.16.840.1.113883.3.117.1.7.1.87",
     "2.16.840.1.113883.3.666.5.307",
     "2.16.840.1.113883.3.117.1.7.1.299",
-    "2.16.840.1.113883.3.117.1.7.1.87",
-    "64950740-daef-4c27-a33c-71417f949d40",
-    "6271f688-3c68-4a95-ad3b-4d2ac6fad7a0"
+    "2.16.840.1.113883.3.117.1.7.1.292",
+    "30e1af73-5672-4e74-ab09-dab8b4aac67f"
   ],
   "version": null
 }
