@@ -208,5 +208,106 @@ namespace :bonnie do
         puts "\e[32mNo expected_values changed\e[0m"
       end
     end
+    
+    desc %{Recreates the JSON elm stored on CQL measures using an instance of
+      a locally running CQLTranslationService JAR and updates the code_list_id field on
+      data_criteria and source_data_criteria for direct reference codes. This is in run_once
+      because once all of the code_list_ids have been updated to use a hash of the parameters
+      in direct reference codes, all code_list_ids for direct reference codes measures uploaded 
+      subsequently will be correct
+
+    $ rake bonnie:patients:rebuild_elm_update_drc_code_list_ids}
+    task :rebuild_elm_update_drc_code_list_ids => :environment do
+      update_passes = 0
+      update_fails = 0
+      orphans = 0
+      CqlMeasure.all.each do |measure|
+        begin
+          # Grab the user, we need this to output the name of the user who owns
+          # this measure. Also comes in handy when detecting measures uploaded
+          # by accounts that have since been deleted.
+          user = User.find_by(_id: measure[:user_id])
+          cql = nil
+          cql_artifacts = nil
+          # Grab the name of the main cql library
+          main_cql_library = measure[:main_cql_library]
+          # Grab the existing data_criteria and source_data_criteria hashes. Must be a deep copy, due to how Mongo copies Hash and Array field types.
+          data_criteria_object = {}
+          data_criteria_object['data_criteria'] = measure[:data_criteria].deep_dup
+          data_criteria_object['source_data_criteria'] = measure[:source_data_criteria].deep_dup
+
+          # If measure has been uploaded more recently (we should have a copy of the MAT Package) we will use the actual MAT artifacts
+          if !measure.package.nil?
+            # Create a temporary directory
+            Dir.mktmpdir do |dir|
+              # Write the package to a temp directory
+              File.open(File.join(dir, measure.measure_id + '.zip'), 'wb') do |zip_file|
+                # Write the package binary to a zip file.
+                zip_file.write(measure.package.file.data)
+                files = Measures::CqlLoader.get_files_from_zip(zip_file, dir)
+                cql_artifacts = Measures::CqlLoader.process_cql(files, main_cql_library, user)
+                data_criteria_object['source_data_criteria'], data_criteria_object['data_criteria'] = set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
+                cql = files[:CQL]
+              end
+            end
+          # If the measure does not have a MAT package stored, continue as we have in the past using the cql to elm service
+          else
+            # Grab the measure cql
+            cql = measure[:cql]
+            # Use the CQL-TO-ELM Translation Service to regenerate elm for older measures.
+            elm_json, elm_xml = CqlElm::CqlToElmHelper.translate_cql_to_elm(cql)
+            elms = {:ELM_JSON => elm_json,
+                    :ELM_XML => elm_xml}
+            cql_artifacts = Measures::CqlLoader.process_cql(elms, main_cql_library, user)
+            data_criteria_object['source_data_criteria'], data_criteria_object['data_criteria'] = set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
+          end
+          # Update the measure
+          measure.update(data_criteria: data_criteria_object['data_criteria'], source_data_criteria: data_criteria_object['source_data_criteria'], cql: cql, elm: cql_artifacts[:elms], elm_annotations: cql_artifacts[:elm_annotations], cql_statement_dependencies: cql_artifacts[:cql_definition_dependency_structure],
+                         main_cql_library: main_cql_library, value_set_oids: cql_artifacts[:all_value_set_oids], value_set_oid_version_objects: cql_artifacts[:value_set_oid_version_objects])
+          measure.save!
+          update_passes += 1
+          print "\e[#{32}m#{"[Success]"}\e[0m"
+          puts ' Measure ' + "\e[1m#{measure[:cms_id]}\e[22m" + ': "' + measure[:title] + '" with id ' + "\e[1m#{measure[:id]}\e[22m" + ' in account ' + "\e[1m#{user[:email]}\e[22m" + ' successfully updated ELM!'
+        rescue Mongoid::Errors::DocumentNotFound => e
+          orphans += 1
+          print "\e[#{31}m#{"[Error]"}\e[0m"
+          puts ' Measure ' + "\e[1m#{measure[:cms_id]}\e[22m" + ': "' + measure[:title] + '" with id ' + "\e[1m#{measure[:id]}\e[22m" + ' belongs to a user that doesn\'t exist!'
+        rescue Exception => e
+          update_fails += 1
+          print "\e[#{31}m#{"[Error]"}\e[0m"
+          puts ' Measure ' + "\e[1m#{measure[:cms_id]}\e[22m" + ': "' + measure[:title] + '" with id ' + "\e[1m#{measure[:id]}\e[22m" + ' in account ' + "\e[1m#{user[:email]}\e[22m" + ' failed to update ELM!'
+        end
+      end
+      puts "#{update_passes} measures successfully updated."
+      puts "#{update_fails} measures failed to update."
+      puts "#{orphans} measures are orphaned, and were not updated."
+    end
+    
+    def self.set_data_criteria_code_list_ids(json, cql_artifacts)
+      # Loop over data criteria to search for data criteria that is using a single reference code.
+      # Once found set the Data Criteria's 'code_list_id' to our fake oid. Do the same for source data criteria.
+      json['data_criteria'].each do |data_criteria_name, data_criteria|
+        # We do not want to replace an existing code_list_id. Skip it, unless it is a GUID.
+        if !data_criteria.key?('code_list_id') || (data_criteria['code_list_id'] && data_criteria['code_list_id'].include?('-'))
+          if data_criteria['inline_code_list']
+            # Check to see if inline_code_list contains the correct code_system and code for a direct reference code.
+            data_criteria['inline_code_list'].each do |code_system, code_list|
+              # Loop over all single code reference objects.
+              cql_artifacts[:single_code_references].each do |single_code_object|
+                # If Data Criteria contains a matching code system, check if the correct code exists in the data critera values.
+                # If both values match, set the Data Criteria's 'code_list_id' to the single_code_object_guid.
+                if code_system == single_code_object[:code_system_name] && code_list.include?(single_code_object[:code])
+                  data_criteria['code_list_id'] = single_code_object[:guid]
+                  # Modify the matching source data criteria
+                  json['source_data_criteria'][data_criteria_name + "_source"]['code_list_id'] = single_code_object[:guid]
+                end
+              end
+            end
+          end
+        end
+      end
+      return json['source_data_criteria'], json['data_criteria']
+    end
+    
   end
 end
