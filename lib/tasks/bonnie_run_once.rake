@@ -62,6 +62,31 @@ namespace :bonnie do
                     else
                       patient_criteria_matches = true
                     end
+                  else
+                      # some ids have inconsistent guids for some reason, but the prefix part still
+                      # allows for a mapping.
+                      get_id_head = -> (id) {
+                          # handle special case with one weird measure
+                          if id == 'HBsAg_LaboratoryTestPerformed_40280381_3d61_56a7_013e_7f3878ec7630_source' ||
+                             id == 'prefix_5195_3_LaboratoryTestPerformed_2162F856_8C15_499E_AC82_E58B05D4B568_source'
+                            id = 'prefix_5195_3_LaboratoryTestPerformed'
+                          else
+                            # remove the guid and _source from the id
+                            id = id[0..id.index(/(_[a-zA-Z0-9]*){5}_source/)]
+                          end
+                      }
+                    patient_id_head = get_id_head.call(patient_data_criteria['id'])
+                    measure_id_head = get_id_head.call(id)
+                    if patient_id_head == measure_id_head
+                      if patient_data_criteria['code_list_id'] != measure_criteria['code_list_id']
+                        patient_data_criteria['code_list_id'] = measure_criteria['code_list_id']
+                        has_changed = true
+                        p_code_list_ids_updated += 1
+                        patient_criteria_updated = true
+                      else
+                        patient_criteria_matches = true
+                      end
+                    end
                   end
                 end
 
