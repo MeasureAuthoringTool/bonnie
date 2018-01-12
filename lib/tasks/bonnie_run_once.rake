@@ -50,35 +50,25 @@ namespace :bonnie do
               # Extract the correct guid from the measure
               if !measure.nil?
                 patient_criteria_updated = false
+                patient_criteria_matches = false
                 can_use_definition = false
                 measure.source_data_criteria.each do |id, measure_criteria|
                   if id == patient_data_criteria['id']
-                    patient_data_criteria['code_list_id'] = measure_criteria['code_list_id']
-                    has_changed = true
-                    p_code_list_ids_updated += 1
-                    patient_criteria_updated = true
-                  elsif measure_criteria['title'] == patient_data_criteria['title']
-                    patient_data_criteria['code_list_id'] = measure_criteria['code_list_id']
-                    print_warning("#{first} #{last} #{email} Using title to match code_list_id for #{patient_data_criteria['title']}")
-                    warnings += 1
-                    has_changed = true
-                    p_code_list_ids_updated += 1
-                    patient_criteria_updated = true
-                  elsif measure_criteria['definition'] == patient_data_criteria['definition']
-                    # Only use this if it is the only measure_criteria with this definition.
-                    # TODO: Only implement if we have to; currently no patients are hitting this case.
-                    can_use_definition = true
+                    if patient_data_criteria['code_list_id'] != measure_criteria['code_list_id']
+                      patient_data_criteria['code_list_id'] = measure_criteria['code_list_id']
+                      has_changed = true
+                      p_code_list_ids_updated += 1
+                      patient_criteria_updated = true
+                    else
+                      patient_criteria_matches = true
+                    end
                   end
                 end
 
-                if !patient_criteria_updated
-                  if can_use_definition
-                    print_warning("#{first} #{last} #{email} Able to use DEFINITION to match code_list_id for #{patient_data_criteria['title']}")
-                  else
-                    # print an error if we have looked at all measure_criteria but still haven't found a match.
-                    print_error("#{first} #{last} #{email} Unable to find code list id for #{patient_data_criteria['title']}")
-                    errors += 1
-                  end
+                if !patient_criteria_updated && !patient_criteria_matches
+                  # print an error if we have looked at all measure_criteria but still haven't found a match.
+                  print_error("#{first} #{last} #{email} Unable to find code list id for #{patient_data_criteria['title']}")
+                  errors += 1
                 end
               end
             end
