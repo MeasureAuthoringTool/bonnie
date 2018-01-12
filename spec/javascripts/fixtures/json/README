@@ -75,3 +75,10 @@ bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_meas
 
 CMS10v0 - Measure from Jira test BONNIE-980
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS10,bonnie-fixtures@mitre.org,CMS10v0]
+
+# bonnie-fixtures measures
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS134,bonnie-fixtures@mitre.org,CMS134v6]
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS158,bonnie-fixtures@mitre.org,CMS158v6]
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS160,bonnie-fixtures@mitre.org,CMS160v6]
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS177,bonnie-fixtures@mitre.org,CMS177v6]
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS32,bonnie-fixtures@mitre.org,CMS32v7]

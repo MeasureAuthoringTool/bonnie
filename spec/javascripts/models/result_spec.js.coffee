@@ -108,7 +108,7 @@ describe 'Continuous Variable Calculations', ->
     bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS32/value_sets.json')
     @cql_calculator = new CQLCalculator()
 
-    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS32/CMS721v0.json'), parse: true
+    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS32/CMS32v7.json'), parse: true
     @population = @measure.get('populations').at(0)
     @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS32/patients.json'), parse: true
 
@@ -126,10 +126,10 @@ describe 'Continuous Variable Calculations', ->
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [15] }
-    expect(result.get('episode_results')['5a15993d5cc9752039b64b8f']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5a593cbd942c6d0773593d50']).toEqual(expectedEpisodeResults)
 
   it 'can handle multiple episodes observed', ->
-    patient = @patients.findWhere(last: '2 ED ', first: 'Visits')
+    patient = @patients.findWhere(last: '2 ED', first: 'Visits')
     result = @population.calculate(patient)
     # values are ordered when created by the calculator
     expect(result.get('values')).toEqual([15, 25])
@@ -139,7 +139,7 @@ describe 'Continuous Variable Calculations', ->
 
     # check the results for the episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [25] }
-    expect(result.get('episode_results')['5a20544b5cc97509451ab202']).toEqual(expectedEpisodeResults)
+    expect(result.get('episode_results')['5a593ef8942c6d0773593de1']).toEqual(expectedEpisodeResults)
     # check the results for the second episode
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [15] }
     expect(result.get('episode_results')['5a20544b5cc97509451ab203']).toEqual(expectedEpisodeResults)
