@@ -12,5 +12,5 @@ bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,CMS160v6,bonn
 CMS177 - Episode of care based measure
 bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,CMS177v6,bonnie-fixtures@mitre.org,CMS177v6]
 
-CMS32 Episode of care based measure with multiple stratifications
+CMS32 - Episode of care based measure with multiple stratifications
 bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,CMS32v7,bonnie-fixtures@mitre.org,CMS32v7]
