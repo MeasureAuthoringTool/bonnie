@@ -26,7 +26,7 @@ class CqlTest < ActiveSupport::TestCase
       dc_code_list_id = measure.data_criteria['prefix_69981_9_Communication_FromProviderToPatient_C5F6108B_658C_4114_A1B5_F65D8FEE155F']['code_list_id']
 
       # Run rake task on all cql measures
-      Rake::Task['bonnie:cql:rebuild_elm'].execute
+      Rake::Task['bonnie:patients:rebuild_elm_update_drc_code_list_ids'].execute
       measure = CqlMeasure.where({hqmf_set_id: "E1CB05E0-97D5-40FC-B456-15C5DBF44309"}).first
 
       # Confirm that the data criteria's code_list_id has the same GUID as it did before the rebuild_elm
