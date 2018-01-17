@@ -1,6 +1,6 @@
 Doorkeeper.configure do
   # Change the ORM that doorkeeper will use (needs plugins)
-  orm :mongoid4 # or :mongoid3, :mongoid4, :mongo_mapper
+  orm :mongoid5 # or :mongoid3, :mongoid4, :mongo_mapper
 
   # This block will be called to check whether the resource owner is authenticated or not.
   resource_owner_authenticator do
@@ -108,7 +108,7 @@ Doorkeeper.configure do
   #   http://tools.ietf.org/html/rfc6819#section-4.4.2
   #   http://tools.ietf.org/html/rfc6819#section-4.4.3
   #
-  grant_flows %w(authorization_code client_credentials password implicit)
+  grant_flows %w(authorization_code password)
 
   # Under some circumstances you might want to have applications auto-approved,
   # so that the user skips the authorization step.
