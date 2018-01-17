@@ -9,31 +9,32 @@ describe 'cqlCalculator', ->
 
   describe 'valueSetsForCodeService', ->
     it 'returns bonnie.valueSetsByOidCached if it exists', ->
-      bonnie.valueSetsByOidCached = 'foo'
-      expect(@cql_calculator.valueSetsForCodeService()).toEqual('foo')
+      bonnie.valueSetsByOidCached = {'foo': []}
+      expect(@cql_calculator.valueSetsForCodeService(bonnie.valueSetsByOid, 'foo')).toEqual([])
       bonnie.valueSetsByOidCached = undefined
 
     it 'returns an empty hash if given empty hash', ->
       expect(bonnie.valueSetsByOidCached).not.toBeDefined()
       bonnie.valueSetsByOid = {}
-      emptyRefactoredValueSets = @cql_calculator.valueSetsForCodeService()
-      expect(emptyRefactoredValueSets).toEqual({})
-      expect(bonnie.valueSetsByOidCached).toEqual({})
+      emptyRefactoredValueSets = @cql_calculator.valueSetsForCodeService(bonnie.valueSetsByOid, '')
+      expect(Object.keys(emptyRefactoredValueSets).length).toEqual(0)
+      expect(bonnie.valueSetsByOidCached).toEqual({'':{}})
       bonnie.valueSetsByOidCached = undefined
 
     it 'properly caches refactored bonnie.valueSetsByOid', ->
       bonnie.valueSetsByOid = getJSONFixture('/measure_data/cqltest/value_sets.json')
+      measure = getJSONFixture('/measure_data/cqltest/CMS720v0.json')
       expect(bonnie.valueSetsByOidCached).not.toBeDefined()
-      oldRefactoredValueSets = @cql_calculator.valueSetsForCodeService()
+      oldRefactoredValueSets = @cql_calculator.valueSetsForCodeService(measure.value_set_oid_version_objects, measure.hqmf_set_id)
       expect(oldRefactoredValueSets).toExist()
       expect(bonnie.valueSetsByOidCached).toExist()
       bonnie.valueSetsByOid = {} # If cache isn't used, next line will be {} as shown in previous test
-      newRefactoredValueSets = @cql_calculator.valueSetsForCodeService()
+      newRefactoredValueSets = @cql_calculator.valueSetsForCodeService(measure.value_set_oid_version_objects, measure.hqmf_set_id)
       expect(newRefactoredValueSets).toExist()
       expect(newRefactoredValueSets).not.toEqual({})
-      expect(oldRefactoredValueSets).toEqual(bonnie.valueSetsByOidCached)
+      expect(oldRefactoredValueSets).toEqual(bonnie.valueSetsByOidCached[measure.hqmf_set_id])
       expect(oldRefactoredValueSets).toEqual(newRefactoredValueSets)
-      expect(bonnie.valueSetsByOidCached['2.16.840.1.113762.1.4.1']['N/A'].length).toEqual(2)
+      expect(bonnie.valueSetsByOidCached[measure.hqmf_set_id]['2.16.840.1.113762.1.4.1']['N/A'].length).toEqual(2)
       bonnie.valueSetsByOidCached = undefined
 
   describe '_buildPopulationRelevanceMap', ->
