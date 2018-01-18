@@ -17,6 +17,7 @@ class ArchivedMeasuresController < ApplicationController
       # Fetch only hqmf_set_id and _id fields of the measure so we can use it to grab the archived measures for that 
       # hqmf_set_id.
       @measure = Measure.by_user(current_user).only(:hqmf_set_id, :_id).find(params[:measure_id])
+      raise Mongoid::Errors::DocumentNotFound.new(Measure, _id: params[:measure_id]) if @measure == nil
       
       # Fetch only the measure_db_id and _id fields of the archived measures.
       @archived_measures = ArchivedMeasure.by_user(current_user).only(:measure_db_id, :_id).where(hqmf_set_id: @measure.hqmf_set_id)

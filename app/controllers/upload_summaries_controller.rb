@@ -17,6 +17,7 @@ class UploadSummariesController < ApplicationController
       # Fetch only hqmf_set_id and _id fields of the measure so we can use it to grab the upload summaries for that 
       # hqmf_set_id.
       @measure = Measure.by_user(current_user).only(:hqmf_set_id, :_id).find(params[:measure_id])
+      raise Mongoid::Errors::DocumentNotFound.new(Measure, _id: params[:measure_id]) if @measure == nil
       
       # Fetch only the _id and created_at fields of the upload summaries that have the given hqmf_set_id.
       @upload_summaries = UploadSummary::MeasureSummary.by_user_and_hqmf_set_id(current_user, @measure.hqmf_set_id).only([:_id, :created_at]).desc(:created_at)
@@ -35,6 +36,7 @@ class UploadSummariesController < ApplicationController
   # Gets a specific UploadSummary by its _id.
   def show
     @upload_summary = UploadSummary::MeasureSummary.by_user(current_user).find(params[:id])
+    raise Mongoid::Errors::DocumentNotFound.new(UploadSummary::MeasureSummary, _id: params[:id]) if @upload_summary == nil
     
     respond_with @upload_summary do |format|
       format.json { render json: @upload_summary }
