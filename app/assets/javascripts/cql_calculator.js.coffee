@@ -73,8 +73,17 @@
            else if !Array.isArray(elm) && (elm["library"]["statements"]["def"].filter (def) -> def.name == generatedELMJSON.name).length == 0
              elm["library"]["statements"]["def"].push generatedELMJSON
 
+      # Set all value set versions to 'undefined' so the execution engine does not grab the specified version in the ELM
+      for elm_library in elm
+        for valueSet in elm_library['library']['valueSets']['def']
+          if valueSet['version']?
+            valueSet['version'] = undefined
+
+      # Grab the correct version of value sets to pass into the exectuion engine.
+      measure_value_sets = @valueSetsForCodeService(population.collection.parent.get('value_set_oid_version_objects'), population.collection.parent.get('hqmf_set_id'))
+
       # Calculate results for each CQL statement
-      results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), population.collection.parent.get('main_cql_library'), main_library_version, params)
+      results = executeSimpleELM(elm, patientSource, measure_value_sets, population.collection.parent.get('main_cql_library'), main_library_version, params)
 
       # Parse CQL statement results into population values
       [population_results, episode_results] = @createPopulationValues population, results, patient, observation_defs
@@ -438,19 +447,22 @@
     return false
 
   # Format ValueSets for use by CQL4Browsers
-  valueSetsForCodeService: ->
+  valueSetsForCodeService: (value_set_oid_version_objects, hqmf_set_id) ->
     # Cache this refactoring so it only happens once per user rather than once per measure population
     if !bonnie.valueSetsByOidCached
+      bonnie.valueSetsByOidCached = {}
+
+    if !bonnie.valueSetsByOidCached[hqmf_set_id]
       valueSets = {}
-      for oid, versions of bonnie.valueSetsByOid
-        for version, vs of versions
-          continue unless vs.concepts
-          valueSets[oid] ||= {}
-          valueSets[oid][version] ||= []
-          for concept in vs.concepts
-            valueSets[oid][version].push code: concept.code, system: concept.code_system_name, version: version
-      bonnie.valueSetsByOidCached = valueSets
-    bonnie.valueSetsByOidCached
+      for value_set in value_set_oid_version_objects
+        specific_value_set = bonnie.valueSetsByOid[value_set['oid']][value_set['version']]
+        continue unless specific_value_set.concepts
+        valueSets[specific_value_set['oid']] ||= {}
+        valueSets[specific_value_set['oid']][specific_value_set['version']] ||= []
+        for concept in specific_value_set.concepts
+          valueSets[specific_value_set['oid']][specific_value_set['version']].push code: concept.code, system: concept.code_system_name, version: specific_value_set['version']
+      bonnie.valueSetsByOidCached[hqmf_set_id] = valueSets
+    bonnie.valueSetsByOidCached[hqmf_set_id]
 
   # Converts the given time to the correct format using momentJS
   getConvertedTime: (timeValue) ->
