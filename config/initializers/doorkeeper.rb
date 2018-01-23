@@ -4,7 +4,12 @@ Doorkeeper.configure do
 
   # This block will be called to check whether the resource owner is authenticated or not.
   resource_owner_authenticator do
-    current_user
+    if current_user
+      current_user
+    else
+      store_location_for(:user, request.url)
+      redirect_to(new_user_session_path)
+    end
   end
 
   # this block gets executed on a "password" grant flow.
