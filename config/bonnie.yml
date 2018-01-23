@@ -13,6 +13,11 @@ defaults: &defaults
   enable_client_error_email: true
   # oldest version of QDM that can be loaded
   support_qdm_version: 5.3
+  # Place holder email addresses for email alerts. This email is not valid.
+  # This email should be configured in a '<root>/config/email.yml' file
+  # for deployments.
+  bonnie_email: bonnie@example.com # For standard notifications
+  bonnie_error_email: bonnie@example.com # For frontend/backend exceptions
 
 development:
   <<: *defaults
