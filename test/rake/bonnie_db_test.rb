@@ -55,7 +55,7 @@ class BonnieDbTest < ActiveSupport::TestCase
     Rake::Task['bonnie:db:dump'].execute
     assert_equal original_number + 1, Dir.entries(path).size
   end
-  
+
   test "download_measure_package bad environment variables" do
     # Bad email
     ENV['EMAIL'] = 'asdf@example.com'

@@ -184,15 +184,15 @@ namespace :bonnie do
         puts "Keeping #{sorted.last}"
       end
     end
-    
+
     desc 'Downloads a measure package for a particular measure'
     task :download_measure_package => :environment do
       email = ENV['EMAIL']
       cms_id = ENV['CMS_ID']
       hqmf_set_id = ENV['HQMF_SET_ID']
-      
+
       is_error = false
-      
+
       unless is_error
         begin
           user = User.find_by(email: email)
@@ -201,7 +201,7 @@ namespace :bonnie do
           is_error = true
         end
       end
-      
+
       unless is_error
         if hqmf_set_id
           begin
@@ -222,7 +222,7 @@ namespace :bonnie do
           is_error = true
         end
       end
-      
+
       unless is_error
         if measure.package
           filename = "#{measure.cms_id}_#{email}_#{measure.package.created_at.to_date.to_s}.zip"
@@ -235,7 +235,7 @@ namespace :bonnie do
           is_error = true
         end
       end
-      
+
     end
 
   end
