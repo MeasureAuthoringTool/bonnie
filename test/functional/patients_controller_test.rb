@@ -161,6 +161,7 @@ include Devise::Test::ControllerHelpers
     assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
     assert_equal 'binary', response.header['Content-Transfer-Encoding']
 
+    Dir.mkdir(Rails.root.join('tmp')) unless Dir.exist?(Rails.root.join('tmp'))
     zip_path = File.join('tmp', 'test.zip')
     File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
     Zip::ZipFile.open(zip_path) do |zip_file|
@@ -190,6 +191,7 @@ include Devise::Test::ControllerHelpers
     assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
     assert_equal 'binary', response.header['Content-Transfer-Encoding']
 
+    Dir.mkdir(Rails.root.join('tmp')) unless Dir.exist?(Rails.root.join('tmp'))
     zip_path = File.join('tmp', 'test.zip')
     File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
     Zip::ZipFile.open(zip_path) do |zip_file|
