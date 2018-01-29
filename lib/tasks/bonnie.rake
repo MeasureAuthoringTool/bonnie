@@ -196,7 +196,7 @@ namespace :bonnie do
       unless is_error
         begin
           user = User.find_by(email: email)
-        rescue
+        rescue Mongoid::Errors::DocumentNotFound
           print_error "#{email} not found"
           is_error = true
         end
@@ -207,41 +207,37 @@ namespace :bonnie do
           begin
             measure = CqlMeasure.find_by(user_id: user.id, hqmf_set_id: hqmf_set_id)
             print_success "#{user.email}: measure with HQMF set id #{hqmf_set_id} found"
-          rescue
+          rescue Mongoid::Errors::DocumentNotFound
             print_error "measure with HQFM set id #{hqmf_set_id} not found for account #{email}"
             is_error = true
           end
         elsif cms_id
-          measure = find_measure(user, "", cms_id)
-          if !measure
+          measure = find_measure(user, '', cms_id)
+          unless measure
             print_error "measure with CMS id #{cms_id} not found for account #{email}"
             is_error = true
           end
         else
-          print_error "Expected CMS_ID or HQMF_SET_ID environment variables"
+          print_error 'Expected CMS_ID or HQMF_SET_ID environment variables'
           is_error = true
         end
       end
 
       unless is_error
         if measure.package
-          filename = "#{measure.cms_id}_#{email}_#{measure.package.created_at.to_date.to_s}.zip"
+          filename = "#{measure.cms_id}_#{email}_#{measure.package.created_at.to_date}.zip"
           file = open(filename, 'wb')
           file.write(measure.package.file.data)
           file.close
-          print_success "Successfully wrote #{measure.cms_id}_#{email}_#{measure.package.created_at.to_date.to_s}.zip"
+          print_success "Successfully wrote #{measure.cms_id}_#{email}_#{measure.package.created_at.to_date}.zip"
         else
           print_error 'No package found for this measure.'
-          is_error = true
         end
       end
-
     end
-
   end
 
   namespace :patients do
-
     desc %{Export Bonnie patients to a JSON file.
 
     You must identify the user by EMAIL, include a HQMF_SET_ID, and
