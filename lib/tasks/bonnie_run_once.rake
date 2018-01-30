@@ -285,7 +285,9 @@ namespace :bonnie do
             elms = {:ELM_JSON => elm_json,
                     :ELM_XML => elm_xml}
             cql_artifacts = Measures::CqlLoader.process_cql(elms, main_cql_library, user, nil, nil, nil, nil, nil, nil, measure.hqmf_set_id)
-            data_criteria_object['source_data_criteria'], data_criteria_object['data_criteria'] = set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
+            updated_data_criteria_object = set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
+            data_criteria_object['source_data_criteria'] = updated_data_criteria_object[:source_data_criteria]
+            data_criteria_object['data_criteria'] = updated_data_criteria_object[:data_criteria]
           end
 
           # Get a hash of differences from the original measure and the updated data
@@ -346,21 +348,6 @@ namespace :bonnie do
         end
       end
       {source_data_criteria: json['source_data_criteria'], data_criteria: json['data_criteria']}
-    end
-    
-    # Builds a hash of differences between the existing measure data and the new data
-    def self.measure_update_diff(before_state, data_criteria_object, cql, cql_artifacts, main_cql_library)
-      differences = {}
-      differences['Data Criteria'] = data_criteria_object['data_criteria'] if Digest::MD5.hexdigest(before_state[:measure_data_criteria].to_json) != Digest::MD5.hexdigest(data_criteria_object['data_criteria'].to_json)
-      differences['Source Data Criteria'] = data_criteria_object['source_data_criteria'] if Digest::MD5.hexdigest(before_state[:measure_source_data_criteria].to_json) != Digest::MD5.hexdigest(data_criteria_object['source_data_criteria'].to_json)
-      differences['CQL'] = cql if Digest::MD5.hexdigest(before_state[:measure_cql].to_json) != Digest::MD5.hexdigest(cql.to_json)
-      differences['ELM'] = cql_artifacts[:elms] if Digest::MD5.hexdigest(before_state[:measure_elm].to_json) != Digest::MD5.hexdigest(cql_artifacts[:elms].to_json)
-      differences['ELM Annotations'] = cql_artifacts[:elm_annotations] if Digest::MD5.hexdigest(before_state[:measure_elm_annotations].to_json) != Digest::MD5.hexdigest(cql_artifacts[:elm_annotations].to_json)
-      differences['CQL Definition Statement Dependencies'] = cql_artifacts[:cql_definition_dependency_structure] if Digest::MD5.hexdigest(before_state[:measure_cql_statement_dependencies].to_json) != Digest::MD5.hexdigest(cql_artifacts[:cql_definition_dependency_structure].to_json)
-      differences['Main CQL Library'] = main_cql_library if Digest::MD5.hexdigest(before_state[:measure_main_cql_library].to_json) != Digest::MD5.hexdigest(main_cql_library.to_json)
-      differences['All Value Set Oids'] = cql_artifacts[:all_value_set_oids] if Digest::MD5.hexdigest(before_state[:measure_value_set_oids].to_json) != Digest::MD5.hexdigest(cql_artifacts[:all_value_set_oids].to_json)
-      differences['Value Set Oid Version Objects'] = cql_artifacts[:value_set_oid_version_objects] if Digest::MD5.hexdigest(before_state[:measure_value_set_oid_version_objects].to_json) != Digest::MD5.hexdigest(cql_artifacts[:value_set_oid_version_objects].to_json)
-      differences
     end
 
   end
