@@ -8,8 +8,10 @@ namespace :bonnie do
     $ rake bonnie:patients:update_source_data_criteria)
     task :update_source_data_criteria=> :environment do
       puts "Updating patient source_data_criteria to match measure"
-      p_hqmf_set_ids_updated, hqmf_set_ids_updated = 0, 0
-      p_code_list_ids_updated, code_list_ids_updated = 0, 0
+      p_hqmf_set_ids_updated = 0
+      hqmf_set_ids_updated = 0
+      p_code_list_ids_updated = 0
+      code_list_ids_updated = 0
       successes = 0
       warnings = 0
       errors = 0
@@ -43,15 +45,37 @@ namespace :bonnie do
             has_changed = true
           end
 
-          if patient_data_criteria['code_list_id']
-            if patient_data_criteria['code_list_id'].include?('-')
-              # Extract the correct guid from the measure
-              if !measure.nil?
-                patient_criteria_updated = false
-                patient_criteria_matches = false
-                can_use_definition = false
-                measure.source_data_criteria.each do |id, measure_criteria|
-                  if id == patient_data_criteria['id']
+          if patient_data_criteria['code_list_id'] && patient_data_criteria['code_list_id'].include?('-')
+            # Extract the correct guid from the measure
+            unless measure.nil?
+              patient_criteria_updated = false
+              patient_criteria_matches = false
+              measure.source_data_criteria.each do |measure_id, measure_criteria|
+                if measure_id == patient_data_criteria['id']
+                  if patient_data_criteria['code_list_id'] != measure_criteria['code_list_id']
+                    patient_data_criteria['code_list_id'] = measure_criteria['code_list_id']
+                    has_changed = true
+                    p_code_list_ids_updated += 1
+                    patient_criteria_updated = true
+                  else
+                    patient_criteria_matches = true
+                  end
+                else
+                  # some ids have inconsistent guids for some reason, but the prefix part still
+                  # allows for a mapping.
+                  get_id_head = lambda do |id|
+                    # handle special case with one weird measure
+                    if id == 'HBsAg_LaboratoryTestPerformed_40280381_3d61_56a7_013e_7f3878ec7630_source' ||
+                       id == 'prefix_5195_3_LaboratoryTestPerformed_2162F856_8C15_499E_AC82_E58B05D4B568_source'
+                      id = 'prefix_5195_3_LaboratoryTestPerformed'
+                    else
+                      # remove the guid and _source from the id
+                      id = id[0..id.index(/(_[a-zA-Z0-9]*){5}_source/)]
+                    end
+                  end
+                  patient_id_head = get_id_head.call(patient_data_criteria['id'])
+                  measure_id_head = get_id_head.call(measure_id)
+                  if patient_id_head == measure_id_head
                     if patient_data_criteria['code_list_id'] != measure_criteria['code_list_id']
                       patient_data_criteria['code_list_id'] = measure_criteria['code_list_id']
                       has_changed = true
@@ -60,39 +84,13 @@ namespace :bonnie do
                     else
                       patient_criteria_matches = true
                     end
-                  else
-                      # some ids have inconsistent guids for some reason, but the prefix part still
-                      # allows for a mapping.
-                      get_id_head = -> (id) {
-                          # handle special case with one weird measure
-                          if id == 'HBsAg_LaboratoryTestPerformed_40280381_3d61_56a7_013e_7f3878ec7630_source' ||
-                             id == 'prefix_5195_3_LaboratoryTestPerformed_2162F856_8C15_499E_AC82_E58B05D4B568_source'
-                            id = 'prefix_5195_3_LaboratoryTestPerformed'
-                          else
-                            # remove the guid and _source from the id
-                            id = id[0..id.index(/(_[a-zA-Z0-9]*){5}_source/)]
-                          end
-                      }
-                    patient_id_head = get_id_head.call(patient_data_criteria['id'])
-                    measure_id_head = get_id_head.call(id)
-                    if patient_id_head == measure_id_head
-                      if patient_data_criteria['code_list_id'] != measure_criteria['code_list_id']
-                        patient_data_criteria['code_list_id'] = measure_criteria['code_list_id']
-                        has_changed = true
-                        p_code_list_ids_updated += 1
-                        patient_criteria_updated = true
-                      else
-                        patient_criteria_matches = true
-                      end
-                    end
                   end
                 end
-
-                if !patient_criteria_updated && !patient_criteria_matches
-                  # print an error if we have looked at all measure_criteria but still haven't found a match.
-                  print_error("#{first} #{last} #{email} Unable to find code list id for #{patient_data_criteria['title']}")
-                  errors += 1
-                end
+              end
+              if !patient_criteria_updated && !patient_criteria_matches
+                # print an error if we have looked at all measure_criteria but still haven't found a match.
+                print_error("#{first} #{last} #{email} Unable to find code list id for #{patient_data_criteria['title']}")
+                errors += 1
               end
             end
           end
@@ -222,14 +220,13 @@ namespace :bonnie do
       end
     end
     
-    desc %{Recreates the JSON elm stored on CQL measures using an instance of
+    desc %(Recreates the JSON elm stored on CQL measures using an instance of
       a locally running CQLTranslationService JAR and updates the code_list_id field on
       data_criteria and source_data_criteria for direct reference codes. This is in run_once
       because once all of the code_list_ids have been updated to use a hash of the parameters
       in direct reference codes, all code_list_ids for direct reference codes measures uploaded 
       subsequently will be correct
-
-    $ rake bonnie:patients:rebuild_elm_update_drc_code_list_ids}
+    $ rake bonnie:patients:rebuild_elm_update_drc_code_list_ids)
     task :rebuild_elm_update_drc_code_list_ids => :environment do
       update_passes = 0
       update_fails = 0
@@ -273,7 +270,9 @@ namespace :bonnie do
                 zip_file.write(measure.package.file.data)
                 files = Measures::CqlLoader.get_files_from_zip(zip_file, dir)
                 cql_artifacts = Measures::CqlLoader.process_cql(files, main_cql_library, user, nil, nil, nil, nil, nil, nil, measure.hqmf_set_id)
-                data_criteria_object['source_data_criteria'], data_criteria_object['data_criteria'] = set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
+                updated_data_criteria_object = set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
+                data_criteria_object['source_data_criteria'] = updated_data_criteria_object[:source_data_criteria]
+                data_criteria_object['data_criteria'] = updated_data_criteria_object[:data_criteria]
                 cql = files[:CQL]
               end
             end
@@ -294,14 +293,14 @@ namespace :bonnie do
           unless differences.empty?
             # Update the measure
             measure.update(data_criteria: data_criteria_object['data_criteria'], source_data_criteria: data_criteria_object['source_data_criteria'], cql: cql, elm: cql_artifacts[:elms], elm_annotations: cql_artifacts[:elm_annotations], cql_statement_dependencies: cql_artifacts[:cql_definition_dependency_structure],
-                            main_cql_library: main_cql_library, value_set_oids: cql_artifacts[:all_value_set_oids], value_set_oid_version_objects: cql_artifacts[:value_set_oid_version_objects])
+                           main_cql_library: main_cql_library, value_set_oids: cql_artifacts[:all_value_set_oids], value_set_oid_version_objects: cql_artifacts[:value_set_oid_version_objects])
             measure.save!
             update_passes += 1
             print "\e[#{32}m#{"[Success]"}\e[0m"
             puts ' Measure ' + "\e[1m#{measure[:cms_id]}\e[22m" + ': "' + measure[:title] + '" with id ' + "\e[1m#{measure[:id]}\e[22m" + ' in account ' + "\e[1m#{user[:email]}\e[22m" + ' successfully updated ELM!'
-            differences.each do |key, value|
+            differences.each_key do |key|
               fields_diffs[key] += 1
-              puts "--- #{key} --- Has bee modified"
+              puts "--- #{key} --- Has been modified"
             end
           end
         rescue Mongoid::Errors::DocumentNotFound => e
@@ -346,39 +345,21 @@ namespace :bonnie do
           end
         end
       end
-      return json['source_data_criteria'], json['data_criteria']
+      {source_data_criteria: json['source_data_criteria'], data_criteria: json['data_criteria']}
     end
     
     # Builds a hash of differences between the existing measure data and the new data
     def self.measure_update_diff(before_state, data_criteria_object, cql, cql_artifacts, main_cql_library)
       differences = {}
-      if Digest::MD5.hexdigest(before_state[:measure_data_criteria].to_json) != Digest::MD5.hexdigest(data_criteria_object['data_criteria'].to_json)
-        differences['Data Criteria'] = data_criteria_object['data_criteria']
-      end
-      if Digest::MD5.hexdigest(before_state[:measure_source_data_criteria].to_json) != Digest::MD5.hexdigest(data_criteria_object['source_data_criteria'].to_json)
-        differences['Source Data Criteria'] = data_criteria_object['source_data_criteria']
-      end
-      if Digest::MD5.hexdigest(before_state[:measure_cql].to_json) != Digest::MD5.hexdigest(cql.to_json)
-        differences['CQL'] = cql
-      end
-      if Digest::MD5.hexdigest(before_state[:measure_elm].to_json) != Digest::MD5.hexdigest(cql_artifacts[:elms].to_json)
-        differences['ELM'] = cql_artifacts[:elms]
-      end
-      if Digest::MD5.hexdigest(before_state[:measure_elm_annotations].to_json) != Digest::MD5.hexdigest(cql_artifacts[:elm_annotations].to_json)
-        differences['ELM Annotations'] = cql_artifacts[:elm_annotations]
-      end
-      if Digest::MD5.hexdigest(before_state[:measure_cql_statement_dependencies].to_json) != Digest::MD5.hexdigest(cql_artifacts[:cql_definition_dependency_structure].to_json)
-        differences['CQL Definition Statement Dependencies'] = cql_artifacts[:cql_definition_dependency_structure]
-      end
-      if Digest::MD5.hexdigest(before_state[:measure_main_cql_library].to_json) != Digest::MD5.hexdigest(main_cql_library.to_json)
-        differences['Main CQL Library'] = main_cql_library
-      end
-      if Digest::MD5.hexdigest(before_state[:measure_value_set_oids].to_json) != Digest::MD5.hexdigest(cql_artifacts[:all_value_set_oids].to_json)
-        differences['All Value Set Oids'] = cql_artifacts[:all_value_set_oids]
-      end
-      if Digest::MD5.hexdigest(before_state[:measure_value_set_oid_version_objects].to_json) != Digest::MD5.hexdigest(cql_artifacts[:value_set_oid_version_objects].to_json)
-        differences['Value Set Oid Version Objects'] = cql_artifacts[:value_set_oid_version_objects]
-      end
+      differences['Data Criteria'] = data_criteria_object['data_criteria'] if Digest::MD5.hexdigest(before_state[:measure_data_criteria].to_json) != Digest::MD5.hexdigest(data_criteria_object['data_criteria'].to_json)
+      differences['Source Data Criteria'] = data_criteria_object['source_data_criteria'] if Digest::MD5.hexdigest(before_state[:measure_source_data_criteria].to_json) != Digest::MD5.hexdigest(data_criteria_object['source_data_criteria'].to_json)
+      differences['CQL'] = cql if Digest::MD5.hexdigest(before_state[:measure_cql].to_json) != Digest::MD5.hexdigest(cql.to_json)
+      differences['ELM'] = cql_artifacts[:elms] if Digest::MD5.hexdigest(before_state[:measure_elm].to_json) != Digest::MD5.hexdigest(cql_artifacts[:elms].to_json)
+      differences['ELM Annotations'] = cql_artifacts[:elm_annotations] if Digest::MD5.hexdigest(before_state[:measure_elm_annotations].to_json) != Digest::MD5.hexdigest(cql_artifacts[:elm_annotations].to_json)
+      differences['CQL Definition Statement Dependencies'] = cql_artifacts[:cql_definition_dependency_structure] if Digest::MD5.hexdigest(before_state[:measure_cql_statement_dependencies].to_json) != Digest::MD5.hexdigest(cql_artifacts[:cql_definition_dependency_structure].to_json)
+      differences['Main CQL Library'] = main_cql_library if Digest::MD5.hexdigest(before_state[:measure_main_cql_library].to_json) != Digest::MD5.hexdigest(main_cql_library.to_json)
+      differences['All Value Set Oids'] = cql_artifacts[:all_value_set_oids] if Digest::MD5.hexdigest(before_state[:measure_value_set_oids].to_json) != Digest::MD5.hexdigest(cql_artifacts[:all_value_set_oids].to_json)
+      differences['Value Set Oid Version Objects'] = cql_artifacts[:value_set_oid_version_objects] if Digest::MD5.hexdigest(before_state[:measure_value_set_oid_version_objects].to_json) != Digest::MD5.hexdigest(cql_artifacts[:value_set_oid_version_objects].to_json)
       differences
     end
 
