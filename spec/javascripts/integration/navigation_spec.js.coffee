@@ -6,6 +6,11 @@ describe 'Navigation', ->
     measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS160/CMS160v6.json'), parse: true
     @measures.add(measure)
     @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS160/patients.json'), parse: true
+    @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
+    bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS160/value_sets.json')
+
+  afterEach ->
+    bonnie.valueSetsByOid = @oldBonnieValueSetsByOid
 
   describe 'navigating the measures list view', ->
 
