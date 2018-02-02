@@ -1,9 +1,11 @@
 describe 'Navigation', ->
 
   beforeEach ->
-    window.bonnieRouterCache.load('base_set')
-    @measures = bonnie.measures
-    @patients = new Thorax.Collections.Patients getJSONFixture('records/QDM/base_set/patients.json')
+    jasmine.getJSONFixtures().clearCache()
+    @measures = new Thorax.Collections.Measures()
+    measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS160/CMS160v6.json'), parse: true
+    @measures.add(measure)
+    @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS160/patients.json'), parse: true
 
   describe 'navigating the measures list view', ->
 
