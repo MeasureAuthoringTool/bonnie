@@ -22,8 +22,8 @@ describe 'Measure', ->
   it 'can calulate results for a patient', ->
     collection = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS160/patients.json'), parse: true
     patient = collection.findWhere(first: 'Pass', last: 'NUM2')
-    results = @measure.get('populations').at(0).calculate(patient)
+    results = @measure.get('populations').at(1).calculate(patient)
     expect(results.get('DENEX')).toEqual 0
     expect(results.get('DENOM')).toEqual 1
     expect(results.get('IPP')).toEqual 1
-    expect(results.get('NUMER')).toEqual 0
+    expect(results.get('NUMER')).toEqual 1
