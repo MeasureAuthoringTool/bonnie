@@ -3,7 +3,7 @@
     "_id": "5a58f485942c6d5479457a7b",
     "assessments": [
       {
-        "_id": "5a58f6d9942c6d58e8eb6d4f",
+        "_id": "5a7865bdd7c8ac357aa9445c",
         "codes": {
           "LOINC": [
             "44261-6"
@@ -29,7 +29,7 @@
         "time": null,
         "values": [
           {
-            "_id": "5a58f6d9942c6d58e8eb6d50",
+            "_id": "5a7865bdd7c8ac357aa9445d",
             "scalar": "10",
             "units": ""
           }
@@ -40,7 +40,7 @@
     "bundle_id": "5a57e977942c6d1e61d32f14",
     "conditions": [
       {
-        "_id": "5a58f6d9942c6d58e8eb6d4c",
+        "_id": "5a7865bdd7c8ac357aa94459",
         "anatomical_location": null,
         "anatomical_target": null,
         "causeOfDeath": null,
@@ -74,7 +74,7 @@
         "type": null
       },
       {
-        "_id": "5a58f6d9942c6d58e8eb6d4d",
+        "_id": "5a7865bdd7c8ac357aa9445a",
         "anatomical_location": null,
         "anatomical_target": null,
         "causeOfDeath": null,
@@ -115,7 +115,7 @@
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5a58f6d9942c6d58e8eb6d4e",
+        "_id": "5a7865bdd7c8ac357aa9445b",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -127,7 +127,7 @@
         "diagnosis": null,
         "dischargeDisposition": null,
         "dischargeTime": null,
-        "end_time": 1339167000,
+        "end_time": 1349707800,
         "facility": null,
         "health_record_field": null,
         "mood_code": "EVN",
@@ -137,7 +137,7 @@
         "performer_id": null,
         "reason": null,
         "specifics": null,
-        "start_time": 1339165800,
+        "start_time": 1349706600,
         "status_code": {
           "HL7 ActStatus": [
             "performed"
@@ -155,8 +155,8 @@
       {
         "measure_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
         "population_index": 0,
-        "IPP": 0,
-        "DENOM": 0,
+        "IPP": 1,
+        "DENOM": 1,
         "DENEX": 0,
         "NUMER": 0
       },
@@ -182,7 +182,7 @@
     "gender": "F",
     "insurance_providers": [
       {
-        "_id": "5a58f6d9942c6d58e8eb6d51",
+        "_id": "5a7865bdd7c8ac357aa9445e",
         "codes": {
           "SOP": [
             "349"
@@ -202,13 +202,13 @@
         "negationReason": null,
         "oid": null,
         "payer": {
-          "_id": "5a58f6d9942c6d58e8eb6d52",
+          "_id": "5a7865bdd7c8ac357aa9445f",
           "name": "Other"
         },
         "reason": null,
         "relationship": null,
         "specifics": null,
-        "start_time": 1199145600,
+        "start_time": 1199163600,
         "status_code": null,
         "time": null,
         "type": "OT"
@@ -239,35 +239,6 @@
     "source_data_criteria": [
       {
         "negation": false,
-        "definition": "encounter",
-        "status": "performed",
-        "title": "OfficeVisit",
-        "description": "Encounter, Performed: Office Visit",
-        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
-        "type": "encounters",
-        "id": "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_8a363827334f_source",
-        "start_date": 1339165800000,
-        "end_date": 1339167000000,
-        "value": [
-
-        ],
-        "references": null,
-        "field_values": {
-        },
-        "hqmf_set_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
-        "cms_id": "CMS160v6",
-        "criteria_id": "160eb75c1d3El",
-        "codes": {
-          "CPT": [
-            "99201"
-          ]
-        },
-        "negation_code_list_id": "",
-        "coded_entry_id": "5a58f6d9942c6d58e8eb6d4e",
-        "code_source": "USER_DEFINED"
-      },
-      {
-        "negation": false,
         "definition": "diagnosis",
         "title": "MajorDepressionIncludingRemission",
         "description": "Diagnosis: Major Depression Including Remission",
@@ -289,7 +260,7 @@
             "F33.9"
           ]
         },
-        "coded_entry_id": "5a58f6d9942c6d58e8eb6d4c",
+        "coded_entry_id": "5a7865bdd7c8ac357aa94459",
         "code_source": "USER_DEFINED"
       },
       {
@@ -322,8 +293,37 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5a58f6d9942c6d58e8eb6d4f",
+        "coded_entry_id": "5a7865bdd7c8ac357aa9445c",
         "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "OfficeVisit",
+        "description": "Encounter, Performed: Office Visit",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1001",
+        "type": "encounters",
+        "id": "OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_8a363827334f_source",
+        "start_date": 1349706600000,
+        "end_date": 1349707800000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "A4B9763C-847E-4E02-BB7E-ACC596E90E2C",
+        "cms_id": "CMS160v6",
+        "criteria_id": "160eb75c1d3El",
+        "codes": {
+          "CPT": [
+            "99201"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5a7865bdd7c8ac357aa9445b",
+        "code_source": "USER_DEFINED"
       },
       {
         "negation": false,
@@ -348,7 +348,7 @@
             "81319007"
           ]
         },
-        "coded_entry_id": "5a58f6d9942c6d58e8eb6d4d",
+        "coded_entry_id": "5a7865bdd7c8ac357aa9445a",
         "code_source": "USER_DEFINED"
       },
       {
@@ -361,7 +361,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-01-12T17:56:41.722Z",
+    "updated_at": "2018-02-05T14:10:05.873Z",
     "user_id": "5a57e975942c6d1e61d32f13"
   }
 ]

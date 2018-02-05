@@ -3,6 +3,11 @@ describe 'Measure', ->
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
     @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS160/CMS160v6.json'), parse: true
+    @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
+    bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS160/value_sets.json')
+
+  afterEach ->
+    bonnie.valueSetsByOid = @oldBonnieValueSetsByOid
 
   it 'has basic attributes available', ->
     expect(@measure.get('hqmf_set_id')).toEqual 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
@@ -18,12 +23,7 @@ describe 'Measure', ->
     collection = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS160/patients.json'), parse: true
     patient = collection.findWhere(first: 'Pass', last: 'NUM2')
     results = @measure.get('populations').at(0).calculate(patient)
-    waitsForAndRuns( -> results.isPopulated()
-      ,
-      ->
-        expect(results.get('DENEX')).toEqual 0
-        expect(results.get('DENEXCEP')).toEqual 0
-        expect(results.get('DENOM')).toEqual 1
-        expect(results.get('IPP')).toEqual 1
-        expect(results.get('NUMER')).toEqual 0
-        )
+    expect(results.get('DENEX')).toEqual 0
+    expect(results.get('DENOM')).toEqual 1
+    expect(results.get('IPP')).toEqual 1
+    expect(results.get('NUMER')).toEqual 0
