@@ -34,7 +34,7 @@ namespace :bonnie do
 
       measure.value_set_oid_version_objects.each do |vs_v|
         db_value_sets = HealthDataStandards::SVS::ValueSet.where(user_id: measure.user_id, oid: vs_v['oid'], version: vs_v['version'])
-        puts 'FAILED to find value set' unless db_value_sets.exists?
+        abort("\nFAILURE!!!!!\n\nFAILED to find value set for:\n\tuser: #{user.email}\n\toid: #{vs_v['oid']}\n\tversion: #{vs_v['version']}\n\nFAILURE!!!!!") unless db_value_sets.exists?
         vs = db_value_sets.first
         vs.user_id = bonnie_user_id
         oid_to_vs_map[vs['oid']] = { vs['version'] => vs }
@@ -108,7 +108,7 @@ namespace :bonnie do
       vs_export = []
       measure.value_set_oid_version_objects.each do |vs_v|
         db_value_sets = HealthDataStandards::SVS::ValueSet.where(user_id: orig_user_id, oid: vs_v['oid'], version: vs_v['version'])
-        puts 'FAILED to find value set' unless db_value_sets.exists?
+        abort("\nFAILURE!!!!!\n\nFAILED to find value set for:\n\tuser: #{user.email}\n\toid: #{vs_v['oid']}\n\tversion: #{vs_v['version']}\n\nFAILURE!!!!!") unless db_value_sets.exists?
         vs = db_value_sets.first
         vs.user_id = bonnie_user_id
         vs_export << vs
