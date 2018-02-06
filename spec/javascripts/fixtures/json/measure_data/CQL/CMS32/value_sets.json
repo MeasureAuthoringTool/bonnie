@@ -28,7 +28,7 @@
       ],
       "display_name": "ONC Administrative Sex",
       "oid": "2.16.840.1.113762.1.4.1",
-      "user_id": "5a57e975942c6d1e61d32f13",
+      "user_id": "501fdba3044a111b98000001",
       "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     }
   },
@@ -101,7 +101,7 @@
       ],
       "display_name": "Race",
       "oid": "2.16.840.1.114222.4.11.836",
-      "user_id": "5a57e975942c6d1e61d32f13",
+      "user_id": "501fdba3044a111b98000001",
       "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     }
   },
@@ -134,7 +134,7 @@
       ],
       "display_name": "Ethnicity",
       "oid": "2.16.840.1.114222.4.11.837",
-      "user_id": "5a57e975942c6d1e61d32f13",
+      "user_id": "501fdba3044a111b98000001",
       "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     }
   },
@@ -1697,73 +1697,7 @@
       ],
       "display_name": "Payer",
       "oid": "2.16.840.1.114222.4.11.3591",
-      "user_id": "5a57e975942c6d1e61d32f13",
-      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
-    }
-  },
-  "2.16.840.1.113883.3.117.1.7.1.292": {
-    "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133": {
-      "_id": "5a57f07b942c6d230492c66f",
-      "bundle_id": "5a57e977942c6d1e61d32f14",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5a57f07b942c6d230492c670",
-          "black_list": false,
-          "code": "4525004",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-03",
-          "display_name": "Emergency department patient visit (procedure)",
-          "white_list": false
-        }
-      ],
-      "display_name": "Emergency Department Visit",
-      "oid": "2.16.840.1.113883.3.117.1.7.1.292",
-      "user_id": "5a57e975942c6d1e61d32f13",
-      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
-    }
-  },
-  "2.16.840.1.113883.3.666.5.307": {
-    "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133": {
-      "_id": "5a57f077942c6d230492bf09",
-      "bundle_id": "5a57e977942c6d1e61d32f14",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5a57f077942c6d230492bf0a",
-          "black_list": false,
-          "code": "183452005",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-03",
-          "display_name": "Emergency hospital admission (procedure)",
-          "white_list": false
-        },
-        {
-          "_id": "5a57f077942c6d230492bf0b",
-          "black_list": false,
-          "code": "32485007",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-03",
-          "display_name": "Hospital admission (procedure)",
-          "white_list": false
-        },
-        {
-          "_id": "5a57f077942c6d230492bf0c",
-          "black_list": false,
-          "code": "8715000",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-03",
-          "display_name": "Hospital admission, elective (procedure)",
-          "white_list": false
-        }
-      ],
-      "display_name": "Encounter Inpatient",
-      "oid": "2.16.840.1.113883.3.666.5.307",
-      "user_id": "5a57e975942c6d1e61d32f13",
+      "user_id": "501fdba3044a111b98000001",
       "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     }
   },
@@ -1806,7 +1740,50 @@
       ],
       "display_name": "Discharge To Acute Care Facility",
       "oid": "2.16.840.1.113883.3.117.1.7.1.87",
-      "user_id": "5a57e975942c6d1e61d32f13",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
+    }
+  },
+  "2.16.840.1.113883.3.666.5.307": {
+    "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133": {
+      "_id": "5a57f077942c6d230492bf09",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5a57f077942c6d230492bf0a",
+          "black_list": false,
+          "code": "183452005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-03",
+          "display_name": "Emergency hospital admission (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5a57f077942c6d230492bf0b",
+          "black_list": false,
+          "code": "32485007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-03",
+          "display_name": "Hospital admission (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5a57f077942c6d230492bf0c",
+          "black_list": false,
+          "code": "8715000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-03",
+          "display_name": "Hospital admission, elective (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Encounter Inpatient",
+      "oid": "2.16.840.1.113883.3.666.5.307",
+      "user_id": "501fdba3044a111b98000001",
       "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     }
   },
@@ -20709,7 +20686,30 @@
       ],
       "display_name": "Psychiatric/Mental Health Patient",
       "oid": "2.16.840.1.113883.3.117.1.7.1.299",
-      "user_id": "5a57e975942c6d1e61d32f13",
+      "user_id": "501fdba3044a111b98000001",
+      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.292": {
+    "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133": {
+      "_id": "5a57f07b942c6d230492c66f",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5a57f07b942c6d230492c670",
+          "black_list": false,
+          "code": "4525004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-03",
+          "display_name": "Emergency department patient visit (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Emergency Department Visit",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.292",
+      "user_id": "501fdba3044a111b98000001",
       "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
     }
   },
@@ -20732,7 +20732,7 @@
       ],
       "display_name": "Patient deceased during stay (discharge status = dead) (finding)",
       "oid": "30e1af73-5672-4e74-ab09-dab8b4aac67f",
-      "user_id": "5a57e975942c6d1e61d32f13",
+      "user_id": "501fdba3044a111b98000001",
       "version": ""
     }
   }

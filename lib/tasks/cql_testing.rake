@@ -28,10 +28,18 @@ namespace :bonnie do
       puts 'exported measure to ' + measure_file
 
       oid_to_vs_map = {}
-      value_sets = measure.value_sets.each do |vs|
-        oid_to_vs_map[vs.oid] = { vs.version => vs }
+
+      # user id for bonnie-fixtures@mitre.org
+      bonnie_user_id = '501fdba3044a111b98000001'
+
+      measure.value_set_oid_version_objects.each do |vs_v|
+        db_value_sets = HealthDataStandards::SVS::ValueSet.where(user_id: measure.user_id, oid: vs_v['oid'], version: vs_v['version'])
+        abort("\nFAILURE!!!!!\n\nFAILED to find value set for:\n\tuser: #{user.email}\n\toid: #{vs_v['oid']}\n\tversion: #{vs_v['version']}\n\nFAILURE!!!!!") unless db_value_sets.exists?
+        vs = db_value_sets.first
+        vs.user_id = bonnie_user_id
+        oid_to_vs_map[vs['oid']] = { vs['version'] => vs }
       end
-      
+
       value_sets_file = File.join(fixtures_path, 'measure_data', args[:path], 'value_sets.json')
       create_fixture_file(value_sets_file, JSON.pretty_generate(JSON.parse(oid_to_vs_map.to_json)))
       puts 'exported value sets to ' + value_sets_file
@@ -74,6 +82,7 @@ namespace :bonnie do
 
       #Exports the measure
       measure = get_cql_measure(user, args[:cms_hqmf], args[:measure_id])
+      orig_user_id = measure.user_id
       measure.user_id = bonnie_user_id
       measure_name = measure.cms_id + ".json"
       measure_file = File.join(fixtures_path, 'cql_measures', args[:path], measure_name)
@@ -96,11 +105,13 @@ namespace :bonnie do
 
       #Exports the measure's value_sets
       value_sets_file = File.join(fixtures_path, 'health_data_standards_svs_value_sets', args[:path], 'value_sets.json')
-      value_sets = measure.value_sets
       vs_export = []
-      value_sets.each do |vs|
+      measure.value_set_oid_version_objects.each do |vs_v|
+        db_value_sets = HealthDataStandards::SVS::ValueSet.where(user_id: orig_user_id, oid: vs_v['oid'], version: vs_v['version'])
+        abort("\nFAILURE!!!!!\n\nFAILED to find value set for:\n\tuser: #{user.email}\n\toid: #{vs_v['oid']}\n\tversion: #{vs_v['version']}\n\nFAILURE!!!!!") unless db_value_sets.exists?
+        vs = db_value_sets.first
         vs.user_id = bonnie_user_id
-        vs_export.push(vs)
+        vs_export << vs
       end
       create_fixture_file(value_sets_file, JSON.pretty_generate(JSON.parse(vs_export.to_json)))
       puts 'exported value sets to ' + value_sets_file
