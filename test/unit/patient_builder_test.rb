@@ -5,176 +5,76 @@ class PatientBuilderTest < ActiveSupport::TestCase
   setup do
     dump_database
     users_set = File.join("users", "base_set")
-    measures_set = File.join("draft_measures", "base_set")
-    collection_fixtures(measures_set, users_set)
+    measures_set = File.join("cql_measures", "CMS134v6")
+    hds_svs_value_sets = File.join("health_data_standards_svs_value_sets", "CMS134v6")
+    add_value_sets_collection(hds_svs_value_sets)
+    records_set = File.join("records", "CMS134v6")
+    collection_fixtures(users_set, records_set, measures_set)
     @user = User.by_email('bonnie@example.com').first
-    associate_user_with_measures(@user,Measure.all)
-    @measure_ids = ["E35791DF-5B25-41BB-B260-673337BC44A8"] # hqmf_set_id
+    associate_user_with_measures(@user, Measure.all)
+    associate_user_with_patients(@user, Record.all)
     @data_criteria = HQMF::DataCriteria.get_settings_for_definition('diagnosis','active')
     @data_criteria_encounter = HQMF::DataCriteria.get_settings_for_definition('encounter','performed')
     @data_criteria_labtest = HQMF::DataCriteria.get_settings_for_definition('laboratory_test', 'performed')
-    @valuesets = {"2.16.840.1.113883.3.526.3.1492"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.526.3.1492", "concepts"=>[
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"99201"}),
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"99202"}),
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CPT1"}),
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CPT2"})]}),
-                  
-                  "2.16.840.1.113883.3.464.1003.102.12.1011"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.464.1003.102.12.1011" , "concepts"=>[
-                                                                                      HealthDataStandards::SVS::Concept.new({"code_system_name" => "LOINC", "code" =>"LOINC_1"}),
-                                                                                      HealthDataStandards::SVS::Concept.new({"code_system_name" => "LOINC", "code" =>"LOINC_2"}),
-                                                                                      HealthDataStandards::SVS::Concept.new({"code_system_name" => "AOCS", "code" =>"A_1"}),
-                                                                                      HealthDataStandards::SVS::Concept.new({"code_system_name" => "AOCS", "code" =>"A_2"})]}),
-                  
-                  "2.16.840.1.113883.3.464.1003.106.12.1005"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.464.1003.106.12.1005", "concepts"=>[
-                                                                                     HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"999999"}),
-                                                                                     HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"222222"})]}),
-                  
-                  "2.16.840.1.113883.3.526.3.1139"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.526.3.1139" , "concepts"=>[
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA1"}),
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA2"}),
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"SNO1"}),
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"SNO2"})]}),
-                   "2.16.840.1.113883.3.526.3.1259"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.526.3.1259" , "concepts"=>[
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA1"}),
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA2"}),
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"SNO1"}),
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "SNOMED", "code" =>"SNO2"})]}),
-                   "2.16.840.1.113883.3.666.5.1084"=>HealthDataStandards::SVS::ValueSet.new({"oid" => "2.16.840.1.113883.3.666.5.1084" , "concepts"=>[
-                                                                            HealthDataStandards::SVS::Concept.new({"code_system_name" => "CPT", "code" =>"CHACHA1"})]})
-                  } # todo need to fake some of these out
 
-    @coded_source_data_critria = {
-          "id"=> "DiagnosisActiveLimitedLifeExpectancy",
-          "start_date"=> 1333206000000,
-          "end_date"=> 1333206000000,
-          "value"=>[{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.464.1003.102.12.1011","title"=>"Acute Pharyngitis", "codes" =>{"LOINC"=>["LOINC_2"]}}],
-          "negation"=>"true",
-          "negation_code_list_id"=>"2.16.840.1.113883.3.464.1003.106.12.1005",
-          "negation_code" => {"code_system" => "SNOMED", "code" =>"222222"},
-          "field_values"=>{"ORDINAL"=>{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.526.3.1139","title"=>"ACE inhibitor or ARB", "code" =>{"code_system"=>"CPT", "code"=>"CHACHA2", "title"=>nil}}},
-          "code_list_id"=> "2.16.840.1.113883.3.526.3.1492",
-          "codes"=> {"CPT" =>["CPT1"]},
-          "code_source"=>Measures::PatientBuilder::CODE_SOURCE[:USER_DEFINED]
-        }
+    @p1 = Record.find_by(last:'Numer', first:'Pass')
+    vs_oids = @p1.source_data_criteria.collect{|dc| Measures::PatientBuilder.get_vs_oids(dc)}.flatten.uniq
+    @p1_valuesets =  Hash[*HealthDataStandards::SVS::ValueSet.in({oid: vs_oids, user_id: @p1.user_id}).collect{|vs| [vs.oid,vs]}.flatten]
+    @p1_diagnosis_diabetes_sdc = @p1.source_data_criteria.find{|dc| dc['description'] == 'Diagnosis: Diabetes' }
+    @p1_wellness_visit_sdc = @p1.source_data_criteria.find{|dc| dc['description'] == 'Encounter, Performed: Annual Wellness Visit' }
+    @p1_lab_test_kidney_sdc = @p1.source_data_criteria.find{|dc| dc['description'] == 'Laboratory Test, Performed: Urine Protein Tests' && dc['start_date'] == 1343634300000}
+    @p1_lab_test_1xx_sdc = @p1.source_data_criteria.find{|dc| dc['description'] == 'Laboratory Test, Performed: Urine Protein Tests' && dc['start_date'] == 1343635200000}
 
-    @un_coded_source_data_critria = {
-          "id"=> "DiagnosisActiveLimitedLifeExpectancy",
-          "start_date"=> 1333206000000,
-          "end_date"=> 1333206000000,
-          "value"=>[{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.464.1003.102.12.1011","title"=>"Acute Pharyngitis"}],
-          "negation"=>"true",
-          "negation_code_list_id"=>"2.16.840.1.113883.3.464.1003.106.12.1005",
-          "field_values"=>{"ORDINAL"=>{"type"=>"CD","code_list_id"=>"2.16.840.1.113883.3.526.3.1139","title"=>"ACE inhibitor or ARB"}},
-          "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
-          }    
-
-    @un_coded_with_facility = {
-      "id"=> "EncounterPerformedInpatient",
-      "start_date"=> 1333206000000,
-      "end_date"=> 1333206000000,
-      "negation"=>"false",
-      "field_values"=>{
-        "FACILITY_LOCATION"=>
-          {"type"=>"COL",
-            "values"=>
-              [{"type"=>"FAC", "key"=>"FACILITY_LOCATION", "code_list_id"=>"2.16.840.1.113883.3.666.5.1084", "field_title"=>"Facility Location", "locationPeriodLow"=>"08/30/2017 1:00 AM", "locationPeriodHigh"=>"08/31/2017 1:00 AM", "title"=>"Annual Wellness Visit"},
-                {"type"=>"FAC", "key"=>"FACILITY_LOCATION", "code_list_id"=>"2.16.840.1.113883.3.666.5.1084", "field_title"=>"Facility Location", "locationPeriodLow"=>"08/30/2017 2:00 AM", "locationPeriodHigh"=>"08/31/2017 3:00 AM", "title"=>"Annual Wellness Visit"}],
-              "field_title"=>"Facility Location"}
-        },
-        "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
-      }
-          
-    @un_coded_with_component = {
-      "negation" => "false",
-      "id" => "LDL_c_LaboratoryTestPerformed",
-      "start_date" => 1332316800000,
-      "end_date" => 1332317700000,
-      "field_values" => {
-        "COMPONENT"=>
-          {"type"=>"COL",
-           "values"=>
-            [{"type"=>"CMP", "key"=>"COMPONENT", "code_list_id"=>"2.16.840.1.113883.3.464.1003.102.12.1011", "field_title"=>"Component", "value"=>"5", "unit"=>"mg", "title"=>"Hemorrhagic Stroke"},
-             {"type"=>"CMP", "key"=>"COMPONENT", "code_list_id"=>"2.16.840.1.113883.3.464.1003.102.12.1011", "field_title"=>"Component", "value"=>"33", "unit"=>"cc", "title"=>"Hemorrhagic Stroke"}],
-           "field_title"=>"Component"}
-        },
-        "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
-      }     
-              
-    @source_with_range_value = {
-          "id"=> "DiagnosisActiveLimitedLifeExpectancy",
-          "start_date"=> 1333206000000,
-          "end_date"=> 1333206000000,
-          "value"=>[{"type"=>"PQ","value"=>"1","unit"=>"xx"}],
-          "negation"=>"false",
-          "code_list_id"=> "2.16.840.1.113883.3.526.3.1492"
-        }
-
-    @communication_source_data_criteria = {
-          "negation"=>true, 
-          "definition"=>"communication_from_patient_to_provider", 
-          "title"=>"Written Information Given", 
-          "description"=>"Communication: From Patient to Provider: Written Information Given", 
-          "code_list_id"=>"2.16.840.1.113883.3.117.1.7.1.415", 
-          "type"=>"communications", 
-          "id"=>"CommunicationFromPatientToProviderWrittenInformationGiven", 
-          "start_date"=>1348560000000, 
-          "end_date"=>1348560900000, 
-          "value"=>[], 
-          "references"=>{}, 
-          "field_values"=>{}, 
-          "hqmf_set_id"=>"217FDF0D-3D64-4720-9116-D5E5AFA27F2C", 
-          "cms_id"=>"CMS107v3", 
-          "criteria_id"=>"15004fd3075Fm", 
-          "codes"=>{}, 
-          "negation_code_list_id"=>"2.16.840.1.113883.3.117.1.7.1.93", 
-          "coded_entry_id"=>"5609535d0ab013862e000007", 
-          "code_source"=>"DEFAULT"
-        }
-
+    @p2 = Record.find_by(last:'Denex', first:'Fail_Hospice_Not_Performed')
+    vs_oids = @p2.source_data_criteria.collect{|dc| Measures::PatientBuilder.get_vs_oids(dc)}.flatten.uniq
+    @p2_valuesets =  Hash[*HealthDataStandards::SVS::ValueSet.in({oid: vs_oids, user_id: @p2.user_id}).collect{|vs| [vs.oid,vs]}.flatten]
+    @p2_intervention_order_sdc = @p2.source_data_criteria.find{|dc| dc['description'] == 'Intervention, Order: Hospice care ambulatory' }
   end
   
-  test "derive entry" do
-    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@un_coded_source_data_critria, @valuesets)
-    assert entry, "Should have created an entry with un coded data"
-    assert_equal Condition, entry.class, "should have created and Encounter object"
-    
-    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@coded_source_data_critria, @valuesets)
+  test "derive entry with coded data" do
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@p1_diagnosis_diabetes_sdc, @p1_valuesets)
     assert entry, "Should have created an entry with  coded data"
     assert_equal Condition, entry.class, "should have created and Encounter object"
-    assert_equal @coded_source_data_critria["codes"], entry.codes
+    assert_equal @p1_diagnosis_diabetes_sdc["codes"], entry.codes
   end
 
-  test "derive communication" do
+  test "data criteria defines entry type for derive_entry" do
     @data_criteria_communication = HQMF::DataCriteria.get_settings_for_definition('communication_from_patient_to_provider','')
-    entry = Measures::PatientBuilder.derive_entry(@data_criteria_communication,@communication_source_data_criteria,@valuesets)
-    
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria_communication,@p1_diagnosis_diabetes_sdc,@p1_valuesets)
     assert entry, "Should have created an entry with communication data_criteria"
     assert_equal Communication, entry.class, "should have created a Communication object"
+
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria_encounter,@p1_diagnosis_diabetes_sdc,@p1_valuesets)
+    assert entry, "Should have created an entry with encounter data_criteria"
+    assert_equal Encounter, entry.class, "should have created an Encounter object"
+
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria_labtest,@p1_diagnosis_diabetes_sdc,@p1_valuesets)
+    assert entry, "Should have created an entry with labtest data_criteria"
+    assert_equal VitalSign, entry.class, "should have created a VitalSign object"
   end
 
   test "derive negation" do
-    
-    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@un_coded_source_data_critria, @valuesets)
-    assert  !entry.negation_ind, "negation should be false"
-    assert entry.negation_reason.nil?, "Negation should have no codes"
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@p2_intervention_order_sdc, @p2_valuesets)
+    assert  !entry.negation_ind, "entry negation should be false before call to derive_negation"
+    assert entry.negation_reason.nil?, "negation should have no codes before call to derive_negation"
 
-    Measures::PatientBuilder.derive_negation(entry,@un_coded_source_data_critria,@valuesets)
-    assert entry.negation_ind, "negation should be true"
-    code ={"code_system" => "SNOMED" , "code" =>"999999"}
+    # get first concept from fixture
+    negation_code_list_id = @p2_intervention_order_sdc['negation_code_list_id']
+    vs_emergency_department_visit = @p2_valuesets.select{|key,value| key==negation_code_list_id}.first[1]
+    the_concept = vs_emergency_department_visit['concepts'][0]
+
+    Measures::PatientBuilder.derive_negation(entry,@p2_intervention_order_sdc,@p2_valuesets)
+    assert entry.negation_ind, "entry negation should be true after call to derive_negation"
+    code ={"code_system" => the_concept['code_system_name'] , "code" => the_concept['code']}
     assert_equal code, entry.negation_reason, "Negation codes should have been auto selected"
-
-    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@coded_source_data_critria, @valuesets)
-    
-    Measures::PatientBuilder.derive_negation(entry,@coded_source_data_critria,@valuesets)
-    assert entry.negation_ind, "negation should be true"
-    assert_equal @coded_source_data_critria["negation_code"], entry.negation_reason, "Negation codes shoudl equal provided codes"
   end
 
   test "derive entry with facility" do
-    entry = Measures::PatientBuilder.derive_entry(@data_criteria_encounter,@un_coded_with_facility, @valuesets)
-    assert entry, "Should have created an entry with un coded data"
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria_encounter,@p1_wellness_visit_sdc, @p1_valuesets)
+    assert entry, "Should have created an entry"
     assert_equal Encounter, entry.class, "should have created and Encounter object"
-    Measures::PatientBuilder.derive_field_values(entry, @un_coded_with_facility['field_values'],@valuesets)
+    assert !@p1_wellness_visit_sdc['field_values']['FACILITY_LOCATION'].nil?, "Wellness visit contains facility location"
+    Measures::PatientBuilder.derive_field_values(entry, @p1_wellness_visit_sdc['field_values'],@p1_valuesets)
     assert !entry.facility.nil?, "facility collection should have been created"
     assert_equal 2, entry.facility['values'].length
     # A facility has a Facility Location code, locationPeriodLow, locationPeriodHigh
@@ -191,26 +91,32 @@ class PatientBuilderTest < ActiveSupport::TestCase
     assert !facility_location_code.nil?, "facility_location should have a code"
     assert !facility_location_code_system.nil?, "facility_location should have a code_system"
   end
-  
+
   test "derive entry with components" do
-    entry = Measures::PatientBuilder.derive_entry(@data_criteria_labtest, @un_coded_with_component, @valuesets)
-    assert entry, "Should have created an entry with un coded data"
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria_labtest, @p1_lab_test_kidney_sdc, @p1_valuesets)
+    assert entry, "Should have created an entry"
     # LaboratoryTestPerformed is a VitalSign because its patient_api_function defined in HDS/data_criteria.json
     # maps to the patient_api_extention hQuery.Patient::laboratoryTests = -> this.results().concat(this.vitalSigns())
-    assert_equal VitalSign, entry.class, "should have created and Laboratory object"
-    Measures::PatientBuilder.derive_field_values(entry, @un_coded_with_component['field_values'], @valuesets)
+    assert_equal VitalSign, entry.class, "should have created Laboratory object"
+    assert !@p1_lab_test_kidney_sdc['field_values']['COMPONENT'].nil?, "Lab test contains component"
+    # validate fixture
+    comp_code_list_id = @p1_lab_test_kidney_sdc['field_values']['COMPONENT']['values'][0]['code_list_id']
+    assert_equal '2.16.840.1.113883.3.464.1003.109.12.1028', comp_code_list_id, "Fixture out of date with test"
+    vs_kidney_failure = @p1_valuesets.select{|key,value| key=='2.16.840.1.113883.3.464.1003.109.12.1028'}.first[1]
+    kidney_failure_concept = vs_kidney_failure['concepts'][0]
+    Measures::PatientBuilder.derive_field_values(entry, @p1_lab_test_kidney_sdc['field_values'], @p1_valuesets)
     assert !entry.components.nil?, "components collection should have been created"
     assert_equal 2, entry.components['values'].length
     # A component has a code and a result
     code = entry.components['values'][1]['code']
     result = entry.components['values'][1]['result']
-    assert_equal "LOINC", code['code_system']
-    assert_equal "LOINC_1", code['code']
+    assert_equal kidney_failure_concept['code_system_name'], code['code_system']
+    assert_equal kidney_failure_concept['code'], code['code']
     assert_equal "33", result['scalar']
     assert_equal "cc", result['units']
   end
 
-  test "derive time range"  do 
+  test "derive time range"  do
     time_criteria = { "start_date" => 1333206000000, "end_date" => 1333206000000 }
     range = Measures::PatientBuilder.derive_time_range(time_criteria)
     assert range.low.nil? == false
@@ -231,56 +137,51 @@ class PatientBuilderTest < ActiveSupport::TestCase
     range = Measures::PatientBuilder.derive_time_range(time_criteria)
     assert range.low.nil?
     assert range.high.nil?
-
   end
 
   test "derive values" do
-
-    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@un_coded_source_data_critria,@valuesets)
-    
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria_labtest,@p1_lab_test_kidney_sdc, @p1_valuesets)
     assert entry.values.nil? || entry.values.empty? , "There should be no values"
-
-    Measures::PatientBuilder.derive_values(entry,@un_coded_source_data_critria["value"],@valuesets)
-    expected_length = @un_coded_source_data_critria["value"].length
+    Measures::PatientBuilder.derive_values(entry,@p1_lab_test_kidney_sdc["value"],@p1_valuesets)
+    expected_length = @p1_lab_test_kidney_sdc["value"].length
     assert_equal expected_length, entry.values.length, "Should have created #{expected_length} values"
-    assert_equal({"LOINC"=>["LOINC_1"], "AOCS"=>["A_1"]}, entry.values[0].codes ) 
+    result_code_list_id = @p1_lab_test_kidney_sdc["value"][0]["code_list_id"]
+    assert_equal Measures::PatientBuilder.select_codes(result_code_list_id, @p1_valuesets), entry.values[0].codes, "Codes should have matched select_codes"
 
-    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@coded_source_data_critria, @valuesets)
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@p1_lab_test_1xx_sdc, @p1_valuesets)
     assert entry.values.nil? || entry.values.empty? , "There should be no values"
-    Measures::PatientBuilder.derive_values(entry,@coded_source_data_critria["value"],@valuesets)
-    expected_length = @un_coded_source_data_critria["value"].length
+    Measures::PatientBuilder.derive_values(entry,@p1_lab_test_1xx_sdc["value"],@p1_valuesets)
+    expected_length = @p1_lab_test_1xx_sdc["value"].length
     assert_equal expected_length, entry.values.length, "Should have created #{expected_length} values"
-    assert_equal @coded_source_data_critria["value"][0]["codes"], entry.values[0].codes 
-
-    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@source_with_range_value, @valuesets)
-    assert entry.values.nil? || entry.values.empty? , "There should be no values"
-    Measures::PatientBuilder.derive_values(entry,@source_with_range_value["value"],@valuesets)
-    expected_length = @source_with_range_value["value"].length
-    assert_equal expected_length, entry.values.length, "Should have created #{expected_length} values"
-    assert_equal @source_with_range_value["value"][0]["value"], entry.values[0].scalar 
-    assert_equal @source_with_range_value["value"][0]["unit"], entry.values[0].units
+    assert_equal @p1_lab_test_1xx_sdc["value"][0]["value"], entry.values[0].scalar
+    assert_equal @p1_lab_test_1xx_sdc["value"][0]["unit"], entry.values[0].units
   end
 
-  test "derive field"  do 
-    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@un_coded_source_data_critria, @valuesets)
+  test "derive field"  do
+    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@p1_diagnosis_diabetes_sdc, @p1_valuesets)
     assert entry.values.nil? || entry.values.empty? , "There should be no values"
-    Measures::PatientBuilder.derive_field_values(entry,@un_coded_source_data_critria["field_values"],@valuesets)
-
+    Measures::PatientBuilder.derive_field_values(entry,@p1_diagnosis_diabetes_sdc["field_values"],@p1_valuesets)
     assert !entry.ordinality.nil?, "Should have created an ordinal filed value"
-    
-    entry = Measures::PatientBuilder.derive_entry(@data_criteria,@coded_source_data_critria, @valuesets)
-    assert entry.values.nil? || entry.values.empty? , "There should be no values"
-    Measures::PatientBuilder.derive_field_values(entry,@coded_source_data_critria["field_values"],@valuesets)
-    assert_equal({"code_system"=>"CPT", "code"=>"CHACHA2", "title"=>nil}, entry.ordinality, "Should have created an ordinal filed value")
+    entry_code_id = @p1_diagnosis_diabetes_sdc['field_values']['ORDINAL']['code_list_id']
+    expected_code = Measures::PatientBuilder.select_code(entry_code_id, @p1_valuesets)
+    expected_code['title'] = @p1_diagnosis_diabetes_sdc['field_values']['ORDINAL']['title']
+    assert_equal(expected_code, entry.ordinality, "Should have created an ordinal filed value")
   end
 
   test "get value sets" do
-    vs_oids = Measures::PatientBuilder.get_vs_oids(@coded_source_data_critria)
-    assert vs_oids.include?('2.16.840.1.113883.3.464.1003.102.12.1011')
-    assert vs_oids.include?('2.16.840.1.113883.3.464.1003.106.12.1005')
-    assert vs_oids.include?('2.16.840.1.113883.3.464.1003.102.12.1011')
-    assert vs_oids.include?('2.16.840.1.113883.3.526.3.1139')
-    assert vs_oids.include?('2.16.840.1.113883.3.526.3.1492')
+    vs_oids = Measures::PatientBuilder.get_vs_oids(@p1_diagnosis_diabetes_sdc)
+    assert vs_oids.include?(@p1_diagnosis_diabetes_sdc['code_list_id']), "Missing code from SDC's code_list_id"
+    assert vs_oids.include?(@p1_diagnosis_diabetes_sdc['field_values']['ORDINAL']['code_list_id']), "Missing code from field value"
+
+    vs_oids = Measures::PatientBuilder.get_vs_oids(@p2_intervention_order_sdc)
+    assert vs_oids.include?(@p2_intervention_order_sdc['negation_code_list_id']), "Missing code from SDC's negation_code_list_id"
+
+    vs_oids = Measures::PatientBuilder.get_vs_oids(@p1_wellness_visit_sdc)
+    assert vs_oids.include?(@p1_wellness_visit_sdc['field_values']['FACILITY_LOCATION']['values'][0]['code_list_id']), "Missing code from facility location"
+
+    vs_oids = Measures::PatientBuilder.get_vs_oids(@p1_lab_test_kidney_sdc)
+    assert vs_oids.include?(@p1_lab_test_kidney_sdc['field_values']['COMPONENT']['values'][0]['code_list_id']), "Missing code from componenet"
+    assert vs_oids.include?(@p1_lab_test_kidney_sdc['value'][0]['code_list_id']), "Missing code from coded result"
   end
 
-end 
+end
