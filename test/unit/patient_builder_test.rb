@@ -17,18 +17,18 @@ class PatientBuilderTest < ActiveSupport::TestCase
     @data_criteria_encounter = HQMF::DataCriteria.get_settings_for_definition('encounter','performed')
     @data_criteria_labtest = HQMF::DataCriteria.get_settings_for_definition('laboratory_test', 'performed')
 
-    @p1 = Record.find_by(last:'Numer', first:'Pass')
-    vs_oids = @p1.source_data_criteria.collect{|dc| Measures::PatientBuilder.get_vs_oids(dc)}.flatten.uniq
-    @p1_valuesets =  Hash[*HealthDataStandards::SVS::ValueSet.in({oid: vs_oids, user_id: @p1.user_id}).collect{|vs| [vs.oid,vs]}.flatten]
-    @p1_diagnosis_diabetes_sdc = @p1.source_data_criteria.find{|dc| dc['description'] == 'Diagnosis: Diabetes' }
-    @p1_wellness_visit_sdc = @p1.source_data_criteria.find{|dc| dc['description'] == 'Encounter, Performed: Annual Wellness Visit' }
-    @p1_lab_test_kidney_sdc = @p1.source_data_criteria.find{|dc| dc['description'] == 'Laboratory Test, Performed: Urine Protein Tests' && dc['start_date'] == 1343634300000}
-    @p1_lab_test_1xx_sdc = @p1.source_data_criteria.find{|dc| dc['description'] == 'Laboratory Test, Performed: Urine Protein Tests' && dc['start_date'] == 1343635200000}
+    @p1 = Record.find_by(last: 'Numer', first: 'Pass')
+    vs_oids = @p1.source_data_criteria.collect { |dc| Measures::PatientBuilder.get_vs_oids(dc) }.flatten.uniq
+    @p1_valuesets =  Hash[*HealthDataStandards::SVS::ValueSet.in({oid: vs_oids, user_id: @p1.user_id}).collect { |vs| [vs.oid,vs] }.flatten]
+    @p1_diagnosis_diabetes_sdc = @p1.source_data_criteria.find { |dc| dc['description'] == 'Diagnosis: Diabetes' }
+    @p1_wellness_visit_sdc = @p1.source_data_criteria.find { |dc| dc['description'] == 'Encounter, Performed: Annual Wellness Visit' }
+    @p1_lab_test_kidney_sdc = @p1.source_data_criteria.find { |dc| dc['description'] == 'Laboratory Test, Performed: Urine Protein Tests' && dc['start_date'] == 1343634300000 }
+    @p1_lab_test_1xx_sdc = @p1.source_data_criteria.find { |dc| dc['description'] == 'Laboratory Test, Performed: Urine Protein Tests' && dc['start_date'] == 1343635200000 }
 
-    @p2 = Record.find_by(last:'Denex', first:'Fail_Hospice_Not_Performed')
-    vs_oids = @p2.source_data_criteria.collect{|dc| Measures::PatientBuilder.get_vs_oids(dc)}.flatten.uniq
-    @p2_valuesets =  Hash[*HealthDataStandards::SVS::ValueSet.in({oid: vs_oids, user_id: @p2.user_id}).collect{|vs| [vs.oid,vs]}.flatten]
-    @p2_intervention_order_sdc = @p2.source_data_criteria.find{|dc| dc['description'] == 'Intervention, Order: Hospice care ambulatory' }
+    @p2 = Record.find_by(last: 'Denex', first: 'Fail_Hospice_Not_Performed')
+    vs_oids = @p2.source_data_criteria.collect { |dc| Measures::PatientBuilder.get_vs_oids(dc) }.flatten.uniq
+    @p2_valuesets =  Hash[*HealthDataStandards::SVS::ValueSet.in({oid: vs_oids, user_id: @p2.user_id}).collect { |vs| [vs.oid,vs] }.flatten]
+    @p2_intervention_order_sdc = @p2.source_data_criteria.find { |dc| dc['description'] == 'Intervention, Order: Hospice care ambulatory' }
   end
   
   test "derive entry with coded data" do
@@ -60,7 +60,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
 
     # get first concept from fixture
     negation_code_list_id = @p2_intervention_order_sdc['negation_code_list_id']
-    vs_emergency_department_visit = @p2_valuesets.select{|key,value| key==negation_code_list_id}.first[1]
+    vs_emergency_department_visit = @p2_valuesets.select { |key,_value| key==negation_code_list_id }.first[1]
     the_concept = vs_emergency_department_visit['concepts'][0]
 
     Measures::PatientBuilder.derive_negation(entry,@p2_intervention_order_sdc,@p2_valuesets)
@@ -102,7 +102,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
     # validate fixture
     comp_code_list_id = @p1_lab_test_kidney_sdc['field_values']['COMPONENT']['values'][0]['code_list_id']
     assert_equal '2.16.840.1.113883.3.464.1003.109.12.1028', comp_code_list_id, "Fixture out of date with test"
-    vs_kidney_failure = @p1_valuesets.select{|key,value| key=='2.16.840.1.113883.3.464.1003.109.12.1028'}.first[1]
+    vs_kidney_failure = @p1_valuesets.select { |key,_value| key=='2.16.840.1.113883.3.464.1003.109.12.1028' }.first[1]
     kidney_failure_concept = vs_kidney_failure['concepts'][0]
     Measures::PatientBuilder.derive_field_values(entry, @p1_lab_test_kidney_sdc['field_values'], @p1_valuesets)
     assert !entry.components.nil?, "components collection should have been created"
