@@ -293,9 +293,18 @@ namespace :bonnie do
           # Get a hash of differences from the original measure and the updated data
           differences = measure_update_diff(before_state, data_criteria_object, cql, cql_artifacts, main_cql_library)
           unless differences.empty?
+            # Remove value set oids that don't start with 'drc-' but do contain '-'
+            updated_value_set_oid_version_objects = cql_artifacts[:value_set_oid_version_objects].find_all do |oid_version_object|
+              !oid_version_object[:oid].include?('drc-') && oid_version_object[:oid].include?('-') ? false : true
+            end
+            # Remove value set oids that don't start with 'drc-' but do contain '-'
+            updated_value_set_oids = cql_artifacts[:all_value_set_oids].find_all do |oid|
+              !oid.include?('drc-') && oid.include?('-') ? false : true
+            end
+
             # Update the measure
             measure.update(data_criteria: data_criteria_object['data_criteria'], source_data_criteria: data_criteria_object['source_data_criteria'], cql: cql, elm: cql_artifacts[:elms], elm_annotations: cql_artifacts[:elm_annotations], cql_statement_dependencies: cql_artifacts[:cql_definition_dependency_structure],
-                           main_cql_library: main_cql_library, value_set_oids: cql_artifacts[:all_value_set_oids], value_set_oid_version_objects: cql_artifacts[:value_set_oid_version_objects])
+                           main_cql_library: main_cql_library, value_set_oids: updated_value_set_oids, value_set_oid_version_objects: updated_value_set_oid_version_objects)
             measure.save!
             update_passes += 1
             print "\e[#{32}m#{"[Success]"}\e[0m"
