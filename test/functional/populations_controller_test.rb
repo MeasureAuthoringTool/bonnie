@@ -22,17 +22,6 @@ class PopulationsControllerTest  < ActionController::TestCase
     sign_in @user
   end
 
-  test "get population javascript" do
-    sign_in @user
-    measure = @user.measures.last
-    measure.map_fns = []
-    measure.save!
-    get :calculate_code, {measure_id: measure.id, id: 0, format: :js}
-    assert_response :success
-    assert_operator response.body.length, :>, 100
-    assert response.body.starts_with? "(function()"
-  end
-
   test "update population" do
     sign_in @user
     # This particular test measure has multiple populations, and therefore can have their titles changed
