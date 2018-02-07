@@ -395,20 +395,6 @@ include Devise::Test::ControllerHelpers
     assert_response :redirect
   end
 
-
-  test "measure clear cached javascript" do
-    tmp_fns = @measure.map_fns
-    @measure.map_fns = ['foo']
-    @measure.save!
-    @measure.reload
-    assert_equal 3, @measure.map_fns[0].length
-    request.env["HTTP_REFERER"] = 'http://localhost/'
-    get :clear_cached_javascript, {id: @measure.id}
-    assert_response :redirect
-    @measure.reload
-    assert_operator Measure.all.first.map_fns[0].length, :>, 100
-  end
-
   test "load QDM xml" do
 
     # fails to load QDM measure
