@@ -1,9 +1,14 @@
 describe "Population state between routes", ->
   beforeEach ->
-    window.bonnieRouterCache.load('base_set')
-    @patient = new Thorax.Models.Patient getJSONFixture('records/QDM/base_set/patients.json')[3], parse: true
-    @measureToTest = bonnie.measures.get('40280381-3D61-56A7-013E-65C9C3043E54')
+    jasmine.getJSONFixtures().clearCache()
+    @patient = new Thorax.Models.Patient getJSONFixture('records/CQL/CMS160/patients.json')[0], parse: true
+    @measureToTest = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS160/CMS160v6.json'), parse: true
+    @oldValueSetsByOid = bonnie.valueSetsByOid
+    bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS160/value_sets.json')
     @measureToTest.get('patients').add @patient
+
+  afterEach ->
+    bonnie.valueSetsByOid = @oldValueSetsByOid
 
   it "starts with the first population", ->
     @measureView = new Thorax.Views.MeasureLayout(measure: @measureToTest, patients: @measureToTest.get('patients'))
@@ -12,7 +17,7 @@ describe "Population state between routes", ->
 
     populationNavs = @measureView.$('[data-toggle="tab"]')
     # ensure 2 populations exists
-    expect(populationNavs.length).toBe(2)
+    expect(populationNavs.length).toBe(3)
     active = @measureView.$('.nav.nav-tabs > li.active > a')[0]
     # ensure that the first is currently selected
     expect(active).toBe(populationNavs[0])
@@ -30,10 +35,10 @@ describe "Population state between routes", ->
 
     populationNavs = @measureView.$('[data-toggle="tab"]')
     active = @measureView.$('.nav.nav-tabs > li.active > a')[0]
-    # ensure that the second is currently selected
-    expect(active).toBe(populationNavs[1])
+    # ensure that the third is currently selected
+    expect(active).toBe(populationNavs[2])
     expect(active.text).toBe(@measureToTest.get('displayedPopulation').get('title'))
-    expect(@measureToTest.get('displayedPopulation').cid).toBe(@measureToTest.get('populations').at(1).cid)
+    expect(@measureToTest.get('displayedPopulation').cid).toBe(@measureToTest.get('populations').at(2).cid)
 
     @measureView.remove()
 
@@ -52,10 +57,10 @@ describe "Population state between routes", ->
 
     populationNavs = @patientBuilder.$('[data-toggle="tab"]')
     active = @patientBuilder.$('.nav.nav-tabs > li.active > a')[0]
-    # ensure that the second is currently selected
-    expect(active).toBe(populationNavs[1])
+    # ensure that the third is currently selected
+    expect(active).toBe(populationNavs[2])
     expect(active.text.trim()).toBe(@measureToTest.get('displayedPopulation').get('title'))
-    expect(@measureToTest.get('displayedPopulation').cid).toBe(@measureToTest.get('populations').at(1).cid)
+    expect(@measureToTest.get('displayedPopulation').cid).toBe(@measureToTest.get('populations').at(2).cid)
 
     @patientBuilder.remove()
 
