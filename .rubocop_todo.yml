@@ -196,7 +196,6 @@ Layout/IndentationConsistency:
     - 'test/functional/admin_users_controller_test.rb'
     - 'test/functional/measures_controller_test.rb'
     - 'test/functional/patients_controller_test.rb'
-    - 'test/unit/randomizer_test.rb'
 
 # Offense count: 9
 # Cop supports --auto-correct.
@@ -209,7 +208,6 @@ Layout/IndentationWidth:
     - 'test/functional/measures_controller_test.rb'
     - 'test/functional/patients_controller_test.rb'
     - 'test/rake/cql_test.rb'
-    - 'test/unit/randomizer_test.rb'
 
 # Offense count: 39
 # Cop supports --auto-correct.
@@ -387,7 +385,6 @@ Layout/SpaceInsideStringInterpolation:
 Layout/Tab:
   Exclude:
     - 'db/migrate/20131105194201_add_expected_values_to_records.rb'
-    - 'test/unit/randomizer_test.rb'
 
 # Offense count: 14
 # Cop supports --auto-correct.
@@ -408,7 +405,6 @@ Layout/TrailingBlankLines:
     - 'lib/measure_exported_results.rb'
     - 'lib/measures/ade_helper.rb'
     - 'lib/version.rb'
-    - 'test/unit/patient_generator_test.rb'
 
 # Offense count: 139
 # Cop supports --auto-correct.
