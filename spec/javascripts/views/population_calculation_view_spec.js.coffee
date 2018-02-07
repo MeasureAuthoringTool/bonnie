@@ -1,13 +1,18 @@
 describe 'PopulationCalculationView', ->
 
   beforeEach ->
-    window.bonnieRouterCache.load('base_set')
-    @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
-    @patients = new Thorax.Collections.Patients getJSONFixture('records/QDM/base_set/patients.json'), parse: true
+    jasmine.getJSONFixtures().clearCache()
+    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS160/CMS160v6.json'), parse: true
+    @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
+    bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS160/value_sets.json')
+    @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS160/patients.json'), parse: true
     @measure.set('patients', @patients)
     @population = @measure.get('populations').first()
     @populationCalculationView = new Thorax.Views.PopulationCalculation(model: @population)
     @populationCalculationView.render()
+
+  afterEach ->
+    bonnie.valueSetsByOid = @oldBonnieValueSetsByOid
 
   it 'renders correctly', ->
     expect(@populationCalculationView.$el).toContainText @patients.first().get('last')
