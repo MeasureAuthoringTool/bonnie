@@ -1,6 +1,5 @@
 
-  describe 'CQL', ->
-    # TODO: combine this describe with the 'CQL' one below once it has been updated with newer fixtures
+  describe 'MeasureView', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
