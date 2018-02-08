@@ -79,3 +79,25 @@ describe 'cqlCalculator', ->
       expected_relevance_map = { IPP: true, MSRPOPL: true, MSRPOPLEX: false, values: false }
       relevance_map = @cql_calculator._buildPopulationRelevanceMap(population_results)
       expect(relevance_map).toEqual expected_relevance_map
+
+  describe '_populationRelevanceForAllEpisodes', ->
+    it 'correctly builds population_relevance for multiple episodes in all populations', ->
+      episode_results = {
+        episode1: {IPP: 3, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 0},
+        episode2: {IPP: 2, DENOM: 1, DENEX: 0, NUMER: 2, NUMEX: 2},
+        episode3: {IPP: 2, DENOM: 0, DENEX: 1, NUMER: 0, NUMEX: 0}
+      }
+      expected_relevance_map = { IPP: true, DENOM: true, DENEX: true, NUMER: true, NUMEX: true }
+      relevance_map = @cql_calculator._populationRelevanceForAllEpisodes(episode_results)
+      expect(relevance_map).toEqual expected_relevance_map
+      
+    it 'correctly builds population_relevance for multiple episodes in no populations', ->
+      episode_results = {
+        episode1: {IPP: 0, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 0},
+        episode2: {IPP: 0, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 0},
+        episode3: {IPP: 0, DENOM: 0, DENEX: 0, NUMER: 0, NUMEX: 0}
+      }
+      # IPP will be relevant because nothing has rendered it irrelevant
+      expected_relevance_map = { IPP: true, DENOM: false, DENEX: false, NUMER: false, NUMEX: false }
+      relevance_map = @cql_calculator._populationRelevanceForAllEpisodes(episode_results)
+      expect(relevance_map).toEqual expected_relevance_map
