@@ -28,7 +28,7 @@ class ActiveSupport::TestCase
   end
 
   def add_collection(collection)
-    Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
+    Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '**', '*.json')).each do |json_fixture_file|
       fixture_json = JSON.parse(File.read(json_fixture_file))
       if fixture_json.length > 0
         convert_times(fixture_json)
