@@ -2,10 +2,11 @@ describe 'PatientBuilderView', ->
 
   describe 'QDM', ->
     beforeEach ->
-      window.bonnieRouterCache.load('base_set')
-      @patient = new Thorax.Models.Patient getJSONFixture('records/QDM/base_set/patients.json')[0], parse: true
-      @measure = bonnie.measures.findWhere(cms_id: 'CMS146v2')
-      @patients = new Thorax.Collections.Patients()
+      jasmine.getJSONFixtures().clearCache()
+      @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS134/CMS134v6.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS134/patients.json'), parse: true
+      @patient = @patients.models[0]
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS134/value_sets.json')
       @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
       @firstCriteria = @patientBuilder.model.get('source_data_criteria').first()
       # Normally the first criteria can't have a value (wrong type); for testing we allow it
@@ -95,10 +96,10 @@ describe 'PatientBuilderView', ->
         expect(@patientBuilder.model.materialize).toHaveBeenCalled()
         expect(@patientBuilder.model.materialize.calls.count()).toEqual 2
 
-
     describe "adding encounters to patient", ->
       beforeEach ->
         @patientBuilder.appendTo 'body'
+        @patientBuilder.render()
         # simulate dragging an encounter onto the patient
         @addEncounter = (position, targetSelector) ->
           $('.panel-title').click() # Expand the criteria to make draggables visible
@@ -138,34 +139,32 @@ describe 'PatientBuilderView', ->
 
       afterEach -> @patientBuilder.remove()
 
-
     describe "editing basic attributes of a criteria", ->
       beforeEach ->
         @patientBuilder.appendTo 'body'
         # need to be specific with the query to select one of the data criteria with a period.
         # this is due to QDM 5.0 changes which make several data criteria only have an author time.
         # Medication, Active is a period type.
-        $dataCriteria = @patientBuilder.$('div.patient-criteria:contains(Medication: Active):first')
+        $dataCriteria = @patientBuilder.$('div.patient-criteria:contains(Diagnosis: Diabetes):first')
         $dataCriteria.find('button[data-call-method=toggleDetails]:first').click()
         $dataCriteria.find(':input[name=start_date]:first').val('01/1/2012')
         $dataCriteria.find(':input[name=start_time]:first').val('3:33')
-        $dataCriteria.find(':input[name=end_date_is_undefined]:first').click()
         # verify DOM as well
         expect($dataCriteria.find(':input[name=end_date]:first')).toBeDisabled()
         expect($dataCriteria.find(':input[name=end_time]:first')).toBeDisabled()
         @patientBuilder.$("button[data-call-method=save]").click()
 
       it "serializes the attributes correctly", ->
-        dataCriteria = @patientBuilder.model.get('source_data_criteria').where({definition:'medication', status:'active'})[0]
+        dataCriteria = @patientBuilder.model.get('source_data_criteria').where({definition:'diagnosis', title:'Diabetes'})[0]
         expect(dataCriteria.get('start_date')).toEqual moment.utc('01/1/2012 3:33', 'L LT').format('X') * 1000
         expect(dataCriteria.get('end_date')).toBeUndefined()
 
       afterEach -> @patientBuilder.remove()
 
-
     describe "setting a criteria as not performed", ->
       beforeEach ->
         @patientBuilder.appendTo 'body'
+        debugger
         @patientBuilder.$('.criteria-data').children().toggleClass('hide')
         @patientBuilder.$('input[name=negation]:first').click()
         @patientBuilder.$('select[name=negation_code_list_id]:first').val('2.16.840.1.113883.3.464.1003.101.12.1061')
@@ -176,7 +175,6 @@ describe 'PatientBuilderView', ->
         expect(@patientBuilder.model.get('source_data_criteria').first().get('negation_code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.101.12.1061'
 
       afterEach -> @patientBuilder.remove()
-
 
     describe "blurring basic fields of a criteria", ->
       beforeEach ->
