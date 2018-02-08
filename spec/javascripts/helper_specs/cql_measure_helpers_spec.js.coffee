@@ -11,35 +11,35 @@ describe 'CQLMeasureHelpers', ->
 
   describe 'findAllLocalIdsInStatementByName', ->
     it 'finds localIds for library FunctionRefs while finding localIds in statements', ->
-      # Loads Anticoagulation Therapy for Atrial Fibrillation/Flutter measure.
+      # Loads Diabetes: Medical Attention for Neuropathy.
       # This measure has the MAT global functions library included and the measure uses the
       # "CalendarAgeInYearsAt" function.
-      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS723/CMS723v0.json'), parse: true
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS134/CMS134v6.json'), parse: true
 
       # Find the localid for the specific statement with the global function ref.
-      libraryName = 'AnticoagulationTherapyforAtrialFibrillationFlutter'
-      statementName = 'Encounter with Principal Diagnosis and Age'
-      localIds = CQLMeasureHelpers.findAllLocalIdsInStatementByName(cqlMeasure, libraryName, statementName)
-
-      # For the fixture loaded for this test it is known that the library reference is 49 and the functionRef itself is 55.
-      expect(localIds[49]).not.toBeUndefined()
-      expect(localIds[49]).toEqual({localId: '49', sourceLocalId: '55'})
-
-    it 'finds localIds for library ExpressionRefs while finding localIds in statements', ->
-      # Loads Test104 aka. CMS13 measure.
-      # This measure has both the TJC_Overall and MAT global libraries
-      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS13/CMS13v2.json'), parse: true
-
-      # Find the localid for the specific statement with the global function ref.
-      libraryName = 'Test104'
+      libraryName = 'DiabetesMedicalAttentionforNephropathy'
       statementName = 'Initial Population'
       localIds = CQLMeasureHelpers.findAllLocalIdsInStatementByName(cqlMeasure, libraryName, statementName)
 
-      # For the fixture loaded for this test it is known that the library reference is 109 and the functionRef itself is 110.
-      expect(localIds[109]).not.toBeUndefined()
-      expect(localIds[109]).toEqual({localId: '109', sourceLocalId: '110'})
+      # For the fixture loaded for this test it is known that the library reference is 102 and the functionRef itself is 107.
+      expect(localIds[102]).not.toBeUndefined()
+      expect(localIds[102]).toEqual({localId: '102', sourceLocalId: '107'})
+
+    it 'finds localIds for library ExpressionRefs while finding localIds in statements', ->
+      # Loads Diabetes: Medical Attention for Neuropathy.
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS134/CMS134v6.json'), parse: true
+
+      # Find the localid for the specific statement with the global expression ref.
+      libraryName = 'DiabetesMedicalAttentionforNephropathy'
+      statementName = 'In Hospice'
+      localIds = CQLMeasureHelpers.findAllLocalIdsInStatementByName(cqlMeasure, libraryName, statementName)
+
+      # For the fixture loaded for this test it is known that the library reference is 159 and the ExpressionRef itself is 160.
+      expect(localIds[159]).not.toBeUndefined()
+      expect(localIds[159]).toEqual({localId: '159', sourceLocalId: '160'})
 
     it 'handles library ExpressionRefs with libraryRef embedded in the clause', ->
+      # TODO: The CMS134 fixture does not seem to be able to reproduce this case.  We may need to bring in another fixture to do so.
       # Loads Test104 aka. CMS13 measure.
       # This measure has both the TJC_Overall and MAT global libraries
       cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS13/CMS13v2.json'), parse: true
