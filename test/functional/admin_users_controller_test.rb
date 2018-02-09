@@ -178,13 +178,13 @@ include Devise::Test::ControllerHelpers
     @user_admin.save!
     post :email_active, {subject: "Example Subject for Testing", body: "test body of email", format: :json}
     assert mail.empty?
-    # The following tests greater than 6 months, but 3 measures
+    # The following tests greater than 6 months, but 0 measure
     @user_admin.last_sign_in_at = Date.today - 8.months # arbitrary date more than 6 months ago
     associate_user_with_measures(@user_admin, CqlMeasure.all)
     @user_admin.save!
     post :email_active, {subject: "Example Subject for Testing", body: "test body of email", format: :json}
     assert mail.empty?
-    # The following tests fewer than 6 months, and 3 measures, so we should recieve an  email
+    # The following tests fewer than 6 months, and 1 measures, so we should recieve an  email
     @user_admin.last_sign_in_at = Date.today - 1.months
     @user_admin.save!
     post :email_active, {subject: "Email Sent!", body: "test body of email", format: :json}
