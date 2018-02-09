@@ -92,6 +92,10 @@
         result.set population_results
         population_relevance = {}
         if episode_results?
+          # In episode of care based measures, episode_results contains the population results
+          # for EACH episode, so we need to build population_relevance based on a combonation
+          # of the episode_results. IE: If DENEX is irrelevant for one episode but relevant for
+          # another, the logic view should not highlight it as irrelevant
           result.set {'episode_results': episode_results}
           population_relevance = @_populationRelevanceForAllEpisodes(episode_results)
         else
