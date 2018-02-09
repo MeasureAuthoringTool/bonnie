@@ -2,7 +2,7 @@ describe 'CqlLogicView', ->
   describe 'sorting', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/cqltest/CMS720v0.json'), parse: true
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS720/CMS720v0.json'), parse: true
       #Failing to store and reset the global valueSetsByOid breaks the tests.
       #When integrated with the master branch context switching, this will need to be changed out.
       @universalValueSetsByOid = bonnie.valueSetsByOid
@@ -11,13 +11,13 @@ describe 'CqlLogicView', ->
       bonnie.valueSetsByOid = @universalValueSetsByOid
 
     it 'proof of concept', ->
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/cqltest/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMS720/value_sets.json')
 
       population = @cqlMeasure.get('populations').first()
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, highlightPatientDataEnabled: true, population: population)
       populationLogicView.render()
 
-      testPatients = new Thorax.Collections.Patients getJSONFixture('records/cqltest/patients.json'), parse: true
+      testPatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS720/patients.json'), parse: true
 
       results = population.calculate(testPatients.first())
 
@@ -33,7 +33,7 @@ describe 'CqlLogicView', ->
       populationLogicView.showRationale(results)
 
     it 'sorts logic properly for observation measure', ->
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/cqltest/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMS720/value_sets.json')
 
       population = @cqlMeasure.get('populations').first()
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, highlightPatientDataEnabled: true, population: population)
@@ -62,7 +62,7 @@ describe 'CqlLogicView', ->
       expect(populationLogicView.unusedStatementViews[1].name).toEqual('Stratification2')
 
     it 'sorts logic properly for observation measure with stratification', ->
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/cqltest/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMS720/value_sets.json')
 
       population = @cqlMeasure.get('populations').at(1)
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, highlightPatientDataEnabled: true, population: population)
@@ -115,7 +115,7 @@ describe 'CqlLogicView', ->
   describe 'outdated QDM warning message', ->
     it 'shows for QDM 5.02 measure', ->
       jasmine.getJSONFixtures().clearCache()
-      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/cqltest/CMS720v0.json'), parse: true
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS720/CMS720v0.json'), parse: true
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: cqlMeasure)
       populationLogicView.render()
       expect(populationLogicView.$el.html()).toContain 'This measure was written using an outdated version of QDM. Please re-package and re-export the measure from the MAT.'
@@ -137,7 +137,7 @@ describe 'CqlLogicView', ->
 
     it 'does not show for error-free CQL measure', ->
       jasmine.getJSONFixtures().clearCache()
-      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/cqltest/CMS720v0.json'), parse: true
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS720/CMS720v0.json'), parse: true
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: cqlMeasure)
       populationLogicView.render()
       expect(populationLogicView.$el.html()).not.toContain 'This measure appears to have errors in its CQL.  Please re-package and re-export the measure from the MAT.'

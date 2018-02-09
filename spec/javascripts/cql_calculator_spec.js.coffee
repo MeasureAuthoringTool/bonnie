@@ -22,8 +22,8 @@ describe 'cqlCalculator', ->
       bonnie.valueSetsByOidCached = undefined
 
     it 'properly caches refactored bonnie.valueSetsByOid', ->
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMS720/value_sets.json')
-      measure = getJSONFixture('/measure_data/special_measures/CMS720/CMS720v0.json')
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/core_measures/CMS160/value_sets.json')
+      measure = getJSONFixture('/measure_data/core_measures/CMS160/CMS160v6.json')
       expect(bonnie.valueSetsByOidCached).not.toBeDefined()
       oldRefactoredValueSets = @cql_calculator.valueSetsForCodeService(measure.value_set_oid_version_objects, measure.hqmf_set_id)
       expect(oldRefactoredValueSets).toExist()
@@ -34,12 +34,12 @@ describe 'cqlCalculator', ->
       expect(newRefactoredValueSets).not.toEqual({})
       expect(oldRefactoredValueSets).toEqual(bonnie.valueSetsByOidCached[measure.hqmf_set_id])
       expect(oldRefactoredValueSets).toEqual(newRefactoredValueSets)
-      expect(bonnie.valueSetsByOidCached[measure.hqmf_set_id]['2.16.840.1.113762.1.4.1']['N/A'].length).toEqual(2)
+      expect(bonnie.valueSetsByOidCached[measure.hqmf_set_id]['2.16.840.1.113883.3.67.1.101.1.246']['Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C'].length).toEqual(64)
       bonnie.valueSetsByOidCached = undefined
 
   describe 'setValueSetVersionsToUndefined', ->
     it 'returns valueSets with versions set to undefined', ->
-      measure = getJSONFixture('/measure_data/cqltest/CMS720v0.json')
+      measure = getJSONFixture('/measure_data/special_measures/CMS720v0.json')
       expect(measure['elm'][0]['library']['valueSets']).toExist()
       # Add a version to a valueSet
       measure['elm'][0]['library']['valueSets']['def'][0]['version'] = '1.2.3'
@@ -48,7 +48,7 @@ describe 'cqlCalculator', ->
       expect(elm[0]['library']['valueSets']['def'][0]['version']).not.toBeDefined()
 
     it 'returns the elm without error if there are no valueSets', ->
-      measure = getJSONFixture('/measure_data/cqltest/CMS720v0.json')
+      measure = getJSONFixture('/measure_data/special_measures/CMS720v0.json')
       expect(measure['elm'][0]['library']['valueSets']).toExist()
       # Remove valueSets
       measure['elm'][0]['library']['valueSets'] = undefined

@@ -364,7 +364,7 @@ describe 'PatientBuilderView', ->
   describe 'CQL', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS158/CMS158v6.json'), parse: true
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS158/CMS158v6.json'), parse: true
       # preserve atomicity
       @universalValueSetsByOid = bonnie.valueSetsByOid
       @bonnie_measures_old = bonnie.measures
@@ -375,7 +375,7 @@ describe 'PatientBuilderView', ->
 
     it "laboratory test performed should have custom view for components", ->
       bonnie.valueSetsByOid = getJSONFixture('/measure_data/core_measures/CMS158/value_sets.json')
-      patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS158/patients.json'), parse: true
+      patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS158/patients.json'), parse: true
       patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: @cqlMeasure)
       laboratoryTest = patientBuilder.model.get('source_data_criteria').first()
       editCriteriaView = new Thorax.Views.EditCriteriaView(model: laboratoryTest)
