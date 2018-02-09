@@ -11,7 +11,7 @@ class ValuesetsControllerTest  < ActionController::TestCase
     @user = User.by_email('bonnie@example.com').first
 
     associate_user_with_measures(@user, CqlMeasure.all)
-    CqlMeasure.by_user(@user).first.value_set_oids.uniq.each_with_index do |oid|
+    CqlMeasure.by_user(@user).first.value_set_oids.uniq.each do |oid|
       vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
       (0..10).each do |index|
         vs.concepts << HealthDataStandards::SVS::Concept.new(code_set: 'foo', code:"bar_#{index}")
