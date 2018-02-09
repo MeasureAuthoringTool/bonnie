@@ -83,11 +83,11 @@ describe 'cqlCalculator', ->
   describe '_populationRelevanceForAllEpisodes', ->
     it 'correctly builds population_relevance for multiple episodes in all populations', ->
       episode_results = {
-        episode1: {IPP: 3, DENOM: 0, DENEX: 0, DENEXCEP: 1, NUMER: 0, NUMEX: 0},
-        episode2: {IPP: 2, DENOM: 1, DENEX: 0, DENEXCEP: 0, NUMER: 2, NUMEX: 2},
-        episode3: {IPP: 2, DENOM: 0, DENEX: 1, DENEXCEP: 0, NUMER: 0, NUMEX: 0}
+        episode1: {IPP: 1, DENOM: 1, DENEX: 0, DENEXCEP: 1, NUMER: 0, NUMEX: 0},
+        episode2: {IPP: 1, DENOM: 1, DENEX: 0, DENEXCEP: 0, NUMER: 1, NUMEX: 1},
+        episode3: {IPP: 1, DENOM: 1, DENEX: 1, DENEXCEP: 0, NUMER: 0, NUMEX: 0}
       }
-      expected_relevance_map = { IPP: true, DENOM: true, DENEX: true, DENEXCEP: false, NUMER: true, NUMEX: true }
+      expected_relevance_map = { IPP: true, DENOM: true, DENEX: true, DENEXCEP: true, NUMER: true, NUMEX: true }
       relevance_map = @cql_calculator._populationRelevanceForAllEpisodes(episode_results)
       expect(relevance_map).toEqual expected_relevance_map
       
