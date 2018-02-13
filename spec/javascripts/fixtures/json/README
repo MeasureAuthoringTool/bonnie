@@ -1,42 +1,9 @@
-# Contents of measures.json were created using:
-
-  json = Measure.in(measure_id: ['0002', '0022']).to_json(except: [:map_fns, :record_ids], methods: [:value_sets])
-  File.write('measures.json', JSON.pretty_generate(JSON.parse(json)))
-
-# (Note that we're including value sets in the measure JSON even though
-# our client side code doesn't use it; that's because this JSON is also
-# needed to generate the calculation code for the tests)
-
-# Contents of patients.json were generated using:
-
-  measure_hqmf_set_ids = Measure.in(measure_id: ['0002', '0022']).map(&:hqmf_set_id)
-  patients = Record.in('source_data_criteria.hqmf_set_id' => measure_hqmf_set_ids).map do |patient|
-    patient.source_data_criteria.select! { |sdc| measure_hqmf_set_ids.include? sdc['hqmf_set_id'] }
-    patient
-  end
-  json = patients.to_json
-  File.write('patients.json', JSON.pretty_generate(JSON.parse(json)))
-
-# Contents of value_sets.json were generated using
-
-  oids = Measure.in(measure_id: ['0002', '0022']).pluck(:value_set_oids).flatten.uniq
-  json = HealthDataStandards::SVS::ValueSet.in(oid: oids).index_by(&:oid).to_json
-  File.write('value_sets.json', JSON.pretty_generate(JSON.parse(json)))
-
-
-# CQL-based measures
-CMS136 created with:
-bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS136,epecqmncqa@gmail.com,CMS741v0,"BehaviorHealth<=30DaysAftrADHDMed","NUMERPop2Pass"]
-
-CMS146 created with:
-bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS146,epecqmncqa@gmail.com,CMS146v5,"PharynStrepATest<=3dB4Enc","NUMERPass"]
-
-CMS107 created with:
-bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS107,hmdmtjc@gmail.com,CMS107v6]
-
 # bonnie-fixtures measures
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS134,bonnie-fixtures@mitre.org,CMS134v6]
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS158,bonnie-fixtures@mitre.org,CMS158v6]
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS160,bonnie-fixtures@mitre.org,CMS160v6]
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS177,bonnie-fixtures@mitre.org,CMS177v6]
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS32,bonnie-fixtures@mitre.org,CMS32v7]
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS136,bonnie-fixtures@mitre.org,CMS136v7]
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS146,bonnie-fixtures@mitre.org,CMS146v6]
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS720,bonnie-fixtures@mitre.org,CMS720v0]
