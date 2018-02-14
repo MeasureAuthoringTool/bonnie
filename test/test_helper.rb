@@ -3,6 +3,7 @@ require_relative "./simplecov_init"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require './lib/ext/record'
+require 'rake'
 WebMock.enable!
 
 # load_tasks needs to be called exactly one time, so it's in the header area
@@ -78,6 +79,19 @@ class ActiveSupport::TestCase
           else
             fix_binary_data(v)
           end
+        end
+      end
+    end
+  end
+
+  # each .json file contains an array of value sets, add each item individually
+  def add_value_sets_collection(collection)
+    Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
+      fixture_json = JSON.parse(File.read(json_fixture_file))
+      if fixture_json.length > 0
+        fixture_json.each do |entry|
+          vs = HealthDataStandards::SVS::ValueSet.new(entry)
+          HealthDataStandards::SVS::ValueSet.collection.insert_one(vs.as_document)
         end
       end
     end
