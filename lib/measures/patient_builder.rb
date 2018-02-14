@@ -202,7 +202,7 @@ module Measures
     # derive the negation for the source_data_criteria entry if it is negated
     def self.derive_negation(entry,value,value_sets)
       if value['negation']
-        codes = value["negation_code"] || Measures::PatientBuilder.select_code(value['negation_code_list_id'], value_sets)
+        codes = Measures::PatientBuilder.select_code(value['negation_code_list_id'], value_sets)
         entry.negation_ind = true
         entry.negation_reason = codes
       end
