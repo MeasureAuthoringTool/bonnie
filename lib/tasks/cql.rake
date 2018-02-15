@@ -10,6 +10,7 @@ namespace :bonnie do
       update_passes = 0
       update_fails = 0
       orphans = 0
+      fields_diffs = Hash.new(0)
       CqlMeasure.all.each do |measure|
         begin
           # Grab the user, we need this to output the name of the user who owns
@@ -21,6 +22,23 @@ namespace :bonnie do
           # Grab the name of the main cql library
           main_cql_library = measure[:main_cql_library]
 
+          # Grab a copy of all attributes that we will update the measure with.
+          before_state = {}
+          before_state[:measure_data_criteria] = measure[:data_criteria].deep_dup
+          before_state[:measure_source_data_criteria] = measure[:source_data_criteria].deep_dup
+          before_state[:measure_cql] = measure[:cql].deep_dup
+          before_state[:measure_elm] = measure[:elm].deep_dup
+          before_state[:measure_elm_annotations] = measure[:elm_annotations].deep_dup
+          before_state[:measure_cql_statement_dependencies] = measure[:cql_statement_dependencies].deep_dup
+          before_state[:measure_main_cql_library] = measure[:main_cql_library].deep_dup
+          before_state[:measure_value_set_oids] = measure[:value_set_oids].deep_dup
+          before_state[:measure_value_set_oid_version_objects] = measure[:value_set_oid_version_objects].deep_dup
+
+          # Grab the existing data_criteria and source_data_criteria hashes. Must be a deep copy, due to how Mongo copies Hash and Array field types.
+          data_criteria_object = {}
+          data_criteria_object['data_criteria'] = measure[:data_criteria].deep_dup
+          data_criteria_object['source_data_criteria'] = measure[:source_data_criteria].deep_dup
+
           # If measure has been uploaded more recently (we should have a copy of the MAT Package) we will use the actual MAT artifacts
           if !measure.package.nil?
             # Create a temporary directory
@@ -30,7 +48,8 @@ namespace :bonnie do
                 # Write the package binary to a zip file.
                 zip_file.write(measure.package.file.data)
                 files = Measures::CqlLoader.get_files_from_zip(zip_file, dir)
-                cql_artifacts = Measures::CqlLoader.process_cql(files, main_cql_library, user)
+                cql_artifacts = Measures::CqlLoader.process_cql(files, main_cql_library, user, nil, nil, nil, nil, nil, nil, measure.hqmf_set_id)
+                data_criteria_object['source_data_criteria'], data_criteria_object['data_criteria'] = Measures::CqlLoader.set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
                 cql = files[:CQL]
               end
             end
@@ -38,19 +57,29 @@ namespace :bonnie do
           else
             # Grab the measure cql
             cql = measure[:cql]
-             # Use the CQL-TO-ELM Translation Service to regenerate elm for older measures.
+            # Use the CQL-TO-ELM Translation Service to regenerate elm for older measures.
             elm_json, elm_xml = CqlElm::CqlToElmHelper.translate_cql_to_elm(cql)
             elms = {:ELM_JSON => elm_json,
                     :ELM_XML => elm_xml}
-            cql_artifacts = Measures::CqlLoader.process_cql(elms, main_cql_library, user)
+            cql_artifacts = Measures::CqlLoader.process_cql(elms, main_cql_library, user, nil, nil, nil, nil, nil, nil, measure.hqmf_set_id)
+            data_criteria_object['source_data_criteria'], data_criteria_object['data_criteria'] = Measures::CqlLoader.set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
           end
-          # Update the measure
-          measure.update(cql: cql, elm: cql_artifacts[:elms], elm_annotations: cql_artifacts[:elm_annotations], cql_statement_dependencies: cql_artifacts[:cql_definition_dependency_structure],
-                         main_cql_library: main_cql_library, value_set_oids: cql_artifacts[:all_value_set_oids], value_set_oid_version_objects: cql_artifacts[:value_set_oid_version_objects])
-          measure.save!
-          update_passes += 1
-          print "\e[#{32}m#{"[Success]"}\e[0m"
-          puts ' Measure ' + "\e[1m#{measure[:cms_id]}\e[22m" + ': "' + measure[:title] + '" with id ' + "\e[1m#{measure[:id]}\e[22m" + ' in account ' + "\e[1m#{user[:email]}\e[22m" + ' successfully updated ELM!'
+
+          # Get a hash of differences from the original measure and the updated data
+          differences = measure_update_diff(before_state, data_criteria_object, cql, cql_artifacts, main_cql_library)
+          unless differences.empty?
+            # Update the measure
+            measure.update(data_criteria: data_criteria_object['data_criteria'], source_data_criteria: data_criteria_object['source_data_criteria'], cql: cql, elm: cql_artifacts[:elms], elm_annotations: cql_artifacts[:elm_annotations], cql_statement_dependencies: cql_artifacts[:cql_definition_dependency_structure],
+                           main_cql_library: main_cql_library, value_set_oids: cql_artifacts[:all_value_set_oids], value_set_oid_version_objects: cql_artifacts[:value_set_oid_version_objects])
+            measure.save!
+            update_passes += 1
+            print "\e[#{32}m#{"[Success]"}\e[0m"
+            puts ' Measure ' + "\e[1m#{measure[:cms_id]}\e[22m" + ': "' + measure[:title] + '" with id ' + "\e[1m#{measure[:id]}\e[22m" + ' in account ' + "\e[1m#{user[:email]}\e[22m" + ' successfully updated ELM!'
+            differences.each_key do |key|
+              fields_diffs[key] += 1
+              puts "--- #{key} --- Has been modified"
+            end
+          end
         rescue Mongoid::Errors::DocumentNotFound => e
           orphans += 1
           print "\e[#{31}m#{"[Error]"}\e[0m"
@@ -64,6 +93,25 @@ namespace :bonnie do
       puts "#{update_passes} measures successfully updated."
       puts "#{update_fails} measures failed to update."
       puts "#{orphans} measures are orphaned, and were not updated."
+      puts "Overall number of fields changed."
+      fields_diffs.each do |key, value|
+        puts "-- #{key}: #{value} --"
+      end
+    end
+
+    # Builds a hash of differences between the existing measure data and the new data
+    def self.measure_update_diff(before_state, data_criteria_object, cql, cql_artifacts, main_cql_library)
+      differences = {}
+      differences['Data Criteria'] = data_criteria_object['data_criteria'] if Digest::MD5.hexdigest(before_state[:measure_data_criteria].to_json) != Digest::MD5.hexdigest(data_criteria_object['data_criteria'].to_json)
+      differences['Source Data Criteria'] = data_criteria_object['source_data_criteria'] if Digest::MD5.hexdigest(before_state[:measure_source_data_criteria].to_json) != Digest::MD5.hexdigest(data_criteria_object['source_data_criteria'].to_json)
+      differences['CQL'] = cql if Digest::MD5.hexdigest(before_state[:measure_cql].to_json) != Digest::MD5.hexdigest(cql.to_json)
+      differences['ELM'] = cql_artifacts[:elms] if Digest::MD5.hexdigest(before_state[:measure_elm].to_json) != Digest::MD5.hexdigest(cql_artifacts[:elms].to_json)
+      differences['ELM Annotations'] = cql_artifacts[:elm_annotations] if Digest::MD5.hexdigest(before_state[:measure_elm_annotations].to_json) != Digest::MD5.hexdigest(cql_artifacts[:elm_annotations].to_json)
+      differences['CQL Definition Statement Dependencies'] = cql_artifacts[:cql_definition_dependency_structure] if Digest::MD5.hexdigest(before_state[:measure_cql_statement_dependencies].to_json) != Digest::MD5.hexdigest(cql_artifacts[:cql_definition_dependency_structure].to_json)
+      differences['Main CQL Library'] = main_cql_library if Digest::MD5.hexdigest(before_state[:measure_main_cql_library].to_json) != Digest::MD5.hexdigest(main_cql_library.to_json)
+      differences['All Value Set Oids'] = cql_artifacts[:all_value_set_oids] if Digest::MD5.hexdigest(before_state[:measure_value_set_oids].to_json) != Digest::MD5.hexdigest(cql_artifacts[:all_value_set_oids].to_json)
+      differences['Value Set Oid Version Objects'] = cql_artifacts[:value_set_oid_version_objects] if Digest::MD5.hexdigest(before_state[:measure_value_set_oid_version_objects].to_json) != Digest::MD5.hexdigest(cql_artifacts[:value_set_oid_version_objects].to_json)
+      differences
     end
 
     desc %{Outputs user accounts that have cql measures and which measures are cql in their accounts.
