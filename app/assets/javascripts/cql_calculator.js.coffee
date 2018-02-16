@@ -171,7 +171,7 @@
     # Initial Population (IPP): The set of patients or episodes of care to be evaluated by the measure.
     # Denominator (DENOM): A subset of the IPP.
     # Denominator Exclusions (DENEX): A subset of the Denominator that should not be considered for inclusion in the Numerator.
-    # Denominator Exceptions (DEXCEP): A subset of the Denominator. Only those members of the Denominator that are considered 
+    # Denominator exception (DENEXCEP): Identify those in the DENOM and NOT in the DENEX and NOT in the NUMER that meet the DENEXCEP criteria.
     # for Numerator membership and are not included are considered for membership in the Denominator Exceptions.
     # Numerator (NUMER): A subset of the Denominator. The Numerator criteria are the processes or outcomes expected for each patient,
     # procedure, or other unit of measurement defined in the Denominator.
@@ -200,6 +200,8 @@
         population_results['NUMER'] = 0
       if 'NUMEX' of population_results
         population_results['NUMEX'] = 0
+      if 'DENEXCEP' of population_results
+        population_results['DENEXCEP'] = 0
     # TODO: Temporarily disable the removal of OBSERVs when a member of MSRPOPLEX as to not change actual result values uncomment for 2.1 release
     #else if (population_results["MSRPOPLEX"]? && !@isValueZero('MSRPOPLEX', population_results))
     #  if 'values' of population_results
