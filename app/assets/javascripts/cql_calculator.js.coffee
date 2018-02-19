@@ -90,11 +90,20 @@
 
       if population_results?
         result.set population_results
-        result.set {'episode_results': episode_results} if episode_results?
-        result.set {'population_relevance': @_buildPopulationRelevanceMap(population_results) }
-
+        population_relevance = {}
+        if episode_results?
+          # In episode of care based measures, episode_results contains the population results
+          # for EACH episode, so we need to build population_relevance based on a combonation
+          # of the episode_results. IE: If DENEX is irrelevant for one episode but relevant for
+          # another, the logic view should not highlight it as irrelevant
+          result.set {'episode_results': episode_results}
+          population_relevance = @_populationRelevanceForAllEpisodes(episode_results)
+        else
+          population_relevance = @_buildPopulationRelevanceMap(population_results)
+    
+        result.set {'population_relevance': population_relevance }
         # Add 'statement_relevance', 'statement_results' and 'clause_results' generated in the CQLResultsHelpers class.
-        result.set {'statement_relevance': CQLResultsHelpers.buildStatementRelevanceMap(result.get('population_relevance'), population.collection.parent, population) }
+        result.set {'statement_relevance': CQLResultsHelpers.buildStatementRelevanceMap(population_relevance, population.collection.parent, population) }
         result.set CQLResultsHelpers.buildStatementAndClauseResults(population.collection.parent, results.localIdPatientResultsMap[patient['id']], result.get('statement_relevance'))
 
         result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
@@ -440,6 +449,24 @@
       resultShown.values = false if resultShown.values?
 
     return resultShown
+
+  ###
+  # Iterate over episode results, call _buildPopulationRelevanceMap for each result 
+  # OR population relevances together so that populations are marked as relevant
+  # based on all episodes instead of just one
+  # @private
+  # @param {episode_results} result - Population_results for each episode
+  # @returns {object} Map that tells if a population calculation was considered/relevant in any episode
+  ###
+  _populationRelevanceForAllEpisodes: (episode_results) ->
+    masterRelevanceMap = {}
+    for key, episode_result of episode_results
+      popRelMap = @_buildPopulationRelevanceMap(episode_result)
+      for pop, popRel of popRelMap
+        if !masterRelevanceMap[pop]?
+          masterRelevanceMap[pop] = false
+        masterRelevanceMap[pop] = masterRelevanceMap[pop] || popRel
+    return masterRelevanceMap
 
   isValueZero: (value, population_set) ->
     if value of population_set and population_set[value] == 0
