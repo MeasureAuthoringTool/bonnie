@@ -75,9 +75,10 @@
 
       # Set all value set versions to 'undefined' so the execution engine does not grab the specified version in the ELM
       for elm_library in elm
-        for valueSet in elm_library['library']['valueSets']['def']
-          if valueSet['version']?
-            valueSet['version'] = undefined
+        if elm_library['library']['valueSets']
+          for valueSet in elm_library['library']['valueSets']['def']
+            if valueSet['version']?
+              valueSet['version'] = undefined
 
       # Grab the correct version of value sets to pass into the exectuion engine.
       measure_value_sets = @valueSetsForCodeService(population.collection.parent.get('value_set_oid_version_objects'), population.collection.parent.get('hqmf_set_id'))
