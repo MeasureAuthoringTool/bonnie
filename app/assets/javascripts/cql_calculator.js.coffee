@@ -74,11 +74,7 @@
              elm["library"]["statements"]["def"].push generatedELMJSON
 
       # Set all value set versions to 'undefined' so the execution engine does not grab the specified version in the ELM
-      for elm_library in elm
-        if elm_library['library']['valueSets']
-          for valueSet in elm_library['library']['valueSets']['def']
-            if valueSet['version']?
-              valueSet['version'] = undefined
+      elm = @setValueSetVersionsToUndefined(elm)
 
       # Grab the correct version of value sets to pass into the exectuion engine.
       measure_value_sets = @valueSetsForCodeService(population.collection.parent.get('value_set_oid_version_objects'), population.collection.parent.get('hqmf_set_id'))
@@ -473,6 +469,15 @@
     if value of population_set and population_set[value] == 0
       return true
     return false
+
+  # Set all value set versions to 'undefined' so the execution engine does not grab the specified version in the ELM
+  setValueSetVersionsToUndefined: (elm) ->
+    for elm_library in elm
+      if elm_library['library']['valueSets']?
+        for valueSet in elm_library['library']['valueSets']['def']
+          if valueSet['version']?
+            valueSet['version'] = undefined
+    elm
 
   # Format ValueSets for use by CQL4Browsers
   valueSetsForCodeService: (value_set_oid_version_objects, hqmf_set_id) ->

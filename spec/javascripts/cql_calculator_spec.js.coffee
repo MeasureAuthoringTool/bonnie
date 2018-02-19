@@ -37,6 +37,24 @@ describe 'cqlCalculator', ->
       expect(bonnie.valueSetsByOidCached[measure.hqmf_set_id]['2.16.840.1.113762.1.4.1']['N/A'].length).toEqual(2)
       bonnie.valueSetsByOidCached = undefined
 
+  describe 'setValueSetVersionsToUndefined', ->
+    it 'returns valueSets with versions set to undefined', ->
+      measure = getJSONFixture('/measure_data/cqltest/CMS720v0.json')
+      expect(measure['elm'][0]['library']['valueSets']).toExist()
+      # Add a version to a valueSet
+      measure['elm'][0]['library']['valueSets']['def'][0]['version'] = '1.2.3'
+      expect(measure['elm'][0]['library']['valueSets']['def'][0]['version']).toEqual('1.2.3')
+      elm = @cql_calculator.setValueSetVersionsToUndefined(measure['elm'])
+      expect(elm[0]['library']['valueSets']['def'][0]['version']).not.toBeDefined()
+
+    it 'returns the elm without error if there are no valueSets', ->
+      measure = getJSONFixture('/measure_data/cqltest/CMS720v0.json')
+      expect(measure['elm'][0]['library']['valueSets']).toExist()
+      # Remove valueSets
+      measure['elm'][0]['library']['valueSets'] = undefined
+      elm = @cql_calculator.setValueSetVersionsToUndefined(measure['elm'])
+      expect(elm).toExist()
+
   describe '_buildPopulationRelevanceMap', ->
     it 'marks NUMER, NUMEX, DENEXCEP not calculated if DENEX count matches DENOM', ->
       population_results = { IPP: 2, DENOM: 2, DENEX: 2, DENEXCEP: 0, NUMER: 0, NUMEX: 0 }
