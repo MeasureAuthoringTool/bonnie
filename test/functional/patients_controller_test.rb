@@ -10,7 +10,7 @@ include Devise::Test::ControllerHelpers
     collection_fixtures(cql_measures_set, users_set)
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_measures(@user, CqlMeasure.all)
-    @measure = CqlMeasure.where({"cms_id" => "CMS32v7"}).first
+    @measure = CqlMeasure.where({"cms_id" => "CMS134v6"}).first
     sign_in @user
   end
 
@@ -132,7 +132,35 @@ include Devise::Test::ControllerHelpers
     assert_equal 3, @user.records.count
     patient = Record.where({id: patient.id}).first
     assert_nil patient
+  end
 
+  test "export patients" do
+    records_set = File.join("records", "base_set")
+    collection_fixtures(records_set)
+    associate_user_with_patients(@user, Record.all)
+    associate_measures_with_patients([@measure], Record.all)
+
+    get :qrda_export, hqmf_set_id: @measure.hqmf_set_id, isCQL: 'true'
+    assert_response :success
+    assert_equal 'application/zip', response.header['Content-Type']
+    assert_equal "attachment; filename=\"#{@measure.cms_id}_patient_export.zip\"", response.header['Content-Disposition']
+    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
+
+    Dir.mkdir(Rails.root.join('tmp')) unless Dir.exist?(Rails.root.join('tmp'))
+    zip_path = File.join('tmp', 'test.zip')
+    File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
+    Zip::ZipFile.open(zip_path) do |zip_file|
+      assert_equal 4, zip_file.glob(File.join('qrda','**.xml')).length
+      html_files = zip_file.glob(File.join('html', '**.html'))
+      assert_equal 4, html_files.length
+      html_files.each do |html_file| # search each HTML file to ensure alternate measure data is not included
+        doc = Nokogiri::HTML(html_file.get_input_stream.read)
+        xpath = "//b[contains(text(), 'SNOMED-CT:')]/i/span[@onmouseover and contains(text(), '417005')]"
+        assert_equal 0, doc.xpath(xpath).length
+      end
+    end
+    File.delete(zip_path)
   end
 
   test "excel export sheet names" do
