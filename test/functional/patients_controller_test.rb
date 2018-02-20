@@ -135,7 +135,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test "export patients" do
-    records_set = File.join("records", "base_set")
+    records_set = File.join("records", "CMS134v6")
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     associate_measures_with_patients([@measure], Record.all)
@@ -151,9 +151,9 @@ include Devise::Test::ControllerHelpers
     zip_path = File.join('tmp', 'test.zip')
     File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
     Zip::ZipFile.open(zip_path) do |zip_file|
-      assert_equal 4, zip_file.glob(File.join('qrda','**.xml')).length
+      assert_equal 2, zip_file.glob(File.join('qrda','**.xml')).length
       html_files = zip_file.glob(File.join('html', '**.html'))
-      assert_equal 4, html_files.length
+      assert_equal 2, html_files.length
       html_files.each do |html_file| # search each HTML file to ensure alternate measure data is not included
         doc = Nokogiri::HTML(html_file.get_input_stream.read)
         xpath = "//b[contains(text(), 'SNOMED-CT:')]/i/span[@onmouseover and contains(text(), '417005')]"
