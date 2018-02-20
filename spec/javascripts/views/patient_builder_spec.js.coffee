@@ -162,7 +162,6 @@ describe 'PatientBuilderView', ->
       @patientBuilder.appendTo 'body'
       # need to be specific with the query to select one of the data criteria with a period.
       # this is due to QDM 5.0 changes which make several data criteria only have an author time.
-      # Medication, Active is a period type.
       $dataCriteria = @patientBuilder.$('div.patient-criteria:contains(Diagnosis: Diabetes):first')
       $dataCriteria.find('button[data-call-method=toggleDetails]:first').click()
       $dataCriteria.find(':input[name=start_date]:first').val('01/1/2012')
@@ -216,18 +215,6 @@ describe 'PatientBuilderView', ->
   describe "adding values to a criteria", ->
     beforeEach ->
       @patientBuilder.appendTo 'body'
-      # Laboratory tests support result values
-      @addLabTest = (position, targetSelector) ->
-        $('.panel-title').click() # Expand the criteria to make draggables visible
-        criteria = @$el.find(".draggable:eq(#{position})").draggable()
-        target = @$el.find(targetSelector)
-        targetView = target.view()
-        # We used to simulate a drag, but that had issues with different viewport sizes, so instead we just
-        # directly call the appropriate drop event handler
-        if targetView.dropCriteria
-          target.view().dropCriteria({ target: target }, { draggable: criteria })
-        else
-          target.view().drop({ target: target }, { draggable: criteria })
       @addScalarValue = (input, units, submit=true) ->
         @patientBuilder.$('select[name=type]:first').val('PQ').change()
         @patientBuilder.$('input[name=value]:first').val(input).keyup()
@@ -247,15 +234,12 @@ describe 'PatientBuilderView', ->
       expect(@firstCriteria.get('value').first().get('unit')).toEqual 'mg'
 
     it "adds a coded value", ->
-      firstCriteria = @patientBuilder.model.get('source_data_criteria').first()
-      # Normally the first criteria can't have a value (wrong type); for testing we allow it
-      firstCriteria.canHaveResult = -> true
-      expect(firstCriteria.get('value').length).toEqual 0
+      expect(@firstCriteria.get('value').length).toEqual 0
       @addCodedValue '2.16.840.1.113883.3.464.1003.109.12.1016'
-      expect(firstCriteria.get('value').length).toEqual 1
-      expect(firstCriteria.get('value').first().get('type')).toEqual 'CD'
-      expect(firstCriteria.get('value').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.109.12.1016'
-      expect(firstCriteria.get('value').first().get('title')).toEqual 'Dialysis Education'
+      expect(@firstCriteria.get('value').length).toEqual 1
+      expect(@firstCriteria.get('value').first().get('type')).toEqual 'CD'
+      expect(@firstCriteria.get('value').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.109.12.1016'
+      expect(@firstCriteria.get('value').first().get('title')).toEqual 'Dialysis Education'
 
     it "only allows for a single result", ->
       expect(@firstCriteria.get('value').length).toEqual 0
