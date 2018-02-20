@@ -207,8 +207,9 @@ class Thorax.Views.PatientBuilder extends Thorax.Views.BonnieView
 
   removeDeathDate: (e) ->
     e.preventDefault()
-    @model.set 'deathdate', null
     @model.set 'expired', false
+    @model.set 'deathtime', null
+    @model.set 'deathdate', null
     @$('#expired').focus()
 
   setAffix: ->
