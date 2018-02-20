@@ -236,6 +236,7 @@ describe 'PatientBuilderView', ->
     it "adds a coded value", ->
       expect(@firstCriteria.get('value').length).toEqual 0
       @addCodedValue '2.16.840.1.113883.3.464.1003.109.12.1016'
+      expect(bonnie.valueSetsByOid['2.16.840.1.113883.3.464.1003.109.12.1016']).toExist
       expect(@firstCriteria.get('value').length).toEqual 1
       expect(@firstCriteria.get('value').first().get('type')).toEqual 'CD'
       expect(@firstCriteria.get('value').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.109.12.1016'
