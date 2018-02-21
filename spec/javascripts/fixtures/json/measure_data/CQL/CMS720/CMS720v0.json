@@ -1,6 +1,6 @@
 {
-  "_id": "596f8436e76e946723000835",
-  "bundle_id": null,
+  "_id": "5a7ddc61b848463373c607e6",
+  "bundle_id": "5a57e977942c6d1e61d32f14",
   "category": "Miscellaneous",
   "cms_id": "CMS720v0",
   "complexity": {
@@ -50,18 +50,18 @@
         "complexity": 1
       },
       {
-        "name": "RelatedEDVisit",
+        "name": "Related ED Visit",
         "complexity": 1
       },
       {
-        "name": "MeasureObservation",
+        "name": "Measure Observation",
         "complexity": 1
       }
     ]
   },
   "continuous_variable": true,
   "cql": [
-    "library MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients version '0.0.014'\n\nusing QDM version '5.0.2'\n\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1' \n\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836' \n\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837' \n\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591' \n\nvalueset \"Psychiatric/Mental Health Patient\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.299' \n\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292' \n\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \n\nvalueset \"Hospital Settings\": 'urn:oid:2.16.840.1.113762.1.4.1111.126' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"SDE Ethnicity\": [\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\n\ndefine \"SDE Payer\": [\"Patient Characteristic Payer\": \"Payer\"]\n\ndefine \"SDE Race\": [\"Patient Characteristic Race\": \"Race\"]\n\ndefine \"SDE Sex\": [\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\n\ndefine \"Inpatient Encounter\": [\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter\r\n\t\twhere Encounter.lengthOfStay <= 120 days\r\n\t\t\tand Encounter.relevantPeriod ends during \"Measurement Period\"\n\ndefine \"Startification1\": \"Inpatient Encounter\" Encounter\r\nwhere not (Encounter.principalDiagnosis in \"Psychiatric/Mental Health Patient\")\n\ndefine \"Stratification2\": \"Inpatient Encounter\" Encounter\r\nwhere Encounter.principalDiagnosis in \"Psychiatric/Mental Health Patient\"\n\ndefine \"Initial Population\": \"Inpatient Encounter\" Encounter\r\nwith [\"Encounter, Performed\": \"Emergency Department Visit\"] ED\r\nsuch that ED.relevantPeriod ends 1 hour or less before start of Encounter.relevantPeriod\r\n\r\n/*intersect \"RelatedEDVisit\"(Encounter)*/\n\ndefine \"Measure Population\": \"Initial Population\"\n\ndefine \"Measure Population Exclusion\": \"Inpatient Encounter\" Encounter\r\nwith [\"Encounter, Performed\": \"Emergency Department Visit\"] ED\r\nsuch that ED.relevantPeriod ends 1 hour or less before start of Encounter.relevantPeriod\r\nand ED.admissionSource in \"Hospital Settings\" \r\n /*6 hours or less before or ends with start of ED.relevantPeriod*/\n\ndefine function \"RelatedEDVisit\"(\"Encounter\" \"Encounter, Performed\" ): Last(\r\n    [\"Encounter, Performed\": \"Emergency Department Visit\"]ED\r\n      where ED.relevantPeriod ends 1 hour or less before start of Encounter.relevantPeriod\r\n      sort by start of relevantPeriod\r\n  )\n\ndefine function \"MeasureObservation\"(\"Encounter\" \"Encounter, Performed\" ): duration in minutes of \"RelatedEDVisit\"(Encounter).locationPeriod\n\n"
+    "library MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients version '0.0.014'\n\nusing QDM version '5.0.2'\n\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1' \n\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836' \n\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837' \n\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591' \n\nvalueset \"Psychiatric/Mental Health Patient\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.299' \n\nvalueset \"Emergency Department Visit\": 'urn:oid:2.16.840.1.113883.3.117.1.7.1.292' \n\nvalueset \"Encounter Inpatient\": 'urn:oid:2.16.840.1.113883.3.666.5.307' \n\nvalueset \"Hospital Settings\": 'urn:oid:2.16.840.1.113762.1.4.1111.126' \n\nparameter \"Measurement Period\" Interval<DateTime>\n\ncontext Patient\n\ndefine \"SDE Ethnicity\": [\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\n\ndefine \"SDE Payer\": [\"Patient Characteristic Payer\": \"Payer\"]\n\ndefine \"SDE Race\": [\"Patient Characteristic Race\": \"Race\"]\n\ndefine \"SDE Sex\": [\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\n\ndefine \"Inpatient Encounter\": [\"Encounter, Performed\": \"Encounter Inpatient\"] Encounter\r\n\t\twhere Encounter.lengthOfStay <= 120 days\r\n\t\t\tand Encounter.relevantPeriod ends during \"Measurement Period\"\n\ndefine \"Startification1\": \"Inpatient Encounter\" Encounter\r\nwhere not (Encounter.principalDiagnosis in \"Psychiatric/Mental Health Patient\")\n\ndefine \"Stratification2\": \"Inpatient Encounter\" Encounter\r\nwhere Encounter.principalDiagnosis in \"Psychiatric/Mental Health Patient\"\n\ndefine \"Initial Population\": \"Inpatient Encounter\" Encounter\r\nwith [\"Encounter, Performed\": \"Emergency Department Visit\"] ED\r\nsuch that ED.relevantPeriod ends 1 hour or less before start of Encounter.relevantPeriod\r\n\r\n/*intersect \"Related ED Visit\"(Encounter)*/\n\ndefine \"Measure Population\": \"Initial Population\"\n\ndefine \"Measure Population Exclusion\": \"Inpatient Encounter\" Encounter\r\nwith [\"Encounter, Performed\": \"Emergency Department Visit\"] ED\r\nsuch that ED.relevantPeriod ends 1 hour or less before start of Encounter.relevantPeriod\r\nand ED.admissionSource in \"Hospital Settings\" \r\n /*6 hours or less before or ends with start of ED.relevantPeriod*/\n\ndefine function \"Related ED Visit\"(\"Encounter\" \"Encounter, Performed\" ): Last(\r\n    [\"Encounter, Performed\": \"Emergency Department Visit\"]ED\r\n      where ED.relevantPeriod ends 1 hour or less before start of Encounter.relevantPeriod\r\n      sort by start of relevantPeriod\r\n  )\n\ndefine function \"Measure Observation\"(\"Encounter\" \"Encounter, Performed\" ): duration in minutes of \"Related ED Visit\"(Encounter).locationPeriod\n\n"
   ],
   "cql_statement_dependencies": {
     "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients": {
@@ -113,22 +113,22 @@
           "statement_name": "Inpatient Encounter"
         }
       ],
-      "RelatedEDVisit": [
+      "Related ED Visit": [
 
       ],
-      "MeasureObservation": [
+      "Measure Observation": [
         {
           "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
-          "statement_name": "RelatedEDVisit"
+          "statement_name": "Related ED Visit"
         },
         {
           "library_name": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
-          "statement_name": "RelatedEDVisit"
+          "statement_name": "Related ED Visit"
         }
       ]
     }
   },
-  "created_at": "2017-07-19T16:09:26.399Z",
+  "created_at": "2018-02-09T17:37:37.207Z",
   "data_criteria": {
     "EncounterInpatient_EncounterPerformed_9fb12cac_607b_4927_b4b1_09ace6b3249d": {
       "title": "Encounter Inpatient",
@@ -289,9 +289,6 @@
           "613",
           "619",
           "62",
-          "63",
-          "64",
-          "69",
           "7",
           "71",
           "72",
@@ -2086,7 +2083,7 @@
             },
             {
               "localId": "102",
-              "name": "RelatedEDVisit",
+              "name": "Related ED Visit",
               "context": "Patient",
               "accessLevel": "Public",
               "type": "FunctionDef",
@@ -2099,7 +2096,7 @@
                       {
                         "value": [
                           "define function ",
-                          "\"RelatedEDVisit\"",
+                          "\"Related ED Visit\"",
                           "(",
                           "\"Encounter\"",
                           " "
@@ -2480,7 +2477,7 @@
             },
             {
               "localId": "108",
-              "name": "MeasureObservation",
+              "name": "Measure Observation",
               "context": "Patient",
               "accessLevel": "Public",
               "type": "FunctionDef",
@@ -2493,7 +2490,7 @@
                       {
                         "value": [
                           "define function ",
-                          "\"MeasureObservation\"",
+                          "\"Measure Observation\"",
                           "(",
                           "\"Encounter\"",
                           " "
@@ -2533,7 +2530,7 @@
                                     "s": [
                                       {
                                         "value": [
-                                          "\"RelatedEDVisit\"",
+                                          "\"Related ED Visit\"",
                                           "("
                                         ]
                                       },
@@ -2592,7 +2589,7 @@
                       "type": "Property",
                       "source": {
                         "localId": "105",
-                        "name": "RelatedEDVisit",
+                        "name": "Related ED Visit",
                         "type": "FunctionRef",
                         "operand": [
                           {
@@ -2612,7 +2609,7 @@
                       "type": "Property",
                       "source": {
                         "localId": "105",
-                        "name": "RelatedEDVisit",
+                        "name": "Related ED Visit",
                         "type": "FunctionRef",
                         "operand": [
                           {
@@ -2679,7 +2676,7 @@
                     {
                       "children": [
                         {
-                          "text": " ]"
+                          "text": "]"
                         }
                       ]
                     }
@@ -2700,7 +2697,7 @@
                 {
                   "children": [
                     {
-                      "text": " define \"SDE Payer\": "
+                      "text": "define \"SDE Payer\": "
                     }
                   ]
                 },
@@ -2727,7 +2724,7 @@
                     {
                       "children": [
                         {
-                          "text": " ]"
+                          "text": "]"
                         }
                       ]
                     }
@@ -2748,7 +2745,7 @@
                 {
                   "children": [
                     {
-                      "text": " define \"SDE Race\": "
+                      "text": "define \"SDE Race\": "
                     }
                   ]
                 },
@@ -2775,7 +2772,7 @@
                     {
                       "children": [
                         {
-                          "text": " ]"
+                          "text": "]"
                         }
                       ]
                     }
@@ -2796,7 +2793,7 @@
                 {
                   "children": [
                     {
-                      "text": " define \"SDE Sex\": "
+                      "text": "define \"SDE Sex\": "
                     }
                   ]
                 },
@@ -2823,7 +2820,7 @@
                     {
                       "children": [
                         {
-                          "text": " ]"
+                          "text": "]"
                         }
                       ]
                     }
@@ -2844,7 +2841,7 @@
                 {
                   "children": [
                     {
-                      "text": " define \"Inpatient Encounter\": "
+                      "text": "define \"Inpatient Encounter\": "
                     }
                   ]
                 },
@@ -2879,7 +2876,7 @@
                                     {
                                       "children": [
                                         {
-                                          "text": " ]"
+                                          "text": "]"
                                         }
                                       ]
                                     }
@@ -2906,7 +2903,7 @@
                     {
                       "children": [
                         {
-                          "text": "&#13;\n\t\t"
+                          "text": "&#13;\n    "
                         }
                       ]
                     },
@@ -2988,7 +2985,7 @@
                             {
                               "children": [
                                 {
-                                  "text": "&#13;\n\t\t\tand "
+                                  "text": "&#13;\n      and "
                                 }
                               ]
                             },
@@ -3079,7 +3076,7 @@
                 {
                   "children": [
                     {
-                      "text": " define \"Startification1\": "
+                      "text": "define \"Startification1\": "
                     }
                   ]
                 },
@@ -3121,7 +3118,7 @@
                     {
                       "children": [
                         {
-                          "text": " &#13;\n"
+                          "text": "&#13;\n"
                         }
                       ]
                     },
@@ -3161,7 +3158,7 @@
                                             {
                                               "children": [
                                                 {
-                                                  "text": " Encounter"
+                                                  "text": "Encounter"
                                                 }
                                               ]
                                             }
@@ -3216,7 +3213,7 @@
                                 {
                                   "children": [
                                     {
-                                      "text": " )"
+                                      "text": ")"
                                     }
                                   ]
                                 }
@@ -3247,7 +3244,7 @@
                 {
                   "children": [
                     {
-                      "text": " define \"Stratification2\": "
+                      "text": "define \"Stratification2\": "
                     }
                   ]
                 },
@@ -3289,7 +3286,7 @@
                     {
                       "children": [
                         {
-                          "text": " &#13;\n"
+                          "text": "&#13;\n"
                         }
                       ]
                     },
@@ -3382,7 +3379,7 @@
                 {
                   "children": [
                     {
-                      "text": " define \"Initial Population\": "
+                      "text": "define \"Initial Population\": "
                     }
                   ]
                 },
@@ -3424,7 +3421,7 @@
                     {
                       "children": [
                         {
-                          "text": " &#13;\n"
+                          "text": "&#13;\n"
                         }
                       ]
                     },
@@ -3464,7 +3461,7 @@
                                     {
                                       "children": [
                                         {
-                                          "text": " ]"
+                                          "text": "]"
                                         }
                                       ]
                                     }
@@ -3489,7 +3486,7 @@
                         {
                           "children": [
                             {
-                              "text": " &#13;\nsuch that "
+                              "text": "&#13;\nsuch that "
                             }
                           ]
                         },
@@ -3655,7 +3652,7 @@
                 {
                   "children": [
                     {
-                      "text": " define \"Measure Population\": "
+                      "text": "define \"Measure Population\": "
                     }
                   ]
                 },
@@ -3685,7 +3682,7 @@
                 {
                   "children": [
                     {
-                      "text": " define \"Measure Population Exclusion\": "
+                      "text": "define \"Measure Population Exclusion\": "
                     }
                   ]
                 },
@@ -3727,7 +3724,7 @@
                     {
                       "children": [
                         {
-                          "text": " &#13;\n"
+                          "text": "&#13;\n"
                         }
                       ]
                     },
@@ -3767,7 +3764,7 @@
                                     {
                                       "children": [
                                         {
-                                          "text": " ]"
+                                          "text": "]"
                                         }
                                       ]
                                     }
@@ -3792,7 +3789,7 @@
                         {
                           "children": [
                             {
-                              "text": " &#13;\nsuch that "
+                              "text": "&#13;\nsuch that "
                             }
                           ]
                         },
@@ -3943,7 +3940,7 @@
                             {
                               "children": [
                                 {
-                                  "text": " &#13;\nand "
+                                  "text": "&#13;\nand "
                                 }
                               ]
                             },
@@ -4032,7 +4029,7 @@
                 {
                   "children": [
                     {
-                      "text": " define function \"RelatedEDVisit\"(\"Encounter\" "
+                      "text": "define function \"Related ED Visit\"(\"Encounter\" "
                     }
                   ]
                 },
@@ -4097,7 +4094,7 @@
                                             {
                                               "children": [
                                                 {
-                                                  "text": " ]"
+                                                  "text": "]"
                                                 }
                                               ]
                                             }
@@ -4112,7 +4109,7 @@
                                     {
                                       "children": [
                                         {
-                                          "text": " ED"
+                                          "text": "ED"
                                         }
                                       ]
                                     }
@@ -4352,7 +4349,7 @@
               "ref_id": "102"
             }
           ],
-          "define_name": "RelatedEDVisit"
+          "define_name": "Related ED Visit"
         },
         {
           "children": [
@@ -4361,7 +4358,7 @@
                 {
                   "children": [
                     {
-                      "text": " define function \"MeasureObservation\"(\"Encounter\" "
+                      "text": "define function \"Measure Observation\"(\"Encounter\" "
                     }
                   ]
                 },
@@ -4402,7 +4399,7 @@
                                 {
                                   "children": [
                                     {
-                                      "text": "\"RelatedEDVisit\"("
+                                      "text": "\"Related ED Visit\"("
                                     }
                                   ]
                                 },
@@ -4411,7 +4408,7 @@
                                     {
                                       "children": [
                                         {
-                                          "text": " Encounter"
+                                          "text": "Encounter"
                                         }
                                       ]
                                     }
@@ -4422,7 +4419,7 @@
                                 {
                                   "children": [
                                     {
-                                      "text": " )"
+                                      "text": ")"
                                     }
                                   ]
                                 }
@@ -4465,7 +4462,7 @@
               "ref_id": "108"
             }
           ],
-          "define_name": "MeasureObservation"
+          "define_name": "Measure Observation"
         }
       ],
       "identifier": {
@@ -4479,7 +4476,7 @@
   "hqmf_id": "40280582-5801-9EE4-0158-2A28FC7E02A9",
   "hqmf_set_id": "28AC347D-2F91-4A0C-9395-2602134BAA89",
   "hqmf_version_number": 0,
-  "id": "596f8436e76e946723000835",
+  "id": "5a7ddc61b848463373c607e6",
   "main_cql_library": "MedianTimefromEDArrivaltoEDDepartureforAdmittedEDPatients",
   "measure_attributes": [
     {
@@ -4890,7 +4887,7 @@
   "needs_finalize": false,
   "observations": [
     {
-      "function_name": "MeasureObservation",
+      "function_name": "Measure Observation",
       "parameter": "Measure Population"
     }
   ],
@@ -5200,9 +5197,6 @@
           "613",
           "619",
           "62",
-          "63",
-          "64",
-          "69",
           "7",
           "71",
           "72",
@@ -5295,18 +5289,52 @@
     }
   },
   "title": "Median Time from ED Arrival to ED Departure for Admitted ED Patients",
-  "type": "unknown",
-  "updated_at": "2017-07-19T16:09:32.077Z",
-  "user_id": "58a1f9a1e76e945568000000",
+  "type": "ep",
+  "updated_at": "2018-02-09T17:37:45.138Z",
+  "user_id": "5a57e975942c6d1e61d32f13",
   "value_set_oid_version_objects": [
-    {"oid":"2.16.840.1.113762.1.4.1", "version":"N/A"},
-    {"oid":"2.16.840.1.114222.4.11.836","version":"N/A"},
-    {"oid":"2.16.840.1.114222.4.11.837","version":"N/A"},
-    {"oid":"2.16.840.1.114222.4.11.3591","version":"N/A"},
-    {"oid":"2.16.840.1.113883.3.117.1.7.1.299","version":"N/A"},
-    {"oid":"2.16.840.1.113883.3.117.1.7.1.292","version":"N/A"},
-    {"oid":"2.16.840.1.113883.3.666.5.307","version":"N/A"},
-    {"oid":"2.16.840.1.113762.1.4.1111.126","version":"N/A"}
+    {
+      "oid": "2.16.840.1.113762.1.4.1",
+      "version": "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89"
+    },
+    {
+      "oid": "2.16.840.1.114222.4.11.836",
+      "version": "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89"
+    },
+    {
+      "oid": "2.16.840.1.114222.4.11.837",
+      "version": "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89"
+    },
+    {
+      "oid": "2.16.840.1.114222.4.11.3591",
+      "version": "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89"
+    },
+    {
+      "oid": "2.16.840.1.113883.3.117.1.7.1.299",
+      "version": "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89"
+    },
+    {
+      "oid": "2.16.840.1.113883.3.117.1.7.1.292",
+      "version": "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89"
+    },
+    {
+      "oid": "2.16.840.1.113883.3.666.5.307",
+      "version": "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89"
+    },
+    {
+      "oid": "2.16.840.1.113762.1.4.1111.126",
+      "version": "Draft-28AC347D-2F91-4A0C-9395-2602134BAA89"
+    }
+  ],
+  "value_set_oids": [
+    "2.16.840.1.113762.1.4.1",
+    "2.16.840.1.114222.4.11.836",
+    "2.16.840.1.114222.4.11.837",
+    "2.16.840.1.114222.4.11.3591",
+    "2.16.840.1.113883.3.117.1.7.1.299",
+    "2.16.840.1.113883.3.117.1.7.1.292",
+    "2.16.840.1.113883.3.666.5.307",
+    "2.16.840.1.113762.1.4.1111.126"
   ],
   "version": null
 }
