@@ -7,24 +7,15 @@ include Devise::Test::ControllerHelpers
     dump_database
     records_set = File.join("records", "CMS347v1")
     users_set = File.join("users", "base_set")
-    measures_set = File.join("draft_measures", "base_set")
     cql_measures_set = File.join("cql_measures", "CMS347v1")
-    collection_fixtures(users_set, records_set, measures_set, cql_measures_set)
+    collection_fixtures(users_set, records_set, cql_measures_set)
     @user = User.by_email('bonnie@example.com').first
     @user_admin = User.by_email('user_admin@example.com').first
     @user_plain = User.by_email('user_plain@example.com').first
     @user_unapproved = User.by_email('user_unapproved@example.com').first
 
     associate_user_with_measures(@user, CqlMeasure.all)
-    associate_user_with_measures(@user, Measure.all)
     associate_user_with_patients(@user, Record.all)
-
-    @user.measures.last.value_set_oids.uniq.each do |oid|
-      vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
-      vs.concepts << HealthDataStandards::SVS::Concept.new(code_set: 'foo', code:'bar')
-      vs.user = @user
-      vs.save!
-    end
 
   end
 
@@ -121,7 +112,7 @@ include Devise::Test::ControllerHelpers
     sign_in @user_admin
     get :measures, {id: @user.id}
     assert_response :success
-    assert_equal 3, JSON.parse(response.body).length
+    assert_equal 1, JSON.parse(response.body).length
   end
 
   test "sign in as" do
@@ -187,13 +178,13 @@ include Devise::Test::ControllerHelpers
     @user_admin.save!
     post :email_active, {subject: "Example Subject for Testing", body: "test body of email", format: :json}
     assert mail.empty?
-    # The following tests greater than 6 months, but 3 measures
+    # The following tests greater than 6 months, but 0 measure
     @user_admin.last_sign_in_at = Date.today - 8.months # arbitrary date more than 6 months ago
-    associate_user_with_measures(@user_admin, Measure.all)
+    associate_user_with_measures(@user_admin, CqlMeasure.all)
     @user_admin.save!
     post :email_active, {subject: "Example Subject for Testing", body: "test body of email", format: :json}
     assert mail.empty?
-    # The following tests fewer than 6 months, and 3 measures, so we should recieve an  email
+    # The following tests fewer than 6 months, and 1 measures, so we should recieve an  email
     @user_admin.last_sign_in_at = Date.today - 1.months
     @user_admin.save!
     post :email_active, {subject: "Email Sent!", body: "test body of email", format: :json}
