@@ -9,13 +9,13 @@ include Devise::Test::ControllerHelpers
     FileUtils.rm_r @error_dir if File.directory?(@error_dir)
     dump_database
     users_set = File.join("users", "base_set")
-    measures_set = File.join("draft_measures", "base_set")
+    cql_measures_set = File.join("cql_measures", "CMS32v7")
     records_set = File.join("records","base_set")
-    collection_fixtures(measures_set, users_set, records_set)
+    collection_fixtures(cql_measures_set, users_set, records_set)
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_patients(@user, Record.all)
-    associate_user_with_measures(@user, Measure.all)
-    @measure = Measure.where({"cms_id" => "CMS138v2"}).first
+    associate_user_with_measures(@user, CqlMeasure.all)
+    @measure = CqlMeasure.where({"cms_id" => "CMS32v7"}).first
     sign_in @user
   end
 
@@ -290,12 +290,11 @@ include Devise::Test::ControllerHelpers
     get :show, {id: @measure.id, format: :json}
     assert_response :success
     measure = JSON.parse(response.body)
-    assert_equal @measure.id, measure['id']
+    assert_equal @measure.id.to_s, measure['id']
     assert_equal @measure.title, measure['title']
     assert_equal @measure.hqmf_id, measure['hqmf_id']
     assert_equal @measure.hqmf_set_id, measure['hqmf_set_id']
     assert_equal @measure.cms_id, measure['cms_id']
-    assert_nil measure['map_fns']
     assert_nil measure['record_ids']
     assert_nil measure['measure_attributes']
   end
@@ -336,10 +335,10 @@ include Devise::Test::ControllerHelpers
     m2.hqmf_id = 'xxx123'
     m2.hqmf_set_id = 'yyy123'
     m2.save!
-    assert_equal 4, Measure.all.count
+    assert_equal 2, CqlMeasure.all.count
     delete :destroy, {id: m2.id}
     assert_response :success
-    assert_equal 3, Measure.all.count
+    assert_equal 1, CqlMeasure.all.count
   end
 
   test "measure value sets" do

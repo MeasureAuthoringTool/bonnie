@@ -6,28 +6,12 @@ include Devise::Test::ControllerHelpers
   setup do
     dump_database
     users_set = File.join("users", "base_set")
-    measures_set = File.join("draft_measures", "base_set")
-    composite_measure_set = File.join("cql_measures", "special_measures", "CMS321")
-    collection_fixtures(measures_set, composite_measure_set, users_set)
+    cql_measures_set = File.join("cql_measures", "**")
+    collection_fixtures(cql_measures_set, users_set)
     @user = User.by_email('bonnie@example.com').first
-    associate_user_with_measures(@user, Measure.all)
     associate_user_with_measures(@user, CqlMeasure.all)
-    @measure = Measure.where({"cms_id" => "CMS138v2"}).first
-    @measure_two = Measure.where({"cms_id" => "CMS104v2"}).first
-    @measure_three = Measure.where({"cms_id" => "CMS128v2"}).first
+    @measure = CqlMeasure.where({"cms_id" => "CMS134v6"}).first
     sign_in @user
-  end
-
-  test "get all patients" do
-    records_set = File.join("records","base_set")
-    collection_fixtures(records_set)
-    associate_user_with_measures(@user, Measure.all)
-    associate_measures_with_patients([@measure, @measure_two, @measure_three], Record.all)
-    associate_user_with_patients(@user, Record.all)
-
-    get :index
-    assert_equal 4, JSON.parse(response.body).count
-
   end
 
   test "create" do
@@ -174,15 +158,15 @@ include Devise::Test::ControllerHelpers
     assert_equal 3, @user.records.count
     patient = Record.where({id: patient.id}).first
     assert_nil patient
-
   end
 
   test "export patients" do
-    records_set = File.join("records","base_set")
+    records_set = File.join("records", "CMS134v6")
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
-    associate_measures_with_patients([@measure, @measure_two], Record.all)
-    get :qrda_export, hqmf_set_id: @measure.hqmf_set_id
+    associate_measures_with_patients([@measure], Record.all)
+
+    get :qrda_export, hqmf_set_id: @measure.hqmf_set_id, isCQL: 'true'
     assert_response :success
     assert_equal 'application/zip', response.header['Content-Type']
     assert_equal "attachment; filename=\"#{@measure.cms_id}_patient_export.zip\"", response.header['Content-Disposition']
@@ -193,43 +177,13 @@ include Devise::Test::ControllerHelpers
     zip_path = File.join('tmp', 'test.zip')
     File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
     Zip::ZipFile.open(zip_path) do |zip_file|
-      assert_equal 4, zip_file.glob(File.join('qrda','**.xml')).length
+      assert_equal 2, zip_file.glob(File.join('qrda','**.xml')).length
       html_files = zip_file.glob(File.join('html', '**.html'))
-      assert_equal 4, html_files.length
+      assert_equal 2, html_files.length
       html_files.each do |html_file| # search each HTML file to ensure alternate measure data is not included
         doc = Nokogiri::HTML(html_file.get_input_stream.read)
         xpath = "//b[contains(text(), 'SNOMED-CT:')]/i/span[@onmouseover and contains(text(), '417005')]"
         assert_equal 0, doc.xpath(xpath).length
-      end
-    end
-    File.delete(zip_path)
-
-  end
-
-  test "export patients portfolio" do
-    records_set = File.join("records","base_set")
-    collection_fixtures(records_set)
-    associate_user_with_patients(@user, Record.all)
-    associate_measures_with_patients([@measure, @measure_two], Record.all)
-    @user.grant_portfolio()
-    get :qrda_export, hqmf_set_id: @measure.hqmf_set_id
-    assert_response :success
-    assert_equal 'application/zip', response.header['Content-Type']
-    assert_equal "attachment; filename=\"#{@measure.cms_id}_patient_export.zip\"", response.header['Content-Disposition']
-    assert_equal 'fileDownload=true; path=/', response.header['Set-Cookie']
-    assert_equal 'binary', response.header['Content-Transfer-Encoding']
-
-    Dir.mkdir(Rails.root.join('tmp')) unless Dir.exist?(Rails.root.join('tmp'))
-    zip_path = File.join('tmp', 'test.zip')
-    File.open(zip_path, 'wb') {|file| response.body_parts.each { |part| file.write(part)}}
-    Zip::ZipFile.open(zip_path) do |zip_file|
-      assert_equal 4, zip_file.glob(File.join('qrda', '**.xml')).length
-      html_files = zip_file.glob(File.join('html', '**.html'))
-      assert_equal 4, html_files.length
-      html_files.each do |html_file| # search each HTML file to ensure alternate measure data is not included
-        doc = Nokogiri::HTML(html_file.get_input_stream.read)
-        xpath = "//b[contains(text(), 'SNOMED-CT:')]/i/span[@onmouseover and contains(text(), '417005')]"
-        assert_operator doc.xpath(xpath).length, :>, 0
       end
     end
     File.delete(zip_path)
