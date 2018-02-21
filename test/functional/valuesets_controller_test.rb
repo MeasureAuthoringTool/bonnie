@@ -6,13 +6,12 @@ class ValuesetsControllerTest  < ActionController::TestCase
   setup do
     dump_database
     users_set = File.join("users", "base_set")
-    measures_set = File.join("draft_measures", "base_set")
-    collection_fixtures(users_set, measures_set)
+    cql_measures_set = File.join("cql_measures", "CMS32v7")
+    collection_fixtures(users_set, cql_measures_set)
     @user = User.by_email('bonnie@example.com').first
 
-    associate_user_with_measures(@user, Measure.all)
-
-    @user.measures.first.value_set_oids.uniq.each_with_index do |oid|
+    associate_user_with_measures(@user, CqlMeasure.all)
+    CqlMeasure.by_user(@user).first.value_set_oids.uniq.each do |oid|
       vs = HealthDataStandards::SVS::ValueSet.new(oid: oid)
       (0..10).each do |index|
         vs.concepts << HealthDataStandards::SVS::Concept.new(code_set: 'foo', code:"bar_#{index}")
