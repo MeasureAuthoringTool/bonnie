@@ -88,14 +88,22 @@
       if population_results?
         result.set population_results
         population_relevance = {}
-        if episode_results?
-          # In episode of care based measures, episode_results contains the population results
-          # for EACH episode, so we need to build population_relevance based on a combonation
-          # of the episode_results. IE: If DENEX is irrelevant for one episode but relevant for
-          # another, the logic view should not highlight it as irrelevant
+
+        # handle episode of care measure results
+        if population.collection.parent.get('episode_of_care')
           result.set {'episode_results': episode_results}
-          population_relevance = @_populationRelevanceForAllEpisodes(episode_results)
+          # calculate relevance only if there were recorded episodes
+          if Object.keys(episode_results).length > 0
+            # In episode of care based measures, episode_results contains the population results
+            # for EACH episode, so we need to build population_relevance based on a combonation
+            # of the episode_results. IE: If DENEX is irrelevant for one episode but relevant for
+            # another, the logic view should not highlight it as irrelevant
+            population_relevance = @_populationRelevanceForAllEpisodes(episode_results)
+          else
+            # use the patient based relevance if there are no episodes. This will properly set IPP or STRAT to true.
+            population_relevance = @_buildPopulationRelevanceMap(population_results)
         else
+          # calculate relevance for patient based measure
           population_relevance = @_buildPopulationRelevanceMap(population_results)
     
         result.set {'population_relevance': population_relevance }
