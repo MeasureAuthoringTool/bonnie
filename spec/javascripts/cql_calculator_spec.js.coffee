@@ -119,3 +119,49 @@ describe 'cqlCalculator', ->
       expected_relevance_map = { IPP: true, DENOM: false, DENEX: false, DENEXCEP: false, NUMER: false, NUMEX: false }
       relevance_map = @cql_calculator._populationRelevanceForAllEpisodes(episode_results)
       expect(relevance_map).toEqual expected_relevance_map
+
+  describe 'calculate', ->
+
+    describe 'episode of care based relevance map', ->
+      beforeEach ->
+        # TODO: Update this set of tests with new fixtures when fixture overhaul is brought in
+        bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS107/value_sets.json')
+        @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
+        @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
+
+      it 'is correct for patient with no episodes', ->
+        # this patient has no episodes in the IPP
+        patient = @patients.findWhere(last: 'IPPFail', first: 'LOS=121Days')
+        result = @cql_calculator.calculate(@measure.get('populations').first(), patient)
+
+        # no results will be in the episode_results
+        expect(result.get('episode_results')).toEqual({})
+        # the IPP should be the only relevant population
+        expect(result.get('population_relevance')).toEqual({ IPP: true, DENOM: false, DENEX: false, NUMER: false })
+
+      it 'is correct for patient with episodes', ->
+        # this patient has an episode that is in the IPP, DENOM and DENEX
+        patient = @patients.findWhere(last: 'DENEXPass', first: 'CMOduringED')
+        result = @cql_calculator.calculate(@measure.get('populations').first(), patient)
+
+        # there will be a single result in the episode_results
+        expect(result.get('episode_results')).toEqual({'59cbf4f0942c6d40640067cf': { IPP: 1, DENOM: 1, DENEX: 1, NUMER: 0}})
+        # NUMER should be the only not relevant population
+        expect(result.get('population_relevance')).toEqual({ IPP: true, DENOM: true, DENEX: true, NUMER: false })
+
+    describe 'patient based relevance map', ->
+      beforeEach ->
+        # TODO: Update this set of tests with new fixtures when fixutre overhaul is brought in
+        bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS347/value_sets.json')
+        @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS347/CMS735v0.json'), parse: true
+        @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS347/patients.json'), parse: true
+
+      it 'is correct', ->
+        # this patient fails the IPP
+        patient = @patients.findWhere(last: 'last', first: 'first')
+        result = @cql_calculator.calculate(@measure.get('populations').first(), patient)
+
+        # there will not be episode_results on the result object
+        expect(result.has('episode_results')).toEqual(false)
+        # the IPP should be the only relevant population
+        expect(result.get('population_relevance')).toEqual({ IPP: true, DENOM: false, DENEX: false, NUMER: false, DENEXCEP: false})
