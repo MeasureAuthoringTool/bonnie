@@ -130,7 +130,7 @@ describe 'cqlCalculator', ->
         @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
 
       it 'is correct for patient with no episodes', ->
-        # this patient fails the IPP
+        # this patient has no episodes in the IPP
         patient = @patients.findWhere(last: 'IPPFail', first: 'LOS=121Days')
         result = @cql_calculator.calculate(@measure.get('populations').first(), patient)
 
@@ -140,7 +140,7 @@ describe 'cqlCalculator', ->
         expect(result.get('population_relevance')).toEqual({ IPP: true, DENOM: false, DENEX: false, NUMER: false })
 
       it 'is correct for patient with episodes', ->
-        # this patient fails the IPP
+        # this patient has an episode that is in the IPP, DENOM and DENEX
         patient = @patients.findWhere(last: 'DENEXPass', first: 'CMOduringED')
         result = @cql_calculator.calculate(@measure.get('populations').first(), patient)
 
@@ -163,5 +163,5 @@ describe 'cqlCalculator', ->
 
         # there will not be episode_results on the result object
         expect(result.has('episode_results')).toEqual(false)
-        # NUMER should be the only not relevant population
+        # the IPP should be the only relevant population
         expect(result.get('population_relevance')).toEqual({ IPP: true, DENOM: false, DENEX: false, NUMER: false, DENEXCEP: false})
