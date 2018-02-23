@@ -110,7 +110,7 @@ class Thorax.Models.Measure extends Thorax.Model
       patient_care_experiences: []
       physical_exams: ['anatomical_structure', 'components']
       preferences: []
-      procedures: ['incision_time', 'anatomical_structure', 'ordinality', 'qdm_status', 'components']
+      procedures: ['incision_time', 'anatomical_structure', 'anatomical_location', 'ordinality', 'qdm_status', 'components']
       provider_care_experiences: []
       provider_characteristics: []
       risk_category_assessments: ['severity']
