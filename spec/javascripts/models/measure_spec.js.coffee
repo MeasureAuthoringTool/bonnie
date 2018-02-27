@@ -2,9 +2,9 @@ describe 'Measure', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS160/CMS160v6.json'), parse: true
+    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
     @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
-    bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS160/value_sets.json')
+    bonnie.valueSetsByOid = getJSONFixture('/measure_data/core_measures/CMS160/value_sets.json')
 
   afterEach ->
     bonnie.valueSetsByOid = @oldBonnieValueSetsByOid
@@ -20,7 +20,7 @@ describe 'Measure', ->
     expect(@measure.get("source_data_criteria").get('parent') == @measure)
 
   it 'can calulate results for a patient', ->
-    collection = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS160/patients.json'), parse: true
+    collection = new Thorax.Collections.Patients getJSONFixture('records/core_records/CMS160/patients.json'), parse: true
     patient = collection.findWhere(first: 'Pass', last: 'NUM2')
     results = @measure.get('populations').at(1).calculate(patient)
     expect(results.get('DENEX')).toEqual 0
