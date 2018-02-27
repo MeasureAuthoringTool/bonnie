@@ -148,6 +148,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test "destroy" do
+    # TODO: Address this in backend fixture update PR
     records_set = File.join("records","base_set")
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
@@ -161,7 +162,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test "export patients" do
-    records_set = File.join("records", "CMS134v6")
+    records_set = File.join("records", "core_measures", "CMS134v6")
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     associate_measures_with_patients([@measure], Record.all)
