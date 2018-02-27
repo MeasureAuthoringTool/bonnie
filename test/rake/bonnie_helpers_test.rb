@@ -9,7 +9,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     users_set = File.join("users", "base_set")
     cql_measures_set_1 = File.join("cql_measures", "special_measures", "CMS347v1")
     cql_measures_set_2 = File.join("cql_measures", "core_measures", "CMS160v6")
-    cql_measures_set_3 = File.join("cql_measures", "CMS72v5")
+    cql_measures_set_3 = File.join("cql_measures", "special_measures" "CMS72v5")
     collection_fixtures(users_set, records_set)
     add_collection(cql_measures_set_1)
     add_collection(cql_measures_set_2)
