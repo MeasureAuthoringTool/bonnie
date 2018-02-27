@@ -6,7 +6,7 @@ class ValuesetsControllerTest  < ActionController::TestCase
   setup do
     dump_database
     users_set = File.join("users", "base_set")
-    cql_measures_set = File.join("cql_measures", "CMS32v7")
+    cql_measures_set = File.join("cql_measures", "core_measures", "CMS32v7")
     collection_fixtures(users_set, cql_measures_set)
     @user = User.by_email('bonnie@example.com').first
 
