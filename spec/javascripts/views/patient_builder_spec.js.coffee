@@ -2,10 +2,10 @@ describe 'PatientBuilderView', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS134/CMS134v6.json'), parse: true
-    @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS134/patients.json'), parse: true
+    @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
+    @patients = new Thorax.Collections.Patients getJSONFixture('records/core_records/CMS134/patients.json'), parse: true
     @patient = @patients.models[1]
-    bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS134/value_sets.json')
+    bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS134/value_sets.json')
     bonnie.measures.add @measure
     @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients)
     @firstCriteria = @patientBuilder.model.get('source_data_criteria').first()

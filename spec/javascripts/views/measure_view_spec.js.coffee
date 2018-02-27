@@ -5,9 +5,9 @@ describe 'MeasureView', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
       @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS160/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/core_measures/CMS160/value_sets.json')
 
-      @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS160/CMS160v6.json'), parse: true
+      @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
       # Add some overlapping codes to the value sets to exercise the overlapping value sets feature
       # We add the overlapping codes after 10 non-overlapping codes to provide regression for a bug
       @vs1 = @measure.valueSets().findWhere(display_name: 'Bipolar Disorder')
@@ -17,7 +17,7 @@ describe 'MeasureView', ->
         @vs2.get('concepts').push { code: "XYZ#{n}", display_name: "XYZ", code_system_name: "XYZ" }
       @vs1.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
       @vs2.get('concepts').push { code: "OVERLAP", display_name: "OVERLAP", code_system_name: "OVERLAP" }
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS160/patients.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/core_records/CMS160/patients.json'), parse: true
       @measure.set('patients', @patients)
       @patient = @patients.at(0)
       @measureLayoutView = new Thorax.Views.MeasureLayout(measure: @measure, patients: @measure.get('patients'))
