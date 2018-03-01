@@ -122,6 +122,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test "destroy" do
+    # TODO: Address this in backend fixture update PR
     records_set = File.join("records","base_set")
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
