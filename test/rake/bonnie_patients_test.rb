@@ -5,11 +5,11 @@ class BonniePatientsTest < ActiveSupport::TestCase
   setup do
     dump_database
 
-    records_set = File.join("records", "special_records", "CMS347v1")
+    records_set = File.join("records", "core_measures", "CMS32v7")
     users_set = File.join("users", "base_set")
-    cql_measures_set_1 = File.join("cql_measures", "special_measures", "CMS347v1")
+    cql_measures_set_1 = File.join("cql_measures", "core_measures", "CMS32v7")
     cql_measures_set_2 = File.join("cql_measures", "core_measures", "CMS160v6")
-    cql_measures_set_3 = File.join("cql_measures", "special_measures", "CMS72v5")
+    cql_measures_set_3 = File.join("cql_measures", "core_measures", "CMS177v6")
     collection_fixtures(users_set, records_set)
     add_collection(cql_measures_set_1)
     add_collection(cql_measures_set_2)
@@ -17,9 +17,9 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     @source_email = 'bonnie@example.com'
     @dest_email = 'user_admin@example.com'
-    @source_hqmf_set_id = '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2'
-    @dest2_hqmf_set_id = '93F3479F-75D8-4731-9A3F-B7749D8BCD37'
-    @dest_hqmf_set_id = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
+    @source_hqmf_set_id = '3FD13096-2C8F-40B5-9297-B714E8DE9133'
+    @dest2_hqmf_set_id = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
+    @dest_hqmf_set_id = '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
 
     @source_user = User.by_email('bonnie@example.com').first
     @dest_user = User.by_email('user_admin@example.com').first
@@ -109,31 +109,31 @@ class BonniePatientsTest < ActiveSupport::TestCase
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
     dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
 
-    assert_equal(7, source_patients.count)
+    assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
 
     source_patients = Record.where(user_id:@source_user.id)
     dest_patients = Record.where(user_id:@dest_user.id)
 
-    assert_equal(7, source_patients.count)
+    assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
 
     assert_output(
-                  "Moving patients from '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2' in 'bonnie@example.com' to 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C' in 'user_admin@example.com'\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully moved patients from '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2' in 'bonnie@example.com' to 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C' in 'user_admin@example.com'\n"
+                  "Moving patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n" +
+                  "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully moved patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n"
                  ) { Rake::Task['bonnie:patients:move_measure_patients'].execute }
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
     dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
 
     assert_equal(0, source_patients.count)
-    assert_equal(7, dest_patients.count)
+    assert_equal(4, dest_patients.count)
 
     source_patients = Record.where(user_id:@source_user.id)
     dest_patients = Record.where(user_id:@dest_user.id)
 
     assert_equal(0, source_patients.count)
-    assert_equal(7, dest_patients.count)
+    assert_equal(4, dest_patients.count)
   end
 
   test "copy_measure_patients moves patients" do
@@ -145,31 +145,31 @@ class BonniePatientsTest < ActiveSupport::TestCase
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
     dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
 
-    assert_equal(7, source_patients.count)
+    assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
 
     source_patients = Record.where(user_id:@source_user.id)
     dest_patients = Record.where(user_id:@dest_user.id)
 
-    assert_equal(7, source_patients.count)
+    assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
 
     assert_output(
-                  "Copying patients from '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2' in 'bonnie@example.com' to 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C' in 'user_admin@example.com'\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully copied patients from '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2' in 'bonnie@example.com' to 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C' in 'user_admin@example.com'\n"
+                  "Copying patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n" +
+                  "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully copied patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n"
                  ) { Rake::Task['bonnie:patients:copy_measure_patients'].execute }
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
     dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
 
-    assert_equal(7, source_patients.count)
-    assert_equal(7, dest_patients.count)
+    assert_equal(4, source_patients.count)
+    assert_equal(4, dest_patients.count)
 
     source_patients = Record.where(user_id:@source_user.id)
     dest_patients = Record.where(user_id:@dest_user.id)
 
-    assert_equal(7, source_patients.count)
-    assert_equal(7, dest_patients.count)
+    assert_equal(4, source_patients.count)
+    assert_equal(4, dest_patients.count)
   end
 
   test "copy_measure_patients updates source data criteria" do
@@ -193,8 +193,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     end
 
     assert_output(
-                  "Copying patients from '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2' in 'bonnie@example.com' to 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C' in 'user_admin@example.com'\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully copied patients from '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2' in 'bonnie@example.com' to 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C' in 'user_admin@example.com'\n"
+                  "Copying patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n" +
+                  "\e[#{32}m#{"[Success]"}\e[0m\tSuccessfully copied patients from '#{@source_hqmf_set_id}' in '#{@source_email}' to '#{@dest_hqmf_set_id}' in '#{@dest_email}'\n"
                  ) { Rake::Task['bonnie:patients:copy_measure_patients'].execute }
 
     dest_patients = Record.where(measure_ids:@dest_hqmf_set_id)
@@ -212,14 +212,14 @@ class BonniePatientsTest < ActiveSupport::TestCase
     dest_patients = Record.where(measure_ids:@dest2_hqmf_set_id)
     user_patients = Record.where(user_id:@source_user.id)
 
-    assert_equal(7, source_patients.count)
+    assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
-    assert_equal(7, user_patients.count)
+    assert_equal(4, user_patients.count)
 
     assert_output(
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS347v1:Statin Therapy for the Prevention and Treatment of Cardiovascular Disease found\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS72v5:Depression Utilization of the PHQ-9 Tool found\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS347v1:Statin Therapy for the Prevention and Treatment of Cardiovascular Disease to CMS72v5:Depression Utilization of the PHQ-9 Tool\n\n"
+                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients found\n" +
+                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+                  "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
                  ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
@@ -227,8 +227,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     user_patients = Record.where(user_id:@source_user.id)
 
     assert_equal(0, source_patients.count)
-    assert_equal(7, dest_patients.count)
-    assert_equal(7, user_patients.count)
+    assert_equal(4, dest_patients.count)
+    assert_equal(4, user_patients.count)
 
   end
 
@@ -240,30 +240,30 @@ class BonniePatientsTest < ActiveSupport::TestCase
     dest_patients = Record.where(measure_ids:@dest2_hqmf_set_id)
     user_patients = Record.where(user_id:@source_user.id)
 
-    assert_equal(7, source_patients.count)
+    assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
-    assert_equal(7, user_patients.count)
+    assert_equal(4, user_patients.count)
 
     assert_output(
                   # test 1 user not found failure
                   "\e[#{31}m#{"[Error]"}\e[0m\t\ttest1@example.com not found\n" +
                   # test 2 dest measure not found
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS347v1:Statin Therapy for the Prevention and Treatment of Cardiovascular Disease found\n" +
+                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients found\n" +
                   "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test2:Depression Utilization of the PHQ-9 Tool not found\n" +
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS347v1:Statin Therapy for the Prevention and Treatment of Cardiovascular Disease to test2:Depression Utilization of the PHQ-9 Tool\n\n" +
+                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to test2:Depression Utilization of the PHQ-9 Tool\n\n" +
                   # test 3 source measure not found
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test3:Statin Therapy for the Prevention and Treatment of Cardiovascular Disease not found\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS72v5:Depression Utilization of the PHQ-9 Tool found\n" +
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from test3:Statin Therapy for the Prevention and Treatment of Cardiovascular Disease to CMS72v5:Depression Utilization of the PHQ-9 Tool\n\n"
+                  "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: test3:Median Time from ED Arrival to ED Departure for Discharged ED Patients not found\n" +
+                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from test3:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
                  ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
     dest_patients = Record.where(measure_ids:@dest2_hqmf_set_id)
     user_patients = Record.where(user_id:@source_user.id)
 
-    assert_equal(7, source_patients.count)
+    assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
-    assert_equal(7, user_patients.count)
+    assert_equal(4, user_patients.count)
 
   end
 
@@ -273,40 +273,40 @@ class BonniePatientsTest < ActiveSupport::TestCase
     # need to associate the last measure with this user account to test duplicate cms ids
     associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: @dest_hqmf_set_id))
     measure = CqlMeasure.where(hqmf_set_id: @dest_hqmf_set_id).first
-    measure.cms_id = "CMS347v1"
-    measure.title = "Statin Therapy for the Prevention and Treatment of Cardiovascular Disease"
+    measure.cms_id = "CMS32v7"
+    measure.title = "Median Time from ED Arrival to ED Departure for Discharged ED Patients"
     measure.save
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
     dest_patients = Record.where(measure_ids:@dest2_hqmf_set_id)
     user_patients = Record.where(user_id:@source_user.id)
 
-    assert_equal(7, source_patients.count)
+    assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
-    assert_equal(7, user_patients.count)
+    assert_equal(4, user_patients.count)
 
     assert_output(
                   # test 1 source title incorrect for duplicate cms ids
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS347v1:Test 1 Therapy for the Prevention and Treatment of Cardiovascular Disease not found\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS72v5:Depression Utilization of the PHQ-9 Tool found\n" +
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS347v1:Test 1 Therapy for the Prevention and Treatment of Cardiovascular Disease to CMS72v5:Depression Utilization of the PHQ-9 Tool\n\n" +
+                  "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS32v7:Test 1 Median Time from ED Arrival to ED Departure for Discharged ED Patients not found\n" +
+                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS32v7:Test 1 Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n" +
                   # test 2 destination title incorrect for duplicate cms ids
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS72v5:Depression Utilization of the PHQ-9 Tool found\n" +
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS347v1:Test 2 Therapy for the Prevention and Treatment of Cardiovascular Disease not found\n" +
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS72v5:Depression Utilization of the PHQ-9 Tool to CMS347v1:Test 2 Therapy for the Prevention and Treatment of Cardiovascular Disease\n\n" +
+                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+                  "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS32v7:Test 2 Median Time from ED Arrival to ED Departure for Discharged ED Patients not found\n" +
+                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS160v6:Depression Utilization of the PHQ-9 Tool to CMS32v7:Test 2 Median Time from ED Arrival to ED Departure for Discharged ED Patients\n\n" +
                   # test 3 measure title and cms id are duplicates
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS347v1:Statin Therapy for the Prevention and Treatment of Cardiovascular Disease not unique\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS72v5:Depression Utilization of the PHQ-9 Tool found\n" +
-                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS347v1:Statin Therapy for the Prevention and Treatment of Cardiovascular Disease to CMS72v5:Depression Utilization of the PHQ-9 Tool\n\n"
+                  "\e[#{31}m#{"[Error]"}\e[0m\t\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients not unique\n" +
+                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+                  "\e[#{31}m#{"[Error]"}\e[0m\t\tunable to move records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
                  ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
     dest_patients = Record.where(measure_ids:@dest2_hqmf_set_id)
     user_patients = Record.where(user_id:@source_user.id)
 
-    assert_equal(7, source_patients.count)
+    assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
-    assert_equal(7, user_patients.count)
+    assert_equal(4, user_patients.count)
 
   end
 
@@ -316,21 +316,21 @@ class BonniePatientsTest < ActiveSupport::TestCase
     # need to associate the last measure with this user account to test duplicate cms ids
     associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: @dest_hqmf_set_id))
     measure = CqlMeasure.where(hqmf_set_id: @dest_hqmf_set_id).first
-    measure.cms_id = "CMS347v1"
+    measure.cms_id = "CMS32v7"
     measure.save
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
     dest_patients = Record.where(measure_ids:@dest2_hqmf_set_id)
     user_patients = Record.where(user_id:@source_user.id)
 
-    assert_equal(7, source_patients.count)
+    assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
-    assert_equal(7, user_patients.count)
+    assert_equal(4, user_patients.count)
 
     assert_output(
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS347v1:Statin Therapy for the Prevention and Treatment of Cardiovascular Disease found\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS72v5:Depression Utilization of the PHQ-9 Tool found\n" +
-                  "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS347v1:Statin Therapy for the Prevention and Treatment of Cardiovascular Disease to CMS72v5:Depression Utilization of the PHQ-9 Tool\n\n"
+                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients found\n" +
+                  "\e[#{32}m#{"[Success]"}\e[0m\tbonnie@example.com: CMS160v6:Depression Utilization of the PHQ-9 Tool found\n" +
+                  "\e[#{32}m#{"[Success]"}\e[0m\tmoved records in bonnie@example.com from CMS32v7:Median Time from ED Arrival to ED Departure for Discharged ED Patients to CMS160v6:Depression Utilization of the PHQ-9 Tool\n\n"
                  ) { Rake::Task['bonnie:patients:move_patients_csv'].execute }
 
     source_patients = Record.where(measure_ids:@source_hqmf_set_id)
@@ -338,8 +338,8 @@ class BonniePatientsTest < ActiveSupport::TestCase
     user_patients = Record.where(user_id:@source_user.id)
 
     assert_equal(0, source_patients.count)
-    assert_equal(7, dest_patients.count)
-    assert_equal(7, user_patients.count)
+    assert_equal(4, dest_patients.count)
+    assert_equal(4, user_patients.count)
 
   end
 
@@ -358,20 +358,20 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
     assert File.exist? File.expand_path'cms104v2_export_patients_test.json'
 
-    # Open up the file and assert the file contains 7 lines, one for each patient.
+    # Open up the file and assert the file contains 4 lines, one for each patient.
     f = File.open('cms104v2_export_patients_test.json', "r")
-    assert_equal 7, f.readlines.size
+    assert_equal 4, f.readlines.size
     File.delete('cms104v2_export_patients_test.json') if File.exist?('cms104v2_export_patients_test.json')
   end
 
   test "successful import of patients"  do
     dump_database
     users_set = File.join("users", "base_set")
-    measures_set = File.join("cql_measures", "special_measures", "CMS347v1")
+    measures_set = File.join("cql_measures", "core_measures", "CMS177v6")
     add_collection(measures_set)
     collection_fixtures(users_set)
 
-    hqmf_set_id =  '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2'
+    hqmf_set_id =  '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
     associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: hqmf_set_id))
 
     ENV['EMAIL'] = @source_user.email
@@ -385,7 +385,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
 
   test "materialize all of patients" do
     ENV['EMAIL'] = @source_user.email
-    assert_output(/Materialized 7 of 7/) { Rake::Task['bonnie:patients:materialize_all'].execute }
+    assert_output(/Materialized 4 of 4/) { Rake::Task['bonnie:patients:materialize_all'].execute }
   end
 
   test "materialize all of patients for user with no patients" do
