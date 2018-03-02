@@ -5,11 +5,11 @@ class BonnieDbTest < ActiveSupport::TestCase
   setup do
     dump_database
 
-    records_set = File.join("records", "special_records", "CMS347v1")
+    records_set = File.join("records", "core_measures", "CMS32v7")
     users_set = File.join("users", "base_set")
-    cql_measures_set_1 = File.join("cql_measures", "special_measures", "CMS347v1")
+    cql_measures_set_1 = File.join("cql_measures", "core_measures", "CMS32v7")
     cql_measures_set_2 = File.join("cql_measures", "core_measures", "CMS160v6")
-    cql_measures_set_3 = File.join("cql_measures", "special_measures", "CMS72v5")
+    cql_measures_set_3 = File.join("cql_measures", "core_measures", "CMS177v6")
     collection_fixtures(users_set, records_set)
     add_collection(cql_measures_set_1)
     add_collection(cql_measures_set_2)
@@ -19,9 +19,9 @@ class BonnieDbTest < ActiveSupport::TestCase
     add_collection(cql_measure_package)
 
     @email = 'bonnie@example.com'
-    @hqmf_set_id_1 = '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2'
-    @hqmf_set_id_2 = '93F3479F-75D8-4731-9A3F-B7749D8BCD37'
-    @hqmf_set_id_3 = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
+    @hqmf_set_id_1 = '3FD13096-2C8F-40B5-9297-B714E8DE9133'
+    @hqmf_set_id_2 = 'A4B9763C-847E-4E02-BB7E-ACC596E90E2C'
+    @hqmf_set_id_3 = '848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3'
 
     @user = User.by_email('bonnie@example.com').first
 
@@ -41,8 +41,8 @@ class BonnieDbTest < ActiveSupport::TestCase
 
     assert_output(
                   "Re-saving \"#{measure_1.title}\" [bonnie@example.com]\n" +
-                  "Re-saving \"#{measure_w_no_user.title}\" [deleted user]\n" +
-                  "Re-saving \"#{measure_2.title}\" [bonnie@example.com]\n"
+                  "Re-saving \"#{measure_2.title}\" [bonnie@example.com]\n" +
+                  "Re-saving \"#{measure_w_no_user.title}\" [deleted user]\n"
                  ) { Rake::Task['bonnie:db:resave_measures'].execute }
   end
 
