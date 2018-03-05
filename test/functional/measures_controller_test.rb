@@ -728,7 +728,6 @@ include Devise::Test::ControllerHelpers
     assert_equal 'ep', measure.type
   end
 
-  test "create/finalize/update a measure calculating SDEs" do
     sign_in @user
     measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_initial_Artifacts.zip'), 'application/xml')
     class << measure_file
@@ -781,7 +780,40 @@ include Devise::Test::ControllerHelpers
     assert_equal true, measure.calculate_sdes
     assert_equal true, measure.episode_of_care?
     assert_equal 'eh', measure.type
-
   end
 
-end
+  test "drcs should not change on measure load and update" do
+    direct_reference_code = @measure.value_set_oids.last
+
+    # Delete the measure so we can load it
+    @measure.delete
+    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'CMS32v7_hmdmlantana@gmail.com_2017-12-01.zip'), 'application/xml')
+    class << measure_file
+      attr_reader :tempfile
+    end
+
+    # Load the measure
+    VCR.use_cassette("drc_load_response") do
+      post :create, {vsac_date: '03/05/2018', include_draft: false, measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+    end
+    assert_response :redirect
+
+    loaded_direct_reference_code = CqlMeasure.first.value_set_oids.last
+    assert_equal direct_reference_code, loaded_direct_reference_code
+
+    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'CMS32v7_hmdmlantana@gmail.com_2017-12-01.zip'), 'application/xml')
+    class << update_measure_file
+      attr_reader :tempfile
+    end
+
+    # Update the measure
+    VCR.use_cassette("drc_update_response") do
+      post :create, {vsac_date: '03/05/2018', include_draft: false, measure_file: update_measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+    end
+
+    assert_response :redirect
+
+    updated_direct_reference_code = CqlMeasure.first.value_set_oids.last
+    assert_equal updated_direct_reference_code, direct_reference_code
+  end
+
