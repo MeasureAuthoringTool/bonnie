@@ -3,7 +3,7 @@ describe 'PatientBuilderView', ->
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
     @measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
-    @patients = new Thorax.Collections.Patients getJSONFixture('records/core_records/CMS134/patients.json'), parse: true
+    @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS134/patients.json'), parse: true
     @patient = @patients.models[1]
     bonnie.valueSetsByOid = getJSONFixture('measure_data/core_measures/CMS134/value_sets.json')
     bonnie.measures.add @measure

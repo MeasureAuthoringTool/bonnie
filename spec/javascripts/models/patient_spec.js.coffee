@@ -2,7 +2,7 @@ describe 'Patient', ->
 
   beforeEach ->
     jasmine.getJSONFixtures().clearCache()
-    collection = new Thorax.Collections.Patients getJSONFixture('records/core_records/CMS160/patients.json'), parse: true
+    collection = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
     @patient = collection.findWhere(first: 'Pass', last: 'NUM2')
 
   it 'has basic attributes available', ->

@@ -5,7 +5,7 @@ describe 'Navigation', ->
     @measures = new Thorax.Collections.Measures()
     measure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
     @measures.add(measure)
-    @patients = new Thorax.Collections.Patients getJSONFixture('records/core_records/CMS160/patients.json'), parse: true
+    @patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
     @oldBonnieValueSetsByOid = bonnie.valueSetsByOid
     bonnie.valueSetsByOid = getJSONFixture('/measure_data/core_measures/CMS160/value_sets.json')
 
