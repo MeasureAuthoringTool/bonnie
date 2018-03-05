@@ -15,7 +15,7 @@ class BonnieDbTest < ActiveSupport::TestCase
     add_collection(cql_measures_set_2)
     add_collection(cql_measures_set_3)
 
-    cql_measure_package = File.join("cql_measure_packages", "CMS160v6")
+    cql_measure_package = File.join("cql_measure_packages", "core_measures", "CMS160v6")
     add_collection(cql_measure_package)
 
     @email = 'bonnie@example.com'
