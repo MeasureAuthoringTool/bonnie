@@ -6,9 +6,9 @@ class PatientBuilderTest < ActiveSupport::TestCase
     dump_database
     users_set = File.join("users", "base_set")
     measures_set = File.join("cql_measures", "core_measures" ,"CMS134v6")
-    hds_svs_value_sets = File.join("health_data_standards_svs_value_sets", "CMS134v6")
+    hds_svs_value_sets = File.join("health_data_standards_svs_value_sets", "core_measures", "CMS134v6")
     add_value_sets_collection(hds_svs_value_sets)
-    records_set = File.join("records", "core_records", "CMS134v6")
+    records_set = File.join("records", "core_measures", "CMS134v6")
     collection_fixtures(users_set, records_set, measures_set)
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_measures(@user, Measure.all)
