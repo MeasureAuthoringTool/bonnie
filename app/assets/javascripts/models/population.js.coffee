@@ -46,7 +46,17 @@ class Thorax.Models.Population extends Thorax.Model
     # that the stratification is on so that the correct (IPOP, DENOM, NUMER..) are retrieved
     if this.get('stratification')?
       # If retrieving the STRAT specifically, set the index to the correct STRAT in the cql_map
-      return if popName == "STRAT" then this.get('stratification_index') else this.get('population_index')
+      if popName == "STRAT"
+        stratCode = this.get('STRAT')['code']
+        # The strat code has the index of the stratification appended to the code ie: STRAT, STRAT_1, STRAT_2...
+        stratCode = stratCode.match(///STRAT_(\d*)///)
+        if(stratCode?[1]?)
+          stratIndex = stratCode[1]
+        else
+          stratIndex = 0
+        return stratIndex
+      else
+        return this.get('population_index')
     else
       return this.get('index')
 
