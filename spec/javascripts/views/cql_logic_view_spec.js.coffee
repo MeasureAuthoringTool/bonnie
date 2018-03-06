@@ -119,7 +119,7 @@ describe 'CqlLogicView', ->
   describe 'CQL Error warning message', ->
     it 'shows for measure with CQL errors', ->
       jasmine.getJSONFixtures().clearCache()
-      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS347/CMS735v0.json'), parse: true
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/deprecated_measures/CMS735/CMS735v0.json'), parse: true
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: cqlMeasure)
       populationLogicView.render()
       expect(populationLogicView.$el.html()).toContain 'This measure appears to have errors in its CQL.  Please re-package and re-export the measure from the MAT.'
