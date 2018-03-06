@@ -39,7 +39,7 @@ describe 'cqlCalculator', ->
 
   describe 'setValueSetVersionsToUndefined', ->
     it 'returns valueSets with versions set to undefined', ->
-      measure = getJSONFixture('/measure_data/special_measures/CMS720v0.json')
+      measure = getJSONFixture('measure_data/special_measures/CMS720/CMS720v0.json')
       expect(measure['elm'][0]['library']['valueSets']).toExist()
       # Add a version to a valueSet
       measure['elm'][0]['library']['valueSets']['def'][0]['version'] = '1.2.3'
@@ -48,7 +48,7 @@ describe 'cqlCalculator', ->
       expect(elm[0]['library']['valueSets']['def'][0]['version']).not.toBeDefined()
 
     it 'returns the elm without error if there are no valueSets', ->
-      measure = getJSONFixture('/measure_data/special_measures/CMS720v0.json')
+      measure = getJSONFixture('measure_data/special_measures/CMS720/CMS720v0.json')
       expect(measure['elm'][0]['library']['valueSets']).toExist()
       # Remove valueSets
       measure['elm'][0]['library']['valueSets'] = undefined
