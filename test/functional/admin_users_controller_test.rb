@@ -5,9 +5,9 @@ include Devise::Test::ControllerHelpers
 
   setup do
     dump_database
-    records_set = File.join("records", "CMS347v1")
+    records_set = File.join("records", "special_records", "CMS347v1")
     users_set = File.join("users", "base_set")
-    cql_measures_set = File.join("cql_measures", "CMS347v1")
+    cql_measures_set = File.join("cql_measures", "special_measures", "CMS347v1")
     collection_fixtures(users_set, records_set, cql_measures_set)
     @user = User.by_email('bonnie@example.com').first
     @user_admin = User.by_email('user_admin@example.com').first

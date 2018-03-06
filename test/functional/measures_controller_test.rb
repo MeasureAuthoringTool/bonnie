@@ -9,7 +9,7 @@ include Devise::Test::ControllerHelpers
     FileUtils.rm_r @error_dir if File.directory?(@error_dir)
     dump_database
     users_set = File.join("users", "base_set")
-    cql_measures_set = File.join("cql_measures", "CMS32v7")
+    cql_measures_set = File.join("cql_measures", "core_measures", "CMS32v7")
     records_set = File.join("records","base_set")
     collection_fixtures(cql_measures_set, users_set, records_set)
     @user = User.by_email('bonnie@example.com').first

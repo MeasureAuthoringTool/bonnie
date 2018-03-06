@@ -22,8 +22,8 @@ describe 'cqlCalculator', ->
       bonnie.valueSetsByOidCached = undefined
 
     it 'properly caches refactored bonnie.valueSetsByOid', ->
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/cqltest/value_sets.json')
-      measure = getJSONFixture('/measure_data/cqltest/CMS720v0.json')
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMS720/value_sets.json')
+      measure = getJSONFixture('/measure_data/special_measures/CMS720/CMS720v0.json')
       expect(bonnie.valueSetsByOidCached).not.toBeDefined()
       oldRefactoredValueSets = @cql_calculator.valueSetsForCodeService(measure.value_set_oid_version_objects, measure.hqmf_set_id)
       expect(oldRefactoredValueSets).toExist()

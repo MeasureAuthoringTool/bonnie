@@ -5,11 +5,11 @@ class BonniePatientsTest < ActiveSupport::TestCase
   setup do
     dump_database
 
-    records_set = File.join("records", "CMS347v1")
+    records_set = File.join("records", "special_records", "CMS347v1")
     users_set = File.join("users", "base_set")
-    cql_measures_set_1 = File.join("cql_measures", "CMS347v1")
-    cql_measures_set_2 = File.join("cql_measures", "CMS160v6")
-    cql_measures_set_3 = File.join("cql_measures", "CMS72v5")
+    cql_measures_set_1 = File.join("cql_measures", "special_measures", "CMS347v1")
+    cql_measures_set_2 = File.join("cql_measures", "core_measures", "CMS160v6")
+    cql_measures_set_3 = File.join("cql_measures", "special_measures", "CMS72v5")
     collection_fixtures(users_set, records_set)
     add_collection(cql_measures_set_1)
     add_collection(cql_measures_set_2)
@@ -367,7 +367,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
   test "successful import of patients"  do
     dump_database
     users_set = File.join("users", "base_set")
-    measures_set = File.join("cql_measures", "CMS347v1")
+    measures_set = File.join("cql_measures", "special_measures", "CMS347v1")
     add_collection(measures_set)
     collection_fixtures(users_set)
 
