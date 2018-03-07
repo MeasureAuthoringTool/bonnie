@@ -42,12 +42,12 @@ class Thorax.Models.Population extends Thorax.Model
     @populationDataCriteriaKeys
 
   getStratIndexFromStratName: (stratName) ->
-   # The strat code has the index of the stratification appended to the code ie: STRAT, STRAT_1, STRAT_2...
-   stratIndex = stratName.match(///STRAT_(\d*)///)
-   if(stratIndex?[1]?)
-     return parseInt(stratIndex[1])
-   else
-     return 0
+    # The strat code has the index of the stratification appended to the code ie: STRAT, STRAT_1, STRAT_2...
+    stratIndex = stratName.match(///STRAT_(\d*)///)
+    if(stratIndex?[1]?)
+      return parseInt(stratIndex[1])
+    else
+      return 0
 
   getPopIndexFromPopName: (popName) ->
     # If displaying a stratification, we need to set the index to the associated populationCriteria
