@@ -91,22 +91,22 @@ class BonnieDbTest < ActiveSupport::TestCase
     ENV['EMAIL'] = @email
     ENV['HQMF_SET_ID'] = @hqmf_set_id_1
 
-    assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: measure with HQMF set id 5375D6A9-203B-4FFF-B851-AFA9B68D2AC2 found\n" \
+    assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: measure with HQMF set id 3FD13096-2C8F-40B5-9297-B714E8DE9133 found\n" \
                   "\e[31m[Error]\e[0m\t\tNo package found for this measure.\n") { Rake::Task['bonnie:db:download_measure_package'].execute }
 
     # check no package from fixture with hqmf set id
     ENV['EMAIL'] = @email
     ENV['HQMF_SET_ID'] = nil
-    ENV['CMS_ID'] = 'CMS347v1'
+    ENV['CMS_ID'] = 'CMS32v7'
 
-    assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: CMS347v1: found\n" \
+    assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: CMS32v7: found\n" \
                   "\e[31m[Error]\e[0m\t\tNo package found for this measure.\n") { Rake::Task['bonnie:db:download_measure_package'].execute }
 
     # check package exists for uploaded package
 
     # access the package with hqmf_set_id
     ENV['EMAIL'] = @email
-    ENV['HQMF_SET_ID'] = @hqmf_set_id_3
+    ENV['HQMF_SET_ID'] = @hqmf_set_id_2
     ENV['CMS_ID'] = nil
 
     assert_output("\e[32m[Success]\e[0m\tbonnie@example.com: measure with HQMF set id A4B9763C-847E-4E02-BB7E-ACC596E90E2C found\n" \
@@ -114,7 +114,7 @@ class BonnieDbTest < ActiveSupport::TestCase
 
     assert(File.exist?('CMS160v6_bonnie@example.com_2018-01-11.zip'))
     file_content = File.binread('CMS160v6_bonnie@example.com_2018-01-11.zip')
-    measure = CqlMeasure.find_by(hqmf_set_id: @hqmf_set_id_3)
+    measure = CqlMeasure.find_by(hqmf_set_id: @hqmf_set_id_2)
     assert_equal(measure.package.file.data, file_content)
     File.delete('CMS160v6_bonnie@example.com_2018-01-11.zip')
 
