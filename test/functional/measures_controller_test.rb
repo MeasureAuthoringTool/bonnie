@@ -10,7 +10,7 @@ include Devise::Test::ControllerHelpers
     dump_database
     users_set = File.join("users", "base_set")
     cql_measures_set = File.join("cql_measures", "core_measures", "CMS32v7")
-    records_set = File.join("records","base_set")
+    records_set = File.join("records","core_measures", "CMS32v7")
     collection_fixtures(cql_measures_set, users_set, records_set)
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_patients(@user, Record.all)
@@ -23,18 +23,19 @@ include Devise::Test::ControllerHelpers
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette("valid_vsac_response") do
-      measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
+      measure = CqlMeasure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
 
       # If you need to re-record the cassette for whatever reason, change the vsac_date to the current date
-      post :create, {vsac_date: '09/05/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+      post :create, {vsac_date: '03/08/2018', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
 
       assert_response :redirect
-      measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
-      assert_equal "40280582-5859-673B-0158-DAEF8B750647", measure['hqmf_id']
+
+      measure = CqlMeasure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
+      assert_equal "40280382-5FA6-FE85-015F-B5969D1D0264", measure['hqmf_id']
     end
   end
 
@@ -42,18 +43,17 @@ include Devise::Test::ControllerHelpers
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette("profile_query") do
-      measure = CqlMeasure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
+      measure = CqlMeasure.where({hqmf_set_id: "848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'DocofMeds_v5_1_Artifacts.zip'), 'application/xml')
-
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS177v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
       # If you need to re-record the cassette for whatever reason, change the vsac_date to the current date
-      post :create, {vsac_date: '09/05/2017', include_draft: false, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+      post :create, {vsac_date: '03/08/2018', include_draft: false, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
 
       assert_response :redirect
-      measure = CqlMeasure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
-      assert_equal "40280582-5859-673B-0158-E42103C30732", measure['hqmf_id']
+      measure = CqlMeasure.where({hqmf_set_id: "848D09DE-7E6B-43C4-BEDD-5A2957CCFFE3"}).first
+      assert_equal "40280382-5FA6-FE85-0160-0498BA791EE8", measure['hqmf_id']
     end
   end
 
@@ -73,18 +73,17 @@ include Devise::Test::ControllerHelpers
   end
 
   test "upload MAT with invalid VSAC creds" do
-
     # This cassette represents an exchange with the VSAC authentication server that
     # results in an unauthorized response. This cassette is used in measures_controller_test.rb
     VCR.use_cassette("invalid_vsac_response") do
 
       # Ensure measure is not loaded to begin with
-      measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
+      measure = CqlMeasure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
       assert_nil measure
 
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
       # Post is sent with fake VSAC creds
-      post :create, {vsac_date: '08/22/2017', includes_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: 'invaliduser', vsac_password: 'invalidpassword'}
+      post :create, {vsac_date: '03/08/2018', includes_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: 'invaliduser', vsac_password: 'invalidpassword'}
 
       assert_response :redirect
       assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
@@ -95,21 +94,23 @@ include Devise::Test::ControllerHelpers
   end
 
   test "upload MAT 5.4 with valid VSAC creds" do
+    # Delete the measure loaded in setup to test create
+    @measure.delete
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
     VCR.use_cassette("mat_5_4_valid_vsac_response") do
-      measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
+      measure = CqlMeasure.where({hqmf_set_id: "3FD13096-2C8F-40B5-9297-B714E8DE9133"}).first
       assert_nil measure
 
       # Use VSAC creds from VCR, see vcr_setup.rb
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'Test134_v5_4_Artifacts.zip'), 'application/xml')
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS32v7_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
 
       # If you need to re-record the cassette for whatever reason, change the vsac_date to the current date
-      post :create, {vsac_date: '08/31/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+      post :create, {vsac_date: '03/08/2018', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
 
       assert_response :redirect
-      measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
-      assert_equal "40280582-5C27-8179-015C-308B1F99003B", measure['hqmf_id']
+      measure = CqlMeasure.where({hqmf_set_id: "3FD13096-2C8F-40B5-9297-B714E8DE9133"}).first
+      assert_equal "40280382-5FA6-FE85-015F-BB40A1CD0B95", measure['hqmf_id']
     end
   end
 
@@ -169,7 +170,7 @@ include Devise::Test::ControllerHelpers
 
   test "measure show with period or special chars in key" do
     VCR.use_cassette("valid_vsac_response_Test169") do
-      measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'CMS169_v5_4_Artifacts_with_special_chars.zip'), 'application/xml')
+      measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'special_measures', 'CMS169_v5_4_Artifacts_with_special_chars.zip'), 'application/xml')
       assert_not_nil measure_file
       class << measure_file
         attr_reader :tempfile
@@ -201,22 +202,22 @@ include Devise::Test::ControllerHelpers
 
   test "measure value sets" do
     sign_in @user
-    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
     class << measure_file
       attr_reader :tempfile
     end
 
     measure = nil
     VCR.use_cassette("valid_vsac_response") do
-      post :create, {vsac_date: '08/22/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+      post :create, {vsac_date: '03/08/2018', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     end
 
     assert_response :redirect
-    measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    measure = CqlMeasure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
 
     get :value_sets, {id: measure.id, format: :json}
     assert_response :success
-    assert_equal 15, JSON.parse(response.body).keys.count
+    assert_equal 9, JSON.parse(response.body).keys.count
   end
 
   test "upload invalid file format" do
@@ -281,22 +282,22 @@ include Devise::Test::ControllerHelpers
     # Use the valid vsac response recording each time attempting to upload measure
     VCR.use_cassette("valid_vsac_response") do
       sign_in @user
-      measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
       class << measure_file
         attr_reader :tempfile
       end
 
       # Assert measure is not yet loaded
-      measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+      measure = CqlMeasure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
       assert_nil measure
-      post :create, {vsac_date: '08/22/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+      post :create, {vsac_date: '03/08/2018', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
       assert_response :redirect
-      measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+      measure = CqlMeasure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
       assert_not_nil measure
     end
-    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
+    update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
     # Now measure successfully uploaded, try to upload again
-    post :create, {vsac_date: '08/22/2017', include_draft: true, measure_file: update_measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+    post :create, {vsac_date: '03/08/2018', include_draft: true, measure_file: update_measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
 
     assert_equal "Error Loading Measure", flash[:error][:title]
     assert_equal "A version of this measure is already loaded.", flash[:error][:summary]
@@ -304,22 +305,22 @@ include Devise::Test::ControllerHelpers
     assert_response :redirect
 
     # Verify measure has not been deleted or modified
-    measure_after = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    measure_after = CqlMeasure.where({hqmf_set_id: "3BBFC929-50C8-44B8-8D34-82BE75C08A70"}).first
     assert_equal measure, measure_after
 
   end
 
   test "update with hqmf set id mismatch" do
     # Upload the initial file
-    VCR.use_cassette("valid_vsac_response") do
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
+    VCR.use_cassette("valid_vsac_response_hqmf_set_id_mismatch") do
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
       class << measure_file
         attr_reader :tempfile
       end
       post :create, {vsac_date: '08/22/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     end
     # Upload a modified version of the initial file with a mismatching hqmf_set_id
-    update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts_HQMF_SetId_Mismatch.zip'), 'application/xml')
+    update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'IETCQL_v5_0_Artifacts_HQMF_SetId_Mismatch.zip'), 'application/xml')
     class << update_measure_file
       attr_reader :tempfile2
     end
@@ -341,7 +342,7 @@ include Devise::Test::ControllerHelpers
     # '2.16.840.1.113883.3.464.1003.106.12.1005' to '2.16.840.1.113883.3.464.1003.106.12.1001'.
     # no changes in the HQMF.
     sign_in @user
-    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_missing_vs_oid_Artifacts.zip'), 'application/xml')
+    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'special_measures', 'IETCQL_v5_0_missing_vs_oid_Artifacts.zip'), 'application/xml')
     class << measure_file
       attr_reader :tempfile
     end
@@ -359,11 +360,11 @@ include Devise::Test::ControllerHelpers
 
   test "create/finalize/update a measure" do
     sign_in @user
-    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_initial_Artifacts.zip'), 'application/xml')
+    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'special_measures', 'IETCQL_v5_0_initial_Artifacts.zip'), 'application/xml')
     class << measure_file
       attr_reader :tempfile
     end
-    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_updates_Artifacts.zip'), 'application/xml')
+    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'special_measures', 'IETCQL_v5_0_updates_Artifacts.zip'), 'application/xml')
     class << update_measure_file
       attr_reader :tempfile
     end
@@ -430,14 +431,14 @@ include Devise::Test::ControllerHelpers
 
   test "load HQMF bad xml" do
     sign_in @user
-    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_bad_hqmf_Artifacts.zip'), 'application/xml')
+    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'special_measures', 'IETCQL_v5_0_bad_hqmf_Artifacts.zip'), 'application/xml')
     class << measure_file
       attr_reader :tempfile
     end
 
     measure = nil
-    VCR.use_cassette("valid_vsac_response") do
-      post :create, {vsac_date: '08/22/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+    VCR.use_cassette("valid_vsac_response_bad_hqmf_artifacts") do
+      post :create, {vsac_date: '03/08/2018', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     end
 
     assert_response :redirect
@@ -451,24 +452,24 @@ include Devise::Test::ControllerHelpers
     flash.clear
 
     assert_equal 2, Dir.glob(File.join(@error_dir, '**')).count
-    assert_equal true, FileUtils.identical?(File.join(@error_dir, (Dir.entries(@error_dir).select { |f| f.end_with?('.xmlorzip') })[0]), File.join('test', 'fixtures', 'cql_measure_exports', 'IETCQL_v5_0_bad_hqmf_Artifacts.zip'))
+    assert_equal true, FileUtils.identical?(File.join(@error_dir, (Dir.entries(@error_dir).select { |f| f.end_with?('.xmlorzip') })[0]), File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'IETCQL_v5_0_bad_hqmf_Artifacts.zip'))
   end
 
   test "update a patient based measure" do
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS158v6_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
     sign_in @user
-    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
     class << measure_file
       attr_reader :tempfile
     end
 
     measure = nil
     VCR.use_cassette("valid_vsac_response") do
-      post :create, {vsac_date: '08/22/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+      post :create, {vsac_date: '03/07/2018', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     end
 
     assert_response :redirect
-    measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
-    assert_equal "762B1B52-40BF-4596-B34F-4963188E7FF7", measure.hqmf_set_id
+    measure = CqlMeasure.where({hqmf_id: "40280382-5FA6-FE85-015F-B5969D1D0264"}).first
+    assert_equal "3BBFC929-50C8-44B8-8D34-82BE75C08A70", measure.hqmf_set_id
 
     assert_equal false, measure.episode_of_care?
     assert_equal 'ep', measure.type
@@ -478,8 +479,8 @@ include Devise::Test::ControllerHelpers
     end
 
     assert_response :redirect
-    measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
-    assert_equal "762B1B52-40BF-4596-B34F-4963188E7FF7", measure.hqmf_set_id
+    measure = CqlMeasure.where({hqmf_id: "40280382-5FA6-FE85-015F-B5969D1D0264"}).first
+    assert_equal "3BBFC929-50C8-44B8-8D34-82BE75C08A70", measure.hqmf_set_id
 
     assert_equal false, measure.episode_of_care?
     assert_equal 'ep', measure.type
@@ -491,28 +492,28 @@ include Devise::Test::ControllerHelpers
 
     # Delete the measure so we can load it
     @measure.delete
-    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'CMS32v7_hmdmlantana@gmail.com_2017-12-01.zip'), 'application/xml')
+    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'core_measures', 'CMS32v7_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
     class << measure_file
       attr_reader :tempfile
     end
 
     # Load the measure
     VCR.use_cassette("drc_load_response") do
-      post :create, {vsac_date: '03/05/2018', include_draft: false, measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+      post :create, {vsac_date: '03/08/2018', include_draft: false, measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     end
     assert_response :redirect
 
     loaded_direct_reference_code = CqlMeasure.first.value_set_oids.last
     assert_equal direct_reference_code, loaded_direct_reference_code
 
-    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'CMS32v7_hmdmlantana@gmail.com_2017-12-01.zip'), 'application/xml')
+    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'core_measures', 'CMS32v7_bonnie-fixtures@mitre.org_2018-01-11.zip'), 'application/xml')
     class << update_measure_file
       attr_reader :tempfile
     end
 
     # Update the measure
     VCR.use_cassette("drc_update_response") do
-      post :create, {vsac_date: '03/05/2018', include_draft: false, measure_file: update_measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+      post :create, {vsac_date: '03/08/2018', include_draft: false, measure_file: update_measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     end
 
     assert_response :redirect
