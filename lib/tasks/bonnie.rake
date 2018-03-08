@@ -250,7 +250,7 @@ namespace :bonnie do
       raise "#{user_email} not found" unless user = User.find_by(email: user_email)
 
       # Grab user measure to pull patients from
-      raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = Measure.find_by(user_id: user._id, hqmf_set_id: ENV['HQMF_SET_ID'])
+      raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = CqlMeasure.find_by(user_id: user._id, hqmf_set_id: ENV['HQMF_SET_ID'])
 
       # Grab the patients
       patients = Record.where(user_id: user._id, :measure_ids => measure.hqmf_set_id)
