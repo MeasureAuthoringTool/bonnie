@@ -65,6 +65,8 @@ class ActiveSupport::TestCase
           else
             set_mongoid_ids(v)
           end
+        elsif k == '_id' || k == 'bundle_id' || k == 'user_id'
+          json[k] = BSON::ObjectId.from_string(v)
         end
       end
     end
