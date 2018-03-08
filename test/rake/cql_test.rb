@@ -4,22 +4,22 @@ require 'vcr_setup.rb'
 class CqlTest < ActiveSupport::TestCase    
   setup do
     dump_database
-    @cql_mat_export = File.new File.join('test', 'fixtures', 'cql_measure_exports', 'Test134_v5_4_Artifacts.zip')
-    @cql_mat_export_drc = File.new File.join('test', 'fixtures', 'cql_measure_exports', 'CMS26v5_Artifacts_direct_reference_code.zip')
-    @user = User.new(email: "test@test.com", first: "first" , last: 'last',password: 'Test1234!')
+    @cql_mat_export = File.new File.join('test', 'fixtures', 'cql_measure_exports', 'core_measures', 'CMS32v7_bonnie-fixtures@mitre.org_2018-01-11.zip')
+    @cql_mat_export_drc = File.new File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'CMS26v5_Artifacts_direct_reference_code.zip')
+    @user = User.new(email: 'test@test.com', first: 'first' , last: 'last',password: 'Test1234!')
     @user.save!
     assert_equal 1, User.count
   end
 
-  test "direct reference codes update properly during rebuild elm" do
-    VCR.use_cassette("direct_reference_code_valid_vsac_response") do
+  test 'direct reference codes update properly during rebuild elm' do
+    VCR.use_cassette('direct_reference_code_valid_vsac_response') do
       measure_details = { 'episode_of_care'=> true }
 
       Measures::CqlLoader.load(@cql_mat_export_drc, @user, measure_details, ENV['VSAC_USERNAME'], ENV['VSAC_PASSWORD']).save
       assert_equal 1, CqlMeasure.count
 
-      measure = CqlMeasure.where({hqmf_set_id: "E1CB05E0-97D5-40FC-B456-15C5DBF44309"}).first
-      assert_equal "40280382-5FA6-FE85-015F-C17306910ECF", measure['hqmf_id']
+      measure = CqlMeasure.where({hqmf_set_id: 'E1CB05E0-97D5-40FC-B456-15C5DBF44309'}).first
+      assert_equal '40280382-5FA6-FE85-015F-C17306910ECF', measure['hqmf_id']
       assert_equal 'Home Management Plan of Care (HMPC) Document Given to Patient/Caregiver', measure['title']
 
       # Grab the Data Criteria code_list_id of the direct reference code data criteria.
@@ -27,7 +27,7 @@ class CqlTest < ActiveSupport::TestCase
 
       # Run rake task on all cql measures
       Rake::Task['bonnie:patients:rebuild_elm_update_drc_code_list_ids'].execute
-      measure = CqlMeasure.where({hqmf_set_id: "E1CB05E0-97D5-40FC-B456-15C5DBF44309"}).first
+      measure = CqlMeasure.where({hqmf_set_id: 'E1CB05E0-97D5-40FC-B456-15C5DBF44309'}).first
 
       # Confirm that the data criteria's code_list_id has the same GUID as it did before the rebuild_elm
       # (since the DRC did not change in the cql between before and after the rebuild elm)
@@ -40,15 +40,15 @@ class CqlTest < ActiveSupport::TestCase
     end
   end
 
-  test "rebuild elm with stored MAT package" do
-    VCR.use_cassette("mat_5_4_valid_vsac_response") do
+  test 'rebuild elm with stored MAT package' do
+    VCR.use_cassette('mat_5_4_valid_vsac_response') do
       measure_details = { 'episode_of_care'=> false }
       Measures::CqlLoader.load(@cql_mat_export, @user, measure_details, ENV['VSAC_USERNAME'], ENV['VSAC_PASSWORD']).save
       assert_equal 1, CqlMeasure.count
   
-      measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
-      assert_equal "40280582-5C27-8179-015C-308B1F99003B", measure['hqmf_id']
-      assert_equal 'Test CMS 134', measure['title']
+      measure = CqlMeasure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
+      assert_equal '40280382-5FA6-FE85-015F-BB40A1CD0B95', measure['hqmf_id']
+      assert_equal 'Median Time from ED Arrival to ED Departure for Discharged ED Patients', measure['title']
 
       # Modify some of the measure model
       measure.title = 'foo'
@@ -61,7 +61,7 @@ class CqlTest < ActiveSupport::TestCase
 
       # Run rake task on all cql measures
       Rake::Task['bonnie:cql:rebuild_elm'].execute
-      measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
+      measure = CqlMeasure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
       # Confirm that measure title did not update.
       assert_equal measure.title, 'foo'
       
@@ -72,15 +72,15 @@ class CqlTest < ActiveSupport::TestCase
     end 
   end
 
-  test "rebuild elm using translation service" do
-    VCR.use_cassette("mat_5_4_valid_vsac_response") do
+  test 'rebuild elm using translation service' do
+    VCR.use_cassette('mat_5_4_valid_vsac_response') do
        measure_details = { 'episode_of_care'=> false }
        Measures::CqlLoader.load(@cql_mat_export, @user, measure_details, ENV['VSAC_USERNAME'], ENV['VSAC_PASSWORD']).save
        assert_equal 1, CqlMeasure.count
     end
 
-    measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
-    assert_equal "40280582-5C27-8179-015C-308B1F99003B", measure['hqmf_id']
+    measure = CqlMeasure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
+    assert_equal '40280382-5FA6-FE85-015F-BB40A1CD0B95', measure['hqmf_id']
 
     # Modify some of the measure model
     measure.title = 'No mat package'
@@ -95,12 +95,12 @@ class CqlTest < ActiveSupport::TestCase
     assert_nil measure.elm_annotations
     assert_nil measure.package
 
-    VCR.use_cassette("valid_translation_response") do
+    VCR.use_cassette('valid_translation_response') do
       # Run rake task on all cql measures
       Rake::Task['bonnie:cql:rebuild_elm'].execute
     end
     
-    measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
+    measure = CqlMeasure.where({hqmf_set_id: '3FD13096-2C8F-40B5-9297-B714E8DE9133'}).first
     # Confirm that measure title did not update.
     assert_equal measure.title, 'No mat package'
 
@@ -112,11 +112,11 @@ class CqlTest < ActiveSupport::TestCase
     measure.delete
   end
 
-  test "cql measure stats" do
-    users_set = File.join("users", "base_set")
-    cql_measures_set_1 = File.join("cql_measures", "core_measures", "CMS177v6")
-    cql_measures_set_2 = File.join("cql_measures", "core_measures", "CMS160v6")
-    cql_measures_set_3 = File.join("cql_measures", "core_measures", "CMS32v7")
+  test 'cql measure stats' do
+    users_set = File.join('users', 'base_set')
+    cql_measures_set_1 = File.join('cql_measures', 'core_measures', 'CMS177v6')
+    cql_measures_set_2 = File.join('cql_measures', 'core_measures', 'CMS160v6')
+    cql_measures_set_3 = File.join('cql_measures', 'core_measures', 'CMS32v7')
     collection_fixtures(users_set)
     add_collection(cql_measures_set_1)
     add_collection(cql_measures_set_2)
