@@ -123,14 +123,14 @@ include Devise::Test::ControllerHelpers
 
   test "destroy" do
     # TODO: Address this in backend fixture update PR
-    records_set = File.join("records","base_set")
+    records_set = File.join("records","core_measures", "CMS134v6")
     collection_fixtures(records_set)
     associate_user_with_patients(@user, Record.all)
     patient = Record.first
-    assert_equal 4, @user.records.count
+    assert_equal 2, @user.records.count
     delete :destroy, {id: patient.id}
     assert_response :success
-    assert_equal 3, @user.records.count
+    assert_equal 1, @user.records.count
     patient = Record.where({id: patient.id}).first
     assert_nil patient
   end
