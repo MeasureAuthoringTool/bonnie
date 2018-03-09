@@ -1,3 +1,4 @@
+require_relative './fixture_helper'
 # NOTE: Tasks use array arguments to execute.
 # In order for z-shell to execute, noglob is required.
 # e.g., noglob bundle exec rake bonnie:fixtures:load_backend_fixtures[test/fake]
@@ -198,47 +199,6 @@ namespace :bonnie do
       File.write(file_path, fixture_json)
     end
     
-    ###
-    # TODO: duplicate functions, long term goal is to export them to test_helper
-    # Parses json object for id fields and converts them to bson objects
-    #
-    # json: The json object to parse
-    def set_mongoid_ids(json)
-      if json.kind_of?( Hash)
-        json.each_pair do |k,v|
-          if v && v.kind_of?( Hash )
-            if v["$oid"]
-              json[k] = BSON::ObjectId.from_string(v["$oid"])
-            else
-              set_mongoid_ids(v)
-            end
-          elsif k == '_id' || k == 'bundle_id' || k == 'user_id'
-            json[k] = BSON::ObjectId.from_string(v)
-          end
-        end
-      end
-    end
-
-    ##
-    # TODO: duplicate functions, long term goal is to export them to test_helper
-    # Loads fixtures into the active database.
-    #
-    # collection_names: array of paths leading to the relevant collections.
-    def collection_fixtures(*collection_names)
-      collection_names.each do |collection|
-        collection_name = collection.split(File::SEPARATOR)[0]
-        Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
-          fixture_json = JSON.parse(File.read(json_fixture_file))
-          if fixture_json.length > 0
-            convert_times(fixture_json)
-            set_mongoid_ids(fixture_json)
-            # The first directory layer after test/fixtures is used to determine what type of fixtures they are.
-            # The directory name is used as the name of the collection being inserted into.
-            Mongoid.default_client[collection_name].insert_one(fixture_json)
-          end
-        end
-      end
-    end
   end
 
   namespace :cql do
