@@ -23,6 +23,8 @@ describe 'Production_PatientBuilderView', ->
         @patient = @patients.findWhere(first: 'Expired', last: 'DENEX')
         @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
         @result = @measure.get('populations').first().calculate(@patient)
+        # validate this patient is in the DENEX
+        expect(@result.attributes.DENEX).toBe 1
 
       it 'define Expired should be true', ->
         expired_result = @result.get('statement_results').DepressionUtilizationofthePHQ9Tool['Expired'].final
