@@ -28,17 +28,8 @@ Bonnie::Application.routes.draw do
       post 'finalize'
       get 'vsac_auth_valid'
       post 'vsac_auth_expire'
-      post 'cql_to_elm'
     end
-    member do
-      get 'debug', defaults: { format: :html }
-      post 'clear_cached_javascript'
-    end
-    resources :populations do
-      member do
-        get 'calculate_code'
-      end
-    end
+    resources :populations
   end
 
   resources :patients do
@@ -64,12 +55,6 @@ Bonnie::Application.routes.draw do
       end
     end
   end
-
-  namespace :complexity_dashboard do
-    resources :measure_sets
-  end
-
-  resources :valuesets
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
