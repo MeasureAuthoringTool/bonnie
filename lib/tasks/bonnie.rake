@@ -404,7 +404,7 @@ namespace :bonnie do
       You must identify the user by EMAIL, include a HQMF_SET_ID, and
       an output filename using FILENAME
 
-      $ rake bonnie:patients:export_patients EMAIL=xxx HQMF_SET_ID=1948-138412-1414 FILENAME=CMS100_pations.json}
+      $ rake bonnie:patients:export_patients EMAIL=xxx HQMF_SET_ID=1948-138412-1414 FILENAME=CMS100_patients.json}
       task :export_patients => :environment do
         # Grab user account
         user_email = ENV['EMAIL']

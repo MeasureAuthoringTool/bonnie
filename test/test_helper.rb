@@ -3,6 +3,7 @@ require_relative "./simplecov_init"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require './lib/ext/record'
+require 'rake'
 WebMock.enable!
 
 # load_tasks needs to be called exactly one time, so it's in the header area
