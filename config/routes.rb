@@ -47,6 +47,7 @@ Bonnie::Application.routes.draw do
         get 'calculate_code'
       end
     end
+    resources :populations
   end
 
   namespace :vsac_util do
@@ -81,6 +82,7 @@ Bonnie::Application.routes.draw do
     end
   end
 
+<<<<<<< HEAD
   namespace :api_v1 do
     resources :measures, :defaults => { :format => 'json' }, :only => [:index, :show, :create, :update] do
       member do
@@ -96,6 +98,8 @@ Bonnie::Application.routes.draw do
 
   resources :valuesets
 
+=======
+>>>>>>> 226ff3ee... Initial code removal of unused backend code (#958)
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
