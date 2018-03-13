@@ -399,6 +399,97 @@ namespace :bonnie do
   end
 
   namespace :patients do
+    desc %{Export Bonnie patients to a JSON file.
+
+      You must identify the user by EMAIL, include a HQMF_SET_ID, and
+      an output filename using FILENAME
+
+      $ rake bonnie:patients:export_patients EMAIL=xxx HQMF_SET_ID=1948-138412-1414 FILENAME=CMS100_pations.json}
+      task :export_patients => :environment do
+        # Grab user account
+        user_email = ENV['EMAIL']
+        raise "#{user_email} not found" unless user = User.find_by(email: user_email)
+
+        # Grab user measure to pull patients from
+        raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = Measure.find_by(user_id: user._id, hqmf_set_id: ENV['HQMF_SET_ID'])
+
+        # Grab the patients
+        patients = Record.where(user_id: user._id, :measure_ids => measure.hqmf_set_id)
+          .or(Record.where(user_id: user._id, :measure_ids => measure.hqmf_id))
+          .or(Record.where(user_id: user._id, measure_id: measure.hqmf_id))
+
+        # Write patient objects to file in JSON format
+        puts "Exporting patients..."
+        raise "FILENAME not specified" unless output_file = ENV['FILENAME']
+        File.open(File.join(Rails.root, output_file), "w") do |f|
+          patients.each do |patient|
+            f.write(patient.to_json)
+            f.write("\r\n")
+          end
+        end
+
+        puts "Done!"
+      end
+
+      desc %{Import Bonnie patients from a JSON file.
+      The JSON file must be the one that is generated using the export_patients rake task.
+
+      You must identify the user by EMAIL, include a HQMF_SET_ID,
+      the name of the file to be imported using FILENAME
+
+      $ rake bonnie:patients:import_patients EMAIL=xxx HQMF_SET_ID=1924-55295295-23425 FILENAME=CMS100_patients.json}
+      task :import_patients => :environment do
+        # Grab user account
+        user_email = ENV['EMAIL']
+        raise "#{user_email} not found" unless user = User.find_by(email: user_email)
+
+        # Grab user measure to add patients to
+        user_measure = ENV['HQMF_SET_ID']
+
+        raise "#{user_measure} not found" unless measure = Measure.find_by(user_id: user._id, hqmf_set_id: user_measure)
+
+        # Import patient objects from JSON file and save
+        puts "Importing patients..."
+        raise "FILENAME not specified" unless input_file = ENV['FILENAME']
+        File.foreach(File.join(Rails.root, input_file)) do |p|
+          next if p.blank?
+          patient = Record.new.from_json p.strip
+
+          patient['user_id'] = user._id
+
+          patient['measure_ids'] = []
+          patient['measure_ids'] << measure.hqmf_set_id
+          patient['measure_ids'] << nil # Need to add a null value at the end of the array.
+
+          # Modifiying hqmf_set_id and cms_id for source data criteria
+          unless patient['source_data_criteria'].nil?
+            patient['source_data_criteria'].each do |source_criteria|
+              source_criteria['hqmf_set_id'] = measure.hqmf_set_id
+              source_criteria['cms_id'] = measure.cms_id
+            end
+          end
+          # Modifying measure_id for expected values
+          unless patient['expected_values'].nil?
+            patient['expected_values'].each do |expected_value|
+              expected_value['measure_id'] = measure.hqmf_set_id
+            end
+          end
+
+          all_codes = HQMF::PopulationCriteria::ALL_POPULATION_CODES
+          all_codes.each do |code|
+            if !patient.expected_values[0][code].nil? && measure.populations[0][code].nil?
+              patient.expected_values.each do |expected_value|
+                expected_value.delete(code)
+              end
+            end
+          end
+
+          patient.dup.save!
+        end
+
+        puts "Done!"
+      end
+
 
     desc "Share a random set of patients to the patient bank"
     task :share_with_bank=> :environment do
