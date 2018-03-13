@@ -1,0 +1,98 @@
+<div class="value-set-entry">
+  <div class="criteria-details">
+      {{#button "toggleDetails" class="close"}}
+        {{#if isWhiteList}}<i class="fa fa-fw fa-search" aria-hidden="true"></i>{{else}}{{#if isBlackList}}<i class="fa fa-fw fa-search" aria-hidden="true"></i>{{else}}<i class="fa fa-lg fa-fw fa-angle-right" aria-hidden="true"></i>{{/if}}{{/if}}
+        <span class="sr-only">toggle details</span>
+      {{/button}}
+        <h4 class="{{#if isEmpty}}empty{{/if}}"><i class="fa fa-fw fa-lg {{#if isWhiteList}}fa-check-circle success{{else}}{{#if isBlackList}}fa-times-circle danger{{else}}fa-list-alt{{/if}}{{/if}}" aria-hidden="true"></i>  {{display_name}}
+        {{#if filters}}
+          {{#button "addFilter" class="btn btn-xs btn-default value-set-filter pull-right"}}
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <span class="sr-only">add</span>
+            FILTER
+          {{/button}}
+        {{/if}}
+        </h4>
+  </div>
+  <form class="hide" role="form">
+      {{#button "toggleDetails" class="close"}}
+        <i class="fa fa-lg fa-fw fa-angle-down" aria-hidden="true"></i>
+        <span class="sr-only">toggle details</span>
+      {{/button}}
+
+      <h4><i class="fa fa-fw fa-lg fa-list-alt" aria-hidden="true"></i> {{display_name}}
+        {{#if filters}}
+          {{#button "addFilter" class="btn btn-xs btn-default value-set-filter pull-right"}} <i class="fa fa-plus" aria-hidden="true"></i> FILTER {{/button}}
+        {{/if}}
+      </h4>
+
+      <div class="panel panel-default value-set-listing">
+        <div class="panel-body">
+          <label class="pull-right"><small>{{oid}}</small></label>
+          <i class="fa fa-list" aria-hidden="true"></i> <label>Codes</label>
+          <small>( {{version}} )</small>
+          <ul class="nav nav-pills">
+            {{#each codeSystems}}
+              <li{{#unless index}} class="active"{{/unless}}><a href="#{{../cid}}-{{index}}" data-toggle="tab">{{code_system}} <span class="badge">{{count}}</span></a></li>
+            {{/each}}
+          </ul>
+          <div class="tab-content">
+            {{#each codeSystems}}
+              <div id="{{../cid}}-{{index}}" class="tab-pane{{#unless index}} active{{/unless}}">
+                {{#collection collection class="list-group" tag="ul"}}
+                  <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-xs-1">
+                        {{#if white_list}}<i class="fa fa-fw fa-lg fa-check" aria-hidden="true"></i>{{else}}{{#if black_list}}<i class="fa fa-fw fa-lg fa-times" aria-hidden="true"></i>{{else}}{{/if}}{{/if}}
+                      </div>
+                      <div class="col-xs-8">
+                        <strong><small>{{code}}</small></strong> {{display_name}} <span class="label label-{{#if white_list}}success{{else}}{{#if black_list}}danger{{else}}info{{/if}}{{/if}}">{{code_system_name}}</span>
+                      </div>
+                      <div class="col-xs-3">
+                        <select class="filter-vs">
+                          <option class="default-option" data-icon="fa fa-fw fa-ban" {{#if white_list}}{{else}}{{#if black_list}}{{else}}selected{{/if}}{{/if}}>None</option>
+                          <option class="white-list-option" data-icon="fa fa-fw fa-check-circle-o" {{#if white_list}}selected{{/if}}>White-List</option>
+                          <option class="black-list-option" data-icon="fa fa-fw fa-times-circle-o" {{#if black_list}}selected{{/if}}>Black-List</option>
+                        </select>
+                      </div>
+                    </div>
+                  </li>
+                {{/collection}}
+              </div>
+            {{/each}}
+          </div>
+        </div>
+        {{#empty associatedMeasures}}
+        {{else}}
+          <div class="well">
+            <i class="fa fa-tasks" aria-hidden="true"></i> <label>Associated Measures</label>
+            {{#collection associatedMeasures}}
+              {{#link "measures/{{hqmf_set_id}}" class="btn btn-default" expand-tokens=true}}{{cms_id}} ({{measure_id}}){{/link}}
+            {{/collection}}
+          </div>
+        {{/empty}}
+        {{#empty associatedPatients}}
+        {{else}}
+          <div class="well">
+            <i class="fa fa-users" aria-hidden="true"></i> <label>Associated Patients</label>
+            {{#collection associatedPatients item-context="patientContext" class="list-group" tag="ul"}}
+              <li class="list-group-item">
+              {{#link "measures/{{measureId}}/patients/{{_id}}/edit" class="btn btn-default" expand-tokens=true}}{{last}}, {{first}}{{/link}}
+              {{#empty associatedSDC}}
+              {{else}}
+                {{#collection associatedSDC class="list-group" tag="ul"}}
+                  <li class="list-group-item">
+                    {{description}}
+                  </li>
+                {{/collection}}
+              {{/empty}}
+              </li>
+            {{/collection}}
+          </div>
+        {{/empty}}
+        <div class="panel-footer">
+          {{#button "save" class="btn btn-default value-set-save"}}<i class="fa fa-save" aria-hidden="true"></i> Save{{/button}}
+        </div>
+      </div>
+  </form>
+</div>

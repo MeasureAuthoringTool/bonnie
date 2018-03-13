@@ -10,6 +10,12 @@
       <li><a href="/#"><i class="fa fa-bolt" aria-hidden="true"></i> Dashboard</a></li>
     <% end %>
 
+    <% if current_user.is_dashboard? %>
+      <li class="nav-complexity">
+        <a href="/#complexity"><i class="fa fa-warning" aria-hidden="true"></i> Complexity</a>
+      </li>
+    <% end %>
+
     <% if current_page?(controller: 'registrations', action: 'edit') %>
       <li class="nav-account active"><a href="/users/edit"><i class="fa fa-magic" aria-hidden="true"></i> Account</a></li>
     <% else %>

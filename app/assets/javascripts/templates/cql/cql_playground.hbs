@@ -1,0 +1,22 @@
+<div class="modal fade" id="cqlPlayground" tabindex="-1" aria-hidden="true">
+  <div class="cql-modal modal-dialog" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</button>
+        <h1 class="modal-title" id="modalTitle"><b>Learn CQL</b> - A Beta CQL processing platform (Supports QDM 4.2)</h1>
+      </div>
+      <div class="modal-body">
+        <div class="row vdivide">
+          <div class="col-md-7">
+            <div class="cql-editor" id="editor"></div>
+          </div>
+          <div class="col-md-5">
+            <button class="btn btn-primary btn-block" id="evaluate" data-call-method="evaluateCql" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Evaluating...">Evaluate</button>
+            <br>
+            {{view resultsView}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

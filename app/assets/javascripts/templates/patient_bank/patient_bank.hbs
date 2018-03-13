@@ -1,0 +1,73 @@
+<div class="patient-bank">
+
+  <div class="bank-measure">
+    <div class="h2-style">{{title}}</div>
+    <p>{{description}}</p>
+    {{view measurePatientsCount}}
+    {{view bankLogicView}}
+  </div>
+
+  <div class="bank-patients">
+    {{view bankFilterView}}
+
+    <div class="patients-results">
+      <h1 class="pull-left"><i class="fa fa-fw fa-group" aria-hidden="true"></i> Test Patients <span class="patient-count"></span></h1>
+      <div class="pull-right">
+        {{view selectedPatientsView}}
+        {{#button "cloneBankPatients" class="btn btn-primary bank-actions" data-cloning-text="Cloning..." data-cloned-text="Cloned successfully" disabled="true"}}Clone into {{cms_id}}<span class="sr-only"> patients selected from patient bank</span>{{/button}}
+        {{#button "exportBankPatients" class="btn btn-default bank-actions" data-exporting-text="Exporting..." data-exported-text="Exported successfully" disabled="true"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA<span class="sr-only"> patients selected from patient bank</span>{{/button}}
+      </div>
+    </div>
+
+    {{#collection differences id="sharedResults" class="patient-results panel-group" item-context=differenceContext item-filter=patientFilter}}
+      <div class="panel panel-default shared-patient">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <div class="patient">
+              <div class="patient-checkbox">
+                <label>
+                  <span class="sr-only">Select {{patient.last}} {{patient.first}}</span>
+                  <input type="checkbox" class="select-patient">
+                </label>
+              </div>
+              <div class="patient-user-icon">
+                <span class="fa-stack{{#if localClone}} cloned{{/if}}" aria-hidden="true">
+                  <i class="fa fa-fw fa-circle fa-stack-2x" aria-hidden="true"></i>
+                  <i class="fa fa-fw {{#if alreadyCloned}}fa-user-plus{{else}}fa-user{{/if}} fa-stack-1x" aria-hidden="true"></i>
+                </span>
+                <span class="sr-only">{{patient.last}} {{patient.first}}, patient result</span>
+              </div>
+              <div class="patient-btn">
+                <a data-toggle="collapse" data-parent="#sharedResults" href="#toggle{{@cid}}" class="close collapsed">
+                  <i class="fa fa-lg panel-chevron fa-angle-right expand-result-icon expand-result-icon-{{patient._id}}" aria-hidden="true"></i>
+                  <span class="sr-only">{{patient.last}} {{patient.first}}, Toggle Logic Pass/Fail</span>
+                </a>
+              </div>
+              <div class="patient-status status status-{{status}}">
+                <span class="sr-only">{{patient.last}} {{patient.first}}, status </span>
+                {{#if status}}
+                  {{status}}
+                {{else}}
+                  N/A
+                {{/if}}
+              </div>
+              <div class="patient-name">
+                <span class="sr-only">patient name: </span>{{patient.last}} {{patient.first}}
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div id="toggle{{@cid}}" class="panel-collapse collapse">
+          <div class="panel-body">
+            <p><i class="fa fa-fw fa-tasks" aria-hidden="true"></i> {{patient.cms_id}}</p>
+            <p>{{patient.notes}}</p>
+            {{template "population_calculation_results"}}
+            {{#button "cloneOnePatient" class="btn btn-primary" data-cloning-text="Cloning..." data-cloned-text="Cloned"}}Clone <span class="sr-only">patient {{patient.last}} {{patient.first}}</span> {{#if alreadyCloned}}again{{/if}} into {{cms_id}} {{/button}}
+          </div>
+        </div>
+      </div>
+    {{/collection}}
+
+  </div>
+</div>
