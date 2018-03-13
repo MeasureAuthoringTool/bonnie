@@ -59,8 +59,6 @@ include Devise::Test::ControllerHelpers
 
   test "attempt to upload QDM measure" do
     VCR.use_cassette("valid_vsac_response") do
-      measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
-      assert_nil measure
       # Use VSAC creds from VCR, see vcr_setup.rb
       measure_file = fixture_file_upload(File.join('testplan', 'DischargedOnAntithrombotic_eMeasure_Errored.xml'), 'application/xml')
       post :create, {vsac_date: '06/28/2016', includes_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
@@ -254,16 +252,11 @@ include Devise::Test::ControllerHelpers
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
     assert_response :redirect
 
-    measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
-
-    assert_nil measure
     assert_includes flash[:error].keys, :title
     assert_includes flash[:error].keys, :summary
     assert_equal 'The uploaded zip file is not a valid Measure Authoring Tool (MAT) export of a CQL Based Measure.', flash[:error][:summary]
     assert_equal 'Please re-package and re-export your measure from the MAT.<br/>If this is a QDM-Logic Based measure, please use <a href="https://bonnie-prior.healthit.gov">Bonnie-Prior</a>.', flash[:error][:body]
     flash.clear
-    measure = Measure.where({hqmf_id: "40280381-3D27-5493-013D-4DCA4B826AE4"}).first
-    assert_nil measure
     assert_equal 0, Dir.glob(File.join(@error_dir, '**')).count
   end
 
