@@ -460,7 +460,7 @@ describe 'PatientBuilderView', ->
   describe 'CQL', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS158/CMS158v6.json'), parse: true
       # preserve atomicity
       @universalValueSetsByOid = bonnie.valueSetsByOid
       @bonnie_measures_old = bonnie.measures
@@ -497,7 +497,6 @@ describe 'PatientBuilderView', ->
       expect(editFieldValueView.$('label[for=referenceRangeHigh]').length).toEqual(0)
 
     it "EditCriteriaValueView does not have duplicated codes in dropdown", ->
-      debugger
       bonnie.valueSetsByOid = getJSONFixture('/measure_data/core_measures/CMS134/value_sets.json')
       cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
       bonnie.measures.add(cqlMeasure, { parse: true });
