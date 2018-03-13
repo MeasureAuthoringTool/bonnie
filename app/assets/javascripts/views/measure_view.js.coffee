@@ -51,11 +51,17 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
   initialize: ->
     @measureViz = Bonnie.viz.measureVisualzation().fontSize("1.25em").rowHeight(20).rowPadding({top: 14, right: 6}).dataCriteria(@model.get("data_criteria")).measurePopulation(@population).measureValueSets(@model.valueSets())
     # Determine which population logic view use
-    populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @model, population: @population)
+    if @model.has('cql')
+      populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @model, population: @population)
+    else
+      populationLogicView = new Thorax.Views.PopulationLogic(model: @population)
   
     # Determine which populations logic view to use
     if @populations.length > 1
-      @logicView = new Thorax.Views.CqlPopulationsLogic model: @model, collection: @populations
+      if @model.has('cql') # CQL Based measure with multiple populations
+        @logicView = new Thorax.Views.CqlPopulationsLogic model: @model, collection: @populations
+      else
+        @logicView = new Thorax.Views.PopulationsLogic collection: @populations
       @logicView.setView populationLogicView
     else
       @logicView = populationLogicView
@@ -89,6 +95,10 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     importMeasureView = new Thorax.Views.ImportMeasure(model: @model)
     importMeasureView.appendTo(@$el)
     importMeasureView.display()
+
+  showCQL: (e) ->
+    cqlView = new Thorax.Views.CQLPlaygroundView(collection: @model.get('patients'), measure: @model)
+    cqlView.appendTo(@$el)
 
   exportQrdaPatients: (e) ->
     @exportPatientsView.exporting()

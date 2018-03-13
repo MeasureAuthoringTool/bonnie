@@ -1,0 +1,10 @@
+{{#if temporalReference.range}}
+  {{view "ValueLogic" value=temporalReference.range tag="span"}}
+{{/if}}
+{{translate_timing temporalReference.type}}
+{{#ifCond temporalReference.reference '==' 'MeasurePeriod'}}
+  "Measurement Period"
+{{else}}
+  {{view "DataCriteriaLogic" reference=temporalReference.reference measure=../measure tag="span"}}
+{{/ifCond}}
+ 
