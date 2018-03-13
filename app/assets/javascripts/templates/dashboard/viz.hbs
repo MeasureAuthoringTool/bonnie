@@ -1,0 +1,17 @@
+{{#button 'complexityGraph' disabled=true class="btn btn-primary complexity-graph"}}complexity graph{{/button}}
+{{#button 'complexityGrid' disabled=true class="btn btn-default complexity-grid"}}complexity grid{{/button}}
+{{#button 'sizeByLargest' disabled=true class="btn btn-default size-largest"}}difference sorted by size{{/button}}
+{{#button 'sizeByChange' disabled=true class="btn btn-default size-change"}}difference sorted by amount{{/button}}
+
+<div class="size-legend legend hidden">
+  <div class="added-key key"><div class="legend-box added-box"/> added</div>
+  <div class="deleted-key key"><div class="legend-box deleted-box"/> removed</div>
+  <div class="unchanged-key key"><div class="legend-box unchanged-box"/> unchanged</div>
+</div>
+
+<div id="dashboard-viz">
+  <div class="loading-indicator">
+    <img alt="Loading" src="/assets/loading.gif">
+    <div class="loading-text">loading</div>
+  </div>
+</div>

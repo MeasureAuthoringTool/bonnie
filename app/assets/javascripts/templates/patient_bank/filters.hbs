@@ -1,0 +1,22 @@
+<h1><i class="fa fa-filter" aria-hidden="true"></i> Filters</h1>
+
+{{#collection appliedFilters class="existing-filters" item-context=appliedFilterContext}}
+  <span class="added-filter">
+    {{ label }}
+    {{#button "removeFilter" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
+  </span>
+{{/collection}}
+
+<form class="patient-filters form-inline">
+  <div class="form-group">
+    <label for='patients-filter' class="sr-only">Filter the results below by measure population, measure ID, or user email.</label>
+    {{#collection availableFilters tag='select' name='patients-filter' id='patients-filter' class='selectBoxIt-native'}}
+      <option>{{name}}</option>
+    {{/collection}}
+  </div>
+  <div class="form-group additional-requirements"></div>
+  <button type="submit" class="btn btn-primary" data-ready-text='<i class="fa fa-plus" aria-hidden="true"></i>' disabled="true">
+    <i class="fa fa-spinner fa-spin"></i> Loading patients...
+    <span class="sr-only">add code</span>
+  </button>
+</form>
