@@ -36,18 +36,7 @@
 #= require costanza/js/costanza
 #= require costanza/thorax
 #
-#= require datatables.net/js/jquery.dataTables
-#= require datatables.net-bs/js/dataTables.bootstrap
-#= require datatables.net-fixedcolumns/js/dataTables.fixedColumns
-#= require jquery.scrollTo/jquery.scrollTo
-#= require eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min
-#
 #= require cql_qdm_patientapi
-#= require ace-builds/src/ace.js
-#= require ace-builds/src/ext-language_tools.js
-#= require ace-builds/src/mode-cql_highlight_rules.js
-#= require ace-builds/src/mode-cql.js
-#= require ace-builds/src/theme-chrome.js
 #
 #= require helpers
 #= require_tree ./templates
@@ -55,7 +44,6 @@
 #= require_tree ./helpers
 #= require_tree ./views
 #= require calculator
-#= require qdm_calculator
 #= require cql_calculator
 #= require calculator_selector
 #= require router

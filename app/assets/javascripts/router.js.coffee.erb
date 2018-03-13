@@ -9,7 +9,6 @@
 
     @calculator_selector = new CalculatorSelector()
     @cql_calculator = new CQLCalculator()
-    @qdm_calculator = new QDMCalculator()
 
     # FIXME deprecated, use measure.get('patients') to get patients for individual measure
     @patients = new Thorax.Collections.Patients()
@@ -25,16 +24,10 @@
   routes:
     '':                                                'renderMeasures'
     'measures':                                        'renderMeasures'
-    'complexity':                                      'renderComplexity'
-    'complexity/:set_1/:set_2':                        'renderComplexity'
     'measures/:hqmf_set_id':                           'renderMeasure'
-    'measures/:hqmf_set_id/patient_dashboard':         'renderPatientDashboard'
-    'measures/:hqmf_set_id/508_patient_dashboard':     'renderPatientDashboard'
     'measures/:measure_hqmf_set_id/patients/:id/edit': 'renderPatientBuilder'
     'measures/:measure_hqmf_set_id/patients/new':      'renderPatientBuilder'
-    'measures/:measure_hqmf_set_id/patient_bank':      'renderPatientBank'
     'admin/users':                                     'renderUsers'
-    'value_sets/edit':                                 'renderValueSetsBuilder'
     # This will catch any unmatched hashes and route them to showPageNotFound
     '*path':                                            'showPageNotFound'
 
@@ -47,26 +40,6 @@
       dashboardView = new Thorax.Views.Measures(collection: @measures.sort(), patients: @patients)
     @mainView.setView(dashboardView)
     @breadcrumb.addMeasurePeriod()
-
-  renderPatientDashboard: (hqmfSetId)->
-    @navigationSetup "Patient Dashboard", "patient-dashboard"
-    measure = @measures.findWhere({hqmf_set_id: hqmfSetId})
-    if measure?
-      document.title += " - #{measure.get('cms_id')}" if measure?
-      measureLayoutView = new Thorax.Views.MeasureLayout(measure: measure, patients: @patients)
-      @mainView.setView(measureLayoutView)
-      measureLayoutView.showDashboard !/508_patient_dashboard/.test(Backbone.history.getFragment()) # Checks to see if 508_patient_dashboard is not in the url
-      @breadcrumb.addMeasure(measure)
-    else
-      @showPageNotFound()
-
-  renderComplexity: (measureSet1, measureSet2) ->
-    @navigationSetup "Complexity Dashboard", "complexity"
-    @collection = new Thorax.Collections.MeasureSets
-    @collection.fetch()
-    complexityView = new Thorax.Views.Dashboard(measureSet1, measureSet2)
-    complexityView.collection = @collection
-    @mainView.setView(complexityView)
 
   renderMeasure: (hqmfSetId) ->
     measure = @measures.findWhere({hqmf_set_id: hqmfSetId})
@@ -95,22 +68,6 @@
       patientBuilderView = new Thorax.Views.PatientBuilder(model: patient, measure: measure, patients: @patients, measures: @measures, inPatientDashboard: false)
       @mainView.setView patientBuilderView
       @breadcrumb.addPatient(measure, patient)
-    else
-      @showPageNotFound()
-
-  renderValueSetsBuilder: ->
-    @navigationSetup "Value Sets Builder", "value-sets-builder"
-    valueSets = new Thorax.Collections.ValueSetsCollection(_(bonnie.valueSetsByOid).values())
-    valueSetsBuilderView = new Thorax.Views.ValueSetsBuilder(collection: valueSets, measures: @measures.sort(), patients: @patients)
-    @mainView.setView(valueSetsBuilderView)
-
-  renderPatientBank: (measureHqmfSetId) ->
-    measure = @measures.findWhere(hqmf_set_id: measureHqmfSetId)
-    if measure?
-      @navigationSetup "Patient Bank - #{measure.get('cms_id')}", 'patient-bank'
-      @collection = new Thorax.Collections.Patients
-      @mainView.setView new Thorax.Views.PatientBankView model: measure, patients: @patients, collection: @collection
-      @breadcrumb.addBank(measure)
     else
       @showPageNotFound()
 
