@@ -364,7 +364,7 @@ describe 'PatientBuilderView', ->
   describe 'CQL', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS347/CMS735v0.json'), parse: true
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS158/CMS158v6.json'), parse: true
       # preserve atomicity
       @universalValueSetsByOid = bonnie.valueSetsByOid
       @bonnie_measures_old = bonnie.measures
@@ -374,8 +374,8 @@ describe 'PatientBuilderView', ->
       bonnie.measures = @bonnie_measures_old
 
     it "laboratory test performed should have custom view for components", ->
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS347/value_sets.json')
-      patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS347/patients.json'), parse: true
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/core_measures/CMS158/value_sets.json')
+      patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS158/patients.json'), parse: true
       patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: @cqlMeasure)
       laboratoryTest = patientBuilder.model.get('source_data_criteria').first()
       editCriteriaView = new Thorax.Views.EditCriteriaView(model: laboratoryTest)
@@ -397,10 +397,10 @@ describe 'PatientBuilderView', ->
       expect(editFieldValueView.$('label[for=referenceRangeHigh]').length).toEqual(0)
 
     it "EditCriteriaValueView does not have duplicated codes in dropdown", ->
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS107/value_sets.json')
-      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/core_measures/CMS134/value_sets.json')
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS134/CMS134v6.json'), parse: true
       bonnie.measures.add(cqlMeasure, { parse: true });
-      patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS107/patients.json'), parse: true
+      patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS134/patients.json'), parse: true
       patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
       laboratoryTest = patientBuilder.model.get('source_data_criteria').first()
       editCriteriaView = new Thorax.Views.EditCriteriaView(model: laboratoryTest, measure: cqlMeasure)
