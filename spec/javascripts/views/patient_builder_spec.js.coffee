@@ -431,3 +431,25 @@ describe 'PatientBuilderView', ->
       # These are from direct reference codes
       expect(codesInDropdown['Birthdate']).toBeDefined()
       expect(codesInDropdown['Dead']).toBeDefined()
+
+  describe 'Manual Test Replacement', ->
+    beforeEach ->
+      jasmine.getJSONFixtures().clearCache()
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS722/CMS722v0.json'), parse: true
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/CQL/CMS722/value_sets.json')
+      bonnie.measures.add @cqlMeasure
+      patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS722/patients.json'), parse: true
+      @patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: @cqlMeasure)
+      @patientBuilder.render()
+      @addCodedValue = (codeListId, submit=true) ->
+        @patientBuilder.$('select[name=type]:first').val('CD').change()
+        @patientBuilder.$('select[name=code_list_id]').val(codeListId).change()
+        @patientBuilder.$('.value-formset .btn-primary:first').click() if submit
+
+    it "Contains Coded Result For Pass Or Defer", ->
+      @patientBuilder.appendTo 'body'
+      @diagnosisDataCriteria = @patientBuilder.model.get('source_data_criteria').first()
+      @addCodedValue '2.16.840.1.114222.4.1.214079.1.1.6'
+      @diagnosisDataCriteria.get('value').models[0].get('title')
+
+      debugger
