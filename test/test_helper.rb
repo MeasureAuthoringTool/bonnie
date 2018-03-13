@@ -9,9 +9,8 @@ WebMock.enable!
 # load_tasks needs to be called exactly one time, so it's in the header area
 # of this file. Additionally, because tests get run twice for some reason, we
 # need to put an extra check around it to ensure the tasks aren't already loaded.
-if Rake::Task.tasks.count == 0
-  Bonnie::Application.load_tasks
-end
+
+Bonnie::Application.load_tasks if Rake::Task.tasks.empty?
 class ActiveSupport::TestCase
 
   def dump_database

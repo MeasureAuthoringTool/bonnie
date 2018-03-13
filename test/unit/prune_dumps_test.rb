@@ -17,7 +17,6 @@ class PruneDumpsTest < ActiveSupport::TestCase
       Dir.mkdir(DUMPS_FOLDER)
     end
     Dir.glob(File.join(DUMPS_FOLDER, '*.tgz')).each { |f| File.delete(f) }
-    Bonnie::Application.load_tasks
   end
 
   test "dumps things older than a year old" do
