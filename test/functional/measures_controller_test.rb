@@ -168,7 +168,7 @@ include Devise::Test::ControllerHelpers
 
   test "measure show with period or special chars in key" do
     VCR.use_cassette("valid_vsac_response_Test169") do
-      measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'special_measures', 'CMS169_v5_4_Artifacts_with_special_chars.zip'), 'application/xml')
+      measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'deprecated_measures', 'CMS169_v5_4_Artifacts_with_special_chars.zip'), 'application/xml')
       assert_not_nil measure_file
       class << measure_file
         attr_reader :tempfile
@@ -306,14 +306,14 @@ include Devise::Test::ControllerHelpers
   test "update with hqmf set id mismatch" do
     # Upload the initial file
     VCR.use_cassette("valid_vsac_response_hqmf_set_id_mismatch") do
-      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'deprecated_measures', 'IETCQL_v5_0_Artifacts.zip'), 'application/xml')
       class << measure_file
         attr_reader :tempfile
       end
       post :create, {vsac_date: '08/22/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     end
     # Upload a modified version of the initial file with a mismatching hqmf_set_id
-    update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'IETCQL_v5_0_Artifacts_HQMF_SetId_Mismatch.zip'), 'application/xml')
+    update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'deprecated_measures', 'IETCQL_v5_0_Artifacts_HQMF_SetId_Mismatch.zip'), 'application/xml')
     class << update_measure_file
       attr_reader :tempfile2
     end
@@ -335,7 +335,7 @@ include Devise::Test::ControllerHelpers
     # '2.16.840.1.113883.3.464.1003.106.12.1005' to '2.16.840.1.113883.3.464.1003.106.12.1001'.
     # no changes in the HQMF.
     sign_in @user
-    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'special_measures', 'IETCQL_v5_0_missing_vs_oid_Artifacts.zip'), 'application/xml')
+    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'deprecated_measures', 'IETCQL_v5_0_missing_vs_oid_Artifacts.zip'), 'application/xml')
     class << measure_file
       attr_reader :tempfile
     end
@@ -353,11 +353,11 @@ include Devise::Test::ControllerHelpers
 
   test "create/finalize/update a measure" do
     sign_in @user
-    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'special_measures', 'IETCQL_v5_0_initial_Artifacts.zip'), 'application/xml')
+    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'deprecated_measures', 'IETCQL_v5_0_initial_Artifacts.zip'), 'application/xml')
     class << measure_file
       attr_reader :tempfile
     end
-    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'special_measures', 'IETCQL_v5_0_updates_Artifacts.zip'), 'application/xml')
+    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'deprecated_measures', 'IETCQL_v5_0_updates_Artifacts.zip'), 'application/xml')
     class << update_measure_file
       attr_reader :tempfile
     end
@@ -424,7 +424,7 @@ include Devise::Test::ControllerHelpers
 
   test "load HQMF bad xml" do
     sign_in @user
-    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'special_measures', 'IETCQL_v5_0_bad_hqmf_Artifacts.zip'), 'application/xml')
+    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'deprecated_measures', 'IETCQL_v5_0_bad_hqmf_Artifacts.zip'), 'application/xml')
     class << measure_file
       attr_reader :tempfile
     end
@@ -445,7 +445,7 @@ include Devise::Test::ControllerHelpers
     flash.clear
 
     assert_equal 2, Dir.glob(File.join(@error_dir, '**')).count
-    assert_equal true, FileUtils.identical?(File.join(@error_dir, (Dir.entries(@error_dir).select { |f| f.end_with?('.xmlorzip') })[0]), File.join('test', 'fixtures', 'cql_measure_exports', 'special_measures', 'IETCQL_v5_0_bad_hqmf_Artifacts.zip'))
+    assert_equal true, FileUtils.identical?(File.join(@error_dir, (Dir.entries(@error_dir).select { |f| f.end_with?('.xmlorzip') })[0]), File.join('test', 'fixtures', 'cql_measure_exports', 'deprecated_measures', 'IETCQL_v5_0_bad_hqmf_Artifacts.zip'))
   end
 
   test "update a patient based measure" do
