@@ -276,7 +276,7 @@ namespace :bonnie do
     You must identify the user by EMAIL, include a HQMF_SET_ID,
     the name of the file to be imported using FILENAME, and the type of measure using MEASURE_TYPE
 
-    $ rake bonnie:patients:import_patients EMAIL=xxx HQMF_SET_ID=1924-55295295-23425 FILENAME=CMS100_patients.json MEASURE_TYPE=CQL}
+    $ rake bonnie:patients:import_patients EMAIL=xxx HQMF_SET_ID=1924-55295295-23425 FILENAME=CMS100_patients.json}
     task :import_patients => :environment do
       # Grab user account
       user_email = ENV['EMAIL']
@@ -285,12 +285,7 @@ namespace :bonnie do
       # Grab user measure to add patients to
       user_measure = ENV['HQMF_SET_ID']
 
-      # Check if MEASURE_TYPE is a CQL Based Measure
-      if ENV['MEASURE_TYPE'] == 'CQL'
-        raise "#{user_measure} not found" unless measure = CqlMeasure.find_by(user_id: user._id, hqmf_set_id: user_measure)
-      else
-        raise "#{user_measure} not found" unless measure = Measure.find_by(user_id: user._id, hqmf_set_id: user_measure)
-      end
+      raise "#{user_measure} not found" unless measure = CqlMeasure.find_by(user_id: user._id, hqmf_set_id: user_measure)
 
       # Import patient objects from JSON file and save
       puts "Importing patients..."
