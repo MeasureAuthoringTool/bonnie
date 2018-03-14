@@ -1,0 +1,223 @@
+[
+  {
+    "_id": "5aa97d79d7c8ac51530e75c9",
+    "birthdate": 631180800,
+    "bundle_id": "59638a8b942c6d2e17000435",
+    "conditions": [
+      {
+        "_id": "5aa97d79d7c8ac51530e75ca",
+        "anatomical_location": null,
+        "anatomical_target": null,
+        "causeOfDeath": null,
+        "codes": {
+          "Source of Payment Typology": [
+            "121"
+          ]
+        },
+        "description": "Patient Characteristic Payer: Medicare Fee For Service",
+        "end_time": 1331712900,
+        "health_record_field": null,
+        "laterality": null,
+        "mood_code": "EVN",
+        "name": null,
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.405",
+        "ordinality": null,
+        "priority": null,
+        "reason": null,
+        "severity": null,
+        "specifics": null,
+        "start_time": 1331712000,
+        "status_code": {
+          "HL7 ActStatus": [
+            null
+          ]
+        },
+        "time": null,
+        "time_of_death": null,
+        "type": null
+      }
+    ],
+    "created_at": "2018-03-14T19:52:25.225Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "5aa97d79d7c8ac51530e75cb",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "10378005"
+          ]
+        },
+        "description": "Encounter, Performed: Inpatient Encounter",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1331712900,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1331712000,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 1,
+        "NUMER": 1
+      }
+    ],
+    "expired": null,
+    "first": "Numer",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5aa97d79d7c8ac51530e75cc",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5aa97d79d7c8ac51530e75cd",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "PASS",
+    "marital_status": null,
+    "measure_ids": [
+      "36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "1bc139ee0abe4cce0182f1246e5ffa8c9369cfc5c6ff197d49b56f06c1485e53",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "patient_characteristic_payer",
+        "title": "MedicareFeeForService",
+        "description": "Patient Characteristic Payer: Medicare Fee For Service",
+        "code_list_id": "2.16.840.1.113883.3.1240.15.2.4008",
+        "type": "characteristic",
+        "id": "MedicareFeeForService_PatientCharacteristicPayer_fd63ab29_79e4_44c1_80df_e02bd05a5667_source",
+        "start_date": 1331712000000,
+        "end_date": 1331712900000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473",
+        "cms_id": "CMSv0",
+        "criteria_id": "16225fffcf6fh",
+        "codes": {
+          "Source of Payment Typology": [
+            "121"
+          ]
+        },
+        "coded_entry_id": "5aa97d79d7c8ac51530e75ca",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "InpatientEncounter",
+        "description": "Encounter, Performed: Inpatient Encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1060",
+        "type": "encounters",
+        "id": "InpatientEncounter_EncounterPerformed_a6c66e3c_da7d_4104_836a_c6c427fecb16_source",
+        "start_date": 1331712000000,
+        "end_date": 1331712900000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473",
+        "cms_id": "CMSv0",
+        "criteria_id": "1622611ee0c7I",
+        "codes": {
+          "SNOMED-CT": [
+            "10378005"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5aa97d79d7c8ac51530e75cb",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-03-14T19:52:25.225Z",
+    "user_id": "59638a8a942c6d2e17000434"
+  }
+]
