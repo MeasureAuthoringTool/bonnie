@@ -1,85 +1,12 @@
 {
-  "2.16.840.1.114222.4.11.836": {
-    "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473": {
-      "_id": "5aa978c4d7c8ac4debde3daf",
-      "bundle_id": "59638a8b942c6d2e17000435",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5aa978c4d7c8ac4debde3db0",
-          "black_list": false,
-          "code": "1002-5",
-          "code_system": "2.16.840.1.113883.6.238",
-          "code_system_name": "CDC Race",
-          "code_system_version": "1.1",
-          "display_name": "American Indian or Alaska Native",
-          "white_list": false
-        },
-        {
-          "_id": "5aa978c4d7c8ac4debde3db1",
-          "black_list": false,
-          "code": "2028-9",
-          "code_system": "2.16.840.1.113883.6.238",
-          "code_system_name": "CDC Race",
-          "code_system_version": "1.1",
-          "display_name": "Asian",
-          "white_list": false
-        },
-        {
-          "_id": "5aa978c4d7c8ac4debde3db2",
-          "black_list": false,
-          "code": "2054-5",
-          "code_system": "2.16.840.1.113883.6.238",
-          "code_system_name": "CDC Race",
-          "code_system_version": "1.1",
-          "display_name": "Black or African American",
-          "white_list": false
-        },
-        {
-          "_id": "5aa978c4d7c8ac4debde3db3",
-          "black_list": false,
-          "code": "2076-8",
-          "code_system": "2.16.840.1.113883.6.238",
-          "code_system_name": "CDC Race",
-          "code_system_version": "1.1",
-          "display_name": "Native Hawaiian or Other Pacific Islander",
-          "white_list": false
-        },
-        {
-          "_id": "5aa978c4d7c8ac4debde3db4",
-          "black_list": false,
-          "code": "2106-3",
-          "code_system": "2.16.840.1.113883.6.238",
-          "code_system_name": "CDC Race",
-          "code_system_version": "1.1",
-          "display_name": "White",
-          "white_list": false
-        },
-        {
-          "_id": "5aa978c4d7c8ac4debde3db5",
-          "black_list": false,
-          "code": "2131-1",
-          "code_system": "2.16.840.1.113883.6.238",
-          "code_system_name": "CDC Race",
-          "code_system_version": "1.1",
-          "display_name": "Other Race",
-          "white_list": false
-        }
-      ],
-      "display_name": "Race",
-      "oid": "2.16.840.1.114222.4.11.836",
-      "user_id": "59638a8a942c6d2e17000434",
-      "version": "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473"
-    }
-  },
   "2.16.840.1.113762.1.4.1": {
     "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473": {
-      "_id": "5aa978c3d7c8ac4debde3dac",
-      "bundle_id": "59638a8b942c6d2e17000435",
+      "_id": "5aa983c1b8484606bc4937c3",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
       "categories": null,
       "concepts": [
         {
-          "_id": "5aa978c3d7c8ac4debde3dad",
+          "_id": "5aa983c1b8484606bc4937c4",
           "black_list": false,
           "code": "F",
           "code_system": "2.16.840.1.113883.5.1",
@@ -89,7 +16,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c3d7c8ac4debde3dae",
+          "_id": "5aa983c1b8484606bc4937c5",
           "black_list": false,
           "code": "M",
           "code_system": "2.16.840.1.113883.5.1",
@@ -101,18 +28,91 @@
       ],
       "display_name": "ONC Administrative Sex",
       "oid": "2.16.840.1.113762.1.4.1",
-      "user_id": "59638a8a942c6d2e17000434",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473"
+    }
+  },
+  "2.16.840.1.114222.4.11.836": {
+    "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473": {
+      "_id": "5aa983c1b8484606bc4937c6",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5aa983c1b8484606bc4937c7",
+          "black_list": false,
+          "code": "1002-5",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.1",
+          "display_name": "American Indian or Alaska Native",
+          "white_list": false
+        },
+        {
+          "_id": "5aa983c1b8484606bc4937c8",
+          "black_list": false,
+          "code": "2028-9",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.1",
+          "display_name": "Asian",
+          "white_list": false
+        },
+        {
+          "_id": "5aa983c1b8484606bc4937c9",
+          "black_list": false,
+          "code": "2054-5",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.1",
+          "display_name": "Black or African American",
+          "white_list": false
+        },
+        {
+          "_id": "5aa983c1b8484606bc4937ca",
+          "black_list": false,
+          "code": "2076-8",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.1",
+          "display_name": "Native Hawaiian or Other Pacific Islander",
+          "white_list": false
+        },
+        {
+          "_id": "5aa983c1b8484606bc4937cb",
+          "black_list": false,
+          "code": "2106-3",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.1",
+          "display_name": "White",
+          "white_list": false
+        },
+        {
+          "_id": "5aa983c1b8484606bc4937cc",
+          "black_list": false,
+          "code": "2131-1",
+          "code_system": "2.16.840.1.113883.6.238",
+          "code_system_name": "CDC Race",
+          "code_system_version": "1.1",
+          "display_name": "Other Race",
+          "white_list": false
+        }
+      ],
+      "display_name": "Race",
+      "oid": "2.16.840.1.114222.4.11.836",
+      "user_id": "5a57e975942c6d1e61d32f13",
       "version": "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473"
     }
   },
   "2.16.840.1.114222.4.11.837": {
     "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473": {
-      "_id": "5aa978c5d7c8ac4debde3db6",
-      "bundle_id": "59638a8b942c6d2e17000435",
+      "_id": "5aa983c1b8484606bc4937cd",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
       "categories": null,
       "concepts": [
         {
-          "_id": "5aa978c5d7c8ac4debde3db7",
+          "_id": "5aa983c1b8484606bc4937ce",
           "black_list": false,
           "code": "2135-2",
           "code_system": "2.16.840.1.113883.6.238",
@@ -122,7 +122,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3db8",
+          "_id": "5aa983c1b8484606bc4937cf",
           "black_list": false,
           "code": "2186-5",
           "code_system": "2.16.840.1.113883.6.238",
@@ -134,18 +134,18 @@
       ],
       "display_name": "Ethnicity",
       "oid": "2.16.840.1.114222.4.11.837",
-      "user_id": "59638a8a942c6d2e17000434",
+      "user_id": "5a57e975942c6d1e61d32f13",
       "version": "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473"
     }
   },
   "2.16.840.1.114222.4.11.3591": {
     "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473": {
-      "_id": "5aa978c5d7c8ac4debde3db9",
-      "bundle_id": "59638a8b942c6d2e17000435",
+      "_id": "5aa983c1b8484606bc4937d0",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
       "categories": null,
       "concepts": [
         {
-          "_id": "5aa978c5d7c8ac4debde3dba",
+          "_id": "5aa983c1b8484606bc4937d1",
           "black_list": false,
           "code": "1",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -155,7 +155,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dbb",
+          "_id": "5aa983c1b8484606bc4937d2",
           "black_list": false,
           "code": "11",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -165,7 +165,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dbc",
+          "_id": "5aa983c1b8484606bc4937d3",
           "black_list": false,
           "code": "111",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -175,7 +175,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dbd",
+          "_id": "5aa983c1b8484606bc4937d4",
           "black_list": false,
           "code": "112",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -185,7 +185,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dbe",
+          "_id": "5aa983c1b8484606bc4937d5",
           "black_list": false,
           "code": "113",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -195,7 +195,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dbf",
+          "_id": "5aa983c1b8484606bc4937d6",
           "black_list": false,
           "code": "119",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -205,7 +205,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dc0",
+          "_id": "5aa983c1b8484606bc4937d7",
           "black_list": false,
           "code": "12",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -215,7 +215,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dc1",
+          "_id": "5aa983c1b8484606bc4937d8",
           "black_list": false,
           "code": "121",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -225,7 +225,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dc2",
+          "_id": "5aa983c1b8484606bc4937d9",
           "black_list": false,
           "code": "122",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -235,7 +235,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dc3",
+          "_id": "5aa983c1b8484606bc4937da",
           "black_list": false,
           "code": "123",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -245,7 +245,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dc4",
+          "_id": "5aa983c1b8484606bc4937db",
           "black_list": false,
           "code": "129",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -255,7 +255,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dc5",
+          "_id": "5aa983c1b8484606bc4937dc",
           "black_list": false,
           "code": "13",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -265,7 +265,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dc6",
+          "_id": "5aa983c1b8484606bc4937dd",
           "black_list": false,
           "code": "14",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -275,7 +275,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dc7",
+          "_id": "5aa983c1b8484606bc4937de",
           "black_list": false,
           "code": "19",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -285,7 +285,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dc8",
+          "_id": "5aa983c1b8484606bc4937df",
           "black_list": false,
           "code": "191",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -295,7 +295,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dc9",
+          "_id": "5aa983c1b8484606bc4937e0",
           "black_list": false,
           "code": "2",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -305,7 +305,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dca",
+          "_id": "5aa983c1b8484606bc4937e1",
           "black_list": false,
           "code": "21",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -315,7 +315,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dcb",
+          "_id": "5aa983c1b8484606bc4937e2",
           "black_list": false,
           "code": "211",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -325,7 +325,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dcc",
+          "_id": "5aa983c1b8484606bc4937e3",
           "black_list": false,
           "code": "212",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -335,7 +335,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dcd",
+          "_id": "5aa983c1b8484606bc4937e4",
           "black_list": false,
           "code": "213",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -345,7 +345,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dce",
+          "_id": "5aa983c1b8484606bc4937e5",
           "black_list": false,
           "code": "219",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -355,7 +355,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dcf",
+          "_id": "5aa983c1b8484606bc4937e6",
           "black_list": false,
           "code": "22",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -365,7 +365,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dd0",
+          "_id": "5aa983c1b8484606bc4937e7",
           "black_list": false,
           "code": "23",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -375,7 +375,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dd1",
+          "_id": "5aa983c1b8484606bc4937e8",
           "black_list": false,
           "code": "24",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -385,7 +385,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dd2",
+          "_id": "5aa983c1b8484606bc4937e9",
           "black_list": false,
           "code": "25",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -395,7 +395,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dd3",
+          "_id": "5aa983c1b8484606bc4937ea",
           "black_list": false,
           "code": "26",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -405,7 +405,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dd4",
+          "_id": "5aa983c1b8484606bc4937eb",
           "black_list": false,
           "code": "29",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -415,7 +415,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dd5",
+          "_id": "5aa983c1b8484606bc4937ec",
           "black_list": false,
           "code": "291",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -425,7 +425,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dd6",
+          "_id": "5aa983c1b8484606bc4937ed",
           "black_list": false,
           "code": "299",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -435,7 +435,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dd7",
+          "_id": "5aa983c1b8484606bc4937ee",
           "black_list": false,
           "code": "3",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -445,7 +445,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dd8",
+          "_id": "5aa983c1b8484606bc4937ef",
           "black_list": false,
           "code": "31",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -455,7 +455,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dd9",
+          "_id": "5aa983c1b8484606bc4937f0",
           "black_list": false,
           "code": "311",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -465,7 +465,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dda",
+          "_id": "5aa983c1b8484606bc4937f1",
           "black_list": false,
           "code": "3111",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -475,7 +475,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3ddb",
+          "_id": "5aa983c1b8484606bc4937f2",
           "black_list": false,
           "code": "3112",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -485,7 +485,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3ddc",
+          "_id": "5aa983c1b8484606bc4937f3",
           "black_list": false,
           "code": "3113",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -495,7 +495,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3ddd",
+          "_id": "5aa983c1b8484606bc4937f4",
           "black_list": false,
           "code": "3114",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -505,7 +505,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dde",
+          "_id": "5aa983c1b8484606bc4937f5",
           "black_list": false,
           "code": "3115",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -515,7 +515,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3ddf",
+          "_id": "5aa983c1b8484606bc4937f6",
           "black_list": false,
           "code": "3116",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -525,7 +525,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3de0",
+          "_id": "5aa983c1b8484606bc4937f7",
           "black_list": false,
           "code": "3119",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -535,7 +535,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3de1",
+          "_id": "5aa983c1b8484606bc4937f8",
           "black_list": false,
           "code": "312",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -545,7 +545,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3de2",
+          "_id": "5aa983c1b8484606bc4937f9",
           "black_list": false,
           "code": "3121",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -555,7 +555,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3de3",
+          "_id": "5aa983c1b8484606bc4937fa",
           "black_list": false,
           "code": "3122",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -565,7 +565,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3de4",
+          "_id": "5aa983c1b8484606bc4937fb",
           "black_list": false,
           "code": "3123",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -575,7 +575,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3de5",
+          "_id": "5aa983c1b8484606bc4937fc",
           "black_list": false,
           "code": "313",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -585,7 +585,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3de6",
+          "_id": "5aa983c1b8484606bc4937fd",
           "black_list": false,
           "code": "32",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -595,7 +595,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3de7",
+          "_id": "5aa983c1b8484606bc4937fe",
           "black_list": false,
           "code": "321",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -605,7 +605,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3de8",
+          "_id": "5aa983c1b8484606bc4937ff",
           "black_list": false,
           "code": "3211",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -615,7 +615,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3de9",
+          "_id": "5aa983c1b8484606bc493800",
           "black_list": false,
           "code": "3212",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -625,7 +625,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dea",
+          "_id": "5aa983c1b8484606bc493801",
           "black_list": false,
           "code": "32121",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -635,7 +635,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3deb",
+          "_id": "5aa983c1b8484606bc493802",
           "black_list": false,
           "code": "32122",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -645,7 +645,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dec",
+          "_id": "5aa983c1b8484606bc493803",
           "black_list": false,
           "code": "32123",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -655,7 +655,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3ded",
+          "_id": "5aa983c1b8484606bc493804",
           "black_list": false,
           "code": "32124",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -665,7 +665,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dee",
+          "_id": "5aa983c1b8484606bc493805",
           "black_list": false,
           "code": "32125",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -675,7 +675,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3def",
+          "_id": "5aa983c1b8484606bc493806",
           "black_list": false,
           "code": "32126",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -685,7 +685,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3df0",
+          "_id": "5aa983c1b8484606bc493807",
           "black_list": false,
           "code": "32127",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -695,7 +695,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3df1",
+          "_id": "5aa983c1b8484606bc493808",
           "black_list": false,
           "code": "32128",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -705,7 +705,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3df2",
+          "_id": "5aa983c1b8484606bc493809",
           "black_list": false,
           "code": "322",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -715,7 +715,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3df3",
+          "_id": "5aa983c1b8484606bc49380a",
           "black_list": false,
           "code": "3221",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -725,7 +725,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3df4",
+          "_id": "5aa983c1b8484606bc49380b",
           "black_list": false,
           "code": "3222",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -735,7 +735,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3df5",
+          "_id": "5aa983c1b8484606bc49380c",
           "black_list": false,
           "code": "3223",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -745,7 +745,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3df6",
+          "_id": "5aa983c1b8484606bc49380d",
           "black_list": false,
           "code": "3229",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -755,7 +755,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3df7",
+          "_id": "5aa983c1b8484606bc49380e",
           "black_list": false,
           "code": "33",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -765,7 +765,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3df8",
+          "_id": "5aa983c1b8484606bc49380f",
           "black_list": false,
           "code": "331",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -775,7 +775,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3df9",
+          "_id": "5aa983c1b8484606bc493810",
           "black_list": false,
           "code": "332",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -785,7 +785,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dfa",
+          "_id": "5aa983c1b8484606bc493811",
           "black_list": false,
           "code": "333",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -795,7 +795,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dfb",
+          "_id": "5aa983c1b8484606bc493812",
           "black_list": false,
           "code": "334",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -805,7 +805,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dfc",
+          "_id": "5aa983c1b8484606bc493813",
           "black_list": false,
           "code": "34",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -815,7 +815,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dfd",
+          "_id": "5aa983c1b8484606bc493814",
           "black_list": false,
           "code": "341",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -825,7 +825,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dfe",
+          "_id": "5aa983c1b8484606bc493815",
           "black_list": false,
           "code": "342",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -835,7 +835,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3dff",
+          "_id": "5aa983c1b8484606bc493816",
           "black_list": false,
           "code": "343",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -845,7 +845,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e00",
+          "_id": "5aa983c1b8484606bc493817",
           "black_list": false,
           "code": "349",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -855,7 +855,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e01",
+          "_id": "5aa983c1b8484606bc493818",
           "black_list": false,
           "code": "35",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -865,7 +865,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e02",
+          "_id": "5aa983c1b8484606bc493819",
           "black_list": false,
           "code": "36",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -875,7 +875,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e03",
+          "_id": "5aa983c1b8484606bc49381a",
           "black_list": false,
           "code": "361",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -885,7 +885,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e04",
+          "_id": "5aa983c1b8484606bc49381b",
           "black_list": false,
           "code": "362",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -895,7 +895,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e05",
+          "_id": "5aa983c1b8484606bc49381c",
           "black_list": false,
           "code": "369",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -905,7 +905,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e06",
+          "_id": "5aa983c1b8484606bc49381d",
           "black_list": false,
           "code": "37",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -915,7 +915,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e07",
+          "_id": "5aa983c1b8484606bc49381e",
           "black_list": false,
           "code": "371",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -925,7 +925,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e08",
+          "_id": "5aa983c1b8484606bc49381f",
           "black_list": false,
           "code": "3711",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -935,7 +935,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e09",
+          "_id": "5aa983c1b8484606bc493820",
           "black_list": false,
           "code": "3712",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -945,7 +945,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e0a",
+          "_id": "5aa983c1b8484606bc493821",
           "black_list": false,
           "code": "3713",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -955,7 +955,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e0b",
+          "_id": "5aa983c1b8484606bc493822",
           "black_list": false,
           "code": "372",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -965,7 +965,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e0c",
+          "_id": "5aa983c1b8484606bc493823",
           "black_list": false,
           "code": "379",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -975,7 +975,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e0d",
+          "_id": "5aa983c1b8484606bc493824",
           "black_list": false,
           "code": "38",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -985,7 +985,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e0e",
+          "_id": "5aa983c1b8484606bc493825",
           "black_list": false,
           "code": "381",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -995,7 +995,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e0f",
+          "_id": "5aa983c1b8484606bc493826",
           "black_list": false,
           "code": "3811",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1005,7 +1005,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e10",
+          "_id": "5aa983c1b8484606bc493827",
           "black_list": false,
           "code": "3812",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1015,7 +1015,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e11",
+          "_id": "5aa983c1b8484606bc493828",
           "black_list": false,
           "code": "3813",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1025,7 +1025,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e12",
+          "_id": "5aa983c1b8484606bc493829",
           "black_list": false,
           "code": "3819",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1035,7 +1035,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e13",
+          "_id": "5aa983c1b8484606bc49382a",
           "black_list": false,
           "code": "382",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1045,7 +1045,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e14",
+          "_id": "5aa983c1b8484606bc49382b",
           "black_list": false,
           "code": "389",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1055,7 +1055,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e15",
+          "_id": "5aa983c1b8484606bc49382c",
           "black_list": false,
           "code": "39",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1065,7 +1065,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e16",
+          "_id": "5aa983c1b8484606bc49382d",
           "black_list": false,
           "code": "391",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1075,7 +1075,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e17",
+          "_id": "5aa983c1b8484606bc49382e",
           "black_list": false,
           "code": "4",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1085,7 +1085,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e18",
+          "_id": "5aa983c1b8484606bc49382f",
           "black_list": false,
           "code": "41",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1095,7 +1095,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e19",
+          "_id": "5aa983c1b8484606bc493830",
           "black_list": false,
           "code": "42",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1105,7 +1105,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e1a",
+          "_id": "5aa983c1b8484606bc493831",
           "black_list": false,
           "code": "43",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1115,7 +1115,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e1b",
+          "_id": "5aa983c1b8484606bc493832",
           "black_list": false,
           "code": "44",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1125,7 +1125,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e1c",
+          "_id": "5aa983c1b8484606bc493833",
           "black_list": false,
           "code": "5",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1135,7 +1135,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e1d",
+          "_id": "5aa983c1b8484606bc493834",
           "black_list": false,
           "code": "51",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1145,7 +1145,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e1e",
+          "_id": "5aa983c1b8484606bc493835",
           "black_list": false,
           "code": "511",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1155,7 +1155,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e1f",
+          "_id": "5aa983c1b8484606bc493836",
           "black_list": false,
           "code": "512",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1165,7 +1165,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e20",
+          "_id": "5aa983c1b8484606bc493837",
           "black_list": false,
           "code": "513",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1175,7 +1175,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e21",
+          "_id": "5aa983c1b8484606bc493838",
           "black_list": false,
           "code": "514",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1185,7 +1185,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e22",
+          "_id": "5aa983c1b8484606bc493839",
           "black_list": false,
           "code": "515",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1195,7 +1195,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e23",
+          "_id": "5aa983c1b8484606bc49383a",
           "black_list": false,
           "code": "516",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1205,7 +1205,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e24",
+          "_id": "5aa983c1b8484606bc49383b",
           "black_list": false,
           "code": "517",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1215,7 +1215,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e25",
+          "_id": "5aa983c1b8484606bc49383c",
           "black_list": false,
           "code": "519",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1225,7 +1225,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e26",
+          "_id": "5aa983c1b8484606bc49383d",
           "black_list": false,
           "code": "52",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1235,7 +1235,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e27",
+          "_id": "5aa983c1b8484606bc49383e",
           "black_list": false,
           "code": "521",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1245,7 +1245,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e28",
+          "_id": "5aa983c1b8484606bc49383f",
           "black_list": false,
           "code": "522",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1255,7 +1255,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e29",
+          "_id": "5aa983c1b8484606bc493840",
           "black_list": false,
           "code": "523",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1265,7 +1265,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e2a",
+          "_id": "5aa983c1b8484606bc493841",
           "black_list": false,
           "code": "524",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1275,7 +1275,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e2b",
+          "_id": "5aa983c1b8484606bc493842",
           "black_list": false,
           "code": "529",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1285,7 +1285,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e2c",
+          "_id": "5aa983c1b8484606bc493843",
           "black_list": false,
           "code": "53",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1295,7 +1295,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e2d",
+          "_id": "5aa983c1b8484606bc493844",
           "black_list": false,
           "code": "54",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1305,7 +1305,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e2e",
+          "_id": "5aa983c1b8484606bc493845",
           "black_list": false,
           "code": "55",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1315,7 +1315,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e2f",
+          "_id": "5aa983c1b8484606bc493846",
           "black_list": false,
           "code": "56",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1325,7 +1325,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e30",
+          "_id": "5aa983c1b8484606bc493847",
           "black_list": false,
           "code": "561",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1335,7 +1335,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e31",
+          "_id": "5aa983c1b8484606bc493848",
           "black_list": false,
           "code": "562",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1345,7 +1345,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e32",
+          "_id": "5aa983c1b8484606bc493849",
           "black_list": false,
           "code": "59",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1355,7 +1355,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e33",
+          "_id": "5aa983c1b8484606bc49384a",
           "black_list": false,
           "code": "6",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1365,7 +1365,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e34",
+          "_id": "5aa983c1b8484606bc49384b",
           "black_list": false,
           "code": "61",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1375,7 +1375,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e35",
+          "_id": "5aa983c1b8484606bc49384c",
           "black_list": false,
           "code": "611",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1385,7 +1385,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e36",
+          "_id": "5aa983c1b8484606bc49384d",
           "black_list": false,
           "code": "612",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1395,7 +1395,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e37",
+          "_id": "5aa983c1b8484606bc49384e",
           "black_list": false,
           "code": "613",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1405,7 +1405,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e38",
+          "_id": "5aa983c1b8484606bc49384f",
           "black_list": false,
           "code": "614",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1415,7 +1415,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e39",
+          "_id": "5aa983c1b8484606bc493850",
           "black_list": false,
           "code": "619",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1425,7 +1425,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e3a",
+          "_id": "5aa983c1b8484606bc493851",
           "black_list": false,
           "code": "62",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1435,7 +1435,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e3b",
+          "_id": "5aa983c1b8484606bc493852",
           "black_list": false,
           "code": "621",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1445,7 +1445,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e3c",
+          "_id": "5aa983c1b8484606bc493853",
           "black_list": false,
           "code": "622",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1455,7 +1455,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e3d",
+          "_id": "5aa983c1b8484606bc493854",
           "black_list": false,
           "code": "623",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1465,7 +1465,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e3e",
+          "_id": "5aa983c1b8484606bc493855",
           "black_list": false,
           "code": "629",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1475,7 +1475,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e3f",
+          "_id": "5aa983c1b8484606bc493856",
           "black_list": false,
           "code": "7",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1485,7 +1485,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e40",
+          "_id": "5aa983c1b8484606bc493857",
           "black_list": false,
           "code": "71",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1495,7 +1495,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e41",
+          "_id": "5aa983c1b8484606bc493858",
           "black_list": false,
           "code": "72",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1505,7 +1505,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e42",
+          "_id": "5aa983c1b8484606bc493859",
           "black_list": false,
           "code": "73",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1515,7 +1515,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e43",
+          "_id": "5aa983c1b8484606bc49385a",
           "black_list": false,
           "code": "79",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1525,7 +1525,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e44",
+          "_id": "5aa983c1b8484606bc49385b",
           "black_list": false,
           "code": "8",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1535,7 +1535,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e45",
+          "_id": "5aa983c1b8484606bc49385c",
           "black_list": false,
           "code": "81",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1545,7 +1545,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e46",
+          "_id": "5aa983c1b8484606bc49385d",
           "black_list": false,
           "code": "82",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1555,7 +1555,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e47",
+          "_id": "5aa983c1b8484606bc49385e",
           "black_list": false,
           "code": "821",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1565,7 +1565,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e48",
+          "_id": "5aa983c1b8484606bc49385f",
           "black_list": false,
           "code": "822",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1575,7 +1575,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e49",
+          "_id": "5aa983c1b8484606bc493860",
           "black_list": false,
           "code": "823",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1585,7 +1585,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e4a",
+          "_id": "5aa983c1b8484606bc493861",
           "black_list": false,
           "code": "83",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1595,7 +1595,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e4b",
+          "_id": "5aa983c1b8484606bc493862",
           "black_list": false,
           "code": "84",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1605,7 +1605,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e4c",
+          "_id": "5aa983c1b8484606bc493863",
           "black_list": false,
           "code": "85",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1615,7 +1615,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e4d",
+          "_id": "5aa983c1b8484606bc493864",
           "black_list": false,
           "code": "89",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1625,7 +1625,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e4e",
+          "_id": "5aa983c1b8484606bc493865",
           "black_list": false,
           "code": "9",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1635,7 +1635,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e4f",
+          "_id": "5aa983c1b8484606bc493866",
           "black_list": false,
           "code": "91",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1645,7 +1645,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e50",
+          "_id": "5aa983c1b8484606bc493867",
           "black_list": false,
           "code": "92",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1655,7 +1655,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e51",
+          "_id": "5aa983c1b8484606bc493868",
           "black_list": false,
           "code": "93",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1665,7 +1665,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e52",
+          "_id": "5aa983c1b8484606bc493869",
           "black_list": false,
           "code": "94",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1675,7 +1675,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e53",
+          "_id": "5aa983c1b8484606bc49386a",
           "black_list": false,
           "code": "95",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1685,7 +1685,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e54",
+          "_id": "5aa983c1b8484606bc49386b",
           "black_list": false,
           "code": "951",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1695,7 +1695,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e55",
+          "_id": "5aa983c1b8484606bc49386c",
           "black_list": false,
           "code": "953",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1705,7 +1705,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e56",
+          "_id": "5aa983c1b8484606bc49386d",
           "black_list": false,
           "code": "954",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1715,7 +1715,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e57",
+          "_id": "5aa983c1b8484606bc49386e",
           "black_list": false,
           "code": "959",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1725,7 +1725,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e58",
+          "_id": "5aa983c1b8484606bc49386f",
           "black_list": false,
           "code": "96",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1735,7 +1735,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e59",
+          "_id": "5aa983c1b8484606bc493870",
           "black_list": false,
           "code": "97",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1745,7 +1745,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e5a",
+          "_id": "5aa983c1b8484606bc493871",
           "black_list": false,
           "code": "98",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1755,7 +1755,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e5b",
+          "_id": "5aa983c1b8484606bc493872",
           "black_list": false,
           "code": "99",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1765,7 +1765,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c5d7c8ac4debde3e5c",
+          "_id": "5aa983c1b8484606bc493873",
           "black_list": false,
           "code": "9999",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1777,41 +1777,18 @@
       ],
       "display_name": "Payer",
       "oid": "2.16.840.1.114222.4.11.3591",
-      "user_id": "59638a8a942c6d2e17000434",
-      "version": "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473"
-    }
-  },
-  "2.16.840.1.113883.3.1240.15.2.4008": {
-    "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473": {
-      "_id": "5aa978c6d7c8ac4debde3e5d",
-      "bundle_id": "59638a8b942c6d2e17000435",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5aa978c6d7c8ac4debde3e5e",
-          "black_list": false,
-          "code": "121",
-          "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "Source of Payment Typology",
-          "code_system_version": "7.0",
-          "display_name": "Medicare FFS",
-          "white_list": false
-        }
-      ],
-      "display_name": "Medicare Fee For Service",
-      "oid": "2.16.840.1.113883.3.1240.15.2.4008",
-      "user_id": "59638a8a942c6d2e17000434",
+      "user_id": "5a57e975942c6d1e61d32f13",
       "version": "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473"
     }
   },
   "2.16.840.1.113883.3.464.1003.101.12.1060": {
     "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473": {
-      "_id": "5aa978c6d7c8ac4debde3e5f",
-      "bundle_id": "59638a8b942c6d2e17000435",
+      "_id": "5aa983c2b8484606bc493876",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
       "categories": null,
       "concepts": [
         {
-          "_id": "5aa978c6d7c8ac4debde3e60",
+          "_id": "5aa983c2b8484606bc493877",
           "black_list": false,
           "code": "10378005",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1821,7 +1798,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e61",
+          "_id": "5aa983c2b8484606bc493878",
           "black_list": false,
           "code": "112689000",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1831,7 +1808,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e62",
+          "_id": "5aa983c2b8484606bc493879",
           "black_list": false,
           "code": "112690009",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1841,7 +1818,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e63",
+          "_id": "5aa983c2b8484606bc49387a",
           "black_list": false,
           "code": "1505002",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1851,7 +1828,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e64",
+          "_id": "5aa983c2b8484606bc49387b",
           "black_list": false,
           "code": "15584006",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1861,7 +1838,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e65",
+          "_id": "5aa983c2b8484606bc49387c",
           "black_list": false,
           "code": "18083007",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1871,7 +1848,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e66",
+          "_id": "5aa983c2b8484606bc49387d",
           "black_list": false,
           "code": "183452005",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1881,7 +1858,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e67",
+          "_id": "5aa983c2b8484606bc49387e",
           "black_list": false,
           "code": "183455007",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1891,7 +1868,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e68",
+          "_id": "5aa983c2b8484606bc49387f",
           "black_list": false,
           "code": "183457004",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1901,7 +1878,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e69",
+          "_id": "5aa983c2b8484606bc493880",
           "black_list": false,
           "code": "183458009",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1911,7 +1888,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e6a",
+          "_id": "5aa983c2b8484606bc493881",
           "black_list": false,
           "code": "183459001",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1921,7 +1898,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e6b",
+          "_id": "5aa983c2b8484606bc493882",
           "black_list": false,
           "code": "183460006",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1931,7 +1908,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e6c",
+          "_id": "5aa983c2b8484606bc493883",
           "black_list": false,
           "code": "183461005",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1941,7 +1918,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e6d",
+          "_id": "5aa983c2b8484606bc493884",
           "black_list": false,
           "code": "183462003",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1951,7 +1928,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e6e",
+          "_id": "5aa983c2b8484606bc493885",
           "black_list": false,
           "code": "183463008",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1961,7 +1938,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e6f",
+          "_id": "5aa983c2b8484606bc493886",
           "black_list": false,
           "code": "183464002",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1971,7 +1948,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e70",
+          "_id": "5aa983c2b8484606bc493887",
           "black_list": false,
           "code": "183465001",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1981,7 +1958,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e71",
+          "_id": "5aa983c2b8484606bc493888",
           "black_list": false,
           "code": "183466000",
           "code_system": "2.16.840.1.113883.6.96",
@@ -1991,7 +1968,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e72",
+          "_id": "5aa983c2b8484606bc493889",
           "black_list": false,
           "code": "183467009",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2001,7 +1978,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e73",
+          "_id": "5aa983c2b8484606bc49388a",
           "black_list": false,
           "code": "183468004",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2011,7 +1988,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e74",
+          "_id": "5aa983c2b8484606bc49388b",
           "black_list": false,
           "code": "183469007",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2021,7 +1998,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e75",
+          "_id": "5aa983c2b8484606bc49388c",
           "black_list": false,
           "code": "183470008",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2031,7 +2008,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e76",
+          "_id": "5aa983c2b8484606bc49388d",
           "black_list": false,
           "code": "183471007",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2041,7 +2018,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e77",
+          "_id": "5aa983c2b8484606bc49388e",
           "black_list": false,
           "code": "183472000",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2051,7 +2028,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e78",
+          "_id": "5aa983c2b8484606bc49388f",
           "black_list": false,
           "code": "183473005",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2061,7 +2038,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e79",
+          "_id": "5aa983c2b8484606bc493890",
           "black_list": false,
           "code": "183474004",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2071,7 +2048,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e7a",
+          "_id": "5aa983c2b8484606bc493891",
           "black_list": false,
           "code": "183475003",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2081,7 +2058,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e7b",
+          "_id": "5aa983c2b8484606bc493892",
           "black_list": false,
           "code": "183476002",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2091,7 +2068,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e7c",
+          "_id": "5aa983c2b8484606bc493893",
           "black_list": false,
           "code": "183477006",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2101,7 +2078,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e7d",
+          "_id": "5aa983c2b8484606bc493894",
           "black_list": false,
           "code": "183478001",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2111,7 +2088,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e7e",
+          "_id": "5aa983c2b8484606bc493895",
           "black_list": false,
           "code": "183481006",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2121,7 +2098,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e7f",
+          "_id": "5aa983c2b8484606bc493896",
           "black_list": false,
           "code": "183497001",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2131,7 +2108,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e80",
+          "_id": "5aa983c2b8484606bc493897",
           "black_list": false,
           "code": "19951005",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2141,7 +2118,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e81",
+          "_id": "5aa983c2b8484606bc493898",
           "black_list": false,
           "code": "2252009",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2151,7 +2128,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e82",
+          "_id": "5aa983c2b8484606bc493899",
           "black_list": false,
           "code": "23473000",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2161,7 +2138,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e83",
+          "_id": "5aa983c2b8484606bc49389a",
           "black_list": false,
           "code": "25986004",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2171,7 +2148,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e84",
+          "_id": "5aa983c2b8484606bc49389b",
           "black_list": false,
           "code": "2876009",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2181,7 +2158,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e85",
+          "_id": "5aa983c2b8484606bc49389c",
           "black_list": false,
           "code": "304568006",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2191,7 +2168,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e86",
+          "_id": "5aa983c2b8484606bc49389d",
           "black_list": false,
           "code": "305335007",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2201,7 +2178,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e87",
+          "_id": "5aa983c2b8484606bc49389e",
           "black_list": false,
           "code": "305337004",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2211,7 +2188,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e88",
+          "_id": "5aa983c2b8484606bc49389f",
           "black_list": false,
           "code": "305338009",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2221,7 +2198,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e89",
+          "_id": "5aa983c2b8484606bc4938a0",
           "black_list": false,
           "code": "305339001",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2231,7 +2208,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e8a",
+          "_id": "5aa983c2b8484606bc4938a1",
           "black_list": false,
           "code": "305340004",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2241,7 +2218,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e8b",
+          "_id": "5aa983c2b8484606bc4938a2",
           "black_list": false,
           "code": "305341000",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2251,7 +2228,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e8c",
+          "_id": "5aa983c2b8484606bc4938a3",
           "black_list": false,
           "code": "305342007",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2261,7 +2238,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e8d",
+          "_id": "5aa983c2b8484606bc4938a4",
           "black_list": false,
           "code": "305343002",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2271,7 +2248,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e8e",
+          "_id": "5aa983c2b8484606bc4938a5",
           "black_list": false,
           "code": "305344008",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2281,7 +2258,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e8f",
+          "_id": "5aa983c2b8484606bc4938a6",
           "black_list": false,
           "code": "305345009",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2291,7 +2268,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e90",
+          "_id": "5aa983c2b8484606bc4938a7",
           "black_list": false,
           "code": "305346005",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2301,7 +2278,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e91",
+          "_id": "5aa983c2b8484606bc4938a8",
           "black_list": false,
           "code": "305347001",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2311,7 +2288,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e92",
+          "_id": "5aa983c2b8484606bc4938a9",
           "black_list": false,
           "code": "305348006",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2321,7 +2298,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e93",
+          "_id": "5aa983c2b8484606bc4938aa",
           "black_list": false,
           "code": "313385005",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2331,7 +2308,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e94",
+          "_id": "5aa983c2b8484606bc4938ab",
           "black_list": false,
           "code": "3241000175106",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2341,7 +2318,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e95",
+          "_id": "5aa983c2b8484606bc4938ac",
           "black_list": false,
           "code": "32485007",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2351,7 +2328,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e96",
+          "_id": "5aa983c2b8484606bc4938ad",
           "black_list": false,
           "code": "36723004",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2361,7 +2338,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e97",
+          "_id": "5aa983c2b8484606bc4938ae",
           "black_list": false,
           "code": "405614004",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2371,7 +2348,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e98",
+          "_id": "5aa983c2b8484606bc4938af",
           "black_list": false,
           "code": "408489005",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2381,7 +2358,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e99",
+          "_id": "5aa983c2b8484606bc4938b0",
           "black_list": false,
           "code": "408501008",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2391,7 +2368,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e9a",
+          "_id": "5aa983c2b8484606bc4938b1",
           "black_list": false,
           "code": "416683003",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2401,7 +2378,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e9b",
+          "_id": "5aa983c2b8484606bc4938b2",
           "black_list": false,
           "code": "417005",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2411,7 +2388,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e9c",
+          "_id": "5aa983c2b8484606bc4938b3",
           "black_list": false,
           "code": "432621000124105",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2421,7 +2398,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e9d",
+          "_id": "5aa983c2b8484606bc4938b4",
           "black_list": false,
           "code": "432661000124104",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2431,7 +2408,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e9e",
+          "_id": "5aa983c2b8484606bc4938b5",
           "black_list": false,
           "code": "442281000124108",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2441,7 +2418,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3e9f",
+          "_id": "5aa983c2b8484606bc4938b6",
           "black_list": false,
           "code": "448381000124100",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2451,7 +2428,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3ea0",
+          "_id": "5aa983c2b8484606bc4938b7",
           "black_list": false,
           "code": "448421000124105",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2461,7 +2438,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3ea1",
+          "_id": "5aa983c2b8484606bc4938b8",
           "black_list": false,
           "code": "448431000124108",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2471,7 +2448,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3ea2",
+          "_id": "5aa983c2b8484606bc4938b9",
           "black_list": false,
           "code": "448441000124103",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2481,7 +2458,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3ea3",
+          "_id": "5aa983c2b8484606bc4938ba",
           "black_list": false,
           "code": "448851000124103",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2491,7 +2468,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3ea4",
+          "_id": "5aa983c2b8484606bc4938bb",
           "black_list": false,
           "code": "4563007",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2501,7 +2478,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3ea5",
+          "_id": "5aa983c2b8484606bc4938bc",
           "black_list": false,
           "code": "45702004",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2511,7 +2488,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3ea6",
+          "_id": "5aa983c2b8484606bc4938bd",
           "black_list": false,
           "code": "47348005",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2521,7 +2498,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3ea7",
+          "_id": "5aa983c2b8484606bc4938be",
           "black_list": false,
           "code": "48183000",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2531,7 +2508,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3ea8",
+          "_id": "5aa983c2b8484606bc4938bf",
           "black_list": false,
           "code": "50699000",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2541,7 +2518,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3ea9",
+          "_id": "5aa983c2b8484606bc4938c0",
           "black_list": false,
           "code": "51032003",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2551,7 +2528,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eaa",
+          "_id": "5aa983c2b8484606bc4938c1",
           "black_list": false,
           "code": "51501005",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2561,7 +2538,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eab",
+          "_id": "5aa983c2b8484606bc4938c2",
           "black_list": false,
           "code": "52748007",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2571,7 +2548,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eac",
+          "_id": "5aa983c2b8484606bc4938c3",
           "black_list": false,
           "code": "60059000",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2581,7 +2558,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3ead",
+          "_id": "5aa983c2b8484606bc4938c4",
           "black_list": false,
           "code": "63551005",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2591,7 +2568,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eae",
+          "_id": "5aa983c2b8484606bc4938c5",
           "black_list": false,
           "code": "65043002",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2601,7 +2578,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eaf",
+          "_id": "5aa983c2b8484606bc4938c6",
           "black_list": false,
           "code": "699122005",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2611,7 +2588,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eb0",
+          "_id": "5aa983c2b8484606bc4938c7",
           "black_list": false,
           "code": "699245006",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2621,7 +2598,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eb1",
+          "_id": "5aa983c2b8484606bc4938c8",
           "black_list": false,
           "code": "70755000",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2631,7 +2608,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eb2",
+          "_id": "5aa983c2b8484606bc4938c9",
           "black_list": false,
           "code": "71290004",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2641,7 +2618,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eb3",
+          "_id": "5aa983c2b8484606bc4938ca",
           "black_list": false,
           "code": "73607007",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2651,7 +2628,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eb4",
+          "_id": "5aa983c2b8484606bc4938cb",
           "black_list": false,
           "code": "74857009",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2661,7 +2638,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eb5",
+          "_id": "5aa983c2b8484606bc4938cc",
           "black_list": false,
           "code": "76464004",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2671,7 +2648,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eb6",
+          "_id": "5aa983c2b8484606bc4938cd",
           "black_list": false,
           "code": "78680009",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2681,7 +2658,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eb7",
+          "_id": "5aa983c2b8484606bc4938ce",
           "black_list": false,
           "code": "81672003",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2691,7 +2668,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eb8",
+          "_id": "5aa983c2b8484606bc4938cf",
           "black_list": false,
           "code": "82942009",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2701,7 +2678,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa978c6d7c8ac4debde3eb9",
+          "_id": "5aa983c2b8484606bc4938d0",
           "black_list": false,
           "code": "8715000",
           "code_system": "2.16.840.1.113883.6.96",
@@ -2713,7 +2690,30 @@
       ],
       "display_name": "Inpatient Encounter",
       "oid": "2.16.840.1.113883.3.464.1003.101.12.1060",
-      "user_id": "59638a8a942c6d2e17000434",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473"
+    }
+  },
+  "2.16.840.1.113883.3.1240.15.2.4008": {
+    "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473": {
+      "_id": "5aa983c2b8484606bc493874",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5aa983c2b8484606bc493875",
+          "black_list": false,
+          "code": "121",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare FFS",
+          "white_list": false
+        }
+      ],
+      "display_name": "Medicare Fee For Service",
+      "oid": "2.16.840.1.113883.3.1240.15.2.4008",
+      "user_id": "5a57e975942c6d1e61d32f13",
       "version": "Draft-36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473"
     }
   }

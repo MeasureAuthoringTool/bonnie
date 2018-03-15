@@ -42,8 +42,12 @@ describe 'Production_PatientBuilderView', ->
 
       @universalValueSetsByOid = bonnie.valueSetsByOid
       bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/TestMFFS_v5_4_Artifacts/value_sets.json')
+      @bonnie_measures_old = bonnie.measures
+      bonnie.measures = new Thorax.Collections.Measures()
+      bonnie.measures.add @measure
     afterEach ->
       bonnie.valueSetsByOid = @universalValueSetsByOid
+      bonnie.measures = @bonnie_measures_old
 
     describe 'Patient "Numer PASS"', ->
       beforeEach ->

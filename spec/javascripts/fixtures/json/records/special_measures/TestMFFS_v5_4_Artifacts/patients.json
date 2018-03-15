@@ -1,11 +1,11 @@
 [
   {
-    "_id": "5aa97d79d7c8ac51530e75c9",
+    "_id": "5aa98404b8484606bc493901",
     "birthdate": 631180800,
-    "bundle_id": "59638a8b942c6d2e17000435",
+    "bundle_id": "5a57e977942c6d1e61d32f14",
     "conditions": [
       {
-        "_id": "5aa97d79d7c8ac51530e75ca",
+        "_id": "5aa98404b8484606bc493902",
         "anatomical_location": null,
         "anatomical_target": null,
         "causeOfDeath": null,
@@ -39,14 +39,14 @@
         "type": null
       }
     ],
-    "created_at": "2018-03-14T19:52:25.225Z",
+    "created_at": "2018-03-14T20:20:20.628Z",
     "deathdate": null,
     "description": null,
     "description_category": null,
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5aa97d79d7c8ac51530e75cb",
+        "_id": "5aa98404b8484606bc493903",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -96,7 +96,7 @@
     "gender": "M",
     "insurance_providers": [
       {
-        "_id": "5aa97d79d7c8ac51530e75cc",
+        "_id": "5aa98404b8484606bc493904",
         "codes": {
           "SOP": [
             "349"
@@ -116,13 +116,13 @@
         "negationReason": null,
         "oid": null,
         "payer": {
-          "_id": "5aa97d79d7c8ac51530e75cd",
+          "_id": "5aa98404b8484606bc493905",
           "name": "Other"
         },
         "reason": null,
         "relationship": null,
         "specifics": null,
-        "start_time": 1199163600,
+        "start_time": 1199145600,
         "status_code": null,
         "time": null,
         "type": "OT"
@@ -139,7 +139,7 @@
       null
     ],
     "medical_record_assigner": "Bonnie",
-    "medical_record_number": "1bc139ee0abe4cce0182f1246e5ffa8c9369cfc5c6ff197d49b56f06c1485e53",
+    "medical_record_number": "c5ae9f803996dfda65278dfe2a79d91ee397bf3e2e09dccf9c2b3a82b2f0a36f",
     "notes": "",
     "origin_data": [
 
@@ -169,13 +169,13 @@
         },
         "hqmf_set_id": "36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473",
         "cms_id": "CMSv0",
-        "criteria_id": "16225fffcf6fh",
+        "criteria_id": "162262ac4f6Rz",
         "codes": {
           "Source of Payment Typology": [
             "121"
           ]
         },
-        "coded_entry_id": "5aa97d79d7c8ac51530e75ca",
+        "coded_entry_id": "5aa98404b8484606bc493902",
         "code_source": "DEFAULT"
       },
       {
@@ -197,14 +197,14 @@
         },
         "hqmf_set_id": "36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473",
         "cms_id": "CMSv0",
-        "criteria_id": "1622611ee0c7I",
+        "criteria_id": "162262ad454gq",
         "codes": {
           "SNOMED-CT": [
             "10378005"
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5aa97d79d7c8ac51530e75cb",
+        "coded_entry_id": "5aa98404b8484606bc493903",
         "code_source": "DEFAULT"
       },
       {
@@ -217,7 +217,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-03-14T19:52:25.225Z",
-    "user_id": "59638a8a942c6d2e17000434"
+    "updated_at": "2018-03-14T20:20:20.628Z",
+    "user_id": "5a57e975942c6d1e61d32f13"
   }
 ]
