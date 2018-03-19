@@ -39,21 +39,21 @@ http_interactions:
       Content-Length:
       - '0'
       Date:
-      - Tue, 05 Sep 2017 16:50:00 GMT
+      - Thu, 08 Mar 2018 16:10:24 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!tlZKvVJMksSMbkXLMWjf8K3rTDmEEi/0zif8WkH2V8SA5D4b4hy5a1yObdoHSAKK3cHQS3DL6P4r0WQ=;
-        expires=Tue, 05-Sep-2017 18:50:00 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!dyY/zyfqrFEeEWDm9OGvBt4MxRMcjnBRq/yAg41WmDud6QBC33RAapRFk9j/KXEm9l5pFcw1WjpufBI=;
+        expires=Thu, 08-Mar-2018 18:10:24 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Tue, 05 Sep 2017 16:51:09 GMT
+  recorded_at: Thu, 08 Mar 2018 16:10:24 GMT
 - request:
     method: post
     uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
@@ -93,19 +93,19 @@ http_interactions:
       Content-Length:
       - '0'
       Date:
-      - Tue, 05 Sep 2017 16:50:01 GMT
+      - Thu, 08 Mar 2018 16:10:24 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!pFWjnEne+JLlDC7LMWjf8K3rTDmEEp5h9EPcz7Ji11F3HZpLsLFyjdwWzPbOJ5AHIh568k8XELKyAog=;
-        expires=Tue, 05-Sep-2017 18:50:01 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!DW/yERAX/8Froznm9OGvBt4MxRMcjp0WtEPHvElPuTb247Ee8uqIKfkLoomK5hNl9rSx21iYtjTTl4g=;
+        expires=Thu, 08-Mar-2018 18:10:24 GMT; path=/; Httponly; Secure
       X-Vip-Info:
       - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.112 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Tue, 05 Sep 2017 16:51:10 GMT
+  recorded_at: Thu, 08 Mar 2018 16:10:24 GMT
 recorded_with: VCR 3.0.3

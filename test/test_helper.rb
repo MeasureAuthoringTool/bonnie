@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] = "test"
 require_relative "./simplecov_init"
 require_relative "./vcr_setup"
+require_relative '../lib/tasks/fixture_helper'
 ENV["APIPIE_RECORD"] = "examples"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -27,7 +28,7 @@ class StubToken
 end
 
 class ActiveSupport::TestCase
-
+  
   def dump_database
     Mongoid.default_client.collections.each do |c|
       c.drop()
