@@ -5,9 +5,9 @@ include Devise::Test::ControllerHelpers
 
   setup do
     dump_database
-    records_set = File.join("records", "special_records", "CMS347v1")
+    records_set = File.join("records", "core_measures", "CMS32v7")
     users_set = File.join("users", "base_set")
-    cql_measures_set = File.join("cql_measures", "special_measures", "CMS347v1")
+    cql_measures_set = File.join("cql_measures", "core_measures", "CMS32v7")
     collection_fixtures(users_set, records_set, cql_measures_set)
     @user = User.by_email('bonnie@example.com').first
     @user_admin = User.by_email('user_admin@example.com').first
@@ -35,7 +35,7 @@ include Devise::Test::ControllerHelpers
     index_json = JSON.parse(response.body)
     assert_equal 4, index_json.count
     assert_equal 1, index_json[0]['measure_count']
-    assert_equal 7, index_json[0]['patient_count']
+    assert_equal 4, index_json[0]['patient_count']
     assert_equal 0, index_json[1]['measure_count']
     assert_equal 0, index_json[1]['patient_count']
     assert_equal 0, index_json[2]['measure_count']
@@ -105,7 +105,7 @@ include Devise::Test::ControllerHelpers
     sign_in @user_admin
     get :patients, {id: @user.id}
     assert_response :success
-    assert_equal 7, JSON.parse(response.body).length
+    assert_equal 4, JSON.parse(response.body).length
   end
 
   test "measures download" do

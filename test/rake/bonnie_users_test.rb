@@ -88,14 +88,14 @@ class BonnieUsersTest < ActiveSupport::TestCase
 
     # setup
 
-    records_set = File.join("records", "special_records", "CMS347v1")
+    records_set = File.join("records", "core_measures", "CMS32v7")
     users_set = File.join("users", "base_set")
-    cql_measures_set = File.join("cql_measures", "special_measures", "CMS347v1")
+    cql_measures_set = File.join("cql_measures", "core_measures", "CMS32v7")
     collection_fixtures(users_set, records_set, cql_measures_set)
 
     source_email = 'bonnie@example.com'
     dest_email = 'user_admin@example.com'
-    source_hqmf_set_id = '5375D6A9-203B-4FFF-B851-AFA9B68D2AC2'
+    source_hqmf_set_id = '3FD13096-2C8F-40B5-9297-B714E8DE9133'
 
     source_user = User.by_email('bonnie@example.com').first
     dest_user = User.by_email('user_admin@example.com').first
@@ -118,14 +118,14 @@ class BonnieUsersTest < ActiveSupport::TestCase
     assert_equal(measure._id, source_measures.first._id)
     assert_equal(0, dest_measures.count)
 
-    assert_equal(7, source_patients.count)
+    assert_equal(4, source_patients.count)
     assert_equal(0, dest_patients.count)
 
     # confirm bad source email
 
     ENV['SOURCE_EMAIL'] = "asdf@gmail.com"
     ENV['DEST_EMAIL'] = dest_email
-    ENV['CMS_ID'] = "CMS347v1"
+    ENV['CMS_ID'] = "CMS32v7"
 
     err = assert_raises RuntimeError do
       Rake::Task['bonnie:users:move_measure'].execute
@@ -136,7 +136,7 @@ class BonnieUsersTest < ActiveSupport::TestCase
 
     ENV['SOURCE_EMAIL'] = source_email
     ENV['DEST_EMAIL'] = "fdsa@gmail.com"
-    ENV['CMS_ID'] = "CMS347v1"
+    ENV['CMS_ID'] = "CMS32v7"
 
     err = assert_raises RuntimeError do
       Rake::Task['bonnie:users:move_measure'].execute
@@ -158,7 +158,7 @@ class BonnieUsersTest < ActiveSupport::TestCase
 
     ENV['SOURCE_EMAIL'] = source_email
     ENV['DEST_EMAIL'] = dest_email
-    ENV['CMS_ID'] = "CMS347v1"
+    ENV['CMS_ID'] = "CMS32v7"
 
     err = assert_raises RuntimeError do
       Rake::Task['bonnie:users:move_measure'].execute
@@ -169,7 +169,7 @@ class BonnieUsersTest < ActiveSupport::TestCase
 
     ENV['SOURCE_EMAIL'] = source_email
     ENV['DEST_EMAIL'] = dest_email
-    ENV['CMS_ID'] = "CMS347v1"
+    ENV['CMS_ID'] = "CMS32v7"
 
     # add bundles to both
     source_user.send('ensure_bundle')
@@ -199,7 +199,7 @@ class BonnieUsersTest < ActiveSupport::TestCase
     assert_equal(measure._id, dest_measures.first._id)
 
     assert_equal(0, source_patients.count)
-    assert_equal(7, dest_patients.count)
+    assert_equal(4, dest_patients.count)
 
     assert_equal(vs_count, HealthDataStandards::SVS::ValueSet.where(user_id: source_user).count)
     assert_equal(vs_count, HealthDataStandards::SVS::ValueSet.where(user_id: dest_user).count)
