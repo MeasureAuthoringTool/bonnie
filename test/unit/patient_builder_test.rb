@@ -11,7 +11,8 @@ class PatientBuilderTest < ActiveSupport::TestCase
     records_set = File.join("records", "core_measures", "CMS134v6")
     collection_fixtures(users_set, records_set, measures_set)
     @user = User.by_email('bonnie@example.com').first
-    associate_user_with_measures(@user,Measure.all)
+    associate_user_with_measures(@user, CqlMeasure.all)
+    associate_user_with_patients(@user, Record.all)
     @data_criteria = HQMF::DataCriteria.get_settings_for_definition('diagnosis','active')
     @data_criteria_encounter = HQMF::DataCriteria.get_settings_for_definition('encounter','performed')
     @data_criteria_labtest = HQMF::DataCriteria.get_settings_for_definition('laboratory_test', 'performed')
