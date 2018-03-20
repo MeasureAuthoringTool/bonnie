@@ -545,7 +545,9 @@ Metrics/AbcSize:
 # Offense count: 61
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/BlockLength:
-  Max: 576
+  Max: 563
+  Exclude:
+    - 'lib/tasks/bonnie.rake'
 
 # Offense count: 9
 # Configuration parameters: CountBlocks.
@@ -559,7 +561,9 @@ Metrics/ClassLength:
 
 # Offense count: 18
 Metrics/CyclomaticComplexity:
-  Max: 36
+  Max: 29
+  Exclude:
+    - 'lib/tasks/bonnie.rake'
 
 # Offense count: 39
 # Configuration parameters: CountComments.
@@ -568,7 +572,9 @@ Metrics/MethodLength:
 
 # Offense count: 16
 Metrics/PerceivedComplexity:
-  Max: 38
+  Max: 33
+  Exclude:
+    - 'lib/tasks/bonnie.rake'
 
 # Offense count: 3
 Naming/AccessorMethodName:
