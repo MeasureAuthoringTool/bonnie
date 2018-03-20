@@ -344,12 +344,12 @@ class BonniePatientsTest < ActiveSupport::TestCase
   end
 
   test "successful export of patients" do
-    measures_set = File.join("draft_measures", "base_set")
+    measures_set = File.join("cql_measures", "core_measures", "CMS158v6")
     add_collection(measures_set)
-    hqmf_set_id =  '42BF391F-38A3-TEST-9ECE-DCD47E9609D9'
+    hqmf_set_id =  '3BBFC929-50C8-44B8-8D34-82BE75C08A70'
 
-    associate_user_with_measures(@source_user, Measure.where(hqmf_set_id: hqmf_set_id))
-    associate_measures_with_patients(Measure.where(hqmf_set_id: hqmf_set_id), Record.all)
+    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: hqmf_set_id))
+    associate_measures_with_patients(CqlMeasure.where(hqmf_set_id: hqmf_set_id), Record.all)
 
     ENV['EMAIL'] = @source_user.email
     ENV['HQMF_SET_ID'] = hqmf_set_id
@@ -359,6 +359,7 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert File.exist? File.expand_path'cms104v2_export_patients_test.json'
 
     # Open up the file and assert the file contains 7 lines, one for each patient.
+    # TODO: There will be 4 expected patients when cql_testing_overhaul is merged, change this.
     f = File.open('cms104v2_export_patients_test.json', "r")
     assert_equal 7, f.readlines.size
     File.delete('cms104v2_export_patients_test.json') if File.exist?('cms104v2_export_patients_test.json')

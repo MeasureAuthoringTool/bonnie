@@ -265,7 +265,7 @@ namespace :bonnie do
       raise "#{user_email} not found" unless user = User.find_by(email: user_email)
 
       # Grab user measure to pull patients from
-      raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = Measure.find_by(user_id: user._id, hqmf_set_id: ENV['HQMF_SET_ID'])
+      raise "#{ENV['HQMF_SET_ID']} hqmf_set_id not found" unless measure = CqlMeasure.find_by(user_id: user._id, hqmf_set_id: ENV['HQMF_SET_ID'])
 
       # Grab the patients
       patients = Record.where(user_id: user._id, :measure_ids => measure.hqmf_set_id)
@@ -289,7 +289,7 @@ namespace :bonnie do
     The JSON file must be the one that is generated using the export_patients rake task.
 
     You must identify the user by EMAIL, include a HQMF_SET_ID,
-    the name of the file to be imported using FILENAME, and the type of measure using MEASURE_TYPE
+    the name of the file to be imported using FILENAME
 
     $ rake bonnie:patients:import_patients EMAIL=xxx HQMF_SET_ID=1924-55295295-23425 FILENAME=CMS100_patients.json MEASURE_TYPE=CQL}
     task :import_patients => :environment do
@@ -300,12 +300,7 @@ namespace :bonnie do
       # Grab user measure to add patients to
       user_measure = ENV['HQMF_SET_ID']
 
-      # Check if MEASURE_TYPE is a CQL Based Measure
-      if ENV['MEASURE_TYPE'] == 'CQL'
-        raise "#{user_measure} not found" unless measure = CqlMeasure.find_by(user_id: user._id, hqmf_set_id: user_measure)
-      else
-        raise "#{user_measure} not found" unless measure = Measure.find_by(user_id: user._id, hqmf_set_id: user_measure)
-      end
+      raise "#{user_measure} not found" unless measure = CqlMeasure.find_by(user_id: user._id, hqmf_set_id: user_measure)
 
       # Import patient objects from JSON file and save
       puts "Importing patients..."
