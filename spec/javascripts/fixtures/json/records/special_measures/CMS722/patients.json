@@ -1,0 +1,300 @@
+[
+  {
+    "_id": "5aa066ddb8484626924adfae",
+    "birthdate": 28800,
+    "bundle_id": "5923270a942c6d63b30001fa",
+    "conditions": [
+      {
+        "_id": "5aaaab2592d04e60e4b06b7f",
+        "anatomical_location": null,
+        "anatomical_target": null,
+        "causeOfDeath": null,
+        "codes": {
+          "SNOMED-CT": [
+            "17561000119102"
+          ],
+          "ICD-10-CM": [
+            "Z38.00"
+          ]
+        },
+        "description": "Diagnosis: Live Birth Newborn Born in Hospital",
+        "end_time": 1331108100,
+        "health_record_field": null,
+        "laterality": null,
+        "mood_code": "EVN",
+        "name": null,
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.10.20.28.3.110",
+        "ordinality": null,
+        "priority": null,
+        "reason": null,
+        "severity": null,
+        "specifics": null,
+        "start_time": 1331107200,
+        "status_code": {
+          "HL7 ActStatus": [
+            null
+          ]
+        },
+        "time": null,
+        "time_of_death": null,
+        "type": null
+      }
+    ],
+    "created_at": "2018-03-07T22:25:33.371Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "5aaaab2592d04e60e4b06b80",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "183452005"
+          ]
+        },
+        "description": "Encounter, Performed: Encounter Inpatient",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1331108100,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1331107200,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "189C1035-C86E-419B-A034-AE55FA4C04F9",
+        "population_index": 0,
+        "IPP": 0,
+        "DENOM": 0,
+        "DENEX": 0,
+        "NUMER": 0
+      }
+    ],
+    "expired": null,
+    "first": "patient",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5aaaab2592d04e60e4b06b82",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5aaaab2592d04e60e4b06b83",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "test",
+    "marital_status": null,
+    "measure_ids": [
+      "189C1035-C86E-419B-A034-AE55FA4C04F9",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "deda3543fa7e7a8ff4fad99b6df31e4d38ddb01b2392e8cd4682b8d65528f19b",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "procedures": [
+      {
+        "_id": "5aaaab2592d04e60e4b06b81",
+        "anatomical_approach": null,
+        "anatomical_location": null,
+        "anatomical_target": null,
+        "codes": {
+          "LOINC": [
+            "54109-4"
+          ]
+        },
+        "components": null,
+        "description": "Diagnostic Study, Performed: Newborn Hearing Screen Right",
+        "end_time": 1331108100,
+        "facility": null,
+        "health_record_field": null,
+        "incisionTime": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.3",
+        "ordinality": null,
+        "performer_id": null,
+        "qdm_status": null,
+        "radiation_dose": null,
+        "radiation_duration": null,
+        "reaction": null,
+        "reason": null,
+        "result_date_time": null,
+        "source": null,
+        "specifics": null,
+        "start_time": 1331107200,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "diagnostic_study",
+        "status": "performed",
+        "title": "Newborn Hearing Screen Right",
+        "description": "Diagnostic Study, Performed: Newborn Hearing Screen Right",
+        "code_list_id": "2.16.840.1.114222.4.1.214079.1.1.4",
+        "type": "diagnostic_studies",
+        "id": "NewbornHearingScreenRight_DiagnosticStudyPerformed_4d13fe89_db63_4397_9080_4168c8c8d26c_source",
+        "start_date": 1331107200000,
+        "end_date": 1331108100000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "189C1035-C86E-419B-A034-AE55FA4C04F9",
+        "cms_id": "CMS722v0",
+        "criteria_id": "1620290b6845z",
+        "codes": {
+          "LOINC": [
+            "54109-4"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5aaaab2592d04e60e4b06b81",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "Encounter Inpatient",
+        "description": "Encounter, Performed: Encounter Inpatient",
+        "code_list_id": "2.16.840.1.113883.3.666.5.307",
+        "type": "encounters",
+        "id": "EncounterInpatient_EncounterPerformed_7b37876d_70f3_4879_a168_6dd822107f1c_source",
+        "start_date": 1331107200000,
+        "end_date": 1331108100000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "189C1035-C86E-419B-A034-AE55FA4C04F9",
+        "cms_id": "CMS722v0",
+        "criteria_id": "1622aac0f02aE",
+        "codes": {
+          "SNOMED-CT": [
+            "183452005"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5aaaab2592d04e60e4b06b80",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "diagnosis",
+        "title": "Live Birth Newborn Born in Hospital",
+        "description": "Diagnosis: Live Birth Newborn Born in Hospital",
+        "code_list_id": "2.16.840.1.113762.1.4.1046.6",
+        "type": "conditions",
+        "id": "LiveBirthNewbornBorninHospital_Diagnosis_d7f4c89d_3a0d_4426_80d8_ca1a5b92df24_source",
+        "start_date": 1331107200000,
+        "end_date": 1331108100000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "189C1035-C86E-419B-A034-AE55FA4C04F9",
+        "cms_id": "CMS722v0",
+        "criteria_id": "1622aac2fe3Wz",
+        "codes": {
+          "SNOMED-CT": [
+            "17561000119102"
+          ],
+          "ICD-10-CM": [
+            "Z38.00"
+          ]
+        },
+        "coded_entry_id": "5aaaab2592d04e60e4b06b7f",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-03-15T17:19:33.169Z",
+    "user_id": "59232708942c6d63b30001f9"
+  }
+]
