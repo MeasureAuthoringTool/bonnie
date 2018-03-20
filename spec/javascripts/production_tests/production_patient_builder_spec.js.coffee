@@ -33,6 +33,7 @@ describe 'Production_PatientBuilderView', ->
       it 'should have expired code', ->
         expired_code = @result.get('statement_results').DepressionUtilizationofthePHQ9Tool['Expired'].raw[0].getCode()
         expect(expired_code).toBe '419099009'
+<<<<<<< HEAD
 
 
   describe 'CMS722 Tests', ->
@@ -68,3 +69,5 @@ describe 'Production_PatientBuilderView', ->
       resultValue = @diagnosisDataCriteria.get("value").models[0]
       expect(resultValue.get('title')).toEqual "Pass Or Refer"
       expect(resultValue.get('code_list_id')).toEqual code_list_id
+=======
+>>>>>>> d51ca36070a33a45bd0a2ee84a380e6664dca3ed
