@@ -5,7 +5,7 @@
     "bundle_id": "5a57e977942c6d1e61d32f14",
     "conditions": [
       {
-        "_id": "5aa98404b8484606bc493902",
+        "_id": "5ab285dad7c8ac30261652c9",
         "anatomical_location": null,
         "anatomical_target": null,
         "causeOfDeath": null,
@@ -46,7 +46,7 @@
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5aa98404b8484606bc493903",
+        "_id": "5ab285dad7c8ac30261652ca",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -94,40 +94,6 @@
     "expired": null,
     "first": "Numer",
     "gender": "M",
-    "insurance_providers": [
-      {
-        "_id": "5aa98404b8484606bc493904",
-        "codes": {
-          "SOP": [
-            "349"
-          ]
-        },
-        "description": null,
-        "end_time": null,
-        "financial_responsibility_type": {
-          "code": "SELF",
-          "codeSystem": "HL7 Relationship Code"
-        },
-        "health_record_field": null,
-        "member_id": "1234567890",
-        "mood_code": "EVN",
-        "name": "Other",
-        "negationInd": null,
-        "negationReason": null,
-        "oid": null,
-        "payer": {
-          "_id": "5aa98404b8484606bc493905",
-          "name": "Other"
-        },
-        "reason": null,
-        "relationship": null,
-        "specifics": null,
-        "start_time": 1199145600,
-        "status_code": null,
-        "time": null,
-        "type": "OT"
-      }
-    ],
     "is_shared": null,
     "languages": [
 
@@ -168,14 +134,14 @@
         "field_values": {
         },
         "hqmf_set_id": "36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473",
-        "cms_id": "CMSv0",
+        "cms_id": "CMSv759v1",
         "criteria_id": "162262ac4f6Rz",
         "codes": {
           "Source of Payment Typology": [
             "121"
           ]
         },
-        "coded_entry_id": "5aa98404b8484606bc493902",
+        "coded_entry_id": "5ab285dad7c8ac30261652c9",
         "code_source": "DEFAULT"
       },
       {
@@ -196,7 +162,7 @@
         "field_values": {
         },
         "hqmf_set_id": "36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473",
-        "cms_id": "CMSv0",
+        "cms_id": "CMSv759v1",
         "criteria_id": "162262ad454gq",
         "codes": {
           "SNOMED-CT": [
@@ -204,7 +170,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5aa98404b8484606bc493903",
+        "coded_entry_id": "5ab285dad7c8ac30261652ca",
         "code_source": "DEFAULT"
       },
       {
@@ -217,7 +183,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-03-14T20:20:20.628Z",
+    "updated_at": "2018-03-21T16:18:34.379Z",
     "user_id": "5a57e975942c6d1e61d32f13"
   }
 ]

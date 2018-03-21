@@ -37,11 +37,11 @@ describe 'Production_PatientBuilderView', ->
   describe 'Medicare Fee For Service tests', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/TestMFFS_v5_4_Artifacts/CMSv0.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/TestMFFS_v5_4_Artifacts/patients.json'), parse: true
+      @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS759v1/CMS759v1.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS759v1/patients.json'), parse: true
 
       @universalValueSetsByOid = bonnie.valueSetsByOid
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/TestMFFS_v5_4_Artifacts/value_sets.json')
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS759v1/value_sets.json')
       @bonnie_measures_old = bonnie.measures
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add @measure

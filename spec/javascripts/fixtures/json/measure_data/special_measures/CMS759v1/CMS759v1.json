@@ -1,8 +1,8 @@
 {
-  "_id": "5aa983c2b8484606bc4938d2",
+  "_id": "5ab285d9d7c8ac30261652c8",
   "bundle_id": "5a57e977942c6d1e61d32f14",
   "category": "Miscellaneous",
-  "cms_id": "CMSv0",
+  "cms_id": "CMS759v1",
   "complexity": {
     "variables": [
       {
@@ -49,7 +49,7 @@
   },
   "continuous_variable": false,
   "cql": [
-    "library TestMedicareFeeForService version '0.0.001'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Medicare Fee For Service\": 'urn:oid:2.16.840.1.113883.3.1240.15.2.4008'\r\nvalueset \"Inpatient Encounter\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1060'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Interesting Encounter\":\r\n\t[\"Encounter, Performed\": \"Inpatient Encounter\"] Enc\r\n\t\twhere start of Enc.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Medicare Fee\":\r\n\t\"Interesting Encounter\" Enc\r\n\t\twith [\"Patient Characteristic Payer\": \"Medicare Fee For Service\"] Fee\r\n\t\t\tsuch that Fee.relevantPeriod overlaps Enc.relevantPeriod\r\n\r\ndefine \"Initial Population\":\r\n\texists \"Interesting Encounter\"\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\texists \"Medicare Fee\"\r\n"
+    "library TestMedicareFeeForService version '1.0.001'\r\n\r\nusing QDM version '5.3'\r\n\r\nvalueset \"ONC Administrative Sex\": 'urn:oid:2.16.840.1.113762.1.4.1'\r\nvalueset \"Race\": 'urn:oid:2.16.840.1.114222.4.11.836'\r\nvalueset \"Ethnicity\": 'urn:oid:2.16.840.1.114222.4.11.837'\r\nvalueset \"Payer\": 'urn:oid:2.16.840.1.114222.4.11.3591'\r\nvalueset \"Medicare Fee For Service\": 'urn:oid:2.16.840.1.113883.3.1240.15.2.4008'\r\nvalueset \"Inpatient Encounter\": 'urn:oid:2.16.840.1.113883.3.464.1003.101.12.1060'\r\n\r\nparameter \"Measurement Period\" Interval<DateTime>\r\n\r\ncontext Patient\r\n\r\ndefine \"SDE Ethnicity\":\r\n\t[\"Patient Characteristic Ethnicity\": \"Ethnicity\"]\r\n\r\ndefine \"SDE Payer\":\r\n\t[\"Patient Characteristic Payer\": \"Payer\"]\r\n\r\ndefine \"SDE Race\":\r\n\t[\"Patient Characteristic Race\": \"Race\"]\r\n\r\ndefine \"SDE Sex\":\r\n\t[\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]\r\n\r\ndefine \"Interesting Encounter\":\r\n\t[\"Encounter, Performed\": \"Inpatient Encounter\"] Enc\r\n\t\twhere start of Enc.relevantPeriod during \"Measurement Period\"\r\n\r\ndefine \"Medicare Fee\":\r\n\t\"Interesting Encounter\" Enc\r\n\t\twith [\"Patient Characteristic Payer\": \"Medicare Fee For Service\"] Fee\r\n\t\t\tsuch that Fee.relevantPeriod overlaps Enc.relevantPeriod\r\n\r\ndefine \"Initial Population\":\r\n\texists \"Interesting Encounter\"\r\n\r\ndefine \"Denominator\":\r\n\t\"Initial Population\"\r\n\r\ndefine \"Numerator\":\r\n\texists \"Medicare Fee\"\r\n"
   ],
   "cql_statement_dependencies": {
     "TestMedicareFeeForService": {
@@ -97,7 +97,7 @@
       ]
     }
   },
-  "created_at": "2018-03-14T20:19:14.506Z",
+  "created_at": "2018-03-21T16:18:34.099Z",
   "data_criteria": {
     "Payer_PatientCharacteristicPayer_55bd20d0_a8e2_47be_b152_224cf8670f8b": {
       "title": "Payer",
@@ -371,7 +371,7 @@
       "library": {
         "identifier": {
           "id": "TestMedicareFeeForService",
-          "version": "0.0.001"
+          "version": "1.0.001"
         },
         "schemaIdentifier": {
           "id": "urn:hl7-org:elm",
@@ -2033,21 +2033,21 @@
       ],
       "identifier": {
         "id": "TestMedicareFeeForService",
-        "version": "0.0.001"
+        "version": "1.0.001"
       }
     }
   },
   "episode_ids": null,
   "episode_of_care": false,
-  "hqmf_id": "40280582-61AF-07AC-0162-25E8C2A50093",
+  "hqmf_id": "40280582-61AF-07AC-0162-494D9AC800C6",
   "hqmf_set_id": "36C5FDB4-EC16-4B75-96B4-CCBC9C7B0473",
   "hqmf_version_number": 0,
-  "id": "5aa983c2b8484606bc4938d2",
+  "id": "5ab285d9d7c8ac30261652c8",
   "main_cql_library": "TestMedicareFeeForService",
   "measure_attributes": [
     {
       "code": "OTH",
-      "value": "",
+      "value": "759",
       "name": "eCQM Identifier (Measure Authoring Tool)",
       "code_obj": {
         "type": "CD",
@@ -2056,7 +2056,7 @@
       },
       "value_obj": {
         "type": "ED",
-        "value": "",
+        "value": "759",
         "media_type": "text/plain"
       }
     },
@@ -2392,7 +2392,7 @@
       }
     }
   ],
-  "measure_id": "40280582-61AF-07AC-0162-25E8C2A50093",
+  "measure_id": "40280582-61AF-07AC-0162-494D9AC800C6",
   "measure_period": {
     "type": "IVL_TS",
     "low": {
@@ -2423,14 +2423,14 @@
     "IPP": {
       "conjunction?": true,
       "type": "IPP",
-      "hqmf_id": "2A573DF9-CB4D-4BD1-B2BF-7F46C1CBDC25",
+      "hqmf_id": "7FB0245E-BF10-4D09-8B8D-1A1761F43D53",
       "preconditions": [
         {
           "id": 2,
           "preconditions": [
             {
               "id": 1,
-              "reference": "TestMedicareFeeForService__Initial_Population__C4718F03_A639_4CFD_A6EA_1528F38C57A5"
+              "reference": "TestMedicareFeeForService__Initial_Population__25ABB716_B618_4D80_A27D_08099FB5062C"
             }
           ],
           "conjunction_code": "allTrue"
@@ -2440,14 +2440,14 @@
     "DENOM": {
       "conjunction?": true,
       "type": "DENOM",
-      "hqmf_id": "829F3651-6E53-449B-8432-8EBE28F1AFE3",
+      "hqmf_id": "491E8DFA-2829-4168-BC6A-CABD309670A9",
       "preconditions": [
         {
           "id": 4,
           "preconditions": [
             {
               "id": 3,
-              "reference": "TestMedicareFeeForService__Denominator__C4718F03_A639_4CFD_A6EA_1528F38C57A5"
+              "reference": "TestMedicareFeeForService__Denominator__25ABB716_B618_4D80_A27D_08099FB5062C"
             }
           ],
           "conjunction_code": "allTrue"
@@ -2457,14 +2457,14 @@
     "NUMER": {
       "conjunction?": true,
       "type": "NUMER",
-      "hqmf_id": "DF8E76CF-BBA7-470D-9926-7A03E4113ACA",
+      "hqmf_id": "2E00A29E-E406-494A-9FA9-916F8C24556A",
       "preconditions": [
         {
           "id": 6,
           "preconditions": [
             {
               "id": 5,
-              "reference": "TestMedicareFeeForService__Numerator__C4718F03_A639_4CFD_A6EA_1528F38C57A5"
+              "reference": "TestMedicareFeeForService__Numerator__25ABB716_B618_4D80_A27D_08099FB5062C"
             }
           ],
           "conjunction_code": "allTrue"
@@ -2766,7 +2766,7 @@
   },
   "title": "Test Medicare Fee For Service",
   "type": "ep",
-  "updated_at": "2018-03-14T20:19:14.506Z",
+  "updated_at": "2018-03-21T16:18:34.099Z",
   "user_id": "5a57e975942c6d1e61d32f13",
   "value_set_oid_version_objects": [
     {
