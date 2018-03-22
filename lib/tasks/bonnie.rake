@@ -291,7 +291,7 @@ namespace :bonnie do
     You must identify the user by EMAIL, include a HQMF_SET_ID,
     the name of the file to be imported using FILENAME
 
-    $ rake bonnie:patients:import_patients EMAIL=xxx HQMF_SET_ID=1924-55295295-23425 FILENAME=CMS100_patients.json MEASURE_TYPE=CQL}
+    $ rake bonnie:patients:import_patients EMAIL=xxx HQMF_SET_ID=1924-55295295-23425 FILENAME=CMS100_patients.json}
     task :import_patients => :environment do
       # Grab user account
       user_email = ENV['EMAIL']
