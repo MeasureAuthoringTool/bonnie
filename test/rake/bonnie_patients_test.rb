@@ -377,7 +377,6 @@ class BonniePatientsTest < ActiveSupport::TestCase
     ENV['EMAIL'] = @source_user.email
     ENV['HQMF_SET_ID'] = hqmf_set_id
     ENV['FILENAME'] = File.join('test','fixtures','patient_export','cms104v2_export_patients_test.json')
-    ENV['MEASURE_TYPE'] = 'CQL'
     Rake::Task['bonnie:patients:import_patients'].execute
     # Confirm that there are 7 patients now associated with this measure.
     assert_equal 7, Record.where(measure_ids: hqmf_set_id, user_id: @source_user._id).count
