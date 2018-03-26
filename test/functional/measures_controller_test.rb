@@ -420,14 +420,16 @@ include Devise::Test::ControllerHelpers
     assert_equal true, measure.episode_of_care?
     assert_equal 'eh', measure.type
     assert_nil measure.episode_ids
+    measure_id_before = measure._id
 
     # Update the measure
     VCR.use_cassette("update_response") do
-      post :create, {vsac_date: '09/24/2017', include_draft: false, measure_file: update_measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+      post :create, {vsac_date: '09/24/2017', include_draft: false, measure_file: update_measure_file, measure_type: 'eh', calculation_type: 'episode', hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7", vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     end
 
     assert_response :redirect
     measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    assert_not_equal measure_id_before, measure._id
 
     assert_equal "762B1B52-40BF-4596-B34F-4963188E7FF7", measure.hqmf_set_id
     assert_equal 26, measure.value_sets.count # new entries for VSs with new versions, which is 11 of them

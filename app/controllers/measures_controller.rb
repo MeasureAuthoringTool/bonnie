@@ -150,7 +150,7 @@ class MeasuresController < ApplicationController
         f.write("Original Filename was #{params[:measure_file].original_filename}\n")
         f.write(e.to_s + "\n" + e.backtrace.join("\n"))
       end
-      if e.is_a? Measures::VSACException
+      if e.is_a?(Measures::VSACException) || e.is_a?(Util::VSAC::VSACError)
         operator_error = true
         flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
       elsif e.is_a? Measures::MeasureLoadingException
@@ -214,6 +214,7 @@ class MeasuresController < ApplicationController
     # If VSAC TGT is still valid, return its expiration date/time
     tgt = session[:tgt]
     if tgt.nil? || tgt.empty? || tgt[:expires] < Time.now
+      session[:tgt] = nil
       render :json => {valid: false}
     else
       render :json => {valid: true, expires: tgt[:expires]}
@@ -295,23 +296,19 @@ class MeasuresController < ApplicationController
     if tgt.nil? || tgt.empty? || tgt[:expires] < Time.now
       # Retrieve a new ticket granting ticket
       begin
-        ticket = String.new(HealthDataStandards::Util::VSApi.get_tgt_using_credentials(
-          params[:vsac_username],
-          params[:vsac_password],
-          APP_CONFIG['nlm']['ticket_url']
-        ))
-      rescue Exception
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: params[:vsac_username], password: params[:vsac_password])
+        ticket = api.ticket_granting_ticket
+      rescue Util::VSAC::VSACInvalidCredentialsError
         # Given username and password are invalid, ticket cannot be created
         return nil
       end
       # Create a new ticket granting ticket session variable that expires
-      # 7.5hrs from now
       if !ticket.nil? && !ticket.empty?
-        session[:tgt] = {ticket: ticket, expires: Time.now + 27000}
-        ticket
+        session[:tgt] = ticket
+        return session[:tgt]
       end
     else
-      tgt[:ticket]
+      return tgt
     end
   end
 
