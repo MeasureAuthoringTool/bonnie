@@ -8,8 +8,11 @@ module ErrorHelper
     # Do not process errors if their message includes Costanza. These are
     # errors passed up to Thorax.onException from Costanza, which we do
     # not care about (we've already handled them).
-    return if error_info[:msg].include? 'Costanza'
+    if !error_info[:msg]
+      error_info[:msg] = "No error message provided"
+    end
 
+    return if error_info[:msg].include? 'Costanza'
     # If enabled, send an email to the development team containing
     # information about this error.
     ErrorHelper.send_email(error_info, exception, request) if APP_CONFIG['enable_client_error_email']
