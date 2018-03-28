@@ -212,18 +212,30 @@ class MeasuresController < ApplicationController
 
   def vsac_auth_valid
     # If VSAC TGT is still valid, return its expiration date/time
-    tgt = session[:tgt]
-    if tgt.nil? || tgt.empty? || tgt[:expires] < Time.now
-      session[:tgt] = nil
+    ticket_granting_ticket = session[:vsac_tgt]
+
+    # If there is no VSAC ticket granting ticket then return false.
+    if ticket_granting_ticket.nil? || ticket_granting_ticket.empty?
+      session[:vsac_tgt] = nil
       render :json => {valid: false}
+
+    # If it exists then check it using the API
     else
-      render :json => {valid: true, expires: tgt[:expires]}
+      begin
+        Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], ticket_granting_ticket: ticket_granting_ticket)
+        render :json => {valid: true, expires: ticket_granting_ticket[:expires]}
+
+      # API will throw an error if it has expired
+      rescue Util::VSAC::VSACTicketExpiredError
+        session[:vsac_tgt] = nil
+        render :json => {valid: false}
+      end
     end
   end
 
   def vsac_auth_expire
     # Force expire the VSAC session
-    session[:tgt] = nil
+    session[:vsac_tgt] = nil
     render :json => {}
   end
 
@@ -290,25 +302,25 @@ class MeasuresController < ApplicationController
 
   def get_ticket_granting_ticket
     # Retreive a (possibly) existing ticket granting ticket
-    tgt = session[:tgt]
+    ticket_granting_ticket = session[:vsac_tgt]
 
     # If the ticket granting ticket doesn't exist (or has expired), get a new one
-    if tgt.nil? || tgt.empty? || tgt[:expires] < Time.now
-      # Retrieve a new ticket granting ticket
-      begin
-        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: params[:vsac_username], password: params[:vsac_password])
-        ticket = api.ticket_granting_ticket
-      rescue Util::VSAC::VSACInvalidCredentialsError
-        # Given username and password are invalid, ticket cannot be created
-        return nil
+    if ticket_granting_ticket.nil?
+      # Retrieve a new ticket granting ticket by creating the api class.
+      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: params[:vsac_username], password: params[:vsac_password])
+      ticket_granting_ticket = api.ticket_granting_ticket
+      if ticket_granting_ticket.nil?
+        return nil # this means no credentials were provided
       end
-      # Create a new ticket granting ticket session variable that expires
-      if !ticket.nil? && !ticket.empty?
-        session[:tgt] = ticket
-        return session[:tgt]
-      end
+
+      # Create a new ticket granting ticket session variable
+      session[:vsac_tgt] = ticket_granting_ticket
+      return ticket_granting_ticket
+
+    # If it does exist, let the api test it
     else
-      return tgt
+      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], ticket_granting_ticket: ticket_granting_ticket)
+      return api.ticket_granting_ticket
     end
   end
 
