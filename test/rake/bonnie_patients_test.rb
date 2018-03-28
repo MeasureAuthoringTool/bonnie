@@ -383,6 +383,39 @@ class BonniePatientsTest < ActiveSupport::TestCase
     assert_equal 7, Record.where(measure_ids: hqmf_set_id, user_id: @source_user._id).count
   end
 
+  test "importing patient updates facility and diagnosis"  do
+    dump_database
+    users_set = File.join("users", "base_set")
+    measures_set = File.join("cql_measures", "core_measures", "CMS32v7")
+    add_collection(measures_set)
+    collection_fixtures(users_set)
+
+    hqmf_set_id =  '3FD13096-2C8F-40B5-9297-B714E8DE9133'
+    associate_user_with_measures(@source_user, CqlMeasure.where(hqmf_set_id: hqmf_set_id))
+    assert_equal 0, Record.where(measure_ids: hqmf_set_id, user_id: @source_user._id).count
+
+    ENV['EMAIL'] = @source_user.email
+    ENV['HQMF_SET_ID'] = hqmf_set_id
+    ENV['FILENAME'] = File.join('test','fixtures','patient_export','Diagnosis_Facility_Patients.json')
+    ENV['MEASURE_TYPE'] = 'CQL'
+    Rake::Task['bonnie:patients:import_patients'].execute
+    # Confirm that there are 3 patients now associated with this measure.
+    assert_equal 3, Record.where(measure_ids: hqmf_set_id, user_id: @source_user._id).count
+
+    # This patient should no longer have arrival, departure, or facility in field_values
+    deletion_patient = Record.find_by(first: 'EDDuringMPeriod')
+    assert_equal 0, deletion_patient.source_data_criteria[0]['field_values'].length
+
+    # This patient should have new form of diagnosis
+    diagnosis_patient = Record.find_by(first: 'LivebornInHospital')
+    assert_equal 'COL', diagnosis_patient.source_data_criteria[0]['field_values']['DIAGNOSIS']['type']
+
+    # This patient should have new form of facility
+    facility_patient = Record.find_by(first: '3Encs<=30AftADHDMeds')
+    assert_equal 'COL', facility_patient.source_data_criteria[4]['field_values']['FACILITY_LOCATION']['type']
+
+  end
+
   test "materialize all of patients" do
     ENV['EMAIL'] = @source_user.email
     assert_output(/Materialized 7 of 7/) { Rake::Task['bonnie:patients:materialize_all'].execute }
