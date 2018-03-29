@@ -37,3 +37,6 @@ bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS107,h
 # Special Measures
 CMS722 Measure that requires coded result on a data element
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS722,bonnie-fixtures@mitre.org,CMS722v0]
+
+Test Medicare Fee For Service created with:
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS759v1,bonnie-fixtures@mitre.org,CMS759v1]
