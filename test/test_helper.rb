@@ -5,8 +5,14 @@ ENV["APIPIE_RECORD"] = "examples"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require './lib/ext/record'
+require 'rake'
 WebMock.enable!
 
+# load_tasks needs to be called exactly one time, so it's in the header area
+# of this file. Additionally, because tests get run twice for some reason, we
+# need to put an extra check around it to ensure the tasks aren't already loaded.
+
+Bonnie::Application.load_tasks if Rake::Task.tasks.empty?
 class ActiveSupport::TestCase
 
   def dump_database

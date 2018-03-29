@@ -5,7 +5,7 @@ class Admin::UsersMailer < ActionMailer::Base
     @body = body
     mail to: user.email,
       subject: subject,
-      from: 'bonnie-feedback-list@lists.mitre.org'
+      from: APP_CONFIG['bonnie_email']
   end
 
 end
