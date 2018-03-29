@@ -28,9 +28,12 @@ that directory.
 ## Special Set
 CMS136 - Proportion measure with two population sets with Medication Active and Dispensed
 bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS136v7,bonnie-fixtures@mitre.org,CMS136v7]
+bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS136v7
 
 CMS146 - Episode of care based measure with Medication Ordered. Includes the the Hospice library.
 bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS146v6,bonnie-fixtures@mitre.org,CMS146v6]
+bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS146v6
 
 CMS720 - Outdated Episode of care observation measure. This is to show warning message on old measures.
 bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS720v0,bonnie-fixtures@mitre.org,CMS720v0]
+bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS720v0
