@@ -1,423 +1,12 @@
 {
-  "2.16.840.1.113762.1.4.1046.6": {
-    "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
-      "_id": "5aa7ed4eb84846586e4198c3",
-      "bundle_id": "5923270a942c6d63b30001fa",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5aa7ed4eb84846586e4198c4",
-          "black_list": false,
-          "code": "17561000119102",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Single liveborn born in hospital by vaginal delivery (situation)",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198c5",
-          "black_list": false,
-          "code": "442311008",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Liveborn born in hospital (situation)",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198c6",
-          "black_list": false,
-          "code": "442327001",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Twin liveborn born in hospital (situation)",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198c7",
-          "black_list": false,
-          "code": "442342003",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Twin liveborn born in hospital by cesarean section (situation)",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198c8",
-          "black_list": false,
-          "code": "442365008",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Liveborn born in hospital by cesarean section (situation)",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198c9",
-          "black_list": false,
-          "code": "442423001",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Single liveborn born in hospital by cesarean section (situation)",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198ca",
-          "black_list": false,
-          "code": "717803002",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Singleton liveborn born in hospital (situation)",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198cb",
-          "black_list": false,
-          "code": "Z38.00",
-          "code_system": "2.16.840.1.113883.6.90",
-          "code_system_name": "ICD-10-CM",
-          "code_system_version": "2018",
-          "display_name": "Single liveborn infant, delivered vaginally",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198cc",
-          "black_list": false,
-          "code": "Z38.01",
-          "code_system": "2.16.840.1.113883.6.90",
-          "code_system_name": "ICD-10-CM",
-          "code_system_version": "2018",
-          "display_name": "Single liveborn infant, delivered by cesarean",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198cd",
-          "black_list": false,
-          "code": "Z38.30",
-          "code_system": "2.16.840.1.113883.6.90",
-          "code_system_name": "ICD-10-CM",
-          "code_system_version": "2018",
-          "display_name": "Twin liveborn infant, delivered vaginally",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198ce",
-          "black_list": false,
-          "code": "Z38.31",
-          "code_system": "2.16.840.1.113883.6.90",
-          "code_system_name": "ICD-10-CM",
-          "code_system_version": "2018",
-          "display_name": "Twin liveborn infant, delivered by cesarean",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198cf",
-          "black_list": false,
-          "code": "Z38.61",
-          "code_system": "2.16.840.1.113883.6.90",
-          "code_system_name": "ICD-10-CM",
-          "code_system_version": "2018",
-          "display_name": "Triplet liveborn infant, delivered vaginally",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198d0",
-          "black_list": false,
-          "code": "Z38.62",
-          "code_system": "2.16.840.1.113883.6.90",
-          "code_system_name": "ICD-10-CM",
-          "code_system_version": "2018",
-          "display_name": "Triplet liveborn infant, delivered by cesarean",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198d1",
-          "black_list": false,
-          "code": "Z38.63",
-          "code_system": "2.16.840.1.113883.6.90",
-          "code_system_name": "ICD-10-CM",
-          "code_system_version": "2018",
-          "display_name": "Quadruplet liveborn infant, delivered vaginally",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198d2",
-          "black_list": false,
-          "code": "Z38.64",
-          "code_system": "2.16.840.1.113883.6.90",
-          "code_system_name": "ICD-10-CM",
-          "code_system_version": "2018",
-          "display_name": "Quadruplet liveborn infant, delivered by cesarean",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198d3",
-          "black_list": false,
-          "code": "Z38.65",
-          "code_system": "2.16.840.1.113883.6.90",
-          "code_system_name": "ICD-10-CM",
-          "code_system_version": "2018",
-          "display_name": "Quintuplet liveborn infant, delivered vaginally",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198d4",
-          "black_list": false,
-          "code": "Z38.66",
-          "code_system": "2.16.840.1.113883.6.90",
-          "code_system_name": "ICD-10-CM",
-          "code_system_version": "2018",
-          "display_name": "Quintuplet liveborn infant, delivered by cesarean",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198d5",
-          "black_list": false,
-          "code": "Z38.68",
-          "code_system": "2.16.840.1.113883.6.90",
-          "code_system_name": "ICD-10-CM",
-          "code_system_version": "2018",
-          "display_name": "Other multiple liveborn infant, delivered vaginally",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198d6",
-          "black_list": false,
-          "code": "Z38.69",
-          "code_system": "2.16.840.1.113883.6.90",
-          "code_system_name": "ICD-10-CM",
-          "code_system_version": "2018",
-          "display_name": "Other multiple liveborn infant, delivered by cesarean",
-          "white_list": false
-        }
-      ],
-      "display_name": "Live Birth Newborn Born in Hospital",
-      "oid": "2.16.840.1.113762.1.4.1046.6",
-      "user_id": "59232708942c6d63b30001f9",
-      "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
-    }
-  },
-  "2.16.840.1.114222.4.1.214079.1.1.3": {
-    "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
-      "_id": "5aa7ed4eb84846586e4198d7",
-      "bundle_id": "5923270a942c6d63b30001fa",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5aa7ed4eb84846586e4198d8",
-          "black_list": false,
-          "code": "54108-6",
-          "code_system": "2.16.840.1.113883.6.1",
-          "code_system_name": "LOINC",
-          "code_system_version": "2.63",
-          "display_name": "Newborn hearing screen of Ear - left",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed4eb84846586e4198d9",
-          "black_list": false,
-          "code": "73741-1",
-          "code_system": "2.16.840.1.113883.6.1",
-          "code_system_name": "LOINC",
-          "code_system_version": "2.63",
-          "display_name": "Newborn hearing screen panel of Ear - left",
-          "white_list": false
-        }
-      ],
-      "display_name": "Newborn Hearing Screen Left",
-      "oid": "2.16.840.1.114222.4.1.214079.1.1.3",
-      "user_id": "59232708942c6d63b30001f9",
-      "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
-    }
-  },
-  "2.16.840.1.114222.4.1.214079.1.1.4": {
-    "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
-      "_id": "5aa7ed55b84846586e4198da",
-      "bundle_id": "5923270a942c6d63b30001fa",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5aa7ed55b84846586e4198db",
-          "black_list": false,
-          "code": "54109-4",
-          "code_system": "2.16.840.1.113883.6.1",
-          "code_system_name": "LOINC",
-          "code_system_version": "2.63",
-          "display_name": "Newborn hearing screen of Ear - right",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed55b84846586e4198dc",
-          "black_list": false,
-          "code": "73744-5",
-          "code_system": "2.16.840.1.113883.6.1",
-          "code_system_name": "LOINC",
-          "code_system_version": "2.63",
-          "display_name": "Newborn hearing screen panel of Ear - right",
-          "white_list": false
-        }
-      ],
-      "display_name": "Newborn Hearing Screen Right",
-      "oid": "2.16.840.1.114222.4.1.214079.1.1.4",
-      "user_id": "59232708942c6d63b30001f9",
-      "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
-    }
-  },
-  "2.16.840.1.114222.4.1.214079.1.1.7": {
-    "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
-      "_id": "5aa7ed56b84846586e4198dd",
-      "bundle_id": "5923270a942c6d63b30001fa",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5aa7ed56b84846586e4198de",
-          "black_list": false,
-          "code": "397745006",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Medical contraindication (finding)",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed56b84846586e4198df",
-          "black_list": false,
-          "code": "397773008",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Surgical contraindication (finding)",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed56b84846586e4198e0",
-          "black_list": false,
-          "code": "410534003",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Not indicated (qualifier value)",
-          "white_list": false
-        }
-      ],
-      "display_name": "Medical Reasons",
-      "oid": "2.16.840.1.114222.4.1.214079.1.1.7",
-      "user_id": "59232708942c6d63b30001f9",
-      "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
-    }
-  },
-  "2.16.840.1.113883.3.666.5.307": {
-    "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
-      "_id": "5aa7ed56b84846586e4198e1",
-      "bundle_id": "5923270a942c6d63b30001fa",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5aa7ed56b84846586e4198e2",
-          "black_list": false,
-          "code": "183452005",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Emergency hospital admission (procedure)",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed56b84846586e4198e3",
-          "black_list": false,
-          "code": "32485007",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Hospital admission (procedure)",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed56b84846586e4198e4",
-          "black_list": false,
-          "code": "8715000",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Hospital admission, elective (procedure)",
-          "white_list": false
-        }
-      ],
-      "display_name": "Encounter Inpatient",
-      "oid": "2.16.840.1.113883.3.666.5.307",
-      "user_id": "59232708942c6d63b30001f9",
-      "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
-    }
-  },
-  "2.16.840.1.113883.3.117.1.7.1.309": {
-    "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
-      "_id": "5aa7ed56b84846586e4198e5",
-      "bundle_id": "5923270a942c6d63b30001fa",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5aa7ed56b84846586e4198e6",
-          "black_list": false,
-          "code": "371828006",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Patient deceased during stay (discharge status = dead) (finding)",
-          "white_list": false
-        }
-      ],
-      "display_name": "Patient Expired",
-      "oid": "2.16.840.1.113883.3.117.1.7.1.309",
-      "user_id": "59232708942c6d63b30001f9",
-      "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
-    }
-  },
-  "2.16.840.1.114222.4.1.214079.1.1.6": {
-    "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
-      "_id": "5aa7ed56b84846586e4198e7",
-      "bundle_id": "5923270a942c6d63b30001fa",
-      "categories": null,
-      "concepts": [
-        {
-          "_id": "5aa7ed56b84846586e4198e8",
-          "black_list": false,
-          "code": "164059009",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "On examination - hearing normal (finding)",
-          "white_list": false
-        },
-        {
-          "_id": "5aa7ed56b84846586e4198e9",
-          "black_list": false,
-          "code": "183924009",
-          "code_system": "2.16.840.1.113883.6.96",
-          "code_system_name": "SNOMED-CT",
-          "code_system_version": "2017-09",
-          "display_name": "Referral needed (finding)",
-          "white_list": false
-        }
-      ],
-      "display_name": "Pass Or Refer",
-      "oid": "2.16.840.1.114222.4.1.214079.1.1.6",
-      "user_id": "59232708942c6d63b30001f9",
-      "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
-    }
-  },
   "2.16.840.1.113762.1.4.1": {
     "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
-      "_id": "5aa7ed4db84846586e419812",
-      "bundle_id": "5923270a942c6d63b30001fa",
+      "_id": "5ab942bab848465f678922d2",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
       "categories": null,
       "concepts": [
         {
-          "_id": "5aa7ed4db84846586e419813",
+          "_id": "5ab942bab848465f678922d3",
           "black_list": false,
           "code": "F",
           "code_system": "2.16.840.1.113883.5.1",
@@ -427,7 +16,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419814",
+          "_id": "5ab942bab848465f678922d4",
           "black_list": false,
           "code": "M",
           "code_system": "2.16.840.1.113883.5.1",
@@ -439,18 +28,18 @@
       ],
       "display_name": "ONC Administrative Sex",
       "oid": "2.16.840.1.113762.1.4.1",
-      "user_id": "59232708942c6d63b30001f9",
+      "user_id": "5a57e975942c6d1e61d32f13",
       "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
     }
   },
   "2.16.840.1.114222.4.11.836": {
     "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
-      "_id": "5aa7ed4db84846586e419815",
-      "bundle_id": "5923270a942c6d63b30001fa",
+      "_id": "5ab942bab848465f678922d5",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
       "categories": null,
       "concepts": [
         {
-          "_id": "5aa7ed4db84846586e419816",
+          "_id": "5ab942bab848465f678922d6",
           "black_list": false,
           "code": "1002-5",
           "code_system": "2.16.840.1.113883.6.238",
@@ -460,7 +49,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419817",
+          "_id": "5ab942bab848465f678922d7",
           "black_list": false,
           "code": "2028-9",
           "code_system": "2.16.840.1.113883.6.238",
@@ -470,7 +59,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419818",
+          "_id": "5ab942bab848465f678922d8",
           "black_list": false,
           "code": "2054-5",
           "code_system": "2.16.840.1.113883.6.238",
@@ -480,7 +69,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419819",
+          "_id": "5ab942bab848465f678922d9",
           "black_list": false,
           "code": "2076-8",
           "code_system": "2.16.840.1.113883.6.238",
@@ -490,7 +79,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41981a",
+          "_id": "5ab942bab848465f678922da",
           "black_list": false,
           "code": "2106-3",
           "code_system": "2.16.840.1.113883.6.238",
@@ -500,7 +89,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41981b",
+          "_id": "5ab942bab848465f678922db",
           "black_list": false,
           "code": "2131-1",
           "code_system": "2.16.840.1.113883.6.238",
@@ -512,18 +101,18 @@
       ],
       "display_name": "Race",
       "oid": "2.16.840.1.114222.4.11.836",
-      "user_id": "59232708942c6d63b30001f9",
+      "user_id": "5a57e975942c6d1e61d32f13",
       "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
     }
   },
   "2.16.840.1.114222.4.11.837": {
     "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
-      "_id": "5aa7ed4db84846586e41981c",
-      "bundle_id": "5923270a942c6d63b30001fa",
+      "_id": "5ab942bab848465f678922dc",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
       "categories": null,
       "concepts": [
         {
-          "_id": "5aa7ed4db84846586e41981d",
+          "_id": "5ab942bab848465f678922dd",
           "black_list": false,
           "code": "2135-2",
           "code_system": "2.16.840.1.113883.6.238",
@@ -533,7 +122,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41981e",
+          "_id": "5ab942bab848465f678922de",
           "black_list": false,
           "code": "2186-5",
           "code_system": "2.16.840.1.113883.6.238",
@@ -545,18 +134,18 @@
       ],
       "display_name": "Ethnicity",
       "oid": "2.16.840.1.114222.4.11.837",
-      "user_id": "59232708942c6d63b30001f9",
+      "user_id": "5a57e975942c6d1e61d32f13",
       "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
     }
   },
   "2.16.840.1.114222.4.11.3591": {
     "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
-      "_id": "5aa7ed4db84846586e41981f",
-      "bundle_id": "5923270a942c6d63b30001fa",
+      "_id": "5ab942bbb848465f678922df",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
       "categories": null,
       "concepts": [
         {
-          "_id": "5aa7ed4db84846586e419820",
+          "_id": "5ab942bbb848465f678922e0",
           "black_list": false,
           "code": "1",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -566,7 +155,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419821",
+          "_id": "5ab942bbb848465f678922e1",
           "black_list": false,
           "code": "11",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -576,7 +165,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419822",
+          "_id": "5ab942bbb848465f678922e2",
           "black_list": false,
           "code": "111",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -586,7 +175,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419823",
+          "_id": "5ab942bbb848465f678922e3",
           "black_list": false,
           "code": "112",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -596,7 +185,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419824",
+          "_id": "5ab942bbb848465f678922e4",
           "black_list": false,
           "code": "113",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -606,7 +195,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419825",
+          "_id": "5ab942bbb848465f678922e5",
           "black_list": false,
           "code": "119",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -616,7 +205,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419826",
+          "_id": "5ab942bbb848465f678922e6",
           "black_list": false,
           "code": "12",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -626,7 +215,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419827",
+          "_id": "5ab942bbb848465f678922e7",
           "black_list": false,
           "code": "121",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -636,7 +225,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419828",
+          "_id": "5ab942bbb848465f678922e8",
           "black_list": false,
           "code": "122",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -646,7 +235,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419829",
+          "_id": "5ab942bbb848465f678922e9",
           "black_list": false,
           "code": "123",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -656,7 +245,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41982a",
+          "_id": "5ab942bbb848465f678922ea",
           "black_list": false,
           "code": "129",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -666,7 +255,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41982b",
+          "_id": "5ab942bbb848465f678922eb",
           "black_list": false,
           "code": "13",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -676,7 +265,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41982c",
+          "_id": "5ab942bbb848465f678922ec",
           "black_list": false,
           "code": "14",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -686,7 +275,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41982d",
+          "_id": "5ab942bbb848465f678922ed",
           "black_list": false,
           "code": "19",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -696,7 +285,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41982e",
+          "_id": "5ab942bbb848465f678922ee",
           "black_list": false,
           "code": "191",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -706,7 +295,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41982f",
+          "_id": "5ab942bbb848465f678922ef",
           "black_list": false,
           "code": "2",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -716,7 +305,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419830",
+          "_id": "5ab942bbb848465f678922f0",
           "black_list": false,
           "code": "21",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -726,7 +315,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419831",
+          "_id": "5ab942bbb848465f678922f1",
           "black_list": false,
           "code": "211",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -736,7 +325,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419832",
+          "_id": "5ab942bbb848465f678922f2",
           "black_list": false,
           "code": "212",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -746,7 +335,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419833",
+          "_id": "5ab942bbb848465f678922f3",
           "black_list": false,
           "code": "213",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -756,7 +345,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419834",
+          "_id": "5ab942bbb848465f678922f4",
           "black_list": false,
           "code": "219",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -766,7 +355,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419835",
+          "_id": "5ab942bbb848465f678922f5",
           "black_list": false,
           "code": "22",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -776,7 +365,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419836",
+          "_id": "5ab942bbb848465f678922f6",
           "black_list": false,
           "code": "23",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -786,7 +375,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419837",
+          "_id": "5ab942bbb848465f678922f7",
           "black_list": false,
           "code": "24",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -796,7 +385,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419838",
+          "_id": "5ab942bbb848465f678922f8",
           "black_list": false,
           "code": "25",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -806,7 +395,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419839",
+          "_id": "5ab942bbb848465f678922f9",
           "black_list": false,
           "code": "26",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -816,7 +405,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41983a",
+          "_id": "5ab942bbb848465f678922fa",
           "black_list": false,
           "code": "29",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -826,7 +415,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41983b",
+          "_id": "5ab942bbb848465f678922fb",
           "black_list": false,
           "code": "291",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -836,7 +425,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41983c",
+          "_id": "5ab942bbb848465f678922fc",
           "black_list": false,
           "code": "299",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -846,7 +435,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41983d",
+          "_id": "5ab942bbb848465f678922fd",
           "black_list": false,
           "code": "3",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -856,7 +445,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41983e",
+          "_id": "5ab942bbb848465f678922fe",
           "black_list": false,
           "code": "31",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -866,7 +455,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41983f",
+          "_id": "5ab942bbb848465f678922ff",
           "black_list": false,
           "code": "311",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -876,7 +465,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419840",
+          "_id": "5ab942bbb848465f67892300",
           "black_list": false,
           "code": "3111",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -886,7 +475,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419841",
+          "_id": "5ab942bbb848465f67892301",
           "black_list": false,
           "code": "3112",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -896,7 +485,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419842",
+          "_id": "5ab942bbb848465f67892302",
           "black_list": false,
           "code": "3113",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -906,7 +495,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419843",
+          "_id": "5ab942bbb848465f67892303",
           "black_list": false,
           "code": "3114",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -916,7 +505,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419844",
+          "_id": "5ab942bbb848465f67892304",
           "black_list": false,
           "code": "3115",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -926,7 +515,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419845",
+          "_id": "5ab942bbb848465f67892305",
           "black_list": false,
           "code": "3116",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -936,7 +525,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419846",
+          "_id": "5ab942bbb848465f67892306",
           "black_list": false,
           "code": "3119",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -946,7 +535,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419847",
+          "_id": "5ab942bbb848465f67892307",
           "black_list": false,
           "code": "312",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -956,7 +545,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419848",
+          "_id": "5ab942bbb848465f67892308",
           "black_list": false,
           "code": "3121",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -966,7 +555,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419849",
+          "_id": "5ab942bbb848465f67892309",
           "black_list": false,
           "code": "3122",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -976,7 +565,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41984a",
+          "_id": "5ab942bbb848465f6789230a",
           "black_list": false,
           "code": "3123",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -986,7 +575,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41984b",
+          "_id": "5ab942bbb848465f6789230b",
           "black_list": false,
           "code": "313",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -996,7 +585,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41984c",
+          "_id": "5ab942bbb848465f6789230c",
           "black_list": false,
           "code": "32",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1006,7 +595,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41984d",
+          "_id": "5ab942bbb848465f6789230d",
           "black_list": false,
           "code": "321",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1016,7 +605,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41984e",
+          "_id": "5ab942bbb848465f6789230e",
           "black_list": false,
           "code": "3211",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1026,7 +615,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41984f",
+          "_id": "5ab942bbb848465f6789230f",
           "black_list": false,
           "code": "3212",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1036,7 +625,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419850",
+          "_id": "5ab942bbb848465f67892310",
           "black_list": false,
           "code": "32121",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1046,7 +635,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419851",
+          "_id": "5ab942bbb848465f67892311",
           "black_list": false,
           "code": "32122",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1056,7 +645,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419852",
+          "_id": "5ab942bbb848465f67892312",
           "black_list": false,
           "code": "32123",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1066,7 +655,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419853",
+          "_id": "5ab942bbb848465f67892313",
           "black_list": false,
           "code": "32124",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1076,7 +665,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419854",
+          "_id": "5ab942bbb848465f67892314",
           "black_list": false,
           "code": "32125",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1086,7 +675,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419855",
+          "_id": "5ab942bbb848465f67892315",
           "black_list": false,
           "code": "32126",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1096,7 +685,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419856",
+          "_id": "5ab942bbb848465f67892316",
           "black_list": false,
           "code": "32127",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1106,7 +695,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419857",
+          "_id": "5ab942bbb848465f67892317",
           "black_list": false,
           "code": "32128",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1116,7 +705,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419858",
+          "_id": "5ab942bbb848465f67892318",
           "black_list": false,
           "code": "322",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1126,7 +715,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419859",
+          "_id": "5ab942bbb848465f67892319",
           "black_list": false,
           "code": "3221",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1136,7 +725,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41985a",
+          "_id": "5ab942bbb848465f6789231a",
           "black_list": false,
           "code": "3222",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1146,7 +735,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41985b",
+          "_id": "5ab942bbb848465f6789231b",
           "black_list": false,
           "code": "3223",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1156,7 +745,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41985c",
+          "_id": "5ab942bbb848465f6789231c",
           "black_list": false,
           "code": "3229",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1166,7 +755,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41985d",
+          "_id": "5ab942bbb848465f6789231d",
           "black_list": false,
           "code": "33",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1176,7 +765,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41985e",
+          "_id": "5ab942bbb848465f6789231e",
           "black_list": false,
           "code": "331",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1186,7 +775,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41985f",
+          "_id": "5ab942bbb848465f6789231f",
           "black_list": false,
           "code": "332",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1196,7 +785,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419860",
+          "_id": "5ab942bbb848465f67892320",
           "black_list": false,
           "code": "333",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1206,7 +795,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419861",
+          "_id": "5ab942bbb848465f67892321",
           "black_list": false,
           "code": "334",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1216,7 +805,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419862",
+          "_id": "5ab942bbb848465f67892322",
           "black_list": false,
           "code": "34",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1226,7 +815,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419863",
+          "_id": "5ab942bbb848465f67892323",
           "black_list": false,
           "code": "341",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1236,7 +825,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419864",
+          "_id": "5ab942bbb848465f67892324",
           "black_list": false,
           "code": "342",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1246,7 +835,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419865",
+          "_id": "5ab942bbb848465f67892325",
           "black_list": false,
           "code": "343",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1256,7 +845,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419866",
+          "_id": "5ab942bbb848465f67892326",
           "black_list": false,
           "code": "349",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1266,7 +855,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419867",
+          "_id": "5ab942bbb848465f67892327",
           "black_list": false,
           "code": "35",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1276,7 +865,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419868",
+          "_id": "5ab942bbb848465f67892328",
           "black_list": false,
           "code": "36",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1286,7 +875,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419869",
+          "_id": "5ab942bbb848465f67892329",
           "black_list": false,
           "code": "361",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1296,7 +885,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41986a",
+          "_id": "5ab942bbb848465f6789232a",
           "black_list": false,
           "code": "362",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1306,7 +895,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41986b",
+          "_id": "5ab942bbb848465f6789232b",
           "black_list": false,
           "code": "369",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1316,7 +905,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41986c",
+          "_id": "5ab942bbb848465f6789232c",
           "black_list": false,
           "code": "37",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1326,7 +915,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41986d",
+          "_id": "5ab942bbb848465f6789232d",
           "black_list": false,
           "code": "371",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1336,7 +925,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41986e",
+          "_id": "5ab942bbb848465f6789232e",
           "black_list": false,
           "code": "3711",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1346,7 +935,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41986f",
+          "_id": "5ab942bbb848465f6789232f",
           "black_list": false,
           "code": "3712",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1356,7 +945,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419870",
+          "_id": "5ab942bbb848465f67892330",
           "black_list": false,
           "code": "3713",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1366,7 +955,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419871",
+          "_id": "5ab942bbb848465f67892331",
           "black_list": false,
           "code": "372",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1376,7 +965,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419872",
+          "_id": "5ab942bbb848465f67892332",
           "black_list": false,
           "code": "379",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1386,7 +975,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419873",
+          "_id": "5ab942bbb848465f67892333",
           "black_list": false,
           "code": "38",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1396,7 +985,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419874",
+          "_id": "5ab942bbb848465f67892334",
           "black_list": false,
           "code": "381",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1406,7 +995,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419875",
+          "_id": "5ab942bbb848465f67892335",
           "black_list": false,
           "code": "3811",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1416,7 +1005,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419876",
+          "_id": "5ab942bbb848465f67892336",
           "black_list": false,
           "code": "3812",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1426,7 +1015,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419877",
+          "_id": "5ab942bbb848465f67892337",
           "black_list": false,
           "code": "3813",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1436,7 +1025,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419878",
+          "_id": "5ab942bbb848465f67892338",
           "black_list": false,
           "code": "3819",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1446,7 +1035,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419879",
+          "_id": "5ab942bbb848465f67892339",
           "black_list": false,
           "code": "382",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1456,7 +1045,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41987a",
+          "_id": "5ab942bbb848465f6789233a",
           "black_list": false,
           "code": "389",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1466,7 +1055,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41987b",
+          "_id": "5ab942bbb848465f6789233b",
           "black_list": false,
           "code": "39",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1476,7 +1065,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41987c",
+          "_id": "5ab942bbb848465f6789233c",
           "black_list": false,
           "code": "391",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1486,7 +1075,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41987d",
+          "_id": "5ab942bbb848465f6789233d",
           "black_list": false,
           "code": "4",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1496,7 +1085,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41987e",
+          "_id": "5ab942bbb848465f6789233e",
           "black_list": false,
           "code": "41",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1506,7 +1095,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41987f",
+          "_id": "5ab942bbb848465f6789233f",
           "black_list": false,
           "code": "42",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1516,7 +1105,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419880",
+          "_id": "5ab942bbb848465f67892340",
           "black_list": false,
           "code": "43",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1526,7 +1115,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419881",
+          "_id": "5ab942bbb848465f67892341",
           "black_list": false,
           "code": "44",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1536,7 +1125,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419882",
+          "_id": "5ab942bbb848465f67892342",
           "black_list": false,
           "code": "5",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1546,7 +1135,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419883",
+          "_id": "5ab942bbb848465f67892343",
           "black_list": false,
           "code": "51",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1556,7 +1145,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419884",
+          "_id": "5ab942bbb848465f67892344",
           "black_list": false,
           "code": "511",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1566,7 +1155,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419885",
+          "_id": "5ab942bbb848465f67892345",
           "black_list": false,
           "code": "512",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1576,7 +1165,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419886",
+          "_id": "5ab942bbb848465f67892346",
           "black_list": false,
           "code": "513",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1586,7 +1175,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419887",
+          "_id": "5ab942bbb848465f67892347",
           "black_list": false,
           "code": "514",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1596,7 +1185,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419888",
+          "_id": "5ab942bbb848465f67892348",
           "black_list": false,
           "code": "515",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1606,7 +1195,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419889",
+          "_id": "5ab942bbb848465f67892349",
           "black_list": false,
           "code": "516",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1616,7 +1205,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41988a",
+          "_id": "5ab942bbb848465f6789234a",
           "black_list": false,
           "code": "517",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1626,7 +1215,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41988b",
+          "_id": "5ab942bbb848465f6789234b",
           "black_list": false,
           "code": "519",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1636,7 +1225,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41988c",
+          "_id": "5ab942bbb848465f6789234c",
           "black_list": false,
           "code": "52",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1646,7 +1235,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41988d",
+          "_id": "5ab942bbb848465f6789234d",
           "black_list": false,
           "code": "521",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1656,7 +1245,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41988e",
+          "_id": "5ab942bbb848465f6789234e",
           "black_list": false,
           "code": "522",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1666,7 +1255,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41988f",
+          "_id": "5ab942bbb848465f6789234f",
           "black_list": false,
           "code": "523",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1676,7 +1265,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419890",
+          "_id": "5ab942bbb848465f67892350",
           "black_list": false,
           "code": "524",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1686,7 +1275,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419891",
+          "_id": "5ab942bbb848465f67892351",
           "black_list": false,
           "code": "529",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1696,7 +1285,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419892",
+          "_id": "5ab942bbb848465f67892352",
           "black_list": false,
           "code": "53",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1706,7 +1295,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419893",
+          "_id": "5ab942bbb848465f67892353",
           "black_list": false,
           "code": "54",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1716,7 +1305,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419894",
+          "_id": "5ab942bbb848465f67892354",
           "black_list": false,
           "code": "55",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1726,7 +1315,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419895",
+          "_id": "5ab942bbb848465f67892355",
           "black_list": false,
           "code": "56",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1736,7 +1325,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419896",
+          "_id": "5ab942bbb848465f67892356",
           "black_list": false,
           "code": "561",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1746,7 +1335,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419897",
+          "_id": "5ab942bbb848465f67892357",
           "black_list": false,
           "code": "562",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1756,7 +1345,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419898",
+          "_id": "5ab942bbb848465f67892358",
           "black_list": false,
           "code": "59",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1766,7 +1355,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e419899",
+          "_id": "5ab942bbb848465f67892359",
           "black_list": false,
           "code": "6",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1776,7 +1365,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41989a",
+          "_id": "5ab942bbb848465f6789235a",
           "black_list": false,
           "code": "61",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1786,7 +1375,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41989b",
+          "_id": "5ab942bbb848465f6789235b",
           "black_list": false,
           "code": "611",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1796,7 +1385,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41989c",
+          "_id": "5ab942bbb848465f6789235c",
           "black_list": false,
           "code": "612",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1806,7 +1395,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41989d",
+          "_id": "5ab942bbb848465f6789235d",
           "black_list": false,
           "code": "613",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1816,7 +1405,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41989e",
+          "_id": "5ab942bbb848465f6789235e",
           "black_list": false,
           "code": "614",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1826,7 +1415,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e41989f",
+          "_id": "5ab942bbb848465f6789235f",
           "black_list": false,
           "code": "619",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1836,7 +1425,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198a0",
+          "_id": "5ab942bbb848465f67892360",
           "black_list": false,
           "code": "62",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1846,7 +1435,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198a1",
+          "_id": "5ab942bbb848465f67892361",
           "black_list": false,
           "code": "621",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1856,7 +1445,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198a2",
+          "_id": "5ab942bbb848465f67892362",
           "black_list": false,
           "code": "622",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1866,7 +1455,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198a3",
+          "_id": "5ab942bbb848465f67892363",
           "black_list": false,
           "code": "623",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1876,7 +1465,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198a4",
+          "_id": "5ab942bbb848465f67892364",
           "black_list": false,
           "code": "629",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1886,7 +1475,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198a5",
+          "_id": "5ab942bbb848465f67892365",
           "black_list": false,
           "code": "7",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1896,7 +1485,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198a6",
+          "_id": "5ab942bbb848465f67892366",
           "black_list": false,
           "code": "71",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1906,7 +1495,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198a7",
+          "_id": "5ab942bbb848465f67892367",
           "black_list": false,
           "code": "72",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1916,7 +1505,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198a8",
+          "_id": "5ab942bbb848465f67892368",
           "black_list": false,
           "code": "73",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1926,7 +1515,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198a9",
+          "_id": "5ab942bbb848465f67892369",
           "black_list": false,
           "code": "79",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1936,7 +1525,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198aa",
+          "_id": "5ab942bbb848465f6789236a",
           "black_list": false,
           "code": "8",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1946,7 +1535,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198ab",
+          "_id": "5ab942bbb848465f6789236b",
           "black_list": false,
           "code": "81",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1956,7 +1545,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198ac",
+          "_id": "5ab942bbb848465f6789236c",
           "black_list": false,
           "code": "82",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1966,7 +1555,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198ad",
+          "_id": "5ab942bbb848465f6789236d",
           "black_list": false,
           "code": "821",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1976,7 +1565,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198ae",
+          "_id": "5ab942bbb848465f6789236e",
           "black_list": false,
           "code": "822",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1986,7 +1575,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198af",
+          "_id": "5ab942bbb848465f6789236f",
           "black_list": false,
           "code": "823",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -1996,7 +1585,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198b0",
+          "_id": "5ab942bbb848465f67892370",
           "black_list": false,
           "code": "83",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2006,7 +1595,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198b1",
+          "_id": "5ab942bbb848465f67892371",
           "black_list": false,
           "code": "84",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2016,7 +1605,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198b2",
+          "_id": "5ab942bbb848465f67892372",
           "black_list": false,
           "code": "85",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2026,7 +1615,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198b3",
+          "_id": "5ab942bbb848465f67892373",
           "black_list": false,
           "code": "89",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2036,7 +1625,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198b4",
+          "_id": "5ab942bbb848465f67892374",
           "black_list": false,
           "code": "9",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2046,7 +1635,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198b5",
+          "_id": "5ab942bbb848465f67892375",
           "black_list": false,
           "code": "91",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2056,7 +1645,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198b6",
+          "_id": "5ab942bbb848465f67892376",
           "black_list": false,
           "code": "92",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2066,7 +1655,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198b7",
+          "_id": "5ab942bbb848465f67892377",
           "black_list": false,
           "code": "93",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2076,7 +1665,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198b8",
+          "_id": "5ab942bbb848465f67892378",
           "black_list": false,
           "code": "94",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2086,7 +1675,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198b9",
+          "_id": "5ab942bbb848465f67892379",
           "black_list": false,
           "code": "95",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2096,7 +1685,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198ba",
+          "_id": "5ab942bbb848465f6789237a",
           "black_list": false,
           "code": "951",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2106,7 +1695,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198bb",
+          "_id": "5ab942bbb848465f6789237b",
           "black_list": false,
           "code": "953",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2116,7 +1705,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198bc",
+          "_id": "5ab942bbb848465f6789237c",
           "black_list": false,
           "code": "954",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2126,7 +1715,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198bd",
+          "_id": "5ab942bbb848465f6789237d",
           "black_list": false,
           "code": "959",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2136,7 +1725,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198be",
+          "_id": "5ab942bbb848465f6789237e",
           "black_list": false,
           "code": "96",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2146,7 +1735,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198bf",
+          "_id": "5ab942bbb848465f6789237f",
           "black_list": false,
           "code": "97",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2156,7 +1745,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198c0",
+          "_id": "5ab942bbb848465f67892380",
           "black_list": false,
           "code": "98",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2166,7 +1755,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198c1",
+          "_id": "5ab942bbb848465f67892381",
           "black_list": false,
           "code": "99",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2176,7 +1765,7 @@
           "white_list": false
         },
         {
-          "_id": "5aa7ed4db84846586e4198c2",
+          "_id": "5ab942bbb848465f67892382",
           "black_list": false,
           "code": "9999",
           "code_system": "2.16.840.1.113883.3.221.5",
@@ -2188,7 +1777,418 @@
       ],
       "display_name": "Payer",
       "oid": "2.16.840.1.114222.4.11.3591",
-      "user_id": "59232708942c6d63b30001f9",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
+    }
+  },
+  "2.16.840.1.113883.3.666.5.307": {
+    "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
+      "_id": "5ab942bdb848465f6789245d",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5ab942bdb848465f6789245e",
+          "black_list": false,
+          "code": "183452005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Emergency hospital admission (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5ab942bdb848465f6789245f",
+          "black_list": false,
+          "code": "32485007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Hospital admission (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5ab942bdb848465f67892460",
+          "black_list": false,
+          "code": "8715000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Hospital admission, elective (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Encounter Inpatient",
+      "oid": "2.16.840.1.113883.3.666.5.307",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
+    }
+  },
+  "2.16.840.1.113762.1.4.1046.6": {
+    "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
+      "_id": "5ab3c28bb8484626ce364e79",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5ab3c28bb8484626ce364e7a",
+          "black_list": false,
+          "code": "17561000119102",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Single liveborn born in hospital by vaginal delivery (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e7b",
+          "black_list": false,
+          "code": "442311008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Liveborn born in hospital (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e7c",
+          "black_list": false,
+          "code": "442327001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Twin liveborn born in hospital (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e7d",
+          "black_list": false,
+          "code": "442342003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Twin liveborn born in hospital by cesarean section (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e7e",
+          "black_list": false,
+          "code": "442365008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Liveborn born in hospital by cesarean section (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e7f",
+          "black_list": false,
+          "code": "442423001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Single liveborn born in hospital by cesarean section (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e80",
+          "black_list": false,
+          "code": "717803002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Singleton liveborn born in hospital (situation)",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e81",
+          "black_list": false,
+          "code": "Z38.00",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Single liveborn infant, delivered vaginally",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e82",
+          "black_list": false,
+          "code": "Z38.01",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Single liveborn infant, delivered by cesarean",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e83",
+          "black_list": false,
+          "code": "Z38.30",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Twin liveborn infant, delivered vaginally",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e84",
+          "black_list": false,
+          "code": "Z38.31",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Twin liveborn infant, delivered by cesarean",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e85",
+          "black_list": false,
+          "code": "Z38.61",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Triplet liveborn infant, delivered vaginally",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e86",
+          "black_list": false,
+          "code": "Z38.62",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Triplet liveborn infant, delivered by cesarean",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e87",
+          "black_list": false,
+          "code": "Z38.63",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Quadruplet liveborn infant, delivered vaginally",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e88",
+          "black_list": false,
+          "code": "Z38.64",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Quadruplet liveborn infant, delivered by cesarean",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e89",
+          "black_list": false,
+          "code": "Z38.65",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Quintuplet liveborn infant, delivered vaginally",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e8a",
+          "black_list": false,
+          "code": "Z38.66",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Quintuplet liveborn infant, delivered by cesarean",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e8b",
+          "black_list": false,
+          "code": "Z38.68",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Other multiple liveborn infant, delivered vaginally",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e8c",
+          "black_list": false,
+          "code": "Z38.69",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Other multiple liveborn infant, delivered by cesarean",
+          "white_list": false
+        }
+      ],
+      "display_name": "Live Birth Newborn Born in Hospital",
+      "oid": "2.16.840.1.113762.1.4.1046.6",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
+    }
+  },
+  "2.16.840.1.114222.4.1.214079.1.1.3": {
+    "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
+      "_id": "5ab3c28bb8484626ce364e8d",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5ab3c28bb8484626ce364e8e",
+          "black_list": false,
+          "code": "54108-6",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.63",
+          "display_name": "Newborn hearing screen of Ear - left",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e8f",
+          "black_list": false,
+          "code": "73741-1",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.63",
+          "display_name": "Newborn hearing screen panel of Ear - left",
+          "white_list": false
+        }
+      ],
+      "display_name": "Newborn Hearing Screen Left",
+      "oid": "2.16.840.1.114222.4.1.214079.1.1.3",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
+    }
+  },
+  "2.16.840.1.114222.4.1.214079.1.1.4": {
+    "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
+      "_id": "5ab3c28bb8484626ce364e90",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5ab3c28bb8484626ce364e91",
+          "black_list": false,
+          "code": "54109-4",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.63",
+          "display_name": "Newborn hearing screen of Ear - right",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e92",
+          "black_list": false,
+          "code": "73744-5",
+          "code_system": "2.16.840.1.113883.6.1",
+          "code_system_name": "LOINC",
+          "code_system_version": "2.63",
+          "display_name": "Newborn hearing screen panel of Ear - right",
+          "white_list": false
+        }
+      ],
+      "display_name": "Newborn Hearing Screen Right",
+      "oid": "2.16.840.1.114222.4.1.214079.1.1.4",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
+    }
+  },
+  "2.16.840.1.114222.4.1.214079.1.1.7": {
+    "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
+      "_id": "5ab3c28bb8484626ce364e93",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5ab3c28bb8484626ce364e94",
+          "black_list": false,
+          "code": "397745006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Medical contraindication (finding)",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e95",
+          "black_list": false,
+          "code": "397773008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Surgical contraindication (finding)",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28bb8484626ce364e96",
+          "black_list": false,
+          "code": "410534003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Not indicated (qualifier value)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Medical Reasons",
+      "oid": "2.16.840.1.114222.4.1.214079.1.1.7",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
+    }
+  },
+  "2.16.840.1.113883.3.117.1.7.1.309": {
+    "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
+      "_id": "5ab3c28cb8484626ce364e9b",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5ab3c28cb8484626ce364e9c",
+          "black_list": false,
+          "code": "371828006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Patient deceased during stay (discharge status = dead) (finding)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Patient Expired",
+      "oid": "2.16.840.1.113883.3.117.1.7.1.309",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
+    }
+  },
+  "2.16.840.1.114222.4.1.214079.1.1.6": {
+    "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9": {
+      "_id": "5ab3c28cb8484626ce364e9d",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5ab3c28cb8484626ce364e9e",
+          "black_list": false,
+          "code": "164059009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "On examination - hearing normal (finding)",
+          "white_list": false
+        },
+        {
+          "_id": "5ab3c28cb8484626ce364e9f",
+          "black_list": false,
+          "code": "183924009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Referral needed (finding)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Pass Or Refer",
+      "oid": "2.16.840.1.114222.4.1.214079.1.1.6",
+      "user_id": "5a57e975942c6d1e61d32f13",
       "version": "Draft-189C1035-C86E-419B-A034-AE55FA4C04F9"
     }
   }

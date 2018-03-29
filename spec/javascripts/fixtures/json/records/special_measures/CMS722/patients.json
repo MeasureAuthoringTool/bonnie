@@ -1,11 +1,11 @@
 [
   {
-    "_id": "5aa066ddb8484626924adfae",
+    "_id": "5ab3c32db8484626ce364ebe",
     "birthdate": 28800,
-    "bundle_id": "5923270a942c6d63b30001fa",
+    "bundle_id": "5a57e977942c6d1e61d32f14",
     "conditions": [
       {
-        "_id": "5aaaab2592d04e60e4b06b7f",
+        "_id": "5abbf16cb8484641b65d7f1a",
         "anatomical_location": null,
         "anatomical_target": null,
         "causeOfDeath": null,
@@ -18,7 +18,7 @@
           ]
         },
         "description": "Diagnosis: Live Birth Newborn Born in Hospital",
-        "end_time": 1331108100,
+        "end_time": 1332404100,
         "health_record_field": null,
         "laterality": null,
         "mood_code": "EVN",
@@ -31,7 +31,7 @@
         "reason": null,
         "severity": null,
         "specifics": null,
-        "start_time": 1331107200,
+        "start_time": 1332403200,
         "status_code": {
           "HL7 ActStatus": [
             null
@@ -42,14 +42,14 @@
         "type": null
       }
     ],
-    "created_at": "2018-03-07T22:25:33.371Z",
+    "created_at": "2018-03-22T14:52:29.375Z",
     "deathdate": null,
     "description": null,
     "description_category": null,
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5aaaab2592d04e60e4b06b80",
+        "_id": "5abbf16cb8484641b65d7f1b",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -61,7 +61,7 @@
         "diagnosis": null,
         "dischargeDisposition": null,
         "dischargeTime": null,
-        "end_time": 1331108100,
+        "end_time": 1332404100,
         "facility": null,
         "health_record_field": null,
         "mood_code": "EVN",
@@ -71,7 +71,7 @@
         "performer_id": null,
         "reason": null,
         "specifics": null,
-        "start_time": 1331107200,
+        "start_time": 1332403200,
         "status_code": {
           "HL7 ActStatus": [
             "performed"
@@ -96,11 +96,11 @@
       }
     ],
     "expired": null,
-    "first": "patient",
+    "first": "Patient",
     "gender": "M",
     "insurance_providers": [
       {
-        "_id": "5aaaab2592d04e60e4b06b82",
+        "_id": "5abbf16cb8484641b65d7f1d",
         "codes": {
           "SOP": [
             "349"
@@ -120,13 +120,13 @@
         "negationReason": null,
         "oid": null,
         "payer": {
-          "_id": "5aaaab2592d04e60e4b06b83",
+          "_id": "5abbf16cb8484641b65d7f1e",
           "name": "Other"
         },
         "reason": null,
         "relationship": null,
         "specifics": null,
-        "start_time": 1199163600,
+        "start_time": 1199145600,
         "status_code": null,
         "time": null,
         "type": "OT"
@@ -136,21 +136,21 @@
     "languages": [
 
     ],
-    "last": "test",
+    "last": "Test",
     "marital_status": null,
     "measure_ids": [
       "189C1035-C86E-419B-A034-AE55FA4C04F9",
       null
     ],
     "medical_record_assigner": "Bonnie",
-    "medical_record_number": "deda3543fa7e7a8ff4fad99b6df31e4d38ddb01b2392e8cd4682b8d65528f19b",
+    "medical_record_number": "5ebc5fc9b1b269147bfb156f278ec48504ee98f9949659eadf256f9c955c9bdf",
     "notes": "",
     "origin_data": [
 
     ],
     "procedures": [
       {
-        "_id": "5aaaab2592d04e60e4b06b81",
+        "_id": "5abbf16cb8484641b65d7f1c",
         "anatomical_approach": null,
         "anatomical_location": null,
         "anatomical_target": null,
@@ -161,7 +161,7 @@
         },
         "components": null,
         "description": "Diagnostic Study, Performed: Newborn Hearing Screen Right",
-        "end_time": 1331108100,
+        "end_time": 1332404100,
         "facility": null,
         "health_record_field": null,
         "incisionTime": null,
@@ -180,7 +180,7 @@
         "result_date_time": null,
         "source": null,
         "specifics": null,
-        "start_time": 1331107200,
+        "start_time": 1332403200,
         "status_code": {
           "HL7 ActStatus": [
             "performed"
@@ -205,8 +205,8 @@
         "code_list_id": "2.16.840.1.114222.4.1.214079.1.1.4",
         "type": "diagnostic_studies",
         "id": "NewbornHearingScreenRight_DiagnosticStudyPerformed_4d13fe89_db63_4397_9080_4168c8c8d26c_source",
-        "start_date": 1331107200000,
-        "end_date": 1331108100000,
+        "start_date": 1332403200000,
+        "end_date": 1332404100000,
         "value": [
 
         ],
@@ -215,14 +215,14 @@
         },
         "hqmf_set_id": "189C1035-C86E-419B-A034-AE55FA4C04F9",
         "cms_id": "CMS722v0",
-        "criteria_id": "1620290b6845z",
+        "criteria_id": "1624e31e6618u",
         "codes": {
           "LOINC": [
             "54109-4"
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5aaaab2592d04e60e4b06b81",
+        "coded_entry_id": "5abbf16cb8484641b65d7f1c",
         "code_source": "DEFAULT"
       },
       {
@@ -234,8 +234,8 @@
         "code_list_id": "2.16.840.1.113883.3.666.5.307",
         "type": "encounters",
         "id": "EncounterInpatient_EncounterPerformed_7b37876d_70f3_4879_a168_6dd822107f1c_source",
-        "start_date": 1331107200000,
-        "end_date": 1331108100000,
+        "start_date": 1332403200000,
+        "end_date": 1332404100000,
         "value": [
 
         ],
@@ -244,14 +244,14 @@
         },
         "hqmf_set_id": "189C1035-C86E-419B-A034-AE55FA4C04F9",
         "cms_id": "CMS722v0",
-        "criteria_id": "1622aac0f02aE",
+        "criteria_id": "1624e3236f27z",
         "codes": {
           "SNOMED-CT": [
             "183452005"
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5aaaab2592d04e60e4b06b80",
+        "coded_entry_id": "5abbf16cb8484641b65d7f1b",
         "code_source": "DEFAULT"
       },
       {
@@ -262,8 +262,8 @@
         "code_list_id": "2.16.840.1.113762.1.4.1046.6",
         "type": "conditions",
         "id": "LiveBirthNewbornBorninHospital_Diagnosis_d7f4c89d_3a0d_4426_80d8_ca1a5b92df24_source",
-        "start_date": 1331107200000,
-        "end_date": 1331108100000,
+        "start_date": 1332403200000,
+        "end_date": 1332404100000,
         "value": [
 
         ],
@@ -272,7 +272,7 @@
         },
         "hqmf_set_id": "189C1035-C86E-419B-A034-AE55FA4C04F9",
         "cms_id": "CMS722v0",
-        "criteria_id": "1622aac2fe3Wz",
+        "criteria_id": "1624e32724a3o",
         "codes": {
           "SNOMED-CT": [
             "17561000119102"
@@ -281,7 +281,7 @@
             "Z38.00"
           ]
         },
-        "coded_entry_id": "5aaaab2592d04e60e4b06b7f",
+        "coded_entry_id": "5abbf16cb8484641b65d7f1a",
         "code_source": "DEFAULT"
       },
       {
@@ -294,7 +294,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-03-15T17:19:33.169Z",
-    "user_id": "59232708942c6d63b30001f9"
+    "updated_at": "2018-03-28T19:47:56.455Z",
+    "user_id": "5a57e975942c6d1e61d32f13"
   }
 ]
