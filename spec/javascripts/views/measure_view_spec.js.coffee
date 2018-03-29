@@ -61,7 +61,7 @@
       expect(@measureView.$('.btn-show-coverage')).toBeVisible()
 
     # makes sure the calculation percentage hasn't changed.
-    # should be 17% for CMS160v6 with given test patients as of 2018-02-05
+    # should be 33% for CMS160v6 with given test patients as of 2018-03-29
     describe '...', ->
       beforeEach (done) ->
         result = @measure.get('populations').at(0).calculate(@patient)
@@ -71,7 +71,7 @@
             done()
         )
       it 'computes coverage', ->
-        expect(@measureView.$('.dial')[1]).toHaveAttr('value', '17')
+        expect(@measureView.$('.dial')[1]).toHaveAttr('value', '33')
 
   describe 'CQL', ->
     beforeEach ->
