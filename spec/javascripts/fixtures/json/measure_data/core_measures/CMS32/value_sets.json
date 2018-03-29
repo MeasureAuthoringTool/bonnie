@@ -153,20 +153,7 @@
           "code_system_version": "6.0",
           "display_name": "MEDICARE",
           "white_list": false
-        }
-      ],
-      "display_name": "Ethnicity",
-      "oid": "2.16.840.1.114222.4.11.837",
-      "user_id": "5a57e975942c6d1e61d32f13",
-      "version": "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133"
-    }
-  },
-  "2.16.840.1.114222.4.11.3591": {
-    "Draft-3FD13096-2C8F-40B5-9297-B714E8DE9133": {
-      "_id": "5a57f076942c6d230492be69",
-      "bundle_id": "5a57e977942c6d1e61d32f14",
-      "categories": null,
-      "concepts": [
+        },
         {
           "_id": "5a57f076942c6d230492be6b",
           "black_list": false,
@@ -1442,9 +1429,9 @@
           "black_list": false,
           "code": "73",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "pos",
+          "display_name": "POS",
           "white_list": false
         },
         {
@@ -1452,9 +1439,9 @@
           "black_list": false,
           "code": "79",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "other managed care",
+          "display_name": "Other Managed Care",
           "white_list": false
         },
         {
@@ -1462,9 +1449,9 @@
           "black_list": false,
           "code": "8",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "no payment from an organization/agency/program/private payer listed",
+          "display_name": "NO PAYMENT from an Organization/Agency/Program/Private Payer Listed",
           "white_list": false
         },
         {
@@ -1472,9 +1459,9 @@
           "black_list": false,
           "code": "81",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "self-pay",
+          "display_name": "Self-pay",
           "white_list": false
         },
         {
@@ -1482,9 +1469,9 @@
           "black_list": false,
           "code": "82",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "no charge",
+          "display_name": "No Charge",
           "white_list": false
         },
         {
@@ -1492,9 +1479,9 @@
           "black_list": false,
           "code": "821",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "charity",
+          "display_name": "Charity",
           "white_list": false
         },
         {
@@ -1502,9 +1489,9 @@
           "black_list": false,
           "code": "822",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "professional courtesy",
+          "display_name": "Professional Courtesy",
           "white_list": false
         },
         {
@@ -1512,9 +1499,9 @@
           "black_list": false,
           "code": "823",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "research/clinical trial",
+          "display_name": "Research/Clinical Trial",
           "white_list": false
         },
         {
@@ -1522,9 +1509,9 @@
           "black_list": false,
           "code": "83",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "refusal to pay/bad debt",
+          "display_name": "Refusal to Pay/Bad Debt",
           "white_list": false
         },
         {
@@ -1532,9 +1519,9 @@
           "black_list": false,
           "code": "84",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "hill burton free care",
+          "display_name": "Hill Burton Free Care",
           "white_list": false
         },
         {
@@ -1542,9 +1529,9 @@
           "black_list": false,
           "code": "85",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "research/donor",
+          "display_name": "Research/Donor",
           "white_list": false
         },
         {
@@ -1552,9 +1539,9 @@
           "black_list": false,
           "code": "89",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "no payment, other",
+          "display_name": "No Payment, Other",
           "white_list": false
         },
         {
@@ -1562,9 +1549,9 @@
           "black_list": false,
           "code": "9",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "miscellaneous/other",
+          "display_name": "MISCELLANEOUS/OTHER",
           "white_list": false
         },
         {
@@ -1572,9 +1559,9 @@
           "black_list": false,
           "code": "91",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "foreign national",
+          "display_name": "Foreign National",
           "white_list": false
         },
         {
@@ -1582,9 +1569,9 @@
           "black_list": false,
           "code": "92",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "other (non-government)",
+          "display_name": "Other (Non-government)",
           "white_list": false
         },
         {
@@ -1592,9 +1579,9 @@
           "black_list": false,
           "code": "93",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "disability insurance",
+          "display_name": "Disability Insurance",
           "white_list": false
         },
         {
@@ -1602,9 +1589,9 @@
           "black_list": false,
           "code": "94",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "long-term care insurance",
+          "display_name": "Long-term Care Insurance",
           "white_list": false
         },
         {
@@ -1612,9 +1599,9 @@
           "black_list": false,
           "code": "95",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "worker's compensation",
+          "display_name": "Worker's Compensation",
           "white_list": false
         },
         {
@@ -1622,9 +1609,9 @@
           "black_list": false,
           "code": "951",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "worker's comp hmo",
+          "display_name": "Worker's Comp HMO",
           "white_list": false
         },
         {
@@ -1632,9 +1619,9 @@
           "black_list": false,
           "code": "953",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "worker's comp fee-for-service",
+          "display_name": "Worker's Comp Fee-for-Service",
           "white_list": false
         },
         {
@@ -1642,9 +1629,9 @@
           "black_list": false,
           "code": "954",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "worker's comp other managed care",
+          "display_name": "Worker's Comp Other Managed Care",
           "white_list": false
         },
         {
@@ -1652,9 +1639,9 @@
           "black_list": false,
           "code": "959",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "worker's comp, other unspecified",
+          "display_name": "Worker's Comp, Other unspecified",
           "white_list": false
         },
         {
@@ -1662,9 +1649,9 @@
           "black_list": false,
           "code": "96",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "auto insurance (includes no fault)",
+          "display_name": "Auto Insurance (includes no fault)",
           "white_list": false
         },
         {
@@ -1672,9 +1659,9 @@
           "black_list": false,
           "code": "97",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "legal liability / liability insurance",
+          "display_name": "Legal Liability / Liability Insurance",
           "white_list": false
         },
         {
@@ -1682,9 +1669,9 @@
           "black_list": false,
           "code": "98",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "other specified but not otherwise classifiable (includes hospice - unspecified plan)",
+          "display_name": "Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)",
           "white_list": false
         },
         {
@@ -1692,9 +1679,9 @@
           "black_list": false,
           "code": "99",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "no typology code available for payment source",
+          "display_name": "No Typology Code available for payment source",
           "white_list": false
         },
         {
@@ -1702,9 +1689,9 @@
           "black_list": false,
           "code": "9999",
           "code_system": "2.16.840.1.113883.3.221.5",
-          "code_system_name": "source of payment typology",
+          "code_system_name": "Source of Payment Typology",
           "code_system_version": "6.0",
-          "display_name": "unavailable / no payer specified / blank",
+          "display_name": "Unavailable / No Payer Specified / Blank",
           "white_list": false
         }
       ],

@@ -369,7 +369,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test "upload invalid file format" do
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_invalid_extension.foo'), 'application/zip')
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'deprecated_measures', 'measure_invalid_extension.foo'), 'application/zip')
     class << measure_file
       attr_reader :tempfile
     end
@@ -381,7 +381,7 @@ include Devise::Test::ControllerHelpers
   end
 
   test "upload invalid MAT zip" do
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_bad_MAT_export.zip'), 'application/zip')
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'deprecated_measures', 'measure_bad_MAT_export.zip'), 'application/zip')
     class << measure_file
       attr_reader :tempfile
     end
@@ -395,7 +395,7 @@ include Devise::Test::ControllerHelpers
   test "load QDM xml" do
 
     # fails to load QDM measure
-    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'measure_bad_hqmf.zip'), 'application/zip')
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'measure_exports', 'deprecated_measures', 'measure_bad_hqmf.zip'), 'application/zip')
     class << measure_file
       attr_reader :tempfile
     end

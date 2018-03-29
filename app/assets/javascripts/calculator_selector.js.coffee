@@ -1,13 +1,11 @@
 # Selector class that will choose which calculator to call the functions on.
 @CalculatorSelector = class CalculatorSelector
 
-  calculate: (population, patient, options = {}) ->
-    if population.collection.parent.has('cql')
-      bonnie.cql_calculator.calculate population, patient
+  calculate: (population, patient) ->
+    bonnie.cql_calculator.calculate population, patient
 
   clearResult: (population, patient) ->
-    if population.collection.parent.has('cql')
-      bonnie.cql_calculator.clearResult population, patient
+    bonnie.cql_calculator.clearResult population, patient
 
   # Cancels all calculations, used when nagivating routes. (See router.js.coffee)
   cancelCalculations: ->
