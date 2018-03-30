@@ -44,20 +44,21 @@ describe 'Production_PatientBuilderView', ->
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS722/CMS722v0.json'), parse: true
       bonnie.measures = new Thorax.Collections.Measures()
       bonnie.measures.add @cqlMeasure
-      patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS722/patients.json'), parse: true
-      @patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: @cqlMeasure)
-      @patientBuilder.render()
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS722/patients.json'), parse: true
+
       @addCodedValue = (codeListId, submit=true) ->
         @patientBuilder.$('select[name=type]:first').val('CD').change()
         @patientBuilder.$('select[name=code_list_id]').val(codeListId).change()
         @patientBuilder.$('.value-formset .btn-primary:first').click() if submit
   
     afterEach -> 
-      @patientBuilder.remove()
       bonnie.valueSetsByOid = @universalValueSetsByOid
       bonnie.measures = @bonnie_measures_old
   
     it "Can Add A Coded Result To DiagnosticStudyPerformed Data Criteria", ->
+      patient = @patients.first()
+      @patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @cqlMeasure)
+      @patientBuilder.render()
       @patientBuilder.appendTo 'body'
       code_list_id = '2.16.840.1.114222.4.1.214079.1.1.6'
       @diagnosisDataCriteria = @patientBuilder.model.get('source_data_criteria').first()
@@ -67,6 +68,12 @@ describe 'Production_PatientBuilderView', ->
       resultValue = @diagnosisDataCriteria.get("value").models[0]
       expect(resultValue.get('title')).toEqual "Pass Or Refer"
       expect(resultValue.get('code_list_id')).toEqual code_list_id
+      @patientBuilder.remove()
+
+    it "Calculates Patient With Coded Result", ->
+      patient = @patients.last()
+      result = @cqlMeasure.get('populations').first().calculate(patient)
+      expect(result.get('statement_results').Test31['Newborn Hearing Screening Right'].final).toEqual "TRUE"
 
   describe 'Medicare Fee For Service tests', ->
     beforeEach ->
