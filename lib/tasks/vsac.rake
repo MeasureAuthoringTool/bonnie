@@ -1,18 +1,17 @@
 namespace :bonnie do
   namespace :vsac do
 
-    desc %{Look up a value set in VSAC using the API.
-
-    This task is intended to be used for debugging VSAC issues.}
+    desc %(Look up a value set in VSAC using the API.
+      This task is intended to be used for debugging VSAC issues.)
     task :lookup_oid => :environment do
       raise "No OID supplied" unless ENV['OID']
       raise "No USERNAME supplied" unless ENV['USERNAME']
       raise "No PASSWORD supplied" unless ENV['PASSWORD']
       
       options = {}
-      options[:release] = ENV['RELEASE'] if ENV.has_key?('RELEASE')
-      options[:include_draft] = !!ENV['DRAFT'] if ENV.has_key?('DRAFT')
-      options[:profile] = ENV['PROFILE'] if ENV.has_key?('PROFILE')
+      options[:release] = ENV['RELEASE'] if ENV.key?('RELEASE')
+      options[:include_draft] = !!ENV['DRAFT'] if ENV.key?('DRAFT')
+      options[:profile] = ENV['PROFILE'] if ENV.key?('PROFILE')
 
       puts "Using the following options to get OID #{ENV['OID']}"
       pp options
@@ -30,9 +29,8 @@ namespace :bonnie do
       end
     end
 
-    desc %{Retrieve list of VSAC Profiles.
-
-    This task is intended to be used for debugging VSAC issues.}
+    desc %(Retrieve list of VSAC Profiles.
+      This task is intended to be used for debugging VSAC issues.)
     task :get_profile_names => :environment do
       api = Util::VSAC::VSACAPI.new(config: APP_CONFIG["vsac"])
       api.get_profile_names.each do |profile|
@@ -40,9 +38,8 @@ namespace :bonnie do
       end
     end
 
-    desc %{Retrieve list of VSAC Programs.
-
-    This task is intended to be used for debugging VSAC issues.}
+    desc %(Retrieve list of VSAC Programs.
+      This task is intended to be used for debugging VSAC issues.)
     task :get_program_names => :environment do
       api = Util::VSAC::VSACAPI.new(config: APP_CONFIG["vsac"])
       api.get_program_names.each do |program|
@@ -50,17 +47,15 @@ namespace :bonnie do
       end
     end
 
-    desc %{Retrieve VSAC Program Details.
-
-    This task is intended to be used for debugging VSAC issues.}
+    desc %(Retrieve VSAC Program Details.
+      This task is intended to be used for debugging VSAC issues.)
     task :get_program_details => :environment do
       api = Util::VSAC::VSACAPI.new(config: APP_CONFIG["vsac"])
       pp api.get_program_details(ENV['PROGRAM'])
     end
 
-    desc %{Retrieve list of VSAC Releases.
-
-    This task is intended to be used for debugging VSAC issues.}
+    desc %(Retrieve list of VSAC Releases.
+      This task is intended to be used for debugging VSAC issues.)
     task :get_program_release_names => :environment do
       api = Util::VSAC::VSACAPI.new(config: APP_CONFIG["vsac"])
       api.get_program_release_names(ENV['PROGRAM']).each do |release|

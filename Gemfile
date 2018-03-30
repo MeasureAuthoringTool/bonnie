@@ -17,7 +17,7 @@ gem 'health-data-standards', '~> 4.0'
 gem 'cql_qdm_patientapi', '~> 1.0'
 gem 'simplexml_parser', '~> 1.0'
 gem 'hqmf2js', '~> 1.4'
-#gem 'bonnie_bundler', '~> 2.0'
+# gem 'bonnie_bundler', '~> 2.0'
 gem 'quality-measure-engine', '~> 3.2'
 gem 'hquery-patient-api', '~> 1.1'
 
