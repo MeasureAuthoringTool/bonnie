@@ -33,9 +33,9 @@ namespace :bonnie do
     desc %{Retrieve list of VSAC Profiles.
 
     This task is intended to be used for debugging VSAC issues.}
-    task :get_profiles => :environment do
+    task :get_profile_names => :environment do
       api = Util::VSAC::VSACAPI.new(config: APP_CONFIG["vsac"])
-      api.get_profiles.each do |profile|
+      api.get_profile_names.each do |profile|
         puts "  #{profile}"
       end
     end
@@ -43,9 +43,9 @@ namespace :bonnie do
     desc %{Retrieve list of VSAC Programs.
 
     This task is intended to be used for debugging VSAC issues.}
-    task :get_programs => :environment do
+    task :get_program_names => :environment do
       api = Util::VSAC::VSACAPI.new(config: APP_CONFIG["vsac"])
-      api.get_programs.each do |program|
+      api.get_program_names.each do |program|
         puts "  #{program}"
       end
     end
@@ -61,9 +61,9 @@ namespace :bonnie do
     desc %{Retrieve list of VSAC Releases.
 
     This task is intended to be used for debugging VSAC issues.}
-    task :get_releases => :environment do
+    task :get_program_release_names => :environment do
       api = Util::VSAC::VSACAPI.new(config: APP_CONFIG["vsac"])
-      api.get_releases_for_program(ENV['PROGRAM']).each do |release|
+      api.get_program_release_names(ENV['PROGRAM']).each do |release|
         puts "  #{release}"
       end
     end
