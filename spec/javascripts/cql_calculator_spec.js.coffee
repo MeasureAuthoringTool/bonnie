@@ -181,3 +181,17 @@ describe 'cqlCalculator', ->
         expect(result.has('episode_results')).toEqual(false)
         # the IPP should be the only relevant population
         expect(result.get('population_relevance')).toEqual({ IPP: true, DENOM: false, DENEX: false, NUMER: false, DENEXCEP: false})
+
+    describe 'execution engine using passed in timezone offset', ->
+      beforeEach ->
+        bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS760/value_sets.json')
+        @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS760/CMS760v0.json'), parse: true
+        @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS760/patients.json'), parse: true
+
+      it 'is correct', ->
+        # This patient fails the IPP (correctly)
+        patient = @patients.findWhere(last: 'Timezone', first: 'Correct')
+        result = @cql_calculator.calculate(@measure.get('populations').first(), patient)
+
+        # The IPP should fail
+        expect(result.get('IPP')).toEqual(0)
