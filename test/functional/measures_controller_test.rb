@@ -94,6 +94,22 @@ include Devise::Test::ControllerHelpers
     end
   end
 
+  test "upload MAT with no VSAC creds or ticket_granting_ticket in session" do
+    # Ensure measure is not loaded to begin with
+    measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
+    assert_nil measure
+    session[:vsac_tgt] = nil
+
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'Test134_v5_4_Artifacts.zip'), 'application/xml')
+    # Post is sent with no VSAC creds
+    post :create, {vsac_date: '08/31/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient'}
+
+    assert_response :redirect
+    assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
+    assert_equal "VSAC value sets could not be loaded.", flash[:error][:summary]
+    assert flash[:error][:body].starts_with?("Please verify that you are using the correct VSAC username and password.")
+  end
+
   test "upload MAT 5.4 with valid VSAC creds" do
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
