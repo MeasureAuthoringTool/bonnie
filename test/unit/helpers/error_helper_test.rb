@@ -12,7 +12,9 @@ class ErrorHelperTest < ActionView::TestCase
                     controller: 'application', action: 'client_error', msg: 'No error message provided'}
       request = "empty"
       error_message = ErrorHelper.describe_error(error_info, exception, request)
-      assert_equal error_message[:body], "One of the data elements associated with the measure is causing an issue. Please review the elements associated with the measure to verify that they are all constructed properly.<br>Error message: <b>No error message provided</b>"
-      assert_equal error_message[:title], "Measure Calculation Error"
+      assert_equal "One of the data elements associated with the measure is causing an issue. " +
+                    "Please review the elements associated with the measure to verify that they " +
+                    "are all constructed properly.<br>Error message: <b>No error message provided</b>", error_message[:body]
+      assert_equal "Measure Calculation Error", error_message[:title]
     end
 end
