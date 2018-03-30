@@ -1,0 +1,18 @@
+require 'test_helper'
+require './app/helpers/error_helper'
+
+class ErrorHelperTest < ActionView::TestCase
+    test "Empty error message from execution engine"  do 
+      error_info = {section: 'cql-measure-calculation',
+                    cms_id: 'CMSv0', type: 'javascript',
+                    url: 'http://127.0.0.1:3000/#measures/21C422D4-1658-478D-AEC2-B87B73638C41/patients/new',
+                    controller: 'application', action: 'client_error'}
+      exception = {section: 'cql-measure-calculation', cms_id: 'CMSv0', type: 'javascript', 
+                    url: 'http://127.0.0.1:3000/#measures/21C422D4-1658-478D-AEC2-B87B73638C41/patients/new', 
+                    controller: 'application', action: 'client_error', msg: 'No error message provided'}
+      request = "empty"
+      error_message = ErrorHelper.describe_error(error_info, exception, request)
+      assert_equal error_message[:body], "One of the data elements associated with the measure is causing an issue. Please review the elements associated with the measure to verify that they are all constructed properly.<br>Error message: <b>No error message provided</b>"
+      assert_equal error_message[:title], "Measure Calculation Error"
+    end
+end
