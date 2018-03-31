@@ -187,6 +187,11 @@ h1.modal-title {
     white-space: nowrap; //avoid overflow
     overflow: hidden;
     text-overflow: ellipsis;
+    border-right: @btn-default-border 1px solid;
+
+    &:last-of-type {
+      border-right: 0;
+    }
   }
 
   a {

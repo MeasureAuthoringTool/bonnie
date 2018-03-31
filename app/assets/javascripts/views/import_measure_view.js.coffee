@@ -39,7 +39,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
           @$(element).next().css("color","white")
         else
           @$(element).next().css("color","")
-    'change input[name="include_draft"]': 'toggleDraft'
+    'change input[name="vsac_query_type"]': 'changeQueryType'
     'click #clearVSACCreds': 'clearCachedVSACTicket'
 
   enableLoadVsac: ->
@@ -55,7 +55,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
 
   clearCachedVSACTicket: ->
     @$('#vsacSignIn').removeClass('hidden')
-    @$('#vsacSignInDraft').removeClass('hidden')
+    @$('#vsac-query-settings').removeClass('hidden')
     @$('#vsacCachedMsg').addClass('hidden')
     @$('#loadButton').prop('disabled', true)
     $.post '/measures/vsac_auth_expire'
@@ -66,7 +66,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       success: (data, textStatus, jqXHR) ->
         if data? && data.valid
           $('#vsacSignIn').addClass('hidden')
-          $('#vsacSignInDraft').removeClass('hidden')
+          $('#vsac-query-settings').removeClass('hidden')
           $('#vsacCachedMsg').removeClass('hidden')
           $('#loadButton').prop('disabled', false)
           # If the measure import window is open long enough for the VSAC
@@ -77,14 +77,28 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
           , new Date(data.expires) - new Date()
         else
           $('#vsacSignIn').removeClass('hidden')
-          $('#vsacSignInDraft').removeClass('hidden')
+          $('#vsac-query-settings').removeClass('hidden')
           $('#vsacCachedMsg').addClass('hidden')
 
   enableLoad: ->
     @toggleVSAC()
 
-  toggleDraft: ->
-    isDraft = @$('#value_sets_draft').is(':checked')
+  ###*
+  # Event handler for query type selector cange. This changes out the query parameters
+  # that the user sees.
+  ###
+  changeQueryType: ->
+    queryType = @$('input[name=vsac_query_type]:checked').val();
+    switch queryType
+      when 'release'
+        @$('#vsac-query-release-params').removeClass('hidden')
+        @$('#vsac-query-profile-params').addClass('hidden')
+      when 'profile'
+        @$('#vsac-query-release-params').addClass('hidden')
+        @$('#vsac-query-profile-params').removeClass('hidden')
+      when 'measure_defined'
+        @$('#vsac-query-release-params').addClass('hidden')
+        @$('#vsac-query-profile-params').addClass('hidden')
 
   setup: ->
     @importDialog = @$("#importMeasureDialog")

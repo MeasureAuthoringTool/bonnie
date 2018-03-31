@@ -53,20 +53,56 @@
               <div class="col-sm-offset-{{titleSize}} vsac-registration"><a href="https://uts.nlm.nih.gov/license.html" target="_blank"><i class="fa fa-plus-circle" aria-hidden="true"></i> Register for VSAC</a></div>
             </div>
           </div>
-          <div class="hidden" id="vsacSignInDraft">
+          <div class="hidden" id="vsac-query-settings">
             <div class="form-group">
               <label for="vsacDraft" class="col-sm-{{titleSize}} control-label">Value Sets</label>
               <div class="col-sm-8">
-                <div class="switch-toggle switch-custom">
-                  <input id="value_sets_draft" type="radio" name="include_draft" value="true" checked="true">
-                  <label for="value_sets_draft" onclick=""><span class="sr-only">Value Sets</span> Draft</label>
-                  <input id="value_sets_published" type="radio" name="include_draft" value="false">
-                  <label for="value_sets_published" onclick=""><span class="sr-only">Value Sets</span> Measure Defined</label>
+                <div class="switch-toggle switch-3 switch-custom">
+                  <input id="vsac-release" type="radio" name="vsac_query_type" value="release" checked="true">
+                  <label for="vsac-release" onclick=""><span class="sr-only">Value Sets by</span> Release</label>
+                  <input id="vsac-profile" type="radio" name="vsac_query_type" value="profile">
+                  <label for="vsac-profile" onclick=""><span class="sr-only">Value Sets by</span> Profile</label>
+                  <input id="vsac-measure-defined" type="radio" name="vsac_query_type" value="measure_defined">
+                  <label for="vsac-measure-defined" onclick=""><span class="sr-only">Value Sets by</span> Measure Defined</label>
                   <a class="btn btn-primary"></a>
                 </div>
               </div>
             </div>
+
+            <div class="form-group row vsac-parameters" id="vsac-query-release-params" >
+              <div class="col-sm-offset-4 col-sm-3">
+                <select id="vsac-query-program" name="vsac_query_program" class="form-control">
+                  <option value="CMS eCQM">CMS eCQM</option>
+                  <option value="CMS Hybrid">CMS Hybrid</option>
+                  <option value="HL7 C-CDA">HL7 C-CDA</option>
+                </select>
+              </div>
+              <div class="col-sm-5 vsac-release-dropdown">
+                <select id="vsac-query-release" name="vsac_query_release" class="form-control">
+                  <option value="CMS eCQM">CMS eCQM</option>
+                  <option value="CMS Hybrid">CMS Hybrid</option>
+                  <option value="HL7 C-CDA">HL7 C-CDA</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="hidden form-group row vsac-parameters" id="vsac-query-profile-params">
+              <div class="col-sm-offset-4 col-sm-5">
+                <select id="vsac-query-profile" name="vsac_query_profile" class="form-control">
+                  <option value="CMS eCQM">CMS eCQM</option>
+                  <option value="CMS Hybrid">CMS Hybrid</option>
+                  <option value="HL7 C-CDA">HL7 C-CDA</option>
+                </select>
+              </div>
+              <div class="col-sm-3 vsac-draft-box">
+                <div class="checkbox">
+                  <input id="vsac-query-include-draft" type="checkbox" name="vsac_query_include_draft" value="true"/>
+                  <label class="form-control" for="vsac-query-include-draft">Draft<a class="btn"></a></label>
+                </div>
+              </div>
+            </div>
           </div>
+
           <div class="form-group">
             <p class="col-sm-{{titleSize}} control-label">Type</p>
             {{#if isUpdate}}
