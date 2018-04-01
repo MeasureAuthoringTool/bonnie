@@ -41,6 +41,12 @@ Bonnie::Application.routes.draw do
     end
   end
 
+  namespace :vsac_util do
+    get 'profile_names'
+    get 'program_names'
+    get 'program_release_names/:program', to: '/vsac_util#program_release_names'
+  end
+
   resources :patients do
     collection do
       post 'materialize'
