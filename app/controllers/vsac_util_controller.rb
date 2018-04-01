@@ -4,7 +4,10 @@ class VsacUtilController < ApplicationController
 
   def profile_names
     api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'])
-    render :json => { profileNames: api.get_profile_names }
+    profile_names = api.get_profile_names
+    # add in the pseudo program
+    profile_names.insert(1, 'Latest eCQM')
+    render :json => { profileNames: profile_names }
   end
 
   def program_names
@@ -22,7 +25,7 @@ class VsacUtilController < ApplicationController
       }
       render :json => response
     rescue Util::VSAC::VSACProgramNotFoundError
-      render :json => { error: "Program not found." }, :status => 404
+      render :json => { error: 'Program not found.' }, :status => 404
     end
   end
 end
