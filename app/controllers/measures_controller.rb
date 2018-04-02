@@ -78,15 +78,9 @@ class MeasuresController < ApplicationController
     end
     #If we get to this point, then the measure that is being uploaded is a MAT export of CQL
     begin
-      # Default to valid set of values for vsac request.
-      includeDraft = true
-      # All measure uploads require vsac credentials, except certain test cases.
-      # Added a check for vsac_username before checking for include draft and vsac_date.
-      if params[:vsac_username]
-        # If the measure is published (includesDraft = false)
-        # EffectiveDate is specified to determine a value set version.
-        includeDraft = params[:include_draft] == 'true'
-      end
+      # parse VSAC options using helper and get ticket_granting_ticket which is always needed
+      vsac_options = MeasureHelper.parse_vsac_parameters(params)
+      vsac_ticket_granting_ticket = get_ticket_granting_ticket
 
       is_update = false
       if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
@@ -100,7 +94,7 @@ class MeasuresController < ApplicationController
         measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
       end
 
-      measure = Measures::CqlLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], false, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=false cache=false
+      measure = Measures::CqlLoader.load(params[:measure_file], current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, false, false) # Note: overwrite_valuesets=false cache=false
 
       if (!is_update)
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first

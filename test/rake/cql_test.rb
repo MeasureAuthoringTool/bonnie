@@ -15,7 +15,11 @@ class CqlTest < ActiveSupport::TestCase
     VCR.use_cassette("direct_reference_code_valid_vsac_response") do
       measure_details = { 'episode_of_care'=> true }
 
-      Measures::CqlLoader.load(@cql_mat_export_drc, @user, measure_details, ENV['VSAC_USERNAME'], ENV['VSAC_PASSWORD']).save
+      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+      vsac_ticket_granting_ticket = api.ticket_granting_ticket
+      vsac_options = { measure_defined: true, backup_profile: APP_CONFIG['vsac']['default_profile'] }
+
+      Measures::CqlLoader.load(@cql_mat_export_drc, @user, measure_details, vsac_options, vsac_ticket_granting_ticket).save
       assert_equal 1, CqlMeasure.count
 
       measure = CqlMeasure.where({hqmf_set_id: "E1CB05E0-97D5-40FC-B456-15C5DBF44309"}).first
@@ -43,7 +47,12 @@ class CqlTest < ActiveSupport::TestCase
   test "rebuild elm with stored MAT package" do
     VCR.use_cassette("mat_5_4_valid_vsac_response") do
       measure_details = { 'episode_of_care'=> false }
-      Measures::CqlLoader.load(@cql_mat_export, @user, measure_details, ENV['VSAC_USERNAME'], ENV['VSAC_PASSWORD']).save
+
+      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+      vsac_ticket_granting_ticket = api.ticket_granting_ticket
+      vsac_options = { measure_defined: true, backup_profile: APP_CONFIG['vsac']['default_profile'] }
+
+      Measures::CqlLoader.load(@cql_mat_export, @user, measure_details, vsac_options, vsac_ticket_granting_ticket).save
       assert_equal 1, CqlMeasure.count
   
       measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
@@ -75,7 +84,12 @@ class CqlTest < ActiveSupport::TestCase
   test "rebuild elm using translation service" do
     VCR.use_cassette("mat_5_4_valid_vsac_response") do
        measure_details = { 'episode_of_care'=> false }
-       Measures::CqlLoader.load(@cql_mat_export, @user, measure_details, ENV['VSAC_USERNAME'], ENV['VSAC_PASSWORD']).save
+
+       api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+       vsac_ticket_granting_ticket = api.ticket_granting_ticket
+       vsac_options = { measure_defined: true, backup_profile: APP_CONFIG['vsac']['default_profile'] }
+
+       Measures::CqlLoader.load(@cql_mat_export, @user, measure_details, vsac_options, vsac_ticket_granting_ticket).save
        assert_equal 1, CqlMeasure.count
     end
 
