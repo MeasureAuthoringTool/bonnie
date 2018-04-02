@@ -5,7 +5,7 @@ module ErrorHelper
   # not be categorized, no error message will be shown (but an email
   # will still be sent to the development team, if on production).
   def self.describe_error(error_info, exception, request)
-    error_info[:msg] = "No error message provided" unless error_info[:msg]
+    error_info[:msg] = "An unspecified error has occurred." unless error_info[:msg]
     # Do not process errors if their message includes Costanza. These are
     # errors passed up to Thorax.onException from Costanza, which we do
     # not care about (we've already handled them).
