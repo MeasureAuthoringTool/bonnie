@@ -40,12 +40,6 @@ module ErrorHelper
         summary: 'There was an error calculating measure ' + error_info[:cms_id] + '.',
         body: 'One of the data elements associated with the measure is causing an issue. Please review the elements associated with the measure to verify that they are all constructed properly.<br>Error message: <b>' + error_info[:msg] + '</b>'
       }
-    else
-      {
-        title: 'Unspecified Error',
-        summary: 'An error occured.',
-        body: '<br>Error message: <b>' + error_info[:msg] + '</b>'
-      }
     end
   end
 

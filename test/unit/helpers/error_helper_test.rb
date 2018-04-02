@@ -28,7 +28,6 @@ class ErrorHelperTest < ActionView::TestCase
                  controller: 'application', action: 'client_error'}
     request = 'empty'
     error_message = ErrorHelper.describe_error(error_info, exception, request)
-    assert_equal '<br>Error message: <b>An unspecified error has occurred.</b>', error_message[:body]
-    assert_equal 'Unspecified Error', error_message[:title]
+    assert_equal nil, error_message
   end
 end
