@@ -5,11 +5,14 @@ module ErrorHelper
   # not be categorized, no error message will be shown (but an email
   # will still be sent to the development team, if on production).
   def self.describe_error(error_info, exception, request)
-    error_info[:msg] = "An unspecified error has occurred." unless error_info[:msg]
+    # Set the error message if it was not previously set
+    error_info[:msg] = 'An unspecified error has occurred.' unless error_info[:msg]
+
     # Do not process errors if their message includes Costanza. These are
     # errors passed up to Thorax.onException from Costanza, which we do
     # not care about (we've already handled them).
     return if error_info[:msg].include? 'Costanza'
+
     # If enabled, send an email to the development team containing
     # information about this error.
     ErrorHelper.send_email(error_info, exception, request) if APP_CONFIG['enable_client_error_email']
@@ -35,6 +38,12 @@ module ErrorHelper
       {
         title: 'Measure Calculation Error',
         summary: 'There was an error calculating measure ' + error_info[:cms_id] + '.',
+        body: 'One of the data elements associated with the measure is causing an issue. Please review the elements associated with the measure to verify that they are all constructed properly.<br>Error message: <b>' + error_info[:msg] + '</b>'
+      }
+    else
+      {
+        title: 'Unspecified Error',
+        summary: 'There was an unspecified error associated with measure ' + error_info[:cms_id] + '.',
         body: 'One of the data elements associated with the measure is causing an issue. Please review the elements associated with the measure to verify that they are all constructed properly.<br>Error message: <b>' + error_info[:msg] + '</b>'
       }
     end
