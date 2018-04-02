@@ -43,7 +43,7 @@ module ErrorHelper
     else
       {
         title: 'Unspecified Error',
-        summary: 'There was an unspecified error associated with the measure you are trying to upload.',
+        summary: 'An error occured.',
         body: '<br>Error message: <b>' + error_info[:msg] + '</b>'
       }
     end
