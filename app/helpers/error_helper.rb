@@ -44,7 +44,7 @@ module ErrorHelper
       {
         title: 'Unspecified Error',
         summary: 'There was an unspecified error associated with measure ' + error_info[:cms_id] + '.',
-        body: 'One of the data elements associated with the measure is causing an issue. Please review the elements associated with the measure to verify that they are all constructed properly.<br>Error message: <b>' + error_info[:msg] + '</b>'
+        body: '<br>Error message: <b>' + error_info[:msg] + '</b>'
       }
     end
   end
