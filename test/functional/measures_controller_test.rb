@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'vcr_setup.rb'
 
-class MeasuresControllerTest  < ActionController::TestCase
+class MeasuresControllerTest < ActionController::TestCase
 include Devise::Test::ControllerHelpers
 
   setup do
@@ -35,7 +35,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
-        }
+      }
 
       assert_response :redirect
       measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
@@ -59,7 +59,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
-        }
+      }
 
       assert_response :redirect
       measure = CqlMeasure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
@@ -85,7 +85,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
-        }
+      }
 
       assert_response :redirect
       measure = CqlMeasure.where({hqmf_set_id: "442F4F7E-3C22-4641-9BEE-0E968CC38EF2"}).first
@@ -107,7 +107,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
-        }
+      }
 
       assert_response :redirect
       assert_equal "Error Loading Measure", flash[:error][:title]
@@ -136,7 +136,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
-        }
+      }
 
       assert_response :redirect
       assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
@@ -161,7 +161,7 @@ include Devise::Test::ControllerHelpers
       measure_file: measure_file,
       measure_type: 'ep',
       calculation_type: 'patient'
-      }
+    }
 
     assert_response :redirect
     assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
@@ -186,7 +186,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
-        }
+      }
 
       assert_response :redirect
       measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
@@ -263,7 +263,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
-        }
+      }
 
       assert_response :redirect
       measure = CqlMeasure.where({hqmf_id: "40280582-5801-9EE4-0158-5420363B0639"}).first
@@ -303,7 +303,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
-        }
+      }
     end
 
     assert_response :redirect
@@ -404,7 +404,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
-        }
+      }
       assert_response :redirect
       measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
       assert_not_nil measure
@@ -417,7 +417,7 @@ include Devise::Test::ControllerHelpers
       measure_file: update_measure_file,
       measure_type: 'ep',
       calculation_type: 'patient'
-      }
+    }
 
     assert_equal "Error Loading Measure", flash[:error][:title]
     assert_equal "A version of this measure is already loaded.", flash[:error][:summary]
@@ -443,7 +443,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
-        }
+      }
     end
     # Upload a modified version of the initial file with a mismatching hqmf_set_id
     update_measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'IETCQL_v5_0_Artifacts_HQMF_SetId_Mismatch.zip'), 'application/xml')
@@ -456,7 +456,7 @@ include Devise::Test::ControllerHelpers
       vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
       measure_file: update_measure_file,
       hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"
-      }
+    }
 
     # Verify that the controller detects the mismatching hqmf_set_id and rejects
     assert_equal "Error Updating Measure", flash[:error][:title]
@@ -487,7 +487,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
-        }
+      }
     end
 
     assert_equal "Measure is missing value sets",flash[:error][:title]
@@ -520,7 +520,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'eh',
         calculation_type: 'episode'
-        }
+      }
     end
 
     assert_response :redirect
@@ -561,7 +561,7 @@ include Devise::Test::ControllerHelpers
         measure_type: 'eh',
         calculation_type: 'episode',
         hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"
-        }
+      }
     end
 
     assert_response :redirect
@@ -599,7 +599,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
-        }
+      }
     end
 
     assert_response :redirect
@@ -631,7 +631,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'ep',
         calculation_type: 'patient'
-        }
+      }
     end
 
     assert_response :redirect
@@ -646,7 +646,7 @@ include Devise::Test::ControllerHelpers
         vsac_query_type: 'measure_defined',
         measure_file: measure_file,
         hqmf_set_id: measure.hqmf_set_id
-        }
+      }
     end
 
     assert_response :redirect

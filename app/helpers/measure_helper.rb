@@ -15,6 +15,6 @@ module MeasureHelper
       # TODO: determine if this is needed
       vsac_options[:backup_profile] = APP_CONFIG['vsac']['default_profile']
     end
-    return vsac_options
+    vsac_options
   end
 end

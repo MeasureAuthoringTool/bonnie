@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'vcr_setup.rb'
 
-class VsacUtilControllerTest  < ActionController::TestCase
+class VsacUtilControllerTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
   setup do
