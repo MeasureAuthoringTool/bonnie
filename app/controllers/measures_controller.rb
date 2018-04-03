@@ -150,7 +150,7 @@ class MeasuresController < ApplicationController
         f.write("Original Filename was #{params[:measure_file].original_filename}\n")
         f.write(e.to_s + "\n" + e.backtrace.join("\n"))
       end
-      if e.is_a? Measures::VSACException
+      if e.is_a?(Measures::VSACException) || e.is_a?(Util::VSAC::VSACError)
         operator_error = true
         flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
       elsif e.is_a? Measures::MeasureLoadingException
@@ -212,17 +212,30 @@ class MeasuresController < ApplicationController
 
   def vsac_auth_valid
     # If VSAC TGT is still valid, return its expiration date/time
-    tgt = session[:tgt]
-    if tgt.nil? || tgt.empty? || tgt[:expires] < Time.now
+    ticket_granting_ticket = session[:vsac_tgt]
+
+    # If there is no VSAC ticket granting ticket then return false.
+    if ticket_granting_ticket.nil? || ticket_granting_ticket.empty?
+      session[:vsac_tgt] = nil
       render :json => {valid: false}
+
+    # If it exists then check it using the API
     else
-      render :json => {valid: true, expires: tgt[:expires]}
+      begin
+        Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], ticket_granting_ticket: ticket_granting_ticket)
+        render :json => {valid: true, expires: ticket_granting_ticket[:expires]}
+
+      # API will throw an error if it has expired
+      rescue Util::VSAC::VSACTicketExpiredError
+        session[:vsac_tgt] = nil
+        render :json => {valid: false}
+      end
     end
   end
 
   def vsac_auth_expire
     # Force expire the VSAC session
-    session[:tgt] = nil
+    session[:vsac_tgt] = nil
     render :json => {}
   end
 
@@ -289,29 +302,30 @@ class MeasuresController < ApplicationController
 
   def get_ticket_granting_ticket
     # Retreive a (possibly) existing ticket granting ticket
-    tgt = session[:tgt]
+    ticket_granting_ticket = session[:vsac_tgt]
 
     # If the ticket granting ticket doesn't exist (or has expired), get a new one
-    if tgt.nil? || tgt.empty? || tgt[:expires] < Time.now
-      # Retrieve a new ticket granting ticket
-      begin
-        ticket = String.new(HealthDataStandards::Util::VSApi.get_tgt_using_credentials(
-          params[:vsac_username],
-          params[:vsac_password],
-          APP_CONFIG['nlm']['ticket_url']
-        ))
-      rescue Exception
-        # Given username and password are invalid, ticket cannot be created
-        return nil
+    if ticket_granting_ticket.nil?
+      # The user could open a second browser window and remove their ticket_granting_ticket in the session after they
+      # prepeared a measure upload assuming ticket_granting_ticket in the session in the first tab
+
+      # First make sure we have credentials to attempt getting a ticket with. Throw an error if there are no credentials.
+      if params[:vsac_username].nil? || params[:vsac_password].nil?
+        raise Util::VSAC::VSACNoCredentialsError.new
       end
-      # Create a new ticket granting ticket session variable that expires
-      # 7.5hrs from now
-      if !ticket.nil? && !ticket.empty?
-        session[:tgt] = {ticket: ticket, expires: Time.now + 27000}
-        ticket
-      end
+
+      # Retrieve a new ticket granting ticket by creating the api class.
+      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: params[:vsac_username], password: params[:vsac_password])
+      ticket_granting_ticket = api.ticket_granting_ticket
+
+      # Create a new ticket granting ticket session variable
+      session[:vsac_tgt] = ticket_granting_ticket
+      return ticket_granting_ticket
+
+    # If it does exist, let the api test it
     else
-      tgt[:ticket]
+      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], ticket_granting_ticket: ticket_granting_ticket)
+      return api.ticket_granting_ticket
     end
   end
 

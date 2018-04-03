@@ -540,7 +540,7 @@ Lint/Void:
 
 # Offense count: 42
 Metrics/AbcSize:
-  Max: 213
+  Max: 213.6
 
 # Offense count: 61
 # Configuration parameters: CountComments, ExcludedMethods.
@@ -557,13 +557,11 @@ Metrics/BlockNesting:
 # Offense count: 14
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
-  Max: 369
+  Max: 382
 
 # Offense count: 18
 Metrics/CyclomaticComplexity:
-  Max: 29
-  Exclude:
-    - 'lib/tasks/bonnie.rake'
+  Max: 30
 
 # Offense count: 39
 # Configuration parameters: CountComments.
@@ -572,9 +570,7 @@ Metrics/MethodLength:
 
 # Offense count: 16
 Metrics/PerceivedComplexity:
-  Max: 33
-  Exclude:
-    - 'lib/tasks/bonnie.rake'
+  Max: 34
 
 # Offense count: 3
 Naming/AccessorMethodName:
