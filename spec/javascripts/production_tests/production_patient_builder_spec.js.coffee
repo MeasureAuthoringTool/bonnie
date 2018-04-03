@@ -90,11 +90,14 @@ describe 'Production_PatientBuilderView', ->
       bonnie.valueSetsByOid = @universalValueSetsByOid
       bonnie.measures = @bonnie_measures_old
 
-    describe 'Patient "Numer PASS"', ->
+    describe 'Patient "Numer PASS', ->
       beforeEach ->
         @patient = @patients.findWhere(first: 'Numer', last: 'PASS')
         @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
         @result = @measure.get('populations').first().calculate(@patient)
+
+      afterEach ->
+        @patientBuilder.remove()
 
       it 'Medicare Fee for Service characteristic should be visible', ->
         @patientBuilder.render()
@@ -106,3 +109,48 @@ describe 'Production_PatientBuilderView', ->
         expect(@result.attributes.IPP).toBe 1
         expect(@result.attributes.NUMER).toBe 1
         expect(@result.attributes.DENOM).toBe 1
+
+  describe 'Direct Reference Code tests', ->
+    beforeEach ->
+      jasmine.getJSONFixtures().clearCache()
+      # bonnie.valueSetsByOid must be loaded before measure because measure.parse depends on it.
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS52v7/value_sets.json')
+      @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS52v7/CMS52v7.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS52v7/patients.json'), parse: true
+
+      @universalValueSetsByOid = bonnie.valueSetsByOid
+      @bonnie_measures_old = bonnie.measures
+      bonnie.measures = new Thorax.Collections.Measures()
+      bonnie.measures.add @measure, parse: true
+
+    afterEach ->
+      bonnie.valueSetsByOid = @universalValueSetsByOid
+      bonnie.measures = @bonnie_measures_old
+
+    describe 'Patient Direct Reference Code Element', ->
+      beforeEach ->
+        @patient = @patients.findWhere(first: 'Element', last: 'Direct Reference Code')
+        @patientBuilderView = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients, measures: bonnie.measures, inPatientDashboard: false)
+        @selectCriteriaItemView = new Thorax.Views.SelectCriteriaItemView(model: @measure.get('source_data_criteria').models[18])
+        medicationOrdered = @patientBuilderView.model.get('source_data_criteria').first()
+        @editCriteriaView = new Thorax.Views.EditCriteriaView(model: medicationOrdered, measure: @measure)
+        @editFieldValueView = @editCriteriaView.editFieldValueView
+        @result = @measure.get('populations').first().calculate(@patient)
+
+      afterEach ->
+        @patientBuilderView.remove()
+
+      it 'should have Dapsone in Elements', ->
+        expect(@selectCriteriaItemView.model.get('description')).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
+        @patientBuilderView.appendTo 'body'
+        @patientBuilderView.render()
+        expect($('.ui-draggable')[31]).toContainText('Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
+
+      it 'should have Dapsone in field value code dropdown', ->
+        codes = @editFieldValueView.context().codes
+        expect(codes[3].display_name).toBe('Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
+
+      it 'should calculate using direct reference code', ->
+        clauseResults = @result.attributes.clause_results.HIVAIDSPneumocystisJiroveciPneumoniaPCPProphylaxis
+        expect(clauseResults[244].raw[0].entry.description).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
+        expect(clauseResults[244].final).toBe('TRUE')
