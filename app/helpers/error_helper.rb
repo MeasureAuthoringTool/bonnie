@@ -6,7 +6,7 @@ module ErrorHelper
   # will still be sent to the development team, if on production).
   def self.describe_error(error_info, exception, request)
     # Set the error message if it was not previously set
-    error_info[:msg] = 'An unspecified error has occurred.' unless error_info[:msg]
+    error_info[:msg] = 'An unspecified error has occurred.' unless error_info[:msg] && error_info[:msg] != ''
 
     # Do not process errors if their message includes Costanza. These are
     # errors passed up to Thorax.onException from Costanza, which we do
