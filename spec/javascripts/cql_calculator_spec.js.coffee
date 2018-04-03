@@ -184,9 +184,9 @@ describe 'cqlCalculator', ->
 
     describe 'execution engine using passed in timezone offset', ->
       beforeEach ->
-        bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS760/value_sets.json')
-        @measure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS760/CMS760v0.json'), parse: true
-        @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS760/patients.json'), parse: true
+        bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMS760/value_sets.json')
+        @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS760/CMS760v0.json'), parse: true
+        @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS760/patients.json'), parse: true
 
       it 'is correct', ->
         # This patient fails the IPP (correctly)
