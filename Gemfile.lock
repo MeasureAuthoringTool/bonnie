@@ -1,4 +1,22 @@
 GIT
+  remote: https://github.com/projecttacoma/bonnie_bundler.git
+  revision: 6a8a055bcea0d5f92690ab497618cf6baad83665
+  branch: bonnie-v2.1
+  specs:
+    bonnie_bundler (2.0.3)
+      diffy (~> 3.0.0)
+      health-data-standards (~> 4.0)
+      hqmf2js (~> 1.4)
+      hquery-patient-api (~> 1.1)
+      mongoid (~> 5.0)
+      quality-measure-engine (~> 3.2)
+      rails (~> 4.2)
+      roo (~> 1.13)
+      rubyzip (~> 1.2, >= 1.2.1)
+      simplexml_parser (~> 1.0)
+      zip-zip (~> 0.3)
+
+GIT
   remote: https://github.com/randym/axlsx
   revision: c8ac844572b25fda358cc01d2104720c4c42f450
   branch: master
@@ -63,18 +81,6 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.11)
-    bonnie_bundler (2.0.3)
-      diffy (~> 3.0.0)
-      health-data-standards (~> 4.0)
-      hqmf2js (~> 1.4)
-      hquery-patient-api (~> 1.1)
-      mongoid (~> 5.0)
-      quality-measure-engine (~> 3.2)
-      rails (~> 4.2)
-      roo (~> 1.13)
-      rubyzip (~> 1.2, >= 1.2.1)
-      simplexml_parser (~> 1.0)
-      zip-zip (~> 0.3)
     brakeman (4.0.1)
     browser (2.5.0)
     bson (4.2.1)
@@ -399,7 +405,7 @@ PLATFORMS
 
 DEPENDENCIES
   axlsx!
-  bonnie_bundler (~> 2.0)
+  bonnie_bundler!
   brakeman
   browser
   bundler-audit
