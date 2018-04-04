@@ -90,7 +90,7 @@ describe 'Production_PatientBuilderView', ->
       bonnie.valueSetsByOid = @universalValueSetsByOid
       bonnie.measures = @bonnie_measures_old
 
-    describe 'Patient "Numer PASS', ->
+    describe 'Patient "Numer PASS"', ->
       beforeEach ->
         @patient = @patients.findWhere(first: 'Numer', last: 'PASS')
         @patientBuilder = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure)
@@ -130,20 +130,19 @@ describe 'Production_PatientBuilderView', ->
     describe 'Patient Direct Reference Code Element', ->
       beforeEach ->
         @patient = @patients.findWhere(first: 'Element', last: 'Direct Reference Code')
+        expect(@measure.get('source_data_criteria').models[18].get('description')).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
         @patientBuilderView = new Thorax.Views.PatientBuilder(model: @patient, measure: @measure, patients: @patients, measures: bonnie.measures, inPatientDashboard: false)
-        @selectCriteriaItemView = new Thorax.Views.SelectCriteriaItemView(model: @measure.get('source_data_criteria').models[18])
         medicationOrdered = @patientBuilderView.model.get('source_data_criteria').first()
         @editCriteriaView = new Thorax.Views.EditCriteriaView(model: medicationOrdered, measure: @measure)
         @editFieldValueView = @editCriteriaView.editFieldValueView
         @result = @measure.get('populations').first().calculate(@patient)
+        @patientBuilderView.appendTo 'body'
+        @patientBuilderView.render()
 
       afterEach ->
         @patientBuilderView.remove()
 
       it 'should have Dapsone in Elements', ->
-        expect(@selectCriteriaItemView.model.get('description')).toBe('Medication, Order: Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
-        @patientBuilderView.appendTo 'body'
-        @patientBuilderView.render()
         expect($('.ui-draggable')[31]).toContainText('Dapsone 100 MG / Pyrimethamine 12.5 MG Oral Tablet')
 
       it 'should have Dapsone in field value code dropdown', ->
