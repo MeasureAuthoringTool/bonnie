@@ -562,6 +562,8 @@ Metrics/ClassLength:
 # Offense count: 18
 Metrics/CyclomaticComplexity:
   Max: 30
+  Exclude:
+    - 'lib/tasks/bonnie.rake'
 
 # Offense count: 39
 # Configuration parameters: CountComments.
@@ -571,6 +573,8 @@ Metrics/MethodLength:
 # Offense count: 16
 Metrics/PerceivedComplexity:
   Max: 34
+  Exclude:
+    - 'lib/tasks/bonnie.rake'
 
 # Offense count: 3
 Naming/AccessorMethodName:
