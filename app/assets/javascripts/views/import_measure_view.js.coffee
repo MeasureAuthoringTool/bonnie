@@ -48,6 +48,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
     'change input[name="vsac_query_type"]': 'changeQueryType'
     'change select[name="vsac_query_program"]': 'changeProgram'
     'click #clearVSACCreds': 'clearCachedVSACTicket'
+    'vsac:param-load-error': 'showVSACError'
 
   enableLoadVsac: ->
     username = @$('#vsacUser')
@@ -105,11 +106,12 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
 
         # Load the default program if it is found
         if @programNames.indexOf(Thorax.Views.ImportMeasure.defaultProgram) >= 0
-          @loadProgramReleaseNames Thorax.Views.ImportMeasure.defaultProgram
+          @loadProgramReleaseNames Thorax.Views.ImportMeasure.defaultProgram, => @trigger 'vsac:default-loaded'
+
         # Otherwise load the first in the list
         else
-          @loadProgramReleaseNames @programNames[0]
-      .fail @showVSACError
+          @loadProgramReleaseNames @programNames[0], => @trigger 'vsac:default-loaded'
+      .fail => @trigger 'vsac:param-load-error'
 
   ###*
   # Event handler for program change. This kicks off the change of the release names select box.
@@ -122,8 +124,9 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
   # This will use the cached release names if we had already loaded them for the given program.
   #
   # @param {String} program - The VSAC program to load.
+  # @param {Function} callback - Optional callback for when this is complete.
   ###
-  loadProgramReleaseNames: (program) ->
+  loadProgramReleaseNames: (program, callback) ->
     programSelect = @$('#vsac-query-release').empty().addClass('disabled')
     # if we already have releases for the program loaded we can just populate now
     if @programReleaseNamesCache[program]?
@@ -133,7 +136,9 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
         .done (data) =>
           @programReleaseNamesCache[program] = data.releaseNames
           @populateSelectBox programSelect, @programReleaseNamesCache[program], Thorax.Views.ImportMeasure.defaultRelease
-        .fail @showVSACError
+          callback() if callback
+          @trigger 'vsac:release-list-updated'
+        .fail => @trigger 'vsac:param-load-error'
 
   ###*
   # Loads the VSAC profile names from the back end and populates the select box.
@@ -146,13 +151,12 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
         .done (data) =>
           @profileNames = data.profileNames
           @populateSelectBox profileSelect, @profileNames, Thorax.Views.ImportMeasure.defaultProfile
-        .fail @showVSACError
+        .fail => @trigger 'vsac:param-load-error'
 
   ###*
   # Shows a bonnie error for VSAC parameter loading errors.
   ###
   showVSACError: ->
-    debugger
     bonnie.showError(
       title: "VSAC Error"
       summary: 'There was an error retrieving VSAC options.'
