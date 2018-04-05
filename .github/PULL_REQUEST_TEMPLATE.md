@@ -18,8 +18,8 @@ Pull requests into Bonnie require the following. Submitter and reviewer should :
 
 Branch | Back End Coverage | Front End Coverage
 -- | -- | --
-master | <Paste Output Here> | <Paste Screenshot Here>
-<new branch> | <Paste Output Here> | <Paste Screenshot Here>
+master | [Paste Output Here] | [Paste Screenshot Here]
+[New Branch] | [Paste Output Here] | [Paste Screenshot Here]
 
 - [ ] Automated regression test(s) pass
 
