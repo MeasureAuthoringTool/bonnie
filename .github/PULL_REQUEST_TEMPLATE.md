@@ -15,6 +15,12 @@ Pull requests into Bonnie require the following. Submitter and reviewer should :
          1. Note why this could not be done or is not applicable here: 
          2. Add TODOs in the code noting that it requires a test
          3. Add a JIRA task to add the test and link it here: 
+
+Branch | Back End Coverage | Front End Coverage
+-- | -- | --
+master | <Paste Output Here> | <Paste Screenshot Here>
+<new branch> | <Paste Output Here> | <Paste Screenshot Here>
+
 - [ ] Automated regression test(s) pass
 
 If JIRA tests were used to supplement or replace automated tests:
