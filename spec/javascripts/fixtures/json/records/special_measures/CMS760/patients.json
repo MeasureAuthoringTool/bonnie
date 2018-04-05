@@ -1,0 +1,98 @@
+[
+  {
+    "_id": "5abd3aef08fa1885ee189741",
+    "birthdate": 1356926400,
+    "bundle_id": "5346d238908563511c000001",
+    "created_at": "2018-03-29T19:13:51.538Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "065C9002-603F-46A3-BA0F-E2A9F1732DC3",
+        "population_index": 0,
+        "IPP": 0,
+        "DENOM": 0,
+        "NUMER": 0
+      }
+    ],
+    "expired": null,
+    "first": "Correct",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5abe7e9a08fa189ef118048a",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5abe7e9a08fa189ef118048b",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "Timezone",
+    "marital_status": null,
+    "measure_ids": [
+      "065C9002-603F-46A3-BA0F-E2A9F1732DC3",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "b9905c00602a2138d728c10f3948d4676ded595fc3777d0316f6d8f0f4b8b1b6",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-03-30T18:14:50.882Z",
+    "user_id": "501fdba3044a111b98000001"
+  }
+]
