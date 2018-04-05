@@ -40,3 +40,6 @@ bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_meas
 
 Test Medicare Fee For Service created with:
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS759v1,bonnie-fixtures@mitre.org,CMS759v1]
+
+CMS52v7 created with:
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS52v7,bonnie-fixtures@mitre.org,CMS52v7]
