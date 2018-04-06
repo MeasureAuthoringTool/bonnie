@@ -107,6 +107,7 @@ class Thorax.Models.Measure extends Thorax.Model
       interventions: ['anatomical_structure']
       laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status', 'result_date_time', 'components']
       medications: ['route', 'dose', 'reaction', 'supply']
+      participation: []
       patient_care_experiences: []
       physical_exams: ['anatomical_structure', 'components']
       preferences: []

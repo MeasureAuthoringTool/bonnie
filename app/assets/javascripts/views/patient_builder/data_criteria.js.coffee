@@ -267,6 +267,8 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     if @model.isPeriodType()
       if @model.isIssue()
         'Prevalence Period'
+      else if @model.get('type') == 'participation'
+        'Participation Period'
       else
         'Relevant Period'
 

@@ -98,6 +98,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
       care_experiences:          'fa-heartbeat'
       family_history:            'fa-sitemap'
       immunizations:             'fa-medkit'
+      participation:             'fa-shield'
       preferences:               'fa-comment'
       provider_characteristics:  'fa-user-md'
       substances:                'fa-medkit'
@@ -150,7 +151,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
                      'encounter_active', 'encounter_performed', 'intervention_performed', 'laboratory_test_performed',
                      'medication_active', 'medication_ordered', 'medication_dispensed', 'medication_administered',
                      'physical_exam_performed', 'procedure_performed', 'substance_administered', 'allergy_intolerance',
-                     'diagnosis', 'symptom', 'patient_characteristic_payer']
+                     'diagnosis', 'symptom', 'patient_characteristic_payer', 'participation']
 
   # determines if a data criteria describes an issue or problem with a person
   # allergy/intolerance, diagnosis, and symptom fall into this
