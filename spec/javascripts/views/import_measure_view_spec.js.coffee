@@ -14,6 +14,8 @@ describe 'ImportMeasure view', ->
             response = getJSONFixture('ajax/vsac_util/program_release_names/CMS eCQM.json')
           when '/vsac_util/program_release_names/CMS Hybrid'
             response = getJSONFixture('ajax/vsac_util/program_release_names/CMS Hybrid.json')
+          when '/vsac_util/profile_names'
+            response = getJSONFixture('ajax/vsac_util/profile_names.json')
 
         # if there is a response for the url, return a jQuery Deferred as a promise, that is resolved with
         # the response.
@@ -106,6 +108,30 @@ describe 'ImportMeasure view', ->
       # kick off render which will kick off loading of default vsac parameters
       importView.render()
 
+    # test the situation that default parameters load, then a change to a program fails to load relase names
+    it 'handles failure to get relase names for a program', (done) ->
+      importView = new Thorax.Views.ImportMeasure()
+
+      # if the load error event is called, we expect this
+      importView.on 'vsac:param-load-error', ->
+        expect($.getJSON).toHaveBeenCalledWith('/vsac_util/program_release_names/Invalid Program')
+        done()
+
+      # when default parameters are done loading
+      importView.on 'vsac:default-loaded', ->
+        # check default program option for sanity
+        expect(importView.$('select[name="vsac_query_program"]').val()).toEqual('CMS eCQM')
+
+        # we dont expect this event to be thrown
+        importView.once 'vsac:release-list-updated', ->
+          done.fail('vsac:release-list-updated event was unexpected')
+
+        # attempt to load an invalid program
+        importView.loadProgramReleaseNames('Invalid Program')
+
+      # kick off render which will kick off loading of default vsac parameters
+      importView.render()
+
     # tests changing to another program that we already have the list of releases for
     it 'updates release list when program is changed by using cache if possible', (done) ->
       importView = new Thorax.Views.ImportMeasure()
@@ -134,6 +160,66 @@ describe 'ImportMeasure view', ->
       # kick off render which will kick off loading of default vsac parameters
       importView.render()
 
+    # tests default load, switch to profile, switch back to release, switch back to profile
+    # on the second switch to profile it checks that it didn't fetch the from server again
+    it 'loads profile names list when query type is changed to profile and does not reload on second visit', (done) ->
+      importView = new Thorax.Views.ImportMeasure()
+
+      # if the load error event is called, then we should fail.
+      importView.on 'vsac:param-load-error', ->
+        done.fail('VSAC parameters failed to load.')
+
+      # when default parameters are done loading we can do the change to profile
+      importView.on 'vsac:default-loaded', ->
+
+        # when profiles loaded
+        importView.once 'vsac:profiles-loaded', ->
+          expect($.getJSON).toHaveBeenCalledWith('/vsac_util/profile_names')
+          expect(importView.$('select[name="vsac_query_profile"] option').length).toBe(19)
+
+          # reset spy on getJSON to prepare to switch to profiles a second time
+          $.getJSON.calls.reset()
+          # if profiles are loaded a second time, fail
+          importView.once 'vsac:profiles-loaded', ->
+            done.fail('should not have loaded pofiles a second time')
+
+          # uncheck profile, check release, trigger change event
+          importView.$('#vsac-profile').prop('checked', false)
+          importView.$('#vsac-release').prop('checked', true).change()
+
+          # uncheck release, check profile, trigger change event
+          importView.$('#vsac-release').prop('checked', false)
+          importView.$('#vsac-profile').prop('checked', true).change()
+
+          expect($.getJSON).not.toHaveBeenCalledWith('/vsac_util/profile_names')
+          done()
+
+        # uncheck release, check profile, trigger change event
+        importView.$('#vsac-release').prop('checked', false)
+        importView.$('#vsac-profile').prop('checked', true).change()
+
+      # kick off render which will kick off loading of default vsac parameters
+      importView.render()
+
+    it 'switches to measure defined', (done) ->
+      importView = new Thorax.Views.ImportMeasure()
+
+      # if the load error event is called, then we should fail.
+      importView.on 'vsac:param-load-error', ->
+        done.fail('VSAC parameters failed to load.')
+
+      # when default parameters are done loading we can do the change to profile
+      importView.on 'vsac:default-loaded', ->
+        # uncheck release, check measure defined, trigger change event
+        importView.$('#vsac-release').prop('checked', false)
+        importView.$('#vsac-measure-defined').prop('checked', true).change()
+
+        expect(importView.$('#vsac-query-release-params')).toHaveClass('hidden')
+        expect(importView.$('#vsac-query-profile-params')).toHaveClass('hidden')
+        done()
+
+      importView.render()
+
   describe 'with VSAC not functional', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
@@ -144,13 +230,41 @@ describe 'ImportMeasure view', ->
     it 'fails to load default parameters from VSAC', (done) ->
       importView = new Thorax.Views.ImportMeasure()
 
+      # if the default parameters are done loading. we should fail
+      importView.on 'vsac:default-loaded', ->
+        done.fail('default VSAC parameters loaded when they should not have.')
+
       # if the load error event is called, then we should pass.
       importView.on 'vsac:param-load-error', ->
+        expect($.getJSON).toHaveBeenCalledWith('/vsac_util/program_names')
+        expect($.getJSON).not.toHaveBeenCalledWith('/vsac_util/program_release_names/CMS eCQM')
         done()
+
+      # kick off render which will kick off loading of default vsac parameters
+      importView.render()
+
+    it 'fails to load profiles from VSAC', (done) ->
+      importView = new Thorax.Views.ImportMeasure()
 
       # if the default parameters are done loading. we should fail
       importView.on 'vsac:default-loaded', ->
         done.fail('default VSAC parameters loaded when they should not have.')
+
+      # if profiles have loaded, then fail
+      importView.on 'vsac:profiles-loaded', ->
+        done.fail('default VSAC parameters loaded when they should not have.')
+
+      # once the initial load error event is called, then we should try to load profiles.
+      importView.once 'vsac:param-load-error', ->
+
+        # setup another event handler for profile load attempt
+        importView.once 'vsac:param-load-error', ->
+          expect($.getJSON).toHaveBeenCalledWith('/vsac_util/profile_names')
+          done()
+
+        # uncheck release, check profile, trigger change event
+        importView.$('#vsac-release').prop('checked', false)
+        importView.$('#vsac-profile').prop('checked', true).change()
 
       # kick off render which will kick off loading of default vsac parameters
       importView.render()

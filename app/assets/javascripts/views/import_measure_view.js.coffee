@@ -131,13 +131,14 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
     # if we already have releases for the program loaded we can just populate now
     if @programReleaseNamesCache[program]?
       @populateSelectBox programSelect, @programReleaseNamesCache[program]
+      @trigger 'vsac:release-list-updated'
     else
       $.getJSON("/vsac_util/program_release_names/#{program}")
         .done (data) =>
           @programReleaseNamesCache[program] = data.releaseNames
           @populateSelectBox programSelect, @programReleaseNamesCache[program], Thorax.Views.ImportMeasure.defaultRelease
-          callback() if callback
           @trigger 'vsac:release-list-updated'
+          callback() if callback
         .fail => @trigger 'vsac:param-load-error'
 
   ###*
@@ -151,6 +152,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
         .done (data) =>
           @profileNames = data.profileNames
           @populateSelectBox profileSelect, @profileNames, Thorax.Views.ImportMeasure.defaultProfile
+          @trigger 'vsac:profiles-loaded'
         .fail => @trigger 'vsac:param-load-error'
 
   ###*
