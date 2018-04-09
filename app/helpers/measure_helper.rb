@@ -10,10 +10,10 @@ module MeasureHelper
     when 'profile'
       vsac_options[:profile] = params[:vsac_query_profile]
       vsac_options[:include_draft] = true if params[:vsac_query_include_draft] == 'true'
-    when 'measure_defined'
+    end
+
+    if params[:vsac_query_measure_defined] == 'true'
       vsac_options[:measure_defined] = true
-      # TODO: determine if this is needed
-      vsac_options[:backup_profile] = APP_CONFIG['vsac']['default_profile']
     end
     vsac_options
   end

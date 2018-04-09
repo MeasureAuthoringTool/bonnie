@@ -57,19 +57,17 @@
             <div class="form-group">
               <label for="vsacDraft" class="col-sm-{{titleSize}} control-label">Value Sets</label>
               <div class="col-sm-8">
-                <div class="switch-toggle switch-3 switch-custom">
-                  <input id="vsac-release" type="radio" name="vsac_query_type" value="release" checked="true">
-                  <label for="vsac-release" onclick=""><span class="sr-only">Value Sets by</span> Release</label>
-                  <input id="vsac-profile" type="radio" name="vsac_query_type" value="profile">
+                <div class="switch-toggle switch-custom">
+                  <input id="vsac-profile" type="radio" name="vsac_query_type" value="profile" checked="true">
                   <label for="vsac-profile" onclick=""><span class="sr-only">Value Sets by</span> Profile</label>
-                  <input id="vsac-measure-defined" type="radio" name="vsac_query_type" value="measure_defined">
-                  <label for="vsac-measure-defined" onclick=""><span class="sr-only">Value Sets by</span> Measure Defined</label>
+                  <input id="vsac-release" type="radio" name="vsac_query_type" value="release">
+                  <label for="vsac-release" onclick=""><span class="sr-only">Value Sets by</span> Release</label>
                   <a class="btn btn-primary"></a>
                 </div>
               </div>
             </div>
 
-            <div class="form-group row vsac-parameters" id="vsac-query-release-params" >
+            <div class="hidden form-group row vsac-parameters" id="vsac-query-release-params" >
               <div class="col-sm-offset-4 col-sm-3">
                 <select id="vsac-query-program" name="vsac_query_program" class="form-control">
                 </select>
@@ -80,15 +78,26 @@
               </div>
             </div>
 
-            <div class="hidden form-group row vsac-parameters" id="vsac-query-profile-params">
+            <div class="form-group row vsac-parameters" id="vsac-query-profile-params">
               <div class="col-sm-offset-4 col-sm-5">
                 <select id="vsac-query-profile" name="vsac_query_profile" class="form-control">
                 </select>
               </div>
-              <div class="col-sm-3 vsac-draft-box">
+              <div class="col-sm-3">
                 <div class="checkbox">
-                  <input id="vsac-query-include-draft" type="checkbox" name="vsac_query_include_draft" value="true"/>
-                  <label class="form-control" for="vsac-query-include-draft">Draft<a class="btn"></a></label>
+                  <label>
+                    <input id="vsac-query-include-draft" type="checkbox" name="vsac_query_include_draft" value="true" checked="true"/>Draft
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-4 col-sm-8">
+                <div class="checkbox">
+                  <label>
+                    <input id="vsac-query-measure-defined" type="checkbox" name="vsac_query_measure_defined" value="true"/>Override options with measure defined versions
+                  </label>
                 </div>
               </div>
             </div>

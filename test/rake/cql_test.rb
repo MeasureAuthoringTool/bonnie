@@ -17,7 +17,7 @@ class CqlTest < ActiveSupport::TestCase
 
       api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
       vsac_ticket_granting_ticket = api.ticket_granting_ticket
-      vsac_options = { measure_defined: true, backup_profile: APP_CONFIG['vsac']['default_profile'] }
+      vsac_options = { measure_defined: true, profile: APP_CONFIG['vsac']['default_profile'] }
 
       Measures::CqlLoader.load(@cql_mat_export_drc, @user, measure_details, vsac_options, vsac_ticket_granting_ticket).save
       assert_equal 1, CqlMeasure.count
@@ -50,7 +50,7 @@ class CqlTest < ActiveSupport::TestCase
 
       api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
       vsac_ticket_granting_ticket = api.ticket_granting_ticket
-      vsac_options = { measure_defined: true, backup_profile: APP_CONFIG['vsac']['default_profile'] }
+      vsac_options = { measure_defined: true, profile: APP_CONFIG['vsac']['default_profile'] }
 
       Measures::CqlLoader.load(@cql_mat_export, @user, measure_details, vsac_options, vsac_ticket_granting_ticket).save
       assert_equal 1, CqlMeasure.count
@@ -87,7 +87,7 @@ class CqlTest < ActiveSupport::TestCase
 
        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
        vsac_ticket_granting_ticket = api.ticket_granting_ticket
-       vsac_options = { measure_defined: true, backup_profile: APP_CONFIG['vsac']['default_profile'] }
+       vsac_options = { measure_defined: true, profile: APP_CONFIG['vsac']['default_profile'] }
 
        Measures::CqlLoader.load(@cql_mat_export, @user, measure_details, vsac_options, vsac_ticket_granting_ticket).save
        assert_equal 1, CqlMeasure.count
