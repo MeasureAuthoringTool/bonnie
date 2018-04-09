@@ -94,7 +94,7 @@ class MeasuresController < ApplicationController
         measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
       end
 
-      measure = Measures::CqlLoader.load(params[:measure_file], current_user, measure_details, vsac_options, vsac_ticket_granting_ticket, false, false) # Note: overwrite_valuesets=false cache=false
+      measure = Measures::CqlLoader.load(params[:measure_file], current_user, measure_details, vsac_options, vsac_ticket_granting_ticket)
 
       if (!is_update)
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
