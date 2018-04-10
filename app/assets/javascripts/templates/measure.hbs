@@ -54,7 +54,7 @@
       <h2 class="h1-style"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Test Patients</h2>
       <span class="settings-container">
         <div class="patients-settings">
-          {{#button "exportQrdaPatients" class="btn btn-default export-patients" disabled="true"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA (not implemented for QDM 5.3)<span class="sr-only">Patient Export</span>{{/button}}
+          <a data-title="Not yet implemented for QDM 5.3" data-toggle="tooltip" data-placement="bottom">{{#button "exportQrdaPatients" class="btn btn-default export-patients" disabled="true"}}<i class="fa fa-download" aria-hidden="true"></i> QRDA<span class="sr-only">Patient Export</span>{{/button}}</a>
           {{#if cql}}
             {{#button "exportExcelPatients" class="btn btn-default export-patients"}}<i class="fa fa-download" aria-hidden="true"></i> Excel <span class="sr-only">Patient Export</span>{{/button}}
           {{/if}}
