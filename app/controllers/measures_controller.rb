@@ -204,35 +204,6 @@ class MeasuresController < ApplicationController
     redirect_to "#{root_path}##{params[:redirect_route]}"
   end
 
-  def vsac_auth_valid
-    # If VSAC TGT is still valid, return its expiration date/time
-    ticket_granting_ticket = session[:vsac_tgt]
-
-    # If there is no VSAC ticket granting ticket then return false.
-    if ticket_granting_ticket.nil? || ticket_granting_ticket.empty?
-      session[:vsac_tgt] = nil
-      render :json => {valid: false}
-
-    # If it exists then check it using the API
-    else
-      begin
-        Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], ticket_granting_ticket: ticket_granting_ticket)
-        render :json => {valid: true, expires: ticket_granting_ticket[:expires]}
-
-      # API will throw an error if it has expired
-      rescue Util::VSAC::VSACTicketExpiredError
-        session[:vsac_tgt] = nil
-        render :json => {valid: false}
-      end
-    end
-  end
-
-  def vsac_auth_expire
-    # Force expire the VSAC session
-    session[:vsac_tgt] = nil
-    render :json => {}
-  end
-
   def destroy
     qdm_measure = Measure.by_user(current_user).where(id: params[:id]).first
     cql_measure  = CqlMeasure.by_user(current_user).where(id: params[:id]).first

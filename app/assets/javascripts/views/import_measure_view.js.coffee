@@ -66,11 +66,11 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
     @$('#vsac-query-settings').removeClass('hidden')
     @$('#vsacCachedMsg').addClass('hidden')
     @$('#loadButton').prop('disabled', true)
-    $.post '/measures/vsac_auth_expire'
+    $.post '/vsac_util/auth_expire'
 
   toggleVSAC: ->
     $.ajax
-      url: '/measures/vsac_auth_valid'
+      url: '/vsac_util/auth_valid'
       success: (data, textStatus, jqXHR) ->
         if data? && data.valid
           $('#vsacSignIn').addClass('hidden')
