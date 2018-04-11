@@ -144,7 +144,7 @@ class MeasuresController < ApplicationController
         f.write("Original Filename was #{params[:measure_file].original_filename}\n")
         f.write(e.to_s + "\n" + e.backtrace.join("\n"))
       end
-      if e.is_a?(Measures::VSACException) || e.is_a?(Util::VSAC::VSACError)
+      if e.is_a?(Util::VSAC::VSACError)
         operator_error = true
         flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
       elsif e.is_a? Measures::MeasureLoadingException
