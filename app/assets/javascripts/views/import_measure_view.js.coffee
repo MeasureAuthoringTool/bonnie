@@ -31,8 +31,8 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       @$("option[value=\"#{eoc}\"]").attr('selected','selected') for eoc in @model.get('episode_ids') if @model? && @model.get('episode_of_care') && @model.get('episode_ids')?
       @$el.on 'hidden.bs.modal', -> @remove() unless $('#pleaseWaitDialog').is(':visible')
       @$("input[type=radio]:checked").next().css("color","white")
-      # start load of program names and default releases
-      @loadProgramsAndDefaultProgramReleases()
+      # start load of profile names
+      @loadProfileNames()
     'ready': 'setup'
     'change input:file':  'enableLoad'
     'keyup input:text': 'enableLoadVsac'
@@ -93,25 +93,26 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
 
   ###*
   # Loads the program list and release names for the default program and populates the program
-  # and release select boxes. This is called after the view is rendered. The load happens while
-  # the user selects the file to upload
+  # and release select boxes. This is called when the user switches to releases.
   ###
   loadProgramsAndDefaultProgramReleases: ->
-    programSelect = @$('#vsac-query-program').addClass('disabled')
-    @$('#vsac-query-release').addClass('disabled')
-    $.getJSON('/vsac_util/program_names')
-      .done (data) =>
-        @programNames = data.programNames
-        @populateSelectBox programSelect, @programNames, Thorax.Views.ImportMeasure.defaultProgram
+    # only do this is we dont have the programNames list
+    if !@programNames?
+      programSelect = @$('#vsac-query-program').addClass('disabled')
+      @$('#vsac-query-release').addClass('disabled')
+      $.getJSON('/vsac_util/program_names')
+        .done (data) =>
+          @programNames = data.programNames
+          @populateSelectBox programSelect, @programNames, Thorax.Views.ImportMeasure.defaultProgram
 
-        # Load the default program if it is found
-        if @programNames.indexOf(Thorax.Views.ImportMeasure.defaultProgram) >= 0
-          @loadProgramReleaseNames Thorax.Views.ImportMeasure.defaultProgram, => @trigger 'vsac:default-loaded'
+          # Load the default program if it is found
+          if @programNames.indexOf(Thorax.Views.ImportMeasure.defaultProgram) >= 0
+            @loadProgramReleaseNames Thorax.Views.ImportMeasure.defaultProgram, => @trigger 'vsac:default-program-loaded'
 
-        # Otherwise load the first in the list
-        else
-          @loadProgramReleaseNames @programNames[0], => @trigger 'vsac:default-loaded'
-      .fail => @trigger 'vsac:param-load-error'
+          # Otherwise load the first in the list
+          else
+            @loadProgramReleaseNames @programNames[0], => @trigger 'vsac:default-program-loaded'
+        .fail => @trigger 'vsac:param-load-error'
 
   ###*
   # Event handler for program change. This kicks off the change of the release names select box.
@@ -145,15 +146,13 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
   # Loads the VSAC profile names from the back end and populates the select box.
   ###
   loadProfileNames: ->
-    # Only load if not already loaded.
-    if !@profileNames?
-      profileSelect = @$('#vsac-query-profile').addClass('disabled')
-      $.getJSON("/vsac_util/profile_names")
-        .done (data) =>
-          @profileNames = data.profileNames
-          @populateSelectBox profileSelect, @profileNames, Thorax.Views.ImportMeasure.defaultProfile
-          @trigger 'vsac:profiles-loaded'
-        .fail => @trigger 'vsac:param-load-error'
+    profileSelect = @$('#vsac-query-profile').addClass('disabled')
+    $.getJSON("/vsac_util/profile_names")
+      .done (data) =>
+        @profileNames = data.profileNames
+        @populateSelectBox profileSelect, @profileNames, Thorax.Views.ImportMeasure.defaultProfile
+        @trigger 'vsac:profiles-loaded'
+      .fail => @trigger 'vsac:param-load-error'
 
   ###*
   # Shows a bonnie error for VSAC parameter loading errors.
@@ -190,13 +189,10 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       when 'release'
         @$('#vsac-query-release-params').removeClass('hidden')
         @$('#vsac-query-profile-params').addClass('hidden')
+        @loadProgramsAndDefaultProgramReleases()
       when 'profile'
         @$('#vsac-query-release-params').addClass('hidden')
         @$('#vsac-query-profile-params').removeClass('hidden')
-        @loadProfileNames()
-      when 'measure_defined'
-        @$('#vsac-query-release-params').addClass('hidden')
-        @$('#vsac-query-profile-params').addClass('hidden')
 
   setup: ->
     @importDialog = @$("#importMeasureDialog")
