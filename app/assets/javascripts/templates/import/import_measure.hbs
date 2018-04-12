@@ -67,38 +67,53 @@
               </div>
             </div>
 
-            <div class="hidden form-group row vsac-parameters" id="vsac-query-release-params" >
-              <div class="col-sm-offset-4 col-sm-3">
-                <select id="vsac-query-program" name="vsac_query_program" class="form-control">
-                </select>
-              </div>
-              <div class="col-sm-5 vsac-release-dropdown">
-                <select id="vsac-query-release" name="vsac_query_release" class="form-control">
-                </select>
-              </div>
-            </div>
-
             <div class="form-group row vsac-parameters" id="vsac-query-profile-params">
-              <div class="col-sm-offset-4 col-sm-5">
+              <div class="col-sm-offset-{{titleSize}} col-sm-6">
                 <select id="vsac-query-profile" name="vsac_query_profile" class="form-control">
                 </select>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-1 vsac-draft-container">
                 <div class="checkbox">
                   <label>
                     <input id="vsac-query-include-draft" type="checkbox" name="vsac_query_include_draft" value="true" checked="true"/>Draft
                   </label>
                 </div>
               </div>
+              <div class="col-sm-1 vsac-help-container">
+                <i class="fa fa-info-circle"
+                  data-title="Query using an expansion profile."
+                  data-toggle="tooltip" data-placement="bottom" data-container="body"></i>
+              </div>
             </div>
 
-            <div class="form-group">
-              <div class="col-sm-offset-4 col-sm-8">
+            <div class="hidden form-group row vsac-parameters" id="vsac-query-release-params" >
+              <div class="col-sm-offset-4 col-sm-3">
+                <select id="vsac-query-program" name="vsac_query_program" class="form-control">
+                </select>
+              </div>
+              <div class="col-sm-4 vsac-release-dropdown">
+                <select id="vsac-query-release" name="vsac_query_release" class="form-control">
+                </select>
+              </div>
+              <div class="col-sm-1 vsac-help-container">
+                <i class="fa fa-info-circle"
+                  data-title="Query using an specified release."
+                  data-toggle="tooltip" data-placement="bottom" data-container="body"></i>
+              </div>
+            </div>
+
+            <div class="form-group row vsac-parameters">
+              <div class="col-sm-offset-{{titleSize}} col-sm-7">
                 <div class="checkbox">
                   <label>
                     <input id="vsac-query-measure-defined" type="checkbox" name="vsac_query_measure_defined" value="true"/>Override options with measure defined versions
                   </label>
                 </div>
+              </div>
+              <div class="col-sm-1 vsac-help-container">
+                <i class="fa fa-info-circle"
+                  data-title="Allow the measure to override the above options using the version or profile specified in the CQL."
+                  data-toggle="tooltip" data-placement="bottom" data-container="body"></i>
               </div>
             </div>
           </div>

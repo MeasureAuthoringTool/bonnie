@@ -33,6 +33,8 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       @$("input[type=radio]:checked").next().css("color","white")
       # start load of profile names
       @loadProfileNames()
+      # enable tooltips
+      @$('i[data-toggle="tooltip"]').tooltip()
     'ready': 'setup'
     'change input:file':  'enableLoad'
     'keyup input:text': 'enableLoadVsac'

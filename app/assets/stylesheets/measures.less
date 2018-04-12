@@ -189,6 +189,16 @@
   text-align: left;
 }
 
+#importMeasureDialog {
+  .modal-dialog {
+    width: 650px;
+  }
+}
+
+#vsac-query-profile-params, #vsac-query-release-params {
+  margin-bottom: 4px;
+}
+
 .vsac-parameters {
   // Make the dropdowns not curvy and use bonnie colors.
   select {
@@ -203,8 +213,25 @@
     }
   }
 
+  .vsac-draft-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .vsac-help-container {
+    padding-left: 0;
+    text-align: center;
+    height: 34px;
+    font-size: 18px;
+    color: @brand-faded;
+    i {
+      padding-top: 7px;
+    }
+  }
+
   .vsac-release-dropdown {
     padding-left: 0;
+    padding-right: 0;
   }
 
   // Style for making the draft checkbox act like a toggle.
