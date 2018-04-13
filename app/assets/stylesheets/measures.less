@@ -193,11 +193,6 @@
   .modal-dialog {
     width: 650px;
   }
-
-  .popover {
-    max-width: 500px;
-    margin-bottom: 30px;
-  }
 }
 
 #vsac-query-profile-params, #vsac-query-release-params {
@@ -227,10 +222,26 @@
     padding-left: 0;
     text-align: center;
     height: 34px;
-    font-size: 18px;
-    color: @brand-faded;
-    i {
-      padding-top: 7px;
+    padding-top: 4px;
+
+    a {
+      font-size: 18px;
+      color: @brand-faded;
+      &:focus {
+        outline: none;
+        color: @brand-primary;
+      }
+    }
+
+    .popover {
+      max-width: 600px;
+      width: 600px;
+      margin-bottom: 30px;
+
+      pre {
+        font-size: 12px;
+        white-space: pre-wrap;
+      }
     }
   }
 

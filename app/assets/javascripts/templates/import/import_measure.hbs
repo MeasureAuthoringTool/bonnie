@@ -80,9 +80,10 @@
                 </div>
               </div>
               <div class="col-sm-1 vsac-help-container">
-                <i class="fa fa-info-circle"
+                <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
                   data-title="Profile Query"
-                  data-content="<p>Query all value sets using an expansion profile and optionally including value sets in draft.</p>
+                  data-content="<p>Query all value sets using an expansion profile and optionally including value sets in draft. This
+                    query type is useful for developing eCQMs as valuesets in draft can be used.</p>
                   <p>Expansion profiles are instructions for calculating value set content based on specific code system versions and retired legacy codes.
                     VSAC will calculate value sets on the fly using the selected profile when this option is used.</p>
                   <p>If the 'Draft' option is checked and the VSAC user has authoring permissions, value sets in draft
@@ -91,7 +92,7 @@
                     the profile 'Most Recent Code System Versions in VSAC' until the profile for the upcoming release can be amended.</p>
                   <strong>The 'Draft' option previously in Bonnie 2.0.x is the same as selecting profile 'Latest eCQM' and
                     checking 'Draft'.</strong>"
-                  data-toggle="popover" data-placement="bottom" data-container="#importMeasureDialog"></i>
+                  data-placement="bottom"><i class="fa fa-info-circle"></i></a>
               </div>
             </div>
 
@@ -105,10 +106,11 @@
                 </select>
               </div>
               <div class="col-sm-1 vsac-help-container">
-                <i class="fa fa-info-circle"
+                <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
                   data-title="Release Query"
-                  data-content="Query using an specified release."
-                  data-toggle="popover" data-placement="bottom" data-container="body"></i>
+                  data-content="<p>Query all value sets in a given release. This query type is useful for published measures since
+                    the published versions of the value sets will be returned.</p>"
+                  data-placement="bottom"><i class="fa fa-info-circle"></i></a>
               </div>
             </div>
 
@@ -121,10 +123,26 @@
                 </div>
               </div>
               <div class="col-sm-1 vsac-help-container">
-                <i class="fa fa-info-circle"
-                  data-title="Measure Defined Value Sets"
-                  data-content="Allow the measure to override the above options using the version or profile specified in the CQL."
-                  data-toggle="popover" data-placement="bottom" data-container="body"></i>
+                <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
+                data-title="Measure Defined Versions"
+                data-content="<p>Query using the options selected above unless a version or profile is specified in the CQL for value sets.<p>
+                  <p>Given the following CQL snippet:</p>
+                  <code>
+<pre>valueset &quot;ADHD&quot;: 'urn:oid:2.16.840.1.113883.3.67.1.101.1.314' version 'urn:hl7:version:eCQM Update 2018 EP-EC and EH'
+valueset &quot;ICU&quot;: 'urn:oid:2.16.840.1.113762.1.4.1110.23'</pre></code>
+                  <p>Assuming profile 'Latest eCQM' is selected, 'Draft' is checked and this option is checked. The following queries will happen:
+                    <ul>
+                      <li>&quot;ADHD&quot; by the specific version 'eCQM Update 2018 EP-EC and EH'.</li>
+                      <li>&quot;ICU&quot; with draft value sets using profile 'Latest eCQM'.</li>
+                    </ul>
+                  </p>
+                  <p>Assuming profile 'Latest eCQM' is selected, 'Draft' is checked and this option is <strong>not</strong> checked. The following queries will happen:
+                    <ul>
+                      <li>&quot;ADHD&quot; with draft value sets using profile 'Latest eCQM'. <em>Version defined in CQL is ignored.</em></li>
+                      <li>&quot;ICU&quot; with draft value sets using profile 'Latest eCQM'.</li>
+                    </ul>
+                  </p>"
+                data-placement="bottom"><i class="fa fa-info-circle"></i></a>
               </div>
             </div>
           </div>
