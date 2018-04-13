@@ -81,8 +81,17 @@
               </div>
               <div class="col-sm-1 vsac-help-container">
                 <i class="fa fa-info-circle"
-                  data-title="Query using an expansion profile."
-                  data-toggle="tooltip" data-placement="bottom" data-container="body"></i>
+                  data-title="Profile Query"
+                  data-content="<p>Query all value sets using an expansion profile and optionally including value sets in draft.</p>
+                  <p>Expansion profiles are instructions for calculating value set content based on specific code system versions and retired legacy codes.
+                    VSAC will calculate value sets on the fly using the selected profile when this option is used.</p>
+                  <p>If the 'Draft' option is checked and the VSAC user has authoring permissions, value sets in draft
+                    will be fetched and calculated using the given profile. If a draft value set contains codes from a code
+                    system not specified in the profile, then those codes will not be returned. It may be necessary to use
+                    the profile 'Most Recent Code System Versions in VSAC' until the profile for the upcoming release can be amended.</p>
+                  <strong>The 'Draft' option previously in Bonnie 2.0.x is the same as selecting profile 'Latest eCQM' and
+                    checking 'Draft'.</strong>"
+                  data-toggle="popover" data-placement="bottom" data-container="#importMeasureDialog"></i>
               </div>
             </div>
 
@@ -97,8 +106,9 @@
               </div>
               <div class="col-sm-1 vsac-help-container">
                 <i class="fa fa-info-circle"
-                  data-title="Query using an specified release."
-                  data-toggle="tooltip" data-placement="bottom" data-container="body"></i>
+                  data-title="Release Query"
+                  data-content="Query using an specified release."
+                  data-toggle="popover" data-placement="bottom" data-container="body"></i>
               </div>
             </div>
 
@@ -112,8 +122,9 @@
               </div>
               <div class="col-sm-1 vsac-help-container">
                 <i class="fa fa-info-circle"
-                  data-title="Allow the measure to override the above options using the version or profile specified in the CQL."
-                  data-toggle="tooltip" data-placement="bottom" data-container="body"></i>
+                  data-title="Measure Defined Value Sets"
+                  data-content="Allow the measure to override the above options using the version or profile specified in the CQL."
+                  data-toggle="popover" data-placement="bottom" data-container="body"></i>
               </div>
             </div>
           </div>

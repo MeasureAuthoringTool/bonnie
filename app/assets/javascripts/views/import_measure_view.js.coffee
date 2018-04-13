@@ -34,7 +34,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       # start load of profile names
       @loadProfileNames()
       # enable tooltips
-      @$('i[data-toggle="tooltip"]').tooltip()
+      @$('i[data-toggle="popover"]').popover({ html: true })
     'ready': 'setup'
     'change input:file':  'enableLoad'
     'keyup input:text': 'enableLoadVsac'
