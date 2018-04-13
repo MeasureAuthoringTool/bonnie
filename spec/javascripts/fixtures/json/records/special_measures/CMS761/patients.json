@@ -1,0 +1,371 @@
+[
+  {
+    "_id": "5acfbd7b868280ecf28485f3",
+    "birthdate": 28800,
+    "bundle_id": "5a57e977942c6d1e61d32f14",
+    "created_at": "2018-04-12T20:11:39.391Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "5acfcf89868280ecf2848640",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "10378005"
+          ]
+        },
+        "description": "Encounter, Performed: Inpatient Encounter",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1334218500,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1334217600,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 1,
+        "NUMER": 0
+      }
+    ],
+    "expired": null,
+    "first": "No",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5acfcf89868280ecf2848641",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5acfcf89868280ecf2848642",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "Participation",
+    "marital_status": null,
+    "measure_ids": [
+      "8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "e65bde91613f9956789179e8294ce78c72a5f20f5d5828ea33a86a7e41b0c64a",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "InpatientEncounter",
+        "description": "Encounter, Performed: Inpatient Encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1060",
+        "type": "encounters",
+        "id": "InpatientEncounter_EncounterPerformed_a6c66e3c_da7d_4104_836a_c6c427fecb16_source",
+        "start_date": 1334217600000,
+        "end_date": 1334218500000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F",
+        "cms_id": "CMS761v0",
+        "criteria_id": "162bb7ad28dYH",
+        "codes": {
+          "SNOMED-CT": [
+            "10378005"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5acfcf89868280ecf2848640",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-04-12T21:28:41.943Z",
+    "user_id": "5a57e975942c6d1e61d32f13"
+  },
+  {
+    "_id": "5acfcead868280ecf284862f",
+    "birthdate": 28800,
+    "bundle_id": "5a57e977942c6d1e61d32f14",
+    "created_at": "2018-04-12T21:25:01.722Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "encounters": [
+      {
+        "_id": "5acfcf95868280ecf284864d",
+        "admitTime": null,
+        "admitType": null,
+        "codes": {
+          "SNOMED-CT": [
+            "10378005"
+          ]
+        },
+        "description": "Encounter, Performed: Inpatient Encounter",
+        "diagnosis": null,
+        "dischargeDisposition": null,
+        "dischargeTime": null,
+        "end_time": 1334218500,
+        "facility": null,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.79",
+        "performer_id": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1334217600,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 1,
+        "NUMER": 1
+      }
+    ],
+    "expired": null,
+    "first": "With",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5acfcf95868280ecf284864f",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5acfcf95868280ecf2848650",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "Participation",
+    "marital_status": null,
+    "measure_ids": [
+      "8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "51effb86291fc98fc091b2579f9e6a72683168f9cfcaff84d89330f69045c8b0",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "participation": [
+      {
+        "_id": "5acfcf95868280ecf284864e",
+        "codes": {
+          "Source of Payment Typology": [
+            "3"
+          ]
+        },
+        "description": "Participation: Insurance Coverage Type, FPAR",
+        "end_time": 1334218500,
+        "health_record_field": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1334217600,
+        "status_code": {
+          "HL7 ActStatus": [
+            null
+          ]
+        },
+        "time": null
+      }
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "encounter",
+        "status": "performed",
+        "title": "InpatientEncounter",
+        "description": "Encounter, Performed: Inpatient Encounter",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1060",
+        "type": "encounters",
+        "id": "InpatientEncounter_EncounterPerformed_a6c66e3c_da7d_4104_836a_c6c427fecb16_source",
+        "start_date": 1334217600000,
+        "end_date": 1334218500000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F",
+        "cms_id": "CMS761v0",
+        "criteria_id": "162bb7ad28dYH",
+        "codes": {
+          "SNOMED-CT": [
+            "10378005"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5acfcf95868280ecf284864d",
+        "code_source": "DEFAULT"
+      },
+      {
+        "negation": false,
+        "definition": "participation",
+        "title": "InsuranceCoverageTypeFPAR",
+        "description": "Participation: Insurance Coverage Type, FPAR",
+        "code_list_id": "2.16.840.1.113762.1.4.1166.29",
+        "type": "participation",
+        "id": "InsuranceCoverageTypeFPAR_Participation_29fbfb89_3cf5_433f_96bd_fb24fb1896f8_source",
+        "start_date": 1334217600000,
+        "end_date": 1334218500000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F",
+        "cms_id": "CMS761v0",
+        "criteria_id": "162bbbf49f24l",
+        "codes": {
+          "Source of Payment Typology": [
+            "3"
+          ]
+        },
+        "coded_entry_id": "5acfcf95868280ecf284864e",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-04-12T21:28:53.322Z",
+    "user_id": "5a57e975942c6d1e61d32f13"
+  }
+]
