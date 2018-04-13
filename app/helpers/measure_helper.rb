@@ -12,9 +12,8 @@ module MeasureHelper
       vsac_options[:include_draft] = true if params[:vsac_query_include_draft] == 'true'
     end
 
-    if params[:vsac_query_measure_defined] == 'true'
-      vsac_options[:measure_defined] = true
-    end
+    vsac_options[:measure_defined] = true if params[:vsac_query_measure_defined] == 'true'
+
     vsac_options
   end
 end
