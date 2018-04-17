@@ -44,7 +44,7 @@ describe 'ImportMeasure view', ->
 
         # if profiles are loaded a second time, fail
         importView.once 'vsac:profiles-loaded', ->
-          done.fail('should not have loaded pofiles a second time')
+          done.fail('should not have loaded profiles a second time')
 
         # uncheck profile, check release, trigger change event
         importView.$('#vsac-profile').prop('checked', false)
@@ -162,7 +162,7 @@ describe 'ImportMeasure view', ->
       importView.$('#vsac-release').prop('checked', true).change()
 
     # tests that the program list is not reloaded if it is already loaded
-    it 'does not reload program list when switching back to relase', (done) ->
+    it 'does not reload program list when switching back to release', (done) ->
       importView = new Thorax.Views.ImportMeasure()
 
       # if the load error event is called, then we should fail.
@@ -199,8 +199,8 @@ describe 'ImportMeasure view', ->
       importView.$('#vsac-profile').prop('checked', false)
       importView.$('#vsac-release').prop('checked', true).change()
 
-    # test the situation that default parameters load, then a change to a program fails to load relase names
-    it 'handles failure to get relase names for a program', (done) ->
+    # test the situation that default parameters load, then a change to a program fails to load release names
+    it 'handles failure to get release names for a program', (done) ->
       importView = new Thorax.Views.ImportMeasure()
 
       # if the load error event is called, we expect this

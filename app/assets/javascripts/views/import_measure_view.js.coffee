@@ -182,7 +182,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
     selectBox.removeClass('disabled')
 
   ###*
-  # Event handler for query type selector cange. This changes out the query parameters
+  # Event handler for query type selector change. This changes out the query parameters
   # that the user sees.
   ###
   changeQueryType: ->
