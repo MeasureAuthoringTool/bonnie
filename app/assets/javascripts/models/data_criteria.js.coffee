@@ -98,7 +98,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
       care_experiences:          'fa-heartbeat'
       family_history:            'fa-sitemap'
       immunizations:             'fa-medkit'
-      participation:             'fa-shield'
+      participations:            'fa-shield'
       preferences:               'fa-comment'
       provider_characteristics:  'fa-user-md'
       substances:                'fa-medkit'
