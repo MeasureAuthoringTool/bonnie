@@ -33,7 +33,7 @@ describe 'Production_PatientBuilderView', ->
 
       it 'should have expired code', ->
         expired_code = @result.get('statement_results').DepressionUtilizationofthePHQ9Tool['Expired'].raw[0].getCode()
-        expect(expired_code).toBe '419099009'
+        expect(expired_code).toEqual new cql.Code('419099009', 'SNOMED-CT')
 
   describe 'Participation tests', ->
     beforeEach ->
