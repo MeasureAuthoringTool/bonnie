@@ -56,7 +56,7 @@
           <div class="hidden" id="vsac-query-settings">
             <div class="form-group">
               <label for="vsacDraft" class="col-sm-{{titleSize}} control-label">Value Sets</label>
-              <div class="col-sm-8">
+              <div class="col-sm-{{dataSize}}">
                 <div class="switch-toggle switch-custom">
                   <input id="vsac-profile" type="radio" name="vsac_query_type" value="profile" checked="true">
                   <label for="vsac-profile" onclick=""><span class="sr-only">Value Sets by</span> Profile</label>
@@ -68,7 +68,7 @@
             </div>
 
             <div class="form-group row vsac-parameters" id="vsac-query-profile-params">
-              <div class="col-sm-offset-{{titleSize}} col-sm-6">
+              <div class="col-sm-offset-{{titleSize}} col-sm-{{subtract dataSize 2}}">
                 <select id="vsac-query-profile" name="vsac_query_profile" class="form-control">
                 </select>
               </div>
@@ -97,11 +97,11 @@
             </div>
 
             <div class="hidden form-group row vsac-parameters" id="vsac-query-release-params" >
-              <div class="col-sm-offset-4 col-sm-3">
+              <div class="col-sm-offset-{{titleSize}} col-sm-3">
                 <select id="vsac-query-program" name="vsac_query_program" class="form-control">
                 </select>
               </div>
-              <div class="col-sm-4 vsac-release-dropdown">
+              <div class="col-sm-{{subtract dataSize 4}} vsac-release-dropdown">
                 <select id="vsac-query-release" name="vsac_query_release" class="form-control">
                 </select>
               </div>
@@ -115,7 +115,7 @@
             </div>
 
             <div class="form-group row vsac-parameters">
-              <div class="col-sm-offset-{{titleSize}} col-sm-7">
+              <div class="col-sm-offset-{{titleSize}} col-sm-{{subtract dataSize 1}}">
                 <div class="checkbox">
                   <label>
                     <input id="vsac-query-measure-defined" type="checkbox" name="vsac_query_measure_defined" value="true"/>Override options with measure defined versions
