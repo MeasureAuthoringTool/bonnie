@@ -173,7 +173,7 @@ include Devise::Test::ControllerHelpers
 
       assert_response :redirect
       assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
-      assert_equal "VSAC value sets could not be loaded.", flash[:error][:summary]
+      assert_equal "VSAC credentials were invalid.", flash[:error][:summary]
       assert flash[:error][:body].starts_with?("Please verify that you are using the correct VSAC username and password.")
 
     end
@@ -198,8 +198,64 @@ include Devise::Test::ControllerHelpers
 
     assert_response :redirect
     assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
-    assert_equal "VSAC value sets could not be loaded.", flash[:error][:summary]
-    assert flash[:error][:body].starts_with?("Please verify that you are using the correct VSAC username and password.")
+    assert_equal "VSAC session expired.", flash[:error][:summary]
+    assert flash[:error][:body].starts_with?("Please re-enter VSAC username and password to try again.")
+  end
+
+  test "upload MAT with that cause value sets not found error" do
+    VCR.use_cassette("vsac_not_found") do
+      # Ensure measure is not loaded to begin with
+      measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
+      assert_nil measure
+
+      # Use VSAC creds from VCR, see vcr_setup.rb
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'Test134_v5_4_Artifacts.zip'), 'application/xml')
+
+      # As of 4/18/18 the 'eCQM Update 2018-05-04' release will cause 404 for 2.16.840.1.113762.1.4.1
+      post :create, {
+        vsac_query_type: 'release',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
+        vsac_query_release: 'eCQM Update 2018-05-04',
+        vsac_query_measure_defined: 'false',
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        measure_file: measure_file,
+        measure_type: 'ep',
+        calculation_type: 'patient'
+      }
+
+      assert_response :redirect
+      assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
+      assert_equal "VSAC value set (2.16.840.1.113762.1.4.1) not found or is empty.", flash[:error][:summary]
+      assert flash[:error][:body].starts_with?("Please verify that you are using the correct profile or release and have VSAC authoring permissions if you are requesting draft value sets.")
+    end
+  end
+
+  test "upload MAT with that cause value sets 500 error" do
+    # Note, do not re-record this because it is a synthetic casette that is hard to reproduce
+    VCR.use_cassette("vsac_500_response") do
+      # Ensure measure is not loaded to begin with
+      measure = CqlMeasure.where({hqmf_set_id: "7B2A9277-43DA-4D99-9BEE-6AC271A07747"}).first
+      assert_nil measure
+
+      # Use VSAC creds from VCR, see vcr_setup.rb
+      measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'Test134_v5_4_Artifacts.zip'), 'application/xml')
+
+      post :create, {
+        vsac_query_type: 'profile',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
+        vsac_query_include_draft: 'true',
+        vsac_query_measure_defined: 'false',
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        measure_file: measure_file,
+        measure_type: 'ep',
+        calculation_type: 'patient'
+      }
+
+      assert_response :redirect
+      assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
+      assert_equal "VSAC value sets could not be loaded.", flash[:error][:summary]
+      assert flash[:error][:body].ends_with?("This may be due to lack of VSAC authoring permissions if you are requesting draft value sets. Please confirm you have the appropriate authoring permissions.")
+    end
   end
 
   test "upload MAT 5.4 with valid VSAC creds" do

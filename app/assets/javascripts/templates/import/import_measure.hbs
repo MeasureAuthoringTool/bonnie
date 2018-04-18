@@ -82,16 +82,18 @@
               <div class="col-sm-1 vsac-help-container">
                 <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
                   data-title="Profile Query"
-                  data-content="<p>Query all value sets using an expansion profile and optionally including value sets in draft. This
-                    query type is useful for developing eCQMs as valuesets in draft can be used.</p>
-                  <p>Expansion profiles are instructions for calculating value set content based on specific code system versions and retired legacy codes.
-                    VSAC will calculate value sets on the fly using the selected profile when this option is used.</p>
+                  data-content="<p>Select an expansion profile from the dropdown to query VSAC for value sets contained in
+                    the measure.</p>
+                  <p>An expansion profile is a set of instructions for calculating value set content based on specific
+                    code system versions and retired legacy codes. For more information on expansion profiles, visit
+                    the NLM VSAC website.</p>
+                  <p>The default selected profile is 'Latest eCQM'. 'Latest eCQM' represents either an upcoming profile
+                    or the latest published profile.</p>
                   <p>If the 'Draft' option is checked and the VSAC user has authoring permissions, value sets in draft
-                    will be fetched and calculated using the given profile. If a draft value set contains codes from a code
-                    system not specified in the profile, then those codes will not be returned. It may be necessary to use
-                    the profile 'Most Recent Code System Versions in VSAC' until the profile for the upcoming release can be amended.</p>
-                  <strong>The 'Draft' option previously in Bonnie 2.0.x is the same as selecting profile 'Latest eCQM' and
-                    checking 'Draft'.</strong>"
+                    will be fetched and calculated using the given profile.</p>
+                  <p>The following settings align with the prior 'Draft' option previously available in Bonnie 2.0:
+                    <ul><li>'Latest eCQM' profile selected</li><li>'Draft' option checked</li></ul>
+                  </p>"
                   data-placement="bottom"><i class="fa fa-info-circle"></i></a>
               </div>
             </div>
@@ -108,8 +110,12 @@
               <div class="col-sm-1 vsac-help-container">
                 <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
                   data-title="Release Query"
-                  data-content="<p>Query all value sets in a given release. This query type is useful for published measures since
-                    the published versions of the value sets will be returned.</p>"
+                  data-content="<p>Select a program release from the dropdowns to query VSAC for value sets contained in
+                    the measure.</p>
+                    <p>A program release is a group of value set expansions (code lists) that are published under one
+                      program release label. For more information on program releases, visit the NLM VSAC website.</p>
+                    <p>The default selected program is '{{defaultProgram}}' and the default
+                      selected release is the latest release from the selected program.</p>"
                   data-placement="bottom"><i class="fa fa-info-circle"></i></a>
               </div>
             </div>
@@ -125,23 +131,10 @@
               <div class="col-sm-1 vsac-help-container">
                 <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
                 data-title="Measure Defined Versions"
-                data-content="<p>Query using the options selected above unless a version or profile is specified in the CQL for value sets.<p>
-                  <p>Given the following CQL snippet:</p>
-                  <code>
-<pre>valueset &quot;ADHD&quot;: 'urn:oid:2.16.840.1.113883.3.67.1.101.1.314' version 'urn:hl7:version:eCQM Update 2018 EP-EC and EH'
-valueset &quot;ICU&quot;: 'urn:oid:2.16.840.1.113762.1.4.1110.23'</pre></code>
-                  <p>Assuming profile 'Latest eCQM' is selected, 'Draft' is checked and this option is checked. The following queries will happen:
-                    <ul>
-                      <li>&quot;ADHD&quot; by the specific version 'eCQM Update 2018 EP-EC and EH'.</li>
-                      <li>&quot;ICU&quot; with draft value sets using profile 'Latest eCQM'.</li>
-                    </ul>
-                  </p>
-                  <p>Assuming profile 'Latest eCQM' is selected, 'Draft' is checked and this option is <strong>not</strong> checked. The following queries will happen:
-                    <ul>
-                      <li>&quot;ADHD&quot; with draft value sets using profile 'Latest eCQM'. <em>Version defined in CQL is ignored.</em></li>
-                      <li>&quot;ICU&quot; with draft value sets using profile 'Latest eCQM'.</li>
-                    </ul>
-                  </p>"
+                data-content="<p>Check 'Override options with measure defined versions' to override the selected options
+                  with value set versions defined within the CQL. If value set versions are not defined within the CQL
+                  and this option is checked, value sets will be retrieved based on the selected Profile or Release
+                  options.</p>"
                 data-placement="bottom"><i class="fa fa-info-circle"></i></a>
               </div>
             </div>

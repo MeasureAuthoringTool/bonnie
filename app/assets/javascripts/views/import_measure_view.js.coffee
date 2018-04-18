@@ -25,6 +25,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       calculationTypeLabel: calculationTypeLabel
       hqmfSetId: hqmfSetId
       redirectRoute: currentRoute
+      defaultProgram: Thorax.Views.ImportMeasure.defaultProgram
 
   events:
     rendered: ->

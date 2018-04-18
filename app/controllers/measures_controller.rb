@@ -146,7 +146,10 @@ class MeasuresController < ApplicationController
       end
       if e.is_a?(Util::VSAC::VSACError)
         operator_error = true
-        flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
+        flash[:error] = MeasureHelper.build_vsac_error_message(e)
+
+        # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
+        session[:vsac_tgt] = nil if e.is_a?(Util::VSAC::VSACTicketExpiredError)
       elsif e.is_a? Measures::MeasureLoadingException
         operator_error = true
         flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded", body:"There may be an error in the CQL logic."}
