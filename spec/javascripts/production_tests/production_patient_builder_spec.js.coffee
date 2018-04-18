@@ -38,9 +38,9 @@ describe 'Production_PatientBuilderView', ->
   describe 'Participation tests', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS761/value_sets.json')
       @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS761/CMS761v0.json'), parse: true
       @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS761/patients.json'), parse: true
-      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS761/value_sets.json')
       bonnie.measures.add @measure
 
     it 'Not in numerator when no participation', ->

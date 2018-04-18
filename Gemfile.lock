@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: a754d6bde87ffcb3beddce4e945c22b50a192ca2
-  branch: bonnie_1025_participation_data_type
+  revision: 32dd47c4a34237826854d2809d8a9fcae25990c8
+  branch: bonnie-v2.1
   specs:
     health-data-standards (4.0.3)
       activesupport (~> 4.2.0)
@@ -39,8 +39,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: f98da113772b9990726a08fe98c9ca415b2534f5
-  branch: bonnie_1025_participation_data_type
+  revision: 5afcb07d39856d694bf536784c5fadc7c3072bf4
+  branch: bonnie-v2.1
   specs:
     cql_qdm_patientapi (1.0.3)
       coffee-rails (~> 4.1)
@@ -170,7 +170,7 @@ GEM
       warden (~> 1.2.3)
     diffy (3.0.7)
     docile (1.1.5)
-    domain_name (0.5.20170404)
+    domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
     erubis (2.7.0)
