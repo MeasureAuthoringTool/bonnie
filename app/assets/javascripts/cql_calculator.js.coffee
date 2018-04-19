@@ -41,6 +41,9 @@
       start_cql = cql.DateTime.fromDate(start, 0) # No timezone offset for start
       end_cql = cql.DateTime.fromDate(end, 0) # No timezone offset for stop
 
+      # Create the execution DateTime that we pass into the engine
+      executionDateTime = cql.DateTime.fromDate(new Date(), '0')
+
       # Construct CQL params
       params = {"Measurement Period": new cql.Interval(start_cql, end_cql)}
 
@@ -73,18 +76,42 @@
            else if !Array.isArray(elm) && (elm["library"]["statements"]["def"].filter (def) -> def.name == generatedELMJSON.name).length == 0
              elm["library"]["statements"]["def"].push generatedELMJSON
 
+      # Set all value set versions to 'undefined' so the execution engine does not grab the specified version in the ELM
+      elm = @setValueSetVersionsToUndefined(elm)
+
+      # Grab the correct version of value sets to pass into the exectuion engine.
+      measure_value_sets = @valueSetsForCodeService(population.collection.parent.get('value_set_oid_version_objects'), population.collection.parent.get('hqmf_set_id'))
+
       # Calculate results for each CQL statement
-      results = executeSimpleELM(elm, patientSource, @valueSetsForCodeService(), population.collection.parent.get('main_cql_library'), main_library_version, params)
+      results = executeSimpleELM(elm, patientSource, measure_value_sets, population.collection.parent.get('main_cql_library'), main_library_version, executionDateTime, params)
 
       # Parse CQL statement results into population values
-      population_results = @createPopulationValues population, results, patient, observation_defs
+      [population_results, episode_results] = @createPopulationValues population, results, patient, observation_defs
 
       if population_results?
         result.set population_results
-        result.set {'population_relevance': @_buildPopulationRelevanceMap(population_results) }
+        population_relevance = {}
 
+        # handle episode of care measure results
+        if population.collection.parent.get('episode_of_care')
+          result.set {'episode_results': episode_results}
+          # calculate relevance only if there were recorded episodes
+          if Object.keys(episode_results).length > 0
+            # In episode of care based measures, episode_results contains the population results
+            # for EACH episode, so we need to build population_relevance based on a combonation
+            # of the episode_results. IE: If DENEX is irrelevant for one episode but relevant for
+            # another, the logic view should not highlight it as irrelevant
+            population_relevance = @_populationRelevanceForAllEpisodes(episode_results)
+          else
+            # use the patient based relevance if there are no episodes. This will properly set IPP or STRAT to true.
+            population_relevance = @_buildPopulationRelevanceMap(population_results)
+        else
+          # calculate relevance for patient based measure
+          population_relevance = @_buildPopulationRelevanceMap(population_results)
+    
+        result.set {'population_relevance': population_relevance }
         # Add 'statement_relevance', 'statement_results' and 'clause_results' generated in the CQLResultsHelpers class.
-        result.set {'statement_relevance': CQLResultsHelpers.buildStatementRelevanceMap(result.get('population_relevance'), population.collection.parent, population) }
+        result.set {'statement_relevance': CQLResultsHelpers.buildStatementRelevanceMap(population_relevance, population.collection.parent, population) }
         result.set CQLResultsHelpers.buildStatementAndClauseResults(population.collection.parent, results.localIdPatientResultsMap[patient['id']], result.get('statement_relevance'))
 
         result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
@@ -108,16 +135,112 @@
   # @param {object} results - The raw results object from the calculation engine.
   # @param {Patient} patient - The patient we are getting results for.
   # @param {Array} observation_defs - List of observation defines we add to the elm for calculation OBSERVs.
+  # @returns {[object, object]} The population results. Map of "POPNAME" to Integer result. Except for OBSERVs,
+  #   their key is 'value' and value is an array of results. Second result is the the episode results keyed by
+  #   episode id and with the value being a set just like the patient results.
+  ###
+  createPopulationValues: (population, results, patient, observation_defs) ->
+    population_results = {}
+    episode_results = null
+    # patient based measure
+    if !population.collection.parent.get('episode_of_care')
+      population_results = @handlePopulationValues(@createPatientPopulationValues(population, results, patient, observation_defs))
+    else # episode of care based measure
+      # collect results per episode
+      episode_results = @createEpisodePopulationValues(population, results, patient, observation_defs)
+
+      # initialize population counts
+      for popCode in Thorax.Models.Measure.allPopulationCodes
+        if population.get(popCode)?
+          if popCode == 'OBSERV'
+            population_results.values = []
+          else
+            population_results[popCode] = 0
+
+      # count up all population results for a patient level count
+      for _, episode_result of episode_results
+        for popCode, popResult of episode_result
+          if popCode == 'values'
+            for value in popResult
+              population_results.values.push(value)
+          else
+            population_results[popCode] += popResult
+    return [population_results, episode_results]
+
+  ###*
+  # Takes in the initial values from result object and checks to see if some values should not be calculated. These
+  # values that should not be calculated are zeroed out.
+  # @param {object} population_results - The population results. Map of "POPNAME" to Integer result. Except for OBSERVs,
+  #   their key is 'value' and value is an array of results.
+  # @returns {object} Population results in the same structure as passed in, but the appropiate values are zeroed out.
+  ###
+  handlePopulationValues: (population_results) ->
+    # Setting values of populations if the correct populations are not set based on the following logic guidelines
+    # Initial Population (IPP): The set of patients or episodes of care to be evaluated by the measure.
+    # Denominator (DENOM): A subset of the IPP.
+    # Denominator Exclusions (DENEX): A subset of the Denominator that should not be considered for inclusion in the Numerator.
+    # Denominator exception (DENEXCEP): Identify those in the DENOM and NOT in the DENEX and NOT in the NUMER that meet the DENEXCEP criteria.
+    # for Numerator membership and are not included are considered for membership in the Denominator Exceptions.
+    # Numerator (NUMER): A subset of the Denominator. The Numerator criteria are the processes or outcomes expected for each patient,
+    # procedure, or other unit of measurement defined in the Denominator.
+    # Numerator Exclusions (NUMEX): A subset of the Numerator that should not be considered for calculation.
+    if population_results["STRAT"]? && @isValueZero('STRAT', population_results) # Set all values to 0
+      for key, value of population_results
+        population_results[key] = 0
+    else if @isValueZero('IPP', population_results)
+      for key, value of population_results
+        if key != 'STRAT'
+          population_results[key] = 0
+    else if @isValueZero('DENOM', population_results) or @isValueZero('MSRPOPL', population_results)
+      if 'DENEX' of population_results
+        population_results['DENEX'] = 0
+      if 'DENEXCEP' of population_results
+        population_results['DENEXCEP'] = 0
+      if 'NUMER' of population_results
+        population_results['NUMER'] = 0
+      if 'NUMEX' of population_results
+        population_results['NUMEX'] = 0
+      if 'MSRPOPLEX' of population_results
+        population_results['MSRPOPLEX'] = 0
+      if 'values' of population_results
+        population_results['values'] = []
+    # Can not be in the numerator if the same or more are excluded from the denominator
+    else if (population_results["DENEX"]? && !@isValueZero('DENEX', population_results) && (population_results["DENEX"] >= population_results["DENOM"]))
+      if 'NUMER' of population_results
+        population_results['NUMER'] = 0
+      if 'NUMEX' of population_results
+        population_results['NUMEX'] = 0
+      if 'DENEXCEP' of population_results
+        population_results['DENEXCEP'] = 0
+    else if (population_results["MSRPOPLEX"]? && !@isValueZero('MSRPOPLEX', population_results))
+      if 'values' of population_results
+        population_results['values'] = []
+    else if @isValueZero('NUMER', population_results)
+      if 'NUMEX' of population_results
+        population_results['NUMEX'] = 0
+    else if !@isValueZero('NUMER', population_results)
+      if 'DENEXCEP' of population_results
+        population_results["DENEXCEP"] = 0
+    return population_results
+
+  ###*
+  # Create patient population values (aka results) for all populations in the population set using the results from the
+  # calculator.
+  # @param {Population} population - The population set we are getting the values for.
+  # @param {object} results - The raw results object from the calculation engine.
+  # @param {Patient} patient - The patient we are getting results for.
+  # @param {Array} observation_defs - List of observation defines we add to the elm for calculation OBSERVs.
   # @returns {object} The population results. Map of "POPNAME" to Integer result. Except for OBSERVs,
   #   their key is 'value' and value is an array of results.
   ###
-  createPopulationValues: (population, results, patient, observation_defs) ->
+  createPatientPopulationValues: (population, results, patient, observation_defs) ->
     population_results = {}
     # Grab the mapping between populations and CQL statements
     cql_map = population.collection.parent.get('populations_cql_map')
     # Grab the correct expected for this population
-    popIndex = population.get('index')
-    expected = patient.get('expected_values').findWhere(measure_id: population.collection.parent.get('hqmf_set_id'), population_index: popIndex)
+    populationIndex = population.get('index')
+    measureId = population.collection.parent.get('hqmf_set_id')
+    expected = patient.get('expected_values').findWhere(measure_id: measureId, population_index: populationIndex)
     # Loop over all population codes ("IPP", "DENOM", etc.)
     for popCode in Thorax.Models.Measure.allPopulationCodes
       if cql_map[popCode]
@@ -157,56 +280,100 @@
           # this calculation (allowing for more than one possible observation).
             if obs_result?.hasOwnProperty('value')
               # If result is a cql.Quantity type, add its value
-              population_results['values'].push(obs_result.value)
+              population_results['values'].push(obs_result.observation.value)
             else
               # In all other cases, add result
-              population_results['values'].push(obs_result)
-    @handlePopulationValues population_results
+              population_results['values'].push(obs_result.observation)
+    return population_results
+
 
   ###*
-  # Takes in the initial values from result object and checks to see if some values should not be calculated. These
-  # values that should not be calculated are zeroed out.
-  # @param {object} population_results - The population results. Map of "POPNAME" to Integer result. Except for OBSERVs,
-  #   their key is 'value' and value is an array of results.
-  # @returns {object} Population results in the same structure as passed in, but the appropiate values are zeroed out.
+  # Create population values (aka results) for all episodes using the results from the calculator. This is
+  # used only for the episode of care measures
+  # @param {Population} population - The population set we are getting the values for.
+  # @param {object} results - The raw results object from the calculation engine.
+  # @param {Patient} patient - The patient we are getting results for.
+  # @param {Array} observation_defs - List of observation defines we add to the elm for calculation OBSERVs.
+  # @returns {object} The episode results. Map of episode id to population results which is a map of "POPNAME"
+  # to Integer result. Except for OBSERVs, their key is 'value' and value is an array of results.
   ###
-  handlePopulationValues: (population_results) ->
-    # Setting values of populations if the correct populations are not set based on the following logic guidelines
-    # Initial Population (IPP): The set of patients or episodes of care to be evaluated by the measure.
-    # Denominator (DENOM): A subset of the IPP.
-    # Denominator Exclusions (DENEX): A subset of the Denominator that should not be considered for inclusion in the Numerator.
-    # Denominator Exceptions (DEXCEP): A subset of the Denominator. Only those members of the Denominator that are considered 
-    # for Numerator membership and are not included are considered for membership in the Denominator Exceptions.
-    # Numerator (NUMER): A subset of the Denominator. The Numerator criteria are the processes or outcomes expected for each patient,
-    # procedure, or other unit of measurement defined in the Denominator.
-    # Numerator Exclusions (NUMEX): A subset of the Numerator that should not be considered for calculation.
-    if population_results["STRAT"]? && @isValueZero('STRAT', population_results) # Set all values to 0
-      for key, value of population_results
-        population_results[key] = 0
-    else if @isValueZero('IPP', population_results)
-      for key, value of population_results
-        if key != 'STRAT'
-          population_results[key] = 0
-    else if @isValueZero('DENOM', population_results) or @isValueZero('MSRPOPL', population_results)
-      if 'DENEX' of population_results
-        population_results['DENEX'] = 0
-      if 'DENEXCEP' of population_results
-        population_results['DENEXCEP'] = 0
-      if 'NUMER' of population_results
-        population_results['NUMER'] = 0
-    # Can not be in the numerator if excluded from the denominator
-    else if (population_results["DENEX"]? && !@isValueZero('DENEX', population_results))
-      if 'NUMER' of population_results
-        population_results['NUMER'] = 0
-      if 'NUMEX' of population_results
-        population_results['NUMEX'] = 0
-    else if @isValueZero('NUMER', population_results)
-      if 'NUMEX' of population_results
-        population_results['NUMEX'] = 0
-    else if !@isValueZero('NUMER', population_results)
-      if 'DENEXCEP' of population_results
-        population_results["DENEXCEP"] = 0
-    return population_results
+  createEpisodePopulationValues: (population, results, patient, observation_defs) ->
+    episode_results = {}
+    # Grab the mapping between populations and CQL statements
+    cql_map = population.collection.parent.get('populations_cql_map')
+    # Loop over all population codes ("IPP", "DENOM", etc.) to deterine ones included in this population.
+    popCodesInPopulation = []
+    for popCode in Thorax.Models.Measure.allPopulationCodes
+      if population.get(popCode)?
+        popCodesInPopulation.push popCode
+
+    for popCode in popCodesInPopulation
+      if cql_map[popCode]
+        defined_pops = cql_map[popCode]
+
+        popIndex = population.getPopIndexFromPopName(popCode)
+        cql_population = defined_pops[popIndex]
+        # Is there a patient result for this population? and does this populationCriteria contain the population
+        # We need to check if the populationCriteria contains the population so that a STRAT is not set to zero if there is not a STRAT in the populationCriteria
+        if population.get(popCode)?
+          # Grab CQL result value and store for each episode found
+          values = results['patientResults'][patient.id][cql_population]
+          if Array.isArray(values)
+            for value in values
+              if value.id()?
+                # if an episode has already been created set the result for the population to 1
+                if episode_results[value.id().value]?
+                  episode_results[value.id().value][popCode] = 1
+
+                # else create a new episode using the list of all popcodes for the population
+                else
+                  newEpisode = { }
+                  for pop in popCodesInPopulation
+                    newEpisode[pop] = 0 unless pop == 'OBSERV'
+                  newEpisode[popCode] = 1
+                  episode_results[value.id().value] = newEpisode
+          else
+            console.log('WARNING: CQL Results not an array') if console?
+      else if popCode == 'OBSERV' && observation_defs?.length > 0
+        # Handle observations using the names of the define statements that
+        # were added to the ELM to call the observation functions.
+        for ob_def in observation_defs
+          # Observations only have one result, based on how the HQMF is
+          # structured (note the single 'value' section in the
+          # measureObservationDefinition clause).
+          obs_results = results['patientResults']?[patient.id]?[ob_def]
+
+          for obs_result in obs_results
+            result_value = null
+            episodeId = obs_result.episode.id().value
+            # Add the single result value to the values array on the results of
+            # this calculation (allowing for more than one possible observation).
+            if obs_result?.hasOwnProperty('value')
+              # If result is a cql.Quantity type, add its value
+              result_value = obs_result.observation.value
+            else
+              # In all other cases, add result
+              result_value = obs_result.observation
+
+            # if the episode_result object already exist create or add to to the values structure
+            if episode_results[episodeId]?
+              if episode_results[episodeId].values?
+                episode_results[episodeId].values.push(result_value)
+              else
+                episode_results[episodeId].values = [result_value]
+            # else create a new episode_result structure
+            else
+              newEpisode = { }
+              for pop in popCodesInPopulation
+                newEpisode[pop] = 0 unless pop == 'OBSERV'
+              newEpisode.values = [result_value]
+              episode_results[episodeId] = newEpisode
+      else if popCode == 'OBSERV' && observation_defs?.length <= 0
+        console.log('WARNING: No function definition injected for OBSERV') if console?
+    # Correct any inconsistencies. ex. In DENEX but also in NUMER using same function used for patients.
+    for episodeId, episode_result of episode_results
+      episode_results[episodeId] = @handlePopulationValues(episode_result)
+    return episode_results
 
   ###*
   # Builds the `population_relevance` map. This map gets added to the Result attributes that the calculator returns.
@@ -269,8 +436,8 @@
       resultShown.DENEX = false if resultShown.DENEX?
       resultShown.DENEXCEP = false if resultShown.DENEXCEP?
 
-    # If DENEX is 1 then NUMER, NUMEX and DENEXCEP not calculated
-    if result.DENEX? && result.DENEX >= 1
+    # If DENEX is greater than or equal to DENOM then NUMER, NUMEX and DENEXCEP not calculated
+    if result.DENEX? && result.DENEX >= result.DENOM
       resultShown.NUMER = false if resultShown.NUMER?
       resultShown.NUMEX = false if resultShown.NUMEX?
       resultShown.DENEXCEP = false if resultShown.DENEXCEP?
@@ -288,32 +455,61 @@
       resultShown.values = false if resultShown.values?
       resultShown.MSRPOPLEX = false if resultShown.MSRPOPLEX
 
-    # If MSRPOPLEX is equal to MSRPOPL then OBSERVs are not calculated
-    if result.MSRPOPLEX? && result.MSRPOPLEX == result.MSRPOPL
+    # If MSRPOPLEX is greater than or equal to MSRPOPL then OBSERVs are not calculated
+    if result.MSRPOPLEX? && result.MSRPOPLEX >= result.MSRPOPL
       resultShown.values = false if resultShown.values?
 
     return resultShown
+
+  ###
+  # Iterate over episode results, call _buildPopulationRelevanceMap for each result 
+  # OR population relevances together so that populations are marked as relevant
+  # based on all episodes instead of just one
+  # @private
+  # @param {episode_results} result - Population_results for each episode
+  # @returns {object} Map that tells if a population calculation was considered/relevant in any episode
+  ###
+  _populationRelevanceForAllEpisodes: (episode_results) ->
+    masterRelevanceMap = {}
+    for key, episode_result of episode_results
+      popRelMap = @_buildPopulationRelevanceMap(episode_result)
+      for pop, popRel of popRelMap
+        if !masterRelevanceMap[pop]?
+          masterRelevanceMap[pop] = false
+        masterRelevanceMap[pop] = masterRelevanceMap[pop] || popRel
+    return masterRelevanceMap
 
   isValueZero: (value, population_set) ->
     if value of population_set and population_set[value] == 0
       return true
     return false
 
+  # Set all value set versions to 'undefined' so the execution engine does not grab the specified version in the ELM
+  setValueSetVersionsToUndefined: (elm) ->
+    for elm_library in elm
+      if elm_library['library']['valueSets']?
+        for valueSet in elm_library['library']['valueSets']['def']
+          if valueSet['version']?
+            valueSet['version'] = undefined
+    elm
+
   # Format ValueSets for use by CQL4Browsers
-  valueSetsForCodeService: ->
+  valueSetsForCodeService: (value_set_oid_version_objects, hqmf_set_id) ->
     # Cache this refactoring so it only happens once per user rather than once per measure population
     if !bonnie.valueSetsByOidCached
-      valueSets = {}
-      for oid, versions of bonnie.valueSetsByOid
-        for version, vs of versions
-          continue unless vs.concepts
-          valueSets[oid] ||= {}
-          valueSets[oid][version] ||= []
-          for concept in vs.concepts
-            valueSets[oid][version].push code: concept.code, system: concept.code_system_name, version: version
-      bonnie.valueSetsByOidCached = valueSets
-    bonnie.valueSetsByOidCached
+      bonnie.valueSetsByOidCached = {}
 
+    if !bonnie.valueSetsByOidCached[hqmf_set_id]
+      valueSets = {}
+      for value_set in value_set_oid_version_objects
+        specific_value_set = bonnie.valueSetsByOid[value_set['oid']][value_set['version']]
+        continue unless specific_value_set.concepts
+        valueSets[specific_value_set['oid']] ||= {}
+        valueSets[specific_value_set['oid']][specific_value_set['version']] ||= []
+        for concept in specific_value_set.concepts
+          valueSets[specific_value_set['oid']][specific_value_set['version']].push code: concept.code, system: concept.code_system_name, version: specific_value_set['version']
+      bonnie.valueSetsByOidCached[hqmf_set_id] = valueSets
+    bonnie.valueSetsByOidCached[hqmf_set_id]
 
   # Converts the given time to the correct format using momentJS
   getConvertedTime: (timeValue) ->
@@ -341,14 +537,29 @@
         return:
           distinct: false,
           expression:
-            name: functionName,
-            type: 'FunctionRef',
-            operand: [
+            type: 'Tuple',
+            element: [
               {
-                type: 'As',
-                operand: {
+                name: "episode",
+                value: {
                   name: 'MP',
                   type: 'AliasRef'
+                }
+              },
+              {
+                name: "observation",
+                value: {
+                  name: functionName,
+                  type: 'FunctionRef',
+                  operand: [
+                    {
+                      type: 'As',
+                      operand: {
+                        name: 'MP',
+                        type: 'AliasRef'
+                      }
+                    }
+                  ]
                 }
               }
             ]

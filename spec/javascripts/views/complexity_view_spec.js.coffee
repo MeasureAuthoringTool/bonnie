@@ -1,9 +1,8 @@
 describe 'ComplexityDashboardView', ->
 
   beforeEach ->
-    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
-    jasmine.getJSONFixtures().clearCache()
-    @collection = new Thorax.Collection getJSONFixture('measure_sets.json'), parse: true
+    window.bonnieRouterCache.load('base_set')
+    @collection = new Thorax.Collection getJSONFixture('measure_data/QDM/base_set/measure_sets.json'), parse: true
     @complexityView = new Thorax.Views.Dashboard collection: @collection
     @complexityView.render()
     @complexityView.appendTo 'body'
@@ -25,12 +24,11 @@ describe 'ComplexityDashboardView', ->
 
 describe 'ComplexityVizView', ->
   beforeEach ->
+    window.bonnieRouterCache.load('empty_set')
     measureSet1 = "54cad5fc69702d74b4000000"
     measureSet2 = "54cad74a69702d755a000000"
     @complexityView = new Thorax.Views.Dashboard
-    # Clear the fixtures cache so that getJSONFixture does not return stale/modified fixtures
-    jasmine.getJSONFixtures().clearCache()
-    @measurePairs = new Thorax.Collections.MeasurePairs(getJSONFixture('measure_diff.json'), measureSet1: measureSet1, measureSet2: measureSet2)
+    @measurePairs = new Thorax.Collections.MeasurePairs(getJSONFixture('measure_data/QDM/base_set/measure_diff.json'), measureSet1: measureSet1, measureSet2: measureSet2)
     @vizView = new Thorax.Views.ComplexityViz(collection: @measurePairs)
     @complexityView.vizView = @vizView
     @complexityView.appendTo 'body'

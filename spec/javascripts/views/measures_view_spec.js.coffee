@@ -1,6 +1,7 @@
 describe 'MeasuresView', ->
 
   beforeEach ->
+    window.bonnieRouterCache.load('base_set')
     @measures = bonnie.measures
     @measure = bonnie.measures.findWhere(cms_id: 'CMS156v2')
     @measuresView = new Thorax.Views.Measures(collection: @measures)

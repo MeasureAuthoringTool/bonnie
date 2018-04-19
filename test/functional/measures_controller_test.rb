@@ -94,6 +94,22 @@ include Devise::Test::ControllerHelpers
     end
   end
 
+  test "upload MAT with no VSAC creds or ticket_granting_ticket in session" do
+    # Ensure measure is not loaded to begin with
+    measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
+    assert_nil measure
+    session[:vsac_tgt] = nil
+
+    measure_file = fixture_file_upload(File.join('test', 'fixtures', 'cql_measure_exports', 'Test134_v5_4_Artifacts.zip'), 'application/xml')
+    # Post is sent with no VSAC creds
+    post :create, {vsac_date: '08/31/2017', include_draft: true, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient'}
+
+    assert_response :redirect
+    assert_equal "Error Loading VSAC Value Sets", flash[:error][:title]
+    assert_equal "VSAC value sets could not be loaded.", flash[:error][:summary]
+    assert flash[:error][:body].starts_with?("Please verify that you are using the correct VSAC username and password.")
+  end
+
   test "upload MAT 5.4 with valid VSAC creds" do
     # This cassette uses the ENV[VSAC_USERNAME] and ENV[VSAC_PASSWORD] which must be supplied
     # when the cassette needs to be generated for the first time.
@@ -116,7 +132,7 @@ include Devise::Test::ControllerHelpers
   test "vsac auth valid" do
 
     # The ticket field was taken from the vcr_cassettes/valid_vsac_response file
-    session[:tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now + 27000}
+    session[:vsac_tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now + 27000}
     get :vsac_auth_valid
 
     assert_response :ok
@@ -129,7 +145,7 @@ include Devise::Test::ControllerHelpers
 
     # Time is past expired
     # The ticket field was taken from the vcr_cassettes/valid_vsac_response file
-    session[:tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now - 27000}
+    session[:vsac_tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now - 27000}
     get :vsac_auth_valid
 
     assert_response :ok
@@ -138,13 +154,13 @@ include Devise::Test::ControllerHelpers
 
   test "force expire vsac session" do
     # The ticket field was taken from the vcr_cassettes/valid_vsac_response file
-    session[:tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now + 27000}
+    session[:vsac_tgt] = {ticket: "ST-67360-HgEfelIvwUQ3zz3X39fg-cas", expires: Time.now + 27000}
     post :vsac_auth_expire
 
     assert_response :ok
     assert_equal "{}", response.body
 
-    assert_nil session[:tgt]
+    assert_nil session[:vsac_tgt]
 
     # Assert that vsac_auth_valid returns that vsac session is invalid
     get :vsac_auth_valid
@@ -420,14 +436,16 @@ include Devise::Test::ControllerHelpers
     assert_equal true, measure.episode_of_care?
     assert_equal 'eh', measure.type
     assert_nil measure.episode_ids
+    measure_id_before = measure._id
 
     # Update the measure
     VCR.use_cassette("update_response") do
-      post :create, {vsac_date: '09/24/2017', include_draft: false, measure_file: update_measure_file, measure_type: 'eh', calculation_type: 'episode', vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+      post :create, {vsac_date: '09/24/2017', include_draft: false, measure_file: update_measure_file, measure_type: 'eh', calculation_type: 'episode', hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7", vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
     end
 
     assert_response :redirect
     measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    assert_not_equal measure_id_before, measure._id
 
     assert_equal "762B1B52-40BF-4596-B34F-4963188E7FF7", measure.hqmf_set_id
     assert_equal 26, measure.value_sets.count # new entries for VSs with new versions, which is 11 of them

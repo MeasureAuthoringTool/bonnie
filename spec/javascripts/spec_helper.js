@@ -13,6 +13,9 @@
 //= require application
 //= require cql4browsers
 
+// test-only JS module
+//= require router/router_cache.js.coffee
+
 // Setup prepares measures to be used by specs
 //= require_tree ./setup
 

@@ -1,6 +1,9 @@
 require 'simplecov'
 SimpleCov.start do
   add_filter "test/"
+  add_filter "lib/tasks/bonnie_run_once.rake"
+  add_filter "lib/tasks/vsac.rake"
+  add_filter "lib/tasks/cql_testing.rake"
   add_group "Controllers", "app/controllers"
   add_group "Helpers", "app/helpers"
   add_group "Models", "app/models"
@@ -19,3 +22,4 @@ class SimpleCov::Formatter::QualityFormatter
 end
 
 SimpleCov.formatter = SimpleCov::Formatter::QualityFormatter
+SimpleCov.minimum_coverage(87.3)
