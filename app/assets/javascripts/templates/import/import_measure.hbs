@@ -55,7 +55,7 @@
           </div>
           <div class="hidden" id="vsac-query-settings">
             <div class="form-group">
-              <label for="vsacDraft" class="col-sm-{{titleSize}} control-label">Value Sets</label>
+              <label for="vsac_query_type" class="col-sm-{{titleSize}} control-label">Value Sets</label>
               <div class="col-sm-{{dataSize}}">
                 <div class="switch-toggle switch-custom">
                   <input id="vsac-profile" type="radio" name="vsac_query_type" value="profile" checked="true">
@@ -69,7 +69,7 @@
 
             <div class="form-group row vsac-parameters" id="vsac-query-profile-params">
               <div class="col-sm-offset-{{titleSize}} col-sm-{{subtract dataSize 2}}">
-                <select id="vsac-query-profile" name="vsac_query_profile" class="form-control">
+                <select id="vsac-query-profile" name="vsac_query_profile" class="form-control" title="VSAC Profile">
                 </select>
               </div>
               <div class="col-sm-1 vsac-draft-container">
@@ -100,11 +100,11 @@
 
             <div class="hidden form-group row vsac-parameters" id="vsac-query-release-params" >
               <div class="col-sm-offset-{{titleSize}} col-sm-3">
-                <select id="vsac-query-program" name="vsac_query_program" class="form-control">
+                <select id="vsac-query-program" name="vsac_query_program" class="form-control" title="VSAC Program">
                 </select>
               </div>
               <div class="col-sm-{{subtract dataSize 4}} vsac-release-dropdown">
-                <select id="vsac-query-release" name="vsac_query_release" class="form-control">
+                <select id="vsac-query-release" name="vsac_query_release" class="form-control" title="VSAC Release">
                 </select>
               </div>
               <div class="col-sm-1 vsac-help-container">
