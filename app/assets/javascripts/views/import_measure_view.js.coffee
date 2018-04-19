@@ -99,10 +99,12 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
   # and release select boxes. This is called when the user switches to releases.
   ###
   loadProgramsAndDefaultProgramReleases: ->
-    # only do this is we dont have the programNames list
+    # only do this is if we dont have the programNames list
     if !@programNames?
-      programSelect = @$('#vsac-query-program').addClass('disabled')
-      @$('#vsac-query-release').addClass('disabled')
+      programSelect = @$('#vsac-query-program').prop('disabled', true)
+      releaseSelect = @$('#vsac-query-release').prop('disabled', true)
+      @populateSelectBox programSelect, ['Loading...']
+      @populateSelectBox releaseSelect, ['Loading...']
       $.getJSON('/vsac_util/program_names')
         .done (data) =>
           @programNames = data.programNames
@@ -131,16 +133,25 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
   # @param {Function} callback - Optional callback for when this is complete.
   ###
   loadProgramReleaseNames: (program, callback) ->
-    programSelect = @$('#vsac-query-release').empty().addClass('disabled')
-    # if we already have releases for the program loaded we can just populate now
+    releaseSelect = @$('#vsac-query-release')
+    programSelect = @$('#vsac-query-program')
+
     if @programReleaseNamesCache[program]?
-      @populateSelectBox programSelect, @programReleaseNamesCache[program]
+      @populateSelectBox releaseSelect, @programReleaseNamesCache[program]
       @trigger 'vsac:release-list-updated'
     else
+      # Disable both dropdowns and put "Loading..."" in place.
+      programSelect.prop('disabled', true)
+      releaseSelect.prop('disabled', true)
+      @populateSelectBox releaseSelect, ['Loading...']
+
+      # begin request
       $.getJSON("/vsac_util/program_release_names/#{program}")
         .done (data) =>
           @programReleaseNamesCache[program] = data.releaseNames
-          @populateSelectBox programSelect, @programReleaseNamesCache[program], Thorax.Views.ImportMeasure.defaultRelease
+          @populateSelectBox releaseSelect, @programReleaseNamesCache[program], Thorax.Views.ImportMeasure.defaultRelease
+          releaseSelect.prop('disabled', false)
+          programSelect.prop('disabled', false)
           @trigger 'vsac:release-list-updated'
           callback() if callback
         .fail => @trigger 'vsac:param-load-error'
@@ -149,12 +160,14 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
   # Loads the VSAC profile names from the back end and populates the select box.
   ###
   loadProfileNames: ->
-    profileSelect = @$('#vsac-query-profile').addClass('disabled')
+    profileSelect = @$('#vsac-query-profile').prop('disabled', true)
+    @populateSelectBox profileSelect, ['Loading...']
     $.getJSON("/vsac_util/profile_names")
       .done (data) =>
         @profileNames = data.profileNames
         @populateSelectBox profileSelect, @profileNames, Thorax.Views.ImportMeasure.defaultProfile
         @trigger 'vsac:profiles-loaded'
+        profileSelect.prop('disabled', false)
       .fail => @trigger 'vsac:param-load-error'
 
   ###*
@@ -180,7 +193,6 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
         selectBox.append("<option value=\"#{option}\" selected=\"selected\">#{option}</option>")
       else
         selectBox.append("<option value=\"#{option}\">#{option}</option>")
-    selectBox.removeClass('disabled')
 
   ###*
   # Event handler for query type selector change. This changes out the query parameters
