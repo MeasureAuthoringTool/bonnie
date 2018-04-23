@@ -276,7 +276,7 @@ namespace :bonnie do
     desc %{Count each of the existing dosage units
       $ bundle exec rake bonnie:patients:tabulate_dosage_units}
     task :tabulate_dosage_units => :environment do
-      unique_units = Hash.new
+      unique_units = {}
       Record.all.each do |patient|
         if patient.source_data_criteria
           patient.source_data_criteria.each do |sdc|
