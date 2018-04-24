@@ -78,15 +78,9 @@ class MeasuresController < ApplicationController
     end
     #If we get to this point, then the measure that is being uploaded is a MAT export of CQL
     begin
-      # Default to valid set of values for vsac request.
-      includeDraft = true
-      # All measure uploads require vsac credentials, except certain test cases.
-      # Added a check for vsac_username before checking for include draft and vsac_date.
-      if params[:vsac_username]
-        # If the measure is published (includesDraft = false)
-        # EffectiveDate is specified to determine a value set version.
-        includeDraft = params[:include_draft] == 'true'
-      end
+      # parse VSAC options using helper and get ticket_granting_ticket which is always needed
+      vsac_options = MeasureHelper.parse_vsac_parameters(params)
+      vsac_ticket_granting_ticket = get_ticket_granting_ticket
 
       is_update = false
       if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
@@ -100,7 +94,7 @@ class MeasuresController < ApplicationController
         measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
       end
 
-      measure = Measures::CqlLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], false, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=false cache=false
+      measure = Measures::CqlLoader.load(params[:measure_file], current_user, measure_details, vsac_options, vsac_ticket_granting_ticket)
 
       if (!is_update)
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
@@ -150,9 +144,12 @@ class MeasuresController < ApplicationController
         f.write("Original Filename was #{params[:measure_file].original_filename}\n")
         f.write(e.to_s + "\n" + e.backtrace.join("\n"))
       end
-      if e.is_a?(Measures::VSACException) || e.is_a?(Util::VSAC::VSACError)
+      if e.is_a?(Util::VSAC::VSACError)
         operator_error = true
-        flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
+        flash[:error] = MeasureHelper.build_vsac_error_message(e)
+
+        # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
+        session[:vsac_tgt] = nil if e.is_a?(Util::VSAC::VSACTicketExpiredError)
       elsif e.is_a? Measures::MeasureLoadingException
         operator_error = true
         flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded", body:"There may be an error in the CQL logic."}
@@ -208,35 +205,6 @@ class MeasuresController < ApplicationController
     end
 
     redirect_to "#{root_path}##{params[:redirect_route]}"
-  end
-
-  def vsac_auth_valid
-    # If VSAC TGT is still valid, return its expiration date/time
-    ticket_granting_ticket = session[:vsac_tgt]
-
-    # If there is no VSAC ticket granting ticket then return false.
-    if ticket_granting_ticket.nil? || ticket_granting_ticket.empty?
-      session[:vsac_tgt] = nil
-      render :json => {valid: false}
-
-    # If it exists then check it using the API
-    else
-      begin
-        Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], ticket_granting_ticket: ticket_granting_ticket)
-        render :json => {valid: true, expires: ticket_granting_ticket[:expires]}
-
-      # API will throw an error if it has expired
-      rescue Util::VSAC::VSACTicketExpiredError
-        session[:vsac_tgt] = nil
-        render :json => {valid: false}
-      end
-    end
-  end
-
-  def vsac_auth_expire
-    # Force expire the VSAC session
-    session[:vsac_tgt] = nil
-    render :json => {}
   end
 
   def destroy

@@ -69,3 +69,9 @@ that screen readers will read out the complete name
 Handlebars.registerHelper 'populationName', (population) =>
   return '' unless population?
   return new Handlebars.SafeString Thorax.Models.Measure.PopulationMap[population]
+
+###
+Takes a number and subtracts another number from it.
+###
+Handlebars.registerHelper 'subtract', (a, b) ->
+  return a - b
