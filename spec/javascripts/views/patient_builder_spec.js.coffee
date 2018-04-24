@@ -431,3 +431,28 @@ describe 'PatientBuilderView', ->
       # These are from direct reference codes
       expect(codesInDropdown['Birthdate']).toBeDefined()
       expect(codesInDropdown['Dead']).toBeDefined()
+
+    it "EditCriteriaValueView allows for input field validation to happen on change event", ->
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/core_measures/CMS160/value_sets.json')
+      cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/core_measures/CMS160/CMS160v6.json'), parse: true
+      bonnie.measures.add(cqlMeasure, { parse: true });
+      patients = new Thorax.Collections.Patients getJSONFixture('records/core_measures/CMS160/patients.json'), parse: true
+      patientBuilder = new Thorax.Views.PatientBuilder(model: patients.first(), measure: cqlMeasure)
+      assessmentPerformed = patientBuilder.model.get('source_data_criteria').at(2)
+      editCriteriaView = new Thorax.Views.EditCriteriaView(model: assessmentPerformed, measure: cqlMeasure)
+
+      # getting the element result edit view
+      editFieldValueView = editCriteriaView.editValueView
+      editFieldValueView.render()
+
+      # change it to scalar
+      editFieldValueView.$('select[name="type"]').val('PQ').change()
+
+      # expect add button to be disabled
+      expect(editFieldValueView.$('button[data-call-method=addValue]').prop('disabled')).toEqual(true)
+
+      # change the value
+      editFieldValueView.$('input[name="value"]').val(3).change()
+
+      # expect add button to be enabled
+      expect(editFieldValueView.$('button[data-call-method=addValue]').prop('disabled')).toEqual(false)
