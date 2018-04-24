@@ -22,3 +22,8 @@ Thorax.Models.Measure.PopulationMap =
 
 # List of CQL define statements added by the MAT that do not need to be shown.
 Thorax.Models.Measure.cqlSkipStatements = ["SDE Ethnicity", "SDE Payer", "SDE Race", "SDE Sex"]
+
+# Pull in default VSAC parameters to be used for default selection.
+Thorax.Views.ImportMeasure.defaultProfile = '<%= APP_CONFIG['vsac']['default_profile'] %>'
+Thorax.Views.ImportMeasure.defaultProgram = '<%= APP_CONFIG['vsac']['default_program'] %>'
+Thorax.Views.ImportMeasure.defaultRelease = '<%= APP_CONFIG['vsac']['default_release'] %>'

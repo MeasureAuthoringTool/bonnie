@@ -558,6 +558,8 @@ Metrics/BlockNesting:
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
   Max: 382
+  Exclude:
+    - 'test/functional/measures_controller_test.rb'
 
 # Offense count: 18
 Metrics/CyclomaticComplexity:
