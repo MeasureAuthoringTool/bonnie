@@ -244,9 +244,25 @@ namespace :bonnie do
     desc %{Fix up dose_unit and quantity_dispensed_unit to be ucum compliant
       $ bundle exec rake bonnie:patients:fix_non_ucum_dose_and_quantity_dispensed}
     task :fix_non_ucum_dose_and_quantity_dispensed => :environment do
+      count = 0
       Record.all.each do |patient|
+        # this first patient is skipped because this is a fatal error
+        #
+        # CMS122v7 in account epecqmncqa@gmail.com patient named IPPFail EncInMPInvldCustCode with an
+        # “Encounter: Performed: Office Visit” containing a custom code set “2.16.840.1.113883.6.12”
+        next if patient._id == BSON::ObjectId.from_string("59836fe8942c6d7356000133")
+
+        # these next 2 patients are skipped so rake task doesn't print warnings about bogus field values
+        #
+        # CMS50v7 in account sudhakar.yarasu@ge.com patient named CMS50v7Test SC1_IPP_Met that has a 'SOURCE'
+        # data critera that attempts to invoke method :source which class Communication does not have
+        next if patient._id == BSON::ObjectId.from_string("5a97a962b848464bde177c40")
+        # CMS818v0 in account jason@cedarbridgegroup.com patient named Jane Smith that has a 'SOURCE'
+        # data critera that attempts to invoke method :source which class Condition does not have
+        next if patient._id == BSON::ObjectId.from_string("5ade3f0cb848462812369f88")
+
         if patient.source_data_criteria
-          print '.'
+          print '.' if 0 == (count+=1) % 100
           patient.source_data_criteria.each do |sdc|
             if sdc['dose_unit']
               sdc['dose_unit'] = old_unit_to_ucum_unit(sdc['dose_unit'])
@@ -270,7 +286,7 @@ namespace :bonnie do
           end
         end
       end
-      puts " Done!"
+      puts " Done (#{count} records)."
     end
 
     desc %{Count each of the existing dosage units
