@@ -289,8 +289,8 @@ namespace :bonnie do
       puts " Done (#{count} records)."
     end
 
-    desc %{Count each of the existing dosage units
-      $ bundle exec rake bonnie:patients:tabulate_dosage_units}
+    desc %{Count each of the existing dose and quantity dispensed units
+      $ bundle exec rake bonnie:patients:tabulate_dose_and_quantity_dispensed_units}
     task :tabulate_dose_and_quantity_dispensed_units => :environment do
       unique_units = {}
       Record.all.each do |patient|
