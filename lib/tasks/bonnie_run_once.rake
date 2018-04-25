@@ -249,7 +249,7 @@ namespace :bonnie do
         # this first patient is skipped because this is a fatal error
         #
         # CMS122v7 in account epecqmncqa@gmail.com patient named IPPFail EncInMPInvldCustCode with an
-        # “Encounter: Performed: Office Visit” containing a custom code set “2.16.840.1.113883.6.12”
+        # "Encounter: Performed: Office Visit" containing a custom code set "2.16.840.1.113883.6.12"
         next if patient._id == BSON::ObjectId.from_string("59836fe8942c6d7356000133")
 
         # these next 2 patients are skipped so rake task doesn't print warnings about bogus field values
@@ -262,7 +262,7 @@ namespace :bonnie do
         next if patient._id == BSON::ObjectId.from_string("5ade3f0cb848462812369f88")
 
         if patient.source_data_criteria
-          print '.' if 0 == (count+=1) % 100
+          print '.' if ((count+=1) % 100).zero?
           patient.source_data_criteria.each do |sdc|
             if sdc['dose_unit']
               sdc['dose_unit'] = old_unit_to_ucum_unit(sdc['dose_unit'])
