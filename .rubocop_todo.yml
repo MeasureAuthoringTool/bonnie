@@ -61,6 +61,7 @@ Layout/AlignParameters:
 Layout/CaseIndentation:
   Exclude:
     - 'lib/generation/randomizer.rb'
+    - 'lib/tasks/bonnie_run_once.rake'
 
 # Offense count: 9
 # Cop supports --auto-correct.
@@ -956,6 +957,7 @@ Style/PercentLiteralDelimiters:
     - 'lib/ext/record.rb'
     - 'lib/generation/randomizer.rb'
     - 'lib/tasks/bonnie.rake'
+    - 'lib/tasks/bonnie_run_once.rake'
     - 'lib/tasks/cql.rake'
     - 'lib/tasks/cql_testing.rake'
 

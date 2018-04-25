@@ -219,7 +219,109 @@ namespace :bonnie do
         puts "\e[32mNo expected_values changed\e[0m"
       end
     end
-    
+
+    def old_unit_to_ucum_unit(unit)
+      case unit
+        when 'capsule(s)'
+          '{Capsule}'
+        when 'dose(s)'
+          '{Dose}'
+        when 'gram(s)'
+          'g'
+        when 'ml(s)'
+          'mL'
+        when 'tablet(s)'
+          '{tbl}'
+        when 'mcg(s)'
+          'ug'
+        when 'unit(s)'
+          '{unit}'
+        else
+          unit
+      end
+    end
+
+    desc %{Fix up dose_unit and quantity_dispensed_unit to be ucum compliant
+      $ bundle exec rake bonnie:patients:fix_non_ucum_dose_and_quantity_dispensed}
+    task :fix_non_ucum_dose_and_quantity_dispensed => :environment do
+      count = 0
+      Record.all.each do |patient|
+        # this first patient is skipped because this is a fatal error
+        #
+        # CMS122v7 in account epecqmncqa@gmail.com patient named IPPFail EncInMPInvldCustCode with an
+        # "Encounter: Performed: Office Visit" containing a custom code set "2.16.840.1.113883.6.12"
+        next if patient._id == BSON::ObjectId.from_string("59836fe8942c6d7356000133")
+
+        # these next 2 patients are skipped so rake task doesn't print warnings about bogus field values
+        #
+        # CMS50v7 in account sudhakar.yarasu@ge.com patient named CMS50v7Test SC1_IPP_Met that has a 'SOURCE'
+        # data critera that attempts to invoke method :source which class Communication does not have
+        next if patient._id == BSON::ObjectId.from_string("5a97a962b848464bde177c40")
+        # CMS818v0 in account jason@cedarbridgegroup.com patient named Jane Smith that has a 'SOURCE'
+        # data critera that attempts to invoke method :source which class Condition does not have
+        next if patient._id == BSON::ObjectId.from_string("5ade3f0cb848462812369f88")
+
+        if patient.source_data_criteria
+          print '.' if ((count+=1) % 100).zero?
+          patient.source_data_criteria.each do |sdc|
+            if sdc['dose_unit']
+              sdc['dose_unit'] = old_unit_to_ucum_unit(sdc['dose_unit'])
+            end
+            if sdc['fulfillments']
+              sdc['fulfillments'].each do |fulfillment|
+                if fulfillment['quantity_dispensed_unit']
+                  fulfillment['quantity_dispensed_unit'] = old_unit_to_ucum_unit(fulfillment['quantity_dispensed_unit'])
+                end
+              end
+            end
+          end
+          begin
+            Measures::PatientBuilder.rebuild_patient(patient)
+            patient.save!
+          rescue Exception => e
+            puts
+            puts "Error in rebuild_patient: #{e}"
+            puts "Patient dump:"
+            puts patient.inspect
+          end
+        end
+      end
+      puts " Done (#{count} records)."
+    end
+
+    desc %{Count each of the existing dose and quantity dispensed units
+      $ bundle exec rake bonnie:patients:tabulate_dose_and_quantity_dispensed_units}
+    task :tabulate_dose_and_quantity_dispensed_units => :environment do
+      unique_units = {}
+      Record.all.each do |patient|
+        if patient.source_data_criteria
+          patient.source_data_criteria.each do |sdc|
+            if sdc['dose_unit']
+              keyname = sdc['dose_unit']
+              if unique_units.key?(keyname)
+                unique_units[keyname] = unique_units[keyname] + 1
+              else
+                unique_units[keyname] = 1
+              end
+            end
+            if sdc['fulfillments']
+              sdc['fulfillments'].each do |fulfillment|
+                if fulfillment['quantity_dispensed_unit']
+                  keyname = fulfillment['quantity_dispensed_unit']
+                  if unique_units.key?(keyname)
+                    unique_units[keyname] = unique_units[keyname] + 1
+                  else
+                    unique_units[keyname] = 1
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+      puts unique_units.inspect
+    end
+
     desc %(Recreates the JSON elm stored on CQL measures using an instance of
       a locally running CQLTranslationService JAR and updates the code_list_id field on
       data_criteria and source_data_criteria for direct reference codes. This is in run_once
