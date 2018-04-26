@@ -21,12 +21,11 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 4269366531b9e2f6af2a87bc5e402d6c30427469
+  revision: 48c39eb2ea1bc12b09c6aea2c7d84466ec041e79
   branch: bonnie-v2.1
   specs:
     bonnie_bundler (2.0.3)
       diffy (~> 3.0.0)
-      health-data-standards (~> 4.0)
       hqmf2js (~> 1.4)
       hquery-patient-api (~> 1.1)
       mongoid (~> 5.0)
@@ -39,7 +38,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: 5afcb07d39856d694bf536784c5fadc7c3072bf4
+  revision: 73a0ede7b94f3a43da8c858bfe857983546ffb8c
   branch: bonnie-v2.1
   specs:
     cql_qdm_patientapi (1.0.3)
