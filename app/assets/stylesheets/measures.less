@@ -189,6 +189,72 @@
   text-align: left;
 }
 
+#importMeasureDialog {
+  .modal-dialog {
+    width: 650px;
+  }
+}
+
+#vsac-query-profile-params, #vsac-query-release-params {
+  margin-bottom: 4px;
+}
+
+.vsac-parameters {
+  // Make the dropdowns not curvy and use bonnie colors.
+  select {
+    border: 0;
+    color: @brand-primary;
+    outline: 1px solid @btn-default-border;
+    outline-offset: -1px;
+
+    &:focus {
+      border: 0;
+      outline: 1px solid @btn-hover;
+    }
+  }
+
+  .vsac-draft-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .vsac-help-container {
+    padding-left: 0;
+    text-align: center;
+    height: 34px;
+    padding-top: 4px;
+
+    a {
+      font-size: 18px;
+      color: @brand-faded;
+      &:focus {
+        outline: none;
+        color: @brand-primary;
+      }
+    }
+
+    .popover {
+      max-width: 600px;
+      width: 600px;
+      margin-bottom: 30px;
+
+      pre {
+        font-size: 12px;
+        white-space: pre-wrap;
+      }
+    }
+  }
+
+  select.form-control[disabled] {
+    cursor: wait;
+  }
+
+  .vsac-release-dropdown {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .effective-date {
   padding-left: 0;
   .effective-date-picker {

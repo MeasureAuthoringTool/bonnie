@@ -26,8 +26,6 @@ Bonnie::Application.routes.draw do
     collection do
       get 'value_sets'
       post 'finalize'
-      get 'vsac_auth_valid'
-      post 'vsac_auth_expire'
       post 'cql_to_elm'
     end
     member do
@@ -39,6 +37,14 @@ Bonnie::Application.routes.draw do
         get 'calculate_code'
       end
     end
+  end
+
+  namespace :vsac_util do
+    get 'profile_names'
+    get 'program_names'
+    get 'program_release_names/:program', to: '/vsac_util#program_release_names'
+    get 'auth_valid'
+    post 'auth_expire'
   end
 
   resources :patients do

@@ -61,6 +61,7 @@ Layout/AlignParameters:
 Layout/CaseIndentation:
   Exclude:
     - 'lib/generation/randomizer.rb'
+    - 'lib/tasks/bonnie_run_once.rake'
 
 # Offense count: 9
 # Cop supports --auto-correct.
@@ -540,7 +541,7 @@ Lint/Void:
 
 # Offense count: 42
 Metrics/AbcSize:
-  Max: 213
+  Max: 213.6
 
 # Offense count: 61
 # Configuration parameters: CountComments, ExcludedMethods.
@@ -557,11 +558,13 @@ Metrics/BlockNesting:
 # Offense count: 14
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
-  Max: 369
+  Max: 382
+  Exclude:
+    - 'test/functional/measures_controller_test.rb'
 
 # Offense count: 18
 Metrics/CyclomaticComplexity:
-  Max: 29
+  Max: 30
   Exclude:
     - 'lib/tasks/bonnie.rake'
 
@@ -572,7 +575,7 @@ Metrics/MethodLength:
 
 # Offense count: 16
 Metrics/PerceivedComplexity:
-  Max: 33
+  Max: 34
   Exclude:
     - 'lib/tasks/bonnie.rake'
 
@@ -954,6 +957,7 @@ Style/PercentLiteralDelimiters:
     - 'lib/ext/record.rb'
     - 'lib/generation/randomizer.rb'
     - 'lib/tasks/bonnie.rake'
+    - 'lib/tasks/bonnie_run_once.rake'
     - 'lib/tasks/cql.rake'
     - 'lib/tasks/cql_testing.rake'
 

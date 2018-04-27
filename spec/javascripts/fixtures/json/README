@@ -43,3 +43,9 @@ bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_meas
 
 CMS52v7 created with:
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS52v7,bonnie-fixtures@mitre.org,CMS52v7]
+
+CMS760 created with:
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS760,bonnie-fixtures@mitre.org,CMS760v0]
+
+CMS761 - measure with "Participation"
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS761,bonnie-fixtures@mitre.org,CMS761v0]

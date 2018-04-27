@@ -53,6 +53,28 @@ describe 'Result', ->
     processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
     expect(processed_results).toEqual expected_results
 
+  it 'MSRPOPLEX should be 0 if MSRPOPL not satisfied', ->
+    initial_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 1}
+    expected_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 0}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
+
+    initial_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 0}
+    expected_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 0}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
+
+  it 'MSRPOPLEX should be unchanged if MSRPOPL satisfied', ->
+    initial_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1}
+    expected_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
+
+    initial_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0}
+    expected_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0}
+    processed_results = bonnie.cql_calculator.handlePopulationValues(initial_results)
+    expect(processed_results).toEqual expected_results
+
   it 'NUMER and NUMEX membership removed there are same counts in DENEX as DENOM', ->
     initial_results = {IPP: 2, DENOM: 2, DENEX: 2, NUMER: 2, NUMEX: 1}
     expected_results = {IPP: 2, DENOM: 2, DENEX: 2, NUMER: 0, NUMEX: 0}
@@ -121,33 +143,32 @@ describe 'Continuous Variable Calculations', ->
     expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [15] }
     expect(result.get('episode_results')['5a20544b5cc97509451ab203']).toEqual(expectedEpisodeResults)
   
-  # TODO: These tests can be added back in when the MSRPOPLEX removal of OBSERVs is added back to cql_calculator in 2.1 release
-  # it 'can handle multiple episodes observed with one excluded', ->
-  #   patient = @patients.findWhere(last: '2 ED ', first: 'Visits 1 Excl')
-  #   result = @population.calculate(patient)
-  #   expect(result.get('values')).toEqual([25])
-  #   expect(result.get('population_relevance')['values']).toBe(true)
-  #   expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
-  #   expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
-  # 
-  #   # check the results for the episode
-  #   expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [25] }
-  #   expect(result.get('episode_results')['5a2056095cc97509451ab210']).toEqual(expectedEpisodeResults)
-  #   # check the results for the second episode
-  #   expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-  #   expect(result.get('episode_results')['5a2056095cc97509451ab211']).toEqual(expectedEpisodeResults)
-  # 
-  # it 'can handle multiple episodes observed with both excluded', ->
-  #   patient = @patients.findWhere(last: '2 ED ', first: 'Visits 2 Excl')
-  #   result = @population.calculate(patient)
-  #   expect(result.get('values')).toEqual([])
-  #   expect(result.get('population_relevance')['values']).toBe(false)
-  #   expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
-  #   expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
-  # 
-  #   # check the results for the episode
-  #   expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-  #   expect(result.get('episode_results')['5a2055955cc97509451ab20b']).toEqual(expectedEpisodeResults)
-  #   # check the results for the second episode
-  #   expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
-  #   expect(result.get('episode_results')['5a2055955cc97509451ab20d']).toEqual(expectedEpisodeResults)
+  it 'can handle multiple episodes observed with one excluded', ->
+    patient = @patients.findWhere(last: '2 ED ', first: 'Visits 1 Excl')
+    result = @population.calculate(patient)
+    expect(result.get('values')).toEqual([25])
+    expect(result.get('population_relevance')['values']).toBe(true)
+    expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
+    expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
+
+    # check the results for the episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0, values: [25] }
+    expect(result.get('episode_results')['5a2056095cc97509451ab210']).toEqual(expectedEpisodeResults)
+    # check the results for the second episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
+    expect(result.get('episode_results')['5a2056095cc97509451ab211']).toEqual(expectedEpisodeResults)
+
+  it 'can handle multiple episodes observed with both excluded', ->
+    patient = @patients.findWhere(last: '2 ED ', first: 'Visits 2 Excl')
+    result = @population.calculate(patient)
+    expect(result.get('values')).toEqual([])
+    expect(result.get('population_relevance')['values']).toBe(false)
+    expect(result.get('population_relevance')['MSRPOPL']).toBe(true)
+    expect(result.get('population_relevance')['MSRPOPLEX']).toBe(true)
+
+    # check the results for the episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
+    expect(result.get('episode_results')['5a2055955cc97509451ab20b']).toEqual(expectedEpisodeResults)
+    # check the results for the second episode
+    expectedEpisodeResults = { IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1, values: [] }
+    expect(result.get('episode_results')['5a2055955cc97509451ab20d']).toEqual(expectedEpisodeResults)

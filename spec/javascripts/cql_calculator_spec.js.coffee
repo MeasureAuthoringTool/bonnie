@@ -98,6 +98,22 @@ describe 'cqlCalculator', ->
       relevance_map = @cql_calculator._buildPopulationRelevanceMap(population_results)
       expect(relevance_map).toEqual expected_relevance_map
 
+      initial_results = {IPP: 1, MSRPOPL: 0, MSRPOPLEX: 1}
+      expected_results = {IPP: true, MSRPOPL: true, MSRPOPLEX: false}
+      relevance_map = bonnie.cql_calculator._buildPopulationRelevanceMap(initial_results)
+      expect(relevance_map).toEqual expected_results
+
+    it 'marks MSRPOPLEX calculated if MSRPOPL is 1', ->
+      initial_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 1}
+      expected_results = {IPP: true, MSRPOPL: true, MSRPOPLEX: true}
+      relevance_map = bonnie.cql_calculator._buildPopulationRelevanceMap(initial_results)
+      expect(relevance_map).toEqual expected_results
+
+      initial_results = {IPP: 1, MSRPOPL: 1, MSRPOPLEX: 0}
+      expected_results = {IPP: true, MSRPOPL: true, MSRPOPLEX: true}
+      population_relevance_map = bonnie.cql_calculator._buildPopulationRelevanceMap(initial_results)
+      expect(relevance_map).toEqual expected_results
+
   describe '_populationRelevanceForAllEpisodes', ->
     it 'correctly builds population_relevance for multiple episodes in all populations', ->
       episode_results = {
@@ -165,3 +181,17 @@ describe 'cqlCalculator', ->
         expect(result.has('episode_results')).toEqual(false)
         # the IPP should be the only relevant population
         expect(result.get('population_relevance')).toEqual({ IPP: true, DENOM: false, DENEX: false, NUMER: false, DENEXCEP: false})
+
+    describe 'execution engine using passed in timezone offset', ->
+      beforeEach ->
+        bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMS760/value_sets.json')
+        @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS760/CMS760v0.json'), parse: true
+        @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS760/patients.json'), parse: true
+
+      it 'is correct', ->
+        # This patient fails the IPP (correctly)
+        patient = @patients.findWhere(last: 'Timezone', first: 'Correct')
+        result = @cql_calculator.calculate(@measure.get('populations').first(), patient)
+
+        # The IPP should fail
+        expect(result.get('IPP')).toEqual(0)
