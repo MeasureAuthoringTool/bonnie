@@ -13,7 +13,8 @@ class MeasuresController < ApplicationController
     raise Mongoid::Errors::DocumentNotFound unless @measure
     if stale? last_modified: @measure.updated_at.try(:utc), etag: @measure.cache_key
       raw_json = @measure.as_json(except: skippable_fields)
-      # fix up statement names in cql_statement_dependencies to use original periods
+      # fix up statement names in cql_statement_dependencies to use original periods <<UNWRAP 1>>
+      # this is matched with a WRAP in process_cql in the bonnie_bundler project
       Measures::MongoHashKeyWrapper::unwrapKeys raw_json['cql_statement_dependencies'] if raw_json.has_key?('cql_statement_dependencies')
       @measure_json = MultiJson.encode(raw_json)
       respond_with @measure do |format|
@@ -78,15 +79,9 @@ class MeasuresController < ApplicationController
     end
     #If we get to this point, then the measure that is being uploaded is a MAT export of CQL
     begin
-      # Default to valid set of values for vsac request.
-      includeDraft = true
-      # All measure uploads require vsac credentials, except certain test cases.
-      # Added a check for vsac_username before checking for include draft and vsac_date.
-      if params[:vsac_username]
-        # If the measure is published (includesDraft = false)
-        # EffectiveDate is specified to determine a value set version.
-        includeDraft = params[:include_draft] == 'true'
-      end
+      # parse VSAC options using helper and get ticket_granting_ticket which is always needed
+      vsac_options = MeasureHelper.parse_vsac_parameters(params)
+      vsac_ticket_granting_ticket = get_ticket_granting_ticket
 
       is_update = false
       if (params[:hqmf_set_id] && !params[:hqmf_set_id].empty?)
@@ -100,7 +95,7 @@ class MeasuresController < ApplicationController
         measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
       end
 
-      measure = Measures::CqlLoader.load(params[:measure_file], current_user, measure_details, params[:vsac_username], params[:vsac_password], false, false, includeDraft, get_ticket_granting_ticket) # Note: overwrite_valuesets=false cache=false
+      measure = Measures::CqlLoader.load(params[:measure_file], current_user, measure_details, vsac_options, vsac_ticket_granting_ticket)
 
       if (!is_update)
         existing = CqlMeasure.by_user(current_user).where(hqmf_set_id: measure.hqmf_set_id).first
@@ -150,9 +145,12 @@ class MeasuresController < ApplicationController
         f.write("Original Filename was #{params[:measure_file].original_filename}\n")
         f.write(e.to_s + "\n" + e.backtrace.join("\n"))
       end
-      if e.is_a? Measures::VSACException
+      if e.is_a?(Util::VSAC::VSACError)
         operator_error = true
-        flash[:error] = {title: "Error Loading VSAC Value Sets", summary: "VSAC value sets could not be loaded.", body: "Please verify that you are using the correct VSAC username and password. #{e.message}"}
+        flash[:error] = MeasureHelper.build_vsac_error_message(e)
+
+        # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
+        session[:vsac_tgt] = nil if e.is_a?(Util::VSAC::VSACTicketExpiredError)
       elsif e.is_a? Measures::MeasureLoadingException
         operator_error = true
         flash[:error] = {title: "Error Loading Measure", summary: "The measure could not be loaded", body:"There may be an error in the CQL logic."}
@@ -208,22 +206,6 @@ class MeasuresController < ApplicationController
     end
 
     redirect_to "#{root_path}##{params[:redirect_route]}"
-  end
-
-  def vsac_auth_valid
-    # If VSAC TGT is still valid, return its expiration date/time
-    tgt = session[:tgt]
-    if tgt.nil? || tgt.empty? || tgt[:expires] < Time.now
-      render :json => {valid: false}
-    else
-      render :json => {valid: true, expires: tgt[:expires]}
-    end
-  end
-
-  def vsac_auth_expire
-    # Force expire the VSAC session
-    session[:tgt] = nil
-    render :json => {}
   end
 
   def destroy
@@ -289,29 +271,30 @@ class MeasuresController < ApplicationController
 
   def get_ticket_granting_ticket
     # Retreive a (possibly) existing ticket granting ticket
-    tgt = session[:tgt]
+    ticket_granting_ticket = session[:vsac_tgt]
 
     # If the ticket granting ticket doesn't exist (or has expired), get a new one
-    if tgt.nil? || tgt.empty? || tgt[:expires] < Time.now
-      # Retrieve a new ticket granting ticket
-      begin
-        ticket = String.new(HealthDataStandards::Util::VSApi.get_tgt_using_credentials(
-          params[:vsac_username],
-          params[:vsac_password],
-          APP_CONFIG['nlm']['ticket_url']
-        ))
-      rescue Exception
-        # Given username and password are invalid, ticket cannot be created
-        return nil
+    if ticket_granting_ticket.nil?
+      # The user could open a second browser window and remove their ticket_granting_ticket in the session after they
+      # prepeared a measure upload assuming ticket_granting_ticket in the session in the first tab
+
+      # First make sure we have credentials to attempt getting a ticket with. Throw an error if there are no credentials.
+      if params[:vsac_username].nil? || params[:vsac_password].nil?
+        raise Util::VSAC::VSACNoCredentialsError.new
       end
-      # Create a new ticket granting ticket session variable that expires
-      # 7.5hrs from now
-      if !ticket.nil? && !ticket.empty?
-        session[:tgt] = {ticket: ticket, expires: Time.now + 27000}
-        ticket
-      end
+
+      # Retrieve a new ticket granting ticket by creating the api class.
+      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: params[:vsac_username], password: params[:vsac_password])
+      ticket_granting_ticket = api.ticket_granting_ticket
+
+      # Create a new ticket granting ticket session variable
+      session[:vsac_tgt] = ticket_granting_ticket
+      return ticket_granting_ticket
+
+    # If it does exist, let the api test it
     else
-      tgt[:ticket]
+      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], ticket_granting_ticket: ticket_granting_ticket)
+      return api.ticket_granting_ticket
     end
   end
 

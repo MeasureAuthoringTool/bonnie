@@ -53,20 +53,93 @@
               <div class="col-sm-offset-{{titleSize}} vsac-registration"><a href="https://uts.nlm.nih.gov/license.html" target="_blank"><i class="fa fa-plus-circle" aria-hidden="true"></i> Register for VSAC</a></div>
             </div>
           </div>
-          <div class="hidden" id="vsacSignInDraft">
+          <div class="hidden" id="vsac-query-settings">
             <div class="form-group">
-              <label for="vsacDraft" class="col-sm-{{titleSize}} control-label">Value Sets</label>
-              <div class="col-sm-8">
+              <label for="vsac_query_type" class="col-sm-{{titleSize}} control-label">Value Sets</label>
+              <div class="col-sm-{{dataSize}}">
                 <div class="switch-toggle switch-custom">
-                  <input id="value_sets_draft" type="radio" name="include_draft" value="true" checked="true">
-                  <label for="value_sets_draft" onclick=""><span class="sr-only">Value Sets</span> Draft</label>
-                  <input id="value_sets_published" type="radio" name="include_draft" value="false">
-                  <label for="value_sets_published" onclick=""><span class="sr-only">Value Sets</span> Measure Defined</label>
+                  <input id="vsac-profile" type="radio" name="vsac_query_type" value="profile" checked="true">
+                  <label for="vsac-profile" onclick=""><span class="sr-only">Value Sets by</span> Profile</label>
+                  <input id="vsac-release" type="radio" name="vsac_query_type" value="release">
+                  <label for="vsac-release" onclick=""><span class="sr-only">Value Sets by</span> Release</label>
                   <a class="btn btn-primary"></a>
                 </div>
               </div>
             </div>
+
+            <div class="form-group row vsac-parameters" id="vsac-query-profile-params">
+              <div class="col-sm-offset-{{titleSize}} col-sm-{{subtract dataSize 2}}">
+                <select id="vsac-query-profile" name="vsac_query_profile" class="form-control" title="VSAC Profile">
+                </select>
+              </div>
+              <div class="col-sm-1 vsac-draft-container">
+                <div class="checkbox">
+                  <label>
+                    <input id="vsac-query-include-draft" type="checkbox" name="vsac_query_include_draft" value="true" checked="true"/>Draft
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-1 vsac-help-container">
+                <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
+                  data-title="Profile Query"
+                  data-content="<p>Select an expansion profile from the dropdown to query VSAC for value sets contained in
+                    the measure.</p>
+                  <p>An expansion profile is a set of instructions for calculating value set content based on specific
+                    code system versions and retired legacy codes. For more information on expansion profiles, visit
+                    the NLM VSAC website.</p>
+                  <p>The default selected profile is 'Latest eCQM'. 'Latest eCQM' represents either an upcoming profile
+                    or the latest published profile.</p>
+                  <p>If the 'Draft' option is checked and the VSAC user has authoring permissions, value sets in draft
+                    will be fetched and calculated using the given profile.</p>
+                  <p>The following settings align with the prior 'Draft' option previously available in Bonnie 2.0:
+                    <ul><li>'Latest eCQM' profile selected</li><li>'Draft' option checked</li></ul>
+                  </p>"
+                  data-placement="bottom"><i class="fa fa-info-circle"></i></a>
+              </div>
+            </div>
+
+            <div class="hidden form-group row vsac-parameters" id="vsac-query-release-params" >
+              <div class="col-sm-offset-{{titleSize}} col-sm-3">
+                <select id="vsac-query-program" name="vsac_query_program" class="form-control" title="VSAC Program">
+                </select>
+              </div>
+              <div class="col-sm-{{subtract dataSize 4}} vsac-release-dropdown">
+                <select id="vsac-query-release" name="vsac_query_release" class="form-control" title="VSAC Release">
+                </select>
+              </div>
+              <div class="col-sm-1 vsac-help-container">
+                <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
+                  data-title="Release Query"
+                  data-content="<p>Select a program release from the dropdowns to query VSAC for value sets contained in
+                    the measure.</p>
+                    <p>A program release is a group of value set expansions (code lists) that are published under one
+                      program release label. For more information on program releases, visit the NLM VSAC website.</p>
+                    <p>The default selected program is '{{defaultProgram}}' and the default
+                      selected release is the latest release from the selected program.</p>"
+                  data-placement="bottom"><i class="fa fa-info-circle"></i></a>
+              </div>
+            </div>
+
+            <div class="form-group row vsac-parameters">
+              <div class="col-sm-offset-{{titleSize}} col-sm-{{subtract dataSize 1}}">
+                <div class="checkbox">
+                  <label>
+                    <input id="vsac-query-measure-defined" type="checkbox" name="vsac_query_measure_defined" value="true"/>Override options with measure defined versions
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-1 vsac-help-container">
+                <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus"
+                data-title="Measure Defined Versions"
+                data-content="<p>Check 'Override options with measure defined versions' to override the selected options
+                  with value set versions defined within the CQL. If value set versions are not defined within the CQL
+                  and this option is checked, value sets will be retrieved based on the selected Profile or Release
+                  options.</p>"
+                data-placement="bottom"><i class="fa fa-info-circle"></i></a>
+              </div>
+            </div>
           </div>
+
           <div class="form-group">
             <p class="col-sm-{{titleSize}} control-label">Type</p>
             {{#if isUpdate}}

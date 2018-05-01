@@ -82,6 +82,13 @@ describe 'MeasureView', ->
       bonnie.valueSetsByOid = @universalValueSetsByOid
       @cqlMeasureValueSetsView.remove()
 
+    it 'has QRDA export button disabled', ->
+      @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
+      @measureView.appendTo 'body'
+      expect(@measureView.$("button[data-call-method=exportQrdaPatients]")).toBeDisabled()
+      @measureView.remove()
+
+
     describe 'value sets view', ->
       it 'exists', ->
         expect(@cqlMeasureValueSetsView.$('.value_sets')).toExist()

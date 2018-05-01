@@ -41,6 +41,9 @@
       start_cql = cql.DateTime.fromDate(start, 0) # No timezone offset for start
       end_cql = cql.DateTime.fromDate(end, 0) # No timezone offset for stop
 
+      # Create the execution DateTime that we pass into the engine
+      executionDateTime = cql.DateTime.fromDate(new Date(), '0')
+
       # Construct CQL params
       params = {"Measurement Period": new cql.Interval(start_cql, end_cql)}
 
@@ -80,7 +83,7 @@
       measure_value_sets = @valueSetsForCodeService(population.collection.parent.get('value_set_oid_version_objects'), population.collection.parent.get('hqmf_set_id'))
 
       # Calculate results for each CQL statement
-      results = executeSimpleELM(elm, patientSource, measure_value_sets, population.collection.parent.get('main_cql_library'), main_library_version, params)
+      results = executeSimpleELM(elm, patientSource, measure_value_sets, population.collection.parent.get('main_cql_library'), main_library_version, executionDateTime, params)
 
       # Parse CQL statement results into population values
       [population_results, episode_results] = @createPopulationValues population, results, patient, observation_defs
@@ -197,6 +200,8 @@
         population_results['NUMER'] = 0
       if 'NUMEX' of population_results
         population_results['NUMEX'] = 0
+      if 'MSRPOPLEX' of population_results
+        population_results['MSRPOPLEX'] = 0
       if 'values' of population_results
         population_results['values'] = []
     # Can not be in the numerator if the same or more are excluded from the denominator
@@ -207,10 +212,9 @@
         population_results['NUMEX'] = 0
       if 'DENEXCEP' of population_results
         population_results['DENEXCEP'] = 0
-    # TODO: Temporarily disable the removal of OBSERVs when a member of MSRPOPLEX as to not change actual result values uncomment for 2.1 release
-    #else if (population_results["MSRPOPLEX"]? && !@isValueZero('MSRPOPLEX', population_results))
-    #  if 'values' of population_results
-    #    population_results['values'] = []
+    else if (population_results["MSRPOPLEX"]? && !@isValueZero('MSRPOPLEX', population_results))
+      if 'values' of population_results
+        population_results['values'] = []
     else if @isValueZero('NUMER', population_results)
       if 'NUMEX' of population_results
         population_results['NUMEX'] = 0
