@@ -115,7 +115,7 @@ class Thorax.Models.Measure extends Thorax.Model
       provider_care_experiences: []
       provider_characteristics: []
       risk_category_assessments: ['severity']
-      substances: ['dose', 'route', 'frequency', 'reaction', 'supply']
+      substances: ['dose', 'route', 'administration_timing', 'reaction', 'supply', 'refills']
       symptoms: ['ordinality', 'severity']
       system_characteristics: []
       transfers: []
