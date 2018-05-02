@@ -116,54 +116,6 @@
       {{/if}}
 
       {{#ifCond definition "==" "medication"}}
-        <div class="row">
-          {{#ifCond status "==" "ordered"}}
-          <div class="form-group col-md-6">
-            <label for="administrations_value_{{@cid}}" class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Number of Doses<span class="sr-only"> value</span></label>
-            <div class="form-inline">
-              <input type="number" min="0" name="administrations_value" id="adminstrations_value_{{@cid}}" class="form-control" placeholder="number of doses">
-            </div>
-          </div>
-          {{else}}
-          <div class="form-group col-md-6">
-            <label for="dose_value_{{@cid}}" class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Prescription<span class="sr-only"> value</span></label>
-            <div class="form-inline">
-              <div class="input-group">
-                <input type="text" name="dose_value" id="dose_value_{{@cid}}" class="form-control" placeholder="dose">
-                <div class="input-group-addon">
-                  <label for="dose_unit_{{@cid}}" class="sr-only">dose unit</label>
-                  <select id="dose_unit_{{@cid}}" name="dose_unit" class="form-control medications-control">
-                    <option value="{Capsule}">capsule(s)</option>
-                    <option value="{Dose}">dose(s)</option>
-                    <option value="g">gram(s)</option>
-                    <option value="ug">mcg(s)</option>
-                    <option value="mg">mg(s)</option>
-                    <option value="mL">ml(s)</option>
-                    <option value="{tbl}">tablet(s)</option>
-                    <option value="{unit}">unit(s)</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-          {{/ifCond}}
-          <div class="form-group col-md-6">
-            <label for="frequency_value_{{@cid}}" class="control-label"><i class="fa fa-spinner" aria-hidden="true"></i> Regimen<span class="sr-only"> value</span></label>
-            <div class="form-inline">
-              <div class="input-group">
-                <input type="number" min="0" name="frequency_value" id="frequency_value_{{@cid}}" class="form-control" placeholder="frequency">
-                <div class="input-group-addon">
-                  <label for="frequency_unit_{{@cid}}" class="sr-only">frequency unit</label>
-                  <select id="frequency_unit_{{@cid}}" name="frequency_unit" class="form-control medications-control">
-                    <option value="min">min(s)</option>
-                    <option value="h">hour(s)</option>
-                    <option value="d">day(s)</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         {{#ifCond status "!=" "ordered"}}
         <div class="form-group">
           <label class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Filled<input class="sr-only" disabled></label>
