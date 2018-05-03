@@ -1,53 +1,4 @@
 GIT
-  remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 0bce2ba6157124e52d253a80686480ab2cdfec58
-  branch: master_bonnie
-  specs:
-    health-data-standards (4.0.4)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.2)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 1.8.0)
-      rubyzip (~> 1.2.1)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 40a63c671ef6c3f0fc89dbafd15c31de767183b4
-  branch: master
-  specs:
-    bonnie_bundler (2.1.0)
-      diffy (~> 3.0.0)
-      health-data-standards (~> 4.0)
-      hqmf2js (~> 1.4)
-      hquery-patient-api (~> 1.1)
-      mongoid (~> 5.0)
-      quality-measure-engine (~> 3.2)
-      rails (~> 4.2)
-      roo (~> 1.13)
-      rubyzip (~> 1.2, >= 1.2.1)
-      simplexml_parser (~> 1.0)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: ea594eef038f361045ffe2bbdeeed5b3991623df
-  branch: master
-  specs:
-    cql_qdm_patientapi (1.1.0)
-      coffee-rails (~> 4.1)
-      rails (~> 4.2)
-      sprockets-rails (~> 2.3)
-
-GIT
   remote: https://github.com/randym/axlsx
   revision: c8ac844572b25fda358cc01d2104720c4c42f450
   branch: master
@@ -112,6 +63,18 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.11)
+    bonnie_bundler (2.1.0)
+      diffy (~> 3.0.0)
+      health-data-standards (~> 4.0)
+      hqmf2js (~> 1.4)
+      hquery-patient-api (~> 1.1)
+      mongoid (~> 5.0)
+      quality-measure-engine (~> 3.2)
+      rails (~> 4.2)
+      roo (~> 1.13)
+      rubyzip (~> 1.2, >= 1.2.1)
+      simplexml_parser (~> 1.0)
+      zip-zip (~> 0.3)
     brakeman (4.0.1)
     browser (2.5.0)
     bson (4.2.1)
@@ -150,6 +113,10 @@ GEM
     colorize (0.7.7)
     columnize (0.9.0)
     commonjs (0.2.7)
+    cql_qdm_patientapi (1.1.0)
+      coffee-rails (~> 4.1)
+      rails (~> 4.2)
+      sprockets-rails (~> 2.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.3)
@@ -187,6 +154,21 @@ GEM
       sprockets (>= 2.0.3)
       tilt
     hashdiff (0.3.0)
+    health-data-standards (4.0.4)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.2)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 1.8.0)
+      rubyzip (~> 1.2.1)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
     highline (1.7.10)
     hike (1.2.3)
     hqmf2js (1.4.0)
@@ -417,18 +399,18 @@ PLATFORMS
 
 DEPENDENCIES
   axlsx!
-  bonnie_bundler!
+  bonnie_bundler (~> 2.1.0)
   brakeman
   browser
   bundler-audit
   capistrano-rails
   coffee-rails
-  cql_qdm_patientapi!
+  cql_qdm_patientapi (~> 1.1)
   devise
   exception_notification!
   foreman
   handlebars_assets (= 0.16)
-  health-data-standards!
+  health-data-standards (~> 4.0.4)
   hqmf2js (~> 1.4)
   hquery-patient-api (~> 1.1)
   jquery-rails
