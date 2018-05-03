@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 2259d5bdf6b3d9afcfab72f75395428ae5fcca6b
+  revision: 0bce2ba6157124e52d253a80686480ab2cdfec58
   branch: master_bonnie
   specs:
-    health-data-standards (4.0.3)
+    health-data-standards (4.0.4)
       activesupport (~> 4.2.0)
       builder (~> 3.1)
       erubis (~> 2.7.0)
@@ -21,11 +21,12 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 93802d37626bb268c28b2fb1403057542a566576
+  revision: 40a63c671ef6c3f0fc89dbafd15c31de767183b4
   branch: master
   specs:
-    bonnie_bundler (2.0.3)
+    bonnie_bundler (2.1.0)
       diffy (~> 3.0.0)
+      health-data-standards (~> 4.0)
       hqmf2js (~> 1.4)
       hquery-patient-api (~> 1.1)
       mongoid (~> 5.0)
@@ -38,10 +39,10 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: cbe76c9aee13350c9bf39318c76680b917286623
+  revision: ea594eef038f361045ffe2bbdeeed5b3991623df
   branch: master
   specs:
-    cql_qdm_patientapi (1.0.4)
+    cql_qdm_patientapi (1.1.0)
       coffee-rails (~> 4.1)
       rails (~> 4.2)
       sprockets-rails (~> 2.3)
