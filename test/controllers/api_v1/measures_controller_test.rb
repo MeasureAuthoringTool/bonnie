@@ -256,7 +256,16 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     VCR.use_cassette("mat_api_435Complex") do
       measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
-      post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD']}
+
+      # get ticket_granting_ticket
+      ticket = String.new(HealthDataStandards::Util::VSApi.get_tgt_using_credentials(
+        ENV['VSAC_USERNAME'],
+        ENV['VSAC_PASSWORD'],
+        APP_CONFIG['nlm']['ticket_url']
+      ))
+      ticket_expires_at = (Time.now + 8.hours).to_i
+
+      post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_tgt: ticket, vsac_tgt_expires_at: ticket_expires_at}
       assert_response :ok
       expected_response = { "status" => "success", "url" => "/api_v1/measures/E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"}
       assert_equal expected_response, JSON.parse(response.body)
@@ -271,13 +280,13 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     end
   end
   
-  test "should error on create measure from hqmf xml with bad vsac creds" do
+  test "should error on create measure from hqmf xml with expired ticket" do
     VCR.use_cassette("bad_vsac_creds") do
       measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
-      post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_username: "sketchyguy", vsac_password: "goodpassword"}
+      post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_tgt: "bad ticket", vsac_tgt_expires_at: (Time.now - 3.hours).to_i}
       assert_response :internal_server_error
-      expected_response = { "status" => "error", "messages" => "Error Loading Value Sets from VSAC: Error Loading Value Sets from VSAC: 401 Unauthorized"}
+      expected_response = { "status" => "error", "messages" => "VSAC ticket granting ticket appears to have expired."}
       assert_equal expected_response, JSON.parse(response.body)
     end
   end
@@ -287,14 +296,14 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     @request.env["CONTENT_TYPE"] = "multipart/form-data"
     post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat']}
     assert_response :bad_request
-    expected_response = { "status" => "error", "messages" => "Missing parameter: vsac_username"}
+    expected_response = { "status" => "error", "messages" => "Missing parameter: vsac_tgt"}
     assert_equal expected_response, JSON.parse(response.body)
   end
   
   test "should error on create measure from hqmf xml with include_draft false and bad vsac_date" do
     measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
     @request.env["CONTENT_TYPE"] = "multipart/form-data"
-    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_username: 'test', vsac_password: 'badpass', include_draft: false, vsac_date: 'notadate'}
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_tgt: 'test', vsac_tgt_expires_at: (Time.now + 2.hours).to_i, include_draft: false, vsac_date: 'notadate'}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "Invalid parameter 'vsac_date': Must be a date in the form mm/dd/yyyy."}
     assert_equal expected_response, JSON.parse(response.body)
@@ -303,7 +312,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   test "should error on create measure from hqmf xml with include_draft false and no vsac_date" do
     measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
     @request.env["CONTENT_TYPE"] = "multipart/form-data"
-    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_username: 'test', vsac_password: 'badpass', include_draft: false}
+    post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_tgt: 'test', vsac_tgt_expires_at: (Time.now + 2.hours).to_i, include_draft: false}
     assert_response :bad_request
     expected_response = { "status" => "error", "messages" => "Missing parameter: vsac_date"}
     assert_equal expected_response, JSON.parse(response.body)
