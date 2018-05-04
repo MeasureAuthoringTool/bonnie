@@ -108,8 +108,8 @@ class ApiV1::MeasuresController < ApplicationController
     param :calculation_type, ["episode", "patient"], :required => true, :desc => "The type of calculation."
     param :episode_of_care, Integer, :required => false, :desc => "The index of the episode of care. Defaults to 0. This means that the first specific occurence in the logic will be used for the episode of care calculation."
     param :population_titles, Array, of: String, :required => false, :desc => "The titles of the populations. If this is not included, populations will assume default values. i.e. \"Population 1\", \"Population 2\", etc."
-    param :vsac_username, String, :required => false, :desc => "Username for VSAC. Required when uploading a HQMF .xml measure."
-    param :vsac_password, String, :required => false, :desc => "Password for VSAC. Required when uploading a HQMF .xml measure."
+    param :vsac_tgt, String, :required => false, :desc => "VSAC ticket granting ticket. Required when uploading a HQMF .xml measure."
+    param :vsac_tgt_expires_at, Integer, :required => false, :desc => "VSAC ticket granting ticket expiration time in seconds since epoch. Required when uploading a HQMF .xml measure."
     param :include_draft, Boolean, :required => false, :desc => "If VSAC should fetch draft value sets. Defaults to 'true' if not supplied."
     param :vsac_date, Date, :required => false, :desc => "The lastest effective date for published value sets to retrieve. Required when include_draft is false."
   end
@@ -406,8 +406,13 @@ class ApiV1::MeasuresController < ApplicationController
   
   def load_hqmf_xml(params, measure_details)
     # VSAC info is required
-    params.require(:vsac_username)
-    params.require(:vsac_password)
+    params.require(:vsac_tgt)
+    params.require(:vsac_tgt_expires_at)
+    tgt_expires_at = Time.at(params[:vsac_tgt_expires_at].to_i)
+    if tgt_expires_at < Time.now
+      raise Measures::VSACException.new("VSAC ticket granting ticket appears to have expired.")
+    end
+
     includeDraft = params.fetch(:include_draft, true)
     params.require(:vsac_date) unless includeDraft
     effectiveDate = nil
@@ -415,7 +420,7 @@ class ApiV1::MeasuresController < ApplicationController
       effectiveDate = Date.strptime(params[:vsac_date],'%m/%d/%Y').strftime('%Y%m%d')
     end
     
-    measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_resource_owner, params[:vsac_username], params[:vsac_password], measure_details, true, false, effectiveDate, includeDraft)
+    measure = Measures::SourcesLoader.load_measure_xml(params[:measure_file].tempfile.path, current_resource_owner, nil, nil, measure_details, true, false, effectiveDate, includeDraft, params[:vsac_tgt])
   end
   
   def error_parameter_missing(exception)
