@@ -1,16 +1,16 @@
 [
   {
-    "_id": "5ad634d7868280d57df13326",
-    "birthdate": 195033600,
+    "_id": "5ad08c06b8484651bb40d494",
+    "birthdate": 28800,
     "bundle_id": "5a57e977942c6d1e61d32f14",
-    "created_at": "2018-04-17T17:54:31.058Z",
+    "created_at": "2018-04-13T10:52:54.702Z",
     "deathdate": null,
     "description": null,
     "description_category": null,
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5ad634d7868280d57df13327",
+        "_id": "5aec6eb6b848463f1229da32",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -22,7 +22,7 @@
         "diagnosis": null,
         "dischargeDisposition": null,
         "dischargeTime": null,
-        "end_time": 1334650500,
+        "end_time": 1334304900,
         "facility": null,
         "health_record_field": null,
         "mood_code": "EVN",
@@ -32,7 +32,7 @@
         "performer_id": null,
         "reason": null,
         "specifics": null,
-        "start_time": 1334649600,
+        "start_time": 1334304000,
         "status_code": {
           "HL7 ActStatus": [
             "performed"
@@ -60,7 +60,7 @@
     "gender": "F",
     "insurance_providers": [
       {
-        "_id": "5ad634d7868280d57df13328",
+        "_id": "5aec6eb6b848463f1229da33",
         "codes": {
           "SOP": [
             "349"
@@ -80,13 +80,13 @@
         "negationReason": null,
         "oid": null,
         "payer": {
-          "_id": "5ad634d7868280d57df13329",
+          "_id": "5aec6eb6b848463f1229da34",
           "name": "Other"
         },
         "reason": null,
         "relationship": null,
         "specifics": null,
-        "start_time": 1199163600,
+        "start_time": 1199145600,
         "status_code": null,
         "time": null,
         "type": "OT"
@@ -103,7 +103,7 @@
       null
     ],
     "medical_record_assigner": "Bonnie",
-    "medical_record_number": "a73f7325d765ba090fd32783fc1c9107fd0b2c07166eea554f43d22960f12764",
+    "medical_record_number": "c693ab2e8cecaee09a5bd9076bd465210afbb38187fe2abcdb40fcc2d0263d56",
     "notes": "",
     "origin_data": [
 
@@ -124,8 +124,8 @@
         "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1060",
         "type": "encounters",
         "id": "InpatientEncounter_EncounterPerformed_a6c66e3c_da7d_4104_836a_c6c427fecb16_source",
-        "start_date": 1334649600000,
-        "end_date": 1334650500000,
+        "start_date": 1334304000000,
+        "end_date": 1334304900000,
         "value": [
 
         ],
@@ -134,14 +134,14 @@
         },
         "hqmf_set_id": "8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F",
         "cms_id": "CMS761v0",
-        "criteria_id": "162d4be50faFp",
+        "criteria_id": "162bea28d6fHa",
         "codes": {
           "SNOMED-CT": [
             "10378005"
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5ad634d7868280d57df13327",
+        "coded_entry_id": "5aec6eb6b848463f1229da32",
         "code_source": "DEFAULT"
       },
       {
@@ -154,21 +154,21 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-04-17T17:54:31.058Z",
+    "updated_at": "2018-05-04T14:31:18.902Z",
     "user_id": "5a57e975942c6d1e61d32f13"
   },
   {
-    "_id": "5ad634e2868280d57df13333",
-    "birthdate": 195033600,
+    "_id": "5aec6e07b848463f1229da20",
+    "birthdate": 28800,
     "bundle_id": "5a57e977942c6d1e61d32f14",
-    "created_at": "2018-04-17T17:54:42.754Z",
+    "created_at": "2018-05-04T14:28:23.926Z",
     "deathdate": null,
     "description": null,
     "description_category": null,
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5ad634e2868280d57df13334",
+        "_id": "5aec6eafb848463f1229da2a",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -180,7 +180,7 @@
         "diagnosis": null,
         "dischargeDisposition": null,
         "dischargeTime": null,
-        "end_time": 1334650500,
+        "end_time": 1334304900,
         "facility": null,
         "health_record_field": null,
         "mood_code": "EVN",
@@ -190,7 +190,7 @@
         "performer_id": null,
         "reason": null,
         "specifics": null,
-        "start_time": 1334649600,
+        "start_time": 1334304000,
         "status_code": {
           "HL7 ActStatus": [
             "performed"
@@ -218,7 +218,7 @@
     "gender": "F",
     "insurance_providers": [
       {
-        "_id": "5ad634e2868280d57df13336",
+        "_id": "5aec6eafb848463f1229da2c",
         "codes": {
           "SOP": [
             "349"
@@ -238,13 +238,13 @@
         "negationReason": null,
         "oid": null,
         "payer": {
-          "_id": "5ad634e2868280d57df13337",
+          "_id": "5aec6eafb848463f1229da2d",
           "name": "Other"
         },
         "reason": null,
         "relationship": null,
         "specifics": null,
-        "start_time": 1199163600,
+        "start_time": 1199145600,
         "status_code": null,
         "time": null,
         "type": "OT"
@@ -261,21 +261,21 @@
       null
     ],
     "medical_record_assigner": "Bonnie",
-    "medical_record_number": "3b712015a40c46e08ec24e08ef554c9083d12de4d6868a08ff82984b57dd4dbf",
+    "medical_record_number": "22b755900bfa2cd1996b37f5a25fb5e2d08a118c48ededa2b486adffa6fd0a5e",
     "notes": "",
     "origin_data": [
 
     ],
     "participations": [
       {
-        "_id": "5ad634e2868280d57df13335",
+        "_id": "5aec6eafb848463f1229da2b",
         "codes": {
           "Source of Payment Typology": [
             "3"
           ]
         },
-        "description": "Participation: Insurance Coverage Type, FPAR",
-        "end_time": 1334650500,
+        "description": "Participation: Insurance Coverage Type",
+        "end_time": 1336119300,
         "health_record_field": null,
         "mood_code": "EVN",
         "negationInd": null,
@@ -283,7 +283,7 @@
         "oid": null,
         "reason": null,
         "specifics": null,
-        "start_time": 1334649600,
+        "start_time": 1336118400,
         "status_code": {
           "HL7 ActStatus": [
             null
@@ -308,8 +308,8 @@
         "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1060",
         "type": "encounters",
         "id": "InpatientEncounter_EncounterPerformed_a6c66e3c_da7d_4104_836a_c6c427fecb16_source",
-        "start_date": 1334649600000,
-        "end_date": 1334650500000,
+        "start_date": 1334304000000,
+        "end_date": 1334304900000,
         "value": [
 
         ],
@@ -318,26 +318,26 @@
         },
         "hqmf_set_id": "8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F",
         "cms_id": "CMS761v0",
-        "criteria_id": "162d4be50faFp",
+        "criteria_id": "162bea28d6fHa",
         "codes": {
           "SNOMED-CT": [
             "10378005"
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5ad634e2868280d57df13334",
+        "coded_entry_id": "5aec6eafb848463f1229da2a",
         "code_source": "DEFAULT"
       },
       {
         "negation": false,
         "definition": "participation",
         "title": "InsuranceCoverageTypeFPAR",
-        "description": "Participation: Insurance Coverage Type, FPAR",
+        "description": "Participation: Insurance Coverage Type",
         "code_list_id": "2.16.840.1.113762.1.4.1166.29",
         "type": "participations",
         "id": "InsuranceCoverageTypeFPAR_Participation_29fbfb89_3cf5_433f_96bd_fb24fb1896f8_source",
-        "start_date": 1334649600000,
-        "end_date": 1334650500000,
+        "start_date": 1336118400000,
+        "end_date": 1336119300000,
         "value": [
 
         ],
@@ -346,13 +346,13 @@
         },
         "hqmf_set_id": "8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F",
         "cms_id": "CMS761v0",
-        "criteria_id": "162d4be8edcm2",
+        "criteria_id": "1632b8dea99Yg",
         "codes": {
           "Source of Payment Typology": [
             "3"
           ]
         },
-        "coded_entry_id": "5ad634e2868280d57df13335",
+        "coded_entry_id": "5aec6eafb848463f1229da2b",
         "code_source": "DEFAULT"
       },
       {
@@ -365,7 +365,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-04-17T17:54:42.754Z",
+    "updated_at": "2018-05-04T14:31:11.367Z",
     "user_id": "5a57e975942c6d1e61d32f13"
   }
 ]
