@@ -1,16 +1,16 @@
 [
   {
-    "_id": "5af1e1525cc975c0143e2b43",
+    "_id": "5af346c3b848465f42b0acf3",
     "birthdate": 329472000,
     "bundle_id": "5a57e977942c6d1e61d32f14",
-    "created_at": "2018-05-08T17:41:38.671Z",
+    "created_at": "2018-05-09T19:06:43.249Z",
     "deathdate": null,
     "description": null,
     "description_category": null,
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5af1e1525cc975c0143e2b44",
+        "_id": "5af346c3b848465f42b0acf4",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -25,7 +25,7 @@
         "diagnosis": null,
         "dischargeDisposition": null,
         "dischargeTime": null,
-        "end_time": 1336464900,
+        "end_time": 1336551300,
         "facility": null,
         "health_record_field": null,
         "mood_code": "EVN",
@@ -35,7 +35,7 @@
         "performer_id": null,
         "reason": null,
         "specifics": null,
-        "start_time": 1336464000,
+        "start_time": 1336550400,
         "status_code": {
           "HL7 ActStatus": [
             "performed"
@@ -64,7 +64,7 @@
     "gender": "M",
     "insurance_providers": [
       {
-        "_id": "5af1e1525cc975c0143e2b46",
+        "_id": "5af346c3b848465f42b0acf6",
         "codes": {
           "SOP": [
             "349"
@@ -84,13 +84,13 @@
         "negationReason": null,
         "oid": null,
         "payer": {
-          "_id": "5af1e1525cc975c0143e2b47",
+          "_id": "5af346c3b848465f42b0acf7",
           "name": "Other"
         },
         "reason": null,
         "relationship": null,
         "specifics": null,
-        "start_time": 1199163600,
+        "start_time": 1199145600,
         "status_code": null,
         "time": null,
         "type": "OT"
@@ -107,15 +107,15 @@
       null
     ],
     "medical_record_assigner": "Bonnie",
-    "medical_record_number": "06a780e2e92219df1b5ddb9491c48623daf4ab632806d29398c67a06b469d0d5",
+    "medical_record_number": "5c9bee7e9c8628990b49657d9314673e61f3c211d838a8ae7d4ec8042c6966b6",
     "medications": [
       {
-        "_id": "5af1e1525cc975c0143e2b45",
+        "_id": "5af346c3b848465f42b0acf5",
         "active_datetime": null,
         "administrationTiming": {
           "code_system": "SNOMED-CT",
-          "code": "229798009",
-          "title": "Three times daily (qualifier value)"
+          "code": "229799001",
+          "title": "Twice a day (qualifier value)"
         },
         "allowedAdministrations": null,
         "anatomical_approach": null,
@@ -128,12 +128,12 @@
         "deliveryMethod": null,
         "description": "Medication, Order: Opioid Medications",
         "dose": {
-          "scalar": "10",
+          "scalar": "0.5",
           "units": "mg"
         },
         "doseIndicator": null,
         "doseRestriction": null,
-        "end_time": 1351152900,
+        "end_time": 1356682500,
         "freeTextSig": null,
         "fulfillmentHistory": [
 
@@ -151,13 +151,13 @@
         "reaction": null,
         "reason": null,
         "refills": {
-          "scalar": "1",
+          "scalar": "2",
           "units": ""
         },
         "route": null,
         "signed_datetime": null,
         "specifics": null,
-        "start_time": 1336464000,
+        "start_time": 1336550400,
         "statusOfMedication": null,
         "status_code": {
           "HL7 ActStatus": [
@@ -193,8 +193,8 @@
         "code_list_id": "2.16.840.1.113883.3.464.1003.101.12.1008",
         "type": "encounters",
         "id": "OutpatientConsultation_EncounterPerformed_48dc260e_53e9_4934_91fc_958ce91f1008_source",
-        "start_date": 1336464000000,
-        "end_date": 1336464900000,
+        "start_date": 1336550400000,
+        "end_date": 1336551300000,
         "value": [
 
         ],
@@ -203,7 +203,7 @@
         },
         "hqmf_set_id": "442EDEF2-7347-4080-988F-16C9D1998803",
         "cms_id": "CMS460v0",
-        "criteria_id": "16340d56a77un",
+        "criteria_id": "1634649dc54ED",
         "codes": {
           "SNOMED-CT": [
             "17436001"
@@ -213,7 +213,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5af1e1525cc975c0143e2b44",
+        "coded_entry_id": "5af346c3b848465f42b0acf4",
         "code_source": "DEFAULT"
       },
       {
@@ -225,8 +225,8 @@
         "code_list_id": "2.16.840.1.113762.1.4.1111.144",
         "type": "medications",
         "id": "OpioidMedications_MedicationOrder_9fa72c11_9e0b_481f_a2bb_5ac13e6ddd90_source",
-        "start_date": 1336464000000,
-        "end_date": 1351152900000,
+        "start_date": 1336550400000,
+        "end_date": 1356682500000,
         "value": [
 
         ],
@@ -234,23 +234,15 @@
         "field_values": {
           "DOSE": {
             "type": "PQ",
-            "code_list_id": "",
-            "field_title": "Dosage",
-            "value": "10",
-            "unit": "mg"
+            "value": "0.5",
+            "unit": "mg",
+            "field_title": "Dosage"
           },
           "FREQUENCY": {
             "type": "CD",
-            "code_list_id": "drc-dbd1fe2f59c8bb7146e4aa679786731f53b186bb86182eaf755d17a842e1f29e",
+            "code_list_id": "drc-5d724671c39b58f85c450e49e712099c7c7ddc12096bd8b026a451dc75735b45",
             "field_title": "Frequency",
-            "title": "Three times daily (qualifier value)"
-          },
-          "REFILLS": {
-            "type": "PQ",
-            "code_list_id": "",
-            "field_title": "Refills",
-            "value": "1",
-            "unit": ""
+            "title": "Twice a day (qualifier value)"
           },
           "SUPPLY": {
             "type": "PQ",
@@ -258,11 +250,18 @@
             "field_title": "Supply",
             "value": "120",
             "unit": ""
+          },
+          "REFILLS": {
+            "type": "PQ",
+            "code_list_id": "",
+            "field_title": "Refills",
+            "value": "2",
+            "unit": ""
           }
         },
         "hqmf_set_id": "442EDEF2-7347-4080-988F-16C9D1998803",
         "cms_id": "CMS460v0",
-        "criteria_id": "16340d57f66jB",
+        "criteria_id": "163464a0518ET",
         "codes": {
           "RxNorm": [
             "1053647"
@@ -270,7 +269,7 @@
         },
         "fulfillments": null,
         "negation_code_list_id": "",
-        "coded_entry_id": "5af1e1525cc975c0143e2b45",
+        "coded_entry_id": "5af346c3b848465f42b0acf5",
         "code_source": "DEFAULT"
       },
       {
@@ -283,7 +282,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-05-08T17:41:38.671Z",
+    "updated_at": "2018-05-09T19:06:43.249Z",
     "user_id": "5a57e975942c6d1e61d32f13"
   }
 ]

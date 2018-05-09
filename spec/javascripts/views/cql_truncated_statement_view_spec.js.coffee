@@ -78,7 +78,8 @@ describe 'CqlTruncatedStatementView', ->
       # spy on the highlight patient data so we can see if the proper element is called out for highlighting.
       spyOn(@populationLogicView, 'highlightPatientData')
       $(encountersView.rootClauseView.$el).trigger('mouseover')
-      expect(@populationLogicView.highlightPatientData).toHaveBeenCalledWith(['5af1e1525cc975c0143e2b44'])
+      # this is the only encounter on the test patient
+      expect(@populationLogicView.highlightPatientData).toHaveBeenCalledWith(['5af346c3b848465f42b0acf4'])
 
       # test mouseout functionality
       spyOn(@populationLogicView, 'clearHighlightPatientData')
@@ -128,6 +129,7 @@ describe 'CqlTruncatedStatementView', ->
       # spy on the highlight patient data so we can see if the proper element is called out for highlighting.
       spyOn(@populationLogicView, 'highlightPatientData')
       $(firstADHDMedView.rootClauseView.$el).trigger('mouseover')
+      # this is the first medication on the test patient
       expect(@populationLogicView.highlightPatientData).toHaveBeenCalledWith(['5a7dc63db8484620c5183d3b'])
 
       # test mouseout functionality
