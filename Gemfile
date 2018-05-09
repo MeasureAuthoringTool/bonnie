@@ -14,7 +14,7 @@ gem 'less-rails'
 gem "non-stupid-digest-assets"
 
 gem 'health-data-standards', '~> 4.0.4'
-#gem 'cql_qdm_patientapi', '~> 1.1'
+# gem 'cql_qdm_patientapi', '~> 1.1'
 gem 'simplexml_parser', '~> 1.0'
 gem 'hqmf2js', '~> 1.4'
 gem 'bonnie_bundler', '~> 2.1.0'
