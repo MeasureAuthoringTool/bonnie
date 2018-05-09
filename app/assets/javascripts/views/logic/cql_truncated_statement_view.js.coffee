@@ -82,10 +82,6 @@ class Thorax.Views.CqlTruncatedStatementView extends Thorax.Views.BonnieView
         else if @latestResult?.raw?.entry?._id
           @logicView?.highlightPatientData([@latestResult.raw.entry._id])
 
-      # if we dont have a ref_id then we may just be a text clause. so we pass this to our parent clause
-      else
-        @parent.highlightEntry()
-
   ###*
   # Event handler for the mouseout event. This will report to the CqlPopulationLogic view that highlighting should be cleared.
   ###
