@@ -33,7 +33,7 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
     # Get the count of clauses in this statement. If it is more than the threshold, show an alternate view.
     clauseCount = Object.keys(@logicView.model.findAllLocalIdsInStatementByName(@libraryName, @name)).length
     if (clauseCount > Thorax.Views.CqlStatement.MAX_CLAUSE_THRESHOLD)
-      @rootClauseView = new Thorax.Views.CqlTruncatedStatementView(element: @statement, libraryName: @libraryName, name: @name, logicView: @logicView, highlightPatientDataEnabled: @highlightPatientDataEnabled)
+      @rootClauseView = new Thorax.Views.CqlTruncatedStatementView(element: @statement, libraryName: @libraryName, statementName: @name, logicView: @logicView, highlightPatientDataEnabled: @highlightPatientDataEnabled)
 
     # else show the normal nesting clause view
     else

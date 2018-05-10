@@ -4,12 +4,14 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
   
   events:
     rendered: -> 
-      @$el.attr('data-ref-id', @element.ref_id) if @element.ref_id?
-      @$el.attr('data-define-name', @element.define_name) if @element.define_name?
+      @$el.attr('data-ref-id', @ref_id) if @ref_id?
+      @$el.attr('data-define-name', @statementName) if @statementName?
     'mouseover': 'highlightEntry'
     'mouseout': 'clearHighlightEntry'
   
   initialize: ->
+    @statementName = @element.define_name if @element.define_name?
+    @ref_id = @element.ref_id if @element.ref_id?
     if (@element.children)
       @childClauses = []
       for child in @element.children
@@ -24,8 +26,8 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
       for clause in @childClauses
         clause.showCoverage(rationaleCriteria)
         
-    if @element.ref_id?
-      if rationaleCriteria? && rationaleCriteria[@element.ref_id]?
+    if @ref_id?
+      if rationaleCriteria? && rationaleCriteria[@ref_id]?
         @$el.attr('class', 'clause-covered')
       else
         @$el.attr('class', 'clause-uncovered')
@@ -36,8 +38,8 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
       for clause in @childClauses
         clause.showRationale(results)
 
-    if @element.ref_id? && results?
-      result = results[@element.ref_id]
+    if @ref_id? && results?
+      result = results[@ref_id]
       @latestResult = result
       
       if result?.final == 'TRUE'
@@ -90,7 +92,7 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
     # only highlight entries if highlighting is enabled
     if @highlightPatientDataEnabled == true
       # we will only have highlightable results if we have a ref_id for this clause
-      if @element.ref_id?
+      if @ref_id?
         # if there are results and they are an array, we can highlight!
         if Array.isArray(@latestResult?.raw) && @latestResult?.raw.length > 0
           dataCriteriaIDs = []
