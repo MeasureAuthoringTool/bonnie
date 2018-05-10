@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: f3d437762d6ba9736b11c26ce1e467ff75c49190
+  revision: 0f6b8c448bb6ae287e30b2990d26a8b7024d599a
   branch: mongoid5
   specs:
     health-data-standards (3.7.0)
@@ -176,7 +176,7 @@ GEM
       warden (~> 1.2.3)
     diffy (3.1.0)
     docile (1.1.5)
-    domain_name (0.5.20170404)
+    domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     easy_diff (1.0.0)
     erubis (2.7.0)
