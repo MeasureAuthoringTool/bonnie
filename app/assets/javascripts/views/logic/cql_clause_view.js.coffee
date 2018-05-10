@@ -56,7 +56,7 @@ class Thorax.Views.CqlClauseView extends Thorax.Views.BonnieView
 
       # if we found the parent clause view with a ref_id
       if clauseView.element?
-        result = results[clauseView.element.ref_id].final
+        result = results[clauseView.element.ref_id]?.final
         # make this clause green if it was 'FALSE' or 'TRUE'. 'UNHIT' and 'NA' shouldn't color.
         if result == 'FALSE' || result == 'TRUE'
           @_setResult true

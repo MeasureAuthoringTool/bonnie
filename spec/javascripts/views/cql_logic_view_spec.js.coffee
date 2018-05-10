@@ -141,3 +141,21 @@ describe 'CqlLogicView', ->
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: cqlMeasure)
       populationLogicView.render()
       expect(populationLogicView.$el.html()).not.toContain 'This measure appears to have errors in its CQL.  Please re-package and re-export the measure from the MAT.'
+
+  describe 'CQL Clause View', ->
+    beforeEach ->
+      jasmine.getJSONFixtures().clearCache()
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMSv0/CMSv0.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMSv0/patients.json'), parse: true
+      # preserve atomicity
+      @universalValueSetsByOid = bonnie.valueSetsByOid
+
+    afterEach ->
+      bonnie.valueSetsByOid = @universalValueSetsByOid
+
+    it 'should load without errors', ->
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMSv0/value_sets.json')
+      populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @cqlMeasure.get('populations').first())
+      populationLogicView.render()
+      results = @cqlMeasure.get('populations').first().calculate(@patients.first())
+      expect(-> populationLogicView.showRationale(results)).not.toThrow()
