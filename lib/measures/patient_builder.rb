@@ -65,29 +65,16 @@ module Measures
           end
 
 
-          if section_name == "medications"
-            fulfillments = []
-            if !source_criteria[:dose_value].blank? && !source_criteria[:dose_unit].blank?
-              entry[:dose] = { "value" => source_criteria[:dose_value], "unit" => source_criteria[:dose_unit] }
-            end
-            if !source_criteria[:frequency_value].blank? && !source_criteria[:frequency_unit].blank?
-              entry[:administrationTiming] = { "period" => { "value" => source_criteria[:frequency_value], "unit" => source_criteria[:frequency_unit] } }
-            end
-            if !source_criteria[:administrations_value].blank?
-              entry[:allowedAdministrations] = source_criteria[:administrations_value]
-            end
-            if !source_criteria[:fulfillments].blank?
-              source_criteria[:fulfillments].each do |fulfillment|
-                fulfillments.push(FulfillmentHistory.new({:dispenseDate => fulfillment[:dispense_datetime], :quantityDispensed => {:value => fulfillment[:quantity_dispensed_value], :unit => fulfillment[:quantity_dispensed_unit]}}))
-              end
-            end
-            entry[:fulfillmentHistory] = fulfillments
-          end
+          # if section_name == "medications"
+          #   fulfillments = []
+          #   if !source_criteria[:dose_value].blank? && !source_criteria[:dose_unit].blank?
+          #     entry[:dose] = { "value" => source_criteria[:dose_value], "unit" => source_criteria[:dose_unit] }
+          #   end
+          #   if !source_criteria[:frequency_value].blank? && !source_criteria[:frequency_unit].blank?
+          #     entry[:administrationTiming] = { "period" => { "value" => source_criteria[:frequency_value], "unit" => source_criteria[:frequency_unit] } }
+          #   end
+          # end
 
-          #Add source and destination fields to Communications class. 
-          if section_name == "communications"
-            entry[:direction] = source_criteria["definition"] # "communication_from_provider_to_patient"
-          end
           # Add the updated section to this patient.
           sections[section_name] ||= []
           sections[section_name].push(entry)
