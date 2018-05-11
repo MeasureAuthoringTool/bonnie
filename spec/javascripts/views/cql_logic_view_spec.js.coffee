@@ -145,16 +145,18 @@ describe 'CqlLogicView', ->
   describe 'CQL Clause View', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMSv0/CMSv0.json'), parse: true
-      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMSv0/patients.json'), parse: true
-      # preserve atomicity
+     # preserve atomicity
       @universalValueSetsByOid = bonnie.valueSetsByOid
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMSv9999/value_sets.json')
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMSv9999/CMSv9999.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMSv9999/patients.json'), parse: true
 
     afterEach ->
       bonnie.valueSetsByOid = @universalValueSetsByOid
 
+    # Tests that a "let" statement in a library function which doesn't have results for
+    # it's parent clause still loads properly without errors
     it 'should load without errors', ->
-      bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMSv0/value_sets.json')
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @cqlMeasure.get('populations').first())
       populationLogicView.render()
       results = @cqlMeasure.get('populations').first().calculate(@patients.first())
