@@ -145,7 +145,7 @@ describe 'CqlLogicView', ->
   describe 'CQL Clause View', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()
-     # preserve atomicity
+      # preserve atomicity
       @universalValueSetsByOid = bonnie.valueSetsByOid
       bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMSv9999/value_sets.json')
       @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMSv9999/CMSv9999.json'), parse: true
