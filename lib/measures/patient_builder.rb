@@ -64,17 +64,6 @@ module Measures
                                              end
           end
 
-
-          # if section_name == "medications"
-          #   fulfillments = []
-          #   if !source_criteria[:dose_value].blank? && !source_criteria[:dose_unit].blank?
-          #     entry[:dose] = { "value" => source_criteria[:dose_value], "unit" => source_criteria[:dose_unit] }
-          #   end
-          #   if !source_criteria[:frequency_value].blank? && !source_criteria[:frequency_unit].blank?
-          #     entry[:administrationTiming] = { "period" => { "value" => source_criteria[:frequency_value], "unit" => source_criteria[:frequency_unit] } }
-          #   end
-          # end
-
           # Add the updated section to this patient.
           sections[section_name] ||= []
           sections[section_name].push(entry)
