@@ -51,4 +51,4 @@ CMS761 - measure with "Participation"
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS761,bonnie-fixtures@mitre.org,CMS761v0]
 
 CMSv9999 - measure with "let" in common library function
-bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMSv9999,bonnie-fixtures@mitre.org,CMSv9999,Patient,Empty]
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMSv9999,bonnie-fixtures@mitre.org,CMSv9999,Patient,Blank]
