@@ -141,3 +141,23 @@ describe 'CqlLogicView', ->
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: cqlMeasure)
       populationLogicView.render()
       expect(populationLogicView.$el.html()).not.toContain 'This measure appears to have errors in its CQL.  Please re-package and re-export the measure from the MAT.'
+
+  describe 'CQL Clause View', ->
+    beforeEach ->
+      jasmine.getJSONFixtures().clearCache()
+      # preserve atomicity
+      @universalValueSetsByOid = bonnie.valueSetsByOid
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/special_measures/CMSv9999/value_sets.json')
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMSv9999/CMSv9999.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMSv9999/patients.json'), parse: true
+
+    afterEach ->
+      bonnie.valueSetsByOid = @universalValueSetsByOid
+
+    # Tests that a "let" statement in a library function which doesn't have results for
+    # it's parent clause still loads properly without errors
+    it 'should load without errors', ->
+      populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @cqlMeasure.get('populations').first())
+      populationLogicView.render()
+      results = @cqlMeasure.get('populations').first().calculate(@patients.first())
+      expect(-> populationLogicView.showRationale(results)).not.toThrow()

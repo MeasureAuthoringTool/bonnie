@@ -1,0 +1,3674 @@
+{
+  "2.16.840.1.113883.3.666.5.307": {
+    "Draft-21C422D4-1658-478D-AEC2-B87B73638C41": {
+      "_id": "5af5a8bcb848462db95f115f",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8bcb848462db95f1160",
+          "black_list": false,
+          "code": "183452005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Emergency hospital admission (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1161",
+          "black_list": false,
+          "code": "32485007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Hospital admission (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1162",
+          "black_list": false,
+          "code": "8715000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Hospital admission, elective (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Encounter Inpatient",
+      "oid": "2.16.840.1.113883.3.666.5.307",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-21C422D4-1658-478D-AEC2-B87B73638C41"
+    }
+  },
+  "2.16.840.1.113762.1.4.1108.15": {
+    "Draft-21C422D4-1658-478D-AEC2-B87B73638C41": {
+      "_id": "5af5a8bdb848462db95f1163",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8bdb848462db95f1164",
+          "black_list": false,
+          "code": "385763009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Hospice care (regime/therapy)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bdb848462db95f1165",
+          "black_list": false,
+          "code": "385765002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Hospice care management (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Hospice care ambulatory",
+      "oid": "2.16.840.1.113762.1.4.1108.15",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-21C422D4-1658-478D-AEC2-B87B73638C41"
+    }
+  },
+  "2.16.840.1.113883.3.560.100.2": {
+    "Draft-21C422D4-1658-478D-AEC2-B87B73638C41": {
+      "_id": "5af5a8bbb848462db95f108c",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8bbb848462db95f108d",
+          "black_list": false,
+          "code": "F",
+          "code_system": "2.16.840.1.113883.5.1",
+          "code_system_name": "AdministrativeGender",
+          "code_system_version": "HL7V3.0_2017-07",
+          "display_name": "Female",
+          "white_list": false
+        }
+      ],
+      "display_name": "Female",
+      "oid": "2.16.840.1.113883.3.560.100.2",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-21C422D4-1658-478D-AEC2-B87B73638C41"
+    }
+  },
+  "2.16.840.1.113883.3.464.1003.101.12.1014": {
+    "Draft-21C422D4-1658-478D-AEC2-B87B73638C41": {
+      "_id": "5af5a8beb848462db95f1166",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8beb848462db95f1167",
+          "black_list": false,
+          "code": "209099002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "History and physical examination with management of domiciliary or rest home patient (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8beb848462db95f1168",
+          "black_list": false,
+          "code": "210098006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Domiciliary or rest home patient evaluation and management (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8beb848462db95f1169",
+          "black_list": false,
+          "code": "99324",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Typically, 20 minutes are spent with the patient and/or family or caregiver.",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8beb848462db95f116a",
+          "black_list": false,
+          "code": "99325",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; and Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate severity. Typically, 30 minutes are spent with the patient and/or family or caregiver.",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8beb848462db95f116b",
+          "black_list": false,
+          "code": "99326",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A detailed history; A detailed examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 45 minutes are spent with the patient and/or family or caregiver.",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8beb848462db95f116c",
+          "black_list": false,
+          "code": "99327",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of high severity. Typically, 60 minutes are spent with the patient and/or family or caregiver.",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8beb848462db95f116d",
+          "black_list": false,
+          "code": "99328",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Domiciliary or rest home visit for the evaluation and management of a new patient, which requires these 3 key components: A comprehensive history; A comprehensive examination; and Medical decision making of high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the patient is unstable or has developed a significant new problem requiring immediate physician attention. Typically, 75 minutes are spent with the patient and/or family or caregiver.",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8beb848462db95f116e",
+          "black_list": false,
+          "code": "99334",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A problem focused interval history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self-limited or minor. Typically, 15 minutes are spent with the patient and/or family or caregiver.",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8beb848462db95f116f",
+          "black_list": false,
+          "code": "99335",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: An expanded problem focused interval history; An expanded problem focused examination; Medical decision making of low complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low to moderate severity. Typically, 25 minutes are spent with the patient and/or family or caregiver.",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8beb848462db95f1170",
+          "black_list": false,
+          "code": "99336",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A detailed interval history; A detailed examination; Medical decision making of moderate complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. Typically, 40 minutes are spent with the patient and/or family or caregiver.",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8beb848462db95f1171",
+          "black_list": false,
+          "code": "99337",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Domiciliary or rest home visit for the evaluation and management of an established patient, which requires at least 2 of these 3 key components: A comprehensive interval history; A comprehensive examination; Medical decision making of moderate to high complexity. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of moderate to high severity. The patient may be unstable or may have developed a significant new problem requiring immediate physician attention. Typically, 60 minutes are spent with the patient and/or family or caregiver.",
+          "white_list": false
+        }
+      ],
+      "display_name": "Care Services in Long-Term Residential Facility",
+      "oid": "2.16.840.1.113883.3.464.1003.101.12.1014",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-21C422D4-1658-478D-AEC2-B87B73638C41"
+    }
+  },
+  "drc-5e3dd7a2b908c12dc1dd525dd16ae9b969b86825d92d4b58d101ef476d44510b": {
+    "": {
+      "_id": "5a85e566b8484675e9202692",
+      "bundle_id": null,
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5a85e566b8484675e9202693",
+          "black_list": false,
+          "code": "21112-8",
+          "code_system": null,
+          "code_system_name": "LOINC",
+          "code_system_version": "urn:hl7:version:2.46",
+          "display_name": "Birthdate",
+          "white_list": false
+        }
+      ],
+      "display_name": "Birthdate",
+      "oid": "drc-5e3dd7a2b908c12dc1dd525dd16ae9b969b86825d92d4b58d101ef476d44510b",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": ""
+    }
+  },
+  "drc-288b28533ea3e20c8bed70cf4e0a8d78afa536cf3be01339e67e189ef32d0b58": {
+    "": {
+      "_id": "5a85e566b8484675e9202694",
+      "bundle_id": null,
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5a85e566b8484675e9202695",
+          "black_list": false,
+          "code": "419099009",
+          "code_system": null,
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "urn:hl7:version:2016-03",
+          "display_name": "Dead",
+          "white_list": false
+        }
+      ],
+      "display_name": "Dead",
+      "oid": "drc-288b28533ea3e20c8bed70cf4e0a8d78afa536cf3be01339e67e189ef32d0b58",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": ""
+    }
+  },
+  "drc-0e29ea55eec390b07dabf0c80483e4796c0902bd905aa2df33e5269b4c95ad37": {
+    "": {
+      "_id": "5ab942bfb848465f678924cd",
+      "bundle_id": null,
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5ab942bfb848465f678924ce",
+          "black_list": false,
+          "code": "75624-7",
+          "code_system": null,
+          "code_system_name": "LOINC",
+          "code_system_version": "urn:hl7:version:2.50",
+          "display_name": "Total score [AUDIT]",
+          "white_list": false
+        }
+      ],
+      "display_name": "Total score [AUDIT]",
+      "oid": "drc-0e29ea55eec390b07dabf0c80483e4796c0902bd905aa2df33e5269b4c95ad37",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": ""
+    }
+  },
+  "drc-2e8ff74727bab81186c4542df3e08055704d69062b67710d057c92c8482623e4": {
+    "": {
+      "_id": "5ab942bfb848465f678924cf",
+      "bundle_id": null,
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5ab942bfb848465f678924d0",
+          "black_list": false,
+          "code": "428371000124100",
+          "code_system": null,
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "urn:hl7:version:2015-09",
+          "display_name": "Discharge to healthcare facility for hospice care (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Discharge to healthcare facility for hospice care (procedure)",
+      "oid": "drc-2e8ff74727bab81186c4542df3e08055704d69062b67710d057c92c8482623e4",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": ""
+    }
+  },
+  "drc-029ecd3092c7a5b6eeebdcf9600e68d6f7c07f70bff0c169a5dedaf93ddf9a4b": {
+    "": {
+      "_id": "5ab942bfb848465f678924d1",
+      "bundle_id": null,
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5ab942bfb848465f678924d2",
+          "black_list": false,
+          "code": "428361000124107",
+          "code_system": null,
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "urn:hl7:version:2015-09",
+          "display_name": "Discharge to home for hospice care (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Discharge to home for hospice care (procedure)",
+      "oid": "drc-029ecd3092c7a5b6eeebdcf9600e68d6f7c07f70bff0c169a5dedaf93ddf9a4b",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": ""
+    }
+  },
+  "drc-9fd98290d9c11025a7c1cd26f96705fceaab22b4062f28e9237df3d8a21b8fca": {
+    "": {
+      "_id": "5ab942bfb848465f678924d3",
+      "bundle_id": null,
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5ab942bfb848465f678924d4",
+          "black_list": false,
+          "code": "32074000",
+          "code_system": null,
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "urn:hl7:version:2016-03",
+          "display_name": "Long term care hospital (environment)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Long term care hospital (environment)",
+      "oid": "drc-9fd98290d9c11025a7c1cd26f96705fceaab22b4062f28e9237df3d8a21b8fca",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": ""
+    }
+  },
+  "drc-6a0419b0d22719362f8ad33ad018c8f2fb89ef24f0b9dd53a7a382a6042009d6": {
+    "": {
+      "_id": "5ab942bfb848465f678924d5",
+      "bundle_id": null,
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5ab942bfb848465f678924d6",
+          "black_list": false,
+          "code": "19712007",
+          "code_system": null,
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "urn:hl7:version:2016-03",
+          "display_name": "Patient transfer, to another health care facility (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Patient transfer, to another health care facility (procedure)",
+      "oid": "drc-6a0419b0d22719362f8ad33ad018c8f2fb89ef24f0b9dd53a7a382a6042009d6",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": ""
+    }
+  },
+  "drc-1f076332abd7f5e41d3beb4cad5a46a3f3ba95a7a2d372bb9d52be6a1cefa845": {
+    "": {
+      "_id": "5ab942bfb848465f678924d7",
+      "bundle_id": null,
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5ab942bfb848465f678924d8",
+          "black_list": false,
+          "code": "417708006",
+          "code_system": null,
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "urn:hl7:version:2016-03",
+          "display_name": "Referral to long term care service (procedure)",
+          "white_list": false
+        }
+      ],
+      "display_name": "Referral to long term care service (procedure)",
+      "oid": "drc-1f076332abd7f5e41d3beb4cad5a46a3f3ba95a7a2d372bb9d52be6a1cefa845",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": ""
+    }
+  },
+  "2.16.840.1.113883.3.560.100.1": {
+    "Draft-21C422D4-1658-478D-AEC2-B87B73638C41": {
+      "_id": "5af5a8bab848462db95f108a",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8bab848462db95f108b",
+          "black_list": false,
+          "code": "M",
+          "code_system": "2.16.840.1.113883.5.1",
+          "code_system_name": "AdministrativeGender",
+          "code_system_version": "HL7V3.0_2017-07",
+          "display_name": "Male",
+          "white_list": false
+        }
+      ],
+      "display_name": "Male",
+      "oid": "2.16.840.1.113883.3.560.100.1",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-21C422D4-1658-478D-AEC2-B87B73638C41"
+    }
+  },
+  "2.16.840.1.113883.3.464.1004.1437": {
+    "Draft-21C422D4-1658-478D-AEC2-B87B73638C41": {
+      "_id": "5af5a8bbb848462db95f108e",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8bbb848462db95f108f",
+          "black_list": false,
+          "code": "20093000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol rehabilitation and detoxification (regime/therapy)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1090",
+          "black_list": false,
+          "code": "23915005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Combined alcohol and drug rehabilitation and detoxification (regime/therapy)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1091",
+          "black_list": false,
+          "code": "24165007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcoholism counseling (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1092",
+          "black_list": false,
+          "code": "386449006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Substance use treatment: alcohol withdrawal (regime/therapy)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1093",
+          "black_list": false,
+          "code": "408945004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol abuse prevention (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1094",
+          "black_list": false,
+          "code": "408947007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol abuse prevention education (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1095",
+          "black_list": false,
+          "code": "408948002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol abuse prevention management (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1096",
+          "black_list": false,
+          "code": "413473000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Counseling about alcohol consumption (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1097",
+          "black_list": false,
+          "code": "429291000124102",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol brief intervention (procedure)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1098",
+          "black_list": false,
+          "code": "64297001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Detoxication psychiatric therapy for alcoholism (regime/therapy)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1099",
+          "black_list": false,
+          "code": "707166002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol reduction program (regime/therapy)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f109a",
+          "black_list": false,
+          "code": "99408",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Alcohol and/or substance (other than tobacco) abuse structured screening (eg, AUDIT, DAST), and brief intervention (SBI) services; 15 to 30 minutes",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f109b",
+          "black_list": false,
+          "code": "99409",
+          "code_system": "2.16.840.1.113883.6.12",
+          "code_system_name": "CPT",
+          "code_system_version": "2018",
+          "display_name": "Alcohol and/or substance (other than tobacco) abuse structured screening (eg, AUDIT, DAST), and brief intervention (SBI) services; greater than 30 minutes",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f109c",
+          "black_list": false,
+          "code": "G0396",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2017",
+          "display_name": "Alcohol and/or substance (other than tobacco) abuse structured assessment (e.g., audit, dast), and brief intervention 15 to 30 minutes",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f109d",
+          "black_list": false,
+          "code": "G0397",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2017",
+          "display_name": "Alcohol and/or substance (other than tobacco) abuse structured assessment (e.g., audit, dast), and intervention, greater than 30 minutes",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f109e",
+          "black_list": false,
+          "code": "G0443",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2017",
+          "display_name": "Brief face-to-face behavioral counseling for alcohol misuse, 15 minutes",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f109f",
+          "black_list": false,
+          "code": "H0005",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2017",
+          "display_name": "Alcohol and/or drug services; group counseling by a clinician",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10a0",
+          "black_list": false,
+          "code": "H0007",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2017",
+          "display_name": "Alcohol and/or drug services; crisis intervention (outpatient)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10a1",
+          "black_list": false,
+          "code": "H0015",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2017",
+          "display_name": "Alcohol and/or drug services; intensive outpatient (treatment program that operates at least 3 hours/day and at least 3 days/week and is based on an individualized treatment plan), including assessment, counseling; crisis intervention, and activity therapies or education",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10a2",
+          "black_list": false,
+          "code": "H0016",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2017",
+          "display_name": "Alcohol and/or drug services; medical/somatic (medical intervention in ambulatory setting)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10a3",
+          "black_list": false,
+          "code": "H0022",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2017",
+          "display_name": "Alcohol and/or drug intervention service (planned facilitation)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10a4",
+          "black_list": false,
+          "code": "H0050",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2017",
+          "display_name": "Alcohol and/or drug services, brief intervention, per 15 minutes",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10a5",
+          "black_list": false,
+          "code": "H2035",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2017",
+          "display_name": "Alcohol and/or other drug treatment program, per hour",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10a6",
+          "black_list": false,
+          "code": "H2036",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2017",
+          "display_name": "Alcohol and/or other drug treatment program, per diem",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10a7",
+          "black_list": false,
+          "code": "T1006",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2017",
+          "display_name": "Alcohol and/or substance abuse services, family/couple counseling",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10a8",
+          "black_list": false,
+          "code": "T1012",
+          "code_system": "2.16.840.1.113883.6.285",
+          "code_system_name": "HCPCS",
+          "code_system_version": "2017",
+          "display_name": "Alcohol and/or substance abuse services, skills development",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10a9",
+          "black_list": false,
+          "code": "V65.42",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Counseling on substance use and abuse",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10aa",
+          "black_list": false,
+          "code": "Z71.41",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol abuse counseling and surveillance of alcoholic",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10ab",
+          "black_list": false,
+          "code": "Z71.89",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Other specified counseling",
+          "white_list": false
+        }
+      ],
+      "display_name": "Alcohol Counseling or Other Follow up Care",
+      "oid": "2.16.840.1.113883.3.464.1004.1437",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-21C422D4-1658-478D-AEC2-B87B73638C41"
+    }
+  },
+  "2.16.840.1.113883.3.464.1004.1339": {
+    "Draft-21C422D4-1658-478D-AEC2-B87B73638C41": {
+      "_id": "5af5a8bbb848462db95f10ac",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8bbb848462db95f10ad",
+          "black_list": false,
+          "code": "15167005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol abuse (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10ae",
+          "black_list": false,
+          "code": "18653004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol intoxication delirium (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10af",
+          "black_list": false,
+          "code": "191471000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Korsakov's alcoholic psychosis with peripheral neuritis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10b0",
+          "black_list": false,
+          "code": "191475009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Chronic alcoholic brain syndrome (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10b1",
+          "black_list": false,
+          "code": "191476005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol withdrawal hallucinosis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10b2",
+          "black_list": false,
+          "code": "191477001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Pathological alcohol intoxication (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10b3",
+          "black_list": false,
+          "code": "191478006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcoholic paranoia (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10b4",
+          "black_list": false,
+          "code": "191480000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol withdrawal syndrome (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10b5",
+          "black_list": false,
+          "code": "191802004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Acute alcoholic intoxication in alcoholism (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10b6",
+          "black_list": false,
+          "code": "191804003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Continuous acute alcoholic intoxication in alcoholism (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10b7",
+          "black_list": false,
+          "code": "191805002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Episodic acute alcoholic intoxication in alcoholism (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10b8",
+          "black_list": false,
+          "code": "191811004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Continuous chronic alcoholism (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10b9",
+          "black_list": false,
+          "code": "191812006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Episodic chronic alcoholism (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10ba",
+          "black_list": false,
+          "code": "191882002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Nondependent alcohol abuse, continuous (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10bb",
+          "black_list": false,
+          "code": "191883007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Nondependent alcohol abuse, episodic (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10bc",
+          "black_list": false,
+          "code": "268645007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Nondependent alcohol abuse (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10bd",
+          "black_list": false,
+          "code": "281004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Dementia associated with alcoholism (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10be",
+          "black_list": false,
+          "code": "284591009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Persistent alcohol abuse (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10bf",
+          "black_list": false,
+          "code": "291.0",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Alcohol withdrawal delirium",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10c0",
+          "black_list": false,
+          "code": "291.1",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Alcohol-induced persisting amnestic disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10c1",
+          "black_list": false,
+          "code": "291.2",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Alcohol-induced persisting dementia",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10c2",
+          "black_list": false,
+          "code": "291.3",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Alcohol-induced psychotic disorder with hallucinations",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10c3",
+          "black_list": false,
+          "code": "291.4",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Idiosyncratic alcohol intoxication",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10c4",
+          "black_list": false,
+          "code": "291.5",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Alcohol-induced psychotic disorder with delusions",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10c5",
+          "black_list": false,
+          "code": "291.8",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Other specified alcohol-induced mental disorders",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10c6",
+          "black_list": false,
+          "code": "291.81",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Alcohol withdrawal",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10c7",
+          "black_list": false,
+          "code": "291.82",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Alcohol induced sleep disorders",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10c8",
+          "black_list": false,
+          "code": "291.89",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Other alcohol-induced mental disorders",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10c9",
+          "black_list": false,
+          "code": "291.9",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Unspecified alcohol-induced mental disorders",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10ca",
+          "black_list": false,
+          "code": "29212009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol-induced organic mental disorder (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10cb",
+          "black_list": false,
+          "code": "303.00",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Acute alcoholic intoxication in alcoholism, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10cc",
+          "black_list": false,
+          "code": "303.01",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Acute alcoholic intoxication in alcoholism, continuous",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10cd",
+          "black_list": false,
+          "code": "303.02",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Acute alcoholic intoxication in alcoholism, episodic",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10ce",
+          "black_list": false,
+          "code": "303.90",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Other and unspecified alcohol dependence, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10cf",
+          "black_list": false,
+          "code": "303.91",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Other and unspecified alcohol dependence, continuous",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10d0",
+          "black_list": false,
+          "code": "303.92",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Other and unspecified alcohol dependence, episodic",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10d1",
+          "black_list": false,
+          "code": "305.00",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Alcohol abuse, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10d2",
+          "black_list": false,
+          "code": "305.01",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Alcohol abuse, continuous",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10d3",
+          "black_list": false,
+          "code": "305.02",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Alcohol abuse, episodic",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10d4",
+          "black_list": false,
+          "code": "34938008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol-induced anxiety disorder (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10d5",
+          "black_list": false,
+          "code": "41083005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol-induced sleep disorder (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10d6",
+          "black_list": false,
+          "code": "42344001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol-induced psychosis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10d7",
+          "black_list": false,
+          "code": "535.30",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Alcoholic gastritis, without mention of hemorrhage",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10d8",
+          "black_list": false,
+          "code": "535.31",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Alcoholic gastritis, with hemorrhage",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10d9",
+          "black_list": false,
+          "code": "53936005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol-induced mood disorder (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10da",
+          "black_list": false,
+          "code": "571.1",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Acute alcoholic hepatitis",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10db",
+          "black_list": false,
+          "code": "61144001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol-induced psychotic disorder with delusions (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10dc",
+          "black_list": false,
+          "code": "66590003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol dependence (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10dd",
+          "black_list": false,
+          "code": "7052005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol hallucinosis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10de",
+          "black_list": false,
+          "code": "7200002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcoholism (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10df",
+          "black_list": false,
+          "code": "73097000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol amnestic disorder (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10e0",
+          "black_list": false,
+          "code": "78524005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol-induced sexual dysfunction (finding)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10e1",
+          "black_list": false,
+          "code": "79578000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol paranoia (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10e2",
+          "black_list": false,
+          "code": "85561006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Uncomplicated alcohol withdrawal (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10e3",
+          "black_list": false,
+          "code": "8635005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alcohol withdrawal delirium (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10e4",
+          "black_list": false,
+          "code": "F10",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol related disorders",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10e5",
+          "black_list": false,
+          "code": "F10.10",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol abuse, uncomplicated",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10e6",
+          "black_list": false,
+          "code": "F10.120",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol abuse with intoxication, uncomplicated",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10e7",
+          "black_list": false,
+          "code": "F10.121",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol abuse with intoxication delirium",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10e8",
+          "black_list": false,
+          "code": "F10.129",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol abuse with intoxication, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10e9",
+          "black_list": false,
+          "code": "F10.14",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol abuse with alcohol-induced mood disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10ea",
+          "black_list": false,
+          "code": "F10.150",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol abuse with alcohol-induced psychotic disorder with delusions",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10eb",
+          "black_list": false,
+          "code": "F10.151",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol abuse with alcohol-induced psychotic disorder with hallucinations",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10ec",
+          "black_list": false,
+          "code": "F10.159",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol abuse with alcohol-induced psychotic disorder, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10ed",
+          "black_list": false,
+          "code": "F10.180",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol abuse with alcohol-induced anxiety disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10ee",
+          "black_list": false,
+          "code": "F10.181",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol abuse with alcohol-induced sexual dysfunction",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10ef",
+          "black_list": false,
+          "code": "F10.182",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol abuse with alcohol-induced sleep disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10f0",
+          "black_list": false,
+          "code": "F10.188",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol abuse with other alcohol-induced disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10f1",
+          "black_list": false,
+          "code": "F10.19",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol abuse with unspecified alcohol-induced disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10f2",
+          "black_list": false,
+          "code": "F10.20",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence, uncomplicated",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10f3",
+          "black_list": false,
+          "code": "F10.220",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with intoxication, uncomplicated",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10f4",
+          "black_list": false,
+          "code": "F10.221",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with intoxication delirium",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10f5",
+          "black_list": false,
+          "code": "F10.229",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with intoxication, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10f6",
+          "black_list": false,
+          "code": "F10.230",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with withdrawal, uncomplicated",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10f7",
+          "black_list": false,
+          "code": "F10.231",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with withdrawal delirium",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10f8",
+          "black_list": false,
+          "code": "F10.232",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with withdrawal with perceptual disturbance",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10f9",
+          "black_list": false,
+          "code": "F10.239",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with withdrawal, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10fa",
+          "black_list": false,
+          "code": "F10.24",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with alcohol-induced mood disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10fb",
+          "black_list": false,
+          "code": "F10.250",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with alcohol-induced psychotic disorder with delusions",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10fc",
+          "black_list": false,
+          "code": "F10.251",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with alcohol-induced psychotic disorder with hallucinations",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10fd",
+          "black_list": false,
+          "code": "F10.259",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with alcohol-induced psychotic disorder, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10fe",
+          "black_list": false,
+          "code": "F10.26",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with alcohol-induced persisting amnestic disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f10ff",
+          "black_list": false,
+          "code": "F10.27",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with alcohol-induced persisting dementia",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1100",
+          "black_list": false,
+          "code": "F10.280",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with alcohol-induced anxiety disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1101",
+          "black_list": false,
+          "code": "F10.281",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with alcohol-induced sexual dysfunction",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1102",
+          "black_list": false,
+          "code": "F10.282",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with alcohol-induced sleep disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1103",
+          "black_list": false,
+          "code": "F10.288",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with other alcohol-induced disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1104",
+          "black_list": false,
+          "code": "F10.29",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol dependence with unspecified alcohol-induced disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1105",
+          "black_list": false,
+          "code": "F10.920",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol use, unspecified with intoxication, uncomplicated",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1106",
+          "black_list": false,
+          "code": "F10.921",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol use, unspecified with intoxication delirium",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1107",
+          "black_list": false,
+          "code": "F10.929",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol use, unspecified with intoxication, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1108",
+          "black_list": false,
+          "code": "F10.94",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol use, unspecified with alcohol-induced mood disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1109",
+          "black_list": false,
+          "code": "F10.950",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol use, unspecified with alcohol-induced psychotic disorder with delusions",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f110a",
+          "black_list": false,
+          "code": "F10.951",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol use, unspecified with alcohol-induced psychotic disorder with hallucinations",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f110b",
+          "black_list": false,
+          "code": "F10.959",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol use, unspecified with alcohol-induced psychotic disorder, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f110c",
+          "black_list": false,
+          "code": "F10.96",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol use, unspecified with alcohol-induced persisting amnestic disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f110d",
+          "black_list": false,
+          "code": "F10.97",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol use, unspecified with alcohol-induced persisting dementia",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f110e",
+          "black_list": false,
+          "code": "F10.980",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol use, unspecified with alcohol-induced anxiety disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f110f",
+          "black_list": false,
+          "code": "F10.981",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol use, unspecified with alcohol-induced sexual dysfunction",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1110",
+          "black_list": false,
+          "code": "F10.982",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol use, unspecified with alcohol-induced sleep disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1111",
+          "black_list": false,
+          "code": "F10.988",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol use, unspecified with other alcohol-induced disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1112",
+          "black_list": false,
+          "code": "F10.99",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcohol use, unspecified with unspecified alcohol-induced disorder",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1113",
+          "black_list": false,
+          "code": "K29.20",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcoholic gastritis without bleeding",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1114",
+          "black_list": false,
+          "code": "K29.21",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcoholic gastritis with bleeding",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1115",
+          "black_list": false,
+          "code": "K70.10",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcoholic hepatitis without ascites",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bbb848462db95f1116",
+          "black_list": false,
+          "code": "K70.11",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alcoholic hepatitis with ascites",
+          "white_list": false
+        }
+      ],
+      "display_name": "Alcohol Use Disorder",
+      "oid": "2.16.840.1.113883.3.464.1004.1339",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-21C422D4-1658-478D-AEC2-B87B73638C41"
+    }
+  },
+  "2.16.840.1.113883.3.464.1004.1074": {
+    "Draft-21C422D4-1658-478D-AEC2-B87B73638C41": {
+      "_id": "5af5a8bcb848462db95f1117",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8bcb848462db95f1118",
+          "black_list": false,
+          "code": "105421000119105",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Early onset Alzheimer's disease with behavioral disturbance (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1119",
+          "black_list": false,
+          "code": "12348006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Presenile dementia (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f111a",
+          "black_list": false,
+          "code": "141991000119109",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Delusions in Alzheimer's disease (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f111b",
+          "black_list": false,
+          "code": "142001000119106",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Depressed mood in Alzheimer's disease (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f111c",
+          "black_list": false,
+          "code": "15662003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Senile dementia (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f111d",
+          "black_list": false,
+          "code": "1581000119101",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Dementia of the Alzheimer type with behavioral disturbance (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f111e",
+          "black_list": false,
+          "code": "1591000119103",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Dementia with behavioral disturbance (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f111f",
+          "black_list": false,
+          "code": "191449005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Uncomplicated senile dementia (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1120",
+          "black_list": false,
+          "code": "191451009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Uncomplicated presenile dementia (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1121",
+          "black_list": false,
+          "code": "191452002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Presenile dementia with delirium (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1122",
+          "black_list": false,
+          "code": "191454001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Presenile dementia with paranoia (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1123",
+          "black_list": false,
+          "code": "191455000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Presenile dementia with depression (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1124",
+          "black_list": false,
+          "code": "191457008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Senile dementia with depressive or paranoid features (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1125",
+          "black_list": false,
+          "code": "191458003",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Senile dementia with paranoia (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1126",
+          "black_list": false,
+          "code": "191459006",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Senile dementia with depression (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1127",
+          "black_list": false,
+          "code": "191461002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Senile dementia with delirium (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1128",
+          "black_list": false,
+          "code": "191493005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Drug-induced dementia (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1129",
+          "black_list": false,
+          "code": "230265002",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Familial Alzheimer's disease of early onset (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f112a",
+          "black_list": false,
+          "code": "230266001",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Non-familial Alzheimer's disease of early onset (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f112b",
+          "black_list": false,
+          "code": "230267005",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Familial Alzheimer's disease of late onset (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f112c",
+          "black_list": false,
+          "code": "230268000",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Non-familial Alzheimer's disease of late onset (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f112d",
+          "black_list": false,
+          "code": "230269008",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Focal Alzheimer's disease (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f112e",
+          "black_list": false,
+          "code": "26929004",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Alzheimer's disease (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f112f",
+          "black_list": false,
+          "code": "290.0",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Senile dementia, uncomplicated",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1130",
+          "black_list": false,
+          "code": "290.10",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Presenile dementia, uncomplicated",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1131",
+          "black_list": false,
+          "code": "290.11",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Presenile dementia with delirium",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1132",
+          "black_list": false,
+          "code": "290.12",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Presenile dementia with delusional features",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1133",
+          "black_list": false,
+          "code": "290.13",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Presenile dementia with depressive features",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1134",
+          "black_list": false,
+          "code": "290.20",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Senile dementia with delusional features",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1135",
+          "black_list": false,
+          "code": "290.21",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Senile dementia with depressive features",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1136",
+          "black_list": false,
+          "code": "290.3",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Senile dementia with delirium",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1137",
+          "black_list": false,
+          "code": "290.40",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Vascular dementia, uncomplicated",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1138",
+          "black_list": false,
+          "code": "290.41",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Vascular dementia, with delirium",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1139",
+          "black_list": false,
+          "code": "290.42",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Vascular dementia, with delusions",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f113a",
+          "black_list": false,
+          "code": "290.43",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Vascular dementia, with depressed mood",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f113b",
+          "black_list": false,
+          "code": "290.8",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Other specified senile psychotic conditions",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f113c",
+          "black_list": false,
+          "code": "290.9",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Unspecified senile psychotic condition",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f113d",
+          "black_list": false,
+          "code": "292.82",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Drug-induced persisting dementia",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f113e",
+          "black_list": false,
+          "code": "294.0",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Amnestic disorder in conditions classified elsewhere",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f113f",
+          "black_list": false,
+          "code": "294.10",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Dementia in conditions classified elsewhere without behavioral disturbance",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1140",
+          "black_list": false,
+          "code": "294.11",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Dementia in conditions classified elsewhere with behavioral disturbance",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1141",
+          "black_list": false,
+          "code": "294.20",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Dementia, unspecified, without behavioral disturbance",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1142",
+          "black_list": false,
+          "code": "294.21",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Dementia, unspecified, with behavioral disturbance",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1143",
+          "black_list": false,
+          "code": "31081000119101",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Presenile dementia with delusions (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1144",
+          "black_list": false,
+          "code": "312991009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Senile dementia of the Lewy body type (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1145",
+          "black_list": false,
+          "code": "331.0",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Alzheimer's disease",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1146",
+          "black_list": false,
+          "code": "331.82",
+          "code_system": "2.16.840.1.113883.6.103",
+          "code_system_name": "ICD-9-CM",
+          "code_system_version": "2013",
+          "display_name": "Dementia with lewy bodies",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1147",
+          "black_list": false,
+          "code": "371024007",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Senile dementia with delusion (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1148",
+          "black_list": false,
+          "code": "371026009",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Senile dementia with psychosis (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1149",
+          "black_list": false,
+          "code": "79341000119107",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Mixed dementia (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f114a",
+          "black_list": false,
+          "code": "97751000119108",
+          "code_system": "2.16.840.1.113883.6.96",
+          "code_system_name": "SNOMED-CT",
+          "code_system_version": "2017-09",
+          "display_name": "Altered behavior in Alzheimer's disease (disorder)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f114b",
+          "black_list": false,
+          "code": "F01.50",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Vascular dementia without behavioral disturbance",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f114c",
+          "black_list": false,
+          "code": "F01.51",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Vascular dementia with behavioral disturbance",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f114d",
+          "black_list": false,
+          "code": "F02.80",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Dementia in other diseases classified elsewhere without behavioral disturbance",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f114e",
+          "black_list": false,
+          "code": "F02.81",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Dementia in other diseases classified elsewhere with behavioral disturbance",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f114f",
+          "black_list": false,
+          "code": "F03.90",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Unspecified dementia without behavioral disturbance",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1150",
+          "black_list": false,
+          "code": "F03.91",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Unspecified dementia with behavioral disturbance",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1151",
+          "black_list": false,
+          "code": "F04",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Amnestic disorder due to known physiological condition",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1152",
+          "black_list": false,
+          "code": "F13.27",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Sedative, hypnotic or anxiolytic dependence with sedative, hypnotic or anxiolytic-induced persisting dementia",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1153",
+          "black_list": false,
+          "code": "F13.97",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Sedative, hypnotic or anxiolytic use, unspecified with sedative, hypnotic or anxiolytic-induced persisting dementia",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1154",
+          "black_list": false,
+          "code": "F18.17",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Inhalant abuse with inhalant-induced dementia",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1155",
+          "black_list": false,
+          "code": "F18.27",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Inhalant dependence with inhalant-induced dementia",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1156",
+          "black_list": false,
+          "code": "F18.97",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Inhalant use, unspecified with inhalant-induced persisting dementia",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1157",
+          "black_list": false,
+          "code": "F19.17",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Other psychoactive substance abuse with psychoactive substance-induced persisting dementia",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1158",
+          "black_list": false,
+          "code": "F19.27",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Other psychoactive substance dependence with psychoactive substance-induced persisting dementia",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f1159",
+          "black_list": false,
+          "code": "F19.97",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Other psychoactive substance use, unspecified with psychoactive substance-induced persisting dementia",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f115a",
+          "black_list": false,
+          "code": "G30.0",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alzheimer's disease with early onset",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f115b",
+          "black_list": false,
+          "code": "G30.1",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alzheimer's disease with late onset",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f115c",
+          "black_list": false,
+          "code": "G30.8",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Other Alzheimer's disease",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f115d",
+          "black_list": false,
+          "code": "G30.9",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Alzheimer's disease, unspecified",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bcb848462db95f115e",
+          "black_list": false,
+          "code": "G31.83",
+          "code_system": "2.16.840.1.113883.6.90",
+          "code_system_name": "ICD-10-CM",
+          "code_system_version": "2018",
+          "display_name": "Dementia with Lewy bodies",
+          "white_list": false
+        }
+      ],
+      "display_name": "Dementia",
+      "oid": "2.16.840.1.113883.3.464.1004.1074",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-21C422D4-1658-478D-AEC2-B87B73638C41"
+    }
+  },
+  "2.16.840.1.113762.1.4.1165.43": {
+    "Draft-21C422D4-1658-478D-AEC2-B87B73638C41": {
+      "_id": "5af5a8bfb848462db95f1172",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8bfb848462db95f1173",
+          "black_list": false,
+          "code": "381",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Federal, State, Local not specified managed care",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1174",
+          "black_list": false,
+          "code": "39",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Other Federal",
+          "white_list": false
+        }
+      ],
+      "display_name": "X Institutional SNP Value Set",
+      "oid": "2.16.840.1.113762.1.4.1165.43",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-21C422D4-1658-478D-AEC2-B87B73638C41"
+    }
+  },
+  "2.16.840.1.113762.1.4.1165.46": {
+    "Draft-21C422D4-1658-478D-AEC2-B87B73638C41": {
+      "_id": "5af5a8bfb848462db95f1175",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8bfb848462db95f1176",
+          "black_list": false,
+          "code": "5",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "PRIVATE HEALTH INSURANCE",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1177",
+          "black_list": false,
+          "code": "51",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Managed Care (Private)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1178",
+          "black_list": false,
+          "code": "511",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Commercial Managed Care - HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1179",
+          "black_list": false,
+          "code": "512",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Commercial Managed Care - PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f117a",
+          "black_list": false,
+          "code": "513",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Commercial Managed Care - POS",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f117b",
+          "black_list": false,
+          "code": "514",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Exclusive Provider Organization",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f117c",
+          "black_list": false,
+          "code": "515",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Gatekeeper PPO (GPPO)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f117d",
+          "black_list": false,
+          "code": "516",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Commercial Managed Care - Pharmacy Benefit Manager",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f117e",
+          "black_list": false,
+          "code": "517",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Commercial Managed Care - Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f117f",
+          "black_list": false,
+          "code": "519",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Managed Care, Other (non HMO)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1180",
+          "black_list": false,
+          "code": "52",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Private Health Insurance - Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1181",
+          "black_list": false,
+          "code": "521",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Commercial Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1182",
+          "black_list": false,
+          "code": "522",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Self-insured (ERISA) Administrative Services Only (ASO) plan",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1183",
+          "black_list": false,
+          "code": "529",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Private health insurance--other commercial Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1184",
+          "black_list": false,
+          "code": "53",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Managed Care (private) or private health insurance (indemnity), not otherwise specified",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1185",
+          "black_list": false,
+          "code": "54",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Organized Delivery System",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1186",
+          "black_list": false,
+          "code": "55",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Small Employer Purchasing Group",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1187",
+          "black_list": false,
+          "code": "56",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Specialized Stand Alone Plan",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1188",
+          "black_list": false,
+          "code": "561",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1189",
+          "black_list": false,
+          "code": "562",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Vision",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f118a",
+          "black_list": false,
+          "code": "59",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Other Private Insurance",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f118b",
+          "black_list": false,
+          "code": "6",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "BLUE CROSS/BLUE SHIELD",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f118c",
+          "black_list": false,
+          "code": "61",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "BC Managed Care",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f118d",
+          "black_list": false,
+          "code": "611",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "BC Managed Care -- HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f118e",
+          "black_list": false,
+          "code": "612",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "BC Managed Care -- PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f118f",
+          "black_list": false,
+          "code": "613",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "BC Managed Care -- POS",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1190",
+          "black_list": false,
+          "code": "614",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "BC Managed Care - Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1191",
+          "black_list": false,
+          "code": "619",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "BC Managed Care -- Other",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1192",
+          "black_list": false,
+          "code": "62",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "BC Insurance Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1193",
+          "black_list": false,
+          "code": "621",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "BC Indemnity",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1194",
+          "black_list": false,
+          "code": "7",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1195",
+          "black_list": false,
+          "code": "71",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1196",
+          "black_list": false,
+          "code": "72",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1197",
+          "black_list": false,
+          "code": "73",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "POS",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f1198",
+          "black_list": false,
+          "code": "79",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Other Managed Care",
+          "white_list": false
+        }
+      ],
+      "display_name": "Commercial",
+      "oid": "2.16.840.1.113762.1.4.1165.46",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-21C422D4-1658-478D-AEC2-B87B73638C41"
+    }
+  },
+  "2.16.840.1.113762.1.4.1165.45": {
+    "Draft-21C422D4-1658-478D-AEC2-B87B73638C41": {
+      "_id": "5af5a8bfb848462db95f1199",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8bfb848462db95f119a",
+          "black_list": false,
+          "code": "2",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "MEDICAID",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f119b",
+          "black_list": false,
+          "code": "21",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid (Managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f119c",
+          "black_list": false,
+          "code": "211",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f119d",
+          "black_list": false,
+          "code": "212",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f119e",
+          "black_list": false,
+          "code": "213",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid PCCM (Primary Care Case Management)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f119f",
+          "black_list": false,
+          "code": "219",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid Managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11a0",
+          "black_list": false,
+          "code": "22",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid (Non-managed Care Plan)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11a1",
+          "black_list": false,
+          "code": "23",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid/SCHIP",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11a2",
+          "black_list": false,
+          "code": "25",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid - Out of State",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11a3",
+          "black_list": false,
+          "code": "26",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid -- Long Term Care",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11a4",
+          "black_list": false,
+          "code": "29",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid Other",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11a5",
+          "black_list": false,
+          "code": "291",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid Pharmacy Benefit Manager",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11a6",
+          "black_list": false,
+          "code": "299",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid - Dental",
+          "white_list": false
+        }
+      ],
+      "display_name": "Medicaid",
+      "oid": "2.16.840.1.113762.1.4.1165.45",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-21C422D4-1658-478D-AEC2-B87B73638C41"
+    }
+  },
+  "2.16.840.1.113762.1.4.1165.44": {
+    "Draft-21C422D4-1658-478D-AEC2-B87B73638C41": {
+      "_id": "5af5a8bfb848462db95f11a7",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8bfb848462db95f11a8",
+          "black_list": false,
+          "code": "1",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "MEDICARE",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11a9",
+          "black_list": false,
+          "code": "11",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare (Managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11aa",
+          "black_list": false,
+          "code": "111",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11ab",
+          "black_list": false,
+          "code": "112",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11ac",
+          "black_list": false,
+          "code": "113",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare POS",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11ad",
+          "black_list": false,
+          "code": "119",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare Managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11ae",
+          "black_list": false,
+          "code": "12",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare (Non-managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11af",
+          "black_list": false,
+          "code": "121",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare FFS",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11b0",
+          "black_list": false,
+          "code": "122",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare Drug Benefit",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11b1",
+          "black_list": false,
+          "code": "123",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare Medical Savings Account (MSA)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11b2",
+          "black_list": false,
+          "code": "129",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare Non-managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11b3",
+          "black_list": false,
+          "code": "13",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare Hospice",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11b4",
+          "black_list": false,
+          "code": "14",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Dual Eligibility Medicare/Medicaid Organization",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11b5",
+          "black_list": false,
+          "code": "19",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare Other",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11b6",
+          "black_list": false,
+          "code": "191",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare Pharmacy Benefit Manager",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11b7",
+          "black_list": false,
+          "code": "3114",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "TRICARE For Life--Medicare Supplement",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11b8",
+          "black_list": false,
+          "code": "3123",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "TRICARE For Life (TFL)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8bfb848462db95f11b9",
+          "black_list": false,
+          "code": "623",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "BC Medicare Supplemental Plan",
+          "white_list": false
+        }
+      ],
+      "display_name": "Medicare",
+      "oid": "2.16.840.1.113762.1.4.1165.44",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-21C422D4-1658-478D-AEC2-B87B73638C41"
+    }
+  },
+  "2.16.840.1.113762.1.4.1165.42": {
+    "Draft-21C422D4-1658-478D-AEC2-B87B73638C41": {
+      "_id": "5af5a8c0b848462db95f11ba",
+      "bundle_id": "5a57e977942c6d1e61d32f14",
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8c0b848462db95f11bb",
+          "black_list": false,
+          "code": "1",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "MEDICARE",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11bc",
+          "black_list": false,
+          "code": "11",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare (Managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11bd",
+          "black_list": false,
+          "code": "111",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11be",
+          "black_list": false,
+          "code": "112",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11bf",
+          "black_list": false,
+          "code": "113",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare POS",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11c0",
+          "black_list": false,
+          "code": "119",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare Managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11c1",
+          "black_list": false,
+          "code": "12",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare (Non-managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11c2",
+          "black_list": false,
+          "code": "121",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare FFS",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11c3",
+          "black_list": false,
+          "code": "122",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare Drug Benefit",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11c4",
+          "black_list": false,
+          "code": "123",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare Medical Savings Account (MSA)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11c5",
+          "black_list": false,
+          "code": "129",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare Non-managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11c6",
+          "black_list": false,
+          "code": "13",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare Hospice",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11c7",
+          "black_list": false,
+          "code": "14",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Dual Eligibility Medicare/Medicaid Organization",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11c8",
+          "black_list": false,
+          "code": "19",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare Other",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11c9",
+          "black_list": false,
+          "code": "191",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare Pharmacy Benefit Manager",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11ca",
+          "black_list": false,
+          "code": "2",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "MEDICAID",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11cb",
+          "black_list": false,
+          "code": "21",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid (Managed Care)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11cc",
+          "black_list": false,
+          "code": "211",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid HMO",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11cd",
+          "black_list": false,
+          "code": "212",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid PPO",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11ce",
+          "black_list": false,
+          "code": "213",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid PCCM (Primary Care Case Management)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11cf",
+          "black_list": false,
+          "code": "219",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid Managed Care Other",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11d0",
+          "black_list": false,
+          "code": "22",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid (Non-managed Care Plan)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11d1",
+          "black_list": false,
+          "code": "23",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid/SCHIP",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11d2",
+          "black_list": false,
+          "code": "24",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid Applicant",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11d3",
+          "black_list": false,
+          "code": "25",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid - Out of State",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11d4",
+          "black_list": false,
+          "code": "26",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid -- Long Term Care",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11d5",
+          "black_list": false,
+          "code": "29",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid Other",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11d6",
+          "black_list": false,
+          "code": "291",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid Pharmacy Benefit Manager",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11d7",
+          "black_list": false,
+          "code": "299",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicaid - Dental",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11d8",
+          "black_list": false,
+          "code": "3114",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "TRICARE For Life--Medicare Supplement",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11d9",
+          "black_list": false,
+          "code": "3123",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "TRICARE For Life (TFL)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11da",
+          "black_list": false,
+          "code": "523",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "Medicare supplemental policy (as second payer)",
+          "white_list": false
+        },
+        {
+          "_id": "5af5a8c0b848462db95f11db",
+          "black_list": false,
+          "code": "623",
+          "code_system": "2.16.840.1.113883.3.221.5",
+          "code_system_name": "Source of Payment Typology",
+          "code_system_version": "7.0",
+          "display_name": "BC Medicare Supplemental Plan",
+          "white_list": false
+        }
+      ],
+      "display_name": "NCQA Payer",
+      "oid": "2.16.840.1.113762.1.4.1165.42",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": "Draft-21C422D4-1658-478D-AEC2-B87B73638C41"
+    }
+  },
+  "drc-6b60c1a3853558cffe46da753976d20a22fdf5e9fc61ebe95dad323ffddf69bb": {
+    "": {
+      "_id": "5af5a8c0b848462db95f11dc",
+      "bundle_id": null,
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8c0b848462db95f11dd",
+          "black_list": false,
+          "code": "88037-7",
+          "code_system": null,
+          "code_system_name": "LOINC",
+          "code_system_version": "urn:hl7:version:2.63",
+          "display_name": "How often have you had five or more drinks in one day during the past year [Reported]",
+          "white_list": false
+        }
+      ],
+      "display_name": "How often have you had five or more drinks in one day during the past year [Reported]",
+      "oid": "drc-6b60c1a3853558cffe46da753976d20a22fdf5e9fc61ebe95dad323ffddf69bb",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": ""
+    }
+  },
+  "drc-c4db4ff2e1f75ae761c73d6bf11f1cfe185fe4b06ecb1c6f1a333e75852dc7ff": {
+    "": {
+      "_id": "5af5a8c0b848462db95f11de",
+      "bundle_id": null,
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8c0b848462db95f11df",
+          "black_list": false,
+          "code": "75889-6",
+          "code_system": null,
+          "code_system_name": "LOINC",
+          "code_system_version": "urn:hl7:version:2.63",
+          "display_name": "How often have you had four or more drinks in one day during the past year [Reported]",
+          "white_list": false
+        }
+      ],
+      "display_name": "How often have you had four or more drinks in one day during the past year [Reported]",
+      "oid": "drc-c4db4ff2e1f75ae761c73d6bf11f1cfe185fe4b06ecb1c6f1a333e75852dc7ff",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": ""
+    }
+  },
+  "drc-07c6b50ede6a1c21489d14fc93ca5b29c5e4a53b6bbfcdc2835f469c669366e1": {
+    "": {
+      "_id": "5af5a8c0b848462db95f11e0",
+      "bundle_id": null,
+      "categories": null,
+      "concepts": [
+        {
+          "_id": "5af5a8c0b848462db95f11e1",
+          "black_list": false,
+          "code": "75626-2",
+          "code_system": null,
+          "code_system_name": "LOINC",
+          "code_system_version": "urn:hl7:version:2.63",
+          "display_name": "Total score [AUDIT-C]",
+          "white_list": false
+        }
+      ],
+      "display_name": "Total score [AUDIT-C]",
+      "oid": "drc-07c6b50ede6a1c21489d14fc93ca5b29c5e4a53b6bbfcdc2835f469c669366e1",
+      "user_id": "5a57e975942c6d1e61d32f13",
+      "version": ""
+    }
+  }
+}
