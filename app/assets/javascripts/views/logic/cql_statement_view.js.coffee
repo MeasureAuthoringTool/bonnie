@@ -4,6 +4,8 @@
 class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
   template: JST['logic/cql_statement']
 
+  @MAX_CLAUSE_THRESHOLD: 1000
+
   events:
     # Click events for the collapsable logic sections if this is a population defining statement. This toggles the
     # icon in the section header.
@@ -28,7 +30,14 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
           return pop
       @cqlPopulationNames = @cqlPopulationLongNames.join(', ')
 
-    @rootClauseView = new Thorax.Views.CqlClauseView(element: @statement, logicView: @logicView, highlightPatientDataEnabled: @highlightPatientDataEnabled)
+    # Get the count of clauses in this statement. If it is more than the threshold, show an alternate view.
+    clauseCount = Object.keys(@logicView.model.findAllLocalIdsInStatementByName(@libraryName, @name)).length
+    if (clauseCount > Thorax.Views.CqlStatement.MAX_CLAUSE_THRESHOLD)
+      @rootClauseView = new Thorax.Views.CqlTruncatedStatementView(element: @statement, libraryName: @libraryName, statementName: @name, logicView: @logicView, highlightPatientDataEnabled: @highlightPatientDataEnabled)
+
+    # else show the normal nesting clause view
+    else
+      @rootClauseView = new Thorax.Views.CqlClauseView(element: @statement, logicView: @logicView, highlightPatientDataEnabled: @highlightPatientDataEnabled)
 
   ###*
   # Show the results of this statement's calculation by highlighing appropiately. 
