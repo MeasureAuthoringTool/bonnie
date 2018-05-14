@@ -169,13 +169,15 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         statement_details: JSON.stringify(statement_details)
         file_name: file_name
       }
+
   # Iterates through the results to remove extraneous fields.
   removeRaw: (results) ->
     ret = {}
     for libKey of results
       ret[libKey] = {}
       for statementKey of results[libKey]
-        ret[libKey][statementKey] = results[libKey][statementKey].final
+        result = results[libKey][statementKey]
+        ret[libKey][statementKey] = if result.raw && result.raw.length > 0 then result.raw.join('\n').replace(/\n$/, '') else result.final
     return ret
 
   deleteMeasure: (e) ->
