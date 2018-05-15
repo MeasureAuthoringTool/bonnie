@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
+  revision: 1a641b343ded7cad1bd27be62f601bca775c198e
+  branch: master
+  specs:
+    cql_qdm_patientapi (1.1.1)
+      coffee-rails (~> 4.1)
+      rails (~> 4.2)
+      sprockets-rails (~> 2.3)
+
+GIT
   remote: https://github.com/randym/axlsx
   revision: c8ac844572b25fda358cc01d2104720c4c42f450
   branch: master
@@ -113,10 +123,6 @@ GEM
     colorize (0.7.7)
     columnize (0.9.0)
     commonjs (0.2.7)
-    cql_qdm_patientapi (1.1.1)
-      coffee-rails (~> 4.1)
-      rails (~> 4.2)
-      sprockets-rails (~> 2.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.3)
@@ -405,7 +411,7 @@ DEPENDENCIES
   bundler-audit
   capistrano-rails
   coffee-rails
-  cql_qdm_patientapi (~> 1.1.1)
+  cql_qdm_patientapi!
   devise
   exception_notification!
   foreman
