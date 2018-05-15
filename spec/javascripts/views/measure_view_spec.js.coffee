@@ -88,6 +88,12 @@ describe 'MeasureView', ->
       expect(@measureView.$("button[data-call-method=exportQrdaPatients]")).toBeDisabled()
       @measureView.remove()
 
+    it 'can click excel export button', ->
+      @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
+      @measureView.appendTo 'body'
+      spyOn($, 'fileDownload')
+      @measureView.$("button[data-call-method=exportExcelPatients]").click()
+      expect($.fileDownload).toHaveBeenCalled()
 
     describe 'value sets view', ->
       it 'exists', ->
