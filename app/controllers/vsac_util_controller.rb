@@ -13,9 +13,10 @@ class VsacUtilController < ApplicationController
   def profile_names
     api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'])
     profile_names = api.get_profile_names
+    latest_profile = api.get_latest_profile_for_program(APP_CONFIG['vsac']['default_program'])
     # add in the pseudo program
     profile_names.insert(1, 'Latest eCQM')
-    render :json => { profileNames: profile_names }
+    render :json => { profileNames: profile_names, latestProfile: latest_profile }
   end
 
   ##

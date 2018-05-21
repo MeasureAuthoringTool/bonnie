@@ -19,6 +19,7 @@ class VsacUtilControllerTest < ActionController::TestCase
 
       profile_names = JSON.parse(response.body)
       assert_equal 19, profile_names['profileNames'].length
+      assert_equal 'eCQM Update 2018-05-04', profile_names['latestProfile']
       # make sure the pseudo profile is included
       assert profile_names['profileNames'].include? 'Latest eCQM'
     end
