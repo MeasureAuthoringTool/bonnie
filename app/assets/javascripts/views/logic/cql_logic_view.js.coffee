@@ -66,6 +66,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
     @defineStatementViews = []
     @functionStatementViews = []
     @unusedStatementViews = []
+    @supplementalDataElementViews = []
 
     # Look through all elm library structures, and check for CQL errors noted by the translation service.
     # Also finds if using old versions of QDM
@@ -90,20 +91,22 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
       for libraryName, annotationLibrary of @model.get('elm_annotations')
         for statement in annotationLibrary.statements
           # skip if this is a statement the user doesn't need to see
-          if _.indexOf(Thorax.Models.Measure.cqlSkipStatements, statement.define_name) < 0 && statement.define_name?
-            popNames = []
-            popName = null
-            # if a population (population set) was provided for this view it should mark the statment if it is a population defining statement  
-            if @population
-              for pop, popStatements of @model.get('populations_cql_map')
-                index = @population.getPopIndexFromPopName(pop)
-                # There may be multiple populations that it defines. Only push population name if @population has a pop ie: not all populations will have STRAT
-                popNames.push(pop) if statement.define_name == popStatements[index] && @population.get(pop)?
+          # skip doesn't happen for hybrid measures
+          continue unless statement.define_name?
+          continue if _.indexOf(Thorax.Models.Measure.cqlSkipStatements, statement.define_name) >= 0 && !CQLMeasureHelpers.isHybridMeasure(@model)
+          popNames = []
+          popName = null
+          # if a population (population set) was provided for this view it should mark the statment if it is a population defining statement
+          if @population
+            for pop, popStatements of @model.get('populations_cql_map')
+              index = @population.getPopIndexFromPopName(pop)
+              # There may be multiple populations that it defines. Only push population name if @population has a pop ie: not all populations will have STRAT
+              popNames.push(pop) if statement.define_name == popStatements[index] && @population.get(pop)?
 
-              # Mark if it is in an OBSERV if there are any and we are looking at the main_cql_library
-              if @model.get('observations')? && libraryName == @model.get('main_cql_library')
-                for observ, observIndex in @model.get('observations')
-                  popNames.push("OBSERV_#{observIndex+1}") if statement.define_name == observ.function_name
+            # Mark if it is in an OBSERV if there are any and we are looking at the main_cql_library
+            if @model.get('observations')? && libraryName == @model.get('main_cql_library')
+              for observ, observIndex in @model.get('observations')
+                popNames.push("OBSERV_#{observIndex+1}") if statement.define_name == observ.function_name
 
             # create the view for this statement and add it to the list of all views.
             statementView = new Thorax.Views.CqlStatement(statement: statement, libraryName: libraryName, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulations: popNames, logicView: @)
@@ -116,6 +119,8 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
               @functionStatementViews.push statementView   # if it is a function
             else if !@population? || @statementRelevance[libraryName][statement.define_name] == 'TRUE'
               @defineStatementViews.push statementView   # if it is a plain old supporting define
+            else if CQLMeasureHelpers.isSupplementalDataElementStatement(@population, statement.define_name)
+              @supplementalDataElementViews.push statementView
             else
               @unusedStatementViews.push statementView   # otherwise it is a statement that isn't relevant
 
