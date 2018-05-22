@@ -98,10 +98,13 @@ class CQLResultsHelpers
   #
   # The `statement_results` structure indicates the result for each statement taking into account the statement
   # relevance in determining the result. This is a two level map just like `statement_relevance`. The first level key is
-  # the library name and the second key level is the statement name. The value is an object that has two properties,
-  # 'raw' and 'final'. 'raw' is the raw result from the execution engine for that statement. 'final' is the final result
-  # that takes into account the relevance in this calculation. The value of 'final' will be one of the following
-  # strings: 'NA', 'UNHIT', 'TRUE', 'FALSE'. Here's what they mean:
+  # the library name and the second key level is the statement name. The value is an object that has three properties,
+  # 'raw', 'final' and 'pretty'. 'raw' is the raw result from the execution engine for that statement. 'final' is the final
+  # result that takes into account the relevance in this calculation. 'pretty' is a human readable description of the result.
+  # The value of 'final' will be one of the following strings:
+  # 'NA', 'UNHIT', 'TRUE', 'FALSE'.
+  #
+  # Here's what they mean:
   #
   # 'NA' - Not applicable. This statement is not relevant to any population calculation in this population_set. Common
   #   for unused library statements or statements only used for other population sets.
@@ -118,21 +121,22 @@ class CQLResultsHelpers
   # Here is an example of the `statement_results` structure: (raw results have been turned into "???" for this example)
   # {
   #   "Test158": {
-  #     "Patient": { "raw": "???", "final": "NA" },
-  #     "SDE Ethnicity": { "raw": "???", "final": "NA" },
-  #     "SDE Payer": { "raw": "???", "final": "NA" },
-  #     "SDE Race": { "raw": "???", "final": "NA" },
-  #     "SDE Sex": { "raw": "???", "final": "NA" },
-  #     "Most Recent Delivery": { "raw": "???", "final": "TRUE" },
-  #     "Most Recent Delivery Overlaps Diagnosis": { "raw": "???", "final": "TRUE" },
-  #     "Initial Population": { "raw": "???", "final": "TRUE" },
-  #     "Numerator": { "raw": "???", "final": "TRUE" },
-  #     "Denominator Exceptions": { "raw": "???", "final": "UNHIT" }
+  #     "Patient": { "raw": "???", "final": "NA", "pretty": "NA" },
+  #     "SDE Ethnicity": { "raw": "???", "final": "NA", "pretty": "NA" },
+  #     "SDE Payer": { "raw": "???", "final": "NA", "pretty": "NA" },
+  #     "SDE Race": { "raw": "???", "final": "NA", "pretty": "NA" },
+  #     "SDE Sex": { "raw": "???", "final": "NA", "pretty": "NA" },
+  #     "Most Recent Delivery": { "raw": "???", "final": "TRUE", "pretty": "???" },
+  #     "Most Recent Delivery Overlaps Diagnosis": { "raw": "???", "final": "TRUE", "pretty": "???" },
+  #     "Initial Population": { "raw": "???", "final": "TRUE", "pretty": "???" },
+  #     "Numerator": { "raw": "???", "final": "TRUE", "pretty": "???" },
+  #     "Denominator Exceptions": { "raw": "???", "final": "UNHIT", "pretty": "UNHIT" },
   #   },
   #  "TestLibrary": {
-  #     "Numer Helper": { "raw": "???", "final": "TRUE" },
-  #     "Denom Excp Helper": { "raw": "???", "final": "UNHIT" },
-  #     "Unused statement": { "raw": "???", "final": "NA" }
+  #     "Numer Helper": { "raw": "???", "final": "TRUE", "pretty": "???" },
+  #     "Denom Excp Helper": { "raw": "???", "final": "UNHIT", "pretty": "UNHIT" },
+  #     "Unused statement": { "raw": "???", "final": "NA", "pretty": "???" },
+  #     "false statement": { "raw": "???", "final": "FALSE", "pretty": "FALSE: []" },
   #   }
   # }
   #
@@ -161,10 +165,21 @@ class CQLResultsHelpers
         statementResults[lib][statementName] = { raw: rawStatementResult}
         if _.indexOf(Thorax.Models.Measure.cqlSkipStatements, statementName) >= 0 || statementRelevance[lib][statementName] == 'NA'
           statementResults[lib][statementName].final = 'NA'
+          statementResults[lib][statementName].pretty = 'NA'
         else if statementRelevance[lib][statementName] == 'FALSE' || !rawClauseResults[lib]?
           statementResults[lib][statementName].final = 'UNHIT'
+          statementResults[lib][statementName].pretty = 'UNHIT'
         else
-          statementResults[lib][statementName].final = if @_doesResultPass(rawStatementResult) then 'TRUE' else 'FALSE'
+          if @_doesResultPass(rawStatementResult)
+            statementResults[lib][statementName].final = 'TRUE'
+            statementResults[lib][statementName].pretty = @_prettyResult(rawStatementResult)
+          else
+            statementResults[lib][statementName].final = 'FALSE'
+            if rawStatementResult instanceof Array && rawStatementResult.length == 0
+              # Special case, handle empty array.
+              statementResults[lib][statementName].pretty = "FALSE ([])"
+            else
+              statementResults[lib][statementName].pretty = "FALSE (#{rawStatementResult})"
 
         # create clause results for all localIds in this statement
         localIds = measure.findAllLocalIdsInStatementByName(lib, statementName)
@@ -261,3 +276,33 @@ class CQLResultsHelpers
       return false
     else
       return true
+
+  ###*
+  # Generates a pretty human readable representation of a result.
+  #
+  # @private
+  # @param {(Array|object|boolean|???)} result - The result from the calculation engine.
+  # @returns {String} a pretty version of the given result
+  ###
+  @_prettyResult: (result) ->
+    if result instanceof cql.DateTime
+      moment.utc(result.toString()).format('MM/DD/YYYY h:mm A')
+    else if result instanceof cql.Interval
+      "Interval: #{@_prettyResult(result['low'])} - #{@_prettyResult(result['high'])}"
+    else if result instanceof cql.Code
+      "Code: #{result['system']}: #{result['code']}"
+    else if result instanceof cql.Quantity
+      "Quantity: #{result['unit']}: #{result['value']}"
+    else if result instanceof CQL_QDM.QDMDatatype
+      result.toString()
+    else if result instanceof String
+      result
+    else if result instanceof Array
+      result = _.map result, (value) => @_prettyResult(value)
+      "[#{result.join(',\n')}]"
+    else if result instanceof Object
+      for key, value of result
+        result[key] = @_prettyResult(value)
+      JSON.stringify(result, null, 2)
+    else
+      if result then JSON.stringify(result, null, 2) else ""
