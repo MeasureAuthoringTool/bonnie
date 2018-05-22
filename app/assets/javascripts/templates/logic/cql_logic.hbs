@@ -32,10 +32,10 @@
   {{#if supplementalDataElementViews}}
     <div class="panel panel-default">
       <div class="panel-heading">
-        <div class="panel-title panel-population panel-supplemental-data-elements">
-          <a data-toggle="collapse" href="#collapse{{cid}}-supplemental-data-elements">
+        <div class="panel-title panel-population panel-sde-defines">
+          <a data-toggle="collapse" href="#collapse{{cid}}-sde-defines">
             <div>
-              <span class="population-label supplemental-data-elements"><b>Supplemental Data Elements: </b><span class="sr-only sr-highlight-status"></span></span>
+              <span class="population-label sde-defines"><b>Supplemental Data Elements: </b><span class="sr-only sr-highlight-status"></span></span>
               <div class="pull-right">
                 <i class="fa fa-lg fa-angle-down toggle-icon" aria-hidden="true"></i>
                 <span class="sr-only">toggle supplemental data elements</span>
@@ -44,7 +44,7 @@
           </a>
         </div>
       </div>
-      <div id="collapse{{cid}}-supplemental-data-elements" class="panel-collapse collapse in">
+      <div id="collapse{{cid}}-sde-defines" class="panel-collapse collapse in">
         <div class="panel-body">
           {{#each supplementalDataElementViews}}
             <div>

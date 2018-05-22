@@ -50,6 +50,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
     'click .panel-defines' : -> @$('.panel-defines .toggle-icon').toggleClass('fa-angle-right fa-angle-down')
     'click .panel-unused-defines' : -> @$('.panel-unused-defines .toggle-icon').toggleClass('fa-angle-right fa-angle-down')
     'click .panel-functions' : -> @$('.panel-functions .toggle-icon').toggleClass('fa-angle-right fa-angle-down')
+    'click .panel-sde-defines' : -> @$('.panel-sde-defines .toggle-icon').toggleClass('fa-angle-right fa-angle-down')
     "ready": ->
 
   ###*
@@ -117,10 +118,10 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
               @populationStatementViews.push statementView   # if it is a population defining statement.
             else if CQLMeasureHelpers.isStatementFunction(@model, libraryName, statement.define_name)
               @functionStatementViews.push statementView   # if it is a function
-            else if !@population? || @statementRelevance[libraryName][statement.define_name] == 'TRUE'
-              @defineStatementViews.push statementView   # if it is a plain old supporting define
             else if CQLMeasureHelpers.isSupplementalDataElementStatement(@population, statement.define_name)
               @supplementalDataElementViews.push statementView
+            else if !@population? || @statementRelevance[libraryName][statement.define_name] == 'TRUE'
+              @defineStatementViews.push statementView   # if it is a plain old supporting define
             else
               @unusedStatementViews.push statementView   # otherwise it is a statement that isn't relevant
 
