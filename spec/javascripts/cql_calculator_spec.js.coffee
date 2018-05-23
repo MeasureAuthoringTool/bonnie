@@ -189,6 +189,7 @@ describe 'cqlCalculator', ->
           expect(result5.get('statement_results').PotentialOpioidOveruse.PrescriptionsWithMME.pretty).toContain('"conversionFactor": "0.13"')
           expect(result5.get('statement_results').PotentialOpioidOveruse.PrescriptionsWithMME.pretty).toContain('"effectivePeriod": "Interval: 05/09/2012 8:00 AM - 12/28/2012 8:15 AM"')
           expect(result5.get('statement_results').PotentialOpioidOveruse.PrescriptionsWithMME.pretty).toContain('"daysSupply": "Quantity: undefined: 120"')
+          expect(result5.get('statement_results').OpioidData.DrugIngredients.pretty).toContain('"drugName": "72 HR Fentanyl 0.075 MG/HR Transdermal System"')
 
     describe 'episode of care based relevance map', ->
       beforeEach ->

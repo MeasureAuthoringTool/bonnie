@@ -295,7 +295,7 @@ class CQLResultsHelpers
       "Quantity: #{result['unit']}: #{result['value']}"
     else if result instanceof CQL_QDM.QDMDatatype
       result.toString()
-    else if result instanceof String
+    else if result instanceof String or typeof(result) == 'string'
       result
     else if result instanceof Array
       result = _.map result, (value) => @_prettyResult(value)
