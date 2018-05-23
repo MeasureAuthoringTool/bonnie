@@ -313,7 +313,7 @@ class CQLMeasureHelpers
   # @return {boolean} - true if measure is hybrid, false otherwise
   ###
   @isHybridMeasure: (measure) ->
-    return true if measure?.get('populations').first().get('supplemental_data_elements')?
+    return true if measure?.get('populations').first().get('supplemental_data_elements')
     return false
 
   ###*
