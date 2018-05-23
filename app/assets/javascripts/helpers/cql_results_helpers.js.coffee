@@ -164,7 +164,7 @@ class CQLResultsHelpers
       for statementName of statements
         rawStatementResult = @_findResultForStatementClause(measure, lib, statementName, rawClauseResults)
         statementResults[lib][statementName] = { raw: rawStatementResult}
-        if _.indexOf(Thorax.Models.Measure.cqlSkipStatements, statementName) >= 0 || statementRelevance[lib][statementName] == 'NA'
+        if (!CQLMeasureHelpers.isHybridMeasure(measure) && _.indexOf(Thorax.Models.Measure.cqlSkipStatements, statementName) >= 0) || statementRelevance[lib][statementName] == 'NA'
           statementResults[lib][statementName].final = 'NA'
         else if statementRelevance[lib][statementName] == 'FALSE' || !rawClauseResults[lib]?
           statementResults[lib][statementName].final = 'UNHIT'
