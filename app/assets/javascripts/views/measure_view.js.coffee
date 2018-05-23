@@ -123,6 +123,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
     population_details = {}
     statement_details = CQLMeasureHelpers.buildDefineToFullStatement(@model)
     file_name = @model.get('cms_id')
+    debugger
     # Loop iterates over the populations and gets the calculations for each population.
     # From this it builds a map of pop_key->patient_key->results
     for pop in @model.get('populations').models
