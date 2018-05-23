@@ -39,7 +39,6 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
 
   initialize: ->
     @set('codes', new Thorax.Collections.Codes) unless @has 'codes'
-    if @get('type') == "medications" then @set('fulfillments', new Thorax.Collection()) unless @has 'fulfillments'
     if !@isPeriodType() then @set('end_date', undefined)
 
   parse: (attrs) ->
@@ -62,8 +61,6 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     attrs.references = references
     if attrs.codes
       attrs.codes = new Thorax.Collections.Codes attrs.codes, parse: true
-    if attrs.type == "medications" and attrs.fulfillments
-      attrs.fulfillments = new Thorax.Collection attrs.fulfillments
     attrs
   measure: -> bonnie.measures.findWhere hqmf_set_id: @get('hqmf_set_id')
   valueSet: -> _(bonnie.measures.valueSets()).detect (vs) => vs.get('oid') is @get('code_list_id')

@@ -115,25 +115,6 @@
         </div>
       {{/if}}
 
-      {{#ifCond definition "==" "medication"}}
-        {{#ifCond status "!=" "ordered"}}
-        <div class="form-group">
-          <label class="control-label"><i class="fa fa-medkit" aria-hidden="true"></i> Filled<input class="sr-only" disabled></label>
-
-          {{#collection fulfillments class="existing-values"}}
-            <span>
-              {{quantity_dispensed_value}} {{quantity_dispensed_unit}}:
-              {{dispense_date}} {{dispense_time}}
-              {{#button "removeValue" class="btn btn-link close delete"}}&times; <span class="sr-only">Delete</span>{{/button}}
-            </span>
-          {{/collection}}
-
-          {{view editFulfillmentHistoryView}}
-
-        </div>
-        {{/ifCond}}
-      {{/ifCond}}
-
       <div class="form-group">
         <label class="control-label"><i class="fa fa-bar-chart-o" aria-hidden="true"></i> Field Value<input class="sr-only" disabled></label>
 
