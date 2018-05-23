@@ -88,6 +88,11 @@ describe 'MeasureView', ->
       expect(@measureView.$("button[data-call-method=exportQrdaPatients]")).toBeDisabled()
       @measureView.remove()
 
+    fit 'does not show SDEs for older measure', ->
+      @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
+      @measureView.appendTo 'body'
+      expect(@measureView.$(".sde-defines")).not.toExist()
+      @measureView.remove()
 
     describe 'value sets view', ->
       it 'exists', ->
