@@ -80,9 +80,6 @@ class Thorax.Views.EditCriteriaView extends Thorax.Views.BuilderChildView
     codes.on 'add remove', => @model.set 'code_source', (if codes.isEmpty() then 'DEFAULT' else 'USER_DEFINED'), silent: true
     @editCodeSelectionView = new Thorax.Views.CodeSelectionView codes: codes
     @editCodeSelectionView.updateConcepts(concepts) if concepts
-    @editFulfillmentHistoryView = new Thorax.Views.MedicationFulfillmentsView
-      model: new Thorax.Model
-      criteria: @model
 
     @model.on 'highlight', (type) =>
       @$('.criteria-data').addClass(type)
@@ -328,56 +325,6 @@ class Thorax.Views.CodeSelectionView extends Thorax.Views.BuilderChildView
     @$('select[name=codeset]').change()
     @triggerMaterialize()
     @$(':focusable:visible:first').focus()
-
-
-class Thorax.Views.MedicationFulfillmentsView extends Thorax.Views.BuilderChildView
-  template: JST['patient_builder/edit_fulfillments']
-
-  events:
-    'blur input': 'validateForAddition'
-    'keyup input': 'validateForAddition'
-    'change input': 'validateForAddition'
-    serialize: (attr) ->
-      if dispenseDate = attr.dispense_date
-        dispenseDate += " #{attr.dispense_time}" if attr.dispense_time
-        attr.dispense_datetime = moment.utc(dispenseDate, 'L LT').format('X')
-    rendered: -> @setDefaultDate()
-
-  initialize: ->
-    @model = new Thorax.Model
-    @fulfillments = @criteria.get('fulfillments')
-
-  validateForAddition: ->
-    attributes = @serialize(set: false)
-    isDisabled = !attributes.dispense_date || !attributes.dispense_time || !attributes.quantity_dispensed_value
-    @$('button[data-call-method=addFulfillment]').prop 'disabled', isDisabled
-
-  setDefaultDate: ->
-    # use the latest fulfillment as a template
-    latest_fulfillment = @fulfillments.max((f) -> f.get('dispense_datetime')) if @fulfillments.length
-    # if dosage and frequency are specified then compute a CMD offset (derived from HQMF2JS Patient API Extension)
-    if @criteria.get('dose_value') and @criteria.get('frequency_value')
-      switch @criteria.get('frequency_unit')
-        when 'h' then dosesPerDay = 24 / @criteria.get('frequency_value')
-        when 'd' then dosesPerDay = 1 / @criteria.get('frequency_value')
-      if latest_fulfillment
-        offset = ( latest_fulfillment.get('quantity_dispensed_value') / @criteria.get('dose_value') / dosesPerDay ) * 60 * 60 * 24 * 1000
-    offset ?= 15 * 60 * 1000 # otherwise use a default offset of 15 mins
-    # use the latest date, starting with the start_date
-    date = moment.utc( @criteria.get('start_date') + offset ) if @criteria.has('start_date')
-    if latest_fulfillment?.get('dispense_datetime') * 1000 > @criteria.get('start_date')
-      date = moment.utc( latest_fulfillment.get('dispense_datetime') * 1000 + offset )
-    @$('input[name=dispense_date]').datepicker('orientation': 'bottom left').datepicker('setDate', date.format('L')) if date
-    @$('input[name=dispense_date]').datepicker('update')
-    @$('input[name=dispense_time]').timepicker('setTime', date.format('LT')) if date
-
-  addFulfillment: (e) ->
-    e.preventDefault()
-    @serialize()
-    @fulfillments.add @model.clone()
-    @model.clear()
-    @triggerMaterialize()
-
 
 class Thorax.Views.EditCriteriaValueView extends Thorax.Views.BuilderChildView
   className: -> "#{if @fieldValue then 'field-' else ''}value-formset"
