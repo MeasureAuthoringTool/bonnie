@@ -207,7 +207,6 @@ class CQLResultsHelpers
   ###*
   # Generates a pretty human readable representation of a result.
   #
-  # @private
   # @param {(Array|object|boolean|???)} result - The result from the calculation engine.
   # @returns {String} a pretty version of the given result
   ###
