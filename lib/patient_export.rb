@@ -25,7 +25,8 @@ class PatientExport
                                    :bg_color => "FFFFFFF",
                                    :border => { :style => :thin,
                                                 :color => "DDDDDD",
-                                                :edges => [:bottom] })
+                                                :edges => [:bottom] },
+                                   :alignment => { :wrap_text => true })
         rotated_style = styles.add_style(:b => true,
                                          :sz => 12,
                                          :alignment => { :textRotation => 90 },
@@ -52,7 +53,8 @@ class PatientExport
                                      :border => { :style => :thin,
                                                   :color =>"DDDDDD",
                                                   :edges => [:bottom] },
-                                     :fg_color => "FF0000")
+                                     :fg_color => "FF0000",
+                                     :alignment => { :wrap_text => true })
         pop_index = 0
         
         if calc_results.length == 0
