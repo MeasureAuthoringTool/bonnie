@@ -129,7 +129,9 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       for patient in @model.get('patients').models
         if calc_results[pop.cid] == undefined
           calc_results[pop.cid] = {}
-        result = pop.calculate(patient)
+        # Re-calculate results before excel export (we need to include pretty result generation)
+        bonnie.calculator_selector.clearResult pop, patient
+        result = pop.calculate(patient, {doPretty: true})
         result_criteria = {}
         for pop_crit of result.get('population_relevance')
           result_criteria[pop_crit] = result.get(pop_crit)

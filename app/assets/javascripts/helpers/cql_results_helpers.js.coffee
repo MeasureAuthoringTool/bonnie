@@ -100,7 +100,8 @@ class CQLResultsHelpers
   # relevance in determining the result. This is a two level map just like `statement_relevance`. The first level key is
   # the library name and the second key level is the statement name. The value is an object that has three properties,
   # 'raw', 'final' and 'pretty'. 'raw' is the raw result from the execution engine for that statement. 'final' is the final
-  # result that takes into account the relevance in this calculation. 'pretty' is a human readable description of the result.
+  # result that takes into account the relevance in this calculation. 'pretty' is a human readable description of the result
+  # that is only generated if doPretty is true.
   # The value of 'final' will be one of the following strings:
   # 'NA', 'UNHIT', 'TRUE', 'FALSE'.
   #
@@ -151,9 +152,10 @@ class CQLResultsHelpers
   # @param {Measure} measure - The measure.
   # @param {object} rawClauseResults - The raw clause results from the calculation engine.
   # @param {object} statementRelevance - The `statement_relevance` map. Used to determine if they were hit or not.
+  # @param {boolean} doPretty - If true, also generate pretty versions of result.
   # @returns {object} Object with the statement_results and clause_results structures, keyed as such.
   ###
-  @buildStatementAndClauseResults: (measure, rawClauseResults, statementRelevance) ->
+  @buildStatementAndClauseResults: (measure, rawClauseResults, statementRelevance, doPretty = false) ->
     statementResults = {}
     clauseResults = {}
     emptyResultClauses = []
@@ -165,21 +167,21 @@ class CQLResultsHelpers
         statementResults[lib][statementName] = { raw: rawStatementResult}
         if _.indexOf(Thorax.Models.Measure.cqlSkipStatements, statementName) >= 0 || statementRelevance[lib][statementName] == 'NA'
           statementResults[lib][statementName].final = 'NA'
-          statementResults[lib][statementName].pretty = 'NA'
+          statementResults[lib][statementName].pretty = 'NA' if doPretty
         else if statementRelevance[lib][statementName] == 'FALSE' || !rawClauseResults[lib]?
           statementResults[lib][statementName].final = 'UNHIT'
-          statementResults[lib][statementName].pretty = 'UNHIT'
+          statementResults[lib][statementName].pretty = 'UNHIT' if doPretty
         else
           if @_doesResultPass(rawStatementResult)
             statementResults[lib][statementName].final = 'TRUE'
-            statementResults[lib][statementName].pretty = @_prettyResult(rawStatementResult)
+            statementResults[lib][statementName].pretty = @prettyResult(rawStatementResult) if doPretty
           else
             statementResults[lib][statementName].final = 'FALSE'
             if rawStatementResult instanceof Array && rawStatementResult.length == 0
               # Special case, handle empty array.
-              statementResults[lib][statementName].pretty = "FALSE ([])"
+              statementResults[lib][statementName].pretty = "FALSE ([])" if doPretty
             else
-              statementResults[lib][statementName].pretty = "FALSE (#{rawStatementResult})"
+              statementResults[lib][statementName].pretty = "FALSE (#{rawStatementResult})" if doPretty
 
         # create clause results for all localIds in this statement
         localIds = measure.findAllLocalIdsInStatementByName(lib, statementName)
@@ -202,6 +204,35 @@ class CQLResultsHelpers
   
     return { statement_results: statementResults, clause_results: clauseResults }
 
+  ###*
+  # Generates a pretty human readable representation of a result.
+  #
+  # @private
+  # @param {(Array|object|boolean|???)} result - The result from the calculation engine.
+  # @returns {String} a pretty version of the given result
+  ###
+  @prettyResult: (result) ->
+    if result instanceof cql.DateTime
+      moment.utc(result.toString()).format('MM/DD/YYYY h:mm A')
+    else if result instanceof cql.Interval
+      "Interval: #{@prettyResult(result['low'])} - #{@prettyResult(result['high'])}"
+    else if result instanceof cql.Code
+      "Code: #{result['system']}: #{result['code']}"
+    else if result instanceof cql.Quantity
+      "Quantity: #{result['unit']}: #{result['value']}"
+    else if result instanceof CQL_QDM.QDMDatatype
+      result.toString()
+    else if result instanceof String or typeof(result) == 'string'
+      result
+    else if result instanceof Array
+      result = _.map result, (value) => @prettyResult(value)
+      "[#{result.join(',\n')}]"
+    else if result instanceof Object
+      for key, value of result
+        result[key] = @prettyResult(value)
+      JSON.stringify(result, null, 2)
+    else
+      if result then JSON.stringify(result, null, 2) else ''
 
   ###*
   # Determines the final result (for coloring and coverage) for a clause. The result fills the 'final' property for the
@@ -276,33 +307,3 @@ class CQLResultsHelpers
       return false
     else
       return true
-
-  ###*
-  # Generates a pretty human readable representation of a result.
-  #
-  # @private
-  # @param {(Array|object|boolean|???)} result - The result from the calculation engine.
-  # @returns {String} a pretty version of the given result
-  ###
-  @_prettyResult: (result) ->
-    if result instanceof cql.DateTime
-      moment.utc(result.toString()).format('MM/DD/YYYY h:mm A')
-    else if result instanceof cql.Interval
-      "Interval: #{@_prettyResult(result['low'])} - #{@_prettyResult(result['high'])}"
-    else if result instanceof cql.Code
-      "Code: #{result['system']}: #{result['code']}"
-    else if result instanceof cql.Quantity
-      "Quantity: #{result['unit']}: #{result['value']}"
-    else if result instanceof CQL_QDM.QDMDatatype
-      result.toString()
-    else if result instanceof String or typeof(result) == 'string'
-      result
-    else if result instanceof Array
-      result = _.map result, (value) => @_prettyResult(value)
-      "[#{result.join(',\n')}]"
-    else if result instanceof Object
-      for key, value of result
-        result[key] = @_prettyResult(value)
-      JSON.stringify(result, null, 2)
-    else
-      if result then JSON.stringify(result, null, 2) else ""
