@@ -1,5 +1,11 @@
 Bonnie::Application.routes.draw do
-  use_doorkeeper
+  use_doorkeeper do
+    skip_controllers :token_info
+  end
+
+  # override doorkeeper token info endpoint
+  get '/oauth/token/info' => 'doorkeeper_override/token_info#show'
+
   apipie
   devise_for :users,:controllers => {:registrations => "registrations"}
 
