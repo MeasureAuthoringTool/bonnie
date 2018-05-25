@@ -105,6 +105,7 @@ describe 'MeasureView', ->
         expect(arguments[0]).toEqual('patients/excel_export')
       @measureView.$("button[data-call-method=exportExcelPatients]").click()
       expect($.fileDownload).toHaveBeenCalled()
+      @measureView.remove()
 
     describe 'value sets view', ->
       it 'exists', ->
@@ -215,22 +216,22 @@ describe 'MeasureView', ->
           for child in @cqlOverlapMeasureValueSetsView.overlappingValueSets.models
             expect(child.attributes.codes.length).toEqual(1)
 
-    describe 'Hybrid Measures', ->
-      beforeEach ->
-        jasmine.getJSONFixtures().clearCache()
-        @universalValueSetsByOid = bonnie.valueSetsByOid
-        bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS529v0/value_sets.json')
-        bonnie.measures = new Thorax.Collections.Measures()
-        @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS529v0/CMS529v0.json'), parse: true
-        bonnie.measures.add @cqlMeasure
-        @cqlPatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS529v0/patients.json'), parse: true
-        @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
-        @measureView.appendTo 'body'
+  describe 'Hybrid Measures', ->
+    beforeEach ->
+      jasmine.getJSONFixtures().clearCache()
+      @universalValueSetsByOid = bonnie.valueSetsByOid
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMS529v0/value_sets.json')
+      bonnie.measures = new Thorax.Collections.Measures()
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS529v0/CMS529v0.json'), parse: true
+      bonnie.measures.add @cqlMeasure
+      @cqlPatients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMS529v0/patients.json'), parse: true
+      @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
+      @measureView.appendTo 'body'
 
-      afterEach ->
-        bonnie.valueSetsByOid = @universalValueSetsByOid
-        @measureView.remove()
+    afterEach ->
+      bonnie.valueSetsByOid = @universalValueSetsByOid
+      @measureView.remove()
 
-      it 'display SDE section', ->
-        expect(@measureView.$('.sde-defines')).toExist()
+    it 'display SDE section', ->
+      expect(@measureView.$('.sde-defines')).toExist()
 
