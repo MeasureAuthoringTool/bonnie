@@ -98,6 +98,14 @@ describe 'MeasureView', ->
       expect(@measureView.$(".sde-defines")).not.toExist()
       @measureView.remove()
 
+    it 'can click excel export button', ->
+      @measureView = new Thorax.Views.Measure(model: @cqlMeasure, patients: @cqlPatients, populations: @cqlMeasure.get('populations'), population: @cqlMeasure.get('displayedPopulation'))
+      @measureView.appendTo 'body'
+      spyOn($, 'fileDownload').and.callFake () ->
+        expect(arguments[0]).toEqual('patients/excel_export')
+      @measureView.$("button[data-call-method=exportExcelPatients]").click()
+      expect($.fileDownload).toHaveBeenCalled()
+
     describe 'value sets view', ->
       it 'exists', ->
         expect(@cqlMeasureValueSetsView.$('.value_sets')).toExist()
