@@ -60,6 +60,11 @@ class CQLResultsHelpers
       for statementName of statements
         statementRelevance[lib][statementName] = "NA"
 
+    if CQLMeasureHelpers.isHybridMeasure(measure)
+      for statement in populationSet.get('supplemental_data_elements')
+        # Mark all Supplemental Data Elements as relevant
+        @_markStatementRelevant(measure.get('cql_statement_dependencies'), statementRelevance, measure.get('main_cql_library'), statement, "TRUE")
+
     for population, relevance of populationRelevance
       # If the population is values, that means we need to mark relevance for the OBSERVs
       if (population == 'values')
@@ -165,7 +170,7 @@ class CQLResultsHelpers
       for statementName of statements
         rawStatementResult = @_findResultForStatementClause(measure, lib, statementName, rawClauseResults)
         statementResults[lib][statementName] = { raw: rawStatementResult}
-        if _.indexOf(Thorax.Models.Measure.cqlSkipStatements, statementName) >= 0 || statementRelevance[lib][statementName] == 'NA'
+        if (!CQLMeasureHelpers.isHybridMeasure(measure) && _.indexOf(Thorax.Models.Measure.cqlSkipStatements, statementName) >= 0) || statementRelevance[lib][statementName] == 'NA'
           statementResults[lib][statementName].final = 'NA'
           statementResults[lib][statementName].pretty = 'NA' if doPretty
         else if statementRelevance[lib][statementName] == 'FALSE' || !rawClauseResults[lib]?
@@ -249,7 +254,7 @@ class CQLResultsHelpers
   ###
   @_setFinalResults: (params) ->
     finalResult = 'FALSE'
-    if _.indexOf(Thorax.Models.Measure.cqlSkipStatements, params.statementName) >= 0 || params.clause.isUnsupported?
+    if params.clause.isUnsupported?
       finalResult = 'NA'
     else if params.statementRelevance[params.lib][params.statementName] == 'NA'
       finalResult = 'NA'
