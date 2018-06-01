@@ -78,15 +78,24 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
-  test "should get calculated_results for api_v1_measure" do
-    get :calculated_results, id: @api_v1_measure
+  test "should get calculated_results as json for api_v1_measure" do
+    get :calculated_results, id: @api_v1_measure, format: :json
     assert_response :success
+
     json = JSON.parse(response.body)
     assert_equal @num_patients, json['patient_count']
   end
 
+  test "should get calculated_results as xlsx for api_v1_measure" do
+    @request.env['CONTENT_TYPE'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    get :calculated_results, id: @api_v1_measure, format: :xlsx
+    assert_response :success
+
+    assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type
+  end
+
   test "should not get calculated_results for unknown measure" do
-    get :calculated_results, id: 'foo'
+    get :calculated_results, id: 'foo', format: :json
     assert_response :missing
   end
 
