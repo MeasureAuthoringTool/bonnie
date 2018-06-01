@@ -11,7 +11,7 @@ class DoorkeeperOverride::TokenInfoController < Doorkeeper::ApplicationMetalCont
       }
       render json: token_info, status: :ok
     else
-      error = OAuth::ErrorResponse.new(name: :invalid_request)
+      error = Doorkeeper::OAuth::ErrorResponse.new(name: :invalid_request)
       response.headers.merge!(error.headers)
       render json: error.body, status: error.status
     end
