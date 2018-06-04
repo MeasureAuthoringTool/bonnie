@@ -13,7 +13,7 @@ gem 'less-rails'
 # We want non-digest versions of our assets for font-awesome
 gem "non-stupid-digest-assets"
 
-gem 'health-data-standards', '~> 4.0.5'
+# gem 'health-data-standards', '~> 4.0.5'
 gem 'cql_qdm_patientapi', '~> 1.1.3'
 gem 'simplexml_parser', '~> 1.0'
 gem 'hqmf2js', '~> 1.4'
@@ -21,7 +21,7 @@ gem 'bonnie_bundler', '~> 2.1.1'
 gem 'quality-measure-engine', '~> 3.2'
 gem 'hquery-patient-api', '~> 1.1'
 
-# gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master_bonnie'
+  gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master_bonnie'
 # gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'master'
 # gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
 # gem 'hqmf2js', :git => 'https://github.com/projecttacoma/hqmf2js.git', :branch => 'master'
