@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'pry'
 
 class ApiV1::MeasuresControllerTest < ActionController::TestCase
   include Devise::TestHelpers

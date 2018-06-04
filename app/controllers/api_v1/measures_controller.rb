@@ -1,4 +1,3 @@
-require 'json' # TODO: remove when no longer loading results from json
 class ApiV1::MeasuresController < ApplicationController
   skip_before_action :verify_authenticity_token
   skip_before_filter :authenticate_user!
