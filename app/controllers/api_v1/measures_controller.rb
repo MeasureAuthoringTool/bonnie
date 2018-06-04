@@ -194,8 +194,14 @@ class ApiV1::MeasuresController < ApplicationController
       http_status = 404
     end
 
-    respond_with @api_v1_measures do |format|
-      format.json{
+    respond_with @api_v1_measure do |format|
+      format.xlsx {
+        if http_status != 404
+          filename = 'Sample_Excel_Export(CMS52v6).xlsx'
+          send_file "#{Rails.root}/public/resource/#{filename}", type: :xlsx, status: http_status, filename: URI.encode(filename)
+        end
+      }
+      format.json {
         response = {}
         if http_status != 404
 
@@ -244,16 +250,7 @@ class ApiV1::MeasuresController < ApplicationController
 
         response.delete('messages') if !response['messages'].nil? && response['messages'].empty?
         render json: response, status: http_status
-      }
-      format.xlsx{
-        cookies[:fileDownload] = 'true' # We need to set this cookie for jquery.fileDownload
 
-        # TODO: Fill in with real excel export
-        # @api_v1_results =
-        # package = PatientExport.export_excel_file(@api_v1_measure, @api_v1_patients, @api_v1_results)
-        # send_data package.to_stream.read, type: :xlsx, filename: "#{@api_v1_measure.cms_id}.xlsx"
-
-        send_file "#{Rails.root}/public/resource/Sample_Excel_Export(CMS52v6).xlsx", type: :xlsx, status: http_status, filename: 'Sample_Excel_Export(CMS52v6).xlsx'
       }
     end
   end
