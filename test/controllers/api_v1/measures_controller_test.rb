@@ -88,8 +88,8 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   end
 
   test "should get calculated_results as xlsx for api_v1_measure" do
-    get :calculated_results, id: @api_v1_measure, format: :xlsx
-    assert_response :success
+    @request.env['HTTP_ACCEPT'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    get :calculated_results, id: @api_v1_measure
 
     assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type
 
