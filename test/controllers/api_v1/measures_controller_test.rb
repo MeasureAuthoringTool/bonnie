@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'pry'
 
 class ApiV1::MeasuresControllerTest < ActionController::TestCase
   include Devise::TestHelpers
@@ -87,11 +88,16 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
   end
 
   test "should get calculated_results as xlsx for api_v1_measure" do
-    @request.env['CONTENT_TYPE'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     get :calculated_results, id: @api_v1_measure, format: :xlsx
     assert_response :success
 
     assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type
+
+    excel_file = File.open("#{Rails.root}/public/resource/Sample_Excel_Export(CMS52v6).xlsx", "rb")
+    excel_binary = excel_file.read
+
+    assert_equal response.body, excel_binary
+    excel_file.close
   end
 
   test "should not get calculated_results for unknown measure" do
