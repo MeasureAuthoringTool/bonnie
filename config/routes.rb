@@ -1,4 +1,10 @@
 Bonnie::Application.routes.draw do
+  use_doorkeeper do
+    skip_controllers :token_info
+  end
+  # override doorkeeper token info endpoint
+  get '/oauth/token/info' => 'doorkeeper_override/token_info#show'
+  apipie
   devise_for :users,:controllers => {:registrations => "registrations"}
 
   devise_scope :user do
@@ -69,6 +75,15 @@ Bonnie::Application.routes.draw do
         get 'measures'
         get 'bundle'
         post 'log_in_as'
+      end
+    end
+  end
+
+  namespace :api_v1 do
+    resources :measures, :defaults => { :format => 'json' }, :only => [:index, :show, :create, :update] do
+      member do
+        get 'patients'
+        get 'calculated_results'
       end
     end
   end
