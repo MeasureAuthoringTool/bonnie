@@ -5,7 +5,8 @@ class DoorkeeperOverride::TokenInfoController < Doorkeeper::ApplicationMetalCont
       if !user.nil?
         token_info = {
             user_email: user.email,
-            user_name: "#{user.first_name} #{user.last_name}",
+            user_first_name: user.first_name,
+            user_last_name: user.last_name,
             scopes: doorkeeper_token.scopes,
             expires_in_seconds: doorkeeper_token.expires_in_seconds,
             created_at: doorkeeper_token.created_at.to_i

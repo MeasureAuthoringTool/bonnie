@@ -33,7 +33,8 @@ class DoorkeeperOverride::TokenInfoControllerTest < ActionController::TestCase
     assert_response :ok
     body = JSON.parse(@response.body)
     assert_equal @user.email, body['user_email']
-    assert_equal "bonnie bonnie", body['user_name']
+    assert_equal "bonnie", body['user_first_name']
+    assert_equal "bonnie", body['user_last_name']
     assert_equal @token.scopes, body['scopes']
     assert_equal @token.expires_in_seconds, body['expires_in_seconds']
     assert_equal @token.created_at.to_i, body['created_at']
