@@ -82,7 +82,7 @@ class ApiV1::MeasuresController < ApplicationController
   INSURANCE_WHITELIST = ["member_id","payer"]
   POPULATION_TYPES = ['population_index','STRAT','IPP','DENOM','NUMER','DENEXCEP','DENEX','MSRPOPL','OBSERV','MSRPOPLEX']
 
-  respond_to :json, :html
+  respond_to :json, :html, :xlsx
   rescue_from Apipie::ParamMissing, :with => :error_parameter_missing
   rescue_from ActionController::ParameterMissing, :with => :error_parameter_missing
   rescue_from Apipie::ParamInvalid, :with => :error_parameter_invalid
@@ -179,11 +179,10 @@ class ApiV1::MeasuresController < ApplicationController
   description 'Retrieve the calculated results of the measure logic for each patient.'
   param_group :measure
   error :code => 500, :desc => 'Server-side Error Calculating the HQMF Measure Logic'
+  formats [:json, :xlsx]
   def calculated_results
-    http_status = 200
-    response = {}
-
     begin
+      http_status = 200
       # Get the measure
       @api_v1_measure = Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by{|x|x.updated_at}.first
        # Extract out the HQMF set id, which we'll use to get related patients
@@ -194,52 +193,61 @@ class ApiV1::MeasuresController < ApplicationController
       http_status = 404
     end
 
-    if http_status != 404
-      response['status'] = 'complete'
-      response['messages'] = []
-      response['measure_id'] = params[:id]
-      response['summary'] = []
-      response['patient_count'] = @api_v1_patients.size
-      response['patients'] = process_patient_records(@api_v1_patients)
-      response['patients'].each{|p|p['actual_values']=[]}
+    if request.headers['Accept'] == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      if http_status != 404
+        filename = 'Sample_Excel_Export(CMS52v6).xlsx'
+        send_file "#{Rails.root}/public/resource/#{filename}", type: :xlsx, status: http_status, filename: URI.encode(filename)
+      end
+    else
+      response = {}
+      if http_status != 404
 
-      calculator = BonnieBackendCalculator.new
+        response['status'] = 'complete'
+        response['messages'] = []
+        response['measure_id'] = params[:id]
+        response['summary'] = []
+        response['patient_count'] = @api_v1_patients.size
+        response['patients'] = process_patient_records(@api_v1_patients)
+        response['patients'].each{|p|p['actual_values']=[]}
 
-      @api_v1_measure.populations.each_with_index do |population,population_index|
-       
-        population_response = {}
+        calculator = BonnieBackendCalculator.new
 
-        begin
-          calculator.set_measure_and_population(@api_v1_measure, population_index, rationale: true)
-        rescue => e
-          response['status'] = 'error'
-          response['messages'] << "Measure setup exception: #{e.message}"
-        end
+        @api_v1_measure.populations.each_with_index do |population,population_index|
 
-        if response['status']!='error'
-          @api_v1_patients.each do |patient|
-            # Generate the calculated rationale for each patient against the measure.
-            begin
-              patient_result = calculator.calculate(patient)
-              patient_hash = response['patients'].select{|i|i['_id']==patient.id}.first
-              actual_values = patient_result.select{|k,v|POPULATION_TYPES.include?(k)}
-              patient_hash['actual_values'] << actual_values
-              population_response.merge!(actual_values){|k,i,j|i+j}
-            rescue Exception => e
-              response['status'] = 'error'
-              response['messages'] << "Measure calculation exception: #{e.message}"
-            end
+          population_response = {}
+
+          begin
+            calculator.set_measure_and_population(@api_v1_measure, population_index, rationale: true)
+          rescue => e
+            response['status'] = 'error'
+            response['messages'] << "Measure setup exception: #{e.message}"
           end
-          population_response.delete('measure_id')
-          response['summary'] << population_response
+
+          if response['status']!='error'
+            @api_v1_patients.each do |patient|
+              # Generate the calculated rationale for each patient against the measure.
+              begin
+                patient_result = calculator.calculate(patient)
+                patient_hash = response['patients'].select{|i|i['_id']==patient.id}.first
+                actual_values = patient_result.select{|k,v|POPULATION_TYPES.include?(k)}
+                patient_hash['actual_values'] << actual_values
+                population_response.merge!(actual_values){|k,i,j|i+j}
+              rescue Exception => e
+                response['status'] = 'error'
+                response['messages'] << "Measure calculation exception: #{e.message}"
+              end
+            end
+            population_response.delete('measure_id')
+            response['summary'] << population_response
+          end
         end
+
+        http_status = 500 if response['status'] == 'error'
       end
 
-      http_status = 500 if response['status'] == 'error'
+      response.delete('messages') if !response['messages'].nil? && response['messages'].empty?
+      render json: response, status: http_status
     end
-
-    response.delete('messages') if !response['messages'].nil? && response['messages'].empty?
-    render json: response, status: http_status
   end
 
   api :POST, '/api_v1/measures', 'Create a New Measure'
