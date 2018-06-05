@@ -45,4 +45,11 @@ class DoorkeeperOverride::TokenInfoControllerTest < ActionController::TestCase
     assert_response :unauthorized
   end
 
+  test "shows unauthorized when user cannot be found" do
+    # delete the user before running the request
+    User.by_email('bonnie@example.com').first.delete
+    get :show
+    assert_response :unauthorized
+  end
+
 end
