@@ -103,7 +103,7 @@ class Thorax.Models.Measure extends Thorax.Model
         'transfer_from', 'transfer_from_time', 'principal_diagnosis', 'diagnosis']
       family_history: ['relationship_to_patient']
       functional_statuses: []
-      immunizations: ['route', 'dose', 'reaction', 'supply']
+      immunizations: ['route', 'dose', 'reaction', 'supply', 'active_datetime']
       interventions: ['anatomical_structure', 'qdm_status']
       laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status', 'result_date_time', 'components', 'method']
       medications: ['route', 'dose', 'reaction', 'supply', 'administration_timing', 'refills']
