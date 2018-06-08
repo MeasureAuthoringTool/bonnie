@@ -315,7 +315,7 @@ namespace :bonnie do
       elm_jsons.each do |elm_json|
         elm_json_hash = JSON.parse(elm_json, max_nesting: 1000)
         if elm_json_hash['library']['annotation']
-          raise Exception.new("translation Server Found error in #{elm_json_hash['library']['identifier']['id']}\n#{JSON.pretty_generate(elm_json_hash['library']['annotation'])}")
+          raise Exception.new("Translation Server Found error in #{elm_json_hash['library']['identifier']['id']}\n#{JSON.pretty_generate(elm_json_hash['library']['annotation'])}")
         end
         elm_library_version = "#{elm_json_hash['library']['identifier']['id']}-#{elm_json_hash['library']['identifier']['version']}"
         json_filenames << "#{elm_library_version}.json"
