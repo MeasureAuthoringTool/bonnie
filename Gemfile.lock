@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: a8575b16bd0c54876b1b586c2cff05378fd34337
-  branch: bonnie-v2.2
+  revision: 4cb318ec19c86b03cd5fd36cea5c6a9b73ae0de7
+  branch: qrda1_r5
   specs:
-    health-data-standards (4.0.4)
+    health-data-standards (4.0.3)
       activesupport (~> 4.2.0)
       builder (~> 3.1)
       erubis (~> 2.7.0)
@@ -467,4 +467,4 @@ DEPENDENCIES
   zip-zip
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
