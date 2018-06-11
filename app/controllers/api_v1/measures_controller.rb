@@ -120,7 +120,7 @@ class ApiV1::MeasuresController < ApplicationController
   def index
     # TODO filter by search parameters, for example an NQF ID or partial description
     skippable_fields = [:map_fn, :hqmf_document, :oids, :population_ids]
-    @api_v1_measures = Measure.by_user(current_resource_owner)
+    @api_v1_measures = CqlMeasure.by_user(current_resource_owner)
     respond_with @api_v1_measures do |format|
       format.json{ 
         render json: MultiJson.encode(
@@ -143,7 +143,7 @@ class ApiV1::MeasuresController < ApplicationController
     hash = {}
     http_status = 200
     begin
-      @api_v1_measure = Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by{|x|x.updated_at}.first
+      @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by{|x|x.updated_at}.first
       hash = @api_v1_measure.as_json
       hash[:id] = @api_v1_measure.hqmf_set_id
       hash.select!{|key,value|MEASURE_WHITELIST.include?(key)&&!value.nil?}
@@ -162,7 +162,7 @@ class ApiV1::MeasuresController < ApplicationController
     http_status = 200
     begin
       # Get the measure
-      @api_v1_measure = Measure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by{|x|x.updated_at}.first
+      @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by{|x|x.updated_at}.first
       # Extract out the HQMF set id, which we'll use to get related patients
       hqmf_set_id = @api_v1_measure.hqmf_set_id
       # Get the patients for this measure
