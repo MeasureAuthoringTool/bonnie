@@ -55,7 +55,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @model, population: @population)
     else
       populationLogicView = new Thorax.Views.PopulationLogic(model: @population)
-  
+
     # Determine which populations logic view to use
     if @populations.length > 1
       if @model.has('cql') # CQL Based measure with multiple populations
@@ -116,7 +116,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
 
   exportExcelPatients: (e) ->
     @exportPatientsView.exporting()
-    
+
     calc_results = {}
     patient_details = {}
     population_details = {}
@@ -128,11 +128,13 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       for patient in @model.get('patients').models
         if calc_results[pop.cid] == undefined
           calc_results[pop.cid] = {}
-        result = pop.calculate(patient)
+        # Re-calculate results before excel export (we need to include pretty result generation)
+        bonnie.calculator_selector.clearResult pop, patient
+        result = pop.calculate(patient, {doPretty: true})
         result_criteria = {}
         for pop_crit of result.get('population_relevance')
           result_criteria[pop_crit] = result.get(pop_crit)
-        calc_results[pop.cid][patient.cid] = {statement_results: @removeRaw(result.get("statement_results")), criteria: result_criteria}
+        calc_results[pop.cid][patient.cid] = {statement_results: @removeExtra(result.get("statement_results")), criteria: result_criteria}
         # Populates the patient details
         if (patient_details[patient.cid] == undefined)
           patient_details[patient.cid] = {
@@ -168,13 +170,17 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         statement_details: JSON.stringify(statement_details)
         file_name: file_name
       }
+
   # Iterates through the results to remove extraneous fields.
-  removeRaw: (results) ->
+  removeExtra: (results) ->
     ret = {}
     for libKey of results
       ret[libKey] = {}
       for statementKey of results[libKey]
-        ret[libKey][statementKey] = results[libKey][statementKey].final
+        if results[libKey][statementKey].pretty
+          ret[libKey][statementKey] = results[libKey][statementKey].pretty
+        else
+          ret[libKey][statementKey] = results[libKey][statementKey].final
     return ret
 
   deleteMeasure: (e) ->

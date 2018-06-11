@@ -55,3 +55,6 @@ bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_meas
 
 CMSv9999 - measure with "let" in common library function
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMSv9999,bonnie-fixtures@mitre.org,CMSv9999,Patient,Blank]
+
+CMS529v0 - Hybrid Measure with Supplemental Data Elements
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS529v0,bonnie-fixtures@mitre.org,CMS529v0]
