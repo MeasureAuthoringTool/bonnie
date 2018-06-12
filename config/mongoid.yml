@@ -5,7 +5,7 @@ development:
       hosts:
         - localhost:27017
   options:
-    raise_not_found_error: false
+    raise_not_found_error: true
 test:
   clients:
     default:
@@ -19,7 +19,7 @@ test:
         max_retries: 1
         retry_interval: 0
   options:
-    raise_not_found_error: false
+    raise_not_found_error: true
 production:
   clients:
     default:
@@ -27,4 +27,4 @@ production:
       hosts:
         - localhost:27017
   options:
-    raise_not_found_error: false
+    raise_not_found_error: true
