@@ -20,7 +20,8 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     dump_database
     users_set = File.join("users", "base_set")
     measures_set = File.join("cql_measures", "CMS347v1")
-    collection_fixtures(measures_set, users_set)
+    records_set = File.join("records", "CMS347v1")
+    collection_fixtures(measures_set, users_set, records_set)
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_measures(@user,CqlMeasure.all)
     associate_user_with_patients(@user,Record.all)
@@ -70,7 +71,7 @@ class ApiV1::MeasuresControllerTest < ActionController::TestCase
     assert_response :success
     json = JSON.parse(response.body)
     assert_equal @num_patients, json.size
-    assert_equal [], (json.map{|x|x["last"]} - ['A','B','C','D'])
+    assert_equal ["With Fac", "With Fac No Start", "No Fac", "With Fac No End", "With Fac No Code", "With Fac No Time", "No Diagnosis or Fac"], json.map{|x|x["first"]}
   end
 
   test "should not show patients for unknown measure" do
