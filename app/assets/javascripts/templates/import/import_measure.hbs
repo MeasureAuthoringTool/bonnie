@@ -166,6 +166,7 @@
               <div id="calculationTypeModel" class="col-sm-{{dataSize}}">
                 <input id="calculationTypeRadios" class="sr-only" disabled>
                 <p class="form-control-static"><span class="sr-only">Calculation type set to</span>{{calculationTypeLabel}}</p>
+                {{#if isHybrid}}<p>Hybrid Measure</p>{{/if}}
               </div>
             {{else}}
               <div class="col-sm-{{dataSize}}">
@@ -176,6 +177,13 @@
                   <label for="EC" onclick=""><i class="fa fa-stethoscope" aria-hidden="true"></i><span class="sr-only">Calculation type</span> Episode of Care</label>
                   <a class="btn btn-primary"></a>
                 </div>
+              </div>
+              <div class="col-sm-offset-{{titleSize}} col-sm-{{subtract dataSize 1}}">
+                  <div class="checkbox">
+                      <label>
+                          <input id="hybridCheckbox" type="checkbox" name="hybrid_measure" value="true" {{#if isHybrid}}checked{{/if}}/>Hybrid measure
+                      </label>
+                  </div>
               </div>
             {{/if}}
           </div>

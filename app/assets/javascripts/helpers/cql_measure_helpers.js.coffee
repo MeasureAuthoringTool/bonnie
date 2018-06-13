@@ -307,16 +307,6 @@ class CQLMeasureHelpers
       return false
 
   ###*
-  # Hybrid measures have the field supplemental_data_elements in their populations.
-  # @public
-  # @param {Measure} measure
-  # @return {boolean} - true if measure is hybrid, false otherwise
-  ###
-  @isHybridMeasure: (measure) ->
-    return true if measure?.get('populations').first().get('supplemental_data_elements')
-    return false
-
-  ###*
   # Figure out if a statement is in a Supplemental Data Element given the statement name.
   # @public
   # @param {Population} population
