@@ -12,6 +12,22 @@
       "code": "200",
       "show_in_doc": 1,
       "recorded": true
+    },
+    {
+      "verb": "GET",
+      "path": "/api_v1/measures/5375D6A9-203B-4FFF-B851-AFA9B68D2AC2/calculated_results",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "status": "error",
+        "messages": "Unimplemented functionality"
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
     }
   ],
   "measures#create": [
@@ -10743,7 +10759,7 @@
           },
           "title": "Statin Therapy for the Prevention and Treatment of Cardiovascular Disease",
           "type": "ep",
-          "updated_at": "2018-06-13T01:42:12.373Z",
+          "updated_at": "2018-06-13T18:16:50.393Z",
           "user_id": "501fdba3044a111b98000001",
           "value_set_oid_version_objects": [
             {
@@ -10954,7 +10970,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-13T01:42:14.227Z"
+          "updated_at": "2018-06-13T18:16:52.546Z"
         },
         {
           "_id": "59b6c5c25cc975edb300012e",
@@ -10998,7 +11014,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-13T01:42:14.359Z"
+          "updated_at": "2018-06-13T18:16:52.552Z"
         },
         {
           "_id": "59b6c5f95cc975edb3000151",
@@ -11042,7 +11058,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-13T01:42:14.364Z"
+          "updated_at": "2018-06-13T18:16:52.557Z"
         },
         {
           "_id": "59b6c56b5cc975edb30000f9",
@@ -11086,7 +11102,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-13T01:42:14.370Z"
+          "updated_at": "2018-06-13T18:16:52.562Z"
         },
         {
           "_id": "59b6c31c5cc975edb300007f",
@@ -11130,7 +11146,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-13T01:42:14.378Z"
+          "updated_at": "2018-06-13T18:16:52.567Z"
         },
         {
           "_id": "59b6c3cc5cc975edb30000bb",
@@ -11174,7 +11190,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-13T01:42:14.384Z"
+          "updated_at": "2018-06-13T18:16:52.572Z"
         },
         {
           "_id": "59b6c6195cc975edb3000169",
@@ -11218,7 +11234,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-13T01:42:14.389Z"
+          "updated_at": "2018-06-13T18:16:52.576Z"
         }
       ],
       "code": "200",
@@ -11329,7 +11345,7 @@
         "id": "59b3109e5cc975e11c000000",
         "title": "Statin Therapy for the Prevention and Treatment of Cardiovascular Disease",
         "type": "ep",
-        "updated_at": "2018-06-13T01:42:13.757Z"
+        "updated_at": "2018-06-13T18:16:51.939Z"
       },
       "code": "200",
       "show_in_doc": 1,

@@ -798,6 +798,7 @@ Style/IfUnlessModifier:
     - 'test/functional/admin_users_controller_test.rb'
     - 'test/rake/bonnie_db_test.rb'
     - 'test/test_helper.rb'
+    - 'config/initializers/webmock.rb'
 
 # Offense count: 6
 # Cop supports --auto-correct.

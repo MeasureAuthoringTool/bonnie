@@ -6,7 +6,6 @@ Apipie.configure do |config|
     This API provides access to `Measure` resources, the `Patient` resources
     associated with each `Measure`, and calculated results for each `Measure`
     by _authorized applications and users_.
-
     Prerequisite: Application Authorization
     ---
     * Applications must be authorized by an Administrator.
@@ -20,24 +19,19 @@ Apipie.configure do |config|
     ---
     The following sample code is written in Ruby, but any modern language
     with an OAuth2 library will work similarly.
-
         require 'oauth2'
-
         client_id = \"CLIENT_ID_GOES_HERE\"
         secret = \"CLIENT_SECRET_GOES_HERE\"
         username = \"bonnie@example.com\"
         password = \"USER_PASSWORD_GOES_HERE\"
-
         options = {
           :site => \"http://bonnie.org\",
           :authorize_url => \"http://bonnie.org/oauth/authorize\",
           :token_url => \"http://bonnie.org/oauth/token\",
           :raise_errors => true
         }
-
         client = OAuth2::Client.new(client_id,secret,options)
         token = client.password.get_token(username,password)
-
         response = token.get(\"http://bonnie.org/api_v1/measures\")
         puts response.status
         puts response.body
