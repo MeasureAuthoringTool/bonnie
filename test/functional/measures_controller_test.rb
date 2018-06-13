@@ -744,24 +744,24 @@ include Devise::Test::ControllerHelpers
   end
 
   test "create/finalize/update a hybrid measure" do
-  sign_in @user
-  measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_initial_Artifacts.zip'), 'application/xml')
-  class << measure_file
-    attr_reader :tempfile
-  end
-  update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_updates_Artifacts.zip'), 'application/xml')
-  class << update_measure_file
-    attr_reader :tempfile
-  end
+    sign_in @user
+    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_initial_Artifacts.zip'), 'application/xml')
+    class << measure_file
+      attr_reader :tempfile
+    end
+    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_updates_Artifacts.zip'), 'application/xml')
+    class << update_measure_file
+      attr_reader :tempfile
+    end
 
-  measure = nil
-  # associate a patient with the measure about to be created so the patient will be rebuilt
-  p = Record.by_user(@user).first
-  p.measure_ids = ["762B1B52-40BF-4596-B34F-4963188E7FF7"]
-  p.save
+    measure = nil
+    # associate a patient with the measure about to be created so the patient will be rebuilt
+    p = Record.by_user(@user).first
+    p.measure_ids = ["762B1B52-40BF-4596-B34F-4963188E7FF7"]
+    p.save
 
-  VCR.use_cassette("initial_response_hybrid") do
-    post :create, {
+    VCR.use_cassette("initial_response_hybrid") do
+      post :create, {
         vsac_query_type: 'profile',
         vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
@@ -771,17 +771,17 @@ include Devise::Test::ControllerHelpers
         measure_type: 'eh',
         calculation_type: 'episode',
         hybrid_measure: 'true'
-    }
-  end
+      }
+    end
 
-  measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
-  assert_equal true, measure.hybrid
-  assert_equal true, measure.episode_of_care?
-  assert_equal 'eh', measure.type
+    measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    assert_equal true, measure.hybrid
+    assert_equal true, measure.episode_of_care?
+    assert_equal 'eh', measure.type
 
-  # Update the measure
-  VCR.use_cassette("update_response_hybrid") do
-    post :create, {
+    # Update the measure
+    VCR.use_cassette("update_response_hybrid") do
+      post :create, {
         vsac_query_type: 'profile',
         vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
@@ -789,14 +789,14 @@ include Devise::Test::ControllerHelpers
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: update_measure_file,
         hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"
-    }
+      }
+    end
+
+    measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    assert_equal true, measure.hybrid
+    assert_equal true, measure.episode_of_care?
+    assert_equal 'eh', measure.type
+
   end
-
-  measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
-  assert_equal true, measure.hybrid
-  assert_equal true, measure.episode_of_care?
-  assert_equal 'eh', measure.type
-
-end
 
 end
