@@ -72,7 +72,7 @@ module ApiV1
       json = JSON.parse(response.body)
       assert_equal @num_patients, json.size
       assert_equal ["No Diagnosis or Fac", "No Fac", "With Fac", "With Fac No Code", "With Fac No End", "With Fac No Start", "With Fac No Time"],
-                   (json.map { |x| x["first"] }.sort)
+                   json.map { |x| x["first"] }.sort
     end
 
     test "should not show patients for unknown measure" do
