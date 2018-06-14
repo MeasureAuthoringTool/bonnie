@@ -29,6 +29,19 @@ module ApiV1
       error :code => 404, :desc => 'Not Found'
     end
 
+    # TODO: Will be uncommented when we add CQL Measure Upload support.
+    # def_param_group :measure_upload do
+    #   param :measure_file, File, :required => true, :desc => "The measure file."
+    #   param :measure_type, %w[eh ep], :required => true, :desc => "The type of the measure."
+    #   param :calculation_type, %w[episode patient], :required => true, :desc => "The type of calculation."
+    #   param :episode_of_care, Integer, :required => false, :desc => "The index of the episode of care. Defaults to 0. This means that the first specific occurence in the logic will be used for the episode of care calculation."
+    #   param :population_titles, Array, of: String, :required => false, :desc => "The titles of the populations. If this is not included, populations will assume default values. i.e. \"Population 1\", \"Population 2\", etc."
+    #   param :vsac_tgt, String, :required => false, :desc => "VSAC ticket granting ticket. Required when uploading a HQMF .xml measure."
+    #   param :vsac_tgt_expires_at, Integer, :required => false, :desc => "VSAC ticket granting ticket expiration time in seconds since epoch. Required when uploading a HQMF .xml measure."
+    #   param :include_draft, Boolean, :required => false, :desc => "If VSAC should fetch draft value sets. Defaults to 'true' if not supplied."
+    #   param :vsac_date, Date, :required => false, :desc => "The lastest effective date for published value sets to retrieve. Required when include_draft is false."
+    # end
+
     api :GET, '/api_v1/measures', 'List of Measures'
     description 'Retrieve the list of measures for the authorized user.'
     formats [:json, :html]
