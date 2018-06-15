@@ -4,6 +4,9 @@ class MeasuresController < ApplicationController
 
   respond_to :json, :js, :html
 
+  # Initialize a new HDS converter.
+  hds_record_converter = CQM::Converter::HDSRecord.new
+
   def show
     skippable_fields = [:map_fns, :record_ids, :measure_attributes]
     # Lookup the measure both in the regular and CQL sets

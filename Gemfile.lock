@@ -1,4 +1,25 @@
 GIT
+  remote: https://github.com/projectcypress/health-data-standards.git
+  revision: 6747f6ac4216a05f010a81c703a668546f2948df
+  branch: substance_recommended_fix
+  specs:
+    health-data-standards (4.0.5)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.2)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 1.8.0)
+      rubyzip (~> 1.2.1)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+
+GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
   revision: e97079366baaa94697c1eb8c4a9c803568c7db85
   branch: master
@@ -27,6 +48,18 @@ GIT
     exception_notification (4.2.1)
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
+
+PATH
+  remote: ../cqm-converter
+  specs:
+    cqm-converter (0.3.2)
+      activesupport
+      coffee-script
+      cqm-models (>= 0.7.2)
+      execjs
+      health-data-standards (>= 4.0.3)
+      momentjs-rails
+      sprockets
 
 GEM
   remote: https://rubygems.org/
@@ -123,6 +156,7 @@ GEM
     colorize (0.7.7)
     columnize (0.9.0)
     commonjs (0.2.7)
+    cqm-models (0.7.4)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.3)
@@ -160,21 +194,6 @@ GEM
       sprockets (>= 2.0.3)
       tilt
     hashdiff (0.3.0)
-    health-data-standards (4.0.4)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.2)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 1.8.0)
-      rubyzip (~> 1.2.1)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
     highline (1.7.10)
     hike (1.2.3)
     hqmf2js (1.4.0)
@@ -220,6 +239,8 @@ GEM
     mimemagic (0.3.2)
     mini_portile2 (2.3.0)
     minitest (5.10.2)
+    momentjs-rails (2.20.1)
+      railties (>= 3.1)
     mongo (2.4.2)
       bson (>= 4.2.1, < 5.0.0)
     mongoid (5.0.2)
@@ -383,7 +404,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.5)
     unicode-display_width (1.3.0)
-    uuid (2.3.8)
+    uuid (2.3.9)
       macaddr (~> 1.0)
     vcr (3.0.3)
     virtus (1.0.5)
@@ -412,11 +433,12 @@ DEPENDENCIES
   capistrano-rails
   coffee-rails
   cql_qdm_patientapi!
+  cqm-converter!
   devise
   exception_notification!
   foreman
   handlebars_assets (= 0.16)
-  health-data-standards (~> 4.0.4)
+  health-data-standards!
   hqmf2js (~> 1.4)
   hquery-patient-api (~> 1.1)
   jquery-rails
@@ -455,4 +477,4 @@ DEPENDENCIES
   zip-zip
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
