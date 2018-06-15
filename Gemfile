@@ -15,11 +15,14 @@ gem "non-stupid-digest-assets"
 
 # gem 'health-data-standards', '~> 4.0.6'
 # gem 'cql_qdm_patientapi', '~> 1.1.4'
+# gem 'health-data-standards', '~> 4.0.4'
+# gem 'cql_qdm_patientapi', '~> 1.1.1'
 gem 'simplexml_parser', '~> 1.0'
 gem 'hqmf2js', '~> 1.4'
 # gem 'bonnie_bundler', '~> 2.1.2'
 gem 'quality-measure-engine', '~> 3.2'
 gem 'hquery-patient-api', '~> 1.1'
+#gem 'cqm-converter', '~> 0.3.2'
 
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'bonnie-v2.3'
 gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'bonnie-v2.3'
@@ -28,6 +31,7 @@ gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_pati
 gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'bonnie-v2.3'
 # gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality-measure-engine.git', :branch => 'master'
 # gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'master'
+gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'master'
 
 # gem 'health-data-standards', :path => '../health-data-standards'
 # gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
@@ -36,6 +40,7 @@ gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.g
 # gem 'bonnie_bundler', :path => '../bonnie_bundler'
 # gem 'quality-measure-engine', :path => '../quality-measure-engine'
 # gem 'hquery-patient-api', :path => '../patientapi'
+# gem 'cqm-converter', :path => '../cqm-converter'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.2.1'
