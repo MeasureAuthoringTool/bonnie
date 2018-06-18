@@ -50,4 +50,34 @@
       border-bottom-style: solid;
     }
   }
+
+  .cql-statement-result {
+    display: none;
+    white-space: pre-wrap;
+  }
+
+  .result-fixed-height {
+    height: 200px;
+    overflow-y: scroll;
+  }
+
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+    box-shadow: 0 0 1px rgba(255,255,255,.5);
+  }
+
+  .well {
+    border-radius: 0px;
+  }
+}
+
+.show-hide-all-results {
+  margin: 1em 0 0;
 }

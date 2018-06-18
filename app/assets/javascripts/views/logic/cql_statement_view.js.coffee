@@ -18,6 +18,7 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
   ###
   initialize: ->
     @name = @statement.define_name
+    @resultBoxView = new Thorax.Views.CqlStatementResultBox
 
     # if this statement defines populations, get their long names
     if @cqlPopulations.length > 0
@@ -48,14 +49,20 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
     @clearRationale()
     @rootClauseView.showRationale(clauseResults)
     @latestResult = statementResult
+    if @latestResult
+      @latestResultString = CQLResultsHelpers.prettyResult(@latestResult.raw)
+    else
+      @latestResultString = "No Result Calculated"
+
+    @resultBoxView.updateResult(@latestResultString)
 
     # if this statement defines populations, highlight the panel headers.
     # TODO: Figure out how to appropiately highlight OBSERV.
     if @cqlPopulationNames? && !@cqlPopulations[0].match(/OBSERV/)
-      if statementResult.final == 'TRUE'
+      if @latestResult.final == 'TRUE'
         @$('.panel-heading').addClass('eval-panel-true')
         @$('.rationale-target').addClass('eval-true')
-      else if statementResult.final == 'FALSE'
+      else if @latestResult.final == 'FALSE'
         @$('.panel-heading').addClass('eval-panel-false')
         @$('.rationale-target').addClass('eval-false')
 
@@ -76,3 +83,11 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
     @$('.panel-heading').removeClass('eval-panel-true eval-panel-false')
     @$('.rationale-target').removeClass('eval-true eval-false')
     @rootClauseView.clearRationale()
+
+    @resultBoxView.clearResult()
+
+  showResult: ->
+    @resultBoxView.showResult()
+
+  hideResult: ->
+    @resultBoxView.hideResult()

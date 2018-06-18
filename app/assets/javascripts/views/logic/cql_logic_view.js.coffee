@@ -202,3 +202,17 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   ###
   clearHighlightPatientData: ->
     @latestResult?.patient.trigger 'clearHighlight'
+
+  showAllResults: ->
+    for statementView in @allStatementViews
+      statementView.showResult()
+    @$('#show-all-results').text('Hide All Results')
+    @$('#show-all-results').attr('data-call-method', 'hideAllResults')
+    @$('#show-all-results').attr('id', 'hide-all-results')
+
+  hideAllResults: ->
+    for statementView in @allStatementViews
+      statementView.hideResult()
+    @$('#hide-all-results').text('Show All Results')
+    @$('#hide-all-results').attr('data-call-method', 'showAllResults')
+    @$('#hide-all-results').attr('id', 'show-all-results')
