@@ -61,7 +61,7 @@ class MeasuresController < ApplicationController
     measure_details = {
      'type'=>params[:measure_type],
      'episode_of_care'=>params[:calculation_type] == 'episode',
-     'hybrid'=>params[:hybrid_measure]
+     'calculate_sdes'=>params[:sde_calc]
     }
 
     extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]
@@ -93,7 +93,7 @@ class MeasuresController < ApplicationController
         if measure_details['episode_of_care']
           episodes = params["eoc_#{existing.hqmf_set_id}"]
         end
-        measure_details['hybrid'] = existing.hybrid
+        measure_details['calculate_sdes'] = existing.calculate_sdes
         measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
       end
 

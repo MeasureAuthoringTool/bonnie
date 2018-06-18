@@ -1,6 +1,7 @@
 {
-  "_id": "5b2173ea868280c37ee24881",
+  "_id": "5b27e172868280d1a5c0fbb2",
   "bundle_id": "5a57e977942c6d1e61d32f14",
+  "calculate_sdes": true,
   "category": "Miscellaneous",
   "cms_id": "CMS529v0",
   "complexity": {
@@ -262,7 +263,7 @@
       ]
     }
   },
-  "created_at": "2018-06-13T19:43:38.468Z",
+  "created_at": "2018-06-18T16:44:34.705Z",
   "data_criteria": {
     "Payer_PatientCharacteristic_41dc8804_cc7b_413d_9a39_e815347fcb46": {
       "title": "Payer",
@@ -16215,8 +16216,7 @@
   "hqmf_id": "40280382-5FA6-FE85-0160-128121CF2479",
   "hqmf_set_id": "FA75DE85-A934-45D7-A2F7-C700A756078B",
   "hqmf_version_number": 0,
-  "hybrid": true,
-  "id": "5b2173ea868280c37ee24881",
+  "id": "5b27e172868280d1a5c0fbb2",
   "main_cql_library": "CoreClinicalDataElementsfortheHybridHospitalWideReadmissionHWRMeasurewithClaimsandElectronicHealthRecordData",
   "measure_attributes": [
     {
@@ -16891,7 +16891,7 @@
   },
   "title": "Core Clinical Data Elements for the Hybrid Hospital-Wide Readmission (HWR) Measure with Claims and Electronic Health Record Data",
   "type": "ep",
-  "updated_at": "2018-06-13T19:43:38.468Z",
+  "updated_at": "2018-06-18T16:44:34.705Z",
   "user_id": "5a57e975942c6d1e61d32f13",
   "value_set_oid_version_objects": [
     {

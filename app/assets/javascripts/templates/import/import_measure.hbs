@@ -166,7 +166,7 @@
               <div id="calculationTypeModel" class="col-sm-{{dataSize}}">
                 <input id="calculationTypeRadios" class="sr-only" disabled>
                 <p class="form-control-static"><span class="sr-only">Calculation type set to</span>{{calculationTypeLabel}}</p>
-                {{#if isHybrid}}<p>Hybrid Measure</p>{{/if}}
+                {{#if calcSDEs}}<p>Include Supplemental Data Element Calculations</p>{{/if}}
               </div>
             {{else}}
               <div class="col-sm-{{dataSize}}">
@@ -181,7 +181,7 @@
               <div class="col-sm-offset-{{titleSize}} col-sm-{{subtract dataSize 1}}">
                   <div class="checkbox">
                       <label>
-                          <input id="hybridCheckbox" type="checkbox" name="hybrid_measure" value="true" {{#if isHybrid}}checked{{/if}}/>Hybrid measure
+                          <input id="hybridCheckbox" type="checkbox" name="sde_calc" value="true" {{#if calcSDEs}}checked{{/if}}/>Include Supplemental Data Element Calculations
                       </label>
                   </div>
               </div>

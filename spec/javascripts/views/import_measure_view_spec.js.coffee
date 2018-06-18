@@ -34,20 +34,20 @@ describe 'ImportMeasure view', ->
       afterEach ->
         bonnie.valueSetsByOid = @universalValueSetsByOid
 
-      it 'loads hybrid measure', ->
+      it 'remembers we are calculating SDEs', ->
         cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS529v0/CMS529v0.json'), parse: true
         importView = new Thorax.Views.ImportMeasure(model: cqlMeasure)
         importView.appendTo 'body'
         importView.render()
-        expect(importView.$el[0].innerHTML.indexOf("Hybrid Measure") != -1).toBe true
+        expect(importView.$el[0].innerHTML.indexOf("Include Supplemental Data Element Calculations") != -1).toBe true
         importView.remove()
 
-      it 'loads non-hybrid measure', ->
+      it 'remembers we are NOT calculating SDEs', ->
         cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS107/CMS107v6.json'), parse: true
         importView = new Thorax.Views.ImportMeasure(model: cqlMeasure)
         importView.appendTo 'body'
         importView.render()
-        expect(importView.$el[0].innerHTML.indexOf("Hybrid Measure") != -1).toBe false
+        expect(importView.$el[0].innerHTML.indexOf("Include Supplemental Data Element Calculations") != -1).toBe false
         importView.remove()
 
     # tests nominal setup of import measure view. loads in profile list switches to release and switches back to profile

@@ -92,9 +92,9 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
       for libraryName, annotationLibrary of @model.get('elm_annotations')
         for statement in annotationLibrary.statements
           # skip if this is a statement the user doesn't need to see
-          # skip doesn't happen for hybrid measures
+          # skip doesn't happen when we are calculating SDEs
           continue unless statement.define_name?
-          continue if _.indexOf(Thorax.Models.Measure.cqlSkipStatements, statement.define_name) >= 0 && !@model.get('hybrid')
+          continue if _.indexOf(Thorax.Models.Measure.cqlSkipStatements, statement.define_name) >= 0 && !@model.get('calculate_sdes')
           popNames = []
           popName = null
           # if a population (population set) was provided for this view it should mark the statment if it is a population defining statement
@@ -119,8 +119,8 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
             else if CQLMeasureHelpers.isStatementFunction(@model, libraryName, statement.define_name)
               @functionStatementViews.push statementView   # if it is a function
             else if CQLMeasureHelpers.isSupplementalDataElementStatement(@population, statement.define_name)
-              # unless hybrid, we no longer display and SDEs
-              if @model.get('hybrid')
+              # only display SDEs if calculate_sdes flag set
+              if @model.get('calculate_sdes')
                 @supplementalDataElementViews.push statementView
             else if !@population? || @statementRelevance[libraryName][statement.define_name] == 'TRUE'
               @defineStatementViews.push statementView   # if it is a plain old supporting define

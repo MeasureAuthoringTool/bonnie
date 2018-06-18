@@ -60,7 +60,7 @@ class CQLResultsHelpers
       for statementName of statements
         statementRelevance[lib][statementName] = "NA"
 
-    if measure.get('hybrid')
+    if measure.get('calculate_sdes')
       for statement in populationSet.get('supplemental_data_elements')
         # Mark all Supplemental Data Elements as relevant
         @_markStatementRelevant(measure.get('cql_statement_dependencies'), statementRelevance, measure.get('main_cql_library'), statement, "TRUE")
@@ -171,7 +171,7 @@ class CQLResultsHelpers
         rawStatementResult = @_findResultForStatementClause(measure, lib, statementName, rawClauseResults)
         statementResults[lib][statementName] = { raw: rawStatementResult}
         isSDE = CQLMeasureHelpers.isSupplementalDataElementStatement(measure.get('populations').first(), statementName)
-        if (!measure.get('hybrid') && isSDE) || statementRelevance[lib][statementName] == 'NA'
+        if (!measure.get('calculate_sdes') && isSDE) || statementRelevance[lib][statementName] == 'NA'
           statementResults[lib][statementName].final = 'NA'
           statementResults[lib][statementName].pretty = 'NA' if doPretty
         else if statementRelevance[lib][statementName] == 'FALSE' || !rawClauseResults[lib]?
