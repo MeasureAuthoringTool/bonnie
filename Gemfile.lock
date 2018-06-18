@@ -90,6 +90,20 @@ GIT
       sprockets-rails (~> 2.3)
 
 GIT
+  remote: https://github.com/projecttacoma/cqm-converter
+  revision: 4aa00ee879a16b097f985257ca2b1b1af9677c98
+  branch: bonnie_1536
+  specs:
+    cqm-converter (0.3.2)
+      activesupport
+      coffee-script
+      cqm-models (>= 0.7.2)
+      execjs
+      health-data-standards (>= 4.0.3)
+      momentjs-rails
+      sprockets
+
+GIT
   remote: https://github.com/randym/axlsx
   revision: c8ac844572b25fda358cc01d2104720c4c42f450
   branch: master
@@ -108,18 +122,6 @@ GIT
     exception_notification (4.2.1)
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
-
-PATH
-  remote: ../cqm-converter
-  specs:
-    cqm-converter (0.3.2)
-      activesupport
-      coffee-script
-      cqm-models (>= 0.7.2)
-      execjs
-      health-data-standards (>= 4.0.3)
-      momentjs-rails
-      sprockets
 
 GEM
   remote: https://rubygems.org/
