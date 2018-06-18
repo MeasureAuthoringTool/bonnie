@@ -15,12 +15,10 @@ class PatientHelperTest < ActionView::TestCase
     assert_equal hds_records.count, qdm_records.count
   end
   
-  test 'HDS to QDM Conversion Occurs' do
-    records_set = File.join("records","core_measures", "CMS32v7")
-    collection_fixtures(records_set)
-    hds_records = Record.all
-    qdm_records = PatientHelper.convert_patient_models(hds_records)
-    assert_equal hds_records.count, qdm_records.count
+  # TODO Implement this test once backend calculator is implemented
+  test 'Calculations Are Unaffected By HDS to QDM Conversion' do
+    # Run backend calculation on patient before and after conversion
+    # Assert calculations are equal
   end
   
 end
