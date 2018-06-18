@@ -15,8 +15,8 @@ class PatientHelperTest < ActionView::TestCase
     assert_equal hds_records.count, qdm_records.count
   end
   
-  # TODO Implement this test once backend calculator is implemented
   test 'Calculations Are Unaffected By HDS to QDM Conversion' do
+    skip('TODO Implement this test once backend calculator is implemented')
     # Run backend calculation on patient before and after conversion
     # Assert calculations are equal
   end
