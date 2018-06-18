@@ -8,6 +8,6 @@ module PatientHelper
       qdm_record = CQMConverter.to_qdm(hds_record)
       qdm_records << qdm_record
     end
-    return qdm_records
+    qdm_records
   end
 end
