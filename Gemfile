@@ -22,7 +22,7 @@ gem 'hqmf2js', '~> 1.4'
 # gem 'bonnie_bundler', '~> 2.1.2'
 gem 'quality-measure-engine', '~> 3.2'
 gem 'hquery-patient-api', '~> 1.1'
-#gem 'cqm-converter', '~> 0.3.2'
+# gem 'cqm-converter', '~> 0.3.2'
 
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'bonnie-v2.3'
 gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'bonnie-v2.3'
