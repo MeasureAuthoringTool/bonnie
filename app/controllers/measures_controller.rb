@@ -61,7 +61,7 @@ class MeasuresController < ApplicationController
     measure_details = {
      'type'=>params[:measure_type],
      'episode_of_care'=>params[:calculation_type] == 'episode',
-     'calculate_sdes'=>params[:sde_calc]
+     'calculate_sdes'=>params[:calc_sde]
     }
 
     extension = File.extname(params[:measure_file].original_filename).downcase if params[:measure_file]

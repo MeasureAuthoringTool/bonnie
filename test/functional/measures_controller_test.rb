@@ -770,7 +770,7 @@ include Devise::Test::ControllerHelpers
         measure_file: measure_file,
         measure_type: 'eh',
         calculation_type: 'episode',
-        sde_calc: 'true'
+        calc_sde: 'true'
       }
     end
 
