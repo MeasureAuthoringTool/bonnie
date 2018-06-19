@@ -49,7 +49,7 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
     @clearRationale()
     @rootClauseView.showRationale(clauseResults)
     @latestResult = statementResult
-    if @latestResult
+    if @latestResult && @latestResult.raw
       @latestResultString = CQLResultsHelpers.prettyResult(@latestResult.raw)
     else
       @latestResultString = "No Result Calculated"
