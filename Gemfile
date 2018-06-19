@@ -17,7 +17,7 @@ gem "non-stupid-digest-assets"
 # gem 'cql_qdm_patientapi', '~> 1.1.3'
 gem 'simplexml_parser', '~> 1.0'
 gem 'hqmf2js', '~> 1.4'
-gem 'bonnie_bundler', '~> 2.1.1'
+# gem 'bonnie_bundler', '~> 2.1.1'
 gem 'quality-measure-engine', '~> 3.2'
 gem 'hquery-patient-api', '~> 1.1'
 
@@ -25,7 +25,7 @@ gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-d
 gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'master'
 # gem 'simplexml_parser', :git => 'https://github.com/projecttacoma/simplexml_parser.git', :branch => 'master'
 # gem 'hqmf2js', :git => 'https://github.com/projecttacoma/hqmf2js.git', :branch => 'master'
-# gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'master'
+gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'master'
 # gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality-measure-engine.git', :branch => 'master'
 # gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'master'
 
