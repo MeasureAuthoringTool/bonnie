@@ -60,7 +60,7 @@ class CQLResultsHelpers
       for statementName of statements
         statementRelevance[lib][statementName] = "NA"
 
-    if measure.get('calculate_sdes')
+    if measure.get('calculate_sdes') && populationSet.get('supplemental_data_elements')
       for statement in populationSet.get('supplemental_data_elements')
         # Mark all Supplemental Data Elements as relevant
         @_markStatementRelevant(measure.get('cql_statement_dependencies'), statementRelevance, measure.get('main_cql_library'), statement, "TRUE")
