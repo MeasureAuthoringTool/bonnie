@@ -55,3 +55,6 @@ bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_meas
 
 CMSv9999 - measure with "let" in common library function
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMSv9999,bonnie-fixtures@mitre.org,CMSv9999,Patient,Blank]
+
+CMS341v1 - measure with multiple libraries that each have population statements
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS334v1,bonnie-fixtures@mitre.org,CMS334v1]
