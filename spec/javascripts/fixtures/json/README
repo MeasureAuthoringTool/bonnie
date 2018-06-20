@@ -58,3 +58,6 @@ bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_meas
 
 CMS529v0 - Hybrid Measure with Supplemental Data Elements
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS529v0,bonnie-fixtures@mitre.org,CMS529v0]
+
+CMS341v1 - measure with multiple libraries that each have population statements
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS334v1,bonnie-fixtures@mitre.org,CMS334v1]

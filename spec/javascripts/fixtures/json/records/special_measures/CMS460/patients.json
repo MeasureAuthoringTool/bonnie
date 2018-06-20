@@ -10,7 +10,7 @@
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5af346c3b848465f42b0acf4",
+        "_id": "5b2a7bfeb8484678da8c686c",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -62,40 +62,6 @@
     "expired": null,
     "first": "Opioid",
     "gender": "M",
-    "insurance_providers": [
-      {
-        "_id": "5af346c3b848465f42b0acf6",
-        "codes": {
-          "SOP": [
-            "349"
-          ]
-        },
-        "description": null,
-        "end_time": null,
-        "financial_responsibility_type": {
-          "code": "SELF",
-          "codeSystem": "HL7 Relationship Code"
-        },
-        "health_record_field": null,
-        "member_id": "1234567890",
-        "mood_code": "EVN",
-        "name": "Other",
-        "negationInd": null,
-        "negationReason": null,
-        "oid": null,
-        "payer": {
-          "_id": "5af346c3b848465f42b0acf7",
-          "name": "Other"
-        },
-        "reason": null,
-        "relationship": null,
-        "specifics": null,
-        "start_time": 1199145600,
-        "status_code": null,
-        "time": null,
-        "type": "OT"
-      }
-    ],
     "is_shared": null,
     "languages": [
 
@@ -110,7 +76,7 @@
     "medical_record_number": "5c9bee7e9c8628990b49657d9314673e61f3c211d838a8ae7d4ec8042c6966b6",
     "medications": [
       {
-        "_id": "5af346c3b848465f42b0acf5",
+        "_id": "5b2a7bfeb8484678da8c686d",
         "active_datetime": null,
         "administrationTiming": {
           "code_system": "SNOMED-CT",
@@ -135,9 +101,6 @@
         "doseRestriction": null,
         "end_time": 1356682500,
         "freeTextSig": null,
-        "fulfillmentHistory": [
-
-        ],
         "fulfillmentInstructions": null,
         "health_record_field": null,
         "indication": null,
@@ -213,7 +176,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5af346c3b848465f42b0acf4",
+        "coded_entry_id": "5b2a7bfeb8484678da8c686c",
         "code_source": "DEFAULT"
       },
       {
@@ -269,7 +232,7 @@
         },
         "fulfillments": null,
         "negation_code_list_id": "",
-        "coded_entry_id": "5af346c3b848465f42b0acf5",
+        "coded_entry_id": "5b2a7bfeb8484678da8c686d",
         "code_source": "DEFAULT"
       },
       {
@@ -282,7 +245,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-05-09T19:06:43.249Z",
+    "updated_at": "2018-06-20T16:08:30.214Z",
     "user_id": "5a57e975942c6d1e61d32f13"
   }
 ]

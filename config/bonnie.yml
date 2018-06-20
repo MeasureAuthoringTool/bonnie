@@ -1,5 +1,5 @@
 defaults: &defaults
-  version: 2.1.1
+  version: 2.1.2
   hqmfjs_libraries_version: 2.0.0
   enable_logging: true
   enable_rationale: true
@@ -9,7 +9,7 @@ defaults: &defaults
     auth_url: https://vsac.nlm.nih.gov/vsac/ws
     content_url: https://vsac.nlm.nih.gov/vsac/svs
     utility_url: https://vsac.nlm.nih.gov/vsac
-    default_profile: Latest eCQM
+    default_profile: eCQM Update 2018-05-04
     default_program: CMS eCQM
     default_release: eCQM Update 2018-05-04
   enable_client_error_email: true
