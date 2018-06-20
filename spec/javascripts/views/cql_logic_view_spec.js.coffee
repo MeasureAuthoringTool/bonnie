@@ -1,25 +1,4 @@
 describe 'CqlLogicView', ->
-  describe 'Population Logic View', ->
-    beforeEach ->
-      jasmine.getJSONFixtures().clearCache()
-      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMS334v1/CMS334v1.json'), parse: true
-      #Failing to store and reset the global valueSetsByOid breaks the tests.
-      #When integrated with the master branch context switching, this will need to be changed out.
-      @universalValueSetsByOid = bonnie.valueSetsByOid
-
-    afterEach ->
-      bonnie.valueSetsByOid = @universalValueSetsByOid
-
-    it 'only uses populations out of main_cql_library', ->
-      population = @cqlMeasure.get('populations').first()
-      populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, highlightPatientDataEnabled: true, population: population)
-      populationLogicView.render()
-      populationStatementViews = populationLogicView.populationStatementViews
-      for populationStatement1, index1 in populationStatementViews
-        for populationStatement2, index2 in populationStatementViews
-          if index1 != index2
-            expect(populationStatement1.name).not.toEqual(populationStatement2.name)
-
   describe 'sorting', ->
     beforeEach ->
       jasmine.getJSONFixtures().clearCache()

@@ -165,12 +165,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
     $.getJSON("/vsac_util/profile_names")
       .done (data) =>
         @profileNames = data.profileNames
-        @latestProfile = data.latestProfile
-        # Map for changing option text for the latest profile to put the profile in double angle brackets and
-        # prefix the option with 'Latest eCQM'.
-        optionTextMap = {}
-        optionTextMap[@latestProfile] = "Latest eCQM&#x300a;#{@latestProfile}&#x300b;"
-        @populateSelectBox profileSelect, @profileNames, @latestProfile, optionTextMap
+        @populateSelectBox profileSelect, @profileNames, Thorax.Views.ImportMeasure.defaultProfile
         @trigger 'vsac:profiles-loaded'
         profileSelect.prop('disabled', false)
       .fail => @trigger 'vsac:param-load-error'
@@ -185,23 +180,19 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       body: 'Please reload Bonnie and try again.')
 
   ###*
-  # Repopulates a select box with options. Optionally setting a default option or alternate text.
+  # Repopulates a select box with options. Optionally setting a default option.
   #
   # @param {jQuery Element} selectBox - The jQuery element for the select box to refill.
   # @param {Array} options - List of options.
   # @param {String} defaultOption - Optional. Default option to select if found.
-  # @param {Object} optionTextMap - Optional. For any options that require text to be different than value, this
-  #      parameter can be used to define different option text. ex:
-  #      { "eCQM Update 2018-05-04": "Latest eCQM - eCQM Update 2018-05-04"}
   ###
-  populateSelectBox: (selectBox, options, defaultOption, optionTextMap) ->
+  populateSelectBox: (selectBox, options, defaultOption) ->
     selectBox.empty()
     for option in options
-      optionText = if optionTextMap?[option]? then optionTextMap[option] else option
       if option == defaultOption
-        selectBox.append("<option value=\"#{option}\" selected=\"selected\">#{optionText}</option>")
+        selectBox.append("<option value=\"#{option}\" selected=\"selected\">#{option}</option>")
       else
-        selectBox.append("<option value=\"#{option}\">#{optionText}</option>")
+        selectBox.append("<option value=\"#{option}\">#{option}</option>")
 
   ###*
   # Event handler for query type selector change. This changes out the query parameters

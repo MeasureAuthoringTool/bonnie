@@ -31,7 +31,7 @@ include Devise::Test::ControllerHelpers
 
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -58,7 +58,7 @@ include Devise::Test::ControllerHelpers
 
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -134,7 +134,7 @@ include Devise::Test::ControllerHelpers
       measure_file = fixture_file_upload(File.join('testplan', 'DischargedOnAntithrombotic_eMeasure_Errored.xml'), 'application/xml')
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
@@ -163,7 +163,7 @@ include Devise::Test::ControllerHelpers
       # Post is sent with fake VSAC creds
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'true',
         vsac_username: 'invaliduser', vsac_password: 'invalidpassword',
         measure_file: measure_file,
@@ -189,7 +189,7 @@ include Devise::Test::ControllerHelpers
     # Post is sent with no VSAC creds
     post :create, {
       vsac_query_type: 'profile',
-      vsac_query_profile: 'Latest eCQM',
+      vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
       vsac_query_include_draft: 'true',
       measure_file: measure_file,
       measure_type: 'ep',
@@ -214,7 +214,7 @@ include Devise::Test::ControllerHelpers
       # As of 4/18/18 the 'eCQM Update 2018-05-04' release will cause 404 for 2.16.840.1.113762.1.4.1
       post :create, {
         vsac_query_type: 'release',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_release: 'eCQM Update 2018-05-04',
         vsac_query_measure_defined: 'false',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -242,7 +242,7 @@ include Devise::Test::ControllerHelpers
 
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'true',
         vsac_query_measure_defined: 'false',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -271,7 +271,7 @@ include Devise::Test::ControllerHelpers
       # If you need to re-record the cassette for whatever reason, change the vsac_date to the current date
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -310,7 +310,7 @@ include Devise::Test::ControllerHelpers
 
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -353,7 +353,7 @@ include Devise::Test::ControllerHelpers
     VCR.use_cassette("valid_vsac_response") do
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -457,7 +457,7 @@ include Devise::Test::ControllerHelpers
       assert_nil measure
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -473,7 +473,7 @@ include Devise::Test::ControllerHelpers
     # Now measure successfully uploaded, try to upload again
     post :create, {
       vsac_query_type: 'profile',
-      vsac_query_profile: 'Latest eCQM',
+      vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
       vsac_query_include_draft: 'false',
       vsac_query_measure_defined: 'true',
       vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -502,7 +502,7 @@ include Devise::Test::ControllerHelpers
       end
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -519,7 +519,7 @@ include Devise::Test::ControllerHelpers
     # The hqmf_set_id of the initial file is sent along with the create request
     post :create, {
       vsac_query_type: 'profile',
-      vsac_query_profile: 'Latest eCQM',
+      vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
       vsac_query_include_draft: 'false',
       vsac_query_measure_defined: 'true',
       vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -552,7 +552,7 @@ include Devise::Test::ControllerHelpers
     VCR.use_cassette("missing_vs_oid_response") do
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -588,7 +588,7 @@ include Devise::Test::ControllerHelpers
     VCR.use_cassette("initial_response") do
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -631,7 +631,7 @@ include Devise::Test::ControllerHelpers
     VCR.use_cassette("update_response") do
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -671,7 +671,7 @@ include Devise::Test::ControllerHelpers
     VCR.use_cassette("valid_vsac_response") do
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
         measure_file: measure_file,
@@ -705,7 +705,7 @@ include Devise::Test::ControllerHelpers
     VCR.use_cassette("valid_vsac_response") do
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
@@ -725,7 +725,7 @@ include Devise::Test::ControllerHelpers
     VCR.use_cassette("valid_vsac_response") do
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: 'Latest eCQM',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         measure_file: measure_file,
