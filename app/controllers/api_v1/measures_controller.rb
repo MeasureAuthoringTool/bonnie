@@ -47,15 +47,13 @@ module ApiV1
     formats [:json, :html]
     def index
       # TODO: filter by search parameters, for example an NQF ID or partial description
-      skippable_fields = [:map_fn, :hqmf_document, :oids, :population_ids]
-      @api_v1_measures = CqlMeasure.by_user(current_resource_owner)
+      @api_v1_measures = CqlMeasure.by_user(current_resource_owner).only(MEASURE_WHITELIST)
       respond_with @api_v1_measures do |format|
         format.json do
           render json: MultiJson.encode(
             @api_v1_measures.map do |x|
               h = x
               h[:id] = x.hqmf_set_id
-              skippable_fields.each { |f| h.delete(f) }
               h
             end
           )
