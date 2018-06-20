@@ -37,9 +37,7 @@ describe 'ImportMeasure view', ->
       # when profiles are done loading check them
       importView.once 'vsac:profiles-loaded', ->
         expect($.getJSON).toHaveBeenCalledWith('/vsac_util/profile_names')
-        expect(importView.$('select[name="vsac_query_profile"] option').length).toBe(18)
-        # check the default selected profile is the latest profile and is marked as so.
-        expect(importView.$('select[name="vsac_query_profile"] option[selected="selected"]').text()).toBe("Latest eCQM《eCQM Update 2018-05-04》")
+        expect(importView.$('select[name="vsac_query_profile"] option').length).toBe(19)
 
         # reset spy on getJSON to prepare to switch to profiles a second time
         $.getJSON.calls.reset()
