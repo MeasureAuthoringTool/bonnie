@@ -2,8 +2,8 @@ module DoorkeeperOverride
   class TokenInfoController < Doorkeeper::ApplicationMetalController
     def show
       if doorkeeper_token && doorkeeper_token.accessible?
-        begin
-          user = User.find(doorkeeper_token.resource_owner_id)
+        user = User.find(doorkeeper_token.resource_owner_id)
+        if !user.nil?
           token_info = {
             user_email: user.email,
             user_first_name: user.first_name,
@@ -13,12 +13,8 @@ module DoorkeeperOverride
             created_at: doorkeeper_token.created_at.to_i
           }
           render json: token_info, status: :ok
-        rescue Mongoid::Errors::DocumentNotFound
+        else # If the user does not exist, then return with unauthorized error response
           error = Doorkeeper::OAuth::ErrorResponse.new(name: :unauthorized)
-          response.headers.merge!(error.headers)
-          render json: error.body, status: error.status
-        rescue StandardError # Generic invalid request
-          error = Doorkeeper::OAuth::ErrorResponse.new(name: :invalid_request)
           response.headers.merge!(error.headers)
           render json: error.body, status: error.status
         end

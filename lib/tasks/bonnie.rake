@@ -194,9 +194,8 @@ namespace :bonnie do
       is_error = false
 
       unless is_error
-        begin
-          user = User.find_by(email: email)
-        rescue Mongoid::Errors::DocumentNotFound
+        user = User.find_by(email: email)
+        if user.nil?
           print_error "#{email} not found"
           is_error = true
         end
@@ -204,12 +203,12 @@ namespace :bonnie do
 
       unless is_error
         if hqmf_set_id
-          begin
-            measure = CqlMeasure.find_by(user_id: user.id, hqmf_set_id: hqmf_set_id)
-            print_success "#{user.email}: measure with HQMF set id #{hqmf_set_id} found"
-          rescue Mongoid::Errors::DocumentNotFound
+          measure = CqlMeasure.find_by(user_id: user.id, hqmf_set_id: hqmf_set_id)
+          if measure.nil?
             print_error "measure with HQFM set id #{hqmf_set_id} not found for account #{email}"
             is_error = true
+          else
+            print_success "#{user.email}: measure with HQMF set id #{hqmf_set_id} found"
           end
         elsif cms_id
           measure = find_measure(user, '', cms_id)
@@ -362,36 +361,32 @@ namespace :bonnie do
       is_error = false
 
       unless is_error
-        begin
-          source = User.find_by(email: source_email)
-        rescue
+        source = User.find_by(email: source_email)
+        if source.nil?
           print_error "#{source_email} not found"
           is_error = true
         end
       end
 
       unless is_error
-        begin
-          dest = User.find_by(email: dest_email)
-        rescue
+        dest = User.find_by(email: dest_email)
+        if dest.nil?
           print_error "#{dest_email} not found"
           is_error = true
         end
       end
 
       unless is_error
-        begin
-          source_measure = CqlMeasure.find_by(user_id: source.id, hqmf_set_id: source_hqmf_set_id)
-        rescue
+        source_measure = CqlMeasure.find_by(user_id: source.id, hqmf_set_id: source_hqmf_set_id)
+        if source_measure.nil?
           print_error "measure with HQFM set id #{source_hqmf_set_id} not found for account #{source_email}"
           is_error = true
         end
       end
 
       unless is_error
-        begin
-          dest_measure = CqlMeasure.find_by(user_id: dest.id, hqmf_set_id: dest_hqmf_set_id)
-        rescue
+        dest_measure = CqlMeasure.find_by(user_id: dest.id, hqmf_set_id: dest_hqmf_set_id)
+        if dest_measure.nil?
           print_error "measure with HQFM set id #{dest_hqmf_set_id} not found for account #{dest_email}"
           is_error = true
         end
@@ -423,36 +418,32 @@ namespace :bonnie do
       is_error = false
 
       unless is_error
-        begin
-          source = User.find_by(email: source_email)
-        rescue
+        source = User.find_by(email: source_email)
+        if source.nil?
           print_error "#{source_email} not found"
           is_error = true
         end
       end
 
       unless is_error
-        begin
-          dest = User.find_by(email: dest_email)
-        rescue
+        dest = User.find_by(email: dest_email)
+        if dest.nil?
           print_error "#{dest_email} not found"
           is_error = true
         end
       end
 
       unless is_error
-        begin
-          source_measure = CqlMeasure.find_by(user_id: source.id, hqmf_set_id: source_hqmf_set_id)
-        rescue
+        source_measure = CqlMeasure.find_by(user_id: source.id, hqmf_set_id: source_hqmf_set_id)
+        if source_measure.nil?
           print_error "measure with HQFM set id #{source_hqmf_set_id} not found for account #{source_email}"
           is_error = true
         end
       end
 
       unless is_error
-        begin
-          dest_measure = CqlMeasure.find_by(user_id: dest.id, hqmf_set_id: dest_hqmf_set_id)
-        rescue
+        dest_measure = CqlMeasure.find_by(user_id: dest.id, hqmf_set_id: dest_hqmf_set_id)
+        if dest_measure.nil?
           print_error "measure with HQFM set id #{dest_hqmf_set_id} not found for account #{dest_email}"
           is_error = true
         end
@@ -497,9 +488,8 @@ namespace :bonnie do
         unless is_error
           email = row[4].downcase
 
-          begin
-            user = User.find_by(email: email)
-          rescue
+          user = User.find_by(email: email)
+          if user.nil?
             print_error "#{email} not found"
             is_error = true
           end
