@@ -225,7 +225,10 @@ class CQLResultsHelpers
     else if result instanceof cql.Code
       "Code: #{result['system']}: #{result['code']}"
     else if result instanceof cql.Quantity
-      "Quantity: #{result['value']}: #{result['unit']}"
+      quantityResult = "Quantity: #{result['value']}"
+      if result['unit']
+        quantityResult = quantityResult + " #{result['unit']}"
+      quantityResult
     else if result instanceof CQL_QDM.QDMDatatype
       indentation = Array(indentLevel).join ' '
       result.toString().replace /\n/g, "\n#{indentation}"
