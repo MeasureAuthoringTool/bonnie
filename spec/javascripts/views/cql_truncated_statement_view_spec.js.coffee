@@ -69,7 +69,7 @@ describe 'CqlTruncatedStatementView', ->
       @populationLogicView.render()
       results = @population.calculate(@patients.first())
       @populationLogicView.showRationale(results)
-      encountersView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "Encounters" && view.libraryName == "PotentialOpioidOveruse")
+      encountersView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "Encounters during Measurement Period" && view.libraryName == "PotentialOpioidOveruse")
 
       # check that the correct view is being used
       expect(encountersView.rootClauseView instanceof Thorax.Views.CqlTruncatedStatementView).toBe(true)
@@ -79,7 +79,7 @@ describe 'CqlTruncatedStatementView', ->
       spyOn(@populationLogicView, 'highlightPatientData')
       $(encountersView.rootClauseView.$el).trigger('mouseover')
       # this is the only encounter on the test patient
-      expect(@populationLogicView.highlightPatientData).toHaveBeenCalledWith(['5af346c3b848465f42b0acf4'])
+      expect(@populationLogicView.highlightPatientData).toHaveBeenCalledWith(['5b2a7bfeb8484678da8c686c'])
 
       # test mouseout functionality
       spyOn(@populationLogicView, 'clearHighlightPatientData')
@@ -97,7 +97,7 @@ describe 'CqlTruncatedStatementView', ->
       @populationLogicView.render()
       results = @population.calculate(@patients.first())
       @populationLogicView.showRationale(results)
-      encountersView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "Encounters" && view.libraryName == "PotentialOpioidOveruse")
+      encountersView = _.find(@populationLogicView.allStatementViews, (view) -> view.name == "Encounters during Measurement Period" && view.libraryName == "PotentialOpioidOveruse")
 
       # spy on the highlight patient data so we can see if the proper element is called out for highlighting.
       spyOn(@populationLogicView, 'highlightPatientData')
