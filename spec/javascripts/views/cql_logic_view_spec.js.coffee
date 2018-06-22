@@ -211,13 +211,13 @@ describe 'CqlLogicView', ->
         expect($('#show-all-results').length).toEqual(0)
 
       it 'should trigger all show/hide result buttons and results', ->
-        expect($('button[data-call-method="showResult"]').length).toEqual(21)
+        expect($('button[data-call-method="showResult"]').length).toEqual(11)
         expect($('button[data-call-method="hideResult"]').length).toEqual(0)
         @populationLogicView.$('#show-all-results').click()
         expect($('button[data-call-method="showResult"]').length).toEqual(0)
-        expect($('button[data-call-method="hideResult"]').length).toEqual(21)
+        expect($('button[data-call-method="hideResult"]').length).toEqual(11)
         @populationLogicView.$('#hide-all-results').click()
-        expect($('button[data-call-method="showResult"]').length).toEqual(21)
+        expect($('button[data-call-method="showResult"]').length).toEqual(11)
         expect($('button[data-call-method="hideResult"]').length).toEqual(0)
 
     describe 'show/hide results button', ->
