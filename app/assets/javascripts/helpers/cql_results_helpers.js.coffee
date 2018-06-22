@@ -217,7 +217,10 @@ class CQLResultsHelpers
   #                                Note that 1 is the base because Array(1).join ' ' returns ''.
   # @returns {String} a pretty version of the given result
   ###
-  @prettyResult: (result, indentLevel = 1) ->
+  @prettyResult: (result, indentLevel = 1, keyIndent = 1) ->
+    keyIndentation = Array(keyIndent).join ' '
+    currentIndentation = Array(indentLevel).join ' '
+
     if result instanceof cql.DateTime
       moment.utc(result.toString()).format('MM/DD/YYYY h:mm A')
     else if result instanceof cql.Interval
@@ -230,22 +233,21 @@ class CQLResultsHelpers
         quantityResult = quantityResult + " #{result['unit']}"
       quantityResult
     else if result instanceof CQL_QDM.QDMDatatype
-      indentation = Array(indentLevel).join ' '
-      result.toString().replace /\n/g, "\n#{indentation}"
+      result.toString().replace /\n/g, "\n#{currentIndentation}#{keyIndentation}"
     else if result instanceof String or typeof(result) == 'string'
       '"' + result + '"'
     else if result instanceof Array
-      currentIndentation = Array(indentLevel).join ' '
-      prettyResult = _.map result, (value) => @prettyResult(value, indentLevel)
-      "[#{prettyResult.join(",\n#{currentIndentation}")}]"
+      prettyResult = _.map result, (value) => @prettyResult(value, indentLevel, keyIndent)
+      "[#{prettyResult.join(",\n#{currentIndentation}#{keyIndentation}")}]"
     else if result instanceof Object
       prettyResult = '{\n'
       baseIndentation = Array(3).join ' '
       for key, value of result
         # add 2 spaces per indent
         nextIndentLevel = indentLevel + 2
-        currentIndentation = Array(indentLevel).join ' '
-        prettyResult = prettyResult.concat("#{baseIndentation}#{currentIndentation}#{key}: #{@prettyResult(value, nextIndentLevel)}")
+        # key length + ': '
+        keyIndent = key.length + 3
+        prettyResult = prettyResult.concat("#{baseIndentation}#{currentIndentation}#{key}: #{@prettyResult(value, nextIndentLevel, keyIndent)}")
 
         # append commas if it isn't the last key
         if key == Object.keys(result)[Object.keys(result).length - 1]

@@ -41,7 +41,7 @@ describe 'CQLResultsHelpers', ->
 
   it 'should properly indent an array in an object', ->
     arrayObject = {'array': [1, 2, 3]}
-    expect(CQLResultsHelpers.prettyResult(arrayObject)).toEqual('{\n  array: [1,\n  2,\n  3]\n}')
+    expect(CQLResultsHelpers.prettyResult(arrayObject)).toEqual('{\n  array: [1,\n         2,\n         3]\n}')
 
   it 'should properly print Quantity with unit', ->
     quantity = new cql.Quantity(value: 1, unit: 'g')
