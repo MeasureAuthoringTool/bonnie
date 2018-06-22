@@ -763,7 +763,7 @@ include Devise::Test::ControllerHelpers
     VCR.use_cassette("initial_response_calc_SDEs") do
       post :create, {
         vsac_query_type: 'profile',
-        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
+        vsac_query_profile: 'Latest eCQM',
         vsac_query_include_draft: 'false',
         vsac_query_measure_defined: 'true',
         vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
