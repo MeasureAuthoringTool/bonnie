@@ -1,12 +1,7 @@
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-<<<<<<< HEAD
   revision: dd32b18cae0529fb0d0c835309645153f13c20ef
   branch: master_bonnie
-=======
-  revision: 663f6ddcbed7b607cda77c96dd7ae3673055f82a
-  branch: bonnie-v2.2
->>>>>>> Bonnie 1525 3 (#1024)
   specs:
     health-data-standards (4.1.0)
       activesupport (~> 4.2.0)
@@ -41,6 +36,21 @@ GIT
       rubyzip (~> 1.2, >= 1.2.1)
       simplexml_parser (~> 1.0)
       zip-zip (~> 0.3)
+
+  remote: https://github.com/doorkeeper-gem/doorkeeper-mongodb
+  revision: dc94da5a862dc6af0718df4cb511cf2e7b19d5d5
+  branch: master
+  specs:
+    doorkeeper-mongodb (3.0.0)
+      doorkeeper (>= 3.0.0)
+
+GIT
+  remote: https://github.com/hossenlopp/apipie-rails
+  revision: a3e9f3eb092dafc551d3563ccf516cf31b2037d4
+  branch: master
+  specs:
+    apipie-rails (0.3.6)
+      json
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
@@ -177,6 +187,8 @@ GEM
     docile (1.1.5)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
+    doorkeeper (4.2.6)
+      railties (>= 4.2)
     equalizer (0.0.11)
     erubis (2.7.0)
     eventmachine (1.0.7)
@@ -231,6 +243,7 @@ GEM
       systemu (~> 2.6.2)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    maruku (0.7.2)
     memoist (0.9.3)
     method_source (0.8.2)
     mime-types (2.99.3)
@@ -421,6 +434,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apipie-rails!
   axlsx!
   bonnie_bundler!
   brakeman
@@ -430,6 +444,8 @@ DEPENDENCIES
   coffee-rails
   cql_qdm_patientapi!
   devise
+  doorkeeper (~> 4.2.0)
+  doorkeeper-mongodb!
   exception_notification!
   foreman
   handlebars_assets (= 0.16)
@@ -438,6 +454,7 @@ DEPENDENCIES
   hquery-patient-api (~> 1.1)
   jquery-rails
   less-rails
+  maruku
   minitest
   mongoid
   multi_json

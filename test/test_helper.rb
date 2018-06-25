@@ -1,5 +1,7 @@
 ENV["RAILS_ENV"] = "test"
 require_relative "./simplecov_init"
+require_relative "./vcr_setup"
+ENV["APIPIE_RECORD"] = "examples"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require './lib/ext/record'
