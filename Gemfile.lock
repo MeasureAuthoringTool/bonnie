@@ -32,7 +32,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: c62052e699736735129f89d3ed2d1abaf023d5c7
+  revision: 9ee37e55deb282086b583c5d2d3140620c3843c2
   branch: bonnie-prior
   specs:
     bonnie_bundler (1.0.0)
@@ -46,7 +46,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/hqmf2js.git
-  revision: 6f841d9b5734520f35aec13c15f08f31023b7a36
+  revision: 5c7aa718f313edcc17a7d35a5b1badf99610b10b
   branch: bonnie-prior
   specs:
     hqmf2js (1.3.0)
@@ -317,7 +317,7 @@ GEM
     slop (3.6.0)
     spreadsheet (1.0.4)
       ruby-ole (>= 1.0)
-    sprockets (2.12.4)
+    sprockets (2.12.5)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
