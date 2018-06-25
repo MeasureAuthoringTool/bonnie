@@ -17,73 +17,75 @@ namespace :bonnie do
           # this measure. Also comes in handy when detecting measures uploaded
           # by accounts that have since been deleted.
           user = User.find_by(_id: measure[:user_id])
-          cql = nil
-          cql_artifacts = nil
-          # Grab the name of the main cql library
-          main_cql_library = measure[:main_cql_library]
+          if !user.nil?
+            cql = nil
+            cql_artifacts = nil
+            # Grab the name of the main cql library
+            main_cql_library = measure[:main_cql_library]
 
-          # Grab a copy of all attributes that we will update the measure with.
-          before_state = {}
-          before_state[:measure_data_criteria] = measure[:data_criteria].deep_dup
-          before_state[:measure_source_data_criteria] = measure[:source_data_criteria].deep_dup
-          before_state[:measure_cql] = measure[:cql].deep_dup
-          before_state[:measure_elm] = measure[:elm].deep_dup
-          before_state[:measure_elm_annotations] = measure[:elm_annotations].deep_dup
-          before_state[:measure_cql_statement_dependencies] = measure[:cql_statement_dependencies].deep_dup
-          before_state[:measure_main_cql_library] = measure[:main_cql_library].deep_dup
-          before_state[:measure_value_set_oids] = measure[:value_set_oids].deep_dup
-          before_state[:measure_value_set_oid_version_objects] = measure[:value_set_oid_version_objects].deep_dup
+            # Grab a copy of all attributes that we will update the measure with.
+            before_state = {}
+            before_state[:measure_data_criteria] = measure[:data_criteria].deep_dup
+            before_state[:measure_source_data_criteria] = measure[:source_data_criteria].deep_dup
+            before_state[:measure_cql] = measure[:cql].deep_dup
+            before_state[:measure_elm] = measure[:elm].deep_dup
+            before_state[:measure_elm_annotations] = measure[:elm_annotations].deep_dup
+            before_state[:measure_cql_statement_dependencies] = measure[:cql_statement_dependencies].deep_dup
+            before_state[:measure_main_cql_library] = measure[:main_cql_library].deep_dup
+            before_state[:measure_value_set_oids] = measure[:value_set_oids].deep_dup
+            before_state[:measure_value_set_oid_version_objects] = measure[:value_set_oid_version_objects].deep_dup
 
-          # Grab the existing data_criteria and source_data_criteria hashes. Must be a deep copy, due to how Mongo copies Hash and Array field types.
-          data_criteria_object = {}
-          data_criteria_object['data_criteria'] = measure[:data_criteria].deep_dup
-          data_criteria_object['source_data_criteria'] = measure[:source_data_criteria].deep_dup
+            # Grab the existing data_criteria and source_data_criteria hashes. Must be a deep copy, due to how Mongo copies Hash and Array field types.
+            data_criteria_object = {}
+            data_criteria_object['data_criteria'] = measure[:data_criteria].deep_dup
+            data_criteria_object['source_data_criteria'] = measure[:source_data_criteria].deep_dup
 
-          # If measure has been uploaded more recently (we should have a copy of the MAT Package) we will use the actual MAT artifacts
-          if !measure.package.nil?
-            # Create a temporary directory
-            Dir.mktmpdir do |dir|
-              # Write the package to a temp directory
-              File.open(File.join(dir, measure.measure_id + '.zip'), 'wb') do |zip_file|
-                # Write the package binary to a zip file.
-                zip_file.write(measure.package.file.data)
-                files = Measures::CqlLoader.get_files_from_zip(zip_file, dir)
-                cql_artifacts = Measures::CqlLoader.process_cql(files, main_cql_library, user, nil, nil, measure.hqmf_set_id)
-                data_criteria_object['source_data_criteria'], data_criteria_object['data_criteria'] = Measures::CqlLoader.set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
-                cql = files[:CQL]
+            # If measure has been uploaded more recently (we should have a copy of the MAT Package) we will use the actual MAT artifacts
+            if !measure.package.nil?
+              # Create a temporary directory
+              Dir.mktmpdir do |dir|
+                # Write the package to a temp directory
+                File.open(File.join(dir, measure.measure_id + '.zip'), 'wb') do |zip_file|
+                  # Write the package binary to a zip file.
+                  zip_file.write(measure.package.file.data)
+                  files = Measures::CqlLoader.get_files_from_zip(zip_file, dir)
+                  cql_artifacts = Measures::CqlLoader.process_cql(files, main_cql_library, user, nil, nil, measure.hqmf_set_id)
+                  data_criteria_object['source_data_criteria'], data_criteria_object['data_criteria'] = Measures::CqlLoader.set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
+                  cql = files[:CQL]
+                end
+              end
+            # If the measure does not have a MAT package stored, continue as we have in the past using the cql to elm service
+            else
+              # Grab the measure cql
+              cql = measure[:cql]
+              # Use the CQL-TO-ELM Translation Service to regenerate elm for older measures.
+              elm_json, elm_xml = CqlElm::CqlToElmHelper.translate_cql_to_elm(cql)
+              elms = {:ELM_JSON => elm_json,
+                      :ELM_XML => elm_xml}
+              cql_artifacts = Measures::CqlLoader.process_cql(elms, main_cql_library, user, nil, nil, measure.hqmf_set_id)
+              data_criteria_object['source_data_criteria'], data_criteria_object['data_criteria'] = Measures::CqlLoader.set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
+            end
+
+            # Get a hash of differences from the original measure and the updated data
+            differences = measure_update_diff(before_state, data_criteria_object, cql, cql_artifacts, main_cql_library)
+            unless differences.empty?
+              # Update the measure
+              measure.update(data_criteria: data_criteria_object['data_criteria'], source_data_criteria: data_criteria_object['source_data_criteria'], cql: cql, elm: cql_artifacts[:elms], elm_annotations: cql_artifacts[:elm_annotations], cql_statement_dependencies: cql_artifacts[:cql_definition_dependency_structure],
+                             main_cql_library: main_cql_library, value_set_oids: cql_artifacts[:all_value_set_oids], value_set_oid_version_objects: cql_artifacts[:value_set_oid_version_objects])
+              measure.save!
+              update_passes += 1
+              print "\e[#{32}m#{"[Success]"}\e[0m"
+              puts ' Measure ' + "\e[1m#{measure[:cms_id]}\e[22m" + ': "' + measure[:title] + '" with id ' + "\e[1m#{measure[:id]}\e[22m" + ' in account ' + "\e[1m#{user[:email]}\e[22m" + ' successfully updated ELM!'
+              differences.each_key do |key|
+                fields_diffs[key] += 1
+                puts "--- #{key} --- Has been modified"
               end
             end
-          # If the measure does not have a MAT package stored, continue as we have in the past using the cql to elm service
           else
-            # Grab the measure cql
-            cql = measure[:cql]
-            # Use the CQL-TO-ELM Translation Service to regenerate elm for older measures.
-            elm_json, elm_xml = CqlElm::CqlToElmHelper.translate_cql_to_elm(cql)
-            elms = {:ELM_JSON => elm_json,
-                    :ELM_XML => elm_xml}
-            cql_artifacts = Measures::CqlLoader.process_cql(elms, main_cql_library, user, nil, nil, measure.hqmf_set_id)
-            data_criteria_object['source_data_criteria'], data_criteria_object['data_criteria'] = Measures::CqlLoader.set_data_criteria_code_list_ids(data_criteria_object, cql_artifacts)
+            orphans += 1
+            print "\e[#{31}m#{"[Error]"}\e[0m"
+            puts ' Measure ' + "\e[1m#{measure[:cms_id]}\e[22m" + ': "' + measure[:title] + '" with id ' + "\e[1m#{measure[:id]}\e[22m" + ' belongs to a user that doesn\'t exist!'
           end
-
-          # Get a hash of differences from the original measure and the updated data
-          differences = measure_update_diff(before_state, data_criteria_object, cql, cql_artifacts, main_cql_library)
-          unless differences.empty?
-            # Update the measure
-            measure.update(data_criteria: data_criteria_object['data_criteria'], source_data_criteria: data_criteria_object['source_data_criteria'], cql: cql, elm: cql_artifacts[:elms], elm_annotations: cql_artifacts[:elm_annotations], cql_statement_dependencies: cql_artifacts[:cql_definition_dependency_structure],
-                           main_cql_library: main_cql_library, value_set_oids: cql_artifacts[:all_value_set_oids], value_set_oid_version_objects: cql_artifacts[:value_set_oid_version_objects])
-            measure.save!
-            update_passes += 1
-            print "\e[#{32}m#{"[Success]"}\e[0m"
-            puts ' Measure ' + "\e[1m#{measure[:cms_id]}\e[22m" + ': "' + measure[:title] + '" with id ' + "\e[1m#{measure[:id]}\e[22m" + ' in account ' + "\e[1m#{user[:email]}\e[22m" + ' successfully updated ELM!'
-            differences.each_key do |key|
-              fields_diffs[key] += 1
-              puts "--- #{key} --- Has been modified"
-            end
-          end
-        rescue Mongoid::Errors::DocumentNotFound => e
-          orphans += 1
-          print "\e[#{31}m#{"[Error]"}\e[0m"
-          puts ' Measure ' + "\e[1m#{measure[:cms_id]}\e[22m" + ': "' + measure[:title] + '" with id ' + "\e[1m#{measure[:id]}\e[22m" + ' belongs to a user that doesn\'t exist!'
         rescue Exception => e
           update_fails += 1
           print "\e[#{31}m#{"[Error]"}\e[0m"
