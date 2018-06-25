@@ -87,7 +87,7 @@ class PatientExport
             ["Quantity","Quantity: value unit","Quantity: 120 mmHg"],
             # ["QDMDatatype",""],
             ["List","[item one, item two, ...]","[Encounter, Performed: Encounter Inpatient\nCODE: SNOMED-CT 8715000]"],
-            ["Tuple","{tuple contents}","{...}",]
+            ["Tuple","{tuple contents}","{...}"]
           ]
           sheet.add_row(cql_types_table[0], :b => true, style: default) #table headers
           cql_types_table[1..-1].each do |entry_row| #add content rows
