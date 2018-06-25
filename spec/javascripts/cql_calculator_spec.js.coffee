@@ -163,7 +163,7 @@ describe 'cqlCalculator', ->
           bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS32/value_sets.json')
           patient3 = patients3.models[0]
           result3 = @cql_calculator.calculate(measure3.get('populations').first(), patient3, {doPretty: true})
-          expect(result3.get('statement_results').Test32['Measure Observation'].pretty).toEqual('FALSE (undefined)')
+          expect(result3.get('statement_results').Test32['Measure Observation'].pretty).toEqual('FALSE (FUNCTION)')
           expect(result3.get('statement_results').Test32['ED Visit'].pretty).toEqual('[Encounter, Performed: Emergency department patient visit (procedure)\nSTART: 11/22/2012 8:00 AM\nSTOP: 11/22/2012 8:15 AM\nCODE: SNOMED-CT 4525004]')
           expect(result3.get('statement_results').Test32['Measure Population Exclusions'].pretty).toEqual('FALSE ([])')
 
