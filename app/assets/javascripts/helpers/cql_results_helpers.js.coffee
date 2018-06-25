@@ -255,10 +255,7 @@ class CQLResultsHelpers
         else
           prettyResult += ',\n'
 
-      if indentLevel >= 3
-        prettyResult = prettyResult + "#{currentIndentation}}"
-      else
-        prettyResult = prettyResult + '}'
+      prettyResult = prettyResult + "#{currentIndentation}}"
 
       prettyResult
     else
