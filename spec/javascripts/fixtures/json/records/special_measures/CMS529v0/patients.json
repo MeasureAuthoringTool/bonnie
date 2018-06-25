@@ -1,11 +1,11 @@
 [
   {
-    "_id": "5b042f24d7c8acd2cd253406",
+    "_id": "5b05a7f8b84846736b81b847",
     "birthdate": -1251907200,
     "bundle_id": "5a57e977942c6d1e61d32f14",
     "conditions": [
       {
-        "_id": "5b059aaad7c8ac2a1739b1f8",
+        "_id": "5b27e172868280d1a5c0fbb3",
         "anatomical_location": null,
         "anatomical_target": null,
         "causeOfDeath": null,
@@ -39,14 +39,14 @@
         "type": null
       }
     ],
-    "created_at": "2018-05-22T14:54:28.472Z",
+    "created_at": "2018-05-23T17:42:16.579Z",
     "deathdate": null,
     "description": null,
     "description_category": null,
     "effective_time": null,
     "encounters": [
       {
-        "_id": "5b059aaad7c8ac2a1739b1f9",
+        "_id": "5b27e172868280d1a5c0fbb4",
         "admitTime": null,
         "admitType": null,
         "codes": {
@@ -105,7 +105,7 @@
       null
     ],
     "medical_record_assigner": "Bonnie",
-    "medical_record_number": "fe0c4d164323666407f44b649358a579f2136b6e16f0df3b005f55a5243b609b",
+    "medical_record_number": "d0db3db3f32ea2ea554b57e86370635d4c4ae1cfaa247d44e1fe2797320f1cb1",
     "notes": "",
     "origin_data": [
 
@@ -134,13 +134,13 @@
         },
         "hqmf_set_id": "FA75DE85-A934-45D7-A2F7-C700A756078B",
         "cms_id": "CMS529v0",
-        "criteria_id": "16388e59affKo",
+        "criteria_id": "1638e17af2fnT",
         "codes": {
           "Source of Payment Typology": [
             "1"
           ]
         },
-        "coded_entry_id": "5b059aaad7c8ac2a1739b1f8",
+        "coded_entry_id": "5b27e172868280d1a5c0fbb3",
         "code_source": "DEFAULT"
       },
       {
@@ -162,14 +162,14 @@
         },
         "hqmf_set_id": "FA75DE85-A934-45D7-A2F7-C700A756078B",
         "cms_id": "CMS529v0",
-        "criteria_id": "16388520e658b",
+        "criteria_id": "1638e17d6c4fh",
         "codes": {
           "SNOMED-CT": [
             "112689000"
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5b059aaad7c8ac2a1739b1f9",
+        "coded_entry_id": "5b27e172868280d1a5c0fbb4",
         "code_source": "DEFAULT"
       },
       {
@@ -182,7 +182,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-05-23T16:45:30.462Z",
+    "updated_at": "2018-06-18T16:44:34.947Z",
     "user_id": "5a57e975942c6d1e61d32f13"
   }
 ]
