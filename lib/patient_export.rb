@@ -117,7 +117,6 @@ class PatientExport
                                      :alignment => { :wrap_text => true })
         maximum_column_width = 75
         pop_index = 0
-
         calc_results.each do |pop_key, patients|
           
           population_criteria = HQMF::PopulationCriteria::ALL_POPULATION_CODES & population_details[pop_key]["criteria"]
