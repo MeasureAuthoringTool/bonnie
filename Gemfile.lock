@@ -15,9 +15,48 @@ GIT
       json
 
 GIT
+  remote: https://github.com/projectcypress/health-data-standards.git
+  revision: 663f6ddcbed7b607cda77c96dd7ae3673055f82a
+  branch: bonnie-v2.3-rebase
+  specs:
+    health-data-standards (4.0.6)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.2)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 1.8.0)
+      rubyzip (~> 1.2.1)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/projecttacoma/bonnie_bundler.git
+  revision: 10cc6ee3378b99c795c67f82b4f9554a679593f0
+  branch: bonnie-v2.3-rebase
+  specs:
+    bonnie_bundler (2.1.2)
+      diffy (~> 3.0.0)
+      health-data-standards (~> 4.0)
+      hqmf2js (~> 1.4)
+      hquery-patient-api (~> 1.1)
+      mongoid (~> 5.0)
+      quality-measure-engine (~> 3.2)
+      rails (~> 4.2)
+      roo (~> 1.13)
+      rubyzip (~> 1.2, >= 1.2.1)
+      simplexml_parser (~> 1.0)
+      zip-zip (~> 0.3)
+
+GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: b8226ec9ab3fedaf9c709dbefd2c64ea4a0cef63
-  branch: bonnie-v2.2
+  revision: a0b3c64c9e8d5f1e247e395af16068f7ca0b47aa
+  branch: bonnie-v2.3-rebase
   specs:
     cql_qdm_patientapi (1.1.4)
       coffee-rails (~> 4.1)
