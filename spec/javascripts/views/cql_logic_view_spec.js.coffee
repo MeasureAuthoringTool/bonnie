@@ -182,3 +182,62 @@ describe 'CqlLogicView', ->
       populationLogicView.render()
       results = @cqlMeasure.get('populations').first().calculate(@patients.first())
       expect(-> populationLogicView.showRationale(results)).not.toThrow()
+
+  describe 'CQL Statement Results', ->
+    beforeEach ->
+      jasmine.getJSONFixtures().clearCache()
+      @universalValueSetsByOid = bonnie.valueSetsByOid
+      # TODO: update CQL/CMS146v6 path to CQL/CMS146 when cql-testing-overhaul is merged
+      bonnie.valueSetsByOid = getJSONFixture('/measure_data/CQL/CMS146v6/value_sets.json')
+      @cqlMeasure = new Thorax.Models.Measure getJSONFixture('measure_data/CQL/CMS146v6/CMS146v6.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/CQL/CMS146v6/patients.json'), parse: true
+      @population = @cqlMeasure.get('populations').first()
+      @populationLogicView = new Thorax.Views.CqlPopulationLogic(model: @cqlMeasure, population: @cqlMeasure.get('populations').first())
+      @populationLogicView.render()
+      @populationLogicView.appendTo('body')
+
+    afterEach ->
+      @populationLogicView.remove()
+      bonnie.valueSetsByOid = @universalValueSetsByOid
+
+    describe 'show all results button', ->
+      it 'should exist', ->
+        expect($('#show-all-results').length).toEqual(1)
+
+      it 'should toggle when clicked', ->
+        expect($('#hide-all-results').length).toEqual(0)
+        @populationLogicView.$('#show-all-results').click()
+        expect($('#hide-all-results').length).toEqual(1)
+        expect($('#show-all-results').length).toEqual(0)
+
+      it 'should trigger all show/hide result buttons and results', ->
+        expect($('button[data-call-method="showResult"]').length).toEqual(11)
+        expect($('button[data-call-method="hideResult"]').length).toEqual(0)
+        @populationLogicView.$('#show-all-results').click()
+        expect($('button[data-call-method="showResult"]').length).toEqual(0)
+        expect($('button[data-call-method="hideResult"]').length).toEqual(11)
+        @populationLogicView.$('#hide-all-results').click()
+        expect($('button[data-call-method="showResult"]').length).toEqual(11)
+        expect($('button[data-call-method="hideResult"]').length).toEqual(0)
+
+    describe 'show/hide results button', ->
+      it 'should toggle when clicked', ->
+        expect($('button[data-call-method="hideResult"]').length).toEqual(0)
+        @populationLogicView.$('button[data-call-method="showResult"]')[0].click()
+        expect($('button[data-call-method="hideResult"]').length).toEqual(1)
+        @populationLogicView.$('button[data-call-method="hideResult"]')[0].click()
+        expect($('button[data-call-method="hideResult"]').length).toEqual(0)
+
+      it 'should make the result visible/not visible when clicked', ->
+        expect($('.cql-statement-result')[0]).toBeHidden()
+        @populationLogicView.$('button[data-call-method="showResult"]')[0].click()
+        expect($('.cql-statement-result')[0]).toBeVisible()
+        @populationLogicView.$('button[data-call-method="hideResult"]')[0].click()
+        expect($('.cql-statement-result')[0]).toBeHidden()
+
+      it 'should limit size of long result', ->
+        # mock applying less stylesheets
+        @populationLogicView.$('.cql-statement-result').attr('style', 'white-space: pre-wrap; height: 200px; overflow-y: scroll;')
+        results = @population.calculate(@patients.first())
+        @populationLogicView.showRationale(results)
+        expect(@populationLogicView.$('.cql-statement-result').height()).toEqual(200)

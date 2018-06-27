@@ -17,8 +17,12 @@
       <div class="panel-body">
         <pre class="cql-statement"><code>{{view rootClauseView}}</code></pre>
       </div>
+      <div class="panel-body">
+        {{view resultBoxView}}
+      </div>
     </div>
   </div>
 {{else}}
   <pre class="cql-statement"><code>{{view rootClauseView}}</code></pre>
+  {{view resultBoxView}}
 {{/if}}

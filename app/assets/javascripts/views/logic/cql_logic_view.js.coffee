@@ -63,6 +63,7 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
     @hasOutdatedQDM = false
 
     @allStatementViews = []
+    @allStatementResultViews = []
     @populationStatementViews = []
     @defineStatementViews = []
     @functionStatementViews = []
@@ -110,7 +111,12 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
                 popNames.push("OBSERV_#{observIndex+1}") if statement.define_name == observ.function_name
 
             # create the view for this statement and add it to the list of all views.
-            statementView = new Thorax.Views.CqlStatement(statement: statement, libraryName: libraryName, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulations: popNames, logicView: @)
+            if CQLMeasureHelpers.isStatementFunction(@model, libraryName, statement.define_name)
+              # Function statements don't show results
+              statementView = new Thorax.Views.CqlStatement(statement: statement, libraryName: libraryName, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulations: popNames, logicView: @)
+            else
+              statementView = new Thorax.Views.CqlResultStatement(statement: statement, libraryName: libraryName, highlightPatientDataEnabled: @highlightPatientDataEnabled, cqlPopulations: popNames, logicView: @)
+              @allStatementResultViews.push statementView
             @allStatementViews.push statementView
 
             # figure out which section of the page it belongs in and add it to the proper list.
@@ -204,3 +210,17 @@ class Thorax.Views.CqlPopulationLogic extends Thorax.Views.BonnieView
   ###
   clearHighlightPatientData: ->
     @latestResult?.patient.trigger 'clearHighlight'
+
+  showAllResults: ->
+    for statementView in @allStatementResultViews
+      statementView.showResult()
+    @$('#show-all-results').text('Hide All Results')
+    @$('#show-all-results').attr('data-call-method', 'hideAllResults')
+    @$('#show-all-results').attr('id', 'hide-all-results')
+
+  hideAllResults: ->
+    for statementView in @allStatementResultViews
+      statementView.hideResult()
+    @$('#hide-all-results').text('Show All Results')
+    @$('#hide-all-results').attr('data-call-method', 'showAllResults')
+    @$('#hide-all-results').attr('id', 'show-all-results')
