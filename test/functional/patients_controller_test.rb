@@ -269,6 +269,13 @@ include Devise::Test::ControllerHelpers
     temp.write(response.body)
     temp.rewind()
     doc = Roo::Spreadsheet.open(temp.path)
+
+    key_sheet = doc.sheet("KEY")
+    assert_equal "For example, FALSE([]) indicates falsyness due to an empty list", key_sheet.row(4)[0]
+    assert_equal "Interval", key_sheet.row(9)[0]
+    assert_equal "start value - end value", key_sheet.row(9)[1]
+    assert_equal "11/20/2010 - 11/20/2012 or 1 - 4", key_sheet.row(9)[2]
+
     sheet1 = doc.sheet("1 - Population Criteria Section")
 
     row2 = sheet1.row(2)

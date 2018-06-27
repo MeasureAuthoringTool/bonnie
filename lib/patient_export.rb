@@ -63,6 +63,38 @@ class PatientExport
             sheet.add_row(error_row)
           end
         end
+
+
+        ##ADD THE KEY SHEET TO THE BEGINING OF THE DOCUMENT
+        workbook.add_worksheet(name: "KEY") do |sheet|
+          sheet.add_row(["\nKEY\n"], style: text_center, height: 30)
+          sheet.merge_cells("A1:C1")
+          sheet.add_row([],style: default)
+          
+          sheet.add_row(["FALSE(...) indicates a falsey value, the type of falsyness is specified in the parentheses."], style: default)
+          sheet.add_row(["For example, FALSE([]) indicates falsyness due to an empty list"], style: default)
+          sheet.merge_cells("A3:C3")
+          sheet.merge_cells "A4:C4"
+          sheet.add_row([],style: default)
+
+          sheet.add_row(["CQL Data Type Formatting"], :b => true, :sz => 16, style: default) #add title row
+          cql_types_table=[
+            ["CQL Type","Format","Example"],
+  
+            ["DateTime","MM/DD/YYYY h:mm AM/PM or MM/DD/YYYY","11/20/2012 8:00 AM"],
+            ["Interval","start value - end value","11/20/2010 - 11/20/2012 or 1 - 4"],
+            ["Code","Code: system: code","Code: SNOMED-CT: 8715000"],
+            ["Quantity","Quantity: value unit","Quantity: 120 mmHg"],
+            # ["QDMDatatype",""],
+            ["List","[item one, item two, ...]","[Encounter, Performed: Encounter Inpatient\nCODE: SNOMED-CT 8715000]"],
+            ["Tuple","{tuple contents}","{...}"]
+          ]
+          sheet.add_row(cql_types_table[0], :b => true, style: default) #table headers
+          cql_types_table[1..-1].each do |entry_row| #add content rows
+            sheet.add_row(entry_row, style: default)
+          end
+        end
+        
         
         #calc_results is organized popKey->patientKey->results
         #popKey and patientKey can be used to lookup population and patient details in their respective maps

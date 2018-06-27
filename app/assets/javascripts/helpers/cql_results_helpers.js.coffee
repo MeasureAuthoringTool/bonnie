@@ -186,6 +186,8 @@ class CQLResultsHelpers
             if rawStatementResult instanceof Array && rawStatementResult.length == 0
               # Special case, handle empty array.
               statementResults[lib][statementName].pretty = "FALSE ([])" if doPretty
+            else if CQLMeasureHelpers.isStatementFunction(measure, lib, statementName)
+             statementResults[lib][statementName].pretty = "FUNCTION" if doPretty
             else
               statementResults[lib][statementName].pretty = "FALSE (#{rawStatementResult})" if doPretty
 
