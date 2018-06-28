@@ -1047,12 +1047,14 @@ Style/RescueStandardError:
     - 'lib/measures/patient_builder.rb'
     - 'lib/tasks/bonnie.rake'
 
-# Offense count: 15
+# Offense count: 18
 # Cop supports --auto-correct.
 # Configuration parameters: ConvertCodeThatCanStartToReturnNil.
 Style/SafeNavigation:
   Exclude:
+    - 'app/controllers/api_v1/measures_controller.rb'
     - 'app/controllers/measures_controller.rb'
+    - 'config/initializers/doorkeeper.rb'
     - 'lib/measures/patient_builder.rb'
     - 'lib/tasks/bonnie.rake'
     - 'lib/tasks/bonnie_run_once.rake'
