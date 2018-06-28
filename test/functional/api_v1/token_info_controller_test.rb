@@ -85,7 +85,7 @@ module DoorkeeperOverride
       assert_equal @token.scopes, body['scopes']
       assert_equal @token.expires_in_seconds, body['expires_in_seconds']
       assert_equal @token.created_at.to_i, body['created_at']
-      assert_equal false, body.has_key?('refresh_expires_in_seconds')
+      assert_equal false, body.key?('refresh_expires_in_seconds')
 
       # reset the expiration setting back to what it was before
       Doorkeeper.instance_variable_get(:@config).instance_variable_set(:@refresh_token_expires_in, original_refresh_token_expires_in)

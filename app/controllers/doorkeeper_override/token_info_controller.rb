@@ -13,16 +13,17 @@ module DoorkeeperOverride
             created_at: doorkeeper_token.created_at.to_i
           }
           # add how long until the refresh_token expires if expiration is defined in the config
-          if !Doorkeeper.configuration.refresh_token_expires_in.nil?
+          if Doorkeeper.configuration.refresh_token_expires_in
             # if the original_token_created_at time exists determine expiration time from that, otherwise use created_at time.
-            if !doorkeeper_token.original_token_created_at.nil?
-              refresh_token_expiration_time = doorkeeper_token.original_token_created_at + Doorkeeper.configuration.refresh_token_expires_in
-            else
-              refresh_token_expiration_time = doorkeeper_token.created_at + Doorkeeper.configuration.refresh_token_expires_in
-            end
+            refresh_token_expiration_time =
+              if doorkeeper_token.original_token_created_at
+                doorkeeper_token.original_token_created_at + Doorkeeper.configuration.refresh_token_expires_in
+              else
+                doorkeeper_token.created_at + Doorkeeper.configuration.refresh_token_expires_in
+              end
             token_info[:refresh_expires_in_seconds] = (refresh_token_expiration_time - Time.now).to_i
             # if the refresh token has already expired, show zero for the time to expiration
-            token_info[:refresh_expires_in_seconds] = 0 if token_info[:refresh_expires_in_seconds] < 0
+            token_info[:refresh_expires_in_seconds] = 0 if (token_info[:refresh_expires_in_seconds]).negative?
           end
           render json: token_info, status: :ok
         else # If the user does not exist, then return with unauthorized error response
