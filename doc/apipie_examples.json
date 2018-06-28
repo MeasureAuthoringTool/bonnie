@@ -199,7 +199,7 @@
           "hqmf_version_number": 1,
           "title": "Statin Therapy for the Prevention and Treatment of Cardiovascular Disease",
           "type": "ep",
-          "updated_at": "2018-06-20T19:46:45.064Z"
+          "updated_at": "2018-06-28T18:41:07.555Z"
         }
       ],
       "code": "200",
@@ -274,7 +274,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-20T19:46:47.241Z"
+          "updated_at": "2018-06-28T18:41:08.984Z"
         },
         {
           "_id": "59b6c5c25cc975edb300012e",
@@ -318,51 +318,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-20T19:46:47.246Z"
-        },
-        {
-          "_id": "59b6c5f95cc975edb3000151",
-          "birthdate": "2004-06-16T04:00:00-04:00",
-          "created_at": "2017-09-11T17:20:57.858Z",
-          "ethnicity": {
-            "code": "2186-5",
-            "name": "Not Hispanic or Latino",
-            "codeSystem": "CDC Race"
-          },
-          "expected_values": [
-            {
-              "population_index": 0,
-              "IPP": 0,
-              "DENOM": 0,
-              "DENEX": 0,
-              "NUMER": 0,
-              "DENEXCEP": 0
-            },
-            {
-              "population_index": 1,
-              "IPP": 0,
-              "DENOM": 0,
-              "DENEX": 0,
-              "NUMER": 0,
-              "DENEXCEP": 0
-            }
-          ],
-          "first": "No Fac",
-          "gender": "M",
-          "insurance_providers": [
-            {
-              "member_id": "1234567890",
-              "payer": "Other"
-            }
-          ],
-          "last": "OLD",
-          "notes": "",
-          "race": {
-            "code": "1002-5",
-            "name": "American Indian or Alaska Native",
-            "codeSystem": "CDC Race"
-          },
-          "updated_at": "2018-06-20T19:46:47.250Z"
+          "updated_at": "2018-06-28T18:41:08.991Z"
         },
         {
           "_id": "59b6c56b5cc975edb30000f9",
@@ -406,51 +362,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-20T19:46:47.254Z"
-        },
-        {
-          "_id": "59b6c31c5cc975edb300007f",
-          "birthdate": "1980-06-12T04:00:00-04:00",
-          "created_at": "2017-09-11T17:08:44.051Z",
-          "ethnicity": {
-            "code": "2186-5",
-            "name": "Not Hispanic or Latino",
-            "codeSystem": "CDC Race"
-          },
-          "expected_values": [
-            {
-              "population_index": 0,
-              "IPP": 0,
-              "DENOM": 0,
-              "DENEX": 0,
-              "NUMER": 0,
-              "DENEXCEP": 0
-            },
-            {
-              "population_index": 1,
-              "IPP": 0,
-              "DENOM": 0,
-              "DENEX": 0,
-              "NUMER": 0,
-              "DENEXCEP": 0
-            }
-          ],
-          "first": "With Fac No Code",
-          "gender": "M",
-          "insurance_providers": [
-            {
-              "member_id": "1234567890",
-              "payer": "Other"
-            }
-          ],
-          "last": "OLD",
-          "notes": "",
-          "race": {
-            "code": "1002-5",
-            "name": "American Indian or Alaska Native",
-            "codeSystem": "CDC Race"
-          },
-          "updated_at": "2018-06-20T19:46:47.258Z"
+          "updated_at": "2018-06-28T18:41:08.997Z"
         },
         {
           "_id": "59b6c3cc5cc975edb30000bb",
@@ -494,7 +406,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-20T19:46:47.264Z"
+          "updated_at": "2018-06-28T18:41:09.002Z"
         },
         {
           "_id": "59b6c6195cc975edb3000169",
@@ -538,7 +450,95 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-20T19:46:47.269Z"
+          "updated_at": "2018-06-28T18:41:09.007Z"
+        },
+        {
+          "_id": "59b6c5f95cc975edb3000151",
+          "birthdate": "2004-06-16T04:00:00-04:00",
+          "created_at": "2017-09-11T17:20:57.858Z",
+          "ethnicity": {
+            "code": "2186-5",
+            "name": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race"
+          },
+          "expected_values": [
+            {
+              "population_index": 0,
+              "IPP": 0,
+              "DENOM": 0,
+              "DENEX": 0,
+              "NUMER": 0,
+              "DENEXCEP": 0
+            },
+            {
+              "population_index": 1,
+              "IPP": 0,
+              "DENOM": 0,
+              "DENEX": 0,
+              "NUMER": 0,
+              "DENEXCEP": 0
+            }
+          ],
+          "first": "No Fac",
+          "gender": "M",
+          "insurance_providers": [
+            {
+              "member_id": "1234567890",
+              "payer": "Other"
+            }
+          ],
+          "last": "OLD",
+          "notes": "",
+          "race": {
+            "code": "1002-5",
+            "name": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race"
+          },
+          "updated_at": "2018-06-28T18:41:09.013Z"
+        },
+        {
+          "_id": "59b6c31c5cc975edb300007f",
+          "birthdate": "1980-06-12T04:00:00-04:00",
+          "created_at": "2017-09-11T17:08:44.051Z",
+          "ethnicity": {
+            "code": "2186-5",
+            "name": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race"
+          },
+          "expected_values": [
+            {
+              "population_index": 0,
+              "IPP": 0,
+              "DENOM": 0,
+              "DENEX": 0,
+              "NUMER": 0,
+              "DENEXCEP": 0
+            },
+            {
+              "population_index": 1,
+              "IPP": 0,
+              "DENOM": 0,
+              "DENEX": 0,
+              "NUMER": 0,
+              "DENEXCEP": 0
+            }
+          ],
+          "first": "With Fac No Code",
+          "gender": "M",
+          "insurance_providers": [
+            {
+              "member_id": "1234567890",
+              "payer": "Other"
+            }
+          ],
+          "last": "OLD",
+          "notes": "",
+          "race": {
+            "code": "1002-5",
+            "name": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race"
+          },
+          "updated_at": "2018-06-28T18:41:09.020Z"
         }
       ],
       "code": "200",
@@ -649,7 +649,7 @@
         "id": "59b3109e5cc975e11c000000",
         "title": "Statin Therapy for the Prevention and Treatment of Cardiovascular Disease",
         "type": "ep",
-        "updated_at": "2018-06-20T19:46:46.669Z"
+        "updated_at": "2018-06-28T18:41:08.608Z"
       },
       "code": "200",
       "show_in_doc": 1,

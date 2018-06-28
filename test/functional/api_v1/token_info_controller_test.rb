@@ -9,7 +9,7 @@ module DoorkeeperOverride
     # bypasses OAuth2 authentication and authorization provided
     # by Doorkeeper.
     class StubToken
-      attr_accessor :resource_owner_id, :scopes, :expires_in_seconds, :created_at, :is_accessible
+      attr_accessor :resource_owner_id, :scopes, :expires_in_seconds, :created_at, :is_accessible, :original_token_created_at
       def accessible?
         is_accessible
       end
@@ -26,6 +26,7 @@ module DoorkeeperOverride
       @token.expires_in_seconds = 100
       @token.created_at = Time.now
       @token.is_accessible = true
+      @token.original_token_created_at = Time.now - 20.seconds
       @controller.instance_variable_set(:@token, @token)
     end
 
@@ -39,6 +40,55 @@ module DoorkeeperOverride
       assert_equal @token.scopes, body['scopes']
       assert_equal @token.expires_in_seconds, body['expires_in_seconds']
       assert_equal @token.created_at.to_i, body['created_at']
+      assert_equal Doorkeeper.configuration.refresh_token_expires_in.to_i - 21, body['refresh_expires_in_seconds']
+    end
+
+    test "successfully shows token with expired refresh token" do
+      @token.original_token_created_at = Time.now - Doorkeeper.configuration.refresh_token_expires_in - 10.seconds
+      get :show
+      assert_response :ok
+      body = JSON.parse(@response.body)
+      assert_equal @user.email, body['user_email']
+      assert_equal "bonnie", body['user_first_name']
+      assert_equal "bonnie", body['user_last_name']
+      assert_equal @token.scopes, body['scopes']
+      assert_equal @token.expires_in_seconds, body['expires_in_seconds']
+      assert_equal @token.created_at.to_i, body['created_at']
+      assert_equal 0, body['refresh_expires_in_seconds']
+    end
+
+    test "successfully shows token with no original_token_create_at time" do
+      @token.original_token_created_at = nil
+      get :show
+      assert_response :ok
+      body = JSON.parse(@response.body)
+      assert_equal @user.email, body['user_email']
+      assert_equal "bonnie", body['user_first_name']
+      assert_equal "bonnie", body['user_last_name']
+      assert_equal @token.scopes, body['scopes']
+      assert_equal @token.expires_in_seconds, body['expires_in_seconds']
+      assert_equal @token.created_at.to_i, body['created_at']
+      assert_equal Doorkeeper.configuration.refresh_token_expires_in.to_i - 1, body['refresh_expires_in_seconds']
+    end
+
+    test "successfully shows token when refresh_token expiration is not enabled" do
+      # stash the expiration setting and then change it to nil
+      original_refresh_token_expires_in = Doorkeeper.configuration.refresh_token_expires_in
+      Doorkeeper.instance_variable_get(:@config).instance_variable_set(:@refresh_token_expires_in, nil)
+
+      get :show
+      assert_response :ok
+      body = JSON.parse(@response.body)
+      assert_equal @user.email, body['user_email']
+      assert_equal "bonnie", body['user_first_name']
+      assert_equal "bonnie", body['user_last_name']
+      assert_equal @token.scopes, body['scopes']
+      assert_equal @token.expires_in_seconds, body['expires_in_seconds']
+      assert_equal @token.created_at.to_i, body['created_at']
+      assert_equal false, body.has_key?('refresh_expires_in_seconds')
+
+      # reset the expiration setting back to what it was before
+      Doorkeeper.instance_variable_get(:@config).instance_variable_set(:@refresh_token_expires_in, original_refresh_token_expires_in)
     end
 
     test "shows unauthorized when token inaccessible" do
