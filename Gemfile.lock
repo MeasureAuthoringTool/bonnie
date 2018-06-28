@@ -1,5 +1,4 @@
 GIT
-<<<<<<< HEAD
   remote: https://github.com/doorkeeper-gem/doorkeeper-mongodb
   revision: dc94da5a862dc6af0718df4cb511cf2e7b19d5d5
   branch: master
@@ -10,31 +9,6 @@ GIT
 GIT
   remote: https://github.com/hossenlopp/apipie-rails
   revision: a3e9f3eb092dafc551d3563ccf516cf31b2037d4
-=======
-  remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 6747f6ac4216a05f010a81c703a668546f2948df
-  branch: substance_recommended_fix
-  specs:
-    health-data-standards (4.0.5)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.2)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 1.8.0)
-      rubyzip (~> 1.2.1)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: e97079366baaa94697c1eb8c4a9c803568c7db85
->>>>>>> ded62b92... Add cqm_converter to bonnie and tests to support conversion function added to patient helper
   branch: master
   specs:
     apipie-rails (0.3.6)
@@ -91,10 +65,10 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-converter
-  revision: 4aa00ee879a16b097f985257ca2b1b1af9677c98
-  branch: bonnie_1536
+  revision: 18d30d0d05abbf9edd87549aa2d3f06a3a122f5c
+  branch: master
   specs:
-    cqm-converter (0.3.2)
+    cqm-converter (0.3.4)
       activesupport
       coffee-script
       cqm-models (>= 0.7.2)
@@ -206,7 +180,7 @@ GEM
     colorize (0.7.7)
     columnize (0.9.0)
     commonjs (0.2.7)
-    cqm-models (0.7.4)
+    cqm-models (0.7.7)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.3)
