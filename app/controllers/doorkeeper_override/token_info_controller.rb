@@ -1,7 +1,7 @@
 module DoorkeeperOverride
   class TokenInfoController < Doorkeeper::ApplicationMetalController
     def show
-      if doorkeeper_token && doorkeeper_token.accessible?
+      if doorkeeper_token&.accessible?
         user = User.find(doorkeeper_token.resource_owner_id)
         if !user.nil?
           token_info = {
