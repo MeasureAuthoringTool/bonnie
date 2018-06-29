@@ -4,28 +4,16 @@ module DoorkeeperOverride
   class TokenInfoControllerTest < ActionController::TestCase
     include Devise::TestHelpers
 
-    # StubToken simulates an OAuth2 token... we're not actually
-    # verifying that a token was issued. This test completely
-    # bypasses OAuth2 authentication and authorization provided
-    # by Doorkeeper.
-    class StubToken
-      attr_accessor :resource_owner_id, :scopes, :expires_in_seconds, :created_at, :is_accessible, :original_token_created_at
-      def accessible?
-        is_accessible
-      end
-    end
-
     setup do
       dump_database
       users_set = File.join("users", "base_set")
       collection_fixtures(users_set)
       @user = User.by_email('bonnie@example.com').first
-      @token = StubToken.new
+      @token = Doorkeeper::AccessToken.new
       @token.resource_owner_id = @user.id
       @token.scopes = 'foo'
-      @token.expires_in_seconds = 100
+      @token.expires_in = 600
       @token.created_at = Time.now
-      @token.is_accessible = true
       @token.original_token_created_at = Time.now - 20.seconds
       @controller.instance_variable_set(:@token, @token)
     end
@@ -38,7 +26,7 @@ module DoorkeeperOverride
       assert_equal "bonnie", body['user_first_name']
       assert_equal "bonnie", body['user_last_name']
       assert_equal @token.scopes, body['scopes']
-      assert_equal @token.expires_in_seconds, body['expires_in_seconds']
+      assert_equal @token.expires_in, body['expires_in_seconds']
       assert_equal @token.created_at.to_i, body['created_at']
       assert_equal Doorkeeper.configuration.refresh_token_expires_in.to_i - 21, body['refresh_expires_in_seconds']
     end
@@ -52,7 +40,7 @@ module DoorkeeperOverride
       assert_equal "bonnie", body['user_first_name']
       assert_equal "bonnie", body['user_last_name']
       assert_equal @token.scopes, body['scopes']
-      assert_equal @token.expires_in_seconds, body['expires_in_seconds']
+      assert_equal @token.expires_in, body['expires_in_seconds']
       assert_equal @token.created_at.to_i, body['created_at']
       assert_equal 0, body['refresh_expires_in_seconds']
     end
@@ -66,7 +54,7 @@ module DoorkeeperOverride
       assert_equal "bonnie", body['user_first_name']
       assert_equal "bonnie", body['user_last_name']
       assert_equal @token.scopes, body['scopes']
-      assert_equal @token.expires_in_seconds, body['expires_in_seconds']
+      assert_equal @token.expires_in, body['expires_in_seconds']
       assert_equal @token.created_at.to_i, body['created_at']
       assert_equal Doorkeeper.configuration.refresh_token_expires_in.to_i - 1, body['refresh_expires_in_seconds']
     end
@@ -83,7 +71,7 @@ module DoorkeeperOverride
       assert_equal "bonnie", body['user_first_name']
       assert_equal "bonnie", body['user_last_name']
       assert_equal @token.scopes, body['scopes']
-      assert_equal @token.expires_in_seconds, body['expires_in_seconds']
+      assert_equal @token.expires_in, body['expires_in_seconds']
       assert_equal @token.created_at.to_i, body['created_at']
       assert_equal false, body.key?('refresh_expires_in_seconds')
 
@@ -92,7 +80,7 @@ module DoorkeeperOverride
     end
 
     test "shows unauthorized when token inaccessible" do
-      @token.is_accessible = false
+      @token.revoked_at = Time.now - 1.minutes
       get :show
       assert_response :unauthorized
     end

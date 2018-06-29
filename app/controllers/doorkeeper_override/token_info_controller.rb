@@ -12,16 +12,10 @@ module DoorkeeperOverride
             expires_in_seconds: doorkeeper_token.expires_in_seconds,
             created_at: doorkeeper_token.created_at.to_i
           }
-          # add how long until the refresh_token expires if expiration is defined in the config
-          if Doorkeeper.configuration.refresh_token_expires_in
+          # if the refresh token will expire, add the time until it expires
+          if doorkeeper_token.refresh_token_expiration_time
             # if the original_token_created_at time exists determine expiration time from that, otherwise use created_at time.
-            refresh_token_expiration_time =
-              if doorkeeper_token.original_token_created_at
-                doorkeeper_token.original_token_created_at + Doorkeeper.configuration.refresh_token_expires_in
-              else
-                doorkeeper_token.created_at + Doorkeeper.configuration.refresh_token_expires_in
-              end
-            token_info[:refresh_expires_in_seconds] = (refresh_token_expiration_time - Time.now).to_i
+            token_info[:refresh_expires_in_seconds] = (doorkeeper_token.refresh_token_expiration_time - Time.now).to_i
             # if the refresh token has already expired, show zero for the time to expiration
             token_info[:refresh_expires_in_seconds] = 0 if (token_info[:refresh_expires_in_seconds]).negative?
           end
