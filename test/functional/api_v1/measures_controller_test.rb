@@ -139,27 +139,36 @@ module ApiV1
     #   expected_response = { "status" => "error", "messages" => "Missing parameter: calculation_type" }
     #   assert_equal expected_response, JSON.parse(response.body)
     # end
-
-    test "should create api_v1_measure initial" do
-      measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
-      @request.env["CONTENT_TYPE"] = "multipart/form-data"
-      post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}
-      assert_response :success
-      expected_response = { "status" => "success", "url" => "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}
-      assert_equal expected_response, JSON.parse(response.body)
-
-      measure = Measure.where({hqmf_set_id: "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"}).first
-
-      assert_equal 29, measure.value_sets.count
-      assert_equal @user.id, measure.user_id
-      measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
-      assert_equal false, measure.needs_finalize
-      assert_equal true, measure.episode_of_care?
-      assert_equal 'eh', measure.type
-      assert_nil measure.population_criteria['DENOM']['preconditions']
-      assert_operator measure.map_fns[0].length, :>, 100
-      assert_equal ["OccurrenceAInpatientEncounter1"], measure.episode_ids
-    end
+    #
+    # test "should create api_v1_measure initial" do
+    #   measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_Artifacts.zip'),'application/zip')
+    #   @request.env["CONTENT_TYPE"] = "multipart/form-data"
+    #
+    #   measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
+    #   assert_nil measure
+    #
+    #   VCR.use_cassette("api_valid_vsac_response") do
+    #     # get ticket_granting_ticket
+    #     ticket = String.new(HealthDataStandards::Util::VSApi.get_tgt_using_credentials(
+    #         ENV['VSAC_USERNAME'],
+    #         ENV['VSAC_PASSWORD'],
+    #         # APP_CONFIG['nlm']['ticket_url']
+    #         "https://vsac.nlm.nih.gov/vsac/ws/Ticket"
+    #     ))
+    #
+    #     post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: true, vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient'}, {"Content-Type" => 'multipart/form-data'}
+    #     assert_response :success
+    #     expected_response = { "status" => "success", "url" => "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"}
+    #     assert_equal expected_response, JSON.parse(response.body)
+    #   end
+    #
+    #   measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
+    #   assert_equal "40280582-5859-673B-0158-DAEF8B750647", measure['hqmf_id']
+    #   assert_equal @user.id, measure.user_id
+    #   measure.value_sets.each {|vs| assert_equal @user.id, vs.user_id}
+    #   assert_equal false, measure.episode_of_care?
+    #   assert_equal 'ep', measure.type
+    # end
 
     test "should error on duplicate measure" do
       measure_file = fixture_file_upload(File.join('test','fixtures','measure_exports','measure_initial.zip'),'application/zip')
@@ -258,34 +267,6 @@ module ApiV1
       assert_response :bad_request
       expected_response = { "status" => "error", "messages" => "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."}
       assert_equal expected_response, JSON.parse(response.body)
-    end
-
-    test "should create measure from hqmf xml with vsac creds" do
-      VCR.use_cassette("mat_api_435Complex") do
-        measure_file = fixture_file_upload(File.join('testplan','435ComplexV2_v4_SimpleXML.xml'),'application/xml')
-        @request.env["CONTENT_TYPE"] = "multipart/form-data"
-  
-        # get ticket_granting_ticket
-        ticket = String.new(HealthDataStandards::Util::VSApi.get_tgt_using_credentials(
-          ENV['VSAC_USERNAME'],
-          ENV['VSAC_PASSWORD'],
-          APP_CONFIG['nlm']['ticket_url']
-        ))
-        ticket_expires_at = (Time.now + 8.hours).to_i
-  
-        post :create, {measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat'], vsac_tgt: ticket, vsac_tgt_expires_at: ticket_expires_at}
-        assert_response :ok
-        expected_response = { "status" => "success", "url" => "/api_v1/measures/E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"}
-        assert_equal expected_response, JSON.parse(response.body)
-
-        measure = Measure.where({hqmf_set_id: "E29E44C3-ACD8-4E32-A68E-D89DBE3E7406"}).first
-        assert_equal 3, measure.populations.size
-        assert_equal "First Pop", measure.populations[0]['title']
-        assert_equal "Second Pop", measure.populations[1]['title']
-        assert_equal "Only Strat", measure.populations[2]['title']
-
-        assert_equal ["OccurrenceAInpatientEncounter1"], measure.episode_ids
-      end
     end
 
     test "should error on create measure from hqmf xml with expired ticket" do
