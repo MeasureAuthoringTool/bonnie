@@ -339,8 +339,6 @@ module ApiV1
           render json: {status: "error", messages: MeasureHelper.build_vsac_error_message(e)},
                  status: :bad_request
 
-          # also clear the ticket granting ticket in the session if it was a VSACTicketExpiredError
-          session[:vsac_tgt] = nil if e.is_a?(Util::VSAC::VSACTicketExpiredError)
         elsif e.is_a? Measures::MeasureLoadingException
           operator_error = true
           render json: {status: "error", messages: "The measure could not be loaded, there may be an error in the CQL logic."},
@@ -395,7 +393,6 @@ module ApiV1
       Record.where(user_id: current_resource_owner.id, measure_ids: measure.hqmf_set_id).each do |patient|
         patient.update_expected_value_structure!(measure)
       end
-      session[:vsac_tgt] = nil
 
       render json: {status: "success", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
              status: :ok
