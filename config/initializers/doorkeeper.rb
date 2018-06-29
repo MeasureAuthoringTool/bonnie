@@ -60,6 +60,9 @@ Doorkeeper.configure do
   # Issue access tokens with refresh token (disabled by default)
   use_refresh_token
 
+  # How long refresh token use should be allowed after authorization. This configuration option has been added by Bonnie.
+  refresh_token_expires_in 5.days
+
   # Provide support for an owner to be assigned to each registered application (disabled by default)
   # Optional parameter :confirmation => true (default false) if you want to enforce ownership of
   # a registered application
