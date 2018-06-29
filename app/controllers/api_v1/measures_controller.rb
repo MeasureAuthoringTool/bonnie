@@ -55,25 +55,6 @@ module ApiV1
       end
     end
 
-    class DateValidator < Apipie::Validator::BaseValidator
-      def initialize(param_description, argument)
-        super(param_description)
-        @type = argument
-      end
-
-      def validate(value)
-        Date.strptime(value,'%m/%d/%Y') rescue return false
-        return true
-      end
-
-      def self.build(param_description, argument, options, block)
-        self.new(param_description, argument) if argument == Date
-      end
-
-      def description
-        'Must be a date in the form mm/dd/yyyy.'
-      end
-    end
 
     MEASURE_WHITELIST = %w[id cms_id complexity continuous_variable created_at description episode_of_care hqmf_id hqmf_set_id hqmf_version_number title type updated_at].freeze
     PATIENT_WHITELIST = %w[_id birthdate created_at deathdate description ethnicity expected_values expired first gender insurance_providers last notes race updated_at].freeze
@@ -104,17 +85,16 @@ module ApiV1
       param :measure_file, File, :required => true, :desc => "The measure file."
       param :measure_type, %w[eh ep], :required => true, :desc => "The type of the measure."
       param :calculation_type, %w[episode patient], :required => true, :desc => "The type of calculation."
-      param :episode_of_care, Integer, :required => false, :desc => "The index of the episode of care. Defaults to 0. This means that the first specific occurence in the logic will be used for the episode of care calculation."
       param :population_titles, Array, of: String, :required => false, :desc => "The titles of the populations. If this is not included, populations will assume default values. i.e. \"Population 1\", \"Population 2\", etc."
+      param :calc_sde, %w[true false], :required => false, :default_value => false, :desc => "Should Supplemental Data Elements be included in calculations. Defaults to 'false' if not supplied."
 
-      param :calc_sde, Boolean, :required => false, :desc => "Should Supplemental Data Elements be included in calculations. Defaults to 'false' if not supplied."
       param :vsac_tgt, String, :required => true, :desc => "VSAC ticket granting ticket."
       param :vsac_tgt_expires_at, Integer, :required => true, :desc => "VSAC ticket granting ticket expiration time in seconds since epoch."
-      param :vsac_query_include_draft, Boolean, :required => false, :desc => "If VSAC should fetch draft value sets. Defaults to 'true' if not supplied."
-      param :vsac_query_type, %w[release profile], :required => true, :desc => "The type of VSAC query, either 'release', or 'profile'."
-      param :vsac_query_release, String, :required => false, :desc => "The program release used to retrieve value sets."
-      param :vsac_query_profile, String, :required => false, :desc => "The profile release used to retrieve value sets."
-      param :vsac_query_measure_defined, Boolean, :required => false, :desc => "Option to override value sets with value sets defined in the measure."
+      param :vsac_query_type, %w[release profile], :required => false, :desc => "The type of VSAC query, either 'release', or 'profile'. Default to 'profile' if not supplied."
+      param :vsac_query_include_draft, %w[true false], :required => false, :desc => "If VSAC should fetch draft value sets. Defaults to 'true' if not supplied."
+      param :vsac_query_release, String, :required => false, :desc => "The program release used to retrieve value sets. Defaults to 'Latest eCQM'."
+      param :vsac_query_profile, String, :required => false, :desc => "The expansion profile used to retrieve value sets. Defaults to 'Latest eCQM'."
+      param :vsac_query_measure_defined, %w[true false], :required => false, :desc => "Option to override value sets with value sets defined in the measure. Default to 'false' if not supplied."
     end
 
     api :GET, '/api_v1/measures', 'List of Measures'
