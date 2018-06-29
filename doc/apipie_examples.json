@@ -38,6 +38,102 @@
         "1"
       ],
       "query": null,
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"435ComplexV2_v4_Artifacts.zip\"\nContent-Length: 63982\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "response_data": {
+        "status": "error",
+        "messages": "Missing parameter: vsac_tgt"
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"measure_initial.zip\"\nContent-Length: 44567\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "response_data": {
+        "status": "error",
+        "messages": "Missing parameter: vsac_tgt"
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"measure_initial.zip\"\nContent-Length: 44567\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "response_data": {
+        "status": "error",
+        "messages": "Missing parameter: vsac_tgt"
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"measure_no_vs.zip\"\nContent-Length: 41584\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "response_data": {
+        "status": "error",
+        "messages": "Missing parameter: vsac_tgt"
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"measure_initial.zip\"\nContent-Length: 44567\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"episode_of_care\"\nContent-Length: 1\n\n7\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "response_data": {
+        "status": "error",
+        "messages": "Missing parameter: vsac_tgt"
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"measure_initial.zip\"\nContent-Length: 44567\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nep\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 8\n\naddition\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "response_data": {
+        "status": "error",
+        "messages": "Missing parameter: vsac_tgt"
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
       "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"measure_initial.zip\"\nContent-Length: 44567\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nep\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
@@ -54,26 +150,10 @@
         "1"
       ],
       "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"CMS104v2.json\"\nContent-Length: 134543\nContent-Type: application/json\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "Invalid parameter 'measure_file': Must be a valid MAT Export or HQMF File."
-      },
-      "code": "400",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "POST",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
       "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"\nContent-Length: 14\n\nnot-a-file.gif\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
-        "messages": "Invalid parameter 'measure_file': Must be a valid MAT Export or HQMF File."
+        "messages": "Missing parameter: vsac_tgt"
       },
       "code": "400",
       "show_in_doc": 1,
@@ -90,6 +170,54 @@
       "response_data": {
         "status": "error",
         "messages": "Missing parameter: measure_file"
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"measure_initial.zip\"\nContent-Length: 44567\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\nno\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "response_data": {
+        "status": "error",
+        "messages": "Missing parameter: vsac_tgt"
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"measure_initial.zip\"\nContent-Length: 44567\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "response_data": {
+        "status": "error",
+        "messages": "Missing parameter: vsac_tgt"
+      },
+      "code": "400",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api_v1/measures",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"435ComplexV2_v4_Artifacts.zip\"\nContent-Length: 63982\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nFirst Pop\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nSecond Pop\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"population_titles[]\"\n\nOnly Strat\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
+      "response_data": {
+        "status": "error",
+        "messages": "Missing parameter: vsac_tgt"
       },
       "code": "400",
       "show_in_doc": 1,
@@ -199,7 +327,7 @@
           "hqmf_version_number": 1,
           "title": "Statin Therapy for the Prevention and Treatment of Cardiovascular Disease",
           "type": "ep",
-          "updated_at": "2018-06-20T19:46:45.064Z"
+          "updated_at": "2018-06-29T01:25:32.611Z"
         }
       ],
       "code": "200",
@@ -274,7 +402,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-20T19:46:47.241Z"
+          "updated_at": "2018-06-29T01:25:40.080Z"
         },
         {
           "_id": "59b6c5c25cc975edb300012e",
@@ -318,7 +446,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-20T19:46:47.246Z"
+          "updated_at": "2018-06-29T01:25:40.087Z"
         },
         {
           "_id": "59b6c5f95cc975edb3000151",
@@ -362,7 +490,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-20T19:46:47.250Z"
+          "updated_at": "2018-06-29T01:25:40.092Z"
         },
         {
           "_id": "59b6c56b5cc975edb30000f9",
@@ -406,7 +534,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-20T19:46:47.254Z"
+          "updated_at": "2018-06-29T01:25:40.098Z"
         },
         {
           "_id": "59b6c31c5cc975edb300007f",
@@ -450,7 +578,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-20T19:46:47.258Z"
+          "updated_at": "2018-06-29T01:25:40.103Z"
         },
         {
           "_id": "59b6c3cc5cc975edb30000bb",
@@ -494,7 +622,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-20T19:46:47.264Z"
+          "updated_at": "2018-06-29T01:25:40.108Z"
         },
         {
           "_id": "59b6c6195cc975edb3000169",
@@ -538,7 +666,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-06-20T19:46:47.269Z"
+          "updated_at": "2018-06-29T01:25:40.113Z"
         }
       ],
       "code": "200",
@@ -649,7 +777,7 @@
         "id": "59b3109e5cc975e11c000000",
         "title": "Statin Therapy for the Prevention and Treatment of Cardiovascular Disease",
         "type": "ep",
-        "updated_at": "2018-06-20T19:46:46.669Z"
+        "updated_at": "2018-06-29T01:25:39.485Z"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -667,41 +795,9 @@
       "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"measure_update.zip\"\nContent-Length: 44722\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
       "response_data": {
         "status": "error",
-        "messages": "No measure found for this HQMF Set ID."
-      },
-      "code": "404",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "PUT",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"435ComplexV2_v4_Artifacts.zip\"\nContent-Length: 63982\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "error",
-        "messages": "You have attempted to update a measure with a file that represents a different measure.  Please update the correct measure or upload the file as a new measure."
+        "messages": "Missing parameter: vsac_tgt"
       },
       "code": "400",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "PUT",
-      "path": "/api_v1/measures",
-      "versions": [
-        "1"
-      ],
-      "query": null,
-      "request_data": "Content-Type: multipart/form-data; boundary=APIPIE_RECORDER_EXAMPLE_BOUNDARY\n\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"calculation_type\"\nContent-Length: 7\n\nepisode\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_file\"; filename=\"measure_update.zip\"\nContent-Length: 44722\nContent-Type: application/zip\nContent-Transfer-Encoding: binary\n\n... contents of \"measure_file\" ...\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY\nContent-Disposition: form-data; name=\"measure_type\"\nContent-Length: 2\n\neh\n--APIPIE_RECORDER_EXAMPLE_BOUNDARY--",
-      "response_data": {
-        "status": "success",
-        "url": "/api_v1/measures/42BF391F-38A3-4C0F-9ECE-DCD47E9609D9"
-      },
-      "code": "200",
       "show_in_doc": 1,
       "recorded": true
     }
