@@ -92,8 +92,8 @@ module ApiV1
       param :vsac_tgt_expires_at, Integer, :required => true, :desc => "VSAC ticket granting ticket expiration time in seconds since epoch."
       param :vsac_query_type, %w[release profile], :required => false, :desc => "The type of VSAC query, either 'release', or 'profile'. Default to 'profile' if not supplied."
       param :vsac_query_include_draft, %w[true false], :required => false, :desc => "If VSAC should fetch draft value sets. Defaults to 'true' if not supplied."
-      param :vsac_query_release, String, :required => false, :desc => "The program release used to retrieve value sets. Defaults to 'Latest eCQM'."
-      param :vsac_query_profile, String, :required => false, :desc => "The expansion profile used to retrieve value sets. Defaults to 'Latest eCQM'."
+      param :vsac_query_release, String, :required => false, :desc => "The program release used to retrieve value sets. Defaults to latest release for the eCQM program."
+      param :vsac_query_profile, String, :required => false, :desc => "The expansion profile used to retrieve value sets. Defaults to latest profile for the eCQM program."
       param :vsac_query_measure_defined, %w[true false], :required => false, :desc => "Option to override value sets with value sets defined in the measure. Default to 'false' if not supplied."
     end
 
