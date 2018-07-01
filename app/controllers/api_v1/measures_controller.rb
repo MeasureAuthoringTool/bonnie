@@ -245,8 +245,10 @@ module ApiV1
       }
       # If we get to this point, then the measure that is being uploaded is a MAT export of CQL
       begin
+        # check the passed in VSAC params and set the default values
+        vsac_params = retrieve_vasc_params(params)
         # parse VSAC options using helper and get ticket_granting_ticket which is always needed
-        vsac_options = MeasureHelper.parse_vsac_parameters(params)
+        vsac_options = MeasureHelper.parse_vsac_parameters(vsac_params)
 
         # Build ticket_granting_ticket object that VSAC util library expects
         vsac_tgt_object = {ticket: params[:vsac_tgt], expires: Time.at(params[:vsac_tgt_expires_at].to_i)}
@@ -264,7 +266,7 @@ module ApiV1
 
         measure = Measures::CqlLoader.load(params[:measure_file], current_resource_owner, measure_details, vsac_options, vsac_tgt_object)
 
-        if (!is_update)
+        if !is_update
           existing = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: measure.hqmf_set_id).first
           if !existing.nil?
             measure.delete
@@ -390,6 +392,22 @@ module ApiV1
 
     def current_resource_owner
       User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+    end
+
+    def retrieve_vasc_params(params)
+      vsac_params = {}
+      api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'])
+      vsac_params[:vsac_query_type] = params.fetch(:vsac_query_type, 'profile')
+      # If query type is 'release' set the query_release to a value that is passed in, or set it using default
+      # If query type is 'profile' (the default) set the query profile and include_draft options
+      if vsac_params[:vsac_query_type] == 'release'
+        vsac_params[:vsac_query_release] = params.fetch(:vsac_query_release, api.get_program_release_names(APP_CONFIG['vsac']['default_program']).first)
+      else
+        vsac_params[:vsac_query_profile] = params.fetch(:vsac_query_profile, api.get_latest_profile_for_program(APP_CONFIG['vsac']['default_program']))
+        vsac_params[:vsac_query_include_draft] = params.fetch(:vsac_query_include_draft, 'true')
+      end
+      vsac_params[:vsac_query_measure_defined] = params.fetch(:vsac_query_measure_defined, 'false')
+      vsac_params
     end
 
   end
