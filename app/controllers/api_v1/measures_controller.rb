@@ -16,7 +16,7 @@ module ApiV1
       end
 
       def self.build(param_description, argument, options, block)
-        if argument == Integer || argument == Fixnum
+        if [Integer, Fixnum].include? argument
           self.new(param_description, argument)
         end
       end
@@ -33,9 +33,7 @@ module ApiV1
       end
 
       def validate(value)
-        if !(value.is_a?(Rack::Test::UploadedFile) || value.is_a?(ActionDispatch::Http::UploadedFile))
-          return false
-        end
+        return false unless value.is_a?(Rack::Test::UploadedFile) || value.is_a?(ActionDispatch::Http::UploadedFile)
 
         # Understand which sort of measure_file we are retrieving
         extension = File.extname(value.original_filename).downcase if value
@@ -86,7 +84,7 @@ module ApiV1
       param :measure_type, %w[eh ep], :required => true, :desc => "The type of the measure."
       param :calculation_type, %w[episode patient], :required => true, :desc => "The type of calculation."
       param :population_titles, Array, of: String, :required => false, :desc => "The titles of the populations. If this is not included, populations will assume default values. i.e. \"Population 1\", \"Population 2\", etc."
-      param :calc_sde, %w[true false], :required => false, :default_value => false, :desc => "Should Supplemental Data Elements be included in calculations. Defaults to 'false' if not supplied."
+      param :calculate_sdes, %w[true false], :required => false, :desc => "Should Supplemental Data Elements be included in calculations. Defaults to 'false' if not supplied."
 
       param :vsac_tgt, String, :required => true, :desc => "VSAC ticket granting ticket."
       param :vsac_tgt_expires_at, Integer, :required => true, :desc => "VSAC ticket granting ticket expiration time in seconds since epoch."
@@ -204,7 +202,7 @@ module ApiV1
     param_group :measure_upload
     def update
       existing = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]})
-      if existing.count == 0
+      if existing.count.zero?
         render json: {status: "error", messages: "No measure found for this HQMF Set ID."},
                status: :not_found
         return
@@ -212,9 +210,7 @@ module ApiV1
       load_measure(params, true)
     end
 
-
     private
-
     def process_patient_records(selector)
       patients = selector.map(&:as_json)
       patients.each do |p|
@@ -238,10 +234,12 @@ module ApiV1
     end
 
     def load_measure(params, is_update)
+      # convert calculate_sde param from string to boolean
+      calculate_sdes = params[:calculate_sdes].nil? ? false : params[:calculate_sdes].to_s == 'true'
       measure_details = {
         'type'=>params[:measure_type],
         'episode_of_care'=>params[:calculation_type] == 'episode',
-        'calculate_sdes'=>params[:calc_sde]
+        'calculate_sdes'=>calculate_sdes
       }
       # If we get to this point, then the measure that is being uploaded is a MAT export of CQL
       begin
@@ -253,13 +251,10 @@ module ApiV1
         # Build ticket_granting_ticket object that VSAC util library expects
         vsac_tgt_object = {ticket: params[:vsac_tgt], expires: Time.at(params[:vsac_tgt_expires_at].to_i)}
 
-        if (is_update && !params[:id].empty?)
+        if is_update && !params[:id].empty?
           existing = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: params[:id]).first
           measure_details['type'] = existing.type
           measure_details['episode_of_care'] = existing.episode_of_care
-          if measure_details['episode_of_care']
-            episodes = params["eoc_#{existing.hqmf_set_id}"]
-          end
           measure_details['calculate_sdes'] = existing.calculate_sdes
           measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
         end
@@ -268,31 +263,29 @@ module ApiV1
 
         if !is_update
           existing = CqlMeasure.by_user(current_resource_owner).where(hqmf_set_id: measure.hqmf_set_id).first
-          if !existing.nil?
+          unless existing.nil?
             measure.delete
             render json: {status: "error", messages: "A measure with this HQMF Set ID already exists.", url: "/api_v1/measures/#{measure.hqmf_set_id}"},
                    status: :conflict
             return
           end
-        else
-          if existing.hqmf_set_id != measure.hqmf_set_id
-            measure.delete
-            render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with"},
-                   status: :conflict
-            return
-          end
+        elsif existing.hqmf_set_id != measure.hqmf_set_id
+          measure.delete
+          render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
+                 status: :conflict
+          return
         end
 
         # exclude patient birthdate and expired OIDs used by SimpleXML parser for AGE_AT handling and bad oid protection in missing VS check
         missing_value_sets = (measure.as_hqmf_model.all_code_set_oids - measure.value_set_oids - ['2.16.840.1.113883.3.117.1.7.1.70', '2.16.840.1.113883.3.117.1.7.1.309'])
-        if missing_value_sets.length > 0
+        if missing_value_sets.length.positive?
           measure.delete
           render json: {status: "error", messages: "The measure is missing value sets. The following value sets are missing: [#{missing_value_sets.join(', ')}]"},
                  status: :bad_request
           return
         end
-        existing.delete if (existing && is_update)
-      rescue Exception => e
+        existing.delete if existing && is_update
+      rescue StandardError
         measure.delete if measure
         errors_dir = Rails.root.join('log', 'load_errors')
         FileUtils.mkdir_p(errors_dir)
@@ -318,7 +311,7 @@ module ApiV1
           vsac_message = MeasureHelper.build_vsac_error_message(e)
           error_message = vsac_message[:title] + '. ' + vsac_message[:summary] + ' ' + vsac_message[:body]
           operator_error = true
-          render json: {status: "error", messages: MeasureHelper.build_vsac_error_message(e)},
+          render json: {status: "error", messages: error_message},
                  status: :bad_request
 
         elsif e.is_a? Measures::MeasureLoadingException
@@ -342,27 +335,24 @@ module ApiV1
       current_resource_owner.measures << measure
       current_resource_owner.save!
 
-      if (is_update)
+      if is_update
         measure.populations.each_with_index do |population, population_index|
-          population['title'] = measure_details['population_titles'][population_index] if (measure_details['population_titles'])
+          population['title'] = measure_details['population_titles'][population_index] if measure_details['population_titles']
         end
-        # check if episode ids have changed
-        if (measure.episode_of_care?)
-          keys = measure.data_criteria.values.map {|d| d['source_data_criteria'] if d['specific_occurrence']}.compact.uniq
-        end
-      else
-        measure.needs_finalize = measure.populations.size > 1
-        if measure.populations.size > 1
-          strat_index = 1
-          measure.populations.each do |population|
-            if (population[HQMF::PopulationCriteria::STRAT])
-              population['title'] = "Stratification #{strat_index}"
-              strat_index += 1
-            end
+      # Handle population naming. Make default names if none or not enough were provided.
+      elsif measure.populations.size > 1
+        population_titles = params.fetch(:population_titles, [])
+        strat_index = 0
+        measure.populations.each_with_index do |population, index|
+          if population[HQMF::PopulationCriteria::STRAT]
+            population['title'] = population_titles.fetch(index, "Stratification #{strat_index + 1}")
+            strat_index += 1
+          elsif index < population_titles.size
+            population['title'] = population_titles.fetch(index)
           end
         end
-
       end
+
       measure.save!
 
       # rebuild the user's patients for the given measure
