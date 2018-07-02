@@ -531,50 +531,6 @@
           "updated_at": "2018-07-02T18:54:54.837Z"
         },
         {
-          "_id": "59b6c5f95cc975edb3000151",
-          "birthdate": "2004-06-16T04:00:00-04:00",
-          "created_at": "2017-09-11T17:20:57.858Z",
-          "ethnicity": {
-            "code": "2186-5",
-            "name": "Not Hispanic or Latino",
-            "codeSystem": "CDC Race"
-          },
-          "expected_values": [
-            {
-              "population_index": 0,
-              "IPP": 0,
-              "DENOM": 0,
-              "DENEX": 0,
-              "NUMER": 0,
-              "DENEXCEP": 0
-            },
-            {
-              "population_index": 1,
-              "IPP": 0,
-              "DENOM": 0,
-              "DENEX": 0,
-              "NUMER": 0,
-              "DENEXCEP": 0
-            }
-          ],
-          "first": "No Fac",
-          "gender": "M",
-          "insurance_providers": [
-            {
-              "member_id": "1234567890",
-              "payer": "Other"
-            }
-          ],
-          "last": "OLD",
-          "notes": "",
-          "race": {
-            "code": "1002-5",
-            "name": "American Indian or Alaska Native",
-            "codeSystem": "CDC Race"
-          },
-          "updated_at": "2018-07-02T18:54:54.843Z"
-        },
-        {
           "_id": "59b6c56b5cc975edb30000f9",
           "birthdate": "2007-01-31T03:00:00-05:00",
           "created_at": "2017-09-11T17:18:35.357Z",
@@ -616,51 +572,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-07-02T18:54:54.850Z"
-        },
-        {
-          "_id": "59b6c31c5cc975edb300007f",
-          "birthdate": "1980-06-12T04:00:00-04:00",
-          "created_at": "2017-09-11T17:08:44.051Z",
-          "ethnicity": {
-            "code": "2186-5",
-            "name": "Not Hispanic or Latino",
-            "codeSystem": "CDC Race"
-          },
-          "expected_values": [
-            {
-              "population_index": 0,
-              "IPP": 0,
-              "DENOM": 0,
-              "DENEX": 0,
-              "NUMER": 0,
-              "DENEXCEP": 0
-            },
-            {
-              "population_index": 1,
-              "IPP": 0,
-              "DENOM": 0,
-              "DENEX": 0,
-              "NUMER": 0,
-              "DENEXCEP": 0
-            }
-          ],
-          "first": "With Fac No Code",
-          "gender": "M",
-          "insurance_providers": [
-            {
-              "member_id": "1234567890",
-              "payer": "Other"
-            }
-          ],
-          "last": "OLD",
-          "notes": "",
-          "race": {
-            "code": "1002-5",
-            "name": "American Indian or Alaska Native",
-            "codeSystem": "CDC Race"
-          },
-          "updated_at": "2018-07-02T18:54:54.856Z"
+          "updated_at": "2018-07-02T18:54:54.843Z"
         },
         {
           "_id": "59b6c3cc5cc975edb30000bb",
@@ -704,7 +616,7 @@
             "name": "American Indian or Alaska Native",
             "codeSystem": "CDC Race"
           },
-          "updated_at": "2018-07-02T18:54:54.862Z"
+          "updated_at": "2018-07-02T18:54:54.850Z"
         },
         {
           "_id": "59b6c6195cc975edb3000169",
@@ -734,6 +646,94 @@
             }
           ],
           "first": "No Diagnosis or Fac",
+          "gender": "M",
+          "insurance_providers": [
+            {
+              "member_id": "1234567890",
+              "payer": "Other"
+            }
+          ],
+          "last": "OLD",
+          "notes": "",
+          "race": {
+            "code": "1002-5",
+            "name": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race"
+          },
+          "updated_at": "2018-07-02T18:54:54.856Z"
+        },
+        {
+          "_id": "59b6c5f95cc975edb3000151",
+          "birthdate": "2004-06-16T04:00:00-04:00",
+          "created_at": "2017-09-11T17:20:57.858Z",
+          "ethnicity": {
+            "code": "2186-5",
+            "name": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race"
+          },
+          "expected_values": [
+            {
+              "population_index": 0,
+              "IPP": 0,
+              "DENOM": 0,
+              "DENEX": 0,
+              "NUMER": 0,
+              "DENEXCEP": 0
+            },
+            {
+              "population_index": 1,
+              "IPP": 0,
+              "DENOM": 0,
+              "DENEX": 0,
+              "NUMER": 0,
+              "DENEXCEP": 0
+            }
+          ],
+          "first": "No Fac",
+          "gender": "M",
+          "insurance_providers": [
+            {
+              "member_id": "1234567890",
+              "payer": "Other"
+            }
+          ],
+          "last": "OLD",
+          "notes": "",
+          "race": {
+            "code": "1002-5",
+            "name": "American Indian or Alaska Native",
+            "codeSystem": "CDC Race"
+          },
+          "updated_at": "2018-07-02T18:54:54.862Z"
+        },
+        {
+          "_id": "59b6c31c5cc975edb300007f",
+          "birthdate": "1980-06-12T04:00:00-04:00",
+          "created_at": "2017-09-11T17:08:44.051Z",
+          "ethnicity": {
+            "code": "2186-5",
+            "name": "Not Hispanic or Latino",
+            "codeSystem": "CDC Race"
+          },
+          "expected_values": [
+            {
+              "population_index": 0,
+              "IPP": 0,
+              "DENOM": 0,
+              "DENEX": 0,
+              "NUMER": 0,
+              "DENEXCEP": 0
+            },
+            {
+              "population_index": 1,
+              "IPP": 0,
+              "DENOM": 0,
+              "DENEX": 0,
+              "NUMER": 0,
+              "DENEXCEP": 0
+            }
+          ],
+          "first": "With Fac No Code",
           "gender": "M",
           "insurance_providers": [
             {
