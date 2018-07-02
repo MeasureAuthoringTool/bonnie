@@ -46,6 +46,9 @@ class PatientHelperTest < ActionView::TestCase
 
     # expect all 7 to convert without issue
     assert_equal 7, qdm_records.count
+
+    # expect there to be no failed records
+    assert_empty failed_records
   end
 
   test 'Calculations Are Unaffected By HDS to QDM Conversion' do
