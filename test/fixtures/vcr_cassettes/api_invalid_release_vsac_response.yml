@@ -1,0 +1,236 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
+    body:
+      encoding: UTF-8
+      string: username=<VSAC_USERNAME>&password=<VSAC_PASSWORD>
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '45'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '65'
+      Date:
+      - Mon, 02 Jul 2018 20:57:38 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!w9olhoPxBQzURYXNtNHn4GsLooFbU0Wxu6yv2u3o+1+m9wupWnhAJQLHC35Gc02oVksA8Jzb/5u7cWY=;
+        expires=Mon, 02-Jul-2018 22:57:38 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: TGT-412996-kbp2uOBLggOwVscjObX5bLdAxt46rYjIHDdvuRhasIzyDbcQpG-cas
+    http_version: 
+  recorded_at: Mon, 02 Jul 2018 20:57:38 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/program/CMS%20eCQM
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1109'
+      Date:
+      - Mon, 02 Jul 2018 20:57:38 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!yezaiDAh8/O5tTrm9OGvBt4MxRMcjg5N0mIDejtQgY74R9jJRNjCJu16v8eykti0mFfUxRMZ07h16uQ=;
+        expires=Mon, 02-Jul-2018 22:57:38 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: '{"name":"CMS eCQM","description":"eCQMs use data from electronic health
+        records (EHR) and/or health information technology systems to measure health
+        care quality. eCQM value sets specify terminology codes required for eCQM
+        measurement and are updated by CMS one or more times each year.","release":[{"name":"eCQM
+        Update 2018-05-04","releaseDate":20180504},{"name":"eCQM Update 2018 EP-EC
+        and EH","releaseDate":20170929},{"name":"eCQM Update 4Q2017 EH","releaseDate":20170915},{"name":"eCQM
+        Update 2017-05-05","releaseDate":20170505},{"name":"MU2 Update 2017-01-06","releaseDate":20170106},{"name":"MU2
+        Update 2016-04-01","releaseDate":20160401},{"name":"MU2 Update 2015-05-01","releaseDate":20150501},{"name":"MU2
+        EP Update 2014-07-01","releaseDate":20140701},{"name":"MU2 EP Update 2014-05-30","releaseDate":20140530},{"name":"MU2
+        EH Update 2014-04-01","releaseDate":20140401},{"name":"MU2 EP Update 2013-06-14","releaseDate":20130614},{"name":"MU2
+        EH Update 2013-04-01","releaseDate":20130401},{"name":"MU2 Update 2012-12-21","releaseDate":20121221},{"name":"MU2
+        Update 2012-10-25","releaseDate":20121025}]}'
+    http_version: 
+  recorded_at: Mon, 02 Jul 2018 20:57:38 GMT
+- request:
+    method: post
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-412996-kbp2uOBLggOwVscjObX5bLdAxt46rYjIHDdvuRhasIzyDbcQpG-cas
+    body:
+      encoding: UTF-8
+      string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - text/plain;charset=utf-8
+      Content-Length:
+      - '35'
+      Date:
+      - Mon, 02 Jul 2018 20:57:38 GMT
+      Set-Cookie:
+      - BIGipServervsacweb_p=!ryuQX4ga6lWp3x/m9OGvBt4MxRMcjlIJ067jxDuJt32ZqskStpPBM6nKDaInlwZSlI4AwUOcXLf0sRc=;
+        expires=Mon, 02-Jul-2018 22:57:38 GMT; path=/; Httponly; Secure
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: ST-2493849-2ksuven7dapCFt6VpBEM-cas
+    http_version: 
+  recorded_at: Mon, 02 Jul 2018 20:57:38 GMT
+- request:
+    method: get
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.526.3.1496&release=Fake%201234&ticket=ST-2493849-2ksuven7dapCFt6VpBEM-cas
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - BIGipServervsacweb_p=!wTM1ebrD792VPUfNtNHn4GsLooFbUz1s0QWsEDT9g+Ym8TB48kA5xkSDeILPpsAHz1OQDRx5Be3U/ZA=;
+        expires=Mon, 02-Jul-2018 22:57:39 GMT; path=/; Httponly; Secure
+      - JSESSIONID=2949553FD6DA0DA7AA3EC61B8265B703;path=/vsac;HttpOnly;Secure
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '919'
+      Date:
+      - Mon, 02 Jul 2018 20:57:39 GMT
+      X-Vip-Info:
+      - 130.14.16.40:443
+      X-Pool-Info:
+      - "/Common/vsacweb_p 10.1.5.111 8080"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ns0:DescribedValueSet ID="2.16.840.1.113883.3.526.3.1496" displayName="Psych Visit - Psychotherapy" version="N/A">
+                <ns0:ConceptList/>
+                <ns0:Source>PCPI Foundation</ns0:Source>
+                <ns0:Purpose>(Clinical Focus: Under Development),(Data Element Scope: Under Development),(Inclusion Criteria: Under Development),(Exclusion Criteria: Under Development)</ns0:Purpose>
+                <ns0:Definition>(2.16.840.1.113883.3.526.2.1927:Psych Visit - Psychotherapy)</ns0:Definition>
+                <ns0:Type>Grouping</ns0:Type>
+                <ns0:Binding>Dynamic</ns0:Binding>
+                <ns0:Status>Active</ns0:Status>
+                <ns0:RevisionDate>2018-07-02</ns0:RevisionDate>
+            </ns0:DescribedValueSet>
+        </ns0:RetrieveMultipleValueSetsResponse>
+    http_version: 
+  recorded_at: Mon, 02 Jul 2018 20:57:39 GMT
+recorded_with: VCR 3.0.3
