@@ -12,13 +12,11 @@ module ApiV1
 
       def validate(value)
         return false if value.nil?
-        !!(value.to_s =~ /^[-+]?[0-9]+$/)
+        !(value.to_s =~ /^[-+]?[0-9]+$/).nil?
       end
 
       def self.build(param_description, argument, options, block)
-        if [Integer, Fixnum].include? argument
-          self.new(param_description, argument)
-        end
+        new(param_description, argument) if [Integer, Fixnum].include? argument
       end
 
       def description
@@ -34,25 +32,20 @@ module ApiV1
 
       def validate(value)
         return false unless value.is_a?(Rack::Test::UploadedFile) || value.is_a?(ActionDispatch::Http::UploadedFile)
-
         # Understand which sort of measure_file we are retrieving
         extension = File.extname(value.original_filename).downcase if value
-        if extension == '.zip'
-          return Measures::CqlLoader.mat_cql_export?(value)
-        else
-          return false
-        end
+        return Measures::CqlLoader.mat_cql_export?(value) if extension == '.zip'
+        false
       end
 
       def self.build(param_description, argument, options, block)
-        self.new(param_description, argument) if argument == File
+        new(param_description, argument) if argument == File
       end
 
       def description
         'Must be a valid MAT Export.'
       end
     end
-
 
     MEASURE_WHITELIST = %w[id cms_id complexity continuous_variable created_at description episode_of_care hqmf_id hqmf_set_id hqmf_version_number title type updated_at].freeze
     PATIENT_WHITELIST = %w[_id birthdate created_at deathdate description ethnicity expected_values expired first gender insurance_providers last notes race updated_at].freeze
@@ -182,8 +175,8 @@ module ApiV1
       end
     end
 
-    api :POST, '/api_v1/measures', 'Create a New Measure'
-    description 'Creating a new measure.'
+    api :POST, '/api_v1/measures', 'Upload a New Measure'
+    description 'Uploading a new measure.'
     formats ["multipart/form-data"]
     error :code => 400, :desc => "Client sent bad parameters. Response contains explanation."
     error :code => 409, :desc => "Measure with this HQMF Set ID already exists."
@@ -211,6 +204,7 @@ module ApiV1
     end
 
     private
+
     def process_patient_records(selector)
       patients = selector.map(&:as_json)
       patients.each do |p|
@@ -256,7 +250,7 @@ module ApiV1
           measure_details['type'] = existing.type
           measure_details['episode_of_care'] = existing.episode_of_care
           measure_details['calculate_sdes'] = existing.calculate_sdes
-          measure_details['population_titles'] = existing.populations.map {|p| p['title']} if existing.populations.length > 1
+          measure_details['population_titles'] = existing.populations.map { |p| p['title'] } if existing.populations.length > 1
         end
 
         measure = Measures::CqlLoader.load(params[:measure_file], current_resource_owner, measure_details, vsac_options, vsac_tgt_object)
@@ -272,7 +266,7 @@ module ApiV1
         elsif existing.hqmf_set_id != measure.hqmf_set_id
           measure.delete
           render json: {status: "error", messages: "The update file does not have a matching HQMF Set ID to the measure trying to update with. Please update the correct measure or upload the file as a new measure."},
-                 status: :conflict
+                 status: :not_found
           return
         end
 
@@ -285,7 +279,7 @@ module ApiV1
           return
         end
         existing.delete if existing && is_update
-      rescue StandardError
+      rescue StandardError => e
         measure.delete if measure
         errors_dir = Rails.root.join('log', 'load_errors')
         FileUtils.mkdir_p(errors_dir)
@@ -297,9 +291,9 @@ module ApiV1
 
         operator_error = false # certain types of errors are operator errors and do not need to be emailed out.
         File.open(File.join(errors_dir, filename), 'w') do |errored_measure_file|
-          uploaded_file = params[:measure_file].tempfile.open()
-          errored_measure_file.write(uploaded_file.read());
-          uploaded_file.close()
+          uploaded_file = params[:measure_file].tempfile.open
+          errored_measure_file.write(uploaded_file.read)
+          uploaded_file.close
         end
 
         File.chmod(0644, File.join(errors_dir, filename))

@@ -19,6 +19,7 @@ Apipie.configure do |config|
     ---
     The following sample code is written in Ruby, but any modern language
     with an OAuth2 library will work similarly.
+      <pre>
         require 'oauth2'
         client_id = \"CLIENT_ID_GOES_HERE\"
         secret = \"CLIENT_SECRET_GOES_HERE\"
@@ -35,7 +36,7 @@ Apipie.configure do |config|
         response = token.get(\"http://bonnie.org/api_v1/measures\")
         puts response.status
         puts response.body
-    
+      </pre>
   "
   config.markup                  = Apipie::Markup::Markdown.new
   config.api_base_url            = "/api"
