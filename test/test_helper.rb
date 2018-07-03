@@ -30,17 +30,23 @@ class ActiveSupport::TestCase
   end
 
   def add_collection(collection)
+    # Mongoid names collections based off of the default_client argument.
+    # With nested folders,the collection name is “records/X” (for example).
+    # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
+    collection_name = collection.split(File::SEPARATOR)[0]
+
     Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
       fixture_json = JSON.parse(File.read(json_fixture_file))
-      if fixture_json.length > 0
-        convert_times(fixture_json)
-        set_mongoid_ids(fixture_json)
-        fix_binary_data(fixture_json)
-        # Mongoid names collections based off of the default_client argument.
-        # With nested folders,the collection name is “records/X” (for example).
-        # To ensure we have consistent collection names in Mongoid, we need to take the file directory as the collection name.
-        collection = collection.split(File::SEPARATOR)[0]
-        Mongoid.default_client[collection].insert_one(fixture_json)
+      if fixture_json.length == 0
+        next
+      end
+      # Value_sets are arrays of objects, unlike measures etc, so we neet to iterate in that case.
+      fixture_json = [fixture_json] unless fixture_json.kind_of? Array
+      fixture_json.each do |fj|
+        convert_times(fj)
+        set_mongoid_ids(fj)
+        fix_binary_data(fj)
+        Mongoid.default_client[collection_name].insert_one(fj)
       end
     end
   end
