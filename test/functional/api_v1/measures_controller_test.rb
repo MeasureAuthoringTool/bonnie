@@ -274,6 +274,7 @@ module ApiV1
 
     test "should error on upload due to incorrect VSAC release parameter input" do
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_missing_vs_oid_Artifacts.zip'),'application/zip')
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_invalid_release_vsac_response") do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
         ticket = api.ticket_granting_ticket[:ticket]
@@ -286,6 +287,7 @@ module ApiV1
 
     test "should error on upload due to invalid VSAC ticket" do
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_missing_vs_oid_Artifacts.zip'),'application/zip')
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_invalid_ticket_vsac_response") do
         ticket = "foo"
         post :create, {vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode'}, {"Content-Type" => 'multipart/form-data'}
@@ -297,6 +299,7 @@ module ApiV1
 
     test "should error on measure with missing value sets" do
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_missing_vs_oid_Artifacts.zip'),'application/zip')
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_missing_vs_vsac_response") do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
         ticket = api.ticket_granting_ticket[:ticket]
@@ -309,6 +312,7 @@ module ApiV1
 
     test "should return 404 on updating non existent measure" do
       measure_update_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_Artifacts.zip'),'application/zip')
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_valid_vsac_response") do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
         ticket = api.ticket_granting_ticket[:ticket]
@@ -321,6 +325,7 @@ module ApiV1
 
     test "should return error on updating measure with incorrect hqmf_set_id" do
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_Artifacts.zip'),'application/zip')
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_incorrect_hqmf_vsac_response") do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
         ticket = api.ticket_granting_ticket[:ticket]
@@ -340,6 +345,7 @@ module ApiV1
 
     test "should error on uploading measure with bad HQMF file" do
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_bad_hqmf_Artifacts.zip'),'application/zip')
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_incorrect_hqmf_vsac_response") do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
         ticket = api.ticket_granting_ticket[:ticket]
@@ -352,6 +358,7 @@ module ApiV1
 
     test "should calculate supplemental data elements" do
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports', 'CCDELookback_v5_4_Artifacts.zip'),'application/zip')
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_ccdelookback_vsac_response") do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
         ticket = api.ticket_granting_ticket[:ticket]
@@ -364,6 +371,7 @@ module ApiV1
 
     test "should not calculate supplemental data elements" do
       measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports', 'CCDELookback_v5_4_Artifacts.zip'),'application/zip')
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
       VCR.use_cassette("api_release_ccdelookback_vsac_response") do
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
         ticket = api.ticket_granting_ticket[:ticket]
