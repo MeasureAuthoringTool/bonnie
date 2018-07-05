@@ -15,9 +15,10 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
   # right now the service just echoes, so this test makes sure the parsing is working etc
   test "echo test" do
     VCR.use_cassette('backend_calculator_echo_test') do
-      measure = CqlMeasure.first
-      patients = Record.where('measure_ids'=>{'$in'=>[measure.hqmf_set_id]})
-      value_sets = measure.value_sets
+      # note that since we use vcr, we need to make sure we order by something so that the returned order is consistent across runs
+      measure = CqlMeasure.order_by(:id => 'asc').first
+      patients = Record.where('measure_ids'=>{'$in'=>[measure.hqmf_set_id]}).order_by(:test_id => 'asc')
+      value_sets = measure.value_sets.order_by(:oid => 'asc')
       options = {
         prettyPrint: true
       }
