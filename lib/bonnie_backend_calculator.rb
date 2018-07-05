@@ -1,9 +1,13 @@
 
-# Do the measure calculation using the restful calculation microservice
+# Do the measure calculation using the restful calculation microservice, 
+# will convert patients to QDM model prior to calculation.
 module BonnieBackendCalculator
   def self.calculate(measure, patients, value_sets, options)
+    # convert patients to QDM, TODO: convert only as necessary
+    qdm_patients, failed_patients = PatientHelper.convert_patient_models(patients)
+
     post_data = {
-      patients: patients,
+      patients: qdm_patients,
       measure: measure,
       valueSets: value_sets,
       options: options
@@ -13,6 +17,10 @@ module BonnieBackendCalculator
                                  post_data.to_json,
                                  content_type: 'application/json')
       results = JSON.parse(response)
+
+      # add back the failed patients, TODO: discuss this strategy
+      results["patients"].push(*failed_patients)
+      
       return results
     rescue RestClient::Exception => e
       raise self::RestException.new(e.http_code)

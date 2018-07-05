@@ -24,9 +24,13 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
       r = BonnieBackendCalculator.calculate(measure, patients, value_sets, options)
 
       assert_equal measure.to_json, r['measure'].to_json
-      assert_equal patients.to_json, r['patients'].to_json
       assert_equal value_sets.to_json, r['valueSets'].to_json
       assert_equal options.to_json, r['options'].to_json
+
+      # patients are converted so we dont expect them to be echoed identically, just check a few fields
+      assert_equal patients.first['first'], r['patients'].first['givenNames'][0]
+      assert_equal patients.first['last'], r['patients'].first['familyName']
+
     end
   end
 end
