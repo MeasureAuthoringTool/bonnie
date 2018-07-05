@@ -40,7 +40,7 @@ class ActiveSupport::TestCase
       if fixture_json.length == 0
         next
       end
-      # Value_sets are arrays of objects, unlike measures etc, so we neet to iterate in that case.
+      # Value_sets are arrays of objects, unlike measures etc, so we need to iterate in that case.
       fixture_json = [fixture_json] unless fixture_json.kind_of? Array
       fixture_json.each do |fj|
         convert_times(fj)

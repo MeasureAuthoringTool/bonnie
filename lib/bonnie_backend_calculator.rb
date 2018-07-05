@@ -3,7 +3,7 @@
 # will convert patients to QDM model prior to calculation.
 module BonnieBackendCalculator
   def self.calculate(measure, patients, value_sets, options)
-    # convert patients to QDM, TODO: convert only as necessary
+    # convert patients to QDM, note that once we switch to the QDM model this will become unnecessary (or maybe optional)
     qdm_patients, failed_patients = PatientHelper.convert_patient_models(patients)
 
     post_data = {
@@ -32,7 +32,7 @@ module BonnieBackendCalculator
   # Generic Backend Calculator related exception.
   class BackendCalculatorError < StandardError
   end
-  # Error represnting a problem with the rest call
+  # Error representing a problem with the rest call
   class RestException < BackendCalculatorError
     def initialize(http_code)
       super("Problem with the rest call to the calculation microservice; http code #{http_code}.")
