@@ -26,8 +26,28 @@ module ExcelExportHelper
     return results_for_excel_export
   end
 
-  def get_patient_details_from_measure(measure)
+  def get_patient_details_from_measure(measure, patients)
     patient_details = {}
+    measure.populations.each do | population |
+      patients.each do | patient |
+        if !patient_details[patient.id]
+          patient_details[patient.id] = {
+            first: patient.first,
+            last: patient.last,
+            expected_values: patient.expected_values,
+            birthdate: patient.birthdate,
+            expired: patient.expired,
+            deathdate: patient.deathdate,
+            ethnicity: patient.ethnicity,
+            race: patient.race,
+            gender: patient.gender,
+            notes: patient.notes
+          }
+      end
+    end
+    return patient_details
+  end
+
     ####################################################################################
     # These are snippets from the existing conversion in measure_view.js.coffee
     ####################################################################################
