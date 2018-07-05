@@ -1,0 +1,143 @@
+{
+  "c52": {
+    "title": "Population Criteria Section 1",
+    "statement_relevance": {
+      "DepressionUtilizationofthePHQ9Tool": {
+        "Patient": "NA",
+        "SDE Ethnicity": "NA",
+        "SDE Payer": "NA",
+        "SDE Race": "NA",
+        "SDE Sex": "NA",
+        "Depression Diagnoses": "TRUE",
+        "Depression Office Visit Encounter 1": "TRUE",
+        "Depression Behavioral Health Encounter 1": "TRUE",
+        "Depression Face to Face Encounter 1": "TRUE",
+        "Initial Population 1": "TRUE",
+        "Depression Office Visit Encounter 2": "NA",
+        "Depression Behavioral Health Encounter 2": "NA",
+        "Depression Face to Face Encounter 2": "NA",
+        "Initial Population 2": "NA",
+        "Depression Office Visit Encounter 3": "NA",
+        "Depression Behavioral Health Encounter 3": "NA",
+        "Depression Face to Face Encounter 3": "NA",
+        "Initial Population 3": "NA",
+        "Palliative Care Order": "FALSE",
+        "Long Term Care": "FALSE",
+        "Expired": "FALSE",
+        "Denominator 1": "FALSE",
+        "Denominator 2": "NA",
+        "Denominator 3": "NA",
+        "Encounter Palliative Care": "FALSE",
+        "Disorder Diagnoses": "FALSE",
+        "Denominator Exclusions": "FALSE",
+        "Denominator Exclusion 1": "FALSE",
+        "Denominator Exclusion 2": "NA",
+        "Denominator Exclusion 3": "NA",
+        "Numerator 2": "NA",
+        "Numerator 1": "FALSE",
+        "Numerator 3": "NA"
+      }
+    },
+    "criteria": [
+      "IPP",
+      "DENOM",
+      "NUMER",
+      "DENEX",
+      "index"
+    ]
+  },
+  "c53": {
+    "title": "Population Criteria Section 2",
+    "statement_relevance": {
+      "DepressionUtilizationofthePHQ9Tool": {
+        "Patient": "NA",
+        "SDE Ethnicity": "NA",
+        "SDE Payer": "NA",
+        "SDE Race": "NA",
+        "SDE Sex": "NA",
+        "Depression Diagnoses": "TRUE",
+        "Depression Office Visit Encounter 1": "NA",
+        "Depression Behavioral Health Encounter 1": "NA",
+        "Depression Face to Face Encounter 1": "NA",
+        "Initial Population 1": "NA",
+        "Depression Office Visit Encounter 2": "TRUE",
+        "Depression Behavioral Health Encounter 2": "TRUE",
+        "Depression Face to Face Encounter 2": "TRUE",
+        "Initial Population 2": "TRUE",
+        "Depression Office Visit Encounter 3": "NA",
+        "Depression Behavioral Health Encounter 3": "NA",
+        "Depression Face to Face Encounter 3": "NA",
+        "Initial Population 3": "NA",
+        "Palliative Care Order": "TRUE",
+        "Long Term Care": "TRUE",
+        "Expired": "TRUE",
+        "Denominator 1": "NA",
+        "Denominator 2": "TRUE",
+        "Denominator 3": "NA",
+        "Encounter Palliative Care": "TRUE",
+        "Disorder Diagnoses": "TRUE",
+        "Denominator Exclusions": "TRUE",
+        "Denominator Exclusion 1": "NA",
+        "Denominator Exclusion 2": "TRUE",
+        "Denominator Exclusion 3": "NA",
+        "Numerator 2": "TRUE",
+        "Numerator 1": "NA",
+        "Numerator 3": "NA"
+      }
+    },
+    "criteria": [
+      "IPP",
+      "DENOM",
+      "NUMER",
+      "DENEX",
+      "index"
+    ]
+  },
+  "c54": {
+    "title": "Population Criteria Section 3",
+    "statement_relevance": {
+      "DepressionUtilizationofthePHQ9Tool": {
+        "Patient": "NA",
+        "SDE Ethnicity": "NA",
+        "SDE Payer": "NA",
+        "SDE Race": "NA",
+        "SDE Sex": "NA",
+        "Depression Diagnoses": "TRUE",
+        "Depression Office Visit Encounter 1": "NA",
+        "Depression Behavioral Health Encounter 1": "NA",
+        "Depression Face to Face Encounter 1": "NA",
+        "Initial Population 1": "NA",
+        "Depression Office Visit Encounter 2": "NA",
+        "Depression Behavioral Health Encounter 2": "NA",
+        "Depression Face to Face Encounter 2": "NA",
+        "Initial Population 2": "NA",
+        "Depression Office Visit Encounter 3": "TRUE",
+        "Depression Behavioral Health Encounter 3": "TRUE",
+        "Depression Face to Face Encounter 3": "TRUE",
+        "Initial Population 3": "TRUE",
+        "Palliative Care Order": "FALSE",
+        "Long Term Care": "FALSE",
+        "Expired": "FALSE",
+        "Denominator 1": "NA",
+        "Denominator 2": "NA",
+        "Denominator 3": "FALSE",
+        "Encounter Palliative Care": "FALSE",
+        "Disorder Diagnoses": "FALSE",
+        "Denominator Exclusions": "FALSE",
+        "Denominator Exclusion 1": "NA",
+        "Denominator Exclusion 2": "NA",
+        "Denominator Exclusion 3": "FALSE",
+        "Numerator 2": "NA",
+        "Numerator 1": "NA",
+        "Numerator 3": "FALSE"
+      }
+    },
+    "criteria": [
+      "IPP",
+      "DENOM",
+      "NUMER",
+      "DENEX",
+      "index"
+    ]
+  }
+}
