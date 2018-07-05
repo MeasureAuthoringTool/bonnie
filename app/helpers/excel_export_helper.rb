@@ -1,3 +1,4 @@
+require 'uri'
 
 module ExcelExportHelper
   def self.convert_results_for_excel_export(results)
@@ -26,7 +27,7 @@ module ExcelExportHelper
     return results_for_excel_export
   end
 
-  def get_patient_details_from_measure(measure, patients)
+  def self.get_patient_details_from_measure(measure, patients)
     patient_details = {}
     measure.populations.each do | population |
       patients.each do | patient |
@@ -43,31 +44,9 @@ module ExcelExportHelper
             gender: patient.gender,
             notes: patient.notes
           }
+        end
       end
     end
-    return patient_details
-  end
-
-    ####################################################################################
-    # These are snippets from the existing conversion in measure_view.js.coffee
-    ####################################################################################
-    # for pop in @model.get('populations').models
-    #   for patient in @model.get('patients').models
-    #     # Populates the patient details
-    #     if !patient_details[patient.cid]
-    #       patient_details[patient.cid] = {
-    #         first: patient.get("first")
-    #         last: patient.get("last")
-    #         expected_values: patient.get("expected_values")
-    #         birthdate: patient.get("birthdate")
-    #         expired: patient.get("expired")
-    #         deathdate: patient.get("deathdate")
-    #         ethnicity: patient.get("ethnicity")
-    #         race: patient.get("race")
-    #         gender: patient.get("gender")
-    #         notes: patient.get("notes")
-    #       }
-    ####################################################################################
     return patient_details
   end
 
@@ -90,9 +69,39 @@ module ExcelExportHelper
     return population_details
   end
 
-  def get_statement_details_from_maesure(measure)
+  def get_statement_details_from_measure(measure)
+    # Builds a map of define statement name to the statement's text from a measure.
     statement_details = {}
-    # CQLMeasureHelpers.buildDefineToFullStatement(@model) # TODO: port this coffeescript to ruby
+
+    measure.elm_annotations.each do |lib|
+      lib_statements = {}
+      measure.elm_annotations[lib].statements.each do |statement|
+        lib_statements[statement.define_name] = parseAnnotationTree(statement.children)
+      end
+      statement_details[lib] = lib_statements
+    end
+
     return statement_details
   end
+
+  private_class_method def self.parseAnnotationTree(children)
+    # Recursive function that parses an annotation tree to extract text statements.
+    ret = ""
+    if children.text
+      return URI.unescape(children.text).sub("&#13", "").sub(";", "")
+    end
+
+    if children.children
+      children.children.each do |child|
+        ret = ret + parseAnnotationTree(child)
+      end
+    end
+
+    children.each do |child|
+      ret = ret + parseAnnotationTree(child)
+    end
+
+    return ret
+  end
+
 end
