@@ -14,6 +14,11 @@ class ExcelExportHelperTest < ActionView::TestCase
     associate_user_with_measures(@user, Measure.all)
     @measure = CqlMeasure.where({"cms_id" => "CMS160v6"}).first
     @patients = Record.by_user(@user).where({:measure_ids.in => [@measure.hqmf_set_id]})
+
+    @calc_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'calc_results.json')))
+    @patient_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'patient_details.json')))
+    @population_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'population_details.json')))
+    @statement_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'statement_details.json')))
   end
 
   test 'patient details are extracted' do
