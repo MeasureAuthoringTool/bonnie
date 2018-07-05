@@ -168,7 +168,7 @@ module ApiV1
 
       converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results)
       patient_details = ExcelExportHelper.get_patient_details_from_measure(@api_v1_measure, @api_v1_patients)
-      population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure)
+      population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
       statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
 
       if request.headers['Accept'] == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'

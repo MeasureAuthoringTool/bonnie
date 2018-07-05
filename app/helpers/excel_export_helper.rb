@@ -66,7 +66,28 @@ module ExcelExportHelper
     #           criteria.push(popAttrs)
     #       population_details[pop.cid]["criteria"] = criteria
     ####################################################################################
-    return population_details
+
+    population_details = {}
+
+    measure.populations.each do |population|
+      # Populates the population details
+
+      # ignores a population if its details have already been populated
+      # TODO: LDY note - can't use cid here. using 'id'. however, this is a string. it *should* be unique but isn't guaranteed.
+      # other option is an index...
+      next if population_details[population[:id]]
+
+      # TODO: LDY note - may need to change "result" -> don't yet know what this looks like
+      population_details[population[:id]] = {title: population[:title], statement_relevance: result[:statement_relevance]}
+      criteria = []
+      # TODO: LDY note - comes back with "stratification_index" and "population_index", which I don't believe is intended.
+      population.each_key do |key|
+        criteria << key if key != "title" && key != "sub_id" && key != "id"
+      end
+      population_details[population[:id]][:criteria] = criteria
+    end
+
+    population_details
   end
 
   def get_statement_details_from_measure(measure)
