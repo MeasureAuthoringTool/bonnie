@@ -1,277 +1,435 @@
 {
-  "c52": {
-    "c437": {
+  "c89": {
+    "c320": {
       "statement_results": {
-        "DepressionUtilizationofthePHQ9Tool": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
           "Patient": "NA",
           "SDE Ethnicity": "NA",
           "SDE Payer": "NA",
           "SDE Race": "NA",
           "SDE Sex": "NA",
-          "Depression Diagnoses": "[Diagnosis: Major Depression Including Remission\nSTART: 06/08/2012 2:35 PM\nCODE: ICD-10-CM F33.9]",
-          "Depression Office Visit Encounter 1": "FALSE ([])",
-          "Depression Behavioral Health Encounter 1": "FALSE ([])",
-          "Depression Face to Face Encounter 1": "FALSE ([])",
-          "Initial Population 1": "FALSE (false)",
-          "Depression Office Visit Encounter 2": "NA",
-          "Depression Behavioral Health Encounter 2": "NA",
-          "Depression Face to Face Encounter 2": "NA",
-          "Initial Population 2": "NA",
-          "Depression Office Visit Encounter 3": "NA",
-          "Depression Behavioral Health Encounter 3": "NA",
-          "Depression Face to Face Encounter 3": "NA",
-          "Initial Population 3": "NA",
-          "Palliative Care Order": "UNHIT",
-          "Long Term Care": "UNHIT",
-          "Expired": "UNHIT",
-          "Denominator 1": "UNHIT",
-          "Denominator 2": "NA",
-          "Denominator 3": "NA",
-          "Encounter Palliative Care": "UNHIT",
-          "Disorder Diagnoses": "UNHIT",
-          "Denominator Exclusions": "UNHIT",
-          "Denominator Exclusion 1": "UNHIT",
-          "Denominator Exclusion 2": "NA",
-          "Denominator Exclusion 3": "NA",
-          "Numerator 2": "NA",
-          "Numerator 1": "UNHIT",
-          "Numerator 3": "NA"
-        }
-      },
-      "criteria": {
-        "IPP": 0,
-        "DENOM": 0,
-        "DENEX": 0,
-        "NUMER": 0
-      }
-    },
-    "c663": {
-      "statement_results": {
-        "DepressionUtilizationofthePHQ9Tool": {
-          "Patient": "NA",
-          "SDE Ethnicity": "NA",
-          "SDE Payer": "NA",
-          "SDE Race": "NA",
-          "SDE Sex": "NA",
-          "Depression Diagnoses": "[Diagnosis: Dysthymia\nSTART: 04/12/2012 8:00 AM\nCODE: SNOMED-CT 19694002]",
-          "Depression Office Visit Encounter 1": "[Encounter, Performed: Office Visit\nSTART: 11/04/2012 8:00 AM\nSTOP: 11/04/2012 8:15 AM\nCODE: CPT 99201]",
-          "Depression Behavioral Health Encounter 1": "FALSE ([])",
-          "Depression Face to Face Encounter 1": "FALSE ([])",
-          "Initial Population 1": "true",
-          "Depression Office Visit Encounter 2": "NA",
-          "Depression Behavioral Health Encounter 2": "NA",
-          "Depression Face to Face Encounter 2": "NA",
-          "Initial Population 2": "NA",
-          "Depression Office Visit Encounter 3": "NA",
-          "Depression Behavioral Health Encounter 3": "NA",
-          "Depression Face to Face Encounter 3": "NA",
-          "Initial Population 3": "NA",
-          "Palliative Care Order": "FALSE ([])",
-          "Long Term Care": "FALSE ([])",
-          "Expired": "[PatientCharacteristicExpired]",
-          "Denominator 1": "true",
-          "Denominator 2": "NA",
-          "Denominator 3": "NA",
-          "Encounter Palliative Care": "FALSE ([])",
-          "Disorder Diagnoses": "FALSE ([])",
-          "Denominator Exclusions": "true",
-          "Denominator Exclusion 1": "true",
-          "Denominator Exclusion 2": "NA",
-          "Denominator Exclusion 3": "NA",
-          "Numerator 2": "NA",
-          "Numerator 1": "UNHIT",
-          "Numerator 3": "NA"
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "FALSE ([])",
+          "Measure Observation": "FUNCTION"
         }
       },
       "criteria": {
         "IPP": 1,
-        "DENOM": 1,
-        "DENEX": 1,
-        "NUMER": 0
+        "MSRPOPL": 1,
+        "MSRPOPLEX": 0,
+        "values": [
+          15
+        ]
       }
-    }
-  },
-  "c53": {
-    "c437": {
+    },
+    "c468": {
       "statement_results": {
-        "DepressionUtilizationofthePHQ9Tool": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
           "Patient": "NA",
           "SDE Ethnicity": "NA",
           "SDE Payer": "NA",
           "SDE Race": "NA",
           "SDE Sex": "NA",
-          "Depression Diagnoses": "[Diagnosis: Major Depression Including Remission\nSTART: 06/08/2012 2:35 PM\nCODE: ICD-10-CM F33.9]",
-          "Depression Office Visit Encounter 1": "NA",
-          "Depression Behavioral Health Encounter 1": "NA",
-          "Depression Face to Face Encounter 1": "NA",
-          "Initial Population 1": "NA",
-          "Depression Office Visit Encounter 2": "[Encounter, Performed: Office Visit\nSTART: 06/08/2012 2:30 PM\nSTOP: 06/08/2012 2:50 PM\nCODE: CPT 99201]",
-          "Depression Behavioral Health Encounter 2": "FALSE ([])",
-          "Depression Face to Face Encounter 2": "FALSE ([])",
-          "Initial Population 2": "true",
-          "Depression Office Visit Encounter 3": "NA",
-          "Depression Behavioral Health Encounter 3": "NA",
-          "Depression Face to Face Encounter 3": "NA",
-          "Initial Population 3": "NA",
-          "Palliative Care Order": "FALSE ([])",
-          "Long Term Care": "FALSE ([])",
-          "Expired": "FALSE ([])",
-          "Denominator 1": "NA",
-          "Denominator 2": "true",
-          "Denominator 3": "NA",
-          "Encounter Palliative Care": "FALSE ([])",
-          "Disorder Diagnoses": "FALSE ([])",
-          "Denominator Exclusions": "FALSE (false)",
-          "Denominator Exclusion 1": "NA",
-          "Denominator Exclusion 2": "FALSE (false)",
-          "Denominator Exclusion 3": "NA",
-          "Numerator 2": "true",
-          "Numerator 1": "NA",
-          "Numerator 3": "NA"
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "FALSE ([])",
+          "Measure Observation": "FUNCTION"
         }
       },
       "criteria": {
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 0,
+        "values": [
+          25,
+          15
+        ]
+      }
+    },
+    "c495": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Measure Observation": "FUNCTION"
+        }
+      },
+      "criteria": {
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 1,
+        "values": [
+          25
+        ]
+      }
+    },
+    "c523": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 2,
+        "values": []
+      }
+    }
+  },
+  "c90": {
+    "c320": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Stratification 1": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "FALSE ([])",
+          "Measure Observation": "FUNCTION"
+        }
+      },
+      "criteria": {
+        "STRAT": 1,
         "IPP": 1,
-        "DENOM": 1,
-        "DENEX": 0,
-        "NUMER": 1
+        "MSRPOPL": 1,
+        "MSRPOPLEX": 0,
+        "values": [
+          15
+        ]
       }
     },
-    "c663": {
+    "c468": {
       "statement_results": {
-        "DepressionUtilizationofthePHQ9Tool": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
           "Patient": "NA",
           "SDE Ethnicity": "NA",
           "SDE Payer": "NA",
           "SDE Race": "NA",
           "SDE Sex": "NA",
-          "Depression Diagnoses": "[Diagnosis: Dysthymia\nSTART: 04/12/2012 8:00 AM\nCODE: SNOMED-CT 19694002]",
-          "Depression Office Visit Encounter 1": "NA",
-          "Depression Behavioral Health Encounter 1": "NA",
-          "Depression Face to Face Encounter 1": "NA",
-          "Initial Population 1": "NA",
-          "Depression Office Visit Encounter 2": "FALSE ([])",
-          "Depression Behavioral Health Encounter 2": "FALSE ([])",
-          "Depression Face to Face Encounter 2": "FALSE ([])",
-          "Initial Population 2": "FALSE (false)",
-          "Depression Office Visit Encounter 3": "NA",
-          "Depression Behavioral Health Encounter 3": "NA",
-          "Depression Face to Face Encounter 3": "NA",
-          "Initial Population 3": "NA",
-          "Palliative Care Order": "UNHIT",
-          "Long Term Care": "UNHIT",
-          "Expired": "UNHIT",
-          "Denominator 1": "NA",
-          "Denominator 2": "UNHIT",
-          "Denominator 3": "NA",
-          "Encounter Palliative Care": "UNHIT",
-          "Disorder Diagnoses": "UNHIT",
-          "Denominator Exclusions": "UNHIT",
-          "Denominator Exclusion 1": "NA",
-          "Denominator Exclusion 2": "UNHIT",
-          "Denominator Exclusion 3": "NA",
-          "Numerator 2": "UNHIT",
-          "Numerator 1": "NA",
-          "Numerator 3": "NA"
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Stratification 1": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "FALSE ([])",
+          "Measure Observation": "FUNCTION"
         }
       },
       "criteria": {
-        "IPP": 0,
-        "DENOM": 0,
-        "DENEX": 0,
-        "NUMER": 0
+        "STRAT": 2,
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 0,
+        "values": [
+          25,
+          15
+        ]
+      }
+    },
+    "c495": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Stratification 1": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Measure Observation": "FUNCTION"
+        }
+      },
+      "criteria": {
+        "STRAT": 2,
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 1,
+        "values": [
+          25
+        ]
+      }
+    },
+    "c523": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Measure Population": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Stratification 1": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 2,
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 2,
+        "values": []
       }
     }
   },
-  "c54": {
-    "c437": {
+  "c91": {
+    "c320": {
       "statement_results": {
-        "DepressionUtilizationofthePHQ9Tool": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
           "Patient": "NA",
           "SDE Ethnicity": "NA",
           "SDE Payer": "NA",
           "SDE Race": "NA",
           "SDE Sex": "NA",
-          "Depression Diagnoses": "[Diagnosis: Major Depression Including Remission\nSTART: 06/08/2012 2:35 PM\nCODE: ICD-10-CM F33.9]",
-          "Depression Office Visit Encounter 1": "NA",
-          "Depression Behavioral Health Encounter 1": "NA",
-          "Depression Face to Face Encounter 1": "NA",
-          "Initial Population 1": "NA",
-          "Depression Office Visit Encounter 2": "NA",
-          "Depression Behavioral Health Encounter 2": "NA",
-          "Depression Face to Face Encounter 2": "NA",
-          "Initial Population 2": "NA",
-          "Depression Office Visit Encounter 3": "FALSE ([])",
-          "Depression Behavioral Health Encounter 3": "FALSE ([])",
-          "Depression Face to Face Encounter 3": "FALSE ([])",
-          "Initial Population 3": "FALSE (false)",
-          "Palliative Care Order": "UNHIT",
-          "Long Term Care": "UNHIT",
-          "Expired": "UNHIT",
-          "Denominator 1": "NA",
-          "Denominator 2": "NA",
-          "Denominator 3": "UNHIT",
-          "Encounter Palliative Care": "UNHIT",
-          "Disorder Diagnoses": "UNHIT",
-          "Denominator Exclusions": "UNHIT",
-          "Denominator Exclusion 1": "NA",
-          "Denominator Exclusion 2": "NA",
-          "Denominator Exclusion 3": "UNHIT",
-          "Numerator 2": "NA",
-          "Numerator 1": "NA",
-          "Numerator 3": "UNHIT"
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "FALSE ([])",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
         }
       },
       "criteria": {
+        "STRAT": 0,
         "IPP": 0,
-        "DENOM": 0,
-        "DENEX": 0,
-        "NUMER": 0
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
       }
     },
-    "c663": {
+    "c468": {
       "statement_results": {
-        "DepressionUtilizationofthePHQ9Tool": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
           "Patient": "NA",
           "SDE Ethnicity": "NA",
           "SDE Payer": "NA",
           "SDE Race": "NA",
           "SDE Sex": "NA",
-          "Depression Diagnoses": "[Diagnosis: Dysthymia\nSTART: 04/12/2012 8:00 AM\nCODE: SNOMED-CT 19694002]",
-          "Depression Office Visit Encounter 1": "NA",
-          "Depression Behavioral Health Encounter 1": "NA",
-          "Depression Face to Face Encounter 1": "NA",
-          "Initial Population 1": "NA",
-          "Depression Office Visit Encounter 2": "NA",
-          "Depression Behavioral Health Encounter 2": "NA",
-          "Depression Face to Face Encounter 2": "NA",
-          "Initial Population 2": "NA",
-          "Depression Office Visit Encounter 3": "FALSE ([])",
-          "Depression Behavioral Health Encounter 3": "FALSE ([])",
-          "Depression Face to Face Encounter 3": "FALSE ([])",
-          "Initial Population 3": "FALSE (false)",
-          "Palliative Care Order": "UNHIT",
-          "Long Term Care": "UNHIT",
-          "Expired": "UNHIT",
-          "Denominator 1": "NA",
-          "Denominator 2": "NA",
-          "Denominator 3": "UNHIT",
-          "Encounter Palliative Care": "UNHIT",
-          "Disorder Diagnoses": "UNHIT",
-          "Denominator Exclusions": "UNHIT",
-          "Denominator Exclusion 1": "NA",
-          "Denominator Exclusion 2": "NA",
-          "Denominator Exclusion 3": "UNHIT",
-          "Numerator 2": "NA",
-          "Numerator 1": "NA",
-          "Numerator 3": "UNHIT"
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "FALSE ([])",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
         }
       },
       "criteria": {
+        "STRAT": 0,
         "IPP": 0,
-        "DENOM": 0,
-        "DENEX": 0,
-        "NUMER": 0
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
+      }
+    },
+    "c495": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "FALSE ([])",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
+      }
+    },
+    "c523": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "FALSE ([])",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
+      }
+    }
+  },
+  "c92": {
+    "c320": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "FALSE ([])",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
+      }
+    },
+    "c468": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "FALSE ([])",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
+      }
+    },
+    "c495": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "FALSE ([])",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
+      }
+    },
+    "c523": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "FALSE ([])",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
       }
     }
   }
