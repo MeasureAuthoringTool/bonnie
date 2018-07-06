@@ -50,7 +50,7 @@ module ExcelExportHelper
     return patient_details
   end
 
-  def get_population_details_from_measure(measure)
+  def get_population_details_from_measure(measure, results)
     population_details = {}
     ####################################################################################
     # These are snippets from the existing conversion in measure_view.js.coffee
@@ -78,7 +78,7 @@ module ExcelExportHelper
       next if population_details[population[:id]]
 
       # TODO: LDY note - may need to change "result" -> don't yet know what this looks like
-      population_details[population[:id]] = {title: population[:title], statement_relevance: result[:statement_relevance]}
+      population_details[population[:id]] = {title: population[:title], statement_relevance: results[:statement_relevance]}
       criteria = []
       # TODO: LDY note - comes back with "stratification_index" and "population_index", which I don't believe is intended.
       population.each_key do |key|
