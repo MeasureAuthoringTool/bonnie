@@ -14,11 +14,17 @@ class ExcelExportHelperTest < ActionView::TestCase
     associate_user_with_measures(@user, Measure.all)
     @measure = CqlMeasure.where({"cms_id" => "CMS32v7"}).first
     @patients = Record.by_user(@user).where({:measure_ids.in => [@measure.hqmf_set_id]})
+    @backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32-results-stub.json')))
 
     @calc_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'calc_results.json')))
     @patient_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'patient_details.json')))
     @population_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'population_details.json')))
     @statement_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'statement_details.json')))
+  end
+
+  test 'backend results are converted' do
+    converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results)
+    assert_equal @calc_results, converted_results
   end
 
   test 'patient details are extracted' do
