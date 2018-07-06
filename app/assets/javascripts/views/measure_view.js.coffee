@@ -115,7 +115,6 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
         data: {authenticity_token: $("meta[name='csrf-token']").attr('content'), results: differences, isCQL: @model.has('cql')}
 
   exportExcelPatients: (e) ->
-    debugger
     @exportPatientsView.exporting()
 
     calc_results = {}
