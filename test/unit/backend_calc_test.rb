@@ -1,7 +1,12 @@
 require 'test_helper'
 require 'vcr_setup.rb'
+require 'webmock'
+
+WebMock.enable!
 
 class BonnieBackendCalculatorTest < ActiveSupport::TestCase
+
+  include WebMock::API
 
   setup do
     dump_database
@@ -33,7 +38,22 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
       # note patients are converted so field names change
       assert_equal patients.collect(&:first).sort, r['patients'].collect { |p| p['givenNames'][0] }.sort
       assert_equal patients.collect(&:last).sort, r['patients'].collect { |p| p['familyName'] }.sort
-
     end
   end
+
+  test "timeout test" do
+    assert_raise BonnieBackendCalculator::RestException do
+      stub_request(:post, BonnieBackendCalculator::CALCULATION_SERVICE_URL).to_timeout
+      BonnieBackendCalculator.calculate(nil, [], [], nil)
+    end
+  end
+
+  # if the server is running but the service is not, then the server will refuse the connection on that port and you will get an error as follows
+  test "service down test" do
+    assert_raise BonnieBackendCalculator::RestException do
+      stub_request(:post, BonnieBackendCalculator::CALCULATION_SERVICE_URL).to_raise(Errno::ECONNREFUSED)
+      BonnieBackendCalculator.calculate(nil, [], [], nil)
+    end
+  end
+
 end
