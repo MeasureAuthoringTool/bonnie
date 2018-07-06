@@ -88,16 +88,16 @@ module ExcelExportHelper
     population_details
   end
 
-  def get_statement_details_from_measure(measure)
+  def self.get_statement_details_from_measure(measure)
     # Builds a map of define statement name to the statement's text from a measure.
     statement_details = {}
 
-    measure.elm_annotations.each do |lib|
+    measure.elm_annotations.each do |library_name, library|
       lib_statements = {}
-      measure.elm_annotations[lib].statements.each do |statement|
-        lib_statements[statement.define_name] = parseAnnotationTree(statement.children)
+      library['statements'].each do |statement|
+        lib_statements[statement['define_name']] = parseAnnotationTree(statement['children'])
       end
-      statement_details[lib] = lib_statements
+      statement_details[library_name] = lib_statements
     end
 
     return statement_details
@@ -106,18 +106,20 @@ module ExcelExportHelper
   private_class_method def self.parseAnnotationTree(children)
     # Recursive function that parses an annotation tree to extract text statements.
     ret = ""
-    if children.text
-      return URI.unescape(children.text).sub("&#13", "").sub(";", "")
-    end
-
-    if children.children
-      children.children.each do |child|
+    if children.is_a?(Array)
+      children.each do |child|
         ret = ret + parseAnnotationTree(child)
       end
-    end
+    else
+      if children['text']
+        return URI.unescape(children['text']).sub("&#13", "").sub(";", "")
+      end
 
-    children.each do |child|
-      ret = ret + parseAnnotationTree(child)
+      if children['children']
+        children['children'].each do |child|
+          ret = ret + parseAnnotationTree(child)
+        end
+      end
     end
 
     return ret

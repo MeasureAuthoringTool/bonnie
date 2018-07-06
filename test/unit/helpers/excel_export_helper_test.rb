@@ -40,4 +40,9 @@ class ExcelExportHelperTest < ActionView::TestCase
     population_details = get_population_details_from_measure(@measure, @calc_results)
     assert_equal 4, population_details.length
   end
+
+  test 'statement details are extracted' do
+    statement_details = ExcelExportHelper.get_statement_details_from_measure(@measure).with_indifferent_access
+    assert_equal @statement_details, statement_details
+  end
 end
