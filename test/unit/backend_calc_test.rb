@@ -15,22 +15,24 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
   # right now the service just echoes, so this test makes sure the parsing is working etc
   test "echo test" do
     VCR.use_cassette('backend_calculator_echo_test') do
-      # note that since we use vcr, we need to make sure we order by something so that the returned order is consistent across runs
-      measure = CqlMeasure.order_by(:id => 'asc').first
-      patients = Record.where('measure_ids'=>{'$in'=>[measure.hqmf_set_id]}).order_by(:test_id => 'asc')
-      value_sets = measure.value_sets.order_by(:oid => 'asc')
+      measure = CqlMeasure.order_by(:id => 'asc').first # we order_by to make sure we pull the same measure across runs
+      patients = Record.where('measure_ids'=>{'$in'=>[measure.hqmf_set_id]})
+      value_sets = measure.value_sets
       options = {
         prettyPrint: true
       }
       r = BonnieBackendCalculator.calculate(measure, patients, value_sets, options)
 
       assert_equal measure.to_json, r['measure'].to_json
-      assert_equal value_sets.to_json, r['valueSets'].to_json
       assert_equal options.to_json, r['options'].to_json
+      
+      # since we might get value sets and patients in different order from mongo across runs, check that some sorted properties match
+      assert_equal value_sets.collect(&:oid).sort, r['valueSets'].collect { |vs| vs['oid'] }.sort
+      assert_equal value_sets.collect(&:display_name).sort, r['valueSets'].collect { |vs| vs['display_name'] }.sort
 
-      # patients are converted so we dont expect them to be echoed identically, just check a few fields
-      assert_equal patients.first['first'], r['patients'].first['givenNames'][0]
-      assert_equal patients.first['last'], r['patients'].first['familyName']
+      # note patients are converted so field names change
+      assert_equal patients.collect(&:first).sort, r['patients'].collect { |p| p['givenNames'][0] }.sort
+      assert_equal patients.collect(&:last).sort, r['patients'].collect { |p| p['familyName'] }.sort
 
     end
   end
