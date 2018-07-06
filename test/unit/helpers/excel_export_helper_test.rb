@@ -22,12 +22,21 @@ class ExcelExportHelperTest < ActionView::TestCase
   end
 
   test 'patient details are extracted' do
-    # TODO fill test out
-    assert_equal 2, @patients.length
+    cid_to_measure_id_map = { 'c320': '5a58e9b6942c6d4bb26bb2f6', 'c468': '5a593d66942c6d0773593d97', 'c495': '5a593ff0942c6d0773593dff', 'c523': '5a5940ba942c6d0c717eeece'}
+    patient_details = ExcelExportHelper.get_patient_details(@patients).with_indifferent_access
+    cid_to_measure_id_map.with_indifferent_access.each_pair do | cid, measure_id |
+      assert_equal @patient_details[cid].keys, patient_details[measure_id].keys
+      @patient_details[cid].keys.each do |key|
+        if @patient_details[cid][key].nil?
+          assert_nil patient_details[measure_id][key]
+        else
+          assert_equal @patient_details[cid][key], patient_details[measure_id][key]
+        end
+      end
+    end
   end
 
   test 'population details are extracted' do
-    debugger
     population_details = get_population_details_from_measure(@measure, @calc_results)
     assert_equal 4, population_details.length
   end
