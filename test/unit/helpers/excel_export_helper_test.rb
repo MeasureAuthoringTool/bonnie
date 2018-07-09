@@ -13,8 +13,17 @@ class ExcelExportHelperTest < ActionView::TestCase
     associate_user_with_patients(@user, Record.all)
     associate_user_with_measures(@user, Measure.all)
     @measure = CqlMeasure.where({"cms_id" => "CMS32v7"}).first
+    # TODO: Use CMS134v6 for more tests with a measure without multiple pops/strats
+    # @simple_measure = CqlMeasure.where("cms_id" => "CMS134v6").first
     @patients = Record.by_user(@user).where({:measure_ids.in => [@measure.hqmf_set_id]})
-    @backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32-results-stub.json')))
+    backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32-results-stub.json')))
+    # modify the backend results keys to match the keys of our patients. The results stub's keys
+    # are random since it was generated from a fixture
+    @backend_results = {}
+    @backend_results["5a58e9b6942c6d4bb26bb2f6"] = backend_results["5b43ae2b5b1ba824239d2520"] # Visit_1ED
+    @backend_results["5a593ff0942c6d0773593dff"] = backend_results["5b43ae2b5b1ba824239d2526"] # Visit_1Excl_2Ed
+    @backend_results["5a593d66942c6d0773593d97"] = backend_results["5b43ae2b5b1ba824239d252e"] # Visits_2ED
+    @backend_results["5a5940ba942c6d0c717eeece"] = backend_results["5b43ae2b5b1ba824239d2536"] # Visits_2Excl_2ED
 
     @calc_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'calc_results.json')))
     @patient_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'patient_details.json')))
@@ -23,7 +32,7 @@ class ExcelExportHelperTest < ActionView::TestCase
   end
 
   test 'backend results are converted' do
-    converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results)
+    converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results, @measure, @patients)
     assert_equal @calc_results, converted_results
   end
 
