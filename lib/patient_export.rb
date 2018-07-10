@@ -88,7 +88,7 @@ class PatientExport
 
           sheet.add_row(["\nKEY\n","",""], style: key_title_style, height: 55)
           sheet.add_row(["NOTE: FALSE(...) indicates a false value. The type of falseness is specified in the parentheses.\nFor example, FALSE([]) indicates falseness due to an empty list","",""], 
-            style: false_info_style, height: 70)
+                        style: false_info_style, height: 70)
           sheet.merge_cells("A1:C1") 
           sheet.merge_cells("A2:C2")
 
@@ -111,7 +111,6 @@ class PatientExport
           cql_types_table[1..-1].each do |entry_row| #add content rows
             sheet.add_row(entry_row, style: key_style)
           end
-          
         end
         
         
