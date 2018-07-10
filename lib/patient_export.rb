@@ -55,6 +55,9 @@ class PatientExport
                                                   :edges => [:bottom] },
                                      :fg_color => "FF0000",
                                      :alignment => { :wrap_text => true })
+
+
+
         pop_index = 0
         
         if calc_results.length == 0
@@ -65,34 +68,50 @@ class PatientExport
         end
 
 
-        ##ADD THE KEY SHEET TO THE BEGINING OF THE DOCUMENT
+        ##ADD THE KEY SHEET TO THE BEGINNING OF THE DOCUMENT
         workbook.add_worksheet(name: "KEY") do |sheet|
-          sheet.add_row(["\nKEY\n"], style: text_center, height: 30)
-          sheet.merge_cells("A1:C1")
-          sheet.add_row([],style: default)
-          
-          sheet.add_row(["FALSE(...) indicates a falsey value, the type of falsyness is specified in the parentheses."], style: default)
-          sheet.add_row(["For example, FALSE([]) indicates falsyness due to an empty list"], style: default)
-          sheet.merge_cells("A3:C3")
-          sheet.merge_cells "A4:C4"
-          sheet.add_row([],style: default)
+          key_style = styles.add_style(:sz => 14, 
+                                       :alignment => { :vertical => :center, :wrap_text => true })
+          key_title_style = styles.add_style(:b => true,
+                                             :sz => 20,
+                                             :alignment => { :horizontal => :center, :vertical => :center},
+                                             :border => { :style => :thin, :color => "DDDDDD", :edges => [:right] })
+          false_info_style = styles.add_style(:alignment => { :vertical => :center, :wrap_text => true },
+                                              :sz => 14,
+                                              :border => { :style => :thin, :color => "DDDDDD", :edges => [:right] })
+          cql_data_type_table_header = styles.add_style(:b => true,
+                                                        :alignment => { :horizontal => :center },
+                                                        :sz => 16,
+                                                        :border => { :style => :thin, :color => "333333", :edges => [:bottom] })
 
-          sheet.add_row(["CQL Data Type Formatting"], :b => true, :sz => 16, style: default) #add title row
+          white_right_border = styles.add_style(:border => { :style => :thin,:color => "FFFFFF", :edges => [:left, :right] })
+
+          sheet.add_row(["\nKEY\n","",""], style: key_title_style, height: 55)
+          sheet.add_row(["NOTE: FALSE(...) indicates a false value. The type of falseness is specified in the parentheses.\nFor example, FALSE([]) indicates falseness due to an empty list","",""], 
+            style: false_info_style, height: 70)
+          sheet.merge_cells("A1:C1") 
+          sheet.merge_cells("A2:C2")
+
+          sheet.add_row(["",""], style: white_right_border, height: 25)
+
+          sheet.add_row(["CQL Data Type Formatting","",""], style: cql_data_type_table_header) #add title row
+          sheet.merge_cells("A4:C4")
+
           cql_types_table=[
             ["CQL Type","Format","Example"],
   
             ["DateTime","MM/DD/YYYY h:mm AM/PM or MM/DD/YYYY","11/20/2012 8:00 AM"],
             ["Interval","start value - end value","11/20/2010 - 11/20/2012 or 1 - 4"],
             ["Code","Code: system: code","Code: SNOMED-CT: 8715000"],
-            ["Quantity","Quantity: value unit","Quantity: 120 mmHg"],
-            # ["QDMDatatype",""],
-            ["List","[item one, item two, ...]","[Encounter, Performed: Encounter Inpatient\nCODE: SNOMED-CT 8715000]"],
-            ["Tuple","{tuple contents}","{...}"]
+            ["Quantity","Quantity: value unit","Quantity: 120 mm[Hg]"],
+            ["List","[item one, item two, ...]","[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]"],
+            ["Tuple","{\n  key1: value1,\n  key2:value2\n}","{\n  period: Interval: 06/29/2012 8:00 AM - 12/31/2012 11:59 PM,\n  meds: [Medication, Order: Opioid Medications\n        START: 06/29/2012 8:00 AM\n        CODE: RxNorm 996994],\n  cmd: 185\n}"]
           ]
-          sheet.add_row(cql_types_table[0], :b => true, style: default) #table headers
+          sheet.add_row(cql_types_table[0], :b => true, :sz => 14) #table headers
           cql_types_table[1..-1].each do |entry_row| #add content rows
-            sheet.add_row(entry_row, style: default)
+            sheet.add_row(entry_row, style: key_style)
           end
+          
         end
         
         
