@@ -9,7 +9,7 @@
   "effective_time": null,
   "encounters": [
     {
-      "_id": "5a593ef8942c6d0773593de1",
+      "_id": "5aeb77ccb848463d625b5d48",
       "admitTime": null,
       "admitType": null,
       "codes": {
@@ -30,10 +30,10 @@
       "oid": "2.16.840.1.113883.3.560.1.79",
       "performer_id": null,
       "principalDiagnosis": {
-        "_id": "5a593ef8942c6d0773593de2",
+        "_id": "5aeb77ccb848463d625b5d49",
         "code": "10278007",
         "code_system": "SNOMED-CT",
-        "title": "Psychiatric/Mental Health Patient"
+        "title": "Psychiatric/Mental Health Diagnosis"
       },
       "reason": null,
       "specifics": null,
@@ -46,7 +46,7 @@
       "time": null
     },
     {
-      "_id": "5a593ef8942c6d0773593de3",
+      "_id": "5aeb77ccb848463d625b5d4a",
       "admitTime": null,
       "admitType": null,
       "codes": {
@@ -67,10 +67,10 @@
       "oid": "2.16.840.1.113883.3.560.1.79",
       "performer_id": null,
       "principalDiagnosis": {
-        "_id": "5a593ef8942c6d0773593de4",
+        "_id": "5aeb77ccb848463d625b5d4b",
         "code": "10278007",
         "code_system": "SNOMED-CT",
-        "title": "Psychiatric/Mental Health Patient"
+        "title": "Psychiatric/Mental Health Diagnosis"
       },
       "reason": null,
       "specifics": null,
@@ -83,7 +83,7 @@
       "time": null
     },
     {
-      "_id": "5a593ef8942c6d0773593de5",
+      "_id": "5aeb77ccb848463d625b5d4c",
       "admitTime": null,
       "admitType": null,
       "codes": {
@@ -167,40 +167,6 @@
   "expired": null,
   "first": "Visits",
   "gender": "M",
-  "insurance_providers": [
-    {
-      "_id": "5a593ef8942c6d0773593de6",
-      "codes": {
-        "SOP": [
-          "349"
-        ]
-      },
-      "description": null,
-      "end_time": null,
-      "financial_responsibility_type": {
-        "code": "SELF",
-        "codeSystem": "HL7 Relationship Code"
-      },
-      "health_record_field": null,
-      "member_id": "1234567890",
-      "mood_code": "EVN",
-      "name": "Other",
-      "negationInd": null,
-      "negationReason": null,
-      "oid": null,
-      "payer": {
-        "_id": "5a593ef8942c6d0773593de7",
-        "name": "Other"
-      },
-      "reason": null,
-      "relationship": null,
-      "specifics": null,
-      "start_time": 1199145600,
-      "status_code": null,
-      "time": null,
-      "type": "OT"
-    }
-  ],
   "is_shared": null,
   "languages": [
 
@@ -256,7 +222,7 @@
         ]
       },
       "negation_code_list_id": "",
-      "coded_entry_id": "5a593ef8942c6d0773593de1",
+      "coded_entry_id": "5aeb77ccb848463d625b5d48",
       "code_source": "DEFAULT"
     },
     {
@@ -291,7 +257,7 @@
         ]
       },
       "negation_code_list_id": "",
-      "coded_entry_id": "5a593ef8942c6d0773593de3",
+      "coded_entry_id": "5aeb77ccb848463d625b5d4a",
       "code_source": "DEFAULT"
     },
     {
@@ -320,7 +286,7 @@
         ]
       },
       "negation_code_list_id": "",
-      "coded_entry_id": "5a593ef8942c6d0773593de5",
+      "coded_entry_id": "5aeb77ccb848463d625b5d4c",
       "code_source": "DEFAULT"
     },
     {
@@ -333,6 +299,6 @@
   "test_id": null,
   "title": null,
   "type": null,
-  "updated_at": "2018-01-12T23:04:24.114Z",
+  "updated_at": "2018-05-03T20:57:48.803Z",
   "user_id": "501fdba3044a111b98000001"
 }
