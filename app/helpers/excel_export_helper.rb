@@ -2,22 +2,19 @@ require 'uri'
 
 module ExcelExportHelper
   def self.convert_results_for_excel_export(results, measure, patients)
-    # Convert results from the back-end calculator to the format
-    # expected the excel export module
+    # Convert results from the back-end calculator to the format expected the excel export module
 
     calc_results = {}
-    measure.populations.each_with_index do | population, index |
-      patients.each do | patient |
-        if !calc_results[index]
-          calc_results[index] = {}
-        end
+    measure.populations.each_with_index do |population, index|
+      patients.each do |patient|
+        calc_results[index] = {} unless calc_results[index]
         result_criteria = {}
         result = results[patient.id]
-        result[population['id']]['extendedData']['population_relevance'].keys.each do |pop_crit|
+        result[population['id']]['extendedData']['population_relevance'].each_key do |pop_crit|
           if pop_crit == 'values'
             values = []
             # gather the values from the episode_results object.
-            result[population['id']]['episode_results'].each do | episode_index, episode |
+            result[population['id']]['episode_results'].each_value do |episode|
               values.concat episode['values']
             end
             result_criteria[pop_crit] = values
@@ -30,43 +27,42 @@ module ExcelExportHelper
       end
     end
 
-    return calc_results.with_indifferent_access
+    calc_results.with_indifferent_access
   end
 
   private_class_method def self.remove_extra(results)
     ret = {}
-    results.each_key do |libKey|
-      ret[libKey] = {}
-      results[libKey].each_key do |statementKey|
-        if results[libKey][statementKey]['pretty']
-          ret[libKey][statementKey] = results[libKey][statementKey]['pretty']
-        else
-          ret[libKey][statementKey] = results[libKey][statementKey]['final']
-        end
+    results.each_key do |lib_key|
+      ret[lib_key] = {}
+      results[lib_key].each_key do |statement_key|
+        ret[lib_key][statement_key] = if results[lib_key][statement_key]['pretty']
+                                        results[lib_key][statement_key]['pretty']
+                                      else
+                                        results[lib_key][statement_key]['final']
+                                      end
       end
     end
-    return ret
+    ret
   end
 
   def self.get_patient_details(patients)
     patient_details = {}
-    patients.each do | patient |
-      if !patient_details[patient.id]
-        patient_details[patient.id] = {
-          first: patient.first,
-          last: patient.last,
-          expected_values: patient.expected_values,
-          birthdate: patient.birthdate,
-          expired: patient.expired,
-          deathdate: patient.deathdate,
-          ethnicity: patient.ethnicity['code'],
-          race: patient.race['code'],
-          gender: patient.gender,
-          notes: patient.notes
-        }
-      end
+    patients.each do |patient|
+      next unless patient_details[patient.id]
+      patient_details[patient.id] = {
+        first: patient.first,
+        last: patient.last,
+        expected_values: patient.expected_values,
+        birthdate: patient.birthdate,
+        expired: patient.expired,
+        deathdate: patient.deathdate,
+        ethnicity: patient.ethnicity['code'],
+        race: patient.race['code'],
+        gender: patient.gender,
+        notes: patient.notes
+      }
     end
-    return patient_details.with_indifferent_access
+    patient_details.with_indifferent_access
   end
 
   def self.get_population_details_from_measure(measure, results)
@@ -97,34 +93,27 @@ module ExcelExportHelper
     measure.elm_annotations.each do |library_name, library|
       lib_statements = {}
       library['statements'].each do |statement|
-        lib_statements[statement['define_name']] = parseAnnotationTree(statement['children'])
+        lib_statements[statement['define_name']] = parse_annotation_tree(statement['children'])
       end
       statement_details[library_name] = lib_statements
     end
 
-    return statement_details.with_indifferent_access
+    statement_details.with_indifferent_access
   end
 
-  private_class_method def self.parseAnnotationTree(children)
+  private_class_method def self.parse_annotation_tree(children)
     # Recursive function that parses an annotation tree to extract text statements.
     ret = ""
     if children.is_a?(Array)
       children.each do |child|
-        ret = ret + parseAnnotationTree(child)
+        ret += parse_annotation_tree(child)
       end
     else
-      if children['text']
-        return URI.unescape(children['text']).sub("&#13", "").sub(";", "")
-      end
-
-      if children['children']
-        children['children'].each do |child|
-          ret = ret + parseAnnotationTree(child)
-        end
+      return URI.decode_www_form(children['text']).join.sub("&#13", "").sub(";", "") if children['text']
+      children['children']&.each do |child|
+        ret += parse_annotation_tree(child)
       end
     end
-
-    return ret
+    ret
   end
-
 end

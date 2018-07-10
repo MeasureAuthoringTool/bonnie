@@ -35,13 +35,13 @@ class ExcelExportHelperTest < ActionView::TestCase
     converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results, @measure, @patients)
     # The keys for the objects will be different because the front end results use cids as the keys, while
     # the backend results use different ids.  Check that the corresponding values match for the keys.
-    @calc_results.zip(converted_results).each do | calc_result, converted_result |
+    @calc_results.zip(converted_results).each_value do |calc_result, converted_result|
       # ["c320", "c468", "c495", "c523"] from the front end map to ["5a593d66942c6d0773593d97", "5a5940ba942c6d0c717eeece", "5a593ff0942c6d0773593dff", "5a58e9b6942c6d4bb26bb2f6"] in the backend
       # TODO: map cid to id, not reliably working currently
-      # assert_equal calc_result[1]['c320'], converted_result[1]['5a58e9b6942c6d4bb26bb2f6']
-      # assert_equal calc_result[1]['c468'], converted_result[1]['5a593ff0942c6d0773593dff']
-      # assert_equal calc_result[1]['c495'], converted_result[1]['5a58e9b6942c6d4bb26bb2f6']
-      # assert_equal calc_result[1]['c523'], converted_result[1]['5a5940ba942c6d0c717eeece']
+      # assert_equal calc_result['c320'], converted_result[1]['5a58e9b6942c6d4bb26bb2f6']
+      # assert_equal calc_result['c468'], converted_result[1]['5a593ff0942c6d0773593dff']
+      # assert_equal calc_result['c495'], converted_result[1]['5a58e9b6942c6d4bb26bb2f6']
+      # assert_equal calc_result['c523'], converted_result[1]['5a5940ba942c6d0c717eeece']
     end
   end
 
@@ -49,9 +49,9 @@ class ExcelExportHelperTest < ActionView::TestCase
     # TODO: update this map with latest fixture
     cid_to_measure_id_map = { 'c320': '5a58e9b6942c6d4bb26bb2f6', 'c468': '5a593d66942c6d0773593d97', 'c495': '5a593ff0942c6d0773593dff', 'c523': '5a5940ba942c6d0c717eeece'}
     patient_details = ExcelExportHelper.get_patient_details(@patients)
-    cid_to_measure_id_map.with_indifferent_access.each_pair do | cid, measure_id |
+    cid_to_measure_id_map.with_indifferent_access.each_pair do |cid, measure_id|
       assert_equal @patient_details[cid].keys, patient_details[measure_id].keys
-      @patient_details[cid].keys.each do |key|
+      @patient_details[cid].each_key do |key|
         if @patient_details[cid][key].nil?
           assert_nil patient_details[measure_id][key]
         else
@@ -82,7 +82,7 @@ class ExcelExportHelperTest < ActionView::TestCase
     population_details = ExcelExportHelper.get_population_details_from_measure(@measure, @backend_results)
     patient_details = ExcelExportHelper.get_patient_details(@patients)
     excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
-    # TODO how to test this--load excel fixture and look at rows? might be different order
+    # TODO: how to test this--load excel fixture and look at rows? might be different order
     # File.open('excel_test.xlsx', 'w') {|file| file.write excel_package.to_stream.read}
   end
 end
