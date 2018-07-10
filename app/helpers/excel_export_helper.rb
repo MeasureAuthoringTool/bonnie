@@ -17,7 +17,7 @@ module ExcelExportHelper
           if pop_crit == 'values'
             values = []
             # gather the values from the episode_results object.
-            result[population['id']]['episode_results'].each do | index, episode |
+            result[population['id']]['episode_results'].each do | episode_index, episode |
               values.concat episode['values']
             end
             result_criteria[pop_crit] = values
@@ -83,6 +83,7 @@ module ExcelExportHelper
       population.each_key do |key|
         criteria << key if key != "title" && key != "sub_id" && key != "id"
       end
+      criteria.push 'index'
       population_details[pop_index][:criteria] = criteria
     end
 
