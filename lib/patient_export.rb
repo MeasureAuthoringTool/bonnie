@@ -55,8 +55,7 @@ class PatientExport
                                                   :edges => [:bottom] },
                                      :fg_color => "FF0000",
                                      :alignment => { :wrap_text => true })
-
-
+        maximum_column_width = 75
 
         pop_index = 0
         
@@ -87,7 +86,7 @@ class PatientExport
           white_right_border = styles.add_style(:border => { :style => :thin,:color => "FFFFFF", :edges => [:left, :right] })
 
           sheet.add_row(["\nKEY\n","",""], style: key_title_style, height: 55)
-          sheet.add_row(["NOTE: FALSE(...) indicates a false value. The type of falseness is specified in the parentheses.\nFor example, FALSE([]) indicates falseness due to an empty list","",""], 
+          sheet.add_row(["NOTE: FALSE(...) indicates a false value. The type of falseness is specified in the parentheses.\nFor example, FALSE([]) indicates falseness due to an empty list.","",""], 
                         style: false_info_style, height: 70)
           sheet.merge_cells("A1:C1") 
           sheet.merge_cells("A2:C2")
@@ -101,11 +100,12 @@ class PatientExport
             ["CQL Type","Format","Example"],
   
             ["DateTime","MM/DD/YYYY h:mm AM/PM or MM/DD/YYYY","11/20/2012 8:00 AM"],
-            ["Interval","start value - end value","11/20/2010 - 11/20/2012 or 1 - 4"],
-            ["Code","Code: system: code","Code: SNOMED-CT: 8715000"],
-            ["Quantity","Quantity: value unit","Quantity: 120 mm[Hg]"],
-            ["List","[item one, item two, ...]","[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]"],
-            ["Tuple","{\n  key1: value1,\n  key2:value2\n}","{\n  period: Interval: 06/29/2012 8:00 AM - 12/31/2012 11:59 PM,\n  meds: [Medication, Order: Opioid Medications\n        START: 06/29/2012 8:00 AM\n        CODE: RxNorm 996994],\n  cmd: 185\n}"]
+            ["Interval","INTERVAL: start value - end value","INTERVAL: 11/20/2010 - 11/20/2012 or INTERVAL: 1 - 4"],
+            ["Code","CODE: system code","CODE: SNOMED-CT 8715000"],
+            ["Quantity","QUANTITY: value unit","QUANTITY: 120 mm[Hg]"],
+            ["QDM Data Criteria","QDM Datatype: Value Set\nSTART: MM/DD/YYYY h:mm AM/PM\nSTOP: MM/DD/YYYY h:mm AM/PM\nCODE: system code\n* only the first code on the data criteria is shown","Medication, Order: Opioid Medications\nSTART: 01/01/2012 8:00 AM\nCODE: RxNorm 1053647"],
+            ["List","[item one,\nitem two,\n...]","[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]"],
+            ["Tuple","{\n  key1: value1,\n  key2: value2,\n  ...\n}","{\n  period: Interval: 06/29/2012 8:00 AM - 12/31/2012 11:59 PM,\n  meds: [Medication, Order: Opioid Medications\n        START: 06/29/2012 8:00 AM\n        CODE: RxNorm 996994],\n  cmd: 185\n}"]
           ]
           sheet.add_row(cql_types_table[0], :b => true, :sz => 14) #table headers
           cql_types_table[1..-1].each do |entry_row| #add content rows
@@ -216,6 +216,10 @@ class PatientExport
               end
 
               sheet.add_row(patient_row, style: row_style)
+            end
+            # Enforce a maximum column width. Note this should be be done after all the cells have been added.
+            sheet.column_info.each do |col|
+              col.width = maximum_column_width if col.width > maximum_column_width
             end
           end
           pop_index = pop_index + 1

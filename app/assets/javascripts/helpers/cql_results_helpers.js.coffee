@@ -227,11 +227,11 @@ class CQLResultsHelpers
     if result instanceof cql.DateTime
       moment.utc(result.toString()).format('MM/DD/YYYY h:mm A')
     else if result instanceof cql.Interval
-      "Interval: #{@prettyResult(result['low'])} - #{@prettyResult(result['high'])}"
+      "INTERVAL: #{@prettyResult(result['low'])} - #{@prettyResult(result['high'])}"
     else if result instanceof cql.Code
-      "Code: #{result['system']}: #{result['code']}"
+      "CODE: #{result['system']} #{result['code']}"
     else if result instanceof cql.Quantity
-      quantityResult = "Quantity: #{result['value']}"
+      quantityResult = "QUANTITY: #{result['value']}"
       if result['unit']
         quantityResult = quantityResult + " #{result['unit']}"
       quantityResult
