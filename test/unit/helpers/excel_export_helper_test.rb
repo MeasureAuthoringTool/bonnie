@@ -20,10 +20,10 @@ class ExcelExportHelperTest < ActionView::TestCase
     # modify the backend results keys to match the keys of our patients. The results stub's keys
     # are random since it was generated from a fixture
     @backend_results = {}
-    @backend_results['5a58e9b6942c6d4bb26bb2f6'] = backend_results['5b44c7057f8e0883ad4f539f'] # Visit_1ED
-    @backend_results['5a593ff0942c6d0773593dff'] = backend_results['5b44c7057f8e0883ad4f53a6'] # Visit_1Excl_2Ed
-    @backend_results['5a593d66942c6d0773593d97'] = backend_results['5b44c7057f8e0883ad4f53ae'] # Visits_2ED
-    @backend_results['5a5940ba942c6d0c717eeece'] = backend_results['5b44c7057f8e0883ad4f53b6'] # Visits_2Excl_2ED
+    @backend_results['5a58e9b6942c6d4bb26bb2f6'] = backend_results['5b4675d11f994e831b2146b1'] # Visit_1ED
+    @backend_results['5a593ff0942c6d0773593dff'] = backend_results['5b4675d11f994e831b2146b8'] # Visit_1Excl_2Ed
+    @backend_results['5a593d66942c6d0773593d97'] = backend_results['5b4675d11f994e831b2146c0'] # Visits_2ED
+    @backend_results['5a5940ba942c6d0c717eeece'] = backend_results['5b4675d11f994e831b2146c8'] # Visits_2Excl_2ED
 
     @calc_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'calc_results.json')))
     @patient_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'patient_details.json')))
@@ -36,17 +36,14 @@ class ExcelExportHelperTest < ActionView::TestCase
     # The keys for the objects will be different because the front end results use cids as the keys, while
     # the backend results use different ids.  Check that the corresponding values match for the keys.
     @calc_results.zip(converted_results).each do |calc_result, converted_result|
-      # ["c320", "c468", "c495", "c523"] from the front end map to ["5a593d66942c6d0773593d97", "5a5940ba942c6d0c717eeece", "5a593ff0942c6d0773593dff", "5a58e9b6942c6d4bb26bb2f6"] in the backend
-      # TODO: map cid to id, not reliably working currently
-      # assert_equal calc_result['c320'], converted_result[1]['5a58e9b6942c6d4bb26bb2f6']
-      # assert_equal calc_result['c468'], converted_result[1]['5a593ff0942c6d0773593dff']
-      # assert_equal calc_result['c495'], converted_result[1]['5a58e9b6942c6d4bb26bb2f6']
-      # assert_equal calc_result['c523'], converted_result[1]['5a5940ba942c6d0c717eeece']
+      assert_equal calc_result[1]['c320'], converted_result[1]['5a58e9b6942c6d4bb26bb2f6']
+      assert_equal calc_result[1]['c468'], converted_result[1]['5a593d66942c6d0773593d97']
+      assert_equal calc_result[1]['c495'], converted_result[1]['5a593ff0942c6d0773593dff']
+      assert_equal calc_result[1]['c523'], converted_result[1]['5a5940ba942c6d0c717eeece']
     end
   end
 
   test 'patient details are extracted' do
-    # TODO: update this map with latest fixture
     cid_to_measure_id_map = { 'c320': '5a58e9b6942c6d4bb26bb2f6', 'c468': '5a593d66942c6d0773593d97', 'c495': '5a593ff0942c6d0773593dff', 'c523': '5a5940ba942c6d0c717eeece'}
     patient_details = ExcelExportHelper.get_patient_details(@patients)
     cid_to_measure_id_map.with_indifferent_access.each_pair do |cid, measure_id|
@@ -63,12 +60,10 @@ class ExcelExportHelperTest < ActionView::TestCase
 
   test 'population details are extracted' do
     population_details = ExcelExportHelper.get_population_details_from_measure(@measure, @backend_results)
-    # TODO: backend details are keyed by an index instead of cid
-    assert_equal @population_details['c89'], population_details[0] # true
-    # TODO: these 3 are not passing
-    # assert_equal @population_details['c90'], population_details[1]
-    # assert_equal @population_details['c91'], population_details[2]
-    # assert_equal @population_details['c92'], population_details[3]
+    assert_equal @population_details['c89'], population_details[0]
+    assert_equal @population_details['c90'], population_details[1]
+    assert_equal @population_details['c91'], population_details[2]
+    assert_equal @population_details['c92'], population_details[3]
   end
 
   test 'statement details are extracted' do
