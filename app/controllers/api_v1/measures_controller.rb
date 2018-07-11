@@ -164,7 +164,7 @@ module ApiV1
         http_status = 404
       end
 
-      calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
+      # calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
       # calculated_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32-results-stub.json')))
 
       # converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, @api_v1_measure, @api_v1_patients)
