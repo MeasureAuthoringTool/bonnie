@@ -1,36 +1,57 @@
-require 'uri'
+require 'cgi'
 
 module ExcelExportHelper
   def self.convert_results_for_excel_export(results, measure, patients)
-    # Convert results from the back-end calculator to the format expected the excel export module
+    # Excel export only needs the statment_results and criteria, so extract them from the results object.
+    #
+    # The return will have this form:
+    # calc_results = {
+    #   'population_index' : {
+    #     'patient_id' : {
+    #       'statement_results' :  {
+    #         'libraryName' : {
+    #           'statement1' : '<statement result>',
+    #           'statement2' : '<statement result>',
+    #           ...other statements...
+    #         }
+    #       'criteria' : {'IPP' : <result>, ...other criteria...}
+    #       }
+    #     },
+    #     ...other patients...
+    #   },
+    #   ...other populations...
+    # }
 
-    calc_results = {}
+    calc_results = ActiveSupport::HashWithIndifferentAccess.new
     measure.populations.each_with_index do |population, index|
       patients.each do |patient|
         calc_results[index] = {} unless calc_results[index]
         result_criteria = {}
         result = results[patient.id]
-        result[population['id']]['extendedData']['population_relevance'].each_key do |pop_crit|
-          if pop_crit == 'values'
+        result[population['id']]['extendedData']['population_relevance'].each_key do |population_criteria|
+          if population_criteria == 'values'
+            # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
             values = []
-            # gather the values from the episode_results object.
             result[population['id']]['episode_results'].each_value do |episode|
               values.concat episode['values']
             end
-            result_criteria[pop_crit] = values
+            result_criteria[population_criteria] = values
           else
-            result_criteria[pop_crit] = result[population['id']][pop_crit]
+            result_criteria[population_criteria] = result[population['id']][population_criteria]
           end
         end
-        calc_results[index][patient.id] = {statement_results: remove_extra(result[population['id']]['statement_results']), criteria: result_criteria}
+
+        calc_results[index][patient.id] = {statement_results: extract_pretty_or_final_results(result[population['id']]['statement_results']), criteria: result_criteria}
 
       end
     end
 
-    calc_results.with_indifferent_access
+    calc_results
   end
 
-  private_class_method def self.remove_extra(results)
+  private_class_method def self.extract_pretty_or_final_results(results)
+    # The result initially has a raw, final, and pretty component. Excel export only wants the pretty form, but
+    # falls back to final if pretty doesn't exist on the object. Raw results are discarded.
     ret = {}
     results.each_key do |lib_key|
       ret[lib_key] = {}
@@ -46,9 +67,10 @@ module ExcelExportHelper
   end
 
   def self.get_patient_details(patients)
-    patient_details = {}
+    # Extract the fields from the patients that are used in the exported excel file. Ignore unused fields.
+    patient_details = ActiveSupport::HashWithIndifferentAccess.new
     patients.each do |patient|
-      next unless patient_details[patient.id]
+      next if patient_details[patient.id]
       patient_details[patient.id] = {
         first: patient.first,
         last: patient.last,
@@ -62,11 +84,16 @@ module ExcelExportHelper
         notes: patient.notes
       }
     end
-    patient_details.with_indifferent_access
+    patient_details
   end
 
   def self.get_population_details_from_measure(measure, results)
-    population_details = {}
+    # For each population, return the title, statement relevance map, and criteria list.
+    # title is the title of the population, e.g. 'Population Criteria Section' or 'Stratification 1'
+    # statement relevance map has the form:
+    # { "libraryName1" : { "statement1" : "<NA/TRUE/FALSE>", ...}, ...}
+    # criteria is an array of criteria names, e.g. ["IPP", "DENOM", "DENEX"]
+    population_details = ActiveSupport::HashWithIndifferentAccess.new
 
     measure.populations.each_with_index do |population, pop_index|
       # Populates the population details
@@ -79,16 +106,17 @@ module ExcelExportHelper
       population.each_key do |key|
         criteria << key if key != "title" && key != "sub_id" && key != "id"
       end
+      # TODO: The front end adds 'index' to this array, but it might be unused. Investigate and remove if possible.
       criteria.push 'index'
       population_details[pop_index][:criteria] = criteria
     end
 
-    population_details.with_indifferent_access
+    population_details
   end
 
   def self.get_statement_details_from_measure(measure)
     # Builds a map of define statement name to the statement's text from a measure.
-    statement_details = {}
+    statement_details = ActiveSupport::HashWithIndifferentAccess.new
 
     measure.elm_annotations.each do |library_name, library|
       lib_statements = {}
@@ -98,7 +126,7 @@ module ExcelExportHelper
       statement_details[library_name] = lib_statements
     end
 
-    statement_details.with_indifferent_access
+    statement_details
   end
 
   private_class_method def self.parse_annotation_tree(children)
@@ -109,7 +137,7 @@ module ExcelExportHelper
         ret += parse_annotation_tree(child)
       end
     else
-      return URI.decode_www_form(children['text']).join.sub("&#13", "").sub(";", "") if children['text']
+      return CGI.unescape(children['text']).sub("&#13", "").sub(";", "") if children['text']
       children['children']&.each do |child|
         ret += parse_annotation_tree(child)
       end

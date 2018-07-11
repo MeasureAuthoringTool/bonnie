@@ -543,6 +543,8 @@ Lint/UselessAssignment:
     - 'lib/tasks/cql.rake'
     - 'lib/tasks/cql_testing.rake'
     - 'test/functional/measures_controller_test.rb'
+    - 'app/controllers/api_v1/measures_controller.rb'
+    - 'test/unit/helpers/excel_export_helper_test.rb'
 
 # Offense count: 1
 Lint/Void:
@@ -634,6 +636,7 @@ Performance/HashEachMethods:
     - 'lib/measures/patient_builder.rb'
     - 'lib/patient_export.rb'
     - 'lib/tasks/bonnie.rake'
+    - 'test/unit/helpers/excel_export_helper_test.rb'
 
 # Offense count: 1
 # Configuration parameters: AllowedChars.

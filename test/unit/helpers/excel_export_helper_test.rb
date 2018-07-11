@@ -35,7 +35,7 @@ class ExcelExportHelperTest < ActionView::TestCase
     converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results, @measure, @patients)
     # The keys for the objects will be different because the front end results use cids as the keys, while
     # the backend results use different ids.  Check that the corresponding values match for the keys.
-    @calc_results.zip(converted_results).each_value do |calc_result, converted_result|
+    @calc_results.zip(converted_results).each do |calc_result, converted_result|
       # ["c320", "c468", "c495", "c523"] from the front end map to ["5a593d66942c6d0773593d97", "5a5940ba942c6d0c717eeece", "5a593ff0942c6d0773593dff", "5a58e9b6942c6d4bb26bb2f6"] in the backend
       # TODO: map cid to id, not reliably working currently
       # assert_equal calc_result['c320'], converted_result[1]['5a58e9b6942c6d4bb26bb2f6']
