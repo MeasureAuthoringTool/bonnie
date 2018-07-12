@@ -1,27 +1,26 @@
 require 'cgi'
 
 module ExcelExportHelper
+  # Excel export only needs the statment_results and criteria, so extract them from the results object.
+  #
+  # The return will have this form:
+  # calc_results = {
+  #   'population_index' : {
+  #     'patient_id' : {
+  #       'statement_results' :  {
+  #         'libraryName' : {
+  #           'statement1' : '<statement result>',
+  #           'statement2' : '<statement result>',
+  #           ...other statements...
+  #         }
+  #       'criteria' : {'IPP' : <result>, ...other criteria...}
+  #       }
+  #     },
+  #     ...other patients...
+  #   },
+  #   ...other populations...
+  # }
   def self.convert_results_for_excel_export(results, measure, patients)
-    # Excel export only needs the statment_results and criteria, so extract them from the results object.
-    #
-    # The return will have this form:
-    # calc_results = {
-    #   'population_index' : {
-    #     'patient_id' : {
-    #       'statement_results' :  {
-    #         'libraryName' : {
-    #           'statement1' : '<statement result>',
-    #           'statement2' : '<statement result>',
-    #           ...other statements...
-    #         }
-    #       'criteria' : {'IPP' : <result>, ...other criteria...}
-    #       }
-    #     },
-    #     ...other patients...
-    #   },
-    #   ...other populations...
-    # }
-
     calc_results = ActiveSupport::HashWithIndifferentAccess.new
     measure.populations.each_with_index do |population, index|
       patients.each do |patient|
@@ -49,25 +48,8 @@ module ExcelExportHelper
     calc_results
   end
 
-  private_class_method def self.extract_pretty_or_final_results(results)
-    # The result initially has a raw, final, and pretty component. Excel export only wants the pretty form, but
-    # falls back to final if pretty doesn't exist on the object. Raw results are discarded.
-    ret = {}
-    results.each_key do |lib_key|
-      ret[lib_key] = {}
-      results[lib_key].each_key do |statement_key|
-        ret[lib_key][statement_key] = if results[lib_key][statement_key]['pretty']
-                                        results[lib_key][statement_key]['pretty']
-                                      else
-                                        results[lib_key][statement_key]['final']
-                                      end
-      end
-    end
-    ret
-  end
-
+  # Extract the fields from the patients that are used in the exported excel file. Ignore unused fields.
   def self.get_patient_details(patients)
-    # Extract the fields from the patients that are used in the exported excel file. Ignore unused fields.
     patient_details = ActiveSupport::HashWithIndifferentAccess.new
     patients.each do |patient|
       next if patient_details[patient.id]
@@ -87,12 +69,12 @@ module ExcelExportHelper
     patient_details
   end
 
+  # For each population, return the title, statement relevance map, and criteria list.
+  # title is the title of the population, e.g. 'Population Criteria Section' or 'Stratification 1'
+  # statement relevance map has the form:
+  # { "libraryName1" : { "statement1" : "<NA/TRUE/FALSE>", ...}, ...}
+  # criteria is an array of criteria names, e.g. ["IPP", "DENOM", "DENEX"]
   def self.get_population_details_from_measure(measure, results)
-    # For each population, return the title, statement relevance map, and criteria list.
-    # title is the title of the population, e.g. 'Population Criteria Section' or 'Stratification 1'
-    # statement relevance map has the form:
-    # { "libraryName1" : { "statement1" : "<NA/TRUE/FALSE>", ...}, ...}
-    # criteria is an array of criteria names, e.g. ["IPP", "DENOM", "DENEX"]
     population_details = ActiveSupport::HashWithIndifferentAccess.new
 
     measure.populations.each_with_index do |population, pop_index|
@@ -114,8 +96,8 @@ module ExcelExportHelper
     population_details
   end
 
+  # Builds a map of define statement name to the statement's text from a measure.
   def self.get_statement_details_from_measure(measure)
-    # Builds a map of define statement name to the statement's text from a measure.
     statement_details = ActiveSupport::HashWithIndifferentAccess.new
 
     measure.elm_annotations.each do |library_name, library|
@@ -129,8 +111,8 @@ module ExcelExportHelper
     statement_details
   end
 
+  # Recursive function that parses an annotation tree to extract text statements.
   private_class_method def self.parse_annotation_tree(children)
-    # Recursive function that parses an annotation tree to extract text statements.
     ret = ""
     if children.is_a?(Array)
       children.each do |child|
@@ -140,6 +122,23 @@ module ExcelExportHelper
       return CGI.unescape(children['text']).sub("&#13", "").sub(";", "") if children['text']
       children['children']&.each do |child|
         ret += parse_annotation_tree(child)
+      end
+    end
+    ret
+  end
+
+  # The result initially has a raw, final, and pretty component. Excel export only wants the pretty form, but
+  # falls back to final if pretty doesn't exist on the object. Raw results are discarded.
+  private_class_method def self.extract_pretty_or_final_results(results)
+    ret = {}
+    results.each_key do |lib_key|
+      ret[lib_key] = {}
+      results[lib_key].each_key do |statement_key|
+        ret[lib_key][statement_key] = if results[lib_key][statement_key]['pretty']
+                                        results[lib_key][statement_key]['pretty']
+                                      else
+                                        results[lib_key][statement_key]['final']
+                                      end
       end
     end
     ret
