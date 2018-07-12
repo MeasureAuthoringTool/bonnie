@@ -27,21 +27,24 @@ module ExcelExportHelper
         calc_results[index] = {} unless calc_results[index]
         result_criteria = {}
         result = results[patient.id]
-        result[population['id']]['extendedData']['population_relevance'].each_key do |population_criteria|
-          if population_criteria == 'values'
-            # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
-            values = []
-            result[population['id']]['episode_results'].each_value do |episode|
-              values.concat episode['values']
+        if result.nil?
+          # if there was no result for a patient (due to error in conversion or calculation), set empty results
+          calc_results[index][patient.id] = {statement_results: {}, criteria: {}}
+        else
+          result[population['id']]['extendedData']['population_relevance'].each_key do |population_criteria|
+            if population_criteria == 'values'
+              # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
+              values = []
+              result[population['id']]['episode_results'].each_value do |episode|
+                values.concat episode['values']
+              end
+              result_criteria[population_criteria] = values
+            else
+              result_criteria[population_criteria] = result[population['id']][population_criteria]
             end
-            result_criteria[population_criteria] = values
-          else
-            result_criteria[population_criteria] = result[population['id']][population_criteria]
           end
+          calc_results[index][patient.id] = {statement_results: extract_pretty_or_final_results(result[population['id']]['statement_results']), criteria: result_criteria}
         end
-
-        calc_results[index][patient.id] = {statement_results: extract_pretty_or_final_results(result[population['id']]['statement_results']), criteria: result_criteria}
-
       end
     end
 
@@ -119,7 +122,7 @@ module ExcelExportHelper
         ret += parse_annotation_tree(child)
       end
     else
-      return CGI.unescape(children['text']).sub("&#13", "").sub(";", "") if children['text']
+      return CGI.unescape_html(children['text']).sub("&#13", "").sub(";", "") if children['text']
       children['children']&.each do |child|
         ret += parse_annotation_tree(child)
       end
