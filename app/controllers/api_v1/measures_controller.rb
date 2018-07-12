@@ -164,8 +164,8 @@ module ApiV1
         http_status = 404
       end
 
+      # TODO: the commented out code below can be used for BONNIE-1530.
       # calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
-      # calculated_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32-results-stub.json')))
 
       # converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, @api_v1_measure, @api_v1_patients)
       # patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
@@ -177,6 +177,7 @@ module ApiV1
           filename = 'Sample_Excel_Export(CMS52v6).xlsx'
           send_file "#{Rails.root}/public/resource/#{filename}", type: :xlsx, status: http_status, filename: ERB::Util.url_encode(filename)
 
+          # TODO: the section below can replace the one above once everything is wired up.
           # filename = "#{api_v1_measures.cms_id}.xlsx"
           # excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
           # send_data excel_package.to_stream.read, type: :xlsx, status: http_status, filename: ERB::Util.url_encode(filename)
