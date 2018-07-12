@@ -199,7 +199,7 @@ class PatientExport
                 statements.each do |statement, result|
                   if !statement_to_column[statement].nil?
                     if result.eql? "UNHIT"
-                      statement_results[statement_to_column[statement]] = "FUNCTION"
+                      statement_results[statement_to_column[statement]] = "Not Calculated"
                     else
                       statement_results[statement_to_column[statement]] = result
                     end

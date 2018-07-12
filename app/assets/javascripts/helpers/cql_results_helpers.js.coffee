@@ -175,8 +175,12 @@ class CQLResultsHelpers
           statementResults[lib][statementName].final = 'NA'
           statementResults[lib][statementName].pretty = 'NA' if doPretty
         else if statementRelevance[lib][statementName] == 'FALSE' || !rawClauseResults[lib]?
-          statementResults[lib][statementName].final = 'UNHIT'
-          statementResults[lib][statementName].pretty = 'UNHIT' if doPretty
+          # even if the statement wasn't hit, we want the pretty result to just be FUNCTION for functions
+          if CQLMeasureHelpers.isStatementFunction(measure, lib, statementName)
+            statementResults[lib][statementName].pretty = "FUNCTION" if doPretty
+          else
+            statementResults[lib][statementName].final = 'UNHIT'
+            statementResults[lib][statementName].pretty = 'UNHIT' if doPretty
         else
           if @_doesResultPass(rawStatementResult)
             statementResults[lib][statementName].final = 'TRUE'
