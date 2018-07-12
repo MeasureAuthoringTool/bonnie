@@ -17,6 +17,7 @@ class ExcelExportHelperTest < ActionView::TestCase
     # @simple_measure = CqlMeasure.where('cms_id' => 'CMS134v6').first
     @patients = Record.by_user(@user).where({:measure_ids.in => [@measure.hqmf_set_id]})
     backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32-results-stub.json')))
+    unpretty_backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32-unpretty-results-stub.json')))
     # modify the backend results keys to match the keys of our patients. The results stub's keys
     # are random since it was generated from a fixture
     @backend_results = {}
@@ -25,7 +26,14 @@ class ExcelExportHelperTest < ActionView::TestCase
     @backend_results['5a593d66942c6d0773593d97'] = backend_results['5b4675d11f994e831b2146c0'] # Visits_2ED
     @backend_results['5a5940ba942c6d0c717eeece'] = backend_results['5b4675d11f994e831b2146c8'] # Visits_2Excl_2ED
 
+    @unpretty_backend_results = {}
+    @unpretty_backend_results['5a58e9b6942c6d4bb26bb2f6'] = unpretty_backend_results['5b474ad52f8e3a17057c855f'] # Visit_1ED
+    @unpretty_backend_results['5a593ff0942c6d0773593dff'] = unpretty_backend_results['5b474ad52f8e3a17057c8566'] # Visit_1Excl_2Ed
+    @unpretty_backend_results['5a593d66942c6d0773593d97'] = unpretty_backend_results['5b474ad52f8e3a17057c856e'] # Visits_2ED
+    @unpretty_backend_results['5a5940ba942c6d0c717eeece'] = unpretty_backend_results['5b474ad52f8e3a17057c8576'] # Visits_2Excl_2ED
+
     @calc_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'calc_results.json')))
+    @calc_results_unpretty = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'calc_results_unpretty.json')))
     @patient_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'patient_details.json')))
     @population_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'population_details.json')))
     @statement_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'statement_details.json')))
@@ -39,6 +47,15 @@ class ExcelExportHelperTest < ActionView::TestCase
   test 'backend results are converted' do
     converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results, @measure, @patients)
     @calc_results.zip(converted_results).each do |calc_result, converted_result|
+      @cid_to_measure_id_map.each_pair do | cid, id |
+        assert_equal calc_result[1][cid], converted_result[1][id]
+      end
+    end
+  end
+
+  test 'backend results are converted if pretty is not present' do
+    converted_unpretty_results = ExcelExportHelper.convert_results_for_excel_export(@unpretty_backend_results, @measure, @patients)
+    @calc_results_unpretty.zip(converted_unpretty_results).each do |calc_result, converted_result|
       @cid_to_measure_id_map.each_pair do | cid, id |
         assert_equal calc_result[1][cid], converted_result[1][id]
       end
