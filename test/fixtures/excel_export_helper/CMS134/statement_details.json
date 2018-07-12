@@ -1,0 +1,36 @@
+{
+  "DiabetesMedicalAttentionforNephropathy": {
+    "SDE Ethnicity": "define \"SDE Ethnicity\":\n  [\"Patient Characteristic Ethnicity\": \"Ethnicity\"]",
+    "SDE Payer": "define \"SDE Payer\":\n  [\"Patient Characteristic Payer\": \"Payer\"]",
+    "SDE Race": "define \"SDE Race\":\n  [\"Patient Characteristic Race\": \"Race\"]",
+    "SDE Sex": "define \"SDE Sex\":\n  [\"Patient Characteristic Sex\": \"ONC Administrative Sex\"]",
+    "Renal Procedures": "define \"Renal Procedures\":\n  ( [\"Procedure, Performed\": \"Kidney Transplant\"]\n      union [\"Procedure, Performed\": \"Vascular Access for Dialysis\"]\n      union [\"Procedure, Performed\": \"Dialysis Services\"]\n  )",
+    "Renal Interventions": "define \"Renal Interventions\":\n  [\"Intervention, Performed\": \"Other Services Related to Dialysis\"]\n    union [\"Intervention, Performed\": \"Dialysis Education\"]",
+    "Qualifying Encounters": "define \"Qualifying Encounters\":\n  ( [\"Encounter, Performed\": \"Office Visit\"]\n    union [\"Encounter, Performed\": \"Face-to-Face Interaction\"]\n    union [\"Encounter, Performed\": \"Preventive Care Services - Established Office Visit, 18 and Up\"]\n    union [\"Encounter, Performed\": \"Preventive Care Services-Initial Office Visit, 18 and Up\"]\n    union [\"Encounter, Performed\": \"Home Healthcare Services\"]\n    union [\"Encounter, Performed\": \"Annual Wellness Visit\"] ) ValidEncounter\n    where ValidEncounter.relevantPeriod during \"Measurement Period\"",
+    "Protein Urea Lab Test": "define \"Protein Urea Lab Test\":\n  [\"Laboratory Test, Performed\": \"Urine Protein Tests\"] ProteinUrea\n    where ProteinUrea.result is not null",
+    "Nephropathy Diagnoses": "define \"Nephropathy Diagnoses\":\n  ( [\"Diagnosis\": \"Hypertensive Chronic Kidney Disease\"]\n    union [\"Diagnosis\": \"Kidney Failure\"]\n    union [\"Diagnosis\": \"Glomerulonephritis and Nephrotic Syndrome\"]\n    union [\"Diagnosis\": \"Diabetic Nephropathy\"]\n    union [\"Diagnosis\": \"Proteinuria\"] ) NephropathyDiagnoses\n    where NephropathyDiagnoses.prevalencePeriod overlaps \"Measurement Period\"",
+    "ESRD Encounter": "define \"ESRD Encounter\":\n  [\"Encounter, Performed\": \"ESRD Monthly Outpatient Services\"]",
+    "Active ACEI or ARB Medications": "define \"Active ACEI or ARB Medications\":\n  [\"Medication, Active\": \"ACE Inhibitor or ARB\"] ACEIorARB\n    where ACEIorARB.relevantPeriod overlaps \"Measurement Period\"",
+    "Initial Population": "define \"Initial Population\":\n  exists [\"Patient Characteristic Birthdate\"] BirthDate\n    where Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")>= 18\n      and Global.\"CalendarAgeInYearsAt\"(BirthDate.birthDatetime, start of \"Measurement Period\")< 75\n      and exists ( \"Qualifying Encounters\" )\n      and exists ( [\"Diagnosis\": \"Diabetes\"] DiabetesDx\n          where DiabetesDx.prevalencePeriod overlaps \"Measurement Period\"\n      )",
+    "Denominator": "define \"Denominator\":\n  \"Initial Population\"",
+    "Nephropathy Screenings": "define \"Nephropathy Screenings\":\n  ( \"Renal Procedures\"\n    union \"Renal Interventions\"\n    union \"ESRD Encounter\"\n    union \"Protein Urea Lab Test\" ) NephropathyScreenings\n    where NephropathyScreenings.relevantPeriod during \"Measurement Period\"",
+    "Numerator": "define \"Numerator\":\n  exists ( \"Active ACEI or ARB Medications\" )\n    or exists ( \"Nephropathy Diagnoses\" )\n    or exists ( \"Nephropathy Screenings\" )",
+    "In Hospice": "define \"In Hospice\":\n  Hospice.\"Has Hospice\"",
+    "Denominator Exclusions": "define \"Denominator Exclusions\":\n  \"In Hospice\""
+  },
+  "MATGlobalCommonFunctions": {
+    "ToDate": "define function \"ToDate\"(Value DateTime ):\n  DateTime(year from Value, month from Value, day from Value, 0, 0, 0, 0, timezone from Value)",
+    "CalendarAgeInDaysAt": "define function \"CalendarAgeInDaysAt\"(BirthDateTime DateTime, AsOf DateTime ):\n  days between ToDate(BirthDateTime)and ToDate(AsOf)",
+    "CalendarAgeInDays": "define function \"CalendarAgeInDays\"(BirthDateTime DateTime ):\n  CalendarAgeInDaysAt(BirthDateTime, Today())",
+    "CalendarAgeInMonthsAt": "define function \"CalendarAgeInMonthsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n  months between ToDate(BirthDateTime)and ToDate(AsOf)",
+    "CalendarAgeInMonths": "define function \"CalendarAgeInMonths\"(BirthDateTime DateTime ):\n  CalendarAgeInMonthsAt(BirthDateTime, Today())",
+    "CalendarAgeInYearsAt": "define function \"CalendarAgeInYearsAt\"(BirthDateTime DateTime, AsOf DateTime ):\n  years between ToDate(BirthDateTime)and ToDate(AsOf)",
+    "CalendarAgeInYears": "define function \"CalendarAgeInYears\"(BirthDateTime DateTime ):\n  CalendarAgeInYearsAt(BirthDateTime, Today())",
+    "Hospitalization": "define function \"Hospitalization\"(Encounter \"Encounter, Performed\" ):\n  ( singleton from ( [\"Encounter, Performed\": \"Emergency Department Visit\"] EDVisit\n      where EDVisit.relevantPeriod ends 1 hour or less on or before start of Encounter.relevantPeriod\n  ) ) X\n    return if X is null then Encounter.relevantPeriod else Interval[start of X.relevantPeriod, end of Encounter.relevantPeriod]",
+    "LengthInDays": "define function \"LengthInDays\"(Value Interval<DateTime> ):\n  difference in days between start of Value and end of Value",
+    "TotalLengthOfStay": "define function \"TotalLengthOfStay\"(Stay Interval<DateTime> ):\n  difference in days between start of Stay and end of Stay"
+  },
+  "Hospice": {
+    "Has Hospice": "define \"Has Hospice\":\n  exists ( [\"Encounter, Performed\": \"Encounter Inpatient\"] DischargeHospice\n      where ( DischargeHospice.dischargeDisposition as Code ~ \"Discharge to home for hospice care (procedure)\"\n          or DischargeHospice.dischargeDisposition as Code ~ \"Discharge to healthcare facility for hospice care (procedure)\"\n      )\n        and DischargeHospice.relevantPeriod ends during \"Measurement Period\"\n  )\n    or exists ( [\"Intervention, Order\": \"Hospice care ambulatory\"] HospiceOrder\n        where HospiceOrder.authorDatetime during \"Measurement Period\"\n    )\n    or exists ( [\"Intervention, Performed\": \"Hospice care ambulatory\"] HospicePerformed\n        where HospicePerformed.relevantPeriod overlaps \"Measurement Period\"\n    )"
+  }
+}
