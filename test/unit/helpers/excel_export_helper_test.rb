@@ -29,24 +29,25 @@ class ExcelExportHelperTest < ActionView::TestCase
     @patient_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'patient_details.json')))
     @population_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'population_details.json')))
     @statement_details = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'statement_details.json')))
+    # The front end results use cids as keys but the backend results use ids.
+    @cid_to_measure_id_map = { 'c320': '5a58e9b6942c6d4bb26bb2f6',
+                               'c468': '5a593d66942c6d0773593d97',
+                               'c495': '5a593ff0942c6d0773593dff',
+                               'c523': '5a5940ba942c6d0c717eeece' }.with_indifferent_access
   end
 
   test 'backend results are converted' do
     converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results, @measure, @patients)
-    # The keys for the objects will be different because the front end results use cids as the keys, while
-    # the backend results use different ids.  Check that the corresponding values match for the keys.
     @calc_results.zip(converted_results).each do |calc_result, converted_result|
-      assert_equal calc_result[1]['c320'], converted_result[1]['5a58e9b6942c6d4bb26bb2f6']
-      assert_equal calc_result[1]['c468'], converted_result[1]['5a593d66942c6d0773593d97']
-      assert_equal calc_result[1]['c495'], converted_result[1]['5a593ff0942c6d0773593dff']
-      assert_equal calc_result[1]['c523'], converted_result[1]['5a5940ba942c6d0c717eeece']
+      @cid_to_measure_id_map.each_pair do | cid, id |
+        assert_equal calc_result[1][cid], converted_result[1][id]
+      end
     end
   end
 
   test 'patient details are extracted' do
-    cid_to_measure_id_map = { 'c320': '5a58e9b6942c6d4bb26bb2f6', 'c468': '5a593d66942c6d0773593d97', 'c495': '5a593ff0942c6d0773593dff', 'c523': '5a5940ba942c6d0c717eeece'}
     patient_details = ExcelExportHelper.get_patient_details(@patients)
-    cid_to_measure_id_map.with_indifferent_access.each_pair do |cid, measure_id|
+    @cid_to_measure_id_map.with_indifferent_access.each_pair do |cid, measure_id|
       assert_equal @patient_details[cid].keys, patient_details[measure_id].keys
       @patient_details[cid].each_key do |key|
         if @patient_details[cid][key].nil?
