@@ -48,18 +48,18 @@ class ExcelExportHelperTest < ActionView::TestCase
 
   test 'backend results are converted' do
     converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results, @measure, @patients)
-    @calc_results.zip(converted_results).each do |calc_result, converted_result|
-      @cid_to_measure_id_map.each_pair do | cid, id |
-        assert_equal calc_result[1][cid], converted_result[1][id]
+    @calc_results.values.zip(converted_results.values).each do |calc_result, converted_result|
+      @cid_to_measure_id_map.each_pair do |cid, id|
+        assert_equal calc_result[cid], converted_result[id]
       end
     end
   end
 
   test 'backend results are converted if pretty is not present' do
     converted_unpretty_results = ExcelExportHelper.convert_results_for_excel_export(@unpretty_backend_results, @measure, @patients)
-    @calc_results_unpretty.zip(converted_unpretty_results).each do |calc_result, converted_result|
-      @cid_to_measure_id_map.each_pair do | cid, id |
-        assert_equal calc_result[1][cid], converted_result[1][id]
+    @calc_results_unpretty.values.zip(converted_unpretty_results.values).each do |calc_result, converted_result|
+      @cid_to_measure_id_map.each_pair do |cid, id|
+        assert_equal calc_result[cid], converted_result[id]
       end
     end
   end
