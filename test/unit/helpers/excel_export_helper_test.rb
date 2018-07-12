@@ -61,6 +61,9 @@ class ExcelExportHelperTest < ActionController::TestCase
                                'c495': '5a593ff0942c6d0773593dff',
                                'c523': '5a5940ba942c6d0c717eeece' }.with_indifferent_access
 
+    @simple_cid_to_measure_id_map = { 'c358': '5a58f001942c6d500fc8cb92',
+                                      'c552': '5a73955cb848465f695c4ecb'}
+
     sign_in @user
   end
 
@@ -68,6 +71,15 @@ class ExcelExportHelperTest < ActionController::TestCase
     converted_results = ExcelExportHelper.convert_results_for_excel_export(@backend_results, @measure, @patients)
     @calc_results.values.zip(converted_results.values).each do |calc_result, converted_result|
       @cid_to_measure_id_map.each_pair do |cid, id|
+        assert_equal calc_result[cid], converted_result[id]
+      end
+    end
+  end
+
+  test 'backend results are converted with failed patients' do
+    converted_results = ExcelExportHelper.convert_results_for_excel_export(@simple_backend_results, @measure, @patients)
+    @simple_calc_results.values.zip(converted_results.values).each do |calc_result, converted_result|
+      @simple_cid_to_measure_id_map.each_pair do |cid, id|
         assert_equal calc_result[cid], converted_result[id]
       end
     end
