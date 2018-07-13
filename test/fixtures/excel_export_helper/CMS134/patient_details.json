@@ -1,0 +1,44 @@
+{
+  "c358": {
+    "first": "Pass",
+    "last": "Numer",
+    "expected_values": [
+      {
+        "measure_id": "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 0,
+        "NUMER": 1
+      }
+    ],
+    "birthdate": -1025712000,
+    "expired": null,
+    "deathdate": null,
+    "ethnicity": "2186-5",
+    "race": "1002-5",
+    "gender": "F",
+    "notes": ""
+  },
+  "c552": {
+    "first": "Fail_Hospice_Not_Performed",
+    "last": "Denex",
+    "expected_values": [
+      {
+        "measure_id": "7B2A9277-43DA-4D99-9BEE-6AC271A07747",
+        "population_index": 0,
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 0,
+        "NUMER": 0
+      }
+    ],
+    "birthdate": -1025712000,
+    "expired": null,
+    "deathdate": null,
+    "ethnicity": "2186-5",
+    "race": "1002-5",
+    "gender": "F",
+    "notes": ""
+  }
+}

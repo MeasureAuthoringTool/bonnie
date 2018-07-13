@@ -1,0 +1,41 @@
+{
+  "c10": {
+    "title": "Population Criteria Section",
+    "statement_relevance": {
+      "DiabetesMedicalAttentionforNephropathy": {
+        "Patient": "NA",
+        "SDE Ethnicity": "NA",
+        "SDE Payer": "NA",
+        "SDE Race": "NA",
+        "SDE Sex": "NA",
+        "Renal Procedures": "TRUE",
+        "Renal Interventions": "TRUE",
+        "Qualifying Encounters": "TRUE",
+        "Protein Urea Lab Test": "TRUE",
+        "Nephropathy Diagnoses": "TRUE",
+        "ESRD Encounter": "TRUE",
+        "Active ACEI or ARB Medications": "TRUE",
+        "Initial Population": "TRUE",
+        "Denominator": "TRUE",
+        "Nephropathy Screenings": "TRUE",
+        "Numerator": "TRUE",
+        "In Hospice": "TRUE",
+        "Denominator Exclusions": "TRUE"
+      },
+      "MATGlobalCommonFunctions": {
+        "CalendarAgeInYearsAt": "TRUE",
+        "ToDate": "TRUE"
+      },
+      "Hospice": {
+        "Has Hospice": "TRUE"
+      }
+    },
+    "criteria": [
+      "IPP",
+      "DENOM",
+      "NUMER",
+      "DENEX",
+      "index"
+    ]
+  }
+}

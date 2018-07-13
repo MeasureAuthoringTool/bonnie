@@ -1,0 +1,436 @@
+{
+  "c89": {
+    "c320": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "TRUE",
+          "Measure Population": "TRUE",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "FALSE",
+          "Measure Observation": "FALSE"
+        }
+      },
+      "criteria": {
+        "IPP": 1,
+        "MSRPOPL": 1,
+        "MSRPOPLEX": 0,
+        "values": [
+          15
+        ]
+      }
+    },
+    "c468": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "TRUE",
+          "Measure Population": "TRUE",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "FALSE",
+          "Measure Observation": "FALSE"
+        }
+      },
+      "criteria": {
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 0,
+        "values": [
+          25,
+          15
+        ]
+      }
+    },
+    "c495": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "TRUE",
+          "Measure Population": "TRUE",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "TRUE",
+          "Measure Observation": "FALSE"
+        }
+      },
+      "criteria": {
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 1,
+        "values": [
+          25
+        ]
+      }
+    },
+    "c523": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "TRUE",
+          "Measure Population": "TRUE",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "TRUE",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 2,
+        "values": []
+      }
+    }
+  },
+  "c90": {
+    "c320": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "TRUE",
+          "Measure Population": "TRUE",
+          "Stratification 1": "TRUE",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "FALSE",
+          "Measure Observation": "FALSE"
+        }
+      },
+      "criteria": {
+        "STRAT": 1,
+        "IPP": 1,
+        "MSRPOPL": 1,
+        "MSRPOPLEX": 0,
+        "values": [
+          15
+        ]
+      }
+    },
+    "c468": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "TRUE",
+          "Measure Population": "TRUE",
+          "Stratification 1": "TRUE",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "FALSE",
+          "Measure Observation": "FALSE"
+        }
+      },
+      "criteria": {
+        "STRAT": 2,
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 0,
+        "values": [
+          25,
+          15
+        ]
+      }
+    },
+    "c495": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "TRUE",
+          "Measure Population": "TRUE",
+          "Stratification 1": "TRUE",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "TRUE",
+          "Measure Observation": "FALSE"
+        }
+      },
+      "criteria": {
+        "STRAT": 2,
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 1,
+        "values": [
+          25
+        ]
+      }
+    },
+    "c523": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "TRUE",
+          "Measure Population": "TRUE",
+          "Stratification 1": "TRUE",
+          "Stratification 2": "NA",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "TRUE",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 2,
+        "IPP": 2,
+        "MSRPOPL": 2,
+        "MSRPOPLEX": 2,
+        "values": []
+      }
+    }
+  },
+  "c91": {
+    "c320": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "FALSE",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
+      }
+    },
+    "c468": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "FALSE",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
+      }
+    },
+    "c495": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "FALSE",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
+      }
+    },
+    "c523": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "FALSE",
+          "Stratification 3": "NA",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
+      }
+    }
+  },
+  "c92": {
+    "c320": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "FALSE",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
+      }
+    },
+    "c468": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "FALSE",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
+      }
+    },
+    "c495": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "FALSE",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
+      }
+    },
+    "c523": {
+      "statement_results": {
+        "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "ED Visit": "TRUE",
+          "Initial Population": "UNHIT",
+          "Measure Population": "UNHIT",
+          "Stratification 1": "NA",
+          "Stratification 2": "NA",
+          "Stratification 3": "FALSE",
+          "Measure Population Exclusions": "UNHIT",
+          "Measure Observation": "UNHIT"
+        }
+      },
+      "criteria": {
+        "STRAT": 0,
+        "IPP": 0,
+        "MSRPOPL": 0,
+        "MSRPOPLEX": 0,
+        "values": []
+      }
+    }
+  }
+}
