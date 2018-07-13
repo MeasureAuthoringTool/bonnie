@@ -352,5 +352,29 @@ include Devise::Test::ControllerHelpers
     temp.close()
     temp.unlink()
   end
+
+  test "Excel export no results tests" do
+    patient_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'patient_details.json'))
+    population_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'population_details.json'))
+    statement_details = File.read(File.join(Rails.root, 'test', 'fixtures', 'functional', 'patient_controller', 'continuous_variable', 'statement_details.json'))
+    calc_results = {}.to_json
+    get :excel_export, calc_results: calc_results, patient_details: patient_details, population_details: population_details, statement_details: statement_details, file_name: "test"
+  
+    assert_response :success
+    assert_equal 'application/xlsx', response.header['Content-Type']
+    assert_equal 'binary', response.header['Content-Transfer-Encoding']
+    temp = Tempfile.new(["test", ".xlsx"])
+    temp.write(response.body)
+    temp.rewind()
+    doc = Roo::Spreadsheet.open(temp.path)
+
+    # Check we only get the error sheet and that it is as expected
+    assert_equal 1, doc.sheets.length
+    assert_equal "Error", doc.sheets[0]
+    assert_equal "Measure has no patients, please re-export with patients", doc.sheet(0).row(1)[0]
+
+    temp.close()
+    temp.unlink()
+  end
   
 end

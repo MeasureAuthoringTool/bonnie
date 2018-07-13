@@ -16,58 +16,20 @@ class PatientExport
   # calc_results is a map of population/stratifications -> patients -> definitions -> results
   def self.export_excel_cql_file(calc_results, patient_details, population_details, statement_details)
     Axlsx::Package.new do |package|
-      package.workbook do |workbook|
-        # Define styles
-        fg_color = "000033"
-        header_border = { :style => :thick, :color => "000066", :edges => [:bottom] }
+      package.workbook do |workbook|        
         styles = workbook.styles
-        default = styles.add_style(:sz => 14,
-                                   :bg_color => "FFFFFFF",
-                                   :border => { :style => :thin,
-                                                :color => "DDDDDD",
-                                                :edges => [:bottom] },
-                                   :alignment => { :wrap_text => true })
-        rotated_style = styles.add_style(:b => true,
-                                         :sz => 12,
-                                         :alignment => { :textRotation => 90 },
-                                         :border => header_border,
-                                         :fg_color => fg_color,
-                                         :bg_color => "FFFFFFF")
-        text_center = styles.add_style(:b => true,
-                                       :sz => 14,
-                                       :bg_color => "FFFFFFF",
-                                       :alignment => { :horizontal => :center, :vertical => :center})
-        header = styles.add_style(:b => true,
-                                  :sz => 14,
-                                  :alignment => { :wrap_text => true },
-                                  :border => header_border,
-                                  :fg_color => fg_color,
-                                  :bg_color => "FFFFFFF")
-        header_dc = styles.add_style(:sz => 12,
-                                     :alignment => { :wrap_text => true },
-                                     :border => header_border,
-                                     :fg_color => fg_color,
-                                     :bg_color => "FFFFFFF")
-        needs_fix = styles.add_style(:sz => 14,
-                                     :bg_color => "FFFFFFF",
-                                     :border => { :style => :thin,
-                                                  :color =>"DDDDDD",
-                                                  :edges => [:bottom] },
-                                     :fg_color => "FF0000",
-                                     :alignment => { :wrap_text => true })
-        maximum_column_width = 75
 
-        pop_index = 0
-        
+        ## ADD AN ERROR SHEET SHEET IF THERE ARE NO RESULTS
         if calc_results.length == 0
           error_row = ["Measure has no patients, please re-export with patients"]
           workbook.add_worksheet(name: "Error") do |sheet|
             sheet.add_row(error_row)
           end
+          next # in case of no results, we can skip adding the key
         end
 
 
-        ##ADD THE KEY SHEET TO THE BEGINNING OF THE DOCUMENT
+        ## ADD THE KEY SHEET TO THE BEGINNING OF THE DOCUMENT
         workbook.add_worksheet(name: "KEY") do |sheet|
           key_style = styles.add_style(:sz => 14, 
                                        :alignment => { :vertical => :center, :wrap_text => true })
@@ -113,9 +75,49 @@ class PatientExport
           end
         end
         
-        
+        ## ADD THE RESULTS SHEETS
         #calc_results is organized popKey->patientKey->results
         #popKey and patientKey can be used to lookup population and patient details in their respective maps
+        # Define styles
+        fg_color = "000033"
+        header_border = { :style => :thick, :color => "000066", :edges => [:bottom] }
+        default = styles.add_style(:sz => 14,
+                                   :bg_color => "FFFFFFF",
+                                   :border => { :style => :thin,
+                                                :color => "DDDDDD",
+                                                :edges => [:bottom] },
+                                   :alignment => { :wrap_text => true })
+        rotated_style = styles.add_style(:b => true,
+                                         :sz => 12,
+                                         :alignment => { :textRotation => 90 },
+                                         :border => header_border,
+                                         :fg_color => fg_color,
+                                         :bg_color => "FFFFFFF")
+        text_center = styles.add_style(:b => true,
+                                       :sz => 14,
+                                       :bg_color => "FFFFFFF",
+                                       :alignment => { :horizontal => :center, :vertical => :center})
+        header = styles.add_style(:b => true,
+                                  :sz => 14,
+                                  :alignment => { :wrap_text => true },
+                                  :border => header_border,
+                                  :fg_color => fg_color,
+                                  :bg_color => "FFFFFFF")
+        header_dc = styles.add_style(:sz => 12,
+                                     :alignment => { :wrap_text => true },
+                                     :border => header_border,
+                                     :fg_color => fg_color,
+                                     :bg_color => "FFFFFFF")
+        needs_fix = styles.add_style(:sz => 14,
+                                     :bg_color => "FFFFFFF",
+                                     :border => { :style => :thin,
+                                                  :color =>"DDDDDD",
+                                                  :edges => [:bottom] },
+                                     :fg_color => "FF0000",
+                                     :alignment => { :wrap_text => true })
+        maximum_column_width = 75
+        pop_index = 0
+
         calc_results.each do |pop_key, patients|
           
           population_criteria = HQMF::PopulationCriteria::ALL_POPULATION_CODES & population_details[pop_key]["criteria"]
