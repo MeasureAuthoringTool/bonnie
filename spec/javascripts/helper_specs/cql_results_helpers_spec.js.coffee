@@ -45,8 +45,8 @@ describe 'CQLResultsHelpers', ->
 
   it 'should properly print Quantity with unit', ->
     quantity = new cql.Quantity(value: 1, unit: 'g')
-    expect(CQLResultsHelpers.prettyResult(quantity)).toEqual('Quantity: 1 g')
+    expect(CQLResultsHelpers.prettyResult(quantity)).toEqual('QUANTITY: 1 g')
 
   it 'should properly print Quantity without unit', ->
     quantity = new cql.Quantity(value: 5)
-    expect(CQLResultsHelpers.prettyResult(quantity)).toEqual('Quantity: 5')
+    expect(CQLResultsHelpers.prettyResult(quantity)).toEqual('QUANTITY: 5')

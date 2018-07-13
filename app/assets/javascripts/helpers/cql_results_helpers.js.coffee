@@ -176,7 +176,11 @@ class CQLResultsHelpers
           statementResults[lib][statementName].pretty = 'NA' if doPretty
         else if statementRelevance[lib][statementName] == 'FALSE' || !rawClauseResults[lib]?
           statementResults[lib][statementName].final = 'UNHIT'
-          statementResults[lib][statementName].pretty = 'UNHIT' if doPretty
+          # even if the statement wasn't hit, we want the pretty result to just be FUNCTION for functions
+          if CQLMeasureHelpers.isStatementFunction(measure, lib, statementName)
+            statementResults[lib][statementName].pretty = "FUNCTION" if doPretty
+          else
+            statementResults[lib][statementName].pretty = 'UNHIT' if doPretty
         else
           if @_doesResultPass(rawStatementResult)
             statementResults[lib][statementName].final = 'TRUE'
@@ -227,11 +231,11 @@ class CQLResultsHelpers
     if result instanceof cql.DateTime
       moment.utc(result.toString()).format('MM/DD/YYYY h:mm A')
     else if result instanceof cql.Interval
-      "Interval: #{@prettyResult(result['low'])} - #{@prettyResult(result['high'])}"
+      "INTERVAL: #{@prettyResult(result['low'])} - #{@prettyResult(result['high'])}"
     else if result instanceof cql.Code
-      "Code: #{result['system']}: #{result['code']}"
+      "CODE: #{result['system']} #{result['code']}"
     else if result instanceof cql.Quantity
-      quantityResult = "Quantity: #{result['value']}"
+      quantityResult = "QUANTITY: #{result['value']}"
       if result['unit']
         quantityResult = quantityResult + " #{result['unit']}"
       quantityResult
