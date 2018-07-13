@@ -46,8 +46,10 @@ class ExcelExportHelperTest < ActionController::TestCase
     @unpretty_backend_results['5a5940ba942c6d0c717eeece'] = unpretty_backend_results['5b474ad52f8e3a17057c8576'] # Visits_2Excl_2ED
 
     @simple_backend_results = {}
-    @simple_backend_results['5a58f001942c6d500fc8cb92'] = simple_backend_results['5b479b890a97b16d73ba4748']
+
     @simple_backend_results['5a73955cb848465f695c4ecb'] = simple_backend_results['5b479b890a97b16d73ba4740']
+    # Patient '5a58f001942c6d500fc8cb92' is not added because the fixture in cqm-execution was fixed so that it doesn't
+    # have an invalid ucum unit. This simulates the failed_patient logic in bonnie.
 
     # These are the objects from the front end (measure-view.js.coffee) to compare with the ones we process
     # from the back end.  see test/fixtures/excel_export_helper/README.md for more details
@@ -224,8 +226,8 @@ class ExcelExportHelperTest < ActionController::TestCase
       end
 
       # sort the patients by our generated key, which is now the last element in the row
-      sorted_backend_rows = backend_patient_rows.sort {|a,b| a[-1] <=> b[-1]}
-      sorted_frontend_rows = frontend_patient_rows.sort {|a,b| a[-1] <=> b[-1]}
+      sorted_backend_rows = backend_patient_rows.sort { |a| a[-1] }
+      sorted_frontend_rows = frontend_patient_rows.sort { |a| a[-1] }
       assert_equal sorted_backend_rows, sorted_frontend_rows
     end
   end
