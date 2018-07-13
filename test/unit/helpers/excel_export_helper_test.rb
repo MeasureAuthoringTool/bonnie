@@ -234,7 +234,7 @@ class ExcelExportHelperTest < ActionController::TestCase
       end
 
       # sort the patients by our generated key, which is now the last element in the row
-      sorted_backend_rows = backend_patient_rows.sort { |a,b| a[-1] <=> b[-1]}
+      sorted_backend_rows = backend_patient_rows.sort { |a,b| a[-1] <=> b[-1] }
       sorted_frontend_rows = frontend_patient_rows.sort { |a,b| a[-1] <=> b[-1] }
       assert_equal sorted_backend_rows, sorted_frontend_rows
     end
