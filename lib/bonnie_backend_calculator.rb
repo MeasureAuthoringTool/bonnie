@@ -1,5 +1,5 @@
 
-# Do the measure calculation using the restful calculation microservice, 
+# Do the measure calculation using the restful calculation microservice,
 # will convert patients to QDM model prior to calculation.
 module BonnieBackendCalculator
   CALCULATION_SERVICE_URL = 'http://localhost:8081/calculate'.freeze
@@ -21,8 +21,8 @@ module BonnieBackendCalculator
       results = JSON.parse(response)
 
       # add back the failed patients, TODO: discuss this strategy
-      results["patients"].push(*failed_patients)
-      
+      results["failed_patients"].push(*failed_patients) if failed_patients.nil?
+
       return results
     rescue RestClient::Exception => e
       raise self::RestException.new(e.message)
