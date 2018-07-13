@@ -8,23 +8,29 @@ class ExcelExportHelperTest < ActionController::TestCase
     @controller = PatientsController.new
     dump_database
     users_set = File.join('users', 'base_set')
+
+    # CMS32 has stratifications and covers most of the edge cases
     measures_set = File.join('cql_measures', 'core_measures', 'CMS32v7')
-    simple_measures_set = File.join('cql_measures', 'core_measures', 'CMS134v6')
     records_set = File.join('records','core_measures', 'CMS32v7')
+
+    # CMS134 is a simpler measure and also has a patient that fails due to invalid ucum units
+    simple_measures_set = File.join('cql_measures', 'core_measures', 'CMS134v6')
     simple_records_set = File.join('records','core_measures', 'CMS134v6')
+
     collection_fixtures(measures_set, users_set, records_set, simple_measures_set, simple_records_set)
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_patients(@user, Record.all)
     associate_user_with_measures(@user, Measure.all)
     @measure = CqlMeasure.where({'cms_id' => 'CMS32v7'}).first
-    # CMS134v6 also has a patient with invalid ucum units.
-    @simple_measure = CqlMeasure.where({'cms_id' => 'CMS134v6'}).first
     @patients = Record.by_user(@user).where({:measure_ids.in => [@measure.hqmf_set_id]})
+
+    @simple_measure = CqlMeasure.where({'cms_id' => 'CMS134v6'}).first
     @simple_patients = Record.by_user(@user).where({:measure_ids.in => [@simple_measure.hqmf_set_id]})
 
     backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32', 'CMS32-results-stub.json')))
     unpretty_backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS32', 'CMS32-unpretty-results-stub.json')))
     simple_backend_results = JSON.parse(File.read(File.join(Rails.root, 'test', 'fixtures', 'excel_export_helper', 'CMS134', 'CMS134-results-stub.json')))
+
     # modify the backend results keys to match the keys of our patients. The results stub's keys
     # are random since it was generated from a fixture
     @backend_results = {}
