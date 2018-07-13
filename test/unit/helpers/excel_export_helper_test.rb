@@ -68,7 +68,7 @@ class ExcelExportHelperTest < ActionController::TestCase
                                'c523': '5a5940ba942c6d0c717eeece' }.with_indifferent_access
 
     @simple_cid_to_measure_id_map = { 'c358': '5a58f001942c6d500fc8cb92',
-                                      'c552': '5a73955cb848465f695c4ecb'}
+                                      'c552': '5a73955cb848465f695c4ecb'}.with_indifferent_access
 
     sign_in @user
   end
@@ -83,7 +83,7 @@ class ExcelExportHelperTest < ActionController::TestCase
   end
 
   test 'backend results are converted with failed patients' do
-    converted_results = ExcelExportHelper.convert_results_for_excel_export(@simple_backend_results, @measure, @patients)
+    converted_results = ExcelExportHelper.convert_results_for_excel_export(@simple_backend_results, @simple_measure, @simple_patients)
     @simple_calc_results.values.zip(converted_results.values).each do |calc_result, converted_result|
       @simple_cid_to_measure_id_map.each_pair do |cid, id|
         assert_equal calc_result[cid], converted_result[id]
@@ -112,7 +112,6 @@ class ExcelExportHelperTest < ActionController::TestCase
         end
       end
     end
-    # TODO(Luke): test failed patients separately or add to cid_map and skip for other assert loops
   end
 
   test 'population details are extracted' do
@@ -152,28 +151,7 @@ class ExcelExportHelperTest < ActionController::TestCase
     frontend_excel_file.rewind
     frontend_excel_spreadsheet = Roo::Spreadsheet.open(frontend_excel_file.path)
 
-    assert_equal backend_excel_spreadsheet.sheets, frontend_excel_spreadsheet.sheets
-    backend_excel_spreadsheet.sheets.each do |population_set|
-      next if population_set == "KEY"
-      backend_sheet = backend_excel_spreadsheet.sheet(population_set)
-      frontend_sheet = frontend_excel_spreadsheet.sheet(population_set)
-
-      # Column headers should be the same
-      assert_equal backend_sheet.row(2), frontend_sheet.row(2)
-
-      # Compare patients(rows), which are in different order but should be equal.
-      # Patient 2 ED Visits
-      assert_equal backend_sheet.row(3), frontend_sheet.row(4)
-
-      # Patient 2 ED Visits 2 Excl
-      assert_equal backend_sheet.row(4), frontend_sheet.row(6)
-
-      # Patient 2 ED Visits 1 Excl
-      assert_equal backend_sheet.row(5), frontend_sheet.row(5)
-
-      # Patient 1 ED Visit
-      assert_equal backend_sheet.row(6), frontend_sheet.row(3)
-    end
+    compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet, patient_details.keys.length)
   end
 
   test 'excel file is generated if there is a failed patient' do
@@ -200,17 +178,7 @@ class ExcelExportHelperTest < ActionController::TestCase
     frontend_excel_file.rewind
     frontend_excel_spreadsheet = Roo::Spreadsheet.open(frontend_excel_file.path)
 
-    backend_sheet = backend_excel_spreadsheet.sheet('1 - Population Criteria Section')
-    frontend_sheet = frontend_excel_spreadsheet.sheet('1 - Population Criteria Section')
-
-    # Column headers should be the same
-    assert_equal backend_sheet.row(2), frontend_sheet.row(2)
-
-    # Patient Numer Pass
-    assert_equal backend_sheet.row(3), frontend_sheet.row(3)
-
-    # Patient Denex Fail_Hospice_Not_Performed
-    assert_equal backend_sheet.row(4), frontend_sheet.row(4)
+    compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet, patient_details.keys.length)
   end
 
   def add_failed_patients_to_results(patients, results)
@@ -220,5 +188,45 @@ class ExcelExportHelperTest < ActionController::TestCase
     results_with_failed_patients = results
     results_with_failed_patients['failed_patients'] = failed_patients
     results_with_failed_patients
+  end
+
+  def compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet, number_of_patients)
+    # Verify the sheet titles are the same
+    assert_equal backend_excel_spreadsheet.sheets, frontend_excel_spreadsheet.sheets
+
+    backend_excel_spreadsheet.sheets.each do |population_set|
+      next if population_set == "KEY"
+      backend_sheet = backend_excel_spreadsheet.sheet(population_set)
+      frontend_sheet = frontend_excel_spreadsheet.sheet(population_set)
+
+      # Column headers should be the same
+      backend_patient_rows = []
+      frontend_patient_rows = []
+
+      # check header separately, always the 3rd row
+      assert_equal backend_sheet.row(2), frontend_sheet.row(2)
+
+      # sort patients because they are in different orders
+      first_patient_row_index = 3
+
+      # find which columns contain first and last names (this can change depending on the population)
+      last_name_column_index = backend_sheet.row(2).find_index('last')
+      first_name_column_index = backend_sheet.row(2).find_index('first')
+      (first_patient_row_index..(number_of_patients + first_patient_row_index - 1)).each do |row_index|
+        # add an extra 'column' which uses full name to make the sorting key more unique
+        backend_row = backend_sheet.row(row_index)
+        backend_row.push(backend_row[first_name_column_index] + backend_row[last_name_column_index])
+        backend_patient_rows.push(backend_row)
+
+        frontend_row = frontend_sheet.row(row_index)
+        frontend_row.push(frontend_row[first_name_column_index] + frontend_row[last_name_column_index])
+        frontend_patient_rows.push(frontend_row)
+      end
+
+      # sort the patients by our generated key, which is now the last element in the row
+      sorted_backend_rows = backend_patient_rows.sort {|a,b| a[-1] <=> b[-1]}
+      sorted_frontend_rows = frontend_patient_rows.sort {|a,b| a[-1] <=> b[-1]}
+      assert_equal sorted_backend_rows, sorted_frontend_rows
+    end
   end
 end
