@@ -65,7 +65,7 @@ class PatientExport
             ["Interval","INTERVAL: start value - end value","INTERVAL: 11/20/2010 - 11/20/2012 or INTERVAL: 1 - 4"],
             ["Code","CODE: system code","CODE: SNOMED-CT 8715000"],
             ["Quantity","QUANTITY: value unit","QUANTITY: 120 mm[Hg]"],
-            ["QDM Data Criteria","QDM Datatype: Value Set\nSTART: MM/DD/YYYY h:mm AM/PM\nSTOP: MM/DD/YYYY h:mm AM/PM\nCODE: system code\n* only the first code on the data criteria is shown","Medication, Order: Opioid Medications\nSTART: 01/01/2012 8:00 AM\nCODE: RxNorm 1053647"],
+            ["QDM Data Criteria","QDM Datatype: Value Set\nSTART: MM/DD/YYYY h:mm AM/PM\nSTOP: MM/DD/YYYY h:mm AM/PM\nCODE: system code\n* STOP entry is optional\n* only the first code on the data criteria is shown","Medication, Order: Opioid Medications\nSTART: 01/01/2012 8:00 AM\nCODE: RxNorm 1053647"],
             ["List","[item one,\nitem two,\n...]","[Encounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 5:00 AM\nSTOP: 06/10/2012 5:25 AM\nCODE: SNOMED-CT 4525004,\nEncounter, Performed: Emergency Department Visit\nSTART: 06/10/2012 9:00 AM\nSTOP: 06/10/2012 9:15 AM\nCODE: SNOMED-CT 4525004]"],
             ["Tuple","{\n  key1: value1,\n  key2: value2,\n  ...\n}","{\n  period: Interval: 06/29/2012 8:00 AM - 12/31/2012 11:59 PM,\n  meds: [Medication, Order: Opioid Medications\n        START: 06/29/2012 8:00 AM\n        CODE: RxNorm 996994],\n  cmd: 185\n}"]
           ]
