@@ -151,39 +151,36 @@ module ApiV1
     description 'Retrieve the calculated results of the measure logic for each patient.'
     param_group :measure
     error :code => 500, :desc => 'Server-side Error Calculating the HQMF Measure Logic'
-    formats [:json, :xlsx]
+    XLSX_CONTENT_TYPES = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx"] # only the first is official
+    formats [:json, *XLSX_CONTENT_TYPES]
     def calculated_results
+
       begin
         http_status = 200
         @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
         hqmf_set_id = @api_v1_measure.hqmf_set_id
         @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
-        @api_v1_value_sets = @api_v1_measure.value_sets
-        @calculator_options = { prettyPrint: true }
+        @api_v1_value_sets = @api_v1_measure.value_sets_by_oid
+        @calculator_options = { doPretty: true }
       rescue StandardError
         http_status = 404
       end
 
-      # TODO: the commented out code below can be used for BONNIE-1530.
-      # calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
+      calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
 
-      # converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, @api_v1_measure, @api_v1_patients)
-      # patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
-      # population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
-      # statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
+      converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, @api_v1_measure, @api_v1_patients)
+      patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
+      population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
+      statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
 
-      if request.headers['Accept'] == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      if XLSX_CONTENT_TYPES.include? request.headers['Accept']
         if http_status != 404
-          filename = 'Sample_Excel_Export(CMS52v6).xlsx'
-          send_file "#{Rails.root}/public/resource/#{filename}", type: :xlsx, status: http_status, filename: ERB::Util.url_encode(filename)
-
-          # TODO: the section below can replace the one above once everything is wired up.
-          # filename = "#{api_v1_measures.cms_id}.xlsx"
-          # excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
-          # send_data excel_package.to_stream.read, type: :xlsx, status: http_status, filename: ERB::Util.url_encode(filename)
+          filename = "#{@api_v1_measure.cms_id}.xlsx"
+          excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
+          send_data excel_package.to_stream.read, type: request.headers['Accept'], status: http_status, filename: ERB::Util.url_encode(filename)
         end
       else
-        render json: {status: "error", messages: "Unimplemented functionality"}, status: :bad_request
+        render json: calculated_results
       end
     end
 
