@@ -47,7 +47,6 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
   showRationale: (clauseResults, statementResult) ->
     @clearRationale()
     @rootClauseView.showRationale(clauseResults)
-    @latestResult = statementResult
 
     # if this statement defines populations, highlight the panel headers.
     # TODO: Figure out how to appropiately highlight OBSERV.
@@ -76,3 +75,34 @@ class Thorax.Views.CqlStatement extends Thorax.Views.BonnieView
     @$('.panel-heading').removeClass('eval-panel-true eval-panel-false')
     @$('.rationale-target').removeClass('eval-true eval-false')
     @rootClauseView.clearRationale()
+
+
+
+###*
+# View representing a CQL statement with a result.
+###
+
+class Thorax.Views.CqlResultStatement extends Thorax.Views.CqlStatement
+  initialize: ->
+    _(super)
+    @resultBoxView = new Thorax.Views.CqlStatementResultBox
+
+  clearRationale: ->
+    _(super)
+    @resultBoxView.clearResult()
+
+  showResult: ->
+    @resultBoxView.showResult()
+
+  hideResult: ->
+    @resultBoxView.hideResult()
+
+  showRationale: (clauseResults, statementResult) ->
+    _(super)
+    @latestResult = statementResult
+    if @latestResult && @latestResult.raw
+      @latestResultString = CQLResultsHelpers.prettyResult(@latestResult.raw)
+    else
+      @latestResultString = "No Result Calculated"
+
+    @resultBoxView.updateResult(@latestResultString)

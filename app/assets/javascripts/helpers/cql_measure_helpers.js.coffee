@@ -305,3 +305,13 @@ class CQLMeasureHelpers
       return statement.type == "FunctionDef"
     else
       return false
+
+  ###*
+  # Figure out if a statement is in a Supplemental Data Element given the statement name.
+  # @public
+  # @param {Population} population
+  # @param {string} statementDefine - The statement define to search for.
+  # @return {boolean} Statement does or does not belong to a Supplemental Data Element.
+  ###
+  @isSupplementalDataElementStatement: (population, statementDefine) ->
+    return _.contains(population.get('supplemental_data_elements'), statementDefine)

@@ -29,9 +29,17 @@ namespace :bonnie do
 
       oid_to_vs_map = {}
       value_sets = measure.value_sets.each do |vs|
-        oid_to_vs_map[vs.oid] = { vs.version => vs }
+        if oid_to_vs_map[vs.oid]
+          # if there are multiple value sets with the same oid for this user, then keep the one with
+          # the Draft- version corresponding to this measure for the fixture.
+          if vs.version.include?(measure.hqmf_set_id)
+            oid_to_vs_map[vs.oid] = { vs.version => vs }
+          end
+        else
+          oid_to_vs_map[vs.oid] = { vs.version => vs }
+        end
       end
-      
+
       value_sets_file = File.join(fixtures_path, 'measure_data', args[:path], 'value_sets.json')
       create_fixture_file(value_sets_file, JSON.pretty_generate(JSON.parse(oid_to_vs_map.to_json)))
       puts 'exported value sets to ' + value_sets_file

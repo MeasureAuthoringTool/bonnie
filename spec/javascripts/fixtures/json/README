@@ -30,6 +30,8 @@ bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS136,e
 
 CMS146 created with:
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS146,epecqmncqa@gmail.com,CMS146v5,"PharynStrepATest<=3dB4Enc","NUMERPass"]
+# TODO: when cql-testing-overhaul is merged, re-export CMS146 and remove CQL/CMS146v6.
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS146v6,bonnie-fixtures@mitre.org,CMS146v6]
 
 CMS107 created with:
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,CQL/CMS107,hmdmtjc@gmail.com,CMS107v6]
@@ -58,3 +60,6 @@ bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_meas
 
 CMS341v1 - measure with multiple libraries that each have population statements
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS334v1,bonnie-fixtures@mitre.org,CMS334v1]
+
+CMS529v0 - Hybrid Measure with Supplemental Data Elements
+bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS529v0,bonnie-fixtures@mitre.org,CMS529v0]

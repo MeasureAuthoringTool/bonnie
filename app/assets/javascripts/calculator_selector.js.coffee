@@ -1,9 +1,9 @@
 # Selector class that will choose which calculator to call the functions on.
 @CalculatorSelector = class CalculatorSelector
 
-  calculate: (population, patient) ->
+  calculate: (population, patient, options = {}) ->
     if population.collection.parent.has('cql')
-      bonnie.cql_calculator.calculate population, patient
+      bonnie.cql_calculator.calculate population, patient, options
     else
       bonnie.qdm_calculator.calculate population, patient
 

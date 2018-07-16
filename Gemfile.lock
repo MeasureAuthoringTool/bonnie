@@ -63,7 +63,7 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.11)
-    bonnie_bundler (2.1.2)
+    bonnie_bundler (2.2.0)
       diffy (~> 3.0.0)
       health-data-standards (~> 4.0)
       hqmf2js (~> 1.4)
@@ -154,7 +154,7 @@ GEM
       sprockets (>= 2.0.3)
       tilt
     hashdiff (0.3.0)
-    health-data-standards (4.0.6)
+    health-data-standards (4.1.0)
       activesupport (~> 4.2.0)
       builder (~> 3.1)
       erubis (~> 2.7.0)
@@ -399,7 +399,7 @@ PLATFORMS
 
 DEPENDENCIES
   axlsx!
-  bonnie_bundler (~> 2.1.2)
+  bonnie_bundler (~> 2.2.0)
   brakeman
   browser
   bundler-audit
@@ -410,7 +410,7 @@ DEPENDENCIES
   exception_notification!
   foreman
   handlebars_assets (= 0.16)
-  health-data-standards (~> 4.0.6)
+  health-data-standards (~> 4.1.0)
   hqmf2js (~> 1.4)
   hquery-patient-api (~> 1.1)
   jquery-rails

@@ -609,6 +609,7 @@ include Devise::Test::ControllerHelpers
     assert_equal true, measure.episode_of_care?
     assert_equal 'eh', measure.type
     assert_nil measure.episode_ids
+    assert_nil measure.calculate_sdes
 
     assert_equal 1, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.464.1003.106.12.1001'}).count
     assert_equal 745, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.464.1003.106.12.1001' && vs.version == "MU2 Update 2017-01-06"}).first.concepts.count
@@ -654,6 +655,7 @@ include Devise::Test::ControllerHelpers
     assert_equal true, measure.episode_of_care?
     assert_equal 'eh', measure.type
     assert_nil measure.episode_ids
+    assert_nil measure.calculate_sdes
 
     assert_equal 2, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.464.1003.106.12.1001'}).count
     assert_equal 745, (measure.value_sets.select {|vs| vs.oid == '2.16.840.1.113883.3.464.1003.106.12.1001' && vs.version == "MU2 Update 2017-01-06"}).first.concepts.count
@@ -739,6 +741,62 @@ include Devise::Test::ControllerHelpers
 
     assert_equal false, measure.episode_of_care?
     assert_equal 'ep', measure.type
+  end
+
+  test "create/finalize/update a measure calculating SDEs" do
+    sign_in @user
+    measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_initial_Artifacts.zip'), 'application/xml')
+    class << measure_file
+      attr_reader :tempfile
+    end
+    update_measure_file = fixture_file_upload(File.join('test','fixtures', 'cql_measure_exports', 'IETCQL_v5_0_updates_Artifacts.zip'), 'application/xml')
+    class << update_measure_file
+      attr_reader :tempfile
+    end
+
+    measure = nil
+    # associate a patient with the measure about to be created so the patient will be rebuilt
+    p = Record.by_user(@user).first
+    p.measure_ids = ["762B1B52-40BF-4596-B34F-4963188E7FF7"]
+    p.save
+
+    VCR.use_cassette("initial_response_calc_SDEs") do
+      post :create, {
+        vsac_query_type: 'profile',
+        vsac_query_profile: 'Latest eCQM',
+        vsac_query_include_draft: 'false',
+        vsac_query_measure_defined: 'true',
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        measure_file: measure_file,
+        measure_type: 'eh',
+        calculation_type: 'episode',
+        calc_sde: 'true'
+      }
+    end
+
+    measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    assert_equal true, measure.calculate_sdes
+    assert_equal true, measure.episode_of_care?
+    assert_equal 'eh', measure.type
+
+    # Update the measure
+    VCR.use_cassette("update_response_calc_SDEs") do
+      post :create, {
+        vsac_query_type: 'profile',
+        vsac_query_profile: APP_CONFIG['vsac']['default_profile'],
+        vsac_query_include_draft: 'false',
+        vsac_query_measure_defined: 'true',
+        vsac_username: ENV['VSAC_USERNAME'], vsac_password: ENV['VSAC_PASSWORD'],
+        measure_file: update_measure_file,
+        hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"
+      }
+    end
+
+    measure = CqlMeasure.where({hqmf_id: "40280582-5859-673B-0158-DAEF8B750647"}).first
+    assert_equal true, measure.calculate_sdes
+    assert_equal true, measure.episode_of_care?
+    assert_equal 'eh', measure.type
+
   end
 
 end

@@ -10,8 +10,9 @@
   # deferred manner like we did for QDM calcuations.
   # @param {Population} population - The population set to calculate on.
   # @param {Patient} patient - The patient to run calculations on.
+  # @param {Object} options - miscellaneous options.
   ###
-  calculate: (population, patient) ->
+  calculate: (population, patient, options = {}) ->
     # We store both the calculation result and the calcuation code based on keys derived from the arguments
     cacheKey = @cacheKey(population, patient)
     calcKey = @calculationKey(population)
@@ -112,7 +113,7 @@
         result.set {'population_relevance': population_relevance }
         # Add 'statement_relevance', 'statement_results' and 'clause_results' generated in the CQLResultsHelpers class.
         result.set {'statement_relevance': CQLResultsHelpers.buildStatementRelevanceMap(population_relevance, population.collection.parent, population) }
-        result.set CQLResultsHelpers.buildStatementAndClauseResults(population.collection.parent, results.localIdPatientResultsMap[patient['id']], result.get('statement_relevance'))
+        result.set CQLResultsHelpers.buildStatementAndClauseResults(population.collection.parent, results.localIdPatientResultsMap[patient['id']], result.get('statement_relevance'), !!options['doPretty'])
 
         result.set {'patient_id': patient['id']} # Add patient_id to result in order to delete patient from population_calculation_view
         result.state = 'complete'

@@ -4,7 +4,7 @@ http_interactions:
     method: post
     uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: username=<VSAC_USERNAME>&password=<VSAC_PASSWORD>
     headers:
       Accept:
@@ -12,7 +12,7 @@ http_interactions:
       Accept-Encoding:
       - gzip, deflate
       Content-Length:
-      - '35'
+      - '48'
       Content-Type:
       - application/x-www-form-urlencoded
       User-Agent:
@@ -37,28 +37,28 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '64'
+      - '65'
       Date:
-      - Sun, 24 Sep 2017 17:25:03 GMT
+      - Wed, 13 Jun 2018 18:49:39 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!POErdeQ42TrpLGk0/8tBI6XxAa5T6t+djc44bqRoRYKRGh7lmXpdk/Nd4aLceGgNrkchpU264CmoX/A=;
-        expires=Sun, 24-Sep-2017 19:25:03 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!yYYF9RDxLJVA+nnm9OGvBt4MxRMcjl27Zgb29dvs9Zhz7dhqCZ6okU7qTXmZoIWjzA9Ltltlf47ID3M=;
+        expires=Wed, 13-Jun-2018 20:49:39 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+      string: TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:04 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:39 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -91,26 +91,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:04 GMT
+      - Wed, 13 Jun 2018 18:49:39 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!kmnSR/iZh+kffUY0/8tBI6XxAa5T6gRkwGTgrkjkc4wcAPsvq3FohACDpqsFDEtJTLu7SAABA2U7Tkw=;
-        expires=Sun, 24-Sep-2017 19:25:04 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!aXEBxnNAqI6p+HPNtNHn4GsLooFbU3LEpijGfqxM1yXmhfCwInyCIGA6RvDXWXu+63pP8nySGXWbhnI=;
+        expires=Wed, 13-Jun-2018 20:49:39 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86720-GGMrknHJLiceUENei2be-cas
+      string: ST-2984315-1VIYysoAVUHoWx5wVj2c-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:05 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:39 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.526.3.1496&ticket=ST-86720-GGMrknHJLiceUENei2be-cas&version=MU2%20Update%202017-01-06
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.526.3.1496&ticket=ST-2984315-1VIYysoAVUHoWx5wVj2c-cas&version=MU2%20Update%202017-01-06
     body:
       encoding: US-ASCII
       string: ''
@@ -139,17 +139,17 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!uzJiIZm7MttQvxo0/8tBI6XxAa5T6rZ5QDhbrPTN4RRxeO7BnqJc7xWSwNUTPM6gBBAG7ShXwga6dWc=;
-        expires=Sun, 24-Sep-2017 19:25:05 GMT; path=/; Httponly; Secure
-      - JSESSIONID=EA7D2E2A3DB2F402EDCD774D93D67EEA;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!a3KM8lCptk2evPvm9OGvBt4MxRMcjpNx/gFpQqiufAeNzpC05Mf6wUam2bKBXvDcB+MBa0PV7vQOBrw=;
+        expires=Wed, 13-Jun-2018 20:49:40 GMT; path=/; Httponly; Secure
+      - JSESSIONID=66643B26AB9F3B7E8E7F8CD7392FDE05;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '27381'
       Date:
-      - Sun, 24 Sep 2017 17:25:05 GMT
+      - Wed, 13 Jun 2018 18:49:40 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
@@ -420,13 +420,13 @@ http_interactions:
         Quality Forum\" displayName=\"NQF Number\">\n            <ns0:Keyword>Not
         Applicable</ns0:Keyword>\n        </ns0:Group>\n        <ns0:Group ID=\"5\"
         sourceOrganization=\"National Quality Forum\" displayName=\"Measure Developer\">\n
-        \           <ns0:Keyword>American Medical Association (AMA)</ns0:Keyword>\n
-        \           <ns0:Keyword>PCPI(R) Foundation (PCPI[R])</ns0:Keyword>\n        </ns0:Group>\n
-        \       <ns0:Group ID=\"5\" sourceOrganization=\"National Quality Forum\"
-        displayName=\"eMeasure Version number\">\n            <ns0:Keyword>5.2.000</ns0:Keyword>\n
-        \       </ns0:Group>\n        <ns0:Group ID=\"6\" sourceOrganization=\"National
-        Quality Forum\" displayName=\"Meaningful Use Measures\">\n            <ns0:Keyword>CY
-        2014 EP</ns0:Keyword>\n        </ns0:Group>\n        <ns0:Group ID=\"6\" sourceOrganization=\"National
+        \           <ns0:Keyword>PCPI(R) Foundation (PCPI[R])</ns0:Keyword>\n            <ns0:Keyword>American
+        Medical Association (AMA)</ns0:Keyword>\n        </ns0:Group>\n        <ns0:Group
+        ID=\"5\" sourceOrganization=\"National Quality Forum\" displayName=\"eMeasure
+        Version number\">\n            <ns0:Keyword>5.2.000</ns0:Keyword>\n        </ns0:Group>\n
+        \       <ns0:Group ID=\"6\" sourceOrganization=\"National Quality Forum\"
+        displayName=\"Meaningful Use Measures\">\n            <ns0:Keyword>CY 2014
+        EP</ns0:Keyword>\n        </ns0:Group>\n        <ns0:Group ID=\"6\" sourceOrganization=\"National
         Quality Forum\" displayName=\"eMeasure Identifier\">\n            <ns0:Keyword>161</ns0:Keyword>\n
         \       </ns0:Group>\n        <ns0:Group ID=\"6\" sourceOrganization=\"National
         Quality Forum\" displayName=\"eMeasure Title\">\n            <ns0:Keyword>Adult
@@ -501,12 +501,12 @@ http_interactions:
         Version number\">\n            <ns0:Keyword>5.0.000</ns0:Keyword>\n        </ns0:Group>\n
         \   </ns0:DescribedValueSet>\n</ns0:RetrieveMultipleValueSetsResponse>\n"
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:06 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:40 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -539,26 +539,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:05 GMT
+      - Wed, 13 Jun 2018 18:49:40 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!u7qTpj6SbiDhqH00/8tBI6XxAa5T6mi0l2e/+7uJQkEXfe5bdLx7BRsahLR6rirKWGJIR0iOxAaHPp0=;
-        expires=Sun, 24-Sep-2017 19:25:06 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!G8RzV9ICybvfJ1zm9OGvBt4MxRMcjpf0NJO/wYY5Xuj7bqlV9oVmHi6PAhJGaQUz9K4snBqaO/NdzUI=;
+        expires=Wed, 13-Jun-2018 20:49:40 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86721-g20bFRYUeicHCfIJxUjL-cas
+      string: ST-2984317-eHkbHt9TNHETgUDgOfFs-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:06 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:40 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.106.12.1001&ticket=ST-86721-g20bFRYUeicHCfIJxUjL-cas&version=MU2%20Update%202017-01-06
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.106.12.1001&ticket=ST-2984317-eHkbHt9TNHETgUDgOfFs-cas&version=MU2%20Update%202017-01-06
     body:
       encoding: US-ASCII
       string: ''
@@ -587,17 +587,17 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!prbpxCVxOXjP9wo0/8tBI6XxAa5T6odT3J9iagzDNsqH6jXjPrqBDz3EdkrFiY6QK73GBJsim3QpueM=;
-        expires=Sun, 24-Sep-2017 19:25:06 GMT; path=/; Httponly; Secure
-      - JSESSIONID=E0A66AE0BE9550856004951CC5DB3420;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!CKf4y7t5bUonnf3m9OGvBt4MxRMcjhtXogZiAXe2AGcA04bSqAQzsWVPKXbdcvXpZ6S88euPev7C9u4=;
+        expires=Wed, 13-Jun-2018 20:49:40 GMT; path=/; Httponly; Secure
+      - JSESSIONID=20AA98E746C6073224ED95E7F2B48135;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '155156'
       Date:
-      - Sun, 24 Sep 2017 17:25:06 GMT
+      - Wed, 13 Jun 2018 18:49:40 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
@@ -2530,12 +2530,12 @@ http_interactions:
         Version number\">\n            <ns0:Keyword>5.1.000</ns0:Keyword>\n        </ns0:Group>\n
         \   </ns0:DescribedValueSet>\n</ns0:RetrieveMultipleValueSetsResponse>\n"
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:07 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:40 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -2568,26 +2568,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:07 GMT
+      - Wed, 13 Jun 2018 18:49:41 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!q3+3eyw8qjqrPrk0/8tBI6XxAa5T6lXylcrDQZPc47L7KpWYl0YEIcrHlhnEh7i9JwfSpt3Yg+k8G7M=;
-        expires=Sun, 24-Sep-2017 19:25:07 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!K/F2YZaDvESfge7NtNHn4GsLooFbU4VW1HU9LjL8pR4C7IQ/LU+WfP0JHSmcychL5dUeJrOailgecHk=;
+        expires=Wed, 13-Jun-2018 20:49:41 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86722-WRKe2HXLffPLoht5DiO7-cas
+      string: ST-2984320-al2sRcZxUujLPBJBCnPB-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:07 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:41 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1048&ticket=ST-86722-WRKe2HXLffPLoht5DiO7-cas&version=MU2%20Update%202017-01-06
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1048&ticket=ST-2984320-al2sRcZxUujLPBJBCnPB-cas&version=MU2%20Update%202017-01-06
     body:
       encoding: US-ASCII
       string: ''
@@ -2616,17 +2616,17 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!2XmwTM0M6DI9tPI0/8tBI6XxAa5T6pYioMWPlmhJmk7voJDSkEe8xvTCojDbz2eLFDojY4z/BxayjfU=;
-        expires=Sun, 24-Sep-2017 19:25:09 GMT; path=/; Httponly; Secure
-      - JSESSIONID=054F507DBF03BFFCBA6C023E418B2141;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!QfWjyBD5uyDdUJXNtNHn4GsLooFbUxpXrYq7Tj9eX9m5q0TSNUjtrEea+r6XfXdT1ih5jykeUGgsurs=;
+        expires=Wed, 13-Jun-2018 20:49:42 GMT; path=/; Httponly; Secure
+      - JSESSIONID=97026F8D4F815A0BECE80DADF18E010B;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '188316'
       Date:
-      - Sun, 24 Sep 2017 17:25:09 GMT
+      - Wed, 13 Jun 2018 18:49:42 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
@@ -5000,12 +5000,12 @@ http_interactions:
         Quality Forum\" displayName=\"eMeasure Version number\">\n            <ns0:Keyword>6.2.000</ns0:Keyword>\n
         \       </ns0:Group>\n    </ns0:DescribedValueSet>\n</ns0:RetrieveMultipleValueSetsResponse>\n"
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:09 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:42 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -5038,26 +5038,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:09 GMT
+      - Wed, 13 Jun 2018 18:49:42 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!0Ey9DDYittzofxs0/8tBI6XxAa5T6jBk/s2XDB1zsuNr0xdONZNEiuP4TXb96Vjtf+TvwOJG48DNeZk=;
-        expires=Sun, 24-Sep-2017 19:25:09 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!cNRZeuVSYB+I+bfm9OGvBt4MxRMcjtca6AGSR665G7O/lU8+s41WY7v4hDHUzu0XXOZSxiKw/jm73Ww=;
+        expires=Wed, 13-Jun-2018 20:49:43 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86723-7GyeXbo1Wf1U6eKbpzGa-cas
+      string: ST-2984324-RUIMwNShRnisqtQ5qMge-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:09 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:43 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.836&profile=Latest%20eCQM&ticket=ST-86723-7GyeXbo1Wf1U6eKbpzGa-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.836&profile=Latest%20eCQM&ticket=ST-2984324-RUIMwNShRnisqtQ5qMge-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -5086,17 +5086,17 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!vmbEEKyObIqLiXI0/8tBI6XxAa5T6jACZ+3tYagTEx+zKjRnx6AfdHUk/aCKtZq4o8fwD9Sntaaezug=;
-        expires=Sun, 24-Sep-2017 19:25:09 GMT; path=/; Httponly; Secure
-      - JSESSIONID=091E5E39853EE899B13268288525E8FD;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!Racog7z/6yd7yknm9OGvBt4MxRMcjm0UUSrddhSMSboTnEq+pz+CXII4s9u5qcYQpUV/38Uk52XxhcI=;
+        expires=Wed, 13-Jun-2018 20:49:43 GMT; path=/; Httponly; Secure
+      - JSESSIONID=DCCFD4D43C248270679FB101B85BD522;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '1765'
       Date:
-      - Sun, 24 Sep 2017 17:25:09 GMT
+      - Wed, 13 Jun 2018 18:49:43 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
@@ -5124,12 +5124,12 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:10 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:43 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -5162,26 +5162,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:09 GMT
+      - Wed, 13 Jun 2018 18:49:43 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!i6ZPojbjRzQ0NKI0/8tBI6XxAa5T6nXpEMSMxhumQcBbXH/AYbofn3D0lVLosIC3yVEf+UgDw7Rt0HY=;
-        expires=Sun, 24-Sep-2017 19:25:09 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!SZoLIOkv6YcytJnm9OGvBt4MxRMcjovb/n3HiG0uJVE3U97N100qN3vgeHzeSLlUPEtqB3zvStNnlLY=;
+        expires=Wed, 13-Jun-2018 20:49:43 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86724-eoTLkz2z4geWLCUhSxfk-cas
+      string: ST-2984326-4C90clceezKtBvJNmLdQ-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:10 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:43 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113762.1.4.1&profile=Latest%20eCQM&ticket=ST-86724-eoTLkz2z4geWLCUhSxfk-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113762.1.4.1&profile=Latest%20eCQM&ticket=ST-2984326-4C90clceezKtBvJNmLdQ-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -5210,17 +5210,17 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!dYbYEBmzwP9XpqU0/8tBI6XxAa5T6sGuvYpGfXLVyX6psnYUyrBZMItZ/3jqlejY9LWsAhcSiTRqLqI=;
-        expires=Sun, 24-Sep-2017 19:25:10 GMT; path=/; Httponly; Secure
-      - JSESSIONID=D87DAC4F6F9C3E7ED723771A4F68FEB5;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!f0F3BMjOpzcjSGPNtNHn4GsLooFbU1JOa6eTGHMH7COtBac0V7xbWmnbL87MhYP0mszPDG7MFyf/ozk=;
+        expires=Wed, 13-Jun-2018 20:49:44 GMT; path=/; Httponly; Secure
+      - JSESSIONID=30CAC4F2BA40783D9BB296F1BDF1EB96;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '1356'
       Date:
-      - Sun, 24 Sep 2017 17:25:10 GMT
+      - Wed, 13 Jun 2018 18:49:43 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
@@ -5232,8 +5232,8 @@ http_interactions:
         <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <ns0:DescribedValueSet ID="2.16.840.1.113762.1.4.1" displayName="ONC Administrative Sex" version="N/A">
                 <ns0:ConceptList>
-                    <ns0:Concept code="F" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2016-07" displayName="Female"/>
-                    <ns0:Concept code="M" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2016-07" displayName="Male"/>
+                    <ns0:Concept code="F" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2017-07" displayName="Female"/>
+                    <ns0:Concept code="M" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" codeSystemVersion="HL7V3.0_2017-07" displayName="Male"/>
                 </ns0:ConceptList>
                 <ns0:Source>Office of the National Coordinator for Health Information Technology</ns0:Source>
                 <ns0:Purpose>(Clinical Focus: Gender identity restricted to only Male and Female used in administrative situations requiring a restriction to these two categories.),(Data Element Scope: Gender),(Inclusion Criteria: Male and Female only.),(Exclusion Criteria: Any gender identity that is not male or female.)</ns0:Purpose>
@@ -5244,12 +5244,12 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:10 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:44 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -5282,26 +5282,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:09 GMT
+      - Wed, 13 Jun 2018 18:49:43 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!b8b07kVkvTLTCnQ0/8tBI6XxAa5T6qC22uytT5BdW2A8XOgTk1INFo1TuRRjRd11Qmwvk+i2X9r9geA=;
-        expires=Sun, 24-Sep-2017 19:25:10 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!AUmraPhL1ywuh73NtNHn4GsLooFbU8RVEn6s/scgaWYF4fB9fCY4XnV9HjMwzL0mB5lBrud+064Qzow=;
+        expires=Wed, 13-Jun-2018 20:49:44 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86725-CbYhWYaFIuX4GtQKPMFg-cas
+      string: ST-2984329-1SOIPFKa2ZVqdLMBs1lY-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:10 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:44 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1001&ticket=ST-86725-CbYhWYaFIuX4GtQKPMFg-cas&version=MU2%20Update%202017-01-06
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1001&ticket=ST-2984329-1SOIPFKa2ZVqdLMBs1lY-cas&version=MU2%20Update%202017-01-06
     body:
       encoding: US-ASCII
       string: ''
@@ -5330,17 +5330,17 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!Skl8Hi/emVdso9E0/8tBI6XxAa5T6iVWhhn/UOaQaufFVy+4pCUcI2ldDBPJNX8nVJivIY7By3bFVTs=;
-        expires=Sun, 24-Sep-2017 19:25:11 GMT; path=/; Httponly; Secure
-      - JSESSIONID=B93C8DAC301D09EED1A1B91C7A9F6507;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!c6YJ7/4Pjf3kKZ3m9OGvBt4MxRMcjuaHVhIHYABTJG/gqoM0AEo0HxmL4Z5t/CDeCphDWZxY8AA9Y0c=;
+        expires=Wed, 13-Jun-2018 20:49:45 GMT; path=/; Httponly; Secure
+      - JSESSIONID=2ED383EB54FE1A7FCD0C377F9D51D2C3;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '198001'
       Date:
-      - Sun, 24 Sep 2017 17:25:11 GMT
+      - Wed, 13 Jun 2018 18:49:44 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
@@ -7839,12 +7839,12 @@ http_interactions:
         Quality Forum\" displayName=\"eMeasure Version number\">\n            <ns0:Keyword>6.2.000</ns0:Keyword>\n
         \       </ns0:Group>\n    </ns0:DescribedValueSet>\n</ns0:RetrieveMultipleValueSetsResponse>\n"
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:12 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:45 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -7877,26 +7877,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:11 GMT
+      - Wed, 13 Jun 2018 18:49:45 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!87oDP3cKPcOxLyc0/8tBI6XxAa5T6pJImIyLi8seKe/ACtZ95nPfqs4H4Dq3j6kbt0uN6KnKXL2HsPo=;
-        expires=Sun, 24-Sep-2017 19:25:12 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!5kzY/UUJEoexkVLNtNHn4GsLooFbUyWUBRJ14tphh4LZpzL+GrdeRq8dBEhZbHC8whJIL/MKodWS/gw=;
+        expires=Wed, 13-Jun-2018 20:49:45 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.110 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86726-xoBM6VvkfOIU0OqgD01G-cas
+      string: ST-2984343-XnfU64ug9sZDhQuVSZFj-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:12 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:45 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1004&ticket=ST-86726-xoBM6VvkfOIU0OqgD01G-cas&version=MU2%20Update%202017-01-06
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1004&ticket=ST-2984343-XnfU64ug9sZDhQuVSZFj-cas&version=MU2%20Update%202017-01-06
     body:
       encoding: US-ASCII
       string: ''
@@ -7925,17 +7925,17 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!gnwdRyGKiiyJV1g0/8tBI6XxAa5T6lShWJ7Nr2EyVKrq7JM83kTukEgnxmiHdeO4QAur1YQ8rWcGT28=;
-        expires=Sun, 24-Sep-2017 19:25:13 GMT; path=/; Httponly; Secure
-      - JSESSIONID=617C48796BF2A53DA6373D5989B07B86;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!IrGxQWbCPc+MSHvNtNHn4GsLooFbU/RyWjs7zF8pnfPZhKrA7b52BqeEC29NykKcGfXnbkg0rhg/ezQ=;
+        expires=Wed, 13-Jun-2018 20:49:46 GMT; path=/; Httponly; Secure
+      - JSESSIONID=4C4F718A0C508944795FB8512D77B280;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '11972'
       Date:
-      - Sun, 24 Sep 2017 17:25:13 GMT
+      - Wed, 13 Jun 2018 18:49:45 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
@@ -8093,12 +8093,12 @@ http_interactions:
         Quality Forum\" displayName=\"eMeasure Version number\">\n            <ns0:Keyword>5.1.000</ns0:Keyword>\n
         \       </ns0:Group>\n    </ns0:DescribedValueSet>\n</ns0:RetrieveMultipleValueSetsResponse>\n"
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:13 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:46 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -8131,26 +8131,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:13 GMT
+      - Wed, 13 Jun 2018 18:49:46 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!DLNwDEPV3yJlat00/8tBI6XxAa5T6v2gpiDjQW7jj5+qiAwhpCAqLtNAG8cR9vLr+R/VTVdk9NfiRU4=;
-        expires=Sun, 24-Sep-2017 19:25:13 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!cs/ZhfPvSETYV9PNtNHn4GsLooFbU/g1oRFmkndMVylAdWVRl48PpPYjBeRYVmAkJ7HENzid5x8AAzw=;
+        expires=Wed, 13-Jun-2018 20:49:46 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.110 8080"
+      - "/Common/vsacweb_p 10.1.5.114 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86727-9KYxllp92I9UYiKLaFQT-cas
+      string: ST-2984348-70JdvxCGBXWU63pQeUdr-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:13 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:46 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.837&profile=Latest%20eCQM&ticket=ST-86727-9KYxllp92I9UYiKLaFQT-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.837&profile=Latest%20eCQM&ticket=ST-2984348-70JdvxCGBXWU63pQeUdr-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -8179,17 +8179,17 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!pGgcqYBRon3DaBk0/8tBI6XxAa5T6gNkIHMzNVXmQLDSscOLguo8V11Qk2cufsbaW8+Ag/0YN3ga0hs=;
-        expires=Sun, 24-Sep-2017 19:25:13 GMT; path=/; Httponly; Secure
-      - JSESSIONID=69C69C72FB4B629CEC9AA71DCAFFBD43;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!UC+Gx4tLUQEr5lvm9OGvBt4MxRMcjsstZPJx/Zzji5lKLMq4FqL2GGxzKu1hAbC4oEok+/n1PLsxtdw=;
+        expires=Wed, 13-Jun-2018 20:49:46 GMT; path=/; Httponly; Secure
+      - JSESSIONID=3E965349B339F4434FC5E2C25A673CE1;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '1128'
       Date:
-      - Sun, 24 Sep 2017 17:25:13 GMT
+      - Wed, 13 Jun 2018 18:49:46 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
@@ -8213,12 +8213,12 @@ http_interactions:
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:14 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:46 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -8251,26 +8251,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:13 GMT
+      - Wed, 13 Jun 2018 18:49:46 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!PyE4Na4/nqxMj6E0/8tBI6XxAa5T6qVVuyHdBpEK5SVqQlLhEyEJSj9DKUfnK3ohLjtCyrJgn0q09c8=;
-        expires=Sun, 24-Sep-2017 19:25:13 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!nf5qDTAsarotHq/m9OGvBt4MxRMcjpi/sxWcHGmgjywtUzhxSqBwVdqPcuBzhrXykyq+LLPyaF7YhvM=;
+        expires=Wed, 13-Jun-2018 20:49:47 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86728-Nbp4m6AWesRTRlllzeet-cas
+      string: ST-2984356-3LvYcL3tSTZD70z9aOhI-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:14 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:47 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.106.12.1005&ticket=ST-86728-Nbp4m6AWesRTRlllzeet-cas&version=MU2%20Update%202017-01-06
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.106.12.1005&ticket=ST-2984356-3LvYcL3tSTZD70z9aOhI-cas&version=MU2%20Update%202017-01-06
     body:
       encoding: US-ASCII
       string: ''
@@ -8299,17 +8299,17 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!Xk9eVBi03Me20HM0/8tBI6XxAa5T6n6teMB+pNDiAsQxq1gc7lOGsoN+896KT6NAxFmFrVf+EewTjj4=;
-        expires=Sun, 24-Sep-2017 19:25:14 GMT; path=/; Httponly; Secure
-      - JSESSIONID=86C64E3BFB72FEE0484C0B62218509EA;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!8Vgh5Z/J+HjXbGbNtNHn4GsLooFbU4oDY89FN2pnuR4m/PKKL1qrB6JWVLs1AoCtCz6Bgtspnrp8oXE=;
+        expires=Wed, 13-Jun-2018 20:49:47 GMT; path=/; Httponly; Secure
+      - JSESSIONID=043D3141B11EF12B088F6E85B10DF517;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '12143'
       Date:
-      - Sun, 24 Sep 2017 17:25:13 GMT
+      - Wed, 13 Jun 2018 18:49:46 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
@@ -8467,12 +8467,12 @@ http_interactions:
         Version number\">\n            <ns0:Keyword>5.1.000</ns0:Keyword>\n        </ns0:Group>\n
         \   </ns0:DescribedValueSet>\n</ns0:RetrieveMultipleValueSetsResponse>\n"
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:14 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:47 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -8505,26 +8505,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:14 GMT
+      - Wed, 13 Jun 2018 18:49:46 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!pfLeJZvD9QjoTXY0/8tBI6XxAa5T6i9ToKYOjSWvMWhwz6Lo2FEelCn6f2cmxuZwrhlQwL/QuOjsQFY=;
-        expires=Sun, 24-Sep-2017 19:25:14 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!A8FAiUl83U1eHsfNtNHn4GsLooFbU7xNJ4Oen9Dl12Qb7Twjn1KQiugvycQqLzpTLPE/iAnKhPtRfyA=;
+        expires=Wed, 13-Jun-2018 20:49:47 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86733-Kb2a022htcarMucvKJVG-cas
+      string: ST-2984363-jLnwqtBeLt50sLB1klKU-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:14 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:47 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.3591&profile=Latest%20eCQM&ticket=ST-86733-Kb2a022htcarMucvKJVG-cas
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.114222.4.11.3591&profile=Latest%20eCQM&ticket=ST-2984363-jLnwqtBeLt50sLB1klKU-cas
     body:
       encoding: US-ASCII
       string: ''
@@ -8553,17 +8553,17 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!nF/ldnUPMgwXYhA0/8tBI6XxAa5T6j9j7CWGbfEJDt518Nd0xjhamGRsz1CDJOBgBTmWiyjxILbMAHU=;
-        expires=Sun, 24-Sep-2017 19:25:14 GMT; path=/; Httponly; Secure
-      - JSESSIONID=F2107317EF3BE65F327DC7930CDD77B3;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!fGRigfbmz5wM3N/NtNHn4GsLooFbU7UrC7GFm6ZzSeSkWWXrVfI35ALyN53h+ijFh5rEsmcBMG4nlyg=;
+        expires=Wed, 13-Jun-2018 20:49:48 GMT; path=/; Httponly; Secure
+      - JSESSIONID=57D3AF2C2089CB039D3CB90D62EA2736;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '26511'
+      - '27773'
       Date:
-      - Sun, 24 Sep 2017 17:25:14 GMT
+      - Wed, 13 Jun 2018 18:49:47 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
@@ -8575,177 +8575,185 @@ http_interactions:
         <ns0:RetrieveMultipleValueSetsResponse xmlns:ns0="urn:ihe:iti:svs:2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <ns0:DescribedValueSet ID="2.16.840.1.114222.4.11.3591" displayName="Payer" version="N/A">
                 <ns0:ConceptList>
-                    <ns0:Concept code="1" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="MEDICARE"/>
-                    <ns0:Concept code="11" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare (Managed Care)"/>
-                    <ns0:Concept code="111" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare HMO"/>
-                    <ns0:Concept code="112" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare PPO"/>
-                    <ns0:Concept code="113" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare POS"/>
-                    <ns0:Concept code="119" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Managed Care Other"/>
-                    <ns0:Concept code="12" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare (Non-managed Care)"/>
-                    <ns0:Concept code="121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare FFS"/>
-                    <ns0:Concept code="122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Drug Benefit"/>
-                    <ns0:Concept code="123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Medical Savings Account (MSA)"/>
-                    <ns0:Concept code="129" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Non-managed Care Other"/>
-                    <ns0:Concept code="13" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Hospice"/>
-                    <ns0:Concept code="14" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Dual Eligibility Medicare/Medicaid Organization"/>
-                    <ns0:Concept code="19" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Other"/>
-                    <ns0:Concept code="191" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare Pharmacy Benefit Manager"/>
-                    <ns0:Concept code="2" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="MEDICAID"/>
-                    <ns0:Concept code="21" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid (Managed Care)"/>
-                    <ns0:Concept code="211" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid HMO"/>
-                    <ns0:Concept code="212" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid PPO"/>
-                    <ns0:Concept code="213" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid PCCM (Primary Care Case Management)"/>
-                    <ns0:Concept code="219" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid Managed Care Other"/>
-                    <ns0:Concept code="22" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid (Non-managed Care Plan)"/>
-                    <ns0:Concept code="23" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid/SCHIP"/>
-                    <ns0:Concept code="24" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid Applicant"/>
-                    <ns0:Concept code="25" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid - Out of State"/>
-                    <ns0:Concept code="26" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid -- Long Term Care"/>
-                    <ns0:Concept code="29" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid Other"/>
-                    <ns0:Concept code="291" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicaid Pharmacy Benefit Manager"/>
-                    <ns0:Concept code="3" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)"/>
-                    <ns0:Concept code="31" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Department of Defense"/>
-                    <ns0:Concept code="311" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE (CHAMPUS)"/>
-                    <ns0:Concept code="3111" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE Prime--HMO"/>
-                    <ns0:Concept code="3112" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE Extra--PPO"/>
-                    <ns0:Concept code="3113" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE Standard - Fee For Service"/>
-                    <ns0:Concept code="3114" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE For Life--Medicare Supplement"/>
-                    <ns0:Concept code="3115" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE Reserve Select"/>
-                    <ns0:Concept code="3116" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Uniformed Services Family Health Plan (USFHP) -- HMO"/>
-                    <ns0:Concept code="3119" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Department of Defense - (other)"/>
-                    <ns0:Concept code="312" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Military Treatment Facility"/>
-                    <ns0:Concept code="3121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Enrolled Prime--HMO"/>
-                    <ns0:Concept code="3122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Non-enrolled Space Available"/>
-                    <ns0:Concept code="3123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="TRICARE For Life (TFL)"/>
-                    <ns0:Concept code="313" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Dental --Stand Alone"/>
-                    <ns0:Concept code="32" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Department of Veterans Affairs"/>
-                    <ns0:Concept code="321" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Veteran care--Care provided to Veterans"/>
-                    <ns0:Concept code="3211" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Direct Care--Care provided in VA facilities"/>
-                    <ns0:Concept code="3212" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indirect Care--Care provided outside VA facilities"/>
-                    <ns0:Concept code="32121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Fee Basis"/>
-                    <ns0:Concept code="32122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Foreign Fee/Foreign Medical Program(FMP)"/>
-                    <ns0:Concept code="32123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Contract Nursing Home/Community Nursing Home"/>
-                    <ns0:Concept code="32124" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="State Veterans Home"/>
-                    <ns0:Concept code="32125" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Sharing Agreements"/>
-                    <ns0:Concept code="32126" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Federal Agency"/>
-                    <ns0:Concept code="322" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Non-veteran care"/>
-                    <ns0:Concept code="3221" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Civilian Health and Medical Program for the VA (CHAMPVA)"/>
-                    <ns0:Concept code="3222" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Spina Bifida Health Care Program (SB)"/>
-                    <ns0:Concept code="3223" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Children of Women Vietnam Veterans (CWVV)"/>
-                    <ns0:Concept code="3229" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other non-veteran care"/>
-                    <ns0:Concept code="33" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Health Service or Tribe"/>
-                    <ns0:Concept code="331" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Health Service -- Regular"/>
-                    <ns0:Concept code="332" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Health Service -- Contract"/>
-                    <ns0:Concept code="333" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Health Service - Managed Care"/>
-                    <ns0:Concept code="334" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Indian Tribe - Sponsored Coverage"/>
-                    <ns0:Concept code="34" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="HRSA Program"/>
-                    <ns0:Concept code="341" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Title V (MCH Block Grant)"/>
-                    <ns0:Concept code="342" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Migrant Health Program"/>
-                    <ns0:Concept code="343" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Ryan White Act"/>
-                    <ns0:Concept code="349" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other"/>
-                    <ns0:Concept code="35" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Black Lung"/>
-                    <ns0:Concept code="36" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="State Government"/>
-                    <ns0:Concept code="361" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="State SCHIP program (codes for individual states)"/>
-                    <ns0:Concept code="362" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Specific state programs (list/ local code)"/>
-                    <ns0:Concept code="369" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="State, not otherwise specified (other state)"/>
-                    <ns0:Concept code="37" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Local Government"/>
-                    <ns0:Concept code="371" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Local - Managed care"/>
-                    <ns0:Concept code="3711" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="HMO"/>
-                    <ns0:Concept code="3712" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="PPO"/>
-                    <ns0:Concept code="3713" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="POS"/>
-                    <ns0:Concept code="372" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="FFS/Indemnity"/>
-                    <ns0:Concept code="379" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Local, not otherwise specified (other local, county)"/>
-                    <ns0:Concept code="38" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Government (Federal, State, Local not specified)"/>
-                    <ns0:Concept code="381" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified managed care"/>
-                    <ns0:Concept code="3811" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - HMO"/>
-                    <ns0:Concept code="3812" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - PPO"/>
-                    <ns0:Concept code="3813" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - POS"/>
-                    <ns0:Concept code="3819" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - not specified managed care"/>
-                    <ns0:Concept code="382" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - FFS"/>
-                    <ns0:Concept code="389" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Federal, State, Local not specified - Other"/>
-                    <ns0:Concept code="39" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Federal"/>
-                    <ns0:Concept code="4" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="DEPARTMENTS OF CORRECTIONS"/>
-                    <ns0:Concept code="41" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Corrections Federal"/>
-                    <ns0:Concept code="42" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Corrections State"/>
-                    <ns0:Concept code="43" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Corrections Local"/>
-                    <ns0:Concept code="44" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Corrections Unknown Level"/>
-                    <ns0:Concept code="5" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="PRIVATE HEALTH INSURANCE"/>
-                    <ns0:Concept code="51" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Managed Care (Private)"/>
-                    <ns0:Concept code="511" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Managed Care - HMO"/>
-                    <ns0:Concept code="512" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Managed Care - PPO"/>
-                    <ns0:Concept code="513" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Managed Care - POS"/>
-                    <ns0:Concept code="514" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Exclusive Provider Organization"/>
-                    <ns0:Concept code="515" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Gatekeeper PPO (GPPO)"/>
-                    <ns0:Concept code="516" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Managed Care - Pharmacy Benefit Manager"/>
-                    <ns0:Concept code="519" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Managed Care, Other (non HMO)"/>
-                    <ns0:Concept code="52" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Private Health Insurance - Indemnity"/>
-                    <ns0:Concept code="521" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Commercial Indemnity"/>
-                    <ns0:Concept code="522" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Self-insured (ERISA) Administrative Services Only (ASO) plan"/>
-                    <ns0:Concept code="523" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Medicare supplemental policy (as second payer)"/>
-                    <ns0:Concept code="529" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Private health insurance--other commercial Indemnity"/>
-                    <ns0:Concept code="53" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Managed Care (private) or private health insurance (indemnity), not otherwise specified"/>
-                    <ns0:Concept code="54" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Organized Delivery System"/>
-                    <ns0:Concept code="55" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Small Employer Purchasing Group"/>
-                    <ns0:Concept code="56" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Specialized Stand Alone Plan"/>
-                    <ns0:Concept code="561" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Dental"/>
-                    <ns0:Concept code="562" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Vision"/>
-                    <ns0:Concept code="59" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Private Insurance"/>
-                    <ns0:Concept code="6" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BLUE CROSS/BLUE SHIELD"/>
-                    <ns0:Concept code="61" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care"/>
-                    <ns0:Concept code="611" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care -- HMO"/>
-                    <ns0:Concept code="612" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care -- PPO"/>
-                    <ns0:Concept code="613" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care -- POS"/>
-                    <ns0:Concept code="619" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Managed Care -- Other"/>
-                    <ns0:Concept code="62" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC Indemnity"/>
-                    <ns0:Concept code="63" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC (Indemnity or Managed Care) - Out of State"/>
-                    <ns0:Concept code="64" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC (Indemnity or Managed Care) - Unspecified"/>
-                    <ns0:Concept code="69" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="BC (Indemnity or Managed Care) - Other"/>
-                    <ns0:Concept code="7" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)"/>
-                    <ns0:Concept code="71" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="HMO"/>
-                    <ns0:Concept code="72" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="PPO"/>
-                    <ns0:Concept code="73" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="POS"/>
-                    <ns0:Concept code="79" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other Managed Care"/>
-                    <ns0:Concept code="8" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="NO PAYMENT from an Organization/Agency/Program/Private Payer Listed"/>
-                    <ns0:Concept code="81" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Self-pay"/>
-                    <ns0:Concept code="82" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="No Charge"/>
-                    <ns0:Concept code="821" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Charity"/>
-                    <ns0:Concept code="822" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Professional Courtesy"/>
-                    <ns0:Concept code="823" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Research/Clinical Trial"/>
-                    <ns0:Concept code="83" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Refusal to Pay/Bad Debt"/>
-                    <ns0:Concept code="84" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Hill Burton Free Care"/>
-                    <ns0:Concept code="85" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Research/Donor"/>
-                    <ns0:Concept code="89" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="No Payment, Other"/>
-                    <ns0:Concept code="9" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="MISCELLANEOUS/OTHER"/>
-                    <ns0:Concept code="91" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Foreign National"/>
-                    <ns0:Concept code="92" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other (Non-government)"/>
-                    <ns0:Concept code="93" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Disability Insurance"/>
-                    <ns0:Concept code="94" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Long-term Care Insurance"/>
-                    <ns0:Concept code="95" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Compensation"/>
-                    <ns0:Concept code="951" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Comp HMO"/>
-                    <ns0:Concept code="953" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Comp Fee-for-Service"/>
-                    <ns0:Concept code="954" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Comp Other Managed Care"/>
-                    <ns0:Concept code="959" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Worker's Comp, Other unspecified"/>
-                    <ns0:Concept code="96" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Auto Insurance (includes no fault)"/>
-                    <ns0:Concept code="97" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Legal Liability / Liability Insurance"/>
-                    <ns0:Concept code="98" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)"/>
-                    <ns0:Concept code="99" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="No Typology Code available for payment source"/>
-                    <ns0:Concept code="9999" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="6.0" displayName="Unavailable / No Payer Specified / Blank"/>
+                    <ns0:Concept code="1" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="MEDICARE"/>
+                    <ns0:Concept code="11" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare (Managed Care)"/>
+                    <ns0:Concept code="111" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare HMO"/>
+                    <ns0:Concept code="112" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare PPO"/>
+                    <ns0:Concept code="113" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare POS"/>
+                    <ns0:Concept code="119" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare Managed Care Other"/>
+                    <ns0:Concept code="12" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare (Non-managed Care)"/>
+                    <ns0:Concept code="121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare FFS"/>
+                    <ns0:Concept code="122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare Drug Benefit"/>
+                    <ns0:Concept code="123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare Medical Savings Account (MSA)"/>
+                    <ns0:Concept code="129" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare Non-managed Care Other"/>
+                    <ns0:Concept code="13" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare Hospice"/>
+                    <ns0:Concept code="14" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Dual Eligibility Medicare/Medicaid Organization"/>
+                    <ns0:Concept code="19" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare Other"/>
+                    <ns0:Concept code="191" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare Pharmacy Benefit Manager"/>
+                    <ns0:Concept code="2" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="MEDICAID"/>
+                    <ns0:Concept code="21" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid (Managed Care)"/>
+                    <ns0:Concept code="211" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid HMO"/>
+                    <ns0:Concept code="212" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid PPO"/>
+                    <ns0:Concept code="213" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid PCCM (Primary Care Case Management)"/>
+                    <ns0:Concept code="219" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid Managed Care Other"/>
+                    <ns0:Concept code="22" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid (Non-managed Care Plan)"/>
+                    <ns0:Concept code="23" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid/SCHIP"/>
+                    <ns0:Concept code="24" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid Applicant"/>
+                    <ns0:Concept code="25" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid - Out of State"/>
+                    <ns0:Concept code="26" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid -- Long Term Care"/>
+                    <ns0:Concept code="29" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid Other"/>
+                    <ns0:Concept code="291" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid Pharmacy Benefit Manager"/>
+                    <ns0:Concept code="299" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicaid - Dental"/>
+                    <ns0:Concept code="3" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="OTHER GOVERNMENT (Federal/State/Local) (excluding Department of Corrections)"/>
+                    <ns0:Concept code="31" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Department of Defense"/>
+                    <ns0:Concept code="311" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="TRICARE (CHAMPUS)"/>
+                    <ns0:Concept code="3111" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="TRICARE Prime--HMO"/>
+                    <ns0:Concept code="3112" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="TRICARE Extra--PPO"/>
+                    <ns0:Concept code="3113" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="TRICARE Standard - Fee For Service"/>
+                    <ns0:Concept code="3114" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="TRICARE For Life--Medicare Supplement"/>
+                    <ns0:Concept code="3115" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="TRICARE Reserve Select"/>
+                    <ns0:Concept code="3116" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Uniformed Services Family Health Plan (USFHP) -- HMO"/>
+                    <ns0:Concept code="3119" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Department of Defense - (other)"/>
+                    <ns0:Concept code="312" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Military Treatment Facility"/>
+                    <ns0:Concept code="3121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Enrolled Prime--HMO"/>
+                    <ns0:Concept code="3122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Non-enrolled Space Available"/>
+                    <ns0:Concept code="3123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="TRICARE For Life (TFL)"/>
+                    <ns0:Concept code="313" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Dental --Stand Alone"/>
+                    <ns0:Concept code="32" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Department of Veterans Affairs"/>
+                    <ns0:Concept code="321" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Veteran care--Care provided to Veterans"/>
+                    <ns0:Concept code="3211" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Direct Care--Care provided in VA facilities"/>
+                    <ns0:Concept code="3212" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Indirect Care--Care provided outside VA facilities"/>
+                    <ns0:Concept code="32121" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Fee Basis"/>
+                    <ns0:Concept code="32122" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Foreign Fee/Foreign Medical Program (FMP)"/>
+                    <ns0:Concept code="32123" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Contract Nursing Home/Community Nursing Home"/>
+                    <ns0:Concept code="32124" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="State Veterans Home"/>
+                    <ns0:Concept code="32125" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Sharing Agreements"/>
+                    <ns0:Concept code="32126" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other Federal Agency"/>
+                    <ns0:Concept code="32127" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Dental Care"/>
+                    <ns0:Concept code="32128" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Vision Care"/>
+                    <ns0:Concept code="322" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Non-veteran care"/>
+                    <ns0:Concept code="3221" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Civilian Health and Medical Program for the VA (CHAMPVA)"/>
+                    <ns0:Concept code="3222" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Spina Bifida Health Care Program (SB)"/>
+                    <ns0:Concept code="3223" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Children of Women Vietnam Veterans (CWVV)"/>
+                    <ns0:Concept code="3229" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other non-veteran care"/>
+                    <ns0:Concept code="33" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Indian Health Service or Tribe"/>
+                    <ns0:Concept code="331" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Indian Health Service -- Regular"/>
+                    <ns0:Concept code="332" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Indian Health Service -- Contract"/>
+                    <ns0:Concept code="333" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Indian Health Service - Managed Care"/>
+                    <ns0:Concept code="334" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Indian Tribe - Sponsored Coverage"/>
+                    <ns0:Concept code="34" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="HRSA Program"/>
+                    <ns0:Concept code="341" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Title V (MCH Block Grant)"/>
+                    <ns0:Concept code="342" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Migrant Health Program"/>
+                    <ns0:Concept code="343" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Ryan White Act"/>
+                    <ns0:Concept code="349" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other"/>
+                    <ns0:Concept code="35" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Black Lung"/>
+                    <ns0:Concept code="36" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="State Government"/>
+                    <ns0:Concept code="361" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="State SCHIP program (codes for individual states)"/>
+                    <ns0:Concept code="362" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Specific state programs (list/ local code)"/>
+                    <ns0:Concept code="369" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="State, not otherwise specified (other state)"/>
+                    <ns0:Concept code="37" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Local Government"/>
+                    <ns0:Concept code="371" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Local - Managed care"/>
+                    <ns0:Concept code="3711" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="HMO"/>
+                    <ns0:Concept code="3712" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="PPO"/>
+                    <ns0:Concept code="3713" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="POS"/>
+                    <ns0:Concept code="372" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="FFS/Indemnity"/>
+                    <ns0:Concept code="379" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Local, not otherwise specified (other local, county)"/>
+                    <ns0:Concept code="38" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other Government (Federal, State, Local not specified)"/>
+                    <ns0:Concept code="381" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal, State, Local not specified managed care"/>
+                    <ns0:Concept code="3811" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal, State, Local not specified - HMO"/>
+                    <ns0:Concept code="3812" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal, State, Local not specified - PPO"/>
+                    <ns0:Concept code="3813" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal, State, Local not specified - POS"/>
+                    <ns0:Concept code="3819" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal, State, Local not specified - not specified managed care"/>
+                    <ns0:Concept code="382" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal, State, Local not specified - FFS"/>
+                    <ns0:Concept code="389" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal, State, Local not specified - Other"/>
+                    <ns0:Concept code="39" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other Federal"/>
+                    <ns0:Concept code="391" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Federal Employee Health Plan"/>
+                    <ns0:Concept code="4" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="DEPARTMENTS OF CORRECTIONS"/>
+                    <ns0:Concept code="41" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Corrections Federal"/>
+                    <ns0:Concept code="42" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Corrections State"/>
+                    <ns0:Concept code="43" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Corrections Local"/>
+                    <ns0:Concept code="44" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Corrections Unknown Level"/>
+                    <ns0:Concept code="5" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="PRIVATE HEALTH INSURANCE"/>
+                    <ns0:Concept code="51" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Managed Care (Private)"/>
+                    <ns0:Concept code="511" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Commercial Managed Care - HMO"/>
+                    <ns0:Concept code="512" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Commercial Managed Care - PPO"/>
+                    <ns0:Concept code="513" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Commercial Managed Care - POS"/>
+                    <ns0:Concept code="514" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Exclusive Provider Organization"/>
+                    <ns0:Concept code="515" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Gatekeeper PPO (GPPO)"/>
+                    <ns0:Concept code="516" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Commercial Managed Care - Pharmacy Benefit Manager"/>
+                    <ns0:Concept code="517" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Commercial Managed Care - Dental"/>
+                    <ns0:Concept code="519" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Managed Care, Other (non HMO)"/>
+                    <ns0:Concept code="52" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Private Health Insurance - Indemnity"/>
+                    <ns0:Concept code="521" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Commercial Indemnity"/>
+                    <ns0:Concept code="522" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Self-insured (ERISA) Administrative Services Only (ASO) plan"/>
+                    <ns0:Concept code="523" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Medicare supplemental policy (as second payer)"/>
+                    <ns0:Concept code="524" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Indemnity Insurance - Dental"/>
+                    <ns0:Concept code="529" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Private health insurance--other commercial Indemnity"/>
+                    <ns0:Concept code="53" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Managed Care (private) or private health insurance (indemnity), not otherwise specified"/>
+                    <ns0:Concept code="54" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Organized Delivery System"/>
+                    <ns0:Concept code="55" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Small Employer Purchasing Group"/>
+                    <ns0:Concept code="56" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Specialized Stand Alone Plan"/>
+                    <ns0:Concept code="561" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Dental"/>
+                    <ns0:Concept code="562" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Vision"/>
+                    <ns0:Concept code="59" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other Private Insurance"/>
+                    <ns0:Concept code="6" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BLUE CROSS/BLUE SHIELD"/>
+                    <ns0:Concept code="61" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Managed Care"/>
+                    <ns0:Concept code="611" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Managed Care -- HMO"/>
+                    <ns0:Concept code="612" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Managed Care -- PPO"/>
+                    <ns0:Concept code="613" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Managed Care -- POS"/>
+                    <ns0:Concept code="614" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Managed Care - Dental"/>
+                    <ns0:Concept code="619" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Managed Care -- Other"/>
+                    <ns0:Concept code="62" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Insurance Indemnity"/>
+                    <ns0:Concept code="621" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Indemnity"/>
+                    <ns0:Concept code="622" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Self-insured (ERISA) Administrative Services Only (ASO)Plan"/>
+                    <ns0:Concept code="623" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Medicare Supplemental Plan"/>
+                    <ns0:Concept code="629" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="BC Indemnity - Dental"/>
+                    <ns0:Concept code="7" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="MANAGED CARE, UNSPECIFIED (to be used only if one can't distinguish public from private)"/>
+                    <ns0:Concept code="71" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="HMO"/>
+                    <ns0:Concept code="72" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="PPO"/>
+                    <ns0:Concept code="73" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="POS"/>
+                    <ns0:Concept code="79" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other Managed Care"/>
+                    <ns0:Concept code="8" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="NO PAYMENT from an Organization/Agency/Program/Private Payer Listed"/>
+                    <ns0:Concept code="81" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Self-pay"/>
+                    <ns0:Concept code="82" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="No Charge"/>
+                    <ns0:Concept code="821" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Charity"/>
+                    <ns0:Concept code="822" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Professional Courtesy"/>
+                    <ns0:Concept code="823" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Research/Clinical Trial"/>
+                    <ns0:Concept code="83" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Refusal to Pay/Bad Debt"/>
+                    <ns0:Concept code="84" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Hill Burton Free Care"/>
+                    <ns0:Concept code="85" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Research/Donor"/>
+                    <ns0:Concept code="89" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="No Payment, Other"/>
+                    <ns0:Concept code="9" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="MISCELLANEOUS/OTHER"/>
+                    <ns0:Concept code="91" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Foreign National"/>
+                    <ns0:Concept code="92" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other (Non-government)"/>
+                    <ns0:Concept code="93" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Disability Insurance"/>
+                    <ns0:Concept code="94" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Long-term Care Insurance"/>
+                    <ns0:Concept code="95" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Worker's Compensation"/>
+                    <ns0:Concept code="951" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Worker's Comp HMO"/>
+                    <ns0:Concept code="953" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Worker's Comp Fee-for-Service"/>
+                    <ns0:Concept code="954" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Worker's Comp Other Managed Care"/>
+                    <ns0:Concept code="959" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Worker's Comp, Other unspecified"/>
+                    <ns0:Concept code="96" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Auto Insurance (includes no fault)"/>
+                    <ns0:Concept code="97" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Legal Liability / Liability Insurance"/>
+                    <ns0:Concept code="98" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Other specified but not otherwise classifiable (includes Hospice - Unspecified plan)"/>
+                    <ns0:Concept code="99" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="No Typology Code available for payment source"/>
+                    <ns0:Concept code="9999" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="SOP" codeSystemVersion="7.0" displayName="Unavailable / No Payer Specified / Blank"/>
                 </ns0:ConceptList>
                 <ns0:Source>HL7 Terminology</ns0:Source>
                 <ns0:Purpose>(Clinical Focus: Categories of types of health care payor entities as defined by the US Public Health Data Consortium SOP code system),(Data Element Scope: @code in CCDA r2.1 template Planned Coverage [act: identifier urn:oid:2.16.840.1.113883.10.20.22.4.129 (open)] DYNAMIC),(Inclusion Criteria: All codes in the code system),(Exclusion Criteria: none)</ns0:Purpose>
                 <ns0:Type>Extensional</ns0:Type>
                 <ns0:Binding>Dynamic</ns0:Binding>
                 <ns0:Status>Active</ns0:Status>
-                <ns0:RevisionDate>2016-11-08</ns0:RevisionDate>
+                <ns0:RevisionDate>2018-02-27</ns0:RevisionDate>
             </ns0:DescribedValueSet>
         </ns0:RetrieveMultipleValueSetsResponse>
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:15 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:48 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -8778,26 +8786,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:15 GMT
+      - Wed, 13 Jun 2018 18:49:48 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!Vlz7RNwqYz71ekA0/8tBI6XxAa5T6uDyb00LIUjYD2X/73QT8OihsWWGidacX728mMF4Uf19HSzPKwU=;
-        expires=Sun, 24-Sep-2017 19:25:15 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!3Kc3G7ouImfVbQvNtNHn4GsLooFbU4xVsGrrpIWpugkuvwhsnxyz88VjZaniLUu/HHjRoknyYAGgx0s=;
+        expires=Wed, 13-Jun-2018 20:49:48 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.110 8080"
+      - "/Common/vsacweb_p 10.1.5.114 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86734-cjfHqgvhFyOqRTeJnwbD-cas
+      string: ST-2984369-vK2QerDaImol99nYbRe6-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:15 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:48 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1059&ticket=ST-86734-cjfHqgvhFyOqRTeJnwbD-cas&version=MU2%20Update%202017-01-06
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1059&ticket=ST-2984369-vK2QerDaImol99nYbRe6-cas&version=MU2%20Update%202017-01-06
     body:
       encoding: US-ASCII
       string: ''
@@ -8826,17 +8834,17 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!X8VzgYPR6y2EH7A0/8tBI6XxAa5T6sc/iMb5E95NPSwc0lVc4bmaPZ1H29MBlmH8hP/SK+30TYiAr9I=;
-        expires=Sun, 24-Sep-2017 19:25:15 GMT; path=/; Httponly; Secure
-      - JSESSIONID=430989F1890F8016610CD101F8C6903F;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!dw4ux2GIFiTPoJ3NtNHn4GsLooFbU0rHwESvth4CzByq04XhIJXtqfia1hwy1vjSkC5pjRqNv3c1aMc=;
+        expires=Wed, 13-Jun-2018 20:49:48 GMT; path=/; Httponly; Secure
+      - JSESSIONID=89901E08C4BF2AD26BBB95CBC81739AE;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '7885'
       Date:
-      - Sun, 24 Sep 2017 17:25:15 GMT
+      - Wed, 13 Jun 2018 18:49:47 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
@@ -8941,12 +8949,12 @@ http_interactions:
         Version number\">\n            <ns0:Keyword>5.1.000</ns0:Keyword>\n        </ns0:Group>\n
         \   </ns0:DescribedValueSet>\n</ns0:RetrieveMultipleValueSetsResponse>\n"
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:15 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:48 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -8979,26 +8987,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:15 GMT
+      - Wed, 13 Jun 2018 18:49:47 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!uENMheqjNHeCpNI0/8tBI6XxAa5T6siKPdRqZoVM59JiKl2qGI91/c5FRHXHmY/Qw5gVBVzSPsVXBgs=;
-        expires=Sun, 24-Sep-2017 19:25:15 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!bTWkqPjm2+RibrDm9OGvBt4MxRMcjqNmLwaEkpgY8iP+Tdp7d2jI6XkWlLegIkBwG8MOIvOvcbZKXZ4=;
+        expires=Wed, 13-Jun-2018 20:49:48 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86735-7EOmdagFfPBndCWAM5yM-cas
+      string: ST-2984371-kwb2XKVB4adSl2IUGipB-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:15 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:48 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1007&ticket=ST-86735-7EOmdagFfPBndCWAM5yM-cas&version=MU2%20Update%202017-01-06
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1007&ticket=ST-2984371-kwb2XKVB4adSl2IUGipB-cas&version=MU2%20Update%202017-01-06
     body:
       encoding: US-ASCII
       string: ''
@@ -9027,19 +9035,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!RgRnhopJq/ULtFQ0/8tBI6XxAa5T6mvEocm3LtOi/JpmSsdS5ORHjD+Ju+GsLqsr9OVVTP12bXHeBIg=;
-        expires=Sun, 24-Sep-2017 19:25:16 GMT; path=/; Httponly; Secure
-      - JSESSIONID=E55729FC4BB5F8CFE55DA62A39AA7CA7;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!w076vROhBKAbXEHNtNHn4GsLooFbU5iCLg0uuDKp4m2UIqKZXhtSL2PMPy/oOTp80FEwYyPL8hwI7Uc=;
+        expires=Wed, 13-Jun-2018 20:49:49 GMT; path=/; Httponly; Secure
+      - JSESSIONID=389A3EF5DAA87AA8914F0A96C95C9711;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '16641'
       Date:
-      - Sun, 24 Sep 2017 17:25:16 GMT
+      - Wed, 13 Jun 2018 18:49:48 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.114 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -9254,12 +9262,12 @@ http_interactions:
         Quality Forum\" displayName=\"eMeasure Version number\">\n            <ns0:Keyword>5.1.000</ns0:Keyword>\n
         \       </ns0:Group>\n    </ns0:DescribedValueSet>\n</ns0:RetrieveMultipleValueSetsResponse>\n"
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:16 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:49 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -9292,26 +9300,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:16 GMT
+      - Wed, 13 Jun 2018 18:49:49 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!Qng3froU7r4Blgw0/8tBI6XxAa5T6idksJMc/ieYQZ5xfD9QasLOlq7VVfQBElSnCxmbke4yiydPpdg=;
-        expires=Sun, 24-Sep-2017 19:25:16 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!aD9pUrom8TP/B33NtNHn4GsLooFbU08n9PancDkuluUbzt2gG1VEq9e4Ii/eqxiDqjsddH1/fcStYeI=;
+        expires=Wed, 13-Jun-2018 20:49:49 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86736-tmkNjqjfvZxnKQ65MMNh-cas
+      string: ST-2984373-WGY46cAfAiE4Lw1hFdbA-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:16 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:49 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1002&ticket=ST-86736-tmkNjqjfvZxnKQ65MMNh-cas&version=MU2%20Update%202017-01-06
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1002&ticket=ST-2984373-WGY46cAfAiE4Lw1hFdbA-cas&version=MU2%20Update%202017-01-06
     body:
       encoding: US-ASCII
       string: ''
@@ -9340,19 +9348,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!e9c/Qt4A6iUtOxY0/8tBI6XxAa5T6g/sqG54wswkUPoJh6tDEyIRZuJn7y5mOPyyfwkX0uly9HiCXnU=;
-        expires=Sun, 24-Sep-2017 19:25:16 GMT; path=/; Httponly; Secure
-      - JSESSIONID=CB4256200C8A114E057276DCEF5F85C9;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!rLdE+mH3SP3kDjDm9OGvBt4MxRMcjmhMY7h/h5mhOu2vJPrJ+Ll+zbO4+XNHcIMqXgz0vF5lkOS5OCk=;
+        expires=Wed, 13-Jun-2018 20:49:49 GMT; path=/; Httponly; Secure
+      - JSESSIONID=48C1326A2FDF8EABAC93229EF5D404E0;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '21200'
       Date:
-      - Sun, 24 Sep 2017 17:25:16 GMT
+      - Wed, 13 Jun 2018 18:49:49 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -9625,12 +9633,12 @@ http_interactions:
         Version number\">\n            <ns0:Keyword>5.1.000</ns0:Keyword>\n        </ns0:Group>\n
         \   </ns0:DescribedValueSet>\n</ns0:RetrieveMultipleValueSetsResponse>\n"
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:17 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:49 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -9663,26 +9671,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:16 GMT
+      - Wed, 13 Jun 2018 18:49:49 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!Smv/h/FQWYiHyIY0/8tBI6XxAa5T6vadSz/LsG9xqm5VV+aAdE07u0Pghnv+71ruXNdohup6NBvmA8o=;
-        expires=Sun, 24-Sep-2017 19:25:16 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!PeWuK6f23FtgxLHNtNHn4GsLooFbU2bPfBdgoZi0q3MgHm97yzyheiVHhLftegZkXiG6V8F2urdVWFU=;
+        expires=Wed, 13-Jun-2018 20:49:49 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.110 8080"
+      - "/Common/vsacweb_p 10.1.5.111 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86737-P5CUID9eQN3X3hlFFgr7-cas
+      string: ST-2984374-Tb4mUflLKfy6e1th9otg-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:17 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:49 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1006&ticket=ST-86737-P5CUID9eQN3X3hlFFgr7-cas&version=MU2%20Update%202017-01-06
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1006&ticket=ST-2984374-Tb4mUflLKfy6e1th9otg-cas&version=MU2%20Update%202017-01-06
     body:
       encoding: US-ASCII
       string: ''
@@ -9711,17 +9719,17 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!IyMHldde2a/s9C00/8tBI6XxAa5T6tPRKTP8sou0sLO8jvoooCsVukG41wNEt0ET+UaWJBaRFTvP8jo=;
-        expires=Sun, 24-Sep-2017 19:25:17 GMT; path=/; Httponly; Secure
-      - JSESSIONID=B398F2C9A657833FD45A7C511D605FFF;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!XvSnuvv9RtDdBzXm9OGvBt4MxRMcjgjU+Coin+6D5KrzvSzENUV7qp87pJSBFfVVwRauVwisujHSwBw=;
+        expires=Wed, 13-Jun-2018 20:49:50 GMT; path=/; Httponly; Secure
+      - JSESSIONID=74CA321B42B7DB14A5B84E8A360B69E1;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '8080'
       Date:
-      - Sun, 24 Sep 2017 17:25:16 GMT
+      - Wed, 13 Jun 2018 18:49:49 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
       - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
@@ -9831,12 +9839,12 @@ http_interactions:
         Version number\">\n            <ns0:Keyword>5.1.000</ns0:Keyword>\n        </ns0:Group>\n
         \   </ns0:DescribedValueSet>\n</ns0:RetrieveMultipleValueSetsResponse>\n"
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:17 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:50 GMT
 - request:
     method: post
-    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-37529-sT9rKfUuhCUOBSnWcgmkjZKODCy2gk32AzjyHRezcHZKZbJjHI-cas
+    uri: https://vsac.nlm.nih.gov/vsac/ws/Ticket/TGT-751604-aVHMKy4QehA1J6TMT1oHrsWXGDvvK3vWSVLexLVnvJRLpzgEGB-cas
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: service=http%3A%2F%2Fumlsks.nlm.nih.gov
     headers:
       Accept:
@@ -9869,26 +9877,26 @@ http_interactions:
       Content-Type:
       - text/plain;charset=utf-8
       Content-Length:
-      - '33'
+      - '35'
       Date:
-      - Sun, 24 Sep 2017 17:25:17 GMT
+      - Wed, 13 Jun 2018 18:49:50 GMT
       Set-Cookie:
-      - BIGipServervsacweb_p=!CKO+Qz16d3o18+80/8tBI6XxAa5T6rDJTQwHXAPjMgvO5sUj7CRNjdxaJBoVK+LhJTjiZVUhgOyJa5w=;
-        expires=Sun, 24-Sep-2017 19:25:17 GMT; path=/; Httponly; Secure
+      - BIGipServervsacweb_p=!0mdEERrT+8g1QAbm9OGvBt4MxRMcjq4tx9aMB5PrSYgIEgSx5nW8qnUHMXxJRMutOaWiCxHVK1qRgy0=;
+        expires=Wed, 13-Jun-2018 20:49:50 GMT; path=/; Httponly; Secure
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.110 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
       encoding: UTF-8
-      string: ST-86738-9Jgawen0tCb7frc7tcce-cas
+      string: ST-2984376-QKLmd9BDvd6kPfSoVcCI-cas
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:17 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:50 GMT
 - request:
     method: get
-    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1010&ticket=ST-86738-9Jgawen0tCb7frc7tcce-cas&version=MU2%20Update%202017-01-06
+    uri: https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=2.16.840.1.113883.3.464.1003.101.12.1010&ticket=ST-2984376-QKLmd9BDvd6kPfSoVcCI-cas&version=MU2%20Update%202017-01-06
     body:
       encoding: US-ASCII
       string: ''
@@ -9917,19 +9925,19 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Set-Cookie:
-      - BIGipServervsacweb_p=!JvTFVw+4feAqM540/8tBI6XxAa5T6k/pWwunGMNoZZzDt24woMLrBo3bmkJxNKpkVFg4UjhbpJo0tfo=;
-        expires=Sun, 24-Sep-2017 19:25:17 GMT; path=/; Httponly; Secure
-      - JSESSIONID=5C503E1F4509C7E0F0C2873A6C4A0F3E;path=/vsac;HttpOnly;Secure
+      - BIGipServervsacweb_p=!XFyE1mTJ71VJ2erNtNHn4GsLooFbUySyO6uqcswd51JIfgWrtH0R3un12sCBDbWChHLP6aR132SM8xE=;
+        expires=Wed, 13-Jun-2018 20:49:50 GMT; path=/; Httponly; Secure
+      - JSESSIONID=2A3D302AEFF4AB4B442972EF49094A6D;path=/vsac;HttpOnly;Secure
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
       - '24990'
       Date:
-      - Sun, 24 Sep 2017 17:25:17 GMT
+      - Wed, 13 Jun 2018 18:49:50 GMT
       X-Vip-Info:
-      - 165.112.140.40:443
+      - 130.14.16.40:443
       X-Pool-Info:
-      - "/Common/vsacweb_p 10.1.5.111 8080"
+      - "/Common/vsacweb_p 10.1.5.114 8080"
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
     body:
@@ -10250,5 +10258,5 @@ http_interactions:
         Version number\">\n            <ns0:Keyword>6.0.000</ns0:Keyword>\n        </ns0:Group>\n
         \   </ns0:DescribedValueSet>\n</ns0:RetrieveMultipleValueSetsResponse>\n"
     http_version: 
-  recorded_at: Sun, 24 Sep 2017 17:25:18 GMT
+  recorded_at: Wed, 13 Jun 2018 18:49:50 GMT
 recorded_with: VCR 3.0.3

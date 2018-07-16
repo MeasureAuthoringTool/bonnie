@@ -13,6 +13,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       if @model.get('episode_of_care') is false and @model.get('continuous_variable') is false then 'Patient Based'
       else if @model.get('episode_of_care') is true then 'Episode of Care'
       else if @model.get('continuous_variable') is true then 'Continuous Variable'
+    calcSDEs = @model.get('calculate_sdes') if @model?
     currentRoute = Backbone.history.fragment
     _(super).extend
       titleSize: 3
@@ -23,6 +24,7 @@ class Thorax.Views.ImportMeasure extends Thorax.Views.BonnieView
       showLoadInformation: !@model? && @firstMeasure
       measureTypeLabel: measureTypeLabel
       calculationTypeLabel: calculationTypeLabel
+      calcSDEs: calcSDEs
       hqmfSetId: hqmfSetId
       redirectRoute: currentRoute
       defaultProgram: Thorax.Views.ImportMeasure.defaultProgram

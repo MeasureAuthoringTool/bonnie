@@ -185,7 +185,11 @@ namespace :bonnie do
       end
     end
 
-    desc 'Downloads a measure package for a particular measure'
+    desc %{Downloads a measure package for a particular measure.
+
+    Provide either HQMF_SET_ID or CMS_ID
+
+    $ rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org HQMF_SET_ID=8C942F13-6EAA-4A8E-BB4F-3B3BF7311C1F CMS_ID=761}
     task :download_measure_package => :environment do
       email = ENV['EMAIL']
       cms_id = ENV['CMS_ID']
