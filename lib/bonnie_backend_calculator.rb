@@ -14,9 +14,10 @@ module BonnieBackendCalculator
       options: options
     }
     begin
-      response = RestClient.post(CALCULATION_SERVICE_URL,
-                                 post_data.to_json(methods: :_type), # note that since _type is a method, you need to indicate you want its evaluation to be included
-                                 content_type: 'application/json')
+      response = RestClient::Request.execute(:method => :post, :url => CALCULATION_SERVICE_URL, :timeout => 120, 
+                                             :payload => post_data.to_json(methods: :_type), 
+                                             :headers => {content_type: 'application/json'})
+
       results = JSON.parse(response)
 
       # add back the failed patients
