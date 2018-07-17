@@ -22,22 +22,12 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
     VCR.use_cassette('backend_calculator_echo_test') do
       measure = CqlMeasure.order_by(:id => 'asc').first # we order_by to make sure we pull the same measure across runs
       patients = Record.where('measure_ids'=>{'$in'=>[measure.hqmf_set_id]})
-      value_sets = measure.value_sets
-      options = {
-        prettyPrint: true
-      }
-      r = BonnieBackendCalculator.calculate(measure, patients, value_sets, options)
+      valueSetsByOid = measure.value_sets_by_oid
+      options = {}
 
-      assert_equal measure.to_json, r['measure'].to_json
-      assert_equal options.to_json, r['options'].to_json
+      r = BonnieBackendCalculator.calculate(measure, patients, valueSetsByOid, options)
       
-      # since we might get value sets and patients in different order from mongo across runs, check that some sorted properties match
-      assert_equal value_sets.collect(&:oid).sort, r['valueSets'].collect { |vs| vs['oid'] }.sort
-      assert_equal value_sets.collect(&:display_name).sort, r['valueSets'].collect { |vs| vs['display_name'] }.sort
-
-      # note patients are converted so field names change
-      assert_equal patients.collect(&:first).sort, r['patients'].collect { |p| p['givenNames'][0] }.sort
-      assert_equal patients.collect(&:last).sort, r['patients'].collect { |p| p['familyName'] }.sort
+      assert_equal "complete", r["5a9ee716b848465b0064f52c"]["PopulationCriteria1"]["state"]
     end
   end
 
