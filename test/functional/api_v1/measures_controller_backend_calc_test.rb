@@ -1,21 +1,11 @@
 require 'test_helper'
 
 module ApiV1
-  class MeasuresControllerTest < ActionController::TestCase
+  class MeasuresControllerBackendCalcTest < ActionController::TestCase
     include Devise::TestHelpers
 
-    # StubToken simulates an OAuth2 token... we're not actually
-    # verifying that a token was issued. This test completely
-    # bypasses OAuth2 authentication and authorization provided
-    # by Doorkeeper.
-    class StubToken
-      attr_accessor :resource_owner_id
-      def acceptable?(_value)
-        true
-      end
-    end
-
     setup do
+      @controller = MeasuresController.new
       @error_dir = File.join('log','load_errors')
       FileUtils.rm_r @error_dir if File.directory?(@error_dir)
       dump_database
@@ -34,8 +24,8 @@ module ApiV1
       @ticket_expires_at = (Time.now + 8.hours).to_i
     end
 
-    test "should calculate result json" do
-      VCR.use_cassette("backend_calculation_json") do
+    test "should calculate result in json as default" do
+      VCR.use_cassette("backend_calculation_json_as_default") do
         measure_id = CqlMeasure.where({"cms_id" => "CMS160v6"}).first.hqmf_set_id
         get :calculated_results, id: measure_id
         assert_response :success
@@ -48,14 +38,26 @@ module ApiV1
       end
     end
 
+    test "should calculate and return json if requested" do
+      VCR.use_cassette("backend_calculation_json") do
+        measure_id = CqlMeasure.where({"cms_id" => "CMS160v6"}).first.hqmf_set_id
+        headers = { :Accept => "application/json" }
+        request.headers.merge! headers
+        get :calculated_results, id: measure_id
+        assert_response :success
+        assert_equal response.content_type, 'application/json'
+      end
+    end
+
     test "should calculate result excel sheet" do
       VCR.use_cassette("backend_calculation_excel") do
         measure_id = CqlMeasure.where({"cms_id" => "CMS160v6"}).first.hqmf_set_id
-        headers = { :Accept => "xlsx" }
+        headers = { :Accept => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
         request.headers.merge! headers
         get :calculated_results, id: measure_id
         assert_response :success
         assert_equal 'binary', response.header['Content-Transfer-Encoding']
+        assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type 
         filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.match(response.header["Content-Disposition"])[1][1..-2]
         assert_equal 'CMS160v6.xlsx', filename
         temp = Tempfile.new(["test", ".xlsx"])

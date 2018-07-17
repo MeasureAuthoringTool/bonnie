@@ -151,8 +151,7 @@ module ApiV1
     description 'Retrieve the calculated results of the measure logic for each patient.'
     param_group :measure
     error :code => 500, :desc => 'Server-side Error Calculating the HQMF Measure Logic'
-    XLSX_CONTENT_TYPES = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx"].freeze # only the first is official
-    formats [:json, *XLSX_CONTENT_TYPES]
+    formats [:json, :xlsx]
     def calculated_results
       begin
         http_status = 200
@@ -172,11 +171,11 @@ module ApiV1
       population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
       statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
 
-      if XLSX_CONTENT_TYPES.include? request.headers['Accept']
+      if request.headers['Accept'] == Mime::Type.lookup_by_extension(:xlsx)
         if http_status != 404
           filename = "#{@api_v1_measure.cms_id}.xlsx"
           excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
-          send_data excel_package.to_stream.read, type: request.headers['Accept'], status: http_status, filename: ERB::Util.url_encode(filename)
+          send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), status: http_status, filename: ERB::Util.url_encode(filename)
         end
       else
         render json: calculated_results

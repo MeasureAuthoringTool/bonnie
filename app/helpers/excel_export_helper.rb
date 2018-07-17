@@ -35,7 +35,7 @@ module ExcelExportHelper
             if population_criteria == 'values'
               # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
               values = []
-              result[population['id']]['episode_results'].each_value do |episode|
+              result[population['id']]['episode_results']&.each_value do |episode|
                 values.concat episode['values']
               end
               result_criteria[population_criteria] = values
