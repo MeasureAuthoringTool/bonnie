@@ -25,6 +25,7 @@ module ApiV1
       @user = User.by_email('bonnie@example.com').first
       associate_user_with_measures(@user,CqlMeasure.all)
       associate_user_with_patients(@user,Record.all)
+      associate_measures_with_patients(CqlMeasure.all, Record.all) 
       @num_patients = Record.all.size
       @measure = CqlMeasure.where({"cms_id" => "CMS347v1"}).first
       @api_v1_measure = @measure.hqmf_set_id

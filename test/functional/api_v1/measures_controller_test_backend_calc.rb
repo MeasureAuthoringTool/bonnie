@@ -34,7 +34,6 @@ module ApiV1
       @ticket_expires_at = (Time.now + 8.hours).to_i
     end
 
-
     test "should calculate result json" do
       VCR.use_cassette("backend_calculation_json") do
         measure_id = CqlMeasure.where({"cms_id" => "CMS160v6"}).first.hqmf_set_id
@@ -61,7 +60,7 @@ module ApiV1
         assert_equal 'CMS160v6.xlsx', filename
         temp = Tempfile.new(["test", ".xlsx"])
         temp.write(response.body)
-        temp.rewind()
+        temp.rewind
         doc = Roo::Spreadsheet.open(temp.path)
 
         assert_equal "\nKEY\n", doc.sheet("KEY").row(1)[0]

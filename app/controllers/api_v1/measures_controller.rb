@@ -151,10 +151,9 @@ module ApiV1
     description 'Retrieve the calculated results of the measure logic for each patient.'
     param_group :measure
     error :code => 500, :desc => 'Server-side Error Calculating the HQMF Measure Logic'
-    XLSX_CONTENT_TYPES = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx"] # only the first is official
+    XLSX_CONTENT_TYPES = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx"].freeze # only the first is official
     formats [:json, *XLSX_CONTENT_TYPES]
     def calculated_results
-
       begin
         http_status = 200
         @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first

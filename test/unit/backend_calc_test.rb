@@ -22,11 +22,11 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
     VCR.use_cassette('backend_calculator_echo_test') do
       measure = CqlMeasure.order_by(:id => 'asc').first # we order_by to make sure we pull the same measure across runs
       patients = Record.where('measure_ids'=>{'$in'=>[measure.hqmf_set_id]})
-      valueSetsByOid = measure.value_sets_by_oid
+      value_sets_by_oid = measure.value_sets_by_oid
       options = {}
 
-      r = BonnieBackendCalculator.calculate(measure, patients, valueSetsByOid, options)
-      
+      r = BonnieBackendCalculator.calculate(measure, patients, value_sets_by_oid, options)
+
       assert_equal "complete", r["5a9ee716b848465b0064f52c"]["PopulationCriteria1"]["state"]
     end
   end
