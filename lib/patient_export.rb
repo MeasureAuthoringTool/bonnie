@@ -185,12 +185,13 @@ class PatientExport
                   observ_expected = patient_details[patient_key]["expected_values"][pop_index][criteria]
                   observ_actual = calc_results[pop_key][patient_key]['criteria']['values']
                   if (observ_expected.nil? || observ_expected == []) && (observ_actual.nil? || observ_actual == [])
-                    # TODO: This is a quick fix. Need to figure out why there is an inconsistency in "false" being provided.
+                    # TODO: work around. See https://gitlab.mitre.org/bonnie/internal-documentation/wikis/20180718_excel_export_issues
                     expected.push([])
                     actual.push([])
                   else
-                    expected.push(observ_expected)
-                    actual.push(observ_actual)
+                    # TODO: work around. See https://gitlab.mitre.org/bonnie/internal-documentation/wikis/20180718_excel_export_issues
+                    expected.push(observ_expected.sort)
+                    actual.push(observ_actual.sort)
                   end
                 else
                   expected.push(patient_details[patient_key]["expected_values"][pop_index][criteria])
