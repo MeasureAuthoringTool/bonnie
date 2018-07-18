@@ -501,8 +501,7 @@ namespace :bonnie do
     end
   end
 
-  # copied from unit/helpers/excel_export_helper_test.rb
-  def compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet)
+  def compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet, print_differences)
     # Verify the sheet titles are the same
     if backend_excel_spreadsheet.sheets != frontend_excel_spreadsheet.sheets
       puts "   The two Excel files do not have the same number of sheets!".red
@@ -570,13 +569,14 @@ namespace :bonnie do
 
       if sorted_backend_rows != sorted_frontend_rows
         puts "   The two Excel files do not match!".red
-        # uncomment these to see differences
-        # (0...sorted_backend_rows.length).each do |idx|
-        #   if sorted_backend_rows[idx] != sorted_frontend_rows[idx]
-        #     puts "      Back end: " + sorted_backend_rows[idx].to_s
-        #     puts "     Front end: " + sorted_frontend_rows[idx].to_s
-        #   end
-        # end
+        if print_differences
+          (0...sorted_backend_rows.length).each do |idx|
+            if sorted_backend_rows[idx] != sorted_frontend_rows[idx]
+              puts "      Back end: " + sorted_backend_rows[idx].to_s
+              puts "     Front end: " + sorted_frontend_rows[idx].to_s
+            end
+          end
+        end
         return
       end
     end
@@ -584,12 +584,14 @@ namespace :bonnie do
 
   desc %{Compare two directories of Excel exports.
 
-    You must specify the BACKEND and FRONTEND directories of Excel files:
+    You must specify the BACKEND and FRONTEND directories of Excel files. Optionally include parameter
+    VERBOSE=true to show line-by-line differences
 
     $ rake bonnie:compare_excel_exports BACKEND=path_to_backend_files FRONTEND=path_to_frontend_files}
   task :compare_excel_exports => :environment do
     backend_folder = ENV['BACKEND']
     frontend_folder = ENV['FRONTEND']
+    print_differences = !ENV['VERBOSE'].nil? && ENV['VERBOSE'].casecmp("true") == 0
     if backend_folder.nil? || frontend_folder.nil?
       puts "Requires BACK and FRONT parameters to specify backend and frontend folders!".red
       exit
@@ -607,8 +609,32 @@ namespace :bonnie do
         next
       end
       frontend_excel_spreadsheet = Roo::Spreadsheet.open(frontend_excel_file)
-      compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet)
+      compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet, print_differences)
     end
   end
 
+  desc %{Compare two Excel files.
+
+    You must specify the FIRST and SECOND file names:
+
+    $ rake bonnie:compare_excel_files FIRST=filename SECOND=filename}
+  task :compare_excel_files => :environment do
+    first_filename = ENV['FIRST']
+    second_filename = ENV['SECOND']
+    if first_filename.nil? || second_filename.nil?
+      puts "Requires FIRST and SECOND parameters to specify the 2 filenames!".red
+      exit
+    end
+    if !File.file?(first_filename)
+      puts "   FIRST file does not exist!".red
+      exit
+    end
+    backend_excel_spreadsheet = Roo::Spreadsheet.open(first_filename)
+    if !File.file?(second_filename)
+      puts "   SECOND file does not exist!".red
+      exit
+    end
+    frontend_excel_spreadsheet = Roo::Spreadsheet.open(second_filename)
+    compare_excel_spreadsheets(backend_excel_spreadsheet, frontend_excel_spreadsheet, true)
+  end
 end
