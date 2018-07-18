@@ -181,16 +181,19 @@ class PatientExport
               expected = []
               actual = []
               population_criteria.each do |criteria|
-                expected.push(patient_details[patient_key]["expected_values"][pop_index][criteria])
                 if criteria == "OBSERV"
                   observ_expected = patient_details[patient_key]["expected_values"][pop_index][criteria]
                   observ_actual = calc_results[pop_key][patient_key]['criteria']['values']
-                  if observ_expected.nil? && observ_actual == []
-                    actual.push(nil)
+                  if (observ_expected.nil? || observ_expected == []) && (observ_actual.nil? || observ_actual == [])
+                    # TODO: This is a quick fix. Need to figure out why there is an inconsistency in "false" being provided.
+                    expected.push([])
+                    actual.push([])
                   else
+                    expected.push(observ_expected)
                     actual.push(observ_actual)
                   end
                 else
+                  expected.push(patient_details[patient_key]["expected_values"][pop_index][criteria])
                   actual.push(calc_results[pop_key][patient_key]["criteria"][criteria])
                 end
               end
