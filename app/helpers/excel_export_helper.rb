@@ -1,6 +1,5 @@
 require 'cgi'
 
-# rubocop:disable ModuleLength
 module ExcelExportHelper
   # Excel export only needs the statment_results and criteria, so extract them from the results object.
   #
@@ -149,5 +148,3 @@ module ExcelExportHelper
     ret
   end
 end
-
-# rubocop:enable ModuleLength
