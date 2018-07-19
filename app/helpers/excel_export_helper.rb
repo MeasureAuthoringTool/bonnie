@@ -1,5 +1,6 @@
 require 'cgi'
 
+# rubocop:disable ModuleLength
 module ExcelExportHelper
   # Excel export only needs the statment_results and criteria, so extract them from the results object.
   #
@@ -79,6 +80,7 @@ module ExcelExportHelper
   # criteria is an array of criteria names, e.g. ["IPP", "DENOM", "DENEX"]
   def self.get_population_details_from_measure(measure, results)
     population_details = ActiveSupport::HashWithIndifferentAccess.new
+    return population_details if results.empty?
 
     measure.populations.each_with_index do |population, pop_index|
       # Populates the population details
@@ -147,3 +149,5 @@ module ExcelExportHelper
     ret
   end
 end
+
+# rubocop:enable ModuleLength

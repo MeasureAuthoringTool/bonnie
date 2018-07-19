@@ -153,30 +153,27 @@ module ApiV1
     error :code => 500, :desc => 'Server-side Error Calculating the HQMF Measure Logic'
     formats [:json, :xlsx]
     def calculated_results
-      begin
-        http_status = 200
-        @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
-        hqmf_set_id = @api_v1_measure.hqmf_set_id
-        @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
-        @api_v1_value_sets = @api_v1_measure.value_sets_by_oid
-        @calculator_options = { doPretty: true }
-      rescue StandardError
-        http_status = 404
+      @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
+      if @api_v1_measure.nil?
+        render json: {status: "error", messages: "No measure found for this HQMF Set ID."}, status: :not_found
+        return
       end
+      
+      hqmf_set_id = @api_v1_measure.hqmf_set_id
+      @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
+      @api_v1_value_sets = @api_v1_measure.value_sets_by_oid
+      @calculator_options = { doPretty: true }
 
       calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
 
-      converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, @api_v1_measure, @api_v1_patients)
-      patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
-      population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
-      statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
-
       if request.headers['Accept'] == Mime::Type.lookup_by_extension(:xlsx)
-        if http_status != 404
-          filename = "#{@api_v1_measure.cms_id}.xlsx"
-          excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
-          send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), status: http_status, filename: ERB::Util.url_encode(filename)
-        end
+        converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, @api_v1_measure, @api_v1_patients)
+        patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
+        population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
+        statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
+        filename = "#{@api_v1_measure.cms_id}.xlsx"
+        excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
+        send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), filename: ERB::Util.url_encode(filename)
       else
         render json: calculated_results
       end

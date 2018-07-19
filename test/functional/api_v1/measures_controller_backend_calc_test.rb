@@ -24,6 +24,15 @@ module ApiV1
       @ticket_expires_at = (Time.now + 8.hours).to_i
     end
 
+    test "should get a 404" do
+      measure_id = "bad_id_abc_123"
+      get :calculated_results, id: measure_id
+      assert_response :not_found
+      assert_equal response.content_type, 'application/json'
+      json = JSON.parse(response.body)
+      assert_equal "error", json["status"]
+    end
+
     test "should calculate result in json as default" do
       VCR.use_cassette("backend_calculation_json_as_default") do
         measure_id = CqlMeasure.where({"cms_id" => "CMS160v6"}).first.hqmf_set_id
