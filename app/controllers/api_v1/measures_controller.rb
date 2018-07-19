@@ -153,27 +153,41 @@ module ApiV1
     error :code => 500, :desc => 'Server-side Error Calculating the HQMF Measure Logic'
     formats [:json, :xlsx]
     def calculated_results
-      @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
-      if @api_v1_measure.nil?
-        render json: {status: "error", messages: "No measure found for this HQMF Set ID."}, status: :not_found
+      begin
+        @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
+        if @api_v1_measure.nil?
+          render json: {status: "error", messages: "No measure found for this HQMF Set ID."}, status: :not_found
+          return
+        end
+        hqmf_set_id = @api_v1_measure.hqmf_set_id
+        @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
+        @api_v1_value_sets = @api_v1_measure.value_sets_by_oid
+      rescue StandardError
+        render json: {status: "error", messages: "Error gathering the measure and associated patients and value sets."}, status: :internal_server_error
         return
       end
-      
-      hqmf_set_id = @api_v1_measure.hqmf_set_id
-      @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
-      @api_v1_value_sets = @api_v1_measure.value_sets_by_oid
-      @calculator_options = { doPretty: true }
 
-      calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
+      begin
+        @calculator_options = { doPretty: true }
+        calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
+      rescue StandardError
+        render json: {status: "error", messages: "Error calculating the results."}, status: :internal_server_error
+        return
+      end
 
       if request.headers['Accept'] == Mime::Type.lookup_by_extension(:xlsx)
-        converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, @api_v1_measure, @api_v1_patients)
-        patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
-        population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
-        statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
-        filename = "#{@api_v1_measure.cms_id}.xlsx"
-        excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
-        send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), filename: ERB::Util.url_encode(filename)
+        begin
+          converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, @api_v1_measure, @api_v1_patients)
+          patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
+          population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
+          statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
+          filename = "#{@api_v1_measure.cms_id}.xlsx"
+          excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
+          send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), filename: ERB::Util.url_encode(filename)
+        rescue StandardError
+          render json: {status: "error", messages: "Error generating the excel export."}, status: :internal_server_error
+          return
+        end
       else
         render json: calculated_results
       end
