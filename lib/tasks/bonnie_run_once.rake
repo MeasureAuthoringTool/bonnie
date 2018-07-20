@@ -526,7 +526,7 @@ namespace :bonnie do
       b_no_patients = backend_sheet.cell(1,1) == "Measure has no patients, please re-export with patients"
       f_no_patients = frontend_sheet.cell(1,1) == "Measure has no patients, please re-export with patients"
       if b_no_patients == f_no_patients && b_no_patients
-        puts "   Both Excel files have no patients.".green
+        puts "   Both Excel files have no patients.".green if print_differences
         return
       else
         if b_no_patients != f_no_patients
