@@ -4,8 +4,9 @@ module ApiV1
   class MeasuresControllerBackendCalcTest < ActionController::TestCase
     include Devise::TestHelpers
 
+    tests ApiV1::MeasuresController
+
     setup do
-      @controller = ApiV1::MeasuresController.new
       @error_dir = File.join('log','load_errors')
       FileUtils.rm_r @error_dir if File.directory?(@error_dir)
       dump_database
