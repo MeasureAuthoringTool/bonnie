@@ -16,9 +16,7 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
     collection_fixtures(measures_set, records_set, value_sets)
   end
 
-  # This test will very likely need to be changed once the calculation service is working, 
-  # right now the service just echoes, so this test makes sure the parsing is working etc
-  test "echo test" do
+  test "calculation completes test" do
     VCR.use_cassette('backend_calculator_test') do
       measure = CqlMeasure.order_by(:id => 'asc').first # we order_by to make sure we pull the same measure across runs
       patients = Record.where('measure_ids'=>{'$in'=>[measure.hqmf_set_id]})

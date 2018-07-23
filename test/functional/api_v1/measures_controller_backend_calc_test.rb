@@ -5,7 +5,7 @@ module ApiV1
     include Devise::TestHelpers
 
     setup do
-      @controller = MeasuresController.new
+      @controller = ApiV1::MeasuresController.new
       @error_dir = File.join('log','load_errors')
       FileUtils.rm_r @error_dir if File.directory?(@error_dir)
       dump_database

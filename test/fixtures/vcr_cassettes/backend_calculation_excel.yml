@@ -5,20 +5,20 @@ http_interactions:
     uri: http://localhost:8081/calculate
     body:
       encoding: UTF-8
-      string: '{"patients":[{"_id":"5a9ee716b848465b0064f52c","birthDatetime":"1970-01-01T08:00:00.000+00:00","bundleId":"5a57e977942c6d1e61d32f14","dataElements":[{"_id":"5b51e2b2d7c8ac500a6abfc0","anatomicalLocationSite":null,"authorDatetime":"2012-04-12T08:00:00.000+00:00","category":"condition","dataElementCodes":[{"codeSystem":"SNOMED-CT","code":"19694002"},{"codeSystem":"ICD-10-CM","code":"F34.1"}],"description":"Diagnosis:
-        Dysthymia","hqmfOid":"2.16.840.1.113883.10.20.28.3.110","prevalencePeriod":{"low":"2012-04-12T08:00:00+00:00","high":"9999-12-31T23:59:59+00:00","lowClosed":true,"highClosed":true},"qdmVersion":"5.3","qrdaOid":"2.16.840.1.113883.10.20.24.3.135","severity":null,"_type":"QDM::Diagnosis"},{"_id":"5b51e2b2d7c8ac500a6abfc1","admissionSource":null,"authorDatetime":"2012-11-04T08:00:00.000+00:00","category":"encounter","dataElementCodes":[{"codeSystem":"CPT","code":"99201"}],"description":"Encounter,
-        Performed: Office Visit","diagnoses":[],"dischargeDisposition":null,"facilityLocations":[],"hqmfOid":"2.16.840.1.113883.3.560.1.79","lengthOfStay":{"value":0,"unit":"days"},"negationRationale":null,"principalDiagnosis":null,"qdmStatus":"performed","qdmVersion":"5.3","relevantPeriod":{"low":"2012-11-04T08:00:00+00:00","high":"2012-11-04T08:15:00+00:00","lowClosed":true,"highClosed":true},"_type":"QDM::EncounterPerformed"},{"_id":"5b51e2b2d7c8ac500a6abfc2","birthDatetime":"1970-01-01T08:00:00.000+00:00","category":"patient_characteristic","dataElementCodes":[{"code":"21112-8","codeSystem":"LOINC","descriptor":null,"codeSystemOid":null,"version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.54","qdmStatus":"birthdate","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicBirthdate"},{"_id":"5b51e2b2d7c8ac500a6abfc3","category":"patient_characteristic","dataElementCodes":[{"code":"2186-5","codeSystem":"cdcrec","descriptor":"Not
-        Hispanic or Latino","codeSystemOid":"2.16.840.1.113883.6.238","version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.56","qdmStatus":"ethnicity","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicEthnicity"},{"_id":"5b51e2b2d7c8ac500a6abfc4","category":"patient_characteristic","cause":null,"dataElementCodes":[{"code":"419099009","codeSystem":"SNOMED-CT","descriptor":null,"codeSystemOid":null,"version":null,"_type":"QDM::Code"}],"description":null,"expiredDatetime":"2012-12-04T08:00:00.000+00:00","hqmfOid":"2.16.840.1.113883.10.20.28.3.57","qdmStatus":"expired","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicExpired"},{"_id":"5b51e2b2d7c8ac500a6abfc5","category":"patient_characteristic","dataElementCodes":[{"code":"1002-5","codeSystem":"cdcrec","descriptor":"American
-        Indian or Alaska Native","codeSystemOid":"2.16.840.1.113883.6.238","version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.59","qdmStatus":"race","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicRace"},{"_id":"5b51e2b2d7c8ac500a6abfc6","category":"patient_characteristic","dataElementCodes":[{"code":"M","codeSystem":"AdministrativeGender","descriptor":"M","codeSystemOid":"2.16.840.1.113883.5.1","version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.55","qdmStatus":"gender","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicSex"}],"extendedData":{"type":null,"measure_ids":["A4B9763C-847E-4E02-BB7E-ACC596E90E2C",null],"source_data_criteria":[{"negation":false,"definition":"diagnosis","title":"Dysthymia","description":"Diagnosis:
+      string: '{"patients":[{"_id":"5a9ee716b848465b0064f52c","birthDatetime":"1970-01-01T08:00:00.000+00:00","bundleId":"5a57e977942c6d1e61d32f14","dataElements":[{"_id":"5b5227c6bb921547ef977e77","anatomicalLocationSite":null,"authorDatetime":"2012-04-12T08:00:00.000+00:00","category":"condition","dataElementCodes":[{"codeSystem":"SNOMED-CT","code":"19694002"},{"codeSystem":"ICD-10-CM","code":"F34.1"}],"description":"Diagnosis:
+        Dysthymia","hqmfOid":"2.16.840.1.113883.10.20.28.3.110","prevalencePeriod":{"low":"2012-04-12T08:00:00+00:00","high":"9999-12-31T23:59:59+00:00","lowClosed":true,"highClosed":true},"qdmVersion":"5.3","qrdaOid":"2.16.840.1.113883.10.20.24.3.135","severity":null,"_type":"QDM::Diagnosis"},{"_id":"5b5227c6bb921547ef977e78","admissionSource":null,"authorDatetime":"2012-11-04T08:00:00.000+00:00","category":"encounter","dataElementCodes":[{"codeSystem":"CPT","code":"99201"}],"description":"Encounter,
+        Performed: Office Visit","diagnoses":[],"dischargeDisposition":null,"facilityLocations":[],"hqmfOid":"2.16.840.1.113883.3.560.1.79","lengthOfStay":{"value":0,"unit":"days"},"negationRationale":null,"principalDiagnosis":null,"qdmStatus":"performed","qdmVersion":"5.3","relevantPeriod":{"low":"2012-11-04T08:00:00+00:00","high":"2012-11-04T08:15:00+00:00","lowClosed":true,"highClosed":true},"_type":"QDM::EncounterPerformed"},{"_id":"5b5227c6bb921547ef977e79","birthDatetime":"1970-01-01T08:00:00.000+00:00","category":"patient_characteristic","dataElementCodes":[{"code":"21112-8","codeSystem":"LOINC","descriptor":null,"codeSystemOid":null,"version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.54","qdmStatus":"birthdate","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicBirthdate"},{"_id":"5b5227c6bb921547ef977e7a","category":"patient_characteristic","dataElementCodes":[{"code":"2186-5","codeSystem":"cdcrec","descriptor":"Not
+        Hispanic or Latino","codeSystemOid":"2.16.840.1.113883.6.238","version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.56","qdmStatus":"ethnicity","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicEthnicity"},{"_id":"5b5227c6bb921547ef977e7b","category":"patient_characteristic","cause":null,"dataElementCodes":[{"code":"419099009","codeSystem":"SNOMED-CT","descriptor":null,"codeSystemOid":null,"version":null,"_type":"QDM::Code"}],"description":null,"expiredDatetime":"2012-12-04T08:00:00.000+00:00","hqmfOid":"2.16.840.1.113883.10.20.28.3.57","qdmStatus":"expired","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicExpired"},{"_id":"5b5227c6bb921547ef977e7c","category":"patient_characteristic","dataElementCodes":[{"code":"1002-5","codeSystem":"cdcrec","descriptor":"American
+        Indian or Alaska Native","codeSystemOid":"2.16.840.1.113883.6.238","version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.59","qdmStatus":"race","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicRace"},{"_id":"5b5227c6bb921547ef977e7d","category":"patient_characteristic","dataElementCodes":[{"code":"M","codeSystem":"AdministrativeGender","descriptor":"M","codeSystemOid":"2.16.840.1.113883.5.1","version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.55","qdmStatus":"gender","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicSex"}],"extendedData":{"type":null,"measure_ids":["A4B9763C-847E-4E02-BB7E-ACC596E90E2C",null],"source_data_criteria":[{"negation":false,"definition":"diagnosis","title":"Dysthymia","description":"Diagnosis:
         Dysthymia","code_list_id":"2.16.840.1.113883.3.67.1.101.1.254","type":"conditions","id":"Dysthymia_Diagnosis_6193b77b_e502_40cd_8ff4_a51a269f141a_source","start_date":1334217600000,"value":[],"references":null,"field_values":{},"hqmf_set_id":"A4B9763C-847E-4E02-BB7E-ACC596E90E2C","cms_id":"CMS160v6","criteria_id":"161fcb4cf7chz","codes":{"SNOMED-CT":["19694002"],"ICD-10-CM":["F34.1"]},"coded_entry_id":"5a9ee716b848465b0064f52d","code_source":"DEFAULT"},{"negation":false,"definition":"encounter","status":"performed","title":"OfficeVisit","description":"Encounter,
         Performed: Office Visit","code_list_id":"2.16.840.1.113883.3.464.1003.101.12.1001","type":"encounters","id":"OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_8a363827334f_source","start_date":1352016000000,"end_date":1352016900000,"value":[],"references":null,"field_values":{},"hqmf_set_id":"A4B9763C-847E-4E02-BB7E-ACC596E90E2C","cms_id":"CMS160v6","criteria_id":"161fcb54fcd6O","codes":{"CPT":["99201"]},"negation_code_list_id":"","coded_entry_id":"5a9ee716b848465b0064f52e","code_source":"USER_DEFINED"},{"id":"MeasurePeriod","start_date":0,"end_date":0,"references":null}],"expected_values":[{"measure_id":"A4B9763C-847E-4E02-BB7E-ACC596E90E2C","population_index":0,"IPP":1,"DENOM":1,"DENEX":1,"NUMER":0},{"measure_id":"A4B9763C-847E-4E02-BB7E-ACC596E90E2C","population_index":1,"IPP":0,"DENOM":0,"DENEX":0,"NUMER":0},{"measure_id":"A4B9763C-847E-4E02-BB7E-ACC596E90E2C","population_index":2,"IPP":0,"DENOM":0,"DENEX":0,"NUMER":0}],"notes":"","is_shared":null,"origin_data":[],"test_id":null,"medical_record_number":"c41b2fc639938515ddbedfbb122df57bd818474278962683a0c3d50e3e3cbfed","medical_record_assigner":"Bonnie","description":null,"description_category":null,"insurance_providers":"[{\"codes\":{\"SOP\":[\"349\"]},\"description\":null,\"end_time\":null,\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7
-        Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"},"familyName":"DENEX","givenNames":["Expired"],"qdmVersion":"5.3"},{"_id":"5a58f485942c6d5479457a7b","birthDatetime":"1965-04-13T08:00:00.000+00:00","bundleId":"5a57e977942c6d1e61d32f14","dataElements":[{"_id":"5b51e2b2d7c8ac500a6abfc7","authorDatetime":"2012-08-31T14:35:00.000+00:00","category":"assessment","components":[],"dataElementCodes":[{"codeSystem":"LOINC","code":"44261-6"}],"description":"Assessment,
-        Performed: PHQ-9 Tool","hqmfOid":"2.16.840.1.113883.10.20.28.3.117","method":null,"negationRationale":null,"qdmStatus":"performed","qdmVersion":"5.3","reason":null,"relatedTo":[],"result":10,"_type":"QDM::AssessmentPerformed"},{"_id":"5b51e2b2d7c8ac500a6abfc8","anatomicalLocationSite":null,"authorDatetime":"2012-06-08T14:35:00.000+00:00","category":"condition","dataElementCodes":[{"codeSystem":"ICD-10-CM","code":"F33.9"}],"description":"Diagnosis:
-        Major Depression Including Remission","hqmfOid":"2.16.840.1.113883.10.20.28.3.110","prevalencePeriod":{"low":"2012-06-08T14:35:00+00:00","high":"9999-12-31T23:59:59+00:00","lowClosed":true,"highClosed":true},"qdmVersion":"5.3","qrdaOid":"2.16.840.1.113883.10.20.24.3.135","severity":null,"_type":"QDM::Diagnosis"},{"_id":"5b51e2b2d7c8ac500a6abfc9","anatomicalLocationSite":null,"authorDatetime":"2013-11-08T14:35:00.000+00:00","category":"condition","dataElementCodes":[{"codeSystem":"SNOMED-CT","code":"81319007"}],"description":"Diagnosis:
-        Bipolar Disorder","hqmfOid":"2.16.840.1.113883.10.20.28.3.110","prevalencePeriod":{"low":"2013-11-08T14:35:00+00:00","high":"9999-12-31T23:59:59+00:00","lowClosed":true,"highClosed":true},"qdmVersion":"5.3","qrdaOid":"2.16.840.1.113883.10.20.24.3.135","severity":null,"_type":"QDM::Diagnosis"},{"_id":"5b51e2b2d7c8ac500a6abfca","admissionSource":null,"authorDatetime":"2012-06-08T14:30:00.000+00:00","category":"encounter","dataElementCodes":[{"codeSystem":"CPT","code":"99201"}],"description":"Encounter,
-        Performed: Office Visit","diagnoses":[],"dischargeDisposition":null,"facilityLocations":[],"hqmfOid":"2.16.840.1.113883.3.560.1.79","lengthOfStay":{"value":0,"unit":"days"},"negationRationale":null,"principalDiagnosis":null,"qdmStatus":"performed","qdmVersion":"5.3","relevantPeriod":{"low":"2012-06-08T14:30:00+00:00","high":"2012-06-08T14:50:00+00:00","lowClosed":true,"highClosed":true},"_type":"QDM::EncounterPerformed"},{"_id":"5b51e2b2d7c8ac500a6abfcb","birthDatetime":"1965-04-13T08:00:00.000+00:00","category":"patient_characteristic","dataElementCodes":[{"code":"21112-8","codeSystem":"LOINC","descriptor":null,"codeSystemOid":null,"version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.54","qdmStatus":"birthdate","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicBirthdate"},{"_id":"5b51e2b2d7c8ac500a6abfcc","category":"patient_characteristic","dataElementCodes":[{"code":"2186-5","codeSystem":"cdcrec","descriptor":"Not
-        Hispanic or Latino","codeSystemOid":"2.16.840.1.113883.6.238","version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.56","qdmStatus":"ethnicity","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicEthnicity"},{"_id":"5b51e2b2d7c8ac500a6abfcd","category":"patient_characteristic","dataElementCodes":[{"code":"1002-5","codeSystem":"cdcrec","descriptor":"American
-        Indian or Alaska Native","codeSystemOid":"2.16.840.1.113883.6.238","version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.59","qdmStatus":"race","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicRace"},{"_id":"5b51e2b2d7c8ac500a6abfce","category":"patient_characteristic","dataElementCodes":[{"code":"F","codeSystem":"AdministrativeGender","descriptor":"F","codeSystemOid":"2.16.840.1.113883.5.1","version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.55","qdmStatus":"gender","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicSex"}],"extendedData":{"type":null,"measure_ids":["A4B9763C-847E-4E02-BB7E-ACC596E90E2C",null],"source_data_criteria":[{"negation":false,"definition":"encounter","status":"performed","title":"OfficeVisit","description":"Encounter,
+        Relationship Code\"},\"health_record_field\":null,\"member_id\":\"1234567890\",\"mood_code\":\"EVN\",\"name\":\"Other\",\"negationInd\":null,\"negationReason\":null,\"oid\":null,\"payer\":{\"name\":\"Other\"},\"reason\":null,\"relationship\":null,\"specifics\":null,\"start_time\":1199145600,\"status_code\":null,\"time\":null,\"type\":\"OT\"}]"},"familyName":"DENEX","givenNames":["Expired"],"qdmVersion":"5.3"},{"_id":"5a58f485942c6d5479457a7b","birthDatetime":"1965-04-13T08:00:00.000+00:00","bundleId":"5a57e977942c6d1e61d32f14","dataElements":[{"_id":"5b5227c6bb921547ef977e7e","authorDatetime":"2012-08-31T14:35:00.000+00:00","category":"assessment","components":[],"dataElementCodes":[{"codeSystem":"LOINC","code":"44261-6"}],"description":"Assessment,
+        Performed: PHQ-9 Tool","hqmfOid":"2.16.840.1.113883.10.20.28.3.117","method":null,"negationRationale":null,"qdmStatus":"performed","qdmVersion":"5.3","reason":null,"relatedTo":[],"result":10,"_type":"QDM::AssessmentPerformed"},{"_id":"5b5227c6bb921547ef977e7f","anatomicalLocationSite":null,"authorDatetime":"2012-06-08T14:35:00.000+00:00","category":"condition","dataElementCodes":[{"codeSystem":"ICD-10-CM","code":"F33.9"}],"description":"Diagnosis:
+        Major Depression Including Remission","hqmfOid":"2.16.840.1.113883.10.20.28.3.110","prevalencePeriod":{"low":"2012-06-08T14:35:00+00:00","high":"9999-12-31T23:59:59+00:00","lowClosed":true,"highClosed":true},"qdmVersion":"5.3","qrdaOid":"2.16.840.1.113883.10.20.24.3.135","severity":null,"_type":"QDM::Diagnosis"},{"_id":"5b5227c6bb921547ef977e80","anatomicalLocationSite":null,"authorDatetime":"2013-11-08T14:35:00.000+00:00","category":"condition","dataElementCodes":[{"codeSystem":"SNOMED-CT","code":"81319007"}],"description":"Diagnosis:
+        Bipolar Disorder","hqmfOid":"2.16.840.1.113883.10.20.28.3.110","prevalencePeriod":{"low":"2013-11-08T14:35:00+00:00","high":"9999-12-31T23:59:59+00:00","lowClosed":true,"highClosed":true},"qdmVersion":"5.3","qrdaOid":"2.16.840.1.113883.10.20.24.3.135","severity":null,"_type":"QDM::Diagnosis"},{"_id":"5b5227c6bb921547ef977e81","admissionSource":null,"authorDatetime":"2012-06-08T14:30:00.000+00:00","category":"encounter","dataElementCodes":[{"codeSystem":"CPT","code":"99201"}],"description":"Encounter,
+        Performed: Office Visit","diagnoses":[],"dischargeDisposition":null,"facilityLocations":[],"hqmfOid":"2.16.840.1.113883.3.560.1.79","lengthOfStay":{"value":0,"unit":"days"},"negationRationale":null,"principalDiagnosis":null,"qdmStatus":"performed","qdmVersion":"5.3","relevantPeriod":{"low":"2012-06-08T14:30:00+00:00","high":"2012-06-08T14:50:00+00:00","lowClosed":true,"highClosed":true},"_type":"QDM::EncounterPerformed"},{"_id":"5b5227c6bb921547ef977e82","birthDatetime":"1965-04-13T08:00:00.000+00:00","category":"patient_characteristic","dataElementCodes":[{"code":"21112-8","codeSystem":"LOINC","descriptor":null,"codeSystemOid":null,"version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.54","qdmStatus":"birthdate","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicBirthdate"},{"_id":"5b5227c6bb921547ef977e83","category":"patient_characteristic","dataElementCodes":[{"code":"2186-5","codeSystem":"cdcrec","descriptor":"Not
+        Hispanic or Latino","codeSystemOid":"2.16.840.1.113883.6.238","version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.56","qdmStatus":"ethnicity","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicEthnicity"},{"_id":"5b5227c6bb921547ef977e84","category":"patient_characteristic","dataElementCodes":[{"code":"1002-5","codeSystem":"cdcrec","descriptor":"American
+        Indian or Alaska Native","codeSystemOid":"2.16.840.1.113883.6.238","version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.59","qdmStatus":"race","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicRace"},{"_id":"5b5227c6bb921547ef977e85","category":"patient_characteristic","dataElementCodes":[{"code":"F","codeSystem":"AdministrativeGender","descriptor":"F","codeSystemOid":"2.16.840.1.113883.5.1","version":null,"_type":"QDM::Code"}],"description":null,"hqmfOid":"2.16.840.1.113883.10.20.28.3.55","qdmStatus":"gender","qdmVersion":"5.3","_type":"QDM::PatientCharacteristicSex"}],"extendedData":{"type":null,"measure_ids":["A4B9763C-847E-4E02-BB7E-ACC596E90E2C",null],"source_data_criteria":[{"negation":false,"definition":"encounter","status":"performed","title":"OfficeVisit","description":"Encounter,
         Performed: Office Visit","code_list_id":"2.16.840.1.113883.3.464.1003.101.12.1001","type":"encounters","id":"OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_8a363827334f_source","start_date":1339165800000,"end_date":1339167000000,"value":[],"references":null,"field_values":{},"hqmf_set_id":"A4B9763C-847E-4E02-BB7E-ACC596E90E2C","cms_id":"CMS160v6","criteria_id":"160eb75c1d3El","codes":{"CPT":["99201"]},"negation_code_list_id":"","coded_entry_id":"5a58f6d9942c6d58e8eb6d4e","code_source":"USER_DEFINED"},{"negation":false,"definition":"diagnosis","title":"MajorDepressionIncludingRemission","description":"Diagnosis:
         Major Depression Including Remission","code_list_id":"2.16.840.113883.3.67.1.101.3.2444","type":"conditions","id":"MajorDepressionIncludingRemission_Diagnosis_aa4805f4_54e9_4e60_9bbf_b316aeaa95ba_source","start_date":1339166100000,"value":[],"references":null,"field_values":{},"hqmf_set_id":"A4B9763C-847E-4E02-BB7E-ACC596E90E2C","cms_id":"CMS160v6","criteria_id":"160eb76956cSo","codes":{"ICD-10-CM":["F33.9"]},"coded_entry_id":"5a58f6d9942c6d58e8eb6d4c","code_source":"USER_DEFINED"},{"negation":false,"definition":"assessment","status":"performed","title":"PHQ-9Tool","description":"Assessment,
         Performed: PHQ-9 Tool","code_list_id":"2.16.840.1.113883.3.67.1.101.11.723","type":"assessments","id":"PHQ_9Tool_AssessmentPerformed_40280381_3d61_56a7_013e_8a363828336d_source","start_date":1346423700000,"value":[{"type":"PQ","type_cmp":"CD","value":"10","unit":""}],"references":null,"field_values":{},"hqmf_set_id":"A4B9763C-847E-4E02-BB7E-ACC596E90E2C","cms_id":"CMS160v6","criteria_id":"160eb8174dclO","codes":{"LOINC":["44261-6"]},"negation_code_list_id":"","coded_entry_id":"5a58f6d9942c6d58e8eb6d4f","code_source":"DEFAULT"},{"negation":false,"definition":"diagnosis","title":"BipolarDisorder","description":"Diagnosis:
@@ -1262,7 +1262,7 @@ http_interactions:
         Performed: OfficeVisit","code_list_id":"2.16.840.1.113883.3.464.1003.101.12.1001","type":"encounters","definition":"encounter","status":"performed","hard_status":false,"negation":false,"source_data_criteria":"OfficeVisit_EncounterPerformed_40280381_3d61_56a7_013e_8a363827334f_source","variable":false},"prefix_419099009_PatientCharacteristicExpired_83771EEC_B3EA_4575_97D8_280E257B692A_source":{"title":"Patient
         Characteristic Expired: Patient Characteristic Expired","description":"Patient
         Characteristic Expired: Patient Characteristic Expired","property":"expired","type":"characteristic","definition":"patient_characteristic_expired","hard_status":false,"negation":false,"source_data_criteria":"prefix_419099009_PatientCharacteristicExpired_83771EEC_B3EA_4575_97D8_280E257B692A_source","variable":false}},"title":"Depression
-        Utilization of the PHQ-9 Tool","type":"ep","updated_at":"2018-07-20T13:25:05.660Z","user_id":"501fdba3044a111b98000001","value_set_oid_version_objects":[{"oid":"2.16.840.1.113762.1.4.1","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.114222.4.11.836","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.114222.4.11.837","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.114222.4.11.3591","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.67.1.101.1.128","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.464.1003.101.12.1014","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.67.1.101.1.254","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113762.1.4.1080.1","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.113883.3.67.1.101.3.2444","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.464.1003.101.12.1001","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.600.1.1579","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.67.1.101.1.246","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.67.1.101.11.723","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.113883.3.67.1.101.3.2445","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.600.1.1575","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"drc-288b28533ea3e20c8bed70cf4e0a8d78afa536cf3be01339e67e189ef32d0b58","version":""}],"value_set_oids":["2.16.840.1.113762.1.4.1","2.16.840.1.114222.4.11.836","2.16.840.1.114222.4.11.837","2.16.840.1.114222.4.11.3591","2.16.840.1.113883.3.67.1.101.1.128","2.16.840.1.113883.3.464.1003.101.12.1014","2.16.840.1.113883.3.67.1.101.1.254","2.16.840.1.113762.1.4.1080.1","2.16.840.113883.3.67.1.101.3.2444","2.16.840.1.113883.3.464.1003.101.12.1001","2.16.840.1.113883.3.600.1.1579","2.16.840.1.113883.3.67.1.101.1.246","2.16.840.1.113883.3.67.1.101.11.723","2.16.840.113883.3.67.1.101.3.2445","2.16.840.1.113883.3.600.1.1575","drc-288b28533ea3e20c8bed70cf4e0a8d78afa536cf3be01339e67e189ef32d0b58"],"version":null},"valueSetsByOid":{"2.16.840.1.113762.1.4.1":{"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C":{"_id":"5a57eb46942c6d1e61d33814","bundle_id":"5a57e977942c6d1e61d32f14","categories":null,"concepts":[{"_id":"5a57eb46942c6d1e61d33815","black_list":false,"code":"F","code_system":"2.16.840.1.113883.5.1","code_system_name":"AdministrativeGender","code_system_version":"HL7V3.0_2016-07","display_name":"Female","white_list":false},{"_id":"5a57eb46942c6d1e61d33816","black_list":false,"code":"M","code_system":"2.16.840.1.113883.5.1","code_system_name":"AdministrativeGender","code_system_version":"HL7V3.0_2016-07","display_name":"Male","white_list":false}],"display_name":"ONC
+        Utilization of the PHQ-9 Tool","type":"ep","updated_at":"2018-07-20T18:19:49.125Z","user_id":"501fdba3044a111b98000001","value_set_oid_version_objects":[{"oid":"2.16.840.1.113762.1.4.1","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.114222.4.11.836","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.114222.4.11.837","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.114222.4.11.3591","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.67.1.101.1.128","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.464.1003.101.12.1014","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.67.1.101.1.254","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113762.1.4.1080.1","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.113883.3.67.1.101.3.2444","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.464.1003.101.12.1001","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.600.1.1579","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.67.1.101.1.246","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.67.1.101.11.723","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.113883.3.67.1.101.3.2445","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"2.16.840.1.113883.3.600.1.1575","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"},{"oid":"drc-288b28533ea3e20c8bed70cf4e0a8d78afa536cf3be01339e67e189ef32d0b58","version":""}],"value_set_oids":["2.16.840.1.113762.1.4.1","2.16.840.1.114222.4.11.836","2.16.840.1.114222.4.11.837","2.16.840.1.114222.4.11.3591","2.16.840.1.113883.3.67.1.101.1.128","2.16.840.1.113883.3.464.1003.101.12.1014","2.16.840.1.113883.3.67.1.101.1.254","2.16.840.1.113762.1.4.1080.1","2.16.840.113883.3.67.1.101.3.2444","2.16.840.1.113883.3.464.1003.101.12.1001","2.16.840.1.113883.3.600.1.1579","2.16.840.1.113883.3.67.1.101.1.246","2.16.840.1.113883.3.67.1.101.11.723","2.16.840.113883.3.67.1.101.3.2445","2.16.840.1.113883.3.600.1.1575","drc-288b28533ea3e20c8bed70cf4e0a8d78afa536cf3be01339e67e189ef32d0b58"],"version":null},"valueSetsByOid":{"2.16.840.1.113762.1.4.1":{"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C":{"_id":"5a57eb46942c6d1e61d33814","bundle_id":"5a57e977942c6d1e61d32f14","categories":null,"concepts":[{"_id":"5a57eb46942c6d1e61d33815","black_list":false,"code":"F","code_system":"2.16.840.1.113883.5.1","code_system_name":"AdministrativeGender","code_system_version":"HL7V3.0_2016-07","display_name":"Female","white_list":false},{"_id":"5a57eb46942c6d1e61d33816","black_list":false,"code":"M","code_system":"2.16.840.1.113883.5.1","code_system_name":"AdministrativeGender","code_system_version":"HL7V3.0_2016-07","display_name":"Male","white_list":false}],"display_name":"ONC
         Administrative Sex","oid":"2.16.840.1.113762.1.4.1","user_id":"501fdba3044a111b98000001","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"}},"2.16.840.1.114222.4.11.836":{"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C":{"_id":"5a57eb47942c6d1e61d33817","bundle_id":"5a57e977942c6d1e61d32f14","categories":null,"concepts":[{"_id":"5a57eb47942c6d1e61d33818","black_list":false,"code":"1002-5","code_system":"2.16.840.1.113883.6.238","code_system_name":"CDC
         Race","code_system_version":"1.1","display_name":"American Indian or Alaska
         Native","white_list":false},{"_id":"5a57eb47942c6d1e61d33819","black_list":false,"code":"2028-9","code_system":"2.16.840.1.113883.6.238","code_system_name":"CDC
@@ -1273,14 +1273,7 @@ http_interactions:
         Race","code_system_version":"1.1","display_name":"White","white_list":false},{"_id":"5a57eb47942c6d1e61d3381d","black_list":false,"code":"2131-1","code_system":"2.16.840.1.113883.6.238","code_system_name":"CDC
         Race","code_system_version":"1.1","display_name":"Other Race","white_list":false}],"display_name":"Race","oid":"2.16.840.1.114222.4.11.836","user_id":"501fdba3044a111b98000001","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"}},"2.16.840.1.114222.4.11.837":{"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C":{"_id":"5a57eb47942c6d1e61d3381e","bundle_id":"5a57e977942c6d1e61d32f14","categories":null,"concepts":[{"_id":"5a57eb47942c6d1e61d3381f","black_list":false,"code":"2135-2","code_system":"2.16.840.1.113883.6.238","code_system_name":"CDC
         Race","code_system_version":"1.1","display_name":"Hispanic or Latino","white_list":false},{"_id":"5a57eb47942c6d1e61d33820","black_list":false,"code":"2186-5","code_system":"2.16.840.1.113883.6.238","code_system_name":"CDC
-        Race","code_system_version":"1.1","display_name":"Not Hispanic or Latino","white_list":false}],"display_name":"Ethnicity","oid":"2.16.840.1.114222.4.11.837","user_id":"501fdba3044a111b98000001","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"}},"2.16.840.1.113883.3.67.1.101.11.723":{"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C":{"_id":"5a57eb4a942c6d1e61d33a3e","bundle_id":"5a57e977942c6d1e61d32f14","categories":null,"concepts":[{"_id":"5a57eb4a942c6d1e61d33a3f","black_list":false,"code":"44261-6","code_system":"2.16.840.1.113883.6.1","code_system_name":"LOINC","code_system_version":"2.58","display_name":"Patient
-        Health Questionnaire 9 item (PHQ-9) total score [Reported]","white_list":false}],"display_name":"PHQ-9
-        Tool","oid":"2.16.840.1.113883.3.67.1.101.11.723","user_id":"501fdba3044a111b98000001","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"}},"2.16.840.113883.3.67.1.101.3.2445":{"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C":{"_id":"5a57eb4a942c6d1e61d33a40","bundle_id":"5a57e977942c6d1e61d32f14","categories":null,"concepts":[{"_id":"5a57eb4a942c6d1e61d33a41","black_list":false,"code":"90791","code_system":"2.16.840.1.113883.6.12","code_system_name":"CPT","code_system_version":"2017","display_name":"Psychiatric
-        diagnostic evaluation","white_list":false},{"_id":"5a57eb4a942c6d1e61d33a42","black_list":false,"code":"90792","code_system":"2.16.840.1.113883.6.12","code_system_name":"CPT","code_system_version":"2017","display_name":"Psychiatric
-        diagnostic evaluation with medical services","white_list":false},{"_id":"5a57eb4a942c6d1e61d33a43","black_list":false,"code":"90832","code_system":"2.16.840.1.113883.6.12","code_system_name":"CPT","code_system_version":"2017","display_name":"Psychotherapy,
-        30 minutes with patient","white_list":false},{"_id":"5a57eb4a942c6d1e61d33a44","black_list":false,"code":"90834","code_system":"2.16.840.1.113883.6.12","code_system_name":"CPT","code_system_version":"2017","display_name":"Psychotherapy,
-        45 minutes with patient","white_list":false},{"_id":"5a57eb4a942c6d1e61d33a45","black_list":false,"code":"90837","code_system":"2.16.840.1.113883.6.12","code_system_name":"CPT","code_system_version":"2017","display_name":"Psychotherapy,
-        60 minutes with patient","white_list":false}],"display_name":"Psych Visit","oid":"2.16.840.113883.3.67.1.101.3.2445","user_id":"501fdba3044a111b98000001","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"}},"drc-288b28533ea3e20c8bed70cf4e0a8d78afa536cf3be01339e67e189ef32d0b58":{"":{"_id":"5a85e566b8484675e9202694","bundle_id":null,"categories":null,"concepts":[{"_id":"5a85e566b8484675e9202695","black_list":false,"code":"419099009","code_system":null,"code_system_name":"SNOMED-CT","code_system_version":"urn:hl7:version:2016-03","display_name":"Dead","white_list":false}],"display_name":"Dead","oid":"drc-288b28533ea3e20c8bed70cf4e0a8d78afa536cf3be01339e67e189ef32d0b58","user_id":"501fdba3044a111b98000001","version":""}},"2.16.840.1.114222.4.11.3591":{"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C":{"_id":"5a57eb47942c6d1e61d33821","bundle_id":"5a57e977942c6d1e61d32f14","categories":null,"concepts":[{"_id":"5a57eb47942c6d1e61d33822","black_list":false,"code":"1","code_system":"2.16.840.1.113883.3.221.5","code_system_name":"Source
+        Race","code_system_version":"1.1","display_name":"Not Hispanic or Latino","white_list":false}],"display_name":"Ethnicity","oid":"2.16.840.1.114222.4.11.837","user_id":"501fdba3044a111b98000001","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"}},"2.16.840.1.114222.4.11.3591":{"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C":{"_id":"5a57eb47942c6d1e61d33821","bundle_id":"5a57e977942c6d1e61d32f14","categories":null,"concepts":[{"_id":"5a57eb47942c6d1e61d33822","black_list":false,"code":"1","code_system":"2.16.840.1.113883.3.221.5","code_system_name":"Source
         of Payment Typology","code_system_version":"6.0","display_name":"MEDICARE","white_list":false},{"_id":"5a57eb47942c6d1e61d33823","black_list":false,"code":"11","code_system":"2.16.840.1.113883.3.221.5","code_system_name":"Source
         of Payment Typology","code_system_version":"6.0","display_name":"Medicare
         (Managed Care)","white_list":false},{"_id":"5a57eb47942c6d1e61d33824","black_list":false,"code":"111","code_system":"2.16.840.1.113883.3.221.5","code_system_name":"Source
@@ -2096,9 +2089,16 @@ http_interactions:
         disorder with predominantly psychological signs and symptoms","white_list":false},{"_id":"5a57eb49942c6d1e61d33a3c","black_list":false,"code":"F68.12","code_system":"2.16.840.1.113883.6.90","code_system_name":"ICD-10-CM","code_system_version":"2018","display_name":"Factitious
         disorder with predominantly physical signs and symptoms","white_list":false},{"_id":"5a57eb49942c6d1e61d33a3d","black_list":false,"code":"F68.13","code_system":"2.16.840.1.113883.6.90","code_system_name":"ICD-10-CM","code_system_version":"2018","display_name":"Factitious
         disorder with combined psychological and physical signs and symptoms","white_list":false}],"display_name":"Personality
-        Disorder","oid":"2.16.840.1.113883.3.67.1.101.1.246","user_id":"501fdba3044a111b98000001","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"}},"2.16.840.1.113883.3.600.1.1575":{"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C":{"_id":"5a57eb4a942c6d1e61d33a46","bundle_id":"5a57e977942c6d1e61d32f14","categories":null,"concepts":[{"_id":"5a57eb4a942c6d1e61d33a47","black_list":false,"code":"Z51.5","code_system":"2.16.840.1.113883.6.90","code_system_name":"ICD-10-CM","code_system_version":"2018","display_name":"Encounter
+        Disorder","oid":"2.16.840.1.113883.3.67.1.101.1.246","user_id":"501fdba3044a111b98000001","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"}},"2.16.840.1.113883.3.67.1.101.11.723":{"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C":{"_id":"5a57eb4a942c6d1e61d33a3e","bundle_id":"5a57e977942c6d1e61d32f14","categories":null,"concepts":[{"_id":"5a57eb4a942c6d1e61d33a3f","black_list":false,"code":"44261-6","code_system":"2.16.840.1.113883.6.1","code_system_name":"LOINC","code_system_version":"2.58","display_name":"Patient
+        Health Questionnaire 9 item (PHQ-9) total score [Reported]","white_list":false}],"display_name":"PHQ-9
+        Tool","oid":"2.16.840.1.113883.3.67.1.101.11.723","user_id":"501fdba3044a111b98000001","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"}},"2.16.840.113883.3.67.1.101.3.2445":{"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C":{"_id":"5a57eb4a942c6d1e61d33a40","bundle_id":"5a57e977942c6d1e61d32f14","categories":null,"concepts":[{"_id":"5a57eb4a942c6d1e61d33a41","black_list":false,"code":"90791","code_system":"2.16.840.1.113883.6.12","code_system_name":"CPT","code_system_version":"2017","display_name":"Psychiatric
+        diagnostic evaluation","white_list":false},{"_id":"5a57eb4a942c6d1e61d33a42","black_list":false,"code":"90792","code_system":"2.16.840.1.113883.6.12","code_system_name":"CPT","code_system_version":"2017","display_name":"Psychiatric
+        diagnostic evaluation with medical services","white_list":false},{"_id":"5a57eb4a942c6d1e61d33a43","black_list":false,"code":"90832","code_system":"2.16.840.1.113883.6.12","code_system_name":"CPT","code_system_version":"2017","display_name":"Psychotherapy,
+        30 minutes with patient","white_list":false},{"_id":"5a57eb4a942c6d1e61d33a44","black_list":false,"code":"90834","code_system":"2.16.840.1.113883.6.12","code_system_name":"CPT","code_system_version":"2017","display_name":"Psychotherapy,
+        45 minutes with patient","white_list":false},{"_id":"5a57eb4a942c6d1e61d33a45","black_list":false,"code":"90837","code_system":"2.16.840.1.113883.6.12","code_system_name":"CPT","code_system_version":"2017","display_name":"Psychotherapy,
+        60 minutes with patient","white_list":false}],"display_name":"Psych Visit","oid":"2.16.840.113883.3.67.1.101.3.2445","user_id":"501fdba3044a111b98000001","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"}},"2.16.840.1.113883.3.600.1.1575":{"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C":{"_id":"5a57eb4a942c6d1e61d33a46","bundle_id":"5a57e977942c6d1e61d32f14","categories":null,"concepts":[{"_id":"5a57eb4a942c6d1e61d33a47","black_list":false,"code":"Z51.5","code_system":"2.16.840.1.113883.6.90","code_system_name":"ICD-10-CM","code_system_version":"2018","display_name":"Encounter
         for palliative care","white_list":false}],"display_name":"Palliative care
-        encounter","oid":"2.16.840.1.113883.3.600.1.1575","user_id":"501fdba3044a111b98000001","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"}}},"options":{"doPretty":true}}'
+        encounter","oid":"2.16.840.1.113883.3.600.1.1575","user_id":"501fdba3044a111b98000001","version":"Draft-A4B9763C-847E-4E02-BB7E-ACC596E90E2C"}},"drc-288b28533ea3e20c8bed70cf4e0a8d78afa536cf3be01339e67e189ef32d0b58":{"":{"_id":"5a85e566b8484675e9202694","bundle_id":null,"categories":null,"concepts":[{"_id":"5a85e566b8484675e9202695","black_list":false,"code":"419099009","code_system":null,"code_system_name":"SNOMED-CT","code_system_version":"urn:hl7:version:2016-03","display_name":"Dead","white_list":false}],"display_name":"Dead","oid":"drc-288b28533ea3e20c8bed70cf4e0a8d78afa536cf3be01339e67e189ef32d0b58","user_id":"501fdba3044a111b98000001","version":""}}},"options":{"doPretty":true}}'
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -2120,13 +2120,13 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Etag:
-      - W/"65f85-dwxRpEa244cy0pUu/g95aywWfCk"
+      - W/"83c4-IH7nb2RZ3Fc1Du/6oXiZ63lmjII"
       Vary:
       - Accept-Encoding
       Content-Encoding:
       - gzip
       Date:
-      - Fri, 20 Jul 2018 13:25:06 GMT
+      - Fri, 20 Jul 2018 18:19:50 GMT
       Connection:
       - keep-alive
       Transfer-Encoding:
@@ -2134,483 +2134,60 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        H4sIAAAAAAAAE+29aW8bSbLv/VUIvZrBY7dr41J65yNppg20JY0tXwzQ02jQ
-        VNnmA0rUIam+7mn4u98qLrWQ/8yMyIySWXJeDO5pU4xfVbEiI3KJ5a+T/jjN
-        smE4+DhKRsmg/zEIBsmnfjQ5Of3r5Hr+8Dgbr6bz+7PFdJUtpuOw+Hi5Gq+y
-        k9OTyfzuYZbl//ni5Pfpbf5B/2M/zKKPUZSm/X4/iZLg0yANoyD/QvZ1ld3f
-        Zrfn49W4YDyU6N8X2Sz7Y3w/yYrP31xfn5yuFo/Zi5Pzi8urt7V/XPx794/L
-        D28v3p2cfhrPltm3F5v7ucvuV03UefawyJbL/BIfVtPZ9L/rq80/rb5k1z//
-        K72Zz2frZ8w/zkXzu798nd/n+/OL3sXqy/10Ml39Wf/wevxntqh/8G5cXKb6
-        9/vs6+6f1ZV759Px5/v5Mlvmf7t59+Gi+derT5+mk6z3f6bL6ap3cT+ZP97n
-        P3MvhF/+n+zL+I/pfDGe9X7OxrPVF6PEP/Jb7K3mm/8Lv/zmfrqa5sDqTStQ
-        ijuNwCPr7hN9X3GX5VfBPSKM4g5j5h2i7yvuMNbcYfm36/FsNs0/+yPrnY0X
-        We9qcbvWo+1P/Mv8/nPvJlvcrf9afX7x9WG6yG7r7+J+fje9H6/me2+7+rj2
-        q1QfljdS3ffeLdVg0+W8uD2stRXz4utk9lj8Mqa/q+60+gK85+rP5d1fPt5l
-        i+ZTVh8VV/nH61/eXzQ+3cp++5abiLVZCUubEpYGJSytSdA0JMvH2WppYUb+
-        OvmUP8Vsd5O57GpnSL4dmJe/Thbj/3ty+utvL4xSW/vDkNgYKIbA2oLtvv/X
-        yW1uqi9m69/jbH5b6EL+4ST/r1zobU4o/vP9n8v8F8s/eH2bv7zpcrVY69U/
-        C1u/yL+Ti00W04f8dRwIXa1dRvRTOPhplAQ/hT+FYTwaxT/1fwrz7/2RLYqf
-        /OT0/nE2y/3L6s+H4rr/On97elrczcm33/a9zu1wMhpP+kEwHow/fpoMcsqX
-        /737pLpOGPwU5f8b/ZRfsl/cWf7uP88XxU/ysHmZv0++jBfjSeH4lqvpJP/O
-        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
-        kHKhavcqGotZV4TF+2msi8lK0Vg60++6sbzm3WmxCJ/Mxo/LjL+2jprmZn97
-        tLmm3t9fjfQxSQZh/bZwtS4/ENRXXNcIDo2C63X9gZy+S4pajnZs5Jf8rS75
-        0evafL35tmJavVr/to7jbVXG9QiOpeGi8+CWD2Lw6cfTtAtUtjwZ2DJqZUpG
-        tgxTuAKNwgyZ9+tsv85ueZ19WNXNvKl2oNbMaGiv1l6tu6DWzJhvf1Tygx+V
-        aJROX+5WuxYzUGrVP726enVtX125idZez7yeWekZ81DS65nXMys9U6X7P81j
-        WN60KfGfyun7QeYH2RMMMubOl9czr2dWesbcivJ65vXMeaMo8RtFXumeXOmY
-        CZx+091vundg070fmFZj7T2D0BP4/THvDZ7aG9QKeR3XJgb9CWL6jgYdymw0
-        6p2kd5JdcJKqfhPdcZLH1ffU5gmGbdirURtQv1LwRvD5GcFB51cKtbJxxnsS
-        uZ5qktgZo3tQOY3TetrmetX8EUQfWxEr1w1KHlkRCb2NLajGMkNWVEK7Ywsq
-        OYCKjBwaWn7bIPX9v0kB5ENjvWYaRp8hRU6GP+Dqk6fsufq8KnvuoKxUJYIb
-        yuJGsjjyKOFxR4HobY5CWVwki4tlcS0NmFFf9jZlx8lIdpyMZMfJqKVxksqO
-        k1R2nKSy4ySVHSdpIouTHR6p7PBIZYdHqk/1tee2NE7CQD/3Is1wwuAgU92S
-        IzPjCgPylEtZLuiQSfYeDKZpaDBQpmHBQOnT3O2YJrfBQKViqNDkJRgok4dg
-        oCL53z80uQgGyuQeGCg5/Q/l9D9sQf9DOf0P5fQ/ktP/SE7/I9PsiIGSU/tI
-        Tu0jObWP5NTeUN3EjkmeDjGY+qkQbYZQK9bhNNOIhWY+sdDMp1bCwY1zVM0t
-        YJm3w3uuNq4k6mOgK1S7v8QCGQhSjTNihQwEMZ1dEjH+tNKfVnb9tBLoNTc9
-        2+u11+tO6LUPd/Xhru2GuyKt88nhXuueXuti78O9D3+GPly1tD7SUDr0CL6Q
-        gXcIT+8QVGHsR5p2gx7BPY4dUZkp0d5Tek/ZCU+Zdt5TKjNsjzQKHD3CQeA8
-        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
+        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
     http_version: 
-  recorded_at: Fri, 20 Jul 2018 13:25:06 GMT
+  recorded_at: Fri, 20 Jul 2018 18:19:50 GMT
 recorded_with: VCR 3.0.3
