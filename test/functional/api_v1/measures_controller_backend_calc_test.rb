@@ -1,6 +1,5 @@
 require 'test_helper'
 
-
 class MeasuresControllerBackendCalcTest < ActionController::TestCase
   include Devise::TestHelpers
 
@@ -62,7 +61,7 @@ class MeasuresControllerBackendCalcTest < ActionController::TestCase
   test "should calculate result excel sheet" do
     # Apiepie is set to automatically include the whole request and response as json in apipie_examples.json file, but to_json will on the binary excel file
     # TODO: investigate better way to exclude an example (or just the response) from apipie
-    apipieRecordConfig = Apipie.configuration.record
+    apipie_record_configuration = Apipie.configuration.record
     Apipie.configuration.record = false
 
     VCR.use_cassette("backend_calculation_excel") do
@@ -84,7 +83,6 @@ class MeasuresControllerBackendCalcTest < ActionController::TestCase
       assert_equal 1.0, doc.sheet("Population 1").row(3)[0]
     end
 
-    Apipie.configuration.record = apipieRecordConfig
+    Apipie.configuration.record = apipie_record_configuration
   end
 end
-
