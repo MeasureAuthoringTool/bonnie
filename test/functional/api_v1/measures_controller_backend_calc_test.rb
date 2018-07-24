@@ -1,9 +1,8 @@
 require 'test_helper'
 
 class MeasuresControllerBackendCalcTest < ActionController::TestCase
-  include Devise::TestHelpers
-
   tests ApiV1::MeasuresController
+  include Devise::TestHelpers
 
   setup do
     @error_dir = File.join('log','load_errors')
@@ -13,6 +12,7 @@ class MeasuresControllerBackendCalcTest < ActionController::TestCase
     cms347_fixtures = File.join("cql_measures", "CMS347v1"), File.join("records", "CMS347v1")
     cms160_fixtures = File.join("cql_measures","core_measures", "CMS160v6"), File.join("records", "core_measures", "CMS160v6"), File.join("health_data_standards_svs_value_sets", "core_measures", "CMS160v6")
     collection_fixtures(users_set, *cms347_fixtures, *cms160_fixtures)
+    @cms160_hqmf_set_id = "A4B9763C-847E-4E02-BB7E-ACC596E90E2C"
     @user = User.by_email('bonnie@example.com').first
     associate_user_with_measures(@user,CqlMeasure.all)
     associate_user_with_patients(@user,Record.all)
@@ -35,8 +35,7 @@ class MeasuresControllerBackendCalcTest < ActionController::TestCase
 
   test "should calculate result in json as default" do
     VCR.use_cassette("backend_calculation_json_as_default") do
-      measure_id = CqlMeasure.where({"cms_id" => "CMS160v6"}).first.hqmf_set_id
-      get :calculated_results, id: measure_id
+      get :calculated_results, id: @cms160_hqmf_set_id
       assert_response :success
       assert_equal response.content_type, 'application/json'
       json = JSON.parse(response.body)
@@ -49,26 +48,24 @@ class MeasuresControllerBackendCalcTest < ActionController::TestCase
 
   test "should calculate and return json if requested" do
     VCR.use_cassette("backend_calculation_json") do
-      measure_id = CqlMeasure.where({"cms_id" => "CMS160v6"}).first.hqmf_set_id
       headers = { :Accept => "application/json" }
       request.headers.merge! headers
-      get :calculated_results, id: measure_id
+      get :calculated_results, id: @cms160_hqmf_set_id
       assert_response :success
       assert_equal response.content_type, 'application/json'
     end
   end
 
   test "should calculate result excel sheet" do
-    # Apiepie is set to automatically include the whole request and response as json in apipie_examples.json file, but to_json will on the binary excel file
+    # Apiepie is set to automatically include the whole request and response as json in apipie_examples.json file, but to_json will fail on the binary excel file
     # TODO: investigate better way to exclude an example (or just the response) from apipie
     apipie_record_configuration = Apipie.configuration.record
     Apipie.configuration.record = false
 
     VCR.use_cassette("backend_calculation_excel") do
-      measure_id = CqlMeasure.where({"cms_id" => "CMS160v6"}).first.hqmf_set_id
       headers = { :Accept => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
       request.headers.merge! headers
-      get :calculated_results, id: measure_id
+      get :calculated_results, id: @cms160_hqmf_set_id
       assert_response :success
       assert_equal 'binary', response.header['Content-Transfer-Encoding']
       assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type 
