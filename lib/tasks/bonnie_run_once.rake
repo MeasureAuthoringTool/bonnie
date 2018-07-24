@@ -546,6 +546,8 @@ namespace :bonnie do
       first_sheet.each do |first_row|
         row_count += 1
         next if (row_count < first_patient_row_index)
+        # skip patients who have no name (bug with equals sign says Luke)
+        next if first_row[first_name_column_index].nil? || first_row[last_name_column_index].nil?
         first_row.push(first_row[first_name_column_index] + first_row[last_name_column_index])
         first_patient_rows.push(first_row)
       end
@@ -554,6 +556,8 @@ namespace :bonnie do
       second_sheet.each do |second_row|
         row_count += 1
         next if (row_count < first_patient_row_index)
+        # skip patients who have no name (bug with equals sign says Luke)
+        next if second_row[first_name_column_index].nil? || second_row[last_name_column_index].nil?
         second_row.push(second_row[first_name_column_index] + second_row[last_name_column_index])
         second_patient_rows.push(second_row)
       end
