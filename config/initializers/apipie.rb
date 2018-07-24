@@ -14,12 +14,14 @@ Apipie.configure do |config|
       use to access this API, along with the `username` and `password` of a 
       valid user.
     * Administrators can add applications on the [Bonnie OAuth2 Application page](/oauth/applications).
+    * Information about the user can be accessed using the token info endpoint at `/oauth/token/info`.
+    * Tokens may be revoked by the client application using the [OAuth 2.0 Token Revocation](https://tools.ietf.org/html/rfc7009) endpoint at `/oauth/revoke`.
     
     Example Code:
     ---
     The following sample code is written in Ruby, but any modern language
     with an OAuth2 library will work similarly.
-      <pre>
+    
         require 'oauth2'
         client_id = \"CLIENT_ID_GOES_HERE\"
         secret = \"CLIENT_SECRET_GOES_HERE\"
@@ -36,7 +38,33 @@ Apipie.configure do |config|
         response = token.get(\"http://bonnie.org/api_v1/measures\")
         puts response.status
         puts response.body
-      </pre>
+    
+    
+    Example Token Revocation Request:
+    ---
+    Note that the `client_id` and `client_secret` are in the body to authorize the client.
+
+        POST /oauth/revoke HTTP/1.1
+        Host: bonnie.healthit.gov
+        Content-Type: application/x-www-form-urlencoded
+        Cache-Control: no-cache
+
+        token=edb292cb0e04a06f72c85d46&token_type_hint=access_token&client_id=dd9589310584&client_secret=3d4a47c7e927d75da
+
+    
+    Example Token Info Response:
+    ---
+    This JSON response body gives info about the token, refresh token and associated user.
+      
+        {
+          \"user_email\": \"bonnie@example.com\",
+          \"user_first_name\": \"Bonnie\",
+          \"user_last_name\": \"User\",
+          \"scopes\": [],
+          \"expires_in_seconds\": 900,
+          \"created_at\": 1532112013,
+          \"refresh_expires_in_seconds\": 431999
+        }
   "
   config.markup                  = Apipie::Markup::Markdown.new
   config.api_base_url            = "/api"

@@ -74,7 +74,7 @@ module ApiV1
 
     def_param_group :measure_upload do
       param :measure_file, File, :required => true, :desc => "The measure file."
-      param :measure_type, %w[eh ep], :required => true, :desc => "The type of the measure."
+      param :measure_type, %w[eh ep], :required => false, :desc => "The type of the measure."
       param :calculation_type, %w[episode patient], :required => true, :desc => "The type of calculation."
       param :population_titles, Array, of: String, :required => false, :desc => "The titles of the populations. If this is not included, populations will assume default values. i.e. \"Population 1\", \"Population 2\", etc."
       param :calculate_sdes, %w[true false], :required => false, :desc => "Should Supplemental Data Elements be included in calculations. Defaults to 'false' if not supplied."
@@ -231,7 +231,6 @@ module ApiV1
       # convert calculate_sde param from string to boolean
       calculate_sdes = params[:calculate_sdes].nil? ? false : params[:calculate_sdes].to_s == 'true'
       measure_details = {
-        'type'=>params[:measure_type],
         'episode_of_care'=>params[:calculation_type] == 'episode',
         'calculate_sdes'=>calculate_sdes
       }
@@ -251,6 +250,11 @@ module ApiV1
           measure_details['episode_of_care'] = existing.episode_of_care
           measure_details['calculate_sdes'] = existing.calculate_sdes
           measure_details['population_titles'] = existing.populations.map { |p| p['title'] } if existing.populations.length > 1
+          # if the caller specified the measure_type use their value otherwise use from the existing
+          measure_details['type'] = params.fetch(:measure_type, existing.type)
+        else
+          # since this is not an update we should default measure_type if it isnt specified
+          measure_details['type'] = params.fetch(:measure_type, 'ep')
         end
 
         measure = Measures::CqlLoader.load(params[:measure_file], current_resource_owner, measure_details, vsac_options, vsac_tgt_object)

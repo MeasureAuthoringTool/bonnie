@@ -55,8 +55,8 @@ gem 'roo'
 gem 'oj' # Faster JSON
 gem 'apipie-rails', :git => 'https://github.com/hossenlopp/apipie-rails', :branch => 'master' # API documentation generation
 gem 'maruku' # enable Markup for API documentation
-gem 'doorkeeper', '~> 4.2.0'
-gem "doorkeeper-mongodb", :git => 'https://github.com/doorkeeper-gem/doorkeeper-mongodb', :branch => 'master'
+gem 'doorkeeper', '~> 4.4.0'
+gem "doorkeeper-mongodb", '~> 4.1.0'
 
 group :test, :development, :ci do
   gem 'pry'

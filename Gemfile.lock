@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/doorkeeper-gem/doorkeeper-mongodb
-  revision: dc94da5a862dc6af0718df4cb511cf2e7b19d5d5
-  branch: master
-  specs:
-    doorkeeper-mongodb (3.0.0)
-      doorkeeper (>= 3.0.0)
-
-GIT
   remote: https://github.com/hossenlopp/apipie-rails
   revision: a3e9f3eb092dafc551d3563ccf516cf31b2037d4
   branch: master
@@ -188,8 +180,10 @@ GEM
     docile (1.1.5)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
-    doorkeeper (4.2.6)
+    doorkeeper (4.4.0)
       railties (>= 4.2)
+    doorkeeper-mongodb (4.1.0)
+      doorkeeper (>= 4.0.0, < 5.0)
     equalizer (0.0.11)
     erubis (2.7.0)
     eventmachine (1.0.7)
@@ -445,8 +439,8 @@ DEPENDENCIES
   coffee-rails
   cql_qdm_patientapi!
   devise
-  doorkeeper (~> 4.2.0)
-  doorkeeper-mongodb!
+  doorkeeper (~> 4.4.0)
+  doorkeeper-mongodb (~> 4.1.0)
   exception_notification!
   foreman
   handlebars_assets (= 0.16)
