@@ -154,7 +154,32 @@ module ApiV1
         # get ticket_granting_ticket
         api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
         ticket = api.ticket_granting_ticket[:ticket]
-        post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'ep', calculation_type: 'patient'}, {"Content-Type" => 'multipart/form-data'}
+        post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'eh', calculation_type: 'patient'}, {"Content-Type" => 'multipart/form-data'}
+        assert_response :success
+        expected_response = { "status" => "success", "url" => "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"}
+        assert_equal expected_response, JSON.parse(response.body)
+      end
+
+      measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
+      assert_equal "40280582-5859-673B-0158-DAEF8B750647", measure['hqmf_id']
+      assert_equal @user.id, measure.user_id
+      measure.value_sets.each { |vs| assert_equal @user.id, vs.user_id }
+      assert_equal false, measure.episode_of_care?
+      assert_equal 'eh', measure.type
+    end
+
+    test "should create api_v1_measure initial with default measure_type" do
+      measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_Artifacts.zip'),'application/zip')
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
+
+      measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
+      assert_nil measure
+
+      VCR.use_cassette("api_valid_vsac_response") do
+        # get ticket_granting_ticket
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        ticket = api.ticket_granting_ticket[:ticket]
+        post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: 'true', vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'patient'}, {"Content-Type" => 'multipart/form-data'}
         assert_response :success
         expected_response = { "status" => "success", "url" => "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"}
         assert_equal expected_response, JSON.parse(response.body)
@@ -270,6 +295,46 @@ module ApiV1
       assert_equal "First Pop", measure.populations[0]['title']
       assert_equal "Second Pop", measure.populations[1]['title']
       assert_equal "Only Strat", measure.populations[2]['title']
+    end
+
+    test "should update a measure and keep existing measure_type by not providing it" do
+      measure_file = fixture_file_upload(File.join('test','fixtures','cql_measure_exports','IETCQL_v5_0_Artifacts.zip'),'application/zip')
+      @request.env["CONTENT_TYPE"] = "multipart/form-data"
+      VCR.use_cassette("api_valid_vsac_response") do
+        # get ticket_granting_ticket
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        ticket = api.ticket_granting_ticket[:ticket]
+        post :create, {vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, measure_type: 'eh', calculation_type: 'episode', population_titles: ['First Pop', 'Second Pop', 'Only Strat']}, {"Content-Type" => 'multipart/form-data'}
+        assert_response :ok
+        expected_response = { "status" => "success", "url" => "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"}
+        assert_equal expected_response, JSON.parse(response.body)
+      end
+      measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
+      assert_equal 6, measure.populations.size
+      assert_equal "First Pop", measure.populations[0]['title']
+      assert_equal "Second Pop", measure.populations[1]['title']
+      assert_equal "Only Strat", measure.populations[2]['title']
+      assert_equal 'eh', measure.type
+
+      # Associate patients with measure
+      associate_measures_with_patients(CqlMeasure.all, Record.all)
+
+      # Update the same measure
+      VCR.use_cassette("api_valid_vsac_response") do
+        # get ticket_granting_ticket
+        api = Util::VSAC::VSACAPI.new(config: APP_CONFIG['vsac'], username: ENV['VSAC_USERNAME'], password: ENV['VSAC_PASSWORD'])
+        ticket = api.ticket_granting_ticket[:ticket]
+        put :update, {id: "762B1B52-40BF-4596-B34F-4963188E7FF7", vsac_query_type: 'profile', vsac_query_profile: 'Latest eCQM', vsac_query_measure_defined: "true", vsac_tgt: ticket, vsac_tgt_expires_at: @ticket_expires_at, measure_file: measure_file, calculation_type: 'episode', population_titles: %w[Foo bar baz]}, {"Content-Type" => 'multipart/form-data'}
+        assert_response :ok
+        expected_response = { "status" => "success", "url" => "/api_v1/measures/762B1B52-40BF-4596-B34F-4963188E7FF7"}
+        assert_equal expected_response, JSON.parse(response.body)
+      end
+      measure = CqlMeasure.where({hqmf_set_id: "762B1B52-40BF-4596-B34F-4963188E7FF7"}).first
+      assert_equal 6, measure.populations.size
+      assert_equal "First Pop", measure.populations[0]['title']
+      assert_equal "Second Pop", measure.populations[1]['title']
+      assert_equal "Only Strat", measure.populations[2]['title']
+      assert_equal 'eh', measure.type
     end
 
     test "should error on upload due to incorrect VSAC release parameter input" do

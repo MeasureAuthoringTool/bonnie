@@ -2,7 +2,7 @@ module Doorkeeper
   module OAuth
     class RefreshTokenRequest
       ###
-      # Replaces code in https://github.com/doorkeeper-gem/doorkeeper/blob/v4.2.6/lib/doorkeeper/oauth/refresh_token_request.rb
+      # Replaces code in https://github.com/doorkeeper-gem/doorkeeper/blob/v4.4.0/lib/doorkeeper/oauth/refresh_token_request.rb
       # to support expiration of refresh tokens.
       ###
       def before_successful_response
@@ -26,6 +26,7 @@ module Doorkeeper
 
           token
         end
+        super
       end
     end
   end
