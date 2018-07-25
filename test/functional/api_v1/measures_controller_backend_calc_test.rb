@@ -1,4 +1,5 @@
 require 'test_helper'
+
 module ApiV1
   class MeasuresControllerBackendCalcTest < ActionController::TestCase
     tests ApiV1::MeasuresController
@@ -58,7 +59,7 @@ module ApiV1
 
     test "should calculate result excel sheet" do
       # Apiepie is set to automatically include the whole request and response as json in apipie_examples.json file, but to_json will fail on the binary excel file
-      # TODO: investigate better way to exclude an example (or just the response) from apipie
+      # TODO: investigate better way to exclude an example (or just the response) from apipie, or modify apipie to better handle this
       apipie_record_configuration = Apipie.configuration.record
       Apipie.configuration.record = false
 

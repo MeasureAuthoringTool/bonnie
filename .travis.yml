@@ -21,7 +21,7 @@ script:
   - bundle exec bundle-audit check --update
   - bundle exec overcommit --sign
   - bundle exec overcommit --run
-  - bundle exec rake tests
+  - bundle exec rake test
   - bundle exec rake teaspoon
 notifications:
   email:

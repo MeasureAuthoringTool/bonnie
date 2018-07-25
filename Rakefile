@@ -28,7 +28,8 @@ Rake::TestTask.new(:test_unit) do |t|
   t.ruby_opts = ['-W1']
 end
 
-task :tests => [:test_unit] do
+Rake::Task[:test].clear # rake has a default test task, if we do not clear it the following lines will append to it and the tests get run twice
+task :test => [:test_unit] do
   system("open coverage/index.html")
 end
 
