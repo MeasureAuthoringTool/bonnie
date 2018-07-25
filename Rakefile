@@ -28,7 +28,7 @@ Rake::TestTask.new(:test_unit) do |t|
   t.ruby_opts = ['-W1']
 end
 
-task :test => [:test_unit] do
+task :tests => [:test_unit] do
   system("open coverage/index.html")
 end
 

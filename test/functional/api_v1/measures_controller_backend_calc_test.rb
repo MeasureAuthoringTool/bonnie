@@ -34,7 +34,7 @@ module ApiV1
     end
 
     test "should calculate result in json as default" do
-      VCR.use_cassette("backend_calculation_json_as_default", :allow_playback_repeats => true) do
+      VCR.use_cassette("backend_calculation_json_as_default") do
         get :calculated_results, id: @cms160_hqmf_set_id
         assert_response :success
         assert_equal response.content_type, 'application/json'
@@ -47,7 +47,7 @@ module ApiV1
     end
 
     test "should calculate and return json if requested" do
-      VCR.use_cassette("backend_calculation_json", :allow_playback_repeats => true) do
+      VCR.use_cassette("backend_calculation_json") do
         headers = { :Accept => "application/json" }
         request.headers.merge! headers
         get :calculated_results, id: @cms160_hqmf_set_id
@@ -62,7 +62,7 @@ module ApiV1
       apipie_record_configuration = Apipie.configuration.record
       Apipie.configuration.record = false
 
-      VCR.use_cassette("backend_calculation_excel", :allow_playback_repeats => true) do
+      VCR.use_cassette("backend_calculation_excel") do
         headers = { :Accept => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
         request.headers.merge! headers
         get :calculated_results, id: @cms160_hqmf_set_id
