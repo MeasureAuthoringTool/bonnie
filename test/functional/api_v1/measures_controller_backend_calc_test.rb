@@ -5,9 +5,7 @@ module ApiV1
     tests ApiV1::MeasuresController
     include Devise::TestHelpers
 
-    setup do
-      @error_dir = File.join('log','load_errors')
-      FileUtils.rm_r @error_dir if File.directory?(@error_dir)
+    def setup_db
       dump_database
       users_set = File.join("users", "base_set")
       cms160_fixtures = File.join("cql_measures","core_measures", "CMS160v6"), File.join("records", "core_measures", "CMS160v6"), File.join("health_data_standards_svs_value_sets", "core_measures", "CMS160v6")
@@ -18,6 +16,12 @@ module ApiV1
       associate_user_with_measures(@user,CqlMeasure.all)
       associate_user_with_patients(@user,Record.all)
       associate_user_with_value_sets(@user,HealthDataStandards::SVS::ValueSet)
+    end
+
+    setup do
+      @error_dir = File.join('log','load_errors')
+      FileUtils.rm_r @error_dir if File.directory?(@error_dir)
+      setup_db
       sign_in @user
       @token = StubToken.new
       @token.resource_owner_id = @user.id
@@ -83,5 +87,37 @@ module ApiV1
 
       Apipie.configuration.record = apipie_record_configuration
     end
+  end
+
+  test "should get an excel sheet noting no patients" do
+    dump_database
+    users_set = File.join("users", "base_set")
+    cms160_fixtures = File.join("cql_measures","core_measures", "CMS160v6"), File.join("health_data_standards_svs_value_sets", "core_measures", "CMS160v6")
+    collection_fixtures(users_set, *cms160_fixtures)
+    associate_user_with_measures(@user,CqlMeasure.all)
+    associate_user_with_value_sets(@user,HealthDataStandards::SVS::ValueSet)
+
+    apipie_record_configuration = Apipie.configuration.record
+    Apipie.configuration.record = false
+
+    VCR.use_cassette("backend_calculation_excel") do
+      headers = { :Accept => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
+      request.headers.merge! headers
+      get :calculated_results, id: @cms160_hqmf_set_id
+      assert_response :success
+      assert_equal 'binary', response.header['Content-Transfer-Encoding']
+      assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type 
+      filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.match(response.header["Content-Disposition"])[1][1..-2]
+      assert_equal 'CMS160v6.xlsx', filename
+      temp = Tempfile.new(["test", ".xlsx"])
+      temp.write(response.body)
+      temp.rewind
+      doc = Roo::Spreadsheet.open(temp.path)
+      assert_equal "Measure has no patients, please re-export with patients", doc.sheet("Error").row(1)[0]
+    end
+
+    Apipie.configuration.record = apipie_record_configuration
+
+    setup_db
   end
 end
