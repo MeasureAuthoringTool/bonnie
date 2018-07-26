@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 0f6b8c448bb6ae287e30b2990d26a8b7024d599a
-  branch: mongoid5
+  revision: e00c0010bf9ee5fe3a11df1ee6c04780971711bd
+  branch: nokogiri_update_bonnie_prior
   specs:
     health-data-standards (3.7.0)
       activesupport (~> 4.2.0)
@@ -10,9 +10,10 @@ GIT
       highline (~> 1.7.0)
       log4r (~> 1.1.10)
       memoist (~> 0.9.1)
+      mongo (~> 2.4.3)
       mongoid (~> 5.0.0)
       mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.2)
+      nokogiri (~> 1.8.3)
       protected_attributes (~> 1.0.5)
       rest-client (~> 1.8.0)
       rubyzip (~> 1.2.1)
@@ -32,8 +33,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 9ee37e55deb282086b583c5d2d3140620c3843c2
-  branch: bonnie-prior
+  revision: e61a08ba97e0e1b4747459f75b7988906e93c644
+  branch: nokogiri_update_bonnie_prior
   specs:
     bonnie_bundler (1.0.0)
 
@@ -46,11 +47,10 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/hqmf2js.git
-  revision: 5c7aa718f313edcc17a7d35a5b1badf99610b10b
-  branch: bonnie-prior
+  revision: d5bfea9d638c3790f89ee101d36d6aae1f321002
+  branch: nokogiri_update_bonnie_prior
   specs:
     hqmf2js (1.3.0)
-      health-data-standards (~> 3.7)
       hquery-patient-api (~> 1.0.4)
       rails (~> 4.2.7)
 
@@ -248,7 +248,7 @@ GEM
     net-ssh (2.9.2)
     netrc (0.11.0)
     newrelic_rpm (3.14.3.313)
-    nokogiri (1.8.2)
+    nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     non-stupid-digest-assets (1.0.4)
     oj (2.12.11)
@@ -353,7 +353,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
-    uuid (2.3.8)
+    uuid (2.3.9)
       macaddr (~> 1.0)
     vcr (3.0.3)
     warden (1.2.7)
@@ -417,4 +417,4 @@ DEPENDENCIES
   zip-zip
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
