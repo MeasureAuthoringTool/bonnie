@@ -6,6 +6,48 @@ require 'colorize'
 namespace :bonnie do
   namespace :patients do
 
+    desc %(Download excel exports for all measures specified in ACCOUNTS
+    $ rake bonnie:patients:super_user_excel)
+    task :super_user_excel => :environment do
+      # To run, put a space dilimeted list of emails from which you would like to download the excel exports from
+      ACCOUNTS = %w()
+      ACCOUNTS.each do |account|
+        user_measures = CqlMeasure.by_user(User.find_by(email: account))
+        user_measures.each do |measure|
+          begin
+            user = User.find(measure.user_id)
+            hqmf_set_id = measure.hqmf_set_id
+            @api_v1_patients = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+            @api_v1_value_sets = measure.value_sets_by_oid
+            @calculator_options = { doPretty: true }
+
+            calculated_results = BonnieBackendCalculator.calculate(measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
+            converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, measure, @api_v1_patients)
+            patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
+            population_details = {}
+            if @api_v1_patients.count > 0
+              population_details = ExcelExportHelper.get_population_details_from_measure(measure, calculated_results)
+            end
+            statement_details = ExcelExportHelper.get_statement_details_from_measure(measure)
+
+            filename = "#{user._id}-#{measure.hqmf_set_id}.xlsx"
+            excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
+
+            path = File.join Rails.root, 'exports' #, account
+            FileUtils.mkdir_p(path) unless File.exist?(path)
+            File.open(File.join(path, filename), "wb") do |f|
+              f.write(excel_package.to_stream.read)
+            end
+
+          rescue Exception => e
+            puts measure.cms_id
+            puts user.email
+            puts e
+          end
+        end
+      end
+    end
+
     desc %(Update source_data_criteria to match fields from measure
     $ rake bonnie:patients:update_source_data_criteria)
     task :update_source_data_criteria=> :environment do
