@@ -168,7 +168,12 @@ module ApiV1
       end
 
       @calculator_options = { doPretty: true }
-      calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
+      begin
+        calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
+      rescue StandardError
+        render json: {status: "error", messages: "Error with the calculation service."}, status: :internal_server_error
+        return
+      end
 
       if request.headers['Accept'] == Mime::Type.lookup_by_extension(:xlsx)
         begin

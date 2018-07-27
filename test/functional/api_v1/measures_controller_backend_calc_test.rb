@@ -4,6 +4,7 @@ module ApiV1
   class MeasuresControllerBackendCalcTest < ActionController::TestCase
     tests ApiV1::MeasuresController
     include Devise::TestHelpers
+    include WebMock::API
 
     def setup_db
       dump_database
@@ -36,6 +37,13 @@ module ApiV1
       assert_equal response.content_type, 'application/json'
       json = JSON.parse(response.body)
       assert_equal "error", json["status"]
+    end
+
+    test "should get a 500 if calculation server is down" do
+      stub_request(:post, BonnieBackendCalculator::CALCULATION_SERVICE_URL).to_timeout
+      get :calculated_results, id: @cms160_hqmf_set_id
+      assert_response :internal_server_error
+      WebMock.reset!
     end
 
     test "should calculate result in json as default" do
