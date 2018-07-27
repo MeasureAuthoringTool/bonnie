@@ -150,7 +150,10 @@ module ApiV1
     api :GET, '/api_v1/measures/:id/calculated_results', 'Calculated Results for a Specific Measure'
     description 'Retrieve the calculated results of the measure logic for each patient.'
     param_group :measure
-    error :code => 500, :desc => 'Server-side Error Calculating the HQMF Measure Logic'
+    error :code => 404, :desc => 'No measure found for this HQMF Set ID.'
+    error :code => 500, :desc => 'Error gathering the measure and associated patients and value sets.'
+    error :code => 500, :desc => 'Error with the calculation service.'
+    error :code => 500, :desc => 'Error generating the excel export.'
     formats [:json, :xlsx]
     def calculated_results
       begin
