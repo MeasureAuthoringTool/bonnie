@@ -9,7 +9,7 @@ namespace :bonnie do
     $ rake bonnie:patients:super_user_excel)
     task :super_user_excel => :environment do
       # To run, put a space dilimeted list of emails from which you would like to download the excel exports from
-      ACCOUNTS = %w()
+      ACCOUNTS = %w().freeze
       ACCOUNTS.each do |account|
         user_measures = CqlMeasure.by_user(User.find_by(email: account))
         user_measures.each do |measure|
@@ -29,12 +29,11 @@ namespace :bonnie do
             filename = "#{user._id}-#{measure.hqmf_set_id}.xlsx"
             excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
 
-            path = File.join Rails.root, 'exports' #, account
+            path = File.join Rails.root, 'exports'
             FileUtils.mkdir_p(path) unless File.exist?(path)
             File.open(File.join(path, filename), "wb") do |f|
               f.write(excel_package.to_stream.read)
             end
-
           rescue Exception => e
             puts measure.cms_id
             puts user.email
