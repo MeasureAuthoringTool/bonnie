@@ -76,6 +76,7 @@ group :test, :development, :ci do
   gem 'webmock'
   gem 'vcr'
   gem 'bundler-audit'
+  gem 'colorize'
   gem 'brakeman'
 end
 
