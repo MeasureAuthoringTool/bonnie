@@ -150,40 +150,49 @@ module ApiV1
     api :GET, '/api_v1/measures/:id/calculated_results', 'Calculated Results for a Specific Measure'
     description 'Retrieve the calculated results of the measure logic for each patient.'
     param_group :measure
-    error :code => 500, :desc => 'Server-side Error Calculating the HQMF Measure Logic'
+    error :code => 404, :desc => 'No measure found for this HQMF Set ID.'
+    error :code => 500, :desc => 'Error gathering the measure and associated patients and value sets.'
+    error :code => 500, :desc => 'Error with the calculation service.'
+    error :code => 500, :desc => 'Error generating the excel export.'
     formats [:json, :xlsx]
     def calculated_results
       begin
-        http_status = 200
         @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
+        if @api_v1_measure.nil?
+          render json: {status: "error", messages: "No measure found for this HQMF Set ID."}, status: :not_found
+          return
+        end
         hqmf_set_id = @api_v1_measure.hqmf_set_id
         @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
-        @api_v1_value_sets = @api_v1_measure.value_sets
-        @calculator_options = { prettyPrint: true }
+        @api_v1_value_sets = @api_v1_measure.value_sets_by_oid
       rescue StandardError
-        http_status = 404
+        render json: {status: "error", messages: "Error gathering the measure and associated patients and value sets."}, status: :internal_server_error
+        return
       end
 
-      # TODO: the commented out code below can be used for BONNIE-1530.
-      # calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
+      @calculator_options = { doPretty: true }
+      begin
+        calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
+      rescue StandardError
+        render json: {status: "error", messages: "Error with the calculation service."}, status: :internal_server_error
+        return
+      end
 
-      # converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, @api_v1_measure, @api_v1_patients)
-      # patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
-      # population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
-      # statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
-
-      if request.headers['Accept'] == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        if http_status != 404
-          filename = 'Sample_Excel_Export(CMS52v6).xlsx'
-          send_file "#{Rails.root}/public/resource/#{filename}", type: :xlsx, status: http_status, filename: ERB::Util.url_encode(filename)
-
-          # TODO: the section below can replace the one above once everything is wired up.
-          # filename = "#{api_v1_measures.cms_id}.xlsx"
-          # excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
-          # send_data excel_package.to_stream.read, type: :xlsx, status: http_status, filename: ERB::Util.url_encode(filename)
+      if request.headers['Accept'] == Mime::Type.lookup_by_extension(:xlsx)
+        begin
+          converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, @api_v1_measure, @api_v1_patients)
+          patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
+          population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
+          statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
+          filename = "#{@api_v1_measure.cms_id}.xlsx"
+          excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
+          send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), filename: ERB::Util.url_encode(filename)
+        rescue StandardError
+          render json: {status: "error", messages: "Error generating the excel export."}, status: :internal_server_error
+          return
         end
       else
-        render json: {status: "error", messages: "Unimplemented functionality"}, status: :bad_request
+        render json: calculated_results
       end
     end
 

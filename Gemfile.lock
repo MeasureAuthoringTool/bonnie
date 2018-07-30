@@ -37,8 +37,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 9fbc61a132c0925c283bcb7db20427d92516c473
-  branch: bonnie-v2.3
+  revision: 8e6c98d102e1d48dc6af2a7a680ac2f8c9aa38b6
+  branch: bonnie-v2.3-backend-calculation
   specs:
     bonnie_bundler (2.1.2)
       diffy (~> 3.0.0)
@@ -460,6 +460,7 @@ DEPENDENCIES
   bundler-audit
   capistrano-rails
   coffee-rails
+  colorize
   cql_qdm_patientapi!
   cqm-converter!
   devise

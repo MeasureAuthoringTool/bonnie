@@ -14,6 +14,17 @@ if Rake::Task.tasks.count == 0
   Bonnie::Application.load_tasks
 end
 
+# StubToken simulates an OAuth2 token... we're not actually
+# verifying that a token was issued. This test completely
+# bypasses OAuth2 authentication and authorization provided
+# by Doorkeeper.
+class StubToken
+  attr_accessor :resource_owner_id
+  def acceptable?(_value)
+    true
+  end
+end
+
 class ActiveSupport::TestCase
 
   def dump_database
@@ -105,6 +116,13 @@ class ActiveSupport::TestCase
     end
   end
 
+  def associate_user_with_value_sets(user,value_sets)
+    value_sets.each do |vs|
+      vs.user = user
+      vs.save
+    end
+  end
+
   def associate_measure_with_patients(measure,patients)
     patients.each do |p|
       p.measure_ids = [measure.hqmf_set_id]
@@ -119,5 +137,4 @@ class ActiveSupport::TestCase
       p.save
     end
   end
-
 end

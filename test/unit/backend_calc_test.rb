@@ -1,8 +1,5 @@
 require 'test_helper'
 require 'vcr_setup.rb'
-require 'webmock'
-
-WebMock.enable!
 
 class BonnieBackendCalculatorTest < ActiveSupport::TestCase
 
@@ -16,28 +13,16 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
     collection_fixtures(measures_set, records_set, value_sets)
   end
 
-  # This test will very likely need to be changed once the calculation service is working, 
-  # right now the service just echoes, so this test makes sure the parsing is working etc
-  test "echo test" do
-    VCR.use_cassette('backend_calculator_echo_test') do
+  test "calculation completes test" do
+    VCR.use_cassette('backend_calculator_test') do
       measure = CqlMeasure.order_by(:id => 'asc').first # we order_by to make sure we pull the same measure across runs
       patients = Record.where('measure_ids'=>{'$in'=>[measure.hqmf_set_id]})
-      value_sets = measure.value_sets
-      options = {
-        prettyPrint: true
-      }
-      r = BonnieBackendCalculator.calculate(measure, patients, value_sets, options)
+      value_sets_by_oid = measure.value_sets_by_oid
+      options = {}
 
-      assert_equal measure.to_json, r['measure'].to_json
-      assert_equal options.to_json, r['options'].to_json
-      
-      # since we might get value sets and patients in different order from mongo across runs, check that some sorted properties match
-      assert_equal value_sets.collect(&:oid).sort, r['valueSets'].collect { |vs| vs['oid'] }.sort
-      assert_equal value_sets.collect(&:display_name).sort, r['valueSets'].collect { |vs| vs['display_name'] }.sort
+      r = BonnieBackendCalculator.calculate(measure, patients, value_sets_by_oid, options)
 
-      # note patients are converted so field names change
-      assert_equal patients.collect(&:first).sort, r['patients'].collect { |p| p['givenNames'][0] }.sort
-      assert_equal patients.collect(&:last).sort, r['patients'].collect { |p| p['familyName'] }.sort
+      assert_equal "complete", r["5a9ee716b848465b0064f52c"]["PopulationCriteria1"]["state"]
     end
   end
 
@@ -46,6 +31,7 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
       stub_request(:post, BonnieBackendCalculator::CALCULATION_SERVICE_URL).to_timeout
       BonnieBackendCalculator.calculate(nil, [], [], nil)
     end
+    WebMock.reset! # stubs can interfere with other tests that are not expecting them, so you can reset
   end
 
   # if the server is running but the service is not, then the server will refuse the connection on that port and you will get an error as follows
@@ -54,6 +40,6 @@ class BonnieBackendCalculatorTest < ActiveSupport::TestCase
       stub_request(:post, BonnieBackendCalculator::CALCULATION_SERVICE_URL).to_raise(Errno::ECONNREFUSED)
       BonnieBackendCalculator.calculate(nil, [], [], nil)
     end
+    WebMock.reset!
   end
-
 end

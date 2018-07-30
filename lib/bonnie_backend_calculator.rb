@@ -4,23 +4,23 @@
 module BonnieBackendCalculator
   CALCULATION_SERVICE_URL = 'http://localhost:8081/calculate'.freeze
 
-  def self.calculate(measure, patients, value_sets, options)
+  def self.calculate(measure, patients, value_sets_by_oid, options)
     # convert patients to QDM, note that once we switch to the QDM model this will become unnecessary (or maybe optional)
     qdm_patients, failed_patients = PatientHelper.convert_patient_models(patients)
-
     post_data = {
       patients: qdm_patients,
       measure: measure,
-      valueSets: value_sets,
+      valueSetsByOid: value_sets_by_oid,
       options: options
     }
     begin
-      response = RestClient.post(CALCULATION_SERVICE_URL,
-                                 post_data.to_json,
-                                 content_type: 'application/json')
+      response = RestClient::Request.execute(:method => :post, :url => CALCULATION_SERVICE_URL, :timeout => 120, 
+                                             :payload => post_data.to_json(methods: :_type), 
+                                             :headers => {content_type: 'application/json'})
+
       results = JSON.parse(response)
 
-      # add back the failed patients, TODO: discuss this strategy
+      # add back the failed patients
       results["failed_patients"].push(*failed_patients) if failed_patients.nil?
 
       return results
