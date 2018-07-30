@@ -542,7 +542,7 @@ namespace :bonnie do
     # Verify the sheet titles are the same
     if first_spreadsheet_file.sheets != second_spreadsheet_file.sheets
       puts "   The two Excel files do not have the same number of sheets!".red
-      return
+      return false
     end
 
     first_spreadsheet_file.sheets.each do |population_set|
@@ -557,19 +557,17 @@ namespace :bonnie do
       # check header separately, always the 3rd row
       if first_sheet.row(2) != second_sheet.row(2)
         puts "   The two Excel files have different columns!".red
-        return
+        return false
       end
 
-      no_patients_1 = first_sheet.cell(1,1) == "Measure has no patients, please re-export with patients"
-      no_patients_2 = second_sheet.cell(1,1) == "Measure has no patients, please re-export with patients"
-      if no_patients_1 == no_patients_2 && no_patients_1
+      no_patients1 = first_sheet.cell(1,1) == "Measure has no patients, please re-export with patients"
+      no_patients2 = second_sheet.cell(1,1) == "Measure has no patients, please re-export with patients"
+      if no_patients1 == no_patients2 && no_patients1
         puts "   Both Excel files have no patients.".green
-        return
-      else
-        if no_patients_1 != no_patients_2
-          puts "   One Excel file has patients and the other does not!".red
-          return
-        end
+        return true
+      elsif no_patients1 != no_patients2
+        puts "   One Excel file has patients and the other does not!".red
+        return false
       end
 
       # sort patients because they are in different orders
@@ -582,7 +580,7 @@ namespace :bonnie do
       row_count = 0
       first_sheet.each do |first_row|
         row_count += 1
-        next if (row_count < first_patient_row_index)
+        next if row_count < first_patient_row_index
         # skip patients who have no name (BONNIE-1612)
         next if first_row[first_name_column_index].nil? || first_row[last_name_column_index].nil?
         first_row.push(first_row[first_name_column_index] + first_row[last_name_column_index])
@@ -592,7 +590,7 @@ namespace :bonnie do
       row_count = 0
       second_sheet.each do |second_row|
         row_count += 1
-        next if (row_count < first_patient_row_index)
+        next if row_count < first_patient_row_index
         # skip patients who have no name (BONNIE-1612)
         next if second_row[first_name_column_index].nil? || second_row[last_name_column_index].nil?
         second_row.push(second_row[first_name_column_index] + second_row[last_name_column_index])
@@ -601,12 +599,12 @@ namespace :bonnie do
 
       if first_patient_rows.length != second_patient_rows.length
         puts "   The two Excel files have different number of rows!".red
-        return
+        return false
       end
 
       # sort the patients by our generated key, which is now the last element in the row
-      sorted_first_rows = first_patient_rows.sort { |a,b| a[-1] <=> b[-1] }
-      sorted_second_rows = second_patient_rows.sort { |a,b| a[-1] <=> b[-1] }
+      sorted_first_rows = first_patient_rows.sort_by { |a| a[-1] }
+      sorted_second_rows = second_patient_rows.sort_by { |a| a[-1] }
 
       if sorted_first_rows != sorted_second_rows
         puts "   The two Excel files do not match!".red
@@ -625,17 +623,16 @@ namespace :bonnie do
           end
         end
         puts "   Differences written to FIRST-diffs and SECOND-diffs."
-        return
+        return false
       end
     end
     puts "   Excel files match.".green
+    true
   end
 
   desc %{Compare two directories of Excel exports.
-
     You must specify the FIRST and SECOND directories of Excel files. Differences found are written
     out to files FIRST-diffs and SECOND-diffs for comparison in a diff tool.
-
     $ rake bonnie:compare_excel_exports FIRST=path_to_first_files SECOND=path_to_second_files}
   task :compare_excel_exports => :environment do
     first_folder = ENV['FIRST']
@@ -649,12 +646,12 @@ namespace :bonnie do
     first_folder += "/" unless first_folder.ends_with? "/"
     second_folder += "/" unless second_folder.ends_with? "/"
     Dir.foreach(first_folder) do |file_name|
-      next if file_name == '.' or file_name == '..' or !file_name.end_with? "xlsx" or file_name.start_with? "~"
+      next if file_name == '.' || file_name == '..' || !(file_name.end_with? 'xlsx') || (file_name.start_with? '~')
       puts "Comparing " + file_name
       first_excel_file = first_folder + file_name
       second_excel_file = second_folder + file_name
       first_spreadsheet_file = Roo::Spreadsheet.open(first_excel_file)
-      if !File.file?(second_excel_file)
+      unless File.file?(second_excel_file)
         puts "   Corresponding file in SECOND directory does not exist!".red
         next
       end
@@ -664,10 +661,8 @@ namespace :bonnie do
   end
 
   desc %{Compare two Excel files.
-
     You must specify the FIRST and SECOND file names. Differences found are written
     out to files FIRST-diffs and SECOND-diffs for comparison in a diff tool.
-
     $ rake bonnie:compare_excel_files FIRST=filename SECOND=filename}
   task :compare_excel_files => :environment do
     first_filename = ENV['FIRST']
@@ -676,12 +671,12 @@ namespace :bonnie do
       puts "Requires FIRST and SECOND parameters to specify the 2 filenames!".red
       exit
     end
-    if !File.file?(first_filename)
+    unless File.file?(first_filename)
       puts "   FIRST file does not exist!".red
       exit
     end
     first_spreadsheet_file = Roo::Spreadsheet.open(first_filename)
-    if !File.file?(second_filename)
+    unless File.file?(second_filename)
       puts "   SECOND file does not exist!".red
       exit
     end
