@@ -26,16 +26,16 @@ module ExcelExportHelper
       patients.each do |patient|
         calc_results[index] = {} unless calc_results[index]
         result_criteria = {}
-        result = results[patient.id]
+        result = results[patient.id.to_s]
         if result.nil?
           # if there was no result for a patient (due to error in conversion or calculation), set empty results
-          calc_results[index][patient.id] = {statement_results: {}, criteria: {}}
+          calc_results[index][patient.id.to_s] = {statement_results: {}, criteria: {}}
         else
           result[population['id']]['extendedData']['population_relevance'].each_key do |population_criteria|
             if population_criteria == 'values'
               # Values are stored for each episode separately, so we need to gather the values from the episode_results object.
               values = []
-              result[population['id']]['episode_results'].each_value do |episode|
+              result[population['id']]['episode_results']&.each_value do |episode|
                 values.concat episode['values']
               end
               result_criteria[population_criteria] = values
@@ -43,7 +43,7 @@ module ExcelExportHelper
               result_criteria[population_criteria] = result[population['id']][population_criteria]
             end
           end
-          calc_results[index][patient.id] = {statement_results: extract_pretty_or_final_results(result[population['id']]['statement_results']), criteria: result_criteria}
+          calc_results[index][patient.id.to_s] = {statement_results: extract_pretty_or_final_results(result[population['id']]['statement_results']), criteria: result_criteria}
         end
       end
     end
@@ -55,8 +55,8 @@ module ExcelExportHelper
   def self.get_patient_details(patients)
     patient_details = ActiveSupport::HashWithIndifferentAccess.new
     patients.each do |patient|
-      next if patient_details[patient.id]
-      patient_details[patient.id] = {
+      next if patient_details[patient.id.to_s]
+      patient_details[patient.id.to_s] = {
         first: patient.first,
         last: patient.last,
         expected_values: patient.expected_values,
@@ -79,6 +79,7 @@ module ExcelExportHelper
   # criteria is an array of criteria names, e.g. ["IPP", "DENOM", "DENEX"]
   def self.get_population_details_from_measure(measure, results)
     population_details = ActiveSupport::HashWithIndifferentAccess.new
+    return population_details if results.empty?
 
     measure.populations.each_with_index do |population, pop_index|
       # Populates the population details
