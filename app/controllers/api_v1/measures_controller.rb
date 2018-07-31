@@ -47,7 +47,7 @@ module ApiV1
       end
     end
 
-    MEASURE_WHITELIST = %w[id cms_id complexity continuous_variable created_at description episode_of_care hqmf_id hqmf_set_id hqmf_version_number title type updated_at].freeze
+    MEASURE_WHITELIST = %w[id cms_id continuous_variable created_at description episode_of_care hqmf_id hqmf_set_id hqmf_version_number title type updated_at].freeze
     PATIENT_WHITELIST = %w[_id birthdate created_at deathdate description ethnicity expected_values expired first gender insurance_providers last notes race updated_at].freeze
     INSURANCE_WHITELIST = %w[member_id payer].freeze
     POPULATION_TYPES = %w[population_index STRAT IPP DENOM NUMER DENEXCEP DENEX MSRPOPL OBSERV MSRPOPLEX].freeze
@@ -151,10 +151,11 @@ module ApiV1
     description 'Retrieve the calculated results of the measure logic for each patient.'
     param_group :measure
     error :code => 404, :desc => 'No measure found for this HQMF Set ID.'
+    error :code => 406, :desc => 'Request response type is not acceptable.'
     error :code => 500, :desc => 'Error gathering the measure and associated patients and value sets.'
     error :code => 500, :desc => 'Error with the calculation service.'
     error :code => 500, :desc => 'Error generating the excel export.'
-    formats [:json, :xlsx]
+    formats [:xlsx]
     def calculated_results
       begin
         @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
@@ -165,7 +166,11 @@ module ApiV1
         hqmf_set_id = @api_v1_measure.hqmf_set_id
         @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
         @api_v1_value_sets = @api_v1_measure.value_sets_by_oid
-      rescue StandardError
+      rescue StandardError => e
+        # email the error so we can see more details on what went wrong with the patient load.
+        if defined? ExceptionNotifier::Notifier
+          ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now
+        end
         render json: {status: "error", messages: "Error gathering the measure and associated patients and value sets."}, status: :internal_server_error
         return
       end
@@ -173,7 +178,11 @@ module ApiV1
       @calculator_options = { doPretty: true }
       begin
         calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
-      rescue StandardError
+      rescue StandardError => e
+        # email the error so we can see more details on what went wrong with the service.
+        if defined? ExceptionNotifier::Notifier
+          ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now
+        end
         render json: {status: "error", messages: "Error with the calculation service."}, status: :internal_server_error
         return
       end
@@ -188,11 +197,15 @@ module ApiV1
           excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
           send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), filename: ERB::Util.url_encode(filename)
         rescue StandardError
+          # email the error so we can see more details on what went wrong with the excel creation.
+          if defined? ExceptionNotifier::Notifier
+            ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now
+          end
           render json: {status: "error", messages: "Error generating the excel export."}, status: :internal_server_error
           return
         end
       else
-        render json: calculated_results
+        render json: {status: "error", messages: "Requested response type is not acceptable. Only #{Mime::Type.lookup_by_extension(:xlsx)} is accepted at this time."}, status: :not_acceptable
       end
     end
 
