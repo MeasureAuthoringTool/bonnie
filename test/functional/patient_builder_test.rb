@@ -48,14 +48,14 @@ class PatientBuilderFunctionalTest < ActionController::TestCase
 
     record = Record.where(last: 'Numerator').first
     # clear calculated value
-    record.assessments[0]['values'][0]['scalar'] = '0'
+    record.vital_signs[0]['components']['values'][0]['result']['scalar'] = '0'
     Measures::PatientBuilder.rebuild_patient(record)
     assert_equal('UnixTime', record.vital_signs[0]['components']['values'][0]['result']['units'])
     assert_equal(1342512000, record.vital_signs[0]['components']['values'][0]['result']['scalar'])
 
     record = Record.where(last: 'NoNumerator').first
     # clear calculated value
-    record.assessments[0]['values'][0]['scalar'] = '0'
+    record.vital_signs[0]['components']['values'][0]['result']['scalar'] = '0'
     Measures::PatientBuilder.rebuild_patient(record)
     assert_equal('UnixTime', record.vital_signs[0]['components']['values'][0]['result']['units'])
     assert_equal(1310889600, record.vital_signs[0]['components']['values'][0]['result']['scalar'])
