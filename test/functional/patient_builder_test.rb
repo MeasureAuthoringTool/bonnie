@@ -19,14 +19,6 @@ class PatientBuilderFunctionalTest < ActionController::TestCase
     associate_user_with_measures(@user, CqlMeasure.where(hqmf_set_id: '50901F2E-3715-462B-87C1-2AD9B9B1CDE7'))
     associate_user_with_patients(@user, Record.all)
 
-    record = Record.where(last: 'Numerator').first
-    # clear calculated value from fixture
-    record.assessments[0]['values'][0]['scalar'] = '0'
-    Measures::PatientBuilder.rebuild_patient(record)
-    assert_equal('UnixTime', record.assessments[0]['values'][0]['units'])
-    # this new calculated value should be in seconds
-    assert_equal(1341129600, record.assessments[0]['values'][0]['scalar'])
-
     record = Record.where(last: 'NoNumerator').first
     # clear calculated value from fixture
     record.assessments[0]['values'][0]['scalar'] = '0'
@@ -47,14 +39,6 @@ class PatientBuilderFunctionalTest < ActionController::TestCase
 
     associate_user_with_measures(@user, CqlMeasure.where(hqmf_set_id: 'D5355200-50C1-4A79-8983-8617B93FE6C1'))
     associate_user_with_patients(@user, Record.all)
-
-    record = Record.where(last: 'Numerator').first
-    # clear calculated value from fixture
-    record.vital_signs[0]['components']['values'][0]['result']['scalar'] = '0'
-    Measures::PatientBuilder.rebuild_patient(record)
-    assert_equal('UnixTime', record.vital_signs[0]['components']['values'][0]['result']['units'])
-    # this new calculated value should be in seconds
-    assert_equal(1342512000, record.vital_signs[0]['components']['values'][0]['result']['scalar'])
 
     record = Record.where(last: 'NoNumerator').first
     # clear calculated value from fixture
