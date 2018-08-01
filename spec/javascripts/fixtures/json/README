@@ -63,10 +63,3 @@ bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_meas
 
 CMS529v0 - Hybrid Measure with Supplemental Data Elements
 bundle exec rake bonnie:fixtures:generate_frontend_cql_fixtures[cms,special_measures/CMS529v0,bonnie-fixtures@mitre.org,CMS529v0]
-
-# These below 2 fixtures should be moved to test/fixtures/README when we merge in the cql testing overhaul branch
-CMS878v0 - Result as DateTime
-bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS878,bonnie-fixtures@mitre.org,CMS878v0]
-
-CMS879v0 - Components' result as DateTime
-bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS879,bonnie-fixtures@mitre.org,CMS879v0]
