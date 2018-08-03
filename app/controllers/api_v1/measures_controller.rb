@@ -169,9 +169,7 @@ module ApiV1
         @api_v1_value_sets = @api_v1_measure.value_sets_by_oid
       rescue StandardError => e
         # email the error so we can see more details on what went wrong with the patient load.
-        if defined? ExceptionNotifier::Notifier
-          ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now
-        end
+        ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
         render json: {status: "error", messages: "Error gathering the measure and associated patients and value sets."}, status: :internal_server_error
         return
       end
@@ -181,9 +179,7 @@ module ApiV1
         calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
       rescue StandardError => e
         # email the error so we can see more details on what went wrong with the service.
-        if defined? ExceptionNotifier::Notifier
-          ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now
-        end
+        ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
         render json: {status: "error", messages: "Error with the calculation service."}, status: :internal_server_error
         return
       end
@@ -199,9 +195,7 @@ module ApiV1
           send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), filename: ERB::Util.url_encode(filename)
         rescue StandardError
           # email the error so we can see more details on what went wrong with the excel creation.
-          if defined? ExceptionNotifier::Notifier
-            ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now
-          end
+          ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
           render json: {status: "error", messages: "Error generating the excel export."}, status: :internal_server_error
           return
         end
