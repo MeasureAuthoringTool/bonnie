@@ -181,19 +181,10 @@ class PatientExport
               expected = []
               actual = []
               population_criteria.each do |criteria|
+                expected.push(patient_details[patient_key]["expected_values"][pop_index][criteria])
                 if criteria == "OBSERV"
-                  observ_expected = patient_details[patient_key]["expected_values"][pop_index][criteria]
-                  observ_actual = calc_results[pop_key][patient_key]['criteria']['values']
-                  if (observ_expected.nil? || observ_expected == []) && (observ_actual.nil? || observ_actual == [])
-                    # TODO: work around. See https://gitlab.mitre.org/bonnie/internal-documentation/wikis/20180718_excel_export_issues
-                    expected.push([])
-                    actual.push([])
-                  else
-                    expected.push(observ_expected)
-                    actual.push(observ_actual)
-                  end
+                  actual.push(calc_results[pop_key][patient_key]['criteria']['values'])
                 else
-                  expected.push(patient_details[patient_key]["expected_values"][pop_index][criteria])
                   actual.push(calc_results[pop_key][patient_key]["criteria"][criteria])
                 end
               end
