@@ -374,8 +374,14 @@
               episode_results[episodeId] = newEpisode
       else if popCode == 'OBSERV' && observation_defs?.length <= 0
         console.log('WARNING: No function definition injected for OBSERV') if console?
-    # Correct any inconsistencies. ex. In DENEX but also in NUMER using same function used for patients.
+
     for episodeId, episode_result of episode_results
+      # ensure that an empty 'values' array exists for continuous variable measures if there were no observations
+      if 'OBSERV' in popCodesInPopulation
+        if !episode_result.values
+          episode_result.values = []
+
+      # Correct any inconsistencies. ex. In DENEX but also in NUMER using same function used for patients.
       episode_results[episodeId] = @handlePopulationValues(episode_result)
     return episode_results
 
@@ -419,6 +425,7 @@
       resultShown.DENEXCEP = false if resultShown.DENEXCEP?
       resultShown.MSRPOPL = false if resultShown.MSRPOPL?
       resultShown.MSRPOPLEX = false if resultShown.MSRPOPLEX?
+      # values is the OBSERVs
       resultShown.values = false if resultShown.values?
 
     # If IPP is 0 then everything else is not calculated
@@ -456,11 +463,13 @@
 
     # If MSRPOPL is 0 then OBSERVs and MSRPOPLEX are not calculateed
     if result.MSRPOPL? && result.MSRPOPL == 0
+      # values is the OBSERVs
       resultShown.values = false if resultShown.values?
       resultShown.MSRPOPLEX = false if resultShown.MSRPOPLEX
 
     # If MSRPOPLEX is greater than or equal to MSRPOPL then OBSERVs are not calculated
     if result.MSRPOPLEX? && result.MSRPOPLEX >= result.MSRPOPL
+      # values is the OBSERVs
       resultShown.values = false if resultShown.values?
 
     return resultShown

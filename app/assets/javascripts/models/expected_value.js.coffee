@@ -1,6 +1,9 @@
 class Thorax.Models.ExpectedValue extends Thorax.Model
 
   initialize: ->
+    # make 'OBSERV' be an empty list if CV measure and 'OBSERV' not set
+    if @has('MSRPOPL') && !@has('OBSERV')
+      @set 'OBSERV', []
     # sort OBSERV when it is set to make comparison w actuals easier
     if @has 'OBSERV'
       @set 'OBSERV', @get('OBSERV').sort()
