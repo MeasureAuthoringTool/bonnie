@@ -88,7 +88,7 @@ module ApiV1
       param :vsac_query_measure_defined, %w[true false], :required => false, :desc => "Option to override value sets with value sets defined in the measure. Default to 'false' if not supplied."
     end
 
-    api :GET, '/api_v1/measures', 'List of Measures'
+    api :GET, '/measures', 'List of Measures'
     description 'Retrieve the list of measures for the authorized user.'
     formats [:json, :html]
     def index
@@ -108,7 +108,7 @@ module ApiV1
       end
     end
 
-    api :GET, '/api_v1/measures/:id', 'Read a Specific Measure'
+    api :GET, '/measures/:id', 'Read a Specific Measure'
     description 'Retrieve the details of a specific measure by HQMF Set ID.'
     param_group :measure
     def show
@@ -148,7 +148,7 @@ module ApiV1
     #   render json: @api_v1_patients, status: http_status
     # end
 
-    api :GET, '/api_v1/measures/:id/calculated_results', 'Calculated Results for a Specific Measure'
+    api :GET, '/measures/:id/calculated_results', 'Calculated Results for a Specific Measure'
     description 'Retrieve the calculated results of the measure logic for each patient.'
     param_group :measure
     error :code => 404, :desc => 'No measure found for this HQMF Set ID.'
@@ -210,7 +210,7 @@ module ApiV1
       end
     end
 
-    api :POST, '/api_v1/measures', 'Upload a New Measure'
+    api :POST, '/measures', 'Upload a New Measure'
     description 'Uploading a new measure.'
     formats ["multipart/form-data"]
     error :code => 400, :desc => "Client sent bad parameters. Response contains explanation."
@@ -221,7 +221,7 @@ module ApiV1
       load_measure(params, false)
     end
 
-    api :PUT, '/api_v1/measures/:id', 'Update an Existing Measure'
+    api :PUT, '/measures/:id', 'Update an Existing Measure'
     description 'Updating an existing measure. This is a full update (e.g. no partial updates allowed).'
     formats ["multipart/form-data"]
     error :code => 400, :desc => "Client sent bad parameters. Response contains explanation."

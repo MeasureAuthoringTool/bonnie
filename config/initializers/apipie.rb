@@ -39,7 +39,7 @@ Apipie.configure do |config|
       </pre>
   "
   config.markup                  = Apipie::Markup::Markdown.new
-  config.api_base_url            = "/api"
+  config.api_base_url["1"]       = "/api_v1"
   config.doc_base_url            = "/api"
   config.default_version         = "1"
   config.show_all_examples       = true
