@@ -166,6 +166,9 @@
               population_results.values.push(value)
           else
             population_results[popCode] += popResult
+    # OBSERV comparisons depend on the values being sorted before comparing. Sorting here at set time instead of in the comparison function.
+    if population_results.values
+      population_results.values = population_results.values.sort()
     return [population_results, episode_results]
 
   ###*
