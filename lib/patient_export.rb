@@ -189,9 +189,8 @@ class PatientExport
                     expected.push([])
                     actual.push([])
                   else
-                    # TODO: work around. See https://gitlab.mitre.org/bonnie/internal-documentation/wikis/20180718_excel_export_issues
-                    expected.push(observ_expected.sort)
-                    actual.push(observ_actual.sort)
+                    expected.push(observ_expected)
+                    actual.push(observ_actual)
                   end
                 else
                   expected.push(patient_details[patient_key]["expected_values"][pop_index][criteria])
