@@ -29,7 +29,6 @@ table {
         <td><%= api_v1_measure.type.try(:upcase) %></td>
         <td><%= api_v1_measure.title %></td>
         <td><%= link_to 'JSON', api_v1_measure_path(api_v1_measure.hqmf_set_id).split('/')[0..-2].join('/') %></td>
-        <td><%= link_to 'Patients', patients_api_v1_measure_url(api_v1_measure.hqmf_set_id) %></td>
         <td><%= link_to 'Calculated Results', calculated_results_api_v1_measure_url(api_v1_measure.hqmf_set_id) %></td>
       </tr>
     <% end %>

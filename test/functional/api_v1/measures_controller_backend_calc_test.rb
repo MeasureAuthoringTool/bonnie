@@ -46,26 +46,28 @@ module ApiV1
       WebMock.reset!
     end
 
-    test "should calculate result in json as default" do
+    test "should get a 406 error response if no accept header is provided" do
       VCR.use_cassette("backend_calculation_json_as_default") do
         get :calculated_results, id: @cms160_hqmf_set_id
-        assert_response :success
+        assert_response :not_acceptable
         assert_equal response.content_type, 'application/json'
         json = JSON.parse(response.body)
 
-        assert_equal 2, json.count
-        assert_equal 1, json["5a9ee716b848465b0064f52c"]["PopulationCriteria1"]["IPP"]
-        assert_equal 0, json["5a9ee716b848465b0064f52c"]["PopulationCriteria1"]["NUMER"]
+        assert_equal 'error', json['status']
       end
     end
 
-    test "should calculate and return json if requested" do
+    test "should get a 406 error response if json is requested" do
       VCR.use_cassette("backend_calculation_json") do
         headers = { :Accept => "application/json" }
         request.headers.merge! headers
         get :calculated_results, id: @cms160_hqmf_set_id
-        assert_response :success
+        assert_response :not_acceptable
         assert_equal response.content_type, 'application/json'
+
+        json = JSON.parse(response.body)
+
+        assert_equal 'error', json['status']
       end
     end
 
