@@ -120,6 +120,7 @@ Layout/EmptyLinesAroundArguments:
     - 'lib/tasks/bonnie.rake'
     - 'lib/tasks/cql.rake'
     - 'lib/tasks/cql_testing.rake'
+    - 'config/initializers/apipie.rb'
 
 # Offense count: 58
 # Cop supports --auto-correct.
