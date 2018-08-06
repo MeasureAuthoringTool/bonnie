@@ -4,25 +4,13 @@ module ApiV1
   class MeasuresControllerTest < ActionController::TestCase
     include Devise::TestHelpers
 
-    # StubToken simulates an OAuth2 token... we're not actually
-    # verifying that a token was issued. This test completely
-    # bypasses OAuth2 authentication and authorization provided
-    # by Doorkeeper.
-    class StubToken
-      attr_accessor :resource_owner_id
-      def acceptable?(_value)
-        true
-      end
-    end
-
     setup do
       @error_dir = File.join('log','load_errors')
       FileUtils.rm_r @error_dir if File.directory?(@error_dir)
       dump_database
       users_set = File.join("users", "base_set")
-      measures_set = File.join("cql_measures", "CMS347v1")
-      records_set = File.join("records", "CMS347v1")
-      collection_fixtures(measures_set, users_set, records_set)
+      cms347_fixtures = File.join("cql_measures", "CMS347v1"), File.join("records", "CMS347v1")
+      collection_fixtures(users_set, *cms347_fixtures)
       @user = User.by_email('bonnie@example.com').first
       associate_user_with_measures(@user,CqlMeasure.all)
       associate_user_with_patients(@user,Record.all)
@@ -68,19 +56,21 @@ module ApiV1
       assert_response :missing
     end
 
-    test "should show patients for api_v1_measure" do
-      get :patients, id: @api_v1_measure
-      assert_response :success
-      json = JSON.parse(response.body)
-      assert_equal @num_patients, json.size
-      assert_equal ["No Diagnosis or Fac", "No Fac", "With Fac", "With Fac No Code", "With Fac No End", "With Fac No Start", "With Fac No Time"],
-                   json.map { |x| x["first"] }.sort
-    end
+    # /measures/:id/patients is disabled until we better integrate QDM
+    # test "should show patients for api_v1_measure" do
+    #   get :patients, id: @api_v1_measure
+    #   assert_response :success
+    #   json = JSON.parse(response.body)
+    #   assert_equal @num_patients, json.size
+    #   assert_equal ["No Diagnosis or Fac", "No Fac", "With Fac", "With Fac No Code", "With Fac No End", "With Fac No Start", "With Fac No Time"],
+    #                json.map { |x| x["first"] }.sort
+    # end
 
-    test "should not show patients for unknown measure" do
-      get :patients, id: 'foo'
-      assert_response :missing
-    end
+    # /measures/:id/patients is disabled until we better integrate QDM
+    # test "should not show patients for unknown measure" do
+    #   get :patients, id: 'foo'
+    #   assert_response :missing
+    # end
 
     test "should return bad_request when measure_file not provided" do
       @request.env["CONTENT_TYPE"] = "multipart/form-data"
@@ -445,25 +435,6 @@ module ApiV1
         measure = CqlMeasure.where({hqmf_set_id: "FA75DE85-A934-45D7-A2F7-C700A756078B"}).first
         assert_equal false, measure.calculate_sdes
       end
-    end
-
-    test "should get calculated_results as xlsx for api_v1_measure" do
-      @request.env['HTTP_ACCEPT'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      get :calculated_results, id: @api_v1_measure
-
-      assert_equal 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', response.content_type
-
-      excel_file = File.open("#{Rails.root}/public/resource/Sample_Excel_Export(CMS52v6).xlsx", "rb")
-      excel_binary = excel_file.read
-
-      assert_equal response.body, excel_binary
-      excel_file.close
-    end
-
-    test "should get unimplemented message for calculated_results as json" do
-      get :calculated_results, id: @api_v1_measure
-      assert_response :bad_request
-      assert_equal JSON.parse(response.body)['messages'], "Unimplemented functionality"
     end
   end
 end
