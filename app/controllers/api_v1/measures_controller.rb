@@ -47,7 +47,7 @@ module ApiV1
       end
     end
 
-    MEASURE_WHITELIST = %w[id cms_id complexity continuous_variable created_at description episode_of_care hqmf_id hqmf_set_id hqmf_version_number title type updated_at].freeze
+    MEASURE_WHITELIST = %w[id cms_id continuous_variable created_at description episode_of_care hqmf_id hqmf_set_id hqmf_version_number title type updated_at].freeze
     PATIENT_WHITELIST = %w[_id birthdate created_at deathdate description ethnicity expected_values expired first gender insurance_providers last notes race updated_at].freeze
     INSURANCE_WHITELIST = %w[member_id payer].freeze
     POPULATION_TYPES = %w[population_index STRAT IPP DENOM NUMER DENEXCEP DENEX MSRPOPL OBSERV MSRPOPLEX].freeze
@@ -88,7 +88,7 @@ module ApiV1
       param :vsac_query_measure_defined, %w[true false], :required => false, :desc => "Option to override value sets with value sets defined in the measure. Default to 'false' if not supplied."
     end
 
-    api :GET, '/api_v1/measures', 'List of Measures'
+    api :GET, '/measures', 'List of Measures'
     description 'Retrieve the list of measures for the authorized user.'
     formats [:json, :html]
     def index
@@ -108,7 +108,7 @@ module ApiV1
       end
     end
 
-    api :GET, '/api_v1/measures/:id', 'Read a Specific Measure'
+    api :GET, '/measures/:id', 'Read a Specific Measure'
     description 'Retrieve the details of a specific measure by HQMF Set ID.'
     param_group :measure
     def show
@@ -126,56 +126,85 @@ module ApiV1
       render json: hash, status: http_status
     end
 
-    api :GET, '/api_v1/measures/:id/patients', 'List of Patients for a Specific Measure'
-    description 'Get all the patients associated with a measure.'
-    param_group :measure
-    def patients
-      @api_v1_patients = []
-      http_status = 200
-      begin
-        # Get the measure
-        @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
-        # Extract out the HQMF set id, which we'll use to get related patients
-        hqmf_set_id = @api_v1_measure.hqmf_set_id
-        # Get the patients for this measure
-        @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
-        @api_v1_patients = process_patient_records(@api_v1_patients)
-      rescue StandardError
-        http_status = 404
-        @api_v1_patients = []
-      end
-      render json: @api_v1_patients, status: http_status
-    end
+    # Disabled until QDM models are more integrated.
+    # api :GET, '/api_v1/measures/:id/patients', 'List of Patients for a Specific Measure'
+    # description 'Get all the patients associated with a measure.'
+    # param_group :measure
+    # def patients
+    #   @api_v1_patients = []
+    #   http_status = 200
+    #   begin
+    #     # Get the measure
+    #     @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
+    #     # Extract out the HQMF set id, which we'll use to get related patients
+    #     hqmf_set_id = @api_v1_measure.hqmf_set_id
+    #     # Get the patients for this measure
+    #     @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
+    #     @api_v1_patients = process_patient_records(@api_v1_patients)
+    #   rescue StandardError
+    #     http_status = 404
+    #     @api_v1_patients = []
+    #   end
+    #   render json: @api_v1_patients, status: http_status
+    # end
 
-    api :GET, '/api_v1/measures/:id/calculated_results', 'Calculated Results for a Specific Measure'
+    api :GET, '/measures/:id/calculated_results', 'Calculated Results for a Specific Measure'
     description 'Retrieve the calculated results of the measure logic for each patient.'
     param_group :measure
-    error :code => 500, :desc => 'Server-side Error Calculating the HQMF Measure Logic'
-    formats [:json, :xlsx]
+    error :code => 404, :desc => 'No measure found for this HQMF Set ID.'
+    error :code => 406, :desc => 'Request response type is not acceptable.'
+    error :code => 500, :desc => 'Error gathering the measure and associated patients and value sets.'
+    error :code => 500, :desc => 'Error with the calculation service.'
+    error :code => 500, :desc => 'Error generating the excel export.'
+    formats [:xlsx]
     def calculated_results
       begin
-        http_status = 200
-        # Get the measure
         @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
-        # Extract out the HQMF set id, which we'll use to get related patients
+        if @api_v1_measure.nil?
+          render json: {status: "error", messages: "No measure found for this HQMF Set ID."}, status: :not_found
+          return
+        end
         hqmf_set_id = @api_v1_measure.hqmf_set_id
-        # Get the patients for this measure
         @api_v1_patients = Record.by_user(current_resource_owner).where({:measure_ids.in => [hqmf_set_id]})
-      rescue StandardError
-        http_status = 404
+        @api_v1_value_sets = @api_v1_measure.value_sets_by_oid
+      rescue StandardError => e
+        # email the error so we can see more details on what went wrong with the patient load.
+        ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
+        render json: {status: "error", messages: "Error gathering the measure and associated patients and value sets."}, status: :internal_server_error
+        return
       end
 
-      if request.headers['Accept'] == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        if http_status != 404
-          filename = 'Sample_Excel_Export(CMS52v6).xlsx'
-          send_file "#{Rails.root}/public/resource/#{filename}", type: :xlsx, status: http_status, filename: ERB::Util.url_encode(filename)
+      @calculator_options = { doPretty: true }
+      begin
+        calculated_results = BonnieBackendCalculator.calculate(@api_v1_measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
+      rescue StandardError => e
+        # email the error so we can see more details on what went wrong with the service.
+        ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
+        render json: {status: "error", messages: "Error with the calculation service."}, status: :internal_server_error
+        return
+      end
+
+      if request.headers['Accept'] == Mime::Type.lookup_by_extension(:xlsx)
+        begin
+          converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, @api_v1_measure, @api_v1_patients)
+          patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
+          population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
+          statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
+          filename = "#{@api_v1_measure.cms_id}.xlsx"
+          excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
+          send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), filename: ERB::Util.url_encode(filename)
+        rescue StandardError
+          # email the error so we can see more details on what went wrong with the excel creation.
+          ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
+          render json: {status: "error", messages: "Error generating the excel export."}, status: :internal_server_error
+          return
         end
       else
-        render json: {status: "error", messages: "Unimplemented functionality"}, status: :bad_request
+        render json: {status: "error", messages: "Requested response type is not acceptable. Only #{Mime::Type.lookup_by_extension(:xlsx)} is accepted at this time."}, status: :not_acceptable
       end
     end
 
-    api :POST, '/api_v1/measures', 'Upload a New Measure'
+    api :POST, '/measures', 'Upload a New Measure'
     description 'Uploading a new measure.'
     formats ["multipart/form-data"]
     error :code => 400, :desc => "Client sent bad parameters. Response contains explanation."
@@ -186,7 +215,7 @@ module ApiV1
       load_measure(params, false)
     end
 
-    api :PUT, '/api_v1/measures/:id', 'Update an Existing Measure'
+    api :PUT, '/measures/:id', 'Update an Existing Measure'
     description 'Updating an existing measure. This is a full update (e.g. no partial updates allowed).'
     formats ["multipart/form-data"]
     error :code => 400, :desc => "Client sent bad parameters. Response contains explanation."

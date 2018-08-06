@@ -1,8 +1,47 @@
+require 'colorize'
+
 # This rakefile is for tasks that are designed to be run once to address a specific problem; we're keeping
 # them as a history and as a reference for solving related problems
 
 namespace :bonnie do
   namespace :patients do
+    desc %(Download excel exports for all measures specified in ACCOUNTS
+    $ rake bonnie:patients:super_user_excel)
+    task :super_user_excel => :environment do
+      # To run, put a space dilimeted list of emails from which you would like to download the excel exports from
+      ACCOUNTS = %w().freeze
+      ACCOUNTS.each do |account|
+        user_measures = CqlMeasure.by_user(User.find_by(email: account))
+        user_measures.each do |measure|
+          begin
+            user = User.find(measure.user_id)
+            hqmf_set_id = measure.hqmf_set_id
+            @api_v1_patients = Record.by_user_and_hqmf_set_id(user, measure.hqmf_set_id)
+            @api_v1_value_sets = measure.value_sets_by_oid
+            @calculator_options = { doPretty: true }
+
+            calculated_results = BonnieBackendCalculator.calculate(measure, @api_v1_patients, @api_v1_value_sets, @calculator_options)
+            converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, measure, @api_v1_patients)
+            patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
+            population_details = ExcelExportHelper.get_population_details_from_measure(measure, calculated_results)
+            statement_details = ExcelExportHelper.get_statement_details_from_measure(measure)
+
+            filename = "#{user._id}-#{measure.hqmf_set_id}.xlsx"
+            excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
+
+            path = File.join Rails.root, 'exports'
+            FileUtils.mkdir_p(path) unless File.exist?(path)
+            File.open(File.join(path, filename), "wb") do |f|
+              f.write(excel_package.to_stream.read)
+            end
+          rescue Exception => e
+            puts measure.cms_id
+            puts user.email
+            puts e
+          end
+        end
+      end
+    end
 
     desc %(Update source_data_criteria to match fields from measure
     $ rake bonnie:patients:update_source_data_criteria)
@@ -499,4 +538,151 @@ namespace :bonnie do
     end
   end
 
+  def compare_excel_spreadsheets(first_spreadsheet_file, second_spreadsheet_file)
+    # Verify the sheet titles are the same
+    if first_spreadsheet_file.sheets != second_spreadsheet_file.sheets
+      puts "   The two Excel files do not have the same number of sheets!".red
+      return false
+    end
+
+    first_spreadsheet_file.sheets.each do |population_set|
+      next if population_set == "KEY"
+      first_sheet = first_spreadsheet_file.sheet(population_set)
+      second_sheet = second_spreadsheet_file.sheet(population_set)
+
+      # Column headers should be the same
+      first_patient_rows = []
+      second_patient_rows = []
+
+      # check header separately, always the 3rd row
+      if first_sheet.row(2) != second_sheet.row(2)
+        puts "   The two Excel files have different columns!".red
+        return false
+      end
+
+      no_patients1 = first_sheet.cell(1,1) == "Measure has no patients, please re-export with patients"
+      no_patients2 = second_sheet.cell(1,1) == "Measure has no patients, please re-export with patients"
+      if no_patients1 == no_patients2 && no_patients1
+        puts "   Both Excel files have no patients.".green
+        return true
+      elsif no_patients1 != no_patients2
+        puts "   One Excel file has patients and the other does not!".red
+        return false
+      end
+
+      # sort patients because they are in different orders
+      first_patient_row_index = 3
+
+      # find which columns contain first and last names (this can change depending on the population)
+      last_name_column_index = first_sheet.row(2).find_index('last')
+      first_name_column_index = first_sheet.row(2).find_index('first')
+      # add an extra 'column' which uses full name to make the sorting key more unique
+      row_count = 0
+      first_sheet.each do |first_row|
+        row_count += 1
+        next if row_count < first_patient_row_index
+        # skip patients who have no name (BONNIE-1612)
+        next if first_row[first_name_column_index].nil? || first_row[last_name_column_index].nil?
+        first_row.push(first_row[first_name_column_index] + first_row[last_name_column_index])
+        first_patient_rows.push(first_row)
+      end
+
+      row_count = 0
+      second_sheet.each do |second_row|
+        row_count += 1
+        next if row_count < first_patient_row_index
+        # skip patients who have no name (BONNIE-1612)
+        next if second_row[first_name_column_index].nil? || second_row[last_name_column_index].nil?
+        second_row.push(second_row[first_name_column_index] + second_row[last_name_column_index])
+        second_patient_rows.push(second_row)
+      end
+
+      if first_patient_rows.length != second_patient_rows.length
+        puts "   The two Excel files have different number of rows!".red
+        return false
+      end
+
+      # sort the patients by our generated key, which is now the last element in the row
+      sorted_first_rows = first_patient_rows.sort_by { |a| a[-1] }
+      sorted_second_rows = second_patient_rows.sort_by { |a| a[-1] }
+
+      if sorted_first_rows != sorted_second_rows
+        puts "   The two Excel files do not match!".red
+        open('FIRST-diffs', 'a') do |f1|
+          open('SECOND-diffs', 'a') do |f2|
+            f1.puts '--------------------------------------------'
+            f2.puts '--------------------------------------------'
+            f1.puts first_spreadsheet_file.instance_variable_get(:@filename)
+            f2.puts second_spreadsheet_file.instance_variable_get(:@filename)
+            (0...sorted_first_rows.length).each do |idx|
+              if sorted_first_rows[idx] != sorted_second_rows[idx]
+                f1.puts sorted_first_rows[idx].to_s
+                f2.puts sorted_second_rows[idx].to_s
+              end
+            end
+          end
+        end
+        puts "   Differences written to FIRST-diffs and SECOND-diffs."
+        return false
+      end
+    end
+    puts "   Excel files match.".green
+    true
+  end
+
+  desc %{Compare two directories of Excel exports.
+    You must specify the FIRST and SECOND directories of Excel files. Differences found are written
+    out to files FIRST-diffs and SECOND-diffs for comparison in a diff tool.
+    $ rake bonnie:compare_excel_exports FIRST=path_to_first_files SECOND=path_to_second_files}
+  task :compare_excel_exports => :environment do
+    first_folder = ENV['FIRST']
+    second_folder = ENV['SECOND']
+    if first_folder.nil? || second_folder.nil?
+      puts "Requires FIRST and SECOND parameters to specify the two folders for comparison!".red
+      exit
+    end
+    File.delete('FIRST-diffs') if File.exist?('FIRST-diffs')
+    File.delete('SECOND-diffs') if File.exist?('SECOND-diffs')
+    first_folder += "/" unless first_folder.ends_with? "/"
+    second_folder += "/" unless second_folder.ends_with? "/"
+    Dir.foreach(first_folder) do |file_name|
+      next if file_name == '.' || file_name == '..' || !(file_name.end_with? 'xlsx') || (file_name.start_with? '~')
+      puts "Comparing " + file_name
+      first_excel_file = first_folder + file_name
+      second_excel_file = second_folder + file_name
+      first_spreadsheet_file = Roo::Spreadsheet.open(first_excel_file)
+      unless File.file?(second_excel_file)
+        puts "   Corresponding file in SECOND directory does not exist!".red
+        next
+      end
+      second_spreadsheet_file = Roo::Spreadsheet.open(second_excel_file)
+      compare_excel_spreadsheets(first_spreadsheet_file, second_spreadsheet_file)
+    end
+  end
+
+  desc %{Compare two Excel files.
+    You must specify the FIRST and SECOND file names. Differences found are written
+    out to files FIRST-diffs and SECOND-diffs for comparison in a diff tool.
+    $ rake bonnie:compare_excel_files FIRST=filename SECOND=filename}
+  task :compare_excel_files => :environment do
+    first_filename = ENV['FIRST']
+    second_filename = ENV['SECOND']
+    if first_filename.nil? || second_filename.nil?
+      puts "Requires FIRST and SECOND parameters to specify the 2 filenames!".red
+      exit
+    end
+    unless File.file?(first_filename)
+      puts "   FIRST file does not exist!".red
+      exit
+    end
+    first_spreadsheet_file = Roo::Spreadsheet.open(first_filename)
+    unless File.file?(second_filename)
+      puts "   SECOND file does not exist!".red
+      exit
+    end
+    File.delete('FIRST-diffs') if File.exist?('FIRST-diffs')
+    File.delete('SECOND-diffs') if File.exist?('SECOND-diffs')
+    second_spreadsheet_file = Roo::Spreadsheet.open(second_filename)
+    compare_excel_spreadsheets(first_spreadsheet_file, second_spreadsheet_file)
+  end
 end

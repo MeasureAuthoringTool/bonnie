@@ -80,7 +80,7 @@ Bonnie::Application.routes.draw do
   namespace :api_v1 do
     resources :measures, :defaults => { :format => 'json' }, :only => [:index, :show, :create, :update] do
       member do
-        get 'patients'
+        # get 'patients' # disabled until QDM models are better integrated
         get 'calculated_results'
       end
     end

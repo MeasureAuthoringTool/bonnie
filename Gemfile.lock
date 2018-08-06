@@ -75,10 +75,10 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: 9fbc61a132c0925c283bcb7db20427d92516c473
+  revision: 8dcfe06e021c62fb0a7a6273bd27497be3158fd9
   branch: bonnie-v2.3
   specs:
-    bonnie_bundler (2.1.2)
+    bonnie_bundler (2.2.0)
       diffy (~> 3.0.0)
       health-data-standards (~> 4.0)
       hqmf2js (~> 1.4)
@@ -100,6 +100,20 @@ GIT
       coffee-rails (~> 4.1)
       rails (~> 4.2)
       sprockets-rails (~> 2.3)
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-converter
+  revision: 737bacbbd719ae79e8b2189fe01ad32b4f6dbefd
+  branch: master
+  specs:
+    cqm-converter (0.3.4)
+      activesupport
+      coffee-script
+      cqm-models (>= 0.7.2)
+      execjs
+      health-data-standards (>= 4.0.3)
+      momentjs-rails
+      sprockets
 
 GIT
   remote: https://github.com/randym/axlsx
@@ -204,6 +218,7 @@ GEM
     colorize (0.7.7)
     columnize (0.9.0)
     commonjs (0.2.7)
+    cqm-models (0.7.7)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.3)
@@ -291,6 +306,8 @@ GEM
     mimemagic (0.3.2)
     mini_portile2 (2.3.0)
     minitest (5.10.2)
+    momentjs-rails (2.20.1)
+      railties (>= 3.1)
     mongo (2.4.3)
       bson (>= 4.2.1, < 5.0.0)
     mongoid (5.0.2)
@@ -483,7 +500,9 @@ DEPENDENCIES
   bundler-audit
   capistrano-rails
   coffee-rails
+  colorize
   cql_qdm_patientapi!
+  cqm-converter!
   devise
   doorkeeper (~> 4.4.0)
   doorkeeper-mongodb (~> 4.1.0)
