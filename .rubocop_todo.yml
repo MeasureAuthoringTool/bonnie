@@ -579,6 +579,8 @@ Metrics/CyclomaticComplexity:
 # Configuration parameters: CountComments.
 Metrics/MethodLength:
   Max: 155
+  Exclude:
+    - 'lib/patient_export.rb'
 
 # Offense count: 1
 # Configuration parameters: CountComments.
