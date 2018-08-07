@@ -184,7 +184,8 @@ module Measures
           derived << CodedResultValue.new({codes:codes, description: vs["display_name"]})
         elsif result_value['type'] == 'TS'
           # Recycling the use of Range/PhysicalQuantity for TimeStamps
-          time = HQMF::Range.from_json('low' => {'value' => result_value['value'], 'unit' => 'UnixTime'})
+          # converts from milliseconds to seconds for use by CQL_QDM.Helpers.convertDateTime()
+          time = HQMF::Range.from_json('low' => {'value' => result_value['value']/1000, 'unit' => 'UnixTime'})
           derived << PhysicalQuantityResultValue.new(time.format)
         else
           range = HQMF::Range.from_json('low' => {'value' => result_value['value'], 'unit' => result_value['unit']})
@@ -233,7 +234,8 @@ module Measures
         field_value["result"] = {}
         if cmp_type == "TS"
           field_value["result"]["units"] = "UnixTime"
-          field_value["result"]["scalar"] = value['value']
+          # converts from milliseconds to seconds for use by CQL_QDM.Helpers.convertDateTime()
+          field_value["result"]["scalar"] = value['value']/1000
         elsif cmp_type == "CD"
           field_value["result"]["code"] = Measures::PatientBuilder.select_code(field.code_list_id_cmp, value_sets)
           field_value["result"]["title"] = Measures::PatientBuilder.select_value_sets(field.code_list_id_cmp, value_sets)["display_name"]

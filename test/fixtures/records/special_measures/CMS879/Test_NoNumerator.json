@@ -1,0 +1,352 @@
+{
+  "_id": "5b61b638b84846662484a6c1",
+  "assessments": [
+    {
+      "_id": "5b61b638b84846662484a6c2",
+      "codes": {
+        "LOINC": [
+          "24320-4"
+        ]
+      },
+      "components": null,
+      "description": "Assessment, Performed: Laboratory Tests for Hypertension",
+      "end_time": null,
+      "health_record_field": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.10.20.28.3.117",
+      "reason": null,
+      "specifics": null,
+      "start_time": 1343721600,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null,
+      "values": [
+        {
+          "_id": "5b61b638b84846662484a6c5",
+          "scalar": 1336032000000,
+          "units": "UnixTime"
+        }
+      ]
+    }
+  ],
+  "birthdate": -946742400,
+  "bundle_id": "5a57e977942c6d1e61d32f14",
+  "created_at": "2018-08-01T13:31:36.935Z",
+  "deathdate": null,
+  "description": null,
+  "description_category": null,
+  "effective_time": null,
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "D5355200-50C1-4A79-8983-8617B93FE6C1",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "NUMER": 0
+    }
+  ],
+  "expired": null,
+  "first": "Test",
+  "gender": "M",
+  "insurance_providers": [
+    {
+      "_id": "5b61b638b84846662484a6c6",
+      "codes": {
+        "SOP": [
+          "349"
+        ]
+      },
+      "description": null,
+      "end_time": null,
+      "financial_responsibility_type": {
+        "code": "SELF",
+        "codeSystem": "HL7 Relationship Code"
+      },
+      "health_record_field": null,
+      "member_id": "1234567890",
+      "mood_code": "EVN",
+      "name": "Other",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": null,
+      "payer": {
+        "_id": "5b61b638b84846662484a6c7",
+        "name": "Other"
+      },
+      "reason": null,
+      "relationship": null,
+      "specifics": null,
+      "start_time": 1199145600,
+      "status_code": null,
+      "time": null,
+      "type": "OT"
+    }
+  ],
+  "is_shared": null,
+  "languages": [
+
+  ],
+  "last": "NoNumerator",
+  "marital_status": null,
+  "measure_ids": [
+    "D5355200-50C1-4A79-8983-8617B93FE6C1",
+    null
+  ],
+  "medical_record_assigner": "Bonnie",
+  "medical_record_number": "6f7fa9bdd5fc70b547408d8374fe5b66d446e9160acb57bc101f8ce353712056",
+  "medications": [
+    {
+      "_id": "5b61b638b84846662484a6c3",
+      "active_datetime": null,
+      "administrationTiming": null,
+      "allowedAdministrations": null,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "200031"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Ordered: Beta Blocker Therapy for LVSD",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": null,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": true,
+      "negationReason": {
+        "code_system": "SNOMED-CT",
+        "code": "105480006"
+      },
+      "oid": "2.16.840.1.113883.3.560.1.78",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "refills": null,
+      "route": null,
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1343721600,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "ordered"
+        ]
+      },
+      "supply": null,
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    }
+  ],
+  "notes": "",
+  "origin_data": [
+
+  ],
+  "race": {
+    "code": "1002-5",
+    "name": "American Indian or Alaska Native",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "assessment",
+      "status": "performed",
+      "title": "LaboratoryTestsforHypertension",
+      "description": "Assessment, Performed: Laboratory Tests for Hypertension",
+      "code_list_id": "2.16.840.1.113883.3.600.1482",
+      "type": "assessments",
+      "id": "LaboratoryTestsforHypertension_AssessmentPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc_source",
+      "start_date": 1343721600000,
+      "value": [
+        {
+          "type": "TS",
+          "type_cmp": "CD",
+          "start_date": "05/03/2012",
+          "start_time": "8:00 AM",
+          "value": 1336032000000
+        }
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "D5355200-50C1-4A79-8983-8617B93FE6C1",
+      "cms_id": "CMS879v0",
+      "criteria_id": "164f5ac39e4yh",
+      "codes": {
+        "LOINC": [
+          "24320-4"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "5b61b638b84846662484a6c2",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": true,
+      "definition": "medication",
+      "status": "ordered",
+      "title": "BetaBlockerTherapyforLVSD",
+      "description": "Medication, Ordered: Beta Blocker Therapy for LVSD",
+      "code_list_id": "2.16.840.1.113883.3.526.3.1184",
+      "type": "medications",
+      "id": "Derived from BetaBlockerTherapyforLVSD_MedicationNotOrdered_802b51cf_5bf7_469e_a6ab_61619fae8a1a_source",
+      "start_date": 1343721600000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+      },
+      "hqmf_set_id": "D5355200-50C1-4A79-8983-8617B93FE6C1",
+      "cms_id": "CMS879v0",
+      "criteria_id": "164f5ad29adOC",
+      "codes": {
+        "RxNorm": [
+          "200031"
+        ]
+      },
+      "negation_code_list_id": "2.16.840.1.113883.3.600.791",
+      "coded_entry_id": "5b61b638b84846662484a6c3",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": false,
+      "definition": "laboratory_test",
+      "status": "performed",
+      "title": "LaboratoryTestsforHypertension",
+      "description": "Laboratory Test, Performed: Laboratory Tests for Hypertension",
+      "code_list_id": "2.16.840.1.113883.3.600.1482",
+      "type": "laboratory_tests",
+      "id": "LaboratoryTestsforHypertension_LaboratoryTestPerformed_7dd701f4_bcdb_4198_8958_6f1a1f79a7bc_source",
+      "start_date": 1343721600000,
+      "end_date": 1343722500000,
+      "value": [
+
+      ],
+      "references": null,
+      "field_values": {
+        "COMPONENT": {
+          "type": "COL",
+          "values": [
+            {
+              "type": "CMP",
+              "type_cmp": "TS",
+              "key": "COMPONENT",
+              "code_list_id": "2.16.840.1.113883.3.526.3.1184",
+              "field_title": "Component",
+              "code_list_id_cmp": "",
+              "referenceRangeLow_value": "",
+              "referenceRangeLow_unit": "",
+              "referenceRangeHigh_value": "",
+              "referenceRangeHigh_unit": "",
+              "title": "Beta Blocker Therapy for LVSD",
+              "start_date": "07/17/2011",
+              "start_time": "8:00 AM",
+              "value": 1310889600000
+            }
+          ]
+        }
+      },
+      "hqmf_set_id": "D5355200-50C1-4A79-8983-8617B93FE6C1",
+      "cms_id": "CMS879v0",
+      "criteria_id": "164f5adab85Ec",
+      "codes": {
+        "LOINC": [
+          "24320-4"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "5b61b638b84846662484a6c4",
+      "code_source": "DEFAULT"
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": null,
+  "title": null,
+  "type": null,
+  "updated_at": "2018-08-01T13:31:36.935Z",
+  "user_id": "501fdba3044a111b98000001",
+  "vital_signs": [
+    {
+      "_id": "5b61b638b84846662484a6c4",
+      "codes": {
+        "LOINC": [
+          "24320-4"
+        ]
+      },
+      "components": {
+        "type": "COL",
+        "values": [
+          {
+            "code": {
+              "code_system": "RxNorm",
+              "code": "200031"
+            },
+            "result": {
+              "units": "UnixTime",
+              "scalar": 1310889600000
+            },
+            "referenceRangeLow": {
+              "scalar": "",
+              "units": ""
+            },
+            "referenceRangeHigh": {
+              "scalar": "",
+              "units": ""
+            }
+          }
+        ]
+      },
+      "description": "Laboratory Test, Performed: Laboratory Tests for Hypertension",
+      "end_time": 1343722500,
+      "health_record_field": null,
+      "interpretation": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.5",
+      "qdm_status": null,
+      "reaction": null,
+      "reason": null,
+      "referenceRange": null,
+      "referenceRangeHigh": null,
+      "referenceRangeLow": null,
+      "result_date_time": null,
+      "specifics": null,
+      "start_time": 1343721600,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+# bonnie-fixtures measures creating using:
+
+## Special Set
+CMS878v0 - Result as DateTime
+bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS878,bonnie-fixtures@mitre.org,CMS878v0]
+bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS878v0
+
+CMS879v0 - Components' result as DateTime
+bundle exec rake bonnie:fixtures:generate_backend_cql_fixtures[cms,special_measures/CMS879,bonnie-fixtures@mitre.org,CMS879v0]
+bundle exec rake bonnie:db:download_measure_package EMAIL=bonnie-fixtures@mitre.org CMS_ID=CMS879v0
