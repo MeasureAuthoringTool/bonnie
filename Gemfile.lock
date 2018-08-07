@@ -1,50 +1,4 @@
 GIT
-  remote: https://github.com/projectcypress/health-data-standards.git
-  revision: dd32b18cae0529fb0d0c835309645153f13c20ef
-  branch: master_bonnie
-  specs:
-    health-data-standards (4.1.0)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.2)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 1.8.0)
-      rubyzip (~> 1.2.1)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/bonnie_bundler.git
-  revision: ce35c59ba39f4a5fdd76de391096acc1f293e03c
-  branch: master
-  specs:
-    bonnie_bundler (2.2.0)
-      diffy (~> 3.0.0)
-      health-data-standards (~> 4.0)
-      hqmf2js (~> 1.4)
-      hquery-patient-api (~> 1.1)
-      mongoid (~> 5.0)
-      quality-measure-engine (~> 3.2)
-      rails (~> 4.2)
-      roo (~> 1.13)
-      rubyzip (~> 1.2, >= 1.2.1)
-      simplexml_parser (~> 1.0)
-      zip-zip (~> 0.3)
-
-  remote: https://github.com/doorkeeper-gem/doorkeeper-mongodb
-  revision: dc94da5a862dc6af0718df4cb511cf2e7b19d5d5
-  branch: master
-  specs:
-    doorkeeper-mongodb (3.0.0)
-      doorkeeper (>= 3.0.0)
-
-GIT
   remote: https://github.com/hossenlopp/apipie-rails
   revision: a3e9f3eb092dafc551d3563ccf516cf31b2037d4
   branch: master
@@ -54,10 +8,10 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 663f6ddcbed7b607cda77c96dd7ae3673055f82a
-  branch: bonnie-v2.3
+  revision: dd32b18cae0529fb0d0c835309645153f13c20ef
+  branch: master_bonnie
   specs:
-    health-data-standards (4.0.6)
+    health-data-standards (4.1.0)
       activesupport (~> 4.2.0)
       builder (~> 3.1)
       erubis (~> 2.7.0)
