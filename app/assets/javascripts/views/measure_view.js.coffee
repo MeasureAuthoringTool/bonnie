@@ -43,6 +43,7 @@ class Thorax.Views.Measure extends Thorax.Views.BonnieView
       @exportPatientsView = new Thorax.Views.ExportPatientsView() # Modal dialogs for exporting
       @exportPatientsView.appendTo(@$el)
       @$('.d3-measure-viz, .btn-viz-text').hide()
+      @$('a[data-toggle="tooltip"]').tooltip()
 
   context: ->
     _(super).extend
