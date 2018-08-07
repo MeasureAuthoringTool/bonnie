@@ -47,7 +47,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: a0b3c64c9e8d5f1e247e395af16068f7ca0b47aa
+  revision: 7f161ca83d0513e4cfe50d27999c58803d840adf
   branch: bonnie-v2.3
   specs:
     cql_qdm_patientapi (1.1.4)
@@ -57,15 +57,15 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-converter
-  revision: 737bacbbd719ae79e8b2189fe01ad32b4f6dbefd
+  revision: dda86d312dfee775197c2128341d3d6d93073301
   branch: master
   specs:
-    cqm-converter (0.3.4)
+    cqm-converter (0.3.5)
       activesupport
       coffee-script
-      cqm-models (>= 0.7.2)
+      cqm-models (>= 0.8.3)
       execjs
-      health-data-standards (>= 4.0.3)
+      health-data-standards (>= 4.1.0)
       momentjs-rails
       sprockets
 
@@ -172,7 +172,7 @@ GEM
     colorize (0.7.7)
     columnize (0.9.0)
     commonjs (0.2.7)
-    cqm-models (0.7.7)
+    cqm-models (0.8.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.3)
