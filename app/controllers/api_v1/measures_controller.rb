@@ -158,6 +158,11 @@ module ApiV1
     error :code => 500, :desc => 'Error generating the excel export.'
     formats [:xlsx]
     def calculated_results
+      if request.headers['Accept'] != Mime::Type.lookup_by_extension(:xlsx)
+        render json: {status: "error", messages: "Requested response type is not acceptable. Only #{Mime::Type.lookup_by_extension(:xlsx)} is accepted at this time."}, status: :not_acceptable
+        return
+      end
+
       begin
         @api_v1_measure = CqlMeasure.by_user(current_resource_owner).where({:hqmf_set_id=> params[:id]}).sort_by(&:updated_at).first
         if @api_v1_measure.nil?
@@ -184,23 +189,19 @@ module ApiV1
         return
       end
 
-      if request.headers['Accept'] == Mime::Type.lookup_by_extension(:xlsx)
-        begin
-          converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, @api_v1_measure, @api_v1_patients)
-          patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
-          population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
-          statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
-          filename = "#{@api_v1_measure.cms_id}.xlsx"
-          excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
-          send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), filename: ERB::Util.url_encode(filename)
-        rescue StandardError
-          # email the error so we can see more details on what went wrong with the excel creation.
-          ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
-          render json: {status: "error", messages: "Error generating the excel export."}, status: :internal_server_error
-          return
-        end
-      else
-        render json: {status: "error", messages: "Requested response type is not acceptable. Only #{Mime::Type.lookup_by_extension(:xlsx)} is accepted at this time."}, status: :not_acceptable
+      begin
+        converted_results = ExcelExportHelper.convert_results_for_excel_export(calculated_results, @api_v1_measure, @api_v1_patients)
+        patient_details = ExcelExportHelper.get_patient_details(@api_v1_patients)
+        population_details = ExcelExportHelper.get_population_details_from_measure(@api_v1_measure, calculated_results)
+        statement_details = ExcelExportHelper.get_statement_details_from_measure(@api_v1_measure)
+        filename = "#{@api_v1_measure.cms_id}.xlsx"
+        excel_package = PatientExport.export_excel_cql_file(converted_results, patient_details, population_details, statement_details)
+        send_data excel_package.to_stream.read, type: Mime::Type.lookup_by_extension(:xlsx), filename: ERB::Util.url_encode(filename)
+      rescue StandardError
+        # email the error so we can see more details on what went wrong with the excel creation.
+        ExceptionNotifier::Notifier.exception_notification(env, e).deliver_now if defined? ExceptionNotifier::Notifier
+        render json: {status: "error", messages: "Error generating the excel export."}, status: :internal_server_error
+        return
       end
     end
 
