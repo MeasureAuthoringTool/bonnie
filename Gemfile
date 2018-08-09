@@ -20,6 +20,7 @@ gem 'hqmf2js', '~> 1.4'
 # gem 'bonnie_bundler', '~> 2.2.0'
 gem 'quality-measure-engine', '~> 3.2'
 gem 'hquery-patient-api', '~> 1.1'
+# gem 'cqm-converter', '~> 0.3.2'
 
 gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', :branch => 'master_bonnie'
 gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi.git', :branch => 'master'
@@ -28,6 +29,7 @@ gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_pati
 gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.git', :branch => 'master'
 # gem 'quality-measure-engine', :git => 'https://github.com/projectcypress/quality-measure-engine.git', :branch => 'master'
 # gem 'hquery-patient-api', :git => 'https://github.com/projecttacoma/patientapi.git', :branch => 'master'
+gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter', :branch => 'master'
 
 # gem 'health-data-standards', :path => '../health-data-standards'
 # gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
@@ -36,6 +38,7 @@ gem 'bonnie_bundler', :git => 'https://github.com/projecttacoma/bonnie_bundler.g
 # gem 'bonnie_bundler', :path => '../bonnie_bundler'
 # gem 'quality-measure-engine', :path => '../quality-measure-engine'
 # gem 'hquery-patient-api', :path => '../patientapi'
+# gem 'cqm-converter', :path => '../cqm-converter'
 
 # needed for HDS
 gem 'rubyzip', '>= 1.2.1'
@@ -53,6 +56,10 @@ gem 'roo'
 
 
 gem 'oj' # Faster JSON
+gem 'apipie-rails', :git => 'https://github.com/hossenlopp/apipie-rails', :branch => 'master' # API documentation generation
+gem 'maruku' # enable Markup for API documentation
+gem 'doorkeeper', '~> 4.4.0'
+gem "doorkeeper-mongodb", '~> 4.1.0'
 
 group :test, :development, :ci do
   gem 'pry'
@@ -67,6 +74,7 @@ group :test, :development, :ci do
   gem 'webmock'
   gem 'vcr'
   gem 'bundler-audit'
+  gem 'colorize'
   gem 'brakeman'
 end
 

@@ -1,0 +1,78 @@
+{
+  "c10": {
+    "c358": {
+      "statement_results": {
+        "DiabetesMedicalAttentionforNephropathy": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Renal Procedures": "FALSE",
+          "Renal Interventions": "FALSE",
+          "Qualifying Encounters": "TRUE",
+          "Protein Urea Lab Test": "TRUE",
+          "Nephropathy Diagnoses": "TRUE",
+          "ESRD Encounter": "FALSE",
+          "Active ACEI or ARB Medications": "FALSE",
+          "Initial Population": "TRUE",
+          "Denominator": "TRUE",
+          "Nephropathy Screenings": "TRUE",
+          "Numerator": "TRUE",
+          "In Hospice": "FALSE",
+          "Denominator Exclusions": "FALSE"
+        },
+        "MATGlobalCommonFunctions": {
+          "CalendarAgeInYearsAt": "FALSE",
+          "ToDate": "FALSE"
+        },
+        "Hospice": {
+          "Has Hospice": "FALSE"
+        }
+      },
+      "criteria": {
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 0,
+        "NUMER": 1
+      }
+    },
+    "c552": {
+      "statement_results": {
+        "DiabetesMedicalAttentionforNephropathy": {
+          "Patient": "NA",
+          "SDE Ethnicity": "NA",
+          "SDE Payer": "NA",
+          "SDE Race": "NA",
+          "SDE Sex": "NA",
+          "Renal Procedures": "FALSE",
+          "Renal Interventions": "FALSE",
+          "Qualifying Encounters": "TRUE",
+          "Protein Urea Lab Test": "FALSE",
+          "Nephropathy Diagnoses": "FALSE",
+          "ESRD Encounter": "FALSE",
+          "Active ACEI or ARB Medications": "FALSE",
+          "Initial Population": "TRUE",
+          "Denominator": "TRUE",
+          "Nephropathy Screenings": "FALSE",
+          "Numerator": "FALSE",
+          "In Hospice": "FALSE",
+          "Denominator Exclusions": "FALSE"
+        },
+        "MATGlobalCommonFunctions": {
+          "CalendarAgeInYearsAt": "FALSE",
+          "ToDate": "FALSE"
+        },
+        "Hospice": {
+          "Has Hospice": "FALSE"
+        }
+      },
+      "criteria": {
+        "IPP": 1,
+        "DENOM": 1,
+        "DENEX": 0,
+        "NUMER": 0
+      }
+    }
+  }
+}
