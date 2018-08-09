@@ -30,7 +30,9 @@ module ApiV1
       @ticket_expires_at = (Time.now + 8.hours).to_i
     end
 
-    test "should get a 404" do
+    test "should get a 404 for bad measure id" do
+      headers = { :Accept => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }
+      request.headers.merge! headers
       measure_id = "bad_id_abc_123"
       get :calculated_results, id: measure_id
       assert_response :not_found
@@ -40,10 +42,16 @@ module ApiV1
     end
 
     test "should get a 500 if calculation server is down" do
-      stub_request(:post, BonnieBackendCalculator::CALCULATION_SERVICE_URL).to_timeout
-      get :calculated_results, id: @cms160_hqmf_set_id
-      assert_response :internal_server_error
-      WebMock.reset!
+      begin
+        headers = { :Accept => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }
+        request.headers.merge! headers
+        stub_request(:post, BonnieBackendCalculator::CALCULATION_SERVICE_URL).to_timeout
+        get :calculated_results, id: @cms160_hqmf_set_id
+        assert_response :internal_server_error
+      ensure
+        # This needs to be in an ensure block because failures above this line will change global state otherwise.
+        WebMock.reset!
+      end
     end
 
     test "should get a 406 error response if no accept header is provided" do
