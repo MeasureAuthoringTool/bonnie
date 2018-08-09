@@ -124,7 +124,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
 
     #If Criteria Definition exists in object
     negationList =
-      assessment:       ['performed', 'recommended']
+      assessment:       ['performed', 'recommended', 'ordered']
       device:           ['applied', 'ordered', 'recommended']
       diagnostic_study: ['performed', 'ordered', 'recommended']
       encounter:        ['ordered', 'performed', 'recommended']
