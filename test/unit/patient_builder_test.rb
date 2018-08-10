@@ -145,7 +145,7 @@ class PatientBuilderTest < ActiveSupport::TestCase
   end
 
   test "derive communication" do
-    @data_criteria_communication = HQMF::DataCriteria.get_settings_for_definition('communication_from_patient_to_provider','')
+    @data_criteria_communication = HQMF::DataCriteria.get_settings_for_definition('communication_performed','')
     entry = Measures::PatientBuilder.derive_entry(@data_criteria_communication,@communication_source_data_criteria,@valuesets)
     
     assert entry, "Should have created an entry with communication data_criteria"
