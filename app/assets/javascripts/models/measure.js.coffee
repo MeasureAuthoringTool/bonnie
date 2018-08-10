@@ -94,7 +94,7 @@ class Thorax.Models.Measure extends Thorax.Model
       care_experiences: []
       care_goals: ['target_outcome']
       characteristics: []
-      communications: []
+      communications: ['category', 'sender', 'recipient', 'medium']
       conditions: ['anatomical_structure', 'anatomical_location', 'ordinality', 'severity', 'laterality']
       devices: ['removal_time', 'anatomical_structure']
       diagnostic_studies: ['facility', 'method', 'qdm_status', 'result_date_time', 'components']
