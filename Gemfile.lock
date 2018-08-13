@@ -8,8 +8,8 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 20b6f4376cfe10b887e4e410e66fb51373347d42
-  branch: master_bonnie
+  revision: eea5d6395b4c5e6fdf743d7d7caecb961afb53db
+  branch: bonnie-v3.0
   specs:
     health-data-standards (4.2.0)
       activesupport (~> 4.2.0)
@@ -45,6 +45,16 @@ GIT
       rubyzip (~> 1.2, >= 1.2.1)
       simplexml_parser (~> 1.0)
       zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
+  revision: 48dfc191c885c1357578a856a15aa178fe9f7da0
+  branch: bonnie-v3.0
+  specs:
+    cql_qdm_patientapi (1.1.4)
+      coffee-rails (~> 4.1)
+      rails (~> 4.2)
+      sprockets-rails (~> 2.3)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-converter
