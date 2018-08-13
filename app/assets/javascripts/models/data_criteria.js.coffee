@@ -119,8 +119,7 @@ class Thorax.Models.PatientDataCriteria extends Thorax.Model
     # TODO: (LDY 10/6/2016) should @getCriteriaType() be used here as well?
 
     #First check to see if criteriaType definition matches any of these (no need to worry about status with these)
-    return true if criteriaType in ['communication_from_patient_to_provider', 'communication_from_provider_to_patient',
-                                    'communication_from_provider_to_provider', 'risk_category_assessment', 'transfer_from', 'transfer_to']
+    return true if criteriaType in ['risk_category_assessment', 'transfer_from', 'transfer_to']
 
     #If Criteria Definition exists in object
     negationList =
