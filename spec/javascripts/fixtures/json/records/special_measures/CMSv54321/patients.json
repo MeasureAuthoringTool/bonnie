@@ -1,0 +1,419 @@
+[
+  {
+    "_id": "5b7ae615d7c8ac5687675790",
+    "assessments": [
+      {
+        "_id": "5b7af7bed7c8ac5f47e3689b",
+        "codes": {
+          "LOINC": [
+            "44249-1"
+          ]
+        },
+        "components": null,
+        "description": "Assessment, Order: PHQ-9 quick depression assessment panel [Reported.PHQ]",
+        "end_time": null,
+        "health_record_field": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "reason": null,
+        "specifics": null,
+        "start_time": 1345449600,
+        "status_code": {
+          "HL7 ActStatus": [
+            "ordered"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "birthdate": 587030400,
+    "bundle_id": "5a57e977942c6d1e61d32f14",
+    "created_at": "2018-08-20T16:02:29.291Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "73D3E527-5C69-41BD-833C-8FCD2A564782",
+        "population_index": 0,
+        "IPP": 1
+      }
+    ],
+    "expired": null,
+    "first": "Pass",
+    "gender": "M",
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "AssessmentOrder",
+    "marital_status": null,
+    "measure_ids": [
+      "73D3E527-5C69-41BD-833C-8FCD2A564782",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "73b57464bc890026017ed5d51f1b151ed00e6aabcff64ffeac8b5e08134916fc",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "assessment",
+        "status": "ordered",
+        "title": "Assessment, Order: Assessment, Order",
+        "description": "Assessment, Order: PHQ-9 quick depression assessment panel [Reported.PHQ]",
+        "code_list_id": "drc-268fb7f090fdffca2fd3e2cb3b86baeffec27ffd4a1a081d21fce33ff8caede5",
+        "type": "assessments",
+        "id": "prefix_44249_1_AssessmentOrder_78FA3CA7_49B2_4D57_B082_C626D45D8158_source",
+        "start_date": 1345449600000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "73D3E527-5C69-41BD-833C-8FCD2A564782",
+        "cms_id": "CMSv0",
+        "criteria_id": "16558127c02T6",
+        "codes": {
+          "LOINC": [
+            "44249-1"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5b7af7bed7c8ac5f47e3689b",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-08-20T17:17:50.970Z",
+    "user_id": "5a57e975942c6d1e61d32f13"
+  },
+  {
+    "_id": "5b7af3d9d7c8ac5f47e36839",
+    "birthdate": 587030400,
+    "bundle_id": "5a57e977942c6d1e61d32f14",
+    "created_at": "2018-08-20T17:01:13.516Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "73D3E527-5C69-41BD-833C-8FCD2A564782",
+        "population_index": 0,
+        "IPP": 1
+      }
+    ],
+    "expired": null,
+    "first": "Pass",
+    "gender": "M",
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "MedSetting",
+    "marital_status": null,
+    "measure_ids": [
+      "73D3E527-5C69-41BD-833C-8FCD2A564782",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "063cc92a2b7be28cd88e3971bbdf65d3c3bd0bb0f8efc89382cabaa50a03f1e9",
+    "medications": [
+      {
+        "_id": "5b7af7bfd7c8ac5f47e3689c",
+        "active_datetime": null,
+        "administrationTiming": null,
+        "allowedAdministrations": null,
+        "anatomical_approach": null,
+        "codes": {
+          "RxNorm": [
+            "1232194"
+          ]
+        },
+        "cumulativeMedicationDuration": null,
+        "deliveryMethod": null,
+        "description": "Medication, Order: High-Risk Medications With Days Supply Criteria",
+        "dose": null,
+        "doseIndicator": null,
+        "doseRestriction": null,
+        "end_time": 1345450500,
+        "freeTextSig": null,
+        "fulfillmentInstructions": null,
+        "health_record_field": null,
+        "indication": null,
+        "method": null,
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.17",
+        "patientInstructions": null,
+        "productForm": null,
+        "reaction": null,
+        "reason": null,
+        "refills": null,
+        "route": null,
+        "setting": {
+          "code_system": "SNOMED-CT",
+          "code": "272497004",
+          "title": "Residential environment (environment)"
+        },
+        "signed_datetime": null,
+        "specifics": null,
+        "start_time": 1345449600,
+        "statusOfMedication": null,
+        "status_code": {
+          "HL7 ActStatus": [
+            "ordered"
+          ]
+        },
+        "supply": null,
+        "time": null,
+        "typeOfMedication": null,
+        "vehicle": null
+      }
+    ],
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "medication",
+        "status": "ordered",
+        "title": "High-RiskMedicationsWithDaysSupplyCriteria",
+        "description": "Medication, Order: High-Risk Medications With Days Supply Criteria",
+        "code_list_id": "2.16.840.1.113883.3.464.1003.196.12.1254",
+        "type": "medications",
+        "id": "High_RiskMedicationsWithDaysSupplyCriteria_MedicationOrder_51be7493_9e11_452e_8d0f_57809660d3d7_source",
+        "start_date": 1345449600000,
+        "end_date": 1345450500000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+          "SETTING": {
+            "type": "CD",
+            "code_list_id": "drc-1403d23eddd72f527ee7e3183ea884ba28c044755b2181a95bd4b29b8fddf60a",
+            "field_title": "Setting",
+            "title": "Residential environment (environment)"
+          }
+        },
+        "hqmf_set_id": "73D3E527-5C69-41BD-833C-8FCD2A564782",
+        "cms_id": "CMSv0",
+        "criteria_id": "16558485abcaQ",
+        "codes": {
+          "RxNorm": [
+            "1232194"
+          ]
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5b7af7bfd7c8ac5f47e3689c",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-08-20T17:17:51.015Z",
+    "user_id": "5a57e975942c6d1e61d32f13"
+  },
+  {
+    "_id": "5b7af421d7c8ac5f47e36866",
+    "birthdate": 587030400,
+    "bundle_id": "5a57e977942c6d1e61d32f14",
+    "communications": [
+      {
+        "_id": "5b7af7bfd7c8ac5f47e3689d",
+        "category": {
+          "code_system": "SNOMED-CT",
+          "code": "184225006",
+          "title": "Computer record of patient (record artifact)"
+        },
+        "codes": {
+        },
+        "description": "Communication, Performed: Communication, Performed",
+        "direction": null,
+        "end_time": null,
+        "health_record_field": null,
+        "medium": {
+          "code_system": "SNOMED-CT",
+          "code": "445666005",
+          "title": "Faxed report (record artifact)"
+        },
+        "mood_code": "EVN",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "reason": null,
+        "recipient": {
+          "code_system": "SNOMED-CT",
+          "code": "453231000124104",
+          "title": "Primary care provider (occupation)"
+        },
+        "sender": {
+          "code_system": "SNOMED-CT",
+          "code": "309336000",
+          "title": "Pediatric oncologist (occupation)"
+        },
+        "specifics": null,
+        "start_time": 1345449600,
+        "status_code": {
+          "HL7 ActStatus": [
+            "performed"
+          ]
+        },
+        "time": null
+      }
+    ],
+    "created_at": "2018-08-20T17:02:25.073Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "73D3E527-5C69-41BD-833C-8FCD2A564782",
+        "population_index": 0,
+        "IPP": 1
+      }
+    ],
+    "expired": null,
+    "first": "Pass",
+    "gender": "M",
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "Communication",
+    "marital_status": null,
+    "measure_ids": [
+      "73D3E527-5C69-41BD-833C-8FCD2A564782",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "c90769c0eff8acec4f02866a1fd8667df846d1b32c3166ca82b9347150f10383",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "communication",
+        "status": "performed",
+        "title": "Communication, Performed: Communication, Performed",
+        "description": "Communication, Performed: Communication, Performed",
+        "type": "communications",
+        "id": "prefix_445333001_CommunicationPerformed_A9A01042_3F32_48BE_A5C5_4F64E7233C5A_source",
+        "start_date": 1345449600000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+          "SENDER": {
+            "type": "CD",
+            "code_list_id": "drc-967a863b83cfe85016c9d6068e40d247288f6d529cf54cf4e9af42fe909cd50a",
+            "field_title": "Sender",
+            "title": "Pediatric oncologist (occupation)"
+          },
+          "RECIPIENT": {
+            "type": "CD",
+            "code_list_id": "drc-1f07eef8874d1f6421823c25e41c7200a6cd1afb89f1f58025a039f00ab4e557",
+            "field_title": "Recipient",
+            "title": "Primary care provider (occupation)"
+          },
+          "CATEGORY": {
+            "type": "CD",
+            "code_list_id": "drc-b7be2c49e351f33349f833bb55eca38b6bf129a7982ff15bee230b62e2d5cd5f",
+            "field_title": "Category",
+            "title": "Computer record of patient (record artifact)"
+          },
+          "MEDIUM": {
+            "type": "CD",
+            "code_list_id": "drc-dc1ed4b95aba7929944b98ccbfffda314f07a522fc45bcbabda4d798d981ca9e",
+            "field_title": "Medium",
+            "title": "Faxed report (record artifact)"
+          }
+        },
+        "hqmf_set_id": "73D3E527-5C69-41BD-833C-8FCD2A564782",
+        "cms_id": "CMSv0",
+        "criteria_id": "1655848b55fI0",
+        "codes": {
+        },
+        "negation_code_list_id": "",
+        "coded_entry_id": "5b7af7bfd7c8ac5f47e3689d",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-08-20T17:17:51.061Z",
+    "user_id": "5a57e975942c6d1e61d32f13"
+  }
+]

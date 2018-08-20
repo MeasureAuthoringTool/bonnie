@@ -174,3 +174,31 @@ describe 'Production_PatientBuilderView', ->
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.NUMER).toBe 1
+
+  describe 'QDM 5.4', ->
+    beforeEach ->
+      jasmine.getJSONFixtures().clearCache()
+      bonnie.valueSetsByOid = getJSONFixture('measure_data/special_measures/CMSv54321/value_sets.json')
+      @measure = new Thorax.Models.Measure getJSONFixture('measure_data/special_measures/CMSv54321/CMSv54321.json'), parse: true
+      @patients = new Thorax.Collections.Patients getJSONFixture('records/special_measures/CMSv54321/patients.json'), parse: true
+      bonnie.measures.add @measure
+
+    it 'Assessment Order calculates correctly', ->
+      debugger
+      patient = @patients.findWhere(first: 'Pass', last: 'AssessmentOrder')
+      patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
+      result = @measure.get('populations').first().calculate(patient)
+      expect(result.attributes.IPP).toBe 1
+
+    xit 'Communication calculates correctly', ->
+      # TODO: Communication is currently not calculating correctly.
+      patient = @patients.findWhere(first: 'Pass', last: 'Communication')
+      patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
+      result = @measure.get('populations').first().calculate(patient)
+      expect(result.attributes.IPP).toBe 1
+
+    it 'Medication Order: Setting calculates correctly', ->
+      patient = @patients.findWhere(first: 'Pass', last: 'MedSetting')
+      patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
+      result = @measure.get('populations').first().calculate(patient)
+      expect(result.attributes.IPP).toBe 1
