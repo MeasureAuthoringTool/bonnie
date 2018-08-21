@@ -190,8 +190,7 @@ describe 'Production_PatientBuilderView', ->
       result = @measure.get('populations').first().calculate(patient)
       expect(result.attributes.IPP).toBe 1
 
-    xit 'Communication calculates correctly', ->
-      # TODO: Communication is currently not calculating correctly.
+    it 'Communication calculates correctly', ->
       patient = @patients.findWhere(first: 'Pass', last: 'Communication')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
