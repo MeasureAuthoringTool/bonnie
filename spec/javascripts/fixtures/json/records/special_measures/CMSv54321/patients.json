@@ -3,7 +3,7 @@
     "_id": "5b7ae615d7c8ac5687675790",
     "assessments": [
       {
-        "_id": "5b7af7bed7c8ac5f47e3689b",
+        "_id": "5b7c3c61d7c8ac452457a7ad",
         "codes": {
           "LOINC": [
             "44249-1"
@@ -99,7 +99,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5b7af7bed7c8ac5f47e3689b",
+        "coded_entry_id": "5b7c3c61d7c8ac452457a7ad",
         "code_source": "DEFAULT"
       },
       {
@@ -112,7 +112,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-08-20T17:17:50.970Z",
+    "updated_at": "2018-08-21T16:22:57.269Z",
     "user_id": "5a57e975942c6d1e61d32f13"
   },
   {
@@ -153,7 +153,7 @@
     "medical_record_number": "063cc92a2b7be28cd88e3971bbdf65d3c3bd0bb0f8efc89382cabaa50a03f1e9",
     "medications": [
       {
-        "_id": "5b7af7bfd7c8ac5f47e3689c",
+        "_id": "5b7c3c61d7c8ac452457a7ae",
         "active_datetime": null,
         "administrationTiming": null,
         "allowedAdministrations": null,
@@ -248,7 +248,7 @@
           ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5b7af7bfd7c8ac5f47e3689c",
+        "coded_entry_id": "5b7c3c61d7c8ac452457a7ae",
         "code_source": "DEFAULT"
       },
       {
@@ -261,7 +261,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-08-20T17:17:51.015Z",
+    "updated_at": "2018-08-21T16:22:57.297Z",
     "user_id": "5a57e975942c6d1e61d32f13"
   },
   {
@@ -270,15 +270,18 @@
     "bundle_id": "5a57e977942c6d1e61d32f14",
     "communications": [
       {
-        "_id": "5b7af7bfd7c8ac5f47e3689d",
+        "_id": "5b7c3ca2d7c8ac452457a7c7",
         "category": {
           "code_system": "SNOMED-CT",
           "code": "184225006",
           "title": "Computer record of patient (record artifact)"
         },
         "codes": {
+          "SNOMED-CT": [
+            "445333001"
+          ]
         },
-        "description": "Communication, Performed: Communication, Performed",
+        "description": "Communication, Performed: Breast cancer genetic marker of susceptibility positive (finding)",
         "direction": null,
         "end_time": null,
         "health_record_field": null,
@@ -303,7 +306,7 @@
           "title": "Pediatric oncologist (occupation)"
         },
         "specifics": null,
-        "start_time": 1345449600,
+        "start_time": 1345536000,
         "status_code": {
           "HL7 ActStatus": [
             "performed"
@@ -332,6 +335,40 @@
     "expired": null,
     "first": "Pass",
     "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5b7c3ca2d7c8ac452457a7c8",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5b7c3ca2d7c8ac452457a7c9",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199163600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
     "is_shared": null,
     "languages": [
 
@@ -360,10 +397,11 @@
         "definition": "communication",
         "status": "performed",
         "title": "Communication, Performed: Communication, Performed",
-        "description": "Communication, Performed: Communication, Performed",
+        "description": "Communication, Performed: Breast cancer genetic marker of susceptibility positive (finding)",
+        "code_list_id": "drc-50c46fa4941d94d381579db675ebc34f5af327c8db6633bb836b865fb4391957",
         "type": "communications",
         "id": "prefix_445333001_CommunicationPerformed_A9A01042_3F32_48BE_A5C5_4F64E7233C5A_source",
-        "start_date": 1345449600000,
+        "start_date": 1345536000000,
         "value": [
 
         ],
@@ -395,12 +433,15 @@
           }
         },
         "hqmf_set_id": "73D3E527-5C69-41BD-833C-8FCD2A564782",
-        "cms_id": "CMSv0",
-        "criteria_id": "1655848b55fI0",
+        "cms_id": "CMSv54321",
+        "criteria_id": "1655d4c56fbFB",
         "codes": {
+          "SNOMED-CT": [
+            "445333001"
+          ]
         },
         "negation_code_list_id": "",
-        "coded_entry_id": "5b7af7bfd7c8ac5f47e3689d",
+        "coded_entry_id": "5b7c3ca2d7c8ac452457a7c7",
         "code_source": "DEFAULT"
       },
       {
@@ -413,7 +454,7 @@
     "test_id": null,
     "title": null,
     "type": null,
-    "updated_at": "2018-08-20T17:17:51.061Z",
+    "updated_at": "2018-08-21T16:24:02.084Z",
     "user_id": "5a57e975942c6d1e61d32f13"
   }
 ]

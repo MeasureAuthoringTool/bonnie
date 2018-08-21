@@ -1,5 +1,5 @@
 {
-  "_id": "5b7af7bed7c8ac5f47e3689a",
+  "_id": "5b7c3c5fd7c8ac452457a7ac",
   "bundle_id": "5a57e977942c6d1e61d32f14",
   "calculate_sdes": null,
   "category": "Miscellaneous",
@@ -30,7 +30,7 @@
       ]
     }
   },
-  "created_at": "2018-08-20T17:17:50.892Z",
+  "created_at": "2018-08-21T16:22:57.145Z",
   "data_criteria": {
     "High_RiskMedicationsWithDaysSupplyCriteria_MedicationOrder_51be7493_9e11_452e_8d0f_57809660d3d7": {
       "title": "High-RiskMedicationsWithDaysSupplyCriteria",
@@ -60,7 +60,13 @@
           "system": "2.16.840.1.113883.6.96",
           "code": "445333001"
         }
-      }
+      },
+      "inline_code_list": {
+        "SNOMED-CT": [
+          "445333001"
+        ]
+      },
+      "code_list_id": "drc-50c46fa4941d94d381579db675ebc34f5af327c8db6633bb836b865fb4391957"
     },
     "prefix_44249_1_AssessmentOrder_78FA3CA7_49B2_4D57_B082_C626D45D8158": {
       "title": "Assessment, Order: Assessment, Order",
@@ -1751,7 +1757,7 @@
   "hqmf_id": "2C91C386-6544-2AF5-0165-4437BE760006",
   "hqmf_set_id": "73D3E527-5C69-41BD-833C-8FCD2A564782",
   "hqmf_version_number": 0,
-  "id": "5b7af7bed7c8ac5f47e3689a",
+  "id": "5b7c3c5fd7c8ac452457a7ac",
   "main_cql_library": "ExampleMeasure",
   "measure_attributes": [
     {
@@ -2136,7 +2142,13 @@
           "system": "2.16.840.1.113883.6.96",
           "code": "445333001"
         }
-      }
+      },
+      "inline_code_list": {
+        "SNOMED-CT": [
+          "445333001"
+        ]
+      },
+      "code_list_id": "drc-50c46fa4941d94d381579db675ebc34f5af327c8db6633bb836b865fb4391957"
     },
     "prefix_44249_1_AssessmentOrder_78FA3CA7_49B2_4D57_B082_C626D45D8158_source": {
       "title": "Assessment, Order: Assessment, Order",
@@ -2158,7 +2170,7 @@
   },
   "title": "QDM 5.4 New Elements Testing",
   "type": "ep",
-  "updated_at": "2018-08-20T17:17:50.892Z",
+  "updated_at": "2018-08-21T16:22:57.145Z",
   "user_id": "5a57e975942c6d1e61d32f13",
   "value_set_oid_version_objects": [
     {
