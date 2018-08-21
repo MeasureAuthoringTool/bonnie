@@ -184,7 +184,6 @@ describe 'Production_PatientBuilderView', ->
       bonnie.measures.add @measure
 
     it 'Assessment Order calculates correctly', ->
-      debugger
       patient = @patients.findWhere(first: 'Pass', last: 'AssessmentOrder')
       patientBuilder = new Thorax.Views.PatientBuilder(model: patient, measure: @measure)
       result = @measure.get('populations').first().calculate(patient)
