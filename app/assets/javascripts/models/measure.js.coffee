@@ -104,7 +104,7 @@ class Thorax.Models.Measure extends Thorax.Model
       immunizations: ['route', 'dose', 'reaction', 'supply', 'active_datetime', 'reason']
       interventions: ['qdm_status', 'reason']
       laboratory_tests: ['reference_range_low', 'reference_range_high', 'qdm_status', 'result_date_time', 'components', 'method', 'reason']
-      medications: ['route', 'dispenser_identifier', 'dose', 'supply', 'administration_timing', 'prescriber_identifier', 'refills', 'setting', 'reason']
+      medications: ['route', 'dispenser_identifier', 'dose', 'supply', 'administration_timing', 'prescriber_identifier', 'refills', 'setting', 'reason','days_supplied']
       participations: []
       physical_exams: ['anatomical_location', 'components', 'method', 'reason']
       procedures: ['incision_time', 'anatomical_location', 'ordinality', 'qdm_status', 'components', 'method', 'reason']
