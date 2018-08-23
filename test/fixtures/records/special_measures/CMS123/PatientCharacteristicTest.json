@@ -1,0 +1,160 @@
+  {
+    "_id": "5b588789b84846559a53f763",
+    "birthdate": 28800,
+    "bundle_id": "5a57e977942c6d1e61d32f14",
+    "conditions": [
+      {
+        "_id": "5b588789b84846559a53f764",
+        "anatomical_location": null,
+        "anatomical_target": null,
+        "causeOfDeath": null,
+        "codes": {
+          "Source of Payment Typology": [
+            "1"
+          ]
+        },
+        "description": "Patient Characteristic Payer: Payer",
+        "end_time": 1343204100,
+        "health_record_field": null,
+        "laterality": null,
+        "mood_code": "EVN",
+        "name": null,
+        "negationInd": null,
+        "negationReason": null,
+        "oid": "2.16.840.1.113883.3.560.1.405",
+        "ordinality": null,
+        "priority": null,
+        "reason": null,
+        "severity": null,
+        "specifics": null,
+        "start_time": 1343203200,
+        "status_code": {
+          "HL7 ActStatus": [
+            null
+          ]
+        },
+        "time": null,
+        "time_of_death": null,
+        "type": null
+      }
+    ],
+    "created_at": "2018-07-25T14:22:01.462Z",
+    "deathdate": null,
+    "description": null,
+    "description_category": null,
+    "effective_time": null,
+    "ethnicity": {
+      "code": "2186-5",
+      "name": "Not Hispanic or Latino",
+      "codeSystem": "CDC Race"
+    },
+    "expected_values": [
+      {
+        "measure_id": "C0D72444-7C26-4863-9B51-8080F8928A85",
+        "population_index": 0,
+        "IPP": 0,
+        "DENOM": 0,
+        "DENEX": 0,
+        "NUMER": 0
+      }
+    ],
+    "expired": null,
+    "first": "Test",
+    "gender": "M",
+    "insurance_providers": [
+      {
+        "_id": "5b588789b84846559a53f765",
+        "codes": {
+          "SOP": [
+            "349"
+          ]
+        },
+        "description": null,
+        "end_time": null,
+        "financial_responsibility_type": {
+          "code": "SELF",
+          "codeSystem": "HL7 Relationship Code"
+        },
+        "health_record_field": null,
+        "member_id": "1234567890",
+        "mood_code": "EVN",
+        "name": "Other",
+        "negationInd": null,
+        "negationReason": null,
+        "oid": null,
+        "payer": {
+          "_id": "5b588789b84846559a53f766",
+          "name": "Other"
+        },
+        "reason": null,
+        "relationship": null,
+        "specifics": null,
+        "start_time": 1199145600,
+        "status_code": null,
+        "time": null,
+        "type": "OT"
+      }
+    ],
+    "is_shared": null,
+    "languages": [
+
+    ],
+    "last": "PatientCharacteristic",
+    "marital_status": null,
+    "measure_ids": [
+      "C0D72444-7C26-4863-9B51-8080F8928A85",
+      null
+    ],
+    "medical_record_assigner": "Bonnie",
+    "medical_record_number": "99ddf802dea6b779a29e71cc5b14688667f72baf9d6816860d1447bbed646713",
+    "notes": "",
+    "origin_data": [
+
+    ],
+    "race": {
+      "code": "1002-5",
+      "name": "American Indian or Alaska Native",
+      "codeSystem": "CDC Race"
+    },
+    "religious_affiliation": null,
+    "source_data_criteria": [
+      {
+        "negation": false,
+        "definition": "patient_characteristic_payer",
+        "title": "Payer",
+        "description": "Patient Characteristic Payer: Payer",
+        "code_list_id": "2.16.840.1.114222.4.11.3591",
+        "type": "characteristic",
+        "id": "Payer_PatientCharacteristicPayer_028e6363_f1a0_4340_ade5_e8b4d2a93072_source",
+        "start_date": 1343203200000,
+        "end_date": 1343204100000,
+        "value": [
+
+        ],
+        "references": null,
+        "field_values": {
+        },
+        "hqmf_set_id": "C0D72444-7C26-4863-9B51-8080F8928A85",
+        "cms_id": "CMS123v7",
+        "criteria_id": "164d1d173704L",
+        "codes": {
+          "Source of Payment Typology": [
+            "1"
+          ]
+        },
+        "coded_entry_id": "5b588789b84846559a53f764",
+        "code_source": "DEFAULT"
+      },
+      {
+        "id": "MeasurePeriod",
+        "start_date": 0,
+        "end_date": 0,
+        "references": null
+      }
+    ],
+    "test_id": null,
+    "title": null,
+    "type": null,
+    "updated_at": "2018-07-25T14:22:01.462Z",
+    "user_id": "5a57e975942c6d1e61d32f13"
+  }
