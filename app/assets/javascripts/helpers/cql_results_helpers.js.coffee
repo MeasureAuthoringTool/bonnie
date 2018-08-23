@@ -249,7 +249,9 @@ class CQLResultsHelpers
     else if result instanceof Object
       prettyResult = '{\n'
       baseIndentation = Array(3).join ' '
-      for key, value of result
+      sortedKeys = Object.keys(result).sort()
+      for key in sortedKeys
+        value = result[key]
         # add 2 spaces per indent
         nextIndentLevel = indentLevel + 2
         # key length + ': '
@@ -257,7 +259,7 @@ class CQLResultsHelpers
         prettyResult = prettyResult.concat("#{baseIndentation}#{currentIndentation}#{key}: #{@prettyResult(value, nextIndentLevel, keyIndent)}")
 
         # append commas if it isn't the last key
-        if key == Object.keys(result)[Object.keys(result).length - 1]
+        if key == sortedKeys[sortedKeys.length - 1]
           prettyResult += '\n'
         else
           prettyResult += ',\n'

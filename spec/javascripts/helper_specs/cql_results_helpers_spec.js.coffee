@@ -19,10 +19,6 @@ describe 'CQLResultsHelpers', ->
       prettyNestedObject = """
 {
   one: "single item",
-  two: {
-    nested: "item",
-    nested2: "item"
-  },
   three: {
     doubleNested: {
       a: "1",
@@ -30,6 +26,10 @@ describe 'CQLResultsHelpers', ->
       c: "3"
     },
     nested: "item"
+  },
+  two: {
+    nested: "item",
+    nested2: "item"
   }
 }
 """
