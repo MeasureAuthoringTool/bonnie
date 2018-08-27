@@ -263,6 +263,10 @@ module Measures
           values.push field_val
         end
         field_value = {"type"=> "COL", "values" => values}
+      # type is a QDM id with a value and a naming system
+      elsif field.type == "ID"
+        field_value["value"] = value["root"]
+        field_value["namingSystem"] = value["extension"]
       else
         field_value = field.format
       end
