@@ -57,6 +57,30 @@ class PatientBuilderTest < ActiveSupport::TestCase
           "code_source"=>Measures::PatientBuilder::CODE_SOURCE[:USER_DEFINED]
         }
 
+    @source_data_criteria_with_id = {
+      "negation" => "false",
+      "definition" => "medication",
+      "status" => "dispensed",
+      "title" => "AntidepressantMedication",
+      "description" => "Medication, Dispensed=> Antidepressant Medication",
+      "code_list_id" => "2.16.840.1.113883.3.464.1003.196.12.1213",
+      "type" => "medications",
+      "id" => "AntidepressantMedication_MedicationDispensed_40280381_3d61_56a7_013e_7af6125a640d_source",
+      "start_date" => 1346054400000,
+      "end_date" => 1346055300000,
+      "value" => [],
+      "references" => "null",
+      "field_values" => {
+          "DISPENSER_IDENTIFIER" => {
+              "type" => "ID",
+              "code_list_id" => "",
+              "field_title" => "Dispenser Identifier",
+              "root" => "testId",
+              "extension" => "testSystem"
+          }
+       }
+      }
+
     @un_coded_source_data_critria = {
           "id"=> "DiagnosisActiveLimitedLifeExpectancy",
           "start_date"=> 1333206000000,
@@ -143,6 +167,16 @@ class PatientBuilderTest < ActiveSupport::TestCase
     assert entry, "Should have created an entry with  coded data"
     assert_equal Condition, entry.class, "should have created and Encounter object"
     assert_equal @coded_source_data_critria["codes"], entry.codes
+  end
+
+  test "derive entry with ID type field value" do
+    med_data_criteria = HQMF::DataCriteria.get_settings_for_definition('medication','dispensed')
+    entry = Measures::PatientBuilder.derive_entry(med_data_criteria,@source_data_criteria_with_id, @valuesets)
+    Measures::PatientBuilder.derive_field_values(entry,@source_data_criteria_with_id["field_values"],@valuesets)
+
+    assert entry, "Should have created an entry with ID field value"
+    assert_equal Medication, entry.class, "should have created a Medication object"
+    assert_equal entry.dispenserIdentifier, {"value"=>"testId", "namingSystem"=>"testSystem"}
   end
 
   test "derive communication" do
