@@ -273,6 +273,12 @@ describe 'PatientBuilderView', ->
             @patientBuilder.$('select[name=type]:eq(1)').val('CD').change()
             @patientBuilder.$('select[name=code_list_id]').val(codeListId).change()
             @patientBuilder.$('.field-value-formset .btn-primary:first').click() if submit
+          @addIdFieldValue = (fieldType, id, system, submit=true) ->
+            @patientBuilder.$('select[name=key]').val(fieldType).change()
+            @patientBuilder.$('select[name=type]:eq(1)').val('ID').change()
+            @patientBuilder.$('input[name=root]').val(id).keyup()
+            @patientBuilder.$('input[name=extension]').val(system)
+            @patientBuilder.$('.field-value-formset .btn-primary:first').click() if submit
 
         it "adds a scalar field value", ->
           expect(@firstCriteria.get('field_values').length).toEqual 0
@@ -291,6 +297,15 @@ describe 'PatientBuilderView', ->
           expect(@firstCriteria.get('field_values').first().get('key')).toEqual 'REASON'
           expect(@firstCriteria.get('field_values').first().get('code_list_id')).toEqual '2.16.840.1.113883.3.464.1003.102.12.1011'
           expect(@firstCriteria.get('field_values').first().get('title')).toEqual 'Acute Pharyngitis'
+
+        it "adds an ID type field value", ->
+          expect(@firstCriteria.get('field_values').length).toEqual 0
+          @addIdFieldValue 'REASON', 'testId', 'testSystem'
+          expect(@firstCriteria.get('field_values').length).toEqual 1
+          expect(@firstCriteria.get('field_values').first().get('type')).toEqual 'ID'
+          expect(@firstCriteria.get('field_values').first().get('key')).toEqual 'REASON'
+          expect(@firstCriteria.get('field_values').first().get('root')).toEqual 'testId'
+          expect(@firstCriteria.get('field_values').first().get('extension')).toEqual 'testSystem'
 
         it "materializes the patient", ->
           expect(@patientBuilder.model.materialize).not.toHaveBeenCalled()
