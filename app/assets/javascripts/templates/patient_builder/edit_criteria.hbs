@@ -157,8 +157,12 @@
               {{#if start_date}}
                 {{start_date}} {{start_time}}
               {{else}}
-                {{value}} {{unit}}
-                {{title}}
+                {{#if root}}
+                  {{root}} {{extension}}
+                {{else}}
+                  {{value}} {{unit}}
+                  {{title}}
+                 {{/if}}
               {{/if}}
               {{#if codes}} - Codes:
                 {{#each codes}}

@@ -173,6 +173,7 @@
             <option value="PQ" data-icon="fa fa-pencil-square-o">Scalar</option>
             <option value="CD" data-icon="fa fa-list">Coded</option>
             <option value="TS" data-icon="fa fa-calendar">Time</option>
+            <option value="ID" data-icon="fa fa-pencil-square-o">ID</option>
         </select>
       </div>
 
@@ -207,6 +208,17 @@
         <div class="col-md-3">
           <label for="start_time_{{@cid}}" class="sr-only">{{#if fieldValue}}field {{/if}}value time</label>
           <input type="text" name="start_time" id="start_time_{{@cid}}" class="time-picker form-control" placeholder="--:-- --" data-show-inputs="false" data-default-time="8:00 AM">
+        </div>
+      {{/ifCond}}
+
+      {{#ifCond type '==' 'ID'}}
+        <div class="col-md-4">
+          <label for="id_root{{@cid}}" class="sr-only">value</label>
+          <input type="text" name="root" id="id_root_{{@cid}}" class="form-control" placeholder="value">
+        </div>
+        <div class="col-md-4">
+          <label for="id_extension_{{@cid}}" class="sr-only">naming_system</label>
+          <input type="text" name="extension" id="id_extension_{{@cid}}" class="form-control" placeholder="system">
         </div>
       {{/ifCond}}
 
